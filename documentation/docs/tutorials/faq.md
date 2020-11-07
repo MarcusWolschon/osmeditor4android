@@ -186,9 +186,9 @@ If fullscreen mode is causing issues for you, the best solution is to simply tur
 
 #### Vespucci is getting slower and slower
 
-Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases the amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slow down too. 
+Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases the amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slow down too. In current versions of Vespucci data downloaded by the auto-download facilities will be automatically pruned if possible, but particularly zooming far out will make this less effective. 
 
-Recommended practice, if you no longer need the previously loaded data and have uploaded all edits, is to reset the data in memory by using the "Clear and download current view" action.
+Recommended practice if you no longer need the previously loaded data and have uploaded all edits, is to reset the data in memory by using the "Clear and download current view" action, or manually (by using the corresponding entry in the menu for the data layer) start the prune process.
 
 #### The aerial or satellite imagery is out of date
 
