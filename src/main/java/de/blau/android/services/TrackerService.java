@@ -463,8 +463,7 @@ public class TrackerService extends Service implements Exportable {
      */
     private void stop() {
         if (!tracking && !downloading && !downloadingBugs) {
-            Log.d(DEBUG_TAG, "Stopping auto-service");
-            cancelNmeaClients();
+            Log.d(DEBUG_TAG, "Stopping service");
             stopForeground(true);
             stopSelf();
         }
