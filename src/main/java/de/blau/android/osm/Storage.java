@@ -3,7 +3,9 @@ package de.blau.android.osm;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -485,11 +487,11 @@ public class Storage implements Serializable {
      */
     @NonNull
     public List<Node> getWayNodes() {
-        List<Node> waynodes = new ArrayList<>();
+        Set<Node> waynodes = new HashSet<>();
         for (Way way : ways) {
             waynodes.addAll(way.getNodes());
         }
-        return waynodes;
+        return new ArrayList<>(waynodes);
     }
 
     /**
