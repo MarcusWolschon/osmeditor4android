@@ -13,7 +13,7 @@ All builds now require proguard to be enabled as we have gone over the limit for
 
 Due to the forced upgrade policy from google from November 1st 2018 onwards we are now supporting two build flavors: _current_ that will target a recent Android SDK and support library and _legacy_ that will support old Android versions as long as practical.
 
-For version 15.0 the legacy flavour has been removed as androidx doesn't support version older than Android 4 and as versions older than 4.1 do not support TLS 1.2 in any case, they would be largely non-functional in any case, however this may be reactivated if necessary.
+For version 15.0 the legacy flavour has been removed as androidx doesn't support versions older than Android 4 and as versions older than 4.1 do not support TLS 1.2 they would be largely non-functional in any case, however flavours may be reactivated if necessary.
 
 See [https://commonsware.com/blog/2018/01/08/android-version-ratchet.html](https://commonsware.com/blog/2018/01/08/android-version-ratchet.html) for some more information on this.
 
@@ -68,7 +68,7 @@ Synonyms are retrieved from the iD repository with the grade task ``updateSynony
 
 Automated testing has come relatively late to Vespucci, however we have made large advances in improving the coverage from 2017 onwards. Note: the on-device tests will typically fail the first time if Vespucci was already installed on the device (due to previous state being loaded). Either de-install or simply run the tests twice.
 
-Tests need to be run with the emulator set to English and with the "high precision" (aka GPS and network) location option set, currently the only OS versions all tests run on successfully are 8.0 and later. The current expectation is that all tests should pass, if this doesn't happen (for example because default applications and other android app settings have been changed) restarting the emulator should typically help.
+Tests need to be run with the emulator locale set to English and with the "high precision" (aka GPS and network) location option set, currently the only OS versions all tests run on successfully are 8.0 and later. The current expectation is that all tests should pass, if this doesn't happen (for example because default applications and other android app settings have been changed) restarting the emulator should typically help.
 
 On an Intel based emulator the tests currently take something around 45 minutes to complete if run with ``connectedCurrentDebugAndroidTest``.
 
@@ -76,4 +76,7 @@ The time to run the tests can be reduced substantially by running ``spoonCurrent
 
 To make running individual tests simpler refreshing the gradle tasks (assuming there was a prior complete run of the tests) will create individual tasks for the tests, for the failed ones in the "failed tests" group, for successful ones in the "successful tests" group. 
 
-Note: a number of the tests start with the splash screen activity and then wait for the main activity to be started. Experience shows that if one of these fails to complete in certain ways, the following tests that start via the splash screen will not be able to start the main activity. Reason unknown.
+Notes: 
+
+* a number of the tests start with the splash screen activity and then wait for the main activity to be started. Experience shows that if one of these fails to complete in certain ways, the following tests that start via the splash screen will not be able to start the main activity. Reason unknown.
+* as the complete set of tests takes a long time to run, if running the tests with spoon you can generate screenshots to debug things instead of trying to catch the test running, see LayerDialogTest.backgroundLayer() for an example of this.
