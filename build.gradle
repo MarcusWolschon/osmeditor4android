@@ -440,6 +440,7 @@ dependencies {
     }
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     androidTestImplementation "com.squareup.spoon:spoon-client:2.0.0-SNAPSHOT"
+    androidTestImplementation 'ch.poole.android:ScreenshotRule:0.0.0'
 }
 
 int getVersionCode() {

@@ -1161,9 +1161,10 @@ public class TestUtils {
      * @param context an Android Context
      * @param prefs the current Preferences
      * @param mbtSource the MBT file name
+     * @param removeLayers if true remove any other layers
      * @return a MockWebServer
      */
-    public static MockWebServer setupTileServer(@NonNull Context context, @NonNull Preferences prefs, @NonNull String mbtSource) {
+    public static MockWebServer setupTileServer(@NonNull Context context, @NonNull Preferences prefs, @NonNull String mbtSource, boolean removeLayers) {
         MockWebServer tileServer = new MockWebServer();
         try {
             tileServer.setDispatcher(new TileDispatcher(context, "ersatz_background.mbt"));
@@ -1172,13 +1173,14 @@ public class TestUtils {
         }
 
         String tileUrl = tileServer.url("/").toString() + "{zoom}/{x}/{y}";
-        System.out.println(tileUrl); // NOSONAR
+        Log.i(DEBUG_TAG, "Set up tileserver on " + tileUrl);
         try (TileLayerDatabase db = new TileLayerDatabase(context)) {
             TileLayerSource.addOrUpdateCustomLayer(context, db.getWritableDatabase(), "VESPUCCITEST", null, -1, -1, "Vespucci Test", new Provider(),
                     Category.other, null, 0, 19, false, tileUrl);
         }
-        // allow downloading tiles here
-        TestUtils.removeImageryLayers(context);
+        if (removeLayers) {
+            TestUtils.removeImageryLayers(context);
+        }
         de.blau.android.layer.Util.addLayer(context, LayerType.IMAGERY, "VESPUCCITEST");
         return tileServer;
     }

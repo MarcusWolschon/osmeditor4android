@@ -56,7 +56,7 @@ public class MapTileProviderServiceTest {
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        tileServer = TestUtils.setupTileServer(context, new Preferences(context), "ersatz_background.mbt");
+        tileServer = TestUtils.setupTileServer(context, new Preferences(context), "ersatz_background.mbt", true);
     }
 
     /**
@@ -87,11 +87,7 @@ public class MapTileProviderServiceTest {
         MapTile tile = new MapTile(RENDERER, 19, 274337, 183513);
         Assert.assertNull(provider.getMapTile(tile, 123456L));
         signal = new CountDownLatch(1);
-        try {
-            signal.await(TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
-        }
+        TestUtils.sleep(TIMEOUT * 1000L);
         Assert.assertNotNull(provider.getMapTileFromCache(tile));
         provider.flushCache(RENDERER);
         Assert.assertNull(provider.getMapTileFromCache(tile));

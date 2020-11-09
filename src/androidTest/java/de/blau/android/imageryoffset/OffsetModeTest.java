@@ -76,7 +76,7 @@ public class OffsetModeTest {
         HttpUrl mockBaseUrl = mockServer.server().url("/");
         prefs.setOffsetServer(mockBaseUrl.toString());
 
-        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt");
+        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt", true);
 
         map = main.getMap();
         map.setPrefs(main, prefs);

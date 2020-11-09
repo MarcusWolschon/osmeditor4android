@@ -62,7 +62,7 @@ public class GpxUploadTest {
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
         prefs = new Preferences(main);
-        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt");
+        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt", true);
         App.getLogic().setPrefs(prefs);
         main.getMap().setPrefs(main, prefs);
 

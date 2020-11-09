@@ -1,6 +1,5 @@
 package de.blau.android.imageryoffset;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -15,10 +14,10 @@ import org.junit.runner.RunWith;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Intent;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Main;
@@ -50,7 +49,7 @@ public class OffsetTest {
     public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
 
     /**
-     * Pre-teset setup
+     * Pre-test setup
      */
     @Before
     public void setup() {
@@ -69,7 +68,7 @@ public class OffsetTest {
 
         prefs = new Preferences(main);
         TestUtils.removeImageryLayers(main);
-        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt");
+        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt", true);
         main.getMap().setPrefs(main, prefs);
         TestUtils.resetOffsets(main.getMap());
         TestUtils.dismissStartUpDialogs(device, main);
