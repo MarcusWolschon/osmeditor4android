@@ -183,11 +183,11 @@ public class TaskFragment extends ImmersiveDialogFragment {
         final Spinner state = (Spinner) v.findViewById(R.id.openstreetbug_state);
         ArrayAdapter<CharSequence> adapter = null;
 
-        TextView title = (TextView) v.findViewById(R.id.openstreetbug_title);
-        TextView comments = (TextView) v.findViewById(R.id.openstreetbug_comments);
-        EditText comment = (EditText) v.findViewById(R.id.openstreetbug_comment);
-        TextView commentLabel = (TextView) v.findViewById(R.id.openstreetbug_comment_label);
-        LinearLayout elementLayout = (LinearLayout) v.findViewById(R.id.openstreetbug_element_layout);
+        final TextView title = (TextView) v.findViewById(R.id.openstreetbug_title);
+        final TextView comments = (TextView) v.findViewById(R.id.openstreetbug_comments);
+        final EditText comment = (EditText) v.findViewById(R.id.openstreetbug_comment);
+        final TextView commentLabel = (TextView) v.findViewById(R.id.openstreetbug_comment_label);
+        final LinearLayout elementLayout = (LinearLayout) v.findViewById(R.id.openstreetbug_element_layout);
         if (isNote) {
             title.setText(getString((task.isNew() && ((Note) task).count() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));
             comments.setText(Util.fromHtml(((Note) task).getComment())); // ugly
@@ -404,8 +404,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
                             // required, but not used
                         }
                     });
-                    EditText commentText = (EditText) v.findViewById(R.id.openstreetbug_comment);
-                    commentText.addTextChangedListener(new TextWatcher() {
+                    comment.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void afterTextChanged(Editable arg0) {
                             // required, but not used
@@ -424,7 +423,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
                         }
                     });
                 });
-        // this should keep the buttons visible 
+        // this should keep the buttons visible
         d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         return d;
     }
