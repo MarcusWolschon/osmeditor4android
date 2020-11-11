@@ -387,7 +387,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\layout\wms_layer_list.xml"
-            line="16"
+            line="17"
             column="13"/>
     </issue>
 
@@ -763,21 +763,6 @@
             file="src\main\java\de\blau\android\dialogs\Tip.java"
             line="134"
             column="73"/>
-    </issue>
-
-    <issue
-        id="CutPasteId"
-        message="The id `R.id.openstreetbug_comment` has already been looked up in this method; possible cut &amp; paste error?"
-        errorLine1="                    EditText commentText = (EditText) v.findViewById(R.id.openstreetbug_comment);"
-        errorLine2="                                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\java\de\blau\android\tasks\TaskFragment.java"
-            line="406"
-            column="55"/>
-        <location
-            file="src\main\java\de\blau\android\tasks\TaskFragment.java"
-            line="187"
-            column="39"/>
     </issue>
 
     <issue
@@ -1334,7 +1319,7 @@
         errorLine2="                                                           ~~~~">
         <location
             file="src\main\java\de\blau\android\tasks\TaskFragment.java"
-            line="437"
+            line="439"
             column="60"/>
     </issue>
 
@@ -1450,7 +1435,7 @@
 
     <issue
         id="GradleDependency"
-        message="A newer version of com.android.tools.build:gradle than 3.6.0 is available: 4.1.0"
+        message="A newer version of com.android.tools.build:gradle than 3.6.0 is available: 4.1.1"
         errorLine1="        classpath &apos;com.android.tools.build:gradle:3.6.0&apos;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -3824,7 +3809,7 @@
         errorLine2="              ~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\net\OAuthHelper.java"
-            line="158"
+            line="142"
             column="15"/>
     </issue>
 
@@ -3956,7 +3941,7 @@
         errorLine2="                 ^">
         <location
             file="src\main\java\de\blau\android\tasks\TaskFragment.java"
-            line="151"
+            line="152"
             column="18"/>
     </issue>
 
@@ -3967,7 +3952,7 @@
         errorLine2="                                ^">
         <location
             file="src\main\java\de\blau\android\tasks\TaskFragment.java"
-            line="231"
+            line="232"
             column="33"/>
     </issue>
 
@@ -4055,7 +4040,7 @@
         errorLine2="          ~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\services\TrackerService.java"
-            line="672"
+            line="671"
             column="11"/>
     </issue>
 
@@ -10026,6 +10011,17 @@
     </issue>
 
     <issue
+        id="UselessParent"
+        message="This `HorizontalScrollView` layout or its `RelativeLayout` parent is useless"
+        errorLine1="    &lt;HorizontalScrollView"
+        errorLine2="     ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\wms_layer_list.xml"
+            line="9"
+            column="6"/>
+    </issue>
+
+    <issue
         id="RedundantNamespace"
         message="This namespace declaration is redundant"
         errorLine1="            xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
@@ -10125,17 +10121,6 @@
     </issue>
 
     <issue
-        id="RedundantNamespace"
-        message="This namespace declaration is redundant"
-        errorLine1="            xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\wms_endpoint_item.xml"
-            line="72"
-            column="13"/>
-    </issue>
-
-    <issue
         id="UnusedNamespace"
         message="Unused namespace declaration xmlns:android; already declared on the root element"
         errorLine1="            xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
@@ -10199,17 +10184,6 @@
             file="src\main\res\layout\validator_ruleset_list_resurvey_item.xml"
             line="42"
             column="12"/>
-    </issue>
-
-    <issue
-        id="UnusedNamespace"
-        message="Unused namespace declaration xmlns:android; already declared on the root element"
-        errorLine1="            xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\wms_endpoint_item.xml"
-            line="72"
-            column="13"/>
     </issue>
 
     <issue
@@ -14509,7 +14483,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src\main\res\layout\listedit_apiedit.xml"
-            line="51"
+            line="53"
             column="6"/>
     </issue>
 
@@ -14520,7 +14494,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src\main\res\layout\listedit_apiedit.xml"
-            line="61"
+            line="63"
             column="6"/>
     </issue>
 
@@ -14564,7 +14538,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src\main\res\layout\listedit_presetedit.xml"
-            line="40"
+            line="41"
             column="6"/>
     </issue>
 
@@ -14960,7 +14934,7 @@
         errorLine2="         ~~~~~~~~~~~">
         <location
             file="src\main\res\layout\listedit_apiedit.xml"
-            line="40"
+            line="41"
             column="10"/>
     </issue>
 
@@ -15037,7 +15011,7 @@
         errorLine2="                     ~~~~~~~~~~~">
         <location
             file="src\main\res\layout\upload_tabs.xml"
-            line="96"
+            line="97"
             column="22"/>
     </issue>
 
@@ -15289,17 +15263,6 @@
         errorLine1="        android:clickable=&quot;true&quot;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src\main\res\layout\wms_layer_list.xml"
-            line="37"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="KeyboardInaccessibleWidget"
-        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;"
-        errorLine1="        android:clickable=&quot;true&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
             file="src\main\res\layout\zoom_controls.xml"
             line="13"
             column="9"/>
@@ -15378,7 +15341,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src\main\res\layout\listedit_apiedit.xml"
-            line="51"
+            line="53"
             column="6"/>
     </issue>
 
@@ -15389,7 +15352,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src\main\res\layout\listedit_apiedit.xml"
-            line="61"
+            line="63"
             column="6"/>
     </issue>
 
@@ -15433,7 +15396,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src\main\res\layout\listedit_presetedit.xml"
-            line="40"
+            line="41"
             column="6"/>
     </issue>
 
@@ -15752,7 +15715,7 @@
         errorLine2="         ~~~~~~~~">
         <location
             file="src\main\res\layout\listedit_apiedit.xml"
-            line="70"
+            line="72"
             column="10"/>
     </issue>
 
@@ -15774,7 +15737,7 @@
         errorLine2="         ~~~~~~~~">
         <location
             file="src\main\res\layout\listedit_presetedit.xml"
-            line="49"
+            line="50"
             column="10"/>
     </issue>
 
@@ -15864,28 +15827,6 @@
             file="src\main\res\layout\validator_ruleset_list_check_item.xml"
             line="12"
             column="4"/>
-    </issue>
-
-    <issue
-        id="RtlCompat"
-        message="To support older versions than API 17 (project specifies 14) you should **also** add `android:paddingRight=&quot;5dp&quot;`"
-        errorLine1="                        android:paddingEnd=&quot;5dp&quot;"
-        errorLine2="                        ~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\upload_tabs.xml"
-            line="69"
-            column="25"/>
-    </issue>
-
-    <issue
-        id="RtlCompat"
-        message="To support older versions than API 17 (project specifies 14) you should **also** add `android:paddingRight=&quot;5dp&quot;`"
-        errorLine1="                        android:paddingEnd=&quot;5dp&quot;"
-        errorLine2="                        ~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\upload_tabs.xml"
-            line="101"
-            column="25"/>
     </issue>
 
     <issue
@@ -16187,12 +16128,34 @@
 
     <issue
         id="RtlSymmetry"
+        message="When you define `paddingRight` you should probably also define `paddingLeft` for right-to-left symmetry"
+        errorLine1="                        android:paddingRight=&quot;5dp&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\upload_tabs.xml"
+            line="70"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
         message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry"
         errorLine1="                        android:paddingEnd=&quot;5dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\layout\upload_tabs.xml"
-            line="101"
+            line="102"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingRight` you should probably also define `paddingLeft` for right-to-left symmetry"
+        errorLine1="                        android:paddingRight=&quot;5dp&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\upload_tabs.xml"
+            line="103"
             column="25"/>
     </issue>
 
@@ -16238,50 +16201,6 @@
             file="src\main\res\layout\url_activity.xml"
             line="34"
             column="17"/>
-    </issue>
-
-    <issue
-        id="RtlHardcoded"
-        message="Consider adding `android:paddingStart=&quot;5dp&quot;` to better support right-to-left layouts"
-        errorLine1="    android:paddingLeft=&quot;5dp&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\form_dialog_multiselect_value.xml"
-            line="18"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="RtlHardcoded"
-        message="Consider adding `android:paddingEnd=&quot;3dp&quot;` to better support right-to-left layouts"
-        errorLine1="    android:paddingRight=&quot;3dp&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\form_dialog_multiselect_value.xml"
-            line="19"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="RtlHardcoded"
-        message="Consider adding `android:paddingStart=&quot;5dp&quot;` to better support right-to-left layouts"
-        errorLine1="    android:paddingLeft=&quot;5dp&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\form_dialog_multitext_value.xml"
-            line="18"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="RtlHardcoded"
-        message="Consider adding `android:paddingEnd=&quot;0dp&quot;` to better support right-to-left layouts"
-        errorLine1="    android:paddingRight=&quot;0dp&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\form_dialog_multitext_value.xml"
-            line="19"
-            column="5"/>
     </issue>
 
     <issue
@@ -16369,39 +16288,6 @@
         <location
             file="src\main\res\layout\indoor_controls_right.xml"
             line="58"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="RtlHardcoded"
-        message="Consider adding `android:layout_alignParentStart=&quot;true&quot;` to better support right-to-left layouts"
-        errorLine1="            android:layout_alignParentLeft=&quot;true&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\listedit_apiedit.xml"
-            line="38"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="RtlHardcoded"
-        message="Consider adding `android:layout_alignParentEnd=&quot;true&quot;` to better support right-to-left layouts"
-        errorLine1="            android:layout_alignParentRight=&quot;true&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\listedit_apiedit.xml"
-            line="44"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="RtlHardcoded"
-        message="Consider adding `android:layout_alignParentEnd=&quot;true&quot;` to better support right-to-left layouts"
-        errorLine1="            android:layout_alignParentRight=&quot;true&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\listedit_presetedit.xml"
-            line="33"
             column="13"/>
     </issue>
 
@@ -16506,72 +16392,6 @@
 
     <issue
         id="RtlHardcoded"
-        message="Consider adding `android:paddingStart=&quot;5dp&quot;` to better support right-to-left layouts"
-        errorLine1="                android:paddingLeft=&quot;5dp&quot;"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\tag_form_checkgroup_dialog_row.xml"
-            line="57"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="RtlHardcoded"
-        message="Consider adding `android:paddingEnd=&quot;3dp&quot;` to better support right-to-left layouts"
-        errorLine1="                android:paddingRight=&quot;3dp&quot;"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\tag_form_checkgroup_dialog_row.xml"
-            line="58"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="RtlHardcoded"
-        message="Consider adding `android:paddingStart=&quot;5dp&quot;` to better support right-to-left layouts"
-        errorLine1="            android:paddingLeft=&quot;5dp&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\tag_form_combo_dialog_row.xml"
-            line="48"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="RtlHardcoded"
-        message="Consider adding `android:paddingEnd=&quot;3dp&quot;` to better support right-to-left layouts"
-        errorLine1="            android:paddingRight=&quot;3dp&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\tag_form_combo_dialog_row.xml"
-            line="49"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="RtlHardcoded"
-        message="Consider adding `android:paddingStart=&quot;5dp&quot;` to better support right-to-left layouts"
-        errorLine1="                android:paddingLeft=&quot;5dp&quot;"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\tag_form_multiselect_dialog_row.xml"
-            line="58"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="RtlHardcoded"
-        message="Consider adding `android:paddingEnd=&quot;3dp&quot;` to better support right-to-left layouts"
-        errorLine1="                android:paddingRight=&quot;3dp&quot;"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\tag_form_multiselect_dialog_row.xml"
-            line="59"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="RtlHardcoded"
         message="Consider adding `android:layout_alignParentStart=&quot;true&quot;` to better support right-to-left layouts"
         errorLine1="    android:layout_alignParentLeft=&quot;true&quot; >"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
@@ -16590,17 +16410,6 @@
             file="src\main\res\layout\tagfilter_controls_right.xml"
             line="7"
             column="5"/>
-    </issue>
-
-    <issue
-        id="RtlHardcoded"
-        message="Consider adding `android:layout_alignParentStart=&quot;true&quot;` to better support right-to-left layouts"
-        errorLine1="        android:layout_alignParentLeft=&quot;true&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\layout\wms_layer_list.xml"
-            line="13"
-            column="9"/>
     </issue>
 
 </issues>
