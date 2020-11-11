@@ -16,7 +16,9 @@
     android:focusableInTouchMode="true"
     android:minHeight="34dp"
     android:paddingLeft="5dp"
+    android:paddingStart="5dp"
     android:paddingRight="0dp"
+    android:paddingEnd="0dp"
     android:saveEnabled="false"
     android:singleLine="true"
     android:ellipsize="none" />
