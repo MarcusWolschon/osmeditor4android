@@ -1983,9 +1983,15 @@ public class Main extends FullScreenAppCompatActivity
             GnssPositionInfo.showDialog(Main.this, getTracker());
             return true;
         case R.id.menu_gps_start:
+            List<Integer> tipKeys = new ArrayList<>();
+            tipKeys.add(R.string.tip_gpx_recording_key);
+            List<Integer> tipMessageIds = new ArrayList<>();
+            tipMessageIds.add(R.string.tip_gpx_recording);
             if (prefs.getEgmFile() == null && getString(R.string.gps_source_internal).equals(prefs.getGpsSource())) {
-                Tip.showDialog(Main.this, R.string.tip_gpx_no_elevation_key, R.string.tip_gpx_no_elevation);
+                tipKeys.add(R.string.tip_gpx_no_elevation_key);
+                tipMessageIds.add(R.string.tip_gpx_no_elevation);
             }
+            Tip.showDialog(Main.this, tipKeys, tipMessageIds);
             if (getTracker() != null && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
                 getTracker().startTracking();
                 setFollowGPS(true);
@@ -2505,6 +2511,7 @@ public class Main extends FullScreenAppCompatActivity
         if (getTracker() != null && getEnabledLocationProviders() != null) {
             if (prefs.getAutoDownload()) {
                 getTracker().startAutoDownload();
+                Tip.showDialog(this, R.string.tip_auto_download_key, R.string.tip_auto_download);
             } else {
                 getTracker().stopAutoDownload();
             }
@@ -2519,6 +2526,7 @@ public class Main extends FullScreenAppCompatActivity
         if (getTracker() != null && getEnabledLocationProviders() != null) {
             if (prefs.getBugAutoDownload()) {
                 getTracker().startBugAutoDownload();
+                Tip.showDialog(this, R.string.tip_auto_download_key, R.string.tip_auto_download);
             } else {
                 getTracker().stopBugAutoDownload();
             }

@@ -1,10 +1,15 @@
 package de.blau.android.dialogs;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,7 +22,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 import de.blau.android.R;
-import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -30,17 +34,21 @@ import de.blau.android.util.Util;
  */
 public class Tip extends ImmersiveDialogFragment {
 
+    private static final String DEBUG_TAG = Tip.class.getSimpleName();
+
     private static final String TAG = "tip";
 
-    private static final String MESSAGE_KEY  = "message";
-    private static final String OPTIONAL_KEY = "optional";
-
-    private static final String DEBUG_TAG = Tip.class.getSimpleName();
+    private static final String MESSAGE_IDS_KEY = "messages";
+    private static final String OPTIONALS_KEY   = "optionals";
+    private static final String PREF_IDS_KEY    = "prefs";
 
     private static SharedPreferences prefs;
 
-    private int     messageId;
-    private boolean optional;
+    private List<Integer> messageIds;
+    private List<Integer> prefIds;
+    private boolean[]     optionals;
+
+    private int currentTip = 0;
 
     /**
      * Display a simple alert dialog with an OK button that displays a text once
@@ -54,11 +62,10 @@ public class Tip extends ImmersiveDialogFragment {
     public static void showOptionalDialog(@NonNull FragmentActivity activity, int prefId, int messageId) {
         prefs = PreferenceManager.getDefaultSharedPreferences(activity);
         if (prefs.getBoolean(activity.getString(prefId), true) && prefs.getBoolean(activity.getString(R.string.tip_show_key), true)) {
-            prefs.edit().putBoolean(activity.getString(prefId), false).commit();
             de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
 
             FragmentManager fm = activity.getSupportFragmentManager();
-            Tip alertDialogFragment = newInstance(messageId, true);
+            Tip alertDialogFragment = newInstance(Util.wrapInList(prefId), Util.wrapInList(messageId), new boolean[] { true });
             try {
                 alertDialogFragment.show(fm, TAG);
             } catch (IllegalStateException isex) {
@@ -77,11 +84,39 @@ public class Tip extends ImmersiveDialogFragment {
     public static void showDialog(@NonNull FragmentActivity activity, int prefId, int messageId) {
         prefs = PreferenceManager.getDefaultSharedPreferences(activity);
         if (prefs.getBoolean(activity.getString(prefId), true)) {
-            prefs.edit().putBoolean(activity.getString(prefId), false).commit();
             de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
 
             FragmentManager fm = activity.getSupportFragmentManager();
-            Tip alertDialogFragment = newInstance(messageId, false);
+            Tip alertDialogFragment = newInstance(Util.wrapInList(prefId), Util.wrapInList(messageId), new boolean[] { false });
+            try {
+                alertDialogFragment.show(fm, TAG);
+            } catch (IllegalStateException isex) {
+                Log.e(DEBUG_TAG, "showDialog", isex);
+            }
+        }
+    }
+
+    /**
+     * Display a simple alert dialog with an OK button that displays a text once
+     * 
+     * @param activity the calling Activity
+     * @param prefId res id for the preference key
+     * @param messageId res id for the message text
+     */
+    public static void showDialog(@NonNull FragmentActivity activity, List<Integer> prefIds, List<Integer> messageIds) {
+        prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+        for (Integer prefId : new ArrayList<>(prefIds)) {
+            if (!prefs.getBoolean(activity.getString(prefId), true)) {
+                int index = prefIds.indexOf(prefId);
+                prefIds.remove(index);
+                messageIds.remove(index);
+            }
+        }
+        if (!prefIds.isEmpty()) {
+            de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
+
+            FragmentManager fm = activity.getSupportFragmentManager();
+            Tip alertDialogFragment = newInstance(prefIds, messageIds, new boolean[prefIds.size()]);
             try {
                 alertDialogFragment.show(fm, TAG);
             } catch (IllegalStateException isex) {
@@ -93,17 +128,22 @@ public class Tip extends ImmersiveDialogFragment {
     /**
      * Create a new instance of a Tip dialog
      * 
-     * @param messageId the message resource id
-     * @param optional if true a check box will be shown that allows turing optional messages off
+     * @param messageIds the message resource ids
+     * @param optional if true a check box will be shown that allows turning optional messages off
      * @return a new instance of an ErrorAlert dialog
      */
     @NonNull
-    private static Tip newInstance(final int messageId, boolean optional) {
+    private static Tip newInstance(final List<Integer> prefIds, final List<Integer> messageIds, boolean[] optionals) {
+        int count = prefIds.size();
+        if (!(count == messageIds.size() && count == optionals.length)) {
+            Log.e(DEBUG_TAG, "All arguments must have same size: " + count);
+            throw new IllegalArgumentException("All arguments must have same size");
+        }
         Tip f = new Tip();
-
         Bundle args = new Bundle();
-        args.putInt(MESSAGE_KEY, messageId);
-        args.putBoolean(OPTIONAL_KEY, optional);
+        args.putIntegerArrayList(PREF_IDS_KEY, new ArrayList<>(prefIds));
+        args.putIntegerArrayList(MESSAGE_IDS_KEY, new ArrayList<>(messageIds));
+        args.putBooleanArray(OPTIONALS_KEY, optionals);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -114,8 +154,9 @@ public class Tip extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        messageId = getArguments().getInt(MESSAGE_KEY);
-        optional = getArguments().getBoolean(OPTIONAL_KEY);
+        prefIds = getArguments().getIntegerArrayList(PREF_IDS_KEY);
+        messageIds = getArguments().getIntegerArrayList(MESSAGE_IDS_KEY);
+        optionals = getArguments().getBooleanArray(OPTIONALS_KEY);
     }
 
     @NonNull
@@ -126,21 +167,43 @@ public class Tip extends ImmersiveDialogFragment {
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.lightbulb_dialog));
         builder.setTitle(R.string.tip_title);
-        TextView message = (TextView) layout.findViewById(R.id.tip_message);
-        message.setText((Util.fromHtml(getString(messageId))));
+        builder.setView(layout);
+        display(layout);
+        builder.setPositiveButton(R.string.okay, null);
+        final AlertDialog alertDialog = builder.create();
+        if (prefIds.size() > 1) {
+            alertDialog.setOnShowListener(dialog -> {
+                final Button positive = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                positive.setText(R.string.next);
+                positive.setOnClickListener(v -> {
+                    currentTip++;
+                    display(layout);
+                    if (currentTip == prefIds.size() - 1) {
+                        positive.setText(R.string.okay);
+                        positive.setOnClickListener(v2 -> alertDialog.dismiss());
+                    }
+                });
+            });
+        }
 
-        if (optional) {
+        return alertDialog;
+    }
+
+    /**
+     * Display the content for "currentTip"
+     * 
+     * @param layout the Layout for the dialog
+     */
+    private void display(@NonNull final LinearLayout layout) {
+        prefs.edit().putBoolean(getActivity().getString(prefIds.get(currentTip)), false).commit();
+        TextView message = (TextView) layout.findViewById(R.id.tip_message);
+        message.setText((Util.fromHtml(getString(messageIds.get(currentTip)))));
+        if (optionals[currentTip]) {
             CheckBox check = (CheckBox) layout.findViewById(R.id.tip_check);
             check.setOnCheckedChangeListener((buttonView, isChecked) -> prefs.edit().putBoolean(getString(R.string.tip_show_key), isChecked).commit());
         } else {
             View checkContainer = layout.findViewById(R.id.tip_check_container);
             checkContainer.setVisibility(View.GONE);
         }
-
-        builder.setView(layout);
-
-        DoNothingListener doNothingListener = new DoNothingListener();
-        builder.setPositiveButton(R.string.okay, doNothingListener);
-        return builder.create();
     }
 }

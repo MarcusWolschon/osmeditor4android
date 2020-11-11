@@ -9,4 +9,6 @@
     <string name="tip_longpress_simple_mode_key">longPressSimpleMode</string>
     <string name="tip_gpx_no_elevation_key">gpxNoElevation</string>
     <string name="tip_tag_conflict_key">tagConflict</string>
+    <string name="tip_gpx_recording_key">gpxRecording</string>
+    <string name="tip_auto_download_key">autoDownload</string>
 </resources>
