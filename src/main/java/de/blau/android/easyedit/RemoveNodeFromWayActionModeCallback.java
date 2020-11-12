@@ -7,6 +7,7 @@ import java.util.List;
 import android.util.Log;
 import android.view.Menu;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -52,14 +53,36 @@ public class RemoveNodeFromWayActionModeCallback extends NonSimpleActionModeCall
             // TODO fix properly
             return false;
         }
+        Node node = (Node) element;
+        if (node.hasParentRelations() && !node.hasTags() && logic.getWaysForNode(node).size() <= 1) {
+            // node will be deleted
+            new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deletenode_relation_description)
+                    .setNegativeButton(R.string.cancel, null).setPositiveButton(R.string.deletenode, (dialog, which) -> {
+                        remove(node);
+                    }).show();
+        } else {
+            remove(node);
+        }
+        if (OsmElement.STATE_DELETED == way.getState()) {
+            manager.finish();
+        } else {
+            manager.editElement(way);
+        }
+        return true;
+    }
+
+    /**
+     * Remove node from the way
+     * 
+     * @param node the Node
+     */
+    private void remove(@NonNull Node node) {
         try {
-            logic.performRemoveNodeFromWay(main, way, (Node) element);
+            logic.performRemoveNodeFromWay(main, way, node);
         } catch (OsmIllegalOperationException oloex) {
             Log.e(DEBUG_TAG, "Tried to remove node from way " + way.getOsmId() + " #nodes " + way.getNodes().size() + " cloased " + way.isClosed());
             Snack.toastTopError(main, oloex.getMessage()); // this should never happen
         }
-        manager.finish();
-        return true;
     }
 
     @Override
