@@ -138,6 +138,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             } else {
                 logic.performAppendStart(appendTargetNode);
             }
+            appendTargetNode = null;
         } else {
             try {
                 pathCreateNode(x, y);
