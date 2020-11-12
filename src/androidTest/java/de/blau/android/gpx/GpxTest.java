@@ -38,6 +38,7 @@ import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.Splash;
 import de.blau.android.TestUtils;
@@ -169,16 +170,13 @@ public class GpxTest {
 
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         assertTrue(TestUtils.clickText(device, false, "Start GPX track", false, false));
-        TestUtils.clickText(device, false, "OK", false); // Tip
+        TestUtils.clickText(device, false, "Next", false); // 1. Tip
+        TestUtils.clickText(device, false, "OK", false); // 2. Tip
 
         final CountDownLatch signal = new CountDownLatch(1);
         main.getTracker().getTrack().reset(); // clear out anything saved
         TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_FINE, 1000, new SignalHandler(signal));
-        try {
-            signal.await(TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            fail(e.getMessage());
-        }
+        TestUtils.sleep(TIMEOUT * 1000L);
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true, false));
         List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
@@ -275,11 +273,7 @@ public class GpxTest {
         main.getTracker().getTrack().reset(); // clear out anything saved
         final CountDownLatch signal = new CountDownLatch(1);
         TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_COARSE, 1000, new SignalHandler(signal));
-        try {
-            signal.await(TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            fail(e.getMessage());
-        }
+        TestUtils.sleep(TIMEOUT * 1000L);
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true, false));
         // compare roughly with last location
