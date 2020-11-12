@@ -1446,6 +1446,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         } else {
             way.removeNode(node);
         }
+        way.updateState(OsmElement.STATE_MODIFIED);
+        apiStorage.insertElementSafe(way);
         onElementChanged(null, way);
         if (!node.hasTags() && getCurrentStorage().getWays(node).isEmpty()) {
             removeNode(node);
@@ -1472,6 +1474,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             removeWay(way);
         } else {
             nodes.remove(lastNodeIndex);
+            way.updateState(OsmElement.STATE_MODIFIED);
+            apiStorage.insertElementSafe(way);
         }
         onElementChanged(null, way);
         if (!node.hasTags() && getCurrentStorage().getWays(node).isEmpty()) {
