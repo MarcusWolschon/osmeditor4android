@@ -351,6 +351,7 @@ avoided by using an offline data source.</string>
     <string name="qa_channel_description">QA alert channel for data problems and tasks</string>
     <!-- Toaster -->
     <string name="toast_permission_denied">Permission denied %1$s</string>
+    <string name="toast_unable_to_persist_permissions">Unable to persist permissions</string>
     <string name="toast_name_empty">Pick a name</string>
     <string name="toast_url_empty">Enter a URL</string>
     <string name="toast_min_zoom">Set minimum zoom lower than maximum</string>

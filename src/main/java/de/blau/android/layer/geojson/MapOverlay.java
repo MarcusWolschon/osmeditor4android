@@ -395,8 +395,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @throws IOException if reading the uri goes wrong
      */
     public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull Uri uri) throws IOException {
-        InputStream is = ctx.getContentResolver().openInputStream(uri);
-        try {
+        try (InputStream is = ctx.getContentResolver().openInputStream(uri)) {
             readingLock.lock();
             name = SelectFile.getDisplaynameColumn(ctx, uri);
             if (name == null) {
@@ -405,8 +404,15 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             setFileName(uri.getEncodedPath().replace('/', '-'));
             this.uri = uri.toString();
             return loadGeoJsonFile(ctx, is);
+        } catch (SecurityException sex) {
+            Log.e(DEBUG_TAG, sex.getMessage());
+            // note need a context here that is on the ui thread
+            Snack.toastTopError(map.getContext(), ctx.getString(R.string.toast_permission_denied, uri.toString()));
+            return false;
         } finally {
-            readingLock.unlock();
+            if (readingLock.isLocked()) {
+                readingLock.unlock();
+            }
         }
     }
 
@@ -441,7 +447,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                 sb.append((char) cp);
             }
         } catch (OutOfMemoryError oom) {
-            Snack.toastTopError(ctx, R.string.out_of_memory_title);
+            Snack.toastTopError(map.getContext(), R.string.out_of_memory_title);
             Log.e(DEBUG_TAG, "Out of memory error " + oom.getMessage());
             return false;
         }
