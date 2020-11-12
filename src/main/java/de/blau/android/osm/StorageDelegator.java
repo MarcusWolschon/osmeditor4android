@@ -1423,7 +1423,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Remove node from specified way
      * 
-     * If the node is untagged and not a member of any other node it will be deleted. If the way is closed and the end
+     * If the node is untagged and not a member of any other way it will be deleted. If the way is closed and the end
      * node is being removed it will try to re-close.
      * 
      * @param way the Way
