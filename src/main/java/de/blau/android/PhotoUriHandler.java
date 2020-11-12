@@ -53,7 +53,8 @@ class PhotoUriHandler implements PostAsyncActionHandler {
                     int intentFlags = main.getIntent().getFlags();
                     if ((intentFlags & Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION) != 0) {
                         Log.d(DEBUG_TAG, "Persisting permissions for " + uri);
-                        main.getContentResolver().takePersistableUriPermission(uri, intentFlags);
+                        main.getContentResolver().takePersistableUriPermission(uri,
+                                intentFlags & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION));
                         pi.addPhoto(photo);
                     } else { // can't persist, add just to the in memory index
                         PhotoIndex.addToIndex(photo);

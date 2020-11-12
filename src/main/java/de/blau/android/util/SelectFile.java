@@ -148,10 +148,12 @@ public final class SelectFile {
         } else {
             uri = Uri.fromFile(com.nononsenseapps.filepicker.Utils.getFileForUri(data.getData()));
         }
-        if ((data.getFlags() & Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION) != 0) {
+        final int intentFlags = data.getFlags();
+        if ((intentFlags & Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION) != 0) {
             Log.d(DEBUG_TAG, "Persisting permissions for " + uri);
             try {
-                activity.getContentResolver().takePersistableUriPermission(uri, data.getFlags());
+                activity.getContentResolver().takePersistableUriPermission(uri,
+                        intentFlags & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION));
             } catch (Exception ex) {
                 Log.e(DEBUG_TAG, "Unable to persist read permission for " + uri);
                 Snack.toastTopWarning(activity, R.string.toast_unable_to_persist_permissions);
