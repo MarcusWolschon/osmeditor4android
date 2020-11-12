@@ -735,23 +735,12 @@
     <issue
         id="ApplySharedPref"
         message="Consider using `apply()` instead; `commit` writes its data to persistent storage immediately, whereas `apply` will handle it in the background"
-        errorLine1="            prefs.edit().putBoolean(activity.getString(prefId), false).commit();"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="        prefs.edit().putBoolean(getActivity().getString(prefIds.get(currentTip)), false).commit();"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\dialogs\Tip.java"
-            line="57"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ApplySharedPref"
-        message="Consider using `apply()` instead; `commit` writes its data to persistent storage immediately, whereas `apply` will handle it in the background"
-        errorLine1="            prefs.edit().putBoolean(activity.getString(prefId), false).commit();"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\java\de\blau\android\dialogs\Tip.java"
-            line="80"
-            column="13"/>
+            line="198"
+            column="9"/>
     </issue>
 
     <issue
@@ -761,7 +750,7 @@
         errorLine2="                                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\dialogs\Tip.java"
-            line="134"
+            line="203"
             column="73"/>
     </issue>
 
@@ -914,6 +903,17 @@
             file="src\main\java\de\blau\android\PhotoUriHandler.java"
             line="56"
             column="51"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 19 (current min is 14): `android.content.ContentResolver#takePersistableUriPermission`"
+        errorLine1="                activity.getContentResolver().takePersistableUriPermission(uri, data.getFlags());"
+        errorLine2="                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\java\de\blau\android\util\SelectFile.java"
+            line="154"
+            column="47"/>
     </issue>
 
     <issue
@@ -1352,7 +1352,7 @@
         errorLine2="                                                                            ~~~~">
         <location
             file="src\main\java\de\blau\android\dialogs\Tip.java"
-            line="125"
+            line="166"
             column="77"/>
     </issue>
 
@@ -2529,7 +2529,7 @@
         errorLine2="                                                 ^">
         <location
             file="src\main\res\values\strings.xml"
-            line="1225"
+            line="1228"
             column="50"/>
     </issue>
 
@@ -3068,7 +3068,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="411"
+            line="414"
             column="5"/>
     </issue>
 
@@ -3079,7 +3079,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="481"
+            line="484"
             column="5"/>
     </issue>
 
@@ -3090,7 +3090,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="489"
+            line="492"
             column="5"/>
     </issue>
 
@@ -3101,7 +3101,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="590"
+            line="593"
             column="5"/>
     </issue>
 
@@ -3112,7 +3112,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="964"
+            line="967"
             column="5"/>
     </issue>
 
@@ -3123,7 +3123,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="977"
+            line="980"
             column="5"/>
     </issue>
 
@@ -3134,7 +3134,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1007"
+            line="1010"
             column="5"/>
     </issue>
 
@@ -3145,7 +3145,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1010"
+            line="1013"
             column="5"/>
     </issue>
 
@@ -3156,7 +3156,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1025"
+            line="1028"
             column="5"/>
     </issue>
 
@@ -3167,7 +3167,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1031"
+            line="1034"
             column="5"/>
     </issue>
 
@@ -3178,7 +3178,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1053"
+            line="1056"
             column="5"/>
     </issue>
 
@@ -3189,7 +3189,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1081"
+            line="1084"
             column="5"/>
     </issue>
 
@@ -3200,7 +3200,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="657"
+            line="660"
             column="5"/>
         <location
             file="src\main\res\values-el\strings.xml"
@@ -3743,7 +3743,7 @@
         errorLine2="                ^">
         <location
             file="src\main\java\de\blau\android\Main.java"
-            line="2102"
+            line="2108"
             column="17"/>
     </issue>
 
@@ -3754,7 +3754,7 @@
         errorLine2="            ^">
         <location
             file="src\main\java\de\blau\android\Main.java"
-            line="2299"
+            line="2305"
             column="13"/>
     </issue>
 
@@ -4931,7 +4931,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="406"
+            line="409"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -5030,7 +5030,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="408"
+            line="411"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5113,7 +5113,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="409"
+            line="412"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5188,7 +5188,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="421"
+            line="424"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5257,81 +5257,6 @@
         <location
             file="src\main\res\values-zh-rTW\strings.xml"
             line="380"
-            column="11"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.toast_oauth_retry` appears to be unused"
-        errorLine1="    &lt;string name=&quot;toast_oauth_retry&quot;>Try uploading again after allowing OAuth access to your OSM account.&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\values\strings.xml"
-            line="428"
-            column="13"/>
-        <location
-            file="src\main\res\values-ca\strings.xml"
-            line="322"
-            column="11"/>
-        <location
-            file="src\main\res\values-cs-rCZ\strings.xml"
-            line="377"
-            column="11"/>
-        <location
-            file="src\main\res\values-de\strings.xml"
-            line="389"
-            column="11"/>
-        <location
-            file="src\main\res\values-es\strings.xml"
-            line="380"
-            column="11"/>
-        <location
-            file="src\main\res\values-fa\strings.xml"
-            line="389"
-            column="11"/>
-        <location
-            file="src\main\res\values-fi\strings.xml"
-            line="307"
-            column="11"/>
-        <location
-            file="src\main\res\values-fr\strings.xml"
-            line="373"
-            column="11"/>
-        <location
-            file="src\main\res\values-gl\strings.xml"
-            line="365"
-            column="11"/>
-        <location
-            file="src\main\res\values-hu\strings.xml"
-            line="366"
-            column="11"/>
-        <location
-            file="src\main\res\values-iw\strings.xml"
-            line="382"
-            column="11"/>
-        <location
-            file="src\main\res\values-pl\strings.xml"
-            line="354"
-            column="11"/>
-        <location
-            file="src\main\res\values-pt\strings.xml"
-            line="334"
-            column="11"/>
-        <location
-            file="src\main\res\values-ru\strings.xml"
-            line="367"
-            column="11"/>
-        <location
-            file="src\main\res\values-uk\strings.xml"
-            line="262"
-            column="11"/>
-        <location
-            file="src\main\res\values-zh-rHK\strings.xml"
-            line="321"
-            column="11"/>
-        <location
-            file="src\main\res\values-zh-rTW\strings.xml"
-            line="387"
             column="11"/>
     </issue>
 
@@ -5420,12 +5345,87 @@
 
     <issue
         id="UnusedResources"
+        message="The resource `R.string.toast_oauth_retry` appears to be unused"
+        errorLine1="    &lt;string name=&quot;toast_oauth_retry&quot;>Try uploading again after allowing OAuth access to your OSM account.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\values\strings.xml"
+            line="431"
+            column="13"/>
+        <location
+            file="src\main\res\values-ca\strings.xml"
+            line="322"
+            column="11"/>
+        <location
+            file="src\main\res\values-cs-rCZ\strings.xml"
+            line="377"
+            column="11"/>
+        <location
+            file="src\main\res\values-de\strings.xml"
+            line="389"
+            column="11"/>
+        <location
+            file="src\main\res\values-es\strings.xml"
+            line="380"
+            column="11"/>
+        <location
+            file="src\main\res\values-fa\strings.xml"
+            line="389"
+            column="11"/>
+        <location
+            file="src\main\res\values-fi\strings.xml"
+            line="307"
+            column="11"/>
+        <location
+            file="src\main\res\values-fr\strings.xml"
+            line="373"
+            column="11"/>
+        <location
+            file="src\main\res\values-gl\strings.xml"
+            line="365"
+            column="11"/>
+        <location
+            file="src\main\res\values-hu\strings.xml"
+            line="366"
+            column="11"/>
+        <location
+            file="src\main\res\values-iw\strings.xml"
+            line="382"
+            column="11"/>
+        <location
+            file="src\main\res\values-pl\strings.xml"
+            line="354"
+            column="11"/>
+        <location
+            file="src\main\res\values-pt\strings.xml"
+            line="334"
+            column="11"/>
+        <location
+            file="src\main\res\values-ru\strings.xml"
+            line="367"
+            column="11"/>
+        <location
+            file="src\main\res\values-uk\strings.xml"
+            line="262"
+            column="11"/>
+        <location
+            file="src\main\res\values-zh-rHK\strings.xml"
+            line="321"
+            column="11"/>
+        <location
+            file="src\main\res\values-zh-rTW\strings.xml"
+            line="387"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
         message="The resource `R.string.toast_missing_filemanager` appears to be unused"
         errorLine1="    &lt;string name=&quot;toast_missing_filemanager&quot;>Please install a file manager.&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="439"
+            line="442"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5512,7 +5512,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="483"
+            line="486"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -5579,7 +5579,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="532"
+            line="535"
             column="13"/>
         <location
             file="src\main\res\values-de\strings.xml"
@@ -5606,7 +5606,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="533"
+            line="536"
             column="13"/>
         <location
             file="src\main\res\values-de\strings.xml"
@@ -5629,7 +5629,7 @@
         errorLine2="            ~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="553"
+            line="556"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5764,7 +5764,7 @@
         errorLine2="            ~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="564"
+            line="567"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5879,7 +5879,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="604"
+            line="607"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -5982,7 +5982,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="609"
+            line="612"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6093,7 +6093,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="695"
+            line="698"
             column="13"/>
         <location
             file="src\main\res\values-ar\strings.xml"
@@ -6248,7 +6248,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="696"
+            line="699"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6395,7 +6395,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="702"
+            line="705"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6538,7 +6538,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="714"
+            line="717"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6681,7 +6681,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="715"
+            line="718"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6788,7 +6788,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="716"
+            line="719"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6911,7 +6911,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="754"
+            line="757"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6990,7 +6990,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="756"
+            line="759"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7073,7 +7073,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="757"
+            line="760"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7152,7 +7152,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="762"
+            line="765"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7247,7 +7247,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="784"
+            line="787"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7350,7 +7350,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="792"
+            line="795"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -7429,7 +7429,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="807"
+            line="810"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7520,7 +7520,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="809"
+            line="812"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7611,7 +7611,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="815"
+            line="818"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7710,7 +7710,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="841"
+            line="844"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -7781,7 +7781,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="844"
+            line="847"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7864,7 +7864,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="898"
+            line="901"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -7947,7 +7947,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="900"
+            line="903"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8030,7 +8030,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="904"
+            line="907"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8113,7 +8113,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="907"
+            line="910"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8200,7 +8200,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="908"
+            line="911"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8275,7 +8275,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="909"
+            line="912"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8354,7 +8354,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="910"
+            line="913"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8473,7 +8473,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="931"
+            line="934"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8624,7 +8624,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="963"
+            line="966"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8687,7 +8687,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1013"
+            line="1016"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8770,7 +8770,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1014"
+            line="1017"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8833,7 +8833,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1036"
+            line="1039"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8904,7 +8904,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1103"
+            line="1106"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8995,7 +8995,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1122"
+            line="1125"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -9122,7 +9122,7 @@
         errorLine2="            ~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1133"
+            line="1136"
             column="13"/>
         <location
             file="src\main\res\values-ar\strings.xml"
@@ -9281,7 +9281,7 @@
         errorLine2="            ~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1146"
+            line="1149"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -9420,7 +9420,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1211"
+            line="1214"
             column="13"/>
         <location
             file="src\main\res\values-ar\strings.xml"
@@ -9575,7 +9575,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1213"
+            line="1216"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -14846,7 +14846,7 @@
         errorLine2="                       ~~~~~~~">
         <location
             file="src\main\java\de\blau\android\Main.java"
-            line="3372"
+            line="3380"
             column="24"/>
     </issue>
 
@@ -14857,7 +14857,7 @@
         errorLine2="                   ~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\Map.java"
-            line="586"
+            line="591"
             column="20"/>
     </issue>
 
