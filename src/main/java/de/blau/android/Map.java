@@ -249,11 +249,16 @@ public class Map extends View implements IMapView {
                             layer = new de.blau.android.layer.geojson.MapOverlay(this);
                             if (contentId != null) {
                                 try {
-                                    ((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId));
+                                    if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId))) {
+                                        // other error, has already been toasted
+                                        db.deleteLayer(LayerType.GEOJSON, contentId);
+                                        continue;
+                                    }
                                 } catch (IOException e) {
                                     if (context instanceof Main) {
                                         Snack.toastTopError(context, context.getString(R.string.toast_error_reading, contentId));
                                     }
+                                    db.deleteLayer(LayerType.GEOJSON, contentId);
                                     continue; // skip
                                 }
                             }

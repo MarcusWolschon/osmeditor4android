@@ -68,10 +68,8 @@ public final class SelectFile {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             i = new Intent(Intent.ACTION_CREATE_DOCUMENT);
             i.setType("*/*");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                if (path != null) {
-                    i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, Uri.parse(path));
-                }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && path != null) {
+                i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, Uri.parse(path));
             }
         } else {
             i = new Intent(activity, ThemedFilePickerActivity.class);
@@ -104,6 +102,7 @@ public final class SelectFile {
     public static void read(@NonNull FragmentActivity activity, int directoryPrefKey, @NonNull ReadFile readFile) {
         synchronized (readCallbackLock) {
             readCallback = readFile;
+            SelectFile.activity = activity;
         }
         Preferences prefs = new Preferences(activity);
         String path = prefs.getString(directoryPrefKey);
@@ -111,10 +110,8 @@ public final class SelectFile {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             i.setType("*/*");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                if (path != null) {
-                    i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, Uri.parse(path));
-                }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && path != null) {
+                i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, Uri.parse(path));
             }
         } else {
             i = new Intent(activity, ThemedFilePickerActivity.class);
@@ -150,6 +147,15 @@ public final class SelectFile {
             uri = data.getData();
         } else {
             uri = Uri.fromFile(com.nononsenseapps.filepicker.Utils.getFileForUri(data.getData()));
+        }
+        if ((data.getFlags() & Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION) != 0) {
+            Log.d(DEBUG_TAG, "Persisting permissions for " + uri);
+            try {
+                activity.getContentResolver().takePersistableUriPermission(uri, data.getFlags());
+            } catch (Exception ex) {
+                Log.e(DEBUG_TAG, "Unable to persist read permission for " + uri);
+                Snack.toastTopWarning(activity, R.string.toast_unable_to_persist_permissions);
+            }
         }
         if (code == SAVE_FILE) {
             File file = new File(uri.getPath());
@@ -265,7 +271,7 @@ public final class SelectFile {
      * @param selectionArgs (Optional) Selection arguments used in the query.
      * @return The value of the _data column, which is typically a file path.
      */
-    public static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
+    public static String getDataColumn(@NonNull Context context, @NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
 
         final String[] projection = { MediaStore.MediaColumns.DATA };
 
@@ -288,7 +294,7 @@ public final class SelectFile {
      * @param uri The Uri to query.
      * @return The value of the _display_name column, which is typically a file name.
      */
-    public static String getDisplaynameColumn(Context context, Uri uri) {
+    public static String getDisplaynameColumn(@NonNull Context context, @NonNull Uri uri) {
 
         final String[] projection = { MediaStore.MediaColumns.DISPLAY_NAME };
 
@@ -305,7 +311,7 @@ public final class SelectFile {
      * @param uri The Uri to check.
      * @return Whether the Uri authority is ExternalStorageProvider.
      */
-    public static boolean isExternalStorageDocument(Uri uri) {
+    public static boolean isExternalStorageDocument(@NonNull Uri uri) {
         return "com.android.externalstorage.documents".equals(uri.getAuthority());
     }
 
@@ -313,7 +319,7 @@ public final class SelectFile {
      * @param uri The Uri to check.
      * @return Whether the Uri authority is DownloadsProvider.
      */
-    public static boolean isDownloadsDocument(Uri uri) {
+    public static boolean isDownloadsDocument(@NonNull Uri uri) {
         return "com.android.providers.downloads.documents".equals(uri.getAuthority());
     }
 }
