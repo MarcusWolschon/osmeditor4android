@@ -164,8 +164,6 @@ public class WayActionsTest {
         assertEquals(OsmElement.STATE_DELETED, testNode1.getState());
         assertEquals(origSize - 1, way.getNodes().size());
         // delete the end node that is shared by some other ways
-        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickOverflowButton(device));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_remove_node_from_way), true, false));
@@ -220,7 +218,7 @@ public class WayActionsTest {
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertNotNull(propertyEditor);
         TestUtils.sleep(2000);
-        TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false);   
+        TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false);
         assertTrue(TestUtils.clickHome(device, true));
         instrumentation.removeMonitor(monitor);
 
