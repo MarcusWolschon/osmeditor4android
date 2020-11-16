@@ -33,15 +33,6 @@ public class NotificationCache implements Serializable {
     }
 
     /**
-     * Construct a new cache with a specific size
-     * 
-     * @param size size of the cache
-     */
-    public NotificationCache(int size) {
-        init(size);
-    }
-
-    /**
      * Initialize the cache
      * 
      * @param size the size of the cache
@@ -49,7 +40,8 @@ public class NotificationCache implements Serializable {
     private void init(int size) {
         Log.d(DEBUG_TAG, "new notification cache size " + size);
         if (size <= 1) {
-            throw new IllegalArgumentException("Cache size needs to be at least 1");
+            Log.e(DEBUG_TAG, "Cache size needs to be at least 1");
+            size = 1;
         }
         cache = new ArrayList<>(size);
         this.size = size;
@@ -134,6 +126,5 @@ public class NotificationCache implements Serializable {
             }
             this.size = prefSize;
         }
-
     }
 }
