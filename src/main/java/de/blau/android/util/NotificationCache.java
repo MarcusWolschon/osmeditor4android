@@ -39,7 +39,7 @@ public class NotificationCache implements Serializable {
      */
     private void init(int size) {
         Log.d(DEBUG_TAG, "new notification cache size " + size);
-        if (size <= 1) {
+        if (size < 1) {
             Log.e(DEBUG_TAG, "Cache size needs to be at least 1");
             size = 1;
         }
