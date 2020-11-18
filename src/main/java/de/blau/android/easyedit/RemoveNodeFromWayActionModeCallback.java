@@ -50,16 +50,14 @@ public class RemoveNodeFromWayActionModeCallback extends NonSimpleActionModeCall
         super.handleElementClick(element);
         // protect against race conditions
         if (!(element instanceof Node)) {
-            // TODO fix properly
+            Log.e(DEBUG_TAG, "Unexpected element clicked " + element);
             return false;
         }
         Node node = (Node) element;
         if (node.hasParentRelations() && !node.hasTags() && logic.getWaysForNode(node).size() <= 1) {
             // node will be deleted
             new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deletenode_relation_description)
-                    .setNegativeButton(R.string.cancel, null).setPositiveButton(R.string.deletenode, (dialog, which) -> {
-                        remove(node);
-                    }).show();
+                    .setNegativeButton(R.string.cancel, null).setPositiveButton(R.string.deletenode, (dialog, which) -> remove(node)).show();
         } else {
             remove(node);
         }
