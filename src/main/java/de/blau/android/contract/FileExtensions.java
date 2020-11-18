@@ -7,6 +7,7 @@ public final class FileExtensions {
     public static final String MSF     = "msf";
     public static final String PO      = "po";
     public static final String JPG     = "jpg";
+    public static final String OSC     = "osc";
 
     /**
      * Private default constructor

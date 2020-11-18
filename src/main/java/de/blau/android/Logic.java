@@ -2773,6 +2773,14 @@ public class Logic {
                 }
                 return result;
             }
+
+            @Override
+            protected void onPostExecute(ReadAsyncResult result) {
+                if (ErrorCodes.CORRUPTED_DATA == result.getCode()) {
+                    Snack.toastTopError(context, R.string.corrupted_data_message);
+                }
+            }
+
         }.execute();
     }
 
@@ -2827,19 +2835,23 @@ public class Logic {
             }
 
             if (merge) { // incremental load
-                if (!getDelegator().mergeData(input, postMerge)) {
-                    result = new ReadAsyncResult(ErrorCodes.DATA_CONFLICT);
-                } else {
-                    if (mapBox != null) {
-                        // if we are simply expanding the area no need keep the old bounding boxes
-                        List<BoundingBox> bbs = new ArrayList<>(getDelegator().getBoundingBoxes());
-                        for (BoundingBox bb : bbs) {
-                            if (mapBox.contains(bb)) {
-                                getDelegator().deleteBoundingBox(bb);
+                try {
+                    if (!getDelegator().mergeData(input, postMerge)) {
+                        result = new ReadAsyncResult(ErrorCodes.DATA_CONFLICT);
+                    } else {
+                        if (mapBox != null) {
+                            // if we are simply expanding the area no need keep the old bounding boxes
+                            List<BoundingBox> bbs = new ArrayList<>(getDelegator().getBoundingBoxes());
+                            for (BoundingBox bb : bbs) {
+                                if (mapBox.contains(bb)) {
+                                    getDelegator().deleteBoundingBox(bb);
+                                }
                             }
+                            getDelegator().addBoundingBox(mapBox);
                         }
-                        getDelegator().addBoundingBox(mapBox);
                     }
+                } catch (IllegalStateException iex) {
+                    result = new ReadAsyncResult(ErrorCodes.CORRUPTED_DATA);
                 }
             } else { // replace data with new download
                 getDelegator().reset(false);
@@ -3081,10 +3093,13 @@ public class Logic {
                             SavingHelper.close(in);
                         }
                     }
-
-                    if (!getDelegator().mergeData(osmParser.getStorage(), null)) { // FIXME need to check if providing a
-                                                                                   // handler makes sense here
-                        result = ErrorCodes.DATA_CONFLICT;
+                    try {
+                        // FIXME need to check if providing a handler makes sense here
+                        if (!getDelegator().mergeData(osmParser.getStorage(), null)) {
+                            result = ErrorCodes.DATA_CONFLICT;
+                        }
+                    } catch (IllegalStateException iex) {
+                        result = ErrorCodes.CORRUPTED_DATA;
                     }
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
@@ -3219,9 +3234,13 @@ public class Logic {
                             SavingHelper.close(in);
                         }
                     }
-                    if (!getDelegator().mergeData(osmParser.getStorage(), null)) { // FIXME need to check if providing a
-                                                                                   // handler makes sense here
-                        result = ErrorCodes.DATA_CONFLICT;
+                    try {
+                        // FIXME need to check if providing a handler makes sense here
+                        if (!getDelegator().mergeData(osmParser.getStorage(), null)) {
+                            result = ErrorCodes.DATA_CONFLICT;
+                        }
+                    } catch (IllegalStateException iex) {
+                        result = ErrorCodes.CORRUPTED_DATA;
                     }
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
@@ -3575,6 +3594,8 @@ public class Logic {
                     } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException e) {
                         Log.e(DEBUG_TAG, "Problem parsing OSC ", e);
                         return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
+                    } catch (IllegalStateException iex) {
+                        return new ReadAsyncResult(ErrorCodes.CORRUPTED_DATA);
                     } finally {
                         SavingHelper.close(is);
                     }

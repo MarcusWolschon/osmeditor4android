@@ -34,10 +34,12 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pools.SimplePool;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
+import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.Mode;
 import de.blau.android.R;
+import de.blau.android.ReadAsyncResult;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.filter.Filter;
 import de.blau.android.layer.ConfigureInterface;
@@ -66,6 +68,7 @@ import de.blau.android.util.Coordinates;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
+import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.collections.LongHashSet;
@@ -348,10 +351,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 delegator.addBoundingBox(b);
                 mThreadPool.execute(() -> {
                     final Logic logic = App.getLogic();
-                    logic.download(context, prefs.getServer(), b, postMerge, () -> {
+                    ReadAsyncResult result = logic.download(context, prefs.getServer(), b, postMerge, () -> {
                         logic.reselectRelationMembers();
                         map.postInvalidate();
                     }, true, true);
+                    if (ErrorCodes.CORRUPTED_DATA == result.getCode()) {
+                        Snack.toastTopError(context, R.string.corrupted_data_message);
+                    }
                 });
             }
             if (delegator.getCurrentStorage().getNodeCount() > autoPruneNodeLimit

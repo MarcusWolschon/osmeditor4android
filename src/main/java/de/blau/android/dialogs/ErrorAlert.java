@@ -145,6 +145,8 @@ public class ErrorAlert extends ImmersiveDialogFragment {
             return "required_feature_missing";
         case ErrorCodes.APPLYING_OSC_FAILED:
             return "applying_osc_failed";
+        case ErrorCodes.CORRUPTED_DATA:
+            return "alert_corrupt_data";
         default:
             // nothing
         }
@@ -203,6 +205,8 @@ public class ErrorAlert extends ImmersiveDialogFragment {
             return createNewInstance(R.string.required_feature_missing_title, R.string.required_feature_missing_message, msg);
         case ErrorCodes.APPLYING_OSC_FAILED:
             return createNewInstance(R.string.applying_osc_failed_title, R.string.applying_osc_failed_message, msg);
+        case ErrorCodes.CORRUPTED_DATA:
+            return createNewInstance(R.string.corrupted_data_title, R.string.corrupted_data_message, msg);
         default:
             // ignore
         }

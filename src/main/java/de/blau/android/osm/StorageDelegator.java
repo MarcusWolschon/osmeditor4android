@@ -29,6 +29,7 @@ import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.StorageException;
@@ -3075,11 +3076,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
     @Override
     public String exportExtension() {
-        return "osc";
+        return FileExtensions.OSC;
     }
 
     /**
      * Merge additional data with existing, copy to a new storage because this may fail
+     * 
+     * This may throw an IllegalStateException if existing data was inconsistent
      * 
      * @param storage storage containing data to merge
      * @param postMerge handler to run after merging
@@ -3299,6 +3302,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Redo all backlinks
      * 
+     * This may throw an IllegalStateException if existing data was inconsistent
+     * 
      * @param tempCurrent temp storage
      * @param nodeIndex index to the nodes in temp
      * @param wayIndex index to the ways in temp
@@ -3311,29 +3316,25 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             final List<RelationMember> members = r.getMembers();
             if (members != null) {
                 for (RelationMember rm : members) {
+                    checkMember(r.getOsmId(), rm);
                     String type = rm.getType();
                     final long ref = rm.getRef();
+                    OsmElement e = null;
                     switch (type) {
                     case Node.NAME:
-                        Node n = nodeIndex.get(ref);
-                        if (n != null) {
-                            n.clearParentRelations();
-                        }
+                        e = nodeIndex.get(ref);
                         break;
                     case Way.NAME:
-                        Way w = wayIndex.get(ref);
-                        if (w != null) {
-                            w.clearParentRelations();
-                        }
+                        e = wayIndex.get(ref);
                         break;
                     case Relation.NAME:
-                        Relation r2 = relationIndex.get(ref);
-                        if (r2 != null) {
-                            r2.clearParentRelations();
-                        }
+                        e = relationIndex.get(ref);
                         break;
                     default:
                         Log.e(DEBUG_TAG, "Unknown member type " + type + " for relation " + r.getOsmId());
+                    }
+                    if (e != null) {
+                        e.clearParentRelations();
                     }
                 }
             } else {
@@ -3346,40 +3347,49 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             final List<RelationMember> members = r.getMembers();
             if (members != null) {
                 for (RelationMember rm : members) {
-                    if (rm.getType().equals(Node.NAME)) {
-                        Node n = nodeIndex.get(rm.getRef());
-                        if (n != null) { // if node is downloaded always re-set it
-                            rm.setElement(n);
-                            n.addParentRelation(r);
-                        } else if (memberIsDeleted(r, rm)) {
-                            Log.e(DEBUG_TAG, "redoBacklinks node " + rm.getRef() + " missing");
-                            return false;
-                        }
-                    } else if (rm.getType().equals(Way.NAME)) { // same logic as for nodes
-                        Way w = wayIndex.get(rm.getRef());
-                        if (w != null) {
-                            rm.setElement(w);
-                            w.addParentRelation(r);
-                        } else if (memberIsDeleted(r, rm)) {
-                            Log.e(DEBUG_TAG, "redoBacklinks way " + rm.getRef() + " missing");
-                            return false;
-                        }
-                    } else if (rm.getType().equals(Relation.NAME)) { // same logic as for nodes
-                        Relation r2 = relationIndex.get(rm.getRef());
-                        if (r2 != null) {
-                            rm.setElement(r2);
-                            r2.addParentRelation(r);
-                        } else if (memberIsDeleted(r, rm)) {
-                            Log.e(DEBUG_TAG, "redoBacklinks relation " + rm.getRef() + " missing");
-                            return false;
-                        }
+                    checkMember(r.getOsmId(), rm);
+                    final long ref = rm.getRef();
+                    final String type = rm.getType();
+                    OsmElement e = null;
+                    switch (type) {
+                    case Node.NAME:
+                        e = nodeIndex.get(ref);
+                        break;
+                    case Way.NAME:
+                        e = wayIndex.get(ref);
+                        break;
+                    case Relation.NAME:
+                        e = relationIndex.get(ref);
+                        break;
+                    default:
+                        Log.e(DEBUG_TAG, "Unknown member type " + type + " for relation " + r.getOsmId());
+                    }
+                    if (e != null) {
+                        rm.setElement(e);
+                        e.addParentRelation(r);
+                    } else if (memberIsDeleted(r, rm)) {
+                        Log.e(DEBUG_TAG, "redoBacklinks " + type + " " + ref + " missing");
+                        return false;
                     }
                 }
             } else {
                 Log.e(DEBUG_TAG, "Relation has no members " + r.getOsmId());
             }
         }
-        return true; // sucessful
+        return true; // successful
+    }
+
+    /**
+     * Generate a log message and throw an IllegalStateException if rm is null
+     * 
+     * @param if the relation OSM id
+     * @param rm the member
+     */
+    private void checkMember(long id, @Nullable RelationMember rm) {
+        if (rm == null) {
+            Log.e(DEBUG_TAG, "Null member of relation " + id);
+            throw new IllegalStateException("Null member of relation " + id);
+        }
     }
 
     /**
@@ -3389,42 +3399,46 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // first zap all
         for (Relation r : currentStorage.getRelations()) {
             for (RelationMember rm : r.getMembers()) {
-                if (rm.getType().equals(Node.NAME)) {
-                    Node n = currentStorage.getNode(rm.getRef());
-                    if (n != null) {
-                        n.clearParentRelations();
-                    }
-                } else if (rm.getType().equals(Way.NAME)) {
-                    Way w = currentStorage.getWay(rm.getRef());
-                    if (w != null) {
-                        w.clearParentRelations();
-                    }
-                } else if (rm.getType().equals(Relation.NAME)) {
-                    Relation r2 = currentStorage.getRelation(rm.getRef());
-                    if (r2 != null) {
-                        r2.clearParentRelations();
-                    }
+                OsmElement e = null;
+                final String type = rm.getType();
+                switch (type) {
+                case Node.NAME:
+                    e = currentStorage.getNode(rm.getRef());
+                    break;
+                case Way.NAME:
+                    e = currentStorage.getWay(rm.getRef());
+                    break;
+                case Relation.NAME:
+                    e = currentStorage.getRelation(rm.getRef());
+                    break;
+                default:
+                    Log.e(DEBUG_TAG, "Unknown member type " + type + " for relation " + r.getOsmId());
+                }
+                if (e != null) {
+                    e.clearParentRelations();
                 }
             }
         }
         // then add them back
         for (Relation r : currentStorage.getRelations()) {
             for (RelationMember rm : r.getMembers()) {
-                if (rm.getType().equals(Node.NAME)) {
-                    Node n = currentStorage.getNode(rm.getRef());
-                    if (n != null) {
-                        n.addParentRelation(r);
-                    }
-                } else if (rm.getType().equals(Way.NAME)) {
-                    Way w = currentStorage.getWay(rm.getRef());
-                    if (w != null) {
-                        w.addParentRelation(r);
-                    }
-                } else if (rm.getType().equals(Relation.NAME)) {
-                    Relation r2 = currentStorage.getRelation(rm.getRef());
-                    if (r2 != null) {
-                        r2.addParentRelation(r);
-                    }
+                OsmElement e = null;
+                final String type = rm.getType();
+                switch (type) {
+                case Node.NAME:
+                    e = currentStorage.getNode(rm.getRef());
+                    break;
+                case Way.NAME:
+                    e = currentStorage.getWay(rm.getRef());
+                    break;
+                case Relation.NAME:
+                    e = currentStorage.getRelation(rm.getRef());
+                    break;
+                default:
+                    Log.e(DEBUG_TAG, "Unknown member type " + type + " for relation " + r.getOsmId());
+                }
+                if (e != null) {
+                    e.addParentRelation(r);
                 }
             }
         }
@@ -3576,7 +3590,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Merge additional data with existing, copy to a new storage because this may fail
      * 
-     * If this is aborted the contents of the undo checkpoint need to be removed
+     * If this is aborted the contents of the undo checkpoint need to be removed, this may throw an
+     * IllegalStateException if existing data was inconsistent
      * 
      * @param osc storage containing data to merge
      * @param postMerge handler to run after merging

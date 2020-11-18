@@ -43,6 +43,8 @@
     <string name="go_to_openstreetmap">Go to openstreetmap.org</string>
     <string name="data_conflict_title">Version conflict</string>
     <string name="data_conflict_message">Data from the download would conflict with your edits. Please upload your data before trying again.</string>
+    <string name="corrupted_data_title">Corrupted data</string>
+    <string name="corrupted_data_message">A data inconsistency has been detected. Before doing anything else, try to upload your edits, and then clear any stored data and re-download.</string>
     <string name="invalid_bounding_box_title">Invalid bounding box</string>
     <string name="invalid_bounding_box_message">The selected area does not conform to API restrictions, please choose a different one.</string>
     <string name="bounding_box_too_large_title">Download area too large</string>
