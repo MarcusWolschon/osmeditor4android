@@ -3331,7 +3331,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         e = relationIndex.get(ref);
                         break;
                     default:
-                        Log.e(DEBUG_TAG, "Unknown member type " + type + " for relation " + r.getOsmId());
+                        logUnknownMemberType(r, type);
                     }
                     if (e != null) {
                         e.clearParentRelations();
@@ -3362,7 +3362,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         e = relationIndex.get(ref);
                         break;
                     default:
-                        Log.e(DEBUG_TAG, "Unknown member type " + type + " for relation " + r.getOsmId());
+                        logUnknownMemberType(r, type);
                     }
                     if (e != null) {
                         rm.setElement(e);
@@ -3377,6 +3377,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
         }
         return true; // successful
+    }
+
+    /**
+     * Log an unknown member type
+     * 
+     * @param r the Relation
+     * @param type the type
+     */
+    private void logUnknownMemberType(@NonNull Relation r, @NonNull final String type) {
+        Log.e(DEBUG_TAG, "Unknown member type " + type + " for relation " + r.getOsmId());
     }
 
     /**
@@ -3397,48 +3407,57 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     void fixupBacklinks() {
         // first zap all
-        for (Relation r : currentStorage.getRelations()) {
-            for (RelationMember rm : r.getMembers()) {
-                OsmElement e = null;
-                final String type = rm.getType();
-                switch (type) {
-                case Node.NAME:
-                    e = currentStorage.getNode(rm.getRef());
-                    break;
-                case Way.NAME:
-                    e = currentStorage.getWay(rm.getRef());
-                    break;
-                case Relation.NAME:
-                    e = currentStorage.getRelation(rm.getRef());
-                    break;
-                default:
-                    Log.e(DEBUG_TAG, "Unknown member type " + type + " for relation " + r.getOsmId());
-                }
-                if (e != null) {
-                    e.clearParentRelations();
+        final List<Relation> allRelations = currentStorage.getRelations();
+        for (Relation r : allRelations) {
+            final List<RelationMember> members = r.getMembers();
+            if (members != null) {
+                for (RelationMember rm : r.getMembers()) {
+                    OsmElement e = null;
+                    final String type = rm.getType();
+                    final long ref = rm.getRef();
+                    switch (type) {
+                    case Node.NAME:
+                        e = currentStorage.getNode(ref);
+                        break;
+                    case Way.NAME:
+                        e = currentStorage.getWay(ref);
+                        break;
+                    case Relation.NAME:
+                        e = currentStorage.getRelation(ref);
+                        break;
+                    default:
+                        logUnknownMemberType(r, type);
+                    }
+                    if (e != null) {
+                        e.clearParentRelations();
+                    }
                 }
             }
         }
         // then add them back
-        for (Relation r : currentStorage.getRelations()) {
-            for (RelationMember rm : r.getMembers()) {
-                OsmElement e = null;
-                final String type = rm.getType();
-                switch (type) {
-                case Node.NAME:
-                    e = currentStorage.getNode(rm.getRef());
-                    break;
-                case Way.NAME:
-                    e = currentStorage.getWay(rm.getRef());
-                    break;
-                case Relation.NAME:
-                    e = currentStorage.getRelation(rm.getRef());
-                    break;
-                default:
-                    Log.e(DEBUG_TAG, "Unknown member type " + type + " for relation " + r.getOsmId());
-                }
-                if (e != null) {
-                    e.addParentRelation(r);
+        for (Relation r : allRelations) {
+            final List<RelationMember> members = r.getMembers();
+            if (members != null) {
+                for (RelationMember rm : r.getMembers()) {
+                    OsmElement e = null;
+                    final String type = rm.getType();
+                    final long ref = rm.getRef();
+                    switch (type) {
+                    case Node.NAME:
+                        e = currentStorage.getNode(ref);
+                        break;
+                    case Way.NAME:
+                        e = currentStorage.getWay(ref);
+                        break;
+                    case Relation.NAME:
+                        e = currentStorage.getRelation(ref);
+                        break;
+                    default:
+                        logUnknownMemberType(r, type);
+                    }
+                    if (e != null) {
+                        e.addParentRelation(r);
+                    }
                 }
             }
         }
