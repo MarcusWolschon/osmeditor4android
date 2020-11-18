@@ -2,6 +2,7 @@ package de.blau.android.presets;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -48,14 +49,14 @@ public class ValueWithCountTest {
         ValueWithCount a2 = new ValueWithCount("A");
         ValueWithCount a3 = new ValueWithCount("A", 4);
         ValueWithCount a4 = new ValueWithCount("A", 5);
-        assertTrue(a.equals(a2));
-        assertFalse(a.equals(b));
+        assertTrue(a.equals(a2)); // NOSONAR
+        assertFalse(a.equals(b)); // NOSONAR
         assertEquals(-1, a.compareTo(b));
         assertEquals(1, b.compareTo(a));
         assertEquals(0, a.compareTo(a));
         assertEquals(1, a3.compareTo(a4));
         assertEquals(-1, a4.compareTo(a3));
         assertEquals(0, a4.compareTo(a4));
-        assertTrue(a.hashCode() != b.hashCode()); // not really that interesting
+        assertNotEquals(a.hashCode(), b.hashCode()); // not really that interesting
     }
 }

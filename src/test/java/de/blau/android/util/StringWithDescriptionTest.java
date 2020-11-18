@@ -2,6 +2,7 @@ package de.blau.android.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -45,7 +46,7 @@ public class StringWithDescriptionTest {
     }
 
     /**
-     * Test comparing 
+     * Test comparing
      */
     @Test
     public void compare() {
@@ -54,8 +55,8 @@ public class StringWithDescriptionTest {
         assertTrue(a.equals("A"));
         assertFalse(a.equals("B"));
         StringWithDescription a2 = new StringWithDescription("A");
-        assertTrue(a.equals(a2));
-        assertFalse(a.equals(b));
+        assertTrue(a.equals(a2)); // NOSONAR
+        assertFalse(a.equals(b)); // NOSONAR
         assertEquals(-1, a.compareTo(b));
         assertEquals(1, b.compareTo(a));
         assertEquals(0, a.compareTo(a));
@@ -68,6 +69,6 @@ public class StringWithDescriptionTest {
         assertEquals(-1, comparator.compare(a, b));
         assertEquals(1, comparator.compare(b, a));
         assertEquals(0, comparator.compare(a, a));
-        assertTrue(a.hashCode() != b.hashCode()); // not really that interesting
+        assertNotEquals(a.hashCode(), b.hashCode()); // not really that interesting
     }
 }
