@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="1.15.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="1.16.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -1977,7 +1977,7 @@
             <key key="highway" value="give_way"/>
             <reference ref="traffic_signals_direction" /> 
         </item> <!-- Give Way -->
-        <item name="Advanced stop line" icon="icons/png/transport_empty.png" type="node" preset_name_label="true">
+        <item name="Advanced stop line" icon="icons/png/asl.png" type="node" preset_name_label="true">
             <link wiki="Tag:cycleway=asl" />
             <key key="cycleway" value="asl" />
         </item> <!-- Advanced stop line -->
@@ -2086,13 +2086,13 @@
             <key key="traffic_sign" value="maxspeed"/>
             <reference ref="maxspeed"/>
             <reference ref="traffic_signals_direction" /> 
-        </item> <!-- Speed Limit -->
-        <item name="Stop sign" icon="icons/png/highway_stop_18064.png" type="node" preset_name_label="true">
+        </item> <!-- Speed Limit Sign -->
+        <item name="Stop sign" icon="icons/png/stop.png" type="node" preset_name_label="true">
             <link wiki="Key:traffic_sign"/>
             <space/>
             <key key="traffic_sign" value="stop"/>
             <reference ref="traffic_signals_direction" /> 
-        </item> <!-- Speed Limit -->
+        </item> <!-- Stop sign -->
         <item name="Traffic Sign Forward" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
             <link wiki="Key:traffic_sign"/>
             <space/>
@@ -3933,7 +3933,7 @@
                 <text key="name" text="Name"/>
             </optional>
         </item> <!-- Tram Stop -->
-        <item name="Railway Platform" icon="presets/platform_rail.png" type="way,closedway,multipolygon" preset_name_label="true">
+        <item name="Railway Platform" icon="icons/png/transport_platform_train.png" type="way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:railway=platform"/>
             <space/>
             <key key="railway" value="platform"/>
@@ -3959,7 +3959,7 @@
                 <reference ref="tactile_paving"/>
             </optional>
         </item> <!-- Bus Stop -->
-        <item name="Bus Platform" icon="icons/png/transport_platform_32003.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+        <item name="Bus Platform" icon="icons/png/transport_platform_bus.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:highway=platform"/>
             <space/>
             <key key="highway" value="platform"/>
@@ -5494,7 +5494,7 @@
             </optional>
             <reference ref="link_contact_address" />
         </item> <!-- Non-public police facility -->
-        <item name="Ranger Station" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Ranger Station" icon="icons/png/amenity_ranger_station.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=ranger_station"/>
             <space/>
             <key key="amenity" value="ranger_station"/>
@@ -10428,10 +10428,13 @@
                 <reference ref="genus_species_taxon" />
             </optional>
         </item> <!-- Flowerbed -->
-        <item name="Garden" icon="icons/png/landuse_garden_21010.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Garden" icon="icons/png/landuse_garden_21010.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=garden"/>
             <space/>
             <key key="leisure" value="garden"/>
+            <combo key="garden:type" text="Type" values="arboretum,botanical,community,residential,roof_garden,show_garden" display_values="Arboretum,Botanical,Community,Residential,Roof garden,Show garden" values_context="garden" match="key"/>
+            <combo key="garden:style" text="Style" values="chinese,cottage_garden,english,flower_garden,french,herb_garden,japanese,kitchen,medical_garden,monastery,rosarium,walled_garden,zen" 
+                display_values="Chinese,Cottage garden,English,Flower garden,French,Herb garden,Japanese,Kitchen,Medical garden,Monastery,Rosarium,Walled garden,Zen" values_context="garden" match="key"/>
             <optional>
             	<text key="name" text="Name"/>
             </optional>
@@ -10747,7 +10750,7 @@
                 <list_entry value="street" display_value="Street"/>
             </combo>
         </item> <!-- Relations -->
-        <item name="Multipolygon" icon="presets/multipolygon.png" type="relation,multipolygon" preset_name_label="true">
+        <item name="Multipolygon" icon="icons/png/osm_multipolygon.png" type="relation,multipolygon" preset_name_label="true">
             <link wiki="Relation:multipolygon"/>
             <key key="type" value="multipolygon"/>
             <optional>
@@ -11132,7 +11135,7 @@
             <link wiki="Relation:route" />
             <space/>
             <key key="type" value="route"/>
-            <combo key="route" text="Route type" values="bicycle,mtb,foot,hiking,walking,inline_skates" match="keyvalue!" values_sort="false"/>
+            <combo key="route" text="Route type" values="bicycle,mtb,foot,hiking,walking,inline_skates,road" display_values="Bicycle,MTB,Foot,Hiking,Walking,Inline skates,Road" match="keyvalue!" values_sort="false"/>
         </item> <!-- Generic route -->
         <separator/>
         <item name="Associated Street" icon="icons/png/osm_housenumber_sp.png" type="relation" preset_name_label="true">
