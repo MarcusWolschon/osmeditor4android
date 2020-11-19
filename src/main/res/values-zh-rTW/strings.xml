@@ -197,6 +197,12 @@
   <string name="too_much_data_message">你載入 %1$d個節點而且已經超過設定限制，這會導致執行速度變慢，而且如果載入更多資料，有可能造成儲存時的可能問題。</string>
   <string name="upload_data_now">上傳變動</string>
   <string name="prune_data_now">剪裁資料</string>
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <!--Abort action mode dialog-->
   <!---->
   <string name="error">錯誤</string>
   <string name="warning">警告</string>
@@ -308,6 +314,9 @@
   <string name="api_info_latest_date">最後包括的日期</string>
   <string name="api_info_attribution">貢獻者</string>
   <string name="api_info_mapsplit_source">MapSplit 唯讀來源</string>
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">檢查點</string>
   <string name="undo_redo_title">復原及取消復原</string>
@@ -365,7 +374,6 @@
   <string name="toast_merge_overwrote_tags">注意 - 這動作將覆蓋標籤(們)</string>
   <string name="toast_cant_autoapply_preset">這個預置無法自動套用</string>
   <string name="toast_oneway_reversed">您已反轉了單行道或道路方向依據的標籤。請檢查標籤並在需要時訂正。</string>
-  <string name="toast_merge_tag_conflict">您合併的元件有相互衝突的標籤值，在相同的關係，方向是依據相互關係或不同的角色。請檢查標籤和角色，並在有必要時訂正。</string>
   <string name="toast_potential_merge_tag_conflict">您正在試圖合併的元件，它和標籤的值有衝突。請重試之前，請先檢查標籤和修正。</string>
   <string name="toast_state_file_failed">無法讀取或已損壞狀態的檔案</string>
   <string name="toast_way_nodes_moved">%1$d節點在已移動的路徑</string>
@@ -433,7 +441,6 @@
   <string name="toast_openinghours_invalid">%1$s 無效的營業時間</string>
   <string name="toast_openinghours_autocorrected">自動修正開放時間數值 %1$s</string>
   <string name="toast_exit_multiselect">點兩下空白處或是用 ← 鍵離開</string>
-  <string name="toast_exit_actionmode">用 ← 方向鍵儲存和離開</string>
   <string name="toast_abort_actionmode">使用 ← 鍵中止動作</string>
   <string name="toast_null_island">請不要在 0°/0° (Null Island) 增加物件</string>
   <string name="toast_string_too_long">字串太長 (%1$d 文字) 被截斷了！</string>
@@ -586,7 +593,6 @@
   <string name="tag_restriction_add_expression">增加表達式</string>
   <string name="tag_restriction_add_opening_hours">增加營業時間</string>
   <string name="tag_restriction_value_hint">修件限制</string>
-  <string name="ugly_checkgroup_hint">%1$s,...</string>
   <string name="tag_form_unknown_element">未知元件 (未找到預設組合)</string>
   <string name="tag_form_untagged_element">沒有標示標籤的元素</string>
   <!--Custom preset creation-->
@@ -655,7 +661,6 @@
   <string name="menu_append">追加</string>
   <string name="menu_relation">建立關係</string>
   <string name="menu_edit_relation">編輯關係</string>
-  <string name="menu_add_relation_member">增加成員</string>
   <string name="menu_select_relation_members">選擇成員</string>
   <string name="menu_tag">編輯標籤</string>
   <string name="menu_openstreetbug">增加註解</string>
@@ -785,11 +790,9 @@
   <string name="notreversable_description">該道路是有標記與屬性的，那是方向依據並且不能反向。反向道路將會破壞標簽。</string>
   <string name="reverse_anyway">仍然反向</string>
   <string name="deleteway_description">您即將刪除一條路徑。\n\n您可以保留所有節點，或者刪除只屬於這條路徑，並且沒有任何標籤的節點。</string>
-  <string name="deleteway_relation_description">您將要刪除的路徑，它是一個或多個關係中的成員。從關係中移除了路徑，可能會使得它或它們變成無效。</string>
   <string name="deleteway_nodesnotdownloaded_description">路徑含有在下載區域之外的節點，不能在還沒有建立並且不一致的狀態中刪除。先下載整體路徑然後再重試。</string>
   <string name="deleteway_wayonly">只刪除路徑</string>
   <string name="deleteway_wayandnodes">刪除路徑</string>
-  <string name="deletenode_relation_description">您將要刪除的節點，它是一個或多個關係中的成員。從關係中移除了節點，可能會使得它或它們變成無效。</string>
   <string name="deletenode">刪除節點</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">分割...</string>
@@ -953,7 +956,6 @@
   <string name="config_orthogonalizeThreshold_summary">° 以內的閾值角度將被忽略</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">自動格式的電話號碼</string>
-  <string name="config_autoformatPhoneNumbers_summary">啟用電話號碼的自動格式化功能</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動下載設定</string>
   <string name="config_category_auto_download_summary">資料和任務自動下載的設定</string>
@@ -1115,7 +1117,6 @@
   <string name="undo_action_paste">貼上</string>
   <string name="undo_action_rotateway">路徑旋轉</string>
   <string name="undo_action_orthogonalize">直角化路徑</string>
-  <string name="undo_action_circulize">在圓週排列</string>
   <string name="undo_action_fix_conflict">修正衝突</string>
   <string name="undo_action_extract_node">抽出節點</string>
   <string name="undo_action_apply_osc">套用 OSC 檔案</string>
@@ -1158,6 +1159,7 @@
   <string name="bridge">橋樑</string>
   <string name="tunnel">隧道</string>
   <string name="culvert">涵洞</string>
+  <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="other">%1$d天</item>

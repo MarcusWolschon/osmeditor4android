@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">Hilfe</string>
+    <string name="help_app_description">Vespucci Hilfeanzeige</string>
+    <string name="help_title">Hilfe für: %1$s</string>
     <string name="help_introduction">Einführung</string>
     <string name="help_main">Daten- und Kartenanzeige </string>
     <string name="help_simple_actions">Einfache Aktionen</string>
@@ -7,8 +10,9 @@
     <string name="help_multiselect">Mehrfachauswahl</string>
     <string name="help_longclick">Neue Objekte erstellen</string>
     <string name="help_nodeselection">Knoten ausgewählt</string>
-    <string name="help_pathcreation">Neue Objekte erstellen</string>
+    <string name="help_pathcreation">Wegknoten hinzufügen</string>
     <string name="help_relationselection">Relation ausgewählt</string>
+    <string name='help_add_route_segmement'>Routenteil hinzufügen</string>
     <string name="help_wayselection">Weg ausgewählt</string>
     <string name="help_aligningbackgroundiamgery">Hintergrundbilder justieren</string>
     <string name="help_propertyeditor">Eigenschaften bearbeiten</string>
@@ -23,7 +27,10 @@
     <string name="help_opening_hours">Öffnungszeiten</string>
     <string name="help_newnoteselection">Neue Notizauswahl</string>
     <string name="help_voice_commands">Sprachbefehle</string>
-    <string name="help_upgrade">14.1 Versionshinweise</string>
+    <string name="help_add_route_segment">Routenteil</string>
+    <string name="help_upgrade">15.1 Versionshinweise</string>
+    <string name="help_upgrade_150">15.0 Versionshinweise</string>
+    <string name="help_upgrade_141">14.1 Versionshinweise</string>
     <string name="help_upgrade_140">14.0 Versionshinweise</string>
     <string name="help_upgrade_131">13.1 Versionshinweise</string>
     <string name="help_upgrade_130">13.0 Versionshinweise</string>
@@ -50,6 +57,7 @@
     	<item>@string/help_relationselection</item>
     	<item>@string/help_multiselect</item>
     	<item>@string/help_longclick</item>
+        <item>@string/help_pathcreation</item>
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
     	<item>@string/help_presets</item>	
@@ -63,6 +71,8 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_150</item>
+        <item>@string/help_upgrade_141</item>
         <item>@string/help_upgrade_140</item>
         <item>@string/help_upgrade_131</item>
         <item>@string/help_upgrade_130</item>
@@ -91,6 +101,7 @@
     	<item>Relation selected</item>
     	<item>Multiselect</item>
     	<item>Creating new objects</item>
+        <item>Adding way nodes</item>
         <item>Preferences</item>
         <item>Advanced preferences</item>
     	<item>Presets</item>	
@@ -103,6 +114,8 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>15.1.0 Release notes</item>
+        <item>15.0.0 Release notes</item>
         <item>14.1.0 Release notes</item>
         <item>14.0.0 Release notes</item>
         <item>13.1.0 Release notes</item>

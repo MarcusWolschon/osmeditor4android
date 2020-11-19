@@ -41,6 +41,8 @@
   <string name="go_to_openstreetmap">openstreetmap.org besuchen</string>
   <string name="data_conflict_title">Versionskonflikt</string>
   <string name="data_conflict_message">Der Download enthält Daten, die mit den lokalen Änderungen nicht kompatibel sind. Bitte die Änderungen vor einem neuen Versuch hochladen.</string>
+  <string name="corrupted_data_title">Inkonsistente Daten</string>
+  <string name="corrupted_data_message">Eine Dateninkonsistenz ist entdeckt worden. Bitte als erstes allfällige Änderungen hochladen und dann löschen und aktuelle Ansicht herunterladen ausführen.</string>
   <string name="invalid_bounding_box_title">Ungültiges Begrenzungsrechteck</string>
   <string name="invalid_bounding_box_message">Der ausgewählte Bereich entspricht nicht den API-Beschränkungen, bitte einen anderen auswählen.</string>
   <string name="bounding_box_too_large_title">Gebiet zu groß zum Herunterladen</string>
@@ -181,8 +183,10 @@
   <string name="empty_role">Leere Rolle</string>
   <string name="last_edited">Zuletzt bearbeitet</string>
   <string name="original">Original</string>
+  <string name="previous">Vorheriger</string>
   <string name="current">Aktuell</string>
   <string name="goto_element">Zu Element wechseln</string>
+  <string name="edit_properties">Tags bearbeiten</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON-Feature-Information</string>
   <string name="copy_properties">Eigenschaften kopieren</string>
@@ -198,6 +202,27 @@
   <string name="too_much_data_message"> Es sind%1$d Nodes geladen, mehr als die konfigurierte Maximalwert  Dies macht die App langsam und führt möglicherweise zu Problemen beim Sichern des aktuellen Zustandes. </string>
   <string name="upload_data_now">Änderungen hochladen</string>
   <string name="prune_data_now">Daten zurückschneiden</string>
+  <!--Delete custom preset dialog-->
+  <string name="delete_custom_preset_title">Benutzerdefinierte Vorlage löschen</string>
+  <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_title">Routenteil hinzufügen</string>
+  <string name="duplicate_route_segment_message">Dieser Weg ist bereits ein Teil der Route.</string>
+  <string name="duplicate_route_segment_button">Trotzdem hinzufügen</string>
+  <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_title">Relationsmitglied hinzufügen</string>
+  <string name="duplicate_relation_member_message">Dieses Element ist bereits ein Mitglied der Relation.</string>
+  <string name="duplicate_relation_member_remove_button">Relationsmitglied entfernen</string>
+  <!--Move multi-polygon outer element tags to relation-->
+  <string name="move_outer_tags_title">Eigenschaften von äusseren Ringen auf das Multipolygon verschieben</string>
+  <string name="move_outer_tags_message">Objekt definierende Eigenschaften sollten sich nur auf dem Multipolygon befinden</string>
+  <string name="move">Verschieben</string>
+  <string name="leave_as_is">Wie bisher lassen</string>
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove_duplicate_outer_tags_title">Doppelte Eigenschaften von äusseren Ringen entfernen</string>
+  <string name="remove_duplicate_outer_tags_message">Eigenschaften von äusseren Ringen entfernen die auf dem Multipolygon vorhanden sind.</string>
+  <string name="remove">Entfernen</string>
+  <!--Abort action mode dialog-->
+  <string name="abort_action_title">Aktion abbrechen</string>
   <!---->
   <string name="error">Fehler</string>
   <string name="warning">Warnung</string>
@@ -298,6 +323,8 @@
   <string name="layer_info_end_date">Enddatum</string>
   <string name="layer_info_terms">Bestimmungen</string>
   <string name="layer_info_privacy_policy">Datenschutz</string>
+  <string name="projection">Projektion</string>
+  <string name="errors">Fehler</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Foto löschen</string>
   <string name="photo_viewer_delete_button">Endgültig löschen</string>
@@ -309,12 +336,23 @@
   <string name="api_info_latest_date">Letztes Einfügedatum</string>
   <string name="api_info_attribution">Zuordnung</string>
   <string name="api_info_mapsplit_source">MapSlit-Quelle schreibgeschützt</string>
+  <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">Eigenschaften geändert</string>
+  <string name="tag_conflict_message">Die Operation musste Eigenschaften der beteiligten Objekte ändern.</string>
+  <!--Relation selection dialog-->
+  <string name="no_suitable_relations_message">Keine geeignete Relationen in den heruntergeladenen Daten gefunden</string>
+  <string name="select_route_title">Route auswählen</string>
+  <string name="select_relation_title">Relation auswählen</string>
+  <!--Preset selection dialog-->
+  <string name="select_relation_type_title">Relationstyp auswählen</string>
+  <string name="select_relation_type_other">Andere</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Sicherungspunkt</string>
   <string name="undo_redo_title">Rückgängig - Wiederherstellen</string>
   <string name="undo_redo_one">Nur den ausgewählten Sicherungspunkt (unsicher)</string>
   <string name="undo_all">Alle späteren Sicherungspunkte rückgängig machen (sicher)</string>
   <string name="redo_all">Alle früheren Sicherungspunkte wiederherstellen (sicher)</string>
+  <string name="undo_latest">Neuste</string>
   <!--Undo location not in view dialog-->
   <string name="undo_location_title">Undo-Bereich nicht sichtbar</string>
   <string name="undo_location_text">Der Bereich der vom Undo geändert würde, wird nicht angezeigt.</string>
@@ -337,6 +375,10 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="tip_pan_and_zoom_auto_download">Das automatische Laden der aktuellen Ansicht sollte mit Vorsicht verwendet werden, da es das Potential hat, sowohl die OpenStreetMap API als auch dieses Gerät erheblich zu belasten.&lt;p&gt;Ersteres kann durch die Verwendung einer Offlinedatenquelle vermieden werden.</string>
   <string name="tip_locked_mode">Im gesperrten Zustand kann nicht editiert werden, aber ein langer Click auf ein Objekt zeigt Detailinformationen an.</string>
   <string name="tip_longpress_simple_mode">Im einfachen Modus hat ein langer Klick keine Funktion. Schalte den einfachen Modus ab wenn du mit langem Klick Objekte erstellen willst.</string>
+  <string name="tip_gpx_no_elevation">Ab Version 15 enthalten GPX-Aufzeichnungen standardmässig keine Höhendaten mehr.&lt;p&gt;Um Höhendaten hinzufügen entweder im Werkzeugmenu &lt;i&gt;EGM installieren&lt;/i&gt; auswählen, oder als Standortdatenquelle NMEA Input verwenden.</string>
+  <string name="tip_tag_conflict">Das Zusammenführen und Umdrehen von OSM Objekten führt manchmal dazu, dass Eigenschaften der Objekte geändert werden. Falls das zu einem Fehler oder Konflikt führen könnte wird eine Meldung angezeigt, und die Änderungen können geprüft werden.</string>
+  <string name="tip_gpx_recording">Beim Aufzeichnen eine GPX-Spur verwendet Vespucci Standortdaten um die Aufzeichnung zu ermöglichen auch wenn die App nicht sichtbar ist..&lt;p&gt;Wird die App explizit verlassen, oder die GPX-Aufzeichnung beendet, wird der Standort nicht mehr verwendet.</string>
+  <string name="tip_auto_download">Beim automatischen Download von Daten oder Aufgaben um den aktuellen Standort verwendet Vespucci Standortdaten um den aktuellen Standort zu bestimmen auch wenn die App nicht sichtbar ist..&lt;p&gt;Wird die App explizit verlassen, oder die GPX-Aufzeichnung beendet, wird der Standort nicht mehr verwendet.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -348,6 +390,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="qa_channel_description">Kanal für Qualitätsalarm bei Datenproblemen und Aufgaben</string>
   <!--Toaster-->
   <string name="toast_permission_denied">Zugriff verweigert %1$s</string>
+  <string name="toast_unable_to_persist_permissions">Konnte Dateiberechtigungen nicht auf Dauer bekommen</string>
   <string name="toast_name_empty">Name darf nicht leer sein</string>
   <string name="toast_url_empty">URL darf nicht leer sein</string>
   <string name="toast_min_zoom">Minimaler Zoom muss kleiner sein als der maximale Zoom</string>
@@ -366,7 +409,6 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_merge_overwrote_tags">Achtung: Die Operation hat einen oder mehrere Tags überschrieben</string>
   <string name="toast_cant_autoapply_preset">Die Vorlage kann nicht automatisch angewendet werden</string>
   <string name="toast_oneway_reversed">Die Richtung einer Einbahnstraße oder eines Weges mit richtungsabhängigen Tags wurde geändert. Bitte Tags überprüfen und ggf. korrigieren. </string>
-  <string name="toast_merge_tag_conflict">Es wurden Elemente mit sich widersprechenden Tags, richtungsabhängiger Semantik oder verschiedenen Rollen in derselben Relation zusammengeführt. Bitte Tags und Rollen überprüfen und ggf. korrigieren.</string>
   <string name="toast_potential_merge_tag_conflict">Es sollen Elemente mit sich widersprechenden Tags zusammengeführt werden. Bitte Tags überprüfen und vor einem neuen Versuch korrigieren.</string>
   <string name="toast_state_file_failed">Gespeicherte Zustandsdaten sind unlesbar oder beschädigt </string>
   <string name="toast_way_nodes_moved">%1$dKnoten eines Weges verschoben.</string>
@@ -409,7 +451,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_camera_error">Fehler beim Starten der Kamera-App: %1$s</string>
   <string name="toast_no_voice">Keine Spracherkennung vorhanden</string>
   <string name="toast_storage_error">%1$s ist nicht von Vespucci beschreibbar.\nDies könnte ein Rechteproblem oder ein technisches Problem mit dem Gerät sein.</string>
-  <string name="toast_no_suitable_storage">Das Betriebssystem hat keinen verwendbaren Ort für die Datenbank zurückgegeben. </string>
+  <string name="toast_no_suitable_storage">Das Betriebssystem hat keinen verwendbaren Speicherort für die Datenbank zurückgegeben. </string>
   <string name="toast_min_one_preset">Mindestens 1 Vorlagensatz muss ausgewählt sein!</string>
   <string name="toast_min_one_geocoder">Mindestens 1 Geocoder muss ausgewählt sein!</string>
   <string name="toast_used_backup">Beschädigte Zustandsdatei, Backup verwendet!</string>
@@ -429,6 +471,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_security_error_accessing_photo">Zugriff auf Foto %1$s nicht gestattet</string>
   <string name="toast_no_voice_recognition">Keine Spracherkennung vorhanden</string>
   <string name="toast_no_coverage">%1$s hat hier keine Abdeckung</string>
+  <string name="toast_tile_layer_errors">Die Quelle \'%1$s\'  produziert Fehler</string>
   <string name="toast_file_exists">Datei %1$s existiert bereits.</string>
   <string name="toast_needs_resurvey">Objekt könnte veraltet sein</string>
   <string name="toast_missing_key">Schlüssel %1$s fehlt</string>
@@ -436,7 +479,6 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_openinghours_invalid">Ungültiger Öffnungszeitenwert für %1$s</string>
   <string name="toast_openinghours_autocorrected">Öffnungszeitenwert für %1$s wurde korrigiert</string>
   <string name="toast_exit_multiselect">An einer leeren Stelle doppeltippen oder den Zurückpfeil verwenden, um den Modus zu verlassen</string>
-  <string name="toast_exit_actionmode">\"Zurückpfeil\" wählen, um zu speichern und zu beenden</string>
   <string name="toast_abort_actionmode">\"Zurückpfeil\" wählen, um abzubrechen</string>
   <string name="toast_null_island">Bitte keine Objekte bei 0°/0° (Null Island) hinzufügen</string>
   <string name="toast_string_too_long">Text ist zu lang (%1$d Zeichen), gekürzt!</string>
@@ -481,7 +523,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_members_not_downloaded">Einige Relationsmitglieder sind nicht heruntergeladen</string>
   <string name="toast_restart_required">Vespucci muss neu gestartet werden um diese Änderungen anzuwenden</string>
   <string name="toast_unable_to_open_offline_data">Offline Daten können nicht geöffnet werden %1$s %2$s</string>
-  <string name="toast_no_usable_location">Kein brauchbarer location-Wert</string>
+  <string name="toast_no_usable_location">Keine brauchbare Position</string>
+  <string name="toast_default_channel_needs_to_be_enabled">Standard Benachrichtigungskanal muss eingeschaltet sein um eine Aufzeichnung zu beginnen</string>
   <plurals name="added_required_elements">
     <item quantity="one">Benötigtes Element hinzugefügt</item>
     <item quantity="other">%1$d benötigte Elemente hinzugefügt</item>
@@ -491,6 +534,14 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_invalid_number_format">Ungültiges Zahlenformat %1$s</string>
   <string name="toast_error_downloading_mapillary_image">Fehler beim Laden von Mapillary-Bild %1$s</string>
   <string name="toast_error_downloading_mapillary_sequences">Fehler beim Laden von Mapillary-Sequenz %1$s</string>
+  <string name="toast_split_first_segment">Erstes Routensegment geteilt</string>
+  <string name="toast_split_first_and_next_segment">Das erste und das folgende Routensegment geteilt</string>
+  <string name="toast_split_next_segment">Das nächste Routensegment geteilt</string>
+  <string name="toast_nothing_changed">Keine Änderungen</string>
+  <string name="toast_preset_failed">Vorlage %1$s konnte nicht erstellt werden\nFehler%2$s</string>
+  <string name="toast_outer_rings_differing_tags">Äussere Ringe haben unterschiedliche Eigenschaften</string>
+  <string name="toast_multipolygon_has_incomplete_rings">Das Multipolygon hat unvollständige Ringe</string>
+  <string name="toast_multipolygon_inconsistent_roles">Das Multipolygon had inkonsistente Rollenwerte für einen Ring </string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -546,6 +597,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="tag_menu_preset">Vorlagen</string>
   <string name="tag_menu_apply_preset">Vorlage anwenden</string>
   <string name="tag_menu_apply_preset_with_optional">Vorlage mit opt. Feldern anwenden</string>
+  <string name="tag_menu_show_alternatives">Alternatives Tagging anzeigen</string>
   <string name="tag_menu_revert">Rückgängig</string>
   <string name="tag_menu_mapfeatures">Map-Features-Wiki</string>
   <string name="tag_menu_addtorelation">Zu Relation hinzufügen</string>
@@ -590,7 +642,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="tag_restriction_add_expression">Ausdruck hinzufügen</string>
   <string name="tag_restriction_add_opening_hours">Öffnungszeiten hinzufügen</string>
   <string name="tag_restriction_value_hint">Bedingte Beschränkung</string>
-  <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <string name="default_checkgroup_hint">Zusätzliche Eigenschaften</string>
   <string name="tag_form_unknown_element">Unbekanntes Element (keine Vorlage gefunden)</string>
   <string name="tag_form_untagged_element">Element ohne Attribute</string>
   <!--Custom preset creation-->
@@ -656,9 +708,11 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="menu_remove_node_from_way">Knoten aus Weg entfernen</string>
   <string name="menu_extract">Knoten extrahieren</string>
   <string name="menu_append">Anhängen</string>
+  <string name="menu_create_route">Route erstellen</string>
+  <string name="menu_add_to_route">Zu Route hinzufügen</string>
   <string name="menu_relation">Relation erstellen</string>
   <string name="menu_edit_relation">Relation bearbeiten</string>
-  <string name="menu_add_relation_member">Mitglied hinzufügen</string>
+  <string name="menu_add_relation_member">Relationsmitglied hinzufügen / entfernen</string>
   <string name="menu_select_relation_members">Mitglieder auswählen</string>
   <string name="menu_tag">Tags bearbeiten</string>
   <string name="menu_openstreetbug">Notiz hinzufügen</string>
@@ -792,7 +846,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="deleteway_nodesnotdownloaded_description">Dieser Weg besitzt Punkte außerhalb des heruntergeladenen Bereichs und kann nicht gelöscht werden. Bitte zuerst den ganzen Wegabschnitt herunterladen. </string>
   <string name="deleteway_wayonly">Nur Weg löschen</string>
   <string name="deleteway_wayandnodes">Weg löschen</string>
-  <string name="deletenode_relation_description">Dieser Weg ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
+  <string name="deletenode_relation_description">Dieser Punkt ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht, wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
   <string name="deletenode">Knoten löschen</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">Teilen …</string>
@@ -809,6 +863,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="actionmode_createpath">Pfaderstellung</string>
   <string name="actionmode_multiselect">Mehrfachauswahl</string>
   <string name="actionmode_newnoteselect">Neue Notiz ausgewählt</string>
+  <string name="actionmode_add_segment">Routenteil hinzufügen</string>
+  <string name="actionmode_reselect_first_segment">Erstes Routensegment nochmals auswählen</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Geschlossenen Weg aufspalten, 1. Knoten</string>
   <string name="actionmode_closed_way_split_2">Geschlossenen Weg aufspalten, 2. Knoten</string>
@@ -926,6 +982,11 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_uploadWarn_summary">Grenze unter der ausstehende Objekt-Uploads Warnstatus haben</string>
   <string name="config_dataWarn_title">Zu viele Datenwarnung</string>
   <string name="config_dataWarn_summary">Grenze (Anzahl Nodes) ab welcher wir wegen zu viele Daten warnen</string>
+  <string name="config_useUrlForFeedback_title">Rückmeldungsaktivität deaktivieren</string>
+  <string name="config_useUrlForFeedback_summary">Die Rückmeldungsaktivität deaktivieren und anstatt eine URL verwenden.</string>
+  <string name="config_beepVolume_title">Warntonlautstärke</string>
+  <string name="config_beepVolume_summary">Lautstärke des Warntons.</string>
+  <string name="config_beepVolume_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
   <string name="config_category_editing_summary">Auto-Download-Einstellungen</string>
@@ -1163,6 +1224,16 @@ in %1$d m %2$s</string>
   <string name="bridge">Brücke</string>
   <string name="tunnel">Tunnel</string>
   <string name="culvert"> Durchlass</string>
+  <!--Tag issues-->
+  <string name="issue_not_reversable">Eigenschaft konnte nicht gedreht werden</string>
+  <string name="issue_shared_node">Wird mit anderem Weg geteilt</string>
+  <string name="issue_tags_reversed">Eigenschaften gedreht</string>
+  <string name="issue_role_reversed">Rolle umgedreht</string>
+  <string name="issue_role_conflict">Rollenkonflikt</string>
+  <string name="issue_merged_tags">Eigenschaften zusammengeführt</string>
+  <string name="issue_same_object">Dasselbe Objekt</string>
+  <string name="issue_merged_metric">Löngenabhängiger Wert wurde zusammengeführt</string>
+  <string name="issue_split_metric">Löngenabhängiger Wert wurde geteilt</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 Tag</item>

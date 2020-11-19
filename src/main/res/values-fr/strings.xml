@@ -79,6 +79,7 @@
   <string name="progress_oauth">Chargement de votre compte sur openstreetmap.org pour autorisation OAuth…</string>
   <string name="progress_building_imagery_database">Construction de la base de données des imageries…</string>
   <string name="progress_query_oam">Demande à OAM…</string>
+  <string name="progress_pruning">Élagage...</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">« %1$s » supprimé</string>
   <string name="changes_changed">« %1$s » modifié</string>
@@ -193,6 +194,15 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Attribution</string>
   <!--Too much data dialog-->
+  <string name="too_much_data_title">Trop de données chargées !</string>
+  <string name="upload_data_now">Envoyer les changements</string>
+  <string name="prune_data_now">Élaguer les données</string>
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <!--Abort action mode dialog-->
   <!---->
   <string name="error">Erreur</string>
   <string name="warning">Avertissement</string>
@@ -245,6 +255,7 @@
   <string name="oam_layer_title">Imagerie OAM</string>
   <string name="edit_layer_title">Modifier la couche</string>
   <string name="add_layer_title">Ajouter une couche</string>
+  <string name="select_layer_title">Sélectionner la couche</string>
   <string name="overlay">Sur-couche</string>
   <string name="coverage">Couverture</string>
   <string name="coverage_top">Haut</string>
@@ -253,6 +264,7 @@
   <string name="coverage_bottom">Bas</string>
   <string name="toast_invalid_box">Zone invalide ou incomplète</string>
   <string name="delete_layer">Supprimer la couche ?</string>
+  <string name="add_imagery_from_wms_endpoint">Ajouter une imagerie depuis WMS</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Style de la couche</string>
   <string name="layer_style_stroke_width">Épaisseur des traits</string>
@@ -296,6 +308,9 @@
   <string name="api_info_latest_date">Dernière date incluse</string>
   <string name="api_info_attribution">Attribution</string>
   <string name="api_info_mapsplit_source">Source MapSplit en lecture seule</string>
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Points de contrôles</string>
   <string name="undo_redo_title">Annuler - Refaire</string>
@@ -322,6 +337,7 @@
   <string name="tip_imagery_privacy">Les couches de fond et les surcouches sont fournies par des tierces parties. L\'utilisation d\'une couche transmet votre adresse réseau et une indication imprécise des lieux que vous regardez au fournisseur du service. &lt;p&gt;Si le fournisseur a fournit une information sur sa politique de vie privée, vous pouvez la visualiser dans le menu « Info » du dialogue de la couche en question.</string>
   <string name="tip_pan_and_zoom_auto_download">Vous devriez faire attention avec le téléchargement automatique au déplacement et au zoom  parce qu\'il peut être très demandeur pour les API d\'OpenStreetMap et votre appareil. &lt;p&gt;Vous pouvez éviter de charger les serveurs d\'API en utilisant une source de données hors-ligne.</string>
   <string name="tip_locked_mode">En mode de verrouillage vous ne pouvez rien modifier, mais un appuie long sur un objet ouvrira un écran avec ses informations détaillées.</string>
+  <string name="tip_longpress_simple_mode">Dans le mode simplifié, un appui long est sans effet. Désactivez le mode simplifié dans le menu principal si vous souhaitez utiliser les appuis longs pour créer des objets.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -337,6 +353,7 @@
   <string name="toast_url_empty">Saisissez une URL</string>
   <string name="toast_min_zoom">Indiquez un zoom minimum plus petit que le maximum</string>
   <string name="toast_no_changes">Vous n\'avez encore rien changé…</string>
+  <string name="toast_jpeg_not_transparent">Les images JPEG n\'ont pas de transparence et ne peuvent être utilisées en superposition</string>
   <string name="toast_unsaved_changes">Envoyez vos modifications non enregistrées d\'abord.</string>
   <string name="clear_anyway">Nettoyer quand même ?</string>
   <string name="toast_upload_success">Envoi au serveur OSM effectué.</string>
@@ -350,7 +367,6 @@
   <string name="toast_merge_overwrote_tags">Remarque : l\'opération a réécrit certains attributs</string>
   <string name="toast_cant_autoapply_preset">Ce modèle ne peut pas être appliqué automatiquement</string>
   <string name="toast_oneway_reversed">Vous avez inversé une route à sens unique (oneway), ou un chemin contenant un attribut dépendant de la direction. Vérifiez les attributs et corrigez-les si nécessaire.</string>
-  <string name="toast_merge_tag_conflict">Vous avez fusionné des éléments ayant des attributs incompatibles, dépendant du sens, ou ayant des rôles différents dans une même relation.  Vérifiez les attributs et les rôles et corrigez-les si nécessaire.</string>
   <string name="toast_potential_merge_tag_conflict">Vous essayez de fusionner des élément avec des valeurs d\'attributs incompatibles.\n\nVérifiez les attributs et corrigez-les avant de réessayer.</string>
   <string name="toast_state_file_failed">Fichier d\'état illisible ou corrompu</string>
   <string name="toast_way_nodes_moved">%1$d nœuds dans le chemin déplacé</string>
@@ -420,7 +436,6 @@
   <string name="toast_openinghours_invalid">Horaires d\'ouverture de %1$s invalides</string>
   <string name="toast_openinghours_autocorrected">Les horaires d\'ouvertures de %1$sont été corrigées automatiquement</string>
   <string name="toast_exit_multiselect">Appuyez deux fois sur un espace vide ou utilisez la flèche ← pour quitter</string>
-  <string name="toast_exit_actionmode">Utilisez la flèche ← pour sauvegarder et quitter</string>
   <string name="toast_abort_actionmode">Utilisez la flèche ← pour abandonner</string>
   <string name="toast_null_island">N\'ajoutez pas d\'élément à 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Chaîne trop longue (%1$d caractères), tronquée !</string>
@@ -464,7 +479,9 @@
   <string name="toast_members_not_downloaded">Certains membres de la relation n\'ont pas été chargés</string>
   <string name="toast_restart_required">Vous devez redémarrer Vespucci pour que les changements prennent effet</string>
   <string name="toast_unable_to_open_offline_data">Impossible d\'ouvrir les données hors-ligne %1$s %2$s</string>
+  <string name="toast_no_usable_location">Pas de localisation utilisable</string>
   <string name="toast_out_of_memory">MÉMOIRE INSUFFISANTE!</string>
+  <string name="toast_egm_installed">EGM téléchargé et installé</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Les sources MapSplit doivent avoir un niveau de zoom min et max</string>
   <string name="error_pbf_no_version">Informations de version manquantes dans le fichier PBF</string>
@@ -564,7 +581,6 @@
   <string name="tag_restriction_add_expression">Ajouter une expression</string>
   <string name="tag_restriction_add_opening_hours">Ajouter des horaires d\'ouverture</string>
   <string name="tag_restriction_value_hint">Restriction conditionnelle</string>
-  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <string name="tag_form_unknown_element">Élément inconnu (pas de modèle d\'attributs)</string>
   <string name="tag_form_untagged_element">Élément sans attribut</string>
   <!--Custom preset creation-->
@@ -594,8 +610,15 @@
   <string name="location_nan_message">Saisissez les coordonnées avec décimales (p. ex. « 52.333572 », « 8.741185 »). Lat doit être entre -85.0 et +85.0, et Lon doit être entre -175.0 et +175.0.</string>
   <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_label">Utiliser la</string>
+  <string name="barometer_calibration_current_height">altitude actuelle (mètres)</string>
+  <string name="barometer_calibration_current_reference_pressure">pression actuelle de référence (hPa)</string>
+  <string name="barometer_calibration_gps">GNSS</string>
+  <string name="barometer_calibration_calibrate">Calibrer</string>
   <!--Strings in postition info-->
+  <string name="position_info_title">Informations de position actuelle</string>
   <string name="position_info_altitude">Altitude</string>
+  <string name="position_info_barometric_height">Hauteur barométrique</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Télécharger des fichiers</string>
   <string name="allow_all_networks">Permettre tous les réseaux</string>
@@ -622,7 +645,6 @@
   <string name="menu_append">Prolonger</string>
   <string name="menu_relation">Créer une relation</string>
   <string name="menu_edit_relation">Modifier une relation</string>
-  <string name="menu_add_relation_member">Ajouter un membre</string>
   <string name="menu_select_relation_members">Sélectionner des membres</string>
   <string name="menu_tag">Modifier les attributs</string>
   <string name="menu_openstreetbug">Ajouter une note</string>
@@ -634,6 +656,7 @@
   <string name="menu_gps_goto">Aller à la position actuelle</string>
   <string name="menu_gps_goto_coordinates">Aller aux coordonnées…</string>
   <string name="menu_gps_goto_last_edit">Aller à la dernière modification</string>
+  <string name="menu_gps_position_info">Informations de position actuelle</string>
   <string name="menu_gps_start">Démarrer la trace GPX</string>
   <string name="menu_gps_pause">Mettre en pause la trace GPX</string>
   <string name="menu_gps_clear">Effacer la trace GPX et les points</string>
@@ -643,14 +666,15 @@
   <string name="menu_gps_import">Importer la trace GPX</string>
   <string name="menu_gps_goto_start">Aller au début de la trace</string>
   <string name="menu_gps_goto_first_waypoint">Aller au premier point du chemin</string>
-  <string name="menu_enable_gps_autodownload">Téléchargement automatique basé sur la localisation</string>
-  <string name="menu_enable_pan_and_zoom_auto_download">Téléchargement automatique au déplacement et au zoom</string>
+  <string name="menu_enable_gps_autodownload">Téléchargement auto (localisation GPS)</string>
+  <string name="menu_enable_pan_and_zoom_auto_download">Téléchargement auto (zoom/déplacement)</string>
   <string name="menu_transfer">Transfert des données…</string>
   <string name="menu_transfer_download_current">Télécharger la vue actuelle</string>
   <string name="menu_transfer_download_replace">Nettoyer et télécharger la vue actuelle</string>
   <string name="menu_transfer_load_current">Charger la vue actuelle</string>
   <string name="menu_transfer_load_replace">Nettoyer et charger la vue actuelle</string>
   <string name="menu_transfer_upload">Envoyer les données au serveur OSM</string>
+  <string name="menu_transfer_update">Mettre à jour les données</string>
   <string name="menu_transfer_close_changeset">Fermer le groupe de modifications actuel</string>
   <string name="menu_transfer_file">Fichier…</string>
   <string name="menu_transfer_export">Exporter les changements vers un fichier OSC</string>
@@ -685,19 +709,28 @@
   <string name="menu_circulize">Placer en cercle</string>
   <string name="menu_split_polygon">Découper en polygones</string>
   <string name="menu_unjoin_dissimilar">Séparer les éléments différents</string>
+  <string name="menu_extract_segment">Extraire le segment</string>
   <string name="menu_newnode_gps">Créer un nœud à la position GPS</string>
   <string name="menu_extend_selection">Étendre la sélection</string>
   <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Commandes vocales</string>
+  <string name="menu_upload_element">Envoyer l\'élément</string>
+  <string name="menu_upload_elements">Envoyer les éléments</string>
   <string name="menu_set_name">Renseigner le nom</string>
   <string name="menu_tools">Outils…</string>
+  <string name="menu_tools_imagery">Plus d\'outils d\'imagerie...</string>
   <string name="menu_tools_add_imagery_from_oam">Ajouter une imagerie depuis OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Vider tous les caches de tuiles</string>
   <string name="menu_tools_background_properties">Propriétés du fond de carte</string>
+  <string name="menu_tools_update_imagery_configuration">Mettre à jour la configuration</string>
+  <string name="menu_tools_update_imagery_configuration_eli">Mettre à jour la configuration depuis ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Zoomer sur l\'étendu de la couche de fond de carte</string>
   <string name="menu_tools_clear_clipboard">Effacer le presse-papier</string>
+  <string name="menu_tools_calibrate_height">Calibrer le capteur de pression</string>
+  <string name="menu_tools_install_egm">Installer l\'EGM</string>
+  <string name="menu_tools_remove_egm">Supprimer l\'EGM</string>
   <!---->
-  <string name="menu_simple_actions">Mode simple</string>
+  <string name="menu_simple_actions">Mode simplifié</string>
   <string name="menu_feedback">Faire un retour</string>
   <string name="menu_preset_feedback">Faire un retour sur le modèle</string>
   <string name="menu_privacy">Vie privée</string>
@@ -715,8 +748,13 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Couches…</string>
+  <string name="menu_layers_load_geojson">Ajouter une couche GeoJSON</string>
   <string name="menu_layers_add_backgroundlayer">Ajouter un fond de carte</string>
   <string name="menu_layers_add_overlaylayer">Ajouter une surcouche de carte</string>
+  <string name="menu_layers_add_tasklayer">Activer la couche des tâches</string>
+  <string name="menu_layers_add_grid">Activer la grille</string>
+  <string name="menu_layers_add_photolayer">Activer la couche photos</string>
+  <string name="menu_layers_enable_mapillary_layer">Activer la couche Mapillary</string>
   <string name="menu_layers_configure">Configurer…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Appliquer le décalage enregistré à l\'imagerie</string>
@@ -736,11 +774,9 @@
   <string name="notreversable_description">Ce chemin ne peut être inversé car il contient des attributs dépendants du sens. Inverser ce chemin rendrait ces attributs incorrects.</string>
   <string name="reverse_anyway">Inverser quand même</string>
   <string name="deleteway_description">Vous êtes sur le point de supprimer un chemin. Vous pouvez soit conserver tous ses nœuds, soit supprimer les nœuds sans attribut et n\'appartenant qu\'à ce chemin.</string>
-  <string name="deleteway_relation_description">Vous êtes sur le point de supprimer un chemin qui appartient à une ou plusieurs relations. Supprimer un chemin d\'une relation peut la rendre invalide.</string>
   <string name="deleteway_nodesnotdownloaded_description">Le chemin contient des nœuds en dehors de la zone téléchargée et ne peut pas être supprimé sans endommager les données. Téléchargez-le entièrement et réessayez.</string>
   <string name="deleteway_wayonly">Supprimer uniquement le chemin</string>
   <string name="deleteway_wayandnodes">Supprimer le chemin</string>
-  <string name="deletenode_relation_description">Vous êtes sur le point de supprimer un nœud qui appartient à une ou plusieurs relations. Supprimer un nœud d\'une relation peut la rendre invalide.</string>
   <string name="deletenode">Supprimer le nœud</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">Couper…</string>
@@ -769,6 +805,7 @@
   <string name="actionmode_restriction_restart_to">Re-sélectionner le segment « to »</string>
   <string name="actionmode_restriction_split_from">Séparer le segment « from »</string>
   <string name="actionmode_restriction_split_via">Séparer le segment « via »</string>
+  <string name="actionmode_extract_segment_select">Sélectionner le segment</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">un objet</item>
     <item quantity="other">%1$d objets</item>
@@ -799,7 +836,7 @@
   <string name="config_mapProfile_summary">Choisissez le style de la couche de données</string>
   <string name="config_enableOpenStreetBugs_title">Afficher les tâches</string>
   <string name="config_enableOpenStreetBugs_summary">Permet d\'afficher, modifier et créer des notes, des erreurs et des tâches</string>
-  <string name="config_enablePhotoLayer_title">Activer la couche photos</string>
+  <string name="config_enablePhotoLayer_title">Activer la couche photo</string>
   <string name="config_enablePhotoLayer_summary">Afficher les photos géo-référencées.</string>
   <string name="config_enableKeepScreenOn_title">Garder l\'écran allumé</string>
   <string name="config_enableKeepScreenOn_summary">Ne pas éteindre l\'écran pour économiser l\'énergie.</string>
@@ -865,6 +902,12 @@
   <string name="config_maxStrokeWidth_title">Largeur maximale de ligne</string>
   <string name="config_maxStrokeWidth_summary">Ne pas dessiner de chemin plus épais que ça.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_uploadOk_title">Envois en attente OK</string>
+  <string name="config_uploadOk_summary">Limite sous laquelle les objets en attente d\'envoi sont considérés comme OK</string>
+  <string name="config_uploadWarn_title">Seuil d\'alerte des envois en attente</string>
+  <string name="config_uploadWarn_summary">Limite sous laquelle les objets en attente d\'envoi sont considérés comme OK</string>
+  <string name="config_dataWarn_title">Seuil d\'alerte pour la consommation de données</string>
+  <string name="config_dataWarn_summary">Seuil (en nombre de nœuds) d\'alerte sur la trop forte consommation des données envoyées</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Paramètres de données et de modifications</string>
   <string name="config_category_editing_summary">Paramètres de téléchargement automatique, de sauvegardes et de notifications.</string>
@@ -896,7 +939,6 @@
   <string name="config_orthogonalizeThreshold_summary">La limite en ° au delà de laquelle les angles sont ignorés</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">Formater automatique des numéros de téléphones</string>
-  <string name="config_autoformatPhoneNumbers_summary">Activer le formatage automatique des numéros de téléphones&lt;br&gt;&lt;br&gt;</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Paramètres du téléchargement automatique</string>
   <string name="config_category_auto_download_summary">Les paramètres pour le téléchargement automatique des données et des tâches</string>
@@ -938,6 +980,8 @@
   <string name="config_gnssTimeToStale_title">Emplacement bloqué après</string>
   <string name="config_gnssTimeToStale_summary">L\'âge d\'un point gps (en secondes) pour le considérer comme bloqué.</string>
   <string name="config_gnssTimeToStale_current">%1$d s</string>
+  <string name="config_useBarometricHeight_title">Utiliser la hauteur barométrique</string>
+  <string name="config_useBarometricHeight_summary">Insérer l\'altitude mesurée par le capteur de pression dans les traces si elle est disponible</string>
   <!--Server Settings-->
   <string name="config_category_server">Paramètres du serveur</string>
   <string name="config_category_server_summary">Configuration de l\'API OSM et d\'autres serveurs.</string>
@@ -961,6 +1005,7 @@
   <string name="config_tileCacheSize_summary">Taille totale du cache des tuiles, en Mo.</string>
   <string name="config_tileCache_current">%1$d Mo</string>
   <string name="config_mapillaryCacheSize_title">Taille du cache Mapillary</string>
+  <string name="config_mapillaryCacheSize_summary">Stockage total utilisé pour mettre en cache les images Mapillary (en Mo)</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Divers</string>
   <string name="pref_enable_acra">Signaler les plantages de l\'application</string>
@@ -1055,11 +1100,11 @@
   <string name="undo_action_paste">Coller</string>
   <string name="undo_action_rotateway">Rotation d\'un chemin</string>
   <string name="undo_action_orthogonalize">Chemin rendu orthogonal</string>
-  <string name="undo_action_circulize">Disposition en cercle</string>
   <string name="undo_action_fix_conflict">Résolution de conflit</string>
   <string name="undo_action_extract_node">Extraction de point</string>
   <string name="undo_action_apply_osc">Appliquer un fichier OSC</string>
   <string name="undo_action_remove_node_from_way">Supprimer le nœud du chemin</string>
+  <string name="undo_action_extract_segment">Extraire le segment</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci a planté ou a connu un dysfonctionnement grave lors de sa dernière utilisation.\n\nAidez-nous en cliquant sur « OK » pour envoyer un rapport d\'erreur.\n</string>
   <string name="crash_dialog_comment_prompt">Ajoutez toute information que vous pensez utile, ainsi que (éventuellement) votre nom d\'utilisateur OSM si vous désirez avoir un retour.\n\nMerci.</string>
@@ -1095,6 +1140,8 @@
   <string name="unset_relation_type">Supprimer le type de relation</string>
   <!--Things-->
   <string name="bridge">Pont</string>
+  <string name="tunnel">Tunnel</string>
+  <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 jour</item>

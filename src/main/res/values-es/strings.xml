@@ -197,6 +197,12 @@
   <string name="too_much_data_title">¡Demasiados datos cargados!</string>
   <string name="too_much_data_message">Tiene %1$d nodos cargados y han sobrepasado el límite configurado. Esto hará que la aplicación vaya más despacio. Si añade más datos,  pueden aparecer problemas al guardar el estado.</string>
   <string name="upload_data_now">Subir cambios</string>
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <!--Abort action mode dialog-->
   <!---->
   <string name="error">Error</string>
   <string name="warning">Advertencia</string>
@@ -302,6 +308,9 @@
   <string name="api_info_latest_date">Última fecha incluida</string>
   <string name="api_info_attribution">Atribución</string>
   <string name="api_info_mapsplit_source">Fuente de solo lectura de MapSplit</string>
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Puntos de control</string>
   <string name="undo_redo_title">Deshacer - rehacer</string>
@@ -357,7 +366,6 @@
   <string name="toast_merge_overwrote_tags">Nota - operación sobrescribe etiqueta(s)</string>
   <string name="toast_cant_autoapply_preset">Este predefinido no se puede aplicar automáticamente</string>
   <string name="toast_oneway_reversed">Invirtió una calle de sentido único o un camino con etiquetas dependientes de la dirección. Verifique las etiquetas y corríjalas si es necesario.</string>
-  <string name="toast_merge_tag_conflict">Unió elementos con valores de etiqueta en conflicto, semántica dependiente de la dirección o diferentes roles en la misma relación. Compruebe las etiquetas y los roles y corríjalos si es necesario.</string>
   <string name="toast_potential_merge_tag_conflict">Está intentando fusionar elementos con valores de etiqueta en conflicto.\n\ nCompruebe las etiquetas y corríjalas antes de volver a intentarlo.</string>
   <string name="toast_state_file_failed">No se puede leer el archivo de estado</string>
   <string name="toast_way_nodes_moved">%1$d nodos en vía movida</string>
@@ -427,7 +435,6 @@
   <string name="toast_openinghours_invalid">Valor de horas de apertura no válidas para %1$s</string>
   <string name="toast_openinghours_autocorrected">Horario de apertura de %1$s autocorregido</string>
   <string name="toast_exit_multiselect">Toca dos veces un espacio vacío o usa la flecha ← para salir</string>
-  <string name="toast_exit_actionmode">Use la flecha ← para guardar y salir</string>
   <string name="toast_abort_actionmode">Use la flecha ← para abortar</string>
   <string name="toast_null_island">Por favor, no añada elementos en 0°/0° (Isla Nula)</string>
   <string name="toast_string_too_long">¡Cadena demasiado larga (%1$d carácteres), truncada!</string>
@@ -573,7 +580,6 @@
   <string name="tag_restriction_add_expression">Añadir expresión</string>
   <string name="tag_restriction_add_opening_hours">Añadir horas de apertura</string>
   <string name="tag_restriction_value_hint">Restricción condicional</string>
-  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <string name="tag_form_unknown_element">Elemento desconocido (sin predefinido)</string>
   <string name="tag_form_untagged_element">Elemento sin etiquetar</string>
   <!--Custom preset creation-->
@@ -635,7 +641,6 @@
   <string name="menu_append">Anexar</string>
   <string name="menu_relation">Crear relación</string>
   <string name="menu_edit_relation">Editar relación</string>
-  <string name="menu_add_relation_member">Añadir miembro</string>
   <string name="menu_select_relation_members">Miembros seleccionados</string>
   <string name="menu_tag">Editar etiquetas</string>
   <string name="menu_openstreetbug">Añadir nota</string>
@@ -693,7 +698,7 @@
   <string name="menu_paste_from_clipboard">Pegar desde el portapapeles</string>
   <string name="menu_zoom_to_selection">Acercar para seleccionar</string>
   <string name="menu_rotate">Girar</string>
-  <string name="menu_orthogonalize">Plaza cívica</string>
+  <string name="menu_orthogonalize">Escuadrar</string>
   <string name="menu_straighten">Enderezar</string>
   <string name="menu_circulize">Organizar en círculo</string>
   <string name="menu_split_polygon">Dividir en polígonos</string>
@@ -749,11 +754,9 @@
   <string name="notreversable_description">Esta vía es irreversible debido a que está etiquetada con atributos direccionalmente dependientes. Invertirla rompería el etiquetado.</string>
   <string name="reverse_anyway">Invertir de todas formas</string>
   <string name="deleteway_description">Está a punto de eliminar una vía.\n\nPuede mantener todos los nodos o eliminar aquellos que solo pertenecen a este camino y que no tienen etiquetas.</string>
-  <string name="deleteway_relation_description">Está a punto de eliminar una vía que es miembro de una o más relaciones. Eliminar cualquier vía que tenga tales relaciones puede invalidarlo.</string>
   <string name="deleteway_nodesnotdownloaded_description">El camino contiene nodos fuera del área descargada y no se puede eliminar sin crear un estado inconsistente. Descargue todo antes de volver a intentarlo.</string>
   <string name="deleteway_wayonly">Eliminar solo la vía</string>
   <string name="deleteway_wayandnodes">Eliminar vía</string>
-  <string name="deletenode_relation_description">Está a punto de eliminar un nodo que es miembro de una o más relaciones. Eliminar cualquier nodo que tenga tales relaciones puede invalidarlo.</string>
   <string name="deletenode">Borrar nodo</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">Dividir...</string>
@@ -909,7 +912,6 @@
   <string name="config_orthogonalizeThreshold_summary">El umbral en ° sobre el cual se ignoran los ángulos</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">Números telefónicos con formato automático</string>
-  <string name="config_autoformatPhoneNumbers_summary">Habilite el formateo automático de números de teléfono.</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Configuración de descarga automática</string>
   <string name="config_category_auto_download_summary">Configuraciones para descarga automática de datos y tareas</string>
@@ -1067,7 +1069,6 @@
   <string name="undo_action_paste">Pegar</string>
   <string name="undo_action_rotateway">Rotación de la vía</string>
   <string name="undo_action_orthogonalize">Escuadrar vía</string>
-  <string name="undo_action_circulize">Organizar en círculo</string>
   <string name="undo_action_fix_conflict">Resolución de conflictos</string>
   <string name="undo_action_extract_node">Extracción de nodo</string>
   <string name="undo_action_apply_osc">Aplicar archivo OSC</string>
@@ -1106,6 +1107,7 @@
   <string name="delete_from_relation_description">Está a punto de eliminar este elemento de una relación.</string>
   <string name="unset_relation_type">Tipo de relación sin especificar</string>
   <!--Things-->
+  <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 día</item>

@@ -155,6 +155,7 @@
   <string name="geocoder_prompt">z</string>
   <string name="geocoder_limit_label">w widoku</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">Szukaj obiektów.</string>
   <!---->
   <string name="preset_search_hint">Wpisz nazwę szablonu</string>
   <string name="preset_autopreset">Automatyczny szablon</string>
@@ -184,10 +185,18 @@
   <string name="feature_information">Informacja o obiekcie GeoJSON</string>
   <string name="copy_properties">Kopiuj właściwości</string>
   <!--API/Data layer info dialog-->
+  <string name="data_in_memory">Dane w pamięci.</string>
   <string name="ways">Drogi</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Przypisanie</string>
   <!--Too much data dialog-->
+  <string name="upload_data_now">Prześlij zmiany</string>
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <!--Abort action mode dialog-->
   <!---->
   <string name="error">Błąd</string>
   <string name="warning">Ostrzeżenie</string>
@@ -239,6 +248,7 @@
   <string name="oam_layer_title">Zdjęcia OAM</string>
   <string name="edit_layer_title">Edytuj warstwę</string>
   <string name="add_layer_title">Dodaj warstwę</string>
+  <string name="select_layer_title">Wybierz warstwę.</string>
   <string name="overlay">Nakładka</string>
   <string name="coverage">Zasięg</string>
   <string name="coverage_top">Góra</string>
@@ -267,6 +277,7 @@
   <string name="layer_select_imagery">Wybierz podkład</string>
   <string name="layer_category_all">Wszystkie</string>
   <string name="layer_category_map">Mapa</string>
+  <string name="layer_category_historicmap">Przestarzała mapa</string>
   <string name="layer_category_other">Inna</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Minimalne powiększenie</string>
@@ -284,6 +295,9 @@
   <string name="api_info_latest_date">Data ostatniej aktualizacji</string>
   <string name="api_info_attribution">Przypisanie</string>
   <string name="api_info_mapsplit_source">Źródło MapSplit tylko do odczytu</string>
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Punkty kontrolne</string>
   <string name="undo_redo_title">Cofnij – Ponów</string>
@@ -329,7 +343,6 @@
   <string name="toast_preset_overwrote_tags">Uwaga – szablon zmienił znacznik(i)</string>
   <string name="toast_merge_overwrote_tags">Uwaga – czynność zmieniła znacznik(i)</string>
   <string name="toast_oneway_reversed">Odwrócono kierunek drogi jednokierunkowej lub drogi z kierunkiem zależnym od znaczników. Sprawdź znaczniki i popraw je w razie potrzeby.</string>
-  <string name="toast_merge_tag_conflict">Połączono obiekty, które mają sprzeczne wartości znaczników, kierunek zależny lub różne role w tej samej relacji. Sprawdź znaczniki oraz role i popraw je w razie potrzeby.</string>
   <string name="toast_potential_merge_tag_conflict">Próbujesz połączyć obiekty, które mają sprzeczne wartości znaczników.\n\nSprawdź i popraw znaczniki przed połączeniem.</string>
   <string name="toast_state_file_failed">Nieczytelny lub uszkodzony plik stanu</string>
   <string name="toast_way_nodes_moved">%1$d węzłów w przenoszonej linii</string>
@@ -403,7 +416,6 @@
   <string name="toast_openinghours_invalid">Niepoprawne godziny otwarcia dla %1$s</string>
   <string name="toast_openinghours_autocorrected">Wartość godzin otwarcia dla %1$s została automatycznie poprawiona</string>
   <string name="toast_exit_multiselect">Dwukrotnie dotknij pustego miejsca lub użyj strzałki ←, aby wyjść</string>
-  <string name="toast_exit_actionmode">Użyj strzałki ←, aby zapisać i wyjść</string>
   <string name="toast_abort_actionmode">Użyj strzałki ←, aby przerwać</string>
   <string name="toast_null_island">Prosimy nie dodawać obiektów na 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Napis za długi (%1$d znaków), został przycięty!</string>
@@ -541,7 +553,6 @@
   <string name="tag_restriction_add_expression">Dodaj wyrażenie</string>
   <string name="tag_restriction_add_opening_hours">Dodaj godziny otwarcia</string>
   <string name="tag_restriction_value_hint">Ograniczenia warunkowe</string>
-  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <string name="tag_form_unknown_element">Nieznany element (brak szablonu)</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Utwórz własny szablon</string>
@@ -569,7 +580,9 @@
   <string name="location_nan_message">Wprowadź współrzędne w formacie dziesiętnym (np. \"52.333572\",\"8.741185\"). Szer. musi być z zakresu od −85.0 do +85.0, a dł. od −175.0 do +175.0.</string>
   <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_label">Użyj</string>
   <!--Strings in postition info-->
+  <string name="position_info_altitude">Wysokość</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Pobierz pliki</string>
   <string name="allow_all_networks">Pozwól na wszystkie sieci</string>
@@ -596,7 +609,6 @@
   <string name="menu_append">Dołącz</string>
   <string name="menu_relation">Utwórz relację</string>
   <string name="menu_edit_relation">Edycja relacji</string>
-  <string name="menu_add_relation_member">Dodaj człon relacji</string>
   <string name="menu_select_relation_members">Zaznacz człony relacji</string>
   <string name="menu_tag">Edytuj znaczniki</string>
   <string name="menu_openstreetbug">Dodaj uwagę</string>
@@ -625,6 +637,7 @@
   <string name="menu_transfer_load_current">Wczytaj bieżący widok</string>
   <string name="menu_transfer_load_replace">Wyczyść i wczytaj bieżący widok</string>
   <string name="menu_transfer_upload">Wyślij zmiany</string>
+  <string name="menu_transfer_update">Uaktualnij dane</string>
   <string name="menu_transfer_close_changeset">Zamknij zestaw zmian</string>
   <string name="menu_transfer_file">Plik…</string>
   <string name="menu_transfer_export">Eksportuj zmiany do pliku OSC</string>
@@ -662,13 +675,18 @@
   <string name="menu_extend_selection">Dodaj do zaznaczenia</string>
   <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Polecenia głosowe</string>
+  <string name="menu_upload_element">Wyślij element</string>
+  <string name="menu_upload_elements">Wyślij elementy</string>
   <string name="menu_set_name">Nazwij</string>
   <string name="menu_tools">Narzędzia...</string>
   <string name="menu_tools_add_imagery_from_oam">Dodaj warstwy z OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Wyczyść cache kafelków</string>
   <string name="menu_tools_background_properties">Właściwości podkładu</string>
+  <string name="menu_tools_update_imagery_configuration">Aktualizuj konfigurację</string>
   <string name="menu_tools_zoom_to_layer_extent">Pokaż cały obszar objęty warstwą wyświetlaną w tle</string>
   <string name="menu_tools_clear_clipboard">Wyczyść schowek</string>
+  <string name="menu_tools_install_egm">Instaluj EGM</string>
+  <string name="menu_tools_remove_egm">Usuń EGM</string>
   <!---->
   <string name="menu_simple_actions">Tryb prosty</string>
   <string name="menu_feedback">Przekaż opinię</string>
@@ -688,8 +706,12 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Warstwy...</string>
+  <string name="menu_layers_load_geojson">Dodaj warstwę GeoJSON</string>
   <string name="menu_layers_add_backgroundlayer">Dodaj warstwę podkładu tła</string>
   <string name="menu_layers_add_overlaylayer">Dodaj nakładkę warstwy podkładu</string>
+  <string name="menu_layers_add_tasklayer">Włącz warstwę zadań</string>
+  <string name="menu_layers_add_grid">Włącz siatkę</string>
+  <string name="menu_layers_add_photolayer">Włącz warstwę zdjęć</string>
   <string name="menu_layers_configure">Konfiguracja…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Zastosuj zapamiętaną poprawkę położenia tła</string>
@@ -709,11 +731,9 @@
   <string name="notreversable_description">Ta linia nie może być odwrócona ze względu na znaczniki zależne od jej kierunku. Odwrócenie jej może je zepsuć.</string>
   <string name="reverse_anyway">Odwróć mimo to</string>
   <string name="deleteway_description">Masz zamiar usunąć linię.\n\nMożesz zachować wszystkie węzły lub usunąć te, które należą tylko do tej linii i są pozbawione znaczników.</string>
-  <string name="deleteway_relation_description">Zamierzasz usunąć linię będącą członem jednej lub kilku relacji. Usunięcie dowolnej linii z takich relacji może uczynić je niepoprawnymi.</string>
   <string name="deleteway_nodesnotdownloaded_description">Linia zawiera węzły poza pobranym obszarem i nie można jej usunąć bez utworzenia niespójnego stanu. Pobierz wszystko zanim spróbujesz ponownie.</string>
   <string name="deleteway_wayonly">Tylko usuń linię</string>
   <string name="deleteway_wayandnodes">Usuń linię</string>
-  <string name="deletenode_relation_description">Zamierzasz usunąć węzeł będący członem jednej lub kilku relacji. Usunięcie dowolnego węzła z takich relacji może uczynić je niepoprawnymi.</string>
   <string name="deletenode">Usuń węzeł</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">Podziel…</string>
@@ -742,6 +762,8 @@
   <string name="actionmode_restriction_restart_to">Ponownie wybierz segment \"to\"</string>
   <string name="actionmode_restriction_split_from">Podziel segment \"z\"</string>
   <string name="actionmode_restriction_split_via">Podziel segment \"przez\"</string>
+  <string name="actionmode_extract_segment_select">Wybierz segment</string>
+  <string name="actionmode_extract_segment_set_tags">Ustaw znacznik</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 obiekt</item>
     <item quantity="few">%1$d obiekty</item>
@@ -838,6 +860,7 @@
   <string name="config_maxStrokeWidth_title">Maksymalna szerokość linii</string>
   <string name="config_maxStrokeWidth_summary">Nie wyświetlaj linii grubszych niż.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_upload_current">%1$d obiektów</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Dane i ustawienia edycji</string>
   <string name="config_category_editing_summary">Opcje automatycznego pobierania, zapisywania i powiadomień.</string>
@@ -1017,7 +1040,6 @@
   <string name="undo_action_paste">Wklej</string>
   <string name="undo_action_rotateway">Obrót linii</string>
   <string name="undo_action_orthogonalize">Poprawienie prost. linii</string>
-  <string name="undo_action_circulize">Ułożenie na okręgu</string>
   <string name="undo_action_fix_conflict">Rozwiązanie konfliktu</string>
   <string name="undo_action_extract_node">Wydzielenie węzła</string>
   <string name="undo_action_apply_osc">Zastosuj plik OSC</string>
@@ -1056,6 +1078,7 @@
   <string name="delete_from_relation_description">Zamierzasz usunąć ten element z relacji.</string>
   <string name="unset_relation_type">Nieoznaczony typ relacji</string>
   <!--Things-->
+  <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 dzień</item>

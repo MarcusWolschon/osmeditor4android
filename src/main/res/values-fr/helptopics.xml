@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_title">Aide: %1$s</string>
     <string name="help_introduction">Introduction</string>
     <string name="help_main">Affichage de la carte principale</string>
     <string name="help_simple_actions">Actions simples</string>
@@ -7,7 +8,6 @@
     <string name="help_multiselect">Sélection Multiple</string>
     <string name="help_longclick">Créer de nouveaux objets</string>
     <string name="help_nodeselection">nœud sélectionné</string>
-    <string name="help_pathcreation">Créer de nouveaux objets</string>
     <string name="help_relationselection">Relation sélectionnée</string>
     <string name="help_wayselection">Chemin sélectionné</string>
     <string name="help_aligningbackgroundiamgery">Aligner l\'imagerie d\'arrière plan</string>
@@ -23,6 +23,7 @@
     <string name="help_opening_hours">Horaires d\'ouverture</string>
     <string name="help_newnoteselection">Sélection d\'une nouvelle note</string>
     <string name="help_voice_commands">Commandes vocales</string>
+    <string name="help_upgrade_140">Notes de publication de la version 14.0</string>
     <string name="help_upgrade_131">Notes de publication de la version 13.1</string>
     <string name="help_upgrade_130">Notes de publication de la version 13.0</string>
     <string name="help_upgrade_121">Notes de publication de la version 12.1</string>
@@ -48,6 +49,7 @@
     	<item>@string/help_relationselection</item>
     	<item>@string/help_multiselect</item>
     	<item>@string/help_longclick</item>
+        <item>@string/help_pathcreation</item>
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
     	<item>@string/help_presets</item>	
@@ -61,6 +63,8 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_150</item>
+        <item>@string/help_upgrade_141</item>
         <item>@string/help_upgrade_140</item>
         <item>@string/help_upgrade_131</item>
         <item>@string/help_upgrade_130</item>
@@ -89,6 +93,7 @@
     	<item>Relation selected</item>
     	<item>Multiselect</item>
     	<item>Creating new objects</item>
+        <item>Adding way nodes</item>
         <item>Preferences</item>
         <item>Advanced preferences</item>
     	<item>Presets</item>	
@@ -101,6 +106,8 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>15.1.0 Release notes</item>
+        <item>15.0.0 Release notes</item>
         <item>14.1.0 Release notes</item>
         <item>14.0.0 Release notes</item>
         <item>13.1.0 Release notes</item>

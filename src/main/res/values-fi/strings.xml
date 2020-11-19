@@ -103,6 +103,7 @@
   <string name="openstreetbug_not_supported">Tehtävää %1$s ei tueta.</string>
   <string name="note_description">Huomio: %1$s - %2$s</string>
   <string name="bug_description">%1$s: %2$s - %3$s</string>
+  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Virhe</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">Muu</string>
@@ -169,8 +170,16 @@
   <string name="feature_information">Tietoja GeoJSON-kohteesta</string>
   <string name="copy_properties">Kopioi ominaisuudet</string>
   <!--API/Data layer info dialog-->
+  <string name="total">Yhteensä</string>
+  <string name="ways">Viivat</string>
   <!--Tile layer info dialog-->
   <!--Too much data dialog-->
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <!--Abort action mode dialog-->
   <!---->
   <string name="error">Virhe</string>
   <string name="warning">Varoitus</string>
@@ -192,6 +201,7 @@
   <string name="validator_title">Tarkistimen sääntöryhmä %1$s</string>
   <string name="edit_resurvey_title">Muokkaa kontrollikäyntiä</string>
   <string name="add_resurvey_title">Lisää kontrollikäynti</string>
+  <string name="check_entries">Tarkista</string>
   <string name="edit_check_title">Lisää tarkistus</string>
   <string name="add_check_title">Lisää tarkistus</string>
   <string name="max_age">Suurin ikä</string>
@@ -218,6 +228,7 @@
   <string name="oam_layer_title">OAM-kuvasto</string>
   <string name="edit_layer_title">Muokkaa tasoa</string>
   <string name="add_layer_title">Lisää taso</string>
+  <string name="select_layer_title">Valitse taso</string>
   <string name="overlay">Peittotaso</string>
   <string name="coverage">Rajakoordinaatit</string>
   <string name="coverage_top">Ylä</string>
@@ -235,6 +246,7 @@
   <string name="json_array_not_displayed">JSON-kokoelma (ei näkyvissä)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Ruudukko</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Valokuvat</string>
@@ -249,6 +261,9 @@
   <!--Layer info dialog-->
   <!--Photo viewer-->
   <!--API info dialog-->
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Tarkastuspisteet</string>
   <string name="undo_redo_title">Peru / palauta</string>
@@ -287,7 +302,6 @@
   <string name="toast_preset_overwrote_tags">Huomio: esivalinta muutti tägejä</string>
   <string name="toast_merge_overwrote_tags">Huomio: toiminto muutti tägejä</string>
   <string name="toast_oneway_reversed">Muutit yksisuuntaisen kadun tai suuntariippuvaisia tägejä sisältävän viivan suunnan. Tarkista tägit ja korjaa ne tarvittaessa.</string>
-  <string name="toast_merge_tag_conflict">Sulautit yhteen elementtejä, joilla on ristiriitaisia tägejä, suunnasta riippuvia merkityksiä tai useita rooleja samassa relaatiossa. Tarkista tägit ja relaatiot, ja korjaa ne tarvittaessa.</string>
   <string name="toast_potential_merge_tag_conflict">Yritit sulauttaa yhteen elementtejä, joilla on ristiriitaisia tägejä.\n\nTarkista tägit ja korjaa ne ennen uutta yritystä.</string>
   <string name="toast_state_file_failed">Tiedostoa ei voi lukea tai se on vioittunut</string>
   <string name="toast_way_nodes_moved">%1$d pistettä siirretyssä viivassa</string>
@@ -352,7 +366,6 @@
   <string name="toast_openinghours_invalid">Kohteella %1$s on virheellinen aukioloaika</string>
   <string name="toast_openinghours_autocorrected">Kohteen %1$s aukioloaika korjattiin automaattisesti</string>
   <string name="toast_exit_multiselect">Napauta kahdesti tyhjään kohtaan tai käytä nuolta ←, jos haluat poistua</string>
-  <string name="toast_exit_actionmode">Käytä nuolta ←, jos haluat tallentaa ja poistua</string>
   <string name="toast_abort_actionmode">Käytä nuolta ←, jos haluat keskeyttää</string>
   <string name="toast_null_island">Älä lisää elementtejä paikkaan 0°/0° (Nollasaari)</string>
   <string name="toast_string_too_long">Liian pitkä merkkijono (%1$d merkkiä) katkaistiin!</string>
@@ -376,6 +389,7 @@
   <string name="toast_task_layer_disabled">Tehtävätaso pois päältä</string>
   <string name="toast_unable_to_create_task_layer">Tehtävätaasoa ei voitu luoda</string>
   <string name="toast_merged">Sulautettu yhteen</string>
+  <string name="toast_out_of_memory">MUISTI LOPPU!</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Kyllä</string>
@@ -467,7 +481,6 @@
   <string name="tag_restriction_add_expression">Lisää lauseke</string>
   <string name="tag_restriction_add_opening_hours">Lisää aukioloaika</string>
   <string name="tag_restriction_value_hint">Ehdollinen rajoitus</string>
-  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <string name="tag_form_unknown_element">Tuntematon elementti (ei esivalintaa)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
@@ -480,6 +493,7 @@
   <string name="location_last_text_parameterized">Viimeksi tunnettu sijainti: %1$s</string>
   <string name="location_current_text_parameterized">Nykyinen sijainti: %1$s</string>
   <string name="location_text_metadata_location">\nlev %1$4g, pit %2$4g\n%3$s %4$s sitten</string>
+  <string name="location_text_metadata">(%1$s%2$s)</string>
   <string name="location_coordinates_text">Koordinaateista:</string>
   <string name="location_lat_label">Lev:</string>
   <string name="location_lon_label">Pit:</string>
@@ -488,8 +502,11 @@
   <string name="location_load_dismiss">Kartalle</string>
   <string name="location_nan_title">Virheellinen syöte!</string>
   <string name="location_nan_message">Syötä koordinaatit desimaalimuodossa (esim. \"52.333572\",\"8.741185\"). Lev. pitää olla välillä -85.0–+85.0, ja Pit. välillä -175.0–+175.0.</string>
+  <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_gps">GNSS</string>
   <!--Strings in postition info-->
+  <string name="position_info_hdop">HDOP</string>
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
   <!--Menu-->
@@ -507,7 +524,6 @@
   <string name="menu_append">Jatka</string>
   <string name="menu_relation">Luo relaatio</string>
   <string name="menu_edit_relation">Muokkaa relaatiota</string>
-  <string name="menu_add_relation_member">Lisää jäsen</string>
   <string name="menu_select_relation_members">Valitse jäsenet</string>
   <string name="menu_tag">Muokkaa tägejä</string>
   <string name="menu_openstreetbug">Lisää huomio</string>
@@ -609,11 +625,9 @@
   <string name="notreversable_description">Tätä viivaa ei voi kääntää, koska sillä on suunnasta riippuvia ominaisuuksia. Kääntäminen tekisi tägeistä virheellisiä.</string>
   <string name="reverse_anyway">Käännä kuitenkin</string>
   <string name="deleteway_description">Olet poistamassa viivaa.\n\nVoit säilyttää kaikki pisteet tai poistaa vain tähän viivaan kuuluvat tägittömät pisteet.</string>
-  <string name="deleteway_relation_description">Olet poistamassa viivaa, joka on jäsenenä ainakin yhdessä relaatiossa. Tälläisten viivojen poistaminen voi sotkea relaatiot.</string>
   <string name="deleteway_nodesnotdownloaded_description">Osa viivan pisteistä on ladatun alueen ulkopuolella, ja sen poistaminen johtaisi epäjohdonmukaiseen tilaan. Lataa koko viiva ennen uutta yritystä.</string>
   <string name="deleteway_wayonly">Poista pelkkä viiva</string>
   <string name="deleteway_wayandnodes">Poista viiva</string>
-  <string name="deletenode_relation_description">Olet poistamassa pistettä, joka on jäsenenä ainakin yhdessä relaatiossa. Tälläisten pisteiden poistaminen voi sotkea relaatiot.</string>
   <string name="deletenode">Poista piste</string>
   <!--EasyEdit context menus-->
   <string name="delete_note_description">Huomion poistamista ei voi perua!</string>
@@ -636,6 +650,8 @@
   <string name="actionmode_restriction_restart_to">Valitse \"to\"-viiva uudestaan</string>
   <string name="actionmode_restriction_split_from">Jaa \"from\"-viiva</string>
   <string name="actionmode_restriction_split_via">Jaa \"via\"-viiva</string>
+  <string name="actionmode_extract_segment_select">Valitse segmentti</string>
+  <string name="actionmode_extract_segment_set_tags">Aseta tägit</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 kohde</item>
     <item quantity="other">%1$d kohdetta</item>
@@ -722,6 +738,7 @@
   <string name="config_maxStrokeWidth_title">Viivan enimmäispaksuus</string>
   <string name="config_maxStrokeWidth_summary">Älä piirrä tätä paksumpia viivoja</string>
   <string name="config_maxStrokeWidth_current">%1$d pikseliä</string>
+  <string name="config_upload_current">%1$d kohdetta</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Data- ja muokkausasetukset</string>
   <string name="config_category_editing_summary">Automaattilataus-, tallennus ja ilmoitusasetukset.</string>
@@ -747,6 +764,7 @@
   <string name="config_closeChangesetOnSave_summary">Sulje muutossetit oletusarvoisesti tallennettaessa.</string>
   <string name="config_enableAutoPresets_title">Käytä esivalintojen automaattiluontia</string>
   <string name="config_enableAutoPresets_summary">Salli esivalintojen luonti taginfosta.</string>
+  <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Lataussäde</string>
   <string name="config_extTriggeredDownloadRadius_summary">Säde (m) ulkopuolelta käynnistetyille latauksille, 0 = pelkkä kartan keskitys.</string>
@@ -754,6 +772,7 @@
   <string name="config_maxDownloadSpeed_title">Suurin nopeus automaattilataukselle</string>
   <string name="config_maxDownloadSpeed_summary">Nopeusraja (km/h) jonka ylittyessä automaattilataus keskeytetään.</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_panAndZoomLimit_current">%1$d</string>
   <string name="config_bugFilter_title">Tehtäväsuodatin</string>
   <string name="config_bugFilter_summary">Valitse muistiinpano-, virhe ja tehtävätasolla näytettävät kohteet.</string>
   <string name="config_bugDownloadRadius_title">Tehtävien lataussäde</string>
@@ -892,7 +911,6 @@
   <string name="undo_action_paste">Liittäminen</string>
   <string name="undo_action_rotateway">Viivan pyöritys</string>
   <string name="undo_action_orthogonalize">Viivan suorakulmaistus</string>
-  <string name="undo_action_circulize">Järjestetty ympyrälle</string>
   <string name="undo_action_fix_conflict">Ristiriidan ratkaisu</string>
   <string name="undo_action_extract_node">Pisteen irrotus</string>
   <!--ACRA-->
@@ -928,7 +946,34 @@
   <string name="delete_from_relation_description">Olet poistamassa tämän elementin relaatiosta.</string>
   <string name="unset_relation_type">Relaation tyyppi asettamatta</string>
   <!--Things-->
+  <string name="bridge">Silta</string>
+  <string name="tunnel">Tunneli</string>
+  <!--Tag issues-->
   <!--time and distance-->
+  <plurals name="days">
+    <item quantity="one">1 päivä</item>
+    <item quantity="other">%1$d päivää</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">1 tunti</item>
+    <item quantity="other">%1$d tuntia</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">1 minuutti</item>
+    <item quantity="other">%1$d minuuttia</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">1 sekunti</item>
+    <item quantity="other">%1$d sekuntia</item>
+  </plurals>
+  <plurals name="km">
+    <item quantity="one">1 km</item>
+    <item quantity="other">%1$d km</item>
+  </plurals>
+  <plurals name="meters">
+    <item quantity="one">1 metri</item>
+    <item quantity="other">%1$d metriä</item>
+  </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Tähän ei ole ohjetta.</string>
 </resources>

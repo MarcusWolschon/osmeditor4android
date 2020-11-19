@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_title">Ayuda: %1$s</string>
     <string name="help_introduction">Introducción</string>
     <string name="help_main">Pantalla principal del mapa</string>
+    <string name="help_simple_actions">Acciones simples</string>
     <string name="help_addrelationmember">Relación seleccionada</string>
     <string name="help_multiselect">Multiselección</string>
     <string name="help_longclick">Crear nuevos objetos</string>
     <string name="help_nodeselection">Nodo seleccionado</string>
-    <string name="help_pathcreation">Crear nuevos objetos</string>
     <string name="help_relationselection">Relación seleccionada</string>
     <string name="help_wayselection">Vía seleccionada</string>
     <string name="help_aligningbackgroundiamgery">Alinear imagen de fondo</string>
     <string name="help_propertyeditor">Editor de propiedades</string>
     <string name="help_preferences">Preferencias</string>
     <string name="help_advanced_preferences">Preferencias avanzadas</string>
-    <string name="help_presets">Predeterminados</string>
+    <string name="help_presets">Predefinidos</string>
     <string name="help_conflictresolution">Resolución de conflictos</string>
     <string name="help_gpssources">Fuentes GPS</string>
     <string name="help_keyboard">Teclado</string>
     <string name="help_tagfilter">Filtro de etiquetas</string>
-    <string name="help_presetfilter">Filtro de predeterminados</string>
+    <string name="help_presetfilter">Filtro de predefinido</string>
     <string name="help_opening_hours">Horarios de apertura</string>
+    <string name="help_newnoteselection">Nueva selección de nota</string>
     <string name="help_voice_commands">Comandos de voz</string>
+    <string name="help_upgrade_140">14.0 Notas de versión</string>
+    <string name="help_upgrade_131">13.1 Notas de versión</string>
+    <string name="help_upgrade_130">13.0 Notas de versión</string>
+    <string name="help_upgrade_121">12.1 Notas de versión</string>
+    <string name="help_upgrade_120">12.0 Notas de versión</string>
+    <string name="help_upgrade_112">11.2 Notas de versión</string>
+    <string name="help_upgrade_111">11.1 Notas de versión</string>
     <string name="help_upgrade_110">11.0 Notas de versión</string>
     <string name="help_upgrade_102">10.2 Notas de versión</string>
     <string name="help_upgrade_101">10.1 Notas de versión</string>
@@ -40,6 +49,7 @@
     	<item>@string/help_relationselection</item>
     	<item>@string/help_multiselect</item>
     	<item>@string/help_longclick</item>
+        <item>@string/help_pathcreation</item>
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
     	<item>@string/help_presets</item>	
@@ -53,6 +63,8 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_150</item>
+        <item>@string/help_upgrade_141</item>
         <item>@string/help_upgrade_140</item>
         <item>@string/help_upgrade_131</item>
         <item>@string/help_upgrade_130</item>
@@ -81,6 +93,7 @@
     	<item>Relation selected</item>
     	<item>Multiselect</item>
     	<item>Creating new objects</item>
+        <item>Adding way nodes</item>
         <item>Preferences</item>
         <item>Advanced preferences</item>
     	<item>Presets</item>	
@@ -93,6 +106,8 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>15.1.0 Release notes</item>
+        <item>15.0.0 Release notes</item>
         <item>14.1.0 Release notes</item>
         <item>14.0.0 Release notes</item>
         <item>13.1.0 Release notes</item>

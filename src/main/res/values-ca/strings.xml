@@ -177,6 +177,12 @@
   <!--API/Data layer info dialog-->
   <!--Tile layer info dialog-->
   <!--Too much data dialog-->
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <!--Abort action mode dialog-->
   <!---->
   <string name="error">Error</string>
   <string name="warning">Avís</string>
@@ -262,6 +268,9 @@
   <string name="layer_info_privacy_policy">Política de privacitat</string>
   <!--Photo viewer-->
   <!--API info dialog-->
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Punts de control</string>
   <string name="undo_redo_title">Desfés - refés</string>
@@ -300,7 +309,6 @@
   <string name="toast_export_success">S\'ha exportat a %1$s</string>
   <string name="toast_preset_overwrote_tags">Nota: les predefinicions sobreescriuen les etiquetes</string>
   <string name="toast_oneway_reversed">Has invertit l\'orientació d\'un carrer o una via amb etiquetes direccionals. Comprova les etiquetes i corregeix-les si cal.</string>
-  <string name="toast_merge_tag_conflict">Has fusionat elements amb valors d’etiquetes contradictoris, direccionals o amb diferents rols en la mateixa relació. Comprova les etiquetes i rols i corregeix-los si cal.</string>
   <string name="toast_potential_merge_tag_conflict">Intentes fusionar elements amb valors d’etiquetes conflictius.\n\nComprova les etiquetes i corregeix-les abans de tornar-ho a provar.</string>
   <string name="toast_state_file_failed">Fitxer no vàlid o corromput.</string>
   <string name="toast_way_nodes_moved">%1$d nodes en la via moguda</string>
@@ -333,7 +341,6 @@
   <string name="toast_file_exists">El fitxer %1$s existeix.</string>
   <string name="toast_needs_resurvey">L\'objecte pot ser que estigui desactualitzat</string>
   <string name="toast_missing_key">Manca la clau %1$s</string>
-  <string name="toast_exit_actionmode">Useu la fletxa ← per a desar i sortir</string>
   <string name="toast_abort_actionmode">Useu la fletxa ← per a cancel·lar</string>
   <string name="toast_null_island">No afegiu elements a 0°/0° (Illa Nul·la)</string>
   <string name="toast_string_too_long">La cadena és massa llarga (%1$d caràcters), s\'ha truncat!</string>
@@ -426,7 +433,6 @@
   <string name="tag_restriction_add_expression">Afegeix una expressió</string>
   <string name="tag_restriction_add_opening_hours">Afegeix horaris d\'apertura</string>
   <string name="tag_restriction_value_hint">Restricció condicional</string>
-  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <string name="tag_form_unknown_element">Element desconegut (no s\'ha trobat cap preconfiguració)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
@@ -465,7 +471,6 @@
   <string name="menu_append">Afegeix</string>
   <string name="menu_relation">Crea una relació</string>
   <string name="menu_edit_relation">Edita la relació</string>
-  <string name="menu_add_relation_member">Afegeix un membre</string>
   <string name="menu_select_relation_members">Selecciona els membres</string>
   <string name="menu_tag">Edita les etiquetes</string>
   <string name="menu_openstreetbug">Afegeix una nota</string>
@@ -713,7 +718,6 @@
   <string name="undo_action_paste">Enganxa</string>
   <string name="undo_action_rotateway">Rotació de via</string>
   <string name="undo_action_orthogonalize">Quadratura per a la via</string>
-  <string name="undo_action_circulize">Organitzar en cercle</string>
   <string name="undo_action_fix_conflict">Resolució de conflicte</string>
   <string name="undo_action_extract_node">Extracció de node</string>
   <string name="undo_action_apply_osc">Aplicar fitxer OSC</string>
@@ -750,6 +754,7 @@
   <string name="delete_from_relation_description">Estàs a punt de suprimir aquest element d\'una relació.</string>
   <string name="unset_relation_type">Esborrar el tipus de relació</string>
   <!--Things-->
+  <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 dia</item>

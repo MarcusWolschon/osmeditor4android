@@ -16,15 +16,17 @@
 <h3>下載 OSM 資料</h3>
 <p>選擇轉移圖示 <img src="../images/menu_transfer.png" alt="Transfer" />，或是轉移選項的項目，這樣會顯示七個選項：</p>
 <ul>
-<li><strong>下載現有的檢視</strong> - 下載在螢幕上可見的區域，並與所有目前的資料合併*(需要網路連線)*</li>
-<li><strong>清除現有資料並下載現有的檢視</strong> 清除所有在記憶體中的資料，之後下載在螢幕上可見的區域*(需要網路連線)*</li>
-<li><strong>上傳資料到 OSM 伺服器</strong> - 上傳編輯到 OpenStreetMap <em>(需要認證)</em> <em>(要網路連線)</em></li>
-<li><strong>依據位置自動下載</strong> - 自動的下載目前周圍位置區域 <em>(需要網路連線或離線資料)</em>  <em>(需要 GPS)</em></li>
-<li><strong>拖放和縮放並自動下載</strong> - 自動下載目前地圖現有的檢視 *(需要網路連線或離線資料)  <em>(需要 GPS)</em></li>
-<li><strong>檔案...</strong> - 儲存和載入在裝置的 OSM 檔案資料。</li>
-<li><strong>備註/錯誤</strong> -從 QA 工具 (目前的 OSMOSE) 下載 (自動或手動) OSM 備註和&quot;錯誤&quot; <em>(需要網路連線)</em></li>
+<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
+<li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
+<li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
+<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
+<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
+<li><strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and &quot;Bugs&quot; from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
 </ul>
 <p>最簡單下載資料到裝置的方式是縮放和平移到你想編輯的地方，接著選擇 &quot;下載當前檢視&quot;。你可以用手勢縮放，用縮放按鈕，或是用裝置的音量鍵。Vespucci 應當下載當前檢視的資料，下載資料到裝置時並不需要認證。</p>
+<p>With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
 <h3>編輯</h3>
 <p><a id="lock"></a></p>
 <h3>鎖定，解鎖，模式切換</h3>
@@ -64,15 +66,19 @@
 <h5>簡易模式</h5>
 <p>按著地圖畫面上的綠色浮動按鈕，能顯示選單。當你選擇其中一個項目時，你會被問到想在那個位置新建物件，持續平移和縮放到你想要的地圖畫面為止。</p>
 <p>請見 <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">簡單模式下新建物件</a> 來得到更多資訊。</p>
-<h5>進階 (長按) 模式</h5>
-<p>在你創建節點或是路徑開始的地方長按，你會看到黑色&quot;十字&quot;圖樣。 * 如果你想要創建新的節點 (並沒有連到其他物件)，請避開其他已有的物件。 * 如果你想延伸路徑，點選路徑的&quot;容許區域&quot; (或是路徑上的節點)。容許區域會顯示在節點或是路徑周邊。</p>
+<h5>Advanced (long press) mode</h5>
+<p>Long press where you want the node to be or the way to start. You will see a black &quot;crosshair&quot; symbol. * If you want to create a new node (not connected to an object), touch away from existing objects. * If you want to extend a way, touch within the &quot;tolerance zone&quot; of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
 <p>一旦你看到準星圖示，你有這些選擇：</p>
 <ul>
-<li>碰觸同一地方。</li>
-<li>如果十字準星不在節點附近，碰觸同一地方則會再次創建新的節點。如果附近有路徑 (但不在節點附近)，新的節點會在路徑上面 (並且連到路徑上面)。 ＊如果十字準星靠近節點瓶近 (例如在節點容忍範圍)，碰觸相同地方只會選取節點 (標籤編輯器會出現，不會有創建新的節點)。操作的過程與上述敘述一樣。</li>
-<li>碰觸其他地方。碰觸其他地點 (在十字準星容忍範圍外) 則會從原始地點到現在位置新增路徑。如果十字準星在路徑或節點附近，新的片段會連到該節點或是路徑。　</li>
+<li><em>Normal press in the same place.</em>
+<ul>
+<li>If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).</li>
+<li>If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.</li>
 </ul>
-<p>簡單在你想增加節點的路徑上碰觸螢幕，要完成操作，請在最後一個節點碰觸兩次。如果最後的節點位於路徑或是節點，則片段會自動連到路徑或是節點。</p>
+</li>
+<li><em>Normal touch in another place.</em> Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.</li>
+</ul>
+<p>Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically.</p>
 <p>你也可以使用選單項目：請見<a href="Creating%20new%20objects.md">創建新物件</a> 來獲得更多資訊。</p>
 <h4>增加區域</h4>
 <p>目前開放街圖並沒有如其他地理資訊系統一樣，有&quot;區域&quot;物件類型。線上編輯器 &quot;iD&quot; 編輯嘗試在現有 OSM 架構下，建立區域類型，目前看來在特定狀況下運作相當好，也有不能好好運作的時候。Vespucci 目前並沒有計畫像 iD 一樣做類似的事情，所以你必須知道路徑區域是怎麼構成的：</p>
@@ -94,9 +100,11 @@
 <h4>有效的增加地址</h4>
 <p>Vespucci 擁有&quot;<img src="../images/address.png" alt="地址" /> 增加地址標籤&quot;功能，讓探察時藉由自動預測目前門牌號碼添加地址時更為方便。這個功能可以被選擇：</p>
 <ul>
-<li>after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a &quot;entrance=yes&quot; tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
-<li>in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.</li>
-<li>in the property editor.</li>
+<li>長按之後 (_只有簡易模式:)：Vespucci 會在該位置新增節點，並且猜測這裡的門牌號碼和增其他能被新增的地址標籤。如果節點在建築外框上面，則會自動增加 &quot;entrance=yes&quot; 標籤到節點上面。標籤編輯器則會開啟物件，讓你編輯該做的變動。</li>
+</ul>
+<p>在節點/路徑選取模式：Vespucci 會增加地址標籤，並且開始標籤編輯器。</p>
+<ul>
+<li>在內容編輯器。</li>
 </ul>
 <p>門牌號碼預測，一般需求要在道路的兩側，至少兩間房屋號碼需要輸入到作業中，更多的號碼存在於資料中越好。</p>
 <p>考慮使用<a href="#download">自動下載</a>模式。</p>
@@ -144,18 +152,18 @@
 <p>在 C-模式下，只有擁有警告標示的物件才會顯示，讓檢視有特定問題或符合設定檢查的物件變得更容易。C-模式下啟動的內容編輯器，最符合的預設組合會自動套用。</p>
 <p>這個模式可以透過長按鎖定鈕，請見<a href="#lock">鎖定、解鎖、切換模式</a>，然後選擇對應的選單選項。</p>
 <h3>設定檢查</h3>
-<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting &quot;Validator settings&quot; in the &quot;Preferences&quot;.</p>
+<p>目前擁有兩個設定檢查 (一個是檢查 FIXME 標籤，以及一個檢查關聯上面遺失的標籤，不過目前無法自訂)，兩種都可以在&quot;設定&quot;裡的&quot;驗證器設定&quot;調整。</p>
 <p>列表清單分成兩部分，上半部列出&quot;重新踏察&quot;列表，下半部列出檢查&quot;列表列表&quot;。列表點了之後就可以編輯了，綠色選單按鍵則允許增加列表。</p>
 <h4>重新踏察選項</h4>
 <p>重新踏察列表擁有以下內容：</p>
 <ul>
-<li><strong>Key</strong> - Key of the tag of interest.</li>
-<li><strong>Value</strong> - Value the tag of interest should have, if empty the tag value will be ignored.</li>
-<li><strong>Age</strong> - how many days after the element was last changed the element should be re-surveyed, if a <em>check_date</em> tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.</li>
-<li><strong>Regular expression</strong> - if checked <strong>Value</strong> is assumed to be a JAVA regular expression.</li>
+<li><strong>鍵</strong> - 感興趣標籤的鍵。</li>
+<li><strong>值</strong> - 感興趣標籤應該要的值，如果是空白的話則標籤的值會被忽略。</li>
+<li><strong>年齡</strong> - 離上次元素變動的時間過了多少天了，代表可能需要重新踏察。如果有 <em>check_date</em> 標籤則會用到，不然就是依據現在版本是那一天創建的。設為零則會簡單檢查鍵和值。</li>
+<li><strong>正規表示式</strong> - 如果檢查 <strong>值</strong>則會假定是 JAVA 的正規表示式。</li>
 </ul>
 <p><strong>鍵</strong> 和 <strong>值</strong> 會與問題物件 <em>existing</em> tags 相比檢查。</p>
-<p>The <em>Annotations</em> group in the standard presets contain an item that will automatically add a <em>check_date</em> tag with the current date.</p>
+<p>在標準預設組合當中的_Annotations_ 群組中 ，含有物件能夠自動增加現在時間的 <em>check_date</em> 標籤。</p>
 <h4>檢查選項</h4>
 <p>檢查列表有兩個內容：</p>
 <ul>
@@ -169,28 +177,33 @@
 <p>預置為依據的篩選</p>
 <p>上述的替代方式，依據單一預設組合或是預先組合群組過濾物件。按過濾圖示會顯示預設組合選擇選單，類似 Vespucci 裡見到的選單。只要正常按一下就可以選擇單一預設組合，要選擇預設組合群組則長按 (正常按一下之後進入群組)。更多文件說明可到這裡這邊尋找<a href="Preset%20filter.md">預設組合過濾器</a>。</p>
 <h2>客製化 Vespucci</h2>
-<p>Many aspects of the app can be customized, if you are looking for something specific and can't find it, <a href="https://vespucci.io/">the Vespucci website</a> is searchable and contains additional information over what is available on device.</p>
-<h3>Layer settings</h3>
-<p>Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.</p>
+<p>這款 app 很多方面都能自訂，如果你想要特別的功能但找不到的話，可以到 <a href="https://vespucci.io/">Vespucci 網站</a>搜尋，尋找裝置上的額外資訊。</p>
+<h3>圖層設定</h3>
+<p>Layer settings can be changed via the layer control (&quot;hamburger&quot; menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
+<p>Available layer types:</p>
 <ul>
-<li>Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the &quot;standard style&quot; map from openstreetmap.org.</li>
+<li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
+<li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the &quot;standard style&quot; map from openstreetmap.org.</li>
 <li>Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
-<li>Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
-<li>Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
+<li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
+<li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
+<li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
+<li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
+<li>Grid - Displays a scale alone the sides of the map or a grid. Default: on.</li>
 </ul>
 <h4>參數選項</h4>
 <ul>
-<li>Keep screen on. Default: off.</li>
-<li>Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.</li>
+<li>保持螢幕開啟。預設：關閉。</li>
+<li>巨大節點拖曳區，當裝置觸控輸入導致移動節點有問題時，手指會在顯示目前位置採模糊顯示。開啟這個選項會提供大片區域，來用在非中心的拖拉上 (選擇和其他操作仍會使用正常的觸控容許範圍)。預設：關閉。</li>
 </ul>
-<p>The full description can be found here <a href="Preferences.md">Preferences</a></p>
+<p>整個敘述能在這裡<a href="Preferences.md">設定</a>找到</p>
 <p>進階參數選項</p>
 <ul>
-<li>Node icons. Default: on.</li>
-<li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
-<li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.</li>
+<li>節點圖示。預設：開啟。</li>
+<li>總是顯示內容選單。當開啟這功能時，每一個選取過程都會顯示內容選單，關閉時則只會顯示無疑問的選取。預設：關閉 (先前是開啟)。</li>
+<li>啟用輕亮主題。在現代的裝置上為預設開啟。當你在舊的 Android 版本啟用時往往不一致。</li>
 </ul>
-<p>The full description can be found here <a href="Advanced%20preferences.md">Advanced preferences</a></p>
+<p>整個敘述能在這裡<a href="Advanced%20preferences.md">進階設定</a>找到</p>
 <h2>回報問題</h2>
 <p>如果 Vespucci 當掉，或是偵測不一致的狀態，你會被詢問是否傳送當機報告。如果發生的話請寄送報告，但請一次描述特定狀況。如果你想提供更多資訊，或是開啟 issue 請求新功能或其他類似請求，請到這邊開：<a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>。主選單的&quot;提供回饋&quot;功能會開放新的 issue，不用額外輸入就有包含相關的 app 和裝置資訊。</p>
 <p>如果你想討論跟 Vespucci 相關的議題，你可以在 <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> 開討論，或是到 <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p>

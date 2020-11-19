@@ -1,10 +1,10 @@
 # Introdución ó Vespucci
 
-O Vespucci é un editor do OpenStreetMap con tódalas funcións que admite a maioría das operacións que fornecen os editores de escritorio. Foi probado con éxito no Android de Google 2.3 a 7.0 e varias variantes baseadas na AOSP. Un consello: mentres que as capacidades do dispositivo móbil atópanse cos seus rivais de escritorio, de xeito especial os dispositivos máis antigos teñen a memoria moi limitada dispoñíbel e adoitan ser moi lentos. Debe ter en conta isto cando empregue o Vespucci e manteña, por exemplo, as áreas que estás a editar nun tamaño razoábel. 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
 
 ## Empregar por primeira vez
 
-No inicio do Vespucci amosa o cadro do diálogo "Baixar noutra localización"/"Carregar área". Se vostede ten as coordenadas que se amosan e desexa baixar de xeito inmediato, pode escolle-la opción axeitada e inseri-lo raio ó redor da localización que desexa baixar. Non escolla unha área ampla nos dispositivos máis lentos. 
+On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
 
 De xeito alternativo, pode pecha-lo diálogo premendo o botón "Ir ó mapa" e afastar ou achegar cara unha localización onde desexe editar e baixa-los datos (ollar máis adiante: "Edición co Vespucci").
 
@@ -18,14 +18,18 @@ Dependendo do tamaño da pantalla e da idade do seu dispositivo, as accións de 
 
 Selecciona a icona de transferencia! [Transfer](../images/menu_transfer.png) ou o "Transfer" artigo do menu. Isto amosará sete opcións:
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
 * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
+* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 O xeito máis sinxelo de baixar datos ó dispositivo é achegar e marca-la localización que desexa editar e despois escoller "Baixar vista actual". Podes achegar a imaxe empregando xestos, coma os botóns de achegamento ou os botóns de control do volume do dispositivo. O Vespucci tería que baixar entón datos da vista actual. Non se precisas dunha autenticación para baixar datos no teu dispositivo.
+
+With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md).
 
 ### Estase a editar
 
@@ -78,7 +82,7 @@ Teña en conta que para sobreponer obxectos (coma un nó nunha vía) o menú de 
 
 Despois de seleccionar un obxecto, pode moverse. Teña en conta que os obxectos poden ser arrastrados/movidos só cando están seleccionados. Sinxelamente arrastre preto (isto é, dentro da zona de tolerancia) o obxecto seleccionado para movelo. Se escolle a área de arrastre grande nos axustes, obtén unha grande área ó redor do nó escollido que facilita a posicionamento do obxecto. 
 
-#### Adding a new Node/Point or Way 
+#### Engadindo un nevo Nodo/Punto ou Vía 
 
 On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
 
@@ -91,17 +95,17 @@ See [Creating new objects in simple actions mode](Creating%20new%20objects%20in%
 ##### Advanced (long press) mode
  
 Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), click away from existing objects.
-* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+* If you want to create a new node (not connected to an object), touch away from existing objects.
+* If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
 
 Unha vez que podes ver o símbolo da mira, tes estas opcións:
 
-* Premano mesmo lugar.
-    *Se o punto da mira non está preto dun nó, premendo a mesma localización novamente crea un novo nó. Se vostede está preto dunha vía (pero non preto dun nó), o novo nó estará na vía (e conectado á vía).
-    * Se o punto da mira está preto dun nó (é dicir, dentro da zona de tolerancia do nó), premer na mesma localización só selecciona o nó (e se abre o editor de etiquetas. Non se crea ningún nó novo. A acción é a mesma que a selección anterior.
-* Prema noutro lugar. Premer noutro lugar (fóra da zona de tolerancia da cruz) engádese un segmento da vía dende a posición orixinal até a posición actual. Se o punto da mira ficaba preto dunha vía ou nó, o novo segmento estará conectado a ese nó ou a outra vía.
+* _Normal press in the same place._
+    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
+    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
+* _Normal touch in another place._ Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
 
-Sinxelamente prema a pantalla onde desexa engadir máis nó do camiño. Para rematar, prema no nó derradeiro dúas veces. Se o nó derradeiro está situado nunha vía ou nó, o segmento ficará conectado de xeito automático ó camiño ou ó nó. 
+Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. 
 
 You can also use a menu item: See [Creating new objects](Creating%20new%20objects.md) for more information.
 
@@ -215,10 +219,12 @@ Re-survey entries have the following properties:
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Age** - how many days after the element was last changed the element should be re-surveyed, if a _check_date_ tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
 * **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
 **Key** and **Value** are checked against the _existing_ tags of the object in question.
+
+The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
 
 #### Comprobar entradas
 
@@ -245,12 +251,18 @@ Many aspects of the app can be customized, if you are looking for something spec
 
 ### Layer settings
 
-Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.
+Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
 
-* Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.
+Available layer types:
+
+* Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
+* Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
 * Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
+* GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
+* Grid - Displays a scale alone the sides of the map or a grid. Default: on. 
 
 #### Preferences
 

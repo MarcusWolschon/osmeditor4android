@@ -79,6 +79,7 @@
   <string name="progress_oauth">החשבון שלך ב־openstreetmap.org נטען לטובת אימות עם OAuth…</string>
   <string name="progress_building_imagery_database">מסד נתוני תמונות הרקע נבנה כעת…</string>
   <string name="progress_query_oam">OAM מתושאל…</string>
+  <string name="progress_pruning">מתבצע קיצוץ…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">„%1$s” נמחקה</string>
   <string name="changes_changed">„%1$s” נערכה</string>
@@ -193,6 +194,16 @@
   <!--Tile layer info dialog-->
   <string name="attribution">ייחוס</string>
   <!--Too much data dialog-->
+  <string name="too_much_data_title">נטענו יותר מדי נתונים!</string>
+  <string name="too_much_data_message">נטענו אצלך %1$d מפרקים וחרגת מהסף המוגדר. מצב זה יוביל להאטה ובמקרה של הוספת נתונים נוספים אף לתקלות ביכולת שמירת המצב.</string>
+  <string name="upload_data_now">העלאת השינויים</string>
+  <string name="prune_data_now">קיצוץ נתונים</string>
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <!--Abort action mode dialog-->
   <!---->
   <string name="error">שגיאה</string>
   <string name="warning">אזהרה</string>
@@ -243,6 +254,7 @@
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">תמונת רקע בהתאמה אישית</string>
   <string name="oam_layer_title">תמונות רקע OAM</string>
+  <string name="wms_endpoints_title">נקודות גישה WMS</string>
   <string name="edit_layer_title">עריכת רשומת שכבה</string>
   <string name="add_layer_title">הוספת רשומת שכבה</string>
   <string name="select_layer_title">בחירת שכבה</string>
@@ -303,6 +315,9 @@
   <string name="api_info_latest_date">תאריך ההכללה האחרון</string>
   <string name="api_info_attribution">ייחוס</string>
   <string name="api_info_mapsplit_source">מקור לקריאה בלבד MapSplit</string>
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">נקודות ביקורת</string>
   <string name="undo_redo_title">ביטול - שחזור</string>
@@ -330,6 +345,7 @@
   <string name="tip_pan_and_zoom_auto_download">בהורדה אוטומטית בסריקה ובתקריב יש להשתמש בזהירות כיוון שמצב זה עשוי להעמיס על מנשקי ה־API של OpenStreetMap ועל המכשיר שלך&lt;p&gt;ניתן להקל מהעומס על שרתי ה־API ע״י שימוש
 במקור נתונים בלתי מקוון.</string>
   <string name="tip_locked_mode">במצב נעול לא ניתן לערוך אבל לחיצה ארוכה על פריט תציג עליו יותר מידע.</string>
+  <string name="tip_longpress_simple_mode">במצב פשוט לחיצה ארוכה לא תוביל לכלום. ניתן לכבות את המצב הפשוט בתפריט הראשי כדי לאפשר לחיצות ארוכות ליצירת פריטים.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -345,6 +361,7 @@
   <string name="toast_url_empty">נא להקליד כתובת</string>
   <string name="toast_min_zoom">יש להגדיר את רמת התקריב המזערית מתחת למרבית</string>
   <string name="toast_no_changes">עדיין לא שיניתי כלום…</string>
+  <string name="toast_jpeg_not_transparent">קובצי JPEG אינם שקופים ואי אפשר להשתמש בהם כשכבת על</string>
   <string name="toast_unsaved_changes">נא להעלות תחילה את הנתונים שלך שטרם נשמרו.</string>
   <string name="clear_anyway">לנקות בכל זאת?</string>
   <string name="toast_upload_success">הועלה לשרת OSM.</string>
@@ -358,7 +375,6 @@
   <string name="toast_merge_overwrote_tags">הערה - הפעולה שכתבה תגית/תגיות</string>
   <string name="toast_cant_autoapply_preset">לא ניתן להחיל את הערכה הזאת אוטומטית</string>
   <string name="toast_oneway_reversed">הפכת כביש חד־סטרי או דרך עם תגיות תלויות כיווניות. נא לבדוק את התגיות ולתקן במידת הצורך.</string>
-  <string name="toast_merge_tag_conflict">מיזגת רכיבים שיש להם תגיות סותרות, סמנטיקה תלוית כיוון או תפקידים שונים באותו היחס. נא לבדוק את התגיות והתפקידים ולתקן אם צריך.</string>
   <string name="toast_potential_merge_tag_conflict">בפעולה זו מתבצע ניסיון למזג רכיבים שיש להם תגיות סותרות.\n\nנא לבדוק את התגיות ולתקן תחילה בטרם ביצוע ניסיון חוזר.</string>
   <string name="toast_state_file_failed">קובץ מצב בלתי קריא או פגום</string>
   <string name="toast_way_nodes_moved">%1$d מפרקים בדרך שהועברה</string>
@@ -431,7 +447,6 @@
   <string name="toast_openinghours_invalid">ערך שעות פתיחה שגוי עבור %1$s</string>
   <string name="toast_openinghours_autocorrected">ערך שעות הפתיחה עבור %1$s תוקן אוטומטית</string>
   <string name="toast_exit_multiselect">יש לגעת נגיעה כפולה במיקום ריק או להשתמש ב־← כדי לצאת.</string>
-  <string name="toast_exit_actionmode">יש להשתמש ב־← כדי לשמור ולצאת</string>
   <string name="toast_abort_actionmode">יש להשתמש ב־← כדי לבטל</string>
   <string name="toast_null_island">נא לא להוסיף רכיבים במיקום ‎0°/0° (אי האפס)</string>
   <string name="toast_string_too_long">המחרוזת ארוכה מדי (%1$d תווים), נחתכה!</string>
@@ -465,6 +480,7 @@
   <string name="toast_device_not_found_for">לא נמצא מכשיר עבור %1$s</string>
   <string name="toast_file_already_exists">הקובץ %1$s כבר קיים</string>
   <string name="toast_file_error_for">שגיאת קובץ עבור %1$s</string>
+  <string name="toast_error_reading">שגיאה בקריאה של %1$s</string>
   <string name="toast_http_data_error_for">שגיאת נתוני HTTP עבור %1$s</string>
   <string name="toast_error_insufficient_space_for">אין מספיק מקום על המכשיר עבור %1$s</string>
   <string name="toast_error_too_many_redirects_for">יותר מדי הפניות עבור %1$s</string>
@@ -476,7 +492,17 @@
   <string name="toast_restart_required">עליך להפעיל את וספוצ׳י מחדש כדי שהשינויים ייכנסו לתוקף</string>
   <string name="toast_unable_to_open_offline_data">לא ניתן לפתוח את הנתונים הבלתי מקוונים %1$s%2$s</string>
   <string name="toast_no_usable_location">אין מיקום שמיש</string>
+  <plurals name="added_required_elements">
+    <item quantity="one">נוסף רכיב נחוץ</item>
+    <item quantity="two">נוספו %1$d רכיבים נחוצים</item>
+    <item quantity="many">נוספו %1$d רכיבים נחוצים</item>
+    <item quantity="other">נוספו %1$d רכיבים נחוצים</item>
+  </plurals>
   <string name="toast_out_of_memory">נגמר הזיכרון!</string>
+  <string name="toast_egm_installed">ה־EGM התקבל והותקן</string>
+  <string name="toast_invalid_number_format">תצורת המספר שגויה %1$s</string>
+  <string name="toast_error_downloading_mapillary_image">שגיאה בהורדת התמונה מ־Mapillary %1$s</string>
+  <string name="toast_error_downloading_mapillary_sequences">שגיאה בהורדת הרצפים מ־Mapillary %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">למקורות MapSplit חובה להגדיר תקריב מזערי ומרבי</string>
   <string name="error_pbf_no_version">פרטי הגרסה חסרים בקובץ PBF</string>
@@ -576,7 +602,6 @@
   <string name="tag_restriction_add_expression">הוספת ביטוי</string>
   <string name="tag_restriction_add_opening_hours">הוספת שעות פתיחה</string>
   <string name="tag_restriction_value_hint">הגבלה מותנית</string>
-  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <string name="tag_form_unknown_element">רכיב לא ידוע (לא נמצאה ערכה מוגדרת)</string>
   <string name="tag_form_untagged_element">רכיב ללא תיוג</string>
   <!--Custom preset creation-->
@@ -605,7 +630,19 @@
   <string name="location_nan_message">נא להקליד נקודות ציון בציון עשרוני (למשל: „52.333572”,„8.741185”). קו הרוחב חייב להיות איפשהו בין ‎-85.0 ל־‎+85.0 וקו האורך חייב להיות איפשהו בין ‎-175.0 ל־‎+175.0.</string>
   <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_label">להשתמש</string>
+  <string name="barometer_calibration_current_height">גובה נוכחי (במטרים)</string>
+  <string name="barometer_calibration_current_reference_pressure">לחץ נוכחי להשוואה (hPa)</string>
+  <string name="barometer_calibration_gps">GNSS</string>
+  <string name="barometer_calibration_calibrate">כיול</string>
   <!--Strings in postition info-->
+  <string name="position_info_title">פירוט על המיקום הנוכחי</string>
+  <string name="position_info_hdop">HDOP</string>
+  <string name="position_info_altitude">גובה</string>
+  <string name="position_info_geoid_height">גובה מעל הגאואיד</string>
+  <string name="position_info_barometric_height">גובה מבחינת לחצי אוויר</string>
+  <string name="position_info_geoid_correction">תיקון גאואיד</string>
+  <string name="position_info_ellipsoid_height">גובה מעל לאליפסואיד</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">הורדת קבצים</string>
   <string name="allow_all_networks">לאפשר את כל הרשתות</string>
@@ -632,7 +669,6 @@
   <string name="menu_append">צירוף</string>
   <string name="menu_relation">יצירת יחס</string>
   <string name="menu_edit_relation">עריכת יחס</string>
-  <string name="menu_add_relation_member">הוספת חבר</string>
   <string name="menu_select_relation_members">בחירת חברים</string>
   <string name="menu_tag">עריכת תגיות</string>
   <string name="menu_openstreetbug">הוספת הערה</string>
@@ -644,6 +680,7 @@
   <string name="menu_gps_goto">מעבר למיקום הנוכחי</string>
   <string name="menu_gps_goto_coordinates">מעבר לנקודות ציון…</string>
   <string name="menu_gps_goto_last_edit">מעבר לעריכה האחרונה</string>
+  <string name="menu_gps_position_info">פירוט על המיקום הנוכחי</string>
   <string name="menu_gps_start">התחלת מסלול GPX</string>
   <string name="menu_gps_pause">השהיית מעקב GPX</string>
   <string name="menu_gps_clear">מחיקת מסלול GPX ואת נקודות הדרך שלו</string>
@@ -713,6 +750,8 @@
   <string name="menu_tools_zoom_to_layer_extent">לשנות את רמת התקריב עד להיקף שכבת הרקע</string>
   <string name="menu_tools_clear_clipboard">מחיקת לוח הגזירים</string>
   <string name="menu_tools_calibrate_height">כיול חיישן לחץ</string>
+  <string name="menu_tools_install_egm">התקנת EGM</string>
+  <string name="menu_tools_remove_egm">הסרת EGM</string>
   <!---->
   <string name="menu_simple_actions">מצב פשוט</string>
   <string name="menu_feedback">שליחת משוב</string>
@@ -732,8 +771,13 @@
   <string name="distance_km">%1$.3f ק״מ</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">שכבות…</string>
+  <string name="menu_layers_load_geojson">הפעלת שכבת GeoJSON</string>
   <string name="menu_layers_add_backgroundlayer">הוספת שכבת תמונת רקע</string>
   <string name="menu_layers_add_overlaylayer">הוספת שכבת צילום מעל</string>
+  <string name="menu_layers_add_tasklayer">הפעלת שכבת משימות</string>
+  <string name="menu_layers_add_grid">הפעלת רשת</string>
+  <string name="menu_layers_add_photolayer">הפעלת שכבת תמונות</string>
+  <string name="menu_layers_enable_mapillary_layer">הפעלת שכבת Mapillary</string>
   <string name="menu_layers_configure">הגדרה…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">החלת היסט מאוחסן לתמונת הרקע</string>
@@ -753,11 +797,9 @@
   <string name="notreversable_description">הדרך מתויגת כבלתי ניתנת להיפוך. היפוך הדרך יפגע בתיוג.</string>
   <string name="reverse_anyway">להפוך בכל זאת</string>
   <string name="deleteway_description">פעולה זו תמחק דרך.\n\nניתן להשאיר את כל המפרקים או למחוק מפרקים ששייכים לדרך הזו בלבד ואין להם תגים.</string>
-  <string name="deleteway_relation_description">פעולה זו תמחק דרך שחברה ביחס אחד או יותר. הסרת דרך שנושאת יחסים כאלה עשויה להסב נזק.</string>
   <string name="deleteway_nodesnotdownloaded_description">הדרך מכילה מפרקים מחוץ לאזור שהתקבל ולא ניתן למחוק אותה ולהגיע לכדי מצב בלתי יציב. יש להוריד את כולה בטרם ביצוע ניסיון חוזר.</string>
   <string name="deleteway_wayonly">למחוק את הדרך בלבד</string>
   <string name="deleteway_wayandnodes">למחוק דרך</string>
-  <string name="deletenode_relation_description">פעולה זו תמחק מפרק שחבר ביחס אחד או יותר. הסרת המפרק שנושא יחסים כאלה עשויה להסב נזק.</string>
   <string name="deletenode">מחיקת מפרק</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">פיצול…</string>
@@ -786,6 +828,8 @@
   <string name="actionmode_restriction_restart_to">בחירת מקטע „יעד” מחדש</string>
   <string name="actionmode_restriction_split_from">פיצול מקטע „מוצא”</string>
   <string name="actionmode_restriction_split_via">פיצול מקטע „יעד”</string>
+  <string name="actionmode_extract_segment_select">בחירת מקטע</string>
+  <string name="actionmode_extract_segment_set_tags">הגדרת תגיות</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">פריט אחד</item>
     <item quantity="two">%1$d פריטים</item>
@@ -884,6 +928,13 @@
   <string name="config_maxStrokeWidth_title">עובי קו מרבי</string>
   <string name="config_maxStrokeWidth_summary">לא לצייר דרכים בקו עבה יותר מההגדרה הזאת.</string>
   <string name="config_maxStrokeWidth_current">%1$d פיקסלים</string>
+  <string name="config_uploadOk_title">ההמתנה הממתינה תקינה</string>
+  <string name="config_uploadOk_summary">סף שמתחתיו העלאות הפריטים הממתינות תיחשבנה בסדר</string>
+  <string name="config_upload_current">%1$d פריטים</string>
+  <string name="config_uploadWarn_title">אזהרת העלאות ממתינות</string>
+  <string name="config_uploadWarn_summary">סף שמחתיו פריטים שממתינים להעלאה יהיו במצב אזהרה</string>
+  <string name="config_dataWarn_title">יותר מדי אזהרות נתונים</string>
+  <string name="config_dataWarn_summary">הגבלה (במספר מפרקים) שבו נתחיל להזהיר בנוגע לכמות גדולה מדי של נתונים שנטענים</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">הגדרות נתונים ועריכה</string>
   <string name="config_category_editing_summary">הגדרות הורדה אוטומטית, שמירה והתראות.</string>
@@ -915,7 +966,6 @@
   <string name="config_orthogonalizeThreshold_summary">הסף ב‏־° שמעבר לו מתעלמים מזוויות</string>
   <string name="config_orthogonalizeThreshold_current">‎%1$d°‎</string>
   <string name="config_autoformatPhoneNumbers_title">סידור מספרי טלפון בתבנית</string>
-  <string name="config_autoformatPhoneNumbers_summary">הפעלת סידור אוטומטי של מספרי טלפון בתבנית</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">הגדרות הורדה אוטומטית</string>
   <string name="config_category_auto_download_summary">הגדרות להורדה אוטומטית של נתונים ומשימות</string>
@@ -957,6 +1007,8 @@
   <string name="config_gnssTimeToStale_title">מקום מיושן לאחר</string>
   <string name="config_gnssTimeToStale_summary">הגיל (בשניות) שיחלוף על מקום בטרם ייחשב למיושן.</string>
   <string name="config_gnssTimeToStale_current">%1$d שנ׳</string>
+  <string name="config_useBarometricHeight_title">להשתמש בגובה לחץ אוויר</string>
+  <string name="config_useBarometricHeight_summary">להשתמש בערכי הגובה במסלולים מחיישן לחץ אוויר עם ניתן</string>
   <!--Server Settings-->
   <string name="config_category_server">הגדרות שרת</string>
   <string name="config_category_server_summary">ה־API של OSM והגדרות לשרתים אחרים.</string>
@@ -979,6 +1031,8 @@
   <string name="config_tileCacheSize_title">גודל מטמון האריחים</string>
   <string name="config_tileCacheSize_summary">נפח האחסון הכולל שמנוצל לטובת מטמון של אריחים במ״ב.</string>
   <string name="config_tileCache_current">%1$d מ״ב</string>
+  <string name="config_mapillaryCacheSize_title">גודל המטמון של Mapillary</string>
+  <string name="config_mapillaryCacheSize_summary">סך כל נפח האחסון שישמש לטובת מטמון של תמונות מ־Mapillary במ״ב.</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">שונות</string>
   <string name="pref_enable_acra">דיווח על קריסות ביישומון</string>
@@ -1073,11 +1127,11 @@
   <string name="undo_action_paste">הדבקה</string>
   <string name="undo_action_rotateway">הטיית דרך</string>
   <string name="undo_action_orthogonalize">ריבוע דרך</string>
-  <string name="undo_action_circulize">סידור במעגל</string>
   <string name="undo_action_fix_conflict">פתרון סתירות</string>
   <string name="undo_action_extract_node">חילוץ מפרק</string>
   <string name="undo_action_apply_osc">החלת קובץ OSC</string>
   <string name="undo_action_remove_node_from_way">הסרת מפרק מדרך</string>
+  <string name="undo_action_extract_segment">חילוץ מקטע</string>
   <!--ACRA-->
   <string name="crash_dialog_text">וספוצ׳י קרס או שנתקל בתקלות חמורות במהלך ההפעלה הקודמת.\n\nנא לסייע על ידי לחיצה על ‚אישור’ כדי לשלוח דוח שגיאה.\n</string>
   <string name="crash_dialog_comment_prompt">ניתן להוסיף מידע נוסף שלדעתך יסייע לנו (לבחירתך), את שם המשתמש שלך ב־OSM אם מעניין אותך לקבל משוב.\n\nתודה רבה לך.</string>
@@ -1112,6 +1166,10 @@
   <string name="delete_from_relation_description">פעולה זו תמחק את הרכיב מיחס.</string>
   <string name="unset_relation_type">ביטול הגדרת סוג יחס</string>
   <!--Things-->
+  <string name="bridge">גשר</string>
+  <string name="tunnel">מנהרה</string>
+  <string name="culvert">מעבר מים</string>
+  <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">יום</item>

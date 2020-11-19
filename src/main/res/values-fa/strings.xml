@@ -198,6 +198,12 @@
   <string name="too_much_data_message">شما %1$d گره بار کرده‌اید که از محدودیت پیکربندی‌شده فراتر رفته‌است. این مسئله سبب کُندی خواهد شد و اگر دادهٔ بیشتری بیفزایید احتمال دارد برای ذخیره‌سازی وضعیت با مشکلاتی مواجه شوید.</string>
   <string name="upload_data_now">آپلود تغییرات</string>
   <string name="prune_data_now">هرس داده</string>
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <!--Abort action mode dialog-->
   <!---->
   <string name="error">خطا</string>
   <string name="warning">هشدار</string>
@@ -228,7 +234,7 @@
   <string name="add_check_title">افزودن مدخل بررسی</string>
   <string name="max_age">بیشینهٔ عمر</string>
   <string name="age">عمر</string>
-  <string name="check_opt">لازم\nاختیاری</string>
+  <string name="check_opt">اختیاریِ\nلازم</string>
   <string name="check_optional">اختیاریِ لازم</string>
   <string name="add_resurvey_entry">افزودن مدخل بازنقشه‌برداری</string>
   <string name="add_check_entry">افزودن مدخل بررسی</string>
@@ -309,6 +315,9 @@
   <string name="api_info_latest_date">آخرین تاریخ شامل شده</string>
   <string name="api_info_attribution">انتساب</string>
   <string name="api_info_mapsplit_source">منبع فقط خواندنی MapSplit</string>
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">نقاط بازگشت</string>
   <string name="undo_redo_title">واگرد - ازنو</string>
@@ -365,7 +374,6 @@
   <string name="toast_merge_overwrote_tags">توجه - کنش تگ(ها) را بَرنویسی کرد</string>
   <string name="toast_cant_autoapply_preset">این پیش‌تنظیم را نمی‌توان به‌طور خودکار به کار برد</string>
   <string name="toast_oneway_reversed">خیابانی یکطرفه یا راهی با تگ‌های وابسته به جهت را معکوس نمودید. لطفاً تگ‌ها را بررسی و در صورت نیاز آن‌ها را اصلاح نمایید.</string>
-  <string name="toast_merge_tag_conflict">عناصری را ادغام کردید که مقدار تگ‌هایشان، مفاهیم وابسته به جهت آن‌ها یا نقشی که در یک رابطه می‌گیرند، با هم تداخل دارد. لطفاً تگ‌ها و نقش‌ها را بررسی و در صورت نیاز آن‌ها را اصلاح کنید.</string>
   <string name="toast_potential_merge_tag_conflict">تلاش می‌کنید عناصری را ادغام نمایید که مقدار تگ‌هایشان با هم تداخل دارد.\n\nلطفاً تگ‌ها را بررسی کنید و پیش از تلاش مجدد آن‌ها را اصلاح نمایید.</string>
   <string name="toast_state_file_failed">پروندهٔ state غیرقابل‌خواندن یا خراب
 </string>
@@ -436,7 +444,6 @@
   <string name="toast_openinghours_invalid">مقدار ساعت کاری برای %1$s نامعتبر است</string>
   <string name="toast_openinghours_autocorrected">مقدار ساعت کاری برای %1$s به‌طور خودکار درست شد</string>
   <string name="toast_exit_multiselect">برای خروج، فضایی خالی را دو بار پیاپی لمس کنید یا روی → بزنید</string>
-  <string name="toast_exit_actionmode">برای ذخیره و خروج روی → بزنید</string>
   <string name="toast_abort_actionmode">برای لغو روی → بزنید</string>
   <string name="toast_null_island">لطفاً در ‎0°/0° (جزیرهٔ پوچ) عنصری اضافه نکنید</string>
   <string name="toast_string_too_long">رشته بسیار طولانی است (%1$d نویسه). کوتاه شد!</string>
@@ -590,7 +597,6 @@
   <string name="tag_restriction_add_expression">افزودن عبارت</string>
   <string name="tag_restriction_add_opening_hours">افزودن ساعت کار</string>
   <string name="tag_restriction_value_hint">محدودیت شرطی</string>
-  <string name="ugly_checkgroup_hint">%1$s، …</string>
   <string name="tag_form_unknown_element">عنصر ناشناخته (پیش‌تنظیمی یافت نشد)</string>
   <string name="tag_form_untagged_element">عنصر بی‌تگ</string>
   <!--Custom preset creation-->
@@ -658,7 +664,6 @@
   <string name="menu_append">ادامه‌دادن</string>
   <string name="menu_relation">ساخت رابطه</string>
   <string name="menu_edit_relation">ویرایش رابطه</string>
-  <string name="menu_add_relation_member">افزودن عضو</string>
   <string name="menu_select_relation_members">انتخاب عضوها</string>
   <string name="menu_tag">ویرایش تگ‌ها</string>
   <string name="menu_openstreetbug">افزودن یادداشت</string>
@@ -788,11 +793,9 @@
   <string name="notreversable_description">این راه برعکس نمی‌شود زیرا با مشخصه‌های وابسته به جهت تگ‌گذاری شده است. برعکس‌کردنش تگ‌گذاری را خراب می‌کند.</string>
   <string name="reverse_anyway">به‌هرحال برعکس شود</string>
   <string name="deleteway_description">در حال حذف یک راه هستید.\n\nمی‌توانید همهٔ گره‌ها را نگه دارید یا آن‌هایی را حذف کنید که فقط متعلق به این راه‌اند و بی‌تگ هستند.</string>
-  <string name="deleteway_relation_description">در حال حذف یک راه هستید که عضوی از یک یا چند رابطه است. حذف این‌گونه راه‌ها که رابطه‌ای بر آن‌ها سوار است، می‌تواند render را نامعتبر کند.</string>
   <string name="deleteway_nodesnotdownloaded_description">راه شامل گره‌هایی است که بیرون از محدودهٔ دانلودشده قرار دارند و بنابراین حذفش می‌تواند منجر به وضعیتی ناپایدار شود. پیش از تلاش مجدد، تمام راه را دانلود کنید.</string>
   <string name="deleteway_wayonly">فقط حذف راه</string>
   <string name="deleteway_wayandnodes">حذف راه</string>
-  <string name="deletenode_relation_description">در حال حذف یک گره هستید که عضوی از یک یا چند رابطه است. حذف این‌گونه گره‌ها که رابطه‌ای بر آن‌ها سوار است، می‌تواند render را نامعتبر کند.</string>
   <string name="deletenode">حذف گره</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">دو نیم کردن...</string>
@@ -957,7 +960,6 @@
   <string name="config_orthogonalizeThreshold_summary">آستانه قائمه‌بودن (به درجه) که زاویه‌های فراتر از آن نادیده گرفته می‌شوند</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">قالب‌دهی خودکار شماره‌تلفن‌ها</string>
-  <string name="config_autoformatPhoneNumbers_summary">قالب‌دهی خودکار شماره‌تلفن‌ها را فعال می‌کند</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">تنظیمات دانلود خودکار</string>
   <string name="config_category_auto_download_summary">تنظیمات دانلود خودکار داده و وظیفه</string>
@@ -1119,7 +1121,6 @@
   <string name="undo_action_paste">درج</string>
   <string name="undo_action_rotateway">چرخش راه</string>
   <string name="undo_action_orthogonalize">قائمه‌کردن راه</string>
-  <string name="undo_action_circulize">چینش دایره‌وار</string>
   <string name="undo_action_fix_conflict">حل تداخل</string>
   <string name="undo_action_extract_node">استخراج گره</string>
   <string name="undo_action_apply_osc">به‌کارگیری پروندهٔ OSC</string>
@@ -1161,6 +1162,7 @@
   <!--Things-->
   <string name="bridge">پل</string>
   <string name="tunnel">تونل</string>
+  <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 روز</item>

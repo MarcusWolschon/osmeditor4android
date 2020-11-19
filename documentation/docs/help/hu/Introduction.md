@@ -1,12 +1,12 @@
 # Vespucci bevezetés
 
-A Vespucci egy teljes körű OpenStreetMap-szerkesztő, amely támogatja a legtöbb olyan műveletet, amelyet asztali gépen futó szerkesztőkkel el lehet végezni. Sikeresen tesztelték a Google Android 2.3–7.0 verzióin és különféle AOSP változatokon. Egy kis figyelmeztetés: a mobileszközök képességei ugyan utolérték az asztali versenytársaikéit, ám elsősorban a régebbi eszközök rendelkezésre álló memóriája korlátozott, ezért előfordulhat, hogy lassúak. A Vespucci használatánál ezt figyelembe kell venni, és például célszerű a szerkesztendő területet észszerű méretek között tartani. 
+A Vespucci egy teljes funkcionalitású OpenStreetMap-szerkesztő, amely az asztali szerkesztők által biztosított legtöbb műveletet támogatja. Sikeresen tesztelték a Google Android 2.3–10.0 és különböző AOSP-alapú változataira. Vigyázat: bár a mobileszközök képességei felzárkóztak asztali vetélytársaikéihoz, különösen a régebbi eszközök memóriája korlátozott, és általában meglehetősen lassúak. Ezt vegye figyelembe a Vespucci használatakor, és például ésszerű méretű területeket próbáljon szerkeszteni. 
 
 ## Első használat
 
-Indításkor a Vespucci a „Más helyszín letöltése” / „Terület betöltése” párbeszédet mutatja. Ha megjelentek a koordináták, és azonnal szeretné letölteni, kiválaszthatja a megfelelő opciót, és kijelölheti a helyszín körüli letöltendő terület sugarát. Lassú eszközön ne jelöljön ki nagy területet. 
+Indításkor a Vespucci – miután megkérte a szükséges engedélyeket, és megjelenített egy üdvözlő üzenetet – az „Egyéb hely letöltése” / „Terület betöltése” párbeszédpanelt mutatja. Ha a koordináták megjelennek, és azonnal szeretné letölteni, kiválaszthatja a megfelelő opciót, és beállíthatja a letölthető hely körüli sugarat. Lassú eszközön ne jelöljön ki nagy területet. 
 
-Másrészt be is zárhatja a párbeszédet az „Ugrás a térképre” gomb megnyomásával, majd a térképen a szerkesztendő területre nagyíthat, és letöltheti az adatokat (lásd lejjebb: „Szerkesztés a Vespuccival”).
+Másrészt be is zárhatja a párbeszédablakot az „Ugrás a térképre” gomb megnyomásával, majd a térképen ránagyíthat a szerkesztendő területre, és letöltheti az adatokat (lásd lejjebb: „Szerkesztés a Vespuccival”).
 
 ## Szerkesztés a Vespuccival
 
@@ -14,18 +14,22 @@ A képernyő méretétől és a készülék életkorától függően a szerkeszt
 
 <a id="download"></a>
 
-### OSM adatok letöltése
+### OSM-adatok letöltése
 
 Jelölje ki vagy az átvitel ikont ![Transfer](../images/menu_transfer.png) vagy az „Átvitel” menüpontot. Ez hét lehetőséget fog megjeleníteni:
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
 * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
+* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 Az adatok eszközre töltésének legkönnyebb módja a szerkesztendő területre görgetés és nagyítás, aztán a „Jelenlegi nézet letöltése”. Gesztusokkal, a nagyítási gombokkal és a hangerőszabályzó gombokkal nagyíthat. A Vespucci aztán letölti a jelenlegi nézet adatait. Az adatok eszközre letöltéséhez nem szükséges hitelesítés.
+
+With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md).
 
 ### Szerkesztés
 
@@ -88,20 +92,20 @@ A nagy zöld lebegő gomb a fő térképképernyőn egy menüt jelenít meg. Miu
 
 További információkért lásd: [Új objektumok létrehozása az egyszerű műveletek módban](Creating%20new%20objects%20in%20simple%20actions%20mode.md).
 
-##### Speciális (hosszú nyomás) mód
+##### Advanced (long press) mode
  
-Nyomja hosszan ott, ahová a pontot vagy a vonal kezdetét szeretné tenni. Egy fekete „célkereszt” ikont fog látni. 
-* Ha új pontot akar létrehozni (amely nem kapcsolódik objektumhoz), akkor koppintson félre a létező objektumtól.
-* Ha bővíteni akar egy vonalat, akkor kattintson a vonal „tolerancia zónájába” (egy egy pontra a vonalon). A tolerancia zónát a pont vagy vonal körüli terület jelzi.
+Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
+* If you want to create a new node (not connected to an object), touch away from existing objects.
+* If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
 
 Ha látja a célkereszt szimbólumot, akkor ezek a lehetőségei:
 
-* Érintse meg ugyanazon a helyen.
-    * Ha a célkereszt nincs pont közelében, akkor az ugyanazon helyen történő érintés egy új pontot hoz létre. Ha egy vonal közelében van (de nincs a közelben pont), akkor az új pont a vonalon lesz (és hozzá lesz kapcsolva a vonalhoz).
-    * Ha a célkereszt pont közelében van (tehát a pont toleranciaterületén), akkor az ugyanazon hely kiválasztása kiválasztja a pontot (és megnyílik a címkeszerkesztő). Nem lesz új pont létrehozva. A művelet ugyanaz mint a fenti kijelölésnél.
-    * Érintsen meg egy másik helyet. Egy másik hely megérintése (a célkereszt toleranciazónáján kívül) egy új szakaszt ad hozzá az eredeti pozíciótól a jelenlegi pozícióig. Ha a célkereszt egy ponthoz vagy vonalhoz van közel, akkor az új szakasz ahhoz a ponthoz vagy vonalhoz lesz kapcsolva.
+* _Normal press in the same place._
+    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
+    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
+* _Normal touch in another place._ Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
 
-Egyszerűen érintse meg a képernyőt, ahová a további pontokat akarja hozzáadni a vonalon. A befejezéshez érintse meg kétszer az utolsó pontot. Ha az utolsó pont egy vonalon vagy ponton van, akkor a szakasz automatikusan a ponthoz vagy vonalhoz lesz kötve. 
+Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. 
 
 Használhatja a menüelemet is: További információkért lásd: [Új objektumok létrehozása](Creating%20new%20objects.md).
 
@@ -123,11 +127,11 @@ Másolhatja és kivághatja a kiválasztott pontokat és vonalakat, aztán egysz
 
 #### Címek hatékony hozzáadása
 
-Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
+A Vespucci rendelkezik egy ![Address](../images/address.png) „címcímkék hozzáadása” funkcióval, amely az adott házszám kitalálásával megpróbálja hatékonyabbá tenni a címek felmérést. Így jelölhető ki:
 
-* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the property editor.
+* hosszú nyomás után (_egyszerű módban nem): a Vespucci elhelyez egy pontot az adott helyen, megpróbálja a lehető legjobban kitalálni a házszámot, és hozzáadja az utóbbi időben használ címcímkéket. Ha a pont egy épület kontúrján van, akkor automatikusan kap egy „entrance=yes” címkét is. Megnyílik a címkeszerkesztő és így lehetővé válik a további módosítások elvégzése.
+* a kijelölt pont/vonal módban: a Vespucci a fent leírt módon hozzáadja a címcímkéket és elindítja a címkeszerkesztőt
+* a tulajdonságszerkesztőben.
 
 A házszámok becslésének működéséhez jellemzően legalább két házszám szükséges az út két oldalán, minél több szám szerepel az adatokban, annál jobb.
 
@@ -205,7 +209,7 @@ A mód a zárolás gomb hosszú megnyomásával, és a megfelelő menüelem kiv�
 
 ### Ellenőrzések beállítása
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
+Jelenleg két konfigurálható ellenőrzés van (nem konfigurálható a FIXME címkék ellenőrzése és a kapcsolatokról hiányzó type címkék ellenőrzése), mindkettő a Beállítások > Érvényesítő beállításai menöben állítható be. 
 
 A bejegyzések listája két részre van osztva, a felső része az „újbóli felmérési” bejegyzéseket tartalmazza, az alsó rész pedig az „ellenőrzési bejegyzéseket”. A bejegyzések koppintással szerkeszthetőek, és a zöld menügombbal adhatóak hozzá új bejegyzések.
 
@@ -213,12 +217,14 @@ A bejegyzések listája két részre van osztva, a felső része az „újbóli 
 
 Az újbóli felmérési bejegyzések a következő tulajdonságokkal rendelkeznek:
 
-* **Kulcs** – A kérdéses címke kulcs.
-* **Érték** – Az érték, amellyel a kérdéses címkének rendelkeznie kell, ha üres, akkor figyelmen kívül lesz hagyva.
-* **Kor** – az elem hány napi változatlansága esetén kell újra felmérni, ha a check_date mező meg van adva, akkor az lesz használva, egyébként a jelenlegi verzió létrehozási dátuma. Az érték nullára állítása esetén egy egyszerű kulcs és érték összehasonlítást eredményez.
-* **Reguláris kifejezés** – ha be van kapcsolva, akkor az **Érték** JAVA reguláris kifejezésnek lesz tekintve.
+* **Kulcs** – Az érintett címke kulcsa.
+* **Érték** – Az érintett címke értéke, ha üres, a címke értéke figyelmen kívül marad.
+* **Kor** – legutóbbi módosítása után hány nappal kell megvizsgálni az elemet, ha van _check_date_ címke. Különben az aktuális verzió létrehozásának dátuma. Az érték nullára állítása azt eredményezi, hogy az ellenőrzés egyszerűen megfelel a kulcsnak és az értéknek.
+* **Reguláris kifejezés** – ha be van jelölve, az **érték** JAVA reguláris kifejezésnek lesz tekintve.
 
 A **Kulcs** és az **Érték** a _meglévő_ címkékkel lesz összehasonlítva a kérdéses objektumon.
+
+A standard előbeállításokban a _Magyarázó jegyzetek_ csoport tartalmaz egy elemet, amely automatikusan hozzáad egy _check_date_ címkét az aktuális dátummal.
 
 #### Bejegyzések ellenőrzése
 
@@ -241,31 +247,37 @@ A fentiek alternatívájaként, az objektumok egyes előbeállítások vagy elő
 
 ## A Vespucci testreszabása
 
-Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
+Az alkalmazás számos vonatkozása testreszabható. Ha valami konkrét dolgot keres, de nem találja meg, akkor a [Vespucci webhely](https://vespucci.io/) kereshető, és további tájékoztatást ad mindarról, ami az eszközön elérhető.
 
-### Layer settings
+### Rétegbeállítások
 
-Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.
+Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
 
-* Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.
+Available layer types:
+
+* Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
+* Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
 * Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
+* GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
+* Grid - Displays a scale alone the sides of the map or a grid. Default: on. 
 
-#### Preferences
+#### Beállítások
 
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Hagyja bekapcsolva a kijelzőt. Alapértelmezés: kikapcsolva.
+* Nagy ponthúzási terület. A pontok mozgatása érintéses bemenettel rendelkező eszközön nehézkes, mivel az ujjai eltakarják a kijelző aktuális helyzetét. Ennek bekapcsolása nagy területet biztosít, amely a középponton kívüli húzásra használható fel (a kijelölés és más műveletek továbbra is a normál érintéstűrési területet használják). Alapértelmezés: kikapcsolva.
 
-The full description can be found here [Preferences](Preferences.md)
+A teljes leírás megtalálható a [beállításoknál](Preferences.md).
 
 #### Speciális beállítások
 
-* Node icons. Default: on.
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+* Pont ikonok. Alapértelmezés: bekapcsolva.
+* Mindig mutassa a helyi menüt. Bekapcsolva minden kijelölési folyamat megmutatja a helyi menüt, kikapcsolva a menü csak akkor jelenik meg, ha nem lehet egyértelmű kijelölést meghatározni. Alapértelmezés: kikapcsolva (korábban be volt kapcsolva).
+* Könnyű téma engedélyezése. Modern eszközökön ez alapértelmezés szerint be van kapcsolva. Régebbi Android verziók esetében is engedélyezhető, a stílus azonban valószínűleg következetlen lesz. 
 
-The full description can be found here [Advanced preferences](Advanced%20preferences.md)
+A teljes leírás megtalálhat a [speciális beállításoknál](Advanced%20preferences.md).
 
 ## Problémák jelentése
 

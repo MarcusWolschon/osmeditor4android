@@ -6,8 +6,14 @@
     <string name="help_nodeselection">Nodoa aukeratua</string>
     <string name="help_relationselection">Erlazioa aukeratua</string>
     <string name="help_wayselection">Bidea aukeratua</string>
+    <string name="help_preferences">Hobespenak</string>
+    <string name="help_advanced_preferences">Hobespen aurreratuak</string>
     <string name="help_presets">Aurrezarpenak</string>
     <string name="help_gpssources">GPS iturriak</string>
+    <string name="help_tagfilter">Etiketa iragazkia</string>
+    <string name="help_presetfilter">Aurre-ezarpenen iragazkia</string>
+    <string name="help_voice_commands">Ahots-aginduak</string>
+    <string name="help_privacy">Pribatutasuna</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>
@@ -18,6 +24,7 @@
     	<item>@string/help_relationselection</item>
     	<item>@string/help_multiselect</item>
     	<item>@string/help_longclick</item>
+        <item>@string/help_pathcreation</item>
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
     	<item>@string/help_presets</item>	
@@ -31,6 +38,8 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_150</item>
+        <item>@string/help_upgrade_141</item>
         <item>@string/help_upgrade_140</item>
         <item>@string/help_upgrade_131</item>
         <item>@string/help_upgrade_130</item>
@@ -59,6 +68,7 @@
     	<item>Relation selected</item>
     	<item>Multiselect</item>
     	<item>Creating new objects</item>
+        <item>Adding way nodes</item>
         <item>Preferences</item>
         <item>Advanced preferences</item>
     	<item>Presets</item>	
@@ -71,6 +81,8 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>15.1.0 Release notes</item>
+        <item>15.0.0 Release notes</item>
         <item>14.1.0 Release notes</item>
         <item>14.0.0 Release notes</item>
         <item>13.1.0 Release notes</item>

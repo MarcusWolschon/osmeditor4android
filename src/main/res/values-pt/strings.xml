@@ -180,6 +180,12 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Atribuição</string>
   <!--Too much data dialog-->
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <!--Abort action mode dialog-->
   <!---->
   <string name="error">Erro</string>
   <string name="warning">Aviso</string>
@@ -272,6 +278,9 @@
   <string name="api_info_latest_date">Última data de inclusão</string>
   <string name="api_info_attribution">Atribuição</string>
   <string name="api_info_mapsplit_source">Fonte MapSplit  de apenas leitura</string>
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Histórico de alterações</string>
   <string name="undo_redo_title">Desfazer - refazer</string>
@@ -311,7 +320,6 @@
   <string name="toast_preset_overwrote_tags">Nota: algumas etiquetas foram substituídas</string>
   <string name="toast_merge_overwrote_tags">Nota: operação substituiu algumas etiquetas</string>
   <string name="toast_oneway_reversed">Inverteu uma linha de sentido único ou uma linha com etiquetas que dependem da direção da linha. Por favor verifique as etiquetas e corrija-as se for necessário.</string>
-  <string name="toast_merge_tag_conflict">Uniu elementos que têm etiquetas com valores em conflito, ou semântica dependente da direção ou funções diferentes na mesma relação. Por favor verifique as etiquetas e funções das relações, corrigindo-as se for necessário.</string>
   <string name="toast_potential_merge_tag_conflict">Está a tentar unir elementos que têm valores de etiquetas em conflito.\n\nPor favor verifique as etiquetas e corrija-as antes de tentar de novo.</string>
   <string name="toast_state_file_failed">Ficheiro ilegível ou corrompido</string>
   <string name="toast_way_nodes_moved">%1$d nós na linha movida</string>
@@ -382,7 +390,6 @@
   <string name="toast_openinghours_autocorrected">O horário de abertura para %1$s foi automaticamente corrigido
 </string>
   <string name="toast_exit_multiselect">Toque 2 vezes num espaço em branco ou utilize a seta ← para sair</string>
-  <string name="toast_exit_actionmode">Use a seta ← para gravar e sair</string>
   <string name="toast_abort_actionmode">Use a seta ← para abortar</string>
   <string name="toast_null_island">Por favor não adicione elementos em 0°/0° (Ilha nula)</string>
   <string name="toast_string_too_long">A expressão é demasiado longa (%1$d caracteres), truncado!</string>
@@ -517,7 +524,6 @@ sem gravar</string>
   <string name="tag_restriction_add_expression">Adicionar expressão</string>
   <string name="tag_restriction_add_opening_hours">Adicionar horário de funcionamento</string>
   <string name="tag_restriction_value_hint">Restrição condicional</string>
-  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <string name="tag_form_unknown_element">Elemento desconhecido (sem modelo de etiquetas)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
@@ -570,7 +576,6 @@ há %3$s %4$s</string>
   <string name="menu_append">Acrescentar</string>
   <string name="menu_relation">Criar relação</string>
   <string name="menu_edit_relation">Editar relação</string>
-  <string name="menu_add_relation_member">Adicionar membro</string>
   <string name="menu_select_relation_members">Selecionar membros</string>
   <string name="menu_tag">Editar tags</string>
   <string name="menu_openstreetbug">Adicionar nota</string>
@@ -678,11 +683,9 @@ há %3$s %4$s</string>
   <string name="notreversable_description">Esta linha não pode ser invertida porque tem etiquetas com atributos que dependem da direção. Invertê-la iria tornar as etiquetas inválidas.</string>
   <string name="reverse_anyway">Inverter mesmo assim</string>
   <string name="deleteway_description">Está prestes a eliminar uma linha.\n\node optar por manter todos os nós, ou eliminar os nós que pertencem apenas a esta linha e que não têm etiquetas.</string>
-  <string name="deleteway_relation_description">Estás prestes a eliminar uma linha que é membro de uma ou mais relações. Se remover a linha destas relações pode torná-las inválidas.</string>
   <string name="deleteway_nodesnotdownloaded_description">A linha tem nós fora da área descarregada e não pode ser eliminada sem ser criado um estado inconsistente. Descarregue toda a linha antes de tentar novamente.</string>
   <string name="deleteway_wayonly">Apenas eliminar linha</string>
   <string name="deleteway_wayandnodes">Eliminar linha</string>
-  <string name="deletenode_relation_description">Estás prestes a eliminar um nó que é membro de uma ou mais relações. Se remover um nó destas relações pode torná-las inválidas.</string>
   <string name="deletenode">Eliminar nó</string>
   <!--EasyEdit context menus-->
   <string name="delete_note_description">A eliminação do nó não pode ser desfeita!</string>
@@ -972,7 +975,6 @@ há %3$s %4$s</string>
   <string name="undo_action_paste">Colar</string>
   <string name="undo_action_rotateway">Rodar linha</string>
   <string name="undo_action_orthogonalize">Esquadrar linha</string>
-  <string name="undo_action_circulize">Dispor em círculo</string>
   <string name="undo_action_fix_conflict">Resolução de conflito</string>
   <string name="undo_action_extract_node">Extração de nó</string>
   <string name="undo_action_apply_osc">Aplicar ao ficheiro OSC</string>
@@ -1010,6 +1012,7 @@ há %3$s %4$s</string>
   <string name="delete_from_relation_description">Está prestes a eliminar este elemento de uma relação.</string>
   <string name="unset_relation_type">Relação indefinida</string>
   <!--Things-->
+  <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 dia</item>

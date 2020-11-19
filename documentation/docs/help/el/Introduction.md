@@ -1,10 +1,10 @@
 # Εισαγωγή στο Vespucci
 
-Το Vespucci είναι ένας πλήρως εξοπλισμένος επεξεργαστής OpenStreetMap που υποστηρίζει τις περισσότερες λειτουργίες που παρέχουν οι επεξεργαστές στους επιτραπέζιους υπολογιστές. Έχει δοκιμαστεί με επιτυχία στο Android 2.3 έως 7.0 της Google και διάφορες παραλλαγές που βασίζονται στο AOSP. Προσοχή: ενώ οι δυνατότητες των κινητών συσκευών έχουν φτάσει τους ανταγωνιστές τους, τους επιτραπέζιους υπολογιστές, οι παλαιότερες συσκευές έχουν πολύ περιορισμένη μνήμη και τείνουν να είναι κάπως αργές. Θα πρέπει να το λάβετε αυτό στο λογαριασμό όταν χρησιμοποιείτε το Vespucci και να κρατήσετε, για παράδειγμα, τις περιοχές που επεξεργάζεστε σε ένα λογικό μέγεθος. 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
 
 ## Πρώτη χρήση
 
-Κατά την εκκίνηση το Vespucci σας εμφανίζει το παράθυρο διαλόγου "Λήψη άλλης τοποθεσίας"/"Φόρτωση Περιοχής". Αν προβάλλετε τις συντεταγμένες και θέλετε να κατεβάσετε απευθείας, μπορείτε να κάνετε την κατάλληλη επιλογή και να ρυθμίσετε την ακτίνα γύρω από την τοποθεσία που θέλετε να κατεβάσετε. Μην επιλέγετε μεγάλες περιοχές σε αργές συσκευές. 
+On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
 
 Εναλλακτικα μπορείτε να κλείσετε το παράθυρο πατώντας το κουμπί "Μετάβαση στον χάρτη" και να μετακινήσετε και να εστιάσετε σε μια τοποθεσία που θέλετε να επεξεργαστείτε και να κατεβάσετε τότε τα δεδομένα (δείτε παρακάτω: "Επεξεργασία με το Vespucci").
 
@@ -18,14 +18,18 @@
 
 Επιλέξτε είτε το εικονίδιο μεταφοράς ![Μεταφορά](../ images / menu_transfer.png) είτε το στοιχείο μενού "Μεταφορά". Αυτό θα εμφανίσει επτά επιλογές:
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
 * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
+* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 Ο ευκολότερος τρόπος λήψης δεδομένων στη συσκευή είναι να κάνετε μεγέθυνση και να μετακινηθείτε στη θέση που θέλετε να επεξεργαστείτε και, στη συνέχεια, να επιλέξετε "Λήψη τρέχουσας προβολής". Μπορείτε να κάνετε μεγέθυνση χρησιμοποιώντας τα χέρια σας, τα κουμπιά ζουμ ή τα κουμπιά ελέγχου της έντασης στη συσκευή. Το Vespucci θα πρέπει στη συνέχεια να πραγματοποιήσει λήψη δεδομένων για την τρέχουσα προβολή. Δεν απαιτείται επαλήθευση για τη λήψη δεδομένων στη συσκευή σας.
+
+With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md).
 
 ### Επεξεργασία
 
@@ -91,17 +95,17 @@ Tapping the large green floating button on the map screen will show a menu. Afte
 ##### Advanced (long press) mode
  
 Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), click away from existing objects.
-* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+* If you want to create a new node (not connected to an object), touch away from existing objects.
+* If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
 
 Μόλις δείτε το σταυρόνημα, έχετε αυτές τις επιλογές:
 
-* Άγγιγμα στην ίδια θέση.
-    * Εάν το σταυρόνημα δεν βρίσκεται κοντά σε έναν κόμβο, αγγίζοντας ξανά την ίδια θέση δημιουργεί έναν νέο κόμβο. Αν βρίσκεστε κοντά σε μία διαδρομή (αλλά όχι κοντά σε έναν κόμβο), ο νέος κόμβος θα βρίσκεται στην διαδρομή (και θα συνδεθεί με την διαδρομή).
-     * Εάν το σταυρόνημα βρίσκεται κοντά σε έναν κόμβο (δηλ. Εντός της ζώνης ανοχής του κόμβου), αγγίζοντας την ίδια θέση επιλέγει απλά τον κόμβο (και ο επεξεργαστής ετικετών ανοίγει.) Δεν δημιουργείται νέος κόμβος Η ενέργεια είναι ίδια με την παραπάνω επιλογή.
-* Άγγιγμα σε άλλη θέση. Εάν αγγίξετε σε άλλη θέση (εκτός της ζώνης ανοχής του σταυρονήματος), προστίθεται ένα τμήμα διαδρομής από την αρχική θέση στην τρέχουσα θέση. Εάν το σταυρόνημα ήταν κοντά σε μία διαδρομή ή κόμβο, το νέο τμήμα θα συνδεθεί με αυτήν την διαδρομή ή τον κόμβο.
+* _Normal press in the same place._
+    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
+    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
+* _Normal touch in another place._ Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
 
-Απλώς αγγίξτε την οθόνη εκεί όπου θέλετε να προσθέσετε επιπλέον κόμβους σε μία διαδρομή. Για να ολοκληρώσετε, αγγίξτε δύο φορές τον τελικό κόμβο. Εάν ο τελικός κόμβος βρίσκεται σε μία διαδρομή ή έναν κόμβο, το τμήμα θα συνδεθεί αυτόματα στη διαδρομή ή τον κόμβο. 
+Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. 
 
 Μπορείτε επίσης να χρησιμοποιήσετε ένα μενού αντικειμένου: Δείτε [Δημιουργία νέων αντικειμένων] (/Creating%20new%20objects.md) για περισσότερες πληροφορίες.
 
@@ -213,12 +217,14 @@ Currently there are two configurable checks (there is a check for FIXME tags and
 
 Οι εισαγωγές επανεξέτασης έχουν τις εξής ιδιότητες:
 
-* **Κλειδί** - Το κλειδί της ετικέτας ενδιαφέροντος.
-* **Τιμή** - Η τιμή της ετικέτας ενδιαφέροντος που θα πρέπει να έχει, αν είναι άδεια η τιμή της ετικέτας τότε θα αγνοηθεί.
-* **Ηλικία** - πόσες ημέρες μετά την τελευταία αλλαγή του στοιχείου, θα πρέπει το στοιχείο να επανεξεταστεί, αν υπάρχει πεδίο έλεγχος_ημερομηνίας αυτό θα χρησιμοποιηθεί, αλλιώς θα χρειαστεί να δημιουργηθεί η ημερομηνία της τρέχουσας έκδοσης. Ο ορισμός της τιμής στο μηδέν θα οδηγήσει στον έλεγχο που ταιριάζει απλά με το κλειδί και την τιμή.
-* **Κανονική έκφραση** - αν είναι επιλεγμένη η **Τιμή** θεωρείται κανονική έκφραση JAVA.
+* **Key** - Key of the tag of interest.
+* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
+* **Age** - how many days after the element was last changed the element should be re-surveyed, if a _check_date_ tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
 **Κλειδί** και **Τιμή** ελέγχονται έναντι των _υπαρχόντων_ ετικετών του αντικειμένου στην ερώτηση.
+
+The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
 
 #### Έλεγχος καταχωρήσεων
 
@@ -245,12 +251,18 @@ Many aspects of the app can be customized, if you are looking for something spec
 
 ### Layer settings
 
-Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.
+Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
 
-* Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.
+Available layer types:
+
+* Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
+* Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
 * Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
+* GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
+* Grid - Displays a scale alone the sides of the map or a grid. Default: on. 
 
 #### Preferences
 

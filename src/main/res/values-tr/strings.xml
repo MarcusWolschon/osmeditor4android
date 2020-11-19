@@ -8,18 +8,23 @@
   <string name="transfer_download_current_dialog_title">Dikkat!</string>
   <string name="transfer_download_current_dialog_message">Değişiklikler yaptınız. Onları atmak yerine yüklemek ister misiniz?</string>
   <string name="transfer_download_current_upload">Yükle</string>
-  <string name="transfer_download_current_download">İndirmeyi iptal et</string>
+  <string name="transfer_download_current_download">At &amp; indir</string>
   <string name="transfer_download_current_back">Geri (bir şey yapmadan)</string>
   <string name="upload_problem_title">Yüklenemedi</string>
   <string name="upload_problem_message">Verilerin bir kısmı veya tamamı yüklenmedi. Daha sonra tekrar deneyin.</string>
   <string name="bad_request_message">API bir hatayla yanıt verdi, lütfen verilerinizi kaydedin ve sorunu bildirin: \n\n</string>
   <string name="upload_conflict_title">Yükleme çakışması</string>
-  <string name="use_local_version">Yerel uyarlamayı kullan</string>
-  <string name="use_server_version">Sunucudaki uyarlamayı kullan</string>
+  <string name="upload_conflict_message_version">%1$s \nyerel sürümü %2$d dir\nsunucudaki  %3$d</string>
+  <string name="upload_conflict_message_deleted">%1$s \nyerel sürümü %2$d \nve sunucusunda silindi</string>
+  <string name="upload_conflict_message_referential">%1$s \nyerel silindi \nfakat sunucusunda halen bağlantıları var</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nönceden sunucusundan silindi</string>
+  <string name="use_local_version">Yerel sürümü kullan</string>
+  <string name="use_server_version">Sunucudaki sürümü kullan</string>
   <string name="no_login_data_title">Doğrulanamadı</string>
   <string name="no_connection_title">Sunucuyla bağlantı yok</string>
+  <string name="no_connection_message">Şu anda sunucuya bağlanılamadı. Lütfen İnternet\'e bağlı olup olmadığınızı kontrol edin veya daha sonra tekrar deneyin.</string>
   <string name="wrong_login_data_title">Kimlik doğrulaması yapılamadı</string>
-  <string name="wrong_login_data_re_authenticate">Yeniden kimlik doğrulama</string>
+  <string name="wrong_login_data_re_authenticate">Yeniden kimlik doğrula</string>
   <string name="forbidden_login_title">Oturum açma yasak</string>
   <string name="not_found_title">Öğe bulunamadı</string>
   <string name="unknown_error_title">Bilinmeyen hata</string>
@@ -28,10 +33,10 @@
   <string name="required_feature_missing_title">Eksik veya devre dışı bırakılmış bileşen</string>
   <string name="required_feature_missing_message">Bu özellik eksik veya devre dışı bir sistem bileşenine bağlıdır.</string>
   <string name="go_to_openstreetmap">openstreetmap.org\'a git</string>
-  <string name="data_conflict_title">Uyarlama çakışması</string>
+  <string name="data_conflict_title">Sürüm çakışması</string>
   <string name="data_conflict_message">İndirilen veriler düzenlemelerinizle çakışır. Lütfen tekrar denemeden önce verilerinizi yükleyin.</string>
-  <string name="invalid_bounding_box_title">Geçersiz karakter kutusu</string>
-  <string name="invalid_bounding_box_message">Seçilen alan API kısıtlamalarına uymuyor, lütfen farklı bir tane seçin.</string>
+  <string name="invalid_bounding_box_title">Geçersiz sınırlayıcı kutu</string>
+  <string name="invalid_bounding_box_message">Seçilen alan API kısıtlamalarına uymuyor, lütfen farklı bir alan seçin.</string>
   <string name="bounding_box_too_large_title">İndirecek alan fazla büyük</string>
   <string name="bounding_box_too_large_message">İndirmeye çalıştığınız alan çok büyük veya çok fazla veri içeriyor. \n \nLütfen daha fazla yakınlaştırın ve tekrar deneyin.</string>
   <string name="api_offline_title">API çevrimdışı</string>
@@ -104,6 +109,8 @@
   <string name="generic_bug">Hata</string>
   <string name="osmose_bug">Ozmos</string>
   <string name="custom_bug">Özel</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
+  <string name="bug_long_description_2">&lt;br&gt;son güncelleme:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (indirilemedi) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">MapRoulette Görevi</string>
@@ -127,6 +134,7 @@
   <string name="imagery_offset_date">Oluşturuldu</string>
   <string name="imagery_offset_zoom">Yakınlaş</string>
   <string name="imagery_offset_distance">Mesafe</string>
+  <string name="zoom_and_offset">Z %1$d çıkıntı %2$s/%3$s</string>
   <string name="set_position_datum_label">Jeodezik zaman</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">İsim tavsiyesi</string>
@@ -139,12 +147,15 @@
   <string name="geocoder_limit_label">görünürde</string>
   <!--Search objects dialog-->
   <string name="search_objects_title">Nesneleri arama</string>
+  <string name="search_objects_hint">Bir JOSM filtre/arama ifadesi girin</string>
+  <string name="search_objects_unsupported">Desteklenmeyen ifade \"%1$s\"</string>
   <!---->
   <string name="preset_search_hint">Öntanımlı arama dizesi</string>
   <string name="preset_autopreset">Otomatik önayar</string>
   <string name="search">Ara</string>
   <string name="no_valid_preset">Geçerli önayar yok</string>
   <string name="save_file">\'a kaydet</string>
+  <string name="existing_track_title">Mevcut GPX yol verisi</string>
   <string name="delete_tags">Gerçekten tüm etiketleri \"%1$s\" nesnesi için silecekmisiniz?</string>
   <!--element information dialog-->
   <string name="element_information">Öğe bilgisi</string>
@@ -172,6 +183,14 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Atfetme</string>
   <!--Too much data dialog-->
+  <string name="too_much_data_title">Çok fazla veri yüklendi!</string>
+  <string name="upload_data_now">Değişiklikleri yükle</string>
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <!--Abort action mode dialog-->
   <!---->
   <string name="error">Hata</string>
   <string name="warning">Uyarı</string>
@@ -191,6 +210,7 @@
   <string name="js_console_msg_live">Canlı kip!</string>
   <string name="js_console_msg_debug">Hata ayıklama kipi!</string>
   <string name="js_console_input_hint">Javascript\'i buraya girin</string>
+  <string name="js_console_output_hint">Çıktı burada görünecek</string>
   <!--Validator dialogs-->
   <string name="check_entries">Denetle</string>
   <string name="edit_check_title">Girdi denetimi düzelt</string>
@@ -208,12 +228,17 @@
   <string name="created">Oluşturuldu</string>
   <string name="altitude">Rakım</string>
   <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Özel görüntüsü</string>
+  <string name="edit_layer_title">Katman girişini düzenle</string>
   <string name="add_layer_title">Katman girdisi ekle</string>
+  <string name="select_layer_title">Katman seç</string>
+  <string name="overlay">Kaplama</string>
   <string name="coverage">Kapsam</string>
   <string name="coverage_top">Üst</string>
   <string name="coverage_left">Sol</string>
   <string name="coverage_right">Sağ</string>
   <string name="coverage_bottom">Alt</string>
+  <string name="toast_invalid_box">Geçersiz veya eksik sınırlayıcı kutusu</string>
   <string name="delete_layer">Katman silinsin mi?</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Katman stili</string>
@@ -221,7 +246,12 @@
   <string name="layer_style_label">Etiket</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_grid">Izgara</string>
+  <string name="layer_gpx">GPX</string>
+  <string name="layer_photos">Fotoğraflar</string>
   <string name="layer_data">OSM verisi</string>
+  <string name="layer_data_name">%1$s veri</string>
   <string name="layer_category_all">Hepsi</string>
   <string name="layer_category_map">Harita</string>
   <string name="layer_category_other">Diğer</string>
@@ -235,6 +265,9 @@
   <string name="photo_viewer_goto">Fotoğrafa git</string>
   <!--API info dialog-->
   <string name="api_info_attribution">Atfetme</string>
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
   <!--Undo - Redo dialog-->
   <!--Undo location not in view dialog-->
   <!--Feedback activity-->
@@ -339,7 +372,6 @@
   <string name="tag_restriction_header">Değer</string>
   <string name="tag_restriction_and">ve</string>
   <string name="tag_restriction_add_restriction">Kısıtlama ekle</string>
-  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <string name="tag_form_untagged_element">Etiketsiz öğe</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
@@ -378,7 +410,6 @@
   <string name="menu_extract">Düğümü çıkar</string>
   <string name="menu_append">Ekle</string>
   <string name="menu_relation">İlişki oluştur</string>
-  <string name="menu_add_relation_member">Üye ekle</string>
   <string name="menu_select_relation_members">Üye seç</string>
   <string name="menu_tag">Etiketleri düzenle</string>
   <string name="menu_openstreetbug">Not ekle</string>
@@ -495,7 +526,6 @@
   <string name="config_notificationCacheSize_current">%1$d Bildirim</string>
   <string name="config_maxAlertDistance_title">Uyarılar için maks mesafe</string>
   <string name="config_maxAlertDistance_current">%1$d metre</string>
-  <string name="config_autoformatPhoneNumbers_summary">Telefon numaralarının otomatik biçimlendirilmesini etkinleştir</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Yarıçapı indir</string>
   <string name="config_downloadRadius_current">%1$d metre</string>
@@ -599,7 +629,6 @@
   <string name="undo_action_paste">Yapıştır</string>
   <string name="undo_action_rotateway">Yol dönüşü</string>
   <string name="undo_action_orthogonalize">Yol kareleniyor</string>
-  <string name="undo_action_circulize">Daire içinde diz</string>
   <string name="undo_action_fix_conflict">Çözünürlük çatışması</string>
   <string name="undo_action_extract_node">Düğüm çıkarımı</string>
   <string name="undo_action_apply_osc">OSC dosyasını uygula</string>
@@ -633,6 +662,7 @@
   <string name="delete_from_relation_description">İlişkiden bir unsur silmek üzeresiniz.</string>
   <string name="unset_relation_type">Kurulmamış ilişki türü</string>
   <!--Things-->
+  <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 gün</item>

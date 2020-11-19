@@ -189,6 +189,12 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Atribución</string>
   <!--Too much data dialog-->
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <!--Abort action mode dialog-->
   <!---->
   <string name="error">Erro</string>
   <string name="warning">Advertencia</string>
@@ -291,6 +297,9 @@
   <string name="api_info_latest_date">Última data de inclusión</string>
   <string name="api_info_attribution">Atribución</string>
   <string name="api_info_mapsplit_source">Fonte MapSplit de só lectura</string>
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Puntos de control</string>
   <string name="undo_redo_title">Desfacer - refacer</string>
@@ -342,7 +351,6 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="toast_preset_overwrote_tags">Nota - etiqueta(s) sobrescrita(s) do(s) predefinido(s)</string>
   <string name="toast_merge_overwrote_tags">Nota - operación sobreescritas etiqueta(s)</string>
   <string name="toast_oneway_reversed">Inverteches unha rúa de sentido único ou unha vía con etiquetas que dependen da dirección. Por favor, comproba as etiquetas e corríxeas se é necesario.</string>
-  <string name="toast_merge_tag_conflict">Uniches elementos que teñen etiquetas con valores en conflito, ou semántica dependente da dirección ou funcións diferentes na mesma relación. Por favor verifica as etiquetas e funcións das relacións, corrixíndoas se for necesário.</string>
   <string name="toast_potential_merge_tag_conflict">Estás a tentar unir elementos que teñen valores de etiquetas en conflito.\n\nPor favor verifica as etiquetas e corríxaas antes de tentar de novo.</string>
   <string name="toast_state_file_failed">Ficheiro de estado corrupto ou ilexíbel</string>
   <string name="toast_way_nodes_moved">%1$d nós na liña movida</string>
@@ -516,7 +524,6 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="tag_restriction_add_expression">Engadir expresión</string>
   <string name="tag_restriction_add_opening_hours">Engadir horas abertas</string>
   <string name="tag_restriction_value_hint">Restrición condicional</string>
-  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <string name="tag_form_unknown_element">Elemento descoñecido (sen predefinido atopado)</string>
   <string name="tag_form_untagged_element">Elemento sen etiquetar</string>
   <!--Custom preset creation-->
@@ -568,7 +575,6 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="menu_append">Engadir</string>
   <string name="menu_relation">Facer relación</string>
   <string name="menu_edit_relation">Editar relación</string>
-  <string name="menu_add_relation_member">Engadir membro</string>
   <string name="menu_select_relation_members">Membros escollidos</string>
   <string name="menu_tag">Editar etiquetas</string>
   <string name="menu_openstreetbug">Engadir nota</string>
@@ -759,6 +765,7 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="config_showTolerance_title">Amosar tolerancia</string>
   <string name="config_use_back_for_undo_title">Preme a tecla ← para desfacer</string>
   <string name="config_enableLightTheme_title">Tema claro</string>
+  <string name="config_enableLightTheme_summary">Fondos claros e brancos.</string>
   <string name="config_splitActionBarEnabled_title">Activar barra acción dividir</string>
   <string name="config_maxInlineValues_title">Max. número de valores en liña</string>
   <string name="config_maxInlineValues_current">%1$d Valores</string>
@@ -903,6 +910,7 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="delete_from_relation_description">Está a piques de eliminar este elemento dunha relación.</string>
   <string name="unset_relation_type">Tipo de relación sen estabelecer</string>
   <!--Things-->
+  <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 día</item>

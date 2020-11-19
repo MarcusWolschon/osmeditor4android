@@ -27,11 +27,14 @@
   <string name="go_to_openstreetmap">Farðu á openstreetmap.org</string>
   <string name="data_conflict_title">Árekstur á milli útgáfa</string>
   <string name="invalid_bounding_box_title">Ógild umgjörð</string>
+  <string name="bounding_box_too_large_title">Niðurhalssvæði of stórt</string>
   <string name="out_of_memory_title">Ekki nægilegt minni</string>
   <string name="file_write_failed_title">Gat ekki skrifað í skrá</string>
   <!---->
   <string name="welcome_title">Velkomin</string>
   <string name="read_introduction">Lestu kynninguna</string>
+  <string name="upgrade_title">Þetta er ný útgáfa af Vespucci</string>
+  <string name="upgrade_message">Nánar er greint frá nýum eiginleikum og breyttri hegðun í útgáfuupplýsingunum.</string>
   <string name="progress_title">Hleð</string>
   <string name="progress_message">Hleð gögnum í minni...</string>
   <string name="progress_download_message">Næ í gögn frá þjóni...</string>
@@ -84,6 +87,7 @@
   <string name="unsaved_data_title">Varúð!</string>
   <string name="unsaved_data_proceed">Henda og halda áfram</string>
   <!--Imagery offset dialog-->
+  <string name="imagery_offset_title">Hliðrun myndefnis</string>
   <string name="imagery_offset_description">Lýsing</string>
   <string name="imagery_offset_not_found">Fann enga hnikun í 10km radíus!</string>
   <string name="imagery_offset_author">Höfundur</string>
@@ -130,16 +134,26 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Tileinkun</string>
   <!--Too much data dialog-->
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <!--Abort action mode dialog-->
   <!---->
   <string name="error">Villa</string>
   <string name="warning">Aðvörun</string>
   <string name="minor_issue">Minniháttar vandamál</string>
   <!--hidden object warning dialog-->
   <!--This concerns a shown message that should be shown every time-->
+  <string name="attached_object_warning_continue">Halda áfram að birta</string>
   <!--This concerns a shown message that should only be shown once-->
+  <string name="attached_object_warning_stop">Hunsa þetta</string>
   <!--debug dialog-->
+  <string name="send_debug_information">Senda villukembingarupplýsingar</string>
   <!--JS console dialog-->
   <string name="evaluate">Meta</string>
+  <string name="js_console_msg_live">Rauntímahamur!</string>
   <string name="js_console_msg_debug">Villuleitarhamur</string>
   <string name="js_console_input_hint">Settu JavaScript inn hér</string>
   <!--Validator dialogs-->
@@ -148,6 +162,8 @@
   <string name="age">Aldur</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Auð vensl</string>
+  <string name="add_members">Bæta við meðlimum</string>
+  <string name="leave_empty">Skilja eftir autt</string>
   <!--GPX waypoint dialog-->
   <string name="waypoint_title">GPX-ferilpunktur</string>
   <string name="waypoint_description">FPT: %1$s</string>
@@ -156,6 +172,9 @@
   <string name="altitude">Hæð</string>
   <string name="create_osm_object">Búa til OSM-hlut</string>
   <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Sérsniðið myndefni</string>
+  <string name="oam_layer_title">OAM-myndefni</string>
+  <string name="select_layer_title">Velja lag</string>
   <string name="overlay">Yfirlag</string>
   <string name="coverage">Þekja</string>
   <string name="coverage_top">Efst</string>
@@ -164,6 +183,7 @@
   <string name="coverage_bottom">Neðst</string>
   <string name="toast_invalid_box">Ógild eða ófullgerð umgjörð</string>
   <string name="delete_layer">Eyða lagi?</string>
+  <string name="delete_endpoint">Eyða endapunkti?</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Stíll lags</string>
   <string name="layer_style_stroke_width">Breidd línu</string>
@@ -172,6 +192,7 @@
   <string name="json_object_not_displayed">JSON-hlutur (ekki birtur)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Hnitanet</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Ljósmyndir</string>
@@ -199,19 +220,26 @@
   <string name="photo_viewer_delete_title">Eyða mynd</string>
   <string name="photo_viewer_delete_button">Eyða endanlega</string>
   <string name="photo_viewer_goto">Fara á mynd</string>
+  <string name="photo_viewer_label">Myndaskoðun</string>
+  <string name="mapillary_viewer_label">Mapillary-skoðari</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Umgjörð</string>
   <string name="api_info_attribution">Tileinkun</string>
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
   <!--Undo - Redo dialog-->
   <string name="undo_redo_title">Afturkalla - endurtaka</string>
   <!--Undo location not in view dialog-->
   <string name="undo_location_undo_anyway">Afturkalla samt</string>
   <!--Feedback activity-->
+  <string name="feedback_title">Athugasemdir til forritaranna</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Sækja OpenStreetMap-gögn</string>
   <!--Clear/Reset GPX Track-->
   <!--Tips-->
   <string name="tip_title">Vissirðu?</string>
+  <string name="tip_longpress_simple_mode">Ef ýtt er lengi í einföldum ham gerist ekkert. Slökktu á einföldum ham í aðalvalmyndinni ef þú vilt geta notað langar ýtingar til að útbúa hluti.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -334,7 +362,6 @@
   <string name="tag_restriction_add_expression">Bæta við segð</string>
   <string name="tag_restriction_add_opening_hours">Bæta við opnunartíma</string>
   <string name="tag_restriction_value_hint">Skilyrt takmörkun</string>
-  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Búa til sérsniðna forstillingu</string>
   <string name="create_preset_title">Nafn á sérsniðinni forstillingu</string>
@@ -380,7 +407,6 @@
   <string name="menu_append">Bæta við</string>
   <string name="menu_relation">Búa til vensl</string>
   <string name="menu_edit_relation">Breyta venslum</string>
-  <string name="menu_add_relation_member">Bæta við</string>
   <string name="menu_select_relation_members">Velja</string>
   <string name="menu_tag">Breyta merkjum</string>
   <string name="menu_openstreetbug">Bæta við minnispunkti</string>
@@ -432,6 +458,9 @@
   <string name="menu_tools_background_properties">Bakgrunnsstillingar</string>
   <string name="menu_tools_clear_clipboard">Hreinsa klippiborð</string>
   <!---->
+  <string name="menu_simple_actions">Einfaldur hamur</string>
+  <string name="menu_feedback">Gefa umsögn</string>
+  <string name="menu_preset_feedback">Gefa forstillta umsögn</string>
   <string name="menu_privacy">Persónuvernd</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Hnika bakgrunni</string>
@@ -602,7 +631,6 @@
   <string name="undo_action_set_tags">Merkingar</string>
   <string name="undo_action_cut">Klippa</string>
   <string name="undo_action_paste">Líma</string>
-  <string name="undo_action_circulize">Raða í hring</string>
   <string name="undo_action_fix_conflict">Lausn árekstra</string>
   <string name="undo_action_remove_node_from_way">Fjarlægja hnút úr leið</string>
   <!--ACRA-->
@@ -634,6 +662,7 @@
   <string name="deleterelation">Eyða venslum</string>
   <string name="delete_from_relation_description">Þú ert að fara að eyða þessu úr venslum.</string>
   <!--Things-->
+  <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 dagur</item>

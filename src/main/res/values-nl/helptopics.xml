@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_title">Help: %1$s</string>
     <string name="help_introduction">Introductie</string>
     <string name="help_main">Hoofd kaartscherm</string>
     <string name="help_simple_actions">Simpele acties</string>
@@ -7,7 +8,6 @@
     <string name="help_multiselect">Meervoudige selectie</string>
     <string name="help_longclick">Nieuwe objecten creëren</string>
     <string name="help_nodeselection">Geselecteerde node</string>
-    <string name="help_pathcreation">Nieuwe objecten creëren</string>
     <string name="help_relationselection">Geselecteerde relatie</string>
     <string name="help_wayselection">Geselecteerde weg</string>
     <string name="help_aligningbackgroundiamgery">Achtergrondafbeeldingen uitlijnen</string>
@@ -21,7 +21,23 @@
     <string name="help_tagfilter">Tagfilter</string>
     <string name="help_presetfilter">Voorkeuzefilter</string>
     <string name="help_opening_hours">Openingstijden</string>
+    <string name="help_newnoteselection">Nieuwe Notitie selectie</string>
     <string name="help_voice_commands">Spraakcommando\'s</string>
+    <string name="help_upgrade_140">14.0 Versie opmerkingen</string>
+    <string name="help_upgrade_131">13.1 Versie opmerkingen</string>
+    <string name="help_upgrade_130">13.0 Versie opmerkingen</string>
+    <string name="help_upgrade_121">12.1 Versie opmerkingen</string>
+    <string name="help_upgrade_120">12.0 Versie opmerkingen</string>
+    <string name="help_upgrade_112">11.2 Versie opmerkingen</string>
+    <string name="help_upgrade_111">11.1 Versie opmerkingen</string>
+    <string name="help_upgrade_110">11.0 Versie opmerkingen</string>
+    <string name="help_upgrade_102">10.2 Versie opmerkingen</string>
+    <string name="help_upgrade_101">10.1 Versie opmerkingen</string>
+    <string name="help_upgrade_100">10.0 Versie opmerkingen</string>
+    <string name="help_upgrade_099">0.9.9 Versie opmerkingen</string>
+    <string name="help_upgrade_098">0.9.8 Versie opmerkingen</string>
+    <string name="help_upgrade_097">0.9.7 Versie opmerkingen</string>
+    <string name="help_upgrade_096">0.9.6 Versie opmerkingen</string>
     <string name="help_privacy">Privacy</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
@@ -33,6 +49,7 @@
     	<item>@string/help_relationselection</item>
     	<item>@string/help_multiselect</item>
     	<item>@string/help_longclick</item>
+        <item>@string/help_pathcreation</item>
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
     	<item>@string/help_presets</item>	
@@ -46,6 +63,8 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_150</item>
+        <item>@string/help_upgrade_141</item>
         <item>@string/help_upgrade_140</item>
         <item>@string/help_upgrade_131</item>
         <item>@string/help_upgrade_130</item>
@@ -74,6 +93,7 @@
     	<item>Relation selected</item>
     	<item>Multiselect</item>
     	<item>Creating new objects</item>
+        <item>Adding way nodes</item>
         <item>Preferences</item>
         <item>Advanced preferences</item>
     	<item>Presets</item>	
@@ -86,6 +106,8 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>15.1.0 Release notes</item>
+        <item>15.0.0 Release notes</item>
         <item>14.1.0 Release notes</item>
         <item>14.0.0 Release notes</item>
         <item>13.1.0 Release notes</item>

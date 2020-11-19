@@ -7,7 +7,6 @@
     <string name="help_multiselect">Monivalinta</string>
     <string name="help_longclick">Uuden kohteen luonti</string>
     <string name="help_nodeselection">Piste valittu</string>
-    <string name="help_pathcreation">Uuden kohteen luonti</string>
     <string name="help_relationselection">Relaatio valittu</string>
     <string name="help_wayselection">Viiva valittu</string>
     <string name="help_aligningbackgroundiamgery">Ilmakuvien kohdistaminen</string>
@@ -23,6 +22,11 @@
     <string name="help_opening_hours">Aukioloajat</string>
     <string name="help_newnoteselection">Uuden huomion valinta</string>
     <string name="help_voice_commands">Äänikomennot</string>
+    <string name="help_upgrade_140">14.0 Julkaisutiedot</string>
+    <string name="help_upgrade_131">13.1 Julkaisutiedot</string>
+    <string name="help_upgrade_130">13.0 Julkaisutiedot</string>
+    <string name="help_upgrade_121">12.1 Julkaisutiedot</string>
+    <string name="help_upgrade_120">12.0 Julkaisutiedot</string>
     <string name="help_upgrade_112">11.2 Julkaisutiedot</string>
     <string name="help_upgrade_111">11.1 Julkaisutiedot</string>
     <string name="help_upgrade_110">11.0 Julkaisutiedot</string>
@@ -44,6 +48,7 @@
     	<item>@string/help_relationselection</item>
     	<item>@string/help_multiselect</item>
     	<item>@string/help_longclick</item>
+        <item>@string/help_pathcreation</item>
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
     	<item>@string/help_presets</item>	
@@ -57,6 +62,8 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_150</item>
+        <item>@string/help_upgrade_141</item>
         <item>@string/help_upgrade_140</item>
         <item>@string/help_upgrade_131</item>
         <item>@string/help_upgrade_130</item>
@@ -85,6 +92,7 @@
     	<item>Relation selected</item>
     	<item>Multiselect</item>
     	<item>Creating new objects</item>
+        <item>Adding way nodes</item>
         <item>Preferences</item>
         <item>Advanced preferences</item>
     	<item>Presets</item>	
@@ -97,6 +105,8 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>15.1.0 Release notes</item>
+        <item>15.0.0 Release notes</item>
         <item>14.1.0 Release notes</item>
         <item>14.0.0 Release notes</item>
         <item>13.1.0 Release notes</item>

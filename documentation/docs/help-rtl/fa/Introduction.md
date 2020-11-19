@@ -18,15 +18,18 @@
 
 نماد داده‌رسانی ![Transfer](../images/menu_transfer.png) یا گزینهٔ «داده‌رسانی» را از منو انتخاب کنید. این کار هفت گزینه را پیش روی شما قرار می‌دهد:
 
-* **دانلود نمای کنونی** - محدودهٔ نمایان روی صفحه را دانلود و آن را با دادهٔ موجود ادغام کنید *(به اتصال شبکه نیاز دارد)*
-* **پاک‌سازی و دانلود نمای کنونی** - همهٔ دادهٔ موجود در حافظه را پاک و سپس محدودهٔ نمایان روی صفحه را دانلود کنید *(به اتصال شبکه نیاز دارد)*
-* **آپلود داده در کارساز OSM** - ویرایش‌ها را در OpenStreetMap آپلود کنید *(به احراز هویت نیاز دارد)* *(به اتصال شبکه نیاز دارد)*
-* **دانلود خودکار مکان‌محور** - به‌طور خودکار محدوده‌ای پیرامون مکان جغرافیایی کنونی را دانلود کنید *(به اتصال شبکه یا دادهٔ آفلاین نیاز دارد)* *(به GPS نیاز دارد)*
-* **دانلود خودکار با جابه‌جایی و زوم** - به‌طور خودکار دادهٔ محدودهٔ نمایان روی صفحه را دانلود کنید *(به اتصال شبکه یا دادهٔ آفلاین نیاز دارد)* *(به GPS نیاز دارد)*
-* **پرونده...** - ذخیره‌سازی و بارکردن دادهٔ OSM به/از پرونده‌های دستگاه.
-* **یادداشت/باگ‌ها...** - دانلود (خودکار و دستی) یادداشت‌های OSM و «باگ‌ها» از ابزارهای تضمین کیفیت (در حال حاضر OSMOSE) *(به اتصال شبکه نیاز دارد)*
+* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
+* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
+* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
+* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **File...** - saving and loading OSM data to/from on device files.
+* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 ساده‌ترین روش دانلود داده در دستگاه این است که با حرکت و زوم به مکانی که می‌خواهید ویرایش کنید بروید و «دانلود نمای کنونی» را انتخاب نمایید. می‌توانید با ژست‌های حرکتی، دکمه‌های زوم یا دکمه‌های کنترل صدای دستگاه، زوم کنید. سپس وسپوچی دادهٔ نمای کنونی را دانلود می‌کند. برای دانلود داده در دستگاهتان به احراز هویت نیازی نیست.
+
+With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md).
 
 ### ویرایش
 
@@ -89,20 +92,20 @@
 
 برای اطلاعات بیشتر [ایجاد اشیای جدید در حالت کنش‌های ساده](Creating%20new%20objects%20in%20simple%20actions%20mode.md) را ببینید.
 
-##### حالت پیشرفته (لمس طولانی)
+##### Advanced (long press) mode
  
-در موقعیتی که می‌خواهید گره قرار بگیرد یا راه آغاز شود لمس طولانی کنید. سپس نماد مشکی‌رنگ + ظاهر می‌شود.
-* اگر می‌خواهید گره جدیدی ایجاد کنید (که به چیزی متصل نیست)، جایی دور از اشیای موجود را لمس کنید..
-* اگر می‌خواهید راهی را ادامه دهید، در «فضای انتخابِ» راه (یا گرهی از راه) انگشت بزنید. فضای انتخاب محدوده‌ای دور گره یا راه است.
+Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
+* If you want to create a new node (not connected to an object), touch away from existing objects.
+* If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
 
 هنگامی که علامت + نمایان شد، این گزینه‌ها پیش روی شماست:
 
-* همان مکان را لمس کنید.
-    * اگر علامت + نزدیک گرهی نباشد، لمس دوبارهٔ همان مکان گره جدیدی ایجاد می‌کند. اگر نزدیک راه باشید (اما نه نزدیک گره)، گره جدید روی راه ایجاد خواهد شد (و متصل به راه).
-    * اگر علامت بعلاوه نزدیگ گرهی باشد (یعنی در فضای انتخاب گره)، لمس دوبارهٔ همان مکان فقط گره را انتخاب می‌کند. این کنش همانند انتخاب بالاست.
-* لمس مکان دیگر. با لمس مکان دیگر (بیرون از فضای انتخاب علامت بعلاوه) پاره‌راهی از موقعیت اولیه به موقعیت جدید رسم می‌شود. اگر علامتِ بعلاوه نزدیک گره یا راهی بوده باشد، پارهٔ جدید به آن گره یا راه متصل خواهد شد.
+* _Normal press in the same place._
+    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
+    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
+* _Normal touch in another place._ Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
 
-کافی است جاهای مختلف صفحه را لمس کنید تا گره‌های بیشتری به راه بیفزایید. برای پایان، گره آخر را دوباره لمس کنید. اگر گره آخر روی راه یا گرهی قرار گرفته است، این پاره به‌طور خودکار به آن راه یا گره متصل می‌شود. 
+Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. 
 
 همچنین می‌توانید از گزینه‌ای در منو استفاده کنید: برای اطلاعات بیشتر [ایجاد اشیای جدید](Creating%20new%20objects.md) را ببینید.
 
@@ -248,12 +251,18 @@
 
 ### تنظیمات لایه
 
-تنظیمات لایه را می‌توانید از طریق کنترل لایه (گوشه بالا راست) تغییر دهید. برای دسترسی به سایر تنظیمات از دکمهٔ ترجیحات در منوی اصلی استفاده کنید.
+Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
 
-* لایهٔ پس‌زمینه - دامنهٔ وسیعی از تصاویر پس‌زمینهٔ ماهواره‌ای و هوایی وجود دارد. مقدار پیشفرض روی «سبک استاندارد» نقشهٔ openstreetmap.org تنظیم شده است.
-* لایهٔ رو - این‌ها لایه‌های نیمه‌شفافی با اطلاعات بیشتر هستند. مثلاً ردهای GPX. افزودن لایهٔ رویی ممکن است در دستگاه‌های قدیمی‌تر و دستگاه‌هایی که حافظهٔ محدودی دارند مشکلاتی ایجاد کند. پیشفرض: هیچ.
-* نمایش یادداشت‌ها/باگ‌ها. یادداشت‌ها و باگ‌های باز به‌شکل نماد حشرهٔ زردرنگ نمایش می‌یابند. موارد بسته به همان شکل اما سبزرنگ هستند. پیشفرض: روشن.
-* لایهٔ عکس. عکس‌های زمین‌مرجع را به‌شکل نمادهای دوربین قرمزرنگ نمایان می‌کند. اگر اطلاعات جهت موجود باشد، نماد چرخانده می‌شود. پشفرض: خاموش.
+Available layer types:
+
+* Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
+* Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
+* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
+* GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
+* Grid - Displays a scale alone the sides of the map or a grid. Default: on. 
 
 #### ترجیحات
 
