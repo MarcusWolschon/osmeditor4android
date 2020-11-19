@@ -1,5 +1,23 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.1.0-2:
+- Update preset
+- Update imagery from ELI
+- Improve error handling when present data is corrupted
+- Don't throw an exception, simply force cache size to at least 1
+- Make check FAB work when appending to existing way
+- Add a warning that the removed node is a member of a relation
+- Correctly update way state and add to api storage in remove node from way
+- Call takePersitableUriPermission with the correct arguments
+- Try to persist file permissions over reboots and catch SecurtiyExceptions
+- Add google required warnings when recording GPX track
+- Fix some RTL layout issues
+- Style fix
+- Don't cancel NMEA input clients just because we stop tracking
+- Add text on the dimming of not downloaded areas to the introduction
+- Add leisure=garden rendering
+- Try to guarantee that the dialog buttons are shown in the task dialog
+
 15.1.0-1: 
 - Show a toast if we create inconsistent MP role values
 - Add indication of top of undo/redo stack
