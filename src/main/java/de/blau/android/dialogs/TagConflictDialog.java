@@ -53,6 +53,9 @@ public class TagConflictDialog extends ImmersiveDialogFragment {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
+            if (activity instanceof Main) {
+                ((Main) activity).descheduleAutoLock();
+            }
             TagConflictDialog tagConflictFragment = newInstance(result);
             tagConflictFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {

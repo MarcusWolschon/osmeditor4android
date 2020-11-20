@@ -410,7 +410,6 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
             orig.setElement(originalWay);
             orig.addAllIssues(result.getIssues());
             resultList.add(orig);
-            main.descheduleAutoLock();
             TagConflictDialog.showDialog(main, resultList);
         }
     }

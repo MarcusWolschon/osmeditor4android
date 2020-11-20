@@ -61,7 +61,6 @@ public class WayMergingActionModeCallback extends NonSimpleActionModeCallback {
             Result r = result.get(0);
             main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) r.getElement()));
             if (result.size() > 1 || r.hasIssue()) {
-                main.descheduleAutoLock();
                 TagConflictDialog.showDialog(main, result);
             }
         } catch (OsmIllegalOperationException e) {
