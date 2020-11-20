@@ -44,6 +44,19 @@ public class Result implements Serializable {
     }
 
     /**
+     * Create a new, shallow, copy
+     * 
+     * @param toCopy the Result to copy
+     */
+    public Result(@NonNull Result toCopy) {
+        element = toCopy.element;
+        issues = toCopy.issues;
+        tags = toCopy.tags;
+        elementType = toCopy.elementType;
+        elementId = toCopy.elementId;
+    }
+
+    /**
      * Add an issue to the list of issues
      * 
      * @param issue the Issue to add

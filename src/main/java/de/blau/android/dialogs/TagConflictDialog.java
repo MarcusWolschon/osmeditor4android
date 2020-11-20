@@ -92,6 +92,7 @@ public class TagConflictDialog extends ImmersiveDialogFragment {
     @SuppressLint("InflateParams")
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
+            Log.d(DEBUG_TAG, "Recreating from saved state");
             result = (List<Result>) savedInstanceState.getSerializable(RESULTS_KEY);
             // restore the elements
             for (Result r : result) {
@@ -111,7 +112,11 @@ public class TagConflictDialog extends ImmersiveDialogFragment {
         list.setOnItemClickListener((parent, view, position, id) -> {
             Result clicked = result.get(position);
             OsmElement element = clicked.getElement();
-            ElementInfo.showDialog(getActivity(), App.getDelegator().getUndo().getUndoElements(element).size() - 1, element, false);
+            if (element != null) {
+                ElementInfo.showDialog(getActivity(), App.getDelegator().getUndo().getUndoElements(element).size() - 1, element, false);
+            } else {
+                Log.e(DEBUG_TAG, "Clicked element is null");
+            }
         });
         builder.setView(layout);
         builder.setPositiveButton(R.string.done, null);
@@ -137,11 +142,17 @@ public class TagConflictDialog extends ImmersiveDialogFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
+        List<Result> toSave = new ArrayList<>();
         // directly saving OsmElements is a bad idea
+        // we need to copy everything as otherwise we
+        // remove the reference to the element from
+        // the in use copy of Result
         for (Result r : result) {
-            r.saveElement();
+            Result savedResult = new Result(r);
+            toSave.add(savedResult);
+            savedResult.saveElement();
         }
-        outState.putSerializable(RESULTS_KEY, new ArrayList<Result>(result));
+        outState.putSerializable(RESULTS_KEY, new ArrayList<Result>(toSave));
         Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
