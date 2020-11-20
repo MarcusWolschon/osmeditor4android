@@ -700,11 +700,13 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
 
         final Handler handler = new Handler();
         OnCheckedChangeListener onCheckedChangeListener = (group, position) -> {
-            if (position != -1) {
+            if (position != -1 && position < ids.length) {
                 final TileLayerSource tileServer = TileLayerSource.get(getActivity(), ids[position], true);
                 if (tileServer != null) {
                     setNewImagery(activity, row, layer, tileServer);
                 }
+            } else {
+                Log.e(DEBUG_TAG, "position out of range 0-" + (ids.length - 1) + ": " + position);
             }
             // allow a tiny bit of time to see that the action actually worked
             handler.postDelayed(() -> {
