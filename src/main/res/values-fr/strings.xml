@@ -181,8 +181,10 @@
   <string name="empty_role">Rôle vide</string>
   <string name="last_edited">Dernier édité</string>
   <string name="original">Original</string>
+  <string name="previous">Précédent</string>
   <string name="current">Actuel</string>
   <string name="goto_element">Aller à l\'élément</string>
+  <string name="edit_properties">Modifier les tags</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Information d\'attributs en GeoJSON</string>
   <string name="copy_properties">Copier les propriétés</string>
@@ -199,9 +201,12 @@
   <string name="prune_data_now">Élaguer les données</string>
   <!--Delete custom preset dialog-->
   <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_button">Ajouter quand même</string>
   <!--Duplicate relation element dialog-->
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move">Déplacer</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove">Retirer</string>
   <!--Abort action mode dialog-->
   <!---->
   <string name="error">Erreur</string>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">Súgó</string>
+    <string name="help_app_description">Vespucci súgómegtekintő</string>
     <string name="help_title">Súgó: %1$s</string>
     <string name="help_introduction">Bevezetés</string>
     <string name="help_main">Fő térképmegjelenítő</string>
@@ -8,7 +10,9 @@
     <string name="help_multiselect">Többszörös kijelölés</string>
     <string name="help_longclick">Új objektumok létrehozása</string>
     <string name="help_nodeselection">Pont kijelölve</string>
+    <string name="help_pathcreation">Vonalpontok hozzáadása</string>
     <string name="help_relationselection">Kapcsolat kijelölve</string>
+    <string name='help_add_route_segmement'>Útvonalszakasz hozzáadása</string>
     <string name="help_wayselection">Vonal kijelölve</string>
     <string name="help_aligningbackgroundiamgery">Légifelvétel-háttér igazítása</string>
     <string name="help_propertyeditor">Tulajdonságszerkesztő</string>
@@ -23,6 +27,10 @@
     <string name="help_opening_hours">Nyitva tartás</string>
     <string name="help_newnoteselection">Új jegyzet kiválasztás</string>
     <string name="help_voice_commands">Hangutasítások</string>
+    <string name="help_add_route_segment">Útvonalszakasz hozzáadása</string>
+    <string name="help_upgrade">15.1 kiadási megjegyzések</string>
+    <string name="help_upgrade_150">15.0 kiadási megjegyzések</string>
+    <string name="help_upgrade_141">14.1 kiadási megjegyzések</string>
     <string name="help_upgrade_140">14.0 kiadási megjegyzések</string>
     <string name="help_upgrade_131">13.1 kiadási megjegyzések</string>
     <string name="help_upgrade_130">13.0 kiadási megjegyzések</string>

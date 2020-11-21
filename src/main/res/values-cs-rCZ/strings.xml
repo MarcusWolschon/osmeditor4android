@@ -41,7 +41,9 @@
   <string name="go_to_openstreetmap">Navštivte openstreetmap.org</string>
   <string name="data_conflict_title">Konflikt verzí</string>
   <string name="data_conflict_message">Data, která se snažíte stáhnout, jsou v konfliktu s vašimi úpravami. Nejprve vaše data nahrajte a zkuste to znovu.</string>
-  <string name="invalid_bounding_box_title">Neplatný ohraničující rámec</string>
+  <string name="corrupted_data_title">Poškozená data</string>
+  <string name="corrupted_data_message">Byla zjištěna nekonzistence dat. Před tím, než uděláte cokoliv dalšího, pokuste se nahrát vaše editace a poté vymažte všechna uložená data a stáhněte je znovu.</string>
+  <string name="invalid_bounding_box_title">Neplatný ohraničující obdélník</string>
   <string name="invalid_bounding_box_message">Zvolená oblast nevyhovuje omezením API. Prosím, zvolte jinou oblast.</string>
   <string name="bounding_box_too_large_title">Příliš velká oblast ke stažení</string>
   <string name="bounding_box_too_large_message">Snažíte se stáhnout oblast, která je příliš velká nebo obsahuje příliš dat.\n\nProsím, přibližte více mapu a zkuste to znovu.</string>
@@ -166,8 +168,8 @@
   <string name="search">Hledat</string>
   <string name="no_valid_preset">Neplatná předvolba!</string>
   <string name="save_file">Uložit do</string>
-  <string name="existing_track_title">Existující GPX data stopy</string>
-  <string name="existing_track_message">Již máte existující GPX data stopy. Možná budete chtít operaci zrušit a data nejdříve uložit.</string>
+  <string name="existing_track_title">Existující stopy GPX</string>
+  <string name="existing_track_message">Již máte existující stopu GPX. Možná budete chtít operaci zrušit a data nejdříve uložit.</string>
   <string name="delete_tags">Opravdu smazat všechny tagy objektu \"%1$s\"?</string>
   <!--element information dialog-->
   <string name="element_information">Vlastnosti prvku</string>
@@ -183,8 +185,10 @@
   <string name="empty_role">Neuvedená role</string>
   <string name="last_edited">Poslední změna</string>
   <string name="original">Původní</string>
+  <string name="previous">Předchozí</string>
   <string name="current">Aktuální</string>
   <string name="goto_element">Zobrazit prvek</string>
+  <string name="edit_properties">Upravit tagy</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Vlastnosti objektu GeoJSON</string>
   <string name="copy_properties">Zkopírovat vlastnosti</string>
@@ -197,15 +201,30 @@
   <string name="attribution">Uvedení autora</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Načteno příliš mnoho dat!</string>
-  <string name="too_much_data_message">Máte načtené %1$d uzly a překročili jste nakonfigurovaný limit. To povede ke zpomalení, a pokud přidáte další data, k potenciálním problémům s uložením stavu.</string>
+  <string name="too_much_data_message">Máte načtené %1$d uzly a překročili jste nastavený limit. To povede ke zpomalení, a pokud přidáte další data, k potenciálním problémům s uložením stavu.</string>
   <string name="upload_data_now">Nahrát změny</string>
   <string name="prune_data_now">Ořezat data</string>
   <!--Delete custom preset dialog-->
+  <string name="delete_custom_preset_title">Smazat vlastní předvolbu?</string>
   <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_title">Přidat úsek trasy</string>
+  <string name="duplicate_route_segment_message">Tato cesta již je členem trasy</string>
+  <string name="duplicate_route_segment_button">Přesto přidat</string>
   <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_title">Přidat člena relace</string>
+  <string name="duplicate_relation_member_message">Tento prvek již je členem relace.</string>
+  <string name="duplicate_relation_member_remove_button">Odebrat člena</string>
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move_outer_tags_title">Přesunout tagy z vnějších cest na multipolygon</string>
+  <string name="move_outer_tags_message">Tagy popisující objekt by měly být uvedeny jen na multipolygonu</string>
+  <string name="move">Přesunout</string>
+  <string name="leave_as_is">Ponechat tak, jak je</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove_duplicate_outer_tags_title">Odebrat duplicitní tagy na vnějších cestách</string>
+  <string name="remove_duplicate_outer_tags_message">Odebrat tagy na vnějších cestách, které jsou uvedeny na multipolygonu</string>
+  <string name="remove">Odebrat</string>
   <!--Abort action mode dialog-->
+  <string name="abort_action_title">Zrušit akci</string>
   <!---->
   <string name="error">Chyba</string>
   <string name="warning">Varování</string>
@@ -306,6 +325,8 @@
   <string name="layer_info_end_date">Koncové datum</string>
   <string name="layer_info_terms">Podmínky</string>
   <string name="layer_info_privacy_policy">Ochrana osobních údajů</string>
+  <string name="projection">Zobrazení</string>
+  <string name="errors">Chyby</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Smazat fotku</string>
   <string name="photo_viewer_delete_button">Smazat trvale</string>
@@ -318,14 +339,22 @@
   <string name="api_info_attribution">Autorství</string>
   <string name="api_info_mapsplit_source">MapSplit pouze pro čtení</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">Tagy změněny</string>
+  <string name="tag_conflict_message">Akce vyžaduje změnu tagů ovlivněných prvků.</string>
   <!--Relation selection dialog-->
+  <string name="no_suitable_relations_message">Žádné vhodné relace ve stažené oblasti</string>
+  <string name="select_route_title">Zvolte trasu</string>
+  <string name="select_relation_title">Zvolte relaci</string>
   <!--Preset selection dialog-->
+  <string name="select_relation_type_title">Zvolte typ relace</string>
+  <string name="select_relation_type_other">Jiné</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Kontrolní body</string>
   <string name="undo_redo_title">Zpět - vpřed</string>
   <string name="undo_redo_one">Pouze zvolený kontrolní bod (nebezpečné)</string>
   <string name="undo_all">Vrátit i novější body (bezpečné)</string>
   <string name="redo_all">Obnovit i předchozí body (bezpečné)</string>
+  <string name="undo_latest">Nejnovější</string>
   <!--Undo location not in view dialog-->
   <string name="undo_location_title">Zrušení polohy není v pořádku</string>
   <string name="undo_location_text">Místo, které bude vrácením ovlivněno, není vidět.</string>
@@ -376,7 +405,7 @@
   <string name="toast_preset_overwrote_tags">Pozn. - předvolba přepsala tag(y)</string>
   <string name="toast_merge_overwrote_tags">Pozn. - operace přepsala tag(y)</string>
   <string name="toast_cant_autoapply_preset">Toto přednastavení nelze použít automaticky</string>
-  <string name="toast_oneway_reversed">Obrátili jste jednosměrnou ulici nebo cestu se směrovými značkami. Zkontrolujte prosím značky a v případě potřeby je opravte.</string>
+  <string name="toast_oneway_reversed">Obrátili jste jednosměrnou ulici nebo cestu se směrovými tagy. Zkontrolujte prosím tagy a v případě potřeby je opravte.</string>
   <string name="toast_potential_merge_tag_conflict">Pokoušíte se sloučit prvky s konfliktními hodnotami tagů.\n\nNejprve prosím zkontrolujte a opravte tagy a poté akci opakujte.</string>
   <string name="toast_state_file_failed">Nečitelný nebo poškozený stavový soubor</string>
   <string name="toast_way_nodes_moved">%1$d uzlů posunuto s cestou</string>
@@ -443,6 +472,7 @@
   <string name="toast_security_error_accessing_photo">Není dovoleno získat přístup k fotografii %1$s</string>
   <string name="toast_no_voice_recognition">Podpora pro rozpoznávání hlasu chybí</string>
   <string name="toast_no_coverage">%1$s zde nemá pokrytí</string>
+  <string name="toast_tile_layer_errors">Se zdrojem snímků „%1$s“ jsou problémy</string>
   <string name="toast_file_exists">Soubor %1$s existuje.</string>
   <string name="toast_needs_resurvey">Objekt může být neaktuální.</string>
   <string name="toast_missing_key">Klíč %1$s chybí</string>
@@ -670,6 +700,8 @@
   <string name="menu_remove_node_from_way">Odebrat uzel z cesty</string>
   <string name="menu_extract">Odpojit uzel</string>
   <string name="menu_append">Přidat</string>
+  <string name="menu_create_route">Vytvořit trasu</string>
+  <string name="menu_add_to_route">Přidat do trasy</string>
   <string name="menu_relation">Vytvořit relaci</string>
   <string name="menu_edit_relation">Upravit relaci</string>
   <string name="menu_select_relation_members">Zvolit členy</string>
@@ -700,7 +732,7 @@
   <string name="menu_transfer_download_replace">Přepsat stažené aktuálním pohledem</string>
   <string name="menu_transfer_load_current">Načíst aktuální zobrazení</string>
   <string name="menu_transfer_load_replace">Vymazat a načíst aktuální zobrazení</string>
-  <string name="menu_transfer_upload">Nahrát data na OSM server</string>
+  <string name="menu_transfer_upload">Nahrát data na server OSM</string>
   <string name="menu_transfer_update">Aktualizovat data</string>
   <string name="menu_transfer_close_changeset">Uzavřít aktuální sadu změn</string>
   <string name="menu_transfer_file">Soubor…</string>
@@ -833,7 +865,7 @@
   <string name="actionmode_restriction_split_from">Rozdělit segment „odkud“</string>
   <string name="actionmode_restriction_split_via">Rozdělit segment „přes“</string>
   <string name="actionmode_extract_segment_select">Vybrat segment</string>
-  <string name="actionmode_extract_segment_set_tags">Nastavit značky</string>
+  <string name="actionmode_extract_segment_set_tags">Nastavit tagy</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 objekt</item>
     <item quantity="few">%1$d objekty</item>
@@ -1174,6 +1206,7 @@
   <string name="tunnel">Tunel</string>
   <string name="culvert">Propustek</string>
   <!--Tag issues-->
+  <string name="issue_merged_tags">Tagy sloučeny</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 den</item>

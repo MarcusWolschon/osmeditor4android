@@ -16,17 +16,17 @@
 <h3>Stahování dat OSM</h3>
 <p>Zvolte buď ikonu <img src="../images/menu_transfer.png" alt="Přenos" /> nebo položku &quot;Přenos&quot; z menu. Zobrazí se sedm možností:</p>
 <ul>
-<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
-<li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
-<li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
-<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
-<li><strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and &quot;Bugs&quot; from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
+<li><strong>Stáhnout aktuální pohled</strong> - stáhne oblast viditelnou na obrazovce a spojí ji s existujícími daty <em>(vyžaduje připojení k síti nebo offline datový zdroj)</em></li>
+<li><strong>Přepsat stažené aktuálním pohledem</strong> - vymaže všechna data v paměti a poté stáhne oblast viditelnou na obrazovce <em>(vyžaduje připojení k síti)</em></li>
+<li><strong>Nahrát data na server OSM</strong> - nahraje editace do OpenStreetMap <em>(vyžaduje přihlášení)</em> <em>(vyžaduje připojení k síti)</em></li>
+<li><strong>Aktualizovat data</strong> - znovu stáhne data pro všechny oblasti a aktualizuje to, co je v paměti <em>(vyžaduje připojení k síti)</em></li>
+<li><strong>Auto. stahování dle polohy</strong> - automaticky stahuje data v okolí vaší aktuální zeměpisné polohy <em>(vyžaduje připojení k síti nebo offline datový zdroj)</em> <em>(vyžaduje GPS)</em></li>
+<li><strong>Auto. stahování při posunu a přiblížení</strong> - automaticky stahuje data pro aktuálně viditelnou oblast mapy <em>(vyžaduje připojení k síti nebo offline datový zdroj)</em> <em>(vyžaduje GPS)</em></li>
+<li><strong>Soubor…</strong> - ukládá nebo načítá data OSM do/ze zařízení.</li>
+<li><strong>Poznámka/Chyba...</strong> - stahuje (automaticky i manuálně) Poznámky OSM a &quot;chyby&quot; z nástrojů pro kontrolu kvality (momentálně OSMOSE) <em>(vyžaduje připojení k síti)</em></li>
 </ul>
 <p>Nejjednodušším způsobem stahování dat je najít požadovanou oblast, kterou chcete editovat, na mapě a poté zvolit &quot;Stáhnout aktuální pohled&quot;. Přibližovat můžete pomocí gest, tlačítek přiblížení nebo pomocí tlačítek pro ovládání hlasitosti vašeho zařízení. Vespucci by poté měl stáhnout data pro aktuální pohled. Pro stahování dat do vašeho zařízení není zapotřebí žádného ověření.</p>
-<p>With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
+<p>Ve výchozím nastavení jsou nestažené oblasti ztmavené, aby se zabránilo neúmyslnému přidávání duplicit v oblastech, které nejsou staženy a zobrazeny. Chování lze změnit v <a href="Advanced%20preferences.md">Rozšířená nastavení</a>.</p>
 <h3>Editování</h3>
 <p><a id="lock"></a></p>
 <h4>Uzamčení, odemčení, přepínání režimů</h4>
@@ -69,8 +69,8 @@
 <h5>Jednoduchý režim</h5>
 <p>Stisknutí velkého zeleného tlačítka na obrazovce s mapou zobrazí nabídku. Po zvolení jedné z nabízených možností určíte klepnutím do mapy místo, na které chcete objekt umístit. Během volby umístění lze mapu v případě potřeby přibližovat či oddalovat.</p>
 <p>Více informací viz <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Creating new objects in simple actions mode</a>.</p>
-<h5>Advanced (long press) mode</h5>
-<p>Long press where you want the node to be or the way to start. You will see a black &quot;crosshair&quot; symbol. * If you want to create a new node (not connected to an object), touch away from existing objects. * If you want to extend a way, touch within the &quot;tolerance zone&quot; of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
+<h5>Pokročilý režim (s dlouhým stiskem)</h5>
+<p>Dlouze stiskněte na místo, kde chcete vytvořit uzel nebo počátek cesty. Zobrazí se černý symbol &quot;zaměřovače&quot;. * Pokud chcete vytvořit nový uzel (nenapojený na objekt), klikněte mimo existující objekty. * Pokud chcete rozšířit cestu, klikněte do oblasti tolerance výběru cesty (nebo uzlu cesty). Tolerance výběru je vyznačena oranžovou oblastí okolo uzlu nebo cesty.</p>
 <p>Jakmile se zobrazí symbol zaměřovače, máte tři možnosti:</p>
 <ul>
 <li><em>Normal press in the same place.</em>
@@ -184,7 +184,7 @@
 <li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
 <li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
-<li>Grid - Displays a scale alone the sides of the map or a grid. Default: on.</li>
+<li>Grid - Displays a scale along the sides of the map or a grid. Default: on.</li>
 </ul>
 <h4>Předvolby</h4>
 <ul>

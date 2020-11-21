@@ -16,17 +16,17 @@
 <h3>Downloaden van OSM Data</h3>
 <p>Selecteer of het Versturen icoon <img src="../images/menu_transfer.png" alt="Versturen" /> of het &quot;Versturen&quot; menu item. Dit toont zeven opties:</p>
 <ul>
-<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
-<li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
-<li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
-<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
-<li><strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and &quot;Bugs&quot; from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
+<li><strong>Download huidige weergave</strong> - download het gebied dat zichtbaar is op het sherm en voeg dat samen met de bestaande gegevens <em>(vereist netwerkverbinding of offline gegevensbron)</em></li>
+<li><strong>Verwijder en download huidige weergave</strong> - verwijder alle gegevens in het geheugen en download dan het zichtbare gebied op het scherm <em>(vereist netwerkverbinding)</em></li>
+<li><strong>Upload gegevens naar OSM server</strong> - upload wijzigingen naar OpenStreetMap <em>(vereist authenticatie)</em> <em>(vereist netwerkverbinding)</em></li>
+<li><strong>Update gegevens</strong> - download gegevens voor alle gebieden en update wat zich in het geheugen bevindt <em>(vereist netwerkverbinding)</em></li>
+<li><strong>Locatiegebaseerde autodownload</strong> - download automatisch een gebied rondom de huidige geografische locatie <em>(vereist netwerkverbinding of offline gegevensbron)</em> <em>(vereist GPS)</em></li>
+<li><strong>Sleep en zoom autodownload</strong> - download automatisch gegevens voor de huidige weergegeven kaart <em>(vereist netwerkverbinding of offline gegevensbron)</em> <em>(vereist GPS)</em></li>
+<li><strong>Bestand...</strong> - opslaan en laden van OSM gegevens van/naar apparaatbestanden.</li>
+<li><strong>Notities/Bugs...</strong> - download (automatisch en handmatig) OSM Notities en &quot;Bugs&quot; van QA tools (momenteel OSMOSE) <em>(vereist netwerkverbinding)</em></li>
 </ul>
 <p>De gemakkelijkste manier om data te downloaded is door te slepen en te zoomen naar de locatie die je wilt wijzigen en dan &quot;Download in huidige weergave&quot; te selecteren. Je kan zoomen door schermbewegingen, de zoom knoppen of de volumeknoppen op het apparaat. Vespucci zal dan de data downloaden in de huidige weergave. Er is geen authenticatie vereist voor het downloaden van data naar je apparaat.</p>
-<p>With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
+<p>Met de standaardinstellingen worden niet-gedownloade gebieden gedimd relatief tot de gedownloade gebieden. Dit is om te voorkomen dat per ongeluk dubbele objecten in niet getoonde gebieden worden toegevoegd. Dit gedrag kan worden uitgeschakeld in de  <a href="Advanced%20preferences.md">Geavanceerde instellingen</a>.</p>
 <h3>Wijzigingen maken</h3>
 <p><a id="lock"></a></p>
 <h4>Vergendelen, ontgrendelen, modus wijzigen</h4>
@@ -69,19 +69,19 @@
 <h5>Simpele modus</h5>
 <p>Het klikken op de grote groene kop op het kaartscherm toont een menu. Als je een van de items hebt geselecteerd, wordt gevraagd om het scherm te klikken op de locatie waar je het object wilt maken. Slepen en zoomen blijft werken als je de kaartweergave wilt aanpassen.</p>
 <p>Zie <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Nieuwe objecten maken in simpele modus</a> voor meer informatie.</p>
-<h5>Advanced (long press) mode</h5>
-<p>Long press where you want the node to be or the way to start. You will see a black &quot;crosshair&quot; symbol. * If you want to create a new node (not connected to an object), touch away from existing objects. * If you want to extend a way, touch within the &quot;tolerance zone&quot; of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
+<h5>Geavanceerde (lange klik) modus</h5>
+<p>Klik lang waar je de knoop wilt plaatsen of de weg wilt beginnen. Je ziet een zwart &quot;crosshair&quot; symbool. * Om een nieuwe knoop (dat niet is verbonden aan een object) te maken, klik op een gebied zonder bestaande objecten . * Om een weg te verlengen, klik binnen de &quot;tolerantiezone&quot; van de weg (of een knoop in de weg). De tolerantiezone is aangegeven met een oppervlakte rond de knoop of weg.</p>
 <p>Als je het &quot;crosshair&quot; symbool ziet heb je deze opties:</p>
 <ul>
-<li><em>Normal press in the same place.</em>
+<li><em>Klik op dezelfde plek.</em>
 <ul>
-<li>If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).</li>
-<li>If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.</li>
+<li>Als de crosshair niet dichtbij een knoop is, maakt het klikken op dezelfde locatie een nieuwe knoop. Als je dichtbij een weg bent (maar niet dichtbij een knoop) de nieuwe knoop zal op de weg worden geplaatst (en verbonden aan de weg).</li>
+<li>Als de crosshair dichtbij een knoop is (d.w.z. binnen de tolerantiezone van de knoop), zal een klik op dezelfde locatie de knoop selecteren en de tag bewerker openen. Er wordt geen nieuwe knoop gemaakt. De actie is hetzelfde als de selectie hierboven.</li>
 </ul>
 </li>
-<li><em>Normal touch in another place.</em> Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.</li>
+<li><em>Klik op een andere plek.</em> Klikken op een andere plek (buiten de tolerantie zone van de crosshair) voegt een wegsegment toe van de originele positie naar de huidige positie. Als de crosshair dichtbij een weg of knoop was, zal het nieuwe segment worden verbonden met die knoop of weg.</li>
 </ul>
-<p>Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically.</p>
+<p>Klik op het scherm waar je nieuwe knopen aan de weg wilt toevoegen. Om af te ronden kan tweemaal worden geklikt op de laatste knoop. Als de laatste knoop zich op de locatie van een weg of knoop bevindt, zal het segment automatisch aan de weg of knoop worden verbonden.</p>
 <p>Je kan ook een menu item gebruiken: Zie <a href="Creating%20new%20objects.md">Nieuwe objecten maken</a> voor meer informatie.</p>
 <h4>Een oppervlakte toevoegen</h4>
 <p>OpenStreetMap heeft op het moment geen &quot;oppervlakte&quot; object type zoals andere geo-data systemen. De online bewerker &quot;iD&quot; probeert een abstractie te maken van de onderliggende OSM elementen waarmee wordt gewerkt. Dat werkt goed in sommige omstandigheden en minder goed in andere. Vespucci probeert dat niet, dus je zult iets moeten weten over hoe weg-oppervlaktes worden voorgesteld:</p>
@@ -174,8 +174,8 @@
 <h2>Vespucci aanpassen</h2>
 <p>Veel aspecten van de app kunnen worden aangepast. Als je zoekt naar iets specifieks en het niet kan vinden, dan is <a href="https://vespucci.io/">de Vespucci website</a> zoekbaar en die bevat additionele informatie over wat er beschikbaar is op het apparaat.</p>
 <h3>Lagen instellingen</h3>
-<p>Layer settings can be changed via the layer control (&quot;hamburger&quot; menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
-<p>Available layer types:</p>
+<p>Lagen instellingen kunnen worden aangepast via de lagen instellingen knop (&quot;hamburger&quot; menu in rechter bovenhoek). Alle andere instellingen zijn bereikbaar via de instellingen in het hoofdmenu. Lagen kunnen worden ingeschakeld, uitgeschakeld of tijdelijk verborgen.</p>
+<p>Beschikbare laagtypes:</p>
 <ul>
 <li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
 <li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the &quot;standard style&quot; map from openstreetmap.org.</li>
@@ -184,7 +184,7 @@
 <li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
 <li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
-<li>Grid - Displays a scale alone the sides of the map or a grid. Default: on.</li>
+<li>Grid - Displays a scale along the sides of the map or a grid. Default: on.</li>
 </ul>
 <h4>Instellingen</h4>
 <ul>

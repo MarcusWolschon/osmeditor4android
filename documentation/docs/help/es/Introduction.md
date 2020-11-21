@@ -262,7 +262,7 @@ Available layer types:
 * Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
-* Grid - Displays a scale alone the sides of the map or a grid. Default: on. 
+* Grid - Displays a scale along the sides of the map or a grid. Default: on. 
 
 #### Preferencias
 

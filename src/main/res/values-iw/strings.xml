@@ -41,6 +41,7 @@
   <string name="go_to_openstreetmap">מעבר ל־openstreetmap.org</string>
   <string name="data_conflict_title">סתירת גרסאות</string>
   <string name="data_conflict_message">הנתונים מההורדה יסתרו את העריכות שלך. נא לנסות להעלות קודם כל את הנתונים שלך ורק אז לנסות שוב.</string>
+  <string name="corrupted_data_title">נתונים פגומים</string>
   <string name="invalid_bounding_box_title">תיבה תוחמת שגויה</string>
   <string name="invalid_bounding_box_message">האזור הנבחר לא תואם למגבלות ה־API, נא לבחור באזור אחר.</string>
   <string name="bounding_box_too_large_title">אזור ההורדה גדול מדי</string>
@@ -181,8 +182,10 @@
   <string name="empty_role">כלל ריק</string>
   <string name="last_edited">עריכה אחרונה</string>
   <string name="original">מקורי</string>
+  <string name="previous">הקודם</string>
   <string name="current">נוכחי</string>
   <string name="goto_element">מעבר לרכיב</string>
+  <string name="edit_properties">עריכת תגיות</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">פרטי תכונת GeoJSON</string>
   <string name="copy_properties">העתקת מאפיינים</string>
@@ -199,7 +202,10 @@
   <string name="upload_data_now">העלאת השינויים</string>
   <string name="prune_data_now">קיצוץ נתונים</string>
   <!--Delete custom preset dialog-->
+  <string name="delete_custom_preset_title">למחוק ערכה מוגדרת אישית?</string>
   <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_title">הוספת מקטע מסלול</string>
+  <string name="duplicate_route_segment_button">להוסיף בכל זאת</string>
   <!--Duplicate relation element dialog-->
   <!--Move multi-polygon outer element tags to relation-->
   <!--Remove duplicate tags from multi-polygon outer element-->
@@ -440,6 +446,7 @@
   <string name="toast_security_error_accessing_photo">אין הרשאה לגשת לתמונה %1$s</string>
   <string name="toast_no_voice_recognition">אמצעי זיהוי קולי חסר</string>
   <string name="toast_no_coverage">ל־%1$s אין כאן כיסוי</string>
+  <string name="toast_tile_layer_errors">מקור התמונות ‚%1$s’ נתקל בשגיאה</string>
   <string name="toast_file_exists">הקובץ %1$s קיים.</string>
   <string name="toast_needs_resurvey">יתכן שפג תוקפו של הפריט</string>
   <string name="toast_missing_key">המפתח %1$s חסר</string>
@@ -503,6 +510,8 @@
   <string name="toast_invalid_number_format">תצורת המספר שגויה %1$s</string>
   <string name="toast_error_downloading_mapillary_image">שגיאה בהורדת התמונה מ־Mapillary %1$s</string>
   <string name="toast_error_downloading_mapillary_sequences">שגיאה בהורדת הרצפים מ־Mapillary %1$s</string>
+  <string name="toast_split_next_segment">פיצול המקטע הבא</string>
+  <string name="toast_nothing_changed">שום דבר לא השתנה</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">למקורות MapSplit חובה להגדיר תקריב מזערי ומרבי</string>
   <string name="error_pbf_no_version">פרטי הגרסה חסרים בקובץ PBF</string>
@@ -602,10 +611,11 @@
   <string name="tag_restriction_add_expression">הוספת ביטוי</string>
   <string name="tag_restriction_add_opening_hours">הוספת שעות פתיחה</string>
   <string name="tag_restriction_value_hint">הגבלה מותנית</string>
+  <string name="default_checkgroup_hint">תכונות נוספות</string>
   <string name="tag_form_unknown_element">רכיב לא ידוע (לא נמצאה ערכה מוגדרת)</string>
   <string name="tag_form_untagged_element">רכיב ללא תיוג</string>
   <!--Custom preset creation-->
-  <string name="tag_menu_create_preset">יצירת ערכה מוגדרת בהתאמתך</string>
+  <string name="tag_menu_create_preset">יצירת ערכה מוגדרת אישית</string>
   <string name="create_preset_title">שם מותאם אישית לערכה מוגדרת</string>
   <string name="create_preset_default_name">%1$s מותאם אישית</string>
   <!--Strings in Box/LocationPicker-->
@@ -667,6 +677,8 @@
   <string name="menu_remove_node_from_way">הסרת מפרק מדרך</string>
   <string name="menu_extract">חילוץ מפרק</string>
   <string name="menu_append">צירוף</string>
+  <string name="menu_create_route">יצירת מסלול</string>
+  <string name="menu_add_to_route">הוספה למסלול</string>
   <string name="menu_relation">יצירת יחס</string>
   <string name="menu_edit_relation">עריכת יחס</string>
   <string name="menu_select_relation_members">בחירת חברים</string>
@@ -816,6 +828,8 @@
   <string name="actionmode_createpath">נוצר נתיב</string>
   <string name="actionmode_multiselect">בחירה מרובה</string>
   <string name="actionmode_newnoteselect">נבחרה הערה חדשה</string>
+  <string name="actionmode_add_segment">הוספת מקטע</string>
+  <string name="actionmode_reselect_first_segment">לבחור מחדש את המקטע הראשון</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">פיצול דרך סגורה, מפרק ראשון</string>
   <string name="actionmode_closed_way_split_2">פיצול דרך סגורה, מפרק שני</string>
@@ -935,6 +949,7 @@
   <string name="config_uploadWarn_summary">סף שמחתיו פריטים שממתינים להעלאה יהיו במצב אזהרה</string>
   <string name="config_dataWarn_title">יותר מדי אזהרות נתונים</string>
   <string name="config_dataWarn_summary">הגבלה (במספר מפרקים) שבו נתחיל להזהיר בנוגע לכמות גדולה מדי של נתונים שנטענים</string>
+  <string name="config_useUrlForFeedback_title">להשבית פעילות משוב</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">הגדרות נתונים ועריכה</string>
   <string name="config_category_editing_summary">הגדרות הורדה אוטומטית, שמירה והתראות.</string>

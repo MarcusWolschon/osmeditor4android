@@ -18,18 +18,18 @@ Afhankelijk van de schermgrootte en de leeftijd van je apparaat, kunnen acties d
 
 Selecteer of het Versturen icoon ![Versturen](../images/menu_transfer.png) of het "Versturen" menu item. Dit toont zeven opties:
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
-* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
-* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Download huidige weergave** - download het gebied dat zichtbaar is op het sherm en voeg dat samen met de bestaande gegevens *(vereist netwerkverbinding of offline gegevensbron)*
+* **Verwijder en download huidige weergave** - verwijder alle gegevens in het geheugen en download dan het zichtbare gebied op het scherm *(vereist netwerkverbinding)*
+* **Upload gegevens naar OSM server** - upload wijzigingen naar OpenStreetMap *(vereist authenticatie)* *(vereist netwerkverbinding)*
+* **Update gegevens** - download gegevens voor alle gebieden en update wat zich in het geheugen bevindt *(vereist netwerkverbinding)*
+* **Locatiegebaseerde autodownload** - download automatisch een gebied rondom de huidige geografische locatie *(vereist netwerkverbinding of offline gegevensbron)* *(vereist GPS)*
+* **Sleep en zoom autodownload** - download automatisch gegevens voor de huidige weergegeven kaart *(vereist netwerkverbinding of offline gegevensbron)* *(vereist GPS)*
+* **Bestand...** - opslaan en laden van OSM gegevens van/naar apparaatbestanden.
+* **Notities/Bugs...** - download (automatisch en handmatig) OSM Notities en "Bugs" van QA tools (momenteel OSMOSE) *(vereist netwerkverbinding)*
 
 De gemakkelijkste manier om data te downloaded is door te slepen en te zoomen naar de locatie die je wilt wijzigen en dan "Download in huidige weergave" te selecteren. Je kan zoomen door schermbewegingen, de zoom knoppen of de volumeknoppen op het apparaat. Vespucci zal dan de data downloaden in de huidige weergave. Er is geen authenticatie vereist voor het downloaden van data naar je apparaat.
 
-With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md).
+Met de standaardinstellingen worden niet-gedownloade gebieden gedimd relatief tot de gedownloade gebieden. Dit is om te voorkomen dat per ongeluk dubbele objecten in niet getoonde gebieden worden toegevoegd. Dit gedrag kan worden uitgeschakeld in de  [Geavanceerde instellingen](Advanced%20preferences.md).
 
 ### Wijzigingen maken
 
@@ -92,20 +92,20 @@ Het klikken op de grote groene kop op het kaartscherm toont een menu. Als je een
 
 Zie [Nieuwe objecten maken in simpele modus](Creating%20new%20objects%20in%20simple%20actions%20mode.md) voor meer informatie.
 
-##### Advanced (long press) mode
+##### Geavanceerde (lange klik) modus
  
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), touch away from existing objects.
-* If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+Klik lang waar je de knoop wilt plaatsen of de weg wilt beginnen. Je ziet een zwart "crosshair" symbool. 
+* Om een nieuwe knoop (dat niet is verbonden aan een object) te maken, klik op een gebied zonder bestaande objecten .
+* Om een weg te verlengen, klik binnen de "tolerantiezone" van de weg (of een knoop in de weg). De tolerantiezone is aangegeven met een oppervlakte rond de knoop of weg.
 
 Als je het "crosshair" symbool ziet heb je deze opties:
 
-* _Normal press in the same place._
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* _Normal touch in another place._ Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+* _Klik op dezelfde plek._
+    * Als de crosshair niet dichtbij een knoop is, maakt het klikken op dezelfde locatie een nieuwe knoop. Als je dichtbij een weg bent (maar niet dichtbij een knoop) de nieuwe knoop zal op de weg worden geplaatst (en verbonden aan de weg).
+    * Als de crosshair dichtbij een knoop is (d.w.z. binnen de tolerantiezone van de knoop), zal een klik op dezelfde locatie de knoop selecteren en de tag bewerker openen. Er wordt geen nieuwe knoop gemaakt. De actie is hetzelfde als de selectie hierboven.
+* _Klik op een andere plek._ Klikken op een andere plek (buiten de tolerantie zone van de crosshair) voegt een wegsegment toe van de originele positie naar de huidige positie. Als de crosshair dichtbij een weg of knoop was, zal het nieuwe segment worden verbonden met die knoop of weg.
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. 
+Klik op het scherm waar je nieuwe knopen aan de weg wilt toevoegen. Om af te ronden kan tweemaal worden geklikt op de laatste knoop. Als de laatste knoop zich op de locatie van een weg of knoop bevindt, zal het segment automatisch aan de weg of knoop worden verbonden. 
 
 Je kan ook een menu item gebruiken: Zie [Nieuwe objecten maken](Creating%20new%20objects.md) voor meer informatie.
 
@@ -251,9 +251,9 @@ Veel aspecten van de app kunnen worden aangepast. Als je zoekt naar iets specifi
 
 ### Lagen instellingen
 
-Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
+Lagen instellingen kunnen worden aangepast via de lagen instellingen knop ("hamburger" menu in rechter bovenhoek). Alle andere instellingen zijn bereikbaar via de instellingen in het hoofdmenu. Lagen kunnen worden ingeschakeld, uitgeschakeld of tijdelijk verborgen.
 
-Available layer types:
+Beschikbare laagtypes:
 
 * Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
 * Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
@@ -262,7 +262,7 @@ Available layer types:
 * Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
-* Grid - Displays a scale alone the sides of the map or a grid. Default: on. 
+* Grid - Displays a scale along the sides of the map or a grid. Default: on. 
 
 #### Instellingen
 

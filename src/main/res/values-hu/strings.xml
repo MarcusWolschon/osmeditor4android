@@ -41,6 +41,8 @@
   <string name="go_to_openstreetmap">Ugrás az openstreetmap.org-ra</string>
   <string name="data_conflict_title">Verzióütközés</string>
   <string name="data_conflict_message">A letöltésből származó adatok ütköznek a szerkesztéseivel. Töltse fel újra az adatait, mielőtt újra megpróbálja.</string>
+  <string name="corrupted_data_title">Sérült adat</string>
+  <string name="corrupted_data_message">Adatkövetkezetlenségét észleltünk. Mielőtt bármi mást tenne, próbálja meg feltölteni a szerkesztéseit, majd törölje a tárolt adatokat és töltse őket le újra.</string>
   <string name="invalid_bounding_box_title">Érvénytelen határolókeret</string>
   <string name="invalid_bounding_box_message">A kijelölt terület nem tartja be az API-korlátozásokat, válasszon egy másikat.</string>
   <string name="bounding_box_too_large_title">Túl nagy a letöltendő terület</string>
@@ -181,8 +183,10 @@
   <string name="empty_role">Üres szerep</string>
   <string name="last_edited">Legutóbb szerkesztve</string>
   <string name="original">Eredeti</string>
+  <string name="previous">Előző</string>
   <string name="current">Jelenlegi</string>
   <string name="goto_element">Ugrás az elemhez</string>
+  <string name="edit_properties">Címkék szerkesztése</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON tulajdonságinformációk</string>
   <string name="copy_properties">Tulajdonságok másolása</string>
@@ -199,11 +203,26 @@
   <string name="upload_data_now">Módosítások feltöltése</string>
   <string name="prune_data_now">Adatok tisztogatása</string>
   <!--Delete custom preset dialog-->
+  <string name="delete_custom_preset_title">Törli az egyedi előbeállítást?</string>
   <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_title">Útvonalszakasz hozzáadása</string>
+  <string name="duplicate_route_segment_message">Ez a vonal már része az útvonalnak.</string>
+  <string name="duplicate_route_segment_button">Hozzáadás mindenképpen</string>
   <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_title">Kapcsolattag hozzáadása</string>
+  <string name="duplicate_relation_member_message">Ez az elem már tagja a kapcsolatnak.</string>
+  <string name="duplicate_relation_member_remove_button">Tag eltávolítása</string>
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move_outer_tags_title">Címkék áthelyezése a külső körvonalról a multipoligonra</string>
+  <string name="move_outer_tags_message">Az objektumot meghatározó címkék csak magán a multipoligonon lehetnek</string>
+  <string name="move">Áthelyezés</string>
+  <string name="leave_as_is">Maradjon így, ahogy van</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove_duplicate_outer_tags_title">Duplikált címkék eltávolítása a külső körvonalról</string>
+  <string name="remove_duplicate_outer_tags_message">Azon címkék eltávolítása a külső körvonalat jelentő tagokról, amelyek magán a multipoligonon már rajta vannak</string>
+  <string name="remove">Eltávolítás</string>
   <!--Abort action mode dialog-->
+  <string name="abort_action_title">Művelet megszakítása</string>
   <!---->
   <string name="error">Hiba</string>
   <string name="warning">Figyelmeztetés</string>
@@ -305,6 +324,8 @@ elemek megkövetelése</string>
   <string name="layer_info_end_date">Záró dátum</string>
   <string name="layer_info_terms">Feltételek</string>
   <string name="layer_info_privacy_policy">Adatvédelmi irányelvek</string>
+  <string name="projection">Térképvetület</string>
+  <string name="errors">Hibák</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Fénykép törlése</string>
   <string name="photo_viewer_delete_button">Végleges törlés</string>
@@ -317,27 +338,35 @@ elemek megkövetelése</string>
   <string name="api_info_attribution">Attribútum</string>
   <string name="api_info_mapsplit_source">MapSplit csak olvasható forrás</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">A címkék módosultak</string>
+  <string name="tag_conflict_message">A művelet megkövetelte az érintett elemek címkéinek módosítását.</string>
   <!--Relation selection dialog-->
+  <string name="no_suitable_relations_message">A letöltött adatokban nincs alkalmas kapcsolat</string>
+  <string name="select_route_title">Útvonal kijelölése</string>
+  <string name="select_relation_title">Kapcsolat kijelölése</string>
   <!--Preset selection dialog-->
+  <string name="select_relation_type_title">Kapcsolattípus kijelölése</string>
+  <string name="select_relation_type_other">Egyéb</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Ellenőrzőpontok</string>
   <string name="undo_redo_title">Visszavonás – mégis</string>
   <string name="undo_redo_one">Épp kijelölt ellenőrzőpont (nem biztonságos)</string>
   <string name="undo_all">Összes későbbi ellenőrzőpont visszavonása (biztonságos)</string>
   <string name="redo_all">Összes korábbi ellenőrzőpont visszaállítása (biztonságos)</string>
+  <string name="undo_latest">Legutóbbi</string>
   <!--Undo location not in view dialog-->
   <string name="undo_location_title">A visszavonás helye nem látható</string>
   <string name="undo_location_text">Nem látható az a hely, amelyet a visszavonás érint.</string>
   <string name="undo_location_undo_anyway">Visszavonás mindenképpen</string>
   <string name="undo_location_zoom">Nagyítás a helyre, majd visszavonás</string>
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">Elküldés az OpenStreetMap megjelenítendő nevével</string>
-  <string name="feedback_displayname_hint">Az OpenStreetMap megjelenítendő neve még nem volt lekérdezve</string>
+  <string name="feedback_with_displayname">Elküldés az OpenStreetMapen megjelenő névvel</string>
+  <string name="feedback_displayname_hint">Az OpenStreetMapen megjelenő név még nincs lekérdezve</string>
   <string name="feedback_title">Visszajelzés a fejlesztőknek</string>
   <!--BoxPicker-->
-  <string name="boxpicker_firsttimetitle">OpenStreetMap adatok letöltése</string>
+  <string name="boxpicker_firsttimetitle">OpenStreetMap-adatok letöltése</string>
   <!--Clear/Reset GPX Track-->
-  <string name="clear_track_description">A követés leállítása és a tárolt követési pontok törlése. Ez nem vonható vissza.</string>
+  <string name="clear_track_description">Követés leállítása és a tárolt nyomvonalpontok törlése. Ez nem vonható vissza.</string>
   <!--Tips-->
   <string name="tip_title">Tudta?</string>
   <string name="tip_check_label">Ne mutassa az opcionális tippeket</string>
@@ -346,6 +375,10 @@ elemek megkövetelése</string>
   <string name="tip_pan_and_zoom_auto_download">A pásztázással és nagyítással történő automatikus letöltést célszerű óvatosan használni, mert alaposan megterhelheti az OpenStreetMap API-t és a készüléket egyaránt.&lt;p&gt;Az API-kiszolgálóról történő betöltés elkerülhető egy offline adatforrás használatával.</string>
   <string name="tip_locked_mode">Zárolt módban nem lehet szerkeszteni, de egy objektumot hosszan megnyomva megnyílik egy részletes információkat tartalmazó kijelző.</string>
   <string name="tip_longpress_simple_mode">Egyszerű módban a hosszú megnyomásra nem történik semmi. Ha hosszú kattintásokkal kíván objektumokat létrehozni, kapcsolja ki az egyszerű módot a főmenüben.</string>
+  <string name="tip_gpx_no_elevation">A 15. verziótól kezdve a GPX-nyomvonalak alapértelmezés szerint már nem tartalmaznak magassági információkat.&lt;p&gt;A magasságrögzítés engedélyezéséhez telepítsen egy Geoid-modellt az Eszközök menü &lt;i&gt;EGM telepítése&lt;/i&gt; pontjánál, vagy váltson NMEA-bemenetre.</string>
+  <string name="tip_tag_conflict">Az OSM-elemek egyesítése és megfordítása néha az elemek tulajdonságainak megváltoztatását is megköveteli. Potenciális hiba vagy ütközés esetén figyelmeztetést kap, és lehetősége lesz a kérdéses objektumok áttekintésére.</string>
+  <string name="tip_gpx_recording">Amikor elindítja a GPX-nyomvonalrögzítést, a Vespucci helyadatokat gyűjt, hogy a GPX-felvétel akkor is lehetővé váljék, ha az alkalmazás nem látható.&lt;p&gt;Az alkalmazás kifejezett bezárása vagy a GPX-nyomvonalrögzítés kikapcsolása leállítja a helyadatok használatát ilyen helyzetekben.</string>
+  <string name="tip_auto_download">Amikor elkezdi az OSM-adatok vagy -feladatok automatikus letöltését, a Vespucci a helyadatok alapján határozza meg az aktuális pozíciót akkor is, ha az alkalmazás nem látható.&lt;p&gt;Az alkalmazás kifejezett bezárása vagy az automatikus letöltés kikapcsolása leállítja a helyadatok használatát ilyen helyzetekben.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">–</string>
@@ -357,6 +390,7 @@ elemek megkövetelése</string>
   <string name="qa_channel_description">Minőségbiztosítási csatorna adatproblémákhoz és feladatokhoz</string>
   <!--Toaster-->
   <string name="toast_permission_denied">Engedély megtagadva %1$s</string>
+  <string name="toast_unable_to_persist_permissions">Nem lehet fenntartani az engedélyeket</string>
   <string name="toast_name_empty">Válasszon egy nevet</string>
   <string name="toast_url_empty">Adjon meg egy URL-t</string>
   <string name="toast_min_zoom">Alacsonyabbra állítja a legkisebb nagyítási szintet, mint a maximum</string>
@@ -437,6 +471,7 @@ elemek megkövetelése</string>
   <string name="toast_security_error_accessing_photo">Nincs engedély a fénykép megnézéséhez: %1$s</string>
   <string name="toast_no_voice_recognition">A hangfelismerő szolgáltatás hiányzik</string>
   <string name="toast_no_coverage">Nincs lefedettség ehhez: %1$s</string>
+  <string name="toast_tile_layer_errors">Ez a képforrás hibás: %1$s</string>
   <string name="toast_file_exists">A(z) %1$s fájl létezik.</string>
   <string name="toast_needs_resurvey">Az objektum elavult lehet</string>
   <string name="toast_missing_key">A(z) %1$s kulcs hiányzik</string>
@@ -489,6 +524,7 @@ elemek megkövetelése</string>
   <string name="toast_restart_required">A módosítás érvénybe lépéséhez újra kell indítania a Vespuccit</string>
   <string name="toast_unable_to_open_offline_data">A(z) %1$s %2$s offline adat nem nyitható meg</string>
   <string name="toast_no_usable_location">Nincs használható hely</string>
+  <string name="toast_default_channel_needs_to_be_enabled">A rögzítés megkezdéséhez engedélyezni kell az alapértelmezett értesítési csatornát</string>
   <plurals name="added_required_elements">
     <item quantity="one">Szükséges elem hozzáadva</item>
     <item quantity="other">%1$d szükséges elem hozzáadva</item>
@@ -498,6 +534,14 @@ elemek megkövetelése</string>
   <string name="toast_invalid_number_format">Érvénytelen számformátum: %1$s</string>
   <string name="toast_error_downloading_mapillary_image">Hiba történt a mapillary-kép letöltésekor: %1$s</string>
   <string name="toast_error_downloading_mapillary_sequences">Hiba történt a mapillary-képsorozat letöltésekor: %1$s</string>
+  <string name="toast_split_first_segment">Első szakasz szétvágása</string>
+  <string name="toast_split_first_and_next_segment">Első és következő szakasz szétvágása</string>
+  <string name="toast_split_next_segment">Következő szakasz szétvágása</string>
+  <string name="toast_nothing_changed">Semmi sem változott</string>
+  <string name="toast_preset_failed">Nem sikerült létrehozni ezt az előbeállítást: %1$s\n%2$s hiba</string>
+  <string name="toast_outer_rings_differing_tags">A külső körvonalon különböző címkék vannak</string>
+  <string name="toast_multipolygon_has_incomplete_rings">A multipoligon külső körvonala hiányos</string>
+  <string name="toast_multipolygon_inconsistent_roles">A multipoligon külső körvonalán következetlenek a szerepértékek</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">A MapSplit forrásoknál meg kell adni a legkisebb és legnagyobb nagyítást</string>
   <string name="error_pbf_no_version">A verzióinformációk hiányoznak a PBF-fájlban</string>
@@ -553,6 +597,7 @@ elemek megkövetelése</string>
   <string name="tag_menu_preset">Előbeállítások</string>
   <string name="tag_menu_apply_preset">Előbeállítás alkalmazása</string>
   <string name="tag_menu_apply_preset_with_optional">Előbeállítás alkalmazása nem kötelező elemekkel</string>
+  <string name="tag_menu_show_alternatives">Alternatív címkézés megjelenítése</string>
   <string name="tag_menu_revert">Visszaállítás</string>
   <string name="tag_menu_mapfeatures">Térképjellemzők Wiki</string>
   <string name="tag_menu_addtorelation">Hozzáadás kapcsolathoz</string>
@@ -579,7 +624,7 @@ elemek megkövetelése</string>
   <string name="tag_menu_move_down">Mozgatás lefelé</string>
   <string name="tag_menu_move_bottom">Mozgatás alulra</string>
   <string name="tag_menu_sort">Rendezés</string>
-  <string name="tag_menu_reverse_order">Fordított sorrend</string>
+  <string name="tag_menu_reverse_order">Sorrend megfordítása</string>
   <string name="tag_menu_download">Letöltés</string>
   <string name="tag_menu_js_console">JS konzol</string>
   <string name="menu_up">Fel</string>
@@ -597,6 +642,7 @@ elemek megkövetelése</string>
   <string name="tag_restriction_add_expression">Kifejezés hozzáadása</string>
   <string name="tag_restriction_add_opening_hours">Nyitva tartás hozzáadása</string>
   <string name="tag_restriction_value_hint">Feltételes korlátozás</string>
+  <string name="default_checkgroup_hint">További tulajdonságok</string>
   <string name="tag_form_unknown_element">Ismeretlen elem (nem található előbeállítás)</string>
   <string name="tag_form_untagged_element">Címkézetlen elem</string>
   <!--Custom preset creation-->
@@ -662,8 +708,11 @@ elemek megkövetelése</string>
   <string name="menu_remove_node_from_way">Pont eltávolítása egy vonalból</string>
   <string name="menu_extract">Pont kiemelése</string>
   <string name="menu_append">Hozzáfűzés</string>
+  <string name="menu_create_route">Útvonal létrehozása</string>
+  <string name="menu_add_to_route">Útvonal hozzáadása</string>
   <string name="menu_relation">Kapcsolat létrehozása</string>
   <string name="menu_edit_relation">Kapcsolat szerkesztése</string>
+  <string name="menu_add_relation_member">Tag hozzáadása / eltávolítása</string>
   <string name="menu_select_relation_members">Tagok kijelölése</string>
   <string name="menu_tag">Címkék szerkesztése</string>
   <string name="menu_openstreetbug">Jegyzet hozzáadása</string>
@@ -726,7 +775,7 @@ elemek megkövetelése</string>
   <string name="menu_orthogonalize">Derékszögesítés</string>
   <string name="menu_straighten">Kiegyenesítés</string>
   <string name="menu_circulize">Elrendezés kör alakban</string>
-  <string name="menu_split_polygon">Felosztás sokszögekre</string>
+  <string name="menu_split_polygon">Szétvágás sokszögekre</string>
   <string name="menu_unjoin_dissimilar">Nem hasonlók szétválasztása</string>
   <string name="menu_extract_segment">Szakasz kiemelése</string>
   <string name="menu_newnode_gps">Új pont a GPS pozíciónál</string>
@@ -793,9 +842,11 @@ elemek megkövetelése</string>
   <string name="notreversable_description">Ez a vonal nem fordítható meg, mert irányfüggő tulajdonságai vannak. A megfordítása elrontaná a címkézést.</string>
   <string name="reverse_anyway">Megfordítás mindenképp</string>
   <string name="deleteway_description">Arra készül, hogy töröljön egy vonalat.\n\nMegtarthatja az összes pontot, vagy törölheti azokat a pontokat, amelyek a vonalhoz tartoznak, és nincs más címkéjük.</string>
+  <string name="deleteway_relation_description">Törölni kíván egy olyan vonalat, amely egy vagy több kapcsolatnak is tagja. A vonal eltávolítása érvénytelenné teheti a kapcsolatokat.</string>
   <string name="deleteway_nodesnotdownloaded_description">A vonal olyan pontokat tartalmaz, amely kívül esik a letöltött területen, és nem törölhető anélkül, hogy inkonzisztens állapot keletkezzen. Újrapróbálkozás előtt töltse le a teljes vonalat.</string>
   <string name="deleteway_wayonly">Csak a vonal törlése</string>
   <string name="deleteway_wayandnodes">Vonal törlése</string>
+  <string name="deletenode_relation_description">Törölni kíván egy olyan pontot, amely egy vagy több kapcsolatnak is tagja. A pont eltávolítása érvénytelenné teheti a kapcsolatokat.</string>
   <string name="deletenode">Pont törlése</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">Szétvágás…</string>
@@ -812,6 +863,8 @@ elemek megkövetelése</string>
   <string name="actionmode_createpath">Vonal készítése</string>
   <string name="actionmode_multiselect">Többszörös kijelölés</string>
   <string name="actionmode_newnoteselect">Új jegyzet kijelölve</string>
+  <string name="actionmode_add_segment">Szakasz hozzáadása</string>
+  <string name="actionmode_reselect_first_segment">Első szakasz ismételt kijelölése</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Zárt vonal szétvágása, 1. pont</string>
   <string name="actionmode_closed_way_split_2">Zárt vonal szétvágása, 2. pont</string>
@@ -929,6 +982,11 @@ elemek megkövetelése</string>
   <string name="config_uploadWarn_summary">Korlátozás, amely alatt a függőben lévő objektumfeltöltések figyelmeztetési állapotúak lesznek</string>
   <string name="config_dataWarn_title">Túl sok adat figyelmeztetés</string>
   <string name="config_dataWarn_summary">Korlát (pontok számában), amelynél a túl sok adat betöltése miatt figyelmeztetni kezdünk</string>
+  <string name="config_useUrlForFeedback_title">Visszajelzési tevékenység letiltása</string>
+  <string name="config_useUrlForFeedback_summary">A visszajelzési tevékenység letiltása, helyette pedig egy URL használata.</string>
+  <string name="config_beepVolume_title">Hangjelzés hangereje</string>
+  <string name="config_beepVolume_summary">A hangjelzés erejének beállítása.</string>
+  <string name="config_beepVolume_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Adat- és szerkesztési beállítások</string>
   <string name="config_category_editing_summary">Automatikus letöltési, mentési és értesítési beállítások.</string>
@@ -960,6 +1018,7 @@ elemek megkövetelése</string>
   <string name="config_orthogonalizeThreshold_summary">Fokban megadott határ, ami fölötti érték nem számít</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">Telefonszám automatikus formázása</string>
+  <string name="config_autoformatPhoneNumbers_summary">Telefonszámok automatikus formázásának engedélyezése</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Beállítások automatikus letöltése</string>
   <string name="config_category_auto_download_summary">Adatok és feladatok automatikus letöltésének beállításai</string>
@@ -1108,7 +1167,7 @@ elemek megkövetelése</string>
   <string name="undo_action_deleteway">Vonal törlése</string>
   <string name="undo_action_delete_objects">Objektumok törölve</string>
   <string name="undo_action_split_ways">Vonalak szétvágva</string>
-  <string name="undo_action_split_way">Vonal elvágva</string>
+  <string name="undo_action_split_way">Vonal szétvágva</string>
   <string name="undo_action_merge_ways">Vonalak egyesítése</string>
   <string name="undo_action_reverse_way">Vonal megfordítása</string>
   <string name="undo_action_set_tags">Címkézés</string>
@@ -1121,6 +1180,7 @@ elemek megkövetelése</string>
   <string name="undo_action_paste">Beillesztés</string>
   <string name="undo_action_rotateway">Vonal forgatása</string>
   <string name="undo_action_orthogonalize">Vonal derékszögesítése</string>
+  <string name="undo_action_circulize">Elrendezés kör alakban</string>
   <string name="undo_action_fix_conflict">Ütközés feloldása</string>
   <string name="undo_action_extract_node">Pont kiemelése</string>
   <string name="undo_action_apply_osc">OSC-fájl alkalmazása</string>
@@ -1164,6 +1224,15 @@ elemek megkövetelése</string>
   <string name="tunnel">Alagút</string>
   <string name="culvert">Áteresz</string>
   <!--Tag issues-->
+  <string name="issue_not_reversable">A címkék nem fordíthatók meg</string>
+  <string name="issue_shared_node">Más vonalakkal közös</string>
+  <string name="issue_tags_reversed">Címkék megfordítva</string>
+  <string name="issue_role_reversed">Szerep megfordítva</string>
+  <string name="issue_role_conflict">Szerepkonfliktus</string>
+  <string name="issue_merged_tags">Egyesített címkék</string>
+  <string name="issue_same_object">Azonos objektum</string>
+  <string name="issue_merged_metric">Hosszfüggő érték egyesítve</string>
+  <string name="issue_split_metric">Hosszfüggő érték szétvágva</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 nap</item>

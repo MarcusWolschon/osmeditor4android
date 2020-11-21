@@ -18,18 +18,18 @@ V závislosti na velikosti obrazovky a stáří vašeho zařízení mohou být m
 
 Zvolte buď ikonu ![Přenos](../images/menu_transfer.png) nebo položku "Přenos" z menu. Zobrazí se sedm možností:
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
-* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
-* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Stáhnout aktuální pohled** - stáhne oblast viditelnou na obrazovce a spojí ji s existujícími daty *(vyžaduje připojení k síti nebo offline datový zdroj)*
+* **Přepsat stažené aktuálním pohledem** - vymaže všechna data v paměti a poté stáhne oblast viditelnou na obrazovce *(vyžaduje připojení k síti)*
+* **Nahrát data na server OSM** - nahraje editace do OpenStreetMap *(vyžaduje přihlášení)* *(vyžaduje připojení k síti)*
+* **Aktualizovat data** - znovu stáhne data pro všechny oblasti a aktualizuje to, co je v paměti *(vyžaduje připojení k síti)*
+* **Auto. stahování dle polohy** - automaticky stahuje data v okolí vaší aktuální zeměpisné polohy *(vyžaduje připojení k síti nebo offline datový zdroj)* *(vyžaduje GPS)*
+* **Auto. stahování při posunu a přiblížení** - automaticky stahuje data pro aktuálně viditelnou oblast mapy *(vyžaduje připojení k síti nebo offline datový zdroj)* *(vyžaduje GPS)*
+* **Soubor…** - ukládá nebo načítá data OSM do/ze zařízení.
+* **Poznámka/Chyba...** - stahuje (automaticky i manuálně) Poznámky OSM a "chyby" z nástrojů pro kontrolu kvality (momentálně OSMOSE) *(vyžaduje připojení k síti)*
 
 Nejjednodušším způsobem stahování dat je najít požadovanou oblast, kterou chcete editovat, na mapě a poté zvolit "Stáhnout aktuální pohled". Přibližovat můžete pomocí gest, tlačítek přiblížení nebo pomocí tlačítek pro ovládání hlasitosti vašeho zařízení. Vespucci by poté měl stáhnout data pro aktuální pohled. Pro stahování dat do vašeho zařízení není zapotřebí žádného ověření.
 
-With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md).
+Ve výchozím nastavení jsou nestažené oblasti ztmavené, aby se zabránilo neúmyslnému přidávání duplicit v oblastech, které nejsou staženy a zobrazeny. Chování lze změnit v [Rozšířená nastavení](Advanced%20preferences.md).
 
 ### Editování
 
@@ -92,11 +92,11 @@ Stisknutí velkého zeleného tlačítka na obrazovce s mapou zobrazí nabídku.
 
 Více informací viz [Creating new objects in simple actions mode](Creating%20new%20objects%20in%20simple%20actions%20mode.md).
 
-##### Advanced (long press) mode
+##### Pokročilý režim (s dlouhým stiskem)
  
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), touch away from existing objects.
-* If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+Dlouze stiskněte na místo, kde chcete vytvořit uzel nebo počátek cesty. Zobrazí se černý symbol "zaměřovače". 
+* Pokud chcete vytvořit nový uzel (nenapojený na objekt), klikněte mimo existující objekty.
+* Pokud chcete rozšířit cestu, klikněte do oblasti tolerance výběru cesty (nebo uzlu cesty). Tolerance výběru je vyznačena oranžovou oblastí okolo uzlu nebo cesty.
 
 Jakmile se zobrazí symbol zaměřovače, máte tři možnosti:
 
@@ -262,7 +262,7 @@ Available layer types:
 * Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
-* Grid - Displays a scale alone the sides of the map or a grid. Default: on. 
+* Grid - Displays a scale along the sides of the map or a grid. Default: on. 
 
 #### Předvolby
 

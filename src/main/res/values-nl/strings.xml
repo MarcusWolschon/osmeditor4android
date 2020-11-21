@@ -41,6 +41,8 @@
   <string name="go_to_openstreetmap">Ga naar openstreetmap.org</string>
   <string name="data_conflict_title">Versieconflict</string>
   <string name="data_conflict_message">Gegevens van de download zouden conflicteren met je bewerkingen. Upload alsjeblieft je gegevens alvorens het opnieuw te proberen.</string>
+  <string name="corrupted_data_title">Corrupte gegevens</string>
+  <string name="corrupted_data_message">Er zijn inconsistente gegevens gedetecteerd. Voordat je andere dingen gaat doen: probeer je wijzigingen te uploaden, verwijder alle opgeslagen gegevens en download opnieuw.</string>
   <string name="invalid_bounding_box_title">Ongeldig bereik</string>
   <string name="invalid_bounding_box_message">Het geselecteerde gebied voldoet niet aan API-beperkingen, kies alsjeblieft een andere.</string>
   <string name="bounding_box_too_large_title">Downloadgebied te groot</string>
@@ -181,8 +183,10 @@
   <string name="empty_role">Lege rol</string>
   <string name="last_edited">Laatst bewerkt</string>
   <string name="original">Origineel</string>
+  <string name="previous">Vorige</string>
   <string name="current">Huidige</string>
   <string name="goto_element">Ga naar element</string>
+  <string name="edit_properties">Wijzig tags</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON kenmerken informatie</string>
   <string name="copy_properties">Kopieer eigenschappen</string>
@@ -199,11 +203,26 @@
   <string name="upload_data_now">Upload wijzigingen</string>
   <string name="prune_data_now">Schoon gegevens op</string>
   <!--Delete custom preset dialog-->
+  <string name="delete_custom_preset_title">Verwijder aangepaste voorkeuze?</string>
   <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_title">Voeg routesegment toe</string>
+  <string name="duplicate_route_segment_message">Deze weg is al een lid van de route.</string>
+  <string name="duplicate_route_segment_button">Voeg alsnog toe</string>
   <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_title">Voeg lid toe aan relatie</string>
+  <string name="duplicate_relation_member_message">Dit element is al lid van de relatie.</string>
+  <string name="duplicate_relation_member_remove_button">Verwijder lid</string>
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move_outer_tags_title">Verplaats tags van buitenste ringen naar multipolygoon</string>
+  <string name="move_outer_tags_message">Objectdefiniërende tags moeten alleen aanwezig zijn op het multipolygoon</string>
+  <string name="move">Verplaats</string>
+  <string name="leave_as_is">Laat zoals het is</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove_duplicate_outer_tags_title">Verwijder dubbele tags op de buitenste ringen</string>
+  <string name="remove_duplicate_outer_tags_message">Verwijder tags van de buitenste ringen die zijn ingesteld op het multipolygoon</string>
+  <string name="remove">Verwijder</string>
   <!--Abort action mode dialog-->
+  <string name="abort_action_title">Breek actie af</string>
   <!---->
   <string name="error">Fout</string>
   <string name="warning">Waarschuwing</string>
@@ -304,6 +323,8 @@
   <string name="layer_info_end_date">Einddatum</string>
   <string name="layer_info_terms">Voorwaarden</string>
   <string name="layer_info_privacy_policy">Privacybeleid</string>
+  <string name="projection">Projectie</string>
+  <string name="errors">Fouten</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Verwijder foto</string>
   <string name="photo_viewer_delete_button">Permanent verwijderen</string>
@@ -316,14 +337,22 @@
   <string name="api_info_attribution">Attributie</string>
   <string name="api_info_mapsplit_source">MapSplit alleen-lezen bron</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">Tags gewijzigd</string>
+  <string name="tag_conflict_message">De operatie verseist het wijzigen van tags op de betrokken elementen.</string>
   <!--Relation selection dialog-->
+  <string name="no_suitable_relations_message">Geen bruikbare relaties in gedownloade gegevens</string>
+  <string name="select_route_title">Selecteer route</string>
+  <string name="select_relation_title">Selecteer relatie</string>
   <!--Preset selection dialog-->
+  <string name="select_relation_type_title">Selecteer relatietype</string>
+  <string name="select_relation_type_other">Overig</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Controlepunten</string>
   <string name="undo_redo_title">Ongedaan maken - opnieuw</string>
   <string name="undo_redo_one">Zojuist geselecteerd controlepunt (onveilig)</string>
   <string name="undo_all">Maak alle latere controlepunten ongedaan (veilig)</string>
   <string name="redo_all">Voer alle eerdere controlepunten opnieuw uit (veilig)</string>
+  <string name="undo_latest">Laatste</string>
   <!--Undo location not in view dialog-->
   <string name="undo_location_title">Ongedaan maken locatie is niet in beeld</string>
   <string name="undo_location_text">De locatie die wordt beïnvloedt door het ongedaan maken is niet in beeld.</string>
@@ -345,6 +374,10 @@
   <string name="tip_pan_and_zoom_auto_download">Slepen en zoom automatisch downloaden moeten met beleid worden gebruikt omdat het de potentie heeft om de OpenStreetMap APIs en jouw apparaat een hoge last te bezorgen.&lt;p&gt;De last op de API servers kan worden voorkomen door een offline gegevensbron te gebruiken.</string>
   <string name="tip_locked_mode">In vergrendelde modus kan je niets wijzigen, maar een lange klik op een object zal een scherm openen met gedetaileerde informatie.</string>
   <string name="tip_longpress_simple_mode">In simpele modus doet een lange klik niets. Zet simpele modus uit in het hoofdmenu als je lange kliks wilt gebruiken om objecten te maken.</string>
+  <string name="tip_gpx_no_elevation">Beginnend met versie 15, zullen GPX tracks niet langer hoogteinformatie bevatten.&lt;p&gt;Om hoogteinformatie op te nemen kan een Geoid model worden geïnstalleerd met &lt;i&gt;Installeer EGM&lt;/i&gt; in het Hulpmiddelen menu, of wissel naar NMEA invoer.</string>
+  <string name="tip_tag_conflict">Het samenvoegen of omkeren van OSM elementen vereist soms het wijzigen van attributen op de elementen. Als er mogelijk een fout of conflict kan ontstaan zal je op de hoogte worden gesteld en de mogelijkheid krijgen om te objecten in kwestie na te kijken.</string>
+  <string name="tip_gpx_recording">Wanneer je GPX opnames begint, zal Vespucci locatiegegevens verzamelen om GPX opnames mogelijk te maken zelfs als de app niet zichtbaar is.&lt;p&gt;Sluit te app expliciet of zet GPX opnames uit om het gebruik van locatiegegevens te stoppen in zulke situaties.</string>
+  <string name="tip_auto_download">Als je begint met auto-downloaden van OSM gegevens of taken, zal Vespucci locatiegegevens gebruiken om de huidige positie te bepalen, zelfs als de app niet zichtbaar is.&lt;p&gt;Sluit te app expliciet of zet automatisch downloaden uit om het gebruik van locatiegegevens te stoppen in zulke situaties.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -356,6 +389,7 @@
   <string name="qa_channel_description">QA notoficatiekanaal voor en gegevensproblemen en taken</string>
   <!--Toaster-->
   <string name="toast_permission_denied">Toestemming geweigerd %1$s</string>
+  <string name="toast_unable_to_persist_permissions">Kan permissies niet opslaan</string>
   <string name="toast_name_empty">Kies een naam</string>
   <string name="toast_url_empty">Voer een URL in</string>
   <string name="toast_min_zoom">Zet het minimale zoomniveau lager dan het maximum</string>
@@ -436,6 +470,7 @@
   <string name="toast_security_error_accessing_photo">Niet toegestaan om foto %1$s te laden</string>
   <string name="toast_no_voice_recognition">Spraakherkenning faciliteiten ontbreken</string>
   <string name="toast_no_coverage">%1$s heeft geen dekking hier</string>
+  <string name="toast_tile_layer_errors">De luchtfotografiebron  \'%1$s\' geeft fouten</string>
   <string name="toast_file_exists">%1$s bestand bestaat.</string>
   <string name="toast_needs_resurvey">Object kan verouderd zijn</string>
   <string name="toast_missing_key">%1$s sleutel mist</string>
@@ -488,6 +523,7 @@
   <string name="toast_restart_required">Je moet Vespucci herstarten voor de wijziging om effect te hebben</string>
   <string name="toast_unable_to_open_offline_data">Kan offline gegevens %1$s %2$s niet openen</string>
   <string name="toast_no_usable_location">Geen bruikbare locatie</string>
+  <string name="toast_default_channel_needs_to_be_enabled">Standaard notificatiekanaal moet zijn ingeschakeld om te beginnen met opnemen</string>
   <plurals name="added_required_elements">
     <item quantity="one">Vereist element toegevoegd</item>
     <item quantity="other">%1$d verplichte elementen toegevoegd</item>
@@ -497,6 +533,14 @@
   <string name="toast_invalid_number_format">Ongeldig nummer formaat %1$s</string>
   <string name="toast_error_downloading_mapillary_image">Fout bij downloaden Mapillary afbeelding %1$s</string>
   <string name="toast_error_downloading_mapillary_sequences">Fout tijdens downloaden Mapillary reeksen %1$s</string>
+  <string name="toast_split_first_segment">Splits eerste segment</string>
+  <string name="toast_split_first_and_next_segment">Splits eerste en volgende segment</string>
+  <string name="toast_split_next_segment">Splits volgend segment</string>
+  <string name="toast_nothing_changed">Niets veranderd</string>
+  <string name="toast_preset_failed">Kon voorkeuze %1$s niet maken\nFout %2$s</string>
+  <string name="toast_outer_rings_differing_tags">Buitenringen hebben verschillende tags</string>
+  <string name="toast_multipolygon_has_incomplete_rings">Multipolygoon heeft incomplete ringen</string>
+  <string name="toast_multipolygon_inconsistent_roles">Multipolygoon heeft inconsistente waardes van rollen voor een ring</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit bronnen moeten minimum en maximum zoom hebben gezet</string>
   <string name="error_pbf_no_version">Versie-informatie ontbreekt in PBF bestand</string>
@@ -552,6 +596,7 @@
   <string name="tag_menu_preset">Voorkeuzen</string>
   <string name="tag_menu_apply_preset">Voorkeuze toepassen</string>
   <string name="tag_menu_apply_preset_with_optional">Pas voorkeuze toe met optioneel</string>
+  <string name="tag_menu_show_alternatives">Toon alternatieve tags</string>
   <string name="tag_menu_revert">Terugdraaien</string>
   <string name="tag_menu_mapfeatures">Kaartgegevens wiki</string>
   <string name="tag_menu_addtorelation">Voeg toe aan relatie</string>
@@ -596,6 +641,7 @@
   <string name="tag_restriction_add_expression">Voeg expressie toe</string>
   <string name="tag_restriction_add_opening_hours">Voeg openingstijden toe</string>
   <string name="tag_restriction_value_hint">Voorwaardelijke beperking</string>
+  <string name="default_checkgroup_hint">Extra attributen</string>
   <string name="tag_form_unknown_element">Onbekend element (geen voorkeuze gevonden)</string>
   <string name="tag_form_untagged_element">Element zonder tags</string>
   <!--Custom preset creation-->
@@ -661,8 +707,11 @@
   <string name="menu_remove_node_from_way">Verwijder knoop uit de weg</string>
   <string name="menu_extract">Extraheer knoop</string>
   <string name="menu_append">Voeg toe</string>
+  <string name="menu_create_route">Creëer route</string>
+  <string name="menu_add_to_route">Voeg toe aan route</string>
   <string name="menu_relation">Creëer relatie</string>
   <string name="menu_edit_relation">Wijzig relatie</string>
+  <string name="menu_add_relation_member">Voeg toe / verwijder lid </string>
   <string name="menu_select_relation_members">Selecteen leden</string>
   <string name="menu_tag">Tags aanpassen</string>
   <string name="menu_openstreetbug">Voeg notitie toe</string>
@@ -792,9 +841,11 @@
   <string name="notreversable_description">Deze weg is onomkeerbaar omdat het is getagged met richtingsafhankelijke attributen. Omkeren zou de tagging kapot maken.</string>
   <string name="reverse_anyway">Keer toch om</string>
   <string name="deleteway_description">Je staat op het punt om een weg te verwijderen.\n\nJe kunt alle kopen houden, of die verwijderen die tagloos zijn en tot de weg behoren.</string>
+  <string name="deleteway_relation_description">Je staat op het punt een weg te verwijderen die lid is van een of meer relaties. Het verwijderen van de weg kan deze relaties ongeldig maken.</string>
   <string name="deleteway_nodesnotdownloaded_description">Deze weg bevat knopen buiten het gedownloade gebied en kan niet worden verwijderd zonder een inconsistente staat te veroorzaken. Download het allemaal alvorens nogmaals te proberen.</string>
   <string name="deleteway_wayonly">Verwijder alleen de weg</string>
   <string name="deleteway_wayandnodes">Verwijder weg</string>
+  <string name="deletenode_relation_description">Je staat op het punt een knoop te verwijderen die lid is van een of meer relaties. Het verwijderen van de knoop kan deze relaties ongeldig maken.</string>
   <string name="deletenode">Verwijder knoop</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">Splitsen …</string>
@@ -811,6 +862,8 @@
   <string name="actionmode_createpath">Pad aan het creëren</string>
   <string name="actionmode_multiselect">Meervoudige selectie</string>
   <string name="actionmode_newnoteselect">Nieuwe Notitie geselecteerd</string>
+  <string name="actionmode_add_segment">Voeg segment toe</string>
+  <string name="actionmode_reselect_first_segment">Herselecteer eerste segment</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Splits gesloten weg, 1e knoop</string>
   <string name="actionmode_closed_way_split_2">Splits gesloten weg, 2e knoop</string>
@@ -928,6 +981,11 @@
   <string name="config_uploadWarn_summary">Limiet waaronder openstaande objecten uploads een waarschuwingsstatus zullen hebben</string>
   <string name="config_dataWarn_title">Te veel gegevens waarschuwing</string>
   <string name="config_dataWarn_summary">Limiet (in het aantal Knopen) waarna we beginnen met waarschuwen dat er te veel gegevens worden geladen</string>
+  <string name="config_useUrlForFeedback_title">Zet feedback activiteit uit</string>
+  <string name="config_useUrlForFeedback_summary">Zet feedback activiteit uit en gebruik in plaats daarvan een URL.</string>
+  <string name="config_beepVolume_title">Signaal volume</string>
+  <string name="config_beepVolume_summary">Volume instelling voor geluidssignaal.</string>
+  <string name="config_beepVolume_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Gegevens en wijzigen instellingen</string>
   <string name="config_category_editing_summary">Auto-download, opslaan en notificatieinstellingen</string>
@@ -959,6 +1017,7 @@
   <string name="config_orthogonalizeThreshold_summary">De drempelwaarde in ° waarboven hoeken worden genegeerd</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">Autoformatteer telefoonnummers</string>
+  <string name="config_autoformatPhoneNumbers_summary">Activeer automatisch formatteren van telefoonnummers</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Auto-download instellingen</string>
   <string name="config_category_auto_download_summary">Instellingen voor het automatisch downloaden van gegevens en taken</string>
@@ -1121,6 +1180,7 @@
   <string name="undo_action_paste">Plakken</string>
   <string name="undo_action_rotateway">Weg roteren</string>
   <string name="undo_action_orthogonalize">Weg vierkant maken</string>
+  <string name="undo_action_circulize">Schikken in cirkel</string>
   <string name="undo_action_fix_conflict">Conflict oplossing</string>
   <string name="undo_action_extract_node">Knoopextractie</string>
   <string name="undo_action_apply_osc">Pas OSC bestand toe</string>
@@ -1164,6 +1224,15 @@
   <string name="tunnel">Tunnel</string>
   <string name="culvert">Duiker</string>
   <!--Tag issues-->
+  <string name="issue_not_reversable">Tags zijn niet omkeerbaar</string>
+  <string name="issue_shared_node">Gedeeld met andere weg</string>
+  <string name="issue_tags_reversed">Tags onmgekeerd</string>
+  <string name="issue_role_reversed">Rol omgekeerd</string>
+  <string name="issue_role_conflict">Rolconflict</string>
+  <string name="issue_merged_tags">Samengevoegde tags</string>
+  <string name="issue_same_object">Identiek object</string>
+  <string name="issue_merged_metric">Lengte afhankelijke waarde was samengevoegd</string>
+  <string name="issue_split_metric">Lengte afhankelijke waarde was gesplitst</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 dag</item>
