@@ -1,5 +1,13 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.0.7: 
+- Update translations, imagery and presets
+- Don't throw an exception, simply force cache size to at least 1
+- Add a warning that the removed node is a member of a relation
+- Update way state and add to api storage for remove node from way function
+- Try to persist file permissions and catch SecurtiyExceptions
+- Remove unused FAB
+
 15.0.6: Update imagery from ELI, update translations, update preset, count key matches for match value "key!", fix issues with retaining existing values when changing value count, ignore KEYCODE_MOVE_HOME, fix regression with UndoDialog not being dismissed on click, use nodeCount and not length, fix preset matching regression for tags with MatchType.KEY.
 
 15.0.5: Update imagery from ELI, update translations, update preset, update OH parser (fixes holiday issue), improve preset matching, set time in NMEA derived locations, handle preset configuration changes while a preset filter is active. 
