@@ -48,7 +48,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     private final SharedPreferences prefs;
     private final String            selectedApi;
 
-    private static final int DATA_VERSION = 13;
+    private static final int DATA_VERSION = 14;
 
     /** The ID string for the default API and the default Preset */
     public static final String ID_DEFAULT = "default";
@@ -133,7 +133,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 
     @Override
     public synchronized void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d(DEBUG_TAG, "Upgrading API DB");
+        Log.d(DEBUG_TAG, "Upgrading Preferences DB");
         if (oldVersion <= 1 && newVersion >= 2) {
             db.execSQL("ALTER TABLE apis ADD COLUMN showicon INTEGER DEFAULT 0");
         }
@@ -209,6 +209,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
             if (prefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), true)) {
                 addLayer(db, position, LayerType.TASKS);
             }
+        }
+        if (oldVersion <= 13 && newVersion >= 14) {
+            db.execSQL("UPDATE geocoders SET url='" + Urls.DEFAULT_PHOTON_SERVER + "' WHERE url='https://photon.komoot.de/'");
         }
     }
 

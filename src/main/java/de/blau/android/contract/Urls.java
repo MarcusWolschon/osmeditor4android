@@ -20,7 +20,7 @@ public final class Urls {
     public static final String DEFAULT_SANDBOX_API_NAME  = "OpenStreetMap sandbox";
 
     public static final String DEFAULT_NOMINATIM_SERVER = "https://nominatim.openstreetmap.org/";
-    public static final String DEFAULT_PHOTON_SERVER    = "https://photon.komoot.de/";
+    public static final String DEFAULT_PHOTON_SERVER    = "https://photon.komoot.io/";
 
     public static final String DEFAULT_OSMOSE_SERVER      = "https://osmose.openstreetmap.fr/";
     public static final String DEFAULT_MAPROULETTE_SERVER = "https://maproulette.org/";
