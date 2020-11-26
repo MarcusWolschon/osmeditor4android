@@ -11,6 +11,7 @@ Vespucci is a collaboratively developed app for editing OpenStreetMap data via i
 * Accessing the OpenAerialMap catalogue and retrieving imagery from the service will transmit your IP address and other information to its operator, which might be governed by this [privacy policy](https://www.hotosm.org/privacy).
 * Using the Mapillary layer will connect your devices to services operated by Mapillary AB, Sweden, [privacy policy](https://www.mapillary.com/privacy).
 * Installing the app from Amazon, google or F-Droid requires you to access these sites and potentially submit personal data (at least IP addresses) to them. 
+* Recording a GPX track, or starting location based auto-download, will lead to a service continuously updating your current position, including when you navigate away from the app for example by starting a different application. If GPX recording is enabled the location information will be stored on your device until you explicitly clear it or de-install the app. Such location access will stop if you either turn recording or auto-download off, or exit the app. No location information is made available to the Vespucci developers or other third parties. It is at your sole discretion how to use the recorded location data, for example if you upload it to OpenStreetMap or if you use it simply for private documentation. A notification is persistently displayed as long as the service is actively using location data. 
 
 If you have questions with respect to this document, please feel free to contact us at privacy@vespucci.io
 
