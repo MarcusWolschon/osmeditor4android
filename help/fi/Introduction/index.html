@@ -303,7 +303,7 @@ i-->
             <li><a href="#gpsn-kayttaminen">GPS:n käyttäminen</a></li>
             <li><a href="#muistiinpanot-ja-virheet">Muistiinpanot ja virheet</a></li>
         <li class="main "><a href="#sisatila-tila">Sisätila-tila</a></li>
-            <li><a href="#c-mode">C-Mode</a></li>
+            <li><a href="#c-tila">C-tila</a></li>
             <li><a href="#suodattimet">Suodattimet</a></li>
             <li><a href="#vespuccin-raataloiminen">Vespuccin räätälöiminen</a></li>
             <li><a href="#ongelmista-ilmoittaminen">Ongelmista ilmoittaminen</a></li>
@@ -312,9 +312,9 @@ i-->
                 <div class="col-md-9" role="main">
 
 <h1 id="johdanto-vespucciin">Johdanto Vespucciin</h1>
-<p>Vespucci on täysipuolinen OpenStreetMap-muokkain, joka sisältää useimmat pöytäkoneiden tarjoamat toiminnot. Se on testattu toimivaksi Googlen Androidin versioilla 2.3–7.0 sekä eri AOSP-pohjaisilla alustoilla. Pieni varoituksen sana on paikallaan: vaikka mobiililaitteet ovat kuroneet pöytäkoneiden etumatkaa kiinni, varsinkin vanhemmissa malleissa muistia on niukasti ja ne tapaavat olla varsin hitaita. Tämä kannattaa ottaa huomioon Vespuccia käytettäessä, esimerkiksi pitämällä muokattavat alueet kohtuullisen kokoisina. </p>
+<p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. </p>
 <h2 id="ensimmainen-kayttokerta">Ensimmäinen käyttökerta</h2>
-<p>Kun Vespucci käynnistyy, se näyttää dialogin "Lataa (joku muu) alue". Jos näkyvissä on koordinaatit ja haluat aloittaa latauksen heti, voit mainitun toiminnon valittuasi asettaa paikan sekä säteen, miltä kyseisen paikan ympäriltä dataa ladataan. Älä valitse laajaa aluetta, jos laitteesi on hidas. </p>
+<p>On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. </p>
 <p>Vaihtoehtoisesti voit hylätä dialogin painamalla "Kartalle"-nappia, ja etsiä alueen, jota haluat muokata. Lataa data, kun olet sovitellut karttanäkymän kohdalleen. (Katso alempaa "Muokkaaminen Vespuccilla".)</p>
 <h2 id="muokkaaminen-vespuccilla">Muokkaaminen Vespuccilla</h2>
 <p>Laitteesi näytön koosta ja iästä riippuen muokkaustoiminnot voivat löytyä joko suoraan yläpalkin kuvakkeista, palkin oikean laidan alasvetovalikosta, mahdollisesta alapalkista tai valikkonäppäimen kautta.</p>
@@ -322,14 +322,17 @@ i-->
 <h3 id="osm-datan-lataaminen">OSM-datan lataaminen</h3>
 <p>Kosketa ensin siirtokuvaketta <img alt="Siirto" src="../../images/menu_transfer.png" /> tai avaa valikosta "Siirto". Esiin tulee seitsemän valintaa:</p>
 <ul>
-<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
+<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
 <li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
 <li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
+<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
+<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
 <li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
 <li><strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
 </ul>
 <p>Helpoin tapa ladata dataa laitteelle on etsiä muokattavaksi aiottu karttanäkymä ja avata valikosta "Lataa nykyinen näkymä". Voit suurentaa ja pienentää sormieleillä, plus- ja miinusnapilla tai laitteen äänenvoimakkuusnappuloilla. Vespuccin pitäisi sitten ladata karttanäkymää vastaava data. Sinun ei tarvitse tunnistautua datan lataamista varten.</p>
+<p>With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
 <h3 id="muokkaaminen">Muokkaaminen</h3>
 <p><a id="lock"></a></p>
 <h4 id="lock-unlock-mode-switching">Lock, unlock, mode switching</h4>
@@ -373,18 +376,18 @@ i-->
 <p>See <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Creating new objects in simple actions mode</a> for more information.</p>
 <h5 id="advanced-long-press-mode">Advanced (long press) mode</h5>
 <p>Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-<em> If you want to create a new node (not connected to an object), click away from existing objects.
-</em> If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
+<em> If you want to create a new node (not connected to an object), touch away from existing objects.
+</em> If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
 <p>Kun hiusristikko on asetettu, on valittavana seuraavat toimenpiteet:</p>
 <ul>
-<li>Kosketus samaan paikkaan.<ul>
-<li>Ellei hiusristikko ole lähellä pistettä, saman kohdan koskettaminen lisää uuden pisteen. Jos se on lähellä viivaa (mutta ei pistettä), uusi piste lisätään viivaan (ja on siis siinä kiinni).</li>
-<li>Jos hiusristikko on lähellä pistettä (eli pisteen toleranssialueen sisällä), saman kohdan koskettaminen vain valitsee pisteen (ja tägimuokkain aukeaa). Uutta pistettä ei lisätä. Toiminto on sama kuin edellä kuvattu valitseminen.</li>
+<li><em>Normal press in the same place.</em><ul>
+<li>If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).</li>
+<li>If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.</li>
 </ul>
 </li>
-<li>Kosketus toiseen paikkaan. Toisen kohdan (hiusristikon toleranssialueen ulkopuolella) koskettaminen lisää viivanpätkän ensimmäisestä kohdasta jälkimmäiseen. Jos hiusristikko oli lähellä viivaa tai pistettä, uusi pätkä on kiinni tässä pisteessä tai viivassa.</li>
+<li><em>Normal touch in another place.</em> Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.</li>
 </ul>
-<p>Voit lisätä viivaan lisää pisteitä koskettamalla näyttöä haluamiisi kohtiin. Lopetus tapahtuu koskettamalla viimeistä pistettä kahdesti. Jos viimeinen piste on jonkin viivan tai pisteen kohdalla, uusi viiva kiinnittyy siihen automaattisesti. </p>
+<p>Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. </p>
 <p>You can also use a menu item: See <a href="Creating%20new%20objects.md">Creating new objects</a> for more information.</p>
 <h4 id="alueen-lisaaminen">Alueen lisääminen</h4>
 <p>OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:</p>
@@ -446,7 +449,7 @@ i-->
 <p>Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.</p>
 <p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
 <p><a id="c-mode"></a></p>
-<h2 id="c-mode">C-Mode</h2>
+<h2 id="c-tila">C-tila</h2>
 <p>In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.</p>
 <p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
 <h3 id="configuring-checks">Configuring checks</h3>
@@ -457,10 +460,11 @@ i-->
 <ul>
 <li><strong>Key</strong> - Key of the tag of interest.</li>
 <li><strong>Value</strong> - Value the tag of interest should have, if empty the tag value will be ignored.</li>
-<li><strong>Age</strong> - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.</li>
+<li><strong>Age</strong> - how many days after the element was last changed the element should be re-surveyed, if a <em>check_date</em> tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.</li>
 <li><strong>Regular expression</strong> - if checked <strong>Value</strong> is assumed to be a JAVA regular expression.</li>
 </ul>
 <p><strong>Key</strong> and <strong>Value</strong> are checked against the <em>existing</em> tags of the object in question.</p>
+<p>The <em>Annotations</em> group in the standard presets contain an item that will automatically add a <em>check_date</em> tag with the current date.</p>
 <h4 id="check-entries">Check entries</h4>
 <p>Check entries have the following two properties:</p>
 <ul>
@@ -475,13 +479,18 @@ i-->
 <p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here <a href="Preset%20filter.md">Preset filter</a>.</p>
 <h2 id="vespuccin-raataloiminen">Vespuccin räätälöiminen</h2>
 <p>Many aspects of the app can be customized, if you are looking for something specific and can't find it, <a href="https://vespucci.io/">the Vespucci website</a> is searchable and contains additional information over what is available on device.</p>
-<h3 id="layer-settings">Layer settings</h3>
-<p>Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.</p>
+<h3 id="tason-asetukset">Tason asetukset</h3>
+<p>Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
+<p>Available layer types:</p>
 <ul>
-<li>Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.</li>
+<li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
+<li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.</li>
 <li>Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
-<li>Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
-<li>Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
+<li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
+<li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
+<li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
+<li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
+<li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
 <h4 id="preferences">Preferences</h4>
 <ul>
@@ -508,7 +517,7 @@ i-->
             <li><a href="#gpsn-kayttaminen">GPS:n käyttäminen</a></li>
             <li><a href="#muistiinpanot-ja-virheet">Muistiinpanot ja virheet</a></li>
         <li class="main "><a href="#sisatila-tila">Sisätila-tila</a></li>
-            <li><a href="#c-mode">C-Mode</a></li>
+            <li><a href="#c-tila">C-tila</a></li>
             <li><a href="#suodattimet">Suodattimet</a></li>
             <li><a href="#vespuccin-raataloiminen">Vespuccin räätälöiminen</a></li>
             <li><a href="#ongelmista-ilmoittaminen">Ongelmista ilmoittaminen</a></li>
@@ -517,9 +526,9 @@ i-->
                     <div class="col-md-9" role="main">
 
 <h1 id="johdanto-vespucciin">Johdanto Vespucciin</h1>
-<p>Vespucci on täysipuolinen OpenStreetMap-muokkain, joka sisältää useimmat pöytäkoneiden tarjoamat toiminnot. Se on testattu toimivaksi Googlen Androidin versioilla 2.3–7.0 sekä eri AOSP-pohjaisilla alustoilla. Pieni varoituksen sana on paikallaan: vaikka mobiililaitteet ovat kuroneet pöytäkoneiden etumatkaa kiinni, varsinkin vanhemmissa malleissa muistia on niukasti ja ne tapaavat olla varsin hitaita. Tämä kannattaa ottaa huomioon Vespuccia käytettäessä, esimerkiksi pitämällä muokattavat alueet kohtuullisen kokoisina. </p>
+<p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. </p>
 <h2 id="ensimmainen-kayttokerta">Ensimmäinen käyttökerta</h2>
-<p>Kun Vespucci käynnistyy, se näyttää dialogin "Lataa (joku muu) alue". Jos näkyvissä on koordinaatit ja haluat aloittaa latauksen heti, voit mainitun toiminnon valittuasi asettaa paikan sekä säteen, miltä kyseisen paikan ympäriltä dataa ladataan. Älä valitse laajaa aluetta, jos laitteesi on hidas. </p>
+<p>On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. </p>
 <p>Vaihtoehtoisesti voit hylätä dialogin painamalla "Kartalle"-nappia, ja etsiä alueen, jota haluat muokata. Lataa data, kun olet sovitellut karttanäkymän kohdalleen. (Katso alempaa "Muokkaaminen Vespuccilla".)</p>
 <h2 id="muokkaaminen-vespuccilla">Muokkaaminen Vespuccilla</h2>
 <p>Laitteesi näytön koosta ja iästä riippuen muokkaustoiminnot voivat löytyä joko suoraan yläpalkin kuvakkeista, palkin oikean laidan alasvetovalikosta, mahdollisesta alapalkista tai valikkonäppäimen kautta.</p>
@@ -527,14 +536,17 @@ i-->
 <h3 id="osm-datan-lataaminen">OSM-datan lataaminen</h3>
 <p>Kosketa ensin siirtokuvaketta <img alt="Siirto" src="../../images/menu_transfer.png" /> tai avaa valikosta "Siirto". Esiin tulee seitsemän valintaa:</p>
 <ul>
-<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
+<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
 <li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
 <li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
+<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
+<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
 <li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
 <li><strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
 </ul>
 <p>Helpoin tapa ladata dataa laitteelle on etsiä muokattavaksi aiottu karttanäkymä ja avata valikosta "Lataa nykyinen näkymä". Voit suurentaa ja pienentää sormieleillä, plus- ja miinusnapilla tai laitteen äänenvoimakkuusnappuloilla. Vespuccin pitäisi sitten ladata karttanäkymää vastaava data. Sinun ei tarvitse tunnistautua datan lataamista varten.</p>
+<p>With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
 <h3 id="muokkaaminen">Muokkaaminen</h3>
 <p><a id="lock"></a></p>
 <h4 id="lock-unlock-mode-switching">Lock, unlock, mode switching</h4>
@@ -578,18 +590,18 @@ i-->
 <p>See <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Creating new objects in simple actions mode</a> for more information.</p>
 <h5 id="advanced-long-press-mode">Advanced (long press) mode</h5>
 <p>Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-<em> If you want to create a new node (not connected to an object), click away from existing objects.
-</em> If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
+<em> If you want to create a new node (not connected to an object), touch away from existing objects.
+</em> If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
 <p>Kun hiusristikko on asetettu, on valittavana seuraavat toimenpiteet:</p>
 <ul>
-<li>Kosketus samaan paikkaan.<ul>
-<li>Ellei hiusristikko ole lähellä pistettä, saman kohdan koskettaminen lisää uuden pisteen. Jos se on lähellä viivaa (mutta ei pistettä), uusi piste lisätään viivaan (ja on siis siinä kiinni).</li>
-<li>Jos hiusristikko on lähellä pistettä (eli pisteen toleranssialueen sisällä), saman kohdan koskettaminen vain valitsee pisteen (ja tägimuokkain aukeaa). Uutta pistettä ei lisätä. Toiminto on sama kuin edellä kuvattu valitseminen.</li>
+<li><em>Normal press in the same place.</em><ul>
+<li>If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).</li>
+<li>If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.</li>
 </ul>
 </li>
-<li>Kosketus toiseen paikkaan. Toisen kohdan (hiusristikon toleranssialueen ulkopuolella) koskettaminen lisää viivanpätkän ensimmäisestä kohdasta jälkimmäiseen. Jos hiusristikko oli lähellä viivaa tai pistettä, uusi pätkä on kiinni tässä pisteessä tai viivassa.</li>
+<li><em>Normal touch in another place.</em> Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.</li>
 </ul>
-<p>Voit lisätä viivaan lisää pisteitä koskettamalla näyttöä haluamiisi kohtiin. Lopetus tapahtuu koskettamalla viimeistä pistettä kahdesti. Jos viimeinen piste on jonkin viivan tai pisteen kohdalla, uusi viiva kiinnittyy siihen automaattisesti. </p>
+<p>Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. </p>
 <p>You can also use a menu item: See <a href="Creating%20new%20objects.md">Creating new objects</a> for more information.</p>
 <h4 id="alueen-lisaaminen">Alueen lisääminen</h4>
 <p>OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:</p>
@@ -651,7 +663,7 @@ i-->
 <p>Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.</p>
 <p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
 <p><a id="c-mode"></a></p>
-<h2 id="c-mode">C-Mode</h2>
+<h2 id="c-tila">C-tila</h2>
 <p>In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.</p>
 <p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
 <h3 id="configuring-checks">Configuring checks</h3>
@@ -662,10 +674,11 @@ i-->
 <ul>
 <li><strong>Key</strong> - Key of the tag of interest.</li>
 <li><strong>Value</strong> - Value the tag of interest should have, if empty the tag value will be ignored.</li>
-<li><strong>Age</strong> - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.</li>
+<li><strong>Age</strong> - how many days after the element was last changed the element should be re-surveyed, if a <em>check_date</em> tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.</li>
 <li><strong>Regular expression</strong> - if checked <strong>Value</strong> is assumed to be a JAVA regular expression.</li>
 </ul>
 <p><strong>Key</strong> and <strong>Value</strong> are checked against the <em>existing</em> tags of the object in question.</p>
+<p>The <em>Annotations</em> group in the standard presets contain an item that will automatically add a <em>check_date</em> tag with the current date.</p>
 <h4 id="check-entries">Check entries</h4>
 <p>Check entries have the following two properties:</p>
 <ul>
@@ -680,13 +693,18 @@ i-->
 <p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here <a href="Preset%20filter.md">Preset filter</a>.</p>
 <h2 id="vespuccin-raataloiminen">Vespuccin räätälöiminen</h2>
 <p>Many aspects of the app can be customized, if you are looking for something specific and can't find it, <a href="https://vespucci.io/">the Vespucci website</a> is searchable and contains additional information over what is available on device.</p>
-<h3 id="layer-settings">Layer settings</h3>
-<p>Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.</p>
+<h3 id="tason-asetukset">Tason asetukset</h3>
+<p>Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
+<p>Available layer types:</p>
 <ul>
-<li>Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.</li>
+<li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
+<li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.</li>
 <li>Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
-<li>Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
-<li>Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
+<li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
+<li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
+<li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
+<li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
+<li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
 <h4 id="preferences">Preferences</h4>
 <ul>
