@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">Справка</string>
+    <string name="help_app_description">Справка Vespucci</string>
     <string name="help_title">Справка: %1$s</string>
     <string name="help_introduction">Введение</string>
     <string name="help_main">Основной экран карты</string>
@@ -23,6 +25,9 @@
     <string name="help_opening_hours">Время работы</string>
     <string name="help_newnoteselection">Создание новой заметки</string>
     <string name="help_voice_commands">Голосовые команды</string>
+    <string name="help_upgrade">Примечания к версии 15.1</string>
+    <string name="help_upgrade_150">Примечания к версии 15.0</string>
+    <string name="help_upgrade_141">Примечания к версии 14.1</string>
     <string name="help_upgrade_140">Примечания к версии 14.0</string>
     <string name="help_upgrade_131">Примечания к версии 13.1</string>
     <string name="help_upgrade_130">Примечания к версии 13.0</string>
