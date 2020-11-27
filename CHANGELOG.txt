@@ -1,5 +1,15 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.1.0-3:
+- Update translations
+- Add feature request template
+- Add section on OSMF services
+- Update privacy policy to include a section on location usage
+- Update default photon url
+- Update translations
+- Fix typo in introduction documentation
+- Catch out of range imagery position
+
 15.1.0-2:
 - Update preset
 - Update imagery from ELI
