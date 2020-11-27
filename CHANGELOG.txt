@@ -1,5 +1,11 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.0.8:
+- Back port: Add google required warnings when recording GPX track
+- Catch out of range imagery position
+- Add section on OSMF services
+- Update privacy policy to include a section on location usage
+
 15.0.7: 
 - Update translations, imagery and presets
 - Don't throw an exception, simply force cache size to at least 1
