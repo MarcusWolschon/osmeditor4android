@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://josm.openstreetmap.de/tagging-preset-1.0"
+    xmlns:tns="http://josm.openstreetmap.de/tagging-preset-1.0"
+    elementFormDefault="qualified">
+
+    <!-- Localized attributes (for example de.description are not supported
+        by xsd, so every element needs <anyAttribute/> To cover at least some common
+        errors, elements have specified prohibited attributes -->
+
+    <element name="annotations" type="tns:root" />
+    <element name="presets" type="tns:root">
+        <unique name="chunk_id">
+            <selector xpath=".//tns:chunk"/>
+            <field xpath="@id"/>
+        </unique>
+        <keyref name="chunk_ref" refer="tns:chunk_id">
+            <selector xpath=".//tns:reference"/>
+            <field xpath="@ref"/>
+        </keyref>
+    </element>
+
+    <complexType name="root">
+        <complexContent>
+            <extension base="tns:group-parent">
+                <attribute name="author" type="string" />
+                <attribute name="version" type="string" />
+                <attribute name="shortdescription" type="string" />
+                <attribute name="description" type="string" />
+                <attribute name="link" type="string" />
+                <attribute name="baselanguage" type="string" />
+				<attribute name="object_keys" type="string" />
+				
+                <anyAttribute processContents="skip" />
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="group-parent">
+        <sequence>
+            <choice minOccurs="1" maxOccurs="unbounded">
+                <element name="chunk" type="tns:chunk"/>
+                <element name="group" type="tns:group" />
+                <element name="item" type="tns:item" />
+                <element name="separator" type="tns:separator" />
+            </choice>
+        </sequence>
+        <attribute name="icon" type="string" />
+        <attribute name="items_sort" type="string" />
+
+        <attribute name="type" use="prohibited" />
+        <attribute name="text" use="prohibited" />
+        <anyAttribute processContents="skip" />
+    </complexType>
+
+    <complexType name="group">
+        <complexContent>
+            <extension base="tns:group-parent">
+                <attribute name="name" type="string" use="required" />
+                <attribute name="regions" type="string" />
+                <attribute name="exclude_regions" type="boolean"/>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="separator" />
+
+    <complexType name="item">
+        <sequence>
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <group ref="tns:optional_elements" />
+                <element name="key" type="tns:key" />
+                <element name="optional" type="tns:optional" minOccurs="0" />
+            </choice>
+            <element name="roles" type="tns:roles" minOccurs="0" maxOccurs="1" />
+        </sequence>
+        <attribute name="name" type="string" use="required" />
+        <attribute name="icon" type="string" />
+        <attribute name="type" type="string" />
+        <attribute name="name_template" type="string"/>
+        <attribute name="name_template_filter" type="string"/>
+        <attribute name="preset_name_label" type="boolean"/>
+        <attribute name="deprecated" type="boolean"/>
+        <attribute name="regions" type="string" />
+        <attribute name="exclude_regions" type="boolean"/>
+        <attribute name="autoapply" type="boolean"/>
+        <attribute name="min_match" type="positiveInteger" />
+        <attribute name="text" use="prohibited" />
+        <anyAttribute processContents="skip" />
+    </complexType>
+
+    <complexType name="optional">
+        <group ref="tns:optional_elements" maxOccurs="unbounded" />
+        <attribute name="text" type="string" />
+        <attribute name="text_context" type="string" />
+    </complexType>
+
+    <complexType name="chunk">
+        <choice minOccurs="1" maxOccurs="1">
+            <sequence>
+                <choice minOccurs="1" maxOccurs="unbounded">
+                    <group ref="tns:optional_elements" />
+                    <element name="key" type="tns:key" />
+                    <element name="optional" type="tns:optional" minOccurs="0" />
+                </choice>
+                <element name="roles" type="tns:roles" minOccurs="0" maxOccurs="1" />
+            </sequence>
+            <sequence>
+                <!-- Cannot use tns:list_elements here because reference is present both in optional_elements and list_elements
+                so it violates cos-nonambig: Unique Particle Attribution :
+                <group ref="tns:list_elements" minOccurs="1" maxOccurs="unbounded" />-->
+                <element name="list_entry" type="tns:list_entry" minOccurs="1" maxOccurs="unbounded" />
+            </sequence>
+            <sequence>
+                <element name="role" type="tns:role" minOccurs="1" maxOccurs="unbounded" />
+            </sequence>
+        </choice>
+        <attribute name="id" type="ID" use="required" />
+    </complexType>
+
+    <complexType name="reference">
+        <attribute name="ref" type="IDREF" use="required" />
+    </complexType>
+
+    <group name="optional_elements">
+        <choice>
+            <element name="label" type="tns:label" />
+            <element name="space" type="tns:space" />
+            <element name="link" type="tns:link" />
+            <element name="preset_link" type="tns:preset_link" />
+            <element name="text" type="tns:text" />
+            <element name="combo" type="tns:combo" />
+            <element name="multiselect" type="tns:multiselect" />
+            <element name="checkgroup" type="tns:checkgroup" />
+            <element name="check" type="tns:check" />
+            <element name="item_separator" type="tns:separator" />
+            <element name="reference" type="tns:reference" />
+        </choice>
+    </group>
+
+    <group name="list_elements">
+        <choice>
+            <element name="list_entry" type="tns:list_entry" />
+            <element name="reference" type="tns:reference" />
+        </choice>
+    </group>
+
+    <complexType name="key">
+        <attribute name="key" type="string" use="required" />
+        <attribute name="value" type="string" />
+        <attribute name="match" type="string" />
+        <attribute name="text" type="string" />
+        <attribute name="values_context" type="string" />
+    </complexType>
+
+    <complexType name="link">
+        <!-- this should use an assertion to check that either href or wiki is present -->
+        <attribute name="href" type="string" />
+        <attribute name="wiki" type="string" />
+        <attribute name="text" type="string" />
+        <attribute name="text_context" type="string" />
+
+        <attribute name="name" use="prohibited" />
+        <anyAttribute processContents="skip" />
+    </complexType>
+
+    <complexType name="preset_link">
+        <attribute name="preset_name" type="string" use="required" />
+        <attribute name="text" type="string" />
+        <attribute name="text_context" type="string" />
+        <attribute name="alternative" type="boolean" />
+        
+        <attribute name="name" use="prohibited" />
+    </complexType>
+
+    <complexType name="label">
+        <attribute name="text" type="string" use="required" />
+        <attribute name="text_context" type="string" />
+        <attribute name="icon" type="string" />
+        <attribute name="icon_size" type="integer" />
+
+        <attribute name="name" use="prohibited" />
+        <anyAttribute processContents="skip" />
+    </complexType>
+
+    <complexType name="space" />
+
+    <complexType name="text">
+        <attribute name="key" type="string" use="required" />
+        <attribute name="text" type="string" />
+        <attribute name="text_context" type="string" />
+        <attribute name="default" type="string" />
+        <attribute name="use_last_as_default" type="tns:last_default" />
+        <attribute name="auto_increment" type="string" />
+        <attribute name="match" type="tns:match" />
+        <attribute name="length" type="positiveInteger" />
+        <attribute name="alternative_autocomplete_keys" type="string" />
+        <attribute name="javascript" type="string" />
+        <attribute name="value_type" type="tns:value_type" />
+
+        <attribute name="type" use="prohibited" />
+        <attribute name="name" use="prohibited" />
+        <attribute name="value" use="prohibited" />
+        <attribute name="values" use="prohibited" />
+        <anyAttribute processContents="skip" />
+    </complexType>
+
+    <complexType name="list_entry">
+        <attribute name="value" type="string" use="required" />
+        <attribute name="value_context" type="string" />
+        <attribute name="display_value" type="string" />
+        <attribute name="short_description" type="string" />
+        <attribute name="icon" type="string" />
+        <attribute name="icon_size" type="integer" />
+        <anyAttribute processContents="skip" />
+    </complexType>
+
+    <complexType name="combo">
+        <!-- use either list_entry's or a combination of values/display_values -->
+        <sequence>
+            <group ref="tns:list_elements" minOccurs="0" maxOccurs="unbounded" />
+        </sequence>
+        <attribute name="key" type="string" use="required" />
+        <attribute name="text" type="string" />
+        <attribute name="text_context" type="string" />
+        <attribute name="values" type="string" />
+        <attribute name="values_from" type="string" />
+        <attribute name="values_context" type="string" />
+        <attribute name="values_no_i18n" type="boolean" />
+        <attribute name="values_sort" type="boolean" />
+        <attribute name="display_values" type="string" />
+        <attribute name="values_searchable" type="boolean" />
+        <attribute name="default" type="string" />
+        <attribute name="use_last_as_default" type="tns:last_default" />
+        <attribute name="delimiter" type="string" />
+        <attribute name="editable" type="boolean" />
+        <attribute name="match" type="tns:match" />
+        <attribute name="length" type="positiveInteger" />
+
+        <attribute name="type" use="prohibited" />
+        <attribute name="value" use="prohibited" />
+        <attribute name="name" use="prohibited" />
+        <attribute name="delete-if-empty" use="prohibited" />
+        <attribute name="display-values" use="prohibited" />
+        <anyAttribute processContents="skip" />
+    </complexType>
+
+    <complexType name="multiselect">
+        <!-- use either list_entry's or a combination of values/display_values -->
+        <sequence>
+            <group ref="tns:list_elements" minOccurs="0" maxOccurs="unbounded" />
+        </sequence>
+        <attribute name="key" type="string" use="required" />
+        <attribute name="text" type="string" />
+        <attribute name="text_context" type="string" />
+        <attribute name="values" type="string" />
+        <attribute name="values_from" type="string" />
+        <attribute name="values_context" type="string" />
+        <attribute name="display_values" type="string" />
+        <attribute name="values_searchable" type="boolean" />
+        <attribute name="default" type="string" />
+        <attribute name="use_last_as_default" type="tns:last_default" />
+        <attribute name="delimiter" type="string" />
+        <attribute name="match" type="tns:match" />
+        <attribute name="value_count_key" type="string" />
+
+        <attribute name="type" use="prohibited" />
+        <attribute name="value" use="prohibited" />
+        <attribute name="name" use="prohibited" />
+        <attribute name="delete-if-empty" use="prohibited" />
+        <attribute name="display-values" use="prohibited" />
+        <anyAttribute processContents="skip" />
+    </complexType>
+
+    <complexType name="checkgroup">
+        <sequence>
+            <choice minOccurs="1" maxOccurs="unbounded">
+                <element name="check" type="tns:check" />
+            </choice>
+        </sequence>
+        <attribute name="columns" type="positiveInteger" />
+        <attribute name="text" type="string" />
+        <attribute name="text_context" type="string" />
+        <anyAttribute processContents="skip" />
+    </complexType>
+
+    <complexType name="check">
+        <attribute name="key" type="string" use="required" />
+        <attribute name="text" type="string" />
+        <attribute name="text_context" type="string" />
+        <attribute name="default" type="tns:check_default" />
+        <attribute name="value_on" type="string" />
+        <attribute name="value_off" type="string" />
+        <attribute name="disable_off" type="boolean" />
+        <attribute name="match" type="tns:match" />
+
+        <attribute name="name" use="prohibited" />
+        <attribute name="type" use="prohibited" />
+        <attribute name="value" use="prohibited" />
+        <anyAttribute processContents="skip" />
+    </complexType>
+
+    <simpleType name="check_default">
+        <restriction base="string">
+            <enumeration value="on" />
+            <enumeration value="off" />
+        </restriction>
+    </simpleType>
+
+    <simpleType name="last_default">
+        <restriction base="string">
+            <enumeration value="true" />
+            <enumeration value="false" />
+            <enumeration value="force" />
+        </restriction>
+    </simpleType>
+
+    <simpleType name="match">
+        <restriction base="string">
+            <enumeration value="none" />
+            <enumeration value="key" />
+            <enumeration value="key!" />
+            <enumeration value="keyvalue" />
+            <enumeration value="keyvalue!" />
+        </restriction>
+    </simpleType>
+
+    <complexType name="roles">
+        <group ref="tns:roles_elements" maxOccurs="unbounded" />
+    </complexType>
+
+    <group name="roles_elements">
+        <choice>
+            <element name="role" type="tns:role" minOccurs="1" maxOccurs="unbounded" />
+            <element name="reference" type="tns:reference" />
+        </choice>
+    </group>
+
+    <complexType name="role">
+        <attribute name="key" type="string" />
+        <attribute name="text" type="string" />
+        <attribute name="text_context" type="string" />
+        <attribute name="requisite" type="tns:role_requisite" />
+        <attribute name="type" type="string" />
+        <attribute name="count" type="integer" />
+        <attribute name="member_expression" type="string" />
+        <attribute name="regexp" type="boolean" />
+        <anyAttribute processContents="skip" />
+    </complexType>
+
+    <simpleType name="role_requisite">
+        <restriction base="string">
+            <enumeration value="required" />
+            <enumeration value="optional" />
+        </restriction>
+    </simpleType>
+
+	<simpleType name="value_type">
+    	<restriction base="string">
+            <enumeration value="opening_hours" />
+            <enumeration value="opening_hours_plus" />
+            <enumeration value="conditional" />
+            <enumeration value="integer" />
+            <enumeration value="website" />
+            <enumeration value="phone" />
+            <enumeration value="wikipedia" />
+            <enumeration value="wikidata" />
+        </restriction>
+    </simpleType>
+    
+</schema>
