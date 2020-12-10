@@ -2843,8 +2843,10 @@ public class Logic {
                             // if we are simply expanding the area no need keep the old bounding boxes
                             List<BoundingBox> bbs = new ArrayList<>(getDelegator().getBoundingBoxes());
                             for (BoundingBox bb : bbs) {
-                                if (mapBox.contains(bb)) {
+                                if (bb != null && mapBox.contains(bb)) {
                                     getDelegator().deleteBoundingBox(bb);
+                                } else {
+                                    Log.e(DEBUG_TAG, "download null existing bounding box");
                                 }
                             }
                             getDelegator().addBoundingBox(mapBox);
