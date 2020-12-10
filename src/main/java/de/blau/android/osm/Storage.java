@@ -428,6 +428,17 @@ public class Storage implements Serializable {
     }
 
     /**
+     * Null entries shouldn't exist, but if they do this will remove them
+     */
+    public synchronized void removeNullBoundingboxes() {
+        int count = 0;
+        while (bboxes.remove(null)) {
+            count++;
+        }
+        Log.e(DEBUG_TAG, "Removed " + count + " null bounding boxes");
+    }
+
+    /**
      * Get the last added bounding box
      * 
      * @return the last BoundingBox or one covering the whole mercator extent

@@ -2847,6 +2847,7 @@ public class Logic {
                                     getDelegator().deleteBoundingBox(bb);
                                 } else {
                                     Log.e(DEBUG_TAG, "download null existing bounding box");
+                                    getDelegator().getCurrentStorage().removeNullBoundingboxes();
                                 }
                             }
                             getDelegator().addBoundingBox(mapBox);
