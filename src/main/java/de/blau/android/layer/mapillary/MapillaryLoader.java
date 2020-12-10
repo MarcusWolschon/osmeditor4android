@@ -22,6 +22,7 @@ import androidx.core.content.FileProvider;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.photos.PhotoLoader;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.Snack;
@@ -38,6 +39,9 @@ class MapillaryLoader implements PhotoLoader {
     private static final long serialVersionUID = 1L;
 
     private static final int IMAGERY_LOAD_THREADS = 3;
+
+    private static final String JPG           = "." + FileExtensions.JPG;
+    private static final String MAPILLARY_JPG = "/thumb-2048.jpg";
 
     final File   cacheDir;
     final long   cacheSize;
@@ -60,7 +64,7 @@ class MapillaryLoader implements PhotoLoader {
 
     @Override
     public void load(SubsamplingScaleImageView view, String key) {
-        File imageFile = new File(cacheDir, key + ".jpg");
+        File imageFile = new File(cacheDir, key + JPG);
         if (!imageFile.exists()) { // download
             if (mThreadPool == null) {
                 mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(IMAGERY_LOAD_THREADS);
@@ -68,7 +72,7 @@ class MapillaryLoader implements PhotoLoader {
             mThreadPool.execute(() -> {
                 Log.d(DEBUG_TAG, "querying server for " + key);
                 try {
-                    URL url = new URL(imageUrl + key + "/thumb-2048.jpg");
+                    URL url = new URL(imageUrl + key + MAPILLARY_JPG);
                     Log.d(DEBUG_TAG, "query: " + url.toString());
 
                     Request request = new Request.Builder().url(url).build();
@@ -127,15 +131,17 @@ class MapillaryLoader implements PhotoLoader {
 
     @Override
     public void showOnMap(Context context, int index) {
-        Intent intent = new Intent(context, Main.class);
-        intent.setAction(Main.ACTION_MAPILLARY_SELECT);
-        intent.putExtra(MapOverlay.SET_POSITION_KEY, index);
-        context.startActivity(intent);
+        if (!App.isPropertyEditorRunning()) {
+            Intent intent = new Intent(context, Main.class);
+            intent.setAction(Main.ACTION_MAPILLARY_SELECT);
+            intent.putExtra(MapOverlay.SET_POSITION_KEY, index);
+            context.startActivity(intent);
+        }
     }
 
     @Override
     public void share(Context context, String key) {
-        File imageFile = new File(cacheDir, key + ".jpg");
+        File imageFile = new File(cacheDir, key + JPG);
         if (imageFile.exists()) {
             Uri f = FileProvider.getUriForFile(context, context.getString(R.string.content_provider), imageFile);
             de.blau.android.layer.photos.Util.startExternalPhotoViewer(context, f);

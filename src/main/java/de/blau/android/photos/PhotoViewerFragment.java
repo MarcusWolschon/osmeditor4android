@@ -166,7 +166,8 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                         map.invalidate();
                     }
                     getDialog().dismiss();
-                } else {
+                } else if (!App.isPropertyEditorRunning()) {
+                    System.out.println("PropertyEditor not running");
                     Intent intent = new Intent(context, Main.class);
                     intent.setData(p.getRefUri(context));
                     getContext().startActivity(intent);

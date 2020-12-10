@@ -14,10 +14,12 @@ import org.nustaq.serialization.serializers.FSTMapSerializer;
 
 import com.faendir.rhino_android.RhinoAndroidHelper;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.filter.PresetFilter;
@@ -32,6 +34,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.presets.Synonyms;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.GeoContext;
@@ -50,7 +53,7 @@ import okhttp3.OkHttpClient;
 @AcraHttpSender(httpMethod = HttpSender.Method.POST, uri = "https://acralyzer.vespucci.io/acraproxy")
 @AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
 
-public class App extends android.app.Application {
+public class App extends android.app.Application implements android.app.Application.ActivityLifecycleCallbacks {
     private static final String DEBUG_TAG = App.class.getName();
 
     private static final String     RHINO_LAZY_LOAD = "lazyLoad";
@@ -149,11 +152,14 @@ public class App extends android.app.Application {
 
     private static Configuration configuration = null;
 
+    private static boolean propertyEditorRunning;
+
     @Override
     public void onCreate() {
         // The following line triggers the initialization of ACRA
         ACRA.init(this);
         super.onCreate();
+        registerActivityLifecycleCallbacks(this);
         String appName = getString(R.string.app_name);
         String appVersion = getString(R.string.app_version);
         userAgent = appName + "/" + appVersion;
@@ -672,5 +678,57 @@ public class App extends android.app.Application {
     @NonNull
     public static FSTConfiguration getFSTInstance() {
         return singletonConf;
+    }
+
+    @Override
+    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        if (activity instanceof PropertyEditor) {
+            synchronized (this) {
+                propertyEditorRunning = true;
+            }
+        }
+    }
+
+    @Override
+    public void onActivityStarted(Activity activity) {
+        // unused
+    }
+
+    @Override
+    public void onActivityResumed(Activity activity) {
+        // unused
+    }
+
+    @Override
+    public void onActivityPaused(Activity activity) {
+        // unused
+    }
+
+    @Override
+    public void onActivityStopped(Activity activity) {
+        // unused
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+        // unused
+    }
+
+    @Override
+    public void onActivityDestroyed(Activity activity) {
+        if (activity instanceof PropertyEditor) {
+            synchronized (this) {
+                propertyEditorRunning = false;
+            }
+        }
+    }
+
+    /**
+     * Check if the PropertyEditor has been started
+     * 
+     * @return true if the PropertyEditor has been started
+     */
+    public static boolean isPropertyEditorRunning() {
+        return propertyEditorRunning;
     }
 }
