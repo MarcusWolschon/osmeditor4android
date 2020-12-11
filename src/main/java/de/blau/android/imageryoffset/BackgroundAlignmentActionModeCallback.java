@@ -466,35 +466,33 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
         // try to find current display name
         final Server server = prefs.getServer();
-        if (server != null) {
-            if (!server.needOAuthHandshake()) {
-                AsyncTask<Void, Void, Server.UserDetails> loader = new AsyncTask<Void, Void, Server.UserDetails>() {
+        if (!server.needOAuthHandshake()) {
+            AsyncTask<Void, Void, Server.UserDetails> loader = new AsyncTask<Void, Void, Server.UserDetails>() {
 
-                    @Override
-                    protected Server.UserDetails doInBackground(Void... params) {
-                        return server.getUserDetails();
-                    }
-                };
-                try {
-                    loader.execute();
-                    Server.UserDetails user = loader.get(10, TimeUnit.SECONDS);
-
-                    if (user != null) {
-                        author = user.getDisplayName();
-                    } else {
-                        author = server.getDisplayName(); // maybe it has been configured
-                    }
-                } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
-                                                                        // question
-                    loader.cancel(true);
-                    error = e.getMessage();
-                } catch (TimeoutException e) {
-                    error = main.getString(R.string.toast_timeout);
+                @Override
+                protected Server.UserDetails doInBackground(Void... params) {
+                    return server.getUserDetails();
                 }
-                displayError(error);
-            } else {
-                author = server.getDisplayName(); // maybe it has been configured
+            };
+            try {
+                loader.execute();
+                Server.UserDetails user = loader.get(10, TimeUnit.SECONDS);
+
+                if (user != null) {
+                    author = user.getDisplayName();
+                } else {
+                    author = server.getDisplayName(); // maybe it has been configured
+                }
+            } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
+                                                                    // question
+                loader.cancel(true);
+                error = e.getMessage();
+            } catch (TimeoutException e) {
+                error = main.getString(R.string.toast_timeout);
             }
+            displayError(error);
+        } else {
+            author = server.getDisplayName(); // maybe it has been configured
         }
 
         List<ImageryOffset> offsetsToSaveList = ImageryOffsetUtils.offsets2ImageryOffset(osmts, map.getViewBox(), author);

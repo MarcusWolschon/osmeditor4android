@@ -70,12 +70,10 @@ public class OAMCatalog {
     public List<LayerEntry> getEntries(@Nullable Context context, @NonNull String oamServer, @Nullable BoundingBox box) throws IOException {
         if (context != null) {
             String[] regexpStrings = context.getResources().getStringArray(R.array.bad_oam_title);
-            if (regexpStrings != null) {
-                int length = regexpStrings.length;
-                titleRegexps = new Pattern[length];
-                for (int i = 0; i < length; i++) {
-                    titleRegexps[i] = Pattern.compile(regexpStrings[i]);
-                }
+            int length = regexpStrings.length;
+            titleRegexps = new Pattern[length];
+            for (int i = 0; i < length; i++) {
+                titleRegexps[i] = Pattern.compile(regexpStrings[i]);
             }
         }
 

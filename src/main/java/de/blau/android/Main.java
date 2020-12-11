@@ -2612,9 +2612,11 @@ public class Main extends FullScreenAppCompatActivity
             boolean onScreen = mapLocation != null && map.getViewBox().contains(mapLocation.getLongitude(), mapLocation.getLatitude());
             if (!follow || !onScreen) {
                 followButton.setEnabled(true);
-            } else { // this is hack around the elevation vanishing when disabled
-                float elevation = followButton.getCompatElevation();
-                followButton.setEnabled(!follow || !onScreen);
+            } else { 
+                // this is hack around the elevation vanishing when disabled
+                // order is important here
+                float elevation = followButton.getCompatElevation(); 
+                followButton.setEnabled(false);
                 followButton.setCompatElevation(elevation);
             }
         }

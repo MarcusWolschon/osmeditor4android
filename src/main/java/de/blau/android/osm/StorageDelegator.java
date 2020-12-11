@@ -720,13 +720,14 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param way way to circulize
      */
     public void circulizeWay(@NonNull de.blau.android.Map map, @NonNull Way way) {
-        if ((way.getNodes() == null) || (way.getNodes().size() < 3)) {
+        final List<Node> wayNodes = way.getNodes();
+        if (wayNodes.size() < 3) {
             Log.d(DEBUG_TAG, "circulize way " + way.getOsmId() + " has no nodes or less than 3!");
             return;
         }
         dirty = true;
         try {
-            Set<Node> nodes = new LinkedHashSet<>(way.getNodes()); // Guarantee uniqueness
+            Set<Node> nodes = new LinkedHashSet<>(wayNodes); // Guarantee uniqueness
             invalidateWayBoundingBox(nodes);
             int width = map.getWidth();
             int height = map.getHeight();

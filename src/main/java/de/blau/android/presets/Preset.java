@@ -1253,7 +1253,7 @@ public class Preset implements Serializable {
         for (PresetItem pi : allItems) {
             if (pi != null) {
                 String n = pi.getName();
-                if (n != null && n.equals(name)) {
+                if (n.equals(name)) {
                     return pi.getItemIndex();
                 }
             }

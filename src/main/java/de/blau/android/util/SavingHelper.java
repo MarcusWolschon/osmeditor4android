@@ -372,7 +372,7 @@ public class SavingHelper<T extends Serializable> {
                     SavingHelper.close(fout);
                 }
                 // workaround for android bug - make sure export file shows up via MTP
-                if (ctx != null && outfile != null) {
+                if (ctx != null) {
                     try {
                         triggerMediaScanner(ctx.getApplicationContext(), outfile);
                     } catch (Exception ignored) {

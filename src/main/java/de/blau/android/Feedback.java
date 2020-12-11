@@ -143,7 +143,7 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
         }
 
         String k = getString(R.string.reporter);
-        if (k != null && !"".equals(k)) {
+        if (!"".equals(k)) {
             setGuestToken(k);
         }
 
