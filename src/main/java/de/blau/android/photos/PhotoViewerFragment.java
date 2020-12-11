@@ -167,7 +167,6 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                     }
                     getDialog().dismiss();
                 } else if (!App.isPropertyEditorRunning()) {
-                    System.out.println("PropertyEditor not running");
                     Intent intent = new Intent(context, Main.class);
                     intent.setData(p.getRefUri(context));
                     getContext().startActivity(intent);
@@ -234,11 +233,9 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
 
             @Override
             public void onPageSelected(int page) {
-                if (photoLoader != null) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && activity.isInMultiWindowMode()) {
-                        // doing this in single window mode is very annoying so we don't
-                        photoLoader.showOnMap(getContext(), page);
-                    }
+                if (photoLoader != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && activity.isInMultiWindowMode()) {
+                    // doing this in single window mode is very annoying so we don't
+                    photoLoader.showOnMap(getContext(), page);
                 }
             }
 
