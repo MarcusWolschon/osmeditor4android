@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="1.16.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="2.1.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -197,6 +197,11 @@
         <check key="winter_road" text="Winter road" disable_off="true" />
         <check key="ice_road" text="Ice road" disable_off="true" />
     </chunk>
+    <chunk id="placement">
+        <combo key="placement" text="Placement" values="left_of:1,left_of:2,left_of:3,left_of:4,left_of:5,middle_of:1,middle_of:2,middle_of:3,middle_of:4,middle_of:5,right_of:1,right_of:2,right_of:3,right_of:4,right_of:5,transition" />
+        <combo key="placement:forward" text="Placement in way direction" values="left_of:1,left_of:2,left_of:3,left_of:4,left_of:5,middle_of:1,middle_of:2,middle_of:3,middle_of:4,middle_of:5,right_of:1,right_of:2,right_of:3,right_of:4,right_of:5" />
+        <combo key="placement:backward" text="Placement opposed to way direction" values="left_of:1,left_of:2,left_of:3,left_of:4,left_of:5,middle_of:1,middle_of:2,middle_of:3,middle_of:4,middle_of:5,right_of:1,right_of:2,right_of:3,right_of:4,right_of:5" />
+    </chunk>
     <chunk id="major_highway_additional">
         <text key="destination" text="Destination"/>
         <text key="destination:ref" text="Destination reference"/>
@@ -205,7 +210,7 @@
         <reference ref="placement"/>
         <checkgroup text="Additional attributes" columns="4">
             <check key="oneway" text="Oneway" default="on"/>
-            <check key="motorroad" text="Motorroad" default="on"/>
+            <check key="motorroad" text="Motorroad" disable_off="true"/>
             <check key="bridge" text="Bridge" disable_off="true"/>
             <check key="tunnel" text="Tunnel" disable_off="true"/>
             <check key="cutting" text="Cutting" disable_off="true"/>
@@ -807,6 +812,16 @@
         <text key="branch" text="Branch operator"/>
         <text key="start_date" text="Start date"/>
     </chunk>
+    <chunk id="power_generator_optional_name_ref">
+        <link wiki="Tag:power=generator"/>
+        <space/>
+        <key key="power" value="generator"/>
+        <optional>
+            <reference ref="name_ref_operator"/>
+            <text key="branch" text="Branch operator"/>
+            <text key="start_date" text="Start date"/>
+        </optional>
+    </chunk>
     <chunk id="power_output">
         <optional text="Output forms of energy:">
             <combo key="generator:output:biogas" text="biogas" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
@@ -918,11 +933,6 @@
             <reference ref="wikipedia_wikidata" />
         </optional>
         <preset_link preset_name="No name"/>
-    </chunk>
-    <chunk id="placement">
-        <combo key="placement" text="Placement" values="left_of:1,left_of:2,left_of:3,left_of:4,left_of:5,middle_of:1,middle_of:2,middle_of:3,middle_of:4,middle_of:5,right_of:1,right_of:2,right_of:3,right_of:4,right_of:5,transition" />
-        <combo key="placement:forward" text="Placement in way direction" values="left_of:1,left_of:2,left_of:3,left_of:4,left_of:5,middle_of:1,middle_of:2,middle_of:3,middle_of:4,middle_of:5,right_of:1,right_of:2,right_of:3,right_of:4,right_of:5" />
-        <combo key="placement:backward" text="Placement opposed to way direction" values="left_of:1,left_of:2,left_of:3,left_of:4,left_of:5,middle_of:1,middle_of:2,middle_of:3,middle_of:4,middle_of:5,right_of:1,right_of:2,right_of:3,right_of:4,right_of:5" />
     </chunk>
   <chunk id="social_facility_for">
     <combo key="social_facility:for" text="For group" match="key">
@@ -1585,7 +1595,7 @@
             <space/>
             <key key="highway" value="service" values_context="Highway"/>
             <optional>
-                <combo key="service" text="Service way type" values="alley,driveway,parking_aisle,drive-through,emergency_access" display_values="Alley,Driveway,Parking,Parking aisle,Drive-through,Emergency access" values_context="Highway"/>
+                <combo key="service" text="Service way type" values="alley,driveway,parking,parking_aisle,drive-through,emergency_access" display_values="Alley,Driveway,Parking,Parking aisle,Drive-through,Emergency access" values_context="Highway"/>
                 <text key="name" text="Name"/>
                 <reference ref="highway_base"/>
                 <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
@@ -2018,7 +2028,7 @@
                 <space/>
                 <key key="traffic_calming" value="hump"/>
             </item> <!-- Hump -->
-            <item name="Table" name_context="traffic_calming" icon="icons/png/transport_table_18048.png" type="node,way" preset_name_label="true">
+            <item name="Table" name_context="traffic_calming_table" icon="icons/png/transport_table_18048.png" type="node,way" preset_name_label="true">
                 <link wiki="Key:traffic_calming"/>
                 <space/>
                 <key key="traffic_calming" value="table"/>
@@ -2130,7 +2140,7 @@
                 <combo key="direction" text="For direction" values="forward,backward,both" display_values="Forward,Backward,Both"/>
             </optional>
         </item> <!-- Highway Milestone -->
-        <item name="Named Junction" name_context="junction=yes" type="node,closedway" preset_name_label="true">
+        <item name="Named Junction" name_context="junction=yes" icon="" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:junction=yes"/>
             <key key="junction" value="yes"/>
             <label text="Used in some countries for a named road junction who.s name serves for local orientation."/>
@@ -2502,7 +2512,7 @@
                 <reference ref="incline"/>
             </optional>
         </item> <!-- Building Passage -->
-        <item name="Arcade" type="way" preset_name_label="true">
+        <item name="Arcade" icon="" type="way" preset_name_label="true">
             <link wiki="Key:covered"/>
             <space/>
             <key key="covered" text="Covered" value="arcade" match="none"/>
@@ -2513,7 +2523,7 @@
                 <text key="width" text="Width (meters)"/>
             </optional>
         </item> <!-- Arcade -->
-        <item name="Colonnade" type="way" preset_name_label="true">
+        <item name="Colonnade" icon="${passageways_colonade}" type="way" preset_name_label="true">
             <link wiki="Key:covered"/>
             <space/>
             <key key="covered" text="Covered" value="colonnade" match="none"/>
@@ -2524,7 +2534,7 @@
                 <text key="width" text="Width (meters)"/>
             </optional>
         </item> <!-- Colonnade -->
-        <item name="Avalanche Protector" type="way" preset_name_label="true">
+        <item name="Avalanche Protector" icon="" type="way" preset_name_label="true">
             <link wiki="Key:tunnel"/>
             <space/>
             <key key="tunnel" value="avalanche_protector" match="none"/>
@@ -2604,7 +2614,7 @@
             <combo key="maxspeed:hgv:backward:conditional" text="Max speed HGV &#x2190; @" long_text="Conditional maximum speed for heavy goods vehicles opposite way direction specified in km/h" delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|0 @ length=0|0 @ width=0" values_sort="false" match="key"/>
 	        <reference ref="additional_access_tags"/> 
         </item> <!-- Heavy Goods Vehicle -->
-        <item name="General access" type="node,way,closedway" preset_name_label="true">
+        <item name="General access" icon="" type="node,way,closedway" preset_name_label="true">
             <link wiki="Key:access"/>
             <space/>
             <combo key="access" text="General access" values="yes,destination,delivery,permissive,private,customers,agricultural,forestry,permit,no" display_values="General access,Destination,Delivery,Permissive,Private,Customers,Agricultural,Forestry,Permit required,No access" values_context="access" values_sort="false" match="key" values_searchable="true"/>
@@ -2651,7 +2661,7 @@
     <item name="Street area" icon="icons/png/street_area.png" type="closedway,multipolygon" preset_name_label="true">
         <link wiki="Key:area:highway"/>
         <combo key="area:highway" text="Street type" match="key" values_context="Highway"
-            values="bus_stop,crossing,cycleway,footway,junction,living_street,motorway,motorway_link,,parking_space,parking_lane,pedestrian,primary,primary_link,residential,secondary,secondary_link,service,steps,tertiary,tertiary_link,traffic_island,trunk,trunk_link,unclassified,yes"      
+            values="bus_stop,crossing,cycleway,footway,junction,living_street,motorway,motorway_link,parking_space,parking_lane,pedestrian,primary,primary_link,residential,secondary,secondary_link,service,steps,tertiary,tertiary_link,traffic_island,trunk,trunk_link,unclassified,yes"      
             display_values="Bus stop,Crossing,Cycleway,Footway,Junction,Living street,Motorway,Motorway link,Parking space,Parking lane,Pedestrian,Primary,Primary link,Residential,Secondary,Secondary link,Service,Steps,Tertiary,Tertiary link,Traffic island,Trunk,Trunk link,Unclassified,Yes"/>      
         <reference ref="surface" />
         <reference ref="road_access_restrictions" />
@@ -2682,7 +2692,7 @@
             <reference ref="water_access"/>
             <preset_link preset_name="No name"/>
         </item> <!-- Stream -->
-        <item name="Tidal channel" type="way" preset_name_label="true">
+        <item name="Tidal channel" icon="" type="way" preset_name_label="true">
             <link wiki="Tag:waterway=tidal_channel" />
             <space />
             <key key="waterway" value="tidal_channel" />
@@ -3079,7 +3089,7 @@
     </group> <!-- Shipping -->
   </group> <!-- Water -->
   <group name="Transport" icon="icons/png/transport_train_station2.png">
-    <group name="Railway" icon="icons/png/transport_train_station.png" items_sort="false" >
+    <group name="Railway" icon="icons/png/transport_train_station2.png" items_sort="false" >
         <item name="Rail" icon="icons/png/transport_train_station.png" type="way" preset_name_label="true">
             <link wiki="Tag:railway=rail"/>
             <key key="railway" value="rail"/>
@@ -4872,7 +4882,7 @@
             <space/>
             <key key="leisure" value="dance"/>
             <check key="dance:teaching" text="Teaching" disable_off="true"/>
-            <multiselect key="dance:style" text="Styles" values="ballroom;latin;Tango" display_values="Ballroom;Latin" editable="true" values_searchable="true"/>
+            <multiselect key="dance:style" text="Styles" values="ballroom;latin;tango" display_values="Ballroom;Latin;Tango" editable="true" values_searchable="true"/>
             <reference ref="name_operator_oh_wheelchair"/>
             <reference ref="level"/>
             <reference ref="facility_access"/>
@@ -4966,7 +4976,7 @@
             </checkgroup>
         </optional>
     </item> <!-- Playground -->
-    <group name="Playground equipment" icon="icons/png/amenity_slide_30043.png">
+    <group name="Playground equipment" icon="${Leisure_playground_equipment}">
         <item name="Playground equipment" icon="icons/png/amenity_slide_30043.png" type="node,way,closedway,multipolygon">
             <link wiki="Tag:leisure=playground"/>
             <space/>
@@ -5531,7 +5541,7 @@
             <reference ref="link_contact_address"/>
         </item> <!-- Mortuary -->
     </group> <!-- Public Buildings -->
-    <group name="Education" icon="icons/png/education_school.png">
+    <group name="Education" icon="icons/png/education_school_12242.png">
         <item name="Childcare" icon="icons/png/education_nursery2.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Proposed_features/childcare2.0"/>
             <space/>
@@ -5568,7 +5578,7 @@
 			<reference ref="link_contact_address"/>
 			<preset_link preset_name="Building"/>
 		</item> <!-- Kindergarten -->
-        <item name="School" icon="icons/png/education_school.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="School" icon="icons/png/education_school_12242.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=school"/>
             <space/>
             <key key="amenity" value="school"/>
@@ -5635,6 +5645,14 @@
             <combo key="operator:type" text="Operator type" values="public,private" display_values="Public,Private"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Music School -->
+        <item name="Dancing school" icon="icons/png/education_dance_21173.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=dancing_school"/>
+            <space/>
+            <key key="amenity" value="dancing_school"/>
+            <reference ref="name_operator_oh_wheelchair"/>
+            <reference ref="level"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Dancing school -->
         <item name="Tutoring school" icon="icons/png/education_funnel.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=prep_school"/>
             <space/>
@@ -6006,7 +6024,7 @@
             <reference ref="link_contact_address"/>
         </item> <!-- Mountain Rescue -->
     </group> <!-- Emergency -->
-    <group name="Social Facilities" icon="icons/png/amenity_outreach_12252.png">
+    <group name="Social Facilities" icon="${social_facilities_group}">
         <item name="Ambulatory Care" icon="icons/png/amenity_ambulatory_care_12248.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:social_facility"/>
             <space/>
@@ -6344,7 +6362,7 @@
         <item name="Waste Basket/Trash Can" icon="icons/png/amenity_waste_bin.png" type="node" preset_name_label="true">
             <link wiki="Tag:amenity=waste_basket"/>
             <key key="amenity" value="waste_basket"/>
-            <combo key="waste" text="Waste" values="trash,dog_excrement,cigarettes" display_values="Trash,Dog excrement,Cigarettes" match="none"/>
+            <multiselect key="waste" text="Waste" values="trash;dog_excrement;cigarettes" display_values="Trash;Dog excrement;Cigarettes" match="none"/>
         </item> <!-- Waste Basket/Trash Can -->
         <item name="Waste Disposal/Dumpster" icon="icons/png/amenity_waste_disposal_12312.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=waste_disposal"/>
@@ -7274,7 +7292,7 @@
         </item> <!-- Raceway -->
     </group> <!-- Motorsport -->
   </group> <!-- Sports -->
-  <group name="Buildings" icon="icons/png/man_made_house_sp.png">
+  <group name="Buildings" icon="$buildings_group}">
 		<item name="Building" icon="icons/png/man_made_house_sp.png" type="node,closedway,multipolygon" preset_name_label="true">
 			<link wiki="Key:building"/>
 			<space/>
@@ -8119,7 +8137,7 @@
             </item> <!-- Nuclear Reactor -->
             <item name="Solar Power Generator" icon="icons/png/power_station_solar.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="solar"/>
-                <reference ref="power_generator"/>
+                <reference ref="power_generator_optional_name_ref"/>
                 <combo key="generator:method" text="Method" values_context="generator method" values="photovoltaic,thermal" match="none" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
                     <list_entry value="solar_photovoltaic_panel" short_description="photovoltaic"/>
@@ -10793,7 +10811,7 @@
                 <role key="level_-?\\d+" text="Building level" regexp="true" requisite="optional" type="relation"/>
             </roles>
         </item> <!-- Building -->
-        <item name="Site" type="relation" preset_name_label="true">
+        <item name="Site" type="relation" icon="" preset_name_label="true">
             <link wiki="Relation:site"/>
             <space/>
             <key key="type" value="site"/>
@@ -10806,7 +10824,7 @@
             </roles>
         </item> <!-- Site -->
         <separator/>
-		<group name="Turn Restrictions">
+		<group name="Turn Restrictions" icon="icons/png/no_left_turn.png">
 			<item name="Turn Restriction" icon="icons/png/no_u_turn.png" type="relation" preset_name_label="true">
 				<link wiki="Relation:restriction"/>
 				<space/>
