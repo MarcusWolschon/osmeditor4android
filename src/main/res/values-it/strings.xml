@@ -31,13 +31,24 @@
   <string name="wrong_login_data_re_authenticate">Esegui nuovamente autenticazione</string>
   <string name="forbidden_login_title">Login proibito</string>
   <string name="not_found_title">Elemento non trovato</string>
+  <string name="not_found_message">L’API non ha trovato un elemento o gruppo di modifiche esistenti con l’id specificato.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Errore sconosciuto</string>
+  <string name="unknown_error_message">Non è stato possibile processare il codice errore o il messaggio restituito dall’API.&lt;br&gt;&lt;br&gt;</string>
   <string name="no_data_title">Nessun dato</string>
   <string name="no_data_message">La fonte dei dati configurata non ha copertura qui.</string>
+  <string name="required_feature_missing_title">Componente mancante o disabilitato</string>
+  <string name="required_feature_missing_message">Questo elemento dipende da un componente di sistema mancante o disabilitato.</string>
   <string name="go_to_openstreetmap">Vai ad openstreetmap.org</string>
   <string name="data_conflict_title">Conflitto tra versioni</string>
   <string name="data_conflict_message">I dati del download potrebbero essere in conflitto con le tue modifiche. Per favore carica le tue modifiche prima di riprovare.</string>
+  <string name="corrupted_data_title">Dati corrotti</string>
+  <string name="corrupted_data_message">È stato individuata un’inconsistenza nei dati. Prima di fare altro, cerca di caricare le tue modifiche, quindi cancella qualunque dato immagazzinato e scaricalo di nuovo.</string>
+  <string name="invalid_bounding_box_title">Riquadro di selezione non valido</string>
+  <string name="invalid_bounding_box_message">L’area selezionata non rispetta i limiti dell’API, scegli un’area differente.</string>
   <string name="bounding_box_too_large_title">Area da scaricare troppo grande</string>
+  <string name="bounding_box_too_large_message">L’area che stati tentando di scaricare è troppo grande o contiene troppi dati.\n\nIngrandisci ancora e prova di nuovo.</string>
+  <string name="api_offline_title">API non in linea</string>
+  <string name="api_offline_message">L’API non è al momento in linea,  non è possibile ottenere o scrivere alcun dato.</string>
   <string name="out_of_memory_title">Memoria esaurita</string>
   <string name="out_of_memory_message">Vespucci non è stato in grado di caricare i dati richiesti. Per favore ricomincia e carica un\'area più piccola.</string>
   <string name="out_of_memory_dirty_message">Vespucci non è riuscito a caricare i dati richiesti. Per favore, salva le tue modifiche, riapri l\'applicazione e carica un\'area più piccola.</string>
@@ -47,6 +58,8 @@
   <string name="invalid_data_read_message">Per favore consulta la documentazione sui formati di file supportati e i campi di dati necessari.</string>
   <string name="file_write_failed_title">Impossibile scrivere sul file</string>
   <string name="file_write_failed_message">Vespucci non è riuscito a salvare il file</string>
+  <string name="applying_osc_failed_title">Applicazione del file OSC fallita</string>
+  <string name="applying_osc_failed_message">Molto probabilmente non hai caricato tutti i dati originali che sono richiesti per applicare i cambiamenti.</string>
   <!---->
   <string name="welcome_title">Benvenuto</string>
   <string name="read_introduction">Leggi l\'introduzione</string>
@@ -64,14 +77,20 @@
   <string name="progress_running_message">In esecuzione...</string>
   <string name="progress_oauth">Caricamento del tuo account da openstreetmap.org per l\'autorizzazione OAuth...</string>
   <string name="progress_building_imagery_database">Generazione del database delle immagini…</string>
+  <string name="progress_query_oam">Richiesta OAM inviata…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" cancellato</string>
   <string name="changes_changed">\"%1$s\" modificato</string>
   <string name="changes_created">\"%1$s\" creato</string>
   <string name="confirm_upload_title">Carica le modifiche sul server</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="one">Carica questa modifica?</item>
+    <item quantity="other">Carica queste %1$d modifiche?</item>
+  </plurals>
   <string name="confirm_upload_edits_page">Modifiche</string>
   <string name="upload_comment_label">Commento:</string>
   <string name="upload_source_label">Fonte:</string>
+  <string name="upload_close_open_changeset_label">Prima chiudi il gruppo di modifiche aperto:</string>
   <string name="upload_close_changeset_label">Chiudi il gruppo di modifiche:</string>
   <string name="upload_request_review_label">Richiedi revisione:</string>
   <!---->
@@ -97,6 +116,7 @@
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">Personalizzato</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;ultima modifica:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (non scaricato) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
@@ -121,6 +141,7 @@
   <string name="imagery_offset_date">Creato</string>
   <string name="imagery_offset_zoom">Ingrandimento</string>
   <string name="imagery_offset_distance">Distanza</string>
+  <string name="zoom_and_offset">Z %1$d allineamento %2$s/%3$s</string>
   <string name="set_position_datum_label">datum geodetico</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Suggerimento del nome</string>
@@ -129,12 +150,14 @@
   <string name="search_online">Cerca online</string>
   <string name="find_message">Inserisci il testo di ricerca</string>
   <string name="geocoder_prompt">con</string>
+  <string name="geocoder_limit_label">nella vista corrente</string>
   <!--Search objects dialog-->
   <string name="search_objects_title">Cerca oggetti</string>
   <string name="search_objects_hint">Inserisci un’espressione di ricerca JOSM</string>
   <string name="search_objects_unsupported">Espressione “%1$s” non supportata</string>
   <!---->
   <string name="preset_search_hint">Testo di ricerca dei predefiniti</string>
+  <string name="preset_autopreset">Predefiniti automatici</string>
   <string name="search">Cerca</string>
   <string name="no_valid_preset">Predefinito non valido!</string>
   <string name="save_file">Salva in</string>
@@ -155,9 +178,12 @@
   <string name="empty_role">Ruolo non solezionato</string>
   <string name="last_edited">Ultima modifica</string>
   <string name="original">Originale</string>
+  <string name="previous">Precedente</string>
   <string name="current">Attuale</string>
   <string name="goto_element">Vai all\'elemento</string>
+  <string name="edit_properties">Modifica etichette</string>
   <!--GeoJSON feature display dialog-->
+  <string name="feature_information">Info elemento GeoJSON</string>
   <string name="copy_properties">Copia proprietà</string>
   <!--API/Data layer info dialog-->
   <string name="data_in_memory">Dati in memoria</string>
@@ -165,10 +191,12 @@
   <string name="changed">Modificato</string>
   <string name="ways">Percorsi</string>
   <!--Tile layer info dialog-->
+  <string name="attribution">Attribuzione</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Caricati troppi dati!</string>
   <string name="too_much_data_message">Hai caricato %1$d nodi e sei andato oltre il limite impostato. Questo causerà un rallentamento e, se carichi più dati, un potenziale problema con il salvataggio.</string>
   <string name="upload_data_now">Carica modifiche</string>
+  <string name="prune_data_now">Riduci i dati</string>
   <!--Delete custom preset dialog-->
   <!--Duplicate route segment dialog-->
   <!--Duplicate relation element dialog-->
@@ -375,6 +403,7 @@
   <string name="toast_illegal_operation">Operazione non consentita: %1$s</string>
   <string name="toast_imperial_units">Manca la misura</string>
   <string name="toast_flus_all_caches">Questo cancellerà la cache di tutti i livelli di immagini.</string>
+  <string name="toast_applied_offset">Applicato allineamento alle immagini.</string>
   <string name="toast_unsupported_format">Formato non supportato: %1$s</string>
   <string name="toast_returning_less_than_found">Ho trovato %1$d voci di %2$d</string>
   <string name="toast_not_mbtiles">Non è file in formato MBTiles</string>
@@ -423,6 +452,7 @@
   <string name="clear">Pulisci</string>
   <string name="discard">Elimina</string>
   <string name="retry">Riprova</string>
+  <string name="prune">Riduci</string>
   <string name="check">Verifica</string>
   <!--Read a file-->
   <string name="read">Leggi</string>
@@ -808,6 +838,8 @@
   <string name="config_downloadRadius_current">%1$d metro(i)</string>
   <string name="config_maxDownloadSpeed_title">Velocità di scaricamento automatico massima</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_autoPruneNodeLimit_title">Limite di riduzione automatica</string>
+  <string name="config_autoPruneNodeLimit_summary">Numero di nodi in memoria oltre al quale verrà effettuata una riduzione automatica.</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>
   <string name="config_bugFilter_title">Filtra compiti</string>
   <string name="config_bugFilter_summary">Seleziona quali elementi vengono mostrati nel livello di note, errori e compiti.</string>
@@ -833,6 +865,8 @@
   <string name="config_apibutton_summary">Puoi impostare un URL delle API non standard. Non dovrebbe essere modificato generalmente!</string>
   <string name="config_loginbutton_title">Account utente</string>
   <string name="config_username_summary">Devi creare una configurazione per caricare i dati su OSM se non usi OAuth. Crea un account al sito https://www.openstreetmap.org/user/new</string>
+  <string name="config_offsetServer_title">Server allineamenti</string>
+  <string name="config_offsetServer_summary">URL del server per gli allineamenti delle immagini.</string>
   <string name="config_geocoderbutton_title">Configura geo-codificatore</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Memorizzazione e download livello</string>
