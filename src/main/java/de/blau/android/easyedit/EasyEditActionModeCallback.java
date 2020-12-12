@@ -143,6 +143,15 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
         return false;
     }
 
+    /**
+     * Check if the mode only supports selection of OSM elements
+     * 
+     * @return true is only OSM elements can be selected
+     */
+    public boolean elementsOnly() {
+        return false;
+    }
+
     /** {@inheritDoc} */ // placed here for convenience, allows to avoid unnecessary methods in subclasses
     @Override
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {

@@ -545,6 +545,20 @@ public class EasyEditManager {
     }
 
     /**
+     * Check if the current mode only supports OSM elements for selection
+     * 
+     * @return true if the current mode only supports OSM elements for selection
+     */
+    public boolean elementsOnly() {
+        synchronized (actionModeCallbackLock) {
+            if (currentActionModeCallback != null) {
+                return currentActionModeCallback.elementsOnly();
+            }
+        }
+        return false;
+    }
+
+    /**
      * @return the current instance of Main
      */
     public Main getMain() {

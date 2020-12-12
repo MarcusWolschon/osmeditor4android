@@ -2612,10 +2612,10 @@ public class Main extends FullScreenAppCompatActivity
             boolean onScreen = mapLocation != null && map.getViewBox().contains(mapLocation.getLongitude(), mapLocation.getLatitude());
             if (!follow || !onScreen) {
                 followButton.setEnabled(true);
-            } else { 
+            } else {
                 // this is hack around the elevation vanishing when disabled
                 // order is important here
-                float elevation = followButton.getCompatElevation(); 
+                float elevation = followButton.getCompatElevation();
                 followButton.setEnabled(false);
                 followButton.setCompatElevation(elevation);
             }
@@ -3403,8 +3403,7 @@ public class Main extends FullScreenAppCompatActivity
 
         @Override
         public void onClick(View v, float x, float y) {
-            boolean elementsOnly = App.getLogic().getClickableElements() != null;
-            if (!elementsOnly) {
+            if (App.getLogic().getClickableElements() == null && !getEasyEditManager().elementsOnly()) {
                 getClickedObjects(x, y);
             }
 

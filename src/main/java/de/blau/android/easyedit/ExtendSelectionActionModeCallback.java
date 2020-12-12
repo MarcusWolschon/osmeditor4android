@@ -246,6 +246,11 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         return false;
     }
 
+    @Override
+    public boolean elementsOnly() {
+        return true;
+    }
+
     // private boolean canMerge(ArrayList<OsmElement> selection) {
     // for (OsmElement e:selection) {
     // if (!(e.getName().equals(Way.NAME) && ((Way)e).isClosed())) {
