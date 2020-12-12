@@ -30,9 +30,6 @@ import de.blau.android.validation.Validator;
  *
  */
 public class Relation extends OsmElement implements BoundedObject, StyleableFeature {
-
-    static final int MAX_DEPTH = 3;
-
     /**
      * 
      */
@@ -44,7 +41,12 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
 
     public static final String NAME = "relation";
 
-    public static final String MEMBER = "member";
+    public static final String MEMBER      = "member";
+    static final String        MEMBER_ROLE = "role";
+    static final String        MEMBER_REF  = "ref";
+    static final String        MEMBER_TYPE = "type";
+
+    static final int MAX_DEPTH = 3;
 
     /**
      * Construct a new Relation
@@ -245,9 +247,9 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
         attributesToXml(s, changeSetId, josm);
         for (RelationMember member : members) {
             s.startTag("", MEMBER);
-            s.attribute("", "type", member.getType());
-            s.attribute("", "ref", Long.toString(member.getRef()));
-            s.attribute("", "role", member.getRole());
+            s.attribute("", MEMBER_TYPE, member.getType());
+            s.attribute("", MEMBER_REF, Long.toString(member.getRef()));
+            s.attribute("", MEMBER_ROLE, member.getRole());
             s.endTag("", MEMBER);
         }
         tagsToXml(s);
@@ -468,21 +470,20 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
         return true;
     }
 
-
     /**
      * Check if the Relation has any downloaded members
      * 
-     * @return true if any members are present 
+     * @return true if any members are present
      */
     public boolean hasDownloadedMembers() {
-        for (RelationMember rm:getMembers()) {
+        for (RelationMember rm : getMembers()) {
             if (rm.getElement() != null) {
                 return true;
             }
         }
         return false;
     }
-    
+
     @Override
     public BoundingBox getBounds() {
         return getBounds(1);

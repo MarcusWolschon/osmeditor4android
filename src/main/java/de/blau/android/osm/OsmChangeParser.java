@@ -19,11 +19,6 @@ public class OsmChangeParser extends OsmParser {
 
     private static final String DEBUG_TAG = OsmChangeParser.class.getSimpleName();
 
-    private static final String OSM_CHANGE_CREATE = "create";
-
-    private static final String OSM_CHANGE = "osmChange";
-    private static final String OSM        = "osm";
-
     /**
      * Place holder for a node referenced by a way, but not in the OsmChange file
      */
@@ -60,10 +55,10 @@ public class OsmChangeParser extends OsmParser {
     public void startElement(final String uri, final String name, final String qName, final Attributes atts) {
         try {
             switch (name) {
-            case OSM:
+            case OsmXml.OSM:
                 isOsmInput = true;
                 break;
-            case OSM_CHANGE:
+            case OsmXml.OSM_CHANGE:
                 isOsmChangeInput = true;
                 break;
             case Way.NAME:
@@ -74,9 +69,9 @@ public class OsmChangeParser extends OsmParser {
             case Way.NODE:
                 parseWayNode(atts);
                 break;
-            case OSM_CHANGE_CREATE:
-            case OSM_CHANGE_MODIFY:
-            case OSM_CHANGE_DELETE:
+            case OsmXml.CREATE:
+            case OsmXml.MODIFY:
+            case OsmXml.DELETE:
                 if (!isOsmInput && isOsmChangeInput) {
                     currentStatus = action2state(name);
                 } else {
@@ -101,11 +96,11 @@ public class OsmChangeParser extends OsmParser {
      */
     private byte action2state(@NonNull String action) throws OsmParseException {
         switch (action) {
-        case OSM_CHANGE_CREATE:
+        case OsmXml.CREATE:
             return OsmElement.STATE_CREATED;
-        case OSM_CHANGE_MODIFY:
+        case OsmXml.MODIFY:
             return OsmElement.STATE_MODIFIED;
-        case OSM_CHANGE_DELETE:
+        case OsmXml.DELETE:
             return OsmElement.STATE_DELETED;
         default:
             throw new OsmParseException("Unexpected osmChange action " + action);
@@ -119,9 +114,9 @@ public class OsmChangeParser extends OsmParser {
     public void endElement(final String uri, final String name, final String qName) throws SAXException {
         try {
             switch (name) {
-            case OSM_CHANGE_CREATE:
-            case OSM_CHANGE_MODIFY:
-            case OSM_CHANGE_DELETE:
+            case OsmXml.CREATE:
+            case OsmXml.MODIFY:
+            case OsmXml.DELETE:
                 currentStatus = OsmElement.STATE_UNCHANGED;
                 break;
             default:
@@ -146,7 +141,7 @@ public class OsmChangeParser extends OsmParser {
             if (currentWay == null) {
                 Log.e(DEBUG_TAG, "No currentWay set!");
             } else {
-                long nodeOsmId = Long.parseLong(atts.getValue("ref"));
+                long nodeOsmId = Long.parseLong(atts.getValue(Way.REF));
                 Node node = nodeIndex.get(nodeOsmId);
                 if (node == null) {
                     if (isOsmChangeInput) {

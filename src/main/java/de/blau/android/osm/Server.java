@@ -75,9 +75,8 @@ import se.akerfeldt.okhttp.signpost.SigningInterceptor;
 public class Server {
     private static final String DEBUG_TAG = Server.class.getName();
 
-    private static final String OSM_CHANGE_TAG = "osmChange";
-    private static final String VERSION_KEY    = "version";
-    private static final String GENERATOR_KEY  = "generator";
+    private static final String VERSION_KEY   = "version";
+    private static final String GENERATOR_KEY = "generator";
 
     private static final String HTTP_PUT    = "PUT";
     private static final String HTTP_POST   = "POST";
@@ -763,7 +762,7 @@ public class Server {
      * @throws OsmIOException thrown if a write or other error occurs
      */
     private void sendPayload(@NonNull final OutputStream outputStream, @NonNull final XmlSerializable xmlSerializable, long changeSetId) throws OsmIOException {
-        try (OutputStreamWriter out = new OutputStreamWriter(outputStream, Charset.defaultCharset())){
+        try (OutputStreamWriter out = new OutputStreamWriter(outputStream, Charset.defaultCharset())) {
             XmlSerializer xmlSerializer = getXmlSerializer();
             xmlSerializer.setOutput(out);
             xmlSerializable.toXml(xmlSerializer, changeSetId);
@@ -1303,7 +1302,7 @@ public class Server {
      */
     static void startXml(@NonNull XmlSerializer xmlSerializer, @NonNull String generator) throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.startDocument(OsmXml.UTF_8, null);
-        xmlSerializer.startTag("", "osm");
+        xmlSerializer.startTag("", OsmXml.OSM);
         xmlSerializer.attribute("", VERSION_KEY, API_VERSION);
         xmlSerializer.attribute("", GENERATOR_KEY, generator);
     }
@@ -1317,7 +1316,7 @@ public class Server {
      * @throws IOException
      */
     static void endXml(@NonNull XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
-        xmlSerializer.endTag("", "osm");
+        xmlSerializer.endTag("", OsmXml.OSM);
         xmlSerializer.endDocument();
     }
 
@@ -1333,7 +1332,7 @@ public class Server {
     private void startChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action)
             throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.startDocument(OsmXml.UTF_8, null);
-        xmlSerializer.startTag("", OSM_CHANGE_TAG);
+        xmlSerializer.startTag("", OsmXml.OSM_CHANGE);
         xmlSerializer.attribute("", VERSION_KEY, OSMCHANGE_VERSION);
         xmlSerializer.attribute("", GENERATOR_KEY, generator);
         xmlSerializer.startTag("", action);
@@ -1353,7 +1352,7 @@ public class Server {
     private void endChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action)
             throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.endTag("", action);
-        xmlSerializer.endTag("", OSM_CHANGE_TAG);
+        xmlSerializer.endTag("", OsmXml.OSM_CHANGE);
         xmlSerializer.endDocument();
     }
 

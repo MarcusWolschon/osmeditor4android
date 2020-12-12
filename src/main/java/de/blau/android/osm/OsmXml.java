@@ -27,8 +27,17 @@ public final class OsmXml {
 
     public static final String UTF_8 = "UTF-8";
 
-    public static final String TAG       = "tag";
-    public static final String CHANGESET = "changeset";
+    public static final String OSM         = "osm";
+    public static final String OSM_CHANGE  = "osmChange";
+    public static final String CHANGESET   = "changeset";
+    public static final String JOSM_UPLOAD = "upload";
+    public static final String TRUE        = "true";
+    public static final String DELETE      = "delete";
+    public static final String MODIFY      = "modify";
+    public static final String CREATE      = "create";
+    public static final String VERSION_0_6 = "0.6";
+    public static final String VERSION     = "version";
+    public static final String GENERATOR   = "generator";
 
     /**
      * Empty private constructor to prevent instantiation
@@ -58,9 +67,9 @@ public final class OsmXml {
         XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
         serializer.setOutput(outputStream, UTF_8);
         serializer.startDocument(UTF_8, null);
-        serializer.startTag(null, "osmChange");
-        serializer.attribute(null, "generator", generator);
-        serializer.attribute(null, "version", "0.6");
+        serializer.startTag(null, OSM_CHANGE);
+        serializer.attribute(null, GENERATOR, generator);
+        serializer.attribute(null, VERSION, VERSION_0_6);
 
         List<OsmElement> createdNodes = new ArrayList<>();
         List<OsmElement> modifiedNodes = new ArrayList<>();
@@ -170,7 +179,7 @@ public final class OsmXml {
         }
 
         if (!createdNodes.isEmpty() || !createdWays.isEmpty() || !createdRelations.isEmpty()) {
-            serializer.startTag(null, "create");
+            serializer.startTag(null, CREATE);
             for (OsmElement elem : createdNodes) {
                 elem.toXml(serializer, changeSetId);
             }
@@ -180,11 +189,11 @@ public final class OsmXml {
             for (OsmElement elem : createdRelations) {
                 elem.toXml(serializer, changeSetId);
             }
-            serializer.endTag(null, "create");
+            serializer.endTag(null, CREATE);
         }
 
         if (!modifiedNodes.isEmpty() || !modifiedWays.isEmpty() || !modifiedRelations.isEmpty()) {
-            serializer.startTag(null, "modify");
+            serializer.startTag(null, MODIFY);
             for (OsmElement elem : modifiedNodes) {
                 elem.toXml(serializer, changeSetId);
             }
@@ -194,12 +203,12 @@ public final class OsmXml {
             for (OsmElement elem : modifiedRelations) {
                 elem.toXml(serializer, changeSetId);
             }
-            serializer.endTag(null, "modify");
+            serializer.endTag(null, MODIFY);
         }
 
         // delete in opposite order
         if (!deletedNodes.isEmpty() || !deletedWays.isEmpty() || !deletedRelations.isEmpty()) {
-            serializer.startTag(null, "delete");
+            serializer.startTag(null, DELETE);
             for (OsmElement elem : deletedRelations) {
                 elem.toXml(serializer, changeSetId);
             }
@@ -209,10 +218,10 @@ public final class OsmXml {
             for (OsmElement elem : deletedNodes) {
                 elem.toXml(serializer, changeSetId);
             }
-            serializer.endTag(null, "delete");
+            serializer.endTag(null, DELETE);
         }
 
-        serializer.endTag(null, "osmChange");
+        serializer.endTag(null, OSM_CHANGE);
         serializer.endDocument();
     }
 
@@ -235,10 +244,10 @@ public final class OsmXml {
         XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
         serializer.setOutput(outputStream, UTF_8);
         serializer.startDocument(UTF_8, null);
-        serializer.startTag(null, "osm");
-        serializer.attribute(null, "generator", generator);
-        serializer.attribute(null, "version", "0.6");
-        serializer.attribute(null, "upload", "true");
+        serializer.startTag(null, OSM);
+        serializer.attribute(null, GENERATOR, generator);
+        serializer.attribute(null, VERSION, VERSION_0_6);
+        serializer.attribute(null, JOSM_UPLOAD, TRUE);
 
         /**
          * Comparator to avoid unpleasant surprises when processing unsorted OSM data with osmium and tools based on it
@@ -299,7 +308,7 @@ public final class OsmXml {
             }
         }
 
-        serializer.endTag(null, "osm");
+        serializer.endTag(null, OSM);
         serializer.endDocument();
     }
 }

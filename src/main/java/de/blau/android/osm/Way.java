@@ -38,6 +38,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
 
     public static final String NAME = "way";
     public static final String NODE = "nd";
+    static final String        REF  = "ref";
 
     public static final int MINIMUM_NODES_IN_WAY        = 2;
     public static final int MINIMUM_NODES_IN_CLOSED_WAY = 3;
@@ -138,9 +139,9 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
         attributesToXml(s, changeSetId, josm);
         if (nodes != null) {
             for (Node node : nodes) {
-                s.startTag("", "nd");
-                s.attribute("", "ref", Long.toString(node.getOsmId()));
-                s.endTag("", "nd");
+                s.startTag("", NODE);
+                s.attribute("", REF, Long.toString(node.getOsmId()));
+                s.endTag("", NODE);
             }
         } else {
             Log.i(DEBUG_TAG, "Way without nodes");

@@ -23,6 +23,9 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
      */
     private static final long serialVersionUID = 152395243648348266L;
 
+    public static final String LON = "lon";
+    public static final String LAT = "lat";
+
     /**
      * WGS84 decimal Latitude-Coordinate times 1E7.
      */
@@ -127,8 +130,8 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
             throws IllegalArgumentException, IllegalStateException, IOException {
         s.startTag("", NAME);
         attributesToXml(s, changeSetId, josm);
-        s.attribute("", "lat", BigDecimal.valueOf(lat).scaleByPowerOfTen(-COORDINATE_SCALE).stripTrailingZeros().toPlainString());
-        s.attribute("", "lon", BigDecimal.valueOf(lon).scaleByPowerOfTen(-COORDINATE_SCALE).stripTrailingZeros().toPlainString());
+        s.attribute("", LAT, BigDecimal.valueOf(lat).scaleByPowerOfTen(-COORDINATE_SCALE).stripTrailingZeros().toPlainString());
+        s.attribute("", LON, BigDecimal.valueOf(lon).scaleByPowerOfTen(-COORDINATE_SCALE).stripTrailingZeros().toPlainString());
         tagsToXml(s);
         s.endTag("", NAME);
     }

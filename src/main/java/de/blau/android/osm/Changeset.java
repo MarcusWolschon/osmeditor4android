@@ -27,6 +27,9 @@ import de.blau.android.util.Util;
 public class Changeset {
     private static final String DEBUG_TAG = "Changeset";
 
+    private static final String TRUE      = "true";
+    private static final String OPEN_ATTR = "open";
+
     long                          osmId = -1;
     boolean                       open  = false;
     String                        generator;
@@ -99,16 +102,16 @@ public class Changeset {
             if (eventType == XmlPullParser.START_TAG) {
                 switch (tagName) {
                 case OsmXml.CHANGESET:
-                    result.open = "true".equals(parser.getAttributeValue(null, "open"));
+                    result.open = TRUE.equals(parser.getAttributeValue(null, OPEN_ATTR));
                     try {
                         result.osmId = Long.parseLong(parser.getAttributeValue(null, "id"));
                     } catch (NumberFormatException nex) {
                         throw new XmlPullParserException(nex.getMessage());
                     }
                     break;
-                case OsmXml.TAG:
-                    String k = parser.getAttributeValue(null, "k");
-                    String v = parser.getAttributeValue(null, "v");
+                case OsmElement.TAG:
+                    String k = parser.getAttributeValue(null, OsmElement.TAG_KEY_ATTR);
+                    String v = parser.getAttributeValue(null, OsmElement.TAG_VALUE_ATTR);
                     result.tags.put(k, v);
                     break;
                 default:
@@ -147,10 +150,10 @@ public class Changeset {
              * @throws IOException if writing to the serializer fails
              */
             private void addTag(@NonNull XmlSerializer serializer, @NonNull String key, @NonNull String value) throws IOException {
-                serializer.startTag("", OsmXml.TAG);
-                serializer.attribute("", "k", key);
-                serializer.attribute("", "v", value);
-                serializer.endTag("", OsmXml.TAG);
+                serializer.startTag("", OsmElement.TAG);
+                serializer.attribute("", OsmElement.TAG_KEY_ATTR, key);
+                serializer.attribute("", OsmElement.TAG_VALUE_ATTR, value);
+                serializer.endTag("", OsmElement.TAG);
             }
         };
     }

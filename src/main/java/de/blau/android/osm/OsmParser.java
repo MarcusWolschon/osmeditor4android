@@ -32,19 +32,9 @@ import de.blau.android.util.collections.LongOsmElementMap;
  * @author simon
  */
 public class OsmParser extends DefaultHandler {
-
-    private static final String JOSM_ACTION = "action";
-
-    public static final String TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-
     private static final String DEBUG_TAG = OsmParser.class.getSimpleName();
 
-    private static final String TAG = "tag";
-
-    private static final String OSM = "osm";
-
-    protected static final String OSM_CHANGE_DELETE = "delete";
-    protected static final String OSM_CHANGE_MODIFY = "modify";
+    public static final String TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
     protected static final String OVERPASS_NOTE = "note";
     protected static final String OVERPASS_META = "meta";
@@ -182,13 +172,13 @@ public class OsmParser extends DefaultHandler {
             case Relation.MEMBER:
                 parseRelationMember(atts);
                 break;
-            case TAG:
+            case OsmElement.TAG:
                 parseTag(atts);
                 break;
             case BoundingBox.NAME:
                 parseBounds(atts);
                 break;
-            case OSM:
+            case OsmXml.OSM:
             case OVERPASS_NOTE:
             case OVERPASS_META:
                 // we don't do anything with these
@@ -270,12 +260,12 @@ public class OsmParser extends DefaultHandler {
      */
     protected void parseOsmElement(@NonNull final String name, @NonNull final Attributes atts, byte status) throws OsmParseException {
         try {
-            long osmId = Long.parseLong(atts.getValue("id"));
-            String version = atts.getValue("version");
+            long osmId = Long.parseLong(atts.getValue(OsmElement.ID_ATTR));
+            String version = atts.getValue(OsmElement.VERSION_ATTR);
             long osmVersion = version == null ? 0 : Long.parseLong(version); // hack for JOSM file
                                                                              // format support
 
-            String timestampStr = atts.getValue("timestamp");
+            String timestampStr = atts.getValue(OsmElement.TIMESTAMP_ATTR);
             long timestamp = -1L;
             if (timestampStr != null) {
                 try {
@@ -285,14 +275,14 @@ public class OsmParser extends DefaultHandler {
                 }
             }
 
-            String action = atts.getValue(JOSM_ACTION);
+            String action = atts.getValue(OsmElement.JOSM_ACTION);
             if (action != null) {
-                if (action.equalsIgnoreCase(OSM_CHANGE_MODIFY)) {
+                if (action.equalsIgnoreCase(OsmElement.JOSM_MODIFY)) {
                     status = OsmElement.STATE_MODIFIED;
                     if (osmId < 0) {
                         status = OsmElement.STATE_CREATED;
                     }
-                } else if (action.equalsIgnoreCase(OSM_CHANGE_DELETE)) {
+                } else if (action.equalsIgnoreCase(OsmElement.JOSM_DELETE)) {
                     status = OsmElement.STATE_DELETED;
                 } else {
                     throw new OsmParseException("Unknown action " + action);
@@ -301,8 +291,8 @@ public class OsmParser extends DefaultHandler {
 
             switch (name) {
             case Node.NAME:
-                int lat = (new BigDecimal(atts.getValue("lat")).scaleByPowerOfTen(Node.COORDINATE_SCALE)).intValue();
-                int lon = (new BigDecimal(atts.getValue("lon")).scaleByPowerOfTen(Node.COORDINATE_SCALE)).intValue();
+                int lat = (new BigDecimal(atts.getValue(Node.LAT)).scaleByPowerOfTen(Node.COORDINATE_SCALE)).intValue();
+                int lon = (new BigDecimal(atts.getValue(Node.LON)).scaleByPowerOfTen(Node.COORDINATE_SCALE)).intValue();
                 currentNode = OsmElementFactory.createNode(osmId, osmVersion, timestamp, status, lat, lon);
                 break;
             case Way.NAME:
@@ -337,8 +327,8 @@ public class OsmParser extends DefaultHandler {
         if (currentTags == null) {
             currentTags = new TreeMap<>();
         }
-        String k = atts.getValue("k");
-        String v = atts.getValue("v");
+        String k = atts.getValue(OsmElement.TAG_KEY_ATTR);
+        String v = atts.getValue(OsmElement.TAG_VALUE_ATTR);
         currentTags.put(k, v);
     }
 
@@ -351,10 +341,10 @@ public class OsmParser extends DefaultHandler {
     private void parseBounds(final Attributes atts) throws OsmParseException {
         // <bounds minlat="53.56465" minlon="9.95893" maxlat="53.56579" maxlon="9.96022"/>
         try {
-            double minlat = Double.parseDouble(atts.getValue("minlat"));
-            double maxlat = Double.parseDouble(atts.getValue("maxlat"));
-            double minlon = Double.parseDouble(atts.getValue("minlon"));
-            double maxlon = Double.parseDouble(atts.getValue("maxlon"));
+            double minlat = Double.parseDouble(atts.getValue(BoundingBox.MINLAT_ATTR));
+            double maxlat = Double.parseDouble(atts.getValue(BoundingBox.MAXLAT_ATTR));
+            double minlon = Double.parseDouble(atts.getValue(BoundingBox.MINLON_ATTR));
+            double maxlon = Double.parseDouble(atts.getValue(BoundingBox.MAXLON_ATTR));
             storage.addBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
             Log.d(DEBUG_TAG, "Creating bounding box " + minlon + " " + minlat + " " + maxlon + " " + maxlat);
         } catch (NumberFormatException e) {
@@ -373,7 +363,7 @@ public class OsmParser extends DefaultHandler {
             if (currentWay == null) {
                 Log.e(DEBUG_TAG, "No currentWay set!");
             } else {
-                long nodeOsmId = Long.parseLong(atts.getValue("ref"));
+                long nodeOsmId = Long.parseLong(atts.getValue(Way.REF));
                 Node node = nodeIndex.get(nodeOsmId);
                 if (node == null) {
                     throw new OsmParseException("parseWayNode node " + nodeOsmId + " not in storage");
@@ -397,9 +387,9 @@ public class OsmParser extends DefaultHandler {
             if (currentRelation == null) {
                 Log.e(DEBUG_TAG, "No currentRelation set!");
             } else {
-                long ref = Long.parseLong(atts.getValue("ref"));
-                String type = atts.getValue("type");
-                String role = atts.getValue("role");
+                long ref = Long.parseLong(atts.getValue(Relation.MEMBER_REF));
+                String type = atts.getValue(Relation.MEMBER_TYPE);
+                String role = atts.getValue(Relation.MEMBER_ROLE);
                 RelationMember member = null;
                 switch (type) {
                 case Node.NAME:

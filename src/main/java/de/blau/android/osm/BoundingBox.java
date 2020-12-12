@@ -31,12 +31,12 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 
     private static final String DEBUG_TAG = "BoundingBox";
 
-    private static final String MINLAT_ATTR = "minlat";
-    private static final String MINLON_ATTR = "minlon";
-    private static final String MAXLAT_ATTR = "maxlat";
-    private static final String MAXLON_ATTR = "maxlon";
-    private static final String ORIGIN_ATTR = "origin";
-    private static final String BOUNDS_TAG  = "bounds";
+    static final String MINLAT_ATTR = "minlat";
+    static final String MINLON_ATTR = "minlon";
+    static final String MAXLAT_ATTR = "maxlat";
+    static final String MAXLON_ATTR = "maxlon";
+    static final String ORIGIN_ATTR = "origin";
+    static final String BOUNDS_TAG  = "bounds";
 
     /**
      * left border of the bounding box, multiplied by 1E7

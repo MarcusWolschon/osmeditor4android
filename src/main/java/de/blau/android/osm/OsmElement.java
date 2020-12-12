@@ -28,21 +28,31 @@ import de.blau.android.util.IssueAlert;
 import de.blau.android.validation.Validator;
 
 public abstract class OsmElement implements Serializable, XmlSerializable, JosmXmlSerializable {
-
     /**
      * 
      */
-    private static final long serialVersionUID = 7711945069147743672L;
+    private static final long serialVersionUID = 7711945069147743673L;
 
     public static final long NEW_OSM_ID = -1;
 
     public static final byte STATE_UNCHANGED = 0;
+    public static final byte STATE_CREATED   = 1;
+    public static final byte STATE_MODIFIED  = 2;
+    public static final byte STATE_DELETED   = 3;
 
-    public static final byte STATE_CREATED = 1;
+    static final String ID_ATTR        = "id";
+    static final String VERSION_ATTR   = "version";
+    static final String TIMESTAMP_ATTR = "timestamp";
+    static final String VISIBLE_ATTR   = "visible";
+    static final String TRUE           = "true";
 
-    public static final byte STATE_MODIFIED = 2;
+    static final String TAG            = "tag";
+    static final String TAG_KEY_ATTR   = "k";
+    static final String TAG_VALUE_ATTR = "v";
 
-    public static final byte STATE_DELETED = 3;
+    static final String JOSM_ACTION = "action";
+    static final String JOSM_MODIFY = "modify";
+    static final String JOSM_DELETE = "delete";
 
     public static final long EPOCH = 1104537600L; // 2005-01-01 00:00:00
 
@@ -54,7 +64,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 
     byte state;
 
-    ArrayList<Relation> parentRelations;
+    private ArrayList<Relation> parentRelations;
 
     // seconds since EPOCH, negative == not set
     private int timestamp = -1;
@@ -324,10 +334,10 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     protected void tagsToXml(@NonNull final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
         if (tags != null) {
             for (Entry<String, String> tag : tags.entrySet()) {
-                s.startTag("", OsmXml.TAG);
-                s.attribute("", "k", tag.getKey());
-                s.attribute("", "v", tag.getValue());
-                s.endTag("", OsmXml.TAG);
+                s.startTag("", TAG);
+                s.attribute("", TAG_KEY_ATTR, tag.getKey());
+                s.attribute("", TAG_VALUE_ATTR, tag.getValue());
+                s.endTag("", TAG);
             }
         }
     }
@@ -341,22 +351,22 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @throws IOException if writing to the serializer fails
      */
     protected void attributesToXml(@NonNull final XmlSerializer s, @Nullable Long changeSetId, boolean josm) throws IOException {
-        s.attribute("", "id", Long.toString(osmId));
+        s.attribute("", ID_ATTR, Long.toString(osmId));
         if (changeSetId != null) {
             s.attribute("", OsmXml.CHANGESET, Long.toString(changeSetId));
         }
         if (josm) {
             if (state == OsmElement.STATE_DELETED) {
-                s.attribute("", "action", "delete");
+                s.attribute("", JOSM_ACTION, JOSM_DELETE);
             } else if (state == OsmElement.STATE_CREATED || state == OsmElement.STATE_MODIFIED) {
-                s.attribute("", "action", "modify");
+                s.attribute("", JOSM_ACTION, JOSM_MODIFY);
             }
         }
-        s.attribute("", "version", Long.toString(osmVersion));
+        s.attribute("", VERSION_ATTR, Long.toString(osmVersion));
         if (timestamp >= 0) {
-            s.attribute("", "timestamp", DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp() * 1000));
+            s.attribute("", TIMESTAMP_ATTR, DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp() * 1000));
         }
-        s.attribute("", "visible", "true");
+        s.attribute("", VISIBLE_ATTR, TRUE);
     }
 
     /**
@@ -663,8 +673,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     protected abstract int validate(@NonNull Validator validator);
 
     /**
-     * Test if the element has a noted problem. A noted problem is where someone has tagged the element with a "fixme"
-     * or "todo" key/value.
+     * Test if the element has a noted problem.
+     * 
+     * A noted problem is where someone has tagged the element with a "fixme" or "todo" key/value. //NOSONAR
      * 
      * @param context Android context, if non-null used for generating alerts
      * @param validator the Validator to use
@@ -759,9 +770,6 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      */
     public void setTimestamp(long secsSinceUnixEpoch) {
         timestamp = (int) (secsSinceUnixEpoch - EPOCH);
-        // if (timestamp < 0) {
-        // throw new IllegalArgumentException("timestamp value overflow");
-        // }
     }
 
     /**
