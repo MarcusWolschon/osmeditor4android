@@ -112,7 +112,7 @@ public class OsmParser extends DefaultHandler {
     }
 
     /**
-     * Get the Storage instane associated with the parser
+     * Get the Storage instance associated with the parser
      * 
      * @return an instance of Storage
      */
@@ -131,6 +131,7 @@ public class OsmParser extends DefaultHandler {
      */
     public void start(@NonNull final InputStream in) throws SAXException, IOException, ParserConfigurationException {
         SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
+        factory.setNamespaceAware(true);
         SAXParser saxParser = factory.newSAXParser();
         saxParser.parse(in, this);
     }
