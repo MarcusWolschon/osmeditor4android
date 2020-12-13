@@ -1462,20 +1462,21 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * If the node is untagged and not a member of any other node it will be deleted. If the result Way has less than 2
      * Nodes it will be deleted.
      * 
+     * @param fromEnd if true remove last node else first
      * @param way the Way
      */
-    public void removeLastNodeFromWay(@NonNull Way way) {
+    public void removeEndNodeFromWay(boolean fromEnd, @NonNull Way way) {
         dirty = true;
         undo.save(way);
         List<Node> nodes = way.getNodes();
         int size = nodes.size();
-        final int lastNodeIndex = size - 1;
-        Node node = nodes.get(lastNodeIndex);
+        final int endNodeIndex = fromEnd ? size - 1 : 0;
+        Node node = nodes.get(endNodeIndex);
         if (size <= Way.MINIMUM_NODES_IN_WAY) {
             Log.w(DEBUG_TAG, "removeWayNode removing degenerate way " + way.getOsmId());
             removeWay(way);
         } else {
-            nodes.remove(lastNodeIndex);
+            nodes.remove(endNodeIndex);
             way.updateState(OsmElement.STATE_MODIFIED);
             apiStorage.insertElementSafe(way);
         }

@@ -138,7 +138,6 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             } else {
                 logic.performAppendStart(appendTargetNode);
             }
-            appendTargetNode = null;
         } else {
             try {
                 pathCreateNode(x, y);
@@ -159,7 +158,6 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         menu.add(Menu.NONE, MENUITEM_NEWWAY_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_preset));
         menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         arrangeMenu(menu);
-
         return super.onPrepareActionMode(mode, menu);
     }
 
@@ -186,6 +184,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         final boolean firstNode = createdNodes.isEmpty();
         if (appendTargetNode != null) {
             logic.performAppendAppend(main, x, y, firstNode);
+            appendTargetNode = logic.getSelectedNode();
         } else {
             logic.performAdd(main, x, y, firstNode);
         }
@@ -244,7 +243,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private synchronized void handleUndo() {
         Node removedNode = createdNodes.remove(createdNodes.size() - 1);
         if (createdWay != null) {
-            logic.performRemoveLastNodeFromWay(main, createdWay, false);
+            logic.performRemoveEndNodeFromWay(main, createdWay.getLastNode().equals(logic.getSelectedNode()), createdWay, false);
             createdWay.dontValidate();
             if (OsmElement.STATE_DELETED == createdWay.getState()) {
                 createdWay = null;

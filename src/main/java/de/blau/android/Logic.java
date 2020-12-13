@@ -2025,19 +2025,20 @@ public class Logic {
     }
 
     /**
-     * Remove the last Node from a specific Way, if the Node is untagged and not a member of a further Way it will be
+     * Remove a end Node from a specific Way, if the Node is untagged and not a member of a further Way it will be
      * deleted, if the 2nd last node is removed the Way will be deleted.
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
+     * @param fromEnd if true remove last node else first
      * @param way the Way
      * @param createCheckpoint if true create an undo checkpoint
      */
-    public synchronized void performRemoveLastNodeFromWay(@Nullable FragmentActivity activity, @NonNull Way way, boolean createCheckPoint) {
+    public synchronized void performRemoveEndNodeFromWay(@Nullable FragmentActivity activity, boolean fromEnd, @NonNull Way way, boolean createCheckPoint) {
         if (createCheckPoint) {
             createCheckpoint(activity, R.string.undo_action_remove_node_from_way);
         }
         displayAttachedObjectWarning(activity, way.getLastNode());
-        getDelegator().removeLastNodeFromWay(way);
+        getDelegator().removeEndNodeFromWay(fromEnd, way);
         invalidateMap();
     }
 
