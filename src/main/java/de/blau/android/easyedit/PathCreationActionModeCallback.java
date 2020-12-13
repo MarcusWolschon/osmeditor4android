@@ -303,11 +303,11 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
 
     @Override
     protected void finishBuilding() {
-        if (appendTargetNode == null && !dontTag) { // doesn't work as intended element selected modes get zapped,
-            final Way lastSelectedWay = logic.getSelectedWay();
-            final Node lastSelectedNode = logic.getSelectedNode();
-            manager.finish();
-            removeCheckpoint();
+        final Way lastSelectedWay = logic.getSelectedWay();
+        final Node lastSelectedNode = logic.getSelectedNode();
+        manager.finish();
+        removeCheckpoint();
+        if (!createdNodes.isEmpty() && !dontTag) {
             tagApplicable(lastSelectedNode, lastSelectedWay, false);
             delayedResetHasProblem(lastSelectedWay);
         }
