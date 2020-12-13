@@ -1,6 +1,9 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-15.1.0
+15.1.1:
+- Fix regression that wouldn't allow appending at start of way
+
+15.1.0:
 - Update release notes for release
 - Update translations
 - Update preset
