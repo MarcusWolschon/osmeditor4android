@@ -558,7 +558,7 @@ public final class TransferTasks {
                         XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
                         serializer.setOutput(out, OsmXml.UTF_8);
                         serializer.startDocument(OsmXml.UTF_8, null);
-                        serializer.startTag(null, "osm-notes");
+                        serializer.startTag(null, OsnParser.OSM_NOTES);
                         for (Task t : queryResult) {
                             if (t instanceof Note) {
                                 Note n = (Note) t;
@@ -567,7 +567,7 @@ public final class TransferTasks {
                                 }
                             }
                         }
-                        serializer.endTag(null, "osm-notes");
+                        serializer.endTag(null, OsnParser.OSM_NOTES);
                         serializer.endDocument();
 
                     } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
@@ -648,14 +648,10 @@ public final class TransferTasks {
             @Override
             protected Collection<CustomBug> doInBackground(Boolean... arg) {
                 Collection<CustomBug> result = null;
-                InputStream in = null;
-                try {
-                    in = new BufferedInputStream(is);
+                try (InputStream in = new BufferedInputStream(is)) {
                     result = CustomBug.parseBugs(is);
                 } catch (IllegalStateException | NumberFormatException | IOException e) {
                     Log.e(DEBUG_TAG, "Problem parsing", e);
-                } finally {
-                    SavingHelper.close(in);
                 }
                 return result;
             }
@@ -762,32 +758,24 @@ public final class TransferTasks {
             protected Integer doInBackground(Void... arg) {
                 final List<Task> queryResult = App.getTaskStorage().getTasks();
                 int result = 0;
-                try {
-                    final OutputStream out = new BufferedOutputStream(fileOut);
-                    try {
-                        out.write("{".getBytes());
-                        out.write(CustomBug.headerToJSON().getBytes());
-                        out.write("\"errors\": [".getBytes());
-                        boolean first = true;
-                        for (Task t : queryResult) {
-                            if (t instanceof CustomBug) {
-                                if (!t.isClosed()) {
-                                    if (!first) {
-                                        out.write(",".getBytes());
-                                    }
-                                    out.write(((CustomBug) t).toJSON().getBytes());
-                                    first = false;
+                try (final OutputStream out = new BufferedOutputStream(fileOut)) {
+                    out.write("{".getBytes());
+                    out.write(CustomBug.headerToJSON().getBytes());
+                    out.write("\"errors\": [".getBytes());
+                    boolean first = true;
+                    for (Task t : queryResult) {
+                        if (t instanceof CustomBug) {
+                            if (!t.isClosed()) {
+                                if (!first) {
+                                    out.write(",".getBytes());
                                 }
+                                out.write(((CustomBug) t).toJSON().getBytes());
+                                first = false;
                             }
                         }
-                        out.write("]}".getBytes());
-                    } catch (IllegalArgumentException | IllegalStateException e) {
-                        result = ErrorCodes.FILE_WRITE_FAILED;
-                        Log.e(DEBUG_TAG, "Problem writing", e);
-                    } finally {
-                        SavingHelper.close(out);
                     }
-                } catch (IOException e) {
+                    out.write("]}".getBytes());
+                } catch (IllegalArgumentException | IllegalStateException | IOException e) {
                     result = ErrorCodes.FILE_WRITE_FAILED;
                     Log.e(DEBUG_TAG, "Problem writing", e);
                 }

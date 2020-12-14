@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<osmChange generator="OsmAnd" version="0.6">
+  <create>
+    <node lat="47.39779588091123" lon="8.376313695315673" id="-2" version="1">
+      <tag k="shop" v="butcher" />
+      <tag k="name" v="Test" />
+    </node>
+    <note lat="47.39785080983782" lon="8.376412571837733" id="-2">
+      <comment text="test osmand" />
+    </note>
+  </create>
+  <modify />
+  <delete />
+</osmChange>
