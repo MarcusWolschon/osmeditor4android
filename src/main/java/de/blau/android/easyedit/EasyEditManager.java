@@ -115,6 +115,17 @@ public class EasyEditManager {
     }
 
     /**
+     * Check if we are creating a new path
+     * 
+     * @return true if we are in the PathCreationActionMode
+     */
+    public boolean inPathCreationMode() {
+        synchronized (actionModeCallbackLock) {
+            return currentActionModeCallback instanceof PathCreationActionModeCallback;
+        }
+    }
+
+    /**
      * Call if you need to abort the current action mode
      */
     public void finish() {
@@ -283,7 +294,8 @@ public class EasyEditManager {
                                         }
                                     } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
                                             | IllegalAccessException | IllegalArgumentException | InvocationTargetException exception) {
-                                        Log.e(DEBUG_TAG, "Restarting " + restartActionModeCallbackName + " received " + exception.getClass().getCanonicalName() + " "+ exception.getMessage());
+                                        Log.e(DEBUG_TAG, "Restarting " + restartActionModeCallbackName + " received " + exception.getClass().getCanonicalName()
+                                                + " " + exception.getMessage());
                                     }
                                 }
                                 Log.e(DEBUG_TAG, "restart, saved state is null");
