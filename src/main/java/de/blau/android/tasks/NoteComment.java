@@ -8,6 +8,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.osm.JosmXmlSerializable;
 import de.blau.android.util.DateFormatter;
 
@@ -25,21 +26,29 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
      */
     private static final long serialVersionUID = 4L;
 
-    private static final String COMMENT_TAG = "comment";
-    private static final String ACTION_ATTR = "action";
+    static final String COMMENT_TAG      = "comment";
+    static final String ACTION_ATTR      = "action";
+    static final String ACTION_COMMENTED = "commented";
+    static final String ACTION_REOPENED  = "reopened";
+    static final String ACTION_OPENED    = "opened";
+    static final String ACTION_CLOSED    = "closed";
+    static final String IS_NEW_ATTR      = "is_new";
+    static final String USER_ATTR        = "user";
+    static final String UID_ATTR         = "uid";
+    static final String TIMESTAMP_ATTR   = "timestamp";
 
     /** The Note we belong to **/
-    private Note   note;
+    private final Note note;
     /** The comment text. */
-    private String text;
+    private String     text;
     /** The nickname associated with the comment. */
-    private String nickname;
+    private String     nickname;
     /** The uid associated with the comment. */
-    private int    uid;
+    private int        uid;
     /** The action associated with the comment. */
-    private String action;
+    private String     action;
     /** The timestamp associated with the comment. */
-    private long   timestamp = -1;
+    private long       timestamp = -1;
 
     /**
      * Create a new comment based on a string in the following format: "Long text comment here [NickName here,
@@ -48,7 +57,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
      * @param note The note the comment should be attached to
      * @param description A description obtained from the OSB database.
      */
-    public NoteComment(Note note, String description) {
+    public NoteComment(@NonNull Note note, String description) {
         this.note = note;
         text = description;
         timestamp = new Date().getTime();
@@ -64,13 +73,13 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
      * @param action action associated with the comment
      * @param timestamp New timestamp.
      */
-    public NoteComment(@NonNull Note note, String text, String nickname, int uid, String action, Date timestamp) {
+    public NoteComment(@NonNull Note note, @Nullable String text, @Nullable String nickname, int uid, @Nullable String action, @Nullable Date timestamp) {
         this.note = note;
-        this.text = text.replaceAll("\\[", "");
-        this.nickname = nickname.replaceAll(",", "");
+        this.text = text != null ? text.replaceAll("\\[", "") : null;
+        this.nickname = nickname != null ? nickname.replaceAll(",", "") : null;
         this.uid = uid;
         this.action = action;
-        this.timestamp = timestamp.getTime();
+        this.timestamp = timestamp != null ? timestamp.getTime() : null;
     }
 
     /**
@@ -78,6 +87,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
      * 
      * @return Comment text.
      */
+    @Nullable
     public String getText() {
         return text;
     }
@@ -87,6 +97,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
      * 
      * @return The nickname.
      */
+    @Nullable
     public String getNickname() {
         return nickname;
     }
@@ -96,6 +107,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
      * 
      * @return The bug timestamp.
      */
+    @NonNull
     public Date getTimestamp() {
         return new Date(timestamp);
     }
@@ -103,6 +115,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
     /**
      * @return the action
      */
+    @Nullable
     public String getAction() {
         return action;
     }
@@ -139,13 +152,13 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
             if (note.getOriginalState() != note.getState()) {
                 switch (note.getState()) {
                 case CLOSED:
-                    s.attribute("", ACTION_ATTR, "closed");
+                    s.attribute("", ACTION_ATTR, ACTION_CLOSED);
                     break;
                 case OPEN:
                     if (note.isNew()) {
-                        s.attribute("", ACTION_ATTR, "opened");
+                        s.attribute("", ACTION_ATTR, ACTION_OPENED);
                     } else {
-                        s.attribute("", ACTION_ATTR, "reopened");
+                        s.attribute("", ACTION_ATTR, ACTION_REOPENED);
                     }
                     break;
                 default:
@@ -153,18 +166,19 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
                     break;
                 }
             } else {
-                s.attribute("", ACTION_ATTR, "commented");
+                s.attribute("", ACTION_ATTR, ACTION_COMMENTED);
             }
         }
         if (timestamp != -1) {
-            s.attribute("", "timestamp", note.toJOSMDate(new Date(timestamp)));
+            s.attribute("", TIMESTAMP_ATTR, note.toJOSMDate(new Date(timestamp)));
         }
         if (nickname != null) {
-            s.attribute("", "uid", Integer.toString(uid));
-            s.attribute("", "user", nickname);
+            s.attribute("", UID_ATTR, Integer.toString(uid));
+            s.attribute("", USER_ATTR, nickname);
         }
-        s.attribute("", "is_new", Boolean.toString(isNew()));
+        s.attribute("", IS_NEW_ATTR, Boolean.toString(isNew()));
         s.text(text);
         s.endTag("", COMMENT_TAG);
     }
+
 }

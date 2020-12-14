@@ -16,6 +16,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -1650,8 +1651,8 @@ public class Server {
      * @param limit maximum number of Notes to return, value of between 1 and 10000 is valid
      * @return All the Notes in the given area.
      */
+    @NonNull
     public Collection<Note> getNotesForBox(@NonNull BoundingBox area, long limit) {
-        Collection<Note> result = new ArrayList<>();
         // http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
         try {
             Log.d(DEBUG_TAG, "getNotesForBox");
@@ -1659,25 +1660,11 @@ public class Server {
             InputStream is = openConnection(null, url);
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
-            int eventType;
-            while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-                String tagName = parser.getName();
-                if (eventType == XmlPullParser.START_TAG && "note".equals(tagName)) {
-                    try {
-                        result.add(new Note(parser));
-                    } catch (IOException | XmlPullParserException | NumberFormatException e) {
-                        // if the bug doesn't parse correctly, there's nothing
-                        // we can do about it - move on
-                        Log.e(DEBUG_TAG, "Problem parsing bug", e);
-                    }
-                }
-            }
+            return Note.parseNotes(parser, null);
         } catch (XmlPullParserException | IOException | OutOfMemoryError e) {
             Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
             return new ArrayList<>(); // empty list
         }
-        Log.d(DEBUG_TAG, "Read " + result.size() + " notes from input");
-        return result;
     }
 
     /**
@@ -1686,8 +1673,8 @@ public class Server {
      * @param id the id of the Note to retrieve
      * @return the Note, null if not found or other error
      */
+    @Nullable
     public Note getNote(long id) {
-        Note result = null;
         // http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
         try {
             Log.d(DEBUG_TAG, "getNote");
@@ -1695,24 +1682,12 @@ public class Server {
             InputStream is = openConnection(null, url);
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
-            int eventType;
-            while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-                String tagName = parser.getName();
-                if (eventType == XmlPullParser.START_TAG && "note".equals(tagName)) {
-                    try {
-                        result = new Note(parser);
-                    } catch (IOException | XmlPullParserException | NumberFormatException e) {
-                        // if the bug doesn't parse correctly, there's nothing
-                        // we can do about it - move on
-                        Log.e(DEBUG_TAG, "Problem parsing bug", e);
-                    }
-                }
-            }
-        } catch (XmlPullParserException | IOException | OutOfMemoryError e) {
-            Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-            return null; // empty list
+            List<Note> result = Note.parseNotes(parser, null);
+            return !result.isEmpty() ? result.get(0) : null;
+        } catch (XmlPullParserException | IOException | OutOfMemoryError | NumberFormatException e) {
+            Log.e(DEBUG_TAG, "Server.getNotesForBox", e);
+            return null;
         }
-        return result;
     }
 
     // The note 10597 was closed at 2017-09-24 17:59:18 UTC
@@ -1869,7 +1844,7 @@ public class Server {
     }
 
     /**
-     * Parse a single OSm note (bug) from an InputStream
+     * Parse a single OSM note (bug) from an InputStream
      * 
      * @param bug bug to parse in to
      * @param inputStream the input
@@ -1879,7 +1854,7 @@ public class Server {
     private void parseBug(@NonNull Note bug, @NonNull InputStream inputStream) throws IOException, XmlPullParserException {
         XmlPullParser parser = xmlParserFactory.newPullParser();
         parser.setInput(new BufferedInputStream(inputStream, StreamUtils.IO_BUFFER_SIZE), null);
-        bug.parseNote(parser); // replace contents with result from server
+        Note.parseNotes(parser, bug); // replace contents with result from server
         App.getTaskStorage().setDirty();
     }
 
@@ -1989,7 +1964,7 @@ public class Server {
      * Get a new XmlParser
      * 
      * @return an instance of XmlPullParserFactory
-     * @throws XmlPullParserException
+     * @throws XmlPullParserException {@see XmlPullParserException}
      */
     @NonNull
     XmlPullParser getXmlParser() throws XmlPullParserException {

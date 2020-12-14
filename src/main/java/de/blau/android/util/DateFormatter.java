@@ -14,8 +14,11 @@ public final class DateFormatter {
 
     /**
      * This the standard data/time format used in .osn files and elsewhere in the API
+     * 
+     * For output there is no guaranteed to be two digits formating option so we need to write out 4 and remove two
      */
-    public static final SimpleDateFormat JOSM_DATE = DateFormatter.getUtcFormat("yyyy-MM-dd'T'HH:mm:ssZ"); // NOSONAR
+    public static final SimpleDateFormat JOSM_DATE_IN  = DateFormatter.getUtcFormat("yyyy-MM-dd'T'HH:mm:ssX"); // NOSONAR
+    public static final SimpleDateFormat JOSM_DATE_OUT = DateFormatter.getUtcFormat("yyyy-MM-dd'T'HH:mm:ssZ"); // NOSONAR
 
     /**
      * Private constructor to stop instantiation
