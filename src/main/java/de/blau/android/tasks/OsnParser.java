@@ -30,7 +30,8 @@ import de.blau.android.util.DateFormatter;
 public class OsnParser extends DefaultHandler {
     private static final String DEBUG_TAG = OsnParser.class.getSimpleName();
 
-    static final String OSM_NOTES = "osm-notes";
+    static final String         OSM_NOTES   = "osm-notes";
+    private static final String OSMAND_TEXT = "text";
 
     private final List<Exception> exceptions = new ArrayList<>();
 
@@ -93,6 +94,10 @@ public class OsnParser extends DefaultHandler {
                     throw new OsmParseException("Note comment without note");
                 }
                 commentText = new StringBuilder();
+                String text = atts.getValue(OSMAND_TEXT);
+                if (text != null) {
+                    commentText.append(text);
+                }
                 nickname = atts.getValue(NoteComment.USER_ATTR);
                 String uidString = atts.getValue(NoteComment.UID_ATTR);
                 if (uidString != null) {
@@ -158,7 +163,6 @@ public class OsnParser extends DefaultHandler {
                 NoteComment comment = new NoteComment(note, commentText.toString().trim(), nickname, uid, action, timestamp);
                 note.addComment(comment);
                 break;
-
             default:
                 // ignore everything else
             }
