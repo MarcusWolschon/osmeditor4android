@@ -75,8 +75,8 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
      */
     public NoteComment(@NonNull Note note, @Nullable String text, @Nullable String nickname, int uid, @Nullable String action, @Nullable Date timestamp) {
         this.note = note;
-        this.text = text != null ? text.replaceAll("\\[", "") : null;
-        this.nickname = nickname != null ? nickname.replaceAll(",", "") : null;
+        this.text = text != null ? text.replace("[", "") : null;
+        this.nickname = nickname != null ? nickname.replace(",", "") : null;
         this.uid = uid;
         this.action = action;
         this.timestamp = timestamp != null ? timestamp.getTime() : null;

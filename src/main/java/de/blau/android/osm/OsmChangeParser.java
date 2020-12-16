@@ -14,7 +14,7 @@ import de.blau.android.tasks.Note;
 import de.blau.android.tasks.OsnParser;
 
 /**
- * Parses OSM OCS/osmChange XML 
+ * Parses OSM OCS/osmChange XML
  * 
  * Including an OsmAnd extension that includes OSM Notes
  * 
@@ -96,9 +96,18 @@ public class OsmChangeParser extends OsmParser {
                 super.startElement(uri, name, qName, atts);
             }
         } catch (OsmParseException e) {
-            Log.e(DEBUG_TAG, "OsmParseException", e);
-            getExceptions().add(e);
+            handleException(e);
         }
+    }
+
+    /**
+     * Handle a OsmParseException
+     * 
+     * @param e the exception
+     */
+    private void handleException(@NonNull OsmParseException e) {
+        Log.e(DEBUG_TAG, "OsmParseException", e);
+        getExceptions().add(e);
     }
 
     /**
@@ -132,8 +141,7 @@ public class OsmChangeParser extends OsmParser {
             }
             noteHandler.characters(ch, start, length);
         } catch (OsmParseException e) {
-            Log.e(DEBUG_TAG, "OsmParseException", e);
-            getExceptions().add(e);
+            handleException(e);
         }
     }
 
@@ -162,8 +170,7 @@ public class OsmChangeParser extends OsmParser {
         } catch (StorageException sex) {
             throw new SAXException(sex);
         } catch (OsmParseException e) {
-            Log.e(DEBUG_TAG, "OsmParseException", e);
-            getExceptions().add(e);
+            handleException(e);
         }
     }
 
