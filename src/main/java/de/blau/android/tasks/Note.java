@@ -102,13 +102,28 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
     }
 
     /**
-     * @return the created
+     * Set the id
+     * 
+     * This only makes sense when renumbering newly created Notes
+     * 
+     * @param id the id
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
+     * Get the date and time the Note was created
+     * 
+     * @return the number of milliseconds since the UNIX epoch
      */
     public long getCreatedAt() {
         return created;
     }
 
     /**
+     * Set the date and time the Note was created
+     * 
      * @param created the created to set
      */
     public void setCreatedAt(long created) {
@@ -116,14 +131,18 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
     }
 
     /**
-     * @return the closed
+     * Get the date and time the Note was closed
+     * 
+     * @return the number of milliseconds since the UNIX epoch
      */
     public long getClosedAt() {
         return closed;
     }
 
     /**
-     * @param closed the closed to set
+     * Set the date and time the Note was closed
+     * 
+     * @param the number of milliseconds since the UNIX epoch
      */
     public void setClosedAt(long closed) {
         this.closed = closed;

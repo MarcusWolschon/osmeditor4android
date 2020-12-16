@@ -182,4 +182,14 @@ public class OsnParser extends DefaultHandler {
     public List<Note> getNotes() {
         return notes;
     }
+
+    /**
+     * Get a list of exceptions
+     * 
+     * @return the exceptions
+     */
+    @NonNull
+    public List<Exception> getExceptions() {
+        return exceptions;
+    }
 }

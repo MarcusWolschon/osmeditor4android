@@ -2134,7 +2134,7 @@ public class Main extends FullScreenAppCompatActivity
                 @Override
                 public boolean read(Uri fileUri) {
                     try {
-                        logic.applyOscFile(Main.this, fileUri, null);
+                        logic.applyOscFile(Main.this, fileUri, new PostFileReadCallback(Main.this, fileUri.toString()));
                     } catch (FileNotFoundException e) {
                         try {
                             Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
@@ -2194,7 +2194,7 @@ public class Main extends FullScreenAppCompatActivity
 
                 @Override
                 public boolean save(Uri fileUri) {
-                    App.getLogic().writeOsmFile(Main.this, fileUri, null);
+                    App.getLogic().writeOsmFile(Main.this, fileUri, new PostFileWriteCallback(Main.this, fileUri.toString()));
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     return true;
                 }
@@ -2239,8 +2239,23 @@ public class Main extends FullScreenAppCompatActivity
 
                 @Override
                 public boolean save(Uri fileUri) {
-                    TransferTasks.writeOsnFile(Main.this, item.getItemId() == R.id.menu_transfer_save_notes_all, fileUri, null);
+                    TransferTasks.writeOsnFile(Main.this, item.getItemId() == R.id.menu_transfer_save_notes_all, fileUri,
+                            new PostFileWriteCallback(Main.this, fileUri.toString()));
                     SelectFile.savePref(prefs, R.string.config_notesPreferredDir_key, fileUri);
+                    return true;
+                }
+            });
+            return true;
+        case R.id.menu_transfer_read_notes:
+            descheduleAutoLock();
+            SelectFile.read(this, R.string.config_notesPreferredDir_key, new ReadFile() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public boolean read(Uri fileUri) {
+                    TransferTasks.readOsnFile(Main.this, fileUri, true, new PostFileReadCallback(Main.this, fileUri.toString()));
+                    SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                    map.invalidate();
                     return true;
                 }
             });
@@ -2248,11 +2263,12 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_transfer_read_custom_bugs:
             descheduleAutoLock();
             SelectFile.read(this, R.string.config_osmPreferredDir_key, new ReadFile() {
+
                 private static final long serialVersionUID = 1L;
 
                 @Override
                 public boolean read(Uri fileUri) {
-                    TransferTasks.readCustomBugs(Main.this, fileUri, false, null);
+                    TransferTasks.readCustomBugs(Main.this, fileUri, false, new PostFileReadCallback(Main.this, fileUri.toString()));
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     map.invalidate();
                     return true;
