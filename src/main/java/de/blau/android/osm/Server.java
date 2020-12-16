@@ -902,7 +902,12 @@ public class Server {
         checkResponseCode(response);
 
         try (InputStream in = response.body().byteStream()) {
-            newChangesetId = Long.parseLong(readLine(in));
+            String line = readLine(in);
+            if (line != null) {
+                newChangesetId = Long.parseLong(line);
+            } else {
+                throw new OsmServerException(-1, "Server returned no changeset id");
+            }
         } catch (NumberFormatException e) {
             throw new OsmServerException(-1, "Server returned illegal changeset id " + e.getMessage());
         }
