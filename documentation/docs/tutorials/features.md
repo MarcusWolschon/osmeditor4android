@@ -1,5 +1,5 @@
 ## Vespucci Features
-_Documentation for Vespucci 15.0_
+_Documentation for Vespucci 15.2_
 
 This list is likely not really complete, but gives some idea of the supported functionality.
 
@@ -9,6 +9,8 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | Create Node                                              |
 |                           | Create Way                                               | 
 |                           | Create Relation                                          |
+|                           | Create Route                                             |
+|                           | Create Multipolygon                                      |
 |                           | Delete Node                                              |
 |                           | Delete Way                                               |
 |                           | Delete Relation                                          |
@@ -29,6 +31,7 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | Extract Node from Way                                    |
 |                           | Add element to Relation                                  |
 |                           | Remove element from Relation                             |
+|                           | Add element to Route                                     |
 |                           | Move Node to specific coordinates                        |
 |                           | Create Node at current coordinates                       |
 |                           | Orthogonalize Way(s)                                     |
@@ -44,7 +47,7 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | Load and save in JOSM compatible .OSM format             |
 |                           | Auto-Download around current position                    |
 |                           | Auto-Download of current map view                        |
-|                           | Save changes in OSC format                               |
+|                           | Save and apply changes in OSC format                     |
 |                           | Configurable API servers                                 |
 |                           | Load data from PBF files                                 |
 |                           | Load data from tiled offline format                      |
@@ -72,7 +75,8 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | MapRoulette tasks                                        |
 |                           | Custom tasks                                             |
 |                           | Auto-Download                                            |
-|                           | Save OSM Notes in OSN format files                       |
+|                           | Save and load OSM Notes in OSN format files              |
+|                           | Load Notes in .osc files                                 | OsmAnd extension
 |                           | Configurable API server                                  |
 |__Modes and Filters__      |                                                          |
 |                           | Tag editing only mode                                    |
