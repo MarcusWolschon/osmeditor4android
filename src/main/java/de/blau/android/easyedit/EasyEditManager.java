@@ -288,10 +288,8 @@ public class EasyEditManager {
                                         Class<?> clazz = Class.forName(restartActionModeCallbackName);
                                         Constructor<?> constructor = clazz.getConstructor(EasyEditManager.class, SerializableState.class);
                                         ActionMode.Callback cb = (ActionMode.Callback) constructor.newInstance(EasyEditManager.this, state);
-                                        if (cb != null) {
-                                            getMain().startSupportActionMode(cb);
-                                            return;
-                                        }
+                                        getMain().startSupportActionMode(cb);
+                                        return;
                                     } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
                                             | IllegalAccessException | IllegalArgumentException | InvocationTargetException exception) {
                                         Log.e(DEBUG_TAG, "Restarting " + restartActionModeCallbackName + " received " + exception.getClass().getCanonicalName()

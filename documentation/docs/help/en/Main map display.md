@@ -131,8 +131,9 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
     * **Clear** - remove all tasks from storage
     * **Auto download** - download tasks around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
     * **File...** - save Notes/Bugs data to on device storage
-        * **Save all Notes...** - write a ".osn" format file containing all downloaded notes
-        * **Save new and changed Notes...** - write a ".osn" format file containing all new and changed notes
+        * **Save all notes...** - write a ".osn" format file containing all downloaded notes (this is the format supported by JOSM)
+        * **Save new and changed notes...** - write a ".osn" format file containing all new and changed notes
+        * **Load notes...** - load a ".osn" format file containing Notes
         * **Load custom tasks...** - read custom tasks in a simplified Osmose JSON format
         * **Save open custom tasks...** - save open custom tasks in a simplified Osmose JSON format
 

@@ -1,5 +1,8 @@
 package de.blau.android.osm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -7,13 +10,15 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.exception.OsmParseException;
 import de.blau.android.exception.StorageException;
+import de.blau.android.tasks.Note;
+import de.blau.android.tasks.OsnParser;
 
 /**
- * Parses a XML (as InputStream), provided by XmlRetriever, and pushes generated OsmElements to the given Storage.
+ * Parses OSM OCS/osmChange XML
  * 
- * Supports osmChange files
+ * Including an OsmAnd extension that includes OSM Notes
  * 
- * @author simon
+ * @author Simon Poole
  */
 public class OsmChangeParser extends OsmParser {
 
@@ -40,6 +45,8 @@ public class OsmChangeParser extends OsmParser {
     private boolean isOsmChangeInput;
 
     private byte currentStatus = OsmElement.STATE_UNCHANGED;
+
+    private OsnParser noteHandler;
 
     /**
      * Construct a new instance of the parser
@@ -78,13 +85,29 @@ public class OsmChangeParser extends OsmParser {
                     throw new OsmParseException("Unexpected osmChange xml node " + name);
                 }
                 break;
+            case Note.NOTE_ELEMENT:
+            case Note.COMMENT_ELEMENT:
+                if (noteHandler == null) {
+                    noteHandler = new OsnParser();
+                }
+                noteHandler.startElement(uri, name, qName, atts);
+                break;
             default:
                 super.startElement(uri, name, qName, atts);
             }
         } catch (OsmParseException e) {
-            Log.e(DEBUG_TAG, "OsmParseException", e);
-            getExceptions().add(e);
+            handleException(e);
         }
+    }
+
+    /**
+     * Handle a OsmParseException
+     * 
+     * @param e the exception
+     */
+    private void handleException(@NonNull OsmParseException e) {
+        Log.e(DEBUG_TAG, "OsmParseException", e);
+        getExceptions().add(e);
     }
 
     /**
@@ -111,6 +134,21 @@ public class OsmChangeParser extends OsmParser {
      * {@inheritDoc}
      */
     @Override
+    public void characters(char[] ch, int start, int length) throws SAXException {
+        try {
+            if (noteHandler == null) {
+                throw new OsmParseException("Unexpected characters in element");
+            }
+            noteHandler.characters(ch, start, length);
+        } catch (OsmParseException e) {
+            handleException(e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void endElement(final String uri, final String name, final String qName) throws SAXException {
         try {
             switch (name) {
@@ -119,11 +157,20 @@ public class OsmChangeParser extends OsmParser {
             case OsmXml.DELETE:
                 currentStatus = OsmElement.STATE_UNCHANGED;
                 break;
+            case Note.NOTE_ELEMENT:
+            case Note.COMMENT_ELEMENT:
+                if (noteHandler == null) {
+                    throw new OsmParseException("Unexpected note element " + name);
+                }
+                noteHandler.endElement(uri, name, qName);
+                break;
             default:
                 super.endElement(uri, name, qName);
             }
         } catch (StorageException sex) {
             throw new SAXException(sex);
+        } catch (OsmParseException e) {
+            handleException(e);
         }
     }
 
@@ -156,5 +203,15 @@ public class OsmChangeParser extends OsmParser {
         } catch (NumberFormatException e) {
             throw new OsmParseException("WayNode unparsable");
         }
+    }
+
+    /**
+     * Get any notes included in the input (OsmAnd extension)
+     * 
+     * @return the a List of Notes
+     */
+    @NonNull
+    public List<Note> getNotes() {
+        return noteHandler != null ? noteHandler.getNotes() : new ArrayList<>();
     }
 }

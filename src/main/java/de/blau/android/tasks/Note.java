@@ -24,15 +24,37 @@ import de.blau.android.util.Util;
  * A bug in the OpenStreetBugs database, or a prospective new bug. This now works with the OSM Notes system, many
  * references to bugs remain for hysterical reasons :-).
  * 
+ * The OSN/JOSM xml format is different than the XML encoding returned from the 0.6 OSM API
+ * 
  * @author Andrew Gregory
- * @author Simon
+ * @author Simon Poole
  */
 public class Note extends Task implements Serializable, JosmXmlSerializable {
-
-    /**
-     * 
-     */
     private static final long serialVersionUID = 6L;
+
+    public static final String  NOTE_ELEMENT     = "note";
+    static final String         LON_KEY          = "lon";
+    static final String         LAT_KEY          = "lat";
+    static final String         ID_KEY           = "id";
+    static final String         STATUS           = "status";
+    static final String         STATUS_CLOSED    = "closed";
+    private static final String DATE_CLOSED      = "date_closed";
+    private static final String DATE_CREATED     = "date_created";
+    /** JOSM/OSN version of the above */
+    static final String         CREATED_AT       = "created_at";
+    static final String         CLOSED_AT        = "closed_at";
+    /** */
+    private static final String COMMENTS_ELEMENT = "comments";
+    public static final String  COMMENT_ELEMENT  = "comment";
+    private static final String DATE             = "date";
+    private static final String HTML             = "html";
+    private static final String ACTION           = "action";
+    private static final String UID              = "uid";
+    private static final String USER             = "user";
+
+    private static final String UNKNOWN_ACTION = "Unknown action";
+    private static final String NO_NAME        = "No Name";
+    private static final String NO_TEXT        = "No Text";
 
     protected static BitmapWithOffset cachedIconClosed;
     protected static BitmapWithOffset cachedIconChangedClosed;
@@ -53,133 +75,7 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
     private State             originalState;  // track what we original had
 
     /**
-     * Create a Bug from an OSB GPX XML wpt element.
-     * 
-     * @param parser Parser up to a wpt element.
-     * @throws IOException If there was a problem parsing the XML.
-     * @throws XmlPullParserException If there was a problem parsing the XML.
-     * @throws NumberFormatException If there was a problem parsing the XML.
-     */
-    public Note(XmlPullParser parser) throws XmlPullParserException, IOException, NumberFormatException {
-        // note tag has already been read ... very ugly should refactor
-        lat = (int) (Double.parseDouble(parser.getAttributeValue(null, "lat")) * 1E7d);
-        lon = (int) (Double.parseDouble(parser.getAttributeValue(null, "lon")) * 1E7d);
-        parseNote(parser);
-    }
-
-    /**
-     * Parse a Note from XML
-     * 
-     * @param parser the parser instance
-     * @throws XmlPullParserException if parsing fails
-     * @throws IOException for XML reading issues
-     * @throws NumberFormatException if a number conversion fails
-     */
-    public void parseNote(XmlPullParser parser) throws XmlPullParserException, IOException, NumberFormatException {
-
-        int eventType;
-
-        final int START = 0;
-        final int COMMENTS = 1;
-        final int COMMENT = 2;
-        int state = START;
-
-        String text = "No Text";
-        String nickname = "No Name";
-        int uid = -1;
-        String action = "Unknown action";
-        Date timestamp = null;
-
-        while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-            String tagName = parser.getName();
-            if (state == START) {
-                if (eventType == XmlPullParser.END_TAG) {
-                    if ("note".equals(tagName)) {
-                        break;
-                    }
-                }
-                if (eventType == XmlPullParser.START_TAG) {
-                    if ("note".equals(tagName)) {
-                        lat = (int) (Double.parseDouble(parser.getAttributeValue(null, "lat")) * 1E7d);
-                        lon = (int) (Double.parseDouble(parser.getAttributeValue(null, "lon")) * 1E7d);
-                    }
-                    if ("id".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        id = Long.parseLong(parser.getText().trim());
-                    }
-                    if ("status".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        if ("closed".equalsIgnoreCase(parser.getText().trim())) {
-                            close();
-                            originalState = State.CLOSED;
-                        } else {
-                            open();
-                            originalState = State.OPEN;
-                        }
-                    }
-                    if ("date_created".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        String trimmedDate = parser.getText().trim();
-                        try {
-                            created = DateFormatter.getDate(DATE_PATTERN_NOTE_CREATED_AT, trimmedDate).getTime();
-                        } catch (java.text.ParseException pex) {
-                            created = new Date().getTime();
-                        }
-                    }
-                    if ("date_closed".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        String trimmedDate = parser.getText().trim();
-                        try {
-                            closed = DateFormatter.getDate(DATE_PATTERN_NOTE_CREATED_AT, trimmedDate).getTime();
-                        } catch (java.text.ParseException pex) {
-                            closed = new Date().getTime();
-                        }
-                    }
-                    if ("comments".equals(tagName)) {
-                        comments = new ArrayList<>();
-                        state = COMMENTS;
-                    }
-                }
-            } else if (state == COMMENTS) {
-                if ((eventType == XmlPullParser.END_TAG) && "comments".equals(tagName)) {
-                    state = START;
-                } else if ((eventType == XmlPullParser.START_TAG) && "comment".equals(tagName)) {
-                    state = COMMENT;
-                    text = "No Text";
-                    nickname = "No Name";
-                    uid = -1;
-                    action = "Unknown action";
-                    timestamp = null;
-                }
-            } else if (state == COMMENT) {
-                if ((eventType == XmlPullParser.END_TAG) && "comment".equals(tagName)) {
-                    comments.add(new NoteComment(this, text, nickname, uid, action, timestamp));
-                    state = COMMENTS;
-                } else if (eventType == XmlPullParser.START_TAG) {
-                    if ("user".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        nickname = parser.getText().trim();
-                    }
-                    if ("uid".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        uid = Integer.parseInt(parser.getText().trim());
-                    }
-                    if ("action".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        action = parser.getText().trim();
-                    }
-                    if ("html".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        text = parser.getText().trim();
-                    }
-                    if ("date".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        String trimmedDate = parser.getText().trim();
-                        try {
-                            timestamp = DateFormatter.getDate(DATE_PATTERN_NOTE_CREATED_AT, trimmedDate);
-                        } catch (java.text.ParseException pex) {
-                            timestamp = new Date();
-                        }
-                    }
-
-                }
-            }
-        }
-    }
-
-    /**
-     * Create a new bug.
+     * Create a new Note
      * 
      * @param lat Latitude *1E7.
      * @param lon Longitude *1E7.
@@ -191,6 +87,186 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
         this.lon = lon;
         open();
         comments = new ArrayList<>();
+    }
+
+    /**
+     * Create a Note from an API 0.6 XML element.
+     * 
+     * @param parser Parser .
+     * @throws IOException If there was a problem parsing the XML.
+     * @throws XmlPullParserException If there was a problem parsing the XML.
+     * @throws NumberFormatException If there was a problem parsing the XML.
+     */
+    public Note(XmlPullParser parser) throws XmlPullParserException, IOException, NumberFormatException {
+        parseNotes(parser, null);
+    }
+
+    /**
+     * Set the id
+     * 
+     * This only makes sense when renumbering newly created Notes
+     * 
+     * @param id the id
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
+     * Get the date and time the Note was created
+     * 
+     * @return the number of milliseconds since the UNIX epoch
+     */
+    public long getCreatedAt() {
+        return created;
+    }
+
+    /**
+     * Set the date and time the Note was created
+     * 
+     * @param created the created to set
+     */
+    public void setCreatedAt(long created) {
+        this.created = created;
+    }
+
+    /**
+     * Get the date and time the Note was closed
+     * 
+     * @return the number of milliseconds since the UNIX epoch
+     */
+    public long getClosedAt() {
+        return closed;
+    }
+
+    /**
+     * Set the date and time the Note was closed
+     * 
+     * @param the number of milliseconds since the UNIX epoch
+     */
+    public void setClosedAt(long closed) {
+        this.closed = closed;
+    }
+
+    /**
+     * Parse a Note from XML
+     * 
+     * @param parser the parser instance
+     * @param note an existing Note if any
+     * @throws XmlPullParserException if parsing fails
+     * @throws IOException for XML reading issues
+     * @throws NumberFormatException if a number conversion fails
+     */
+    public static List<Note> parseNotes(@NonNull XmlPullParser parser, @Nullable Note existingNote)
+            throws XmlPullParserException, IOException, NumberFormatException {
+
+        List<Note> result = new ArrayList<>();
+        int eventType;
+
+        final int START = 0;
+        final int COMMENTS = 1;
+        final int COMMENT = 2;
+        int state = START;
+
+        Note note = existingNote;
+
+        String text = NO_TEXT;
+        String nickname = NO_NAME;
+        int uid = -1;
+        String action = UNKNOWN_ACTION;
+        Date timestamp = null;
+
+        while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+            String tagName = parser.getName();
+            if (state == START) {
+                if (eventType == XmlPullParser.END_TAG && NOTE_ELEMENT.equals(tagName)) {
+                    result.add(note);
+                    note = null;
+                }
+                if (eventType == XmlPullParser.START_TAG) {
+                    if (NOTE_ELEMENT.equals(tagName)) {
+                        int lat = (int) (Double.parseDouble(parser.getAttributeValue(null, LAT_KEY)) * 1E7d);
+                        int lon = (int) (Double.parseDouble(parser.getAttributeValue(null, LON_KEY)) * 1E7d);
+                        if (note == null) {
+                            note = new Note(lat, lon);
+                        } else {
+                            note.lat = lat;
+                            note.lon = lon;
+                        }
+                    }
+                    if (ID_KEY.equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+                        note.id = Long.parseLong(parser.getText().trim());
+                    }
+                    if (STATUS.equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+                        if (STATUS_CLOSED.equalsIgnoreCase(parser.getText().trim())) {
+                            note.close();
+                            note.originalState = State.CLOSED;
+                        } else {
+                            note.open();
+                            note.originalState = State.OPEN;
+                        }
+                    }
+                    if (DATE_CREATED.equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+                        String trimmedDate = parser.getText().trim();
+                        try {
+                            note.created = DateFormatter.getDate(DATE_PATTERN_NOTE_CREATED_AT, trimmedDate).getTime();
+                        } catch (java.text.ParseException pex) {
+                            note.created = new Date().getTime();
+                        }
+                    }
+                    if (DATE_CLOSED.equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+                        String trimmedDate = parser.getText().trim();
+                        try {
+                            note.setClosedAt(DateFormatter.getDate(DATE_PATTERN_NOTE_CREATED_AT, trimmedDate).getTime());
+                        } catch (java.text.ParseException pex) {
+                            note.setClosedAt(new Date().getTime());
+                        }
+                    }
+                    if (COMMENTS_ELEMENT.equals(tagName)) {
+                        note.comments = new ArrayList<>();
+                        state = COMMENTS;
+                    }
+                }
+            } else if (state == COMMENTS) {
+                if ((eventType == XmlPullParser.END_TAG) && COMMENTS_ELEMENT.equals(tagName)) {
+                    state = START;
+                } else if ((eventType == XmlPullParser.START_TAG) && COMMENT_ELEMENT.equals(tagName)) {
+                    state = COMMENT;
+                    text = NO_TEXT;
+                    nickname = NO_NAME;
+                    uid = -1;
+                    action = UNKNOWN_ACTION;
+                    timestamp = null;
+                }
+            } else if (state == COMMENT) {
+                if ((eventType == XmlPullParser.END_TAG) && COMMENT_ELEMENT.equals(tagName)) {
+                    note.comments.add(new NoteComment(note, text, nickname, uid, action, timestamp));
+                    state = COMMENTS;
+                } else if (eventType == XmlPullParser.START_TAG) {
+                    if (USER.equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+                        nickname = parser.getText().trim();
+                    }
+                    if (UID.equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+                        uid = Integer.parseInt(parser.getText().trim());
+                    }
+                    if (ACTION.equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+                        action = parser.getText().trim();
+                    }
+                    if (HTML.equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+                        text = parser.getText().trim();
+                    }
+                    if (DATE.equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+                        String trimmedDate = parser.getText().trim();
+                        try {
+                            timestamp = DateFormatter.getDate(DATE_PATTERN_NOTE_CREATED_AT, trimmedDate);
+                        } catch (java.text.ParseException pex) {
+                            timestamp = new Date();
+                        }
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     /**
@@ -246,10 +322,19 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
      * 
      * @param comment comment as a String
      */
-    public void addComment(String comment) {
+    public void addComment(@Nullable String comment) {
         if (comment != null && comment.length() > 0) {
             comments.add(new NoteComment(this, comment));
         }
+    }
+
+    /**
+     * Add a comment to the Note
+     * 
+     * @param comment a NoteComment instance
+     */
+    public void addComment(@NonNull NoteComment comment) {
+        comments.add(comment);
     }
 
     /**
@@ -303,22 +388,22 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
 
     @Override
     public void toJosmXml(final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", "note");
-        s.attribute("", "id", Long.toString(id));
-        s.attribute("", "lat", Double.toString((lat / 1E7)));
-        s.attribute("", "lon", Double.toString((lon / 1E7)));
+        s.startTag("", NOTE_ELEMENT);
+        s.attribute("", ID_KEY, Long.toString(id));
+        s.attribute("", LAT_KEY, Double.toString((lat / 1E7)));
+        s.attribute("", LON_KEY, Double.toString((lon / 1E7)));
         if (created != -1) {
-            s.attribute("", "created_at", toJOSMDate(new Date(created)));
+            s.attribute("", CREATED_AT, toJOSMDate(new Date(created)));
         }
-        if (closed != -1) {
-            s.attribute("", "closed_at", toJOSMDate(new Date(closed)));
+        if (getClosedAt() != -1) {
+            s.attribute("", CLOSED_AT, toJOSMDate(new Date(getClosedAt())));
         }
         if (count() > 0) {
             for (NoteComment c : comments) {
                 c.toJosmXml(s);
             }
         }
-        s.endTag("", "note");
+        s.endTag("", NOTE_ELEMENT);
     }
 
     /**
@@ -329,7 +414,7 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
      */
     @NonNull
     String toJOSMDate(@NonNull Date date) {
-        String josmDate = DateFormatter.JOSM_DATE.format(date);
+        String josmDate = DateFormatter.JOSM_DATE_OUT.format(date);
         return josmDate.substring(0, josmDate.length() - 2); // strip last two digits
     }
 

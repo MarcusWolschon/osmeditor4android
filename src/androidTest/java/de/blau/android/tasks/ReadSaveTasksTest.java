@@ -1,8 +1,13 @@
 package de.blau.android.tasks;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -13,7 +18,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -54,6 +58,7 @@ public class ReadSaveTasksTest {
     AdvancedPrefDatabase        prefDB     = null;
     Main                        main       = null;
     TaskStorage                 ts         = null;
+    UiDevice                    device     = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -65,7 +70,7 @@ public class ReadSaveTasksTest {
     public void setup() {
         Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
         context = instrumentation.getTargetContext();
-        UiDevice device = UiDevice.getInstance(instrumentation);
+        device = UiDevice.getInstance(instrumentation);
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         TestUtils.removeImageryLayers(context);
@@ -75,6 +80,7 @@ public class ReadSaveTasksTest {
         ts = App.getTaskStorage();
         ts.reset();
         prefDB = new AdvancedPrefDatabase(context);
+        App.getTaskStorage().reset();
     }
 
     /**
@@ -94,20 +100,20 @@ public class ReadSaveTasksTest {
 
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("customBug.json");
-        Assert.assertNotNull(is);
+        assertNotNull(is);
         TransferTasks.readCustomBugs(main, is, false, new SignalHandler(signal1));
         try {
             signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         try {
             is.close();
         } catch (IOException e1) {
         }
         List<Task> tasks = ts.getTasks();
-        Assert.assertEquals(2, tasks.size());
-        Assert.assertTrue(tasks.get(0) instanceof CustomBug);
+        assertEquals(2, tasks.size());
+        assertTrue(tasks.get(0) instanceof CustomBug);
         CustomBug bug = (CustomBug) tasks.get(0);
         bug.close();
         final CountDownLatch signal2 = new CountDownLatch(1);
@@ -115,34 +121,24 @@ public class ReadSaveTasksTest {
         try {
             signal2.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
-        try {
-            is = new FileInputStream(new File(FileUtil.getPublicDirectory(), "test.json"));
-        } catch (FileNotFoundException e) {
-            Assert.fail(e.getMessage());
-        } catch (IOException e) {
-            Assert.fail(e.getMessage());
-        }
-        Assert.assertNotNull(is);
-        final CountDownLatch signal3 = new CountDownLatch(1);
-        TransferTasks.readCustomBugs(main, is, false, new SignalHandler(signal3));
-        try {
-            signal3.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
-        }
-        try {
-            is.close();
-        } catch (IOException e1) {
-        }
+
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_read_custom_bugs), true, false));
+        TestUtils.selectFile(device, main, null, "test.json", true);
+        TestUtils.findText(device, false, main.getString(R.string.toast_read_successfully), 1000);
+        TestUtils.textGone(device, main.getString(R.string.toast_read_successfully), 1000);
+        //
         tasks = ts.getTasks();
-        Assert.assertEquals(1, tasks.size());
-        Assert.assertTrue(tasks.get(0) instanceof CustomBug);
+        assertEquals(1, tasks.size());
+        assertTrue(tasks.get(0) instanceof CustomBug);
     }
 
     /**
-     * Save OSM Nostes to an OSN file
+     * Save OSM Notes to an OSN file
      */
     @Test
     public void saveNotes() {
@@ -153,9 +149,7 @@ public class ReadSaveTasksTest {
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
         final CountDownLatch signal = new CountDownLatch(1);
-        // mockServer.enqueue("capabilities1");
         mockServer.enqueue("notesDownload1");
-        App.getTaskStorage().reset();
         try {
             final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
             SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
@@ -163,35 +157,64 @@ public class ReadSaveTasksTest {
             String notesSelector = r.getString(R.string.bugfilter_notes);
             Set<String> set = new HashSet<String>(Arrays.asList(notesSelector));
             p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
-            Assert.assertTrue(new Preferences(context).taskFilter().contains(notesSelector));
+            assertTrue(new Preferences(context).taskFilter().contains(notesSelector));
             TransferTasks.downloadBox(context, s, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, Long.MAX_VALUE,
                     new SignalHandler(signal));
         } catch (Exception e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         try {
             signal.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         List<Task> tasks = App.getTaskStorage().getTasks();
         // note the fixture contains 100 notes, however 41 of them are closed and expired
-        Assert.assertEquals(59, tasks.size());
+        assertEquals(59, tasks.size());
+
         final CountDownLatch signal1 = new CountDownLatch(1);
         TransferTasks.writeOsnFile(main, true, TEST_OSN, new SignalHandler(signal1));
         try {
             signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         try {
             byte[] testContent = TestUtils.readInputStream(new FileInputStream(new File(FileUtil.getPublicDirectory(), TEST_OSN)));
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             InputStream is = loader.getResourceAsStream("test-result.osn");
             byte[] correctContent = TestUtils.readInputStream(is);
-            Assert.assertArrayEquals(correctContent, testContent);
+            assertArrayEquals(correctContent, testContent);
         } catch (IOException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
+    }
+
+    /**
+     * Read notes in JOSM format from a file
+     */
+    @Test
+    public void readNotes() {
+        try {
+            TestUtils.copyFileFromResources(main, "test-result.osn", "/", false);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_read_notes), true, false));
+        TestUtils.selectFile(device, main, null, "test-result.osn", false);
+        TestUtils.findText(device, false, main.getString(R.string.toast_read_successfully), 1000);
+        TestUtils.textGone(device, main.getString(R.string.toast_read_successfully), 1000);
+        List<Task> tasks = App.getTaskStorage().getTasks();
+        // see previous test
+        assertEquals(59, tasks.size());
+        for (Task t : tasks) {
+            if (t instanceof Note && t.getId() == 893035) {
+                return;
+            }
+        }
+        fail("Note 893035 not found");
     }
 }

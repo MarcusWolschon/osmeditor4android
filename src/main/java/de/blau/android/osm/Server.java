@@ -9,13 +9,13 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -571,11 +571,10 @@ public class Server {
      * @param context Android context
      * @param box the specified bounding box
      * @return the stream
-     * @throws OsmServerException thrown for API specific errors
      * @throws IOException thrown general IO problems
      */
     @NonNull
-    public InputStream getStreamForBox(@Nullable final Context context, @NonNull final BoundingBox box) throws OsmServerException, IOException {
+    public InputStream getStreamForBox(@Nullable final Context context, @NonNull final BoundingBox box) throws IOException {
         Log.d(DEBUG_TAG, "getStreamForBox");
         URL url = new URL(getReadOnlyUrl() + "map?bbox=" + box.toApiString());
         return openConnection(context, url);
@@ -589,12 +588,11 @@ public class Server {
      * @param type type (node, way, relation) of the object
      * @param id the OSM id of the object
      * @return the stream
-     * @throws OsmServerException thrown for API specific errors
      * @throws IOException thrown general IO problems
      */
     @NonNull
     public InputStream getStreamForElement(@Nullable final Context context, @Nullable final String mode, @NonNull final String type, final long id)
-            throws OsmServerException, IOException {
+            throws IOException {
         Log.d(DEBUG_TAG, "getStreamForElement");
         URL url = new URL((hasMapSplitSource() ? getReadWriteUrl() : getReadOnlyUrl()) + type + "/" + id + (mode != null ? "/" + mode : ""));
         return openConnection(context, url);
@@ -607,12 +605,10 @@ public class Server {
      * @param type type (node, way, relation) of the object
      * @param ids array containing the OSM ids of the objects
      * @return the stream
-     * @throws OsmServerException thrown for API specific errors
      * @throws IOException thrown general IO problems
      */
     @NonNull
-    public InputStream getStreamForElements(@Nullable final Context context, @NonNull final String type, final long[] ids)
-            throws OsmServerException, IOException {
+    public InputStream getStreamForElements(@Nullable final Context context, @NonNull final String type, final long[] ids) throws IOException {
         Log.d(DEBUG_TAG, "getStreamForElements");
 
         StringBuilder urlString = new StringBuilder();
@@ -640,11 +636,10 @@ public class Server {
      * @param context Android context
      * @param url the URL
      * @return the InputStream
-     * @throws IOException
-     * @throws OsmServerException
+     * @throws IOException on an IO issue
      */
     @NonNull
-    public static InputStream openConnection(@Nullable final Context context, @NonNull URL url) throws IOException, OsmServerException {
+    public static InputStream openConnection(@Nullable final Context context, @NonNull URL url) throws IOException {
         return openConnection(context, url, TIMEOUT, TIMEOUT);
     }
 
@@ -657,12 +652,10 @@ public class Server {
      * @param readTimeout read timeout in ms
      * @return the InputStream
      * @throws IOException on any IO and other error
-     * @throws OsmServerException if we got an error from the remote server
      * 
      */
     @NonNull
-    public static InputStream openConnection(@Nullable final Context context, @NonNull URL url, int connectTimeout, int readTimeout)
-            throws IOException, OsmServerException {
+    public static InputStream openConnection(@Nullable final Context context, @NonNull URL url, int connectTimeout, int readTimeout) throws IOException {
         Log.d(DEBUG_TAG, "get input stream for  " + url.toString());
         try {
             Request request = new Request.Builder().url(url).build();
@@ -715,11 +708,9 @@ public class Server {
      * 
      * @param elem the element which should be deleted.
      * @return true when the server indicates the successful deletion (HTTP 200), otherwise false.
-     * @throws MalformedURLException if the URL can't be constructed properly
-     * @throws ProtocolException
-     * @throws IOException
+     * @throws IOException on an IO issue
      */
-    public boolean deleteElement(@NonNull final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
+    public boolean deleteElement(@NonNull final OsmElement elem) throws IOException {
         Log.d(DEBUG_TAG, "Deleting " + elem.getName() + " #" + elem.getOsmId());
         RequestBody body = new XmlRequestBody() {
             @Override
@@ -782,12 +773,10 @@ public class Server {
      * @param requestMethod the request method
      * @param body the RequestBody or null for a get
      * @return a Response object
-     * @throws IOException
-     * @throws MalformedURLException if the URL can't be constructed properly
-     * @throws ProtocolException
+     * @throws IOException on an IO issue
      */
     private Response openConnectionForAuthenticatedAccess(@NonNull final URL url, @NonNull final String requestMethod, @Nullable final RequestBody body)
-            throws IOException, MalformedURLException, ProtocolException {
+            throws IOException {
         Log.d(DEBUG_TAG, "openConnectionForWriteAccess url " + url);
 
         Request.Builder requestBuilder = new Request.Builder().url(url);
@@ -876,12 +865,10 @@ public class Server {
      * @param source value for the source tag
      * @param imagery value for the imagery_used tag
      * @param extraTags Additional tags to add
-     * @throws MalformedURLException if the URL can't be constructed properly
-     * @throws ProtocolException
-     * @throws IOException
+     * @throws IOException on an IO issue
      */
     public void openChangeset(boolean closeOpenChangeset, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
-            @Nullable Map<String, String> extraTags) throws MalformedURLException, ProtocolException, IOException {
+            @Nullable Map<String, String> extraTags) throws IOException {
         long newChangesetId = -1;
 
         if (changesetId != -1) { // potentially still open, check if really the case
@@ -915,7 +902,12 @@ public class Server {
         checkResponseCode(response);
 
         try (InputStream in = response.body().byteStream()) {
-            newChangesetId = Long.parseLong(readLine(in));
+            String line = readLine(in);
+            if (line != null) {
+                newChangesetId = Long.parseLong(line);
+            } else {
+                throw new OsmServerException(-1, "Server returned no changeset id");
+            }
         } catch (NumberFormatException e) {
             throw new OsmServerException(-1, "Server returned illegal changeset id " + e.getMessage());
         }
@@ -928,10 +920,9 @@ public class Server {
      * changeset on the next upload
      * 
      * @throws MalformedURLException if the URL can't be constructed properly
-     * @throws ProtocolException
-     * @throws IOException
+     * @throws IOException on an IO issue
      */
-    public void closeChangeset() throws MalformedURLException, ProtocolException, IOException {
+    public void closeChangeset() throws IOException {
         try {
             Response response = openConnectionForAuthenticatedAccess(getCloseChangesetUrl(changesetId), HTTP_PUT, RequestBody.create(null, ""));
             checkResponseCode(response);
@@ -967,12 +958,10 @@ public class Server {
      * @param source value for the source tag
      * @param imagery value for the imagery_used tag
      * @param extraTags Additional tags to add
-     * @throws MalformedURLException if the URL can't be constructed properly
-     * @throws ProtocolException
-     * @throws IOException
+     * @throws IOException on an IO issue
      */
     private void updateChangeset(final long changesetId, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
-            @Nullable Map<String, String> extraTags) throws MalformedURLException, ProtocolException, IOException {
+            @Nullable Map<String, String> extraTags) throws IOException {
         final XmlSerializable xmlData = new Changeset(generator, comment, source, imagery, extraTags).tagsToXml();
         RequestBody body = new XmlRequestBody() {
             @Override
@@ -989,10 +978,9 @@ public class Server {
      * Check the response code from a HttpURLConnection and if not OK throw an exception
      * 
      * @param response response from the server connection
-     * @throws IOException
-     * @throws OsmException
+     * @throws IOException on an IO issue
      */
-    private void checkResponseCode(@Nullable final Response response) throws IOException, OsmException {
+    private void checkResponseCode(@Nullable final Response response) throws IOException {
         checkResponseCode(response, null);
     }
 
@@ -1001,10 +989,9 @@ public class Server {
      * 
      * @param response response from the server connection
      * @param e an OsmElement associated with the problem or null
-     * @throws IOException
-     * @throws OsmException
+     * @throws IOException on an IO issue
      */
-    private void checkResponseCode(@Nullable final Response response, @Nullable final OsmElement e) throws IOException, OsmException {
+    private void checkResponseCode(@Nullable final Response response, @Nullable final OsmElement e) throws IOException {
         int responsecode = -1;
         if (response == null) {
             throw new OsmServerException(responsecode, "Unknown error");
@@ -1298,7 +1285,7 @@ public class Server {
      * @param generator an identifier for the current application
      * @throws IllegalArgumentException
      * @throws IllegalStateException
-     * @throws IOException
+     * @throws IOException on an IO error
      */
     static void startXml(@NonNull XmlSerializer xmlSerializer, @NonNull String generator) throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.startDocument(OsmXml.UTF_8, null);
@@ -1313,7 +1300,7 @@ public class Server {
      * @param xmlSerializer an XmlSerializer instance
      * @throws IllegalArgumentException
      * @throws IllegalStateException
-     * @throws IOException
+     * @throws IOException on an IO error
      */
     static void endXml(@NonNull XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.endTag("", OsmXml.OSM);
@@ -1327,7 +1314,7 @@ public class Server {
      * @param action the action (create, modify, delete)
      * @throws IllegalArgumentException
      * @throws IllegalStateException
-     * @throws IOException
+     * @throws IOException on an IO error
      */
     private void startChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action)
             throws IllegalArgumentException, IllegalStateException, IOException {
@@ -1347,7 +1334,7 @@ public class Server {
      * @param action the action (create, modify, delete)
      * @throws IllegalArgumentException
      * @throws IllegalStateException
-     * @throws IOException
+     * @throws IOException on an IO error
      */
     private void endChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action)
             throws IllegalArgumentException, IllegalStateException, IOException {
@@ -1363,7 +1350,7 @@ public class Server {
      * @throws XmlPullParserException
      * @throws IllegalArgumentException
      * @throws IllegalStateException
-     * @throws IOException
+     * @throws IOException on an IO error
      */
     private XmlSerializer getXmlSerializer() throws XmlPullParserException, IllegalArgumentException, IllegalStateException, IOException {
         XmlSerializer serializer = xmlParserFactory.newSerializer();
@@ -1650,8 +1637,8 @@ public class Server {
      * @param limit maximum number of Notes to return, value of between 1 and 10000 is valid
      * @return All the Notes in the given area.
      */
+    @NonNull
     public Collection<Note> getNotesForBox(@NonNull BoundingBox area, long limit) {
-        Collection<Note> result = new ArrayList<>();
         // http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
         try {
             Log.d(DEBUG_TAG, "getNotesForBox");
@@ -1659,25 +1646,11 @@ public class Server {
             InputStream is = openConnection(null, url);
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
-            int eventType;
-            while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-                String tagName = parser.getName();
-                if (eventType == XmlPullParser.START_TAG && "note".equals(tagName)) {
-                    try {
-                        result.add(new Note(parser));
-                    } catch (IOException | XmlPullParserException | NumberFormatException e) {
-                        // if the bug doesn't parse correctly, there's nothing
-                        // we can do about it - move on
-                        Log.e(DEBUG_TAG, "Problem parsing bug", e);
-                    }
-                }
-            }
+            return Note.parseNotes(parser, null);
         } catch (XmlPullParserException | IOException | OutOfMemoryError e) {
             Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
             return new ArrayList<>(); // empty list
         }
-        Log.d(DEBUG_TAG, "Read " + result.size() + " notes from input");
-        return result;
     }
 
     /**
@@ -1686,8 +1659,8 @@ public class Server {
      * @param id the id of the Note to retrieve
      * @return the Note, null if not found or other error
      */
+    @Nullable
     public Note getNote(long id) {
-        Note result = null;
         // http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
         try {
             Log.d(DEBUG_TAG, "getNote");
@@ -1695,24 +1668,12 @@ public class Server {
             InputStream is = openConnection(null, url);
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
-            int eventType;
-            while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-                String tagName = parser.getName();
-                if (eventType == XmlPullParser.START_TAG && "note".equals(tagName)) {
-                    try {
-                        result = new Note(parser);
-                    } catch (IOException | XmlPullParserException | NumberFormatException e) {
-                        // if the bug doesn't parse correctly, there's nothing
-                        // we can do about it - move on
-                        Log.e(DEBUG_TAG, "Problem parsing bug", e);
-                    }
-                }
-            }
-        } catch (XmlPullParserException | IOException | OutOfMemoryError e) {
-            Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-            return null; // empty list
+            List<Note> result = Note.parseNotes(parser, null);
+            return !result.isEmpty() ? result.get(0) : null;
+        } catch (XmlPullParserException | IOException | OutOfMemoryError | NumberFormatException e) {
+            Log.e(DEBUG_TAG, "Server.getNotesForBox", e);
+            return null;
         }
-        return result;
     }
 
     // The note 10597 was closed at 2017-09-24 17:59:18 UTC
@@ -1728,11 +1689,10 @@ public class Server {
      * 
      * @param bug The bug to add the comment to.
      * @param comment The comment to add to the bug.
-     * @throws IOException
-     * @throws OsmServerException
+     * @throws IOException on an IO error
      * @throws XmlPullParserException
      */
-    public void addComment(@NonNull Note bug, @NonNull NoteComment comment) throws OsmServerException, IOException, XmlPullParserException {
+    public void addComment(@NonNull Note bug, @NonNull NoteComment comment) throws IOException, XmlPullParserException {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "adding note comment " + bug.getId());
             // http://openstreetbugs.schokokeks.org/api/0.1/editPOIexec?id=<Bug ID>&text=<Comment with author and date>
@@ -1775,11 +1735,10 @@ public class Server {
      * 
      * @param bug The bug to add.
      * @param comment The first comment for the bug.
-     * @throws IOException
-     * @throws OsmServerException
+     * @throws IOException on an IO error
      * @throws XmlPullParserException
      */
-    public void addNote(@NonNull Note bug, @NonNull NoteComment comment) throws XmlPullParserException, OsmServerException, IOException {
+    public void addNote(@NonNull Note bug, @NonNull NoteComment comment) throws XmlPullParserException, IOException {
         if (bug.isNew()) {
             Log.d(DEBUG_TAG, "adding note");
             // http://openstreetbugs.schokokeks.org/api/0.1/addPOIexec?lat=<Latitude>&lon=<Longitude>&text=<Bug
@@ -1803,11 +1762,10 @@ public class Server {
      * Blocks until the request is complete. If the note is already closed the error is ignored.
      * 
      * @param bug The bug to close.
-     * @throws IOException
-     * @throws OsmServerException
+     * @throws IOException on an IO error
      * @throws XmlPullParserException
      */
-    public void closeNote(@NonNull Note bug) throws OsmServerException, IOException, XmlPullParserException {
+    public void closeNote(@NonNull Note bug) throws IOException, XmlPullParserException {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "closing note " + bug.getId());
             URL closeNoteUrl = getCloseNoteUrl(Long.toString(bug.getId()));
@@ -1839,11 +1797,10 @@ public class Server {
      * Blocks until the request is complete. If the note is already open the error is ignored.
      * 
      * @param bug The bug to close.
-     * @throws IOException
-     * @throws OsmServerException
+     * @throws IOException on an IO error
      * @throws XmlPullParserException
      */
-    public void reopenNote(@NonNull Note bug) throws OsmServerException, IOException, XmlPullParserException {
+    public void reopenNote(@NonNull Note bug) throws IOException, XmlPullParserException {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "reopen note " + bug.getId());
             URL reopenNoteUrl = getReopenNoteUrl(Long.toString(bug.getId()));
@@ -1869,17 +1826,17 @@ public class Server {
     }
 
     /**
-     * Parse a single OSm note (bug) from an InputStream
+     * Parse a single OSM note (bug) from an InputStream
      * 
      * @param bug bug to parse in to
      * @param inputStream the input
-     * @throws IOException
+     * @throws IOException on an IO error
      * @throws XmlPullParserException
      */
     private void parseBug(@NonNull Note bug, @NonNull InputStream inputStream) throws IOException, XmlPullParserException {
         XmlPullParser parser = xmlParserFactory.newPullParser();
         parser.setInput(new BufferedInputStream(inputStream, StreamUtils.IO_BUFFER_SIZE), null);
-        bug.parseNote(parser); // replace contents with result from server
+        Note.parseNotes(parser, bug); // replace contents with result from server
         App.getTaskStorage().setDirty();
     }
 
@@ -1897,12 +1854,9 @@ public class Server {
      * @param description optional description
      * @param tags optional tags
      * @param visibility privacy/visibility setting
-     * @throws MalformedURLException
-     * @throws ProtocolException
-     * @throws IOException
+     * @throws IOException on an IO error
      */
-    public void uploadTrack(@NonNull final Track track, @NonNull String description, @NonNull String tags, @NonNull Visibility visibility)
-            throws MalformedURLException, ProtocolException, IOException {
+    public void uploadTrack(@NonNull final Track track, @NonNull String description, @NonNull String tags, @NonNull Visibility visibility) throws IOException {
         RequestBody gpxBody = new RequestBody() {
             @Override
             public MediaType contentType() {
@@ -1989,7 +1943,7 @@ public class Server {
      * Get a new XmlParser
      * 
      * @return an instance of XmlPullParserFactory
-     * @throws XmlPullParserException
+     * @throws XmlPullParserException {@see XmlPullParserException}
      */
     @NonNull
     XmlPullParser getXmlParser() throws XmlPullParserException {
@@ -2000,10 +1954,9 @@ public class Server {
      * Construct and throw an OsmServerException from the connection to the server
      * 
      * @param response response from server
-     * @throws IOException
-     * @throws OsmServerException
+     * @throws IOException on an IO error
      */
-    public static void throwOsmServerException(Response response) throws OsmServerException, IOException {
+    public static void throwOsmServerException(Response response) throws IOException {
         throwOsmServerException(response, null, response.code());
     }
 
@@ -2013,11 +1966,9 @@ public class Server {
      * @param response response from server
      * @param e the OSM element that the error was caused by
      * @param responsecode code returned from server
-     * @throws IOException
-     * @throws OsmServerException
+     * @throws IOException on an IO error
      */
-    public static void throwOsmServerException(@NonNull final Response response, @Nullable final OsmElement e, int responsecode)
-            throws IOException, OsmServerException {
+    public static void throwOsmServerException(@NonNull final Response response, @Nullable final OsmElement e, int responsecode) throws IOException {
         String responseMessage = response.message();
         if (responseMessage == null) {
             responseMessage = "";

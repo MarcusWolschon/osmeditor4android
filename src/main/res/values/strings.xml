@@ -515,6 +515,9 @@ avoided by using an offline data source.</string>
     <string name="toast_file_already_exists">File %1$s already exists</string>
     <string name="toast_file_error_for">File error for %1$s</string>
     <string name="toast_error_reading">Error reading %1$s</string>
+    <string name="toast_read_successfully">File read successfully</string>
+    <string name="toast_error_writing">Error writing %1$s</string>
+    <string name="toast_successfully_written">File successfully written</string>
     <string name="toast_http_data_error_for">HTTP data error for %1$s</string>
     <string name="toast_error_insufficient_space_for">Not enough space on device for %1$s</string>
     <string name="toast_error_too_many_redirects_for">Too many redirects for %1$s</string>
@@ -762,6 +765,7 @@ avoided by using an offline data source.</string>
     <string name="menu_transfer_autodownload_long">Auto download tasks</string>
     <string name="menu_transfer_save_notes_all">Save all notes…</string>
     <string name="menu_transfer_save_notes_new_and_changed">Save new and changed notes…</string>
+    <string name="menu_transfer_read_notes">Load notes…</string>
     <string name="menu_transfer_read_custom_bugs">Load custom tasks…</string>
     <string name="menu_transfer_write_custom_bugs">Save open custom tasks…</string>
     <string name="menu_save">Save as file</string>

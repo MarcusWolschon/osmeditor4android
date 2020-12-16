@@ -95,6 +95,7 @@ import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
+import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.EditState;
@@ -3571,6 +3572,8 @@ public class Logic {
     /**
      * Read an osmChange format file and then apply the contents
      * 
+     * Supports OsmAnd extension for Notes
+     * 
      * @param activity the calling activity
      * @param fileUri the URI for the file
      * @param postLoad a callback to call post load
@@ -3597,6 +3600,12 @@ public class Logic {
                         }
                         if (map != null) {
                             viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
+                        }
+                        // support for OSMAND extension
+                        List<Note> notes = oscParser.getNotes();
+                        if (!notes.isEmpty()) {
+                            TransferTasks.merge(activity, App.getTaskStorage(), notes);
+                            TransferTasks.addBoundingBoxFromData(App.getTaskStorage(), notes);
                         }
                     } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException e) {
                         Log.e(DEBUG_TAG, "Problem parsing OSC ", e);
