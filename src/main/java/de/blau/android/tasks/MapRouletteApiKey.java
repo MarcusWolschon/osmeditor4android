@@ -45,7 +45,7 @@ public final class MapRouletteApiKey {
 
         final String apiKey = retrieveKey ? get(server) : null;
 
-        final AppCompatDialog dialog = TextLineDialog.get(activity, R.string.maproulette_task_set_apikey, -1, apiKey, input -> {
+        final AppCompatDialog dialog = TextLineDialog.get(activity, R.string.maproulette_task_set_apikey, -1, apiKey, (input, check) -> {
 
             final String newApiKey = input.getText().toString().trim();
             new AsyncTask<Void, Void, Void>() {

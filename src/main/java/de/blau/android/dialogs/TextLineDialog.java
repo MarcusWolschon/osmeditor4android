@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import de.blau.android.R;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -31,7 +32,7 @@ public class TextLineDialog {
      * @return an AlertDialog instance
      */
     public static AlertDialog get(@NonNull Context ctx, int titleId, int hintId, @NonNull TextLineInterface listener, boolean dismiss) {
-        return get(ctx, titleId, hintId, (List<String>) null, null, listener, dismiss);
+        return get(ctx, titleId, hintId, -1, (List<String>) null, null, listener, dismiss);
     }
 
     /**
@@ -45,7 +46,7 @@ public class TextLineDialog {
      * @return an AlertDialog instance
      */
     public static AlertDialog get(@NonNull Context ctx, int titleId, int hintId, @Nullable String text, @NonNull TextLineInterface listener) {
-        return get(ctx, titleId, hintId, text, null, listener, true);
+        return get(ctx, titleId, hintId, -1, text != null ? Util.wrapInList(text) : null, null, listener, true);
     }
 
     /**
@@ -54,30 +55,14 @@ public class TextLineDialog {
      * @param ctx the Android Context
      * @param titleId the string resource for the title
      * @param hintId string resource for an hint of -1 if none
-     * @param text initial text to display
-     * @param buttonText positive button text or null
-     * @param listener a TextLineInterface listener provided by the caller
-     * @param dismiss dismiss dialog when the positive button is clicked when true
-     * @return an AlertDialog instance
-     */
-    public static AlertDialog get(@NonNull Context ctx, int titleId, int hintId, @Nullable String text, @Nullable String buttonText,
-            @NonNull TextLineInterface listener, boolean dismiss) {
-        return get(ctx, titleId, hintId, text != null ? Util.wrapInList(text) : null, buttonText, listener, dismiss);
-    }
-
-    /**
-     * Create a Dialog with one EditText
-     * 
-     * @param ctx the Android Context
-     * @param titleId the string resource for the title
-     * @param hintId string resource for an hint of -1 if none
+     * @param checkTextId string resource for an optional checkbox, if -1 no checkbox is shown
      * @param prevText a List of previous input to display
      * @param buttonText positive button text or null
      * @param listener a TextLineInterface listener provided by the caller
      * @param dismiss dismiss dialog when the positive button is clicked when true
      * @return an AlertDialog instance
      */
-    public static AlertDialog get(@NonNull Context ctx, int titleId, int hintId, @Nullable List<String> prevText, @Nullable String buttonText,
+    public static AlertDialog get(@NonNull Context ctx, int titleId, int hintId, int checkTextId, @Nullable List<String> prevText, @Nullable String buttonText,
             @NonNull TextLineInterface listener, boolean dismiss) {
 
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
@@ -104,6 +89,13 @@ public class TextLineDialog {
                 });
             }
         }
+        final AppCompatCheckBox checkbox = layout.findViewById(R.id.checkbox);
+        if (checkTextId > 0) {
+            checkbox.setVisibility(View.VISIBLE);
+            checkbox.setText(checkTextId);
+        } else {
+            checkbox.setVisibility(View.GONE);
+        }
         builder.setView(layout);
         builder.setNeutralButton(R.string.cancel, null);
         if (buttonText == null) {
@@ -119,7 +111,7 @@ public class TextLineDialog {
                 if (dismiss) {
                     d.dismiss();
                 }
-                listener.processLine(input);
+                listener.processLine(input, checkbox.isChecked());
             });
         });
 
@@ -131,7 +123,8 @@ public class TextLineDialog {
          * Do something with the text entered by the user
          * 
          * @param input the EditTExt
+         * @param check true if the optional checkbox is checked
          */
-        void processLine(@Nullable final EditText input);
+        void processLine(@Nullable final EditText input, boolean check);
     }
 }

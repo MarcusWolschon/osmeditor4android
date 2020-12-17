@@ -39,8 +39,9 @@ public class CoordinatesOrOLC {
 
     private static final Pattern OLC_SHORT = Pattern.compile("(^|\\s)([23456789CFGHJMPQRVWX]{4,6}\\+[23456789CFGHJMPQRVWX]{2,3})\\s*(.*)$",
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
-    private static final Pattern OLC_FULL  = Pattern
-            .compile("(^|\\s)([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\\+[23456789CFGHJMPQRVWX]{2,3})(\\s|$)", Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
+    private static final Pattern OLC_FULL  = Pattern.compile(
+            "(^|\\s)([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\\+[23456789CFGHJMPQRVWX]{2,3})(\\s|$)",
+            Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
 
     private static AppCompatDialog dialog;
 
@@ -68,7 +69,7 @@ public class CoordinatesOrOLC {
      * @param handler a handler for the results
      */
     public static void get(@NonNull final FragmentActivity activity, @NonNull final HandleResult handler) {
-        dialog = TextLineDialog.get(activity, R.string.go_to_coordinates_title, R.string.go_to_coordinates_hint, input -> {
+        dialog = TextLineDialog.get(activity, R.string.go_to_coordinates_title, R.string.go_to_coordinates_hint, (input, check) -> {
             String text = input.getText().toString();
             if ("".equals(text)) {
                 return;

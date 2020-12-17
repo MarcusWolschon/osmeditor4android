@@ -1,11 +1,7 @@
 package de.blau.android.search;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -29,9 +25,8 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
-import de.blau.android.SignalHandler;
+import de.blau.android.R;
 import de.blau.android.TestUtils;
-import de.blau.android.osm.ApiTest;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -76,12 +71,7 @@ public class ObjectSearchTest {
         map.getViewBox().fitToBoundingBox(map, map.getDataLayer().getExtent());
         logic.updateStyle();
         map.getDataLayer().setVisible(true);
-        main.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                map.invalidate();
-            }
-        });
+        main.runOnUiThread(() -> map.invalidate());
         TestUtils.unlock(device);
         logic.setLastObjectSearches(new ArrayList<>());
         device.waitForWindowUpdate(null, 2000);
@@ -102,11 +92,39 @@ public class ObjectSearchTest {
     @Test
     public void single() {
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Search for objects", true, false);
+        TestUtils.clickText(device, false, main.getString(R.string.search_objects_title), true, false);
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
         try {
             searchEditText.click();
             searchEditText.setText("\"addr:street\"=Kirchstrasse \"addr:housenumber\"=4");
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail(e.getMessage());
+        }
+        TestUtils.clickButton(device, "android:id/button1", true);
+        device.waitForWindowUpdate(null, 500);
+        List<OsmElement> selected = logic.getSelectedElements();
+        Assert.assertEquals(1, selected.size());
+        Assert.assertTrue(selected.get(0) instanceof Way);
+        Assert.assertEquals(210558045L, selected.get(0).getOsmId());
+    }
+
+    /**
+     * Search for a single object with a regexp
+     */
+    @Test
+    public void singleWithRegexp() {
+        TestUtils.clickOverflowButton(device);
+        TestUtils.clickText(device, false, main.getString(R.string.search_objects_title), true, false);
+        UiObject checkbox = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/checkbox"));
+        try {
+            checkbox.click();
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail(e.getMessage());
+        }
+        UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
+        try {
+            searchEditText.click();
+            searchEditText.setText("\"addr:str.et\"=Kirchstra.*se \"addr:hous.*umber\"=4");
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
@@ -124,7 +142,7 @@ public class ObjectSearchTest {
     @Test
     public void multiple() {
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Search for objects", true, false);
+        TestUtils.clickText(device, false, main.getString(R.string.search_objects_title), true, false);
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
         try {
             searchEditText.click();
@@ -148,7 +166,7 @@ public class ObjectSearchTest {
     @Test
     public void preset() {
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Search for objects", true, false);
+        TestUtils.clickText(device, false, main.getString(R.string.search_objects_title), true, false);
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
         try {
             searchEditText.click();

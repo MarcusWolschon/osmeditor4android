@@ -161,6 +161,7 @@
     <!--  Search objects dialog -->
     <string name="search_objects_title">Search for objects</string>
     <string name="search_objects_hint">Enter a JOSM filter/search expression</string>
+    <string name="search_objects_use_regexps">Use regular expressions</string>
     <string name="search_objects_unsupported">Unsupported expression \"%1$s\"</string>
     <!--  -->
     <string name="preset_search_hint">Preset search string</string>

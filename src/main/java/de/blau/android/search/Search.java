@@ -56,8 +56,8 @@ public final class Search {
         final List<Way> wayResult = new ArrayList<>();
         final List<Relation> relationResult = new ArrayList<>();
 
-        dialog = TextLineDialog.get(activity, R.string.search_objects_title, R.string.search_objects_hint, lastSearches, activity.getString(R.string.search),
-                input -> {
+        dialog = TextLineDialog.get(activity, R.string.search_objects_title, R.string.search_objects_hint, R.string.search_objects_use_regexps, lastSearches,
+                activity.getString(R.string.search), (input, useRegexp) -> {
                     final String text = input.getText().toString();
                     if ("".equals(text)) {
                         return;
@@ -74,7 +74,7 @@ public final class Search {
                             Condition condition = null;
                             try {
                                 JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(text.getBytes()));
-                                condition = parser.condition();
+                                condition = parser.condition(useRegexp);
                             } catch (ParseException pex) {
                                 return pex.getMessage();
                             } catch (Error err) { // NOSONAR

@@ -57,7 +57,7 @@ public final class CustomPreset {
         Context ctx = caller.getContext();
         final PresetItem bestPreset = caller.getBestPreset();
         TextLineDialog.get(ctx, R.string.create_preset_title, -1,
-                caller.getString(R.string.create_preset_default_name, bestPreset != null ? bestPreset.getName() : ""), input -> {
+                caller.getString(R.string.create_preset_default_name, bestPreset != null ? bestPreset.getName() : ""), (input, check) -> {
                     Preset preset = Preset.dummyInstance();
                     try {
                         preset.setIconManager(new PresetIconManager(ctx,
