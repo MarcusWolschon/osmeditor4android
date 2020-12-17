@@ -850,7 +850,8 @@ avoided by using an offline data source.</string>
     <string name="reverse_anyway">Reverse anyway</string>
     <string name="deleteway_description">You are about to delete a way.\n\nYou can either keep all nodes, or delete those that only belong to this way and are tagless.</string>
     <string name="deleteway_relation_description">You are about to delete a way that is a member of one or more relations. Removing the way may render the relations invalid.</string>
-    <string name="deleteway_nodesnotdownloaded_description">The way contains nodes outside of the downloaded area and cannot be deleted without creating an inconsistent state. Download all of it before trying again.</string>
+    <string name="deleteway_nodesnotdownloaded_description">The way contains nodes outside of the downloaded area and cannot be deleted without potentially creating an inconsistent state.\n\nDownload the area around it before trying again.</string>
+    <string name="deleteways_nodesnotdownloaded_description">The selection contains ways with nodes outside of the downloaded area, which cannot be deleted without potentially creating an inconsistent state.\n\nDownload all of the area around the ways before trying again.</string>
     <string name="deleteway_wayonly">Only delete way</string>
     <string name="deleteway_wayandnodes">Delete way</string>
     <string name="deletenode_relation_description">You are about to delete a node that is a member of one or more relations. Removing the node may render the relations invalid.</string>
@@ -1226,6 +1227,7 @@ avoided by using an offline data source.</string>
     <string name="deleterelation_relation_description">You are about to delete a relation that is a member of one or more relations. Removing any such relation from such relations may render it invalid.</string>
     <string name="deleterelation">Delete relation</string>
     <string name="delete_from_relation_description">You are about to delete this element from a relation.</string>
+    <string name="delete_elements_from_relation_description">You are about to delete elements from one or more relations.</string>
     <string name="unset_relation_type">Unset relation type</string>
     <!-- Things -->
     <string name="bridge">Bridge</string>

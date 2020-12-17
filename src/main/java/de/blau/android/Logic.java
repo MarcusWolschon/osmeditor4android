@@ -1855,6 +1855,8 @@ public class Logic {
     /**
      * Erase a list of objects
      * 
+     * Note check before calling if way nodes are in downloaded area
+     * 
      * @param activity activity this method was called from, if null no warnings will be displayed
      * @param selection objects to delete
      */
@@ -1869,11 +1871,7 @@ public class Logic {
         }
         for (OsmElement e : selection) {
             if (e instanceof Way && e.getState() != OsmElement.STATE_DELETED) {
-                if (isInDownload((Way) e)) {
-                    performEraseWay(activity, (Way) e, true, false); // TODO maybe we don't want to delete the nodes
-                } else {
-                    // TODO toast
-                }
+                performEraseWay(activity, (Way) e, true, false); // TODO maybe we don't want to delete the nodes
             }
         }
         for (OsmElement e : selection) {

@@ -404,11 +404,20 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     private void menuDelete(boolean deleteFromRelations) {
         Log.d(DEBUG_TAG, "menuDelete " + deleteFromRelations + " " + selection);
 
+        // check ways are actually downloaded this will abort so should be before the relation check
+        for (OsmElement e : selection) {
+            if (e instanceof Way && !logic.isInDownload((Way) e)) {
+                new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deleteways_nodesnotdownloaded_description)
+                        .setPositiveButton(R.string.okay, null).show();
+                return;
+            }
+        }
+
         // check for relation membership
         if (!deleteFromRelations) {
             for (OsmElement e : selection) {
                 if (e.hasParentRelations()) {
-                    new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.delete_from_relation_description)
+                    new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.delete_elements_from_relation_description)
                             .setPositiveButton(R.string.delete, (dialog, which) -> menuDelete(true)).show();
                     return;
                 }
