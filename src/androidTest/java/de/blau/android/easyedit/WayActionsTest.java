@@ -125,7 +125,7 @@ public class WayActionsTest {
         assertEquals(92.33, theta, 0.1);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Straighten", false, false);
+        TestUtils.clickText(device, false, context.getString(R.string.menu_straighten), false, false);
         device.wait(Until.findObject(By.res(device.getCurrentPackageName() + ":string/Done")), 1000);
         coords = Coordinates.nodeListToCooardinateArray(map.getWidth(), map.getHeight(), map.getViewBox(), way.getNodes());
         v1 = coords[0].subtract(coords[1]);
@@ -344,5 +344,75 @@ public class WayActionsTest {
         assertEquals(633468409L, restriction.getMembersWithRole(Tags.ROLE_VIA).get(0).getElement().getOsmId());
         assertEquals(1, restriction.getMembersWithRole(Tags.ROLE_TO).size());
         assertEquals(49855525L, restriction.getMembersWithRole(Tags.ROLE_TO).get(0).getElement().getOsmId());
+    }
+    
+    /**
+     * Create a new way from menu and append at the end and the start
+     */
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void append() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
+        TestUtils.clickAtCoordinates(device, map, 8.3886384, 47.3892752, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
+
+        TestUtils.clickAtCoordinates(device, map, 8.3887655, 47.3892752, true);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
+        TestUtils.clickHome(device, true);
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertTrue(way.getOsmId() < 0);
+        assertEquals(2, way.nodeCount());
+        
+        // start append
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_append), false, true));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_append)));
+        
+        // append at end
+        TestUtils.clickAtCoordinates(device, map, 8.3887655, 47.3892752, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
+        TestUtils.clickAtCoordinates(device, map, 8.38877, 47.389202, true);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
+        TestUtils.clickHome(device, true);
+        way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertTrue(way.getOsmId() < 0);
+        assertEquals(3, way.nodeCount());
+        
+        // undo
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        TestUtils.findText(device, false, context.getString(R.string.undo));
+        TestUtils.textGone(device, context.getString(R.string.undo), 5000);
+        TestUtils.clickText(device, false, context.getString(R.string.okay), true); // in case we get a tip
+        assertEquals(2, way.nodeCount());
+        
+        // start append
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_append), false, true));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_append)));
+        
+        // append at start
+        TestUtils.clickAtCoordinates(device, map, 8.3886384, 47.3892752, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
+        TestUtils.clickAtCoordinates(device, map, 8.38877, 47.389202, true);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
+        TestUtils.clickHome(device, true);
+        way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertTrue(way.getOsmId() < 0);
+        assertEquals(3, way.nodeCount());
+        
+        
+        device.waitForIdle(1000);
+        TestUtils.clickUp(device);
     }
 }
