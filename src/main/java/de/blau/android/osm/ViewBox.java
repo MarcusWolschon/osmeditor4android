@@ -617,15 +617,20 @@ public class ViewBox extends BoundingBox {
         long mHeight = mTop - mBottom;
 
         double boxRatio = (double) box.getWidth() / mHeight;
-
+        long center = ((long) box.getLeft() - (long) box.getRight()) / 2L + box.getRight();
         if (boxRatio > ratio) { // less high than our screen -> make box higher
             long mCenter = mBottom + mHeight / 2;
             long newHeight = (long) (box.getWidth() / ratio);
             if (newHeight > GeoMath.MAX_MLAT_E7 * 2L) { // clamp
                 box.setTop(GeoMath.MAX_COMPAT_LAT_E7);
                 box.setBottom(-GeoMath.MAX_COMPAT_LAT_E7);
-                long center = ((long) box.getLeft() - (long) box.getRight()) / 2L + box.getRight();
-                long newWidth = (long) (GeoMath.MAX_MLAT_E7 * 2L * ratio);
+                long newWidth = (long) (GeoMath.MAX_MLAT_E7 * ratio);
+                box.setLeft((int) (center + newWidth));
+                box.setRight((int) (center - newWidth));
+            } else if (newHeight < MIN_ZOOM_WIDTH) {
+                box.setTop(GeoMath.mercatorE7ToLatE7((int) (mCenter + MIN_ZOOM_WIDTH / 2)));
+                box.setBottom(GeoMath.mercatorE7ToLatE7((int) (mCenter - MIN_ZOOM_WIDTH / 2)));
+                long newWidth = (long) (MIN_ZOOM_WIDTH * ratio);
                 box.setLeft((int) (center + newWidth / 2));
                 box.setRight((int) (center - newWidth / 2));
             } else {
@@ -633,13 +638,19 @@ public class ViewBox extends BoundingBox {
                 box.setBottom(GeoMath.mercatorE7ToLatE7((int) (mCenter - newHeight / 2)));
             }
         } else if (boxRatio < ratio) { // higher than our screen -> make box wider
-            long center = ((long) box.getLeft() - (long) box.getRight()) / 2L + box.getRight();
             long newWidth = (long) (mHeight * ratio);
             if (newWidth > 2D * GeoMath.MAX_LON_E7) { // clamp
                 box.setLeft(GeoMath.MAX_LON_E7);
                 box.setRight(-GeoMath.MAX_LON_E7);
                 long mCenter = mBottom + mHeight / 2;
-                long newHeight = (long) (2D * GeoMath.MAX_LON_E7 / ratio);
+                long newHeight = (long) (GeoMath.MAX_LON_E7 / ratio);
+                box.setTop(GeoMath.mercatorE7ToLatE7((int) (mCenter + newHeight)));
+                box.setBottom(GeoMath.mercatorE7ToLatE7((int) (mCenter - newHeight)));
+            } else if (newWidth < MIN_ZOOM_WIDTH) {
+                box.setLeft((int) (center + MIN_ZOOM_WIDTH / 2));
+                box.setRight((int) (center - MIN_ZOOM_WIDTH / 2));
+                long mCenter = mBottom + mHeight / 2;
+                long newHeight = (long) (MIN_ZOOM_WIDTH / ratio);
                 box.setTop(GeoMath.mercatorE7ToLatE7((int) (mCenter + newHeight / 2)));
                 box.setBottom(GeoMath.mercatorE7ToLatE7((int) (mCenter - newHeight / 2)));
             } else {
