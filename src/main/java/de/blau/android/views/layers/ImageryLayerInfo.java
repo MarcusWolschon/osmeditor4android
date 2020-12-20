@@ -50,7 +50,7 @@ public class ImageryLayerInfo extends LayerInfo {
         tp.setMargins(10, 2, 10, 2);
         tableLayout.setColumnShrinkable(1, false);
         tableLayout.setColumnStretchable(2, true);
-        if (layer != null) {
+        if (layer != null && layer.isMetadataLoaded()) {
             tableLayout.addView(TableLayoutUtils.createFullRowTitle(activity, layer.getName(), tp));
             tableLayout.addView(TableLayoutUtils.divider(activity));
             String description = layer.getDescription();

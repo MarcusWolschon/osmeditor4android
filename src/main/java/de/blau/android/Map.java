@@ -1126,9 +1126,7 @@ public class Map extends View implements IMapView {
         }
         if (tileLayer != null) {
             TileLayerSource s = tileLayer.getTileLayerConfiguration();
-            if (s == null || !s.isMetadataLoaded()) {// protection on startup
-                return 0;
-            } else {
+            if (s != null && s.isMetadataLoaded()) {// protection on startup
                 tileWidth = s.getTileWidth();
                 tileHeight = s.getTileHeight();
             }

@@ -404,7 +404,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * 
      * @param canvas Canvas, where the data shall be painted on.
      */
-    private void paintOsmData(final Canvas canvas) {
+    private void paintOsmData(@NonNull final Canvas canvas) {
 
         int screenWidth = map.getWidth();
         int screenHeight = map.getHeight();
