@@ -444,7 +444,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
 
     @Override
     public int onDrawAttribution(Canvas c, IMapView osmv, int offset) {
-        return drawAttribution(c, osmv.getViewBox(), osmv.getZoomLevel(), offset);
+        return myRendererInfo.isMetadataLoaded() ? drawAttribution(c, osmv.getViewBox(), osmv.getZoomLevel(), offset) : offset;
     }
 
     /**

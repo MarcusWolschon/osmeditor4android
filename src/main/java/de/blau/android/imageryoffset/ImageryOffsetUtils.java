@@ -95,32 +95,35 @@ public final class ImageryOffsetUtils {
         Offset[] offsets = osmts.getOffsets(); // current offset
         String imageryId = osmts.getImageryOffsetId();
         List<ImageryOffset> offsetList = new ArrayList<>();
-        Offset lastOffset = null;
-        ImageryOffset im = null;
-        for (int z = 0; z < offsets.length; z++) { // iterate through the list and generate a new offset when necessary
-            Offset o = offsets[z];
-            if (o != null && (o.getDeltaLon() != 0 || o.getDeltaLat() != 0)) { // non-null zoom
-                if (lastOffset != null && im != null) {
-                    if (lastOffset.getDeltaLon() == o.getDeltaLon() && lastOffset.getDeltaLat() == o.getDeltaLat()) {
-                        im.setMaxZoom(im.getMaxZoom() + 1);
-                        lastOffset = o;
-                        continue;
+        if (osmts.isMetadataLoaded()) {
+            Offset lastOffset = null;
+            ImageryOffset im = null;
+            for (int z = 0; z < offsets.length; z++) { // iterate through the list and generate a new offset when
+                                                       // necessary
+                Offset o = offsets[z];
+                if (o != null && (o.getDeltaLon() != 0 || o.getDeltaLat() != 0)) { // non-null zoom
+                    if (lastOffset != null && im != null) {
+                        if (lastOffset.getDeltaLon() == o.getDeltaLon() && lastOffset.getDeltaLat() == o.getDeltaLat()) {
+                            im.setMaxZoom(im.getMaxZoom() + 1);
+                            lastOffset = o;
+                            continue;
+                        }
                     }
+                    im = new ImageryOffset();
+                    im.imageryId = imageryId;
+                    im.setLon((bbox.getLeft() + bbox.getWidth() / 2d) / 1E7d);
+                    im.setLat(bbox.getCenterLat());
+                    im.setImageryLon(im.getLon() - o.getDeltaLon());
+                    im.setImageryLat(im.getLat() - o.getDeltaLat());
+                    im.setMinZoom(z + osmts.getMinZoomLevel());
+                    im.setMaxZoom(im.getMinZoom());
+                    Calendar c = Calendar.getInstance();
+                    im.date = DateFormatter.getFormattedString(ImageryOffset.DATE_PATTERN_IMAGERY_OFFSET_CREATED_AT, c.getTime());
+                    im.author = author;
+                    offsetList.add(im);
                 }
-                im = new ImageryOffset();
-                im.imageryId = imageryId;
-                im.setLon((bbox.getLeft() + bbox.getWidth() / 2d) / 1E7d);
-                im.setLat(bbox.getCenterLat());
-                im.setImageryLon(im.getLon() - o.getDeltaLon());
-                im.setImageryLat(im.getLat() - o.getDeltaLat());
-                im.setMinZoom(z + osmts.getMinZoomLevel());
-                im.setMaxZoom(im.getMinZoom());
-                Calendar c = Calendar.getInstance();
-                im.date = DateFormatter.getFormattedString(ImageryOffset.DATE_PATTERN_IMAGERY_OFFSET_CREATED_AT, c.getTime());
-                im.author = author;
-                offsetList.add(im);
+                lastOffset = o;
             }
-            lastOffset = o;
         }
         return offsetList;
     }

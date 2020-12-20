@@ -1997,7 +1997,8 @@ public class TileLayerSource implements Serializable {
      * @param aTile The tile to get the URL for.
      * @return URL of the given tile.
      */
-    public synchronized String getTileURLString(final MapTile aTile) {
+    @NonNull
+    public synchronized String getTileURLString(@NonNull final MapTile aTile) {
         checkMetaData();
         builder.setLength(0);
         int state = BASE_STATE;
