@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1280mm"
+   height="640mm"
+   viewBox="0 0 1280 640"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="social_media_card.svg"
+   inkscape:export-filename="C:\Users\simon\git\osmeditor4android\documentation\docs\social_media_card.png"
+   inkscape:export-xdpi="25.4"
+   inkscape:export-ydpi="25.4">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.13"
+     inkscape:cx="2541.252"
+     inkscape:cy="560"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1147"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,343)">
+    <path
+       style="opacity:1;fill:#82aa6b;fill-opacity:1;stroke:#82aa6b;stroke-width:8.87429714;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 515.55467,-215.62584 c 0,0 -42.24203,15.67229 -55.30655,18.28522 -13.06452,2.6129 -36.57041,9.15387 -36.57041,9.15387 0,0 -16.99027,-7.40981 -38.32902,-14.81305 -21.33873,-7.40324 -51.81183,-9.58227 -51.81183,-9.58227 0,0 -5.66769,6.09502 -38.32903,13.93375 -27.24177,6.53802 -37.99221,9.03609 -42.26299,9.71754 l 14.64354,262.531278 81.41538,-37.26936 c 63.6588,-28.6349945 37.53085,-21.739255 166.83467,-87.88929 1.74591,-7.527122 4.23054,-7.377225 9.29847,-20.807311 8.70969,-23.080659 17.85683,-46.581037 17.85683,-46.581037 0,0 -8.26409,-26.57627 -13.0544,-51.83437 -4.79035,-25.2581 -14.38466,-44.84497 -14.38466,-44.84497 z m -358.01567,3.53979 c -4.75378,-0.0109 -7.73958,0.22006 -8.22949,0.38329 0,0 13.06899,22.64611 20.47221,48.33969 7.40324,25.69356 10.88997,44.41657 10.88997,44.41657 0,0 -9.5718,22.205627 -14.36211,43.108871 -4.79034,20.903242 -10.03321,40.065126 -10.03321,40.065126 0,0 10.02396,27.8756085 16.12075,52.262731 6.09677,24.38714 6.5385,42.22956 6.5385,42.22956 0,0 -6.9802,17.86501 -13.07699,42.252142 -6.09679,24.38711 -8.70292,53.5479 -8.70292,53.5479 0,0 16.08195,-3.469 49.53463,2.16446 l 30.73006,-348.31523 c -7.63277,-3.57301 -25.89205,-13.35302 -45.00199,-17.02801 -14.15325,-2.72179 -26.95651,-3.40583 -34.87941,-3.4271 z M 512.80011,-32.508725 231.31109,161.01322 c 19.52927,3.57917 31.65526,6.1552 31.65526,6.1552 0,0 22.22695,-4.79318 41.82374,-10.88997 19.5968,-6.09679 28.29585,-11.34088 28.29585,-11.34088 0,0 9.59541,0.87383 39.20834,10.88996 29.61293,10.01614 50.93252,14.81303 50.93252,14.81303 0,0 22.65071,-4.78481 45.29588,-10.01063 22.64518,-5.22583 46.1752,-13.93374 46.1752,-13.93374 0,0 -1.31444,-8.71272 7.39525,-42.68048 8.70969,-33.967792 15.24145,-48.768062 15.24145,-48.768062 0,0 -0.87719,-7.84139 -6.53849,-34.40594 -5.66131,-26.5645415 -17.40589,-51.834369 -17.40589,-51.834369 0,0 -1.0298,0.64349 -0.59009,-1.516064 z"
+       id="path3834-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscscsccccscscccscscscscccsccccscscscscscc"
+       inkscape:export-filename="C:\Users\simon\git\osmeditor4android\src\main\res\drawable\path3834-2.png"
+       inkscape:export-xdpi="10.320819"
+       inkscape:export-ydpi="10.320819" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5102"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Courier New;font-style:normal;font-weight:normal;font-size:64px;line-height:125%;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:Courier New;font-stretch:normal;font-variant:normal"><flowRegion
+         id="flowRegion5104"><rect
+           id="rect5106"
+           width="2200"
+           height="1492.3077"
+           x="2492.3076"
+           y="495.82077" /></flowRegion><flowPara
+         id="flowPara5108"></flowPara></flowRoot>    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.93333244px;line-height:125%;font-family:'Courier New';-inkscape-font-specification:'Courier New';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="836.49042"
+       y="-167.03844"
+       id="text5112"><tspan
+         sodipodi:role="line"
+         id="tspan5110"
+         x="836.49042"
+         y="-151.97154"
+         style="stroke-width:0.26458332px" /></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5158"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:128px;line-height:125%;font-family:'Courier New';-inkscape-font-specification:'Courier New, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.26458333,0,0,0.26458333,23.812509,-269.595)"><flowRegion
+         id="flowRegion5160"><rect
+           id="rect5162"
+           width="2092.3076"
+           height="1461.5385"
+           x="2376.9231"
+           y="526.59003" /></flowRegion><flowPara
+         id="flowPara5164">Twitter</flowPara><flowPara
+         id="flowPara5166">@vespucci_editor</flowPara><flowPara
+         id="flowPara5168" /><flowPara
+         id="flowPara5170">Help and documentation</flowPara><flowPara
+         id="flowPara5172">https://vespucci.io/</flowPara></flowRoot>  </g>
+</svg>
