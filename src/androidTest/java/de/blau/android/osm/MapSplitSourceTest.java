@@ -19,6 +19,8 @@ import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiScrollable;
 import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
+import de.blau.android.JavaResources;
+import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.TestUtils;
@@ -48,14 +50,14 @@ public class MapSplitSourceTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        TestUtils.removeTaskLayer(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeTaskLayer(context);
+        LayerUtils.removeImageryLayers(context);
         prefDB = new AdvancedPrefDatabase(context);
         main.getMap().setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         try {
-            TestUtils.copyFileFromResources(main, MSF_FILE, ".", false);
+            JavaResources.copyFileFromResources(main, MSF_FILE, ".", false);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }

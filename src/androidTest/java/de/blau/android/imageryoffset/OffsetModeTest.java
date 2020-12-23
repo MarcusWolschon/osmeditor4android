@@ -14,15 +14,16 @@ import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Intent;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.MockTileServer;
 import de.blau.android.Splash;
 import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmException;
@@ -76,7 +77,7 @@ public class OffsetModeTest {
         HttpUrl mockBaseUrl = mockServer.server().url("/");
         prefs.setOffsetServer(mockBaseUrl.toString());
 
-        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt", true);
+        tileServer = MockTileServer.setupTileServer(main, prefs, "ersatz_background.mbt", true);
 
         map = main.getMap();
         map.setPrefs(main, prefs);

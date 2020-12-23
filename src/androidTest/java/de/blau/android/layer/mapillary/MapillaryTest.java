@@ -1,7 +1,6 @@
 package de.blau.android.layer.mapillary;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +22,7 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject2;
 import androidx.test.uiautomator.Until;
-import de.blau.android.App;
+import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
@@ -67,7 +66,7 @@ public class MapillaryTest {
         Assert.assertNotNull(main);
         TestUtils.grantPermissons(device);
         Preferences prefs = new Preferences(main);
-        TestUtils.removeImageryLayers(main);
+        LayerUtils.removeImageryLayers(main);
         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(main)) {
             db.deleteLayer(LayerType.MAPILLARY, null);
         }

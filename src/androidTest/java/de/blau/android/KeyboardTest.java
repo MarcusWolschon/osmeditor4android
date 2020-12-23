@@ -1,10 +1,5 @@
 package de.blau.android;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -24,7 +19,6 @@ import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
-import de.blau.android.osm.ApiTest;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
@@ -62,7 +56,7 @@ public class KeyboardTest {
         prefDB.addAPI("Test", "Test", "", null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         map = main.getMap();
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);

@@ -12,17 +12,19 @@ import org.junit.runner.RunWith;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Intent;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
+import android.view.View;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObject2;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
-import android.view.View;
+import de.blau.android.JavaResources;
+import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.Splash;
@@ -92,12 +94,12 @@ public class CustomImageryTest {
     @Test
     public void customImageryValidMBTiles() {
         try {
-            TestUtils.copyFileFromResources(main, "map.mbt", "mbtiles", false);
+            JavaResources.copyFileFromResources(main, "map.mbt", "mbtiles", false);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
         Preferences prefs = new Preferences(main);
-        TestUtils.removeImageryLayers(main);
+        LayerUtils.removeImageryLayers(main);
         main.getMap().setPrefs(main, prefs);
         monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
         Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
@@ -124,12 +126,12 @@ public class CustomImageryTest {
     @Test
     public void customImageryInvalidMBTiles() {
         try {
-            TestUtils.copyFileFromResources(main, "map-no-meta.mbt", "mbtiles", false);
+            JavaResources.copyFileFromResources(main, "map-no-meta.mbt", "mbtiles", false);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
         Preferences prefs = new Preferences(main);
-        TestUtils.removeImageryLayers(main);
+        LayerUtils.removeImageryLayers(main);
         main.getMap().setPrefs(main, prefs);
         monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
         Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));

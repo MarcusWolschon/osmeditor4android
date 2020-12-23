@@ -15,11 +15,12 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.GrantPermissionRule;
 import androidx.test.rule.ServiceTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import de.blau.android.MockTileServer;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.MapTile;
@@ -38,7 +39,7 @@ import okhttp3.mockwebserver.MockWebServer;
 @LargeTest
 public class MapTileProviderServiceTest {
 
-    private static final String RENDERER   = "VESPUCCITEST";
+    private static final String RENDERER   = MockTileServer.MOCK_TILE_SOURCE;
     private static final int    TIMEOUT    = 10;
     private Context             context    = null;
     private MockWebServer       tileServer = null;
@@ -56,7 +57,7 @@ public class MapTileProviderServiceTest {
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        tileServer = TestUtils.setupTileServer(context, new Preferences(context), "ersatz_background.mbt", true);
+        tileServer = MockTileServer.setupTileServer(context, new Preferences(context), "ersatz_background.mbt", true);
     }
 
     /**

@@ -54,7 +54,7 @@ public class FeedbackTest {
         prefDB.selectAPI("Test");
         prefDB.resetCurrentServer();
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);

@@ -24,13 +24,13 @@ import de.blau.android.exception.InvalidTileException;
 import de.blau.android.services.exceptions.EmptyCacheException;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowSQLiteStatement.class })
+@Config(shadows = { ShadowSQLiteStatement.class, ShadowSQLiteProgram.class, ShadowSQLiteCloseable.class })
 @LargeTest
 public class MapTileProviderDataBaseTest {
 
     MapTileProviderDataBase db;
     MapTile                 tile;
-    byte[]                  byteArray;
+    byte[]                  tileBytes;
 
     /**
      * Pre-test setup
@@ -39,6 +39,15 @@ public class MapTileProviderDataBaseTest {
     public void setup() {
         db = new MapTileProviderDataBase(ApplicationProvider.getApplicationContext());
         tile = new MapTile("test", 10, 511, 340);
+        tileBytes = getTestTile();
+    }
+
+    /**
+     * Get test tile from resources
+     * 
+     * @return a test tile
+     */
+    static byte[] getTestTile() {
         try (InputStream is = MapTileProviderDataBaseTest.class.getResourceAsStream("/340.png")) {
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
             int nRead;
@@ -46,11 +55,12 @@ public class MapTileProviderDataBaseTest {
             while ((nRead = is.read(data, 0, data.length)) != -1) {
                 buffer.write(data, 0, nRead);
             }
-
             buffer.flush();
-            byteArray = buffer.toByteArray();
+            return buffer.toByteArray();
         } catch (IOException ioex) {
+            fail(ioex.getMessage());
         }
+        return null;
     }
 
     /**
@@ -76,7 +86,7 @@ public class MapTileProviderDataBaseTest {
     @Test
     public void addTileTest() {
         try {
-            assertEquals(byteArray.length, db.addTile(tile, byteArray));
+            assertEquals(tileBytes.length, db.addTile(tile, tileBytes));
             assertTrue(db.hasTile(tile));
         } catch (IOException ioex) {
             fail(ioex.getMessage());
@@ -90,7 +100,7 @@ public class MapTileProviderDataBaseTest {
     public void sizeTest() {
         assertEquals(0, db.getCurrentFSCacheByteSize());
         addTileTest();
-        assertEquals(byteArray.length, db.getCurrentFSCacheByteSize());
+        assertEquals(tileBytes.length, db.getCurrentFSCacheByteSize());
     }
 
     /**
@@ -99,7 +109,7 @@ public class MapTileProviderDataBaseTest {
     @Test
     public void deleteOldest() {
         addTileTest();
-        assertEquals(byteArray.length, db.deleteOldest(byteArray.length));
+        assertEquals(tileBytes.length, db.deleteOldest(tileBytes.length));
     }
 
     /**
@@ -113,7 +123,7 @@ public class MapTileProviderDataBaseTest {
             fail("flush failed");
         } catch (EmptyCacheException e) {
         }
-        assertEquals(byteArray.length, db.getCurrentFSCacheByteSize());
+        assertEquals(tileBytes.length, db.getCurrentFSCacheByteSize());
         try {
             db.flushCache("test");
         } catch (EmptyCacheException e) {
@@ -129,7 +139,7 @@ public class MapTileProviderDataBaseTest {
     public void getTileTest() {
         try {
             addTileTest();
-            assertArrayEquals(byteArray, db.getTile(tile));
+            assertArrayEquals(tileBytes, db.getTile(tile));
         } catch (InvalidTileException ite) {
             fail(ite.getMessage());
         } catch (IOException ioex) {
@@ -157,7 +167,7 @@ public class MapTileProviderDataBaseTest {
     public void addTileAfterInvalidTest() {
         try {
             assertEquals(0, db.addTile(tile, null));
-            assertEquals(byteArray.length, db.addTile(tile, byteArray));
+            assertEquals(tileBytes.length, db.addTile(tile, tileBytes));
         } catch (IOException ioex) {
             fail(ioex.getMessage());
         }

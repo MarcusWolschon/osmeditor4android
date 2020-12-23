@@ -50,3 +50,4 @@ $RECYCLE.BIN/
 libs/
 libs/**
 /project.properties
+/databases/

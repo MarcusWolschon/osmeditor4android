@@ -31,12 +31,12 @@ import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
+import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
-import de.blau.android.layer.LayerType;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -67,8 +67,8 @@ public class MapRouletteTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
-        TestUtils.addTaskLayer(main);
+        LayerUtils.removeImageryLayers(context);
+        LayerUtils.addTaskLayer(main);
         Set<String> filter = new HashSet<>();
         filter.add("MAPROULETTE");
         prefs.setTaskFilter(filter);
@@ -99,7 +99,7 @@ public class MapRouletteTest {
      */
     @After
     public void teardown() {
-        TestUtils.removeTaskLayer(main);
+        LayerUtils.removeTaskLayer(main);
         App.getTaskStorage().reset();
         try {
             mockServerMapRoulette.server().shutdown();

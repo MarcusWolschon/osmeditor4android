@@ -36,6 +36,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
+import de.blau.android.JavaResources;
+import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
@@ -73,7 +75,7 @@ public class ReadSaveTasksTest {
         device = UiDevice.getInstance(instrumentation);
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
@@ -196,7 +198,7 @@ public class ReadSaveTasksTest {
     @Test
     public void readNotes() {
         try {
-            TestUtils.copyFileFromResources(main, "test-result.osn", "/", false);
+            JavaResources.copyFileFromResources(main, "test-result.osn", "/", false);
         } catch (IOException e) {
             fail(e.getMessage());
         }

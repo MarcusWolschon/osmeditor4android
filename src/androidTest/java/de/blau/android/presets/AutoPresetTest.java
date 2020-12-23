@@ -27,6 +27,7 @@ import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
+import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.SignalHandler;
@@ -70,7 +71,7 @@ public class AutoPresetTest {
         context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
         prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);

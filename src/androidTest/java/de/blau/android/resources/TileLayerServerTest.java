@@ -24,6 +24,7 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
+import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.SignalHandler;
@@ -97,7 +98,7 @@ public class TileLayerServerTest {
         MapTile mapTile = new MapTile("", 20, 1111, 2222);
         Preferences prefs = new Preferences(main);
 
-        TestUtils.removeImageryLayers(main);
+        LayerUtils.removeImageryLayers(main);
         de.blau.android.layer.Util.addLayer(main, LayerType.IMAGERY, TileLayerSource.LAYER_BING);
         main.getMap().setPrefs(main, prefs);
 
@@ -141,7 +142,7 @@ public class TileLayerServerTest {
         System.out.println("Quadkey " + t.quadTree(mapTile));
         Assert.assertTrue(s.contains(t.quadTree(mapTile)));
 
-        TestUtils.removeImageryLayers(main);
+        LayerUtils.removeImageryLayers(main);
         de.blau.android.layer.Util.addLayer(main, LayerType.IMAGERY, TileLayerSource.LAYER_MAPNIK);
         main.getMap().setPrefs(main, prefs);
 

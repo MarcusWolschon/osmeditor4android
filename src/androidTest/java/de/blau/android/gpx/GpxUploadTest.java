@@ -18,7 +18,9 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
+import de.blau.android.JavaResources;
 import de.blau.android.Main;
+import de.blau.android.MockTileServer;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -62,7 +64,7 @@ public class GpxUploadTest {
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
         prefs = new Preferences(main);
-        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt", true);
+        tileServer = MockTileServer.setupTileServer(main, prefs, "ersatz_background.mbt", true);
         App.getLogic().setPrefs(prefs);
         main.getMap().setPrefs(main, prefs);
 
@@ -116,7 +118,7 @@ public class GpxUploadTest {
         }
 
         try {
-            TestUtils.copyFileFromResources(main, GPX_FILE, "/", false);
+            JavaResources.copyFileFromResources(main, GPX_FILE, "/", false);
             clickGpsButton();
             if (TestUtils.findObjectWithText(device, false, "Clear", 1000).getParent().getParent().getParent().isEnabled()) {
                 TestUtils.clickText(device, false, "Clear", true, false);

@@ -22,6 +22,7 @@ import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
+import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
@@ -58,7 +59,7 @@ public class ObjectSearchTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
 
         TestUtils.grantPermissons(device);

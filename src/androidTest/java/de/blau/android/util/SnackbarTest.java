@@ -10,12 +10,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.google.android.material.snackbar.Snackbar;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.uiautomator.UiDevice;
+
 import android.view.View;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.uiautomator.UiDevice;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
 

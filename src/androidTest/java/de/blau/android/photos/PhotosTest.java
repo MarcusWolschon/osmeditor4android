@@ -16,6 +16,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
+import de.blau.android.JavaResources;
+import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
@@ -46,13 +48,13 @@ public class PhotosTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         try {
-            TestUtils.copyFileFromResources(main, PHOTO_FILE, "Pictures", true);
-            TestUtils.copyFileFromResources(main, PHOTO_FILE2, "Pictures", true);
+            JavaResources.copyFileFromResources(main, PHOTO_FILE, "Pictures", true);
+            JavaResources.copyFileFromResources(main, PHOTO_FILE2, "Pictures", true);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }

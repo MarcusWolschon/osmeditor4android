@@ -46,7 +46,7 @@ public class ScriptingTest {
         context = instrumentation.getTargetContext();
         device = UiDevice.getInstance(instrumentation);
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         main = mActivityRule.getActivity();
         main.getMap().setPrefs(main, prefs);
         App.getDelegator().reset(false);

@@ -1,10 +1,6 @@
 package de.blau.android.easyedit;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -21,13 +17,12 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
+import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
-import de.blau.android.osm.ApiTest;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
@@ -57,7 +52,7 @@ public class NodeTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         map = main.getMap();
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);

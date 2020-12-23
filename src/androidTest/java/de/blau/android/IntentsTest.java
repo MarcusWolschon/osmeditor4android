@@ -22,7 +22,6 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
-import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Node;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -61,7 +60,7 @@ public class IntentsTest {
         App.getDelegator().reset(false);
         App.getTaskStorage().reset();
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         final Map map = main.getMap();
         map.setPrefs(main, prefs);
         mockServer = new MockWebServerPlus();
@@ -78,7 +77,7 @@ public class IntentsTest {
         mockServerOsmose = new MockWebServerPlus();
         mockBaseUrl = mockServerOsmose.server().url("/en/api/0.2/");
         prefs.putString(R.string.config_osmoseServer_key, mockBaseUrl.scheme() + "://" + mockBaseUrl.host() + ":" + mockBaseUrl.port() + "/");
-        TestUtils.addTaskLayer(main);
+        LayerUtils.addTaskLayer(main);
         map.setUpLayers(main);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
@@ -89,7 +88,7 @@ public class IntentsTest {
      */
     @After
     public void teardown() {
-        TestUtils.removeTaskLayer(main);
+        LayerUtils.removeTaskLayer(main);
         if (geoMonitor != null) {
             instrumentation.removeMonitor(geoMonitor);
         }

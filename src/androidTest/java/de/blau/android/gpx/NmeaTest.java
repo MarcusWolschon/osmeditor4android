@@ -24,6 +24,7 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Main;
+import de.blau.android.MockTileServer;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.Splash;
@@ -71,7 +72,7 @@ public class NmeaTest {
         TestUtils.grantPermissons(device);
 
         prefs = new Preferences(main);
-        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt", true);
+        tileServer = MockTileServer.setupTileServer(main, prefs, "ersatz_background.mbt", true);
         prefs.setGpsSource(R.string.gps_source_tcpserver);
         App.getLogic().setPrefs(prefs);
         main.getMap().setPrefs(main, prefs);

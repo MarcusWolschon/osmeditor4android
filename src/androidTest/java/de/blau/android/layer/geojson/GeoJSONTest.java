@@ -29,6 +29,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
+import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.TestUtils;
@@ -63,7 +64,7 @@ public class GeoJSONTest {
         map = main.getMap();
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         de.blau.android.layer.Util.addLayer(context, LayerType.GEOJSON);
         map.setUpLayers(context);
     }
