@@ -19,6 +19,7 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
+import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
 import de.blau.android.net.UrlCheck.CheckStatus;
@@ -50,7 +51,7 @@ public class UrlCheckTest {
         mockServer = new MockWebServerPlus();
         mockBaseUrl = mockServer.server().url("/");
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
         System.out.println("mock url " + mockBaseUrl.toString()); // NOSONAR
         TestUtils.grantPermissons(device);

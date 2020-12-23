@@ -47,7 +47,7 @@ public class DebugInformationTest {
         monitor = instrumentation.addMonitor(DebugInformation.class.getName(), null, false);
         main = (Main) mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
 
         TestUtils.grantPermissons(device);

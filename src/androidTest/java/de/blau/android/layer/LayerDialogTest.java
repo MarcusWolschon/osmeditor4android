@@ -29,9 +29,11 @@ import androidx.test.uiautomator.UiObject2;
 import androidx.test.uiautomator.Until;
 import ch.poole.android.screenshotrule.ScreenshotRule;
 import de.blau.android.App;
+import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.MockTileServer;
 import de.blau.android.R;
 import de.blau.android.Splash;
 import de.blau.android.TestUtils;
@@ -88,7 +90,7 @@ public class LayerDialogTest {
         assertNotNull(main);
         TestUtils.grantPermissons(device);
         Preferences prefs = new Preferences(main);
-        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt", false);
+        tileServer = MockTileServer.setupTileServer(main, prefs, "ersatz_background.mbt", false);
         map = main.getMap();
         map.setPrefs(main, prefs);
 
@@ -201,7 +203,7 @@ public class LayerDialogTest {
      */
     @Test
     public void taskLayer() {
-        TestUtils.addTaskLayer(main);
+        LayerUtils.addTaskLayer(main);
         assertNotNull(main.getMap().getTaskLayer());
         UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_tasks), MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);

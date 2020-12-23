@@ -25,6 +25,7 @@ import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
+import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
@@ -73,7 +74,7 @@ public class SaveResumeTest {
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         instrumentation.removeMonitor(monitor);
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         prefs.enableSimpleActions(true);
         main.runOnUiThread(new Runnable() {
             @Override

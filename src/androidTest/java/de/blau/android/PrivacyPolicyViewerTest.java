@@ -44,7 +44,7 @@ public class PrivacyPolicyViewerTest {
         context = instrumentation.getTargetContext();
         main = (Main) mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
 
         TestUtils.grantPermissons(device);

@@ -31,13 +31,13 @@ import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
+import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmException;
-import de.blau.android.layer.LayerType;
 import de.blau.android.layer.tasks.MapOverlay;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
@@ -70,8 +70,8 @@ public class OsmoseTest {
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setTaskFilter(null);
-        TestUtils.removeImageryLayers(context);
-        TestUtils.addTaskLayer(main);
+        LayerUtils.removeImageryLayers(context);
+        LayerUtils.addTaskLayer(main);
         main.getMap().setPrefs(main, prefs);
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/en/api/0.2/");
@@ -95,7 +95,7 @@ public class OsmoseTest {
     @After
     public void teardown() {
         App.getTaskStorage().reset();
-        TestUtils.removeTaskLayer(main);
+        LayerUtils.removeTaskLayer(main);
         try {
             mockServer.server().shutdown();
         } catch (IOException ioex) {

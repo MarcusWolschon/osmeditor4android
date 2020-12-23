@@ -229,15 +229,18 @@ public final class SelectFile {
         Log.d(DEBUG_TAG, "getPath uri: " + uri.toString());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(context, uri)) {
             if (isExternalStorageDocument(uri)) {
+                Log.i(DEBUG_TAG, "isExternalStorageDocument");
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
 
                 if ("primary".equalsIgnoreCase(type)) {
                     return Environment.getExternalStorageDirectory() + "/" + split[1];
+                } else {
+                    Log.e(DEBUG_TAG, "unknown doc type " + type);
                 }
-                // TODO handle non-primary volumes
             } else if (isDownloadsDocument(uri)) { // DownloadsProvider
+                Log.i(DEBUG_TAG, "isDownloadsDocument");
                 final String id = DocumentsContract.getDocumentId(uri);
                 if (id.startsWith("raw:")) {
                     return id.replaceFirst("raw:", "");
@@ -255,11 +258,13 @@ public final class SelectFile {
                     Log.e(DEBUG_TAG, "getPath " + id + " id not a long");
                 }
             } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+                Log.i(DEBUG_TAG, "content scheme");
                 return getDataColumn(context, uri, null, null);
             }
         } else if (FileUtil.FILE_SCHEME.equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
         }
+        Log.e(DEBUG_TAG, "Unable to determine how to handle Uri " + uri);
         return null;
     }
 

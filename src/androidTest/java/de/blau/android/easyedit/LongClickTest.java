@@ -5,11 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Before;
@@ -30,14 +26,12 @@ import androidx.test.uiautomator.UiObject2;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
+import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
-import de.blau.android.layer.LayerType;
-import de.blau.android.osm.ApiTest;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -68,7 +62,7 @@ public class LongClickTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         map = main.getMap();
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
@@ -170,7 +164,7 @@ public class LongClickTest {
     @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newBug() {
-        TestUtils.addTaskLayer(main);
+        LayerUtils.addTaskLayer(main);
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
@@ -191,6 +185,6 @@ public class LongClickTest {
         Task t = tasks.get(0);
         assertTrue(t instanceof Note);
         assertEquals("test", ((Note) t).getComment());
-        TestUtils.removeTaskLayer(main);
+        LayerUtils.removeTaskLayer(main);
     }
 }

@@ -20,8 +20,10 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
+import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.MockTileServer;
 import de.blau.android.SignalHandler;
 import de.blau.android.Splash;
 import de.blau.android.TestUtils;
@@ -67,8 +69,8 @@ public class OffsetTest {
         TestUtils.grantPermissons(device);
 
         prefs = new Preferences(main);
-        TestUtils.removeImageryLayers(main);
-        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt", true);
+        LayerUtils.removeImageryLayers(main);
+        tileServer = MockTileServer.setupTileServer(main, prefs, "ersatz_background.mbt", true);
         main.getMap().setPrefs(main, prefs);
         TestUtils.resetOffsets(main.getMap());
         TestUtils.dismissStartUpDialogs(device, main);

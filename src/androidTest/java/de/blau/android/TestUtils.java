@@ -1,11 +1,8 @@
 package de.blau.android;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -29,7 +26,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.BySelector;
@@ -44,19 +40,11 @@ import androidx.test.uiautomator.Until;
 import de.blau.android.contract.Paths;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.imageryoffset.Offset;
-import de.blau.android.layer.LayerType;
 import de.blau.android.osm.ApiTest;
-import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
-import de.blau.android.resources.TileLayerSource.Category;
-import de.blau.android.resources.TileLayerSource.Provider;
-import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.layers.MapTilesLayer;
 import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
 import okio.Buffer;
 
 /**
@@ -962,33 +950,6 @@ public class TestUtils {
     }
 
     /**
-     * Copy a file from resources to a sub-directory of the public Vespucci directory
-     * 
-     * @param context Android Context
-     * @param fileName the name of the file to copy
-     * @param destination the destination sub-directory
-     * @param useVespucciDir if true use the Vespucci directory instead of the standard ones
-     * @throws IOException if copying goes wrong
-     */
-    public static void copyFileFromResources(@NonNull Context context, @NonNull String fileName, @NonNull String destination, boolean useVespucciDir)
-            throws IOException {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-
-        File[] storageDirectories = ContextCompat.getExternalFilesDirs(context, null);
-        File destinationDir = FileUtil.getPublicDirectory(useVespucciDir ? FileUtil.getPublicDirectory() : storageDirectories[0], destination);
-        File destinationFile = new File(destinationDir, fileName);
-        try (OutputStream os = new FileOutputStream(destinationFile); InputStream is = loader.getResourceAsStream(fileName)) {
-
-            byte[] buffer = new byte[8 * 1024];
-            int bytesRead;
-            while ((bytesRead = is.read(buffer)) != -1) {
-                os.write(buffer, 0, bytesRead);
-            }
-            os.flush();
-        }
-    }
-
-    /**
      * Get one of the buttons for a specific layer
      * 
      * @param device the current UIDevice
@@ -1156,36 +1117,6 @@ public class TestUtils {
     }
 
     /**
-     * Setup a mock web server that serves tiles from a MBT source and set it to the current source
-     * 
-     * @param context an Android Context
-     * @param prefs the current Preferences
-     * @param mbtSource the MBT file name
-     * @param removeLayers if true remove any other layers
-     * @return a MockWebServer
-     */
-    public static MockWebServer setupTileServer(@NonNull Context context, @NonNull Preferences prefs, @NonNull String mbtSource, boolean removeLayers) {
-        MockWebServer tileServer = new MockWebServer();
-        try {
-            tileServer.setDispatcher(new TileDispatcher(context, "ersatz_background.mbt"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String tileUrl = tileServer.url("/").toString() + "{zoom}/{x}/{y}";
-        Log.i(DEBUG_TAG, "Set up tileserver on " + tileUrl);
-        try (TileLayerDatabase db = new TileLayerDatabase(context)) {
-            TileLayerSource.addOrUpdateCustomLayer(context, db.getWritableDatabase(), "VESPUCCITEST", null, -1, -1, "Vespucci Test", new Provider(),
-                    Category.other, null, 0, 19, false, tileUrl);
-        }
-        if (removeLayers) {
-            TestUtils.removeImageryLayers(context);
-        }
-        de.blau.android.layer.Util.addLayer(context, LayerType.IMAGERY, "VESPUCCITEST");
-        return tileServer;
-    }
-
-    /**
      * Try to hide any visible soft keyboard
      * 
      * FIXME doesn't seem to work
@@ -1245,41 +1176,6 @@ public class TestUtils {
             Thread.sleep(snore); // NOSONAR
         } catch (InterruptedException e) { // NOSONAR
             // do nothing
-        }
-    }
-
-    /**
-     * Remove imagery layers
-     * 
-     * @param context Android context
-     */
-    public static void removeImageryLayers(@NonNull Context context) {
-        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
-            db.deleteLayer(LayerType.IMAGERY, null);
-            db.deleteLayer(LayerType.OVERLAYIMAGERY, null);
-        }
-    }
-
-    /**
-     * Remove task layer
-     * 
-     * @param context Android context
-     */
-    public static void removeTaskLayer(@NonNull Context context) {
-        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
-            db.deleteLayer(LayerType.TASKS, null);
-        }
-    }
-
-    /**
-     * If not present add the task layer
-     * 
-     * @param main the current instance of main
-     */
-    public static void addTaskLayer(@NonNull Main main) {
-        if (main.getMap().getTaskLayer() == null) {
-            de.blau.android.layer.Util.addLayer(main, LayerType.TASKS);
-            main.getMap().setUpLayers(main);
         }
     }
 

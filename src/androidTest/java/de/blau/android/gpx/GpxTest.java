@@ -37,7 +37,7 @@ import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
-import de.blau.android.R;
+import de.blau.android.MockTileServer;
 import de.blau.android.SignalHandler;
 import de.blau.android.Splash;
 import de.blau.android.TestUtils;
@@ -90,7 +90,7 @@ public class GpxTest {
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 60000); // wait for main
 
         prefs = new Preferences(main);
-        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt", true);
+        tileServer = MockTileServer.setupTileServer(main, prefs, "ersatz_background.mbt", true);
         de.blau.android.layer.Util.addLayer(main, LayerType.GPX);
         App.getLogic().setPrefs(prefs);
         main.getMap().setPrefs(main, prefs);

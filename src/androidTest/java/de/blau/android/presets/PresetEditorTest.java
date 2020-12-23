@@ -27,6 +27,7 @@ import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
 import de.blau.android.App;
+import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
@@ -61,7 +62,7 @@ public class PresetEditorTest {
         monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         TestUtils.grantPermissons(device);

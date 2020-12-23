@@ -48,9 +48,8 @@ public class CoordinatesOLCTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        TestUtils.removeImageryLayers(context);
+        LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
-
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         logic = App.getLogic();

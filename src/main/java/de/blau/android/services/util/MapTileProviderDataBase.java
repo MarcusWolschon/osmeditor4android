@@ -42,14 +42,14 @@ import de.blau.android.views.util.MapViewConstants;
  */
 public class MapTileProviderDataBase {
 
-    private static final String TILE_MARKED_INVALID_IN_DATABASE = "Tile marked invalid in database";
+    static final String TILE_MARKED_INVALID_IN_DATABASE = "Tile marked invalid in database";
 
     private static final String DEBUG_TAG = "MapTilePro...DataBase";
 
     private static final String DATABASE_NAME    = "osmaptilefscache_db";
     private static final int    DATABASE_VERSION = 8;
 
-    private static final String T_FSCACHE             = "tiles";
+    static final String         T_FSCACHE             = "tiles";
     private static final String T_FSCACHE_RENDERER_ID = "rendererID";
     private static final String T_FSCACHE_ZOOM_LEVEL  = "zoom_level";
     private static final String T_FSCACHE_TILE_X      = "tile_column";
@@ -58,7 +58,7 @@ public class MapTileProviderDataBase {
     private static final String T_FSCACHE_TIMESTAMP  = "timestamp";
     private static final String T_FSCACHE_USAGECOUNT = "countused";
     private static final String T_FSCACHE_FILESIZE   = "filesize";
-    private static final String T_FSCACHE_DATA       = "tile_data";
+    static final String         T_FSCACHE_DATA       = "tile_data";
 
     private static final String T_RENDERER               = "t_renderer";
     private static final String T_RENDERER_ID            = "id";
@@ -87,8 +87,8 @@ public class MapTileProviderDataBase {
     private static final String T_FSCACHE_WHERE_INVALID = T_FSCACHE_RENDERER_ID + SQL_ARG + AND + T_FSCACHE_ZOOM_LEVEL + SQL_ARG + AND + T_FSCACHE_TILE_X
             + SQL_ARG + AND + T_FSCACHE_TILE_Y + SQL_ARG + AND + T_FSCACHE_FILESIZE + "=0";
 
-    private static final String T_FSCACHE_WHERE_NOT_INVALID = T_FSCACHE_RENDERER_ID + SQL_ARG + AND + T_FSCACHE_ZOOM_LEVEL + SQL_ARG + AND + T_FSCACHE_TILE_X
-            + SQL_ARG + AND + T_FSCACHE_TILE_Y + SQL_ARG + AND + T_FSCACHE_FILESIZE + ">0";
+    static final String T_FSCACHE_WHERE_NOT_INVALID = T_FSCACHE_RENDERER_ID + SQL_ARG + AND + T_FSCACHE_ZOOM_LEVEL + SQL_ARG + AND + T_FSCACHE_TILE_X + SQL_ARG
+            + AND + T_FSCACHE_TILE_Y + SQL_ARG + AND + T_FSCACHE_FILESIZE + ">0";
 
     private static final String T_FSCACHE_SELECT_OLDEST = "SELECT " + T_FSCACHE_RENDERER_ID + "," + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + ","
             + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " WHERE " + T_FSCACHE_FILESIZE + " > 0 ORDER BY " + T_FSCACHE_TIMESTAMP
@@ -163,11 +163,11 @@ public class MapTileProviderDataBase {
      * Save tile data to the database, checks if it exists beforehand
      * 
      * @param aTile tile meta data
-     * @param tile_data the tile image data
+     * @param tileData the tile image data
      * @return the size of the tile if successfully added
      * @throws IOException
      */
-    public int addTile(@NonNull final MapTile aTile, @Nullable final byte[] tile_data) throws IOException {
+    public int addTile(@NonNull final MapTile aTile, @Nullable final byte[] tileData) throws IOException {
         if (MapViewConstants.DEBUGMODE) {
             Log.d(MapTileFilesystemProvider.DEBUG_TAG, "adding " + aTile);
         }
@@ -179,28 +179,28 @@ public class MapTileProviderDataBase {
                 cv.put(T_FSCACHE_TILE_X, aTile.x);
                 cv.put(T_FSCACHE_TILE_Y, aTile.y);
                 cv.put(T_FSCACHE_TIMESTAMP, System.currentTimeMillis());
-                cv.put(T_FSCACHE_FILESIZE, tile_data != null ? tile_data.length : 0); // 0 == invalid
-                cv.put(T_FSCACHE_DATA, tile_data);
+                cv.put(T_FSCACHE_FILESIZE, tileData != null ? tileData.length : 0); // 0 == invalid
+                cv.put(T_FSCACHE_DATA, tileData);
                 long result = mDatabase.insertOrThrow(T_FSCACHE, null, cv);
                 if (MapViewConstants.DEBUGMODE) {
                     Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Inserting new tile result " + result);
                 }
-                return tile_data != null ? tile_data.length : 0;
+                return tileData != null ? tileData.length : 0;
             }
             return 0;
         } catch (SQLiteConstraintException scex) {
-            if (tile_data != null && isInvalid(aTile)) {
+            if (tileData != null && isInvalid(aTile)) {
                 Log.w(DEBUG_TAG, "Formerly invalid tile has become available " + aTile);
                 // try to update tile with current data now that it has become available
                 final ContentValues cv = new ContentValues();
                 cv.put(T_FSCACHE_TIMESTAMP, System.currentTimeMillis());
-                cv.put(T_FSCACHE_FILESIZE, tile_data.length);
-                cv.put(T_FSCACHE_DATA, tile_data);
+                cv.put(T_FSCACHE_FILESIZE, tileData.length);
+                cv.put(T_FSCACHE_DATA, tileData);
                 long result = mDatabase.update(T_FSCACHE, cv, T_FSCACHE_WHERE, tileToWhereArgs(aTile));
                 if (MapViewConstants.DEBUGMODE) {
                     Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Inserting tile for invalid one result " + result);
                 }
-                return tile_data.length;
+                return tileData.length;
             } else {
                 Log.w(DEBUG_TAG, "Constraint violated inserting tile " + aTile);
                 return 0; // file was already inserted
@@ -216,7 +216,8 @@ public class MapTileProviderDataBase {
      * @param aTile the tile meta-data
      * @return an array of strings with the args
      */
-    private static String[] tileToWhereArgs(@NonNull MapTile aTile) {
+    @NonNull
+    static String[] tileToWhereArgs(@NonNull MapTile aTile) {
         return new String[] { aTile.rendererID, Integer.toString(aTile.zoomLevel), Integer.toString(aTile.x), Integer.toString(aTile.y) };
     }
 
@@ -227,6 +228,7 @@ public class MapTileProviderDataBase {
      * @return the contents of the tile or null on failure to retrieve
      * @throws IOException
      */
+    @Nullable
     public byte[] getTile(@NonNull final MapTile aTile) throws IOException {
         if (MapViewConstants.DEBUGMODE) {
             Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Trying to retrieve " + aTile + " from file");

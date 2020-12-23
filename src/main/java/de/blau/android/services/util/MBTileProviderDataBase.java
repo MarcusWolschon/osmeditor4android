@@ -31,11 +31,11 @@ public class MBTileProviderDataBase {
     private static final String  DEBUG_TAG = "MBTilePro...DataBase";
     private static final boolean DEBUGMODE = false;
 
-    private static final String T_MBTILES            = "tiles";
+    static final String         T_MBTILES            = "tiles";
     private static final String T_MBTILES_ZOOM_LEVEL = "zoom_level";
     private static final String T_MBTILES_TILE_X     = "tile_column";
     private static final String T_MBTILES_TILE_Y     = "tile_row";
-    private static final String T_MBTILES_DATA       = "tile_data";
+    static final String         T_MBTILES_DATA       = "tile_data";
 
     private static final String T_METADATA       = "metadata";
     private static final String T_METADATA_NAME  = "name";
@@ -44,7 +44,7 @@ public class MBTileProviderDataBase {
     private static final String SQL_ARG = "=?";
     private static final String AND     = " AND ";
 
-    private static final String T_MBTILES_WHERE = T_MBTILES_ZOOM_LEVEL + SQL_ARG + AND + T_MBTILES_TILE_X + SQL_ARG + AND + T_MBTILES_TILE_Y + SQL_ARG;
+    static final String T_MBTILES_WHERE = T_MBTILES_ZOOM_LEVEL + SQL_ARG + AND + T_MBTILES_TILE_X + SQL_ARG + AND + T_MBTILES_TILE_Y + SQL_ARG;
 
     private static final String T_MBTILES_GET = "SELECT " + T_MBTILES_DATA + " FROM " + T_MBTILES + " WHERE " + T_MBTILES_WHERE;
 

@@ -236,7 +236,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                     byte[] data = mbTileDatabase.getTile(mTile);
                     if (data == null) {
                         if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
-                            Log.d(DEBUG_TAG, "FS failed, request for download " + mTile + " " + mTile.toId());
+                            Log.d(DEBUG_TAG, "FS failed " + mTile + " " + mTile.toId());
                         }
                         mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST);
                     } else { // success!
@@ -328,7 +328,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
      * Mark a tile as invalid (really doesn't exist)
      * 
      * @param mTile tile meta-data
-     * @throws IOException if writing to the database failes
+     * @throws IOException if writing to the database fails
      */
     public void markAsInvalid(@NonNull MapTile mTile) throws IOException {
         mDatabase.addTile(mTile, null);
