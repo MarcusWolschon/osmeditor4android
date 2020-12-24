@@ -605,13 +605,14 @@ public class StorageDelegatorTest {
         final Storage apiStorage = d.getApiStorage();
         for (int i = 0; i < 2; i++) {
             Node n = temp.getLastNode();
-            d.removeEndNodeFromWay(true, temp);
+            d.removeEndNodeFromWay(true, temp, !n.isTagged());
             assertFalse(temp.hasNode(n));
             assertEquals(count - (i + 1), temp.nodeCount());
             assertNotNull(apiStorage.getWay(temp.getOsmId()));
         }
         // removing the 2nd last node should delete the way
-        d.removeEndNodeFromWay(true, temp);
+        Node n = temp.getLastNode();
+        d.removeEndNodeFromWay(true, temp, !n.isTagged());
         assertEquals(OsmElement.STATE_DELETED, temp.getState());
         assertNull(apiStorage.getOsmElement(Way.NAME, temp.getOsmId()));
 
@@ -638,13 +639,14 @@ public class StorageDelegatorTest {
         final Storage apiStorage = d.getApiStorage();
         for (int i = 0; i < 2; i++) {
             Node n = temp.getFirstNode();
-            d.removeEndNodeFromWay(false, temp);
+            d.removeEndNodeFromWay(false, temp, !n.isTagged());
             assertFalse(temp.hasNode(n));
             assertEquals(count - (i + 1), temp.nodeCount());
             assertNotNull(apiStorage.getWay(temp.getOsmId()));
         }
         // removing the 2nd last node should delete the way
-        d.removeEndNodeFromWay(false, temp);
+        Node n = temp.getFirstNode();
+        d.removeEndNodeFromWay(false, temp, !n.isTagged());
         assertEquals(OsmElement.STATE_DELETED, temp.getState());
         assertNull(apiStorage.getOsmElement(Way.NAME, temp.getOsmId()));
 

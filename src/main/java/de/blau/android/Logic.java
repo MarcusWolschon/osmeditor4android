@@ -1120,7 +1120,7 @@ public class Logic {
      * @param y display-coordinate.
      * @return the nearest node found in the current-Storage node-list. null, when no node was found.
      */
-    private Node getClickedNode(final float x, final float y) {
+    public Node getClickedNode(final float x, final float y) {
         Node bestNode = null;
         Double bestDistance = Double.MAX_VALUE;
         java.util.Map<Node, Double> candidates = getClickedNodesWithDistances(x, y, false);
@@ -2033,14 +2033,15 @@ public class Logic {
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param fromEnd if true remove last node else first
      * @param way the Way
+     * @param deleteNode delete the Node after removing it
      * @param createCheckpoint if true create an undo checkpoint
      */
-    public synchronized void performRemoveEndNodeFromWay(@Nullable FragmentActivity activity, boolean fromEnd, @NonNull Way way, boolean createCheckPoint) {
+    public synchronized void performRemoveEndNodeFromWay(@Nullable FragmentActivity activity, boolean fromEnd, @NonNull Way way, boolean deleteNode, boolean createCheckPoint) {
         if (createCheckPoint) {
             createCheckpoint(activity, R.string.undo_action_remove_node_from_way);
         }
         displayAttachedObjectWarning(activity, way.getLastNode());
-        getDelegator().removeEndNodeFromWay(fromEnd, way);
+        getDelegator().removeEndNodeFromWay(fromEnd, way, deleteNode);
         invalidateMap();
     }
 

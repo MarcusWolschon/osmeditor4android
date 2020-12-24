@@ -31,9 +31,10 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private static final int MENUITEM_UNDO          = 1;
     private static final int MENUITEM_NEWWAY_PRESET = 2;
 
-    private static final String NODE_IDS_KEY = "way ids";
-    private static final String WAY_ID_KEY   = "node id";
-    private static final String TITLE_KEY    = "title";
+    private static final String NODE_IDS_KEY          = "node ids";
+    private static final String EXISTING_NODE_IDS_KEY = "existing node ids";
+    private static final String WAY_ID_KEY            = "way id";
+    private static final String TITLE_KEY             = "title";
 
     /** x coordinate of first node */
     private float   x;
@@ -47,9 +48,11 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private boolean dontTag = false;
 
     /** contains a pointer to the created way if one was created. used to fix selection after undo. */
-    private Way        createdWay   = null;
-    /** contains a list of created nodes. used to fix selection after undo. */
-    private List<Node> createdNodes = new ArrayList<>();
+    private Way        createdWay    = null;
+    /** contains a list of added nodes. used to fix selection after undo. */
+    private List<Node> addedNodes    = new ArrayList<>();
+    /** nodes we added that already existed */
+    private List<Node> existingNodes = new ArrayList<>();
 
     private String savedTitle = null;
 
@@ -66,13 +69,22 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         for (Long id : ids) {
             Node node = (Node) delegator.getOsmElement(Node.NAME, id);
             if (node != null) {
-                createdNodes.add(node);
+                addedNodes.add(node);
             } else {
                 throw new IllegalStateException("Failed to find node " + id);
             }
         }
-        if (!createdNodes.isEmpty()) {
-            appendTargetNode = createdNodes.get(createdNodes.size() - 1);
+        List<Long> existingIds = state.getList(EXISTING_NODE_IDS_KEY);
+        for (Long id : existingIds) {
+            Node node = (Node) delegator.getOsmElement(Node.NAME, id);
+            if (node != null) {
+                existingNodes.add(node);
+            } else {
+                throw new IllegalStateException("Failed to find node " + id);
+            }
+        }
+        if (!addedNodes.isEmpty()) {
+            appendTargetNode = addedNodes.get(addedNodes.size() - 1);
         }
         Long wayId = state.getLong(WAY_ID_KEY);
         if (wayId != null) {
@@ -138,6 +150,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             } else {
                 logic.performAppendStart(appendTargetNode);
             }
+            existingNodes.add(appendTargetNode);
         } else {
             try {
                 pathCreateNode(x, y);
@@ -154,7 +167,8 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         menu = replaceMenu(menu, mode, this);
         menu.clear();
         menuUtil.reset();
-        menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo));
+        menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo))
+                .setVisible(!addedNodes.isEmpty());
         menu.add(Menu.NONE, MENUITEM_NEWWAY_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_preset));
         menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         arrangeMenu(menu);
@@ -181,7 +195,8 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private synchronized void pathCreateNode(float x, float y) {
         Node lastSelectedNode = logic.getSelectedNode();
         Way lastSelectedWay = logic.getSelectedWay();
-        final boolean firstNode = createdNodes.isEmpty();
+        final boolean firstNode = addedNodes.isEmpty();
+        Node clicked = logic.getClickedNode(x, y);
         if (appendTargetNode != null) {
             logic.performAppendAppend(main, x, y, firstNode);
             appendTargetNode = logic.getSelectedNode();
@@ -197,11 +212,18 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         } else { // update cache for undo
             createdWay = logic.getSelectedWay();
             if (createdWay == null) {
-                createdNodes = new ArrayList<>();
+                addedNodes = new ArrayList<>();
             } else {
                 createdWay.dontValidate();
             }
-            createdNodes.add(logic.getSelectedNode());
+            addedNodes.add(logic.getSelectedNode());
+            if (firstNode) {
+                mode.invalidate(); // activate undo
+            }
+            if (clicked != null) {
+                // node already existed
+                existingNodes.add(clicked);
+            }
         }
         main.invalidateMap();
     }
@@ -241,24 +263,28 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
      * non-saved nodes one by one
      */
     private synchronized void handleUndo() {
-        Node removedNode = createdNodes.remove(createdNodes.size() - 1);
+        if (addedNodes.isEmpty()) {
+            Log.e(DEBUG_TAG, "Undo called but nothing to undo");
+        }
+        Node removedNode = addedNodes.remove(addedNodes.size() - 1);
+        final boolean deleteNode = !existingNodes.contains(removedNode);
         if (createdWay != null) {
-            logic.performRemoveEndNodeFromWay(main, createdWay.getLastNode().equals(logic.getSelectedNode()), createdWay, false);
+            logic.performRemoveEndNodeFromWay(main, createdWay.getLastNode().equals(logic.getSelectedNode()), createdWay, deleteNode, false);
             createdWay.dontValidate();
             if (OsmElement.STATE_DELETED == createdWay.getState()) {
                 createdWay = null;
             }
-        } else {
+        } else if (deleteNode) {
             logic.performEraseNode(main, removedNode, false);
         }
         // exit or select the previous node
-        if (createdNodes.isEmpty()) {
+        if (addedNodes.isEmpty()) {
             logic.setSelectedNode(null);
             // all nodes have been deleted, cancel action mode
             manager.finish();
         } else {
             // select last node
-            logic.setSelectedNode(createdNodes.get(createdNodes.size() - 1));
+            logic.setSelectedNode(addedNodes.get(addedNodes.size() - 1));
         }
 
         createdWay = logic.getSelectedWay(); // will be null if way was deleted by undo
@@ -307,7 +333,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         final Node lastSelectedNode = logic.getSelectedNode();
         manager.finish();
         removeCheckpoint();
-        if (!createdNodes.isEmpty() && !dontTag) {
+        if (!addedNodes.isEmpty() && !dontTag) {
             tagApplicable(lastSelectedNode, lastSelectedWay, false);
             delayedResetHasProblem(lastSelectedWay);
         }
@@ -316,10 +342,15 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     @Override
     public void saveState(SerializableState state) {
         List<Long> nodeIds = new ArrayList<>();
-        for (Node n : createdNodes) {
+        for (Node n : addedNodes) {
             nodeIds.add(n.getOsmId());
         }
         state.putList(NODE_IDS_KEY, nodeIds);
+        List<Long> existingNodeIds = new ArrayList<>();
+        for (Node n : existingNodes) {
+            existingNodeIds.add(n.getOsmId());
+        }
+        state.putList(EXISTING_NODE_IDS_KEY, existingNodeIds);
         if (createdWay != null) {
             state.putLong(WAY_ID_KEY, createdWay.getOsmId());
         }
