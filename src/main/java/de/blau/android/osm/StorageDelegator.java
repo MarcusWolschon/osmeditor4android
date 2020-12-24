@@ -1464,8 +1464,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @param fromEnd if true remove last node else first
      * @param way the Way
+     * @param deleteNode delete the node after removing it from the way
      */
-    public void removeEndNodeFromWay(boolean fromEnd, @NonNull Way way) {
+    public void removeEndNodeFromWay(boolean fromEnd, @NonNull Way way, boolean deleteNode) {
         dirty = true;
         undo.save(way);
         List<Node> nodes = way.getNodes();
@@ -1481,7 +1482,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             apiStorage.insertElementSafe(way);
         }
         onElementChanged(null, way);
-        if (!node.hasTags() && getCurrentStorage().getWays(node).isEmpty()) {
+        if (deleteNode) {
             removeNode(node);
         }
     }
