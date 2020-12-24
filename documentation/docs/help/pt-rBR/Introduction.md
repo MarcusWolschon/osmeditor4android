@@ -1,6 +1,6 @@
 # Introdução ao Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+O Vespucci é um editor OpenStreetMap completo que suporta a maioria das operações fornecidas pelos editores de desktop. Ele foi testado com sucesso no Android 2.3 a 10.0 do Google e em várias variantes baseadas em AOSP. Uma palavra de cautela: embora os recursos dos dispositivos móveis tenham alcançado seus rivais de desktop, particularmente os dispositivos mais antigos têm uma disponibilidade de memória muito limitada. Você deve levar isso em consideração ao usar o Vespucci e manter, por exemplo, as áreas que está editando em um tamanho razoável. 
 
 ## Primeiro uso
 

@@ -10,8 +10,8 @@
     <string-array name="gps_source">
         <item>Intern</item>
         <item>Intern NMEA</item>
-        <item>NMEA van TCP cliënt</item>
-        <item>NMEA van TCP server</item>
+        <item>NMEA van TCP-cliënt</item>
+        <item>NMEA van TCP-server</item>
     </string-array>
     <string-array name="bug_state">
         <item>Open</item>

@@ -6,9 +6,9 @@
 </head>
 <body>
 <h1>Введение в Vespucci</h1>
-<p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.</p>
+<p>Vespucci это полнофункциональный редактор OpenStreetMap для мобильных устройств, который поддерживает большинство операции доступных редакторам для ПК. Работа редактора протестирована на версиях от 2.3 до 10 Android и различных вариантах этой операционной от Google, основанных на AOSP. В качестве предостережения: в то время, как возможности современных мобильных устройств достигли уровня ПК, старые устройства, как правило, довольно медленны и имеют ограниченный размер памяти. Это нужно учитывать при использовании Vespucci — например, разумно ограничивать размер редактируемой области.</p>
 <h2>Первое использование</h2>
-<p>On startup Vespucci shows you the &quot;Download other location&quot;/&quot;Load Area&quot; dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices.</p>
+<p>Сразу после запуска и запроса всех необходимых разрешений и показа приветственного сообщения Vespucci показывает диалог “загрузить область”. Если программа уже определила ваше местоположение, Вы можете выбрать для загрузки область отображаемую на экране. Не загружайте большие области на медленных устройствах.</p>
 <p>Кроме того, вы можете проигнорировать диалог, нажав на кнопку &quot;Перейти к карте&quot;, и при помощи перетаскивания и масштабирования карты переместиться к нужному месту на ней, а затем скачать его для редактирования. (См. ниже: &quot;Редактирование в Vespucci&quot;)</p>
 <h2>Редактирование в Vespucci</h2>
 <p>В зависимости от размера экрана и возраста вашего устройства редактировать можно при помощи значков на верхней панели, выпадающего меню справа на этой панели, при помощи нижней панели (если есть) или посредством кнопки меню.</p>
@@ -16,17 +16,17 @@
 <h3>Загрузка OSM-данных</h3>
 <p>Выберите значок передачи <img src="../images/menu_transfer.png" alt="Transfer" /> или меню &quot;Передать&quot;. Будет предложено семь вариантов:</p>
 <ul>
-<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
-<li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
-<li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
-<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
-<li><strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and &quot;Bugs&quot; from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
+<li><strong>Загрузить текущее место</strong> - загрузить пространство видимое на экране и добавить полученное к уже загруженным данным <em>(необходимо соединение с интернет или локальный источник данных)</em></li>
+<li><strong>Очистить и загрузить текущее место</strong> - очищает ранее загруженные данные, а затем загружает пространство видимое на экране <em>(необходимо соединение с интернет)</em></li>
+<li><strong>Передать данные на сервер OSM</strong> - загружает правки в OpenStreetMap <em>(необходима авторизация)</em>. <em>(необходимо соединение с интернет)</em></li>
+<li><strong>Обновить данные</strong> - заново загружает в память данные для всех редактируемых областей <em>(необходимо соединение с интернет)</em></li>
+<li><strong>Автозагрузка по местоположению</strong> - автоматически загружает область вокруг текущего географического местоположения <em>(необходимо соединение с интернет или локальный источник данных)</em> <em>(необходим доступ к GPS)</em></li>
+<li><strong>Автозагрузка по масштабированию</strong> - автоматически загружает данные в области, которая в данный момент отображается на экране <em>(необходимо соединение с интернет или локальный источник данных)</em> <em>(необходим доступ к GPS)</em></li>
+<li><strong>Файл…</strong> - загрузка и сохранение данных OSM из/в память устройства..</li>
+<li><strong>Задачи...</strong> - автоматическая или ручная загрузка заметок OSM и “проблем” из инструментов контроля качества (в настоящий момент только из OSMOSE) <em>(необходимо соединение с интернет)</em></li>
 </ul>
 <p>Самый простой способ загрузить данные на устройство - найти нужную позицию на карте и выбрать &quot;Загрузить текущее место&quot;. Вы можете менять масштаб сведением пальцев, кнопками на экране или кнопками громкости. Vespucci загрузит данные для текущей области на карте. Для загрузки данных не требуется авторизация.</p>
-<p>With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
+<p>По-умолчанию, незагруженные области будут затемнены относительно загруженных. Это сделано для того, чтобы избежать случайного добавления уже существующих объектов в областях, которые не загружены и не отображаются. Такое поведение программы можно изменить в разделе <a href="Advanced%20preferences.md">Расшиненные настройки</a>.</p>
 <h3>Редактирование</h3>
 <p><a id="lock"></a></p>
 <h4>Блокировка, разблокировка, переключение режимов</h4>
@@ -41,21 +41,21 @@
 <h4>Простое, двойное и долгое нажатие</h4>
 <p>По умолчанию, выделяемые линии и точки имеют вокруг себя оранжевую область, означающую, где нужно прикоснуться, чтобы выбрать объект. У Вас есть три возможности:</p>
 <ul>
-<li>Single tap: Selects object.
+<li>Простое нажатие: выделяет объект.
 <ul>
-<li>An isolated node/way is highlighted immediately.</li>
-<li>However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select.</li>
-<li>Selected objects are highlighted in yellow.</li>
-<li>For further information see <a href="Node%20selected.md">Node selected</a>, <a href="Way%20selected.md">Way selected</a> and <a href="Relation%20selected.md">Relation selected</a>.</li>
+<li>При этом отдельная точка или линия подсвечиваются.</li>
+<li>Однако если вы попытаетесь выделить объект и vespucci определит что можно выделить несколько объектов, появится диалог со списком объектов для выбора.</li>
+<li>Выделенные объекты подсвечиваются желтым.</li>
+<li>Дополнительная информация содержится в главах <a href="Node%20selected.md">Выделена точка</a>, <a href="Way%20selected.md">Выделена линия</a> и <a href="Relation%20selected.md">Выделено отношение</a>.</li>
 </ul>
 </li>
-<li>Double tap: Start <a href="Multiselect.md">Multiselect mode</a></li>
-<li>Long press: Creates a &quot;crosshair&quot;, enabling you to add nodes, see below and <a href="Creating%20new%20objects.md">Creating new objects</a>. This is only enabled if &quot;Simple mode&quot; is deactivated.</li>
+<li>Двойное нажатие: включает режим одновременного выбора объектов <a href="Multiselect.md">Множественное выделение</a></li>
+<li>Долгое нажатие: включает &quot;прицел&quot;, режим создания точек, который описан, в разделе <a href="Creating%20new%20objects.md">Создание новых объектов</a>. Эти действия доступны, когда отключен &quot;Простой режим&quot; редактора.</li>
 </ul>
 <p>Если вы пытаетесь редактировать область с высокой плотностью данных, разумно будет приблизить её.</p>
 <p>У Vespucci хорошая система отмены и повторения правок, поэтому не бойтесь экспериментировать на устройстве, однако не загружайте на сервер тестовые данные.</p>
 <h4>Выделение / Снятие выделения (простое нажатие и меню выделения)</h4>
-<p>Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start <a href="Multiselect.md">Multiselect mode</a>.</p>
+<p>Нажмите на объект, чтобы выделить его и выбрать. Касание экрана в пустом месте отменит выбор. Если Вы выбрали объект, а вам нужно выбрать другой, просто нажмите на нужный объект: нет необходимости сначала отменять выбор выделенного объекта. Двойное нажатие на объекте включит режим <a href="Multiselect.md">Множественное выделение</a>.</p>
 <p>Обратите внимание, когда Вы пытаетесь выделить объект и Vespucci посчитает, что может быть выделено несколько объектов (таких, как точка на линии или другие перекрывающиеся объекты), будет показано меню выделения: нажмите на объект, который Вы хотели выбрать и он будет выделен.</p>
 <p>Выбранные объекты отображаются с дополнительным тонким жёлтым бордюром. Он может быть плохо заметен на некоторых цветах фона карты или при некоторых масштабах. Когда выделение сделано, Вы увидите уведомление, подтверждающее выбор.</p>
 <p>Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see <a href="Node%20selected.md">Node selected</a>, <a href="Way%20selected.md">Way selected</a> and <a href="Relation%20selected.md">Relation selected</a>.</p>

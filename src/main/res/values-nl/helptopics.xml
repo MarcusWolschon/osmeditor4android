@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_app_label">Hulp</string>
-    <string name="help_app_description">Vespucci Hulp</string>
+    <string name="help_app_description">Vespucci hulp</string>
     <string name="help_title">Help: %1$s</string>
     <string name="help_introduction">Introductie</string>
     <string name="help_main">Hoofd kaartscherm</string>
@@ -20,12 +20,12 @@
     <string name="help_advanced_preferences">Geavanceerde voorkeuren</string>
     <string name="help_presets">Voorkeuzen</string>
     <string name="help_conflictresolution">Conflict oplossing</string>
-    <string name="help_gpssources">GPS bronnen</string>
+    <string name="help_gpssources">Gpsbronnen</string>
     <string name="help_keyboard">Toetsenbord</string>
     <string name="help_tagfilter">Tagfilter</string>
     <string name="help_presetfilter">Voorkeuzefilter</string>
     <string name="help_opening_hours">Openingstijden</string>
-    <string name="help_newnoteselection">Nieuwe Notitie selectie</string>
+    <string name="help_newnoteselection">Nieuwe notitieselectie</string>
     <string name="help_voice_commands">Spraakcommando\'s</string>
     <string name="help_add_route_segment">Voeg routesegment toe</string>
     <string name="help_upgrade">15.1 Versie opmerkingen</string>

@@ -1104,8 +1104,8 @@
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Gebruik OAuth</string>
   <string name="listedit_enable_oauth">Activeer OAuth</string>
-  <string name="config_username_title">OSM gebruikersnaam</string>
-  <string name="config_password_title">OSM wachtwoord</string>
+  <string name="config_username_title">OSM-gebruikersnaam</string>
+  <string name="config_password_title">OSM-wachtwoord</string>
   <string name="config_password_summary">Vergis je niet voor het wiki wachtwoordt. Onthoud: dit wordt onversleuteld opgeslagen en verstuurd.</string>
   <string name="manage_presets">Beheer voorkeuzen</string>
   <string name="listedit_use_translations">Gebruik vertalingen</string>
@@ -1188,15 +1188,15 @@
   <string name="undo_action_extract_segment">Extraheer segment</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci is gecrashed of heeft een serieus probleem ondervonden tijdens de laatste keer draaien.\n\Help alsjeblieft door \'OK\' te klikken en het foutrapport in te sturen.\n</string>
-  <string name="crash_dialog_comment_prompt">Voeg verdere informatie toe waarvan je denkt dat het nuttig is en (optioneel) je OSM gebruikersnaam als je feeback wilt.\n\nDank je wel.</string>
+  <string name="crash_dialog_comment_prompt">Voeg verdere informatie toe waarvan je denkt dat het nuttig is en (optioneel) je OSM-gebruikersnaam als je feeback wilt.\n\nDank je wel.</string>
   <string name="report_success">Gerapporteerd.</string>
   <string name="report_failure">Kon rapport niet versturen.</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Deze actie zou een weg met te veel kopen maken.</string>
   <!--Notifications-->
-  <string name="alert_data_issue">OSM gegevensprobleem ontdekt</string>
-  <string name="alert_note">Dichtbijgelegen OSM notitie ontdekt.</string>
-  <string name="alert_bug">Dichtbijgelegen OSM bug ontdekt.</string>
+  <string name="alert_data_issue">OSM-gegevensprobleem ontdekt</string>
+  <string name="alert_note">Dichtbijgelegen OSM-notitie ontdekt.</string>
+  <string name="alert_bug">Dichtbijgelegen OSM-bug ontdekt.</string>
   <string name="alert_distance_direction">in %1$d m %2$s</string>
   <string name="bearing_ne">NO ↗</string>
   <string name="bearing_e">O →</string>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Arrays - in a separate file as these need to be 100% translated for use -->
+    <string-array name="gpx_visibility">
+        <item>privado</item>
+        <item>público</item>
+        <item>rastreável</item>
+        <item>identificável</item>
+    </string-array>
+    <string-array name="gps_source">
+        <item>Interno</item>
+        <item>NMEA interno</item>
+        <item>NMEA do cliente TCP</item>
+        <item>NMEA do servidor TCP</item>
+    </string-array>
+    <string-array name="bug_state">
+        <item>Aberta</item>
+        <item>Fechado</item>
+        <item>Falso positivo</item>
+    </string-array>
+    <string-array name="note_state">
+        <item>Aberta</item>
+        <item>Fechado</item>
+    </string-array>
+    <string-array name="maproulette_state">
+        <item>Aberta</item>
+        <item>Fechado</item>
+        <item>Falso positivo</item>
+        <item>Pulado</item> 
+        <item>Excluído</item>
+        <item>já está corrigido</item>
+        <item>Muito difícil</item>
+    </string-array>
+    <string-array name="followGPSbutton_entries">
+        <item>Esquerda</item>
+        <item>Direita</item>
+        <item>Nenhum</item>
+    </string-array>
+    <string-array name="full_screen_preference_entries">
+        <item>Auto</item>
+        <item>Nunca</item>
+        <item>Forçar</item>
+        <item>Sem barra de status</item>
+    </string-array>
+    <string-array name="full_screen_preference_no_auto_entries">
+        <item>Nunca</item>
+        <item>Forçar</item>
+        <item>Sem barra de status</item>
+    </string-array>
+    <string-array name="map_orientation_entries">
+        <item>Auto</item>
+        <item>Bloqueado</item>
+        <item>Retrato</item>
+        <item>Panorama</item>
+    </string-array>
+    <string-array name="tagfilter_type_entries">
+        <item>Tudo</item>
+        <item>Nós</item>
+        <item>Caminhos</item>
+        <item>Caminhos+</item>
+        <item>Relações</item>
+        <item>Relações+</item>
+    </string-array>
+    <!-- The entries need to match the order of the CheckStatus enum -->
+    <string-array name="checkstatus_entries">
+        <item>HTTP</item>
+        <item>HTTPS</item>
+        <item>Domínio não existe</item>
+        <item>Domínio inacessível</item>
+        <item>URL malformada</item>
+        <item>Argumento inválido</item>
+    </string-array>
+ </resources>

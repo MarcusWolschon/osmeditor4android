@@ -188,6 +188,7 @@
   <string name="previous">Предыдущий</string>
   <string name="current">Текущий</string>
   <string name="goto_element">Перейти к элементу</string>
+  <string name="edit_properties">Редактировать</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Информация о функциях GeoJSON</string>
   <string name="copy_properties">Скопировать свойства</string>
@@ -206,14 +207,24 @@
   <!--Delete custom preset dialog-->
   <string name="delete_custom_preset_title">Удалить свою заготовку?</string>
   <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_title">Добавить участника в маршрут</string>
+  <string name="duplicate_route_segment_message">Эта линия уже участвует в этом маршруте.</string>
+  <string name="duplicate_route_segment_button">Всё равно добавить</string>
   <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_title">Добавить участника в отношение</string>
+  <string name="duplicate_relation_member_message">Элемент уже участвует в отношении.</string>
+  <string name="duplicate_relation_member_remove_button">Удалить участника</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Перенесите теги на полигон</string>
   <string name="move_outer_tags_message">Теги объектов должны присутствовать только на внешнем полигоне.</string>
+  <string name="move">Перенести</string>
+  <string name="leave_as_is">Оставить как есть</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
   <string name="remove_duplicate_outer_tags_title">Удалите дублирующие теги полигона</string>
   <string name="remove_duplicate_outer_tags_message">Удалите теги у элемента контура, которые есть у внешнего полигона.</string>
+  <string name="remove">Удалить</string>
   <!--Abort action mode dialog-->
+  <string name="abort_action_title">Прервать</string>
   <!---->
   <string name="error">Ошибка</string>
   <string name="warning">Предупреждение</string>
@@ -262,8 +273,10 @@
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Пользовательские снимки</string>
   <string name="oam_layer_title">Снимки OAM</string>
+  <string name="wms_endpoints_title">Слои WMS</string>
   <string name="edit_layer_title">Редактирование слоя</string>
   <string name="add_layer_title">Добавить слой</string>
+  <string name="select_layer_title">Выбрать слой</string>
   <string name="overlay">Наложение</string>
   <string name="coverage">Покрытие</string>
   <string name="coverage_top">Сверху</string>
@@ -272,6 +285,9 @@
   <string name="coverage_bottom">Снизу</string>
   <string name="toast_invalid_box">Недопустимые или неполные границы</string>
   <string name="delete_layer">Удалить слой?</string>
+  <string name="delete_endpoint">Удалить слой?</string>
+  <string name="add_wms_endpoint_title">Добавить слой WMS</string>
+  <string name="edit_wms_endpoint_title">Изменить слой WMS</string>
   <string name="add_imagery_from_wms_endpoint">Добавить слой из WMS</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Стиль слоя</string>
@@ -307,6 +323,8 @@
   <string name="layer_info_end_date">Дата закрытия</string>
   <string name="layer_info_terms">Условия</string>
   <string name="layer_info_privacy_policy">Политика конфиденциальности</string>
+  <string name="projection">Проекция</string>
+  <string name="errors">Ошибки</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Удалить фото</string>
   <string name="photo_viewer_delete_button">Удалить окончательно</string>
@@ -316,7 +334,11 @@
   <string name="api_info_attribution">Атрибуция</string>
   <!--Tag conflict dialog-->
   <!--Relation selection dialog-->
+  <string name="select_route_title">Выбрать маршрут</string>
+  <string name="select_relation_title">Выбрать отношение</string>
   <!--Preset selection dialog-->
+  <string name="select_relation_type_title">Выбрать тип отношения</string>
+  <string name="select_relation_type_other">Другое</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Контрольные точки</string>
   <string name="undo_redo_title">Отмена - Повтор</string>
@@ -324,7 +346,10 @@
   <string name="undo_all">Отменить все предыдущие контрольные точки (безопасно)</string>
   <string name="redo_all">Повторить все предыдущие контрольные точки (безопасно)</string>
   <!--Undo location not in view dialog-->
+  <string name="undo_location_title">Действие за пределами экрана</string>
+  <string name="undo_location_text">Место, где будет произведена отмена, за пределами экрана.</string>
   <string name="undo_location_undo_anyway">Всё равно отменить</string>
+  <string name="undo_location_zoom">Показать место, затем отменить</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Отправить от имени вашей учётной записи OpenStreetMap</string>
   <string name="feedback_displayname_hint">Отображаемое имя вашей учётной записи OpenStreetMap еще не получено</string>
@@ -501,7 +526,7 @@
   <string name="set">Установить</string>
   <string name="replace">Заменить</string>
   <string name="save">Сохранить</string>
-  <string name="save_and_set">Сохранить и установить</string>
+  <string name="save_and_set">Сохранить и включить</string>
   <string name="back">Назад</string>
   <string name="forward">Вперёд</string>
   <string name="keep">Оставить</string>
@@ -583,6 +608,7 @@
   <string name="tag_restriction_add_expression">Добавить выражение</string>
   <string name="tag_restriction_add_opening_hours">Добавить время работы</string>
   <string name="tag_restriction_value_hint">Условное ограничение</string>
+  <string name="default_checkgroup_hint">Расширенные атрибуты</string>
   <string name="tag_form_unknown_element">Неизвестный элемент (заготовка не найдена)</string>
   <string name="tag_form_untagged_element">Элемент без тегов</string>
   <!--Custom preset creation-->
@@ -613,10 +639,19 @@
   <string name="location_nan_message">Пожалуйста, укажите координаты в десятичном формате (\"52.333572\",\"8.741185\"). Широта должна быть от -85.0 и до +85.0, долгота от -175.0 и до +175.0.</string>
   <string name="location_olc">Код места OLC</string>
   <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_label">Использовать</string>
+  <string name="barometer_calibration_current_height">текущая высота (метры)</string>
+  <string name="barometer_calibration_current_reference_pressure">эталонное значение давления (hPa)</string>
   <string name="barometer_calibration_gps">GNSS</string>
+  <string name="barometer_calibration_calibrate">Калибровать</string>
   <!--Strings in postition info-->
+  <string name="position_info_title">Информация о текущем местоположении</string>
   <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">Высота</string>
+  <string name="position_info_geoid_height">Высота над геоидом</string>
+  <string name="position_info_barometric_height">Барометрическая высота</string>
+  <string name="position_info_geoid_correction">Коррекция геоида</string>
+  <string name="position_info_ellipsoid_height">Высота над эллипсоидом</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Загрузить файлы</string>
   <string name="allow_all_networks">Разрешить для всех сетей</string>
@@ -641,8 +676,11 @@
   <string name="menu_remove_node_from_way">Удалить точку из линии</string>
   <string name="menu_extract">Извлечь точку</string>
   <string name="menu_append">Добавить</string>
+  <string name="menu_create_route">Создать маршрут</string>
+  <string name="menu_add_to_route">Добавить в маршрут</string>
   <string name="menu_relation">Создать отношение</string>
   <string name="menu_edit_relation">Редактировать отношение</string>
+  <string name="menu_add_relation_member">Добавить / удалить участника</string>
   <string name="menu_select_relation_members">Выбрать участников</string>
   <string name="menu_tag">Редактировать теги</string>
   <string name="menu_openstreetbug">Добавить заметку</string>
@@ -654,6 +692,7 @@
   <string name="menu_gps_goto">Перейти к текущему месту</string>
   <string name="menu_gps_goto_coordinates">Перейти к координатам...</string>
   <string name="menu_gps_goto_last_edit">Перейти к последней правке</string>
+  <string name="menu_gps_position_info">Данные местоположения</string>
   <string name="menu_gps_start">Начать GPX-трек</string>
   <string name="menu_gps_pause">Приостановить запись GPX-трека</string>
   <string name="menu_gps_clear">Очистить GPX-трек и его путевые точки</string>
@@ -671,6 +710,7 @@
   <string name="menu_transfer_load_current">Загрузить текущее место</string>
   <string name="menu_transfer_load_replace">Очистить и загрузить текущее место</string>
   <string name="menu_transfer_upload">Передать данные на сервер OSM</string>
+  <string name="menu_transfer_update">Обновить данные</string>
   <string name="menu_transfer_close_changeset">Закрыть текущий пакет правок</string>
   <string name="menu_transfer_file">Файл...</string>
   <string name="menu_transfer_export">Экспорт изменений в файл OSC</string>
@@ -711,6 +751,7 @@
   <string name="menu_voice_commands">Голосовые команды</string>
   <string name="menu_set_name">Задать название</string>
   <string name="menu_tools">Инструменты...</string>
+  <string name="menu_tools_imagery">Другие действия со снимками...</string>
   <string name="menu_tools_add_imagery_from_oam">Добавить снимки из OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Очистить все базы для карты</string>
   <string name="menu_tools_background_properties">Свойства фона</string>
@@ -763,9 +804,11 @@
   <string name="notreversable_description">Линия имеет теги, которые зависят от её направления. Попытка ее развернуть испортит тегирование.</string>
   <string name="reverse_anyway">Всё равно изменить направление</string>
   <string name="deleteway_description">Вы собираетесь удалить линию.\n\nВы можете оставить все ее точки или удалить только те точки, которые принадлежат этой линии и не имеют тегов.</string>
+  <string name="deleteway_relation_description">Вы собираетесь удалить линиию - участника одного или нескольких отношений. Это действие может поломать отношение.</string>
   <string name="deleteway_nodesnotdownloaded_description">Линия содержит точки за пределами загруженной области и не может быть корректно удалена. Загрузите все ее точки и повторите попытку.</string>
   <string name="deleteway_wayonly">Удалить только линию</string>
   <string name="deleteway_wayandnodes">Удалить линию</string>
+  <string name="deletenode_relation_description">Вы собираетесь удалить точку - участника одного или нескольких отношений. Это действие может поломать отношение.</string>
   <string name="deletenode">Удалить точку</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">Разделить …</string>
@@ -892,6 +935,8 @@
   <string name="config_maxStrokeWidth_title">Макс. ширина линии</string>
   <string name="config_maxStrokeWidth_summary">Не рисуйте линию толще, чем эта.</string>
   <string name="config_maxStrokeWidth_current">%1$d пикс.</string>
+  <string name="config_upload_current">%1$d объектов</string>
+  <string name="config_beepVolume_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Данные и редактирование</string>
   <string name="config_category_editing_summary">Автозагрузка, сохранение изменений, оповещения</string>
@@ -921,6 +966,7 @@
   <string name="config_orthogonalizeThreshold_summary">Предел в ° свыше которого углы игнорируются</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">Форматирование телефонов</string>
+  <string name="config_autoformatPhoneNumbers_summary">Форматировать номера телефонов</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Автозагрузка</string>
   <string name="config_category_auto_download_summary">Параметры автоматической загрузки данных и задач</string>
@@ -962,6 +1008,8 @@
   <string name="config_gnssTimeToStale_title">Устаревшее место после</string>
   <string name="config_gnssTimeToStale_summary">Время (в секундах), после которого местоположение должно считаться устаревшим.</string>
   <string name="config_gnssTimeToStale_current">%1$d сек</string>
+  <string name="config_useBarometricHeight_title">Использовать барометрическую высоту</string>
+  <string name="config_useBarometricHeight_summary">Сохранять в трек значения высоты от барометрического датчика</string>
   <!--Server Settings-->
   <string name="config_category_server">Серверы</string>
   <string name="config_category_server_summary">Параметры OSM API и других серверов.</string>
