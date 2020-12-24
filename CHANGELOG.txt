@@ -2,6 +2,10 @@
 
 15.1.3:
 - Fix multiple regressions in PathCreation mode by tracking existing nodes better
+- Fix regression when Bing imagery is selected and app is started without network connectivity
+- Fix regression in opening hours row layout in the property editor
+- Protect against number format exceptions when parsing coordinates in more places
+- Protect against trying to fit screen to very small bounding boxes 
 - Update preset
 - Update imagery from ELI
 - Update translations
