@@ -231,12 +231,4 @@
   <string name="deleterelation">Apagar relação</string>
   <!--time and distance-->
   <!--Help system-->
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>privado</item>
-    <item>público</item>
-    <item>rastreável</item>
-    <item>identificável</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>
