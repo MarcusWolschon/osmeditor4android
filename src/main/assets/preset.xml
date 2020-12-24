@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="2.1.1" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="2.2.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -3197,7 +3197,7 @@
                 <check key="supervised" text="Supervised" disable_off="true"/>
                 <check key="crossing:light" text="Traffic lights" disable_off="true"/>
                 <check key="crossing:bell" text="Sound signals" disable_off="true"/>
-                <combo key="crossing:barrier" text="Barrier" values="yes,no,half,full,double_half" values_context="crossing:barrier" />
+                <combo key="crossing:barrier" text="Barrier" values="yes,no,half,full,double_half" display_values="Yes,No,Half,Full,Double half" text_context="railway" values_context="crossing:barrier" />
             </optional>
         </item> <!-- Level Crossing -->
         <item name="Crossing" icon="icons/png/level_crossing.png" type="node" preset_name_label="true">
@@ -3210,7 +3210,7 @@
                 <check key="bicycle" text="Cross by bicycle" disable_off="true"/>
                 <check key="crossing:light" text="Traffic lights" disable_off="true"/>
                 <check key="crossing:bell" text="Sound signals" disable_off="true"/>
-                <combo key="crossing:barrier" text="Barrier" values="yes,no,half,full,double_half" display_values="Yes,No,Half,Full,Double half" values_context="crossing:barrier"/>
+                <combo key="crossing:barrier" text="Barrier" values="yes,no,half,full,double_half" display_values="Yes,No,Half,Full,Double half" text_context="railway" values_context="crossing:barrier"/>
             </optional>
         </item> <!-- Crossing -->
         <item name="Turntable" icon="icons/png/transport_turntable_27022.png" type="node,closedway" preset_name_label="true">
@@ -8053,25 +8053,25 @@
                 <key key="generator:source" value="biofuel"/>
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none" />
-                <combo key="generator:type" text="Generator Type" values="gas_turbine,reciprocating_engine,steam_generator"/>
+                <combo key="generator:type" text="Generator Type" values="gas_turbine,reciprocating_engine,steam_generator" display_values="Gas turbine,Reciprocating engine,Steam generator"/>
                 <reference ref="power_output"/>
             </item> <!-- Power Generator -->
             <item name="Biogas Power Generator" icon="icons/png/power_generator_biogas_26007.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="biogas"/>
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none" />
-                <combo key="generator:type" text="Generator Type" values="reciprocating_engine,steam_generator"/>
+                <combo key="generator:type" text="Generator Type" values="reciprocating_engine,steam_generator" display_values="Reciprocating engine,Steam generator"/>
                 <reference ref="power_output"/>
             </item> <!-- Biogas Power Generator -->
             <item name="Biomass Power Generator" icon="icons/png/power_generator_biomass_26008.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="biomass"/>
                 <reference ref="power_generator"/>
-                <combo key="generator:method" text="Method" values_context="generator method" values="anaerobic_digestion,combustion,gasification" match="none" />
+                <combo key="generator:method" text="Method" values_context="generator method" values="anaerobic_digestion,combustion,gasification" display_values="Anaerobic digestion,Combustion,Gasification" match="none" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
-                    <list_entry value="bioreactor" short_description="anaerobic_digestion / combustion"/>
-                    <list_entry value="pyrolysis" short_description=""/>
-                    <list_entry value="steam_generator" short_description="combustion"/>
-                    <list_entry value="steam_turbine" short_description="combustion"/>
+                    <list_entry value="bioreactor" short_description="Bioreactor"/>
+                    <list_entry value="pyrolysis" short_description="Pyrolysis"/>
+                    <list_entry value="steam_generator" short_description="Steam generator"/>
+                    <list_entry value="steam_turbine" short_description="Steam turbine"/>
                 </combo>
                 <reference ref="power_output"/>
             </item> <!-- Biomass Power Generator -->
@@ -8079,70 +8079,70 @@
                 <key key="generator:source" value="coal"/>
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none" />
-                <combo key="generator:type" text="Generator Type" values="steam_generator,steam_turbine"/>
+                <combo key="generator:type" text="Generator Type" values="steam_generator,steam_turbine" display_values="Steam generator,Steam turbine"/>
                 <reference ref="power_output"/>
             </item> <!-- Coal Power Generator -->
             <item name="Gas Power Generator" icon="icons/png/power_station_gas.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="gas"/>
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none" />
-                <combo key="generator:type" text="Generator Type" values="combined_cycle,gas_turbine,reciprocating_engine,steam_generator,steam_turbine"/>
+                <combo key="generator:type" text="Generator Type" values="combined_cycle,gas_turbine,reciprocating_engine,steam_generator,steam_turbine" display_values="Combined cycle,Gas turbine,Reciprocating engine,Steam generator,Steam turbine"/>
                 <reference ref="power_output"/>
             </item> <!-- Gas Power Generator -->
             <item name="Oil Power Generator" icon="icons/png/power_generator_oil_26025.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="oil"/>
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none" />
-                <combo key="generator:type" text="Generator Type" values="steam_generator,steam_turbine"/>
+                <combo key="generator:type" text="Generator Type" values="steam_generator,steam_turbine" display_values="Steam generator,Steam turbine"/>
                 <reference ref="power_output"/>
             </item> <!-- Oil Power Generator -->
             <item name="Diesel Power Generator" icon="icons/png/power_generator_diesel_26025.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="diesel"/>
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none" />
-                <combo key="generator:type" text="Generator Type" values="reciprocating_engine,steam_generator"/>
+                <combo key="generator:type" text="Generator Type" values="reciprocating_engine,steam_generator" display_values="Reciprocating engine,Steam generator"/>
                 <reference ref="power_output"/>
             </item> <!-- Diesel Power Generator -->
             <item name="Gasoline Power Generator" icon="icons/png/power_generator_gasoline_26022.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="gasoline"/>
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none" />
-                <combo key="generator:type" text="Generator Type" values="reciprocating_engine,steam_generator"/>
+                <combo key="generator:type" text="Generator Type" values="reciprocating_engine,steam_generator" display_values="Reciprocating engine,Steam generator"/>
                 <reference ref="power_output"/>
             </item> <!-- Gasoline Power Generator -->
             <item name="Nuclear Reactor" icon="icons/png/power_generator_nuclear_26024.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="nuclear"/>
                 <reference ref="power_generator"/>
-                <combo key="generator:method" text="Method" values_context="generator method" values="fission,fusion" match="none" />
+                <combo key="generator:method" text="Method" values_context="generator method" values="fission,fusion" display_values="Fission,Fusion" match="none" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
-                    <list_entry value="BWR-1" display_value="Boiling Water Reactor 1 (BWR-1)" short_description="fission"/>
-                    <list_entry value="BWR-2" display_value="Boiling Water Reactor 2 (BWR-2)" short_description="fission"/>
-                    <list_entry value="BWR-3" display_value="Boiling Water Reactor 3 (BWR-3)" short_description="fission"/>
-                    <list_entry value="BWR-4" display_value="Boiling Water Reactor 4 (BWR-4)" short_description="fission"/>
-                    <list_entry value="BWR-5" display_value="Boiling Water Reactor 5 (BWR-5)" short_description="fission"/>
-                    <list_entry value="BWR-6" display_value="Boiling Water Reactor 6 (BWR-6)" short_description="fission"/>
-                    <list_entry value="CANDU" display_value="CANada Deuterium Uranium reactor (CANDU)" short_description="fission"/>
-                    <list_entry value="cold-fusion" short_description="fusion"/>
-                    <list_entry value="CPR-1000" display_value="China Pressurized Reactor (CPR-1000)" short_description="fission"/>
-                    <list_entry value="EPR" display_value="European Pressurized Reactor (EPR)" short_description="fission"/>
-                    <list_entry value="ICF" display_value="Inertial Confinement Fusion (ICF)" short_description="fusion"/>
-                    <list_entry value="PWR" display_value="Pressurized water reactor (PWR)" short_description="fission"/>
-                    <list_entry value="RBMK-1000" display_value="Reactor Bolshoy Moshchnosti Kanalniy 1000 (RBMK-1000)" short_description="fission"/>
-                    <list_entry value="RBMK-1500" display_value="Reactor Bolshoy Moshchnosti Kanalniy 1500 (RBMK-1500)" short_description="fission"/>
-                    <list_entry value="stellarator" short_description="fusion"/>
-                    <list_entry value="tokamak" short_description="fusion"/>
-                    <list_entry value="VVER" display_value="Vodo-Vodyanoi Energetichesky Reactor (VVER)" short_description="fission"/>
+                    <list_entry value="BWR-1" display_value="Boiling Water Reactor 1 (BWR-1)" />
+                    <list_entry value="BWR-2" display_value="Boiling Water Reactor 2 (BWR-2)" />
+                    <list_entry value="BWR-3" display_value="Boiling Water Reactor 3 (BWR-3)" />
+                    <list_entry value="BWR-4" display_value="Boiling Water Reactor 4 (BWR-4)" />
+                    <list_entry value="BWR-5" display_value="Boiling Water Reactor 5 (BWR-5)" />
+                    <list_entry value="BWR-6" display_value="Boiling Water Reactor 6 (BWR-6)" />
+                    <list_entry value="CANDU" display_value="CANada Deuterium Uranium reactor (CANDU)" />
+                    <list_entry value="cold-fusion" display_value="Cold fusion" />
+                    <list_entry value="CPR-1000" display_value="China Pressurized Reactor (CPR-1000)" />
+                    <list_entry value="EPR" display_value="European Pressurized Reactor (EPR)" />
+                    <list_entry value="ICF" display_value="Inertial Confinement Fusion (ICF)" />
+                    <list_entry value="PWR" display_value="Pressurized water reactor (PWR)" />
+                    <list_entry value="RBMK-1000" display_value="Reactor Bolshoy Moshchnosti Kanalniy 1000 (RBMK-1000)" />
+                    <list_entry value="RBMK-1500" display_value="Reactor Bolshoy Moshchnosti Kanalniy 1500 (RBMK-1500)" />
+                    <list_entry value="stellarator" display_value="Stellarator"/>
+                    <list_entry value="tokamak" display_value="Tokamak"/>
+                    <list_entry value="VVER" display_value="Vodo-Vodyanoi Energetichesky Reactor (VVER)" />
                 </combo>
                 <reference ref="power_output"/>
             </item> <!-- Nuclear Reactor -->
             <item name="Solar Power Generator" icon="icons/png/power_station_solar.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="solar"/>
                 <reference ref="power_generator_optional_name_ref"/>
-                <combo key="generator:method" text="Method" values_context="generator method" values="photovoltaic,thermal" match="none" />
+                <combo key="generator:method" text="Method" values_context="generator method" values="photovoltaic,thermal" display_values="Photovoltaic,Thermal" match="none" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
-                    <list_entry value="solar_photovoltaic_panel" short_description="photovoltaic"/>
-                    <list_entry value="solar_thermal_collector" short_description="solar thermal"/>
-                    <list_entry value="steam_turbine" short_description="thermal"/>
+                    <list_entry value="solar_photovoltaic_panel" short_description="Photovoltaic panel"/>
+                    <list_entry value="solar_thermal_collector" short_description="Thermal collector"/>
+                    <list_entry value="steam_turbine" short_description="Steam turbine"/>
                 </combo>
                 <combo key="location" text="Location" values="roof,surface" display_values="Roof,Surface" values_context="power"/>
                 <reference ref="power_output"/>
@@ -8150,25 +8150,24 @@
             <item name="Waste Power Generator" icon="icons/png/power_generator_waste_26028.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="waste"/>
                 <reference ref="power_generator"/>
-                <combo key="generator:method" text="Method" values_context="generator method" values="combustion,gasification,pyrolysis" match="none" />
+                <combo key="generator:method" text="Method" values_context="generator method" values="combustion,gasification,pyrolysis" display_values="Combustion,Gasification,Pyrolysis" match="none" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
-                    <list_entry value="bioreactor" short_description="gasification"/>
-                    <list_entry value="pyrolysis" short_description=""/>
-                    <list_entry value="reciprocating_engine" short_description="combustion"/>
-                    <list_entry value="steam_generator" short_description="combustion"/>
+                    <list_entry value="bioreactor" short_description="Bioreactor"/>
+                    <list_entry value="pyrolysis" short_description="Pyrolysis"/>
+                    <list_entry value="reciprocating_engine" short_description="Reciprocating engine"/>
+                    <list_entry value="steam_generator" short_description="Steam generator"/>
                 </combo>
-                <combo key="generator:type" text="Generator Type" values="bioreactor,reciprocating_engine,steam_generator"/>
                 <reference ref="power_output"/>
             </item> <!-- Waste Power Generator -->
             <item name="Water Turbine" icon="icons/png/power_station_water.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="hydro"/>
                 <reference ref="power_generator"/>
-                <combo key="generator:method" text="Method" values_context="generator method" values="run-of-the-river,water-pumped-storage,water-storage" match="none" />
+                <combo key="generator:method" text="Method" values_context="generator method" values="run-of-the-river,water-pumped-storage,water-storage" display_values="Run of the river,Water pumped storage,Water storage" match="none" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
-                    <list_entry value="francis_turbine" short_description="all methods"/>
-                    <list_entry value="hydrodynamic_screw" short_description="run-of-the-river"/>
-                    <list_entry value="kaplan_turbine" short_description="run-of-the-river / water-storage"/>
-                    <list_entry value="pelton_turbine" short_description="run-of-the-river / water-storage"/>
+                    <list_entry value="francis_turbine" short_description="Francis turbine"/>
+                    <list_entry value="hydrodynamic_screw" short_description="Hydrodynamic screw"/>
+                    <list_entry value="kaplan_turbine" short_description="Kaplan turbine"/>
+                    <list_entry value="pelton_turbine" short_description="Pelton turbine"/>
                 </combo>
                 <reference ref="power_output"/>
             </item> <!-- Water Turbine -->
