@@ -1063,7 +1063,7 @@ public class Main extends FullScreenAppCompatActivity
         if (geojsonLayer != null) {
             try {
                 geojsonLayer.resetStyling();
-                if (geojsonLayer.loadGeoJsonFile(this, contentUri)) {
+                if (geojsonLayer.loadGeoJsonFile(this, contentUri, false)) {
                     BoundingBox extent = geojsonLayer.getExtent();
                     if (extent != null) {
                         map.getViewBox().fitToBoundingBox(map, extent);
