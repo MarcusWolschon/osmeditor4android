@@ -3393,7 +3393,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Generate a log message and throw an IllegalStateException if rm is null
+     * Generate a log message and throw an IllegalStateException if rm or the type is null
      * 
      * @param if the relation OSM id
      * @param rm the member
@@ -3402,6 +3402,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         if (rm == null) {
             Log.e(DEBUG_TAG, "Null member of relation " + id);
             throw new IllegalStateException("Null member of relation " + id);
+        } else if (rm.type == null) {
+            Log.e(DEBUG_TAG, "Relation member with null type in " + id);
+            throw new IllegalStateException("Relation member with null type in " + id);
         }
     }
 
