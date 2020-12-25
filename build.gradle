@@ -277,19 +277,23 @@ android {
         javaMaxHeapSize "4g"
     }
     
-    sourceSets {
-        main.assets.srcDirs += files("$private_assets".toString())
-        test {
-            java.srcDirs += 'src/testCommon/java'
-        }
-        androidTest {
-            java.srcDirs += 'src/testCommon/java'
-        }
-    }
-    
     lintOptions {
         abortOnError true
         baseline file("lint-baseline.xml")
+    }
+    
+    sourceSets {
+        String commonTestJava = 'src/testCommon/java'
+        String commonTestResources = 'src/testCommon/resources'
+        main.assets.srcDirs += files("$private_assets".toString())
+        test {
+            java.srcDirs += commonTestJava
+            resources.srcDirs += commonTestResources
+        }
+        androidTest {
+            java.srcDirs += commonTestJava
+            resources.srcDirs += commonTestResources
+        }
     }
 }
 
