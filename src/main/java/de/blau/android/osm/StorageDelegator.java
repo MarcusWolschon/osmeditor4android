@@ -3284,7 +3284,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 Log.d(DEBUG_TAG, "mergeData fixuped relations");
 
             } catch (StorageException sex) {
-                // ran of memory
+                // ran out of memory
                 Log.e(DEBUG_TAG, "mergeData exception " + sex.getMessage());
                 return false;
             }
@@ -3835,7 +3835,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param rm the RelationMember
      * @return true if deleted
      */
-    private boolean memberIsDeleted(Relation r, RelationMember rm) {
+    private boolean memberIsDeleted(@NonNull Relation r, @NonNull RelationMember rm) {
         OsmElement apiElement = apiStorage.getOsmElement(rm.getType(), rm.getRef());
         if (apiElement != null && apiElement.getState() == OsmElement.STATE_DELETED) {
             String debugString = "mergeData/applyOsc deleted " + rm.getType() + " in downloaded relation " + r.getOsmId();
@@ -3852,7 +3852,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @param element the OsmElement
      */
-    public void removeFromUpload(OsmElement element) {
+    public void removeFromUpload(@NonNull OsmElement element) {
         apiStorage.removeElement(element);
         element.setState(OsmElement.STATE_UNCHANGED);
     }
@@ -3863,7 +3863,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param element the OsmElement
      * @param version the new version
      */
-    public void setOsmVersion(OsmElement element, long version) {
+    public void setOsmVersion(@NonNull OsmElement element, long version) {
         element.setOsmVersion(version);
         element.setState(OsmElement.STATE_MODIFIED);
         insertElementSafe(element);
