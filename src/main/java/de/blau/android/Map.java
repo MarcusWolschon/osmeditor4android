@@ -249,7 +249,7 @@ public class Map extends View implements IMapView {
                             layer = new de.blau.android.layer.geojson.MapOverlay(this);
                             if (contentId != null) {
                                 try {
-                                    if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId))) {
+                                    if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true)) {
                                         // other error, has already been toasted
                                         db.deleteLayer(LayerType.GEOJSON, contentId);
                                         continue;

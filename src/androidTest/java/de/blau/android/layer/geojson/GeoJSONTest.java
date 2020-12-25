@@ -228,7 +228,7 @@ public class GeoJSONTest {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream(fileName);
         try {
-            layer.loadGeoJsonFile(context, is);
+            layer.loadGeoJsonFile(context, is, false);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }

@@ -219,7 +219,7 @@ public class LayerDialogTest {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("geojson/multiPoint.geojson");
         try {
-            map.getGeojsonLayer().loadGeoJsonFile(main, is);
+            map.getGeojsonLayer().loadGeoJsonFile(main, is, false);
         } catch (IOException e) {
             fail(e.getMessage());
         }

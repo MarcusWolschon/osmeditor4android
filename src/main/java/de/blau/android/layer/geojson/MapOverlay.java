@@ -391,10 +391,11 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * 
      * @param ctx Android Context
      * @param uri an URI for the file
+     * @param fromState reading from saved state
      * @return true if successful
      * @throws IOException if reading the uri goes wrong
      */
-    public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull Uri uri) throws IOException {
+    public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull Uri uri, boolean fromState) throws IOException {
         try (InputStream is = ctx.getContentResolver().openInputStream(uri)) {
             readingLock.lock();
             name = SelectFile.getDisplaynameColumn(ctx, uri);
@@ -403,7 +404,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             }
             setFileName(uri.getEncodedPath().replace('/', '-'));
             this.uri = uri.toString();
-            return loadGeoJsonFile(ctx, is);
+            return loadGeoJsonFile(ctx, is, fromState);
         } catch (SecurityException sex) {
             Log.e(DEBUG_TAG, sex.getMessage());
             // note need a context here that is on the ui thread
@@ -432,10 +433,11 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * 
      * @param ctx Android Context
      * @param is the InputStream to read from
+     * @param fromState reading from saved state
      * @return true if successful
      * @throws IOException if reading the InputStream fails
      */
-    public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull InputStream is) throws IOException {
+    public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull InputStream is, boolean fromState) throws IOException {
         boolean successful = false;
         // don't draw while we are loading
         setVisible(false);
@@ -478,7 +480,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             }
             setVisible(true); // enable too
             successful = true;
-            dirty();
+            if (!fromState) {
+                dirty();
+            }
         } catch (com.google.gson.JsonSyntaxException jsex) {
             data = null;
             Snack.toastTopError(ctx, jsex.getLocalizedMessage());
