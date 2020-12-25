@@ -1,5 +1,9 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.1.4:
+- Fix regression (since 15.0) that stopped GeoJSON layer style from being restored
+- More protection against corrupted data
+
 15.1.3:
 - Fix multiple regressions in PathCreation mode by tracking existing nodes better
 - Fix regression when Bing imagery is selected and app is started without network connectivity
