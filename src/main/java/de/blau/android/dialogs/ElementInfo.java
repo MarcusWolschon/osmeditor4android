@@ -58,7 +58,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -70,7 +70,7 @@ import de.blau.android.validation.Validator;
  * @author simon
  *
  */
-public class ElementInfo extends ImmersiveDialogFragment {
+public class ElementInfo extends InfoDialogFragment {
     private static final String DEBUG_TAG = ElementInfo.class.getName();
 
     private static final int    DISPLAY_LIMIT         = 10;
@@ -220,31 +220,14 @@ public class ElementInfo extends ImmersiveDialogFragment {
         return builder.create();
     }
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (!getShowsDialog()) {
-            return createView(container);
-        }
-        return null;
-    }
-
-    /**
-     * Pretty print a coordinate value
-     * 
-     * @param coordE7 the coordinate in WGS84*1E7
-     * @return a reasonable looking string representation
-     */
-    private String prettyPrint(int coordE7) {
-        return String.format(Locale.US, "%.7f", coordE7 / 1E7d) + "°";
-    }
-
     /**
      * Create the view we want to display
      * 
      * @param container parent view or null
      * @return the View
      */
-    private View createView(ViewGroup container) {
+    @Override
+    protected View createView(ViewGroup container) {
         FragmentActivity activity = getActivity();
         LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
         ScrollView sv = (ScrollView) themedInflater.inflate(R.layout.element_info_view, container, false);
@@ -614,6 +597,17 @@ public class ElementInfo extends ImmersiveDialogFragment {
             }
         }
         return false;
+    }
+
+    /**
+     * Pretty print a coordinate value
+     * 
+     * @param coordE7 the coordinate in WGS84*1E7
+     * @return a reasonable looking string representation
+     */
+    @NonNull
+    private static String prettyPrint(int coordE7) {
+        return String.format(Locale.US, "%.7f", coordE7 / 1E7d) + "°";
     }
 
     /**

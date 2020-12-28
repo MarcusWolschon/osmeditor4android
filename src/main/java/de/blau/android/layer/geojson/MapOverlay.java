@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -25,9 +24,6 @@ import com.mapbox.geojson.GeometryCollection;
 import com.mapbox.geojson.MultiPolygon;
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
-import com.mapbox.geojson.gson.BoundingBoxDeserializer;
-import com.mapbox.geojson.gson.GeometryDeserializer;
-import com.mapbox.geojson.gson.PointDeserializer;
 import com.mapbox.turf.TurfException;
 import com.mapbox.turf.TurfJoins;
 
@@ -467,11 +463,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                 if (g != null) {
                     data.insert(new BoundedFeature(f));
                 } else {
-                    GsonBuilder gson = new GsonBuilder();
-                    gson.registerTypeAdapter(Geometry.class, new GeometryDeserializer());
-                    gson.registerTypeAdapter(Point.class, new PointDeserializer());
-                    gson.registerTypeAdapter(BoundingBox.class, new BoundingBoxDeserializer());
-                    g = gson.create().fromJson(json, Geometry.class);
+                    g = GeoJson.geometryFromJson(json);
                     Log.d(DEBUG_TAG, "Geometry " + g.type());
                     if (g.type() != null) {
                         data.insert(new BoundedFeature(Feature.fromGeometry(g)));

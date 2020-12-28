@@ -1704,6 +1704,19 @@ public class Logic {
     }
 
     /**
+     * Add elements
+     * 
+     * @param activity activity this was called from, if null no warnings will be displayed
+     * @param elements a List of OsmElements
+     */
+    public void addElements(@Nullable final Activity activity, @NonNull List<OsmElement> elements) {
+        createCheckpoint(activity, R.string.undo_action_add);
+        for (OsmElement e : elements) {
+            getDelegator().insertElementSafe(e);
+        }
+    }
+
+    /**
      * Simplified version of creating a new node that takes geo coords and doesn't try to merge with existing features
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
@@ -1727,7 +1740,7 @@ public class Logic {
      * @return the created node
      */
     @NonNull
-    public synchronized Node performAddNode(final Activity activity, int lonE7, int latE7) {
+    public synchronized Node performAddNode(@Nullable final Activity activity, int lonE7, int latE7) {
         Log.d(DEBUG_TAG, "performAddNode");
         createCheckpoint(activity, R.string.undo_action_add);
         Node newNode = getDelegator().getFactory().createNodeWithNewId(latE7, lonE7);
@@ -2036,7 +2049,8 @@ public class Logic {
      * @param deleteNode delete the Node after removing it
      * @param createCheckpoint if true create an undo checkpoint
      */
-    public synchronized void performRemoveEndNodeFromWay(@Nullable FragmentActivity activity, boolean fromEnd, @NonNull Way way, boolean deleteNode, boolean createCheckPoint) {
+    public synchronized void performRemoveEndNodeFromWay(@Nullable FragmentActivity activity, boolean fromEnd, @NonNull Way way, boolean deleteNode,
+            boolean createCheckPoint) {
         if (createCheckPoint) {
             createCheckpoint(activity, R.string.undo_action_remove_node_from_way);
         }

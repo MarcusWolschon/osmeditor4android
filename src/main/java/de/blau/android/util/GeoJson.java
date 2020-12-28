@@ -3,12 +3,16 @@ package de.blau.android.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.GsonBuilder;
 import com.mapbox.geojson.CoordinateContainer;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Geometry;
 import com.mapbox.geojson.GeometryCollection;
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
+import com.mapbox.geojson.gson.BoundingBoxDeserializer;
+import com.mapbox.geojson.gson.GeometryDeserializer;
+import com.mapbox.geojson.gson.PointDeserializer;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -20,14 +24,14 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.util.collections.FloatPrimitiveList;
 
 /**
- * GeoJosn utilities
+ * GeoJson utilities
  * 
  * @author Simon Poole
  *
  */
 public final class GeoJson {
 
-    private static final String DEBUG_TAG = "GeoJson";
+    private static final String DEBUG_TAG = GeoJson.class.getSimpleName();
 
     /**
      * Private constructor to stop instantiation
@@ -40,7 +44,7 @@ public final class GeoJson {
      * Calculate the bounding boxes of a GeoJson Polygon feature
      * 
      * @param f The GeoJson feature
-     * @return a List of BoundingBoxes, empty in no Polygons were found
+     * @return a List of BoundingBoxes, empty if no Polygons were found
      */
     @SuppressWarnings("unchecked")
     @NonNull
@@ -51,15 +55,9 @@ public final class GeoJson {
             for (List<Point> l : ((CoordinateContainer<List<List<Point>>>) g).coordinates()) {
                 BoundingBox box = null;
                 for (Point p : l) {
-                    if (box == null) {
-                        box = new BoundingBox(p.longitude(), p.latitude());
-                    } else {
-                        box.union(p.longitude(), p.latitude());
-                    }
+                    box = expand(box, p);
                 }
-                if (box != null) {
-                    result.add(box);
-                }
+                result.add(box);
             }
         }
         return result;
@@ -71,63 +69,40 @@ public final class GeoJson {
      * @param g the GeoJSON Geometry
      * @return the bounding box
      */
+    @SuppressWarnings("unchecked")
     @Nullable
     public static BoundingBox getBounds(@NonNull Geometry g) {
         BoundingBox result = null;
-        String type = g.type();
-        switch (type) {
+        switch (g.type()) {
         case GeoJSONConstants.POINT:
             Point p = (Point) g;
             result = new BoundingBox(p.longitude(), p.latitude());
             break;
         case GeoJSONConstants.LINESTRING:
         case GeoJSONConstants.MULTIPOINT:
-            @SuppressWarnings("unchecked")
-            List<Point> coordinates = ((CoordinateContainer<List<Point>>) g).coordinates();
-            for (Point q : coordinates) {
-                if (result == null) {
-                    result = new BoundingBox(q.longitude(), q.latitude());
-                } else {
-                    result.union(q.longitude(), q.latitude());
-                }
+            for (Point q : ((CoordinateContainer<List<Point>>) g).coordinates()) {
+                result = expand(result, q);
             }
             break;
         case GeoJSONConstants.MULTIPOLYGON:
-            @SuppressWarnings("unchecked")
-            List<List<List<Point>>> polygons = ((CoordinateContainer<List<List<List<Point>>>>) g).coordinates();
-            for (List<List<Point>> polygon : polygons) {
+            for (List<List<Point>> polygon : ((CoordinateContainer<List<List<List<Point>>>>) g).coordinates()) {
                 for (List<Point> l : polygon) {
                     for (Point r : l) {
-                        if (result == null) {
-                            result = new BoundingBox(r.longitude(), r.latitude());
-                        } else {
-                            result.union(r.longitude(), r.latitude());
-                        }
+                        result = expand(result, r);
                     }
                 }
             }
             break;
         case GeoJSONConstants.GEOMETRYCOLLECTION:
-            List<Geometry> geometries = ((GeometryCollection) g).geometries();
-            for (Geometry geometry : geometries) {
-                if (result == null) {
-                    result = getBounds(geometry);
-                } else {
-                    result.union(getBounds(geometry));
-                }
+            for (Geometry geometry : ((GeometryCollection) g).geometries()) {
+                result = expand(result, geometry);
             }
             break;
         case GeoJSONConstants.MULTILINESTRING:
         case GeoJSONConstants.POLYGON:
-            @SuppressWarnings("unchecked")
-            List<List<Point>> linesOrRings = ((CoordinateContainer<List<List<Point>>>) g).coordinates();
-            for (List<Point> l : linesOrRings) {
+            for (List<Point> l : ((CoordinateContainer<List<List<Point>>>) g).coordinates()) {
                 for (Point s : l) {
-                    if (result == null) {
-                        result = new BoundingBox(s.longitude(), s.latitude());
-                    } else {
-                        result.union(s.longitude(), s.latitude());
-                    }
+                    result = expand(result, s);
                 }
             }
             break;
@@ -135,6 +110,24 @@ public final class GeoJson {
             Log.e(DEBUG_TAG, "getBounds unknown GeoJSON geometry " + g.type());
         }
         return result;
+    }
+
+    /**
+     * Expand a bounding box to include Geometry g
+     * 
+     * @param box the bounding box
+     * @param g the geometry
+     * @return a bounding box
+     */
+    @Nullable
+    private static BoundingBox expand(@Nullable BoundingBox box, @NonNull Geometry g) {
+        BoundingBox newBox = getBounds(g);
+        if (box == null) {
+            box = newBox;
+        } else if (newBox != null) {
+            box.union(newBox);
+        }
+        return box;
     }
 
     /**
@@ -169,8 +162,8 @@ public final class GeoJson {
             double nextNodeLon = nextNode.longitude();
             int nextNodeLatE7 = (int) (nextNodeLat * 1E7);
             int nextNodeLonE7 = (int) (nextNodeLon * 1E7);
-            float X = -Float.MAX_VALUE;
-            float Y = -Float.MAX_VALUE;
+            float x;
+            float y = -Float.MAX_VALUE;
             for (int i = 0; i < nodesSize; i++) {
                 Point node = nextNode;
                 double nodeLon = nextNodeLon;
@@ -188,31 +181,44 @@ public final class GeoJson {
                 } else {
                     nextNode = null;
                 }
-                X = -Float.MAX_VALUE; // misuse this as a flag
-                if (prevNode != null) {
-                    if (thisIntersects || nextIntersects || (!(nextNode != null && lastDrawnNode != null)
-                            || box.isIntersectionPossible(nextNodeLonE7, nextNodeLatE7, lastDrawnNodeLonE7, lastDrawnNodeLatE7))) {
-                        X = GeoMath.lonToX(w, box, nodeLon);
-                        Y = GeoMath.latToY(h, w, box, nodeLat);
-                        if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect
-                            prevX = GeoMath.lonToX(w, box, prevNode.longitude());
-                            prevY = GeoMath.latToY(h, w, box, prevNode.latitude());
-                        }
-                        // Line segment needs to be drawn
-                        points.add(prevX);
-                        points.add(prevY);
-                        points.add(X);
-                        points.add(Y);
-                        lastDrawnNode = node;
-                        lastDrawnNodeLatE7 = nodeLatE7;
-                        lastDrawnNodeLonE7 = nodeLonE7;
+                x = -Float.MAX_VALUE; // misuse this as a flag
+                if (prevNode != null && (thisIntersects || nextIntersects || (!(nextNode != null && lastDrawnNode != null)
+                        || box.isIntersectionPossible(nextNodeLonE7, nextNodeLatE7, lastDrawnNodeLonE7, lastDrawnNodeLatE7)))) {
+                    x = GeoMath.lonToX(w, box, nodeLon);
+                    y = GeoMath.latToY(h, w, box, nodeLat);
+                    if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect
+                        prevX = GeoMath.lonToX(w, box, prevNode.longitude());
+                        prevY = GeoMath.latToY(h, w, box, prevNode.latitude());
                     }
+                    // Line segment needs to be drawn
+                    points.add(prevX);
+                    points.add(prevY);
+                    points.add(x);
+                    points.add(y);
+                    lastDrawnNode = node;
+                    lastDrawnNodeLatE7 = nodeLatE7;
+                    lastDrawnNodeLonE7 = nodeLonE7;
                 }
                 prevNode = node;
-                prevX = X;
-                prevY = Y;
+                prevX = x;
+                prevY = y;
                 thisIntersects = nextIntersects;
             }
         }
+    }
+
+    /**
+     * Parse geojson just containing the geometry
+     * 
+     * @param json the geojson
+     * @return a Geometry
+     */
+    @NonNull
+    public static Geometry geometryFromJson(@NonNull String json) {
+        GsonBuilder gson = new GsonBuilder();
+        gson.registerTypeAdapter(Geometry.class, new GeometryDeserializer());
+        gson.registerTypeAdapter(Point.class, new PointDeserializer());
+        gson.registerTypeAdapter(BoundingBox.class, new BoundingBoxDeserializer());
+        return gson.create().fromJson(json, Geometry.class);
     }
 }
