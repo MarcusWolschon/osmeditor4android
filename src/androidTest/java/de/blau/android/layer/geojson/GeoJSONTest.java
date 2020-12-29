@@ -20,6 +20,7 @@ import com.google.gson.JsonObject;
 import com.mapbox.geojson.CoordinateContainer;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Geometry;
+import com.mapbox.geojson.GeometryCollection;
 import com.mapbox.geojson.LineString;
 import com.mapbox.geojson.Point;
 
@@ -141,7 +142,6 @@ public class GeoJSONTest {
     @Test
     public void showFeatureInfo() {
         de.blau.android.layer.geojson.MapOverlay layer = main.getMap().getGeojsonLayer();
-
         loadGeoJOSN(layer, "geojson/featureCollection.geojson");
         layer.setLabel("prop0");
         map.getViewBox().setBorders(map, layer.getExtent(), false);
@@ -184,6 +184,7 @@ public class GeoJSONTest {
     @Test
     public void importGeometries() {
         de.blau.android.layer.geojson.MapOverlay layer = main.getMap().getGeojsonLayer();
+        // linestring
         loadGeoJOSN(layer, "geojson/lineString.geojson");
         map.getViewBox().setBorders(map, layer.getExtent(), false);
         map.invalidate();
@@ -194,6 +195,7 @@ public class GeoJSONTest {
         assertEquals(GeoJSONConstants.LINESTRING, g.type());
         List<Point> lineString = ((LineString) g).coordinates();
         assertEquals(3, lineString.size());
+        // multipoint
         loadGeoJOSN(layer, "geojson/multiPoint.geojson");
         map.getViewBox().setBorders(map, layer.getExtent(), false);
         map.invalidate();
@@ -205,6 +207,7 @@ public class GeoJSONTest {
         @SuppressWarnings("unchecked")
         List<Point> multiPoint = ((CoordinateContainer<List<Point>>) g).coordinates();
         assertEquals(4, multiPoint.size());
+        // multipolygon with holes
         loadGeoJOSN(layer, "geojson/holeyMultiPolygon.geojson");
         map.getViewBox().setBorders(map, layer.getExtent(), false);
         map.invalidate();
@@ -218,6 +221,7 @@ public class GeoJSONTest {
         assertEquals(2, multiPolygon.size()); // 2 polygons
         assertEquals(1, multiPolygon.get(0).size()); // 1 ring
         assertEquals(2, multiPolygon.get(1).size()); // 2 rings
+        // point
         loadGeoJOSN(layer, "geojson/point.geojson");
         map.getViewBox().setBorders(map, layer.getExtent(), false);
         map.invalidate();
@@ -229,6 +233,31 @@ public class GeoJSONTest {
         Point point = ((Point) g);
         assertEquals(30d, point.longitude(), 0.00001D);
         assertEquals(10d, point.latitude(), 0.00001D);
+        // multilinestring
+        loadGeoJOSN(layer, "geojson/multiLineString.geojson");
+        map.getViewBox().setBorders(map, layer.getExtent(), false);
+        map.invalidate();
+        content = layer.getFeatures();
+        assertEquals(1, content.size());
+        f = content.get(0);
+        g = f.geometry();
+        assertEquals(GeoJSONConstants.MULTILINESTRING, g.type());
+        @SuppressWarnings("unchecked")
+        List<List<Point>> lineStrings = ((CoordinateContainer<List<List<Point>>>) g).coordinates();
+        assertEquals(2, lineStrings.size());
+        // geometrycollection
+        loadGeoJOSN(layer, "geojson/geometryCollection.geojson");
+        map.getViewBox().setBorders(map, layer.getExtent(), false);
+        map.invalidate();
+        content = layer.getFeatures();
+        assertEquals(1, content.size());
+        f = content.get(0);
+        g = f.geometry();
+        assertEquals(GeoJSONConstants.GEOMETRYCOLLECTION, g.type());
+        List<Geometry> geometries = ((GeometryCollection) g).geometries();
+        assertEquals(2, geometries.size());
+        assertEquals(GeoJSONConstants.POLYGON, geometries.get(0).type());
+        assertEquals(GeoJSONConstants.POINT, geometries.get(1).type());
     }
 
     /**
