@@ -624,16 +624,18 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         for (int k = 0, verticesSize = vertices.size(); k < verticesSize - 1; ++k) {
             Point p1 = vertices.get(k);
             Point p2 = vertices.get(k + 1);
-            if (p1X == Float.MAX_VALUE) {
+            if (k==0) {
                 p1X = GeoMath.lonToX(width, viewBox, p1.longitude());
                 p1Y = GeoMath.latToY(height, width, viewBox, p1.latitude());
             }
-            float node2X = GeoMath.lonToX(width, viewBox, p2.longitude());
-            float node2Y = GeoMath.latToY(height, width, viewBox, p2.latitude());
-            double distance = de.blau.android.util.Geometry.isPositionOnLine(x, y, p1X, p1Y, node2X, node2Y);
+            float p2X = GeoMath.lonToX(width, viewBox, p2.longitude());
+            float p2Y = GeoMath.latToY(height, width, viewBox, p2.latitude());
+            double distance = de.blau.android.util.Geometry.isPositionOnLine(x, y, p1X, p1Y, p2X, p2Y);
             if (distance >= 0) {
                 return distance;
             }
+            p1X = p2X;
+            p1Y = p2Y;
         }
         return -1;
     }
