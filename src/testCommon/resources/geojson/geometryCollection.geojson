@@ -1,0 +1,39 @@
+{
+    "type": "GeometryCollection",
+    "geometries": [
+        {
+            "type": "Polygon",
+            "coordinates": [
+                [
+                    [
+                        30,
+                        10
+                    ],
+                    [
+                        40,
+                        40
+                    ],
+                    [
+                        20,
+                        40
+                    ],
+                    [
+                        10,
+                        20
+                    ],
+                    [
+                        30,
+                        10
+                    ]
+                ]
+            ]
+        },
+        {
+            "type": "Point",
+            "coordinates": [
+                30,
+                10
+            ]
+        }
+    ]
+}

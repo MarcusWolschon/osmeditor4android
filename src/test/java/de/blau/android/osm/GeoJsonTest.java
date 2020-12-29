@@ -301,6 +301,27 @@ public class GeoJsonTest {
     }
 
     /**
+     * Convert a GeoJson geometrycollection to a Node and a Way
+     */
+    @Test
+    public void geometryCollectionTest() {
+        try (InputStream input = getClass().getResourceAsStream("/geojson/geometryCollection.geojson")) {
+            Geometry g = de.blau.android.util.GeoJson.geometryFromJson(inputStreamToString(input));
+            assertNotNull(g.type());
+            List<OsmElement> elements = GeoJson.toOsm(Feature.fromGeometry(g), 2000);
+            assertNotNull(elements);
+            assertEquals(2, elements.size());
+            OsmElement w = elements.get(0);
+            assertTrue(w instanceof Way);
+            assertEquals(5, ((Way) w).nodeCount());
+            OsmElement n = elements.get(1);
+            assertTrue(n instanceof Node);
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
+    }
+
+    /**
      * Read an InputStream and return contents as a String
      * 
      * @param input the InputStream
