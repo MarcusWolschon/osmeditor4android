@@ -163,7 +163,6 @@ public class FeatureInfo extends InfoDialogFragment {
             if (geometry != null) {
                 final String geometryType = geometry.type();
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.type, geometryType, tp));
-
                 if (GeoJSONConstants.POINT.equals(geometryType)) {
                     ImageButton button = new ImageButton(activity);
                     button.setImageResource(ThemeUtils
