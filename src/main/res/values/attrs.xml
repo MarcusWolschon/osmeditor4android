@@ -90,6 +90,7 @@
     <attr name="information_small" format="reference" />
     <attr name="check" format="reference" />
     <attr name="propertyeditor_done" format="reference" />
+    <attr name="share" format="reference" /> 
 	<!-- Colors -->
 	<attr name="snack_info" format="reference|color" />
 	<attr name="snack_warning" format="reference|color" />

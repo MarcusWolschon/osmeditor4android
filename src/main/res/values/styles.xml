@@ -235,6 +235,7 @@
 	    <item name="android:windowNoTitle">false</item>
         <item name="alert_dialog">@drawable/ic_action_warning_holo_dark</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_white</item>
+        <item name="share">@drawable/share_dark</item>
         <item name="error">@color/material_red</item>
 	</style>
 	
@@ -242,6 +243,7 @@
 	    <item name="android:windowNoTitle">false</item>
         <item name="alert_dialog">@drawable/ic_action_warning_holo_light</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_black</item>
+        <item name="share">@drawable/share_light</item>
         <item name="error">@color/material_red</item>
 	</style>
 	

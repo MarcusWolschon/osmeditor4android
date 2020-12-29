@@ -1,7 +1,8 @@
 package de.blau.android.dialogs;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -9,12 +10,14 @@ import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Geometry;
 import com.mapbox.geojson.Point;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import androidx.annotation.NonNull;
@@ -25,8 +28,14 @@ import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
+import de.blau.android.Logic;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
+import de.blau.android.osm.GeoJson;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.Tags;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.Snack;
@@ -107,27 +116,27 @@ public class FeatureInfo extends InfoDialogFragment {
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
         if (feature != null) {
-            Geometry geometry = feature.geometry();
-            if (geometry != null && GeoJSONConstants.POINT.equals(geometry.type())) {
-                builder.setNeutralButton(R.string.share_position, (dialog, which) -> {
-                    Point p = ((Point) geometry);
-                    double[] lonLat = new double[2];
-                    lonLat[0] = p.longitude();
-                    lonLat[1] = p.latitude();
-                    Util.sharePosition(getActivity(), lonLat, null);
-                });
-            }
+            builder.setNeutralButton(R.string.create_osm_element, (dialog, which) -> {
+                int maxNodes = App.getLogic().getPrefs().getServer().getCachedCapabilities().getMaxWayNodes();
+                List<OsmElement> elements = GeoJson.toOsm(feature, maxNodes);
+                FragmentActivity activity = getActivity();
+                final Logic logic = App.getLogic();
+                logic.addElements(activity, elements);
+                if (activity instanceof Main) {
+                    final OsmElement first = elements.get(0);
+                    if (Tags.isMultiPolygon(first)) {
+                        logic.setSelectedRelation((Relation) first);
+                    } else {
+                        logic.setSelection(elements);
+                    }
+                    ((Main) activity).getEasyEditManager().startElementSelectionMode();
+                }
+            });
+
             final JsonObject properties = feature.properties();
             if (properties != null) {
                 builder.setNegativeButton(R.string.copy_properties, (dialog, which) -> {
-                    Map<String, String> tags = new LinkedHashMap<>();
-                    for (String key : properties.keySet()) {
-                        JsonElement e = properties.get(key);
-                        if (!e.isJsonNull() && e.isJsonPrimitive()) {
-                            tags.put(key, e.getAsString());
-                        }
-                    }
-                    App.getTagClipboard(getContext()).copy(tags);
+                    App.getTagClipboard(getContext()).copy(GeoJson.extractTags(properties));
                     Snack.toastTopInfo(getContext(), R.string.toast_properties_copied);
                 });
             }
@@ -150,22 +159,43 @@ public class FeatureInfo extends InfoDialogFragment {
 
         if (feature != null) {
             tl.setColumnShrinkable(1, true);
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.type, feature.geometry().type(), tp));
+            Geometry geometry = feature.geometry();
+            if (geometry != null) {
+                final String geometryType = geometry.type();
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.type, geometryType, tp));
+                if (GeoJSONConstants.POINT.equals(geometryType)) {
+                    ImageButton button = new ImageButton(activity);
+                    button.setImageResource(ThemeUtils
+                            .getResIdFromAttribute(ThemeUtils.getThemedContext(activity, R.style.Theme_DialogLight, R.style.Theme_DialogDark), R.attr.share));
+                    button.setBackground(null);
+                    button.setPadding(12, 12, 0, 0);
+                    final Point p = ((Point) geometry);
+                    button.setOnClickListener(v -> {
+                        Dialog dialog = getDialog();
+                        if (dialog != null) {
+                            dialog.dismiss();
+                        }
+
+                        Util.sharePosition(getActivity(), new double[] { p.longitude(), p.latitude() }, null);
+                    });
+                    tl.addView(TableLayoutUtils.createRowWithButton(activity, R.string.location_lon_label, prettyPrint(p.longitude()), button, tp));
+                    tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, prettyPrint(p.latitude()), tp));
+                }
+            }
             tl.addView(TableLayoutUtils.divider(activity));
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.menu_tags, null, tp));
             JsonObject properties = feature.properties();
-            if (properties != null) {
-                for (String key : properties.keySet()) {
-                    JsonElement e = properties.get(key);
-                    if (e.isJsonArray()) {
-                        // value not displayed yet
-                        tl.addView(TableLayoutUtils.createRow(activity, key, toItalic(R.string.json_object_not_displayed), tp));
-                    }
-                    if (e.isJsonObject()) {
-                        // value not displayed yet
-                        tl.addView(TableLayoutUtils.createRow(activity, key, toItalic(R.string.json_object_not_displayed), tp));
-                    } else if (e.isJsonPrimitive()) {
-                        tl.addView(TableLayoutUtils.createRow(activity, key, e.getAsString(), tp));
+            if (properties != null && !properties.isJsonNull()) {
+                Set<String> keys = properties.keySet();
+                if (!keys.isEmpty()) {
+                    tl.addView(TableLayoutUtils.createRow(activity, R.string.menu_tags, null, tp));
+                    for (String key : keys) {
+                        JsonElement e = properties.get(key);
+                        if (e.isJsonArray() || e.isJsonObject()) {
+                            // structured values not displayed yet
+                            tl.addView(TableLayoutUtils.createRow(activity, key, toItalic(R.string.json_object_not_displayed), tp));
+                        } else if (e.isJsonPrimitive()) {
+                            tl.addView(TableLayoutUtils.createRow(activity, key, e.getAsString(), tp));
+                        }
                     }
                 }
             }
@@ -181,5 +211,16 @@ public class FeatureInfo extends InfoDialogFragment {
      */
     private Spanned toItalic(int resId) {
         return Util.fromHtml("<i>" + getString(resId) + "</i>");
+    }
+
+    /**
+     * Pretty print a coordinate value
+     * 
+     * @param coord the coordinate in WGS84
+     * @return a reasonable looking string representation
+     */
+    @NonNull
+    private static String prettyPrint(double coord) {
+        return String.format(Locale.US, "%.7f", coord) + "°";
     }
 }

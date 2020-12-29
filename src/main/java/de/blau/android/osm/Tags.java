@@ -184,6 +184,16 @@ public final class Tags {
         return VALUE_DESTINATION_SIGN.equals(type) ? r.getMembersWithRole(Tags.ROLE_INTERSECTION) : r.getMembersWithRole(Tags.ROLE_VIA);
     }
 
+    /**
+     * Check if an element is a multipolygon
+     * 
+     * @param e the emelent
+     * @return true is a multipolygon
+     */
+    public static boolean isMultiPolygon(@Nullable OsmElement e) {
+        return e instanceof Relation && e.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON);
+    }
+
     public static final String KEY_MAXSPEED = "maxspeed";
     public static final String KEY_MINSPEED = "minspeed";
     public static final String MPH          = " mph";

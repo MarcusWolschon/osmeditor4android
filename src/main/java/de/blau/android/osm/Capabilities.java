@@ -199,9 +199,11 @@ public class Capabilities {
     }
 
     /**
-     * @return the maxWayNodes
+     * Get the maximum number of Nodes in an OSM Way
+     * 
+     * @return the maximum number of Nodes in an OSM Way
      */
-    int getMaxWayNodes() {
+    public int getMaxWayNodes() {
         return maxWayNodes;
     }
 

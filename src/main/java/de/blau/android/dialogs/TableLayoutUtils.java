@@ -8,8 +8,10 @@ import android.text.TextUtils.TruncateAt;
 import android.text.method.LinkMovementMethod;
 import android.text.style.StyleSpan;
 import android.text.util.Linkify;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
@@ -392,6 +394,36 @@ public final class TableLayoutUtils {
         trlp.weight = 1;
         cell.setLayoutParams(trlp);
 
+        tr.setLayoutParams(tp);
+        return tr;
+    }
+
+    /**
+     * Display three cells with a button in the last one
+     * 
+     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param text the text
+     * @param tp LayoutParams for the row
+     * @return a TableRow
+     */
+    @NonNull
+    public static View createRowWithButton(@NonNull FragmentActivity activity, int res, @NonNull String text, @NonNull ImageButton button,
+            @NonNull android.widget.TableLayout.LayoutParams tp) {
+        TableRow tr = new TableRow(activity);
+        TextView cell = new TextView(activity);
+        cell.setMinEms(FIRST_CELL_WIDTH);
+        cell.setMaxEms(MAX_FIRST_CELL_WIDTH);
+        cell.setText(res);
+        tr.addView(cell);
+
+        TableRow.LayoutParams trlp = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        addCell(activity, text, false, tr, trlp);
+
+        TableRow.LayoutParams trlp2 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        trlp2.gravity = Gravity.TOP | Gravity.RIGHT;
+        trlp2.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        button.setLayoutParams(trlp2);
+        tr.addView(button);
         tr.setLayoutParams(tp);
         return tr;
     }

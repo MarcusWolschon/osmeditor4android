@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -25,9 +24,6 @@ import com.mapbox.geojson.GeometryCollection;
 import com.mapbox.geojson.MultiPolygon;
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
-import com.mapbox.geojson.gson.BoundingBoxDeserializer;
-import com.mapbox.geojson.gson.GeometryDeserializer;
-import com.mapbox.geojson.gson.PointDeserializer;
 import com.mapbox.turf.TurfException;
 import com.mapbox.turf.TurfJoins;
 
@@ -467,11 +463,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                 if (g != null) {
                     data.insert(new BoundedFeature(f));
                 } else {
-                    GsonBuilder gson = new GsonBuilder();
-                    gson.registerTypeAdapter(Geometry.class, new GeometryDeserializer());
-                    gson.registerTypeAdapter(Point.class, new PointDeserializer());
-                    gson.registerTypeAdapter(BoundingBox.class, new BoundingBoxDeserializer());
-                    g = gson.create().fromJson(json, Geometry.class);
+                    g = GeoJson.geometryFromJson(json);
                     Log.d(DEBUG_TAG, "Geometry " + g.type());
                     if (g.type() != null) {
                         data.insert(new BoundedFeature(Feature.fromGeometry(g)));
@@ -534,7 +526,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @param x Screen X-coordinate.
      * @param y Screen Y-coordinate.
      * @param viewBox Map view box.
-     * @return List of photos close to given location.
+     * @return List of Features close to given location.
      */
     @Override
     public List<Feature> getClicked(final float x, final float y, final ViewBox viewBox) {
@@ -545,78 +537,107 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             Collection<BoundedFeature> queryResult = new ArrayList<>();
             data.query(queryResult, viewBox);
             Log.d(DEBUG_TAG, "features result count " + queryResult.size());
-            if (queryResult != null) {
-                for (BoundedFeature bf : queryResult) {
-                    Feature f = bf.getFeature();
-                    Geometry g = f.geometry();
-                    if (g == null) {
-                        continue;
-                    }
-                    switch (g.type()) {
-                    case GeoJSONConstants.POINT:
-                        if (inToleranceArea(viewBox, tolerance, (Point) g, x, y)) {
-                            result.add(f);
-                        }
-                        break;
-                    case GeoJSONConstants.MULTIPOINT:
-                        @SuppressWarnings("unchecked")
-                        List<Point> positions = ((CoordinateContainer<List<Point>>) g).coordinates();
-                        for (Point q : positions) {
-                            if (inToleranceArea(viewBox, tolerance, q, x, y)) {
-                                result.add(f);
-                                break;
-                            }
-                        }
-                        break;
-                    case GeoJSONConstants.LINESTRING:
-                        float p1X = Float.MAX_VALUE;
-                        float p1Y = Float.MAX_VALUE;
-                        int width = map.getWidth();
-                        int height = map.getHeight();
-                        // Iterate over all WayNodes, but not the last one.
-                        @SuppressWarnings("unchecked")
-                        List<Point> vertices = ((CoordinateContainer<List<Point>>) g).coordinates();
-                        for (int k = 0, verticesSize = vertices.size(); k < verticesSize - 1; ++k) {
-                            Point p1 = vertices.get(k);
-                            Point p2 = vertices.get(k + 1);
-                            if (p1X == Float.MAX_VALUE) {
-                                p1X = GeoMath.lonToX(width, viewBox, p1.longitude());
-                                p1Y = GeoMath.latToY(height, width, viewBox, p1.latitude());
-                            }
-                            float node2X = GeoMath.lonToX(width, viewBox, p2.longitude());
-                            float node2Y = GeoMath.latToY(height, width, viewBox, p2.latitude());
-                            double distance = de.blau.android.util.Geometry.isPositionOnLine(x, y, p1X, p1Y, node2X, node2Y);
-                            if (distance >= 0) {
-                                result.add(f);
-                                break;
-                            }
-                        }
-                        break;
-                    case GeoJSONConstants.POLYGON:
-                        try {
-                            if (TurfJoins.inside(pointFromScreenCoords(x, y, viewBox), (Polygon) g)) {
-                                result.add(f);
-                            }
-                        } catch (TurfException e) {
-                            Log.e(DEBUG_TAG, "Exception in getClicked " + e);
-                        }
-                        break;
-                    case GeoJSONConstants.MULTIPOLYGON:
-                        try {
-                            if (TurfJoins.inside(pointFromScreenCoords(x, y, viewBox), (MultiPolygon) g)) {
-                                result.add(f);
-                            }
-                        } catch (TurfException e) {
-                            Log.e(DEBUG_TAG, "Exception in getClicked " + e);
-                        }
-                        break;
-                    default:
-                    }
+            for (BoundedFeature bf : queryResult) {
+                Feature f = bf.getFeature();
+                Geometry g = f.geometry();
+                if (g == null) {
+                    continue;
+                }
+                if (geometryClicked(x, y, viewBox, tolerance, g)) {
+                    result.add(f);
                 }
             }
         }
         Log.d(DEBUG_TAG, "getClicked found " + result.size());
         return result;
+    }
+
+    /**
+     * Check if a geometry has been clicked
+     * 
+     * @param x Screen X-coordinate.
+     * @param y Screen Y-coordinate.
+     * @param viewBox Map view box.
+     * @param tolerance the tolerance value to use
+     * @param g the Geometry
+     * @return true if clicked
+     */
+    @SuppressWarnings("unchecked")
+    boolean geometryClicked(final float x, final float y, @NonNull final ViewBox viewBox, final float tolerance, @NonNull Geometry g) {
+        switch (g.type()) {
+        case GeoJSONConstants.POINT:
+            return inToleranceArea(viewBox, tolerance, (Point) g, x, y);
+        case GeoJSONConstants.MULTIPOINT:
+            for (Point q : ((CoordinateContainer<List<Point>>) g).coordinates()) {
+                if (inToleranceArea(viewBox, tolerance, q, x, y)) {
+                    return true;
+                }
+            }
+            break;
+        case GeoJSONConstants.LINESTRING:
+            return distanceToLineString(x, y, map, viewBox, ((CoordinateContainer<List<Point>>) g).coordinates()) >= 0;
+        case GeoJSONConstants.MULTILINESTRING:
+            for (List<Point> l : ((CoordinateContainer<List<List<Point>>>) g).coordinates()) {
+                if (distanceToLineString(x, y, map, viewBox, l) >= 0) {
+                    return true;
+                }
+            }
+            break;
+        case GeoJSONConstants.POLYGON:
+        case GeoJSONConstants.MULTIPOLYGON:
+            try {
+                final Point point = pointFromScreenCoords(x, y, viewBox);
+                return GeoJSONConstants.POLYGON.equals(g.type()) ? TurfJoins.inside(point, (Polygon) g) : TurfJoins.inside(point, (MultiPolygon) g);
+            } catch (TurfException e) {
+                Log.e(DEBUG_TAG, "Exception in getClicked " + e);
+            }
+            break;
+        case GeoJSONConstants.GEOMETRYCOLLECTION:
+            for (Geometry geometry : ((GeometryCollection) g).geometries()) {
+                if (geometryClicked(x, y, viewBox, tolerance, geometry)) {
+                    return true;
+                }
+            }
+            break;
+        default:
+            Log.e(DEBUG_TAG, "Unsupported geometry " + g.type());
+        }
+        return false;
+    }
+
+    /**
+     * Determine if screen coords are within the tolerance for a geojson linestring
+     * 
+     * @param x x screen coord
+     * @param y y screen coord
+     * @param map map object
+     * @param viewBox the current ViewBox
+     * @param vertices the list of lineString vertices
+     * @return if the returned value is > 0 then the coords are in the tolerance
+     */
+    private double distanceToLineString(final float x, final float y, final Map map, final ViewBox viewBox, List<Point> vertices) {
+        float p1X = Float.MAX_VALUE;
+        float p1Y = Float.MAX_VALUE;
+        int width = map.getWidth();
+        int height = map.getHeight();
+        // Iterate over all WayNodes, but not the last one.
+        for (int k = 0, verticesSize = vertices.size(); k < verticesSize - 1; ++k) {
+            Point p1 = vertices.get(k);
+            Point p2 = vertices.get(k + 1);
+            if (k==0) {
+                p1X = GeoMath.lonToX(width, viewBox, p1.longitude());
+                p1Y = GeoMath.latToY(height, width, viewBox, p1.latitude());
+            }
+            float p2X = GeoMath.lonToX(width, viewBox, p2.longitude());
+            float p2Y = GeoMath.latToY(height, width, viewBox, p2.latitude());
+            double distance = de.blau.android.util.Geometry.isPositionOnLine(x, y, p1X, p1Y, p2X, p2Y);
+            if (distance >= 0) {
+                return distance;
+            }
+            p1X = p2X;
+            p1Y = p2Y;
+        }
+        return -1;
     }
 
     /**
