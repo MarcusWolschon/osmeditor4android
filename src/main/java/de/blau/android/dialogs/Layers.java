@@ -698,24 +698,8 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         imageryList.setLayoutManager(layoutManager);
 
-        final Handler handler = new Handler();
-        OnCheckedChangeListener onCheckedChangeListener = (group, position) -> {
-            if (position != -1 && position < ids.length) {
-                final TileLayerSource tileServer = TileLayerSource.get(getActivity(), ids[position], true);
-                if (tileServer != null) {
-                    setNewImagery(activity, row, layer, tileServer);
-                }
-            } else {
-                Log.e(DEBUG_TAG, "position out of range 0-" + (ids.length - 1) + ": " + position);
-            }
-            // allow a tiny bit of time to see that the action actually worked
-            handler.postDelayed(() -> {
-                dialog.dismiss(); // dismiss this
-                dismissDialog(); // and then the caller
-            }, 100);
-        };
-
-        ImageryListAdapter adapter = new ImageryListAdapter(ids, currentId, isOverlay, buttonLayoutParams, onCheckedChangeListener);
+        final ImageryListAdapter adapter = new ImageryListAdapter(ids, currentId, isOverlay, buttonLayoutParams,
+                new LayerOnCheckedChangeListener(activity, dialog, row, layer, ids));
         imageryList.setAdapter(adapter);
 
         categoryGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -728,9 +712,55 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 prefs.setBackgroundCategory(category);
             }
             adapter.setIds(idsForButtons, isOverlay, true);
+            adapter.setOnCheckedChangeListener(new LayerOnCheckedChangeListener(activity, dialog, row, layer, idsForButtons));
         });
 
         return dialog;
+    }
+
+    private class LayerOnCheckedChangeListener implements OnCheckedChangeListener {
+        final FragmentActivity activity;
+        final Dialog           dialog;
+        final String[]         ids;
+        final TableRow         row;
+        final MapTilesLayer    layer;
+
+        /**
+         * Construct a new listener
+         * 
+         * @param activity the calling activity
+         * @param dialog the dialog
+         * @param row the TableRow with the information
+         * @param layer the layer the layer to change
+         * @param ids the list of the tile source ids to display
+         */
+        LayerOnCheckedChangeListener(@NonNull FragmentActivity activity, @NonNull Dialog dialog, @Nullable TableRow row, @Nullable MapTilesLayer layer,
+                @NonNull String[] ids) {
+            this.activity = activity;
+            this.dialog = dialog;
+            this.ids = ids;
+            this.row = row;
+            this.layer = layer;
+        }
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int position) {
+            if (position != -1 && position < ids.length) {
+                final TileLayerSource tileServer = TileLayerSource.get(getActivity(), ids[position], true);
+                if (tileServer != null) {
+                    setNewImagery(activity, row, layer, tileServer);
+                }
+            } else {
+                Log.e(DEBUG_TAG, "position out of range 0-" + (ids.length - 1) + ": " + position);
+            }
+            // allow a tiny bit of time to see that the action actually worked
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                dialog.dismiss(); // dismiss this
+                dismissDialog(); // and then the caller
+            }, 100);
+
+        }
     }
 
     /**
