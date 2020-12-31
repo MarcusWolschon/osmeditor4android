@@ -1,4 +1,3 @@
-// Created by plusminus on 18:23:16 - 25.09.2008
 package de.blau.android.resources;
 
 import java.io.BufferedReader;
@@ -9,13 +8,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.nio.charset.Charset;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -32,11 +28,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.FeatureCollection;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -52,7 +44,6 @@ import android.util.Base64;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -66,12 +57,13 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
+import de.blau.android.resources.bing.Bing;
+import de.blau.android.resources.eli.Eli;
+import de.blau.android.resources.eli.EliFeatureCollection;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.services.util.MapTileDownloader;
-import de.blau.android.util.DateFormatter;
 import de.blau.android.util.Density;
 import de.blau.android.util.FileUtil;
-import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Version;
@@ -88,18 +80,21 @@ import okhttp3.ResponseBody;
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06 by Marcus Wolschon to be
  * integrated into the de.blau.android.osmeditor4android.
  * 
+ * @author plusminus on 18:23:16 - 25.09.2008
  * @author Nicolas Gramlich
  * @author Marcus Wolschon Marcus@Wolschon.biz
+ * @author Andrew Gregory
+ * @author Simon Poole
  *
  */
 public class TileLayerSource implements Serializable {
     private static final String DEBUG_TAG = TileLayerSource.class.getSimpleName();
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 
-    static final String        EPSG_900913       = "EPSG:900913";
-    static final String        EPSG_3857         = "EPSG:3857";
-    static final String        EPSG_4326         = "EPSG:4326";
+    public static final String EPSG_900913       = "EPSG:900913";
+    public static final String EPSG_3857         = "EPSG:3857";
+    public static final String EPSG_4326         = "EPSG:4326";
     static final String        TYPE_BING         = "bing";
     public static final String TYPE_TMS          = "tms";
     public static final String TYPE_WMS          = "wms";
@@ -109,6 +104,8 @@ public class TileLayerSource implements Serializable {
     public static final String LAYER_NONE        = "NONE";
     public static final String LAYER_NOOVERLAY   = "NOOVERLAY";
     public static final String LAYER_BING        = "BING";
+
+    private static final String WMS_VERSION_130 = "1.3.0";
 
     /**
      * A tile layer provide has some attribution text, and one or more coverage areas.
@@ -121,57 +118,11 @@ public class TileLayerSource implements Serializable {
          * 
          * @author Andrew Gregory
          */
-        static class CoverageArea {
+        public static class CoverageArea {
             /** Zoom and area of this coverage area. */
-            private int         zoomMin;
-            private int         zoomMax;
-            private BoundingBox bbox = null;
-
-            /**
-             * Create a coverage area given XML data.
-             * 
-             * @param parser The XML parser.
-             * @throws IOException if there was an IO error
-             * @throws XmlPullParserException If there was a problem parsing the XML.
-             * @throws NumberFormatException If any of the numbers couldn't be parsed.
-             */
-            public CoverageArea(XmlPullParser parser) throws IOException, NumberFormatException, XmlPullParserException {
-                int eventType;
-                double bottom = 0.0d;
-                double top = 0.0d;
-                double left = 0.0d;
-                double right = 0.0d;
-
-                while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-                    String tagName = parser.getName();
-                    if (eventType == XmlPullParser.END_TAG) {
-                        if ("CoverageArea".equals(tagName)) {
-                            break;
-                        }
-                    }
-                    if (eventType == XmlPullParser.START_TAG) {
-                        if ("ZoomMin".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                            zoomMin = Integer.parseInt(parser.getText().trim());
-                        }
-                        if ("ZoomMax".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                            zoomMax = Integer.parseInt(parser.getText().trim());
-                        }
-                        if ("NorthLatitude".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                            top = Double.parseDouble(parser.getText().trim());
-                        }
-                        if ("SouthLatitude".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                            bottom = Double.parseDouble(parser.getText().trim());
-                        }
-                        if ("EastLongitude".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                            right = Double.parseDouble(parser.getText().trim());
-                        }
-                        if ("WestLongitude".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                            left = Double.parseDouble(parser.getText().trim());
-                        }
-                    }
-                }
-                bbox = new BoundingBox(left, bottom, right, top);
-            }
+            private final int         zoomMin;
+            private final int         zoomMax;
+            private final BoundingBox bbox;
 
             /**
              * Construct a new instance from zooms and BoundingBox
@@ -255,40 +206,10 @@ public class TileLayerSource implements Serializable {
         private List<CoverageArea> coverageAreas = new ArrayList<>();
 
         /**
-         * Create a new Provider from XML data.
-         * 
-         * @param parser The XML parser.
-         * @throws IOException If there was a problem parsing the XML.
-         * @throws XmlPullParserException If there was a problem parsing the XML.
-         */
-        public Provider(XmlPullParser parser) throws XmlPullParserException, IOException {
-            int eventType;
-            while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-                String tagName = parser.getName();
-                if (eventType == XmlPullParser.END_TAG) {
-                    if ("ImageryProvider".equals(tagName)) {
-                        break;
-                    }
-                }
-                if (eventType == XmlPullParser.START_TAG) {
-                    if ("Attribution".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        attribution = parser.getText().trim();
-                    }
-                    if ("CoverageArea".equals(tagName)) {
-                        try {
-                            coverageAreas.add(new CoverageArea(parser));
-                        } catch (Exception x) {
-                            // do nothing
-                        }
-                    }
-                }
-            }
-        }
-
-        /**
          * Default constructor
          */
         public Provider() {
+            // no defaults
         }
 
         /**
@@ -297,7 +218,7 @@ public class TileLayerSource implements Serializable {
          * @param ca the CoverageArea to add
          */
         public void addCoverageArea(@NonNull CoverageArea ca) {
-            coverageAreas.add(ca);
+            getCoverageAreas().add(ca);
         }
 
         /**
@@ -346,10 +267,10 @@ public class TileLayerSource implements Serializable {
          * @return true if the provider has coverage of the given zoom and area.
          */
         public boolean covers(int zoom, @NonNull BoundingBox area) {
-            if (coverageAreas.isEmpty()) {
+            if (getCoverageAreas().isEmpty()) {
                 return true;
             }
-            for (CoverageArea a : coverageAreas) {
+            for (CoverageArea a : getCoverageAreas()) {
                 if (a.covers(zoom, area)) {
                     return true;
                 }
@@ -364,10 +285,10 @@ public class TileLayerSource implements Serializable {
          * @return true if the provider has coverage of the given area
          */
         public boolean covers(@NonNull BoundingBox area) {
-            if (coverageAreas.isEmpty()) {
+            if (getCoverageAreas().isEmpty()) {
                 return true;
             }
-            for (CoverageArea a : coverageAreas) {
+            for (CoverageArea a : getCoverageAreas()) {
                 if (a.covers(area)) {
                     return true;
                 }
@@ -382,11 +303,11 @@ public class TileLayerSource implements Serializable {
          * @return the maximum zoom
          */
         public int getZoom(@NonNull BoundingBox area) {
-            if (coverageAreas.isEmpty()) {
+            if (getCoverageAreas().isEmpty()) {
                 return -1;
             }
             int max = 0;
-            for (CoverageArea a : coverageAreas) {
+            for (CoverageArea a : getCoverageAreas()) {
                 if (a.covers(area)) {
                     int m = a.zoomMax;
                     if (m > max) {
@@ -407,7 +328,7 @@ public class TileLayerSource implements Serializable {
         @Nullable
         public CoverageArea getCoverageArea(double lon, double lat) {
             CoverageArea result = null;
-            for (CoverageArea a : coverageAreas) {
+            for (CoverageArea a : getCoverageAreas()) {
                 if (a.covers(lon, lat)) {
                     if (result == null) {
                         result = a;
@@ -421,19 +342,26 @@ public class TileLayerSource implements Serializable {
             }
             return result;
         }
+
+        /**
+         * @return the coverageAreas
+         */
+        public List<CoverageArea> getCoverageAreas() {
+            return coverageAreas;
+        }
     }
 
-    private static final int PREFERENCE_DEFAULT = 0;
-    private static final int PREFERENCE_BEST    = 10;
+    public static final int PREFERENCE_DEFAULT = 0;
+    public static final int PREFERENCE_BEST    = 10;
 
-    public static final int  DEFAULT_MIN_ZOOM     = 0;
-    public static final int  DEFAULT_MAX_ZOOM     = 18;
-    private static final int DEFAULT_WMS_MAX_ZOOM = 22;
-    private static final int NO_MAX_ZOOM          = -1;
-    public static final int  DEFAULT_MAX_OVERZOOM = 4;
+    public static final int DEFAULT_MIN_ZOOM     = 0;
+    public static final int DEFAULT_MAX_ZOOM     = 18;
+    public static final int DEFAULT_WMS_MAX_ZOOM = 22;
+    public static final int NO_MAX_ZOOM          = -1;
+    public static final int DEFAULT_MAX_OVERZOOM = 4;
 
     public static final int DEFAULT_TILE_SIZE = 256;
-    static final int        WMS_TILE_SIZE     = 256;
+    public static final int WMS_TILE_SIZE     = 256;
 
     private static final String WMS_AXIS_XY = "XY";
     private static final String WMS_AXIS_YX = "YX";
@@ -502,7 +430,7 @@ public class TileLayerSource implements Serializable {
      * 
      * @param metadataUrl the url for the meta-data
      */
-    private void loadInfo(String metadataUrl) {
+    private void loadMeta(String metadataUrl) {
         try {
             Resources r = ctx.getResources();
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
@@ -529,66 +457,10 @@ public class TileLayerSource implements Serializable {
                 }
             }
             parser.setInput(is, null);
-            int eventType;
-            while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-                String tagName = parser.getName();
-                if (eventType == XmlPullParser.START_TAG) {
-                    if ("BrandLogoUri".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        String brandLogoUri = parser.getText().trim();
-                        if (brandLogoUri.startsWith("@drawable/")) {
-                            // internal URL
-                            int resid = r.getIdentifier(brandLogoUri.substring(10), "drawable", "de.blau.android");
-                            logoDrawable = ContextCompat.getDrawable(ctx, resid);
-                        } else {
-                            // assume Internet URL
-                            logoDrawable = getLogoFromUrl(brandLogoUri);
-                        }
-                    }
-                    if ("ImageUrl".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        tileUrl = parser.getText().trim();
-                        int extPos = tileUrl.lastIndexOf(".jpeg"); // TODO fix this awful hack
-                        if (extPos >= 0) {
-                            imageFilenameExtension = ".jpg";
-                        }
-                        // extract switch values
-                        final String SWITCH_START = "{switch:";
-                        int switchPos = tileUrl.indexOf(SWITCH_START);
-                        if (switchPos >= 0) {
-                            int switchEnd = tileUrl.indexOf('}', switchPos);
-                            if (switchEnd >= 0) {
-                                String switchValues = tileUrl.substring(switchPos + SWITCH_START.length(), switchEnd);
-                                Collections.addAll(subdomains, switchValues.split(","));
-                                StringBuilder t = new StringBuilder(tileUrl);
-                                tileUrl = t.replace(switchPos, switchEnd + 1, "{subdomain}").toString();
-                            }
-                        }
-                    }
-                    if ("string".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        subdomains.add(parser.getText().trim());
-                    }
-                    if ("ImageWidth".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        tileWidth = Integer.parseInt(parser.getText().trim());
-                    }
-                    if ("ImageHeight".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        tileHeight = Integer.parseInt(parser.getText().trim());
-                    }
-                    if ("ZoomMin".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        zoomLevelMin = Integer.parseInt(parser.getText().trim());
-                    }
-                    if ("ZoomMax".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        setMaxZoom(Integer.parseInt(parser.getText().trim()));
-                    }
-                    if ("ImageryProvider".equals(tagName)) {
-                        try {
-                            providers.add(new Provider(parser));
-                        } catch (IOException | XmlPullParserException e) {
-                            // if the provider can't be parsed, we can't do
-                            // much about it
-                            Log.e(DEBUG_TAG, "ImageryProvider problem", e);
-                        }
-                    }
-                }
-            }
+
+            // load meta information from Bing (or from other sources using the same format)
+            Bing.loadMeta(ctx, this, parser);
+
             metadataLoaded = true;
             // once we've got here, a selected layer that was previously non-available might now be available ... reset
             // map preferences
@@ -609,7 +481,7 @@ public class TileLayerSource implements Serializable {
      * @return a scaled BitmapDrawable or null if the logo couldn't be found
      */
     @Nullable
-    private BitmapDrawable getLogoFromUrl(@NonNull String brandLogoUri) {
+    public BitmapDrawable getLogoFromUrl(@NonNull String brandLogoUri) {
         InputStream bis = null;
         try {
             Request request = new Request.Builder().url(replaceGeneralParameters(brandLogoUri)).build();
@@ -639,7 +511,7 @@ public class TileLayerSource implements Serializable {
      * @param bitmap input Bitmap
      * @return a scaled BitmapDrawable
      */
-    private BitmapDrawable scaledBitmap(Bitmap bitmap) {
+    private BitmapDrawable scaledBitmap(@Nullable Bitmap bitmap) {
         // scale according to density
         if (bitmap != null) {
             int height = bitmap.getHeight();
@@ -682,26 +554,26 @@ public class TileLayerSource implements Serializable {
      * @param privacyPolicyUrl a link to a privacy policy or null
      * @param async run loadInfo in a AsyncTask needed for main process
      */
-    TileLayerSource(@NonNull final Context ctx, @Nullable final String id, @NonNull final String name, final String url, final String type, Category category,
-            final boolean overlay, final boolean defaultLayer, @Nullable final Provider provider, final String termsOfUseUrl, final String icon, String logoUrl,
-            byte[] logoBytes, final int zoomLevelMin, final int zoomLevelMax, int maxOverZoom, final int tileWidth, final int tileHeight, final String proj,
-            final int preference, final long startDate, final long endDate, @Nullable String noTileHeader, @Nullable String[] noTileValues,
-            @Nullable String description, @Nullable String privacyPolicyUrl, boolean async) {
+    public TileLayerSource(@NonNull final Context ctx, @Nullable final String id, @NonNull final String name, final String url, final String type,
+            Category category, final boolean overlay, final boolean defaultLayer, @Nullable final Provider provider, final String termsOfUseUrl,
+            final String icon, String logoUrl, byte[] logoBytes, final int zoomLevelMin, final int zoomLevelMax, int maxOverZoom, final int tileWidth,
+            final int tileHeight, final String proj, final int preference, final long startDate, final long endDate, @Nullable String noTileHeader,
+            @Nullable String[] noTileValues, @Nullable String description, @Nullable String privacyPolicyUrl, boolean async) {
 
         this.ctx = ctx;
         this.id = id;
         this.name = name;
         this.type = type;
         this.category = category;
-        tileUrl = url;
+        setTileUrl(url);
         originalUrl = url;
         this.overlay = overlay;
         this.defaultLayer = defaultLayer;
         this.zoomLevelMin = zoomLevelMin;
         this.setMaxZoom(zoomLevelMax);
         this.maxOverZoom = maxOverZoom;
-        this.tileWidth = tileWidth;
-        this.tileHeight = tileHeight;
+        this.setTileWidth(tileWidth);
+        this.setTileHeight(tileHeight);
         this.proj = proj;
         this.touUri = termsOfUseUrl;
         this.description = description;
@@ -716,7 +588,7 @@ public class TileLayerSource implements Serializable {
         this.noTileValues = noTileValues;
 
         if (provider != null) {
-            providers.add(provider);
+            getProviders().add(provider);
         }
 
         metadataLoaded = true;
@@ -738,7 +610,7 @@ public class TileLayerSource implements Serializable {
 
         if (proj != null) { // wms
             if (tileUrl.contains(MimeTypes.JPEG)) {
-                imageFilenameExtension = ".jpg";
+                setImageFilenameExtension(".jpg");
             }
         }
 
@@ -766,24 +638,24 @@ public class TileLayerSource implements Serializable {
                 new AsyncTask<String, Void, Void>() {
                     @Override
                     protected Void doInBackground(String... params) {
-                        loadInfo(params[0]);
+                        loadMeta(params[0]);
                         Log.i(DEBUG_TAG, "Meta-data loaded for layer " + getId());
                         return null;
                     }
                 }.execute(tileUrl);
             } else {
-                loadInfo(tileUrl);
+                loadMeta(tileUrl);
             }
             return;
         } else if (TYPE_SCANEX.equals(type)) { // hopelessly hardwired
-            tileUrl = "http://irs.gis-lab.info/?layers=" + tileUrl.toLowerCase(Locale.US) + "&request=GetTile&z={zoom}&x={x}&y={y}";
-            imageFilenameExtension = ".jpg";
+            setTileUrl("http://irs.gis-lab.info/?layers=" + tileUrl.toLowerCase(Locale.US) + "&request=GetTile&z={zoom}&x={x}&y={y}");
+            setImageFilenameExtension(".jpg");
             return;
         }
 
         int extPos = tileUrl.lastIndexOf('.');
         if (extPos >= 0) {
-            imageFilenameExtension = tileUrl.substring(extPos);
+            setImageFilenameExtension(tileUrl.substring(extPos));
         }
         // extract switch values
         final String SWITCH_START = "{switch:";
@@ -792,9 +664,9 @@ public class TileLayerSource implements Serializable {
             int switchEnd = tileUrl.indexOf('}', switchPos);
             if (switchEnd >= 0) {
                 String switchValues = tileUrl.substring(switchPos + SWITCH_START.length(), switchEnd);
-                Collections.addAll(subdomains, switchValues.split(","));
+                Collections.addAll(getSubdomains(), switchValues.split(","));
                 StringBuilder t = new StringBuilder(tileUrl);
-                tileUrl = t.replace(switchPos, switchEnd + 1, "{subdomain}").toString();
+                setTileUrl(t.replace(switchPos, switchEnd + 1, "{subdomain}").toString());
             }
         }
     }
@@ -822,7 +694,8 @@ public class TileLayerSource implements Serializable {
     }
 
     /**
-     * Parse a geojson format InputStream for imagery configs and add them to backgroundServerList or overlayServerList
+     * Parse a ELI geojson format InputStream for imagery configs and add them to backgroundServerList or
+     * overlayServerList
      * 
      * @param ctx android context
      * @param source from which source this config is
@@ -840,9 +713,12 @@ public class TileLayerSource implements Serializable {
             sb.append((char) cp);
         }
         try {
-            FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
+            EliFeatureCollection fc = EliFeatureCollection.fromJson(sb.toString());
+            Version formatVersion = fc.formatVersion();
+            Log.i(DEBUG_TAG, "Reading imagery configuration version " + (formatVersion == null ? "unknown" : formatVersion.toString()));
+            boolean fakeMultiPolygons = formatVersion == null || !formatVersion.largerThanOrEqual(Eli.VERSION_120);
             for (Feature f : fc.features()) {
-                TileLayerSource osmts = geojsonToServer(ctx, f, async);
+                TileLayerSource osmts = Eli.geojsonToServer(ctx, f, async, fakeMultiPolygons);
                 if (osmts != null) {
                     TileLayerDatabase.addLayer(writeableDb, source, osmts);
                 } else {
@@ -852,233 +728,8 @@ public class TileLayerSource implements Serializable {
             TileLayerDatabase.updateSource(writeableDb, source, System.currentTimeMillis());
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Fatal error parsing " + source + " " + e.getMessage());
+            e.printStackTrace();
         }
-    }
-
-    /**
-     * Get a string with name from a JsonObject
-     * 
-     * @param jsonObject the JsonObject
-     * @param name the name of the string we want to retrieve
-     * @return the string or null if it couldb't be found
-     */
-    @Nullable
-    static String getJsonString(@NonNull JsonObject jsonObject, @NonNull String name) {
-        JsonElement field = jsonObject.get(name);
-        if (field != null && field.isJsonPrimitive()) {
-            return field.getAsString();
-        }
-        return null;
-    }
-
-    /**
-     * Get a string array with name from a JsonObject
-     * 
-     * @param jsonObject the JsonObject
-     * @param name the name of the string we want to retrieve
-     * @return the string array or null if it couldb't be found or if the field wasn't an array
-     */
-    @Nullable
-    static String[] getJsonStringArray(@NonNull JsonObject jsonObject, @NonNull String name) {
-        JsonElement field = jsonObject.get(name);
-        if (field != null && field.isJsonArray()) {
-            JsonArray array = field.getAsJsonArray();
-            int length = array.size();
-            String[] result = new String[length];
-            for (int i = 0; i < length; i++) {
-                result[i] = array.get(i).getAsString();
-            }
-            return result;
-        }
-        return null;
-    }
-
-    /**
-     * Get a string array with name from a JsonObject
-     * 
-     * @param jsonObject the JsonObject
-     * @param name the name of the string we want to retrieve
-     * @return the string array or null if it couldb't be found
-     */
-    @Nullable
-    static JsonObject getJsonObject(@NonNull JsonObject jsonObject, @NonNull String name) {
-        JsonElement field = jsonObject.get(name);
-        if (field != null && field.isJsonObject()) {
-            return (JsonObject) field;
-        }
-        return null;
-    }
-
-    /**
-     * Get a boolean with name from a JsonObject
-     * 
-     * @param jsonObject the JsonObject
-     * @param name the name of the boolean we want to retrieve
-     * @return the value or false if it couldb't be found
-     */
-    static boolean getJsonBoolean(@NonNull JsonObject jsonObject, @NonNull String name) {
-        JsonElement field = jsonObject.get(name);
-        if (field != null && field.isJsonPrimitive()) {
-            return field.getAsBoolean();
-        }
-        return false;
-    }
-
-    /**
-     * Get an int with name from a JsonObject
-     * 
-     * @param jsonObject the JsonObject
-     * @param name the name of the boolean we want to retrieve
-     * @param defaultValue the value to use if the int couldn't be found
-     * @return the value or defaltValue if it couldb't be found
-     */
-    static int getJsonInteger(@NonNull JsonObject jsonObject, @NonNull String name, final int defaultValue) {
-        JsonElement field = jsonObject.get(name);
-        if (field != null && field.isJsonPrimitive()) {
-            return field.getAsInt();
-        }
-        return defaultValue;
-    }
-
-    /**
-     * Create a TileLayerServer instance from a GeoJson Feature
-     * 
-     * @param ctx Android Context
-     * @param f the GeoJosn Feature containing the config
-     * @param async if true retrieve meta-info async
-     * @return a TileLayerServer instance of null if it couldn't be created
-     */
-    @Nullable
-    private static TileLayerSource geojsonToServer(@NonNull Context ctx, @NonNull Feature f, boolean async) {
-        TileLayerSource osmts = null;
-
-        try {
-
-            int tileWidth = DEFAULT_TILE_SIZE;
-            int tileHeight = DEFAULT_TILE_SIZE;
-
-            JsonObject properties = f.properties();
-
-            List<BoundingBox> boxes = GeoJson.getBoundingBoxes(f);
-            int minZoom = getJsonInteger(properties, "min_zoom", DEFAULT_MIN_ZOOM);
-            int maxZoom = getJsonInteger(properties, "max_zoom", NO_MAX_ZOOM);
-
-            String type = getJsonString(properties, "type");
-            boolean isWMS = TYPE_WMS.equals(type);
-            if (maxZoom == NO_MAX_ZOOM) {
-                if (isWMS) {
-                    maxZoom = DEFAULT_WMS_MAX_ZOOM;
-                } else {
-                    maxZoom = DEFAULT_MAX_ZOOM;
-                }
-            }
-
-            Category category = getCategory(getJsonString(properties, "category"));
-
-            Provider provider = new Provider();
-            if (boxes.isEmpty()) {
-                provider.addCoverageArea(new Provider.CoverageArea(minZoom, maxZoom, null));
-            } else {
-                for (BoundingBox box : boxes) {
-                    provider.addCoverageArea(new Provider.CoverageArea(minZoom, maxZoom, box));
-                }
-            }
-
-            String id = getJsonString(properties, "id");
-            String url = getJsonString(properties, "url");
-            String name = getJsonString(properties, "name");
-            boolean overlay = getJsonBoolean(properties, "overlay");
-            boolean defaultLayer = getJsonBoolean(properties, "default");
-            int preference = getJsonBoolean(properties, "best") ? PREFERENCE_BEST : PREFERENCE_DEFAULT;
-
-            String termsOfUseUrl = getJsonString(properties, "license_url");
-
-            JsonObject attribution = (JsonObject) properties.get("attribution");
-            if (attribution != null) {
-                provider.setAttributionUrl(getJsonString(attribution, "url"));
-                provider.setAttribution(getJsonString(attribution, "text"));
-            }
-            String icon = getJsonString(properties, "icon");
-            long startDate = -1L;
-            long endDate = Long.MAX_VALUE;
-            String dateString = getJsonString(properties, "start_date");
-            if (dateString != null) {
-                startDate = dateStringToTime(dateString);
-            }
-            dateString = getJsonString(properties, "end_date");
-            if (dateString != null) {
-                endDate = dateStringToTime(dateString);
-            }
-
-            String description = getJsonString(properties, "description");
-            String privacyPolicyUrl = getJsonString(properties, "privacy_policy_url");
-
-            String noTileHeader = null;
-            String[] noTileValues = null;
-            JsonObject noTileHeaderObject = getJsonObject(properties, "no_tile_header");
-            if (noTileHeaderObject != null) {
-                Iterator<Entry<String, JsonElement>> it = noTileHeaderObject.entrySet().iterator();
-                if (it.hasNext()) { // we only support one entry
-                    Entry<String, JsonElement> entry = it.next();
-                    noTileHeader = entry.getKey();
-                    noTileValues = getJsonStringArray(noTileHeaderObject, noTileHeader);
-                }
-            }
-
-            String proj = null;
-            JsonArray projections = (JsonArray) properties.get("available_projections");
-            if (projections != null) {
-                for (JsonElement p : projections) {
-                    String supportedProj = p.getAsString();
-                    boolean latLon = EPSG_4326.equals(supportedProj);
-                    if (EPSG_3857.equals(supportedProj) || EPSG_900913.equals(supportedProj) || latLon) {
-                        proj = supportedProj;
-                        if (latLon) {
-                            // small tiles keep errors small since we don't actually reproject tiles
-                            tileWidth = DEFAULT_TILE_SIZE;
-                            tileHeight = DEFAULT_TILE_SIZE;
-                            // continue on searching for web mercator
-                        } else {
-                            tileWidth = WMS_TILE_SIZE;
-                            tileHeight = WMS_TILE_SIZE;
-                            break; // found web mercator compatible projection
-                        }
-                    }
-                }
-            }
-
-            if (type == null || url == null || (isWMS && proj == null)) {
-                Log.w(DEBUG_TAG, "skipping name " + name + " id " + id + " type " + type + " url " + url);
-                if (TYPE_WMS.equals(type)) {
-                    Log.w(DEBUG_TAG, "projections: " + projections);
-                }
-                return null;
-            }
-            osmts = new TileLayerSource(ctx, id, name, url, type, category, overlay, defaultLayer, provider, termsOfUseUrl, icon, null, null, minZoom, maxZoom,
-                    DEFAULT_MAX_OVERZOOM, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues, description,
-                    privacyPolicyUrl, async);
-        } catch (UnsupportedOperationException uoex) {
-            Log.e(DEBUG_TAG, "Got " + uoex.getMessage());
-        }
-        return osmts;
-    }
-
-    /**
-     * Get the Category from a String
-     * 
-     * @param categoryString String with a category value or null
-     * @return the Category or Category.other if it can't be determined
-     */
-    @NonNull
-    private static Category getCategory(@Nullable String categoryString) {
-        if (categoryString != null) {
-            try {
-                return Category.valueOf(categoryString);
-            } catch (IllegalArgumentException e) {
-                Log.e(DEBUG_TAG, "Unknown category value " + categoryString);
-            }
-        }
-        return Category.other;
     }
 
     /**
@@ -1319,34 +970,6 @@ public class TileLayerSource implements Serializable {
         }
     }
 
-    /**
-     * Parse a RFC3339 timestamp into a time value since epoch, ignores non date parts
-     * 
-     * @param timeStamp the date string to parse
-     * @return the time value or -1 if parsing failed
-     */
-    @NonNull
-    private static long dateStringToTime(@Nullable String timeStamp) {
-        long result = -1L;
-        if (timeStamp != null && !"".equals(timeStamp)) {
-            String[] parts = timeStamp.split("T");
-            String f = "yyyy-MM-dd";
-            try {
-                int l = parts[0].length();
-                if (l == 4) { // slightly hackish way of determining which format to use
-                    f = "yyyy";
-                } else if (l < 8) {
-                    f = "yyyy-MM";
-                }
-                Date d = DateFormatter.getUtcFormat(f).parse(parts[0]);
-                result = d.getTime();
-            } catch (ParseException e) {
-                Log.e(DEBUG_TAG, "Invalid RFC3339 value (" + f + ") " + timeStamp + " " + e.getMessage());
-            }
-        }
-        return result;
-    }
-
     // ===========================================================
     // Methods
     // ===========================================================
@@ -1452,7 +1075,7 @@ public class TileLayerSource implements Serializable {
          */
         if (logoDrawable == null && (logoUrl != null || logoBitmap != null)) {
             if (logoBitmap != null) {
-                logoDrawable = scaledBitmap(logoBitmap);
+                setLogoDrawable(scaledBitmap(logoBitmap));
             } else {
                 new AsyncTask<String, Void, Void>() {
                     @Override
@@ -1461,10 +1084,10 @@ public class TileLayerSource implements Serializable {
                             Drawable cached = logoCache.get(logoUrl);
                             if (cached != NOLOGO && logoUrl != null) { // recheck logoURl
                                 if (cached != null) {
-                                    logoDrawable = cached;
+                                    setLogoDrawable(cached);
                                 } else {
                                     Log.d(DEBUG_TAG, "getLogoDrawable logoUrl " + logoUrl);
-                                    logoDrawable = getLogoFromUrl(logoUrl);
+                                    setLogoDrawable(getLogoFromUrl(logoUrl));
                                     if (logoDrawable == null) {
                                         logoCache.put(logoUrl, NOLOGO);
                                     } else {
@@ -1486,7 +1109,7 @@ public class TileLayerSource implements Serializable {
      * Zap the cached logo (necessary when screen resolution changes)
      */
     private void clearLogoDrawable() {
-        logoDrawable = null;
+        setLogoDrawable(null);
     }
 
     /**
@@ -1520,7 +1143,7 @@ public class TileLayerSource implements Serializable {
     public Collection<String> getAttributions(final int zoom, @NonNull final BoundingBox area) {
         checkMetaData();
         Collection<String> ret = new ArrayList<>();
-        for (Provider p : providers) {
+        for (Provider p : getProviders()) {
             if (p.getAttribution() != null && p.covers(Math.min(zoom, getMaxZoom()), area)) { // ignore overzoom
                 ret.add(p.getAttribution());
             }
@@ -1697,15 +1320,11 @@ public class TileLayerSource implements Serializable {
         List<TileLayerSource> list = new ArrayList<>();
         for (TileLayerSource osmts : servers.values()) {
             if (filtered) {
-                if (category != null) {
-                    if (!category.equals(osmts.getCategory())) {
-                        continue;
-                    }
+                if (category != null && !category.equals(osmts.getCategory())) {
+                    continue;
                 }
-                if (box != null) {
-                    if (!osmts.covers(box)) {
-                        continue;
-                    }
+                if (box != null && !osmts.covers(box)) {
+                    continue;
                 }
             }
             // add this after sorting
@@ -1772,8 +1391,8 @@ public class TileLayerSource implements Serializable {
      * @return true if covered or no coverage information
      */
     public boolean covers(BoundingBox box) {
-        if (!providers.isEmpty()) {
-            for (Provider p : providers) {
+        if (!getProviders().isEmpty()) {
+            for (Provider p : getProviders()) {
                 if (p.covers(box)) {
                     return true;
                 }
@@ -1791,8 +1410,8 @@ public class TileLayerSource implements Serializable {
      */
     public int getMaxZoom(BoundingBox box) {
         int max = 0;
-        if (!providers.isEmpty()) {
-            for (Provider p : providers) {
+        if (!getProviders().isEmpty()) {
+            for (Provider p : getProviders()) {
                 int m = p.getZoom(box);
                 if (m > max) {
                     max = m;
@@ -1965,7 +1584,7 @@ public class TileLayerSource implements Serializable {
      * @param s the input string
      * @return the string with replaced parameters
      */
-    private String replaceGeneralParameters(@NonNull final String s) {
+    public String replaceGeneralParameters(@NonNull final String s) {
         Resources r = ctx.getResources();
         final Locale l = r.getConfiguration().locale;
         String result = s;
@@ -2039,10 +1658,10 @@ public class TileLayerSource implements Serializable {
                     case "subdomain":
                         // Rotate through the list of sub-domains
                         String subdomain = null;
-                        synchronized (subdomains) {
-                            subdomain = subdomains.poll();
+                        synchronized (getSubdomains()) {
+                            subdomain = getSubdomains().poll();
                             if (subdomain != null) {
-                                subdomains.add(subdomain);
+                                getSubdomains().add(subdomain);
                             }
                         }
                         if (subdomain != null) {
@@ -2111,12 +1730,9 @@ public class TileLayerSource implements Serializable {
             case EPSG_900913:
                 int ymax = 1 << aTile.zoomLevel;
                 int y = ymax - aTile.y - 1;
-                boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x, aTile.zoomLevel));
-                boxBuilder.append(',');
-                boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y, aTile.zoomLevel));
-                boxBuilder.append(',');
-                boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x + 1, aTile.zoomLevel));
-                boxBuilder.append(',');
+                boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x, aTile.zoomLevel)).append(',');
+                boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y, aTile.zoomLevel)).append(',');
+                boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x + 1, aTile.zoomLevel)).append(',');
                 boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y + 1, aTile.zoomLevel));
                 break;
             case EPSG_4326:
@@ -2129,32 +1745,20 @@ public class TileLayerSource implements Serializable {
                         String versionStr = matcher.group(1);
                         if (versionStr != null) {
                             Version version = new Version(versionStr);
-                            if (version.largerThanOrEqual("1.3.0")) {
-                                Log.i(DEBUG_TAG, "WMS version " + versionStr + " flipping axis");
-                                wmsAxisOrder = WMS_AXIS_YX;
-                            } else {
-                                Log.i(DEBUG_TAG, "WMS version " + versionStr + " normal axis");
-                                wmsAxisOrder = WMS_AXIS_XY;
-                            }
+                            wmsAxisOrder = version.largerThanOrEqual(WMS_VERSION_130) ? WMS_AXIS_YX : WMS_AXIS_XY;
                         }
                     }
                 }
                 // note this is hack that simply squashes the vertical axis to fit to square tiles
                 if (WMS_AXIS_XY.equals(wmsAxisOrder)) {
-                    boxBuilder.append(GeoMath.tile2lon(aTile.x, aTile.zoomLevel));
-                    boxBuilder.append(',');
-                    boxBuilder.append(GeoMath.tile2lat(aTile.y + 1, aTile.zoomLevel));
-                    boxBuilder.append(',');
-                    boxBuilder.append(GeoMath.tile2lon(aTile.x + 1, aTile.zoomLevel));
-                    boxBuilder.append(',');
+                    boxBuilder.append(GeoMath.tile2lon(aTile.x, aTile.zoomLevel)).append(',');
+                    boxBuilder.append(GeoMath.tile2lat(aTile.y + 1, aTile.zoomLevel)).append(',');
+                    boxBuilder.append(GeoMath.tile2lon(aTile.x + 1, aTile.zoomLevel)).append(',');
                     boxBuilder.append(GeoMath.tile2lat(aTile.y, aTile.zoomLevel));
                 } else {
-                    boxBuilder.append(GeoMath.tile2lat(aTile.y + 1, aTile.zoomLevel));
-                    boxBuilder.append(',');
-                    boxBuilder.append(GeoMath.tile2lon(aTile.x, aTile.zoomLevel));
-                    boxBuilder.append(',');
-                    boxBuilder.append(GeoMath.tile2lat(aTile.y, aTile.zoomLevel));
-                    boxBuilder.append(',');
+                    boxBuilder.append(GeoMath.tile2lat(aTile.y + 1, aTile.zoomLevel)).append(',');
+                    boxBuilder.append(GeoMath.tile2lon(aTile.x, aTile.zoomLevel)).append(',');
+                    boxBuilder.append(GeoMath.tile2lat(aTile.y, aTile.zoomLevel)).append(',');
                     boxBuilder.append(GeoMath.tile2lon(aTile.x + 1, aTile.zoomLevel));
                 }
                 break;
@@ -2233,8 +1837,8 @@ public class TileLayerSource implements Serializable {
 
         TreeMap<String, String> qparams = new TreeMap<>();
         String[] qparamsStr = query.length() > 1 ? query.substring(1).split("&") : new String[0];
-        for (String param : qparamsStr) {
-            String[] kv = param.split("=");
+        for (String p : qparamsStr) {
+            String[] kv = p.split("=");
             kv[0] = kv[0].toLowerCase(Locale.US);
             // TMS: skip parameters with variable values and Mapbox's access token
             if ((kv.length > 1 && kv[1].indexOf('{') >= 0 && kv[1].indexOf('}') > 0) || "access_token".equals(kv[0])) {
@@ -2364,8 +1968,8 @@ public class TileLayerSource implements Serializable {
     @Nullable
     public String getAttributionUrl() {
         String url = null;
-        if (!providers.isEmpty()) {
-            url = providers.get(0).getAttributionUrl();
+        if (!getProviders().isEmpty()) {
+            url = getProviders().get(0).getAttributionUrl();
         }
         if (url == null) { // still null
             url = getTouUri();
@@ -2382,8 +1986,8 @@ public class TileLayerSource implements Serializable {
      */
     @Nullable
     public String getAttribution() {
-        if (!providers.isEmpty()) {
-            return providers.get(0).getAttribution();
+        if (!getProviders().isEmpty()) {
+            return getProviders().get(0).getAttribution();
         }
         return null;
     }
@@ -2397,8 +2001,8 @@ public class TileLayerSource implements Serializable {
      */
     @Nullable
     public List<Provider.CoverageArea> getCoverage() {
-        if (!providers.isEmpty()) {
-            return providers.get(0).coverageAreas;
+        if (!getProviders().isEmpty()) {
+            return getProviders().get(0).getCoverageAreas();
         }
         return null;
     }
@@ -2537,9 +2141,9 @@ public class TileLayerSource implements Serializable {
      * @param provider Provider to use
      */
     public void setProvider(@Nullable Provider provider) {
-        providers.clear();
+        getProviders().clear();
         if (provider != null) {
-            providers.add(provider);
+            getProviders().add(provider);
         }
     }
 
@@ -2550,12 +2154,12 @@ public class TileLayerSource implements Serializable {
      */
     @NonNull
     public BoundingBox getOverallCoverage() {
-        if (providers.isEmpty() || providers.get(0).coverageAreas == null || providers.get(0).coverageAreas.isEmpty()) {
+        if (getProviders().isEmpty() || getProviders().get(0).getCoverageAreas() == null || getProviders().get(0).getCoverageAreas().isEmpty()) {
             return ViewBox.getMaxMercatorExtent();
         }
         BoundingBox box = null;
-        for (Provider provider : providers) {
-            for (CoverageArea coverage : provider.coverageAreas) {
+        for (Provider provider : getProviders()) {
+            for (CoverageArea coverage : provider.getCoverageAreas()) {
                 if (box == null) {
                     box = new BoundingBox(coverage.bbox);
                 } else {
@@ -2688,7 +2292,7 @@ public class TileLayerSource implements Serializable {
             try (SQLiteDatabase db = keys.getReadableDatabase()) {
                 String key = KeyDatabaseHelper.getKey(db, ("imagery_apikey:" + getId()).toUpperCase(Locale.US));
                 if (key != null && !"".equals(key)) {
-                    tileUrl = replaceParameter(tileUrl, "apikey", key);
+                    setTileUrl(replaceParameter(tileUrl, "apikey", key));
                     return true;
                 }
             } finally {
@@ -2735,5 +2339,54 @@ public class TileLayerSource implements Serializable {
      */
     private void setType(@NonNull String type) {
         this.type = type;
+    }
+
+    /**
+     * @param logoDrawable the logoDrawable to set
+     */
+    public void setLogoDrawable(Drawable logoDrawable) {
+        this.logoDrawable = logoDrawable;
+    }
+
+    /**
+     * @param tileUrl the tileUrl to set
+     */
+    public void setTileUrl(String tileUrl) {
+        this.tileUrl = tileUrl;
+    }
+
+    /**
+     * @param imageFilenameExtension the imageFilenameExtension to set
+     */
+    public void setImageFilenameExtension(String imageFilenameExtension) {
+        this.imageFilenameExtension = imageFilenameExtension;
+    }
+
+    /**
+     * @return the subdomains
+     */
+    public Queue<String> getSubdomains() {
+        return subdomains;
+    }
+
+    /**
+     * @param tileWidth the tileWidth to set
+     */
+    public void setTileWidth(int tileWidth) {
+        this.tileWidth = tileWidth;
+    }
+
+    /**
+     * @param tileHeight the tileHeight to set
+     */
+    public void setTileHeight(int tileHeight) {
+        this.tileHeight = tileHeight;
+    }
+
+    /**
+     * @return the providers
+     */
+    public List<Provider> getProviders() {
+        return providers;
     }
 }
