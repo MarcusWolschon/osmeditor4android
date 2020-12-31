@@ -99,4 +99,13 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
             notifyDataSetChanged();
         }
     }
+
+    /**
+     * Set a new OnCheckedChangeListener
+     * 
+     * @param groupChangeListener the listener
+     */
+    void setOnCheckedChangeListener(@NonNull android.widget.RadioGroup.OnCheckedChangeListener groupChangeListener) {
+        this.groupChangeListener = groupChangeListener;
+    }
 }
