@@ -1,0 +1,66 @@
+{
+    "features": [
+        {
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            30,
+                            20
+                        ],
+                        [
+                            45,
+                            40
+                        ],
+                        [
+                            10,
+                            40
+                        ],
+                        [
+                            30,
+                            20
+                        ]
+                    ],
+                    [
+                        [
+                            15,
+                            5
+                        ],
+                        [
+                            40,
+                            10
+                        ],
+                        [
+                            10,
+                            20
+                        ],
+                        [
+                            5,
+                            10
+                        ],
+                        [
+                            15,
+                            5
+                        ]
+                    ]
+                ]
+            },
+            "properties": {
+                "name": "B imagery",
+                "url": "http://mapproxy.osm.ch:8080/tiles/AGIS2016/EPSG900913/{zoom}/{x}/{y}.png?origin=nw",
+                "max_zoom": 19,
+                "start_date": "2016-1-1",
+                "end_date": "2016-12-31",
+                "type": "tms",
+                "id": "B"
+            },
+            "type": "Feature"
+        }
+    ],
+    "meta": {
+        "generated": "2020-12-06 10:02:10",
+        "format_version": "1.1"
+    },
+    "type": "FeatureCollection"
+}

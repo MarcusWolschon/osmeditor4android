@@ -1,21 +1,26 @@
 package de.blau.android.util;
 
+import java.io.Serializable;
+
 import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.R;
 import de.blau.android.contract.Files;
 
-public class Version {
+public class Version implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private static final String DEBUG_TAG = "Version";
-    private int                 major     = 0;
-    private int                 minor     = 0;
-    private int                 patch     = 0;
-    private int                 beta      = -1;
 
-    String               lastVersion;
-    SavingHelper<String> savingHelperVersion;
+    private int major = 0;
+    private int minor = 0;
+    private int patch = 0;
+    private int beta  = -1;
+
+    transient String               lastVersion;
+    transient SavingHelper<String> savingHelperVersion;
 
     /**
      * Determine various version related things
@@ -47,8 +52,22 @@ public class Version {
         String[] numbers = v.split("\\.", 4);
 
         if (numbers.length < 3) {
-            Log.e(DEBUG_TAG, "Invalid version string " + v);
-            return;
+            String[] temp = new String[3];
+            Log.w(DEBUG_TAG, "Trying to fix short version string " + v);
+            temp[0] = numbers[0];
+            temp[2] = "0";
+            switch (numbers.length) {
+            case 1:
+                temp[1] = "0";
+                break;
+            case 2:
+                temp[1] = numbers[1];
+                break;
+            case 0:
+            default:
+                return;
+            }
+            numbers = temp;
         }
         try {
             major = Integer.parseInt(numbers[0]);
@@ -138,5 +157,37 @@ public class Version {
     @Override
     public String toString() {
         return major + "." + minor + "." + patch + (beta >= 0 ? "." + beta : "");
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + beta;
+        result = prime * result + major;
+        result = prime * result + minor;
+        result = prime * result + patch;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Version)) {
+            return false;
+        }
+        Version other = (Version) obj;
+        if (beta != other.beta) {
+            return false;
+        }
+        if (major != other.major) {
+            return false;
+        }
+        if (minor != other.minor) {
+            return false;
+        }
+        return patch == other.patch;
     }
 }

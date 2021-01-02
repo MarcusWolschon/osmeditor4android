@@ -7,12 +7,13 @@ import com.google.gson.GsonBuilder;
 import com.mapbox.geojson.CoordinateContainer;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Geometry;
+import com.mapbox.geojson.GeometryAdapterFactory;
 import com.mapbox.geojson.GeometryCollection;
+import com.mapbox.geojson.MultiPolygon;
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
-import com.mapbox.geojson.gson.BoundingBoxDeserializer;
-import com.mapbox.geojson.gson.GeometryDeserializer;
-import com.mapbox.geojson.gson.PointDeserializer;
+import com.mapbox.geojson.gson.BoundingBoxTypeAdapter;
+import com.mapbox.geojson.gson.GeoJsonAdapterFactory;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -41,24 +42,31 @@ public final class GeoJson {
     }
 
     /**
-     * Calculate the bounding boxes of a GeoJson Polygon feature
+     * Calculate the bounding boxes of a GeoJson Polygon or MultiPolygon features outer rings
      * 
      * @param f The GeoJson feature
+     * @param fakeMultiPolygon if true it assumes that Polygons are a list of outer rings
      * @return a List of BoundingBoxes, empty if no Polygons were found
      */
     @SuppressWarnings("unchecked")
     @NonNull
-    public static List<BoundingBox> getBoundingBoxes(@NonNull Feature f) {
+    public static List<BoundingBox> getBoundingBoxes(@NonNull Feature f, boolean fakeMultiPolygon) {
         List<BoundingBox> result = new ArrayList<>();
         Geometry g = f.geometry();
         if (g instanceof Polygon) {
-            for (List<Point> l : ((CoordinateContainer<List<List<Point>>>) g).coordinates()) {
-                BoundingBox box = null;
-                for (Point p : l) {
-                    box = expand(box, p);
+            if (fakeMultiPolygon) {
+                for (List<Point> l : ((CoordinateContainer<List<List<Point>>>) g).coordinates()) {
+                    result.add(pointsBox(null, l));
                 }
-                result.add(box);
+            } else {
+                result.add(getBounds(g));
             }
+        } else if (g instanceof MultiPolygon) {
+            for (List<List<Point>> polygon : ((CoordinateContainer<List<List<List<Point>>>>) g).coordinates()) {
+                result.add(pointsBox(null, polygon.get(0)));
+            }
+        } else if (g != null) { // g will be null for features without geometry
+            Log.e(DEBUG_TAG, "Unhandled " + g + " fakeMultiPolygon " + fakeMultiPolygon);
         }
         return result;
     }
@@ -80,16 +88,12 @@ public final class GeoJson {
             break;
         case GeoJSONConstants.LINESTRING:
         case GeoJSONConstants.MULTIPOINT:
-            for (Point q : ((CoordinateContainer<List<Point>>) g).coordinates()) {
-                result = expand(result, q);
-            }
+            result = pointsBox(result, ((CoordinateContainer<List<Point>>) g).coordinates());
             break;
         case GeoJSONConstants.MULTIPOLYGON:
             for (List<List<Point>> polygon : ((CoordinateContainer<List<List<List<Point>>>>) g).coordinates()) {
                 for (List<Point> l : polygon) {
-                    for (Point r : l) {
-                        result = expand(result, r);
-                    }
+                    result = pointsBox(result, l);
                 }
             }
             break;
@@ -101,13 +105,26 @@ public final class GeoJson {
         case GeoJSONConstants.MULTILINESTRING:
         case GeoJSONConstants.POLYGON:
             for (List<Point> l : ((CoordinateContainer<List<List<Point>>>) g).coordinates()) {
-                for (Point s : l) {
-                    result = expand(result, s);
-                }
+                result = pointsBox(result, l);
             }
             break;
         default:
             Log.e(DEBUG_TAG, "getBounds unknown GeoJSON geometry " + g.type());
+        }
+        return result;
+    }
+
+    /**
+     * Create a BoundingBox for a List of Points
+     * 
+     * @param result an input BoundingBox to expand or null
+     * @param points the list of Point
+     * @return a BoundginBox or null
+     */
+    @Nullable
+    private static BoundingBox pointsBox(@Nullable BoundingBox result, @NonNull List<Point> points) {
+        for (Point q : points) {
+            result = expand(result, q);
         }
         return result;
     }
@@ -160,8 +177,8 @@ public final class GeoJson {
             Point nextNode = nodes.get(0);
             double nextNodeLat = nextNode.latitude();
             double nextNodeLon = nextNode.longitude();
-            int nextNodeLatE7 = (int) (nextNodeLat * 1E7);
-            int nextNodeLonE7 = (int) (nextNodeLon * 1E7);
+            int nextNodeLatE7 = (int) (nextNode.latitude() * 1E7);
+            int nextNodeLonE7 = (int) (nextNode.longitude() * 1E7);
             float x;
             float y = -Float.MAX_VALUE;
             for (int i = 0; i < nodesSize; i++) {
@@ -216,9 +233,9 @@ public final class GeoJson {
     @NonNull
     public static Geometry geometryFromJson(@NonNull String json) {
         GsonBuilder gson = new GsonBuilder();
-        gson.registerTypeAdapter(Geometry.class, new GeometryDeserializer());
-        gson.registerTypeAdapter(Point.class, new PointDeserializer());
-        gson.registerTypeAdapter(BoundingBox.class, new BoundingBoxDeserializer());
+        gson.registerTypeAdapterFactory(GeoJsonAdapterFactory.create());
+        gson.registerTypeAdapterFactory(GeometryAdapterFactory.create());
+        gson.registerTypeAdapter(BoundingBox.class, new BoundingBoxTypeAdapter());
         return gson.create().fromJson(json, Geometry.class);
     }
 }

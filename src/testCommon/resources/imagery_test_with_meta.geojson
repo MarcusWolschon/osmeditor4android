@@ -1,0 +1,234 @@
+{
+    "features": [
+        {
+            "geometry": {
+                "coordinates": [
+                    [
+                        [
+                            7.7,
+                            47.12
+                        ],
+                        [
+                            7.7,
+                            47.63
+                        ],
+                        [
+                            8.5,
+                            47.63
+                        ],
+                        [
+                            8.5,
+                            47.12
+                        ],
+                        [
+                            7.7,
+                            47.12
+                        ]
+                    ]
+                ],
+                "type": "Polygon"
+            },
+            "properties": {
+                "name": "A imagery",
+                "url": "http://mapproxy.osm.ch:8080/tiles/AGIS2016/EPSG900913/{zoom}/{x}/{y}.png?origin=nw",
+                "max_zoom": 19,
+                "start_date": "2015-1-1",
+                "end_date": "2015-12-31",
+                "type": "tms",
+                "id": "A"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    [
+                        [
+                            7.7,
+                            47.12
+                        ],
+                        [
+                            7.7,
+                            47.63
+                        ],
+                        [
+                            8.5,
+                            47.63
+                        ],
+                        [
+                            8.5,
+                            47.12
+                        ],
+                        [
+                            7.7,
+                            47.12
+                        ]
+                    ]
+                ],
+                "type": "Polygon"
+            },
+            "properties": {
+                "name": "A no date imagery",
+                "url": "http://mapproxy.osm.ch:8080/tiles/AGIS2016/EPSG900913/{zoom}/{x}/{y}.png?origin=nw",
+                "max_zoom": 19,
+                "type": "tms",
+                "id": "A no date"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            30,
+                            20
+                        ],
+                        [
+                            45,
+                            40
+                        ],
+                        [
+                            10,
+                            40
+                        ],
+                        [
+                            30,
+                            20
+                        ]
+                    ],
+                    [
+                        [
+                            15,
+                            5
+                        ],
+                        [
+                            40,
+                            10
+                        ],
+                        [
+                            10,
+                            20
+                        ],
+                        [
+                            5,
+                            10
+                        ],
+                        [
+                            15,
+                            5
+                        ]
+                    ]
+                ]
+            },
+            "properties": {
+                "name": "B imagery",
+                "url": "http://mapproxy.osm.ch:8080/tiles/AGIS2016/EPSG900913/{zoom}/{x}/{y}.png?origin=nw",
+                "max_zoom": 19,
+                "start_date": "2016-1-1",
+                "end_date": "2016-12-31",
+                "type": "tms",
+                "id": "B"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [
+                                40,
+                                40
+                            ],
+                            [
+                                20,
+                                45
+                            ],
+                            [
+                                45,
+                                30
+                            ],
+                            [
+                                40,
+                                40
+                            ]
+                        ]
+                    ],
+                    [
+                        [
+                            [
+                                20,
+                                35
+                            ],
+                            [
+                                10,
+                                30
+                            ],
+                            [
+                                10,
+                                10
+                            ],
+                            [
+                                30,
+                                5
+                            ],
+                            [
+                                45,
+                                20
+                            ],
+                            [
+                                20,
+                                35
+                            ]
+                        ],
+                        [
+                            [
+                                30,
+                                20
+                            ],
+                            [
+                                20,
+                                15
+                            ],
+                            [
+                                20,
+                                25
+                            ],
+                            [
+                                30,
+                                20
+                            ]
+                        ]
+                    ]
+                ]
+            },
+            "properties": {
+                "name": "B no date imagery",
+                "url": "http://mapproxy.osm.ch:8080/tiles/AGIS2016/EPSG900913/{zoom}/{x}/{y}.png?origin=nw",
+                "max_zoom": 19,
+                "type": "tms",
+                "id": "B no date"
+            },
+            "type": "Feature"
+        },
+        {
+            "properties": {
+                "best": true,
+                "name": "C imagery",
+                "url": "http://mapproxy.osm.ch:8080/tiles/AGIS2016/EPSG900913/{zoom}/{x}/{y}.png?origin=nw",
+                "max_zoom": 19,
+                "type": "tms",
+                "id": "C"
+            },
+            "type": "Feature"
+        }
+    ],
+    "meta": {
+        "generated": "2020-12-06 10:02:10",
+        "format_version": "1.0"
+    },
+    "type": "FeatureCollection"
+}
