@@ -716,7 +716,7 @@ public class TileLayerSource implements Serializable {
             EliFeatureCollection fc = EliFeatureCollection.fromJson(sb.toString());
             Version formatVersion = fc.formatVersion();
             Log.i(DEBUG_TAG, "Reading imagery configuration version " + (formatVersion == null ? "unknown" : formatVersion.toString()));
-            boolean fakeMultiPolygons = formatVersion == null || !formatVersion.largerThanOrEqual(Eli.VERSION_120);
+            boolean fakeMultiPolygons = formatVersion == null || !formatVersion.largerThanOrEqual(Eli.VERSION_1_1);
             for (Feature f : fc.features()) {
                 TileLayerSource osmts = Eli.geojsonToServer(ctx, f, async, fakeMultiPolygons);
                 if (osmts != null) {

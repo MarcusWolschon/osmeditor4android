@@ -33,11 +33,9 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import com.mapbox.geojson.BoundingBox;
 import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.GeoJson;
 import com.mapbox.geojson.GeometryAdapterFactory;
 import com.mapbox.geojson.gson.BoundingBoxTypeAdapter;
-import com.mapbox.geojson.gson.GeoJsonAdapterFactory;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -47,9 +45,6 @@ import de.blau.android.util.Version;
 @Keep
 public final class EliFeatureCollection implements GeoJson {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     private static final String TYPE = "FeatureCollection";
@@ -71,7 +66,7 @@ public final class EliFeatureCollection implements GeoJson {
      */
     public static EliFeatureCollection fromJson(@NonNull String json) {
         GsonBuilder gson = new GsonBuilder();
-        gson.registerTypeAdapterFactory(GeoJsonAdapterFactory.create());
+        gson.registerTypeAdapterFactory(EliGeoJsonAdapterFactory.create());
         gson.registerTypeAdapterFactory(GeometryAdapterFactory.create());
         return gson.create().fromJson(json, EliFeatureCollection.class);
     }
@@ -119,7 +114,6 @@ public final class EliFeatureCollection implements GeoJson {
      *
      * @return a String which describes the TYPE of GeoJson, for this object it will always return
      *         {@code FeatureCollection}
-     * @since 1.0.0
      */
     @NonNull
     @Override
@@ -145,7 +139,6 @@ public final class EliFeatureCollection implements GeoJson {
      * geometries.
      *
      * @return a list of double coordinate values describing a bounding box
-     * @since 3.0.0
      */
     @Nullable
     @Override
@@ -159,7 +152,6 @@ public final class EliFeatureCollection implements GeoJson {
      * of the list can equal 0.
      *
      * @return a list of {@link Feature}s which make up this Feature Collection
-     * @since 1.0.0
      */
     @Nullable
     public List<Feature> features() {
@@ -170,13 +162,11 @@ public final class EliFeatureCollection implements GeoJson {
      * This takes the currently defined values found inside this instance and converts it to a GeoJson string.
      *
      * @return a JSON string which represents this Feature Collection
-     * @since 1.0.0
      */
     @Override
     public String toJson() {
-
         GsonBuilder gson = new GsonBuilder();
-        gson.registerTypeAdapterFactory(GeoJsonAdapterFactory.create());
+        gson.registerTypeAdapterFactory(EliGeoJsonAdapterFactory.create());
         gson.registerTypeAdapterFactory(GeometryAdapterFactory.create());
         return gson.create().toJson(this);
     }
@@ -186,7 +176,6 @@ public final class EliFeatureCollection implements GeoJson {
      *
      * @param gson the built {@link Gson} object
      * @return the TYPE adapter for this class
-     * @since 3.0.0
      */
     public static TypeAdapter<EliFeatureCollection> typeAdapter(Gson gson) {
         return new EliFeatureCollection.GsonTypeAdapter(gson);
@@ -198,28 +187,54 @@ public final class EliFeatureCollection implements GeoJson {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj instanceof EliFeatureCollection) {
-            EliFeatureCollection that = (EliFeatureCollection) obj;
-            return (this.type.equals(that.type())) && ((this.bbox == null) ? (that.bbox() == null) : this.bbox.equals(that.bbox()))
-                    && ((this.features == null) ? (that.features() == null) : this.features.equals(that.features()));
-        }
-        return false;
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((bbox == null) ? 0 : bbox.hashCode());
+        result = prime * result + ((features == null) ? 0 : features.hashCode());
+        result = prime * result + ((meta == null) ? 0 : meta.hashCode());
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        return result;
     }
 
     @Override
-    public int hashCode() {
-        int hashCode = 1;
-        hashCode *= 1000003;
-        hashCode ^= type.hashCode();
-        hashCode *= 1000003;
-        hashCode ^= (bbox == null) ? 0 : bbox.hashCode();
-        hashCode *= 1000003;
-        hashCode ^= (features == null) ? 0 : features.hashCode();
-        return hashCode;
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof EliFeatureCollection)) {
+            return false;
+        }
+        EliFeatureCollection other = (EliFeatureCollection) obj;
+        if (bbox == null) {
+            if (other.bbox != null) {
+                return false;
+            }
+        } else if (!bbox.equals(other.bbox)) {
+            return false;
+        }
+        if (features == null) {
+            if (other.features != null) {
+                return false;
+            }
+        } else if (!features.equals(other.features)) {
+            return false;
+        }
+        if (meta == null) {
+            if (other.meta != null) {
+                return false;
+            }
+        } else if (!meta.equals(other.meta)) {
+            return false;
+        }
+        if (type == null) {
+            if (other.type != null) {
+                return false;
+            }
+        } else if (!type.equals(other.type)) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -231,11 +246,11 @@ public final class EliFeatureCollection implements GeoJson {
         private static final String NAME_META     = "meta";
         private static final String NAME_TYPE     = "type";
 
-        private volatile TypeAdapter<String>        stringAdapter;
-        private volatile TypeAdapter<BoundingBox>   boundingBoxAdapter;
-        private volatile TypeAdapter<List<Feature>> listFeatureAdapter;
-        private volatile TypeAdapter<Meta>          metaAdapter;
-        private final Gson                          gson;
+        private TypeAdapter<String>        stringAdapter;
+        private TypeAdapter<BoundingBox>   boundingBoxAdapter;
+        private TypeAdapter<List<Feature>> listFeatureAdapter;
+        private TypeAdapter<Meta>          metaAdapter;
+        private final Gson                 gson;
 
         /**
          * Construct a new TypeAdapter
@@ -254,20 +269,16 @@ public final class EliFeatureCollection implements GeoJson {
             }
             jsonWriter.beginObject();
             jsonWriter.name(NAME_TYPE);
-            TypeAdapter<String> stringAdapter = this.stringAdapter;
             if (stringAdapter == null) {
                 stringAdapter = gson.getAdapter(String.class);
-                this.stringAdapter = stringAdapter;
             }
             stringAdapter.write(jsonWriter, object.type());
             jsonWriter.name(NAME_META);
             if (object.meta() == null) {
                 jsonWriter.nullValue();
             } else {
-                TypeAdapter<Meta> metaAdapter = this.metaAdapter;
                 if (metaAdapter == null) {
                     metaAdapter = gson.getAdapter(Meta.class);
-                    this.metaAdapter = metaAdapter;
                 }
                 metaAdapter.write(jsonWriter, object.meta());
             }
@@ -275,12 +286,10 @@ public final class EliFeatureCollection implements GeoJson {
             if (object.bbox() == null) {
                 jsonWriter.nullValue();
             } else {
-                TypeAdapter<BoundingBox> boundingBoxTypeAdapter = this.boundingBoxAdapter;
-                if (boundingBoxTypeAdapter == null) {
-                    boundingBoxTypeAdapter = gson.getAdapter(BoundingBox.class);
-                    this.boundingBoxAdapter = boundingBoxTypeAdapter;
+                if (boundingBoxAdapter == null) {
+                    boundingBoxAdapter = gson.getAdapter(BoundingBox.class);
                 }
-                boundingBoxTypeAdapter.write(jsonWriter, object.bbox());
+                boundingBoxAdapter.write(jsonWriter, object.bbox());
             }
             jsonWriter.name(NAME_FEATURES);
             if (object.features() == null) {
@@ -316,38 +325,30 @@ public final class EliFeatureCollection implements GeoJson {
                 }
                 switch (name) {
                 case NAME_TYPE:
-                    TypeAdapter<String> stringAdapter = this.stringAdapter;
                     if (stringAdapter == null) {
                         stringAdapter = gson.getAdapter(String.class);
-                        this.stringAdapter = stringAdapter;
                     }
                     type = stringAdapter.read(jsonReader);
                     break;
 
                 case NAME_META:
-                    TypeAdapter<Meta> metaAdapter = this.metaAdapter;
                     if (metaAdapter == null) {
                         metaAdapter = gson.getAdapter(Meta.class);
-                        this.metaAdapter = metaAdapter;
                     }
                     meta = metaAdapter.read(jsonReader);
                     break;
 
                 case NAME_BBOX:
-                    TypeAdapter<BoundingBox> boundingBoxAdapter = this.boundingBoxAdapter;
                     if (boundingBoxAdapter == null) {
                         boundingBoxAdapter = gson.getAdapter(BoundingBox.class);
-                        this.boundingBoxAdapter = boundingBoxAdapter;
                     }
                     bbox = boundingBoxAdapter.read(jsonReader);
                     break;
 
                 case NAME_FEATURES:
-                    TypeAdapter<List<Feature>> listFeatureAdapter = this.listFeatureAdapter;
                     if (listFeatureAdapter == null) {
                         TypeToken typeToken = TypeToken.getParameterized(List.class, Feature.class);
                         listFeatureAdapter = (TypeAdapter<List<Feature>>) gson.getAdapter(typeToken);
-                        this.listFeatureAdapter = listFeatureAdapter;
                     }
                     features = listFeatureAdapter.read(jsonReader);
                     break;

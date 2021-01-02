@@ -25,7 +25,7 @@ import de.blau.android.util.GeoJson;
 public final class Eli {
     private static final String DEBUG_TAG = "Eli";
 
-    public static final String VERSION_120 = "1.2.0";
+    public static final String VERSION_1_1 = "1.1";
 
     /**
      * Private constructor to prevent instantiation

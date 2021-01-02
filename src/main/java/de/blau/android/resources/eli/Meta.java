@@ -14,18 +14,53 @@ import androidx.annotation.NonNull;
 import de.blau.android.util.Version;
 
 class Meta {
+
     Version formatVersion;
-    String    generated;
+    String  generated;
 
     /**
      * Gson type adapter for parsing Gson to this class.
      *
      * @param gson the built {@link Gson} object
      * @return the TYPE adapter for this class
-     * @since 3.0.0
      */
     public static TypeAdapter<Meta> typeAdapter(Gson gson) {
-        return new MetaTypeAdapter(gson);
+        return new GsonTypeAdapter(gson);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((formatVersion == null) ? 0 : formatVersion.hashCode());
+        result = prime * result + ((generated == null) ? 0 : generated.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Meta)) {
+            return false;
+        }
+        Meta other = (Meta) obj;
+        if (formatVersion == null) {
+            if (other.formatVersion != null) {
+                return false;
+            }
+        } else if (!formatVersion.equals(other.formatVersion)) {
+            return false;
+        }
+        if (generated == null) {
+            if (other.generated != null) {
+                return false;
+            }
+        } else if (!generated.equals(other.generated)) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -33,27 +68,26 @@ class Meta {
      *
      */
     @Keep
-    static final class MetaTypeAdapter extends TypeAdapter<Meta> {
+    static final class GsonTypeAdapter extends TypeAdapter<Meta> {
+        private static final String DEBUG_TAG = "MetaTypeAdapter";
 
-        private static final String          NAME_FORMAT_VERSION = "format_version";
-        private static final String          NAME_GENERATED      = "generated";
-        private static final String          DEBUG_TAG           = "MetaTypeAdapter";
-        private volatile TypeAdapter<String> stringTypeAdapter;
+        private static final String NAME_FORMAT_VERSION = "format_version";
+        private static final String NAME_GENERATED      = "generated";
 
-        private final Gson gson;
+        private TypeAdapter<String> stringTypeAdapter;
+        private final Gson          gson;
 
         /**
          * Construct a new TypeAdapter
          * 
          * @param gson the Gson object
          */
-        MetaTypeAdapter(@NonNull Gson gson) {
+        GsonTypeAdapter(@NonNull Gson gson) {
             this.gson = gson;
         }
 
         @Override
         public void write(JsonWriter out, Meta value) throws IOException {
-
             if (value == null) {
                 out.nullValue();
                 return;
@@ -63,22 +97,14 @@ class Meta {
             if (value.generated == null) {
                 out.nullValue();
             } else {
-                TypeAdapter<String> stringTypeAdapter = this.stringTypeAdapter;
-                if (stringTypeAdapter == null) {
-                    stringTypeAdapter = gson.getAdapter(String.class);
-                    this.stringTypeAdapter = stringTypeAdapter;
-                }
+                getStringTypeAdapter();
                 stringTypeAdapter.write(out, value.generated);
             }
             out.name(NAME_FORMAT_VERSION);
             if (value.formatVersion == null) {
                 out.nullValue();
             } else {
-                TypeAdapter<String> stringTypeAdapter = this.stringTypeAdapter;
-                if (stringTypeAdapter == null) {
-                    stringTypeAdapter = gson.getAdapter(String.class);
-                    this.stringTypeAdapter = stringTypeAdapter;
-                }
+                getStringTypeAdapter();
                 stringTypeAdapter.write(out, value.formatVersion.toString());
             }
             out.endObject();
@@ -97,15 +123,12 @@ class Meta {
                 switch (name) {
                 case NAME_GENERATED:
                 case NAME_FORMAT_VERSION:
-                    TypeAdapter<String> strTypeAdapter = this.stringTypeAdapter;
-                    if (strTypeAdapter == null) {
-                        strTypeAdapter = gson.getAdapter(String.class);
-                        this.stringTypeAdapter = strTypeAdapter;
-                    }
+                    getStringTypeAdapter();
                     if (NAME_GENERATED.equals(name)) {
-                            meta.generated = strTypeAdapter.read(in);
+                        meta.generated = stringTypeAdapter.read(in);
                     } else {
-                        meta.formatVersion = new Version(strTypeAdapter.read(in));
+
+                        meta.formatVersion = new Version(stringTypeAdapter.read(in));
                     }
                     break;
                 default:
@@ -114,6 +137,17 @@ class Meta {
             }
             in.endObject();
             return meta;
+        }
+
+        /**
+         * Get a TypeAdapter for Strings
+         * 
+         * Sets stringTypeAdapter
+         */
+        void getStringTypeAdapter() {
+            if (stringTypeAdapter == null) {
+                stringTypeAdapter = gson.getAdapter(String.class);
+            }
         }
     }
 }

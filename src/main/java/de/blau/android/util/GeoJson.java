@@ -65,7 +65,7 @@ public final class GeoJson {
             for (List<List<Point>> polygon : ((CoordinateContainer<List<List<List<Point>>>>) g).coordinates()) {
                 result.add(pointsBox(null, polygon.get(0)));
             }
-        } else {
+        } else if (g != null) { // g will be null for features without geometry
             Log.e(DEBUG_TAG, "Unhandled " + g + " fakeMultiPolygon " + fakeMultiPolygon);
         }
         return result;
