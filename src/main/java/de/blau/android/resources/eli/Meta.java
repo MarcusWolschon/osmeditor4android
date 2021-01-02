@@ -1,6 +1,7 @@
 package de.blau.android.resources.eli;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
@@ -13,7 +14,9 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import de.blau.android.util.Version;
 
-class Meta {
+class Meta implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     Version formatVersion;
     String  generated;

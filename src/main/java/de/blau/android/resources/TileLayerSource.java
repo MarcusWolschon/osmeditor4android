@@ -728,7 +728,6 @@ public class TileLayerSource implements Serializable {
             TileLayerDatabase.updateSource(writeableDb, source, System.currentTimeMillis());
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Fatal error parsing " + source + " " + e.getMessage());
-            e.printStackTrace();
         }
     }
 

@@ -1,21 +1,26 @@
 package de.blau.android.util;
 
+import java.io.Serializable;
+
 import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.R;
 import de.blau.android.contract.Files;
 
-public class Version {
+public class Version implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private static final String DEBUG_TAG = "Version";
-    private int                 major     = 0;
-    private int                 minor     = 0;
-    private int                 patch     = 0;
-    private int                 beta      = -1;
 
-    String               lastVersion;
-    SavingHelper<String> savingHelperVersion;
+    private int major = 0;
+    private int minor = 0;
+    private int patch = 0;
+    private int beta  = -1;
+
+    transient String               lastVersion;
+    transient SavingHelper<String> savingHelperVersion;
 
     /**
      * Determine various version related things
@@ -183,9 +188,6 @@ public class Version {
         if (minor != other.minor) {
             return false;
         }
-        if (patch != other.patch) {
-            return false;
-        }
-        return true;
+        return patch == other.patch;
     }
 }

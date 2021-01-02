@@ -47,9 +47,9 @@ public final class EliFeatureCollection implements GeoJson {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String TYPE = "FeatureCollection";
+    private static final String TYPE = "FeatureCollection"; // NOSONAR
 
-    private final String type;
+    private final String type; // NOSONAR
 
     private final Meta meta;
 
@@ -295,11 +295,9 @@ public final class EliFeatureCollection implements GeoJson {
             if (object.features() == null) {
                 jsonWriter.nullValue();
             } else {
-                TypeAdapter<List<Feature>> listFeatureAdapter = this.listFeatureAdapter;
                 if (listFeatureAdapter == null) {
                     TypeToken typeToken = TypeToken.getParameterized(List.class, Feature.class);
                     listFeatureAdapter = (TypeAdapter<List<Feature>>) gson.getAdapter(typeToken);
-                    this.listFeatureAdapter = listFeatureAdapter;
                 }
                 listFeatureAdapter.write(jsonWriter, object.features());
             }

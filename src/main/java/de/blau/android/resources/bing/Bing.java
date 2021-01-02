@@ -147,8 +147,7 @@ public final class Bing {
                 }
                 if ("ImageUrl".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
                     String tileUrl = parser.getText().trim();
-                    source.setTileUrl(tileUrl);
-                    int extPos = tileUrl.lastIndexOf(".jpeg"); // TODO fix this awful hack
+                    int extPos = tileUrl.lastIndexOf(".jpeg");
                     if (extPos >= 0) {
                         source.setImageFilenameExtension(".jpg");
                     }
@@ -164,6 +163,7 @@ public final class Bing {
                             tileUrl = t.replace(switchPos, switchEnd + 1, "{subdomain}").toString();
                         }
                     }
+                    source.setTileUrl(tileUrl);
                 }
                 if ("string".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
                     source.getSubdomains().add(parser.getText().trim());

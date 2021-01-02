@@ -41,7 +41,14 @@ import androidx.annotation.Keep;
  *
  */
 @Keep
-public abstract class EliGeoJsonAdapterFactory implements TypeAdapterFactory {
+public abstract class EliGeoJsonAdapterFactory implements TypeAdapterFactory { // NOSONAR
+
+    /**
+     * Private class to disallow instantiation
+     */
+    private EliGeoJsonAdapterFactory() {
+        // private
+    }
 
     /**
      * Create a new instance of this GeoJson type adapter factory, this is passed into the Gson Builder.
