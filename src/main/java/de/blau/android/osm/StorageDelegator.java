@@ -2772,6 +2772,33 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
+     * Merge a BoundingBox for a downloaded area in to the list
+     * 
+     * BoundingBoxes that the new box contains will be removed, if the new box on the other hand is contained in an
+     * existing box it will not be added
+     * 
+     * @param box the additional BoundingBox
+     */
+    public synchronized void mergeBoundingBox(@NonNull BoundingBox box) {
+        // if we are simply expanding the area no need keep the old bounding boxes
+        dirty = true;
+        List<BoundingBox> bbs = new ArrayList<>(currentStorage.getBoundingBoxes());
+        for (BoundingBox bb : bbs) {
+            if (bb != null) {
+                if (box.contains(bb)) {
+                    currentStorage.deleteBoundingBox(bb);
+                } else if (bb.contains(box)) {
+                    return; // existing area
+                }
+            } else {
+                Log.e(DEBUG_TAG, "download null existing bounding box");
+                currentStorage.removeNullBoundingboxes();
+            }
+        }
+        currentStorage.addBoundingBox(box);
+    }
+
+    /**
      * Get the number of Nodes in API storage
      * 
      * @return the number of Nodes in API storage

@@ -2752,7 +2752,7 @@ public class Logic {
      * @param mapBox the BoundingBox to remove
      */
     private void removeBoundingBox(@Nullable final BoundingBox mapBox) {
-        if (mapBox != null && getDelegator().getBoundingBoxes().contains(mapBox)) {
+        if (mapBox != null) {
             getDelegator().deleteBoundingBox(mapBox);
         }
     }
@@ -2858,17 +2858,7 @@ public class Logic {
                         result = new ReadAsyncResult(ErrorCodes.DATA_CONFLICT);
                     } else {
                         if (mapBox != null) {
-                            // if we are simply expanding the area no need keep the old bounding boxes
-                            List<BoundingBox> bbs = new ArrayList<>(getDelegator().getBoundingBoxes());
-                            for (BoundingBox bb : bbs) {
-                                if (bb != null && mapBox.contains(bb)) {
-                                    getDelegator().deleteBoundingBox(bb);
-                                } else {
-                                    Log.e(DEBUG_TAG, "download null existing bounding box");
-                                    getDelegator().getCurrentStorage().removeNullBoundingboxes();
-                                }
-                            }
-                            getDelegator().addBoundingBox(mapBox);
+                            getDelegator().mergeBoundingBox(mapBox);
                         }
                     }
                 } catch (IllegalStateException iex) {
