@@ -1,5 +1,6 @@
 package de.blau.android;
 
+import java.io.File;
 import java.util.TreeMap;
 
 import org.acra.ACRA;
@@ -12,6 +13,7 @@ import org.mozilla.javascript.ScriptableObject;
 import org.nustaq.serialization.FSTConfiguration;
 import org.nustaq.serialization.serializers.FSTMapSerializer;
 
+import com.faendir.rhino_android.AndroidContextFactory;
 import com.faendir.rhino_android.RhinoAndroidHelper;
 
 import android.app.Activity;
@@ -590,7 +592,20 @@ public class App extends android.app.Application implements android.app.Applicat
     public static RhinoAndroidHelper getRhinoHelper(@NonNull Context ctx) {
         synchronized (rhinoLock) {
             if (rhinoHelper == null) {
-                rhinoHelper = new RhinoAndroidHelper(ctx);
+                rhinoHelper = new RhinoAndroidHelper(ctx) {
+                    @Override
+                    protected AndroidContextFactory createAndroidContextFactory(File cacheDirectory) {
+                        return new AndroidContextFactory(cacheDirectory) {
+                            @Override
+                            protected boolean hasFeature(org.mozilla.javascript.Context cx, int featureIndex) {
+                                if (featureIndex == org.mozilla.javascript.Context.FEATURE_ENABLE_XML_SECURE_PARSING) {
+                                    return false;
+                                }
+                                return super.hasFeature(cx, featureIndex);
+                            }
+                        };
+                    }
+                };
             }
             return rhinoHelper;
         }
