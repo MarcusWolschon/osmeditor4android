@@ -174,7 +174,7 @@ public class MapTileFilesystemProviderTest {
         };
         provider.loadMapTileAsync(mockedTile, callback);
         try {
-            signal1.await(1, TimeUnit.SECONDS);
+            signal1.await(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             fail(e.getMessage());
         }
