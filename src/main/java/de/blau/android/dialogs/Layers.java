@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -743,6 +744,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             this.layer = layer;
         }
 
+        @SuppressLint("ResourceType")
         @Override
         public void onCheckedChanged(RadioGroup group, int position) {
             if (position != -1 && position < ids.length) {
