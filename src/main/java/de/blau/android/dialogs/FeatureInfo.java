@@ -11,6 +11,7 @@ import com.mapbox.geojson.Geometry;
 import com.mapbox.geojson.Point;
 
 import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Spanned;
 import android.util.Log;
@@ -167,7 +168,9 @@ public class FeatureInfo extends InfoDialogFragment {
                     ImageButton button = new ImageButton(activity);
                     button.setImageResource(ThemeUtils
                             .getResIdFromAttribute(ThemeUtils.getThemedContext(activity, R.style.Theme_DialogLight, R.style.Theme_DialogDark), R.attr.share));
-                    button.setBackground(null);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        button.setBackground(null);
+                    }
                     button.setPadding(12, 12, 0, 0);
                     final Point p = ((Point) geometry);
                     button.setOnClickListener(v -> {
