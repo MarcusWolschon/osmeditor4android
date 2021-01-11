@@ -49,6 +49,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         setEditTextPreferenceSummary(R.string.config_osmoseServer_key, false);
         setRestartRequiredMessage(R.string.config_enableLightTheme_key);
         setRestartRequiredMessage(R.string.config_splitActionBarEnabled_key);
+        setListPreferenceSummary(R.string.config_followGPSbutton_key, true);
         setTitle();
     }
 
