@@ -420,7 +420,7 @@ public final class TableLayoutUtils {
         addCell(activity, text, false, tr, trlp);
 
         TableRow.LayoutParams trlp2 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        trlp2.gravity = Gravity.TOP | Gravity.RIGHT;
+        trlp2.gravity = Gravity.TOP | Gravity.END;
         trlp2.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         button.setLayoutParams(trlp2);
         tr.addView(button);
