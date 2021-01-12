@@ -164,14 +164,14 @@ public class MapTileFilesystemProviderTest {
 
             @Override
             public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage) throws RemoteException {
-                signal1.countDown();
                 result = 0;
+                signal1.countDown();
             }
 
             @Override
             public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws RemoteException {
-                signal1.countDown();
                 result = reason;
+                signal1.countDown();              
             };
         };
         provider.loadMapTileAsync(mockedTile, callback);
