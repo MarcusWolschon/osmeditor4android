@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowLog;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
@@ -41,6 +42,7 @@ public class MapTileFilesystemProviderTest {
      */
     @Before
     public void setup() {
+        ShadowLog.setupLogging();
         provider = new MapTileFilesystemProvider(ApplicationProvider.getApplicationContext(), new File("."), 1000000);
         tileServer = MockTileServer.setupTileServer(ApplicationProvider.getApplicationContext(), null, "ersatz_background.mbt", true);
         // force update of tile sources
@@ -162,14 +164,14 @@ public class MapTileFilesystemProviderTest {
 
             @Override
             public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage) throws RemoteException {
-                signal1.countDown();
                 result = 0;
+                signal1.countDown();
             }
 
             @Override
             public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws RemoteException {
-                signal1.countDown();
                 result = reason;
+                signal1.countDown();              
             };
         };
         provider.loadMapTileAsync(mockedTile, callback);
