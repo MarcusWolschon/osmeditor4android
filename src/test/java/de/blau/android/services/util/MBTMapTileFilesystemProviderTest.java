@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowLog;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
@@ -43,6 +44,7 @@ public class MBTMapTileFilesystemProviderTest {
      */
     @Before
     public void setup() {
+        ShadowLog.setupLogging();
         provider = new MapTileFilesystemProvider(ApplicationProvider.getApplicationContext(), new File("."), 1000000);
         try {
             JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "ersatz_background.mbt", "/", false);
