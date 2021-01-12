@@ -118,7 +118,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
      * 
      * @param tile tile meta-data
      * @param data the tile image data
-     * @throws IOException
+     * @throws IOException if saving the file goes wrong
      */
     public void saveFile(final MapTile tile, final byte[] data) throws IOException {
         try {
