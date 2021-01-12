@@ -124,6 +124,7 @@ public class FeatureInfo extends InfoDialogFragment {
                 final Logic logic = App.getLogic();
                 logic.addElements(activity, elements);
                 if (activity instanceof Main) {
+                    logic.deselectAll();
                     final OsmElement first = elements.get(0);
                     if (Tags.isMultiPolygon(first)) {
                         logic.setSelectedRelation((Relation) first);
