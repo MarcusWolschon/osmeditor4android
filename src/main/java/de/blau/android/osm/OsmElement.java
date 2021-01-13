@@ -152,6 +152,40 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     }
 
     /**
+     * Get an object of type T from the cache using our tags as the key
+     * 
+     * @param <T> the object type
+     * @param cache the cache
+     * @return an object of type T or null
+     */
+    @Nullable
+    public <T> T getFromCache(@NonNull Map<Map<String, String>, T> cache) {
+        return cache.get(tags);
+    }
+
+    /**
+     * Add an object of type T to the cache using our tags as the key
+     * 
+     * @param <T> the object type
+     * @param cache the cache
+     * @param o an object of type T
+     */
+    public <T> void addToCache(@NonNull Map<Map<String, String>, T> cache, @Nullable T o) {
+        cache.put(tags, o);
+    }
+
+    /**
+     * Check if the cache contains an object of type T to the cache using our tags as the key
+     * 
+     * @param <T> the object type
+     * @param cache the cache
+     * @return true if there is a mapping
+     */
+    public <T> boolean isInCache(@NonNull Map<Map<String, String>, T> cache) {
+        return cache.containsKey(tags);
+    }
+
+    /**
      * Get the state of this element
      * 
      * @return the state value

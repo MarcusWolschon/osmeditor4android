@@ -89,10 +89,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
     private static final int THREAD_POOL_SIZE = 2;
 
-    public static final int ICON_SIZE_DP = 20;
-
-    private static final int HOUSE_NUMBER_RADIUS = 10;
-
+    public static final int  ICON_SIZE_DP         = 20;
+    private static final int HOUSE_NUMBER_RADIUS  = 10;
     private static final int ICON_SELECTED_BORDER = 2;
 
     /**
@@ -149,18 +147,18 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     /**
      * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
      */
-    private final WeakHashMap<Object, Bitmap> iconCache = new WeakHashMap<>();
+    private final WeakHashMap<java.util.Map<String, String>, Bitmap> iconCache = new WeakHashMap<>();
 
     /**
      * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags. This stores icons
      * for areas
      */
-    private final WeakHashMap<Object, Bitmap> areaIconCache = new WeakHashMap<>();
+    private final WeakHashMap<java.util.Map<String, String>, Bitmap> areaIconCache = new WeakHashMap<>();
 
     /**
      * Stores strings that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
      */
-    private final WeakHashMap<Object, String> labelCache = new WeakHashMap<>();
+    private final WeakHashMap<java.util.Map<String, String>, String> labelCache = new WeakHashMap<>();
 
     /** Caches if the map is zoomed into edit range during one onDraw pass */
     private boolean tmpDrawingInEditRange;
@@ -1019,10 +1017,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private void paintLabel(final float x, final float y, @NonNull final Canvas canvas, @NonNull final FeatureStyle featureStyleThin,
             @NonNull final OsmElement e, final float strokeWidth, final boolean withIcon) {
         Paint paint = featureStyleThin.getPaint();
-        SortedMap<String, String> tags = e.getTags();
-        String label = labelCache.get(tags); // may be null!
+        String label = e.getFromCache(labelCache); // may be null!
         if (label == null) {
-            if (!labelCache.containsKey(tags)) {
+            if (!e.isInCache(labelCache)) {
                 label = e.getTagWithKey(Tags.KEY_NAME);
                 if (label == null && tmpPresets != null) {
                     PresetItem match = Preset.findBestMatch(tmpPresets, e.getTags());
@@ -1034,7 +1031,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     }
                 }
                 synchronized (labelCache) {
-                    labelCache.put(tags, label);
+                    e.addToCache(labelCache, label);
                     if (label == null) {
                         return;
                     }
@@ -1060,27 +1057,24 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      */
     @Nullable
     private Bitmap getIcon(@NonNull OsmElement element) {
-        SortedMap<String, String> tags = element.getTags();
         boolean isWay = element instanceof Way;
-        WeakHashMap<Object, Bitmap> tempCache = isWay ? areaIconCache : iconCache;
+        WeakHashMap<java.util.Map<String, String>, Bitmap> tempCache = isWay ? areaIconCache : iconCache;
 
-        Bitmap icon = tempCache.get(tags); // may be null!
+        Bitmap icon = element.getFromCache(tempCache); // may be null!
         if (icon == null && tmpPresets != null) {
-            if (tempCache.containsKey(tags)) {
+            if (element.isInCache(tempCache)) {
                 // no point in trying to match
                 return null;
             }
             // icon not cached, ask the preset, render to a bitmap and cache result
             PresetItem match = null;
+            SortedMap<String, String> tags = element.getTags();
             if (isWay) {
                 // don't show building icons, only icons for those with POI tags
                 if (Logic.areaHasIcon((Way) element)) {
                     SortedMap<String, String> tempTags = new TreeMap<>(tags);
                     tempTags.remove(Tags.KEY_BUILDING);
-                    icon = iconCache.get(tags); // maybe we already cached this for a node
-                    if (icon == null) {
-                        match = Preset.findBestMatch(tmpPresets, tempTags);
-                    }
+                    match = Preset.findBestMatch(tmpPresets, tempTags);
                 }
             } else {
                 match = Preset.findBestMatch(tmpPresets, tags);
@@ -1096,7 +1090,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 icon = NOICON;
             }
             synchronized (tempCache) {
-                tempCache.put(tags, icon);
+                element.addToCache(tempCache, icon);
             }
         }
         return icon != NOICON ? icon : null;
