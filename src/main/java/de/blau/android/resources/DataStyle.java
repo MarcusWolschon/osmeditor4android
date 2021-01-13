@@ -63,7 +63,6 @@ import de.blau.android.util.Snack;
 import de.blau.android.util.Version;
 
 public final class DataStyle extends DefaultHandler {
-
     private static final String I18N_DATASTYLE = "i18n/datastyle_";
 
     private static final String DEBUG_TAG = "DataStyle";
@@ -153,6 +152,14 @@ public final class DataStyle extends DefaultHandler {
     private static final String ARROW_STYLE_ATTR      = "arrowStyle";
     private static final String CASING_STYLE_ATTR     = "casingStyle";
     private static final String VALIDATION            = "validation";
+    private static final String CODE_ATTR             = "code";
+    private static final String SCALE_ATTR            = "scale";
+    private static final String TOUCH_RADIUS_ATTR     = "touchRadius";
+    private static final String ZOOM_ATTR             = "zoom";
+    private static final String TYPE_ATTR             = "type";
+    private static final String FORMAT_ATTR           = "format";
+    private static final String NAME_ATTR             = "name";
+    private static final String TAGS_ATTR             = "tags";
 
     private static final int DEFAULT_MIN_VISIBLE_ZOOM = 15;
 
@@ -1314,8 +1321,8 @@ public final class DataStyle extends DefaultHandler {
     public void startElement(final String uri, final String element, final String qName, final Attributes atts) {
         try {
             if (element.equals(PROFILE_ELEMENT)) {
-                name = atts.getValue("name");
-                String format = atts.getValue("format");
+                name = atts.getValue(NAME_ATTR);
+                String format = atts.getValue(FORMAT_ATTR);
                 if (format != null) {
                     Version v = new Version(format);
                     if (v.getMajor() == CURRENT_VERSION.getMajor() && v.getMinor() == CURRENT_VERSION.getMinor()) {
@@ -1326,15 +1333,15 @@ public final class DataStyle extends DefaultHandler {
                 Log.e(DEBUG_TAG, "format attribute missing or wrong for " + name);
                 throw new SAXException("format attribute missing or wrong for " + name);
             } else if (element.equals(CONFIG_ELEMENT)) {
-                type = atts.getValue("type");
+                type = atts.getValue(TYPE_ATTR);
                 if (type != null) {
                     switch (type) {
                     case LARGE_DRAG_AREA:
                         // special handling
-                        largDragToleranceRadius = Density.dpToPx(ctx, Float.parseFloat(atts.getValue("touchRadius")));
+                        largDragToleranceRadius = Density.dpToPx(ctx, Float.parseFloat(atts.getValue(TOUCH_RADIUS_ATTR)));
                         return;
                     case MARKER_SCALE:
-                        float scale = Float.parseFloat(atts.getValue("scale"));
+                        float scale = Float.parseFloat(atts.getValue(SCALE_ATTR));
                         createOrientationPath(scale);
                         createWayPointPath(scale);
                         createCrosshairsPath(scale);
@@ -1348,7 +1355,7 @@ public final class DataStyle extends DefaultHandler {
                         }
                         return;
                     case ICON_ZOOM_LIMIT:
-                        String zoomStr = atts.getValue("zoom");
+                        String zoomStr = atts.getValue(ZOOM_ATTR);
                         if (zoomStr != null) {
                             iconZoomLimit = Integer.parseInt(zoomStr);
                         }
@@ -1358,13 +1365,13 @@ public final class DataStyle extends DefaultHandler {
                     }
                 }
             } else if (element.equals(FEATURE_ELEMENT)) {
-                type = atts.getValue("type");
+                type = atts.getValue(TYPE_ATTR);
                 if (tempFeatureStyle != null) { // we already have a style, save it
                     styleStack.push(tempFeatureStyle);
                     parent = tempFeatureStyle;
                 }
 
-                tags = atts.getValue("tags");
+                tags = atts.getValue(TAGS_ATTR);
                 if (Way.NAME.equals(type) || Relation.NAME.equals(type)) {
                     if (parent != null) {
                         tempFeatureStyle = new FeatureStyle(tags == null ? "" : tags, parent); // inherit
@@ -1465,7 +1472,7 @@ public final class DataStyle extends DefaultHandler {
                 }
 
                 validationCode = 0; // reset
-                String codeString = atts.getValue("code");
+                String codeString = atts.getValue(CODE_ATTR);
                 if (codeString != null) {
                     validationCode = Integer.parseInt(codeString);
                 }
