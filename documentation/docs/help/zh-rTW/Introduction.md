@@ -18,14 +18,14 @@ Vespucci 是全功能的開放街圖編輯器，支援大部分能在桌面版�
 
 選擇轉移圖示 ![Transfer](../images/menu_transfer.png)，或是轉移選項的項目，這樣會顯示七個選項：
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
-* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
-* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+ * **下載現有的檢視** - 下載在螢幕上可見的區域，並與所有目前的資料合併*(需要網路連線或是離線資料來源)* 
+* **清除現有資料並下載現有的檢視** 清除所有在記憶體中的資料，之後下載在螢幕上可見的區域*(需要網路連線)* 
+* **上傳資料到 OSM 伺服器** - 上傳編輯到 OpenStreetMap *(需要認證)* *(要網路連線)*
+* **上傳資料** - 重新為所有區域下載資料，以及更新記憶體中資料  *(需要網路連線)*
+* **依據位置自動下載** - 自動的下載目前周圍位置區域 *(需要網路連線或離線資料)*  *(需要 GPS)*
+* **拖放和縮放並自動下載** - 自動下載目前地圖現有的檢視 *(需要網路連線或離線資料)  *(需要 GPS)*
+* **檔案...** - 儲存和載入在裝置的 OSM 檔案資料。
+* **備註/錯誤** -從 QA 工具 (目前的 OSMOSE) 下載 (自動或手動) OSM 備註和"錯誤" *(需要網路連線)*
 
 最簡單下載資料到裝置的方式是縮放和平移到你想編輯的地方，接著選擇 "下載當前檢視"。你可以用手勢縮放，用縮放按鈕，或是用裝置的音量鍵。Vespucci 應當下載當前檢視的資料，下載資料到裝置時並不需要認證。
 

@@ -92,7 +92,7 @@
     <item quantity="other">Feltölti ezeket a(z) %1$d módosításokat?</item>
   </plurals>
   <string name="confirm_upload_edits_page">Módosítások</string>
-  <string name="upload_comment_label">Megjegyzés:</string>
+  <string name="upload_comment_label">Hozzászólás:</string>
   <string name="upload_source_label">Forrás:</string>
   <string name="upload_close_open_changeset_label">Először le kell zárni a nyitott módosításcsomagot:</string>
   <string name="upload_close_changeset_label">Módosításcsomag lezárása:</string>
@@ -101,7 +101,7 @@
   <string name="upload_gpx_description_label">Leírás</string>
   <string name="upload_gpx_tags_label">Címkék</string>
   <string name="upload_gpx_visibility_label">Láthatóság</string>
-  <string name="upload_validation_error_empty_comment">A megjegyzés nem lehet üres</string>
+  <string name="upload_validation_error_empty_comment">A hozzászólás nem lehet üres</string>
   <string name="upload_validation_error_empty_source">A forrás nem lehet üres</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Új jegyzet</string>
@@ -109,7 +109,7 @@
   <string name="openstreetbug_bug_title">Hiba</string>
   <string name="openstreetbug_new_nodeway">Pont/vonal létrehozása</string>
   <string name="openstreetbug_edit_title">Jegyzet szerkesztése</string>
-  <string name="openstreetbug_comment_label">Megjegyzés:</string>
+  <string name="openstreetbug_comment_label">Hozzászólás:</string>
   <string name="openstreetbug_commit_ok">Feladatmódosítások mentve</string>
   <string name="openstreetbug_commit_fail">A feladatmódosítások nem menthetőek</string>
   <string name="openstreetbug_unknown_task_type">Ismeretlen feladattípus</string>
@@ -486,7 +486,7 @@ elemek megkövetelése</string>
   <string name="toast_preset_creation_failed">A(z) „%1$s” előbeállítás nem hozható létre: %2$s</string>
   <string name="toast_imperial_units">Hiányzó birodalmi mértékegységek</string>
   <string name="toast_server_connection_failed">Nem sikerült kapcsolódni a kiszolgálóhoz: %1$s</string>
-  <string name="toast_flus_all_caches">Ez ürít minden csempegyorsítótárat!</string>
+  <string name="toast_flus_all_caches">Ez kiürít minden csempegyorsítótárat!</string>
   <string name="toast_applied_offset">Képeltolása alkalmazva.</string>
   <string name="toast_unsupported_format">Nem támogatott formátum: %1$s</string>
   <string name="toast_returning_less_than_found">%1$d / %2$d talált bejegyzés visszaadása</string>
@@ -1001,14 +1001,14 @@ elemek megkövetelése</string>
   <string name="config_autoApplyPreset_title">Előbeállítás automatikus alkalmazásának engedélyezése</string>
   <string name="config_autoApplyPreset_summary">Előbeállítás automatikus alkalmazása a tulajdonságszerkesztő elindításánál.</string>
   <string name="config_generateAlerts_title">Értesítések létrehozása</string>
-  <string name="config_generateAlerts_summary">Értesítések létrehozása a problémás adatokhoz vagy megjegyzésekhez</string>
+  <string name="config_generateAlerts_summary">Értesítések létrehozása a problémás adatokhoz vagy jegyzetekhez</string>
   <string name="config_groupAlertsOnly_title">Csak csoportos riasztások</string>
   <string name="config_groupAlertsOnly_summary">Értesítéscsoportonként csak egy riasztás (hang) előállítása</string>
   <string name="config_notificationCacheSize_title">Megjelenített értesítések maximális száma</string>
   <string name="config_notificationCacheSize_summary">A megjelenített értesítések maximális száma típusonként (legalább 1).</string>
   <string name="config_notificationCacheSize_current">%1$d értesítés</string>
   <string name="config_maxAlertDistance_title">Maximális távolság az értesítésekhez</string>
-  <string name="config_maxAlertDistance_summary">A probléma vagy megjegyzés legnagyobb távolsága a jelenlegi helyzettől, amikor még kell értesítést létrehozni.</string>
+  <string name="config_maxAlertDistance_summary">A probléma vagy jegyzet jelenlegi helyzettől mért azon legnagyobb távolsága, amikor még létrejön egy értesítés.</string>
   <string name="config_maxAlertDistance_current">%1$d méter</string>
   <string name="config_closeChangesetOnSave_title">Módosításcsomagok lezárása:</string>
   <string name="config_closeChangesetOnSave_summary">Módosításcsomagok lezárása alapértelmezetten mentéskor.</string>
@@ -1148,7 +1148,7 @@ elemek megkövetelése</string>
   <string name="api">API</string>
   <string name="undo">Visszavonás</string>
   <string name="redo">Újra</string>
-  <string name="undo_nothing">nincs mit visszavonni</string>
+  <string name="undo_nothing">Nincs mit visszavonni</string>
   <string name="tracking_active_title">Vespucci háttérszolgáltatás</string>
   <string name="tracking_active_title_short">A háttérszolgáltatás aktív</string>
   <string name="tracking_active_text">GPS nyomvonal rögzítése vagy automatikus letöltés</string>

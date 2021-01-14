@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">Aide</string>
     <string name="help_title">Aide: %1$s</string>
     <string name="help_introduction">Introduction</string>
     <string name="help_main">Affichage de la carte principale</string>

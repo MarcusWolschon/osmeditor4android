@@ -41,6 +41,8 @@
   <string name="go_to_openstreetmap">到 openstreetmap.org</string>
   <string name="data_conflict_title">版本衝突</string>
   <string name="data_conflict_message">您下載的資料會與您的編輯衝突。請先上傳您的資料再重試。</string>
+  <string name="corrupted_data_title">受損資料</string>
+  <string name="corrupted_data_message">資料的不一致已經被偵測，要繼續任何事情前，請先嘗試上傳你編輯過的資料，再來清除任何儲存的資料，然後重新下載。</string>
   <string name="invalid_bounding_box_title">無效的邊框</string>
   <string name="invalid_bounding_box_message">選擇的區域無法符合 API 限制，請選擇另一個地方。</string>
   <string name="bounding_box_too_large_title">下載的區域太大</string>
@@ -180,8 +182,10 @@
   <string name="empty_role">空白角色</string>
   <string name="last_edited">最近編輯</string>
   <string name="original">原來</string>
+  <string name="previous">先前</string>
   <string name="current">目前</string>
   <string name="goto_element">到元素</string>
+  <string name="edit_properties">編輯標籤</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON 圖徵資訊 </string>
   <string name="copy_properties">複製性質</string>
@@ -198,11 +202,26 @@
   <string name="upload_data_now">上傳變動</string>
   <string name="prune_data_now">剪裁資料</string>
   <!--Delete custom preset dialog-->
+  <string name="delete_custom_preset_title">刪除客製化預置？</string>
   <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_title">新增路線片段</string>
+  <string name="duplicate_route_segment_message">這個路徑已經是路線的成員了。</string>
+  <string name="duplicate_route_segment_button">新增任何路徑</string>
   <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_title">新增關聯成員</string>
+  <string name="duplicate_relation_member_message">這元素已經是關聯的成員了。</string>
+  <string name="duplicate_relation_member_remove_button">移除成員</string>
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move_outer_tags_title">從外環移動標籤到多重多邊形</string>
+  <string name="move_outer_tags_message">物件定議的標籤應當只存在多邊形</string>
+  <string name="move">移動</string>
+  <string name="leave_as_is">如同棄置</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove_duplicate_outer_tags_title">移除外環上重覆的標籤</string>
+  <string name="remove_duplicate_outer_tags_message">移除外環已經在多重多邊形設定的標籤</string>
+  <string name="remove">移除</string>
   <!--Abort action mode dialog-->
+  <string name="abort_action_title">放棄行動</string>
   <!---->
   <string name="error">錯誤</string>
   <string name="warning">警告</string>
@@ -303,6 +322,8 @@
   <string name="layer_info_end_date">結束日期</string>
   <string name="layer_info_terms">條款</string>
   <string name="layer_info_privacy_policy">隱私政策</string>
+  <string name="projection">投景</string>
+  <string name="errors">錯誤</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">刪除圖片</string>
   <string name="photo_viewer_delete_button">永久刪除</string>
@@ -315,6 +336,7 @@
   <string name="api_info_attribution">貢獻者</string>
   <string name="api_info_mapsplit_source">MapSplit 唯讀來源</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">標籤已經改變</string>
   <!--Relation selection dialog-->
   <!--Preset selection dialog-->
   <!--Undo - Redo dialog-->
