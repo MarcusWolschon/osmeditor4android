@@ -1,5 +1,13 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.1.5:
+- Fix issue when editing an existing relations members that caused them to get multipolygon roles
+- Fix issue with icon caching in the data layer
+- Fix issue selecting imagery when category was changed
+- Show restart required message when "Follow" button is moved
+- Update translations
+- Update imagery from ELI
+
 15.1.4:
 - Fix regression (since 15.0) that stopped GeoJSON layer style from being restored
 - More protection against corrupted data
