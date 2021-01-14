@@ -506,11 +506,13 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                     }
                 }
                 logic.updateRelationMembers(main, relation, toRemove, newMembers);
-                final List<RelationMember> members = relation.getMembers();
-                setMultipolygonRoles(main, members, false); // update roles
-                if (outersHaveTags(relation.getTags(), members)) {
-                    removeTagsFromMembers(relation.getTags(), relation.getMembersWithRole(Tags.ROLE_OUTER));
-                    return;
+                if (relation.hasTagWithValue(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) || relation.hasTagWithValue(Tags.KEY_TYPE, Tags.VALUE_BOUNDARY)) {
+                    final List<RelationMember> members = relation.getMembers();
+                    setMultipolygonRoles(main, members, false); // update roles
+                    if (outersHaveTags(relation.getTags(), members)) {
+                        removeTagsFromMembers(relation.getTags(), relation.getMembersWithRole(Tags.ROLE_OUTER));
+                        return;
+                    }
                 }
                 main.performTagEdit(relation, null, false, false);
             }
