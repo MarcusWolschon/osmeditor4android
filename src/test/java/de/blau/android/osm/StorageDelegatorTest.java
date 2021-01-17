@@ -99,7 +99,7 @@ public class StorageDelegatorTest {
      * @param close if true close the way
      * @return the way
      */
-    static Way addWayToStorage(@NonNull StorageDelegator d, boolean close) {
+    public static Way addWayToStorage(@NonNull StorageDelegator d, boolean close) {
         d.getUndo().createCheckpoint("add test way");
         OsmElementFactory factory = d.getFactory();
         Way w = factory.createWayWithNewId();
