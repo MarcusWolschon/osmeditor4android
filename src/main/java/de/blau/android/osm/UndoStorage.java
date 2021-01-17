@@ -852,7 +852,7 @@ public class UndoStorage implements Serializable {
          * @return true if closed
          */
         public boolean isClosed() {
-            return nodes.get(0).equals(nodes.get(nodes.size() - 1));
+            return !nodes.isEmpty() && nodes.get(0).equals(nodes.get(nodes.size() - 1));
         }
 
         /**
