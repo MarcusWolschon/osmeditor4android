@@ -1,5 +1,9 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.1.6:
+- Fix crash when showing info dialog on copy and pasted way
+- Update preset
+
 15.1.5:
 - Fix issue when editing an existing relations members that caused them to get multipolygon roles
 - Fix issue with icon caching in the data layer
