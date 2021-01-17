@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="2.2.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="2.3.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -658,7 +658,7 @@
         <combo key="fee" text="Fee" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" match="none" values_no_i18n="true" values_sort="false" editable="true"/>
     </chunk>
     <chunk id="parking_name_type_ref">
-        <combo key="parking" text="Type" values="multi-storey,surface,underground,rooftop,sheds,carports,garage_boxes" display_values="Multi-storey,Surface,Underground,Rooftop,Sheds,Carports,Garage boxes" values_context="parking"/>
+        <combo key="parking" text="Type" values="multi-storey,surface,underground,rooftop,sheds,street_side,carports,garage_boxes" display_values="Multi-storey,Surface,Underground,Rooftop,Sheds,Street side,Carports,Garage boxes" values_context="parking"/>
         <optional>
             <text key="name" text="Name"/>
         	<text key="ref" text="Reference number"/>
