@@ -271,6 +271,7 @@ public class UndoStorage implements Serializable {
      * @param checkpoint the Checkpoint
      * @return a BoundingBox of null if it coudn't be determined
      */
+    @Nullable
     public BoundingBox getBounds(@NonNull Checkpoint checkpoint) {
         BoundingBox result = null;
         for (UndoElement ue : checkpoint.elements.values()) {
@@ -593,7 +594,7 @@ public class UndoStorage implements Serializable {
          */
         public OsmElement restore() {
             // Restore element existence
-            Log.e(DEBUG_TAG, "restoring " + element.getDescription() + " state " + state + " current " + inCurrentStorage + " api " + inApiStorage);
+            Log.e(DEBUG_TAG, "restoring " + element.getOsmId() + " state " + state + " current " + inCurrentStorage + " api " + inApiStorage);
             OsmElement restored = getUptodateElement(element);
             try {
                 if (inCurrentStorage) {
@@ -922,7 +923,7 @@ public class UndoStorage implements Serializable {
                         ((Relation) restored).members.add(rm); // only add undeleted members or ones that haven't been
                                                                // downloaded
                     } else {
-                        Log.e(DEBUG_TAG, rmElement.getDescription() + " member of " + restored.getDescription() + " is deleted");
+                        Log.e(DEBUG_TAG, rm.getType() + " #" + rmElement.getOsmId() + " member of relation #" + restored.getOsmId() + " is deleted");
                         restored.updateState(OsmElement.STATE_MODIFIED);
                         try {
                             apiStorage.insertElementSafe(restored);
@@ -975,6 +976,7 @@ public class UndoStorage implements Serializable {
      * @param ctx Android context
      * @return a list of names, oldest action first (i.e. the last action will be the first to be undone)
      */
+    @NonNull
     public String[] getUndoActions(@Nullable Context ctx) {
         return getCheckpointActions(ctx, undoCheckpoints);
     }
@@ -985,6 +987,7 @@ public class UndoStorage implements Serializable {
      * @param ctx Android context
      * @return a list of names, newest action first (i.e. the last action will be the first to be redone)
      */
+    @NonNull
     public String[] getRedoActions(@Nullable Context ctx) {
         return getCheckpointActions(ctx, redoCheckpoints);
     }
@@ -996,6 +999,7 @@ public class UndoStorage implements Serializable {
      * @param checkpoints List of Checkpoints
      * @return a list of names of the Checkpoints plus description
      */
+    @NonNull
     private String[] getCheckpointActions(@Nullable Context ctx, @NonNull List<Checkpoint> checkpoints) {
         String[] result = new String[checkpoints.size()];
         int i = 0;
