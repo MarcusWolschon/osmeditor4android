@@ -92,6 +92,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
@@ -884,13 +885,12 @@ public class Logic {
     /**
      * Determine if the way should have an icon shown and should respond to a touch event on the icon
      * 
-     * Note this should be made configurable in the long run
-     * 
      * @param way the way in question
      * @return true if we should have an icon
      */
-    public static boolean areaHasIcon(Way way) {
-        return way.isClosed() && (way.hasTagKey(Tags.KEY_BUILDING) || way.hasTag(Tags.KEY_INDOOR, Tags.VALUE_ROOM));
+    private static boolean areaHasIcon(@NonNull Way way) {
+        final FeatureStyle style = DataStyle.matchStyle(way);
+        return style.getIconPath() != null || style.getLabelKey() != null;
     }
 
     /**
