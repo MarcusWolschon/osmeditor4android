@@ -30,6 +30,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Color;
@@ -42,6 +43,7 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PathDashPathEffect;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -1738,6 +1740,7 @@ public final class DataStyle extends DefaultHandler {
      * 
      * @param ctx Android Context
      */
+    @SuppressLint("NewApi")
     public static void getStylesFromFiles(@NonNull Context ctx) {
         if (availableStyles.size() == 0) {
             Log.i(DEBUG_TAG, "No style files found");
@@ -1765,6 +1768,7 @@ public final class DataStyle extends DefaultHandler {
         }
 
         // from "sdcard" this will stop working with android 11 or so
+        @SuppressWarnings("deprecation")
         File sdcard = Environment.getExternalStorageDirectory();
         File indir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
         class StyleFilter implements FilenameFilter {
@@ -1781,13 +1785,15 @@ public final class DataStyle extends DefaultHandler {
         }
 
         // from app specific directories
-        for (File fileDir : ctx.getExternalFilesDirs(null)) {
-            indir = new File(fileDir, Paths.DIRECTORY_PATH_STYLES);
-            try {
-                File[] list = indir.listFiles(new XmlFileFilter());
-                readStylesFromFileList(ctx, list);
-            } catch (Exception ex) {
-                Log.e(DEBUG_TAG, "Unable to access directory " + indir.getAbsolutePath() + " " + ex.getMessage());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            for (File fileDir : ctx.getExternalFilesDirs(null)) {
+                indir = new File(fileDir, Paths.DIRECTORY_PATH_STYLES);
+                try {
+                    File[] list = indir.listFiles(new XmlFileFilter());
+                    readStylesFromFileList(ctx, list);
+                } catch (Exception ex) {
+                    Log.e(DEBUG_TAG, "Unable to access directory " + indir.getAbsolutePath() + " " + ex.getMessage());
+                }
             }
         }
     }

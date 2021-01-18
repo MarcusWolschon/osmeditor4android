@@ -5,7 +5,7 @@ The data styling configuration is not a work of art, it was created ad hoc (in o
 
 ### Using custom style files in Vespucci
 
-Files need to need have an unique _name_ attribute and the _.xml_ extension and reside in a _styles_ directory in an app specific files directory (for example _Android/data/de.blau.android/files/styles/test.xml_ ). Currently the legacy storage format and location continues to work: unique _name_ attribute and a filename in the format _name_-profile.xml and stored in the _Vespucci_ directory. 
+Files need to need have an unique _name_ attribute and the _.xml_ extension and reside in a _styles_ directory in an app specific files directory (for example _Android/data/de.blau.android/files/styles/test.xml_ ). Currently the legacy storage format and location continues to work: unique _name_ attribute and a filename in the format _name_-profile.xml and stored in the _Vespucci_ directory, this is the only location that will work for devices with Android version older than 4.4. 
 
 ### Style Elements and Attributes
 
