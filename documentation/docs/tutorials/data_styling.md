@@ -1,15 +1,17 @@
 ## Vespucci Data Styling
-_Documentation for Vespucci 14.1_
+_Documentation for Vespucci 15.2_
 
 The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.
 
 ### Using custom style files in Vespucci
 
-Files need to have an unique _name_ attribute and a filename in the format _name_-profile.xml and be stored in the _Vespucci_ directory. 
+Files need to need have an unique _name_ attribute and the _.xml_ extension and reside in a _styles_ directory in an app specific files directory (for example _Android/data/de.blau.android/files/styles/test.xml_ ). Currently the legacy storage format and location continues to work: unique _name_ attribute and a filename in the format _name_-profile.xml and stored in the _Vespucci_ directory. 
 
 ### Style Elements and Attributes
 
 The styles are for a major part not much more than an external representation of the [Android Paint](https://developer.android.com/reference/android/graphics/Paint) objects. In particular color, style, cap, join and strokeWidth attributes map directly to the Paint fields.
+
+Node styling is limited to the __labelKey__ and __iconPath__ attributes.
 
 
 |Element                    | Attributes     | Description
@@ -25,7 +27,7 @@ The styles are for a major part not much more than an external representation of
 |                           | length         | User with min_handle_len, defines the minimum length a way segment must have on screen so that the geometry improvement handles are shown
 |                           | zoom           | Used with icon_zoom_limit, minimum zoom level at which POI icons are still displayed
 |__&lt;feature&gt;__        |                | Feature elements can be nested and each feature can contain one or more other feature elements. Nested elements inherit attributes from their parents. 
-|                           | type           | "way" or "relation" to match the corresponding OSM elements, or a name
+|                           | type           | "way", "node" or "relation" to match the corresponding OSM elements, or a name
 |                           | tags           | Tags to use for matching, ignored for named styles, in the format _key_=_value_ or _key_=_*_ for any value. Multiple tags can be added using __&vert;__ as a separator.
 |                           | closed         | If not present will match all ways, if present will match closed ways if true, or if false open ways, ignored for relations
 |                           | area           | Use area semantics for rendering if true
@@ -45,6 +47,8 @@ The styles are for a major part not much more than an external representation of
 |                           | casingStyle    | Reference to a style to use for casing
 |                           | arrowStyle     | Reference to a style to use for way arrows                          
 |                           | oneway         | Set this on the referenced arrowStyle if it should have oneway semantics
+|                           | labelKey       | Tag key to use as label if present, magic value "preset" will use the preset name.
+|                           | iconPath       | Path, relative to the directory in which the style file resides, to a PNG format icon, magic value "preset" will use the preset icon.
 |__&lt;dash&gt;__           |                | feature sub-element used to define a dash pattern
 |                           | phase          | Phase of the dash
 |__&lt;interval&gt;__       |                | dash sub-element used to define the length of the dash/no-dash phases
