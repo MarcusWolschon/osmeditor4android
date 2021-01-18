@@ -56,7 +56,7 @@ public class MBTileProviderDataBase {
 
     private final SQLiteDatabase mDatabase;
 
-    private static Pools.SynchronizedPool<SQLiteStatement> getStatements;
+    private Pools.SynchronizedPool<SQLiteStatement> getStatements;
 
     private Map<String, String> metadata = null;
 
@@ -64,7 +64,7 @@ public class MBTileProviderDataBase {
     // Constructors
     // ===========================================================
     /**
-     * Construct a new database tile storage provider
+     * Construct a new MapBox tile storage provider
      * 
      * @param context Android Context
      * @param mbTilesUri Uri for the mbtiles file
@@ -103,43 +103,16 @@ public class MBTileProviderDataBase {
      * @throws IOException if we had issues reading from the database
      */
     public byte[] getTile(@NonNull final MapTile aTile) throws IOException {
-        if (DEBUGMODE) {
-            Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Trying to retrieve " + aTile + " from db");
-        }
-        try {
-            if (mDatabase.isOpen()) {
-                SQLiteStatement get = null;
-                try {
-                    get = getStatements.acquire();
-                    if (get == null) {
-                        Log.e(DEBUG_TAG, "statement null");
-                        return null;
-                    }
-                    bindTile(aTile, get);
-                    ParcelFileDescriptor.AutoCloseInputStream acis = new ParcelFileDescriptor.AutoCloseInputStream(get.simpleQueryForBlobFileDescriptor());
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
-                    byte[] buffer = new byte[4096];
-                    int bytesRead;
-                    while ((bytesRead = acis.read(buffer)) != -1) {
-                        bos.write(buffer, 0, bytesRead);
-                    }
-                    acis.close();
-                    return bos.toByteArray();
-                } catch (SQLiteDoneException sde) {
-                    // nothing found
-                    return null;
-                } finally {
-                    if (get != null) {
-                        getStatements.release(get);
-                    }
-                }
+        InputStream is = getTileStream(aTile);
+        if (is != null) {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = is.read(buffer)) != -1) {
+                bos.write(buffer, 0, bytesRead);
             }
-        } catch (SQLiteException sex) { // handle these exceptions the same
-            throw new IOException(sex.getMessage());
-        }
-        if (DEBUGMODE) {
-            Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Tile not found in DB");
+            is.close();
+            return bos.toByteArray();
         }
         return null;
     }
@@ -209,21 +182,19 @@ public class MBTileProviderDataBase {
      */
     @Nullable
     public Map<String, String> getMetadata() {
-        if (metadata == null) {
-            if (mDatabase.isOpen()) {
-                Cursor dbresult = mDatabase.query(T_METADATA, null, null, null, null, null, null);
-                if (dbresult.getCount() >= 1) {
-                    metadata = new HashMap<>();
-                    boolean haveEntry = dbresult.moveToFirst();
-                    while (haveEntry) {
-                        String name = dbresult.getString(dbresult.getColumnIndex(T_METADATA_NAME));
-                        String value = dbresult.getString(dbresult.getColumnIndex(T_METADATA_VALUE));
-                        metadata.put(name, value);
-                        haveEntry = dbresult.moveToNext();
-                    }
+        if (metadata == null && mDatabase.isOpen()) {
+            Cursor dbresult = mDatabase.query(T_METADATA, null, null, null, null, null, null);
+            if (dbresult.getCount() >= 1) {
+                metadata = new HashMap<>();
+                boolean haveEntry = dbresult.moveToFirst();
+                while (haveEntry) {
+                    String name = dbresult.getString(dbresult.getColumnIndex(T_METADATA_NAME));
+                    String value = dbresult.getString(dbresult.getColumnIndex(T_METADATA_VALUE));
+                    metadata.put(name, value);
+                    haveEntry = dbresult.moveToNext();
                 }
-                dbresult.close();
             }
+            dbresult.close();
         }
         return metadata;
     }
