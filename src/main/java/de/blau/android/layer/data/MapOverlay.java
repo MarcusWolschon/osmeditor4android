@@ -4,9 +4,12 @@ import static de.blau.android.util.Winding.CLOCKWISE;
 import static de.blau.android.util.Winding.COUNTERCLOCKWISE;
 import static de.blau.android.util.Winding.winding;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,6 +18,7 @@ import java.util.TreeMap;
 import java.util.WeakHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -25,7 +29,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Path;
 import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.os.Build;
 import android.util.Log;
@@ -62,6 +66,7 @@ import de.blau.android.prefs.APIEditorActivity;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetIconManager;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.util.Coordinates;
@@ -159,6 +164,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * Stores strings that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
      */
     private final WeakHashMap<java.util.Map<String, String>, String> labelCache = new WeakHashMap<>();
+
+    /**
+     * Stores custom icons
+     */
+    private final HashMap<String, BitmapDrawable> customIconCache = new HashMap<>();
 
     /** Caches if the map is zoomed into edit range during one onDraw pass */
     private boolean tmpDrawingInEditRange;
@@ -273,7 +283,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     List<Node>             areaNodes      = new ArrayList<>();   // temp for reversing winding and assembling MPs
     Set<Relation>          paintRelations = new HashSet<>();
 
-    private ThreadPoolExecutor mThreadPool;
+    private ThreadPoolExecutor mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
     /**
      * Construct a new OSM data layer
@@ -282,6 +292,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      */
     @SuppressLint("NewApi")
     public MapOverlay(@NonNull final Map map) {
+        Log.i(DEBUG_TAG, "creating data layer");
         this.map = map;
         context = map.getContext();
         prefs = map.getPrefs();
@@ -300,15 +311,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
     @Override
     public void onDestroy() {
-        synchronized (iconCache) {
-            iconCache.clear();
+        mThreadPool.shutdownNow();
+        try {
+            mThreadPool.awaitTermination(1, TimeUnit.SECONDS);
+        } catch (InterruptedException e) { // NOSONAR
+            // nothing we can really do here
         }
-        synchronized (areaIconCache) {
-            areaIconCache.clear();
-        }
-        synchronized (labelCache) {
-            labelCache.clear();
-        }
+        clearIconCaches();
         tmpPresets = null;
     }
 
@@ -333,9 +342,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
         @Override
         public void run() {
-            if (mThreadPool == null) {
-                mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-            }
             List<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
             ViewBox box = new ViewBox(map.getViewBox());
             box.scale(1.2); // make sides 20% larger
@@ -770,23 +776,24 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                             String type = restriction.getTagWithKey(Tags.VALUE_RESTRICTION);
                             int arrowDirection = 0;
                             if (type != null) {
+                                final int offset = 2 * ICON_SIZE_DP;
                                 switch (type) {
                                 case Tags.VALUE_NO_RIGHT_TURN:
                                 case Tags.VALUE_ONLY_RIGHT_TURN:
                                     arrowDirection = 90;
-                                    y -= 2 * ICON_SIZE_DP;
-                                    x += 2 * ICON_SIZE_DP;
+                                    y -= offset;
+                                    x += offset;
                                     break;
                                 case Tags.VALUE_NO_LEFT_TURN:
                                 case Tags.VALUE_ONLY_LEFT_TURN:
                                     arrowDirection = -90;
-                                    y += 2 * ICON_SIZE_DP;
-                                    x += 2 * ICON_SIZE_DP;
+                                    y += offset;
+                                    x += offset;
                                     break;
                                 case Tags.VALUE_NO_STRAIGHT_ON:
                                 case Tags.VALUE_ONLY_STRAIGHT_ON:
                                     arrowDirection = 180;
-                                    y -= 2 * ICON_SIZE_DP;
+                                    y -= offset;
                                     break;
                                 default:
                                     // ignore
@@ -949,9 +956,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                         paintHouseNumber(x, y, canvas, featureStyleThin, featureStyleFontSmall, houseNumber);
                         return;
                     }
-                } else if (zoomLevel > SHOW_LABEL_LIMIT && node.hasTagKey(Tags.KEY_NAME)) {
-                    Paint p = DataStyle.getInternal(DataStyle.NODE_TAGGED).getPaint();
-                    paintLabel(x, y, canvas, featureStyleFont, node, p.getStrokeWidth(), true);
+                } else if (zoomLevel > SHOW_LABEL_LIMIT) {
+                    paintLabel(x, y, canvas, featureStyleFont, node, nodeFeatureStyleTagged.getPaint().getStrokeWidth(), true);
                 }
             }
 
@@ -1009,49 +1015,56 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param x screen x
      * @param y screen y
      * @param canvas canvas we are drawing on
-     * @param featureStyleThin style to use for the label
+     * @param labelStyle style to use for the label
      * @param e the OsmElement
      * @param strokeWidth current stroke scaling factor
      * @param withIcon offset the label so that we don't overlap an icon
      */
-    private void paintLabel(final float x, final float y, @NonNull final Canvas canvas, @NonNull final FeatureStyle featureStyleThin,
-            @NonNull final OsmElement e, final float strokeWidth, final boolean withIcon) {
-        Paint paint = featureStyleThin.getPaint();
+    private void paintLabel(final float x, final float y, @NonNull final Canvas canvas, @NonNull final FeatureStyle labelStyle, @NonNull final OsmElement e,
+            final float strokeWidth, final boolean withIcon) {
         String label = e.getFromCache(labelCache); // may be null!
         if (label == null) {
-            if (!e.isInCache(labelCache)) {
-                label = e.getTagWithKey(Tags.KEY_NAME);
-                if (label == null && tmpPresets != null) {
-                    PresetItem match = Preset.findBestMatch(tmpPresets, e.getTags());
-                    if (match != null) {
-                        label = match.getTranslatedName();
-                    } else {
-                        label = e.getPrimaryTag(context);
-                        // if label is still null, leave it as is
-                    }
-                }
-                synchronized (labelCache) {
-                    e.addToCache(labelCache, label);
-                    if (label == null) {
-                        return;
-                    }
-                }
-            } else {
+            if (e.isInCache(labelCache)) {
                 return;
             }
+            FeatureStyle style = DataStyle.matchStyle(e);
+            if (style.usePresetLabel() && tmpPresets != null) {
+                PresetItem match = Preset.findBestMatch(tmpPresets, e.getTags());
+                if (match != null) {
+                    label = match.getTranslatedName();
+                } else {
+                    label = e.getPrimaryTag(context);
+                }
+            } else {
+                String labelKey = style.getLabelKey();
+                label = labelKey != null ? e.getTagWithKey(labelKey) : null;
+            }
+            synchronized (labelCache) {
+                e.addToCache(labelCache, label);
+                if (label == null) {
+                    return;
+                }
+            }
         }
+        // draw the label
+        Paint paint = labelStyle.getPaint();
         float halfTextWidth = paint.measureText(label) / 2;
-        FontMetrics fm = featureStyleThin.getFontMetrics();
+        FontMetrics fm = labelStyle.getFontMetrics();
         float yOffset = y + strokeWidth + (withIcon ? 2 * iconRadius : iconRadius);
         canvas.drawRect(x - halfTextWidth, yOffset + fm.bottom, x + halfTextWidth, yOffset - paint.getTextSize() + fm.bottom, labelBackground);
         canvas.drawText(label, x - halfTextWidth, yOffset, paint);
     }
 
-    static final Bitmap NOICON = Bitmap.createBitmap(2, 2, Config.ARGB_8888);
+    /**
+     * Dummy bitmap for the cache
+     */
+    private static final Bitmap NOICON = Bitmap.createBitmap(2, 2, Config.ARGB_8888);
 
     /**
-     * Retrieve icon for the element, caching it if it isn't in the cache
+     * Get icon for the element
      * 
+     * Asynchronously read if it isn't in the cache
+     *
      * @param element element we want to find an icon for
      * @return icon or null if none is found
      */
@@ -1059,19 +1072,45 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private Bitmap getIcon(@NonNull OsmElement element) {
         boolean isWay = element instanceof Way;
         WeakHashMap<java.util.Map<String, String>, Bitmap> tempCache = isWay ? areaIconCache : iconCache;
-
         Bitmap icon = element.getFromCache(tempCache); // may be null!
-        if (icon == null && tmpPresets != null) {
-            if (element.isInCache(tempCache)) {
-                // no point in trying to match
-                return null;
+        if (icon == null) {
+            mThreadPool.execute(() -> retrieveIcon(element, isWay, tempCache));
+        }
+        return icon != NOICON ? icon : null;
+    }
+
+    /**
+     * Retrieve an icon and put it in the cache for the specific element
+     * 
+     * @param style an optional FeatureStlye for the object with an icon path
+     * @param element the OsmElement
+     * @param isWayif the element is a Way
+     * @param cache the relevant cache
+     */
+    private void retrieveIcon(@NonNull OsmElement element, boolean isWay, @NonNull WeakHashMap<java.util.Map<String, String>, Bitmap> cache) {
+        BitmapDrawable iconDrawable = null;
+
+        // icon not cached, ask the preset/style, render to a bitmap and cache result
+        FeatureStyle style = DataStyle.matchStyle(element);
+        String iconPath = style.getIconPath();
+        boolean usePresetIcon = style.usePresetIcon();
+
+        if (iconPath != null && !usePresetIcon) {
+            iconDrawable = customIconCache.get(iconPath);
+            if (iconDrawable == null && !customIconCache.containsKey(iconPath)) {
+                try (FileInputStream pngStream = new FileInputStream(iconPath)) {
+                    iconDrawable = PresetIconManager.bitmapDrawableFromStream(context, ICON_SIZE_DP, pngStream);
+                    customIconCache.put(iconPath, iconDrawable);
+                } catch (IOException e) {
+                    Log.e(DEBUG_TAG, "Icon " + iconPath + " not found");
+                }
             }
-            // icon not cached, ask the preset, render to a bitmap and cache result
-            PresetItem match = null;
+        } else if (tmpPresets != null) {
             SortedMap<String, String> tags = element.getTags();
+            PresetItem match = null;
             if (isWay) {
-                // don't show building icons, only icons for those with POI tags
-                if (Logic.areaHasIcon((Way) element)) {
+                if (usePresetIcon) {
+                    // don't show building icons, only icons for those with POI tags
                     SortedMap<String, String> tempTags = new TreeMap<>(tags);
                     tempTags.remove(Tags.KEY_BUILDING);
                     match = Preset.findBestMatch(tmpPresets, tempTags);
@@ -1080,20 +1119,20 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 match = Preset.findBestMatch(tmpPresets, tags);
             }
             if (match != null) {
-                Drawable iconDrawable = match.getMapIcon(context);
-                if (iconDrawable != null) {
-                    icon = Bitmap.createBitmap(iconRadius * 2, iconRadius * 2, Config.ARGB_8888);
-                    // icon.eraseColor(Color.WHITE); // replace nothing with white?
-                    iconDrawable.draw(new Canvas(icon));
-                }
-            } else {
-                icon = NOICON;
-            }
-            synchronized (tempCache) {
-                element.addToCache(tempCache, icon);
+                iconDrawable = match.getMapIcon(context);
             }
         }
-        return icon != NOICON ? icon : null;
+        Bitmap icon;
+        if (iconDrawable != null) {
+            icon = Bitmap.createBitmap(iconRadius * 2, iconRadius * 2, Config.ARGB_8888);
+            iconDrawable.draw(new Canvas(icon));
+        } else {
+            icon = NOICON;
+        }
+        synchronized (MapOverlay.this) {
+            element.addToCache(cache, icon);
+        }
+        map.postInvalidate();
     }
 
     /**
@@ -1102,7 +1141,15 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     public void clearIconCaches() {
         synchronized (iconCache) {
             iconCache.clear();
+        }
+        synchronized (areaIconCache) {
             areaIconCache.clear();
+        }
+        synchronized (labelCache) {
+            labelCache.clear();
+        }
+        synchronized (customIconCache) {
+            customIconCache.clear();
         }
     }
 
@@ -1113,17 +1160,17 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param canvas the canvas on which to draw
      * @param x the x position where the center of the icon goes
      * @param y the y position where the center of the icon goes
-     * @param featureStyle style key
+     * @param highlightStyle highlight style key or null
      * @return true if an icon was found and drawn
      */
-    private boolean paintNodeIcon(@NonNull OsmElement element, @NonNull Canvas canvas, float x, float y, @Nullable FeatureStyle featureStyle) {
+    private boolean paintNodeIcon(@NonNull OsmElement element, @NonNull Canvas canvas, float x, float y, @Nullable FeatureStyle highlightStyle) {
         Bitmap icon = getIcon(element);
         if (icon != null) {
             float w2 = icon.getWidth() / 2f;
             float h2 = icon.getHeight() / 2f;
-            if (featureStyle != null) { // selected or error
+            if (highlightStyle != null) { // selected or error
                 RectF r = new RectF(x - w2 - iconSelectedBorder, y - h2 - iconSelectedBorder, x + w2 + iconSelectedBorder, y + h2 + iconSelectedBorder);
-                canvas.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, featureStyle.getPaint());
+                canvas.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, highlightStyle.getPaint());
             }
             // we have an icon! draw it.
             canvas.drawBitmap(icon, x - w2, y - h2, null);
