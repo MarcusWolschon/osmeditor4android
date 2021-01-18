@@ -5,7 +5,13 @@ import android.content.DialogInterface.OnClickListener;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Spinner;
+import androidx.annotation.NonNull;
+import de.blau.android.App;
+import de.blau.android.ErrorCodes;
+import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.dialogs.ErrorAlert;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.Visibility;
 
 /**
@@ -21,14 +27,15 @@ public class GpxUploadListener implements OnClickListener {
     private final Spinner  visibilitySpinner;
 
     /**
-     * Construct a new listener from paramaters
+     * Construct a new listener from parameters
      * 
      * @param caller instance of Main that will be used
      * @param descriptionField EditText holding the OSM GPX API description text
      * @param tagsField EditText holding the OSM GPX API tags
      * @param visibilitySpinner Spinner with the OSM GPX API visibility values
      */
-    public GpxUploadListener(final Main caller, final EditText descriptionField, final EditText tagsField, final Spinner visibilitySpinner) {
+    public GpxUploadListener(@NonNull final Main caller, @NonNull final EditText descriptionField, @NonNull final EditText tagsField,
+            @NonNull final Spinner visibilitySpinner) {
         this.caller = caller;
         this.descriptionField = descriptionField;
         this.tagsField = tagsField;
@@ -43,7 +50,7 @@ public class GpxUploadListener implements OnClickListener {
         Visibility visibility = Visibility.PRIVATE;
         switch (visibilitySpinner.getSelectedItemPosition()) {
         case 0:
-            visibility = Visibility.PRIVATE;
+            // already set to private
             break;
         case 1:
             visibility = Visibility.PUBLIC;
@@ -59,5 +66,4 @@ public class GpxUploadListener implements OnClickListener {
         }
         caller.performTrackUpload(descriptionField.getText().toString(), tagsField.getText().toString(), visibility);
     }
-
 }
