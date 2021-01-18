@@ -7,7 +7,7 @@ public interface StyleableFeature {
     /**
      * Get the rendering style for this way
      * 
-     * @return the style of null if not set
+     * @return the style or null if not set
      */
     public FeatureStyle getStyle();
 
