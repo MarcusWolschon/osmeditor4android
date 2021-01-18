@@ -30,7 +30,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Color;
@@ -43,6 +43,7 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PathDashPathEffect;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -52,6 +53,7 @@ import ch.poole.poparser.Po;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Paths;
+import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Relation;
@@ -61,9 +63,9 @@ import de.blau.android.util.Density;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Version;
+import de.blau.android.util.XmlFileFilter;
 
 public final class DataStyle extends DefaultHandler {
-
     private static final String I18N_DATASTYLE = "i18n/datastyle_";
 
     private static final String DEBUG_TAG = "DataStyle";
@@ -153,6 +155,17 @@ public final class DataStyle extends DefaultHandler {
     private static final String ARROW_STYLE_ATTR      = "arrowStyle";
     private static final String CASING_STYLE_ATTR     = "casingStyle";
     private static final String VALIDATION            = "validation";
+    private static final String CODE_ATTR             = "code";
+    private static final String SCALE_ATTR            = "scale";
+    private static final String TOUCH_RADIUS_ATTR     = "touchRadius";
+    private static final String ZOOM_ATTR             = "zoom";
+    private static final String TYPE_ATTR             = "type";
+    private static final String FORMAT_ATTR           = "format";
+    private static final String NAME_ATTR             = "name";
+    private static final String TAGS_ATTR             = "tags";
+    private static final String LABEL_KEY_ATTR        = "labelKey";
+    private static final String ICON_PATH_ATTR        = "iconPath";
+    private static final String PRESET                = "preset";
 
     private static final int DEFAULT_MIN_VISIBLE_ZOOM = 15;
 
@@ -172,6 +185,8 @@ public final class DataStyle extends DefaultHandler {
         private FeatureStyle      casingStyle    = null;
         private boolean           oneway         = false;
         private Boolean           closed         = null;
+        private String            labelKey       = null;
+        private String            iconPath       = null;
 
         List<FeatureStyle> cascadedStyles = null;
 
@@ -242,6 +257,9 @@ public final class DataStyle extends DefaultHandler {
             arrowStyle = fp.arrowStyle;
             casingStyle = fp.casingStyle;
             oneway = fp.oneway;
+            closed = fp.closed;
+            labelKey = fp.labelKey;
+            iconPath = fp.iconPath;
             cascadedStyles = null;
         }
 
@@ -520,6 +538,62 @@ public final class DataStyle extends DefaultHandler {
         }
 
         /**
+         * Set the label key
+         * 
+         * @param key the key
+         */
+        public void setLabelKey(@Nullable String key) {
+            labelKey = key;
+        }
+
+        /**
+         * Get the label key
+         * 
+         * @return the key or null if not set
+         */
+        @Nullable
+        public String getLabelKey() {
+            return labelKey;
+        }
+
+        /**
+         * Check if labelkey is set to "preset"
+         * 
+         * @return true if the magic value is set
+         */
+        public boolean usePresetLabel() {
+            return PRESET.equals(labelKey);
+        }
+
+        /**
+         * Check if the iconPath is set to "preset"
+         * 
+         * @return true if the magic value is set
+         */
+        public boolean usePresetIcon() {
+            return PRESET.equals(iconPath);
+        }
+
+        /**
+         * Set the icon path
+         * 
+         * @param path the path
+         */
+        public void setIconPath(@Nullable String path) {
+            iconPath = iconDirPath != null && path != null && !PRESET.equals(path) ? iconDirPath + Paths.DELIMITER + path : path;
+        }
+
+        /**
+         * Get the icon path
+         * 
+         * @return the path or null if not set
+         */
+        @Nullable
+        public String getIconPath() {
+            return iconPath;
+        }
+
+        /**
          * Dump this Style in XML format, not very abstracted and closely tied to the implementation
          * 
          * @param s an XmlSerialzer instance
@@ -538,6 +612,12 @@ public final class DataStyle extends DefaultHandler {
                 s.attribute("", CLOSED_ATTR, Boolean.toString(closed));
             }
             s.attribute("", ONEWAY_ATTR, Boolean.toString(oneway));
+            if (labelKey != null) {
+                s.attribute("", LABEL_KEY_ATTR, labelKey);
+            }
+            if (iconPath != null) {
+                s.attribute("", ICON_PATH_ATTR, iconPath);
+            }
             //
             s.attribute("", COLOR_ATTR, Integer.toHexString(getPaint().getColor()));
             // alpha should be contained in color
@@ -588,6 +668,7 @@ public final class DataStyle extends DefaultHandler {
     private String                     name;
     private Map<String, FeatureStyle>  internalStyles;
     private Map<Integer, FeatureStyle> validationStyles;
+    private FeatureStyle               nodeStyles;
     private FeatureStyle               wayStyles;
     private FeatureStyle               relationStyles;
 
@@ -638,6 +719,7 @@ public final class DataStyle extends DefaultHandler {
     private int   iconZoomLimit;
 
     private final Context ctx;
+    private String        iconDirPath;
 
     /**
      * Create minimum default style
@@ -654,9 +736,11 @@ public final class DataStyle extends DefaultHandler {
      * 
      * @param ctx Android Context
      * @param is the InputStream
+     * @param iconDirPath dir to use for icons
      */
-    private DataStyle(@NonNull Context ctx, @NonNull InputStream is) {
+    private DataStyle(@NonNull Context ctx, @NonNull InputStream is, @Nullable String iconDirPath) {
         this.ctx = ctx;
+        this.iconDirPath = iconDirPath;
         init(); // defaults for internal styles
         try {
             read(is);
@@ -694,7 +778,6 @@ public final class DataStyle extends DefaultHandler {
 
         FeatureStyle baseWayStyle = new FeatureStyle(WAY, standardPath);
         baseWayStyle.setColor(Color.BLACK);
-        wayStyles = baseWayStyle;
 
         FeatureStyle fp = new FeatureStyle(PROBLEM_WAY, standardPath);
         int problemColor = ContextCompat.getColor(ctx, R.color.problem);
@@ -1024,6 +1107,11 @@ public final class DataStyle extends DefaultHandler {
         fp = new FeatureStyle("", standardPath);
         fp.setColor(Color.BLACK);
         fp.setWidthFactor(1f);
+        nodeStyles = fp;
+
+        fp = new FeatureStyle("", standardPath);
+        fp.setColor(Color.BLACK);
+        fp.setWidthFactor(1f);
         relationStyles = fp;
 
         Log.i(DEBUG_TAG, "... done");
@@ -1206,14 +1294,14 @@ public final class DataStyle extends DefaultHandler {
     /**
      * Get the list of available Styles
      * 
-     * @param activity the calling Activity
+     * @param context an Android Context
      * @return list of available Styles (Default entry first, rest sorted)
      */
     @NonNull
-    public static String[] getStyleList(@NonNull Activity activity) {
+    public static String[] getStyleList(@NonNull Context context) {
         if (availableStyles.size() == 0) { // shouldn't happen
             Log.e(DEBUG_TAG, "getStyleList called before initialized");
-            addDefaultStye(activity);
+            addDefaultStyle(context);
         }
         // creating the default style object will set availableStyles
         String[] res = new String[availableStyles.size()];
@@ -1233,16 +1321,17 @@ public final class DataStyle extends DefaultHandler {
     /**
      * Get the list of available Styles translated
      * 
-     * @param activity the calling Activity
+     * @param context an Android Context
+     * @param the list of style names to translate
      * @return list of available Styles translated (or untranslated if no translation is avilable)
      */
     @NonNull
-    public static String[] getStyleListTranslated(@NonNull Activity activity, String[] styleNames) {
+    public static String[] getStyleListTranslated(@NonNull Context context, @NonNull String[] styleNames) {
         Locale locale = Locale.getDefault();
         String language = locale.getLanguage();
         InputStream poFileStream = null;
         try {
-            AssetManager assetManager = activity.getAssets();
+            AssetManager assetManager = context.getAssets();
             try {
                 poFileStream = assetManager.open(I18N_DATASTYLE + locale + "." + FileExtensions.PO);
             } catch (IOException ioex) {
@@ -1294,6 +1383,7 @@ public final class DataStyle extends DefaultHandler {
      */
     private void start(@NonNull final InputStream in) throws SAXException, IOException, ParserConfigurationException {
         SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
+        factory.setNamespaceAware(true);
         SAXParser saxParser = factory.newSAXParser();
         saxParser.parse(in, this);
     }
@@ -1314,27 +1404,27 @@ public final class DataStyle extends DefaultHandler {
     public void startElement(final String uri, final String element, final String qName, final Attributes atts) {
         try {
             if (element.equals(PROFILE_ELEMENT)) {
-                name = atts.getValue("name");
-                String format = atts.getValue("format");
+                name = atts.getValue(NAME_ATTR);
+                String format = atts.getValue(FORMAT_ATTR);
                 if (format != null) {
                     Version v = new Version(format);
                     if (v.getMajor() == CURRENT_VERSION.getMajor() && v.getMinor() == CURRENT_VERSION.getMinor()) {
                         return; // everything OK
                     }
                 }
-                Snack.toastTopError(ctx, ctx.getString(R.string.toast_invalid_style_file, name));
-                Log.e(DEBUG_TAG, "format attribute missing or wrong for " + name);
-                throw new SAXException("format attribute missing or wrong for " + name);
+                Snack.toastTopError(ctx, ctx.getString(R.string.toast_invalid_style_file, getName()));
+                Log.e(DEBUG_TAG, "format attribute missing or wrong for " + getName());
+                throw new SAXException("format attribute missing or wrong for " + getName());
             } else if (element.equals(CONFIG_ELEMENT)) {
-                type = atts.getValue("type");
+                type = atts.getValue(TYPE_ATTR);
                 if (type != null) {
                     switch (type) {
                     case LARGE_DRAG_AREA:
                         // special handling
-                        largDragToleranceRadius = Density.dpToPx(ctx, Float.parseFloat(atts.getValue("touchRadius")));
+                        largDragToleranceRadius = Density.dpToPx(ctx, Float.parseFloat(atts.getValue(TOUCH_RADIUS_ATTR)));
                         return;
                     case MARKER_SCALE:
-                        float scale = Float.parseFloat(atts.getValue("scale"));
+                        float scale = Float.parseFloat(atts.getValue(SCALE_ATTR));
                         createOrientationPath(scale);
                         createWayPointPath(scale);
                         createCrosshairsPath(scale);
@@ -1348,7 +1438,7 @@ public final class DataStyle extends DefaultHandler {
                         }
                         return;
                     case ICON_ZOOM_LIMIT:
-                        String zoomStr = atts.getValue("zoom");
+                        String zoomStr = atts.getValue(ZOOM_ATTR);
                         if (zoomStr != null) {
                             iconZoomLimit = Integer.parseInt(zoomStr);
                         }
@@ -1358,14 +1448,14 @@ public final class DataStyle extends DefaultHandler {
                     }
                 }
             } else if (element.equals(FEATURE_ELEMENT)) {
-                type = atts.getValue("type");
+                type = atts.getValue(TYPE_ATTR);
                 if (tempFeatureStyle != null) { // we already have a style, save it
                     styleStack.push(tempFeatureStyle);
                     parent = tempFeatureStyle;
                 }
 
-                tags = atts.getValue("tags");
-                if (Way.NAME.equals(type) || Relation.NAME.equals(type)) {
+                tags = atts.getValue(TAGS_ATTR);
+                if (Way.NAME.equals(type) || Relation.NAME.equals(type) || Node.NAME.equals(type)) {
                     if (parent != null) {
                         tempFeatureStyle = new FeatureStyle(tags == null ? "" : tags, parent); // inherit
                     } else {
@@ -1464,8 +1554,12 @@ public final class DataStyle extends DefaultHandler {
                     tempFeatureStyle.setClosed(Boolean.parseBoolean(closedString));
                 }
 
+                tempFeatureStyle.setLabelKey(atts.getValue(LABEL_KEY_ATTR));
+
+                tempFeatureStyle.setIconPath(atts.getValue(ICON_PATH_ATTR));
+
                 validationCode = 0; // reset
-                String codeString = atts.getValue("code");
+                String codeString = atts.getValue(CODE_ATTR);
                 if (codeString != null) {
                     validationCode = Integer.parseInt(codeString);
                 }
@@ -1571,6 +1665,14 @@ public final class DataStyle extends DefaultHandler {
                     parent.addStyle(tempFeatureStyle);
                 }
                 break;
+            case Node.NAME:
+                if (tags == null) {
+                    nodeStyles = tempFeatureStyle;
+                    parent = nodeStyles;
+                } else {
+                    parent.addStyle(tempFeatureStyle);
+                }
+                break;
             case Relation.NAME:
                 if (tags == null) {
                     relationStyles = tempFeatureStyle;
@@ -1597,6 +1699,9 @@ public final class DataStyle extends DefaultHandler {
                     switch (type) {
                     case Way.NAME:
                         parent = wayStyles;
+                        break;
+                    case Node.NAME:
+                        parent = nodeStyles;
                         break;
                     case Relation.NAME:
                         parent = relationStyles;
@@ -1635,24 +1740,26 @@ public final class DataStyle extends DefaultHandler {
      * 
      * @param ctx Android Context
      */
+    @SuppressLint("NewApi")
     public static void getStylesFromFiles(@NonNull Context ctx) {
         if (availableStyles.size() == 0) {
             Log.i(DEBUG_TAG, "No style files found");
             // no files, need to install a default
-            addDefaultStye(ctx);
+            addDefaultStyle(ctx);
         }
         // assets directory
         AssetManager assetManager = ctx.getAssets();
         //
         try {
-            String[] fileList = assetManager.list("");
+            String[] fileList = assetManager.list(Paths.DIRECTORY_PATH_STYLES);
             if (fileList != null) {
                 for (String fn : fileList) {
-                    if (fn.endsWith(FILE_PATH_STYLE_SUFFIX)) {
-                        Log.i(DEBUG_TAG, "Creating profile from file in assets directory " + fn);
-                        InputStream is = assetManager.open(fn);
-                        DataStyle p = new DataStyle(ctx, is);
-                        availableStyles.put(p.name, p);
+                    if (fn.endsWith(Paths.FILE_EXTENSION_XML)) {
+                        Log.i(DEBUG_TAG, "Creating style from file in assets directory " + fn);
+                        try (InputStream is = assetManager.open(Paths.DIRECTORY_PATH_STYLES + Paths.DELIMITER + fn)) {
+                            DataStyle p = new DataStyle(ctx, is, null);
+                            availableStyles.put(p.getName(), p);
+                        }
                     }
                 }
             }
@@ -1660,31 +1767,57 @@ public final class DataStyle extends DefaultHandler {
             Log.i(DEBUG_TAG, ex.toString());
         }
 
-        // from sdcard
+        // from "sdcard" this will stop working with android 11 or so
+        @SuppressWarnings("deprecation")
         File sdcard = Environment.getExternalStorageDirectory();
         File indir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
-        if (indir != null) {
-            class StyleFilter implements FilenameFilter {
-                @Override
-                public boolean accept(File dir, String name) {
-                    return name.endsWith(FILE_PATH_STYLE_SUFFIX);
-                }
+        class StyleFilter implements FilenameFilter {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(FILE_PATH_STYLE_SUFFIX);
             }
+        }
+        try {
             File[] list = indir.listFiles(new StyleFilter());
-            if (list != null) {
-                for (File f : list) {
-                    Log.i(DEBUG_TAG, "Creating profile from " + f.getName());
-                    try {
-                        InputStream is = new FileInputStream(f);
-                        DataStyle p = new DataStyle(ctx, is);
-                        // overwrites profile with same name
-                        availableStyles.put(p.name, p);
-                    } catch (Exception ex) {
-                        Log.i(DEBUG_TAG, ex.toString());
-                    }
+            readStylesFromFileList(ctx, list);
+        } catch (Exception ex) {
+            Log.e(DEBUG_TAG, "Unable to access directory " + indir.getAbsolutePath() + " " + ex.getMessage());
+        }
+
+        // from app specific directories
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            for (File fileDir : ctx.getExternalFilesDirs(null)) {
+                indir = new File(fileDir, Paths.DIRECTORY_PATH_STYLES);
+                try {
+                    File[] list = indir.listFiles(new XmlFileFilter());
+                    readStylesFromFileList(ctx, list);
+                } catch (Exception ex) {
+                    Log.e(DEBUG_TAG, "Unable to access directory " + indir.getAbsolutePath() + " " + ex.getMessage());
                 }
             }
+        }
+    }
 
+    /**
+     * Read styles provided as a list of Files, adding them to the available styles
+     * 
+     * @param ctx an Android Context
+     * @param list the list
+     */
+    private static void readStylesFromFileList(@NonNull Context ctx, @Nullable File[] list) {
+        if (list == null) {
+            Log.w(DEBUG_TAG, "Null file list");
+            return;
+        }
+        for (File f : list) {
+            Log.i(DEBUG_TAG, "Creating profile from " + f.getName());
+            try (InputStream is = new FileInputStream(f)) {
+                DataStyle p = new DataStyle(ctx, is, f.getParent());
+                // overwrites profile with same name
+                availableStyles.put(p.getName(), p);
+            } catch (Exception ex) { // never crash
+                Log.i(DEBUG_TAG, ex.toString());
+            }
         }
     }
 
@@ -1693,11 +1826,19 @@ public final class DataStyle extends DefaultHandler {
      * 
      * @param ctx an Android Context
      */
-    private static void addDefaultStye(@NonNull Context ctx) {
+    private static void addDefaultStyle(@NonNull Context ctx) {
         DataStyle p = new DataStyle(ctx);
         p.name = BUILTIN_STYLE_NAME;
         currentStyle = p;
-        availableStyles.put(p.name, p);
+        availableStyles.put(p.getName(), p);
+    }
+
+    /**
+     * Reset contents used for testing only
+     */
+    public static void reset() {
+        availableStyles.clear();
+        currentStyle = null;
     }
 
     /**
@@ -1750,22 +1891,34 @@ public final class DataStyle extends DefaultHandler {
     }
 
     /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
      * Return the cached style for the element, or determine the style to use and cache it in the object
      * 
      * @param element the OsmElement we need the style for
-     * @param <T> an OsmElement that implements StyleableFeature
+     * @param <T> an OsmElement
      * @return the style
      */
     @NonNull
-    public static <T extends OsmElement & StyleableFeature> FeatureStyle matchStyle(@NonNull final T element) {
-        FeatureStyle style = element.getStyle();
+    public static <T extends OsmElement> FeatureStyle matchStyle(@NonNull final T element) {
+        final boolean styleable = element instanceof StyleableFeature;
+        FeatureStyle style = styleable ? ((StyleableFeature) element).getStyle() : null;
         if (style == null) {
             if (element instanceof Way) {
                 style = matchRecursive(currentStyle.wayStyles, element.getTags(), ((Way) element).isClosed());
+            } else if (element instanceof Node) {
+                style = matchRecursive(currentStyle.nodeStyles, element.getTags(), false);
             } else {
                 style = matchRecursive(currentStyle.relationStyles, element.getTags(), false);
             }
-            element.setStyle(style);
+            if (styleable) {
+                ((StyleableFeature) element).setStyle(style);
+            }
         }
         return style;
     }

@@ -120,24 +120,33 @@ public class PresetIconManager {
             } else {
                 Log.e(DEBUG_TAG, "unknown icon URL type for " + url);
             }
-
             if (pngStream == null) {
                 return null;
             }
-
-            // resources used only for density
-            BitmapDrawable drawable = new BitmapDrawable(context.getResources(), BitmapFactory.decodeStream(pngStream));
-            drawable.getBitmap().setDensity(Bitmap.DENSITY_NONE);
-            int pxsize = Density.dpToPx(context, size);
-            Log.d(DEBUG_TAG, "icon " + url + " size " + size + " pxsize " + pxsize);
-            drawable.setBounds(0, 0, pxsize, pxsize);
-            return drawable;
+            return bitmapDrawableFromStream(context, size, pngStream);
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Failed to load preset icon " + url, e);
             return null;
         } finally {
             SavingHelper.close(pngStream);
         }
+    }
+
+    /**
+     * Decode a BitmapDrawable from an InputStream
+     * 
+     * @param context an Android Context
+     * @param size size of the Drawable
+     * @param pngStream the InputStream
+     * @return a BitmapDrawable
+     */
+    public static BitmapDrawable bitmapDrawableFromStream(@NonNull Context context, int size, @NonNull InputStream pngStream) {
+        // resources used only for density
+        BitmapDrawable drawable = new BitmapDrawable(context.getResources(), BitmapFactory.decodeStream(pngStream));
+        drawable.getBitmap().setDensity(Bitmap.DENSITY_NONE);
+        int pxsize = Density.dpToPx(context, size);
+        drawable.setBounds(0, 0, pxsize, pxsize);
+        return drawable;
     }
 
     /**

@@ -290,7 +290,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param value the value that we are checking
      * @return true if the key - value combination is present
      */
-    public boolean hasTagWithValue(String tagKey, String value) {
+    public boolean hasTagWithValue(@NonNull String tagKey, @NonNull String value) {
         String tagValue = getTagWithKey(tagKey);
         return tagValue != null && tagValue.equalsIgnoreCase(value);
     }
@@ -299,7 +299,8 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param key the key to search for (case sensitive)
      * @return the value of this key.
      */
-    public String getTagWithKey(final String key) {
+    @Nullable
+    public String getTagWithKey(@NonNull final String key) {
         if (tags == null) {
             return null;
         }
@@ -310,7 +311,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param key the key to search for (case sensitive)
      * @return true if the element has a tag with this key.
      */
-    public boolean hasTagKey(final String key) {
+    public boolean hasTagKey(@NonNull final String key) {
         return getTagWithKey(key) != null;
     }
 
