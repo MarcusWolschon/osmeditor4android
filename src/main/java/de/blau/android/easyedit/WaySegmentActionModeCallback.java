@@ -85,7 +85,7 @@ public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
             node1Y = node2Y;
         }
 
-        if (distance >= 0 && node1 != null && node2 != null) {
+        if (distance >= 0 && node1 != null) {
             Result result = logic.performExtractSegment(main, way, node1, node2);
             if (result != null) {
                 checkSplitResult(way, result);

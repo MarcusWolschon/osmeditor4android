@@ -90,7 +90,7 @@ public class BaseValidator implements Validator {
     }
 
     /**
-     * Test if the element has any problems by searching all the tags for the words "fixme" or "todo", or if it has a
+     * Test if the element has any problems by searching all the tags for the words "fixme" or "todo", or if it has a //NOSONAR
      * key in the list of things to regularly re-survey
      * 
      * @param status status before calling this method
@@ -99,7 +99,7 @@ public class BaseValidator implements Validator {
      * @return the output status
      */
     int validateElement(int status, OsmElement e, SortedMap<String, String> tags) {
-        // test for fixme etc
+        // test for fixme etc // NOSONAR
         for (Entry<String, String> entry : new ArrayList<>(tags.entrySet())) {
             // test key and value against pattern
             if (FIXME_PATTERN.matcher(entry.getKey()).matches() || FIXME_PATTERN.matcher(entry.getValue()).matches()) {
@@ -385,7 +385,7 @@ public class BaseValidator implements Validator {
             result.add(ctx.getString(R.string.toast_invalid_object));
         }
 
-        // fixme etc.
+        // fixme etc. // NOSONAR
         for (Entry<String, String> entry : tags.entrySet()) {
             // test key and value against pattern
             if (FIXME_PATTERN.matcher(entry.getKey()).matches() || FIXME_PATTERN.matcher(entry.getValue()).matches()) {
@@ -454,7 +454,7 @@ public class BaseValidator implements Validator {
 
     @Override
     public int validate(@NonNull Way way) {
-        if (way.getNodes() == null || way.getNodes().isEmpty()) {
+        if (way.getNodes().isEmpty()) {
             return Validator.INVALID_OBJECT;
         }
         // reset status of end nodes

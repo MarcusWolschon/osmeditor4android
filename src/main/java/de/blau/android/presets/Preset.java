@@ -554,7 +554,7 @@ public class Preset implements Serializable {
                     String objectKeysTemp = attr.getValue(OBJECT_KEYS);
                     if (objectKeysTemp != null) {
                         String[] tempArray = objectKeysTemp.split("\\s*,\\s*");
-                        if (tempArray != null && tempArray.length > 0) {
+                        if (tempArray.length > 0) {
                             objectKeys.addAll(Arrays.asList(tempArray));
                         }
                     }
@@ -4000,10 +4000,8 @@ public class Preset implements Serializable {
 
         if (field instanceof PresetFixedField) {
             StringWithDescription swd = ((PresetFixedField) field).getValue();
-            if (swd != null) {
-                if ("".equals(value) || swd.getValue() == null || swd.equals(value) || "".equals(swd.getValue())) {
-                    return true;
-                }
+            if ("".equals(value) || swd.getValue() == null || swd.equals(value) || "".equals(swd.getValue())) {
+                return true;
             }
         }
 

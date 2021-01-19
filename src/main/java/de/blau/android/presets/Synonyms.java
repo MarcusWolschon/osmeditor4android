@@ -163,11 +163,9 @@ public class Synonyms {
         for (Preset preset : presets) {
             if (preset != null) {
                 Set<PresetItem> items = preset.getItemByTag(presetKey);
-                if (items != null) {
-                    for (PresetItem pi : items) {
-                        if (!pi.isDeprecated() && (type == null || pi.appliesTo(type))) {
-                            result.add(pi);
-                        }
+                for (PresetItem pi : items) {
+                    if (!pi.isDeprecated() && (type == null || pi.appliesTo(type))) {
+                        result.add(pi);
                     }
                 }
             }
