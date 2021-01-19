@@ -70,7 +70,7 @@ public final class DataStyle extends DefaultHandler {
 
     private static final String DEBUG_TAG = "DataStyle";
 
-    private static final Version CURRENT_VERSION = new Version("0.2.0");
+    private static final Version CURRENT_VERSION = new Version("0.3.0");
 
     private static final String FILE_PATH_STYLE_SUFFIX = "-profile.xml";
 
@@ -88,7 +88,7 @@ public final class DataStyle extends DefaultHandler {
     public static final String HIDDEN_WAY                    = "hidden_way";
     public static final String NODE_TOLERANCE                = "node_tolerance";
     public static final String NODE_TOLERANCE_2              = "node_tolerance_2";
-    public static final String NODE                          = "node";
+    public static final String NODE_UNTAGGED                 = "node_untagged";
     public static final String NODE_THIN                     = "node_thin";
     public static final String NODE_TAGGED                   = "node_tagged";
     public static final String NODE_DRAG_RADIUS              = "node_drag_radius";
@@ -800,10 +800,10 @@ public final class DataStyle extends DefaultHandler {
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 1.0f));
         internalStyles.put(HANDLE, fp);
 
-        fp = new FeatureStyle(NODE);
+        fp = new FeatureStyle(NODE_UNTAGGED);
         fp.setColor(cccRed);
         fp.setWidthFactor(1f);
-        internalStyles.put(NODE, fp);
+        internalStyles.put(NODE_UNTAGGED, fp);
 
         fp = new FeatureStyle(NODE_TAGGED);
         fp.setColor(cccRed);

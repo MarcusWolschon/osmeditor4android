@@ -1,5 +1,5 @@
 ## Vespucci Data Styling
-_Documentation for Vespucci 15.2_
+_Documentation for Vespucci 15.2 Style file format version 0.3.0_
 
 The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.
 
@@ -73,7 +73,7 @@ problem_way                   | Style for a way with an issue
 hidden_way                    | Style for faint way rendering (used when filters are active)
 node_tolerance                | 
 node_tolerance_2              | 
-node                          | 
+node_untagged                 | 
 node_thin                     | 
 node_tagged                   | 
 node_drag_radius              | Style for the large drag radius
@@ -140,7 +140,7 @@ DEGENERATE_WAY       | 0x00000800
 ### Complete Example
 
     <?xml version='1.0' encoding='UTF-8' ?>
-    <profile name="Color Round Nodes" format="0.2.0">
+    <profile name="Color Round Nodes" format="0.3.0">
         <!-- Assorted config -->
         <config type="min_handle_length" length="200.0" />
         <config type="icon_zoom_limit" zoom="15" />
@@ -162,7 +162,7 @@ DEGENERATE_WAY       | 0x00000800
         <feature type="gps_pos_follow" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokeWidth="2.0"/>
         <feature type="dontrender_way" dontrender="true" updateWidth="true" widthFactor="1.0" color="00ffffff" style="STROKE" cap="ROUND" join="ROUND" />
         <!-- OSM node based features currently internal features -->
-        <feature type="node" updateWidth="true" widthFactor="1.0" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
+        <feature type="node_untagged" updateWidth="true" widthFactor="1.0" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
         <feature type="node_tagged" updateWidth="true" widthFactor="1.5" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
         <feature type="node_thin" updateWidth="false" widthFactor="1.0" color="ffb9121b" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" />
         <feature type="selected_node" updateWidth="true" widthFactor="1.5" color="fff6e497" style="FILL" cap="ROUND" join="MITER" />
@@ -174,7 +174,12 @@ DEGENERATE_WAY       | 0x00000800
         <!-- Arrow styles -->
         <feature type="oneway_direction" updateWidth="true" widthFactor="0.5" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" oneway="true" />
         <feature type="waterway_direction" updateWidth="true" widthFactor="0.5" color="ff0000bb" style="STROKE" cap="SQUARE" join="MITER" />
-        
+    
+        <!-- OSM node based features -->
+        <feature type="node" />
+        <feature type="node" tags="name" labelKey="name" />
+        <feature type="node" tags="entrance|addr:housenumber" labelKey="addr:housenumber" />
+    
         <!-- OSM way based features -->
         <feature type="way" updateWidth="true" widthFactor="1.0" color="80000000" style="STROKE" cap="BUTT" join="MITER" />
         <feature type="way" tags="boundary" updateWidth="true" widthFactor="0.6" color="ff000000" style="STROKE" cap="BUTT" join="MITER">

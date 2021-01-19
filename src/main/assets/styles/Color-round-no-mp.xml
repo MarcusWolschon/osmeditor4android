@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<profile name="Color Round Nodes No Multipolygons" format="0.2.0">
+<profile name="Color Round Nodes No Multipolygons" format="0.3.0">
     <!-- Assorted config -->
     <config type="min_handle_length" length="200.0" />
     <config type="icon_zoom_limit" zoom="15" />
@@ -19,7 +19,7 @@
     <feature type="gps_pos_follow" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokeWidth="2.0"/>
     <feature type="dontrender_way" dontrender="true" updateWidth="true" widthFactor="1.0" color="00ffffff" style="STROKE" cap="ROUND" join="ROUND" />
     <!-- OSM node based features currently internal features -->
-    <feature type="node" updateWidth="true" widthFactor="1.0" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
+    <feature type="node_untagged" updateWidth="true" widthFactor="1.0" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
     <feature type="node_tagged" updateWidth="true" widthFactor="1.5" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
     <feature type="node_thin" updateWidth="false" widthFactor="1.0" color="ffb9121b" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" />
     <feature type="selected_node" updateWidth="true" widthFactor="1.5" color="fff6e497" style="FILL" cap="ROUND" join="MITER" />
@@ -55,7 +55,8 @@
     <feature type="waterway_direction" updateWidth="true" widthFactor="0.5" color="ff0000bb" style="STROKE" cap="SQUARE" join="MITER" />
     
     <!-- OSM node based features -->
-    <feature type="node" tags="name" labelKey="name"/>
+    <feature type="node" />
+    <feature type="node" tags="name" labelKey="name" />
     <feature type="node" tags="entrance|addr:housenumber" labelKey="addr:housenumber" />
     
     <!-- OSM way based features -->

@@ -1496,7 +1496,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
 
         // general node style
-        nodeFeatureStyle = DataStyle.getInternal(DataStyle.NODE);
+        nodeFeatureStyle = DataStyle.getInternal(DataStyle.NODE_UNTAGGED);
         // style for house numbers
         nodeFeatureStyleThin = DataStyle.getInternal(DataStyle.NODE_THIN);
         // style for tagged nodes or otherwise important
