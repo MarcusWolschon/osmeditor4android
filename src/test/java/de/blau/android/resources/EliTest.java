@@ -43,6 +43,7 @@ public class EliTest {
         Version formatVersion = fc.formatVersion();
         assertNotNull(formatVersion);
         assertEquals("1.0.0",formatVersion.toString());
+        assertEquals("2020-12-06 10:02:10", fc.generated());
     }
 
     /**
