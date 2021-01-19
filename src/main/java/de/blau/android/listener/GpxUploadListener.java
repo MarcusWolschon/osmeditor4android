@@ -6,12 +6,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
-import de.blau.android.App;
-import de.blau.android.ErrorCodes;
-import de.blau.android.Logic;
 import de.blau.android.Main;
-import de.blau.android.dialogs.ErrorAlert;
-import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.Visibility;
 
 /**
