@@ -863,6 +863,7 @@ avoided by using an offline data source.</string>
     <string name="merge_context_title">Merge with …</string>
     <string name="merge_with_all_ways">… all nearby ways</string>
     <string name="merge_with_all_nodes">… all nearby nodes</string>
+    <string name="append_context_title">Append to …</string>
     <string name="delete_note_description">Deleting the note cannot be undone!</string>
     <string name="delete_note">Delete note</string>
     <!-- EasyEdit action mode titles -->

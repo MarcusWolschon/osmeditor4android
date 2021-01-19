@@ -110,18 +110,6 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     }
 
     /**
-     * Construct a new PathCreationActionModeCallback starting with an existing Node
-     * 
-     * @param manager the current EasyEditManager instance
-     * @param node the existing Node
-     */
-    public PathCreationActionModeCallback(@NonNull EasyEditManager manager, @NonNull Node node) {
-        super(manager);
-        appendTargetNode = node;
-        appendTargetWay = null;
-    }
-
-    /**
      * Construct a new PathCreationActionModeCallback starting with an existing Way and an existing Node to add
      * 
      * @param manager the current EasyEditManager instance
@@ -145,11 +133,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         logic.setSelectedWay(null);
         logic.setSelectedNode(appendTargetNode);
         if (appendTargetNode != null) {
-            if (appendTargetWay != null) {
-                logic.performAppendStart(appendTargetWay, appendTargetNode);
-            } else {
-                logic.performAppendStart(appendTargetNode);
-            }
+            logic.performAppendStart(appendTargetWay, appendTargetNode);
             existingNodes.add(appendTargetNode);
         } else {
             try {

@@ -48,12 +48,14 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     private static final int    MENUITEM_ADDRESS      = LAST_REGULAR_MENUITEM + 7;
 
     private List<OsmElement> joinableElements = null;
+    private List<Way>        appendableWays   = null;
     private List<Way>        highways         = new ArrayList<>();
     private MenuItem         joinItem;
     private MenuItem         appendItem;
     private MenuItem         unjoinItem;
     private MenuItem         extractItem;
     private MenuItem         restrictionItem;
+    private int              action;
 
     /**
      * Construct a callback for Node selection
@@ -108,7 +110,8 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         updated |= setItemVisibility(!joinableElements.isEmpty(), joinItem, false);
 
         List<Way> ways = logic.getFilteredWaysForNode((Node) element);
-        updated |= setItemVisibility(isEndNode(ways, (Node) element), appendItem, false);
+        appendableWays = findAppendableWays(ways, (Node) element);
+        updated |= setItemVisibility(!appendableWays.isEmpty(), appendItem, false);
 
         int wayMembershipCount = ways.size();
         updated |= setItemVisibility(wayMembershipCount > 1, unjoinItem, false);
@@ -128,27 +131,34 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     }
 
     /**
-     * Determine from a list of ways if node is an end node
+     * Get a list of ways node is an end node of
      * 
      * @param ways the List of Way
      * @param node the Node
      * @return true is an end node in any of them
      */
-    private boolean isEndNode(@NonNull List<Way> ways, @NonNull Node node) {
+    @NonNull
+    private List<Way> findAppendableWays(@NonNull List<Way> ways, @NonNull Node node) {
+        List<Way> result = new ArrayList<>();
         for (Way w : ways) {
             if (w.isEndNode(node)) {
-                return true;
+                result.add(w);
             }
         }
-        return false;
+        return result;
     }
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         if (!super.onActionItemClicked(mode, item)) {
-            switch (item.getItemId()) {
+            action = item.getItemId();
+            switch (action) {
             case MENUITEM_APPEND:
-                main.startSupportActionMode(new PathCreationActionModeCallback(manager, (Node) element));
+                if (appendableWays.size() > 1) {
+                    manager.showContextMenu();
+                } else {
+                    main.startSupportActionMode(new PathCreationActionModeCallback(manager, appendableWays.get(0), (Node) element));
+                }
                 break;
             case MENUITEM_JOIN:
                 mergeNode(joinableElements.size());
@@ -212,26 +222,44 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
 
     @Override
     public boolean onCreateContextMenu(ContextMenu menu) {
-        if (joinableElements.size() > 1) {
+        if (action == MENUITEM_JOIN && joinableElements.size() > 1) {
             menu.setHeaderTitle(R.string.merge_context_title);
-            int id = 0;
-            menu.add(Menu.NONE, id++, Menu.NONE, joinableElements.get(0) instanceof Way ? R.string.merge_with_all_ways : R.string.merge_with_all_nodes)
+            menu.add(Menu.NONE, 0, Menu.NONE, joinableElements.get(0) instanceof Way ? R.string.merge_with_all_ways : R.string.merge_with_all_nodes)
                     .setOnMenuItemClickListener(this);
-            for (OsmElement e : joinableElements) {
-                menu.add(Menu.NONE, id++, Menu.NONE, main.descriptionForContextMenu(e)).setOnMenuItemClickListener(this);
-            }
+            addElementsToContextMenu(menu, 1, joinableElements);
+            return true;
+        } else if ((action == MENUITEM_APPEND && appendableWays.size() > 1)) {
+            menu.setHeaderTitle(R.string.append_context_title);
+            addElementsToContextMenu(menu, 0, appendableWays);
             return true;
         }
         return false;
     }
 
+    /**
+     * Add elements to the context menu
+     * 
+     * @param <T> the type of element
+     * @param menu the menu
+     * @param startIndex the index to use for the item
+     */
+    private <T extends OsmElement> void addElementsToContextMenu(ContextMenu menu, int startIndex, List<T> elements) {
+        for (OsmElement e : elements) {
+            menu.add(Menu.NONE, startIndex++, Menu.NONE, main.descriptionForContextMenu(e)).setOnMenuItemClickListener(this);
+        }
+    }
+
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == 0) {
-            mergeNodeWith(joinableElements);
-        } else {
-            mergeNodeWith(Util.wrapInList(joinableElements.get(itemId - 1)));
+        if (action == MENUITEM_JOIN) {
+            if (itemId == 0) {
+                mergeNodeWith(joinableElements);
+            } else {
+                mergeNodeWith(Util.wrapInList(joinableElements.get(itemId - 1)));
+            }
+        } else if (action == MENUITEM_APPEND) {
+            main.startSupportActionMode(new PathCreationActionModeCallback(manager, appendableWays.get(itemId), (Node) element));
         }
         return true;
     }
@@ -304,8 +332,8 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
 
         View layout = inflater.inflate(R.layout.set_position, null);
         dialog.setView(layout);
-        TextView datum = (TextView) layout.findViewById(R.id.set_position_datum); // TODO add conversion to/from
-                                                                                  // other datums
+        // TODO add conversion to/from other datums
+        TextView datum = (TextView) layout.findViewById(R.id.set_position_datum);
         datum.setText(R.string.WGS84);
         EditText lon = (EditText) layout.findViewById(R.id.set_position_lon);
         lon.setText(String.format(Locale.US, "%.7f", lonE7 / 1E7d));

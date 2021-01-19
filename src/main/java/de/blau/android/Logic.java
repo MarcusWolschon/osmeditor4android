@@ -2435,29 +2435,6 @@ public class Logic {
     }
 
     /**
-     * Try to determine the Way and Node to start appending to a way on from a supplied node
-     * 
-     * @param node the start Node
-     */
-    public synchronized void performAppendStart(@Nullable Node node) {
-        Way lSelectedWay = null;
-        if (node != null) {
-            List<Way> ways = getDelegator().getCurrentStorage().getWays(node);
-            // TODO Resolve possible multiple ways that end at the node
-            for (Way way : ways) {
-                if (way.isEndNode(node)) {
-                    lSelectedWay = way;
-                    break;
-                }
-            }
-            if (lSelectedWay == null) {
-                node = null;
-            }
-        }
-        performAppendStart(lSelectedWay, node);
-    }
-
-    /**
      * Append a Node to the selected Way, if the selected Node is clicked finish, otherwise create a new Node at the
      * location
      * 
