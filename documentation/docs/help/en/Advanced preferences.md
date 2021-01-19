@@ -223,13 +223,17 @@ Set a user and password for API authentication. This is only needed if the targe
 
 API server for imagery offsets.
 
-### OSMOSE Server
+### OSMOSE server
 
 OSMOSE QA API server configuration.
 
 ### Configure geocoders
 
 Geocoding service providers. Currently Photon and Nominatim servers are supported.
+
+### Taginfo server
+
+Configure the taginfo server used for the "online" preset search/construction. 
 
 ## Layer download and storage
 

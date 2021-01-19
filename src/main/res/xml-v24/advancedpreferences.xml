@@ -431,6 +431,12 @@
             android:key="@string/config_geocoder_button_key"
             android:summary="@string/config_geocoderbutton_summary"
             android:title="@string/config_geocoderbutton_title" />
+        <androidx.preference.EditTextPreference
+            android:defaultValue="https://taginfo.openstreetmap.org/"
+            android:key="@string/config_taginfoServer_key"
+            android:summary="@string/config_taginfoServer_summary"
+            android:dialogMessage="@string/config_taginfoServer_summary"
+            android:title="@string/config_taginfoServer_title" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_layers"

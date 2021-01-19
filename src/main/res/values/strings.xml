@@ -1085,6 +1085,8 @@ avoided by using an offline data source.</string>
     <string name="config_osmoseServer_summary">URL for the OSMOSE server.</string>
     <string name="config_geocoderbutton_title">Configure geocoders</string>
     <string name="config_geocoderbutton_summary">Add, edit, delete geocoders for the search functionality.</string>
+    <string name="config_taginfoServer_title">Taginfo server</string>
+    <string name="config_taginfoServer_summary">Taginfo server to use for preset generation</string>
     <!-- Layer download and storage -->
     <string name="config_category_layers">Layer download and storage</string>
     <string name="config_category_layers_summary">Tile-based background imagery download and storage.</string>

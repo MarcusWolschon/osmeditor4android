@@ -12,14 +12,14 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
 
     private Resources    r;
     AdvancedPrefDatabase db;
-    private String       KEY_PREFAPI;
+    private String       apiPrefKey;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         Log.d(DEBUG_TAG, "onCreatePreferences " + rootKey);
         setPreferencesFromResource(R.xml.advancedpreferences, rootKey);
         r = getResources();
-        KEY_PREFAPI = r.getString(R.string.config_api_button_key);
+        apiPrefKey = r.getString(R.string.config_api_button_key);
         setOnPreferenceClickListeners();
         setTitle();
         db = new AdvancedPrefDatabase(getActivity());
@@ -29,13 +29,13 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
     public void onResume() {
         Log.d(DEBUG_TAG, "onResume");
         super.onResume();
-        Preference apipref = getPreferenceScreen().findPreference(KEY_PREFAPI);
-        if (apipref != null) {
+        Preference apiPref = getPreferenceScreen().findPreference(apiPrefKey);
+        if (apiPref != null) {
             API current = db.getCurrentAPI();
             if (current.id.equals(AdvancedPrefDatabase.ID_DEFAULT)) {
-                apipref.setSummary(R.string.config_apibutton_summary);
+                apiPref.setSummary(R.string.config_apibutton_summary);
             } else {
-                apipref.setSummary("".equals(current.name) ? current.url : current.name);
+                apiPref.setSummary("".equals(current.name) ? current.url : current.name);
             }
             Preference loginpref = getPreferenceScreen().findPreference(r.getString(R.string.config_loginbutton_key));
             if (loginpref != null) {
@@ -47,6 +47,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         setListPreferenceSummary(R.string.config_gps_source_key, false);
         setEditTextPreferenceSummary(R.string.config_offsetServer_key, false);
         setEditTextPreferenceSummary(R.string.config_osmoseServer_key, false);
+        setEditTextPreferenceSummary(R.string.config_taginfoServer_key, false);
         setRestartRequiredMessage(R.string.config_enableLightTheme_key);
         setRestartRequiredMessage(R.string.config_splitActionBarEnabled_key);
         setListPreferenceSummary(R.string.config_followGPSbutton_key, true);
@@ -59,7 +60,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
      * If we are just showing a sub-PreferenceScreen some of the keys may not be accessible
      */
     private void setOnPreferenceClickListeners() {
-        Preference apiPref = getPreferenceScreen().findPreference(KEY_PREFAPI);
+        Preference apiPref = getPreferenceScreen().findPreference(apiPrefKey);
         if (apiPref != null) {
             apiPref.setOnPreferenceClickListener(preference -> {
                 Log.d(DEBUG_TAG, "onPreferenceClick 2");
