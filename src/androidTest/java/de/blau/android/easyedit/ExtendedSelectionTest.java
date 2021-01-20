@@ -1,5 +1,12 @@
 package de.blau.android.easyedit;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,6 +28,7 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 
@@ -76,28 +84,61 @@ public class ExtendedSelectionTest {
         map.getDataLayer().setVisible(true);
         TestUtils.unlock(device);
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Toilets", false, false));
+        assertTrue(TestUtils.clickText(device, false, "Toilets", false, false));
         Node node = App.getLogic().getSelectedNode();
-        Assert.assertNotNull(node);
-        Assert.assertEquals(3465444349L, node.getOsmId());
+        assertNotNull(node);
+        assertEquals(3465444349L, node.getOsmId());
         int origLon = node.getLon();
         int origLat = node.getLat();
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
-        Assert.assertTrue(TestUtils.clickOverflowButton(device));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Extend selection", true, false));
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
-        // double clicking doesn't currently work reliably in tests TestUtils.doubleClickAtCoordinates(device, map, 8.3877977, 47.3897371, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_extend_selection), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
+        // double clicking doesn't currently work reliably in tests TestUtils.doubleClickAtCoordinates(device, map, 8.3877977, 47.3897371, true); // NOSONAR
         TestUtils.clickAtCoordinates(device, map, 8.3877977, 47.3897371, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Excrement", false, false));
-        Assert.assertEquals(2, logic.getSelectedNodes().size());
+        assertTrue(TestUtils.clickText(device, false, "Excrement", false, false));
+        assertEquals(2, logic.getSelectedNodes().size());
         TestUtils.zoomToLevel(device, main, 22);
         TestUtils.drag(device, map, 8.3877977, 47.3897371, 8.3879, 47.38967, true, 100);
         
         int deltaLon = node.getLon() - origLon;
         int deltaLat = node.getLat() - origLat;
  
-        Assert.assertEquals(8.3879 - 8.3877977, deltaLon/1E7D, 0.00001);
-        Assert.assertEquals(47.38967 - 47.3897371, deltaLat/1E7D, 0.00001);
+        assertEquals(8.3879 - 8.3877977, deltaLon/1E7D, 0.00001);
+        assertEquals(47.38967 - 47.3897371, deltaLat/1E7D, 0.00001);
         TestUtils.clickUp(device);
+    }
+    
+    /**
+     * Select two ways then merge
+     */
+    @Test
+    public void selectAndMergeWays() {
+        TestUtils.zoomToLevel(device, main, 18); // if we are zoomed in too far we might not get the selection popups
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        Way way = App.getLogic().getSelectedWay();
+        Assert.assertNotNull(way);
+        Assert.assertEquals(104148456L, way.getOsmId());
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_split), false, true));  
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_split)));
+        TestUtils.clickAtCoordinates(device, map, 8.3899934, 47.3898778, true);
+        TestUtils.textGone(device,  context.getString(R.string.menu_split), 1);
+        TestUtils.clickAtCoordinates(device, map, 8.3899204, 47.3898603, true);
+        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertTrue(TestUtils.clickOverflowButton(device));
+        TestUtils.scrollTo(context.getString(R.string.menu_extend_selection));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_extend_selection), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
+        TestUtils.clickAtCoordinates(device, map, 8.3900912, 47.3899572, true);
+        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.findText(device, false, context.getResources().getQuantityString(R.plurals.actionmode_object_count, 2, 2)));
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_merge), false, true));  
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
     }
 }
