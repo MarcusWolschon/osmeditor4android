@@ -283,7 +283,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     List<Node>             areaNodes      = new ArrayList<>();   // temp for reversing winding and assembling MPs
     Set<Relation>          paintRelations = new HashSet<>();
 
-    private ThreadPoolExecutor mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+    private ThreadPoolExecutor dataThreadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+    private ThreadPoolExecutor iconThreadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
     /**
      * Construct a new OSM data layer
@@ -311,14 +312,24 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
     @Override
     public void onDestroy() {
-        mThreadPool.shutdownNow();
+        shutDownThreadPool(dataThreadPoolExecutor);
+        shutDownThreadPool(iconThreadPoolExecutor);
+        clearIconCaches();
+        tmpPresets = null;
+    }
+
+    /**
+     * Try to cleanly cancel any queued for execution jobs
+     * 
+     * @param executor the ThreadPoolExecutor
+     */
+    void shutDownThreadPool(@NonNull ThreadPoolExecutor executor) {
+        executor.shutdownNow();
         try {
-            mThreadPool.awaitTermination(1, TimeUnit.SECONDS);
+            executor.awaitTermination(1, TimeUnit.SECONDS);
         } catch (InterruptedException e) { // NOSONAR
             // nothing we can really do here
         }
-        clearIconCaches();
-        tmpPresets = null;
     }
 
     @Override
@@ -353,7 +364,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     continue;
                 }
                 delegator.addBoundingBox(b);
-                mThreadPool.execute(() -> {
+                dataThreadPoolExecutor.execute(() -> {
                     final Logic logic = App.getLogic();
                     ReadAsyncResult result = logic.download(context, prefs.getServer(), b, postMerge, () -> {
                         logic.reselectRelationMembers();
@@ -366,7 +377,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             }
             if (delegator.getCurrentStorage().getNodeCount() > autoPruneNodeLimit
                     && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVALL * 1000) {
-                mThreadPool.execute(MapOverlay.this::prune);
+                dataThreadPoolExecutor.execute(MapOverlay.this::prune);
                 lastAutoPrune = System.currentTimeMillis();
             }
         }
@@ -1074,7 +1085,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         WeakHashMap<java.util.Map<String, String>, Bitmap> tempCache = isWay ? areaIconCache : iconCache;
         Bitmap icon = element.getFromCache(tempCache); // may be null!
         if (icon == null) {
-            mThreadPool.execute(() -> retrieveIcon(element, isWay, tempCache));
+            iconThreadPoolExecutor.execute(() -> retrieveIcon(element, isWay, tempCache));
         }
         return icon != NOICON ? icon : null;
     }
