@@ -1,9 +1,12 @@
 package de.blau.android.easyedit;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,6 +28,7 @@ import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -85,25 +89,25 @@ public class NodeTest {
     @Test
     public void selectNode() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Toilets", false, false));
+        assertTrue(TestUtils.clickText(device, false, "Toilets", false, false));
         Node node = App.getLogic().getSelectedNode();
-        Assert.assertNotNull(node);
-        Assert.assertEquals(3465444349L, node.getOsmId());
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
-        Assert.assertTrue(TestUtils.clickOverflowButton(device));
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_information), true, false));
-        Assert.assertTrue(TestUtils.findText(device, false, "permissive"));
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true, false));
-        Assert.assertTrue(TestUtils.clickOverflowButton(device));
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_set_position), true, false));
-        Assert.assertTrue(TestUtils.findText(device, false, "8.3878200"));
-        Assert.assertTrue(TestUtils.findText(device, false, "47.3903390"));
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false));
-        Assert.assertTrue(TestUtils.clickOverflowButton(device));
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.delete), true, false));
-        Assert.assertEquals(OsmElement.STATE_DELETED, node.getState());
-        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
-        Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
+        assertNotNull(node);
+        assertEquals(3465444349L, node.getOsmId());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_information), true, false));
+        assertTrue(TestUtils.findText(device, false, "permissive"));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true, false));
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_set_position), true, false));
+        assertTrue(TestUtils.findText(device, false, "8.3878200"));
+        assertTrue(TestUtils.findText(device, false, "47.3903390"));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false));
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.delete), true, false));
+        assertEquals(OsmElement.STATE_DELETED, node.getState());
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // for the tip alert
     }
 
@@ -114,21 +118,21 @@ public class NodeTest {
     @Test
     public void dragNode() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Toilets", true, false));
+        assertTrue(TestUtils.clickText(device, false, "Toilets", true, false));
         Node node = App.getLogic().getSelectedNode();
-        Assert.assertNotNull(node);
-        Assert.assertEquals(3465444349L, node.getOsmId());
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        assertNotNull(node);
+        assertEquals(3465444349L, node.getOsmId());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
 
         TestUtils.drag(device, map, 8.38782, 47.390339, 8.388, 47.391, true, 30);
 
-        Assert.assertEquals(OsmElement.STATE_MODIFIED, node.getState());
+        assertEquals(OsmElement.STATE_MODIFIED, node.getState());
 
-        Assert.assertEquals(8.388, node.getLon() / 1E7D, 0.001);
-        Assert.assertEquals(47.391, node.getLat() / 1E7D, 0.001);
+        assertEquals(8.388, node.getLon() / 1E7D, 0.001);
+        assertEquals(47.391, node.getLat() / 1E7D, 0.001);
 
-        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
-        Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // for the tip alert
     }
 
@@ -140,26 +144,95 @@ public class NodeTest {
     public void unjoinMergeWays() {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3874964, 47.3884769, true);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         Node node = App.getLogic().getSelectedNode();
-        Assert.assertNotNull(node);
-        Assert.assertEquals(633468419L, node.getOsmId());
+        assertNotNull(node);
+        assertEquals(633468419L, node.getOsmId());
 
         List<Way> waysBefore = logic.getWaysForNode(node);
-        Assert.assertEquals(2, waysBefore.size());
-        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_unjoin), false, true));
+        assertEquals(2, waysBefore.size());
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_unjoin), false, true));
 
         List<Way> waysUnjoined = logic.getWaysForNode(node);
-        Assert.assertEquals(1, waysUnjoined.size());
+        assertEquals(1, waysUnjoined.size());
         Way unjoinedWay = waysUnjoined.get(0);
-        Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
-        Assert.assertEquals(OsmElement.STATE_UNCHANGED, unjoinedWay.getState());
+        assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
+        assertEquals(OsmElement.STATE_UNCHANGED, unjoinedWay.getState());
 
         TestUtils.clickAtCoordinates(device, map, 8.3874964, 47.3884769, false);
-        Assert.assertTrue(TestUtils.clickText(device, false, "node", false, false)); // the first node in the list
-        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_merge), false, true));
+        assertTrue(TestUtils.clickText(device, false, "node", false, false)); // the first node in the list
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_merge), false, true));
 
         List<Way> waysAfter = logic.getWaysForNode(node);
-        Assert.assertEquals(2, waysAfter.size());
+        assertEquals(2, waysAfter.size());
+    }
+
+    /**
+     * Select, unjoin, merge multiple nodes
+     */
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void unjoinMergeNodes() {
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3866386, 47.3904394, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        Node node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertEquals(600181872L, node.getOsmId());
+        final StorageDelegator delegator = App.getDelegator();
+        assertEquals(4, delegator.getCurrentStorage().getWays(node).size());
+
+        int apiNodeCount = delegator.getApiNodeCount();
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_unjoin), false, true));
+        assertEquals(apiNodeCount + 3, delegator.getApiNodeCount());
+
+        TestUtils.clickAtCoordinates(device, map, 8.3866386, 47.3904394, false);
+        assertTrue(TestUtils.clickText(device, false, "node", false, false)); // the first node in the list
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_merge), false, true));
+
+        // merge all
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.merge_with_all_nodes), false, false));
+        assertEquals(apiNodeCount + 1, delegator.getApiNodeCount());
+
+        node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertEquals(600181872L, node.getOsmId());
+        assertEquals(4, delegator.getCurrentStorage().getWays(node).size());
+    }
+
+    /**
+     * Select node that is member of a way, append to it
+     */
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void append() {
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3878990, 47.3891959, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        Node node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertEquals(633468436L, node.getOsmId());
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_append), false, true));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+    }
+
+    /**
+     * Select node that is member of multiple ways, append to it
+     */
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void appendWithMenu() {
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3879569, 47.3893814, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        Node node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertEquals(599672190L, node.getOsmId());
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_append), false, true));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.append_context_title)));
+        assertTrue(TestUtils.clickText(device, false, "Kirchstrasse", true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
     }
 }
