@@ -2,6 +2,7 @@ package de.blau.android.services.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -81,7 +82,10 @@ public class MapTileFilesystemProviderTest {
      */
     @Test
     public void clearCurrentCacheTest() {
+        saveFileTest();
+        assertTrue(provider.getCurrentCacheByteSize() > 0);
         provider.clearCurrentCache();
+        assertEquals(0, provider.getCurrentCacheByteSize());
     }
 
     /**
