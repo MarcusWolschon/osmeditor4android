@@ -1219,4 +1219,13 @@ public class TestUtils {
         } catch (IOException e1) {
         }
     }
+
+    /**
+     * Click the "simple" button
+     * 
+     * @param device the current UiDevice
+     */
+    public static void clickSimpleButton(@NonNull UiDevice device) {
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+    }
 }

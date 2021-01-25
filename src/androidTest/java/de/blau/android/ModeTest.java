@@ -1,7 +1,11 @@
 package de.blau.android;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -82,21 +86,21 @@ public class ModeTest {
         });
         device.waitForIdle();
         UiObject map = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/map_view"));
-        Assert.assertTrue(map.exists());
-        Assert.assertTrue(logic.isLocked());
+        assertTrue(map.exists());
+        assertTrue(logic.isLocked());
         try {
-            Assert.assertTrue(!lock.isSelected());
+            assertTrue(!lock.isSelected());
         } catch (UiObjectNotFoundException e1) {
-            Assert.fail(e1.getMessage());
+            fail(e1.getMessage());
         }
 
         UiObject tip = device.findObject(new UiSelector().textStartsWith(main.getString(R.string.tip_locked_mode)));
         try {
             map.click();
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
-        Assert.assertTrue(tip.waitForExists(5000));
+        assertTrue(tip.waitForExists(5000));
         TestUtils.clickText(device, true, main.getString(R.string.okay), true, false); // for the tip alert
         device.waitForIdle();
 
@@ -106,41 +110,58 @@ public class ModeTest {
         try {
             lock.click();
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
-        Assert.assertTrue(!logic.isLocked());
+        assertTrue(!logic.isLocked());
 
-        Assert.assertEquals(Mode.MODE_EASYEDIT, logic.getMode()); // start with this and cycle through the modes
+        assertEquals(Mode.MODE_EASYEDIT, logic.getMode()); // start with this and cycle through the modes
+
+        // check simple actions menu has the expected content
+        TestUtils.clickSimpleButton(device);
+        assertFalse(TestUtils.findText(device, false, main.getString(R.string.menu_add_node_address)));
+        TestUtils.clickAt(device, 200, 200); // make menu go away
+
         try {
             TestUtils.longClick(device, lock);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         TestUtils.clickText(device, false, main.getString(R.string.mode_tag_only), true, false);
-        Assert.assertEquals(Mode.MODE_TAG_EDIT, logic.getMode());
+        assertEquals(Mode.MODE_TAG_EDIT, logic.getMode());
 
         try {
             TestUtils.longClick(device, lock);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
+        }
+        TestUtils.clickText(device, false, main.getString(R.string.mode_address), true, false);
+        assertEquals(Mode.MODE_ADDRESS, logic.getMode());
+        TestUtils.clickSimpleButton(device);
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_add_node_address)));
+        TestUtils.clickAt(device, 200, 200); // make menu go away
+
+        try {
+            TestUtils.longClick(device, lock);
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
         }
         TestUtils.clickText(device, false, main.getString(R.string.mode_indoor), true, false);
-        Assert.assertEquals(Mode.MODE_INDOOR, logic.getMode());
+        assertEquals(Mode.MODE_INDOOR, logic.getMode());
 
         try {
             TestUtils.longClick(device, lock);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         TestUtils.clickText(device, false, main.getString(R.string.mode_correct), true, false);
-        Assert.assertEquals(Mode.MODE_CORRECT, logic.getMode());
+        assertEquals(Mode.MODE_CORRECT, logic.getMode());
 
         try {
             TestUtils.longClick(device, lock);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         TestUtils.clickText(device, false, main.getString(R.string.mode_easy), true, false);
-        Assert.assertEquals(Mode.MODE_EASYEDIT, logic.getMode());
+        assertEquals(Mode.MODE_EASYEDIT, logic.getMode());
     }
 }

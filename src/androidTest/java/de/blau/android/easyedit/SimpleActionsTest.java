@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.content.Context;
+import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
@@ -94,7 +95,7 @@ public class SimpleActionsTest {
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
-        clickSimpleButton();
+        TestUtils.clickSimpleButton(device);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_node), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_node)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
@@ -108,13 +109,6 @@ public class SimpleActionsTest {
     }
 
     /**
-     * Click the "simple" button
-     */
-    void clickSimpleButton() {
-        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
-    }
-
-    /**
      * Create a new way from menu and clicks at two more locations and finishing via home button
      */
     @SdkSuppress(minSdkVersion = 26)
@@ -123,7 +117,7 @@ public class SimpleActionsTest {
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
-        clickSimpleButton();
+        TestUtils.clickSimpleButton(device);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
@@ -157,7 +151,7 @@ public class SimpleActionsTest {
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
-        clickSimpleButton();
+        TestUtils.clickSimpleButton(device);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_map_note), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_note)));
         TestUtils.clickAtCoordinates(device, map, 8.3890736, 47.3896628, true);
