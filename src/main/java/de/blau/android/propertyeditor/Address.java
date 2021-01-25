@@ -27,6 +27,8 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ElementSearch;
+import de.blau.android.util.GeoContext;
+import de.blau.android.util.GeoContext.CountryAndStateIso;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.SavingHelper;
@@ -263,6 +265,7 @@ public final class Address implements Serializable {
             fillWithDefaultAddressTags(context, defaultTags);
             try {
                 newAddress = new Address(elementType, elementOsmId, defaultTags);
+                setCountryAndState(context, newAddress.lon, newAddress.lat, newAddress.tags);
                 Log.d(DEBUG_TAG, "nothing to start with, creating new");
             } catch (IllegalStateException isex) {
                 // this is fatal
@@ -331,7 +334,7 @@ public final class Address implements Serializable {
                     SortedMap<Integer, Address> list = getHouseNumbers(street, side, lastAddresses);
                     if (list.size() == 0) { // try to seed lastAddresses from OSM data
                         try {
-                            Log.d(DEBUG_TAG, "street " + street);
+                            Log.d(DEBUG_TAG, "Seeding from street " + street);
                             long streetId = -1;
                             if (!hasPlace) {
                                 streetId = es.getStreetId(street);
@@ -399,6 +402,38 @@ public final class Address implements Serializable {
         Set<String> addressTags = prefs.addressTags();
         for (String key : addressTags) {
             tags.put(key, Util.wrapInList(""));
+        }
+    }
+
+    /**
+     * If the tags contain country or state tags that are empty, fill them in
+     * 
+     * @param context an Android Context
+     * @param lon WGS84 longitude
+     * @param lat WGS84 latitude
+     * @param tags the tags
+     */
+    private static void setCountryAndState(@NonNull Context context, double lon, double lat, @NonNull LinkedHashMap<String, List<String>> tags) {
+        final boolean hasCountry = tags.containsKey(Tags.KEY_ADDR_COUNTRY);
+        final boolean hasState = tags.containsKey(Tags.KEY_ADDR_STATE);
+        if (hasCountry || hasState) {
+            try {
+                GeoContext geoContext = App.getGeoContext(context);
+                if (geoContext != null) {
+                    CountryAndStateIso casi = geoContext.getCountryAndStateIso(lon, lat);
+                    if (casi != null) {
+                        if (hasCountry && !listNotEmpty(tags.get(Tags.KEY_ADDR_COUNTRY))) {
+                            tags.put(Tags.KEY_ADDR_COUNTRY, Util.wrapInList(casi.getCountry()));
+                        }
+                        if (hasState && casi.getState() != null && !listNotEmpty(tags.get(Tags.KEY_ADDR_STATE))) {
+                            // note this assumes that the ISO code actually makes sense here
+                            tags.put(Tags.KEY_ADDR_STATE, Util.wrapInList(casi.getState()));
+                        }
+                    }
+                }
+            } catch (IllegalArgumentException iaex) {
+                Log.e(DEBUG_TAG, "setCountryAndState " + iaex);
+            }
         }
     }
 
@@ -687,8 +722,9 @@ public final class Address implements Serializable {
         Set<String> addressTags = prefs.addressTags();
         for (Entry<String, List<String>> entry : sortedMap.entrySet()) {
             // include everything except interpolation related tags
-            if (addressTags.contains(entry.getKey())) {
-                result.put(entry.getKey(), entry.getValue());
+            final String key = entry.getKey();
+            if (addressTags.contains(key)) {
+                result.put(key, entry.getValue());
             }
         }
         return result;
@@ -712,7 +748,7 @@ public final class Address implements Serializable {
      */
     static synchronized void updateLastAddresses(@NonNull TagEditorFragment caller, @NonNull LinkedHashMap<String, List<String>> tags) {
         LinkedHashMap<String, List<String>> addressTags = getAddressTags(caller.getContext(), tags);
-        // this needs to be done after the edit again in case the street name of what ever has changed
+        // this needs to be done after the edit again in case the street name or whatever has changed
         if (addressTags.size() > 0) {
             if (lastAddresses == null) {
                 lastAddresses = new LinkedList<>();

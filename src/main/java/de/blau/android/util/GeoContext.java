@@ -42,6 +42,42 @@ public class GeoContext {
     private static final String     DEBUG_TAG         = "GeoContext";
     private final CountryBoundaries countryBoundaries;
 
+    /**
+     * Wrapper to return country and state values for a location
+     * 
+     * @author simon
+     *
+     */
+    public class CountryAndStateIso {
+        String country;
+        String state;
+
+        /**
+         * Construct a new instance
+         * 
+         * @param country the country ISO code
+         * @param state the state ISO code or null
+         */
+        CountryAndStateIso(@NonNull String country, @Nullable String state) {
+            this.country = country;
+            this.state = state;
+        }
+
+        /**
+         * @return the country
+         */
+        public String getCountry() {
+            return country;
+        }
+
+        /**
+         * @return the state
+         */
+        public String getState() {
+            return state;
+        }
+    }
+
     public class Properties {
         boolean          imperialUnits   = false;
         boolean          leftHandTraffic = false;
@@ -72,7 +108,7 @@ public class GeoContext {
         public boolean imperialUnits() {
             return imperialUnits;
         }
-        
+
         /**
          * Get the languages for the territory
          * 
@@ -123,73 +159,62 @@ public class GeoContext {
      * @param fileName the name of the file
      * @return a GeoJson FeatureCollection
      */
-    @Nullable
+    @NonNull
     Map<String, Properties> getPropertiesMap(@NonNull AssetManager assetManager, @NonNull String fileName) {
         Map<String, Properties> result = new HashMap<>();
-        InputStream is = null;
-        JsonReader reader = null;
-        try {
-            is = assetManager.open(fileName);
-            reader = new JsonReader(new InputStreamReader(is, OsmXml.UTF_8));
-            try {
+        try (InputStream is = assetManager.open(fileName); JsonReader reader = new JsonReader(new InputStreamReader(is, OsmXml.UTF_8))) {
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String territory = reader.nextName();
+                Properties prop = new Properties();
                 reader.beginObject();
                 while (reader.hasNext()) {
-                    String territory = reader.nextName();
-                    Properties prop = new Properties();
-                    reader.beginObject();
-                    while (reader.hasNext()) {
-                        String propName = reader.nextName();
-                        switch (propName) {
-                        case DISTANCE:
-                            prop.imperialUnits = IMPERIAL.equals(reader.nextString());
-                            break;
-                        case LEFT_HAND_TRAFFIC:
-                            prop.leftHandTraffic = reader.nextBoolean();
-                            break;
-                        case SPEED_LIMITS:
-                            reader.beginArray();
-                            List<Integer> speedLimits = new ArrayList<>();
-                            while (reader.hasNext()) {
-                                speedLimits.add(reader.nextInt());
-                            }
-                            reader.endArray();
-                            int size = speedLimits.size();
-                            prop.speedLimits = new int[speedLimits.size()];
-                            for (int i = 0; i < size; i++) {
-                                prop.speedLimits[i] = speedLimits.get(i);
-                            }
-                            break;
-                        case LANGUAGES:
-                            reader.beginArray();
-                            List<String> languages = new ArrayList<>();
-                            while (reader.hasNext()) {
-                                languages.add(reader.nextString());
-                            }
-                            reader.endArray();
-                            size = languages.size();
-                            prop.languages = new String[languages.size()];
-                            for (int i = 0; i < size; i++) {
-                                prop.languages[i] = languages.get(i);
-                            }
-                            break;
-                        default:
-                            Log.e(DEBUG_TAG, "Unknown property " + propName);
-                            reader.skipValue();
+                    String propName = reader.nextName();
+                    switch (propName) {
+                    case DISTANCE:
+                        prop.imperialUnits = IMPERIAL.equals(reader.nextString());
+                        break;
+                    case LEFT_HAND_TRAFFIC:
+                        prop.leftHandTraffic = reader.nextBoolean();
+                        break;
+                    case SPEED_LIMITS:
+                        reader.beginArray();
+                        List<Integer> speedLimits = new ArrayList<>();
+                        while (reader.hasNext()) {
+                            speedLimits.add(reader.nextInt());
                         }
+                        reader.endArray();
+                        int size = speedLimits.size();
+                        prop.speedLimits = new int[speedLimits.size()];
+                        for (int i = 0; i < size; i++) {
+                            prop.speedLimits[i] = speedLimits.get(i);
+                        }
+                        break;
+                    case LANGUAGES:
+                        reader.beginArray();
+                        List<String> languages = new ArrayList<>();
+                        while (reader.hasNext()) {
+                            languages.add(reader.nextString());
+                        }
+                        reader.endArray();
+                        size = languages.size();
+                        prop.languages = new String[languages.size()];
+                        for (int i = 0; i < size; i++) {
+                            prop.languages[i] = languages.get(i);
+                        }
+                        break;
+                    default:
+                        Log.e(DEBUG_TAG, "Unknown property " + propName);
+                        reader.skipValue();
                     }
-                    reader.endObject();
-                    result.put(territory, prop);
                 }
                 reader.endObject();
-                Log.d(DEBUG_TAG, "Found " + result.size() + " entries.");
-            } catch (IOException | NumberFormatException e) {
-                Log.d(DEBUG_TAG, "Reading " + fileName + " " + e.getMessage());
+                result.put(territory, prop);
             }
-        } catch (IOException e) {
-            Log.d(DEBUG_TAG, "Opening " + fileName + " " + e.getMessage());
-        } finally {
-            SavingHelper.close(reader);
-            SavingHelper.close(is);
+            reader.endObject();
+            Log.d(DEBUG_TAG, "Found " + result.size() + " entries.");
+        } catch (IOException | NumberFormatException e) {
+            Log.d(DEBUG_TAG, "REading " + fileName + " " + e.getMessage());
         }
         return result;
     }
@@ -288,6 +313,35 @@ public class GeoContext {
             }
         }
         return countryBoundaries.getIds(lon, lat);
+    }
+
+    /**
+     * Get the ISO codes for the country and state the location is in
+     * 
+     * @param lon WGS84 longitude of the location
+     * @param lat WGS84 latitude of the location
+     * @return a CountryAndStateIso object or null
+     */
+    @Nullable
+    public CountryAndStateIso getCountryAndStateIso(double lon, double lat) {
+        List<String> codes = getIsoCodes(lon, lat);
+        String country = getCountryIsoCode(codes);
+        if (country != null) {
+            String state = null;
+            for (String code : codes) {
+                if (code.startsWith(country) && code.indexOf('-') == country.length()) {
+                    String[] temp = code.split("-");
+                    if (temp.length == 2) {
+                        state = temp[1];
+                        break;
+                    }
+                }
+            }
+            Log.d(DEBUG_TAG, "Found country " + country + " state " + state);
+            return new CountryAndStateIso(country, state);
+        }
+        Log.e(DEBUG_TAG, "No country found for lon " + lon + " / lat" + lat);
+        return null;
     }
 
     /**
