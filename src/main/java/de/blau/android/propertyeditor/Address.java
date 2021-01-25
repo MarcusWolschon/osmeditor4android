@@ -251,6 +251,7 @@ public final class Address implements Serializable {
                         Log.d(DEBUG_TAG, "no nearby addresses found");
                     }
                 }
+                //
                 if (newAddress.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
                     newAddress.tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.wrapInList(""));
                 }
@@ -258,26 +259,26 @@ public final class Address implements Serializable {
         }
 
         if (newAddress == null) { // make sure we have the address object
+            LinkedHashMap<String, List<String>> defaultTags = new LinkedHashMap<>();
+            fillWithDefaultAddressTags(context, defaultTags);
             try {
-                newAddress = new Address(elementType, elementOsmId, new LinkedHashMap<>());
-                Log.d("Address", "nothing to seed with, creating new");
+                newAddress = new Address(elementType, elementOsmId, defaultTags);
+                Log.d(DEBUG_TAG, "nothing to start with, creating new");
             } catch (IllegalStateException isex) {
                 // this is fatal
-                LinkedHashMap<String, List<String>> defaultTags = new LinkedHashMap<>();
-                fillWithDefaultAddressTags(context, defaultTags);
                 return defaultTags;
             }
         }
         // merge in any existing tags
         for (Entry<String, List<String>> entry : current.entrySet()) {
-            Log.d("Address", "Adding in existing tag " + entry.getKey());
+            Log.d(DEBUG_TAG, "Adding in existing tag " + entry.getKey());
             List<String> values = entry.getValue();
             if (listNotEmpty(values)) {
                 newAddress.tags.put(entry.getKey(), values);
             }
         }
 
-        boolean hasPlace = newAddress.tags.containsKey(Tags.KEY_ADDR_PLACE);
+        boolean hasPlace = newAddress.tags.containsKey(Tags.KEY_ADDR_PLACE) && !newAddress.tags.containsKey(Tags.KEY_ADDR_STREET);
         // check if the object already has a number so that we don't overwrite it
         boolean hasNumber = listNotEmpty(current.get(Tags.KEY_ADDR_HOUSENUMBER));
         StorageDelegator storageDelegator = App.getDelegator();
@@ -351,12 +352,12 @@ public final class Address implements Serializable {
                     }
                     newAddress.tags = predictNumber(newAddress, tags, street, side, list, false, null);
                 }
-            } else { // last ditch attemot
+            } else { // last ditch attempt
                 fillWithDefaultAddressTags(context, newAddress.tags);
             }
         }
 
-        // is this a node on a building outline, if yes add entrance=yes if it doesn't already exist
+        // if this is a node on a building outline, we add entrance=yes if it doesn't already exist
         if (elementType.equals(Node.NAME)) {
             boolean isOnBuilding = false;
             // we can't call wayForNodes here because Logic may not be around
@@ -378,7 +379,7 @@ public final class Address implements Serializable {
                     }
                 }
                 if (isOnBuilding && !newAddress.tags.containsKey(Tags.KEY_ENTRANCE)) {
-                    newAddress.tags.put(Tags.KEY_ENTRANCE, Util.wrapInList("yes"));
+                    newAddress.tags.put(Tags.KEY_ENTRANCE, Util.wrapInList(Tags.VALUE_YES));
                 }
             } else {
                 Log.e(DEBUG_TAG, "Node " + elementOsmId + " is null");
@@ -393,8 +394,7 @@ public final class Address implements Serializable {
      * @param context an Android Context
      * @param tags the map for the tags
      */
-    static void fillWithDefaultAddressTags(@NonNull Context context, @NonNull LinkedHashMap<String, List<String>> tags) {
-        // fill with Karlsruher schema
+    private static void fillWithDefaultAddressTags(@NonNull Context context, @NonNull LinkedHashMap<String, List<String>> tags) {
         Preferences prefs = new Preferences(context);
         Set<String> addressTags = prefs.addressTags();
         for (String key : addressTags) {
@@ -424,9 +424,10 @@ public final class Address implements Serializable {
      * increment per number is 1 or 2 (for now everything else is ignored) - determine the nearest address node - if it
      * is the last or first node and we are at one side use that and add or subtract the increment - if the nearest node
      * is somewhere in the middle determine on which side of it we are, - inc/dec in that direction If everything works
-     * out correctly even if a prediction is wrong, entering the correct number should improve the next prediction TODO
-     * the above assumes that the road is not doubling back or similar, aka that the addresses are more or less in a
-     * straight line, use the length along the way defined by the addresses instead
+     * out correctly even if a prediction is wrong, entering the correct number should improve the next prediction
+     * 
+     * TODO the above assumes that the road is not doubling back or similar, aka that the addresses are more or less in
+     * a straight line, use the length along the way defined by the addresses instead
      * 
      * @param newAddress the address object for the new address
      * @param originalTags tags for this object
@@ -474,7 +475,6 @@ public final class Address implements Serializable {
                 double distance = Double.MAX_VALUE;
                 for (int i = 0; i < numbers.size(); i++) {
                     // determine the nearest existing address
-                    // FIXME there is an obvious better criteria
                     int number = numbers.get(i);
                     Address a = list.get(number);
                     double newDistance = GeoMath.haversineDistance(newAddress.lon, newAddress.lat, a.lon, a.lat);
