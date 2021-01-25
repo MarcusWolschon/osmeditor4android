@@ -8,6 +8,7 @@
 		<item>Country (addr:country)</item>
 		<item>Full address (addr:full)</item>
 		<item>Place (addr:place)</item>
+        <item>Block (addr:block)</item>
 		<item>Hamlet (addr:hamlet)</item>
 		<item>Suburb (addr:suburb)</item>
 		<item>Subdistrict (addr:subdistrict)</item>
@@ -26,6 +27,7 @@
 		<item>addr:country</item>
 		<item>addr:full</item>
 		<item>addr:place</item>
+        <item>addr:block</item>
 		<item>addr:hamlet</item>
 		<item>addr:suburb</item>
 		<item>addr:subdistrict</item>

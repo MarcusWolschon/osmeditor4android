@@ -34,6 +34,7 @@ public final class Tags {
     // the following are less used but may be necessary
     public static final String                KEY_ADDR_HOUSENAME      = "addr:housename";
     public static final String                KEY_ADDR_PLACE          = "addr:place";
+    public static final String                KEY_ADDR_BLOCK          = "addr:block";
     public static final String                KEY_ADDR_HAMLET         = "addr:hamlet";
     public static final String                KEY_ADDR_SUBURB         = "addr:suburb";
     public static final String                KEY_ADDR_SUBDISTRICT    = "addr:subdistrict";
@@ -52,6 +53,7 @@ public final class Tags {
         ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_DOOR, 4);
         ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_PLACE, 5);
         ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_STREET, 5);
+        ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_BLOCK, 5);
         ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_POSTCODE, 6);
         ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_HAMLET, 7);
         ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_SUBURB, 8);
