@@ -1,11 +1,15 @@
 package de.blau.android;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Set;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.easyedit.SimpleActionModeCallback.SimpleAction;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.presets.PresetElementPath;
 
@@ -50,4 +54,16 @@ public interface ModeConfig {
      */
     @Nullable
     ArrayList<PresetElementPath> getPresetItems(@NonNull Context ctx, @NonNull OsmElement e);
+
+    /**
+     * Return the simple actions that are enabled in the menu
+     * 
+     * @return a Set of SimpleAction
+     */
+    @NonNull
+    default Set<SimpleAction> enabledSimpleActions() {
+        EnumSet<SimpleAction> actions = EnumSet.allOf(SimpleAction.class);
+        actions.remove(SimpleAction.ADDRESS_NODE);
+        return Collections.unmodifiableSet(actions);
+    }
 }

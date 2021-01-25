@@ -6,6 +6,7 @@
 	<string name="mode_tag_only">Tag only</string>
 	<string name="mode_indoor">Indoor</string>
 	<string name="mode_correct">C-Mode</string>
+    <string name="mode_address">Address</string>
     
     <!-- Dialogs -->
     <string name="transfer_download_current_dialog_title">Caution!</string>
@@ -898,6 +899,7 @@ avoided by using an offline data source.</string>
     <string name="menu_add_node">Add node</string>
     <string name="simple_add_node">Tap the screen position</string>
     <string name="menu_add_node_tags">Add tagged node</string>
+    <string name="menu_add_node_address">Add address node</string>
     <string name="menu_add_way">Add way</string>
     <string name="simple_add_way">Tap the screen position</string>
     <string name="menu_add_map_note">Add map note</string>
