@@ -2,6 +2,7 @@
 <resources>
     <string-array name="address_tags_entries">
         <item>Housenumber (addr:housenumber)</item>
+        <item>Conscription number (addr:conscriptionnumber)</item>
 		<item>Street (addr:street)</item>
 		<item>Postcode (addr:postcode)</item>
 		<item>City/Town/Village/..  (addr:city)</item>
@@ -9,6 +10,7 @@
 		<item>Full address (addr:full)</item>
 		<item>Place (addr:place)</item>
         <item>Block (addr:block)</item>
+        <item>Block number (addr:block_number)</item>
 		<item>Hamlet (addr:hamlet)</item>
 		<item>Suburb (addr:suburb)</item>
 		<item>Subdistrict (addr:subdistrict)</item>
@@ -21,6 +23,7 @@
     </string-array>
     <string-array translatable="false" name="address_tags_values">
 		<item>addr:housenumber</item>
+        <item>addr:conscriptionnumber</item>
 		<item>addr:street</item>
 		<item>addr:postcode</item>
 		<item>addr:city</item>
@@ -28,6 +31,7 @@
 		<item>addr:full</item>
 		<item>addr:place</item>
         <item>addr:block</item>
+        <item>addr:block_number</item>
 		<item>addr:hamlet</item>
 		<item>addr:suburb</item>
 		<item>addr:subdistrict</item>
