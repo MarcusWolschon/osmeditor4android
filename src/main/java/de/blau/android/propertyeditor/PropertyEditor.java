@@ -857,12 +857,12 @@ public class PropertyEditor extends AppCompatActivity implements PropertyEditorL
      * Get current values from the fragments and end the activity
      */
     public void sendResultAndFinish() {
-
         List<LinkedHashMap<String, String>> currentTags = getUpdatedTags();
         if (currentTags != null) {
             // save any address tags for "last address tags"
             if (currentTags.size() == 1) {
-                Address.updateLastAddresses(tagEditorFragment, Util.getListMap(currentTags.get(0)));// FIXME
+                Address.updateLastAddresses(this, (StreetPlaceNamesAdapter) getStreetNameAdapter(null), tagEditorFragment.getType(),
+                        tagEditorFragment.getOsmId(), Util.getListMap(currentTags.get(0)), true);
             }
             Intent intent = new Intent();
 

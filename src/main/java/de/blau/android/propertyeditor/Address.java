@@ -203,8 +203,8 @@ public final class Address implements Serializable {
     /**
      * Predict address tags
      * 
-     * This uses a file to cache/save the address information over invocations of the TagEditor, if the cache doesn't
-     * have entries for a specific street/place an attempt to extract the information from the downloaded data is made
+     * This uses a file to cache/save the address information over invocations, if the cache doesn't have entries for a
+     * specific street/place an attempt to extract the information from the downloaded data is made
      *
      * @param context Android context
      * @param elementType element type (node, way, relation)
@@ -746,8 +746,9 @@ public final class Address implements Serializable {
      * @param caller calling TagEditorFragment
      * @param tags current tags
      */
-    static synchronized void updateLastAddresses(@NonNull TagEditorFragment caller, @NonNull LinkedHashMap<String, List<String>> tags) {
-        LinkedHashMap<String, List<String>> addressTags = getAddressTags(caller.getContext(), tags);
+    public static synchronized void updateLastAddresses(@NonNull Context context, @Nullable StreetPlaceNamesAdapter streetAdapter, @NonNull String type,
+            long id, @NonNull LinkedHashMap<String, List<String>> tags, boolean save) {
+        LinkedHashMap<String, List<String>> addressTags = getAddressTags(context, tags);
         // this needs to be done after the edit again in case the street name or whatever has changed
         if (addressTags.size() > 0) {
             if (lastAddresses == null) {
@@ -756,30 +757,26 @@ public final class Address implements Serializable {
             if (lastAddresses.size() >= MAX_SAVED_ADDRESSES) { // arbitrary limit for now
                 lastAddresses.removeLast();
             }
-            Address current = null;
             try {
-                current = new Address(caller.getType(), caller.getOsmId(), addressTags);
-            } catch (IllegalStateException isex) {
-                Log.e(DEBUG_TAG, "updateLastAddresses " + isex.getMessage());
-            }
-            if (current != null) {
-                StreetPlaceNamesAdapter streetAdapter = (StreetPlaceNamesAdapter) ((NameAdapters) caller.getActivity()).getStreetNameAdapter(null);
+                Address current = new Address(type, id, addressTags);
                 if (streetAdapter != null) {
-                    List<String> values = tags.get(Tags.KEY_ADDR_STREET);
-                    if (values != null && !values.isEmpty()) {
-                        String streetName = values.get(0); // FIXME can't remember what this is supposed to do....
-                        if (streetName != null) {
-                            try {
-                                current.setSide(streetAdapter.getStreetId(streetName));
-                            } catch (OsmException e) {
-                                current.side = Side.UNKNOWN;
-                            }
+                    List<String> values = addressTags.get(Tags.KEY_ADDR_STREET);
+                    String streetName = values != null && !values.isEmpty() ? values.get(0) : null;
+                    if (streetName != null) {
+                        try {
+                            current.setSide(streetAdapter.getStreetId(streetName));
+                        } catch (OsmException e) {
+                            current.side = Side.UNKNOWN;
                         }
                     }
                 }
                 lastAddresses.addFirst(current);
+            } catch (IllegalStateException isex) {
+                Log.e(DEBUG_TAG, "updateLastAddresses " + isex.getMessage());
             }
-            saveLastAddresses(caller.getActivity());
+            if (save) {
+                saveLastAddresses(context);
+            }
         }
     }
 
@@ -788,7 +785,7 @@ public final class Address implements Serializable {
      * 
      * @param context Android Context
      */
-    static synchronized void saveLastAddresses(@NonNull Context context) {
+    protected static synchronized void saveLastAddresses(@NonNull Context context) {
         if (lastAddresses != null) {
             savingHelperAddress.save(context, ADDRESS_TAGS_FILE, lastAddresses, false);
         }
@@ -808,5 +805,19 @@ public final class Address implements Serializable {
                 // never crash
             }
         }
+    }
+
+    /**
+     * Convert a multi-valued Map to one with single values
+     * 
+     * @param multi a Map<String, List<String>>
+     * @return a Map<String, String>
+     */
+    public static Map<String, String> multiValueToSingle(@NonNull Map<String, List<String>> multi) {
+        Map<String, String> simple = new TreeMap<>();
+        for (Entry<String, List<String>> entry : multi.entrySet()) {
+            simple.put(entry.getKey(), entry.getValue().get(0));
+        }
+        return simple;
     }
 }

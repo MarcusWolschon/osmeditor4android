@@ -64,6 +64,7 @@ public interface ModeConfig {
     default Set<SimpleAction> enabledSimpleActions() {
         EnumSet<SimpleAction> actions = EnumSet.allOf(SimpleAction.class);
         actions.remove(SimpleAction.ADDRESS_NODE);
+        actions.remove(SimpleAction.INTERPOLATION_WAY);
         return Collections.unmodifiableSet(actions);
     }
 }

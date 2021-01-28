@@ -40,7 +40,7 @@ public enum Mode {
 
         @Override
         public Set<SimpleAction> enabledSimpleActions() {
-            return Collections.unmodifiableSet(EnumSet.of(SimpleAction.ADDRESS_NODE, SimpleAction.NOTE));
+            return Collections.unmodifiableSet(EnumSet.of(SimpleAction.ADDRESS_NODE, SimpleAction.INTERPOLATION_WAY, SimpleAction.NOTE));
         }
     }),
     /**

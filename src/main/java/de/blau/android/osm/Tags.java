@@ -32,18 +32,19 @@ public final class Tags {
     public static final String KEY_ADDR_COUNTRY     = "addr:country";
     public static final String KEY_ADDR_FULL        = "addr:full";
     // the following are less used but may be necessary
-    public static final String                KEY_ADDR_HOUSENAME      = "addr:housename";
-    public static final String                KEY_ADDR_PLACE          = "addr:place";
-    public static final String                KEY_ADDR_BLOCK          = "addr:block";
-    public static final String                KEY_ADDR_HAMLET         = "addr:hamlet";
-    public static final String                KEY_ADDR_SUBURB         = "addr:suburb";
-    public static final String                KEY_ADDR_SUBDISTRICT    = "addr:subdistrict";
-    public static final String                KEY_ADDR_DISTRICT       = "addr:district";
-    public static final String                KEY_ADDR_PROVINCE       = "addr:province";
-    public static final String                KEY_ADDR_STATE          = "addr:state";
-    public static final String                KEY_ADDR_FLATS          = "addr:flats";
-    public static final String                KEY_ADDR_DOOR           = "addr:door";
-    public static final String                KEY_ADDR_UNIT           = "addr:unit";
+    public static final String KEY_ADDR_HOUSENAME   = "addr:housename";
+    public static final String KEY_ADDR_PLACE       = "addr:place";
+    public static final String KEY_ADDR_BLOCK       = "addr:block";
+    public static final String KEY_ADDR_HAMLET      = "addr:hamlet";
+    public static final String KEY_ADDR_SUBURB      = "addr:suburb";
+    public static final String KEY_ADDR_SUBDISTRICT = "addr:subdistrict";
+    public static final String KEY_ADDR_DISTRICT    = "addr:district";
+    public static final String KEY_ADDR_PROVINCE    = "addr:province";
+    public static final String KEY_ADDR_STATE       = "addr:state";
+    public static final String KEY_ADDR_FLATS       = "addr:flats";
+    public static final String KEY_ADDR_DOOR        = "addr:door";
+    public static final String KEY_ADDR_UNIT        = "addr:unit";
+
     private static final Map<String, Integer> ADDRESS_SORT_ORDER_TEMP = new HashMap<>();
     static {
         ADDRESS_SORT_ORDER_TEMP.put(KEY_ADDR_HOUSENUMBER, 0);
@@ -74,6 +75,12 @@ public final class Tags {
     public static final String VALUE_ACTUAL           = "actual";
     public static final String VALUE_ESTIMATE         = "estimate";
     public static final String VALUE_POTENTIAL        = "potential";
+
+    // "large scale" address keys
+    public static final List<String> ADDRESS_LARGE = Collections
+            .unmodifiableList(Arrays.asList(KEY_ADDR_STREET, KEY_ADDR_PLACE, KEY_ADDR_BLOCK, KEY_ADDR_POSTCODE, KEY_ADDR_HAMLET, KEY_ADDR_SUBURB, KEY_ADDR_CITY,
+                    KEY_ADDR_SUBDISTRICT, KEY_ADDR_DISTRICT, KEY_ADDR_PROVINCE, KEY_ADDR_STATE, KEY_ADDR_COUNTRY));
+
     // other address related stuff
     public static final String KEY_BUILDING = "building";
     public static final String KEY_ENTRANCE = "entrance";

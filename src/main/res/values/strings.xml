@@ -228,6 +228,13 @@
     <string name="remove">Remove</string>
     <!-- Abort action mode dialog -->
     <string name="abort_action_title">Abort action</string>
+    <!-- Address interpoation dialog -->
+    <string name="address_interpolation_title">Create address interpolation</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
+    <string name="even">Even</string>
+    <string name="odd">Odd</string>
+    <string name="other">Other</string>
     <!--  -->
     <string name="error">Error</string>
     <string name="warning">Warning</string>
@@ -900,6 +907,7 @@ avoided by using an offline data source.</string>
     <string name="simple_add_node">Tap the screen position</string>
     <string name="menu_add_node_tags">Add tagged node</string>
     <string name="menu_add_node_address">Add address node</string>
+    <string name="menu_add_address_interpolation">Add address interpolation</string>
     <string name="menu_add_way">Add way</string>
     <string name="simple_add_way">Tap the screen position</string>
     <string name="menu_add_map_note">Add map note</string>

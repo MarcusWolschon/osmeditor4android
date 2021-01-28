@@ -313,15 +313,12 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                         Snack.barInfoShort(main, +number + (words.length == 2 ? words[1] : ""));
                         Node node = logic.performAddNode(main, startLon, startLat);
                         if (node != null) {
-                            TreeMap<String, String> tags = new TreeMap<>(node.getTags());
+                            Map<String, String> tags = new TreeMap<>(node.getTags());
                             tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number) + (words.length == 3 ? words[2] : ""));
                             tags.put(Commands.SOURCE_ORIGINAL_TEXT, v);
                             Map<String, List<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(),
-                                    new ElementSearch(new int[] { node.getLon(), node.getLat() }, true), Util.getListMap(tags), Address.NO_HYSTERESIS);
-                            tags = new TreeMap<>();
-                            for (Entry<String, List<String>> entry : map.entrySet()) {
-                                tags.put(entry.getKey(), entry.getValue().get(0));
-                            }
+                                    new ElementSearch(new int[] { node.getLat(), node.getLon() }, true), Util.getListMap(tags), Address.NO_HYSTERESIS);
+                            tags = Address.multiValueToSingle(map);
                             logic.setTags(main, node, tags);
                             main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
                             return;

@@ -28,8 +28,8 @@ import de.blau.android.util.Util;
 public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private static final String DEBUG_TAG = "PathCreationAction...";
 
-    private static final int MENUITEM_UNDO          = 1;
-    private static final int MENUITEM_NEWWAY_PRESET = 2;
+    protected static final int MENUITEM_UNDO          = 1;
+    private static final int   MENUITEM_NEWWAY_PRESET = 2;
 
     private static final String NODE_IDS_KEY          = "node ids";
     private static final String EXISTING_NODE_IDS_KEY = "existing node ids";
@@ -48,11 +48,11 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private boolean dontTag = false;
 
     /** contains a pointer to the created way if one was created. used to fix selection after undo. */
-    private Way        createdWay    = null;
+    private Way          createdWay    = null;
     /** contains a list of added nodes. used to fix selection after undo. */
-    private List<Node> addedNodes    = new ArrayList<>();
+    protected List<Node> addedNodes    = new ArrayList<>();
     /** nodes we added that already existed */
-    private List<Node> existingNodes = new ArrayList<>();
+    private List<Node>   existingNodes = new ArrayList<>();
 
     private String savedTitle = null;
 
@@ -189,10 +189,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         }
         if (logic.getSelectedNode() == null) {
             // user clicked last node again -> finish adding
-            delayedResetHasProblem(lastSelectedWay);
-            manager.finish();
-            removeCheckpoint();
-            tagApplicable(lastSelectedNode, lastSelectedWay, true);
+            finishPath(lastSelectedWay, lastSelectedNode);
         } else { // update cache for undo
             createdWay = logic.getSelectedWay();
             if (createdWay == null) {
@@ -215,7 +212,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     /**
      * Remove spurious empty checkpoint created by touching again
      */
-    private void removeCheckpoint() {
+    protected void removeCheckpoint() {
         App.getLogic().removeCheckpoint(main, createdWay != null ? R.string.undo_action_moveobjects : R.string.undo_action_movenode);
     }
 
@@ -292,7 +289,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
      * 
      * @param way the way that we want to enable validation on
      */
-    private void delayedResetHasProblem(@NonNull final Way way) {
+    protected void delayedResetHasProblem(@Nullable final Way way) {
         Map map = main.getMap();
         if (map != null) {
             map.postDelayed(() -> {
@@ -315,6 +312,16 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     protected void finishBuilding() {
         final Way lastSelectedWay = logic.getSelectedWay();
         final Node lastSelectedNode = logic.getSelectedNode();
+        finishPath(lastSelectedWay, lastSelectedNode);
+    }
+
+    /**
+     * Common code for finishing a path
+     * 
+     * @param lastSelectedWay the way
+     * @param lastSelectedNode the node
+     */
+    protected void finishPath(@Nullable final Way lastSelectedWay, @Nullable final Node lastSelectedNode) {
         manager.finish();
         removeCheckpoint();
         if (!addedNodes.isEmpty() && !dontTag) {

@@ -81,6 +81,16 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             }
         },
         /**
+         * Add a way starting the normal path creation mode
+         */
+        INTERPOLATION_WAY(R.string.menu_add_address_interpolation, R.string.simple_add_way,
+                (main, manager, x, y) -> main.startSupportActionMode(new AddressInterpolationActionModeCallback(manager, x, y))) {
+            @Override
+            public boolean isEnabled() {
+                return App.getLogic().getMode().enabledSimpleActions().contains(this);
+            }
+        },
+        /**
          * Add a note
          */
         NOTE(R.string.menu_add_map_note, R.string.simple_add_note, (main, manager, x, y) -> {

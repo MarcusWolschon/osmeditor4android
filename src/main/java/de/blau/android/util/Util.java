@@ -436,11 +436,11 @@ public final class Util {
     /**
      * Remove formating from s and truncate it if necessary, typically used in a TextWatcher
      * 
-     * @param activity if non-null and the string has been truncated display a toast with this activity
+     * @param context if non-null and the string has been truncated display a toast with this context
      * @param s Editable that needs to be sanitized
      * @param maxStringLength maximum length the string is allowed to have
      */
-    public static void sanitizeString(@Nullable Activity activity, @NonNull Editable s, int maxStringLength) {
+    public static void sanitizeString(@Nullable Context context, @NonNull Editable s, int maxStringLength) {
         // remove formating from pastes etc
         CharacterStyle[] toBeRemovedSpans = s.getSpans(0, s.length(), MetricAffectingSpan.class);
         for (CharacterStyle toBeRemovedSpan : toBeRemovedSpans) {
@@ -451,8 +451,8 @@ public final class Util {
         int len = s.length();
         if (len > maxStringLength) {
             s.delete(maxStringLength, len);
-            if (activity != null) {
-                Snack.toastTopWarning(activity, activity.getString(R.string.toast_string_too_long, len));
+            if (context != null) {
+                Snack.toastTopWarning(context, context.getString(R.string.toast_string_too_long, len));
             }
         }
     }
