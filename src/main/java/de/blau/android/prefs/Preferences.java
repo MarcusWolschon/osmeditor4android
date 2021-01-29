@@ -78,6 +78,7 @@ public class Preferences {
     private final boolean groupAlertsOnly;
     private int           maxAlertDistance;
     private final boolean lightThemeEnabled;
+    private final boolean overrideCountryAddressTags;
     private Set<String>   addressTags;                   // can't be final
     private final boolean voiceCommandsEnabled;
     private final boolean leaveGpsDisabled;
@@ -100,7 +101,7 @@ public class Preferences {
     private final int     dataWarnLimit;
     private final boolean useBarometricHeight;
     private final boolean useUrlForFeedback;
-    private final int beepVolume;
+    private final int     beepVolume;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -200,6 +201,8 @@ public class Preferences {
         // light theme now always default
         lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), true);
 
+        overrideCountryAddressTags = prefs.getBoolean(r.getString(R.string.config_overrideRegionAddressTags_key), false);
+
         addressTags = new HashSet<>(Arrays.asList(r.getStringArray(R.array.address_tags_defaults)));
         addressTags = prefs.getStringSet(r.getString(R.string.config_addressTags_key), addressTags);
 
@@ -256,7 +259,7 @@ public class Preferences {
         useBarometricHeight = prefs.getBoolean(r.getString(R.string.config_useBarometricHeight_key), false);
 
         useUrlForFeedback = prefs.getBoolean(r.getString(R.string.config_useUrlForFeedback_key), false);
-        
+
         beepVolume = getIntPref(R.string.config_beepVolume_key, Sound.BEEP_DEFAULT_VOLUME);
     }
 
@@ -782,6 +785,15 @@ public class Preferences {
      */
     public boolean lightThemeEnabled() {
         return lightThemeEnabled;
+    }
+
+    /**
+     * Check if we want to override country specific address tags
+     * 
+     * @return true if we should override
+     */
+    public boolean overrideCountryAddressTags() {
+        return overrideCountryAddressTags;
     }
 
     /**
@@ -1333,7 +1345,7 @@ public class Preferences {
     public int getBeepVolume() {
         return beepVolume;
     }
-    
+
     /**
      * Get a string from shared preferences
      * 

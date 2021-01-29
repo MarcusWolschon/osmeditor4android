@@ -28,6 +28,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.Main;
@@ -35,7 +36,6 @@ import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetField;
@@ -62,6 +62,8 @@ public class AddressInterpolationDialog extends ImmersiveDialogFragment {
     private static final String TAG = "fragment_address_interpolation";
 
     private static final String WAY_ID_KEY = "way_id";
+
+    private static final String ADDRESS_PRESET_ITEM = "Address";
 
     private Way way;
 
@@ -123,8 +125,9 @@ public class AddressInterpolationDialog extends ImmersiveDialogFragment {
         }
         way = (Way) App.getDelegator().getOsmElement(Way.NAME, wayId);
         // We needed the themed context or else styling of the adapters will not work
-        Context context = ThemeUtils.getThemedContext(getContext(), R.style.Theme_DialogLight, R.style.Theme_DialogDark);
+        final Context context = ThemeUtils.getThemedContext(getContext(), R.style.Theme_DialogLight, R.style.Theme_DialogDark);
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final FragmentActivity activity = getActivity();
 
         RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.interpolation, null);
         EditText start = (EditText) layout.findViewById(R.id.start_edit);
@@ -173,13 +176,13 @@ public class AddressInterpolationDialog extends ImmersiveDialogFragment {
 
         PresetItem presetItem = null;
         for (Preset preset : App.getCurrentPresets(context)) {
-            presetItem = preset != null ? preset.getItemByName("Address") : null;
+            presetItem = preset != null ? preset.getItemByName(ADDRESS_PRESET_ITEM) : null;
             if (presetItem != null) {
                 break;
             }
         }
 
-        Set<String> addressTags = (new Preferences(context)).addressTags();
+        Set<String> addressTags = Address.getAddressKeys(context, firstNode.getLon() / 1E7D, firstNode.getLat() / 1E7D);
         Map<String, String> expandedTags = new HashMap<>(firstTags);
         for (String t : Tags.ADDRESS_LARGE) {
             if (!expandedTags.containsKey(t) && addressTags.contains(t)) {
@@ -187,7 +190,17 @@ public class AddressInterpolationDialog extends ImmersiveDialogFragment {
             }
         }
         List<Entry<String, String>> temp = new ArrayList<>(expandedTags.entrySet());
-        Collections.sort(temp, (e0, e1) -> Tags.ADDRESS_SORT_ORDER.get(e0.getKey()).compareTo(Tags.ADDRESS_SORT_ORDER.get(e1.getKey())));
+        Collections.sort(temp, (Entry<String, String> e0, Entry<String, String> e1) -> {
+            // checking for null is needed as keys from geocontext might not be in Tags.ADDRESS_SORT_ORDER
+            final String k0 = e0.getKey();
+            Integer i0 = Tags.ADDRESS_SORT_ORDER.get(k0);
+            final String k1 = e1.getKey();
+            Integer i1 = Tags.ADDRESS_SORT_ORDER.get(k1);
+            if (i0 == null || i1 == null) {
+                return k0.compareTo(k1);
+            }
+            return i0.compareTo(i1);
+        });
         for (Entry<String, String> entry : temp) {
             String key = entry.getKey();
             if (key.startsWith(Tags.KEY_ADDR_BASE) && !Tags.KEY_ADDR_HOUSENUMBER.equals(key)) {
@@ -201,7 +214,7 @@ public class AddressInterpolationDialog extends ImmersiveDialogFragment {
                 tagLayout.addView(TextRow.getSimpleRow(context, inflater, tagLayout, presetItem, presetField, entry.getValue(), adapter));
             }
         }
-        Builder builder = new AlertDialog.Builder(context);
+        Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.address_interpolation_title);
         builder.setNegativeButton(R.string.cancel, null);
         builder.setPositiveButton(R.string.okay, (DialogInterface dialog, int which) -> {
@@ -223,10 +236,13 @@ public class AddressInterpolationDialog extends ImmersiveDialogFragment {
             } else {
                 wayTags.put(Tags.KEY_ADDR_INTERPOLATION, otherEdit.getText().toString());
             }
-            App.getLogic().setTags(getActivity(), Way.NAME, way.getOsmId(), wayTags, false);
+            App.getLogic().setTags(activity, Way.NAME, way.getOsmId(), wayTags, false);
             // update and save the addresses
             Address.updateLastAddresses(context, streetNameAutocompleteAdapter, Node.NAME, firstNode.getOsmId(), Util.getListMap(firstNode.getTags()), false);
             Address.updateLastAddresses(context, streetNameAutocompleteAdapter, Node.NAME, lastNode.getOsmId(), Util.getListMap(lastNode.getTags()), true);
+            if (activity instanceof Main) {
+                ((Main) activity).invalidateMap();
+            }
         });
 
         builder.setView(layout);

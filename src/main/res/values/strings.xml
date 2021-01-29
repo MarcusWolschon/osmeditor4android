@@ -1013,6 +1013,8 @@ avoided by using an offline data source.</string>
     <string name="config_category_editing_summary">Auto-download, saving and notification settings.</string>
     <string name="config_forceContextMenu_title">Always use contextual menu</string>
     <string name="config_forceContextMenu_summary">Always show the contextual menu if a selection is ambiguous.</string>
+    <string name="config_overrideRegionAddressTags_title">Override address tag default</string> 
+    <string name="config_overrideRegionAddressTags_summary">Use our address tag configuration over any region specific values</string>             
     <string name="config_address_tags">Address tags</string>
     <string name="config_address_tags_summary">Tags used for address prediction.</string>
     <string name="config_enableNameSuggestions_title">Enable name suggestions</string>

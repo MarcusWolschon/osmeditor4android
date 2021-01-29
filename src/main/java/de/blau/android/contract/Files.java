@@ -10,6 +10,8 @@ public final class Files {
     public static final String FILE_NAME_AUTOPRESET          = "autopreset.xml";
     public static final String FILE_NAME_MRUTAGS             = "mrutags.xml";
     public static final String FILE_NAME_KEYS                = "keys.txt";
+    public static final String FILE_NAME_GEOCONTEXT          = "geocontext.json";
+    public static final String FILE_NAME_BOUNDARIES          = "boundaries.ser";
 
     /**
      * Where we install the current version of vespucci

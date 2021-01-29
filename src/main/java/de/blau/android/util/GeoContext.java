@@ -16,6 +16,7 @@ import android.content.res.AssetManager;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.contract.Files;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -33,13 +34,15 @@ import de.westnordost.countryboundaries.CountryBoundaries;
  *
  */
 public class GeoContext {
+    private static final String DEBUG_TAG = "GeoContext";
 
-    private static final String     SPEED_LIMITS      = "speed-limits";
-    private static final String     LEFT_HAND_TRAFFIC = "left-hand-traffic";
-    private static final String     IMPERIAL          = "imperial";
-    private static final String     DISTANCE          = "distance";
-    private static final String     LANGUAGES         = "languages";
-    private static final String     DEBUG_TAG         = "GeoContext";
+    private static final String SPEED_LIMITS      = "speed-limits";
+    private static final String LEFT_HAND_TRAFFIC = "left-hand-traffic";
+    private static final String IMPERIAL          = "imperial";
+    private static final String DISTANCE          = "distance";
+    private static final String LANGUAGES         = "languages";
+    private static final String ADDRESS_KEYS      = "address-keys";
+
     private final CountryBoundaries countryBoundaries;
 
     /**
@@ -83,9 +86,10 @@ public class GeoContext {
         boolean          leftHandTraffic = false;
         private int[]    speedLimits;
         private String[] languages;
+        private String[] addressKeys;
 
         /**
-         * Get an array of common speed limits add mph im imperialUnits is true
+         * Get an array of common speed limits, add mph if imperialUnits is true
          * 
          * @return the speedLimits
          */
@@ -118,6 +122,16 @@ public class GeoContext {
         public String[] getLanguages() {
             return languages;
         }
+
+        /**
+         * Get OSM address keys for the territory
+         * 
+         * @return an array with keys or null
+         */
+        @Nullable
+        public String[] getAddressKeys() {
+            return addressKeys;
+        }
     }
 
     private final Map<String, Properties> properties;
@@ -131,8 +145,8 @@ public class GeoContext {
     public GeoContext(@NonNull Context context) {
         Log.d(DEBUG_TAG, "Initalizing");
         AssetManager assetManager = context.getAssets();
-        countryBoundaries = getCountryBoundariesFromAssets(assetManager, "boundaries.ser");
-        properties = getPropertiesMap(assetManager, "geocontext.json");
+        countryBoundaries = getCountryBoundariesFromAssets(assetManager, Files.FILE_NAME_BOUNDARIES);
+        properties = getPropertiesMap(assetManager, Files.FILE_NAME_GEOCONTEXT);
     }
 
     /**
@@ -160,7 +174,7 @@ public class GeoContext {
      * @return a GeoJson FeatureCollection
      */
     @NonNull
-    Map<String, Properties> getPropertiesMap(@NonNull AssetManager assetManager, @NonNull String fileName) {
+    private Map<String, Properties> getPropertiesMap(@NonNull AssetManager assetManager, @NonNull String fileName) {
         Map<String, Properties> result = new HashMap<>();
         try (InputStream is = assetManager.open(fileName); JsonReader reader = new JsonReader(new InputStreamReader(is, OsmXml.UTF_8))) {
             reader.beginObject();
@@ -197,11 +211,16 @@ public class GeoContext {
                             languages.add(reader.nextString());
                         }
                         reader.endArray();
-                        size = languages.size();
-                        prop.languages = new String[languages.size()];
-                        for (int i = 0; i < size; i++) {
-                            prop.languages[i] = languages.get(i);
+                        prop.languages = languages.toArray(new String[0]);
+                        break;
+                    case ADDRESS_KEYS:
+                        reader.beginArray();
+                        List<String> addressKeys = new ArrayList<>();
+                        while (reader.hasNext()) {
+                            addressKeys.add(reader.nextString());
                         }
+                        reader.endArray();
+                        prop.addressKeys = addressKeys.toArray(new String[0]);
                         break;
                     default:
                         Log.e(DEBUG_TAG, "Unknown property " + propName);

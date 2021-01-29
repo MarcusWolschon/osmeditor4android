@@ -3,6 +3,7 @@ package de.blau.android.propertyeditor;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,6 +30,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.GeoContext.CountryAndStateIso;
+import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.SavingHelper;
@@ -83,7 +85,11 @@ public final class Address implements Serializable {
     private float                               lon;
     private LinkedHashMap<String, List<String>> tags;
 
+    /**
+     * 
+     */
     private static LinkedList<Address> lastAddresses = null;
+    private static GeoContext          geoContext    = null;
 
     /**
      * Create empty address object
@@ -99,7 +105,7 @@ public final class Address implements Serializable {
      * @param id its ID
      * @param tags the relevant address tags
      */
-    private Address(@NonNull String type, long id, @NonNull LinkedHashMap<String, List<String>> tags) {
+    private Address(@NonNull String type, long id, @Nullable LinkedHashMap<String, List<String>> tags) {
         OsmElement e = App.getDelegator().getOsmElement(type, id);
         if (e == null) {
             Log.e(DEBUG_TAG, type + " " + id + " doesn't exist in storage");
@@ -114,7 +120,7 @@ public final class Address implements Serializable {
      * @param e the OSM element
      * @param tags the relevant address tags
      */
-    private Address(@NonNull OsmElement e, @NonNull LinkedHashMap<String, List<String>> tags) {
+    private Address(@NonNull OsmElement e, @Nullable LinkedHashMap<String, List<String>> tags) {
         init(e, tags);
     }
 
@@ -124,7 +130,7 @@ public final class Address implements Serializable {
      * @param e the OSM element
      * @param tags the relevant address tags
      */
-    private void init(@NonNull OsmElement e, @NonNull LinkedHashMap<String, List<String>> tags) {
+    private void init(@NonNull OsmElement e, @Nullable LinkedHashMap<String, List<String>> tags) {
         switch (e.getType()) {
         case NODE:
             lat = ((Node) e).getLat() / 1E7F;
@@ -148,7 +154,7 @@ public final class Address implements Serializable {
         default:
             break;
         }
-        this.tags = new LinkedHashMap<>(tags);
+        this.tags = tags == null ? new LinkedHashMap<>() : new LinkedHashMap<>(tags);
     }
 
     /**
@@ -217,6 +223,7 @@ public final class Address implements Serializable {
      */
     public static synchronized Map<String, List<String>> predictAddressTags(@NonNull Context context, @NonNull final String elementType,
             final long elementOsmId, @Nullable final ElementSearch es, @NonNull final Map<String, List<String>> current, int maxRank) {
+        getGeoContext(context);
         Address newAddress = null;
 
         loadLastAddresses(context);
@@ -262,10 +269,10 @@ public final class Address implements Serializable {
 
         if (newAddress == null) { // make sure we have the address object
             LinkedHashMap<String, List<String>> defaultTags = new LinkedHashMap<>();
-            fillWithDefaultAddressTags(context, defaultTags);
             try {
                 newAddress = new Address(elementType, elementOsmId, defaultTags);
-                setCountryAndState(context, newAddress.lon, newAddress.lat, newAddress.tags);
+                fillWithDefaultAddressTags(context, newAddress.lon, newAddress.lat, defaultTags);
+                setCountryAndState(newAddress.lon, newAddress.lat, newAddress.tags);
                 Log.d(DEBUG_TAG, "nothing to start with, creating new");
             } catch (IllegalStateException isex) {
                 // this is fatal
@@ -300,7 +307,7 @@ public final class Address implements Serializable {
                         rank = streetNames.indexOf(addrStreetValues.get(0)); // FIXME this and the following could
                                                                              // consider other values in multi select
                     }
-                    Log.d(DEBUG_TAG, (hasAddrStreet ? "rank " + rank + " for " + addrStreetValues.get(0) : "no addrStreet tag"));
+                    Log.d(DEBUG_TAG, (hasAddrStreet ? "rank " + rank + " for " + addrStreetValues.get(0) : "no addr:street tag"));
                     if (!hasAddrStreet || rank > maxRank || rank < 0) { // check if has street and still in the top 3
                                                                         // nearest
                         // nope -> zap
@@ -356,7 +363,7 @@ public final class Address implements Serializable {
                     newAddress.tags = predictNumber(newAddress, tags, street, side, list, false, null);
                 }
             } else { // last ditch attempt
-                fillWithDefaultAddressTags(context, newAddress.tags);
+                fillWithDefaultAddressTags(context, newAddress.lon, newAddress.lat, newAddress.tags);
             }
         }
 
@@ -392,33 +399,62 @@ public final class Address implements Serializable {
     }
 
     /**
+     * Get a GeoContext object
+     * 
+     * @param context an Android Context
+     */
+    static void getGeoContext(@NonNull Context context) {
+        if (geoContext == null) {
+            geoContext = App.getGeoContext(context);
+        }
+    }
+
+    /**
      * Fill tags with the default address tags
      * 
      * @param context an Android Context
+     * @param lon WGS84 longitude
+     * @param lat WGS84 latitude
      * @param tags the map for the tags
      */
-    private static void fillWithDefaultAddressTags(@NonNull Context context, @NonNull LinkedHashMap<String, List<String>> tags) {
-        Preferences prefs = new Preferences(context);
-        Set<String> addressTags = prefs.addressTags();
+    private static void fillWithDefaultAddressTags(@NonNull Context context, double lon, double lat, @NonNull LinkedHashMap<String, List<String>> tags) {
+        Set<String> addressTags = getAddressKeys(context, lon, lat);
         for (String key : addressTags) {
             tags.put(key, Util.wrapInList(""));
         }
     }
 
     /**
-     * If the tags contain country or state tags that are empty, fill them in
+     * Get our default address keys from the preferences of from geocontext
      * 
      * @param context an Android Context
      * @param lon WGS84 longitude
      * @param lat WGS84 latitude
+     * @return a Set of the address keys
+     */
+    public static Set<String> getAddressKeys(@NonNull Context context, double lon, double lat) {
+        getGeoContext(context);
+        Properties prop = null;
+        if (geoContext != null) {
+            prop = geoContext.getProperties(geoContext.getIsoCodes(lon, lat));
+        }
+        Preferences prefs = new Preferences(context);
+        return prop == null || prop.getAddressKeys() == null || prefs.overrideCountryAddressTags() ? prefs.addressTags()
+                : new HashSet<>(Arrays.asList(prop.getAddressKeys()));
+    }
+
+    /**
+     * If the tags contain country or state tags that are empty, fill them in
+     * 
+     * @param lon WGS84 longitude
+     * @param lat WGS84 latitude
      * @param tags the tags
      */
-    private static void setCountryAndState(@NonNull Context context, double lon, double lat, @NonNull LinkedHashMap<String, List<String>> tags) {
+    private static void setCountryAndState(double lon, double lat, @NonNull LinkedHashMap<String, List<String>> tags) {
         final boolean hasCountry = tags.containsKey(Tags.KEY_ADDR_COUNTRY);
         final boolean hasState = tags.containsKey(Tags.KEY_ADDR_STATE);
         if (hasCountry || hasState) {
             try {
-                GeoContext geoContext = App.getGeoContext(context);
                 if (geoContext != null) {
                     CountryAndStateIso casi = geoContext.getCountryAndStateIso(lon, lat);
                     if (casi != null) {
@@ -697,7 +733,8 @@ public final class Address implements Serializable {
     private static void seedAddressList(@NonNull Context context, @NonNull String street, long streetId, @NonNull OsmElement e,
             @NonNull LinkedList<Address> addresses) {
         if (e.hasTag(Tags.KEY_ADDR_STREET, street) && e.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER)) {
-            Address seed = new Address(e, getAddressTags(context, new LinkedHashMap<>(Util.getListMap(e.getTags()))));
+            Address seed = new Address(e, null);
+            seed.setTags(getAddressTags(context, seed.lon, seed.lat, new LinkedHashMap<>(Util.getListMap(e.getTags()))));
             if (streetId > 0) {
                 seed.setSide(streetId);
             }
@@ -705,7 +742,7 @@ public final class Address implements Serializable {
                 addresses.removeLast();
             }
             addresses.addFirst(seed);
-            Log.d("TagEditor", "seedAddressList added " + seed.tags.toString());
+            Log.d(DEBUG_TAG, "seedAddressList added " + seed.tags.toString());
         }
     }
 
@@ -713,13 +750,15 @@ public final class Address implements Serializable {
      * Retrieve address tags from a map of tags taking the address preferences in to account
      * 
      * @param context Android Context
+     * @param lon WGS84 longitude
+     * @param lat WGS84 latitude
      * @param sortedMap LinkedHashMap containing the tags
      * @return a LinkedHashMap containing only the relevant address tags
      */
-    private static LinkedHashMap<String, List<String>> getAddressTags(@NonNull Context context, @NonNull LinkedHashMap<String, List<String>> sortedMap) {
+    private static LinkedHashMap<String, List<String>> getAddressTags(@NonNull Context context, double lon, double lat,
+            @NonNull LinkedHashMap<String, List<String>> sortedMap) {
         LinkedHashMap<String, List<String>> result = new LinkedHashMap<>();
-        Preferences prefs = new Preferences(context);
-        Set<String> addressTags = prefs.addressTags();
+        Set<String> addressTags = getAddressKeys(context, lon, lat);
         for (Entry<String, List<String>> entry : sortedMap.entrySet()) {
             // include everything except interpolation related tags
             final String key = entry.getKey();
@@ -748,35 +787,33 @@ public final class Address implements Serializable {
      */
     public static synchronized void updateLastAddresses(@NonNull Context context, @Nullable StreetPlaceNamesAdapter streetAdapter, @NonNull String type,
             long id, @NonNull LinkedHashMap<String, List<String>> tags, boolean save) {
-        LinkedHashMap<String, List<String>> addressTags = getAddressTags(context, tags);
         // this needs to be done after the edit again in case the street name or whatever has changed
-        if (addressTags.size() > 0) {
-            if (lastAddresses == null) {
-                lastAddresses = new LinkedList<>();
-            }
-            if (lastAddresses.size() >= MAX_SAVED_ADDRESSES) { // arbitrary limit for now
-                lastAddresses.removeLast();
-            }
-            try {
-                Address current = new Address(type, id, addressTags);
-                if (streetAdapter != null) {
-                    List<String> values = addressTags.get(Tags.KEY_ADDR_STREET);
-                    String streetName = values != null && !values.isEmpty() ? values.get(0) : null;
-                    if (streetName != null) {
-                        try {
-                            current.setSide(streetAdapter.getStreetId(streetName));
-                        } catch (OsmException e) {
-                            current.side = Side.UNKNOWN;
-                        }
+        if (lastAddresses == null) {
+            lastAddresses = new LinkedList<>();
+        }
+        if (lastAddresses.size() >= MAX_SAVED_ADDRESSES) { // arbitrary limit for now
+            lastAddresses.removeLast();
+        }
+        try {
+            Address current = new Address(type, id, null);
+            current.setTags(getAddressTags(context, current.lon, current.lat, tags));
+            if (streetAdapter != null) {
+                List<String> values = current.getTags().get(Tags.KEY_ADDR_STREET);
+                String streetName = values != null && !values.isEmpty() ? values.get(0) : null;
+                if (streetName != null) {
+                    try {
+                        current.setSide(streetAdapter.getStreetId(streetName));
+                    } catch (OsmException e) {
+                        current.side = Side.UNKNOWN;
                     }
                 }
-                lastAddresses.addFirst(current);
-            } catch (IllegalStateException isex) {
-                Log.e(DEBUG_TAG, "updateLastAddresses " + isex.getMessage());
             }
-            if (save) {
-                saveLastAddresses(context);
-            }
+            lastAddresses.addFirst(current);
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "updateLastAddresses " + isex.getMessage());
+        }
+        if (save) {
+            saveLastAddresses(context);
         }
     }
 
@@ -819,5 +856,19 @@ public final class Address implements Serializable {
             simple.put(entry.getKey(), entry.getValue().get(0));
         }
         return simple;
+    }
+
+    /**
+     * @return the tags
+     */
+    public LinkedHashMap<String, List<String>> getTags() {
+        return tags;
+    }
+
+    /**
+     * @param tags the tags to set
+     */
+    public void setTags(LinkedHashMap<String, List<String>> tags) {
+        this.tags = tags;
     }
 }
