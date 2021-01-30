@@ -1963,7 +1963,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * 
      * @param rowLayout the Layout holding the rows
      * @param allowBlanks If true, includes key-value pairs where one or the other is blank.
-     * @return The LinkedHashMap&gt;String,String&lt; of key-value pairs.
+     * @return The LinkedHashMap&lt;String,List&lt;String&gt;&gt; of key-value pairs.
      */
     private LinkedHashMap<String, List<String>> getKeyValueMap(LinearLayout rowLayout, final boolean allowBlanks) {
 

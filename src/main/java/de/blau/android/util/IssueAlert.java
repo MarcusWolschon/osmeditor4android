@@ -100,7 +100,7 @@ public final class IssueAlert {
         case Relation.NAME:
             BoundingBox bbox = e.getBounds();
             if (bbox != null) {
-                ViewBox box = new ViewBox(e.getBounds());
+                ViewBox box = new ViewBox(bbox);
                 result = box.getCenter();
                 eLon = result[0];
                 eLat = result[1];
