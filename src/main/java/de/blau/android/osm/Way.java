@@ -552,7 +552,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
                 // distance to nodes of way
                 Node n2 = nodes.get(i);
                 // distance to lines of way
-                distance = Math.min(distance, GeoMath.getLineDistance(location[0], location[1], n1.getLat(), n1.getLon(), n2.getLat(), n2.getLon()));
+                distance = Math.min(distance, GeoMath.getLineDistance(location[0], location[1], n1.getLon(), n1.getLat(), n2.getLon(), n2.getLat()));
                 n1 = n2;
             }
         }

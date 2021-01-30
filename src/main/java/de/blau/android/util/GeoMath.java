@@ -371,7 +371,7 @@ public final class GeoMath {
      * @param node2Y the y coordinate of node2 (end point of the line)
      * @return the distance of the point from the line specified by node1 and node2
      */
-    public static double getLineDistance(float x, float y, float node1X, float node1Y, float node2X, float node2Y) {
+    public static double getLineDistance(double x, double y, double node1X, double node1Y, double node2X, double node2Y) {
         // http://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
         // (adaptation of Ben Gotow's post of 23-Jun-2012, originally Joshua's post of 28-Jul-2011)
         double a, b, c, d, dot, len2, t, xx, yy;
