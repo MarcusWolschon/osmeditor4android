@@ -19,15 +19,18 @@ public class ElementSearch {
 
     private static final String DEBUG_PLACE_TAG  = "PlaceTagValues...";
     private static final String DEBUG_STREET_TAG = "StreetTagValues...";
-    private static final double MAX_DISTANCE     = 20000D;              // this is just a very rough number to stop
-                                                                        // including stuff that is very far away
-    private String[]            streetNames      = null;
-    private Map<String, Long>   idsByStreetNames = new HashMap<>();
+    // this is just a very rough number to stop including stuff that is very far away
+    private static final double   MAX_DISTANCE     = 200D;
+    private static final String[] STREET_NAME_TAGS = { Tags.KEY_NAME, Tags.KEY_OFFICIAL_NAME, Tags.KEY_ALT_NAME, Tags.KEY_NAME_LEFT, Tags.KEY_NAME_RIGHT };
+    private static final String[] PLACE_NAME_TAGS  = { Tags.KEY_NAME, Tags.KEY_OFFICIAL_NAME, Tags.KEY_ALT_NAME };
+
+    private String[]          streetNames      = null;
+    private Map<String, Long> idsByStreetNames = new HashMap<>();
 
     private String[] placeNames = null;
 
-    private final int[]   location;
-    private final boolean distanceFilter;
+    private final IntCoordinates location;
+    private final boolean        distanceFilter;
 
     /**
      * Search for OSM elements around a location
@@ -35,7 +38,7 @@ public class ElementSearch {
      * @param location location coordinates in WGS84°*1E7
      * @param distanceFilter if true ignore objects further away than MAX_DISTANCE
      */
-    public ElementSearch(@NonNull final int[] location, boolean distanceFilter) {
+    public ElementSearch(@NonNull final IntCoordinates location, boolean distanceFilter) {
         this.location = location;
         this.distanceFilter = distanceFilter;
     }
@@ -46,25 +49,26 @@ public class ElementSearch {
      * @param location position we want the names nearby to
      * @return all street-names
      */
-    private String[] getStreetArray(@NonNull final int[] location) {
+    private String[] getStreetArray(@NonNull final IntCoordinates location) {
         // build list of names with their closest distance to location
         final StorageDelegator delegator = App.getDelegator();
         Map<String, Double> distancesByNames = new HashMap<>();
-        String[] nameTags = { Tags.KEY_NAME, Tags.KEY_OFFICIAL_NAME, Tags.KEY_ALT_NAME, Tags.KEY_NAME_LEFT, Tags.KEY_NAME_RIGHT };
-
-        for (Way way : delegator.getCurrentStorage().getWays()) {
+        List<Way> ways;
+        try {
+            ways = distanceFilter ? delegator.getCurrentStorage().getWays(GeoMath.createBoundingBoxForCoordinates(location, MAX_DISTANCE))
+                    : delegator.getCurrentStorage().getWays();
+        } catch (OsmException e) {
+            Log.e(DEBUG_STREET_TAG, "BoundingBox caclulation failed with " + e.getMessage());
+            ways = delegator.getCurrentStorage().getWays();
+        }
+        for (Way way : ways) {
             if (way.getTagWithKey(Tags.KEY_HIGHWAY) != null) {
-                double distance = -1D;
                 long iD = way.getOsmId();
-                for (String tag : nameTags) {
+                for (String tag : STREET_NAME_TAGS) {
                     String name = way.getTagWithKey(tag);
                     if (name != null) {
-                        if (distance == -1D) { // only calc once
-                            distance = way.getMinDistance(location);
-                            if (distanceFilter && distance > MAX_DISTANCE) {
-                                break;
-                            }
-                        }
+                        int[] l = new int[] { location.lon, location.lat };
+                        double distance = way.getMinDistance(l);
                         if (distancesByNames.containsKey(name)) {
                             // way already in list - keep shortest distance
                             if (distance < distancesByNames.get(name)) {
@@ -84,7 +88,7 @@ public class ElementSearch {
         for (Entry<String, Double> entry : distancesByNames.entrySet()) {
             retval.add(entry.getValue(), entry.getKey());
         }
-        return retval.getValues().toArray(new String[retval.getValues().size()]);
+        return retval.getValues().toArray(new String[0]);
     }
 
     /**
@@ -125,7 +129,7 @@ public class ElementSearch {
      * @param location coordinates in WGS84°*1E7
      * @return all place-names
      */
-    private String[] getPlaceArray(@NonNull final int[] location) {
+    private String[] getPlaceArray(@NonNull final IntCoordinates location) {
         // build list of names with their closest distance to location
         final StorageDelegator delegator = App.getDelegator();
         Map<String, Double> distancesByName = new HashMap<>();
@@ -151,17 +155,17 @@ public class ElementSearch {
      * @param elements the List of OsmElements
      * @param distancesByName a Map in which the found names are returned in
      */
-    public <T extends OsmElement> void processElementsForPlace(final int[] location, List<T> elements, Map<String, Double> distancesByName) {
-        String[] nameTags = { Tags.KEY_NAME, Tags.KEY_OFFICIAL_NAME, Tags.KEY_ALT_NAME };
+    private <T extends OsmElement> void processElementsForPlace(final IntCoordinates location, List<T> elements, Map<String, Double> distancesByName) {
         for (T e : elements) {
             if (e.getTagWithKey(Tags.KEY_PLACE) != null) {
                 double distance = -1D;
-                for (String tag : nameTags) {
+                for (String tag : PLACE_NAME_TAGS) {
                     String name = e.getTagWithKey(tag);
                     if (name != null) {
                         Log.d(DEBUG_PLACE_TAG, "adding " + name);
                         if (distance == -1D) { // only calc once
-                            distance = e.getMinDistance(location);
+                            int[] l = new int[] { location.lon, location.lat };
+                            distance = e.getMinDistance(l);
                             if (distanceFilter && distance > MAX_DISTANCE) {
                                 break;
                             }

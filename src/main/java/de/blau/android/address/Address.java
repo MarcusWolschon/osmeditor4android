@@ -1,4 +1,4 @@
-package de.blau.android.propertyeditor;
+package de.blau.android.address;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,9 +34,11 @@ import de.blau.android.util.GeoContext.CountryAndStateIso;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
+import de.blau.android.util.IntCoordinates;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.Util;
+import de.blau.android.util.collections.LongOsmElementMap;
 
 /**
  * Store coordinates and address information for use in address prediction
@@ -45,7 +47,7 @@ import de.blau.android.util.Util;
  *
  */
 public final class Address implements Serializable {
-    private static final long serialVersionUID = 5L;
+    private static final long serialVersionUID = 6L;
 
     private static final String DEBUG_TAG = Address.class.getSimpleName();
 
@@ -81,7 +83,8 @@ public final class Address implements Serializable {
         }
     }
 
-    private Side                side = Side.UNKNOWN;
+    private Side                side     = Side.UNKNOWN;
+    private long                streetId = 0;           // note: 0 indicates place
     private float               lat;
     private float               lon;
     private Map<String, String> tags;
@@ -184,6 +187,7 @@ public final class Address implements Serializable {
      * @param wayId OSM ID
      */
     private void setSide(long wayId) {
+        streetId = wayId;
         side = Side.UNKNOWN;
         Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, wayId);
         if (w == null) {
@@ -316,26 +320,26 @@ public final class Address implements Serializable {
                 newAddress.tags.put(key, values.get(0));
             }
         }
-
-        boolean hasPlace = newAddress.tags.containsKey(Tags.KEY_ADDR_PLACE) && !newAddress.tags.containsKey(Tags.KEY_ADDR_STREET);
+        Map<String, String> tags = newAddress.tags;
+        String addrPlaceValue = tags.get(Tags.KEY_ADDR_PLACE);
+        String addrStreetValue = tags.get(Tags.KEY_ADDR_STREET);
+        boolean hasStreet = !isEmpty(addrStreetValue);
+        boolean hasPlace = !isEmpty(addrPlaceValue) && !hasStreet;
         StorageDelegator storageDelegator = App.getDelegator();
         if (es != null) {
             // the arrays should now be calculated, retrieve street names if any
             List<String> streetNames = new ArrayList<>(Arrays.asList(es.getStreetNames()));
             if ((streetNames != null && !streetNames.isEmpty()) || hasPlace) {
-                Map<String, String> tags = newAddress.tags;
                 String street;
                 if (!hasPlace) {
-                    String addrStreetValue = tags.get(Tags.KEY_ADDR_STREET);
                     Log.d(DEBUG_TAG, "tags.get(Tags.KEY_ADDR_STREET)) " + addrStreetValue);
                     int rank = -1;
-                    boolean hasAddrStreet = addrStreetValue != null && !"".equals(addrStreetValue);
-                    if (hasAddrStreet) {
+                    if (hasStreet) {
                         rank = streetNames.indexOf(addrStreetValue);
                     }
-                    Log.d(DEBUG_TAG, (hasAddrStreet ? "rank " + rank + " for " + addrStreetValue : "no addr:street tag"));
+                    Log.d(DEBUG_TAG, (hasStreet ? "rank " + rank + " for " + addrStreetValue : "no addr:street tag"));
                     // check if has street and still in the top 3 nearest
-                    if (!hasAddrStreet || rank > maxRank || rank < 0) {
+                    if (!hasStreet || rank > maxRank || rank < 0) {
                         // nope -> get nearest street
                         final String tempStreet = streetNames.get(0);
                         tags.put(Tags.KEY_ADDR_STREET, tempStreet);
@@ -350,7 +354,6 @@ public final class Address implements Serializable {
                         newAddress.side = Side.UNKNOWN;
                     }
                 } else { // ADDR_PLACE minimal support, don't overwrite with street
-                    String addrPlaceValue = tags.get(Tags.KEY_ADDR_PLACE);
                     street = addrPlaceValue != null ? addrPlaceValue : "";
                     newAddress.side = Side.UNKNOWN;
                 }
@@ -359,30 +362,28 @@ public final class Address implements Serializable {
                 // find the addresses corresponding to the current street
                 // check if the object already has a number so that we don't overwrite it
                 String houseNumberValue = newAddress.tags.get(Tags.KEY_ADDR_HOUSENUMBER);
-                if ((houseNumberValue == null || "".equals(houseNumberValue)) && street != null) {
-                    SortedMap<Integer, Address> list = getHouseNumbers(street, side, lastAddresses);
-                    if (list.size() == 0) { // try to seed lastAddresses from OSM data
-                        try {
+                if (isEmpty(houseNumberValue) && street != null) {
+                    try {
+                        long streetId = hasPlace ? 0L : es.getStreetId(street);
+                        SortedMap<Integer, Address> list = getHouseNumbers(street, streetId, side, lastAddresses);
+                        if (list.size() == 0) { // try to seed lastAddresses from OSM data
                             Log.d(DEBUG_TAG, "Seeding from street " + street);
-                            long streetId = -1;
-                            if (!hasPlace) {
-                                streetId = es.getStreetId(street);
-                            }
                             // nodes
                             for (Node n : storageDelegator.getCurrentStorage().getNodes()) {
-                                seedAddressList(context, street, streetId, n, lastAddresses);
+                                seedAddressList(context, street, n, lastAddresses);
                             }
                             // ways
                             for (Way w : storageDelegator.getCurrentStorage().getWays()) {
-                                seedAddressList(context, street, streetId, w, lastAddresses);
+                                seedAddressList(context, street, w, lastAddresses);
                             }
                             // and try again
-                            list = getHouseNumbers(street, side, lastAddresses);
-                        } catch (OsmException e) {
-                            Log.d(DEBUG_TAG, "predictAddressTags got " + e.getMessage());
+                            list = getHouseNumbers(street, streetId, side, lastAddresses);
+
                         }
+                        newAddress.tags = predictNumber(newAddress, tags, street, streetId, side, list, false, null);
+                    } catch (OsmException e) {
+                        Log.d(DEBUG_TAG, "predictAddressTags got " + e.getMessage());
                     }
-                    newAddress.tags = predictNumber(newAddress, tags, street, side, list, false, null);
                 }
             } else { // last ditch attempt
                 fillWithDefaultAddressTags(context, newAddress.lon, newAddress.lat, newAddress.tags);
@@ -426,6 +427,16 @@ public final class Address implements Serializable {
             }
         }
         return current;
+    }
+
+    /**
+     * Check that a String is either null or empty
+     * 
+     * @param s the String
+     * @return true if the String doesn't have a non-empty value
+     */
+    private static boolean isEmpty(String s) {
+        return s == null || "".equals(s);
     }
 
     /**
@@ -524,7 +535,7 @@ public final class Address implements Serializable {
      * Try to predict the next number - get all existing numbers for the side of the street we are on - determine if the
      * increment per number is 1 or 2 (for now everything else is ignored) - determine the nearest address node - if it
      * is the last or first node and we are at one side use that and add or subtract the increment - if the nearest node
-     * is somewhere in the middle determine on which side of it we are, - inc/dec in that direction If everything works
+     * is somewhere in the middle determine on which side of it we are, - inc/dec in that direction. If everything works
      * out correctly even if a prediction is wrong, entering the correct number should improve the next prediction
      * 
      * TODO the above assumes that the road is not doubling back or similar, aka that the addresses are more or less in
@@ -541,25 +552,13 @@ public final class Address implements Serializable {
      */
     @NonNull
     private static Map<String, String> predictNumber(@NonNull Address newAddress, @NonNull Map<String, String> originalTags, @NonNull String street,
-            @NonNull Side side, @NonNull SortedMap<Integer, Address> list, boolean oppositeSide, @Nullable SortedMap<Integer, Address> otherSideList) {
+            long currentStreetId, @NonNull Side side, @NonNull SortedMap<Integer, Address> list, boolean oppositeSide,
+            @Nullable SortedMap<Integer, Address> otherSideList) {
         Map<String, String> newTags = new LinkedHashMap<>(originalTags);
         if (list.size() >= 2) {
             try {
-                //
-                // determine increment
-                //
-                int inc = 1;
-                float incTotal = 0;
-                float incCount = 0;
                 List<Integer> numbers = new ArrayList<>(list.keySet());
-                for (int i = 0; i < numbers.size() - 1; i++) {
-                    int diff = numbers.get(i + 1) - numbers.get(i);
-                    if (diff > 0 && diff <= 2) {
-                        incTotal = incTotal + diff;
-                        incCount++;
-                    }
-                }
-                inc = Math.round(incTotal / incCount);
+                int inc = calcIncrement(numbers);
 
                 int firstNumber = list.firstKey();
                 int lastNumber = list.lastKey();
@@ -628,11 +627,13 @@ public final class Address implements Serializable {
                     Log.d(DEBUG_TAG, "Predicted " + newNumber + " first " + firstNumber + " last " + lastNumber + " nearest " + nearest + " inc " + inc
                             + " prev " + prev + " post " + post + " side " + side);
                     if (numbers.contains(newNumber)) {
-                        // try one inc more and one less, if they both fail use the original number
+                        // try one inc more and one less, if they both fail use the largest number + inc
                         if (!numbers.contains(Math.max(1, newNumber + inc))) {
                             newNumber = Math.max(1, newNumber + inc);
                         } else if (!numbers.contains(Math.max(1, newNumber - inc))) {
                             newNumber = Math.max(1, newNumber - inc);
+                        } else {
+                            newNumber = Math.max(1, numbers.get(numbers.size() - 1) + Math.abs(inc));
                         }
                     }
                     Log.d(DEBUG_TAG, "final predicted result " + newNumber);
@@ -646,17 +647,17 @@ public final class Address implements Serializable {
             Log.d(DEBUG_TAG, "only one number on this side");
             // can't do prediction with only one value
             // apply tags from sole existing address if they don't already exist
-            SortedMap<Integer, Address> otherList = getHouseNumbers(street, Side.opposite(side), lastAddresses);
+            SortedMap<Integer, Address> otherList = getHouseNumbers(street, currentStreetId, Side.opposite(side), lastAddresses);
             if (otherList.size() >= 2) {
-                newTags = predictNumber(newAddress, originalTags, street, side, otherList, true, list);
+                newTags = predictNumber(newAddress, originalTags, street, currentStreetId, side, otherList, true, list);
             } else {
                 copyTags(list.get(list.firstKey()), newTags);
             }
         } else if (list.size() == 0) {
             Log.d(DEBUG_TAG, "no numbers on this side");
-            SortedMap<Integer, Address> otherList = getHouseNumbers(street, Side.opposite(side), lastAddresses);
+            SortedMap<Integer, Address> otherList = getHouseNumbers(street, currentStreetId, Side.opposite(side), lastAddresses);
             if (otherList.size() >= 2) {
-                newTags = predictNumber(newAddress, originalTags, street, side, otherList, true, list);
+                newTags = predictNumber(newAddress, originalTags, street, currentStreetId, side, otherList, true, list);
             } else if (otherList.size() == 1) {
                 copyTags(otherList.get(otherList.firstKey()), newTags);
             } else {
@@ -664,6 +665,32 @@ public final class Address implements Serializable {
             }
         }
         return newTags;
+    }
+
+    /**
+     * Calculate a likely increment from a list of ints
+     * 
+     * This only supports 1 and 2 as results
+     * 
+     * @param numbers a sorted List of Integers
+     * @return 1 or 2
+     */
+    private static int calcIncrement(List<Integer> numbers) {
+        //
+        // determine increment
+        //
+        int inc = 1;
+        float incTotal = 0;
+        float incCount = 0;
+        for (int i = 0; i < numbers.size() - 1; i++) {
+            int diff = numbers.get(i + 1) - numbers.get(i);
+            if (diff > 0 && diff <= 2) {
+                incTotal = incTotal + diff;
+                incCount++;
+            }
+        }
+        inc = incCount != 0 ? Math.round(incTotal / incCount) : 1;
+        return inc;
     }
 
     /**
@@ -712,7 +739,8 @@ public final class Address implements Serializable {
     /**
      * Return a sorted map of house numbers and the associated address objects from a List of Addresses
      * 
-     * The original addr:housenumber tag is split on ",", ";" and "-"
+     * The original addr:housenumber tag is split on ",", ";" and "-". Currently it will use addresses associated with
+     * directly neighboring way segments, and correctly adjust how it considers the side the address is on.
      * 
      * @param street the street name
      * @param side side of the street that should be considered
@@ -720,33 +748,82 @@ public final class Address implements Serializable {
      * @return a sorted map with the house numbers as key
      */
     @NonNull
-    private static synchronized SortedMap<Integer, Address> getHouseNumbers(@Nullable String street, @Nullable Address.Side side,
+    private static synchronized SortedMap<Integer, Address> getHouseNumbers(@Nullable String street, long currentStreetId, @Nullable Address.Side side,
             @NonNull LinkedList<Address> addresses) {
+        Log.d(DEBUG_TAG, "getHouseNumbers for " + street + " " + currentStreetId);
+        LongOsmElementMap<Way> wayCache = new LongOsmElementMap<>();
         SortedMap<Integer, Address> result = new TreeMap<>(); // list sorted by house numbers
         for (Address a : addresses) {
             if (a != null && a.tags != null) {
                 String addrStreetValue = a.tags.get(Tags.KEY_ADDR_STREET);
                 String addrPlaceValue = a.tags.get(Tags.KEY_ADDR_PLACE);
+                String addrHousenumberValue = a.tags.get(Tags.KEY_ADDR_HOUSENUMBER);
                 if (((addrStreetValue != null && addrStreetValue.equals(street)) || (addrPlaceValue != null && addrPlaceValue.equals(street)))
-                        && a.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER) && a.getSide() == side) {
-                    String addrHousenumberValue = a.tags.get(Tags.KEY_ADDR_HOUSENUMBER);
-                    Log.d(DEBUG_TAG, "Number " + addrHousenumberValue);
-                    if (addrHousenumberValue != null) {
-                        String[] numbers = addrHousenumberValue.split("[\\,;\\-]");
-                        for (String n : numbers) {
-                            Log.d(DEBUG_TAG, "add number  " + n);
-                            // noinspection EmptyCatchBlock
-                            try {
-                                result.put(getNumber(n), a);
-                            } catch (NumberFormatException nfe) {
-                                // empty
+                        && !isEmpty(addrHousenumberValue)) {
+                    final boolean sidesDiffer = a.getSide() != side;
+                    if (currentStreetId != a.streetId) {
+                        try {
+                            Way current = getWay(currentStreetId, wayCache);
+                            Way addressStreet = getWay(a.streetId, wayCache);
+                            final Node currentLast = current.getLastNode();
+                            final Node currentFirst = current.getFirstNode();
+                            final Node addressFirst = addressStreet.getFirstNode();
+                            final Node addressLast = addressStreet.getLastNode();
+                            if (current.hasCommonNode(addressStreet) && ((currentLast == addressFirst || currentFirst == addressLast) && !sidesDiffer)
+                                    || ((currentLast == addressLast || currentFirst == addressFirst) && sidesDiffer)) {
+                                addToResult(result, a, addrHousenumberValue);
                             }
+                        } catch (IllegalStateException isex) {
+                            // already logged
                         }
+                    } else if (!sidesDiffer) {
+                        addToResult(result, a, addrHousenumberValue);
                     }
                 }
             }
         }
         return result;
+    }
+
+    /**
+     * Extract house number and add to result
+     * 
+     * @param result Collection with the results
+     * @param a the Address
+     * @param housenumberValue value from the addr:housenumber tag
+     */
+    static void addToResult(@NonNull SortedMap<Integer, Address> result, @NonNull Address a, @NonNull String housenumberValue) {
+        String[] numbers = housenumberValue.split("[\\,;\\-]");
+        for (String n : numbers) {
+            Log.d(DEBUG_TAG, "add number  " + n);
+            // noinspection EmptyCatchBlock
+            try {
+                result.put(getNumber(n), a);
+            } catch (NumberFormatException nfe) {
+                // empty
+            }
+        }
+    }
+
+    /**
+     * Get a Way based on its id and store in cache
+     * 
+     * 
+     * @param streetId the ID
+     * @param wayCache the cache
+     */
+    private static Way getWay(long streetId, LongOsmElementMap<Way> wayCache) {
+        Way current = wayCache.get(streetId);
+        if (current == null) {
+            current = (Way) App.getDelegator().getOsmElement(Way.NAME, streetId);
+            if (current != null) {
+                wayCache.put(streetId, current);
+            } else {
+                Log.e(DEBUG_TAG, "Way " + streetId + " not found in storage");
+                throw new IllegalStateException();
+            }
+        }
+        return current;
     }
 
     /**
@@ -758,13 +835,16 @@ public final class Address implements Serializable {
      * @param e the OsmElement
      * @param addresses the list of addresses
      */
-    private static void seedAddressList(@NonNull Context context, @NonNull String street, long streetId, @NonNull OsmElement e,
-            @NonNull LinkedList<Address> addresses) {
+    private static void seedAddressList(@NonNull Context context, @NonNull String street, @NonNull OsmElement e, @NonNull LinkedList<Address> addresses) {
         if (e.hasTag(Tags.KEY_ADDR_STREET, street) && e.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER)) {
             Address seed = new Address(e, null);
             seed.setTags(getAddressTags(context, seed.lon, seed.lat, new LinkedHashMap<>(e.getTags())));
-            if (streetId > 0) {
-                seed.setSide(streetId);
+            ElementSearch es = new ElementSearch(new IntCoordinates((int) (seed.lon * 1E7), (int) (seed.lat * 1E7)), true);
+            try {
+                seed.setSide(es.getStreetId(street));
+            } catch (OsmException ex) {
+                Log.e(DEBUG_TAG, "seedAddressList " + ex.getMessage());
+                return;
             }
             if (addresses.size() >= MAX_SAVED_ADDRESSES) { // arbitrary limit for now
                 addresses.removeLast();
@@ -848,7 +928,7 @@ public final class Address implements Serializable {
      * 
      * @param context Android Context
      */
-    protected static synchronized void saveLastAddresses(@NonNull Context context) {
+    public static synchronized void saveLastAddresses(@NonNull Context context) {
         if (lastAddresses != null) {
             savingHelperAddress.save(context, ADDRESS_TAGS_FILE, lastAddresses, false);
         }
@@ -859,11 +939,11 @@ public final class Address implements Serializable {
      * 
      * @param context Android Context
      */
-    static synchronized void loadLastAddresses(@NonNull Context context) {
+    public static synchronized void loadLastAddresses(@NonNull Context context) {
         if (lastAddresses == null) {
             try {
                 lastAddresses = savingHelperAddress.load(context, ADDRESS_TAGS_FILE, false);
-                Log.d("TagEditor", "onResume read " + lastAddresses.size() + " addresses");
+                Log.d(DEBUG_TAG, "onResume read " + lastAddresses.size() + " addresses");
             } catch (Exception e) {
                 // never crash
             }
@@ -873,8 +953,8 @@ public final class Address implements Serializable {
     /**
      * Convert a multi-valued Map to one with single values
      * 
-     * @param multi a Map<String, List<String>>
-     * @return a Map<String, String>
+     * @param multi a Map&lt;String, List&lt;String&gt;&gt;
+     * @return a Map&lt;String, String&gt;
      */
     public static Map<String, String> multiValueToSingle(@NonNull Map<String, List<String>> multi) {
         Map<String, String> simple = new TreeMap<>();

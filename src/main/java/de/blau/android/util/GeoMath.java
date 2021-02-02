@@ -126,8 +126,7 @@ public final class GeoMath {
      *      projection</a>
      */
     // TODO clamping is likely to lead to issues for objects extending past +-MAX_LAT given that they will never be in a
-    // drawing box
-    // this should simple throw an exception and let the drawing code handle it
+    // drawing box this should simple throw an exception and let the drawing code handle it
     public static double latToMercator(double lat) {
         lat = Math.min(MAX_COMPAT_LAT, lat);
         lat = Math.max(-MAX_COMPAT_LAT, lat);
@@ -204,11 +203,23 @@ public final class GeoMath {
     }
 
     /**
+     * Calculate the smallest bounding box that contains a circle of the given radius around center
+     * 
+     * @param center center coordinates
+     * @param radius Radius in metres to be contained in the box.
+     * @return The BoundingBox that contains the specified area, values clamped to not cross the dateline)
+     * @throws OsmException if the bounding box cannot be calculated
+     */
+    public static BoundingBox createBoundingBoxForCoordinates(IntCoordinates center, final double radius) throws OsmException {
+        return createBoundingBoxForCoordinates(center.lat / 1E7D, center.lon / 1E7D, radius, false);
+    }
+
+    /**
      * Calculate the smallest bounding box that contains a circle of the given radius in metres centered at the given
      * lat/lon.
      * 
-     * @param lat Latitude of box centre (within maximum values that we can convert to mercator)
-     * @param lon Longitude of box centre
+     * @param lat Latitude of box center (within maximum values that we can convert to mercator)
+     * @param lon Longitude of box center
      * @param radius Radius in metres to be contained in the box.
      * @param checkSize check that boundingbox would be a legal bb for the OSM api
      * @return The BoundingBox that contains the specified area, values clamped to not cross the dateline)

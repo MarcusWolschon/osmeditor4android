@@ -281,23 +281,23 @@ public final class Util {
      * @param osmId the id of the object
      * @return {lat, lon} or null
      */
-    public static int[] getCenter(@NonNull final StorageDelegator delegator, @NonNull final String osmElementType, long osmId) {
+    public static IntCoordinates getCenter(@NonNull final StorageDelegator delegator, @NonNull final String osmElementType, long osmId) {
         OsmElement osmElement = delegator.getOsmElement(osmElementType, osmId);
         if (osmElement instanceof Node) {
             Node n = (Node) osmElement;
-            return new int[] { n.getLat(), n.getLon() };
+            return new IntCoordinates(n.getLon(), n.getLat());
         }
         if (osmElement instanceof Way) {
             double[] coords = Geometry.centroidLonLat((Way) osmElement);
             if (coords != null) {
-                return new int[] { (int) (coords[1] * 1E7), (int) (coords[0] * 1E7) };
+                return new IntCoordinates((int) (coords[0] * 1E7), (int) (coords[1] * 1E7));
             }
         }
         if (osmElement instanceof Relation) { // the center of the bounding box is naturally just a rough estimate
             BoundingBox bbox = osmElement.getBounds();
             if (bbox != null) {
                 ViewBox vbox = new ViewBox(bbox);
-                return new int[] { (int) (vbox.getCenterLat() * 1E7), vbox.getLeft() + (vbox.getRight() - vbox.getLeft()) / 2 };
+                return new IntCoordinates(vbox.getLeft() + (vbox.getRight() - vbox.getLeft()) / 2, ((int) (vbox.getCenterLat() * 1E7)));
             }
         }
         return null;

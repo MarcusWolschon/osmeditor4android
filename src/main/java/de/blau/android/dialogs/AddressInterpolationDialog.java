@@ -33,6 +33,7 @@ import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.address.Address;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -40,10 +41,10 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetTextField;
-import de.blau.android.propertyeditor.Address;
 import de.blau.android.propertyeditor.tagform.TextRow;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.IntCoordinates;
 import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -301,6 +302,6 @@ public class AddressInterpolationDialog extends ImmersiveDialogFragment {
      */
     private Map<String, String> predictNodeAddress(@NonNull final Node node) {
         return Address.multiValueToSingle(Address.predictAddressTags(getContext(), Node.NAME, node.getOsmId(),
-                new ElementSearch(new int[] { node.getLat(), node.getLon() }, true), Util.getListMap(node.getTags()), Address.NO_HYSTERESIS));
+                new ElementSearch(new IntCoordinates( node.getLon(), node.getLat()), true), Util.getListMap(node.getTags()), Address.NO_HYSTERESIS));
     }
 }

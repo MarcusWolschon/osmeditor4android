@@ -41,6 +41,7 @@ import de.blau.android.Feedback;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.address.Address;
 import de.blau.android.contract.Github;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.names.Names.TagMap;

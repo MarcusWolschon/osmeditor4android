@@ -77,7 +77,7 @@ public class StreetPlaceNamesAdapter extends ArrayAdapter<ValueWithCount> {
             }
         }
 
-        int[] center = Util.getCenter(delegator, osmElementType, osmId);
+        IntCoordinates center = Util.getCenter(delegator, osmElementType, osmId);
         if (center != null) {
             es = new ElementSearch(center, false);
             String[] names = places ? es.getPlaceNames() : es.getStreetNames();

@@ -47,6 +47,7 @@ import androidx.fragment.app.FragmentTransaction;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.address.Address;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;

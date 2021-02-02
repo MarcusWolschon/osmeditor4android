@@ -21,6 +21,7 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.address.Address;
 import de.blau.android.dialogs.GnssPositionInfo;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.names.Names.NameAndTags;
@@ -36,10 +37,10 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetFixedField;
-import de.blau.android.propertyeditor.Address;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.util.ElementSearch;
+import de.blau.android.util.IntCoordinates;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
@@ -317,7 +318,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                             tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number) + (words.length == 3 ? words[2] : ""));
                             tags.put(Commands.SOURCE_ORIGINAL_TEXT, v);
                             Map<String, List<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(),
-                                    new ElementSearch(new int[] { node.getLat(), node.getLon() }, true), Util.getListMap(tags), Address.NO_HYSTERESIS);
+                                    new ElementSearch(new IntCoordinates(node.getLon(), node.getLat()), true), Util.getListMap(tags), Address.NO_HYSTERESIS);
                             tags = Address.multiValueToSingle(map);
                             logic.setTags(main, node, tags);
                             main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
