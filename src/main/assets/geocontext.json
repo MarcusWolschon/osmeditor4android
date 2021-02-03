@@ -248,12 +248,12 @@
             "addr:subdistrict",
             "addr:district",
             "addr:province",
-            "addr:postcode",
+            "addr:postcode"
         ],
         "languages": [
-          th,
-          nod,
-          mfa
+          "th",
+          "nod",
+          "mfa"
         ]
         
     },
