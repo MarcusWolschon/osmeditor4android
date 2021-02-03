@@ -723,6 +723,15 @@ public class UndoStorage implements Serializable {
          */
         @Nullable
         public abstract BoundingBox getBounds(@NonNull Checkpoint checkpoint);
+
+        /**
+         * Check if this element was in storage when it was saved
+         * 
+         * @return true if it was in the current storage
+         */
+        public boolean wasInCurrentStorage() {
+            return inCurrentStorage;
+        }
     }
 
     /**

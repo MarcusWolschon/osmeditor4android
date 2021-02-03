@@ -187,7 +187,9 @@ public class ElementInfo extends InfoDialogFragment {
         if (ueIndex >= 0) {
             List<UndoElement> undoElements = App.getDelegator().getUndo().getUndoElements(element);
             if (undoElements.size() > ueIndex) {
-                ue = undoElements.get(ueIndex);
+                UndoElement temp = undoElements.get(ueIndex);
+                // suppress display of pre-creation state
+                ue = !temp.wasInCurrentStorage() && ueIndex == 0 ? null : temp;
             }
         }
     }
