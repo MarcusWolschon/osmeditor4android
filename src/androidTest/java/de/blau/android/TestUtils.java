@@ -1228,4 +1228,15 @@ public class TestUtils {
     public static void clickSimpleButton(@NonNull UiDevice device) {
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
     }
+
+    /**
+     * Get the lock button
+     * 
+     * @param device the current UiDevice
+     * @return the lock button
+     */
+    @Nullable
+    public static UiObject getLock(@NonNull UiDevice device) {
+        return device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/floatingLock"));
+    }
 }

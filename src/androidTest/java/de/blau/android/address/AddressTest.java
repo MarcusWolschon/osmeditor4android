@@ -1,4 +1,6 @@
-package de.blau.android.propertyeditor;
+package de.blau.android.address;
+
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -22,11 +24,13 @@ import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.Mode;
+import de.blau.android.ModeTest;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
-import de.blau.android.address.Address;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.propertyeditor.PropertyEditor;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -52,17 +56,9 @@ public class AddressTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         instrumentation = InstrumentationRegistry.getInstrumentation();
-        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
-        prefs.enableSimpleActions(false);
-        main.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                main.hideSimpleActionsButton();
-            }
-        });
         map = main.getMap();
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
@@ -81,8 +77,13 @@ public class AddressTest {
     @After
     public void teardown() {
         logic.deselectAll();
+        TestUtils.stopEasyEdit(main);
         TestUtils.zoomToLevel(device, main, 18);
         App.getTaskStorage().reset();
+        ModeTest.switchMode(main, device, TestUtils.getLock(device), R.string.mode_easy, Mode.MODE_EASYEDIT);
+        Preferences prefs = new Preferences(context);
+        prefs.enableSimpleActions(true);
+        map.setPrefs(main, prefs);
     }
 
     /**
@@ -91,12 +92,15 @@ public class AddressTest {
      */
     @SdkSuppress(minSdkVersion = 26)
     @Test
-    public void newAddress() {
+    public void newAddressLongClick() {
+        TestUtils.clickOverflowButton(device);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_simple_actions), true);
         map.getDataLayer().setVisible(true);
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.longClickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
+        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
         TestUtils.clickMenuButton(device, main.getString(R.string.tag_menu_address), false, true);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
@@ -106,5 +110,49 @@ public class AddressTest {
         Assert.assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.tag_menu_address), false, true));
         Assert.assertTrue(TestUtils.findText(device, false, "35"));
         TestUtils.clickHome(device, true);
+    }
+
+    /**
+     * Create a new address Node in address mode
+     */
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void newAddress() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        ModeTest.switchMode(main, device, TestUtils.getLock(device), R.string.mode_address, Mode.MODE_ADDRESS);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickSimpleButton(device);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_add_node_address), true));
+        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        Assert.assertTrue(TestUtils.findText(device, false, "Bergstrasse"));
+        Assert.assertTrue(TestUtils.findText(device, false, "35"));
+        TestUtils.clickHome(device, true);
+    }
+    
+    /**
+     * Create a new address interpolation in address mode
+     */
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void newInterpolation() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        ModeTest.switchMode(main, device, TestUtils.getLock(device), R.string.mode_address, Mode.MODE_ADDRESS);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickSimpleButton(device);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_add_address_interpolation), true));
+        TestUtils.findText(device, false, main.getString(R.string.simple_add_way));
+        TestUtils.clickAtCoordinates(device, map, 8.3905743, 47.3903159, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3909863, 47.3905409, true);
+        TestUtils.clickSimpleButton(device);
+        Assert.assertTrue(TestUtils.findText(device, false, "Raistrasse"));
+        Assert.assertTrue(TestUtils.findText(device, false, "35"));
+        Assert.assertTrue(TestUtils.findText(device, false, "27"));
+        TestUtils.clickText(device, false, main.getString(R.string.okay), true);
     }
 }

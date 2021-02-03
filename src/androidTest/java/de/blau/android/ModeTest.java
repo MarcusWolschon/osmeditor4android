@@ -11,7 +11,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.content.Context;
 import android.view.View;
+import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
@@ -72,7 +74,7 @@ public class ModeTest {
     @SdkSuppress(minSdkVersion = 26)
     @Test
     public void lock() {
-        UiObject lock = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/floatingLock"));
+        UiObject lock = TestUtils.getLock(device);
 
         logic.setLocked(true);
         logic.setZoom(main.getMap(), 20);
@@ -104,7 +106,7 @@ public class ModeTest {
         TestUtils.clickText(device, true, main.getString(R.string.okay), true, false); // for the tip alert
         device.waitForIdle();
 
-        // need to be adapted for new menu
+        // needs to be adapted for new menu
         App.getLogic().setMode(main, Mode.MODE_EASYEDIT); // start from a known state
 
         try {
@@ -121,47 +123,37 @@ public class ModeTest {
         assertFalse(TestUtils.findText(device, false, main.getString(R.string.menu_add_node_address)));
         TestUtils.clickAt(device, 200, 200); // make menu go away
 
-        try {
-            TestUtils.longClick(device, lock);
-        } catch (UiObjectNotFoundException e) {
-            fail(e.getMessage());
-        }
-        TestUtils.clickText(device, false, main.getString(R.string.mode_tag_only), true, false);
-        assertEquals(Mode.MODE_TAG_EDIT, logic.getMode());
+        switchMode(main, device, lock, R.string.mode_tag_only, Mode.MODE_TAG_EDIT);
 
-        try {
-            TestUtils.longClick(device, lock);
-        } catch (UiObjectNotFoundException e) {
-            fail(e.getMessage());
-        }
-        TestUtils.clickText(device, false, main.getString(R.string.mode_address), true, false);
-        assertEquals(Mode.MODE_ADDRESS, logic.getMode());
+        switchMode(main, device, lock, R.string.mode_address, Mode.MODE_ADDRESS);
+
         TestUtils.clickSimpleButton(device);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_add_node_address)));
         TestUtils.clickAt(device, 200, 200); // make menu go away
 
-        try {
-            TestUtils.longClick(device, lock);
-        } catch (UiObjectNotFoundException e) {
-            fail(e.getMessage());
-        }
-        TestUtils.clickText(device, false, main.getString(R.string.mode_indoor), true, false);
-        assertEquals(Mode.MODE_INDOOR, logic.getMode());
+        switchMode(main, device, lock, R.string.mode_indoor, Mode.MODE_INDOOR);
 
-        try {
-            TestUtils.longClick(device, lock);
-        } catch (UiObjectNotFoundException e) {
-            fail(e.getMessage());
-        }
-        TestUtils.clickText(device, false, main.getString(R.string.mode_correct), true, false);
-        assertEquals(Mode.MODE_CORRECT, logic.getMode());
+        switchMode(main, device, lock, R.string.mode_correct, Mode.MODE_CORRECT);
 
+        switchMode(main, device, lock, R.string.mode_easy, Mode.MODE_EASYEDIT);
+    }
+
+    /**
+     * Switch modes
+     * 
+     * @üaram ctx Android Context
+     * @param device the current device
+     * @param lock the lock button
+     * @param newModeName resource new mode name
+     * @param newMode new mode
+     */
+    public static void switchMode(@NonNull Context ctx, @NonNull UiDevice device, @NonNull UiObject lock, @NonNull int newModeName, @NonNull Mode newMode) {
         try {
             TestUtils.longClick(device, lock);
         } catch (UiObjectNotFoundException e) {
             fail(e.getMessage());
         }
-        TestUtils.clickText(device, false, main.getString(R.string.mode_easy), true, false);
-        assertEquals(Mode.MODE_EASYEDIT, logic.getMode());
+        TestUtils.clickText(device, false, ctx.getString(newModeName), true, false);
+        assertEquals(newMode, App.getLogic().getMode());
     }
 }
