@@ -2,9 +2,13 @@
 
 Simple action mode replaces the [long click action](../en/Creating%20new%20objects.md) on the screen with a menu driven way of creating new objects. Long clicks are disabled as long as the mode is active.
 
-The mode can be toggled on and off via an item in the main menu.
+The mode can be toggled on and off via an item in the main menu. 
 
-Tapping the large green floating button will show a menu. After you've select one of the items, you will be asked to tap the screen at the location where you want  to create the object, pan and zoom continues to work. The possible actions are: 
+Tapping the large green floating button will show a menu. After you've select one of the items, you will be asked to tap the screen at the location where you want  to create the object, pan and zoom continues to work. 
+
+Available actions depend on the current active overall mode:
+
+## In Normal, Tag only, Indoor and C-Mode
 
 ### Add tagged node
 
@@ -14,7 +18,17 @@ The created Node is not automatically merged with nearby objects.
 
 ### Add way
 
-Start a new OSM Way at the tapped position, tapping a further position will create the next node and so on. Behaviour is the same as described in [creating new objects](../en/Creating%20new%20objects.md). __Way Nodes will be merged with nearby objects.__
+Start a new OSM Way at the tapped position, tapping a further position will create the next node and so on. Behaviour is similar as described in [creating new objects](../en/Creating%20new%20objects.md). __Way Nodes will be merged with nearby objects.__
+
+Besides tapping the "check mark" button to directly start the [property editor](../en/Property%20editor.md), you can
+
+#### ![Address](../images/address.png) Add address tags
+
+Adds address tags with prediction. If the way is closed this will add the predicted address tags and start the [property editor](../en/Property%20editor.md). If the way is not closed an address interpolation is created and a dedicated editor is started.
+
+#### ![Preset](../images/tag_menu_preset.png) Add preset
+
+Create the current new object, launch the [property editor](../en/Property%20editor.md) and immediately display the preset tab. In multi-pane mode this will simply start the property editor.
 
 ### Add map note
 
@@ -32,4 +46,21 @@ If an OSM object has been copied or cut to the clipboard paste it at the tapped 
 
 If an OSM object has been copied or cut to the clipboard paste it at the tapped position and remain in the same mode allowing to be pasted repeatedly. The mode can then be exited by pressing the back button or the back arrow in the title bar.. This menu item will only be shown if there is something in the clipboard.
 
+## In Address mode
+
+### Add address node
+
+Adds a node at the clicked location and adds address tags with prediction. If the node is part of a building way it will further add "entrance=yes" if not present.
+
+### Add address interpolation
+
+Create an address interpolation and start the dedicated editor. 
+
+Notes: 
+
+- closed ways do not make sense for address interpolations.
+- the start and end address nodes are added at the end of the way, any intermediate address nodes are ignored.
+### Add map note
+
+Create a new OSM map note at the tapped position, starting the note editor. 
 
