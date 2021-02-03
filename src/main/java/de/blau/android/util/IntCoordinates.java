@@ -26,7 +26,11 @@ public class IntCoordinates {
 
     @Override
     public int hashCode() {
-        return Objects.hash(lat, lon);
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + lat;
+        result = prime * result + lon;
+        return result;
     }
 
     @Override
@@ -38,6 +42,12 @@ public class IntCoordinates {
             return false;
         }
         IntCoordinates other = (IntCoordinates) obj;
-        return lat == other.lat && lon == other.lon;
+        if (lat != other.lat) {
+            return false;
+        }
+        if (lon != other.lon) {
+            return false;
+        }
+        return true;
     }
 }
