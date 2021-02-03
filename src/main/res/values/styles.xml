@@ -238,13 +238,15 @@
         <item name="share">@drawable/share_dark</item>
         <item name="error">@color/material_red</item>
         <!--  -->
-        <item name="Layout">@style/Layout</item>
-        <item name="StaticText">@style/StaticTextDark</item>
-        <item name="RadioGroup">@style/RadioGroupStyleDark</item>
-        <item name="autoCompleteTextViewStyle">@style/Widget.AutoCompleteTextView</item>
+        <item name="StaticText">@style/DialogStaticText</item>
+        <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView</item>
         <item name="ListPopupWindowStyle">@style/ListPopupWindowStyle</item>
 	</style>
 	
+    <style name="DialogStaticText" parent="android:Widget.TextView">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    
 	<style name="Theme.DialogLight" parent="@style/Theme.AppCompat.Light.Dialog">
 	    <item name="android:windowNoTitle">false</item>
         <item name="alert_dialog">@drawable/ic_action_warning_holo_light</item>
@@ -252,13 +254,11 @@
         <item name="share">@drawable/share_light</item>
         <item name="error">@color/material_red</item>
         <!--  -->
-        <item name="Layout">@style/LayoutLight</item>
         <item name="StaticText">@style/StaticTextLight</item>
-        <item name="RadioGroup">@style/RadioGroupStyleLight</item>
-        <item name="autoCompleteTextViewStyle">@style/AutoCompleteTextViewLight</item>
+        <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.Light.AutoCompleteTextView</item>
         <item name="ListPopupWindowStyle">@style/ListPopupWindowStyleLight</item>
 	</style>
-	
+
 	<style name="DialogEditTextLight" parent="android:Widget.EditText">
 	    <item name="android:textColor">@android:color/black</item>
 	</style>

@@ -4,14 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
-import android.os.Build;
-import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,9 +16,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
-import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetField;
@@ -114,8 +107,15 @@ public class TextRow extends LinearLayout implements KeyValueRow {
      * @return the ValueType or null
      */
     @Nullable
-    ValueType getValueType() {
+    public ValueType getValueType() {
         return valueType;
+    }
+
+    /**
+     * @param valueType the valueType to set
+     */
+    public void setValueType(ValueType valueType) {
+        this.valueType = valueType;
     }
 
     /**
@@ -231,7 +231,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
      * @param textView the CustomAutoCompleteTextView
      * @param text an Object holding the text
      */
-    private static void setOrReplaceText(final CustomAutoCompleteTextView textView, Object text) {
+    protected static void setOrReplaceText(final CustomAutoCompleteTextView textView, Object text) {
         if (text instanceof ValueWithCount) {
             textView.setOrReplaceText(((ValueWithCount) text).getValue());
         } else if (text instanceof StringWithDescription) {
@@ -242,123 +242,16 @@ public class TextRow extends LinearLayout implements KeyValueRow {
     }
 
     /**
-     * Get a row for an unstructured text value for use outside of the property editor
-     * 
-     * @param context the calling TagFormFragment instance
-     * @param inflater the inflater to use
-     * @param rowLayout the Layout holding the row
-     * @param preset the best matched PresetItem for the key
-     * @param field the PresetField
-     * @param value any existing value for the tag
-     * @param adapter an optional ArrayAdapter with autocomplete values
-     * @return a TagTextRow instance
-     */
-    public static TextRow getSimpleRow(@NonNull final Context context, @NonNull final LayoutInflater inflater, @NonNull final LinearLayout rowLayout,
-            @Nullable final PresetItem preset, @NonNull final PresetField field, @Nullable final String value, @Nullable final ArrayAdapter<?> adapter) {
-        final TextRow row = (TextRow) inflater.inflate(R.layout.tag_form_text_row, rowLayout, false);
-        final String key = field.getKey();
-        final String hint = preset != null ? field.getHint() : null;
-        row.valueType = preset != null ? preset.getValueType(key) : null;
-        final TextView ourKeyView = row.getKeyView();
-        ourKeyView.setText(hint != null ? hint : key);
-        ourKeyView.setTag(key);
-        final CustomAutoCompleteTextView ourValueView = row.getValueView();
-
-        if (field instanceof PresetTextField) {
-            final int length = ((PresetTextField) field).length();
-            if (length > 0) { // if it isn't set don't bother
-                ourValueView.getViewTreeObserver().addOnGlobalLayoutListener(new LayoutListener(ourKeyView, ourValueView, length));
-            }
-        }
-        ourValueView.setText(value);
-
-        // set empty value to be on the safe side
-        ourValueView.setAdapter(new ArrayAdapter<>(context, R.layout.autocomplete_row, new String[0]));
-
-        setHint(field, ourValueView);
-        ourValueView.setOnFocusChangeListener((v, hasFocus) -> {
-            Log.d(DEBUG_TAG, "onFocusChange");
-            String rowValue = row.getValue();
-            if (!hasFocus && !rowValue.equals(value)) {
-                if (rowLayout instanceof EditableLayout) {
-                    ((EditableLayout) rowLayout).putTag(key, rowValue);
-                }
-            } else if (hasFocus) {
-                if (adapter != null && !adapter.isEmpty()) {
-                    ourValueView.setAdapter(adapter);
-                }
-                if (row.getValueType() == null) {
-                    InputTypeUtil.enableTextSuggestions(ourValueView);
-                }
-                InputTypeUtil.setInputTypeFromValueType(ourValueView, row.getValueType());
-            }
-        });
-        ourValueView.setOnItemClickListener((parent, view, position, id) -> {
-            Log.d(DEBUG_TAG, "onItemClicked value");
-            setOrReplaceText(ourValueView, parent.getItemAtPosition(position));
-        });
-        Server server = new Preferences(context).getServer();
-        ourValueView.addTextChangedListener(new SanitizeTextWatcher(context, server.getCachedCapabilities().getMaxStringLength()));
-        return row;
-    }
-
-    /**
      * Set the hint on the value view
      * 
      * @param field the PresetField for the tag
      * @param valueView the View for the value
      */
-    private static void setHint(@Nullable final PresetField field, @NonNull final CustomAutoCompleteTextView valueView) {
+    protected static void setHint(@Nullable final PresetField field, @NonNull final CustomAutoCompleteTextView valueView) {
         if (field instanceof PresetTextField) {
             valueView.setHint(R.string.tag_value_hint);
         } else {
             valueView.setHint(R.string.tag_autocomplete_value_hint);
-        }
-    }
-
-    private static class LayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
-        final TextView                   ourKeyView;
-        final CustomAutoCompleteTextView ourValueView;
-        final int                        length;
-
-        /**
-         * Create a new listener
-         * 
-         * @param keyView the View holding the key
-         * @param valueView the View holding the Value
-         * @param length the length of the value view in characters
-         */
-        LayoutListener(@NonNull TextView keyView, @NonNull CustomAutoCompleteTextView valueView, int length) {
-            this.ourKeyView = keyView;
-            this.ourValueView = valueView;
-            this.length = length;
-        }
-
-        @SuppressWarnings("deprecation")
-        @Override
-        public void onGlobalLayout() {
-            ViewTreeObserver observer = ourValueView.getViewTreeObserver();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                observer.removeOnGlobalLayoutListener(this);
-            } else {
-                observer.removeGlobalOnLayoutListener(this); // NOSONAR
-            }
-            float aM = ourValueView.getPaint().measureText("M"); // FIXME cache this
-            int lines = Math.min((int) (length / aM), 4);
-            if (lines > 1) {
-                ourValueView.setLines(lines);
-                ourValueView.setMaxLines(lines);
-                ourValueView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) ourValueView.getLayoutParams();
-                layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                ourValueView.setLayoutParams(layoutParams);
-                ourValueView.setGravity(Gravity.TOP);
-                layoutParams = (LinearLayout.LayoutParams) ourKeyView.getLayoutParams();
-                layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                ourKeyView.setLayoutParams(layoutParams);
-                ourKeyView.setGravity(Gravity.TOP);
-                ourValueView.requestLayout();
-            }
         }
     }
 }

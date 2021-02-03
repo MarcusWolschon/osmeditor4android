@@ -49,6 +49,7 @@ import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
+import de.blau.android.views.SimpleTextRow;
 
 /**
  * Show a Dialog that allows the user to set the values on an address interpolation way, predicts likely values
@@ -212,7 +213,7 @@ public class AddressInterpolationDialog extends ImmersiveDialogFragment {
                     adapter = placeNameAutocompleteAdapter;
                 }
                 PresetField presetField = presetItem != null ? presetItem.getField(key) : (PresetField) new PresetTextField(key);
-                tagLayout.addView(TextRow.getSimpleRow(context, inflater, tagLayout, presetItem, presetField, entry.getValue(), adapter));
+                tagLayout.addView(SimpleTextRow.getRow(context, inflater, tagLayout, presetItem, presetField, entry.getValue(), adapter));
             }
         }
         Builder builder = new AlertDialog.Builder(activity);
@@ -254,7 +255,6 @@ public class AddressInterpolationDialog extends ImmersiveDialogFragment {
     public void onStart() {
         super.onStart();
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        Tip.showDialog(getActivity(), R.string.tip_tag_conflict_key, R.string.tip_tag_conflict);
     }
 
     @Override
