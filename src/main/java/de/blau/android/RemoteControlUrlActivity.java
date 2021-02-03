@@ -67,14 +67,18 @@ public class RemoteControlUrlActivity extends UrlActivity {
         }
 
         /**
-         * @return the load
+         * Check if we should load data
+         * 
+         * @return true if we should load data
          */
         public boolean load() {
             return load;
         }
 
         /**
-         * @param load the load to set
+         * Set if we should load data
+         * 
+         * @param load if true, load data
          */
         public void setLoad(boolean load) {
             this.load = load;

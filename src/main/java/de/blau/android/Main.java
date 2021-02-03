@@ -1122,6 +1122,7 @@ public class Main extends FullScreenAppCompatActivity
                     });
                 } else {
                     rcDataEdit(rcData);
+                    rcData = null;
                 }
             } else { // zoom
                 map.getViewBox().fitToBoundingBox(getMap(), rcData.getBox());
@@ -1132,6 +1133,7 @@ public class Main extends FullScreenAppCompatActivity
         } else {
             Log.d(DEBUG_TAG, "RC box is null");
             rcDataEdit(rcData);
+            rcData = null;
         }
     }
 
@@ -1321,8 +1323,6 @@ public class Main extends FullScreenAppCompatActivity
         if (rcData.getChangesetSource() != null) {
             logic.setDraftSourceComment(rcData.getChangesetSource());
         }
-        // zap now
-        rcData = null;
     }
 
     @Override
