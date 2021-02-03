@@ -233,7 +233,7 @@ public class GeoContext {
             reader.endObject();
             Log.d(DEBUG_TAG, "Found " + result.size() + " entries.");
         } catch (IOException | NumberFormatException e) {
-            Log.d(DEBUG_TAG, "REading " + fileName + " " + e.getMessage());
+            Log.d(DEBUG_TAG, "Reading " + fileName + " " + e.getMessage());
         }
         return result;
     }
