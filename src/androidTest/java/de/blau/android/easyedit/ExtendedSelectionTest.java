@@ -4,9 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -83,7 +80,9 @@ public class ExtendedSelectionTest {
         TestUtils.zoomToLevel(device, main, 18); // if we are zoomed in too far we might not get the selection popups
         map.getDataLayer().setVisible(true);
         TestUtils.unlock(device);
+        TestUtils.sleep(2000);
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
+        TestUtils.findText(device, false, "Toilets", 10000);
         assertTrue(TestUtils.clickText(device, false, "Toilets", false, false));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
