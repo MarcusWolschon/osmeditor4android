@@ -1117,13 +1117,11 @@ public class Main extends FullScreenAppCompatActivity
                         synchronized (newIntentsLock) {
                             if (rcData != null) {
                                 rcDataEdit(rcData);
-                                rcData = null; // zap to stop repeated/ downloads
                             }
                         }
                     });
                 } else {
                     rcDataEdit(rcData);
-                    rcData = null; // zap to stop repeated downloads
                 }
             } else { // zoom
                 map.getViewBox().fitToBoundingBox(getMap(), rcData.getBox());
@@ -1134,7 +1132,6 @@ public class Main extends FullScreenAppCompatActivity
         } else {
             Log.d(DEBUG_TAG, "RC box is null");
             rcDataEdit(rcData);
-            rcData = null; // zap to stop repeated/ downloads
         }
     }
 
@@ -1263,7 +1260,7 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @param rcData Data of a remote control data URL.
      */
-    private void rcDataEdit(RemoteControlUrlData rcData) {
+    private void rcDataEdit(@NonNull RemoteControlUrlData rcData) {
         BoundingBox box = rcData.getBox();
         if (box != null) {
             map.getViewBox().fitToBoundingBox(getMap(), box);
@@ -1324,6 +1321,8 @@ public class Main extends FullScreenAppCompatActivity
         if (rcData.getChangesetSource() != null) {
             logic.setDraftSourceComment(rcData.getChangesetSource());
         }
+        // zap now
+        rcData = null;
     }
 
     @Override
