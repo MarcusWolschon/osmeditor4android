@@ -453,6 +453,8 @@ public class Main extends FullScreenAppCompatActivity
 
     private Runnable whenPermissionsGranted;
 
+    private Bundle shortcutExtras;
+
     private static final float LARGE_FAB_ELEVATION = 16; // used for renabling elevation on the FABs
 
     /**
@@ -720,7 +722,7 @@ public class Main extends FullScreenAppCompatActivity
 
         PostAsyncActionHandler postLoadData = () -> {
             Intent intent = getIntent();
-            if (rcData != null || geoData != null || contentUri != null || (intent != null && intent.getAction() != null)) {
+            if (rcData != null || geoData != null || contentUri != null || shortcutExtras != null || (intent != null && intent.getAction() != null)) {
                 setShowGPS(false);
                 processIntents();
             } else {
@@ -922,6 +924,7 @@ public class Main extends FullScreenAppCompatActivity
         synchronized (newIntentsLock) {
             geoData = (GeoUrlData) getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
             rcData = (RemoteControlUrlData) getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
+            shortcutExtras = getIntent().getBundleExtra(Splash.SHORTCUT_EXTRAS_KEY);
             Uri uri = getIntent().getData();
             contentUriType = getIntent().getType();
             if (uri != null && ("content".equals(uri.getScheme()) || (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && "file".equals(uri.getScheme())))) {
@@ -1002,6 +1005,25 @@ public class Main extends FullScreenAppCompatActivity
             if (contentUri != null) {
                 processContentUri();
             }
+            if (shortcutExtras != null) {
+                processShortcutExtras();
+            }
+        }
+    }
+
+    /**
+     * If we have been started by a shortcut, process mode and other setup here
+     */
+    void processShortcutExtras() {
+        String mode = shortcutExtras.getString(getString(R.string.mode_key));
+        Log.d(DEBUG_TAG, "Started via shortcut " + mode);
+        if (mode != null) {
+            Mode m = Mode.valueOf(mode);
+            if (m != null) {
+                App.getLogic().setMode(this, m);
+            } else {
+                Log.e(DEBUG_TAG, "Unknown mode " + mode);
+            }
         }
     }
 
@@ -1009,8 +1031,7 @@ public class Main extends FullScreenAppCompatActivity
      * Process an incoming content url
      */
     void processContentUri() {
-        Log.d(DEBUG_TAG, "Processing content uri");
-        Log.d(DEBUG_TAG, "contentUriType " + contentUriType);
+        Log.d(DEBUG_TAG, "Processing content uri contentUriType " + contentUriType);
         if (contentUriType != null) {
             switch (contentUriType) {
             case MimeTypes.JPEG:
