@@ -237,16 +237,28 @@
         <item name="lightbulb_dialog">@drawable/lightbulb_white</item>
         <item name="share">@drawable/share_dark</item>
         <item name="error">@color/material_red</item>
+        <!--  -->
+        <item name="StaticText">@style/DialogStaticText</item>
+        <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView</item>
+        <item name="ListPopupWindowStyle">@style/ListPopupWindowStyle</item>
 	</style>
 	
+    <style name="DialogStaticText" parent="android:Widget.TextView">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    
 	<style name="Theme.DialogLight" parent="@style/Theme.AppCompat.Light.Dialog">
 	    <item name="android:windowNoTitle">false</item>
         <item name="alert_dialog">@drawable/ic_action_warning_holo_light</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_black</item>
         <item name="share">@drawable/share_light</item>
         <item name="error">@color/material_red</item>
+        <!--  -->
+        <item name="StaticText">@style/StaticTextLight</item>
+        <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.Light.AutoCompleteTextView</item>
+        <item name="ListPopupWindowStyle">@style/ListPopupWindowStyleLight</item>
 	</style>
-	
+
 	<style name="DialogEditTextLight" parent="android:Widget.EditText">
 	    <item name="android:textColor">@android:color/black</item>
 	</style>
@@ -534,7 +546,6 @@
 	
 	<style name="AutoCompleteTextViewLight" parent="@style/Widget.AppCompat.Light.AutoCompleteTextView">
 		<item name="android:background">@android:color/white</item>
-<!-- 		<item name="android:popupBackground">@android:color/white</item> -->
 	</style>
 
 	<style name="CheckBoxLight" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
@@ -573,7 +584,7 @@
 	</style>
 
 	<style name="TextAppearanceSpinnerItemLight" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
-<!-- 		<item name="android:textColor">@android:color/black</item> -->
+		<item name="android:textColor">@android:color/black</item>
 	</style>
 	
 	<style name="DownloadedMemberLight" parent="android:Widget.TextView">

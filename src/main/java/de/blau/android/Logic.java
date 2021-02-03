@@ -1725,7 +1725,7 @@ public class Logic {
      * @return the created node
      */
     @NonNull
-    public synchronized Node performAddNode(@Nullable final Activity activity, Double lonD, Double latD) {
+    public synchronized Node performAddNode(@Nullable final Activity activity, double lonD, double latD) {
         int lon = (int) (lonD * 1E7D);
         int lat = (int) (latD * 1E7D);
         return performAddNode(activity, lon, lat);

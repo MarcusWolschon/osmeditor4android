@@ -1,23 +1,23 @@
 package de.blau.android.propertyeditor;
 
-import android.app.Activity;
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import androidx.annotation.Nullable;
 import de.blau.android.util.Util;
 
 public class SanitizeTextWatcher implements TextWatcher {
-    final Activity activity;
-    final int      maxStringLength;
+    final Context context;
+    final int     maxStringLength;
 
     /**
      * Construct a TextWatched that sanitizes the text and displays a message if necessary
      * 
-     * @param activity an Activity if null no messages will be displayed
+     * @param context an Android Context if null no messages will be displayed
      * @param maxStringLength the maximum length of the text
      */
-    public SanitizeTextWatcher(@Nullable Activity activity, int maxStringLength) {
-        this.activity = activity;
+    public SanitizeTextWatcher(@Nullable Context context, int maxStringLength) {
+        this.context = context;
         this.maxStringLength = maxStringLength;
     }
 
@@ -33,6 +33,6 @@ public class SanitizeTextWatcher implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        Util.sanitizeString(activity, s, maxStringLength);
+        Util.sanitizeString(context, s, maxStringLength);
     }
 }

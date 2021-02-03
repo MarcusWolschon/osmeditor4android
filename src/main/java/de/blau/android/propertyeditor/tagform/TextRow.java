@@ -4,14 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
-import android.os.Build;
-import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,10 +18,10 @@ import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.presets.ValueType;
 import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetTextField;
+import de.blau.android.presets.ValueType;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.InputTypeUtil;
 import de.blau.android.propertyeditor.SanitizeTextWatcher;
@@ -112,8 +107,15 @@ public class TextRow extends LinearLayout implements KeyValueRow {
      * @return the ValueType or null
      */
     @Nullable
-    ValueType getValueType() {
+    public ValueType getValueType() {
         return valueType;
+    }
+
+    /**
+     * @param valueType the valueType to set
+     */
+    public void setValueType(ValueType valueType) {
+        this.valueType = valueType;
     }
 
     /**
@@ -169,34 +171,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
         if (field instanceof PresetTextField) {
             final int length = ((PresetTextField) field).length();
             if (length > 0) { // if it isn't set don't bother
-                ourValueView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @SuppressWarnings("deprecation")
-                    @Override
-                    public void onGlobalLayout() {
-                        ViewTreeObserver observer = ourValueView.getViewTreeObserver();
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            observer.removeOnGlobalLayoutListener(this);
-                        } else {
-                            observer.removeGlobalOnLayoutListener(this); // NOSONAR
-                        }
-                        float aM = ourValueView.getPaint().measureText("M"); // FIXME cache this
-                        int lines = Math.min((int) (length / aM), 4);
-                        if (lines > 1) {
-                            ourValueView.setLines(lines);
-                            ourValueView.setMaxLines(lines);
-                            ourValueView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-                            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) ourValueView.getLayoutParams();
-                            layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                            ourValueView.setLayoutParams(layoutParams);
-                            ourValueView.setGravity(Gravity.TOP);
-                            layoutParams = (LinearLayout.LayoutParams) ourKeyView.getLayoutParams();
-                            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                            ourKeyView.setLayoutParams(layoutParams);
-                            ourKeyView.setGravity(Gravity.TOP);
-                            ourValueView.requestLayout();
-                        }
-                    }
-                });
+                ourValueView.getViewTreeObserver().addOnGlobalLayoutListener(new LayoutListener(ourKeyView, ourValueView, length));
             }
         }
         ourValueView.setText(value);
@@ -208,11 +183,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
             // FIXME this should be somewhere better since it creates a non obvious side effect
             ourValueView.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
         }
-        if (field instanceof PresetTextField) {
-            ourValueView.setHint(R.string.tag_value_hint);
-        } else {
-            ourValueView.setHint(R.string.tag_autocomplete_value_hint);
-        }
+        setHint(field, ourValueView);
         ourValueView.setOnFocusChangeListener((v, hasFocus) -> {
             Log.d(DEBUG_TAG, "onFocusChange");
             String rowValue = row.getValue();
@@ -242,12 +213,8 @@ public class TextRow extends LinearLayout implements KeyValueRow {
                 caller.applyTagSuggestions(((NameAndTags) o).getTags(), caller::update);
                 caller.update();
                 return;
-            } else if (o instanceof ValueWithCount) {
-                ourValueView.setOrReplaceText(((ValueWithCount) o).getValue());
-            } else if (o instanceof StringWithDescription) {
-                ourValueView.setOrReplaceText(((StringWithDescription) o).getValue());
-            } else if (o instanceof String) {
-                ourValueView.setOrReplaceText((String) o);
+            } else {
+                setOrReplaceText(ourValueView, o);
             }
             caller.updateSingleValue(key, row.getValue());
             if (rowLayout instanceof EditableLayout) {
@@ -256,5 +223,35 @@ public class TextRow extends LinearLayout implements KeyValueRow {
         });
         ourValueView.addTextChangedListener(new SanitizeTextWatcher(caller.getActivity(), caller.maxStringLength));
         return row;
+    }
+
+    /**
+     * Set the text to display
+     * 
+     * @param textView the CustomAutoCompleteTextView
+     * @param text an Object holding the text
+     */
+    protected static void setOrReplaceText(final CustomAutoCompleteTextView textView, Object text) {
+        if (text instanceof ValueWithCount) {
+            textView.setOrReplaceText(((ValueWithCount) text).getValue());
+        } else if (text instanceof StringWithDescription) {
+            textView.setOrReplaceText(((StringWithDescription) text).getValue());
+        } else if (text instanceof String) {
+            textView.setOrReplaceText((String) text);
+        }
+    }
+
+    /**
+     * Set the hint on the value view
+     * 
+     * @param field the PresetField for the tag
+     * @param valueView the View for the value
+     */
+    protected static void setHint(@Nullable final PresetField field, @NonNull final CustomAutoCompleteTextView valueView) {
+        if (field instanceof PresetTextField) {
+            valueView.setHint(R.string.tag_value_hint);
+        } else {
+            valueView.setHint(R.string.tag_autocomplete_value_hint);
+        }
     }
 }

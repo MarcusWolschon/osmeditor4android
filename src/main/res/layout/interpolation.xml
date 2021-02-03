@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="34dp"
+    android:paddingLeft="?attr/dialogPreferredPadding"
+    android:paddingRight="?attr/dialogPreferredPadding">
+    >
+    <TextView
+        android:id="@+id/start_title"
+        style="?attr/StaticText"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:text="@string/start" />
+    <EditText
+        android:id="@+id/start_edit"
+        android:layout_below="@id/start_title"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="34dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:hint=""
+        android:inputType="textNoSuggestions"
+        android:maxLines="1" />
+    <RelativeLayout
+        android:id="@+id/interpolationContainer"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RadioGroup
+            android:id="@+id/interpolationGroup"
+            style="?attr/RadioGroup"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:saveEnabled="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:minHeight="34dp"
+            android:paddingLeft="0dp"
+            android:paddingStart="0dp"
+            android:paddingRight="5dp"
+            android:paddingEnd="5dp">
+            <RadioButton
+                android:id="@+id/even"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/even" />
+            <RadioButton
+                android:id="@+id/odd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/odd" />
+            <RadioButton
+                android:id="@+id/other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/other" />
+        </RadioGroup>
+        <de.blau.android.views.CustomAutoCompleteTextView
+            android:id="@+id/other_edit"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/interpolationGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="68dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:completionThreshold="1"
+            android:dropDownWidth="wrap_content"
+            android:hint=""
+            android:inputType="textNoSuggestions"
+            android:maxLines="1" />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/end_title"
+        style="?attr/StaticText"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="34dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:text="@string/end" />
+    <EditText
+        android:id="@+id/end_edit"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@id/start_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="34dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:hint=""
+        android:inputType="textNoSuggestions"
+        android:maxLines="1" />
+    <ScrollView
+        android:layout_below="@id/interpolationContainer"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="2">
+        <LinearLayout
+            android:id="@+id/commonTags"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+</RelativeLayout>

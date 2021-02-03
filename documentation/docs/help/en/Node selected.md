@@ -14,6 +14,10 @@ Tapping the icon once will undo the last operation. A long press will display a 
 
 Starts the property editor on the current selection.
 
+### ![Address](../images/address.png) Add address tags
+
+Adds address tags with prediction. If the node is part of a building way it will further add "entrance=yes" if not present.
+
 ### ![Append](../images/tag_menu_append.png) Append 
 
 Add to the way this node is part of. The "Append" action is only available if the node in question is an end node of a way.

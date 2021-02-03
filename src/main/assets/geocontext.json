@@ -52,6 +52,14 @@
             "it",
             "rm",
             "gsw"
+        ],
+        "address-keys": [
+            "addr:housenumber",
+            "addr:housename",
+            "addr:street",
+            "addr:place",
+            "addr:postcode",
+            "addr:city"
         ]
     },
     "cy": {
@@ -231,7 +239,23 @@
         "left-hand-traffic": true
     },
     "th": {
-        "left-hand-traffic": true
+        "left-hand-traffic": true,
+        "address-keys": [
+            "addr:housenumber",
+            "addr:housename",
+            "addr:street",
+            "addr:hamlet",
+            "addr:subdistrict",
+            "addr:district",
+            "addr:province",
+            "addr:postcode"
+        ],
+        "languages": [
+          "th",
+          "nod",
+          "mfa"
+        ]
+        
     },
     "tl": {
         "left-hand-traffic": true

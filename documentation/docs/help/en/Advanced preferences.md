@@ -92,6 +92,10 @@ Settings related to editing.
 
 Always show the element selection context menu if the selection is ambiguous. If turned off the nearest element will be selected. Default: _off_.
 
+### Override address tag default 
+    
+Use our address tag configuration over any region specific values that we may have found. Default: _off_.
+
 ### Address tags
 
 When using address prediction only add the tags configured here.

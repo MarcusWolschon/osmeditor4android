@@ -126,8 +126,7 @@ public final class GeoMath {
      *      projection</a>
      */
     // TODO clamping is likely to lead to issues for objects extending past +-MAX_LAT given that they will never be in a
-    // drawing box
-    // this should simple throw an exception and let the drawing code handle it
+    // drawing box this should simple throw an exception and let the drawing code handle it
     public static double latToMercator(double lat) {
         lat = Math.min(MAX_COMPAT_LAT, lat);
         lat = Math.max(-MAX_COMPAT_LAT, lat);
@@ -204,11 +203,23 @@ public final class GeoMath {
     }
 
     /**
+     * Calculate the smallest bounding box that contains a circle of the given radius around center
+     * 
+     * @param center center coordinates
+     * @param radius Radius in metres to be contained in the box.
+     * @return The BoundingBox that contains the specified area, values clamped to not cross the dateline)
+     * @throws OsmException if the bounding box cannot be calculated
+     */
+    public static BoundingBox createBoundingBoxForCoordinates(IntCoordinates center, final double radius) throws OsmException {
+        return createBoundingBoxForCoordinates(center.lat / 1E7D, center.lon / 1E7D, radius, false);
+    }
+
+    /**
      * Calculate the smallest bounding box that contains a circle of the given radius in metres centered at the given
      * lat/lon.
      * 
-     * @param lat Latitude of box centre (within maximum values that we can convert to mercator)
-     * @param lon Longitude of box centre
+     * @param lat Latitude of box center (within maximum values that we can convert to mercator)
+     * @param lon Longitude of box center
      * @param radius Radius in metres to be contained in the box.
      * @param checkSize check that boundingbox would be a legal bb for the OSM api
      * @return The BoundingBox that contains the specified area, values clamped to not cross the dateline)
@@ -371,7 +382,7 @@ public final class GeoMath {
      * @param node2Y the y coordinate of node2 (end point of the line)
      * @return the distance of the point from the line specified by node1 and node2
      */
-    public static double getLineDistance(float x, float y, float node1X, float node1Y, float node2X, float node2Y) {
+    public static double getLineDistance(double x, double y, double node1X, double node1Y, double node2X, double node2Y) {
         // http://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
         // (adaptation of Ben Gotow's post of 23-Jun-2012, originally Joshua's post of 28-Jul-2011)
         double a, b, c, d, dot, len2, t, xx, yy;

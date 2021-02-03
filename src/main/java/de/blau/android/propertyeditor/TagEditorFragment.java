@@ -47,6 +47,7 @@ import androidx.fragment.app.FragmentTransaction;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.address.Address;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
@@ -1963,7 +1964,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * 
      * @param rowLayout the Layout holding the rows
      * @param allowBlanks If true, includes key-value pairs where one or the other is blank.
-     * @return The LinkedHashMap&gt;String,String&lt; of key-value pairs.
+     * @return The LinkedHashMap&lt;String,List&lt;String&gt;&gt; of key-value pairs.
      */
     private LinkedHashMap<String, List<String>> getKeyValueMap(LinearLayout rowLayout, final boolean allowBlanks) {
 

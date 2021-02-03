@@ -35,7 +35,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
          * @param x screen x coordinate
          * @param y screen y coordinate
          */
-        void action(final Main main, final EasyEditManager manager, final float x, final float y);
+        void action(@NonNull final Main main, @NonNull final EasyEditManager manager, final float x, final float y);
     }
 
     public enum SimpleAction {
@@ -50,12 +50,46 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             Node node = App.getLogic().performAddNode(main, GeoMath.xToLonE7(width, box, x), GeoMath.yToLatE7(height, width, box, y));
             main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
             main.performTagEdit(node, null, false, true);
-        }),
+        }) {
+            @Override
+            public boolean isEnabled() {
+                return App.getLogic().getMode().enabledSimpleActions().contains(this);
+            }
+        },
+        /**
+         * Add an address node with with nearby elements, start the PropertyEditor with the Preset tab
+         */
+        ADDRESS_NODE(R.string.menu_add_node_address, R.string.simple_add_node, (main, manager, x, y) -> {
+            App.getLogic().performAdd(main, x, y);
+            Node node = App.getLogic().getSelectedNode();
+            main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
+            main.performTagEdit(node, null, true, false);
+        }) {
+            @Override
+            public boolean isEnabled() {
+                return App.getLogic().getMode().enabledSimpleActions().contains(this);
+            }
+        },
         /**
          * Add a way starting the normal path creation mode
          */
         WAY(R.string.menu_add_way, R.string.simple_add_way,
-                (main, manager, x, y) -> main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y))),
+                (main, manager, x, y) -> main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y))) {
+            @Override
+            public boolean isEnabled() {
+                return App.getLogic().getMode().enabledSimpleActions().contains(this);
+            }
+        },
+        /**
+         * Add a way starting the normal path creation mode
+         */
+        INTERPOLATION_WAY(R.string.menu_add_address_interpolation, R.string.simple_add_way,
+                (main, manager, x, y) -> main.startSupportActionMode(new AddressInterpolationActionModeCallback(manager, x, y))) {
+            @Override
+            public boolean isEnabled() {
+                return App.getLogic().getMode().enabledSimpleActions().contains(this);
+            }
+        },
         /**
          * Add a note
          */
@@ -74,14 +108,24 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             }
             Note note = App.getLogic().makeNewNote(x, y);
             TaskFragment.showDialog(main, note);
-        }),
+        }) {
+            @Override
+            public boolean isEnabled() {
+                return App.getLogic().getMode().enabledSimpleActions().contains(this);
+            }
+        },
         /**
-         * Add a node merging with nearby elements
+         * Add a node, merging with nearby elements
          */
         NODE(R.string.menu_add_node, R.string.simple_add_node, (main, manager, x, y) -> {
             App.getLogic().performAdd(main, x, y);
             main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, App.getLogic().getSelectedNode()));
-        }),
+        }) {
+            @Override
+            public boolean isEnabled() {
+                return App.getLogic().getMode().enabledSimpleActions().contains(this);
+            }
+        },
         /**
          * Paste an object from the clipboard
          */

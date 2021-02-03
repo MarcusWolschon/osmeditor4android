@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Misc internal string values -->
+    <string name="mode_key">mode</string>
+</resources>

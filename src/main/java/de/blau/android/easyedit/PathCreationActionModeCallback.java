@@ -12,6 +12,7 @@ import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.dialogs.AddressInterpolationDialog;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -28,8 +29,9 @@ import de.blau.android.util.Util;
 public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private static final String DEBUG_TAG = "PathCreationAction...";
 
-    private static final int MENUITEM_UNDO          = 1;
-    private static final int MENUITEM_NEWWAY_PRESET = 2;
+    protected static final int MENUITEM_UNDO          = 1;
+    private static final int   MENUITEM_NEWWAY_PRESET = 2;
+    private static final int   MENUITEM_ADDRESS       = 3;
 
     private static final String NODE_IDS_KEY          = "node ids";
     private static final String EXISTING_NODE_IDS_KEY = "existing node ids";
@@ -48,11 +50,11 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private boolean dontTag = false;
 
     /** contains a pointer to the created way if one was created. used to fix selection after undo. */
-    private Way        createdWay    = null;
+    private Way          createdWay    = null;
     /** contains a list of added nodes. used to fix selection after undo. */
-    private List<Node> addedNodes    = new ArrayList<>();
+    protected List<Node> addedNodes    = new ArrayList<>();
     /** nodes we added that already existed */
-    private List<Node> existingNodes = new ArrayList<>();
+    private List<Node>   existingNodes = new ArrayList<>();
 
     private String savedTitle = null;
 
@@ -154,6 +156,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo))
                 .setVisible(!addedNodes.isEmpty());
         menu.add(Menu.NONE, MENUITEM_NEWWAY_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_preset));
+        menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
         menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         arrangeMenu(menu);
         return super.onPrepareActionMode(mode, menu);
@@ -189,10 +192,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         }
         if (logic.getSelectedNode() == null) {
             // user clicked last node again -> finish adding
-            delayedResetHasProblem(lastSelectedWay);
-            manager.finish();
-            removeCheckpoint();
-            tagApplicable(lastSelectedNode, lastSelectedWay, true);
+            finishPath(lastSelectedWay, lastSelectedNode);
         } else { // update cache for undo
             createdWay = logic.getSelectedWay();
             if (createdWay == null) {
@@ -215,24 +215,30 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     /**
      * Remove spurious empty checkpoint created by touching again
      */
-    private void removeCheckpoint() {
+    protected void removeCheckpoint() {
         App.getLogic().removeCheckpoint(main, createdWay != null ? R.string.undo_action_moveobjects : R.string.undo_action_movenode);
     }
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         super.onActionItemClicked(mode, item);
-        switch (item.getItemId()) {
+        final int itemId = item.getItemId();
+        switch (itemId) {
         case MENUITEM_UNDO:
             handleUndo();
             break;
         case MENUITEM_NEWWAY_PRESET:
+        case MENUITEM_ADDRESS:
             Way lastSelectedWay = logic.getSelectedWay();
             if (lastSelectedWay != null) {
                 dontTag = true;
                 main.startSupportActionMode(new WaySelectionActionModeCallback(manager, lastSelectedWay));
-                // show preset screen
-                main.performTagEdit(lastSelectedWay, null, false, item.getItemId() == MENUITEM_NEWWAY_PRESET);
+                if (itemId == MENUITEM_ADDRESS && !lastSelectedWay.isClosed()) {
+                    AddressInterpolationDialog.showDialog(main, lastSelectedWay);
+                } else {
+                    // show preset screen
+                    main.performTagEdit(lastSelectedWay, null, itemId == MENUITEM_ADDRESS, itemId == MENUITEM_NEWWAY_PRESET);
+                }
             }
             return true;
         default:
@@ -292,7 +298,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
      * 
      * @param way the way that we want to enable validation on
      */
-    private void delayedResetHasProblem(@NonNull final Way way) {
+    protected void delayedResetHasProblem(@Nullable final Way way) {
         Map map = main.getMap();
         if (map != null) {
             map.postDelayed(() -> {
@@ -315,6 +321,16 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     protected void finishBuilding() {
         final Way lastSelectedWay = logic.getSelectedWay();
         final Node lastSelectedNode = logic.getSelectedNode();
+        finishPath(lastSelectedWay, lastSelectedNode);
+    }
+
+    /**
+     * Common code for finishing a path
+     * 
+     * @param lastSelectedWay the way
+     * @param lastSelectedNode the node
+     */
+    protected void finishPath(@Nullable final Way lastSelectedWay, @Nullable final Node lastSelectedNode) {
         manager.finish();
         removeCheckpoint();
         if (!addedNodes.isEmpty() && !dontTag) {

@@ -1,12 +1,16 @@
 package de.blau.android;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Set;
 
 import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.easyedit.SimpleActionModeCallback.SimpleAction;
 import de.blau.android.filter.CorrectFilter;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.IndoorFilter;
@@ -22,17 +26,28 @@ import de.blau.android.presets.PresetElementPath;
 public enum Mode {
 
     /**
-     * edit geometries in "easyedit" mode
+     * Edit geometries in "easyedit" mode
      */
     MODE_EASYEDIT(R.string.mode_easy, "EASY", true, true, true, true, null, R.drawable.unlocked_white, new FilterModeConfig()),
     /**
-     * tag edit only mode
+     * Tag edit only mode
      */
     MODE_TAG_EDIT(R.string.mode_tag_only, "TAG", true, true, false, true, null, R.drawable.unlocked_tag_white, new FilterModeConfig()),
+    /**
+     * Address adding mode
+     */
+    MODE_ADDRESS(R.string.mode_address, "ADDRESS", true, true, true, true, null, R.drawable.unlocked_address_white, new FilterModeConfig() {
+
+        @Override
+        public Set<SimpleAction> enabledSimpleActions() {
+            return Collections.unmodifiableSet(EnumSet.of(SimpleAction.ADDRESS_NODE, SimpleAction.INTERPOLATION_WAY, SimpleAction.NOTE));
+        }
+    }),
     /**
      * Background alignment mode
      */
     MODE_ALIGN_BACKGROUND(R.string.mode_easy, "EASY", false, false, false, false, MODE_EASYEDIT, R.drawable.unlocked_white, new ModeConfig() {
+
         @Override
         public void setup(Main main, Logic logic) {
             if (main.getBackgroundAlignmentActionModeCallback() == null) {
@@ -90,17 +105,15 @@ public enum Mode {
             // indoor mode is a special case of a filter
             // needs to be removed here and previous filter, if any, restored
             Filter filter = logic.getFilter();
-            if (filter != null) {
-                if (filter instanceof IndoorFilter) {
-                    filter.saveState();
-                    filter.hideControls();
-                    filter.removeControls();
-                    filter = filter.getSavedFilter();
-                    logic.setFilter(filter);
-                    if (filter != null) {
-                        filter.addControls(main.getMapLayout(), updater);
-                        filter.showControls();
-                    }
+            if (filter instanceof IndoorFilter) {
+                filter.saveState();
+                filter.hideControls();
+                filter.removeControls();
+                filter = filter.getSavedFilter();
+                logic.setFilter(filter);
+                if (filter != null) {
+                    filter.addControls(main.getMapLayout(), updater);
+                    filter.showControls();
                 }
             }
         }
@@ -122,9 +135,7 @@ public enum Mode {
         public ArrayList<PresetElementPath> getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
             return null;
         }
-    }),
-
-    MODE_CORRECT(R.string.mode_correct, "CORRECT", true, true, true, false, null, R.drawable.unlocked_correct_white, new ModeConfig() {
+    }), MODE_CORRECT(R.string.mode_correct, "CORRECT", true, true, true, false, null, R.drawable.unlocked_correct_white, new ModeConfig() {
 
         @Override
         public void setup(final Main main, final Logic logic) {
@@ -153,20 +164,18 @@ public enum Mode {
             // indoor mode is a special case of a filter
             // needs to be removed here and previous filter, if any, restored
             Filter filter = logic.getFilter();
-            if (filter != null) {
-                if (filter instanceof CorrectFilter) {
-                    filter.saveState();
-                    filter.hideControls();
-                    filter.removeControls();
-                    filter = filter.getSavedFilter();
-                    logic.setFilter(filter);
-                    if (filter != null) {
-                        filter.addControls(main.getMapLayout(), () -> {
-                            logic.invalidateMap();
-                            main.scheduleAutoLock();
-                        });
-                        filter.showControls();
-                    }
+            if (filter instanceof CorrectFilter) {
+                filter.saveState();
+                filter.hideControls();
+                filter.removeControls();
+                filter = filter.getSavedFilter();
+                logic.setFilter(filter);
+                if (filter != null) {
+                    filter.addControls(main.getMapLayout(), () -> {
+                        logic.invalidateMap();
+                        main.scheduleAutoLock();
+                    });
+                    filter.showControls();
                 }
             }
         }
@@ -415,5 +424,15 @@ public enum Mode {
             return config.getPresetItems(ctx, e);
         }
         return null;
+    }
+
+    /**
+     * Get the currently enabled SimpleActions
+     * 
+     * @return a Set of SimpleAction
+     */
+    @NonNull
+    public Set<SimpleAction> enabledSimpleActions() {
+        return config.enabledSimpleActions();
     }
 }

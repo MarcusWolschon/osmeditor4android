@@ -32,6 +32,8 @@ import de.blau.android.resources.TileLayerSource;
 public class Splash extends AppCompatActivity {
     private static final String DEBUG_TAG = "Splash";
 
+    static final String SHORTCUT_EXTRAS_KEY = "shortcut_extras";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +111,7 @@ public class Splash extends AppCompatActivity {
                     Progress.dismissDialog(Splash.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
                 }
                 Intent intent = new Intent(Splash.this, Main.class);
+                intent.putExtra(SHORTCUT_EXTRAS_KEY, getIntent().getExtras());
                 startActivity(intent);
                 Splash.this.finish();
             }

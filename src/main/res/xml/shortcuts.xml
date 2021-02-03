@@ -11,4 +11,46 @@
       android:targetClass="de.blau.android.HelpViewer" />
     <categories android:name="android.shortcut.conversation" />
   </shortcut>
+  <shortcut
+    android:shortcutId="indoor"
+    android:enabled="true"
+    android:icon="@drawable/vespucci_logo_foreground"
+    android:shortcutShortLabel="@string/mode_indoor"
+    android:shortcutLongLabel="@string/mode_indoor" >   
+    <intent
+      android:action="android.intent.action.MAIN"
+      android:targetPackage="de.blau.android"
+      android:targetClass="de.blau.android.Splash">
+        <extra android:name="mode" android:value="MODE_INDOOR" />
+      </intent>
+    <categories android:name="android.shortcut.conversation" />
+  </shortcut>
+  <shortcut
+    android:shortcutId="tag_only"
+    android:enabled="true"
+    android:icon="@drawable/vespucci_logo_foreground"
+    android:shortcutShortLabel="@string/mode_tag_only"
+    android:shortcutLongLabel="@string/mode_tag_only" >   
+    <intent
+      android:action="android.intent.action.MAIN"
+      android:targetPackage="de.blau.android"
+      android:targetClass="de.blau.android.Splash">
+        <extra android:name="mode" android:value="MODE_TAG_EDIT" />
+      </intent>
+    <categories android:name="android.shortcut.conversation" />
+  </shortcut>
+  <shortcut
+    android:shortcutId="address"
+    android:enabled="true"
+    android:icon="@drawable/address_light"
+    android:shortcutShortLabel="@string/mode_address"
+    android:shortcutLongLabel="@string/mode_address" >   
+    <intent
+      android:action="android.intent.action.MAIN"
+      android:targetPackage="de.blau.android"
+      android:targetClass="de.blau.android.Splash">
+        <extra android:name="mode" android:value="MODE_ADDRESS" />
+      </intent>
+    <categories android:name="android.shortcut.conversation" />
+  </shortcut>
 </shortcuts>

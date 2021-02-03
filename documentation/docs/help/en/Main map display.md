@@ -16,6 +16,7 @@ All the mode options are
 
 * __Normal__ conventional editing mode.
 * __Tag only__ selecting an object will immediately start the property editor.
+* __Address__ slightly simplified dedicated mode for surveying addresses.
 * __Indoor__ indoor editing with level selector.
 * __C-Mode__ "complete" mode, only objects with validation warnings will be shown.
 

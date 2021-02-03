@@ -179,6 +179,11 @@
             android:key="@string/config_forceContextMenu_key"
             android:summary="@string/config_forceContextMenu_summary"
             android:title="@string/config_forceContextMenu_title" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/config_overrideRegionAddressTags_key"
+            android:summary="@string/config_overrideRegionAddressTags_summary"
+            android:title="@string/config_overrideRegionAddressTags_title" />
         <androidx.preference.MultiSelectListPreference
             android:key="@string/config_addressTags_key"
             android:title="@string/config_address_tags"
