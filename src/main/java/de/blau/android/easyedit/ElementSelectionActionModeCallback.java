@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.view.ActionMode;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import de.blau.android.App;
@@ -33,6 +34,7 @@ import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
 import de.blau.android.dialogs.ElementInfo;
+import de.blau.android.dialogs.EmptyRelation;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -357,6 +359,27 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      * @param mode the ActionMode
      */
     protected abstract void menuDelete(ActionMode mode);
+
+    /**
+     * Check if any of the relations are empty and offer to delete them
+     * 
+     * @param activity calling FragmentActivity
+     * @param relations a List of Relation to check
+     */
+    public static void checkEmptyRelations(@NonNull FragmentActivity activity, @Nullable List<Relation> relations) {
+        if (relations != null) {
+            Set<Long> empty = new HashSet<>();
+            for (Relation r : relations) {
+                final List<RelationMember> members = r.getMembers();
+                if (members == null || members.isEmpty()) {
+                    empty.add(r.getOsmId());
+                }
+            }
+            if (!empty.isEmpty()) {
+                EmptyRelation.showDialog(activity, new ArrayList<>(empty));
+            }
+        }
+    }
 
     /**
      * Opens the history page of the selected element in a browser

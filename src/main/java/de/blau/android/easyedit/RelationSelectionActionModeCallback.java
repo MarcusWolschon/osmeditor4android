@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
@@ -128,15 +129,24 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
         final Relation r = (Relation) element;
         if (r.hasParentRelations()) {
             new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deleterelation_relation_description)
-                    .setPositiveButton(R.string.deleterelation, (dialog, which) -> {
-                        logic.performEraseRelation(main, r, true);
-                        if (mode != null) {
-                            mode.finish();
-                        }
-                    }).show();
+                    .setPositiveButton(R.string.deleterelation, (dialog, which) -> deleteRelation(mode, r)).show();
         } else {
-            logic.performEraseRelation(main, r, true);
+            deleteRelation(mode, r);
+        }
+    }
+
+    /**
+     * Actually delete the Relation
+     * 
+     * @param mode the ActionMode
+     * @param r the Relation
+     */
+    private void deleteRelation(@Nullable final ActionMode mode, @NonNull final Relation r) {
+        List<Relation> origParents = new ArrayList<>(r.getParentRelations());
+        logic.performEraseRelation(main, r, true);
+        if (mode != null) {
             mode.finish();
         }
+        checkEmptyRelations(main, origParents);
     }
 }

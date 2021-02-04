@@ -1,5 +1,6 @@
 package de.blau.android.easyedit;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
@@ -294,11 +296,13 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
      * 
      * @param mode the current ActionMode
      */
-    private void deleteWay(final ActionMode mode) {
+    private void deleteWay(@Nullable final ActionMode mode) {
+        List<Relation> origParents = new ArrayList<>(element.getParentRelations());
         logic.performEraseWay(main, (Way) element, true, true);
         if (mode != null) {
             mode.finish();
         }
+        checkEmptyRelations(main, origParents);
     }
 
     /**

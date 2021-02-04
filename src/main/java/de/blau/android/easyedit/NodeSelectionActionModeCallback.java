@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
@@ -27,6 +28,7 @@ import de.blau.android.easyedit.turnrestriction.FromElementWithViaNodeActionMode
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -268,16 +270,24 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     protected void menuDelete(final ActionMode mode) {
         if (element.hasParentRelations()) {
             new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deletenode_relation_description)
-                    .setPositiveButton(R.string.deletenode, (dialog, which) -> {
-                        logic.performEraseNode(main, (Node) element, true);
-                        if (mode != null) {
-                            mode.finish();
-                        }
-                    }).show();
+                    .setPositiveButton(R.string.deletenode, (dialog, which) -> deleteNode(mode)).show();
         } else {
-            logic.performEraseNode(main, (Node) element, true);
+            deleteNode(mode);
+        }
+    }
+
+    /**
+     * Delete the Node
+     * 
+     * @param mode the current ActionMode
+     */
+    private void deleteNode(@Nullable final ActionMode mode) {
+        List<Relation> origParents = new ArrayList<>(element.getParentRelations());
+        logic.performEraseNode(main, (Node) element, true);
+        if (mode != null) {
             mode.finish();
         }
+        checkEmptyRelations(main, origParents);
     }
 
     @Override

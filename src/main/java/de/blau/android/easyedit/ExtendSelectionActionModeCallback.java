@@ -1,7 +1,9 @@
 package de.blau.android.easyedit;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
@@ -399,7 +401,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     /**
      * Delete action
      * 
-     * @param deleteFromRelations if true the elements will be deleted without regards for their Relation memebrship
+     * @param deleteFromRelations if true the elements will be deleted without regards for their Relation membership
      */
     private void menuDelete(boolean deleteFromRelations) {
         Log.d(DEBUG_TAG, "menuDelete " + deleteFromRelations + " " + selection);
@@ -424,8 +426,17 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
             }
         }
 
+        List<Relation> origParents = new ArrayList<>();
+        for (OsmElement e : selection) {
+            List<Relation> temp = e.getParentRelations();
+            if (temp != null) {
+                origParents.addAll(temp);
+            }
+        }
         logic.performEraseMultipleObjects(main, selection);
-
+        
+        // check for new empty relations
+        ElementSelectionActionModeCallback.checkEmptyRelations(main, origParents);
         manager.finish();
     }
 

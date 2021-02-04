@@ -55,6 +55,7 @@ import de.blau.android.dialogs.InvalidLogin;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.dialogs.UploadConflict;
+import de.blau.android.easyedit.ElementSelectionActionModeCallback;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -679,15 +680,19 @@ public class Logic {
      * @param parents new parent relations
      * @return false if no element exists for the given osmId/type.
      */
-    public synchronized boolean updateParentRelations(@Nullable Activity activity, final String type, final long osmId,
+    public synchronized boolean updateParentRelations(@Nullable FragmentActivity activity, final String type, final long osmId,
             final MultiHashMap<Long, RelationMemberPosition> parents) {
         OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to update relations on a non-existing element");
             return false;
         } else {
+            List<Relation> originalParents = new ArrayList<>(osmElement.getParentRelations());
             createCheckpoint(activity, R.string.undo_action_update_relations);
             getDelegator().updateParentRelations(osmElement, parents);
+            if (activity != null) {
+                ElementSelectionActionModeCallback.checkEmptyRelations(activity, originalParents);
+            }
             return true;
         }
     }
