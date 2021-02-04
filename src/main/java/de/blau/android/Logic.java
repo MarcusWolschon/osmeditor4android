@@ -687,7 +687,7 @@ public class Logic {
             Log.e(DEBUG_TAG, "Attempted to update relations on a non-existing element");
             return false;
         } else {
-            List<Relation> originalParents = new ArrayList<>(osmElement.getParentRelations());
+            List<Relation> originalParents = osmElement.hasParentRelations() ? new ArrayList<>(osmElement.getParentRelations()) : null;
             createCheckpoint(activity, R.string.undo_action_update_relations);
             getDelegator().updateParentRelations(osmElement, parents);
             if (activity != null) {

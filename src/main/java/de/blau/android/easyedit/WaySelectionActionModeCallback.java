@@ -297,7 +297,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
      * @param mode the current ActionMode
      */
     private void deleteWay(@Nullable final ActionMode mode) {
-        List<Relation> origParents = new ArrayList<>(element.getParentRelations());
+        List<Relation> origParents = element.hasParentRelations() ? new ArrayList<>(element.getParentRelations()) : null;
         logic.performEraseWay(main, (Way) element, true, true);
         if (mode != null) {
             mode.finish();

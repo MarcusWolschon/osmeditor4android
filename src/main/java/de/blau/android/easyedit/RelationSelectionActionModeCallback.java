@@ -142,7 +142,7 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
      * @param r the Relation
      */
     private void deleteRelation(@Nullable final ActionMode mode, @NonNull final Relation r) {
-        List<Relation> origParents = new ArrayList<>(r.getParentRelations());
+        List<Relation> origParents = r.hasParentRelations() ? new ArrayList<>(r.getParentRelations()) : null;
         logic.performEraseRelation(main, r, true);
         if (mode != null) {
             mode.finish();

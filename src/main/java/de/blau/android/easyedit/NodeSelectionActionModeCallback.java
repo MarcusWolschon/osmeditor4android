@@ -282,7 +282,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      * @param mode the current ActionMode
      */
     private void deleteNode(@Nullable final ActionMode mode) {
-        List<Relation> origParents = new ArrayList<>(element.getParentRelations());
+        List<Relation> origParents = element.hasParentRelations() ? new ArrayList<>(element.getParentRelations()) : null;
         logic.performEraseNode(main, (Node) element, true);
         if (mode != null) {
             mode.finish();
