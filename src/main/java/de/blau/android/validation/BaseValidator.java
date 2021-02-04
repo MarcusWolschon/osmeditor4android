@@ -22,6 +22,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
@@ -90,8 +91,8 @@ public class BaseValidator implements Validator {
     }
 
     /**
-     * Test if the element has any problems by searching all the tags for the words "fixme" or "todo", or if it has a //NOSONAR
-     * key in the list of things to regularly re-survey
+     * Test if the element has any problems by searching all the tags for the words "fixme" or "todo", or if it has a
+     * //NOSONAR key in the list of things to regularly re-survey
      * 
      * @param status status before calling this method
      * @param e the OsmElement
@@ -493,6 +494,10 @@ public class BaseValidator implements Validator {
         if (noType(relation)) {
             status = status | Validator.NO_TYPE;
         }
+        List<RelationMember> members = relation.getMembers();
+        if (members == null || members.isEmpty()) {
+            status = status | Validator.EMPTY_RELATION;
+        }
         if (status == Validator.NOT_VALIDATED) {
             status = Validator.OK;
         }
@@ -553,6 +558,9 @@ public class BaseValidator implements Validator {
         }
         if (noType(relation)) {
             result.add(ctx.getString(R.string.toast_notype));
+        }
+        if ((relation.getCachedProblems() & Validator.EMPTY_RELATION) != 0) {
+            result.add(ctx.getString(R.string.empty_relation_title));
         }
         return result.toArray(new String[result.size()]);
     }
