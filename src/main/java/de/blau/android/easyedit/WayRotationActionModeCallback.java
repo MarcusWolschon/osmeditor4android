@@ -41,4 +41,14 @@ public class WayRotationActionModeCallback extends NonSimpleActionModeCallback {
         logic.hideCrosshairs();
         super.onDestroyActionMode(mode);
     }
+
+    @Override
+    protected void onCloseClicked() {
+        Way way = logic.getSelectedWay();
+        if (way != null) {
+            main.startSupportActionMode(new WaySelectionActionModeCallback(manager, way));
+        } else {
+            super.onCloseClicked();
+        }
+    }
 }
