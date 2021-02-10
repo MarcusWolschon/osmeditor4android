@@ -37,8 +37,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetFixedField;
-import de.blau.android.tasks.Note;
-import de.blau.android.tasks.TaskFragment;
+import de.blau.android.tasks.NoteFragment;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.IntCoordinates;
 import de.blau.android.util.SearchIndexUtils;
@@ -47,7 +46,8 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.voice.Commands;
 
-public class LongClickActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
+public class LongClickActionModeCallback extends EasyEditActionModeCallback
+        implements android.view.MenuItem.OnMenuItemClickListener {
     private static final String DEBUG_TAG                = "LongClickActionMode...";
     private static final int    MENUITEM_OSB             = 1;
     private static final int    MENUITEM_NEWNODEWAY      = 2;
@@ -69,9 +69,12 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     /**
      * Construct a callback for when a long click has occurred
      * 
-     * @param manager the EasyEditManager instance
-     * @param x screen x coordinate
-     * @param y screen y coordinate
+     * @param manager
+     *            the EasyEditManager instance
+     * @param x
+     *            screen x coordinate
+     * @param y
+     *            screen y coordinate
      */
     public LongClickActionModeCallback(EasyEditManager manager, float x, float y) {
         super(manager);
@@ -104,26 +107,35 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
         menuUtil.reset();
         Preferences prefs = new Preferences(main);
         if (prefs.voiceCommandsEnabled()) {
-            menu.add(Menu.NONE, MENUITEM_NEWNODE_VOICE, Menu.NONE, R.string.menu_voice_commands).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.mic))
+            menu.add(Menu.NONE, MENUITEM_NEWNODE_VOICE, Menu.NONE, R.string.menu_voice_commands)
+                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.mic))
                     .setEnabled(main.isConnectedOrConnecting());
         }
         menu.add(Menu.NONE, MENUITEM_NEWNODE_ADDRESS, Menu.NONE, R.string.tag_menu_address)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
-        menu.add(Menu.NONE, MENUITEM_NEWNODE_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_preset));
-        menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_bug));
-        if ((clickedNonClosedWays != null && !clickedNonClosedWays.isEmpty()) && (clickedNodes == null || clickedNodes.isEmpty())) {
-            menu.add(Menu.NONE, MENUITEM_SPLITWAY, Menu.NONE, R.string.menu_split).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_split));
+        menu.add(Menu.NONE, MENUITEM_NEWNODE_PRESET, Menu.NONE, R.string.tag_menu_preset)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_preset));
+        menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_bug));
+        if ((clickedNonClosedWays != null && !clickedNonClosedWays.isEmpty())
+                && (clickedNodes == null || clickedNodes.isEmpty())) {
+            menu.add(Menu.NONE, MENUITEM_SPLITWAY, Menu.NONE, R.string.menu_split)
+                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_split));
         }
         menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_append));
         if (!logic.clipboardIsEmpty()) {
-            menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_paste));
+            menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste)
+                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_paste));
         }
         // check if GPS is enabled
-        if (((LocationManager) main.getSystemService(android.content.Context.LOCATION_SERVICE)).isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            menu.add(Menu.NONE, MENUITEM_NEWNODE_GPS, Menu.NONE, R.string.menu_newnode_gps).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_gps));
+        if (((LocationManager) main.getSystemService(android.content.Context.LOCATION_SERVICE))
+                .isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            menu.add(Menu.NONE, MENUITEM_NEWNODE_GPS, Menu.NONE, R.string.menu_newnode_gps)
+                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_gps));
         }
-        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         arrangeMenu(menu);
         return true;
     }
@@ -133,7 +145,8 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
      */
     @Override
     public boolean handleClick(float x, float y) {
-        PathCreationActionModeCallback pcamc = new PathCreationActionModeCallback(manager, logic.lonE7ToX(startLon), logic.latE7ToY(startLat));
+        PathCreationActionModeCallback pcamc = new PathCreationActionModeCallback(manager, logic.lonE7ToX(startLon),
+                logic.latE7ToY(startLat));
         main.startSupportActionMode(pcamc);
         pcamc.handleClick(x, y);
         logic.hideCrosshairs();
@@ -192,8 +205,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             if (layer == null) {
                 Snack.toastTopError(main, R.string.toast_task_layer_disabled);
             } else {
-                Note note = logic.makeNewNote(x, y);
-                TaskFragment.showDialog(main, note);
+                NoteFragment.showDialog(main, logic.makeNewNote(x, y));
                 logic.hideCrosshairs();
             }
             return true;
@@ -235,7 +247,8 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             if (lastSelectedNode != null) {
                 main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, lastSelectedNode));
                 // show preset screen or add addresses
-                main.performTagEdit(lastSelectedNode, null, item.getItemId() == MENUITEM_NEWNODE_ADDRESS, item.getItemId() == MENUITEM_NEWNODE_PRESET);
+                main.performTagEdit(lastSelectedNode, null, item.getItemId() == MENUITEM_NEWNODE_ADDRESS,
+                        item.getItemId() == MENUITEM_NEWNODE_PRESET);
             }
             return true;
         case MENUITEM_PASTE:
@@ -294,9 +307,12 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
      * 
      * FIXME This is still very hackish with lots of code duplication
      * 
-     * @param requestCode the Intent request code
-     * @param resultCode the Intent result code
-     * @param data any Intent data
+     * @param requestCode
+     *            the Intent request code
+     * @param resultCode
+     *            the Intent result code
+     * @param data
+     *            any Intent data
      */
     void handleActivityResult(final int requestCode, final int resultCode, final Intent data) {
         if (requestCode == Main.VOICE_RECOGNITION_REQUEST_CODE) {
@@ -315,10 +331,12 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                         Node node = logic.performAddNode(main, startLon, startLat);
                         if (node != null) {
                             Map<String, String> tags = new TreeMap<>(node.getTags());
-                            tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number) + (words.length == 3 ? words[2] : ""));
+                            tags.put(Tags.KEY_ADDR_HOUSENUMBER,
+                                    Integer.toString(number) + (words.length == 3 ? words[2] : ""));
                             tags.put(Commands.SOURCE_ORIGINAL_TEXT, v);
                             Map<String, List<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(),
-                                    new ElementSearch(new IntCoordinates(node.getLon(), node.getLat()), true), Util.getListMap(tags), Address.NO_HYSTERESIS);
+                                    new ElementSearch(new IntCoordinates(node.getLon(), node.getLat()), true),
+                                    Util.getListMap(tags), Address.NO_HYSTERESIS);
                             tags = Address.multiValueToSingle(map);
                             logic.setTags(main, node, tags);
                             main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
@@ -331,11 +349,12 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                         Log.e(DEBUG_TAG, "handleActivityResult got exception " + e.getMessage());
                     }
 
-                    List<PresetElement> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1, null);
+                    List<PresetElement> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2,
+                            1, null);
 
                     if (presetItems != null && presetItems.size() == 1) {
-                        Node node = addNode(logic.performAddNode(main, startLon, startLat), words.length == 2 ? words[1] : null,
-                                (PresetItem) presetItems.get(0), logic, v);
+                        Node node = addNode(logic.performAddNode(main, startLon, startLat),
+                                words.length == 2 ? words[1] : null, (PresetItem) presetItems.get(0), logic, v);
                         if (node != null) {
                             main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
                             return;
@@ -349,7 +368,8 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                         map.putAll(nt.getTags());
                         PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(main), map);
                         if (pi != null) {
-                            Node node = addNode(logic.performAddNode(main, startLon, startLat), nt.getName(), pi, logic, v);
+                            Node node = addNode(logic.performAddNode(main, startLon, startLat), nt.getName(), pi, logic,
+                                    v);
                             if (node != null) {
                                 // set tags from name suggestions
                                 Map<String, String> tags = new TreeMap<>(node.getTags());
@@ -372,15 +392,21 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     /**
      * Add a Node using a PresetItem and select it
      * 
-     * @param node an existing Node
-     * @param name a name or null
-     * @param pi the PresetITem
-     * @param logic the current instance of Logic
-     * @param original the source string used to create the Node
+     * @param node
+     *            an existing Node
+     * @param name
+     *            a name or null
+     * @param pi
+     *            the PresetITem
+     * @param logic
+     *            the current instance of Logic
+     * @param original
+     *            the source string used to create the Node
      * @return the Node or null
      */
     @Nullable
-    Node addNode(@NonNull Node node, @Nullable String name, @NonNull PresetItem pi, @NonNull Logic logic, @NonNull String original) {
+    Node addNode(@NonNull Node node, @Nullable String name, @NonNull PresetItem pi, @NonNull Logic logic,
+            @NonNull String original) {
         try {
             Snack.barInfo(main, pi.getName() + (name != null ? " name: " + name : ""));
             TreeMap<String, String> tags = new TreeMap<>(node.getTags());

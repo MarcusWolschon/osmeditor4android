@@ -31,7 +31,12 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.tasks.Bug;
+import de.blau.android.tasks.BugFragment;
+import de.blau.android.tasks.MapRouletteFragment;
+import de.blau.android.tasks.MapRouletteTask;
 import de.blau.android.tasks.Note;
+import de.blau.android.tasks.NoteFragment;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.tasks.TaskStorage;
@@ -41,45 +46,47 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends MapViewLayer implements ExtentInterface, DiscardInterface, ClickableInterface<Task>, ConfigureInterface, PruneableInterface {
+public class MapOverlay extends MapViewLayer
+        implements ExtentInterface, DiscardInterface, ClickableInterface<Task>, ConfigureInterface, PruneableInterface {
 
-    private static final String DEBUG_TAG = "tasks";
+    private static final String DEBUG_TAG          = "tasks";
 
-    public static final String FILENAME = "selectedtask.res";
+    public static final String  FILENAME           = "selectedtask.res";
 
-    private static final int THREAD_POOL_SIZE = 1;
+    private static final int    THREAD_POOL_SIZE   = 1;
 
-    private static final int SHOW_TASKS_LIMIT = 13;
+    private static final int    SHOW_TASKS_LIMIT   = 13;
 
     /** Map this is an overlay of. */
-    private Map map = null;
+    private Map                 map                = null;
 
     /** Bugs visible on the overlay. */
-    private TaskStorage tasks = App.getTaskStorage();
+    private TaskStorage         tasks              = App.getTaskStorage();
 
-    private ReentrantLock readingLock = new ReentrantLock();
+    private ReentrantLock       readingLock        = new ReentrantLock();
 
-    private SavingHelper<Task> savingHelper = new SavingHelper<>();
+    private SavingHelper<Task>  savingHelper       = new SavingHelper<>();
 
-    private Task selected = null;
+    private Task                selected           = null;
 
-    private boolean panAndZoomDownLoad = false;
-    private int     panAndZoomLimit    = 16;
+    private boolean             panAndZoomDownLoad = false;
+    private int                 panAndZoomLimit    = 16;
 
-    private int minDownloadSize = 50;
+    private int                 minDownloadSize    = 50;
 
-    private float maxDownloadSpeed = 30;
+    private float               maxDownloadSpeed   = 30;
 
-    private ThreadPoolExecutor mThreadPool;
+    private ThreadPoolExecutor  mThreadPool;
 
-    private Server server;
+    private Server              server;
 
-    private Context context = null;
+    private Context             context            = null;
 
     /**
      * Construct a new task layer
      * 
-     * @param map the current Map instance
+     * @param map
+     *            the current Map instance
      */
     public MapOverlay(@NonNull final Map map) {
         this.map = map;
@@ -127,7 +134,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Discard
 
             Location location = map.getLocation();
 
-            if (zoomLevel >= panAndZoomLimit && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
+            if (zoomLevel >= panAndZoomLimit && panAndZoomDownLoad
+                    && (location == null || location.getSpeed() < maxDownloadSpeed)) {
                 map.getRootView().removeCallbacks(download);
                 map.getRootView().postDelayed(download, 100);
             }
@@ -223,7 +231,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Discard
                 ((Main) activity).getEasyEditManager().finish();
             }
             selected = t;
-            TaskFragment.showDialog(activity, t);
+            if (t instanceof Note) {
+                NoteFragment.showDialog(activity, t);
+            } else if (t instanceof Bug) {
+                BugFragment.showDialog(activity, t);
+            } else if (t instanceof MapRouletteTask) {
+                MapRouletteFragment.showDialog(activity, t);
+            }
         }
     }
 
@@ -252,8 +266,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Discard
     /**
      * Stores the current state to the default storage file
      * 
-     * @param context Android Context
-     * @throws IOException on errors writing the file
+     * @param context
+     *            Android Context
+     * @throws IOException
+     *             on errors writing the file
      */
     @Override
     public synchronized void onSaveState(@NonNull Context context) throws IOException {
@@ -280,7 +296,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Discard
      * Loads any saved state from the default storage file
      * 
      * 
-     * @param context Android context
+     * @param context
+     *            Android context
      * @return true if the saved state was successfully read
      */
     @Override

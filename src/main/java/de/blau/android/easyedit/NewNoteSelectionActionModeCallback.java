@@ -11,26 +11,30 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.layer.tasks.MapOverlay;
 import de.blau.android.tasks.Note;
-import de.blau.android.tasks.TaskFragment;
+import de.blau.android.tasks.NoteFragment;
 import de.blau.android.util.Util;
 
 public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallback {
-    private static final String DEBUG_TAG = "NewNoteSel...";
+    private static final String DEBUG_TAG       = "NewNoteSel...";
 
-    private static final int MENUITEM_VIEW   = 1;
-    private static final int MENUITEM_DELETE = 2;
+    private static final int    MENUITEM_VIEW   = 1;
+    private static final int    MENUITEM_DELETE = 2;
 
-    final Note               note;
-    private final MapOverlay layer;
+    final Note                  note;
+    private final MapOverlay    layer;
 
     /**
      * Construct a new callback for editing new nodes
      * 
-     * @param manager the current EasyEditManager instance
-     * @param note the Note to edit
-     * @param layer the current task layer
+     * @param manager
+     *            the current EasyEditManager instance
+     * @param note
+     *            the Note to edit
+     * @param layer
+     *            the current task layer
      */
-    public NewNoteSelectionActionModeCallback(@NonNull EasyEditManager manager, @NonNull Note note, @NonNull MapOverlay layer) {
+    public NewNoteSelectionActionModeCallback(@NonNull EasyEditManager manager, @NonNull Note note,
+            @NonNull MapOverlay layer) {
         super(manager);
         this.note = note;
         this.layer = layer;
@@ -68,7 +72,7 @@ public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallba
         super.onActionItemClicked(mode, item);
         switch (item.getItemId()) {
         case MENUITEM_VIEW:
-            TaskFragment.showDialog(main, note);
+            NoteFragment.showDialog(main, note);
             break;
         case MENUITEM_DELETE:
             menuDelete();
@@ -102,12 +106,13 @@ public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallba
     /**
      * Handle a click on a Note when we are already active
      * 
-     * @param note Note that was clicked
+     * @param note
+     *            Note that was clicked
      * @return true if this was the Note that we currently are editing
      */
     public boolean handleNoteClick(Note note) {
         if (note.equals(this.note)) {
-            TaskFragment.showDialog(main, note);
+            NoteFragment.showDialog(main, note);
             return true;
         }
         return false;

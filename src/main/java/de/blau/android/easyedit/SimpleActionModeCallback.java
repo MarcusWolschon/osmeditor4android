@@ -17,23 +17,27 @@ import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.ViewBox;
-import de.blau.android.tasks.Note;
-import de.blau.android.tasks.TaskFragment;
+import de.blau.android.tasks.NoteFragment;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
-public class SimpleActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
+public class SimpleActionModeCallback extends EasyEditActionModeCallback
+        implements android.view.MenuItem.OnMenuItemClickListener {
     private static final String DEBUG_TAG = "SimpleActionMode...";
 
     interface SimpleActionCallback {
         /**
          * Executes the actual code associated with a SimpleAction
          * 
-         * @param main the current Main instance
-         * @param manager the current EasyEditManager
-         * @param x screen x coordinate
-         * @param y screen y coordinate
+         * @param main
+         *            the current Main instance
+         * @param manager
+         *            the current EasyEditManager
+         * @param x
+         *            screen x coordinate
+         * @param y
+         *            screen y coordinate
          */
         void action(@NonNull final Main main, @NonNull final EasyEditManager manager, final float x, final float y);
     }
@@ -47,7 +51,8 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             ViewBox box = map.getViewBox();
             int width = map.getWidth();
             int height = map.getHeight();
-            Node node = App.getLogic().performAddNode(main, GeoMath.xToLonE7(width, box, x), GeoMath.yToLatE7(height, width, box, y));
+            Node node = App.getLogic().performAddNode(main, GeoMath.xToLonE7(width, box, x),
+                    GeoMath.yToLatE7(height, width, box, y));
             main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
             main.performTagEdit(node, null, false, true);
         }) {
@@ -73,8 +78,8 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Add a way starting the normal path creation mode
          */
-        WAY(R.string.menu_add_way, R.string.simple_add_way,
-                (main, manager, x, y) -> main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y))) {
+        WAY(R.string.menu_add_way, R.string.simple_add_way, (main, manager, x, y) -> main
+                .startSupportActionMode(new PathCreationActionModeCallback(manager, x, y))) {
             @Override
             public boolean isEnabled() {
                 return App.getLogic().getMode().enabledSimpleActions().contains(this);
@@ -83,8 +88,8 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Add a way starting the normal path creation mode
          */
-        INTERPOLATION_WAY(R.string.menu_add_address_interpolation, R.string.simple_add_way,
-                (main, manager, x, y) -> main.startSupportActionMode(new AddressInterpolationActionModeCallback(manager, x, y))) {
+        INTERPOLATION_WAY(R.string.menu_add_address_interpolation, R.string.simple_add_way, (main, manager, x,
+                y) -> main.startSupportActionMode(new AddressInterpolationActionModeCallback(manager, x, y))) {
             @Override
             public boolean isEnabled() {
                 return App.getLogic().getMode().enabledSimpleActions().contains(this);
@@ -106,8 +111,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
                 }
                 main.getMap().invalidate();
             }
-            Note note = App.getLogic().makeNewNote(x, y);
-            TaskFragment.showDialog(main, note);
+            NoteFragment.showDialog(main, App.getLogic().makeNewNote(x, y));
         }) {
             @Override
             public boolean isEnabled() {
@@ -138,7 +142,8 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Paste an object from the clipboard, without exiting the action mode
          */
-        PASTEMULTIPLE(R.string.menu_paste_multiple, R.string.simple_paste_multiple, (main, manager, x, y) -> App.getLogic().pasteFromClipboard(main, x, y)) {
+        PASTEMULTIPLE(R.string.menu_paste_multiple, R.string.simple_paste_multiple,
+                (main, manager, x, y) -> App.getLogic().pasteFromClipboard(main, x, y)) {
             @Override
             public boolean isEnabled() {
                 return !App.getLogic().clipboardIsEmpty() && !App.getDelegator().clipboardContentWasCut();
@@ -152,9 +157,12 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Construct a SimpleAction
          * 
-         * @param menuTextId resource for the menu text
-         * @param titleId resource for the text displayed in the ActionMode
-         * @param actionCallback callback with actual code for the action
+         * @param menuTextId
+         *            resource for the menu text
+         * @param titleId
+         *            resource for the text displayed in the ActionMode
+         * @param actionCallback
+         *            callback with actual code for the action
          */
         SimpleAction(final int menuTextId, final int titleId, @NonNull final SimpleActionCallback actionCallback) {
             this.menuTextId = menuTextId;
@@ -183,10 +191,14 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Execute the callback with the code for the action
          * 
-         * @param main the current Main instance
-         * @param manager the current EasyEditManager
-         * @param x screen x coordinate
-         * @param y screen y coordinate
+         * @param main
+         *            the current Main instance
+         * @param manager
+         *            the current EasyEditManager
+         * @param x
+         *            screen x coordinate
+         * @param y
+         *            screen y coordinate
          */
         public void execute(final Main main, final EasyEditManager manager, final float x, final float y) {
             actionCallback.action(main, manager, x, y);
@@ -207,8 +219,10 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
     /**
      * Construct a callback for when a simple action has been selected
      * 
-     * @param manager the EasyEditManager instance
-     * @param simpleMode Enum indicating what to do
+     * @param manager
+     *            the EasyEditManager instance
+     * @param simpleMode
+     *            Enum indicating what to do
      */
     public SimpleActionModeCallback(@NonNull EasyEditManager manager, @NonNull SimpleAction simpleMode) {
         super(manager);
@@ -230,7 +244,8 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         super.onPrepareActionMode(mode, menu);
         menu.clear();
         menuUtil.reset();
-        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         arrangeMenu(menu);
         return true;
     }
@@ -258,8 +273,10 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
     /**
      * Get a menu suitable for display by clicking on a button
      * 
-     * @param main the current instance of Main
-     * @param anchor the anchor View for the popup
+     * @param main
+     *            the current instance of Main
+     * @param anchor
+     *            the anchor View for the popup
      * @return a PopupMenu instance
      */
     @NonNull
@@ -280,12 +297,17 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
     /**
      * Paste objects to a location
      * 
-     * @param activity optional calling Activity
-     * @param manager the current EasyEditManager
-     * @param x screen x
-     * @param y screen y
+     * @param activity
+     *            optional calling Activity
+     * @param manager
+     *            the current EasyEditManager
+     * @param x
+     *            screen x
+     * @param y
+     *            screen y
      */
-    public static void paste(@Nullable final Activity activity, @NonNull final EasyEditManager manager, final float x, final float y) {
+    public static void paste(@Nullable final Activity activity, @NonNull final EasyEditManager manager, final float x,
+            final float y) {
         List<OsmElement> elements = App.getLogic().pasteFromClipboard(activity, x, y);
         if (elements != null && !elements.isEmpty()) {
             if (elements.size() > 1) {
