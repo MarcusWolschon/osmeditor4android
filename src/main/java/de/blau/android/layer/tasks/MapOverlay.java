@@ -31,9 +31,13 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.tasks.Bug;
+import de.blau.android.tasks.BugFragment;
+import de.blau.android.tasks.MapRouletteFragment;
+import de.blau.android.tasks.MapRouletteTask;
 import de.blau.android.tasks.Note;
+import de.blau.android.tasks.NoteFragment;
 import de.blau.android.tasks.Task;
-import de.blau.android.tasks.TaskFragment;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.GeoMath;
@@ -223,7 +227,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Discard
                 ((Main) activity).getEasyEditManager().finish();
             }
             selected = t;
-            TaskFragment.showDialog(activity, t);
+            if (t instanceof Note) {
+                NoteFragment.showDialog(activity, t);
+            } else if (t instanceof Bug) {
+                BugFragment.showDialog(activity, t);
+            } else if (t instanceof MapRouletteTask) {
+                MapRouletteFragment.showDialog(activity, t);
+            }
         }
     }
 
