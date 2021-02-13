@@ -213,7 +213,9 @@ public class ElementInfo extends ImmersiveDialogFragment {
                     }
                 });
             }
-            builder.setNegativeButton(R.string.edit_properties, (dialog, which) -> ((Main) activity).performTagEdit(element, null, false, false));
+            if (OsmElement.STATE_DELETED != element.getState()) {
+                builder.setNegativeButton(R.string.edit_properties, (dialog, which) -> ((Main) activity).performTagEdit(element, null, false, false));
+            }
         }
         builder.setTitle(R.string.element_information);
         builder.setView(createView(null));
