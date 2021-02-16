@@ -64,7 +64,12 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
     @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        task = (Task) getArguments().getSerializable(BUG_KEY);
+        if (savedInstanceState != null) {
+            Log.d(DEBUG_TAG, "restoring from saved state");
+            task = (Task) savedInstanceState.getSerializable(BUG_KEY);
+        } else {
+            task = (Task) getArguments().getSerializable(BUG_KEY);
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -119,7 +124,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         elementLayout = (LinearLayout) v.findViewById(R.id.openstreetbug_element_layout);
         state = (Spinner) v.findViewById(R.id.openstreetbug_state);
 
-        ArrayAdapter<CharSequence> adapter = setupView(v, task);
+        ArrayAdapter<CharSequence> adapter = setupView(savedInstanceState, v, task);
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -168,7 +173,8 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
     protected abstract <T extends Task> void update(@NonNull Server server, @NonNull PostAsyncActionHandler handler,
             @NonNull T task);
 
-    protected abstract <T extends Task> ArrayAdapter<CharSequence> setupView(@NonNull View v, @NonNull T task);
+    protected abstract <T extends Task> ArrayAdapter<CharSequence> setupView(@Nullable Bundle savedInstanceState,
+            @NonNull View v, @NonNull T task);
 
     protected abstract <T extends Task> void enableStateSpinner(@NonNull T task);
 
@@ -241,6 +247,12 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         if (mListener != null) {
             mListener.update();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(BUG_KEY, task);
     }
 
     /**

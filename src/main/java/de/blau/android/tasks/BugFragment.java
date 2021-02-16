@@ -94,7 +94,7 @@ public class BugFragment extends TaskFragment {
     }
 
     @Override
-    protected <T extends Task> ArrayAdapter<CharSequence> setupView(View v, T task) {
+    protected <T extends Task> ArrayAdapter<CharSequence> setupView(Bundle savedInstanceState, View v, T task) {
         final boolean isCustomBug = task instanceof CustomBug;
         // these are only used for Notes
         commentLabel.setVisibility(View.GONE);

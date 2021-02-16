@@ -80,8 +80,11 @@ public class NoteFragment extends TaskFragment {
         return f;
     }
 
-    private EditText comment;
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+    
     @Override
     protected <T extends Task> void update(Server server, PostAsyncActionHandler handler, T task) {
         Note n = (Note) task;
@@ -91,7 +94,7 @@ public class NoteFragment extends TaskFragment {
     }
 
     @Override
-    protected <T extends Task> ArrayAdapter<CharSequence> setupView(View v, T task) {
+    protected <T extends Task> ArrayAdapter<CharSequence> setupView(Bundle savedInstanceState, View v, T task) {
         title.setText(getString((task.isNew() && ((Note) task).count() == 0) ? R.string.openstreetbug_new_title
                 : R.string.openstreetbug_edit_title));
         comments.setText(Util.fromHtml(((Note) task).getComment())); // ugly

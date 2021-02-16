@@ -89,7 +89,7 @@ public class MapRouletteFragment extends TaskFragment {
     }
 
     @Override
-    protected <T extends Task> ArrayAdapter<CharSequence> setupView(View v, T task) {
+    protected <T extends Task> ArrayAdapter<CharSequence> setupView(Bundle savedInstanceState, View v, T task) {
         title.setText(R.string.maproulette_task_title);
         comments.setText(Util.fromHtml(((MapRouletteTask) task).getDescription()));
         MapRouletteChallenge challenge = App.getTaskStorage().getChallenges()
