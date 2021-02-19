@@ -1307,9 +1307,6 @@ public class Logic {
                     if ((selectedWays != null && selectedWays.size() > 1) || (selectedNodes != null && selectedNodes.size() > 1)
                             || ((selectedWays != null && !selectedWays.isEmpty()) && (selectedNodes != null && !selectedNodes.isEmpty()))) {
                         Log.d(DEBUG_TAG, "Multi select detected");
-                        if (activity instanceof Main && ((Main) activity).getEasyEditManager().inPathCreationMode()) {
-                            return; // ignore for now
-                        }
                         boolean foundSelected = false;
                         if (selectedWays != null) {
                             List<Way> clickedWays = getClickedWays(x, y);
@@ -1354,7 +1351,7 @@ public class Logic {
             draggingNote = false;
         }
         Log.d(DEBUG_TAG, "handleTouchEventDown creating checkpoints");
-        if (draggingNode || draggingWay) {
+        if ((draggingNode || draggingWay) && (!(activity instanceof Main) || !((Main) activity).getEasyEditManager().inPathCreationMode())) {
             if (draggingMultiselect) {
                 createCheckpoint(activity, R.string.undo_action_moveobjects);
             } else {
