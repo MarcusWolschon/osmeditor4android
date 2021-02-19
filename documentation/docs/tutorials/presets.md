@@ -127,8 +127,8 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | use_last_as_default           | extension | "force" has the same effect as "true"
 |__&lt;label&gt;__  |                               | ignored   |
 |__&lt;space/&gt;__ |                               | ignored   |
-|__&lt;optional&gt;__ |                             | supported | contained presets are not displayed in "Properties" tab, but content of &lt;text&gt; will be shown when tag is added manually in "Details" tab
-|                   | text                          | ignored   |
+|__&lt;optional&gt;__ |                             | supported | contained fields are not displayed the in "Properties" tab when a preset is applied except if applying with optional fields is used, further matching ignores any optional fields
+|                   | text                          | ignored   | not displayed
 |__&lt;separator/&gt;__ |                           | supported | starts a new row in the preset selection display
 |__&lt;item_separator/&gt;__ |                      | ignored   |
 |__&lt;link&gt;__   |                               | supported |
