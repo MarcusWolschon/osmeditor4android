@@ -58,10 +58,10 @@
 <p>Dotknij obiektu, by zaznaczyć i podświetlić go. Dotknięcie ekranu w miejscu, w którym nie znajduje się żaden obiekt, spowoduje odznaczenie obiektów. Jeśli zaznaczyłeś już obiekt i potrzebujesz zaznaczyć inny, wystarczy, że dotkniesz ten następny. Nie jest potrzebne wcześniejsze odznaczanie. Szybkie podwójne dotknięcie na obiekt rozpocznie  <a href="Multiselect.md">Multiselect mode</a>.</p>
 <p>Zauważ, że jeżeli spróbujesz wybrać obiekt, a Vespucci stwierdzi, że wybór może dotyczyć wielu obiektów (takie jak węzeł na linii lub inne nakładające się obiekty), pokaże się menu wyboru: możesz wtedy dotknąć odpowiedniego obiektu, który zostanie zaznaczony.</p>
 <p>Wybrane obiekty są oznaczane przez cienką, żółtą obwódkę. Ta ramka może być trudna do zauważenia przy niektórych tłach mapy i poziomach przybliżenia. Kiedy dokonasz zaznaczenia, zobaczysz powiadomienia potwierdzające to działanie.</p>
-<p>Kiedy skończysz zaznaczanie, zobaczysz (jako menu lub przyciski) listę dostępnych operacji dla wybranych obiektów: aby dowiedzieć się więcej zobacz <a href="Node%20selected.md">Node selected</a>, <a href="Way%20selected.md">Way selected</a> i <a href="Relation%20selected.md">Relation selected</a>.</p>
+<p>Kiedy skończysz zaznaczanie, zobaczysz (jako menu lub przyciski) listę dostępnych operacji na wybranych obiektach: aby dowiedzieć się więcej, zobacz <a href="Node%20selected.md">Node selected</a>, <a href="Way%20selected.md">Way selected</a> i <a href="Relation%20selected.md">Relation selected</a>.</p>
 <h4>Zaznaczone obiekty: Edytowanie tagów</h4>
 <p>Drugie dotknięcie zaznaczonego obiektu otwiera edytor tagów, aby móc edytować te powiązane z danym obiektem.</p>
-<p>Zauważ, że dla nakładających się obiektów (takich jak węzeł na linii) menu wyboru pojawia się ponownie. Wybranie tego samego obiektu pokazuje edytor tagów; wybranie innego po prostu zaznacza go.</p>
+<p>Zauważ, że w przypadku nakładających się obiektów (takich jak węzeł na linii) menu wyboru pojawia się ponownie. Wybranie tego samego obiektu pokazuje edytor tagów; wybranie innego po prostu zaznacza go.</p>
 <h4>Zaznaczone obiekty: Przenoszenie Węzłów lub Linii</h4>
 <p>Kiedy zaznaczysz obiekt, może on zostać przesunięty. Zauważ, że obiekty mogą być przenoszone tylko gdy zostały uprzednio zaznaczone. Zwyczajnie przeciągnij obok (np. w obszarze tolerancji) zaznaczonego obiektu, aby go przesunąć. Jeśli opcja &quot;Duży obszar przeciągania węzłów&quot; jest włączona, wyświetlany jest duży obszar wokół zaznaczonego węzła pozwalając na bardziej precyzyjne przesuwanie.</p>
 <h4>Dodawanie nowego węzła/punktu lub drogi</h4>
@@ -86,12 +86,12 @@
 <h4>Dodawanie obszaru</h4>
 <p>W przeciwieństwie do innych systemów danych geograficznych, OpenStreetMap aktualnie nie posiada obiektu typu &quot;obszar&quot;. Edytor iD próbuje tworzyć obszary z podstawowych elementów OSM, co czasami działa lepiej, czasami gorzej. Aktualnie Vespucci nie próbuje robić nic podobnego, więc musisz wiedzieć trochę więcej o tym, jak prezentowane są obszary:</p>
 <ul>
-<li><em>zamknięte linie</em>: najprostszy i najpopularniejszy wariant obszaru, to linie, które współdzielą pierwszy i ostatni węzeł tworząc zamknięty &quot;pierścień&quot; (na przykład większość budynków jest tego typu). Bardzo łatwo go utworzyć w Vespucci, po prostu dołącz ostatnią linię do pierwszego węzła. Uwaga: interpretacja zamkniętej linii zależy od jej tagów: na przykład, jeśli zamknięta linia jest otagowana jako budynek, to będzie traktowana jako obszar, a jeżeli jako rondo, to nadal będzie tylko linia. W niektórych przypadkach, kiedy obydwie możliwości mogą być poprawne tag &quot;area&quot; wyjaśnia zamierzone użycie.</li>
-<li><em>wielokąty złożone (&quot;multi-polygons&quot;)</em>: niektóre obszary mają wiele części, dziur i pierścieni, których nie da się odwzorować jedną linią. OSM używa specjalnego typu relacji (nasz podstawowy obiekt pozwalający określać relacje pomiędzy elementami), aby to obejść, wielokąta. Wielokąt może mieć wiele &quot;zewnętrznych&quot; pierścieni i wiele &quot;wewnętrznych&quot; pierścieni. Każdy pierścień może składać się z zamkniętej linii, jaką opisano powyżej, lub wielu pojedynczych linii o wspólnych węzłach. Podczas kiedy praca z dużymi wielokątami jest problematyczna w każdym edytorze, te mniejsze stosunkowo łatwo utworzyć w Vespucci.</li>
-<li><em>linie brzegowe</em>: dla bardzo dużych obiektów, takich jak kontynenty i wyspy, nawet wielokąty nie są odpowiednie. Dla linii natural=coastline zakładamy nazewnictwo zależne od kierunku: ląd jest po lewej stronie linii, a woda po prawej. Efektem ubocznym tego jest, że nie powinno się odwracać kierunku linii z otagowanej jako linia brzegowa. Więcej informacji można znaleźć w <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a>.</li>
+<li><em>zamknięte linie</em>: najprostszy i najpopularniejszy wariant obszaru to linie, które współdzielą pierwszy i ostatni węzeł, tworząc zamknięty pierścień (na przykład większość budynków jest tego typu). Bardzo łatwo go utworzyć w Vespucci. Po prostu dołącz ostatnią linię do pierwszego węzła. Uwaga: interpretacja zamkniętej linii zależy od jej tagów: na przykład, jeśli zamknięta linia jest otagowana jako budynek, to będzie traktowana jako obszar, a jeżeli jako rondo, to nadal będzie tylko linia. W niektórych przypadkach, kiedy obydwie możliwości mogą być poprawne tag „area” wyjaśnia zamierzone użycie.</li>
+<li><em>wielokąty złożone (&quot;multipolygons&quot;)</em>: niektóre obszary mają wiele części, dziur i pierścieni, których nie da się odwzorować jedną linią. OSM używa specjalnego typu relacji (nasz podstawowy obiekt pozwalający określać relacje pomiędzy elementami), aby to obejść. Wielokąt złożony może mieć wiele zewnętrznych i wewnętrznych pierścieni. Każdy pierścień może składać się z zamkniętej linii, jaką opisano powyżej lub wielu pojedynczych linii o wspólnych węzłach. Podczas gdy praca z dużymi wielokątami jest problematyczna w każdym edytorze, te mniejsze stosunkowo łatwo utworzyć w Vespucci.</li>
+<li><em>linie brzegowe</em>: w przypadku bardzo dużych obiektów, takich jak kontynenty i wyspy, nawet wielokąty złożone nie są odpowiednie. W przypadku linii natural=coastline zakładamy nazewnictwo zależne od kierunku: ląd jest po lewej stronie linii, a woda po prawej. Efektem ubocznym tego jest, że nie powinno się odwracać kierunku linii otagowanej jako linia brzegowa. Więcej informacji można znaleźć w <a href="https://wiki.openstreetmap.org/wiki/Pl:Tag:natural%3Dcoastline">OSM wiki</a>.</li>
 </ul>
 <h4>Ulepszanie Geometrii Linii</h4>
-<p>Jeśli odpowiednio oddalisz mapę, na zaznaczonej drodze zauważysz mały &quot;x&quot; na środku odcinków linii, które są odpowiednio długie. Przeciągnięcie &quot;x&quot; utworzy nowy węzeł linii w tym miejscu. Uwaga: aby uniknąć przypadkowego dodawania węzłów, tolerancja nacisku dla tej czynności jest dość mała.</p>
+<p>Jeśli odpowiednio oddalisz mapę, na zaznaczonej drodze zauważysz mały &quot;x&quot; na środku odcinków linii, które są odpowiednio długie. Przeciągnięcie &quot;x&quot; utworzy nowy węzeł linii w tym miejscu. Uwaga: aby uniknąć przypadkowego dodawania węzłów, tolerancja nacisku w przypadku tej czynności jest dość mała.</p>
 <h4>Wytnij, Kopiuj &amp; Wklej</h4>
 <p>Możesz skopiować lub wyciąć zaznaczone węzły i linie, by później wkleić je raz lub wiele razy do nowych lokalizacji. Wycinanie zachowuje osm id oraz wersję obiektu. By wkleić, długo naciśnij docelowe miejsce (zobaczysz celownik wskazujący dokładnie, gdzie obiekt się pojawi), a następnie wybierz &quot;Wklej&quot; z menu.</p>
 <h4>Efektywne Dodawanie Adresów</h4>
@@ -118,7 +118,7 @@
 <p><em>(wymagane jest połączenie z Internetem)</em></p>
 <p>Wybierz ten sam przycisk lub pozycję w menu, który wybrałeś, by pobrać dane i wybierz &quot;Wyślij dane na serwer OSM&quot;</p>
 <p>Vespucci obsługuje autoryzację OAuth oraz klasyczną metodę podawania loginu i hasła. OAuth jest preferowane, ponieważ unika wysyłania niezaszyfrowanego hasła.</p>
-<p>Niedawno zainstalowane wersje Vespucci mają domyślnie włączoną autoryzację OAuth. Przy pierwszej próbie wysłania zmodyfikowanych danych ukaże się strona internetowa OSM. Po zalogowaniu (poprzez szyfrowane połączenie) zostaniesz zapytany/zapytana o autoryzację dla Vespucci, by móc za jego pomocą edytować dane. Jeśli chcesz lub musisz uwierzytelnić OAuth przed edycją, istnieje taka opcja w menu &quot;Narzędzia&quot;.</p>
+<p>Niedawno zainstalowane wersje Vespucci mają domyślnie włączoną autoryzację OAuth. Przy pierwszej próbie wysłania zmodyfikowanych danych ukaże się strona internetowa OSM. Po zalogowaniu (poprzez szyfrowane połączenie) zostaniesz zapytany/zapytana o autoryzację, by móc za jego pomocą edytować dane. Jeśli chcesz lub musisz uwierzytelnić OAuth przed edycją, istnieje taka opcja w menu „Narzędzia”.</p>
 <p>Jeśli chcesz zapisać swoją pracą, ale nie masz połączenia z Internetem, możesz zapisać ją do pliku .osm kompatybilnego z JOSM. Następnie po uzyskaniu połączenia możesz wysłać dane za pomocą Vespucci lub JOSM.</p>
 <h4>Rozwiązywanie konfliktów przy wysyłaniu</h4>
 <p>Vespucci posiada prostą funkcję rozwiązywania konfliktów edycji. Jednakże jeśli podejrzewasz, że istnieją poważne problemy z twoim zestawem zmian, wyeksportuj go do pliku .osc (&quot;Eksport&quot; w menu &quot;Transfer&quot;) i spróbuj naprawić je w JOSM. Zobacz dalsze wskazania na <a href="Conflict%20resolution.md">conflict resolution</a>.</p>
@@ -142,7 +142,7 @@
 <h2>Tryb wnętrz</h2>
 <p>Mapowanie wnętrz jest wyzwaniem ze względu na dużą liczbę obiektów, które bardzo często się nakładają na siebie. Vespucci ma dedykowany tryb wnętrz, który pozwala na odfiltrowanie wszystkich obiektów, które nie są na tym samym poziomie oraz automatyczne dodawanie aktualnego poziomu do nowo tworzonych obiektów.</p>
 <p>Ten tryb może być włączony przez długie naciśnięcie na ikonie kłódki, zobacz <a href="#lock">Lock, unlock, mode switching</a> i wybranie odpowiedniego wpisu z menu.</p>
-<p>1</p>
+<p><a id="c-mode"></a></p>
 <h2>Tryb błędów</h2>
 <p>W trybie błędów wyświetlane są tylko obiekty, które mają ustawioną flagę ostrzeżenia, co ułatwia znalezienie obiektów z konkretnymi problemami lub pasującymi do sprawdzeń. Jeżeli jest wybrany obiekt i uruchomiony Edytor właściwości w trybie błędów, najlepiej pasujący szablon zostanie automatycznie zastosowany.</p>
 <p>Ten tryb może być włączony przez długie naciśnięcie na ikonie kłódki, zobacz <a href="#lock">Lock, unlock, mode switching</a> i wybranie odpowiedniego wpisu z menu.</p>
@@ -173,9 +173,9 @@
 <p>Alternatywnie do powyższego, obiekty są filtrowane na bazie indywidualnych szablonów lub ich grup. Dotknięcie ikony filtra wyświetli okno wyboru szablonu podobne do innych używanych w Vespucci. Indywidualne szablony można wybrać zwykłym kliknięciem, natomiast grupy przez długie dotknięcie (normalne kliknięcie otwiera grupę). Cała dokumentacja dostępna jest tutaj <a href="Preset%20filter.md">Preset filter</a>.</p>
 <h2>Dostosowywanie Vespucci</h2>
 <p>Many aspects of the app can be customized, if you are looking for something specific and can't find it, <a href="https://vespucci.io/">the Vespucci website</a> is searchable and contains additional information over what is available on device.</p>
-<h3>Layer settings</h3>
+<h3>Ustawienia warstw</h3>
 <p>Layer settings can be changed via the layer control (&quot;hamburger&quot; menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
-<p>Available layer types:</p>
+<p>Dostępne typy warstw:</p>
 <ul>
 <li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
 <li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the &quot;standard style&quot; map from openstreetmap.org.</li>
@@ -186,7 +186,7 @@
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on.</li>
 </ul>
-<h4>Preferences</h4>
+<h4>Ustawienia</h4>
 <ul>
 <li>Keep screen on. Default: off.</li>
 <li>Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.</li>

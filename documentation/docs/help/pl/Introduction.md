@@ -70,13 +70,13 @@ Zauważ, że jeżeli spróbujesz wybrać obiekt, a Vespucci stwierdzi, że wybó
 
 Wybrane obiekty są oznaczane przez cienką, żółtą obwódkę. Ta ramka może być trudna do zauważenia przy niektórych tłach mapy i poziomach przybliżenia. Kiedy dokonasz zaznaczenia, zobaczysz powiadomienia potwierdzające to działanie.
 
-Kiedy skończysz zaznaczanie, zobaczysz (jako menu lub przyciski) listę dostępnych operacji dla wybranych obiektów: aby dowiedzieć się więcej zobacz [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) i [Relation selected](Relation%20selected.md).
+Kiedy skończysz zaznaczanie, zobaczysz (jako menu lub przyciski) listę dostępnych operacji na wybranych obiektach: aby dowiedzieć się więcej, zobacz [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) i [Relation selected](Relation%20selected.md).
 
 #### Zaznaczone obiekty: Edytowanie tagów
 
 Drugie dotknięcie zaznaczonego obiektu otwiera edytor tagów, aby móc edytować te powiązane z danym obiektem.
 
-Zauważ, że dla nakładających się obiektów (takich jak węzeł na linii) menu wyboru pojawia się ponownie. Wybranie tego samego obiektu pokazuje edytor tagów; wybranie innego po prostu zaznacza go.
+Zauważ, że w przypadku nakładających się obiektów (takich jak węzeł na linii) menu wyboru pojawia się ponownie. Wybranie tego samego obiektu pokazuje edytor tagów; wybranie innego po prostu zaznacza go.
 
 #### Zaznaczone obiekty: Przenoszenie Węzłów lub Linii
 
@@ -113,13 +113,13 @@ You can also use a menu item: See [Creating new objects](Creating%20new%20object
 
 W przeciwieństwie do innych systemów danych geograficznych, OpenStreetMap aktualnie nie posiada obiektu typu "obszar". Edytor iD próbuje tworzyć obszary z podstawowych elementów OSM, co czasami działa lepiej, czasami gorzej. Aktualnie Vespucci nie próbuje robić nic podobnego, więc musisz wiedzieć trochę więcej o tym, jak prezentowane są obszary:
 
-* _zamknięte linie_: najprostszy i najpopularniejszy wariant obszaru, to linie, które współdzielą pierwszy i ostatni węzeł tworząc zamknięty "pierścień" (na przykład większość budynków jest tego typu). Bardzo łatwo go utworzyć w Vespucci, po prostu dołącz ostatnią linię do pierwszego węzła. Uwaga: interpretacja zamkniętej linii zależy od jej tagów: na przykład, jeśli zamknięta linia jest otagowana jako budynek, to będzie traktowana jako obszar, a jeżeli jako rondo, to nadal będzie tylko linia. W niektórych przypadkach, kiedy obydwie możliwości mogą być poprawne tag "area" wyjaśnia zamierzone użycie.
-* _wielokąty złożone ("multi-polygons")_: niektóre obszary mają wiele części, dziur i pierścieni, których nie da się odwzorować jedną linią. OSM używa specjalnego typu relacji (nasz podstawowy obiekt pozwalający określać relacje pomiędzy elementami), aby to obejść, wielokąta. Wielokąt może mieć wiele "zewnętrznych" pierścieni i wiele "wewnętrznych" pierścieni. Każdy pierścień może składać się z zamkniętej linii, jaką opisano powyżej, lub wielu pojedynczych linii o wspólnych węzłach. Podczas kiedy praca z dużymi wielokątami jest problematyczna w każdym edytorze, te mniejsze stosunkowo łatwo utworzyć w Vespucci. 
-* _linie brzegowe_: dla bardzo dużych obiektów, takich jak kontynenty i wyspy, nawet wielokąty nie są odpowiednie. Dla linii natural=coastline zakładamy nazewnictwo zależne od kierunku: ląd jest po lewej stronie linii, a woda po prawej. Efektem ubocznym tego jest, że nie powinno się odwracać kierunku linii z otagowanej jako linia brzegowa. Więcej informacji można znaleźć w [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _zamknięte linie_: najprostszy i najpopularniejszy wariant obszaru to linie, które współdzielą pierwszy i ostatni węzeł, tworząc zamknięty pierścień (na przykład większość budynków jest tego typu). Bardzo łatwo go utworzyć w Vespucci. Po prostu dołącz ostatnią linię do pierwszego węzła. Uwaga: interpretacja zamkniętej linii zależy od jej tagów: na przykład, jeśli zamknięta linia jest otagowana jako budynek, to będzie traktowana jako obszar, a jeżeli jako rondo, to nadal będzie tylko linia. W niektórych przypadkach, kiedy obydwie możliwości mogą być poprawne tag „area” wyjaśnia zamierzone użycie.
+* _wielokąty złożone ("multipolygons")_: niektóre obszary mają wiele części, dziur i pierścieni, których nie da się odwzorować jedną linią. OSM używa specjalnego typu relacji (nasz podstawowy obiekt pozwalający określać relacje pomiędzy elementami), aby to obejść. Wielokąt złożony może mieć wiele zewnętrznych i wewnętrznych pierścieni. Każdy pierścień może składać się z zamkniętej linii, jaką opisano powyżej lub wielu pojedynczych linii o wspólnych węzłach. Podczas gdy praca z dużymi wielokątami jest problematyczna w każdym edytorze, te mniejsze stosunkowo łatwo utworzyć w Vespucci. 
+* _linie brzegowe_: w przypadku bardzo dużych obiektów, takich jak kontynenty i wyspy, nawet wielokąty złożone nie są odpowiednie. W przypadku linii natural=coastline zakładamy nazewnictwo zależne od kierunku: ląd jest po lewej stronie linii, a woda po prawej. Efektem ubocznym tego jest, że nie powinno się odwracać kierunku linii otagowanej jako linia brzegowa. Więcej informacji można znaleźć w [OSM wiki](https://wiki.openstreetmap.org/wiki/Pl:Tag:natural%3Dcoastline).
 
 #### Ulepszanie Geometrii Linii
 
-Jeśli odpowiednio oddalisz mapę, na zaznaczonej drodze zauważysz mały "x" na środku odcinków linii, które są odpowiednio długie. Przeciągnięcie "x" utworzy nowy węzeł linii w tym miejscu. Uwaga: aby uniknąć przypadkowego dodawania węzłów, tolerancja nacisku dla tej czynności jest dość mała.
+Jeśli odpowiednio oddalisz mapę, na zaznaczonej drodze zauważysz mały "x" na środku odcinków linii, które są odpowiednio długie. Przeciągnięcie "x" utworzy nowy węzeł linii w tym miejscu. Uwaga: aby uniknąć przypadkowego dodawania węzłów, tolerancja nacisku w przypadku tej czynności jest dość mała.
 
 #### Wytnij, Kopiuj & Wklej
 
@@ -159,7 +159,7 @@ Wybierz ten sam przycisk lub pozycję w menu, który wybrałeś, by pobrać dane
 
 Vespucci obsługuje autoryzację OAuth oraz klasyczną metodę podawania loginu i hasła. OAuth jest preferowane, ponieważ unika wysyłania niezaszyfrowanego hasła.
 
-Niedawno zainstalowane wersje Vespucci mają domyślnie włączoną autoryzację OAuth. Przy pierwszej próbie wysłania zmodyfikowanych danych ukaże się strona internetowa OSM. Po zalogowaniu (poprzez szyfrowane połączenie) zostaniesz zapytany/zapytana o autoryzację dla Vespucci, by móc za jego pomocą edytować dane. Jeśli chcesz lub musisz uwierzytelnić OAuth przed edycją, istnieje taka opcja w menu "Narzędzia".
+Niedawno zainstalowane wersje Vespucci mają domyślnie włączoną autoryzację OAuth. Przy pierwszej próbie wysłania zmodyfikowanych danych ukaże się strona internetowa OSM. Po zalogowaniu (poprzez szyfrowane połączenie) zostaniesz zapytany/zapytana o autoryzację, by móc za jego pomocą edytować dane. Jeśli chcesz lub musisz uwierzytelnić OAuth przed edycją, istnieje taka opcja w menu „Narzędzia”.
 
 Jeśli chcesz zapisać swoją pracą, ale nie masz połączenia z Internetem, możesz zapisać ją do pliku .osm kompatybilnego z JOSM. Następnie po uzyskaniu połączenia możesz wysłać dane za pomocą Vespucci lub JOSM. 
 
@@ -199,7 +199,7 @@ Mapowanie wnętrz jest wyzwaniem ze względu na dużą liczbę obiektów, które
 
 Ten tryb może być włączony przez długie naciśnięcie na ikonie kłódki, zobacz [Lock, unlock, mode switching](#lock) i wybranie odpowiedniego wpisu z menu.
 
-1
+<a id="c-mode"></a>
 
 ## Tryb błędów
 
@@ -249,11 +249,11 @@ Alternatywnie do powyższego, obiekty są filtrowane na bazie indywidualnych sza
 
 Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
-### Layer settings
+### Ustawienia warstw
 
 Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
 
-Available layer types:
+Dostępne typy warstw:
 
 * Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
 * Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
@@ -264,7 +264,7 @@ Available layer types:
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
 
-#### Preferences
+#### Ustawienia
 
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string-array name="address_tags_entries">
-    <item>Номер дома (addr:housenumber)</item>
+    <item>Номер будинку (addr:housenumber)</item>
     <item>Вулиця (addr:street)</item>
     <item>Пошт. індекс (addr:postcode)</item>
     <item>Місто/Селище/Село/…  (addr:city)</item>

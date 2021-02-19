@@ -1,0 +1,28 @@
+# 
+# Translators:
+# Minh Nguyễn <minh@nguyen.cincinnati.oh.us>, 2021
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2020-04-25 11:28+0200\n"
+"PO-Revision-Date: 2020-05-21 07:54+0000\n"
+"Last-Translator: Minh Nguyễn <minh@nguyen.cincinnati.oh.us>, 2021\n"
+"Language-Team: Vietnamese (https://www.transifex.com/openstreetmap/teams/26285/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Default"
+msgstr "Bình thường"
+
+msgid "Color Round Nodes"
+msgstr "Nốt tròn tô màu"
+
+msgid "Color Round Nodes No Multipolygons"
+msgstr "Nốt tròn tô màu không có tổ hợp đa giác"
+
+msgid "Pen Round Nodes"
+msgstr "Nốt tròn dành cho bút"

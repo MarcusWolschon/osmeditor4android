@@ -1,10 +1,10 @@
 # Vespucci introduktion
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+Vespucci är en fullfjädrad redigerare för OpenStreetMap som har stöd för de flesta operationer som skrivbordsredigerare tillhandahåller. Den har framgångsrikt testats på Google's Android 2.3 till 10.0 och olika AOSP-baserade varianter. Ett varningens ord: medan mobila enheters kapacitet har kommit ikapp sina skrivbordsrivaler så tenderar äldre enheter vara något slöare. Du bör ta hänsyn till detta när du använder Vespucci och håller exempelvis de områden du redigerar till en rimlig storlek. 
 
 ## Första gången användning
 
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
+Vid uppstarten visar Vespucci dig dialogrutan "Hämta annan plats"/"Läs in område" efter att ha frågat om tillåtelse och välkommenmeddelande. Om du har koordinaterna som visas och vill hämta direkt, kan du välja lämpligt alternativ och ställa in radien runt platsen du vill hämta. Välj inte ett stort område på långsamma enheter. 
 
 Alternativt kan du stänga dialogen genom att trycka på "Gå till karta" knappen och panorera och zooma in en plats som du vill redigera och hämta data därefter (se nedan: "Redigering med Vespucci").
 
@@ -16,7 +16,7 @@ Beroende på skärmstorlek och ålder på enheten redigering åtgärder kan anti
 
 ### Nedladdning av OSM-data
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+Välj antingen överföringsikonen ![Transfer](../images/menu_transfer.png) eller "Överför" i menyn. Detta visa sju alternativ:
 
 * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*

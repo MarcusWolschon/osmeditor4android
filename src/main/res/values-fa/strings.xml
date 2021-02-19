@@ -41,6 +41,8 @@
   <string name="go_to_openstreetmap">برو به openstreetmap.org</string>
   <string name="data_conflict_title">تداخل نسخه</string>
   <string name="data_conflict_message">داده‌ای که دانلود می‌شود با ویرایش‌های شما تداخل دارد. لطفاً پیش از تلاش مجدد، دادهٔ خود را آپلود کنید.</string>
+  <string name="corrupted_data_title">دادهٔ خراب</string>
+  <string name="corrupted_data_message">در داده ناهمخوانی مشاهده می‌شود. پیش از هر کار دیگری، ویرایش‌های خود را آپلود کنید، سپس همهٔ دادهٔ ذخیره‌شده را پاک کنید و دوباره دانلود کنید.</string>
   <string name="invalid_bounding_box_title">کادر محصورکنندهٔ نامعتبر</string>
   <string name="invalid_bounding_box_message">محدودهٔ انتخابی مطابق با محدودیت‌های API نیست. لطفاً محدودهٔ دیگری انتخاب کنید.</string>
   <string name="bounding_box_too_large_title">محدودهٔ دانلود خیلی بزرگ</string>
@@ -181,8 +183,10 @@
   <string name="empty_role">نقش تهی</string>
   <string name="last_edited">آخرین ویرایش</string>
   <string name="original">اولیه</string>
+  <string name="previous">قبلی</string>
   <string name="current">کنونی</string>
   <string name="goto_element">برو به عنصر</string>
+  <string name="edit_properties">ویرایش تگ‌ها</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">اطلاعات GeoJSON feature</string>
   <string name="copy_properties">کپی خصوصیت‌ها</string>
@@ -199,11 +203,26 @@
   <string name="upload_data_now">آپلود تغییرات</string>
   <string name="prune_data_now">هرس داده</string>
   <!--Delete custom preset dialog-->
+  <string name="delete_custom_preset_title">پیش‌تنظیم سفارشی حذف شود؟</string>
   <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_title">افزودن پارهٔ مسیر</string>
+  <string name="duplicate_route_segment_message">این راه هم‌اکنون عضوی از همین مسیر است.</string>
+  <string name="duplicate_route_segment_button">به هر حال بیفزا</string>
   <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_title">افزودن عضو رابطه</string>
+  <string name="duplicate_relation_member_message">این عنصر هم‌اکنون عضوی از همین رابطه است.</string>
+  <string name="duplicate_relation_member_remove_button">حذف عضو</string>
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move_outer_tags_title">تگ‌ها از حلقه‌های outer به رابطهٔ multi-polygon منتقل شود</string>
+  <string name="move_outer_tags_message">تگ‌های توصیفگر عارضه فقط باید به خود multi-polygon داده شود</string>
+  <string name="move">انتقال</string>
+  <string name="leave_as_is">همین‌طور بماند</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove_duplicate_outer_tags_title">تگ‌های تکراری از حلقه‌های outer حذف شود</string>
+  <string name="remove_duplicate_outer_tags_message">تگ‌های تکرارشده روی multi-polygon از حلقه‌های outer حذف شود</string>
+  <string name="remove">حذف</string>
   <!--Abort action mode dialog-->
+  <string name="abort_action_title">لغو کنش</string>
   <!---->
   <string name="error">خطا</string>
   <string name="warning">هشدار</string>
@@ -304,6 +323,7 @@
   <string name="layer_info_end_date">تاریخ پایان</string>
   <string name="layer_info_terms">مقررات</string>
   <string name="layer_info_privacy_policy">سیاست حریم خصوصی</string>
+  <string name="errors">خطاها</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">حذف عکس</string>
   <string name="photo_viewer_delete_button">حذف همیشگی</string>
@@ -316,6 +336,7 @@
   <string name="api_info_attribution">انتساب</string>
   <string name="api_info_mapsplit_source">منبع فقط خواندنی MapSplit</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">تگ‌ها تغییر کرده</string>
   <!--Relation selection dialog-->
   <!--Preset selection dialog-->
   <!--Undo - Redo dialog-->
