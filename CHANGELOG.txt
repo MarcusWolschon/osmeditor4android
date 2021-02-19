@@ -1,5 +1,14 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.1.7:
+
+- Don't offer to edit tags on a deleted element in the info dialog (crashed)
+- Allow way dragging in path creation mode
+- Documentation improvements
+- Update preset
+- Update imagery from ELI
+- Update translations
+
 15.1.6:
 - Fix crash when showing info dialog on copy and pasted way
 - Update preset
