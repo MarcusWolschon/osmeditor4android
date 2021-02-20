@@ -1792,19 +1792,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         for (Node nd : wayNodes) {
             List<Way> otherWays = getCurrentStorage().getWays(nd);
             List<Way> similarWays = new ArrayList<>();
-            if (otherWays.size() > 1) {
-                if (ignoreSimilar && primaryKey != null) {
-                    for (Way other : otherWays) {
-                        if (!way.equals(other)) {
-                            Long otherId = Long.valueOf(other.getOsmId());
-                            Boolean isSimilar = keyMap.get(otherId);
-                            if (isSimilar == null) {
-                                isSimilar = other.hasTagKey(primaryKey);
-                                keyMap.put(otherId, isSimilar);
-                            }
-                            if (isSimilar) {
-                                similarWays.add(other);
-                            }
+            if (otherWays.size() > 1 && ignoreSimilar && primaryKey != null) {
+                for (Way other : otherWays) {
+                    if (!way.equals(other)) {
+                        Long otherId = Long.valueOf(other.getOsmId());
+                        Boolean isSimilar = keyMap.get(otherId);
+                        if (isSimilar == null) {
+                            isSimilar = other.hasTagKey(primaryKey);
+                            keyMap.put(otherId, isSimilar);
+                        }
+                        if (isSimilar) {
+                            similarWays.add(other);
                         }
                     }
                 }
@@ -1837,6 +1835,14 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // replace the given node in the way with the new node
         undo.save(way);
         List<Node> nodes = way.getNodes();
+        if (way.isClosed() && way.isEndNode(node)) {
+            // replace last occurrence too
+            //
+            // note:
+            // this needs to be called before the 1st node is replaced
+            // or else the way won't be closed anymore
+            nodes.set(nodes.size() - 1, newNode);
+        }
         nodes.set(nodes.indexOf(node), newNode);
         way.updateState(OsmElement.STATE_MODIFIED);
         apiStorage.insertElementSafe(way);

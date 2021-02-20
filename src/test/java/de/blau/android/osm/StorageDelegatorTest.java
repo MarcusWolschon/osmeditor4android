@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -655,6 +656,99 @@ public class StorageDelegatorTest {
     }
 
     /**
+     * Unjoin two ways
+     */
+    @Test
+    public void unjoinWay() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = addWayToStorage(d, false);
+        final Node n1 = w.getNodes().get(1);
+        Way w2 = d.createAndInsertWay(n1);
+        final Node n2 = w.getNodes().get(2);
+        d.addNodeToWay(n2, w2);
+        
+        Relation r = d.getFactory().createRelationWithNewId();
+        RelationMember member = new RelationMember("test", n2);
+        r.addMember(member);
+        d.insertElementSafe(r);
+        n2.addParentRelation(r);
+        
+        assertEquals(2, d.getApiWayCount());
+        assertEquals(w.nodeCount(), d.getApiNodeCount());
+        d.unjoinWay(null, w2, false);
+        assertNotEquals(n1, w2.getFirstNode());
+        final Node lastNode = w2.getLastNode();
+        assertNotEquals(n2, lastNode);
+        assertEquals(2, d.getApiWayCount());
+        assertEquals(w.nodeCount() + 2, d.getApiNodeCount());
+        
+        assertTrue(lastNode.hasParentRelation(r.getOsmId()));
+    }
+    
+    /**
+     * Unjoin two similar ways - nothing should happen - change tags unjoin should happen
+     */
+    @Test
+    public void unjoinSimilarWay() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = addWayToStorage(d, false);
+        final Node n1 = w.getNodes().get(1);
+        Way w2 = d.createAndInsertWay(n1);
+        final Node n2 = w.getNodes().get(2);
+        d.addNodeToWay(n2, w2);
+        
+        assertEquals(2, d.getApiWayCount());
+        assertEquals(w.nodeCount(), d.getApiNodeCount());
+        Map<String,String> tags = new HashMap<>();
+        tags.put(Tags.KEY_HIGHWAY, "service");
+        w.setTags(tags);
+        w2.setTags(tags);
+        d.unjoinWay(null, w2, true);
+        assertEquals(n1, w2.getFirstNode());
+        final Node lastNode = w2.getLastNode();
+        assertEquals(n2, lastNode);
+        assertEquals(2, d.getApiWayCount());
+        assertEquals(w.nodeCount(), d.getApiNodeCount());
+        
+        tags.clear();
+        tags.put(Tags.KEY_WATERWAY, "wet");
+        w2.setTags(tags);
+        d.unjoinWay(null, w2, true);
+        assertNotEquals(n1, w2.getFirstNode());
+        assertNotEquals(n2, w2.getLastNode());
+        assertEquals(2, d.getApiWayCount());
+        assertEquals(w.nodeCount() + 2, d.getApiNodeCount());
+    }
+
+    /**
+     * Unjoin a closed way from another one
+     */
+    @Test
+    public void unjoinClosedWays() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = addWayToStorage(d, false);
+        final Node n1 = w.getNodes().get(1);
+        Way w2 = d.createAndInsertWay(n1);
+        final Node n2 = w.getNodes().get(2);
+        d.addNodeToWay(n2, w2);
+        final Node n3 = w.getNodes().get(3);
+        d.addNodeToWay(n3, w2);
+        d.addNodeToWay(n1, w2); // close
+        assertEquals(2, d.getApiWayCount());
+        assertEquals(w.nodeCount(), d.getApiNodeCount());
+        assertTrue(w2.isClosed());
+
+        d.unjoinWay(null, w2, false);
+        assertNotEquals(n1, w2.getFirstNode());
+        assertNotEquals(n2, w2.getNodes().get(1));
+        assertNotEquals(n3, w2.getNodes().get(3));
+        assertTrue(w2.isClosed());
+
+        assertEquals(2, d.getApiWayCount());
+        assertEquals(w.nodeCount() + 3, d.getApiNodeCount());
+    }
+
+    /**
      * Split way at node
      */
     @Test
@@ -818,9 +912,9 @@ public class StorageDelegatorTest {
         d.mergeBoundingBox(box);
         assertEquals(1, boxes.size());
         assertEquals(box, boxes.get(0));
-        
+
     }
-    
+
     /**
      * Convert to scaled int representation
      * 
