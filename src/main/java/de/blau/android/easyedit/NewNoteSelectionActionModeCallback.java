@@ -11,7 +11,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.layer.tasks.MapOverlay;
 import de.blau.android.tasks.Note;
-import de.blau.android.tasks.TaskFragment;
+import de.blau.android.tasks.NoteFragment;
 import de.blau.android.util.Util;
 
 public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallback {
@@ -68,7 +68,7 @@ public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallba
         super.onActionItemClicked(mode, item);
         switch (item.getItemId()) {
         case MENUITEM_VIEW:
-            TaskFragment.showDialog(main, note);
+            NoteFragment.showDialog(main, note);
             break;
         case MENUITEM_DELETE:
             menuDelete();
@@ -107,7 +107,7 @@ public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallba
      */
     public boolean handleNoteClick(Note note) {
         if (note.equals(this.note)) {
-            TaskFragment.showDialog(main, note);
+            NoteFragment.showDialog(main, note);
             return true;
         }
         return false;

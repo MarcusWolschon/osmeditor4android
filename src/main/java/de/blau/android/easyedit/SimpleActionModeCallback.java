@@ -17,8 +17,7 @@ import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.ViewBox;
-import de.blau.android.tasks.Note;
-import de.blau.android.tasks.TaskFragment;
+import de.blau.android.tasks.NoteFragment;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
@@ -106,8 +105,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
                 }
                 main.getMap().invalidate();
             }
-            Note note = App.getLogic().makeNewNote(x, y);
-            TaskFragment.showDialog(main, note);
+            NoteFragment.showDialog(main, App.getLogic().makeNewNote(x, y));
         }) {
             @Override
             public boolean isEnabled() {

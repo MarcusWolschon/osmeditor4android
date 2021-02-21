@@ -37,8 +37,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetFixedField;
-import de.blau.android.tasks.Note;
-import de.blau.android.tasks.TaskFragment;
+import de.blau.android.tasks.NoteFragment;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.IntCoordinates;
 import de.blau.android.util.SearchIndexUtils;
@@ -192,8 +191,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             if (layer == null) {
                 Snack.toastTopError(main, R.string.toast_task_layer_disabled);
             } else {
-                Note note = logic.makeNewNote(x, y);
-                TaskFragment.showDialog(main, note);
+                NoteFragment.showDialog(main, logic.makeNewNote(x, y));
                 logic.hideCrosshairs();
             }
             return true;

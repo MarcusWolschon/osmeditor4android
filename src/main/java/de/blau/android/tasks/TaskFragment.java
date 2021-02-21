@@ -4,13 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.Spanned;
-import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,29 +24,17 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
-import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
-import de.blau.android.exception.OsmException;
 import de.blau.android.listener.UpdateViewListener;
-import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.tasks.OsmoseMeta.OsmoseClass;
 import de.blau.android.tasks.Task.State;
-import de.blau.android.util.GeoMath;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.IssueAlert;
-import de.blau.android.util.NetworkStatus;
-import de.blau.android.util.Snack;
-import de.blau.android.util.Util;
-import io.noties.markwon.Markwon;
 
 /**
  * Very simple dialog fragment to display bug or notes etc
@@ -60,66 +44,32 @@ import io.noties.markwon.Markwon;
  * @author Simon
  *
  */
-public class TaskFragment extends ImmersiveDialogFragment {
+public abstract class TaskFragment extends ImmersiveDialogFragment {
     private static final String DEBUG_TAG = TaskFragment.class.getSimpleName();
 
-    private static final String TAG = "fragment_bug";
-
-    private static final String BUG_KEY = "bug";
+    protected static final String BUG_KEY = "bug";
 
     private UpdateViewListener mListener;
 
     private Task task = null;
 
-    /**
-     * Display a dialog for editing Taskss
-     * 
-     * @param activity the calling FragmentActivity
-     * @param t Task we want to edit
-     */
-    public static void showDialog(@NonNull FragmentActivity activity, @NonNull Task t) {
-        dismissDialog(activity);
-        try {
-            FragmentManager fm = activity.getSupportFragmentManager();
-            TaskFragment taskFragment = newInstance(t);
-            taskFragment.show(fm, TAG);
-        } catch (IllegalStateException isex) {
-            Log.e(DEBUG_TAG, "showDialog", isex);
-        }
-    }
-
-    /**
-     * Dismiss the Dialog
-     * 
-     * @param activity the calling FragmentActivity
-     */
-    private static void dismissDialog(@NonNull FragmentActivity activity) {
-        de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
-    }
-
-    /**
-     * Create a new fragment to be displayed
-     * 
-     * @param t Task to show
-     * @return the fragment
-     */
-    private static TaskFragment newInstance(@NonNull Task t) {
-        TaskFragment f = new TaskFragment();
-
-        Bundle args = new Bundle();
-        args.putSerializable(BUG_KEY, t);
-
-        f.setArguments(args);
-        f.setShowsDialog(true);
-
-        return f;
-    }
+    protected TextView     title;
+    protected TextView     comments;
+    protected EditText     comment;
+    protected TextView     commentLabel;
+    protected LinearLayout elementLayout;
+    protected Spinner      state;
 
     @SuppressLint({ "NewApi", "InflateParams" })
     @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        task = (Task) getArguments().getSerializable(BUG_KEY);
+        if (savedInstanceState != null) {
+            Log.d(DEBUG_TAG, "restoring from saved state");
+            task = (Task) savedInstanceState.getSerializable(BUG_KEY);
+        } else {
+            task = (Task) getArguments().getSerializable(BUG_KEY);
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -137,10 +87,6 @@ public class TaskFragment extends ImmersiveDialogFragment {
             // unused
         });
 
-        final boolean isOsmoseBug = task instanceof OsmoseBug;
-        final boolean isCustomBug = task instanceof CustomBug;
-        final boolean isMapRouletteTask = task instanceof MapRouletteTask;
-        final boolean isNote = task instanceof Note;
         if (task.canBeUploaded()) {
             builder.setNeutralButton(R.string.transfer_download_current_upload, (dialog, id) -> {
                 saveTask(v, task);
@@ -163,16 +109,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
                                 updateMenu(activity);
                             }
                         };
-                        if (isNote) {
-                            Note n = (Note) task;
-                            NoteComment nc = n.getLastComment();
-                            TransferTasks.uploadNote(activity, prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null,
-                                    n.getState() == State.CLOSED, false, handler);
-                        } else if (isOsmoseBug) {
-                            TransferTasks.updateOsmoseBug(activity, (OsmoseBug) task, false, handler);
-                        } else if (isMapRouletteTask) {
-                            TransferTasks.updateMapRouletteTask(activity, prefs.getServer(), (MapRouletteTask) task, false, handler);
-                        }
+                        update(prefs.getServer(), handler, task);
                         return null;
                     }
                 }).execute();
@@ -180,191 +117,14 @@ public class TaskFragment extends ImmersiveDialogFragment {
             });
         }
 
-        final Spinner state = (Spinner) v.findViewById(R.id.openstreetbug_state);
-        ArrayAdapter<CharSequence> adapter = null;
+        title = (TextView) v.findViewById(R.id.openstreetbug_title);
+        comments = (TextView) v.findViewById(R.id.openstreetbug_comments);
+        comment = (EditText) v.findViewById(R.id.openstreetbug_comment);
+        commentLabel = (TextView) v.findViewById(R.id.openstreetbug_comment_label);
+        elementLayout = (LinearLayout) v.findViewById(R.id.openstreetbug_element_layout);
+        state = (Spinner) v.findViewById(R.id.openstreetbug_state);
 
-        final TextView title = (TextView) v.findViewById(R.id.openstreetbug_title);
-        final TextView comments = (TextView) v.findViewById(R.id.openstreetbug_comments);
-        final EditText comment = (EditText) v.findViewById(R.id.openstreetbug_comment);
-        final TextView commentLabel = (TextView) v.findViewById(R.id.openstreetbug_comment_label);
-        final LinearLayout elementLayout = (LinearLayout) v.findViewById(R.id.openstreetbug_element_layout);
-        if (isNote) {
-            title.setText(getString((task.isNew() && ((Note) task).count() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));
-            comments.setText(Util.fromHtml(((Note) task).getComment())); // ugly
-            comments.setAutoLinkMask(Linkify.WEB_URLS);
-            comments.setMovementMethod(LinkMovementMethod.getInstance());
-            comments.setTextIsSelectable(true);
-            NoteComment nc = ((Note) task).getLastComment();
-            elementLayout.setVisibility(View.GONE); // not used for notes
-            if ((task.isNew() && ((Note) task).count() == 0) || (nc != null && !nc.isNew())) {
-                // only show comment field if we don't have an unsaved comment
-                Log.d(DEBUG_TAG, "enabling comment field");
-                comment.setText("");
-                comment.setFocusable(true);
-                comment.setFocusableInTouchMode(true);
-                comment.setEnabled(true);
-            } else {
-                commentLabel.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-            }
-            adapter = ArrayAdapter.createFromResource(getActivity(), R.array.note_state, android.R.layout.simple_spinner_item);
-        } else {
-            // these are only used for Notes
-            commentLabel.setVisibility(View.GONE);
-            comment.setVisibility(View.GONE);
-            //
-            if (isOsmoseBug || isCustomBug) {
-                title.setText(R.string.openstreetbug_bug_title);
-                comments.setText(Util.fromHtml(((Bug) task).getLongDescription(getActivity(), false)));
-                if (!isCustomBug && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    // provide dialog with some additional text
-                    TextView instructionText = new TextView(getActivity());
-                    instructionText.setClickable(true);
-                    instructionText.setOnClickListener(unused -> {
-                        final FragmentActivity activity = getActivity();
-                        final Markwon markwon = Markwon.create(activity);
-                        OsmoseMeta meta = App.getTaskStorage().getOsmoseMeta();
-                        final int itemId = ((OsmoseBug) task).getOsmoseItem();
-                        final int classId = ((OsmoseBug) task).getOsmoseClass();
-                        OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
-                        if (osmoseClass == null) {
-                            if (new NetworkStatus(activity).isConnected()) {
-                                new AsyncTask<Void, Void, Void>() {
-                                    @Override
-                                    protected Void doInBackground(Void... arg0) {
-                                        OsmoseServer.getMeta(getContext(), itemId, classId);
-                                        return null;
-                                    }
-
-                                    @Override
-                                    protected void onPostExecute(Void arg0) {
-                                        OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
-                                        if (osmoseClass != null) {
-                                            String text = osmoseClass.getText();
-                                            if (text != null) {
-                                                showAdditionalText(activity, markwon.toMarkdown(text));
-                                            }
-                                        }
-                                    }
-
-                                }.execute();
-                            } else {
-                                Snack.toastTopWarning(getContext(), R.string.network_required);
-                            }
-                        } else {
-                            String text = osmoseClass.getText();
-                            if (text != null) {
-                                showAdditionalText(activity, markwon.toMarkdown(text));
-                            }
-                        }
-                    });
-                    instructionText.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
-                    instructionText.setText(R.string.maproulette_task_explanations);
-                    elementLayout.addView(instructionText);
-                }
-                final StorageDelegator storageDelegator = App.getDelegator();
-                for (final OsmElement e : ((Bug) task).getElements()) {
-                    String text;
-                    if (e.getOsmVersion() < 0) { // fake element
-                        text = getString(R.string.bug_element_1, e.getName(), e.getOsmId());
-                    } else { // real
-                        text = getString(R.string.bug_element_2, e.getName(), e.getDescription(false));
-                    }
-                    TextView tv = new TextView(getActivity());
-                    if (getActivity() instanceof Main) { // only make clickable if in Main
-                        tv.setClickable(true);
-                        tv.setOnClickListener(unused -> {
-                            dismiss();
-                            final FragmentActivity activity = getActivity();
-                            final int lonE7 = task.getLon();
-                            final int latE7 = task.getLat();
-                            if (e.getOsmVersion() < 0) { // fake element
-                                try {
-                                    BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50, true);
-                                    App.getLogic().downloadBox(activity, b, true, () -> {
-                                        OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
-                                        if (osm != null && activity != null && activity instanceof Main) {
-                                            ((Main) activity).zoomToAndEdit(lonE7, latE7, osm);
-                                        }
-                                    });
-                                } catch (OsmException e1) {
-                                    Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
-                                }
-                            } else { // real
-                                ((Main) activity).zoomToAndEdit(lonE7, latE7, e);
-                            }
-                        });
-                        tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
-                    }
-                    tv.setText(text);
-                    elementLayout.addView(tv);
-                }
-                //
-                adapter = ArrayAdapter.createFromResource(getActivity(), R.array.bug_state, android.R.layout.simple_spinner_item);
-            } else if (isMapRouletteTask) {
-                title.setText(R.string.maproulette_task_title);
-                comments.setText(Util.fromHtml(((MapRouletteTask) task).getDescription()));
-                adapter = ArrayAdapter.createFromResource(getActivity(), R.array.maproulette_state, android.R.layout.simple_spinner_item);
-                MapRouletteChallenge challenge = App.getTaskStorage().getChallenges().get(((MapRouletteTask) task).getParentId());
-                if (challenge != null) {
-                    final StringBuilder explanationsBuilder = new StringBuilder();
-                    //
-                    if (challenge.blurb != null && !"".equals(challenge.blurb)) {
-                        explanationsBuilder.append(challenge.blurb);
-                    } else if (challenge.description != null && !"".equals(challenge.description)) {
-                        explanationsBuilder.append(challenge.description);
-                    }
-                    //
-                    if (challenge.instruction != null && !"".equals(challenge.instruction)) {
-                        if (explanationsBuilder.length() > 0) {
-                            explanationsBuilder.append("<br><br>");
-                        }
-                        explanationsBuilder.append(challenge.instruction);
-                    }
-
-                    if (explanationsBuilder.length() > 0) {
-                        TextView instructionText = new TextView(getActivity());
-                        instructionText.setClickable(true);
-                        instructionText.setOnClickListener(unused -> showAdditionalText(getActivity(), Util.fromHtml(explanationsBuilder.toString())));
-                        instructionText.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
-                        instructionText.setText(R.string.maproulette_task_explanations);
-                        elementLayout.addView(instructionText);
-                    }
-                }
-                // add a clickable link to the location
-                TextView locationText = new TextView(getActivity());
-                final double lon = task.getLon() / 1E7D;
-                final double lat = task.getLat() / 1E7D;
-                if (getActivity() instanceof Main) {
-                    locationText.setClickable(true);
-                    locationText.setOnClickListener(unused -> {
-                        dismiss();
-                        try {
-                            final BoundingBox b = GeoMath.createBoundingBoxForCoordinates(lat, lon, 50, true);
-                            App.getLogic().downloadBox(getActivity(), b, true, () -> {
-                                Logic logic = App.getLogic();
-                                logic.getViewBox().fitToBoundingBox(logic.getMap(), b);
-                                logic.getMap().invalidate();
-                            });
-                        } catch (OsmException e1) {
-                            Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
-                        }
-                    });
-                }
-                locationText.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
-                locationText.setText(getString(R.string.maproulette_task_coords, lon, lat));
-                elementLayout.addView(locationText);
-            } else {
-                Log.d(DEBUG_TAG, "Unknown task type " + task.getDescription());
-                builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle(R.string.openstreetbug_unknown_task_type)
-                        .setMessage(getString(R.string.openstreetbug_not_supported, task.getClass().getCanonicalName()))
-                        .setNegativeButton(R.string.cancel, (dialog, id) -> {
-                            // not used
-                        });
-                return builder.create();
-            }
-        }
+        ArrayAdapter<CharSequence> adapter = setupView(savedInstanceState, v, task);
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -378,9 +138,8 @@ public class TaskFragment extends ImmersiveDialogFragment {
             Log.e(DEBUG_TAG, "ArrayAdapter too short state " + stateOrdinal + " adapter " + adapter.getCount());
         }
 
-        boolean uploadedOsmoseBug = isOsmoseBug && task.isClosed() && !task.hasBeenChanged();
-        state.setEnabled(!task.isNew() && !uploadedOsmoseBug); // new bugs always open and OSMOSE bugs can't be reopened
-                                                               // once uploaded
+        enableStateSpinner(task);
+
         AppCompatDialog d = builder.create();
         d.setOnShowListener( // old API, buttons are enabled by default
                 dialog -> { //
@@ -404,28 +163,61 @@ public class TaskFragment extends ImmersiveDialogFragment {
                             // required, but not used
                         }
                     });
-                    comment.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void afterTextChanged(Editable arg0) {
-                            // required, but not used
-                        }
-
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                            // required, but not used
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            save.setEnabled(true);
-                            upload.setEnabled(true);
-                            state.setSelection(State.OPEN.ordinal());
-                        }
-                    });
+                    onShowListener(save, upload);
                 });
         // this should keep the buttons visible
         d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         return d;
+    }
+
+    /**
+     * Update the task on its destination server
+     * 
+     * @param <T> the Task type
+     * @param server a Server instance
+     * @param handler a PostAsyncActionHandler to call after the update
+     * @param task the Task
+     */
+    protected abstract <T extends Task> void update(@NonNull Server server, @NonNull PostAsyncActionHandler handler, @NonNull T task);
+
+    /**
+     * Setup up any Task specific bits of the UI
+     * 
+     * @param <T> the Task type
+     * @param savedInstanceState saved state or null
+     * @param v the View
+     * @param task the Task
+     * @return an ArrayAdapter with the possible Task states as a String
+     */
+    @NonNull
+    protected abstract <T extends Task> ArrayAdapter<CharSequence> setupView(@Nullable Bundle savedInstanceState, @NonNull View v, @NonNull T task);
+
+    /**
+     * Enable/disable the state Spinner depending on the Task
+     * 
+     * @param <T> the Task type
+     * @param task the Task
+     */
+    protected abstract <T extends Task> void enableStateSpinner(@NonNull T task);
+
+    /**
+     * Do any Task specific things on showing of the dialog
+     * 
+     * @param save the save Button
+     * @param upload the upload Button
+     */
+    protected void onShowListener(@NonNull Button save, @NonNull Button upload) {
+        // empty
+    }
+
+    /**
+     * Do any Task specific things on save
+     * 
+     * @param <T> the Task type
+     * @param task the Task
+     */
+    protected <T extends Task> void saveTaskSpecific(T task) {
+        // empty
     }
 
     /**
@@ -434,7 +226,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
      * @param context an Android context
      * @param text the text to display
      */
-    private void showAdditionalText(@NonNull Context context, @NonNull Spanned text) {
+    protected void showAdditionalText(@NonNull Context context, @NonNull Spanned text) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.task_help, null);
         TextView message = layout.findViewById(R.id.message);
@@ -491,6 +283,12 @@ public class TaskFragment extends ImmersiveDialogFragment {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(BUG_KEY, task);
+    }
+
     /**
      * ¨ Get the State value corresponding to ordinal
      * 
@@ -513,15 +311,11 @@ public class TaskFragment extends ImmersiveDialogFragment {
      * @param v the view containing the EditText with the text of the note
      * @param bug the Task object
      */
-    private void saveTask(@NonNull View v, @NonNull Task bug) {
+    protected void saveTask(@NonNull View v, @NonNull Task bug) {
         if (bug.isNew() && ((Note) bug).count() == 0) {
             App.getTaskStorage().add(bug); // sets dirty
         }
-        String c = ((EditText) v.findViewById(R.id.openstreetbug_comment)).getText().toString();
-        if (c.length() > 0) {
-            ((Note) bug).addComment(c);
-        }
-        final Spinner state = (Spinner) v.findViewById(R.id.openstreetbug_state);
+        saveTaskSpecific(bug);
         bug.setState(pos2state(state.getSelectedItemPosition()));
         bug.setChanged(true);
         App.getTaskStorage().setDirty();

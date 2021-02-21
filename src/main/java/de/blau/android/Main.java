@@ -754,11 +754,10 @@ public class Main extends FullScreenAppCompatActivity
         };
         PostAsyncActionHandler postLoadTasks = () -> {
             Log.d(DEBUG_TAG, "postLoadTasks onSuccess");
-            Mode mode = logic.getMode();
             de.blau.android.layer.tasks.MapOverlay layer = map.getTaskLayer();
             if (layer != null) {
                 Task t = layer.getSelected();
-                if (mode.elementsGeomEditiable() && t != null && map.getTaskLayer() != null) {
+                if (t != null) {
                     Log.d(DEBUG_TAG, "restarting task action mode");
                     layer.onSelected(Main.this, t);
                 } else {
