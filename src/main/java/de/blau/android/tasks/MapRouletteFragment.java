@@ -21,9 +21,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.Util;
 
 /**
- * Very simple dialog fragment to display bug or notes etc
- * 
- * This started off simple, but is now far too complex and should be split up in to separate classes
+ * Dialog fragment to display a MapRoulette task
  * 
  * @author Simon
  *
@@ -31,17 +29,15 @@ import de.blau.android.util.Util;
 public class MapRouletteFragment extends TaskFragment {
     private static final String DEBUG_TAG = MapRouletteFragment.class.getSimpleName();
 
-    private static final String TAG       = "fragment_maproulette";
+    private static final String TAG = "fragment_maproulette";
 
-    private static final String BUG_KEY   = "bug";
+    private static final String BUG_KEY = "bug";
 
     /**
-     * Display a dialog for editing Taskss
+     * Display a dialog for editing MapRoulette Tasks
      * 
-     * @param activity
-     *            the calling FragmentActivity
-     * @param t
-     *            Task we want to edit
+     * @param activity the calling FragmentActivity
+     * @param t Task we want to edit
      */
     public static void showDialog(@NonNull FragmentActivity activity, @NonNull Task t) {
         dismissDialog(activity);
@@ -57,8 +53,7 @@ public class MapRouletteFragment extends TaskFragment {
     /**
      * Dismiss the Dialog
      * 
-     * @param activity
-     *            the calling FragmentActivity
+     * @param activity the calling FragmentActivity
      */
     private static void dismissDialog(@NonNull FragmentActivity activity) {
         de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
@@ -67,8 +62,7 @@ public class MapRouletteFragment extends TaskFragment {
     /**
      * Create a new fragment to be displayed
      * 
-     * @param t
-     *            Task to show
+     * @param t Task to show
      * @return the fragment
      */
     private static MapRouletteFragment newInstance(@NonNull Task t) {
@@ -89,11 +83,10 @@ public class MapRouletteFragment extends TaskFragment {
     }
 
     @Override
-    protected <T extends Task> ArrayAdapter<CharSequence> setupView(View v, T task) {
+    protected <T extends Task> ArrayAdapter<CharSequence> setupView(Bundle savedInstanceState, View v, T task) {
         title.setText(R.string.maproulette_task_title);
         comments.setText(Util.fromHtml(((MapRouletteTask) task).getDescription()));
-        MapRouletteChallenge challenge = App.getTaskStorage().getChallenges()
-                .get(((MapRouletteTask) task).getParentId());
+        MapRouletteChallenge challenge = App.getTaskStorage().getChallenges().get(((MapRouletteTask) task).getParentId());
         if (challenge != null) {
             final StringBuilder explanationsBuilder = new StringBuilder();
             //
@@ -113,8 +106,7 @@ public class MapRouletteFragment extends TaskFragment {
             if (explanationsBuilder.length() > 0) {
                 TextView instructionText = new TextView(getActivity());
                 instructionText.setClickable(true);
-                instructionText.setOnClickListener(
-                        unused -> showAdditionalText(getActivity(), Util.fromHtml(explanationsBuilder.toString())));
+                instructionText.setOnClickListener(unused -> showAdditionalText(getActivity(), Util.fromHtml(explanationsBuilder.toString())));
                 instructionText.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
                 instructionText.setText(R.string.maproulette_task_explanations);
                 elementLayout.addView(instructionText);
@@ -143,8 +135,7 @@ public class MapRouletteFragment extends TaskFragment {
         locationText.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
         locationText.setText(getString(R.string.maproulette_task_coords, lon, lat));
         elementLayout.addView(locationText);
-        return ArrayAdapter.createFromResource(getActivity(), R.array.maproulette_state,
-                android.R.layout.simple_spinner_item);
+        return ArrayAdapter.createFromResource(getActivity(), R.array.maproulette_state, android.R.layout.simple_spinner_item);
     }
 
     @Override

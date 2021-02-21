@@ -28,9 +28,7 @@ import de.blau.android.util.Util;
 import io.noties.markwon.Markwon;
 
 /**
- * Very simple dialog fragment to display bug or notes etc
- * 
- * This started off simple, but is now far too complex and should be split up in to separate classes
+ * Very simple dialog fragment to display an OSMOSE bug 
  * 
  * @author Simon
  *
@@ -38,15 +36,13 @@ import io.noties.markwon.Markwon;
 public class BugFragment extends TaskFragment {
     private static final String DEBUG_TAG = BugFragment.class.getSimpleName();
 
-    private static final String TAG       = "fragment_bug";
+    private static final String TAG = "fragment_bug";
 
     /**
-     * Display a dialog for editing Taskss
+     * Display a dialog for editing OSMOSE bugs
      * 
-     * @param activity
-     *            the calling FragmentActivity
-     * @param t
-     *            Task we want to edit
+     * @param activity the calling FragmentActivity
+     * @param t Task we want to edit
      */
     public static void showDialog(@NonNull FragmentActivity activity, @NonNull Task t) {
         dismissDialog(activity);
@@ -62,8 +58,7 @@ public class BugFragment extends TaskFragment {
     /**
      * Dismiss the Dialog
      * 
-     * @param activity
-     *            the calling FragmentActivity
+     * @param activity the calling FragmentActivity
      */
     private static void dismissDialog(@NonNull FragmentActivity activity) {
         de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
@@ -72,8 +67,7 @@ public class BugFragment extends TaskFragment {
     /**
      * Create a new fragment to be displayed
      * 
-     * @param t
-     *            Task to show
+     * @param t Task to show
      * @return the fragment
      */
     private static BugFragment newInstance(@NonNull Task t) {
@@ -94,7 +88,7 @@ public class BugFragment extends TaskFragment {
     }
 
     @Override
-    protected <T extends Task> ArrayAdapter<CharSequence> setupView(View v, T task) {
+    protected <T extends Task> ArrayAdapter<CharSequence> setupView(Bundle savedInstanceState, View v, T task) {
         final boolean isCustomBug = task instanceof CustomBug;
         // these are only used for Notes
         commentLabel.setVisibility(View.GONE);
@@ -167,8 +161,7 @@ public class BugFragment extends TaskFragment {
                     final int latE7 = task.getLat();
                     if (e.getOsmVersion() < 0) { // fake element
                         try {
-                            BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50,
-                                    true);
+                            BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50, true);
                             App.getLogic().downloadBox(activity, b, true, () -> {
                                 OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
                                 if (osm != null && activity != null && activity instanceof Main) {

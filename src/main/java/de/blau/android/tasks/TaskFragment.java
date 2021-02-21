@@ -45,26 +45,31 @@ import de.blau.android.util.IssueAlert;
  *
  */
 public abstract class TaskFragment extends ImmersiveDialogFragment {
-    private static final String   DEBUG_TAG = TaskFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = TaskFragment.class.getSimpleName();
 
-    protected static final String BUG_KEY   = "bug";
+    protected static final String BUG_KEY = "bug";
 
-    private UpdateViewListener    mListener;
+    private UpdateViewListener mListener;
 
-    private Task                  task      = null;
+    private Task task = null;
 
-    protected TextView            title;
-    protected TextView            comments;
-    protected EditText            comment;
-    protected TextView            commentLabel;
-    protected LinearLayout        elementLayout;
-    protected Spinner             state;
+    protected TextView     title;
+    protected TextView     comments;
+    protected EditText     comment;
+    protected TextView     commentLabel;
+    protected LinearLayout elementLayout;
+    protected Spinner      state;
 
     @SuppressLint({ "NewApi", "InflateParams" })
     @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        task = (Task) getArguments().getSerializable(BUG_KEY);
+        if (savedInstanceState != null) {
+            Log.d(DEBUG_TAG, "restoring from saved state");
+            task = (Task) savedInstanceState.getSerializable(BUG_KEY);
+        } else {
+            task = (Task) getArguments().getSerializable(BUG_KEY);
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -119,7 +124,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         elementLayout = (LinearLayout) v.findViewById(R.id.openstreetbug_element_layout);
         state = (Spinner) v.findViewById(R.id.openstreetbug_state);
 
-        ArrayAdapter<CharSequence> adapter = setupView(v, task);
+        ArrayAdapter<CharSequence> adapter = setupView(savedInstanceState, v, task);
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -165,24 +170,61 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         return d;
     }
 
-    protected abstract <T extends Task> void update(@NonNull Server server, @NonNull PostAsyncActionHandler handler,
-            @NonNull T task);
+    /**
+     * Update the task on its destination server
+     * 
+     * @param <T> the Task type
+     * @param server a Server instance
+     * @param handler a PostAsyncActionHandler to call after the update
+     * @param task the Task
+     */
+    protected abstract <T extends Task> void update(@NonNull Server server, @NonNull PostAsyncActionHandler handler, @NonNull T task);
 
-    protected abstract <T extends Task> ArrayAdapter<CharSequence> setupView(@NonNull View v, @NonNull T task);
+    /**
+     * Setup up any Task specific bits of the UI
+     * 
+     * @param <T> the Task type
+     * @param savedInstanceState saved state or null
+     * @param v the View
+     * @param task the Task
+     * @return an ArrayAdapter with the possible Task states as a String
+     */
+    @NonNull
+    protected abstract <T extends Task> ArrayAdapter<CharSequence> setupView(@Nullable Bundle savedInstanceState, @NonNull View v, @NonNull T task);
 
+    /**
+     * Enable/disable the state Spinner depending on the Task
+     * 
+     * @param <T> the Task type
+     * @param task the Task
+     */
     protected abstract <T extends Task> void enableStateSpinner(@NonNull T task);
 
+    /**
+     * Do any Task specific things on showing of the dialog
+     * 
+     * @param save the save Button
+     * @param upload the upload Button
+     */
     protected void onShowListener(@NonNull Button save, @NonNull Button upload) {
+        // empty
+    }
+
+    /**
+     * Do any Task specific things on save
+     * 
+     * @param <T> the Task type
+     * @param task the Task
+     */
+    protected <T extends Task> void saveTaskSpecific(T task) {
         // empty
     }
 
     /**
      * Show some additional text in a dialog
      * 
-     * @param context
-     *            an Android context
-     * @param text
-     *            the text to display
+     * @param context an Android context
+     * @param text the text to display
      */
     protected void showAdditionalText(@NonNull Context context, @NonNull Spanned text) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -199,8 +241,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
     /**
      * Invalidate the menu and map if we are called from Main
      * 
-     * @param activity
-     *            the calling FragmentActivity
+     * @param activity the calling FragmentActivity
      */
     private void updateMenu(@Nullable final FragmentActivity activity) {
         if (activity != null) {
@@ -232,8 +273,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
             if (layer != null) {
                 Task selectedTask = layer.getSelected();
                 // ugly way of only de-selecting if we're not in the new note action mode
-                if (selectedTask != null && selectedTask.equals(task)
-                        && !(task instanceof Note && ((Note) task).isNew())) {
+                if (selectedTask != null && selectedTask.equals(task) && !(task instanceof Note && ((Note) task).isNew())) {
                     layer.deselectObjects();
                 }
             }
@@ -243,11 +283,16 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(BUG_KEY, task);
+    }
+
     /**
      * ¨ Get the State value corresponding to ordinal
      * 
-     * @param ordinal
-     *            the ordinal value
+     * @param ordinal the ordinal value
      * @return the State value corresponding to ordinal
      */
     @NonNull
@@ -263,20 +308,14 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
     /**
      * Saves bug to storage if it is new, otherwise update comment and/or state
      * 
-     * @param v
-     *            the view containing the EditText with the text of the note
-     * @param bug
-     *            the Task object
+     * @param v the view containing the EditText with the text of the note
+     * @param bug the Task object
      */
     protected void saveTask(@NonNull View v, @NonNull Task bug) {
         if (bug.isNew() && ((Note) bug).count() == 0) {
             App.getTaskStorage().add(bug); // sets dirty
         }
-        String c = ((EditText) v.findViewById(R.id.openstreetbug_comment)).getText().toString();
-        if (c.length() > 0) {
-            ((Note) bug).addComment(c);
-        }
-        final Spinner state = (Spinner) v.findViewById(R.id.openstreetbug_state);
+        saveTaskSpecific(bug);
         bug.setState(pos2state(state.getSelectedItemPosition()));
         bug.setChanged(true);
         App.getTaskStorage().setDirty();
@@ -285,8 +324,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
     /**
      * Cancel a Notification for the specified task
      * 
-     * @param bug
-     *            the task we want to cancel the Notification for
+     * @param bug the task we want to cancel the Notification for
      */
     private void cancelAlert(@NonNull final Task bug) {
         if (bug.hasBeenChanged() && bug.isClosed()) {
