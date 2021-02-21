@@ -65,7 +65,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Discard
 
     private SavingHelper<Task> savingHelper = new SavingHelper<>();
 
-    private Task selected = null;
+    private Task selected             = null;
+    private Task restoredSelectedTask = null;
 
     private boolean panAndZoomDownLoad = false;
     private int     panAndZoomLimit    = 16;
@@ -298,16 +299,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Discard
         super.onRestoreState(context);
         try {
             readingLock.lock();
-            Task restoredTask = savingHelper.load(context, FILENAME, true);
-            if (restoredTask != null) {
-                Log.d(DEBUG_TAG, "read saved state");
-                Task taskInStorage = App.getTaskStorage().get(restoredTask);
-                selected = taskInStorage;
-                return true;
-            } else {
-                Log.d(DEBUG_TAG, "saved state null");
-                return false;
-            }
+            restoredSelectedTask = savingHelper.load(context, FILENAME, true);
+            Log.d(DEBUG_TAG, "reading saved state " + restoredSelectedTask);
+            return restoredSelectedTask != null;
         } finally {
             readingLock.unlock();
         }
@@ -315,6 +309,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Discard
 
     @Override
     public Task getSelected() {
+        if (selected == null && restoredSelectedTask != null) {
+            Task taskInStorage = App.getTaskStorage().get(restoredSelectedTask);
+            selected = taskInStorage;
+            restoredSelectedTask = null;
+        }
         return selected;
     }
 
