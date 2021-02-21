@@ -42,8 +42,7 @@
         android:requestLegacyExternalStorage="true" >
         <activity
             android:name=".Splash"
-            android:theme="@style/SplashTheme" 
-            android:permission="normal" >
+            android:theme="@style/SplashTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,8 +58,7 @@
             android:name=".Main"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.customMain"
-            android:permission="normal" >
+            android:theme="@style/Theme.customMain" >
             <meta-data
                 android:name="com.samsung.android.keepalive.density"
                 android:value="true" />
@@ -133,8 +131,7 @@
             android:theme="@style/Theme.custom" />
         <activity
             android:name=".prefs.VespucciURLActivity"
-            tools:ignore="ExportedActivity"
-            android:permission="normal" >
+            tools:ignore="ExportedActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -146,8 +143,7 @@
         </activity>
         <activity
             android:name="de.blau.android.GeoUrlActivity"
-            tools:ignore="ExportedActivity"
-            android:permission="normal" >
+            tools:ignore="ExportedActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -161,8 +157,7 @@
             android:name="de.blau.android.ShareOnOpenStreetMap"
             android:icon="@drawable/osm_logo"
             android:label="@string/share_on_openstreetmap"
-            tools:ignore="ExportedActivity"
-            android:permission="normal" >
+            tools:ignore="ExportedActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -174,8 +169,7 @@
         </activity>
         <activity
             android:name="de.blau.android.RemoteControlUrlActivity"
-            tools:ignore="ExportedActivity" 
-            android:permission="normal" >
+            tools:ignore="ExportedActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -216,8 +210,7 @@
             android:name="HelpViewer"
             android:launchMode="singleTask"
             android:taskAffinity=".HelpViewer"
-            android:theme="@style/Theme.customHelpViewer" 
-            android:permission="normal" >
+            android:theme="@style/Theme.customHelpViewer" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -227,8 +220,7 @@
             android:label="@string/photo_viewer_label"
             android:launchMode="singleTask"
             android:taskAffinity=".PhotoViewerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" 
-            android:permission="normal" >
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -238,8 +230,7 @@
             android:label="@string/mapillary_viewer_label"
             android:launchMode="singleTask"
             android:taskAffinity=".MapillaryViewerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:permission="normal" >
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
