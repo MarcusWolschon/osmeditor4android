@@ -198,7 +198,7 @@ public class ReadSaveTasksTest {
     @Test
     public void readNotes() {
         try {
-            JavaResources.copyFileFromResources(main, "test-result.osn", "/", false);
+            JavaResources.copyFileFromResources(main, "test-result.osn", null, "/", false);
         } catch (IOException e) {
             fail(e.getMessage());
         }

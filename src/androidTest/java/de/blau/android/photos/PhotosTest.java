@@ -53,8 +53,8 @@ public class PhotosTest {
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         try {
-            JavaResources.copyFileFromResources(main, PHOTO_FILE, "Pictures", true);
-            JavaResources.copyFileFromResources(main, PHOTO_FILE2, "Pictures", true);
+            JavaResources.copyFileFromResources(main, PHOTO_FILE, null, "Pictures", true);
+            JavaResources.copyFileFromResources(main, PHOTO_FILE2, null, "Pictures", true);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }

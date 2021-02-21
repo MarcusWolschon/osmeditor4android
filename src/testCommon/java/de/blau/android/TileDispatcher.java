@@ -28,7 +28,7 @@ public class TileDispatcher extends Dispatcher {
      */
     public TileDispatcher(@NonNull Context context, @NonNull String mbtSource) throws IOException {
         try {
-            JavaResources.copyFileFromResources(context, mbtSource, "/", false);
+            JavaResources.copyFileFromResources(context, mbtSource, null, "/", false);
             File[] storageDirectories = ContextCompat.getExternalFilesDirs(context, null);
             tileDb = new MBTileProviderDataBase(context, Uri.fromFile(new File(storageDirectories[0], mbtSource)), 1);
         } catch (IOException e) {

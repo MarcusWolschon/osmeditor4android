@@ -72,7 +72,7 @@ public class DataStyleTest {
     @Test
     public void customStyle() {
         try {
-            JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "test-style.xml", "/" + Paths.DIRECTORY_PATH_STYLES, false);
+            JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "test-style.xml", null, "/" + Paths.DIRECTORY_PATH_STYLES, false);
         } catch (IOException e) {
             fail(e.getMessage());
         }
