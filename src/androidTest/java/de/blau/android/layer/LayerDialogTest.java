@@ -219,7 +219,7 @@ public class LayerDialogTest {
         de.blau.android.layer.Util.addLayer(main, LayerType.GEOJSON);
         map.setUpLayers(main);
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream("geojson/multiPoint.geojson");
+        InputStream is = loader.getResourceAsStream("geojson/featureCollection.geojson");
         try {
             map.getGeojsonLayer().loadGeoJsonFile(main, is, false);
         } catch (IOException e) {
@@ -232,6 +232,11 @@ public class LayerDialogTest {
         menuButton.clickAndWait(Until.newWindow(), 1000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_change_style), true, false));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+        TestUtils.sleep();
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_information), true, false));
+        assertTrue(TestUtils.findText(device, false, "MultiLineString"));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true, false));
         TestUtils.sleep();
         menuButton.clickAndWait(Until.newWindow(), 1000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
