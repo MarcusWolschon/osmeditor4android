@@ -430,7 +430,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * 
      */
-    private transient NetworkStatus networkStatus;
+    private NetworkStatus networkStatus;
 
     /**
      * file we asked the camera app to create (ugly)
@@ -1278,26 +1278,23 @@ public class Main extends FullScreenAppCompatActivity
             logic.setSelectedWay(null);
             logic.setSelectedRelation(null);
             StorageDelegator storageDelegator = App.getDelegator();
-            for (String s : rcData.getSelect().split(",")) { // see
-                                                             // http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl
+            for (String s : rcData.getSelect().split(",")) {
+                // see http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl
                 if (s != null) {
                     Log.d(DEBUG_TAG, "rc select: " + s);
                     try {
-                        if (s.startsWith("node")) {
-                            long id = Long.parseLong(s.substring(Node.NAME.length()));
-                            Node n = (Node) storageDelegator.getOsmElement(Node.NAME, id);
+                        if (s.startsWith(Node.NAME)) {
+                            Node n = (Node) getRcElement(Node.NAME, storageDelegator, s);
                             if (n != null) {
                                 logic.addSelectedNode(n);
                             }
-                        } else if (s.startsWith("way")) {
-                            long id = Long.parseLong(s.substring(Way.NAME.length()));
-                            Way w = (Way) storageDelegator.getOsmElement(Way.NAME, id);
+                        } else if (s.startsWith(Way.NAME)) {
+                            Way w = (Way) getRcElement(Way.NAME, storageDelegator, s);
                             if (w != null) {
                                 logic.addSelectedWay(w);
                             }
-                        } else if (s.startsWith("relation")) {
-                            long id = Long.parseLong(s.substring(Relation.NAME.length()));
-                            Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, id);
+                        } else if (s.startsWith(Relation.NAME)) {
+                            Relation r = (Relation) getRcElement(Relation.NAME, storageDelegator, s);
                             if (r != null) {
                                 logic.addSelectedRelation(r);
                             }
@@ -1324,6 +1321,19 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
+    /**
+     * Parse a JOSM RC element spec and return the OsmElement
+     * 
+     * @param storageDelegator current StorageDelegator
+     * @param s the spec
+     * @return an OsmElement or null if not found
+     */
+    @Nullable
+    private OsmElement getRcElement(@NonNull String elementName, @NonNull StorageDelegator storageDelegator, @NonNull String s) {
+        long id = Long.parseLong(s.substring(elementName.length()));
+        return storageDelegator.getOsmElement(elementName, id);
+    }
+
     @Override
     protected void onPause() {
         descheduleAutoLock();
@@ -1332,10 +1342,8 @@ public class Main extends FullScreenAppCompatActivity
             unregisterReceiver(connectivityChangedReceiver);
         } catch (Exception e) {
             // FIXME if onPause gets called before onResume has registered the
-            // Receiver
-            // unregisterReceiver will throw an exception, a better fix would
-            // likely to
-            // register earlier, but that may not help
+            // Receiver unregisterReceiver will throw an exception, a better fix would
+            // likely to register earlier, but that may not help
         }
         disableLocationUpdates();
         if (getTracker() != null) {
@@ -2592,9 +2600,9 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * Checks if GPS is enabled in the settings. If not, returns false and shows location settings.
+     * Checks if GPS is enabled in the settings. If not, returns null and shows location settings.
      * 
-     * @return the provider if a usable on is enabled, null if not
+     * @return the provider if a usable one is enabled, null if not
      */
     private String[] getEnabledLocationProviders() {
         List<String> temp = new ArrayList<>();
@@ -2827,8 +2835,7 @@ public class Main extends FullScreenAppCompatActivity
             // Read data from extras
             PropertyEditorData[] result = PropertyEditorData.deserializeArray(b.getSerializable(PropertyEditor.TAGEDIT_DATA));
             // FIXME Problem saved data may not be read at this point, load
-            // here, probably we should load editing state
-            // too
+            // here, probably we should load editing state too
             synchronized (loadOnResumeLock) {
                 if (loadOnResume) {
                     loadOnResume = false;
@@ -3150,27 +3157,9 @@ public class Main extends FullScreenAppCompatActivity
      * @param applyLastAddressTags add address tags to the object being edited.
      * @param showPresets show the preset tab on start up.
      */
-    public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets) {
-        descheduleAutoLock();
+    public void performTagEdit(@NonNull final OsmElement selectedElement, @Nullable String focusOn, boolean applyLastAddressTags, boolean showPresets) {
         final Logic logic = App.getLogic();
-        logic.deselectAll();
-        if (selectedElement instanceof Node) {
-            logic.setSelectedNode((Node) selectedElement);
-        } else if (selectedElement instanceof Way) {
-            logic.setSelectedWay((Way) selectedElement);
-        } else if (selectedElement instanceof Relation) {
-            logic.setSelectedRelation((Relation) selectedElement);
-        }
-
-        if (selectedElement != null) {
-            StorageDelegator storageDelegator = App.getDelegator();
-            if (storageDelegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
-                PropertyEditorData[] single = new PropertyEditorData[1];
-                single[0] = new PropertyEditorData(selectedElement, focusOn);
-                PropertyEditor.startForResult(this, single, applyLastAddressTags, showPresets, logic.getMode().getExtraTags(logic, selectedElement),
-                        logic.getMode().getPresetItems(this, selectedElement), REQUEST_EDIT_TAG);
-            }
-        }
+        performTagEdit(selectedElement, focusOn, applyLastAddressTags, null, logic.getMode().getExtraTags(logic, selectedElement), showPresets);
     }
 
     /**
@@ -3181,8 +3170,23 @@ public class Main extends FullScreenAppCompatActivity
      * @param tags any existing tags to apply
      * @param showPresets show the preset tab on start up.
      */
-    public void performTagEdit(final OsmElement selectedElement, @Nullable PresetElementPath presetPath, @Nullable HashMap<String, String> tags,
+    public void performTagEdit(@NonNull final OsmElement selectedElement, @Nullable PresetElementPath presetPath, @Nullable HashMap<String, String> tags,
             boolean showPresets) {
+        performTagEdit(selectedElement, null, false, presetPath, tags, showPresets);
+    }
+
+    /**
+     * Start the PropertyEditor for the element in question, single element version
+     * 
+     * @param selectedElement Selected OpenStreetMap element.
+     * @param focusOn if not null focus on the value field of this key.
+     * @param applyLastAddressTags add address tags to the object being edited.
+     * @param presetPath path to preset to apply
+     * @param tags any existing tags to apply
+     * @param showPresets show the preset tab on start up.
+     */
+    private void performTagEdit(@NonNull final OsmElement selectedElement, @Nullable String focusOn, boolean applyLastAddressTags,
+            @Nullable PresetElementPath presetPath, @Nullable HashMap<String, String> tags, boolean showPresets) {
         descheduleAutoLock();
         final Logic logic = App.getLogic();
         logic.deselectAll();
@@ -3194,16 +3198,16 @@ public class Main extends FullScreenAppCompatActivity
             logic.setSelectedRelation((Relation) selectedElement);
         }
 
-        if (selectedElement != null) {
+        if (selectedElement != null) { // NOSONAR
             StorageDelegator storageDelegator = App.getDelegator();
             if (storageDelegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
                 PropertyEditorData[] single = new PropertyEditorData[1];
-                single[0] = new PropertyEditorData(selectedElement, null);
+                single[0] = new PropertyEditorData(selectedElement, focusOn);
                 ArrayList<PresetElementPath> presetPathList = new ArrayList<>();
                 if (presetPath != null) {
                     presetPathList.add(presetPath);
                 }
-                PropertyEditor.startForResult(this, single, false, showPresets, tags, presetPathList, REQUEST_EDIT_TAG);
+                PropertyEditor.startForResult(this, single, applyLastAddressTags, showPresets, tags, presetPathList, REQUEST_EDIT_TAG);
             }
         }
     }
