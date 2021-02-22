@@ -978,6 +978,10 @@ public class TestUtils {
      */
     public static void selectFile(@NonNull UiDevice device, @NonNull Context context, @Nullable String directory, @NonNull String fileName,
             boolean useVespucciDir) {
+        // if the fileName we are looking for is on screen click and be done with it
+        if (TestUtils.findText(device, false, fileName) && TestUtils.clickText(device, false, fileName, true, true)) {
+            return;
+        }
         UiSelector scrollableSelector = Build.VERSION.SDK_INT > Build.VERSION_CODES.P ? new UiSelector().className("android.widget.FrameLayout")
                 : Build.VERSION.SDK_INT > Build.VERSION_CODES.N ? new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView")
                         : new UiSelector().scrollable(true).className("android.widget.ListView");
