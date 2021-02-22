@@ -90,7 +90,7 @@ public class LayerDialogTest {
         assertNotNull(main);
         TestUtils.grantPermissons(device);
         Preferences prefs = new Preferences(main);
-        tileServer = MockTileServer.setupTileServer(main, prefs, "ersatz_background.mbt", false);
+        tileServer = MockTileServer.setupTileServer(main, prefs, "ersatz_background.mbt", true);
         map = main.getMap();
         map.setPrefs(main, prefs);
 
