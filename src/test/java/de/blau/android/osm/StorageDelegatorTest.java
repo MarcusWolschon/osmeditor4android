@@ -38,7 +38,7 @@ public class StorageDelegatorTest {
         try {
             d.getUndo().createCheckpoint("rotate test");
             ViewBox v = new ViewBox(0D, 51.476D, 0.003D, 51.478D);
-            Coordinates[] coords = Coordinates.nodeListToCooardinateArray(1000, 2000, v, new ArrayList<>(w.getNodes()));
+            Coordinates[] coords = Coordinates.nodeListToCoordinateArray(1000, 2000, v, new ArrayList<>(w.getNodes()));
             Coordinates center = Geometry.centroidXY(coords, true);
             d.rotateWay(w, (float) Math.toRadians(180), -1, (float) center.x, (float) center.y, 1000, 2000, v);
             assertEquals(514760000, n0.getLat());

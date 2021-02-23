@@ -2090,7 +2090,7 @@ public class Logic {
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param sortedWays list of ways to be merged
-     * @return a List of Result, empty if nothing went wrong
+     * @return a List of Result, includes merged way and anything else of interest
      */
     @NonNull
     public synchronized List<Result> performMerge(@Nullable FragmentActivity activity, @NonNull List<OsmElement> sortedWays) {
@@ -2128,6 +2128,28 @@ public class Logic {
                 }
             }
             return overallResult;
+        } catch (OsmIllegalOperationException e) {
+            dismissAttachedObjectWarning(activity);
+            rollback();
+            throw new OsmIllegalOperationException(e);
+        }
+    }
+
+    /**
+     * Merge two closed ways
+     * 
+     * @param activity activity this was called from, if null no warnings will be displayed
+     * @param ways list of ways to be merged
+     * @return a List of Result, includes merged way and anything else of interest
+     */
+    public synchronized List<Result> performPolygonMerge(@Nullable FragmentActivity activity, @NonNull List<Way> ways) {
+        createCheckpoint(activity, R.string.undo_action_merge_polygons);
+        displayAttachedObjectWarning(activity, ways, true); // needs to be done before merge
+        if (!(ways.size() == 2 && ways.get(0).isClosed() && ways.get(1).isClosed())) {
+            throw new OsmIllegalOperationException("No mergeable polygons");
+        }
+        try {
+            return getDelegator().mergeSimplePolygons(map, ways.get(0), ways.get(1));
         } catch (OsmIllegalOperationException e) {
             dismissAttachedObjectWarning(activity);
             rollback();

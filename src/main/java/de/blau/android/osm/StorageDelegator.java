@@ -1,10 +1,14 @@
 package de.blau.android.osm;
 
+import static de.blau.android.util.Winding.COUNTERCLOCKWISE;
+import static de.blau.android.util.Winding.winding;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.ProtocolException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -488,7 +492,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Create relation with a list of RelationMembers as members
      * 
-     * @param members members to add without role
+     * @param members RelationMembers to add
      * @return the new relation
      */
     @NonNull
@@ -733,7 +737,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             int height = map.getHeight();
             ViewBox box = map.getViewBox();
 
-            Coordinates[] coords = Coordinates.nodeListToCooardinateArray(width, height, box, new ArrayList<>(nodes));
+            Coordinates[] coords = Coordinates.nodeListToCoordinateArray(width, height, box, new ArrayList<>(nodes));
 
             // save nodes for undo
             for (Node nd : nodes) {
@@ -862,7 +866,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
                 int totalNodes = 0;
                 for (Way w : wayList) {
-                    coordsArray.add(Coordinates.nodeListToCooardinateArray(width, height, box, w.getNodes()));
+                    coordsArray.add(Coordinates.nodeListToCoordinateArray(width, height, box, w.getNodes()));
                     totalNodes += w.getNodes().size();
                 }
                 int coordsArraySize = coordsArray.size();
@@ -1557,7 +1561,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         Result mergeResult = new Result();
 
         validateWayNodeCount(mergeInto.nodeCount() + mergeFrom.nodeCount());
-        // first determine if one of the nodes already has a valid id, if it is not and other node has valid id swap
+        // first determine if one of the ways already has a valid id, if it is not and other node has valid id swap
         // else check version numbers this helps preserve history
         if (((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion()) {
             // swap
@@ -1706,7 +1710,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @return a List (potentially empty) of issues if elements have different roles in the same relation
      */
     @NonNull
-    private List<Result> roleConflict(OsmElement o1, OsmElement o2) {
+    private List<Result> roleConflict(@NonNull OsmElement o1, @NonNull OsmElement o2) {
         List<Result> result = new ArrayList<>();
         List<Relation> r1 = o1.getParentRelations() != null ? o1.getParentRelations() : new ArrayList<>();
         List<Relation> r2 = o2.getParentRelations() != null ? o2.getParentRelations() : new ArrayList<>();
@@ -1743,6 +1747,387 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         roleIssue.setElement(r);
         roleIssue.addIssue(MergeIssue.ROLECONFLICT);
         results.add(roleIssue);
+    }
+
+    /**
+     * Merge two closed ways
+     * 
+     * This will merge two closed ways in to a single polygon or multipolygon if necessary
+     * 
+     * Note: does not reverse direction dependent tags on nodes if the ways were reversed
+     * 
+     * @param map the current Map instance
+     * @param p1 polygon 1
+     * @param p2 polygon 2
+     * @return a List of Result objects, the 1st one containing the merged object
+     * @throws OsmIllegalOperationException if we can't complete the merge for reasons that shouldn't occur
+     */
+    public List<Result> mergeSimplePolygons(@NonNull de.blau.android.Map map, @NonNull Way p1, @NonNull Way p2) throws OsmIllegalOperationException {
+        Result mergeResult = new Result();
+
+        // determine max number of nodes we will end up with
+        // while this double counts common nodes in degenerate cases
+        // they may remain twice in the output polygon
+        int nodeTotal = p1.getNodes().size() + p2.getNodes().size();
+        validateWayNodeCount(nodeTotal);
+
+        // first determine if one of the ways already has a valid id, if it is not and other ways has valid id swap
+        // else check version numbers this helps preserve history
+        if (((p1.getOsmId() < 0) && (p2.getOsmId() > 0)) || p1.getOsmVersion() < p2.getOsmVersion()) {
+            // swap
+            Log.d(DEBUG_TAG, "mergeWays swap into #" + p1.getOsmId() + " with from #" + p2.getOsmId());
+            Way tmpWay = p1;
+            p1 = p2;
+            p2 = tmpWay;
+            Log.d(DEBUG_TAG, "mergeWays now into #" + p1.getOsmId() + " from #" + p2.getOsmId());
+        }
+
+        List<Result> overallResult = roleConflict(p1, p2); // need to do this before we remove ways from relations.
+
+        // undo - mergeInto way saved here, mergeFrom way will not be changed directly and will be saved in removeWay
+        dirty = true;
+        undo.save(p1);
+        undo.save(p2);
+
+        List<List<Node>> outputRings = new ArrayList<>();
+        List<Node> outputRing = new ArrayList<>();
+        List<Node> currentInputRing = new ArrayList<>(p1.getNodes());
+        List<Node> otherInputRing = new ArrayList<>(p2.getNodes());
+
+        // in the 1st pass we create the outer merged polygon and handle disjunct polygons
+        // after that we try to convert any left over nodes in to inners
+        boolean firstpass = true;
+
+        boolean reversed = false;
+
+        // make winding clockwise for both rings
+        if (!currentInputRing.isEmpty() && winding(currentInputRing) == COUNTERCLOCKWISE) {
+            reversed = true; // so that we can undo this later
+            Collections.reverse(currentInputRing);
+        }
+        if (!otherInputRing.isEmpty() && winding(otherInputRing) == COUNTERCLOCKWISE) {
+            // check for direction dependent tags
+            Map<String, String> dirTags = Reverse.getDirectionDependentTags(p2);
+            if (dirTags != null) {
+                Reverse.reverseDirectionDependentTags(p2, dirTags, true);
+                mergeResult.addIssue(ReverseIssue.TAGSREVERSED);
+            }
+            if (p1.notReversable()) {
+                mergeResult.addIssue(MergeIssue.NOTREVERSABLE);
+            }
+            Collections.reverse(otherInputRing);
+        }
+
+        int currentSize = currentInputRing.size();
+        int otherSize = otherInputRing.size();
+        while (currentSize >= 2 || otherSize >= 2) {
+            // find a node to start that isn't a member of both
+            Node startNode = firstpass ? findInitalStartNode(map, currentInputRing, otherInputRing) : findStartNode(currentInputRing, otherInputRing);
+            if (startNode == null) {
+                // switch rings and retry if that fails the rings are identical (shouldn't happen) or disjunct
+                startNode = firstpass ? findInitalStartNode(map, otherInputRing, currentInputRing) : findStartNode(otherInputRing, currentInputRing);
+                if (startNode != null) {
+                    List<Node> tempRing = currentInputRing;
+                    currentInputRing = otherInputRing;
+                    otherInputRing = tempRing;
+                } else {
+                    Log.w(DEBUG_TAG, "Disjunct rings");
+                    if (isClosedRing(currentInputRing)) {
+                        outputRings.add(new ArrayList<>(currentInputRing));
+                        currentInputRing.clear();
+                        otherInputRing.clear();
+                    }
+                    break; // finished
+                }
+            }
+
+            List<Node> keep = new ArrayList<>();
+            if (currentInputRing.size() < 3) {
+                // switch
+                List<Node> tempRing = currentInputRing;
+                currentInputRing = otherInputRing;
+                otherInputRing = tempRing;
+            }
+
+            int i = 0;
+            i = currentInputRing.indexOf(startNode);
+            outputRing.add(startNode);
+
+            Node currentNode = null;
+            Node previousNode = startNode;
+
+            Log.d(DEBUG_TAG, "startNode " + startNode + " index " + i + " currentInputRing size " + currentInputRing.size() + " otherInputRing size "
+                    + otherInputRing.size());
+            i = (i + 1) % currentInputRing.size();
+            while (startNode != currentNode && (outputRing.size() <= nodeTotal + 1)) { // safety catch
+                currentNode = currentInputRing.get(i);
+                if (currentNode != previousNode) {
+                    outputRing.add(currentNode);
+                }
+                Log.d(DEBUG_TAG, "got " + currentNode.getOsmId() + " index " + i);
+                if (otherInputRing.contains(currentNode)) {
+                    Log.d(DEBUG_TAG, "common node");
+                    Node nextNodeCurrent = getNextNode(currentInputRing, i);
+                    int j = otherInputRing.indexOf(currentNode);
+                    Log.d(DEBUG_TAG, "other node index " + j);
+                    Node nextNodeOther = getNextNode(otherInputRing, j);
+                    if (nextNodeOther == null) {
+                        Collections.reverse(otherInputRing);
+                        j = otherInputRing.indexOf(currentNode);
+                        Log.d(DEBUG_TAG, "other node index reversed " + j);
+                        nextNodeOther = getNextNode(otherInputRing, j);
+                    }
+                    Log.d(DEBUG_TAG, " next current " + nextNodeCurrent + " other " + nextNodeOther);
+                    if (nextNodeCurrent == null && nextNodeOther == null) {
+                        Log.e(DEBUG_TAG, "inconsistent state");
+                        break;
+                    }
+                    // any inners from non-overlapping polygons should have counter clockwise winding so the same
+                    // criteria should work
+                    if (nextNodeOther != null && (nextNodeCurrent == null || compareAngles(map, previousNode, currentNode, nextNodeCurrent, nextNodeOther))) {
+                        Log.d(DEBUG_TAG, "switch rings");
+                        List<Node> tempRing = currentInputRing;
+                        currentInputRing = otherInputRing;
+                        otherInputRing = tempRing;
+                        i = j;
+                    }
+                }
+                previousNode = currentNode;
+                i = (i + 1) % currentInputRing.size();
+            }
+
+            Log.d(DEBUG_TAG, "currentNode " + currentNode + " index " + i);
+
+            if (startNode.equals(currentNode)) {
+                // finished ring
+                outputRings.add(new ArrayList<>(outputRing)); // store shallow copy
+            } else {
+                Log.w(DEBUG_TAG, "Incomplete ring discarded");
+            }
+
+            // remove all accounted for nodes from the two rings
+            for (Node n : outputRing) {
+                if (keep.contains(n)) {
+                    continue;
+                }
+                while (currentInputRing.remove(n)) {
+                    // empty
+                }
+                while (otherInputRing.remove(n)) {
+                    // empty
+                }
+            }
+
+            currentSize = currentInputRing.size();
+            otherSize = otherInputRing.size();
+
+            if (currentSize == 0 || otherSize == 0) {
+                if (currentSize > 2 && isClosedRing(currentInputRing)) {
+                    outputRings.add(new ArrayList<>(currentInputRing));
+                }
+                if (otherSize > 2 && isClosedRing(otherInputRing)) {
+                    outputRings.add(new ArrayList<>(otherInputRing));
+                }
+                currentInputRing.clear();
+                otherInputRing.clear();
+            }
+
+            outputRing.clear(); // restart
+            firstpass = false;
+        }
+
+        int ringCount = outputRings.size();
+        Log.d(DEBUG_TAG, "ring count " + ringCount);
+        OsmElement result = null;
+        if (ringCount >= 1) {
+            List<Node> ring = outputRings.get(0);
+            if (reversed) { // undo reverse
+                Collections.reverse(ring);
+            }
+            p1.getNodes().clear();
+            p1.getNodes().addAll(ring);
+            p1.updateState(OsmElement.STATE_MODIFIED);
+            insertElementSafe(p1);
+            if (ringCount == 1) {
+                result = p1;
+                setTags(result, OsmElement.mergedTags(p1, p2));
+                mergeElementsRelations(p1, p2);
+                removeWay(p2);
+            } else {
+                // its a MP
+                List<RelationMember> members = new ArrayList<>();
+                members.add(new RelationMember("", p1));
+                // reuse p2
+                ring = outputRings.get(1);
+                p2.getNodes().clear();
+                p2.getNodes().addAll(ring);
+                p2.updateState(OsmElement.STATE_MODIFIED);
+                insertElementSafe(p2);
+                members.add(new RelationMember("", p2));
+                // any further rings
+                for (int i = 2; i < ringCount; i++) {
+                    Way newWay = getFactory().createWayWithNewId();
+                    newWay.getNodes().addAll(outputRings.get(i));
+                    insertElementSafe(newWay);
+                    members.add(new RelationMember("", newWay));
+                }
+                RelationUtils.setMultipolygonRoles(null, members, true);
+                result = createAndInsertRelationFromMembers(members);
+                Map<String, String> tags = RelationUtils.addTypeTag(Tags.VALUE_MULTIPOLYGON, result.getTags());
+                setTags(result, tags);
+                getUndo().createCheckpoint(map.getContext().getString(R.string.undo_action_move_tags));
+                RelationUtils.moveOuterTags(this, (Relation) result);
+            }
+        } else {
+            // something went really wrong
+            Log.d(DEBUG_TAG, "ring count " + ringCount);
+            throw new OsmIllegalOperationException("attempted to merge non-mergeable polygon ways. this is a bug.");
+        }
+
+        // remove any left over nodes
+        removeUntaggedNodes(currentInputRing);
+        removeUntaggedNodes(otherInputRing);
+
+        mergeResult.setElement(result);
+
+        overallResult.add(0, mergeResult);
+        return overallResult;
+    }
+
+    /**
+     * Delete nodes, if they have neither tags nor are way nodes
+     * 
+     * @param list the List of Nodes
+     */
+    private void removeUntaggedNodes(List<Node> list) {
+        for (Node n : list) {
+            if (!n.hasTags() && getCurrentStorage().getWays(n).isEmpty()) {
+                removeNode(n);
+            }
+        }
+    }
+
+    /**
+     * Get the next node from a ring, taking into account if the ring is closed or not
+     * 
+     * @param ring the ring
+     * @param i the current index
+     * @return the next Node of null
+     */
+    @Nullable
+    private Node getNextNode(@NonNull List<Node> ring, int i) {
+        final int size = ring.size();
+        if (isClosedRing(ring)) { // closed
+            int newI = (i + 1) % size;
+            newI = newI == 0 ? 1 : newI; // skip dup node
+            return ring.get(newI);
+        } else {
+            if (i < size - 1) {
+                return ring.get(i + 1);
+            }
+            return null;
+        }
+    }
+
+    /**
+     * Compares two angles defined by four nodes
+     * 
+     * @param map the current map instance
+     * @param b Node a (start)
+     * @param c1 Node b1 (end 1)
+     * @param c2 Node b2 (end 2)
+     * @return true if the first angle is larger than the 2nd
+     */
+    private boolean compareAngles(@NonNull de.blau.android.Map map, @NonNull Node a, @NonNull Node b, @NonNull Node c1, @NonNull Node c2) {
+        Coordinates[] c = Coordinates.nodeListToCoordinateArray(map.getWidth(), map.getHeight(), map.getViewBox(), Arrays.asList(a, b, c1, c2));
+        Coordinates p = c[0].subtract(c[1]);
+        double angle1 = Coordinates.angle(p, c[2].subtract(c[1]));
+        angle1 = angle1 < 0 ? angle1 + 2 * Math.PI : angle1;
+        double angle2 = Coordinates.angle(p, c[3].subtract(c[1]));
+        angle2 = angle2 < 0 ? angle2 + 2 * Math.PI : angle2;
+        return angle2 < angle1;
+    }
+
+    /**
+     * Check if first Node and last Node of a list are the same
+     * 
+     * @param list the List
+     * @return true if the condition is true
+     */
+    private boolean isClosedRing(@NonNull List<Node> list) {
+        return list.size() > 3 && (list.get(0) == list.get(list.size() - 1));
+    }
+
+    /**
+     * Find a Node in list1 that is not in list2
+     * 
+     * @param list1 the 1st List of Node
+     * @param list2 the 2nd List of Node
+     * @return the Node or null if there is none
+     */
+    @Nullable
+    private Node findStartNode(@NonNull List<Node> list1, @NonNull List<Node> list2) {
+        Node startNode = null;
+        for (Node n : list1) {
+            if (!list2.contains(n)) {
+                startNode = n;
+                break;
+            }
+        }
+        return startNode;
+    }
+
+    /**
+     * Find a Node in list1 that is on the outer part of the ring 1
+     * 
+     * @param list1 the 1st List of Node
+     * @param list2 the 2nd List of Node
+     * @return the Node or null if there is none
+     */
+    @Nullable
+    private Node findInitalStartNode(de.blau.android.Map map, List<Node> list1, List<Node> list2) {
+        List<Node> allNodes = new ArrayList<>(list1);
+        allNodes.addAll(list2);
+        Node maxX = allNodes.get(0);
+        for (Node n : allNodes) {
+            if (n.getLon() > maxX.getLon()) {
+                maxX = n;
+            }
+        }
+        if (list1.contains(maxX) && !list2.contains(maxX)) {
+            return maxX;
+        }
+
+        // walk around the outer till we find a suitable Node
+        List<Node> currentRing = list1.contains(maxX) ? list1 : list2;
+        List<Node> otherRing = currentRing == list1 ? list2 : list1;
+        int i = currentRing.indexOf(maxX);
+        Node current = maxX;
+        // use the previous node in this ring
+        Node previous = currentRing.get((i + currentRing.size() - 1) % currentRing.size());
+        do {
+            if (otherRing.contains(current)) {
+                Log.d(DEBUG_TAG, "findInitalStartNode common node");
+                Node nextNodeCurrent = getNextNode(currentRing, i);
+                int j = otherRing.indexOf(current);
+                Log.d(DEBUG_TAG, "findInitalStartNode other node index " + j);
+                Node nextNodeOther = getNextNode(otherRing, j);
+                if (nextNodeOther != null && (nextNodeCurrent == null || compareAngles(map, previous, current, nextNodeCurrent, nextNodeOther))) {
+                    Log.d(DEBUG_TAG, "findInitalStartNode  switch rings");
+                    List<Node> tmp = currentRing;
+                    currentRing = otherRing;
+                    otherRing = tmp;
+                    i = j;
+                }
+            }
+            previous = current;
+            i = (i + 1) % currentRing.size();
+            current = currentRing.get(i);
+            if (list1.contains(current) && !list2.contains(current)) {
+                return current;
+            }
+        } while (current != maxX);
+        return null;
     }
 
     /**
@@ -3447,7 +3832,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     void fixupBacklinks() {
         // first zap all, really all, as referenced relations may have been deleted
         // a possible alternative would be to check undostorage for any relations
-        for (OsmElement e:currentStorage.getElements()) {
+        for (OsmElement e : currentStorage.getElements()) {
             if (e != null) {
                 e.clearParentRelations();
             }

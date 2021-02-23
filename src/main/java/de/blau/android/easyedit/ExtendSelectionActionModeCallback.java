@@ -39,7 +39,6 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     private static final int MENUITEM_RELATION             = 7;
     private static final int MENUITEM_ADD_RELATION_MEMBERS = 8;
     private static final int MENUITEM_ORTHOGONALIZE        = 9;
-    private static final int MENUITEM_MERGE_POLYGONS       = 10;
     private static final int MENUITEM_UPLOAD               = 31;
     private static final int MENUITEM_ZOOM_TO_SELECTION    = 34;
     private static final int MENUITEM_SEARCH_OBJECTS       = 35;
@@ -52,11 +51,8 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     private boolean deselect = true;
 
     private MenuItem undoItem;
-
     private MenuItem mergeItem;
-
     private MenuItem orthogonalizeItem;
-
     private MenuItem uploadItem;
 
     /**
@@ -181,10 +177,6 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         orthogonalizeItem = menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_ortho));
 
-        // // for now just two
-        // if (selection.size() == 2 && canMerge(selection)) {
-        // menu.add(Menu.NONE,MENUITEM_MERGE_POLYGONS, Menu.NONE, "Merge polygons");
-        // }
         menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
         menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
 
@@ -212,7 +204,9 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
             undoItem.setVisible(false);
             updated = true;
         }
-        updated |= ElementSelectionActionModeCallback.setItemVisibility(sortedWays != null, mergeItem, false);
+        final boolean canMergePolygons = canMergePolygons(selection);
+        updated |= ElementSelectionActionModeCallback
+                .setItemVisibility((sortedWays != null && !canMergePolygons) || (selection.size() == 2 && canMergePolygons), mergeItem, false);
 
         List<Way> selectedWays = logic.getSelectedWays();
         updated |= ElementSelectionActionModeCallback.setItemVisibility(selectedWays != null && !selectedWays.isEmpty(), orthogonalizeItem, false);
@@ -251,34 +245,20 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         return true;
     }
 
-    // private boolean canMerge(ArrayList<OsmElement> selection) {
-    // for (OsmElement e:selection) {
-    // if (!(e.getName().equals(Way.NAME) && ((Way)e).isClosed())) {
-    // return false;
-    // }
-    // }
-    //
-    // return true;
-    // }
-    //
-    // private ArrayList<OsmElement> merge(ArrayList<OsmElement> selection) {
-    // if (selection.size() > 1) {
-    // Way first = (Way) selection.get(0);
-    // ArrayList<OsmElement> rest = (ArrayList<OsmElement>) selection.subList(1,selection.size());
-    // ArrayList<OsmElement> newSelection = new ArrayList<OsmElement>();
-    // for (OsmElement w:rest) {
-    // Way n = logic.mergeSimplePolygons(first, (Way)w);
-    // if (n!=null) {
-    // first = n;
-    // } else {
-    // newSelection.add(first);
-    // first = (Way)w;
-    // }
-    // }
-    // newSelection.add(first);
-    // return
-    // }
-    // }
+    /**
+     * Check if the current selection are cloased ways
+     * 
+     * @param selection the current selection
+     * @return true if they are all cloased ways
+     */
+    private boolean canMergePolygons(@NonNull List<OsmElement> selection) {
+        for (OsmElement e : selection) {
+            if (!(Way.NAME.equals(e.getName()) && ((Way) e).isClosed())) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
@@ -318,7 +298,11 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 orthogonalizeWays();
                 break;
             case MENUITEM_MERGE:
-                mergeWays();
+                if (canMergePolygons(selection)) {
+                    mergePolygons();
+                } else {
+                    mergeWays();
+                }
                 break;
             case MENUITEM_ZOOM_TO_SELECTION:
                 main.zoomTo(selection);
@@ -367,6 +351,29 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
             List<Result> result = logic.performMerge(main, sortedWays);
             final Result r = result.get(0);
             main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) r.getElement()));
+            if (result.size() > 1 || r.hasIssue()) {
+                TagConflictDialog.showDialog(main, result);
+            }
+        } catch (OsmIllegalOperationException | IllegalStateException e) {
+            Snack.barError(main, e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Merge closed ways
+     */
+    private void mergePolygons() {
+        try {
+            List<Result> result = logic.performPolygonMerge(main, logic.getSelectedWays());
+            final Result r = result.get(0);
+            OsmElement e = r.getElement();
+            if (e instanceof Way) {
+                logic.setSelectedWay((Way) e);
+                main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) e));
+            } else if (e instanceof Relation) {
+                logic.setSelectedRelation((Relation) e);
+                main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, (Relation) e));
+            }
             if (result.size() > 1 || r.hasIssue()) {
                 TagConflictDialog.showDialog(main, result);
             }
@@ -432,7 +439,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
             }
         }
         logic.performEraseMultipleObjects(main, selection);
-        
+
         // check for new empty relations
         ElementSelectionActionModeCallback.checkEmptyRelations(main, origParents);
         manager.finish();

@@ -90,16 +90,28 @@ public class Coordinates {
      * @return an array of Coordinates
      */
     @NonNull
-    public static Coordinates[] nodeListToCooardinateArray(int width, int height, @NonNull ViewBox box, @NonNull List<Node> nodes) {
+    public static Coordinates[] nodeListToCoordinateArray(int width, int height, @NonNull ViewBox box, @NonNull List<Node> nodes) {
         int size = nodes.size();
         Coordinates[] points = new Coordinates[size];
         // loop over all nodes
         for (int i = 0; i < size; i++) {
-            points[i] = new Coordinates(0.0f, 0.0f);
-            points[i].x = GeoMath.lonE7ToX(width, box, nodes.get(i).getLon());
-            points[i].y = GeoMath.latE7ToY(height, width, box, nodes.get(i).getLat());
+            points[i] = nodeToCoordinates(width, height, box, nodes.get(i));
         }
         return points;
+    }
+
+    /**
+     * Convert the coordinates from a Node to screen coordinates
+     * 
+     * @param width screen width
+     * @param height screen height
+     * @param box current ViewBox
+     * @param node the Node
+     * @return a Coordinates instance
+     */
+    @NonNull
+    public static Coordinates nodeToCoordinates(int width, int height, @NonNull ViewBox box, @NonNull Node node) {
+        return new Coordinates(GeoMath.lonE7ToX(width, box, node.getLon()), GeoMath.latE7ToY(height, width, box, node.getLat()));
     }
 
     /**
@@ -130,6 +142,28 @@ public class Coordinates {
      */
     public static double dotproduct(@NonNull Coordinates v1, @NonNull Coordinates v2) {
         return v1.x * v2.x + v1.y * v2.y;
+    }
+
+    /**
+     * Return the determinate for two vectors
+     * 
+     * @param v1 vector 1
+     * @param v2 vector 2
+     * @return the determinate
+     */
+    public static double determinate(@NonNull Coordinates v1, @NonNull Coordinates v2) {
+        return v1.x * v2.y - v1.y * v2.x;
+    }
+
+    /**
+     * Calculate the angle between two vectors
+     * 
+     * @param v1 vector 1
+     * @param v2 vector 2
+     * @return the angle between them in radians
+     */
+    public static double angle(@NonNull Coordinates v1, @NonNull Coordinates v2) {
+        return Math.atan2(determinate(v1, v2), dotproduct(v1, v2));
     }
 
     @Override

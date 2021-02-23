@@ -20,7 +20,7 @@ public final class Winding {
     /**
      * Determine winding of a List of Nodes
      * 
-     * @param nodes the List of Nodes
+     * @param nodes the List of Nodes (must contain at least one)
      * @return an int indicating winding direction
      */
     public static int winding(@NonNull List<Node> nodes) {
