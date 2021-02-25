@@ -3412,36 +3412,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * Ensure that we have consistent backlinks
      */
     void fixupBacklinks() {
-        // first zap all
-        final List<Relation> allRelations = currentStorage.getRelations();
-        for (Relation r : allRelations) {
-            final List<RelationMember> members = r.getMembers();
-            if (members != null) {
-                for (RelationMember rm : r.getMembers()) {
-                    OsmElement e = null;
-                    final String type = rm.getType();
-                    final long ref = rm.getRef();
-                    switch (type) {
-                    case Node.NAME:
-                        e = currentStorage.getNode(ref);
-                        break;
-                    case Way.NAME:
-                        e = currentStorage.getWay(ref);
-                        break;
-                    case Relation.NAME:
-                        e = currentStorage.getRelation(ref);
-                        break;
-                    default:
-                        logUnknownMemberType(r, type);
-                    }
-                    if (e != null) {
-                        e.clearParentRelations();
-                    }
-                }
+        // first zap all, really all, as referenced relations may have been deleted
+        // a possible alternative would be to check undostorage for any relations
+        for (OsmElement e:currentStorage.getElements()) {
+            if (e != null) {
+                e.clearParentRelations();
             }
         }
         // then add them back
-        for (Relation r : allRelations) {
+        for (Relation r : currentStorage.getRelations()) {
             final List<RelationMember> members = r.getMembers();
             if (members != null) {
                 for (RelationMember rm : r.getMembers()) {
