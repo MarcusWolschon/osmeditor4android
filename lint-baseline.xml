@@ -2,6 +2,145 @@
 <issues format="5" by="lint 3.6.0" client="gradle" variant="currentDebug" version="3.6.0">
 
     <issue
+        id="InconsistentArrays"
+        message="Array `address_tags_entries` has an inconsistent number of items (19 in `values\\addresstags.xml`, 16 in `values-be\\addresstags.xml`)"
+        errorLine1="    &lt;string-array name=&quot;address_tags_entries&quot;>"
+        errorLine2="    ^">
+        <location
+            file="src\main\res\values\addresstags.xml"
+            line="3"
+            column="5"/>
+        <location
+            file="src\main\res\values-be\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-bg\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-ca\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-cs-rCZ\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-de\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-el\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-es\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-fa\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-fi\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-fr\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-gl\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-hu\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-is\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-it\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-iw\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-ja\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-ko\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-nb\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-nl\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-pl\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-pt\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-pt-rBR\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-ru\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-sk\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-sv\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-tr\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-uk\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-vi\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-zh\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-zh-rCN\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-zh-rHK\addresstags.xml"
+            line="3"
+            column="3"/>
+        <location
+            file="src\main\res\values-zh-rTW\addresstags.xml"
+            line="3"
+            column="3"/>
+    </issue>
+
+    <issue
         id="ScrollViewSize"
         message="This EditText should use `android:layout_width=&quot;wrap_content&quot;`"
         errorLine1="                android:layout_width=&quot;fill_parent&quot;"
@@ -140,7 +279,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="128"
+            line="129"
             column="13"/>
     </issue>
 
@@ -151,7 +290,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="128"
+            line="129"
             column="13"/>
     </issue>
 
@@ -162,7 +301,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="134"
+            line="135"
             column="13"/>
     </issue>
 
@@ -173,7 +312,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="224"
+            line="227"
             column="13"/>
     </issue>
 
@@ -184,7 +323,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="389"
+            line="392"
             column="9"/>
     </issue>
 
@@ -195,7 +334,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="467"
+            line="470"
             column="9"/>
     </issue>
 
@@ -206,7 +345,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="503"
+            line="506"
             column="9"/>
     </issue>
 
@@ -217,7 +356,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="559"
+            line="562"
             column="9"/>
     </issue>
 
@@ -228,7 +367,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="617"
+            line="620"
             column="9"/>
     </issue>
 
@@ -239,7 +378,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="664"
+            line="667"
             column="9"/>
     </issue>
 
@@ -250,7 +389,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="701"
+            line="704"
             column="9"/>
     </issue>
 
@@ -261,7 +400,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="720"
+            line="723"
             column="9"/>
     </issue>
 
@@ -272,7 +411,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="739"
+            line="742"
             column="9"/>
     </issue>
 
@@ -283,7 +422,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="900"
+            line="912"
             column="9"/>
     </issue>
 
@@ -294,7 +433,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="923"
+            line="935"
             column="9"/>
     </issue>
 
@@ -305,7 +444,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="946"
+            line="958"
             column="9"/>
     </issue>
 
@@ -316,7 +455,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="969"
+            line="981"
             column="9"/>
     </issue>
 
@@ -327,7 +466,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="992"
+            line="1004"
             column="9"/>
     </issue>
 
@@ -338,7 +477,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1024"
+            line="1036"
             column="9"/>
     </issue>
 
@@ -349,7 +488,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1047"
+            line="1059"
             column="9"/>
     </issue>
 
@@ -360,7 +499,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1070"
+            line="1082"
             column="9"/>
     </issue>
 
@@ -371,7 +510,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1093"
+            line="1105"
             column="9"/>
     </issue>
 
@@ -382,7 +521,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1141"
+            line="1153"
             column="9"/>
     </issue>
 
@@ -393,7 +532,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1166"
+            line="1178"
             column="9"/>
     </issue>
 
@@ -404,7 +543,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1184"
+            line="1196"
             column="9"/>
     </issue>
 
@@ -415,7 +554,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1225"
+            line="1237"
             column="9"/>
     </issue>
 
@@ -426,7 +565,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1248"
+            line="1260"
             column="9"/>
     </issue>
 
@@ -437,7 +576,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1363"
+            line="1375"
             column="13"/>
     </issue>
 
@@ -802,6 +941,105 @@
     </issue>
 
     <issue
+        id="UnusedAttribute"
+        message="Attribute `shortcutId` is only used in API level 25 and higher (current min is 14)"
+        errorLine1="    android:shortcutId=&quot;indoor&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\shortcuts.xml"
+            line="15"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `shortcutShortLabel` is only used in API level 25 and higher (current min is 14)"
+        errorLine1="    android:shortcutShortLabel=&quot;@string/mode_indoor&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\shortcuts.xml"
+            line="18"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `shortcutLongLabel` is only used in API level 25 and higher (current min is 14)"
+        errorLine1="    android:shortcutLongLabel=&quot;@string/mode_indoor&quot; >   "
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\shortcuts.xml"
+            line="19"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `shortcutId` is only used in API level 25 and higher (current min is 14)"
+        errorLine1="    android:shortcutId=&quot;tag_only&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\shortcuts.xml"
+            line="29"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `shortcutShortLabel` is only used in API level 25 and higher (current min is 14)"
+        errorLine1="    android:shortcutShortLabel=&quot;@string/mode_tag_only&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\shortcuts.xml"
+            line="32"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `shortcutLongLabel` is only used in API level 25 and higher (current min is 14)"
+        errorLine1="    android:shortcutLongLabel=&quot;@string/mode_tag_only&quot; >   "
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\shortcuts.xml"
+            line="33"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `shortcutId` is only used in API level 25 and higher (current min is 14)"
+        errorLine1="    android:shortcutId=&quot;address&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\shortcuts.xml"
+            line="43"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `shortcutShortLabel` is only used in API level 25 and higher (current min is 14)"
+        errorLine1="    android:shortcutShortLabel=&quot;@string/mode_address&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\shortcuts.xml"
+            line="46"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `shortcutLongLabel` is only used in API level 25 and higher (current min is 14)"
+        errorLine1="    android:shortcutLongLabel=&quot;@string/mode_address&quot; >   "
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\shortcuts.xml"
+            line="47"
+            column="5"/>
+    </issue>
+
+    <issue
         id="InflateParams"
         message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
         errorLine1="        final View mainView = inflater.inflate(R.layout.listedit_apiedit, null);"
@@ -907,7 +1145,7 @@
         errorLine2="                                                                                       ~~~~">
         <location
             file="src\main\java\de\blau\android\easyedit\ElementSelectionActionModeCallback.java"
-            line="495"
+            line="518"
             column="88"/>
     </issue>
 
@@ -940,7 +1178,7 @@
         errorLine2="                                                                                                         ~~~~">
         <location
             file="src\main\java\de\blau\android\Main.java"
-            line="548"
+            line="550"
             column="106"/>
     </issue>
 
@@ -1028,7 +1266,7 @@
         errorLine2="                                                           ~~~~">
         <location
             file="src\main\java\de\blau\android\tasks\TaskFragment.java"
-            line="439"
+            line="231"
             column="60"/>
     </issue>
 
@@ -1144,7 +1382,7 @@
 
     <issue
         id="GradleDependency"
-        message="A newer version of com.android.tools.build:gradle than 3.6.0 is available: 4.1.1"
+        message="A newer version of com.android.tools.build:gradle than 3.6.0 is available: 4.1.2"
         errorLine1="        classpath &apos;com.android.tools.build:gradle:3.6.0&apos;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -1160,7 +1398,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="396"
+            line="400"
             column="5"/>
     </issue>
 
@@ -1171,18 +1409,18 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="398"
+            line="402"
             column="5"/>
     </issue>
 
     <issue
         id="GradleDependency"
-        message="A newer version of com.google.android.material:material than 1.0.0 is available: 1.2.1"
+        message="A newer version of com.google.android.material:material than 1.0.0 is available: 1.3.0"
         errorLine1="    implementation &quot;com.google.android.material:material:1.0.0&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="399"
+            line="403"
             column="5"/>
     </issue>
 
@@ -1193,7 +1431,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="401"
+            line="405"
             column="5"/>
     </issue>
 
@@ -1204,7 +1442,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="402"
+            line="406"
             column="5"/>
     </issue>
 
@@ -1215,7 +1453,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="413"
+            line="417"
             column="5"/>
     </issue>
 
@@ -1226,7 +1464,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="414"
+            line="418"
             column="5"/>
     </issue>
 
@@ -1237,7 +1475,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="444"
+            line="448"
             column="5"/>
     </issue>
 
@@ -1248,7 +1486,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="445"
+            line="449"
             column="5"/>
     </issue>
 
@@ -1259,7 +1497,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="449"
+            line="453"
             column="5"/>
     </issue>
 
@@ -1270,7 +1508,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="450"
+            line="454"
             column="5"/>
     </issue>
 
@@ -1293,6 +1531,17 @@
         <location
             file="src\main\AndroidManifest.xml"
             line="7"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ExtraText"
+        message="Unexpected text found in layout file: &quot;>&quot;"
+        errorLine1="    &lt;TextView"
+        errorLine2="    ^">
+        <location
+            file="src\main\res\layout\interpolation.xml"
+            line="11"
             column="5"/>
     </issue>
 
@@ -1644,28 +1893,6 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml-v19\advancedpreferences.xml"
-            line="213"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;integer&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\xml\advancedpreferences.xml"
-            line="213"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;integer&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\xml-v24\advancedpreferences.xml"
             line="218"
             column="13"/>
     </issue>
@@ -1676,19 +1903,8 @@
         errorLine1="            android:numeric=&quot;integer&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src\main\res\xml-v19\advancedpreferences.xml"
-            line="224"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;integer&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
             file="src\main\res\xml\advancedpreferences.xml"
-            line="224"
+            line="218"
             column="13"/>
     </issue>
 
@@ -1699,6 +1915,17 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="223"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
             line="229"
             column="13"/>
     </issue>
@@ -1709,19 +1936,8 @@
         errorLine1="            android:numeric=&quot;integer&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src\main\res\xml-v19\advancedpreferences.xml"
-            line="241"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;integer&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
             file="src\main\res\xml\advancedpreferences.xml"
-            line="241"
+            line="229"
             column="13"/>
     </issue>
 
@@ -1732,6 +1948,17 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="234"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
             line="246"
             column="13"/>
     </issue>
@@ -1742,19 +1969,8 @@
         errorLine1="            android:numeric=&quot;integer&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src\main\res\xml-v19\advancedpreferences.xml"
-            line="263"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;integer&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
             file="src\main\res\xml\advancedpreferences.xml"
-            line="263"
+            line="246"
             column="13"/>
     </issue>
 
@@ -1765,6 +1981,17 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="251"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
             line="268"
             column="13"/>
     </issue>
@@ -1772,32 +1999,32 @@
     <issue
         id="Deprecated"
         message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="268"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="273"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
         errorLine1="            android:numeric=&quot;decimal&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml-v19\advancedpreferences.xml"
-            line="275"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;decimal&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\xml\advancedpreferences.xml"
-            line="275"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;decimal&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\xml-v24\advancedpreferences.xml"
             line="280"
             column="13"/>
     </issue>
@@ -1805,32 +2032,32 @@
     <issue
         id="Deprecated"
         message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;decimal&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="280"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;decimal&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="285"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
         errorLine1="            android:numeric=&quot;integer&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml-v19\advancedpreferences.xml"
-            line="287"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;integer&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\xml\advancedpreferences.xml"
-            line="287"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;integer&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\xml-v24\advancedpreferences.xml"
             line="292"
             column="13"/>
     </issue>
@@ -1841,19 +2068,8 @@
         errorLine1="            android:numeric=&quot;integer&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src\main\res\xml-v19\advancedpreferences.xml"
-            line="299"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;integer&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
             file="src\main\res\xml\advancedpreferences.xml"
-            line="299"
+            line="292"
             column="13"/>
     </issue>
 
@@ -1864,6 +2080,17 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="297"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
             line="304"
             column="13"/>
     </issue>
@@ -1874,19 +2101,8 @@
         errorLine1="            android:numeric=&quot;integer&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src\main\res\xml-v19\advancedpreferences.xml"
-            line="311"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;integer&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
             file="src\main\res\xml\advancedpreferences.xml"
-            line="311"
+            line="304"
             column="13"/>
     </issue>
 
@@ -1897,6 +2113,17 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="309"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
             line="316"
             column="13"/>
     </issue>
@@ -1904,32 +2131,32 @@
     <issue
         id="Deprecated"
         message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="316"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="321"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
         errorLine1="            android:numeric=&quot;decimal&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml-v19\advancedpreferences.xml"
-            line="323"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;decimal&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\xml\advancedpreferences.xml"
-            line="323"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;decimal&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\xml-v24\advancedpreferences.xml"
             line="328"
             column="13"/>
     </issue>
@@ -1937,32 +2164,32 @@
     <issue
         id="Deprecated"
         message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;decimal&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="328"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;decimal&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="333"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
         errorLine1="            android:numeric=&quot;integer&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml-v19\advancedpreferences.xml"
-            line="354"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;integer&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\xml\advancedpreferences.xml"
-            line="354"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;integer&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\res\xml-v24\advancedpreferences.xml"
             line="359"
             column="13"/>
     </issue>
@@ -1973,19 +2200,8 @@
         errorLine1="            android:numeric=&quot;integer&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src\main\res\xml-v19\advancedpreferences.xml"
-            line="366"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;integer&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
             file="src\main\res\xml\advancedpreferences.xml"
-            line="366"
+            line="359"
             column="13"/>
     </issue>
 
@@ -1996,6 +2212,17 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="364"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
             line="371"
             column="13"/>
     </issue>
@@ -2006,19 +2233,8 @@
         errorLine1="            android:numeric=&quot;integer&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src\main\res\xml-v19\advancedpreferences.xml"
-            line="387"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;integer&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
             file="src\main\res\xml\advancedpreferences.xml"
-            line="387"
+            line="371"
             column="13"/>
     </issue>
 
@@ -2029,6 +2245,17 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="376"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
             line="392"
             column="13"/>
     </issue>
@@ -2039,19 +2266,8 @@
         errorLine1="            android:numeric=&quot;integer&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src\main\res\xml-v19\advancedpreferences.xml"
-            line="438"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="Deprecated"
-        message="`android:numeric` is deprecated: Use `inputType` instead"
-        errorLine1="            android:numeric=&quot;integer&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
             file="src\main\res\xml\advancedpreferences.xml"
-            line="438"
+            line="392"
             column="13"/>
     </issue>
 
@@ -2062,7 +2278,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml-v24\advancedpreferences.xml"
-            line="443"
+            line="397"
             column="13"/>
     </issue>
 
@@ -2106,7 +2322,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml-v19\advancedpreferences.xml"
-            line="461"
+            line="460"
             column="13"/>
     </issue>
 
@@ -2117,7 +2333,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml\advancedpreferences.xml"
-            line="461"
+            line="460"
             column="13"/>
     </issue>
 
@@ -2128,7 +2344,40 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\xml-v24\advancedpreferences.xml"
-            line="466"
+            line="465"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="472"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="472"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="477"
             column="13"/>
     </issue>
 
@@ -2260,7 +2509,7 @@
         errorLine2="                                                 ^">
         <location
             file="src\main\res\values\strings.xml"
-            line="1238"
+            line="1253"
             column="50"/>
     </issue>
 
@@ -2777,7 +3026,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="150"
+            line="151"
             column="5"/>
     </issue>
 
@@ -2788,7 +3037,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="206"
+            line="207"
             column="5"/>
     </issue>
 
@@ -2799,7 +3048,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="418"
+            line="426"
             column="5"/>
     </issue>
 
@@ -2810,7 +3059,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="488"
+            line="496"
             column="5"/>
     </issue>
 
@@ -2821,7 +3070,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="496"
+            line="504"
             column="5"/>
     </issue>
 
@@ -2832,7 +3081,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="600"
+            line="608"
             column="5"/>
     </issue>
 
@@ -2843,7 +3092,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="976"
+            line="987"
             column="5"/>
     </issue>
 
@@ -2854,7 +3103,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="989"
+            line="1000"
             column="5"/>
     </issue>
 
@@ -2865,7 +3114,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1019"
+            line="1032"
             column="5"/>
     </issue>
 
@@ -2876,7 +3125,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1022"
+            line="1035"
             column="5"/>
     </issue>
 
@@ -2887,7 +3136,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1037"
+            line="1050"
             column="5"/>
     </issue>
 
@@ -2898,7 +3147,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1043"
+            line="1056"
             column="5"/>
     </issue>
 
@@ -2909,7 +3158,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1065"
+            line="1078"
             column="5"/>
     </issue>
 
@@ -2920,7 +3169,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1093"
+            line="1108"
             column="5"/>
     </issue>
 
@@ -2931,7 +3180,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="667"
+            line="675"
             column="5"/>
         <location
             file="src\main\res\values-el\strings.xml"
@@ -3117,6 +3366,17 @@
 
     <issue
         id="ObsoleteLayoutParam"
+        message="Invalid layout param in a `RelativeLayout`: `layout_weight`"
+        errorLine1="        android:layout_weight=&quot;2&quot;>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\interpolation.xml"
+            line="129"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLayoutParam"
         message="Invalid layout param in a `HorizontalScrollView`: `layout_below`"
         errorLine1="                    android:layout_below=&quot;@id/url_legend&quot;"
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
@@ -3217,6 +3477,17 @@
     <issue
         id="StaticFieldLeak"
         message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        errorLine1="                        new AsyncTask&lt;Void, Void, Void>() {"
+        errorLine2="                        ^">
+        <location
+            file="src\main\java\de\blau\android\tasks\BugFragment.java"
+            line="113"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="                    new AsyncTask&lt;Void, Void, SerializableState>() {"
         errorLine2="                    ^">
         <location
@@ -3265,7 +3536,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="2163"
+            line="2165"
             column="9"/>
     </issue>
 
@@ -3276,7 +3547,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="2683"
+            line="2662"
             column="9"/>
     </issue>
 
@@ -3287,7 +3558,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="2783"
+            line="2762"
             column="9"/>
     </issue>
 
@@ -3298,7 +3569,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="2954"
+            line="2933"
             column="9"/>
     </issue>
 
@@ -3309,7 +3580,7 @@
         errorLine2="              ~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3014"
+            line="2993"
             column="15"/>
     </issue>
 
@@ -3320,7 +3591,7 @@
         errorLine2="              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3080"
+            line="3059"
             column="15"/>
     </issue>
 
@@ -3331,7 +3602,7 @@
         errorLine2="              ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3183"
+            line="3162"
             column="15"/>
     </issue>
 
@@ -3342,7 +3613,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3370"
+            line="3349"
             column="9"/>
     </issue>
 
@@ -3353,7 +3624,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3467"
+            line="3446"
             column="9"/>
     </issue>
 
@@ -3364,7 +3635,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3546"
+            line="3525"
             column="9"/>
     </issue>
 
@@ -3375,7 +3646,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3590"
+            line="3569"
             column="9"/>
     </issue>
 
@@ -3386,7 +3657,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3650"
+            line="3629"
             column="9"/>
     </issue>
 
@@ -3397,7 +3668,7 @@
         errorLine2="                                                ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3706"
+            line="3685"
             column="49"/>
     </issue>
 
@@ -3408,7 +3679,7 @@
         errorLine2="                                                ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3795"
+            line="3774"
             column="49"/>
     </issue>
 
@@ -3419,7 +3690,7 @@
         errorLine2="                                                ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3846"
+            line="3825"
             column="49"/>
     </issue>
 
@@ -3430,7 +3701,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3956"
+            line="3935"
             column="9"/>
     </issue>
 
@@ -3441,7 +3712,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="4074"
+            line="4053"
             column="9"/>
     </issue>
 
@@ -3452,7 +3723,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="4149"
+            line="4128"
             column="9"/>
     </issue>
 
@@ -3485,7 +3756,7 @@
         errorLine2="                ^">
         <location
             file="src\main\java\de\blau\android\Main.java"
-            line="2108"
+            line="2135"
             column="17"/>
     </issue>
 
@@ -3496,7 +3767,7 @@
         errorLine2="            ^">
         <location
             file="src\main\java\de\blau\android\Main.java"
-            line="2321"
+            line="2348"
             column="13"/>
     </issue>
 
@@ -3661,7 +3932,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Splash.java"
-            line="51"
+            line="53"
             column="9"/>
     </issue>
 
@@ -3672,7 +3943,7 @@
         errorLine2="            ~~~~~~">
         <location
             file="src\main\java\de\blau\android\propertyeditor\TagEditorFragment.java"
-            line="111"
+            line="112"
             column="13"/>
     </issue>
 
@@ -3683,19 +3954,8 @@
         errorLine2="                 ^">
         <location
             file="src\main\java\de\blau\android\tasks\TaskFragment.java"
-            line="152"
+            line="98"
             column="18"/>
-    </issue>
-
-    <issue
-        id="StaticFieldLeak"
-        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
-        errorLine1="                                new AsyncTask&lt;Void, Void, Void>() {"
-        errorLine2="                                ^">
-        <location
-            file="src\main\java\de\blau\android\tasks\TaskFragment.java"
-            line="232"
-            column="33"/>
     </issue>
 
     <issue
@@ -4216,7 +4476,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\prefkeys.xml"
-            line="56"
+            line="57"
             column="13"/>
     </issue>
 
@@ -4227,7 +4487,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\prefkeys.xml"
-            line="76"
+            line="77"
             column="13"/>
     </issue>
 
@@ -4266,6 +4526,240 @@
 
     <issue
         id="UnusedResources"
+        message="The resource `R.string.openstreetbug_unknown_task_type` appears to be unused"
+        errorLine1="    &lt;string name=&quot;openstreetbug_unknown_task_type&quot;>Unknown task type&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\values\strings.xml"
+            line="118"
+            column="13"/>
+        <location
+            file="src\main\res\values-bg\strings.xml"
+            line="46"
+            column="11"/>
+        <location
+            file="src\main\res\values-ca\strings.xml"
+            line="107"
+            column="11"/>
+        <location
+            file="src\main\res\values-cs-rCZ\strings.xml"
+            line="117"
+            column="11"/>
+        <location
+            file="src\main\res\values-de\strings.xml"
+            line="115"
+            column="11"/>
+        <location
+            file="src\main\res\values-el\strings.xml"
+            line="71"
+            column="11"/>
+        <location
+            file="src\main\res\values-es\strings.xml"
+            line="113"
+            column="11"/>
+        <location
+            file="src\main\res\values-eu\strings.xml"
+            line="63"
+            column="11"/>
+        <location
+            file="src\main\res\values-fa\strings.xml"
+            line="113"
+            column="11"/>
+        <location
+            file="src\main\res\values-fi\strings.xml"
+            line="102"
+            column="11"/>
+        <location
+            file="src\main\res\values-fr\strings.xml"
+            line="113"
+            column="11"/>
+        <location
+            file="src\main\res\values-gl\strings.xml"
+            line="110"
+            column="11"/>
+        <location
+            file="src\main\res\values-hu\strings.xml"
+            line="115"
+            column="11"/>
+        <location
+            file="src\main\res\values-it\strings.xml"
+            line="111"
+            column="11"/>
+        <location
+            file="src\main\res\values-iw\strings.xml"
+            line="116"
+            column="11"/>
+        <location
+            file="src\main\res\values-ja\strings.xml"
+            line="58"
+            column="11"/>
+        <location
+            file="src\main\res\values-nl\strings.xml"
+            line="115"
+            column="11"/>
+        <location
+            file="src\main\res\values-pl\strings.xml"
+            line="113"
+            column="11"/>
+        <location
+            file="src\main\res\values-pt\strings.xml"
+            line="107"
+            column="11"/>
+        <location
+            file="src\main\res\values-ru\strings.xml"
+            line="117"
+            column="11"/>
+        <location
+            file="src\main\res\values-sk\strings.xml"
+            line="73"
+            column="11"/>
+        <location
+            file="src\main\res\values-sv\strings.xml"
+            line="84"
+            column="11"/>
+        <location
+            file="src\main\res\values-tr\strings.xml"
+            line="109"
+            column="11"/>
+        <location
+            file="src\main\res\values-uk\strings.xml"
+            line="106"
+            column="11"/>
+        <location
+            file="src\main\res\values-vi\strings.xml"
+            line="51"
+            column="11"/>
+        <location
+            file="src\main\res\values-zh-rHK\strings.xml"
+            line="106"
+            column="11"/>
+        <location
+            file="src\main\res\values-zh-rTW\strings.xml"
+            line="112"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.openstreetbug_not_supported` appears to be unused"
+        errorLine1="    &lt;string name=&quot;openstreetbug_not_supported&quot;>%1$s is not supported.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\values\strings.xml"
+            line="119"
+            column="13"/>
+        <location
+            file="src\main\res\values-bg\strings.xml"
+            line="47"
+            column="11"/>
+        <location
+            file="src\main\res\values-ca\strings.xml"
+            line="108"
+            column="11"/>
+        <location
+            file="src\main\res\values-cs-rCZ\strings.xml"
+            line="118"
+            column="11"/>
+        <location
+            file="src\main\res\values-de\strings.xml"
+            line="116"
+            column="11"/>
+        <location
+            file="src\main\res\values-el\strings.xml"
+            line="72"
+            column="11"/>
+        <location
+            file="src\main\res\values-es\strings.xml"
+            line="114"
+            column="11"/>
+        <location
+            file="src\main\res\values-eu\strings.xml"
+            line="64"
+            column="11"/>
+        <location
+            file="src\main\res\values-fa\strings.xml"
+            line="114"
+            column="11"/>
+        <location
+            file="src\main\res\values-fi\strings.xml"
+            line="103"
+            column="11"/>
+        <location
+            file="src\main\res\values-fr\strings.xml"
+            line="114"
+            column="11"/>
+        <location
+            file="src\main\res\values-gl\strings.xml"
+            line="111"
+            column="11"/>
+        <location
+            file="src\main\res\values-hu\strings.xml"
+            line="116"
+            column="11"/>
+        <location
+            file="src\main\res\values-is\strings.xml"
+            line="72"
+            column="11"/>
+        <location
+            file="src\main\res\values-it\strings.xml"
+            line="112"
+            column="11"/>
+        <location
+            file="src\main\res\values-iw\strings.xml"
+            line="117"
+            column="11"/>
+        <location
+            file="src\main\res\values-ja\strings.xml"
+            line="59"
+            column="11"/>
+        <location
+            file="src\main\res\values-nb\strings.xml"
+            line="65"
+            column="11"/>
+        <location
+            file="src\main\res\values-nl\strings.xml"
+            line="116"
+            column="11"/>
+        <location
+            file="src\main\res\values-pl\strings.xml"
+            line="114"
+            column="11"/>
+        <location
+            file="src\main\res\values-pt\strings.xml"
+            line="108"
+            column="11"/>
+        <location
+            file="src\main\res\values-ru\strings.xml"
+            line="118"
+            column="11"/>
+        <location
+            file="src\main\res\values-sv\strings.xml"
+            line="85"
+            column="11"/>
+        <location
+            file="src\main\res\values-tr\strings.xml"
+            line="110"
+            column="11"/>
+        <location
+            file="src\main\res\values-uk\strings.xml"
+            line="107"
+            column="11"/>
+        <location
+            file="src\main\res\values-vi\strings.xml"
+            line="52"
+            column="11"/>
+        <location
+            file="src\main\res\values-zh-rHK\strings.xml"
+            line="107"
+            column="11"/>
+        <location
+            file="src\main\res\values-zh-rTW\strings.xml"
+            line="113"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
         message="The resource `R.string.toast_long_press_simple_mode` appears to be unused"
         errorLine1="  &lt;string name=&quot;toast_long_press_simple_mode&quot;>Dlhé stlačenie nie je dostupné v jednoduchom režime&lt;/string>"
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
@@ -4282,7 +4776,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="292"
+            line="300"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -4333,7 +4827,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="302"
+            line="310"
             column="13"/>
         <location
             file="src\main\res\values-bg\strings.xml"
@@ -4451,7 +4945,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="355"
+            line="363"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -4542,7 +5036,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="366"
+            line="374"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -4625,7 +5119,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="413"
+            line="421"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -4728,7 +5222,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="415"
+            line="423"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -4819,7 +5313,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="416"
+            line="424"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -4902,7 +5396,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="428"
+            line="436"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -4989,7 +5483,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="435"
+            line="443"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5072,7 +5566,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="446"
+            line="454"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5163,7 +5657,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="490"
+            line="498"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -5238,7 +5732,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="542"
+            line="550"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -5285,7 +5779,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="543"
+            line="551"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -5324,7 +5818,7 @@
         errorLine2="            ~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="563"
+            line="571"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5459,7 +5953,7 @@
         errorLine2="            ~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="574"
+            line="582"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5574,7 +6068,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="614"
+            line="622"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -5681,7 +6175,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="619"
+            line="627"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5796,7 +6290,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="705"
+            line="713"
             column="13"/>
         <location
             file="src\main\res\values-ar\strings.xml"
@@ -5955,7 +6449,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="706"
+            line="714"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6106,7 +6600,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="712"
+            line="720"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6253,7 +6747,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="724"
+            line="732"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6400,7 +6894,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="725"
+            line="733"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6511,7 +7005,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="726"
+            line="734"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6638,7 +7132,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="764"
+            line="772"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6725,7 +7219,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="766"
+            line="774"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6816,7 +7310,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="767"
+            line="775"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6903,7 +7397,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="773"
+            line="781"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7002,7 +7496,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="795"
+            line="803"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7113,7 +7607,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="803"
+            line="811"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -7196,7 +7690,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="818"
+            line="826"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7291,7 +7785,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="820"
+            line="828"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7386,7 +7880,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="826"
+            line="834"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7489,7 +7983,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="852"
+            line="860"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -7564,7 +8058,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="856"
+            line="864"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7655,7 +8149,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="910"
+            line="921"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -7742,7 +8236,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="912"
+            line="923"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -7829,7 +8323,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="916"
+            line="927"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -7920,7 +8414,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="919"
+            line="930"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8007,7 +8501,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="920"
+            line="931"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8086,7 +8580,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="921"
+            line="932"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8169,7 +8663,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="922"
+            line="933"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8292,7 +8786,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="943"
+            line="954"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8443,7 +8937,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="975"
+            line="986"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8510,7 +9004,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1025"
+            line="1038"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8597,7 +9091,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1026"
+            line="1039"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8664,7 +9158,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1048"
+            line="1061"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8739,7 +9233,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1115"
+            line="1130"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8830,7 +9324,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1134"
+            line="1149"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8961,7 +9455,7 @@
         errorLine2="            ~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1145"
+            line="1160"
             column="13"/>
         <location
             file="src\main\res\values-ar\strings.xml"
@@ -9120,7 +9614,7 @@
         errorLine2="            ~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1158"
+            line="1173"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -9259,7 +9753,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1223"
+            line="1238"
             column="13"/>
         <location
             file="src\main\res\values-ar\strings.xml"
@@ -9414,7 +9908,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1225"
+            line="1240"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -9513,7 +10007,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1230"
+            line="1245"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -9662,7 +10156,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\styles.xml"
-            line="250"
+            line="262"
             column="9"/>
     </issue>
 
@@ -9673,7 +10167,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\styles.xml"
-            line="254"
+            line="266"
             column="9"/>
     </issue>
 
@@ -9684,7 +10178,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\styles.xml"
-            line="350"
+            line="362"
             column="9"/>
     </issue>
 
@@ -9695,7 +10189,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\styles.xml"
-            line="357"
+            line="369"
             column="9"/>
     </issue>
 
@@ -9706,7 +10200,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\styles.xml"
-            line="409"
+            line="421"
             column="9"/>
     </issue>
 
@@ -9717,7 +10211,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\styles.xml"
-            line="413"
+            line="425"
             column="9"/>
     </issue>
 
@@ -9728,7 +10222,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\styles.xml"
-            line="526"
+            line="538"
             column="9"/>
     </issue>
 
@@ -9739,7 +10233,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\styles.xml"
-            line="571"
+            line="582"
             column="9"/>
     </issue>
 
@@ -9750,7 +10244,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\styles.xml"
-            line="575"
+            line="586"
             column="9"/>
     </issue>
 
@@ -14308,7 +14802,7 @@
 
     <issue
         id="IconDensities"
-        message="Missing the following drawables in `drawable-mdpi`: address_dark.png, address_light.png, apply_preset_dark.png, apply_preset_light.png, baseline_check_black_18.png... (206 more)">
+        message="Missing the following drawables in `drawable-mdpi`: address_dark.png, address_light.png, apply_preset_dark.png, apply_preset_light.png, baseline_check_black_18.png... (207 more)">
         <location
             file="src\main\res\drawable-mdpi"/>
     </issue>
@@ -14645,6 +15139,28 @@
             file="src\main\res\layout\debug_js.xml"
             line="18"
             column="14"/>
+    </issue>
+
+    <issue
+        id="Autofill"
+        message="Missing `autofillHints` attribute"
+        errorLine1="    &lt;EditText"
+        errorLine2="     ~~~~~~~~">
+        <location
+            file="src\main\res\layout\interpolation.xml"
+            line="23"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="Autofill"
+        message="Missing `autofillHints` attribute"
+        errorLine1="    &lt;EditText"
+        errorLine2="     ~~~~~~~~">
+        <location
+            file="src\main\res\layout\interpolation.xml"
+            line="107"
+            column="6"/>
     </issue>
 
     <issue
@@ -15094,7 +15610,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\Main.java"
-            line="512"
+            line="514"
             column="9"/>
     </issue>
 
@@ -15105,7 +15621,7 @@
         errorLine2="                       ~~~~~~~">
         <location
             file="src\main\java\de\blau\android\Main.java"
-            line="3398"
+            line="3421"
             column="24"/>
     </issue>
 
@@ -15551,6 +16067,28 @@
 
     <issue
         id="LabelFor"
+        message="Empty `android:hint` attribute"
+        errorLine1="        android:hint=&quot;&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\interpolation.xml"
+            line="34"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="LabelFor"
+        message="Empty `android:hint` attribute"
+        errorLine1="        android:hint=&quot;&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\interpolation.xml"
+            line="118"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="LabelFor"
         message="Missing accessibility label: where minSdk &lt; 17, you should provide an `android:hint`"
         errorLine1="                &lt;EditText"
         errorLine2="                 ~~~~~~~~">
@@ -15954,6 +16492,28 @@
             file="src\main\res\layout\indoor_controls_right.xml"
             line="47"
             column="11"/>
+    </issue>
+
+    <issue
+        id="RelativeOverlap"
+        message="`@id/end_title` can overlap `@id/interpolationContainer` if @id/interpolationContainer, @string/end grow due to localized text expansion"
+        errorLine1="    &lt;TextView"
+        errorLine2="     ~~~~~~~~">
+        <location
+            file="src\main\res\layout\interpolation.xml"
+            line="94"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="RelativeOverlap"
+        message="`@id/end_title` can overlap `@id/start_title` if @string/start, @string/end grow due to localized text expansion"
+        errorLine1="    &lt;TextView"
+        errorLine2="     ~~~~~~~~">
+        <location
+            file="src\main\res\layout\interpolation.xml"
+            line="94"
+            column="6"/>
     </issue>
 
     <issue
