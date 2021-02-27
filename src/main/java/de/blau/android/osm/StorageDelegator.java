@@ -2034,8 +2034,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @param map the current map instance
      * @param b Node a (start)
-     * @param c1 Node b1 (end 1)
-     * @param c2 Node b2 (end 2)
+     * @param c1 Node c1 (end 1)
+     * @param c2 Node c2 (end 2)
      * @return true if the first angle is larger than the 2nd
      */
     private boolean compareAngles(@NonNull de.blau.android.Map map, @NonNull Node a, @NonNull Node b, @NonNull Node c1, @NonNull Node c2) {
