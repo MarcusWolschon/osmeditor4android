@@ -19,6 +19,7 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | Merge Nodes                                              |
 |                           | Add Node to Way                                          |
 |                           | Merge Ways                                               |
+|                           | Merge Polygons (closed ways)                             |                                          
 |                           | Append to Way                                            |
 |                           | Split Way at Node                                        |
 |                           | Split Way at marked position                             |
