@@ -429,9 +429,9 @@ public class StorageDelegatorTest {
         splitResult = d.splitAtNode(newWay, n);
         w = (Way) splitResult.getElement();
         d.unjoinWays(n);
+        action = new MergeAction(d, w, newWay);
         try {
-            action = new MergeAction(d, w, newWay);
-            result = action.mergeWays();
+            action.mergeWays();
             fail("Should have thrown an OsmIllegalOperationException");
         } catch (OsmIllegalOperationException ex) {
             // expected
