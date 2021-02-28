@@ -118,7 +118,7 @@ public class WayActionsTest {
         assertNotNull(way);
         assertTrue(way.getOsmId() < 0);
         assertEquals(3, way.nodeCount());
-        Coordinates[] coords = Coordinates.nodeListToCooardinateArray(map.getWidth(), map.getHeight(), map.getViewBox(), way.getNodes());
+        Coordinates[] coords = Coordinates.nodeListToCoordinateArray(map.getWidth(), map.getHeight(), map.getViewBox(), way.getNodes());
         Coordinates v1 = coords[0].subtract(coords[1]);
         Coordinates v2 = coords[2].subtract(coords[1]);
         double theta = Math.toDegrees(Math.acos(Coordinates.dotproduct(v1, v2) / (v1.length() * v2.length())));
@@ -128,7 +128,7 @@ public class WayActionsTest {
         TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, context.getString(R.string.menu_straighten), false, false);
         device.wait(Until.findObject(By.res(device.getCurrentPackageName() + ":string/Done")), 1000);
-        coords = Coordinates.nodeListToCooardinateArray(map.getWidth(), map.getHeight(), map.getViewBox(), way.getNodes());
+        coords = Coordinates.nodeListToCoordinateArray(map.getWidth(), map.getHeight(), map.getViewBox(), way.getNodes());
         v1 = coords[0].subtract(coords[1]);
         v2 = coords[2].subtract(coords[1]);
         theta = Math.toDegrees(Math.acos(Coordinates.dotproduct(v1, v2) / (v1.length() * v2.length())));

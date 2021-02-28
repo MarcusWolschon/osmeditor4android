@@ -57,7 +57,7 @@ public final class Geometry {
         if (way == null || way.nodeCount() == 0) {
             return null;
         }
-        Coordinates[] coords = Coordinates.nodeListToCooardinateArray(w, h, v, way.getNodes());
+        Coordinates[] coords = Coordinates.nodeListToCoordinateArray(w, h, v, way.getNodes());
         return centroidXY(coords, false);
     }
 

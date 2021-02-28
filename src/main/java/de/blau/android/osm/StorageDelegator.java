@@ -15,7 +15,6 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.locks.ReentrantLock;
@@ -245,7 +244,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param pre list of changed elements before the operation or null
      * @param post list of changed elements after the operation or null
      */
-    private void onElementChanged(@Nullable List<OsmElement> pre, @Nullable List<OsmElement> post) {
+    void onElementChanged(@Nullable List<OsmElement> pre, @Nullable List<OsmElement> post) {
         if (post != null) {
             boolean nodeChanged = false;
             BoundingBox changed = null;
@@ -288,7 +287,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param pre changed element before the operation or null
      * @param post changed element after the operation or null
      */
-    private void onElementChanged(@Nullable OsmElement pre, @Nullable OsmElement post) {
+    void onElementChanged(@Nullable OsmElement pre, @Nullable OsmElement post) {
         List<OsmElement> preList = null;
         List<OsmElement> postList = null;
 
@@ -488,7 +487,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Create relation with a list of RelationMembers as members
      * 
-     * @param members members to add without role
+     * @param members RelationMembers to add
      * @return the new relation
      */
     @NonNull
@@ -557,7 +556,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param newCount the node count we would like to have
      * @throws OsmIllegalOperationException if the count is larger than the maximum supported
      */
-    private void validateWayNodeCount(final int newCount) {
+    void validateWayNodeCount(final int newCount) {
         Logic logic = App.getLogic();
         if (logic != null) {
             Preferences prefs = logic.getPrefs();
@@ -733,7 +732,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             int height = map.getHeight();
             ViewBox box = map.getViewBox();
 
-            Coordinates[] coords = Coordinates.nodeListToCooardinateArray(width, height, box, new ArrayList<>(nodes));
+            Coordinates[] coords = Coordinates.nodeListToCoordinateArray(width, height, box, new ArrayList<>(nodes));
 
             // save nodes for undo
             for (Node nd : nodes) {
@@ -862,7 +861,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
                 int totalNodes = 0;
                 for (Way w : wayList) {
-                    coordsArray.add(Coordinates.nodeListToCooardinateArray(width, height, box, w.getNodes()));
+                    coordsArray.add(Coordinates.nodeListToCoordinateArray(width, height, box, w.getNodes()));
                     totalNodes += w.getNodes().size();
                 }
                 int coordsArraySize = coordsArray.size();
@@ -1488,264 +1487,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Merge two nodes into one.
-     * 
-     * Updates ways and relations the node is a member of.
-     * 
-     * @param mergeInto The node to merge into. Tags are combined.
-     * @param mergeFrom The node to merge from. Is deleted.
-     * @return a MergeResult object with a reference to the resulting object and any issues
-     */
-    @NonNull
-    public List<Result> mergeNodes(@NonNull Node mergeInto, @NonNull Node mergeFrom) {
-        Result result = new Result();
-        if (mergeInto.equals(mergeFrom)) {
-            result.addIssue(MergeIssue.SAMEOBJECT);
-            result.setElement(mergeFrom);
-            return Util.wrapInList(result);
-        }
-        dirty = true;
-        // first determine if one of the nodes already has a valid id, if it is not and other node has valid id swap
-        // else check version numbers this helps preserve history
-        if (((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion()) {
-            // swap
-            Log.d(DEBUG_TAG, "swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
-            Node tmpNode = mergeInto;
-            mergeInto = mergeFrom;
-            mergeFrom = tmpNode;
-            Log.d(DEBUG_TAG, "now into #" + mergeInto.getOsmId() + " from #" + mergeFrom.getOsmId());
-        }
-
-        List<Result> overallResult = roleConflict(mergeInto, mergeFrom);
-
-        // merge tags
-        setTags(mergeInto, OsmElement.mergedTags(mergeInto, mergeFrom)); // this calls onElementChange for the node
-        // if merging the tags creates multiple-value tags, mergeOK should be set to false
-        for (String v : mergeInto.getTags().values()) {
-            if (v.indexOf(';') >= 0) {
-                result.addIssue(MergeIssue.MERGEDTAGS);
-                break;
-            }
-        }
-        // replace references to mergeFrom node in ways with mergeInto
-        for (Way way : currentStorage.getWays(mergeFrom)) {
-            replaceNodeInWay(mergeFrom, mergeInto, way);
-        }
-        mergeElementsRelations(mergeInto, mergeFrom);
-        // delete mergeFrom node
-        removeNode(mergeFrom);
-        onElementChanged(null, mergeInto);
-        result.setElement(mergeInto);
-
-        overallResult.add(0, result);
-        return overallResult;
-    }
-
-    /**
-     * Merges two ways by prepending/appending all nodes from the second way to the first one, then deleting the second
-     * one.
-     * 
-     * Updated for relation support if roles are not the same the merge will fail.
-     * 
-     * @param mergeInto Way to merge the other way into. This way will be kept if it has a valid id.
-     * @param mergeFrom Way to merge into the other.
-     * @return a List of MergeResult objects with a reference to the resulting object in the first one and any issues
-     * @throws OsmIllegalOperationException if the ways cannot be merged
-     */
-    @NonNull
-    public List<Result> mergeWays(@NonNull Way mergeInto, @NonNull Way mergeFrom) throws OsmIllegalOperationException {
-        Result mergeResult = new Result();
-
-        validateWayNodeCount(mergeInto.nodeCount() + mergeFrom.nodeCount());
-        // first determine if one of the nodes already has a valid id, if it is not and other node has valid id swap
-        // else check version numbers this helps preserve history
-        if (((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion()) {
-            // swap
-            Log.d(DEBUG_TAG, "mergeWays swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
-            Way tmpWay = mergeInto;
-            mergeInto = mergeFrom;
-            mergeFrom = tmpWay;
-            Log.d(DEBUG_TAG, "mergeWays now into #" + mergeInto.getOsmId() + " from #" + mergeFrom.getOsmId());
-        }
-
-        // need to do this before we remove objects from relations.
-        List<Result> overallResult = roleConflict(mergeInto, mergeFrom);
-
-        // undo - mergeInto way saved here, mergeFrom way will not be changed directly and will be saved in removeWay
-        dirty = true;
-        undo.save(mergeInto);
-        removeWay(mergeFrom); // have to do this here because otherwise the way will be saved with potentially reversed
-                              // tags
-
-        List<Node> newNodes = new ArrayList<>(mergeFrom.getNodes());
-        boolean atBeginning;
-        List<Result> reverseResults = null;
-        if (mergeInto.getFirstNode().equals(mergeFrom.getFirstNode())) {
-            // Result: f3 f2 f1 (f0=)i0 i1 i2 i3 (f0 = 0th node of mergeFrom, i1 = 1st node of mergeInto)
-            atBeginning = true;
-            // check for direction dependent tags
-            Map<String, String> dirTags = Reverse.getDirectionDependentTags(mergeFrom);
-            if (dirTags != null) {
-                Reverse.reverseDirectionDependentTags(mergeFrom, dirTags, true);
-                mergeResult.addIssue(ReverseIssue.TAGSREVERSED);
-            }
-            if (mergeFrom.notReversable()) {
-                mergeResult.addIssue(MergeIssue.NOTREVERSABLE);
-            }
-            Collections.reverse(newNodes);
-            newNodes.remove(newNodes.size() - 1); // remove "last" (originally first) node after reversing
-            reverseResults = reverseWayNodeTags(newNodes); // needs to happen after end node removal
-        } else if (mergeInto.getLastNode().equals(mergeFrom.getFirstNode())) {
-            // Result: i0 i1 i2 i3(=f0) f1 f2 f3
-            atBeginning = false;
-            newNodes.remove(0);
-        } else if (mergeInto.getFirstNode().equals(mergeFrom.getLastNode())) {
-            // Result: f0 f1 f2 (f3=)i0 i1 i2 i3
-            atBeginning = true;
-            newNodes.remove(newNodes.size() - 1);
-        } else if (mergeInto.getLastNode().equals(mergeFrom.getLastNode())) {
-            // Result: i0 i1 i2 i3(=f3) f2 f1 f0
-            atBeginning = false;
-            // check for direction dependent tags
-            Map<String, String> dirTags = Reverse.getDirectionDependentTags(mergeFrom);
-            if (dirTags != null) {
-                Reverse.reverseDirectionDependentTags(mergeFrom, dirTags, true);
-                mergeResult.addIssue(ReverseIssue.TAGSREVERSED);
-            }
-            if (mergeFrom.notReversable()) {
-                mergeResult.addIssue(MergeIssue.NOTREVERSABLE);
-            }
-            newNodes.remove(newNodes.size() - 1); // remove last node before reversing
-            reverseResults = reverseWayNodeTags(newNodes); // needs to happen after end node removal
-            Collections.reverse(newNodes);
-        } else {
-            throw new OsmIllegalOperationException("attempted to merge non-mergeable nodes. this is a bug.");
-        }
-
-        // merge tags (after any reversal has been done)
-        Map<String, String> mergedTags = OsmElement.mergedTags(mergeInto, mergeFrom);
-        // special handling for metric tags
-        for (Entry<String, String> entry : mergedTags.entrySet()) {
-            String k = entry.getKey();
-            if (Tags.isWayMetric(k)) {
-                mergeResult.addIssue(MergeIssue.MERGEDMETRIC);
-                String[] s = entry.getValue().split("\\" + Tags.OSM_VALUE_SEPARATOR);
-                if (s.length >= 2) {
-                    try {
-                        mergedTags.put(k, Tags.KEY_DURATION.equals(k) ? Duration.toString(Duration.parse(s[0]) + Duration.parse(s[1]))
-                                : Integer.toString(Integer.parseInt(s[0]) + Integer.parseInt(s[1])));
-                    } catch (NumberFormatException nfe) {
-                        // ignore issue will be set below
-                    }
-                }
-            }
-        }
-        setTags(mergeInto, mergedTags);
-        // if merging the tags creates multiple-value tags this will add a warning
-        for (String v : mergeInto.getTags().values()) {
-            if (v.indexOf(Tags.OSM_VALUE_SEPARATOR) >= 0) {
-                mergeResult.addIssue(MergeIssue.MERGEDTAGS);
-                break;
-            }
-        }
-
-        mergeInto.addNodes(newNodes, atBeginning);
-        mergeInto.updateState(OsmElement.STATE_MODIFIED);
-        apiStorage.insertElementSafe(mergeInto);
-        onElementChanged(null, mergeInto);
-        mergeElementsRelations(mergeInto, mergeFrom);
-
-        mergeResult.setElement(mergeInto);
-
-        overallResult.add(0, mergeResult);
-        if (reverseResults != null) {
-            overallResult.addAll(reverseResults);
-        }
-        return overallResult;
-    }
-
-    /**
-     * Reverse any direction dependent tags on the way nodes
-     * 
-     * @param nodes List of nodes
-     * @return a List of results from the operation, if empty nothing had to be done
-     */
-    @NonNull
-    private List<Result> reverseWayNodeTags(List<Node> nodes) {
-        List<Result> result = new ArrayList<>();
-        for (Node n : nodes) {
-            Map<String, String> nodeDirTags = Reverse.getDirectionDependentTags(n);
-            if (nodeDirTags != null) {
-                undo.save(n);
-                Result nodeResult = new Result();
-                nodeResult.setElement(n);
-                nodeResult.addIssue(ReverseIssue.TAGSREVERSED);
-                nodeResult.addTags(nodeDirTags);
-                if (getCurrentStorage().getWays(n).size() > 1) {
-                    nodeResult.addIssue(ReverseIssue.SHAREDNODE);
-                }
-                result.add(nodeResult);
-                Reverse.reverseDirectionDependentTags(n, nodeDirTags, true);
-                n.updateState(OsmElement.STATE_MODIFIED);
-                try {
-                    apiStorage.insertElementSafe(n);
-                } catch (StorageException e) {
-                    // TODO handle OOM
-                    Log.e(DEBUG_TAG, "reverseWayNodeTags got " + e.getMessage());
-                }
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Check if two elements have different roles in the same relation
-     * 
-     * @param o1 the first OsmElement
-     * @param o2 the second OsmElement
-     * @return a List (potentially empty) of issues if elements have different roles in the same relation
-     */
-    @NonNull
-    private List<Result> roleConflict(OsmElement o1, OsmElement o2) {
-        List<Result> result = new ArrayList<>();
-        List<Relation> r1 = o1.getParentRelations() != null ? o1.getParentRelations() : new ArrayList<>();
-        List<Relation> r2 = o2.getParentRelations() != null ? o2.getParentRelations() : new ArrayList<>();
-        for (Relation r : r1) {
-            if (r2.contains(r)) {
-                RelationMember rm1 = r.getMember(o1);
-                RelationMember rm2 = r.getMember(o2);
-                if (rm1 != null && rm2 != null) { // if either of these are null something is broken
-                    String role1 = rm1.getRole();
-                    String role2 = rm2.getRole();
-                    // noinspection StringEquality
-                    if ((role1 != null && role2 == null) || (role1 == null && role2 != null) || (role1 != role2 && !role1.equals(role2))) { // NOSONAR
-                        Log.d(DEBUG_TAG, "role conflict between " + o1.getDescription() + " role " + role1 + " and " + o2.getDescription() + " role " + role2);
-                        addRoleConflictIssue(result, r);
-                    }
-                } else {
-                    Log.e(DEBUG_TAG, "inconsistent relation membership in " + r.getOsmId() + " for " + o1.getOsmId() + " and " + o2.getOsmId());
-                    ACRAHelper.nocrashReport(null, "inconsistent relation membership in " + r.getOsmId() + " for " + o1.getOsmId() + " and " + o2.getOsmId());
-                    addRoleConflictIssue(result, r);
-                }
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Add a role conflict issue for a specific relation to a list of Results
-     * 
-     * @param results the List of Result
-     * @param r the Relation
-     */
-    private void addRoleConflictIssue(@NonNull List<Result> results, @NonNull Relation r) {
-        Result roleIssue = new Result();
-        roleIssue.setElement(r);
-        roleIssue.addIssue(MergeIssue.ROLECONFLICT);
-        results.add(roleIssue);
-    }
-
-    /**
      * Unjoin all ways connected at the given node.
      * 
      * @param node The node connecting ways that are to be unjoined.
@@ -1956,13 +1697,47 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
+     * Reverse any direction dependent tags on the way nodes
+     * 
+     * @param nodes List of nodes
+     * @return a List of results from the operation, if empty nothing had to be done
+     */
+    @NonNull
+    List<Result> reverseWayNodeTags(List<Node> nodes) {
+        List<Result> result = new ArrayList<>();
+        for (Node n : nodes) {
+            Map<String, String> nodeDirTags = Reverse.getDirectionDependentTags(n);
+            if (nodeDirTags != null) {
+                undo.save(n);
+                Result nodeResult = new Result();
+                nodeResult.setElement(n);
+                nodeResult.addIssue(ReverseIssue.TAGSREVERSED);
+                nodeResult.addTags(nodeDirTags);
+                if (getCurrentStorage().getWays(n).size() > 1) {
+                    nodeResult.addIssue(ReverseIssue.SHAREDNODE);
+                }
+                result.add(nodeResult);
+                Reverse.reverseDirectionDependentTags(n, nodeDirTags, true);
+                n.updateState(OsmElement.STATE_MODIFIED);
+                try {
+                    apiStorage.insertElementSafe(n);
+                } catch (StorageException e) {
+                    // TODO handle OOM
+                    Log.e(DEBUG_TAG, "reverseWayNodeTags got " + e.getMessage());
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
      * Replace an existing way Node with a new one
      * 
      * @param existingNode the existing Node
      * @param newNode the new Node
      * @param way the Way to exchange the Node in
      */
-    private void replaceNodeInWay(@NonNull final Node existingNode, @NonNull final Node newNode, @NonNull final Way way) {
+    void replaceNodeInWay(@NonNull final Node existingNode, @NonNull final Node newNode, @NonNull final Way way) {
         dirty = true;
         undo.save(way);
         way.replaceNode(existingNode, newNode);
@@ -2471,45 +2246,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         relation.updateState(OsmElement.STATE_MODIFIED);
         insertElementSafe(relation);
-    }
-
-    /**
-     * Assumes mergeFrom will deleted by caller and doesn't update back refs
-     * 
-     * @param mergeInto OsmElement to merge the parent Relations into
-     * @param mergeFrom OsmElement with potentially new parent Relations
-     */
-    private void mergeElementsRelations(@NonNull final OsmElement mergeInto, @NonNull final OsmElement mergeFrom) {
-        // copy just to be safe, use Set to ensure uniqueness
-        Set<Relation> fromRelations = mergeFrom.getParentRelations() != null ? new HashSet<>(mergeFrom.getParentRelations()) : new HashSet<>();
-        List<Relation> toRelations = mergeInto.getParentRelations() != null ? mergeInto.getParentRelations() : new ArrayList<>();
-        try {
-            Set<OsmElement> changedElements = new HashSet<>();
-            for (Relation r : fromRelations) {
-                if (!toRelations.contains(r)) {
-                    dirty = true;
-                    undo.save(r);
-                    List<RelationMember> members = r.getAllMembers(mergeFrom);
-                    for (RelationMember rm : members) {
-                        // create new member with same role
-                        RelationMember newRm = new RelationMember(rm.getRole(), mergeInto);
-                        // insert at same place
-                        r.replaceMember(rm, newRm);
-                        mergeInto.addParentRelation(r);
-                    }
-                    r.updateState(OsmElement.STATE_MODIFIED);
-                    apiStorage.insertElementSafe(r);
-                    changedElements.add(r);
-                    mergeInto.updateState(OsmElement.STATE_MODIFIED);
-                    apiStorage.insertElementSafe(mergeInto);
-                    changedElements.add(mergeInto);
-                }
-            }
-            onElementChanged(null, new ArrayList<>(changedElements));
-        } catch (StorageException sex) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "mergeElementsRelations got " + sex.getMessage());
-        }
     }
 
     /**
@@ -3447,7 +3183,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     void fixupBacklinks() {
         // first zap all, really all, as referenced relations may have been deleted
         // a possible alternative would be to check undostorage for any relations
-        for (OsmElement e:currentStorage.getElements()) {
+        for (OsmElement e : currentStorage.getElements()) {
             if (e != null) {
                 e.clearParentRelations();
             }

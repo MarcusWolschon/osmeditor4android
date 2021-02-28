@@ -26,7 +26,7 @@ Remove the objects from the data.
 
 ### ![Merge](../images/tag_menu_merge.png) Merge ways
 
-Merge multiple selected ways resulting in a single way. Ways will be reversed if necessary. This option will only be available if only ways with common start/end nodes are selected. In pre-merge tag conflicts are detected you will be asked to fix them first and the property editor will be started on the selection, the same post-merge. 
+Merge multiple selected ways resulting in a single way. Ways will be reversed if necessary. This option will only be available if only ways with common start/end nodes are selected, or the selection is two closed ways (polygons), in the later case if the polygons do not have common nodes a multi-polygon relation will be created and the ways added as members. If post-merge tag conflicts are detected you will be alerted. 
 
 ### ![Relation](../images/relation.png) Create relation
 

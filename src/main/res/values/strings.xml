@@ -219,7 +219,7 @@
     <string name="duplicate_relation_member_remove_button">Remove member</string>
     <!-- Move multi-polygon outer element tags to relation -->
     <string name="move_outer_tags_title">Move tags from outer rings to multi-polygon</string>
-    <string name="move_outer_tags_message">Object defining tags should only be present on the multi-polygon</string>
+    <string name="move_outer_tags_message">Object defining tags should only be present on the multi-polygon. This action will move common tags from the outer rings to the multi-polygon.</string>
     <string name="move">Move</string>
     <string name="leave_as_is">Leave as is</string>
     <!-- Remove duplicate tags from multi-polygon outer element -->
@@ -1198,9 +1198,11 @@ avoided by using an offline data source.</string>
     <string name="undo_action_set_tags">Tagging</string>
     <string name="undo_action_join">Joining</string>
     <string name="undo_action_unjoin_ways">Way separation</string>
+    <string name="undo_action_merge_polygons">Polygon merging</string>
     <string name="undo_action_create_relation">Relation creation</string>
     <string name="undo_action_delete_relation">Relation deletion</string>
     <string name="undo_action_update_relations">Relation update</string>
+    <string name="undo_action_move_tags">Move tags to Relation</string>
     <string name="undo_action_cut">Cut</string>
     <string name="undo_action_paste">Paste</string>
     <string name="undo_action_rotateway">Way rotation</string>
