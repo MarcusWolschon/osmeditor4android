@@ -70,6 +70,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.MapSplitSource;
+import de.blau.android.osm.MergeAction;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmChangeParser;
 import de.blau.android.osm.OsmElement;
@@ -2075,7 +2076,8 @@ public class Logic {
         createCheckpoint(activity, R.string.undo_action_merge_ways);
         try {
             displayAttachedObjectWarning(activity, mergeInto, mergeFrom, true); // needs to be done before merge
-            List<Result> result = getDelegator().mergeWays(mergeInto, mergeFrom);
+            MergeAction action = new MergeAction(getDelegator(), mergeInto, mergeFrom);
+            List<Result> result = action.mergeWays();
             invalidateMap();
             return result;
         } catch (OsmIllegalOperationException e) {
@@ -2112,7 +2114,8 @@ public class Logic {
             result.setElement(previousWay);
             for (int i = 1; i < sortedWays.size(); i++) {
                 Way nextWay = (Way) sortedWays.get(i);
-                List<Result> tempResult = getDelegator().mergeWays(previousWay, nextWay);
+                MergeAction action = new MergeAction(getDelegator(), previousWay, nextWay);
+                List<Result> tempResult = action.mergeWays();
                 final Result newMergeResult = tempResult.get(0);
                 if (!(newMergeResult.getElement() instanceof Way)) {
                     throw new IllegalStateException("mergeWays didn't return a Way");
@@ -2149,7 +2152,8 @@ public class Logic {
             throw new OsmIllegalOperationException("No mergeable polygons");
         }
         try {
-            return getDelegator().mergeSimplePolygons(map, ways.get(0), ways.get(1));
+            MergeAction action = new MergeAction(getDelegator(), ways.get(0), ways.get(1));
+            return action.mergeSimplePolygons(map);
         } catch (OsmIllegalOperationException e) {
             dismissAttachedObjectWarning(activity);
             rollback();
@@ -2300,7 +2304,8 @@ public class Logic {
                     throw new OsmIllegalOperationException("Trying to join node to itself");
                 }
                 displayAttachedObjectWarning(activity, element, nodeToJoin); // needs to be done before join
-                List<Result> tempResult = getDelegator().mergeNodes((Node) element, nodeToJoin);
+                MergeAction action = new MergeAction(getDelegator(), (Node) element, nodeToJoin);
+                List<Result> tempResult = action.mergeNodes();
                 if (overallResult.isEmpty()) {
                     overallResult = tempResult;
                     result = overallResult.get(0);
@@ -2376,7 +2381,8 @@ public class Logic {
                         } else {
                             displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
                             // merge node into target Node
-                            tempResult = getDelegator().mergeNodes(node, nodeToJoin);
+                            MergeAction action = new MergeAction(getDelegator(), node, nodeToJoin);
+                            tempResult = action.mergeNodes();
                         }
                         break; // need to leave loop !!!
                     }
