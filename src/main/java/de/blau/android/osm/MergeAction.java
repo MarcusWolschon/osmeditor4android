@@ -376,17 +376,13 @@ public class MergeAction {
                 if (currentNode != previousNode) {
                     outputRing.add(currentNode);
                 }
-                Log.d(DEBUG_TAG, "got " + currentNode.getOsmId() + " index " + i);
                 if (otherInputRing.contains(currentNode)) {
-                    Log.d(DEBUG_TAG, "common node");
                     Node nextNodeCurrent = getNextNode(currentInputRing, i);
                     int j = otherInputRing.indexOf(currentNode);
-                    Log.d(DEBUG_TAG, "other node index " + j);
                     Node nextNodeOther = getNextNode(otherInputRing, j);
                     if (nextNodeOther == null) {
                         Collections.reverse(otherInputRing);
                         j = otherInputRing.indexOf(currentNode);
-                        Log.d(DEBUG_TAG, "other node index reversed " + j);
                         nextNodeOther = getNextNode(otherInputRing, j);
                     }
                     Log.d(DEBUG_TAG, " next current " + nextNodeCurrent + " other " + nextNodeOther);
@@ -407,8 +403,6 @@ public class MergeAction {
                 previousNode = currentNode;
                 i = (i + 1) % currentInputRing.size();
             }
-
-            Log.d(DEBUG_TAG, "currentNode " + currentNode + " index " + i);
 
             if (startNode.equals(currentNode)) {
                 // finished ring
@@ -624,13 +618,10 @@ public class MergeAction {
         Node previous = currentRing.get((i + currentRing.size() - 1) % currentRing.size());
         do {
             if (otherRing.contains(current)) {
-                Log.d(DEBUG_TAG, "findInitalStartNode common node");
                 Node nextNodeCurrent = getNextNode(currentRing, i);
                 int j = otherRing.indexOf(current);
-                Log.d(DEBUG_TAG, "findInitalStartNode other node index " + j);
                 Node nextNodeOther = getNextNode(otherRing, j);
                 if (nextNodeOther != null && (nextNodeCurrent == null || compareAngles(map, previous, current, nextNodeCurrent, nextNodeOther))) {
-                    Log.d(DEBUG_TAG, "findInitalStartNode  switch rings");
                     List<Node> tmp = currentRing;
                     currentRing = otherRing;
                     otherRing = tmp;
