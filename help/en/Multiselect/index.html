@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../15.2.0 Release notes/">15.2.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../15.1.0 Release notes/">15.1.0 Release notes</a>
 </li>
                                         
@@ -331,7 +335,7 @@ i-->
 <h3 id="delete"><img alt="Delete" src="../../images/tag_menu_delete.png" /> Delete</h3>
 <p>Remove the objects from the data.</p>
 <h3 id="merge-ways"><img alt="Merge" src="../../images/tag_menu_merge.png" /> Merge ways</h3>
-<p>Merge multiple selected ways resulting in a single way. Ways will be reversed if necessary. This option will only be available if only ways with common start/end nodes are selected. In pre-merge tag conflicts are detected you will be asked to fix them first and the property editor will be started on the selection, the same post-merge. </p>
+<p>Merge multiple selected ways resulting in a single way. Ways will be reversed if necessary. This option will only be available if only ways with common start/end nodes are selected, or the selection is two closed ways (polygons), in the later case if the polygons do not have common nodes a multi-polygon relation will be created and the ways added as members. If post-merge tag conflicts are detected you will be alerted. </p>
 <h3 id="create-relation"><img alt="Relation" src="../../images/relation.png" /> Create relation</h3>
 <p>Create a relation starting with the current selected elements. The relation type can be selected from a list generated from the available presets. Further objects can be added until the check button is clicked, then the tag editor will be started on the new relation. </p>
 <h3 id="add-to-relation">Add to relation</h3>
@@ -365,7 +369,7 @@ i-->
 <h3 id="delete"><img alt="Delete" src="../../images/tag_menu_delete.png" /> Delete</h3>
 <p>Remove the objects from the data.</p>
 <h3 id="merge-ways"><img alt="Merge" src="../../images/tag_menu_merge.png" /> Merge ways</h3>
-<p>Merge multiple selected ways resulting in a single way. Ways will be reversed if necessary. This option will only be available if only ways with common start/end nodes are selected. In pre-merge tag conflicts are detected you will be asked to fix them first and the property editor will be started on the selection, the same post-merge. </p>
+<p>Merge multiple selected ways resulting in a single way. Ways will be reversed if necessary. This option will only be available if only ways with common start/end nodes are selected, or the selection is two closed ways (polygons), in the later case if the polygons do not have common nodes a multi-polygon relation will be created and the ways added as members. If post-merge tag conflicts are detected you will be alerted. </p>
 <h3 id="create-relation"><img alt="Relation" src="../../images/relation.png" /> Create relation</h3>
 <p>Create a relation starting with the current selected elements. The relation type can be selected from a list generated from the available presets. Further objects can be added until the check button is clicked, then the tag editor will be started on the new relation. </p>
 <h3 id="add-to-relation">Add to relation</h3>
@@ -382,7 +386,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.1.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

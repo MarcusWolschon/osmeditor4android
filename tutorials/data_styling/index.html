@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../help/en/15.2.0 Release notes/">15.2.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../help/en/15.1.0 Release notes/">15.1.0 Release notes</a>
 </li>
                                         
@@ -322,12 +326,13 @@ i-->
                 <div class="col-md-9" role="main">
 
 <h2 id="vespucci-data-styling">Vespucci Data Styling</h2>
-<p><em>Documentation for Vespucci 14.1</em></p>
+<p><em>Documentation for Vespucci 15.2 Style file format version 0.3.0</em></p>
 <p>The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.</p>
 <h3 id="using-custom-style-files-in-vespucci">Using custom style files in Vespucci</h3>
-<p>Files need to have an unique <em>name</em> attribute and a filename in the format <em>name</em>-profile.xml and be stored in the <em>Vespucci</em> directory. </p>
+<p>Files need to need have an unique <em>name</em> attribute and the <em>.xml</em> extension and reside in a <em>styles</em> directory in an app specific files directory (for example <em>Android/data/de.blau.android/files/styles/test.xml</em> ). Currently the legacy storage format and location continues to work: unique <em>name</em> attribute and a filename in the format <em>name</em>-profile.xml and stored in the <em>Vespucci</em> directory, this is the only location that will work for devices with Android version older than 4.4. </p>
 <h3 id="style-elements-and-attributes">Style Elements and Attributes</h3>
 <p>The styles are for a major part not much more than an external representation of the <a href="https://developer.android.com/reference/android/graphics/Paint">Android Paint</a> objects. In particular color, style, cap, join and strokeWidth attributes map directly to the Paint fields.</p>
+<p>Node styling is limited to the <strong>labelKey</strong> and <strong>iconPath</strong> attributes.</p>
 <table>
 <thead>
 <tr>
@@ -395,7 +400,7 @@ i-->
 <tr>
 <td></td>
 <td>type</td>
-<td>"way" or "relation" to match the corresponding OSM elements, or a name</td>
+<td>"way", "node" or "relation" to match the corresponding OSM elements, or a name</td>
 </tr>
 <tr>
 <td></td>
@@ -493,6 +498,16 @@ i-->
 <td>Set this on the referenced arrowStyle if it should have oneway semantics</td>
 </tr>
 <tr>
+<td></td>
+<td>labelKey</td>
+<td>Tag key to use as label if present, magic value "preset" will use the preset name.</td>
+</tr>
+<tr>
+<td></td>
+<td>iconPath</td>
+<td>Path, relative to the directory in which the style file resides, to a PNG format icon, magic value "preset" will use the preset icon.</td>
+</tr>
+<tr>
 <td><strong>&lt;dash&gt;</strong></td>
 <td></td>
 <td>feature sub-element used to define a dash pattern</td>
@@ -577,7 +592,7 @@ i-->
 <td></td>
 </tr>
 <tr>
-<td>node</td>
+<td>node_untagged</td>
 <td></td>
 </tr>
 <tr>
@@ -785,7 +800,7 @@ i-->
 </code></pre>
 <h3 id="complete-example">Complete Example</h3>
 <pre><code>&lt;?xml version='1.0' encoding='UTF-8' ?&gt;
-&lt;profile name="Color Round Nodes" format="0.2.0"&gt;
+&lt;profile name="Color Round Nodes" format="0.3.0"&gt;
     &lt;!-- Assorted config --&gt;
     &lt;config type="min_handle_length" length="200.0" /&gt;
     &lt;config type="icon_zoom_limit" zoom="15" /&gt;
@@ -807,7 +822,7 @@ i-->
     &lt;feature type="gps_pos_follow" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokeWidth="2.0"/&gt;
     &lt;feature type="dontrender_way" dontrender="true" updateWidth="true" widthFactor="1.0" color="00ffffff" style="STROKE" cap="ROUND" join="ROUND" /&gt;
     &lt;!-- OSM node based features currently internal features --&gt;
-    &lt;feature type="node" updateWidth="true" widthFactor="1.0" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" /&gt;
+    &lt;feature type="node_untagged" updateWidth="true" widthFactor="1.0" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" /&gt;
     &lt;feature type="node_tagged" updateWidth="true" widthFactor="1.5" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" /&gt;
     &lt;feature type="node_thin" updateWidth="false" widthFactor="1.0" color="ffb9121b" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" /&gt;
     &lt;feature type="selected_node" updateWidth="true" widthFactor="1.5" color="fff6e497" style="FILL" cap="ROUND" join="MITER" /&gt;
@@ -819,6 +834,11 @@ i-->
     &lt;!-- Arrow styles --&gt;
     &lt;feature type="oneway_direction" updateWidth="true" widthFactor="0.5" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" oneway="true" /&gt;
     &lt;feature type="waterway_direction" updateWidth="true" widthFactor="0.5" color="ff0000bb" style="STROKE" cap="SQUARE" join="MITER" /&gt;
+
+    &lt;!-- OSM node based features --&gt;
+    &lt;feature type="node" /&gt;
+    &lt;feature type="node" tags="name" labelKey="name" /&gt;
+    &lt;feature type="node" tags="entrance|addr:housenumber" labelKey="addr:housenumber" /&gt;
 
     &lt;!-- OSM way based features --&gt;
     &lt;feature type="way" updateWidth="true" widthFactor="1.0" color="80000000" style="STROKE" cap="BUTT" join="MITER" /&gt;
@@ -1101,12 +1121,13 @@ i-->
                     <div class="col-md-9" role="main">
 
 <h2 id="vespucci-data-styling">Vespucci Data Styling</h2>
-<p><em>Documentation for Vespucci 14.1</em></p>
+<p><em>Documentation for Vespucci 15.2 Style file format version 0.3.0</em></p>
 <p>The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.</p>
 <h3 id="using-custom-style-files-in-vespucci">Using custom style files in Vespucci</h3>
-<p>Files need to have an unique <em>name</em> attribute and a filename in the format <em>name</em>-profile.xml and be stored in the <em>Vespucci</em> directory. </p>
+<p>Files need to need have an unique <em>name</em> attribute and the <em>.xml</em> extension and reside in a <em>styles</em> directory in an app specific files directory (for example <em>Android/data/de.blau.android/files/styles/test.xml</em> ). Currently the legacy storage format and location continues to work: unique <em>name</em> attribute and a filename in the format <em>name</em>-profile.xml and stored in the <em>Vespucci</em> directory, this is the only location that will work for devices with Android version older than 4.4. </p>
 <h3 id="style-elements-and-attributes">Style Elements and Attributes</h3>
 <p>The styles are for a major part not much more than an external representation of the <a href="https://developer.android.com/reference/android/graphics/Paint">Android Paint</a> objects. In particular color, style, cap, join and strokeWidth attributes map directly to the Paint fields.</p>
+<p>Node styling is limited to the <strong>labelKey</strong> and <strong>iconPath</strong> attributes.</p>
 <table>
 <thead>
 <tr>
@@ -1174,7 +1195,7 @@ i-->
 <tr>
 <td></td>
 <td>type</td>
-<td>"way" or "relation" to match the corresponding OSM elements, or a name</td>
+<td>"way", "node" or "relation" to match the corresponding OSM elements, or a name</td>
 </tr>
 <tr>
 <td></td>
@@ -1272,6 +1293,16 @@ i-->
 <td>Set this on the referenced arrowStyle if it should have oneway semantics</td>
 </tr>
 <tr>
+<td></td>
+<td>labelKey</td>
+<td>Tag key to use as label if present, magic value "preset" will use the preset name.</td>
+</tr>
+<tr>
+<td></td>
+<td>iconPath</td>
+<td>Path, relative to the directory in which the style file resides, to a PNG format icon, magic value "preset" will use the preset icon.</td>
+</tr>
+<tr>
 <td><strong>&lt;dash&gt;</strong></td>
 <td></td>
 <td>feature sub-element used to define a dash pattern</td>
@@ -1356,7 +1387,7 @@ i-->
 <td></td>
 </tr>
 <tr>
-<td>node</td>
+<td>node_untagged</td>
 <td></td>
 </tr>
 <tr>
@@ -1564,7 +1595,7 @@ i-->
 </code></pre>
 <h3 id="complete-example">Complete Example</h3>
 <pre><code>&lt;?xml version='1.0' encoding='UTF-8' ?&gt;
-&lt;profile name="Color Round Nodes" format="0.2.0"&gt;
+&lt;profile name="Color Round Nodes" format="0.3.0"&gt;
     &lt;!-- Assorted config --&gt;
     &lt;config type="min_handle_length" length="200.0" /&gt;
     &lt;config type="icon_zoom_limit" zoom="15" /&gt;
@@ -1586,7 +1617,7 @@ i-->
     &lt;feature type="gps_pos_follow" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokeWidth="2.0"/&gt;
     &lt;feature type="dontrender_way" dontrender="true" updateWidth="true" widthFactor="1.0" color="00ffffff" style="STROKE" cap="ROUND" join="ROUND" /&gt;
     &lt;!-- OSM node based features currently internal features --&gt;
-    &lt;feature type="node" updateWidth="true" widthFactor="1.0" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" /&gt;
+    &lt;feature type="node_untagged" updateWidth="true" widthFactor="1.0" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" /&gt;
     &lt;feature type="node_tagged" updateWidth="true" widthFactor="1.5" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" /&gt;
     &lt;feature type="node_thin" updateWidth="false" widthFactor="1.0" color="ffb9121b" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" /&gt;
     &lt;feature type="selected_node" updateWidth="true" widthFactor="1.5" color="fff6e497" style="FILL" cap="ROUND" join="MITER" /&gt;
@@ -1598,6 +1629,11 @@ i-->
     &lt;!-- Arrow styles --&gt;
     &lt;feature type="oneway_direction" updateWidth="true" widthFactor="0.5" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" oneway="true" /&gt;
     &lt;feature type="waterway_direction" updateWidth="true" widthFactor="0.5" color="ff0000bb" style="STROKE" cap="SQUARE" join="MITER" /&gt;
+
+    &lt;!-- OSM node based features --&gt;
+    &lt;feature type="node" /&gt;
+    &lt;feature type="node" tags="name" labelKey="name" /&gt;
+    &lt;feature type="node" tags="entrance|addr:housenumber" labelKey="addr:housenumber" /&gt;
 
     &lt;!-- OSM way based features --&gt;
     &lt;feature type="way" updateWidth="true" widthFactor="1.0" color="80000000" style="STROKE" cap="BUTT" join="MITER" /&gt;
@@ -1872,7 +1908,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.1.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
         </footer>
         <script>
             var base_url = "../..",

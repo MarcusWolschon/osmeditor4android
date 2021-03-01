@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../15.2.0 Release notes/">15.2.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../15.1.0 Release notes/">15.1.0 Release notes</a>
 </li>
                                         
@@ -371,6 +375,8 @@ i-->
 <p>Settings related to editing.</p>
 <h3 id="always-use-contextual-menu">Always use contextual menu</h3>
 <p>Always show the element selection context menu if the selection is ambiguous. If turned off the nearest element will be selected. Default: <em>off</em>.</p>
+<h3 id="override-address-tag-default">Override address tag default</h3>
+<p>Use our address tag configuration over any region specific values that we may have found. Default: <em>off</em>.</p>
 <h3 id="address-tags">Address tags</h3>
 <p>When using address prediction only add the tags configured here.</p>
 <h3 id="enable-auto-apply-of-preset">Enable auto-apply of preset</h3>
@@ -436,10 +442,12 @@ i-->
 <p>Set a user and password for API authentication. This is only needed if the target API server does not support OAuth authentication, and in general should be avoided as unsafe.</p>
 <h3 id="offset-server">Offset server</h3>
 <p>API server for imagery offsets.</p>
-<h3 id="osmose-server">OSMOSE Server</h3>
+<h3 id="osmose-server">OSMOSE server</h3>
 <p>OSMOSE QA API server configuration.</p>
 <h3 id="configure-geocoders">Configure geocoders</h3>
 <p>Geocoding service providers. Currently Photon and Nominatim servers are supported.</p>
+<h3 id="taginfo-server">Taginfo server</h3>
+<p>Configure the taginfo server used for the "online" preset search/construction. </p>
 <h2 id="layer-download-and-storage">Layer download and storage</h2>
 <p>Download and storage configuration for the tiled imagery layers.</p>
 <h3 id="max-number-of-download-threads">Max. number of download threads</h3>
@@ -523,6 +531,8 @@ i-->
 <p>Settings related to editing.</p>
 <h3 id="always-use-contextual-menu">Always use contextual menu</h3>
 <p>Always show the element selection context menu if the selection is ambiguous. If turned off the nearest element will be selected. Default: <em>off</em>.</p>
+<h3 id="override-address-tag-default">Override address tag default</h3>
+<p>Use our address tag configuration over any region specific values that we may have found. Default: <em>off</em>.</p>
 <h3 id="address-tags">Address tags</h3>
 <p>When using address prediction only add the tags configured here.</p>
 <h3 id="enable-auto-apply-of-preset">Enable auto-apply of preset</h3>
@@ -588,10 +598,12 @@ i-->
 <p>Set a user and password for API authentication. This is only needed if the target API server does not support OAuth authentication, and in general should be avoided as unsafe.</p>
 <h3 id="offset-server">Offset server</h3>
 <p>API server for imagery offsets.</p>
-<h3 id="osmose-server">OSMOSE Server</h3>
+<h3 id="osmose-server">OSMOSE server</h3>
 <p>OSMOSE QA API server configuration.</p>
 <h3 id="configure-geocoders">Configure geocoders</h3>
 <p>Geocoding service providers. Currently Photon and Nominatim servers are supported.</p>
+<h3 id="taginfo-server">Taginfo server</h3>
+<p>Configure the taginfo server used for the "online" preset search/construction. </p>
 <h2 id="layer-download-and-storage">Layer download and storage</h2>
 <p>Download and storage configuration for the tiled imagery layers.</p>
 <h3 id="max-number-of-download-threads">Max. number of download threads</h3>
@@ -618,7 +630,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.1.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
         </footer>
         <script>
             var base_url = "../../..",
