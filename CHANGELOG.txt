@@ -1,5 +1,56 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.2.0-1:
+
+- Support merging closed ways/polygons
+- Improve task dialogs behaviour (Notes, OSMOSE etc)
+- Keep way selected after rotation
+- Add empty relation check to validator
+- Check for empty relations in more places
+- Suppress display of pre-element-creation state in info dialog
+- Support mode specific launcher shortcuts
+- Address prediction and handling improvements
+    - Add dedicated mode for adding addresses
+    - Add option to directly predict address or add an address interpolation
+    - Support default address keys from geo-context
+    - Support addr:conscriptionnumber and addr:block_number
+    - Add functionality to create address interpolations directly
+    - Support addr:block
+    - Add values for addr:country and addr:state if used and empty
+    - Improve address prediction initialization when no data is available
+- Show a disambiguation menu when multiple ways could be appended to
+- Add preference UI for taginfo server URL
+- Re-factor data styling to support (node) icons and flexible labeling
+- Support multiple parse error messages from opening hours parser
+- Add support for ELI meta field and tests
+- Add proper multi-polygon support for ELI
+- Add support for selecting MultiLineString and GeometryCollection features in the GeoJSON layer
+- Add support for creating OSM objects from GeoJson Features
+- Track existing nodes better in PathCreationMode
+- Support testing with roboelectric
+- Increase displayed precision in GnssPositionInfo dialog
+- Support regular expressions in object search (JOSM filter expressions) 
+- Support import of JOSM .osn and osmand .ocs files with Notes
+- Allow way dragging in path creation mode
+- Fix spurious relation backlinks
+- Fix offering to edit tags on deleted elements in info dialog
+- Fix long standing issue with unjoining a closed way
+- Fix crash when showing info dialog on copy and pasted way
+- Fix issue when editing an existing relations members that caused them to get multipolygon roles
+- Fix issue with icon caching in the data layer
+- Fix issue selecting imagery when category was changed
+- Fix regression (since 15.0) that stopped GeoJSON layer style from being restored
+- Fix multiple regressions in PathCreation mode by tracking existing nodes better
+- Fix regression when Bing imagery is selected and app is started without network connectivity
+- Fix regression in opening hours row layout in the property editor
+- Protect against number format exceptions when parsing coordinates in more places
+- Protect against trying to fit screen to very small bounding boxes 
+- Show restart required message when "Follow" button is moved
+- More protection against corrupted data
+- Update preset
+- Update imagery from ELI
+- Update translations
+
 15.1.2:
 - Don't allow dragging ways in PathCreation mode as undo will not work as expected
 
