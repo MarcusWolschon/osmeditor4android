@@ -183,18 +183,21 @@ public class MBTileProviderDataBase {
     @Nullable
     public Map<String, String> getMetadata() {
         if (metadata == null && mDatabase.isOpen()) {
-            Cursor dbresult = mDatabase.query(T_METADATA, null, null, null, null, null, null);
-            if (dbresult.getCount() >= 1) {
-                metadata = new HashMap<>();
-                boolean haveEntry = dbresult.moveToFirst();
-                while (haveEntry) {
-                    String name = dbresult.getString(dbresult.getColumnIndex(T_METADATA_NAME));
-                    String value = dbresult.getString(dbresult.getColumnIndex(T_METADATA_VALUE));
-                    metadata.put(name, value);
-                    haveEntry = dbresult.moveToNext();
+            try (Cursor dbresult = mDatabase.query(T_METADATA, null, null, null, null, null, null)) {
+                if (dbresult.getCount() >= 1) {
+                    metadata = new HashMap<>();
+                    boolean haveEntry = dbresult.moveToFirst();
+                    while (haveEntry) {
+                        String name = dbresult.getString(dbresult.getColumnIndexOrThrow(T_METADATA_NAME));
+                        String value = dbresult.getString(dbresult.getColumnIndexOrThrow(T_METADATA_VALUE));
+                        metadata.put(name, value);
+                        haveEntry = dbresult.moveToNext();
+                    }
                 }
+                dbresult.close();
+            } catch (IllegalArgumentException e) {
+                Log.e(DEBUG_TAG, "missing columns " + e.getMessage());
             }
-            dbresult.close();
         }
         return metadata;
     }
@@ -211,31 +214,36 @@ public class MBTileProviderDataBase {
     public int[] getMinMaxZoom() {
         int[] result = null;
         Map<String, String> meta = getMetadata();
-        try {
-            result = new int[2];
-            result[0] = Integer.parseInt(meta.get(MBTileConstants.MINZOOM));
-            result[1] = Integer.parseInt(meta.get(MBTileConstants.MAXZOOM));
-            return result;
-        } catch (NumberFormatException e) {
-            Log.e(DEBUG_TAG, "Unparseable zoom value " + e.getMessage());
-            result = null;
-        }
-        if (mDatabase.isOpen()) {
-            Cursor dbresult = mDatabase.rawQuery(T_MBTILES_GET_ZOOMS, null);
-            if (dbresult.getCount() >= 1) {
-                boolean haveEntry = dbresult.moveToFirst();
-                if (haveEntry) {
-                    result = new int[2];
-                    result[0] = dbresult.getInt(dbresult.getColumnIndex(T_MBTILES_ZOOM_LEVEL));
-                    haveEntry = dbresult.moveToLast();
-                    result[1] = dbresult.getInt(dbresult.getColumnIndex(T_MBTILES_ZOOM_LEVEL));
+        if (meta != null) {
+            try {
+                result = new int[2];
+                result[0] = Integer.parseInt(meta.get(MBTileConstants.MINZOOM));
+                result[1] = Integer.parseInt(meta.get(MBTileConstants.MAXZOOM));
+                return result;
+            } catch (NumberFormatException e) {
+                Log.e(DEBUG_TAG, "Unparseable zoom value " + e.getMessage());
+                result = null;
+            }
+            if (mDatabase.isOpen()) {
+                try (Cursor dbresult = mDatabase.rawQuery(T_MBTILES_GET_ZOOMS, null)) {
+                    if (dbresult.getCount() >= 1) {
+                        boolean haveEntry = dbresult.moveToFirst();
+                        if (haveEntry) {
+                            result = new int[2];
+                            result[0] = dbresult.getInt(dbresult.getColumnIndexOrThrow(T_MBTILES_ZOOM_LEVEL));
+                            haveEntry = dbresult.moveToLast();
+                            result[1] = dbresult.getInt(dbresult.getColumnIndexOrThrow(T_MBTILES_ZOOM_LEVEL));
+                        }
+                    }
+                    dbresult.close();
+                    return result;
+                } catch (IllegalArgumentException e) {
+                    Log.e(DEBUG_TAG, "missing columns " + e.getMessage());
                 }
             }
-            dbresult.close();
-            return result;
         }
         if (DEBUGMODE) {
-            Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Min max zoom not found");
+            Log.d(DEBUG_TAG, "Min max zoom not found");
         }
         return null;
     }
@@ -248,9 +256,11 @@ public class MBTileProviderDataBase {
     @Nullable
     public BoundingBox getBounds() {
         Map<String, String> meta = getMetadata();
-        String boxString = meta.get(MBTileConstants.BOUNDS);
-        if (boxString != null) {
-            return BoundingBox.fromDoubleString(boxString);
+        if (meta != null) {
+            String boxString = meta.get(MBTileConstants.BOUNDS);
+            if (boxString != null) {
+                return BoundingBox.fromDoubleString(boxString);
+            }
         }
         return null;
     }

@@ -155,21 +155,20 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * 
      * @param db readable database will be closed by caller
      * @param source name of the source
-     * @return a milliseconds since th epoch value or 0 if not set
+     * @return a milliseconds since the epoch value or 0 if not set
      */
     public static long getSourceUpdate(@NonNull SQLiteDatabase db, @NonNull String source) {
-        Cursor dbresult = db.query(SOURCES_TABLE, null, NAME_FIELD + "='" + source + "'", null, null, null, null);
-        try {
+        try (Cursor dbresult = db.query(SOURCES_TABLE, null, NAME_FIELD + "='" + source + "'", null, null, null, null)) {
             if (dbresult.getCount() >= 1) {
                 boolean haveEntry = dbresult.moveToFirst();
                 if (haveEntry) {
-                    return dbresult.getLong(dbresult.getColumnIndex(UPDATED_FIELD));
+                    return dbresult.getLong(dbresult.getColumnIndexOrThrow(UPDATED_FIELD));
                 }
             }
-            return 0;
-        } finally {
-            dbresult.close();
+        } catch (IllegalArgumentException iaex) {
+            Log.e(DEBUG_TAG, "failed to get source update value " + iaex.getMessage());
         }
+        return 0;
     }
 
     /**
@@ -339,20 +338,23 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      */
     public static TileLayerSource getLayerWithRowId(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull int rowId) {
         TileLayerSource layer = null;
-        Cursor dbresult = db.rawQuery(
+        try (Cursor dbresult = db.rawQuery(
                 "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE layers.rowid=? AND layers.id=coverages.id",
-                new String[] { Integer.toString(rowId) });
-        Provider provider = getProviderFromCursor(dbresult);
+                new String[] { Integer.toString(rowId) })) {
+            Provider provider = getProviderFromCursor(dbresult);
 
-        dbresult = db.rawQuery(QUERY_LAYER_BY_ROWID, new String[] { Integer.toString(rowId) });
-        if (dbresult.getCount() >= 1) {
-            boolean haveEntry = dbresult.moveToFirst();
-            if (haveEntry) {
-                initLayerFieldIndices(dbresult);
-                layer = getLayerFromCursor(context, provider, dbresult);
+            try (Cursor dbresultLayer = db.rawQuery(QUERY_LAYER_BY_ROWID, new String[] { Integer.toString(rowId) })) {
+                if (dbresultLayer.getCount() >= 1) {
+                    boolean haveEntry = dbresult.moveToFirst();
+                    if (haveEntry) {
+                        initLayerFieldIndices(dbresultLayer);
+                        layer = getLayerFromCursor(context, provider, dbresultLayer);
+                    }
+                }
+            } catch (IllegalArgumentException iaex) {
+                Log.e(DEBUG_TAG, "retrieving layer failed " + iaex.getMessage());
             }
         }
-        dbresult.close();
         return layer;
     }
 
@@ -362,19 +364,24 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param cursor the Cursor
      * @return a Provider instance
      */
-    private static Provider getProviderFromCursor(Cursor cursor) {
+    private static Provider getProviderFromCursor(@NonNull Cursor cursor) {
         Provider provider = new Provider();
-        if (cursor.getCount() >= 1) {
-            Log.d(DEBUG_TAG, "Got 1 or more coverage areas");
-            boolean haveEntry = cursor.moveToFirst();
-            initCoverageFieldIndices(cursor);
-            while (haveEntry) {
-                CoverageArea ca = getCoverageFromCursor(cursor);
-                provider.addCoverageArea(ca);
-                haveEntry = cursor.moveToNext();
+        try {
+            if (cursor.getCount() >= 1) {
+                Log.d(DEBUG_TAG, "Got 1 or more coverage areas");
+                boolean haveEntry = cursor.moveToFirst();
+                initCoverageFieldIndices(cursor);
+                while (haveEntry) {
+                    CoverageArea ca = getCoverageFromCursor(cursor);
+                    provider.addCoverageArea(ca);
+                    haveEntry = cursor.moveToNext();
+                }
             }
+        } catch (IllegalArgumentException iaex) {
+            Log.e(DEBUG_TAG, "retrieving provider failed " + iaex.getMessage());
+        } finally {
+            cursor.close();
         }
-        cursor.close();
         return provider;
     }
 
@@ -439,13 +446,13 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param cursor the Cursor
      */
     private static synchronized void initCoverageFieldIndices(@NonNull Cursor cursor) {
-        idFieldIndex = cursor.getColumnIndex(ID_FIELD);
-        leftFieldIndex = cursor.getColumnIndex(LEFT_FIELD);
-        bottomFieldIndex = cursor.getColumnIndex(BOTTOM_FIELD);
-        rightFieldIndex = cursor.getColumnIndex(RIGHT_FIELD);
-        topFieldIndex = cursor.getColumnIndex(TOP_FIELD);
-        zoomMinFieldIndex = cursor.getColumnIndex(ZOOM_MIN_FIELD);
-        zoomMaxFieldIndex = cursor.getColumnIndex(ZOOM_MAX_FIELD);
+        idFieldIndex = cursor.getColumnIndexOrThrow(ID_FIELD);
+        leftFieldIndex = cursor.getColumnIndexOrThrow(LEFT_FIELD);
+        bottomFieldIndex = cursor.getColumnIndexOrThrow(BOTTOM_FIELD);
+        rightFieldIndex = cursor.getColumnIndexOrThrow(RIGHT_FIELD);
+        topFieldIndex = cursor.getColumnIndexOrThrow(TOP_FIELD);
+        zoomMinFieldIndex = cursor.getColumnIndexOrThrow(ZOOM_MIN_FIELD);
+        zoomMaxFieldIndex = cursor.getColumnIndexOrThrow(ZOOM_MAX_FIELD);
     }
 
     /**
@@ -488,46 +495,51 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param overlay if true only overlay layers will be returned
      * @return a Map containing the selected layers
      */
+    @NonNull
     public static Map<String, TileLayerSource> getAllLayers(@NonNull Context context, @NonNull SQLiteDatabase db, boolean overlay) {
         Map<String, TileLayerSource> layers = new HashMap<>();
-        MultiHashMap<String, CoverageArea> coverages = new MultiHashMap<>();
-        Cursor dbresult = db.rawQuery(
-                "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE coverages.id=layers.id AND overlay=?",
-                new String[] { overlay ? "1" : "0" });
-        if (dbresult.getCount() >= 1) {
-            initCoverageFieldIndices(dbresult);
-            boolean haveEntry = dbresult.moveToFirst();
-            while (haveEntry) {
-                String id = dbresult.getString(idFieldIndex);
-                CoverageArea ca = getCoverageFromCursor(dbresult);
-                coverages.add(id, ca);
-                haveEntry = dbresult.moveToNext();
-            }
-        }
-        dbresult.close();
-
-        dbresult = db.query(LAYERS_TABLE, null,
-                OVERLAY_FIELD + "=" + (overlay ? 1 : 0) + " AND " + TYPE_FIELD + " <> '" + TileLayerSource.TYPE_WMS_ENDPOINT + "'", null, null, null, null);
-        if (dbresult.getCount() >= 1) {
-            boolean haveEntry = dbresult.moveToFirst();
-            initLayerFieldIndices(dbresult);
-            while (haveEntry) {
-                String id = dbresult.getString(idLayerFieldIndex);
-                Provider provider = new Provider();
-                for (CoverageArea ca : coverages.get(id)) {
-                    provider.addCoverageArea(ca);
+        try {
+            MultiHashMap<String, CoverageArea> coverages = new MultiHashMap<>();
+            Cursor dbresult = db.rawQuery(
+                    "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE coverages.id=layers.id AND overlay=?",
+                    new String[] { overlay ? "1" : "0" });
+            if (dbresult.getCount() >= 1) {
+                initCoverageFieldIndices(dbresult);
+                boolean haveEntry = dbresult.moveToFirst();
+                while (haveEntry) {
+                    String id = dbresult.getString(idFieldIndex);
+                    CoverageArea ca = getCoverageFromCursor(dbresult);
+                    coverages.add(id, ca);
+                    haveEntry = dbresult.moveToNext();
                 }
-                TileLayerSource layer = getLayerFromCursor(context, provider, dbresult);
-                if (layer.replaceApiKey(context)) { // if we have an apikey parameter and can't replace it, don't add
-                    layers.put(id, layer);
-                } else {
-                    Log.e(DEBUG_TAG, "layer " + id + " is missing an apikey, not added");
-                }
-                haveEntry = dbresult.moveToNext();
             }
-        }
-        dbresult.close();
+            dbresult.close();
 
+            dbresult = db.query(LAYERS_TABLE, null,
+                    OVERLAY_FIELD + "=" + (overlay ? 1 : 0) + " AND " + TYPE_FIELD + " <> '" + TileLayerSource.TYPE_WMS_ENDPOINT + "'", null, null, null, null);
+            if (dbresult.getCount() >= 1) {
+                boolean haveEntry = dbresult.moveToFirst();
+                initLayerFieldIndices(dbresult);
+                while (haveEntry) {
+                    String id = dbresult.getString(idLayerFieldIndex);
+                    Provider provider = new Provider();
+                    for (CoverageArea ca : coverages.get(id)) {
+                        provider.addCoverageArea(ca);
+                    }
+                    TileLayerSource layer = getLayerFromCursor(context, provider, dbresult);
+                    // if we have an apikey parameter and can't replace it, don't add
+                    if (layer.replaceApiKey(context)) {
+                        layers.put(id, layer);
+                    } else {
+                        Log.e(DEBUG_TAG, "layer " + id + " is missing an apikey, not added");
+                    }
+                    haveEntry = dbresult.moveToNext();
+                }
+            }
+            dbresult.close();
+        } catch (IllegalArgumentException iaex) {
+            Log.e(DEBUG_TAG, "Retrieveing sources failed " + iaex.getMessage());
+        }
         return layers;
     }
 

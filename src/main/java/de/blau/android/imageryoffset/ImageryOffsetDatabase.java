@@ -41,7 +41,6 @@ public class ImageryOffsetDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-
             db.execSQL("CREATE TABLE offsets (imagery_id TEXT NOT NULL, lon NUMBER NOT NULL, lat NUMBER NOT NULL, "
                     + " min_zoom INTEGER NOT NULL, max_zoom INTEGER NOT NULL, imagery_lon NUMBER NOT NULL, imagery_lat NUMBER NOT NULL)");
             db.execSQL("CREATE INDEX imagery_idx ON offsets(imagery_id)");
@@ -130,16 +129,20 @@ public class ImageryOffsetDatabase extends SQLiteOpenHelper {
      * @param cursor the Cursor
      * @return an Offset instance
      */
-    private static ImageryOffset getOffsetFromCursor(Cursor cursor) {
+    @NonNull
+    private static ImageryOffset getOffsetFromCursor(@NonNull Cursor cursor) {
         ImageryOffset offset = new ImageryOffset();
-        offset.imageryId = cursor.getString(cursor.getColumnIndex(IMAGERY_ID_FIELD));
-        offset.setLon(cursor.getDouble(cursor.getColumnIndex(LON_FIELD)));
-        offset.setLat(cursor.getDouble(cursor.getColumnIndex(LAT_FIELD)));
-        offset.setMinZoom(cursor.getInt(cursor.getColumnIndex(MIN_ZOOM_FIELD)));
-        offset.setMaxZoom(cursor.getInt(cursor.getColumnIndex(MAX_ZOOM_FIELD)));
-        offset.setImageryLon(cursor.getDouble(cursor.getColumnIndex(IMAGERY_LON_FIELD)));
-        offset.setImageryLat(cursor.getDouble(cursor.getColumnIndex(IMAGERY_LAT_FIELD)));
-
+        try {
+            offset.imageryId = cursor.getString(cursor.getColumnIndexOrThrow(IMAGERY_ID_FIELD));
+            offset.setLon(cursor.getDouble(cursor.getColumnIndexOrThrow(LON_FIELD)));
+            offset.setLat(cursor.getDouble(cursor.getColumnIndexOrThrow(LAT_FIELD)));
+            offset.setMinZoom(cursor.getInt(cursor.getColumnIndexOrThrow(MIN_ZOOM_FIELD)));
+            offset.setMaxZoom(cursor.getInt(cursor.getColumnIndexOrThrow(MAX_ZOOM_FIELD)));
+            offset.setImageryLon(cursor.getDouble(cursor.getColumnIndexOrThrow(IMAGERY_LON_FIELD)));
+            offset.setImageryLat(cursor.getDouble(cursor.getColumnIndexOrThrow(IMAGERY_LAT_FIELD)));
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "Readding offset from DB failed " + e.getMessage());
+        }
         return offset;
     }
 
@@ -149,7 +152,7 @@ public class ImageryOffsetDatabase extends SQLiteOpenHelper {
      * @param db writable database
      * @param id imagery offset db id
      */
-    public static void deleteOffset(final SQLiteDatabase db, @NonNull String id) {
+    public static void deleteOffset(@NonNull final SQLiteDatabase db, @NonNull String id) {
         db.delete(OFFSETS_TABLE, IMAGERY_ID_FIELD + "=?", new String[] { id });
     }
 

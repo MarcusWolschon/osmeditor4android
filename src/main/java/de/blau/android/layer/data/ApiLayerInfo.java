@@ -64,26 +64,30 @@ public class ApiLayerInfo extends LayerInfo {
         if (db != null) {
             tableLayout.addView(TableLayoutUtils.createFullRowTitle(activity, getString(R.string.api_info_mapsplit_source), tp));
             Map<String, String> meta = db.getMetadata();
-            List<String> keys = new ArrayList<>(meta.keySet());
-            Collections.sort(keys);
-            for (String key : keys) {
-                Integer keyRes = META_FIELDS_TO_RES.get(key);
-                if (keyRes == null) {
-                    continue;
-                }
-                if (MapSplitSource.LATEST_DATE.equals(key)) {
-                    try {
-                        String date = DateFormatter.getUtcFormat(DATE_FORMAT).format(Long.parseLong(meta.get(key)));
-                        tableLayout.addView(TableLayoutUtils.createRow(activity, keyRes, null, date, tp));
-                    } catch (NumberFormatException e) {
-                        // Skip
-                        Log.e(DEBUG_TAG, "Invalid date in MSF file " + e.getMessage());
+            if (meta != null) {
+                List<String> keys = new ArrayList<>(meta.keySet());
+                Collections.sort(keys);
+                for (String key : keys) {
+                    Integer keyRes = META_FIELDS_TO_RES.get(key);
+                    if (keyRes == null) {
+                        continue;
                     }
-                } else if (MBTileConstants.BOUNDS.equals(key)) {
-                    tableLayout.addView(TableLayoutUtils.createRow(activity, keyRes, null, db.getBounds().toPrettyString(), tp));
-                } else {
-                    tableLayout.addView(TableLayoutUtils.createRow(activity, keyRes, null, meta.get(key), tp));
+                    if (MapSplitSource.LATEST_DATE.equals(key)) {
+                        try {
+                            String date = DateFormatter.getUtcFormat(DATE_FORMAT).format(Long.parseLong(meta.get(key)));
+                            tableLayout.addView(TableLayoutUtils.createRow(activity, keyRes, null, date, tp));
+                        } catch (NumberFormatException e) {
+                            // Skip
+                            Log.e(DEBUG_TAG, "Invalid date in MSF file " + e.getMessage());
+                        }
+                    } else if (MBTileConstants.BOUNDS.equals(key)) {
+                        tableLayout.addView(TableLayoutUtils.createRow(activity, keyRes, null, db.getBounds().toPrettyString(), tp));
+                    } else {
+                        tableLayout.addView(TableLayoutUtils.createRow(activity, keyRes, null, meta.get(key), tp));
+                    }
                 }
+            } else {
+                Log.e(DEBUG_TAG, "Meta info from MBT file missing");
             }
         } else if (server.hasReadOnly()) {
             tableLayout.addView(TableLayoutUtils.createRow(activity, R.string.readonly_url, null, server.getReadOnlyUrl(), tp));

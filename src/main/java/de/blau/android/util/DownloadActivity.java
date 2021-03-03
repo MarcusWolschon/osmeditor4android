@@ -276,12 +276,17 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
             Log.e(DEBUG_TAG, "Download not found id: " + id);
         } else {
             queryCursor.moveToFirst();
-            int status = queryCursor.getInt(queryCursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+            try {
+            int status = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
             if (status == DownloadManager.STATUS_FAILED) {
-                int reason = queryCursor.getInt(queryCursor.getColumnIndex(DownloadManager.COLUMN_REASON));
+                int reason = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON));
                 Snack.toastTopError(DownloadActivity.this, errorMessage(this, reason, filename));
             } else if (status == DownloadManager.STATUS_RUNNING) {
                 Snack.toastTopInfo(this, getString(R.string.toast_download_started, filename));
+            }
+            } catch (IllegalArgumentException iaex) {
+                Log.e(DEBUG_TAG, iaex.getMessage());
+                Snack.toastTopError(DownloadActivity.this, errorMessage(this, DownloadManager.ERROR_UNKNOWN, filename));
             }
         }
     }
@@ -289,7 +294,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
     /**
      * Get a human readable error message from the error code
      * 
-     * @param ctx Android COntext
+     * @param ctx Android Context
      * @param error the error code
      * @param filename the name of the file that the error applies to
      * @return a String with the message
