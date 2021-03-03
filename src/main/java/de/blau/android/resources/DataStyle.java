@@ -164,6 +164,7 @@ public final class DataStyle extends DefaultHandler {
     private static final String NAME_ATTR             = "name";
     private static final String TAGS_ATTR             = "tags";
     private static final String LABEL_KEY_ATTR        = "labelKey";
+    private static final String LABEL_ZOOM_LIMIT_ATTR = "labelZoomLimit";
     private static final String ICON_PATH_ATTR        = "iconPath";
     private static final String PRESET                = "preset";
 
@@ -187,6 +188,7 @@ public final class DataStyle extends DefaultHandler {
         private Boolean           closed         = null;
         private String            labelKey       = null;
         private String            iconPath       = null;
+        private int               labelZoomLimit = Integer.MAX_VALUE;
 
         List<FeatureStyle> cascadedStyles = null;
 
@@ -259,6 +261,7 @@ public final class DataStyle extends DefaultHandler {
             oneway = fp.oneway;
             closed = fp.closed;
             labelKey = fp.labelKey;
+            setLabelZoomLimit(fp.getLabelZoomLimit());
             iconPath = fp.iconPath;
             cascadedStyles = null;
         }
@@ -557,6 +560,24 @@ public final class DataStyle extends DefaultHandler {
         }
 
         /**
+         * Get the limit from which on we display labels
+         * 
+         * @return the labelZoomLimit
+         */
+        public int getLabelZoomLimit() {
+            return labelZoomLimit;
+        }
+
+        /**
+         * Set the limit from which on we display labels
+         * 
+         * @param labelZoomLimit the labelZoomLimit to set
+         */
+        public void setLabelZoomLimit(int labelZoomLimit) {
+            this.labelZoomLimit = labelZoomLimit;
+        }
+
+        /**
          * Check if labelkey is set to "preset"
          * 
          * @return true if the magic value is set
@@ -614,6 +635,9 @@ public final class DataStyle extends DefaultHandler {
             s.attribute("", ONEWAY_ATTR, Boolean.toString(oneway));
             if (labelKey != null) {
                 s.attribute("", LABEL_KEY_ATTR, labelKey);
+            }
+            if (getLabelZoomLimit() < Integer.MAX_VALUE) {
+                s.attribute("", LABEL_ZOOM_LIMIT_ATTR, Integer.toString(getLabelZoomLimit()));
             }
             if (iconPath != null) {
                 s.attribute("", ICON_PATH_ATTR, iconPath);
@@ -681,6 +705,12 @@ public final class DataStyle extends DefaultHandler {
     private static final int TOLERANCE_ALPHA_2 = 128;
 
     /**
+     * zoom level from which on we display icons and house numbers
+     */
+    private static final int DEFAULT_SHOW_ICONS_LIMIT      = 15;
+    private static final int DEFAULT_SHOW_ICON_LABEL_LIMIT = DEFAULT_SHOW_ICONS_LIMIT + 5;
+
+    /**
      * GPS arrow
      */
     private Path orientationPath = new Path();
@@ -717,6 +747,7 @@ public final class DataStyle extends DefaultHandler {
     private float largDragToleranceRadius;
     private float minLenForHandle;
     private int   iconZoomLimit;
+    private int   iconLabelZoomLimit;
 
     private final Context ctx;
     private String        iconDirPath;
@@ -758,7 +789,8 @@ public final class DataStyle extends DefaultHandler {
         wayToleranceValue = Density.dpToPx(ctx, 40f);
         largDragToleranceRadius = Density.dpToPx(ctx, 100f);
         minLenForHandle = 5 * nodeToleranceValue;
-        iconZoomLimit = 15;
+        iconZoomLimit = DEFAULT_SHOW_ICONS_LIMIT;
+        iconLabelZoomLimit = DEFAULT_SHOW_ICON_LABEL_LIMIT;
 
         createOrientationPath(1.0f);
         createWayPointPath(1.0f);
@@ -1234,6 +1266,13 @@ public final class DataStyle extends DefaultHandler {
     }
 
     /**
+     * @return the iconLabelZoomLimit
+     */
+    public int getIconLabelZoomLimit() {
+        return iconLabelZoomLimit;
+    }
+
+    /**
      * Get the minimum length of a segment to show a geometry improvement handle on it
      * 
      * @return the minimum length
@@ -1442,6 +1481,10 @@ public final class DataStyle extends DefaultHandler {
                         if (zoomStr != null) {
                             iconZoomLimit = Integer.parseInt(zoomStr);
                         }
+                        String labelZoomLimitString = atts.getValue(LABEL_ZOOM_LIMIT_ATTR);
+                        if (labelZoomLimitString != null) {
+                            iconLabelZoomLimit = Integer.parseInt(labelZoomLimitString);
+                        }
                         return;
                     default:
                         Log.e(DEBUG_TAG, "unknown config type " + type);
@@ -1555,6 +1598,11 @@ public final class DataStyle extends DefaultHandler {
                 }
 
                 tempFeatureStyle.setLabelKey(atts.getValue(LABEL_KEY_ATTR));
+
+                String labelZoomLimitString = atts.getValue(LABEL_ZOOM_LIMIT_ATTR);
+                if (labelZoomLimitString != null) {
+                    tempFeatureStyle.setLabelZoomLimit(Integer.parseInt(labelZoomLimitString));
+                }
 
                 tempFeatureStyle.setIconPath(atts.getValue(ICON_PATH_ATTR));
 

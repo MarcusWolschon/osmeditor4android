@@ -28,6 +28,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Path;
+import android.graphics.PathMeasure;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
@@ -97,13 +98,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     public static final int  ICON_SIZE_DP         = 20;
     private static final int HOUSE_NUMBER_RADIUS  = 10;
     private static final int ICON_SELECTED_BORDER = 2;
+    private static final int LABEL_EXTRA          = 40;
 
-    /**
-     * zoom level from which on we display icons and house numbers
-     */
-    private static final int    SHOW_ICONS_LIMIT        = 15;
-    public static final int     SHOW_LABEL_LIMIT        = SHOW_ICONS_LIMIT + 5;
-    protected static final long AUTOPRUNE_MIN_INTERVALL = 10;                  // seconds between autoprunes
+    protected static final long AUTOPRUNE_MIN_INTERVALL = 10; // seconds between autoprunes
+    private static final int    PAN_AND_ZOOM_LIMIT      = 17;
 
     /** half the width/height of a node icon in px */
     private final int iconRadius;
@@ -111,8 +109,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private final int houseNumberRadius;
     private final int verticalNumberOffset;
     private float     maxDownloadSpeed;
-    protected int     autoPruneNodeLimit = 5000;                // node count for autoprune
-    private int       panAndZoomLimit    = SHOW_ICONS_LIMIT + 2;
+    protected int     autoPruneNodeLimit = 5000;              // node count for autoprune
+    private int       panAndZoomLimit    = PAN_AND_ZOOM_LIMIT;
 
     private final StorageDelegator delegator;
     private final Context          context;
@@ -248,6 +246,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private FeatureStyle labelTextStyleNormalSelected;
     private FeatureStyle labelTextStyleSmallSelected;
 
+    // other styling params
+    private int showIconsLimit;
+    private int showIconLabelZoomLimit;
+
     /** cached zoom level, calculated once per onDraw pass **/
     private int zoomLevel = 0;
 
@@ -260,7 +262,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     /**
      * We just need one path object
      */
-    private Path path = new Path();
+    private final Path        path = new Path();
+    private final PathMeasure pm   = new PathMeasure();
 
     private LongHashSet handles;
 
@@ -967,7 +970,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                         paintHouseNumber(x, y, canvas, featureStyleThin, featureStyleFontSmall, houseNumber);
                         return;
                     }
-                } else if (zoomLevel > SHOW_LABEL_LIMIT) {
+                } else if (zoomLevel > showIconLabelZoomLimit) {
                     paintLabel(x, y, canvas, featureStyleFont, node, nodeFeatureStyleTagged.getPaint().getStrokeWidth(), true);
                 }
             }
@@ -1288,7 +1291,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
         // draw the way itself
         if (pointsSize > 2) {
-            path.reset();
+            path.rewind();
             path.moveTo(linePoints[0], linePoints[1]);
             for (int i = 0; i < pointsSize; i = i + 4) {
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);
@@ -1300,53 +1303,97 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             canvas.drawPath(path, style.getPaint());
         }
 
-        // display icons on closed ways
-        if (showIcons && showWayIcons && zoomLevel > SHOW_ICONS_LIMIT && way.isClosed()) {
-            int vs = pointsSize;
-            if (vs < nodes.size() * 2) {
-                return;
-            }
-            // calc centroid
-            double A = 0;
-            double Y = 0;
-            double X = 0;
-            double x1 = linePoints[0];
-            double y1 = linePoints[1];
-            for (int i = 0; i < vs; i = i + 2) {
-                double x2 = linePoints[(i + 2) % vs];
-                double y2 = linePoints[(i + 3) % vs];
-                double d = x1 * y2 - x2 * y1;
-                A = A + d;
-                X = X + (x1 + x2) * d;
-                Y = Y + (y1 + y2) * d;
-                x1 = x2;
-                y1 = y2;
-            }
-            if (Util.notZero(A)) {
-                Y = Y / (3 * A); // NOSONAR nonZero tests for zero
-                X = X / (3 * A); // NOSONAR nonZero tests for zero
-                boolean iconDrawn = false;
-                if (tmpPresets != null) {
-                    iconDrawn = paintNodeIcon(way, canvas, (float) X, (float) Y, isSelected ? nodeFeatureStyleTaggedSelected : null);
-                    boolean doLabel = false;
-                    if (!iconDrawn) {
-                        String houseNumber = way.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
-                        if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
-                            paintHouseNumber((float) X, (float) Y, canvas, isSelected ? nodeFeatureStyleThinSelected : nodeFeatureStyleThin,
-                                    labelFontStyleSmall, houseNumber);
+        if (way.isClosed()) {
+            // display icons on closed ways
+            if (showIcons && showWayIcons && zoomLevel > showIconsLimit) {
+                int vs = pointsSize;
+                if (vs < nodes.size() * 2) {
+                    return;
+                }
+                // calc centroid
+                double A = 0;
+                double Y = 0;
+                double X = 0;
+                double x1 = linePoints[0];
+                double y1 = linePoints[1];
+                for (int i = 0; i < vs; i = i + 2) {
+                    double x2 = linePoints[(i + 2) % vs];
+                    double y2 = linePoints[(i + 3) % vs];
+                    double d = x1 * y2 - x2 * y1;
+                    A = A + d;
+                    X = X + (x1 + x2) * d;
+                    Y = Y + (y1 + y2) * d;
+                    x1 = x2;
+                    y1 = y2;
+                }
+                if (Util.notZero(A)) {
+                    Y = Y / (3 * A); // NOSONAR nonZero tests for zero
+                    X = X / (3 * A); // NOSONAR nonZero tests for zero
+                    boolean iconDrawn = false;
+                    if (tmpPresets != null) {
+                        iconDrawn = paintNodeIcon(way, canvas, (float) X, (float) Y, isSelected ? nodeFeatureStyleTaggedSelected : null);
+                        String label = null;
+                        if (!iconDrawn) {
+                            String houseNumber = way.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
+                            if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
+                                paintHouseNumber((float) X, (float) Y, canvas, isSelected ? nodeFeatureStyleThinSelected : nodeFeatureStyleThin,
+                                        labelFontStyleSmall, houseNumber);
+                            } else {
+                                label = getLabel(way, style);
+                            }
                         } else {
-                            doLabel = way.hasTagKey(Tags.KEY_NAME);
+                            label = zoomLevel >= showIconLabelZoomLimit ? getLabel(way, style) : null;
                         }
-                    } else {
-                        doLabel = zoomLevel > SHOW_LABEL_LIMIT && way.hasTagKey(Tags.KEY_NAME);
+                        if (label != null) {
+                            Paint p = nodeFeatureStyleTaggedSelected.getPaint();
+                            paintLabel((float) X, (float) Y, canvas, labelFontStyle, way, iconDrawn ? p.getStrokeWidth() : 0, iconDrawn);
+                        }
                     }
-                    if (doLabel) {
-                        Paint p = nodeFeatureStyleTaggedSelected.getPaint();
-                        paintLabel((float) X, (float) Y, canvas, labelFontStyle, way, iconDrawn ? p.getStrokeWidth() : 0, iconDrawn);
+                }
+            }
+        } else if (zoomLevel >= style.getLabelZoomLimit()) {
+            String label = getLabel(way, style);
+            if (label != null) {
+                for (int i = 0; i < pointsSize; i = i + 4) {
+                    path.rewind();
+                    final float startX = linePoints[i];
+                    final float endX = linePoints[i + 2];
+                    if (startX > endX) {
+                        path.moveTo(endX, linePoints[i + 3]);
+                        path.lineTo(startX, linePoints[i + 1]);
+                    } else {
+                        path.moveTo(startX, linePoints[i + 1]);
+                        path.lineTo(endX, linePoints[i + 3]);
+                    }
+                    float labelWidth = labelFontStyle.getPaint().measureText(label);
+                    pm.setPath(path, false); // path is still correct here
+                    int repeat = Math.round(pm.getLength() / (2 * (labelWidth + LABEL_EXTRA)));
+                    if (repeat > 0) {
+                        FontMetrics fm = labelFontStyle.getPaint().getFontMetrics();
+                        float offset = (fm.top + fm.bottom) / 2;
+                        float hInc = pm.getLength() / repeat;
+                        float hOffset = (hInc - labelWidth) / 2;
+                        for (int j = 0; j < repeat; j++) {
+                            canvas.drawTextOnPath(label, path, hOffset, -offset, labelFontStyle.getPaint());
+                            hOffset += hInc;
+                        }
                     }
                 }
             }
         }
+    }
+
+    /**
+     * Get a label for a way
+     * 
+     * @param way the Way
+     * @param style the FeatureStyle
+     * @return the label or null
+     */
+    @Nullable
+    private String getLabel(@NonNull final Way way, @NonNull FeatureStyle style) {
+        String labelKey = style.getLabelKey() != null ? style.getLabelKey() : Tags.KEY_NAME;
+        return way.getTagWithKey(labelKey);
     }
 
     /**
@@ -1549,6 +1596,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         wayFeatureStyleHidden = DataStyle.getInternal(DataStyle.HIDDEN_WAY);
         wayFeatureStyleRelation = DataStyle.getInternal(DataStyle.SELECTED_RELATION_WAY);
         handlePaint = DataStyle.getInternal(DataStyle.HANDLE).getPaint();
+
+        showIconsLimit = DataStyle.getCurrent().getIconZoomLimit();
+        showIconLabelZoomLimit = DataStyle.getCurrent().getIconLabelZoomLimit();
     }
 
     /**

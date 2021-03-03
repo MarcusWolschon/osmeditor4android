@@ -163,7 +163,7 @@
             <interval length="2.0" />
         </dash>
     </feature>
-    <feature type="way" tags="highway" updateWidth="true" widthFactor="1.0" color="88888888" style="STROKE" cap="BUTT" join="MITER" arrowStyle="oneway_direction">
+    <feature type="way" tags="highway" updateWidth="true" widthFactor="1.0" color="88888888" style="STROKE" cap="BUTT" join="MITER" arrowStyle="oneway_direction" labelZoomLimit="20" >
         <feature type="way" tags="highway=construction" widthFactor="1.0" color="88888888" />
         <feature type="way" tags="highway=proposed" widthFactor="1.0" color="88888888" />
         <feature type="way" tags="highway=pedestrian" widthFactor="0.8" color="ff888888" />

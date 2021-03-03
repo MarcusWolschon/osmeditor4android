@@ -25,7 +25,7 @@ Node styling is limited to the __labelKey__ and __iconPath__ attributes.
 |                           | touchRadius    | 
 |                           | scale          | Used with marker_scale, increase/decrease size of various markers
 |                           | length         | User with min_handle_len, defines the minimum length a way segment must have on screen so that the geometry improvement handles are shown
-|                           | zoom           | Used with icon_zoom_limit, minimum zoom level at which POI icons are still displayed
+|                           | zoom           | Used with icon_zoom_limit, minimum zoom level at which POI icons are still displayed, and labelZoomLimit for the limit for displaying labels
 |__&lt;feature&gt;__        |                | Feature elements can be nested and each feature can contain one or more other feature elements. Nested elements inherit attributes from their parents. 
 |                           | type           | "way", "node" or "relation" to match the corresponding OSM elements, or a name
 |                           | tags           | Tags to use for matching, ignored for named styles, in the format _key_=_value_ or _key_=_*_ for any value. Multiple tags can be added using __&vert;__ as a separator.
@@ -48,6 +48,7 @@ Node styling is limited to the __labelKey__ and __iconPath__ attributes.
 |                           | arrowStyle     | Reference to a style to use for way arrows                          
 |                           | oneway         | Set this on the referenced arrowStyle if it should have oneway semantics
 |                           | labelKey       | Tag key to use as label if present, magic value "preset" will use the preset name.
+|                           | labelZoomLimit | List for displaying labels on ways, if not set no label will be displayed
 |                           | iconPath       | Path, relative to the directory in which the style file resides, to a PNG format icon, magic value "preset" will use the preset icon.
 |__&lt;dash&gt;__           |                | feature sub-element used to define a dash pattern
 |                           | phase          | Phase of the dash
