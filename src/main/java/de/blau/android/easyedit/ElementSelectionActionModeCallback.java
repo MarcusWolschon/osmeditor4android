@@ -444,7 +444,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      */
     static List<OsmElement> addRequiredElements(@NonNull final Context context, @NonNull final List<OsmElement> elements) {
         int originalSize = elements.size();
-        for (OsmElement e : elements) {
+        for (OsmElement e : new ArrayList<>(elements)) {
             if (e instanceof Way) {
                 for (Node n : ((Way) e).getNodes()) {
                     if (n.getOsmId() < 0 && !elements.contains(n)) {
