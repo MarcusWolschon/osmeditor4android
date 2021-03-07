@@ -345,7 +345,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
 
             try (Cursor dbresultLayer = db.rawQuery(QUERY_LAYER_BY_ROWID, new String[] { Integer.toString(rowId) })) {
                 if (dbresultLayer.getCount() >= 1) {
-                    boolean haveEntry = dbresult.moveToFirst();
+                    boolean haveEntry = dbresultLayer.moveToFirst();
                     if (haveEntry) {
                         initLayerFieldIndices(dbresultLayer);
                         layer = getLayerFromCursor(context, provider, dbresultLayer);
