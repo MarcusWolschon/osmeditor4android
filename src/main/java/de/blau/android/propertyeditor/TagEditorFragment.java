@@ -56,6 +56,7 @@ import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.Way;
 import de.blau.android.osm.Wiki;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.MRUTags;
@@ -1881,9 +1882,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        // disable address tagging for stuff that won't have an address
-        // menu.findItem(R.id.tag_menu_address).setVisible(!type.equals(Way.NAME) ||
-        // element.hasTagKey(Tags.KEY_BUILDING));
+        // disable address prediction for stuff that won't have an address
+        menu.findItem(R.id.tag_menu_address).setVisible(elements.length == 1 && (!(elements[0] instanceof Way) || ((Way) elements[0]).isClosed()));
         menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(propertyEditorListener.isConnectedOrConnecting());
         menu.findItem(R.id.tag_menu_paste).setEnabled(!App.getTagClipboard(getContext()).isEmpty());
         menu.findItem(R.id.tag_menu_paste_from_clipboard).setEnabled(pasteFromClipboardIsPossible());
@@ -1891,7 +1891,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
+        final int itemId = item.getItemId();
+        switch (itemId) {
         case android.R.id.home:
             ((PropertyEditor) getActivity()).sendResultAndFinish();
             return true;
@@ -1905,7 +1906,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         case R.id.tag_menu_apply_preset_with_optional:
             PresetItem pi = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false)); // FIXME
             if (pi != null) {
-                presetSelectedListener.onPresetSelected(pi, item.getItemId() == R.id.tag_menu_apply_preset_with_optional);
+                presetSelectedListener.onPresetSelected(pi, itemId == R.id.tag_menu_apply_preset_with_optional);
             }
             return true;
         case R.id.tag_menu_paste:

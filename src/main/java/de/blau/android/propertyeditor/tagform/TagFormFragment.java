@@ -50,6 +50,7 @@ import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.Way;
 import de.blau.android.osm.Wiki;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.MatchType;
@@ -376,6 +377,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         super.onPrepareOptionsMenu(menu);
         PresetItem best = tagListener.getBestPreset();
         menu.findItem(R.id.tag_menu_show_alternatives).setEnabled(best != null && best.getAlternativePresetItems() != null);
+        // disable address prediction for stuff that won't have an address
+        OsmElement element = propertyEditorListener.getElement();
+        menu.findItem(R.id.tag_menu_address).setVisible((!(element instanceof Way) || ((Way) element).isClosed()));
     }
 
     @Override
