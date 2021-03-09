@@ -102,6 +102,7 @@ public class Preferences {
     private final boolean useBarometricHeight;
     private final boolean useUrlForFeedback;
     private final int     beepVolume;
+    private final int  maxOffsetDistance;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -261,6 +262,8 @@ public class Preferences {
         useUrlForFeedback = prefs.getBoolean(r.getString(R.string.config_useUrlForFeedback_key), false);
 
         beepVolume = getIntPref(R.string.config_beepVolume_key, Sound.BEEP_DEFAULT_VOLUME);
+        
+        maxOffsetDistance = getIntPref(R.string.config_maxOffsetDistance_key, 100);
     }
 
     /**
@@ -1344,6 +1347,11 @@ public class Preferences {
      */
     public int getBeepVolume() {
         return beepVolume;
+    }
+
+    public double getMaxOffsetDistance() {
+        // TODO Auto-generated method stub
+        return maxOffsetDistance;
     }
 
     /**

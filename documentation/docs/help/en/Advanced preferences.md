@@ -140,6 +140,10 @@ The threshold in ° over which angles are ignored for squaring and straightening
 
 This allows to control if phone numbers should be auto-formatted. Default: _on_. 
 
+### Max distance for stored imagery offsets
+  
+The farthest distance a locally stored layer offset will be automatically be applied. Default: _100 meters_.
+
 ## Auto-download Settings
 
 ### Download radius

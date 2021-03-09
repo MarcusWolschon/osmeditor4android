@@ -1042,6 +1042,9 @@ avoided by using an offline data source.</string>
     <string name="config_orthogonalizeThreshold_current">%1$d°</string>
     <string name="config_autoformatPhoneNumbers_title">Auto-format phone numbers</string>
     <string name="config_autoformatPhoneNumbers_summary">Enable automatic formatting of phone numbers</string>
+    <string name="config_maxOffsetDistance_title">Max distance for stored imagery offsets</string>
+    <string name="config_maxOffsetDistance_summary">The farthest distance a locally stored layer offset will be automatically be applied.</string>
+    <string name="config_maxOffsetDistance_current">%1$d meter(s)</string>
     <!-- Auto-download settings -->
     <string name="config_category_auto_download">Auto-download settings</string>
     <string name="config_category_auto_download_summary">Settings for data and task auto downloading</string>

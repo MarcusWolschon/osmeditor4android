@@ -12,14 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
 
 public final class ImageryOffsetUtils {
-    private static final int    MAX_OFFSET_DISTANCE = 100;
-    private static final String DEBUG_TAG           = "OffsetUtils";
+    private static final String DEBUG_TAG = "OffsetUtils";
 
     /**
      * Private default constructor
@@ -32,10 +32,12 @@ public final class ImageryOffsetUtils {
      * Retrieve offsets from the DB for a specific layer and apply them (displaying a toast)
      * 
      * @param ctx Android Context
+     * @param prefs the current preferences
      * @param tileServerConfig a TileLayerServer object
      * @param bbox the current ViewBox if null the offsets will be applied unconditionally
      */
-    public static void applyImageryOffsets(@NonNull Context ctx, @NonNull final TileLayerSource tileServerConfig, @Nullable ViewBox bbox) {
+    public static void applyImageryOffsets(@NonNull Context ctx, @NonNull Preferences prefs, @NonNull final TileLayerSource tileServerConfig,
+            @Nullable ViewBox bbox) {
         Log.d(DEBUG_TAG, "applyImageryOffsets");
         if (tileServerConfig == null) {
             Log.d(DEBUG_TAG, "applyImageryOffsets tileServerConfig is null");
@@ -59,7 +61,7 @@ public final class ImageryOffsetUtils {
                     double distance = GeoMath.haversineDistance(centerLon, centerLat, offset.getLon(), offset.getLat());
                     Log.d(DEBUG_TAG,
                             "applyImageryOffsets distance is " + distance + " " + centerLon + " " + centerLat + " " + offset.getLon() + " " + offset.getLat());
-                    if (distance > MAX_OFFSET_DISTANCE) {
+                    if (distance > prefs.getMaxOffsetDistance()) {
                         Log.d(DEBUG_TAG, "not applying");
                         continue;
                     }

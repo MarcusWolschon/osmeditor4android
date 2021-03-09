@@ -275,7 +275,7 @@ public class Map extends View implements IMapView {
                         layer.setIndex(tempLayers.size() - 1);
                         layer.setVisible(config.isVisible());
                         if (LayerType.IMAGERY.equals(layer.getType()) || LayerType.OVERLAYIMAGERY.equals(layer.getType())) {
-                            ImageryOffsetUtils.applyImageryOffsets(ctx, ((MapTilesLayer) layer).getTileLayerConfiguration(), getViewBox());
+                            ImageryOffsetUtils.applyImageryOffsets(ctx, prefs, ((MapTilesLayer) layer).getTileLayerConfiguration(), getViewBox());
                         }
                     }
                 }
