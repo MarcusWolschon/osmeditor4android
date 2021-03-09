@@ -173,6 +173,30 @@
     "ls": {
         "left-hand-traffic": true
     },
+    "lu": {
+        "speed-limits": [
+            20,
+            30,
+            50,
+            70,
+            90,
+            130
+        ],
+        "languages": [
+            "de",
+            "fr",
+            "lb",
+            "en"
+        ],
+        "address-keys": [
+            "addr:housenumber",
+            "addr:housename",
+            "addr:street",
+            "addr:place",
+            "addr:postcode",
+            "addr:city"
+        ]
+    },
     "mo": {
         "left-hand-traffic": true,
         "languages": [
