@@ -99,8 +99,14 @@
         <feature type="way" tags="natural=tree_row" widthFactor="2.0" color="ff4b7a54" cap="ROUND" />
     </feature>
     <feature type="way" tags="waterway" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" arrowStyle="waterway_direction" >
+        <feature type="way" tags="tunnel" >
+            <dash phase="1.0">
+                <interval length="1.0" />
+                <interval length="1.0" />
+            </dash>
+        </feature>
         <feature type="way" tags="waterway=riverbank" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" arrowStyle="" />
-        <feature type="way" tags="waterway=weir" widthFactor="2.0" color="ff0000ff" pathPattern="triangle_right" />
+        <feature type="way" tags="waterway=weir" widthFactor="2.0" color="ff0000ff" pathPattern="triangle_right" arrowStyle="" />
     </feature>
     <feature type="way" tags="man_made" color="ff585c63" style="STROKE" cap="BUTT" join="MITER" >
         <feature type="way" tags="man_made=embankment" color="ff996633" pathPattern="triangle_right" />
