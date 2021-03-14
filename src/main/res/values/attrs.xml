@@ -49,6 +49,7 @@
     <attr name="menu_tunnel" format="reference" />
     <attr name="menu_bridge" format="reference" />
     <attr name="menu_culvert" format="reference" />
+    <attr name="menu_steps" format="reference" />
 	<attr name="alert_dialog" format="reference" />
     <attr name="lightbulb_dialog" format="reference" />
 	<attr name="undolist_undo" format="reference" />

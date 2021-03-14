@@ -110,6 +110,10 @@ public final class Tags {
     public static final String VALUE_ROAD           = "road";
     public static final String VALUE_MOTORWAY       = "motorway";
     public static final String VALUE_MOTORWAY_LINK  = "motorway_link";
+    public static final String VALUE_FOOTWAY        = "footway";
+    public static final String VALUE_CYCLEWAY       = "cycleway";
+    public static final String VALUE_PATH           = "path";
+    public static final String VALUE_STEPS          = "steps";
     public static final String VALUE_TRACK          = "track";
     public static final String KEY_TRACKTYPE        = "tracktype";
     public static final String KEY_SIDEWALK         = "sidewalk";

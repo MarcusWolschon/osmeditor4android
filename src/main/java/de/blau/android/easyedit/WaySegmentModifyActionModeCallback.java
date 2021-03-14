@@ -17,6 +17,7 @@ public class WaySegmentModifyActionModeCallback extends NonSimpleActionModeCallb
     private static final int MENUITEM_BRIDGE  = 24;
     private static final int MENUITEM_TUNNEL  = 25;
     private static final int MENUITEM_CULVERT = 26;
+    private static final int MENUITEM_STEPS   = 27;
 
     private final Way way;
 
@@ -54,6 +55,10 @@ public class WaySegmentModifyActionModeCallback extends NonSimpleActionModeCallb
         if (way.hasTagKey(Tags.KEY_HIGHWAY)) {
             menu.add(Menu.NONE, MENUITEM_BRIDGE, Menu.NONE, R.string.bridge).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_bridge));
             menu.add(Menu.NONE, MENUITEM_TUNNEL, Menu.NONE, R.string.tunnel).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tunnel));
+            if (way.hasTagWithValue(Tags.KEY_HIGHWAY, Tags.VALUE_FOOTWAY) || way.hasTagWithValue(Tags.KEY_HIGHWAY, Tags.VALUE_PATH)
+                    || way.hasTagWithValue(Tags.KEY_HIGHWAY, Tags.VALUE_CYCLEWAY)) {
+                menu.add(Menu.NONE, MENUITEM_STEPS, Menu.NONE, R.string.tunnel).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_steps));
+            }
         }
         if (way.hasTagKey(Tags.KEY_WATERWAY)) {
             menu.add(Menu.NONE, MENUITEM_CULVERT, Menu.NONE, R.string.culvert).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_culvert));
@@ -81,6 +86,10 @@ public class WaySegmentModifyActionModeCallback extends NonSimpleActionModeCallb
             case MENUITEM_CULVERT:
                 tags.put(Tags.KEY_TUNNEL, item.getItemId() == MENUITEM_CULVERT ? Tags.VALUE_CULVERT : Tags.VALUE_YES);
                 tags.put(Tags.KEY_LAYER, "-1");
+                main.performTagEdit(way, null, tags, false);
+                break;
+            case MENUITEM_STEPS:
+                tags.put(Tags.KEY_HIGHWAY, Tags.VALUE_STEPS);
                 main.performTagEdit(way, null, tags, false);
                 break;
             default:
