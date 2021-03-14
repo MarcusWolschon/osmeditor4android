@@ -1,7 +1,14 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-15.1.7:
+15.1.8:
+- Avoid CME by allocating shallow copy of list when uploading a selection of elements
+- Fix long standing issue with unjoining a closed way (backported)
+- Fix spurious relation backlinks
+- Update preset
+- Update imagery from ELI
+- Update geo-context configuration
 
+15.1.7:
 - Don't offer to edit tags on a deleted element in the info dialog (crashed)
 - Allow way dragging in path creation mode
 - Documentation improvements
