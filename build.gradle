@@ -437,6 +437,7 @@ dependencies {
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     implementation 'io.michaelrocks:libphonenumber-android:8.11.5'
     implementation 'io.noties.markwon:core:4.5.1'
+    implementation 'com.zeugmasolutions.localehelper:locale-helper-android:1.1.4'
     // for temp stuff during dev
     // implementation(name:'alibrary', ext:'jar')
 

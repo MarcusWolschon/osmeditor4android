@@ -201,6 +201,20 @@
                 </menu>
             </item>
             <item
+                android:title="Change Locale">
+                <menu>
+                    <item
+                        android:id="@+id/menu_tools_locale_cn"
+                        android:title="Cn" />
+                    <item
+                        android:id="@+id/menu_tools_locale_en"
+                        android:title="En" />
+                    <item
+                        android:id="@+id/menu_tools_locale_de"
+                        android:title="De" />
+                </menu>
+            </item>
+            <item
                 android:id="@+id/tag_menu_reset_address_prediction"
                 app:showAsAction="never"
                 android:title="@string/tag_menu_reset_address_prediction" />

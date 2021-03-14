@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Queue;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -2372,6 +2373,15 @@ public class Main extends FullScreenAppCompatActivity
                     Progress.dismissDialog(Main.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
                 }
             }.execute();
+            return true;
+        case R.id.menu_tools_locale_cn:
+            updateLocale(Locale.CHINA);
+            return true;
+        case R.id.menu_tools_locale_en:
+            updateLocale(Locale.ENGLISH);
+            return true;
+		case R.id.menu_tools_locale_de:
+            updateLocale(Locale.GERMAN);
             return true;
         case R.id.menu_tools_install_egm:
             DownloadManager mgr = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
