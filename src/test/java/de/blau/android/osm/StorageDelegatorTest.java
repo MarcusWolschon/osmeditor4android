@@ -885,37 +885,6 @@ public class StorageDelegatorTest {
     }
 
     /**
-     * Bounding box related stuff
-     */
-    @Test
-    public void boundingBoxes() {
-        BoundingBox box = new BoundingBox(9.51947D, 47.13638D, 9.52300D, 47.14066D);
-        StorageDelegator d = new StorageDelegator();
-        d.addBoundingBox(box);
-        List<BoundingBox> boxes = d.getBoundingBoxes();
-        assertEquals(1, boxes.size());
-        assertEquals(box, boxes.get(0));
-        d.mergeBoundingBox(box);
-        assertEquals(1, boxes.size());
-        assertEquals(box, boxes.get(0));
-        // a smaller bounding box shouldn't be added
-        BoundingBox smallerBox = new BoundingBox(9.51950D, 47.13650D, 9.52250D, 47.140D);
-        d.mergeBoundingBox(smallerBox);
-        assertEquals(1, boxes.size());
-        assertEquals(box, boxes.get(0));
-        d.deleteBoundingBox(box);
-        assertEquals(0, boxes.size());
-        // smaller bounding box should be removed
-        d.addBoundingBox(smallerBox);
-        assertEquals(1, boxes.size());
-        assertEquals(smallerBox, boxes.get(0));
-        d.mergeBoundingBox(box);
-        assertEquals(1, boxes.size());
-        assertEquals(box, boxes.get(0));
-
-    }
-
-    /**
      * Convert to scaled int representation
      * 
      * @param d double coordinate value
