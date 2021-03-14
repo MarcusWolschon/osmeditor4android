@@ -15,6 +15,7 @@ import org.nustaq.serialization.serializers.FSTMapSerializer;
 
 import com.faendir.rhino_android.AndroidContextFactory;
 import com.faendir.rhino_android.RhinoAndroidHelper;
+import com.zeugmasolutions.localehelper.LocaleAwareApplication;
 
 import android.app.Activity;
 import android.content.Context;
@@ -56,7 +57,7 @@ import okhttp3.OkHttpClient;
 @AcraHttpSender(httpMethod = HttpSender.Method.POST, uri = "https://acralyzer.vespucci.io/acraproxy")
 @AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
 
-public class App extends android.app.Application implements android.app.Application.ActivityLifecycleCallbacks {
+public class App extends LocaleAwareApplication implements android.app.Application.ActivityLifecycleCallbacks {
 
     private static final String     RHINO_LAZY_LOAD = "lazyLoad";
     private static App              currentInstance;
