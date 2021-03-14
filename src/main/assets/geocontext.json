@@ -52,6 +52,14 @@
             "it",
             "rm",
             "gsw"
+        ],
+        "address-keys": [
+            "addr:housenumber",
+            "addr:housename",
+            "addr:street",
+            "addr:place",
+            "addr:postcode",
+            "addr:city"
         ]
     },
     "cy": {
@@ -165,6 +173,30 @@
     "ls": {
         "left-hand-traffic": true
     },
+    "lu": {
+        "speed-limits": [
+            20,
+            30,
+            50,
+            70,
+            90,
+            130
+        ],
+        "languages": [
+            "de",
+            "fr",
+            "lb",
+            "en"
+        ],
+        "address-keys": [
+            "addr:housenumber",
+            "addr:housename",
+            "addr:street",
+            "addr:place",
+            "addr:postcode",
+            "addr:city"
+        ]
+    },
     "mo": {
         "left-hand-traffic": true,
         "languages": [
@@ -231,7 +263,23 @@
         "left-hand-traffic": true
     },
     "th": {
-        "left-hand-traffic": true
+        "left-hand-traffic": true,
+        "address-keys": [
+            "addr:housenumber",
+            "addr:housename",
+            "addr:street",
+            "addr:hamlet",
+            "addr:subdistrict",
+            "addr:district",
+            "addr:province",
+            "addr:postcode"
+        ],
+        "languages": [
+          "th",
+          "nod",
+          "mfa"
+        ]
+        
     },
     "tl": {
         "left-hand-traffic": true
