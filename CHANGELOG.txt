@@ -8,6 +8,7 @@
 - Don't show address prediction button for unclosed ways
 - Update imagery from ELI, preset and geo-context configurations
 - Update translations
+- Update taginfo project file
 - Avoid CME by allocating shallow copy of list when uploading a selection of elements
 - Replace Cursor.getColumnIndex with Cursor.getColumnIndexOrThrow
 
