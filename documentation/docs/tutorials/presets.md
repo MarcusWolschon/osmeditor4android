@@ -131,7 +131,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | text                          | ignored   | not displayed
 |__&lt;separator/&gt;__ |                           | supported | starts a new row in the preset selection display
 |__&lt;item_separator/&gt;__ |                      | ignored   |
-|__&lt;link&gt;__   |                               | supported |
+|__&lt;link&gt;__   |                               | supported | not legal inside &lt;chunk&gt; elements
 |                   | href                          | supported | including language specific variants
 |                   | wiki                          | supported | this will be used with lower preference than href entries
 |__&lt;roles&gt;__  |                               | ignored   | but not the included <role> elements
