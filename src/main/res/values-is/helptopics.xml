@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">Hjálp</string>
     <string name="help_title">Hjálp: %1$s</string>
     <string name="help_introduction">Kynning</string>
     <string name="help_main">Aðal-kortagluggi</string>
@@ -23,6 +24,7 @@
     <string name="help_opening_hours">Opnunartímar</string>
     <string name="help_newnoteselection">Nýr minnispunktur valinn</string>
     <string name="help_voice_commands">Raddskipanir</string>
+    <string name="help_upgrade_141">Útgáfuupplýsingar 14.1</string>
     <string name="help_upgrade_140">Útgáfuupplýsingar 14.0</string>
     <string name="help_upgrade_131">Útgáfuupplýsingar 13.1</string>
     <string name="help_upgrade_130">Útgáfuupplýsingar 13.0</string>
@@ -63,6 +65,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_151</item>
         <item>@string/help_upgrade_150</item>
         <item>@string/help_upgrade_141</item>
         <item>@string/help_upgrade_140</item>
@@ -106,6 +109,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>15.2.0 Release notes</item>
         <item>15.1.0 Release notes</item>
         <item>15.0.0 Release notes</item>
         <item>14.1.0 Release notes</item>

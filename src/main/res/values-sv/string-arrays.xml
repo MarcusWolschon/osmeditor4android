@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Arrays - in a separate file as these need to be 100% translated for use -->
+    <string-array name="gpx_visibility">
+        <item>privat</item>
+        <item>offentlig</item>
+        <item>spårbar</item>
+        <item>identifierare</item>
+    </string-array>
+    <string-array name="gps_source">
+        <item>Intern</item>
+        <item>Intern NMEA</item>
+        <item>NMEA från TCP-client</item>
+        <item> NMEA från TCP-server</item>
+    </string-array>
+    <string-array name="bug_state">
+        <item>Öppna lindningar</item>
+        <item>Stängd</item>
+        <item>Falsk positiv</item>
+    </string-array>
+    <string-array name="note_state">
+        <item>Öppna lindningar</item>
+        <item>Stängd</item>
+    </string-array>
+    <string-array name="maproulette_state">
+        <item>Öppna lindningar</item>
+        <item>Stängd</item>
+        <item>Falsk positiv</item>
+        <item>Överhoppad</item> 
+        <item>Raderat</item>
+        <item>Redan fixad</item>
+        <item>För svårt</item>
+    </string-array>
+    <string-array name="followGPSbutton_entries">
+        <item>Vänster</item>
+        <item>Höger</item>
+        <item>Ingen</item>
+    </string-array>
+    <string-array name="full_screen_preference_entries">
+        <item>Automatisk</item>
+        <item>Aldrig</item>
+        <item>Tvinga</item>
+        <item>Inget statusfält</item>
+    </string-array>
+    <string-array name="full_screen_preference_no_auto_entries">
+        <item>Aldrig</item>
+        <item>Tvinga</item>
+        <item>Inget statusfält</item>
+    </string-array>
+    <string-array name="map_orientation_entries">
+        <item>Automatisk</item>
+        <item>Låst</item>
+        <item>Stående</item>
+        <item>Liggande</item>
+    </string-array>
+    <string-array name="tagfilter_type_entries">
+        <item>Alla</item>
+        <item>Noder</item>
+        <item>Vägar</item>
+        <item>Vägar+</item>
+        <item>Relationer</item>
+        <item>Relationer+</item>
+    </string-array>
+    <!-- The entries need to match the order of the CheckStatus enum -->
+    <string-array name="checkstatus_entries">
+        <item>HTTP</item>
+        <item>HTTPS</item>
+        <item>Domänen existerar inte</item>
+        <item>Domänen är onåbar</item>
+        <item>Felformaterad URL</item>
+        <item>Felaktigt argument</item>
+    </string-array>
+ </resources>

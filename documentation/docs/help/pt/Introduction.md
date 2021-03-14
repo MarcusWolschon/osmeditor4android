@@ -41,10 +41,11 @@ Para evitar edições acidentais, o Vespucci inicia no modo  "bloqueado". Toque 
 
 Se pressionar de forma longa o botão do cadeado, surgirá um menu com 4 opções:
 
-* **Normal** - no modo de edição padrão podem ser adicionados novos elementos e os existentes podem ser editados, movidos ou removidos, O símbolo do cadeado aparece a branco.
-* **Apenas etiquetas** - selecionando um elemento surgirá o Editor de Propriedades, pressionando de forma contínua no ecrã principal irá adicionar novos elementos, mas não funcionarão outras operações de geometrias. O símbolo do cadeado fica em branco com um "T".
-* **Interior** - ativa o modo Interior, veja [Modo interior](#indoor). O símbolo do cadeado fica em branco com um "i".
-* **Modo-C** - Ativa o modo Modo-C. Apenas serão mostrados os elementos que estejam marcados com avisos. Veja [Modo-C](#c-mode). O símbolo do cadeado fica em branco com um "C".
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 #### Toque simples, toque duplo e toque longo
 

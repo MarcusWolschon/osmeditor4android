@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="bugfilter_notes_entry">Notas</string>
+  <string name="bugfilter_osmose_error_entry">Erro Osmose</string>
+  <string name="bugfilter_osmose_warning_entry">Aviso do Osmose</string>
+  <string name="bugfilter_osmose_minor_issue_entry">Menor problema do Osmose</string>
+  <string name="bugfilter_custom_entry">Customizado</string>
+</resources>

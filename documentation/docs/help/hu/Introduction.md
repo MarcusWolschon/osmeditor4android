@@ -18,18 +18,18 @@ A képernyő méretétől és a készülék életkorától függően a szerkeszt
 
 Jelölje ki vagy az átvitel ikont ![Transfer](../images/menu_transfer.png) vagy az „Átvitel” menüpontot. Ez hét lehetőséget fog megjeleníteni:
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
-* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
-* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Aktuális nézet letöltése** - a képernyőn látható terület letöltése és egyesítése a meglévő adatokkal *(hálózati kapcsolatot vagy offline adatforrást igényel)*
+* **Aktuális nézet törlése és letöltése** - az összes adat törlése a memóriából, majd a képernyőn látható terület letöltése *(hálózati kapcsolatot igényel)*
+* **Adatok feltöltése az OSM szerverre** - szerkesztések feltöltése az OpenStreetMap-kiszolgálóra *(hitelesítést és hálózati kapcsolatot igényel)*
+* **Adatok frissítése** - az összes terület adatainak ismételt letöltése, és a memóriában tárolt adatok frissítése *(hálózati kapcsolatot igényel)*
+* **Helyalapú automatikus letöltés** - az aktuális földrajzi hely körüli terület automatikus letöltése *(hálózati kapcsolatot vagy offline adatokat igényel)* *(GPS-t igényel)*
+* **Automatikus letöltés és nagyítás** - az aktuálisan megjelenített térképterület adatainak automatikus letöltése *(hálózati kapcsolatot vagy offline adatokat igényel)* *(GPS-t igényel)*
+* **Fájl…** - OSM-adatok mentése és betöltése az eszközön tárolt fájlokba /-ból.
+* **Jegyzet / hibák…** - OSM-jegyzetek és „hibák” (automatikus és kézi) letöltése minőségbiztosítási eszközökből (jelenleg Osmose) *(hálózati kapcsolatot igényel)*
 
 Az adatok eszközre töltésének legkönnyebb módja a szerkesztendő területre görgetés és nagyítás, aztán a „Jelenlegi nézet letöltése”. Gesztusokkal, a nagyítási gombokkal és a hangerőszabályzó gombokkal nagyíthat. A Vespucci aztán letölti a jelenlegi nézet adatait. Az adatok eszközre letöltéséhez nem szükséges hitelesítés.
 
-With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md).
+Az alapértelmezett beállításokkal a nem letöltött területek a letöltöttekhez képest halványabbak lesznek, ezzel elkerülhető a duplikált objektumok véletlen hozzáadása a nem megjelenített területeken. Ez a viselkedés megváltoztatható a [Speciális beállítások](Advanced%20preferences.md) részben.
 
 ### Szerkesztés
 
@@ -41,10 +41,11 @@ A véletlen szerkesztések elkerülése miatt a Vespucci „zárolt” módban i
 
 A zárolás ikonra hosszan nyomva egy menü jelenik meg, amely jelenleg 4 lehetőséget kínál:
 
-* **Normál** - az alapértelmezett szerkesztési mód, új elemek adhatóak hozzá, a létezők szerkeszhetőek, mozgathatóak és törölhetőek. Egy egyszerű fehér zár ikon lesz megjelenítve.
-* **Csak címkézés** - egy létező objektum kiválasztása a Tulajdonságszerkesztőt jeleníti meg, a hosszú nyomás a főképernyőn objektumokat ad hozzá, de más geometriai műveletek nem működnek. Egy fehér zár ikon lesz megjelenítve, egy „T” betűvel.
-* **Beltéri** - engedélyezi a beltéri módot, lásd [Beltéri mód](#indoor). Egy fehér zár ikon lesz megjelenítve, egy „I” betűvel.
-* **C-mód** - engedélyezi a C-módot, csak a figyelmeztetés jelzővel megjelölt elemek lesznek megjelenítve, lásd [C-mód](#c-mode). Egy fehér zár ikon lesz megjelenítve, egy „C” betűvel.
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 #### Egyszeres koppintás, dupla koppintás, hosszú nyomás
 
@@ -92,20 +93,20 @@ A nagy zöld lebegő gomb a fő térképképernyőn egy menüt jelenít meg. Miu
 
 További információkért lásd: [Új objektumok létrehozása az egyszerű műveletek módban](Creating%20new%20objects%20in%20simple%20actions%20mode.md).
 
-##### Advanced (long press) mode
- 
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), touch away from existing objects.
-* If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+##### Speciális mód (hosszú lenyomás)
+
+Hosszan nyomja meg ott, ahol a pontot vagy a vonal kezdőpontját szeretné elhelyezni. Egy fekete „célkereszt” szimbólumot fog látni.
+* Ha új (objektumhoz nem kapcsolódó)pontot szeretne létrehozni, akkor a már meglévő objektumoktól távolabb koppintson a képernyőre.
+* Ha egy vonalat szeretne kiegészíteni, akkor a vonal „toleranciazónájára” (vagy a vonal egy pontjára) koppintson. A toleranciazónát a pont vagy vonal körüli terület jelzi.
 
 Ha látja a célkereszt szimbólumot, akkor ezek a lehetőségei:
 
-* _Normal press in the same place._
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* _Normal touch in another place._ Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+* _Normális nyomás ugyanott._
+* Ha a célkereszt nincs egy pont közelében, akkor ugyanott újból megérintve új pont jön létre. Ha egy vonal közelében van (de nem egy pont közelében), akkor az új pont a vonalon lesz (és csatlakozni fog hozzá).
+* Ha a célkereszt egy pont közelében van (azaz a pont toleranciazónáján belül), ugyanott újból megérintve kijelöljük a pontot (és megnyílik a címkeszerkesztő). Nem jön létre új pont. A művelet megegyezik a fenti kijelöléssel.
+* _ Normál érintés egy másik helyen._ Egy másik hely megérintése (a célkereszt toleranciazónáján kívül) hozzáad egy vonalszakaszt az eredeti pozíciótól az aktuális pozícióig. Ha a célkereszt egy vonal vagy pont közelében volt, akkor az új szakasz kapcsolódik ahhoz a ponthoz vagy vonalhoz.
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. 
+Egyszerűen érintse meg a képernyőt ott, ahol a vonalhoz további pontokat szeretne hozzáadni. A befejezéshez érintse meg kétszer az utolsó pontot. Ha az utolsó pont egy vonalon vagy ponton található, akkor a szakasz automatikusan kapcsolódik ehhez a vonalhoz vagy ponthoz. 
 
 Használhatja a menüelemet is: További információkért lásd: [Új objektumok létrehozása](Creating%20new%20objects.md).
 
@@ -251,18 +252,18 @@ Az alkalmazás számos vonatkozása testreszabható. Ha valami konkrét dolgot k
 
 ### Rétegbeállítások
 
-Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
+A rétegbeállítások a rétegvezérlőn keresztül módosíthatók (a jobb felső sarokban található „hamburgermenüben”), az összes többi beállítás a főmenübeállítások gombbal érhető el. A rétegeket lehet engedélyezni, letiltani és ideiglenesen elrejteni.
 
-Available layer types:
+Elérhető rétegtípusok
 
-* Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
-* Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
-* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
-* GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
-* Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+* Adatréteg - ez az a réteg, amelyre az OpenStreetMap-adatok betöltődnek. Normál használat esetén itt semmit sem kell megváltoztatnia. Alapértelmezés: bekapcsolva
+* Háttérréteg - légi és műholdas háttérképek széles választéka áll rendelkezésre. Ennek alapértelmezett értéke az openstreetmap.org webhely „standard stílusú” térképe
+* Fedőréteg - ezek félig átlátszó rétegek további információkkal, például GPX-nyomvonalakkal. Régebbi, korlátozott memóriával rendelkező készülékeknél a fedőréteg hozzáadása problémákat okozhat. Alapértelmezés: nincs.
+* Jegyzetek/hibák megjelenítése - A nyitott jegyzetek és hibák sárga hibaikonként jelennek meg, a lezártak zölddel. Alapértelmezés: bekapcsolva
+* Fényképréteg - A georeferált fényképek piros kameraikonként jelennek meg; ha rendelkezésre állnak irányinformációk, akkor az ikon elfordul. Alapértelmezés: kikapcsolva
+* Mapillary-réteg - Mapillary szakaszokat jelenít meg jelölőkkel, ahol képek vannak, a jelölőre kattintva megjelenik a kép. Alapértelmezés: kikapcsolva
+* GeoJSON-réteg - Megjeleníti egy GeoJSON fájl tartalmát. Alapértelmezés: kikapcsolva
+* Rács - megjeleníti a méretarányt a térkép vagy a rács oldalán. Alapértelmezés: bekapcsolva. 
 
 #### Beállítások
 

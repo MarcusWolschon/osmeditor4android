@@ -41,10 +41,11 @@ With the default settings any non-downloaded areas will be dimmed relative to th
 
 Продължително натискане на иконата за заключване ще покаже меню, което в момента предлага 4 опции:
 
-* **Нормален** - режим на редактиране по подразбиран, могат да се добавят нови обекти, съществуващите да се редактират, преместват и премахват. Показва се обикновенa бяла икона на катинар.
-* **Само тагове** - избирането на съществуващ обект ще стартира редакторът на свойствата, продължително натискане на главния екран ще добавя обекти, но останалите геометрични операции няма да работят. Показва се бял катинар с буквата "T".
-* **На закрито** - стартира режим на закрито, виж [Режим на закрито](#indoor). Показва се бял катинар с буквата "I".
-* **C-Мод** - стартира режим C-Мод, само обекти, с предупредителен флаг ще бъдат показани, виж [Режим C-Мод](#c-mode). Показва се бял катинар с буквата "C".
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 #### Единично докосване, двойно докосване и продължително натискане
 

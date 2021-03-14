@@ -5,6 +5,7 @@
   <string name="mode_tag_only">Só etiquetas</string>
   <string name="mode_indoor">Interior</string>
   <string name="mode_correct">Modo-C</string>
+  <string name="mode_address">Enderezo</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Coidado!</string>
   <string name="transfer_download_current_dialog_message">Fixeches unhas modificacións. Queres subilas no canto de desbotalas?</string>
@@ -189,12 +190,21 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Atribución</string>
   <!--Too much data dialog-->
+  <string name="upload_data_now">Subir modificacións</string>
   <!--Delete custom preset dialog-->
   <!--Duplicate route segment dialog-->
   <!--Duplicate relation element dialog-->
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move">Mover</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove">Eliminar</string>
   <!--Abort action mode dialog-->
+  <!--Address interpoation dialog-->
+  <string name="start">Comezar</string>
+  <string name="end">Final</string>
+  <string name="even">Par</string>
+  <string name="odd">Impar</string>
+  <string name="other">Outros</string>
   <!---->
   <string name="error">Erro</string>
   <string name="warning">Advertencia</string>
@@ -264,6 +274,7 @@
   <string name="json_array_not_displayed">Táboa JSON (non amosada)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Grella</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Imaxes</string>
@@ -288,6 +299,7 @@
   <string name="layer_info_end_date">Data de remate</string>
   <string name="layer_info_terms">Termos</string>
   <string name="layer_info_privacy_policy">Política de privacidade</string>
+  <string name="errors">Erros</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Eliminar imaxe</string>
   <string name="photo_viewer_delete_button">Eliminar de xeito permanente</string>
@@ -300,6 +312,7 @@
   <!--Tag conflict dialog-->
   <!--Relation selection dialog-->
   <!--Preset selection dialog-->
+  <string name="select_relation_type_other">Outros</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Puntos de control</string>
   <string name="undo_redo_title">Desfacer - refacer</string>
@@ -552,6 +565,7 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="location_nan_message">Por favor insire as coordenadas no formato decimal (p.ex. \"52.333572\",\"8.741185\"). Lat. ten que estar entre -85.0 e +85.0, e Lon. ten que estar entre -175.0 e +175.0.</string>
   <!--Strings in barometer calibration-->
   <!--Strings in postition info-->
+  <string name="position_info_altitude">Altitude</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Baixar ficheiros</string>
   <string name="allow_all_networks">Permitir todas as redes</string>
@@ -658,6 +672,7 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Capas...</string>
+  <string name="menu_layers_add_photolayer">Activar capa de imaxes</string>
   <string name="menu_layers_configure">Configurar...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Aplicar desprazamento almacenado ás imaxes</string>
@@ -775,6 +790,7 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="config_maxStrokeWidth_title">Máxima anchura de liña</string>
   <string name="config_maxStrokeWidth_summary">Non debuxes unha vía máis ancha ca esta.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_upload_current">%1$d obxectos</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing_summary">Axustes da autobaixada, gardado e notificacións</string>
   <string name="config_address_tags">Engadir etiquetas</string>
@@ -877,6 +893,7 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="undo_action_paste">Pegar</string>
   <string name="undo_action_rotateway">Rotación da vía</string>
   <string name="undo_action_orthogonalize">Vía encadrada</string>
+  <string name="undo_action_circulize">Organizar nun círculo</string>
   <string name="undo_action_fix_conflict">Resolución de conflito</string>
   <string name="undo_action_remove_node_from_way">Eliminar nó da vía</string>
   <!--ACRA-->
@@ -910,6 +927,9 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="delete_from_relation_description">Está a piques de eliminar este elemento dunha relación.</string>
   <string name="unset_relation_type">Tipo de relación sen estabelecer</string>
   <!--Things-->
+  <string name="bridge">Ponte</string>
+  <string name="tunnel">Túnel</string>
+  <string name="culvert">Alcantarilla</string>
   <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">

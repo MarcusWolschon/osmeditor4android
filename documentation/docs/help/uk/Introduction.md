@@ -41,10 +41,11 @@ With the default settings any non-downloaded areas will be dimmed relative to th
 
 Довге натискання на значок покаже меню, що містить наступні опції:
 
-* **Звичайний** - типовий режим редагування, дозволяє додавання нових об'єктів, редагування наявних, пересування об'єктів та їх вилучення. Показується звичайним білим замком.
-* **Тільки теґи** - вибір наявних об'єктів відкриває Редактор властивостей, довге натискання на основному екрані додає нові об'єкти, але жодні інші геометричні операції не спрацьовують. Показується білим замком з літерою "T".
-* **В приміщенні** - вмикає режим редагування приміщень, див [Режим редагування приміщень](#indoor). Показується білим замком з літерою "I".
-* **C-Mode** - вмикає режим C-Mode, показуються лише об'єкти, для яких встановлено попередження, див [C-Mode](#c-mode). Показується білим замком з літерою "C".
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 #### Звичайне, подвійне та довге натискання
 

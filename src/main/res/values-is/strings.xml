@@ -5,6 +5,7 @@
   <string name="mode_tag_only">Einungis merkja</string>
   <string name="mode_indoor">Innanhúss</string>
   <string name="mode_correct">C-hamur</string>
+  <string name="mode_address">Heimilisfang</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Varúð!</string>
   <string name="transfer_download_current_dialog_message">Þú gerðir breytingar. Viltu senda þær inn í stað þess að henda þeim?</string>
@@ -134,12 +135,21 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Tileinkun</string>
   <!--Too much data dialog-->
+  <string name="upload_data_now">Senda inn breytingar</string>
   <!--Delete custom preset dialog-->
   <!--Duplicate route segment dialog-->
   <!--Duplicate relation element dialog-->
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move">Færa</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove">Fjarlægja</string>
   <!--Abort action mode dialog-->
+  <!--Address interpoation dialog-->
+  <string name="start">Upphaf</string>
+  <string name="end">Endar</string>
+  <string name="even">Jafnar tölur</string>
+  <string name="odd">Oddatölur</string>
+  <string name="other">Annað</string>
   <!---->
   <string name="error">Villa</string>
   <string name="warning">Aðvörun</string>
@@ -216,6 +226,7 @@
   <string name="layer_info_end_date">Lokadagur</string>
   <string name="layer_info_terms">Skilmálar</string>
   <string name="layer_info_privacy_policy">Meðferð persónuupplýsinga</string>
+  <string name="errors">Villur</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Eyða mynd</string>
   <string name="photo_viewer_delete_button">Eyða endanlega</string>
@@ -228,6 +239,7 @@
   <!--Tag conflict dialog-->
   <!--Relation selection dialog-->
   <!--Preset selection dialog-->
+  <string name="select_relation_type_other">Annað</string>
   <!--Undo - Redo dialog-->
   <string name="undo_redo_title">Afturkalla - endurtaka</string>
   <!--Undo location not in view dialog-->
@@ -362,6 +374,7 @@
   <string name="tag_restriction_add_expression">Bæta við segð</string>
   <string name="tag_restriction_add_opening_hours">Bæta við opnunartíma</string>
   <string name="tag_restriction_value_hint">Skilyrt takmörkun</string>
+  <string name="default_checkgroup_hint">Viðbótareigindi</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Búa til sérsniðna forstillingu</string>
   <string name="create_preset_title">Nafn á sérsniðinni forstillingu</string>
@@ -388,6 +401,7 @@
   <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
   <!--Strings in postition info-->
+  <string name="position_info_altitude">Hæð</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Sækja skrár</string>
   <!--Strings in Go to coordinates-->
@@ -544,6 +558,8 @@
   <string name="config_enableAntiAliasing_summary">Mýkir línur. </string>
   <string name="config_maxStrokeWidth_title">Mesta línubreidd</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_upload_current">%1$d hlutir</string>
+  <string name="config_beepVolume_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_address_tags">Heimilisfangamerki</string>
   <string name="config_enableNameSuggestions_title">Virkja nafnatillögur</string>
@@ -631,6 +647,7 @@
   <string name="undo_action_set_tags">Merkingar</string>
   <string name="undo_action_cut">Klippa</string>
   <string name="undo_action_paste">Líma</string>
+  <string name="undo_action_circulize">Raða í hring</string>
   <string name="undo_action_fix_conflict">Lausn árekstra</string>
   <string name="undo_action_remove_node_from_way">Fjarlægja hnút úr leið</string>
   <!--ACRA-->
@@ -662,6 +679,9 @@
   <string name="deleterelation">Eyða venslum</string>
   <string name="delete_from_relation_description">Þú ert að fara að eyða þessu úr venslum.</string>
   <!--Things-->
+  <string name="bridge">Brú</string>
+  <string name="tunnel">Göng</string>
+  <string name="culvert">Ræsi</string>
   <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">

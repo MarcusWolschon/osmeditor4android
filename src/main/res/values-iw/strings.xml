@@ -5,6 +5,7 @@
   <string name="mode_tag_only">תג בלבד</string>
   <string name="mode_indoor">בתוך מבנה</string>
   <string name="mode_correct">מצב תיקון (C)</string>
+  <string name="mode_address">כתובתכ</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">זהירות!</string>
   <string name="transfer_download_current_dialog_message">ערכת שינויים. להעלות אותם במקום להתעלם מהם?</string>
@@ -158,6 +159,7 @@
   <!--Search objects dialog-->
   <string name="search_objects_title">חיפוש אחר פריטים</string>
   <string name="search_objects_hint">נא למלא ביטוי מסנן/חיפוש של JOSM</string>
+  <string name="search_objects_use_regexps">להשתמש בביטויים רגולריים</string>
   <string name="search_objects_unsupported">הביטוי „%1$s” אינו נתמך</string>
   <!---->
   <string name="preset_search_hint">מחרוזת חיפוש ערכה מוגדרת</string>
@@ -208,8 +210,16 @@
   <string name="duplicate_route_segment_button">להוסיף בכל זאת</string>
   <!--Duplicate relation element dialog-->
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move">העברה</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove">הסרה</string>
   <!--Abort action mode dialog-->
+  <!--Address interpoation dialog-->
+  <string name="start">התחלה</string>
+  <string name="end">סיום</string>
+  <string name="even">זוגית</string>
+  <string name="odd">אי־זוגית</string>
+  <string name="other">אחר</string>
   <!---->
   <string name="error">שגיאה</string>
   <string name="warning">אזהרה</string>
@@ -310,6 +320,7 @@
   <string name="layer_info_end_date">מועד סיום</string>
   <string name="layer_info_terms">תנאים</string>
   <string name="layer_info_privacy_policy">מדיניות פרטיות</string>
+  <string name="errors">שגיאות</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">מחיקת תמונה</string>
   <string name="photo_viewer_delete_button">מחיקה לצמיתות</string>
@@ -324,6 +335,7 @@
   <!--Tag conflict dialog-->
   <!--Relation selection dialog-->
   <!--Preset selection dialog-->
+  <string name="select_relation_type_other">אחר</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">נקודות ביקורת</string>
   <string name="undo_redo_title">ביטול - שחזור</string>
@@ -728,6 +740,7 @@
   <string name="menu_transfer_autodownload_long">הורדת משימות אוטומטית</string>
   <string name="menu_transfer_save_notes_all">שמירת כל ההערות…</string>
   <string name="menu_transfer_save_notes_new_and_changed">שמירת הערות חדשות וכאלו שנערכו…</string>
+  <string name="menu_transfer_read_notes">לטעון הערות…</string>
   <string name="menu_transfer_read_custom_bugs">טעינת משימות מותאמות אישית…</string>
   <string name="menu_transfer_write_custom_bugs">שמירת משימות פתוחות מותאמות אישית…</string>
   <string name="menu_save">שמירה כקובץ</string>
@@ -809,7 +822,6 @@
   <string name="notreversable_description">הדרך מתויגת כבלתי ניתנת להיפוך. היפוך הדרך יפגע בתיוג.</string>
   <string name="reverse_anyway">להפוך בכל זאת</string>
   <string name="deleteway_description">פעולה זו תמחק דרך.\n\nניתן להשאיר את כל המפרקים או למחוק מפרקים ששייכים לדרך הזו בלבד ואין להם תגים.</string>
-  <string name="deleteway_nodesnotdownloaded_description">הדרך מכילה מפרקים מחוץ לאזור שהתקבל ולא ניתן למחוק אותה ולהגיע לכדי מצב בלתי יציב. יש להוריד את כולה בטרם ביצוע ניסיון חוזר.</string>
   <string name="deleteway_wayonly">למחוק את הדרך בלבד</string>
   <string name="deleteway_wayandnodes">למחוק דרך</string>
   <string name="deletenode">מחיקת מפרק</string>
@@ -950,6 +962,7 @@
   <string name="config_dataWarn_title">יותר מדי אזהרות נתונים</string>
   <string name="config_dataWarn_summary">הגבלה (במספר מפרקים) שבו נתחיל להזהיר בנוגע לכמות גדולה מדי של נתונים שנטענים</string>
   <string name="config_useUrlForFeedback_title">להשבית פעילות משוב</string>
+  <string name="config_beepVolume_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">הגדרות נתונים ועריכה</string>
   <string name="config_category_editing_summary">הגדרות הורדה אוטומטית, שמירה והתראות.</string>
@@ -1142,6 +1155,7 @@
   <string name="undo_action_paste">הדבקה</string>
   <string name="undo_action_rotateway">הטיית דרך</string>
   <string name="undo_action_orthogonalize">ריבוע דרך</string>
+  <string name="undo_action_circulize">סידור במעגל</string>
   <string name="undo_action_fix_conflict">פתרון סתירות</string>
   <string name="undo_action_extract_node">חילוץ מפרק</string>
   <string name="undo_action_apply_osc">החלת קובץ OSC</string>

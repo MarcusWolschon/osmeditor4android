@@ -5,6 +5,7 @@
   <string name="mode_tag_only">Vain tägi</string>
   <string name="mode_indoor">Sisätila</string>
   <string name="mode_correct">C-tila</string>
+  <string name="mode_address">Osoite</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Varoitus!</string>
   <string name="transfer_download_current_dialog_message">Olet tehnyt muutoksia. Haluatko lähettää vai hylätä ne?</string>
@@ -174,12 +175,21 @@
   <string name="ways">Viivat</string>
   <!--Tile layer info dialog-->
   <!--Too much data dialog-->
+  <string name="upload_data_now">Lähetetäänkö?</string>
   <!--Delete custom preset dialog-->
   <!--Duplicate route segment dialog-->
   <!--Duplicate relation element dialog-->
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move">Siirrä</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove">Poista</string>
   <!--Abort action mode dialog-->
+  <!--Address interpoation dialog-->
+  <string name="start">Alku</string>
+  <string name="end">Loppu</string>
+  <string name="even">Parillinen</string>
+  <string name="odd">Pariton</string>
+  <string name="other">Muu</string>
   <!---->
   <string name="error">Virhe</string>
   <string name="warning">Varoitus</string>
@@ -259,11 +269,13 @@
   <string name="layer_category_map">Kartta</string>
   <string name="layer_category_other">Muu</string>
   <!--Layer info dialog-->
+  <string name="errors">Virheet</string>
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Tag conflict dialog-->
   <!--Relation selection dialog-->
   <!--Preset selection dialog-->
+  <string name="select_relation_type_other">Muu</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Tarkastuspisteet</string>
   <string name="undo_redo_title">Peru / palauta</string>
@@ -413,6 +425,7 @@
   <string name="clear">Nollaa</string>
   <string name="discard">Hylkää</string>
   <string name="retry">Yritä uudelleen</string>
+  <string name="check">Tarkista</string>
   <!--Read a file-->
   <string name="read">Lue</string>
   <string name="overwrite">Korvaa</string>
@@ -507,6 +520,7 @@
   <string name="barometer_calibration_gps">GNSS</string>
   <!--Strings in postition info-->
   <string name="position_info_hdop">HDOP</string>
+  <string name="position_info_altitude">Korkeus</string>
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
   <!--Menu-->
@@ -606,6 +620,7 @@
   <string name="menu_layers">Tasot...</string>
   <string name="menu_layers_add_backgroundlayer">Lisää taustan kuvataso</string>
   <string name="menu_layers_add_overlaylayer">Lisää edustan kuvataso</string>
+  <string name="menu_layers_add_photolayer">Näytä valokuvataso</string>
   <string name="menu_layers_configure">Asetukset...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Käytä tallennettua siirrosta kuvatasolle</string>
@@ -625,7 +640,6 @@
   <string name="notreversable_description">Tätä viivaa ei voi kääntää, koska sillä on suunnasta riippuvia ominaisuuksia. Kääntäminen tekisi tägeistä virheellisiä.</string>
   <string name="reverse_anyway">Käännä kuitenkin</string>
   <string name="deleteway_description">Olet poistamassa viivaa.\n\nVoit säilyttää kaikki pisteet tai poistaa vain tähän viivaan kuuluvat tägittömät pisteet.</string>
-  <string name="deleteway_nodesnotdownloaded_description">Osa viivan pisteistä on ladatun alueen ulkopuolella, ja sen poistaminen johtaisi epäjohdonmukaiseen tilaan. Lataa koko viiva ennen uutta yritystä.</string>
   <string name="deleteway_wayonly">Poista pelkkä viiva</string>
   <string name="deleteway_wayandnodes">Poista viiva</string>
   <string name="deletenode">Poista piste</string>
@@ -739,6 +753,7 @@
   <string name="config_maxStrokeWidth_summary">Älä piirrä tätä paksumpia viivoja</string>
   <string name="config_maxStrokeWidth_current">%1$d pikseliä</string>
   <string name="config_upload_current">%1$d kohdetta</string>
+  <string name="config_beepVolume_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Data- ja muokkausasetukset</string>
   <string name="config_category_editing_summary">Automaattilataus-, tallennus ja ilmoitusasetukset.</string>
@@ -911,6 +926,7 @@
   <string name="undo_action_paste">Liittäminen</string>
   <string name="undo_action_rotateway">Viivan pyöritys</string>
   <string name="undo_action_orthogonalize">Viivan suorakulmaistus</string>
+  <string name="undo_action_circulize">Järjestä ympyrälle</string>
   <string name="undo_action_fix_conflict">Ristiriidan ratkaisu</string>
   <string name="undo_action_extract_node">Pisteen irrotus</string>
   <!--ACRA-->

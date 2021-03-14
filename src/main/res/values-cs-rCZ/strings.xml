@@ -5,6 +5,7 @@
   <string name="mode_tag_only">Editování tagů</string>
   <string name="mode_indoor">Vnitřní prostory</string>
   <string name="mode_correct">Režim kontroly</string>
+  <string name="mode_address">Adresa</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Varování!</string>
   <string name="transfer_download_current_dialog_message">Provedli jste změny. Nechcete je nahrát namísto jejich zahození?</string>
@@ -161,6 +162,7 @@
   <!--Search objects dialog-->
   <string name="search_objects_title">Hledat objekty</string>
   <string name="search_objects_hint">Zadejte výraz filtru / vyhledávání JOSM</string>
+  <string name="search_objects_use_regexps">Použít regulární výrazy</string>
   <string name="search_objects_unsupported">Nepodporovaný výraz  \"%1$s\"</string>
   <!---->
   <string name="preset_search_hint">Vyhledávací řetězec předvoleb</string>
@@ -192,6 +194,7 @@
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Vlastnosti objektu GeoJSON</string>
   <string name="copy_properties">Zkopírovat vlastnosti</string>
+  <string name="create_osm_element">Vytvořit OSM prvek</string>
   <!--API/Data layer info dialog-->
   <string name="data_in_memory">Data v paměti</string>
   <string name="total">Celkem</string>
@@ -216,7 +219,6 @@
   <string name="duplicate_relation_member_remove_button">Odebrat člena</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Přesunout tagy z vnějších cest na multipolygon</string>
-  <string name="move_outer_tags_message">Tagy popisující objekt by měly být uvedeny jen na multipolygonu</string>
   <string name="move">Přesunout</string>
   <string name="leave_as_is">Ponechat tak, jak je</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
@@ -225,6 +227,12 @@
   <string name="remove">Odebrat</string>
   <!--Abort action mode dialog-->
   <string name="abort_action_title">Zrušit akci</string>
+  <!--Address interpoation dialog-->
+  <string name="start">Začátek</string>
+  <string name="end">Konec</string>
+  <string name="even">Sudý</string>
+  <string name="odd">Lichý</string>
+  <string name="other">Jiné</string>
   <!---->
   <string name="error">Chyba</string>
   <string name="warning">Varování</string>
@@ -377,6 +385,7 @@
  předejít používáním offline zdroje dat.</string>
   <string name="tip_locked_mode">V uzamčeném režimu nemůžete upravovat, ale dlouhým stiskem na objekt se otevře obrazovka s podrobnými informacemi.</string>
   <string name="tip_longpress_simple_mode">V jednoduchém režimu dlouhé stisknutí nic neudělá. Chcete-li k vytváření objektů používat dlouhá kliknutí, vypněte v hlavní nabídce jednoduchý režim.</string>
+  <string name="tip_tag_conflict">Sjednocení nebo obrácení prvků OSM občas vyžaduje úpravu vlastností prvků, pokud může dojít k chybě nebo konfliktu, budete upozorněni a bude nabídnuta možnost zkontrolovat příslušné objekty.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -514,6 +523,9 @@
   <string name="toast_file_already_exists">Soubor %1$s již existuje</string>
   <string name="toast_file_error_for">Chyba souboru pro %1$s</string>
   <string name="toast_error_reading">Chyba při čtení %1$s</string>
+  <string name="toast_read_successfully">Soubor úspěšně načten</string>
+  <string name="toast_error_writing">Chyba ukládání %1$s</string>
+  <string name="toast_successfully_written">Soubor úspěšně uložen</string>
   <string name="toast_http_data_error_for">Chyba dat HTTP pro %1$s</string>
   <string name="toast_error_insufficient_space_for">Nedostatek místa na zařízení pro %1$s</string>
   <string name="toast_error_too_many_redirects_for">Příliš mnoho přesměrování pro %1$s</string>
@@ -525,6 +537,7 @@
   <string name="toast_restart_required">Aby se změna projevila, musíte restartovat Vespucci</string>
   <string name="toast_unable_to_open_offline_data">Nelze otevřít data offline %1$s%2$s</string>
   <string name="toast_no_usable_location">Žádné použitelné umístění</string>
+  <string name="toast_default_channel_needs_to_be_enabled">Pro nahrávání je nutné povolit výchozí kanál notifikací</string>
   <plurals name="added_required_elements">
     <item quantity="one">Přidán požadovaný prvek</item>
     <item quantity="few">Přidány %1$d cpožadované prvky</item>
@@ -536,6 +549,7 @@
   <string name="toast_invalid_number_format">Neplatný formát čísla %1$s</string>
   <string name="toast_error_downloading_mapillary_image">Chyba při stahování obrázku mapillary %1$s</string>
   <string name="toast_error_downloading_mapillary_sequences">Chyba při stahování  sekvencí Mapillary %1$s</string>
+  <string name="toast_nothing_changed">Žádná změna</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Zdroje MapSplit musí mít nastaveno minimální a maximální zvětšení</string>
   <string name="error_pbf_no_version">V souboru PBF chybí informace o verzi</string>
@@ -704,6 +718,7 @@
   <string name="menu_add_to_route">Přidat do trasy</string>
   <string name="menu_relation">Vytvořit relaci</string>
   <string name="menu_edit_relation">Upravit relaci</string>
+  <string name="menu_add_relation_member">Přidat/odebrat členy</string>
   <string name="menu_select_relation_members">Zvolit členy</string>
   <string name="menu_tag">Upravit tagy</string>
   <string name="menu_openstreetbug">Přidat poznámku</string>
@@ -833,9 +848,10 @@
   <string name="notreversable_description">Cesta obsahuje tagy, které jsou směrově závislé a nemohou být obráceny. Obrácením cesty dojde k poškození tagů.</string>
   <string name="reverse_anyway">Přesto obrátit</string>
   <string name="deleteway_description">Chystáte se smazat cestu.\n\nMůžete zachovat všechny uzly, nebo smazat ty, které patří pouze k této cestě a nemají žádné tagy.</string>
-  <string name="deleteway_nodesnotdownloaded_description">Cesta obsahuje uzly mimo staženou oblast a její smazání způsobí nekonzistentní stav. Nejdříve si ji stáhněte celou a zkuste to znovu.</string>
+  <string name="deleteway_relation_description">Chystáte se odstranit cestu, která je členem jedné nebo více relací. Odstranění cesty v relaci může způsobit chybné vykreslování.</string>
   <string name="deleteway_wayonly">Smazat pouze cestu</string>
   <string name="deleteway_wayandnodes">Smazat cestu</string>
+  <string name="deletenode_relation_description">Chystáte se odstranit uzel, který je členem jedné nebo více relací. Odstranění uzlu v relaci může způsobit chybné vykreslování.</string>
   <string name="deletenode">Smazat uzel</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">Rozdělit ...</string>
@@ -971,6 +987,7 @@
   <string name="config_uploadWarn_summary">Limit, pod jakou hranicí čekajících na nahrání objektu bude zobrazeno varování</string>
   <string name="config_dataWarn_title">Varování na příliš mnoho dat</string>
   <string name="config_dataWarn_summary">Limit (v počtu uzlů), při kterém začneme varovat před příliš velkým množstvím načítaných dat</string>
+  <string name="config_beepVolume_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Nastavení dat a úprav</string>
   <string name="config_category_editing_summary">Nastavení automatického stahování, ukládání a notifikací.</string>
@@ -1163,6 +1180,7 @@
   <string name="undo_action_paste">Vložit</string>
   <string name="undo_action_rotateway">Otočení cesty</string>
   <string name="undo_action_orthogonalize">Narovnání cesty</string>
+  <string name="undo_action_circulize">Uspořádat do kruhu</string>
   <string name="undo_action_fix_conflict">Opravení konfliktu</string>
   <string name="undo_action_extract_node">Odpojení uzlu</string>
   <string name="undo_action_apply_osc">Použít OSC soubor</string>
@@ -1200,6 +1218,7 @@
   <string name="deleterelation_relation_description">Chystáte se odstranit relaci, která je členem jedné nebo více relací. Odstranění takovéto relace z relací může způsobit nesprávné vykreslování.</string>
   <string name="deleterelation">Smazat relaci</string>
   <string name="delete_from_relation_description">Chystáte se smazat tento prvek z relace.</string>
+  <string name="delete_elements_from_relation_description">Chystáte se smazat prvky z jedné nebo více relací.</string>
   <string name="unset_relation_type">Relace bez typu</string>
   <!--Things-->
   <string name="bridge">Most</string>

@@ -5,6 +5,7 @@
   <string name="mode_tag_only">Apenas etiquetas</string>
   <string name="mode_indoor">Interior</string>
   <string name="mode_correct">Modo-C</string>
+  <string name="mode_address">Morada</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Atenção!</string>
   <string name="transfer_download_current_dialog_message">Fez alterações. Quer enviá-las para o OpenStreetMap em vez de as descartar?</string>
@@ -180,12 +181,21 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Atribuição</string>
   <!--Too much data dialog-->
+  <string name="upload_data_now">Enviar alterações</string>
   <!--Delete custom preset dialog-->
   <!--Duplicate route segment dialog-->
   <!--Duplicate relation element dialog-->
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move">Mover</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove">Remover</string>
   <!--Abort action mode dialog-->
+  <!--Address interpoation dialog-->
+  <string name="start">Inicia</string>
+  <string name="end">Termina</string>
+  <string name="even">Par</string>
+  <string name="odd">Ímpar</string>
+  <string name="other">Outro</string>
   <!---->
   <string name="error">Erro</string>
   <string name="warning">Aviso</string>
@@ -253,6 +263,7 @@
   <string name="json_array_not_displayed">Tabela JSON (não mostrado)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Escala / grelha</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Fotos</string>
@@ -272,6 +283,7 @@
   <string name="layer_info_end_date">Data de fim</string>
   <string name="layer_info_terms">Termos</string>
   <string name="layer_info_privacy_policy">Política de privacidade</string>
+  <string name="errors">Erros</string>
   <!--Photo viewer-->
   <!--API info dialog-->
   <string name="api_info_bounds">Caixa de limites</string>
@@ -281,6 +293,7 @@
   <!--Tag conflict dialog-->
   <!--Relation selection dialog-->
   <!--Preset selection dialog-->
+  <string name="select_relation_type_other">Outro</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Histórico de alterações</string>
   <string name="undo_redo_title">Desfazer - refazer</string>
@@ -524,6 +537,7 @@ sem gravar</string>
   <string name="tag_restriction_add_expression">Adicionar expressão</string>
   <string name="tag_restriction_add_opening_hours">Adicionar horário de funcionamento</string>
   <string name="tag_restriction_value_hint">Restrição condicional</string>
+  <string name="default_checkgroup_hint">Atributos adicionais</string>
   <string name="tag_form_unknown_element">Elemento desconhecido (sem modelo de etiquetas)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
@@ -551,6 +565,7 @@ há %3$s %4$s</string>
   <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
   <!--Strings in postition info-->
+  <string name="position_info_altitude">Altitude</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Descarregar ficheiros</string>
   <string name="allow_all_networks">Permitir todas as redes</string>
@@ -664,6 +679,7 @@ há %3$s %4$s</string>
   <string name="menu_layers">Camadas…</string>
   <string name="menu_layers_add_backgroundlayer">Adicionar camada de fundo de imagens aéreas</string>
   <string name="menu_layers_add_overlaylayer">Adicionar camada de imagens aéreas por cima</string>
+  <string name="menu_layers_add_photolayer">Ativar camada de fotos</string>
   <string name="menu_layers_configure">Configurar…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Aplicar na camada o alinhamento guardado</string>
@@ -683,7 +699,6 @@ há %3$s %4$s</string>
   <string name="notreversable_description">Esta linha não pode ser invertida porque tem etiquetas com atributos que dependem da direção. Invertê-la iria tornar as etiquetas inválidas.</string>
   <string name="reverse_anyway">Inverter mesmo assim</string>
   <string name="deleteway_description">Está prestes a eliminar uma linha.\n\node optar por manter todos os nós, ou eliminar os nós que pertencem apenas a esta linha e que não têm etiquetas.</string>
-  <string name="deleteway_nodesnotdownloaded_description">A linha tem nós fora da área descarregada e não pode ser eliminada sem ser criado um estado inconsistente. Descarregue toda a linha antes de tentar novamente.</string>
   <string name="deleteway_wayonly">Apenas eliminar linha</string>
   <string name="deleteway_wayandnodes">Eliminar linha</string>
   <string name="deletenode">Eliminar nó</string>
@@ -804,6 +819,7 @@ há %3$s %4$s</string>
   <string name="config_maxStrokeWidth_title">Espessura máxima da linha</string>
   <string name="config_maxStrokeWidth_summary">Não desenhar uma linha mais larga que isto.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_upload_current">%1$d objetos</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Configurações de dados e edição</string>
   <string name="config_category_editing_summary">Configurações de descarregamento automático, gravar e notificações.</string>
@@ -975,6 +991,7 @@ há %3$s %4$s</string>
   <string name="undo_action_paste">Colar</string>
   <string name="undo_action_rotateway">Rodar linha</string>
   <string name="undo_action_orthogonalize">Esquadrar linha</string>
+  <string name="undo_action_circulize">Organizar em círculo</string>
   <string name="undo_action_fix_conflict">Resolução de conflito</string>
   <string name="undo_action_extract_node">Extração de nó</string>
   <string name="undo_action_apply_osc">Aplicar ao ficheiro OSC</string>
@@ -1012,6 +1029,9 @@ há %3$s %4$s</string>
   <string name="delete_from_relation_description">Está prestes a eliminar este elemento de uma relação.</string>
   <string name="unset_relation_type">Relação indefinida</string>
   <!--Things-->
+  <string name="bridge">Ponte</string>
+  <string name="tunnel">Túnel</string>
+  <string name="culvert">Tubo de drenagem</string>
   <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">

@@ -41,10 +41,11 @@ Para evitar edicións accidentais Vespucci comeza no modo "bloqueado", un modo q
 
 Una premida longa na icona do candeado amosará un menú con 4 opcións:
 
-* **Normal** - o modo de edición por defecto, pódense engadir novos obxectos, editar os existentes, desprazados ou eliminados. Amósase unha icona sinxela dun cadeado branco.
-* **Só etiquetado** - ó seleccionar un obxecto existente iniciarase o Editor de Propiedades, unha prema longa na pantalla principal engadirá obxectos, pero non funcionarán outras operacións xeométricas. Amosarase a icona dun cadeado branco cun "T".
-* **Interiores** - activa o modo Interiores, ollar [modo Interiores](#indoor). Amosarase a icona dun cadeado branco cun "I".
-* **Modo-C** - activa o Modo-C, só se amosan os obxectos que teñan un sinal de aviso, ollar [Modo-C](#c-mode). Amósase a icona dun cadeado branco cun "C".
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 #### Premido único, dobre premido e premido longo
 

@@ -5,6 +5,7 @@
   <string name="mode_tag_only">Nur Tags</string>
   <string name="mode_indoor">Innenraum</string>
   <string name="mode_correct">C-Modus</string>
+  <string name="mode_address">Adresse</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Achtung!</string>
   <string name="transfer_download_current_dialog_message">Sie haben etwas geändert. Möchten Sie die Änderungen hochladen, anstatt sie zu verwerfen?</string>
@@ -159,6 +160,7 @@
   <!--Search objects dialog-->
   <string name="search_objects_title">Objektsuche</string>
   <string name="search_objects_hint">Ein JOSM Suchausdruck eingeben</string>
+  <string name="search_objects_use_regexps">Reguläre Ausdrücke verwenden</string>
   <string name="search_objects_unsupported">Ausdruck \"%1$s\" wird nicht unterstützt</string>
   <!---->
   <string name="preset_search_hint">Vorlagensuche</string>
@@ -190,6 +192,7 @@
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON-Feature-Information</string>
   <string name="copy_properties">Eigenschaften kopieren</string>
+  <string name="create_osm_element">OSM-Objekt erstellen</string>
   <!--API/Data layer info dialog-->
   <string name="data_in_memory">Daten im Speicher</string>
   <string name="total">Total</string>
@@ -214,7 +217,7 @@
   <string name="duplicate_relation_member_remove_button">Relationsmitglied entfernen</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Eigenschaften von äusseren Ringen auf das Multipolygon verschieben</string>
-  <string name="move_outer_tags_message">Objekt definierende Eigenschaften sollten sich nur auf dem Multipolygon befinden</string>
+  <string name="move_outer_tags_message">Objekt definierende Eigenschaften sollten sich nur auf dem Multipolygon befinden. Diese Aktion wird gemeinsame Eigenschaften von den äusseren Ringe auf das Multipolygon verschieben.</string>
   <string name="move">Verschieben</string>
   <string name="leave_as_is">Wie bisher lassen</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
@@ -223,6 +226,13 @@
   <string name="remove">Entfernen</string>
   <!--Abort action mode dialog-->
   <string name="abort_action_title">Aktion abbrechen</string>
+  <!--Address interpoation dialog-->
+  <string name="address_interpolation_title">Adressinterpolation erstellen</string>
+  <string name="start">Start</string>
+  <string name="end">Ende</string>
+  <string name="even">Gerade</string>
+  <string name="odd">Ungerade</string>
+  <string name="other">Andere</string>
   <!---->
   <string name="error">Fehler</string>
   <string name="warning">Warnung</string>
@@ -513,6 +523,9 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_file_already_exists">Datei %1$sexistiert bereits. </string>
   <string name="toast_file_error_for">Dateifehler für %1$s</string>
   <string name="toast_error_reading">Fehler beim Lesen von %1$s</string>
+  <string name="toast_read_successfully">Datei erfolgreich gelesen</string>
+  <string name="toast_error_writing">Schreibfehler %1$s</string>
+  <string name="toast_successfully_written">Datei erfolgreich geschrieben</string>
   <string name="toast_http_data_error_for">HTTP-Datenfehler für %1$s</string>
   <string name="toast_error_insufficient_space_for">Nicht genug Speicher auf Gerät für %1$s</string>
   <string name="toast_error_too_many_redirects_for">Zu viele Weiterleitungen für %1$s</string>
@@ -760,6 +773,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="menu_transfer_autodownload_long">Automatischer Download von Aufgaben</string>
   <string name="menu_transfer_save_notes_all">Alle Notizen speichern…</string>
   <string name="menu_transfer_save_notes_new_and_changed">Geänderte und neue Notizen speichern…</string>
+  <string name="menu_transfer_read_notes">Notizen laden…</string>
   <string name="menu_transfer_read_custom_bugs">Benutzerdefinierte Aufgaben laden…</string>
   <string name="menu_transfer_write_custom_bugs">Benutzerdefinierte Aufgaben speichern...</string>
   <string name="menu_save">Als Datei speichern</string>
@@ -843,7 +857,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="reverse_anyway">Trotzdem umkehren</string>
   <string name="deleteway_description">Sie sind im Begriff, einen Weg zu löschen.\n\nSie können entweder alle Knoten behalten oder die Knoten löschen, die nur zu diesem Weg gehören und keine Tags haben.</string>
   <string name="deleteway_relation_description">Dieser Weg ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht, wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
-  <string name="deleteway_nodesnotdownloaded_description">Dieser Weg besitzt Punkte außerhalb des heruntergeladenen Bereichs und kann nicht gelöscht werden. Bitte zuerst den ganzen Wegabschnitt herunterladen. </string>
+  <string name="deleteway_nodesnotdownloaded_description">Dieser Weg besitzt Punkte außerhalb des heruntergeladenen Bereichs und kann nicht gelöscht werden ohne möglicherweise einen inkonsistenten Zustand zu verursachen.\n\nVor einem erneuten Versuch, bitte zuerst den ganzen Bereich um den Weg herunterladen.  </string>
+  <string name="deleteways_nodesnotdownloaded_description">Diese Auswahl enthält Wege die Punkte außerhalb des heruntergeladenen Bereichs besitzen und kann nicht gelöscht werden ohne möglicherweise einen inkonsistenten Zustand zu verursachen.\n\nVor einem erneuten Versuch, bitte zuerst den ganzen Bereich um die Wege herunterladen.  </string>
   <string name="deleteway_wayonly">Nur Weg löschen</string>
   <string name="deleteway_wayandnodes">Weg löschen</string>
   <string name="deletenode_relation_description">Dieser Punkt ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht, wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
@@ -854,6 +869,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="merge_context_title">Vereinigen mit …</string>
   <string name="merge_with_all_ways">… allen Wegen in der Nähe</string>
   <string name="merge_with_all_nodes">… allen Knoten in der Nähe</string>
+  <string name="append_context_title">Anhängen an …</string>
   <string name="delete_note_description">Die Notizlöschung kann nicht rückgängig gemacht werden!</string>
   <string name="delete_note">Notiz löschen</string>
   <!--EasyEdit action mode titles-->
@@ -888,6 +904,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="menu_add_node">Knoten hinzufügen</string>
   <string name="simple_add_node">Bildschirmposition antippen</string>
   <string name="menu_add_node_tags">Knoten mit Eigenschaften hinzufügen</string>
+  <string name="menu_add_node_address">Adresspunkt hinzufügen</string>
+  <string name="menu_add_address_interpolation">Adressinterpolation hinzufügen</string>
   <string name="menu_add_way">Weg hinzufügen</string>
   <string name="simple_add_way">Bildschirmposition antippen</string>
   <string name="menu_add_map_note">Notiz hinzufügen</string>
@@ -992,6 +1010,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_category_editing_summary">Auto-Download-Einstellungen</string>
   <string name="config_forceContextMenu_title">Immer Kontextmenü benutzen</string>
   <string name="config_forceContextMenu_summary">Immer Kontextmenü anzeigen, wenn die Auswahl nicht eindeutig ist.</string>
+  <string name="config_overrideRegionAddressTags_title">Regionsspezifische Adresseigenschaften nicht verwenden</string>
+  <string name="config_overrideRegionAddressTags_summary">Diese Voreinstellungen für Adresseigenschaften anstatt regionsspezifische Werte verwenden</string>
   <string name="config_address_tags">Adressattribute</string>
   <string name="config_address_tags_summary">Für die Adressvorhersage verwendete Attribute</string>
   <string name="config_enableNameSuggestions_title">Namensvorschläge</string>
@@ -1075,6 +1095,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_osmoseServer_summary">URL für den OSMOSE-Server</string>
   <string name="config_geocoderbutton_title">Geocoder konfigurieren</string>
   <string name="config_geocoderbutton_summary">Geocoder für die Suchfunktion hinzufügen, bearbeiten und löschen</string>
+  <string name="config_taginfoServer_title">Taginfo Server</string>
+  <string name="config_taginfoServer_summary">Der Taginfo Server für das automatische Erstellen von Vorlagen</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Hintergrundbilder laden und speichern</string>
   <string name="config_category_layers_summary">Download und Speicher der auf Kacheln basierenden Hintergrundbilder</string>
@@ -1173,9 +1195,11 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="undo_action_set_tags">Tags setzen</string>
   <string name="undo_action_join">verbinden</string>
   <string name="undo_action_unjoin_ways">Wege trennen</string>
+  <string name="undo_action_merge_polygons">Polygone zusammenführen</string>
   <string name="undo_action_create_relation">Relation erstellen</string>
   <string name="undo_action_delete_relation">Relation löschen</string>
   <string name="undo_action_update_relations">Relation aktualisieren</string>
+  <string name="undo_action_move_tags">Eigenschaften zur Relation verschieben</string>
   <string name="undo_action_cut">Ausschneiden</string>
   <string name="undo_action_paste">Einfügen</string>
   <string name="undo_action_rotateway">Weg drehen</string>
@@ -1219,6 +1243,7 @@ in %1$d m %2$s</string>
   <string name="deleterelation_relation_description">Diese Relation ist Teil einer oder mehrerer Relationen. Jede Entfernung einer solchen Relation aus den anderen, macht diese eventuell ungültig.</string>
   <string name="deleterelation">Relation löschen</string>
   <string name="delete_from_relation_description">Dieses Element wird aus der Relation gelöscht.</string>
+  <string name="delete_elements_from_relation_description">Diese Elemente werden aus einer oder mehrere Relationen gelöscht.</string>
   <string name="unset_relation_type">Kein Relationstyp</string>
   <!--Things-->
   <string name="bridge">Brücke</string>

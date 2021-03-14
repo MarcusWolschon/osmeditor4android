@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">راهنما</string>
     <string name="help_title">راهنما: %1$s</string>
     <string name="help_introduction">معرفی</string>
     <string name="help_main">نمای اصلی نقشه</string>
@@ -9,6 +10,7 @@
     <string name="help_longclick">ایجاد اشیاء جدید</string>
     <string name="help_nodeselection">انتخاب گره</string>
     <string name="help_relationselection">انتخاب رابطه</string>
+    <string name='help_add_route_segmement'>افزودن پارهٔ مسیر</string>
     <string name="help_wayselection">انتخاب راه</string>
     <string name="help_aligningbackgroundiamgery">ترازکردن تصویر پس‌زمینه</string>
     <string name="help_propertyeditor">ویرایشگر خصوصیت</string>
@@ -23,6 +25,8 @@
     <string name="help_opening_hours">ساعت‌های کاری</string>
     <string name="help_newnoteselection">انتخاب یادداشت تازه</string>
     <string name="help_voice_commands">فرمان‌های صوتی</string>
+    <string name="help_add_route_segment">افزودن پارهٔ مسیر</string>
+    <string name="help_upgrade_141">یادداشت‌های عرضهٔ 14.1</string>
     <string name="help_upgrade_140">یادداشت‌های عرضهٔ 14.0</string>
     <string name="help_upgrade_131">یادداشت‌های عرضهٔ 13.1</string>
     <string name="help_upgrade_130">یادداشت‌های عرضهٔ 13.0 </string>
@@ -63,6 +67,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_151</item>
         <item>@string/help_upgrade_150</item>
         <item>@string/help_upgrade_141</item>
         <item>@string/help_upgrade_140</item>
@@ -106,6 +111,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>15.2.0 Release notes</item>
         <item>15.1.0 Release notes</item>
         <item>15.0.0 Release notes</item>
         <item>14.1.0 Release notes</item>

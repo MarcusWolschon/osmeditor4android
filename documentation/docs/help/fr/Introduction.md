@@ -41,10 +41,11 @@ Pour éviter des modifications accidentelles Vespucci démarre en mode « verrou
 
 Appuyez longuement sur l'icône de verrouillage pour afficher un menu qui offre actuellement 4 options :
 
-* **Normal** : le mode d'édition par défaut, qui permet d'ajouter de nouveaux objets, de modifier, déplacer et supprimer des objets existants. Un cadenas blanc simple s'affiche.
-* **Attributs seuls** : l'éditeur de propriétés sera ouvert en sélectionnant un objet et de nouveaux objets seront ajoutés avec un appui long sur l'écran principal, mais aucune opération géométrique ne fonctionnera. Un cadenas blanc avec la lettre « T » s'affiche.
-* **Intérieur** : active le mode cartographie intérieure, voir le [mode intérieur](#indoor). Un cadenas blanc avec la letter « I » s'affiche.
-* **Mode C** - active le mode C, où seuls les objets avec un drapeau d'avertissement seront affichés, voir le [mode C](#c-mode). Un cadenas blanc avec la lettre « C » s'affiche.
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 #### Appui simple, appui double, et appui long
 

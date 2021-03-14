@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">幫助</string>
     <string name="help_introduction">簡介</string>
     <string name="help_main">主地圖顯示</string>
     <string name="help_simple_actions">一般操作</string>
@@ -60,6 +61,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_151</item>
         <item>@string/help_upgrade_150</item>
         <item>@string/help_upgrade_141</item>
         <item>@string/help_upgrade_140</item>
@@ -103,6 +105,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>15.2.0 Release notes</item>
         <item>15.1.0 Release notes</item>
         <item>15.0.0 Release notes</item>
         <item>14.1.0 Release notes</item>

@@ -40,10 +40,11 @@ Um versehentliche Änderungen zu verhindern, startet Vespucci im "gesperrten" Mo
 
 Ein langer Druck auf das Schlosssymbol zeigt ein Auswahlmenü mit 4 Optionen:
 
-* **Normal** - der Standardbearbeitungsmodus, neue Objekte können erstellt, bestehende bearbeitet, verschoben und gelöscht werden. Ein einfaches weißes Schlosssymbol wird angezeigt.
-* **Nur Tags** - wird ein bestehendes Objekt ausgewählt, startet der Tag-Editor, ein langer Druck auf dem Hauptschirm wird weiterhin neue Objekte hinzufügen, aber keine anderen Geometriebearbeitungen sind möglich. Ein weißes Schlosssymbol mit einem "T" wird angezeigt.
-* **Innenraum** - schaltet in den Innenraum-Modus, siehe  [Innenraum-Modus](#indoor). Ein weißes Schlosssymbol mit einem "I" wird angezeigt.
-* **C-Modus** - im C-Modus werden nur Objekte angezeigt, die ein Problem haben, siehe [C-Modus](#c-mode).  Ein weißes Schlosssymbol mit einem "C" wird angezeigt.
+* **Normal** - der Standardbearbeitungsmodus, neue Objekte können erstellt werden, bestehende bearbeitet, verschonen und gelöscht. Ein einfaches weises Schlosssymbol wird angezeigt.
+* **Nur Tags** - wird ein bestehendes Objekt ausgewählt, startet der Eigenschaftseditor, ein langer Druck auf dem Hauptschirm wird weiterhin neue Objekte hinzufügen, aber keine anderen Geometriebearbeitungen sind möglich. Ein weises Schlosssymbol mit einem "T" wird angezeigt.
+* **Adress** - schaltet den Adressenmodus ein, eine etwas vereinfachten Modus mit Adress spezifschen Aktionen im [Einfachen Modus](../en/Simple%20actions.md) "+" Schaltfläche.  Ein weises Schlosssymbol mit einem "A" wird angezeigt.
+* **Innenraum** - schaltet in den Innenraum-Modus, siehe  [Innenraum-Modus](#indoor). Ein weises Schlosssymbol mit einem "I" wird angezeigt.
+* **C-Modus** - in C-Modus werden nur Objekte angezeigt, die ein Problem haben, siehe [C-Modus](#c-mode).  Ein weises Schlosssymbol mit einem "C" wird angezeigt.
 
 #### Einfacher Klick, Doppelklick und langer Klick
 

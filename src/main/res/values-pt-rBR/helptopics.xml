@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">Ajuda</string>
     <string name="help_addrelationmember">Relação selecionada</string>
     <string name="help_multiselect">Multi-Seleção</string>
     <string name="help_nodeselection">Nó selecionado</string>
@@ -8,6 +9,7 @@
     <string name="help_preferences">Preferências</string>
     <string name="help_advanced_preferences">Preferências avançadas</string>
     <string name="help_presets">Pré-definições</string>
+    <string name="help_conflictresolution">Resolução de conflitos</string>
     <string name="help_opening_hours">Horário de funcionamento</string>
     <string name="help_privacy">Privacidade </string>
     <array translatable="false" name="help_tableofcontents">
@@ -34,6 +36,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_151</item>
         <item>@string/help_upgrade_150</item>
         <item>@string/help_upgrade_141</item>
         <item>@string/help_upgrade_140</item>
@@ -77,6 +80,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>15.2.0 Release notes</item>
         <item>15.1.0 Release notes</item>
         <item>15.0.0 Release notes</item>
         <item>14.1.0 Release notes</item>

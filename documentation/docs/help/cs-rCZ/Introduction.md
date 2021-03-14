@@ -41,10 +41,11 @@ K zabránění nechtěných úprav se Vespucci spustí v "uzamčeném" režimu, 
 
 Dlouhým stisknutím ikony zámku se zobrazí nabídka se 4 možnostmi:
 
-* **Normální** - výchozí režim úprav, lze vytvářet nové objekty, existující upravovat, přesouvat a odstraňovat. Symbolizován jednoduchou bílou ikonou zámku.
-* **Editování tagů** - výběr existujících objektů vyvolá Editor vlastností, dlouhý stisk na hlavní obrazovce vytvoří objekt, nicméně měnit pozice objektů není možné. Symbolizován bílou ikonou zámku s "T".
-* **Vnitřní prostory** - aktivuje režim pro Editaci vnitřních prostor, viz [režim Vnitřní prostory](#indoor). Symbolizován bílou ikonou zámku s "I".
-* **Režim kontroly** - aktivuje Režim kontroly, zobrazeny jsou pouze objekty splňující nastavená kritéria, viz [Režim kontroly](#c-mode). Symbolizován bílou ikonou zámku s "C".
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 #### Jedno klepnutí, dvě klepnutí a dlouhé stisknutí
 

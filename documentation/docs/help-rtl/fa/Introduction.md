@@ -41,10 +41,11 @@ With the default settings any non-downloaded areas will be dimmed relative to th
 
 اگر نماد قفل را طولانی لمس کنید منویی حاوی چهار گزینه باز می‌شود:
 
-* **عادی** - حالت پیشفرض ویرایش است. می‌توانید چیزهای جدید اضافه کنید، چیزهای موجود را تغییر دهید، جابه‌جا کنید یا حذف نمایید. نماد این حالت، قفل سفیدرنگ معمولی است.
-* **فقط تگ** - با انتخاب هر شیء «ویرایشگر خصوصیت» باز می‌شود. با لمس طولانی صفحه می‌توانید چیزهای جدید اضافه کنید، اما سایر کنش‌های هندسی کار نمی‌کند. نماد این حالت، قفل سفیدرنگ همراه با حرف T است (اول Tag).
-* **داخلی** - حالت داخلی را فعال می‌کند. [حالت داخلی](#indoor) را ببینید. نماد این حالت قفل سفیدرنگ همراه با حرف I است (اول Indoor).
-* **حالت C** - حالت C را فعال می‌کند. در این حالت فقط چیزهایی که پرچم هشدار گرفته باشند نمایش می‌یابد. [حالت C](#c-mode) را ببینید. نماد این حالت قفل سفیدرنگ همراه با حرف C است (اول Complete).
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 #### تک‌ضربه، دوضربه و لمس طولانی
 

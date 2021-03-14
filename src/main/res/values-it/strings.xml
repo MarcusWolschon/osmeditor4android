@@ -5,6 +5,7 @@
   <string name="mode_tag_only">Solo etichette</string>
   <string name="mode_indoor">Interni</string>
   <string name="mode_correct">C-Mode</string>
+  <string name="mode_address">Indirizzo</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Attenzione!</string>
   <string name="transfer_download_current_dialog_message">Hai effettuato delle modifiche. Vuoi caricarle invece di annullarle?</string>
@@ -201,8 +202,16 @@
   <!--Duplicate route segment dialog-->
   <!--Duplicate relation element dialog-->
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move">Muovi</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove">Rimuovere</string>
   <!--Abort action mode dialog-->
+  <!--Address interpoation dialog-->
+  <string name="start">Inizia</string>
+  <string name="end">Fine</string>
+  <string name="even">Pari</string>
+  <string name="odd">Dispari</string>
+  <string name="other">Altro</string>
   <!---->
   <string name="error">Errore</string>
   <string name="warning">Attenzione</string>
@@ -296,6 +305,7 @@
   <string name="layer_info_end_date">Data di fine</string>
   <string name="layer_info_terms">Termini</string>
   <string name="layer_info_privacy_policy">Privacy policy</string>
+  <string name="errors">Errori</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Cancella foto</string>
   <string name="photo_viewer_delete_button">Cancella definitvamente</string>
@@ -305,9 +315,11 @@
   <!--API info dialog-->
   <string name="api_info_bounds">Riquadro di selezione</string>
   <string name="api_info_latest_date">Ultima data inclusa</string>
+  <string name="api_info_attribution">Attribuzione</string>
   <!--Tag conflict dialog-->
   <!--Relation selection dialog-->
   <!--Preset selection dialog-->
+  <string name="select_relation_type_other">Altro</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Punti di controllo</string>
   <string name="undo_redo_title">Annulla</string>
@@ -523,6 +535,7 @@
   <string name="tag_restriction_add_expression">Aggiungi espressione</string>
   <string name="tag_restriction_add_opening_hours">Aggiungi orari di apertura</string>
   <string name="tag_restriction_value_hint">Restrizione condizionale</string>
+  <string name="default_checkgroup_hint">Attributi aggiuntivi</string>
   <string name="tag_form_unknown_element">Elemento sconosciuto (nessun predefinito trovato)</string>
   <string name="tag_form_untagged_element">Elementi senza etichette</string>
   <!--Custom preset creation-->
@@ -811,10 +824,12 @@
   <string name="config_maxStrokeWidth_summary">Non disegnare una strada più larga di così.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <string name="config_uploadOk_summary">Limite sotto il quale gli oggetti che devono essere caricati saranno considerati validi</string>
+  <string name="config_upload_current">%1$d oggetti</string>
   <string name="config_uploadWarn_title">Avviso di caricamenti pendenti</string>
   <string name="config_uploadWarn_summary">Limite sotto il quale il caricamento degli elementi pendenti avrà un allerta di stato</string>
   <string name="config_dataWarn_title">Avviso di troppi dati</string>
   <string name="config_dataWarn_summary">Limite (nel numero di nodi) in cui iniziamo ad avvisarti che troppi dati sono da caricare</string>
+  <string name="config_beepVolume_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Dati e impostazioni di modifica</string>
   <string name="config_category_editing_summary">Impostazioni di download automatico, salvataggio e notifiche</string>
@@ -966,10 +981,12 @@
   <string name="undo_action_paste">Incolla</string>
   <string name="undo_action_rotateway">Rotazione del percorso</string>
   <string name="undo_action_orthogonalize">Squadratura del percorso</string>
+  <string name="undo_action_circulize">Disponi in cerchio</string>
   <string name="undo_action_fix_conflict">Risoluzione conflitti</string>
   <string name="undo_action_extract_node">Estrazione nodo</string>
   <string name="undo_action_apply_osc">Applica file OSC</string>
   <string name="undo_action_remove_node_from_way">Rimuovi nodo dalla linea</string>
+  <string name="undo_action_extract_segment">Estrai segmento</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci si è interrotto o ha incontrato un problema serio l\'ultima volta.\n\nPer favore aiutaci cliccando \'Ok\' per inviare un resoconto dell\'errore.\n</string>
   <string name="report_success">Inviato</string>
@@ -1005,6 +1022,7 @@
   <!--Things-->
   <string name="bridge">Ponte</string>
   <string name="tunnel">Tunnel</string>
+  <string name="culvert">Canale sotterraneo</string>
   <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">

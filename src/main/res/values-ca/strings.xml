@@ -5,6 +5,7 @@
   <string name="mode_tag_only">Només etiqueta</string>
   <string name="mode_indoor">Interior</string>
   <string name="mode_correct">Mode C</string>
+  <string name="mode_address">Adreça</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Atenció!</string>
   <string name="transfer_download_current_dialog_message">Heu fet canvis. Voleu pujar-los en comptes de descartar-los?</string>
@@ -175,14 +176,24 @@
   <string name="feature_information">Informació de característica de GeoJSON</string>
   <string name="copy_properties">Copia les propietats</string>
   <!--API/Data layer info dialog-->
+  <string name="ways">Vies</string>
   <!--Tile layer info dialog-->
   <!--Too much data dialog-->
+  <string name="upload_data_now">Puja els canvis</string>
   <!--Delete custom preset dialog-->
   <!--Duplicate route segment dialog-->
   <!--Duplicate relation element dialog-->
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move">Mou</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove">Eliminar</string>
   <!--Abort action mode dialog-->
+  <!--Address interpoation dialog-->
+  <string name="start">Inici</string>
+  <string name="end">Fi</string>
+  <string name="even">Parells</string>
+  <string name="odd">Senars</string>
+  <string name="other">Altre</string>
   <!---->
   <string name="error">Error</string>
   <string name="warning">Avís</string>
@@ -247,6 +258,7 @@
   <string name="json_array_not_displayed">Matriu JSON (no es mostra)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Graella</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Fotos</string>
@@ -266,11 +278,13 @@
   <string name="layer_info_end_date">Data de finalització</string>
   <string name="layer_info_terms">Termes</string>
   <string name="layer_info_privacy_policy">Política de privacitat</string>
+  <string name="errors">Errors</string>
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Tag conflict dialog-->
   <!--Relation selection dialog-->
   <!--Preset selection dialog-->
+  <string name="select_relation_type_other">Altre</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Punts de control</string>
   <string name="undo_redo_title">Desfés - refés</string>
@@ -454,6 +468,7 @@
   <string name="location_nan_title">Entrada errònia!</string>
   <!--Strings in barometer calibration-->
   <!--Strings in postition info-->
+  <string name="position_info_altitude">Altitud</string>
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
   <!--Menu-->
@@ -539,6 +554,7 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Capes...</string>
+  <string name="menu_layers_add_photolayer">Activa la capa de fotos</string>
   <string name="menu_layers_configure">Configura...</string>
   <!---->
   <string name="menu_tools_background_contrast">Contrast</string>
@@ -608,6 +624,7 @@
   <string name="config_enableAntiAliasing_summary">Fa les línies més fines.</string>
   <string name="config_maxStrokeWidth_title">Amplada màxima de la línia</string>
   <string name="config_maxStrokeWidth_current">%1$dpx</string>
+  <string name="config_upload_current">%1$d objectes</string>
   <!--Data and Editing Settings-->
   <string name="config_address_tags">Etiquetes d\'adreces</string>
   <string name="config_enableNameSuggestions_title">Activa el suggeriment de noms</string>
@@ -754,6 +771,8 @@
   <string name="delete_from_relation_description">Estàs a punt de suprimir aquest element d\'una relació.</string>
   <string name="unset_relation_type">Esborrar el tipus de relació</string>
   <!--Things-->
+  <string name="bridge">Pont</string>
+  <string name="tunnel">Túnel</string>
   <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">

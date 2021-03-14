@@ -41,10 +41,11 @@ Om onbedoelde veranderingen te voorkomen, start Vespucci in "vergendelde" modus,
 
 Door lang te klikken op het vergrendel-icoon, zal een menu met 4 opties worden getoond:
 
-* **Normaal** - de standaard wijzigmodus, nieuwe objecten kunnen worden toegevoegd, bestaande objecten kunnen worden gewijzigd, verplaatst en verwijderd. Simpel wit slot icoon wordt weergegeven.
-* **Alleen tag** - het selecteren van een object laat de Eigenschappen Bewerker zien, een lange klik op het hoofdscherm voegt objecten toe maar andere geometische opties zijn uitgeschakeld. Een wit slot icoon met een "T" wordt weergegeven.
-* **Binnen** - zet de Binnenmodus aan, zie [Binnemmodus](#indoor). Wit slot icoon met een "I" wordt weergegeven.
-* **C-Modus** - zet de C-Modus aan, alleen objecten met een waarschuwing worden weergegeven, zie [C-Modus](#c-mode). Wit slot icoon met een "C" wordt weergegeven.
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 #### Enkele tik, dubbele tik en lange tik
 

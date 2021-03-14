@@ -42,10 +42,11 @@ With the default settings any non-downloaded areas will be dimmed relative to th
 ロックアイコン上で長押しすると、メニューが表示され、現在4つのオプションがあります
 ：
 
-* **通常** - デフォルトの編集モード。オブジェクトを新規追加したり、既存のものを編集・移動・削除できます。単に白いロックアイコンが表示されます。
-* **タグのみ** - 既存のオブジェクトを選ぶとプロパティ・エディタが起動され、マエイン画面上で長押しするとオブジェクトが新規追加されますが、他のジオメトリ操作は機能しません。「T」の付いた白いロックアイコンが表示されます。
-* **室内** - 室内モードを有効化します。[Indoor mode](#indoor)参照。「I」の付いた白いロックアイコンが表示されます。
-* **Cモード** - Cモードを有効化し、警告フラグのセットを持つオブジェクトだけが表示されます。 [C-Mode](#c-mode)参照。「C」の付いた白いロックアイコンが表示されます。
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 #### シングルタップ・ダブルタップ・長押し
 

@@ -41,10 +41,11 @@ With the default settings any non-downloaded areas will be dimmed relative to th
 
 Με το παρατεταμένο πάτημα του εικονιδίου κλειδώματος θα εμφανιστεί ένα μενού που προσφέρει 4 επιλογές:
 
-* **Κανονική** - η προεπιλεγμένη λειτουργία επεξεργασίας, νέα αντικείμενα μπορούν να προστεθούν, τα υπάρχοντα να επεξεργαστούν, να μετακινηθούν και να αφαιρεθούν. Εμφανίζεται το εικονίδιο μιας απλής λευκής κλειδαριάς.
-* **Μόνο ετικέτα** - επιλέγοντας ένα υπάρχον αντικείμενο θα ξεκινήσει ο επεξεργαστής ιδιοτήτων, με παρατεταμένο πάτημα στην κύρια οθόνη θα προστεθούν αντικείμενα, αλλά δεν θα δουλέψουν άλλες λειτουργίες γεωμετρίας. Εμφανίζεται το εικονίδιο μιας λευκής κλειδαριάς με "T".
-* **Εσωτερικό** - επιτρέπει την εσωτερική λειτουργία, δείτε [Εσωτερική λειτουργία] (# εσωτερική). Εμφανίζεται το εικονίδιο μιας λευκής κλειδαριάς με "I".
-* **Λειτουργία-C** - ενεργοποιεί την Λειτουργία-C, μόνο τα αντικείμενα που έχουν μια προειδοποιητική σημαία θα εμφανιστούν, δείτε [Λειτουργία-C] (#λειτουργία-c). Εμφανίζεται το εικονίδιο μιας λευκής κλειδαριάς με "C".
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 #### Απλό χτύπημα, διπλό χτύπημα, και παρατεταμένο πάτημα
 
