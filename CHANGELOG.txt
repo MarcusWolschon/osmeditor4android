@@ -1,5 +1,16 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.2.0-2:
+
+- Add direct support for extract step segments from footways and similar
+- Render tunnel=* on waterways, remove direction arrows from weirs
+- Make distance up to which we auto-apply offsets a preference
+- Don't show address prediction button for unclosed ways
+- Update imagery from ELI, preset and geo-context configurations
+- Update translations
+- Avoid CME by allocating shallow copy of list when uploading a selection of elements
+- Replace Cursor.getColumnIndex with Cursor.getColumnIndexOrThrow
+
 15.2.0-1:
 
 - Support merging closed ways/polygons
