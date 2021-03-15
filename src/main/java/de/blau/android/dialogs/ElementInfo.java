@@ -263,7 +263,8 @@ public class ElementInfo extends InfoDialogFragment {
             if (compare) {
                 tl.addView(TableLayoutUtils.createRow(activity, "", ueHeader, deleted ? null : getString(R.string.current), tp));
             }
-            if (element.getName().equals(Node.NAME)) {
+            switch (element.getName()) {
+            case Node.NAME:
                 String oldLon = null;
                 String oldLat = null;
                 String oldOlc = null;
@@ -278,7 +279,8 @@ public class ElementInfo extends InfoDialogFragment {
                         TableLayoutUtils.createRow(activity, R.string.location_lat_label, oldLat, deleted ? null : prettyPrint(((Node) element).getLat()), tp));
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.location_olc, oldOlc,
                         deleted ? null : OpenLocationCode.encode(((Node) element).getLat() / 1E7D, ((Node) element).getLon() / 1E7D), tp));
-            } else if (element.getName().equals(Way.NAME)) {
+                break;
+            case Way.NAME:
                 boolean isClosed = ((Way) element).isClosed();
                 String nodeCount = nodeCountString(((Way) element).nodeCount(), isClosed);
                 String lengthString = String.format(Locale.US, "%.2f", ((Way) element).length());
@@ -299,7 +301,8 @@ public class ElementInfo extends InfoDialogFragment {
                 // for (Node n:((Way)e).getNodes()) {
                 // tl.addView(createRow("", n.getDescription(),tp));
                 // }
-            } else if (element.getName().equals(Relation.NAME)) {
+                break;
+            case Relation.NAME:
                 List<RelationMember> members = ((Relation) element).getMembers();
                 String oldMembersCount = null;
                 List<RelationMember> oldMembers = null;
@@ -316,6 +319,9 @@ public class ElementInfo extends InfoDialogFragment {
                     tl.addView(TableLayoutUtils.createRow(activity, R.string.not_downloaded, compare ? Integer.toString(oldNotDownloaded) : null,
                             !deleted ? Integer.toString(notDownloaded) : null, tp));
                 }
+                break;
+            default:
+                Log.e(DEBUG_TAG, "Unkown element type " + element.getName());
             }
             Validator validator = App.getDefaultValidator(getActivity());
             if (!deleted && element.hasProblem(getActivity(), validator) != Validator.OK) {
@@ -569,7 +575,6 @@ public class ElementInfo extends InfoDialogFragment {
             }
         }
         return sv;
-
     }
 
     /**
