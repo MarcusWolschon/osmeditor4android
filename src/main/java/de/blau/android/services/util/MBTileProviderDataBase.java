@@ -194,7 +194,6 @@ public class MBTileProviderDataBase {
                         haveEntry = dbresult.moveToNext();
                     }
                 }
-                dbresult.close();
             } catch (IllegalArgumentException e) {
                 Log.e(DEBUG_TAG, "missing columns " + e.getMessage());
             }
@@ -235,7 +234,6 @@ public class MBTileProviderDataBase {
                             result[1] = dbresult.getInt(dbresult.getColumnIndexOrThrow(T_MBTILES_ZOOM_LEVEL));
                         }
                     }
-                    dbresult.close();
                     return result;
                 } catch (IllegalArgumentException e) {
                     Log.e(DEBUG_TAG, "missing columns " + e.getMessage());
