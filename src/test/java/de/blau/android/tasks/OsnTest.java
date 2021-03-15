@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -22,7 +23,16 @@ public class OsnTest {
         OsnParser parser = new OsnParser();
         try {
             parser.start(input);
-            assertEquals(59, parser.getNotes().size());
+            List<Note> notes = parser.getNotes();
+            assertEquals(59, notes.size());
+            for (Note n : notes) {
+                if (n.getId() == 693118L) {
+                    assertEquals(1487164934000L, n.getLastUpdate().getTime());
+                    assertEquals(4, n.count());
+                    return;
+                }
+            }
+            fail("Note 12992 not found");
         } catch (SAXException | IOException | ParserConfigurationException | IllegalArgumentException | IllegalStateException e) {
             fail(e.getMessage());
         }

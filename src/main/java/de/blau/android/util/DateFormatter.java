@@ -13,11 +13,15 @@ public final class DateFormatter {
     private static TimeZone timeZone = TimeZone.getTimeZone("UTC");
 
     /**
-     * This the standard data/time format used in .osn files and elsewhere in the API
+     * This the data/time format used in .osn files
      * 
-     * For output there is no guaranteed to be two digits formating option so we need to write out 4 and remove two
+     * For output there is no "guaranteed to be two digits" formating option so we need to write out 4 and remove two.
+     * 
+     * On input we ignore the time zone as there is no portable way to parse +00 over all currently supported Android
+     * versions. Using X will crash with "java.lang.IllegalArgumentException: Unknown pattern character 'X'" on older
+     * versions.
      */
-    public static final SimpleDateFormat JOSM_DATE_IN  = DateFormatter.getUtcFormat("yyyy-MM-dd'T'HH:mm:ssX"); // NOSONAR
+    public static final SimpleDateFormat JOSM_DATE_IN  = DateFormatter.getUtcFormat("yyyy-MM-dd'T'HH:mm:ss");  // NOSONAR
     public static final SimpleDateFormat JOSM_DATE_OUT = DateFormatter.getUtcFormat("yyyy-MM-dd'T'HH:mm:ssZ"); // NOSONAR
 
     /**
