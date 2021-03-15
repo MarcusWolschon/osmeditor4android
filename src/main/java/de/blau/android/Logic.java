@@ -1044,11 +1044,9 @@ public class Logic {
     @NonNull
     private java.util.Map<Node, Double> getClickedNodesWithDistances(final float x, final float y, boolean inDownloadOnly) {
         java.util.Map<Node, Double> result = new HashMap<>();
-        List<Node> nodes = getClickableNodes();
-        for (Node node : nodes) {
+        for (Node node : getClickableNodes()) {
             int lat = node.getLat();
             int lon = node.getLon();
-
             if (!inDownloadOnly || node.getState() != OsmElement.STATE_UNCHANGED || getDelegator().isInDownload(lon, lat)) {
                 Double dist = clickDistance(node, x, y);
                 if (dist != null) {
