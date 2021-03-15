@@ -9,7 +9,10 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.exception.OsmException;
+import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -131,20 +134,27 @@ public class ElementSearch {
      */
     private String[] getPlaceArray(@NonNull final IntCoordinates location) {
         // build list of names with their closest distance to location
-        final StorageDelegator delegator = App.getDelegator();
         Map<String, Double> distancesByName = new HashMap<>();
-        Log.d(DEBUG_PLACE_TAG, "searching for place ways...");
-        processElementsForPlace(location, delegator.getCurrentStorage().getWays(), distancesByName);
-        Log.d(DEBUG_PLACE_TAG, "searching for place nodes...");
-        processElementsForPlace(location, delegator.getCurrentStorage().getNodes(), distancesByName);
-        Log.d(DEBUG_PLACE_TAG, "searching for place relations...");
-        processElementsForPlace(location, delegator.getCurrentStorage().getRelations(), distancesByName);
+        try {
+            final BoundingBox box = GeoMath.createBoundingBoxForCoordinates(location, MAX_DISTANCE);
+            Log.d(DEBUG_PLACE_TAG, "searching for place ways...");
+            final Storage currentStorage = App.getDelegator().getCurrentStorage();
+            List<Way> ways = distanceFilter ? currentStorage.getWays(box) : currentStorage.getWays();
+            List<Node> nodes = distanceFilter ? currentStorage.getNodes(box) : currentStorage.getNodes();
+            processElementsForPlace(location, ways, distancesByName);
+            Log.d(DEBUG_PLACE_TAG, "searching for place nodes...");
+            processElementsForPlace(location, nodes, distancesByName);
+            Log.d(DEBUG_PLACE_TAG, "searching for place relations...");
+            processElementsForPlace(location, currentStorage.getRelations(), distancesByName);
+        } catch (OsmException oex) {
+            Log.e(DEBUG_PLACE_TAG, "BoundingBox caclulation failed with " + oex.getMessage());
+        }
         // sort names by distance
         MultiHashMap<Double, String> retval = new MultiHashMap<>(true);
         for (Entry<String, Double> entry : distancesByName.entrySet()) {
             retval.add(entry.getValue(), entry.getKey());
         }
-        return retval.getValues().toArray(new String[retval.getValues().size()]);
+        return retval.getValues().toArray(new String[0]);
     }
 
     /**
@@ -163,10 +173,11 @@ public class ElementSearch {
                     String name = e.getTagWithKey(tag);
                     if (name != null) {
                         Log.d(DEBUG_PLACE_TAG, "adding " + name);
-                        if (distance == -1D) { // only calc once
-                            int[] l = new int[] { location.lon, location.lat };
-                            distance = e.getMinDistance(l);
-                            if (distanceFilter && distance > MAX_DISTANCE) {
+                        if (distanceFilter) {
+                            if (distance == -1D) { // only calc once
+                                distance = e.getMinDistance(new int[] { location.lon, location.lat });
+                            }
+                            if (distance > MAX_DISTANCE) {
                                 break;
                             }
                         }
