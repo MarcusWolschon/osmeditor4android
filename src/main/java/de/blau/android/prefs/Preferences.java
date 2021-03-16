@@ -1349,8 +1349,12 @@ public class Preferences {
         return beepVolume;
     }
 
+    /**
+     * Get the maximum distance up to which we automatically apply locally stored offsets
+     * 
+     * @return the distance in meters
+     */
     public double getMaxOffsetDistance() {
-        // TODO Auto-generated method stub
         return maxOffsetDistance;
     }
 
