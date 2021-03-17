@@ -12,7 +12,7 @@
         android:id="@+id/listItemInfo"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
         android:background="@android:color/transparent"
         android:src="?attr/menu_information"
