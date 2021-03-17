@@ -74,6 +74,7 @@ import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.SizedFixedImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.views.layers.ImageryLayerInfo;
 import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
 
@@ -83,7 +84,7 @@ import de.blau.android.views.layers.MapTilesOverlayLayer;
  * @author Simon Poole
  *
  */
-public class Layers extends SizedFixedImmersiveDialogFragment {
+public class Layers extends SizedFixedImmersiveDialogFragment implements ImageryListAdapter.OnInfoClickListener {
 
     private static final int VERTICAL_OFFSET = 64;
 
@@ -701,6 +702,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
 
         final ImageryListAdapter adapter = new ImageryListAdapter(ids, currentId, isOverlay, buttonLayoutParams,
                 new LayerOnCheckedChangeListener(activity, dialog, row, layer, ids));
+        adapter.addItemClickListener(this);
         imageryList.setAdapter(adapter);
 
         categoryGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -717,6 +719,22 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         });
 
         return dialog;
+    }
+
+    /**
+     * Displays information Dialog for Background/Overlay imagery layers
+     */
+    @Override
+    public void onItemClick(String id) {
+        TileLayerSource layer = TileLayerSource.get(getContext(), id, true);
+        if (layer != null) {
+            LayerInfo f = new ImageryLayerInfo();
+            f.setShowsDialog(true);
+            Bundle args = new Bundle();
+            args.putSerializable(ImageryLayerInfo.LAYER_KEY, layer);
+            f.setArguments(args);
+            LayerInfo.showDialog(getActivity(), f);
+        }
     }
 
     private class LayerOnCheckedChangeListener implements OnCheckedChangeListener {
