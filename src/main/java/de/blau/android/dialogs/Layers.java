@@ -84,7 +84,7 @@ import de.blau.android.views.layers.MapTilesOverlayLayer;
  * @author Simon Poole
  *
  */
-public class Layers extends SizedFixedImmersiveDialogFragment implements ImageryListAdapter.OnInfoClickListener {
+public class Layers extends SizedFixedImmersiveDialogFragment {
 
     private static final int VERTICAL_OFFSET = 64;
 
@@ -702,7 +702,17 @@ public class Layers extends SizedFixedImmersiveDialogFragment implements Imagery
 
         final ImageryListAdapter adapter = new ImageryListAdapter(ids, currentId, isOverlay, buttonLayoutParams,
                 new LayerOnCheckedChangeListener(activity, dialog, row, layer, ids));
-        adapter.addItemClickListener(this);
+        adapter.addInfoClickListener((String id) -> {
+            TileLayerSource l = TileLayerSource.get(getContext(), id, true);
+            if (l != null) {
+                LayerInfo f = new ImageryLayerInfo();
+                f.setShowsDialog(true);
+                Bundle args = new Bundle();
+                args.putSerializable(ImageryLayerInfo.LAYER_KEY, l);
+                f.setArguments(args);
+                LayerInfo.showDialog(getActivity(), f);
+            }
+        });
         imageryList.setAdapter(adapter);
 
         categoryGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -719,22 +729,6 @@ public class Layers extends SizedFixedImmersiveDialogFragment implements Imagery
         });
 
         return dialog;
-    }
-
-    /**
-     * Displays information Dialog for Background/Overlay imagery layers
-     */
-    @Override
-    public void onItemClick(String id) {
-        TileLayerSource layer = TileLayerSource.get(getContext(), id, true);
-        if (layer != null) {
-            LayerInfo f = new ImageryLayerInfo();
-            f.setShowsDialog(true);
-            Bundle args = new Bundle();
-            args.putSerializable(ImageryLayerInfo.LAYER_KEY, layer);
-            f.setArguments(args);
-            LayerInfo.showDialog(getActivity(), f);
-        }
     }
 
     private class LayerOnCheckedChangeListener implements OnCheckedChangeListener {

@@ -67,10 +67,21 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
     };
 
     interface OnInfoClickListener{
-        void onItemClick(String id);
+
+        /**
+         * Implements info icon click logic
+         *
+         * @param id the selected layer id
+         */
+        void onInfoClick(@NonNull String id);
     }
 
-    public void addItemClickListener(OnInfoClickListener listener) {
+    /**
+     * Set the listener for the info icon
+     *
+     * @param listener on click behaviour
+     */
+    public void addInfoClickListener(@NonNull OnInfoClickListener listener) {
         infoClickListener = listener;
     }
 
@@ -97,7 +108,7 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
         holder.button.setOnCheckedChangeListener(onCheckedChangeListener);
         holder.infoButton.setOnClickListener(view -> {
             if(infoClickListener != null){
-                infoClickListener.onItemClick(ids[position]);
+                infoClickListener.onInfoClick(ids[position]);
             }
         });
     }
