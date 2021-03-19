@@ -24,6 +24,11 @@
             android:layout_height="wrap_content"
             android:text="@string/layer_category_photo" />
         <RadioButton
+            android:id="@+id/categoryElevation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/layer_category_elevation" />
+        <RadioButton
             android:id="@+id/categoryQA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

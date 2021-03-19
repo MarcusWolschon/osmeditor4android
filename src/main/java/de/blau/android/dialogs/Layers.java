@@ -662,9 +662,12 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         RadioGroup categoryGroup = (RadioGroup) layout.findViewById(R.id.categoryGroup);
         AppCompatRadioButton allButton = categoryGroup.findViewById(R.id.categoryAll);
         AppCompatRadioButton photoButton = categoryGroup.findViewById(R.id.categoryPhoto);
+        AppCompatRadioButton terrainButton = categoryGroup.findViewById(R.id.categoryElevation);
 
         photoButton.setTag(Category.photo);
         photoButton.setVisibility(!isOverlay ? View.VISIBLE : View.GONE);
+        terrainButton.setTag(Category.elevation);
+        terrainButton.setVisibility(!isOverlay ? View.VISIBLE : View.GONE);
         AppCompatRadioButton qaButton = categoryGroup.findViewById(R.id.categoryQA);
 
         qaButton.setTag(Category.qa);
@@ -675,6 +678,8 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
 
         if (!isOverlay && Category.photo == backgroundCategory) {
             photoButton.setChecked(true);
+        } else if (!isOverlay && Category.elevation == backgroundCategory) {
+            terrainButton.setChecked(true);
         } else if (isOverlay && Category.qa == overlayCategory) {
             qaButton.setChecked(true);
         } else {
