@@ -1331,13 +1331,17 @@ public class Logic {
                                 }
                             }
                         }
-                        if (foundSelected) {
+                        if (foundSelected && !rotatingWay) {
                             startLat = yToLatE7(y);
                             startLon = xToLonE7(x);
                             startX = x;
                             startY = y;
                             draggingMultiselect = true;
                             draggingWay = true;
+                        }
+                        if (rotatingWay) {
+                            startX = x;
+                            startY = y;
                         }
                     } else {
                         if (rotatingWay) {
@@ -1498,11 +1502,18 @@ public class Logic {
             double det = aX * bY - aY * bX;
             int direction = det < 0 ? -1 : 1;
 
-            Way w = selectedWays.get(0);
-            displayAttachedObjectWarning(main, w);
-            getDelegator().rotateWay(w, (float) Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), viewBox);
             startY = absoluteY;
             startX = absoluteX;
+
+            for(Way w : selectedWays){
+                if(w != null){
+                    Coordinates centroid = Geometry.centroidXY(map.getWidth(), map.getHeight(), map.getViewBox(), w);
+                    if (centroid != null) {
+                        displayAttachedObjectWarning(main, w);
+                        getDelegator().rotateWay(w, (float) Math.acos(cosAngle), direction, (float) centroid.x, (float) centroid.y, map.getWidth(), map.getHeight(), viewBox);
+                    }
+                }
+            }
             main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
         } else {
             if (mode == Mode.MODE_ALIGN_BACKGROUND) {
