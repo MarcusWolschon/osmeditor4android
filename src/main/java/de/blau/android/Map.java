@@ -338,9 +338,11 @@ public class Map extends View implements IMapView {
     @NonNull
     private List<MapViewLayer> getLayers(@NonNull LayerType type, @Nullable String contentId) {
         List<MapViewLayer> result = new ArrayList<>();
-        for (MapViewLayer l : mLayers) {
-            if (l.getType().equals(type) && (contentId == null || contentId.equals(l.getContentId()))) {
-                result.add(l);
+        synchronized (mLayers) {
+            for (MapViewLayer l : mLayers) {
+                if (l.getType().equals(type) && (contentId == null || contentId.equals(l.getContentId()))) {
+                    result.add(l);
+                }
             }
         }
         return result;
@@ -376,7 +378,7 @@ public class Map extends View implements IMapView {
     }
 
     /**
-     * Get the top visible imager layer for a type
+     * Get the top visible imagery layer for a type
      * 
      * @param type the type (typically LayerType.Imagery or OVERLAYIMAGERY)
      * @return the layer or null
