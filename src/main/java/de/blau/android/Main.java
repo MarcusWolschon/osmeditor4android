@@ -12,9 +12,11 @@ import java.util.List;
 import java.util.Queue;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -80,9 +82,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentActivity;
+
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.address.Address;
+import de.blau.android.bookmarks.BookmarkIO;
+import de.blau.android.bookmarks.BookmarksDialog;
+import de.blau.android.bookmarks.BookmarksHandler;
+import de.blau.android.bookmarks.BookmarksStorage;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Flavors;
 import de.blau.android.contract.MimeTypes;
@@ -1737,6 +1745,8 @@ public class Main extends FullScreenAppCompatActivity
         undoView.setOnLongClickListener(undoListener);
 
         menu.findItem(R.id.menu_gps_goto_last_edit).setEnabled(undoStorage.canUndo());
+        menu.findItem(R.id.menu_gps_add_to_bookmarks).setEnabled(map.getViewBox().isValid());
+        menu.findItem(R.id.menu_gps_show_bookmarks).setEnabled(true);
 
         LayerDrawable transfer = (LayerDrawable) menu.findItem(R.id.menu_transfer).getIcon();
         final StorageDelegator delegator = App.getDelegator();
@@ -1862,6 +1872,7 @@ public class Main extends FullScreenAppCompatActivity
         final Logic logic = App.getLogic();
         StorageDelegator delegator = App.getDelegator();
         switch (item.getItemId()) {
+
         case R.id.menu_config:
             PrefEditor.start(this);
             return true;
@@ -1970,6 +1981,23 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_gps_follow:
             toggleFollowGPS();
             return true;
+        case R.id.menu_gps_add_to_bookmarks:
+            BookmarksHandler.get(this, new BookmarksHandler.HandleResult() {
+                @Override
+                public void onSuccess(String message, FragmentActivity activity) {
+                    BookmarkIO IO = new BookmarkIO();
+                    IO.writer(getApplicationContext(),message,map.getViewBox());
+                }
+                @Override
+                public void onError() {
+                    runOnUiThread(() -> Snack.toastTopError(Main.this,"Error"));
+                }
+            });
+            return true;
+            case R.id.menu_gps_show_bookmarks:
+                BookmarksDialog bookmarksDialog = new BookmarksDialog(this);
+                bookmarksDialog.showDialog();
+                return true;
         case R.id.menu_gps_goto:
             gotoCurrentLocation();
             return true;
@@ -2006,9 +2034,14 @@ public class Main extends FullScreenAppCompatActivity
                 map.invalidate();
             }
             return true;
+
+
+
+
         case R.id.menu_gps_position_info:
             GnssPositionInfo.showDialog(Main.this, getTracker());
             return true;
+
         case R.id.menu_gps_start:
             List<Integer> tipKeys = new ArrayList<>();
             tipKeys.add(R.string.tip_gpx_recording_key);
@@ -3235,6 +3268,7 @@ public class Main extends FullScreenAppCompatActivity
         PropertyEditorData[] multipleArray = multiple.toArray(new PropertyEditorData[multiple.size()]);
         PropertyEditor.startForResult(this, multipleArray, applyLastAddressTags, showPresets, null, null, REQUEST_EDIT_TAG);
     }
+
 
     /**
      * potentially do some special stuff for invoking undo and exiting
