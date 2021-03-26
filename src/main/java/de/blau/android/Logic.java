@@ -4785,10 +4785,10 @@ public class Logic {
          * @return a sorted List of the input
          */
         public List<O> sort(java.util.Map<T, Double> input) {
-            ArrayList<Entry<T, Double>> entries = new ArrayList<>(input.entrySet());
+            List<Entry<T, Double>> entries = new ArrayList<>(input.entrySet());
             Collections.sort(entries, comparator);
 
-            ArrayList<O> result = new ArrayList<>(entries.size());
+            List<O> result = new ArrayList<>(entries.size());
             for (Entry<T, Double> entry : entries) {
                 result.add(entry.getKey());
             }
