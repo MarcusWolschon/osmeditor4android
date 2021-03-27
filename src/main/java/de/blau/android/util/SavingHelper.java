@@ -94,7 +94,7 @@ public class SavingHelper<T extends Serializable> {
                            // limits the size of the file that can be saved
             Log.d(DEBUG_TAG, "save thread finished");
             return r.getResult();
-        } catch (Exception e) {
+        } catch (Exception e) { // NOSONAR
             ACRAHelper.nocrashReport(e, e.getMessage());
             return false;
         }
@@ -209,7 +209,7 @@ public class SavingHelper<T extends Serializable> {
                            // limits the size of the file that can be loaded
             Log.d(DEBUG_TAG, "load thread finished");
             return r.getResult();
-        } catch (Exception e) {
+        } catch (Exception e) { // NOSONAR
             ACRAHelper.nocrashReport(e, e.getMessage());
             return null;
         }
