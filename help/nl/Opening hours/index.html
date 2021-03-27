@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>OpenStreetMap openingstijden bewerker - Vespucci</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+<!--
+                    <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                                <li >
+                                    
+                                        <a href="../../.."><img src="/vespucci_logo_small.png"></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        
+<li >
+    <a href="../../en/Introduction/">Introduction</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/features/">Features</a>
+</li>
+                                        
+<li >
+    <a href="../../en/15.2.0 Release notes/">15.2.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/15.1.0 Release notes/">15.1.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/15.0.0 Release notes/">15.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/14.1.0 Release notes/">14.1.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/14.0.0 Release notes/">14.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/13.1.0 Release notes/">13.1.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/13.0.0 Release notes/">13.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/12.1.0 Release notes/">12.1.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/12.0.0 Release notes/">12.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/11.2.0 Release notes/">11.2.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/11.1.0 Release notes/">11.1.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/11.0.0 Release notes/">11.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/10.2.0 Release notes/">10.2.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/10.1.0 Release notes/">10.1.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/10.0.0 Release notes/">10.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/0.9.9 Release notes/">0.9.9 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/0.9.8 Release notes/">0.9.8 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/0.9.7 Release notes/">0.9.7 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../en/0.9.6 Release notes/">0.9.6 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/old_release_notes/">Previous release notes</a>
+</li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        
+<li >
+    <a href="../../en/Main map display/">Main map display</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Simple actions/">Simple actions</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Creating new objects/">Creating new objects</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Node selected/">Node selected</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Way selected/">Way selected</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Relation selected/">Relation selected</a>
+</li>
+                                        
+<li >
+    <a href="../../en/New Note selected/">New note selected</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Property editor/">Property editor</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Multiselect/">Multiselect</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Conflict resolution/">Conflict resolution</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Presets/">Presets</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Aligning background imagery/">Aligning background imagery</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Keyboard/">Keyboard and mouse</a>
+</li>
+                                        
+<li >
+    <a href="../../en/GPS sources/">GPS sources</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Tag filter/">Tag based filter</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Preset filter/">Preset based filter</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Opening hours/">Opening hours</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Preferences/">Preferences</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Advanced preferences/">Advanced preferences</a>
+</li>
+                                        
+<li >
+    <a href="../../en/Voice commands/">Voice commands</a>
+</li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        
+<li >
+    <a href="../../../tutorials/network_location/">"network" Location Provider Support</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/custom_imagery/">Custom imagery</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/custom_imagery_mbtiles/">Generating MBTiles files with custom imagery</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/name_suggestions/">Using name suggestions</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/reporting_issues/">Reporting Vespucci issues</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/tag_only/">Tag-only editing</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/presets/">Vespucci presets</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/data_styling/">Vespucci data styling</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/vespucci_intents/">Controlling Vespucci from other apps</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/object_search/">Object search</a>
+</li>
+                                    </ul>
+                                </li>
+                                <li >
+                                    
+                                        <a href="../../../tutorials/screenshots/">Screenshots</a>
+                                </li>
+                                <li >
+                                    
+                                        <a href="../../../tutorials/faq/">FAQ</a>
+                                </li>
+                                <li >
+                                    
+                                        <a href="../../en/Privacy/">Privacy</a>
+                                </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+<!--- Remove Prev - Next
+i-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+<!--                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#openstreetmap-openingstijden-bewerker">OpenStreetMap openingstijden bewerker</a></li>
+            <li><a href="#gebruik-van-de-openingstijdenbewerker">Gebruik van de openingstijdenbewerker</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="openstreetmap-openingstijden-bewerker">OpenStreetMap openingstijden bewerker</h1>
+<p>De OpenStreetMap openingstijden bewerker is redelijk complex en leent zich niet voor een simpele en intuïtieve gebruikersinterface.</p>
+<p>Toch zal je meestal maar een klein deel van de definitie gebruiken. De bewerker helpt hiermee door de obscure onderdelen te verbergen in menus en het gebruik "op de straat" meestal te beperken tot kleine aanpassingen van voorgedefinieerde sjablonen.</p>
+<p><em>Deze documentatie is voorlopig is werk in uitvoering</em></p>
+<h2 id="gebruik-van-de-openingstijdenbewerker">Gebruik van de openingstijdenbewerker</h2>
+<p>In een typische workflow zal het object dat wordt bewerkt al een bestaande openingstijden tag (opening_hours, service_times en collection_times) hebben, of je kan opnieuw een voorkeuze toepassen op het object om een leeg openingstijden veld te krijgen. Om handmatig het veld toe te voegen in Vespucci kan je in de detailspagina de sleutel toevoegen en dan terug naar de formuliergebaseerde wijzigingstab om te wijzigen. Als je denkt dat de openingstijden tag deel had moeten zijn van de voorkeuze, dan kan je een probleemmelding openen voor jouw bewerker. </p>
+<p>Als je een standaardsjabloon hebt gedefiniëerd (doe dit via het "Beheer sjablonen" menu item) zal het sjabloon automatisch worden geladen als de bewerker wordt geladen met een lege waarde. Met de "Laad sjabloon" kan je een ander opgeslagen sjabloon laden en met de "Sjabloon opslaan" menu kan je de huidige waarde als een sjabloon opslaan. Je kan verschillende standaardsjablonen definiëren voor de "opening_hours", "collection_times" en "service_times" tags. </p>
+<p>Natuurlijk kan je een openingstijden met de hand maken, maar we raden aan om een van de bestaande sjablonen als een startpunt te gebruiken.</p>
+<p>Als een bestaande openingstijden waarde is geladen, wordt geprobeerd om het automatisch te corrigeren naar de openingstijden specificatie. Als dat niet mogelijk is zal de locatie van de found worden getoond op de plek in de rauwe OT waarde, en kan worden geprobeerd om het handmatig te herstellen. Ongeveer een kwart van de OT waarden in de OpenStreetMap gegevensbank heeft problemen, maar minder dan 10% kan niet automatisch worden gecorrigeerd, zie <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> voor meer informatie over de afwijkingen in de specificatie die worden getolereerd.</p>
+<h3 id="hoofdmenu-knop">Hoofdmenu knop</h3>
+<ul>
+<li><strong>Voeg regel toe</strong>: voeg een nieuwe regel toe.</li>
+<li><strong>Voeg regel toe voor vakanties</strong>: voeg een nieuwe regel toe voor vakanties samen met een staatwijziging.</li>
+<li><strong>Voeg een regel toe voor 24/7</strong>: voeg een regel toe voor een object dat altijd open is, de openingstijden specification ondersteunt geen andere subwaarden voor 24/7 maar we staan wel toe om hogere niveau selectoren toe te voegen (bijvoorbeeld jaarbereiken).</li>
+<li><strong>Laad sjabloon</strong>: laad een bestaand sjabloon.</li>
+<li><strong>Sla op als sjabloon</strong>: sla de huidige openingstijden waarde als sjabloon voor toekomstig gebruik.</li>
+<li><strong>Beheer sjablonen</strong>: wijzig (bijvoorbeeld de naam) en verwijder bestaande sjablonen.</li>
+<li><strong>Ververs</strong>: lees opnieuw de openingstijden waarde in.</li>
+<li><strong>Verwijder alles</strong>: verwijder alle regels.</li>
+</ul>
+<h3 id="regels">Regels</h3>
+<p>Standaard regels worden toegevoegd als <em>normale</em> rules, dat betekent dat ze waarden van voorgaande regels zullen overschrijven voor dezelfde dagen. Dat kan een probleem zijn als je uitgebreide tijden specificeert, over het algemeen wil je dan de regels wisselen via <em>Toon regeltype</em> menu item naar <em>additief</em>.</p>
+<h4 id="regel-menu">Regel menu</h4>
+<ul>
+<li><strong>Voeg bewerker/commentaar toe</strong>: verander het effect van deze regel en voeg optioneel commentaar toe.</li>
+<li><strong>Voeg vakantie toe</strong>: voeg een selector toe voor feestdagen of schoolvakanties.</li>
+<li><strong>Voeg tijdsbereik toe...</strong><ul>
+<li><strong>Tijd - tijd</strong>: een starttijd tot een eindtijd op dezefde dag.</li>
+<li><strong>Tijd - uitgebreide tijd</strong>: een starttijd tot een eindtijd op de volgende dag (bijvoorbeeld 26:00 is 02:00 (AM) de volgende dag).</li>
+<li><strong>Var. tijd - tijd</strong>: van een variabele starttijd (zonsopgang, zonsondergang) tot een eindtijd on the same day.</li>
+<li><strong>Var. tijd - tijd</strong>: van een variabele starttijd tot een eindtijd op de volgende dag.</li>
+<li><strong>Tijd - var. tijd</strong>: een starttijd tot een variabele eindtijd.</li>
+<li><strong>Var. tijd - var. tijd</strong>: van een variabele starttijd tot een variabele eindttijd.</li>
+<li><strong>Tijd</strong>: een punt in de tijd.</li>
+<li><strong>Tijd-open eind</strong>:  vanaf een startpunt in de tijd.</li>
+<li><strong>Variabelet tijd</strong>: op de variabele tijd</li>
+<li><strong>Variabele tijd-open eind</strong>: vanaf een variabele starttijd.</li>
+</ul>
+</li>
+<li><strong>Voeg dag van de week bereik toe</strong>: voeg een selector toe op basis van de dagen van de week.</li>
+<li><strong>Voeg datumbereik toe...</strong><ul>
+<li><strong>Datum - datum</strong>: vanaf de startdatum (jaar, maand, dag) tot een einddatum.</li>
+<li><strong>Variabele datum - datum</strong>: vanaf een variabele startdatum (de specificatie definiëert alleen <em>Pasen</em>) tot een einddatum.</li>
+<li><strong>Datum - variable datum</strong>: van een startdatum tot een variabele einddatum.</li>
+<li><strong>Variabele datum - variabele datum</strong>:  vanaf een variabele startdatum tot een variabele einddatum.</li>
+<li><strong>Voorkomen in maand - voorkomen in maand</strong>: van een begindag in de maand tot hetzelfde.</li>
+<li><strong>Voorkomen in maand - datum</strong>: van een voorkomen van een dag in de week in de maand tot een einddatum.</li>
+<li><strong>Datum - voorkomen in maand</strong>: van een startdatum tot een eind voorkomen van een weekdag in de maand.
+ </li>
+<li><strong>Voorkomen in maand - variabele datum</strong>: van een voorkomen van een dag in de week in de maand tot een variabele einddatum.</li>
+<li><strong>Variabele datum - voorkomen in maand</strong>: van een variabele startdatum tot een eind voorkomen van een weekdag in de maand.</li>
+<li><strong>Datum - open eind</strong>: vanaf een startdatum.</li>
+<li><strong>Variable datum - open eind</strong>: vanaf een variabele startdatum.</li>
+<li><strong>Voorkomen in maand - open einde</strong>: vanafeen voorkomen van een dag in de week in de maand.</li>
+<li><strong>Met verplaatsingen...</strong>: hetzelfde als hierboven maar met verplaatsingen gespecificeerd (dit wordt zelden gebruikt).</li>
+</ul>
+</li>
+<li><strong>Voeg jaarbereik toe</strong>: voeg een jaargebaseerde selector toe.</li>
+<li><strong>Voeg weekbereik toe</strong>: voeg een selector voor een weeknummer.</li>
+<li><strong>Dupliceer</strong>: maak een kopie van deze regel en voeg hem toe achter de huidige positie.</li>
+<li><strong>Toon regeltype</strong>: toon en wijzig het regeltype tussen <em>normal</em>, <em>additief</em> en <em>terugval</em> (niet beschikbaar op de eerste regel).</li>
+<li><strong>Beweeg naar boven</strong>: beweeg deze regel een positie naar boven (niet beshikbaar voor de eerste regel).</li>
+<li><strong>Beweeg naar beneden</strong>: beweeg deze regel een positie naar beneden.</li>
+<li><strong>Verwijder</strong>: verwijder deze regel.</li>
+</ul>
+<h3 id="tijdsbereiken">Tijdsbereiken</h3>
+<p>Om het wijzigen van tijdbereiken zo gemakkelijk mogelijk te maken, proberen we een optimaal tijdsbereik en granulariteit te selecteren voor de balken wanneer bestaande waarden worden geladen. Voor nieuwe tijdsbereiken beginnen de balken om 6:00 (AM) en hebben ze staggen van 15 minuten, dit kan via het menu worden aangepast.</p>
+<p>Klikken (niet op de bolletjes) op de tijdsbalk opent een groter tijdskeuzescherm, want de balken direct gebruiken is te moeilijk. De tijdkeuze gaat door tot de volgende dag, dus het is een gemakkelijke manier om een tijd te verlengen zonder het bereik te hoeven verwijderen en opnieuw toe te voegen. </p>
+<h4 id="tijdsbereik-menu">Tijdsbereik menu</h4>
+<ul>
+<li><strong>Toon tijdskeuze</strong>: toont een groot scherm om start- en einttijd te kiezen, op kleine schermen is dit de voorkeursmanier om tijden te wijzigen.</li>
+<li><strong>Wissel naar stappen van 15 minuten</strong>: gebruik een granulariteit van 15 minuten voor de balk.</li>
+<li><strong>Wissel naar stappen van 5 minuten</strong>: gebruik een granulariteit van 5 minuten voor de balk.</li>
+<li><strong>Wissel naar stappen van 1 minuut</strong>: gebruik een granulariteit van 1 minuut voor de balk, erg moeilijk om te gebruiken op een telefoon.</li>
+<li><strong>Begin op middernacht</strong>: laat de balk op middernacht beginnen.</li>
+<li><strong>Toon interval</strong>: toont het interval veld om een interval in minuten op te geven.</li>
+<li><strong>Verwijder</strong>: verwijder dit tijdsbereik.</li>
+</ul></div> -->
+                
+                    <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#openstreetmap-openingstijden-bewerker">OpenStreetMap openingstijden bewerker</a></li>
+            <li><a href="#gebruik-van-de-openingstijdenbewerker">Gebruik van de openingstijdenbewerker</a></li>
+    </ul>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="openstreetmap-openingstijden-bewerker">OpenStreetMap openingstijden bewerker</h1>
+<p>De OpenStreetMap openingstijden bewerker is redelijk complex en leent zich niet voor een simpele en intuïtieve gebruikersinterface.</p>
+<p>Toch zal je meestal maar een klein deel van de definitie gebruiken. De bewerker helpt hiermee door de obscure onderdelen te verbergen in menus en het gebruik "op de straat" meestal te beperken tot kleine aanpassingen van voorgedefinieerde sjablonen.</p>
+<p><em>Deze documentatie is voorlopig is werk in uitvoering</em></p>
+<h2 id="gebruik-van-de-openingstijdenbewerker">Gebruik van de openingstijdenbewerker</h2>
+<p>In een typische workflow zal het object dat wordt bewerkt al een bestaande openingstijden tag (opening_hours, service_times en collection_times) hebben, of je kan opnieuw een voorkeuze toepassen op het object om een leeg openingstijden veld te krijgen. Om handmatig het veld toe te voegen in Vespucci kan je in de detailspagina de sleutel toevoegen en dan terug naar de formuliergebaseerde wijzigingstab om te wijzigen. Als je denkt dat de openingstijden tag deel had moeten zijn van de voorkeuze, dan kan je een probleemmelding openen voor jouw bewerker. </p>
+<p>Als je een standaardsjabloon hebt gedefiniëerd (doe dit via het "Beheer sjablonen" menu item) zal het sjabloon automatisch worden geladen als de bewerker wordt geladen met een lege waarde. Met de "Laad sjabloon" kan je een ander opgeslagen sjabloon laden en met de "Sjabloon opslaan" menu kan je de huidige waarde als een sjabloon opslaan. Je kan verschillende standaardsjablonen definiëren voor de "opening_hours", "collection_times" en "service_times" tags. </p>
+<p>Natuurlijk kan je een openingstijden met de hand maken, maar we raden aan om een van de bestaande sjablonen als een startpunt te gebruiken.</p>
+<p>Als een bestaande openingstijden waarde is geladen, wordt geprobeerd om het automatisch te corrigeren naar de openingstijden specificatie. Als dat niet mogelijk is zal de locatie van de found worden getoond op de plek in de rauwe OT waarde, en kan worden geprobeerd om het handmatig te herstellen. Ongeveer een kwart van de OT waarden in de OpenStreetMap gegevensbank heeft problemen, maar minder dan 10% kan niet automatisch worden gecorrigeerd, zie <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> voor meer informatie over de afwijkingen in de specificatie die worden getolereerd.</p>
+<h3 id="hoofdmenu-knop">Hoofdmenu knop</h3>
+<ul>
+<li><strong>Voeg regel toe</strong>: voeg een nieuwe regel toe.</li>
+<li><strong>Voeg regel toe voor vakanties</strong>: voeg een nieuwe regel toe voor vakanties samen met een staatwijziging.</li>
+<li><strong>Voeg een regel toe voor 24/7</strong>: voeg een regel toe voor een object dat altijd open is, de openingstijden specification ondersteunt geen andere subwaarden voor 24/7 maar we staan wel toe om hogere niveau selectoren toe te voegen (bijvoorbeeld jaarbereiken).</li>
+<li><strong>Laad sjabloon</strong>: laad een bestaand sjabloon.</li>
+<li><strong>Sla op als sjabloon</strong>: sla de huidige openingstijden waarde als sjabloon voor toekomstig gebruik.</li>
+<li><strong>Beheer sjablonen</strong>: wijzig (bijvoorbeeld de naam) en verwijder bestaande sjablonen.</li>
+<li><strong>Ververs</strong>: lees opnieuw de openingstijden waarde in.</li>
+<li><strong>Verwijder alles</strong>: verwijder alle regels.</li>
+</ul>
+<h3 id="regels">Regels</h3>
+<p>Standaard regels worden toegevoegd als <em>normale</em> rules, dat betekent dat ze waarden van voorgaande regels zullen overschrijven voor dezelfde dagen. Dat kan een probleem zijn als je uitgebreide tijden specificeert, over het algemeen wil je dan de regels wisselen via <em>Toon regeltype</em> menu item naar <em>additief</em>.</p>
+<h4 id="regel-menu">Regel menu</h4>
+<ul>
+<li><strong>Voeg bewerker/commentaar toe</strong>: verander het effect van deze regel en voeg optioneel commentaar toe.</li>
+<li><strong>Voeg vakantie toe</strong>: voeg een selector toe voor feestdagen of schoolvakanties.</li>
+<li><strong>Voeg tijdsbereik toe...</strong><ul>
+<li><strong>Tijd - tijd</strong>: een starttijd tot een eindtijd op dezefde dag.</li>
+<li><strong>Tijd - uitgebreide tijd</strong>: een starttijd tot een eindtijd op de volgende dag (bijvoorbeeld 26:00 is 02:00 (AM) de volgende dag).</li>
+<li><strong>Var. tijd - tijd</strong>: van een variabele starttijd (zonsopgang, zonsondergang) tot een eindtijd on the same day.</li>
+<li><strong>Var. tijd - tijd</strong>: van een variabele starttijd tot een eindtijd op de volgende dag.</li>
+<li><strong>Tijd - var. tijd</strong>: een starttijd tot een variabele eindtijd.</li>
+<li><strong>Var. tijd - var. tijd</strong>: van een variabele starttijd tot een variabele eindttijd.</li>
+<li><strong>Tijd</strong>: een punt in de tijd.</li>
+<li><strong>Tijd-open eind</strong>:  vanaf een startpunt in de tijd.</li>
+<li><strong>Variabelet tijd</strong>: op de variabele tijd</li>
+<li><strong>Variabele tijd-open eind</strong>: vanaf een variabele starttijd.</li>
+</ul>
+</li>
+<li><strong>Voeg dag van de week bereik toe</strong>: voeg een selector toe op basis van de dagen van de week.</li>
+<li><strong>Voeg datumbereik toe...</strong><ul>
+<li><strong>Datum - datum</strong>: vanaf de startdatum (jaar, maand, dag) tot een einddatum.</li>
+<li><strong>Variabele datum - datum</strong>: vanaf een variabele startdatum (de specificatie definiëert alleen <em>Pasen</em>) tot een einddatum.</li>
+<li><strong>Datum - variable datum</strong>: van een startdatum tot een variabele einddatum.</li>
+<li><strong>Variabele datum - variabele datum</strong>:  vanaf een variabele startdatum tot een variabele einddatum.</li>
+<li><strong>Voorkomen in maand - voorkomen in maand</strong>: van een begindag in de maand tot hetzelfde.</li>
+<li><strong>Voorkomen in maand - datum</strong>: van een voorkomen van een dag in de week in de maand tot een einddatum.</li>
+<li><strong>Datum - voorkomen in maand</strong>: van een startdatum tot een eind voorkomen van een weekdag in de maand.
+ </li>
+<li><strong>Voorkomen in maand - variabele datum</strong>: van een voorkomen van een dag in de week in de maand tot een variabele einddatum.</li>
+<li><strong>Variabele datum - voorkomen in maand</strong>: van een variabele startdatum tot een eind voorkomen van een weekdag in de maand.</li>
+<li><strong>Datum - open eind</strong>: vanaf een startdatum.</li>
+<li><strong>Variable datum - open eind</strong>: vanaf een variabele startdatum.</li>
+<li><strong>Voorkomen in maand - open einde</strong>: vanafeen voorkomen van een dag in de week in de maand.</li>
+<li><strong>Met verplaatsingen...</strong>: hetzelfde als hierboven maar met verplaatsingen gespecificeerd (dit wordt zelden gebruikt).</li>
+</ul>
+</li>
+<li><strong>Voeg jaarbereik toe</strong>: voeg een jaargebaseerde selector toe.</li>
+<li><strong>Voeg weekbereik toe</strong>: voeg een selector voor een weeknummer.</li>
+<li><strong>Dupliceer</strong>: maak een kopie van deze regel en voeg hem toe achter de huidige positie.</li>
+<li><strong>Toon regeltype</strong>: toon en wijzig het regeltype tussen <em>normal</em>, <em>additief</em> en <em>terugval</em> (niet beschikbaar op de eerste regel).</li>
+<li><strong>Beweeg naar boven</strong>: beweeg deze regel een positie naar boven (niet beshikbaar voor de eerste regel).</li>
+<li><strong>Beweeg naar beneden</strong>: beweeg deze regel een positie naar beneden.</li>
+<li><strong>Verwijder</strong>: verwijder deze regel.</li>
+</ul>
+<h3 id="tijdsbereiken">Tijdsbereiken</h3>
+<p>Om het wijzigen van tijdbereiken zo gemakkelijk mogelijk te maken, proberen we een optimaal tijdsbereik en granulariteit te selecteren voor de balken wanneer bestaande waarden worden geladen. Voor nieuwe tijdsbereiken beginnen de balken om 6:00 (AM) en hebben ze staggen van 15 minuten, dit kan via het menu worden aangepast.</p>
+<p>Klikken (niet op de bolletjes) op de tijdsbalk opent een groter tijdskeuzescherm, want de balken direct gebruiken is te moeilijk. De tijdkeuze gaat door tot de volgende dag, dus het is een gemakkelijke manier om een tijd te verlengen zonder het bereik te hoeven verwijderen en opnieuw toe te voegen. </p>
+<h4 id="tijdsbereik-menu">Tijdsbereik menu</h4>
+<ul>
+<li><strong>Toon tijdskeuze</strong>: toont een groot scherm om start- en einttijd te kiezen, op kleine schermen is dit de voorkeursmanier om tijden te wijzigen.</li>
+<li><strong>Wissel naar stappen van 15 minuten</strong>: gebruik een granulariteit van 15 minuten voor de balk.</li>
+<li><strong>Wissel naar stappen van 5 minuten</strong>: gebruik een granulariteit van 5 minuten voor de balk.</li>
+<li><strong>Wissel naar stappen van 1 minuut</strong>: gebruik een granulariteit van 1 minuut voor de balk, erg moeilijk om te gebruiken op een telefoon.</li>
+<li><strong>Begin op middernacht</strong>: laat de balk op middernacht beginnen.</li>
+<li><strong>Toon interval</strong>: toont het interval veld om een interval in minuten op te geven.</li>
+<li><strong>Verwijder</strong>: verwijder dit tijdsbereik.</li>
+</ul></div>
+                
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+<!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+        </footer>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
