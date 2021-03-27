@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
 
-import org.jetbrains.annotations.NotNull;
-
 import android.content.Context;
 import androidx.annotation.NonNull;
 import ch.poole.osm.josmfilterparser.ElementState.State;
@@ -160,7 +158,7 @@ public class Wrapper implements Meta {
     }
 
     @Override
-    public @NotNull Collection<String> getRoles() {
+    public @NonNull Collection<String> getRoles() {
         Set<String> result = new HashSet<>();
         List<Relation> parents = element.getParentRelations();
         if (parents != null) {
@@ -183,7 +181,7 @@ public class Wrapper implements Meta {
     }
 
     @Override
-    public boolean hasRole(@NotNull String role) {
+    public boolean hasRole(@NonNull String role) {
         if (element instanceof Relation) {
             for (RelationMember member : ((Relation) element).getMembers()) {
                 if (role.equals(member.getRole())) {
@@ -195,7 +193,7 @@ public class Wrapper implements Meta {
     }
 
     @Override
-    public Object getPreset(@NotNull String presetPath) {
+    public Object getPreset(@NonNull String presetPath) {
         if (presetPath.endsWith("*")) {
             presetPath = presetPath.substring(0, presetPath.length() - 1);
         }
@@ -208,7 +206,7 @@ public class Wrapper implements Meta {
     }
 
     @Override
-    public boolean matchesPreset(@NotNull Object preset) {
+    public boolean matchesPreset(@NonNull Object preset) {
         SortedMap<String, String> tags = element.getTags();
         ElementType type = element.getType();
         if (preset instanceof PresetItem && matches((PresetItem) preset, type, tags)) {
@@ -314,5 +312,15 @@ public class Wrapper implements Meta {
     @Override
     public boolean isAllInview() {
         return logic.getViewBox().contains(element.getBounds());
+    }
+    
+    @Override
+    public boolean isChild(@NonNull Type type, @NonNull Meta element, @NonNull List<Object> parents) {
+        throw new IllegalArgumentException(context.getString(R.string.search_objects_unsupported, "child"));
+    }
+
+    @Override
+    public boolean isParent(@NonNull Type type, @NonNull Meta meta, @NonNull List<Object> children) {
+        throw new IllegalArgumentException(context.getString(R.string.search_objects_unsupported, "parent"));
     }
 }
