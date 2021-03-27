@@ -3,21 +3,44 @@
   <!--Mode names-->
   <string name="mode_easy">Bình thường</string>
   <string name="mode_tag_only">Chỉ thẻ</string>
-  <string name="mode_indoor">Trong Nhà</string>
+  <string name="mode_indoor">Trong nhà</string>
   <string name="mode_correct">Chế độ C</string>
+  <string name="mode_address">Địa chỉ</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Cẩn thận!</string>
   <string name="transfer_download_current_upload">Tải lên</string>
   <string name="transfer_download_current_download">Vứt bỏ &amp; tải về</string>
+  <string name="transfer_download_current_back">Quay lại (không làm gì)</string>
+  <string name="upload_problem_title">Không thể tải lên</string>
   <string name="bad_request_message">API trả về lỗi. Xin vui lòng lưu dữ liệu và báo cáo lỗi:\n\n</string>
   <string name="upload_conflict_title">Tải lên mâu thuẫn</string>
   <string name="upload_conflict_message_deleted">%1$s \ncó phiên bản địa phương %2$d \ntrong khi nó đã bị xóa trên máy chủ</string>
   <string name="use_local_version">Dùng phiên bản trong điện thoại</string>
   <string name="use_server_version">Dùng phiên bản trên máy chủ</string>
+  <string name="no_login_data_title">Không thể xác thực</string>
+  <string name="no_connection_title">Không có kết nối với máy chủ</string>
+  <string name="wrong_login_data_title">Không thể xác thực</string>
+  <string name="wrong_login_data_re_authenticate">Xác thực lại</string>
   <string name="forbidden_login_title">Cấm đăng nhập</string>
+  <string name="not_found_title">Không tìm thấy phần tử</string>
+  <string name="unknown_error_title">Lỗi không rõ</string>
+  <string name="no_data_title">Không có dữ liệu</string>
   <string name="go_to_openstreetmap">Đi đến openstreetmap.org</string>
+  <string name="data_conflict_title">Phiên bản mâu thuẫn</string>
+  <string name="corrupted_data_title">Dữ liệu hư hỏng</string>
+  <string name="invalid_bounding_box_title">Hộp bao không hợp lệ</string>
   <string name="bounding_box_too_large_title">Khu vực tải về quá lớn</string>
+  <string name="api_offline_title">API tạm ngừng hoạt động</string>
+  <string name="out_of_memory_title">Hết bộ nhớ</string>
+  <string name="invalid_data_received_title">Đã nhận dữ liệu không hợp lệ</string>
+  <string name="invalid_data_read_title">Đã đọc dữ liệu không hợp lệ</string>
+  <string name="file_write_failed_title">Thất bại khi ghi vào tập tin</string>
+  <string name="applying_osc_failed_title">Thất bại khi áp dụng tập tin OSC</string>
   <!---->
+  <string name="welcome_title">Chào mừng</string>
+  <string name="read_introduction">Đọc lời giới thiệu</string>
+  <string name="upgrade_title">Đây là phiên bản Vespucci mới</string>
+  <string name="upgrade_message">Có chi tiết về các tính năng và chế độ mới trong bản ghi chú phát hành.</string>
   <string name="read_upgrade">Tìm hiểu về phiên bản mới</string>
   <string name="progress_title">Đang tải</string>
   <string name="progress_message">Đang tải dữ liệu vào bộ nhớ…</string>
@@ -30,15 +53,23 @@
   <string name="progress_preset_message">Đang tải về thẻ đặt trước…</string>
   <string name="progress_running_message">Đang chạy…</string>
   <string name="progress_oauth">Đang tải tài khoản của bạn trên openstreetmap.org để cấp phép qua OAuth…</string>
+  <string name="progress_building_imagery_database">Đang xây dựng cơ sở dữ liệu hình ảnh…</string>
+  <string name="progress_query_oam">Đang truy vấn OAM…</string>
+  <string name="progress_pruning">Đang xóa bớt…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">Đã xóa “%1$s”</string>
   <string name="changes_changed">Đã thay đổi “%1$s”</string>
   <string name="changes_created">Đã tạo “%1$s”</string>
   <string name="confirm_upload_title">Tải lên các thay đổi</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="other">Tải lên %1$d thay đổi sau?</item>
+  </plurals>
   <string name="confirm_upload_edits_page">Thay đổi</string>
   <string name="upload_comment_label">Miêu tả:</string>
   <string name="upload_source_label">Nguồn:</string>
+  <string name="upload_close_open_changeset_label">Trước tiên phải đóng bộ thay đổi đang mở:</string>
   <string name="upload_close_changeset_label">Đóng bộ thay đổi:</string>
+  <string name="upload_request_review_label">Yêu cầu người khác xem lại:</string>
   <!---->
   <string name="upload_gpx_description_label">Miêu tả</string>
   <string name="upload_gpx_tags_label">Thẻ</string>
@@ -46,14 +77,40 @@
   <string name="upload_validation_error_empty_comment">Không thể để trống miêu tả</string>
   <string name="upload_validation_error_empty_source">Không thể để trống nguồn</string>
   <!--task fragment-->
+  <string name="openstreetbug_new_title">Ghi chú mới</string>
+  <string name="openstreetbug_new_bug">Báo cáo vấn đề</string>
   <string name="openstreetbug_bug_title">Vấn đề</string>
+  <string name="openstreetbug_new_nodeway">Tại nốt/lối</string>
+  <string name="openstreetbug_edit_title">Sửa ghi chú</string>
   <string name="openstreetbug_comment_label">Miêu tả:</string>
+  <string name="openstreetbug_commit_ok">Đã lưu các thay đổi trong việc làm</string>
+  <string name="openstreetbug_commit_fail">Không thể lưu các thay đổi trong việc làm</string>
   <string name="openstreetbug_unknown_task_type">Kiểu công việc không rõ</string>
   <string name="openstreetbug_not_supported">Không hỗ trợ %1$s.</string>
+  <string name="note_description">Ghi chú: %1$s – %2$s</string>
+  <string name="bug_description">%1$s: %2$s – %3$s</string>
+  <string name="bug_description_2">%1$s: %2$s %3$s – %4$s</string>
+  <string name="generic_bug">Lỗi</string>
+  <string name="osmose_bug">Osmose</string>
+  <string name="custom_bug">Tùy biến</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
+  <string name="bug_long_description_2">&lt;br&gt;lúc cập nhật cuối cùng:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
+  <string name="bug_element_1">%1$s (chưa tải về) #%2$d</string>
+  <string name="bug_element_2">%1$s %2$s</string>
+  <string name="maproulette_task_title">Việc làm MapRoulette</string>
+  <string name="maproulette_task_coords">Vĩ %1$4g, kinh %2$4g</string>
+  <string name="maproulette_task_explanations">Lời giải thích</string>
+  <string name="maproulette_task_set_apikey">Đặt chìa khóa API MapRoulette</string>
+  <string name="maproulette_task_apikey_not_set">Không thể lưu chìa khóa API MapRoulette</string>
+  <string name="maproulette_task_disable">Tắt</string>
+  <string name="maproulette_task_apikey_set">Đã lưu chìa khóa API MapRoulette</string>
+  <string name="maproulette_task_no_apikey">Không có chìa khóa API MapRoulette</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Cẩn thận!</string>
+  <string name="unsaved_data_message">Nếu bạn tiếp tục, các thay đổi chưa lưu của bạn sẽ bị mất.</string>
   <string name="unsaved_data_proceed">Vứt bỏ &amp; tiếp tục</string>
   <!--Imagery offset dialog-->
+  <string name="imagery_offset_title">Độ chệch hình ảnh</string>
   <string name="imagery_offset_description">Miêu tả</string>
   <string name="imagery_offset_not_found">Không tìm thấy độ chệch trong vòng 10 km!</string>
   <string name="imagery_offset_author">Tác giả</string>
@@ -61,20 +118,32 @@
   <string name="imagery_offset_date">Ngày tạo</string>
   <string name="imagery_offset_zoom">Thu phóng</string>
   <string name="imagery_offset_distance">Tầm xa</string>
+  <string name="zoom_and_offset">Thu phóng %1$d chệch %2$s/%3$s</string>
   <string name="set_position_datum_label">Mốc trắc địa</string>
   <string name="WGS84">WGS 84</string>
   <string name="tag_editor_name_suggestion">Gợi ý tên gọi</string>
   <!--Search/Find dialog-->
+  <string name="tag_editor_name_suggestion_overwrite_message">Gợi ý này có thể thay thế một số giá trị thẻ bằng giá trị phổ biến hơn.</string>
   <string name="search_results_title">Kết quả tìm kiếm</string>
   <string name="search_online">Tìm kiếm trực tuyến</string>
   <string name="find_message">Nhập truy vấn</string>
   <string name="geocoder_prompt">dùng</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">Tìm kiếm đối tượng</string>
+  <string name="search_objects_hint">Nhập biểu thức bộ lọc/tìm kiếm JOSM</string>
+  <string name="search_objects_unsupported">Biểu thức “%1$s” không được hỗ trợ</string>
   <!---->
   <string name="preset_search_hint">Chuỗi tìm kiếm thẻ đặt trước</string>
+  <string name="preset_autopreset">Thẻ đặt trước tự động</string>
   <string name="search">Tìm kiếm</string>
   <string name="no_valid_preset">Không có thẻ đặt trước hợp lệ!</string>
+  <string name="save_file">Lưu vào</string>
+  <string name="existing_track_title">Dữ liệu tuyến GPX đã tồn tại</string>
+  <string name="existing_track_message">Bạn đã có dữ liệu tuyến GPX. Có lẽ bạn muốn hủy và lưu trước tiên.</string>
+  <string name="delete_tags">Chắc chắn muốn xóa tất cả các thẻ cho đối tượng “%1$s”?</string>
   <!--element information dialog-->
+  <string name="element_information">Thông tin đối tượng</string>
+  <string name="id">ID</string>
   <string name="nodes">Các nốt</string>
   <string name="relation_membership">Trực thuộc quan hệ</string>
   <string name="problem">Vấn đề</string>
@@ -83,14 +152,54 @@
   <string name="version">Phiên bản</string>
   <string name="length_m">Chiều dài (m)</string>
   <string name="not_downloaded">Chưa tải về</string>
+  <string name="empty_role">Thiếu vai trò</string>
   <string name="last_edited">Lần sửa đổi cuối</string>
   <string name="original">Gốc</string>
+  <string name="previous">Trước</string>
   <string name="current">Hiện tại</string>
+  <string name="goto_element">Đi đến phần tử</string>
+  <string name="edit_properties">Sửa thẻ</string>
   <!--GeoJSON feature display dialog-->
+  <string name="feature_information">Thông tin đối tượng GeoJSON</string>
   <string name="copy_properties">Sao chép thuộc tính</string>
   <!--API/Data layer info dialog-->
+  <string name="data_in_memory">Dữ liệu trong bộ nhớ</string>
+  <string name="total">Tổng cộng</string>
+  <string name="changed">Thay đổi</string>
+  <string name="ways">Lối</string>
   <!--Tile layer info dialog-->
+  <string name="attribution">Ghi công</string>
+  <!--Too much data dialog-->
+  <string name="too_much_data_title">Đã tải quá nhiều dữ liệu!</string>
+  <string name="upload_data_now">Tải lên các thay đổi</string>
+  <string name="prune_data_now">Xóa bớt dữ liệu</string>
+  <!--Delete custom preset dialog-->
+  <string name="delete_custom_preset_title">Xóa thẻ đặt trước tùy biến?</string>
+  <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_title">Thêm khúc tuyến đường</string>
+  <string name="duplicate_route_segment_message">Lối này đã thuộc về tuyến đường.</string>
+  <string name="duplicate_route_segment_button">Cứ thêm vào</string>
+  <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_title">Thêm thành viên vào quan hệ</string>
+  <string name="duplicate_relation_member_message">Phần tử này đã thuộc về quan hệ.</string>
+  <string name="duplicate_relation_member_remove_button">Loại bỏ thành viên</string>
+  <!--Move multi-polygon outer element tags to relation-->
+  <string name="move_outer_tags_title">Di chuyển các thẻ từ vòng bên ngoài sang tổ hợp đa giác</string>
+  <string name="move">Di chuyển</string>
+  <string name="leave_as_is">Để yên</string>
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove_duplicate_outer_tags_title">Xóa các thẻ dư khỏi vòng bên ngoài</string>
+  <string name="remove_duplicate_outer_tags_message">Xóa các thẻ khỏi vòng bên ngoài đã được đặt vào tổ hợp đa giác</string>
+  <string name="remove">Loại bỏ</string>
+  <!--Abort action mode dialog-->
+  <!--Address interpoation dialog-->
+  <string name="start">Bắt đầu</string>
+  <string name="end">End</string>
+  <string name="even">Số chẵn</string>
+  <string name="odd">Số lẻ</string>
+  <string name="other">Khác</string>
   <!---->
+  <string name="error">Lỗi</string>
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Tác động này có ảnh hưởng đến các đối tượng nối liền đã được lọc ra!</string>
   <!--This concerns a shown message that should be shown every time-->
@@ -104,6 +213,7 @@
   <string name="validator_title">Bộ quy tắc kiểm tra %1$s</string>
   <string name="edit_resurvey_title">Sửa mục khảo sát lại</string>
   <string name="add_resurvey_title">Thêm mục khảo sát lại</string>
+  <string name="check_entries">Séc</string>
   <string name="edit_check_title">Sửa đổi mục kiểm tra</string>
   <string name="add_check_title">Thêm mục kiểm tra</string>
   <string name="max_age">Tuổi tối đa</string>
@@ -140,6 +250,7 @@
   <string name="json_array_not_displayed">Dãy JSON (không hiển thị)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Lưới</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Hình ảnh</string>
@@ -147,9 +258,20 @@
   <string name="layer_flush_tile_cache">Xóa sạch bộ nhớ đệm mảnh</string>
   <string name="layer_change_style">Đổi kiểu</string>
   <string name="layer_select_imagery">Chọn hình ảnh</string>
+  <string name="layer_category_all">Tất cả</string>
+  <string name="layer_category_map">Bản đồ</string>
+  <string name="layer_category_other">Khác</string>
   <!--Layer info dialog-->
+  <string name="layer_info_start_date">Ngày bắt đầu</string>
+  <string name="layer_info_end_date">Ngày kết thúc</string>
+  <string name="errors">Lỗi</string>
   <!--Photo viewer-->
   <!--API info dialog-->
+  <string name="api_info_attribution">Ghi công</string>
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
+  <string name="select_relation_type_other">Khác</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Điểm Đánh dấu</string>
   <string name="undo_all">Hoàn tác tất cả các điểm đánh dấu sau (chắc chắn)</string>
@@ -173,10 +295,12 @@
   <string name="toast_preset_overwrote_tags">Chú ý: Thẻ đặt trước đã ghi đè lên thẻ</string>
   <string name="toast_merge_overwrote_tags">Chú ý: Tác vụ đã ghi đè lên các thẻ</string>
   <string name="toast_state_file_failed">Tập tin trạng thái không thể đọc hoặc hư hỏng</string>
+  <string name="read_mail">Đọc</string>
   <string name="toast_photo_indexing_started">Đã bắt đầu tìm hình ảnh được định vị</string>
   <string name="toast_photo_indexing_finished">Đã hoàn tất tìm hình ảnh được định vị</string>
   <string name="toast_download_failed">Thất bại khi tải về với mã số lỗi %1$d, thông báo %2$s</string>
   <string name="toast_unsurveyed_road">Đường chưa khảo sát</string>
+  <string name="toast_untagged_relation">Quan hệ không có thẻ</string>
   <!---->
   <string name="toast_oauth">Xin hãy cho phép truy cập tài khoản của bạn qua OAuth.</string>
   <string name="toast_no_oauth">Cấu hình OAuth không có sẵn cho API hiện tại. Xin hãy nhập tên người dùng và mật khẩu.</string>
@@ -215,6 +339,7 @@
   <!--Some generic labels/buttons-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
+  <string name="okay">OK</string>
   <string name="cancel">Hủy bỏ</string>
   <string name="dismiss">Bỏ qua</string>
   <string name="done">Xong</string>
@@ -233,6 +358,7 @@
   <string name="clear">Xóa sạch</string>
   <string name="discard">Bác bỏ</string>
   <string name="retry">Thử lại</string>
+  <string name="check">Séc</string>
   <!--Read a file-->
   <string name="read">Đọc</string>
   <string name="overwrite">Ghi đè</string>
@@ -299,6 +425,7 @@
   <string name="location_radius">%1$d m</string>
   <string name="location_last_text">Vị trí cuối cùng được xác định:</string>
   <string name="location_current_text">Vị trí hiện tại:</string>
+  <string name="location_text_unknown">Không rõ</string>
   <string name="location_last_text_parameterized">Vị trí cuối cùng được xác định: %s$1</string>
   <string name="location_current_text_parameterized">Vị trí hiện tại: %1$s</string>
   <string name="location_text_metadata_location">
@@ -309,6 +436,9 @@
   <string name="location_search_label">Tìm kiếm:</string>
   <string name="location_load_button">Tải</string>
   <string name="location_load_dismiss">Đi đến bản đồ</string>
+  <!--Strings in barometer calibration-->
+  <!--Strings in postition info-->
+  <string name="position_info_altitude">Độ cao</string>
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
   <!--Menu-->
@@ -325,7 +455,6 @@
   <string name="menu_append">Gắn thêm</string>
   <string name="menu_relation">Tạo quan hệ</string>
   <string name="menu_edit_relation">Sửa đổi quan hệ</string>
-  <string name="menu_add_relation_member">Thêm thành viên</string>
   <string name="menu_select_relation_members">Chọn các thành viên</string>
   <string name="menu_tag">Sửa thẻ</string>
   <string name="menu_easyedit">Chỉnh sửa Dễ dàng</string>
@@ -352,6 +481,8 @@
   <string name="menu_paste_from_clipboard">Dán từ bảng tạm</string>
   <string name="menu_zoom_to_selection">Phóng vừa lựa chọn</string>
   <string name="menu_rotate">Quay</string>
+  <string name="menu_orthogonalize">Quảng trường</string>
+  <string name="menu_straighten">Làm thẳng</string>
   <string name="menu_circulize">Làm tròn</string>
   <string name="menu_split_polygon">Chia thành các đa giác</string>
   <string name="menu_extend_selection">Mở rộng lựa chọn</string>
@@ -359,11 +490,9 @@
   <string name="menu_voice_commands">Lệnh bằng giọng nói</string>
   <string name="menu_set_name">Đặt tên</string>
   <string name="menu_tools">Công cụ</string>
-  <string name="menu_tools_imagery">Thêm công cụ hình ảnh</string>
   <string name="menu_tools_add_imagery_from_oam">Thêm hình ảnh OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Xóa sạch tất cả các bộ nhớ đệm mảnh</string>
   <string name="menu_tools_background_properties">Thuộc tính nền</string>
-  <string name="menu_tools_update_imagery_configuration">Cập nhật thiết lập lớp hình ảnh</string>
   <string name="menu_tools_zoom_to_layer_extent">Thu phóng vừa lớp nền</string>
   <!---->
   <string name="menu_privacy">Quyền riêng tư</string>
@@ -376,7 +505,6 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Lớp…</string>
-  <string name="menu_layers_load_geojson">Tải lớp GeoJSON</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Áp dụng độ chệch đã lưu vào hình ảnh</string>
   <string name="menu_tools_background_contrast">Độ tương phản</string>
@@ -473,6 +601,7 @@
   <string name="config_gps_source_tcp_title">Nguồn mạng NMEA</string>
   <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_gps_network_title">Định vị theo mạng thay thế</string>
+  <string name="config_gnssTimeToStale_current">%1$d s</string>
   <!--Server Settings-->
   <string name="config_apibutton_title">URL của API OSM</string>
   <string name="config_loginbutton_title">Tài khoản người dùng</string>
@@ -536,6 +665,10 @@
   <string name="address_housenumber">Địa chỉ số %1$s</string>
   <string name="address_housenumber_street">Địa chỉ số %1$s đường %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_cut">Cắt</string>
+  <string name="undo_action_paste">Dán</string>
+  <string name="undo_action_circulize">Làm tròn</string>
+  <string name="undo_action_fix_conflict">Giải quyết mâu thuẫn</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Tác vụ này sẽ tạo lối có quá nhiều nốt.</string>
@@ -546,60 +679,19 @@
   <string name="alert_distance_direction">trong vòng %1$d m, %2$s</string>
   <!--Misc relation related stuff-->
   <string name="role">Vai trò</string>
+  <string name="role_lc">Vai trò</string>
   <string name="membership_relation_heading">Thành viên quan hệ</string>
   <string name="relation">Quan hệ</string>
   <string name="relations">Các quan hệ</string>
+  <string name="position">Vị trí</string>
   <string name="type">Kiểu</string>
   <string name="object">Đối tượng</string>
   <string name="deleterelation">Xóa quan hệ</string>
   <string name="delete_from_relation_description">Bạn sắp sửa xóa đối tượng này khỏi một quan hệ.</string>
+  <!--Things-->
+  <string name="bridge">Cầu</string>
+  <string name="tunnel">Đường hầm</string>
+  <!--Tag issues-->
   <!--time and distance-->
   <!--Help system-->
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>riêng</item>
-    <item>công khai</item>
-    <item>theo dõi được</item>
-    <item>nhận ra được</item>
-  </string-array>
-  <string-array name="gps_source">
-    <item>Nội bộ</item>
-    <item>NMEA nội bộ</item>
-    <item>NMEA từ trình khách TCP</item>
-    <item>NMEA từ máy chủ TCP</item>
-  </string-array>
-  <string-array name="bug_state">
-    <item>Mở</item>
-    <item>Đóng</item>
-    <item>Dương tính giả</item>
-  </string-array>
-  <string-array name="note_state">
-    <item>Mở</item>
-    <item>Đóng</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>Trái</item>
-    <item>Phải</item>
-    <item>Không</item>
-  </string-array>
-  <string-array name="full_screen_preference_entries">
-    <item>Tự động</item>
-    <item>Không bao giờ</item>
-    <item>Luôn luôn</item>
-    <item>Không có thanh trạng thái</item>
-  </string-array>
-  <string-array name="full_screen_preference_no_auto_entries">
-    <item>Không bao giờ</item>
-    <item>Luôn luôn</item>
-    <item>Không có thanh trạng thái</item>
-  </string-array>
-  <string-array name="tagfilter_type_entries">
-    <item>Tất cả</item>
-    <item>Nốt</item>
-    <item>Lối</item>
-    <item>Lối+</item>
-    <item>Quan hệ</item>
-    <item>Quan hệ+</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

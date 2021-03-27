@@ -5,6 +5,7 @@
   <string name="mode_tag_only">Etiqueta solo</string>
   <string name="mode_indoor">Interior</string>
   <string name="mode_correct">Modo-C</string>
+  <string name="mode_address">Dirección</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">¡Precaución!</string>
   <string name="transfer_download_current_dialog_message">Introdujiste cambios. ¿Quieres subirlos? De otra manera, se descartarán.</string>
@@ -41,6 +42,7 @@
   <string name="go_to_openstreetmap">Ir a openstreetmap.org</string>
   <string name="data_conflict_title">Conflicto de versión</string>
   <string name="data_conflict_message">Los datos de la descarga entrarían en conflicto con sus ediciones. Cargue sus datos antes de volver a intentarlo.</string>
+  <string name="corrupted_data_title">Datos corrompidos</string>
   <string name="invalid_bounding_box_title">Caja de delimitación inválida</string>
   <string name="invalid_bounding_box_message">El área seleccionada no cumple con las restricciones de la API, elija una diferente.</string>
   <string name="bounding_box_too_large_title">Área de descarga demasiado grande</string>
@@ -181,8 +183,10 @@
   <string name="empty_role">Rol vacío</string>
   <string name="last_edited">Última edición</string>
   <string name="original">Original</string>
+  <string name="previous">Anterior</string>
   <string name="current">Actual</string>
   <string name="goto_element">Ir al elemento</string>
+  <string name="edit_properties">Editar Etiquetas</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Información de la función GeoJSON</string>
   <string name="copy_properties">Copiar propiedades</string>
@@ -198,11 +202,27 @@
   <string name="too_much_data_message">Tiene %1$d nodos cargados y han sobrepasado el límite configurado. Esto hará que la aplicación vaya más despacio. Si añade más datos,  pueden aparecer problemas al guardar el estado.</string>
   <string name="upload_data_now">Subir cambios</string>
   <!--Delete custom preset dialog-->
+  <string name="delete_custom_preset_title">¿Eliminar predefinido personalizado?</string>
   <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_title">Añadir segmento de ruta</string>
+  <string name="duplicate_route_segment_message">Esta vía ya es un miembro de la ruta.</string>
+  <string name="duplicate_route_segment_button">Añadir de todos modos</string>
   <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_title">Añadir miembro a la relación</string>
+  <string name="duplicate_relation_member_message">Este elemento ya es un miembro de la relación.</string>
+  <string name="duplicate_relation_member_remove_button">Eliminar miembro</string>
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move_outer_tags_title">Mueva las etiquetas de los anillos exteriores a los multi-polígonos</string>
+  <string name="move">Mover</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove">Eliminar</string>
   <!--Abort action mode dialog-->
+  <!--Address interpoation dialog-->
+  <string name="start">Iniciar</string>
+  <string name="end">Fin</string>
+  <string name="even">Par</string>
+  <string name="odd">Impar</string>
+  <string name="other">Otro</string>
   <!---->
   <string name="error">Error</string>
   <string name="warning">Advertencia</string>
@@ -265,6 +285,7 @@
   <string name="toast_invalid_box">Cuadro delimitador no válido o incompleto</string>
   <string name="delete_layer">¿Borrar capa?</string>
   <string name="delete_endpoint">¿Eliminar endpoint?</string>
+  <string name="add_imagery_from_wms_endpoint">Añadir imagen desde WMS</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Estilo de capa</string>
   <string name="layer_style_stroke_width">Anchura del trazo</string>
@@ -299,18 +320,26 @@
   <string name="layer_info_end_date">Fin de fecha</string>
   <string name="layer_info_terms">Condiciones</string>
   <string name="layer_info_privacy_policy">Política de privacidad</string>
+  <string name="errors">Errores</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Borrar foto</string>
   <string name="photo_viewer_delete_button">Borrar permanentemente</string>
   <string name="photo_viewer_goto">Ir a la foto</string>
+  <string name="photo_viewer_label">Visor de fotos</string>
+  <string name="mapillary_viewer_label">Visor Mapillary</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Cuadro delimitador</string>
   <string name="api_info_latest_date">Última fecha incluida</string>
   <string name="api_info_attribution">Atribución</string>
   <string name="api_info_mapsplit_source">Fuente de solo lectura de MapSplit</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">Etiquetas cambiadas</string>
   <!--Relation selection dialog-->
+  <string name="select_route_title">Seleccionar ruta</string>
+  <string name="select_relation_title">Seleccionar relación</string>
   <!--Preset selection dialog-->
+  <string name="select_relation_type_title">Seleccionar tipo de relación</string>
+  <string name="select_relation_type_other">Otro</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Puntos de control</string>
   <string name="undo_redo_title">Deshacer - rehacer</string>
@@ -468,6 +497,7 @@
   <string name="toast_device_not_found_for">Dispositivo no encontrado para %1$s</string>
   <string name="toast_file_already_exists">El archivo %1$s ya existe</string>
   <string name="toast_file_error_for">Error de archivo para %1$s</string>
+  <string name="toast_error_reading">Error leyendo %1$s</string>
   <string name="toast_http_data_error_for">Error de datos HTTP para %1$s</string>
   <string name="toast_error_insufficient_space_for">No hay suficiente espacio en el dispositivo para %1$s</string>
   <string name="toast_error_too_many_redirects_for">Demasiados redireccionamientos para %1$s</string>
@@ -480,7 +510,9 @@
   <string name="toast_unable_to_open_offline_data">No se pueden abrir los datos sin conexión %1$s %2$s</string>
   <string name="toast_out_of_memory">¡MEMORIA INSUFICIENTE!</string>
   <string name="toast_egm_installed">EGM descargado e instalado</string>
+  <string name="toast_invalid_number_format">Formato de número %1$s inválido</string>
   <string name="toast_error_downloading_mapillary_image">Error descargando la imagen %1$s de Mapillary </string>
+  <string name="toast_error_downloading_mapillary_sequences">Error al descargar secuencias mapillary %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Las fuentes de MapSplit deben tener el zoom mínimo y máximo establecido</string>
   <string name="error_pbf_no_version">Falta información de versión en el archivo PBF</string>
@@ -580,6 +612,7 @@
   <string name="tag_restriction_add_expression">Añadir expresión</string>
   <string name="tag_restriction_add_opening_hours">Añadir horas de apertura</string>
   <string name="tag_restriction_value_hint">Restricción condicional</string>
+  <string name="default_checkgroup_hint">Atributos adicionales</string>
   <string name="tag_form_unknown_element">Elemento desconocido (sin predefinido)</string>
   <string name="tag_form_untagged_element">Elemento sin etiquetar</string>
   <!--Custom preset creation-->
@@ -609,12 +642,17 @@
   <string name="location_nan_message">Inserte coordenadas con formato decimal (por ejemplo, \"52.333572\", \"8.741185\"). Lat. tiene que estar entre -85.0 y +85.0, y Lon. tiene que estar entre -175.0 y +175.0.</string>
   <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_label">Utilizar</string>
   <string name="barometer_calibration_current_height">Altura actual (metros)</string>
   <string name="barometer_calibration_current_reference_pressure">presión de referencia actual (hPa)</string>
+  <string name="barometer_calibration_calibrate">Calibrar</string>
   <!--Strings in postition info-->
   <string name="position_info_title">información de la posición actual.</string>
   <string name="position_info_altitude">Altitud</string>
+  <string name="position_info_geoid_height">Altura sobre el geoide</string>
   <string name="position_info_barometric_height">altura barométrica</string>
+  <string name="position_info_geoid_correction">Corrección de geoide</string>
+  <string name="position_info_ellipsoid_height">Altura sobre el elipsoide</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Descargar archivos</string>
   <string name="allow_all_networks">Permitir todas las redes</string>
@@ -639,8 +677,11 @@
   <string name="menu_remove_node_from_way">Eliminar nodo de la vía</string>
   <string name="menu_extract">Extraer nodo</string>
   <string name="menu_append">Anexar</string>
+  <string name="menu_create_route">Crear ruta</string>
+  <string name="menu_add_to_route">Añadir a ruta</string>
   <string name="menu_relation">Crear relación</string>
   <string name="menu_edit_relation">Editar relación</string>
+  <string name="menu_add_relation_member">Añadir / quitar miembro</string>
   <string name="menu_select_relation_members">Miembros seleccionados</string>
   <string name="menu_tag">Editar etiquetas</string>
   <string name="menu_openstreetbug">Añadir nota</string>
@@ -652,6 +693,7 @@
   <string name="menu_gps_goto">Ir a la localización actual</string>
   <string name="menu_gps_goto_coordinates">Ir a las coordenadas…</string>
   <string name="menu_gps_goto_last_edit">Ir a la última edición</string>
+  <string name="menu_gps_position_info">Información de posición actual</string>
   <string name="menu_gps_start">Iniciar traza GPX</string>
   <string name="menu_gps_pause">Pausar el seguimiento de GPX</string>
   <string name="menu_gps_clear">Limpiar la traza GPX y sus puntos de referencia</string>
@@ -669,6 +711,7 @@
   <string name="menu_transfer_load_current">Cargar vista actual</string>
   <string name="menu_transfer_load_replace">Borrar y cargar vista actual</string>
   <string name="menu_transfer_upload">Subir datos al servidor OSM</string>
+  <string name="menu_transfer_update">Actualizar datos</string>
   <string name="menu_transfer_close_changeset">Cerrar el conjunto de cambios actual</string>
   <string name="menu_transfer_file">Archivo...</string>
   <string name="menu_transfer_export">Exportar cambios a un fichero OSC</string>
@@ -703,17 +746,25 @@
   <string name="menu_circulize">Organizar en círculo</string>
   <string name="menu_split_polygon">Dividir en polígonos</string>
   <string name="menu_unjoin_dissimilar">Separar diferentes</string>
+  <string name="menu_extract_segment">Extraer segmento</string>
   <string name="menu_newnode_gps">Nuevo nodo en posición GPS</string>
   <string name="menu_extend_selection">Ampliar selección</string>
   <string name="menu_information">Información</string>
   <string name="menu_voice_commands">Comandos de voz</string>
+  <string name="menu_upload_element">Actualizar elemento</string>
+  <string name="menu_upload_elements">Actualizar elementos</string>
   <string name="menu_set_name">Establecer nombre</string>
   <string name="menu_tools">Herramientas...</string>
+  <string name="menu_tools_imagery">Más herramientas de imágenes…</string>
   <string name="menu_tools_add_imagery_from_oam">Añadir imágenes desde OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Limpiar todas las cachés de teselas</string>
   <string name="menu_tools_background_properties">Propiedades del fondo</string>
+  <string name="menu_tools_update_imagery_configuration"> Actualizar configuración</string>
+  <string name="menu_tools_update_imagery_configuration_eli">Actualizar configuración desde ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Acercar a la extensión de la capa de fondo</string>
   <string name="menu_tools_clear_clipboard">Limpiar portapapeles</string>
+  <string name="menu_tools_install_egm">Instalar EGM</string>
+  <string name="menu_tools_remove_egm">Quitar EGM</string>
   <!---->
   <string name="menu_simple_actions">Modo simple</string>
   <string name="menu_feedback">Enviar comentarios</string>
@@ -733,8 +784,10 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Capas...</string>
+  <string name="menu_layers_load_geojson">Añadir capa GeoJSON</string>
   <string name="menu_layers_add_backgroundlayer">Agregar capa de imágenes de fondo</string>
   <string name="menu_layers_add_overlaylayer">Agregar capa de imágenes superpuestas</string>
+  <string name="menu_layers_add_photolayer">Habilitar capa de foto</string>
   <string name="menu_layers_configure">Configurar…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Aplicar desplazamiento almacenado a las imágenes</string>
@@ -754,7 +807,6 @@
   <string name="notreversable_description">Esta vía es irreversible debido a que está etiquetada con atributos direccionalmente dependientes. Invertirla rompería el etiquetado.</string>
   <string name="reverse_anyway">Invertir de todas formas</string>
   <string name="deleteway_description">Está a punto de eliminar una vía.\n\nPuede mantener todos los nodos o eliminar aquellos que solo pertenecen a este camino y que no tienen etiquetas.</string>
-  <string name="deleteway_nodesnotdownloaded_description">El camino contiene nodos fuera del área descargada y no se puede eliminar sin crear un estado inconsistente. Descargue todo antes de volver a intentarlo.</string>
   <string name="deleteway_wayonly">Eliminar solo la vía</string>
   <string name="deleteway_wayandnodes">Eliminar vía</string>
   <string name="deletenode">Borrar nodo</string>
@@ -773,6 +825,7 @@
   <string name="actionmode_createpath">Creando camino</string>
   <string name="actionmode_multiselect">Multiselección</string>
   <string name="actionmode_newnoteselect">Nueva nota seleccionada</string>
+  <string name="actionmode_add_segment">Añadir segmento</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Dividir ruta cerrada, 1er nodo</string>
   <string name="actionmode_closed_way_split_2">Dividir ruta cerrada, 2º nodo</string>
@@ -881,6 +934,8 @@
   <string name="config_maxStrokeWidth_title">Anchura máxima de linea</string>
   <string name="config_maxStrokeWidth_summary">No dibuje una vía más gruesa que esta.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_upload_current">%1$d objetos</string>
+  <string name="config_beepVolume_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Configuración de datos y edición</string>
   <string name="config_category_editing_summary">Ajustes de autodescarga, guardado y notificaciones</string>
@@ -912,6 +967,7 @@
   <string name="config_orthogonalizeThreshold_summary">El umbral en ° sobre el cual se ignoran los ángulos</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">Números telefónicos con formato automático</string>
+  <string name="config_maxOffsetDistance_current">%1$d metro(s)</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Configuración de descarga automática</string>
   <string name="config_category_auto_download_summary">Configuraciones para descarga automática de datos y tareas</string>
@@ -1069,10 +1125,12 @@
   <string name="undo_action_paste">Pegar</string>
   <string name="undo_action_rotateway">Rotación de la vía</string>
   <string name="undo_action_orthogonalize">Escuadrar vía</string>
+  <string name="undo_action_circulize">Organizar en círculo</string>
   <string name="undo_action_fix_conflict">Resolución de conflictos</string>
   <string name="undo_action_extract_node">Extracción de nodo</string>
   <string name="undo_action_apply_osc">Aplicar archivo OSC</string>
   <string name="undo_action_remove_node_from_way">Eliminar nodo de la vía</string>
+  <string name="undo_action_extract_segment">Extraer segmento</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci se bloqueó o encontró un problema grave la última vez que se ejecutó.\n\nhaga clic en \"Aceptar\" para enviar un informe de error.\n</string>
   <string name="crash_dialog_comment_prompt">Agregue cualquier información adicional que crea que podría ayudar y (opcionalmente) su nombre de usuario OSM si desea comentarios.\n\nGracias.</string>
@@ -1107,7 +1165,11 @@
   <string name="delete_from_relation_description">Está a punto de eliminar este elemento de una relación.</string>
   <string name="unset_relation_type">Tipo de relación sin especificar</string>
   <!--Things-->
+  <string name="bridge">Puente</string>
+  <string name="tunnel">Túnel</string>
+  <string name="culvert">Alcantarilla</string>
   <!--Tag issues-->
+  <string name="issue_same_object">Mismo objeto</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 día</item>

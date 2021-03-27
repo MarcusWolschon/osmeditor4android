@@ -5,6 +5,7 @@
   <string name="mode_tag_only">Tags alleen</string>
   <string name="mode_indoor">Binnen</string>
   <string name="mode_correct">C-Modus</string>
+  <string name="mode_address">Adres</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Let op!</string>
   <string name="transfer_download_current_dialog_message">Je hebt wijzigingen gemaakt. Wil je uploaden in plaats van ze verwerpen?</string>
@@ -214,7 +215,6 @@
   <string name="duplicate_relation_member_remove_button">Verwijder lid</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Verplaats tags van buitenste ringen naar multipolygoon</string>
-  <string name="move_outer_tags_message">Objectdefiniërende tags moeten alleen aanwezig zijn op het multipolygoon</string>
   <string name="move">Verplaats</string>
   <string name="leave_as_is">Laat zoals het is</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
@@ -223,6 +223,12 @@
   <string name="remove">Verwijder</string>
   <!--Abort action mode dialog-->
   <string name="abort_action_title">Breek actie af</string>
+  <!--Address interpoation dialog-->
+  <string name="start">Begin</string>
+  <string name="end">Einde</string>
+  <string name="even">Even</string>
+  <string name="odd">Oneven</string>
+  <string name="other">Overig</string>
   <!---->
   <string name="error">Fout</string>
   <string name="warning">Waarschuwing</string>
@@ -842,7 +848,6 @@
   <string name="reverse_anyway">Keer toch om</string>
   <string name="deleteway_description">Je staat op het punt om een weg te verwijderen.\n\nJe kunt alle kopen houden, of die verwijderen die tagloos zijn en tot de weg behoren.</string>
   <string name="deleteway_relation_description">Je staat op het punt een weg te verwijderen die lid is van een of meer relaties. Het verwijderen van de weg kan deze relaties ongeldig maken.</string>
-  <string name="deleteway_nodesnotdownloaded_description">Deze weg bevat knopen buiten het gedownloade gebied en kan niet worden verwijderd zonder een inconsistente staat te veroorzaken. Download het allemaal alvorens nogmaals te proberen.</string>
   <string name="deleteway_wayonly">Verwijder alleen de weg</string>
   <string name="deleteway_wayandnodes">Verwijder weg</string>
   <string name="deletenode_relation_description">Je staat op het punt een knoop te verwijderen die lid is van een of meer relaties. Het verwijderen van de knoop kan deze relaties ongeldig maken.</string>
@@ -1018,6 +1023,7 @@
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">Autoformatteer telefoonnummers</string>
   <string name="config_autoformatPhoneNumbers_summary">Activeer automatisch formatteren van telefoonnummers</string>
+  <string name="config_maxOffsetDistance_current">%1$d meter</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Auto-download instellingen</string>
   <string name="config_category_auto_download_summary">Instellingen voor het automatisch downloaden van gegevens en taken</string>
@@ -1104,8 +1110,8 @@
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Gebruik OAuth</string>
   <string name="listedit_enable_oauth">Activeer OAuth</string>
-  <string name="config_username_title">OSM gebruikersnaam</string>
-  <string name="config_password_title">OSM wachtwoord</string>
+  <string name="config_username_title">OSM-gebruikersnaam</string>
+  <string name="config_password_title">OSM-wachtwoord</string>
   <string name="config_password_summary">Vergis je niet voor het wiki wachtwoordt. Onthoud: dit wordt onversleuteld opgeslagen en verstuurd.</string>
   <string name="manage_presets">Beheer voorkeuzen</string>
   <string name="listedit_use_translations">Gebruik vertalingen</string>
@@ -1188,15 +1194,15 @@
   <string name="undo_action_extract_segment">Extraheer segment</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci is gecrashed of heeft een serieus probleem ondervonden tijdens de laatste keer draaien.\n\Help alsjeblieft door \'OK\' te klikken en het foutrapport in te sturen.\n</string>
-  <string name="crash_dialog_comment_prompt">Voeg verdere informatie toe waarvan je denkt dat het nuttig is en (optioneel) je OSM gebruikersnaam als je feeback wilt.\n\nDank je wel.</string>
+  <string name="crash_dialog_comment_prompt">Voeg verdere informatie toe waarvan je denkt dat het nuttig is en (optioneel) je OSM-gebruikersnaam als je feeback wilt.\n\nDank je wel.</string>
   <string name="report_success">Gerapporteerd.</string>
   <string name="report_failure">Kon rapport niet versturen.</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Deze actie zou een weg met te veel kopen maken.</string>
   <!--Notifications-->
-  <string name="alert_data_issue">OSM gegevensprobleem ontdekt</string>
-  <string name="alert_note">Dichtbijgelegen OSM notitie ontdekt.</string>
-  <string name="alert_bug">Dichtbijgelegen OSM bug ontdekt.</string>
+  <string name="alert_data_issue">OSM-gegevensprobleem ontdekt</string>
+  <string name="alert_note">Dichtbijgelegen OSM-notitie ontdekt.</string>
+  <string name="alert_bug">Dichtbijgelegen OSM-bug ontdekt.</string>
   <string name="alert_distance_direction">in %1$d m %2$s</string>
   <string name="bearing_ne">NO ↗</string>
   <string name="bearing_e">O →</string>

@@ -5,6 +5,7 @@
   <string name="mode_tag_only">Attributs seuls</string>
   <string name="mode_indoor">Intérieur</string>
   <string name="mode_correct">Mode C</string>
+  <string name="mode_address">Adresse</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Attention !</string>
   <string name="transfer_download_current_dialog_message">Vous avez fait des modifications. Voulez-vous les envoyer au lieu de les abandonner ?</string>
@@ -41,6 +42,7 @@
   <string name="go_to_openstreetmap">Aller sur openstreetmap.org</string>
   <string name="data_conflict_title">Conflit de version</string>
   <string name="data_conflict_message">Les données téléchargée entraînent des conflits avec vos modifications. Envoyez vos données puis réessayez.</string>
+  <string name="corrupted_data_title">Données corrompues</string>
   <string name="invalid_bounding_box_title">Zone invalide</string>
   <string name="invalid_bounding_box_message">La zone sélectionnée n\'est pas conforme aux restrictions de l\'API. Merci d\'en choisir une autre.</string>
   <string name="bounding_box_too_large_title">Zone de téléchargement trop vaste</string>
@@ -203,11 +205,19 @@
   <!--Duplicate route segment dialog-->
   <string name="duplicate_route_segment_button">Ajouter quand même</string>
   <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_title">Ajouter un membre de la relation</string>
+  <string name="duplicate_relation_member_remove_button">Supprimer un membre</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move">Déplacer</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
   <string name="remove">Retirer</string>
   <!--Abort action mode dialog-->
+  <!--Address interpoation dialog-->
+  <string name="start">Début</string>
+  <string name="end">Fin</string>
+  <string name="even">Paires</string>
+  <string name="odd">Impaires</string>
+  <string name="other">Autre</string>
   <!---->
   <string name="error">Erreur</string>
   <string name="warning">Avertissement</string>
@@ -258,6 +268,7 @@
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Imagerie personnalisée</string>
   <string name="oam_layer_title">Imagerie OAM</string>
+  <string name="wms_endpoints_title">Couches WMS</string>
   <string name="edit_layer_title">Modifier la couche</string>
   <string name="add_layer_title">Ajouter une couche</string>
   <string name="select_layer_title">Sélectionner la couche</string>
@@ -269,6 +280,9 @@
   <string name="coverage_bottom">Bas</string>
   <string name="toast_invalid_box">Zone invalide ou incomplète</string>
   <string name="delete_layer">Supprimer la couche ?</string>
+  <string name="delete_endpoint">Supprimer la couche ?</string>
+  <string name="add_wms_endpoint_title">Ajouter une couche WMS</string>
+  <string name="edit_wms_endpoint_title">Éditer une couche WMS</string>
   <string name="add_imagery_from_wms_endpoint">Ajouter une imagerie depuis WMS</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Style de la couche</string>
@@ -304,18 +318,23 @@
   <string name="layer_info_end_date">Date de fin</string>
   <string name="layer_info_terms">Conditions d\'utilisation</string>
   <string name="layer_info_privacy_policy">Politique de vie privée</string>
+  <string name="errors">Erreurs</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Supprimer la photo</string>
   <string name="photo_viewer_delete_button">Supprimer de manière permanente</string>
   <string name="photo_viewer_goto">Aller à la photo</string>
+  <string name="photo_viewer_label">Visionneuse de photos</string>
+  <string name="mapillary_viewer_label">Visionneuse Mapillary</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Zone</string>
   <string name="api_info_latest_date">Dernière date incluse</string>
   <string name="api_info_attribution">Attribution</string>
   <string name="api_info_mapsplit_source">Source MapSplit en lecture seule</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_message">L\'opération nécessite de changer les tags des éléments concernés.</string>
   <!--Relation selection dialog-->
   <!--Preset selection dialog-->
+  <string name="select_relation_type_other">Autre</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Points de contrôles</string>
   <string name="undo_redo_title">Annuler - Refaire</string>
@@ -586,6 +605,7 @@
   <string name="tag_restriction_add_expression">Ajouter une expression</string>
   <string name="tag_restriction_add_opening_hours">Ajouter des horaires d\'ouverture</string>
   <string name="tag_restriction_value_hint">Restriction conditionnelle</string>
+  <string name="default_checkgroup_hint">Attributs supplémentaires</string>
   <string name="tag_form_unknown_element">Élément inconnu (pas de modèle d\'attributs)</string>
   <string name="tag_form_untagged_element">Élément sans attribut</string>
   <!--Custom preset creation-->
@@ -622,8 +642,12 @@
   <string name="barometer_calibration_calibrate">Calibrer</string>
   <!--Strings in postition info-->
   <string name="position_info_title">Informations de position actuelle</string>
+  <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">Altitude</string>
+  <string name="position_info_geoid_height">Altitude orthométrique</string>
   <string name="position_info_barometric_height">Hauteur barométrique</string>
+  <string name="position_info_geoid_correction">Correction du géoïde</string>
+  <string name="position_info_ellipsoid_height">Hauteur ellipsoïdale</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Télécharger des fichiers</string>
   <string name="allow_all_networks">Permettre tous les réseaux</string>
@@ -779,9 +803,10 @@
   <string name="notreversable_description">Ce chemin ne peut être inversé car il contient des attributs dépendants du sens. Inverser ce chemin rendrait ces attributs incorrects.</string>
   <string name="reverse_anyway">Inverser quand même</string>
   <string name="deleteway_description">Vous êtes sur le point de supprimer un chemin. Vous pouvez soit conserver tous ses nœuds, soit supprimer les nœuds sans attribut et n\'appartenant qu\'à ce chemin.</string>
-  <string name="deleteway_nodesnotdownloaded_description">Le chemin contient des nœuds en dehors de la zone téléchargée et ne peut pas être supprimé sans endommager les données. Téléchargez-le entièrement et réessayez.</string>
+  <string name="deleteway_relation_description">Vous êtes sur le point de supprimer un chemin qui appartient à une ou plusieurs relations. Supprimer un chemin d\'une relation peut la rendre invalide.</string>
   <string name="deleteway_wayonly">Supprimer uniquement le chemin</string>
   <string name="deleteway_wayandnodes">Supprimer le chemin</string>
+  <string name="deletenode_relation_description">Vous êtes sur le point de supprimer un nœud qui appartient à une ou plusieurs relations. Supprimer un nœud d\'une relation peut la rendre invalide.</string>
   <string name="deletenode">Supprimer le nœud</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">Couper…</string>
@@ -909,10 +934,14 @@
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <string name="config_uploadOk_title">Envois en attente OK</string>
   <string name="config_uploadOk_summary">Limite sous laquelle les objets en attente d\'envoi sont considérés comme OK</string>
+  <string name="config_upload_current">%1$d objets</string>
   <string name="config_uploadWarn_title">Seuil d\'alerte des envois en attente</string>
   <string name="config_uploadWarn_summary">Limite sous laquelle les objets en attente d\'envoi sont considérés comme OK</string>
   <string name="config_dataWarn_title">Seuil d\'alerte pour la consommation de données</string>
   <string name="config_dataWarn_summary">Seuil (en nombre de nœuds) d\'alerte sur la trop forte consommation des données envoyées</string>
+  <string name="config_beepVolume_title">Volume du signal sonore</string>
+  <string name="config_beepVolume_summary">Réglage du volume des signaux sonores</string>
+  <string name="config_beepVolume_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Paramètres de données et de modifications</string>
   <string name="config_category_editing_summary">Paramètres de téléchargement automatique, de sauvegardes et de notifications.</string>
@@ -944,6 +973,8 @@
   <string name="config_orthogonalizeThreshold_summary">La limite en ° au delà de laquelle les angles sont ignorés</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">Formater automatique des numéros de téléphones</string>
+  <string name="config_autoformatPhoneNumbers_summary">Activer le formatage automatique des numéros de téléphone</string>
+  <string name="config_maxOffsetDistance_current">%1$d mètres</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Paramètres du téléchargement automatique</string>
   <string name="config_category_auto_download_summary">Les paramètres pour le téléchargement automatique des données et des tâches</string>
@@ -1105,6 +1136,7 @@
   <string name="undo_action_paste">Coller</string>
   <string name="undo_action_rotateway">Rotation d\'un chemin</string>
   <string name="undo_action_orthogonalize">Chemin rendu orthogonal</string>
+  <string name="undo_action_circulize">Placer en cercle</string>
   <string name="undo_action_fix_conflict">Résolution de conflit</string>
   <string name="undo_action_extract_node">Extraction de point</string>
   <string name="undo_action_apply_osc">Appliquer un fichier OSC</string>
@@ -1146,7 +1178,11 @@
   <!--Things-->
   <string name="bridge">Pont</string>
   <string name="tunnel">Tunnel</string>
+  <string name="culvert">Buse</string>
   <!--Tag issues-->
+  <string name="issue_tags_reversed">Tags inversés</string>
+  <string name="issue_merged_tags">Tags fusionnés</string>
+  <string name="issue_same_object">Même objet</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 jour</item>

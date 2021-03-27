@@ -5,6 +5,7 @@
   <string name="mode_tag_only">只有標籤</string>
   <string name="mode_indoor">室內</string>
   <string name="mode_correct">C 模式</string>
+  <string name="mode_address">地址</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">注意！</string>
   <string name="transfer_download_current_dialog_message">您有做了變更。您是否想上傳而非放棄它們？ </string>
@@ -41,6 +42,8 @@
   <string name="go_to_openstreetmap">到 openstreetmap.org</string>
   <string name="data_conflict_title">版本衝突</string>
   <string name="data_conflict_message">您下載的資料會與您的編輯衝突。請先上傳您的資料再重試。</string>
+  <string name="corrupted_data_title">受損資料</string>
+  <string name="corrupted_data_message">資料的不一致已經被偵測，要繼續任何事情前，請先嘗試上傳你編輯過的資料，再來清除任何儲存的資料，然後重新下載。</string>
   <string name="invalid_bounding_box_title">無效的邊框</string>
   <string name="invalid_bounding_box_message">選擇的區域無法符合 API 限制，請選擇另一個地方。</string>
   <string name="bounding_box_too_large_title">下載的區域太大</string>
@@ -180,8 +183,10 @@
   <string name="empty_role">空白角色</string>
   <string name="last_edited">最近編輯</string>
   <string name="original">原來</string>
+  <string name="previous">先前</string>
   <string name="current">目前</string>
   <string name="goto_element">到元素</string>
+  <string name="edit_properties">編輯標籤</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON 圖徵資訊 </string>
   <string name="copy_properties">複製性質</string>
@@ -198,11 +203,31 @@
   <string name="upload_data_now">上傳變動</string>
   <string name="prune_data_now">剪裁資料</string>
   <!--Delete custom preset dialog-->
+  <string name="delete_custom_preset_title">刪除客製化預置？</string>
   <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_title">新增路線片段</string>
+  <string name="duplicate_route_segment_message">這個路徑已經是路線的成員了。</string>
+  <string name="duplicate_route_segment_button">新增任何路徑</string>
   <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_title">新增關聯成員</string>
+  <string name="duplicate_relation_member_message">這元素已經是關聯的成員了。</string>
+  <string name="duplicate_relation_member_remove_button">移除成員</string>
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move_outer_tags_title">從外環移動標籤到多重多邊形</string>
+  <string name="move">移動</string>
+  <string name="leave_as_is">如同棄置</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove_duplicate_outer_tags_title">移除外環上重覆的標籤</string>
+  <string name="remove_duplicate_outer_tags_message">移除外環已經在多重多邊形設定的標籤</string>
+  <string name="remove">移除</string>
   <!--Abort action mode dialog-->
+  <string name="abort_action_title">放棄行動</string>
+  <!--Address interpoation dialog-->
+  <string name="start">開始</string>
+  <string name="end">結束</string>
+  <string name="even">偶數</string>
+  <string name="odd">奇數</string>
+  <string name="other">其他</string>
   <!---->
   <string name="error">錯誤</string>
   <string name="warning">警告</string>
@@ -303,6 +328,8 @@
   <string name="layer_info_end_date">結束日期</string>
   <string name="layer_info_terms">條款</string>
   <string name="layer_info_privacy_policy">隱私政策</string>
+  <string name="projection">投景</string>
+  <string name="errors">錯誤</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">刪除圖片</string>
   <string name="photo_viewer_delete_button">永久刪除</string>
@@ -315,14 +342,22 @@
   <string name="api_info_attribution">貢獻者</string>
   <string name="api_info_mapsplit_source">MapSplit 唯讀來源</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">標籤已經改變</string>
+  <string name="tag_conflict_message">這個動作需要改變涉及元素的標籤。</string>
   <!--Relation selection dialog-->
+  <string name="no_suitable_relations_message">下載資料沒有適當的關聯</string>
+  <string name="select_route_title">選擇路線</string>
+  <string name="select_relation_title">選擇關聯</string>
   <!--Preset selection dialog-->
+  <string name="select_relation_type_title">選擇關聯類型</string>
+  <string name="select_relation_type_other">其他</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">檢查點</string>
   <string name="undo_redo_title">復原及取消復原</string>
   <string name="undo_redo_one">只有選取的檢查點 (不安全)</string>
   <string name="undo_all">取消所有後來的檢查點 (安全)</string>
   <string name="redo_all">重復所有先前的檢查點 (安全)</string>
+  <string name="undo_latest">最新</string>
   <!--Undo location not in view dialog-->
   <string name="undo_location_title">復原的位置並不在視野內</string>
   <string name="undo_location_text">被這次復原影響的位置並不在視野內。</string>
@@ -345,6 +380,10 @@
 離線資料來源來避免。</string>
   <string name="tip_locked_mode">在鎖定模式下你無法編輯，但對物件長按之後會開啟視窗顯示詳細的資訊。</string>
   <string name="tip_longpress_simple_mode">在簡單模式之下長按什麼事情都不會發生。如果要用長按方式來新增物件，則要在主選單關閉簡單模式。</string>
+  <string name="tip_gpx_no_elevation">從版本 15 開始，GPX 軌跡預設將不會有海拔資訊。&lt;p&gt;要啟用海拔記錄，請在用&lt;i&gt;安裝 Geoid 模式。從工具選單安裝 EGM&lt;/i&gt; ，或是切換為 NMEA 輸入。</string>
+  <string name="tip_tag_conflict">合併或回復 OSM 元件有時候需要改變元件的屬性，如果變動時有可能出現錯誤或衝突的話，你能手動審核有問題的元件。</string>
+  <string name="tip_gpx_recording">當你開始錄製 GPX 時，Vespucci 收集位置資料來啟用 GPX 錄製功能，即便 app 是屬於看不到狀況。&lt;p&gt;特別是關係程式或是關閉 GPX 錄製功能，則會停止採用位置資訊。</string>
+  <string name="tip_auto_download">當下自動下載 OSM 資料時，或是讓 Vespucci 運用位置資訊，甚至能在看不到 app 情形下來判定目前位置。&lt;p&gt;特別是關係程式或是關係自動下載功能，則會停止採用位置資訊。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -356,6 +395,7 @@
   <string name="qa_channel_description">資料問題和任務的 QA 警告頻道</string>
   <!--Toaster-->
   <string name="toast_permission_denied">%1$s權限無法讀取</string>
+  <string name="toast_unable_to_persist_permissions">無法保留權限</string>
   <string name="toast_name_empty">選擇名稱</string>
   <string name="toast_url_empty">輸入 URL</string>
   <string name="toast_min_zoom">設定比最大值小的最小縮放比例</string>
@@ -434,6 +474,7 @@
   <string name="toast_security_error_accessing_photo">無法讀取照片 %1$s</string>
   <string name="toast_no_voice_recognition">沒有語音識別設備存在</string>
   <string name="toast_no_coverage">%1$s在這裡無覆蓋</string>
+  <string name="toast_tile_layer_errors">影像來源\'%1$s\' 有錯誤發生</string>
   <string name="toast_file_exists">%1$s檔案存在。</string>
   <string name="toast_needs_resurvey">物件可能過期了</string>
   <string name="toast_missing_key">%1$s鍵值遺失</string>
@@ -486,6 +527,7 @@
   <string name="toast_restart_required">你需要重新啟動 Vespucci 來啟動變更</string>
   <string name="toast_unable_to_open_offline_data">無法開啟離線資料 %1$s%2$s</string>
   <string name="toast_no_usable_location">沒有可用的位置</string>
+  <string name="toast_default_channel_needs_to_be_enabled">預設通知頻道必須開啟，才能開始錄製</string>
   <plurals name="added_required_elements">
     <item quantity="other">增加 %1$d 所需要的元件 </item>
   </plurals>
@@ -494,6 +536,14 @@
   <string name="toast_invalid_number_format">無效的數字格式%1$s</string>
   <string name="toast_error_downloading_mapillary_image">下載 Mapillary 影像出錯%1$s</string>
   <string name="toast_error_downloading_mapillary_sequences">下載 Mapillary 序列出錯%1$s</string>
+  <string name="toast_split_first_segment">分割第一個片段</string>
+  <string name="toast_split_first_and_next_segment">分割第一個與下一個片段</string>
+  <string name="toast_split_next_segment">分割下一個片段</string>
+  <string name="toast_nothing_changed">什麼都沒有改變</string>
+  <string name="toast_preset_failed">無法創造預置 %1$s\n%2$s錯誤</string>
+  <string name="toast_outer_rings_differing_tags">外圍部分有不同的標籤</string>
+  <string name="toast_multipolygon_has_incomplete_rings">多重多邊形有不完整的環</string>
+  <string name="toast_multipolygon_inconsistent_roles">多重多邊形環有不一致角色值</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -549,6 +599,7 @@
   <string name="tag_menu_preset">預置</string>
   <string name="tag_menu_apply_preset">套用預置</string>
   <string name="tag_menu_apply_preset_with_optional">有條件套用預置</string>
+  <string name="tag_menu_show_alternatives">顯示其他標籤</string>
   <string name="tag_menu_revert">回復</string>
   <string name="tag_menu_mapfeatures">地圖圖徵 Wiki</string>
   <string name="tag_menu_addtorelation">增加到關係</string>
@@ -593,6 +644,7 @@
   <string name="tag_restriction_add_expression">增加表達式</string>
   <string name="tag_restriction_add_opening_hours">增加營業時間</string>
   <string name="tag_restriction_value_hint">修件限制</string>
+  <string name="default_checkgroup_hint">額外的署名</string>
   <string name="tag_form_unknown_element">未知元件 (未找到預設組合)</string>
   <string name="tag_form_untagged_element">沒有標示標籤的元素</string>
   <!--Custom preset creation-->
@@ -659,8 +711,11 @@
   <string name="menu_remove_node_from_way">移除路徑的節點</string>
   <string name="menu_extract">抽出節點</string>
   <string name="menu_append">追加</string>
+  <string name="menu_create_route">創建路線</string>
+  <string name="menu_add_to_route">加入路線</string>
   <string name="menu_relation">建立關係</string>
   <string name="menu_edit_relation">編輯關係</string>
+  <string name="menu_add_relation_member">新增/移除成員</string>
   <string name="menu_select_relation_members">選擇成員</string>
   <string name="menu_tag">編輯標籤</string>
   <string name="menu_openstreetbug">增加註解</string>
@@ -790,9 +845,10 @@
   <string name="notreversable_description">該道路是有標記與屬性的，那是方向依據並且不能反向。反向道路將會破壞標簽。</string>
   <string name="reverse_anyway">仍然反向</string>
   <string name="deleteway_description">您即將刪除一條路徑。\n\n您可以保留所有節點，或者刪除只屬於這條路徑，並且沒有任何標籤的節點。</string>
-  <string name="deleteway_nodesnotdownloaded_description">路徑含有在下載區域之外的節點，不能在還沒有建立並且不一致的狀態中刪除。先下載整體路徑然後再重試。</string>
+  <string name="deleteway_relation_description">你即將刪除屬於一個或多個關聯當中成員的路徑，移除路徑意味著處理關聯可能無效。</string>
   <string name="deleteway_wayonly">只刪除路徑</string>
   <string name="deleteway_wayandnodes">刪除路徑</string>
+  <string name="deletenode_relation_description">你即將刪除屬一個或多個關聯當中成員的節點，移除節點意味著處理關聯可能無效。</string>
   <string name="deletenode">刪除節點</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">分割...</string>
@@ -809,6 +865,8 @@
   <string name="actionmode_createpath">建立路徑</string>
   <string name="actionmode_multiselect">多重選擇</string>
   <string name="actionmode_newnoteselect">選擇新的備註</string>
+  <string name="actionmode_add_segment">加入片段</string>
+  <string name="actionmode_reselect_first_segment">重新選擇第一個片段</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">第 1 節點拆分封閉路徑</string>
   <string name="actionmode_closed_way_split_2">第 2 節點拆分封閉路徑</string>
@@ -925,6 +983,11 @@
   <string name="config_uploadWarn_summary">低於上限的情形之下，待上傳的物件會出現警告狀態</string>
   <string name="config_dataWarn_title">太多資料警告</string>
   <string name="config_dataWarn_summary">開始警告上傳太多資料的上限 (用節點的數量計算) </string>
+  <string name="config_useUrlForFeedback_title">關閉回饋活動</string>
+  <string name="config_useUrlForFeedback_summary">關閉回饋活動，然後使用 URL 來替代。</string>
+  <string name="config_beepVolume_title">蜂鳴聲大小</string>
+  <string name="config_beepVolume_summary">蜂鳴聲音設定</string>
+  <string name="config_beepVolume_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">資料和編輯設定</string>
   <string name="config_category_editing_summary">自動下載，儲存和通知設定</string>
@@ -956,6 +1019,8 @@
   <string name="config_orthogonalizeThreshold_summary">° 以內的閾值角度將被忽略</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">自動格式的電話號碼</string>
+  <string name="config_autoformatPhoneNumbers_summary">啟用電話號碼的自動格式化功能</string>
+  <string name="config_maxOffsetDistance_current">%1$d公尺</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動下載設定</string>
   <string name="config_category_auto_download_summary">資料和任務自動下載的設定</string>
@@ -1117,6 +1182,7 @@
   <string name="undo_action_paste">貼上</string>
   <string name="undo_action_rotateway">路徑旋轉</string>
   <string name="undo_action_orthogonalize">直角化路徑</string>
+  <string name="undo_action_circulize">在圓週排列</string>
   <string name="undo_action_fix_conflict">修正衝突</string>
   <string name="undo_action_extract_node">抽出節點</string>
   <string name="undo_action_apply_osc">套用 OSC 檔案</string>
@@ -1160,6 +1226,15 @@
   <string name="tunnel">隧道</string>
   <string name="culvert">涵洞</string>
   <!--Tag issues-->
+  <string name="issue_not_reversable">標籤無法回復</string>
+  <string name="issue_shared_node">與其他路徑分享</string>
+  <string name="issue_tags_reversed">標籤回復</string>
+  <string name="issue_role_reversed">角色回復</string>
+  <string name="issue_role_conflict">角色衝突</string>
+  <string name="issue_merged_tags">合併標籤</string>
+  <string name="issue_same_object">相同物件</string>
+  <string name="issue_merged_metric">長度相關數值已經合併</string>
+  <string name="issue_split_metric">長度相關數值已經分割</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="other">%1$d天</item>
