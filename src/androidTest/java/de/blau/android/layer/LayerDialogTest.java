@@ -9,6 +9,7 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -244,7 +245,7 @@ public class LayerDialogTest {
     }
 
     /**
-     * Set to None
+     * Set to "mapnik" displaying the info dialog 1st
      */
     @Test
     public void backgroundLayer() {
@@ -254,7 +255,11 @@ public class LayerDialogTest {
         screenshotRule.screenshot(main, "imagery_selection_1");
         TestUtils.clickText(device, true, main.getString(R.string.okay), true, false); // for the tip alert
         screenshotRule.screenshot(main, "imagery_selection_2");
-        assertTrue(TestUtils.clickText(device, true, "OpenStreetMap (Standard)", true, false));
+        UiObject2 text = TestUtils.findObjectWithText(device, false, "OpenStreetMap (Standard)", 1000);
+        List<UiObject2> children = text.getParent().getChildren();
+        assertNotNull(children.get(1).clickAndWait(Until.newWindow(), 1000));
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.done), true, false));
+        assertNotNull(text.clickAndWait(Until.newWindow(), 1000));
         TestUtils.sleep();
         main.getMap().invalidate();
         TestUtils.sleep();
