@@ -1,12 +1,16 @@
 package de.blau.android.dialogs;
 
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.recyclerview.widget.RecyclerView;
+import de.blau.android.R;
 import de.blau.android.resources.TileLayerSource;
 
 public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.ImageryViewHolder> {
@@ -15,26 +19,29 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
     private String                                            currentId;
     private final LayoutParams                                buttonLayoutParams;
     private android.widget.RadioGroup.OnCheckedChangeListener groupChangeListener = null;
+    private OnInfoClickListener infoClickListener = null;
 
     private int selected = -1;
 
     public static class ImageryViewHolder extends RecyclerView.ViewHolder {
         AppCompatRadioButton button;
+        ImageButton infoButton;
 
         /**
          * Create a new ViewHolder
-         * 
+         *
          * @param v the RadioButton that will be displayed
          */
-        public ImageryViewHolder(@NonNull AppCompatRadioButton v) {
+        public ImageryViewHolder(@NonNull View v) {
             super(v);
-            button = v;
+            button = v.findViewById(R.id.listItemRadioButton);
+            infoButton = v.findViewById(R.id.listItemInfo);
         }
     }
 
     /**
      * Create a new adapter
-     * 
+     *
      * @param names an array with imagery names
      * @param currentId an array with imagery ids
      * @param isOverlay the current imagery id
@@ -59,11 +66,32 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
         }
     };
 
+    interface OnInfoClickListener{
+
+        /**
+         * Implements info icon click logic
+         *
+         * @param id the selected layer id
+         */
+        void onInfoClick(@NonNull String id);
+    }
+
+    /**
+     * Set the listener for the info icon
+     *
+     * @param listener on click behaviour
+     */
+    public void addInfoClickListener(@NonNull OnInfoClickListener listener) {
+        infoClickListener = listener;
+    }
+
     @Override
     public ImageryListAdapter.ImageryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final AppCompatRadioButton button = new AppCompatRadioButton(parent.getContext());
         button.setLayoutParams(buttonLayoutParams);
-        return new ImageryViewHolder(button);
+        View listItem = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.imagery_layer_list_item, parent, false);
+        return new ImageryViewHolder(listItem);
     }
 
     @Override
@@ -78,6 +106,11 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
             holder.button.setChecked(false);
         }
         holder.button.setOnCheckedChangeListener(onCheckedChangeListener);
+        holder.infoButton.setOnClickListener(view -> {
+            if(infoClickListener != null){
+                infoClickListener.onInfoClick(ids[position]);
+            }
+        });
     }
 
     @Override
@@ -87,7 +120,7 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
 
     /**
      * Set the ids and name arrays that are going to be display
-     * 
+     *
      * @param ids the array of imagery ids
      * @param true if this is for overlay selection
      * @param update if true this is an update of an existing adapter
@@ -102,7 +135,7 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
 
     /**
      * Set a new OnCheckedChangeListener
-     * 
+     *
      * @param groupChangeListener the listener
      */
     void setOnCheckedChangeListener(@NonNull android.widget.RadioGroup.OnCheckedChangeListener groupChangeListener) {

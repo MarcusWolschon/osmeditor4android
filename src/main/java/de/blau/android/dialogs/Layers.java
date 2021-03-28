@@ -74,6 +74,7 @@ import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.SizedFixedImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.views.layers.ImageryLayerInfo;
 import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
 
@@ -701,6 +702,17 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
 
         final ImageryListAdapter adapter = new ImageryListAdapter(ids, currentId, isOverlay, buttonLayoutParams,
                 new LayerOnCheckedChangeListener(activity, dialog, row, layer, ids));
+        adapter.addInfoClickListener((String id) -> {
+            TileLayerSource l = TileLayerSource.get(getContext(), id, true);
+            if (l != null) {
+                LayerInfo f = new ImageryLayerInfo();
+                f.setShowsDialog(true);
+                Bundle args = new Bundle();
+                args.putSerializable(ImageryLayerInfo.LAYER_KEY, l);
+                f.setArguments(args);
+                LayerInfo.showDialog(getActivity(), f);
+            }
+        });
         imageryList.setAdapter(adapter);
 
         categoryGroup.setOnCheckedChangeListener((group, checkedId) -> {
