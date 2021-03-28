@@ -11,6 +11,7 @@
         android:layout_marginRight="30dp"/>
     <ImageButton
         android:id="@+id/listItemInfo"
+        android:padding="10dp"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
