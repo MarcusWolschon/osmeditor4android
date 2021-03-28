@@ -1341,20 +1341,19 @@ public class TileLayerSource implements Serializable {
             } else if (t1.preference > t2.preference) {
                 return -1;
             }
-            if (t1.endDate == t2.endDate) {
-                if (t1.defaultLayer != t2.defaultLayer) {
-                    return t2.defaultLayer ? 1 : -1;
-                }
-                double t1Size = coverageSize(t1.getCoverage());
-                double t2Size = coverageSize(t2.getCoverage());
-                if (t1Size != t2Size) {
-                    return t1Size < t2Size ? -1 : 1;
-                } else {
-                    return t1.getName().compareToIgnoreCase(t2.getName()); // alphabetic
-                }
+            if (t1.defaultLayer != t2.defaultLayer) {
+                return t2.defaultLayer ? 1 : -1;
+            }
+            double t1Size = coverageSize(t1.getCoverage());
+            double t2Size = coverageSize(t2.getCoverage());
+            if (t1Size != t2Size) {
+                return t1Size < t2Size ? -1 : 1;
             } else {
-                // assumption no end date == ongoing
-                return t1.endDate < t2.endDate ? 1 : -1;
+                if (t1.endDate != t2.endDate) {
+                    // assumption no end date == ongoing
+                    return t1.endDate < t2.endDate ? 1 : -1;
+                }
+                return t1.getName().compareToIgnoreCase(t2.getName()); // alphabetic
             }
         });
         // add NONE
@@ -1370,8 +1369,8 @@ public class TileLayerSource implements Serializable {
      * @param areas List of ConverageAreas
      * @return an approximate size value in WGS84 degrees^2
      */
-    private static double coverageSize(List<CoverageArea> areas) {
-        double result = GeoMath.MAX_LON * GeoMath.MAX_COMPAT_LAT * 4;
+    private static double coverageSize(@Nullable List<CoverageArea> areas) {
+        double result = 0;
         if (areas != null) {
             for (CoverageArea area : areas) {
                 BoundingBox box = area.getBoundingBox();
@@ -1380,7 +1379,7 @@ public class TileLayerSource implements Serializable {
                 }
             }
         }
-        return result;
+        return result == 0 ? GeoMath.MAX_LON * GeoMath.MAX_COMPAT_LAT * 4 : result;
     }
 
     /**
@@ -1389,7 +1388,7 @@ public class TileLayerSource implements Serializable {
      * @param box the bounding box we want to test
      * @return true if covered or no coverage information
      */
-    public boolean covers(BoundingBox box) {
+    public boolean covers(@NonNull BoundingBox box) {
         if (!getProviders().isEmpty()) {
             for (Provider p : getProviders()) {
                 if (p.covers(box)) {
@@ -1407,7 +1406,7 @@ public class TileLayerSource implements Serializable {
      * @param box the bounding box we want to get the max zoom for
      * @return maximum zoom for this area, -1 if nothing found
      */
-    public int getMaxZoom(BoundingBox box) {
+    public int getMaxZoom(@NonNull BoundingBox box) {
         int max = 0;
         if (!getProviders().isEmpty()) {
             for (Provider p : getProviders()) {
