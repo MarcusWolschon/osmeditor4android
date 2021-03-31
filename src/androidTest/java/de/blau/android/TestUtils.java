@@ -1243,4 +1243,16 @@ public class TestUtils {
     public static UiObject getLock(@NonNull UiDevice device) {
         return device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/floatingLock"));
     }
+
+    /**
+     * Check for a layer name in a layer list
+     *
+     * @return true if element exists
+     */
+    public static boolean findInParentList(String[] parentList, String child) {
+        for(String element : parentList){
+            if(child.equals(element)) return true;
+        }
+        return false;
+    }
 }
