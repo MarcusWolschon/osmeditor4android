@@ -9,7 +9,6 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,6 +19,7 @@ import org.junit.runner.RunWith;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Intent;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
@@ -42,7 +42,6 @@ import de.blau.android.layer.data.MapOverlay;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -274,29 +273,20 @@ public class LayerDialogTest {
      */
     @Test
     public void layerFilter() {
+        try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
+            TileLayerSource.addOrUpdateCustomLayer(main, db.getWritableDatabase(), MockTileServer.MOCK_TILE_SOURCE, TileLayerSource.getDefault(main, true),
+                    -1, -1, "Terrain Test", new TileLayerSource.Provider(), TileLayerSource.Category.elevation, null, 0, 19, true, "");
+        }
+
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
         assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_add_backgroundlayer), true, false));
-
-        ViewBox viewBox = map.getViewBox();
-        String[] aerialIds = TileLayerSource.getIds(viewBox, true, TileLayerSource.Category.photo);
-        String[] terrainIds = TileLayerSource.getIds(viewBox, true, TileLayerSource.Category.elevation);
-
-        String[] aerialNames = TileLayerSource.getNames(aerialIds);
-        String[] terrainNames = TileLayerSource.getNames(terrainIds);
+        TestUtils.clickText(device, true, main.getString(R.string.okay), true, false);
 
         assertTrue(TestUtils.clickText(device, true, "All", true, false));
-
         assertTrue(TestUtils.clickText(device, true, "Aerial imagery", true, false));
-        UiObject2 bingAerial = TestUtils.findObjectWithText(device, false, "Bing aerial imagery", 1000);
-        List<UiObject2> childrenAerial = bingAerial.getParent().getChildren();
-        assertTrue(TestUtils.findInParentList(aerialNames, childrenAerial.get(0).getText()));
-
         assertTrue(TestUtils.clickText(device, true, "Terrain", true, false));
-        UiObject2 stamenTerrain = TestUtils.findObjectWithText(device, false, "Stamen Terrain", 1000);
-        List<UiObject2> childrenTerrain = stamenTerrain.getParent().getChildren();
-        assertTrue(TestUtils.findInParentList(terrainNames, childrenTerrain.get(0).getText()));
-
+        assertTrue(TestUtils.clickText(device, true, "Terrain Test", false, false));
         assertTrue(TestUtils.clickText(device, true, "Cancel", true, false));
     }
 }
