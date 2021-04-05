@@ -424,9 +424,9 @@ dependencies {
     implementation "ch.poole:PoParser:0.7.2"
     implementation "ch.poole:OpeningHoursParser:0.23.2"
     implementation "ch.poole:ConditionalRestrictionParser:0.3.0"
-    implementation "ch.poole:OpeningHoursFragment:0.9.2"
-    implementation 'ch.poole.android:numberpicker:1.0.9'
-    implementation 'ch.poole.android:numberpickerpreference:2.0.0'
+    implementation "ch.poole:OpeningHoursFragment:0.9.3"
+    implementation 'ch.poole.android:numberpicker:1.0.10'
+    implementation 'ch.poole.android:numberpickerpreference:2.0.1'
     implementation "ch.poole.osm:JosmFilterParser:0.5.1"
     implementation 'de.westnordost:countryboundaries:1.5'
     implementation 'com.github.sevar83:indeterminate-checkbox:1.0.5@aar'
