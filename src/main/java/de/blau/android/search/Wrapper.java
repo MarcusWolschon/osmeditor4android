@@ -123,6 +123,8 @@ public class Wrapper implements Meta {
     public int getNodeCount() {
         if (element instanceof Way) {
             return ((Way) element).nodeCount();
+        } else if (element instanceof Relation) {
+            return getMemberTypeCount(Node.NAME);
         }
         return 0;
     }
@@ -132,16 +134,26 @@ public class Wrapper implements Meta {
         if (element instanceof Node) {
             return App.getLogic().getWaysForNode((Node) element).size();
         } else if (element instanceof Relation) {
-            List<RelationMember> members = ((Relation) element).getMembers();
-            int count = 0;
-            for (RelationMember rm : members) {
-                if (Way.NAME.equals(rm.getType())) {
-                    count++;
-                }
-            }
-            return count;
+            return getMemberTypeCount(Way.NAME);
         }
         return 0;
+    }
+
+    /**
+     * Count the number of members of the supplied type
+     * 
+     * @param type the element type to count
+     * @return a count
+     */
+    private int getMemberTypeCount(@NonNull String type) {
+        List<RelationMember> members = ((Relation) element).getMembers();
+        int count = 0;
+        for (RelationMember rm : members) {
+            if (type.equals(rm.getType())) {
+                count++;
+            }
+        }
+        return count;
     }
 
     @Override
