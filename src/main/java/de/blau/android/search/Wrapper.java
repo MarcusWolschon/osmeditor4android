@@ -148,9 +148,11 @@ public class Wrapper implements Meta {
     private int getMemberTypeCount(@NonNull String type) {
         List<RelationMember> members = ((Relation) element).getMembers();
         int count = 0;
-        for (RelationMember rm : members) {
-            if (type.equals(rm.getType())) {
-                count++;
+        if (members != null) {
+            for (RelationMember rm : members) {
+                if (type.equals(rm.getType())) {
+                    count++;
+                }
             }
         }
         return count;
@@ -195,9 +197,12 @@ public class Wrapper implements Meta {
     @Override
     public boolean hasRole(@NonNull String role) {
         if (element instanceof Relation) {
-            for (RelationMember member : ((Relation) element).getMembers()) {
-                if (role.equals(member.getRole())) {
-                    return true;
+            List<RelationMember> members = ((Relation) element).getMembers();
+            if (members != null) {
+                for (RelationMember member : members) {
+                    if (role.equals(member.getRole())) {
+                        return true;
+                    }
                 }
             }
         }
@@ -288,9 +293,12 @@ public class Wrapper implements Meta {
      */
     boolean inBox(@NonNull BoundingBox box) {
         if (element instanceof Relation) {
-            for (RelationMember rm : ((Relation) element).getMembers()) {
-                if (rm.downloaded() && !Relation.NAME.equals(rm.getType()) && inBox(box, rm.getElement())) {
-                    return true;
+            List<RelationMember> members = ((Relation) element).getMembers();
+            if (members != null) {
+                for (RelationMember rm : members) {
+                    if (rm.downloaded() && !Relation.NAME.equals(rm.getType()) && inBox(box, rm.getElement())) {
+                        return true;
+                    }
                 }
             }
             return false;
@@ -325,7 +333,7 @@ public class Wrapper implements Meta {
     public boolean isAllInview() {
         return logic.getViewBox().contains(element.getBounds());
     }
-    
+
     @Override
     public boolean isChild(@NonNull Type type, @NonNull Meta element, @NonNull List<Object> parents) {
         throw new IllegalArgumentException(context.getString(R.string.search_objects_unsupported, "child"));
