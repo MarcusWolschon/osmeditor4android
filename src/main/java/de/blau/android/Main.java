@@ -12,11 +12,9 @@ import java.util.List;
 import java.util.Queue;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -88,9 +86,8 @@ import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.address.Address;
 import de.blau.android.bookmarks.BookmarkIO;
-import de.blau.android.bookmarks.BookmarksDialog;
-import de.blau.android.bookmarks.BookmarksHandler;
-import de.blau.android.bookmarks.BookmarksStorage;
+import de.blau.android.dialogs.BookmarksDialog;
+import de.blau.android.dialogs.BookmarksHandler;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Flavors;
 import de.blau.android.contract.MimeTypes;
@@ -1745,7 +1742,7 @@ public class Main extends FullScreenAppCompatActivity
         undoView.setOnLongClickListener(undoListener);
 
         menu.findItem(R.id.menu_gps_goto_last_edit).setEnabled(undoStorage.canUndo());
-        menu.findItem(R.id.menu_gps_add_to_bookmarks).setEnabled(map.getViewBox().isValid());
+        menu.findItem(R.id.menu_gps_add_bookmark).setEnabled(map.getViewBox().isValid());
         menu.findItem(R.id.menu_gps_show_bookmarks).setEnabled(true);
 
         LayerDrawable transfer = (LayerDrawable) menu.findItem(R.id.menu_transfer).getIcon();
@@ -1981,20 +1978,23 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_gps_follow:
             toggleFollowGPS();
             return true;
-        case R.id.menu_gps_add_to_bookmarks:
+        case R.id.menu_gps_add_bookmark:
             BookmarksHandler.get(this, new BookmarksHandler.HandleResult() {
                 @Override
                 public void onSuccess(String message, FragmentActivity activity) {
+                    if(message.trim().isEmpty()){
+                        return;
+                    }
                     BookmarkIO IO = new BookmarkIO();
                     IO.writer(getApplicationContext(),message,map.getViewBox());
                 }
                 @Override
                 public void onError() {
-                    runOnUiThread(() -> Snack.toastTopError(Main.this,"Error"));
+                    runOnUiThread(() -> Snack.toastTopError(Main.this,"BookmarkHandler Error"));
                 }
             });
             return true;
-            case R.id.menu_gps_show_bookmarks:
+        case R.id.menu_gps_show_bookmarks:
                 BookmarksDialog bookmarksDialog = new BookmarksDialog(this);
                 bookmarksDialog.showDialog();
                 return true;

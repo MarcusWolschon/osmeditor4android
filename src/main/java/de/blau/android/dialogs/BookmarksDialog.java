@@ -1,4 +1,4 @@
-package de.blau.android.bookmarks;
+package de.blau.android.dialogs;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.util.SavingHelper;
+import de.blau.android.bookmarks.BookmarkIO;
+import de.blau.android.bookmarks.BookmarksStorage;
 import de.blau.android.util.ThemeUtils;
 
 public class BookmarksDialog extends AppCompatActivity implements BookmarkListAdapter.Listeners {
@@ -80,7 +81,7 @@ public class BookmarksDialog extends AppCompatActivity implements BookmarkListAd
     public void OnDeleteListener(int position) {
             adapter.notifyItemRemoved(position);
             this.bookmarksStorages.remove(position);
-            bookmarkIO.writeList(activity);
+            bookmarkIO.writeList(activity,this.bookmarksStorages);
     }
     /**
      * Options menu Go listener
