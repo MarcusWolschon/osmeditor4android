@@ -34,8 +34,8 @@
                 android:checkable="true"
                 android:title="@string/menu_gps_follow" />
             <item
-                android:id="@+id/menu_gps_add_to_bookmarks"
-                android:title="@string/add_to_bookmarks" />
+                android:id="@+id/menu_gps_add_bookmark"
+                android:title="@string/add_bookmark" />
             <item
                 android:id="@+id/menu_gps_show_bookmarks"
                 android:title="@string/show_bookmarks" />

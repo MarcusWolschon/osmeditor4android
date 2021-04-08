@@ -1291,8 +1291,8 @@ avoided by using an offline data source.</string>
     </plurals>
     <!-- Help system -->
     <string name="toast_nohelp">No help here.</string>
-    <string name="add_to_bookmarks">Add to bookmarks..</string>
-    <string name="bookmarks_desc">Add name or comments</string>
+    <string name="add_bookmark">Add bookmark..</string>
+    <string name="bookmarks_desc">Add comments</string>
     <string name="show_bookmarks">Show Bookmarks..</string>
     <string name="_dots">⋮</string>
     <string name="gotobookmark">Go</string>

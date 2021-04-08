@@ -11,16 +11,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        />
-    <TextView
-        android:id="@+id/textViewOptions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_toLeftOf="@+id/textViewOptions"
+
+        />
+    <ImageView
+        android:id="@+id/textViewOptions"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/show_bookmarks"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:text="@string/_dots"
-        android:textAppearance="?android:textAppearanceLargePopupMenu" />
-
-
+        android:src="@drawable/ic_more_vert_black_36dp" />
 </RelativeLayout>
