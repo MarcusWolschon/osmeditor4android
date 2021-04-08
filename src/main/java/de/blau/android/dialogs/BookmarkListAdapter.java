@@ -32,7 +32,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
     private int adapterPosition;
     private Listeners listener;
 
-    public BookmarkListAdapter(ArrayList<BookmarksStorage> bookmarksStorages,ViewGroup.LayoutParams viewLayoutParams,Listeners listener){
+    public BookmarkListAdapter(@NonNull ArrayList<BookmarksStorage> bookmarksStorages,@NonNull ViewGroup.LayoutParams viewLayoutParams,@NonNull Listeners listener){
         this.bookmarksStorages = bookmarksStorages;
         this.viewLayoutParams = viewLayoutParams;
         this.listener = listener;
@@ -86,13 +86,24 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
             });
         }
     }
-    private void showOptions(View view){
+
+    /**
+     * Display a popmenu with bookmark delete option
+     *
+     * @param view the view involved
+     */
+    private void showOptions(@NonNull View view){
         PopupMenu popupMenu = new PopupMenu(view.getContext(),view);
         popupMenu.inflate(R.menu.bookmark_popup);
         popupMenu.setOnMenuItemClickListener(this);
         popupMenu.show();
     }
 
+    /**
+     * handle menu item click
+     *
+     * @param item menu item
+     */
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
