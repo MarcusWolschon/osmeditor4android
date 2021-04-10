@@ -1,5 +1,16 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.2.1:
+
+- Fix logic error when deleting relation members in relation editing mode
+- Fix JOSM search language: "nodes" needs to work for relations too
+- Fix update stroke width on validation styles too 
+- Add icon styling for closed ways and point out change in release notes 
+- Update geocontext configuration
+- Update imagery
+- Update preset
+- Update translations
+
 15.2.0:
 
 - Update release notes for release
