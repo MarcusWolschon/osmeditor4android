@@ -132,6 +132,22 @@
             110
         ]
     },
+    "hu": {
+        "speed-limits": [
+            50,
+            90,
+            130
+        ],
+        "languages": [
+            "hu"
+        ],
+        "address-keys": [
+            "addr:postcode",
+            "addr:city",
+            "addr:street",
+            "addr:housenumber"
+        ]
+    },
     "id": {
         "left-hand-traffic": true
     },
