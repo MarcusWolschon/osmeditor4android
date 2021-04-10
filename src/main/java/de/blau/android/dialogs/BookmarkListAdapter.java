@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,13 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
     private LayoutParams viewLayoutParams;
     private int adapterPosition;
     private Listeners listener;
-
+    /**
+     * Bookmarklist adapter
+     *
+     * @param bookmarksStorages bookmarks to display
+     * @param viewLayoutParams layoutparams for the adapter
+     * @param listener interface
+     */
     public BookmarkListAdapter(@NonNull ArrayList<BookmarksStorage> bookmarksStorages,@NonNull ViewGroup.LayoutParams viewLayoutParams,@NonNull Listeners listener){
         this.bookmarksStorages = bookmarksStorages;
         this.viewLayoutParams = viewLayoutParams;
@@ -39,7 +47,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public @NotNull ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookmark_adapter,parent,false);
         view.setLayoutParams(viewLayoutParams);
         return new ViewHolder(view);
@@ -61,7 +69,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView comments;
-        ImageView options;
+        TextView options;
 
         public ViewHolder(View view) {
             super(view);
@@ -69,20 +77,14 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
             options  = itemView.findViewById(R.id.textViewOptions);
 
             //Handles view tap
-            view.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    adapterPosition = getAdapterPosition();
-                    listener.OnGoListener(adapterPosition);
-                }
+            view.setOnClickListener(v -> {
+                adapterPosition = getAdapterPosition();
+                listener.OnGoListener(adapterPosition);
             });
             //Handles options menu tap
-            options.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    adapterPosition = getAdapterPosition();
-                    showOptions(options);
-                }
+            options.setOnClickListener(v -> {
+                adapterPosition = getAdapterPosition();
+                showOptions(options);
             });
         }
     }
@@ -106,13 +108,11 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
      */
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.bookmarkdiscard:
-                listener.OnDeleteListener(adapterPosition);
-                return true;
-            default:
-                return false;
+        if(item.getItemId()==R.id.bookmarkdiscard){
+            listener.OnDeleteListener(adapterPosition);
+            return true;
         }
+        return false;
     }
 
     public interface Listeners{

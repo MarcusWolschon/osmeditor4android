@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/adapterlayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -15,16 +16,19 @@
         android:layout_alignParentTop="true"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:layout_toLeftOf="@+id/textViewOptions"
+        android:textAppearance="?android:textAppearanceListItem"
 
         />
-    <ImageView
+
+    <TextView
         android:id="@+id/textViewOptions"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="8dp"
-        android:contentDescription="@string/show_bookmarks"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:src="@drawable/ic_more_vert_black_36dp" />
+        android:paddingLeft="23dp"
+        android:paddingTop="9dp"
+        android:paddingRight="10dp"
+        android:text="@string/_dots"
+        android:textAppearance="?android:textAppearanceLarge" />
 </RelativeLayout>

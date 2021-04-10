@@ -44,9 +44,11 @@ public class  BookmarkIO {
      *
      * @param context the Android Context
      * @param bookmarksStorage Arraylist containing BookmarksStorage objects
+     *
+     * @return true if successful
      */
-    public void writeList(@NonNull Context context,@NonNull ArrayList<BookmarksStorage> bookmarksStorage) {
-        savingHelper.save(context, fileName, (ArrayList<BookmarksStorage>) bookmarksStorage, true);
+    public boolean writeList(@NonNull Context context,@NonNull ArrayList<BookmarksStorage> bookmarksStorage) {
+        return savingHelper.save(context, fileName, bookmarksStorage, true);
     }
 
     /**
@@ -61,6 +63,7 @@ public class  BookmarkIO {
 
         ArrayList<BookmarksStorage> savedList = savingHelper.load(context,fileName,true);
         if(savedList==null){
+            // returns an empty array instead of null
             return (ArrayList<BookmarksStorage>) this.bookmarksStorage;
         }
         return savedList;
