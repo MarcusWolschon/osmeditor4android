@@ -114,6 +114,9 @@
     </feature>
     <feature type="way" tags="building" updateWidth="true" widthFactor="1.0" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" >
         <feature type="way" tags="building|addr:housenumber" closed="true" labelKey="addr:housenumber"/>
+        <feature type="way" tags="building|shop" closed="true" iconPath="preset" labelKey="name" />
+        <feature type="way" tags="building|amenity" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building|tourism" closed="true" iconPath="preset" labelKey="name"/>
     </feature>
     <feature type="way" tags="building:part" updateWidth="true" widthFactor="0.8" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" >
     	<dash phase="1.0">
@@ -121,6 +124,9 @@
     		<interval length="2.0" />
     	</dash>
     </feature>
+    <feature type="way" tags="shop" closed="true" iconPath="preset" labelKey="name" />
+    <feature type="way" tags="amenity" closed="true" iconPath="preset" labelKey="name"/>
+    <feature type="way" tags="tourism" closed="true" iconPath="preset" labelKey="name"/>
     <feature type="motorway_casing" updateWidth="true" widthFactor="2.4" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
     <feature type="motorway_bridge_casing" updateWidth="true" widthFactor="2.4" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER">
         <dash phase="1.0">
