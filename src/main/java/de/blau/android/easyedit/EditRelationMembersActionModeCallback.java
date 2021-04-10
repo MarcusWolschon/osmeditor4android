@@ -281,13 +281,13 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     /**
      * Check if member is in a Collection of members
      * 
-     * @param members the Set of RelationMember
-     * @param member the RelationMember
+     * @param members the RelationMembers
+     * @param member the RelationMember to check
      */
-    private boolean contains(Collection<RelationMember> members, RelationMember member) {
-        for (RelationMember removeMember : members) {
-            if (!member.downloaded() || (member.getRef() == removeMember.getRef() && member.getType().equals(removeMember.getType())
-                    && member.getRole().equals(removeMember.getRole()))) {
+    private boolean contains(@NonNull Collection<RelationMember> members, @NonNull RelationMember member) {
+        for (RelationMember rm : members) {
+            if (member.getRef() == rm.getRef() && member.getType().equals(rm.getType())
+                    && member.getRole().equals(rm.getRole())) {
                 return true;
             }
         }
