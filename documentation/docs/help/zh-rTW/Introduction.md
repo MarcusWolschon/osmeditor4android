@@ -18,18 +18,18 @@ Vespucci 是全功能的開放街圖編輯器，支援大部分能在桌面版�
 
 選擇轉移圖示 ![Transfer](../images/menu_transfer.png)，或是轉移選項的項目，這樣會顯示七個選項：
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
-* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
-* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+ * **下載現有的檢視** - 下載在螢幕上可見的區域，並與所有目前的資料合併*(需要網路連線或是離線資料來源)* 
+* **清除現有資料並下載現有的檢視** 清除所有在記憶體中的資料，之後下載在螢幕上可見的區域*(需要網路連線)* 
+* **上傳資料到 OSM 伺服器** - 上傳編輯到 OpenStreetMap *(需要認證)* *(要網路連線)*
+* **上傳資料** - 重新為所有區域下載資料，以及更新記憶體中資料  *(需要網路連線)*
+* **依據位置自動下載** - 自動的下載目前周圍位置區域 *(需要網路連線或離線資料)*  *(需要 GPS)*
+* **拖放和縮放並自動下載** - 自動下載目前地圖現有的檢視 *(需要網路連線或離線資料)  *(需要 GPS)*
+* **檔案...** - 儲存和載入在裝置的 OSM 檔案資料。
+* **備註/錯誤** -從 QA 工具 (目前的 OSMOSE) 下載 (自動或手動) OSM 備註和"錯誤" *(需要網路連線)*
 
 最簡單下載資料到裝置的方式是縮放和平移到你想編輯的地方，接著選擇 "下載當前檢視"。你可以用手勢縮放，用縮放按鈕，或是用裝置的音量鍵。Vespucci 應當下載當前檢視的資料，下載資料到裝置時並不需要認證。
 
-With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md).
+採用預設設定時，所有非下載區域相比下載區域會用暗淡色顯示，要來避免在未顯示區域不適當的新增重覆物件。而在[進階設定](Advanced%20preferences.md)當中能改變行為。
 
 ### 編輯
 
@@ -43,6 +43,7 @@ With the default settings any non-downloaded areas will be dimmed relative to th
 
 * **正常** - 預設的編輯模式，新物件能被添加，既有的物件可以被編輯、移動和移除。用簡單的白色鎖定圖示表示。
 * **只有標籤** - 選擇既有的物件會跳進內容編輯器，主畫面長按則會新增物件，但不會有任何幾何動作。用白色鎖定圖示加上"T"的方式表示。
+* **地址** - 啟動地址模式，有一些特別功能加上稍微簡化過的[簡單模式](../en/Simple%20actions.md) "+" 用白色鎖定圖示加上"A"的方式表示。
 * **室內** - 啟動室內模式，請見[室內模式](#indoor)。用白色鎖定圖示加上"I"的方式表示。
 * C-模式** - 啟動 C-模式，只有上面有警告標示的物件會顯示，請見 [C-模式](#c-mode)。用白色鎖定圖示加上"C"的方式表示。
 
@@ -92,20 +93,20 @@ Vespucci 擁有一個良好的"取消/重做"系統，所以不要害怕在您�
 
 請見 [簡單模式下新建物件](Creating%20new%20objects%20in%20simple%20actions%20mode.md) 來得到更多資訊。
 
-##### Advanced (long press) mode
- 
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), touch away from existing objects.
-* If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+##### 進階 (長按) 模式
+
+在你創建節點或是路徑開始的地方長按，你會看到黑色"十字"圖樣。
+* 如果你想要創建新的節點 (並沒有連到其他物件)，請避開按到其他已有的物件。
+* 如果你想延伸路徑，按在路徑的"容許區域" (或是路徑上的節點)內。容許區域會顯示在節點或是路徑周邊。
 
 一旦你看到準星圖示，你有這些選擇：
 
-* _Normal press in the same place._
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* _Normal touch in another place._ Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+* _正常按同一地方。_
+  * 如果十字準星不在節點附近，碰觸同一地方則會再次創建新的節點。如果附近有路徑 (但不在節點附近)，新的節點會在路徑上面 (並且連到路徑上面)。
+  * 如果十字準星靠近節點瓶近 (例如在節點容忍範圍)，碰觸相同地方只會選取節點 (標籤編輯器會出現，不會有創建新的節點)。操作的過程與上述敘述一樣。
+* _正常碰觸其他地方。_碰觸其他地點 (在十字準星容忍範圍外) 則會從原始地點到現在位置新增路徑。如果十字準星在路徑或節點附近，新的片段會連到該節點或是路徑。　
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. 
+簡單在你想增加節點的路徑上碰觸螢幕，要完成操作，請在最後一個節點碰觸兩次。如果最後的節點位於路徑或是節點，則片段會自動連到路徑或是節點。 
 
 你也可以使用選單項目：請見[創建新物件](Creating%20new%20objects.md) 來獲得更多資訊。
 
@@ -255,18 +256,18 @@ OSMOSE臭蟲則會將受影響的物件顯示為藍色連結，碰觸連結則�
 
 ### 圖層設定
 
-Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
+圖層設定可以藉由圖層控制來改變 (在右上角"漢堡"選項)，所有其他設定可以透過主選項設定按鈕設定進入。可以啟動、關闢或暫時隱藏圖層。
 
-Available layer types:
+可用的圖層種類：
 
-* Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
-* Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
-* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
-* GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
-* Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+* 資料圖層 - 這是開放街圖資料會載入的圖層，一般來說使用上不必更動。預設：啟用。
+* 背景圖層 - 這裡有相當多可供使用的空照和衛星背景影像，預設的數值是 openstreetmap.org 的"標準樣式"地圖。
+* 重疊圖層 - 這些是有額外資訊的半透明圖層，像是 GPX 軌跡。增加重疊圖層也許會對較老的裝置和有限記憶體裝置造成負擔。預設：無。
+* 註解/臭蟲顯示。開啟註解和臭蟲會以黃色蟲子圖示來顯示，關閉的則會顯示綠色。預設：開啟。
+* 圖片圖層，會顯示地理參照的圖片為紅色攝影機圖示，如果有方向資訊則會轉向。預設：關閉。
+* Mapillary 圖層 - 顯示有影像存在具有標記的 Mapillary 片段，點標記則會顯示影像。預設：關閉。
+* GeoJSON 圖層 - 顯示 GeoJSON 檔案的內容。預設：關閉。
+* 網格 - 在地圖兩邊顯示尺規或網格。預設：啟用。 
 
 #### 參數選項 
 

@@ -2,12 +2,15 @@
 <resources>
   <string-array name="address_tags_entries">
     <item>門牌號碼 (addr:housenumber)</item>
+    <item>徵集編號 (addr:conscriptionnumber)</item>
     <item>道路街道 (addr:street)</item>
     <item>郵遞區號 (addr:postcode)</item>
     <item>城市/市鎮/村落/..  (addr:city)</item>
     <item>國家 (addr:country)</item>
     <item>完整地址 (addr:full)</item>
     <item>地區 (addr:place)</item>
+    <item>街區(addr:block)</item>
+    <item>街區號碼 (addr:block_number)</item>
     <item>村莊 (addr:hamlet)</item>
     <item>行政區 (addr:suburb)</item>
     <item>分區 (addr:subdistrict)</item>

@@ -16,17 +16,17 @@
 <h3>下載 OSM 資料</h3>
 <p>選擇轉移圖示 <img src="../images/menu_transfer.png" alt="Transfer" />，或是轉移選項的項目，這樣會顯示七個選項：</p>
 <ul>
-<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity or offline data source)</em></li>
-<li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
-<li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
-<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
-<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
-<li><strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and &quot;Bugs&quot; from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
+<li><strong>下載現有的檢視</strong> - 下載在螢幕上可見的區域，並與所有目前的資料合併*(需要網路連線或是離線資料來源)*</li>
+<li><strong>清除現有資料並下載現有的檢視</strong> 清除所有在記憶體中的資料，之後下載在螢幕上可見的區域*(需要網路連線)*</li>
+<li><strong>上傳資料到 OSM 伺服器</strong> - 上傳編輯到 OpenStreetMap <em>(需要認證)</em> <em>(要網路連線)</em></li>
+<li><strong>上傳資料</strong> - 重新為所有區域下載資料，以及更新記憶體中資料  <em>(需要網路連線)</em></li>
+<li><strong>依據位置自動下載</strong> - 自動的下載目前周圍位置區域 <em>(需要網路連線或離線資料)</em>  <em>(需要 GPS)</em></li>
+<li><strong>拖放和縮放並自動下載</strong> - 自動下載目前地圖現有的檢視 *(需要網路連線或離線資料)  <em>(需要 GPS)</em></li>
+<li><strong>檔案...</strong> - 儲存和載入在裝置的 OSM 檔案資料。</li>
+<li><strong>備註/錯誤</strong> -從 QA 工具 (目前的 OSMOSE) 下載 (自動或手動) OSM 備註和&quot;錯誤&quot; <em>(需要網路連線)</em></li>
 </ul>
 <p>最簡單下載資料到裝置的方式是縮放和平移到你想編輯的地方，接著選擇 &quot;下載當前檢視&quot;。你可以用手勢縮放，用縮放按鈕，或是用裝置的音量鍵。Vespucci 應當下載當前檢視的資料，下載資料到裝置時並不需要認證。</p>
-<p>With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
+<p>採用預設設定時，所有非下載區域相比下載區域會用暗淡色顯示，要來避免在未顯示區域不適當的新增重覆物件。而在<a href="Advanced%20preferences.md">進階設定</a>當中能改變行為。</p>
 <h3>編輯</h3>
 <p><a id="lock"></a></p>
 <h3>鎖定，解鎖，模式切換</h3>
@@ -35,6 +35,7 @@
 <ul>
 <li><strong>正常</strong> - 預設的編輯模式，新物件能被添加，既有的物件可以被編輯、移動和移除。用簡單的白色鎖定圖示表示。</li>
 <li><strong>只有標籤</strong> - 選擇既有的物件會跳進內容編輯器，主畫面長按則會新增物件，但不會有任何幾何動作。用白色鎖定圖示加上&quot;T&quot;的方式表示。</li>
+<li><strong>地址</strong> - 啟動地址模式，有一些特別功能加上稍微簡化過的<a href="../en/Simple%20actions.md">簡單模式</a> &quot;+&quot; 用白色鎖定圖示加上&quot;A&quot;的方式表示。</li>
 <li><strong>室內</strong> - 啟動室內模式，請見<a href="#indoor">室內模式</a>。用白色鎖定圖示加上&quot;I&quot;的方式表示。</li>
 <li>C-模式** - 啟動 C-模式，只有上面有警告標示的物件會顯示，請見 <a href="#c-mode">C-模式</a>。用白色鎖定圖示加上&quot;C&quot;的方式表示。</li>
 </ul>
@@ -66,19 +67,16 @@
 <h5>簡易模式</h5>
 <p>按著地圖畫面上的綠色浮動按鈕，能顯示選單。當你選擇其中一個項目時，你會被問到想在那個位置新建物件，持續平移和縮放到你想要的地圖畫面為止。</p>
 <p>請見 <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">簡單模式下新建物件</a> 來得到更多資訊。</p>
-<h5>Advanced (long press) mode</h5>
-<p>Long press where you want the node to be or the way to start. You will see a black &quot;crosshair&quot; symbol. * If you want to create a new node (not connected to an object), touch away from existing objects. * If you want to extend a way, touch within the &quot;tolerance zone&quot; of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
+<h5>進階 (長按) 模式</h5>
+<p>在你創建節點或是路徑開始的地方長按，你會看到黑色&quot;十字&quot;圖樣。 * 如果你想要創建新的節點 (並沒有連到其他物件)，請避開按到其他已有的物件。 * 如果你想延伸路徑，按在路徑的&quot;容許區域&quot; (或是路徑上的節點)內。容許區域會顯示在節點或是路徑周邊。</p>
 <p>一旦你看到準星圖示，你有這些選擇：</p>
 <ul>
-<li><em>Normal press in the same place.</em>
-<ul>
-<li>If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).</li>
-<li>If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.</li>
+<li><em>正常按同一地方。</em></li>
+<li>如果十字準星不在節點附近，碰觸同一地方則會再次創建新的節點。如果附近有路徑 (但不在節點附近)，新的節點會在路徑上面 (並且連到路徑上面)。</li>
+<li>如果十字準星靠近節點瓶近 (例如在節點容忍範圍)，碰觸相同地方只會選取節點 (標籤編輯器會出現，不會有創建新的節點)。操作的過程與上述敘述一樣。</li>
+<li>_正常碰觸其他地方。_碰觸其他地點 (在十字準星容忍範圍外) 則會從原始地點到現在位置新增路徑。如果十字準星在路徑或節點附近，新的片段會連到該節點或是路徑。　</li>
 </ul>
-</li>
-<li><em>Normal touch in another place.</em> Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.</li>
-</ul>
-<p>Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically.</p>
+<p>簡單在你想增加節點的路徑上碰觸螢幕，要完成操作，請在最後一個節點碰觸兩次。如果最後的節點位於路徑或是節點，則片段會自動連到路徑或是節點。</p>
 <p>你也可以使用選單項目：請見<a href="Creating%20new%20objects.md">創建新物件</a> 來獲得更多資訊。</p>
 <h4>增加區域</h4>
 <p>目前開放街圖並沒有如其他地理資訊系統一樣，有&quot;區域&quot;物件類型。線上編輯器 &quot;iD&quot; 編輯嘗試在現有 OSM 架構下，建立區域類型，目前看來在特定狀況下運作相當好，也有不能好好運作的時候。Vespucci 目前並沒有計畫像 iD 一樣做類似的事情，所以你必須知道路徑區域是怎麼構成的：</p>
@@ -179,17 +177,17 @@
 <h2>客製化 Vespucci</h2>
 <p>這款 app 很多方面都能自訂，如果你想要特別的功能但找不到的話，可以到 <a href="https://vespucci.io/">Vespucci 網站</a>搜尋，尋找裝置上的額外資訊。</p>
 <h3>圖層設定</h3>
-<p>Layer settings can be changed via the layer control (&quot;hamburger&quot; menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
-<p>Available layer types:</p>
+<p>圖層設定可以藉由圖層控制來改變 (在右上角&quot;漢堡&quot;選項)，所有其他設定可以透過主選項設定按鈕設定進入。可以啟動、關闢或暫時隱藏圖層。</p>
+<p>可用的圖層種類：</p>
 <ul>
-<li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
-<li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the &quot;standard style&quot; map from openstreetmap.org.</li>
-<li>Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
-<li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
-<li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
-<li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
-<li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
-<li>Grid - Displays a scale along the sides of the map or a grid. Default: on.</li>
+<li>資料圖層 - 這是開放街圖資料會載入的圖層，一般來說使用上不必更動。預設：啟用。</li>
+<li>背景圖層 - 這裡有相當多可供使用的空照和衛星背景影像，預設的數值是 openstreetmap.org 的&quot;標準樣式&quot;地圖。</li>
+<li>重疊圖層 - 這些是有額外資訊的半透明圖層，像是 GPX 軌跡。增加重疊圖層也許會對較老的裝置和有限記憶體裝置造成負擔。預設：無。</li>
+<li>註解/臭蟲顯示。開啟註解和臭蟲會以黃色蟲子圖示來顯示，關閉的則會顯示綠色。預設：開啟。</li>
+<li>圖片圖層，會顯示地理參照的圖片為紅色攝影機圖示，如果有方向資訊則會轉向。預設：關閉。</li>
+<li>Mapillary 圖層 - 顯示有影像存在具有標記的 Mapillary 片段，點標記則會顯示影像。預設：關閉。</li>
+<li>GeoJSON 圖層 - 顯示 GeoJSON 檔案的內容。預設：關閉。</li>
+<li>網格 - 在地圖兩邊顯示尺規或網格。預設：啟用。</li>
 </ul>
 <h4>參數選項</h4>
 <ul>
