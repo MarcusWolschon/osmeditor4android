@@ -30,7 +30,7 @@ public class BookmarksDialog extends AppCompatActivity implements BookmarkListAd
     private AlertDialog dialog;
     private BookmarkListAdapter adapter;
     private Activity activity;
-    private BookmarkIO bookmarkIO = new BookmarkIO();
+    private BookmarkIO bookmarkIO;
 
     /**
      * BookmarksDialog Constructor
@@ -39,6 +39,7 @@ public class BookmarksDialog extends AppCompatActivity implements BookmarkListAd
      */
     public BookmarksDialog(@NonNull Activity activity) {
         this.activity = activity;
+        bookmarkIO = new BookmarkIO();
         bookmarksStorages = bookmarkIO.readList(activity);
     }
 
@@ -64,7 +65,7 @@ public class BookmarksDialog extends AppCompatActivity implements BookmarkListAd
 
             final AlertDialog dialog = builder.create();
 
-            RecyclerView bookmarksList = (RecyclerView) layout.findViewById(R.id.bookmarkslist);
+            RecyclerView bookmarksList = layout.findViewById(R.id.bookmarkslist);
             LayoutParams viewLayoutParams = bookmarksList.getLayoutParams();
             viewLayoutParams.width = LayoutParams.MATCH_PARENT;
 
@@ -93,7 +94,7 @@ public class BookmarksDialog extends AppCompatActivity implements BookmarkListAd
      * @param position id of the clicked view
      */
     @Override
-    public void OnDeleteListener(@NonNull int position) {
+    public void OnDeleteListener(int position) {
             adapter.notifyItemRemoved(position);
             this.bookmarksStorages.remove(position);
             bookmarkIO.writeList(activity,this.bookmarksStorages);
@@ -105,7 +106,7 @@ public class BookmarksDialog extends AppCompatActivity implements BookmarkListAd
      *
      */
     @Override
-    public void OnGoListener(@NonNull int position) {
+    public void OnGoListener(int position) {
         map.getViewBox().fitToBoundingBox(map,bookmarksStorages.get(position).viewBox);
         map.invalidate();
         dialog.dismiss();

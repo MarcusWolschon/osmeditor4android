@@ -14,6 +14,19 @@ public class BookmarksStorage implements Serializable {
     public String comments;
 
     /**
+     * Storage for comment and viewbox
+     *
+     * @param comments Bookmark name/comment
+     * @param viewBox Map viewbox
+     */
+    public BookmarksStorage(@NonNull String comments ,@NonNull ViewBox viewBox){
+        this.comments = comments;
+        this.viewBox = viewBox;
+    }
+
+    public BookmarksStorage(){ }
+
+    /**
      * Sets the comments and viewbox for a bookmark object
      *
      * @param comments Bookmark name/comment
