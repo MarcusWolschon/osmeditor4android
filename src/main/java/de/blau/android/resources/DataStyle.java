@@ -1158,6 +1158,13 @@ public final class DataStyle extends DefaultHandler {
                 processRecursive(currentStyle.relationStyles.cascadedStyles, processor);
             }
         }
+        if (currentStyle.validationStyles != null) {
+            for (FeatureStyle style : currentStyle.validationStyles.values()) {
+                if (style != null) {
+                    processor.process(style);
+                }
+            }
+        }
     }
 
     /**
