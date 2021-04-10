@@ -1920,7 +1920,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * Note the potentially present elements do not need to have their state changed or be stored in the API storage
      * since the parent relation back link is just internal.
      * 
-     * @param member member to remove
+     * @param members members to remove
      * @param r relation to remove the element from
      */
     public void removeRelationMembersFromRelation(@NonNull Relation r, @NonNull List<RelationMember> members) {
