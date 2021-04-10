@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="2.5.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="2.7.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -886,7 +886,6 @@
         <combo key="utility" text="Utility" values="chemical,gas,heating,hydrant,oil,power,sewerage,street_lighting,telecom,television,waste,water" display_values="Chemical,Gas,Heating,Hydrant,Oil,Power,Sewerage,Street lighting,Telecom,Television,Waste,Water" />    
     </chunk>
     <chunk id="bridge_details">
-        <combo key="bridge" text="Bridge" values="yes,aqueduct,boardwalk,cantilever,covered,low_water_crossing,trestle,viaduct" display_values="Yes,Aqueduct,Boardwalk,Cantilever,Covered,Low water crossing,Trestle,Viaduct" match="keyvalue!" default="yes" values_context="bridge"/>
         <combo key="bridge:structure" text="Structure" values="arch,beam,truss,floating,suspension,cable-stayed,simple-suspension,humpback" display_values="Arch,Beam,Truss,Floating,Suspension,Cable-stayed,Simple-suspension,Humpback" match="key" values_context="bridge"/>
     </chunk>
     <chunk id="maxweight">
@@ -1360,6 +1359,35 @@
         <check key="kids_area:supervised" text="Supervision by an adult" />
         <check key="kids_area:fee" text="A fee must be paid" />
     </checkgroup>
+  </chunk>
+  <chunk id="platform">
+    <check key="bench" text="Bench" disable_off="true"/>
+    <check key="shelter" text="Shelter" disable_off="true"/>
+    <check key="covered" text="Covered"/>
+    <reference ref="bin"/>
+    <check key="passenger_information_display" text="Passenger information display" />
+    <text key="route_ref" text="Route references" />            
+    <reference ref="wheelchair"/>
+    <reference ref="tactile_paving"/>
+    <optional>
+        <text key="name" text="Name"/>
+        <text key="ref" text="Reference"/>
+        <text key="uic_ref" text="UIC reference"/>
+        <text key="uic_name" text="UIC name"/>
+        <text key="operator" text="Operator"/>
+        <text key="network" text="Network"/>
+        <space/>
+        <check key="bus" text="Bus" disable_off="true"/>
+        <check key="tram" text="Tram" disable_off="true"/>
+        <check key="train" text="Train" disable_off="true"/>
+        <check key="trolleybus" text="Trolleybus" disable_off="true"/>
+        <check key="share_taxi" text="Share taxi" disable_off="true"/>
+        <check key="subway" text="Subway" disable_off="true"/>
+        <check key="monorail" text="Monorail" disable_off="true"/>
+        <check key="funicular" text="Funicular" disable_off="true"/>
+        <check key="aerialway" text="Aerialway" disable_off="true"/>
+        <check key="ferry" text="Ferry" disable_off="true"/>
+    </optional>
   </chunk>
   <!-- Groups -->
   <group name="Highways" icon="icons/png/highway_highway_sp.png">
@@ -2118,6 +2146,7 @@
             <key key="traffic_sign" value="city_limit"/>
             <text key="name" text="Name"/>
             <text key="alt_name" text="Alternate name" alternative_autocomplete_keys="name" />
+            <combo key="city_limit" values="begin,end,both" display_values="Begin,End,Both" values_sort="false" />
             <reference ref="traffic_signals_direction" /> 
             <preset_link preset_name="Name"/>
         </item> <!-- City Limit -->
@@ -2432,7 +2461,7 @@
                 <text key="width" text="Width (meters)" length="7"/>
             </optional>
         </item> <!-- Ditch -->
-        <item name="Kerb" icon="icons/png/barrier_empty.png" type="way,closedway" preset_name_label="true">
+        <item name="Kerb" icon="icons/png/barrier_empty.png" type="node,way,closedway" preset_name_label="true">
             <link wiki="Tag:barrier=kerb"/>
             <key key="barrier" value="kerb"/>
             <optional>
@@ -3871,39 +3900,11 @@
             <link wiki="Proposed_features/Public_Transport#Platform"/>
             <space/>
             <key key="public_transport" value="platform"/>
-            <check key="bench" text="Bench" disable_off="true"/>
-            <check key="shelter" text="Shelter" disable_off="true"/>
-            <check key="covered" text="Covered"/>
-            <reference ref="bin"/>
-            <check key="passenger_information_display" text="Passenger information display" />
-            <text key="route_ref" text="Route references" />            
-            <reference ref="wheelchair"/>
-            <reference ref="tactile_paving"/>
+            <reference ref="platform"/>
             <checkgroup text="Legacy stop types" columns="2">
                 <check key="highway" value_on="bus_stop" text="Bus stop" disable_off="true"/>
                 <check key="railway" value_on="tram_stop" text="Tram stop" disable_off="true"/>
             </checkgroup>
-            <optional>
-                <text key="name" text="Name"/>
-                <text key="ref" text="Reference"/>
-                <text key="uic_ref" text="UIC reference"/>
-                <text key="uic_name" text="UIC name"/>
-                <text key="operator" text="Operator"/>
-                <text key="network" text="Network"/>
-                <space/>
-                <check key="bus" text="Bus" disable_off="true"/>
-                <check key="highway" value_on="platform" text="Highway platform (legacy)"/>
-                <check key="tram" text="Tram" disable_off="true"/>
-                <check key="train" text="Train" disable_off="true"/>
-                <check key="railway" value_on="platform" text="Railway platform (legacy)"/>
-                <check key="trolleybus" text="Trolleybus" disable_off="true"/>
-                <check key="share_taxi" text="Share taxi"/>
-                <check key="subway" text="Subway" disable_off="true"/>
-                <check key="monorail" text="Monorail" disable_off="true"/>
-                <check key="funicular" text="funicular" disable_off="true"/>
-                <check key="aerialway" text="aerialway" disable_off="true"/>
-                <check key="ferry" text="ferry" disable_off="true"/>
-            </optional>
         </item> <!-- Platform -->
         <item name="Station" name_context="railway" type="node,closedway,multipolygon" icon="icons/png/transport_train_station2.png" preset_name_label="true">
             <link wiki="Tag:public_transport=station"/>
@@ -4000,9 +4001,9 @@
             <link wiki="Tag:railway=platform"/>
             <space/>
             <key key="railway" value="platform"/>
-            <text key="ref" text="Reference (track number)"/>
+            <reference ref="platform"/>
             <text key="width" text="Width (meters)"/>
-            <check key="area" text="Area" disable_off="true"/>
+            <check key="area" text="Area" disable_off="true"/>    
         </item> <!-- Railway Platform -->
         <separator/>
         <item name="Bus Station" icon="icons/png/transport_bus_station.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -4026,10 +4027,9 @@
             <link wiki="Tag:highway=platform"/>
             <space/>
             <key key="highway" value="platform"/>
-            <text key="ref" text="Reference (track number)"/>
+            <reference ref="platform"/>
             <text key="width" text="Width (meters)"/>
             <check key="area" text="Area" disable_off="true"/>
-            <reference ref="tactile_paving"/>
         </item> <!-- Bus Platform -->
     </group> <!-- Public Transport -->
     <item name="Taxi" icon="icons/png/transport_taxi_rank.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -4999,7 +4999,7 @@
             <reference ref="name_operator_oh_wheelchair_level_toilets"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="kids_area" />
-        </item> <!-- Tpy library -->
+        </item> <!-- Toy library -->
         <separator/>
         <item name="Playground" icon="icons/png/amenity_playground.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=playground"/>
@@ -8081,6 +8081,7 @@
         <item name="Bridge" icon="icons/png/highway_bridge_sp.png" type="way,relation,multipolygon" preset_name_label="true">
             <link wiki="Key:bridge"/>
             <space/>
+            <combo key="bridge" text="Bridge" values="yes,aqueduct,boardwalk,cantilever,covered,low_water_crossing,trestle,viaduct" display_values="Yes,Aqueduct,Boardwalk,Cantilever,Covered,Low water crossing,Trestle,Viaduct" match="keyvalue!" default="yes" values_context="bridge"/>
             <reference ref="bridge_details"/>
             <reference ref="optional_bridge"/>
             <preset_link preset_name="Movable Bridge"/>
@@ -8102,6 +8103,7 @@
             <link wiki="Tag:man_made=bridge"/>
             <space/>
             <key key="man_made" value="bridge"/>
+            <combo key="bridge" text="Bridge type" values="aqueduct,boardwalk,cantilever,covered,low_water_crossing,trestle,viaduct" display_values="Aqueduct,Boardwalk,Cantilever,Covered,Low water crossing,Trestle,Viaduct" values_context="bridge"/>
             <reference ref="bridge_details"/>
             <optional>
                 <reference ref="name_layer"/>
@@ -9613,7 +9615,7 @@
             <key key="shop" value="gas"/>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
-        </item> <!-- Hardware -->
+        </item> <!-- Gas -->
         <item name="Paint" icon="icons/png/shopping_paint_29122.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=paint"/>
             <space/>
