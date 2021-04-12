@@ -2,6 +2,7 @@ package de.blau.android;
 
 import android.app.Activity;
 import android.content.Context;
+
 import org.robolectric.*;
 
 
@@ -59,8 +60,8 @@ public class BookmarkIOTest {
     public void writecheck() {
         logic = App.getLogic();
         ArrayList<BookmarksStorage> testlist = new ArrayList<>();
-        testlist.add(new BookmarksStorage("Test String",viewboxtest));
-        Assert.assertTrue(IOtest.writeList(context,testlist));
+        testlist.add(new BookmarksStorage("Test String", viewboxtest));
+        Assert.assertTrue(IOtest.writeList(context, testlist));
     }
 
     /**
@@ -69,10 +70,10 @@ public class BookmarkIOTest {
     @Test
     public void readwritecheck() {
         ArrayList<BookmarksStorage> testlist = new ArrayList<>();
-        testlist.add(new BookmarksStorage("TestString",viewboxtest));
-        IOtest.writeList(context,testlist);
+        testlist.add(new BookmarksStorage("TestString", viewboxtest));
+        IOtest.writeList(context, testlist);
         ArrayList<BookmarksStorage> testlist2;
-        testlist2 = IOtest.readList(context);
+        testlist2 = (ArrayList<BookmarksStorage>) IOtest.readList(context);
         Assert.assertEquals("TestString", testlist2.get(0).comments);
     }
 }

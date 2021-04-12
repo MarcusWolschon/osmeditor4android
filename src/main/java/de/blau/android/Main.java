@@ -86,8 +86,8 @@ import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.address.Address;
 import de.blau.android.bookmarks.BookmarkIO;
-import de.blau.android.dialogs.BookmarksDialog;
-import de.blau.android.dialogs.BookmarksHandler;
+import de.blau.android.dialogs.BookmarkDialogs.BookmarksDialog;
+import de.blau.android.dialogs.BookmarkDialogs.BookmarkHandler;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Flavors;
 import de.blau.android.contract.MimeTypes;
@@ -1979,7 +1979,7 @@ public class Main extends FullScreenAppCompatActivity
             toggleFollowGPS();
             return true;
         case R.id.menu_gps_add_bookmark:
-            BookmarksHandler.get(this, new BookmarksHandler.HandleResult() {
+            BookmarkHandler.get(this, new BookmarkHandler.HandleResult() {
                 @Override
                 public void onSuccess(String message, FragmentActivity activity) {
                     if(message.trim().isEmpty()){

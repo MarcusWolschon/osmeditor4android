@@ -12,9 +12,8 @@ import de.blau.android.util.SavingHelper;
 
 /**
  * Handles Bookmark reading/writing operations
- *
  */
-public class  BookmarkIO {
+public class BookmarkIO {
     private BookmarksStorage currentBookmarkStorage;
     private List<BookmarksStorage> bookmarksStorage;
     private final String fileName = "bookmarks.ser";
@@ -23,18 +22,19 @@ public class  BookmarkIO {
     /**
      * BookmarkIO constructor
      */
-    public BookmarkIO(){
+    public BookmarkIO() {
         this.currentBookmarkStorage = new BookmarksStorage();
         this.bookmarksStorage = new ArrayList<>();
         this.savingHelper = new SavingHelper<>();
     }
+
     /**
      * Adds the text and viewbox to a list
      *
      * @param comment Bookmark name/comment
      * @param viewbox Map Viewbox
      */
-    public void addDatatolist(@NonNull String comment,@NonNull ViewBox viewbox) {
+    public void addDatatolist(@NonNull String comment, @NonNull ViewBox viewbox) {
         currentBookmarkStorage.set(comment, viewbox);
         bookmarksStorage.add(currentBookmarkStorage);
     }
@@ -42,12 +42,11 @@ public class  BookmarkIO {
     /**
      * (Over)Writes the bookmark file to storage.
      *
-     * @param context the Android Context
+     * @param context          the Android Context
      * @param bookmarksStorage Arraylist containing BookmarksStorage objects
-     *
      * @return true if successful
      */
-    public boolean writeList(@NonNull Context context,@NonNull ArrayList<BookmarksStorage> bookmarksStorage) {
+    public boolean writeList(@NonNull Context context, @NonNull ArrayList<BookmarksStorage> bookmarksStorage) {
         return savingHelper.save(context, fileName, bookmarksStorage, true);
     }
 
@@ -59,12 +58,11 @@ public class  BookmarkIO {
      */
 
     @NonNull
-    public ArrayList<BookmarksStorage> readList(@NonNull Context context) {
-
-        ArrayList<BookmarksStorage> savedList = savingHelper.load(context,fileName,true);
-        if(savedList==null){
-            // returns an empty array instead of null
-            return (ArrayList<BookmarksStorage>) this.bookmarksStorage;
+    public List<BookmarksStorage> readList(@NonNull Context context) {
+        List<BookmarksStorage> savedList = savingHelper.load(context, fileName, true);
+        if (savedList == null) {
+            // returns an empty list instead of nu
+            return this.bookmarksStorage;
         }
         return savedList;
     }
@@ -72,13 +70,13 @@ public class  BookmarkIO {
     /**
      * Utility for a saving bookmark
      *
-     * @param context the Android context
+     * @param context  the Android context
      * @param comments Bookmark name/comment
-     * @param viewBox map viewbox
+     * @param viewBox  map viewbox
      */
-    public void writer(@NonNull Context context,@NonNull String comments,@NonNull ViewBox viewBox){
+    public void writer(@NonNull Context context, @NonNull String comments, @NonNull ViewBox viewBox) {
         this.bookmarksStorage = readList(context);
-        addDatatolist(comments,viewBox);
+        addDatatolist(comments, viewBox);
         writeList(context, (ArrayList<BookmarksStorage>) this.bookmarksStorage);
     }
 
