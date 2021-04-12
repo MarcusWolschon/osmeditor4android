@@ -5,9 +5,9 @@ import androidx.annotation.NonNull;
 import java.io.Serializable;
 
 import de.blau.android.osm.ViewBox;
+
 /**
  * Storage for a comments and viewbox for a bookmark
- *
  */
 public class BookmarksStorage implements Serializable {
     public ViewBox viewBox;
@@ -17,22 +17,23 @@ public class BookmarksStorage implements Serializable {
      * Storage for comment and viewbox
      *
      * @param comments Bookmark name/comment
-     * @param viewBox Map viewbox
+     * @param viewBox  Map viewbox
      */
-    public BookmarksStorage(@NonNull String comments ,@NonNull ViewBox viewBox){
+    public BookmarksStorage(@NonNull String comments, @NonNull ViewBox viewBox) {
         this.comments = comments;
         this.viewBox = viewBox;
     }
 
-    public BookmarksStorage(){ }
+    public BookmarksStorage() {
+    }
 
     /**
      * Sets the comments and viewbox for a bookmark object
      *
      * @param comments Bookmark name/comment
-     * @param viewBox Map viewbox
+     * @param viewBox  Map viewbox
      */
-    public void set(@NonNull String comments ,@NonNull ViewBox viewBox){
+    public void set(@NonNull String comments, @NonNull ViewBox viewBox) {
         this.comments = comments;
         this.viewBox = viewBox;
     }
@@ -43,23 +44,7 @@ public class BookmarksStorage implements Serializable {
      * @return an AlertDialog instance
      */
     @NonNull
-    public String getComment(){
+    public String getComment() {
         return comments;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

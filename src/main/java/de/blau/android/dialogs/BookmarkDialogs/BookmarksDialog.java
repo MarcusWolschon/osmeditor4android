@@ -1,4 +1,4 @@
-package de.blau.android.dialogs;
+package de.blau.android.dialogs.BookmarkDialogs;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.blau.android.App;
 import de.blau.android.Map;
@@ -19,13 +20,13 @@ import de.blau.android.R;
 import de.blau.android.bookmarks.BookmarkIO;
 import de.blau.android.bookmarks.BookmarksStorage;
 import de.blau.android.util.ThemeUtils;
+
 /**
  * Display a dialog showing the saved bookmarks
- *
  */
 public class BookmarksDialog extends AppCompatActivity implements BookmarkListAdapter.Listeners {
 
-    private ArrayList<BookmarksStorage> bookmarksStorages;
+    private List<BookmarksStorage> bookmarksStorages;
     final Map map = App.getLogic().getMap();
     private AlertDialog dialog;
     private BookmarkListAdapter adapter;
@@ -46,46 +47,45 @@ public class BookmarksDialog extends AppCompatActivity implements BookmarkListAd
     /**
      * Builds show bookmarks dialog
      *
-     * @param activity the calling activity
+     * @param activity          the calling activity
      * @param bookmarksStorages the bookmark arraylist
-     *
      * @return return the built alertdialog
      */
     @NonNull
-    private AlertDialog bookmarkSelectDialog(@NonNull Activity activity, @NonNull ArrayList<BookmarksStorage> bookmarksStorages)  {
+    private AlertDialog bookmarkSelectDialog(@NonNull Activity activity, @NonNull ArrayList<BookmarksStorage> bookmarksStorages) {
 
 
-            final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-            final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
-            final View layout = themedInflater.inflate(R.layout.bookmark_dialog, null);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
+        final View layout = themedInflater.inflate(R.layout.bookmark_dialog, null);
 
-            builder.setView(layout);
-            builder.setTitle("Bookmarks");
-            builder.setNegativeButton(R.string.done, null);
+        builder.setView(layout);
+        builder.setTitle("Bookmarks");
+        builder.setNegativeButton(R.string.done, null);
 
-            final AlertDialog dialog = builder.create();
+        final AlertDialog dialog = builder.create();
 
-            RecyclerView bookmarksList = layout.findViewById(R.id.bookmarkslist);
-            LayoutParams viewLayoutParams = bookmarksList.getLayoutParams();
-            viewLayoutParams.width = LayoutParams.MATCH_PARENT;
+        RecyclerView bookmarksList = layout.findViewById(R.id.bookmarkslist);
+        LayoutParams viewLayoutParams = bookmarksList.getLayoutParams();
+        viewLayoutParams.width = LayoutParams.MATCH_PARENT;
 
-            LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
-            bookmarksList.setLayoutManager(layoutManager);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
+        bookmarksList.setLayoutManager(layoutManager);
 
-            final BookmarkListAdapter adapter = new BookmarkListAdapter(bookmarksStorages,viewLayoutParams, this);
-            bookmarksList.setAdapter(adapter);
+        final BookmarkListAdapter adapter = new BookmarkListAdapter(bookmarksStorages, viewLayoutParams, this);
+        bookmarksList.setAdapter(adapter);
 
-            setAdapter(adapter);
-            setDialog(dialog);
+        setAdapter(adapter);
+        setDialog(dialog);
 
-            return dialog;
+        return dialog;
     }
 
     /**
      * Displays the constructed dialog
      */
-    public void showDialog(){
-        bookmarkSelectDialog(activity,bookmarksStorages).show();
+    public void showDialog() {
+        bookmarkSelectDialog(activity, (ArrayList<BookmarksStorage>) bookmarksStorages).show();
     }
 
     /**
@@ -95,27 +95,28 @@ public class BookmarksDialog extends AppCompatActivity implements BookmarkListAd
      */
     @Override
     public void OnDeleteListener(int position) {
-            adapter.notifyItemRemoved(position);
-            this.bookmarksStorages.remove(position);
-            bookmarkIO.writeList(activity,this.bookmarksStorages);
+        adapter.notifyItemRemoved(position);
+        this.bookmarksStorages.remove(position);
+        bookmarkIO.writeList(activity, (ArrayList<BookmarksStorage>) this.bookmarksStorages);
     }
+
     /**
      * Tap listener, Navigates to the viewbox
      *
      * @param position id of the clicked view
-     *
      */
     @Override
     public void OnGoListener(int position) {
-        map.getViewBox().fitToBoundingBox(map,bookmarksStorages.get(position).viewBox);
+        map.getViewBox().fitToBoundingBox(map, bookmarksStorages.get(position).viewBox);
         map.invalidate();
         dialog.dismiss();
     }
 
-    public void setAdapter(BookmarkListAdapter adapter){
+    public void setAdapter(BookmarkListAdapter adapter) {
         this.adapter = adapter;
     }
-    public void setDialog(AlertDialog dialog){
+
+    public void setDialog(AlertDialog dialog) {
         this.dialog = dialog;
     }
 }

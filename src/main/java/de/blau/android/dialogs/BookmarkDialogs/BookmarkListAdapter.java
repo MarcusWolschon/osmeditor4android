@@ -1,18 +1,14 @@
-package de.blau.android.dialogs;
+package de.blau.android.dialogs.BookmarkDialogs;
 
 
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageView;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,9 +17,9 @@ import java.util.List;
 
 import de.blau.android.R;
 import de.blau.android.bookmarks.BookmarksStorage;
+
 /**
  * Recyclerview adapter for displaying bookmarks
- *
  */
 public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapter.ViewHolder> implements PopupMenu.OnMenuItemClickListener {
 
@@ -31,14 +27,15 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
     private LayoutParams viewLayoutParams;
     private int adapterPosition;
     private Listeners listener;
+
     /**
      * Bookmarklist adapter
      *
      * @param bookmarksStorages bookmarks to display
-     * @param viewLayoutParams layoutparams for the adapter
-     * @param listener interface
+     * @param viewLayoutParams  layoutparams for the adapter
+     * @param listener          interface
      */
-    public BookmarkListAdapter(@NonNull ArrayList<BookmarksStorage> bookmarksStorages,@NonNull ViewGroup.LayoutParams viewLayoutParams,@NonNull Listeners listener){
+    public BookmarkListAdapter(@NonNull ArrayList<BookmarksStorage> bookmarksStorages, @NonNull ViewGroup.LayoutParams viewLayoutParams, @NonNull Listeners listener) {
         this.bookmarksStorages = bookmarksStorages;
         this.viewLayoutParams = viewLayoutParams;
         this.listener = listener;
@@ -46,7 +43,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookmark_adapter,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookmark_adapter, parent, false);
         view.setLayoutParams(viewLayoutParams);
         return new ViewHolder(view);
     }
@@ -58,9 +55,9 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
 
     @Override
     public int getItemCount() {
-        if(this.bookmarksStorages==null){
+        if (this.bookmarksStorages == null) {
             return 0;
-        }else{
+        } else {
             return this.bookmarksStorages.size();
         }
     }
@@ -72,7 +69,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
         public ViewHolder(View view) {
             super(view);
             comments = itemView.findViewById(R.id.bookmarkname);
-            options  = itemView.findViewById(R.id.textViewOptions);
+            options = itemView.findViewById(R.id.textViewOptions);
 
             //Handles view tap
             view.setOnClickListener(v -> {
@@ -92,8 +89,8 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
      *
      * @param view the view involved
      */
-    private void showOptions(@NonNull View view){
-        PopupMenu popupMenu = new PopupMenu(view.getContext(),view);
+    private void showOptions(@NonNull View view) {
+        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
         popupMenu.inflate(R.menu.bookmark_popup);
         popupMenu.setOnMenuItemClickListener(this);
         popupMenu.show();
@@ -106,15 +103,26 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
      */
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        if(item.getItemId()==R.id.bookmarkdiscard){
+        if (item.getItemId() == R.id.bookmarkdiscard) {
             listener.OnDeleteListener(adapterPosition);
             return true;
         }
         return false;
     }
 
-    public interface Listeners{
+    public interface Listeners {
+        /**
+         * Deletes the bookmark when called
+         *
+         * @param position postition id
+         */
         void OnDeleteListener(int position);
+
+        /**
+         * Moves to the bookmark viewbox when called
+         *
+         * @param position postition id
+         */
         void OnGoListener(int position);
     }
 }
