@@ -96,8 +96,10 @@ The "on-map" GPS button duplicates the function of the "Follow GPS position" men
 
  * **Show location** - show arrow symbol at current position
  * **Follow location** - pan and center screen to follow the current position
+ * **Add Bookmark..** - set a bookmark for the current viewbox
+ * **Show Bookmarks..** - show current viewbox bookmarks
  * **Go to current location** - go to and zoom in to the current position
- " **Go to coordinates...** - go to and zoom in to coordinates or an open location code
+ * **Go to coordinates...** - go to and zoom in to coordinates or an open location code
  * **Start GPX track** - start recording a GPX track
  * **Pause GPX track** - pause recording the current GPX track
  * **Clear GPX track** - clear the current GPX track
