@@ -1,4 +1,4 @@
-package de.blau.android.dialogs.BookmarkDialogs;
+package de.blau.android.dialogs.bookmarks;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialog;

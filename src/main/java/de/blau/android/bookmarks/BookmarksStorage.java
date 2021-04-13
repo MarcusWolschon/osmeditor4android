@@ -24,6 +24,9 @@ public class BookmarksStorage implements Serializable {
         this.viewBox = viewBox;
     }
 
+    /**
+     * Default constructor
+     */
     public BookmarksStorage() {
     }
 

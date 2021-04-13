@@ -1296,5 +1296,6 @@ avoided by using an offline data source.</string>
     <string name="show_bookmarks">Show Bookmarks..</string>
     <string name="_dots">⋮</string>
     <string name="gotobookmark">Go</string>
+    <string name="bookmarkstitle">Bookmarks</string>
     />
 </resources>
