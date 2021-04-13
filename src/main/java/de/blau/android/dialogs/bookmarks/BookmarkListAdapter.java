@@ -1,6 +1,5 @@
 package de.blau.android.dialogs.bookmarks;
 
-
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,18 +23,19 @@ import de.blau.android.bookmarks.BookmarksStorage;
 public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapter.ViewHolder> {
 
     private List<BookmarksStorage> bookmarksStorages;
-    private LayoutParams viewLayoutParams;
-    private int adapterPosition;
-    private Listeners listener;
+    private LayoutParams           viewLayoutParams;
+    private int                    adapterPosition;
+    private Listeners              listener;
 
     /**
      * Bookmarklist adapter
      *
      * @param bookmarksStorages bookmarks to display
-     * @param viewLayoutParams  layoutparams for the adapter
-     * @param listener          interface
+     * @param viewLayoutParams layoutparams for the adapter
+     * @param listener interface
      */
-    public BookmarkListAdapter(@NonNull List<BookmarksStorage> bookmarksStorages, @NonNull ViewGroup.LayoutParams viewLayoutParams, @NonNull Listeners listener) {
+    public BookmarkListAdapter(@NonNull ArrayList<BookmarksStorage> bookmarksStorages, @NonNull ViewGroup.LayoutParams viewLayoutParams,
+            @NonNull Listeners listener) {
         this.bookmarksStorages = bookmarksStorages;
         this.viewLayoutParams = viewLayoutParams;
         this.listener = listener;
@@ -71,17 +71,17 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
          *
          * @param view the item view
          */
-        public ViewHolder(View view) {
+        public ViewHolder(@NonNull View view) {
             super(view);
             comments = itemView.findViewById(R.id.bookmarkname);
             options = itemView.findViewById(R.id.textViewOptions);
 
-            //Handles view tap
+            // Handles view tap
             view.setOnClickListener(v -> {
                 adapterPosition = getAdapterPosition();
                 listener.onGoListener(adapterPosition);
             });
-            //Handles options menu tap
+            // Handles options menu tap
             options.setOnClickListener(v -> {
                 adapterPosition = getAdapterPosition();
                 showOptions(options);

@@ -25,11 +25,11 @@ import de.blau.android.util.ThemeUtils;
 public class BookmarksDialog implements BookmarkListAdapter.Listeners {
 
     private ArrayList<BookmarksStorage> bookmarksStorages;
-    final Map map = App.getLogic().getMap();
-    private AlertDialog dialog;
-    private BookmarkListAdapter adapter;
-    private Activity activity;
-    private BookmarkIO bookmarkIO;
+    final Map                           map = App.getLogic().getMap();
+    private AlertDialog                 dialog;
+    private BookmarkListAdapter         adapter;
+    private Activity                    activity;
+    private BookmarkIO                  bookmarkIO;
 
     /**
      * BookmarksDialog Constructor
@@ -45,13 +45,12 @@ public class BookmarksDialog implements BookmarkListAdapter.Listeners {
     /**
      * Builds show bookmarks dialog
      *
-     * @param activity          the calling activity
+     * @param activity the calling activity
      * @param bookmarksStorages the bookmark arraylist
      * @return return the built alertdialog
      */
     @NonNull
     private AlertDialog bookmarkSelectDialog(@NonNull Activity activity, @NonNull ArrayList<BookmarksStorage> bookmarksStorages) {
-
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);

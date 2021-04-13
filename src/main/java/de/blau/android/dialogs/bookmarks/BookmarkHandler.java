@@ -34,7 +34,7 @@ public class BookmarkHandler {
      * Show a dialog and ask the user for input
      *
      * @param activity the calling FragmentActivity
-     * @param handler  a handler for the results
+     * @param handler a handler for the results
      */
     public static void get(@NonNull final FragmentActivity activity, @NonNull final BookmarkHandler.HandleResult handler) {
 
