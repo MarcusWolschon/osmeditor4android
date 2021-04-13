@@ -10,6 +10,7 @@ import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Provider;
@@ -149,7 +150,7 @@ public final class Bing {
                     String tileUrl = parser.getText().trim();
                     int extPos = tileUrl.lastIndexOf(".jpeg");
                     if (extPos >= 0) {
-                        source.setImageExtension(".jpg");
+                        source.setImageExtension(FileExtensions.JPG);
                     }
                     // extract switch values
                     final String SWITCH_START = "{switch:";
