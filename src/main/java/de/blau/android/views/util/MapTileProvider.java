@@ -36,7 +36,7 @@ import de.blau.android.util.Util;
  * @author Simon Poole
  * 
  */
-public class MapTileProvider implements ServiceConnection {
+public class MapTileProvider<T> implements ServiceConnection {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -54,17 +54,43 @@ public class MapTileProvider implements ServiceConnection {
     /**
      * cache provider
      */
-    private MapTileCache            mTileCache;
+    private MapTileCache<T>         mTileCache;
     private final Map<String, Long> pending = Collections.synchronizedMap(new HashMap<String, Long>());
 
     private IMapTileProviderService mTileService;
     private final Handler           mDownloadFinishedHandler;
+    private final TileDecoder<T>    decoder;
 
     /**
      * Set to true if we have less than 64 MB heap or have other caching issues
      */
     private boolean smallHeap = false;
 
+    public interface TileDecoder<D> {
+        /**
+         * Decode a tile
+         * 
+         * @param data the original tile data
+         * @param small use a little memory as possible
+         * @return the tile in the target format
+         */
+        D decode(@NonNull byte[] data, boolean small);
+    }
+
+    public static class BitmapDecoder implements TileDecoder<Bitmap> {
+
+        @Override
+        public Bitmap decode(byte[] data, boolean small) {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            if (small) {
+                options.inPreferredConfig = Bitmap.Config.RGB_565;
+            } else {
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            }
+            return BitmapFactory.decodeByteArray(data, 0, data.length, options);
+        }
+
+    }
     // ===========================================================
     // Constructors
     // ===========================================================
@@ -75,16 +101,16 @@ public class MapTileProvider implements ServiceConnection {
      * @param ctx Android Context
      * @param aDownloadFinishedListener handler to call when a tile download is complete
      */
-    public MapTileProvider(@NonNull final Context ctx, @NonNull final Handler aDownloadFinishedListener) {
+    public MapTileProvider(@NonNull final Context ctx, @NonNull TileDecoder<T> decoder, @NonNull final Handler aDownloadFinishedListener) {
         mCtx = ctx;
-        mTileCache = new MapTileCache();
+        mTileCache = new MapTileCache<>();
 
         smallHeap = Util.smallHeap();
-
+        this.decoder = decoder;
         mDownloadFinishedHandler = aDownloadFinishedListener;
 
         Intent explicitIntent = (new Intent(IMapTileProviderService.class.getName())).setPackage(ctx.getPackageName());
-        if (explicitIntent == null || !ctx.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE)) {
+        if (!ctx.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE)) {
             Log.e(DEBUG_TAG, "Could not bind to " + IMapTileProviderService.class.getName() + " in package " + ctx.getPackageName());
         }
     }
@@ -147,8 +173,8 @@ public class MapTileProvider implements ServiceConnection {
      * @return the tile or null if it wasn't in cache
      */
     @Nullable
-    public Bitmap getMapTile(@NonNull final MapTile aTile, long owner) {
-        Bitmap tile = mTileCache.getMapTile(aTile);
+    public T getMapTile(@NonNull final MapTile aTile, long owner) {
+        T tile = mTileCache.getMapTile(aTile);
         if (tile != null) {
             return tile;
         } else {
@@ -168,7 +194,7 @@ public class MapTileProvider implements ServiceConnection {
      * @return the tile or null if it wasn't in cache
      */
     @Nullable
-    public Bitmap getMapTileFromCache(@NonNull final MapTile aTile) {
+    public T getMapTileFromCache(@NonNull final MapTile aTile) {
         return mTileCache.getMapTile(aTile);
     }
 
@@ -288,17 +314,11 @@ public class MapTileProvider implements ServiceConnection {
          */
         public void mapTileLoaded(@NonNull final String rendererID, final int zoomLevel, final int tileX, final int tileY, @NonNull final byte[] data)
                 throws RemoteException {
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            if (smallHeap) {
-                options.inPreferredConfig = Bitmap.Config.RGB_565;
-            } else {
-                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            }
 
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
             String id = t.toId();
             try {
-                Bitmap tileBitmap = BitmapFactory.decodeByteArray(data, 0, data.length, options);
+                T tileBitmap = decoder.decode(data, smallHeap);
                 if (tileBitmap == null) {
                     Log.d(DEBUG_TAG, "decoded tile is null");
                     throw new RemoteException();

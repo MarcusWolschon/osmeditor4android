@@ -24,7 +24,7 @@ import de.blau.android.exception.StorageException;
  * @author Simon Poole
  *
  */
-public class LRUMapTileCache {
+public class LRUMapTileCache<T> {
 
     private static final String DEBUG_TAG = "LRUMapTileCache";
 
@@ -36,20 +36,20 @@ public class LRUMapTileCache {
     // Fields
     // ===========================================================
 
-    Map<String, CacheElement> cache;
+    Map<String, CacheElement<T>> cache;
 
     /** Maximum cache size. */
-    private long                     maxCacheSize;
+    private long                        maxCacheSize;
     /** Current cache size **/
-    private long                     cacheSize = 0;
+    private long                        cacheSize = 0;
     /** LRU list. */
-    private final List<CacheElement> list;
-    private final List<CacheElement> reuseList;
+    private final List<CacheElement<T>> list;
+    private final List<CacheElement<T>> reuseList;
 
-    private class CacheElement {
+    private class CacheElement<B> {
         boolean recycleable = true;
         String  key;
-        Bitmap  bitmap;
+        B       blob;
         long    owner;
 
         /**
@@ -60,8 +60,8 @@ public class LRUMapTileCache {
          * @param recycleable if true the Bitmap can be recycled
          * @param owner owner reference
          */
-        public CacheElement(@NonNull String key, @NonNull Bitmap bitmap, boolean recycleable, long owner) {
-            init(key, bitmap, recycleable, owner);
+        public CacheElement(@NonNull String key, @NonNull B blob, boolean recycleable, long owner) {
+            init(key, blob, recycleable, owner);
         }
 
         /**
@@ -72,16 +72,16 @@ public class LRUMapTileCache {
          * @param recycleable if true the Bitmap can be recycled
          * @param owner owner reference
          */
-        void init(@Nullable String key, @Nullable Bitmap bitmap, boolean recycleable, long owner) {
+        void init(@Nullable String key, @Nullable B blob, boolean recycleable, long owner) {
             if (key == null) {
                 throw new IllegalArgumentException("key cannot be null");
             }
-            if (bitmap == null) {
+            if (blob == null) {
                 throw new IllegalArgumentException("bitmap cannot be null");
             }
             this.recycleable = recycleable;
             this.key = key;
-            this.bitmap = bitmap;
+            this.blob = blob;
             this.owner = owner;
         }
     }
@@ -115,10 +115,10 @@ public class LRUMapTileCache {
      * Overrides clear() to also clear the LRU list.
      */
     public synchronized void clear() {
-        for (CacheElement ce : cache.values()) {
-            Bitmap b = ce.bitmap;
-            if (b != null && ce.recycleable) {
-                b.recycle();
+        for (CacheElement<T> ce : cache.values()) {
+            T b = ce.blob;
+            if (b instanceof Bitmap && ce.recycleable) {
+                ((Bitmap) b).recycle();
             }
         }
         cache.clear();
@@ -139,7 +139,7 @@ public class LRUMapTileCache {
             limit = 0;
         }
         while (cacheSize > limit && !list.isEmpty()) {
-            CacheElement ce = list.remove(list.size() - 1);
+            CacheElement<T> ce = list.remove(list.size() - 1);
             if (ce.owner == owner && owner != 0) {
                 // cache is being thrashed because it is too small, fail
                 Log.d(DEBUG_TAG, "cache too small, failing");
@@ -149,12 +149,15 @@ public class LRUMapTileCache {
                 throw new IllegalStateException("can't remove " + ce.key + " from cache");
             }
             reuseList.add(ce);
-            Bitmap b = ce.bitmap;
-            if (b != null && !b.isRecycled()) {
-                cacheSize -= b.getRowBytes() * b.getHeight();
+            T b = ce.blob;
+            if (b instanceof Bitmap && !((Bitmap) b).isRecycled()) {
+                Bitmap bitmap = (Bitmap) b;
+                cacheSize -= bitmap.getRowBytes() * bitmap.getHeight();
                 if (ce.recycleable) {
-                    b.recycle();
+                    bitmap.recycle();
                 }
+            } else {
+                cacheSize -= 1;
             }
         }
         return true; // success
@@ -218,36 +221,42 @@ public class LRUMapTileCache {
      *         the specified key
      * @throws StorageException if we can't expand the cache anymore
      */
-    public synchronized Bitmap put(@NonNull final String key, @NonNull final Bitmap value, boolean recycleable, long owner) throws StorageException {
+    public synchronized T put(@NonNull final String key, @NonNull final T value, boolean recycleable, long owner) throws StorageException {
         if (maxCacheSize == 0 || value == null) {
             return null;
         }
 
-        CacheElement prev = cache.get(key);
+        CacheElement<T> prev = cache.get(key);
         // if the key isn't in the cache and the cache is full...
         if (prev == null) {
-            long bitmapSize = (long) value.getRowBytes() * value.getHeight();
-            if (!applyCacheLimit(bitmapSize * 2, owner)) {
-                // failed: cache is to small to handle all tiles necessary for one draw cycle
-                // see if we can expand by 50%
-                if (maxCacheSize < (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory()) && (maxCacheSize / 2 > bitmapSize)) {
-                    Log.w(DEBUG_TAG, "expanding memory tile cache from " + maxCacheSize + " to " + (maxCacheSize + maxCacheSize / 2));
-                    maxCacheSize = maxCacheSize + maxCacheSize / 2;
-                } else {
-                    throw new StorageException(StorageException.OOM); // can't expand any more
+            long sizeInc = 1;
+            if (value instanceof Bitmap) {
+                Bitmap bitmap = (Bitmap) value;
+                sizeInc = (long) bitmap.getRowBytes() * bitmap.getHeight();
+                if (!applyCacheLimit(sizeInc * 2, owner)) {
+                    // failed: cache is to small to handle all tiles necessary for one draw cycle
+                    // see if we can expand by 50%
+                    if (maxCacheSize < (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory()) && (maxCacheSize / 2 > sizeInc)) {
+                        Log.w(DEBUG_TAG, "expanding memory tile cache from " + maxCacheSize + " to " + (maxCacheSize + maxCacheSize / 2));
+                        maxCacheSize = maxCacheSize + maxCacheSize / 2;
+                    } else {
+                        throw new StorageException(StorageException.OOM); // can't expand any more
+                    }
                 }
+            } else {
+                applyCacheLimit(2, owner);
             }
             // avoid creating new objects
-            CacheElement ce = null;
+            CacheElement<T> ce = null;
             if (!reuseList.isEmpty()) {
                 ce = reuseList.remove(0);
                 ce.init(key, value, recycleable, owner);
             } else {
-                ce = new CacheElement(key, value, recycleable, owner);
+                ce = new CacheElement<>(key, value, recycleable, owner);
             }
             list.add(0, ce);
             cache.put(key, ce);
-            cacheSize += bitmapSize;
+            cacheSize += sizeInc;
         } else {
             update(prev);
         }
@@ -262,11 +271,11 @@ public class LRUMapTileCache {
      * @return the value to which the cache maps the specified key, or <code>null</code> if the map contains no mapping
      *         for this key
      */
-    public synchronized Bitmap get(final String key) {
-        final CacheElement value = cache.get(key);
+    public synchronized T get(final String key) {
+        final CacheElement<T> value = cache.get(key);
         if (value != null) {
             update(value);
-            return value.bitmap;
+            return value.blob;
         }
         return null;
     }
@@ -277,7 +286,7 @@ public class LRUMapTileCache {
      * 
      * @param value to move to the top of the list
      */
-    private synchronized void update(final CacheElement value) {
+    private synchronized void update(final CacheElement<T> value) {
         list.remove(value);
         list.add(0, value);
     }

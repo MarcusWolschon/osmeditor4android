@@ -149,7 +149,7 @@ public final class Bing {
                     String tileUrl = parser.getText().trim();
                     int extPos = tileUrl.lastIndexOf(".jpeg");
                     if (extPos >= 0) {
-                        source.setImageFilenameExtension(".jpg");
+                        source.setImageExtension(".jpg");
                     }
                     // extract switch values
                     final String SWITCH_START = "{switch:";

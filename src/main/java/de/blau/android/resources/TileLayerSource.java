@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,6 +49,7 @@ import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Files;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Urls;
@@ -95,10 +98,10 @@ public class TileLayerSource implements Serializable {
     public static final String EPSG_900913       = "EPSG:900913";
     public static final String EPSG_3857         = "EPSG:3857";
     public static final String EPSG_4326         = "EPSG:4326";
-    static final String        TYPE_BING         = "bing";
     public static final String TYPE_TMS          = "tms";
     public static final String TYPE_WMS          = "wms";
     static final String        TYPE_WMS_ENDPOINT = "wms_endpoint";
+    static final String        TYPE_BING         = "bing";
     static final String        TYPE_SCANEX       = "scanex";
     public static final String LAYER_MAPNIK      = "MAPNIK";
     public static final String LAYER_NONE        = "NONE";
@@ -106,6 +109,10 @@ public class TileLayerSource implements Serializable {
     public static final String LAYER_BING        = "BING";
 
     private static final String WMS_VERSION_130 = "1.3.0";
+
+    public enum TileType {
+        BITMAP, MVT
+    }
 
     /**
      * A tile layer provide has some attribution text, and one or more coverage areas.
@@ -407,6 +414,7 @@ public class TileLayerSource implements Serializable {
     private String                   privacyPolicyUrl = null;
     private String                   wmsAxisOrder     = null;
     private transient List<Provider> providers        = new ArrayList<>();
+    private final TileType           tileType;
 
     private boolean  readOnly = false;
     private String   imageryOffsetId; // cached id for offset DB
@@ -608,9 +616,24 @@ public class TileLayerSource implements Serializable {
             readOnly = true;
         }
 
+        String urlPath = null;
+        try {
+            URL parsedUrl = new URL(tileUrl);
+            urlPath = parsedUrl.getPath();
+            if (getImageExtension() == null) {
+                int extPos = urlPath.lastIndexOf('.');
+                if (extPos >= 0) {
+                    setImageExtension(urlPath.substring(extPos));
+                }
+            }
+        } catch (MalformedURLException e) {
+            Log.e(DEBUG_TAG, "Url parsing failed " + tileUrl + " " + e.getMessage());
+        }
+        tileType = urlPath != null && (urlPath.endsWith(FileExtensions.MVT) || urlPath.endsWith(FileExtensions.PBF)) ? TileType.MVT : TileType.BITMAP;
+
         if (proj != null) { // wms
             if (tileUrl.contains(MimeTypes.JPEG)) {
-                setImageFilenameExtension(".jpg");
+                setImageExtension(FileExtensions.JPG);
             }
         }
 
@@ -649,14 +672,10 @@ public class TileLayerSource implements Serializable {
             return;
         } else if (TYPE_SCANEX.equals(type)) { // hopelessly hardwired
             setTileUrl("http://irs.gis-lab.info/?layers=" + tileUrl.toLowerCase(Locale.US) + "&request=GetTile&z={zoom}&x={x}&y={y}");
-            setImageFilenameExtension(".jpg");
+            setImageExtension(FileExtensions.JPG);
             return;
         }
 
-        int extPos = tileUrl.lastIndexOf('.');
-        if (extPos >= 0) {
-            setImageFilenameExtension(tileUrl.substring(extPos));
-        }
         // extract switch values
         final String SWITCH_START = "{switch:";
         int switchPos = tileUrl.indexOf(SWITCH_START);
@@ -913,7 +932,7 @@ public class TileLayerSource implements Serializable {
         } finally {
             writeableDb.endTransaction();
         }
-        MapTilesLayer layer = App.getLogic().getMap().getBackgroundLayer();
+        MapTilesLayer<?> layer = App.getLogic().getMap().getBackgroundLayer();
         if (layer != null) {
             layer.getTileProvider().update();
         }
@@ -1049,15 +1068,6 @@ public class TileLayerSource implements Serializable {
         // }
         // }
         return getMaxZoom();
-    }
-
-    /**
-     * Get the filename extensions that applies to the tile images.
-     * 
-     * @return Image filename extension, eg ".png".
-     */
-    public String getImageExtension() {
-        return imageFilenameExtension;
     }
 
     /**
@@ -2115,6 +2125,13 @@ public class TileLayerSource implements Serializable {
     }
 
     /**
+     * @return the tileType
+     */
+    public TileType getTileType() {
+        return tileType;
+    }
+
+    /**
      * Get the category for the layer
      * 
      * @return the category or null if not set
@@ -2356,13 +2373,24 @@ public class TileLayerSource implements Serializable {
     /**
      * @param imageFilenameExtension the imageFilenameExtension to set
      */
-    public void setImageFilenameExtension(String imageFilenameExtension) {
+    public void setImageExtension(@Nullable String imageFilenameExtension) {
         this.imageFilenameExtension = imageFilenameExtension;
+    }
+
+    /**
+     * Get the filename extensions that applies to the tile images.
+     * 
+     * @return Image filename extension, eg "png" without "." .
+     */
+    @Nullable
+    public String getImageExtension() {
+        return imageFilenameExtension;
     }
 
     /**
      * @return the subdomains
      */
+    @Nullable
     public Queue<String> getSubdomains() {
         return subdomains;
     }

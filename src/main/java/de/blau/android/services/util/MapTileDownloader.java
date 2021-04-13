@@ -194,7 +194,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                         byte[] data = dataStream.toByteArray();
 
                         if (data.length == 0) {
-                            throw new IOException("no tile data");
+                            throw new FileNotFoundException(TILE_NOT_AVAILABLE);
                         }
                         // check format
                         if (format != null) {
@@ -217,16 +217,21 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                                 // this can't be a tile and is likely an error message
                                 Log.e(DEBUGTAG, responseBody.string());
                                 throw new FileNotFoundException(TILE_NOT_AVAILABLE);
-                            case MimeTypes.APPLICATION_TYPE: // WMS errors
+                            case MimeTypes.APPLICATION_TYPE: // WMS errors, MVT tiles
                                 switch (format.subtype().toLowerCase()) {
                                 case MimeTypes.WMS_EXCEPTION_XML_SUBTYPE:
                                 case MimeTypes.JSON_SUBTYPE:
                                     Log.e(DEBUGTAG, responseBody.string());
+                                    throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                                case MimeTypes.MVT_SUBTYPE:
+                                    if (data.length > BINDER_SIZE_LIMIT) {
+                                        throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                                    }
                                     break;
                                 default:
                                     Log.e(DEBUGTAG, "Application sub type " + format.subtype());
                                 }
-                                throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                                break;
                             default:
                                 Log.e(DEBUGTAG, "Unexpected response format " + format + " tile url " + tileURLString);
                                 throw new FileNotFoundException(TILE_NOT_AVAILABLE);

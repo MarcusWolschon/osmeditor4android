@@ -1,7 +1,6 @@
 // Created by plusminus on 17:58:57 - 25.09.2008
 package de.blau.android.views.util;
 
-import android.graphics.Bitmap;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +16,7 @@ import de.blau.android.services.util.MapTile;
  * @author Simon Poole
  *
  */
-public class MapTileCache {
+public class MapTileCache<T> {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -27,7 +26,7 @@ public class MapTileCache {
     // ===========================================================
 
     private static final String DEBUG_TAG = "MapTileCache";
-    private LRUMapTileCache     mCachedTiles;
+    private LRUMapTileCache<T>  mCachedTiles;
 
     // ===========================================================
     // Constructors
@@ -47,7 +46,7 @@ public class MapTileCache {
      */
     private MapTileCache(final long aMaximumCacheBytes) {
         Log.d(DEBUG_TAG, "Created new in memory tile cache with " + aMaximumCacheBytes + " bytes");
-        mCachedTiles = new LRUMapTileCache(aMaximumCacheBytes);
+        mCachedTiles = new LRUMapTileCache<>(aMaximumCacheBytes);
     }
 
     // ===========================================================
@@ -58,10 +57,10 @@ public class MapTileCache {
      * Get a tile from the cache
      * 
      * @param aTile the tile specification
-     * @return the tile Bitmap or null if not found
+     * @return the tile or null if not found
      */
     @Nullable
-    public synchronized Bitmap getMapTile(@NonNull final MapTile aTile) {
+    public synchronized T getMapTile(@NonNull final MapTile aTile) {
         return mCachedTiles.get(aTile.toId());
     }
 
@@ -74,7 +73,7 @@ public class MapTileCache {
      * @return true if there was no previous mapping for this tile
      * @throws StorageException if we coudn't store the tile
      */
-    public synchronized boolean putTile(@NonNull final MapTile aTile, @NonNull final Bitmap aImage, final long owner) throws StorageException {
+    public synchronized boolean putTile(@NonNull final MapTile aTile, @NonNull final T aImage, final long owner) throws StorageException {
         return mCachedTiles.put(aTile.toId(), aImage, true, owner) != null;
     }
 
@@ -88,7 +87,7 @@ public class MapTileCache {
      * @return true if there was no previous mapping for this tile
      * @throws StorageException if we coudn't store the tile
      */
-    public synchronized boolean putTile(@NonNull final MapTile aTile, @NonNull final Bitmap aImage, final boolean recycleable, final long owner)
+    public synchronized boolean putTile(@NonNull final MapTile aTile, @NonNull final T aImage, final boolean recycleable, final long owner)
             throws StorageException {
         return mCachedTiles.put(aTile.toId(), aImage, recycleable, owner) != null;
     }

@@ -407,7 +407,7 @@ dependencies {
     implementation "com.adobe.xmp:xmpcore:6.1.10"
     implementation "com.drewnoakes:metadata-extractor:2.13.0"
     implementation "com.google.code.gson:gson:2.8.5"
-    implementation 'com.google.protobuf:protobuf-java:2.6.1'
+    implementation 'com.google.protobuf:protobuf-java:3.12.2'
     implementation 'com.google.openlocationcode:openlocationcode:1.0.4'
     implementation ('com.faendir.rhino:rhino-android:1.6.0') { exclude group: 'org.mozilla' }
     implementation "org.mozilla:rhino:1.7.13"
@@ -424,7 +424,7 @@ dependencies {
     implementation 'de.westnordost:countryboundaries:1.5'
     implementation 'com.github.sevar83:indeterminate-checkbox:1.0.5@aar'
     implementation 'de.ruedigermoeller:fst:2.57'
-    implementation 'org.openstreetmap.osmosis:osmosis-osm-binary:0.47'
+    implementation 'org.openstreetmap.osmosis:osmosis-osm-binary:0.48.3'
     implementation 'com.zaxxer:SparseBitSet:1.2'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     implementation 'io.michaelrocks:libphonenumber-android:8.12.22'
