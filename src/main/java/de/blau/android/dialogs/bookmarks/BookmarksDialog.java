@@ -1,4 +1,4 @@
-package de.blau.android.dialogs.BookmarkDialogs;
+package de.blau.android.dialogs.bookmarks;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -7,12 +7,10 @@ import android.view.ViewGroup.LayoutParams;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.blau.android.App;
 import de.blau.android.Map;
@@ -24,9 +22,9 @@ import de.blau.android.util.ThemeUtils;
 /**
  * Display a dialog showing the saved bookmarks
  */
-public class BookmarksDialog extends AppCompatActivity implements BookmarkListAdapter.Listeners {
+public class BookmarksDialog implements BookmarkListAdapter.Listeners {
 
-    private List<BookmarksStorage> bookmarksStorages;
+    private ArrayList<BookmarksStorage> bookmarksStorages;
     final Map map = App.getLogic().getMap();
     private AlertDialog dialog;
     private BookmarkListAdapter adapter;
@@ -60,10 +58,10 @@ public class BookmarksDialog extends AppCompatActivity implements BookmarkListAd
         final View layout = themedInflater.inflate(R.layout.bookmark_dialog, null);
 
         builder.setView(layout);
-        builder.setTitle("Bookmarks");
+        builder.setTitle(R.string.bookmarkstitle);
         builder.setNegativeButton(R.string.done, null);
 
-        final AlertDialog dialog = builder.create();
+        dialog = builder.create();
 
         RecyclerView bookmarksList = layout.findViewById(R.id.bookmarkslist);
         LayoutParams viewLayoutParams = bookmarksList.getLayoutParams();
@@ -72,11 +70,8 @@ public class BookmarksDialog extends AppCompatActivity implements BookmarkListAd
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         bookmarksList.setLayoutManager(layoutManager);
 
-        final BookmarkListAdapter adapter = new BookmarkListAdapter(bookmarksStorages, viewLayoutParams, this);
+        adapter = new BookmarkListAdapter(bookmarksStorages, viewLayoutParams, this);
         bookmarksList.setAdapter(adapter);
-
-        setAdapter(adapter);
-        setDialog(dialog);
 
         return dialog;
     }
@@ -85,7 +80,7 @@ public class BookmarksDialog extends AppCompatActivity implements BookmarkListAd
      * Displays the constructed dialog
      */
     public void showDialog() {
-        bookmarkSelectDialog(activity, (ArrayList<BookmarksStorage>) bookmarksStorages).show();
+        bookmarkSelectDialog(activity, this.bookmarksStorages).show();
     }
 
     /**
@@ -94,10 +89,10 @@ public class BookmarksDialog extends AppCompatActivity implements BookmarkListAd
      * @param position id of the clicked view
      */
     @Override
-    public void OnDeleteListener(int position) {
+    public void onDeleteListener(int position) {
         adapter.notifyItemRemoved(position);
         this.bookmarksStorages.remove(position);
-        bookmarkIO.writeList(activity, (ArrayList<BookmarksStorage>) this.bookmarksStorages);
+        bookmarkIO.writeList(activity, this.bookmarksStorages);
     }
 
     /**
@@ -106,17 +101,9 @@ public class BookmarksDialog extends AppCompatActivity implements BookmarkListAd
      * @param position id of the clicked view
      */
     @Override
-    public void OnGoListener(int position) {
-        map.getViewBox().fitToBoundingBox(map, bookmarksStorages.get(position).viewBox);
+    public void onGoListener(int position) {
+        map.getViewBox().fitToBoundingBox(map, this.bookmarksStorages.get(position).viewBox);
         map.invalidate();
         dialog.dismiss();
-    }
-
-    public void setAdapter(BookmarkListAdapter adapter) {
-        this.adapter = adapter;
-    }
-
-    public void setDialog(AlertDialog dialog) {
-        this.dialog = dialog;
     }
 }

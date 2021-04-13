@@ -1,4 +1,4 @@
-package de.blau.android.dialogs.BookmarkDialogs;
+package de.blau.android.dialogs.bookmarks;
 
 
 import android.view.LayoutInflater;
@@ -21,7 +21,7 @@ import de.blau.android.bookmarks.BookmarksStorage;
 /**
  * Recyclerview adapter for displaying bookmarks
  */
-public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapter.ViewHolder> implements PopupMenu.OnMenuItemClickListener {
+public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapter.ViewHolder> {
 
     private List<BookmarksStorage> bookmarksStorages;
     private LayoutParams viewLayoutParams;
@@ -35,7 +35,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
      * @param viewLayoutParams  layoutparams for the adapter
      * @param listener          interface
      */
-    public BookmarkListAdapter(@NonNull ArrayList<BookmarksStorage> bookmarksStorages, @NonNull ViewGroup.LayoutParams viewLayoutParams, @NonNull Listeners listener) {
+    public BookmarkListAdapter(@NonNull List<BookmarksStorage> bookmarksStorages, @NonNull ViewGroup.LayoutParams viewLayoutParams, @NonNull Listeners listener) {
         this.bookmarksStorages = bookmarksStorages;
         this.viewLayoutParams = viewLayoutParams;
         this.listener = listener;
@@ -62,10 +62,15 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
         }
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements PopupMenu.OnMenuItemClickListener {
         TextView comments;
         TextView options;
 
+        /**
+         * Create a new ViewHolder
+         *
+         * @param view the item view
+         */
         public ViewHolder(View view) {
             super(view);
             comments = itemView.findViewById(R.id.bookmarkname);
@@ -74,7 +79,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
             //Handles view tap
             view.setOnClickListener(v -> {
                 adapterPosition = getAdapterPosition();
-                listener.OnGoListener(adapterPosition);
+                listener.onGoListener(adapterPosition);
             });
             //Handles options menu tap
             options.setOnClickListener(v -> {
@@ -82,32 +87,32 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
                 showOptions(options);
             });
         }
-    }
 
-    /**
-     * Display a popmenu with bookmark delete option
-     *
-     * @param view the view involved
-     */
-    private void showOptions(@NonNull View view) {
-        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
-        popupMenu.inflate(R.menu.bookmark_popup);
-        popupMenu.setOnMenuItemClickListener(this);
-        popupMenu.show();
-    }
-
-    /**
-     * handle menu item click
-     *
-     * @param item menu item
-     */
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        if (item.getItemId() == R.id.bookmarkdiscard) {
-            listener.OnDeleteListener(adapterPosition);
-            return true;
+        /**
+         * Display a popmenu with bookmark delete option
+         *
+         * @param view the item view
+         */
+        private void showOptions(@NonNull View view) {
+            PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+            popupMenu.inflate(R.menu.bookmark_popup);
+            popupMenu.setOnMenuItemClickListener(this);
+            popupMenu.show();
         }
-        return false;
+
+        /**
+         * handle menu item click
+         *
+         * @param item menu item
+         */
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            if (item.getItemId() == R.id.bookmarkdiscard) {
+                listener.onDeleteListener(adapterPosition);
+                return true;
+            }
+            return false;
+        }
     }
 
     public interface Listeners {
@@ -116,13 +121,13 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
          *
          * @param position postition id
          */
-        void OnDeleteListener(int position);
+        void onDeleteListener(int position);
 
         /**
-         * Moves to the bookmark viewbox when called
+         * Moves to the bookmarked viewbox when called
          *
          * @param position postition id
          */
-        void OnGoListener(int position);
+        void onGoListener(int position);
     }
 }

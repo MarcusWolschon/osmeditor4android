@@ -5,7 +5,6 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.blau.android.osm.ViewBox;
 import de.blau.android.util.SavingHelper;
@@ -15,7 +14,7 @@ import de.blau.android.util.SavingHelper;
  */
 public class BookmarkIO {
     private BookmarksStorage currentBookmarkStorage;
-    private List<BookmarksStorage> bookmarksStorage;
+    private ArrayList<BookmarksStorage> bookmarksStorage;
     private final String fileName = "bookmarks.ser";
     SavingHelper<ArrayList<BookmarksStorage>> savingHelper;
 
@@ -58,10 +57,10 @@ public class BookmarkIO {
      */
 
     @NonNull
-    public List<BookmarksStorage> readList(@NonNull Context context) {
-        List<BookmarksStorage> savedList = savingHelper.load(context, fileName, true);
+    public ArrayList<BookmarksStorage> readList(@NonNull Context context) {
+        ArrayList<BookmarksStorage> savedList = savingHelper.load(context, fileName, true);
         if (savedList == null) {
-            // returns an empty list instead of nu
+            // returns an empty list instead of null
             return this.bookmarksStorage;
         }
         return savedList;
@@ -77,7 +76,7 @@ public class BookmarkIO {
     public void writer(@NonNull Context context, @NonNull String comments, @NonNull ViewBox viewBox) {
         this.bookmarksStorage = readList(context);
         addDatatolist(comments, viewBox);
-        writeList(context, (ArrayList<BookmarksStorage>) this.bookmarksStorage);
+        writeList(context, this.bookmarksStorage);
     }
 
 }
