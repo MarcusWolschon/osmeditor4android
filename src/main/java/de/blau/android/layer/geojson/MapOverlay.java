@@ -245,7 +245,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             paint.setAntiAlias(true);
             paint.setStyle(Paint.Style.STROKE);
             drawLine(canvas, bb, width, height, line, paint);
-            canvas.drawPath(path, paint);
             break;
         case GeoJSONConstants.MULTILINESTRING:
             @SuppressWarnings("unchecked")
@@ -329,7 +328,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         GeoJson.pointListToLinePointsArray(bb, width, height, points, line);
         float[] linePoints = points.getArray();
         int pointsSize = points.size();
-        if (pointsSize > 2) {
+        if (pointsSize > 1) {
             path.reset();
             path.moveTo(linePoints[0], linePoints[1]);
             for (int i = 0; i < pointsSize; i = i + 4) {
