@@ -322,6 +322,7 @@
     <string name="layer_select_imagery">Select imagery</string>
     <string name="layer_category_all">All</string>
     <string name="layer_category_photo">Aerial imagery</string>
+    <string name="layer_category_elevation">Terrain</string>
     <string name="layer_category_historicphoto">Outdated aerial imagery</string>
     <string name="layer_category_map">Map</string>
     <string name="layer_category_historicmap">Outdated map</string>
