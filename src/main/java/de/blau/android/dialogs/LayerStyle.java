@@ -32,6 +32,7 @@ import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.layer.MapViewLayer;
+import de.blau.android.layer.StyleableInterface;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.Density;
@@ -53,8 +54,8 @@ public class LayerStyle extends ImmersiveDialogFragment {
 
     private final Map map;
 
-    private StyleableLayer layer;
-    private View           colorView;
+    private StyleableInterface layer;
+    private View               colorView;
 
     /**
      * Show an instance of this dialog
@@ -123,9 +124,9 @@ public class LayerStyle extends ImmersiveDialogFragment {
 
         int layerIndex = getArguments().getInt(LAYERINDEX);
         MapViewLayer tempLayer = map.getLayer(layerIndex);
-        if (tempLayer instanceof StyleableLayer) {
+        if (tempLayer instanceof StyleableInterface) {
             builder.setTitle(tempLayer.getName());
-            layer = (StyleableLayer) tempLayer;
+            layer = (StyleableInterface) tempLayer;
             final List<String> labelKeys = layer.getLabelList();
             if (!labelKeys.isEmpty()) {
                 final Spinner labelSpinner = (Spinner) layout.findViewById(R.id.layer_style_label);
@@ -209,7 +210,7 @@ public class LayerStyle extends ImmersiveDialogFragment {
      * @param layer the layer we are changing this for
      * @return an OnSeekBarChangeListener
      */
-    private OnSeekBarChangeListener createSeekBarListener(@NonNull final View strokeWidthView, @NonNull final StyleableLayer layer) {
+    private OnSeekBarChangeListener createSeekBarListener(@NonNull final View strokeWidthView, @NonNull final StyleableInterface layer) {
         return new OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(final SeekBar seekBar, int progress, final boolean fromTouch) {

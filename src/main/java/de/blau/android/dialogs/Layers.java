@@ -59,7 +59,7 @@ import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.layer.PruneableInterface;
-import de.blau.android.layer.StyleableLayer;
+import de.blau.android.layer.StyleableInterface;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -532,7 +532,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 });
             }
 
-            if (layer instanceof StyleableLayer) {
+            if (layer instanceof StyleableInterface) {
                 MenuItem item = menu.add(R.string.layer_change_style);
                 item.setOnMenuItemClickListener(unused -> {
                     if (layer != null) {

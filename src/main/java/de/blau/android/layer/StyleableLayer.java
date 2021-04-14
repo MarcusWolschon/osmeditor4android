@@ -2,21 +2,17 @@ package de.blau.android.layer;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.util.Snack;
 
-public abstract class StyleableLayer extends MapViewLayer implements DiscardInterface, Serializable {
+public abstract class StyleableLayer extends MapViewLayer implements StyleableInterface, DiscardInterface, Serializable {
     private static final long serialVersionUID = 1L;
 
     private static final String DEBUG_TAG = StyleableLayer.class.getSimpleName();
@@ -41,40 +37,24 @@ public abstract class StyleableLayer extends MapViewLayer implements DiscardInte
      */
     protected String name;
 
-    /**
-     * Get the current color for this layer
-     * 
-     * @return the color as an int
-     */
+    @Override
     public int getColor() {
         return paint.getColor();
     }
 
-    /**
-     * Set the color for the layer
-     * 
-     * @param color color to use
-     */
+    @Override
     public void setColor(int color) {
         dirty();
         paint.setColor(color);
         this.color = color;
     }
 
-    /**
-     * Get the stroke width for drawing lines
-     * 
-     * @return the stroke width in pixels
-     */
+    @Override
     public float getStrokeWidth() {
         return paint.getStrokeWidth();
     }
 
-    /**
-     * Set the stroke width for lines
-     * 
-     * @param width stroke width in pixels
-     */
+    @Override
     public void setStrokeWidth(float width) {
         dirty();
         paint.setStrokeWidth(width);
@@ -82,57 +62,10 @@ public abstract class StyleableLayer extends MapViewLayer implements DiscardInte
     }
 
     /**
-     * Symbol for points
-     * 
-     * @return the Path object used for points
-     */
-    public Path getPointSymbol() {
-        // unused
-        return null;
-    }
-
-    /**
-     * Set the Path for the symbol for points
-     * 
-     * @param symbol the Path for symbol
-     */
-    public void setPointSymbol(@NonNull Path symbol) {
-        // unimplemented
-    }
-
-    /**
      * Set styling parameters back to defaults
      */
+    @Override
     public abstract void resetStyling();
-
-    /**
-     * Get a list of keys for labeling
-     * 
-     * @return a list of keys, null if there are none
-     */
-    @NonNull
-    public List<String> getLabelList() {
-        return new ArrayList<>();
-    }
-
-    /**
-     * Set the key of the label to use
-     * 
-     * @param key label key to use
-     */
-    public void setLabel(@NonNull String key) {
-        // do nothing as default
-    }
-
-    /**
-     * Get the current label field/key
-     * 
-     * @return the current label field/key or null if none
-     */
-    @Nullable
-    public String getLabel() {
-        return null;
-    }
 
     @Override
     public synchronized void onSaveState(@NonNull Context context) throws IOException {
