@@ -1,19 +1,9 @@
 package de.blau.android.dialogs;
 
 
-import android.app.Instrumentation;
-import android.app.Instrumentation.ActivityMonitor;
+import static org.junit.Assert.assertNotNull;
 
-import androidx.test.uiautomator.UiDevice;
-import androidx.test.uiautomator.UiObject;
-import androidx.test.uiautomator.UiObjectNotFoundException;
-import androidx.test.uiautomator.UiSelector;
-
-import android.content.Intent;
-
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.ActivityTestRule;
+import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,19 +11,23 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.ArrayList;
-
-
+import android.app.Instrumentation;
+import android.app.Instrumentation.ActivityMonitor;
+import android.content.Intent;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject;
+import androidx.test.uiautomator.UiObjectNotFoundException;
+import androidx.test.uiautomator.UiSelector;
 import de.blau.android.Main;
 import de.blau.android.Map;
-
-import de.blau.android.Splash;
+import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.bookmarks.BookmarksStorage;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.ViewBox;
-
-import static org.junit.Assert.assertNotNull;
 
 @RunWith(AndroidJUnit4.class)
 public class BookmarkDialogsTest {
@@ -82,13 +76,13 @@ public class BookmarkDialogsTest {
      * Checks if the the viewboxes are same across dialogs
      */
     @Test
-    public void AddRemoveTest() {
+    public void addRemoveTest() {
         //Add Dialog
         for (int i = 0; i < 3; i++) {
             map.getViewBox().fitToBoundingBox(map, bookmarksStorages.get(i).getViewBox());
             map.invalidate();
             Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-            Assert.assertTrue(TestUtils.clickText(device, false, "Add Bookmark..", true, false));
+            Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.add_bookmark), true, false));
             UiObject comments = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
             try {
                 comments.click();
@@ -107,11 +101,11 @@ public class BookmarkDialogsTest {
             // dividing by 100 to accomodate slight change in map.getviewbox()
             Assert.assertEquals((bookmarksStorages.get(i).getViewBox().getLeft()) / 100, viewBoxtest.getLeft() / 100);
             Assert.assertEquals((bookmarksStorages.get(i).getViewBox().getRight()) / 100, viewBoxtest.getRight() / 100);
-            TestUtils.clickMenuButton(device, "GPS/GNSS…", false, true);
-            TestUtils.clickText(device, false, "Show Bookmarks..", true, false);
+            TestUtils.clickMenuButton(device, main.getString(R.string.menu_gps), false, true);
+            TestUtils.clickText(device, false, main.getString(R.string.show_bookmarks), true, false);
             TestUtils.clickText(device, false, "⋮", true, false);
-            TestUtils.clickText(device, false, "Discard", true, false);
+            TestUtils.clickText(device, false, main.getString(R.string.discard), true, false);
         }
-        TestUtils.clickText(device, false, "Done", true, false);
+        TestUtils.clickText(device, false, main.getString(R.string.done), true, false);
     }
 }

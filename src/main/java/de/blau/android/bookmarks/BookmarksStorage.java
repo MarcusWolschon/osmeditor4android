@@ -61,6 +61,7 @@ public class BookmarksStorage implements Serializable {
      * 
      * @return the viewBox
      */
+    @NonNull
     public ViewBox getViewBox() {
         return viewBox;
     }
