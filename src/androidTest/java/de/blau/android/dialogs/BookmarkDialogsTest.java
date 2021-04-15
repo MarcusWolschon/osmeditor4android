@@ -85,7 +85,7 @@ public class BookmarkDialogsTest {
     public void AddRemoveTest() {
         //Add Dialog
         for (int i = 0; i < 3; i++) {
-            map.getViewBox().fitToBoundingBox(map, bookmarksStorages.get(i).viewBox);
+            map.getViewBox().fitToBoundingBox(map, bookmarksStorages.get(i).getViewBox());
             map.invalidate();
             Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
             Assert.assertTrue(TestUtils.clickText(device, false, "Add Bookmark..", true, false));
@@ -105,8 +105,8 @@ public class BookmarkDialogsTest {
             TestUtils.clickResource(device, true, (device.getCurrentPackageName() + ":id/adapterlayout"), true);
             viewBoxtest = map.getViewBox();
             // dividing by 100 to accomodate slight change in map.getviewbox()
-            Assert.assertEquals((bookmarksStorages.get(i).viewBox.getLeft()) / 100, viewBoxtest.getLeft() / 100);
-            Assert.assertEquals((bookmarksStorages.get(i).viewBox.getRight()) / 100, viewBoxtest.getRight() / 100);
+            Assert.assertEquals((bookmarksStorages.get(i).getViewBox().getLeft()) / 100, viewBoxtest.getLeft() / 100);
+            Assert.assertEquals((bookmarksStorages.get(i).getViewBox().getRight()) / 100, viewBoxtest.getRight() / 100);
             TestUtils.clickMenuButton(device, "GPS/GNSS…", false, true);
             TestUtils.clickText(device, false, "Show Bookmarks..", true, false);
             TestUtils.clickText(device, false, "⋮", true, false);

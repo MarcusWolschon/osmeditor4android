@@ -10,14 +10,19 @@ import de.blau.android.osm.ViewBox;
  * Storage for a comments and viewbox for a bookmark
  */
 public class BookmarksStorage implements Serializable {
-    public ViewBox viewBox;
-    public String comments;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    private ViewBox viewBox;
+    private String  comments;
 
     /**
      * Storage for comment and viewbox
      *
      * @param comments Bookmark name/comment
-     * @param viewBox  Map viewbox
+     * @param viewBox Map viewbox
      */
     public BookmarksStorage(@NonNull String comments, @NonNull ViewBox viewBox) {
         this.comments = comments;
@@ -34,7 +39,7 @@ public class BookmarksStorage implements Serializable {
      * Sets the comments and viewbox for a bookmark object
      *
      * @param comments Bookmark name/comment
-     * @param viewBox  Map viewbox
+     * @param viewBox Map viewbox
      */
     public void set(@NonNull String comments, @NonNull ViewBox viewBox) {
         this.comments = comments;
@@ -49,5 +54,14 @@ public class BookmarksStorage implements Serializable {
     @NonNull
     public String getComment() {
         return comments;
+    }
+
+    /**
+     * Get the view box for a bookmark
+     * 
+     * @return the viewBox
+     */
+    public ViewBox getViewBox() {
+        return viewBox;
     }
 }

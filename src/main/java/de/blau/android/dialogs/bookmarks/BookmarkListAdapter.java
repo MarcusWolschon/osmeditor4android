@@ -1,19 +1,16 @@
 package de.blau.android.dialogs.bookmarks;
 
+import java.util.List;
+
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import de.blau.android.R;
 import de.blau.android.bookmarks.BookmarksStorage;
 
@@ -34,7 +31,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
      * @param viewLayoutParams layoutparams for the adapter
      * @param listener interface
      */
-    public BookmarkListAdapter(@NonNull ArrayList<BookmarksStorage> bookmarksStorages, @NonNull ViewGroup.LayoutParams viewLayoutParams,
+    public BookmarkListAdapter(@NonNull List<BookmarksStorage> bookmarksStorages, @NonNull ViewGroup.LayoutParams viewLayoutParams,
             @NonNull Listeners listener) {
         this.bookmarksStorages = bookmarksStorages;
         this.viewLayoutParams = viewLayoutParams;
@@ -50,7 +47,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.comments.setText(bookmarksStorages.get(position).comments);
+        holder.comments.setText(bookmarksStorages.get(position).getComment());
     }
 
     @Override

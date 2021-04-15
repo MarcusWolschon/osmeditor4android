@@ -101,7 +101,7 @@ public class BookmarksDialog implements BookmarkListAdapter.Listeners {
      */
     @Override
     public void onGoListener(int position) {
-        map.getViewBox().fitToBoundingBox(map, this.bookmarksStorages.get(position).viewBox);
+        map.getViewBox().fitToBoundingBox(map, this.bookmarksStorages.get(position).getViewBox());
         map.invalidate();
         dialog.dismiss();
     }

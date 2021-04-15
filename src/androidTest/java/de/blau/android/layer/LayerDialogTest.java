@@ -275,19 +275,17 @@ public class LayerDialogTest {
     @Test
     public void layerFilter() {
         try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
-            TileLayerSource.addOrUpdateCustomLayer(main, db.getWritableDatabase(), MockTileServer.MOCK_TILE_SOURCE, TileLayerSource.getDefault(main, true),
-                    -1, -1, "Terrain Test", new TileLayerSource.Provider(), TileLayerSource.Category.elevation, null, 0, 19, true, "");
+            TileLayerSource.addOrUpdateCustomLayer(main, db.getWritableDatabase(), "TERRAINTEST", null, -1, -1, "Terrain Test", null,
+                    TileLayerSource.Category.elevation, TileLayerSource.TYPE_TMS, 0, 19, false, "");
+            TileLayerSource.getListsLocked(main, db.getReadableDatabase(), true);
         }
-
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
         assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_add_backgroundlayer), true, false));
         TestUtils.clickText(device, true, main.getString(R.string.okay), true, false);
-
-        assertTrue(TestUtils.clickText(device, true, "All", true, false));
-        assertTrue(TestUtils.clickText(device, true, "Aerial imagery", true, false));
-        assertTrue(TestUtils.clickText(device, true, "Terrain", true, false));
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.layer_category_all), true, false));
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.layer_category_photo), true, false));
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.layer_category_elevation), true, false));
         assertTrue(TestUtils.clickText(device, true, "Terrain Test", false, false));
-        assertTrue(TestUtils.clickText(device, true, "Cancel", true, false));
     }
 }

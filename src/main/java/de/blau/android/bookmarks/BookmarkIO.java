@@ -13,9 +13,9 @@ import de.blau.android.util.SavingHelper;
  * Handles Bookmark reading/writing operations
  */
 public class BookmarkIO {
-    private BookmarksStorage currentBookmarkStorage;
-    private ArrayList<BookmarksStorage> bookmarksStorage;
-    private final String fileName = "bookmarks.ser";
+    private BookmarksStorage                  currentBookmarkStorage;
+    private ArrayList<BookmarksStorage>       bookmarksStorage;
+    private static final String               FILENAME = "bookmarks.ser";
     SavingHelper<ArrayList<BookmarksStorage>> savingHelper;
 
     /**
@@ -41,12 +41,12 @@ public class BookmarkIO {
     /**
      * (Over)Writes the bookmark file to storage.
      *
-     * @param context          the Android Context
+     * @param context the Android Context
      * @param bookmarksStorage Arraylist containing BookmarksStorage objects
      * @return true if successful
      */
-    public boolean writeList(@NonNull Context context, @NonNull ArrayList<BookmarksStorage> bookmarksStorage) {
-        return savingHelper.save(context, fileName, bookmarksStorage, true);
+    public boolean writeList(@NonNull Context context, @NonNull ArrayList<BookmarksStorage> bookmarksStorage) { // NOSONAR
+        return savingHelper.save(context, FILENAME, bookmarksStorage, true);
     }
 
     /**
@@ -57,8 +57,8 @@ public class BookmarkIO {
      */
 
     @NonNull
-    public ArrayList<BookmarksStorage> readList(@NonNull Context context) {
-        ArrayList<BookmarksStorage> savedList = savingHelper.load(context, fileName, true);
+    public ArrayList<BookmarksStorage> readList(@NonNull Context context) { // NOSONAR
+        ArrayList<BookmarksStorage> savedList = savingHelper.load(context, FILENAME, true);
         if (savedList == null) {
             // returns an empty list instead of null
             return this.bookmarksStorage;
@@ -69,9 +69,9 @@ public class BookmarkIO {
     /**
      * Utility for a saving bookmark
      *
-     * @param context  the Android context
+     * @param context the Android context
      * @param comments Bookmark name/comment
-     * @param viewBox  map viewbox
+     * @param viewBox map viewbox
      */
     public void writer(@NonNull Context context, @NonNull String comments, @NonNull ViewBox viewBox) {
         this.bookmarksStorage = readList(context);
@@ -80,7 +80,3 @@ public class BookmarkIO {
     }
 
 }
-
-
-
-

@@ -1982,22 +1982,22 @@ public class Main extends FullScreenAppCompatActivity
             BookmarkHandler.get(this, new BookmarkHandler.HandleResult() {
                 @Override
                 public void onSuccess(String message, FragmentActivity activity) {
-                    if(message.trim().isEmpty()){
+                    if (message.trim().isEmpty()) {
                         return;
                     }
-                    BookmarkIO IO = new BookmarkIO();
-                    IO.writer(getApplicationContext(),message,map.getViewBox());
+                    new BookmarkIO().writer(getApplicationContext(), message, map.getViewBox());
                 }
+
                 @Override
                 public void onError() {
-                    runOnUiThread(() -> Snack.toastTopError(Main.this,"BookmarkHandler Error"));
+                    runOnUiThread(() -> Snack.toastTopError(Main.this, R.string.toast_error_saving_bookmark));
                 }
             });
             return true;
         case R.id.menu_gps_show_bookmarks:
-                BookmarksDialog bookmarksDialog = new BookmarksDialog(this);
-                bookmarksDialog.showDialog();
-                return true;
+            BookmarksDialog bookmarksDialog = new BookmarksDialog(this);
+            bookmarksDialog.showDialog();
+            return true;
         case R.id.menu_gps_goto:
             gotoCurrentLocation();
             return true;
@@ -2034,9 +2034,6 @@ public class Main extends FullScreenAppCompatActivity
                 map.invalidate();
             }
             return true;
-
-
-
 
         case R.id.menu_gps_position_info:
             GnssPositionInfo.showDialog(Main.this, getTracker());
@@ -3268,7 +3265,6 @@ public class Main extends FullScreenAppCompatActivity
         PropertyEditorData[] multipleArray = multiple.toArray(new PropertyEditorData[multiple.size()]);
         PropertyEditor.startForResult(this, multipleArray, applyLastAddressTags, showPresets, null, null, REQUEST_EDIT_TAG);
     }
-
 
     /**
      * potentially do some special stuff for invoking undo and exiting

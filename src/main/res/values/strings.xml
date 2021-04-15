@@ -558,6 +558,7 @@ avoided by using an offline data source.</string>
     <string name="toast_outer_rings_differing_tags">Outer rings have differing tags</string>
     <string name="toast_multipolygon_has_incomplete_rings">Multi-polygon has incomplete rings</string>
     <string name="toast_multipolygon_inconsistent_roles">Multi-polygon has inconsistent role values for a ring</string>
+    <string name="toast_error_saving_bookmark">Unable to save bookmark</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
@@ -1292,9 +1293,10 @@ avoided by using an offline data source.</string>
     </plurals>
     <!-- Help system -->
     <string name="toast_nohelp">No help here.</string>
-    <string name="add_bookmark">Add bookmark..</string>
+    <!-- Bookmarks -->
+    <string name="add_bookmark">Add bookmark…</string>
     <string name="bookmarks_desc">Add comments</string>
-    <string name="show_bookmarks">Show Bookmarks..</string>
+    <string name="show_bookmarks">Bookmarks…</string>
     <string name="_dots">⋮</string>
     <string name="gotobookmark">Go</string>
     <string name="bookmarkstitle">Bookmarks</string>
