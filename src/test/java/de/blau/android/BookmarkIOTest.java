@@ -74,6 +74,6 @@ public class BookmarkIOTest {
         IOtest.writeList(context, testlist);
         ArrayList<BookmarksStorage> testlist2;
         testlist2 = (ArrayList<BookmarksStorage>) IOtest.readList(context);
-        Assert.assertEquals("TestString", testlist2.get(0).getComments());
+        Assert.assertEquals("TestString", testlist2.get(0).getComment());
     }
 }
