@@ -108,6 +108,8 @@ public class TileLayerSource implements Serializable {
     public static final String LAYER_NOOVERLAY   = "NOOVERLAY";
     public static final String LAYER_BING        = "BING";
 
+    private static final String SWITCH_START = "{switch:";
+
     private static final String WMS_VERSION_130 = "1.3.0";
 
     public enum TileType {
@@ -616,6 +618,19 @@ public class TileLayerSource implements Serializable {
             readOnly = true;
         }
 
+        // extract switch values
+        // this needs to happen before URL parsing, as the ":" will trip things up
+        int switchPos = tileUrl.indexOf(SWITCH_START);
+        if (switchPos >= 0) {
+            int switchEnd = tileUrl.indexOf('}', switchPos);
+            if (switchEnd >= 0) {
+                String switchValues = tileUrl.substring(switchPos + SWITCH_START.length(), switchEnd);
+                Collections.addAll(getSubdomains(), switchValues.split(","));
+                StringBuilder t = new StringBuilder(tileUrl);
+                setTileUrl(t.replace(switchPos, switchEnd + 1, "{subdomain}").toString());
+            }
+        }
+
         String urlPath = null;
         try {
             URL parsedUrl = new URL(tileUrl);
@@ -674,19 +689,6 @@ public class TileLayerSource implements Serializable {
             setTileUrl("http://irs.gis-lab.info/?layers=" + tileUrl.toLowerCase(Locale.US) + "&request=GetTile&z={zoom}&x={x}&y={y}");
             setImageExtension(FileExtensions.JPG);
             return;
-        }
-
-        // extract switch values
-        final String SWITCH_START = "{switch:";
-        int switchPos = tileUrl.indexOf(SWITCH_START);
-        if (switchPos >= 0) {
-            int switchEnd = tileUrl.indexOf('}', switchPos);
-            if (switchEnd >= 0) {
-                String switchValues = tileUrl.substring(switchPos + SWITCH_START.length(), switchEnd);
-                Collections.addAll(getSubdomains(), switchValues.split(","));
-                StringBuilder t = new StringBuilder(tileUrl);
-                setTileUrl(t.replace(switchPos, switchEnd + 1, "{subdomain}").toString());
-            }
         }
     }
 
