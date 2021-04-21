@@ -17,6 +17,7 @@ public final class MimeTypes {
     public static final String WMS_EXCEPTION_XML_SUBTYPE = "vnd.ogc.se_xml";
     public static final String TEXT_TYPE                 = "text";
     public static final String MVT_SUBTYPE               = "vnd.mapbox-vector-tile";
+    public static final String X_PROTOBUF_SUBTYPE        = "x-protobuf";
 
     /**
      * Private constructor

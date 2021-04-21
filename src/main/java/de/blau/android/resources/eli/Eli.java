@@ -205,6 +205,12 @@ public final class Eli {
                 }
             }
 
+            byte[] noTileTile = null;
+            String noTileTileString = getJsonString(properties, "no_tile_tile");
+            if (noTileTileString != null) {
+                noTileTile = hexStringToByteArray(noTileTileString);
+            }
+
             String proj = null;
             JsonArray projections = (JsonArray) properties.get("available_projections");
             if (projections != null) {
@@ -237,6 +243,7 @@ public final class Eli {
             osmts = new TileLayerSource(ctx, id, name, url, type, category, overlay, defaultLayer, provider, termsOfUseUrl, icon, null, null, minZoom, maxZoom,
                     TileLayerSource.DEFAULT_MAX_OVERZOOM, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues, description,
                     privacyPolicyUrl, async);
+            osmts.setNoTileTile(noTileTile);
         } catch (UnsupportedOperationException uoex) {
             Log.e(DEBUG_TAG, "Got " + uoex.getMessage());
         }
@@ -287,5 +294,23 @@ public final class Eli {
             }
         }
         return result;
+    }
+
+    /**
+     * Convert hex string to a byte array
+     * 
+     * See https://stackoverflow.com/a/140861
+     * 
+     * @param s the String
+     * @return a array of byte
+     */
+    @NonNull
+    private static byte[] hexStringToByteArray(@NonNull String s) {
+        int len = s.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i + 1), 16));
+        }
+        return data;
     }
 }

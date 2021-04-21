@@ -33,6 +33,7 @@ import com.mapbox.geojson.MultiPolygon;
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
 
+import android.graphics.Rect;
 import androidx.annotation.NonNull;
 import de.blau.android.util.mvt.VectorTile.Tile.GeomType;
 import de.blau.android.util.mvt.VectorTile.Tile.Layer;
@@ -64,7 +65,7 @@ public class VectorTileDecoder {
     /**
      * Decode all layers in data to a FeatureIterable
      * 
-     * @param data the PBF data 
+     * @param data the PBF data
      * @return a FeatureIterable
      * @throws IOException if the PBF parser fails
      */
@@ -75,7 +76,7 @@ public class VectorTileDecoder {
     /**
      * Decode a a single layers in data to a FeatureIterable
      * 
-     * @param data the PBF data 
+     * @param data the PBF data
      * @param layerName the name of the layer to decode
      * @return a FeatureIterable
      * @throws IOException if the PBF parser fails
@@ -88,7 +89,7 @@ public class VectorTileDecoder {
      * Decode multiple layers in data to a FeatureIterable
      * 
      * @param data the PBF data
-     * @param layerNames a Set of the layer names to decode 
+     * @param layerNames a Set of the layer names to decode
      * @return a FeatureIterable
      * @throws IOException if the PBF parser fails
      */
@@ -99,7 +100,7 @@ public class VectorTileDecoder {
     /**
      * Decode all layers in data to a FeatureIterable useing a supplied layer filter
      * 
-     * @param data the PBF data 
+     * @param data the PBF data
      * @param filter the layer Filter
      * @return a FeatureIterable
      * @throws IOException if the PBF parser fails
@@ -439,6 +440,7 @@ public class VectorTileDecoder {
         private final long                id;
         private final Geometry            geometry;
         private final Map<String, Object> attributes;
+        private Rect                      box;
 
         /**
          * Construct a new MVT Feature
@@ -503,6 +505,20 @@ public class VectorTileDecoder {
         @NonNull
         public Map<String, Object> getAttributes() {
             return attributes;
+        }
+
+        /**
+         * @return the box
+         */
+        public Rect getBox() {
+            return box;
+        }
+
+        /**
+         * @param box the box to set
+         */
+        public void setBox(Rect box) {
+            this.box = box;
         }
     }
 }

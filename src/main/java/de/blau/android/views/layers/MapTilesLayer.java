@@ -129,11 +129,12 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
          * 
          * @param c the Canvas to render on to
          * @param tileBlob the tile
+         * @param z current zoom level
          * @param fromRect source rect in the tile
          * @param screenRect destination rect on screen
          * @param paint a Paint object to use for rendering
          */
-        void render(@NonNull Canvas c, @NonNull B tileBlob, @Nullable Rect fromRect, @NonNull Rect screenRect, @NonNull Paint paint);
+        void render(@NonNull Canvas c, @NonNull B tileBlob, int z, @Nullable Rect fromRect, @NonNull Rect screenRect, @NonNull Paint paint);
 
         /**
          * Get the tile decoder for this renderer
@@ -146,7 +147,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     public static class BitmapTileRenderer implements TileRenderer<Bitmap> {
 
         @Override
-        public void render(Canvas c, Bitmap tileBlob, Rect fromRect, Rect screenRect, Paint paint) {
+        public void render(Canvas c, Bitmap tileBlob, int z, Rect fromRect, Rect screenRect, Paint paint) {
             c.drawBitmap(tileBlob, fromRect, screenRect, paint);
         }
 
@@ -414,6 +415,8 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         int xPos = 0;
         int yPos = 0;
 
+        final int width = c.getClipBounds().width();
+        final int height = c.getClipBounds().height();
         boolean squareTiles = myRendererInfo.getTileWidth() == myRendererInfo.getTileHeight();
         // Draw all the MapTiles that intersect with the screen
         // y = y tile number (latitude)
@@ -437,8 +440,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
 
                 // destination rect
                 if (destRect == null) { // avoid recalculating this for every tile
-                    destRect = getScreenRectForTile(new Rect(), c.getClipBounds().width(), c.getClipBounds().height(), osmv, zoomLevel, y, x, squareTiles,
-                            lonOffset, latOffset);
+                    destRect = getScreenRectForTile(new Rect(), width, height, osmv, zoomLevel, y, x, squareTiles, lonOffset, latOffset);
                     destIncX = destRect.width();
                     destIncY = destRect.height();
                 }
@@ -487,14 +489,14 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                     if (bitmapRenderer) {
                         srcRect.set(tx, ty, tx + sw, ty + sh);
                         tempRect.set(destRect.left + xPos, destRect.top + yPos, destRect.right + xPos, destRect.bottom + yPos);
-                        mTileRenderer.render(c, tileBlob, srcRect, tempRect, mPaint);
+                        mTileRenderer.render(c, tileBlob, zoomLevel, srcRect, tempRect, mPaint);
                     } else {
                         int zoomDiff = originalTile.zoomLevel - tile.zoomLevel;
-                        mTileRenderer.render(c, tileBlob, null, getScreenRectForTile(tempRect, c.getClipBounds().width(), c.getClipBounds().height(), osmv,
-                                tile.zoomLevel, tile.y, tile.x, squareTiles, 0, 0), mPaint);
+                        mTileRenderer.render(c, tileBlob, zoomLevel, null,
+                                getScreenRectForTile(tempRect, width, height, osmv, tile.zoomLevel, tile.y, tile.x, squareTiles, 0, 0), mPaint);
                         // mark tiles we've just rendered as done
-                        for (int i = y; i < ((tile.y + 1) << zoomDiff) - 1; i++) {
-                            for (int j = x; j < ((tile.x + 1) << zoomDiff) - 1; j++) {
+                        for (int i = y; i <= Math.min(((tile.y + 1) << zoomDiff) - 1, tileNeededBottom); i++) {
+                            for (int j = x; j <= Math.min(((tile.x + 1) << zoomDiff) - 1, tileNeededRight); j++) {
                                 rendered.set((i - tileNeededTop) * row + (j - tileNeededLeft));
                             }
                         }
@@ -627,7 +629,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         final MapTile tile = new MapTile(myRendererInfo.getId(), z, x, y);
         T bitmap = mTileProvider.getMapTileFromCache(tile);
         if (bitmap != null) {
-            mTileRenderer.render(c, bitmap, new Rect(0, 0, myRendererInfo.getTileWidth(), myRendererInfo.getTileHeight()),
+            mTileRenderer.render(c, bitmap, 0, new Rect(0, 0, myRendererInfo.getTileWidth(), myRendererInfo.getTileHeight()),
                     getScreenRectForTile(new Rect(), c.getClipBounds().width(), c.getClipBounds().height(), osmv, z, y, x, squareTiles, lonOffset, latOffset),
                     mPaint);
             return true;
@@ -659,7 +661,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
      * @param zoomLevel the zoom-level of the tile
      * @param y the y-number of the tile
      * @param x the x-number of the tile
-     * @param squareTiles true if the tiles are square
+     * @param squareTiles true if the tiles are square - ignored
      * @param lonOffset imagery longitude offset correction in WGS84
      * @param latOffset imagery latitude offset correction in WGS84
      * @return rect for convenience
@@ -670,15 +672,12 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         // double south = tile2lat(y + 1, zoomLevel); only calculate when needed (aka non square tiles)
         double west = tile2lon(x, zoomLevel);
         double east = tile2lon(x + 1, zoomLevel);
-        int screenLeft = (int) GeoMath.lonE7ToX(w, osmv.getViewBox(), (int) ((west + lonOffset) * 1E7));
-
-        // calculate here to avoid rounding differences
-        int tileWidth = 1 + (int) Math.floor((east - west) * 1E7D * w / osmv.getViewBox().getWidth());
-
-        int screenTop = (int) GeoMath.latE7ToY(h, w, osmv.getViewBox(), (int) ((north + latOffset) * 1E7));
-        int screenBottom = squareTiles ? screenTop + tileWidth
-                : (int) GeoMath.latE7ToY(h, w, osmv.getViewBox(), (int) ((tile2lat(y + 1, zoomLevel) + latOffset) * 1E7));
-        rect.set(screenLeft, screenTop, screenLeft + tileWidth, screenBottom);
+        final ViewBox viewBox = osmv.getViewBox();
+        int screenLeft = (int) GeoMath.lonE7ToX(w, viewBox, (int) ((west + lonOffset) * 1E7));
+        int screenRight = (int) GeoMath.lonE7ToX(w, viewBox, (int) ((east + lonOffset) * 1E7));
+        int screenTop = (int) GeoMath.latE7ToY(h, w, viewBox, (int) ((north + latOffset) * 1E7));
+        int screenBottom = (int) GeoMath.latE7ToY(h, w, viewBox, (int) ((tile2lat(y + 1, zoomLevel) + latOffset) * 1E7));
+        rect.set(screenLeft, screenTop, screenRight, screenBottom);
         return rect;
     }
 

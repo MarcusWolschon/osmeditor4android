@@ -93,7 +93,7 @@ import okhttp3.ResponseBody;
 public class TileLayerSource implements Serializable {
     private static final String DEBUG_TAG = TileLayerSource.class.getSimpleName();
 
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 4L;
 
     public static final String EPSG_900913       = "EPSG:900913";
     public static final String EPSG_3857         = "EPSG:3857";
@@ -412,6 +412,7 @@ public class TileLayerSource implements Serializable {
     private int                      defaultAlpha;
     private String                   noTileHeader     = null;
     private String[]                 noTileValues     = null;
+    private byte[]                   noTileTile       = null;
     private String                   description      = null;
     private String                   privacyPolicyUrl = null;
     private String                   wmsAxisOrder     = null;
@@ -645,6 +646,7 @@ public class TileLayerSource implements Serializable {
             Log.e(DEBUG_TAG, "Url parsing failed " + tileUrl + " " + e.getMessage());
         }
         tileType = urlPath != null && (urlPath.endsWith(FileExtensions.MVT) || urlPath.endsWith(FileExtensions.PBF)) ? TileType.MVT : TileType.BITMAP;
+        Log.d(DEBUG_TAG, "Tile type " + tileType);
 
         if (proj != null) { // wms
             if (tileUrl.contains(MimeTypes.JPEG)) {
@@ -1966,6 +1968,25 @@ public class TileLayerSource implements Serializable {
     @Nullable
     public String[] getNoTileValues() {
         return noTileValues;
+    }
+
+    /**
+     * Get any layer specific "no tile" tile
+     * 
+     * @return the tile or null if none set
+     */
+    @Nullable
+    public byte[] getNoTileTile() {
+        return noTileTile;
+    }
+
+    /**
+     * Set the "not tile" tile
+     * 
+     * @param noTileTile the data corresponding to the tile
+     */
+    public void setNoTileTile(@Nullable byte[] noTileTile) {
+        this.noTileTile = noTileTile;
     }
 
     /**

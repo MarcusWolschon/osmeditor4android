@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:padding="?attr/dialogPreferredPadding">
@@ -9,6 +10,78 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/layer_layer_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="32dp"
+            android:layout_marginTop="4dp"
+            android:orientation="vertical">
+            <TextView
+                android:text="@string/layer_style_layer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Spinner
+                android:id="@+id/layer_style_layer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/imagery_offset_zoom"
+                android:layout_marginTop="4dp" />
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/zoom_min_legend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/min" />
+                <ch.poole.android.numberpicker.library.NumberPicker
+                    android:id="@+id/zoom_min"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/zoom_min_legend"
+                    android:layout_toRightOf="@id/zoom_min_legend"
+                    android:layout_toEndOf="@id/zoom_min_legend"
+                    numberpicker:min="0"
+                    numberpicker:max="30"
+                    numberpicker:unit="1"
+                    numberpicker:repeat="1"
+                    numberpicker:focusable="true"
+                    numberpicker:custom_layout="@layout/number_picker_custom_small_layout" />
+                <TextView
+                    android:id="@+id/zoom_max_legend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:layout_alignTop="@id/zoom_min"
+                    android:layout_toRightOf="@id/zoom_min"
+                    android:layout_toEndOf="@id/zoom_min"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/max" />
+                <ch.poole.android.numberpicker.library.NumberPicker
+                    android:id="@+id/zoom_max"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/zoom_max_legend"
+                    android:layout_toRightOf="@id/zoom_max_legend"
+                    android:layout_toEndOf="@id/zoom_max_legend"
+                    numberpicker:min="0"
+                    numberpicker:max="30"
+                    numberpicker:unit="1"
+                    numberpicker:repeat="1"
+                    numberpicker:focusable="true"
+                    numberpicker:custom_layout="@layout/number_picker_custom_small_layout" />
+            </RelativeLayout>
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/layer_label_container"
             android:layout_width="fill_parent"
@@ -23,20 +96,37 @@
             <Spinner
                 android:id="@+id/layer_style_label"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layer_symbol_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="32dp"
+            android:layout_marginTop="4dp"
+            android:orientation="vertical">
+            <TextView
+                android:text="@string/layer_style_symbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Spinner
+                android:id="@+id/layer_style_symbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp" />
         </LinearLayout>
         <TextView
             android:text="@string/layer_style_stroke_width"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
+            android:layout_height="wrap_content"
             android:layout_marginTop="4dp" />
         <SeekBar
             android:id="@+id/layer_line_width"
             android:max="20"
             android:progress="1"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" 
+            android:layout_height="wrap_content"
             android:layout_marginTop="4dp" />
         <LinearLayout
             android:layout_width="fill_parent"
@@ -56,7 +146,7 @@
         <View
             android:id="@+id/layer_color"
             android:layout_width="fill_parent"
-            android:layout_height="32dp" 
-            android:layout_marginTop="4dp"  />
+            android:layout_height="32dp"
+            android:layout_marginTop="4dp" />
     </LinearLayout>
 </ScrollView>

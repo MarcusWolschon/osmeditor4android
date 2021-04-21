@@ -223,7 +223,8 @@ public class Map extends View implements IMapView {
                             TileLayerSource backgroundSource = TileLayerSource.get(ctx, contentId, true);
                             if (backgroundSource != null) {
                                 if (backgroundSource.getTileType() == TileType.MVT) {
-                                    layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer());
+                                    layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer(), false);
+                                    ((MapTilesOverlayLayer<?>) layer).setRendererInfo(backgroundSource);
                                 } else {
                                     layer = new MapTilesLayer<Bitmap>(this, backgroundSource, null, new MapTilesLayer.BitmapTileRenderer());
                                 }
@@ -233,12 +234,15 @@ public class Map extends View implements IMapView {
                             TileLayerSource overlaySource = TileLayerSource.get(ctx, contentId, true);
                             if (overlaySource != null) {
                                 if (overlaySource.getTileType() == TileType.MVT) {
-                                    layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer());
+                                    layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer(), true);
                                 } else {
                                     layer = new MapTilesOverlayLayer<Bitmap>(this, new MapTilesLayer.BitmapTileRenderer());
                                 }
                                 ((MapTilesOverlayLayer<?>) layer).setRendererInfo(overlaySource);
                             }
+                            break;
+                        case MVT:
+                            // unused for now
                             break;
                         case PHOTO:
                             layer = new de.blau.android.layer.photos.MapOverlay(this);
@@ -390,7 +394,7 @@ public class Map extends View implements IMapView {
     /**
      * Get the top visible imagery layer for a type
      * 
-     * @param type the type (typically LayerType.Imagery or OVERLAYIMAGERY)
+     * @param type the type (typically LayerType.BACKGROUNDIMAGERY or OVERLAYIMAGERY)
      * @return the layer or null
      */
     @Nullable
@@ -1191,7 +1195,7 @@ public class Map extends View implements IMapView {
         for (MapViewLayer osmvo : imageryLayers) {
             if (osmvo instanceof MapTilesLayer && osmvo.isVisible()) {
                 result.add(((MapTilesLayer<?>) osmvo).getTileLayerConfiguration().getName());
-                if (!(osmvo instanceof MapTilesOverlayLayer)) {
+                if (osmvo.getType() != LayerType.OVERLAYIMAGERY) {
                     // not an overlay -> not transparent so nothing below it is visible
                     break;
                 }

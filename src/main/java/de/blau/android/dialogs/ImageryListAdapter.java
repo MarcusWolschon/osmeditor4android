@@ -44,7 +44,7 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
      *
      * @param names an array with imagery names
      * @param currentId an array with imagery ids
-     * @param isOverlay the current imagery id
+     * @param isOverlay true if overlay should be displayed
      * @param buttonLayoutParams layout params for the RadioButtons
      * @param groupChangeListener a listener to call when a RadioButton has been selected
      */

@@ -25,6 +25,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
@@ -79,7 +80,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             canvas.drawLines(linePoints.getArray(), 0, linePoints.size(), paint);
         }
         WayPoint[] wayPoints = tracker.getTrack().getWayPoints();
-        if (wayPoints.length != 0) {
+        if (wayPoints.length != 0 && symbolPath != null) {
             ViewBox viewBox = map.getViewBox();
             int width = map.getWidth();
             int height = map.getHeight();
@@ -95,7 +96,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                     float y = GeoMath.latE7ToY(height, width, viewBox, wp.getLat());
                     canvas.save();
                     canvas.translate(x, y);
-                    canvas.drawPath(DataStyle.getCurrent().getWaypointPath(), wayPointPaint);
+                    canvas.drawPath(symbolPath, wayPointPaint);
                     canvas.restore();
                     if (zoomLevel > Map.SHOW_LABEL_LIMIT) {
                         String label = wp.getName();
@@ -209,6 +210,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         strokeWidth = paint.getStrokeWidth();
         labelKey = "";
         iconRadius = map.getIconRadius();
+        symbolName = TriangleDown.NAME;
+        symbolPath = DataStyle.getCurrent().getSymbol(TriangleDown.NAME);
     }
 
     @Override

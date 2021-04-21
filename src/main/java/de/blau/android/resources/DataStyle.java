@@ -59,6 +59,7 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StyleableFeature;
 import de.blau.android.osm.Way;
+import de.blau.android.resources.symbols.Symbols;
 import de.blau.android.util.Density;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
@@ -716,16 +717,6 @@ public final class DataStyle extends DefaultHandler {
     private Path orientationPath = new Path();
 
     /**
-     * Mapillary image marker
-     */
-    private Path mapillaryPath = new Path();
-
-    /**
-     * GPS waypoint
-     */
-    private Path waypointPath = new Path();
-
-    /**
      * Crosshairs
      */
     private Path crosshairsPath = new Path();
@@ -793,10 +784,9 @@ public final class DataStyle extends DefaultHandler {
         iconLabelZoomLimit = DEFAULT_SHOW_ICON_LABEL_LIMIT;
 
         createOrientationPath(1.0f);
-        createWayPointPath(1.0f);
         createCrosshairsPath(1.0f);
         createXPath(1.0f);
-        createMapillaryPath(1.0f);
+        Symbols.draw(ctx, 1.0f);
 
         Log.i(DEBUG_TAG, "setting up default profile elements");
         internalStyles = new HashMap<>();
@@ -1472,10 +1462,9 @@ public final class DataStyle extends DefaultHandler {
                     case MARKER_SCALE:
                         float scale = Float.parseFloat(atts.getValue(SCALE_ATTR));
                         createOrientationPath(scale);
-                        createWayPointPath(scale);
                         createCrosshairsPath(scale);
                         createXPath(scale);
-                        createMapillaryPath(scale);
+                        Symbols.draw(ctx, scale);
                         return;
                     case MIN_HANDLE_LEN:
                         String lenStr = atts.getValue(LENGTH_ATTR);
@@ -1659,20 +1648,6 @@ public final class DataStyle extends DefaultHandler {
     }
 
     /**
-     * Create a path for GPX waypoints
-     * 
-     * @param scale scaling factor
-     */
-    private void createWayPointPath(float scale) {
-        waypointPath = new Path();
-        int side = (int) Density.dpToPx(ctx, 8 * scale);
-        waypointPath.moveTo(0, 0);
-        waypointPath.lineTo(side, -side * 2f);
-        waypointPath.lineTo(-side, -side * 2f);
-        waypointPath.lineTo(0, 0);
-    }
-
-    /**
      * Create a path for the "GPS" arrow
      * 
      * @param scale scaling factor
@@ -1684,20 +1659,6 @@ public final class DataStyle extends DefaultHandler {
         orientationPath.lineTo(0, Density.dpToPx(ctx, 10) * scale);
         orientationPath.lineTo(Density.dpToPx(ctx, -15) * scale, Density.dpToPx(ctx, 20) * scale);
         orientationPath.lineTo(0, Density.dpToPx(ctx, -20) * scale);
-    }
-
-    /**
-     * Create a path for the mapillary image marker
-     * 
-     * @param scale scaling factor
-     */
-    private void createMapillaryPath(float scale) {
-        mapillaryPath = new Path();
-        mapillaryPath.moveTo(0, Density.dpToPx(ctx, -8) * scale);
-        mapillaryPath.lineTo(Density.dpToPx(ctx, 8) * scale, Density.dpToPx(ctx, 10) * scale);
-        mapillaryPath.lineTo(0, Density.dpToPx(ctx, 5) * scale);
-        mapillaryPath.lineTo(Density.dpToPx(ctx, -8) * scale, Density.dpToPx(ctx, 10) * scale);
-        mapillaryPath.lineTo(0, Density.dpToPx(ctx, -8) * scale);
     }
 
     @Override
@@ -1915,18 +1876,14 @@ public final class DataStyle extends DefaultHandler {
     }
 
     /**
-     * @return the orientation_path
+     * Get the Path for a specific Symbol
+     * 
+     * @param name the name
+     * @return a Path, null if not found
      */
-    public Path getMapillaryPath() {
-        return mapillaryPath;
-    }
-
-    /**
-     * @return the waypoint_path
-     */
-    @NonNull
-    public Path getWaypointPath() {
-        return waypointPath;
+    @Nullable
+    public Path getSymbol(@NonNull String name) {
+        return Symbols.get(name);
     }
 
     /**
