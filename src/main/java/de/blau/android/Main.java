@@ -92,6 +92,7 @@ import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Flavors;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Paths;
+import de.blau.android.contract.Schemes;
 import de.blau.android.contract.Ui;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.BarometerCalibration;
@@ -931,7 +932,7 @@ public class Main extends FullScreenAppCompatActivity
             shortcutExtras = getIntent().getBundleExtra(Splash.SHORTCUT_EXTRAS_KEY);
             Uri uri = getIntent().getData();
             contentUriType = getIntent().getType();
-            if (uri != null && ("content".equals(uri.getScheme()) || (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && "file".equals(uri.getScheme())))) {
+            if (uri != null && (Schemes.CONTENT.equals(uri.getScheme()) || (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && Schemes.FILE.equals(uri.getScheme())))) {
                 contentUri = uri;
             } else {
                 Bundle extras = getIntent().getExtras();

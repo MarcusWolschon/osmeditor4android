@@ -19,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -75,8 +74,8 @@ public class LayerStyle extends ImmersiveDialogFragment {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
-            LayerStyle backgroundPropertiesFragment = newInstance(layerIndex);
-            backgroundPropertiesFragment.show(fm, TAG);
+            LayerStyle layerStyleFragment = newInstance(layerIndex);
+            layerStyleFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
         }
@@ -253,7 +252,7 @@ public class LayerStyle extends ImmersiveDialogFragment {
     /**
      * Set up the label selection spinner
      * 
-     * @param labelContainer he layout holding the spinner
+     * @param labelContainer the layout holding the spinner
      * @param labelSpinner the Spinner itself
      */
     public void setupLabelSpinner(@NonNull View labelContainer, @NonNull Spinner labelSpinner) {
@@ -294,7 +293,7 @@ public class LayerStyle extends ImmersiveDialogFragment {
      * 
      * @param symbolSpinner the Spinner itself
      */
-    public void setupSymbolSpinner(@NonNull Spinner symbolSpinner) {
+    public void setupSymbolSpinner(@NonNull final Spinner symbolSpinner) {
         final int color = layer.getColor(subLayerName);
         final float width = layer.getStrokeWidth(subLayerName);
         Paint paint = new Paint();
@@ -318,12 +317,18 @@ public class LayerStyle extends ImmersiveDialogFragment {
         symbolSpinner.setAdapter(adapter);
         String symbolName = layer.getPointSymbol(subLayerName);
         symbolSpinner.setSelection(symbolKeys.indexOf(symbolName) + 1); // if not found this will set 0
-
         symbolSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
+            public void onItemSelected(AdapterView<?> arg0, View view, int pos, long arg3) {
                 layer.setPointSymbol(subLayerName, pos == 0 ? null : symbolKeys.get(pos - 1));
                 map.invalidate();
+                // FIXME hack around "disappearing selection" issue, it would naturally be better to fix this properly
+                symbolSpinner.postDelayed(() -> {
+                    OnItemSelectedListener l = symbolSpinner.getOnItemSelectedListener();
+                    symbolSpinner.setOnItemSelectedListener(null);
+                    symbolSpinner.setSelection(pos);
+                    symbolSpinner.setOnItemSelectedListener(l);
+                }, 500);
             }
 
             @Override

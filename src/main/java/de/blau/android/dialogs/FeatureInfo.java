@@ -51,9 +51,10 @@ import de.blau.android.util.Util;
  */
 public class FeatureInfo extends InfoDialogFragment {
 
-    private static final String FEATURE_KEY = "feature";
-
     private static final String DEBUG_TAG = FeatureInfo.class.getName();
+
+    private static final String FEATURE_KEY = "feature";
+    private static final String TITLE_KEY   = "title";
 
     private static final String TAG = "fragment_feature_info";
 
@@ -66,10 +67,21 @@ public class FeatureInfo extends InfoDialogFragment {
      * @param feature the Feature
      */
     public static void showDialog(@NonNull FragmentActivity activity, @NonNull Feature feature) {
+        showDialog(activity, feature, R.string.feature_information);
+    }
+
+    /**
+     * Show an info dialog for the supplied GeoJSON Feature
+     * 
+     * @param activity the calling Activity
+     * @param feature the Feature
+     * @param titleRes resource id for the title
+     */
+    public static void showDialog(@NonNull FragmentActivity activity, @NonNull Feature feature, int titleRes) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
-            FeatureInfo elementInfoFragment = newInstance(feature);
+            FeatureInfo elementInfoFragment = newInstance(feature, titleRes);
             elementInfoFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
@@ -89,14 +101,16 @@ public class FeatureInfo extends InfoDialogFragment {
      * Create a new instance of the FeatureInfo dialog
      * 
      * @param feature Feature to display the info on
+     * @param titleRes resource id for the title
      * @return an instance of ElementInfo
      */
     @NonNull
-    private static FeatureInfo newInstance(@NonNull Feature feature) {
+    private static FeatureInfo newInstance(@NonNull Feature feature, int titleRes) {
         FeatureInfo f = new FeatureInfo();
 
         Bundle args = new Bundle();
         args.putString(FEATURE_KEY, feature.toJson());
+        args.putInt(TITLE_KEY, titleRes);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -108,7 +122,11 @@ public class FeatureInfo extends InfoDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String featureString = getArguments().getString(FEATURE_KEY);
-        feature = Feature.fromJson(featureString);
+        try {
+            feature = Feature.fromJson(featureString);
+        } catch (Exception e) {
+            Log.e(DEBUG_TAG, "Unable to convert to JSON " + featureString);
+        }
     }
 
     @Override
@@ -143,7 +161,7 @@ public class FeatureInfo extends InfoDialogFragment {
                 });
             }
         }
-        builder.setTitle(R.string.feature_information);
+        builder.setTitle(getArguments().getInt(TITLE_KEY, R.string.feature_information));
         builder.setView(createView(null));
         return builder.create();
     }

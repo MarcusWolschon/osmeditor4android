@@ -142,6 +142,26 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
          * @return a TileDecoder
          */
         MapTileProvider.TileDecoder<B> decoder();
+
+        /**
+         * Prepare for a rendering pass
+         * 
+         * @param c Canvas
+         * @param z actual zoom level
+         */
+        default void preRender(@NonNull Canvas c, int z) {
+            // do nothing
+        }
+
+        /**
+         * Finalize a rendering pass
+         * 
+         * @param c Canvas
+         * @param z actual zoom level
+         */
+        default void postRender(@NonNull Canvas c, int z) {
+            // do nothing
+        }
     }
 
     public static class BitmapTileRenderer implements TileRenderer<Bitmap> {
@@ -239,8 +259,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // todo determine if there are no more layers bound to the service
-        // mTileProvider.clear();
+        mTileProvider.clear();
     }
 
     /**
@@ -370,11 +389,15 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
 
         // Do some calculations and drag attributes to local variables to save
         // some performance.
-        final int zoomLevel = Math.min(osmv.getZoomLevel(), maxZoom); // clamp to max zoom here
+        final int actualZoomLevel = osmv.getZoomLevel();
+        final int zoomLevel = Math.min(actualZoomLevel, maxZoom); // clamp to max zoom here
         if (zoomLevel != prevZoomLevel && prevZoomLevel != -1) {
             mTileProvider.flushQueue(myRendererInfo.getId(), prevZoomLevel);
         }
         prevZoomLevel = zoomLevel;
+
+        // any pre render pass setup
+        mTileRenderer.preRender(c, actualZoomLevel);
 
         double lonOffset = 0d;
         double latOffset = 0d;
@@ -492,7 +515,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                         mTileRenderer.render(c, tileBlob, zoomLevel, srcRect, tempRect, mPaint);
                     } else {
                         int zoomDiff = originalTile.zoomLevel - tile.zoomLevel;
-                        mTileRenderer.render(c, tileBlob, zoomLevel, null,
+                        mTileRenderer.render(c, tileBlob, actualZoomLevel, null,
                                 getScreenRectForTile(tempRect, width, height, osmv, tile.zoomLevel, tile.y, tile.x, squareTiles, 0, 0), mPaint);
                         // mark tiles we've just rendered as done
                         for (int i = y; i <= Math.min(((tile.y + 1) << zoomDiff) - 1, tileNeededBottom); i++) {
@@ -511,6 +534,8 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
             xPos = 0;
             yPos += destIncY;
         }
+        // any post render pass finalisation
+        mTileRenderer.postRender(c, actualZoomLevel);
     }
 
     /**

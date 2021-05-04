@@ -68,15 +68,16 @@ import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.OAMCatalogView;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
+import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.resources.WmsEndpointDatabaseView;
 import de.blau.android.util.Density;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.SizedFixedImmersiveDialogFragment;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.layers.ImageryLayerInfo;
 import de.blau.android.views.layers.MapTilesLayer;
-import de.blau.android.views.layers.MapTilesOverlayLayer;
 
 /**
  * Layer dialog
@@ -540,6 +541,21 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     }
                     return true;
                 });
+                item.setEnabled(((StyleableInterface) layer).stylingEnabled());
+            }
+
+            if (layer instanceof de.blau.android.layer.mvt.MapOverlay) {
+                MenuItem item = menu.add(R.string.layer_load_style);
+                item.setOnMenuItemClickListener(unused -> {
+                    if (layer != null) {
+                        try {
+                            ((de.blau.android.layer.mvt.MapOverlay) layer).loadStyleFromFile(getActivity());
+                        } catch (IOException e) {
+                            Snack.toastTopInfo(activity, getString(R.string.toast_error_loading_style, e.getLocalizedMessage()));
+                        }
+                    }
+                    return true;
+                });
             }
 
             if (layer instanceof LayerInfoInterface) {
@@ -693,8 +709,9 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         final AlertDialog dialog = builder.create();
 
         ViewBox viewBox = App.getLogic().getMap().getViewBox();
-        final String[] ids = isOverlay ? TileLayerSource.getOverlayIds(viewBox, true, overlayCategory)
-                : TileLayerSource.getIds(viewBox, true, backgroundCategory);
+        final TileType tileType = layer != null ? layer.getTileLayerConfiguration().getTileType() : null;
+        final String[] ids = isOverlay ? TileLayerSource.getOverlayIds(viewBox, true, overlayCategory, tileType)
+                : TileLayerSource.getIds(viewBox, true, backgroundCategory, tileType);
 
         RecyclerView imageryList = (RecyclerView) layout.findViewById(R.id.imageryList);
         LayoutParams buttonLayoutParams = imageryList.getLayoutParams();
@@ -723,7 +740,8 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         categoryGroup.setOnCheckedChangeListener((group, checkedId) -> {
             Category category = checkedId >= 0 ? (Category) group.findViewById(checkedId).getTag() : null;
             imageryList.removeAllViews();
-            final String[] idsForButtons = isOverlay ? TileLayerSource.getOverlayIds(viewBox, true, category) : TileLayerSource.getIds(viewBox, true, category);
+            final String[] idsForButtons = isOverlay ? TileLayerSource.getOverlayIds(viewBox, true, category, null)
+                    : TileLayerSource.getIds(viewBox, true, category, null);
             if (isOverlay) {
                 prefs.setOverlayCategory(category);
             } else {

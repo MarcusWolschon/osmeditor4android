@@ -190,7 +190,7 @@ public class TileLayerDatabaseView {
                 }
             }
             layer.getTileProvider().update();
-            checkMru(layer, TileLayerSource.getIds(null, false, null));
+            checkMru(layer, TileLayerSource.getIds(null, false, null, null));
         }
     }
 

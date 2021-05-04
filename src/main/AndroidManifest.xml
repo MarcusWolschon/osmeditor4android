@@ -271,11 +271,6 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name="org.acra.sender.SenderService"
-            android:exported="false"
-            android:process=":acra" />
-
         <!-- Service to download tiles -->
         <service
             android:name=".services.MapTileProviderService"

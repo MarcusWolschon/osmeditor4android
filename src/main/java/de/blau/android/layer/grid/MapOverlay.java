@@ -23,11 +23,12 @@ import de.blau.android.resources.DataStyle;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.SerializablePaint;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.IMapView;
 
 public class MapOverlay extends StyleableLayer implements DiscardInterface, ConfigureInterface {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
@@ -54,8 +55,8 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
 
     private transient Main main;
 
-    private transient Paint labelH;
-    private transient Paint labelV;
+    private SerializablePaint labelH;
+    private SerializablePaint labelV;
 
     private float   distance2side;
     private float   shortTicks;
@@ -74,7 +75,7 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
      */
     public MapOverlay(final Map map) {
         this.map = map;
-        paint = DataStyle.getInternal(DataStyle.CROSSHAIRS).getPaint();
+        paint = new SerializablePaint(DataStyle.getInternal(DataStyle.CROSSHAIRS).getPaint());
         resetStyling();
         setPrefs(map.getPrefs());
     }
@@ -329,8 +330,8 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
     @Override
     public void resetStyling() {
         main = map.getContext() instanceof Main ? (Main) map.getContext() : null;
-        labelH = new Paint(DataStyle.getInternal(DataStyle.LABELTEXT).getPaint());
-        labelV = new Paint(labelH);
+        labelH = new SerializablePaint(DataStyle.getInternal(DataStyle.LABELTEXT).getPaint());
+        labelV = new SerializablePaint(labelH);
         labelV.setTextAlign(Paint.Align.RIGHT);
         textHeight = labelV.getTextSize();
         distance2side = Density.dpToPx(map.getContext(), DISTANCE2SIDE_DP);
@@ -352,10 +353,8 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
         Log.d(DEBUG_TAG, "Loading state from " + FILENAME);
         MapOverlay restored = savingHelper.load(context, FILENAME, true);
         if (restored != null) {
-            labelH = new Paint(DataStyle.getInternal(DataStyle.LABELTEXT).getPaint());
-            labelH.setColor(restored.color);
-            labelV = new Paint(labelH);
-            labelV.setTextAlign(Paint.Align.RIGHT);
+            labelH = restored.labelH;
+            labelV = restored.labelV;
         }
         return restored;
     }

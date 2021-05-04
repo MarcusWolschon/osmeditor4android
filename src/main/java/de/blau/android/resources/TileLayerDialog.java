@@ -28,6 +28,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.Provider;
 import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
+import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.util.DatabaseUtil;
 import de.blau.android.util.FileUtil;
@@ -88,6 +89,8 @@ public class TileLayerDialog {
 
         long startDate = -1;
         long endDate = -1;
+
+        final boolean[] mvtInMBT = new boolean[1]; // use an array to get around final issue
 
         alertDialog.setTitle(R.string.add_layer_title);
 
@@ -183,10 +186,12 @@ public class TileLayerDialog {
                         db.close();
 
                         final String format = metadata.get(MBTileConstants.FORMAT);
-                        if (!(MBTileConstants.PNG.equals(format) || MBTileConstants.JPG.equals(format))) {
+                        mvtInMBT[0] = MBTileConstants.PBF.equals(format);
+                        if (!(MBTileConstants.PNG.equals(format) || MBTileConstants.JPG.equals(format) || mvtInMBT[0])) {
                             Snack.toastTopError(activity, activity.getResources().getString(R.string.toast_unsupported_format, format));
                             return true;
                         }
+
                         urlEdit.setText(fileUri.toString());
                         String name = metadata.get(MBTileConstants.NAME);
                         if (name != null) {
@@ -223,11 +228,10 @@ public class TileLayerDialog {
         alertDialog.setPositiveButton(R.string.save_and_set, (dialog, which) -> {
             // dummy
         });
-        final TileLayerSource existingLayer = layer;
 
+        final TileLayerSource existingLayer = layer;
         final long finalStartDate = startDate;
         final long finalEndDate = endDate;
-
         final String finalAttribution = attribution;
 
         final AlertDialog dialog = alertDialog.create();
@@ -295,7 +299,7 @@ public class TileLayerDialog {
                 }
                 try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
                     TileLayerSource.addOrUpdateCustomLayer(activity, db, layerId, existingLayer, finalStartDate, finalEndDate, name, provider, category, null,
-                            minZoom, maxZoom, isOverlay, tileUrl);
+                            mvtInMBT[0] ? TileType.MVT : null, minZoom, maxZoom, isOverlay, tileUrl);
                 }
                 return true;
             }

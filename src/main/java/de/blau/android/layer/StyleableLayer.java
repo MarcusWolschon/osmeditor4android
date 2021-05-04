@@ -6,16 +6,16 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.R;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.util.SerializablePaint;
 import de.blau.android.util.Snack;
 
 public abstract class StyleableLayer extends MapViewLayer implements StyleableInterface, DiscardInterface, Serializable {
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 
     private static final String DEBUG_TAG = StyleableLayer.class.getSimpleName();
 
@@ -28,13 +28,11 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
     /**
      * Styling parameters
      */
-    protected int    iconRadius;
-    protected int    color;
-    protected float  strokeWidth;
-    protected String symbolName;
+    protected int               iconRadius;
+    protected String            symbolName;
+    protected SerializablePaint paint;
 
-    protected transient Paint paint;
-    protected transient Path  symbolPath;
+    protected transient Path symbolPath;
 
     /**
      * Name for this layer (typically the file name)
@@ -50,7 +48,6 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
     public void setColor(int color) {
         dirty();
         paint.setColor(color);
-        this.color = color;
     }
 
     @Override
@@ -62,7 +59,6 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
     public void setStrokeWidth(float width) {
         dirty();
         paint.setStrokeWidth(width);
-        strokeWidth = width;
     }
 
     @Override
@@ -124,11 +120,8 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
                 StyleableLayer restoredOverlay = load(context);
                 if (restoredOverlay != null) {
                     Log.d(DEBUG_TAG, "read saved state");
+                    paint = restoredOverlay.paint;
                     iconRadius = restoredOverlay.iconRadius;
-                    color = restoredOverlay.color;
-                    paint.setColor(color);
-                    strokeWidth = restoredOverlay.strokeWidth;
-                    paint.setStrokeWidth(strokeWidth);
                     name = restoredOverlay.name;
                     symbolName = restoredOverlay.symbolName;
                     symbolPath = DataStyle.getCurrent().getSymbol(symbolName);

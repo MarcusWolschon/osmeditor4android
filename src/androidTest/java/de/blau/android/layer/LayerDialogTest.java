@@ -276,7 +276,7 @@ public class LayerDialogTest {
     public void layerFilter() {
         try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
             TileLayerSource.addOrUpdateCustomLayer(main, db.getWritableDatabase(), "TERRAINTEST", null, -1, -1, "Terrain Test", null,
-                    TileLayerSource.Category.elevation, TileLayerSource.TYPE_TMS, 0, 19, false, "");
+                    TileLayerSource.Category.elevation, TileLayerSource.TYPE_TMS, null, 0, 19, false, "");
             TileLayerSource.getListsLocked(main, db.getReadableDatabase(), true);
         }
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));

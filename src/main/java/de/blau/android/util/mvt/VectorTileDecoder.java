@@ -33,12 +33,17 @@ import com.mapbox.geojson.MultiPolygon;
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
 
+import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.util.Log;
 import androidx.annotation.NonNull;
-import de.blau.android.util.mvt.VectorTile.Tile.GeomType;
-import de.blau.android.util.mvt.VectorTile.Tile.Layer;
+import vector_tile.VectorTile;
+import vector_tile.VectorTile.Tile.GeomType;
+import vector_tile.VectorTile.Tile.Layer;
 
 public class VectorTileDecoder {
+
+    private static final String DEBUG_TAG = VectorTileDecoder.class.getSimpleName();
 
     private boolean autoScale = true;
 
@@ -110,10 +115,27 @@ public class VectorTileDecoder {
         return new FeatureIterable(tile, filter, autoScale);
     }
 
+    /**
+     * 
+     * @param n
+     * @return
+     */
     static int zigZagDecode(int n) {
         return ((n >> 1) ^ (-(n & 1)));
     }
 
+    /**
+     * Decode geometry
+     * 
+     * Currently this decodes to GeoJson, this is not very efficient for linear features and rings and should be
+     * replaced
+     * 
+     * @param geomType target GeomType
+     * @param commands MVT commands
+     * @param scale scaling factor
+     * @return a GeoJson geometry
+     */
+    @NonNull
     static Geometry decodeGeometry(@NonNull GeomType geomType, @NonNull List<Integer> commands, double scale) {
         int x = 0;
         int y = 0;
@@ -232,6 +254,7 @@ public class VectorTileDecoder {
         }
 
         if (geometry == null) {
+            Log.e(DEBUG_TAG, "Empty geometry for " + geomType);
             geometry = GeometryCollection.fromGeometries(new ArrayList<>());
         }
 
@@ -276,16 +299,32 @@ public class VectorTileDecoder {
         private final Filter          filter;
         private boolean               autoScale;
 
-        public FeatureIterable(VectorTile.Tile tile, Filter filter, boolean autoScale) {
+        /**
+         * Construct a new FeatureIterable for a tile
+         * 
+         * @param tile the tile
+         * @param filter a filter
+         * @param autoScale if true autoscale
+         */
+        public FeatureIterable(@NonNull VectorTile.Tile tile, @NonNull Filter filter, boolean autoScale) {
             this.tile = tile;
             this.filter = filter;
             this.autoScale = autoScale;
         }
 
+        /**
+         * Return a new Iterator
+         */
         public Iterator<Feature> iterator() {
             return new FeatureIterator(tile, filter, autoScale);
         }
 
+        /**
+         * Get all features as a single list
+         * 
+         * @return a List with all features
+         */
+        @NonNull
         public List<Feature> asList() {
             List<Feature> features = new ArrayList<>();
             for (Feature feature : this) {
@@ -294,6 +333,30 @@ public class VectorTileDecoder {
             return features;
         }
 
+        /**
+         * Get all features as a per layer list
+         * 
+         * @return a Map with the features per layer
+         */
+        @NonNull
+        public Map<String, List<Feature>> asMap() {
+            Map<String, List<Feature>> features = new HashMap<>();
+            for (Feature feature : this) {
+                List<Feature> list = features.get(feature.layerName);
+                if (list == null) {
+                    list = new ArrayList<>();
+                    features.put(feature.layerName, list);
+                }
+                list.add(feature);
+            }
+            return features;
+        }
+
+        /**
+         * Get all layer names from this tile
+         * 
+         * @return a Collection of layer names
+         */
         public Collection<String> getLayerNames() {
             Set<String> layerNames = new HashSet<>();
             for (VectorTile.Tile.Layer layer : tile.getLayersList()) {
@@ -321,17 +384,34 @@ public class VectorTileDecoder {
 
         private Feature next;
 
-        public FeatureIterator(VectorTile.Tile tile, Filter filter, boolean autoScale) {
+        /**
+         * Construct a new FeatureIterator for a tile
+         * 
+         * @param tile the tile
+         * @param filter a filter
+         * @param autoScale if true autoscale
+         */
+        public FeatureIterator(@NonNull VectorTile.Tile tile, @NonNull Filter filter, boolean autoScale) {
             layerIterator = tile.getLayersList().iterator();
             this.filter = filter;
             this.autoScale = autoScale;
         }
 
+        /**
+         * Check if there is a further Feature
+         * 
+         * @return true if a further Feature can be retrieved
+         */
         public boolean hasNext() {
             findNext();
             return next != null;
         }
 
+        /**
+         * Get the next Features
+         * 
+         * @return the Feature
+         */
         public Feature next() {
             findNext();
             if (next == null) {
@@ -342,6 +422,9 @@ public class VectorTileDecoder {
             return n;
         }
 
+        /**
+         * Set the next Feature
+         */
         private void findNext() {
 
             if (next != null) {
@@ -369,7 +452,12 @@ public class VectorTileDecoder {
             }
         }
 
-        private void parseLayer(VectorTile.Tile.Layer layer) {
+        /**
+         * Parse a MVT layer
+         * 
+         * @param layer the layer
+         */
+        private void parseLayer(@NonNull VectorTile.Tile.Layer layer) {
 
             layerName = layer.getName();
             extent = layer.getExtent();
@@ -402,7 +490,13 @@ public class VectorTileDecoder {
             featureIterator = layer.getFeaturesList().iterator();
         }
 
-        private Feature parseFeature(VectorTile.Tile.Feature feature) {
+        /**
+         * Parser a MVT feature
+         * 
+         * @param feature the feature
+         * @return a Feature
+         */
+        private Feature parseFeature(@NonNull VectorTile.Tile.Feature feature) {
 
             int tagsCount = feature.getTagsCount();
             Map<String, Object> attributes = new HashMap<>(tagsCount / 2);
@@ -414,9 +508,6 @@ public class VectorTileDecoder {
             }
 
             Geometry geometry = decodeGeometry(feature.getType(), feature.getGeometryList(), scale);
-            if (geometry == null) {
-                geometry = GeometryCollection.fromGeometries(new ArrayList<>());
-            }
 
             return new Feature(layerName, extent, geometry, Collections.unmodifiableMap(attributes), feature.getId());
         }
@@ -441,6 +532,8 @@ public class VectorTileDecoder {
         private final Geometry            geometry;
         private final Map<String, Object> attributes;
         private Rect                      box;
+        private Object                    cachedLabel;
+        private Bitmap                    cachedBitmap;
 
         /**
          * Construct a new MVT Feature
@@ -519,6 +612,34 @@ public class VectorTileDecoder {
          */
         public void setBox(Rect box) {
             this.box = box;
+        }
+
+        /**
+         * @return the cachedLabel
+         */
+        public Object getCachedLabel() {
+            return cachedLabel;
+        }
+
+        /**
+         * @param cachedLabel the cachedLabel to set
+         */
+        public void setCachedLabel(Object cachedLabel) {
+            this.cachedLabel = cachedLabel;
+        }
+
+        /**
+         * @return the cachedBitmap
+         */
+        public Bitmap getCachedBitmap() {
+            return cachedBitmap;
+        }
+
+        /**
+         * @param cachedBitmap the cachedBitmap to set
+         */
+        public void setCachedBitmap(Bitmap cachedBitmap) {
+            this.cachedBitmap = cachedBitmap;
         }
     }
 }

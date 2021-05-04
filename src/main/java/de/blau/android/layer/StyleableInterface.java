@@ -221,7 +221,7 @@ public interface StyleableInterface {
     default int getMaxZoom(String layerName) {
         return -1;
     }
-    
+
     /**
      * Set the current maximum zoom for a specific (sub)layer of this layer
      * 
@@ -230,5 +230,14 @@ public interface StyleableInterface {
      */
     default void setMaxZoom(@NonNull String subLayerName, int zoom) {
         // unimplemented
+    }
+
+    /**
+     * CHeck if the layer currently supports interactive styling
+     * 
+     * @return true if interactive styling is enabled
+     */
+    default boolean stylingEnabled() {
+        return true;
     }
 }

@@ -1,10 +1,13 @@
 package de.blau.android.layer.mvt;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -17,47 +20,59 @@ import com.mapbox.turf.TurfException;
 import com.mapbox.turf.TurfJoins;
 
 import android.content.Context;
-import android.graphics.Path;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.Map;
+import de.blau.android.R;
 import de.blau.android.dialogs.FeatureInfo;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.StyleableInterface;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.ReadFile;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.mvt.Style;
+import de.blau.android.util.SelectFile;
+import de.blau.android.util.Snack;
 import de.blau.android.util.mvt.VectorTileDecoder;
 import de.blau.android.util.mvt.VectorTileRenderer;
+import de.blau.android.util.mvt.style.Background;
+import de.blau.android.util.mvt.style.Layer;
+import de.blau.android.util.mvt.style.Layer.Type;
+import de.blau.android.util.mvt.style.Style;
+import de.blau.android.util.mvt.style.Symbol;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
 
-public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feature>>
+public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<VectorTileDecoder.Feature>>>
         implements ClickableInterface<VectorTileDecoder.Feature>, StyleableInterface {
 
     private static final String DEBUG_TAG = "mvt";
+
+    private static final Type[] DEFAULT_STYLE_TYPES = new Type[] { Type.LINE, Type.FILL, Type.SYMBOL };
 
     /** Map this is an overlay of. */
     private final Map     map;
     private final boolean overlay;
 
-    private final TileRenderer<List<VectorTileDecoder.Feature>> tileRenderer;
+    private final TileRenderer<java.util.Map<String, List<VectorTileDecoder.Feature>>> tileRenderer;
 
-    private SavingHelper<java.util.HashMap<String, Style>> styleSavingHelper = new SavingHelper<>();
+    private SavingHelper<Style> styleSavingHelper = new SavingHelper<>();
+    private boolean             dirty             = false;
 
     /**
      * Construct a new MVT layer
      * 
      * @param map the current Map instance
      */
-    public MapOverlay(@NonNull final Map map, @NonNull TileRenderer<List<VectorTileDecoder.Feature>> aTileRenderer, boolean overlay) {
+    public MapOverlay(@NonNull final Map map, @NonNull TileRenderer<java.util.Map<String, List<VectorTileDecoder.Feature>>> aTileRenderer, boolean overlay) {
         super(map, /* TileLayerSource.get(aView.getContext()), null, true), null, */ aTileRenderer);
         this.map = map;
         this.tileRenderer = aTileRenderer;
@@ -70,13 +85,18 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
     }
 
     @Override
+    public boolean stylingEnabled() {
+        return ((VectorTileRenderer) tileRenderer).getStyle().isAutoStyle();
+    }
+
+    @Override
     public List<VectorTileDecoder.Feature> getClicked(final float x, final float y, final ViewBox viewBox) {
         Log.d(DEBUG_TAG, "getClicked");
-        List<VectorTileDecoder.Feature> result = new ArrayList<>();
+        Set<VectorTileDecoder.Feature> result = new LinkedHashSet<>();
         int z = map.getZoomLevel();
 
         MapTile mapTile = getTile(z, x, y);
-        List<VectorTileDecoder.Feature> tile = mTileProvider.getMapTileFromCache(mapTile);
+        java.util.Map<String, List<VectorTileDecoder.Feature>> tile = mTileProvider.getMapTileFromCache(mapTile);
         while (tile == null && z > myRendererInfo.getMinZoom()) { // try zooming out
             z--;
             mapTile = getTile(z, x, y);
@@ -87,17 +107,28 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
             final float tolerance = DataStyle.getCurrent().getNodeToleranceValue() * 256 / rect.width();
             final float scaledX = (x - rect.left) * 256 / rect.width();
             final float scaledY = (y - rect.top) * 256 / rect.height();
-            for (VectorTileDecoder.Feature f : tile) {
-                Geometry g = f.getGeometry();
-                if (geometryClicked(scaledX, scaledY, tolerance, g)) {
-                    result.add(f);
+            Style style = ((VectorTileRenderer) tileRenderer).getStyle();
+            // we need layer information to be able to check the interactive status
+            for (Layer layer : style.getLayers()) {
+                if (layer instanceof Background) {
+                    continue; // this is not particularly safe
+                }
+                for (List<VectorTileDecoder.Feature> list : tile.values()) {
+                    for (VectorTileDecoder.Feature f : list) {
+                        if (f.getLayerName().equals(layer.getSourceLayer()) && (layer.getFilter() == null || layer.evaluateFilter(layer.getFilter(), f))
+                                && layer.isInteractive()) {
+                            Geometry g = f.getGeometry();
+                            if (geometryClicked(scaledX, scaledY, tolerance, g)) {
+                                result.add(f);
+                            }
+                        }
+                    }
                 }
             }
         } else {
-            Log.e(DEBUG_TAG, "Tile not found");
-            mTileProvider.getCacheUsageInfo();
+            Log.e(DEBUG_TAG, "Tile " + mapTile + " not found in cache");
         }
-        return result;
+        return new ArrayList<>(result);
     }
 
     /**
@@ -219,6 +250,7 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
     @Override
     public void onSelected(FragmentActivity activity, de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
         JsonObject properties = new JsonObject();
+        properties.add(activity.getString(R.string.vt_layer), new JsonPrimitive(f.getLayerName()));
         for (Entry<String, Object> e : f.getAttributes().entrySet()) {
             if (e.getValue() instanceof String) {
                 properties.add(e.getKey(), new JsonPrimitive((String) e.getValue()));
@@ -227,7 +259,7 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
             }
         }
         com.mapbox.geojson.Feature geojson = com.mapbox.geojson.Feature.fromGeometry(f.getGeometry(), properties);
-        FeatureInfo.showDialog(activity, geojson);
+        FeatureInfo.showDialog(activity, geojson, R.string.vt_feature_information);
     }
 
     @Override
@@ -242,7 +274,8 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
 
     @Override
     public String getDescription(de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
-        return f.getLayerName() + " " + f.getGeometry().type() + " " + f.getId();
+        Object nameObject = f.getAttributes().get(Tags.KEY_NAME);
+        return (nameObject != null ? nameObject.toString() : Long.toString(f.getId())) + " " + f.getGeometry().type() + " " + f.getLayerName();
     }
 
     @Override
@@ -252,9 +285,9 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
 
     @Override
     public int getColor(String layerName) {
-        Style style = ((VectorTileRenderer) tileRenderer).getLayerStyle(layerName);
+        Layer style = ((VectorTileRenderer) tileRenderer).getLayer(layerName, Type.LINE);
         if (style != null) {
-            return style.getLinePaint().getColor();
+            return style.getColor();
         }
         return 0;
     }
@@ -266,11 +299,11 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
 
     @Override
     public void setColor(String layerName, int color) {
-        Style style = ((VectorTileRenderer) tileRenderer).getLayerStyle(layerName);
-        if (style != null) {
-            style.getLinePaint().setColor(color);
-            style.getPointPaint().setColor(color);
-            style.getPolygonPaint().setColor(color);
+        for (Type type : DEFAULT_STYLE_TYPES) {
+            Layer style = ((VectorTileRenderer) tileRenderer).getLayer(layerName, type);
+            if (style != null) {
+                style.setColor(color);
+            }
         }
     }
 
@@ -281,9 +314,9 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
 
     @Override
     public float getStrokeWidth(String layerName) {
-        Style style = ((VectorTileRenderer) tileRenderer).getLayerStyle(layerName);
+        Layer style = ((VectorTileRenderer) tileRenderer).getLayer(layerName, Type.LINE);
         if (style != null) {
-            return style.getLinePaint().getStrokeWidth();
+            return style.getStrokeWidth();
         }
         return 0;
     }
@@ -295,19 +328,19 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
 
     @Override
     public void setStrokeWidth(String layerName, float width) {
-        Style style = ((VectorTileRenderer) tileRenderer).getLayerStyle(layerName);
-        if (style != null) {
-            style.getLinePaint().setStrokeWidth(width);
-            style.getPointPaint().setStrokeWidth(width);
-            style.getPolygonPaint().setStrokeWidth(width);
+        for (Type type : DEFAULT_STYLE_TYPES) {
+            Layer style = ((VectorTileRenderer) tileRenderer).getLayer(layerName, type);
+            if (style != null) {
+                style.setStrokeWidth(width);
+            }
         }
     }
 
     @Override
     public String getPointSymbol(@NonNull String layerName) {
-        Style style = ((VectorTileRenderer) tileRenderer).getLayerStyle(layerName);
+        Symbol style = (Symbol) ((VectorTileRenderer) tileRenderer).getLayer(layerName, Type.SYMBOL);
         if (style != null) {
-            return style.getSymbolName();
+            return style.getSymbol();
         }
         return null;
     }
@@ -319,17 +352,16 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
      * @param symbol the Path for symbol
      */
     @Override
-    public void setPointSymbol(@NonNull String layerName, @NonNull String symbol) {
-        Style style = ((VectorTileRenderer) tileRenderer).getLayerStyle(layerName);
+    public void setPointSymbol(@NonNull String layerName, @Nullable String symbol) {
+        Symbol style = (Symbol) ((VectorTileRenderer) tileRenderer).getLayer(layerName, Type.SYMBOL);
         if (style != null) {
-            style.setSymbolName(symbol);
-            Style.setSymbolPathFromName(style);
+            style.setSymbol(symbol);
         }
     }
 
     @Override
     public void resetStyling() {
-        ((VectorTileRenderer) tileRenderer).getLayerStyles().clear();
+        ((VectorTileRenderer) tileRenderer).resetStyle();
     }
 
     @Override
@@ -344,7 +376,7 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
 
     @Override
     public String getLabel(String layerName) {
-        Style style = ((VectorTileRenderer) tileRenderer).getLayerStyle(layerName);
+        Symbol style = (Symbol) ((VectorTileRenderer) tileRenderer).getLayer(layerName, Type.SYMBOL);
         if (style != null) {
             return style.getLabelKey();
         }
@@ -358,7 +390,7 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
 
     @Override
     public void setLabel(String layerName, String key) {
-        Style style = ((VectorTileRenderer) tileRenderer).getLayerStyle(layerName);
+        Symbol style = (Symbol) ((VectorTileRenderer) tileRenderer).getLayer(layerName, Type.SYMBOL);
         if (style != null) {
             style.setLabelKey(key);
         }
@@ -366,7 +398,7 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
 
     @Override
     public int getMinZoom(@NonNull String layerName) {
-        Style style = ((VectorTileRenderer) tileRenderer).getLayerStyle(layerName);
+        Layer style = ((VectorTileRenderer) tileRenderer).getLayer(layerName, Type.LINE);
         if (style != null) {
             return style.getMinZoom();
         }
@@ -375,15 +407,17 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
 
     @Override
     public void setMinZoom(@NonNull String layerName, int zoom) {
-        Style style = ((VectorTileRenderer) tileRenderer).getLayerStyle(layerName);
-        if (style != null) {
-            style.setMinZoom(zoom);
+        for (Type type : DEFAULT_STYLE_TYPES) {
+            Layer style = ((VectorTileRenderer) tileRenderer).getLayer(layerName, type);
+            if (style != null) {
+                style.setMinZoom(zoom);
+            }
         }
     }
 
     @Override
     public int getMaxZoom(String layerName) {
-        Style style = ((VectorTileRenderer) tileRenderer).getLayerStyle(layerName);
+        Layer style = ((VectorTileRenderer) tileRenderer).getLayer(layerName, Type.LINE);
         if (style != null) {
             return style.getMaxZoom();
         }
@@ -392,9 +426,11 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
 
     @Override
     public void setMaxZoom(@NonNull String layerName, int zoom) {
-        Style style = ((VectorTileRenderer) tileRenderer).getLayerStyle(layerName);
-        if (style != null) {
-            style.setMaxZoom(zoom);
+        for (Type type : DEFAULT_STYLE_TYPES) {
+            Layer style = ((VectorTileRenderer) tileRenderer).getLayer(layerName, type);
+            if (style != null) {
+                style.setMaxZoom(zoom);
+            }
         }
     }
 
@@ -406,20 +442,20 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
     @Override
     public void onSaveState(@NonNull Context ctx) throws IOException {
         super.onSaveState(ctx);
-        styleSavingHelper.save(ctx, getStateFileName(), ((VectorTileRenderer) tileRenderer).getLayerStyles(), false, true);
+        styleSavingHelper.save(ctx, getStateFileName(), ((VectorTileRenderer) tileRenderer).getStyle(), false, true);
+        dirty = false;
     }
 
     @Override
     public boolean onRestoreState(@NonNull Context ctx) {
         super.onRestoreState(ctx);
-        HashMap<String, Style> styles = styleSavingHelper.load(ctx, getStateFileName(), false, true, true);
-        if (styles != null) {
-            // restore transient Style fields
-            for (Style style : styles.values()) {
-                Path pointPath = DataStyle.getCurrent().getSymbol(style.getSymbolName());
-                style.setSymbolPath(pointPath != null ? pointPath : null);
+        Style style = styleSavingHelper.load(ctx, getStateFileName(), false, true, true);
+        if (style != null) {
+            if (!dirty) {
+                ((VectorTileRenderer) tileRenderer).setStyle(style);
             }
-            ((VectorTileRenderer) tileRenderer).setLayerStyles(styles);
+        } else {
+            ((VectorTileRenderer) tileRenderer).resetStyle();
         }
         return true;
     }
@@ -431,5 +467,49 @@ public class MapOverlay extends MapTilesOverlayLayer<List<VectorTileDecoder.Feat
      */
     public String getStateFileName() {
         return (getTileLayerConfiguration().getImageryOffsetId() + ".res").replace('/', '-');
+    }
+
+    /**
+     * Get the current style
+     * 
+     * @return the Style for this layer
+     */
+    @NonNull
+    public Style getStyle() {
+        return ((VectorTileRenderer) tileRenderer).getStyle();
+    }
+
+    /**
+     * Load a mapbox gl version 8 style file
+     * 
+     * @param activity the calling FragmentActivity
+     * @throws IOException is reading goes wrong
+     */
+    public void loadStyleFromFile(@NonNull FragmentActivity activity) throws IOException {
+        SelectFile.read(activity, R.string.config_osmPreferredDir_key, new ReadFile() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public boolean read(Uri fileUri) {
+                try (InputStream is = activity.getContentResolver().openInputStream(fileUri)) {
+                    Style style = new Style();
+                    style.loadStyle(activity, is);
+                    ((VectorTileRenderer) tileRenderer).setStyle(style);
+                    dirty = true;
+                    Log.d(DEBUG_TAG, "Loaded " + fileUri + " successfully");
+                    return true;
+                } catch (SecurityException sex) {
+                    Log.e(DEBUG_TAG, sex.getMessage());
+                    // note need a context here that is on the ui thread
+                    Snack.toastTopError(map.getContext(), activity.getString(R.string.toast_permission_denied, fileUri.toString()));
+                    return false;
+                } catch (FileNotFoundException e) {
+                    Snack.toastTopError(map.getContext(), activity.getString(R.string.toast_file_not_found, fileUri.toString()));
+                } catch (IOException e) {
+                    Snack.toastTopError(map.getContext(), activity.getString(R.string.toast_error_reading, fileUri.toString()));
+                }
+                return true;
+            }
+        });
     }
 }

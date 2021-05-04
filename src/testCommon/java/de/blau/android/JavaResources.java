@@ -1,6 +1,7 @@
 package de.blau.android;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,11 +34,24 @@ public final class JavaResources {
      */
     public static void copyFileFromResources(@NonNull Context context, @NonNull String fileName, @Nullable String source, @NonNull String destination,
             boolean useVespucciDir) throws IOException {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-
+        
         File[] storageDirectories = ContextCompat.getExternalFilesDirs(context, null);
         File destinationDir = FileUtil.getPublicDirectory(useVespucciDir ? FileUtil.getPublicDirectory() : storageDirectories[0], destination);
-        File destinationFile = new File(destinationDir, fileName);
+        File destinationFile = new File(destinationDir, fileName);   
+        copyFileFromResources(fileName, source, destinationFile);
+    }
+
+    /**
+     * Copy a file from resources
+     * 
+     * @param fileName the name of the file to copy
+     * @param source the source sub-directory, can be null
+     * @param destinationFile destination
+     * @throws IOException if copying goes wrong
+     * @throws FileNotFoundException if the file is not found
+     */
+    public static void copyFileFromResources(@NonNull String fileName, @Nullable String source, @NonNull File destinationFile) throws IOException, FileNotFoundException {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try (OutputStream os = new FileOutputStream(destinationFile); InputStream is = loader.getResourceAsStream((source != null ? source : "") + fileName)) {
             byte[] buffer = new byte[8 * 1024];
             int bytesRead;

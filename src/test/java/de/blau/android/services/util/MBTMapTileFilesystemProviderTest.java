@@ -55,7 +55,7 @@ public class MBTMapTileFilesystemProviderTest {
             File[] storageDirectories = ContextCompat.getExternalFilesDirs(ApplicationProvider.getApplicationContext(), null);
             File mbtFile = new File(storageDirectories[0], "ersatz_background.mbt");
             TileLayerSource.addOrUpdateCustomLayer(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), MockTileServer.MOCK_TILE_SOURCE, null,
-                    -1, -1, "Vespucci Test", new Provider(), Category.other, null, 0, 19, false, "file://" + mbtFile.getAbsolutePath());
+                    -1, -1, "Vespucci Test", new Provider(), Category.other, null, null, 0, 19, false, "file://" + mbtFile.getAbsolutePath());
         }
         // force update of tile sources
         try (TileLayerDatabase tlDb = new TileLayerDatabase(ApplicationProvider.getApplicationContext()); SQLiteDatabase db = tlDb.getReadableDatabase()) {

@@ -59,6 +59,7 @@ import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
+import de.blau.android.util.SerializablePaint;
 import de.blau.android.util.Snack;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.rtree.BoundedObject;
@@ -686,9 +687,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     public void resetStyling() {
-        paint = new Paint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
-        color = paint.getColor();
-        strokeWidth = paint.getStrokeWidth();
+        paint = new SerializablePaint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
         labelKey = "";
         iconRadius = map.getIconRadius();
         marker = DataStyle.getCurrent().getSymbol(TriangleDown.NAME);

@@ -9,16 +9,16 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.junit.Test;
 
 import androidx.annotation.NonNull;
+import de.blau.android.util.GeoJSONConstants;
 
 public class DecodeTest {
 
     /**
-     * Decode tile and check that it contains what we think it should
+     * Decode tile and check that it contains what we think it should (very superficially)
      */
     @Test
     public void decodeOpenInfraMapTest() {
@@ -36,23 +36,23 @@ public class DecodeTest {
                 count++;
                 counts.put(geometry, count);
             }
-            for (Entry<String, Integer> entry : counts.entrySet()) {
-                System.out.println(entry.getKey() + " " + entry.getValue());
-            }
+            assertEquals(50, (int) counts.get(GeoJSONConstants.LINESTRING));
+            assertEquals(50, (int) counts.get(GeoJSONConstants.POINT));
+            assertEquals(1, (int) counts.get(GeoJSONConstants.POLYGON));
         } catch (IOException e) {
             fail(e.getMessage());
         }
     }
-    
+
     /**
-     * Decode tile and check that it contains what we think it should
+     * Decode tilemaker tile and check that it contains what we think it should (very superficially)
      */
     @Test
-    public void decodeMapboxTest() {
+    public void decodeTilemakerTest() {
         try {
-            VectorTileDecoder.FeatureIterable decodedTile = new VectorTileDecoder().decode(readTile("/mapbox_tile.pbf"));
+            VectorTileDecoder.FeatureIterable decodedTile = new VectorTileDecoder().decode(readTile("/tilemaker_tile.pbf"));
             List<VectorTileDecoder.Feature> list = decodedTile.asList();
-            // assertEquals(101, list.size());
+            assertEquals(314, list.size());
             Map<String, Integer> counts = new HashMap<>();
             for (VectorTileDecoder.Feature f : list) {
                 String geometry = f.getGeometry().type();
@@ -63,36 +63,20 @@ public class DecodeTest {
                 count++;
                 counts.put(geometry, count);
             }
-            for (Entry<String, Integer> entry : counts.entrySet()) {
-                System.out.println(entry.getKey() + " " + entry.getValue());
-            }
+            assertEquals(147, (int) counts.get(GeoJSONConstants.LINESTRING));
+            assertEquals(12, (int) counts.get(GeoJSONConstants.POINT));
+            assertEquals(149, (int) counts.get(GeoJSONConstants.POLYGON));
+            assertEquals(6, (int) counts.get(GeoJSONConstants.MULTIPOLYGON));
         } catch (IOException e) {
             fail(e.getMessage());
         }
     }
 
-    @Test
-    public void decodeBenchmarkTest() {
-        try {
-            byte[] data = readTile("/openinframap_tile.pbf");
-            long start = System.currentTimeMillis();
-            VectorTileDecoder.FeatureIterable decodedTile = null;
-            List<VectorTileDecoder.Feature> list = null;
-            for (int i = 0; i < 1000; i++) {
-                decodedTile = new VectorTileDecoder().decode(data);
-                list = decodedTile.asList();
-            }
-            System.out.println("Time for 1000 decodes: " + (System.currentTimeMillis() - start));
-            System.out.println("Decoded tile size :" + decodedTile.asList().size());
-        } catch (IOException e) {
-            fail(e.getMessage());
-        }
-    }
-
-    /*
+    /**
      * Read a sample tile in to a byte array
      * 
      * @param filename the tile to read
+     * 
      * @return a byte array containing the data
      */
     private static byte[] readTile(@NonNull String filename) throws IOException {

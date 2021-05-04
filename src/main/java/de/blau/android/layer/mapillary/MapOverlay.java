@@ -63,6 +63,7 @@ import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.SerializablePaint;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.rtree.RTree;
 import de.blau.android.views.IMapView;
@@ -597,9 +598,7 @@ public class MapOverlay extends StyleableLayer
 
     @Override
     public void resetStyling() {
-        paint = new Paint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
-        color = paint.getColor();
-        strokeWidth = paint.getStrokeWidth();
+        paint = new SerializablePaint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
         iconRadius = map.getIconRadius();
         symbolName = Mapillary.NAME;
         symbolPath = DataStyle.getCurrent().getSymbol(Mapillary.NAME);

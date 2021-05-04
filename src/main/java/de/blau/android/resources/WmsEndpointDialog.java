@@ -16,7 +16,7 @@ import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.util.Snack;
 
 public final class WmsEndpointDialog {
-    
+
     /**
      * Private constructor to prevent instantiation
      */
@@ -102,7 +102,7 @@ public final class WmsEndpointDialog {
                 }
                 try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
                     TileLayerSource.addOrUpdateCustomLayer(activity, db, endpointId, existingEndpoint, -1, -1, name, null, null,
-                            TileLayerSource.TYPE_WMS_ENDPOINT, -1, -1, false, endpointUrl);
+                            TileLayerSource.TYPE_WMS_ENDPOINT, null, -1, -1, false, endpointUrl);
                 }
                 if (onUpdate != null) {
                     onUpdate.update();

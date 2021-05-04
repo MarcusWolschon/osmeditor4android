@@ -1,5 +1,6 @@
 package de.blau.android.util.collections;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import androidx.annotation.NonNull;
@@ -10,7 +11,9 @@ import androidx.annotation.NonNull;
  * @author simon
  *
  */
-public class FloatPrimitiveList {
+public class FloatPrimitiveList implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private float[] array;
     private int     size     = 0;
     private int     capacity = 0;
