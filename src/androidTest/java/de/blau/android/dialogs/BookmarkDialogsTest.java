@@ -94,8 +94,8 @@ public class BookmarkDialogsTest {
         }
         //Show Dialog
         for (int i = 0; i < 3; i++) {
-            TestUtils.clickMenuButton(device, "GPS/GNSS…", false, true);
-            TestUtils.clickText(device, false, "Show Bookmarks..", true, false);
+            TestUtils.clickMenuButton(device, main.getString(R.string.menu_gps), false, true);
+            TestUtils.clickText(device, false, main.getString(R.string.show_bookmarks), true, false);
             TestUtils.clickResource(device, true, (device.getCurrentPackageName() + ":id/adapterlayout"), true);
             viewBoxtest = map.getViewBox();
             // dividing by 100 to accomodate slight change in map.getviewbox()
