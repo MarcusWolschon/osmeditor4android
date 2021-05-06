@@ -41,6 +41,7 @@ import de.blau.android.ErrorCodes;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.contract.MimeTypes;
+import de.blau.android.contract.Schemes;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
@@ -225,7 +226,7 @@ public class Server {
 
         // if we have a tiled OSM data source, open
         Uri readOnlyUri = Uri.parse(getReadOnlyUrl());
-        if (FileUtil.FILE_SCHEME.equals(readOnlyUri.getScheme())) {
+        if (Schemes.FILE.equals(readOnlyUri.getScheme())) {
             MBTileProviderDataBase tempDB = null;
             try {
                 tempDB = new MBTileProviderDataBase(context, readOnlyUri, 1);

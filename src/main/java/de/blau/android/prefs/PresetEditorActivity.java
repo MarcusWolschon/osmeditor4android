@@ -44,6 +44,7 @@ import androidx.appcompat.app.AlertDialog;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OperationFailedException;
 import de.blau.android.osm.Server;
@@ -292,7 +293,7 @@ public class PresetEditorActivity extends URLListEditActivity {
             protected Integer doInBackground(Void... args) {
                 int loadResult = RESULT_TOTAL_SUCCESS;
                 Uri uri = Uri.parse(item.value);
-                if (FileUtil.FILE_SCHEME.equals(uri.getScheme())) {
+                if (Schemes.FILE.equals(uri.getScheme())) {
                     loadResult = load(uri, Preset.PRESETXML);
                 } else {
                     loadResult = download(item.value, Preset.PRESETXML);
