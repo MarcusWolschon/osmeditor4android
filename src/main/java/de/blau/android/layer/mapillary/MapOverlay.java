@@ -55,6 +55,7 @@ import de.blau.android.photos.PhotoViewerFragment;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.resources.symbols.Mapillary;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.util.DataStorage;
 import de.blau.android.util.FileUtil;
@@ -62,6 +63,7 @@ import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.SerializablePaint;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.rtree.RTree;
 import de.blau.android.views.IMapView;
@@ -204,7 +206,6 @@ public class MapOverlay extends StyleableLayer
 
         Collection<MapillarySequence> queryResult = new ArrayList<>();
         data.query(queryResult, bb);
-        Log.d(DEBUG_TAG, "features result count " + queryResult.size());
         for (MapillarySequence sequence : queryResult) {
             Feature f = sequence.getFeature();
             drawSequence(canvas, bb, width, height, f, paint, zoomLevel >= SHOW_MARKER_ZOOM);
@@ -231,7 +232,6 @@ public class MapOverlay extends StyleableLayer
         JsonObject coordinateProperties = (JsonObject) f.getProperty(MapillarySequence.COORDINATE_PROPERTIES_KEY);
         JsonArray cas = coordinateProperties.get(MapillarySequence.CAS_KEY).getAsJsonArray();
         int size = line.size();
-        Path mapillaryPath = DataStyle.getCurrent().getMapillaryPath();
         GeoJson.pointListToLinePointsArray(bb, width, height, points, line);
         float[] linePoints = points.getArray();
         int pointsSize = points.size();
@@ -243,7 +243,7 @@ public class MapOverlay extends StyleableLayer
             }
             canvas.drawPath(path, paint);
         }
-        if (withMarker) {
+        if (withMarker && symbolPath != null) {
             JsonArray imageKeys = coordinateProperties.get(MapillarySequence.IMAGE_KEYS_KEY).getAsJsonArray();
             if (imageKeys != null) {
                 boolean sequenceIsSelected = selectedSequence != null && selectedSequence.getFeature().equals(f);
@@ -256,9 +256,9 @@ public class MapOverlay extends StyleableLayer
                             float x = GeoMath.lonToX(width, bb, longitude);
                             float y = GeoMath.latToY(height, width, bb, latitude);
                             if (selectedImage == i && sequenceIsSelected) {
-                                drawMarker(canvas, x, y, cas.get(i).getAsInt(), selectedPaint, mapillaryPath);
+                                drawMarker(canvas, x, y, cas.get(i).getAsInt(), selectedPaint, symbolPath);
                             }
-                            drawMarker(canvas, x, y, cas.get(i).getAsInt(), paint, mapillaryPath);
+                            drawMarker(canvas, x, y, cas.get(i).getAsInt(), paint, symbolPath);
                         }
                     }
                 } catch (Exception ex) {
@@ -598,10 +598,10 @@ public class MapOverlay extends StyleableLayer
 
     @Override
     public void resetStyling() {
-        paint = new Paint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
-        color = paint.getColor();
-        strokeWidth = paint.getStrokeWidth();
+        paint = new SerializablePaint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
         iconRadius = map.getIconRadius();
+        symbolName = Mapillary.NAME;
+        symbolPath = DataStyle.getCurrent().getSymbol(Mapillary.NAME);
     }
 
     @Override

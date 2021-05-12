@@ -2,12 +2,13 @@ package de.blau.android.views.layers;
 
 import android.graphics.Canvas;
 import android.view.View;
+import androidx.annotation.NonNull;
 import de.blau.android.layer.LayerType;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.collections.MRUList;
 import de.blau.android.views.IMapView;
 
-public class MapTilesOverlayLayer extends MapTilesLayer {
+public class MapTilesOverlayLayer<T> extends MapTilesLayer<T> {
 
     private static final MRUList<String> lastServers = new MRUList<>(MRU_SIZE);
 
@@ -17,9 +18,10 @@ public class MapTilesOverlayLayer extends MapTilesLayer {
      * Construct a tile layer for showing transparent tiles over over tiles/data
      * 
      * @param aView the view we are displaying in
+     * @param aTileRenderer the TileRenderer for T
      */
-    public MapTilesOverlayLayer(final View aView) {
-        super(aView, TileLayerSource.get(aView.getContext(), null, true), null);
+    public MapTilesOverlayLayer(@NonNull final View aView, @NonNull TileRenderer<T> aTileRenderer) {
+        super(aView, TileLayerSource.get(aView.getContext(), null, true), null, aTileRenderer);
     }
 
     @Override

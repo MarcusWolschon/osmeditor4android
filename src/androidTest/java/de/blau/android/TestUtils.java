@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -960,8 +962,9 @@ public class TestUtils {
      */
     public static UiObject2 getLayerButton(@NonNull UiDevice device, @NonNull String layer, int buttonIndex) {
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
-        BySelector bySelector = By.text(layer);
+        BySelector bySelector = By.textStartsWith(layer);
         UiObject2 layerName = device.wait(Until.findObject(bySelector), 500);
+        assertNotNull(layerName);
         UiObject2 tableRow = layerName.getParent();
         List<UiObject2> tableCells = tableRow.getChildren();
         return tableCells.get(buttonIndex);
@@ -1107,7 +1110,7 @@ public class TestUtils {
      * @param map the current Map object
      */
     public static void resetOffsets(@NonNull Map map) {
-        MapTilesLayer layer = map.getBackgroundLayer();
+        MapTilesLayer<?> layer = map.getBackgroundLayer();
         if (layer != null) {
             TileLayerSource osmts = layer.getTileLayerConfiguration();
             if (osmts != null) {

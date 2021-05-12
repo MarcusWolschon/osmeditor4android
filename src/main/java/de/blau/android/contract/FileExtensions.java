@@ -8,6 +8,9 @@ public final class FileExtensions {
     public static final String PO      = "po";
     public static final String JPG     = "jpg";
     public static final String OSC     = "osc";
+    public static final String MVT     = "mvt";
+    public static final String PBF     = "pbf";
+    public static final String PNG     = "png";
 
     /**
      * Private default constructor

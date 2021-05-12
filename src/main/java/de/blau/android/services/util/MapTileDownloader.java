@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -51,7 +52,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
     // Constants
     // ===========================================================
 
-    private static final String DEBUGTAG = "MapTileDownloader";
+    private static final String DEBUG_TAG = "MapTileDownloader";
 
     public static final long TIMEOUT = 5000;
 
@@ -131,10 +132,10 @@ public class MapTileDownloader extends MapAsyncTileProvider {
         public void run() {
             if (!networkStatus.isConnected()) { // fail immediately
                 try {
-                    Log.e(DEBUGTAG, "No network");
+                    Log.e(DEBUG_TAG, "No network");
                     mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, NONETWORK);
                 } catch (RemoteException re) {
-                    Log.e(DEBUGTAG, "Error calling mapTileLoaded for MapTile. Exception: " + re);
+                    Log.e(DEBUG_TAG, "Error calling mapTileLoaded for MapTile. Exception: " + re);
                 }
                 return;
             }
@@ -150,8 +151,8 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                 final String tileURLString = buildURL(renderer, mTile);
                 try {
                     if (tileURLString.length() > 0) {
-                        if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-                            Log.d(DEBUGTAG, "Downloading Maptile from url: " + tileURLString);
+                        if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                            Log.d(DEBUG_TAG, "Downloading Maptile from url: " + tileURLString);
                         }
 
                         Request request = new Request.Builder().url(tileURLString).build();
@@ -192,9 +193,8 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                         out.flush();
 
                         byte[] data = dataStream.toByteArray();
-
                         if (data.length == 0) {
-                            throw new IOException("no tile data");
+                            throw new FileNotFoundException(TILE_NOT_AVAILABLE);
                         }
                         // check format
                         if (format != null) {
@@ -215,20 +215,32 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                                 break;
                             case MimeTypes.TEXT_TYPE:
                                 // this can't be a tile and is likely an error message
-                                Log.e(DEBUGTAG, responseBody.string());
+                                Log.e(DEBUG_TAG, responseBody.string());
                                 throw new FileNotFoundException(TILE_NOT_AVAILABLE);
-                            case MimeTypes.APPLICATION_TYPE: // WMS errors
+                            case MimeTypes.APPLICATION_TYPE: // WMS errors, MVT tiles
                                 switch (format.subtype().toLowerCase()) {
                                 case MimeTypes.WMS_EXCEPTION_XML_SUBTYPE:
                                 case MimeTypes.JSON_SUBTYPE:
-                                    Log.e(DEBUGTAG, responseBody.string());
+                                    Log.e(DEBUG_TAG, responseBody.string());
+                                    throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                                case MimeTypes.MVT_SUBTYPE:
+                                case MimeTypes.X_PROTOBUF_SUBTYPE:
+                                    if (data.length > BINDER_SIZE_LIMIT) {
+                                        Log.e(DEBUG_TAG, "MVT size out of bounds");
+                                        throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                                    }
+                                    byte[] noTileTile = renderer.getNoTileTile();
+                                    if (noTileTile != null && data.length == noTileTile.length && Arrays.equals(data, noTileTile)) {
+                                        Log.e(DEBUG_TAG, "MVT \"no tile\" tile for " + mTile);
+                                        throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                                    }
                                     break;
                                 default:
-                                    Log.e(DEBUGTAG, "Application sub type " + format.subtype());
+                                    Log.e(DEBUG_TAG, "Application sub type " + format.subtype());
                                 }
-                                throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                                break;
                             default:
-                                Log.e(DEBUGTAG, "Unexpected response format " + format + " tile url " + tileURLString);
+                                Log.e(DEBUG_TAG, "Unexpected response format " + format + " tile url " + tileURLString);
                                 throw new FileNotFoundException(TILE_NOT_AVAILABLE);
                             }
                         }
@@ -242,17 +254,17 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                             MapTileDownloader.this.mMapTileFSProvider.markAsInvalid(mTile);
                         } else { // FileNotFound is an expected exception, any other IOException should be logged, and
                                  // reported a an error
-                            Log.e(DEBUGTAG,
+                            Log.e(DEBUG_TAG,
                                     "Error Downloading MapTile. Exception: " + ioe.getClass().getSimpleName() + " " + tileURLString + " " + ioe.getMessage());
                             mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, reason);
                         }
                     } catch (RemoteException | NullPointerException | IOException e) {
-                        Log.e(DEBUGTAG,
+                        Log.e(DEBUG_TAG,
                                 "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + e,
                                 ioe);
                     }
                 } catch (RemoteException | NullPointerException | IllegalArgumentException e) {
-                    Log.e(DEBUGTAG, "Error in TileLoader. Url " + tileURLString + " Exception: " + e);
+                    Log.e(DEBUG_TAG, "Error in TileLoader. Url " + tileURLString + " Exception: " + e);
                 } finally {
                     StreamUtils.closeStream(in);
                     StreamUtils.closeStream(out);

@@ -1,10 +1,14 @@
 package de.blau.android.views.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.zip.GZIPInputStream;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -36,7 +40,7 @@ import de.blau.android.util.Util;
  * @author Simon Poole
  * 
  */
-public class MapTileProvider implements ServiceConnection {
+public class MapTileProvider<T> implements ServiceConnection {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -54,17 +58,43 @@ public class MapTileProvider implements ServiceConnection {
     /**
      * cache provider
      */
-    private MapTileCache            mTileCache;
-    private final Map<String, Long> pending = Collections.synchronizedMap(new HashMap<String, Long>());
+    private MapTileCache<T>         mTileCache;
+    private final Map<String, Long> pending = new HashMap<String, Long>();
 
     private IMapTileProviderService mTileService;
     private final Handler           mDownloadFinishedHandler;
+    private final TileDecoder<T>    decoder;
 
     /**
      * Set to true if we have less than 64 MB heap or have other caching issues
      */
     private boolean smallHeap = false;
 
+    public interface TileDecoder<D> {
+        /**
+         * Decode a tile
+         * 
+         * @param data the original tile data
+         * @param small use a little memory as possible
+         * @return the tile in the target format
+         */
+        D decode(@NonNull byte[] data, boolean small);
+    }
+
+    public static class BitmapDecoder implements TileDecoder<Bitmap> {
+
+        @Override
+        public Bitmap decode(byte[] data, boolean small) {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            if (small) {
+                options.inPreferredConfig = Bitmap.Config.RGB_565;
+            } else {
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            }
+            return BitmapFactory.decodeByteArray(data, 0, data.length, options);
+        }
+
+    }
     // ===========================================================
     // Constructors
     // ===========================================================
@@ -75,16 +105,16 @@ public class MapTileProvider implements ServiceConnection {
      * @param ctx Android Context
      * @param aDownloadFinishedListener handler to call when a tile download is complete
      */
-    public MapTileProvider(@NonNull final Context ctx, @NonNull final Handler aDownloadFinishedListener) {
+    public MapTileProvider(@NonNull final Context ctx, @NonNull TileDecoder<T> decoder, @NonNull final Handler aDownloadFinishedListener) {
         mCtx = ctx;
-        mTileCache = new MapTileCache();
+        mTileCache = new MapTileCache<>();
 
         smallHeap = Util.smallHeap();
-
+        this.decoder = decoder;
         mDownloadFinishedHandler = aDownloadFinishedListener;
 
         Intent explicitIntent = (new Intent(IMapTileProviderService.class.getName())).setPackage(ctx.getPackageName());
-        if (explicitIntent == null || !ctx.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE)) {
+        if (!ctx.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE)) {
             Log.e(DEBUG_TAG, "Could not bind to " + IMapTileProviderService.class.getName() + " in package " + ctx.getPackageName());
         }
     }
@@ -127,9 +157,13 @@ public class MapTileProvider implements ServiceConnection {
      * Clear out memory related to tracking map tiles.
      */
     public void clear() {
-        pending.clear();
+        synchronized (pending) {
+            pending.clear();
+        }
         mTileCache.clear();
-        mCtx.unbindService(this);
+        if (this.connected()) {
+            // mCtx.unbindService(this);
+        }
     }
 
     /**
@@ -147,8 +181,8 @@ public class MapTileProvider implements ServiceConnection {
      * @return the tile or null if it wasn't in cache
      */
     @Nullable
-    public Bitmap getMapTile(@NonNull final MapTile aTile, long owner) {
-        Bitmap tile = mTileCache.getMapTile(aTile);
+    public T getMapTile(@NonNull final MapTile aTile, long owner) {
+        T tile = mTileCache.getMapTile(aTile);
         if (tile != null) {
             return tile;
         } else {
@@ -168,7 +202,7 @@ public class MapTileProvider implements ServiceConnection {
      * @return the tile or null if it wasn't in cache
      */
     @Nullable
-    public Bitmap getMapTileFromCache(@NonNull final MapTile aTile) {
+    public T getMapTileFromCache(@NonNull final MapTile aTile) {
         return mTileCache.getMapTile(aTile);
     }
 
@@ -179,14 +213,16 @@ public class MapTileProvider implements ServiceConnection {
      * @param owner if for the current owner
      */
     private void preCacheTile(@NonNull final MapTile aTile, long owner) {
-        if (mTileService != null && !pending.containsKey(aTile.toId())) {
-            try {
-                pending.put(aTile.toId(), owner);
-                mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, mServiceCallback);
-            } catch (RemoteException e) {
-                Log.e(DEBUG_TAG, "RemoteException in preCacheTile()", e);
-            } catch (Exception e) {
-                Log.e(DEBUG_TAG, "Exception in preCacheTile()", e);
+        synchronized (pending) {
+            if (mTileService != null && !pending.containsKey(aTile.toId())) {
+                try {
+                    pending.put(aTile.toId(), owner);
+                    mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, mServiceCallback);
+                } catch (RemoteException e) {
+                    Log.e(DEBUG_TAG, "RemoteException in preCacheTile()", e);
+                } catch (Exception e) {
+                    Log.e(DEBUG_TAG, "Exception in preCacheTile()", e);
+                }
             }
         }
     }
@@ -207,18 +243,18 @@ public class MapTileProvider implements ServiceConnection {
                 Set<String> keys;
                 synchronized (pending) {
                     keys = new HashSet<>(pending.keySet());
-                }
-                if (zoomLevel != MapAsyncTileProvider.ALLZOOMS) {
-                    String id = Integer.toString(zoomLevel) + rendererId;
-                    for (String key : keys) {
-                        if (key.startsWith(id)) {
-                            pending.remove(key);
+                    if (zoomLevel != MapAsyncTileProvider.ALLZOOMS) {
+                        String id = Integer.toString(zoomLevel) + rendererId;
+                        for (String key : keys) {
+                            if (key.startsWith(id)) {
+                                pending.remove(key);
+                            }
                         }
-                    }
-                } else {
-                    for (String key : keys) {
-                        if (key.contains(rendererId)) {
-                            pending.remove(key);
+                    } else {
+                        for (String key : keys) {
+                            if (key.contains(rendererId)) {
+                                pending.remove(key);
+                            }
                         }
                     }
                 }
@@ -288,35 +324,33 @@ public class MapTileProvider implements ServiceConnection {
          */
         public void mapTileLoaded(@NonNull final String rendererID, final int zoomLevel, final int tileX, final int tileY, @NonNull final byte[] data)
                 throws RemoteException {
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            if (smallHeap) {
-                options.inPreferredConfig = Bitmap.Config.RGB_565;
-            } else {
-                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            }
 
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
             String id = t.toId();
             try {
-                Bitmap tileBitmap = BitmapFactory.decodeByteArray(data, 0, data.length, options);
+                T tileBitmap = decoder.decode(unGZip(data), smallHeap);
                 if (tileBitmap == null) {
                     Log.d(DEBUG_TAG, "decoded tile is null");
                     throw new RemoteException();
                 }
-                Long l = pending.get(t.toId());
-                if (l != null) {
-                    mTileCache.putTile(t, tileBitmap, l);
-                } // else wasn't in pending queue just ignore
+                synchronized (pending) {
+                    Long l = pending.get(t.toId());
+                    if (l != null) {
+                        mTileCache.putTile(t, tileBitmap, l);
+                    } // else wasn't in pending queue just ignore
+                }
                 mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_SUCCESS_ID);
             } catch (StorageException | OutOfMemoryError e) {
                 // unable to cache tile
                 Log.w(DEBUG_TAG, "mapTileLoaded got " + e.getMessage());
                 setSmallHeapMode();
-            } catch (NullPointerException npe) {
+            } catch (NullPointerException | NoClassDefFoundError npe) {
                 Log.d(DEBUG_TAG, "Exception in mapTileLoaded callback " + npe);
                 throw new RemoteException();
             } finally {
-                pending.remove(id);
+                synchronized (pending) {
+                    pending.remove(id);
+                }
             }
             if (MapViewConstants.DEBUGMODE) {
                 Log.i(DEBUG_TAG, "MapTile download success." + t.toString());
@@ -349,8 +383,39 @@ public class MapTileProvider implements ServiceConnection {
         public void mapTileFailed(@NonNull final String rendererID, final int zoomLevel, final int tileX, final int tileY, final int reason)
                 throws RemoteException {
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
-            pending.remove(t.toId());
+            synchronized (pending) {
+                pending.remove(t.toId());
+            }
             mDownloadFinishedHandler.sendMessage(Message.obtain(mDownloadFinishedHandler, MapTile.MAPTILE_FAIL_ID, reason, 0));
+        }
+
+        /**
+         * Unzip the data if it is zipped
+         * 
+         * @param data the potentially gzipped data
+         * @return the unzipped data
+         */
+        @NonNull
+        private byte[] unGZip(@NonNull byte[] data) {
+            if (data.length > 3 && data[0] == (byte) 0x1F && data[1] == (byte) 0x8B && data[2] == (byte) 0x08) {
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                try {
+                    ByteArrayInputStream in = new ByteArrayInputStream(data);
+                    GZIPInputStream gis = new GZIPInputStream(in);
+                    byte[] buffer = new byte[1024];
+                    int len;
+                    while ((len = gis.read(buffer)) != -1) {
+                        os.write(buffer, 0, len);
+                    }
+                    os.close();
+                    gis.close();
+                } catch (IOException e) {
+                    Log.d(DEBUG_TAG, "Exception in unGZip " + e.getMessage());
+                    return data;
+                }
+                return os.toByteArray();
+            }
+            return data;
         }
     };
 

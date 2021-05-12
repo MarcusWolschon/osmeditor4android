@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.R;
+import de.blau.android.contract.Schemes;
 import de.blau.android.prefs.Preferences;
 
 /**
@@ -201,7 +202,7 @@ public final class SelectFile {
      * @param fileUri the file uri
      */
     public static void savePref(Preferences prefs, int directoryPrefKey, Uri fileUri) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && FileUtil.FILE_SCHEME.equals(fileUri.getScheme())) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && Schemes.FILE.equals(fileUri.getScheme())) {
             int slash = fileUri.getPath().lastIndexOf('/');
             if (slash >= 0) {
                 String path = fileUri.getPath().substring(0, slash + 1);
@@ -261,7 +262,7 @@ public final class SelectFile {
                 Log.i(DEBUG_TAG, "content scheme");
                 return getDataColumn(context, uri, null, null);
             }
-        } else if (FileUtil.FILE_SCHEME.equalsIgnoreCase(uri.getScheme())) {
+        } else if (Schemes.FILE.equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
         }
         Log.e(DEBUG_TAG, "Unable to determine how to handle Uri " + uri);

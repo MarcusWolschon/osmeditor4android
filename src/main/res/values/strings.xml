@@ -193,6 +193,8 @@
     <string name="edit_properties">Edit Tags</string>
     <!--  GeoJSON feature display dialog -->
     <string name="feature_information">GeoJSON feature info</string>
+    <string name="vt_feature_information">Vector tile feature info</string>
+    <string name="vt_layer">Vector tile layer</string>
     <string name="copy_properties">Copy properties</string>
     <string name="create_osm_element">Create OSM element</string>
     <!-- API/Data layer info dialog -->
@@ -305,7 +307,9 @@
     <string name="layer_style_title">Layer style</string>
     <string name="layer_style_stroke_width">Stroke width</string>
     <string name="layer_style_color">Colour</string>
+    <string name="layer_style_layer">Sub-layer</string>
     <string name="layer_style_label">Label</string>
+    <string name="layer_style_symbol">Symbol</string>
     <string name="json_object_not_displayed">JSON object (not displayed)</string>
     <string name="json_array_not_displayed">JSON array (not displayed)</string>
     <!--  Layer dialog -->
@@ -319,6 +323,7 @@
     <string name="layer_data_name">%1$s data</string>
     <string name="layer_flush_tile_cache">Flush tile cache</string>
     <string name="layer_change_style">Change style</string>
+    <string name="layer_load_style">Load style</string>
     <string name="layer_select_imagery">Select imagery</string>
     <string name="layer_category_all">All</string>
     <string name="layer_category_photo">Aerial imagery</string>
@@ -559,6 +564,7 @@ avoided by using an offline data source.</string>
     <string name="toast_multipolygon_has_incomplete_rings">Multi-polygon has incomplete rings</string>
     <string name="toast_multipolygon_inconsistent_roles">Multi-polygon has inconsistent role values for a ring</string>
     <string name="toast_error_saving_bookmark">Unable to save bookmark</string>
+    <string name="toast_error_loading_style">Unable to load style: %1$s</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>

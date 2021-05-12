@@ -25,15 +25,17 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.SerializablePaint;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.views.IMapView;
 
 public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, ClickableInterface<WayPoint> {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
@@ -42,14 +44,15 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     /** Map this is an overlay of. */
     private final transient Map map;
 
-    private final transient FloatPrimitiveList linePoints;
+    private final transient FloatPrimitiveList linePoints = new FloatPrimitiveList(); // final transient fields get
+                                                                                      // recreated
 
     public static final String FILENAME = "gpxlayer.res";
 
     private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
 
-    private transient Paint wayPointPaint;
-    private String          labelKey;
+    private SerializablePaint wayPointPaint;
+    private String            labelKey;
 
     /**
      * Construct a new GPX layer
@@ -58,7 +61,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      */
     public MapOverlay(@NonNull final Map map) {
         this.map = map;
-        linePoints = new FloatPrimitiveList();
         resetStyling();
     }
 
@@ -79,7 +81,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             canvas.drawLines(linePoints.getArray(), 0, linePoints.size(), paint);
         }
         WayPoint[] wayPoints = tracker.getTrack().getWayPoints();
-        if (wayPoints.length != 0) {
+        if (wayPoints.length != 0 && symbolPath != null) {
             ViewBox viewBox = map.getViewBox();
             int width = map.getWidth();
             int height = map.getHeight();
@@ -95,7 +97,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                     float y = GeoMath.latE7ToY(height, width, viewBox, wp.getLat());
                     canvas.save();
                     canvas.translate(x, y);
-                    canvas.drawPath(DataStyle.getCurrent().getWaypointPath(), wayPointPaint);
+                    canvas.drawPath(symbolPath, wayPointPaint);
                     canvas.restore();
                     if (zoomLevel > Map.SHOW_LABEL_LIMIT) {
                         String label = wp.getName();
@@ -139,10 +141,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                     int lon = wpp.getLon();
                     float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
                     float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat) - y);
-                    if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
-                        if (Math.hypot(differenceX, differenceY) <= tolerance) {
-                            result.add(wpp);
-                        }
+                    if ((differenceX <= tolerance) && (differenceY <= tolerance) && Math.hypot(differenceX, differenceY) <= tolerance) {
+                        result.add(wpp);
                     }
                 }
             }
@@ -203,12 +203,12 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     public void resetStyling() {
-        paint = new Paint(DataStyle.getInternal(DataStyle.GPS_TRACK).getPaint());
-        wayPointPaint = new Paint(DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint());
-        color = paint.getColor();
-        strokeWidth = paint.getStrokeWidth();
+        paint = new SerializablePaint(DataStyle.getInternal(DataStyle.GPS_TRACK).getPaint());
+        wayPointPaint = new SerializablePaint(DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint());
         labelKey = "";
         iconRadius = map.getIconRadius();
+        symbolName = TriangleDown.NAME;
+        symbolPath = DataStyle.getCurrent().getSymbol(TriangleDown.NAME);
     }
 
     @Override
@@ -226,8 +226,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         MapOverlay restoredOverlay = savingHelper.load(context, FILENAME, true);
         if (restoredOverlay != null) {
             Log.d(DEBUG_TAG, "read saved state");
-            wayPointPaint.setColor(color);
-            wayPointPaint.setStrokeWidth(strokeWidth);
+            wayPointPaint = restoredOverlay.wayPointPaint;
             labelKey = restoredOverlay.labelKey;
         }
         return restoredOverlay;

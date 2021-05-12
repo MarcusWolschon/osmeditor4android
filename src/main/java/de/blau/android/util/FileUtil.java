@@ -15,11 +15,11 @@ import android.os.Environment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.contract.Paths;
+import de.blau.android.contract.Schemes;
 
 public abstract class FileUtil {
     private static final String DEBUG_TAG          = FileUtil.class.getSimpleName();
-    public static final String  FILE_SCHEME        = "file";
-    public static final String  FILE_SCHEME_PREFIX = "file:";
+    public static final String  FILE_SCHEME_PREFIX = Schemes.FILE + ":";
 
     /**
      * Private constructor to stop instantiation

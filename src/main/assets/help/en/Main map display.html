@@ -27,7 +27,7 @@
 <p>Note: the map tiles are cached on device and only deleted if explicitly flushed. In principle you can pre-download the tiles for the area you want to work on and so spare yourself the need to access them online while outside.</p>
 <h3>Layer control</h3>
 <p>Vespucci currently supports a tiled background imagery layer, a tiled overlay layer, a grid/scale layer, a task layer, a photo layer, a GeoJSON layer, a GPX/GPS layer and, naturally, an OSM data layer. Tapping the layer control (upper right corner) will display the layer dialog).</p>
-<p>Currently it is not possible to change the ordering or add more than one layer of a specific type. The layer dialog supports the following:</p>
+<p>The layer dialog supports the following:</p>
 <ul>
 <li>Hide/Show button turns drawing of the layer off/on. Hiding a layer doesn't free any resources associated with the layer.</li>
 <li>Zoom to extent. Zooms and pans the screen so that the whole extent of the layer is displayed, if the extent cannot be determined this will zoom out to the full web-mercator coverage. Note: on the data layer this may not be particularly useful if you have downloaded areas that are far apart.</li>
@@ -35,17 +35,22 @@
 <ul>
 <li>Tile based layers:
 <ul>
-<li><strong>Select imagery</strong> Same contents as the corresponding preference screen, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. Selecting the &quot;None&quot; entry from the list will disable the layer, and requires re-enabling it via the &quot;+&quot; button on the layer dialog.</li>
-<li><strong>Add imagery from OAM</strong> Query OAM for layers in the current map view and display a list allowing to add them to the local configuration</li>
+<li><strong>Select imagery</strong> Show a imagery selection dialog, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching.</li>
 <li><strong>Flush tile cache</strong> Flush the on device cache for this layer.</li>
 <li><strong>Background properties</strong> Set contrast of layer.</li>
 <li><strong>Info</strong> Display information on the currently selected imagery.</li>
 </ul>
 </li>
-<li>GeoJSON layer.
+<li>Mapbox Vector Tile layers (additionally to the above):
+<ul>
+<li><strong>Change style</strong> Show the layer styling dialog (disabled if a style has been loaded).</li>
+<li><strong>Load style</strong> Load a mapbox-gl style.</li>
+</ul>
+</li>
+<li>GeoJSON layers:
 <ul>
 <li><strong>Change style</strong> Show the layer styling dialog.</li>
-<li><strong>Discard</strong> Delete the layer including any saved state.</li>
+<li><strong>Info</strong> Display some information on the contents.</li>
 </ul>
 </li>
 <li>GPX layer. The GPX layer is currently mainly controlled via the entries in the GPS menu.
@@ -53,32 +58,44 @@
 <li><strong>Change style</strong> Show the layer styling dialog.</li>
 </ul>
 </li>
-<li>Photo, Grid and Task layers.
+<li>Photo, Grid and Task layers:
 <ul>
 <li><strong>Configure...</strong> (for the Grid and Task layers)</li>
 <li><strong>Disable</strong> Turn this layer off. For the tasks and photo layers this will free resources if the app is exited and re-started.</li>
 </ul>
 </li>
-<li>Data layer.
+<li>Data layer:
 <ul>
 <li><strong>Configure...</strong> Allows selection and configuration of the current OSM data sources. Same contents as the corresponding preference screen.</li>
+<li><strong>Info</strong> Display some information on the contents.</li>
 </ul>
 </li>
-<li>Data and Tasks layers.
+<li>Data and Tasks layers:
 <ul>
-<li><strong>Prune</strong> remove downloaded data from storage that is outside of the current screen.</li>
+<li><strong>Prune</strong> remove downloaded data from storage that is outside of the current screen and unmodified.</li>
+</ul>
+</li>
+<li>All layers:
+<ul>
+<li><strong>Discard</strong> Delete the layer including any saved state.</li>
+<li><strong>Up</strong> move the layer up, potentially obscuring data from lower layers.</li>
+<li><strong>Down</strong> move the layer down.</li>
 </ul>
 </li>
 </ul>
 </li>
 <li><strong>+</strong> button:
 <ul>
-<li>for disabled layers it will show a corresponding &quot;Add ...&quot; entry that will turn the layer on.</li>
-<li>Load GeoJSON layer. Loads a GeoJSON layer from a file, any existing one will be replaced.</li>
+<li>for disabled layers that can only be displayed once it will show a corresponding &quot;Enable ...&quot; entry that will turn the layer on.</li>
+<li>Add GeoJSON layer. Loads a GeoJSON layer from a file in to a new GeoJSON layer.</li>
+<li>Add background imagery layer. Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.</li>
+<li>Add overlay imagery layer. As above but assumes that the layer is partially transparent.</li>
+<li>Add imagery from OAM. Add a layer from the OpenAerialMap catalogue. <em>(requires network connectivity)</em></li>
+<li>Add imagery from WMS. This allows you to add a specific layer from a WMS endpoint. <em>(requires network connectivity)</em></li>
 </ul>
 </li>
 </ul>
-<p>Besides the background layer you can add a &quot;overlay&quot; layer between the background and the OSM data, for example a layer showing buildings without an address.</p>
+<p>Custom tile layers, including on device MBTile containers can be added in the <a href="Preferences.md">preferences</a>.</p>
 <h3>Highlighting of data issues</h3>
 <p>With the standard map style certain data issues will be highlighted in magenta, these are</p>
 <ul>
@@ -103,7 +120,10 @@
 <ul>
 <li><strong>Show location</strong> - show arrow symbol at current position</li>
 <li><strong>Follow location</strong> - pan and center screen to follow the current position</li>
-<li><strong>Go to current location</strong> - go to and zoom in to the current position &quot; <strong>Go to coordinates...</strong> - go to and zoom in to coordinates or an open location code</li>
+<li><strong>Add bookmark...</strong> - set a bookmark for the current viewbox</li>
+<li><strong>Bookmarks...</strong> - show current viewbox bookmarks</li>
+<li><strong>Go to current location</strong> - go to and zoom in to the current position</li>
+<li><strong>Go to coordinates...</strong> - go to and zoom in to coordinates or an open location code</li>
 <li><strong>Start GPX track</strong> - start recording a GPX track</li>
 <li><strong>Pause GPX track</strong> - pause recording the current GPX track</li>
 <li><strong>Clear GPX track</strong> - clear the current GPX track</li>

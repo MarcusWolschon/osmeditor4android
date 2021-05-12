@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -24,6 +25,7 @@ import de.blau.android.MockTileServer;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.MapTile;
+import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.util.MapTileProvider;
 import okhttp3.mockwebserver.MockWebServer;
 
@@ -77,7 +79,7 @@ public class MapTileProviderServiceTest {
      */
     @Test
     public void startService() {
-        MapTileProvider provider = new MapTileProvider(context, new TileHandler());
+        MapTileProvider<Bitmap> provider = new MapTileProvider<>(context, new MapTilesLayer.BitmapTileRenderer().decoder(), new TileHandler());
         try {
             signal.await(TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {

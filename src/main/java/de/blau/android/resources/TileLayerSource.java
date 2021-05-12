@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,6 +49,7 @@ import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Files;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Urls;
@@ -90,22 +93,28 @@ import okhttp3.ResponseBody;
 public class TileLayerSource implements Serializable {
     private static final String DEBUG_TAG = TileLayerSource.class.getSimpleName();
 
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 4L;
 
     public static final String EPSG_900913       = "EPSG:900913";
     public static final String EPSG_3857         = "EPSG:3857";
     public static final String EPSG_4326         = "EPSG:4326";
-    static final String        TYPE_BING         = "bing";
     public static final String TYPE_TMS          = "tms";
     public static final String TYPE_WMS          = "wms";
     static final String        TYPE_WMS_ENDPOINT = "wms_endpoint";
+    static final String        TYPE_BING         = "bing";
     static final String        TYPE_SCANEX       = "scanex";
     public static final String LAYER_MAPNIK      = "MAPNIK";
     public static final String LAYER_NONE        = "NONE";
     public static final String LAYER_NOOVERLAY   = "NOOVERLAY";
     public static final String LAYER_BING        = "BING";
 
+    private static final String SWITCH_START = "{switch:";
+
     private static final String WMS_VERSION_130 = "1.3.0";
+
+    public enum TileType {
+        BITMAP, MVT
+    }
 
     /**
      * A tile layer provide has some attribution text, and one or more coverage areas.
@@ -403,10 +412,12 @@ public class TileLayerSource implements Serializable {
     private int                      defaultAlpha;
     private String                   noTileHeader     = null;
     private String[]                 noTileValues     = null;
+    private byte[]                   noTileTile       = null;
     private String                   description      = null;
     private String                   privacyPolicyUrl = null;
     private String                   wmsAxisOrder     = null;
     private transient List<Provider> providers        = new ArrayList<>();
+    private TileType                 tileType;
 
     private boolean  readOnly = false;
     private String   imageryOffsetId; // cached id for offset DB
@@ -608,10 +619,39 @@ public class TileLayerSource implements Serializable {
             readOnly = true;
         }
 
-        if (proj != null) { // wms
-            if (tileUrl.contains(MimeTypes.JPEG)) {
-                setImageFilenameExtension(".jpg");
+        // extract switch values
+        // this needs to happen before URL parsing, as the ":" will trip things up
+        int switchPos = tileUrl.indexOf(SWITCH_START);
+        if (switchPos >= 0) {
+            int switchEnd = tileUrl.indexOf('}', switchPos);
+            if (switchEnd >= 0) {
+                String switchValues = tileUrl.substring(switchPos + SWITCH_START.length(), switchEnd);
+                Collections.addAll(getSubdomains(), switchValues.split(","));
+                StringBuilder t = new StringBuilder(tileUrl);
+                setTileUrl(t.replace(switchPos, switchEnd + 1, "{subdomain}").toString());
             }
+        }
+
+        String urlPath = null;
+        try {
+            URL parsedUrl = new URL(tileUrl);
+            urlPath = parsedUrl.getPath();
+            if (getImageExtension() == null) {
+                int extPos = urlPath.lastIndexOf('.');
+                if (extPos >= 0) {
+                    setImageExtension(urlPath.substring(extPos));
+                }
+            }
+        } catch (MalformedURLException e) {
+            Log.e(DEBUG_TAG, "Url parsing failed " + tileUrl + " " + e.getMessage());
+        }
+        tileType = urlPath != null && (urlPath.endsWith(FileExtensions.MVT) || urlPath.endsWith(FileExtensions.PBF)) ? TileType.MVT : TileType.BITMAP;
+        if (TileType.MVT.equals(tileType)) {
+            Log.d(DEBUG_TAG, "Tile type " + tileType);
+        }
+
+        if (proj != null && tileUrl.contains(MimeTypes.JPEG)) {// wms heuristic
+            setImageExtension(FileExtensions.JPG);
         }
 
         if (icon != null) {
@@ -646,28 +686,9 @@ public class TileLayerSource implements Serializable {
             } else {
                 loadMeta(tileUrl);
             }
-            return;
         } else if (TYPE_SCANEX.equals(type)) { // hopelessly hardwired
             setTileUrl("http://irs.gis-lab.info/?layers=" + tileUrl.toLowerCase(Locale.US) + "&request=GetTile&z={zoom}&x={x}&y={y}");
-            setImageFilenameExtension(".jpg");
-            return;
-        }
-
-        int extPos = tileUrl.lastIndexOf('.');
-        if (extPos >= 0) {
-            setImageFilenameExtension(tileUrl.substring(extPos));
-        }
-        // extract switch values
-        final String SWITCH_START = "{switch:";
-        int switchPos = tileUrl.indexOf(SWITCH_START);
-        if (switchPos >= 0) {
-            int switchEnd = tileUrl.indexOf('}', switchPos);
-            if (switchEnd >= 0) {
-                String switchValues = tileUrl.substring(switchPos + SWITCH_START.length(), switchEnd);
-                Collections.addAll(getSubdomains(), switchValues.split(","));
-                StringBuilder t = new StringBuilder(tileUrl);
-                setTileUrl(t.replace(switchPos, switchEnd + 1, "{subdomain}").toString());
-            }
+            setImageExtension(FileExtensions.JPG);
         }
     }
 
@@ -913,7 +934,7 @@ public class TileLayerSource implements Serializable {
         } finally {
             writeableDb.endTransaction();
         }
-        MapTilesLayer layer = App.getLogic().getMap().getBackgroundLayer();
+        MapTilesLayer<?> layer = App.getLogic().getMap().getBackgroundLayer();
         if (layer != null) {
             layer.getTileProvider().update();
         }
@@ -1049,15 +1070,6 @@ public class TileLayerSource implements Serializable {
         // }
         // }
         return getMaxZoom();
-    }
-
-    /**
-     * Get the filename extensions that applies to the tile images.
-     * 
-     * @return Image filename extension, eg ".png".
-     */
-    public String getImageExtension() {
-        return imageFilenameExtension;
     }
 
     /**
@@ -1309,17 +1321,21 @@ public class TileLayerSource implements Serializable {
      *            box
      * @param servers input list of servers to sort and potentially filter
      * @param category category of layer that should be returned or null for all
+     * @param tileType type of tiles provided by the source
      * @param box bounding box that we are interested in
      * @return list of tile servers
      */
     @NonNull
     private static List<TileLayerSource> getServersFilteredSorted(boolean filtered, @NonNull Map<String, TileLayerSource> servers, @Nullable Category category,
-            @Nullable BoundingBox box) {
+            TileType tileType, @Nullable BoundingBox box) {
         TileLayerSource noneLayer = null;
         List<TileLayerSource> list = new ArrayList<>();
         for (TileLayerSource osmts : servers.values()) {
             if (filtered) {
                 if (category != null && !category.equals(osmts.getCategory())) {
+                    continue;
+                }
+                if (tileType != null && !tileType.equals(osmts.getTileType())) {
                     continue;
                 }
                 if (box != null && !osmts.covers(box)) {
@@ -1426,11 +1442,12 @@ public class TileLayerSource implements Serializable {
      * @param box bounding box to test coverage against
      * @param filtered only return servers that overlap/intersect with the bounding box
      * @param category category of layer that should be returned or null for all
+     * @param tileType the type of tiles served by this source
      * @return available tile layer IDs.
      */
     @NonNull
-    public static String[] getIds(@Nullable BoundingBox box, boolean filtered, @Nullable Category category) {
-        return getIds(backgroundServerList, box, filtered, category);
+    public static String[] getIds(@Nullable BoundingBox box, boolean filtered, @Nullable Category category, @Nullable TileType tileType) {
+        return getIds(backgroundServerList, box, filtered, tileType, category);
     }
 
     /**
@@ -1439,14 +1456,16 @@ public class TileLayerSource implements Serializable {
      * @param serverList Map containing the layers to filter
      * @param box bounding box to test coverage against
      * @param filtered only return servers that overlap/intersect with the bounding box
+     * @param tileType the type of tiles served by this source
      * @param category category of layer that should be returned or null for all
      * @return available tile layer IDs.
      */
-    private static String[] getIds(@NonNull Map<String, TileLayerSource> serverList, @Nullable BoundingBox box, boolean filtered, @Nullable Category category) {
+    private static String[] getIds(@NonNull Map<String, TileLayerSource> serverList, @Nullable BoundingBox box, boolean filtered, @Nullable TileType tileType,
+            @Nullable Category category) {
         List<String> ids = new ArrayList<>();
         synchronized (serverListLock) {
             if (backgroundServerList != null) {
-                List<TileLayerSource> list = getServersFilteredSorted(filtered, serverList, category, box);
+                List<TileLayerSource> list = getServersFilteredSorted(filtered, serverList, category, tileType, box);
                 for (TileLayerSource t : list) {
                     ids.add(t.id);
                 }
@@ -1481,7 +1500,7 @@ public class TileLayerSource implements Serializable {
     public static String[] getNames(@Nullable Map<String, TileLayerSource> map, @Nullable BoundingBox box, boolean filtered) {
         ArrayList<String> names = new ArrayList<>();
         if (map != null) {
-            for (String key : getIds(box, filtered, null)) {
+            for (String key : getIds(box, filtered, null, null)) {
                 TileLayerSource osmts = map.get(key);
                 names.add(osmts.name);
             }
@@ -1524,12 +1543,13 @@ public class TileLayerSource implements Serializable {
      * 
      * @param box bounding box to test coverage against
      * @param filtered only return servers that overlap/intersect with the bounding box
-     * @param category the caterory to retrieve or null for all
+     * @param category the category to retrieve or null for all
+     * @param tileType the type of tiles served by this source
      * @return available tile layer IDs.
      */
     @NonNull
-    public static String[] getOverlayIds(@Nullable BoundingBox box, boolean filtered, @Nullable Category category) {
-        return getIds(overlayServerList, box, filtered, category);
+    public static String[] getOverlayIds(@Nullable BoundingBox box, boolean filtered, @Nullable Category category, @Nullable TileType tileType) {
+        return getIds(overlayServerList, box, filtered, tileType, category);
     }
 
     /**
@@ -1957,6 +1977,25 @@ public class TileLayerSource implements Serializable {
     }
 
     /**
+     * Get any layer specific "no tile" tile
+     * 
+     * @return the tile or null if none set
+     */
+    @Nullable
+    public byte[] getNoTileTile() {
+        return noTileTile;
+    }
+
+    /**
+     * Set the "not tile" tile
+     * 
+     * @param noTileTile the data corresponding to the tile
+     */
+    public void setNoTileTile(@Nullable byte[] noTileTile) {
+        this.noTileTile = noTileTile;
+    }
+
+    /**
      * Return the attribution URL string of the 1st provider
      * 
      * Assumption is that in the simple case there is only one provider
@@ -2115,6 +2154,23 @@ public class TileLayerSource implements Serializable {
     }
 
     /**
+     * @return the tileType
+     */
+    public TileType getTileType() {
+        return tileType;
+    }
+
+    /**
+     * Set the TileType for this source
+     * 
+     * @param tileType the TileType for this source
+     */
+    public void setTileType(@NonNull TileType tileType) {
+        this.tileType = tileType;
+        Log.d(DEBUG_TAG, "Setting tile type to " + tileType);
+    }
+
+    /**
      * Get the category for the layer
      * 
      * @return the category or null if not set
@@ -2237,6 +2293,7 @@ public class TileLayerSource implements Serializable {
      * @param provider Provider object
      * @param category layer Category
      * @param type type of the entry
+     * @param tileType the type of tile if null the automatic detection will be used
      * @param minZoom minimum zoom level
      * @param maxZoom maximum zoom level
      * @param isOverlay if true add as an overlay
@@ -2244,7 +2301,7 @@ public class TileLayerSource implements Serializable {
      */
     public static void addOrUpdateCustomLayer(@NonNull final Context ctx, @NonNull final SQLiteDatabase db, @NonNull final String layerId,
             @Nullable final TileLayerSource existingTileServer, final long startDate, final long endDate, @NonNull String name, @Nullable Provider provider,
-            Category category, @Nullable String type, int minZoom, int maxZoom, boolean isOverlay, @NonNull String tileUrl) {
+            Category category, @Nullable String type, @Nullable TileType tileType, int minZoom, int maxZoom, boolean isOverlay, @NonNull String tileUrl) {
         int tileSize = DEFAULT_TILE_SIZE;
         String proj = null;
         // hack, but saves people extracting and then having to re-select the projection
@@ -2260,6 +2317,9 @@ public class TileLayerSource implements Serializable {
         if (existingTileServer == null) {
             TileLayerSource layer = new TileLayerSource(ctx, layerId, name, tileUrl, type, category, isOverlay, false, provider, null, null, null, null,
                     minZoom, maxZoom, TileLayerSource.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, startDate, endDate, null, null, null, null, true);
+            if (tileType != null) { // if null use automatic detection
+                layer.setTileType(tileType);
+            }
             TileLayerDatabase.addLayer(db, TileLayerDatabase.SOURCE_MANUAL, layer);
         } else {
             existingTileServer.setProvider(provider);
@@ -2271,6 +2331,9 @@ public class TileLayerSource implements Serializable {
             existingTileServer.setCategory(category);
             existingTileServer.setProj(proj);
             existingTileServer.setType(type);
+            if (tileType != null) { // if null use automatic detection
+                existingTileServer.setTileType(tileType);
+            }
             TileLayerDatabase.updateLayer(db, existingTileServer);
         }
     }
@@ -2356,13 +2419,24 @@ public class TileLayerSource implements Serializable {
     /**
      * @param imageFilenameExtension the imageFilenameExtension to set
      */
-    public void setImageFilenameExtension(String imageFilenameExtension) {
+    public void setImageExtension(@Nullable String imageFilenameExtension) {
         this.imageFilenameExtension = imageFilenameExtension;
+    }
+
+    /**
+     * Get the filename extensions that applies to the tile images.
+     * 
+     * @return Image filename extension, eg "png" without "." .
+     */
+    @Nullable
+    public String getImageExtension() {
+        return imageFilenameExtension;
     }
 
     /**
      * @return the subdomains
      */
+    @Nullable
     public Queue<String> getSubdomains() {
         return subdomains;
     }

@@ -9,13 +9,14 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.0'
+        classpath 'com.android.tools.build:gradle:4.1.0'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.3'
         classpath 'org.jacoco:org.jacoco.core:0.8.5'
         classpath "ch.poole:preset-utils:0.23.1"
         classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.0'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:2.0.0'
         classpath 'com.jaredsburrows:gradle-spoon-plugin:1.5.0'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.16'
     }
 }
 
@@ -47,6 +48,7 @@ apply plugin: 'ch.poole.gradle.markdown'
 apply plugin: 'jacoco'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'com.jaredsburrows.spoon'
+apply plugin: 'com.google.protobuf'
 
 markdownToHtml {
     sourceDir =  new File(projectDir.getPath() + '/documentation/docs/help')
@@ -294,6 +296,24 @@ android {
 }
 
 ext {
+    googleProtobufVersion = "3.12.2"
+}
+
+protobuf {
+  protoc {
+    // pre-packaged protoc
+    artifact = "com.google.protobuf:protoc:$googleProtobufVersion"
+  }
+  generateProtoTasks {
+    all().each {
+        task -> task.builtins {
+            java { }
+        }
+    }
+  }
+}
+
+ext {
     adb = android.getAdbExe().toString()
 }
 
@@ -407,7 +427,9 @@ dependencies {
     implementation "com.adobe.xmp:xmpcore:6.1.10"
     implementation "com.drewnoakes:metadata-extractor:2.13.0"
     implementation "com.google.code.gson:gson:2.8.5"
-    implementation 'com.google.protobuf:protobuf-java:2.6.1'
+    implementation 'com.google.protobuf:protobuf-java:3.12.2'
+    implementation "com.google.code.gson:gson:2.8.6"
+    implementation "com.google.protobuf:protobuf-java:$googleProtobufVersion"
     implementation 'com.google.openlocationcode:openlocationcode:1.0.4'
     implementation ('com.faendir.rhino:rhino-android:1.6.0') { exclude group: 'org.mozilla' }
     implementation "org.mozilla:rhino:1.7.13"
@@ -421,14 +443,16 @@ dependencies {
     implementation 'ch.poole.android:numberpicker:1.0.10'
     implementation 'ch.poole.android:numberpickerpreference:2.0.1'
     implementation "ch.poole.osm:JosmFilterParser:0.5.1"
+    implementation 'ch.poole.android:sprites:0.0.4'
     implementation 'de.westnordost:countryboundaries:1.5'
     implementation 'com.github.sevar83:indeterminate-checkbox:1.0.5@aar'
     implementation 'de.ruedigermoeller:fst:2.57'
-    implementation 'org.openstreetmap.osmosis:osmosis-osm-binary:0.47'
+    implementation 'org.openstreetmap.osmosis:osmosis-osm-binary:0.48.3'
     implementation 'com.zaxxer:SparseBitSet:1.2'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     implementation 'io.michaelrocks:libphonenumber-android:8.12.22'
     implementation 'io.noties.markwon:core:4.5.1'
+    
     // for temp stuff during dev
     // implementation(name:'alibrary', ext:'jar')
 
@@ -490,13 +514,13 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
 
     description = "Generate Jacoco coverage reports"
 
-    classDirectories = fileTree(
+    classDirectories.from = fileTree(
             dir: 'build/intermediates/javac/currentDebug/classes/',
-            excludes: ['**/R.class', '**/R$*.class', '**/*$ViewInjector*.*', '**/BuildConfig.*', '**/Manifest*.*'])
+            excludes: ['**/R.class', '**/R$*.class', '**/*$ViewInjector*.*', '**/BuildConfig.*', '**/Manifest*.*', '**/vector_tile/**'])
 
-    additionalSourceDirs = files(coverageSourceDirs)
-    sourceDirectories = files(coverageSourceDirs)
-    executionData     = fileTree(
+    additionalSourceDirs.from = files(coverageSourceDirs)
+    sourceDirectories.from = files(coverageSourceDirs)
+    executionData.from     = fileTree(
             dir     : "$buildDir",
             include : ['jacoco/testCurrentDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/CURRENT/*coverage.ec', 'spoon-output/currentDebug/coverage/merged-coverage.ec'])
     reports {
@@ -504,7 +528,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
         html.enabled = true
     }
 
-    sourceDirectories = files(coverageSourceDirs)
+    sourceDirectories.from = files(coverageSourceDirs)
 }
 
 spoon {
@@ -518,7 +542,7 @@ spoon {
     ignoreFailures = true
     clearAppDataBeforeEachTest = true
     // set these for individual text execution
-    // className = "de.blau.android.layer.LayerDialogTest"
+    // className = "de.blau.android.layer.mvt.MvtTest"
     // methodName = "dataLayerPrune"
 }
 

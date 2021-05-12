@@ -61,7 +61,7 @@ public class TileLayerDatabaseView {
             tlDb.close();
         });
 
-        layerList.setOnItemLongClickListener((parent, view, position, _id) -> {
+        layerList.setOnItemLongClickListener((parent, view, position, unused) -> {
             final Integer id = (Integer) view.getTag();
             AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
             dialog.setTitle(R.string.delete_layer);
@@ -153,11 +153,11 @@ public class TileLayerDatabaseView {
         Logic logic = App.getLogic();
         if (logic != null) {
             Preferences prefs = logic.getPrefs();
-            MapTilesLayer background = logic.getMap().getBackgroundLayer();
+            MapTilesLayer<?> background = logic.getMap().getBackgroundLayer();
             if (background != null) {
                 updateLayerConfig(context, prefs, background);
             }
-            MapTilesOverlayLayer overlay = logic.getMap().getOverlayLayer();
+            MapTilesOverlayLayer<?> overlay = logic.getMap().getOverlayLayer();
             if (overlay != null) {
                 updateLayerConfig(context, prefs, overlay);
             }
@@ -171,14 +171,14 @@ public class TileLayerDatabaseView {
      * @param prefs a current Preferences object
      * @param layer the layer we are updating
      */
-    public static void updateLayerConfig(@NonNull Context context, @NonNull Preferences prefs, @Nullable MapTilesLayer layer) {
+    public static void updateLayerConfig(@NonNull Context context, @NonNull Preferences prefs, @Nullable MapTilesLayer<?> layer) {
         if (layer != null) {
             Log.d(DEBUG_TAG, "updating layer " + layer.getName());
             TileLayerSource config = layer.getTileLayerConfiguration();
             if (config != null) {
                 TileLayerSource newConfig = TileLayerSource.get(context, config.getId(), false);
                 if (newConfig != null) { // if null the layer has been deleted
-                    boolean isOverlay = layer instanceof MapTilesOverlayLayer;
+                    boolean isOverlay = layer.getType() == LayerType.OVERLAYIMAGERY;
                     if ((isOverlay && !newConfig.isOverlay()) || (!isOverlay && newConfig.isOverlay())) {
                         // not good overlay as background or the other way around
                         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
@@ -190,7 +190,7 @@ public class TileLayerDatabaseView {
                 }
             }
             layer.getTileProvider().update();
-            checkMru(layer, TileLayerSource.getIds(null, false, null));
+            checkMru(layer, TileLayerSource.getIds(null, false, null, null));
         }
     }
 
@@ -200,7 +200,7 @@ public class TileLayerDatabaseView {
      * @param layer the layer with the MRU
      * @param idArray an array of ids
      */
-    private static void checkMru(@NonNull MapTilesLayer layer, @NonNull String[] idArray) {
+    private static void checkMru(@NonNull MapTilesLayer<?> layer, @NonNull String[] idArray) {
         List<String> ids = Arrays.asList(idArray);
         List<String> mruIds = new ArrayList<>(Arrays.asList(layer.getMRU()));
         for (String id : mruIds) {

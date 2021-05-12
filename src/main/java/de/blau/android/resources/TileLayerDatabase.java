@@ -19,13 +19,14 @@ import androidx.annotation.Nullable;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.Provider;
+import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
 import de.blau.android.util.collections.MultiHashMap;
 
 public class TileLayerDatabase extends SQLiteOpenHelper {
     private static final String DEBUG_TAG        = "TileLayerDatabase";
     public static final String  DATABASE_NAME    = "tilelayers";
-    private static final int    DATABASE_VERSION = 6;
+    private static final int    DATABASE_VERSION = 8;
 
     public static final String SOURCE_ELI          = "eli";    // editor-layer-index
     public static final String SOURCE_JOSM_IMAGERY = "josm";   // josm.openstreetmap.de/wiki/maps
@@ -39,6 +40,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     public static final String  LAYERS_TABLE             = "layers";
     private static final String ID_FIELD                 = "id";
     private static final String TYPE_FIELD               = "server_type";
+    private static final String TILE_TYPE_FIELD          = "tile_type";
     private static final String CATEGORY_FIELD           = "category";
     private static final String SOURCE_FIELD             = "source";
     private static final String TILE_URL_FIELD           = "url";
@@ -58,6 +60,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     private static final String END_DATE_FIELD           = "end_date";
     private static final String NO_TILE_HEADER_FIELD     = "no_tile_header";
     private static final String NO_TILE_VALUE_FIELD      = "no_tile_value";
+    private static final String NO_TILE_TILE_FIELD       = "no_tile_tile";
     private static final String LOGO_URL_FIELD           = "logo_url";
     private static final String LOGO_FIELD               = "logo";
     private static final String DESCRIPTION_FIELD        = "description";
@@ -89,12 +92,13 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
             addSource(db, SOURCE_MANUAL);
 
             db.execSQL(
-                    "CREATE TABLE layers (id TEXT NOT NULL PRIMARY KEY, name TEXT NOT NULL, server_type TEXT NOT NULL, category TEXT DEFAULT NULL, source TEXT NOT NULL, url TEXT NOT NULL,"
+                    "CREATE TABLE layers (id TEXT NOT NULL PRIMARY KEY, name TEXT NOT NULL, server_type TEXT NOT NULL, category TEXT DEFAULT NULL, tile_type TEXT DEFAULT NULL,"
+                            + " source TEXT NOT NULL, url TEXT NOT NULL,"
                             + " tou_url TEXT, attribution TEXT, overlay INTEGER NOT NULL DEFAULT 0,"
                             + " default_layer INTEGER NOT NULL DEFAULT 0, zoom_min INTEGER NOT NULL DEFAULT 0, zoom_max INTEGER NOT NULL DEFAULT 18,"
                             + " over_zoom_max INTEGER NOT NULL DEFAULT 4, tile_width INTEGER NOT NULL DEFAULT 256, tile_height INTEGER NOT NULL DEFAULT 256,"
                             + " proj TEXT DEFAULT NULL, preference INTEGER NOT NULL DEFAULT 0, start_date INTEGER DEFAULT NULL, end_date INTEGER DEFAULT NULL,"
-                            + " no_tile_header TEXT DEFAULT NULL, no_tile_value TEXT DEFAULT NULL,  logo_url TEXT DEFAULT NULL, logo BLOB DEFAULT NULL,"
+                            + " no_tile_header TEXT DEFAULT NULL, no_tile_value TEXT DEFAULT NULL, no_tile_tile BLOB DEFAULT NULL, logo_url TEXT DEFAULT NULL, logo BLOB DEFAULT NULL,"
                             + " description TEXT DEFAULT NULL, privacy_policy_url TEXT DEFAULT NULL, attribution_url TEXT DEFAULT NULL, FOREIGN KEY(source) REFERENCES sources(name) ON DELETE CASCADE)");
             db.execSQL("CREATE INDEX layers_overlay_idx ON layers(overlay)");
             db.execSQL("CREATE INDEX layers_source_idx ON layers(source)");
@@ -126,6 +130,12 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         }
         if (oldVersion <= 5 && newVersion >= 6) {
             db.execSQL("ALTER TABLE layers ADD COLUMN attribution_url TEXT DEFAULT NULL");
+        }
+        if (oldVersion <= 6 && newVersion >= 7) {
+            db.execSQL("ALTER TABLE layers ADD COLUMN no_tile_tile BLOB DEFAULT NULL");
+        }
+        if (oldVersion <= 7 && newVersion >= 8) {
+            db.execSQL("ALTER TABLE layers ADD COLUMN tile_type TEXT DEFAULT NULL");
         }
     }
 
@@ -241,6 +251,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         values.put(ID_FIELD, layer.getId());
         values.put(NAME_FIELD, layer.getName());
         values.put(TYPE_FIELD, layer.getType());
+        values.put(TILE_TYPE_FIELD, layer.getTileType().name());
         Category category = layer.getCategory();
         if (category != null) {
             values.put(CATEGORY_FIELD, category.name());
@@ -279,6 +290,10 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                 storedValues.append(v);
             }
             values.put(NO_TILE_VALUE_FIELD, storedValues.toString());
+        }
+        byte[] noTileTile = layer.getNoTileTile();
+        if (noTileTile != null) {
+            values.put(NO_TILE_TILE_FIELD, noTileTile);
         }
         values.put(LOGO_URL_FIELD, layer.getLogoUrl());
         Bitmap logo = layer.getLogo();
@@ -546,6 +561,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     static int idLayerFieldIndex          = -1;
     static int nameFieldIndex             = -1;
     static int typeFieldIndex             = -1;
+    static int tileTypeFieldIndex         = -1;
     static int sourceFieldIndex           = -1;
     static int categoryFieldIndex         = -1;
     static int tileUrlFieldIndex          = -1;
@@ -564,6 +580,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     static int endDateIFieldndex          = -1;
     static int noTileHeaderIndex          = -1;
     static int noTileValueIndex           = -1;
+    static int noTileTileIndex            = -1;
     static int overZoomMaxFieldIndex      = -1;
     static int logoUrlFieldIndex          = -1;
     static int logoFieldIndex             = -1;
@@ -588,6 +605,11 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         String id = cursor.getString(idLayerFieldIndex);
         String name = cursor.getString(nameFieldIndex);
         String type = cursor.getString(typeFieldIndex);
+        TileType tileType = null;
+        String tileTypeString = cursor.getString(tileTypeFieldIndex);
+        if (tileTypeString != null) {
+            tileType = TileType.valueOf(tileTypeString);
+        }
         String source = cursor.getString(sourceFieldIndex);
         String categoryString = cursor.getString(categoryFieldIndex);
         Category category = null;
@@ -614,6 +636,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         if (storedValues != null) {
             noTileValues = storedValues.split("\\|");
         }
+        byte[] noTileTile = cursor.getBlob(noTileTileIndex);
         int maxOverZoom = cursor.getInt(overZoomMaxFieldIndex);
         String logoUrl = cursor.getString(logoUrlFieldIndex);
         byte[] logoBytes = cursor.getBlob(logoFieldIndex);
@@ -624,6 +647,10 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                 logoBytes, zoomLevelMin, zoomLevelMax, maxOverZoom, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues,
                 description, privacyPolicyUrl, true);
         layer.setSource(source);
+        layer.setNoTileTile(noTileTile);
+        if (tileType != null) {
+            layer.setTileType(tileType);
+        }
         return layer;
     }
 
@@ -636,6 +663,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         idLayerFieldIndex = cursor.getColumnIndex(ID_FIELD);
         nameFieldIndex = cursor.getColumnIndex(NAME_FIELD);
         typeFieldIndex = cursor.getColumnIndex(TYPE_FIELD);
+        tileTypeFieldIndex = cursor.getColumnIndex(TILE_TYPE_FIELD);
         sourceFieldIndex = cursor.getColumnIndex(SOURCE_FIELD);
         categoryFieldIndex = cursor.getColumnIndex(CATEGORY_FIELD);
         tileUrlFieldIndex = cursor.getColumnIndex(TILE_URL_FIELD);
@@ -654,6 +682,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         endDateIFieldndex = cursor.getColumnIndex(END_DATE_FIELD);
         noTileHeaderIndex = cursor.getColumnIndex(NO_TILE_HEADER_FIELD);
         noTileValueIndex = cursor.getColumnIndex(NO_TILE_VALUE_FIELD);
+        noTileTileIndex = cursor.getColumnIndex(NO_TILE_TILE_FIELD);
         overZoomMaxFieldIndex = cursor.getColumnIndex(OVER_ZOOM_MAX_FIELD);
         logoUrlFieldIndex = cursor.getColumnIndex(LOGO_URL_FIELD);
         logoFieldIndex = cursor.getColumnIndex(LOGO_FIELD);

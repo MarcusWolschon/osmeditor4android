@@ -50,12 +50,14 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.collections.FloatPrimitiveList;
+import de.blau.android.util.mvt.VectorTileRenderer;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
@@ -220,15 +222,27 @@ public class Map extends View implements IMapView {
                         case IMAGERY:
                             TileLayerSource backgroundSource = TileLayerSource.get(ctx, contentId, true);
                             if (backgroundSource != null) {
-                                layer = new MapTilesLayer(this, backgroundSource, null);
+                                if (backgroundSource.getTileType() == TileType.MVT) {
+                                    layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer(), false);
+                                    ((MapTilesOverlayLayer<?>) layer).setRendererInfo(backgroundSource);
+                                } else {
+                                    layer = new MapTilesLayer<Bitmap>(this, backgroundSource, null, new MapTilesLayer.BitmapTileRenderer());
+                                }
                             }
                             break;
                         case OVERLAYIMAGERY:
                             TileLayerSource overlaySource = TileLayerSource.get(ctx, contentId, true);
                             if (overlaySource != null) {
-                                layer = new MapTilesOverlayLayer(this);
-                                ((MapTilesOverlayLayer) layer).setRendererInfo(overlaySource);
+                                if (overlaySource.getTileType() == TileType.MVT) {
+                                    layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer(), true);
+                                } else {
+                                    layer = new MapTilesOverlayLayer<Bitmap>(this, new MapTilesLayer.BitmapTileRenderer());
+                                }
+                                ((MapTilesOverlayLayer<?>) layer).setRendererInfo(overlaySource);
                             }
+                            break;
+                        case MVT:
+                            // unused for now
                             break;
                         case PHOTO:
                             layer = new de.blau.android.layer.photos.MapOverlay(this);
@@ -275,7 +289,7 @@ public class Map extends View implements IMapView {
                         layer.setIndex(tempLayers.size() - 1);
                         layer.setVisible(config.isVisible());
                         if (LayerType.IMAGERY.equals(layer.getType()) || LayerType.OVERLAYIMAGERY.equals(layer.getType())) {
-                            ImageryOffsetUtils.applyImageryOffsets(ctx, prefs, ((MapTilesLayer) layer).getTileLayerConfiguration(), getViewBox());
+                            ImageryOffsetUtils.applyImageryOffsets(ctx, prefs, ((MapTilesLayer<Bitmap>) layer).getTileLayerConfiguration(), getViewBox());
                         }
                     }
                 }
@@ -380,16 +394,16 @@ public class Map extends View implements IMapView {
     /**
      * Get the top visible imagery layer for a type
      * 
-     * @param type the type (typically LayerType.Imagery or OVERLAYIMAGERY)
+     * @param type the type (typically LayerType.BACKGROUNDIMAGERY or OVERLAYIMAGERY)
      * @return the layer or null
      */
     @Nullable
-    public MapTilesLayer getTopImageryLayer(@NonNull LayerType type) {
+    public MapTilesLayer<?> getTopImageryLayer(@NonNull LayerType type) {
         List<MapViewLayer> imageryLayers = getLayers(type, null);
         Collections.reverse(imageryLayers);
         for (MapViewLayer layer : imageryLayers) {
             if (layer.isVisible()) {
-                return (MapTilesLayer) layer;
+                return (MapTilesLayer<?>) layer;
             }
         }
         return null;
@@ -401,7 +415,7 @@ public class Map extends View implements IMapView {
      * @return the current background layer or null
      */
     @Nullable
-    public MapTilesLayer getBackgroundLayer() {
+    public MapTilesLayer<?> getBackgroundLayer() {
         return getTopImageryLayer(LayerType.IMAGERY);
     }
 
@@ -411,8 +425,8 @@ public class Map extends View implements IMapView {
      * @return the current overlay layer or null if none is configured
      */
     @Nullable
-    public MapTilesOverlayLayer getOverlayLayer() {
-        return (MapTilesOverlayLayer) getTopImageryLayer(LayerType.OVERLAYIMAGERY);
+    public MapTilesOverlayLayer<?> getOverlayLayer() {
+        return (MapTilesOverlayLayer<?>) getTopImageryLayer(LayerType.OVERLAYIMAGERY);
     }
 
     /**
@@ -554,20 +568,19 @@ public class Map extends View implements IMapView {
             }
         }
 
-        if (zoomLevel > STORAGE_BOX_LIMIT) {
-            if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND) {
-                // shallow copy to avoid modification issues
-                boundingBoxes.clear();
-                boundingBoxes.addAll(delegator.getBoundingBoxes());
-                paintStorageBox(canvas, boundingBoxes);
-            }
+        final boolean backgroundAlignMode = tmpDrawingEditMode == Mode.MODE_ALIGN_BACKGROUND;
+        if (zoomLevel > STORAGE_BOX_LIMIT && backgroundAlignMode) {
+            // shallow copy to avoid modification issues
+            boundingBoxes.clear();
+            boundingBoxes.addAll(delegator.getBoundingBoxes());
+            paintStorageBox(canvas, boundingBoxes);
         }
         paintGpsPos(canvas);
         if (App.getLogic().isInEditZoomRange()) {
             paintCrosshairs(canvas);
         }
 
-        if (tmpDrawingEditMode == Mode.MODE_ALIGN_BACKGROUND) {
+        if (backgroundAlignMode) {
             paintZoomAndOffset(canvas);
         }
 
@@ -1122,7 +1135,7 @@ public class Map extends View implements IMapView {
     private int calcZoomLevel(@NonNull Canvas canvas) { // NOSONAR
         int tileWidth = TileLayerSource.DEFAULT_TILE_SIZE;
         int tileHeight = TileLayerSource.DEFAULT_TILE_SIZE;
-        MapTilesLayer tileLayer = getBackgroundLayer();
+        MapTilesLayer<?> tileLayer = getBackgroundLayer();
         if (tileLayer == null) {
             tileLayer = getOverlayLayer();
         }
@@ -1181,8 +1194,8 @@ public class Map extends View implements IMapView {
         Collections.reverse(imageryLayers);
         for (MapViewLayer osmvo : imageryLayers) {
             if (osmvo instanceof MapTilesLayer && osmvo.isVisible()) {
-                result.add(((MapTilesLayer) osmvo).getTileLayerConfiguration().getName());
-                if (!(osmvo instanceof MapTilesOverlayLayer)) {
+                result.add(((MapTilesLayer<?>) osmvo).getTileLayerConfiguration().getName());
+                if (osmvo.getType() != LayerType.OVERLAYIMAGERY) {
                     // not an overlay -> not transparent so nothing below it is visible
                     break;
                 }

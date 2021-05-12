@@ -32,34 +32,45 @@ Note: the map tiles are cached on device and only deleted if explicitly flushed.
 
 Vespucci currently supports a tiled background imagery layer, a tiled overlay layer, a grid/scale layer, a task layer, a photo layer, a GeoJSON layer, a GPX/GPS layer and, naturally, an OSM data layer. Tapping the layer control (upper right corner) will display the layer dialog).
 
-Currently it is not possible to change the ordering or add more than one layer of a specific type. The layer dialog supports the following: 
+The layer dialog supports the following: 
 
 * Hide/Show button turns drawing of the layer off/on. Hiding a layer doesn't free any resources associated with the layer.
 * Zoom to extent. Zooms and pans the screen so that the whole extent of the layer is displayed, if the extent cannot be determined this will zoom out to the full web-mercator coverage. Note: on the data layer this may not be particularly useful if you have downloaded areas that are far apart.
 * Menu button.
     * Tile based layers: 
-        * __Select imagery__ Same contents as the corresponding preference screen, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. Selecting the "None" entry from the list will disable the layer, and requires re-enabling it via the "+" button on the layer dialog.
-        * __Add imagery from OAM__ Query OAM for layers in the current map view and display a list allowing to add them to the local configuration
+        * __Select imagery__ Show a imagery selection dialog, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. 
         * __Flush tile cache__ Flush the on device cache for this layer.
         * __Background properties__ Set contrast of layer.
         * __Info__ Display information on the currently selected imagery.
-    * GeoJSON layer. 
+    * Mapbox Vector Tile layers (additionally to the above):
+        * __Change style__ Show the layer styling dialog (disabled if a style has been loaded).
+        * __Load style__ Load a mapbox-gl style.
+    * GeoJSON layers: 
         * __Change style__ Show the layer styling dialog.
-        * __Discard__ Delete the layer including any saved state.
+        * __Info__ Display some information on the contents.
     * GPX layer. The GPX layer is currently mainly controlled via the entries in the GPS menu.
         * __Change style__ Show the layer styling dialog.
-    * Photo, Grid and Task layers.
+    * Photo, Grid and Task layers:
         * __Configure...__ (for the Grid and Task layers)
         * __Disable__ Turn this layer off. For the tasks and photo layers this will free resources if the app is exited and re-started.
-    * Data layer.
+    * Data layer:
         * __Configure...__ Allows selection and configuration of the current OSM data sources. Same contents as the corresponding preference screen.
-    * Data and Tasks layers.
-        * __Prune__ remove downloaded data from storage that is outside of the current screen.
+        * __Info__ Display some information on the contents.
+    * Data and Tasks layers:
+        * __Prune__ remove downloaded data from storage that is outside of the current screen and unmodified.
+    * All layers:
+        * __Discard__ Delete the layer including any saved state.
+        * __Up__ move the layer up, potentially obscuring data from lower layers.
+        * __Down__ move the layer down.
 * __+__ button:
-    * for disabled layers it will show a corresponding "Add ..." entry that will turn the layer on.
-    * Load GeoJSON layer. Loads a GeoJSON layer from a file, any existing one will be replaced.
+    * for disabled layers that can only be displayed once it will show a corresponding "Enable ..." entry that will turn the layer on.
+    * Add GeoJSON layer. Loads a GeoJSON layer from a file in to a new GeoJSON layer.
+    * Add background imagery layer. Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.
+    * Add overlay imagery layer. As above but assumes that the layer is partially transparent.
+    * Add imagery from OAM. Add a layer from the OpenAerialMap catalogue. *(requires network connectivity)*
+    * Add imagery from WMS. This allows you to add a specific layer from a WMS endpoint. *(requires network connectivity)*
 
-Besides the background layer you can add a "overlay" layer between the background and the OSM data, for example a layer showing buildings without an address.
+Custom tile layers, including on device MBTile containers can be added in the [preferences](Preferences.md).
 
 ### Highlighting of data issues
 

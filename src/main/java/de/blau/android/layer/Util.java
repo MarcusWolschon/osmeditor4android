@@ -28,6 +28,7 @@ public final class Util {
      * 
      * @param context an Android Context
      * @param type the LayerType
+     * @param contentId an id identifying the contents or null
      */
     public static void addLayer(@NonNull final Context context, @NonNull LayerType type, @Nullable String contentId) {
         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {

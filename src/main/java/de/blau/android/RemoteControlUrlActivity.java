@@ -184,7 +184,7 @@ public class RemoteControlUrlActivity extends UrlActivity {
                             return false;
                         }
                     }
-                    List<String> ids = Arrays.asList(TileLayerSource.getIds(null, false, null));
+                    List<String> ids = Arrays.asList(TileLayerSource.getIds(null, false, null, null));
                     String id = TileLayerSource.nameToId(title);
                     TileLayerSource existing = null;
                     if (ids.contains(id)) {
@@ -209,8 +209,8 @@ public class RemoteControlUrlActivity extends UrlActivity {
                         // ignore
                     }
                     try (TileLayerDatabase tlDb = new TileLayerDatabase(this); SQLiteDatabase db = tlDb.getWritableDatabase()) {
-                        TileLayerSource.addOrUpdateCustomLayer(this, db, title, existing, -1, -1, title, new TileLayerSource.Provider(), null, null, minZoom,
-                                maxZoom, false, url);
+                        TileLayerSource.addOrUpdateCustomLayer(this, db, title, existing, -1, -1, title, new TileLayerSource.Provider(), null, null, null,
+                                minZoom, maxZoom, false, url);
                     }
                     de.blau.android.layer.Util.addLayer(this, LayerType.IMAGERY, id);
                     intent.setAction(Main.ACTION_UPDATE);

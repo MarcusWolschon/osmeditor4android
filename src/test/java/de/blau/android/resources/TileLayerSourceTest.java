@@ -50,7 +50,7 @@ public class TileLayerSourceTest {
             TileLayerSource.parseImageryFile(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI,
                     getClass().getResourceAsStream("/imagery_test_with_meta.geojson"), true);
             TileLayerSource.getListsLocked(ApplicationProvider.getApplicationContext(), db.getReadableDatabase(), true);
-            String[] ids = TileLayerSource.getIds(null, false, null);
+            String[] ids = TileLayerSource.getIds(null, false, null, null);
             assertEquals(5, ids.length);
             TileLayerSource b = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "B", false);
             assertNotNull(b);
@@ -75,7 +75,7 @@ public class TileLayerSourceTest {
             TileLayerSource.parseImageryFile(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI,
                     getClass().getResourceAsStream("/imagery_test_1_1.geojson"), true);
             TileLayerSource.getListsLocked(ApplicationProvider.getApplicationContext(), db.getReadableDatabase(), true);
-            String[] ids = TileLayerSource.getIds(null, false, null);
+            String[] ids = TileLayerSource.getIds(null, false, null, null);
             assertEquals(1, ids.length);
             TileLayerSource b = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "B", false);
             assertNotNull(b);

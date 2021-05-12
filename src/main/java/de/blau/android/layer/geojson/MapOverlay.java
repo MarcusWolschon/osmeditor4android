@@ -53,11 +53,13 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
+import de.blau.android.util.SerializablePaint;
 import de.blau.android.util.Snack;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.rtree.BoundedObject;
@@ -159,6 +161,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     transient Paint        labelBackground;
     transient float        labelStrokeWidth;
     transient FeatureStyle labelFs;
+    transient Path         marker;
 
     /**
      * The uri for the layer source
@@ -245,7 +248,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             paint.setAntiAlias(true);
             paint.setStyle(Paint.Style.STROKE);
             drawLine(canvas, bb, width, height, line, paint);
-            canvas.drawPath(path, paint);
             break;
         case GeoJSONConstants.MULTILINESTRING:
             @SuppressWarnings("unchecked")
@@ -302,7 +304,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             float y = GeoMath.latToY(height, width, bb, p.latitude());
             canvas.save();
             canvas.translate(x, y);
-            canvas.drawPath(DataStyle.getCurrent().getWaypointPath(), paint);
+            canvas.drawPath(marker, paint);
             canvas.restore();
             if (label != null) {
                 float yOffset = 2 * labelStrokeWidth + iconRadius;
@@ -329,7 +331,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         GeoJson.pointListToLinePointsArray(bb, width, height, points, line);
         float[] linePoints = points.getArray();
         int pointsSize = points.size();
-        if (pointsSize > 2) {
+        if (pointsSize > 1) {
             path.reset();
             path.moveTo(linePoints[0], linePoints[1]);
             for (int i = 0; i < pointsSize; i = i + 4) {
@@ -624,7 +626,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         for (int k = 0, verticesSize = vertices.size(); k < verticesSize - 1; ++k) {
             Point p1 = vertices.get(k);
             Point p2 = vertices.get(k + 1);
-            if (k==0) {
+            if (k == 0) {
                 p1X = GeoMath.lonToX(width, viewBox, p1.longitude());
                 p1Y = GeoMath.latToY(height, width, viewBox, p1.latitude());
             }
@@ -685,11 +687,10 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     public void resetStyling() {
-        paint = new Paint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
-        color = paint.getColor();
-        strokeWidth = paint.getStrokeWidth();
+        paint = new SerializablePaint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
         labelKey = "";
         iconRadius = map.getIconRadius();
+        marker = DataStyle.getCurrent().getSymbol(TriangleDown.NAME);
     }
 
     @Override

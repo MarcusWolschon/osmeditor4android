@@ -57,7 +57,7 @@ public class LayerDialogTest {
 
     private static final int VISIBLE_BUTTON = 0;
     public static final int  EXTENT_BUTTON  = 1;
-    private static final int MENU_BUTTON    = 3;
+    public static final int  MENU_BUTTON    = 3;
 
     AdvancedPrefDatabase prefDB          = null;
     Main                 main            = null;
@@ -276,7 +276,7 @@ public class LayerDialogTest {
     public void layerFilter() {
         try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
             TileLayerSource.addOrUpdateCustomLayer(main, db.getWritableDatabase(), "TERRAINTEST", null, -1, -1, "Terrain Test", null,
-                    TileLayerSource.Category.elevation, TileLayerSource.TYPE_TMS, 0, 19, false, "");
+                    TileLayerSource.Category.elevation, TileLayerSource.TYPE_TMS, null, 0, 19, false, "");
             TileLayerSource.getListsLocked(main, db.getReadableDatabase(), true);
         }
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));

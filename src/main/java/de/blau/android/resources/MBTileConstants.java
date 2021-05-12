@@ -15,7 +15,9 @@ public final class MBTileConstants {
     static final String        NAME    = "name";
     static final String        JPG     = "jpg";
     static final String        PNG     = "png";
+    static final String        PBF     = "pbf";
     static final String        FORMAT  = "format";
+    static final String        JSON    = "json";
     public static final String MAXZOOM = "maxzoom";
     public static final String MINZOOM = "minzoom";
 }
