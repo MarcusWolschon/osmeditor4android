@@ -59,7 +59,7 @@ public class MapTileProvider<T> implements ServiceConnection {
      * cache provider
      */
     private MapTileCache<T>         mTileCache;
-    private final Map<String, Long> pending = Collections.synchronizedMap(new HashMap<String, Long>());
+    private final Map<String, Long> pending = new HashMap<String, Long>();
 
     private IMapTileProviderService mTileService;
     private final Handler           mDownloadFinishedHandler;
@@ -157,10 +157,12 @@ public class MapTileProvider<T> implements ServiceConnection {
      * Clear out memory related to tracking map tiles.
      */
     public void clear() {
-        pending.clear();
+        synchronized (pending) {
+            pending.clear();
+        }
         mTileCache.clear();
         if (this.connected()) {
-           // mCtx.unbindService(this);
+            // mCtx.unbindService(this);
         }
     }
 
@@ -211,14 +213,16 @@ public class MapTileProvider<T> implements ServiceConnection {
      * @param owner if for the current owner
      */
     private void preCacheTile(@NonNull final MapTile aTile, long owner) {
-        if (mTileService != null && !pending.containsKey(aTile.toId())) {
-            try {
-                pending.put(aTile.toId(), owner);
-                mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, mServiceCallback);
-            } catch (RemoteException e) {
-                Log.e(DEBUG_TAG, "RemoteException in preCacheTile()", e);
-            } catch (Exception e) {
-                Log.e(DEBUG_TAG, "Exception in preCacheTile()", e);
+        synchronized (pending) {
+            if (mTileService != null && !pending.containsKey(aTile.toId())) {
+                try {
+                    pending.put(aTile.toId(), owner);
+                    mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, mServiceCallback);
+                } catch (RemoteException e) {
+                    Log.e(DEBUG_TAG, "RemoteException in preCacheTile()", e);
+                } catch (Exception e) {
+                    Log.e(DEBUG_TAG, "Exception in preCacheTile()", e);
+                }
             }
         }
     }
@@ -239,18 +243,18 @@ public class MapTileProvider<T> implements ServiceConnection {
                 Set<String> keys;
                 synchronized (pending) {
                     keys = new HashSet<>(pending.keySet());
-                }
-                if (zoomLevel != MapAsyncTileProvider.ALLZOOMS) {
-                    String id = Integer.toString(zoomLevel) + rendererId;
-                    for (String key : keys) {
-                        if (key.startsWith(id)) {
-                            pending.remove(key);
+                    if (zoomLevel != MapAsyncTileProvider.ALLZOOMS) {
+                        String id = Integer.toString(zoomLevel) + rendererId;
+                        for (String key : keys) {
+                            if (key.startsWith(id)) {
+                                pending.remove(key);
+                            }
                         }
-                    }
-                } else {
-                    for (String key : keys) {
-                        if (key.contains(rendererId)) {
-                            pending.remove(key);
+                    } else {
+                        for (String key : keys) {
+                            if (key.contains(rendererId)) {
+                                pending.remove(key);
+                            }
                         }
                     }
                 }
@@ -329,10 +333,12 @@ public class MapTileProvider<T> implements ServiceConnection {
                     Log.d(DEBUG_TAG, "decoded tile is null");
                     throw new RemoteException();
                 }
-                Long l = pending.get(t.toId());
-                if (l != null) {
-                    mTileCache.putTile(t, tileBitmap, l);
-                } // else wasn't in pending queue just ignore
+                synchronized (pending) {
+                    Long l = pending.get(t.toId());
+                    if (l != null) {
+                        mTileCache.putTile(t, tileBitmap, l);
+                    } // else wasn't in pending queue just ignore
+                }
                 mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_SUCCESS_ID);
             } catch (StorageException | OutOfMemoryError e) {
                 // unable to cache tile
@@ -342,7 +348,9 @@ public class MapTileProvider<T> implements ServiceConnection {
                 Log.d(DEBUG_TAG, "Exception in mapTileLoaded callback " + npe);
                 throw new RemoteException();
             } finally {
-                pending.remove(id);
+                synchronized (pending) {
+                    pending.remove(id);
+                }
             }
             if (MapViewConstants.DEBUGMODE) {
                 Log.i(DEBUG_TAG, "MapTile download success." + t.toString());
@@ -375,7 +383,9 @@ public class MapTileProvider<T> implements ServiceConnection {
         public void mapTileFailed(@NonNull final String rendererID, final int zoomLevel, final int tileX, final int tileY, final int reason)
                 throws RemoteException {
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
-            pending.remove(t.toId());
+            synchronized (pending) {
+                pending.remove(t.toId());
+            }
             mDownloadFinishedHandler.sendMessage(Message.obtain(mDownloadFinishedHandler, MapTile.MAPTILE_FAIL_ID, reason, 0));
         }
 

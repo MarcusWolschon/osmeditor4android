@@ -30,7 +30,7 @@ public abstract class MapAsyncTileProvider {
     public static final int ALLZOOMS = -1;
 
     ThreadPoolExecutor                  mThreadPool;
-    private final Map<String, Runnable> mPending = Collections.synchronizedMap(new HashMap<String, Runnable>());
+    private final Map<String, Runnable> mPending = new HashMap<String, Runnable>();
 
     /**
      * Queue a tile for loading, if it is already in the queue this returns without doing anything
@@ -40,13 +40,15 @@ public abstract class MapAsyncTileProvider {
      */
     public synchronized void loadMapTileAsync(@NonNull final MapTile aTile, final IMapTileProviderCallback aCallback) {
         final String tileId = aTile.toId();
-
-        if (mPending.containsKey(tileId)) {
-            return;
+        synchronized (mPending) {
+            if (mPending.containsKey(tileId)) {
+                return;
+            }
         }
-
         Runnable r = getTileLoader(aTile, aCallback);
-        mPending.put(tileId, r);
+        synchronized (mPending) {
+            mPending.put(tileId, r);
+        }
         mThreadPool.execute(r);
     }
 
@@ -57,10 +59,12 @@ public abstract class MapAsyncTileProvider {
      * @return true if successful
      */
     private boolean removeRequest(@NonNull final String tileId) {
-        Runnable r = mPending.get(tileId);
-        if (mThreadPool.remove(r)) {
-            mPending.remove(tileId);
-            return true;
+        synchronized (mPending) {
+            Runnable r = mPending.get(tileId);
+            if (mThreadPool.remove(r)) {
+                mPending.remove(tileId);
+                return true;
+            }
         }
         return false;
     }
@@ -120,7 +124,9 @@ public abstract class MapAsyncTileProvider {
          * Finished loading, remove tile from pending
          */
         void finished() {
-            mPending.remove(mTile.toId());
+            synchronized (mPending) {
+                mPending.remove(mTile.toId());
+            }
         }
     }
 }
