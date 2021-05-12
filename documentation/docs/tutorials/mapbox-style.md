@@ -47,16 +47,16 @@ Value support:
 |__ref__                    | l         | yes       | missing from mapbox documentation
 |__visibility__             | l         | yes
 |__interactive__            | l         | yes       | missing from mapbox documentation
-|---------------------------+-----------+-----------+----------------------------------------------------------------            
++---------------------------+-----------+-----------+----------------------------------------------------------------            
 |_background_               |           |            
 |__background-color__       | l z       | yes
 |__backgroud-opacity__      | l z       | yes
 |__background-pattern__     | l z       | yes
-|---------------------------+-----------+-----------+----------------------------------------------------------------
++---------------------------+-----------+-----------+----------------------------------------------------------------
 |_Vector/geometry tile layers_ |           |
 |__filter__                   | f         | yes
 |__source-layer__             | l         | yes
-|---------------------------+-----------+-----------+----------------------------------------------------------------
++---------------------------+-----------+-----------+----------------------------------------------------------------
 |_fill_                     |           |
 |__fill-antialias__         | l         | yes
 |__fill-color__             | l z       | yes
@@ -66,17 +66,17 @@ Value support:
 |__fill-sort-key__          |           | no
 |__fill-translate__         | l z       | yes
 |__fill-translate-anchor__  |           | no
-|---------------------------+-----------+-----------+----------------------------------------------------------------
-|_fill-extrusion_                   |           |
-|__fill-extrusion-base__            |           | no
-|__fill-extrusion-color             | l z       | yes
-|__fill-extrusion-height            |           | no
-|__fill-extrusion-opacity           | l z       | yes
-|__fill-extrusion-pattern           | l z       | yes
-|__fill-extrusion-translate         | l z       | yes
-|__fill-extrusion-translate-anchor  |           | no
-|__fill-extrusion-vertical-gradient |           | no
-|---------------------------+-----------+-----------+----------------------------------------------------------------
++---------------------------+-----------+-----------+----------------------------------------------------------------
+|_fill-extrusion_                     |           |
+|__fill-extrusion-base__              |           | no
+|__fill-extrusion-color__             | l z       | yes
+|__fill-extrusion-height__            |           | no
+|__fill-extrusion-opacity__           | l z       | yes
+|__fill-extrusion-pattern__           | l z       | yes
+|__fill-extrusion-translate__         | l z       | yes
+|__fill-extrusion-translate-anchor__  |           | no
+|__fill-extrusion-vertical-gradient__ |           | no
++---------------------------+-----------+-----------+----------------------------------------------------------------
 |_line_                     |           |
 |__line-blur__              |           | no        |
 |__line-cap__               | l z       | yes
@@ -94,7 +94,7 @@ Value support:
 |__line-translate__         |           | no
 |__line-translate-anchor__  |           | no
 |__line-width__             | l z       | yes
-|---------------------------+-----------+-----------+----------------------------------------------------------------
++---------------------------+-----------+-----------+----------------------------------------------------------------
 |_symbol_                   |           |
 |__icon-allow-overlap__     |           | no
 |__icon-anchor__            | l z       | yes
