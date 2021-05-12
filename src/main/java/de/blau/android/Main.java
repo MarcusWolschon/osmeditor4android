@@ -932,7 +932,8 @@ public class Main extends FullScreenAppCompatActivity
             shortcutExtras = getIntent().getBundleExtra(Splash.SHORTCUT_EXTRAS_KEY);
             Uri uri = getIntent().getData();
             contentUriType = getIntent().getType();
-            if (uri != null && (Schemes.CONTENT.equals(uri.getScheme()) || (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && Schemes.FILE.equals(uri.getScheme())))) {
+            if (uri != null && (Schemes.CONTENT.equals(uri.getScheme())
+                    || (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && Schemes.FILE.equals(uri.getScheme())))) {
                 contentUri = uri;
             } else {
                 Bundle extras = getIntent().getExtras();
@@ -1378,6 +1379,8 @@ public class Main extends FullScreenAppCompatActivity
         map.onDestroy();
         if (getTracker() != null) {
             getTracker().setListener(null);
+            // the services onDestroy is not guaranteed to be called, so we do it here
+            getTracker().onDestroy();
         }
         try {
             unbindService(this);
@@ -1385,9 +1388,6 @@ public class Main extends FullScreenAppCompatActivity
             Log.d(DEBUG_TAG, "Ignored " + ignored);
         }
         disableLocationUpdates();
-        if (getTracker() != null) {
-            getTracker().setListener(null);
-        }
         super.onDestroy();
     }
 
