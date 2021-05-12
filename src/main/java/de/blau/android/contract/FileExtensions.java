@@ -11,6 +11,7 @@ public final class FileExtensions {
     public static final String MVT     = "mvt";
     public static final String PBF     = "pbf";
     public static final String PNG     = "png";
+    public static final String ZIP     = "zip";
 
     /**
      * Private default constructor

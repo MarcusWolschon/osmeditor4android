@@ -44,6 +44,8 @@ import androidx.appcompat.app.AlertDialog;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
+import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OperationFailedException;
@@ -52,7 +54,6 @@ import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
 import de.blau.android.services.util.StreamUtils;
-import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
@@ -259,7 +260,7 @@ public class PresetEditorActivity extends URLListEditActivity {
      * 
      * @param item the item containing the preset to be downloaded
      */
-    private void downloadPresetData(final ListEditItem item) {
+    private void downloadPresetData(@NonNull final ListEditItem item) {
         final File presetDir = db.getPresetDirectory(item.id);
         // noinspection ResultOfMethodCallIgnored
         presetDir.mkdir();
@@ -293,7 +294,8 @@ public class PresetEditorActivity extends URLListEditActivity {
             protected Integer doInBackground(Void... args) {
                 int loadResult = RESULT_TOTAL_SUCCESS;
                 Uri uri = Uri.parse(item.value);
-                if (Schemes.FILE.equals(uri.getScheme())) {
+                final String scheme = uri.getScheme();
+                if (Schemes.FILE.equals(scheme) || Schemes.CONTENT.equals(scheme)) {
                     loadResult = load(uri, Preset.PRESETXML);
                 } else {
                     loadResult = download(item.value, Preset.PRESETXML);
@@ -388,7 +390,8 @@ public class PresetEditorActivity extends URLListEditActivity {
              * @return code indicating result
              */
             private int load(@NonNull Uri uri, @NonNull String filename) {
-                boolean zip = uri.getPath().toLowerCase(Locale.US).endsWith(".zip");
+                boolean zip = uri.getPath().toLowerCase(Locale.US).endsWith("." + FileExtensions.ZIP)
+                        || MimeTypes.ZIP.equals(getContentResolver().getType(uri));
                 if (zip) {
                     Log.d(DEBUG_TAG, "detected zip file");
                     filename = FILE_NAME_TEMPORARY_ARCHIVE;
@@ -575,11 +578,6 @@ public class PresetEditorActivity extends URLListEditActivity {
 
             @Override
             public boolean read(Uri fileUri) {
-                fileUri = FileUtil.contentUriToFileUri(PresetEditorActivity.this, fileUri);
-                if (fileUri == null) {
-                    Snack.toastTopError(PresetEditorActivity.this, R.string.not_found_title);
-                    return false;
-                }
                 editValue.setText(fileUri.toString());
                 SelectFile.savePref(new Preferences(PresetEditorActivity.this), R.string.config_presetsPreferredDir_key, fileUri);
                 return true;
@@ -606,8 +604,8 @@ public class PresetEditorActivity extends URLListEditActivity {
             }
 
             // save or display toast, exception for localhost is needed for testing
-            if (validPresetURL || presetURL.startsWith(FileUtil.FILE_SCHEME_PREFIX) || (url != null && "localhost".equals(url.getHost()))
-                    || (item != null && item.id.equals(LISTITEM_ID_DEFAULT))) {
+            if (validPresetURL || presetURL.startsWith(Schemes.FILE) || presetURL.startsWith(Schemes.CONTENT)
+                    || (url != null && "localhost".equals(url.getHost())) || (item != null && item.id.equals(LISTITEM_ID_DEFAULT))) {
                 if (item == null) {
                     // new item
                     finishCreateItem(new ListEditItem(name, presetURL, null, null, useTranslationsEnabled));

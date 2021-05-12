@@ -258,7 +258,7 @@ public final class SelectFile {
                 } catch (NumberFormatException nfex) {
                     Log.e(DEBUG_TAG, "getPath " + id + " id not a long");
                 }
-            } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            } else if (Schemes.CONTENT.equalsIgnoreCase(uri.getScheme())) {
                 Log.i(DEBUG_TAG, "content scheme");
                 return getDataColumn(context, uri, null, null);
             }

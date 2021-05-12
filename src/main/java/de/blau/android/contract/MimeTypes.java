@@ -7,6 +7,7 @@ public final class MimeTypes {
     public static final String GPX               = "application/gpx+xml";
     public static final String GEOJSON           = "application/geo+json";
     public static final String TEXTXML           = "text/xml";
+    public static final String ZIP               = "application/zip";
 
     // types and subtypes
     public static final String IMAGE_TYPE                = "image";
