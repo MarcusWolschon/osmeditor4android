@@ -484,6 +484,7 @@ avoided by using an offline data source.</string>
     <string name="toast_invalid_readonlyurl">Invalid ReadOnly API URL</string>
     <string name="toast_invalid_notesurl">Invalid notes API URL</string>
     <string name="toast_invalid_preseturl">Invalid preset URL</string>
+    <string name="toast_missing_preset_file">Missing preset file for \"%1$s\"</string>
     <string name="toast_invalid_filter_regexp">Invalid regular expression in filter with key="%1$s" value="%2$s"</string>
     <string name="toast_error_accessing_photo">Can\'t access photo %1$s</string>
     <string name="toast_security_error_accessing_photo">Not allowed to access photo %1$s</string>

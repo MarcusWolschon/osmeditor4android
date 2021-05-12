@@ -369,41 +369,45 @@ public class Preset implements Serializable {
                         SavingHelper.close(poFileStream);
                     }
                 }
-            } else if (externalPackage != null) {
-                Log.i(DEBUG_TAG, "Loading APK preset, package=" + externalPackage + ", directory=" + directory.toString());
-                iconManager = new PresetIconManager(ctx, directory.toString(), externalPackage);
-                fileStream = iconManager.openAsset(PRESETXML, false);
             } else {
-                Log.i(DEBUG_TAG, "Loading downloaded preset, directory=" + directory.toString());
-                iconManager = new PresetIconManager(ctx, directory.toString(), null);
-                File indir = new File(directory.toString());
-                File[] list = indir.listFiles(new PresetFileFilter());
-                if (list != null && list.length > 0) { // simply use the first XML file found
-                    String presetFilename = list[0].getName();
-                    Log.i(DEBUG_TAG, "Preset file name " + presetFilename);
-                    fileStream = new FileInputStream(new File(directory, presetFilename));
-                    if (useTranslations) {
-                        // get translations
-                        presetFilename = presetFilename.substring(0, presetFilename.length() - 4);
-                        InputStream poFileStream = null;
-                        try {
-                            // try to open .po files either with the same name as the preset file or the standard name
-                            try {
-                                poFileStream = getPoInputStream(directory, presetFilename + "_", Locale.getDefault());
-                            } catch (FileNotFoundException fnfe) {
-                                try {
-                                    poFileStream = getPoInputStream(directory, DEFAULT_PRESET_TRANSLATION, Locale.getDefault());
-                                } catch (FileNotFoundException fnfe3) {
-                                    // no translations
-                                }
-                            }
-                            po = de.blau.android.util.Util.parsePoFile(poFileStream);
-                        } finally {
-                            SavingHelper.close(poFileStream);
-                        }
-                    }
+                final String dir = directory.toString();
+                if (externalPackage != null) {
+                    Log.i(DEBUG_TAG, "Loading APK preset, package=" + externalPackage + ", directory=" + dir);
+                    iconManager = new PresetIconManager(ctx, dir, externalPackage);
+                    fileStream = iconManager.openAsset(PRESETXML, false);
                 } else {
-                    Log.e(DEBUG_TAG, "Can't find preset file");
+                    Log.i(DEBUG_TAG, "Loading downloaded preset, directory=" + dir);
+                    iconManager = new PresetIconManager(ctx, dir, null);
+                    File indir = new File(dir);
+                    File[] list = indir.listFiles(new PresetFileFilter());
+                    if (list != null && list.length > 0) { // simply use the first XML file found
+                        String presetFilename = list[0].getName();
+                        Log.i(DEBUG_TAG, "Preset file name " + presetFilename);
+                        fileStream = new FileInputStream(new File(directory, presetFilename));
+                        if (useTranslations) {
+                            // get translations
+                            presetFilename = presetFilename.substring(0, presetFilename.length() - 4);
+                            InputStream poFileStream = null;
+                            try {
+                                // try to open .po files either with the same name as the preset file or the standard
+                                // name
+                                try {
+                                    poFileStream = getPoInputStream(directory, presetFilename + "_", Locale.getDefault());
+                                } catch (FileNotFoundException fnfe) {
+                                    try {
+                                        poFileStream = getPoInputStream(directory, DEFAULT_PRESET_TRANSLATION, Locale.getDefault());
+                                    } catch (FileNotFoundException fnfe3) {
+                                        // no translations
+                                    }
+                                }
+                                po = de.blau.android.util.Util.parsePoFile(poFileStream);
+                            } finally {
+                                SavingHelper.close(poFileStream);
+                            }
+                        }
+                    } else {
+                        throw new IOException(ctx.getString(R.string.toast_missing_preset_file, dir));
+                    }
                 }
             }
 
