@@ -244,7 +244,7 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
                 }
                 return features;
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(DEBUG_TAG, "decoding failed with " + e.getMessage());
                 return null;
             }
         };
