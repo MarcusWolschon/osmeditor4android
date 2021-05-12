@@ -516,7 +516,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
 
     classDirectories.from = fileTree(
             dir: 'build/intermediates/javac/currentDebug/classes/',
-            excludes: ['**/R.class', '**/R$*.class', '**/*$ViewInjector*.*', '**/BuildConfig.*', '**/Manifest*.*'])
+            excludes: ['**/R.class', '**/R$*.class', '**/*$ViewInjector*.*', '**/BuildConfig.*', '**/Manifest*.*', '**/vector_tile/**'])
 
     additionalSourceDirs.from = files(coverageSourceDirs)
     sourceDirectories.from = files(coverageSourceDirs)
@@ -542,7 +542,7 @@ spoon {
     ignoreFailures = true
     clearAppDataBeforeEachTest = true
     // set these for individual text execution
-    className = "de.blau.android.layer.mvt.MvtTest"
+    // className = "de.blau.android.layer.mvt.MvtTest"
     // methodName = "dataLayerPrune"
 }
 

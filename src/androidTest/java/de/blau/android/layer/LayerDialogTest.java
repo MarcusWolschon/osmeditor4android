@@ -57,7 +57,7 @@ public class LayerDialogTest {
 
     private static final int VISIBLE_BUTTON = 0;
     public static final int  EXTENT_BUTTON  = 1;
-    private static final int MENU_BUTTON    = 3;
+    public static final int  MENU_BUTTON    = 3;
 
     AdvancedPrefDatabase prefDB          = null;
     Main                 main            = null;
