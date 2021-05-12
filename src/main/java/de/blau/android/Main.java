@@ -1372,6 +1372,8 @@ public class Main extends FullScreenAppCompatActivity
         map.onDestroy();
         if (getTracker() != null) {
             getTracker().setListener(null);
+            // the services onDestroy is not guaranteed to be called, so we do it here
+            getTracker().onDestroy();
         }
         try {
             unbindService(this);
@@ -1379,9 +1381,6 @@ public class Main extends FullScreenAppCompatActivity
             Log.d(DEBUG_TAG, "Ignored " + ignored);
         }
         disableLocationUpdates();
-        if (getTracker() != null) {
-            getTracker().setListener(null);
-        }
         super.onDestroy();
     }
 
