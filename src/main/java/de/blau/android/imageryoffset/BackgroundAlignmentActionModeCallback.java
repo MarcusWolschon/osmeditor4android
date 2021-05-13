@@ -104,7 +104,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         this.oldMode = oldMode;
         this.main = main; // currently we are only called from here
         map = main.getMap();
-        MapTilesLayer layer = map.getBackgroundLayer();
+        MapTilesLayer<?> layer = map.getBackgroundLayer();
         if (layer == null) {
             throw new IllegalStateException("MapTilesLayer is null");
         }

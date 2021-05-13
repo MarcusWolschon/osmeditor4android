@@ -94,7 +94,7 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
         SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_contrast_seeker);
         seeker.setProgress(contrast2progress(prefs.getContrastValue()));
         int layerIndex = getArguments().getInt(LAYERINDEX);
-        MapTilesLayer layer = (MapTilesLayer) App.getLogic().getMap().getLayer(layerIndex);
+        MapTilesLayer<?> layer = (MapTilesLayer<?>) App.getLogic().getMap().getLayer(layerIndex);
         if (layer != null) {
             seeker.setOnSeekBarChangeListener(createSeekBarListener(layer));
         } else {
@@ -123,7 +123,7 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
      * @return an OnSeekBarChangeListener
      */
     @NonNull
-    private OnSeekBarChangeListener createSeekBarListener(@NonNull final MapTilesLayer layer) {
+    private OnSeekBarChangeListener createSeekBarListener(@NonNull final MapTilesLayer<?> layer) {
         return new OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(final SeekBar seekBar, int progress, final boolean fromTouch) {

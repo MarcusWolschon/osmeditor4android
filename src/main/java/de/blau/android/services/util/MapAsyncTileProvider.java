@@ -1,6 +1,5 @@
 package de.blau.android.services.util;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -30,7 +29,7 @@ public abstract class MapAsyncTileProvider {
     public static final int ALLZOOMS = -1;
 
     ThreadPoolExecutor                  mThreadPool;
-    private final Map<String, Runnable> mPending = new HashMap<String, Runnable>();
+    private final Map<String, Runnable> mPending = new HashMap<>();
 
     /**
      * Queue a tile for loading, if it is already in the queue this returns without doing anything
