@@ -65,7 +65,6 @@ public final class ClipboardUtils {
     private static List<String> getTextLines(@NonNull Context ctx) {
         if (checkForText(ctx)) {
             ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
-
             // Gets the clipboard as text.
             CharSequence cs = item.getText();
             if (cs == null) { // item might be an URI
@@ -77,27 +76,23 @@ public final class ClipboardUtils {
                         String uriMimeType = cr.getType(pasteUri);
                         // pasteData = resolveUri(pasteUri);
                         // If the return value is not null, the Uri is a content Uri
-                        if (uriMimeType != null) {
+                        if (uriMimeType != null && uriMimeType.equals(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
                             // Does the content provider offer a MIME type that the current application can use?
-                            if (uriMimeType.equals(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
+                            // Get the data from the content provider.
+                            Cursor pasteCursor = cr.query(pasteUri, null, null, null, null);
 
-                                // Get the data from the content provider.
-                                Cursor pasteCursor = cr.query(pasteUri, null, null, null, null);
-
-                                // If the Cursor contains data, move to the first record
-                                if (pasteCursor != null) {
-                                    if (pasteCursor.moveToFirst()) {
-                                        String pasteData = pasteCursor.getString(0);
-                                        return new ArrayList<>(Arrays.asList(pasteData.split(EOL)));
-                                    }
-                                    // close the Cursor
-                                    pasteCursor.close();
+                            // If the Cursor contains data, move to the first record
+                            if (pasteCursor != null) {
+                                if (pasteCursor.moveToFirst()) {
+                                    String pasteData = pasteCursor.getString(0);
+                                    return new ArrayList<>(Arrays.asList(pasteData.split(EOL)));
                                 }
+                                // close the Cursor
+                                pasteCursor.close();
                             }
                         }
                     } catch (Exception e) { // FIXME given that the above is untested, catch all here
                         Log.e(DEBUG_TAG, "Resolving URI failed " + e);
-                        return null;
                     }
                 }
             } else {
