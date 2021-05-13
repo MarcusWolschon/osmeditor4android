@@ -110,8 +110,7 @@ public class OAMCatalog {
     @NonNull
     private List<LayerEntry> parseEntries(@NonNull InputStream is) throws IOException, NumberFormatException {
         List<LayerEntry> result = new ArrayList<>();
-        JsonReader reader = new JsonReader(new InputStreamReader(is));
-        try {
+        try (JsonReader reader = new JsonReader(new InputStreamReader(is))) {
             // key object
             String key = null;
             reader.beginObject();
@@ -200,8 +199,6 @@ public class OAMCatalog {
             reader.endObject();
         } catch (IOException | IllegalStateException ex) {
             Log.d(DEBUG_TAG, "Ignoring " + ex);
-        } finally {
-            SavingHelper.close(reader);
         }
         return result;
     }

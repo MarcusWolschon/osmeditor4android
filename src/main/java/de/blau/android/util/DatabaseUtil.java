@@ -27,9 +27,8 @@ public final class DatabaseUtil {
         if (!file.exists() || !file.canRead()) {
             return false;
         }
-        FileReader fr = null;
-        try {
-            fr = new FileReader(file);
+        try (FileReader fr = new FileReader(file)){
+            
             char[] buffer = new char[16];
             if (fr.read(buffer, 0, 16) == 16) {
                 String str = String.valueOf(buffer);
@@ -38,8 +37,6 @@ public final class DatabaseUtil {
             return false;
         } catch (Exception e) {
             return false;
-        } finally {
-            SavingHelper.close(fr);
         }
     }
 }

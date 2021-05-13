@@ -15,7 +15,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.R;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.util.SavingHelper;
 
 /**
  * An OSMOSE bug
@@ -48,8 +47,7 @@ public final class OsmoseBug extends Bug implements Serializable {
      */
     public static List<OsmoseBug> parseBugs(InputStream is) throws IOException, NumberFormatException {
         List<OsmoseBug> result = new ArrayList<>();
-        JsonReader reader = new JsonReader(new InputStreamReader(is));
-        try {
+        try (JsonReader reader = new JsonReader(new InputStreamReader(is))) {
             // key object
             String key = null;
             reader.beginObject();
@@ -88,8 +86,6 @@ public final class OsmoseBug extends Bug implements Serializable {
             reader.endObject();
         } catch (IOException | IllegalStateException | NumberFormatException ex) {
             Log.d(DEBUG_TAG, "Parse error, ignoring " + ex);
-        } finally {
-            SavingHelper.close(reader);
         }
         return result;
     }

@@ -15,7 +15,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.R;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.util.SavingHelper;
 
 /**
  * A custom task/bug provided by the user, based on the OSMOSE format
@@ -41,8 +40,7 @@ public final class CustomBug extends Bug implements Serializable {
      */
     public static List<CustomBug> parseBugs(InputStream is) throws IOException, NumberFormatException {
         ArrayList<CustomBug> result = new ArrayList<>();
-        JsonReader reader = new JsonReader(new InputStreamReader(is));
-        try {
+        try (JsonReader reader = new JsonReader(new InputStreamReader(is))) {
             // key object
             String key = null;
             reader.beginObject();
@@ -76,8 +74,6 @@ public final class CustomBug extends Bug implements Serializable {
             reader.endObject();
         } catch (IOException ex) {
             Log.d(DEBUG_TAG, "Ignoring " + ex);
-        } finally {
-            SavingHelper.close(reader);
         }
         return result;
     }

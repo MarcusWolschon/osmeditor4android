@@ -14,7 +14,6 @@ import android.graphics.Canvas;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.util.SavingHelper;
 
 public class MapRouletteTask extends Task {
 
@@ -63,8 +62,7 @@ public class MapRouletteTask extends Task {
      */
     public static List<MapRouletteTask> parseTasks(InputStream is) throws IOException, NumberFormatException {
         List<MapRouletteTask> result = new ArrayList<>();
-        JsonReader reader = new JsonReader(new InputStreamReader(is));
-        try {
+        try (JsonReader reader = new JsonReader(new InputStreamReader(is))) {
             reader.beginArray();
             while (reader.hasNext()) {
                 reader.beginObject();
@@ -123,8 +121,6 @@ public class MapRouletteTask extends Task {
             reader.endArray();
         } catch (IOException | IllegalStateException ex) {
             Log.d(DEBUG_TAG, "Ignoring " + ex);
-        } finally {
-            SavingHelper.close(reader);
         }
         return result;
     }

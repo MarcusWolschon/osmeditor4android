@@ -9,7 +9,6 @@ import com.google.gson.stream.JsonReader;
 
 import android.util.Log;
 import androidx.annotation.Nullable;
-import de.blau.android.util.SavingHelper;
 
 public class MapRouletteChallenge implements Serializable {
 
@@ -32,8 +31,7 @@ public class MapRouletteChallenge implements Serializable {
     @Nullable
     public static MapRouletteChallenge parseChallenge(InputStream is) throws IOException, NumberFormatException {
 
-        JsonReader reader = new JsonReader(new InputStreamReader(is));
-        try {
+        try (JsonReader reader = new JsonReader(new InputStreamReader(is));) {
             reader.beginObject();
             MapRouletteChallenge challenge = new MapRouletteChallenge();
             while (reader.hasNext()) {
@@ -55,9 +53,7 @@ public class MapRouletteChallenge implements Serializable {
             return challenge;
         } catch (IOException | IllegalStateException ex) {
             Log.d(DEBUG_TAG, "Ignoring " + ex);
-        } finally {
-            SavingHelper.close(reader);
-        }
+        } 
         return null;
     }
 }

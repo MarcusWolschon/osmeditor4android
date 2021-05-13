@@ -363,11 +363,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
              *         to be rewritten
              */
             private boolean load() {
-                FileInputStream fileInput = null;
-                DataInputStream in = null;
-                try {
-                    fileInput = ctx.openFileInput(SAVEFILE);
-                    in = new DataInputStream(new BufferedInputStream(fileInput));
+                try (FileInputStream fileInput = ctx.openFileInput(SAVEFILE); DataInputStream in = new DataInputStream(new BufferedInputStream(fileInput));) {
                     long size = fileInput.getChannel().size();
                     // if you manage to record over 32 GB of track data (in RAM) on a mobile device,
                     // which means non-stop recording over many many years,
@@ -396,9 +392,6 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
                 } catch (Exception e) {
                     Log.e(DEBUG_TAG, "failed to (completely) load track", e);
                     return false;
-                } finally {
-                    SavingHelper.close(in);
-                    SavingHelper.close(fileInput);
                 }
             }
 
@@ -406,20 +399,14 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
              * Saves the given data to disk, overwriting anything already saved
              */
             private void rewriteSaveFile(Iterable<TrackPoint> data) {
-                FileOutputStream fileOutput = null;
-                DataOutputStream out = null;
-                try {
-                    fileOutput = ctx.openFileOutput(SAVEFILE, Context.MODE_PRIVATE);
-                    out = new DataOutputStream(new BufferedOutputStream(fileOutput));
+                try (FileOutputStream fileOutput = ctx.openFileOutput(SAVEFILE, Context.MODE_PRIVATE);
+                        DataOutputStream out = new DataOutputStream(new BufferedOutputStream(fileOutput));) {
                     out.writeInt(TrackPoint.FORMAT_VERSION);
                     for (TrackPoint point : data) {
                         point.toStream(out);
                     }
                 } catch (Exception e) {
                     markSavingBroken("Failed to rewrite broken save file", e);
-                } finally {
-                    SavingHelper.close(out);
-                    SavingHelper.close(fileOutput);
                 }
             }
 

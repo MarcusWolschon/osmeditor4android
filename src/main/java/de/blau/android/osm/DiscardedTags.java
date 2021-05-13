@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import de.blau.android.util.SavingHelper;
 
 /**
  * Tags that we want to remove before saving to server. List is in discarded.json from the iD repository
@@ -34,14 +33,8 @@ public class DiscardedTags {
      */
     public DiscardedTags(@NonNull Context context) {
         Log.d(DEBUG_TAG, "Parsing configuration file");
-
         AssetManager assetManager = context.getAssets();
-
-        InputStream is = null;
-        JsonReader reader = null;
-        try {
-            is = assetManager.open("discarded.json");
-            reader = new JsonReader(new InputStreamReader(is, OsmXml.UTF_8));
+        try (InputStream is = assetManager.open("discarded.json"); JsonReader reader = new JsonReader(new InputStreamReader(is, OsmXml.UTF_8));) {
             try {
                 reader.beginArray();
                 while (reader.hasNext()) {
@@ -54,9 +47,6 @@ public class DiscardedTags {
             }
         } catch (IOException e) {
             Log.d(DEBUG_TAG, "Opening discarded.json " + e.getMessage());
-        } finally {
-            SavingHelper.close(reader);
-            SavingHelper.close(is);
         }
     }
 
