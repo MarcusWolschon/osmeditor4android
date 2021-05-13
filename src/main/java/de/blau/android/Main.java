@@ -2352,7 +2352,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_tools_flush_all_tile_caches:
             Snack.barWarning(this, getString(R.string.toast_flus_all_caches), R.string.Yes, v -> {
-                MapTilesLayer backgroundLayer = map.getBackgroundLayer();
+                MapTilesLayer<?> backgroundLayer = map.getBackgroundLayer();
                 if (backgroundLayer != null) {
                     backgroundLayer.flushTileCache(Main.this, null);
                 }
