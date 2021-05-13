@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="2.7.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="2.8.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -187,13 +187,22 @@
         	<list_entry value="separate" short_description="Mapped separately"/>
         </combo>
     </chunk>
+    <chunk id="bus_bay">
+        <combo key="bus_bay" text="Bus bay" values_context="bus_bay" match="key">
+            <list_entry value="both" short_description="Both sides"/>
+            <list_entry value="left" short_description="Only left side"/>
+            <list_entry value="right" short_description="Only right side"/>
+        </combo>
+    </chunk>
     <chunk id="highway_additional_oneway_lit_width_sidewalk">
         <reference ref="highway_additional_oneway_lit_width"/>
         <reference ref="sidewalk"/>
+        <reference ref="bus_bay"/>
     </chunk>
     <chunk id="highway_additional_oneway_lit_width_sidewalk_winter">
         <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
         <reference ref="sidewalk"/>
+        <reference ref="bus_bay"/>
         <check key="winter_road" text="Winter road" disable_off="true" />
         <check key="ice_road" text="Ice road" disable_off="true" />
     </chunk>
@@ -918,10 +927,14 @@
     </chunk>
     <chunk id="water_access">
         <optional text="Water access rules:">
-            <combo key="ship" text="Ship" values="yes,designated,destination,delivery,permissive,private,permit,no" values_sort="false" values_context="access"/>
-            <combo key="boat" text="Boat" values="yes,designated,destination,delivery,permissive,private,permit,no" values_sort="false" values_context="access"/>
-            <combo key="motorboat" text="Motorboat" values="yes,designated,destination,delivery,permissive,private,permit,no" values_sort="false" values_context="access"/>
-            <combo key="canoe" text="Canoe" values="yes,designated,destination,delivery,permissive,private,permit,no" values_sort="false" values_context="access"/>
+            <combo key="ship" text="Ship" values="yes,designated,destination,delivery,permissive,private,permit,no"
+                display_values="Yes,Designated,Destination,Delivery,Permissive,Private,Permit required,No" values_sort="false" values_context="access"/>
+            <combo key="boat" text="Boat" values="yes,designated,destination,delivery,permissive,private,permit,no" 
+                display_values="Yes,Designated,Destination,Delivery,Permissive,Private,Permit required,No" values_sort="false" values_context="access"/>
+            <combo key="motorboat" text="Motorboat" values="yes,designated,destination,delivery,permissive,private,permit,no" 
+                display_values="Yes,Designated,Destination,Delivery,Permissive,Private,Permit required,No" values_sort="false" values_context="access"/>
+            <combo key="canoe" text="Canoe" values="yes,designated,destination,delivery,permissive,private,permit,no" 
+                display_values="Yes,Designated,Destination,Delivery,Permissive,Private,Permit required,No" values_sort="false" values_context="access"/>
         </optional>
     </chunk>
     <chunk id="operator_substance">
@@ -967,7 +980,7 @@
     <multiselect key="brand" text="Car brand" values="Alfa Romeo;Aston Martin;Audi;Bentley;BMW;Buick;Cadillac;Chevrolet;Chrysler;Citro&#xEB;n;Dacia;Daewoo;Daihatsu;Dodge;Ferrari;Fiat;Ford;GMC;Great Wall;Holden;Honda;Hyundai;Infiniti;Isuzu;Jaguar;Jeep;Kia;Lada;Lancia;Land Rover;Lexus;Lincoln;Lotus;Maserati;Mazda;Mercedes-Benz;Mini;Mitsubishi;Nissan;Opel;Peugeot;Renault;Saab;Seat;&#x160;koda;Smart;SsangYong;Subaru;Suzuki;Toyota;Vauxhall;Volkswagen;Volvo" match="key"/>
   </chunk>
   <chunk id="motorcycle_brands">
-    <multiselect key="brand" text="Motorcycle brand" values="Aprillia;BMW;Ducati;Gilera;Harley-Davidson;Honda;Kawasaki;KTM;Kymco;Piaggio;Peugeot;Piaggio;Suzuki;Triumph;Vespa;Yamaha" match="key"/>
+    <multiselect key="brand" text="Motorcycle brand" values="Aprilia;BMW;Ducati;Gilera;Harley-Davidson;Honda;Kawasaki;KTM;Kymco;Moto Guzzi;Peugeot;Piaggio;Suzuki;Triumph;Vespa;Yamaha" match="key"/>
   </chunk>
   <chunk id="walking_routes_roles">
      <roles>
@@ -1082,12 +1095,12 @@
   <chunk id="path_access_restrictions">
     <optional>
         <combo key="horse" text="Horse" values="yes,official,designated,permissive,destination,delivery,private,permit,no"
-            display_values="Yes,Official,Designated,Permissive,Destination,Delivery,Private,Permit,No" values_context="access" match="key" values_sort="false"/>
-        <combo key="dog" text="Dog" values="yes,leashed,unleashed,official,designated,permissive,private,no" 
-            display_values="Yes,Leashed,Unleashed,Official,Designated,Permissive,Private,No" values_sort="false" values_context="access"  match="key" />
-        <combo key="ski" text="Ski" values="yes,official,designated,permissive,private,no" display_values="Yes,Official,Designated,Permissive,Private,No" values_context="access" values_sort="false"/>
-        <combo key="snowmobile" text="Snowmobile" values="yes,official,designated,permissive,destination,delivery,private,no" 
-            display_values="Yes,Official,Designated,Permissive,Destination,Delivery,Private,No" values_context="access" values_sort="false"/>
+            display_values="Yes,Official,Designated,Permissive,Destination,Delivery,Private,Permit required,No" values_context="access" match="key" values_sort="false"/>
+        <combo key="dog" text="Dog" values="yes,leashed,unleashed,official,designated,permissive,private,permit,no" 
+            display_values="Yes,Leashed,Unleashed,Official,Designated,Permissive,Private,Permit required,No" values_sort="false" values_context="access"  match="key" />
+        <combo key="ski" text="Ski" values="yes,official,designated,permissive,private,permit,no" display_values="Yes,Official,Designated,Permissive,Private,Permit required,No" values_context="access" values_sort="false"/>
+        <combo key="snowmobile" text="Snowmobile" values="yes,official,designated,permissive,destination,delivery,private,permit,no" 
+            display_values="Yes,Official,Designated,Permissive,Destination,Delivery,Private,Permit required,No" values_context="access" values_sort="false"/>
     </optional>
     <preset_link preset_name="All vehicles"/>
     <preset_link preset_name="Motor vehicle"/>
@@ -1612,6 +1625,7 @@
                 <text key="width" text="Width (meters)"/>
                 <reference ref="sidewalk"/>
                 <reference ref="parking_lane"/>
+                <reference ref="bus_bay"/>
             </optional>
             <reference ref="road_access_restrictions"/>
             <reference ref="lane_presets"/>
@@ -1628,6 +1642,7 @@
                 <reference ref="highway_additional_oneway_lit_width"/>
 		        <check key="trolley_wire" text="Overhead trolley wires" disable_off="true"/>
                 <reference ref="parking_lane"/>
+                <reference ref="bus_bay"/>
             </optional>
             <reference ref="road_access_restrictions"/>
         </item> <!-- Living Street -->
@@ -1856,10 +1871,10 @@
         <item name="Path" icon="icons/png/highway_way_thin_sp.png" type="way,closedway" preset_name_label="true">
             <link wiki="Tag:highway=path"/>
             <key key="highway" value="path"/>
-            <combo key="foot" text="Foot" values="yes,official,designated,permissive,destination,delivery,private,no" 
-                display_values="Yes,Official,Designated,Permissive,Destination,Delivery,Private,No" values_context="access" values_sort="false" />
-            <combo key="bicycle" text="Bicycle" values="yes,official,designated,permissive,destination,delivery,private,no" 
-                display_values="Yes,Official,Designated,Permissive,Destination,Delivery,Private,No" values_context="access" values_sort="false" />
+            <combo key="foot" text="Foot" values="yes,official,designated,permissive,destination,delivery,private,permit,no" 
+                display_values="Yes,Official,Designated,Permissive,Destination,Delivery,Private,Permit required,No" values_context="access" values_sort="false" />
+            <combo key="bicycle" text="Bicycle" values="yes,official,designated,permissive,destination,delivery,private,permit,no" 
+                display_values="Yes,Official,Designated,Permissive,Destination,Delivery,Private,Permit required,No" values_context="access" values_sort="false" />
             <optional>
                 <reference ref="name"/>
                 <reference ref="surface_smoothness"/>
@@ -2075,7 +2090,7 @@
             <item name="Traffic Calming" icon="icons/png/transport_speedbump.png" type="node,way" preset_name_label="true">
                 <link wiki="Key:traffic_calming"/>
                 <space/>
-                <combo key="traffic_calming" text="Type" values="bump,hump,table,cushion,rumble_strip,dip,double_dip,chicane,choker,island,choked_island" display_values="Bump,Hump,Table,Cushion,Rumble strip,Dip,Double dip,Chicane,Choker,Island,Choked island" match="keyvalue!" />
+                <combo key="traffic_calming" text="Type" values="bump,hump,table,cushion,rumble_strip,dip,double_dip,chicane,choker,island,choked_island,mini_bumps" display_values="Bump,Hump,Table,Cushion,Rumble strip,Dip,Double dip,Chicane,Choker,Island,Choked island,Mini bumps" match="keyvalue!" />
             </item> <!-- Traffic Calming -->
             <item name="Bump" icon="icons/png/transport_speedbump.png" type="node,way" preset_name_label="true">
                 <link wiki="Key:traffic_calming"/>
@@ -2123,6 +2138,11 @@
                 <space/>
                 <key key="traffic_calming" value="island" values_context="traffic_calming"/>
             </item> <!-- Island -->
+            <item name="Mini bumps" icon="icons/png/transport_empty.png" type="node,way" preset_name_label="true">
+                <link wiki="Key:traffic_calming" />
+                <space />
+                <key key="traffic_calming" value="mini_bumps" />
+            </item> <!-- Mini bumps -->
         </group> <!-- Traffic Calming -->
         <item name="Passing Place" icon="icons/png/highway_passing_place_18020.png" type="node" preset_name_label="true">
             <link wiki="Tag:highway=passing_place"/>
@@ -2729,19 +2749,19 @@
             <link wiki="Key:access"/>
             <space/>
             <combo key="foot" text="Foot" values="yes,official,designated,permissive,destination,delivery,private,permit,use_sidepath,no"
-                display_values="Yes,Official,Designated,Permissive,Destination,Delivery,Private,Permit,Use sidepath,No" values_context="access" match="key" values_sort="false"/>
+                display_values="Yes,Official,Designated,Permissive,Destination,Delivery,Private,Permit required,Use sidepath,No" values_context="access" match="key" values_sort="false"/>
             <combo key="bicycle" text="Bicycle" values="yes,official,designated,permissive,destination,delivery,private,use_sidepath,permit,no" 
-                display_values="Yes,Official,Designated,Permissive,Destination,Delivery,Private,Use sidepath,Permit,No" values_context="access" match="key" values_sort="false"/>
+                display_values="Yes,Official,Designated,Permissive,Destination,Delivery,Private,Use sidepath,Permit required,No" values_context="access" match="key" values_sort="false"/>
           <combo key="agricultural" text="Agricultural" values="yes,official,designated,destination,permissive,private,no"
                 display_values="Yes,Official,Designated,Destination,Permissive,Private,No" values_context="access" match="key" values_sort="false"/>
             <combo key="emergency" text="Emergency vehicles" values="yes,official,designated,destination,no"
                 display_values="Yes,Official,Designated,Destination,No" values_context="access" match="keyvalue" values_sort="false"/>
             <combo key="goods" text="Light Commercial Vehicles (goods)" values="yes,official,designated,destination,delivery,permissive,private,agricultural,forestry,permit,no"
-                display_values="Yes,Official,Designated,Destination,Delivery,Permissive,Private,Agricultural,Forestry,Permit,No" values_context="access" match="key" values_sort="false"/>
-            <combo key="hov" text="High-occupancy vehicles (hov)" values="yes,official,designated,destination,permissive,private,no"
-                display_values="Yes,Official,Designated,Destination,Permissive,Private,No" values_context="access" match="key" values_sort="false"/>
-            <combo key="psv" text="Public Service Vehicles (psv)" values="yes,official,designated,destination,permissive,private,no" 
-                display_values="Yes,Official,Designated,Destination,Permissive,Private,No" values_context="access" match="key" values_sort="false"/>
+                display_values="Yes,Official,Designated,Destination,Delivery,Permissive,Private,Agricultural,Forestry,Permit required,No" values_context="access" match="key" values_sort="false"/>
+            <combo key="hov" text="High-occupancy vehicles (hov)" values="yes,official,designated,destination,permissive,private,permit,no"
+                display_values="Yes,Official,Designated,Destination,Permissive,Private,Permit required,No" values_context="access" match="key" values_sort="false"/>
+            <combo key="psv" text="Public Service Vehicles (psv)" values="yes,official,designated,destination,permissive,private,permit,no" 
+                display_values="Yes,Official,Designated,Destination,Permissive,Private,Permit required,No" values_context="access" match="key" values_sort="false"/>
             <combo key="tourist_bus" text="Tourist buses" values="yes,no" display_values="Yes,No" match="key" values_context="access" values_sort="false"/>            
             <combo key="4wd_only" text="4WD only" values="yes,recommended,no" display_values="Yes,Recommended,No" values_context="access" match="key" values_sort="false"/>
         </item> <!-- Other mode restrictions -->
@@ -3123,7 +3143,7 @@
             <space/>
             <key key="man_made" value="pier"/>
             <reference ref="optional_name"/>
-            <combo key="mooring" text="Mooring" values="yes,no,private,commercial"/>
+            <combo key="mooring" text="Mooring" values="yes,no,private,permit,commercial" display_values="Yes,No,Private,Permit required,Commercial"/>
             <check key="floating" text="Floating"/>
         </item> <!-- Pier -->
         <item name="Lock Gate" icon="icons/png/water_lock_gate_34007.png" type="node,way" preset_name_label="true">
@@ -7511,7 +7531,7 @@
 			<link wiki="Key:entrance"/>
 			<space/>
 			<combo key="entrance" text="Entrance" values="yes,main,service,exit,emergency,staircase,home,garage" display_values="Yes,Main,Service,Exit,Emergency,Staircase,Home,Garage" values_context="entrance" default="yes" match="key"/>
-			<combo key="access" text="Access" values="yes,delivery,private,customers,permissive,no" display_values="Yes,Delivery,Private,Customers,Permissive,No" values_context="access" match="none"/>
+			<combo key="access" text="Access" values="yes,delivery,private,customers,permissive,permit,no" display_values="Yes,Delivery,Private,Customers,Permissive,Permit required,No" values_context="access" match="none"/>
 			<optional>
 				<reference ref="wheelchair"/>
 				<text key="ref" text="Entrance number"/>
@@ -8015,7 +8035,7 @@
             <link wiki="Tag:man_made=surveillance"/>
             <space/>
             <key key="man_made" value="surveillance"/>
-            <multiselect key="surveillance:type" text="Method" values="ALPR;camera;guard" display_values="ALPR;camera;guard" />
+            <multiselect key="surveillance:type" text="Method" values="ALPR;camera;guard" display_values="ALPR;camera;guard" text_context="surveillance" />
             <combo key="surveillance" text="Location" values="indoor,outdoor,public" display_values="Indoor,Outdoor,Public" />
             <combo key="surveillance:zone" text="Zone" values="town,parking,traffic,shop,bank,building" display_values="Town,Parking,Traffic,Shop,Bank,Building"/>
             <text key="operator" text="Operator"/>
@@ -8150,7 +8170,7 @@
             <item name="Biomass Power Generator" icon="icons/png/power_generator_biomass_26008.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="biomass"/>
                 <reference ref="power_generator"/>
-                <combo key="generator:method" text="Method" values_context="generator method" values="anaerobic_digestion,combustion,gasification" display_values="Anaerobic digestion,Combustion,Gasification" match="none" />
+                <combo key="generator:method" text="Method" values_context="generator method" values="anaerobic_digestion,combustion,gasification" display_values="Anaerobic digestion,Combustion,Gasification" match="none" text_context="power" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
                     <list_entry value="bioreactor" short_description="Bioreactor"/>
                     <list_entry value="pyrolysis" short_description="Pyrolysis"/>
@@ -8197,7 +8217,7 @@
             <item name="Nuclear Reactor" icon="icons/png/power_generator_nuclear_26024.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="nuclear"/>
                 <reference ref="power_generator"/>
-                <combo key="generator:method" text="Method" values_context="generator method" values="fission,fusion" display_values="Fission,Fusion" match="none" />
+                <combo key="generator:method" text="Method" values_context="generator method" values="fission,fusion" display_values="Fission,Fusion" match="none" text_context="power" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
                     <list_entry value="BWR-1" display_value="Boiling Water Reactor 1 (BWR-1)" />
                     <list_entry value="BWR-2" display_value="Boiling Water Reactor 2 (BWR-2)" />
@@ -8222,7 +8242,7 @@
             <item name="Solar Power Generator" icon="icons/png/power_station_solar.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="solar"/>
                 <reference ref="power_generator_optional_name_ref"/>
-                <combo key="generator:method" text="Method" values_context="generator method" values="photovoltaic,thermal" display_values="Photovoltaic,Thermal" match="none" />
+                <combo key="generator:method" text="Method" values_context="generator method" values="photovoltaic,thermal" display_values="Photovoltaic,Thermal" match="none" text_context="power" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
                     <list_entry value="solar_photovoltaic_panel" short_description="Photovoltaic panel"/>
                     <list_entry value="solar_thermal_collector" short_description="Thermal collector"/>
@@ -8234,7 +8254,7 @@
             <item name="Waste Power Generator" icon="icons/png/power_generator_waste_26028.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="waste"/>
                 <reference ref="power_generator"/>
-                <combo key="generator:method" text="Method" values_context="generator method" values="combustion,gasification,pyrolysis" display_values="Combustion,Gasification,Pyrolysis" match="none" />
+                <combo key="generator:method" text="Method" values_context="generator method" values="combustion,gasification,pyrolysis" display_values="Combustion,Gasification,Pyrolysis" match="none" text_context="power" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
                     <list_entry value="bioreactor" short_description="Bioreactor"/>
                     <list_entry value="pyrolysis" short_description="Pyrolysis"/>
@@ -8246,7 +8266,7 @@
             <item name="Water Turbine" icon="icons/png/power_station_water.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="hydro"/>
                 <reference ref="power_generator"/>
-                <combo key="generator:method" text="Method" values_context="generator method" values="run-of-the-river,water-pumped-storage,water-storage" display_values="Run of the river,Water pumped storage,Water storage" match="none" />
+                <combo key="generator:method" text="Method" values_context="generator method" values="run-of-the-river,water-pumped-storage,water-storage" display_values="Run of the river,Water pumped storage,Water storage" match="none" text_context="power" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
                     <list_entry value="francis_turbine" short_description="Francis turbine"/>
                     <list_entry value="hydrodynamic_screw" short_description="Hydrodynamic screw"/>
@@ -8258,7 +8278,7 @@
             <item name="Tidal Water Turbine" icon="icons/png/power_generator_tidal_26027.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="tidal"/>
                 <reference ref="power_generator"/>
-                <combo key="generator:method" text="Method" values_context="generator method" values="barrage,stream" display_values="Barrage,Stream" match="none" />
+                <combo key="generator:method" text="Method" values_context="generator method" values="barrage,stream" display_values="Barrage,Stream" match="none" text_context="power" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
                     <list_entry value="horizontal_axis" short_description="Horizontal axis"/>
                     <list_entry value="kaplan_turbine" short_description="Kaplan turbine"/>
