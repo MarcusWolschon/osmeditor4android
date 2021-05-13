@@ -2656,14 +2656,12 @@ public class Main extends FullScreenAppCompatActivity
                     gpsChecked = true;
                     startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                 }
-                return null;
             }
-            return null;
         } catch (Exception e) {
             Log.d(DEBUG_TAG, "Error when checking for GPS, assuming GPS not available", e);
             Snack.barInfo(this, R.string.gps_failure);
-            return null;
         }
+        return null;
     }
 
     /**
