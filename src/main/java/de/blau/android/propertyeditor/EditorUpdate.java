@@ -4,6 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.names.Names;
@@ -35,7 +37,7 @@ public interface EditorUpdate {
      * @param allowBlanks allow blank values
      * @return a LinkedHashMap of the tags
      */
-    @Nullable
+    @NonNull
     LinkedHashMap<String, String> getKeyValueMapSingle(final boolean allowBlanks);
 
     /**
@@ -63,7 +65,7 @@ public interface EditorUpdate {
      * 
      * @return a List of the secondary PresetItems
      */
-    @Nullable
+    @NonNull
     List<PresetItem> getSecondaryPresets();
 
     /**
@@ -71,7 +73,7 @@ public interface EditorUpdate {
      * 
      * @return a Map containing a key PresetItem mapping
      */
-    @Nullable
+    @NonNull
     Map<String, PresetItem> getAllPresets();
 
     /**

@@ -1137,24 +1137,22 @@ public class PropertyEditor extends AppCompatActivity implements PropertyEditorL
     }
 
     @Override
-    @Nullable
     public List<LinkedHashMap<String, String>> getUpdatedTags() {
         if (tagEditorFragment != null) {
             return tagEditorFragment.getUpdatedTags();
         } else {
             Log.e(DEBUG_TAG, "getUpdatedTags tagEditorFragment is null");
-            return null;
+            return new ArrayList<>();
         }
     }
 
     @Override
-    @Nullable
     public LinkedHashMap<String, String> getKeyValueMapSingle(boolean allowBlanks) {
         if (tagEditorFragment != null) {
             return tagEditorFragment.getKeyValueMapSingle(allowBlanks);
         } else {
             Log.e(DEBUG_TAG, "getUpdatedTags tagEditorFragment is null");
-            return null;
+            return new LinkedHashMap<>();
         }
     }
 
@@ -1174,18 +1172,17 @@ public class PropertyEditor extends AppCompatActivity implements PropertyEditorL
             return tagEditorFragment.getSecondaryPresets();
         } else {
             Log.e(DEBUG_TAG, "getSecondaryPresets tagEditorFragment is null");
-            return null;
+            return new ArrayList<>();
         }
     }
 
     @Override
-    @Nullable
     public Map<String, PresetItem> getAllPresets() {
         if (tagEditorFragment != null) {
             return tagEditorFragment.getAllPresets();
         } else {
             Log.e(DEBUG_TAG, "getAllPresets tagEditorFragment is null");
-            return null;
+            return new HashMap<>();
         }
     }
 

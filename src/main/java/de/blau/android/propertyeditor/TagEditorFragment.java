@@ -2260,6 +2260,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * 
      * @return list of maps containing the tags
      */
+    @NonNull
     public List<LinkedHashMap<String, String>> getUpdatedTags() {
         @SuppressWarnings("unchecked")
 
