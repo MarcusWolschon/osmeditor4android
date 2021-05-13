@@ -378,10 +378,8 @@ public class Preset implements Serializable {
                 } else {
                     Log.i(DEBUG_TAG, "Loading downloaded preset, directory=" + dir);
                     iconManager = new PresetIconManager(ctx, dir, null);
-                    File indir = new File(dir);
-                    File[] list = indir.listFiles(new PresetFileFilter());
-                    if (list != null && list.length > 0) { // simply use the first XML file found
-                        String presetFilename = list[0].getName();
+                    String presetFilename = getPresetFileName(new File(dir));
+                    if (presetFilename != null) {
                         Log.i(DEBUG_TAG, "Preset file name " + presetFilename);
                         fileStream = new FileInputStream(new File(directory, presetFilename));
                         if (useTranslations) {
@@ -1154,6 +1152,21 @@ public class Preset implements Serializable {
     }
 
     /**
+     * Get a candidate preset file name in presetDir
+     * 
+     * @param presetDir the directory
+     * @return the file name or null
+     */
+    @Nullable
+    private static String getPresetFileName(@NonNull File presetDir) {
+        File[] list = presetDir.listFiles(new PresetFileFilter());
+        if (list != null && list.length > 0) { // simply use the first XML file found
+            return list[0].getName();
+        }
+        return null;
+    }
+
+    /**
      * Returns a list of icon URLs referenced by a preset
      * 
      * @param presetDir a File object pointing to the directory containing this preset
@@ -1161,13 +1174,8 @@ public class Preset implements Serializable {
      */
     public static List<String> parseForURLs(@NonNull File presetDir) {
         final List<String> urls = new ArrayList<>();
-        File[] list = presetDir.listFiles(new PresetFileFilter());
-        String presetFilename = null;
-        if (list != null) {
-            if (list.length > 0) { // simply use the first XML file found
-                presetFilename = list[0].getName();
-            }
-        } else {
+        String presetFilename = getPresetFileName(presetDir);
+        if (presetFilename == null) { // no preset file found
             return null;
         }
         try {
