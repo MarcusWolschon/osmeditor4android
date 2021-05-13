@@ -40,13 +40,7 @@ public class Fill extends Layer {
                                                    }
                                                }
                                            };
-    FloatArrayStyleAttribute fillTranslate = new FloatArrayStyleAttribute(true) {
-                                               private static final long serialVersionUID = 1L;
-
-                                               {
-                                                   literal = new float[] { 0f, 0f };
-                                               }
-                                           };
+    FloatArrayStyleAttribute fillTranslate = new FloatArrayStyleAttribute(true);
 
     /**
      * Default constructor
