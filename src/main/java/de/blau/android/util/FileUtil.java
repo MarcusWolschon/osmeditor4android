@@ -18,8 +18,8 @@ import de.blau.android.contract.Paths;
 import de.blau.android.contract.Schemes;
 
 public abstract class FileUtil {
-    private static final String DEBUG_TAG          = FileUtil.class.getSimpleName();
-    public static final String  FILE_SCHEME_PREFIX = Schemes.FILE + ":";
+
+    public static final String FILE_SCHEME_PREFIX = Schemes.FILE + ":";
 
     /**
      * Private constructor to stop instantiation
@@ -52,7 +52,7 @@ public abstract class FileUtil {
         }
         File outDir = new File(baseDirectory, directoryName);
         // noinspection ResultOfMethodCallIgnored
-        outDir.mkdir(); // ensure directory exists;
+        outDir.mkdir(); // ensure directory exists
         if (!outDir.isDirectory()) {
             throw new IOException("Unable to create directory: " + outDir.getPath());
         }
@@ -94,22 +94,15 @@ public abstract class FileUtil {
      */
     public static void copyFileFromAssets(@NonNull Context context, @NonNull String assetFileName, @NonNull File destinationDir,
             @NonNull String destinationFilename) throws IOException {
-        InputStream in = null;
-        FileOutputStream out = null;
-        try {
-            AssetManager assetManager = context.getAssets();
-            in = assetManager.open(assetFileName);
-            File destinationFile = new File(destinationDir, destinationFilename);
-            out = new FileOutputStream(destinationFile);
+        AssetManager assetManager = context.getAssets();
+
+        try (InputStream in = assetManager.open(assetFileName); FileOutputStream out = new FileOutputStream(new File(destinationDir, destinationFilename));) {
             byte[] buffer = new byte[1024];
             int read;
             while ((read = in.read(buffer)) != -1) {
                 out.write(buffer, 0, read);
             }
             out.flush();
-        } finally {
-            SavingHelper.close(in);
-            SavingHelper.close(out);
         }
     }
 
