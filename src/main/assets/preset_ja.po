@@ -1,12 +1,12 @@
 # 
 # Translators:
-# Nozomu KURASAWA <nabetaro@caldron.jp>, 2018
+# Nozomu KURASAWA <nabetaro@caldron.jp>, 2018,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-03-14 16:37+0100\n"
-"PO-Revision-Date: 2021-03-14 15:40+0000\n"
-"Last-Translator: tomoya muramoto <muramototomoya@gmail.com>\n"
+"PO-Revision-Date: 2021-05-13 04:35+0000\n"
+"Last-Translator: Nozomu KURASAWA <nabetaro@caldron.jp>\n"
 "Language-Team: Japanese (http://www.transifex.com/openstreetmap/presets/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -67,7 +67,7 @@ msgstr "0: 硬い砂利/圧縮土、障害物なし、緩いカーブ"
 
 #: master_preset.xml:269(combo:display_values|key:direction)
 msgid "0°"
-msgstr ""
+msgstr "0°"
 
 #: master_preset.xml:1353(combo:display_values|key:highchair)
 msgid "1"
@@ -107,7 +107,7 @@ msgstr "1:50 混合 (モペッド)"
 
 #: master_preset.xml:1353(combo:display_values|key:highchair)
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #: master_preset.xml:15(combo:display_values|key:incline)
 msgid "10%"
@@ -119,11 +119,11 @@ msgstr "10°"
 
 #: master_preset.xml:687(combo:display_values|key:maxstay)
 msgid "180 minutes"
-msgstr ""
+msgstr "180分"
 
 #: master_preset.xml:269(combo:display_values|key:direction)
 msgid "180°"
-msgstr ""
+msgstr "180°"
 
 #: master_preset.xml:51(list_entry:short_description|value:1)
 msgid "1: Some loose surface, small obstacles, wide curves"
@@ -131,7 +131,7 @@ msgstr "1: いくらか緩んだ表面、小さな障害物、緩いカーブ"
 
 #: master_preset.xml:1353(combo:display_values|key:highchair)
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #: master_preset.xml:1815(list_entry:display_value|group:Ways|preset:Track|value:grade2)
 msgid "2 - Mostly solid"
@@ -143,11 +143,11 @@ msgstr ""
 
 #: master_preset.xml:687(combo:display_values|key:maxstay)
 msgid "2 weeks"
-msgstr ""
+msgstr "2週間"
 
 #: master_preset.xml:269(combo:display_values|key:direction)
 msgid "270°"
-msgstr ""
+msgstr "270°"
 
 #: master_preset.xml:52(list_entry:short_description|value:2)
 msgid "2: Much loose surface, large obstacles, easy hairpins"
@@ -155,7 +155,7 @@ msgstr "2: とても緩んだ表面、大きな障害物、容易なヘアピン
 
 #: master_preset.xml:1353(combo:display_values|key:highchair)
 msgid "3"
-msgstr ""
+msgstr "3"
 
 #: master_preset.xml:1816(list_entry:display_value|group:Ways|preset:Track|value:grade3)
 msgid "3 - Mix hard and soft"
@@ -163,7 +163,7 @@ msgstr ""
 
 #: master_preset.xml:687(combo:display_values|key:maxstay)
 msgid "3 days"
-msgstr ""
+msgstr "3日"
 
 #: master_preset.xml:326(list_entry:short_description|value:3)
 msgid "3 tables"
@@ -171,7 +171,7 @@ msgstr ""
 
 #: master_preset.xml:687(combo:display_values|key:maxstay)
 msgid "30 minutes"
-msgstr ""
+msgstr "30分"
 
 #: master_preset.xml:53(list_entry:short_description|value:3)
 msgid "3: Slippery surface, large obstacles, tight hairpins"
@@ -183,7 +183,7 @@ msgstr "3D"
 
 #: master_preset.xml:1353(combo:display_values|key:highchair)
 msgid "4"
-msgstr ""
+msgstr "4"
 
 #: master_preset.xml:1817(list_entry:display_value|group:Ways|preset:Track|value:grade4)
 msgid "4 - Mostly soft"
@@ -492,7 +492,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "African"
-msgstr ""
+msgstr "アフリカ料理"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Afrikaans"
@@ -830,7 +830,7 @@ msgstr "水族館"
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Arab"
-msgstr ""
+msgstr "アラブ料理"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Arabic"
@@ -875,7 +875,7 @@ msgstr "エリア"
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Argentinian"
-msgstr ""
+msgstr "アルゼンチン料理"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Armenian"
@@ -1135,7 +1135,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Bagel"
-msgstr ""
+msgstr "ベーグル"
 
 #: master_preset.xml:737(combo:display_values|key:religion)
 #: master_preset.xml:746(combo:display_values|key:religion)
@@ -1154,7 +1154,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Balkan"
-msgstr ""
+msgstr "バルカン半島料理"
 
 #: master_preset.xml:5301(list_entry:display_value|group:Culture|preset:Music_theatres|value:ballet)
 msgid "Ballet theatre"
@@ -1288,7 +1288,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Bavarian"
-msgstr ""
+msgstr "バイエルン料理"
 
 #: master_preset.xml:2965(item:name|group:Water|preset:Bay)
 msgid "Bay"
@@ -1350,7 +1350,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Beef bowl"
-msgstr ""
+msgstr "牛丼"
 
 #: master_preset.xml:11395(item:name|group:Crafts|preset:Beekeeper)
 msgid "Beekeeper"
@@ -1742,7 +1742,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Brazilian"
-msgstr ""
+msgstr "ブラジル料理"
 
 #: master_preset.xml:9840(list_entry:short_description|preset:Vending_Machine|value:bread)
 msgid "Bread"
@@ -2051,7 +2051,7 @@ msgstr "ケルン"
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Cake"
-msgstr ""
+msgstr "ケーキ"
 
 #: master_preset.xml:4721(list_entry:display_value|group:Leisure|preset:Animals|value:camel)
 msgid "Camel"
@@ -2200,7 +2200,7 @@ msgstr "段ボール"
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Caribbean"
-msgstr ""
+msgstr "カリブ海料理"
 
 #: master_preset.xml:11444(item:name|group:Crafts|preset:Carpenter)
 msgid "Carpenter"
@@ -2457,7 +2457,7 @@ msgstr "中華料理"
 
 #: master_preset.xml:5827(list_entry:short_description|group:Health|preset:Physiotherapist|value:chiropractic)
 msgid "Chiropractic"
-msgstr ""
+msgstr "カイロプラクティック"
 
 #: master_preset.xml:8855(item:name|group:Food|preset:Chocolate)
 msgid "Chocolate"
@@ -2656,7 +2656,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Coffee shop"
-msgstr ""
+msgstr "コーヒー店"
 
 #: master_preset.xml:2339(check:text|group:Barriers|preset:Toll_Booth|key:payment:coins)
 #: master_preset.xml:6353(check:text|group:Facilities|preset:Telephone|key:payment:coins)
@@ -3122,7 +3122,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Curry"
-msgstr ""
+msgstr "カレー"
 
 #: master_preset.xml:9197(item:name|group:Home_furnishing_and_decoration|preset:Curtain)
 msgid "Curtain"
@@ -3206,7 +3206,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Danish"
-msgstr ""
+msgstr "デンマーク料理"
 
 #: master_preset.xml:8547(item:name|group:Telecom|preset:Data_center)
 msgid "Data center"
@@ -4052,7 +4052,7 @@ msgstr "エタノール (アルコール)"
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Ethiopian"
-msgstr ""
+msgstr "エチオピア料理"
 
 #: master_preset.xml:6236(list_entry:display_value|group:Clubs|preset:Club|value:ethnic)
 msgid "Ethnic"
@@ -4237,7 +4237,7 @@ msgstr "人形劇場"
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Filipino"
-msgstr ""
+msgstr "フィリピン料理"
 
 #: master_preset.xml:1278(checkgroup:text)
 msgid "Filling"
@@ -4419,7 +4419,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Fondue"
-msgstr ""
+msgstr "フォンデュ"
 
 #: master_preset.xml:8753(group:name|group:Food)
 #: master_preset.xml:9606(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
@@ -4615,7 +4615,7 @@ msgstr "冷凍食品"
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Frozen yogurt"
-msgstr ""
+msgstr "フローズンヨーグルト"
 
 #: master_preset.xml:4507(combo:text|group:Food+Drinks|preset:Diet|key:diet:fruitarian)
 msgid "Fruitarian"
@@ -4860,7 +4860,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Georgian"
-msgstr ""
+msgstr "グルジア料理"
 
 #: master_preset.xml:8277(item:name|group:Power_Generator|preset:Geothermal_Power_Generator)
 msgid "Geothermal Power Generator"
@@ -5316,7 +5316,7 @@ msgstr "薬草店"
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Heuriger"
-msgstr ""
+msgstr "ホイリゲ"
 
 #: master_preset.xml:9110(item:name|group:Electronics|preset:Hifi)
 msgid "Hifi"
@@ -5371,12 +5371,12 @@ msgstr ""
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Hindi"
-msgstr ""
+msgstr "ヒンディー語"
 
 #: master_preset.xml:737(combo:display_values|key:religion)
 #: master_preset.xml:746(combo:display_values|key:religion)
 msgid "Hindu"
-msgstr ""
+msgstr "ヒンドゥー教"
 
 #: master_preset.xml:5453(item:name|group:Place_of_Worship|preset:Hindu_Temple)
 msgid "Hindu Temple"
@@ -5384,7 +5384,7 @@ msgstr "ヒンドゥー教寺院"
 
 #: master_preset.xml:4739(list_entry:display_value|group:Leisure|preset:Animals|value:hippopotamus)
 msgid "Hippopotamus"
-msgstr ""
+msgstr "カバ"
 
 #: master_preset.xml:8555(group:name|group:Historic_Places_&_Objects)
 msgid "Historic Places & Objects"
@@ -5396,17 +5396,17 @@ msgstr ""
 
 #: master_preset.xml:8556(item:name|group:Historic_Places_&_Objects|preset:Historic_object)
 msgid "Historic object"
-msgstr ""
+msgstr "歴史的オブジェクト"
 
 #: master_preset.xml:10732(text:text|group:Addresses_and_Contact|preset:Name|key:old_name)
 msgid "Historical name"
-msgstr ""
+msgstr "歴史的名前"
 
 #: master_preset.xml:4576(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 #: master_preset.xml:5263(multiselect:display_values|group:Culture|preset:Museum|key:museum)
 #: master_preset.xml:6243(list_entry:display_value|group:Clubs|preset:Club|value:history)
 msgid "History"
-msgstr "編集履歴"
+msgstr "歴史"
 
 #: master_preset.xml:4069(item:name|group:Airport|preset:Holding_Position)
 msgid "Holding Position"
@@ -5482,7 +5482,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Hot dog"
-msgstr ""
+msgstr "ホットドッグ"
 
 #: master_preset.xml:4156(item:name|group:Accommodation|preset:Hotel)
 msgid "Hotel"
@@ -5679,7 +5679,7 @@ msgstr "インド料理"
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Indonesian"
-msgstr ""
+msgstr "インドネシア料理"
 
 #: master_preset.xml:2193(check:text|preset:Elevator|key:indoor)
 #: master_preset.xml:2197(combo:display_values|preset:Elevator|key:surveillance)
@@ -5933,7 +5933,7 @@ msgstr "柔道"
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Juice"
-msgstr ""
+msgstr "ジュース"
 
 #: master_preset.xml:1680(combo:text|group:Streets|preset:Construction|key:junction)
 msgid "Junction"
@@ -5958,7 +5958,7 @@ msgstr ""
 
 #: master_preset.xml:4743(list_entry:display_value|group:Leisure|preset:Animals|value:kangaroo)
 msgid "Kangaroo"
-msgstr ""
+msgstr "カンガルー"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Kannada"
@@ -6061,7 +6061,7 @@ msgstr ""
 
 #: master_preset.xml:4744(list_entry:display_value|group:Leisure|preset:Animals|value:koala)
 msgid "Koala"
-msgstr ""
+msgstr "コアラ"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
@@ -6257,7 +6257,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Lebanese"
-msgstr ""
+msgstr "レバノン料理"
 
 #: master_preset.xml:1731(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:left)
 #: master_preset.xml:1755(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
@@ -6416,7 +6416,7 @@ msgstr ""
 
 #: master_preset.xml:4747(list_entry:display_value|group:Leisure|preset:Animals|value:lion)
 msgid "Lion"
-msgstr ""
+msgstr "ライオン"
 
 #: master_preset.xml:1264(check:text|key:lit)
 #: master_preset.xml:1583(check:text|group:Streets|preset:Bicycle_Road|key:lit)
@@ -6602,7 +6602,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Malaysian"
-msgstr ""
+msgstr "マレーシア料理"
 
 #: master_preset.xml:9424(check:text|group:For_the_body|preset:Hairdresser/Barber|key:male)
 msgid "Male"
@@ -7264,7 +7264,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Moroccan"
-msgstr ""
+msgstr "モロッコ料理"
 
 #: master_preset.xml:5610(item:name|group:Public_Building|preset:Mortuary)
 msgid "Mortuary"
@@ -7482,11 +7482,11 @@ msgstr ""
 
 #: master_preset.xml:1233(combo:display_values|key:climbing:orientation)
 msgid "N"
-msgstr "N"
+msgstr "北"
 
 #: master_preset.xml:1233(combo:display_values|key:climbing:orientation)
 msgid "NE"
-msgstr "NE"
+msgstr "北東"
 
 #: master_preset.xml:3546(combo:text|group:Car|preset:Charging_Station|key:socket:nema_5_15)
 msgid "NEMA 5-15"
@@ -7498,7 +7498,7 @@ msgstr ""
 
 #: master_preset.xml:3554(check:text|group:Car|preset:Charging_Station|key:authentication:nfc)
 msgid "NFC"
-msgstr ""
+msgstr "NFC"
 
 #: master_preset.xml:9927(check:text|preset:Payment_Methods|key:payment:ep_nobu_emoney)
 msgid "NOBU e-money"
@@ -7506,11 +7506,11 @@ msgstr ""
 
 #: master_preset.xml:1233(combo:display_values|key:climbing:orientation)
 msgid "NW"
-msgstr "NW"
+msgstr "北西"
 
 #: master_preset.xml:9382(item:name|group:For_the_body|preset:Nail_salon)
 msgid "Nail salon"
-msgstr ""
+msgstr "ネイルサロン"
 
 #: master_preset.xml:10021(text:text|group:Boundaries|preset:Administrative|key:name)
 #: master_preset.xml:10030(text:text|group:Boundaries|preset:Political|key:name)
@@ -8544,7 +8544,7 @@ msgstr ""
 
 #: master_preset.xml:5830(list_entry:short_description|group:Health|preset:Physiotherapist|value:osteopathy)
 msgid "Osteopathy"
-msgstr ""
+msgstr "オステオパシー"
 
 #: master_preset.xml:4756(list_entry:display_value|group:Leisure|preset:Animals|value:ostrich)
 msgid "Ostrich"
@@ -8704,7 +8704,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Pancake"
-msgstr ""
+msgstr "パンケーキ"
 
 #: master_preset.xml:4760(list_entry:display_value|group:Leisure|preset:Animals|value:panda)
 msgid "Panda"
@@ -8820,7 +8820,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Pasta"
-msgstr ""
+msgstr "パスタ"
 
 #: master_preset.xml:8841(item:name|group:Food|preset:Pastry)
 msgid "Pastry"
@@ -8955,7 +8955,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Persian"
-msgstr ""
+msgstr "ペルシャ料理"
 
 #: master_preset.xml:10521(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Persimmon trees"
@@ -8967,7 +8967,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Peruvian"
-msgstr ""
+msgstr "ペルー料理"
 
 #: master_preset.xml:4506(combo:text|group:Food+Drinks|preset:Diet|key:diet:pescetarian)
 msgid "Pescetarian"
@@ -9079,7 +9079,7 @@ msgstr ""
 #: master_preset.xml:4767(list_entry:display_value|group:Leisure|preset:Animals|value:pig)
 #: master_preset.xml:6621(multiselect:display_values|group:Facilities|preset:Animal_breeding|key:animal_breeding)
 msgid "Pig"
-msgstr ""
+msgstr "ブタ"
 
 #: master_preset.xml:6003(combo:text|group:Emergency|preset:Fire_Hydrant|key:pillar:type)
 msgid "Pillar type"
@@ -9294,7 +9294,7 @@ msgstr ""
 
 #: master_preset.xml:4768(list_entry:display_value|group:Leisure|preset:Animals|value:polar_bear)
 msgid "Polar bear"
-msgstr ""
+msgstr "ホッキョクグマ"
 
 #: master_preset.xml:8440(item:name|preset:Pole)
 msgid "Pole"
@@ -9324,7 +9324,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Polish"
-msgstr ""
+msgstr "ポーランド料理"
 
 #: master_preset.xml:10025(item:name|group:Boundaries|preset:Political)
 #: master_preset.xml:10914(combo:display_values|group:Relations|preset:Boundary|key:boundary)
@@ -9387,7 +9387,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Portuguese"
-msgstr ""
+msgstr "ポルトガル料理"
 
 #: master_preset.xml:3302(text:text|group:Railway|preset:Railway_milestone|key:railway:position)
 msgid "Position (kilometers)"
@@ -9722,7 +9722,7 @@ msgstr ""
 #: master_preset.xml:10888(list_entry:display_value|group:Relations|preset:Relations|value:public_transport)
 #: master_preset.xml:4576(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Public transport"
-msgstr ""
+msgstr "公共交通機関"
 
 #: master_preset.xml:1788(item:name|group:Lane_attributes|preset:Public_transport_lanes)
 msgid "Public transport lanes"
@@ -9730,7 +9730,7 @@ msgstr ""
 
 #: master_preset.xml:3948(item:name|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy))
 msgid "Public transport route (Legacy)"
-msgstr ""
+msgstr "公共交通機関 (旧方式)"
 
 #: master_preset.xml:12151(item:name|group:Offices|preset:Publisher)
 msgid "Publisher"
@@ -9801,7 +9801,7 @@ msgstr ""
 
 #: master_preset.xml:4771(list_entry:display_value|group:Leisure|preset:Animals|value:rabbit)
 msgid "Rabbit"
-msgstr ""
+msgstr "ウサギ"
 
 #: master_preset.xml:4772(list_entry:display_value|group:Leisure|preset:Animals|value:raccoon)
 msgid "Raccoon"
@@ -9914,7 +9914,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Ramen"
-msgstr ""
+msgstr "ラーメン"
 
 #: master_preset.xml:1935(checkgroup:text|group:Ways|preset:Steps)
 #: master_preset.xml:1936(check:text|group:Ways|preset:Steps|key:ramp)
@@ -10284,7 +10284,7 @@ msgstr "切替通行"
 
 #: master_preset.xml:4773(list_entry:display_value|group:Leisure|preset:Animals|value:rhinoceros)
 msgid "Rhinoceros"
-msgstr ""
+msgstr "サイ"
 
 #: master_preset.xml:4821(item:name|group:Leisure|preset:Rides)
 msgid "Rides"
@@ -10585,7 +10585,7 @@ msgstr "滑走路"
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Russian"
-msgstr ""
+msgstr "ロシア料理"
 
 #: master_preset.xml:740(combo:display_values|key:denomination)
 #: master_preset.xml:761(combo:display_values|key:denomination)
@@ -10598,7 +10598,7 @@ msgstr ""
 
 #: master_preset.xml:1233(combo:display_values|key:climbing:orientation)
 msgid "S"
-msgstr "南緯"
+msgstr "南"
 
 #: master_preset.xml:1839(combo:text|group:Ways|preset:Path|key:sac_scale)
 msgid "SAC Scale"
@@ -10614,15 +10614,15 @@ msgstr ""
 
 #: master_preset.xml:1233(combo:display_values|key:climbing:orientation)
 msgid "SE"
-msgstr "SE"
+msgstr "南東"
 
 #: master_preset.xml:9862(list_entry:short_description|preset:Vending_Machine|value:SIM_cards)
 msgid "SIM_cards"
-msgstr ""
+msgstr "SIMカード"
 
 #: master_preset.xml:1233(combo:display_values|key:climbing:orientation)
 msgid "SW"
-msgstr "SW"
+msgstr "南西"
 
 #: master_preset.xml:10219(item:name|group:Geography|preset:Saddle)
 msgid "Saddle"
@@ -10662,7 +10662,7 @@ msgstr "城門"
 
 #: master_preset.xml:1343(combo:display_values|key:resource)
 msgid "Salt"
-msgstr "塩分"
+msgstr "塩"
 
 #: master_preset.xml:10545(item:name|group:Land_use|preset:Salt_Pond)
 msgid "Salt Pond"
@@ -10734,7 +10734,7 @@ msgstr "サウナ"
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Sausage"
-msgstr ""
+msgstr "ソーセージ"
 
 #: master_preset.xml:10383(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Savanna"
@@ -10847,7 +10847,7 @@ msgstr ""
 
 #: master_preset.xml:4775(list_entry:display_value|group:Leisure|preset:Animals|value:sea_turtle)
 msgid "Sea turtle"
-msgstr ""
+msgstr "ウミガメ"
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 #: master_preset.xml:8806(item:name|group:Food|preset:Seafood)
@@ -11036,7 +11036,7 @@ msgstr ""
 
 #: master_preset.xml:4777(list_entry:display_value|group:Leisure|preset:Animals|value:shark)
 msgid "Shark"
-msgstr ""
+msgstr "サメ"
 
 #: master_preset.xml:1730(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:sharp_left)
 #: master_preset.xml:1754(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:sharp_left)
@@ -11053,7 +11053,7 @@ msgstr ""
 #: master_preset.xml:4778(list_entry:display_value|group:Leisure|preset:Animals|value:sheep)
 #: master_preset.xml:6621(multiselect:display_values|group:Facilities|preset:Animal_breeding|key:animal_breeding)
 msgid "Sheep"
-msgstr ""
+msgstr "ヒツジ"
 
 #: master_preset.xml:5363(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 msgid "Shelf"
@@ -11074,7 +11074,7 @@ msgstr ""
 
 #: master_preset.xml:9396(list_entry:short_description|group:For_the_body|preset:Massage|value:shiatsu)
 msgid "Shiatsu"
-msgstr ""
+msgstr "指圧"
 
 #: master_preset.xml:8598(list_entry:display_value|group:Historic_Places_&_Objects|preset:Historic_object|value:shieling)
 msgid "Shieling"
@@ -11193,7 +11193,7 @@ msgstr ""
 
 #: master_preset.xml:1343(combo:display_values|key:resource)
 msgid "Silver"
-msgstr ""
+msgstr "銀"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Sindhi"
@@ -11262,7 +11262,7 @@ msgstr ""
 
 #: master_preset.xml:4779(list_entry:display_value|group:Leisure|preset:Animals|value:skunk)
 msgid "Skunk"
-msgstr ""
+msgstr "スカンク"
 
 #: master_preset.xml:1130(combo:display_values|key:roof:material)
 #: master_preset.xml:1235(combo:display_values|key:climbing:rock)
@@ -11320,7 +11320,7 @@ msgstr ""
 
 #: master_preset.xml:4780(list_entry:display_value|group:Leisure|preset:Animals|value:snake)
 msgid "Snake"
-msgstr "蛇"
+msgstr "ヘビ"
 
 #: master_preset.xml:4781(list_entry:display_value|group:Leisure|preset:Animals|value:snow_leopard)
 msgid "Snow leopard"
@@ -11328,7 +11328,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Soba"
-msgstr ""
+msgstr "そば"
 
 #: master_preset.xml:7135(item:name|group:Sport_(Ball)|preset:Soccer)
 msgid "Soccer"
@@ -11426,7 +11426,7 @@ msgstr "スペイン料理"
 
 #: master_preset.xml:8799(combo:text|group:Food|preset:Butcher|key:butcher)
 msgid "Speciality"
-msgstr ""
+msgstr "専門"
 
 #: master_preset.xml:44(list_entry:short_description|value:very_horrible)
 msgid "Specialized off-road: tractor, ATV"
@@ -12088,7 +12088,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Tapas"
-msgstr ""
+msgstr "スペインのタパス"
 
 #: master_preset.xml:4782(list_entry:display_value|group:Leisure|preset:Animals|value:tapir)
 msgid "Tapir"
@@ -12108,7 +12108,7 @@ msgstr "タータン"
 
 #: master_preset.xml:4783(list_entry:display_value|group:Leisure|preset:Animals|value:tasmanian_devil)
 msgid "Tasmanian devil"
-msgstr ""
+msgstr "タスマニアデビル"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Tatar"
@@ -12250,7 +12250,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Tex-mex"
-msgstr ""
+msgstr "テキサス風メキシコ料理"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
@@ -12362,7 +12362,7 @@ msgstr ""
 #: master_preset.xml:1200(combo:display_values|key:playground:theme)
 #: master_preset.xml:4785(list_entry:display_value|group:Leisure|preset:Animals|value:tiger)
 msgid "Tiger"
-msgstr ""
+msgstr "トラ"
 
 #: master_preset.xml:11723(item:name|group:Crafts|preset:Tiler)
 msgid "Tiler"
@@ -12655,7 +12655,7 @@ msgstr ""
 #: master_preset.xml:3149(group:name|group:Transport)
 #: master_preset.xml:5263(multiselect:display_values|group:Culture|preset:Museum|key:museum)
 msgid "Transport"
-msgstr ""
+msgstr "交通"
 
 #: master_preset.xml:7968(combo:display_values|group:Man_Made|preset:Street_cabinet|key:street_cabinet)
 msgid "Transport management"
@@ -13727,7 +13727,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Wings"
-msgstr ""
+msgstr "手羽先"
 
 #: master_preset.xml:197(check:text|key:winter_road)
 #: master_preset.xml:228(check:text|key:winter_road)
@@ -13752,7 +13752,7 @@ msgstr "店舗付"
 
 #: master_preset.xml:4792(list_entry:display_value|group:Leisure|preset:Animals|value:wolf)
 msgid "Wolf"
-msgstr ""
+msgstr "オオカミ"
 
 #: master_preset.xml:579(list_entry:short_description|value:women)
 msgid "Women"
@@ -13797,7 +13797,7 @@ msgstr ""
 
 #: master_preset.xml:4793(list_entry:display_value|group:Leisure|preset:Animals|value:yak)
 msgid "Yak"
-msgstr ""
+msgstr "ヤク"
 
 #: master_preset.xml:3310(item:name|group:Railway|preset:Yard)
 msgid "Yard"
@@ -16301,7 +16301,7 @@ msgstr ""
 #: master_preset.xml:890(combo:text|key:bridge:structure)
 msgctxt "bridge"
 msgid "Structure"
-msgstr "トンネルの種類"
+msgstr "構造"
 
 #: master_preset.xml:8093(combo:display_values|group:Bridges|preset:Movable_Bridge|key:bridge:movable)
 msgctxt "bridge"
@@ -16404,7 +16404,7 @@ msgstr "茶"
 #: master_preset.xml:8427(combo:text|preset:Power_Tower|key:colour)
 msgctxt "colour"
 msgid "Color (HTML name or hexadecimal code)"
-msgstr ""
+msgstr "色 (HTML名または16進コード)"
 
 #: master_preset.xml:6018(combo:text|group:Emergency|preset:Fire_Hydrant|key:cap:colour)
 msgctxt "colour"
@@ -16421,7 +16421,7 @@ msgstr ""
 #: master_preset.xml:6018(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:cap:colour)
 msgctxt "colour"
 msgid "Gray"
-msgstr ""
+msgstr "灰"
 
 #: master_preset.xml:1010(combo:display_values|key:colour)
 #: master_preset.xml:6015(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:bonnet:colour)
@@ -16435,21 +16435,21 @@ msgstr "緑"
 #: master_preset.xml:6018(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:cap:colour)
 msgctxt "colour"
 msgid "Orange"
-msgstr ""
+msgstr "オレンジ"
 
 #: master_preset.xml:1010(combo:display_values|key:colour)
 #: master_preset.xml:6015(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:bonnet:colour)
 #: master_preset.xml:6018(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:cap:colour)
 msgctxt "colour"
 msgid "Peru"
-msgstr ""
+msgstr "ペールブルー"
 
 #: master_preset.xml:1010(combo:display_values|key:colour)
 #: master_preset.xml:6015(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:bonnet:colour)
 #: master_preset.xml:6018(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:cap:colour)
 msgctxt "colour"
 msgid "Purple"
-msgstr ""
+msgstr "紫"
 
 #: master_preset.xml:1010(combo:display_values|key:colour)
 #: master_preset.xml:6015(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:bonnet:colour)
@@ -16463,7 +16463,7 @@ msgstr "赤"
 #: master_preset.xml:6018(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:cap:colour)
 msgctxt "colour"
 msgid "Silver"
-msgstr ""
+msgstr "銀"
 
 #: master_preset.xml:1010(combo:display_values|key:colour)
 #: master_preset.xml:6015(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:bonnet:colour)
@@ -16502,183 +16502,183 @@ msgstr ""
 #: master_preset.xml:1106(list_entry:short_description|value:abortion)
 msgctxt "healthcare"
 msgid "Abortion"
-msgstr ""
+msgstr "妊娠中絶"
 
 #: master_preset.xml:5876(list_entry:short_description|group:Health|preset:Alternative_medicine|value:acupuncture)
 msgctxt "healthcare"
 msgid "Acupuncture"
-msgstr ""
+msgstr "鍼治療"
 
 #: master_preset.xml:1108(list_entry:short_description|value:allergology)
 msgctxt "healthcare"
 msgid "Allergology"
-msgstr ""
+msgstr "アレルギー科"
 
 #: master_preset.xml:5877(list_entry:short_description|group:Health|preset:Alternative_medicine|value:anthroposophical)
 msgctxt "healthcare"
 msgid "Anthroposophic medicine"
-msgstr ""
+msgstr "アントロポゾフィー医学"
 
 #: master_preset.xml:5878(list_entry:short_description|group:Health|preset:Alternative_medicine|value:applied_kinesiology)
 msgctxt "healthcare"
 msgid "Applied kinesiology"
-msgstr ""
+msgstr "アプライドキネシオロジー"
 
 #: master_preset.xml:5879(list_entry:short_description|group:Health|preset:Alternative_medicine|value:aromatherapy)
 msgctxt "healthcare"
 msgid "Aromatherapy"
-msgstr ""
+msgstr "アロマセラピー"
 
 #: master_preset.xml:5880(list_entry:short_description|group:Health|preset:Alternative_medicine|value:ayurveda)
 msgctxt "healthcare"
 msgid "Ayurveda"
-msgstr ""
+msgstr "アーユルヴェーダ"
 
 #: master_preset.xml:5867(combo:display_values|group:Health|preset:Laboratory|key:healthcare:speciality)
 msgctxt "healthcare"
 msgid "Biology"
-msgstr ""
+msgstr "生物学"
 
 #: master_preset.xml:5867(combo:display_values|group:Health|preset:Laboratory|key:healthcare:speciality)
 msgctxt "healthcare"
 msgid "Blood check"
-msgstr ""
+msgstr "血液検査"
 
 #: master_preset.xml:1109(list_entry:short_description|value:cardiology)
 msgctxt "healthcare"
 msgid "Cardiology"
-msgstr ""
+msgstr "循環器科"
 
 #: master_preset.xml:1110(list_entry:short_description|value:child_psychiatry)
 msgctxt "healthcare"
 msgid "Child psychiatry"
-msgstr ""
+msgstr "小児精神科"
 
 #: master_preset.xml:1111(list_entry:short_description|value:chiropractic)
 #: master_preset.xml:5881(list_entry:short_description|group:Health|preset:Alternative_medicine|value:chiropractic)
 msgctxt "healthcare"
 msgid "Chiropractic"
-msgstr ""
+msgstr "カイロプラクティック"
 
 #: master_preset.xml:5867(combo:display_values|group:Health|preset:Laboratory|key:healthcare:speciality)
 msgctxt "healthcare"
 msgid "Clinical pathology"
-msgstr ""
+msgstr "臨床病理学"
 
 #: master_preset.xml:1112(list_entry:short_description|value:dermatology)
 msgctxt "healthcare"
 msgid "Dermatology"
-msgstr ""
+msgstr "皮膚科"
 
 #: master_preset.xml:1107(list_entry:short_description|value:fertility)
 msgctxt "healthcare"
 msgid "Fertility"
-msgstr ""
+msgstr "不妊治療"
 
 #: master_preset.xml:1105(list_entry:short_description|value:general)
 msgctxt "healthcare"
 msgid "General"
-msgstr ""
+msgstr "総合"
 
 #: master_preset.xml:1113(list_entry:short_description|value:gynaecology)
 msgctxt "healthcare"
 msgid "Gynaecology"
-msgstr ""
+msgstr "産婦人科"
 
 #: master_preset.xml:5882(list_entry:short_description|group:Health|preset:Alternative_medicine|value:herbalism)
 msgctxt "healthcare"
 msgid "Herbalism"
-msgstr ""
+msgstr "本草学"
 
 #: master_preset.xml:5883(list_entry:short_description|group:Health|preset:Alternative_medicine|value:homeopathy)
 msgctxt "healthcare"
 msgid "Homeopathy"
-msgstr ""
+msgstr "ホメオパシー"
 
 #: master_preset.xml:5884(list_entry:short_description|group:Health|preset:Alternative_medicine|value:hydrotherapy)
 msgctxt "healthcare"
 msgid "Hydrotherapy"
-msgstr ""
+msgstr "水治療"
 
 #: master_preset.xml:5885(list_entry:short_description|group:Health|preset:Alternative_medicine|value:hypnosis)
 msgctxt "healthcare"
 msgid "Hypnosis"
-msgstr ""
+msgstr "催眠"
 
 #: master_preset.xml:1114(list_entry:short_description|value:internal)
 msgctxt "healthcare"
 msgid "Internal"
-msgstr ""
+msgstr "内科"
 
 #: master_preset.xml:5886(list_entry:short_description|group:Health|preset:Alternative_medicine|value:naturopathy)
 msgctxt "healthcare"
 msgid "Naturopathy"
-msgstr ""
+msgstr "自然療法"
 
 #: master_preset.xml:1115(list_entry:short_description|value:neurology)
 msgctxt "healthcare"
 msgid "Neurology"
-msgstr ""
+msgstr "神経内科"
 
 #: master_preset.xml:1116(list_entry:short_description|value:ophthalmology)
 msgctxt "healthcare"
 msgid "Ophthalmology"
-msgstr ""
+msgstr "眼科"
 
 #: master_preset.xml:1117(list_entry:short_description|value:orthopaedics)
 msgctxt "healthcare"
 msgid "Orthopaedics"
-msgstr ""
+msgstr "整形外科"
 
 #: master_preset.xml:5887(list_entry:short_description|group:Health|preset:Alternative_medicine|value:osteopathy)
 msgctxt "healthcare"
 msgid "Osteopathy"
-msgstr ""
+msgstr "オステオパシー"
 
 #: master_preset.xml:1118(list_entry:short_description|value:otolaryngology)
 msgctxt "healthcare"
 msgid "Otolaryngology"
-msgstr ""
+msgstr "耳鼻咽喉科"
 
 #: master_preset.xml:1120(list_entry:short_description|value:paediatrics)
 msgctxt "healthcare"
 msgid "Paediatrics"
-msgstr ""
+msgstr "小児科"
 
 #: master_preset.xml:1121(list_entry:short_description|value:plastic_surgery)
 msgctxt "healthcare"
 msgid "Plastic surgery"
-msgstr ""
+msgstr "形成外科"
 
 #: master_preset.xml:1119(list_entry:short_description|value:podiatry)
 msgctxt "healthcare"
 msgid "Podiatry"
-msgstr ""
+msgstr "足病診療"
 
 #: master_preset.xml:1122(list_entry:short_description|value:psychiatry)
 msgctxt "healthcare"
 msgid "Psychiatry"
-msgstr ""
+msgstr "精神科"
 
 #: master_preset.xml:1123(list_entry:short_description|value:radiology)
 msgctxt "healthcare"
 msgid "Radiology"
-msgstr ""
+msgstr "放射線科"
 
 #: master_preset.xml:5888(list_entry:short_description|group:Health|preset:Alternative_medicine|value:reflexology)
 msgctxt "healthcare"
 msgid "Reflexology"
-msgstr ""
+msgstr "リフレクソロジー"
 
 #: master_preset.xml:5889(list_entry:short_description|group:Health|preset:Alternative_medicine|value:reiki)
 msgctxt "healthcare"
 msgid "Reiki"
-msgstr ""
+msgstr "レイキ"
 
 #: master_preset.xml:5890(list_entry:short_description|group:Health|preset:Alternative_medicine|value:shiatsu)
 msgctxt "healthcare"
 msgid "Shiatsu"
-msgstr ""
+msgstr "指圧"
 
 #: master_preset.xml:1104(multiselect:text|key:healthcare:speciality)
 #: master_preset.xml:5774(combo:text|group:Health|preset:Dentist|key:healthcare:speciality)
@@ -16686,27 +16686,27 @@ msgstr ""
 #: master_preset.xml:5875(multiselect:text|group:Health|preset:Alternative_medicine|key:healthcare:speciality)
 msgctxt "healthcare"
 msgid "Speciality"
-msgstr ""
+msgstr "専門"
 
 #: master_preset.xml:5891(list_entry:short_description|group:Health|preset:Alternative_medicine|value:traditional_chinese_medicine)
 msgctxt "healthcare"
 msgid "Traditional Chinese medicine"
-msgstr ""
+msgstr "中国医学"
 
 #: master_preset.xml:5892(list_entry:short_description|group:Health|preset:Alternative_medicine|value:tuina)
 msgctxt "healthcare"
 msgid "Tuī ná"
-msgstr ""
+msgstr "推拿"
 
 #: master_preset.xml:5893(list_entry:short_description|group:Health|preset:Alternative_medicine|value:unani)
 msgctxt "healthcare"
 msgid "Unani medicine"
-msgstr ""
+msgstr "ユナニ医学"
 
 #: master_preset.xml:1124(list_entry:short_description|value:urology)
 msgctxt "healthcare"
 msgid "Urology"
-msgstr ""
+msgstr "泌尿器科"
 
 #: master_preset.xml:1150(combo:display_values|key:building:use)
 msgctxt "building"
@@ -19335,7 +19335,7 @@ msgstr ""
 #: master_preset.xml:6530(list_entry:short_description|group:Facilities|preset:Shelter|value:public_transport)
 msgctxt "shelter"
 msgid "Public transport"
-msgstr ""
+msgstr "公共交通機関"
 
 #: master_preset.xml:6531(list_entry:short_description|group:Facilities|preset:Shelter|value:rock_shelter)
 msgctxt "shelter"
@@ -20539,17 +20539,17 @@ msgstr "倉庫"
 #: master_preset.xml:10763(combo:text|group:Addresses_and_Contact|preset:Address|key:addr:state)
 msgctxt "addr:"
 msgid "State"
-msgstr "統計情報"
+msgstr "州"
 
 #: master_preset.xml:10807(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:facebook)
 msgctxt "social_network"
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #: master_preset.xml:10808(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:foursquare)
 msgctxt "social_network"
 msgid "Foursquare"
-msgstr ""
+msgstr "Foursquare"
 
 #: master_preset.xml:10809(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:instagram)
 msgctxt "social_network"
@@ -20559,62 +20559,62 @@ msgstr ""
 #: master_preset.xml:10810(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:linkedin)
 msgctxt "social_network"
 msgid "Linkedin"
-msgstr ""
+msgstr "Linkedin"
 
 #: master_preset.xml:10811(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:ok)
 msgctxt "social_network"
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: master_preset.xml:10812(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:pinterest)
 msgctxt "social_network"
 msgid "Pinterest"
-msgstr ""
+msgstr "Pinterest"
 
 #: master_preset.xml:10813(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:skype)
 msgctxt "social_network"
 msgid "Skype"
-msgstr ""
+msgstr "Skype"
 
 #: master_preset.xml:10814(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:telegram)
 msgctxt "social_network"
 msgid "Telegram"
-msgstr ""
+msgstr "Telegram"
 
 #: master_preset.xml:10815(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:tripadvisor)
 msgctxt "social_network"
 msgid "Tripadvisor"
-msgstr ""
+msgstr "Tripadvisor"
 
 #: master_preset.xml:10816(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:twitter)
 msgctxt "social_network"
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: master_preset.xml:10817(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:vk)
 msgctxt "social_network"
 msgid "Vk"
-msgstr ""
+msgstr "Vk"
 
 #: master_preset.xml:10818(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:whatsapp)
 msgctxt "social_network"
 msgid "Whatsapp"
-msgstr ""
+msgstr "Whatsapp"
 
 #: master_preset.xml:10819(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:xing)
 msgctxt "social_network"
 msgid "Xing"
-msgstr ""
+msgstr "Xing"
 
 #: master_preset.xml:10820(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:yelp)
 msgctxt "social_network"
 msgid "Yelp"
-msgstr ""
+msgstr "Yelp"
 
 #: master_preset.xml:10821(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:youtube)
 msgctxt "social_network"
 msgid "Youtube"
-msgstr ""
+msgstr "Youtube"
 
 #: master_preset.xml:10830(label:text|group:Annotation|preset:Description)
 msgctxt "description=*"

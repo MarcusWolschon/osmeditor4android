@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-03-14 16:37+0100\n"
-"PO-Revision-Date: 2021-03-14 15:40+0000\n"
+"PO-Revision-Date: 2021-04-24 20:13+0000\n"
 "Last-Translator: Gábor Babos <gabor.babos@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/openstreetmap/presets/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -1048,7 +1048,7 @@ msgstr "Rendelkezésre áll"
 
 #: master_preset.xml:2596(item:name|group:Passageways|preset:Avalanche_Protector)
 msgid "Avalanche Protector"
-msgstr "Lavina elleni létesítmény"
+msgstr "Lavinavédelmi létesítmény"
 
 #: master_preset.xml:9914(check:text|preset:Payment_Methods|key:payment:ep_avant)
 msgid "Avant (fi)"
@@ -2959,7 +2959,7 @@ msgstr "Országkód"
 
 #: master_preset.xml:10105(item:name|group:Places|preset:County)
 msgid "County"
-msgstr "Ország"
+msgstr "Megye"
 
 #: master_preset.xml:6010(text:text|group:Emergency|preset:Fire_Hydrant|key:couplings:diameters)
 msgid "Coupling diameters (separated by ;)"
@@ -3771,7 +3771,7 @@ msgstr "holland"
 
 #: master_preset.xml:7896(item:name|group:Man_Made|preset:Dyke)
 msgid "Dyke"
-msgstr "Árvízvédelmi gát"
+msgstr "Árvízvédelmi töltés"
 
 #: master_preset.xml:1233(combo:display_values|key:climbing:orientation)
 msgid "E"
@@ -3915,7 +3915,7 @@ msgstr "Vészhelyzet"
 
 #: master_preset.xml:6086(item:name|group:Emergency|preset:Emergency_Access_Point)
 msgid "Emergency Access Point"
-msgstr "Vészhelyzeti elérési pont"
+msgstr "Mentési pont"
 
 #: master_preset.xml:6045(item:name|group:Emergency|preset:Emergency_Phone)
 msgid "Emergency Phone"
@@ -3927,7 +3927,7 @@ msgstr "Segélyhívó telefonszám"
 
 #: master_preset.xml:2103(item:name|preset:Emergency_bay)
 msgid "Emergency bay"
-msgstr "Vészhelyzeti leálló öböl"
+msgstr "Vészhelyzeti leállóöböl"
 
 #: master_preset.xml:1654(label:text|group:Streets|preset:Escape)
 msgid ""
@@ -4271,7 +4271,7 @@ msgstr "Tűzjelző készülék"
 
 #: master_preset.xml:5943(item:name|group:Emergency|preset:Fire_Extinguisher)
 msgid "Fire Extinguisher"
-msgstr "Tűzoltókészülék"
+msgstr "Tűzoltó készülék"
 
 #: master_preset.xml:5957(item:name|group:Emergency|preset:Fire_Hose)
 msgid "Fire Hose"
@@ -4553,7 +4553,7 @@ msgstr "törékeny"
 
 #: master_preset.xml:9218(item:name|group:Home_furnishing_and_decoration|preset:Frame)
 msgid "Frame"
-msgstr "Képkeretbolt"
+msgstr "Képkeretező"
 
 #: master_preset.xml:8249(list_entry:short_description|group:Power_Generator|preset:Water_Turbine|value:francis_turbine)
 msgid "Francis turbine"
@@ -5174,7 +5174,7 @@ msgstr "Handicap-érték"
 
 #: master_preset.xml:11514(item:name|group:Crafts|preset:Handicraft)
 msgid "Handicraft"
-msgstr "Kézműves"
+msgstr "Kézműves műhely"
 
 #: master_preset.xml:1943(checkgroup:text|group:Ways|preset:Steps)
 #: master_preset.xml:1944(check:text|group:Ways|preset:Steps|key:handrail)
@@ -9570,7 +9570,7 @@ msgstr "Van"
 #: master_preset.xml:3178(item:name|group:Railway|preset:Preserved)
 #: master_preset.xml:3231(combo:display_values|group:Railway|preset:Railway_construction|key:construction)
 msgid "Preserved"
-msgstr "Nosztalgiavonal"
+msgstr "Nosztalgia-vasútvonal"
 
 #: master_preset.xml:7804(text:text|group:Man_Made|preset:Pipeline|key:pressure)
 msgid "Pressure (bar)"
@@ -11437,7 +11437,7 @@ msgstr "Különleges terepre való járművel: traktor, quad"
 #: master_preset.xml:4797(text:text|group:Leisure|preset:Animals|key:species)
 #: master_preset.xml:720(text:text|key:species)
 msgid "Species"
-msgstr "Faj"
+msgstr "Faj (latin név)"
 
 #: master_preset.xml:5858(list_entry:short_description|group:Health|preset:Other_healthcare_professionals|value:speech_therapist)
 msgid "Speech therapist"
@@ -11916,7 +11916,7 @@ msgstr "Szörf"
 
 #: master_preset.xml:8014(item:name|group:Man_Made|preset:Surveillance)
 msgid "Surveillance"
-msgstr "Térfigyelés"
+msgstr "Térfigyelő berendezés"
 
 #: master_preset.xml:2197(combo:text|preset:Elevator|key:surveillance)
 msgid "Surveillance Camera"
@@ -13412,7 +13412,7 @@ msgstr "Élményfürdő, strand"
 
 #: master_preset.xml:6569(item:name|group:Facilities|preset:Water_Point)
 msgid "Water Point"
-msgstr "Vízcsatlakozás lakókocsinak"
+msgstr "Vízcsatlakozás (pl. lakókocsinak)"
 
 #: master_preset.xml:6024(item:name|group:Emergency|preset:Water_Tank)
 msgid "Water Tank"
@@ -13448,7 +13448,7 @@ msgstr "Vízkezelés"
 
 #: master_preset.xml:3053(item:name|group:Shipping|preset:Water_point)
 msgid "Water point"
-msgstr "Vízcsatlakozás lakókocsinak"
+msgstr "Vízcsatlakozás (pl. hajónak)"
 
 #: master_preset.xml:5983(combo:text|group:Emergency|preset:Fire_Hydrant|key:water_source)
 msgid "Water source"
@@ -13803,7 +13803,7 @@ msgstr "Jak"
 
 #: master_preset.xml:3310(item:name|group:Railway|preset:Yard)
 msgid "Yard"
-msgstr "Rakodó"
+msgstr "Rendező pályaudvar"
 
 #: master_preset.xml:1128(combo:display_values|key:roof:colour)
 #: master_preset.xml:1151(combo:display_values|key:building:colour)
@@ -17616,7 +17616,7 @@ msgstr "Buszmegálló"
 #: master_preset.xml:1671(item:name|group:Streets|preset:Construction)
 msgctxt "Highway"
 msgid "Construction"
-msgstr "Szerkezet"
+msgstr "Épülő út"
 
 #: master_preset.xml:2724(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
@@ -19853,7 +19853,7 @@ msgstr "Obszervatórium"
 #: master_preset.xml:8067(item:name|group:Man_Made|preset:Telescope)
 msgctxt "man_made"
 msgid "Telescope"
-msgstr "Teleszkók"
+msgstr "Teleszkóp"
 
 #: master_preset.xml:7955(combo:display_values|group:Man_Made|preset:Street_Lamp|key:lamp_type)
 msgctxt "lamp_type"

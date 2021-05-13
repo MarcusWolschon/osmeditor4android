@@ -1,15 +1,16 @@
 # 
 # Translators:
 # jmaspons <joanmaspons@gmail.com>, 2021
-# jmontane, 2016,2018
+# Joan Montané, 2016,2018
+# Joan Montané, 2021
 # JOAQUIN GARCIA <joaquin.garcima@gmail.com>, 2017
 # Jose Luis Infante <jl@llefia.org>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-03-14 16:37+0100\n"
-"PO-Revision-Date: 2021-03-14 15:40+0000\n"
-"Last-Translator: jmontane\n"
+"PO-Revision-Date: 2021-05-07 09:27+0000\n"
+"Last-Translator: Joan Montané\n"
 "Language-Team: Catalan (http://www.transifex.com/openstreetmap/presets/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4503,7 +4504,7 @@ msgstr ""
 
 #: master_preset.xml:10363(item:name|group:Nature|preset:Forest)
 msgid "Forest"
-msgstr ""
+msgstr "Bosc"
 
 #: master_preset.xml:11920(combo:display_values|group:Offices|preset:Government|key:government)
 #: master_preset.xml:12109(item:name|group:Offices|preset:Forestry)
@@ -10455,7 +10456,7 @@ msgstr ""
 
 #: master_preset.xml:7566(item:name|group:Indoor_elements|preset:Room)
 msgid "Room"
-msgstr ""
+msgstr "Habitació"
 
 #: master_preset.xml:7548(text:text|group:Indoor_elements|preset:Indoor_area|key:ref)
 #: master_preset.xml:7570(text:text|group:Indoor_elements|preset:Room|key:ref)

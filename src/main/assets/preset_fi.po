@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-03-14 16:37+0100\n"
-"PO-Revision-Date: 2021-03-14 15:40+0000\n"
-"Last-Translator: Aleksi Kinnunen <aleksi.kinnunen@outlook.com>\n"
+"PO-Revision-Date: 2021-05-10 19:28+0000\n"
+"Last-Translator: Juhana Uuttu <rexroom@sci.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/openstreetmap/presets/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1815,7 +1815,7 @@ msgstr "Purettu tontti"
 
 #: master_preset.xml:4413(item:name|group:Food+Drinks|preset:Bubble_Tea_Cafe)
 msgid "Bubble Tea Cafe"
-msgstr ""
+msgstr "Kuplateekahvila"
 
 #: master_preset.xml:1350(combo:display_values|key:fountain)
 msgid "Bubbler"
@@ -2933,7 +2933,7 @@ msgstr ""
 #: master_preset.xml:9352(item:name|group:For_the_body|preset:Cosmetics)
 #: master_preset.xml:9371(list_entry:short_description|group:For_the_body|preset:Beauty|value:cosmetics)
 msgid "Cosmetics"
-msgstr ""
+msgstr "Kosmetiikka"
 
 #: master_preset.xml:562(list_entry:short_description|value:costumes)
 msgid "Costumes"
@@ -20500,7 +20500,7 @@ msgstr ""
 #: master_preset.xml:10671(combo:display_values|group:Land_use|preset:Industrial_area|key:industrial)
 msgctxt "industrial"
 msgid "Port"
-msgstr ""
+msgstr "Paapuuri"
 
 #: master_preset.xml:10671(combo:display_values|group:Land_use|preset:Industrial_area|key:industrial)
 msgctxt "industrial"

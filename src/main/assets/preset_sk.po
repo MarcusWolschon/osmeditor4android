@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-03-14 16:37+0100\n"
-"PO-Revision-Date: 2021-03-14 15:40+0000\n"
+"PO-Revision-Date: 2021-04-23 17:02+0000\n"
 "Last-Translator: Mashin <machyna@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/openstreetmap/presets/language/sk/)\n"
 "MIME-Version: 1.0\n"
@@ -933,7 +933,7 @@ msgstr "Ázijská"
 #: master_preset.xml:63(combo:display_values|key:surface)
 #: master_preset.xml:7357(combo:display_values|group:Motorsport|preset:Model_Aerodrome|key:surface)
 msgid "Asphalt"
-msgstr ""
+msgstr "Asfalt"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Assamese"
@@ -1230,7 +1230,7 @@ msgstr ""
 
 #: master_preset.xml:4986(combo:text|group:Leisure|preset:Dog_Park|key:barrier)
 msgid "Barrier"
-msgstr ""
+msgstr "Prekážka"
 
 #: master_preset.xml:2244(group:name|group:Barriers)
 msgid "Barriers"
@@ -2756,7 +2756,7 @@ msgstr ""
 #: master_preset.xml:63(combo:display_values|key:surface)
 #: master_preset.xml:7357(combo:display_values|group:Motorsport|preset:Model_Aerodrome|key:surface)
 msgid "Concrete"
-msgstr ""
+msgstr "Betón"
 
 #: master_preset.xml:2691(item:name|group:Access_Restrictions|preset:Cond._&_direct._max_speed)
 msgid "Cond. & direct. max speed"
@@ -3504,7 +3504,7 @@ msgstr ""
 
 #: master_preset.xml:68(combo:display_values|key:surface)
 msgid "Dirt"
-msgstr ""
+msgstr "Zemina"
 
 #: master_preset.xml:950(list_entry:display_value|value:disabled)
 msgid "Disabled"
@@ -3620,7 +3620,7 @@ msgstr ""
 
 #: master_preset.xml:7004(item:name|group:Sport|preset:Dog_Racing)
 msgid "Dog Racing"
-msgstr ""
+msgstr "Preteky psov"
 
 #: master_preset.xml:6441(multiselect:display_values|group:Facilities|preset:Waste_Basket/Trash_Can|key:waste)
 msgid "Dog excrement"
@@ -4986,7 +4986,7 @@ msgstr ""
 #: master_preset.xml:68(combo:display_values|key:surface)
 #: master_preset.xml:7357(combo:display_values|group:Motorsport|preset:Model_Aerodrome|key:surface)
 msgid "Grass"
-msgstr ""
+msgstr "Tráva"
 
 #: master_preset.xml:10377(item:name|group:Nature|preset:Grassland)
 msgid "Grassland"
@@ -4995,7 +4995,7 @@ msgstr ""
 #: master_preset.xml:1130(combo:display_values|key:roof:material)
 #: master_preset.xml:2960(combo:display_values|group:Water|preset:Beach|key:surface)
 msgid "Gravel"
-msgstr ""
+msgstr "Štrk"
 
 #: master_preset.xml:10623(item:name|group:Land_use|preset:Graveyard)
 msgid "Graveyard"
@@ -5055,7 +5055,7 @@ msgstr ""
 #: master_preset.xml:68(combo:display_values|key:surface)
 #: master_preset.xml:7357(combo:display_values|group:Motorsport|preset:Model_Aerodrome|key:surface)
 msgid "Ground"
-msgstr ""
+msgstr "Zem"
 
 #: master_preset.xml:5985(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:groundwater)
 #: master_preset.xml:7983(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:groundwater)
@@ -6373,7 +6373,7 @@ msgstr ""
 #: master_preset.xml:3185(item:name|group:Railway|preset:Light_Rail)
 #: master_preset.xml:3863(check:text|group:Public_Transport|preset:Stop_Position|key:light_rail)
 msgid "Light Rail"
-msgstr ""
+msgstr "Rychlodráha"
 
 #: master_preset.xml:3231(combo:display_values|group:Railway|preset:Railway_construction|key:construction)
 #: master_preset.xml:3761(combo:display_values|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:route)
@@ -6644,7 +6644,7 @@ msgstr ""
 
 #: master_preset.xml:7852(item:name|group:Man_Made|preset:Manhole)
 msgid "Manhole"
-msgstr ""
+msgstr "Vstup do šachty"
 
 #: master_preset.xml:8574(list_entry:display_value|group:Historic_Places_&_Objects|preset:Historic_object|value:manor)
 #: master_preset.xml:8611(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
@@ -8762,7 +8762,7 @@ msgstr ""
 
 #: master_preset.xml:1639(item:name|group:Streets|preset:Parking_Aisle)
 msgid "Parking Aisle"
-msgstr ""
+msgstr "Parkovacia ulička"
 
 #: master_preset.xml:3456(item:name|group:Car|preset:Parking_Entrance)
 msgid "Parking Entrance"
@@ -13023,7 +13023,7 @@ msgstr "Nekonvenčné"
 
 #: master_preset.xml:68(combo:display_values|key:surface)
 msgid "Unpaved"
-msgstr ""
+msgstr "Nespevnený"
 
 #: master_preset.xml:352(list_entry:short_description|value:yes)
 #: master_preset.xml:364(list_entry:short_description|value:yes)
@@ -13764,7 +13764,7 @@ msgstr ""
 
 #: master_preset.xml:1130(combo:display_values|key:roof:material)
 msgid "Wood"
-msgstr ""
+msgstr "Drevo"
 
 #: master_preset.xml:5363(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 msgid "Wooden cabinet"
@@ -14370,7 +14370,7 @@ msgstr ""
 #: master_preset.xml:8426(combo:display_values|preset:Power_Tower|key:material)
 msgctxt "material"
 msgid "Concrete"
-msgstr ""
+msgstr "Betón"
 
 #: master_preset.xml:2379(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
@@ -14501,14 +14501,14 @@ msgstr ""
 #: master_preset.xml:8426(combo:display_values|preset:Power_Tower|key:material)
 msgctxt "material"
 msgid "Wood"
-msgstr ""
+msgstr "Drevo"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Asphalt"
-msgstr ""
+msgstr "Asfalt"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14529,7 +14529,7 @@ msgstr ""
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Concrete"
-msgstr ""
+msgstr "Betón"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14550,7 +14550,7 @@ msgstr ""
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Dirt"
-msgstr ""
+msgstr "Zemina"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14564,7 +14564,7 @@ msgstr ""
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Grass"
-msgstr ""
+msgstr "Tráva"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14578,14 +14578,14 @@ msgstr ""
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Gravel"
-msgstr ""
+msgstr "Štrk"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Ground"
-msgstr ""
+msgstr "Zem"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14606,7 +14606,7 @@ msgstr "Blato"
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Paved"
-msgstr ""
+msgstr "Spevnený"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14656,14 +14656,14 @@ msgstr ""
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Unpaved"
-msgstr ""
+msgstr "Nespevnený"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Wood"
-msgstr ""
+msgstr "Drevo"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 msgctxt "surface"
@@ -16362,7 +16362,7 @@ msgstr "Bilboard"
 #: master_preset.xml:933(combo:display_values|key:support)
 msgctxt "mounting/support"
 msgid "Ground"
-msgstr ""
+msgstr "Zem"
 
 #: master_preset.xml:933(combo:display_values|key:support)
 msgctxt "mounting/support"
@@ -16860,7 +16860,7 @@ msgstr ""
 #: master_preset.xml:1152(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Concrete"
-msgstr ""
+msgstr "Betón"
 
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 #: master_preset.xml:7422(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
@@ -17050,7 +17050,7 @@ msgstr ""
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Houseboat"
-msgstr ""
+msgstr "Hausbót"
 
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -17471,7 +17471,7 @@ msgstr ""
 #: master_preset.xml:1152(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Wood"
-msgstr ""
+msgstr "Drevo"
 
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 #: master_preset.xml:7422(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
@@ -18303,7 +18303,7 @@ msgstr ""
 #: master_preset.xml:10355(item:name|group:Nature|preset:Wood)
 msgctxt "natural"
 msgid "Wood"
-msgstr ""
+msgstr "Drevo"
 
 #: master_preset.xml:2995(combo:text|group:Shipping|preset:Ferry_Terminal|key:cargo)
 msgctxt "cargo"
@@ -19746,7 +19746,7 @@ msgstr ""
 #: master_preset.xml:7843(combo:display_values|group:Man_Made|preset:Marker|key:marker)
 msgctxt "marker"
 msgid "Ground"
-msgstr ""
+msgstr "Zem"
 
 #: master_preset.xml:7843(combo:display_values|group:Man_Made|preset:Marker|key:marker)
 msgctxt "marker"
@@ -20244,7 +20244,7 @@ msgstr ""
 #: master_preset.xml:10499(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Grass"
-msgstr ""
+msgstr "Tráva"
 
 #: master_preset.xml:10499(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"

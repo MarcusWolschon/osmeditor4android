@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-03-14 16:37+0100\n"
-"PO-Revision-Date: 2021-03-14 15:40+0000\n"
-"Last-Translator: Ibrahim Saed <ibraheem5000@hotmail.com>\n"
+"PO-Revision-Date: 2021-04-24 02:12+0000\n"
+"Last-Translator: Abdullah Abdullrhman\n"
 "Language-Team: Arabic (http://www.transifex.com/openstreetmap/presets/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -381,7 +381,7 @@ msgstr ""
 
 #: master_preset.xml:661(combo:text|key:access)
 msgid "Access"
-msgstr ""
+msgstr "الوصول"
 
 #: master_preset.xml:2618(group:name|group:Access_Restrictions)
 msgid "Access Restrictions"
@@ -426,7 +426,7 @@ msgstr ""
 
 #: master_preset.xml:10766(item:name|group:Addresses_and_Contact|preset:Address_Interpolation)
 msgid "Address Interpolation"
-msgstr ""
+msgstr "عنوان الاستيفاء"
 
 #: master_preset.xml:10725(group:name|group:Addresses_and_Contact)
 msgid "Addresses and Contact"
@@ -582,7 +582,7 @@ msgstr ""
 #: master_preset.xml:2013(combo:display_values|group:Waypoints|preset:Stop|key:stop)
 #: master_preset.xml:5914(combo:display_values|group:Emergency|preset:Emergency_ward_entrance|key:emergency_ward_entrance)
 msgid "All"
-msgstr ""
+msgstr "الكل"
 
 #: master_preset.xml:2619(item:name|group:Access_Restrictions|preset:All_vehicles)
 msgid "All vehicles"
@@ -623,7 +623,7 @@ msgstr ""
 
 #: master_preset.xml:10769(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Alphabetic"
-msgstr ""
+msgstr "أبجدي"
 
 #: master_preset.xml:11163(combo:display_values|group:Routes|preset:Ski_Route|key:piste:type)
 msgid "Alpine"
@@ -660,11 +660,11 @@ msgstr ""
 
 #: master_preset.xml:6103(item:name|group:Social_Facilities|preset:Ambulatory_Care)
 msgid "Ambulatory Care"
-msgstr ""
+msgstr "الرعاية الإسعافية"
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "American"
-msgstr ""
+msgstr "أمريكي"
 
 #: master_preset.xml:9902(check:text|preset:Payment_Methods|key:payment:american_express)
 msgid "American Express"
@@ -724,7 +724,7 @@ msgstr ""
 #: master_preset.xml:6390(combo:display_values|group:Facilities|preset:Clock|key:display)
 #: master_preset.xml:8002(check:text|group:Man_Made|preset:Monitoring_Station|key:display:analog)
 msgid "Analog"
-msgstr ""
+msgstr "تناظري"
 
 #: master_preset.xml:740(combo:display_values|key:denomination)
 #: master_preset.xml:761(combo:display_values|key:denomination)
@@ -927,13 +927,13 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Asian"
-msgstr ""
+msgstr "آسيوي"
 
 #: master_preset.xml:60(combo:display_values|key:surface)
 #: master_preset.xml:63(combo:display_values|key:surface)
 #: master_preset.xml:7357(combo:display_values|group:Motorsport|preset:Model_Aerodrome|key:surface)
 msgid "Asphalt"
-msgstr ""
+msgstr "أسفلت/معبد"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Assamese"
@@ -1010,7 +1010,7 @@ msgstr ""
 
 #: master_preset.xml:7996(check:text|group:Man_Made|preset:Monitoring_Station|key:recording:automated)
 msgid "Automated"
-msgstr ""
+msgstr "آلي"
 
 #: master_preset.xml:5917(item:name|group:Emergency|preset:Automated_Defibrillator)
 msgid "Automated Defibrillator"
@@ -1113,12 +1113,12 @@ msgstr ""
 
 #: master_preset.xml:4309(check:text|group:Accommodation|preset:Campsite|key:backcountry)
 msgid "Backcountry"
-msgstr ""
+msgstr "منطقة تخييم بدون مرافق"
 
 #: master_preset.xml:6481(check:text|group:Facilities|preset:Bench|key:backrest)
 #: master_preset.xml:6492(check:text|group:Facilities|preset:Bleachers|key:backrest)
 msgid "Backrest"
-msgstr ""
+msgstr "كرسي بمسند للظهر"
 
 #: master_preset.xml:1950(combo:display_values|group:Ways|preset:Steps|key:conveying)
 #: master_preset.xml:1994(combo:display_values|group:Waypoints|preset:Traffic_Signal|key:traffic_signals:direction)
@@ -1630,7 +1630,7 @@ msgstr ""
 
 #: master_preset.xml:9319(item:name|group:Printed_Material|preset:Book_Store)
 msgid "Book Store"
-msgstr ""
+msgstr "مكتبة - متجر كتب"
 
 #: master_preset.xml:11416(item:name|group:Crafts|preset:Bookbinder)
 msgid "Bookbinder"
@@ -1814,7 +1814,7 @@ msgstr ""
 
 #: master_preset.xml:4413(item:name|group:Food+Drinks|preset:Bubble_Tea_Cafe)
 msgid "Bubble Tea Cafe"
-msgstr ""
+msgstr "مقهى شاي الفقاعات"
 
 #: master_preset.xml:1350(combo:display_values|key:fountain)
 msgid "Bubbler"
@@ -1908,7 +1908,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Burger"
-msgstr ""
+msgstr "برجر"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Burmese"
@@ -1920,7 +1920,7 @@ msgstr ""
 #: master_preset.xml:3894(check:text|group:Public_Transport|preset:Platform|key:bus)
 #: master_preset.xml:3951(combo:display_values|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:route)
 msgid "Bus"
-msgstr ""
+msgstr "حافلات"
 
 #: master_preset.xml:3213(item:name|group:Railway|preset:Bus_Guideway)
 msgid "Bus Guideway"
@@ -2422,7 +2422,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Chicken"
-msgstr ""
+msgstr "دجاج"
 
 #: master_preset.xml:5619(item:name|group:Education|preset:Childcare)
 msgid "Childcare"
@@ -2453,7 +2453,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Chinese"
-msgstr ""
+msgstr "صيني"
 
 #: master_preset.xml:5827(list_entry:short_description|group:Health|preset:Physiotherapist|value:chiropractic)
 msgid "Chiropractic"
@@ -2517,7 +2517,7 @@ msgstr ""
 #: master_preset.xml:4556(combo:display_values|group:Tourism|preset:Map|key:map_size)
 #: master_preset.xml:8662(combo:display_values|group:Historic_Places_&_Objects|preset:Archaeological_Site|key:site_type)
 msgid "City"
-msgstr ""
+msgstr "مدينة كبيرة"
 
 #: master_preset.xml:2115(item:name|preset:City_Limit)
 msgid "City Limit"
@@ -2742,7 +2742,7 @@ msgstr ""
 
 #: master_preset.xml:6643(item:name|group:Facilities|preset:Compressed_Air)
 msgid "Compressed Air"
-msgstr ""
+msgstr "منفاخ إطارات دراجات"
 
 #: master_preset.xml:6230(list_entry:display_value|group:Clubs|preset:Club|value:computer)
 #: master_preset.xml:9089(item:name|group:Electronics|preset:Computer)
@@ -2756,7 +2756,7 @@ msgstr ""
 #: master_preset.xml:63(combo:display_values|key:surface)
 #: master_preset.xml:7357(combo:display_values|group:Motorsport|preset:Model_Aerodrome|key:surface)
 msgid "Concrete"
-msgstr ""
+msgstr "خرسانة"
 
 #: master_preset.xml:2691(item:name|group:Access_Restrictions|preset:Cond._&_direct._max_speed)
 msgid "Cond. & direct. max speed"
@@ -2932,7 +2932,7 @@ msgstr ""
 #: master_preset.xml:9352(item:name|group:For_the_body|preset:Cosmetics)
 #: master_preset.xml:9371(list_entry:short_description|group:For_the_body|preset:Beauty|value:cosmetics)
 msgid "Cosmetics"
-msgstr ""
+msgstr "مستحضرات التجميل"
 
 #: master_preset.xml:562(list_entry:short_description|value:costumes)
 msgid "Costumes"
@@ -2949,7 +2949,7 @@ msgstr ""
 #: master_preset.xml:10087(item:name|group:Places|preset:Country)
 #: master_preset.xml:1246(text:text|key:country)
 msgid "Country"
-msgstr ""
+msgstr "الدولة"
 
 #: master_preset.xml:10750(combo:text|group:Addresses_and_Contact|preset:Address|key:addr:country)
 msgid "Country code"
@@ -2957,7 +2957,7 @@ msgstr ""
 
 #: master_preset.xml:10105(item:name|group:Places|preset:County)
 msgid "County"
-msgstr ""
+msgstr "المقاطعة/الإقليم"
 
 #: master_preset.xml:6010(text:text|group:Emergency|preset:Fire_Hydrant|key:couplings:diameters)
 msgid "Coupling diameters (separated by ;)"
@@ -3110,7 +3110,7 @@ msgstr ""
 
 #: master_preset.xml:7057(item:name|group:Sport|preset:Curling)
 msgid "Curling"
-msgstr ""
+msgstr "كيرلنغ"
 
 #: master_preset.xml:1035(text:text|key:cash_withdrawal:currency)
 msgid "Currency"
@@ -3154,7 +3154,7 @@ msgstr ""
 #: master_preset.xml:165(check:text|key:cutting)
 #: master_preset.xml:224(check:text|key:cutting)
 msgid "Cutting"
-msgstr ""
+msgstr "قطع تضاريس لطريق ما"
 
 #: master_preset.xml:2273(item:name|group:Barriers|preset:Cycle_Barrier)
 msgid "Cycle Barrier"
@@ -3169,7 +3169,7 @@ msgstr ""
 #: master_preset.xml:4656(check:text|group:Tourism|preset:Route_marker|key:bicycle)
 #: master_preset.xml:6994(item:name|group:Sport|preset:Cycling)
 msgid "Cycling"
-msgstr ""
+msgstr "ركوب الدراجات"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Czech"
@@ -3308,7 +3308,7 @@ msgstr ""
 #: master_preset.xml:770(combo:text|key:denomination)
 #: master_preset.xml:773(combo:text|key:denomination)
 msgid "Denomination"
-msgstr ""
+msgstr "المذهب/الطائفة"
 
 #: master_preset.xml:5769(item:name|group:Health|preset:Dentist)
 msgid "Dentist"
@@ -3356,14 +3356,14 @@ msgstr "الوصف"
 #: master_preset.xml:1919(combo:display_values|group:Ways|preset:Dedicated_Footway|key:bicycle)
 #: master_preset.xml:2195(combo:display_values|preset:Elevator|key:goods)
 msgid "Designated"
-msgstr ""
+msgstr "مخصص/محدد"
 
 #: master_preset.xml:11198(text:text|group:Routes|preset:Detour_Route|key:destination)
 #: master_preset.xml:1444(text:text|group:Streets|preset:Primary_Link|key:destination)
 #: master_preset.xml:1483(text:text|group:Streets|preset:Secondary_Link|key:destination)
 #: master_preset.xml:214(text:text|key:destination)
 msgid "Destination"
-msgstr ""
+msgstr "الوجهة"
 
 #: master_preset.xml:11308(item:name|preset:Destination_Sign)
 msgid "Destination Sign"
@@ -3465,7 +3465,7 @@ msgstr ""
 #: master_preset.xml:6390(combo:display_values|group:Facilities|preset:Clock|key:display)
 #: master_preset.xml:8003(check:text|group:Man_Made|preset:Monitoring_Station|key:display:digital)
 msgid "Digital"
-msgstr ""
+msgstr "رقمي"
 
 #: master_preset.xml:9931(checkgroup:text|preset:Payment_Methods)
 msgid "Digital wallets type"
@@ -3504,7 +3504,7 @@ msgstr ""
 
 #: master_preset.xml:68(combo:display_values|key:surface)
 msgid "Dirt"
-msgstr ""
+msgstr "ترابية"
 
 #: master_preset.xml:950(list_entry:display_value|value:disabled)
 msgid "Disabled"
@@ -3529,7 +3529,7 @@ msgstr ""
 
 #: master_preset.xml:8001(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Display"
-msgstr ""
+msgstr "نوع العرض"
 
 #: master_preset.xml:8000(label:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Display:"
@@ -3552,7 +3552,7 @@ msgstr ""
 
 #: master_preset.xml:10760(text:text|group:Addresses_and_Contact|preset:Address|key:addr:district)
 msgid "District"
-msgstr ""
+msgstr "المديرية/المركز"
 
 #: master_preset.xml:7765(check:text|group:Man_Made|preset:Mineshaft|key:disused)
 #: master_preset.xml:7783(check:text|group:Man_Made|preset:Adit|key:disused)
@@ -3660,11 +3660,11 @@ msgstr ""
 
 #: master_preset.xml:15(combo:display_values|key:incline)
 msgid "Down"
-msgstr ""
+msgstr "للأسفل"
 
 #: master_preset.xml:3362(item:name|group:Aerialway|preset:Drag_Lift)
 msgid "Drag Lift"
-msgstr ""
+msgstr "خط سحب المتزلجين"
 
 #: master_preset.xml:3365(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "Drag lift (generic)"
@@ -3706,7 +3706,7 @@ msgstr ""
 
 #: master_preset.xml:9845(list_entry:short_description|preset:Vending_Machine|value:drinks)
 msgid "Drinks"
-msgstr ""
+msgstr "المشروبات"
 
 #: master_preset.xml:4371(check:text|group:Food+Drinks|preset:Fast_Food|key:drive_through)
 #: master_preset.xml:6344(check:text|group:Facilities|preset:Post_Box|key:drive_through)
@@ -3857,7 +3857,7 @@ msgstr ""
 
 #: master_preset.xml:4601(text:text|group:Tourism|preset:Trailhead|key:ele)
 msgid "Elevation"
-msgstr ""
+msgstr "الارتفاع عن مستوى سطح البحر"
 
 #: master_preset.xml:10217(text:text|group:Geography|preset:Peak|key:ele)
 #: master_preset.xml:10225(text:text|group:Geography|preset:Saddle|key:ele)
@@ -4073,7 +4073,7 @@ msgstr ""
 
 #: master_preset.xml:10769(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Even"
-msgstr ""
+msgstr "زوجي"
 
 #: master_preset.xml:1816(list_entry:short_description|group:Ways|preset:Track|value:grade3)
 msgid "Even mixture of hard and soft materials"
@@ -4213,7 +4213,7 @@ msgstr ""
 #: master_preset.xml:3867(check:text|group:Public_Transport|preset:Stop_Position|key:ferry)
 #: master_preset.xml:3951(combo:display_values|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:route)
 msgid "Ferry"
-msgstr ""
+msgstr "عبّارة (مركب بحري)"
 
 #: master_preset.xml:2998(item:name|group:Shipping|preset:Ferry_Route)
 msgid "Ferry Route"
@@ -4221,7 +4221,7 @@ msgstr ""
 
 #: master_preset.xml:2990(item:name|group:Shipping|preset:Ferry_Terminal)
 msgid "Ferry Terminal"
-msgstr ""
+msgstr "محطة الركاب"
 
 #: master_preset.xml:7274(item:name|group:Sport_(Ball)|preset:Field_Hockey)
 msgid "Field Hockey"
@@ -4322,7 +4322,7 @@ msgstr ""
 #: master_preset.xml:6239(list_entry:display_value|group:Clubs|preset:Club|value:fishing)
 #: master_preset.xml:9494(item:name|group:Sports_and_hobbies|preset:Fishing)
 msgid "Fishing"
-msgstr ""
+msgstr "صيد الأسماك"
 
 #: master_preset.xml:6724(item:name|group:Sport_Facilities|preset:Fitness_Centre)
 msgid "Fitness Centre"
@@ -4372,7 +4372,7 @@ msgstr ""
 #: master_preset.xml:3098(check:text|group:Shipping|preset:Pier|key:floating)
 #: master_preset.xml:3125(combo:display_values|group:Shipping|preset:Dock|key:dock)
 msgid "Floating"
-msgstr ""
+msgstr "عائم"
 
 #: master_preset.xml:2405(combo:display_values|group:Barriers|preset:Wall|key:wall)
 msgid "Flood wall"
@@ -4492,7 +4492,7 @@ msgstr ""
 #: master_preset.xml:1715(item:name|group:Streets|preset:Ford)
 #: master_preset.xml:1717(combo:text|group:Streets|preset:Ford|key:ford)
 msgid "Ford"
-msgstr ""
+msgstr "مخاضة (طريق يشق مجرى مائي)"
 
 #: master_preset.xml:1039(combo:text|key:cash_withdrawal:foreign_cards)
 msgid "Foreign cards"
@@ -4573,7 +4573,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "French"
-msgstr ""
+msgstr "فرنسي"
 
 #: master_preset.xml:6976(combo:text|group:Sport|preset:Climbing_route|key:climbing:grade:french)
 msgid "French grading"
@@ -4869,7 +4869,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "German"
-msgstr ""
+msgstr "ألماني"
 
 #: master_preset.xml:10291(item:name|group:Geography|preset:Geyser)
 msgid "Geyser"
@@ -4986,7 +4986,7 @@ msgstr ""
 #: master_preset.xml:68(combo:display_values|key:surface)
 #: master_preset.xml:7357(combo:display_values|group:Motorsport|preset:Model_Aerodrome|key:surface)
 msgid "Grass"
-msgstr ""
+msgstr "عشب"
 
 #: master_preset.xml:10377(item:name|group:Nature|preset:Grassland)
 msgid "Grassland"
@@ -4995,7 +4995,7 @@ msgstr ""
 #: master_preset.xml:1130(combo:display_values|key:roof:material)
 #: master_preset.xml:2960(combo:display_values|group:Water|preset:Beach|key:surface)
 msgid "Gravel"
-msgstr ""
+msgstr "حصباء/حصى"
 
 #: master_preset.xml:10623(item:name|group:Land_use|preset:Graveyard)
 msgid "Graveyard"
@@ -5008,7 +5008,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Greek"
-msgstr ""
+msgstr "يوناني"
 
 #: master_preset.xml:740(combo:display_values|key:denomination)
 #: master_preset.xml:750(combo:display_values|key:denomination)
@@ -5048,14 +5048,14 @@ msgstr ""
 
 #: master_preset.xml:2201(item:name|preset:Grit_Bin)
 msgid "Grit Bin"
-msgstr ""
+msgstr "صندوق حصى وملح"
 
 #: master_preset.xml:60(combo:display_values|key:surface)
 #: master_preset.xml:63(combo:display_values|key:surface)
 #: master_preset.xml:68(combo:display_values|key:surface)
 #: master_preset.xml:7357(combo:display_values|group:Motorsport|preset:Model_Aerodrome|key:surface)
 msgid "Ground"
-msgstr ""
+msgstr "أرضي"
 
 #: master_preset.xml:5985(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:groundwater)
 #: master_preset.xml:7983(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:groundwater)
@@ -5146,7 +5146,7 @@ msgstr ""
 #: master_preset.xml:4514(combo:text|group:Food+Drinks|preset:Diet|key:diet:halal)
 #: master_preset.xml:8800(combo:text|group:Food|preset:Butcher|key:diet:halal)
 msgid "Halal"
-msgstr ""
+msgstr "حلال (مطابق للشريعة الإسلامية)"
 
 #: master_preset.xml:7573(combo:display_values|group:Indoor_elements|preset:Room|key:room)
 msgid "Hall"
@@ -5155,7 +5155,7 @@ msgstr ""
 #: master_preset.xml:10141(item:name|group:Places|preset:Hamlet)
 #: master_preset.xml:10757(text:text|group:Addresses_and_Contact|preset:Address|key:addr:hamlet)
 msgid "Hamlet"
-msgstr ""
+msgstr "قرية صغيرة/هجرة"
 
 #: master_preset.xml:2483(item:name|group:Barriers|preset:Hampshire_Gate)
 msgid "Hampshire Gate"
@@ -5183,7 +5183,7 @@ msgstr ""
 
 #: master_preset.xml:4107(item:name|group:Airport|preset:Hangar)
 msgid "Hangar"
-msgstr ""
+msgstr "حظيرة طائرات"
 
 #: master_preset.xml:9579(item:name|group:Other|preset:Hardware)
 msgid "Hardware"
@@ -5240,7 +5240,7 @@ msgstr ""
 #: master_preset.xml:6504(check:text|group:Facilities|preset:Outdoor_seating|key:heating)
 #: master_preset.xml:886(combo:display_values|key:utility)
 msgid "Heating"
-msgstr ""
+msgstr "تدفئة"
 
 #: master_preset.xml:11521(item:name|group:Crafts|preset:Heating_engineer)
 msgid "Heating engineer"
@@ -5462,7 +5462,7 @@ msgstr ""
 
 #: master_preset.xml:7023(item:name|group:Sport|preset:Horse_Racing)
 msgid "Horse Racing"
-msgstr ""
+msgstr "سباق خيول"
 
 #: master_preset.xml:4964(item:name|group:Leisure|preset:Horse_Riding)
 msgid "Horse Riding"
@@ -5529,7 +5529,7 @@ msgstr ""
 
 #: master_preset.xml:6537(item:name|group:Facilities|preset:Hunting_Stand)
 msgid "Hunting Stand"
-msgstr ""
+msgstr "منصة صيد"
 
 #: master_preset.xml:7172(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:hurling)
 msgid "Hurling"
@@ -5592,11 +5592,11 @@ msgstr ""
 
 #: master_preset.xml:7282(item:name|group:Sport_(Ball)|preset:Ice_Hockey)
 msgid "Ice Hockey"
-msgstr ""
+msgstr "الهوكى الجليدى"
 
 #: master_preset.xml:7048(item:name|group:Sport|preset:Ice_Skating)
 msgid "Ice Skating"
-msgstr ""
+msgstr "التزحلق على الجليد"
 
 #: master_preset.xml:1226(check:text|key:climbing:ice)
 msgid "Ice climbing"
@@ -5641,7 +5641,7 @@ msgstr ""
 #: master_preset.xml:10785(text:text|group:Addresses_and_Contact|preset:Contact|key:image)
 #: master_preset.xml:10800(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:image)
 msgid "Image"
-msgstr ""
+msgstr "صورة"
 
 #: master_preset.xml:1251(check:text|key:diplomatic:services:immigrant_visas)
 msgid "Immigrant visas"
@@ -5666,7 +5666,7 @@ msgstr ""
 
 #: master_preset.xml:15(combo:text|key:incline)
 msgid "Incline"
-msgstr ""
+msgstr "انحدار الطريق"
 
 #: master_preset.xml:8436(check:text|preset:Power_Tower|key:design:incomplete)
 msgid "Incomplete tower"
@@ -5674,7 +5674,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Indian"
-msgstr ""
+msgstr "هندي"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
@@ -5774,7 +5774,7 @@ msgstr ""
 #: master_preset.xml:8712(text:text|group:Historic_Places_&_Objects|preset:Wayside_Cross|key:inscription)
 #: master_preset.xml:8724(text:text|group:Historic_Places_&_Objects|preset:Wayside_Shrine|key:inscription)
 msgid "Inscription"
-msgstr ""
+msgstr "النقوش"
 
 #: master_preset.xml:5387(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Installation"
@@ -5817,7 +5817,7 @@ msgstr ""
 
 #: master_preset.xml:6381(item:name|group:Facilities|preset:Internet_Access)
 msgid "Internet Access"
-msgstr ""
+msgstr "الوصول للانترنت"
 
 #: master_preset.xml:6374(item:name|group:Facilities|preset:Internet_Cafe)
 msgid "Internet Cafe"
@@ -5864,7 +5864,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Italian"
-msgstr ""
+msgstr "إيطالي"
 
 #: master_preset.xml:3365(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "J-bar"
@@ -5887,7 +5887,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Japanese"
-msgstr ""
+msgstr "ياباني"
 
 #: master_preset.xml:740(combo:display_values|key:denomination)
 #: master_preset.xml:761(combo:display_values|key:denomination)
@@ -5979,7 +5979,7 @@ msgstr ""
 
 #: master_preset.xml:7372(multiselect:display_values|group:Motorsport|preset:Raceway|key:sport)
 msgid "Karting"
-msgstr ""
+msgstr "الكارتينج"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Kashmiri"
@@ -5995,7 +5995,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Kebab"
-msgstr ""
+msgstr "كباب"
 
 #: master_preset.xml:6742(list_entry:short_description|group:Sport_Facilities|preset:Dojo|value:kendo)
 msgid "Kendo"
@@ -6071,7 +6071,7 @@ msgstr ""
 #: master_preset.xml:4515(combo:text|group:Food+Drinks|preset:Diet|key:diet:kosher)
 #: master_preset.xml:8801(combo:text|group:Food|preset:Butcher|key:diet:kosher)
 msgid "Kosher"
-msgstr ""
+msgstr "كوشر (لليهود)"
 
 #: master_preset.xml:8611(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Kremlin"
@@ -6213,7 +6213,7 @@ msgstr ""
 
 #: master_preset.xml:6471(item:name|group:Facilities|preset:Lavoir)
 msgid "Lavoir"
-msgstr ""
+msgstr "مكان غسيل الملابس يدوياً"
 
 #: master_preset.xml:7253(item:name|group:Sport_(Ball)|preset:Lawn_Bowling)
 msgid "Lawn Bowling"
@@ -6227,7 +6227,7 @@ msgstr ""
 #: master_preset.xml:2854(combo:text|group:Water|preset:Culvert|key:layer)
 #: master_preset.xml:88(combo:text|key:layer)
 msgid "Layer"
-msgstr ""
+msgstr "الطبقة"
 
 #: master_preset.xml:1343(combo:display_values|key:resource)
 msgid "Lead"
@@ -6336,7 +6336,7 @@ msgstr ""
 #: master_preset.xml:5345(item:name|group:Culture|preset:Library)
 #: master_preset.xml:7573(combo:display_values|group:Indoor_elements|preset:Room|key:room)
 msgid "Library"
-msgstr ""
+msgstr "مكتبة عامة"
 
 #: master_preset.xml:5711(combo:text|group:Education|preset:Driving_School|key:license_classes)
 msgid "License Classes"
@@ -6399,7 +6399,7 @@ msgstr ""
 
 #: master_preset.xml:1940(combo:display_values|group:Ways|preset:Steps|key:ramp:wheelchair)
 msgid "Limited"
-msgstr ""
+msgstr "محدود"
 
 #: master_preset.xml:2910(label:text|group:Water|preset:Coastline)
 msgid ""
@@ -6489,7 +6489,7 @@ msgstr ""
 #: master_preset.xml:2775(check:text|group:Water|preset:Canal|key:lock)
 #: master_preset.xml:2900(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Lock"
-msgstr ""
+msgstr "هويس"
 
 #: master_preset.xml:3100(item:name|group:Shipping|preset:Lock_Gate)
 msgid "Lock Gate"
@@ -6497,7 +6497,7 @@ msgstr ""
 
 #: master_preset.xml:6544(check:text|group:Facilities|preset:Hunting_Stand|key:lockable)
 msgid "Lockable"
-msgstr ""
+msgstr "قابل للقفل"
 
 #: master_preset.xml:11562(item:name|group:Crafts|preset:Locksmith)
 #: master_preset.xml:9631(item:name|group:Other|preset:Locksmith)
@@ -6940,7 +6940,7 @@ msgstr ""
 
 #: master_preset.xml:1234(combo:display_values|key:climbing:quality)
 msgid "Medium"
-msgstr ""
+msgstr "وسيط"
 
 #: master_preset.xml:4752(list_entry:display_value|group:Leisure|preset:Animals|value:meerkat)
 msgid "Meerkat"
@@ -7023,7 +7023,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Mexican"
-msgstr ""
+msgstr "مكسيكي"
 
 #: master_preset.xml:4345(check:text|group:Food+Drinks|preset:Restaurant|key:microbrewery)
 #: master_preset.xml:4447(check:text|group:Food+Drinks|preset:Pub|key:microbrewery)
@@ -7138,7 +7138,7 @@ msgstr "مختلط"
 
 #: master_preset.xml:3352(item:name|group:Aerialway|preset:Mixed_Lift)
 msgid "Mixed Lift"
-msgstr ""
+msgstr "خط سحب مختلط"
 
 #: master_preset.xml:1227(check:text|key:climbing:mixed)
 msgid "Mixed climbing"
@@ -7282,7 +7282,7 @@ msgstr "فندق رخيص"
 #: master_preset.xml:7336(item:name|group:Motorsport|preset:Motocross)
 #: master_preset.xml:7372(multiselect:display_values|group:Motorsport|preset:Raceway|key:sport)
 msgid "Motocross"
-msgstr ""
+msgstr "موتوكروس"
 
 #: master_preset.xml:2626(item:name|group:Access_Restrictions|preset:Motor_vehicle)
 msgid "Motor vehicle"
@@ -7355,7 +7355,7 @@ msgstr ""
 #: master_preset.xml:7320(item:name|group:Motorsport|preset:Motorsport)
 #: master_preset.xml:7372(multiselect:display_values|group:Motorsport|preset:Raceway|key:sport)
 msgid "Motorsport"
-msgstr ""
+msgstr "رياضة السيارات"
 
 #: master_preset.xml:1367(item:name|group:Streets|preset:Motorway)
 msgid "Motorway"
@@ -8245,11 +8245,11 @@ msgstr ""
 
 #: master_preset.xml:10769(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Odd"
-msgstr ""
+msgstr "فردي"
 
 #: master_preset.xml:43(list_entry:short_description|value:horrible)
 msgid "Off-Road: heavy duty off-road vehicle"
-msgstr ""
+msgstr "للمناطق الوعرة مثل: مركبات الطرق الوعرة والمعدات الثقيلة"
 
 #: master_preset.xml:7573(combo:display_values|group:Indoor_elements|preset:Room|key:room)
 msgid "Office"
@@ -8762,7 +8762,7 @@ msgstr ""
 
 #: master_preset.xml:1639(item:name|group:Streets|preset:Parking_Aisle)
 msgid "Parking Aisle"
-msgstr ""
+msgstr "ممر وقوف السيارات"
 
 #: master_preset.xml:3456(item:name|group:Car|preset:Parking_Entrance)
 msgid "Parking Entrance"
@@ -8943,7 +8943,7 @@ msgstr ""
 #: master_preset.xml:359(combo:display_values|key:toilets:access)
 #: master_preset.xml:661(combo:display_values|key:access)
 msgid "Permissive"
-msgstr ""
+msgstr "مسموح من المالك"
 
 #: master_preset.xml:661(combo:display_values|key:access)
 msgid "Permit required"
@@ -8971,7 +8971,7 @@ msgstr ""
 
 #: master_preset.xml:4506(combo:text|group:Food+Drinks|preset:Diet|key:diet:pescetarian)
 msgid "Pescetarian"
-msgstr ""
+msgstr "نباتيو الأسماك"
 
 #: master_preset.xml:9763(item:name|group:Other|preset:Pet)
 msgid "Pet"
@@ -9152,7 +9152,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Pizza"
-msgstr ""
+msgstr "بيتزا"
 
 #: master_preset.xml:10747(text:text|group:Addresses_and_Contact|preset:Address|key:addr:place)
 msgid "Place name"
@@ -9370,7 +9370,7 @@ msgstr ""
 #: master_preset.xml:10184(text:text|group:Places|preset:City_block|key:population)
 #: master_preset.xml:703(text:text|key:population)
 msgid "Population"
-msgstr ""
+msgstr "عدد السكان"
 
 #: master_preset.xml:4770(list_entry:display_value|group:Leisure|preset:Animals|value:porcupine)
 msgid "Porcupine"
@@ -9616,7 +9616,7 @@ msgstr ""
 #: master_preset.xml:661(combo:display_values|key:access)
 #: master_preset.xml:939(combo:display_values|key:aerodrome:type)
 msgid "Private"
-msgstr ""
+msgstr "خاص"
 
 #: master_preset.xml:7670(combo:text|group:Man_Made|preset:Kiln|key:product)
 msgid "Product"
@@ -9669,7 +9669,7 @@ msgstr ""
 #: master_preset.xml:661(combo:display_values|key:access)
 #: master_preset.xml:8019(combo:display_values|group:Man_Made|preset:Surveillance|key:surveillance)
 msgid "Public"
-msgstr ""
+msgstr "عام"
 
 #: master_preset.xml:3742(item:name|group:Bicycle|preset:Public_Bicycle_Repair_Station)
 msgid "Public Bicycle Repair Station"
@@ -9793,7 +9793,7 @@ msgstr ""
 
 #: master_preset.xml:10163(item:name|group:Places|preset:Quarter)
 msgid "Quarter"
-msgstr ""
+msgstr "مربع"
 
 #: master_preset.xml:7359(item:name|group:Motorsport|preset:RC_Car)
 msgid "RC Car"
@@ -10370,7 +10370,7 @@ msgstr ""
 
 #: master_preset.xml:41(list_entry:short_description|value:bad)
 msgid "Robust Wheels: trekking bike, car, rickshaw"
-msgstr ""
+msgstr "لذوات العجلات المتينة مثل: دراجات الرحلات، والسيارات ، وعربات التوكتوك"
 
 #: master_preset.xml:10456(item:name|group:Nature|preset:Rock)
 msgid "Rock"
@@ -10457,7 +10457,7 @@ msgstr ""
 #: master_preset.xml:7548(text:text|group:Indoor_elements|preset:Indoor_area|key:ref)
 #: master_preset.xml:7570(text:text|group:Indoor_elements|preset:Room|key:ref)
 msgid "Room Number"
-msgstr ""
+msgstr "رقم الغرفة"
 
 #: master_preset.xml:4162(text:text|group:Accommodation|preset:Hotel|key:rooms)
 #: master_preset.xml:4177(text:text|group:Accommodation|preset:Motel|key:rooms)
@@ -10572,7 +10572,7 @@ msgstr ""
 
 #: master_preset.xml:6926(item:name|group:Sport|preset:Running)
 msgid "Running"
-msgstr ""
+msgstr "جري"
 
 #: master_preset.xml:11088(item:name|group:Routes|preset:Running_Route)
 msgid "Running Route"
@@ -10580,7 +10580,7 @@ msgstr ""
 
 #: master_preset.xml:4049(item:name|group:Airport|preset:Runway)
 msgid "Runway"
-msgstr ""
+msgstr "المدرج"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
@@ -10662,7 +10662,7 @@ msgstr ""
 
 #: master_preset.xml:1343(combo:display_values|key:resource)
 msgid "Salt"
-msgstr ""
+msgstr "مياة مالحة"
 
 #: master_preset.xml:10545(item:name|group:Land_use|preset:Salt_Pond)
 msgid "Salt Pond"
@@ -10690,7 +10690,7 @@ msgstr ""
 #: master_preset.xml:60(combo:display_values|key:surface)
 #: master_preset.xml:68(combo:display_values|key:surface)
 msgid "Sand"
-msgstr ""
+msgstr "رمال"
 
 #: master_preset.xml:1235(combo:display_values|key:climbing:rock)
 msgid "Sandstone"
@@ -10698,7 +10698,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Sandwich"
-msgstr ""
+msgstr "خبز/ساندويتش"
 
 #: master_preset.xml:9606(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
 msgid "Sanitary"
@@ -11065,7 +11065,7 @@ msgstr ""
 #: master_preset.xml:6518(item:name|group:Facilities|preset:Shelter)
 #: master_preset.xml:6542(check:text|group:Facilities|preset:Hunting_Stand|key:shelter)
 msgid "Shelter"
-msgstr ""
+msgstr "مرأب"
 
 #: master_preset.xml:740(combo:display_values|key:denomination)
 #: master_preset.xml:764(combo:display_values|key:denomination)
@@ -11316,7 +11316,7 @@ msgstr ""
 
 #: master_preset.xml:37(combo:text|key:smoothness)
 msgid "Smoothness"
-msgstr ""
+msgstr "درجة الوعورة/النعومة"
 
 #: master_preset.xml:4780(list_entry:display_value|group:Leisure|preset:Animals|value:snake)
 msgid "Snake"
@@ -11405,7 +11405,7 @@ msgstr ""
 
 #: master_preset.xml:4148(item:name|preset:Spaceport)
 msgid "Spaceport"
-msgstr ""
+msgstr "ميناء فضائي"
 
 #: master_preset.xml:3437(combo:text|group:Car|preset:Parking|key:capacity:disabled)
 msgid "Spaces for Disabled"
@@ -11507,7 +11507,7 @@ msgstr ""
 #: master_preset.xml:6706(group:name|group:Sports)
 #: master_preset.xml:9479(item:name|group:Sports_and_hobbies|preset:Sports)
 msgid "Sports"
-msgstr ""
+msgstr "الرياضات"
 
 #: master_preset.xml:6716(item:name|group:Sport_Facilities|preset:Sports_Centre)
 msgid "Sports Centre"
@@ -11807,7 +11807,7 @@ msgstr ""
 
 #: master_preset.xml:10759(text:text|group:Addresses_and_Contact|preset:Address|key:addr:subdistrict)
 msgid "Subdistrict"
-msgstr ""
+msgstr "مديرية فرعية"
 
 #: master_preset.xml:5389(text:text|group:Culture|preset:Artwork|key:artwork_subject)
 msgid "Subject"
@@ -11838,7 +11838,7 @@ msgstr ""
 #: master_preset.xml:3901(check:text|group:Public_Transport|preset:Platform|key:subway)
 #: master_preset.xml:3951(combo:display_values|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:route)
 msgid "Subway"
-msgstr ""
+msgstr "مترو الأنفاق"
 
 #: master_preset.xml:3831(role:text|group:Public_Transport|preset:Stop_Area|key:)
 #: master_preset.xml:3925(item:name|group:Public_Transport|preset:Subway_Entrance)
@@ -11871,7 +11871,7 @@ msgstr ""
 
 #: master_preset.xml:6390(combo:display_values|group:Facilities|preset:Clock|key:display)
 msgid "Sundial"
-msgstr ""
+msgstr "مزولة"
 
 #: master_preset.xml:740(combo:display_values|key:denomination)
 #: master_preset.xml:764(combo:display_values|key:denomination)
@@ -11890,7 +11890,7 @@ msgstr ""
 #: master_preset.xml:3255(check:text|group:Railway|preset:Level_Crossing|key:supervised)
 #: master_preset.xml:690(combo:text|key:supervised)
 msgid "Supervised"
-msgstr ""
+msgstr "يشرف عليها"
 
 #: master_preset.xml:1360(check:text|key:kids_area:supervised)
 msgid "Supervision by an adult"
@@ -11930,7 +11930,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Sushi"
-msgstr ""
+msgstr "سوشي"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Swahili"
@@ -12070,7 +12070,7 @@ msgstr ""
 
 #: master_preset.xml:9376(list_entry:short_description|group:For_the_body|preset:Beauty|value:tanning)
 msgid "Tanning"
-msgstr ""
+msgstr "تسمير"
 
 #: master_preset.xml:4942(item:name|group:Leisure|preset:Tanning_Studio)
 msgid "Tanning Studio"
@@ -12256,7 +12256,7 @@ msgstr ""
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 #: master_preset.xml:9395(list_entry:short_description|group:For_the_body|preset:Massage|value:thai)
 msgid "Thai"
-msgstr ""
+msgstr "تيلاندي"
 
 #: master_preset.xml:1130(combo:display_values|key:roof:material)
 msgid "Thatch"
@@ -12288,7 +12288,7 @@ msgstr ""
 
 #: master_preset.xml:1200(combo:text|key:playground:theme)
 msgid "Theme"
-msgstr ""
+msgstr "النمط"
 
 #: master_preset.xml:9397(list_entry:short_description|group:For_the_body|preset:Massage|value:therapeutic)
 msgid "Therapeutic"
@@ -12309,11 +12309,11 @@ msgstr ""
 
 #: master_preset.xml:38(list_entry:short_description|value:excellent)
 msgid "Thin Rollers: rollerblade, skateboard"
-msgstr ""
+msgstr "لذوات العجلات الرقيقة مثل: أحذية التزحلق ، ألواح التزحلق"
 
 #: master_preset.xml:39(list_entry:short_description|value:good)
 msgid "Thin Wheels: racing bike"
-msgstr ""
+msgstr "لذوات العجلات النحيلة مثل: دراجة السباق"
 
 #: master_preset.xml:1735(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:through)
 #: master_preset.xml:1759(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:through)
@@ -12420,7 +12420,7 @@ msgstr ""
 
 #: master_preset.xml:348(check:text|key:toilets)
 msgid "Toilets"
-msgstr ""
+msgstr "مراحيض"
 
 #: master_preset.xml:6291(item:name|group:Facilities|preset:Toilets/Restrooms)
 msgid "Toilets/Restrooms"
@@ -12500,7 +12500,7 @@ msgstr ""
 #: master_preset.xml:10127(item:name|group:Places|preset:Town)
 #: master_preset.xml:8020(combo:display_values|group:Man_Made|preset:Surveillance|key:surveillance:zone)
 msgid "Town"
-msgstr ""
+msgstr "مدينة"
 
 #: master_preset.xml:5515(item:name|group:Public_Building|preset:Town_Hall)
 msgid "Town Hall"
@@ -12612,7 +12612,7 @@ msgstr ""
 #: master_preset.xml:3897(check:text|group:Public_Transport|preset:Platform|key:train)
 #: master_preset.xml:3951(combo:display_values|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:route)
 msgid "Train"
-msgstr ""
+msgstr "قطار"
 
 #: master_preset.xml:3315(item:name|group:Railway|preset:Train_wash)
 msgid "Train wash"
@@ -12626,7 +12626,7 @@ msgstr ""
 #: master_preset.xml:3896(check:text|group:Public_Transport|preset:Platform|key:tram)
 #: master_preset.xml:3951(combo:display_values|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:route)
 msgid "Tram"
-msgstr ""
+msgstr "ترام"
 
 #: master_preset.xml:3992(item:name|group:Public_Transport_(Legacy)|preset:Tram_Stop)
 msgid "Tram Stop"
@@ -12709,7 +12709,7 @@ msgstr ""
 #: master_preset.xml:3899(check:text|group:Public_Transport|preset:Platform|key:trolleybus)
 #: master_preset.xml:3951(combo:display_values|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:route)
 msgid "Trolleybus"
-msgstr ""
+msgstr "حافلة ترولي"
 
 #: master_preset.xml:3531(check:text|group:Car|preset:Charging_Station|key:truck)
 msgid "Truck"
@@ -12759,7 +12759,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Turkish"
-msgstr ""
+msgstr "تركي"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Turkmen"
@@ -13019,11 +13019,11 @@ msgstr ""
 
 #: master_preset.xml:6390(combo:display_values|group:Facilities|preset:Clock|key:display)
 msgid "Unorthodox"
-msgstr ""
+msgstr "غير تقليدي"
 
 #: master_preset.xml:68(combo:display_values|key:surface)
 msgid "Unpaved"
-msgstr ""
+msgstr "غير ممهد/مرصوف"
 
 #: master_preset.xml:352(list_entry:short_description|value:yes)
 #: master_preset.xml:364(list_entry:short_description|value:yes)
@@ -13036,7 +13036,7 @@ msgstr ""
 
 #: master_preset.xml:15(combo:display_values|key:incline)
 msgid "Up"
-msgstr ""
+msgstr "للأعلى"
 
 #: master_preset.xml:11744(item:name|group:Crafts|preset:Upholsterer)
 msgid "Upholsterer"
@@ -13093,7 +13093,7 @@ msgstr ""
 
 #: master_preset.xml:886(combo:text|key:utility)
 msgid "Utility"
-msgstr ""
+msgstr "البنية التحتية للمرفق"
 
 #: master_preset.xml:7620(item:name|group:Man_Made|preset:Utility_pole)
 msgid "Utility pole"
@@ -13156,11 +13156,11 @@ msgstr ""
 
 #: master_preset.xml:4503(combo:text|group:Food+Drinks|preset:Diet|key:diet:vegan)
 msgid "Vegan"
-msgstr ""
+msgstr "نباتي"
 
 #: master_preset.xml:4502(combo:text|group:Food+Drinks|preset:Diet|key:diet:vegetarian)
 msgid "Vegetarian"
-msgstr ""
+msgstr "نباتي ويأكل مشتقات الحيوانات"
 
 #: master_preset.xml:3641(item:name|group:Car|preset:Vehicle_Inspection)
 msgid "Vehicle Inspection"
@@ -13222,7 +13222,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Vietnamese"
-msgstr ""
+msgstr "فيتنامي"
 
 #: master_preset.xml:4527(item:name|group:Tourism|preset:Viewpoint)
 msgid "Viewpoint"
@@ -13329,7 +13329,7 @@ msgstr ""
 #: master_preset.xml:2401(item:name|group:Barriers|preset:Wall)
 #: master_preset.xml:4986(combo:display_values|group:Leisure|preset:Dog_Park|key:barrier)
 msgid "Wall"
-msgstr ""
+msgstr "جداري"
 
 #: master_preset.xml:10521(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Walnut trees"
@@ -13352,7 +13352,7 @@ msgstr ""
 #: master_preset.xml:7968(combo:display_values|group:Man_Made|preset:Street_cabinet|key:street_cabinet)
 #: master_preset.xml:886(combo:display_values|key:utility)
 msgid "Waste"
-msgstr ""
+msgstr "نفايات"
 
 #: master_preset.xml:6438(item:name|group:Facilities|preset:Waste_Basket/Trash_Can)
 msgid "Waste Basket/Trash Can"
@@ -13410,7 +13410,7 @@ msgstr ""
 
 #: master_preset.xml:6569(item:name|group:Facilities|preset:Water_Point)
 msgid "Water Point"
-msgstr ""
+msgstr "نقطة تعبئة مياة شرب"
 
 #: master_preset.xml:6024(item:name|group:Emergency|preset:Water_Tank)
 msgid "Water Tank"
@@ -13551,7 +13551,7 @@ msgstr ""
 #: master_preset.xml:705(text:text|key:website)
 #: master_preset.xml:8889(text:text|group:Food|preset:Public_Market|key:website)
 msgid "Website"
-msgstr ""
+msgstr "موقع الإنترنت"
 
 #: master_preset.xml:578(list_entry:short_description|value:wedding)
 msgid "Wedding"
@@ -13611,7 +13611,7 @@ msgstr ""
 
 #: master_preset.xml:40(list_entry:short_description|value:intermediate)
 msgid "Wheels: city bike, wheelchair, scooter"
-msgstr ""
+msgstr "قابلة للاجتياز عبر أي عجلات مثل: دراجة المدينة ، الكرسي المتحرك للمعاقين ، السكوتر"
 
 #: master_preset.xml:10379(label:text|group:Nature|preset:Grassland)
 msgid ""
@@ -13715,7 +13715,7 @@ msgstr ""
 
 #: master_preset.xml:4121(item:name|group:Airport|preset:Windsock)
 msgid "Windsock"
-msgstr ""
+msgstr "كم الريح"
 
 #: master_preset.xml:8942(item:name|group:Food|preset:Wine)
 msgid "Wine"
@@ -13764,7 +13764,7 @@ msgstr ""
 
 #: master_preset.xml:1130(combo:display_values|key:roof:material)
 msgid "Wood"
-msgstr ""
+msgstr "خشبي"
 
 #: master_preset.xml:5363(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 msgid "Wooden cabinet"
@@ -13900,7 +13900,7 @@ msgstr ""
 
 #: master_preset.xml:3397(item:name|group:Aerialway|preset:Zip_Line)
 msgid "Zip Line"
-msgstr ""
+msgstr "كابل التنقل"
 
 #: master_preset.xml:1343(combo:display_values|key:resource)
 msgid "Zircon"
@@ -14370,7 +14370,7 @@ msgstr ""
 #: master_preset.xml:8426(combo:display_values|preset:Power_Tower|key:material)
 msgctxt "material"
 msgid "Concrete"
-msgstr ""
+msgstr "خرسانة"
 
 #: master_preset.xml:2379(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
@@ -14501,14 +14501,14 @@ msgstr ""
 #: master_preset.xml:8426(combo:display_values|preset:Power_Tower|key:material)
 msgctxt "material"
 msgid "Wood"
-msgstr ""
+msgstr "خشبي"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Asphalt"
-msgstr ""
+msgstr "أسفلت/معبد"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14529,7 +14529,7 @@ msgstr ""
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Concrete"
-msgstr ""
+msgstr "خرسانة"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14550,7 +14550,7 @@ msgstr ""
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Dirt"
-msgstr ""
+msgstr "ترابية"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14564,7 +14564,7 @@ msgstr ""
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Grass"
-msgstr ""
+msgstr "عشب"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14578,14 +14578,14 @@ msgstr ""
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Gravel"
-msgstr ""
+msgstr "حصباء/حصى"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Ground"
-msgstr ""
+msgstr "أرضي"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14606,7 +14606,7 @@ msgstr "وحل"
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Paved"
-msgstr ""
+msgstr "مرصوف"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14627,7 +14627,7 @@ msgstr ""
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Sand"
-msgstr ""
+msgstr "رمال"
 
 #: master_preset.xml:33(combo:text|key:cycleway:surface)
 msgctxt "surface"
@@ -14656,14 +14656,14 @@ msgstr "سطحي"
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Unpaved"
-msgstr ""
+msgstr "غير ممهد/مرصوف"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Wood"
-msgstr ""
+msgstr "خشبي"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 msgctxt "surface"
@@ -14738,7 +14738,7 @@ msgstr ""
 #: master_preset.xml:153(list_entry:short_description|value:free)
 msgctxt "parking"
 msgid "Free"
-msgstr ""
+msgstr "مجاني"
 
 #: master_preset.xml:670(combo:display_values|key:parking)
 msgctxt "parking"
@@ -14869,7 +14869,7 @@ msgstr "النوع"
 #: master_preset.xml:670(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Underground"
-msgstr ""
+msgstr "تحت الأرض"
 
 #: master_preset.xml:174(combo:display_values|key:overtaking)
 msgctxt "overtaking"
@@ -15040,7 +15040,7 @@ msgstr ""
 #: master_preset.xml:254(combo:display_values|key:service)
 msgctxt "railway"
 msgid "Spur"
-msgstr ""
+msgstr "وصلة قطارات شحن"
 
 #: master_preset.xml:3908(item:name|group:Public_Transport|preset:Station)
 #: master_preset.xml:3977(item:name|group:Public_Transport_(Legacy)|preset:Station)
@@ -15190,7 +15190,7 @@ msgstr ""
 #: master_preset.xml:7514(combo:text|preset:Entrance|key:access)
 msgctxt "access"
 msgid "Access"
-msgstr ""
+msgstr "الوصول"
 
 #: master_preset.xml:2643(combo:display_values|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcar)
 #: master_preset.xml:2645(combo:display_values|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcycle)
@@ -15296,7 +15296,7 @@ msgstr "مخصص"
 #: master_preset.xml:700(combo:display_values|key:access)
 msgctxt "access"
 msgid "Destination"
-msgstr ""
+msgstr "الوجهة"
 
 #: master_preset.xml:2288(combo:display_values|group:Barriers|preset:Cycle_Barrier|key:bicycle)
 msgctxt "access"
@@ -15474,7 +15474,7 @@ msgstr ""
 #: master_preset.xml:7514(combo:display_values|preset:Entrance|key:access)
 msgctxt "access"
 msgid "Permissive"
-msgstr ""
+msgstr "مسموح من المالك"
 
 #: master_preset.xml:1086(combo:display_values|key:horse)
 #: master_preset.xml:2703(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:foot)
@@ -15521,7 +15521,7 @@ msgstr ""
 #: master_preset.xml:7514(combo:display_values|preset:Entrance|key:access)
 msgctxt "access"
 msgid "Private"
-msgstr ""
+msgstr "خاص"
 
 #: master_preset.xml:2715(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:psv)
 msgctxt "access"
@@ -15688,13 +15688,13 @@ msgstr ""
 #: master_preset.xml:6780(multiselect:display_values|group:Sport_Facilities|preset:Ice_rink|key:sport)
 msgctxt "sport"
 msgid "Curling"
-msgstr ""
+msgstr "كيرلنغ"
 
 #: master_preset.xml:655(multiselect:display_values|key:sport)
 #: master_preset.xml:6763(multiselect:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Cycling"
-msgstr ""
+msgstr "ركوب الدراجات"
 
 #: master_preset.xml:655(multiselect:display_values|key:sport)
 #: master_preset.xml:6763(multiselect:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
@@ -15770,7 +15770,7 @@ msgstr ""
 #: master_preset.xml:655(multiselect:display_values|key:sport)
 msgctxt "sport"
 msgid "Karting"
-msgstr ""
+msgstr "الكارتينج"
 
 #: master_preset.xml:655(multiselect:display_values|key:sport)
 msgctxt "sport"
@@ -15785,7 +15785,7 @@ msgstr ""
 #: master_preset.xml:655(multiselect:display_values|key:sport)
 msgctxt "sport"
 msgid "Motocross"
-msgstr ""
+msgstr "موتوكروس"
 
 #: master_preset.xml:655(multiselect:display_values|key:sport)
 msgctxt "sport"
@@ -15795,7 +15795,7 @@ msgstr ""
 #: master_preset.xml:655(multiselect:display_values|key:sport)
 msgctxt "sport"
 msgid "Multiple"
-msgstr ""
+msgstr "متعددة"
 
 #: master_preset.xml:655(multiselect:display_values|key:sport)
 msgctxt "sport"
@@ -15853,7 +15853,7 @@ msgstr ""
 #: master_preset.xml:6763(multiselect:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Running"
-msgstr ""
+msgstr "جري"
 
 #: master_preset.xml:655(multiselect:display_values|key:sport)
 msgctxt "sport"
@@ -15879,7 +15879,7 @@ msgstr ""
 #: master_preset.xml:6763(multiselect:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Skating"
-msgstr ""
+msgstr "تزلج"
 
 #: master_preset.xml:655(multiselect:display_values|key:sport)
 msgctxt "sport"
@@ -15954,7 +15954,7 @@ msgstr ""
 #: master_preset.xml:767(combo:text|key:denomination)
 msgctxt "jewish"
 msgid "Denomination"
-msgstr ""
+msgstr "المذهب/الطائفة"
 
 #: master_preset.xml:767(combo:display_values|key:denomination)
 msgctxt "jewish"
@@ -16251,7 +16251,7 @@ msgstr ""
 #: master_preset.xml:890(combo:display_values|key:bridge:structure)
 msgctxt "bridge"
 msgid "Floating"
-msgstr ""
+msgstr "عائم"
 
 #: master_preset.xml:890(combo:display_values|key:bridge:structure)
 msgctxt "bridge"
@@ -16362,7 +16362,7 @@ msgstr "لوحة"
 #: master_preset.xml:933(combo:display_values|key:support)
 msgctxt "mounting/support"
 msgid "Ground"
-msgstr ""
+msgstr "أرضي"
 
 #: master_preset.xml:933(combo:display_values|key:support)
 msgctxt "mounting/support"
@@ -16860,13 +16860,13 @@ msgstr ""
 #: master_preset.xml:1152(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Concrete"
-msgstr ""
+msgstr "خرسانة"
 
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 #: master_preset.xml:7422(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
 msgctxt "building"
 msgid "Construction"
-msgstr ""
+msgstr "وصف بناء البرج"
 
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 #: master_preset.xml:7422(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
@@ -17021,7 +17021,7 @@ msgstr ""
 #: master_preset.xml:7422(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
 msgctxt "building"
 msgid "Hangar"
-msgstr ""
+msgstr "حظيرة طائرات"
 
 #: master_preset.xml:1159(list_entry:short_description|value:hipped)
 #: master_preset.xml:7461(item:name|group:Roof_type|preset:Hipped)
@@ -17212,7 +17212,7 @@ msgstr ""
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Public"
-msgstr ""
+msgstr "عام"
 
 #: master_preset.xml:1162(list_entry:short_description|value:pyramidal)
 #: master_preset.xml:7481(item:name|group:Roof_type|preset:Pyramidal)
@@ -17320,7 +17320,7 @@ msgstr "سقيفة"
 #: master_preset.xml:1150(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Shelter"
-msgstr ""
+msgstr "مرأب"
 
 #: master_preset.xml:1165(list_entry:short_description|value:skillion)
 #: master_preset.xml:7501(item:name|group:Roof_type|preset:Skillion)
@@ -17471,7 +17471,7 @@ msgstr "مستودع"
 #: master_preset.xml:1152(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Wood"
-msgstr ""
+msgstr "خشبي"
 
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 #: master_preset.xml:7422(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
@@ -17497,7 +17497,7 @@ msgstr "خاص"
 #: master_preset.xml:1174(combo:display_values|key:operator:type)
 msgctxt "operator"
 msgid "Public"
-msgstr ""
+msgstr "عام"
 
 #: master_preset.xml:1174(combo:display_values|key:operator:type)
 msgctxt "operator"
@@ -17614,7 +17614,7 @@ msgstr ""
 #: master_preset.xml:1671(item:name|group:Streets|preset:Construction)
 msgctxt "Highway"
 msgid "Construction"
-msgstr ""
+msgstr "وصف بناء البرج"
 
 #: master_preset.xml:2724(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
@@ -18303,7 +18303,7 @@ msgstr ""
 #: master_preset.xml:10355(item:name|group:Nature|preset:Wood)
 msgctxt "natural"
 msgid "Wood"
-msgstr ""
+msgstr "خشبي"
 
 #: master_preset.xml:2995(combo:text|group:Shipping|preset:Ferry_Terminal|key:cargo)
 msgctxt "cargo"
@@ -18355,7 +18355,7 @@ msgstr ""
 #: master_preset.xml:3566(check:text|group:Car|preset:Car_Wash|key:automated)
 msgctxt "car_wash"
 msgid "Automated"
-msgstr ""
+msgstr "آلي"
 
 #: master_preset.xml:3588(multiselect:text|group:Car|preset:Repair|key:service)
 #: master_preset.xml:3610(multiselect:text|group:Car|preset:Caravan_Dealer|key:service)
@@ -18465,7 +18465,7 @@ msgstr ""
 #: master_preset.xml:3705(list_entry:display_value|group:Bicycle|preset:Parking|value:informal)
 msgctxt "bicycle"
 msgid "Informal"
-msgstr ""
+msgstr "غير رسمي"
 
 #: master_preset.xml:3706(list_entry:display_value|group:Bicycle|preset:Parking|value:lockers)
 msgctxt "bicycle"
@@ -18807,7 +18807,7 @@ msgstr ""
 #: master_preset.xml:4842(list_entry:display_value|group:Leisure|preset:Rides|value:train)
 msgctxt "leisure"
 msgid "Train"
-msgstr ""
+msgstr "قطار"
 
 #: master_preset.xml:4843(list_entry:display_value|group:Leisure|preset:Rides|value:trampoline)
 #: master_preset.xml:5044(check:text|group:Leisure|preset:Playground|key:playground:trampoline)
@@ -19255,7 +19255,7 @@ msgstr "النوع"
 #: master_preset.xml:6183(item:name|group:Social_Facilities|preset:Shelter)
 msgctxt "social_facility"
 msgid "Shelter"
-msgstr ""
+msgstr "مرأب"
 
 #: master_preset.xml:6390(combo:text|group:Facilities|preset:Clock|key:display)
 msgctxt "clock"
@@ -19265,7 +19265,7 @@ msgstr "عرض"
 #: master_preset.xml:6392(combo:text|group:Facilities|preset:Clock|key:faces)
 msgctxt "clock"
 msgid "Faces"
-msgstr ""
+msgstr "الواجهات"
 
 #: master_preset.xml:6514(multiselect:display_values|group:Facilities|preset:Lounger|key:seasonal)
 msgctxt "seasons"
@@ -19325,7 +19325,7 @@ msgstr ""
 #: master_preset.xml:6527(list_entry:short_description|group:Facilities|preset:Shelter|value:gazebo)
 msgctxt "shelter"
 msgid "Gazebo"
-msgstr ""
+msgstr "شرفة أرضية"
 
 #: master_preset.xml:6529(list_entry:short_description|group:Facilities|preset:Shelter|value:picnic_shelter)
 msgctxt "shelter"
@@ -19441,7 +19441,7 @@ msgstr ""
 #: master_preset.xml:7107(combo:display_values|group:Sport|preset:Skiing|key:piste:type)
 msgctxt "piste"
 msgid "Connection"
-msgstr ""
+msgstr "وصلة"
 
 #: master_preset.xml:11142(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 #: master_preset.xml:7107(combo:display_values|group:Sport|preset:Skiing|key:piste:type)
@@ -19483,7 +19483,7 @@ msgstr "ساحة لعب"
 #: master_preset.xml:7107(combo:display_values|group:Sport|preset:Skiing|key:piste:type)
 msgctxt "piste"
 msgid "Skitour"
-msgstr ""
+msgstr "جولة تزلج"
 
 #: master_preset.xml:11142(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 #: master_preset.xml:7107(combo:display_values|group:Sport|preset:Skiing|key:piste:type)
@@ -19541,7 +19541,7 @@ msgstr "مبتدئ"
 #: master_preset.xml:7110(combo:display_values|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
 msgid "Backcountry"
-msgstr ""
+msgstr "منطقة تخييم بدون مرافق"
 
 #: master_preset.xml:7110(combo:display_values|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
@@ -19561,7 +19561,7 @@ msgstr "تجميل"
 #: master_preset.xml:7110(combo:display_values|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
 msgid "Mogul"
-msgstr ""
+msgstr "مهيئ للتزلج"
 
 #: master_preset.xml:7110(combo:display_values|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
@@ -19746,7 +19746,7 @@ msgstr ""
 #: master_preset.xml:7843(combo:display_values|group:Man_Made|preset:Marker|key:marker)
 msgctxt "marker"
 msgid "Ground"
-msgstr ""
+msgstr "أرضي"
 
 #: master_preset.xml:7843(combo:display_values|group:Man_Made|preset:Marker|key:marker)
 msgctxt "marker"
@@ -20244,7 +20244,7 @@ msgstr ""
 #: master_preset.xml:10499(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Grass"
-msgstr ""
+msgstr "عشب"
 
 #: master_preset.xml:10499(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
@@ -20294,7 +20294,7 @@ msgstr ""
 #: master_preset.xml:10580(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
 msgid "Chinese"
-msgstr ""
+msgstr "صيني"
 
 #: master_preset.xml:10578(combo:display_values|group:Land_use|preset:Garden|key:garden:type)
 msgctxt "garden"
@@ -20319,7 +20319,7 @@ msgstr ""
 #: master_preset.xml:10580(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
 msgid "French"
-msgstr ""
+msgstr "فرنسي"
 
 #: master_preset.xml:10580(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
@@ -20329,7 +20329,7 @@ msgstr ""
 #: master_preset.xml:10580(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
 msgid "Japanese"
-msgstr ""
+msgstr "ياباني"
 
 #: master_preset.xml:10580(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
@@ -20499,7 +20499,7 @@ msgstr ""
 #: master_preset.xml:10671(combo:display_values|group:Land_use|preset:Industrial_area|key:industrial)
 msgctxt "industrial"
 msgid "Port"
-msgstr ""
+msgstr "منفذ"
 
 #: master_preset.xml:10671(combo:display_values|group:Land_use|preset:Industrial_area|key:industrial)
 msgctxt "industrial"

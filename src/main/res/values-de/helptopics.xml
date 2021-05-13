@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_app_label">Hilfe</string>
-    <string name="help_app_description">Vespucci Hilfeanzeige</string>
+    <string name="help_app_description">Vespucci-Hilfeanzeige</string>
     <string name="help_title">Hilfe für: %1$s</string>
     <string name="help_introduction">Einführung</string>
     <string name="help_main">Daten- und Kartenanzeige </string>

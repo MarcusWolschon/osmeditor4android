@@ -28,7 +28,7 @@ Entweder das Icon zur Übertragung ![Transfer](../images/menu_transfer.png) oder
 
 Um Daten auf dem Gerät zu öffnen, ist es am einfachsten, mit Gesten den Bildschirm auf das gewünschte Gebiet zu zentrieren und dann im Menü "Aktuelle Ansicht herunterladen" anzuwählen. Der Zoom kann mit Gesten, den Zoom-Schaltflächen oder den Lautstärketasten bedient werden. Vespucci sollte dann das Gebiet herunterladen. Um Daten herunterzuladen, muss man nicht angemeldet sein.
 
-Mit den Standardeinstellungen werden alle "nicht-gedownloadete" Bereiche abgedunkelt. Dies verhindert unabsichtliches Editieren und Verdoppelung von Elementen in solchen Gebiete. Das Verhalen kann in den  [Erweiterteneinstellungen](Advanced%20preferences.md) geändert werden.
+Mit den Standardeinstellungen werden alle "nicht-gedownloadete" Bereiche abgedunkelt. Dies verhindert unabsichtliches Editieren und Verdoppelung von Elementen in solchen Gebieten. Das Verhalten kann in den  [Erweiterteneinstellungen](Advanced%20preferences.md) geändert werden.
 
 ### Bearbeiten
 
@@ -36,15 +36,15 @@ Mit den Standardeinstellungen werden alle "nicht-gedownloadete" Bereiche abgedun
 
 #### Sperren, entsperren, Modus wechseln
 
-Um versehentliche Änderungen zu verhindern, startet Vespucci im "gesperrten" Modus, einem Modus, der nur das Zoomen und Verschieben der Karte erlaubt. Um den Schirm zu entsperren, auf das ![Schloss](../images/locked.png) Icon tippen.  
+Um versehentliche Änderungen zu verhindern, startet Vespucci im "gesperrten" Modus, einem Modus, der nur das Zoomen und Verschieben der Karte erlaubt. Um den Schirm zu entsperren, auf das ![Schloss](../images/locked.png)-Icon tippen. 
 
 Ein langer Druck auf das Schlosssymbol zeigt ein Auswahlmenü mit 4 Optionen:
 
-* **Normal** - der Standardbearbeitungsmodus, neue Objekte können erstellt werden, bestehende bearbeitet, verschonen und gelöscht. Ein einfaches weises Schlosssymbol wird angezeigt.
-* **Nur Tags** - wird ein bestehendes Objekt ausgewählt, startet der Eigenschaftseditor, ein langer Druck auf dem Hauptschirm wird weiterhin neue Objekte hinzufügen, aber keine anderen Geometriebearbeitungen sind möglich. Ein weises Schlosssymbol mit einem "T" wird angezeigt.
-* **Adress** - schaltet den Adressenmodus ein, eine etwas vereinfachten Modus mit Adress spezifschen Aktionen im [Einfachen Modus](../en/Simple%20actions.md) "+" Schaltfläche.  Ein weises Schlosssymbol mit einem "A" wird angezeigt.
-* **Innenraum** - schaltet in den Innenraum-Modus, siehe  [Innenraum-Modus](#indoor). Ein weises Schlosssymbol mit einem "I" wird angezeigt.
-* **C-Modus** - in C-Modus werden nur Objekte angezeigt, die ein Problem haben, siehe [C-Modus](#c-mode).  Ein weises Schlosssymbol mit einem "C" wird angezeigt.
+* **Normal** - der Standardbearbeitungsmodus, neue Objekte können erstellt werden, bestehende bearbeitet, verschoben und gelöscht. Ein einfaches weißes Schlosssymbol wird angezeigt.
+* **Nur Tags** - wird ein bestehendes Objekt ausgewählt, startet der Eigenschaftseditor, ein langer Druck auf dem Hauptschirm wird weiterhin neue Objekte hinzufügen, aber keine anderen Geometriebearbeitungen sind möglich. Ein weißes Schlosssymbol mit einem "T" wird angezeigt.
+* **Adresse** - schaltet den Adressenmodus ein, einen etwas vereinfachten Modus mit adressspezifschen Aktionen im [Einfachen Modus](../en/Simple%20actions.md) "+" Schaltfläche.  Ein weißes Schlosssymbol mit einem "A" wird angezeigt.
+* **Innenraum** - schaltet in den Innenraum-Modus, siehe  [Innenraum-Modus](#indoor). Ein weißes Schlosssymbol mit einem "I" wird angezeigt.
+* **C-Modus** - in C-Modus werden nur Objekte angezeigt, die ein Problem haben, siehe [C-Modus](#c-mode).  Ein weißes Schlosssymbol mit einem "C" wird angezeigt.
 
 #### Einfacher Klick, Doppelklick und langer Klick
 
@@ -105,9 +105,9 @@ Sobald das Positionskreuz erscheint, gibt es die folgenden Möglichkeiten:
     * Ist das Positionskreuz in der Nähe eines Punktes, so wird kein neuer Punkt erstellt, sondern nur der Eigenschaftseditor gestartet.
 * Nochmaliges Berühren an einer anderen Stelle. Erstellt einen Punkt wie oben beschrieben und einen Wegabschnitt zu der neuen Position.
 
-Um den Weg zu verlängern tippe an den Stellen wo du weitere Wegpunkte haben willst. Um den Weg fertigzustellen, tippe nochmals auf den letzten Punkt. Falls der Endpunkt auf einem anderen Weg oder Punkt liegt wird er automatisch in diesen integriert. 
+Um den Weg zu verlängern, tippe an den Stellen wo du weitere Wegpunkte haben willst. Um den Weg fertigzustellen, tippe nochmals auf den letzten Punkt. Falls der Endpunkt auf einem anderen Weg oder Punkt liegt, wird er automatisch in diesen integriert. 
 
-Man kann auch einen Menüpunkt dafür verwenden: Weitere Informationen dazu, unter [Erstellen neuer Objekte](Creating%20new%20objects.md).
+Man kann auch einen Menüpunkt dafür verwenden: Weitere Informationen dazu unter [Erstellen neuer Objekte](Creating%20new%20objects.md).
 
 #### Flächen hinzufügen
 
@@ -165,7 +165,7 @@ Sollen die Änderungen gespeichert werden und es ist kein Internetzugang verfüg
 
 #### Konfliktbehebung beim Upload
 
-Vespucci hat einen einfachen Konfliktbehebungsmechanismus eingebaut. Sind grössere Probleme mit den Änderungen zu erwarten, empfehlen wir, sie in eine .osc-Datei zu speichern ("Transfer" Menü, "Datei...,"  "Änderungen exportieren") und die Konflikte dann mit JOSM zu beheben. Für Details siehe Hilfetext zur [Konfliktauflösung](../en/Conflict%20resolution.md).  
+Vespucci hat einen einfachen Konfliktbehebungsmechanismus eingebaut. Sind größere Probleme mit den Änderungen zu erwarten, empfehlen wir, sie in eine .osc-Datei zu speichern ("Transfer" Menü, "Datei...,"  "Änderungen exportieren") und die Konflikte dann mit JOSM zu beheben. Für Details siehe Hilfetext zur [Konfliktauflösung](../en/Conflict%20resolution.md).  
 
 ## GPS verwenden
 
@@ -175,7 +175,7 @@ Falls Letzteres eingeschaltet ist, wird es beim Verschieben des Schirms oder bei
 
 ## Notizen und Fehler
 
-Vespucci unterstützt das Herunterladen, Kommentieren und Schliessen von OSM-Notizen (vormals OSM Bugs) und die entsprechende Funktionalität für "Fehler" die vom [OSMOSE Qualitätssicherungswerkzeug](http://osmose.openstreetmap.fr/en/map/) gemeldet werden. Beide müssen entweder explizit heruntergeladen werden oder die Notizen und Fehler in der Nähe können automatisch geladen werden. Geänderte oder geschlossene Notizen und Fehler können entweder sofort hochgeladen werden oder gespeichert und alle zusammen später hochgeladen werden.
+Vespucci unterstützt das Herunterladen, Kommentieren und Schließen von OSM-Notizen (vormals OSM Bugs) und die entsprechende Funktionalität für "Fehler" die vom [OSMOSE Qualitätssicherungswerkzeug](http://osmose.openstreetmap.fr/en/map/) gemeldet werden. Beide müssen entweder explizit heruntergeladen werden oder die Notizen und Fehler in der Nähe können automatisch geladen werden. Geänderte oder geschlossene Notizen und Fehler können entweder sofort hochgeladen werden oder gespeichert und alle zusammen später hochgeladen werden.
 
 Auf der Karte werden die Notizen und Fehler mit einem kleinen Käfer-Symbol  ![Bug](../images/bug_open.png) angezeigt, grüne sind behoben, blaue sind neu erstellt oder geändert, und Gelb zeigt an, dass die Notiz respektive der Fehler noch unverändert aktiv ist. 
 
@@ -224,7 +224,7 @@ Die Liste ist zweigeteilt, die obere Hälfte enthält die "Überprüfungstests",
 
 "Schlüssel" und "Wert" werden mit den _existierenden_ Tags des Objektes verglichen.
 
-Die _Annotations_ Gruppe in der standard Vorbelegung beinhaltet ein Element, der automatisch ein tag "_check_date_" mit dem aktuellen Datum addieren wird.
+Die _Annotations_-Gruppe in der Standard-Vorbelegung beinhaltet ein Element, das automatisch einen "_check_date_"-Tag mit dem aktuellen Datum hinzufügen wird.
 
 #### Tests auf fehlende Tags
 
@@ -238,7 +238,7 @@ Diese Prüfung funktioniert, indem zuerst die zugehörige Voreinstellung bestimm
 
 ### Auf Tags basierende Filter
 
-Der Filter kann vom Hauptmenü aus eingeschaltet werden, durch Tippen auf die Filter-Schaltfläche kann er dann bearbeitet werden.. Mehr Informationen findet man unter [Tag-Filter](../en/Tag%20filter.md).
+Der Filter kann vom Hauptmenü aus eingeschaltet werden, durch Tippen auf die Filter-Schaltfläche kann er dann bearbeitet werden. Mehr Informationen findet man unter [Tag-Filter](../en/Tag%20filter.md).
 
 ### Auf Vorlagen basierende Filter
 
@@ -246,7 +246,7 @@ Eine Alternative zu obigem. Objekte werden entweder durch Einzelvorlagen oder Vo
 
 ## Vespucci individuell anpassen
 
-Viele Gesichtspunkte der App können angepasst werden. Wenn man nach etwas Bestimmtem sucht und es nicht findet, die [Vespucci Website](https://vespucci.io/) ist durchsuchbar und enthält zusätzliche Informationen, was auf dem Gerät möglich ist.
+Viele Gesichtspunkte der App können angepasst werden. Wenn man nach etwas Bestimmtem sucht und es nicht findet, ist die [Vespucci-Website](https://vespucci.io/) durchsuchbar und enthält zusätzliche Informationen, was auf dem Gerät möglich ist.
 
 ### Ebeneneigenschaften
 
@@ -255,13 +255,13 @@ Die Ebeneneigenschaften können über den Ebenen-Schalter (obere rechte Ecke) ge
 Verfügbare Ebenen:
 
 * Datenebene - OpenStreetMap Daten werden in dieses Ebene geladen. Im normalen Gebrauch muss hier nichts geändert werden. Standardeinstellung: eingeschaltet.
-* Hintergrundebene - es steht eine grosse Auswahl an Luftbilder und andere Hintergründe zur Verfügung.  Standardeinstellung ist die  "standard style" Karte von openstreetmap.org.
-* Überlagerungsebene - teiltransparente Ebenen mit Zusatzdaten, zum Beispiel GPX Aufzeichnungen. Auf alten Geräten und solchen mit wenig Hauptspeicher können zusätzliche Ebenen zu Problemen führen. Standardeinstellung: keine Ebene.
+* Hintergrundebene - es steht eine große Auswahl an Luftbildern und anderen Hintergründen zur Verfügung. Standardeinstellung ist die "standard style"-Karte von openstreetmap.org.
+* Überlagerungsebene - teiltransparente Ebenen mit Zusatzdaten, zum Beispiel GPX-Aufzeichnungen. Auf alten Geräten und solchen mit wenig Hauptspeicher können zusätzliche Ebenen zu Problemen führen. Standardeinstellung: keine Ebene.
 * Notizen/Aufgaben/Fehlerebene - offene Notizen und Fehler werden mit einem gelben Icon angezeigt, geschlossene in grün. Standardeinstellung: eingeschaltet.
-* Fotoebene - zeigt georeferenzierte Photos als rote Kamera-Icons an, falls die Aufnahmerichtung mitgespeichert wurde, werden die Icons entsprechend gedreht. Berühren/Klicken auf den Icons zeigt das Bild an. Standardeinstellung: ausgeschaltet.
-* Mapillary-Ebene - Zeigt Mapillary-Segmente mit Marker für die Bilder an. Berühren/Klicken auf den Icons zeigt das Bild an. Standardeinstellung: ausgeschaltet.
+* Fotoebene - zeigt georeferenzierte Fotos als rote Kamera-Icons an, falls die Aufnahmerichtung mitgespeichert wurde, werden die Icons entsprechend gedreht. Berühren/Klicken auf die Icons zeigt das Bild an. Standardeinstellung: ausgeschaltet.
+* Mapillary-Ebene - Zeigt Mapillary-Segmente mit Marker für die Bilder an. Berühren/Klicken auf die Icons zeigt das Bild an. Standardeinstellung: ausgeschaltet.
 * GeoJSON-Ebene - zeigt den Inhalt eine GeoJSON Datei an. Standardeinstellung: ausgeschaltet.
-* Gitter / Skalen - zeigt eine Skala entlang den Seiten oder Gitterlinien an. Standardeinstellung: eingeschaltet. 
+* Gitter / Skalen - zeigt eine Skala entlang der Seiten der Karte oder Gitterlinien an. Standardeinstellung: eingeschaltet. 
 
 #### Einstellungen
 
@@ -280,8 +280,8 @@ Die vollständige Beschreibung findet man hier [Erweiterte Einstellungen] (Advan
 
 ## Fehler melden
 
-Wenn Vespucci abstürzt oder einen internen Fehler feststellt, fordert die App dazu auf einen Fehlerbericht einzusenden. Dies sollte man in diesen Fällen tun, aber bitte nur einmal für jede spezifische Situation. Will man Informationen ergänzen, eine Funktion vorschlagen oder Ähnliches, kann das hier geschehen: [Vespucci Fehlerberichte] (https://github.com/MarcusWolschon/osmeditor4android/issues). Der "Informationen zur Problembehebung"- Button im Debug-Menü erstellt einen neuen Fehlerbericht und fügt die relevanten App- und Geräteinformationen hinzu - ohne extra Tipparbeit.
+Wenn Vespucci abstürzt oder einen internen Fehler feststellt, fordert die App dazu auf einen Fehlerbericht einzusenden. Dies sollte man in diesen Fällen tun, aber bitte nur ein Mal für jede spezifische Situation. Will man Informationen ergänzen, eine Funktion vorschlagen oder Ähnliches, kann das hier geschehen: [Vespucci-Fehlerberichte] (https://github.com/MarcusWolschon/osmeditor4android/issues). Der "Informationen zur Problembehebung"-Button im Debug-Menü erstellt einen neuen Fehlerbericht und fügt die relevanten App- und Geräteinformationen hinzu - ohne extra Tipparbeit.
 
-Wer Themen zu Vespucci diskutieren will, kann  eine Diskussion in der [Vespucci Google Gruppe](https://groups.google.com/forum/#!forum/osmeditor4android) oder im [OpenStreetMap Android Forum](http://forum.openstreetmap.org/viewforum.php?id=56) beginnen.
+Wer Themen zu Vespucci diskutieren will, kann eine Diskussion in der [Vespucci-Google-Gruppe](https://groups.google.com/forum/#!forum/osmeditor4android) oder im [OpenStreetMap-Android-Forum](http://forum.openstreetmap.org/viewforum.php?id=56) beginnen.
 
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-03-14 16:37+0100\n"
-"PO-Revision-Date: 2021-03-14 15:40+0000\n"
-"Last-Translator: Nikos Stamatopoulos\n"
+"PO-Revision-Date: 2021-04-16 07:10+0000\n"
+"Last-Translator: Georgios L. <glin76@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/openstreetmap/presets/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -428,7 +428,7 @@ msgstr "Διεύθυνση"
 
 #: master_preset.xml:10766(item:name|group:Addresses_and_Contact|preset:Address_Interpolation)
 msgid "Address Interpolation"
-msgstr ""
+msgstr "Παρεμβολή Διευθύνσεων"
 
 #: master_preset.xml:10725(group:name|group:Addresses_and_Contact)
 msgid "Addresses and Contact"
@@ -726,7 +726,7 @@ msgstr ""
 #: master_preset.xml:6390(combo:display_values|group:Facilities|preset:Clock|key:display)
 #: master_preset.xml:8002(check:text|group:Man_Made|preset:Monitoring_Station|key:display:analog)
 msgid "Analog"
-msgstr ""
+msgstr "Αναλογικό"
 
 #: master_preset.xml:740(combo:display_values|key:denomination)
 #: master_preset.xml:761(combo:display_values|key:denomination)
@@ -929,7 +929,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Asian"
-msgstr ""
+msgstr "Ασιατικό"
 
 #: master_preset.xml:60(combo:display_values|key:surface)
 #: master_preset.xml:63(combo:display_values|key:surface)
@@ -1115,7 +1115,7 @@ msgstr ""
 
 #: master_preset.xml:4309(check:text|group:Accommodation|preset:Campsite|key:backcountry)
 msgid "Backcountry"
-msgstr ""
+msgstr "Επαρχία"
 
 #: master_preset.xml:6481(check:text|group:Facilities|preset:Bench|key:backrest)
 #: master_preset.xml:6492(check:text|group:Facilities|preset:Bleachers|key:backrest)
@@ -1816,7 +1816,7 @@ msgstr "Εγκαταλελειμμένη Έκταση"
 
 #: master_preset.xml:4413(item:name|group:Food+Drinks|preset:Bubble_Tea_Cafe)
 msgid "Bubble Tea Cafe"
-msgstr ""
+msgstr "Bubble Tea Cafe"
 
 #: master_preset.xml:1350(combo:display_values|key:fountain)
 msgid "Bubbler"
@@ -1910,7 +1910,7 @@ msgstr "Σιλό"
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Burger"
-msgstr ""
+msgstr "Μπιφτέκι"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Burmese"
@@ -1922,7 +1922,7 @@ msgstr ""
 #: master_preset.xml:3894(check:text|group:Public_Transport|preset:Platform|key:bus)
 #: master_preset.xml:3951(combo:display_values|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:route)
 msgid "Bus"
-msgstr ""
+msgstr "Λεωφορείο"
 
 #: master_preset.xml:3213(item:name|group:Railway|preset:Bus_Guideway)
 msgid "Bus Guideway"
@@ -2049,7 +2049,7 @@ msgstr ""
 
 #: master_preset.xml:7790(item:name|group:Man_Made|preset:Cairn)
 msgid "Cairn"
-msgstr ""
+msgstr "Σωρός από πέτρες"
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Cake"
@@ -2455,7 +2455,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Chinese"
-msgstr ""
+msgstr "Κινεζικό"
 
 #: master_preset.xml:5827(list_entry:short_description|group:Health|preset:Physiotherapist|value:chiropractic)
 msgid "Chiropractic"
@@ -2758,7 +2758,7 @@ msgstr "Υπολογιστής"
 #: master_preset.xml:63(combo:display_values|key:surface)
 #: master_preset.xml:7357(combo:display_values|group:Motorsport|preset:Model_Aerodrome|key:surface)
 msgid "Concrete"
-msgstr ""
+msgstr "Μπετόν"
 
 #: master_preset.xml:2691(item:name|group:Access_Restrictions|preset:Cond._&_direct._max_speed)
 msgid "Cond. & direct. max speed"
@@ -2997,7 +2997,7 @@ msgstr ""
 
 #: master_preset.xml:2886(item:name|group:Water|preset:Covered_Reservoir)
 msgid "Covered Reservoir"
-msgstr ""
+msgstr "Καλυμμένη Δεξαμενή"
 
 #: master_preset.xml:1200(combo:display_values|key:playground:theme)
 #: master_preset.xml:6621(multiselect:display_values|group:Facilities|preset:Animal_breeding|key:animal_breeding)
@@ -3467,7 +3467,7 @@ msgstr ""
 #: master_preset.xml:6390(combo:display_values|group:Facilities|preset:Clock|key:display)
 #: master_preset.xml:8003(check:text|group:Man_Made|preset:Monitoring_Station|key:display:digital)
 msgid "Digital"
-msgstr ""
+msgstr "Ψηφιακή"
 
 #: master_preset.xml:9931(checkgroup:text|preset:Payment_Methods)
 msgid "Digital wallets type"
@@ -3506,7 +3506,7 @@ msgstr ""
 
 #: master_preset.xml:68(combo:display_values|key:surface)
 msgid "Dirt"
-msgstr ""
+msgstr "Σκόνη"
 
 #: master_preset.xml:950(list_entry:display_value|value:disabled)
 msgid "Disabled"
@@ -3622,7 +3622,7 @@ msgstr ""
 
 #: master_preset.xml:7004(item:name|group:Sport|preset:Dog_Racing)
 msgid "Dog Racing"
-msgstr ""
+msgstr "Κυνοδρομίες"
 
 #: master_preset.xml:6441(multiselect:display_values|group:Facilities|preset:Waste_Basket/Trash_Can|key:waste)
 msgid "Dog excrement"
@@ -4215,11 +4215,11 @@ msgstr ""
 #: master_preset.xml:3867(check:text|group:Public_Transport|preset:Stop_Position|key:ferry)
 #: master_preset.xml:3951(combo:display_values|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:route)
 msgid "Ferry"
-msgstr ""
+msgstr "Πορθμείο"
 
 #: master_preset.xml:2998(item:name|group:Shipping|preset:Ferry_Route)
 msgid "Ferry Route"
-msgstr ""
+msgstr "Πορθμειακή Γραμμή"
 
 #: master_preset.xml:2990(item:name|group:Shipping|preset:Ferry_Terminal)
 msgid "Ferry Terminal"
@@ -4394,7 +4394,7 @@ msgstr ""
 
 #: master_preset.xml:11493(item:name|group:Crafts|preset:Floorer)
 msgid "Floorer"
-msgstr ""
+msgstr "Πατωματζής"
 
 #: master_preset.xml:9554(item:name|group:Other|preset:Florist)
 #: master_preset.xml:9606(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
@@ -4575,7 +4575,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "French"
-msgstr ""
+msgstr "Γαλλικό"
 
 #: master_preset.xml:6976(combo:text|group:Sport|preset:Climbing_route|key:climbing:grade:french)
 msgid "French grading"
@@ -4871,11 +4871,11 @@ msgstr "Γεωθερμική Γεννήτρια"
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "German"
-msgstr ""
+msgstr "Γερμανικό"
 
 #: master_preset.xml:10291(item:name|group:Geography|preset:Geyser)
 msgid "Geyser"
-msgstr ""
+msgstr "θερμός Πίδακας Γκέιζερ"
 
 #: master_preset.xml:9700(item:name|group:Other|preset:Gift/Souvenir)
 msgid "Gift/Souvenir"
@@ -4997,7 +4997,7 @@ msgstr ""
 #: master_preset.xml:1130(combo:display_values|key:roof:material)
 #: master_preset.xml:2960(combo:display_values|group:Water|preset:Beach|key:surface)
 msgid "Gravel"
-msgstr ""
+msgstr "Χαλίκι"
 
 #: master_preset.xml:10623(item:name|group:Land_use|preset:Graveyard)
 msgid "Graveyard"
@@ -5242,7 +5242,7 @@ msgstr "Ρείκι"
 #: master_preset.xml:6504(check:text|group:Facilities|preset:Outdoor_seating|key:heating)
 #: master_preset.xml:886(combo:display_values|key:utility)
 msgid "Heating"
-msgstr ""
+msgstr "Θέμανση"
 
 #: master_preset.xml:11521(item:name|group:Crafts|preset:Heating_engineer)
 msgid "Heating engineer"
@@ -5464,7 +5464,7 @@ msgstr "Άλογο"
 
 #: master_preset.xml:7023(item:name|group:Sport|preset:Horse_Racing)
 msgid "Horse Racing"
-msgstr ""
+msgstr "Ιπποδρομίες"
 
 #: master_preset.xml:4964(item:name|group:Leisure|preset:Horse_Riding)
 msgid "Horse Riding"
@@ -5676,7 +5676,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Indian"
-msgstr ""
+msgstr "Ινδικό"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
@@ -5866,7 +5866,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Italian"
-msgstr ""
+msgstr "Ιταλικό"
 
 #: master_preset.xml:3365(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "J-bar"
@@ -5889,7 +5889,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Japanese"
-msgstr ""
+msgstr "Ιαπωνικό"
 
 #: master_preset.xml:740(combo:display_values|key:denomination)
 #: master_preset.xml:761(combo:display_values|key:denomination)
@@ -6520,7 +6520,7 @@ msgstr ""
 
 #: master_preset.xml:6509(item:name|group:Facilities|preset:Lounger)
 msgid "Lounger"
-msgstr ""
+msgstr "Ξαπλώστρα"
 
 #: master_preset.xml:5229(item:name|preset:Love_Hotel)
 msgid "Love Hotel"
@@ -6942,7 +6942,7 @@ msgstr ""
 
 #: master_preset.xml:1234(combo:display_values|key:climbing:quality)
 msgid "Medium"
-msgstr ""
+msgstr "Μεσαίο"
 
 #: master_preset.xml:4752(list_entry:display_value|group:Leisure|preset:Animals|value:meerkat)
 msgid "Meerkat"
@@ -7025,7 +7025,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Mexican"
-msgstr ""
+msgstr "Μεξικανικό"
 
 #: master_preset.xml:4345(check:text|group:Food+Drinks|preset:Restaurant|key:microbrewery)
 #: master_preset.xml:4447(check:text|group:Food+Drinks|preset:Pub|key:microbrewery)
@@ -7087,7 +7087,7 @@ msgstr ""
 
 #: master_preset.xml:7755(item:name|group:Man_Made|preset:Mineshaft)
 msgid "Mineshaft"
-msgstr ""
+msgstr "Φρεάτιο Ορυχείου"
 
 #: master_preset.xml:2025(item:name|group:Waypoints|preset:Mini-Roundabout)
 msgid "Mini-Roundabout"
@@ -7156,7 +7156,7 @@ msgstr ""
 
 #: master_preset.xml:2900(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Moat"
-msgstr ""
+msgstr "Τάφρος"
 
 #: master_preset.xml:9103(item:name|group:Electronics|preset:Mobile_Phone)
 msgid "Mobile Phone"
@@ -8348,7 +8348,7 @@ msgstr ""
 #: master_preset.xml:9324(combo:display_values|group:Printed_Material|preset:Book_Store|key:second_hand)
 #: master_preset.xml:9650(combo:display_values|group:Other|preset:Charity|key:second_hand)
 msgid "Only"
-msgstr ""
+msgstr "Μόνο"
 
 #: master_preset.xml:10959(combo:display_values|group:Turn_Restrictions|preset:Turn_Restriction|key:restriction)
 msgid "Only left turn"
@@ -9154,7 +9154,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Pizza"
-msgstr ""
+msgstr "Πίτσα"
 
 #: master_preset.xml:10747(text:text|group:Addresses_and_Contact|preset:Address|key:addr:place)
 msgid "Place name"
@@ -10135,7 +10135,7 @@ msgstr "Περιοχή"
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 #: master_preset.xml:939(combo:display_values|key:aerodrome:type)
 msgid "Regional"
-msgstr ""
+msgstr "Τοπικό"
 
 #: master_preset.xml:10734(text:text|group:Addresses_and_Contact|preset:Name|key:reg_name)
 msgid "Regional name"
@@ -10700,7 +10700,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Sandwich"
-msgstr ""
+msgstr "Σάντουιτς"
 
 #: master_preset.xml:9606(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
 msgid "Sanitary"
@@ -11084,7 +11084,7 @@ msgstr ""
 
 #: master_preset.xml:10401(item:name|group:Nature|preset:Shingle)
 msgid "Shingle"
-msgstr ""
+msgstr "Βότσαλο"
 
 #: master_preset.xml:737(combo:display_values|key:religion)
 #: master_preset.xml:746(combo:display_values|key:religion)
@@ -11169,7 +11169,7 @@ msgstr ""
 
 #: master_preset.xml:10477(item:name|group:Nature|preset:Shrub)
 msgid "Shrub"
-msgstr ""
+msgstr "Χαμόκλαδο"
 
 #: master_preset.xml:4576(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Sight"
@@ -11840,7 +11840,7 @@ msgstr ""
 #: master_preset.xml:3901(check:text|group:Public_Transport|preset:Platform|key:subway)
 #: master_preset.xml:3951(combo:display_values|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:route)
 msgid "Subway"
-msgstr ""
+msgstr "Υπόγειος"
 
 #: master_preset.xml:3831(role:text|group:Public_Transport|preset:Stop_Area|key:)
 #: master_preset.xml:3925(item:name|group:Public_Transport|preset:Subway_Entrance)
@@ -11932,7 +11932,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Sushi"
-msgstr ""
+msgstr "Σούσι"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Swahili"
@@ -12809,7 +12809,7 @@ msgstr ""
 
 #: master_preset.xml:2531(item:name|group:Barriers|preset:Turnstile)
 msgid "Turnstile"
-msgstr ""
+msgstr "Περιστροφική Πόρτα"
 
 #: master_preset.xml:3274(item:name|group:Railway|preset:Turntable)
 msgid "Turntable"
@@ -13021,11 +13021,11 @@ msgstr ""
 
 #: master_preset.xml:6390(combo:display_values|group:Facilities|preset:Clock|key:display)
 msgid "Unorthodox"
-msgstr ""
+msgstr "Ανορθόδοξο"
 
 #: master_preset.xml:68(combo:display_values|key:surface)
 msgid "Unpaved"
-msgstr ""
+msgstr "Μη στρωμένο"
 
 #: master_preset.xml:352(list_entry:short_description|value:yes)
 #: master_preset.xml:364(list_entry:short_description|value:yes)
@@ -13095,7 +13095,7 @@ msgstr ""
 
 #: master_preset.xml:886(combo:text|key:utility)
 msgid "Utility"
-msgstr ""
+msgstr "Εργαλείο"
 
 #: master_preset.xml:7620(item:name|group:Man_Made|preset:Utility_pole)
 msgid "Utility pole"
@@ -13158,11 +13158,11 @@ msgstr ""
 
 #: master_preset.xml:4503(combo:text|group:Food+Drinks|preset:Diet|key:diet:vegan)
 msgid "Vegan"
-msgstr ""
+msgstr "Χορτοφαγία"
 
 #: master_preset.xml:4502(combo:text|group:Food+Drinks|preset:Diet|key:diet:vegetarian)
 msgid "Vegetarian"
-msgstr ""
+msgstr "Χορτοφαγία"
 
 #: master_preset.xml:3641(item:name|group:Car|preset:Vehicle_Inspection)
 msgid "Vehicle Inspection"
@@ -14372,7 +14372,7 @@ msgstr "Συρματόπλεγμα"
 #: master_preset.xml:8426(combo:display_values|preset:Power_Tower|key:material)
 msgctxt "material"
 msgid "Concrete"
-msgstr ""
+msgstr "Μπετόν"
 
 #: master_preset.xml:2379(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
@@ -14531,7 +14531,7 @@ msgstr ""
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Concrete"
-msgstr ""
+msgstr "Μπετόν"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14552,7 +14552,7 @@ msgstr "Τσιμεντένιες πλάκες"
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Dirt"
-msgstr ""
+msgstr "Σκόνη"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14580,7 +14580,7 @@ msgstr ""
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Gravel"
-msgstr ""
+msgstr "Χαλίκι"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14608,7 +14608,7 @@ msgstr "Λάσπη"
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Paved"
-msgstr ""
+msgstr "Στρωμένο"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14658,7 +14658,7 @@ msgstr "Επιφάνεια"
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Unpaved"
-msgstr ""
+msgstr "Μη στρωμένο"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -14871,7 +14871,7 @@ msgstr "Τύπος"
 #: master_preset.xml:670(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Underground"
-msgstr ""
+msgstr "Υπόγειο"
 
 #: master_preset.xml:174(combo:display_values|key:overtaking)
 msgctxt "overtaking"
@@ -16223,7 +16223,7 @@ msgstr ""
 #: master_preset.xml:889(combo:display_values|key:bridge)
 msgctxt "bridge"
 msgid "Boardwalk"
-msgstr ""
+msgstr "Θαλάσσιος Περίπατος"
 
 #: master_preset.xml:889(combo:text|key:bridge)
 msgctxt "bridge"
@@ -16862,7 +16862,7 @@ msgstr "Εμπορική"
 #: master_preset.xml:1152(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Concrete"
-msgstr ""
+msgstr "Μπετόν"
 
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 #: master_preset.xml:7422(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
@@ -16895,7 +16895,7 @@ msgstr ""
 #: master_preset.xml:7428(item:name|group:Roof_type|preset:Dome)
 msgctxt "building"
 msgid "Dome"
-msgstr ""
+msgstr "Θόλου"
 
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -17052,7 +17052,7 @@ msgstr "Κατοικία"
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Houseboat"
-msgstr ""
+msgstr "Πλωτό Σπίτι"
 
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -17176,7 +17176,7 @@ msgstr "Λάσπη"
 #: master_preset.xml:7422(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
 msgctxt "building"
 msgid "Office"
-msgstr ""
+msgstr "Υπηρεσία"
 
 #: master_preset.xml:1161(list_entry:short_description|value:onion)
 #: master_preset.xml:7475(item:name|group:Roof_type|preset:Onion)
@@ -19543,7 +19543,7 @@ msgstr "Αρχάριο"
 #: master_preset.xml:7110(combo:display_values|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
 msgid "Backcountry"
-msgstr ""
+msgstr "Επαρχία"
 
 #: master_preset.xml:7110(combo:display_values|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
@@ -19828,7 +19828,7 @@ msgstr "Φάρος"
 #: master_preset.xml:8043(item:name|group:Man_Made|preset:Beehive)
 msgctxt "man_made"
 msgid "Beehive"
-msgstr ""
+msgstr "Κυψέλη"
 
 #: master_preset.xml:7944(item:name|group:Man_Made|preset:Dolphin)
 msgctxt "man_made"
@@ -20296,7 +20296,7 @@ msgstr ""
 #: master_preset.xml:10580(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
 msgid "Chinese"
-msgstr ""
+msgstr "Κινεζικό"
 
 #: master_preset.xml:10578(combo:display_values|group:Land_use|preset:Garden|key:garden:type)
 msgctxt "garden"
@@ -20321,7 +20321,7 @@ msgstr ""
 #: master_preset.xml:10580(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
 msgid "French"
-msgstr ""
+msgstr "Γαλλικό"
 
 #: master_preset.xml:10580(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
@@ -20331,7 +20331,7 @@ msgstr ""
 #: master_preset.xml:10580(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
 msgid "Japanese"
-msgstr ""
+msgstr "Ιαπωνικό"
 
 #: master_preset.xml:10580(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
