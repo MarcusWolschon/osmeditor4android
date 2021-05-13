@@ -21,8 +21,6 @@ public class Line extends Layer {
 
     private static final long serialVersionUID = 5L;
 
-    private static final String DEBUG_TAG = Line.class.getSimpleName();
-
     FloatStyleAttribute lineWidth = new FloatStyleAttribute(true) {
         private static final long serialVersionUID = 1L;
 

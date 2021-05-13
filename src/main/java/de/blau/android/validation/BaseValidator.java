@@ -34,7 +34,6 @@ import de.blau.android.util.Geometry;
 import de.blau.android.util.collections.MultiHashMap;
 
 public class BaseValidator implements Validator {
-    private static final String DEBUG_TAG = BaseValidator.class.getSimpleName();
 
     public static final int MAX_CONNECTION_TOLERANCE = 10; // maximum tolerance value for non-connected end nodes
 

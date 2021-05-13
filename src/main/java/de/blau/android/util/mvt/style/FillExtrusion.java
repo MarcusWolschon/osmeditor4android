@@ -8,8 +8,6 @@ public class FillExtrusion extends Fill {
 
     private static final long serialVersionUID = 4L;
 
-    private static final String DEBUG_TAG = FillExtrusion.class.getSimpleName();
-
     /**
      * Default constructor
      */

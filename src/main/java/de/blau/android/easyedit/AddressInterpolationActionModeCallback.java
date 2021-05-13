@@ -15,7 +15,6 @@ import de.blau.android.util.ThemeUtils;
  * This callback handles path creation for an address interpolation way.
  */
 public class AddressInterpolationActionModeCallback extends PathCreationActionModeCallback {
-    private static final String DEBUG_TAG = "AddressInterpolation...";
 
     /**
      * Construct a new callback from saved state

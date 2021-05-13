@@ -20,7 +20,6 @@ import de.blau.android.util.ThemeUtils;
  *
  */
 public abstract class BuilderActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
-    private static final String DEBUG_TAG = "BuilderActionMode...";
 
     final Preferences prefs;
     Drawable          savedButton;

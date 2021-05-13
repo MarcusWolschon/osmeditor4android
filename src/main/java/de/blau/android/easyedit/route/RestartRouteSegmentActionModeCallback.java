@@ -20,7 +20,6 @@ import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
 
 public class RestartRouteSegmentActionModeCallback extends NonSimpleActionModeCallback {
-    private static final String DEBUG_TAG = "RestartRoute...";
 
     private final Set<Way> segmentWays;
     private boolean        segmentSelected = false;

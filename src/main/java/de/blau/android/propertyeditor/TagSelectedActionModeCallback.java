@@ -22,8 +22,6 @@ import de.blau.android.util.Util;
 
 public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallback {
 
-    private static final String DEBUG_TAG = "TagSelected...";
-
     // pm: protected static final int MENU_ITEM_DELETE = 1;
     // pm: protected static final int MENU_ITEM_HELP = 15;
     private static final int MENU_ITEM_COPY          = 2;

@@ -11,8 +11,6 @@ import de.blau.android.R;
  */
 public class AdvancedPrefEditor extends PrefEditorActivity {
 
-    private static final String DEBUG_TAG = "AdvancedPrefEditor";
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

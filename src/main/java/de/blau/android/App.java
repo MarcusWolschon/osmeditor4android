@@ -56,7 +56,6 @@ import okhttp3.OkHttpClient;
 @AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
 
 public class App extends android.app.Application implements android.app.Application.ActivityLifecycleCallbacks {
-    private static final String DEBUG_TAG = App.class.getName();
 
     private static final String     RHINO_LAZY_LOAD = "lazyLoad";
     private static App              currentInstance;

@@ -30,8 +30,6 @@ import de.blau.android.util.Util;
  */
 public class MultiselectDialogRow extends DialogRow {
 
-    private static final String DEBUG_TAG = "MultiselectDialogRow";
-
     OnClickListener listener;
 
     LinearLayout         valueList;

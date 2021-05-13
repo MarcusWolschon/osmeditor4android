@@ -15,7 +15,6 @@ import de.blau.android.util.ThemeUtils;
  *
  */
 public class NonSimpleActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
-    private static final String DEBUG_TAG = "NonSimpleActionMode...";
 
     final Preferences prefs;
 

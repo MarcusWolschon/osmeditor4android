@@ -16,7 +16,7 @@ import de.blau.android.util.Geometry;
 import de.blau.android.util.Util;
 
 public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
-    private static final String DEBUG_TAG = "WaySegment...";
+
     private final Way           way;
     private float               x         = -Float.MAX_VALUE;
     private float               y         = -Float.MAX_VALUE;

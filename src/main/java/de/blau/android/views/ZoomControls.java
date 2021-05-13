@@ -22,8 +22,6 @@ import de.blau.android.util.Util;
 
 public class ZoomControls extends LinearLayout {
 
-    private static final String DEBUG_TAG = ZoomControls.class.getName();
-
     private final FloatingActionButton zoomIn;
     private final FloatingActionButton zoomOut;
 

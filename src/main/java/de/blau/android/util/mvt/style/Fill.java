@@ -21,8 +21,6 @@ public class Fill extends Layer {
 
     private static final long serialVersionUID = 4L;
 
-    private static final String DEBUG_TAG = Fill.class.getSimpleName();
-
     SerializablePaint        outline       = null;
     ColorStyleAttribute      outlineColor  = new ColorStyleAttribute() {
                                                private static final long serialVersionUID = 1L;

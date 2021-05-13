@@ -20,7 +20,6 @@ import de.blau.android.util.GeoMath;
  */
 public class RTree<T extends BoundedObject> implements Serializable {
     private static final long     serialVersionUID = 1L;
-    private static final String   DEBUG_TAG        = RTree.class.getName();
     private Node<T>               root;
     private int                   maxSize;
     private int                   minSize;
@@ -28,7 +27,6 @@ public class RTree<T extends BoundedObject> implements Serializable {
 
     private class Node<T extends BoundedObject> implements BoundedObject, Serializable {
         private static final long  serialVersionUID = 1L;
-        private final String       DEBUG_TAG        = Node.class.getName();
         private Node<T>            parent;
         private BoundingBox        box;
         private ArrayList<Node<T>> children;
