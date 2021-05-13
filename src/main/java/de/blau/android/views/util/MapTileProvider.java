@@ -3,7 +3,6 @@ package de.blau.android.views.util;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -59,7 +58,7 @@ public class MapTileProvider<T> implements ServiceConnection {
      * cache provider
      */
     private MapTileCache<T>         mTileCache;
-    private final Map<String, Long> pending = new HashMap<String, Long>();
+    private final Map<String, Long> pending = new HashMap<>();
 
     private IMapTileProviderService mTileService;
     private final Handler           mDownloadFinishedHandler;
@@ -388,36 +387,38 @@ public class MapTileProvider<T> implements ServiceConnection {
             }
             mDownloadFinishedHandler.sendMessage(Message.obtain(mDownloadFinishedHandler, MapTile.MAPTILE_FAIL_ID, reason, 0));
         }
-
-        /**
-         * Unzip the data if it is zipped
-         * 
-         * @param data the potentially gzipped data
-         * @return the unzipped data
-         */
-        @NonNull
-        private byte[] unGZip(@NonNull byte[] data) {
-            if (data.length > 3 && data[0] == (byte) 0x1F && data[1] == (byte) 0x8B && data[2] == (byte) 0x08) {
-                ByteArrayOutputStream os = new ByteArrayOutputStream();
-                try {
-                    ByteArrayInputStream in = new ByteArrayInputStream(data);
-                    GZIPInputStream gis = new GZIPInputStream(in);
-                    byte[] buffer = new byte[1024];
-                    int len;
-                    while ((len = gis.read(buffer)) != -1) {
-                        os.write(buffer, 0, len);
-                    }
-                    os.close();
-                    gis.close();
-                } catch (IOException e) {
-                    Log.d(DEBUG_TAG, "Exception in unGZip " + e.getMessage());
-                    return data;
-                }
-                return os.toByteArray();
-            }
-            return data;
-        }
     };
+
+    /**
+     * Unzip the data if it is zipped
+     * 
+     * @param data the potentially gzipped data
+     * @return the unzipped data
+     */
+    @NonNull
+    public static byte[] unGZip(@NonNull byte[] data) {
+        // check magic number
+        if (data.length > 3 && data[0] == (byte) 0x1F && data[1] == (byte) 0x8B && data[2] == (byte) 0x08) {
+            // nearly all the objects allocated here could be reused
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            try {
+                ByteArrayInputStream in = new ByteArrayInputStream(data);
+                GZIPInputStream gis = new GZIPInputStream(in);
+                byte[] buffer = new byte[4096];
+                int len;
+                while ((len = gis.read(buffer)) != -1) {
+                    os.write(buffer, 0, len);
+                }
+                os.close();
+                gis.close();
+            } catch (IOException e) {
+                Log.d(DEBUG_TAG, "Exception in unGZip " + e.getMessage());
+                return data;
+            }
+            return os.toByteArray();
+        }
+        return data;
+    }
 
     /**
      * Get some information on cache usage

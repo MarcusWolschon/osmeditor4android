@@ -28,6 +28,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.IMapTileProviderCallback;
 import de.blau.android.util.NetworkStatus;
+import de.blau.android.views.util.MapTileProvider;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -102,6 +103,9 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 
     private class TileLoader extends MapAsyncTileProvider.TileLoader {
 
+        private static final String HTTP_HEADER_ACCEPT_ENCODING = "Accept-Encoding";
+        private static final String GZIP                        = "gzip";
+
         private static final String TILE_NOT_AVAILABLE = "tile not available";
 
         private static final int BINDER_SIZE_LIMIT = 300000; // determined experimentally
@@ -155,7 +159,8 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                             Log.d(DEBUG_TAG, "Downloading Maptile from url: " + tileURLString);
                         }
 
-                        Request request = new Request.Builder().url(tileURLString).build();
+                        Request request = new Request.Builder().url(tileURLString).addHeader(HTTP_HEADER_ACCEPT_ENCODING, GZIP).build();
+
                         Call tileCall = client.newCall(request);
                         tileCallResponse = tileCall.execute();
                         if (tileCallResponse.isSuccessful()) {
@@ -290,6 +295,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
          * @return the compressed data
          */
         private byte[] compressBitmap(@NonNull CompressFormat compressFormat, @NonNull final ByteArrayOutputStream dataStream, @NonNull byte[] data) {
+            data = MapTileProvider.unGZip(data); // unzip if compressed
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, null);
             dataStream.reset();
             bitmap.compress(compressFormat, 100, dataStream);
