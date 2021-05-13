@@ -228,10 +228,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
             for (PresetElement pe : elementsFromTaginfo) {
                 searchResults.add(pe);
             }
-            if (searchResults.isEmpty()) {
-                return null;
-            }
-            if (presets != null && !presets.isEmpty()) {
+            if (!searchResults.isEmpty() && presets != null && !presets.isEmpty()) {
                 searchResults.add(0, fromTaginfo.new PresetSeparator(fromTaginfo.getRootGroup()));
             }
             return searchResults;
@@ -250,7 +247,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
                 return;
             }
 
-            if (result == null || result.isEmpty()) {
+            if (result.isEmpty()) {
                 Snack.toastTopInfo(getContext(), R.string.toast_nothing_found);
                 return;
             }
