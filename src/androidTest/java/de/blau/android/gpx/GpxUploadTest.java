@@ -1,5 +1,9 @@
 package de.blau.android.gpx;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 
 import org.junit.After;
@@ -21,6 +25,7 @@ import de.blau.android.App;
 import de.blau.android.JavaResources;
 import de.blau.android.Main;
 import de.blau.android.MockTileServer;
+import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -98,7 +103,7 @@ public class GpxUploadTest {
      */
     @Test
     public void uploadGpx() {
-        Assert.assertNotNull(main);
+        assertNotNull(main);
 
         // wait for the trackerservice to start
         // unluckily there doesn't seem to be any elegant way to do this
@@ -112,7 +117,7 @@ public class GpxUploadTest {
                 }
                 retries++;
                 if (retries >= 60) {
-                    Assert.fail("Tracker service didn't start");
+                    fail("Tracker service didn't start");
                 }
             }
         }
@@ -120,25 +125,26 @@ public class GpxUploadTest {
         try {
             JavaResources.copyFileFromResources(main, GPX_FILE, null, "/", false);
             clickGpsButton();
-            if (TestUtils.findObjectWithText(device, false, "Clear", 1000).getParent().getParent().getParent().isEnabled()) {
-                TestUtils.clickText(device, false, "Clear", true, false);
-                TestUtils.clickText(device, false, "Clear anyway", true, false);
+            if (TestUtils.findObjectWithText(device, false, main.getString(R.string.menu_gps_clear), 1000).getParent().getParent().getParent().isEnabled()) {
+                TestUtils.clickText(device, false, main.getString(R.string.menu_gps_clear), true, false);
+                TestUtils.clickText(device, false, main.getString(R.string.clear_anyway), true, false);
                 clickGpsButton();
             }
-            Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true, false));
-            Assert.assertTrue(TestUtils.clickText(device, false, "Import GPX track", true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_track_managment), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_import), true, false));
             TestUtils.selectFile(device, main, null, GPX_FILE, false);
             TestUtils.textGone(device, "Imported", 10000);
             clickGpsButton();
-            Assert.assertTrue(TestUtils.clickText(device, false, "Go to start", true, false));
+            TestUtils.scrollTo(main.getString(R.string.menu_gps_goto_start));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_goto_start), true, false));
             clickGpsButton();
-            Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true, false));
-            Assert.assertTrue(TestUtils.clickText(device, false, "Upload", true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_track_managment), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_upload), true, false));
             mockServer.enqueue("200");
-            Assert.assertTrue(TestUtils.clickResource(device, false, "android:id/button1", true));
-            Assert.assertTrue(TestUtils.textGone(device, "Uploading", 5000));
+            assertTrue(TestUtils.clickResource(device, false, "android:id/button1", true));
+            assertTrue(TestUtils.textGone(device, "Uploading", 5000));
         } catch (IOException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
     }
 
@@ -146,6 +152,6 @@ public class GpxUploadTest {
      * Click the GPS menu button
      */
     void clickGpsButton() {
-        Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
     }
 }
