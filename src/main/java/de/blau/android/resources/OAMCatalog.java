@@ -21,7 +21,6 @@ import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.util.SavingHelper;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
