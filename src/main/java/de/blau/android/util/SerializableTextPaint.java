@@ -158,13 +158,13 @@ public class SerializableTextPaint extends TextPaint implements Serializable {
     public int getShadowLayerColor() { // NOSONAR
         return shadowColor;
     }
-    
+
     /**
      * Get the current letter spacing
      * 
      * @return the letter spacing
      */
-    public float getLetterSpacing() {
+    public float getLetterSpacing() { // NOSONAR
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? super.getLetterSpacing() : 0f;
     }
 
@@ -173,7 +173,7 @@ public class SerializableTextPaint extends TextPaint implements Serializable {
      * 
      * @param letterSpacing the value to use
      */
-    public void setLetterSpacing(float letterSpacing) {
+    public void setLetterSpacing(float letterSpacing) { // NOSONAR
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             super.setLetterSpacing(letterSpacing);
         }
