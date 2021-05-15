@@ -424,7 +424,7 @@ public class Symbol extends Layer {
      * @param attributes the features attributed
      * @return a String or ""
      */
-    @Nullable
+    @NonNull
     private String evaluateLabel(@NonNull Map<String, Object> attributes) {
         if (label.literal != null) {
             String output = deMoustache(label.literal, attributes);
@@ -455,6 +455,7 @@ public class Symbol extends Layer {
      * @param attributes the feature attributes
      * @return a String with any moustache templates replaced
      */
+    @NonNull
     private String deMoustache(@NonNull String input, @NonNull Map<String, Object> attributes) {
         // primitive moustache handling
         builder.setLength(0);
@@ -676,7 +677,7 @@ public class Symbol extends Layer {
             if (!(evaluatedLabel instanceof String)) {
                 evaluatedLabel = evaluateLabel(feature.getAttributes());
             }
-            if (evaluatedLabel != null && !"".equals(evaluatedLabel)) {
+            if (!"".equals(evaluatedLabel)) {
                 path.rewind();
                 int last = lineSize - 1;
                 if (line.get(0).longitude() > line.get(last).longitude()) {
