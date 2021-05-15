@@ -440,10 +440,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         case R.id.tag_menu_locale:
             // add locale to any name keys present
             LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
-            if (allTags == null) {
-                Log.e(DEBUG_TAG, "getKeyValueMapSingle returned null");
-                return true;
-            }
             LinkedHashMap<String, String> result = new LinkedHashMap<>();
             Properties prop = App.getGeoContext(getContext()).getProperties(propertyEditorListener.getIsoCodes());
             String[] languages = prop.getLanguages();
