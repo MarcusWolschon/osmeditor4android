@@ -21,6 +21,7 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
+import ch.poole.android.screenshotrule.ScreenshotRule;
 import de.blau.android.App;
 import de.blau.android.JavaResources;
 import de.blau.android.Main;
@@ -51,6 +52,9 @@ public class GpxUploadTest {
      */
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
+    
+    @Rule
+    public ScreenshotRule screenshotRule = new ScreenshotRule();
 
     /**
      * Pre-test setup
@@ -124,6 +128,7 @@ public class GpxUploadTest {
 
         try {
             JavaResources.copyFileFromResources(main, GPX_FILE, null, "/", false);
+            screenshotRule.screenshot(main, "gpx_upload_1");
             clickGpsButton();
             if (TestUtils.findObjectWithText(device, false, main.getString(R.string.menu_gps_clear), 1000).getParent().getParent().getParent().isEnabled()) {
                 TestUtils.clickText(device, false, main.getString(R.string.menu_gps_clear), true, false);
@@ -135,6 +140,7 @@ public class GpxUploadTest {
             TestUtils.selectFile(device, main, null, GPX_FILE, false);
             TestUtils.textGone(device, "Imported", 10000);
             clickGpsButton();
+            screenshotRule.screenshot(main, "gpx_upload_2");
             TestUtils.scrollTo(main.getString(R.string.menu_gps_goto_start));
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_goto_start), true, false));
             clickGpsButton();
