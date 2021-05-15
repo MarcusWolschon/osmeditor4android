@@ -20,7 +20,6 @@ import androidx.annotation.Nullable;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.util.StringWithDescription;
 
 /**
@@ -42,7 +41,7 @@ public final class TaginfoServer {
     private static final String DESCRIPTION_NAME = "description";
 
     /**
-     * Private construtor
+     * Private constructor
      */
     private TaginfoServer() {
         // don't instantiate
@@ -710,27 +709,17 @@ public final class TaginfoServer {
     @Nullable
     public static Object querySync(@NonNull final Context context, @NonNull final String url, @NonNull final ResultReader resultReader,
             @Nullable final PostAsyncActionHandler handler) {
-
         Log.d(DEBUG_TAG, "querying server for " + url);
-        InputStream is = null;
-        JsonReader reader = null;
         Object result = null;
-        try {
-            is = Server.openConnection(context, new URL(url), 1000, 1000);
-            if (is != null) {
-                reader = new JsonReader(new InputStreamReader(is));
-                result = resultReader.read(reader);
-            }
+        try (InputStream is = Server.openConnection(context, new URL(url), 1000, 1000); JsonReader reader = new JsonReader(new InputStreamReader(is));) {
+            result = resultReader.read(reader);
             if (result != null && handler != null) {
                 handler.onSuccess();
             }
             Log.d(DEBUG_TAG, "returning " + (result instanceof List ? ((List) result).size() : "1") + " results");
             return result;
         } catch (IOException e) {
-            Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
-        } finally {
-            SavingHelper.close(reader);
-            SavingHelper.close(is);
+            Log.e(DEBUG_TAG, "querySync got exception " + e.getMessage());
         }
         return null;
     }
@@ -754,7 +743,7 @@ public final class TaginfoServer {
                 try (InputStream is = Server.openConnection(context, new URL(url), 1000, 1000); JsonReader reader = new JsonReader(new InputStreamReader(is))) {
                     return resultReader.read(reader);
                 } catch (IOException e) {
-                    Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
+                    Log.e(DEBUG_TAG, "queryAsync got exception " + e.getMessage());
                 }
                 return null;
             }
