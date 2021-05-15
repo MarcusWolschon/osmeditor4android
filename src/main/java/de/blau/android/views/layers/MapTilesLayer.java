@@ -116,7 +116,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     private TileRenderer<T> mTileRenderer;
 
     // avoid creating new Rects in onDraw
-    private Rect destRect = null;      // destination rect for bit map
+    private Rect destRect = new Rect(); // destination rect for bit map
     private Rect srcRect  = new Rect();
     private Rect tempRect = new Rect();
 
@@ -432,7 +432,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
 
         final int mapTileMask = (n) - 1;
 
-        destRect = null; // destination rect for bit map
+        boolean firstIteration = true;
         int destIncX = 0;
         int destIncY = 0;
         int xPos = 0;
@@ -462,10 +462,11 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                 originalTile.y = tile.y;
 
                 // destination rect
-                if (destRect == null) { // avoid recalculating this for every tile
-                    destRect = getScreenRectForTile(new Rect(), width, height, osmv, zoomLevel, y, x, squareTiles, lonOffset, latOffset);
+                if (firstIteration) { // avoid recalculating this for every tile
+                    destRect = getScreenRectForTile(destRect, width, height, osmv, zoomLevel, y, x, squareTiles, lonOffset, latOffset);
                     destIncX = destRect.width();
                     destIncY = destRect.height();
+                    firstIteration = false;
                 }
 
                 // Set the size and top left corner on the source bitmap
