@@ -1669,7 +1669,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         result.addAll(reverseWayNodeTags(way.getNodes()));
         way.reverse();
         List<Relation> dirRelations = Reverse.getRelationsWithDirectionDependentRoles(way);
-        if (dirRelations != null) {
+        if (!dirRelations.isEmpty()) {
             Reverse.reverseRoleDirection(way, dirRelations);
             for (Relation r : dirRelations) {
                 Result relationResult = new Result();

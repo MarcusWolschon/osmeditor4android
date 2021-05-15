@@ -84,19 +84,16 @@ final class Reverse {
      * @param e element for which we need to inspect the parent relations
      * @return List of relations or null if none found
      */
-    @Nullable
+    @NonNull
     public static List<Relation> getRelationsWithDirectionDependentRoles(@NonNull OsmElement e) {
-        ArrayList<Relation> result = null;
+        List<Relation> result = new ArrayList<>();
         List<Relation> parents = e.getParentRelations();
         if (parents != null) {
             for (Relation r : parents) {
                 String t = r.getTagWithKey(Tags.KEY_TYPE);
-                if (t != null && Tags.VALUE_ROUTE.equals(t)) {
+                if (Tags.VALUE_ROUTE.equals(t)) {
                     RelationMember rm = r.getMember(Way.NAME, e.getOsmId());
                     if (rm != null && (Tags.ROLE_FORWARD.equals(rm.getRole()) || Tags.ROLE_BACKWARD.equals(rm.getRole()))) {
-                        if (result == null) {
-                            result = new ArrayList<>();
-                        }
                         result.add(r);
                     }
                 }
@@ -115,11 +112,9 @@ final class Reverse {
         if (relations != null) {
             for (Relation r : relations) {
                 for (RelationMember rm : r.getAllMembers(e)) {
-                    if (rm.role != null && Tags.ROLE_FORWARD.equals(rm.role)) {
+                    if (Tags.ROLE_FORWARD.equals(rm.role)) {
                         rm.setRole(Tags.ROLE_BACKWARD);
-                        continue;
-                    }
-                    if (rm.role != null && Tags.ROLE_BACKWARD.equals(rm.role)) {
+                    } else if (Tags.ROLE_BACKWARD.equals(rm.role)) {
                         rm.setRole(Tags.ROLE_FORWARD);
                     }
                 }
