@@ -827,9 +827,8 @@ public class PropertyEditor extends AppCompatActivity implements PropertyEditorL
         }
         // if we haven't edited just exit
         if (!same(currentTags, originalTags) // tags different
-                || ((currentParents != null && !currentParents.equals(originalParents))
-                        && !(originalParents == null && (currentParents == null || currentParents.isEmpty()))) // parents
-                                                                                                               // changed
+                || ((currentParents != null && !currentParents.equals(originalParents)) && !(originalParents == null && currentParents.isEmpty())) // parents
+                                                                                                                                                   // changed
                 || (getElement() != null && getElement().getName().equals(Relation.NAME)
                         && (currentMembers != null && !sameMembers(currentMembers, originalMembers)))) {
             new AlertDialog.Builder(this).setNeutralButton(R.string.cancel, null).setNegativeButton(R.string.tag_menu_revert, (dialog, which) -> doRevert())
