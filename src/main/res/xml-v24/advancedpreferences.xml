@@ -482,6 +482,11 @@
             app:spt_increment="10"
             app:spt_currentValueText="@string/config_tileCache_current"
             app:spt_setWrapSelectorWheel="false" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_preferRemovableStorage_key"
+            android:summary="@string/config_preferRemovableStorage_summary"
+            android:title="@string/config_preferRemovableStorage_title" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="100"
             android:dialogTitle="@string/config_mapillaryCacheSize_title"

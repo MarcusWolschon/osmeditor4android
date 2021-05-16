@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import de.blau.android.R;
-import de.blau.android.contract.Paths;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
@@ -53,21 +52,14 @@ public class MapTileProviderService extends Service {
     @SuppressLint("NewApi")
     private void init() {
         Preferences prefs = new Preferences(this);
-        int tileCacheSize = 100; // just in case we can't read the prefs
-        if (prefs != null) {
-            tileCacheSize = prefs.getTileCacheSize();
-        }
-        File mountPoint = null;
-        // check for classic location first
-        File classicMountPoint = Environment.getExternalStorageDirectory();
-        File classicTileDir = new File(classicMountPoint, Paths.DIRECTORY_PATH_TILE_CACHE_CLASSIC);
-        if (classicTileDir.exists()) {
-            // remove old database
-            MapTileProviderDataBase.delete(getBaseContext());
-        }
+        int tileCacheSize = prefs.getTileCacheSize();
+        boolean preferRemovableStorage = prefs.preferRemovableStorage();
 
-        File[] storageDirectories = ContextCompat.getExternalFilesDirs(getBaseContext(), null);
-        for (File dir : storageDirectories) { // iterate over the directories preferring a removable one if possible
+        File mountPoint = null;
+
+        for (File dir : ContextCompat.getExternalFilesDirs(getBaseContext(), null)) { // iterate over the directories
+                                                                                      // preferring a removable one if
+                                                                                      // required
             if (dir == null) {
                 Log.d(DEBUG_TAG, "storage dir null");
                 continue;
@@ -75,33 +67,32 @@ public class MapTileProviderService extends Service {
             Log.d(DEBUG_TAG, "candidate storage directory " + dir.getPath());
             if (MapTileProviderDataBase.exists(dir)) { // existing tile cache, only use if we can write
                 if (dir.canWrite()) {
-                    mountPointWriteable = true;
                     mountPoint = dir;
                     break;
                 }
             } else if (dir.canWrite()) {
-                mountPointWriteable = true;
                 mountPoint = dir;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (preferRemovableStorage && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     try {
                         if (Environment.isExternalStorageRemovable(dir)) {
-                            // prefer removeable storage
-                            Log.d(DEBUG_TAG, "isExternalStorageRemovable claims dir is removeable");
+                            // prefer removable storage
+                            Log.d(DEBUG_TAG, "isExternalStorageRemovable claims dir is removable");
                             break;
                         }
                     } catch (IllegalArgumentException iae) {
-                        // we've seen this on some devices even if it doesn0t make sense
+                        // we've seen this on some devices even if it doesn't make sense
                         Log.d(DEBUG_TAG, "isExternalStorageRemovable didn't like " + dir);
                     }
                 } else {
-                    break; // as we can't determine if this is external we may as well use it
+                    break; // just use the first writable directory
                 }
             } else {
-                Log.d(DEBUG_TAG, dir.getPath() + " not writeable");
+                Log.d(DEBUG_TAG, dir.getPath() + " not writable");
             }
         }
 
-        if (mountPoint != null && mountPointWriteable) {
+        if (mountPoint != null) {
+            mountPointWriteable = true;
             Log.d(DEBUG_TAG, "Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
             try {
                 mFileSystemProvider = new MapTileFilesystemProvider(this, mountPoint, tileCacheSize * 1024 * 1024); // FSCache
@@ -149,7 +140,8 @@ public class MapTileProviderService extends Service {
          */
         public void getMapTile(@NonNull String rendererID, int zoomLevel, int tileX, int tileY, @NonNull IMapTileProviderCallback callback)
                 throws RemoteException {
-            if (!mountPointWriteable) { // fail silently
+            if (!mountPointWriteable) { // fail
+                // silently
                 return;
             }
             MapTile tile = new MapTile(rendererID, zoomLevel, tileX, tileY);

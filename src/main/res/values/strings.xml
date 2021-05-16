@@ -1120,6 +1120,8 @@ avoided by using an offline data source.</string>
     <string name="config_downLoadThreads_current">%1$d Threads</string>
     <string name="config_tileCacheSize_title">Tile cache size</string>
     <string name="config_tileCacheSize_summary">Total storage used for caching tiles, in MB.</string>
+    <string name="config_preferRemovableStorage_title">Prefer removable storage</string>
+    <string name="config_preferRemovableStorage_summary">Prefer removable storage for the tile cache.</string>  
     <string name="config_tileCache_current">%1$d MB</string>
     <string name="config_mapillaryCacheSize_title">Mapillary cache size</string>
     <string name="config_mapillaryCacheSize_summary">Total storage used for caching Mapillary images, im MB</string>

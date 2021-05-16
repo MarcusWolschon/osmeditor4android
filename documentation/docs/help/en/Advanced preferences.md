@@ -255,6 +255,10 @@ Maximum number of simultaneous download threads. Default: _4_.
 
 Total on device size for caching imagery tiles. Default: _100MB_.
 
+### Prefer removable storage
+
+Prefer removable storage for storing tiles. Requires restart of app to take effect, you will need to manually remove the existing tile cache if you change this. Default: _true_.
+
 ### Mapillary cache size
 
 Total on device size for caching Mapillary images. Default: _100MB_.

@@ -50,6 +50,7 @@ public class Preferences {
     private float         gpsDistance;
     private float         maxStrokeWidth;
     private int           tileCacheSize;                 // in MB
+    private final boolean preferRemovableStorage;
     private int           mapillaryCacheSize;            // in MB
     private int           downloadRadius;                // in m
     private float         maxDownloadSpeed;              // in km/h
@@ -102,7 +103,7 @@ public class Preferences {
     private final boolean useBarometricHeight;
     private final boolean useUrlForFeedback;
     private final int     beepVolume;
-    private final int  maxOffsetDistance;
+    private final int     maxOffsetDistance;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -139,6 +140,7 @@ public class Preferences {
         maxStrokeWidth = getIntPref(R.string.config_maxStrokeWidth_key, 16);
 
         tileCacheSize = getIntPref(R.string.config_tileCacheSize_key, 100);
+        preferRemovableStorage = prefs.getBoolean(r.getString(R.string.config_preferRemovableStorage_key), true);
         mapillaryCacheSize = getIntPref(R.string.config_mapillaryCacheSize_key, 100);
 
         downloadRadius = getIntPref(R.string.config_extTriggeredDownloadRadius_key, 50);
@@ -262,7 +264,7 @@ public class Preferences {
         useUrlForFeedback = prefs.getBoolean(r.getString(R.string.config_useUrlForFeedback_key), false);
 
         beepVolume = getIntPref(R.string.config_beepVolume_key, Sound.BEEP_DEFAULT_VOLUME);
-        
+
         maxOffsetDistance = getIntPref(R.string.config_maxOffsetDistance_key, 100);
     }
 
@@ -291,10 +293,21 @@ public class Preferences {
     }
 
     /**
+     * Get the maximum tile cache size
+     * 
      * @return the size of the tile cache in MB
      */
     public int getTileCacheSize() {
         return tileCacheSize;
+    }
+
+    /**
+     * Check if we should prefer removable storage over built in for tiles
+     * 
+     * @return true id er should prefer removable storage
+     */
+    public boolean preferRemovableStorage() {
+        return preferRemovableStorage;
     }
 
     /**

@@ -101,7 +101,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param context an Android Context
      */
     public AdvancedPrefDatabase(@NonNull Context context) {
-        super(context, "AdvancedPrefs", null, DATA_VERSION);
+        super(context.getApplicationContext(), "AdvancedPrefs", null, DATA_VERSION); // always use the application
+                                                                                     // context
         this.context = context;
         r = context.getResources();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);

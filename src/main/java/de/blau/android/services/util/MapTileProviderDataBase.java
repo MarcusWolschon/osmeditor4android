@@ -380,7 +380,6 @@ public class MapTileProviderDataBase {
                                         c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_X)), c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_Y)));
 
                                 deleteFromDB.add(tileToBeDeleted);
-                                // Log.d(DEBUG_TAG,"flushCache " + tileToBeDeleted.toString());
                             } while (c.moveToNext());
                         } else {
                             throw new EmptyCacheException("Cache seems to be empty.");
@@ -405,7 +404,7 @@ public class MapTileProviderDataBase {
     // ===========================================================
     // Methods
     // ===========================================================
-    private String TMP_COLUMN = "tmp";
+    private static final String TMP_COLUMN = "tmp";
 
     /**
      * Get the current size of the cache in bytes
