@@ -134,13 +134,13 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     public void preRender(Canvas c, int z) {
         style.resetCollisionDetection();
         setScreenRect(c);
+        symbolPicture.endRecording(); // if we haven't finished rendering abort here
         symbolCanvas = symbolPicture.beginRecording(screenRect.width(), screenRect.height());
     }
 
     @Override
     public void postRender(Canvas c, int z) {
         lastZoom = z;
-        symbolPicture.endRecording();
         symbolPicture.draw(c);
     }
 
