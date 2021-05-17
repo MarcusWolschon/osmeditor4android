@@ -81,7 +81,7 @@ class Border extends PathPattern {
     @Override
     public Path draw(float size) {
         path.rewind();
-        width = Math.max(size, 2);
+        width = Math.max(size * 5, 2);
         height = Math.max(size * 2, 2);
         height = Math.min(height, 32);
         path.moveTo(0, 0);
@@ -91,7 +91,7 @@ class Border extends PathPattern {
 
     @Override
     public float advance(float size) {
-        return Math.max(size, 2);
+        return width;
     }
 
     @Override
