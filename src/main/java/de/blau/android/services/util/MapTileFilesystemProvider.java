@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -214,23 +215,31 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
             try {
                 TileLayerSource renderer = TileLayerSource.get(mCtx, mTile.rendererID, false);
                 if (renderer == null || !renderer.isMetadataLoaded()) {
-                    mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, RETRY);
+                    failed(mTile, RETRY);
                     return;
                 }
                 if (mTile.zoomLevel < renderer.getMinZoomLevel() || !mTile.rendererID.equals(renderer.getId())) {
-                    // the tile doesn't exist no point in trying to get it
-                    mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST);
+                    failed(mTile, DOESNOTEXIST);
                     return;
                 }
                 if (renderer.isReadOnly()) {
                     MBTileProviderDataBase mbTileDatabase = mbTileDatabases.get(renderer.getId());
                     if (mbTileDatabase == null) {
-                        synchronized (mbTileDatabases) {
-                            mbTileDatabase = mbTileDatabases.get(renderer.getId());
-                            if (mbTileDatabase == null) { // re-test
-                                mbTileDatabase = new MBTileProviderDataBase(mCtx, renderer.getOriginalTileUrl());
-                                mbTileDatabases.put(renderer.getId(), mbTileDatabase);
+                        if (!mbTileDatabases.containsKey(renderer.getId())) {
+                            synchronized (mbTileDatabases) {
+                                mbTileDatabase = mbTileDatabases.get(renderer.getId());
+                                if (mbTileDatabase == null) { // re-test
+                                    try {
+                                        mbTileDatabase = new MBTileProviderDataBase(mCtx, renderer.getOriginalTileUrl());
+                                        mbTileDatabases.put(renderer.getId(), mbTileDatabase);
+                                    } catch (SQLiteException sqlex) {
+                                        Log.e(DEBUG_TAG, "Unable to open db " + renderer.getOriginalTileUrl());
+                                        mbTileDatabases.put(renderer.getId(), null);
+                                    }
+                                }
                             }
+                        } else {
+                            failed(mTile, DOESNOTEXIST);
                         }
                     }
                     byte[] data = mbTileDatabase.getTile(mTile);
@@ -238,7 +247,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                         if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
                             Log.d(DEBUG_TAG, "FS failed " + mTile + " " + mTile.toId());
                         }
-                        mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST);
+                        failed(mTile, DOESNOTEXIST);
                     } else { // success!
                         mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
                     }
@@ -255,7 +264,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                             mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
                         }
                     } catch (InvalidTileException itex) {
-                        mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST);
+                        failed(mTile, DOESNOTEXIST);
                     }
                 }
                 if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
@@ -287,6 +296,17 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                     finished();
                 }
             }
+        }
+
+        /**
+         * Tell the caller that a tile failed
+         * 
+         * @param tile the tile
+         * @param code a code indicating the issue
+         * @throws RemoteException Binder remote-invocation error
+         */
+        private void failed(@NonNull MapTile tile, int code) throws RemoteException {
+            mCallback.mapTileFailed(tile.rendererID, tile.zoomLevel, tile.x, tile.y, code);
         }
 
         IMapTileProviderCallback passedOnCallback = new IMapTileProviderCallback() {
