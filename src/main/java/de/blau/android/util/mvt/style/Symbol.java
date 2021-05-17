@@ -201,7 +201,7 @@ public class Symbol extends Layer {
     private transient Rect iconRect  = new Rect();
     private transient Rect labelRect = new Rect();
 
-    private transient CollisionDetector detector;
+    private transient CollisionDetector detector = new SimpleCollisionDetector();
 
     /**
      * Default constructor
