@@ -269,18 +269,17 @@ public class MapTileProvider<T> implements ServiceConnection {
      * Flush the tile cache for a specific provider
      * 
      * @param rendererId the provider to flush or if null all
+     * @param all if true flush the on device cache too
      */
-    public void flushCache(@Nullable String rendererId) {
-        if (mTileService == null) {
-            Log.e(DEBUG_TAG, "tile service is disconnected");
-            return;
-        }
-        try {
-            mTileService.flushCache(rendererId);
-        } catch (RemoteException e) {
-            Log.e(DEBUG_TAG, "RemoteException in flushCache()", e);
-        } catch (Exception e) {
-            Log.e(DEBUG_TAG, "Exception in flushCache()", e);
+    public void flushCache(@Nullable String rendererId, boolean all) {
+        if (all && mTileService != null) {
+            try {
+                mTileService.flushCache(rendererId);
+            } catch (RemoteException e) {
+                Log.e(DEBUG_TAG, "RemoteException in flushCache()", e);
+            } catch (Exception e) {
+                Log.e(DEBUG_TAG, "Exception in flushCache()", e);
+            }
         }
         mTileCache.clear(); // zap everything in in memory cache
     }

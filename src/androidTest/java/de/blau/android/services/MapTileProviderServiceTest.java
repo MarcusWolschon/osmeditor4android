@@ -92,7 +92,7 @@ public class MapTileProviderServiceTest {
         signal = new CountDownLatch(1);
         TestUtils.sleep(TIMEOUT * 1000L);
         Assert.assertNotNull(provider.getMapTileFromCache(tile));
-        provider.flushCache(RENDERER);
+        provider.flushCache(RENDERER, true);
         Assert.assertNull(provider.getMapTileFromCache(tile));
     }
 

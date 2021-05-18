@@ -556,6 +556,17 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     }
                     return true;
                 });
+
+                item = menu.add(R.string.layer_reset_style);
+                item.setOnMenuItemClickListener(unused -> {
+                    if (layer != null) {
+                        ((de.blau.android.layer.mvt.MapOverlay) layer).resetStyling();
+                        // tiles need to be re-decoded for auto styling to work
+                        ((de.blau.android.layer.mvt.MapOverlay) layer).flushTileCache(activity, false);
+                        layer.invalidate();
+                    }
+                    return true;
+                });
             }
 
             if (layer instanceof LayerInfoInterface) {
@@ -614,7 +625,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 MenuItem item = menu.add(R.string.layer_flush_tile_cache);
                 item.setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
-                        ((MapTilesLayer<?>) layer).flushTileCache(activity);
+                        ((MapTilesLayer<?>) layer).flushTileCache(activity, true);
                         layer.invalidate();
                     }
                     return true;

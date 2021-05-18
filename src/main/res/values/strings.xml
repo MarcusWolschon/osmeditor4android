@@ -324,6 +324,7 @@
     <string name="layer_flush_tile_cache">Flush tile cache</string>
     <string name="layer_change_style">Change style</string>
     <string name="layer_load_style">Load style</string>
+    <string name="layer_reset_style">Reset style</string>
     <string name="layer_select_imagery">Select imagery</string>
     <string name="layer_category_all">All</string>
     <string name="layer_category_photo">Aerial imagery</string>

@@ -45,6 +45,7 @@ The layer dialog supports the following:
     * Mapbox Vector Tile layers (additionally to the above):
         * __Change style__ Show the layer styling dialog (disabled if a style has been loaded).
         * __Load style__ Load a mapbox-gl style.
+        * __Reset style__ Reset the style to the default.
     * GeoJSON layers: 
         * __Change style__ Show the layer styling dialog.
         * __Info__ Display some information on the contents.

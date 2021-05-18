@@ -215,12 +215,13 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     }
 
     /**
-     * Empty the cache
+     * Empty the cache for this layer
      * 
      * @param activity activity this was called from, if null don't display progress
+     * @param all if true flush the on device cache too
      */
-    public void flushTileCache(@Nullable final FragmentActivity activity) {
-        flushTileCache(activity, myRendererInfo.getId());
+    public void flushTileCache(@Nullable final FragmentActivity activity, boolean all) {
+        flushTileCache(activity, myRendererInfo.getId(), all);
     }
 
     /**
@@ -228,8 +229,9 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
      * 
      * @param activity activity this was called from, if null don't display progress
      * @param renderer the renderer to delete the cache for or null for all
+     * @param all if true flush the on device cache too
      */
-    public void flushTileCache(@Nullable final FragmentActivity activity, final String renderer) {
+    public void flushTileCache(@Nullable final FragmentActivity activity, final String renderer, boolean all) {
         new AsyncTask<Void, Void, Void>() {
 
             @Override
@@ -242,7 +244,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
             @Override
             protected Void doInBackground(Void... params) {
                 if (mTileProvider != null) {
-                    mTileProvider.flushCache(renderer);
+                    mTileProvider.flushCache(renderer, all);
                 }
                 return null;
             }
