@@ -383,7 +383,7 @@ public class Style implements Serializable {
             if (paint != null) {
                 line.color.set(ctx, LINE_COLOR, paint);
                 line.opacity.set(ctx, LINE_OPACITY, paint);
-                line.lineWidth.set(ctx, LINE_WIDTH, paint);
+                line.lineWidth.set(ctx, LINE_WIDTH, paint, Line.DEFAULT_LINE_WIDTH);
                 JsonElement lineDashArray = paint.get(LINE_DASHARRAY);
                 if (lineDashArray != null) {
                     if (lineDashArray.isJsonArray()) {
@@ -457,7 +457,7 @@ public class Style implements Serializable {
                 setVisibility(layout, symbol);
                 symbol.label.set(ctx, TEXT_FIELD, layout);
                 symbol.textSize.set(ctx, TEXT_SIZE, layout, 16f);
-                symbol.textMaxWidth.set(ctx, TEXT_MAX_WIDTH, layout, 10f);
+                symbol.textMaxWidth.set(ctx, TEXT_MAX_WIDTH, layout, Symbol.DEFAULT_TEXT_MAX_WIDTH);
                 symbol.textLetterSpacing.set(ctx, TEXT_LETTER_SPACING, layout);
                 symbol.textTransform.set(ctx, TEXT_TRANSFORM, layout);
                 symbol.textJustify.set(ctx, TEXT_JUSTIFY, layout);

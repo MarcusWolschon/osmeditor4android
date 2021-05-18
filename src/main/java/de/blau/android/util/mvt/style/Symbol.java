@@ -50,6 +50,9 @@ public class Symbol extends Layer {
     private static final String SYMBOL_ANCHOR_LEFT           = "left";
     private static final String SYMBOL_ANCHOR_CENTER         = "center";
 
+    public static final float DEFAULT_TEXT_SIZE      = 16f; // this needs to be converted to screen px
+    public static final float DEFAULT_TEXT_MAX_WIDTH = 10f;
+
     private static final int FUDGE = 6;
 
     StringStyleAttribute          iconImage = new StringStyleAttribute();
@@ -209,7 +212,8 @@ public class Symbol extends Layer {
     public Symbol(@NonNull String sourceLayer) {
         super(sourceLayer);
         setLabelPaint(new SerializableTextPaint());
-        setTextSize(16f); // needs to be changed to DIP
+        setTextSize(DEFAULT_TEXT_SIZE); // needs to be changed to DIP
+        textMaxWidth.literal = DEFAULT_TEXT_MAX_WIDTH;
         labelPaint.setTextAlign(Align.CENTER);
     }
 

@@ -21,6 +21,8 @@ public class Line extends Layer {
 
     private static final long serialVersionUID = 5L;
 
+    public static final float DEFAULT_LINE_WIDTH = 1f;
+
     FloatStyleAttribute lineWidth = new FloatStyleAttribute(true) {
         private static final long serialVersionUID = 1L;
 
