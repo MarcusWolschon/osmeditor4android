@@ -15,6 +15,7 @@ import android.graphics.Path;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.util.Density;
 
 abstract class Symbol {
 
@@ -47,10 +48,11 @@ abstract class Symbol {
      */
     @NonNull
     ImageView getImage(@NonNull Context ctx, @NonNull Paint markerPaint) {
-        Bitmap tempBitmap = Bitmap.createBitmap(Symbols.SIZE, Symbols.SIZE, Bitmap.Config.ARGB_8888);
+        final int size = Density.dpToPx(ctx, Symbols.SIZE);
+        Bitmap tempBitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(tempBitmap);
         c.save();
-        c.translate(48, 48);
+        c.translate(size / 2f, size / 2f);
         c.drawPath(getPath(), markerPaint);
         c.restore();
         ImageView v = new ImageView(ctx);
@@ -60,8 +62,8 @@ abstract class Symbol {
 }
 
 public final class Symbols {
-    
-    public static final int SIZE = 96;
+
+    public static final int SIZE = 48;
 
     /**
      * Private constructor to disallow instantiation

@@ -308,8 +308,9 @@ public class LayerStyle extends ImmersiveDialogFragment {
             symbolValues.add(entry.getValue());
         }
         ImageView none = new ImageView(getActivity());
-        none.setMinimumWidth(Symbols.SIZE);
-        none.setMinimumHeight(Symbols.SIZE);
+        final int size = Density.dpToPx(getActivity(), Symbols.SIZE);
+        none.setMinimumWidth(size);
+        none.setMinimumHeight(size);
         symbolValues.add(0, none);
         ImageView[] symbolArray = new ImageView[symbolValues.size()];
         symbolValues.toArray(symbolArray);
