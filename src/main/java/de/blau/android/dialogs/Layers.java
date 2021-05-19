@@ -383,8 +383,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         final ImageButton visible = new ImageButton(context);
         String name = null;
         name = layer.getName();
-        boolean isVisible = layer.isVisible();
-        visible.setImageResource(isVisible ? visibleId : invisibleId);
+        visible.setImageResource(layer.isVisible() ? visibleId : invisibleId);
         visible.setBackgroundColor(Color.TRANSPARENT);
         visible.setPadding(0, 0, Density.dpToPx(context, 5), 0);
         visible.setOnClickListener(v -> {
@@ -435,8 +434,9 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         final ImageButton menu = new ImageButton(context);
         menu.setImageResource(menuId);
         menu.setBackgroundColor(Color.TRANSPARENT);
-        menu.setOnClickListener(new LayerMenuListener(menu, layer));
-        cell.setOnClickListener(new LayerMenuListener(menu, layer));
+        final LayerMenuListener menuListener = new LayerMenuListener(menu, layer);
+        menu.setOnClickListener(menuListener);
+        cell.setOnClickListener(menuListener);
         tr.addView(menu);
         menu.setTag(tr);
         tr.setGravity(Gravity.CENTER_VERTICAL);
@@ -690,27 +690,32 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         AppCompatRadioButton allButton = categoryGroup.findViewById(R.id.categoryAll);
         AppCompatRadioButton photoButton = categoryGroup.findViewById(R.id.categoryPhoto);
         AppCompatRadioButton terrainButton = categoryGroup.findViewById(R.id.categoryElevation);
-
-        photoButton.setTag(Category.photo);
-        photoButton.setVisibility(!isOverlay ? View.VISIBLE : View.GONE);
-        terrainButton.setTag(Category.elevation);
-        terrainButton.setVisibility(!isOverlay ? View.VISIBLE : View.GONE);
         AppCompatRadioButton qaButton = categoryGroup.findViewById(R.id.categoryQA);
 
+        photoButton.setTag(Category.photo);
+        terrainButton.setTag(Category.elevation);
         qaButton.setTag(Category.qa);
-        qaButton.setVisibility(isOverlay ? View.VISIBLE : View.GONE);
 
         Category backgroundCategory = prefs.getBackgroundCategory();
         Category overlayCategory = prefs.getOverlayCategory();
 
-        if (!isOverlay && Category.photo == backgroundCategory) {
-            photoButton.setChecked(true);
-        } else if (!isOverlay && Category.elevation == backgroundCategory) {
-            terrainButton.setChecked(true);
-        } else if (isOverlay && Category.qa == overlayCategory) {
-            qaButton.setChecked(true);
+        allButton.setChecked(true);
+        if (isOverlay) {
+            photoButton.setVisibility(View.GONE);
+            terrainButton.setVisibility(View.GONE);
+            qaButton.setVisibility(View.VISIBLE);
+            if (Category.qa == overlayCategory) {
+                qaButton.setChecked(true);
+            }
         } else {
-            allButton.setChecked(true);
+            photoButton.setVisibility(View.VISIBLE);
+            terrainButton.setVisibility(View.VISIBLE);
+            qaButton.setVisibility(View.GONE);
+            if (Category.photo == backgroundCategory) {
+                photoButton.setChecked(true);
+            } else if (Category.elevation == backgroundCategory) {
+                terrainButton.setChecked(true);
+            }
         }
 
         builder.setView(layout);
@@ -720,7 +725,8 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         final AlertDialog dialog = builder.create();
 
         ViewBox viewBox = App.getLogic().getMap().getViewBox();
-        final TileType tileType = layer != null ? layer.getTileLayerConfiguration().getTileType() : null;
+        final boolean newLayer = layer == null;
+        final TileType tileType = newLayer ? null : layer.getTileLayerConfiguration().getTileType();
         final String[] ids = isOverlay ? TileLayerSource.getOverlayIds(viewBox, true, overlayCategory, tileType)
                 : TileLayerSource.getIds(viewBox, true, backgroundCategory, tileType);
 
@@ -728,13 +734,11 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         LayoutParams buttonLayoutParams = imageryList.getLayoutParams();
         buttonLayoutParams.width = LayoutParams.MATCH_PARENT;
 
-        String currentId = layer == null ? TileLayerSource.LAYER_NONE : layer.getTileLayerConfiguration().getId();
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         imageryList.setLayoutManager(layoutManager);
 
-        final ImageryListAdapter adapter = new ImageryListAdapter(ids, currentId, isOverlay, buttonLayoutParams,
-                new LayerOnCheckedChangeListener(activity, dialog, row, layer, ids));
+        final ImageryListAdapter adapter = new ImageryListAdapter(ids, newLayer ? TileLayerSource.LAYER_NONE : layer.getTileLayerConfiguration().getId(),
+                isOverlay, buttonLayoutParams, new LayerOnCheckedChangeListener(activity, dialog, row, layer, ids));
         adapter.addInfoClickListener((String id) -> {
             TileLayerSource l = TileLayerSource.get(getContext(), id, true);
             if (l != null) {
@@ -821,13 +825,12 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
      */
     private void setNewImagery(@NonNull FragmentActivity activity, @Nullable TableRow row, @Nullable MapTilesLayer<?> layer,
             @Nullable TileLayerSource tileSource) {
-        Preferences prefs = App.getLogic().getPrefs();
         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
+            LayerConfig[] layerConfigs = db.getLayers();
             if (layer != null) {
                 if (tileSource != null) {
                     db.setLayerContentId(layer.getIndex(), tileSource.getId());
                 } else {
-                    LayerConfig[] layerConfigs = db.getLayers();
                     if (layer.getIndex() < layerConfigs.length) {
                         tileSource = TileLayerSource.get(activity, layerConfigs[layer.getIndex()].getContentId(), true);
                     }
@@ -849,20 +852,16 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     Log.e(DEBUG_TAG, "setNewImagery tile source null");
                 }
             } else if (tileSource != null) {
-                LayerConfig[] layerConfigs = db.getLayers();
                 // determine the position to insert the layer at,
                 // essentially on top of the latest layer of the same type
-                final boolean isOverlay = tileSource.isOverlay();
+                final LayerType layerType = tileSource.isOverlay() ? LayerType.OVERLAYIMAGERY : LayerType.IMAGERY;
                 int position = 0;
                 for (LayerConfig config : layerConfigs) {
-                    if (LayerType.IMAGERY.equals(config.getType()) && config.getPosition() >= position) {
-                        position = config.getPosition() + 1;
-                    }
-                    if (isOverlay && LayerType.OVERLAYIMAGERY.equals(config.getType()) && config.getPosition() >= position) {
+                    if (layerType.equals(config.getType()) && config.getPosition() >= position) {
                         position = config.getPosition() + 1;
                     }
                 }
-                db.insertLayer(position, isOverlay ? LayerType.OVERLAYIMAGERY : LayerType.IMAGERY, true, tileSource.getId());
+                db.insertLayer(position, layerType, true, tileSource.getId());
                 App.getLogic().getMap().invalidate();
             } else {
                 Log.e(DEBUG_TAG, "setNewImagery both layer and tile source null");
@@ -871,8 +870,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 ((Main) activity).invalidateOptionsMenu();
             }
         }
-
-        setPrefs(activity, prefs);
+        setPrefs(activity, App.getLogic().getPrefs());
     }
 
     /**
