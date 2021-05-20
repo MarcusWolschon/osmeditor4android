@@ -276,19 +276,12 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                 }
                 if (!download && !errorDisplayed) {
                     // something is seriously wrong with the database, show a toast once
-                    final String message = mCtx.getString(R.string.toast_tile_database_issue, e.getLocalizedMessage());
+                    final String localizedMessage = e.getLocalizedMessage();
+                    final String message = mCtx.getString(R.string.toast_tile_database_issue, localizedMessage);
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.post(() -> Snack.toastTopError(mCtx, message));
-                    NotificationCompat.Builder builder = Notifications.builder(mCtx).setSmallIcon(R.drawable.logo_simplified)
-                            .setContentTitle(mCtx.getString(R.string.toast_tile_database_issue_short));
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                        builder.setContentText(e.getLocalizedMessage());
-                    } else {
-                        builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message)).setPriority(NotificationCompat.PRIORITY_MAX);
-                    }
-
-                    NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
-                    nManager.notify(random.nextInt(), builder.build());
+                    Notifications.error(mCtx, R.string.toast_tile_database_issue_short,
+                            Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ? localizedMessage : message, random.nextInt());
                     errorDisplayed = true;
                 }
             } finally {

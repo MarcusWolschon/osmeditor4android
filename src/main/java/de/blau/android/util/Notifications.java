@@ -117,4 +117,24 @@ public final class Notifications {
             mBuilder.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
         }
     }
+
+    /**
+     * Display a top prio notification for errors etc
+     * 
+     * @param ctx an Android Context
+     * @param titleRes String resource for title
+     * @param message the message
+     * @param id unique notification id
+     */
+    public static void error(@NonNull Context ctx, int titleRes, @NonNull final String message, int id) {
+        NotificationCompat.Builder builder = Notifications.builder(ctx).setSmallIcon(R.drawable.logo_simplified).setContentTitle(ctx.getString(titleRes));
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            builder.setContentText(message);
+        } else {
+            builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message)).setPriority(NotificationCompat.PRIORITY_MAX);
+        }
+
+        NotificationManager nManager = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+        nManager.notify(id, builder.build());
+    }
 }
