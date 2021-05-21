@@ -1593,14 +1593,20 @@ public final class DataStyle extends DefaultHandler {
                     tempFeatureStyle.setClosed(Boolean.parseBoolean(closedString));
                 }
 
-                tempFeatureStyle.setLabelKey(atts.getValue(LABEL_KEY_ATTR));
+                String labelKey = atts.getValue(LABEL_KEY_ATTR);
+                if (labelKey != null) {
+                    tempFeatureStyle.setLabelKey(labelKey);
+                }
 
                 String labelZoomLimitString = atts.getValue(LABEL_ZOOM_LIMIT_ATTR);
                 if (labelZoomLimitString != null) {
                     tempFeatureStyle.setLabelZoomLimit(Integer.parseInt(labelZoomLimitString));
                 }
 
-                tempFeatureStyle.setIconPath(atts.getValue(ICON_PATH_ATTR));
+                String iconPath = atts.getValue(ICON_PATH_ATTR);
+                if (iconPath != null) {
+                    tempFeatureStyle.setIconPath(iconPath);
+                }
 
                 validationCode = 0; // reset
                 String codeString = atts.getValue(CODE_ATTR);
