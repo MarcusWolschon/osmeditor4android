@@ -1332,22 +1332,18 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     boolean iconDrawn = false;
                     if (tmpPresets != null) {
                         iconDrawn = paintNodeIcon(way, canvas, (float) X, (float) Y, isSelected ? nodeFeatureStyleTaggedSelected : null);
-                        String label = null;
                         if (!iconDrawn) {
                             String houseNumber = way.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
                             if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
                                 paintHouseNumber((float) X, (float) Y, canvas, isSelected ? nodeFeatureStyleThinSelected : nodeFeatureStyleThin,
                                         labelFontStyleSmall, houseNumber);
-                            } else {
-                                label = getLabel(way, style);
+                                return;
                             }
-                        } else {
-                            label = zoomLevel >= showIconLabelZoomLimit ? getLabel(way, style) : null;
                         }
-                        if (label != null) {
-                            Paint p = nodeFeatureStyleTaggedSelected.getPaint();
-                            paintLabel((float) X, (float) Y, canvas, labelFontStyle, way, iconDrawn ? p.getStrokeWidth() : 0, iconDrawn);
-                        }
+                    }
+                    if (zoomLevel >= showIconLabelZoomLimit && style.getLabelKey() != null) {
+                        Paint p = nodeFeatureStyleTaggedSelected.getPaint();
+                        paintLabel((float) X, (float) Y, canvas, labelFontStyle, way, iconDrawn ? p.getStrokeWidth() : 0, iconDrawn);
                     }
                 }
             }
