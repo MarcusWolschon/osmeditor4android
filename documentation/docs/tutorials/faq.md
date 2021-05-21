@@ -53,20 +53,6 @@ Vespucci preferentially attempts to store aerial imagery data on an external SD 
 
 Installation of the Vespucci APK is like any other APK.
 There are plenty of descriptions available (e.g. [1 ](http://openhandsetmagazine.com/2008/01/tips-how-to-install-apk-files-on-android-emulator/), [2 ](http://www.androidfreeware.org/tutorials/how-to-install-apk-files-on-android-device-emulator), [3 ](http://www.freeware4android.com/2008/07/30/tutorial-installing-apk-files-on-android-device-emulator.html), [4 ](http://clipmarks.com/clipmark/FB4A2E39-6DA1-4EBC-BBF0-5131E1AC6128/))
-
-#### Running Vespucci on "old and small" devices
-
-Modern (0.8 and up) Vespucci versions have been tested and found to work on Android 2.3 (2.2 was last supported in version 0.9.8) and later,
-however older devices tend to have very limited memory and correspondingly the apps are allocated very small amounts of heap (this can be as low as 16MB). If you are trying to run Vespucci on such a device, particularly with 0.9.4 and later, the following hints should be helpful (ordered in decreasing order of importance):
-
-  * turn off any map overlay
-  * only load small map areas and don't excessively use the incremental load facility
-  * turn off notes and photo overlay
-  * turn off name suggestions
-  * don't add large presets
-  * use the <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/blob/master/gen/vespucci_zip_no_translations.zip%3fraw=true&presetname=Default preset without translations">Default preset without translations</a> instead of the one packaged with the app.
-  
-The location dependent tagging and validation feature is not available on such devices as it alone requires 4MB of heap. 
   
 #### Can't download data from OpenStreetMap servers 
 
@@ -107,7 +93,6 @@ Yes, Vespucci supports manual and automatic download of Notes and offline storag
 Some things missing at this point in time:
 
   * No extensive validation (however in general Vespucci tries to stop you from shooting yourself in the foot)
-  * Some operations still missing, for example polygon merging.
   
 > Remember, Android is intended to be lightweight and easy-to-use.
 
@@ -182,13 +167,7 @@ Due to the touchy situation having pre-defined presets for military objects on d
 
 Fullscreen mode on Android is a bit hit and miss (depending on Android version and device) as it is really designed for games and for apps without keyboard use. If the Android buttons are hidden, the standard Android way to show them, at least in recent Android versions, is a swipe from the bottom edge. 
 
-If fullscreen mode is causing issues for you, the best solution is to simply turn it off in the "Advanced preferences". 
-
-#### Vespucci is getting slower and slower
-
-Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases the amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slow down too. In current versions of Vespucci data downloaded by the auto-download facilities will be automatically pruned if possible, but particularly zooming far out will make this less effective. 
-
-Recommended practice if you no longer need the previously loaded data and have uploaded all edits, is to reset the data in memory by using the "Clear and download current view" action, or manually (by using the corresponding entry in the menu for the data layer) start the prune process.
+If fullscreen mode is causing issues for you, the best solution is to simply turn it off in the [Advanced preferences](../help/en/Advanced%20preferences.md). 
 
 #### The aerial or satellite imagery is out of date
 
@@ -243,3 +222,29 @@ On Android versions between 4.1 and 4.4 the app can be used without issues, exce
 
 * go to _Preferences_ -> _Advanced preferences_ -> _Server settings_ and set login and password under the _User account_ entry.
 * in the layer control select the _Configure_ menu entry for the data layer entry, edit the active entry, and uncheck OAuth support.   
+
+### Performance
+
+#### Vespucci is getting slower and slower
+
+Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases the amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slow down too. In current versions of Vespucci data downloaded by the auto-download facilities will be automatically pruned if possible, but particularly zooming far out will make this less effective. 
+
+Recommended practice if you no longer need the previously loaded data and have uploaded all edits, is to reset the data in memory by using the "Clear and download current view" action, or manually (by using the corresponding entry in the menu for the data layer) start the prune process.
+
+#### Running Vespucci on "old and small" devices
+
+Modern (0.8 and up) Vespucci versions have been tested and found to work on Android 2.3 (2.2 was last supported in version 0.9.8) and later,
+however older devices tend to have very limited memory and correspondingly the apps are allocated very small amounts of heap (this can be as low as 16MB). If you are trying to run Vespucci on such a device, particularly with 0.9.4 and later, the following hints should be helpful (ordered in decreasing order of importance):
+
+  * turn off any map overlay
+  * only load small map areas and don't excessively use the incremental load facility
+  * turn off notes and photo overlay
+  * turn off name suggestions
+  * don't add large presets
+  * use the <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/blob/master/gen/vespucci_zip_no_translations.zip%3fraw=true&presetname=Default preset without translations">Default preset without translations</a> instead of the one packaged with the app.
+  
+The location dependent tagging and validation feature is not available on such devices as it alone requires 4MB of heap. 
+
+#### Rendering is very slow
+
+Rendering multi-polygons is quite complex, and the default style for these is quite computationally expensive and will be slow on older devices. Try switching to the data style without multi-polygon to improve this. See [preferences](../help/en/Preferences.md).
