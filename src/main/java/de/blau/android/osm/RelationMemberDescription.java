@@ -9,9 +9,8 @@ import de.blau.android.App;
  * instead of the element itself
  */
 public class RelationMemberDescription extends RelationMember {
-    private static final long serialVersionUID = 1104911642016294269L;
+    private static final long serialVersionUID = 1104911642016294270L;
     private String            description      = null;
-    private boolean           downloaded       = false;
     private int               position         = 0;                   // only used for sorting
 
     /**
@@ -25,7 +24,6 @@ public class RelationMemberDescription extends RelationMember {
         OsmElement e = rm.getElement();
         if (e != null) {
             description = e.getDescription(false);
-            downloaded = true;
         } else {
             description = "#" + ref;
         }
@@ -56,7 +54,7 @@ public class RelationMemberDescription extends RelationMember {
 
     @Override
     public synchronized boolean downloaded() {
-        return downloaded;
+        return getElement() != null;
     }
 
     /**
@@ -66,9 +64,6 @@ public class RelationMemberDescription extends RelationMember {
         OsmElement e = getElement();
         if (e != null) {
             description = e.getDescription(false);
-            downloaded = true;
-        } else {
-            downloaded = false;
         }
     }
 
