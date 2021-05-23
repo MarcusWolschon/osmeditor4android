@@ -100,6 +100,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      * Construct a new AddRelationMemberActionModeCallback from a list of selected OsmElements
      * 
      * @param manager the current EasyEditManager instance
+     * @param presetPath preset to apply or null
      * @param selection a List containing OsmElements
      */
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @Nullable PresetElementPath presetPath,
@@ -116,6 +117,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      * Construct a new AddRelationMemberActionModeCallback starting with a single OsmElement
      * 
      * @param manager the current EasyEditManager instance
+     * @param presetPath preset to apply or null
      * @param element the OsmElement
      */
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @Nullable PresetElementPath presetPath, @NonNull OsmElement element) {
@@ -286,8 +288,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      */
     private boolean contains(@NonNull Collection<RelationMember> members, @NonNull RelationMember member) {
         for (RelationMember rm : members) {
-            if (member.getRef() == rm.getRef() && member.getType().equals(rm.getType())
-                    && member.getRole().equals(rm.getRole())) {
+            if (member.getRef() == rm.getRef() && member.getType().equals(rm.getType()) && member.getRole().equals(rm.getRole())) {
                 return true;
             }
         }
