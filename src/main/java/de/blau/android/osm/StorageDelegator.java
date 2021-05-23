@@ -2154,7 +2154,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         for (int i = 0; i < members.size(); i++) {
             RelationMemberDescription rmd = members.get(i);
             String key = rmd.getType() + "-" + rmd.getRef();
-            OsmElement e = rmd.getElement();
             RelationMember rm = membersHash.get(key);
             if (rm != null) {
                 int origPos = origMembers.indexOf(rm);
@@ -2172,6 +2171,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             } else { // new member
                 changed = true;
                 RelationMember newMember = null;
+                OsmElement e = rmd.getElement();
                 if (e != null) { // downloaded
                     newMember = new RelationMember(rmd.getRole(), e);
                 } else {

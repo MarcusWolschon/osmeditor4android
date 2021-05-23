@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import java.io.IOException;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
@@ -68,11 +70,14 @@ public class RelationMemberDescription extends RelationMember {
     }
 
     /**
-     * This returns (if present), the element directly from storage
+     * This returns (if present), the element directly from storage or from the saved reference
      */
     @Override
     public synchronized OsmElement getElement() {
-        return super.getElement() == null ? App.getDelegator().getOsmElement(getType(), getRef()) : super.getElement();
+        if (super.getElement() == null) {
+            super.setElement(App.getDelegator().getOsmElement(getType(), getRef()));
+        }
+        return super.getElement();
     }
 
     /**
@@ -111,5 +116,16 @@ public class RelationMemberDescription extends RelationMember {
         result = 37 * result + (role == null ? 0 : role.hashCode());
         result = 37 * result + position;
         return result;
+    }
+    
+    /**
+     * Serialize this object
+     * 
+     * @param out ObjectOutputStream to write to
+     * @throws IOException if writing fails
+     */
+    private void writeObject(java.io.ObjectOutputStream out) throws IOException {
+        super.setElement(null); // don't save the actual relation ref
+        out.defaultWriteObject();
     }
 }
