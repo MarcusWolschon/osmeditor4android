@@ -282,8 +282,8 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 break;
             case MENUITEM_RELATION:
                 ElementSelectionActionModeCallback.buildPresetSelectDialog(main,
-                        p -> main.startSupportActionMode(
-                                new EditRelationMembersActionModeCallback(manager, p.getPath(App.getCurrentRootPreset(main).getRootGroup()), selection)),
+                        p -> main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager,
+                                p != null ? p.getPath(App.getCurrentRootPreset(main).getRootGroup()) : null, selection)),
                         ElementType.RELATION, R.string.select_relation_type_title, Tags.KEY_TYPE, null).show();
                 break;
             case MENUITEM_ADD_RELATION_MEMBERS:
