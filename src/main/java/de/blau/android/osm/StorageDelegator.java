@@ -185,7 +185,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         try {
             currentStorage.insertElementSafe(elem);
             apiStorage.insertElementSafe(elem);
-            onElementChanged((List<OsmElement>) null, (List<OsmElement>) null);
+            onElementChanged((OsmElement) null, elem);
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "insertElementSafe got " + e.getMessage());
@@ -203,7 +203,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         try {
             currentStorage.insertElementUnsafe(elem);
             apiStorage.insertElementUnsafe(elem);
-            onElementChanged((List<OsmElement>) null, (List<OsmElement>) null);
+            onElementChanged((OsmElement) null, elem);
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "insertElementUnsafe got " + e.getMessage());
