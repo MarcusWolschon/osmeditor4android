@@ -43,7 +43,7 @@ import de.blau.android.util.Util;
  * 
  * Lots of hacks around limitation in the underlying library
  * 
- * @author simon
+ * @author Simon
  *
  */
 public class Feedback extends IssueReporterActivity implements ActivityResultHandler {
@@ -82,7 +82,7 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
      * @param useUrl if true don't use the builtin reporter, if the github app is installed this is ignored
      */
     public static void start(@NonNull Context context, @NonNull String repoUser, @NonNull String repoName, boolean useUrl) {
-        if (useUrl || Util.isPackageInstalled(Github.APP, context.getPackageManager())) {
+        if (useUrl || Util.isPackageInstalled(Github.APP, context.getPackageManager()) || "".equals(context.getString(R.string.reporter))) {
             reportViaUrl(context, repoUser, repoName);
         } else {
             Intent intent = new Intent(context, Feedback.class);
