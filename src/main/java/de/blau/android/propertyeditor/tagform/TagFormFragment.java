@@ -997,7 +997,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         row.setOnClickListener(v -> {
             FragmentManager fm = getChildFragmentManager();
             de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_CONDITIONAL_RESTRICTION_TAG);
-            ConditionalRestrictionFragment conditionalRestrictionDialog = ConditionalRestrictionFragment.newInstance(key, value, templates, ohTemplates);
+            ConditionalRestrictionFragment conditionalRestrictionDialog = ConditionalRestrictionFragment.newInstance(key, value, templates, ohTemplates,
+                    maxStringLength);
             conditionalRestrictionDialog.show(fm, FRAGMENT_CONDITIONAL_RESTRICTION_TAG);
         });
         return row;

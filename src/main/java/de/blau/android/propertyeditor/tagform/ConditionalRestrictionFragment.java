@@ -68,19 +68,11 @@ import de.blau.android.util.ThemeUtils;
 
 public class ConditionalRestrictionFragment extends DialogFragment implements OnSaveListener {
 
+    private static final String DEBUG_TAG = ConditionalRestrictionFragment.class.getSimpleName();
+
     private static final String FRAGMENT_OPENING_HOURS_TAG = "fragment_opening_hours";
 
     private static final int LINEARLAYOUT_ID = 12345;
-
-    private static final String KEY_KEY = "key";
-
-    private static final String VALUE_KEY = "value";
-
-    private static final String TEMPLATES_KEY = "templates";
-
-    private static final String OH_TEMPLATES_KEY = "oh_templates";
-
-    private static final String DEBUG_TAG = ConditionalRestrictionFragment.class.getSimpleName();
 
     /**
      * For now hardwired defaults in lieu of moving this to a DB
@@ -88,6 +80,13 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     private static final String DESTINATION_MO_FR_19_00_31_00_SA_SU = "destination @ Mo-Fr 19:00-31:00,Sa,Su";
 
     private static final Map<String, String> DEFAULT_VALUES = new HashMap<>();
+
+    private static final String KEY_KEY               = "key";
+    private static final String VALUE_KEY             = "value";
+    private static final String TEMPLATES_KEY         = "templates";
+    private static final String OH_TEMPLATES_KEY      = "oh_templates";
+    private static final String MAX_STRING_LENGTH_KEY = "maxStringLength";
+
     static {
         DEFAULT_VALUES.put(Tags.KEY_MAXSPEED, "50 @ Mo-Fr 19:00-31:00,Sa,Su");
         DEFAULT_VALUES.put(Tags.KEY_ACCESS, DESTINATION_MO_FR_19_00_31_00_SA_SU);
@@ -124,6 +123,8 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
     private transient boolean loadedDefault = false;
 
+    private int maxStringLength;
+
     /**
      * Create a new instance
      * 
@@ -131,11 +132,12 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
      * @param value a already present value or null
      * @param templates templates for the restriction values
      * @param ohTemplates opening hour templates
+     * @param maxStringLength maximum length the value can have
      * @return an instance of ConditionalRestrictionFragment
      */
     @NonNull
-    public static ConditionalRestrictionFragment newInstance(@NonNull String key, @Nullable String value, @NonNull ArrayList<String> templates,
-            @NonNull ArrayList<String> ohTemplates) {
+    public static ConditionalRestrictionFragment newInstance(@NonNull String key, @Nullable String value, @NonNull ArrayList<String> templates, // NOSONAR
+            @NonNull ArrayList<String> ohTemplates, int maxStringLength) { // NOSONAR bundle requires ArrayLists
         ConditionalRestrictionFragment f = new ConditionalRestrictionFragment();
 
         Bundle args = new Bundle();
@@ -143,6 +145,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         args.putSerializable(VALUE_KEY, value);
         args.putSerializable(TEMPLATES_KEY, templates);
         args.putSerializable(OH_TEMPLATES_KEY, ohTemplates);
+        args.putInt(MAX_STRING_LENGTH_KEY, maxStringLength);
         f.setArguments(args);
         return f;
     }
@@ -191,11 +194,13 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             conditionalRestrictionValue = getArguments().getString(VALUE_KEY);
             templates = getArguments().getStringArrayList(TEMPLATES_KEY);
             ohTemplates = getArguments().getStringArrayList(OH_TEMPLATES_KEY);
+            maxStringLength = getArguments().getInt(MAX_STRING_LENGTH_KEY);
         } else {
             key = savedInstanceState.getString(KEY_KEY);
             conditionalRestrictionValue = savedInstanceState.getString(VALUE_KEY);
             templates = savedInstanceState.getStringArrayList(TEMPLATES_KEY);
             ohTemplates = savedInstanceState.getStringArrayList(OH_TEMPLATES_KEY);
+            maxStringLength = savedInstanceState.getInt(MAX_STRING_LENGTH_KEY);
         }
 
         if (conditionalRestrictionValue == null || "".equals(conditionalRestrictionValue)) {
@@ -293,8 +298,12 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     };
 
     private final Runnable rebuild = () -> {
-        ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(text.getText().toString().getBytes()));
         text.removeTextChangedListener(watcher); // avoid infinite loop
+        Editable t = text.getText();
+        if (t != null) {
+            de.blau.android.util.Util.sanitizeString(getContext(), t, maxStringLength);
+        }
+        ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(t.toString().getBytes()));
         try {
             restrictions = parser.restrictions();
             removeHighlight(text);
@@ -652,7 +661,10 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         }
         conditionalRestrictionValue = Util.restrictionsToString(restrictions);
         text.setText(conditionalRestrictionValue);
-        String myText = r.toString();
+        if (text.getText() != null) {
+            de.blau.android.util.Util.sanitizeString(getContext(), text.getText(), maxStringLength);
+        }
+        String myText = text.getText().toString();
         int textPos = conditionalRestrictionValue.lastIndexOf(myText);
         // make what we are currently editing visible, this is a bit of a hack
         if (textPos < conditionalRestrictionValue.length() / 2) {
@@ -727,8 +739,8 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         int prevLen = text.length();
         text.removeTextChangedListener(watcher);
         if (restrictions != null) {
-            String oh = Util.restrictionsToString(restrictions, false);
-            text.setText(oh);
+            String r = Util.restrictionsToString(restrictions, false);
+            text.setText(r);
             text.setSelection(prevLen < text.length() ? text.length() : Math.min(pos, text.length()));
             text.addTextChangedListener(watcher);
         }
@@ -779,12 +791,9 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
         row.setValue(value, rules);
 
-        if (value != null && !"".equals(value)) {
-            if (!strictSucceeded && lenientSucceeded) {
-                row.post(() -> Snack.toastTopWarning(getActivity(), getString(R.string.toast_openinghours_autocorrected, key)));
-            } else if (!strictSucceeded && !lenientSucceeded) {
-                row.post(() -> Snack.toastTopWarning(getActivity(), getString(R.string.toast_openinghours_invalid, key)));
-            }
+        if (value != null && !"".equals(value) && !strictSucceeded) {
+            int toast = lenientSucceeded ? R.string.toast_openinghours_autocorrected : R.string.toast_openinghours_invalid;
+            row.post(() -> Snack.toastTopWarning(getActivity(), getString(toast, key)));
         }
 
         row.valueView.setHint(R.string.tag_tap_to_edit_hint);
@@ -814,6 +823,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         outState.putSerializable(VALUE_KEY, text.getText().toString());
         outState.putSerializable(TEMPLATES_KEY, templates);
         outState.putSerializable(OH_TEMPLATES_KEY, ohTemplates);
+        outState.putInt(MAX_STRING_LENGTH_KEY, maxStringLength);
     }
 
     /**
