@@ -222,7 +222,7 @@ public final class Tags {
      * @return true is a speed related key
      */
     public static boolean isSpeedKey(@Nullable final String key) {
-        return key != null && (key.startsWith(KEY_MAXSPEED) || key.startsWith(KEY_MINSPEED));
+        return key != null && (key.startsWith(KEY_MAXSPEED) || key.startsWith(KEY_MINSPEED)) && !(key.contains(KEY_SOURCE) || key.contains(KEY_TYPE));
     }
 
     public static final String KEY_ACCESS        = "access";
