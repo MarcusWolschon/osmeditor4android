@@ -321,7 +321,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
     }
 
     /**
-     * Remove the EditTExt for a value
+     * Remove the EditText for a value
      * 
      * @param condition if true completely remove the value EditText, else just remove the content
      * @param layout the layout holding the EditText
@@ -481,7 +481,8 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
                 row.post(() -> Snack.barWarning(row, R.string.toast_phone_number_reformatted, Snackbar.LENGTH_LONG));
             }
         }
-        for (int i = (notEmpty ? splitValues.size() : 0); i < (row.valueCount > 0 ? row.valueCount : 1); i++) {
+        int currentCount = splitValues.size();
+        for (int i = (notEmpty ? currentCount : 0); i < (row.valueCount > 0 && row.valueCountKey != null ? row.valueCount : currentCount + 1); i++) {
             row.addEditText("", row.listener, row.valueType, row.adapter, -1);
         }
     }
