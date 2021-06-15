@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-03-14 16:37+0100\n"
-"PO-Revision-Date: 2021-03-14 15:40+0000\n"
-"Last-Translator: Alex M <registration0@mail.ru>\n"
+"PO-Revision-Date: 2021-06-02 22:51+0000\n"
+"Last-Translator: Владимир К <vovenarg@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/openstreetmap/presets/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2162,7 +2162,7 @@ msgstr ""
 
 #: master_preset.xml:2975(item:name|group:Water|preset:Cape)
 msgid "Cape"
-msgstr ""
+msgstr "Мыс"
 
 #: master_preset.xml:1215(multiselect:display_values|key:except)
 #: master_preset.xml:3426(group:name|group:Car)
@@ -3053,7 +3053,7 @@ msgstr ""
 
 #: master_preset.xml:7647(item:name|group:Man_Made|preset:Cross)
 msgid "Cross"
-msgstr ""
+msgstr "Крест"
 
 #: master_preset.xml:2039(check:text|group:Waypoints|preset:Pedestrian_Crossing|key:bicycle)
 #: master_preset.xml:3268(check:text|group:Railway|preset:Crossing|key:bicycle)
@@ -3470,7 +3470,7 @@ msgstr ""
 #: master_preset.xml:6390(combo:display_values|group:Facilities|preset:Clock|key:display)
 #: master_preset.xml:8003(check:text|group:Man_Made|preset:Monitoring_Station|key:display:digital)
 msgid "Digital"
-msgstr ""
+msgstr "Цифровой"
 
 #: master_preset.xml:9931(checkgroup:text|preset:Payment_Methods)
 msgid "Digital wallets type"
@@ -3908,7 +3908,7 @@ msgstr "Насыпь"
 #: master_preset.xml:11872(item:name|group:Offices|preset:Embassy)
 #: master_preset.xml:5545(item:name|group:Public_Building|preset:Embassy)
 msgid "Embassy"
-msgstr ""
+msgstr "Посольство"
 
 #: master_preset.xml:1215(multiselect:display_values|key:except)
 #: master_preset.xml:1993(combo:display_values|group:Waypoints|preset:Traffic_Signal|key:traffic_signals)
@@ -5151,7 +5151,7 @@ msgstr ""
 #: master_preset.xml:4514(combo:text|group:Food+Drinks|preset:Diet|key:diet:halal)
 #: master_preset.xml:8800(combo:text|group:Food|preset:Butcher|key:diet:halal)
 msgid "Halal"
-msgstr ""
+msgstr "Халяльная пища"
 
 #: master_preset.xml:7573(combo:display_values|group:Indoor_elements|preset:Room|key:room)
 msgid "Hall"
@@ -5679,7 +5679,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Indian"
-msgstr ""
+msgstr "Индийская кухня"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
@@ -5745,7 +5745,7 @@ msgstr ""
 
 #: master_preset.xml:4603(item:name|group:Tourism|preset:Information_Terminal)
 msgid "Information Terminal"
-msgstr ""
+msgstr "Информационный терминал"
 
 #: master_preset.xml:4605(label:text|group:Tourism|preset:Information_Terminal)
 msgid "Information access via electronic methods."
@@ -5892,7 +5892,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Japanese"
-msgstr ""
+msgstr "Японская кухня"
 
 #: master_preset.xml:740(combo:display_values|key:denomination)
 #: master_preset.xml:761(combo:display_values|key:denomination)
@@ -5984,7 +5984,7 @@ msgstr ""
 
 #: master_preset.xml:7372(multiselect:display_values|group:Motorsport|preset:Raceway|key:sport)
 msgid "Karting"
-msgstr ""
+msgstr "Картинг"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Kashmiri"
@@ -6076,7 +6076,7 @@ msgstr ""
 #: master_preset.xml:4515(combo:text|group:Food+Drinks|preset:Diet|key:diet:kosher)
 #: master_preset.xml:8801(combo:text|group:Food|preset:Butcher|key:diet:kosher)
 msgid "Kosher"
-msgstr ""
+msgstr "Кошерная пища"
 
 #: master_preset.xml:8611(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Kremlin"
@@ -6706,7 +6706,7 @@ msgstr ""
 
 #: master_preset.xml:7840(item:name|group:Man_Made|preset:Marker)
 msgid "Marker"
-msgstr ""
+msgstr "Маркер/указатель/табличка"
 
 #: master_preset.xml:4751(list_entry:display_value|group:Leisure|preset:Animals|value:marmot)
 msgid "Marmot"
@@ -7028,7 +7028,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Mexican"
-msgstr ""
+msgstr "Мексиканская кухня"
 
 #: master_preset.xml:4345(check:text|group:Food+Drinks|preset:Restaurant|key:microbrewery)
 #: master_preset.xml:4447(check:text|group:Food+Drinks|preset:Pub|key:microbrewery)
@@ -7376,7 +7376,7 @@ msgstr "Съезд с автомагистрали"
 
 #: master_preset.xml:11051(item:name|group:Routes|preset:Mountain_Biking_Route)
 msgid "Mountain Biking Route"
-msgstr ""
+msgstr "Маршрут для горного велосипеда\n"
 
 #: master_preset.xml:2206(item:name|preset:Mountain_Pass)
 msgid "Mountain Pass"
@@ -9113,7 +9113,7 @@ msgstr ""
 
 #: master_preset.xml:7824(item:name|group:Man_Made|preset:Pipeline_Valve)
 msgid "Pipeline Valve"
-msgstr ""
+msgstr "Задвижка на трубопроводе"
 
 #: master_preset.xml:11218(item:name|group:Routes|preset:Pipeline_route)
 msgid "Pipeline route"
@@ -10457,7 +10457,7 @@ msgstr ""
 
 #: master_preset.xml:7566(item:name|group:Indoor_elements|preset:Room)
 msgid "Room"
-msgstr ""
+msgstr "Комната в здании"
 
 #: master_preset.xml:7548(text:text|group:Indoor_elements|preset:Indoor_area|key:ref)
 #: master_preset.xml:7570(text:text|group:Indoor_elements|preset:Room|key:ref)
@@ -10577,7 +10577,7 @@ msgstr ""
 
 #: master_preset.xml:6926(item:name|group:Sport|preset:Running)
 msgid "Running"
-msgstr ""
+msgstr "Бег"
 
 #: master_preset.xml:11088(item:name|group:Routes|preset:Running_Route)
 msgid "Running Route"
@@ -10703,7 +10703,7 @@ msgstr ""
 
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Sandwich"
-msgstr ""
+msgstr "Сэндвичи"
 
 #: master_preset.xml:9606(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
 msgid "Sanitary"
@@ -12261,7 +12261,7 @@ msgstr ""
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 #: master_preset.xml:9395(list_entry:short_description|group:For_the_body|preset:Massage|value:thai)
 msgid "Thai"
-msgstr ""
+msgstr "Тайская кухня"
 
 #: master_preset.xml:1130(combo:display_values|key:roof:material)
 msgid "Thatch"
@@ -12293,7 +12293,7 @@ msgstr ""
 
 #: master_preset.xml:1200(combo:text|key:playground:theme)
 msgid "Theme"
-msgstr ""
+msgstr "Тематика"
 
 #: master_preset.xml:9397(list_entry:short_description|group:For_the_body|preset:Massage|value:therapeutic)
 msgid "Therapeutic"
@@ -12764,7 +12764,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Turkish"
-msgstr ""
+msgstr "Турецкая кухня"
 
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 msgid "Turkmen"
@@ -13227,7 +13227,7 @@ msgstr ""
 #: master_preset.xml:1204(multiselect:display_values|key:language)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
 msgid "Vietnamese"
-msgstr ""
+msgstr "Вьетнамская кухня"
 
 #: master_preset.xml:4527(item:name|group:Tourism|preset:Viewpoint)
 msgid "Viewpoint"
@@ -15775,7 +15775,7 @@ msgstr ""
 #: master_preset.xml:655(multiselect:display_values|key:sport)
 msgctxt "sport"
 msgid "Karting"
-msgstr ""
+msgstr "Картинг"
 
 #: master_preset.xml:655(multiselect:display_values|key:sport)
 msgctxt "sport"
@@ -15858,7 +15858,7 @@ msgstr ""
 #: master_preset.xml:6763(multiselect:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Running"
-msgstr ""
+msgstr "Бег"
 
 #: master_preset.xml:655(multiselect:display_values|key:sport)
 msgctxt "sport"
@@ -15998,7 +15998,7 @@ msgstr ""
 #: master_preset.xml:851(combo:display_values|key:line_management)
 msgctxt "power"
 msgid "Cross"
-msgstr ""
+msgstr "Крест"
 
 #: master_preset.xml:8431(combo:display_values|preset:Power_Tower|key:tower:type)
 #: master_preset.xml:861(combo:display_values|key:pole:type)
@@ -16226,7 +16226,7 @@ msgstr ""
 #: master_preset.xml:889(combo:display_values|key:bridge)
 msgctxt "bridge"
 msgid "Boardwalk"
-msgstr ""
+msgstr "Помост"
 
 #: master_preset.xml:889(combo:text|key:bridge)
 msgctxt "bridge"
@@ -19726,7 +19726,7 @@ msgstr ""
 #: master_preset.xml:7836(combo:display_values|group:Man_Made|preset:Pipeline_Valve|key:handle)
 msgctxt "handle"
 msgid "Cross"
-msgstr ""
+msgstr "Крест"
 
 #: master_preset.xml:7836(combo:text|group:Man_Made|preset:Pipeline_Valve|key:handle)
 msgctxt "handle"
@@ -20334,7 +20334,7 @@ msgstr ""
 #: master_preset.xml:10580(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
 msgid "Japanese"
-msgstr ""
+msgstr "Японская кухня"
 
 #: master_preset.xml:10580(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"

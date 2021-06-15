@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-03-14 16:37+0100\n"
-"PO-Revision-Date: 2021-04-24 02:12+0000\n"
+"PO-Revision-Date: 2021-06-14 18:12+0000\n"
 "Last-Translator: Abdullah Abdullrhman\n"
 "Language-Team: Arabic (http://www.transifex.com/openstreetmap/presets/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -1533,7 +1533,7 @@ msgstr ""
 #: master_preset.xml:10756(text:text|group:Addresses_and_Contact|preset:Address|key:addr:block)
 #: master_preset.xml:2245(item:name|group:Barriers|preset:Block)
 msgid "Block"
-msgstr ""
+msgstr "حواجز خرسانية"
 
 #: master_preset.xml:5840(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:blood_donation)
 msgid "Blood donation"
@@ -1614,7 +1614,7 @@ msgstr ""
 
 #: master_preset.xml:2256(item:name|group:Barriers|preset:Bollard)
 msgid "Bollard"
-msgstr ""
+msgstr "عمود حاجز"
 
 #: master_preset.xml:2260(combo:text|group:Barriers|preset:Bollard|key:bollard)
 msgid "Bollard type"
@@ -1634,7 +1634,7 @@ msgstr "مكتبة - متجر كتب"
 
 #: master_preset.xml:11416(item:name|group:Crafts|preset:Bookbinder)
 msgid "Bookbinder"
-msgstr ""
+msgstr "تغليف وتجليد الكتب"
 
 #: master_preset.xml:9732(item:name|group:Other|preset:Bookmaker)
 msgid "Bookmaker"
@@ -1686,7 +1686,7 @@ msgstr "الحدود"
 #: master_preset.xml:10885(list_entry:display_value|group:Relations|preset:Relations|value:boundary)
 #: master_preset.xml:10909(item:name|group:Relations|preset:Boundary)
 msgid "Boundary"
-msgstr ""
+msgstr "حدود"
 
 #: master_preset.xml:8732(item:name|group:Historic_Places_&_Objects|preset:Boundary_Stone)
 msgid "Boundary Stone"
@@ -1777,7 +1777,7 @@ msgstr ""
 
 #: master_preset.xml:8096(item:name|group:Bridges|preset:Bridge_Support)
 msgid "Bridge Support"
-msgstr ""
+msgstr "دعامات جسر"
 
 #: master_preset.xml:897(text:text|key:bridge:name)
 msgid "Bridge name"
@@ -1849,7 +1849,7 @@ msgstr ""
 #: master_preset.xml:8566(list_entry:display_value|group:Historic_Places_&_Objects|preset:Historic_object|value:building)
 #: master_preset.xml:8644(item:name|group:Historic_Places_&_Objects|preset:Building)
 msgid "Building"
-msgstr ""
+msgstr "مبنى"
 
 #: master_preset.xml:10894(list_entry:display_value|group:Relations|preset:Relations|value:building)
 msgid "Building (3D)"
@@ -1924,7 +1924,7 @@ msgstr "حافلات"
 
 #: master_preset.xml:3213(item:name|group:Railway|preset:Bus_Guideway)
 msgid "Bus Guideway"
-msgstr ""
+msgstr "مسار الحافلة الموجهة"
 
 #: master_preset.xml:4025(item:name|group:Public_Transport_(Legacy)|preset:Bus_Platform)
 msgid "Bus Platform"
@@ -2283,7 +2283,7 @@ msgstr ""
 
 #: master_preset.xml:2292(item:name|group:Barriers|preset:Cattle_Grid)
 msgid "Cattle Grid"
-msgstr ""
+msgstr "شبكة أرضية حاجزة للماشية"
 
 #: master_preset.xml:10276(check:text|group:Geography|preset:Sinkhole|key:anthropogenic)
 msgid "Caused by human activity"
@@ -2596,7 +2596,7 @@ msgstr ""
 
 #: master_preset.xml:11472(item:name|group:Crafts|preset:Clockmaker)
 msgid "Clockmaker"
-msgstr ""
+msgstr "صناعة وصيانة الساعات"
 
 #: master_preset.xml:7837(combo:display_values|group:Man_Made|preset:Pipeline_Valve|key:turn_to_close)
 msgid "Clockwise"
@@ -3686,7 +3686,7 @@ msgstr ""
 
 #: master_preset.xml:11828(item:name|group:Crafts|preset:Dressmaker)
 msgid "Dressmaker"
-msgstr ""
+msgstr "خياط نسائي"
 
 #: master_preset.xml:1983(check:text|group:Waypoints|preset:Rest_Area|key:drinking_water)
 #: master_preset.xml:2805(check:text|group:Water|preset:Spring|key:drinking_water)
@@ -4269,15 +4269,15 @@ msgstr ""
 
 #: master_preset.xml:5943(item:name|group:Emergency|preset:Fire_Extinguisher)
 msgid "Fire Extinguisher"
-msgstr ""
+msgstr "طفاية حريق"
 
 #: master_preset.xml:5957(item:name|group:Emergency|preset:Fire_Hose)
 msgid "Fire Hose"
-msgstr ""
+msgstr "خرطوم إطفاء الحريق"
 
 #: master_preset.xml:5965(item:name|group:Emergency|preset:Fire_Hydrant)
 msgid "Fire Hydrant"
-msgstr ""
+msgstr "صنبور الاطفاء"
 
 #: master_preset.xml:5588(item:name|group:Public_Building|preset:Fire_Station)
 msgid "Fire Station"
@@ -4299,7 +4299,7 @@ msgstr ""
 
 #: master_preset.xml:5934(item:name|group:Emergency|preset:First_Aid_Kit)
 msgid "First Aid Kit"
-msgstr ""
+msgstr "حقيبة إسعافات أولية"
 
 #: master_preset.xml:10556(combo:display_values|group:Land_use|preset:Aquaculture|key:aquaculture)
 #: master_preset.xml:556(multiselect:display_values|key:cuisine)
@@ -4392,7 +4392,7 @@ msgstr ""
 
 #: master_preset.xml:11493(item:name|group:Crafts|preset:Floorer)
 msgid "Floorer"
-msgstr ""
+msgstr "أرضيات"
 
 #: master_preset.xml:9554(item:name|group:Other|preset:Florist)
 #: master_preset.xml:9606(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
@@ -4912,7 +4912,7 @@ msgstr ""
 
 #: master_preset.xml:11507(item:name|group:Crafts|preset:Glaziery)
 msgid "Glaziery"
-msgstr ""
+msgstr "إصلاح وتركيب الزجاج"
 
 #: master_preset.xml:939(combo:display_values|key:aerodrome:type)
 msgid "Gliding"
@@ -5080,7 +5080,7 @@ msgstr ""
 
 #: master_preset.xml:2383(item:name|group:Barriers|preset:Guard_Rail)
 msgid "Guard Rail"
-msgstr ""
+msgstr "حاجز حديدي للحماية من الاصدام"
 
 #: master_preset.xml:4186(item:name|group:Accommodation|preset:Guest_House/Bed_&_Breakfast)
 msgid "Guest House/Bed & Breakfast"
@@ -5256,7 +5256,7 @@ msgstr ""
 
 #: master_preset.xml:2366(item:name|group:Barriers|preset:Hedge)
 msgid "Hedge"
-msgstr ""
+msgstr "حاجز نباتي"
 
 #: master_preset.xml:1268(text:text|key:height)
 #: master_preset.xml:7538(text:text|preset:Loading_dock|key:height)
@@ -5470,7 +5470,7 @@ msgstr ""
 
 #: master_preset.xml:5842(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:hospice)
 msgid "Hospice"
-msgstr ""
+msgstr "دار رعاية المسنين وكبار السن"
 
 #: master_preset.xml:5740(item:name|group:Health|preset:Hospital)
 msgid "Hospital"
@@ -5786,7 +5786,7 @@ msgstr ""
 
 #: master_preset.xml:8480(item:name|preset:Insulator)
 msgid "Insulator"
-msgstr ""
+msgstr "تركيب عوازل حرارية"
 
 #: master_preset.xml:11924(item:name|group:Offices|preset:Insurance)
 msgid "Insurance"
@@ -5925,7 +5925,7 @@ msgstr ""
 
 #: master_preset.xml:11541(item:name|group:Crafts|preset:Joiner)
 msgid "Joiner"
-msgstr ""
+msgstr "نجار"
 
 #: master_preset.xml:6741(list_entry:short_description|group:Sport_Facilities|preset:Dojo|value:judo)
 msgid "Judo"
@@ -6045,7 +6045,7 @@ msgstr "كشك"
 
 #: master_preset.xml:2501(item:name|group:Barriers|preset:Kissing_Gate)
 msgid "Kissing Gate"
-msgstr ""
+msgstr "بوابة لا تسمح بعبور الماشية"
 
 #: master_preset.xml:9176(item:name|group:Home_furnishing_and_decoration|preset:Kitchen)
 msgid "Kitchen"
@@ -6356,7 +6356,7 @@ msgstr ""
 
 #: master_preset.xml:6063(item:name|group:Emergency|preset:Lifeguard)
 msgid "Lifeguard"
-msgstr ""
+msgstr "منقذ بحري"
 
 #: master_preset.xml:6068(item:name|group:Emergency|preset:Lifeguard_base)
 msgid "Lifeguard base"
@@ -6368,7 +6368,7 @@ msgstr ""
 
 #: master_preset.xml:2465(item:name|group:Barriers|preset:Lift_Gate)
 msgid "Lift Gate"
-msgstr ""
+msgstr "حاجز عمودي"
 
 #: master_preset.xml:3185(item:name|group:Railway|preset:Light_Rail)
 #: master_preset.xml:3863(check:text|group:Public_Transport|preset:Stop_Position|key:light_rail)
@@ -7037,7 +7037,7 @@ msgstr ""
 
 #: master_preset.xml:5853(list_entry:short_description|group:Health|preset:Other_healthcare_professionals|value:midwife)
 msgid "Midwife"
-msgstr ""
+msgstr "مركز قابلات للأمهات والأطفال حديثي الولادة"
 
 #: master_preset.xml:956(list_entry:display_value|value:migrant)
 msgid "Migrants"
@@ -7379,7 +7379,7 @@ msgstr ""
 
 #: master_preset.xml:6097(item:name|group:Emergency|preset:Mountain_Rescue)
 msgid "Mountain Rescue"
-msgstr ""
+msgstr "منقذ جبلي"
 
 #: master_preset.xml:11259(combo:display_values|group:Routes|preset:Superroute|key:route)
 msgid "Mountain bike route"
@@ -8530,7 +8530,7 @@ msgstr ""
 
 #: master_preset.xml:5787(item:name|group:Health|preset:Orthodontist)
 msgid "Orthodontist"
-msgstr ""
+msgstr "أخصائي تقويم الأسنان"
 
 #: master_preset.xml:740(combo:display_values|key:denomination)
 #: master_preset.xml:750(combo:display_values|key:denomination)
@@ -9233,7 +9233,7 @@ msgstr ""
 
 #: master_preset.xml:11611(item:name|group:Crafts|preset:Plasterer)
 msgid "Plasterer"
-msgstr ""
+msgstr "جصاص (أعمال الجبس)"
 
 #: master_preset.xml:1322(check:text|key:recycling:plastic)
 #: master_preset.xml:1335(list_entry:short_description|value:plastic)
@@ -9677,7 +9677,7 @@ msgstr ""
 
 #: master_preset.xml:5507(group:name|group:Public_Building)
 msgid "Public Building"
-msgstr ""
+msgstr "مبنى عام"
 
 #: master_preset.xml:5508(item:name|group:Public_Building|preset:Public_Building_(deprecated))
 msgid "Public Building (deprecated)"
@@ -10261,7 +10261,7 @@ msgstr ""
 
 #: master_preset.xml:2417(item:name|group:Barriers|preset:Retaining_Wall)
 msgid "Retaining Wall"
-msgstr ""
+msgstr "جدار تثبيت للتربة"
 
 #: master_preset.xml:2876(combo:display_values|group:Water|preset:Basin|key:basin)
 msgid "Retention"
@@ -10310,7 +10310,7 @@ msgstr ""
 
 #: master_preset.xml:11632(item:name|group:Crafts|preset:Rigger)
 msgid "Rigger"
-msgstr ""
+msgstr "الصواري والحبال والأشرعة"
 
 #: master_preset.xml:1739(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:right)
 #: master_preset.xml:1763(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
@@ -10658,7 +10658,7 @@ msgstr ""
 
 #: master_preset.xml:2538(item:name|group:Barriers|preset:Sally_Port)
 msgid "Sally Port"
-msgstr ""
+msgstr "مدخل آمن للحصن"
 
 #: master_preset.xml:1343(combo:display_values|key:resource)
 msgid "Salt"
@@ -11213,7 +11213,7 @@ msgstr ""
 
 #: master_preset.xml:6052(item:name|group:Emergency|preset:Siren)
 msgid "Siren"
-msgstr ""
+msgstr "صفاّرة إنذار"
 
 #: master_preset.xml:4907(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:sit-up)
 msgid "Sit-up"
@@ -11656,7 +11656,7 @@ msgstr ""
 
 #: master_preset.xml:2519(item:name|group:Barriers|preset:Stile)
 msgid "Stile"
-msgstr ""
+msgstr "بوابة دوارة لعبور شخص واحد"
 
 #: master_preset.xml:5781(list_entry:display_value|group:Health|preset:Dentist|value:stomatology)
 msgid "Stomatology"
@@ -11975,7 +11975,7 @@ msgstr ""
 
 #: master_preset.xml:2474(item:name|group:Barriers|preset:Swing_Gate)
 msgid "Swing Gate"
-msgstr ""
+msgstr "بوابة دوارة"
 
 #: master_preset.xml:8453(label:text|preset:Pole_with_Switch)
 msgid "Switch Attributes:"
@@ -12504,7 +12504,7 @@ msgstr "مدينة"
 
 #: master_preset.xml:5515(item:name|group:Public_Building|preset:Town_Hall)
 msgid "Town Hall"
-msgstr ""
+msgstr "مبنى البلدية/المركز الإداري"
 
 #: master_preset.xml:4995(item:name|group:Leisure|preset:Toy_library)
 msgid "Toy library"
@@ -12807,7 +12807,7 @@ msgstr ""
 
 #: master_preset.xml:2531(item:name|group:Barriers|preset:Turnstile)
 msgid "Turnstile"
-msgstr ""
+msgstr "باب دوار"
 
 #: master_preset.xml:3274(item:name|group:Railway|preset:Turntable)
 msgid "Turntable"
@@ -14444,7 +14444,7 @@ msgstr ""
 #: master_preset.xml:2379(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Railing"
-msgstr ""
+msgstr "حديدي"
 
 #: master_preset.xml:21(combo:display_values|key:material)
 msgctxt "material"
@@ -16761,7 +16761,7 @@ msgstr ""
 #: master_preset.xml:8722(combo:text|group:Historic_Places_&_Objects|preset:Wayside_Shrine|key:building)
 msgctxt "building"
 msgid "Building"
-msgstr ""
+msgstr "مبنى"
 
 #: master_preset.xml:1151(combo:text|key:building:colour)
 msgctxt "building"
@@ -16796,7 +16796,7 @@ msgstr ""
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Bungalow"
-msgstr ""
+msgstr "منزل صغير/كوخ"
 
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -16872,7 +16872,7 @@ msgstr "وصف بناء البرج"
 #: master_preset.xml:7422(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
 msgctxt "building"
 msgid "Cowshed"
-msgstr ""
+msgstr "سقيفة أبقار"
 
 #: master_preset.xml:1150(combo:display_values|key:building:use)
 msgctxt "building"
@@ -16898,7 +16898,7 @@ msgstr ""
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Dormitory"
-msgstr ""
+msgstr "سكن جامعي"
 
 #: master_preset.xml:1150(combo:display_values|key:building:use)
 msgctxt "building"
@@ -16960,7 +16960,7 @@ msgstr ""
 #: master_preset.xml:7422(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
 msgctxt "building"
 msgid "Garage"
-msgstr ""
+msgstr "مرآب/جراج"
 
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 #: master_preset.xml:7422(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
@@ -17003,13 +17003,13 @@ msgstr ""
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Grandstand"
-msgstr ""
+msgstr "مُدَرج"
 
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 #: master_preset.xml:7422(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
 msgctxt "building"
 msgid "Greenhouse"
-msgstr ""
+msgstr "محمية زراعية"
 
 #: master_preset.xml:1158(list_entry:short_description|value:half-hipped)
 #: master_preset.xml:7454(item:name|group:Roof_type|preset:Half-hipped)
@@ -17050,12 +17050,12 @@ msgstr ""
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Houseboat"
-msgstr ""
+msgstr "بيت عائم"
 
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Hut"
-msgstr ""
+msgstr "كوخ بدائي/عشة"
 
 #: master_preset.xml:1150(combo:display_values|key:building:use)
 #: master_preset.xml:7384(combo:display_values|group:Buildings|preset:Building|key:building)
@@ -17252,7 +17252,7 @@ msgstr ""
 #: master_preset.xml:7422(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
 msgctxt "building"
 msgid "Roof"
-msgstr ""
+msgstr "سقف/سطح"
 
 #: master_preset.xml:1128(combo:text|key:roof:colour)
 msgctxt "building"
