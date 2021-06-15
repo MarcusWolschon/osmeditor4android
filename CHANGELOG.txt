@@ -1,8 +1,23 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.2.3:
+
+- Fix missing empty line in MultiTextLine on initial display
+- Bump OH parser version, fixes issue with variable times with negative less than one hour offset
+- Fix what is considered a speed tag
+- Warn and truncate if conditional restrictions exceeds max. tag value length
+- Always call onElementChanged on the element
+- Fix F-Droid build crash: if the github key isn't present, always use the github url
+- Store ref to relation member, but don't serialize it
+- Don't rely on the relation member element staying in storage
+- Protect against NPE when selecting "other" as relation preset when creating new relation
+- Update preset
+- Update translations
+- Update imagery
+
 15.2.2:
 
-- Fix try to always close down the TrackerSerive properly in onDestroy
+- Fix try to always close down the TrackerService properly in onDestroy
 - Update imagery
 - Update translations
 - Update preset
