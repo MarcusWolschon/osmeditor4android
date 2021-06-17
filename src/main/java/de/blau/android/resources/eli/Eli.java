@@ -19,6 +19,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.Provider;
+import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.GeoJson;
 
@@ -26,6 +27,30 @@ public final class Eli {
     private static final String DEBUG_TAG = "Eli";
 
     public static final String VERSION_1_1 = "1.1";
+
+    private static final String MIN_ZOOM_KEY              = "min_zoom";
+    private static final String MAX_ZOOM_KEY              = "max_zoom";
+    private static final String TYPE_KEY                  = "type";
+    private static final String CATEGORY_KEY              = "category";
+    private static final String ID_KEY                    = "id";
+    private static final String NAME_KEY                  = "name";
+    private static final String OVERLAY_KEY               = "overlay";
+    private static final String DEFAULT_KEY               = "default";
+    private static final String BEST_KEY                  = "best";
+    private static final String LICENSE_URL_KEY           = "license_url";
+    private static final String ATTRIBUTION_KEY           = "attribution";
+    private static final String URL_KEY                   = "url";
+    private static final String TEXT_KEY                  = "text";
+    private static final String ICON_KEY                  = "icon";
+    private static final String START_DATE_KEY            = "start_date";
+    private static final String END_DATE_KEY              = "end_date";
+    private static final String DESCRIPTION_KEY           = "description";
+    private static final String PRIVACY_POLICY_URL_KEY    = "privacy_policy_url";
+    private static final String NO_TILE_HEADER_KEY        = "no_tile_header";
+    private static final String NO_TILE_TILE_KEY          = "no_tile_tile";
+    private static final String AVAILABLE_PROJECTIONS_KEY = "available_projections";
+    private static final String TILE_TYPE_KEY             = "tile_type"; // extension
+    private static final String MVT_VALUE                 = "mvt";
 
     /**
      * Private constructor to prevent instantiation
@@ -140,10 +165,10 @@ public final class Eli {
             JsonObject properties = f.properties();
 
             List<BoundingBox> boxes = GeoJson.getBoundingBoxes(f, fakeMultiPolygon);
-            int minZoom = getJsonInteger(properties, "min_zoom", TileLayerSource.DEFAULT_MIN_ZOOM);
-            int maxZoom = getJsonInteger(properties, "max_zoom", TileLayerSource.NO_MAX_ZOOM);
+            int minZoom = getJsonInteger(properties, MIN_ZOOM_KEY, TileLayerSource.DEFAULT_MIN_ZOOM);
+            int maxZoom = getJsonInteger(properties, MAX_ZOOM_KEY, TileLayerSource.NO_MAX_ZOOM);
 
-            String type = getJsonString(properties, "type");
+            String type = getJsonString(properties, TYPE_KEY);
             boolean isWMS = TileLayerSource.TYPE_WMS.equals(type);
             if (maxZoom == TileLayerSource.NO_MAX_ZOOM) {
                 if (isWMS) {
@@ -153,7 +178,7 @@ public final class Eli {
                 }
             }
 
-            Category category = getCategory(getJsonString(properties, "category"));
+            Category category = getCategory(getJsonString(properties, CATEGORY_KEY));
 
             Provider provider = new Provider();
             if (boxes.isEmpty()) {
@@ -164,38 +189,38 @@ public final class Eli {
                 }
             }
 
-            String id = getJsonString(properties, "id");
-            String url = getJsonString(properties, "url");
-            String name = getJsonString(properties, "name");
-            boolean overlay = getJsonBoolean(properties, "overlay");
-            boolean defaultLayer = getJsonBoolean(properties, "default");
-            int preference = getJsonBoolean(properties, "best") ? TileLayerSource.PREFERENCE_BEST : TileLayerSource.PREFERENCE_DEFAULT;
+            String id = getJsonString(properties, ID_KEY);
+            String url = getJsonString(properties, URL_KEY);
+            String name = getJsonString(properties, NAME_KEY);
+            boolean overlay = getJsonBoolean(properties, OVERLAY_KEY);
+            boolean defaultLayer = getJsonBoolean(properties, DEFAULT_KEY);
+            int preference = getJsonBoolean(properties, BEST_KEY) ? TileLayerSource.PREFERENCE_BEST : TileLayerSource.PREFERENCE_DEFAULT;
 
-            String termsOfUseUrl = getJsonString(properties, "license_url");
+            String termsOfUseUrl = getJsonString(properties, LICENSE_URL_KEY);
 
-            JsonObject attribution = (JsonObject) properties.get("attribution");
+            JsonObject attribution = (JsonObject) properties.get(ATTRIBUTION_KEY);
             if (attribution != null) {
-                provider.setAttributionUrl(getJsonString(attribution, "url"));
-                provider.setAttribution(getJsonString(attribution, "text"));
+                provider.setAttributionUrl(getJsonString(attribution, URL_KEY));
+                provider.setAttribution(getJsonString(attribution, TEXT_KEY));
             }
-            String icon = getJsonString(properties, "icon");
+            String icon = getJsonString(properties, ICON_KEY);
             long startDate = -1L;
             long endDate = Long.MAX_VALUE;
-            String dateString = getJsonString(properties, "start_date");
+            String dateString = getJsonString(properties, START_DATE_KEY);
             if (dateString != null) {
                 startDate = dateStringToTime(dateString);
             }
-            dateString = getJsonString(properties, "end_date");
+            dateString = getJsonString(properties, END_DATE_KEY);
             if (dateString != null) {
                 endDate = dateStringToTime(dateString);
             }
 
-            String description = getJsonString(properties, "description");
-            String privacyPolicyUrl = getJsonString(properties, "privacy_policy_url");
+            String description = getJsonString(properties, DESCRIPTION_KEY);
+            String privacyPolicyUrl = getJsonString(properties, PRIVACY_POLICY_URL_KEY);
 
             String noTileHeader = null;
             String[] noTileValues = null;
-            JsonObject noTileHeaderObject = getJsonObject(properties, "no_tile_header");
+            JsonObject noTileHeaderObject = getJsonObject(properties, NO_TILE_HEADER_KEY);
             if (noTileHeaderObject != null) {
                 Iterator<Entry<String, JsonElement>> it = noTileHeaderObject.entrySet().iterator();
                 if (it.hasNext()) { // we only support one entry
@@ -206,13 +231,13 @@ public final class Eli {
             }
 
             byte[] noTileTile = null;
-            String noTileTileString = getJsonString(properties, "no_tile_tile");
+            String noTileTileString = getJsonString(properties, NO_TILE_TILE_KEY);
             if (noTileTileString != null) {
                 noTileTile = hexStringToByteArray(noTileTileString);
             }
 
             String proj = null;
-            JsonArray projections = (JsonArray) properties.get("available_projections");
+            JsonArray projections = (JsonArray) properties.get(AVAILABLE_PROJECTIONS_KEY);
             if (projections != null) {
                 for (JsonElement p : projections) {
                     String supportedProj = p.getAsString();
@@ -244,6 +269,10 @@ public final class Eli {
                     TileLayerSource.DEFAULT_MAX_OVERZOOM, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues, description,
                     privacyPolicyUrl, async);
             osmts.setNoTileTile(noTileTile);
+            if (TileLayerSource.TYPE_TMS.equals(osmts.getType())) {
+                osmts.setTileType(MVT_VALUE.equals(getJsonString(properties, TILE_TYPE_KEY)) ? TileType.MVT : TileType.BITMAP);
+            }
+
         } catch (UnsupportedOperationException uoex) {
             Log.e(DEBUG_TAG, "Got " + uoex.getMessage());
         }
