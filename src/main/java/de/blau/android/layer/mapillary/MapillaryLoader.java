@@ -11,6 +11,9 @@ import java.util.concurrent.TimeUnit;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import android.content.Context;
 import android.content.Intent;
@@ -72,7 +75,8 @@ class MapillaryLoader implements PhotoLoader {
             mThreadPool.execute(() -> {
                 Log.d(DEBUG_TAG, "querying server for " + key);
                 try {
-                    URL url = new URL(imageUrl + key + MAPILLARY_JPG);
+                    String urlString = String.format(imageUrl, key);
+                    URL url = new URL(urlString);
                     Log.d(DEBUG_TAG, "query: " + url.toString());
 
                     Request request = new Request.Builder().url(url).build();
@@ -84,11 +88,30 @@ class MapillaryLoader implements PhotoLoader {
                         ResponseBody responseBody = mapillaryCallResponse.body();
                         try (InputStream inputStream = responseBody.byteStream()) {
                             if (inputStream != null) {
-                                try (FileOutputStream fileOutput = new FileOutputStream(imageFile)) {
-                                    byte[] buffer = new byte[1024];
-                                    int bufferLength = 0;
-                                    while ((bufferLength = inputStream.read(buffer)) > 0) {
-                                        fileOutput.write(buffer, 0, bufferLength);
+                                StringBuilder sb = new StringBuilder();
+                                int cp;
+                                while ((cp = inputStream.read()) != -1) {
+                                    sb.append((char) cp);
+                                }
+                                JsonElement root = JsonParser.parseString(sb.toString());
+                                if (root.isJsonObject()) {
+                                    String url2048 = ((JsonObject) root).get("thumb_2048_url").getAsString();
+                                    request = new Request.Builder().url(url2048).build();
+                                    mapillaryCall = client.newCall(request);
+                                    mapillaryCallResponse = mapillaryCall.execute();
+                                    if (mapillaryCallResponse.isSuccessful()) {
+                                        responseBody = mapillaryCallResponse.body();
+                                        try (InputStream inputStream2048 = responseBody.byteStream()) {
+                                            if (inputStream2048 != null) {
+                                                try (FileOutputStream fileOutput = new FileOutputStream(imageFile)) {
+                                                    byte[] buffer = new byte[1024];
+                                                    int bufferLength = 0;
+                                                    while ((bufferLength = inputStream2048.read(buffer)) > 0) {
+                                                        fileOutput.write(buffer, 0, bufferLength);
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }

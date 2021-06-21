@@ -6,17 +6,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mapbox.geojson.CoordinateContainer;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
@@ -57,6 +61,7 @@ import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.symbols.Mapillary;
 import de.blau.android.resources.KeyDatabaseHelper;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.DataStorage;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoJSONConstants;
@@ -65,27 +70,27 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SerializablePaint;
 import de.blau.android.util.collections.FloatPrimitiveList;
+import de.blau.android.util.mvt.VectorTileDecoder;
+import de.blau.android.util.mvt.VectorTileRenderer;
 import de.blau.android.util.rtree.RTree;
 import de.blau.android.views.IMapView;
+import de.blau.android.views.layers.MapTilesOverlayLayer;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class MapOverlay extends StyleableLayer
-        implements Serializable, ExtentInterface, ClickableInterface<MapillaryImage>, DownloadInterface, PruneableInterface, DataStorage {
+public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
 
     private static final long serialVersionUID = 1L;
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
-    private static final int SEQUENCE_LOAD_THREADS = 3;
-
     /**
      * when reading state lockout writing/reading
      */
-    private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
+    // private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
 
     public static final String APIKEY_KEY = "MAPILLARY_APIKEY";
 
@@ -93,8 +98,6 @@ public class MapOverlay extends StyleableLayer
     public static final String SET_POSITION_KEY = "set_position";
     private static final int   SHOW_MARKER_ZOOM = 20;
 
-    private RTree<MapillarySequence>     data             = new RTree<>(2, 12);
-    private List<BoundingBox>            boxes            = new ArrayList<>();
     private MapillarySequence            selectedSequence = null;
     private int                          selectedImage    = 0;
     private transient Paint              selectedPaint;
@@ -108,13 +111,10 @@ public class MapOverlay extends StyleableLayer
     /**
      * Download related stuff
      */
-    private boolean panAndZoomDownLoad = false;
-    private int     panAndZoomLimit    = 16;
-    private int     minDownloadSize    = 50;
-    private float   maxDownloadSpeed   = 30;
-    private long    cacheSize          = 100000000L;
-    private String  mapillaryApiUrl    = Urls.DEFAULT_MAPILLARY_API_V3;
-    private String  mapillaryImagesUrl = Urls.DEFAULT_MAPILLARY_IMAGES;
+    private long   cacheSize             = 100000000L;
+    private String mapillaryApiUrl       = Urls.DEFAULT_MAPILLARY_API_V3;
+    private String mapillaryImagesUrl    = "https://graph.mapillary.com/%s?access_token=MLY|4089802601107022|4c604fd248fc3284d97630775058e7d3&fields=thumb_2048_url";
+    private String mapillarySequencesUrl = "https://graph.mapillary.com/image_ids?sequence_id=%s&access_token=MLY|4089802601107022|4c604fd248fc3284d97630775058e7d3&fields=id";
 
     private transient ThreadPoolExecutor mThreadPool;
 
@@ -123,40 +123,7 @@ public class MapOverlay extends StyleableLayer
      */
     private File cacheDir;
 
-    /**
-     * Runnable for downloading data
-     * 
-     * There is some code duplication here, however attempts to merge this didn't work out
-     */
-    private transient Runnable download = () -> {
-        if (mThreadPool == null) {
-            mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(SEQUENCE_LOAD_THREADS);
-        }
-        List<BoundingBox> currentBoxes = getBoundingBoxes();
-        if (currentBoxes == null) {
-            Log.e(DEBUG_TAG, "Bounding box list null");
-            return;
-        }
-        List<BoundingBox> bbList = new ArrayList<>(currentBoxes);
-        ViewBox box = new ViewBox(map.getViewBox());
-        box.scale(1.2); // make sides 20% larger
-        box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
-        List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
-        for (BoundingBox b : bboxes) {
-            if (b.getWidth() <= 1 || b.getHeight() <= 1) {
-                Log.w(DEBUG_TAG, "getNextCenter very small bb " + b.toString());
-                continue;
-            }
-            addBoundingBox(b);
-            mThreadPool.execute(() -> {
-                if (internalDownloadBox(b)) {
-                    map.postInvalidate();
-                } else {
-                    deleteBoundingBox(b);
-                }
-            });
-        }
-    };
+    private java.util.Map<String, ArrayList<String>> sequenceCache = new HashMap<>();
 
     /**
      * Construct this layer
@@ -164,11 +131,13 @@ public class MapOverlay extends StyleableLayer
      * @param map the Map object we are displayed on
      */
     public MapOverlay(final Map map) {
+        super(map, new VectorTileRenderer(), false);
+        this.setRendererInfo(TileLayerSource.get(map.getContext(), "NEW-MAPILLARY", false));
         this.map = map;
-        resetStyling();
-        FeatureStyle selectedStyle = DataStyle.getInternal(DataStyle.SELECTED_WAY);
-        selectedPaint = new Paint(selectedStyle.getPaint());
-        selectedPaint.setStrokeWidth(paint.getStrokeWidth() * selectedStyle.getWidthFactor());
+        // resetStyling();
+        // FeatureStyle selectedStyle = DataStyle.getInternal(DataStyle.SELECTED_WAY);
+        // selectedPaint = new Paint(selectedStyle.getPaint());
+        // selectedPaint.setStrokeWidth(paint.getStrokeWidth() * selectedStyle.getWidthFactor());
         final Context context = map.getContext();
         File[] storageDirs = ContextCompat.getExternalFilesDirs(context, null);
         try {
@@ -182,213 +151,48 @@ public class MapOverlay extends StyleableLayer
         setPrefs(map.getPrefs());
     }
 
-    @Override
-    public boolean isReadyToDraw() {
-        return data != null;
-    }
+    // @Override
+    // protected void onDrawFinished(Canvas c, IMapView osmv) {
+    // // do nothing
+    // }
+    //
+    // @Override
+    // public void onDestroy() {
+    // data = null;
+    // boxes = null;
+    // }
+    //
+    // @Override
+    // public synchronized boolean save(Context context) throws IOException {
+    // Log.e(DEBUG_TAG, "saving state");
+    // return savingHelper.save(context, FILENAME, this, true);
+    // }
+    //
+    // @Override
+    // public synchronized StyleableLayer load(Context context) {
+    // Log.e(DEBUG_TAG, "loading state");
+    // MapOverlay restoredOverlay = savingHelper.load(context, FILENAME, true);
+    // if (restoredOverlay != null) {
+    // data = restoredOverlay.data;
+    // boxes = restoredOverlay.boxes;
+    // selectedSequence = restoredOverlay.selectedSequence;
+    // selectedImage = restoredOverlay.selectedImage;
+    // }
+    // return restoredOverlay;
+    // }
 
     @Override
-    protected void onDraw(Canvas canvas, IMapView osmv) {
-        if (!isVisible || data == null) {
-            return;
-        }
-        ViewBox bb = osmv.getViewBox();
-        int width = map.getWidth();
-        int height = map.getHeight();
-        int zoomLevel = map.getZoomLevel();
-
-        Location location = map.getLocation();
-
-        if (zoomLevel >= panAndZoomLimit && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
-            map.getRootView().removeCallbacks(download);
-            map.getRootView().postDelayed(download, 100);
-        }
-
-        Collection<MapillarySequence> queryResult = new ArrayList<>();
-        data.query(queryResult, bb);
-        for (MapillarySequence sequence : queryResult) {
-            Feature f = sequence.getFeature();
-            drawSequence(canvas, bb, width, height, f, paint, zoomLevel >= SHOW_MARKER_ZOOM);
-        }
-    }
-
-    /**
-     * Draw a line for a sequence with optional markers for the images
-     * 
-     * @param canvas Canvas object we are drawing on
-     * @param bb the current ViewBox
-     * @param width screen width in screen coordinates
-     * @param height screen height in screen coordinates
-     * @param f the GeoJson Feature holding the sequence
-     * @param paint Paint object for drawing
-     * @param withMarker if true show the markers
-     */
-    public void drawSequence(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull Feature f, @NonNull Paint paint, boolean withMarker) {
-        paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.STROKE);
-        path.reset();
-        @SuppressWarnings("unchecked")
-        List<Point> line = ((CoordinateContainer<List<Point>>) f.geometry()).coordinates();
-        JsonObject coordinateProperties = (JsonObject) f.getProperty(MapillarySequence.COORDINATE_PROPERTIES_KEY);
-        JsonArray cas = coordinateProperties.get(MapillarySequence.CAS_KEY).getAsJsonArray();
-        int size = line.size();
-        GeoJson.pointListToLinePointsArray(bb, width, height, points, line);
-        float[] linePoints = points.getArray();
-        int pointsSize = points.size();
-        if (pointsSize > 2) {
-            path.reset();
-            path.moveTo(linePoints[0], linePoints[1]);
-            for (int i = 0; i < pointsSize; i = i + 4) {
-                path.lineTo(linePoints[i + 2], linePoints[i + 3]);
-            }
-            canvas.drawPath(path, paint);
-        }
-        if (withMarker && symbolPath != null) {
-            JsonArray imageKeys = coordinateProperties.get(MapillarySequence.IMAGE_KEYS_KEY).getAsJsonArray();
-            if (imageKeys != null) {
-                boolean sequenceIsSelected = selectedSequence != null && selectedSequence.getFeature().equals(f);
-                try {
-                    for (int i = 0; i < imageKeys.size(); i++) {
-                        Point p = line.get(i);
-                        double longitude = p.longitude();
-                        double latitude = p.latitude();
-                        if (bb.contains(longitude, latitude)) {
-                            float x = GeoMath.lonToX(width, bb, longitude);
-                            float y = GeoMath.latToY(height, width, bb, latitude);
-                            if (selectedImage == i && sequenceIsSelected) {
-                                drawMarker(canvas, x, y, cas.get(i).getAsInt(), selectedPaint, symbolPath);
-                            }
-                            drawMarker(canvas, x, y, cas.get(i).getAsInt(), paint, symbolPath);
-                        }
-                    }
-                } catch (Exception ex) {
-                    Log.e(DEBUG_TAG, "seq key " + f.getProperty("key") + " #coordinates " + size + " #keys " + (imageKeys != null ? imageKeys.size() : "null")
-                            + ex.getMessage());
-                }
-            }
-        }
-    }
-
-    /**
-     * Show a marker for the current GPS position
-     * 
-     * @param canvas canvas to draw on
-     * @param x screen x
-     * @param y screen y
-     * @param o cardinal orientation in degrees
-     * @param paint Paint object to use
-     * @param path Path for the marker
-     */
-    private void drawMarker(@NonNull final Canvas canvas, float x, float y, float o, @NonNull Paint paint, @NonNull Path path) {
-        if (o < 0) {
-            // no orientation data available
-            canvas.drawCircle(x, y, paint.getStrokeWidth(), paint);
-        } else {
-            // show the orientation using a pointy indicator
-            canvas.save();
-            canvas.translate(x, y);
-            canvas.rotate(o);
-            canvas.drawPath(path, paint);
-            canvas.restore();
-        }
-    }
-
-    @Override
-    protected void onDrawFinished(Canvas c, IMapView osmv) {
-        // do nothing
-    }
-
-    @Override
-    public void onDestroy() {
-        data = null;
-        boxes = null;
-    }
-
-    @Override
-    public synchronized boolean save(Context context) throws IOException {
-        Log.e(DEBUG_TAG, "saving state");
-        return savingHelper.save(context, FILENAME, this, true);
-    }
-
-    @Override
-    public synchronized StyleableLayer load(Context context) {
-        Log.e(DEBUG_TAG, "loading state");
-        MapOverlay restoredOverlay = savingHelper.load(context, FILENAME, true);
-        if (restoredOverlay != null) {
-            data = restoredOverlay.data;
-            boxes = restoredOverlay.boxes;
-            selectedSequence = restoredOverlay.selectedSequence;
-            selectedImage = restoredOverlay.selectedImage;
-        }
-        return restoredOverlay;
-    }
-
-    /**
-     * Given screen coordinates, find all nearby elements.
-     *
-     * @param x Screen X-coordinate.
-     * @param y Screen Y-coordinate.
-     * @param viewBox Map view box.
-     * @return List of photos close to given location.
-     */
-    @Override
-    public List<MapillaryImage> getClicked(final float x, final float y, final ViewBox viewBox) {
-        List<MapillaryImage> result = new ArrayList<>();
-        if (data != null) {
-            final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
-            Collection<MapillarySequence> queryResult = new ArrayList<>();
-            data.query(queryResult, viewBox);
-            for (MapillarySequence sequence : queryResult) {
-                Feature f = sequence.getFeature();
-                Geometry g = f.geometry();
-                if (g == null) {
-                    continue;
-                }
-                if (GeoJSONConstants.LINESTRING.equals(g.type())) {
-                    List<Point> line = sequence.getPoints();
-                    JsonArray imageKeys = sequence.getImageKeys();
-                    for (int i = 0; i < imageKeys.size(); i++) {
-                        if (inToleranceArea(viewBox, tolerance, line.get(i), x, y)) {
-                            result.add(sequence.getImage(i));
-                        }
-                    }
-                } else {
-                    Log.w(DEBUG_TAG, "Unexpected geometry " + g.type());
+    public List<VectorTileDecoder.Feature> getClicked(final float x, final float y, final ViewBox viewBox) {
+        List<VectorTileDecoder.Feature> result = super.getClicked(x, y, viewBox);
+        // remove non image elements for now
+        if (result != null) {
+            for (VectorTileDecoder.Feature f : new ArrayList<>(result)) {
+                if (!GeoJSONConstants.POINT.equals(f.getGeometry().type())) {
+                    result.remove(f);
                 }
             }
         }
         Log.d(DEBUG_TAG, "getClicked found " + result.size());
-        return result;
-    }
-
-    /**
-     * Check if the current touch position is in the tolerance area around a Position
-     * 
-     * @param viewBox the current screen ViewBox
-     * @param tolerance the tolerance value
-     * @param p the Position
-     * @param x screen x coordinate of touch location
-     * @param y screen y coordinate of touch location
-     * @return true if touch position is in tolerance
-     */
-    private boolean inToleranceArea(@NonNull ViewBox viewBox, float tolerance, @NonNull Point p, float x, float y) {
-        float differenceX = Math.abs(GeoMath.lonToX(map.getWidth(), viewBox, p.longitude()) - x);
-        float differenceY = Math.abs(GeoMath.latToY(map.getHeight(), map.getWidth(), viewBox, p.latitude()) - y);
-        return differenceX <= tolerance && differenceY <= tolerance && Math.hypot(differenceX, differenceY) <= tolerance;
-    }
-
-    /**
-     * Return a List of all loaded Features
-     * 
-     * @return a List of Feature objects
-     */
-    public List<Feature> getFeatures() {
-        Collection<MapillarySequence> queryResult = new ArrayList<>();
-        data.query(queryResult);
-        List<Feature> result = new ArrayList<>();
-        for (MapillarySequence mo : queryResult) {
-            result.add(mo.getFeature());
-        }
         return result;
     }
 
@@ -401,182 +205,144 @@ public class MapOverlay extends StyleableLayer
     public void invalidate() {
         map.invalidate();
     }
+    //
+    // @Override
+    // public BoundingBox getExtent() {
+    // if (data != null) {
+    // Collection<MapillarySequence> queryResult = new ArrayList<>();
+    // data.query(queryResult);
+    // BoundingBox extent = null;
+    // for (MapillarySequence mo : queryResult) {
+    // if (extent == null) {
+    // extent = mo.getBounds();
+    // } else {
+    // extent.union(mo.getBounds());
+    // }
+    // }
+    // return extent;
+    // }
+    // return null;
+    // }
 
     @Override
-    public BoundingBox getExtent() {
-        if (data != null) {
-            Collection<MapillarySequence> queryResult = new ArrayList<>();
-            data.query(queryResult);
-            BoundingBox extent = null;
-            for (MapillarySequence mo : queryResult) {
-                if (extent == null) {
-                    extent = mo.getBounds();
-                } else {
-                    extent.union(mo.getBounds());
+    public void onSelected(FragmentActivity activity, de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
+        if (f != null) {
+            switch (f.getGeometry().type()) {
+            case GeoJSONConstants.POINT:
+
+                String sequenceId = (String) f.getAttributes().get("sequence_id");
+                Long id = (Long) f.getAttributes().get("id");
+                if (id != null && sequenceId != null) {
+                    ArrayList<String> keys = sequenceCache.get(sequenceId);
+                    if (keys == null) {
+                        Thread t = new Thread(null, new SequenceFetcher(activity, sequenceId, id), "Mapillary Sequence");
+                        t.start();
+                    } else {
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                            PhotoViewerFragment.showDialog(activity, keys, keys.indexOf(id.toString()),
+                                    new MapillaryLoader(cacheDir, cacheSize, mapillaryImagesUrl));
+                        } else {
+                            MapillaryViewerActivity.start(activity, keys, keys.indexOf(id.toString()),
+                                    new MapillaryLoader(cacheDir, cacheSize, mapillaryImagesUrl));
+                        }
+                        map.invalidate();
+                    }
                 }
+                // }
+            default:
             }
-            return extent;
         }
-        return null;
     }
 
-    @Override
-    public void onSelected(FragmentActivity activity, MapillaryImage image) {
-        if (image != null) {
-            MapillarySequence sequence = get(image);
-            selectedSequence = sequence;
-            selectedImage = image.index;
-            dirty();
-            if (sequence != null) {
-                ArrayList<String> keys = new ArrayList<>();
-                JsonArray imageKeys = sequence.getImageKeys();
-                for (int i = 0; i < imageKeys.size(); i++) {
-                    keys.add(imageKeys.get(i).getAsString());
-                }
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                    PhotoViewerFragment.showDialog(activity, keys, image.index, new MapillaryLoader(cacheDir, cacheSize, mapillaryImagesUrl));
-                } else {
-                    MapillaryViewerActivity.start(activity, keys, image.index, new MapillaryLoader(cacheDir, cacheSize, mapillaryImagesUrl));
-                }
-                map.invalidate();
-            }
+    class SequenceFetcher implements Runnable {
+        final FragmentActivity activity;
+        final String           sequenceId;
+        final Long             id;
+
+        public SequenceFetcher(FragmentActivity activity, String sequenceId, Long id) {
+            this.activity = activity;
+            this.sequenceId = sequenceId;
+            this.id = id;
         }
-    }
 
-    @Override
-    public String getDescription(MapillaryImage image) {
-        return image.toString();
-    }
+        @Override
+        public void run() {
+            try {
+                URL url = new URL(String.format(mapillarySequencesUrl, sequenceId));
+                Log.d(DEBUG_TAG, "query sequence: " + url.toString());
 
-    @Override
-    public MapillaryImage getSelected() {
-        return selectedSequence != null ? selectedSequence.getImage(selectedImage) : null;
-    }
-
-    @Override
-    public void deselectObjects() {
-        selectedSequence = null;
-        selectedImage = 0;
-        dirty();
-    }
-
-    @Override
-    public void setSelected(MapillaryImage image) {
-        selectedSequence = get(image);
-        selectedImage = image.index;
-        dirty();
-    }
-
-    @Override
-    public void downloadBox(@NonNull final Context context, @NonNull final BoundingBox box, @Nullable final PostAsyncActionHandler handler) {
-        addBoundingBox(new BoundingBox(box)); // need to copy box as it might be changed elsewhere
-        new AsyncTask<Void, Void, Boolean>() {
-
-            @Override
-            protected Boolean doInBackground(Void... params) {
-                return internalDownloadBox(box);
-            }
-
-            @Override
-            protected void onPostExecute(Boolean param) {
-                if (Boolean.TRUE.equals(param)) {
-                    if (handler != null) {
-                        handler.onSuccess();
-                    }
-                } else {
-                    if (handler != null) {
-                        handler.onError();
-                    }
-                    deleteBoundingBox(box);
-                }
-            }
-        }.execute();
-    }
-
-    /**
-     * Internal version of downloadBox
-     * 
-     * @param box the BoundingBox to download
-     */
-    private boolean internalDownloadBox(@NonNull final BoundingBox box) {
-        try {
-            URL url = new URL(mapillaryApiUrl + "sequences?client_id=" + apiKey + "&bbox=" + box.getLeft() / 1E7d + "," + box.getBottom() / 1E7d + ","
-                    + box.getRight() / 1E7d + "," + box.getTop() / 1E7d);
-            Log.d(DEBUG_TAG, "query: " + url.toString());
-
-            Request request = new Request.Builder().url(url).build();
-            OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(10000, TimeUnit.MILLISECONDS).readTimeout(20000, TimeUnit.MILLISECONDS)
-                    .build();
-            Call mapillaryCall = client.newCall(request);
-            Response mapillaryCallResponse = mapillaryCall.execute();
-            if (mapillaryCallResponse.isSuccessful()) {
-                ResponseBody responseBody = mapillaryCallResponse.body();
-                StringBuilder sb = new StringBuilder();
-                try (InputStream inputStream = responseBody.byteStream();
-                        BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8)))) {
-                    int cp;
-                    while ((cp = rd.read()) != -1) {
-                        sb.append((char) cp);
-                    }
-                }
-                FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
-                synchronized (MapOverlay.this) {
-                    boolean inserted = false;
-                    for (Feature f : fc.features()) {
-                        MapillarySequence mo = new MapillarySequence(f);
-                        if (!contains(mo)) {
-                            data.insert(mo);
-                            inserted = true;
+                Request request = new Request.Builder().url(url).build();
+                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS).readTimeout(20000, TimeUnit.MILLISECONDS)
+                        .build();
+                Call mapillaryCall = client.newCall(request);
+                Response mapillaryCallResponse = mapillaryCall.execute();
+                if (mapillaryCallResponse.isSuccessful()) {
+                    ResponseBody responseBody = mapillaryCallResponse.body();
+                    try (InputStream inputStream = responseBody.byteStream()) {
+                        if (inputStream != null) {
+                            StringBuilder sb = new StringBuilder();
+                            int cp;
+                            while ((cp = inputStream.read()) != -1) {
+                                sb.append((char) cp);
+                            }
+                            JsonElement root = JsonParser.parseString(sb.toString());
+                            if (root.isJsonObject()) {
+                                JsonElement data = ((JsonObject) root).get("data");
+                                if (data instanceof JsonArray) {
+                                    JsonArray idArray = data.getAsJsonArray();
+                                    ArrayList<String> ids = new ArrayList<>();
+                                    for (JsonElement element : idArray) {
+                                        if (element instanceof JsonObject) {
+                                            JsonElement temp = ((JsonObject) element).get("id");
+                                            if (temp != null) {
+                                                ids.add(temp.getAsString());
+                                            }
+                                        }
+                                    }
+                                    sequenceCache.put(sequenceId, ids);
+                                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                                        PhotoViewerFragment.showDialog(activity, ids, ids.indexOf(id.toString()),
+                                                new MapillaryLoader(cacheDir, cacheSize, mapillaryImagesUrl));
+                                    } else {
+                                        MapillaryViewerActivity.start(activity, ids, ids.indexOf(id.toString()),
+                                                new MapillaryLoader(cacheDir, cacheSize, mapillaryImagesUrl));
+                                    }
+                                    map.invalidate();
+                                }
+                            }
                         }
                     }
-                    if (inserted) {
-                        dirty();
-                    }
                 }
-                return true;
-            } else {
-                Log.e(DEBUG_TAG, "Sequence download failed " + mapillaryCallResponse.code() + " " + mapillaryCallResponse.message());
+            } catch (IOException ex) {
+
             }
-        } catch (Exception ex) {
-            Log.e(DEBUG_TAG, "Got exception " + ex.getMessage());
         }
-        return false;
+
     }
 
-    /**
-     * Returns true if there is an object with the same key in the "same location"
-     * 
-     * @param sequence MapillarySequence to check for
-     * @return true if sequence was found
-     */
-    public boolean contains(@NonNull MapillarySequence sequence) {
-        Collection<MapillarySequence> queryResult = new ArrayList<>();
-        data.query(queryResult, sequence.getBounds());
-        for (MapillarySequence mo2 : queryResult) {
-            if (sequence.key.equals(mo2.key)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Given an MapillaryImage return the sequence
-     * 
-     * @param image the image
-     * @return the sequence or null
-     */
-    @Nullable
-    MapillarySequence get(@NonNull MapillaryImage image) {
-        Collection<MapillarySequence> queryResult = new ArrayList<>();
-        data.query(queryResult, image.box);
-        for (MapillarySequence sequence : queryResult) {
-            if (image.sequenceKey.equals(sequence.key)) {
-                return sequence;
-            }
-        }
-        return null;
-    }
+    // @Override
+    // public String getDescription(MapillaryImage image) {
+    // return image.toString();
+    // }
+    //
+    // @Override
+    // public MapillaryImage getSelected() {
+    // return selectedSequence != null ? selectedSequence.getImage(selectedImage) : null;
+    // }
+    //
+    // @Override
+    // public void deselectObjects() {
+    // selectedSequence = null;
+    // selectedImage = 0;
+    // dirty();
+    // }
+    //
+    // @Override
+    // public void setSelected(MapillaryImage image) {
+    // selectedSequence = get(image);
+    // selectedImage = image.index;
+    // dirty();
+    // }
 
     /**
      * Select a specific image in the selected sequence
@@ -588,7 +354,7 @@ public class MapOverlay extends StyleableLayer
             JsonArray imageKeys = selectedSequence.getImageKeys();
             if (pos < imageKeys.size()) {
                 selectedImage = pos;
-                dirty(); // need to save the new position
+                // dirty(); // need to save the new position
                 List<Point> line = selectedSequence.getPoints();
                 map.getViewBox().moveTo(map, (int) (line.get(pos).longitude() * 1E7), (int) (line.get(pos).latitude() * 1E7));
                 map.invalidate();
@@ -598,21 +364,17 @@ public class MapOverlay extends StyleableLayer
 
     @Override
     public void resetStyling() {
-        paint = new SerializablePaint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
-        iconRadius = map.getIconRadius();
-        symbolName = Mapillary.NAME;
-        symbolPath = DataStyle.getCurrent().getSymbol(Mapillary.NAME);
+        // paint = new SerializablePaint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
+        // iconRadius = map.getIconRadius();
+        // symbolName = Mapillary.NAME;
+        // symbolPath = DataStyle.getCurrent().getSymbol(Mapillary.NAME);
     }
 
     @Override
     public void setPrefs(Preferences prefs) {
-        panAndZoomDownLoad = prefs.getPanAndZoomAutoDownload();
-        minDownloadSize = prefs.getBugDownloadRadius() * 2;
-        maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
-        panAndZoomLimit = prefs.getPanAndZoomLimit();
         cacheSize = prefs.getMapillaryCacheSize() * 1000000L;
         mapillaryApiUrl = prefs.getMapillaryApiUrl();
-        mapillaryImagesUrl = prefs.getMapillaryImagesUrl();
+        // mapillaryImagesUrl = prefs.getMapillaryImagesUrl();
     }
 
     @Override
@@ -620,62 +382,12 @@ public class MapOverlay extends StyleableLayer
         return LayerType.MAPILLARY;
     }
 
-    @Override
-    public void prune() {
-        ViewBox pruneBox = new ViewBox(map.getViewBox());
-        pruneBox.scale(1.2);
-        prune(pruneBox);
-    }
-
-    @Override
-    public List<BoundingBox> getBoundingBoxes() {
-        return boxes;
-    }
-
-    @Override
-    public void addBoundingBox(BoundingBox box) {
-        if (boxes != null) {
-            synchronized (boxes) {
-                boxes.add(box);
-                dirty();
-            }
-        }
-    }
-
-    @Override
-    public void deleteBoundingBox(BoundingBox box) {
-        if (boxes != null) {
-            synchronized (boxes) {
-                boxes.remove(box);
-                dirty();
-            }
-        }
-
-    }
-
-    @Override
-    public void prune(BoundingBox box) {
-        if (data != null) {
-            synchronized (data) {
-                Collection<MapillarySequence> queryResult = new ArrayList<>();
-                data.query(queryResult);
-                for (MapillarySequence s : queryResult) {
-                    if (!box.intersects(s.getBounds())) {
-                        data.remove(s);
-                    }
-                }
-                BoundingBox.prune(this, box);
-                dirty();
-            }
-        }
-    }
-
-    @Override
-    protected void discardLayer(Context context) {
-        File originalFile = context.getFileStreamPath(FILENAME);
-        if (!originalFile.delete()) { // NOSONAR
-            Log.e(DEBUG_TAG, "Failed to delete state file " + FILENAME);
-        }
-        map.invalidate();
-    }
+    // @Override
+    // protected void discardLayer(Context context) {
+    // File originalFile = context.getFileStreamPath(FILENAME);
+    // if (!originalFile.delete()) { // NOSONAR
+    // Log.e(DEBUG_TAG, "Failed to delete state file " + FILENAME);
+    // }
+    // map.invalidate();
+    // }
 }
