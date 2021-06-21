@@ -71,8 +71,8 @@ public class Preferences {
     private final String  osmoseServer;
     private final String  mapRouletteServer;
     private String        taginfoServer;
-    private String        mapillaryApi;
-    private String        mapillaryImages;
+    private String        mapillarySequencesUrlV4;
+    private String        mapillaryImagesUrlV4;
     private final boolean showCameraAction;
     private final boolean useInternalPhotoViewer;
     private final boolean generateAlerts;
@@ -191,8 +191,8 @@ public class Preferences {
         osmoseServer = prefs.getString(r.getString(R.string.config_osmoseServer_key), Urls.DEFAULT_OSMOSE_SERVER);
         mapRouletteServer = prefs.getString(r.getString(R.string.config_maprouletteServer_key), Urls.DEFAULT_MAPROULETTE_SERVER);
         taginfoServer = prefs.getString(r.getString(R.string.config_taginfoServer_key), Urls.DEFAULT_TAGINFO_SERVER);
-        mapillaryApi = prefs.getString(r.getString(R.string.config_mapillaryApi_key), Urls.DEFAULT_MAPILLARY_API_V3);
-        mapillaryImages = prefs.getString(r.getString(R.string.config_mapillaryImages_key), Urls.DEFAULT_MAPILLARY_IMAGES);
+        mapillarySequencesUrlV4 = prefs.getString(r.getString(R.string.config_mapillarySequencesUrlV4_key), Urls.DEFAULT_MAPILLARY_SEQUENCES_URL_V4);
+        mapillaryImagesUrlV4 = prefs.getString(r.getString(R.string.config_mapillaryImagesUrlV4_key), Urls.DEFAULT_MAPILLARY_IMAGES_V4);
 
         showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
         useInternalPhotoViewer = prefs.getBoolean(r.getString(R.string.config_useInternalPhotoViewer_key), true);
@@ -721,41 +721,41 @@ public class Preferences {
     }
 
     /**
-     * Get the configured mapillary API server
+     * Get the configured mapillary sequence url
      * 
-     * @return base url (including version) for the server
+     * @return the url for retrieving sequences
      */
-    public String getMapillaryApiUrl() {
-        return mapillaryApi;
+    public String getMapillarySequencesUrlV4() {
+        return mapillarySequencesUrlV4;
     }
 
     /**
-     * Set the configured mapillary API server
+     * Set the configured mapillary sequence url
      * 
-     * @param url base url (with version) for the server
+     * @param url the url for retrieving sequences
      */
-    public void setMapillaryApiUrl(@NonNull String url) {
-        this.mapillaryApi = url;
-        prefs.edit().putString(r.getString(R.string.config_mapillaryApi_key), url).commit();
+    public void setMapillarySequencseUrlV4(@NonNull String url) {
+        this.mapillarySequencesUrlV4 = url;
+        prefs.edit().putString(r.getString(R.string.config_mapillarySequencesUrlV4_key), url).commit();
     }
 
     /**
-     * Get the configured mapillary images server
+     * Get the configured mapillary images url
      * 
-     * @return base url for the server
+     * @return the url for retrieving images
      */
-    public String getMapillaryImagesUrl() {
-        return mapillaryImages;
+    public String getMapillaryImagesUrlV4() {
+        return mapillaryImagesUrlV4;
     }
 
     /**
-     * Set the configured mapillary images server
+     * Set the configured mapillary images url
      * 
-     * @param url base url for the server
+     * @param url the url for retrieving images
      */
-    public void setMapillaryImagesUrl(@NonNull String url) {
-        this.mapillaryImages = url;
-        prefs.edit().putString(r.getString(R.string.config_mapillaryImages_key), url).commit();
+    public void setMapillaryImagesUrlV4(@NonNull String url) {
+        this.mapillaryImagesUrlV4 = url;
+        prefs.edit().putString(r.getString(R.string.config_mapillaryImagesUrlV4_key), url).commit();
     }
 
     /**

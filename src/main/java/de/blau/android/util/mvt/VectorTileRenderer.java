@@ -339,7 +339,6 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
             List<Point> line = ((CoordinateContainer<List<Point>>) g).coordinates();
             rect = new Rect();
             rectFromPoints(rect, line);
-
             break;
         case GeoJSONConstants.MULTILINESTRING:
             @SuppressWarnings("unchecked")
@@ -348,7 +347,6 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
             for (List<Point> l : lines) {
                 rectFromPoints(rect, l);
             }
-
             break;
         case GeoJSONConstants.POLYGON:
             @SuppressWarnings("unchecked")
@@ -357,7 +355,6 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
             for (List<Point> ring : rings) {
                 rectFromPoints(rect, ring);
             }
-
             break;
         case GeoJSONConstants.MULTIPOLYGON:
             @SuppressWarnings("unchecked")
@@ -368,7 +365,6 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
                     rectFromPoints(rect, ring);
                 }
             }
-
             break;
         case GeoJSONConstants.GEOMETRYCOLLECTION:
             List<Geometry> geometries = ((GeometryCollection) g).geometries();
