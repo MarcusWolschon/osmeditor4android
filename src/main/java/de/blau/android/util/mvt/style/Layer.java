@@ -559,7 +559,7 @@ public abstract class Layer implements Serializable {
                 }
                 return startY;
             }
-        } else if (INTERPOLATION_TYPE.equals(INTERPOLATION_TYPE_IDENTITY)) {
+        } else if (INTERPOLATION_TYPE_IDENTITY.equals(type.getAsString())) {
             return x;
         } else {
             Log.e(DEBUG_TAG, "Unsupported interpolation function " + type);
