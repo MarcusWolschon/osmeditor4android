@@ -42,6 +42,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     private static final int MENUITEM_UPLOAD               = 31;
     private static final int MENUITEM_ZOOM_TO_SELECTION    = 34;
     private static final int MENUITEM_SEARCH_OBJECTS       = 35;
+    private static final int MENUITEM_ROTATE_OBJECTS       = 36;
 
     private List<OsmElement> selection;
     private List<OsmElement> sortedWays;
@@ -180,6 +181,10 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
         menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
 
+        if(selection.get(0) instanceof Way){
+            menu.add(GROUP_BASE, MENUITEM_ROTATE_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.menu_rotate);
+        }
+
         uploadItem = menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_elements);
 
         menu.add(GROUP_BASE, ElementSelectionActionModeCallback.MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM | 10, R.string.menu_config)
@@ -310,6 +315,10 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 break;
             case MENUITEM_SEARCH_OBJECTS:
                 Search.search(main);
+                break;
+            case MENUITEM_ROTATE_OBJECTS:
+                deselect = false;
+                main.startSupportActionMode(new WayRotationActionModeCallback(manager, (Way) selection.get(0)));
                 break;
             case MENUITEM_UPLOAD:
                 main.descheduleAutoLock();
