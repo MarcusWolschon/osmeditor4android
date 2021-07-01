@@ -182,6 +182,22 @@ public class Style implements Serializable {
     }
 
     /**
+     * Get all Layer with a specific id
+     * 
+     * @param id the id
+     * @return the layer or null if not found
+     */
+    @Nullable
+    public Layer getLayer(@NonNull String id) {
+        for (Layer layer : layers) {
+            if (id.equals(layer.getId())) {
+                return layer;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Load and parse mapbox gl styles from an InputStream
      * 
      * @param ctx an Android Context

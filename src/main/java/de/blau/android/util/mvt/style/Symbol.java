@@ -547,18 +547,28 @@ public class Symbol extends Layer {
             if (detector.collides(iconRect)) {
                 return;
             }
-
-            iconRotate.eval(feature, 0);
-            float rotation = iconRotate.literal;
-            if (rotation != 0) {
-                canvas.rotate(rotation);
-            }
+            rotate(canvas, feature);
             canvas.drawBitmap(icon, null, iconRect, null);
         } else if (symbolPath != null) {
             canvas.translate(x, y);
+            rotate(canvas, feature);
             canvas.drawPath(symbolPath, paint);
         }
         canvas.restore();
+    }
+
+    /**
+     * Rotate the canvas if necessary
+     * 
+     * @param canvas the Canvas to rotate
+     * @param feature the relevant Feature
+     */
+    private void rotate(@NonNull Canvas canvas, @NonNull Feature feature) {
+        iconRotate.eval(feature, 0);
+        float rotation = iconRotate.literal;
+        if (rotation != 0) {
+            canvas.rotate(rotation);
+        }
     }
 
     /**
@@ -726,6 +736,15 @@ public class Symbol extends Layer {
         labelFontMetrics = labelPaint.getFontMetrics();
         vOffset = (-labelFontMetrics.top - labelFontMetrics.bottom) / 2;
         ems = labelPaint.measureText("M");
+    }
+
+    /**
+     * Manually set the icon rotation attribute
+     * 
+     * @param iconRotate the attribute
+     */
+    public void setIconRotate(@Nullable FloatStyleAttribute iconRotate) {
+        this.iconRotate = iconRotate;
     }
 
     /**

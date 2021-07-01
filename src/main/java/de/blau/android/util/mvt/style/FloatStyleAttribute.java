@@ -22,7 +22,7 @@ public class FloatStyleAttribute extends StyleAttribute {
      * 
      * @param convert if true convert from DIP to screen pixels
      */
-    FloatStyleAttribute(boolean convert) {
+    public FloatStyleAttribute(boolean convert) {
         this.convert = convert;
     }
 

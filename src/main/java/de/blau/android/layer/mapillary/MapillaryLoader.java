@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -22,6 +23,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
+import androidx.exifinterface.media.ExifInterface;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -110,6 +112,15 @@ class MapillaryLoader implements PhotoLoader {
                                                         fileOutput.write(buffer, 0, bufferLength);
                                                     }
                                                 }
+                                            }
+                                        }
+                                        JsonElement point = ((JsonObject) root).get("computed_geometry");
+                                        if (point instanceof JsonObject) {
+                                            JsonElement coords = ((JsonObject)point).get("coordinates");
+                                            if (coords instanceof JsonArray && ((JsonArray)coords).size() == 2) {
+                                                ExifInterface exif = new ExifInterface(imageFile);
+                                                exif.setLatLong(((JsonArray)coords).get(1).getAsDouble(), ((JsonArray)coords).get(0).getAsDouble());
+                                                exif.saveAttributes();
                                             }
                                         }
                                     }
