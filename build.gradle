@@ -4,17 +4,15 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url 'https://dl.bintray.com/content/simonpoole/gradle' }
-        maven { url 'https://dl.bintray.com/content/simonpoole/osm' }
         google()
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots' } // For Spoon snapshot, until 2.0.0 is released
         mavenLocal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.0'
-        classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.1'
+        classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.3'
         classpath 'org.jacoco:org.jacoco.core:0.8.5'
-        classpath "ch.poole:preset-utils:0.23.0"
+        classpath "ch.poole:preset-utils:0.23.1"
         classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.0'
         classpath 'com.jaredsburrows:gradle-spoon-plugin:1.5.0'
@@ -32,8 +30,6 @@ import de.undercouch.gradle.tasks.download.Download
 allprojects {
     repositories {
         mavenCentral()
-        maven { url 'https://dl.bintray.com/content/simonpoole/div' }
-        maven { url 'https://dl.bintray.com/content/simonpoole/android' }
         maven { url "https://maven.google.com" }
         maven { url "https://jitpack.io" }
         jcenter()
@@ -424,9 +420,9 @@ dependencies {
     implementation "ch.poole:PoParser:0.8.0"
     implementation "ch.poole:OpeningHoursParser:0.23.3"
     implementation "ch.poole:ConditionalRestrictionParser:0.3.0"
-    implementation "ch.poole:OpeningHoursFragment:0.9.2"
-    implementation 'ch.poole.android:numberpicker:1.0.9'
-    implementation 'ch.poole.android:numberpickerpreference:2.0.0'
+    implementation "ch.poole:OpeningHoursFragment:0.9.3"
+    implementation 'ch.poole.android:numberpicker:1.0.10'
+    implementation 'ch.poole.android:numberpickerpreference:2.0.1'
     implementation "ch.poole.osm:JosmFilterParser:0.5.1"
     implementation 'de.westnordost:countryboundaries:1.5'
     implementation 'com.github.sevar83:indeterminate-checkbox:1.0.5@aar'
