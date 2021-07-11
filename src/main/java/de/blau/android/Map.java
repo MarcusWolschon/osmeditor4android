@@ -586,7 +586,7 @@ public class Map extends View implements IMapView {
 
         if (prefs.isStatsVisible()) {
             time = System.currentTimeMillis() - time;
-            paintStats(canvas, (int) (1 / (time / 1000f)));
+            paintStats(canvas, 1 / (time / 1000f));
         }
     }
 
@@ -787,7 +787,7 @@ public class Map extends View implements IMapView {
      * @param canvas canvas to draw on
      * @param fps frames per second
      */
-    private void paintStats(@NonNull final Canvas canvas, final int fps) {
+    private void paintStats(@NonNull final Canvas canvas, final float fps) {
         int pos = 1;
         String text = "";
         Paint infotextPaint = DataStyle.getInternal(DataStyle.INFOTEXT).getPaint();
@@ -804,7 +804,11 @@ public class Map extends View implements IMapView {
         text = "Nodes (current/Waynodes/API) :" + delegator.getCurrentStorage().getNodes().size() + "/" + delegator.getCurrentStorage().getWayNodes().size()
                 + "/" + delegator.getApiNodeCount();
         canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
-        text = "fps: " + fps;
+        if (fps < 10) {
+            text = "fps: " + String.format(Locale.US, "%.1f", fps);
+        } else {
+            text = "fps: " + (int)(fps);
+        }
         canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
         text = "hardware acceleration: " + (myIsHardwareAccelerated(canvas) ? "on" : "off");
         canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);

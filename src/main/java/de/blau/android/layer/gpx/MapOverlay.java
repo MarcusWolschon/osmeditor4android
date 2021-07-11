@@ -78,6 +78,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         List<TrackPoint> trackPoints = tracker.getTrackPoints();
         if (!trackPoints.isEmpty()) {
             map.pointListToLinePointsArray(linePoints, trackPoints);
+            GeoMath.squashPointsArray(linePoints, getStrokeWidth() * 2);
             canvas.drawLines(linePoints.getArray(), 0, linePoints.size(), paint);
         }
         WayPoint[] wayPoints = tracker.getTrack().getWayPoints();
