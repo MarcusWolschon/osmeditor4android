@@ -74,6 +74,32 @@ public class FloatPrimitiveList implements Serializable {
     }
 
     /**
+     * Set the float at position i
+     *
+     * @param i position we want the value for
+     * @param f the value to be set
+     */
+    public void set(int i, float f) {
+        if (i > size - 1) {
+            throw new IndexOutOfBoundsException(Integer.toString(i) + " is larger than " + Integer.toString(size));
+        }
+        array[i] = f;
+    }
+
+    /**
+     * Truncate the list
+     *
+     * @param s new size to be set
+     */
+    public void truncate(int s) {
+        if (s > size) {
+            throw new IndexOutOfBoundsException(Integer.toString(s) + " is larger than " + Integer.toString(size));
+        }
+        size = s;
+    }
+
+
+    /**
      * Reset the contents
      * 
      * Note this doesn't shrink the backing array

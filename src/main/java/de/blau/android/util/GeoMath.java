@@ -1,9 +1,15 @@
 package de.blau.android.util;
 
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
+
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.util.collections.FloatPrimitiveList;
 
 /**
  * GeoMath provides some calculating functions for mercator projection conversions and other math-utils.
@@ -11,6 +17,8 @@ import de.blau.android.osm.ViewBox;
  * @author mb
  */
 public final class GeoMath {
+
+    protected static final String DEBUG_TAG = GeoMath.class.getSimpleName();
 
     private static final double _180_PI = 180d / Math.PI;
 
@@ -576,4 +584,69 @@ public final class GeoMath {
         }
         throw new IllegalArgumentException("Resolution can't be zero");
     }
+
+    /**
+     * Squash adjacent lines shorter than 'maxLen' that anyway would hardly be visible
+     *
+     * @param points in/out list in the format expected by {@link Canvas#drawLines(float[], Paint)}
+     * @param maxLen maximal length of adjacent lines to be squashed
+     */
+    public static void squashPointsArray(@NonNull final FloatPrimitiveList points, float maxLen) {
+        if (points.size() <= 4)
+            return;
+        int i; // current input line index
+        int i0; // first squashable input line index
+        int o; // current output line index
+        float dx, dy, len;
+        for (i = 0, i0 = 0, o = 0; i < points.size(); i += 4) {
+            dx = Math.abs(points.get(i) - points.get(i + 2));
+            dy = Math.abs(points.get(i + 1) - points.get(i + 3));
+            len = (dx > dy) ? (dx + dy / 2) : (dy + dx / 2); // quick upper bound of line length: is 1.5 for diagonal line instead of sqrt(2)~=1.41
+            if (len > maxLen) { // single line length
+                if (i != i0) {
+                    points.set(o, points.get(i0));
+                    points.set(o + 1, points.get(i0 + 1));
+                    points.set(o + 2, points.get(i - 2));
+                    points.set(o + 3, points.get(i - 1));
+                    o += 4;
+                }
+                points.set(o, points.get(i));
+                points.set(o + 1, points.get(i + 1));
+                points.set(o + 2, points.get(i + 2));
+                points.set(o + 3, points.get(i + 3));
+                o += 4;
+                i0 = i + 4;
+            } else if (i != i0) {
+                boolean squash = true;
+                boolean adjacent = points.get(i - 2) == points.get(i) && points.get(i - 1) == points.get(i + 1);
+                if (!adjacent) {
+                    squash = false;
+                } else {
+                    dx = Math.abs(points.get(i0) - points.get(i + 2));
+                    dy = Math.abs(points.get(i0 + 1) - points.get(i + 3));
+                    len = (dx > dy) ? (dx + dy / 2) : (dy + dx / 2);
+                    if (len > maxLen) // multi line length
+                        squash = false;
+                }
+                if (!squash) {
+                    points.set(o, points.get(i0));
+                    points.set(o + 1, points.get(i0 + 1));
+                    points.set(o + 2, points.get(i - 2));
+                    points.set(o + 3, points.get(i - 1));
+                    o += 4;
+                    i0 = i;
+                }
+            }
+        }
+        if (i != i0) {
+            points.set(o, points.get(i0));
+            points.set(o + 1, points.get(i0 + 1));
+            points.set(o + 2, points.get(i - 2));
+            points.set(o + 3, points.get(i - 1));
+            o += 4;
+        }
+        //Log.d(DEBUG_TAG, "squash " + points.size() / 4 + " to " + o / 4 + " lines");
+        points.truncate(o);
+    }
+
 }
