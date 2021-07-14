@@ -184,12 +184,13 @@ The OSMOSE bug display will provide a link to the affected object in blue, touch
 
 ### Filtering
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
 * Notes
 * Osmose error
 * Osmose warning
 * Osmose minor issue
+* Maproulette
 * Custom
 
 <a id="indoor"></a>
@@ -250,6 +251,8 @@ An alternative to the above, objects are filtered either on individual presets o
 
 Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
+<a id="layers"></a>
+
 ### Layer settings
 
 Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
@@ -264,6 +267,8 @@ Available layer types:
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+
+More information can be found in the section on the [map display](Main%20map%20display.md).
 
 #### Preferences
 
