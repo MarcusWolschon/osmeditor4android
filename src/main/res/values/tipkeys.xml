@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Preference keys used directly by the Tip system -->
+    <!-- End the key names with ...Tip to avoid conflicts -->
     <string name="tip_show_key">showTips</string>
-    <string name="tip_undo_key">showUndo</string>
-    <string name="tip_imagery_privacy_key">showImageryPrivacy</string>
-    <string name="tip_pan_and_zoom_auto_download_key">panAndZoomAutoDownload</string>
-    <string name="tip_locked_mode_key">lockedMode</string>
-    <string name="tip_longpress_simple_mode_key">longPressSimpleMode</string>
-    <string name="tip_gpx_no_elevation_key">gpxNoElevation</string>
-    <string name="tip_tag_conflict_key">tagConflict</string>
-    <string name="tip_gpx_recording_key">gpxRecording</string>
-    <string name="tip_auto_download_key">autoDownload</string>
+    <string name="tip_undo_key">showUndoTip</string>
+    <string name="tip_imagery_privacy_key">showImageryPrivacyTip</string>
+    <string name="tip_pan_and_zoom_auto_download_key">panAndZoomAutoDownloadTip</string>
+    <string name="tip_locked_mode_key">lockedModeTip</string>
+    <string name="tip_longpress_simple_mode_key">longPressSimpleModeTip</string>
+    <string name="tip_gpx_no_elevation_key">gpxNoElevationTip</string>
+    <string name="tip_tag_conflict_key">tagConflictTip</string>
+    <string name="tip_gpx_recording_key">gpxRecordingTip</string>
+    <string name="tip_auto_download_key">autoDownloadTip</string>
 </resources>
