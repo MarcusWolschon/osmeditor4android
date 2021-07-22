@@ -1933,10 +1933,10 @@ public class Main extends FullScreenAppCompatActivity
                 item.setChecked(true);
                 showSimpleActionsButton();
             }
-            break;
+            return true;
         case R.id.menu_share:
             Util.sharePosition(this, map.getViewBox().getCenter(), map.getZoomLevel());
-            break;
+            return true;
 
         case R.id.menu_help:
             HelpViewer.start(this, R.string.help_main);
@@ -2099,7 +2099,7 @@ public class Main extends FullScreenAppCompatActivity
             }
             startStopAutoDownload();
             map.setPrefs(this, prefs);
-            break;
+            return true;
         case R.id.menu_enable_pan_and_zoom_auto_download:
             Log.d(DEBUG_TAG, "pan and zoom auto download menu");
             if (prefs.getPanAndZoomAutoDownload()) {
@@ -2114,7 +2114,7 @@ public class Main extends FullScreenAppCompatActivity
             }
             startStopAutoDownload();
             map.setPrefs(this, prefs);
-            break;
+            return true;
         case R.id.menu_transfer_download_current:
             onMenuDownloadCurrent(true);
             return true;
@@ -2229,7 +2229,7 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_transfer_download_msf:
             descheduleAutoLock();
             DownloadActivity.start(this, Urls.MSF_SERVER);
-            break;
+            return true;
         case R.id.menu_transfer_bugs_download_current:
             downLoadBugs(map.getViewBox().copy());
             return true;
