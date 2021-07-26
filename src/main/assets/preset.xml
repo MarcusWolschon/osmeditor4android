@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="2.9.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="2.10.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -104,6 +104,11 @@
             <reference ref="maxspeed"/>
             <reference ref="incline"/>
         </optional>
+    </chunk>
+    <chunk id="parking_orientation">
+        <space />
+        <label text="Only for street side parking: "/>
+        <combo key="parking:orientation" text="Orientation" values="diagonal,parallel,perpendicular" display_values="Diagonal,Parallel,Perpendicular" />
     </chunk>
     <chunk id="parking_lane">
         <combo key="parking:lane:both" text="Parking both sides" values_context="parking" match="key">
@@ -684,7 +689,17 @@
         <combo key="fee" text="Fee" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" match="none" values_no_i18n="true" values_sort="false" editable="true"/>
     </chunk>
     <chunk id="parking_name_type_ref">
-        <combo key="parking" text="Type" values="multi-storey,surface,underground,rooftop,sheds,street_side,carports,garage_boxes,lane" display_values="Multi-storey,Surface,Underground,Rooftop,Sheds,Street side,Carports,Garage boxes,Lane" values_context="parking"/>
+        <combo key="parking" text="Type" values_context="parking">
+            <list_entry value="carports" display_value="Carports" />
+            <list_entry value="garage_boxes" display_value="Garage boxes" />
+            <list_entry value="lane" display_value="Lane" />
+            <list_entry value="multi-storey" display_value="Multi-storey" />
+            <list_entry value="rooftop" display_value="Rooftop" />
+            <list_entry value="sheds" display_value="Sheds" />
+            <list_entry value="street_side" display_value="Street side" />
+            <list_entry value="surface" display_value="Surface" />
+            <list_entry value="underground" display_value="Underground" />
+        </combo>
         <optional>
             <text key="name" text="Name"/>
             <text key="ref" text="Reference number"/>
@@ -908,6 +923,14 @@
     <chunk id="maxweight">
         <text key="maxweight" text="Max. weight (tonnes)" match="key" />
     </chunk>
+    <chunk id="enforcement_roles">
+        <roles>
+            <role key="device" text="location of enforcement device" requisite="required" type="node,way,closedway" />
+            <role key="from" text="node on way where enforcement starts" requisite="required" type="node" />
+            <role key="to" text="where enforcement ends" requisite="optional" type="node" />
+            <role key="section" text="ways forming the section of measurement" requisite="required" type="way" member_expression="highway" />
+        </roles>
+    </chunk>
     <chunk id="optional_bridge">
         <optional>
             <text key="bridge:name" text="Bridge name" />
@@ -1100,12 +1123,15 @@
         <preset_link preset_name="Physical restrictions"/>
         <preset_link preset_name="Other mode restrictions"/>
     </chunk>
+    <chunk id="dog">
+        <combo key="dog" text="Dog" values="yes,leashed,unleashed,designated,permissive,private,no"
+            display_values="Yes,Leashed,Unleashed,Designated,Permissive,Private,No" values_sort="false" values_context="access" match="key" />
+    </chunk>
     <chunk id="path_access_restrictions">
         <optional>
             <combo key="horse" text="Horse" values="yes,official,designated,permissive,destination,delivery,private,permit,no"
                 display_values="Yes,Official,Designated,Permissive,Destination,Delivery,Private,Permit required,No" values_context="access" match="key" values_sort="false"/>
-            <combo key="dog" text="Dog" values="yes,leashed,unleashed,official,designated,permissive,private,permit,no" 
-                display_values="Yes,Leashed,Unleashed,Official,Designated,Permissive,Private,Permit required,No" values_sort="false" values_context="access"  match="key" />
+            <reference ref="dog" />
             <combo key="ski" text="Ski" values="yes,official,designated,permissive,private,permit,no" display_values="Yes,Official,Designated,Permissive,Private,Permit required,No" values_context="access" values_sort="false"/>
             <combo key="snowmobile" text="Snowmobile" values="yes,official,designated,permissive,destination,delivery,private,permit,no" 
                 display_values="Yes,Official,Designated,Permissive,Destination,Delivery,Private,Permit required,No" values_context="access" values_sort="false"/>
@@ -1956,7 +1982,7 @@
             </optional>
             <reference ref="path_access_restrictions"/>
         </item> <!-- Combined Foot- and Cycleway -->
-        <item name="Dedicated Footway" icon="icons/png/footway.png" type="way" preset_name_label="true">
+        <item name="Dedicated Footway" icon="icons/png/footway.png" type="way,closedway" preset_name_label="true">
             <link wiki="Tag:highway=footway"/>
             <key key="highway" value="footway"/>
             <optional>
@@ -2230,8 +2256,10 @@
         </item> <!-- Highway Milestone -->
         <item name="Named Junction" name_context="junction=yes" icon="" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:junction=yes"/>
-            <key key="junction" value="yes"/>
+            <space />
             <label text="Used in some countries for a named road junction who.s name serves for local orientation."/>
+            <space />
+            <key key="junction" value="yes"/>
             <text key="name" text="Name"/>
         </item> <!-- Named Junction -->
         <separator/>
@@ -2459,7 +2487,17 @@
             <link wiki="Tag:barrier=wall"/>
             <key key="barrier" value="wall"/>
             <optional>
-                <combo key="wall" text="Type" values="dry_stone,brick,noise_barrier,jersey_barrier,gabion,seawall,flood_wall,castle_wall" display_values="Dry stone,Brick,Noise barrier,Jersey barrier,Gabion,Seawall,Flood wall,Castle wall" values_searchable="true"/>
+                <combo key="wall" text="Type" values_searchable="true">
+                    <list_entry value="brick" display_value="Brick" />
+                    <list_entry value="castle_wall" display_value="Castle wall" />
+                    <list_entry value="dry_stone" display_value="Dry stone" />
+                    <list_entry value="flood_wall" display_value="Flood wall" />
+                    <list_entry value="gabion" display_value="Gabion" />
+                    <list_entry value="jersey_barrier" display_value="Jersey barrier" />
+                    <list_entry value="noise_barrier" display_value="Noise barrier" />
+                    <list_entry value="seawall" display_value="Seawall" />
+                    <list_entry value="stone" display_value="Stone" />
+                </combo>
                 <reference ref="wall_material" />
             </optional>
             <reference ref="optional_height"/>
@@ -2855,6 +2893,7 @@
         <separator/>
         <item name="Spring" icon="icons/png/water_spring_24021.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:natural=spring"/>
+            <space/>
             <label text="A point where groundwater naturally flows to the surface of the earth from underground."/>
             <space/>
             <key key="natural" value="spring"/>
@@ -2949,12 +2988,30 @@
         <separator/>
         <item name="Water" name_context="natural" icon="icons/png/water_water_24008.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=water"/>
+            <space/>
             <label text="A body of standing water, such as a lake or pond."/>
             <space/>
             <key key="natural" value="water"/>
             <text key="name" text="Name"/>
-            <combo key="water" text="Water Body" values="canal,basin,fish_pass,lake,lagoon,moat,oxbow,pond,reflecting_pool,reservoir,river,stream,stream_pool,lock,wastewater"
-                display_values="Canal,Basin,Fish pass,Lake,Lagoon,Moat,Oxbow,Pond,Reflecting pool,Reservoir,River,Stream,Stream pool,Lock,Wastewater" match="key" values_searchable="true"/>
+            <combo key="water" text="Water Body" match="key" values_searchable="true" >
+                <list_entry value="stream" display_value="Stream" icon="" />
+                <list_entry value="river" display_value="River" icon="" />
+                <list_entry value="canal" display_value="Canal" icon="${water_water_canal" />
+                <list_entry value="drain" display_value="Drain" icon="${water_water_drain" />
+                <list_entry value="ditch" display_value="Ditch" icon="${water_water_ditch" />
+                <list_entry value="pond" display_value="Pond" />
+                <list_entry value="lake" display_value="Lake" />
+                <list_entry value="lagoon" display_value="Lagoon" />
+                <list_entry value="moat" display_value="Moat" />
+                <list_entry value="oxbow" display_value="Oxbow" />
+                <list_entry value="lock" display_value="Lock" icon="${water_water_lock" />
+                <list_entry value="basin" display_value="Basin" icon="${water_water_basin" />
+                <list_entry value="reservoir" display_value="Reservoir" icon="${water_water_reservoir" />
+                <list_entry value="fish_pass" display_value="Fish pass" />
+                <list_entry value="wastewater" display_value="Wastewater" />
+                <list_entry value="reflecting_pool" display_value="Reflecting pool" />
+                <list_entry value="stream_pool" display_value="Stream pool" />
+            </combo>
             <check key="salt" text="Salt Water" disable_off="true"/>
             <check key="intermittent" text="Is the water body intermittent (doesn't permanently contain water)?" disable_off="true"/>
             <check key="tidal" text="In the tidal range" disable_off="true"/>
@@ -2964,6 +3021,7 @@
         </item> <!-- Water -->
         <item name="Coastline" icon="presets/coastline.png" type="way,closedway" preset_name_label="true">
             <link wiki="Tag:natural=coastline"/>
+            <space />
             <label text="Line between the sea and land (with the water on the right side of the way)."/>
             <space/>
             <key key="natural" value="coastline"/>
@@ -2979,6 +3037,7 @@
         <separator/>
         <item name="Wetland" icon="icons/png/landuse_swamp.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=wetland"/>
+            <space />
             <label text="Waterlogged area, either permanently or seasonally with vegetation."/>
             <space/>
             <key key="natural" value="wetland"/>
@@ -2999,6 +3058,7 @@
         </item> <!-- Wetland -->
         <item name="Mud" icon="presets/mud.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=mud"/>
+            <space />
             <label text="Large area covered with mud."/>
             <space/>
             <key key="natural" value="mud"/>
@@ -3006,6 +3066,7 @@
         </item> <!-- Mud -->
         <item name="Beach" icon="icons/png/tourist_beach.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=beach"/>
+            <space />
             <label text="A flat area of sand, gravel or pebble next to water."/>
             <space/>
             <key key="natural" value="beach"/>
@@ -3021,6 +3082,7 @@
         </item> <!-- Beach -->
         <item name="Bay" icon="presets/bay.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=bay"/>
+            <space />
             <label text="An area of water mostly surrounded by land but with level connection to the ocean or a lake."/>
             <space/>
             <key key="natural" value="bay"/>
@@ -3031,6 +3093,7 @@
         </item> <!-- Bay -->
         <item name="Cape" icon="icons/png/natural_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=cape"/>
+            <space />
             <label text="A prominent, elevated piece of land sticking out into the sea or large lake."/>
             <space/>
             <key key="natural" value="cape"/>
@@ -3498,6 +3561,7 @@
             <space/>
             <reference ref="maxstay"/>
             <reference ref="supervised_lit_oh"/>
+            <reference ref="parking_orientation"/>
         </item> <!-- Parking -->
         <item name="Parking Space" icon="icons/png/transport_parking_space_12099.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:amenity=parking_space"/>
@@ -3509,6 +3573,7 @@
             <reference ref="maxstay"/>
             <reference ref="supervised_lit_oh"/>
             <check key="covered" text="Covered (with roof)"/>
+            <reference ref="parking_orientation"/>
         </item> <!-- Parking Space -->
         <item name="Parking Entrance" icon="icons/png/transport_parking_entrance_12098.png" type="node" preset_name_label="true">
             <link wiki="Tag:amenity=parking_entrance"/>
@@ -3810,7 +3875,9 @@
             <reference ref="brand"/>
             <text key="operator" text="Operator"/>
             <reference ref="oh"/>
+            <check key="service:bicycle:stand" text="Stand" disable_off="true"/>
             <check key="service:bicycle:pump" text="Free bicycle pump" disable_off="true"/>
+            <check key="service:bicycle:tools" text="Tools" text_context="bicycle_repair_station" disable_off="true"/>
             <check key="service:bicycle:chain_tool" text="Chain tool" disable_off="true"/>
             </optional>
         </item> <!-- Public Bicycle Repair Station -->
@@ -4099,7 +4166,7 @@
                 <reference ref="surface" />
             </optional>
         </item> <!-- Taxiway -->
-        <item name="Holding Position" icon="icons/png/transport_holding_position_11006.png" type="node" preset_name_label="true">
+        <item name="Holding Position" icon="icons/png/transport_holding_position_11006.png" type="node,way" preset_name_label="true">
             <link wiki="Tag:aeroway=holding_position"/>
             <key key="aeroway" value="holding_position"/>
             <combo key="holding_position:type" text="Type" values="ILS,intermediate,runway" display_values="ILS,Intermediate,Runway" values_context="aeroway holding_position" />
@@ -4569,7 +4636,8 @@
         </item> <!-- Viewpoint -->
         <separator/>
         <item name="Information Office" icon="icons/png/tourist_information.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Key:information"/>
+            <link wiki="Tag:information=office"/>
+            <space />
             <label text="An office where you can get information about a town or region."/>
             <space/>
             <key key="tourism" value="information"/>
@@ -4579,7 +4647,8 @@
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Information Office -->
         <item name="Map" icon="icons/png/tourist_information_map_20004.png" type="node" preset_name_label="true">
-            <link wiki="Key:information"/>
+            <link wiki="Tag:information=map"/>
+            <space />
             <label text="A board with a map."/>
             <space/>
             <key key="tourism" value="information"/>
@@ -4599,9 +4668,10 @@
             </optional>
         </item> <!-- Map -->
         <item name="Information Board" icon="icons/png/tourist_information_board_20002.png" type="node" preset_name_label="true">
-            <link wiki="Key:information"/>
+            <link wiki="Key:information=board"/>
             <space/>
             <label text="A board with information."/>
+            <space />
             <key key="tourism" value="information"/>
             <key key="information" value="board"/>
             <reference ref="optional_name"/>
@@ -4611,6 +4681,7 @@
         </item> <!-- Information Board -->
         <item name="Guidepost" icon="icons/png/tourist_guidepost.png" type="node" preset_name_label="true">
             <link wiki="Tag:information=guidepost"/>
+            <space/>
             <label text="A Signpost/Guidepost to indicate the directions to different destinations."/>
             <space/>
             <key key="tourism" value="information"/>
@@ -4634,7 +4705,8 @@
             <text key="ele" text="Elevation" value_type="integer" />
         </item> <!-- Trailhead -->
         <item name="Information Terminal" icon="icons/png/tourist_information_terminal_20008.png" type="node" preset_name_label="true">
-            <link wiki="Key:information"/>
+            <link wiki="Tag:information=terminal"/>
+            <space/>
             <label text="Information access via electronic methods."/>
             <space/>
             <key key="tourism" value="information"/>
@@ -4649,7 +4721,8 @@
             <reference ref="internet"/>
         </item> <!-- Information Terminal -->
         <item name="Audio Guide" icon="icons/png/tourist_information_audioguide_20001.png" type="node" preset_name_label="true">
-            <link wiki="Key:information"/>
+            <link wiki="Tag:information=audioguide"/>
+            <space/>
             <label text="Information using headphones or a mobile phone."/>
             <space/>
             <key key="tourism" value="information"/>
@@ -5015,7 +5088,6 @@
             <space/>
             <key key="leisure" value="dog_park"/>
             <reference ref="optional_name"/>
-            <check key="area" text="Area" disable_off="true" match="none"/>
             <combo key="barrier" text="Barrier" values="fence,wall" display_values="Fence,Wall"/>
             <reference ref="oh_wheelchair"/>
             <check key="lit" text="Lit" disable_off="true"/>
@@ -6015,16 +6087,16 @@
                 <text key="operator" text="Operator"/>
                 <combo key="water_source" text="Water source">
                     <list_entry value="main" display_value="Mains"/>
-                    <list_entry value="groundwater" display_value="Groundwater"/>
-                    <list_entry value="stream" display_value="Stream"/>
-                    <list_entry value="river" display_value="River"/>
-                    <list_entry value="canal" display_value="Canal"/>
-                    <list_entry value="drain" display_value="Drain"/>
-                    <list_entry value="ditch" display_value="Ditch"/>
+                    <list_entry value="groundwater" display_value="Groundwater" icon="" icon_size="24" short_description="A water well." />
+                    <list_entry value="stream" display_value="Stream" icon="" icon_size="24" />
+                    <list_entry value="river" display_value="River" icon="" icon_size="24" />
+                    <list_entry value="canal" display_value="Canal" icon="" icon_size="24" />
+                    <list_entry value="drain" display_value="Drain" icon="" icon_size="24" />
+                    <list_entry value="ditch" display_value="Ditch" icon="" icon_size="24" />
                     <list_entry value="pond" display_value="Pond"/>
                     <list_entry value="lake" display_value="Lake"/>
-                    <list_entry value="water_tank" display_value="Water tank"/>
-                    <list_entry value="swimming_pool" display_value="Swimming pool"/>
+                    <list_entry value="water_tank" display_value="Water tank" icon="" icon_size="24" />
+                    <list_entry value="swimming_pool" display_value="Swimming pool" icon="" icon_size="24" />
                 </combo>
                 <combo key="fire_hydrant:position" text="Hydrant position" values_context="hydrant_position">
                     <list_entry value="lane" display_value="Lane" short_description="on the side of a road lane"/>
@@ -7453,6 +7525,7 @@
                 <list_entry value="hut"                display_value="Hut"/>
                 <list_entry value="industrial"         display_value="Industrial"/>
                 <list_entry value="kindergarten"       display_value="Kindergarten"/>
+                <list_entry value="kiosk"              display_value="Kiosk"/>
                 <list_entry value="manufacture"        display_value="Manufacture"/>
                 <list_entry value="monastery"          display_value="Monastery"/>
                 <list_entry value="mosque"             display_value="Mosque"/>
@@ -10040,7 +10113,7 @@
             <check key="payment:clover" text="Clover" match="keyvalue" disable_off="true"/>
             <check key="payment:google_pay" text="Google Pay" match="keyvalue" disable_off="true"/>
             <check key="payment:grabpay" text="GrabPay" match="keyvalue" disable_off="true"/>
-            <check key="payment:huaweipay" text="Huawei Pay" match="keyvalue" disable_off="true"/>
+            <check key="payment:huawei_pay" text="Huawei Pay" match="keyvalue" disable_off="true"/>
             <check key="payment:samsung_pay" text="Samsung Pay" match="keyvalue" disable_off="true"/>
             <check key="payment:satispay" text="Satispay" match="keyvalue" disable_off="true"/>
             <check key="payment:twint" text="TWINT" match="keyvalue" disable_off="true"/>
@@ -10294,6 +10367,7 @@
             <space/>
             <label text="A farm within a bigger settlement"/>
             <label text="(please use isolated_dwelling for an isolated farm)"/>
+            <space />
             <key key="place" value="farm"/>
             <reference ref="name_wikipedia"/>
             <reference ref="population_postcode_website"/>
@@ -10315,6 +10389,7 @@
     <group name="Geography" icon="icons/png/poi_peak2.png">
         <item name="Peak" icon="icons/png/poi_peak2.png" type="node" preset_name_label="true">
             <link wiki="Tag:natural=peak"/>
+            <space />
             <label text="The top (summit) of a mountain or hill."/>
             <space/>
             <key key="natural" value="peak"/>
@@ -10323,6 +10398,7 @@
         </item> <!-- Peak -->
         <item name="Saddle" icon="icons/png/poi_saddle_sp.png" type="node" preset_name_label="true">
             <link wiki="Tag:natural=saddle"/>
+            <space />
             <label text="A saddle point between mountains or hills."/>
             <space/>
             <key key="natural" value="saddle"/>
@@ -10331,6 +10407,7 @@
         </item> <!-- Saddle -->
         <item name="Glacier" icon="icons/png/poi_glacier_24003.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=glacier"/>
+            <space />
             <label text="A persistent body of dense ice that is constantly moving under its own weight."/>
             <space/>
             <key key="natural" value="glacier"/>
@@ -10339,6 +10416,7 @@
         </item> <!-- Glacier -->
         <item name="Volcano" icon="icons/png/poi_volcano.png" type="node" preset_name_label="true">
             <link wiki="Tag:natural=volcano"/>
+            <space />
             <label text="A volcano, either dormant, extinct or active."/>
             <space/>
             <key key="natural" value="volcano"/>
@@ -10351,6 +10429,7 @@
         </item> <!-- Volcano -->
         <item name="Ridge" icon="icons/png/poi_ridge_sp.png" type="way" preset_name_label="true">
             <link wiki="Tag:natural=ridge"/>
+            <space />
             <label text="A mountain or hill ridge."/>
             <space/>
             <key key="natural" value="ridge"/>
@@ -10359,6 +10438,7 @@
         </item> <!-- Ridge -->
         <item name="Valley" icon="icons/png/poi_valley.png" type="way" preset_name_label="true">
             <link wiki="Tag:natural=valley"/>
+            <space />
             <label text="A low area between hills."/>
             <space/>
             <key key="natural" value="valley"/>
@@ -10366,6 +10446,7 @@
         </item> <!-- Valley -->
         <item name="Cliff" icon="icons/png/poi_cliff.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=cliff"/>
+            <space />
             <label text="A steep rock face exposure, with a significant vertical, or near vertical (leave the lower face to the right of the way)."/>
             <space/>
             <key key="natural" value="cliff"/>
@@ -10385,6 +10466,7 @@
         </item> <!-- Sinkhole -->
         <item name="Cave Entrance" icon="icons/png/poi_cave.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:natural=cave_entrance"/>
+            <space />
             <label text="The entrance to a cave."/>
             <space/>
             <key key="natural" value="cave_entrance"/>
@@ -10425,6 +10507,7 @@
     <group name="Nature" icon="icons/png/landuse_coniferous_and_deciduous.png">
         <item name="Tree" icon="icons/png/natural_tree_24020.png" type="node" preset_name_label="true">
             <link wiki="Tag:natural=tree"/>
+            <space />
             <label text="A single tree."/>
             <space/>
             <key key="natural" value="tree"/>
@@ -10457,8 +10540,23 @@
                 <reference ref="leaf"/>
             </optional>
         </item> <!-- Tree Row -->
+        <item name="Shrub" icon="icons/png/natural_shrub.png" type="node" preset_name_label="true">
+            <link wiki="Tag:natural=shrub"/>
+            <space/>
+            <label text="A single shrub."/>
+            <space/>
+            <key key="natural" value="shrub"/>
+            <reference ref="genus_species_taxon"/>
+            <optional>
+                <text key="height" text="Height (m)" length="7" />
+                <text key="width" text="Width (m)" length="7"/>
+                <text key="start_date" text="Start date" />
+            </optional>
+        </item> <!-- Shrub -->
+        <separator />
         <item name="Wood" icon="icons/png/landuse_coniferous_and_deciduous.png" type="closedway,multipolygon" preset_name_label="true" name_context="natural">
             <link wiki="Tag:natural=wood"/>
+            <space />
             <label text="Woodland where timber production does not dominate use."/>
             <space/>
             <key key="natural" value="wood"/>
@@ -10481,6 +10579,7 @@
         </item> <!-- Cutline -->
         <item name="Grassland" icon="icons/png/landuse_grass.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=grassland"/>
+            <space />
             <label text="Where vegetation is dominated by grasses (Poaceae) and other herbaceous (non-woody) plants. Excludes cultivated areas and wetlands."/>
             <space/>
             <key key="natural" value="grassland"/>
@@ -10496,6 +10595,7 @@
         <separator/>
         <item name="Scree" icon="icons/png/natural_empty.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=scree"/>
+            <space />
             <label text="An accumulation of loose rocks."/>
             <space/>
             <key key="natural" value="scree"/>
@@ -10505,6 +10605,7 @@
         </item> <!-- Scree -->
         <item name="Shingle" icon="icons/png/natural_empty.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=shingle"/>
+            <space />
             <label text="An accumulation of loose rounded rocks on a beach or riverbed."/>
             <space/>
             <key key="natural" value="shingle"/>
@@ -10514,6 +10615,7 @@
         </item> <!-- Shingle -->
         <item name="Fell" icon="icons/png/natural_empty.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=fell"/>
+            <space />
             <label text="Bare upper lying uncultivated land principally covered with grass and often grazed."/>
             <space/>
             <key key="natural" value="fell"/>
@@ -10523,6 +10625,7 @@
         </item> <!-- Fell -->
         <item name="Scrub" icon="icons/png/landuse_scrub.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=scrub"/>
+            <space />
             <label text="Bare lower lying uncultivated land with bushes but little or no tree cover."/>
             <space/>
             <key key="natural" value="scrub"/>
@@ -10533,6 +10636,7 @@
         </item> <!-- Scrub -->
         <item name="Heath" icon="icons/png/natural_empty.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=heath"/>
+            <space />
             <label text="Bare lower lying uncultivated land with a shrubland habitat found mainly on free-draining infertile, acidic soils, and is characterised by open, low-growing woody vegetation."/>
             <space/>
             <key key="natural" value="heath"/>
@@ -10542,6 +10646,7 @@
         </item> <!-- Heath -->
         <item name="Sand" icon="icons/png/natural_empty.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=sand"/>
+            <space />
             <label text="Large area covered with sand."/>
             <space/>
             <key key="natural" value="sand"/>
@@ -10551,6 +10656,7 @@
         </item> <!-- Sand -->
         <item name="Bare Rock" icon="icons/png/natural_empty.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=bare_rock"/>
+            <space />
             <label text="For areas of solid visible rock that is sparsely vegetated or not vegetated at all."/>
             <space/>
             <key key="natural" value="bare_rock"/>
@@ -10560,6 +10666,7 @@
         </item> <!-- Bare Rock -->
         <item name="Rock" icon="icons/png/natural_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=rock"/>
+            <space />
             <label text="A notable rock or group of rocks, with at least one of them firmly attached to the underlying bedrock."/>
             <space/>
             <key key="natural" value="rock"/>
@@ -10570,6 +10677,7 @@
         </item> <!-- Rock -->
         <item name="Stone" icon="icons/png/natural_stone_24006.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=stone"/>
+            <space />
             <label text="A single notable free-standing rock, which may differ from the composition of the terrain it lies in."/>
             <space/>
             <key key="natural" value="stone"/>
@@ -10579,15 +10687,6 @@
                 <text key="width" text="Width (meters)"/>
             </optional>
         </item> <!-- Stone -->
-        <item name="Shrub" icon="icons/png/natural_shrub.png" type="node" preset_name_label="true">
-            <link wiki="Tag:natural=shrub"/>
-            <label text="A single shrub."/>
-            <space/>
-            <key key="natural" value="shrub"/>
-            <text key="height" text="Height (m)"/>
-            <text key="width" text="Width (m)"/>
-            <reference ref="genus_species_taxon"/>
-        </item> <!-- Shrub -->
     </group> <!-- Nature -->
     <group name="Land use" icon="icons/png/landuse_landuse_sp.png">
         <item name="Farmyard" icon="icons/png/landuse_farm_22120.png" type="closedway,multipolygon" preset_name_label="true">
@@ -10716,6 +10815,7 @@
             <space/>
             <key key="landuse" value="recreation_ground"/>
             <reference ref="optional_name"/>
+            <reference ref="dog"/>
         </item> <!-- Recreation Ground -->
         <separator/>
         <item name="Religious" icon="icons/png/landuse_religous.png" type="closedway,multipolygon" preset_name_label="true">
@@ -10756,6 +10856,12 @@
             <combo key="residential" text="Type" values="apartments,rural,urban" display_values="Apartments,Rural,Urban" values_context="landuse" />
             <reference ref="optional_name"/>
         </item> <!-- Residential Area -->
+        <item name="Education" icon="icons/png/landuse_school_12242.png" type="closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:landuse=education" />
+            <space />
+            <key key="landuse" value="education" />
+            <reference ref="optional_name" />
+        </item> <!-- Education -->
         <item name="Retail" icon="icons/png/landuse_supermarket.png" name_context="Landuse" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:landuse=retail"/>
             <space/>
@@ -11036,11 +11142,10 @@
             <preset_link preset_name="Building part"/>
             <roles>
                 <role key="outline" text="Outline of building" requisite="required" type="way,closedway,multipolygon"/>
-                <role key="part" text="Inner segment" requisite="required" type="way,closedway"/>
+                <role key="part" text="Inner segment" requisite="required" type="way,closedway,multipolygon"/>
                 <role key="ridge" text="Roof ridge" requisite="optional" type="way,closedway"/>
                 <role key="edge" text="Roof edge" requisite="optional" type="way,closedway"/>
                 <role key="entrance" text="Entrance" requisite="optional" type="node"/>
-                <role key="level_-?\\d+" text="Building level" regexp="true" requisite="optional" type="relation"/>
             </roles>
         </item> <!-- Building -->
         <item name="Site" type="relation" icon="" preset_name_label="true">
@@ -11125,18 +11230,29 @@
             <link wiki="Relation:enforcement"/>
             <space/>
             <key key="type" value="enforcement"/>
-            <combo key="enforcement" text="Type of enforcement" values="maxheight,maxweight,maxspeed,mindistance,toll,traffic_signals,check"
-                display_values="Max. height,Max. weight,Max. speed,Min. distance,Toll,Traffic signals,Check"/>
+            <combo key="enforcement" text="Type of enforcement">
+                <list_entry value="check" display_value="Check" />
+                <list_entry value="maxheight" display_value="Max. height" />
+                <list_entry value="maxspeed" display_value="Max. speed" />
+                <list_entry value="maxweight" display_value="Max. weight" />   
+                <list_entry value="mindistance" display_value="Min. distance" />
+                <list_entry value="toll" display_value="Toll" />
+                <list_entry value="traffic_signals" display_value="Traffic signals" />
+            </combo>
             <text key="maxheight" text="Max. height (meters, only if enforcement=maxheight)"/>
-            <text key="maxweight" text="Max. weight (tonnes, only if enforcement=maxweight)"/>
             <text key="maxspeed" text="Max. speed (km/h, only if enforcement=maxspeed)"/>
-            <roles>
-                <role key="device" text="location of enforcement device" requisite="required" type="node,way,closedway"/>
-                <role key="from" text="node on way where enforcement starts" requisite="required" type="node"/>
-                <role key="to" text="where enforcement ends" requisite="optional" type="node"/>
-                <role key="force" text="traffic light or barrier that stops you" requisite="optional" type="node"/>
-            </roles>
+            <text key="maxweight" text="Max. weight (tonnes, only if enforcement=maxweight)"/>
+            <text key="mindistance" text="Min. vehicle distance (meters, only if enforcement=mindistance)" />
+            <reference ref="enforcement_roles" />
         </item> <!-- Enforcement -->
+        <item name="Enforcement (average speed)" icon="icons/png/highway_speed_camera_18025.png" type="relation" preset_name_label="true">
+            <link wiki="Relation:enforcement" />
+            <space />
+            <key key="type" value="enforcement" />
+            <key key="enforcement" value="average_speed" />
+            <text key="maxspeed" text="Max. speed (km/h)" />
+            <reference ref="enforcement_roles" />
+        </item> <!-- Enforcement (average speed) -->
         <separator/>
         <group name="Routes" icon="icons/png/osm_route_sp.png">
             <item name="Bicycle Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
