@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -146,13 +147,18 @@ public class MapOverlay extends StyleableLayer
                 continue;
             }
             addBoundingBox(b);
-            mThreadPool.execute(() -> {
-                if (internalDownloadBox(b)) {
-                    map.postInvalidate();
-                } else {
-                    deleteBoundingBox(b);
-                }
-            });
+            try {
+                mThreadPool.execute(() -> {
+                    if (internalDownloadBox(b)) {
+                        map.postInvalidate();
+                    } else {
+                        deleteBoundingBox(b);
+                    }
+                });
+            } catch (RejectedExecutionException rjee) {
+                Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
+                deleteBoundingBox(b);
+            }
         }
     };
 

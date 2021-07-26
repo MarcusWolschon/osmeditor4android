@@ -2756,7 +2756,7 @@ public class Logic {
      * 
      * @param mapBox the BoundingBox to remove
      */
-    private void removeBoundingBox(@Nullable final BoundingBox mapBox) {
+    public void removeBoundingBox(@Nullable final BoundingBox mapBox) {
         if (mapBox != null) {
             getDelegator().deleteBoundingBox(mapBox);
         }

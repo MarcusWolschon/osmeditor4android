@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -69,47 +70,51 @@ class MapillaryLoader implements PhotoLoader {
             if (mThreadPool == null) {
                 mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(IMAGERY_LOAD_THREADS);
             }
-            mThreadPool.execute(() -> {
-                Log.d(DEBUG_TAG, "querying server for " + key);
-                try {
-                    URL url = new URL(imageUrl + key + MAPILLARY_JPG);
-                    Log.d(DEBUG_TAG, "query: " + url.toString());
+            try {
+                mThreadPool.execute(() -> {
+                    Log.d(DEBUG_TAG, "querying server for " + key);
+                    try {
+                        URL url = new URL(imageUrl + key + MAPILLARY_JPG);
+                        Log.d(DEBUG_TAG, "query: " + url.toString());
 
-                    Request request = new Request.Builder().url(url).build();
-                    OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS)
-                            .readTimeout(20000, TimeUnit.MILLISECONDS).build();
-                    Call mapillaryCall = client.newCall(request);
-                    Response mapillaryCallResponse = mapillaryCall.execute();
-                    if (mapillaryCallResponse.isSuccessful()) {
-                        ResponseBody responseBody = mapillaryCallResponse.body();
-                        try (InputStream inputStream = responseBody.byteStream()) {
-                            if (inputStream != null) {
-                                try (FileOutputStream fileOutput = new FileOutputStream(imageFile)) {
-                                    byte[] buffer = new byte[1024];
-                                    int bufferLength = 0;
-                                    while ((bufferLength = inputStream.read(buffer)) > 0) {
-                                        fileOutput.write(buffer, 0, bufferLength);
+                        Request request = new Request.Builder().url(url).build();
+                        OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS)
+                                .readTimeout(20000, TimeUnit.MILLISECONDS).build();
+                        Call mapillaryCall = client.newCall(request);
+                        Response mapillaryCallResponse = mapillaryCall.execute();
+                        if (mapillaryCallResponse.isSuccessful()) {
+                            ResponseBody responseBody = mapillaryCallResponse.body();
+                            try (InputStream inputStream = responseBody.byteStream()) {
+                                if (inputStream != null) {
+                                    try (FileOutputStream fileOutput = new FileOutputStream(imageFile)) {
+                                        byte[] buffer = new byte[1024];
+                                        int bufferLength = 0;
+                                        while ((bufferLength = inputStream.read(buffer)) > 0) {
+                                            fileOutput.write(buffer, 0, bufferLength);
+                                        }
                                     }
                                 }
                             }
+                        } else {
+                            Log.e(DEBUG_TAG, "Download of " + key + " failed with " + mapillaryCallResponse.code() + " " + mapillaryCallResponse.message());
                         }
-                    } else {
-                        Log.e(DEBUG_TAG, "Download of " + key + " failed with " + mapillaryCallResponse.code() + " " + mapillaryCallResponse.message());
+                    } catch (IOException e) {
+                        Log.e(DEBUG_TAG, e.getMessage());
+                        return;
                     }
-                } catch (IOException e) {
-                    Log.e(DEBUG_TAG, e.getMessage());
-                    return;
-                }
 
-                setImage(view, imageFile);
-                new AsyncTask<Void, Void, Void>() {
-                    @Override
-                    protected Void doInBackground(Void... arg0) {
-                        FileUtil.pruneCache(cacheDir, cacheSize);
-                        return null;
-                    }
-                }.execute();
-            });
+                    setImage(view, imageFile);
+                    new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... arg0) {
+                            FileUtil.pruneCache(cacheDir, cacheSize);
+                            return null;
+                        }
+                    }.execute();
+                });
+            } catch (RejectedExecutionException rjee) {
+                Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
+            }
         } else {
             setImage(view, imageFile);
         }

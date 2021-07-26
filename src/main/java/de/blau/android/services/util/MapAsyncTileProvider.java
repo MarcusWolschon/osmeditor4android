@@ -6,8 +6,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.services.IMapTileProviderCallback;
 
@@ -21,6 +23,7 @@ import de.blau.android.services.IMapTileProviderCallback;
  *
  */
 public abstract class MapAsyncTileProvider {
+    private static final String DEBUG_TAG = MapAsyncTileProvider.class.getSimpleName();
 
     public static final int IOERR        = 1;
     public static final int DOESNOTEXIST = 2;
@@ -47,7 +50,11 @@ public abstract class MapAsyncTileProvider {
 
         Runnable r = getTileLoader(aTile, aCallback);
         mPending.put(tileId, r);
-        mThreadPool.execute(r);
+        try {
+            mThreadPool.execute(r);
+        } catch (RejectedExecutionException rjee) {
+            Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
+        }
     }
 
     /**
