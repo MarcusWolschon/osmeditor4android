@@ -2,13 +2,14 @@
 
 15.2.5:
 
+- Catch RejectedExecutionException when using thread pools.
 - Fix non-unique preference keys for tips that was causing weird behaviour with location based auto download
 - Update OH fragment and parser (see https://github.com/simonpoole/OpeningHoursFragment/blob/master/CHANGELOG.txt)
 - Update translations and docs
 - Update preset
 - Update imagery from ELI
 - Doc fixes
-- Update taginfo project fileversion numbers
+- Update taginfo project file
 
 15.2.4:
 
