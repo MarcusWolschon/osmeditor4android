@@ -1,10 +1,10 @@
-# Веспуччі - введення
+# Веспуччі – вступ
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+Веспуччі – це повноцінний редактор даних OpenStreetMap, що підтримує  більшість операцій, доступних у редакторах настільних комп’ютерів. Він був успішно протестований на Android від 2.3 до 10.0 версії від Google, а також у різних варіантах на основі AOSP (Android Open Source Project). Застереження: в той час, як мобільні пристрої наздогнали своїх настільних суперників, старі мобільні пристрої  мають обмежений обсяг пам’яті та будуть доволі повільними в роботі. Враховуйте це під час роботи з Веспуччі та завантажуйте розмір ділянки для редагування у розумних межах. 
 
 ## Початок роботи
 
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
+Після запуску, Веспуччі показує діалог «Звантажити інше місце»/«Завантажити ділянку», після відповіді на запит отримання відповідних дозволів та показу привітального повідомлення. Якщо ви бачите координати та бажаєте завантажити дані негайно, ви можете обрати потрібний радіус навколо цієї точки, щоб завантажити дані. Не обирайте завелику ділянку на повільних пристроях. 
 
 Або ж ви можете пропустити цей діалог, натисніть кнопку „Перейти до мапи“ та знайдить потрібне вам місце, яке ви бажаете редагувати, та завантажте дані (Див.: „Редагування у Веспуччі“).
 
@@ -16,7 +16,7 @@ On startup Vespucci shows you the "Download other location"/"Load Area" dialog a
 
 ### Завантаження даних OSM
 
-Оберіть або значок ![Передача](../images/menu_transfer.png) або меню "Передача". Ви побачите сім пунктів:
+Оберіть або значок ![Transfer](../images/menu_transfer.png) або меню "Передача". Ви побачите сім пунктів:
 
 * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
