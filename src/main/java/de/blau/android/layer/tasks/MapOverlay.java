@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -117,7 +118,12 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Discard
                 continue;
             }
             tasks.addBoundingBox(b);
-            mThreadPool.execute(() -> TransferTasks.downloadBox(context, server, b, true, () -> map.postInvalidate()));
+            try {
+                mThreadPool.execute(() -> TransferTasks.downloadBox(context, server, b, true, () -> map.postInvalidate()));
+            } catch (RejectedExecutionException rjee) {
+                Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
+                tasks.deleteBoundingBox(b);
+            }
         }
     };
 

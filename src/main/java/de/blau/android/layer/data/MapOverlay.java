@@ -17,6 +17,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.WeakHashMap;
 import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -367,21 +368,30 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     continue;
                 }
                 delegator.addBoundingBox(b);
-                dataThreadPoolExecutor.execute(() -> {
-                    final Logic logic = App.getLogic();
-                    ReadAsyncResult result = logic.download(context, prefs.getServer(), b, postMerge, () -> {
-                        logic.reselectRelationMembers();
-                        map.postInvalidate();
-                    }, true, true);
-                    if (ErrorCodes.CORRUPTED_DATA == result.getCode()) {
-                        Snack.toastTopError(context, R.string.corrupted_data_message);
-                    }
-                });
+                final Logic logic = App.getLogic();
+                try {
+                    dataThreadPoolExecutor.execute(() -> {
+                        ReadAsyncResult result = logic.download(context, prefs.getServer(), b, postMerge, () -> {
+                            logic.reselectRelationMembers();
+                            map.postInvalidate();
+                        }, true, true);
+                        if (ErrorCodes.CORRUPTED_DATA == result.getCode()) {
+                            Snack.toastTopError(context, R.string.corrupted_data_message);
+                        }
+                    });
+                } catch (RejectedExecutionException rjee) {
+                    Log.e(DEBUG_TAG, "Download execution rejected " + rjee.getMessage());
+                    logic.removeBoundingBox(b);
+                }
             }
             if (delegator.getCurrentStorage().getNodeCount() > autoPruneNodeLimit
                     && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVALL * 1000) {
-                dataThreadPoolExecutor.execute(MapOverlay.this::prune);
-                lastAutoPrune = System.currentTimeMillis();
+                try {
+                    dataThreadPoolExecutor.execute(MapOverlay.this::prune);
+                    lastAutoPrune = System.currentTimeMillis();
+                } catch (RejectedExecutionException rjee) {
+                    Log.e(DEBUG_TAG, "Prune execution rejected " + rjee.getMessage());
+                }
             }
         }
     };
@@ -1088,7 +1098,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         WeakHashMap<java.util.Map<String, String>, Bitmap> tempCache = isWay ? areaIconCache : iconCache;
         Bitmap icon = element.getFromCache(tempCache); // may be null!
         if (icon == null) {
-            iconThreadPoolExecutor.execute(() -> retrieveIcon(element, isWay, tempCache));
+            try {
+                iconThreadPoolExecutor.execute(() -> retrieveIcon(element, isWay, tempCache));
+            } catch (RejectedExecutionException rjee) {
+                Log.e(DEBUG_TAG, "Icon download execution rejected " + rjee.getMessage());
+            }
         }
         return icon != NOICON ? icon : null;
     }
