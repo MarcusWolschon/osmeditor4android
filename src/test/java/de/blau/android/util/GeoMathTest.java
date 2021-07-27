@@ -16,25 +16,29 @@ public class GeoMathTest {
         // short list
         GeoMath.squashPointsArray(points, 0.1f);
         assertEquals(0, points.size());
-        for(int i=0; i<4; i++)
+        for(int i=0; i<4; i++) {
             points.add(i);
+        }
         GeoMath.squashPointsArray(points, 0.1f);
         assertEquals(4, points.size());
 
         // all to long
         points.clear();
-        for(int i=0; i<12; i++)
+        for(int i=0; i<12; i++) {
             points.add(i);
+        }
         GeoMath.squashPointsArray(points, 0.1f);
         assertEquals(12, points.size());
-        for(int i=0; i<12; i++)
+        for(int i=0; i<12; i++) {
             assertEquals(i, points.get(i), 0.01);
+        }
 
         // none adjacent
         GeoMath.squashPointsArray(points, 100);
         assertEquals(12, points.size());
-        for(int i=0; i<12; i++)
+        for(int i=0; i<12; i++) {
             assertEquals(i, points.get(i), 0.01);
+        }
 
         // all adjacent
         points.clear();

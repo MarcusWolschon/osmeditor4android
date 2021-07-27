@@ -2,7 +2,6 @@ package de.blau.android.util;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -592,8 +591,9 @@ public final class GeoMath {
      * @param maxLen maximal length of adjacent lines to be squashed
      */
     public static void squashPointsArray(@NonNull final FloatPrimitiveList points, float maxLen) {
-        if (points.size() <= 4)
+        if (points.size() <= 4) {
             return;
+        }
         int i; // current input line index
         int i0; // first squashable input line index
         int o; // current output line index
@@ -625,8 +625,9 @@ public final class GeoMath {
                     dx = Math.abs(points.get(i0) - points.get(i + 2));
                     dy = Math.abs(points.get(i0 + 1) - points.get(i + 3));
                     len = (dx > dy) ? (dx + dy / 2) : (dy + dx / 2);
-                    if (len > maxLen) // multi line length
+                    if (len > maxLen) { // multi line length
                         squash = false;
+                    }
                 }
                 if (!squash) {
                     points.set(o, points.get(i0));
