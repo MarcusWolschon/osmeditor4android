@@ -136,8 +136,7 @@ public class MBTileProviderDataBase {
                 try {
                     get = getStatements.acquire();
                     if (get == null) {
-                        Log.e(DEBUG_TAG, "statement null");
-                        return null;
+                        throw new IOException("Used all statements");
                     }
                     bindTile(aTile, get);
                     return new ParcelFileDescriptor.AutoCloseInputStream(get.simpleQueryForBlobFileDescriptor());
