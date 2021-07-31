@@ -22,6 +22,7 @@ import android.graphics.Canvas;
 import android.os.Build;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
@@ -355,18 +356,27 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
      * @param ctx an Android Context
      */
     public synchronized void flushCaches(@NonNull Context ctx) {
-        if (selected != null) {
-            selected.imageId = 0;
-            selected.sequenceCache.clear();
-            selected.sequenceId = null;
-            savingHelper.save(ctx, FILENAME, selected, false);
-        }
+        flushSequenceCache(ctx);
         try {
             Thread t = new Thread(null, () -> FileUtil.pruneCache(cacheDir, 0), "Mapillary Image Cache Zapper");
             t.start();
         } catch (SecurityException | IllegalThreadStateException e) {
             Log.e(DEBUG_TAG, "Unable to flush image cache " + e.getMessage());
             return;
+        }
+    }
+
+    /**
+     * Flush the sequence cache
+     * 
+     * @param ctx an Android Context
+     */
+    private void flushSequenceCache(@NonNull Context ctx) {
+        if (selected != null) {
+            selected.imageId = 0;
+            selected.sequenceCache.clear();
+            selected.sequenceId = null;
+            savingHelper.save(ctx, FILENAME, selected, false);
         }
     }
 
@@ -398,6 +408,12 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
         } catch (IOException ioex) {
             Log.d(DEBUG_TAG, "Reading default mapillary style failed");
         }
+    }
+
+    @Override
+    public void flushTileCache(@Nullable final FragmentActivity activity, boolean all) {
+        super.flushTileCache(activity, all);
+        flushSequenceCache(activity);
     }
 
     @Override
