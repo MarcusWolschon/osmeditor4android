@@ -78,7 +78,7 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
         this.tileRenderer = aTileRenderer;
         this.overlay = overlay;
     }
-    
+
     @Override
     public LayerType getType() {
         return overlay ? LayerType.OVERLAYIMAGERY : LayerType.IMAGERY;
@@ -512,7 +512,7 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
             }
         });
     }
-    
+
     /**
      * Set dirty to true
      */

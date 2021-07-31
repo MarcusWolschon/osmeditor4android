@@ -18,6 +18,7 @@ import com.google.gson.JsonPrimitive;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Canvas;
 import android.os.Build;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -45,6 +46,7 @@ import de.blau.android.util.mvt.VectorTileRenderer;
 import de.blau.android.util.mvt.style.Layer;
 import de.blau.android.util.mvt.style.Style;
 import de.blau.android.util.mvt.style.Symbol;
+import de.blau.android.views.IMapView;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -54,6 +56,8 @@ import okhttp3.ResponseBody;
 public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
 
     private static final String DEBUG_TAG = MapOverlay.class.getSimpleName();
+
+    public static final String MAPILLARY_TILES_ID = "NEW-MAPILLARY";
 
     // mapbox gl style layer ids
     private static final String SELECTED_IMAGE_LAYER = "selected_image";
@@ -111,10 +115,10 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
      */
     public MapOverlay(final Map map) {
         super(map, new VectorTileRenderer(), false);
-        this.setRendererInfo(TileLayerSource.get(map.getContext(), "NEW-MAPILLARY", false));
+        this.setRendererInfo(TileLayerSource.get(map.getContext(), MAPILLARY_TILES_ID, false));
         this.map = map;
         final Context context = map.getContext();
-        File[] storageDirs = ContextCompat.getExternalFilesDirs(context, null);
+        File[] storageDirs = ContextCompat.getExternalCacheDirs(context);
         try {
             cacheDir = FileUtil.getPublicDirectory(storageDirs.length > 1 && storageDirs[1] != null ? storageDirs[1] : storageDirs[0], getName());
         } catch (IOException e) {
@@ -181,8 +185,13 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
             if (id != null && sequenceId != null) {
                 ArrayList<String> keys = selected != null ? selected.sequenceCache.get(sequenceId) : null;
                 if (keys == null) {
-                    Thread t = new Thread(null, new SequenceFetcher(activity, sequenceId, id), "Mapillary Sequence");
-                    t.start();
+                    try {
+                        Thread t = new Thread(null, new SequenceFetcher(activity, sequenceId, id), "Mapillary Sequence");
+                        t.start();
+                    } catch (SecurityException | IllegalThreadStateException e) {
+                        Log.e(DEBUG_TAG, "Unable to run SequenceFetcher " + e.getMessage());
+                        return;
+                    }
                 } else {
                     showImages(activity, id, keys);
                 }
@@ -340,6 +349,27 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
         }
     }
 
+    /**
+     * Flush both the sequence and image cache
+     * 
+     * @param ctx an Android Context
+     */
+    public synchronized void flushCaches(@NonNull Context ctx) {
+        if (selected != null) {
+            selected.imageId = 0;
+            selected.sequenceCache.clear();
+            selected.sequenceId = null;
+            savingHelper.save(ctx, FILENAME, selected, false);
+        }
+        try {
+            Thread t = new Thread(null, () -> FileUtil.pruneCache(cacheDir, 0), "Mapillary Image Cache Zapper");
+            t.start();
+        } catch (SecurityException | IllegalThreadStateException e) {
+            Log.e(DEBUG_TAG, "Unable to flush image cache " + e.getMessage());
+            return;
+        }
+    }
+
     @Override
     public String getDescription(de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
         Long capturedAt = (Long) f.getAttributes().get(CAPTURED_AT_KEY);
@@ -380,5 +410,10 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
     @Override
     public LayerType getType() {
         return LayerType.MAPILLARY;
+    }
+
+    @Override
+    public int onDrawAttribution(Canvas c, IMapView osmv, int offset) {
+        return offset;
     }
 }
