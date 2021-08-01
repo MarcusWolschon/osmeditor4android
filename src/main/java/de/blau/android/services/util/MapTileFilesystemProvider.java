@@ -8,7 +8,6 @@ import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
-import android.app.NotificationManager;
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
 import android.os.Build;
@@ -19,7 +18,6 @@ import android.os.RemoteException;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
 import de.blau.android.R;
 import de.blau.android.exception.InvalidTileException;
 import de.blau.android.prefs.Preferences;

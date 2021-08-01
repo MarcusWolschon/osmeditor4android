@@ -56,7 +56,6 @@ import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
 import de.blau.android.util.BasicAuthInterceptor;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.util.FileUtil;
 import de.blau.android.util.Snack;
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -262,10 +261,10 @@ public class Server {
         }
 
         /**
-         * @param display_name the display_name to set
+         * @param displayName the display name to set
          */
-        public void setDisplayName(String display_name) {
-            this.displayName = display_name;
+        public void setDisplayName(String displayName) {
+            this.displayName = displayName;
         }
 
         /**
