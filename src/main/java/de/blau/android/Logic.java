@@ -3114,7 +3114,7 @@ public class Logic {
      * @return an error code or 0 for success
      */
     private int downloadElement(@Nullable final Context ctx, @NonNull final String type, final long id, final boolean relationFull, final boolean withParents,
-            @Nullable final OsmParser osmParser) {
+            @NonNull final OsmParser osmParser) {
         int result = ErrorCodes.OK;
         try {
             final Server server = getPrefs().getServer();

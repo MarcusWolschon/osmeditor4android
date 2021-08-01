@@ -865,7 +865,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     totalNodes += w.getNodes().size();
                 }
                 int coordsArraySize = coordsArray.size();
-                Coordinates a, b, c, p, q;
+                Coordinates a;
+                Coordinates b;
+                Coordinates c;
+                Coordinates p;
+                Coordinates q;
 
                 double loopEpsilon = epsilon * (totalNodes / 4D); // NOTE the original algorithm didn't take the number
                                                                   // of corners in to account

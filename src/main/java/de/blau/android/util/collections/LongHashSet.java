@@ -203,7 +203,8 @@ public class LongHashSet implements Serializable {
      * @return free slot
      */
     private int shiftKeys(int pos) {
-        int last, slot;
+        int last;
+        int slot;
         long k;
         final long[] data = this.m_data;
         while (true) {
