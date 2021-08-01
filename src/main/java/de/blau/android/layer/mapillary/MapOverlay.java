@@ -54,7 +54,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
+public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONAR
 
     private static final String DEBUG_TAG = MapOverlay.class.getSimpleName();
 
@@ -157,7 +157,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
         // remove non image elements for now
         if (result != null) {
             for (VectorTileDecoder.Feature f : new ArrayList<>(result)) {
-                if (!GeoJSONConstants.POINT.equals(f.getGeometry().type())) {
+                if (!isPoint(f)) {
                     result.remove(f);
                 }
             }
@@ -178,7 +178,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
 
     @Override
     public void onSelected(FragmentActivity activity, de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
-        if (f != null && GeoJSONConstants.POINT == f.getGeometry().type()) {
+        if (isPoint(f)) {
             // we ignore anything except the images for now
             java.util.Map<String, Object> attributes = f.getAttributes();
             String sequenceId = (String) attributes.get(SEQUENCE_ID_KEY);
@@ -200,6 +200,16 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
                 selected.sequenceId = sequenceId;
             }
         }
+    }
+
+    /**
+     * Check if this Feature geometry is a Point
+     * 
+     * @param f the Feature
+     * @return true if the geometry is a Poinz
+     */
+    private boolean isPoint(@NonNull de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
+        return GeoJSONConstants.POINT.equals(f.getGeometry().type());
     }
 
     /**
@@ -362,7 +372,6 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
             t.start();
         } catch (SecurityException | IllegalThreadStateException e) {
             Log.e(DEBUG_TAG, "Unable to flush image cache " + e.getMessage());
-            return;
         }
     }
 
@@ -413,7 +422,9 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
     @Override
     public void flushTileCache(@Nullable final FragmentActivity activity, boolean all) {
         super.flushTileCache(activity, all);
-        flushSequenceCache(activity);
+        if (activity != null) {
+            flushSequenceCache(activity);
+        }
     }
 
     @Override
