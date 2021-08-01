@@ -151,6 +151,18 @@
                 "url": "https://services.digitalglobe.com/earthservice/tmsaccess/tms/1.0.0/DigitalGlobe:ImageryTileService@EPSG:3857@jpg/{zoom}/{x}/{-y}.jpg?connectId={apikey}&foo=standard"
             },
             "type": "Feature"
+        },
+        {
+            "geometry": null,
+            "properties": {
+                "id": "NEW-MAPILLARY",
+                "max_zoom": 14,
+                "name": "New mapillary",
+                "type": "tms",
+                "tile_type": "mvt",
+                "url": "https://tiles.mapillary.com/maps/vtp/mly1_computed_public/2/{z}/{x}/{y}?access_token=MLY|4089802601107022|4c604fd248fc3284d97630775058e7d3"
+            },
+            "type": "Feature"
         }
     ],
     "type": "FeatureCollection"

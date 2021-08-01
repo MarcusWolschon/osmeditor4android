@@ -484,7 +484,8 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             Menu menu = popup.getMenu();
             final Map map = App.getLogic().getMap();
 
-            if (layer instanceof MapTilesLayer) { // maybe we should use an interface here
+            // maybe we should use an interface here
+            if (layer instanceof MapTilesLayer && !(layer instanceof de.blau.android.layer.mapillary.MapOverlay)) {
                 // get MRU list from layer
                 final String[] tileServerIds = ((MapTilesLayer<?>) layer).getMRU();
                 for (int i = 0; i < tileServerIds.length; i++) {

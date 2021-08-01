@@ -30,8 +30,8 @@ public final class Urls {
     public static final String DEFAULT_TAGINFO_SERVER = "https://taginfo.openstreetmap.org/";
 
     // these are only configurable for testing
-    public static final String DEFAULT_MAPILLARY_API_V3 = "https://a.mapillary.com/v3/";
-    public static final String DEFAULT_MAPILLARY_IMAGES = "https://images.mapillary.com/";
+    public static final String DEFAULT_MAPILLARY_IMAGES_V4        = "https://graph.mapillary.com/%s?access_token=%s&fields=thumb_2048_url,computed_geometry";
+    public static final String DEFAULT_MAPILLARY_SEQUENCES_URL_V4 = "https://graph.mapillary.com/image_ids?sequence_id=%s&access_token=%s&fields=id";
 
     // currently not configurable
     public static final String WIKIPEDIA = "https://en.wikipedia.org/wiki/";
@@ -49,6 +49,6 @@ public final class Urls {
     public static final String MSF_SERVER = "https://mapsplit.poole.ch/";
 
     public static final String EGM96 = "https://github.com/simonpoole/egm96/raw/master/src/main/resources/EGM96.dat";
-    
+
     public static final String GITHUB = "https://github.com/";
 }

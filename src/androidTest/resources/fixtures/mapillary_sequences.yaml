@@ -1,4 +1,4 @@
 statusCode: 200       
 delay: 0              
-body: 'mapillary_sequences.json'
+body: 'mapillary_sequences_v4.json'
                  

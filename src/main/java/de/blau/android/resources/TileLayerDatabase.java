@@ -424,6 +424,16 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     public static void deleteLayerWithRowId(@NonNull SQLiteDatabase db, int rowId) {
         db.delete(LAYERS_TABLE, "layers.rowid=?", new String[] { Integer.toString(rowId) });
     }
+    
+    /**
+     * Delete a layer with a specific id
+     * 
+     * @param db a writable SQLiteDatabase
+     * @param id the id
+     */
+    public static void deleteLayerWithRowId(@NonNull SQLiteDatabase db, @NonNull String id) {
+        db.delete(LAYERS_TABLE, "layers.id=?", new String[] { id });
+    }
 
     private static int idFieldIndex      = -1;
     private static int leftFieldIndex    = -1;

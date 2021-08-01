@@ -973,7 +973,7 @@ public class Main extends FullScreenAppCompatActivity
                             map.setPrefs(this, prefs);
                             map.invalidate();
                         }
-                        continue;
+                        break;
                     case ACTION_DELETE_PHOTO: // harmless as this just deletes from the index
                         try (PhotoIndex index = new PhotoIndex(this)) {
                             Uri uri = intent.getData();
@@ -987,15 +987,19 @@ public class Main extends FullScreenAppCompatActivity
                             photoLayer.deselectObjects();
                             photoLayer.invalidate();
                         }
-                        continue;
+                        break;
                     case ACTION_MAPILLARY_SELECT:
                         final de.blau.android.layer.mapillary.MapOverlay mapillaryLayer = map != null
                                 ? (de.blau.android.layer.mapillary.MapOverlay) map.getLayer(LayerType.MAPILLARY)
                                 : null;
                         if (mapillaryLayer != null) {
+                            double[] coords = intent.getDoubleArrayExtra(de.blau.android.layer.mapillary.MapOverlay.COORDINATES_KEY);
+                            if (coords != null) {
+                                map.getViewBox().moveTo(map, (int) (coords[1] * 1E7), (int) (coords[0] * 1E7));
+                            }
                             mapillaryLayer.select(intent.getIntExtra(de.blau.android.layer.mapillary.MapOverlay.SET_POSITION_KEY, 0));
                         }
-                        continue;
+                        break;
                     default:
                         // carry on
                         Log.d(DEBUG_TAG, "Intent action " + action);

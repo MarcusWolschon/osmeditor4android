@@ -62,7 +62,7 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
     private final Map     map;
     private final boolean overlay;
 
-    private final TileRenderer<java.util.Map<String, List<VectorTileDecoder.Feature>>> tileRenderer;
+    protected final TileRenderer<java.util.Map<String, List<VectorTileDecoder.Feature>>> tileRenderer;
 
     private SavingHelper<Style> styleSavingHelper = new SavingHelper<>();
     private boolean             dirty             = false;
@@ -511,5 +511,12 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
                 return true;
             }
         });
+    }
+
+    /**
+     * Set dirty to true
+     */
+    protected void dirty() {
+        dirty = true;
     }
 }
