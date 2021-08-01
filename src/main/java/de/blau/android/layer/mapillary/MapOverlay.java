@@ -306,7 +306,6 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONA
                 Log.d(DEBUG_TAG, "query sequence failed with " + ex.getMessage());
             }
         }
-
     }
 
     @Override
