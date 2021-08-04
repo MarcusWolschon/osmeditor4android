@@ -5,6 +5,7 @@ import java.io.IOException;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabaseLockedException;
@@ -58,6 +59,8 @@ public class Splash extends AppCompatActivity {
 
             @Override
             protected void onPreExecute() {
+                Log.d(DEBUG_TAG, "onPreExecute");
+                Log.d(DEBUG_TAG, "checking last tile source update");
                 long lastDatabaseUpdate = 0;
                 try {
                     lastDatabaseUpdate = Math.max(TileLayerDatabase.getSourceUpdate(db.getReadableDatabase(), TileLayerDatabase.SOURCE_JOSM_IMAGERY),
@@ -68,9 +71,11 @@ public class Splash extends AppCompatActivity {
                         cancel(true);
                     }
                 }
+                Log.d(DEBUG_TAG, "checking last package update");
                 long lastUpdateTime = 0L;
                 try {
-                    PackageInfo packageInfo = Splash.this.getPackageManager().getPackageInfo(Splash.this.getPackageName(), 0);
+                    String packageName = Splash.this.getPackageName();
+                    PackageInfo packageInfo = getPackageManager().getPackageInfo(packageName, 0);
                     lastUpdateTime = packageInfo.lastUpdateTime;
                 } catch (NameNotFoundException e1) {
                     // can't really happen
@@ -84,6 +89,7 @@ public class Splash extends AppCompatActivity {
 
             @Override
             protected Void doInBackground(Void... params) {
+                Log.d(DEBUG_TAG, "doInBackGround");
                 if (newInstall || newConfig) {
                     AssetManager assetManager = getAssets();
                     try (KeyDatabaseHelper keys = new KeyDatabaseHelper(Splash.this)) {
@@ -107,6 +113,7 @@ public class Splash extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(Void result) {
+                Log.d(DEBUG_TAG, "onPostExecute");
                 if (newInstall || newConfig) {
                     Progress.dismissDialog(Splash.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
                 }
