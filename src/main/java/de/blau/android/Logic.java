@@ -2167,6 +2167,7 @@ public class Logic {
      */
     public void performOrthogonalize(@Nullable FragmentActivity activity, @Nullable Way way) {
         if (way == null || way.getNodes().size() < 3) {
+            Log.e(DEBUG_TAG, "performOrthogonalize way " + (way == null ? "is null" : " has " + way.nodeCount()) + " nodes");
             return;
         }
         performOrthogonalize(activity, Util.wrapInList(way));
@@ -2182,6 +2183,7 @@ public class Logic {
      */
     public void performOrthogonalize(@Nullable FragmentActivity activity, @Nullable List<Way> ways) {
         if (ways == null || ways.isEmpty()) {
+            Log.e(DEBUG_TAG, "performOrthogonalize no ways");
             return;
         }
 
