@@ -569,7 +569,7 @@ public class Map extends View implements IMapView {
         }
 
         final boolean backgroundAlignMode = tmpDrawingEditMode == Mode.MODE_ALIGN_BACKGROUND;
-        if (zoomLevel > STORAGE_BOX_LIMIT && backgroundAlignMode) {
+        if (zoomLevel > STORAGE_BOX_LIMIT && !backgroundAlignMode) {
             // shallow copy to avoid modification issues
             boundingBoxes.clear();
             boundingBoxes.addAll(delegator.getBoundingBoxes());
@@ -807,7 +807,7 @@ public class Map extends View implements IMapView {
         if (fps < 10) {
             text = "fps: " + String.format(Locale.US, "%.1f", fps);
         } else {
-            text = "fps: " + (int)(fps);
+            text = "fps: " + (int) (fps);
         }
         canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
         text = "hardware acceleration: " + (myIsHardwareAccelerated(canvas) ? "on" : "off");
