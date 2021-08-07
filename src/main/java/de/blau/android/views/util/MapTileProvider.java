@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.zip.GZIPInputStream;
 
@@ -201,7 +202,6 @@ public class MapTileProvider<T> {
             try {
                 mThreadPool.execute(() -> {
                     mapTileFilesystemProvider.flushQueue(rendererId, zoomLevel);
-
                     // remove the same from pending
                     Set<String> keys;
                     synchronized (pending) {
@@ -222,6 +222,8 @@ public class MapTileProvider<T> {
                         }
                     }
                 });
+            } catch (RejectedExecutionException rjee) {
+                Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
             } catch (Exception e) {
                 Log.e(DEBUG_TAG, "Exception in flushQueue()", e);
             }
