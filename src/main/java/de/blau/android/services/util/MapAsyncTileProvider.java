@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
-import de.blau.android.services.IMapTileProviderCallback;
+import de.blau.android.views.util.MapTileProviderCallback;
 
 /**
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06 by Marcus Wolschon to be
@@ -40,7 +40,7 @@ public abstract class MapAsyncTileProvider {
      * @param aTile the tile descriptor
      * @param aCallback the call back for when the tile has been loaded
      */
-    public synchronized void loadMapTileAsync(@NonNull final MapTile aTile, final IMapTileProviderCallback aCallback) {
+    public synchronized void loadMapTileAsync(@NonNull final MapTile aTile, final MapTileProviderCallback aCallback) {
         final String tileId = aTile.toId();
         synchronized (mPending) {
             if (mPending.containsKey(tileId)) {
@@ -109,11 +109,11 @@ public abstract class MapAsyncTileProvider {
      * @param aCallback callback to the TileProvider
      * @return a TileLoader
      */
-    protected abstract Runnable getTileLoader(@NonNull final MapTile aTile, @NonNull final IMapTileProviderCallback aCallback);
+    protected abstract Runnable getTileLoader(@NonNull final MapTile aTile, @NonNull final MapTileProviderCallback aCallback);
 
     abstract class TileLoader implements Runnable {
-        final MapTile                  mTile;
-        final IMapTileProviderCallback mCallback;
+        final MapTile                 mTile;
+        final MapTileProviderCallback mCallback;
 
         /**
          * Construct a new TileLoader
@@ -121,7 +121,7 @@ public abstract class MapAsyncTileProvider {
          * @param aTile the tile descriptor
          * @param aCallback callback to the TileProvider
          */
-        protected TileLoader(@NonNull final MapTile aTile, @NonNull final IMapTileProviderCallback aCallback) {
+        protected TileLoader(@NonNull final MapTile aTile, @NonNull final MapTileProviderCallback aCallback) {
             mTile = aTile;
             mCallback = aCallback;
         }

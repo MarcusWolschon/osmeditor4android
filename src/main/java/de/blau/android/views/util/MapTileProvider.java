@@ -7,25 +7,24 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.zip.GZIPInputStream;
 
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
-import android.os.RemoteException;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.App;
 import de.blau.android.exception.StorageException;
-import de.blau.android.services.IMapTileProviderCallback;
-import de.blau.android.services.IMapTileProviderService;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.MapAsyncTileProvider;
 import de.blau.android.services.util.MapTile;
+import de.blau.android.services.util.MapTileFilesystemProvider;
 import de.blau.android.util.Util;
 
 /**
@@ -39,7 +38,7 @@ import de.blau.android.util.Util;
  * @author Simon Poole
  * 
  */
-public class MapTileProvider<T> implements ServiceConnection {
+public class MapTileProvider<T> {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -60,9 +59,10 @@ public class MapTileProvider<T> implements ServiceConnection {
     private MapTileCache<T>         mTileCache;
     private final Map<String, Long> pending = new HashMap<>();
 
-    private IMapTileProviderService mTileService;
-    private final Handler           mDownloadFinishedHandler;
-    private final TileDecoder<T>    decoder;
+    private final Handler                   mDownloadFinishedHandler;
+    private final TileDecoder<T>            decoder;
+    private final ThreadPoolExecutor        mThreadPool;
+    private final MapTileFilesystemProvider mapTileFilesystemProvider;
 
     /**
      * Set to true if we have less than 64 MB heap or have other caching issues
@@ -112,44 +112,9 @@ public class MapTileProvider<T> implements ServiceConnection {
         this.decoder = decoder;
         mDownloadFinishedHandler = aDownloadFinishedListener;
 
-        Intent explicitIntent = (new Intent(IMapTileProviderService.class.getName())).setPackage(ctx.getPackageName());
-        if (!ctx.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE)) {
-            Log.e(DEBUG_TAG, "Could not bind to " + IMapTileProviderService.class.getName() + " in package " + ctx.getPackageName());
-        }
-    }
+        mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool((new Preferences(ctx)).getMaxTileDownloadThreads());
 
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
-
-    // ===========================================================
-    // Methods from SuperClass/Interfaces
-    // ===========================================================
-
-    @Override
-    public void onServiceConnected(android.content.ComponentName name, android.os.IBinder service) {
-        mTileService = IMapTileProviderService.Stub.asInterface(service);
-        mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_SUCCESS_ID);
-        Log.d(DEBUG_TAG, "connected");
-    }
-
-    @Override
-    public void onServiceDisconnected(ComponentName name) {
-        mTileService = null;
-        Log.d(DEBUG_TAG, "disconnected");
-    }
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
-
-    /**
-     * Check if we are connected to the service
-     * 
-     * @return true if connected
-     */
-    public boolean connected() {
-        return mTileService != null;
+        mapTileFilesystemProvider = App.getMapTileFilesystemProvider(mCtx);
     }
 
     /**
@@ -160,9 +125,6 @@ public class MapTileProvider<T> implements ServiceConnection {
             pending.clear();
         }
         mTileCache.clear();
-        if (this.connected()) {
-            // mCtx.unbindService(this);
-        }
     }
 
     /**
@@ -185,7 +147,6 @@ public class MapTileProvider<T> implements ServiceConnection {
         if (tile != null) {
             return tile;
         } else {
-            // from service
             if (MapViewConstants.DEBUGMODE) {
                 Log.i(DEBUG_TAG, "Memory MapTileCache failed for: " + aTile.toString());
             }
@@ -212,13 +173,15 @@ public class MapTileProvider<T> implements ServiceConnection {
      * @param owner if for the current owner
      */
     private void preCacheTile(@NonNull final MapTile aTile, long owner) {
+        String id = aTile.toId();
         synchronized (pending) {
-            if (mTileService != null && !pending.containsKey(aTile.toId())) {
+            if (!pending.containsKey(id)) {
                 try {
-                    pending.put(aTile.toId(), owner);
-                    mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, mServiceCallback);
-                } catch (RemoteException e) {
-                    Log.e(DEBUG_TAG, "RemoteException in preCacheTile()", e);
+                    pending.put(id, owner);
+                    if (mapTileFilesystemProvider != null) {
+                        // note aTile will be reused and needs to be copied
+                        mapTileFilesystemProvider.loadMapTileAsync(new MapTile(aTile), mCallback);
+                    }
                 } catch (Exception e) {
                     Log.e(DEBUG_TAG, "Exception in preCacheTile()", e);
                 }
@@ -234,31 +197,31 @@ public class MapTileProvider<T> implements ServiceConnection {
      *            all zooms
      */
     public void flushQueue(String rendererId, int zoomLevel) {
-        if (mTileService != null) {
+        if (mapTileFilesystemProvider != null) {
             try {
-                mTileService.flushQueue(rendererId, zoomLevel);
-                // remove the same from pending
+                mThreadPool.execute(() -> {
+                    mapTileFilesystemProvider.flushQueue(rendererId, zoomLevel);
 
-                Set<String> keys;
-                synchronized (pending) {
-                    keys = new HashSet<>(pending.keySet());
-                    if (zoomLevel != MapAsyncTileProvider.ALLZOOMS) {
-                        String id = Integer.toString(zoomLevel) + rendererId;
-                        for (String key : keys) {
-                            if (key.startsWith(id)) {
-                                pending.remove(key);
+                    // remove the same from pending
+                    Set<String> keys;
+                    synchronized (pending) {
+                        keys = new HashSet<>(pending.keySet());
+                        if (zoomLevel != MapAsyncTileProvider.ALLZOOMS) {
+                            String id = Integer.toString(zoomLevel) + rendererId;
+                            for (String key : keys) {
+                                if (key.startsWith(id)) {
+                                    pending.remove(key);
+                                }
                             }
-                        }
-                    } else {
-                        for (String key : keys) {
-                            if (key.contains(rendererId)) {
-                                pending.remove(key);
+                        } else {
+                            for (String key : keys) {
+                                if (key.contains(rendererId)) {
+                                    pending.remove(key);
+                                }
                             }
                         }
                     }
-                }
-            } catch (RemoteException e) {
-                Log.e(DEBUG_TAG, "RemoteException in flushQueue()", e);
+                });
             } catch (Exception e) {
                 Log.e(DEBUG_TAG, "Exception in flushQueue()", e);
             }
@@ -272,11 +235,9 @@ public class MapTileProvider<T> implements ServiceConnection {
      * @param all if true flush the on device cache too
      */
     public void flushCache(@Nullable String rendererId, boolean all) {
-        if (all && mTileService != null) {
+        if (all && mapTileFilesystemProvider != null) {
             try {
-                mTileService.flushCache(rendererId);
-            } catch (RemoteException e) {
-                Log.e(DEBUG_TAG, "RemoteException in flushCache()", e);
+                mapTileFilesystemProvider.flushCache(rendererId);
             } catch (Exception e) {
                 Log.e(DEBUG_TAG, "Exception in flushCache()", e);
             }
@@ -288,17 +249,7 @@ public class MapTileProvider<T> implements ServiceConnection {
      * Tell the tile provider service to reread the database of TileLayerServers
      */
     public void update() {
-        if (mTileService == null) {
-            Log.e(DEBUG_TAG, "tile service is disconnected");
-            return;
-        }
-        try {
-            mTileService.update();
-        } catch (RemoteException e) {
-            Log.e(DEBUG_TAG, "RemoteException in update()", e);
-        } catch (Exception e) {
-            Log.e(DEBUG_TAG, "Exception in in update()", e);
-        }
+        // no longer in use
     }
 
     // ===========================================================
@@ -306,33 +257,23 @@ public class MapTileProvider<T> implements ServiceConnection {
     // ===========================================================
 
     /**
-     * Callback for the {@link IOpenStreetMapTileProviderService} we are using.
+     * Callback from the loading thread
      */
-    private IMapTileProviderCallback mServiceCallback = new IMapTileProviderCallback.Stub() {
+    private MapTileProviderCallback mCallback = new MapTileProviderCallback() {
 
-        /**
-         * Called after a tile has been loaded, copies the tile to the in memory cache
-         * 
-         * @param rendererID the tile renderer id
-         * @param zoomLevel the zoom level
-         * @param tileX tile x
-         * @param tileY tile y
-         * @param data tile image data
-         * @throws RemoteException if something goes wrong receiving the tile from the service
-         */
+        @Override
         public void mapTileLoaded(@NonNull final String rendererID, final int zoomLevel, final int tileX, final int tileY, @NonNull final byte[] data)
-                throws RemoteException {
-
+                throws IOException {
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
             String id = t.toId();
             try {
                 T tileBitmap = decoder.decode(unGZip(data), smallHeap);
                 if (tileBitmap == null) {
                     Log.d(DEBUG_TAG, "decoded tile is null");
-                    throw new RemoteException();
+                    throw new IOException("decoded tile is null");
                 }
                 synchronized (pending) {
-                    Long l = pending.get(t.toId());
+                    Long l = pending.get(id);
                     if (l != null) {
                         mTileCache.putTile(t, tileBitmap, l);
                     } // else wasn't in pending queue just ignore
@@ -344,7 +285,7 @@ public class MapTileProvider<T> implements ServiceConnection {
                 setSmallHeapMode();
             } catch (NullPointerException | NoClassDefFoundError npe) {
                 Log.d(DEBUG_TAG, "Exception in mapTileLoaded callback " + npe);
-                throw new RemoteException();
+                throw new IOException("Exception in mapTileLoaded callback " + npe);
             } finally {
                 synchronized (pending) {
                     pending.remove(id);
@@ -368,18 +309,9 @@ public class MapTileProvider<T> implements ServiceConnection {
             }
         }
 
-        /**
-         * Called after a tile has failed
-         * 
-         * @param rendererID the tile renderer id
-         * @param zoomLevel the zoom level
-         * @param tileX tile x
-         * @param tileY tile y
-         * @param reason error code
-         * @throws RemoteException if something goes wrong receiving the tile from the service
-         */
+        @Override
         public void mapTileFailed(@NonNull final String rendererID, final int zoomLevel, final int tileX, final int tileY, final int reason)
-                throws RemoteException {
+                throws IOException {
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
             synchronized (pending) {
                 pending.remove(t.toId());

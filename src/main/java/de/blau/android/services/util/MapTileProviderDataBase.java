@@ -119,7 +119,7 @@ public class MapTileProviderDataBase {
         Preferences prefs = new Preferences(context);
         int maxThreads = prefs.getMaxTileDownloadThreads();
         getStatements = new Pools.SynchronizedPool<>(maxThreads);
-        Log.i(DEBUG_TAG, "Allocating " + maxThreads + " prepared statements");
+        Log.i(DEBUG_TAG, "Allocating " + (maxThreads) + " prepared statements");
         for (int i = 0; i < maxThreads; i++) {
             getStatements.release(mDatabase.compileStatement(T_FSCACHE_GET));
         }

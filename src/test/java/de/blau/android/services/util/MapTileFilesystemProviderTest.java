@@ -19,14 +19,12 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
 import android.database.sqlite.SQLiteDatabase;
-import android.os.IBinder;
-import android.os.RemoteException;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.MockTileServer;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
-import de.blau.android.services.IMapTileProviderCallback;
+import de.blau.android.views.util.MapTileProviderCallback;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 
@@ -99,18 +97,13 @@ public class MapTileFilesystemProviderTest {
         CallbackWithResult callback = new CallbackWithResult() {
 
             @Override
-            public IBinder asBinder() {
-                return null;
-            }
-
-            @Override
-            public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage) throws RemoteException {
+            public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage) throws IOException {
                 result = 1;
                 signal1.countDown();
             }
 
             @Override
-            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws RemoteException {
+            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws IOException {
                 result = 2;
                 signal1.countDown();
             }
@@ -148,7 +141,7 @@ public class MapTileFilesystemProviderTest {
         assertEquals(1, tileServer.getRequestCount());
     }
 
-    abstract class CallbackWithResult implements IMapTileProviderCallback {
+    abstract class CallbackWithResult implements MapTileProviderCallback {
         int result;
     }
 
@@ -162,20 +155,15 @@ public class MapTileFilesystemProviderTest {
         CallbackWithResult callback = new CallbackWithResult() {
 
             @Override
-            public IBinder asBinder() {
-                return null;
-            }
-
-            @Override
-            public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage) throws RemoteException {
+            public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage) throws IOException {
                 result = 0;
                 signal1.countDown();
             }
 
             @Override
-            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws RemoteException {
+            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws IOException {
                 result = reason;
-                signal1.countDown();              
+                signal1.countDown();
             };
         };
         provider.loadMapTileAsync(mockedTile, callback);

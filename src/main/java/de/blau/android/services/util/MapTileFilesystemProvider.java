@@ -11,22 +11,22 @@ import java.util.concurrent.ThreadPoolExecutor;
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Looper;
-import android.os.RemoteException;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import de.blau.android.R;
 import de.blau.android.exception.InvalidTileException;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
-import de.blau.android.services.IMapTileProviderCallback;
 import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.util.CustomDatabaseContext;
 import de.blau.android.util.Notifications;
 import de.blau.android.util.Snack;
+import de.blau.android.views.util.MapTileProviderCallback;
 
 /**
  * 
@@ -104,7 +104,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     // ===========================================================
 
     @Override
-    protected Runnable getTileLoader(MapTile aTile, IMapTileProviderCallback aCallback) {
+    public Runnable getTileLoader(MapTile aTile, MapTileProviderCallback aCallback) {
         return new TileLoader(aTile, aCallback);
     }
 
@@ -199,7 +199,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
          * @param aTile the tile descriptor
          * @param aCallback the callback to the provider
          */
-        public TileLoader(@NonNull final MapTile aTile, @NonNull final IMapTileProviderCallback aCallback) {
+        public TileLoader(@NonNull final MapTile aTile, @NonNull final MapTileProviderCallback aCallback) {
             super(aTile, aCallback);
         }
 
@@ -251,7 +251,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                     }
                 } else {
                     try {
-                        byte[] data = MapTileFilesystemProvider.this.mDatabase.getTile(mTile);
+                        byte[] data = mDatabase.getTile(mTile);
                         if (data == null) {
                             if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
                                 Log.d(DEBUG_TAG, "FS failed, request for download " + mTile + " " + mTile.toId());
@@ -268,7 +268,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                 if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
                     Log.d(DEBUG_TAG, "Loaded: " + mTile.toString());
                 }
-            } catch (IOException | RemoteException | NullPointerException | IllegalStateException e) {
+            } catch (IOException | NullPointerException | IllegalStateException e) {
                 if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
                     Log.d(DEBUG_TAG, "Tile loading failed", e);
                 }
@@ -294,27 +294,25 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
          * 
          * @param tile the tile
          * @param code a code indicating the issue
-         * @throws RemoteException Binder remote-invocation error
          */
-        private void failed(@NonNull MapTile tile, int code) throws RemoteException {
-            mCallback.mapTileFailed(tile.rendererID, tile.zoomLevel, tile.x, tile.y, code);
+        private void failed(@NonNull MapTile tile, int code) {
+            try {
+                mCallback.mapTileFailed(tile.rendererID, tile.zoomLevel, tile.x, tile.y, code);
+            } catch (IOException e) {
+                Log.e(DEBUG_TAG, "mapTileFailed failed with " + e.getMessage());
+            }
         }
 
-        IMapTileProviderCallback passedOnCallback = new IMapTileProviderCallback() {
+        MapTileProviderCallback passedOnCallback = new MapTileProviderCallback() {
 
             @Override
-            public IBinder asBinder() {
-                return mCallback.asBinder();
-            }
-
-            @Override
-            public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage) throws RemoteException {
+            public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage) throws IOException {
                 mCallback.mapTileLoaded(rendererID, zoomLevel, tileX, tileY, aImage);
                 finished();
             }
 
             @Override
-            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws RemoteException {
+            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws IOException {
                 mCallback.mapTileFailed(rendererID, zoomLevel, tileX, tileY, reason);
                 finished();
             }
@@ -343,5 +341,71 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
      */
     public void markAsInvalid(@NonNull MapTile mTile) throws IOException {
         mDatabase.addTile(mTile, null);
+    }
+
+    /**
+     * Get an instance of the MapTileProvider that uses a sqlite DB for caching
+     * 
+     * @param ctx an Android Context
+     * @return the provider or null if the DB cannot be created
+     */
+    @Nullable
+    public static MapTileFilesystemProvider getInstance(@NonNull Context ctx) {
+        Preferences prefs = new Preferences(ctx);
+        int tileCacheSize = prefs.getTileCacheSize();
+        boolean preferRemovableStorage = prefs.preferRemovableStorage();
+
+        File mountPoint = null;
+
+        for (File dir : ContextCompat.getExternalFilesDirs(ctx, null)) { // iterate over the directories
+                                                                         // preferring a removable one if
+                                                                         // required
+            if (dir == null) {
+                Log.d(DEBUG_TAG, "storage dir null");
+                continue;
+            }
+            Log.d(DEBUG_TAG, "candidate storage directory " + dir.getPath());
+            if (MapTileProviderDataBase.exists(dir)) { // existing tile cache, only use if we can write
+                if (dir.canWrite()) {
+                    mountPoint = dir;
+                    break;
+                }
+            } else if (dir.canWrite()) {
+                mountPoint = dir;
+                if (preferRemovableStorage && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    try {
+                        if (Environment.isExternalStorageRemovable(dir)) {
+                            // prefer removable storage
+                            Log.d(DEBUG_TAG, "isExternalStorageRemovable claims dir is removable");
+                            break;
+                        }
+                    } catch (IllegalArgumentException iae) {
+                        // we've seen this on some devices even if it doesn't make sense
+                        Log.d(DEBUG_TAG, "isExternalStorageRemovable didn't like " + dir);
+                    }
+                } else {
+                    break; // just use the first writable directory
+                }
+            } else {
+                Log.d(DEBUG_TAG, dir.getPath() + " not writable");
+            }
+        }
+
+        MapTileFilesystemProvider result = null;
+        if (mountPoint != null) {
+            // mountPointWriteable = true;
+            Log.d(DEBUG_TAG, "Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
+            try {
+                result = new MapTileFilesystemProvider(ctx, mountPoint, tileCacheSize * 1024 * 1024); // FSCache
+                // try to get BING layer early so the meta-data is already loaded
+                TileLayerSource.get(ctx, TileLayerSource.LAYER_BING, false);
+            } catch (SQLiteException slex) {
+                Log.d(DEBUG_TAG, "Opening DB hit " + slex);
+            }
+        } else {
+            Snack.toastTopError(ctx, R.string.toast_no_suitable_storage);
+        }
+        // Snack.toastTopError(this, getString(R.string.toast_storage_error, mountPoint));
+        return result;
     }
 }
