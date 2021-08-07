@@ -370,7 +370,7 @@ public class TileLayerSource implements Serializable {
     public static final int DEFAULT_MAX_OVERZOOM = 4;
 
     public static final int DEFAULT_TILE_SIZE = 256;
-    public static final int WMS_TILE_SIZE     = 256;
+    public static final int WMS_TILE_SIZE     = 512;
 
     private static final String WMS_AXIS_XY = "XY";
     private static final String WMS_AXIS_YX = "YX";
