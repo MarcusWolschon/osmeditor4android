@@ -393,7 +393,6 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
 
         MapTileFilesystemProvider result = null;
         if (mountPoint != null) {
-            // mountPointWriteable = true;
             Log.d(DEBUG_TAG, "Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
             try {
                 result = new MapTileFilesystemProvider(ctx, mountPoint, tileCacheSize * 1024 * 1024); // FSCache
@@ -405,7 +404,6 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
         } else {
             Snack.toastTopError(ctx, R.string.toast_no_suitable_storage);
         }
-        // Snack.toastTopError(this, getString(R.string.toast_storage_error, mountPoint));
         return result;
     }
 }

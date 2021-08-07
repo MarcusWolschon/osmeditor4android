@@ -21,14 +21,9 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.database.sqlite.SQLiteException;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import de.blau.android.filter.PresetFilter;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
@@ -41,15 +36,12 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.propertyeditor.PropertyEditor;
-import de.blau.android.resources.TileLayerSource;
-import de.blau.android.services.util.MapTileFilesystemProvider;
-import de.blau.android.services.util.MapTileProviderDataBase;
 import de.blau.android.presets.Synonyms;
+import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.services.util.MapTileFilesystemProvider;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.NotificationCache;
-import de.blau.android.util.Snack;
 import de.blau.android.util.TagClipboard;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
@@ -65,8 +57,6 @@ import okhttp3.OkHttpClient;
 @AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
 
 public class App extends android.app.Application implements android.app.Application.ActivityLifecycleCallbacks {
-
-    private static final String DEBUG_TAG = App.class.getSimpleName();
 
     private static final String     RHINO_LAZY_LOAD = "lazyLoad";
     private static App              currentInstance;
