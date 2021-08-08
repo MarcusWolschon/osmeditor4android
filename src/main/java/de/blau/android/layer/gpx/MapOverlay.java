@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -44,8 +47,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     /** Map this is an overlay of. */
     private final transient Map map;
 
-    private final transient FloatPrimitiveList linePoints = new FloatPrimitiveList(); // final transient fields get
-                                                                                      // recreated
+    private final ExecutorService executorService;
+
+    private final transient ArrayList<FloatPrimitiveList> linePointsList; // final transient fields get recreated
 
     public static final String FILENAME = "gpxlayer.res";
 
@@ -62,6 +66,21 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     public MapOverlay(@NonNull final Map map) {
         this.map = map;
         resetStyling();
+
+        int concurrency = Runtime.getRuntime().availableProcessors();
+        if (concurrency > 4) {
+            // Typically has big+little architecture. Try to avoid the 'little' cores
+            // as they would need a smaller chunk to finish in similar time.
+            // E.g. on Samsung A50 it's faster to use only the 4 fast cores instead of using
+            // all 8 cores and wait for 4 slower cores to finish their equal sized chunk.
+            concurrency /= 2;
+        }
+        Log.d(DEBUG_TAG,"using " + concurrency + " threads");
+        executorService = Executors.newFixedThreadPool(concurrency);
+        linePointsList = new ArrayList<>(concurrency);
+        for(int i = 0; i < concurrency; i++) {
+            linePointsList.add(new FloatPrimitiveList());
+        }
     }
 
     @Override
@@ -75,11 +94,45 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         if (!isVisible || tracker == null) {
             return;
         }
+        //long t0 = System.currentTimeMillis();
         List<TrackPoint> trackPoints = tracker.getTrackPoints();
         if (!trackPoints.isEmpty()) {
-            map.pointListToLinePointsArray(linePoints, trackPoints);
-            GeoMath.squashPointsArray(linePoints, getStrokeWidth() * 2);
-            canvas.drawLines(linePoints.getArray(), 0, linePoints.size(), paint);
+            if (trackPoints.size() < 10000 || linePointsList.size() == 1) {
+                final FloatPrimitiveList linePoints = linePointsList.get(0);
+                map.pointListToLinePointsArray(linePoints, trackPoints);
+                GeoMath.squashPointsArray(linePoints, getStrokeWidth() * 2);
+                canvas.drawLines(linePoints.getArray(), 0, linePoints.size(), paint);
+            } else {
+                int offset = 0;
+                int length = trackPoints.size() / linePointsList.size();
+                List<Callable<Void>> callableTasks = new ArrayList<>();
+                for (int i = linePointsList.size() - 1; i >= 0; i--) {
+                    final FloatPrimitiveList finalLinePoints = linePointsList.get(i);
+                    final int finalOffset = offset;
+                    final int finalLength;
+                    if (i != 0) {
+                        finalLength = length + 1; // + 1 to join with next chunk
+                    } else {
+                        finalLength = trackPoints.size() - offset; // last chunk slightly different due to division remainder
+                    }
+                    callableTasks.add(() -> {
+                        //long t1 = System.currentTimeMillis();
+                        map.pointListToLinePointsArray(finalLinePoints, trackPoints, finalOffset, finalLength);
+                        GeoMath.squashPointsArray(finalLinePoints, getStrokeWidth() * 2);
+                        canvas.drawLines(finalLinePoints.getArray(), 0, finalLinePoints.size(), paint);
+                        //Log.d(DEBUG_TAG, "onDraw: duration=" + (System.currentTimeMillis()-t1) + ", offset=" +
+                        //        finalOffset + ", length=" + finalLength + ", draw=" + finalLinePoints.size());
+                        return null;
+                    });
+                    offset += length;
+                }
+                try {
+                    executorService.invokeAll(callableTasks);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            //Log.d(DEBUG_TAG, "onDraw: duration=" + (System.currentTimeMillis() - t0));
         }
         WayPoint[] wayPoints = tracker.getTrack().getWayPoints();
         if (wayPoints.length != 0 && symbolPath != null) {
