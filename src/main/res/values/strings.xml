@@ -1019,6 +1019,9 @@ avoided by using an offline data source.</string>
     <string name="config_beepVolume_title">Beep volume</string>
     <string name="config_beepVolume_summary">Volume setting for beeps.</string>
     <string name="config_beepVolume_current">%1$d</string>
+    <string name="config_mapillary_min_zoom_title">Minimum zoom for Mapillary</string>
+    <string name="config_mapillary_min_zoom_summary">Minimum zoom level required before Mapillary data is displayed.</string>
+    <string name="config_mapillary_min_zoom_current">%1$d</string>
     
     <!-- Data and Editing Settings -->
     <string name="config_category_editing">Data and edit settings</string>

@@ -73,6 +73,7 @@ public class Preferences {
     private String        taginfoServer;
     private String        mapillarySequencesUrlV4;
     private String        mapillaryImagesUrlV4;
+    private final int     mapillaryMinZoom;
     private final boolean showCameraAction;
     private final boolean useInternalPhotoViewer;
     private final boolean generateAlerts;
@@ -193,7 +194,8 @@ public class Preferences {
         taginfoServer = prefs.getString(r.getString(R.string.config_taginfoServer_key), Urls.DEFAULT_TAGINFO_SERVER);
         mapillarySequencesUrlV4 = prefs.getString(r.getString(R.string.config_mapillarySequencesUrlV4_key), Urls.DEFAULT_MAPILLARY_SEQUENCES_URL_V4);
         mapillaryImagesUrlV4 = prefs.getString(r.getString(R.string.config_mapillaryImagesUrlV4_key), Urls.DEFAULT_MAPILLARY_IMAGES_V4);
-
+        mapillaryMinZoom = getIntPref(R.string.config_mapillary_min_zoom_key, de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_DEFAULT_MIN_ZOOM);
+        
         showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
         useInternalPhotoViewer = prefs.getBoolean(r.getString(R.string.config_useInternalPhotoViewer_key), true);
 
@@ -758,6 +760,15 @@ public class Preferences {
         prefs.edit().putString(r.getString(R.string.config_mapillaryImagesUrlV4_key), url).commit();
     }
 
+    /**
+     * Get the minimum zoom for mapillary data to be displayed
+     * 
+     * @return the minimum zoom
+     */
+    public int getMapillaryMinZoom() {
+        return mapillaryMinZoom;
+    }
+    
     /**
      * Check if we should show a camera button on the main map screen
      * 
