@@ -2167,6 +2167,7 @@ public class Logic {
      */
     public void performOrthogonalize(@Nullable FragmentActivity activity, @Nullable Way way) {
         if (way == null || way.getNodes().size() < 3) {
+            Log.e(DEBUG_TAG, "performOrthogonalize way " + (way == null ? "is null" : " has " + way.nodeCount()) + " nodes");
             return;
         }
         performOrthogonalize(activity, Util.wrapInList(way));
@@ -2182,6 +2183,7 @@ public class Logic {
      */
     public void performOrthogonalize(@Nullable FragmentActivity activity, @Nullable List<Way> ways) {
         if (ways == null || ways.isEmpty()) {
+            Log.e(DEBUG_TAG, "performOrthogonalize no ways");
             return;
         }
 
@@ -3014,45 +3016,18 @@ public class Logic {
      * @param id id of the element
      * @return element if successful, null if not
      */
+    @Nullable
     public synchronized OsmElement getElement(@Nullable final Activity activity, final String type, final long id) {
 
         class GetElementTask extends AsyncTask<Void, Void, OsmElement> {
-            int result = 0;
 
             @Override
             protected OsmElement doInBackground(Void... arg) {
-                OsmElement element = null;
-                try {
-                    final OsmParser osmParser = new OsmParser();
-                    final InputStream in = getPrefs().getServer().getStreamForElement(activity, Way.NAME.equals(type) ? "full" : null, type, id);
-                    try {
-                        osmParser.start(in);
-                        element = osmParser.getStorage().getOsmElement(type, id);
-                    } finally {
-                        SavingHelper.close(in);
-                    }
-                } catch (SAXException e) {
-                    Log.e(DEBUG_TAG, "getElement problem parsing", e);
-                    Exception ce = e.getException();
-                    if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-                        result = ErrorCodes.OUT_OF_MEMORY;
-                    } else {
-                        result = ErrorCodes.INVALID_DATA_RECEIVED;
-                    }
-                } catch (ParserConfigurationException e) {
-                    // crash and burn
-                    // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
-                    // network device... need to display what we actually got
-                    Log.e(DEBUG_TAG, "getElement problem parsing", e);
-                    result = ErrorCodes.INVALID_DATA_RECEIVED;
-                } catch (OsmServerException e) {
-                    result = e.getErrorCode();
-                    Log.e(DEBUG_TAG, "getElement problem downloading", e);
-                } catch (IOException e) {
-                    result = ErrorCodes.NO_CONNECTION;
-                    Log.e(DEBUG_TAG, "getElement problem downloading", e);
+                final OsmParser osmParser = new OsmParser();
+                if (downloadElement(activity, type, id, false, false, osmParser) == ErrorCodes.OK) {
+                    return osmParser.getStorage().getOsmElement(type, id);
                 }
-                return element;
+                return null;
             }
         }
         GetElementTask loader = new GetElementTask();
@@ -3085,30 +3060,9 @@ public class Logic {
         class DownLoadElementTask extends AsyncTask<Void, Void, Integer> {
             @Override
             protected Integer doInBackground(Void... arg) {
-                int result = 0;
-                try {
-                    final Server server = getPrefs().getServer();
-                    final OsmParser osmParser = new OsmParser();
-
-                    // TODO this currently does not retrieve ways the node may be a member of
-                    // we always retrieve ways with nodes, relations "full" is optional
-                    InputStream in = server.getStreamForElement(ctx, (type.equals(Relation.NAME) && relationFull) || type.equals(Way.NAME) ? "full" : null,
-                            type, id);
-
-                    try {
-                        osmParser.start(in);
-                    } finally {
-                        SavingHelper.close(in);
-                    }
-                    if (withParents) {
-                        // optional retrieve relations the element is a member of
-                        in = server.getStreamForElement(ctx, "relations", type, id);
-                        try {
-                            osmParser.start(in);
-                        } finally {
-                            SavingHelper.close(in);
-                        }
-                    }
+                final OsmParser osmParser = new OsmParser();
+                int result = downloadElement(ctx, type, id, relationFull, withParents, osmParser);
+                if (result == ErrorCodes.OK) {
                     try {
                         // FIXME need to check if providing a handler makes sense here
                         if (!getDelegator().mergeData(osmParser.getStorage(), null)) {
@@ -3117,33 +3071,13 @@ public class Logic {
                     } catch (IllegalStateException iex) {
                         result = ErrorCodes.CORRUPTED_DATA;
                     }
-                } catch (SAXException e) {
-                    Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
-                    Exception ce = e.getException();
-                    if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-                        result = ErrorCodes.OUT_OF_MEMORY;
-                    } else {
-                        result = ErrorCodes.INVALID_DATA_RECEIVED;
-                    }
-                } catch (ParserConfigurationException e) {
-                    // crash and burn
-                    // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
-                    // network device... need to display what we actually got
-                    Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
-                    result = ErrorCodes.INVALID_DATA_RECEIVED;
-                } catch (OsmServerException e) {
-                    result = e.getErrorCode();
-                    Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
-                } catch (IOException e) {
-                    result = ErrorCodes.NO_CONNECTION;
-                    Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
                 }
                 return result;
             }
 
             @Override
             protected void onPostExecute(Integer result) {
-                if (result == 0) {
+                if (result == ErrorCodes.OK) {
                     if (postLoadHandler != null) {
                         postLoadHandler.onSuccess();
                     }
@@ -3168,6 +3102,65 @@ public class Logic {
         } else {
             return 0;
         }
+    }
+
+    /**
+     * Download an element from the OSM API
+     * 
+     * @param ctx optional Android Context
+     * @param type type the element type ("node", "way", "relation")
+     * @param id the OSM id
+     * @param relationFull if type is "relation" then include member elements
+     * @param withParents include relations the element is a member of
+     * @param osmParser the OsmParser instance that will hold the download result
+     * @return an error code or 0 for success
+     */
+    private int downloadElement(@Nullable final Context ctx, @NonNull final String type, final long id, final boolean relationFull, final boolean withParents,
+            @NonNull final OsmParser osmParser) {
+        int result = ErrorCodes.OK;
+        try {
+            final Server server = getPrefs().getServer();
+
+            // TODO this currently does not retrieve ways the node may be a member of
+            // we always retrieve ways with nodes, relations "full" is optional
+            InputStream in = server.getStreamForElement(ctx, (Relation.NAME.equals(type) && relationFull) || Way.NAME.equals(type) ? "full" : null, type, id);
+
+            try {
+                osmParser.start(in);
+            } finally {
+                SavingHelper.close(in);
+            }
+            if (withParents) {
+                // optional retrieve relations the element is a member of
+                in = server.getStreamForElement(ctx, "relations", type, id);
+                try {
+                    osmParser.start(in);
+                } finally {
+                    SavingHelper.close(in);
+                }
+            }
+        } catch (SAXException e) {
+            Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
+            Exception ce = e.getException();
+            if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
+                result = ErrorCodes.OUT_OF_MEMORY;
+            } else {
+                result = ErrorCodes.INVALID_DATA_RECEIVED;
+            }
+        } catch (ParserConfigurationException e) {
+            // crash and burn
+            // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
+            // network device... need to display what we actually got
+            Log.e(DEBUG_TAG, "downloadElement problem with parser", e);
+            result = ErrorCodes.INVALID_DATA_RECEIVED;
+        } catch (OsmServerException e) {
+            result = e.getErrorCode();
+            Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
+        } catch (IOException e) {
+            result = ErrorCodes.NO_CONNECTION;
+            Log.e(DEBUG_TAG, "downloadElement no connection", e);
+        }
+        return result;
     }
 
     /**

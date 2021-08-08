@@ -392,15 +392,16 @@ public final class GeoMath {
     public static double getLineDistance(double x, double y, double node1X, double node1Y, double node2X, double node2Y) {
         // http://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
         // (adaptation of Ben Gotow's post of 23-Jun-2012, originally Joshua's post of 28-Jul-2011)
-        double a, b, c, d, dot, len2, t, xx, yy;
-        a = x - node1X;
-        b = y - node1Y;
-        c = node2X - node1X;
-        d = node2Y - node1Y;
-        dot = a * c + b * d;
-        len2 = c * c + d * d;
+        double xx;
+        double yy;
+        double a = x - node1X;
+        double b = y - node1Y;
+        double c = node2X - node1X;
+        double d = node2Y - node1Y;
+        double dot = a * c + b * d;
+        double len2 = c * c + d * d;
         // find the closest point (xx,yy) on the line segment (node1..node2) to the point (x,y)
-        t = (len2 == 0.0) ? -1.0 : dot / len2;
+        double t = (len2 == 0.0) ? -1.0 : dot / len2;
         if (t < 0.0) {
             // closest point on infinite line is past node1 end
             xx = node1X;
@@ -432,7 +433,8 @@ public final class GeoMath {
         // http://paulbourke.net/geometry/pointline/
         float dx = node2X - node1X;
         float dy = node2Y - node1Y;
-        float cx, cy;
+        float cx;
+        float cy;
         if (dx == 0.0d && dy == 0.0d) {
             // node1 and node2 are the same
             cx = node1X;
@@ -463,7 +465,6 @@ public final class GeoMath {
      * @return distance between the two point in meters
      */
     public static double haversineDistance(double lon1, double lat1, double lon2, double lat2) {
-
         double dLat = Math.toRadians(lat2 - lat1);
         double dLon = Math.toRadians(lon2 - lon1);
         lat1 = Math.toRadians(lat1);
@@ -484,7 +485,6 @@ public final class GeoMath {
      * @return a bearing in degrees
      */
     public static long bearing(double lon1, double lat1, double lon2, double lat2) {
-
         lat1 = Math.toRadians(lat1);
         lat2 = Math.toRadians(lat2);
         double dLon = Math.toRadians(lon2 - lon1);
@@ -597,11 +597,14 @@ public final class GeoMath {
         int i; // current input line index
         int i0; // first squashable input line index
         int o; // current output line index
-        float dx, dy, len;
+        float dx;
+        float dy;
+        float len;
         for (i = 0, i0 = 0, o = 0; i < points.size(); i += 4) {
             dx = Math.abs(points.get(i) - points.get(i + 2));
             dy = Math.abs(points.get(i + 1) - points.get(i + 3));
-            len = (dx > dy) ? (dx + dy / 2) : (dy + dx / 2); // quick upper bound of line length: is 1.5 for diagonal line instead of sqrt(2)~=1.41
+            len = (dx > dy) ? (dx + dy / 2) : (dy + dx / 2); // quick upper bound of line length: is 1.5 for diagonal
+                                                             // line instead of sqrt(2)~=1.41
             if (len > maxLen) { // single line length
                 if (i != i0) {
                     points.set(o, points.get(i0));
@@ -646,7 +649,7 @@ public final class GeoMath {
             points.set(o + 3, points.get(i - 1));
             o += 4;
         }
-        //Log.d(DEBUG_TAG, "squash " + points.size() / 4 + " to " + o / 4 + " lines");
+        // Log.d(DEBUG_TAG, "squash " + points.size() / 4 + " to " + o / 4 + " lines");
         points.truncate(o);
     }
 
