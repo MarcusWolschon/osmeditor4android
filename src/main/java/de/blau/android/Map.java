@@ -894,6 +894,23 @@ public class Map extends View implements IMapView {
      *            GPS track)
      */
     public void pointListToLinePointsArray(@NonNull final FloatPrimitiveList points, @NonNull final List<? extends GeoPoint> nodes) {
+        pointListToLinePointsArray(points, nodes, 0, nodes.size());
+    }
+
+    /**
+     * Converts a geographical way/path/track to a list of screen-coordinate points for drawing.
+     *
+     * Only segments that are inside the ViewBox are included.
+     *
+     * @param points list to (re-)use for projected points in the format expected by
+     *            {@link Canvas#drawLines(float[], Paint)}
+     * @param nodes An iterable (e.g. List or array) with GeoPoints of the line that should be drawn (e.g. a Way or a
+     *            GPS track)
+     * @param nodesOffset begin in {@param nodes} list
+     * @param nodesLength end in {@param nodes} list
+     */
+    public void pointListToLinePointsArray(@NonNull final FloatPrimitiveList points, @NonNull final List<? extends GeoPoint> nodes,
+                                           int nodesOffset, int nodesLength) {
         points.clear(); // reset
         boolean testInterrupted = false;
         // loop over all nodes
@@ -908,19 +925,19 @@ public class Map extends View implements IMapView {
         int h = getHeight();
         boolean thisIntersects = false;
         boolean nextIntersects = false;
-        int nodesSize = nodes.size();
-        if (nodesSize > 0) {
-            GeoPoint nextNode = nodes.get(0);
+        if (nodesLength > 0) {
+            int nodesSize = nodesOffset + nodesLength;
+            GeoPoint nextNode = nodes.get(nodesOffset);
             int nextNodeLat = nextNode.getLat();
             int nextNodeLon = nextNode.getLon();
             float x = -Float.MAX_VALUE;
             float y = -Float.MAX_VALUE;
-            for (int i = 0; i < nodesSize; i++) {
+            for (int i = nodesOffset; i < nodesSize; i++) {
                 GeoPoint node = nextNode;
                 int nodeLon = nextNodeLon;
                 int nodeLat = nextNodeLat;
                 boolean interrupted = false;
-                if (i == 0) { // just do this once
+                if (i == nodesOffset) { // just do this once
                     testInterrupted = node instanceof InterruptibleGeoPoint;
                 }
                 if (testInterrupted && node != null) {
