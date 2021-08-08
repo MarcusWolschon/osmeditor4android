@@ -234,7 +234,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
      */
     private void showImages(@NonNull FragmentActivity activity, @NonNull Long id, @NonNull ArrayList<String> ids) {
         int pos = ids.indexOf(id.toString());
-        if (pos >= 0) {
+        if (pos >= 0 && cacheDir != null) {
             String imagesUrl = String.format(mapillaryImagesUrl, "%s", apiKey);
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                 PhotoViewerFragment.showDialog(activity, ids, pos, new MapillaryLoader(cacheDir, cacheSize, imagesUrl, ids));
