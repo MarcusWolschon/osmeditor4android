@@ -60,7 +60,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     private final Random                              random          = new Random();
 
     /** online provider */
-    private MapTileDownloader mTileDownloader;
+    private final MapTileDownloader mTileDownloader;
 
     // ===========================================================
     // Constructors
@@ -104,7 +104,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     // ===========================================================
 
     @Override
-    public Runnable getTileLoader(MapTile aTile, MapTileProviderCallback aCallback) {
+    public Runnable getTileLoader(@NonNull MapTile aTile, @NonNull MapTileProviderCallback aCallback) {
         return new TileLoader(aTile, aCallback);
     }
 
@@ -181,7 +181,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     }
 
     @Override
-    public void flushQueue(String rendererId, int zoom) {
+    public void flushQueue(@NonNull String rendererId, int zoom) {
         // don't bother flushing our queue
         // just do it for downloads
         mTileDownloader.flushQueue(rendererId, zoom);
@@ -205,7 +205,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
 
         @Override
         public void run() {
-            /**
+            /*
              * If we don't have the tile in the database and need to download we have to keep the tile in our queue
              * until the download attempt is finished
              */
@@ -306,13 +306,13 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
         MapTileProviderCallback passedOnCallback = new MapTileProviderCallback() {
 
             @Override
-            public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage) throws IOException {
+            public void mapTileLoaded(@NonNull String rendererID, int zoomLevel, int tileX, int tileY, @NonNull byte[] aImage) throws IOException {
                 mCallback.mapTileLoaded(rendererID, zoomLevel, tileX, tileY, aImage);
                 finished();
             }
 
             @Override
-            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws IOException {
+            public void mapTileFailed(@NonNull String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws IOException {
                 mCallback.mapTileFailed(rendererID, zoomLevel, tileX, tileY, reason);
                 finished();
             }
