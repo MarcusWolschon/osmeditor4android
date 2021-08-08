@@ -58,8 +58,10 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
 
     private static final String DEBUG_TAG = MapOverlay.class.getSimpleName();
 
-    public static final String MAPILLARY_TILES_ID         = "NEW-MAPILLARY";
-    public static final int    MAPILLARY_DEFAULT_MIN_ZOOM = 16;
+    public static final String MAPILLARY_TILES_ID           = "MAPILLARYV4";
+    public static final int    MAPILLARY_DEFAULT_MIN_ZOOM   = 16;
+    public static final int    MAPILLARY_DEFAULT_CACHE_SIZE = 100;
+    private static final long  ONE_MILLION                  = 1000000L;
 
     // mapbox gl style layer ids
     private static final String SELECTED_IMAGE_LAYER = "selected_image";
@@ -101,7 +103,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
     /**
      * Download related stuff
      */
-    private long cacheSize = 100000000L;
+    private long cacheSize = MAPILLARY_DEFAULT_CACHE_SIZE * ONE_MILLION;
 
     private JsonArray selectedFilter = null;
 
@@ -219,7 +221,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
      * Check if this Feature geometry is a Point
      * 
      * @param f the Feature
-     * @return true if the geometry is a Poinz
+     * @return true if the geometry is a Point
      */
     private boolean isPoint(@NonNull de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
         return GeoJSONConstants.POINT.equals(f.getGeometry().type());
@@ -248,7 +250,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
     }
 
     /**
-     * Runnable that will fetch a sequence from the Mapillar API
+     * Runnable that will fetch a sequence from the Mapillary API
      * 
      * @author simon
      *
@@ -441,7 +443,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
 
     @Override
     public void setPrefs(Preferences prefs) {
-        cacheSize = prefs.getMapillaryCacheSize() * 1000000L;
+        cacheSize = prefs.getMapillaryCacheSize() * ONE_MILLION;
         mapillarySequencesUrl = prefs.getMapillarySequencesUrlV4();
         mapillaryImagesUrl = prefs.getMapillaryImagesUrlV4();
     }

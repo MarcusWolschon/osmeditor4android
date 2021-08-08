@@ -376,7 +376,7 @@ public class TileLayerSource implements Serializable {
     private static final String WMS_AXIS_YX = "YX";
 
     public enum Category {
-        photo, map, historicmap, osmbasedmap, historicphoto, qa, other, elevation // NOSONAR
+        photo, map, historicmap, osmbasedmap, historicphoto, qa, other, elevation, internal // NOSONAR
     }
 
     // ===========================================================
@@ -1331,6 +1331,10 @@ public class TileLayerSource implements Serializable {
         TileLayerSource noneLayer = null;
         List<TileLayerSource> list = new ArrayList<>();
         for (TileLayerSource osmts : servers.values()) {
+            if (Category.internal.equals(osmts.getCategory())) {
+                // never return internal configs
+                continue;
+            }
             if (filtered) {
                 if (category != null && !category.equals(osmts.getCategory())) {
                     continue;

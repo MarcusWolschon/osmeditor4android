@@ -142,7 +142,7 @@ public class Preferences {
 
         tileCacheSize = getIntPref(R.string.config_tileCacheSize_key, 100);
         preferRemovableStorage = prefs.getBoolean(r.getString(R.string.config_preferRemovableStorage_key), true);
-        mapillaryCacheSize = getIntPref(R.string.config_mapillaryCacheSize_key, 100);
+        mapillaryCacheSize = getIntPref(R.string.config_mapillaryCacheSize_key, de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_DEFAULT_CACHE_SIZE);
 
         downloadRadius = getIntPref(R.string.config_extTriggeredDownloadRadius_key, 50);
         maxDownloadSpeed = getIntPref(R.string.config_maxDownloadSpeed_key, 10);
