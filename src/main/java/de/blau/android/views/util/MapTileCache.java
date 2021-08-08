@@ -26,7 +26,7 @@ public class MapTileCache<T> {
     // ===========================================================
 
     private static final String DEBUG_TAG = "MapTileCache";
-    private LRUMapTileCache<T>  mCachedTiles;
+    private final LRUMapTileCache<T>  mCachedTiles;
 
     // ===========================================================
     // Constructors

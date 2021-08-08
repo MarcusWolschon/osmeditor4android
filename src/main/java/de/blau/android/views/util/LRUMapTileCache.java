@@ -46,7 +46,7 @@ public class LRUMapTileCache<T> {
     private final List<CacheElement<T>> list;
     private final List<CacheElement<T>> reuseList;
 
-    private class CacheElement<B> {
+    private static class CacheElement<B> {
         boolean recycleable = true;
         String  key;
         B       blob;
@@ -56,7 +56,7 @@ public class LRUMapTileCache<T> {
          * Container for a cached Bitmap
          * 
          * @param key the key in to the cache
-         * @param bitmap the Bitmap
+         * @param blob the bytes to cache
          * @param recycleable if true the Bitmap can be recycled
          * @param owner owner reference
          */
@@ -68,7 +68,7 @@ public class LRUMapTileCache<T> {
          * Initialize the container
          * 
          * @param key the key in to the cache
-         * @param bitmap the Bitmap
+         * @param blob the bytes to cache
          * @param recycleable if true the Bitmap can be recycled
          * @param owner owner reference
          */
@@ -142,7 +142,7 @@ public class LRUMapTileCache<T> {
             CacheElement<T> ce = list.remove(list.size() - 1);
             if (ce.owner == owner && owner != 0) {
                 // cache is being thrashed because it is too small, fail
-                Log.d(DEBUG_TAG, "cache too small, failing");
+                Log.e(DEBUG_TAG, "cache too small, failing");
                 return false;
             }
             if (cache.remove(ce.key) == null) {
@@ -152,7 +152,7 @@ public class LRUMapTileCache<T> {
             T b = ce.blob;
             if (b instanceof Bitmap && !((Bitmap) b).isRecycled()) {
                 Bitmap bitmap = (Bitmap) b;
-                cacheSize -= bitmap.getRowBytes() * bitmap.getHeight();
+                cacheSize -= (long) bitmap.getRowBytes() * bitmap.getHeight();
                 if (ce.recycleable) {
                     bitmap.recycle();
                 }
