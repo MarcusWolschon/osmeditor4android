@@ -54,11 +54,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONAR
+public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
 
     private static final String DEBUG_TAG = MapOverlay.class.getSimpleName();
 
-    public static final String MAPILLARY_TILES_ID = "NEW-MAPILLARY";
+    public static final String MAPILLARY_TILES_ID         = "NEW-MAPILLARY";
+    public static final int    MAPILLARY_DEFAULT_MIN_ZOOM = 16;
 
     // mapbox gl style layer ids
     private static final String SELECTED_IMAGE_LAYER = "selected_image";
@@ -84,15 +85,15 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONA
     static class Selected implements Serializable {
         private static final long serialVersionUID = 2L;
 
-        private String                                   sequenceId    = null;
-        private long                                     imageId       = 0;
-        private java.util.Map<String, ArrayList<String>> sequenceCache = new HashMap<>();
+        private String                                         sequenceId    = null;
+        private long                                           imageId       = 0;
+        private final java.util.Map<String, ArrayList<String>> sequenceCache = new HashMap<>();
     }
 
-    private Selected               selected     = new Selected();
-    private SavingHelper<Selected> savingHelper = new SavingHelper<>();
+    private Selected                     selected     = new Selected();
+    private final SavingHelper<Selected> savingHelper = new SavingHelper<>();
 
-    private String apiKey;
+    private final String apiKey;
 
     /** Map this is an overlay of. */
     private Map map = null;
@@ -134,6 +135,13 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONA
     }
 
     @Override
+    public void onDraw(Canvas c, IMapView osmv) {
+        if (map.getZoomLevel() >= MAPILLARY_DEFAULT_MIN_ZOOM) {
+            super.onDraw(c, osmv);
+        }
+    }
+
+    @Override
     public void onSaveState(@NonNull Context ctx) throws IOException {
         super.onSaveState(ctx);
         savingHelper.save(ctx, FILENAME, selected, false);
@@ -153,6 +161,11 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONA
 
     @Override
     public List<VectorTileDecoder.Feature> getClicked(final float x, final float y, final ViewBox viewBox) {
+        Style style = ((VectorTileRenderer) tileRenderer).getStyle();
+        Layer layer = style.getLayer(IMAGE_LAYER);
+        if (layer instanceof Symbol && map.getZoomLevel() < layer.getMinZoom()) {
+            return new ArrayList<>();
+        }
         List<VectorTileDecoder.Feature> result = super.getClicked(x, y, viewBox);
         // remove non image elements for now
         if (result != null) {
@@ -434,12 +447,13 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONA
     }
 
     @Override
+    @NonNull
     public LayerType getType() {
         return LayerType.MAPILLARY;
     }
 
     @Override
-    public int onDrawAttribution(Canvas c, IMapView osmv, int offset) {
+    public int onDrawAttribution(@NonNull Canvas c, @NonNull IMapView osmv, int offset) {
         return offset;
     }
 }
