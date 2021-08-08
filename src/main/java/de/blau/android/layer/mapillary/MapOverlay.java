@@ -54,11 +54,14 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONAR
+public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
 
     private static final String DEBUG_TAG = MapOverlay.class.getSimpleName();
 
-    public static final String MAPILLARY_TILES_ID = "NEW-MAPILLARY";
+    public static final String MAPILLARY_TILES_ID           = "MAPILLARYV4";
+    public static final int    MAPILLARY_DEFAULT_MIN_ZOOM   = 16;
+    public static final int    MAPILLARY_DEFAULT_CACHE_SIZE = 100;
+    private static final long  ONE_MILLION                  = 1000000L;
 
     // mapbox gl style layer ids
     private static final String SELECTED_IMAGE_LAYER = "selected_image";
@@ -84,15 +87,15 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONA
     static class Selected implements Serializable {
         private static final long serialVersionUID = 2L;
 
-        private String                                   sequenceId    = null;
-        private long                                     imageId       = 0;
-        private java.util.Map<String, ArrayList<String>> sequenceCache = new HashMap<>();
+        private String                                         sequenceId    = null;
+        private long                                           imageId       = 0;
+        private final java.util.Map<String, ArrayList<String>> sequenceCache = new HashMap<>();
     }
 
-    private Selected               selected     = new Selected();
-    private SavingHelper<Selected> savingHelper = new SavingHelper<>();
+    private Selected                     selected     = new Selected();
+    private final SavingHelper<Selected> savingHelper = new SavingHelper<>();
 
-    private String apiKey;
+    private final String apiKey;
 
     /** Map this is an overlay of. */
     private Map map = null;
@@ -100,7 +103,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONA
     /**
      * Download related stuff
      */
-    private long cacheSize = 100000000L;
+    private long cacheSize = MAPILLARY_DEFAULT_CACHE_SIZE * ONE_MILLION;
 
     private JsonArray selectedFilter = null;
 
@@ -134,6 +137,13 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONA
     }
 
     @Override
+    public void onDraw(Canvas c, IMapView osmv) {
+        if (map.getZoomLevel() >= MAPILLARY_DEFAULT_MIN_ZOOM) {
+            super.onDraw(c, osmv);
+        }
+    }
+
+    @Override
     public void onSaveState(@NonNull Context ctx) throws IOException {
         super.onSaveState(ctx);
         savingHelper.save(ctx, FILENAME, selected, false);
@@ -153,6 +163,11 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONA
 
     @Override
     public List<VectorTileDecoder.Feature> getClicked(final float x, final float y, final ViewBox viewBox) {
+        Style style = ((VectorTileRenderer) tileRenderer).getStyle();
+        Layer layer = style.getLayer(IMAGE_LAYER);
+        if (layer instanceof Symbol && map.getZoomLevel() < layer.getMinZoom()) {
+            return new ArrayList<>();
+        }
         List<VectorTileDecoder.Feature> result = super.getClicked(x, y, viewBox);
         // remove non image elements for now
         if (result != null) {
@@ -206,7 +221,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONA
      * Check if this Feature geometry is a Point
      * 
      * @param f the Feature
-     * @return true if the geometry is a Poinz
+     * @return true if the geometry is a Point
      */
     private boolean isPoint(@NonNull de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
         return GeoJSONConstants.POINT.equals(f.getGeometry().type());
@@ -221,7 +236,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONA
      */
     private void showImages(@NonNull FragmentActivity activity, @NonNull Long id, @NonNull ArrayList<String> ids) {
         int pos = ids.indexOf(id.toString());
-        if (pos >= 0) {
+        if (pos >= 0 && cacheDir != null) {
             String imagesUrl = String.format(mapillaryImagesUrl, "%s", apiKey);
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                 PhotoViewerFragment.showDialog(activity, ids, pos, new MapillaryLoader(cacheDir, cacheSize, imagesUrl, ids));
@@ -235,7 +250,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONA
     }
 
     /**
-     * Runnable that will fetch a sequence from the Mapillar API
+     * Runnable that will fetch a sequence from the Mapillary API
      * 
      * @author simon
      *
@@ -428,18 +443,19 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay { // NOSONA
 
     @Override
     public void setPrefs(Preferences prefs) {
-        cacheSize = prefs.getMapillaryCacheSize() * 1000000L;
+        cacheSize = prefs.getMapillaryCacheSize() * ONE_MILLION;
         mapillarySequencesUrl = prefs.getMapillarySequencesUrlV4();
         mapillaryImagesUrl = prefs.getMapillaryImagesUrlV4();
     }
 
     @Override
+    @NonNull
     public LayerType getType() {
         return LayerType.MAPILLARY;
     }
 
     @Override
-    public int onDrawAttribution(Canvas c, IMapView osmv, int offset) {
+    public int onDrawAttribution(@NonNull Canvas c, @NonNull IMapView osmv, int offset) {
         return offset;
     }
 }

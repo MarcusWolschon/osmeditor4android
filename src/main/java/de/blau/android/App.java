@@ -36,8 +36,9 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.presets.Synonyms;
+import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.services.util.MapTileFilesystemProvider;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.NotificationCache;
@@ -150,6 +151,12 @@ public class App extends android.app.Application implements android.app.Applicat
      */
     private static PhoneNumberUtil phoneNumberUtil;
     private static final Object    phoneNumberUtilLock = new Object();
+
+    /**
+     * Tile cache
+     */
+    private static MapTileFilesystemProvider mapTileFilesystemProvider;
+    private static final Object              mapTileFilesystemProviderLock = new Object();
 
     private static Configuration configuration = null;
 
@@ -317,7 +324,7 @@ public class App extends android.app.Application implements android.app.Applicat
     }
 
     /**
-     * Get the object holdign the most-recently-used tags
+     * Get the object holding the most-recently-used tags
      * 
      * @return an MRUTags instance
      */
@@ -667,6 +674,22 @@ public class App extends android.app.Application implements android.app.Applicat
                 phoneNumberUtil = PhoneNumberUtil.createInstance(ctx);
             }
             return phoneNumberUtil;
+        }
+    }
+
+    /**
+     * Get a MapTileProvider for tiles cached on device
+     * 
+     * @param ctx am Android Context
+     * @return a MapTileFilesystemProvider or null
+     */
+    @Nullable
+    public static MapTileFilesystemProvider getMapTileFilesystemProvider(@NonNull Context ctx) {
+        synchronized (mapTileFilesystemProviderLock) {
+            if (mapTileFilesystemProvider == null) {
+                mapTileFilesystemProvider = MapTileFilesystemProvider.getInstance(ctx);
+            }
+            return mapTileFilesystemProvider;
         }
     }
 
