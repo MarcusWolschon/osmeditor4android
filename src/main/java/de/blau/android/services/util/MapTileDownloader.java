@@ -202,7 +202,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                         if (format != null) {
                             switch (format.type().toLowerCase(Locale.US)) {
                             case MimeTypes.IMAGE_TYPE:
-                                if (MimeTypes.BMP_SUBTYPE.equals(format.subtype().toLowerCase())) {
+                                if (MimeTypes.BMP_SUBTYPE.equalsIgnoreCase(format.subtype())) {
                                     // if tile is in BMP format, compress
                                     data = compressBitmap(CompressFormat.PNG, dataStream, data);
                                 }
