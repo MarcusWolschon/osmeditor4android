@@ -489,7 +489,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                 // mTileProvider.preCacheTile(tile); already done in getMapTile
                 // See if there are any alternative tiles available - try using larger tiles up to
                 // maximum maxOverZoom zoom levels up, with standard tiles this reduces the width to 64 bits
-                while (tileBlob == null && (!bitmapRenderer || (zoomLevel - tile.zoomLevel) <= maxOverZoom) && tile.zoomLevel > minZoom) {
+                while (tileBlob == null && ((!bitmapRenderer && tile.zoomLevel > maxZoom) || (bitmapRenderer && (zoomLevel - tile.zoomLevel) <= maxOverZoom)) && tile.zoomLevel > minZoom) {
                     tile.reinit();
                     // As we zoom out to larger-scale tiles, we want to
                     // draw smaller and smaller sections of them
