@@ -44,7 +44,7 @@ public class MapTileCache<T> {
      * 
      * @param aMaximumCacheBytes Maximum cache size in bytes.
      */
-    private MapTileCache(final long aMaximumCacheBytes) {
+    public MapTileCache(final long aMaximumCacheBytes) {
         Log.d(DEBUG_TAG, "Created new in memory tile cache with " + aMaximumCacheBytes + " bytes");
         mCachedTiles = new LRUMapTileCache<>(aMaximumCacheBytes);
     }

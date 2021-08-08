@@ -52,11 +52,10 @@ public class MapTileProvider<T> {
     // Fields
     // ===========================================================
 
-    private Context                 mCtx;
     /**
      * cache provider
      */
-    private MapTileCache<T>         mTileCache;
+    private final MapTileCache<T>           mTileCache;
     private final Map<String, Long> pending = new HashMap<>();
 
     private final Handler                   mDownloadFinishedHandler;
@@ -83,7 +82,7 @@ public class MapTileProvider<T> {
     public static class BitmapDecoder implements TileDecoder<Bitmap> {
 
         @Override
-        public Bitmap decode(byte[] data, boolean small) {
+        public Bitmap decode(@NonNull byte[] data, boolean small) {
             BitmapFactory.Options options = new BitmapFactory.Options();
             if (small) {
                 options.inPreferredConfig = Bitmap.Config.RGB_565;
@@ -105,8 +104,7 @@ public class MapTileProvider<T> {
      * @param aDownloadFinishedListener handler to call when a tile download is complete
      */
     public MapTileProvider(@NonNull final Context ctx, @NonNull TileDecoder<T> decoder, @NonNull final Handler aDownloadFinishedListener) {
-        mCtx = ctx;
-        mTileCache = new MapTileCache<>();
+        mTileCache = decoder instanceof BitmapDecoder ? new MapTileCache<>() : new MapTileCache<>(128);
 
         smallHeap = Util.smallHeap();
         this.decoder = decoder;
@@ -114,7 +112,7 @@ public class MapTileProvider<T> {
 
         mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool((new Preferences(ctx)).getMaxTileDownloadThreads());
 
-        mapTileFilesystemProvider = App.getMapTileFilesystemProvider(mCtx);
+        mapTileFilesystemProvider = App.getMapTileFilesystemProvider(ctx);
     }
 
     /**
@@ -259,7 +257,7 @@ public class MapTileProvider<T> {
     /**
      * Callback from the loading thread
      */
-    private MapTileProviderCallback mCallback = new MapTileProviderCallback() {
+    private final MapTileProviderCallback mCallback = new MapTileProviderCallback() {
 
         @Override
         public void mapTileLoaded(@NonNull final String rendererID, final int zoomLevel, final int tileX, final int tileY, @NonNull final byte[] data)
@@ -331,22 +329,17 @@ public class MapTileProvider<T> {
         // check magic number
         if (data.length > 3 && data[0] == (byte) 0x1F && data[1] == (byte) 0x8B && data[2] == (byte) 0x08) {
             // nearly all the objects allocated here could be reused
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            try {
-                ByteArrayInputStream in = new ByteArrayInputStream(data);
-                GZIPInputStream gis = new GZIPInputStream(in);
+            try (ByteArrayInputStream in = new ByteArrayInputStream(data);GZIPInputStream gis = new GZIPInputStream(in);
+                 ByteArrayOutputStream os = new ByteArrayOutputStream()) {
                 byte[] buffer = new byte[4096];
                 int len;
                 while ((len = gis.read(buffer)) != -1) {
                     os.write(buffer, 0, len);
                 }
-                os.close();
-                gis.close();
+                return os.toByteArray();
             } catch (IOException e) {
                 Log.d(DEBUG_TAG, "Exception in unGZip " + e.getMessage());
-                return data;
             }
-            return os.toByteArray();
         }
         return data;
     }
