@@ -6,6 +6,11 @@ import java.util.Date;
 import org.acra.ACRA;
 
 import android.annotation.SuppressLint;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.PermissionInfo;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -82,6 +87,23 @@ public class DebugInformation extends AppCompatActivity {
 
         builder.append(getString(R.string.app_name_version) + eol);
         builder.append("Flavor: " + BuildConfig.FLAVOR + eol);
+        ApplicationInfo appInfo = getApplicationContext().getApplicationInfo();
+        builder.append("Target SDK: " + appInfo.targetSdkVersion + eol);
+        try {
+            PackageManager packageManager = getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageInfo(appInfo.packageName, PackageManager.GET_PERMISSIONS);
+            builder.append("Permissions: " + eol);
+            if (packageInfo.permissions != null) {
+                for (PermissionInfo p : packageInfo.permissions) {
+                    builder.append("   " + p.loadDescription(packageManager) + eol);
+                }
+            } else {
+                builder.append("Permissions not available" + eol);
+            }
+        } catch (NameNotFoundException e) {
+            builder.append("Name not available, this is a seriously curious state, please report a bug!" + eol);
+        }
+
         builder.append("Maximum avaliable memory " + Runtime.getRuntime().maxMemory() + eol);
         builder.append("Total memory used " + Runtime.getRuntime().totalMemory() + eol);
         Logic logic = App.getLogic();
@@ -95,10 +117,10 @@ public class DebugInformation extends AppCompatActivity {
                     }
                 }
             } else {
-                builder.append("Map not available, this is a seriously curious state, please report a bug!\n");
+                builder.append("Map not available, this is a seriously curious state, please report a bug!" + eol);
             }
         } else {
-            builder.append("Logic not available, this is a seriously curious state, please report a bug!\n");
+            builder.append("Logic not available, this is a seriously curious state, please report a bug!" + eol);
         }
         File stateFile = new File(getFilesDir(), StorageDelegator.FILENAME);
         if (stateFile.exists()) {

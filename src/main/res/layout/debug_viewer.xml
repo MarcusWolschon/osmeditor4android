@@ -20,7 +20,7 @@
 	        		android:ellipsize="none"
 	        		android:padding="10dp"
 	        		android:scrollHorizontally="true"
-	        		android:textSize="10sp"
+	        		android:textSize="12sp"
 	        		android:typeface="monospace" />
 			</HorizontalScrollView>
 		</LinearLayout>
