@@ -498,6 +498,7 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
                     Style style = new Style();
                     style.loadStyle(activity, is);
                     ((VectorTileRenderer) tileRenderer).setStyle(style);
+                    flushTileCache();
                     dirty = true;
                     Log.d(DEBUG_TAG, "Loaded " + fileUri + " successfully");
                     return true;
