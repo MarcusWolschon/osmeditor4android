@@ -53,11 +53,11 @@ public class Line extends Layer {
     }
 
     /**
-     * Create a rudimentary style from Paint objects for the geometries and labels
+     * Create a rudimentary Layer from Paint objects for the geometries
      * 
      * @param layer source layer
      * @param paint the Paint to use for the geometries
-     * @return a Style
+     * @return a Line Layer
      */
     @NonNull
     public static Line fromPaint(@NonNull String layer, @NonNull Paint paint) {

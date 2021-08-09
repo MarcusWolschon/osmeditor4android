@@ -59,12 +59,11 @@ public class Fill extends Layer {
     }
 
     /**
-     * Create a rudimentary style from Paint objects for the geometries and labels
+     * Create a rudimentary Layer from Paint objects for the geometries
      * 
+     * @param layer source layer
      * @param paint the Paint to use for the geometries
-     * @param labelPaint the Paint to use for labels
-     * @param symbolPath a Path to use for point symbols
-     * @return a Style
+     * @return a Fill Layer
      */
     @NonNull
     public static Fill fromPaint(@NonNull String layer, @NonNull Paint paint) {
@@ -112,7 +111,6 @@ public class Fill extends Layer {
      * 
      * @param canvas Canvas object we are drawing on
      * @param polygon List of List of Point objects defining the polygon rings
-     * @param paint Paint object for drawing
      */
     private void drawPolygon(@NonNull Canvas canvas, @NonNull List<List<Point>> polygon) {
         path.reset();

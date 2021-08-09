@@ -229,7 +229,7 @@ public class Symbol extends Layer {
     /**
      * Copy constructor
      * 
-     * @param other another Style
+     * @param other another Layer
      */
     public Symbol(@NonNull Symbol other) {
         super(other);
@@ -256,9 +256,10 @@ public class Symbol extends Layer {
     /**
      * Create a rudimentary style from Paint objects for the geometries and labels
      * 
+     * @param layerName the layer name
      * @param paint the Paint to use for the geometries
      * @param labelPaint the Paint to use for labels
-     * @param symbolPath a Path to use for point symbols
+     * @param symbolName a name to use for point symbols
      * @return a Style
      */
     @NonNull

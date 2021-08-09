@@ -20,19 +20,18 @@ public class FillExtrusion extends Fill {
     /**
      * Copy constructor
      * 
-     * @param other another Style
+     * @param other another Layer
      */
     public FillExtrusion(@NonNull FillExtrusion other) {
         super(other);
     }
 
     /**
-     * Create a rudimentary style from Paint objects for the geometries and labels
+     * Create a rudimentary Layer from Paint objects for the geometries
      * 
+     * @param layer source layer
      * @param paint the Paint to use for the geometries
-     * @param labelPaint the Paint to use for labels
-     * @param symbolPath a Path to use for point symbols
-     * @return a Style
+     * @return a FillExtrusion Layer
      */
     @NonNull
     public static FillExtrusion fromPaint(@NonNull String layer, @NonNull Paint paint) {
