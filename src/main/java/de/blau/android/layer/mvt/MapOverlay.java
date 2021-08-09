@@ -50,6 +50,7 @@ import de.blau.android.util.mvt.style.Layer.Type;
 import de.blau.android.util.mvt.style.Style;
 import de.blau.android.util.mvt.style.Symbol;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
+import de.blau.android.views.util.MapTileProvider;
 
 public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<VectorTileDecoder.Feature>>>
         implements ClickableInterface<VectorTileDecoder.Feature>, StyleableInterface {
@@ -353,6 +354,7 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
         Symbol style = (Symbol) ((VectorTileRenderer) tileRenderer).getLayer(layerName, Type.SYMBOL);
         if (style != null) {
             style.setSymbol(symbol);
+            flushTileCache();
         }
     }
 
@@ -392,7 +394,7 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
         if (style != null) {
             style.setLabelKey(key);
             style.setTextJustify(Style.TEXT_JUSTIFY_CENTER);
-            ((VectorTileRenderer) tileRenderer).styleChanged();
+            flushTileCache();
         }
     }
 
@@ -519,5 +521,13 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
      */
     protected void dirty() {
         dirty = true;
+    }
+
+    /**
+     * Flush the in memory tile cache
+     */
+    protected void flushTileCache() {
+        MapTileProvider<java.util.Map<String, List<VectorTileDecoder.Feature>>> provider = getTileProvider();
+        provider.flushCache(myRendererInfo.getId(), false);
     }
 }

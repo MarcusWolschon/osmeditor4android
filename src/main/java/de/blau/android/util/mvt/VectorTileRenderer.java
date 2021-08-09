@@ -58,7 +58,7 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     private int     lastZoom      = -1;
     private Picture symbolPicture = new Picture();
     private Canvas  symbolCanvas;
-    private boolean styleChanged;
+    private boolean renderPass;
 
     /**
      * Create a new instance
@@ -73,9 +73,9 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
      * @param style the Style object
      */
     public void setStyle(@NonNull Style style) {
+        Log.e(DEBUG_TAG, "setStyle");
         this.style = style;
         lastZoom = -1;
-        styleChanged();
     }
 
     /**
@@ -94,13 +94,6 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     public void resetStyle() {
         setStyle(new Style());
         style.setAutoStyle(true);
-    }
-
-    /**
-     * Indicate that the style has been modified and that caches may need to be invalidated
-     */
-    public void styleChanged() {
-        styleChanged = true;
     }
 
     /**
@@ -140,7 +133,7 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     List<VectorTileDecoder.Feature> featuresToRender = new ArrayList<>();
 
     @Override
-    public void preRender(Canvas c, int z) {
+    public void preRender(@NonNull Canvas c, int z) {
         style.resetCollisionDetection();
         setScreenRect(c);
         symbolPicture.endRecording(); // if we haven't finished rendering abort here
@@ -148,14 +141,19 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     }
 
     @Override
-    public void postRender(Canvas c, int z) {
-        lastZoom = z;
+    public void postRender(@NonNull Canvas c, int z) {
         symbolPicture.draw(c);
-        styleChanged = false;
+        if (renderPass) {
+            // we need to be sure that we've actually processed
+            lastZoom = z;
+            renderPass = false;
+        }
     }
 
     @Override
-    public void render(Canvas c, Map<String, List<VectorTileDecoder.Feature>> features, int z, Rect fromRect, Rect destinationRect, Paint paint) {
+    public void render(@NonNull Canvas c, @NonNull Map<String, List<VectorTileDecoder.Feature>> features, int z, @Nullable Rect fromRect,
+            @NonNull Rect destinationRect, @NonNull Paint paint) {
+        renderPass = true;
         scaleX = destinationRect.width() / 256f;
         scaleY = destinationRect.height() / 256f;
         this.destinationRect = destinationRect;
@@ -218,18 +216,14 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
      * Actually render a list of features
      * 
      * @param c the target Canvas
-     * @param style the current style
+     * @param layer the current Layer
      * @param z current zoom level
      * @param destinationRect destination rect
      * @param features the List of Features
      */
-    private void renderFeatures(Canvas c, Layer layer, int z, Rect destinationRect, List<VectorTileDecoder.Feature> features) {
+    private void renderFeatures(@NonNull Canvas c, @NonNull Layer layer, int z, @NonNull Rect destinationRect,
+            @NonNull List<VectorTileDecoder.Feature> features) {
         for (VectorTileDecoder.Feature feature : features) {
-            if (styleChanged) {
-                // invalidate caches before we render
-                feature.setCachedBitmap(null);
-                feature.setCachedLabel(null);
-            }
             if (z != lastZoom) {
                 layer.onZoomChange(style, feature, z);
             }
@@ -238,6 +232,7 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     }
 
     @Override
+    @NonNull
     public TileDecoder<Map<String, List<VectorTileDecoder.Feature>>> decoder() {
         return (byte[] data, boolean small) -> {
             try {
