@@ -63,9 +63,9 @@ public class Style implements Serializable {
     private static final String TEXT_HALO_COLOR           = "text-halo-color";
     private static final String TEXT_HALO_WIDTH           = "text-halo-width";
     private static final String TEXT_ANCHOR               = "text-anchor";
-    static final String         TEXT_JUSTIFY_CENTER       = "center";
-    static final String         TEXT_JUSTIFY_RIGHT        = "right";
-    static final String         TEXT_JUSTIFY_LEFT         = "left";
+    public static final String  TEXT_JUSTIFY_CENTER       = "center";
+    public static final String  TEXT_JUSTIFY_RIGHT        = "right";
+    public static final String  TEXT_JUSTIFY_LEFT         = "left";
     private static final String TEXT_JUSTIFY              = "text-justify";
     static final String         TEXT_TRANSFORM_NONE       = "none";
     static final String         TEXT_TRANSFORM_LOWERCASE  = "lowercase";

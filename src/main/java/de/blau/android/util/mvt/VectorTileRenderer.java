@@ -58,6 +58,7 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     private int     lastZoom      = -1;
     private Picture symbolPicture = new Picture();
     private Canvas  symbolCanvas;
+    private boolean styleChanged;
 
     /**
      * Create a new instance
@@ -74,6 +75,7 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     public void setStyle(@NonNull Style style) {
         this.style = style;
         lastZoom = -1;
+        styleChanged();
     }
 
     /**
@@ -92,6 +94,13 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     public void resetStyle() {
         setStyle(new Style());
         style.setAutoStyle(true);
+    }
+
+    /**
+     * Indicate that the style has been modified and that caches may need to be invalidated
+     */
+    public void styleChanged() {
+        styleChanged = true;
     }
 
     /**
@@ -142,6 +151,7 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     public void postRender(Canvas c, int z) {
         lastZoom = z;
         symbolPicture.draw(c);
+        styleChanged = false;
     }
 
     @Override
@@ -215,6 +225,11 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
      */
     private void renderFeatures(Canvas c, Layer layer, int z, Rect destinationRect, List<VectorTileDecoder.Feature> features) {
         for (VectorTileDecoder.Feature feature : features) {
+            if (styleChanged) {
+                // invalidate caches before we render
+                feature.setCachedBitmap(null);
+                feature.setCachedLabel(null);
+            }
             if (z != lastZoom) {
                 layer.onZoomChange(style, feature, z);
             }

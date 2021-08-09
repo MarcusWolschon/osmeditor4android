@@ -391,6 +391,8 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
         Symbol style = (Symbol) ((VectorTileRenderer) tileRenderer).getLayer(layerName, Type.SYMBOL);
         if (style != null) {
             style.setLabelKey(key);
+            style.setTextJustify(Style.TEXT_JUSTIFY_CENTER);
+            ((VectorTileRenderer) tileRenderer).styleChanged();
         }
     }
 

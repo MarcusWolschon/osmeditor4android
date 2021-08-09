@@ -322,6 +322,15 @@ public class Symbol extends Layer {
     }
 
     /**
+     * Set text justification
+     * 
+     * @param justify one of left, right or center
+     */
+    public void setTextJustify(@NonNull String justify) {
+        textJustify.set(justify);
+    }
+
+    /**
      * @param labelPaint the labelPaint to set
      */
     private void setLabelPaint(SerializableTextPaint labelPaint) {
