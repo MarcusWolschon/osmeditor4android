@@ -144,7 +144,7 @@ Value support:
 |__text-translate__         |           | no
 |__text-translate-anchor__  |           | no
 |__text-variable-anchor__   |           | no
-|__test-writing-mode__      |           | no
+|__text-writing-mode__      |           | no
 |_circle_                   |           |
 |_circle-blur_              |           | no
 |_circle-color_             | l z       | yes
