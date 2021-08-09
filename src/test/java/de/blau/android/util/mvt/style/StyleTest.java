@@ -97,7 +97,7 @@ public class StyleTest {
         Circle something = (Circle) getLayer("something", layers);
         assertNotNull(something);
         assertEquals(6 * density, something.circleRadius.literal, 0.01);
-        assertEquals(2 * density, something.strokeWidth.literal, 0.01);
+        assertEquals(2 * density, something.stroke.getStrokeWidth(), 0.01);
     }
 
     /**
