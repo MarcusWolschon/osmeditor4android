@@ -141,6 +141,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
          * 
          * @return a TileDecoder
          */
+        @NonNull
         MapTileProvider.TileDecoder<B> decoder();
 
         /**
@@ -172,6 +173,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         }
 
         @Override
+        @NonNull
         public TileDecoder<Bitmap> decoder() {
             return new MapTileProvider.BitmapDecoder();
         }

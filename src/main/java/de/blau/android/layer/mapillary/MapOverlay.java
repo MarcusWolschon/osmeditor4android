@@ -117,7 +117,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
      * 
      * @param map the Map object we are displayed on
      */
-    public MapOverlay(final Map map) {
+    public MapOverlay(@NonNull final Map map) {
         super(map, new VectorTileRenderer(), false);
         this.setRendererInfo(TileLayerSource.get(map.getContext(), MAPILLARY_TILES_ID, false));
         this.map = map;
@@ -137,7 +137,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
     }
 
     @Override
-    public void onDraw(Canvas c, IMapView osmv) {
+    public void onDraw(@NonNull Canvas c, @NonNull IMapView osmv) {
         if (map.getZoomLevel() >= MAPILLARY_DEFAULT_MIN_ZOOM) {
             super.onDraw(c, osmv);
         }

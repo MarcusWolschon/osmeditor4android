@@ -144,7 +144,7 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     public void postRender(@NonNull Canvas c, int z) {
         symbolPicture.draw(c);
         if (renderPass) {
-            // we need to be sure that we've actually processed
+            // we need to be sure that we've actually processed tiles
             lastZoom = z;
             renderPass = false;
         }
