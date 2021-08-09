@@ -47,7 +47,7 @@ public class Style implements Serializable {
     /**
      * 
      */
-    private static final long serialVersionUID = 5L;
+    private static final long serialVersionUID = 6L;
 
     private static final String ICON_SIZE                 = "icon-size";
     private static final String ICON_OFFSET               = "icon-offset";
@@ -102,6 +102,14 @@ public class Style implements Serializable {
     private static final String BACKGROUND_OPACITY        = "background-opacity";
     private static final String BACKGROUND_COLOR          = "background-color";
     private static final String LAYER_TYPE_BACKGROUND     = "background";
+    private static final String CIRCLE_RADIUS             = "circle-radius";
+    private static final String CIRCLE_STROKE_COLOR       = "circle-stroke-color";
+    private static final String CIRCLE_STROKE_OPACITY     = "circle-stroke-opacity";
+    private static final String CIRCLE_STROKE_WIDTH       = "circle-stroke-width";
+    private static final String CIRCLE_TRANSLATE          = "circle-translate";
+    private static final String CIRCLE_OPACITY            = "circle-opacity";
+    private static final String CIRCLE_COLOR              = "circle-color";
+    private static final String LAYER_TYPE_CIRCLE         = "circle";
     private static final String LAYER_MAXZOOM             = "maxzoom";
     private static final String LAYER_MINZOOM             = "minzoom";
     private static final String LAYER_ID                  = "id";
@@ -117,7 +125,8 @@ public class Style implements Serializable {
 
     private static final String RETINA = "@2x";
 
-    private static final List<String> SOURCE_LAYER_REQUIRED = Arrays.asList(LAYER_TYPE_FILL, LAYER_TYPE_FILL_EXTRUSION, LAYER_TYPE_LINE, LAYER_TYPE_SYMBOL);
+    private static final List<String> SOURCE_LAYER_REQUIRED = Arrays.asList(LAYER_TYPE_FILL, LAYER_TYPE_FILL_EXTRUSION, LAYER_TYPE_LINE, LAYER_TYPE_SYMBOL,
+            LAYER_TYPE_CIRCLE);
 
     private int                               version;
     private final MultiHashMap<String, Layer> layerMap   = new MultiHashMap<>();
@@ -487,6 +496,22 @@ public class Style implements Serializable {
                 symbol.iconSize.set(ctx, ICON_SIZE, layout, 1f);
             }
             return symbol;
+        case LAYER_TYPE_CIRCLE:
+            Circle circle = new Circle(sourceLayer); // NOSONAR
+            setBasicAttributes(circle, iD, filter, minZoom, maxZoom, interactive);
+            if (paint != null) {
+                circle.color.set(ctx, CIRCLE_COLOR, paint);
+                circle.opacity.set(ctx, CIRCLE_OPACITY, paint);
+                circle.strokeColor.set(ctx, CIRCLE_STROKE_COLOR, paint);
+                circle.strokeOpacity.set(ctx, CIRCLE_STROKE_OPACITY, paint);
+                circle.strokeWidth.set(ctx, CIRCLE_STROKE_WIDTH, paint);
+                circle.circleTranslate.set(ctx, CIRCLE_TRANSLATE, paint);
+                circle.circleRadius.set(ctx, CIRCLE_RADIUS, paint, Circle.DEFAULT_RADIUS);
+            }
+            if (layout != null) {
+                setVisibility(layout, circle);
+            }
+            return circle;
         default:
             // ignore
         }

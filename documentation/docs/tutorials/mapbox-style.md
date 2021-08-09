@@ -2,11 +2,11 @@
 
 Only one vector tile source is currently supported, all other source configuration is ignored.
 
-Supported layers: _background_, _fill_, _fill-extrusion_, _line_, _symbol_
+Supported layers: _background_, _fill_, _fill-extrusion_, _line_, _symbol_, _circle_
 
 _fill-extrusion_ layers are treated as flat fill layers
 
-Unsupported layers: raster, circle, heatmap, hillshade, sky
+Unsupported layers: raster, heatmap, hillshade, sky
 
 Unsupported attributes are ignored.
 
@@ -145,3 +145,16 @@ Value support:
 |__text-translate-anchor__  |           | no
 |__text-variable-anchor__   |           | no
 |__test-writing-mode__      |           | no
+|_circle_                   |           |
+|_circle-blur_              |           | no
+|_circle-color_             | l z       | yes
+|_circle-opacity_           | l z       | yes
+|_circle-pitch-alignment_   |           | no
+|_circle-pitch-scale_       |           | no 
+|_circle-radius_            | l z       | yes
+|_circle-sort-key_          |           | no
+|_circle-stroke-color_      | l z       | yes
+|_circle-stroke-opacity_    | l z       | yes
+|_circle-stroke-width_      | l z       | yes
+|_circle-translate_         | l z       | yes
+|_circle-translate-anchor_  |           | no

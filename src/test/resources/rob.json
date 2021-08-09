@@ -1,0 +1,47 @@
+{
+  "version": 8,
+  "name": "Postcodes",
+  "owner": "Postcodes",
+  "id": "postcodes",
+  "sources": {
+    "postcodes-source": {
+      "maxzoom": 13,
+      "tiles": [
+        "https://api.mapbox.com/v4/robjn.3uur23nz/{zoom}/{x}/{y}.mvt?access_token=pk.eyJ1Ijoicm9iam4iLCJhIjoid0dYNkY1QSJ9.A-0lzQOawGYICYPfURsjDA"
+      ],
+      "type": "vector"
+    }
+  },
+  "layers": [
+    {
+      "id": "something",
+      "type": "circle",
+      "source": "postcodes-source",
+      "source-layer": "results-4326-deduped",
+      "minzoom": 13,
+      "paint": {
+        "circle-color": "#C70039",
+        "circle-radius": 6,
+        "circle-stroke-color": "#A70039",
+        "circle-stroke-width": 2
+      }
+    },
+    {
+      "id": "secondthing",
+      "type": "symbol",
+      "source": "postcodes-source",
+      "source-layer": "results-4326-deduped",
+      "minzoom": 13,
+      "layout": {
+        "text-field": "{postcode}",
+        "text-size": 18,
+        "text-allow-overlap": true,
+        "text-ignore-placement": true
+      },
+      "paint": {
+        "text-color": "#C70039",
+        "text-halo-color": "#000000"
+      }
+    }
+  ]
+}
