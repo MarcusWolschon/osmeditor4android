@@ -65,7 +65,7 @@ public class ReadPbfTest {
         TestUtils.clickText(device, false, "File", false, false);
         TestUtils.clickText(device, false, "Read from PBF file", false, false);
         //
-        TestUtils.selectFile(device, main, null, PBF_FILE, false);
+        TestUtils.selectFile(device, main, null, PBF_FILE, true);
         TestUtils.findText(device, false, "Loading", 2000); // spinner appears
         TestUtils.textGone(device, "Loading", 60000);// spinner goes away
         StorageDelegator delegator = App.getDelegator();

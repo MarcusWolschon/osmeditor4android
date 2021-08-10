@@ -44,6 +44,7 @@ import de.blau.android.gpx.TrackPoint;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.ApiTest;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.layers.MapTilesLayer;
 import okhttp3.mockwebserver.MockResponse;
@@ -1021,7 +1022,7 @@ public class TestUtils {
             }
             String storagePath = "Android/data/" + context.getPackageName() + "/files";
             if (useVespucciDir) {
-                storagePath = Paths.DIRECTORY_PATH_VESPUCCI;
+                storagePath = "Download/Vespucci"; // FIXME use FileUtil...
             }
             selectDirectory(device, storagePath, scrollableSelector);
         }

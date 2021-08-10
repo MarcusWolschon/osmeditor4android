@@ -127,7 +127,7 @@ public class MvtTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true, false));
         assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
         assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/file_button", true));
-        TestUtils.selectFile(device, main, "mbtiles", LIECHTENSTEIN_MBTILES, false);
+        TestUtils.selectFile(device, main, "mbtiles", LIECHTENSTEIN_MBTILES, true);
         assertTrue(TestUtils.findText(device, false, TILEMAKER));
         assertTrue(TestUtils.findText(device, false, "47.271280"));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save_and_set), true, false));
@@ -150,7 +150,7 @@ public class MvtTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true));
         menuButton.clickAndWait(Until.newWindow(), 2000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_load_style), true));
-        TestUtils.selectFile(device, main, "mbtiles", "osm-liberty.json", false);
+        TestUtils.selectFile(device, main, "mbtiles", "osm-liberty.json", true);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true));
         // check that we actually loaded something
         de.blau.android.layer.mvt.MapOverlay layer = (MapOverlay) map.getLayer(LayerType.IMAGERY, "TILEMAKERTOOPENMAPTILESSCHEMA");

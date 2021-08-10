@@ -206,7 +206,7 @@ public class ReadSaveTasksTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_read_notes), true, false));
-        TestUtils.selectFile(device, main, null, "test-result.osn", false);
+        TestUtils.selectFile(device, main, null, "test-result.osn", true);
         TestUtils.findText(device, false, main.getString(R.string.toast_read_successfully), 1000);
         TestUtils.textGone(device, main.getString(R.string.toast_read_successfully), 1000);
         List<Task> tasks = App.getTaskStorage().getTasks();

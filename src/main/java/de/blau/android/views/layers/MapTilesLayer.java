@@ -491,7 +491,8 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                 // mTileProvider.preCacheTile(tile); already done in getMapTile
                 // See if there are any alternative tiles available - try using larger tiles up to
                 // maximum maxOverZoom zoom levels up, with standard tiles this reduces the width to 64 bits
-                while (tileBlob == null && ((!bitmapRenderer && tile.zoomLevel > maxZoom) || (bitmapRenderer && (zoomLevel - tile.zoomLevel) <= maxOverZoom)) && tile.zoomLevel > minZoom) {
+                while (tileBlob == null && ((!bitmapRenderer && tile.zoomLevel > maxZoom) || (bitmapRenderer && (zoomLevel - tile.zoomLevel) <= maxOverZoom))
+                        && tile.zoomLevel > minZoom) {
                     tile.reinit();
                     // As we zoom out to larger-scale tiles, we want to
                     // draw smaller and smaller sections of them
@@ -754,7 +755,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                         ctx.startActivity(intent);
                     } catch (ActivityNotFoundException anfe) {
                         Log.e(DEBUG_TAG, "Activity not found " + anfe.getMessage());
-                        Snack.toastTopError(ctx,  anfe.getLocalizedMessage() != null ? anfe.getLocalizedMessage() : anfe.getMessage());
+                        Snack.toastTopError(ctx, anfe.getLocalizedMessage() != null ? anfe.getLocalizedMessage() : anfe.getMessage());
                     }
                     return true;
                 }
@@ -824,8 +825,12 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     }
 
     @Override
+    @Nullable
     public String getContentId() {
-        return myRendererInfo.getId();
+        if (myRendererInfo != null) {
+            return myRendererInfo.getId();
+        }
+        return null;
     }
 
     @Override
@@ -834,6 +839,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     }
 
     @Override
+    @Nullable
     public BoundingBox getExtent() {
         if (myRendererInfo != null) {
             return myRendererInfo.getOverallCoverage();

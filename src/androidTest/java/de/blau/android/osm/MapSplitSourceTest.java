@@ -93,7 +93,7 @@ public class MapSplitSourceTest {
         TestUtils.longClickText(device, "OpenStreetMap");
         TestUtils.clickText(device, false, "Edit", true, false);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/listedit_file_button", true);
-        TestUtils.selectFile(device, main, null, MSF_FILE, false);
+        TestUtils.selectFile(device, main, null, MSF_FILE, true);
         Assert.assertTrue(TestUtils.clickText(device, false, "OK", true, false));
         TestUtils.clickMenuButton(device, "Navigate up", false, true);
         TestUtils.clickMenuButton(device, "Navigate up", false, true);

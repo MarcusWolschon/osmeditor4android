@@ -303,7 +303,7 @@ public class GeoJSONTest {
         TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true);
         TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/add", true);
         TestUtils.clickText(device, false, context.getString(R.string.menu_layers_load_geojson), true);
-        TestUtils.selectFile(device, context, "geojson", fileName, false);
+        TestUtils.selectFile(device, context, "geojson", fileName, true);
         TestUtils.clickText(device, false, context.getString(R.string.okay), true);
         TestUtils.clickText(device, false, context.getString(R.string.done), true);
         return main.getMap().getGeojsonLayer();
