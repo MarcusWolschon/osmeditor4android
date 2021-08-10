@@ -28,9 +28,13 @@ public class TileDispatcher extends Dispatcher {
      */
     public TileDispatcher(@NonNull Context context, @NonNull String mbtSource) throws IOException {
         try {
-            JavaResources.copyFileFromResources(context, mbtSource, null, "/", false);
+            JavaResources.copyFileFromResources(context, mbtSource, null, "/");
             File[] storageDirectories = ContextCompat.getExternalFilesDirs(context, null);
-            tileDb = new MBTileProviderDataBase(context, Uri.fromFile(new File(storageDirectories[0], mbtSource)), 1);
+            File mbtFile = new File(storageDirectories[0], mbtSource);
+            if (!mbtFile.exists()) {
+                throw new IOException(mbtFile.getAbsolutePath() + " doesn't exist");
+            }
+            tileDb = new MBTileProviderDataBase(context, Uri.fromFile(mbtFile), 1);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "mbt file not found " + e.getMessage());
             throw e;

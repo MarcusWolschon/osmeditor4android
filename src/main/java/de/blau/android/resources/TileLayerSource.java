@@ -861,7 +861,7 @@ public class TileLayerSource implements Serializable {
         long lastDatabaseUpdate = TileLayerDatabase.getSourceUpdate(writeableDb, TileLayerDatabase.SOURCE_CUSTOM);
         long lastUpdateTime = 0L;
         try {
-            File userImageryFile = new File(FileUtil.getPublicDirectory(), Files.FILE_NAME_USER_IMAGERY);
+            File userImageryFile = new File(FileUtil.getPublicDirectory(ctx), Files.FILE_NAME_USER_IMAGERY);
             Log.i(DEBUG_TAG, "Trying to read custom imagery from " + userImageryFile.getPath());
             lastUpdateTime = userImageryFile.lastModified();
             boolean newConfig = lastUpdateTime > lastDatabaseUpdate;

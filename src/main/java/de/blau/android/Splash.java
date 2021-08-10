@@ -2,6 +2,7 @@ package de.blau.android;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.sqlite.SQLiteDatabaseLockedException;
@@ -11,11 +12,12 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import de.blau.android.dialogs.Progress;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.util.FileUtil;
 
 /**
  * Taken from https://www.bignerdranch.com/blog/splash-screens-the-right-way/
@@ -33,14 +35,16 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Preferences prefs = new Preferences(this);
-        if (prefs.lightThemeEnabled()) {
+        // don't use Preferences here as this will create the Vespucci directory which is bad for migration
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getBoolean(getString(R.string.config_enableLightTheme_key), true)) {
             setTheme(R.style.SplashThemeLight);
         } else {
             setTheme(R.style.SplashTheme);
         }
     }
 
+    @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
     @Override
     protected void onResume() {
@@ -51,6 +55,7 @@ public class Splash extends AppCompatActivity {
             TileLayerDatabase db = new TileLayerDatabase(Splash.this);
             boolean           newInstall;
             boolean           newConfig;
+            boolean           migratePublicDirectory;
 
             @Override
             protected void onPreExecute() {
@@ -78,13 +83,27 @@ public class Splash extends AppCompatActivity {
                 newInstall = lastDatabaseUpdate == 0;
                 newConfig = lastUpdateTime > lastDatabaseUpdate;
                 if (newInstall || newConfig) {
-                    Progress.showDialog(Splash.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
+                    migratePublicDirectory = !FileUtil.publicDirectoryExists();
+                    Progress.showDialog(Splash.this, migratePublicDirectory ? Progress.PROGRESS_MIGRATION : Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
                 }
             }
 
             @Override
             protected Void doInBackground(Void... params) {
                 Log.d(DEBUG_TAG, "doInBackGround");
+                if (migratePublicDirectory) {
+                    Log.w(DEBUG_TAG, "Migrating public directory ...");
+                    try {
+                        FileUtil.copyDirectory(FileUtil.getLegacyPublicDirectory(), FileUtil.getPublicDirectory(Splash.this));
+                        Log.w(DEBUG_TAG, "... done.");
+                    } catch (IOException e) {
+                        Log.e(DEBUG_TAG, "Error migrating public directory " + e.getMessage());
+                    }
+                    Splash.this.runOnUiThread(() -> {
+                        Progress.dismissDialog(Splash.this, Progress.PROGRESS_MIGRATION);
+                        Progress.showDialog(Splash.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
+                    });
+                }
                 if (newInstall || newConfig) {
                     KeyDatabaseHelper.readKeysFromAssets(Splash.this);
                 }

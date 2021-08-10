@@ -49,7 +49,7 @@ public class ReadPbfTest {
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         try {
-            JavaResources.copyFileFromResources(main, PBF_FILE, null, ".", false);
+            JavaResources.copyFileFromResources(main, PBF_FILE, null, ".");
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }

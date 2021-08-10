@@ -94,7 +94,7 @@ public class CustomImageryTest {
     @Test
     public void customImageryValidMBTiles() {
         try {
-            JavaResources.copyFileFromResources(main, "map.mbt", null, "mbtiles", false);
+            JavaResources.copyFileFromResources(main, "map.mbt", null, "mbtiles");
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
@@ -124,7 +124,7 @@ public class CustomImageryTest {
     @Test
     public void customImageryInvalidMBTiles() {
         try {
-            JavaResources.copyFileFromResources(main, "map-no-meta.mbt", null, "mbtiles", false);
+            JavaResources.copyFileFromResources(main, "map-no-meta.mbt", null, "mbtiles");
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }

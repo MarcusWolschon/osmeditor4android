@@ -3418,7 +3418,7 @@ public class Logic {
      */
     public void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @Nullable final PostAsyncActionHandler postSaveHandler) {
         try {
-            File outfile = FileUtil.openFileForWriting(fileName);
+            File outfile = FileUtil.openFileForWriting(activity, fileName);
             Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
             writeOsmFile(activity, new FileOutputStream(outfile), postSaveHandler);
         } catch (IOException e) {

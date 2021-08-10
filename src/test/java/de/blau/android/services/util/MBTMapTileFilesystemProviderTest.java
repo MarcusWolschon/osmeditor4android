@@ -45,7 +45,7 @@ public class MBTMapTileFilesystemProviderTest {
         ShadowLog.setupLogging();
         provider = new MapTileFilesystemProvider(ApplicationProvider.getApplicationContext(), new File("."), 1000000);
         try {
-            JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "ersatz_background.mbt", null, "/", false);
+            JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "ersatz_background.mbt", null, "/");
         } catch (IOException e) {
             fail(e.getMessage());
         }

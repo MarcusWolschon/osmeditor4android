@@ -182,7 +182,7 @@ public class ReadSaveTasksTest {
             fail(e.getMessage());
         }
         try {
-            byte[] testContent = TestUtils.readInputStream(new FileInputStream(new File(FileUtil.getPublicDirectory(), TEST_OSN)));
+            byte[] testContent = TestUtils.readInputStream(new FileInputStream(new File(FileUtil.getPublicDirectory(main), TEST_OSN)));
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             InputStream is = loader.getResourceAsStream("test-result.osn");
             byte[] correctContent = TestUtils.readInputStream(is);
@@ -198,7 +198,7 @@ public class ReadSaveTasksTest {
     @Test
     public void readNotes() {
         try {
-            JavaResources.copyFileFromResources(main, "test-result.osn", null, "/", false);
+            JavaResources.copyFileFromResources(main, "test-result.osn", null, "/");
         } catch (IOException e) {
             fail(e.getMessage());
         }

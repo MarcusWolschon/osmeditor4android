@@ -404,7 +404,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             if (preset.equals(presets[presets.length - 1])) {
                 new AlertDialog.Builder(getContext()).setTitle(R.string.delete_custom_preset_title).setPositiveButton(R.string.Delete, (dialog, which) -> {
                     item.delete();
-                    AutoPreset.save(preset);
+                    AutoPreset.save(getActivity(), preset);
                     editorUpdate.updatePresets();
                     propertyEditorListener.updateRecentPresets();
                     ScrollView scrollView = (ScrollView) getOurView();

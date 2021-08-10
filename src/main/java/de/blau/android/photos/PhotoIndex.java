@@ -65,7 +65,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
         db.execSQL("CREATE INDEX lonidx ON " + PHOTOS_TABLE + " (lon)");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + DIRECTORIES_TABLE + " (dir VARCHAR, last_scan int8);");
         db.execSQL(INSERT_INTO + DIRECTORIES_TABLE + " VALUES ('DCIM', 0);");
-        db.execSQL(INSERT_INTO + DIRECTORIES_TABLE + " VALUES ('Vespucci', 0);");
+        db.execSQL(INSERT_INTO + DIRECTORIES_TABLE + " VALUES ('" + Paths.DIRECTORY_PATH_VESPUCCI + "', 0);");
         db.execSQL(INSERT_INTO + DIRECTORIES_TABLE + " VALUES ('osmtracker', 0);");
     }
 
@@ -98,6 +98,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
         ArrayList<String> mountPoints = new ArrayList<>();
         mountPoints.add(sdcard.getAbsolutePath());
         mountPoints.add(sdcard.getAbsolutePath() + Paths.DIRECTORY_PATH_EXTERNAL_SD_CARD);
+        mountPoints.add(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
         File storageDir = new File(Paths.DIRECTORY_PATH_STORAGE);
         File[] list = storageDir.listFiles();
         if (list != null) {

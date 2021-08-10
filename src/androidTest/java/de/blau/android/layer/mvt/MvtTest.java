@@ -111,10 +111,10 @@ public class MvtTest {
     @Test
     public void mvtMBTilesTest() {
         try {
-            JavaResources.copyFileFromResources(main, LIECHTENSTEIN_MBTILES, null, "mbtiles", false);
-            JavaResources.copyFileFromResources(main, "osm-liberty.json", null, "mbtiles", false);
-            JavaResources.copyFileFromResources(main, "osm-liberty-sprite.json", null, "mbtiles", false);
-            JavaResources.copyFileFromResources(main, "osm-liberty-sprite.png", null, "mbtiles", false);
+            JavaResources.copyFileFromResources(main, LIECHTENSTEIN_MBTILES, null, "mbtiles");
+            JavaResources.copyFileFromResources(main, "osm-liberty.json", null, "mbtiles");
+            JavaResources.copyFileFromResources(main, "osm-liberty-sprite.json", null, "mbtiles");
+            JavaResources.copyFileFromResources(main, "osm-liberty-sprite.png", null, "mbtiles");
         } catch (IOException e) {
             fail(e.getMessage());
         }

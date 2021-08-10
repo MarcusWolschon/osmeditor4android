@@ -296,7 +296,7 @@ public class GeoJSONTest {
      */
     private de.blau.android.layer.geojson.MapOverlay loadGeoJOSN(String fileName) {
         try {
-            JavaResources.copyFileFromResources(context, fileName, "geojson/", "/geojson", false);
+            JavaResources.copyFileFromResources(context, fileName, "geojson/", "/geojson");
         } catch (IOException e) {
             fail(e.getMessage());
         }

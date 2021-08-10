@@ -96,7 +96,7 @@ public class ReadSaveDataTest {
         }
 
         try {
-            byte[] testContent = TestUtils.readInputStream(new FileInputStream(new File(FileUtil.getPublicDirectory(), TEST_OSM)));
+            byte[] testContent = TestUtils.readInputStream(new FileInputStream(new File(FileUtil.getPublicDirectory(main), TEST_OSM)));
             is = loader.getResourceAsStream("test-result.osm");
             byte[] correctContent = TestUtils.readInputStream(is);
             Assert.assertTrue(dataIsSame(correctContent, testContent));
@@ -143,7 +143,7 @@ public class ReadSaveDataTest {
 
         // read back
         try {
-            InputStream is = new FileInputStream(new File(FileUtil.getPublicDirectory(), TEST_OSM));
+            InputStream is = new FileInputStream(new File(FileUtil.getPublicDirectory(main), TEST_OSM));
             Assert.assertNotNull(is);
             logic.readOsmFile(main, is, false, new SignalHandler(signal1));
             try { // NOSONAR

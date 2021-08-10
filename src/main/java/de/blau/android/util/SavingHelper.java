@@ -359,7 +359,7 @@ public class SavingHelper<T extends Serializable> {
                 File outfile = null;
                 FileOutputStream fout = null;
                 try {
-                    File outDir = FileUtil.getPublicDirectory();
+                    File outDir = FileUtil.getPublicDirectory(ctx);
                     outfile = new File(outDir, filename);
                     fout = new FileOutputStream(outfile);
                     outputStream = new BufferedOutputStream(fout);

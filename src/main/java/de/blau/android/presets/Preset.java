@@ -4255,7 +4255,7 @@ public class Preset implements Serializable {
     public static boolean generateTaginfoJson(@NonNull Context ctx, @NonNull String filename) {
         Preset[] presets = App.getCurrentPresets(ctx);
 
-        try (FileOutputStream fout = new FileOutputStream(new File(FileUtil.getPublicDirectory(), filename));
+        try (FileOutputStream fout = new FileOutputStream(new File(FileUtil.getPublicDirectory(ctx), filename));
                 PrintStream outputStream = new PrintStream(new BufferedOutputStream(fout));) {
             outputStream.println("{");
             outputStream.println("\"data_format\":1,");

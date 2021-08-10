@@ -126,7 +126,7 @@ public class GpxUploadTest {
         }
 
         try {
-            JavaResources.copyFileFromResources(main, GPX_FILE, null, "/", false);
+            JavaResources.copyFileFromResources(main, GPX_FILE, null, "/");
             screenshotRule.screenshot(main, "gpx_upload_1");
             clickGpsButton();
             if (TestUtils.findObjectWithText(device, false, main.getString(R.string.menu_gps_clear), 1000).getParent().getParent().getParent().isEnabled()) {
