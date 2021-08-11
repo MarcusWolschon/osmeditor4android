@@ -1,0 +1,2 @@
+imagery_apikey:MAPILLARYV4	1234567890
+mapillary_client_token	1234567890

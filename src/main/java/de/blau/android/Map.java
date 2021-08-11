@@ -1198,10 +1198,13 @@ public class Map extends View implements IMapView {
         Collections.reverse(imageryLayers);
         for (MapViewLayer osmvo : imageryLayers) {
             if (osmvo instanceof MapTilesLayer && osmvo.isVisible()) {
-                result.add(((MapTilesLayer<?>) osmvo).getTileLayerConfiguration().getName());
-                if (osmvo.getType() != LayerType.OVERLAYIMAGERY) {
-                    // not an overlay -> not transparent so nothing below it is visible
-                    break;
+                TileLayerSource tileLayerConfiguration = ((MapTilesLayer<?>) osmvo).getTileLayerConfiguration();
+                if (tileLayerConfiguration != null) {
+                    result.add(tileLayerConfiguration.getName());
+                    if (!tileLayerConfiguration.isOverlay()) {
+                        // not an overlay -> not transparent so nothing below it is visible
+                        break;
+                    }
                 }
             }
         }

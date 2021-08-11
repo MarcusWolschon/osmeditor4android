@@ -3,6 +3,7 @@ package de.blau.android;
 import java.io.IOException;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -13,6 +14,7 @@ import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import de.blau.android.contract.Files;
@@ -91,12 +93,7 @@ public class Splash extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
                 Log.d(DEBUG_TAG, "doInBackGround");
                 if (newInstall || newConfig) {
-                    AssetManager assetManager = getAssets();
-                    try (KeyDatabaseHelper keys = new KeyDatabaseHelper(Splash.this)) {
-                        keys.keysFromStream(assetManager.open(Files.FILE_NAME_KEYS));
-                    } catch (IOException e) {
-                        Log.e(DEBUG_TAG, "Error reading keys file " + e.getMessage());
-                    }
+                    KeyDatabaseHelper.readKeysFromAssets(Splash.this);
                 }
                 try {
                     if (!isCancelled()) {
