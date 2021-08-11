@@ -67,7 +67,7 @@ public class MapTest {
         map.setUpLayers(ApplicationProvider.getApplicationContext());
         names = map.getImageryNames();
         assertEquals(2, names.size());
-        assertEquals(mapillary.getName(), map.getImageryNames().get(1));
+        assertEquals(mapillary.getName(), map.getImageryNames().get(0));
         assertEquals(mapnik.getName(), map.getImageryNames().get(1));
     }
 }
