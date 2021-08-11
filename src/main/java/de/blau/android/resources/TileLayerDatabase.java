@@ -182,7 +182,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     * Delete a specific source which will delete all layers from that source
+     * Update a source entry
      * 
      * @param db writable database
      * @param source name of the entry
@@ -213,6 +213,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param layer a TileLayerServer object
      */
     public static void addLayer(@NonNull SQLiteDatabase db, @NonNull String source, @NonNull TileLayerSource layer) {
+        Log.e(DEBUG_TAG, "addLayer " + source + " " + layer);
         ContentValues values = getContentValuesForLayer(source, layer);
         try {
             db.insertOrThrow(LAYERS_TABLE, null, values);

@@ -1058,7 +1058,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     * Add a layer to the end of the layer list
+     * Add a layer to the layer list
      * 
      * @param db a writable DB
      * @param position the position of the layer
@@ -1070,7 +1070,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     * Add a layer to the end of the layer list
+     * Add a layer to the layer list
      * 
      * @param db a writable DB
      * @param position the position of the layer

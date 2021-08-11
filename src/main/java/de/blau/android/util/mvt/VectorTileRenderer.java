@@ -73,7 +73,6 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
      * @param style the Style object
      */
     public void setStyle(@NonNull Style style) {
-        Log.e(DEBUG_TAG, "setStyle");
         this.style = style;
         lastZoom = -1;
     }
