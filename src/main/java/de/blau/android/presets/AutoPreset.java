@@ -2,7 +2,6 @@ package de.blau.android.presets;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -25,7 +24,6 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.FileUtils;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
