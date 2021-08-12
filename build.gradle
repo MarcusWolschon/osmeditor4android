@@ -287,7 +287,6 @@ android {
         test {
             java.srcDirs += commonTestJava
             resources.srcDirs += commonTestResources
-            assets.srcDirs += files("src/test/assets/keys.txt".toString())
         }
         androidTest {
             java.srcDirs += commonTestJava
