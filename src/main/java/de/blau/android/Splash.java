@@ -1,23 +1,16 @@
 package de.blau.android;
 
-import java.io.IOException;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import de.blau.android.contract.Files;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;

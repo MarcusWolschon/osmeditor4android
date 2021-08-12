@@ -16,7 +16,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import de.blau.android.Splash;
 import de.blau.android.contract.Files;
 
 /**
