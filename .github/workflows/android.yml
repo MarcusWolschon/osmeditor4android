@@ -20,9 +20,20 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
+    - name: Copy dummy keys.txt
+      shell: bash
+      run: |
+         mkdir -p $GITHUB_WORKSPACE/../private_assets
+         cp $GITHUB_WORKSPACE/src/test/assets/keys.txt $GITHUB_WORKSPACE/../private_assets
     - name: Build with Gradle
       run: ./gradlew assembleCurrentDebug
     - name: Run unit tests
       run: ./gradlew testCurrentDebugUnitTest
+    - name: Upload Test Results
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v2
+      with:
+         name: Test output
+         path: $GITHUB_WORKSPACE/build/reports/tests/testCurrentDebugUnitTest/
     - name: Run lint
       run: ./gradlew lint
