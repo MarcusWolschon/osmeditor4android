@@ -2604,6 +2604,10 @@ public class Main extends FullScreenAppCompatActivity
      * @return the provider if a usable one is enabled, null if not
      */
     private String[] getEnabledLocationProviders() {
+        // no permission no point in trying to turn stuff on
+        if (!locationPermissionGranted) {
+            return null;
+        }
         List<String> temp = new ArrayList<>();
         try {
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
