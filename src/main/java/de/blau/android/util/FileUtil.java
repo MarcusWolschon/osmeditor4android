@@ -20,7 +20,6 @@ import de.blau.android.contract.Paths;
 import de.blau.android.contract.Schemes;
 
 public abstract class FileUtil {
-
     public static final String FILE_SCHEME_PREFIX = Schemes.FILE + ":";
 
     /**
@@ -124,16 +123,24 @@ public abstract class FileUtil {
     }
 
     /**
-     * Copy a file
+     * Copy a file (without overwriting)
      * 
      * @param inFile input File
      * @param outFile output File
      * @throws IOException if we can't copy or write the file
      */
     public static void copy(@NonNull File inFile, @NonNull File outFile) throws IOException {
-        try (FileInputStream in = new FileInputStream(inFile); FileOutputStream out = new FileOutputStream(outFile);) {
-            copy(in, out);
+        String path = outFile.getAbsolutePath();
+        for (int i = 1; i < 100; i++) {
+            if (!outFile.exists()) {
+                try (FileInputStream in = new FileInputStream(inFile); FileOutputStream out = new FileOutputStream(outFile);) {
+                    copy(in, out);
+                }
+                return;
+            }
+            outFile = new File(path + " (" + Integer.toString(i) + ")");
         }
+        throw new IOException("Unable to copy " + inFile.getAbsolutePath() + " to " + outFile + " without overwriting");
     }
 
     /**
