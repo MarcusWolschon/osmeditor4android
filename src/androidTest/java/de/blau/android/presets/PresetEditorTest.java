@@ -1,9 +1,13 @@
 package de.blau.android.presets;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.io.IOException;
 import java.util.HashMap;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,6 +31,7 @@ import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
 import de.blau.android.App;
+import de.blau.android.JavaResources;
 import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -84,7 +89,7 @@ public class PresetEditorTest {
     public void downloadPreset() {
         PresetEditorActivity.start(main);
         Activity presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(presetEditor instanceof PresetEditorActivity);
+        assertTrue(presetEditor instanceof PresetEditorActivity);
         mockServer = new MockWebServerPlus();
         HttpUrl url = mockServer.server().url("military.zip");
         mockServer.server().enqueue(TestUtils.createBinaryReponse("application/zip", "fixtures/military.zip"));
@@ -94,31 +99,31 @@ public class PresetEditorTest {
         try {
             name.setText("Test");
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         UiObject value = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/listedit_editValue"));
         try {
             value.setText(url.toString());
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         TestUtils.clickText(device, true, main.getString(R.string.okay), true, false);
         TestUtils.clickText(device, false, "Test", false, false);
         TestUtils.clickHome(device, true);
         App.resetPresets();
         Preset[] presets = App.getCurrentPresets(main);
-        Assert.assertEquals(3, presets.length);
+        assertEquals(3, presets.length);
 
         HashMap<String, String> tags = new HashMap<>();
         tags.put("landuse", "military");
         PresetItem match = Preset.findBestMatch(presets, tags);
-        Assert.assertEquals("Military", match.getName());
+        assertEquals("Military", match.getName());
 
         // move military preset up
         monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
         PresetEditorActivity.start(main);
         presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(presetEditor instanceof PresetEditorActivity);
+        assertTrue(presetEditor instanceof PresetEditorActivity);
         UiObject2 entry = TestUtils.findObjectWithText(device, false, "Test", 100);
         UiObject2 menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
         menu.click();
@@ -127,15 +132,70 @@ public class PresetEditorTest {
         App.resetPresets();
         presets = App.getCurrentPresets(main);
         match = Preset.findBestMatch(presets, tags);
-        Assert.assertEquals("Military landuse", match.getName());
-        
+        assertEquals("Military landuse", match.getName());
+
         // delete the test preset
         monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
         PresetEditorActivity.start(main);
         presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(presetEditor instanceof PresetEditorActivity);
+        assertTrue(presetEditor instanceof PresetEditorActivity);
         entry = TestUtils.findObjectWithText(device, false, "Test", 100);
         menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
+        menu.click();
+        TestUtils.clickText(device, false, "Delete", true);
+        TestUtils.clickHome(device, true);
+        App.resetPresets();
+    }
+
+    /**
+     * Load preset from on device file
+     * 
+     * Note this tests recursive searching for the xml file too
+     */
+    @Test
+    public void loadPreset() {
+        PresetEditorActivity.start(main);
+        Activity presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(presetEditor instanceof PresetEditorActivity);
+        try {
+            JavaResources.copyFileFromResources(main, "military2.zip", "fixtures/", "/", true);
+        } catch (IOException e1) {
+            fail(e1.getMessage());
+        }
+        TestUtils.clickText(device, false, main.getString(R.string.urldialog_add_preset), false, false);
+        device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/listedit_editName")), 500);
+        UiObject name = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/listedit_editName"));
+        try {
+            name.setText("Test");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        UiObject fileButton = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/listedit_file_button"));
+        try {
+            fileButton.click();
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        TestUtils.selectFile(device, main, null, "military2.zip", true);
+        TestUtils.clickText(device, true, main.getString(R.string.okay), true, false);
+        TestUtils.clickText(device, false, "Test", false, false);
+        TestUtils.clickHome(device, true);
+        App.resetPresets();
+        Preset[] presets = App.getCurrentPresets(main);
+        assertEquals(3, presets.length);
+
+        HashMap<String, String> tags = new HashMap<>();
+        tags.put("military", "trench");
+        PresetItem match = Preset.findBestMatch(presets, tags);
+        assertEquals("Trench", match.getName());
+
+        // delete the test preset
+        monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
+        PresetEditorActivity.start(main);
+        presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(presetEditor instanceof PresetEditorActivity);
+        UiObject2 entry = TestUtils.findObjectWithText(device, false, "Test", 100);
+        UiObject2 menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
         menu.click();
         TestUtils.clickText(device, false, "Delete", true);
         TestUtils.clickHome(device, true);

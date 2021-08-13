@@ -3,6 +3,7 @@ package de.blau.android.presets;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -66,6 +67,7 @@ import ch.poole.poparser.Po;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
+import de.blau.android.contract.Paths;
 import de.blau.android.contract.Urls;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -298,12 +300,8 @@ public class Preset implements Serializable {
     private final PresetMRUInfo mru;
     private String              externalPackage;
 
-    private static class PresetFileFilter implements FilenameFilter {
-        @Override
-        public boolean accept(File dir, String name) {
-            return name.endsWith(".xml");
-        }
-    }
+    private final static FilenameFilter presetFileFilter = (File dir, String name) -> name.endsWith(".xml");
+    private final static FileFilter     directoryFilter  = (File pathname) -> pathname.isDirectory();
 
     /**
      * create a dummy preset
@@ -1154,14 +1152,28 @@ public class Preset implements Serializable {
     /**
      * Get a candidate preset file name in presetDir
      * 
+     * Will descend recursively in to sub-directories if preset file is not found at top
+     * 
      * @param presetDir the directory
      * @return the file name or null
      */
     @Nullable
     private static String getPresetFileName(@NonNull File presetDir) {
-        File[] list = presetDir.listFiles(new PresetFileFilter());
+        File[] list = presetDir.listFiles(presetFileFilter);
         if (list != null && list.length > 0) { // simply use the first XML file found
             return list[0].getName();
+        } else {
+            list = presetDir.listFiles(directoryFilter);
+            if (list != null) {
+                for (File f : list) {
+                    if (f.isDirectory()) {
+                        String fileName = getPresetFileName(f);
+                        if (fileName != null) {
+                            return f.getName() + Paths.DELIMITER + fileName;
+                        }
+                    }
+                }
+            }
         }
         return null;
     }
