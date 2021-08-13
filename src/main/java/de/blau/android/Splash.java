@@ -1,6 +1,10 @@
 package de.blau.android;
 
+import java.io.File;
+import java.io.IOException;
+
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -8,11 +12,14 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
+import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.TileLayerDatabase;
@@ -92,13 +99,7 @@ public class Splash extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
                 Log.d(DEBUG_TAG, "doInBackGround");
                 if (migratePublicDirectory) {
-                    Log.w(DEBUG_TAG, "Migrating public directory ...");
-                    try {
-                        FileUtil.copyDirectory(FileUtil.getLegacyPublicDirectory(), FileUtil.getPublicDirectory(Splash.this));
-                        Log.w(DEBUG_TAG, "... done.");
-                    } catch (IOException e) {
-                        Log.e(DEBUG_TAG, "Error migrating public directory " + e.getMessage());
-                    }
+                    directoryMigration(Splash.this);
                     Splash.this.runOnUiThread(() -> {
                         Progress.dismissDialog(Splash.this, Progress.PROGRESS_MIGRATION);
                         Progress.showDialog(Splash.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
@@ -133,5 +134,35 @@ public class Splash extends AppCompatActivity {
             }
 
         }.execute();
+    }
+
+    /**
+     * Migrate legacy public directories
+     * 
+     * @param ctx an Android Context
+     */
+    private void directoryMigration(@NonNull Context ctx) {
+        Log.w(DEBUG_TAG, "Migrating public directory ...");
+        try {
+            FileUtil.copyDirectory(FileUtil.getLegacyPublicDirectory(), FileUtil.getPublicDirectory(Splash.this));
+            Log.w(DEBUG_TAG, "... done.");
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "Error migrating public directory " + e.getMessage());
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            try {
+                Log.w(DEBUG_TAG, "Migrating style directory ...");
+                File destStyleDir = new File(FileUtil.getPublicDirectory(Splash.this), Paths.DIRECTORY_PATH_STYLES);
+                for (File fileDir : Splash.this.getExternalFilesDirs(null)) {
+                    File inStyleDir = new File(fileDir, Paths.DIRECTORY_PATH_STYLES);
+                    if (inStyleDir.exists()) {
+                        FileUtil.copyDirectory(inStyleDir, destStyleDir);
+                    }
+                }
+                Log.w(DEBUG_TAG, "... done.");
+            } catch (Exception ex) {
+                Log.e(DEBUG_TAG, "Unable to to migrate style directory " + ex.getMessage());
+            }
+        }
     }
 }

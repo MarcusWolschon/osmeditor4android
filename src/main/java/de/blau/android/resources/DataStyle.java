@@ -1802,25 +1802,13 @@ public final class DataStyle extends DefaultHandler {
         } catch (Exception ex) {
             Log.e(DEBUG_TAG, "Unable to read style files " + ex.getMessage());
         }
-
-        // from app specific directories and new public location
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            for (File fileDir : ctx.getExternalFilesDirs(null)) {
-                File indir = new File(fileDir, Paths.DIRECTORY_PATH_STYLES);
-                try {
-                    File[] list = indir.listFiles(new XmlFileFilter());
-                    readStylesFromFileList(ctx, list);
-                } catch (Exception ex) {
-                    Log.e(DEBUG_TAG, "Unable to access directory " + indir.getAbsolutePath() + " " + ex.getMessage());
-                }
-            }
-            try {
-                File indir = new File(FileUtil.getPublicDirectory(ctx), Paths.DIRECTORY_PATH_STYLES);
-                File[] list = indir.listFiles(new XmlFileFilter());
-                readStylesFromFileList(ctx, list);
-            } catch (Exception ex) {
-                Log.e(DEBUG_TAG, "Unable to read style files " + ex.getMessage());
-            }
+        // from styles directory
+        try {
+            File indir = new File(FileUtil.getPublicDirectory(ctx), Paths.DIRECTORY_PATH_STYLES);
+            File[] list = indir.listFiles(new XmlFileFilter());
+            readStylesFromFileList(ctx, list);
+        } catch (Exception ex) {
+            Log.e(DEBUG_TAG, "Unable to read style files " + ex.getMessage());
         }
     }
 
