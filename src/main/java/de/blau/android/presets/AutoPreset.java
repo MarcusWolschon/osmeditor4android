@@ -358,13 +358,6 @@ public class AutoPreset {
             File autoPresetDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context), Paths.DIRECTORY_PATH_AUTOPRESET);
             File autoIcon = new File(autoPresetDir, AutoPreset.ICON);
             if (!autoIcon.exists()) {
-                // check legacy location and copy if necessary
-                File legacyAutoPresetFile = new File(new File(FileUtil.getLegacyPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET),
-                        Files.FILE_NAME_AUTOPRESET);
-                if (legacyAutoPresetFile.exists()) {
-                    Log.w(DEBUG_TAG, "Copying auto-preset from legacy location");
-                    FileUtil.copy(legacyAutoPresetFile, new File(autoPresetDir, Files.FILE_NAME_AUTOPRESET));
-                }
                 for (int i = 0; i < ICONS.length; i++) {
                     try {
                         FileUtil.copyFileFromAssets(context, "images/" + ICONS[i], autoPresetDir, ICONSDEST[i]);
