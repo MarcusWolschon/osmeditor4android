@@ -207,12 +207,13 @@ public class KeyboardTest {
     @SdkSuppress(minSdkVersion = 26)
     @Test
     public void help() {
+        TestUtils.zoomToLevel(device, main, 21); // delays things a bit
         ActivityMonitor monitor = instrumentation.addMonitor(HelpViewer.class.getName(), null, false);
         device.pressKeyCode(KeyEvent.KEYCODE_H, KeyEvent.META_CTRL_ON);
         Activity helpViewer = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(helpViewer instanceof HelpViewer);
         instrumentation.removeMonitor(monitor);
-        Assert.assertTrue(TestUtils.findText(device, false, "Main Vespucci Screen"));
+        Assert.assertTrue(TestUtils.findText(device, false, "Main Vespucci Screen", 2000));
         device.pressBack();
         device.pressKeyCode(KeyEvent.KEYCODE_X, KeyEvent.META_CTRL_ON);
     }
