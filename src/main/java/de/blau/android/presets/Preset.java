@@ -300,8 +300,8 @@ public class Preset implements Serializable {
     private final PresetMRUInfo mru;
     private String              externalPackage;
 
-    private final static FilenameFilter presetFileFilter = (File dir, String name) -> name.endsWith(".xml");
-    private final static FileFilter     directoryFilter  = (File pathname) -> pathname.isDirectory();
+    private static final FilenameFilter presetFileFilter = (File dir, String name) -> name.endsWith(".xml");
+    private static final FileFilter     directoryFilter  = File::isDirectory;
 
     /**
      * create a dummy preset
@@ -1166,11 +1166,9 @@ public class Preset implements Serializable {
             list = presetDir.listFiles(directoryFilter);
             if (list != null) {
                 for (File f : list) {
-                    if (f.isDirectory()) {
-                        String fileName = getPresetFileName(f);
-                        if (fileName != null) {
-                            return f.getName() + Paths.DELIMITER + fileName;
-                        }
+                    String fileName = getPresetFileName(f);
+                    if (fileName != null) {
+                        return f.getName() + Paths.DELIMITER + fileName;
                     }
                 }
             }

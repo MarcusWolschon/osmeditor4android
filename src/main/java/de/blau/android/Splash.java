@@ -144,7 +144,7 @@ public class Splash extends AppCompatActivity {
     private void directoryMigration(@NonNull Context ctx) {
         Log.w(DEBUG_TAG, "Migrating public directory ...");
         try {
-            FileUtil.copyDirectory(FileUtil.getLegacyPublicDirectory(), FileUtil.getPublicDirectory(Splash.this));
+            FileUtil.copyDirectory(FileUtil.getLegacyPublicDirectory(), FileUtil.getPublicDirectory(ctx));
             Log.w(DEBUG_TAG, "... done.");
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Error migrating public directory " + e.getMessage());
@@ -152,8 +152,8 @@ public class Splash extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             try {
                 Log.w(DEBUG_TAG, "Migrating style directory ...");
-                File destStyleDir = new File(FileUtil.getPublicDirectory(Splash.this), Paths.DIRECTORY_PATH_STYLES);
-                for (File fileDir : Splash.this.getExternalFilesDirs(null)) {
+                File destStyleDir = new File(FileUtil.getPublicDirectory(ctx), Paths.DIRECTORY_PATH_STYLES);
+                for (File fileDir : ctx.getExternalFilesDirs(null)) {
                     File inStyleDir = new File(fileDir, Paths.DIRECTORY_PATH_STYLES);
                     if (inStyleDir.exists()) {
                         FileUtil.copyDirectory(inStyleDir, destStyleDir);

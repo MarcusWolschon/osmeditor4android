@@ -43,7 +43,6 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PathDashPathEffect;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
