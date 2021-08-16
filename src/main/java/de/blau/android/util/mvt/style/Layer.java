@@ -158,6 +158,8 @@ public abstract class Layer implements Serializable {
 
     /**
      * Default constructor
+     * 
+     * @param sourceLayer the source (data) layer
      */
     protected Layer(@Nullable String sourceLayer) {
         this.sourceLayer = sourceLayer;

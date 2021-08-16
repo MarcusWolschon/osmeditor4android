@@ -117,8 +117,8 @@ public class VectorTileDecoder {
 
     /**
      * 
-     * @param n
-     * @return
+     * @param n the value to decode
+     * @return the int value
      */
     static int zigZagDecode(int n) {
         return ((n >> 1) ^ (-(n & 1)));
@@ -314,6 +314,8 @@ public class VectorTileDecoder {
 
         /**
          * Return a new Iterator
+         * 
+         * @return an Iterator returning Features
          */
         public Iterator<Feature> iterator() {
             return new FeatureIterator(tile, filter, autoScale);

@@ -36,6 +36,8 @@ public class Line extends Layer {
 
     /**
      * Default constructor
+     * 
+     * @param sourceLayer the source (data) layer
      */
     public Line(@NonNull String sourceLayer) {
         super(sourceLayer);

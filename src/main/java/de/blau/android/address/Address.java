@@ -544,6 +544,7 @@ public final class Address implements Serializable {
      * @param newAddress the address object for the new address
      * @param originalTags tags for this object
      * @param street the street name
+     * @param currentStreetId id of the current street
      * @param side side which we are on
      * @param list list of existing addresses on this side
      * @param oppositeSide try to predict a number for the other side of the street
@@ -744,6 +745,7 @@ public final class Address implements Serializable {
      * 
      * @param street the street name
      * @param side side of the street that should be considered
+     * @param currentStreetId the id of the current street
      * @param addresses the list of addresses
      * @return a sorted map with the house numbers as key
      */
@@ -808,10 +810,11 @@ public final class Address implements Serializable {
     /**
      * Get a Way based on its id and store in cache
      * 
-     * 
      * @param streetId the ID
      * @param wayCache the cache
+     * @return the Way
      */
+    @NonNull
     private static Way getWay(long streetId, LongOsmElementMap<Way> wayCache) {
         Way current = wayCache.get(streetId);
         if (current == null) {
@@ -831,7 +834,6 @@ public final class Address implements Serializable {
      * 
      * @param context Android Context
      * @param street the street name
-     * @param streetId the osm id of the street
      * @param e the OsmElement
      * @param addresses the list of addresses
      */
@@ -889,8 +891,12 @@ public final class Address implements Serializable {
     /**
      * Update and save any address tags to persistent storage
      * 
-     * @param caller calling TagEditorFragment
-     * @param tags current tags
+     * @param context an Android Context
+     * @param streetAdapter an instance of a StreetPlaceNameAdapter or null
+     * @param type type of element
+     * @param id the element id
+     * @param tags tags current tags
+     * @param save if true save
      */
     public static synchronized void updateLastAddresses(@NonNull Context context, @Nullable StreetPlaceNamesAdapter streetAdapter, @NonNull String type,
             long id, @NonNull Map<String, List<String>> tags, boolean save) {

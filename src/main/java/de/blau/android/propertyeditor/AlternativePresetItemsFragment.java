@@ -69,11 +69,10 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
     }
 
     /**
-     * Create a new RecentPresetsFragement instance
+     * Create a new instance
      * 
-     * @param elementId the current OsmElement id
-     * @param elementName the name of the OsmElement (Node, Way, Relation)
-     * @return a RecentPresetsFragement instance
+     * @param presetElementPath path to the preset item
+     * @return an AlternativePresetItemsFragment
      */
     @NonNull
     public static AlternativePresetItemsFragment newInstance(@NonNull PresetElementPath presetElementPath) {
@@ -119,7 +118,7 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
      * 
      * @param inflater layout inflater
      * @param savedInstanceState saved state or null
-     * @return
+     * @return the View
      */
     @Nullable
     private LinearLayout createView(@NonNull LayoutInflater inflater, @Nullable Bundle savedInstanceState) {
@@ -149,8 +148,7 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
      * Create the preset View
      * 
      * @param presetLayout the Layout to use
-     * @param element the current OsmElement
-     * @param presets the current active Presets
+     * @param presetItem the PresetItem
      * @return a View
      */
     @NonNull

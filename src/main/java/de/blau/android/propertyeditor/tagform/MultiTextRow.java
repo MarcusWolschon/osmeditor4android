@@ -390,7 +390,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
      * @param values existing values for the tag
      * @param delimiter non-standard value delimiter (default is ;)
      * @param valueCountKey the key holding the value count or null
-     * @param valueCountKey the value for valueCountKey or null
+     * @param valueCountValue the value for valueCountKey or null
      * @param adapter an optional adapter for values
      * @return a TagMultiselectRow instance
      */
@@ -450,7 +450,6 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
      * @param key the key
      * @param adapter the adapter holding the values
      * @param row the MultiTestRow itself
-     * @param value the value
      * @param splitValues a list of the split values
      */
     static void addValues(@NonNull final TagFormFragment caller, @NonNull final String key, @Nullable final ArrayAdapter<?> adapter,

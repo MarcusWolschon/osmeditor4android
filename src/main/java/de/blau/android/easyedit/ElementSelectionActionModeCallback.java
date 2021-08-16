@@ -501,6 +501,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     /**
      * Create a dialog allowing a relation to be selected
      * 
+     * @param context an Android Context
      * @param onRelationSelectedListener called when a relation has been selected
      * @param currentId a potentially pre-selected relation or -1
      * @param titleId string resource id to the title
@@ -569,7 +570,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         /**
          * Call back for when a Relation has been selected
          * 
-         * @param id the OSM id of the Relation
+         * @param item the PresetItem
          */
         void selected(@Nullable PresetItem item);
     }
@@ -577,8 +578,9 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     /**
      * Create a dialog allowing a relation to be selected
      * 
-     * @param onRelationSelectedListener called when a relation has been selected
-     * @param currentId a potentially pre-selected relation or -1
+     * @param context an Android Context
+     * @param onPresetSelectedListener called when a preset has been selected
+     * @param type type of element
      * @param titleId string resource id to the title
      * @param filterKey key to use for filtering
      * @param filterValue value to use for filtering (filterKey must not be null)

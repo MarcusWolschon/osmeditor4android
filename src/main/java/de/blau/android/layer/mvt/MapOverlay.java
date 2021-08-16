@@ -72,6 +72,8 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
      * Construct a new MVT layer
      * 
      * @param map the current Map instance
+     * @param aTileRenderer the TileRenderer to use
+     * @param overlay if true this is an overlay
      */
     public MapOverlay(@NonNull final Map map, @NonNull TileRenderer<java.util.Map<String, List<VectorTileDecoder.Feature>>> aTileRenderer, boolean overlay) {
         super(map, /* TileLayerSource.get(aView.getContext()), null, true), null, */ aTileRenderer);
@@ -199,6 +201,7 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
      * @param x x screen coord
      * @param y y screen coord
      * @param vertices the list of lineString vertices
+     * @param tolerance the tolerance
      * @return if the returned value is > 0 then the coords are in the tolerance
      */
     private double distanceToLineString(final float x, final float y, List<Point> vertices, float tolerance) {

@@ -1357,7 +1357,7 @@ public final class DataStyle extends DefaultHandler {
      * Get the list of available Styles translated
      * 
      * @param context an Android Context
-     * @param the list of style names to translate
+     * @param styleNames the list of style names to translate
      * @return list of available Styles translated (or untranslated if no translation is avilable)
      */
     @NonNull

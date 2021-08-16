@@ -54,6 +54,8 @@ public class OsmoseMeta implements Serializable {
 
         /**
          * Return a slightly formated version of detail + fix
+         * 
+         * @return a String containing detail and fix
          */
         @Nullable
         public String getText() {
@@ -76,8 +78,8 @@ public class OsmoseMeta implements Serializable {
         /**
          * 
          */
-        private static final long serialVersionUID = 1L;
-        int                       id;
+        private static final long         serialVersionUID = 1L;
+        int                               id;
         private Map<Integer, OsmoseClass> classes          = new HashMap<>();
     }
 
@@ -87,7 +89,6 @@ public class OsmoseMeta implements Serializable {
      * Parse an InputStream containing Osmose task data
      * 
      * @param is the InputString
-     * @return a List of OsmoseBug
      * @throws IOException for JSON reading issues
      * @throws NumberFormatException if a number conversion fails
      */
@@ -186,6 +187,7 @@ public class OsmoseMeta implements Serializable {
      * Get a string for language "auto", checking for JSON null values
      * 
      * @param reader the JsonReader
+     * @return the value for auto
      * @throws IOException on parser errors etc
      */
     @Nullable
@@ -212,6 +214,7 @@ public class OsmoseMeta implements Serializable {
      * Get a string checking for JSON null values
      * 
      * @param reader the JsonReader
+     * @return get a string value from the reader
      * @throws IOException on parser errors etc
      */
     @Nullable

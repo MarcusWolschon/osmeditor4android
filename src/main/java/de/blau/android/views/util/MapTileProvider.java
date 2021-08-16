@@ -56,7 +56,7 @@ public class MapTileProvider<T> {
     /**
      * cache provider
      */
-    private final MapTileCache<T>           mTileCache;
+    private final MapTileCache<T>   mTileCache;
     private final Map<String, Long> pending = new HashMap<>();
 
     private final Handler                   mDownloadFinishedHandler;
@@ -102,6 +102,7 @@ public class MapTileProvider<T> {
      * Create a new MapTileProvider instance
      * 
      * @param ctx Android Context
+     * @param decoder the TileDecoder to use
      * @param aDownloadFinishedListener handler to call when a tile download is complete
      */
     public MapTileProvider(@NonNull final Context ctx, @NonNull TileDecoder<T> decoder, @NonNull final Handler aDownloadFinishedListener) {
@@ -331,8 +332,9 @@ public class MapTileProvider<T> {
         // check magic number
         if (data.length > 3 && data[0] == (byte) 0x1F && data[1] == (byte) 0x8B && data[2] == (byte) 0x08) {
             // nearly all the objects allocated here could be reused
-            try (ByteArrayInputStream in = new ByteArrayInputStream(data);GZIPInputStream gis = new GZIPInputStream(in);
-                 ByteArrayOutputStream os = new ByteArrayOutputStream()) {
+            try (ByteArrayInputStream in = new ByteArrayInputStream(data);
+                    GZIPInputStream gis = new GZIPInputStream(in);
+                    ByteArrayOutputStream os = new ByteArrayOutputStream()) {
                 byte[] buffer = new byte[4096];
                 int len;
                 while ((len = gis.read(buffer)) != -1) {

@@ -10,6 +10,8 @@ public class FillExtrusion extends Fill {
 
     /**
      * Default constructor
+     * 
+     * @param sourceLayer the source (data) layer
      */
     public FillExtrusion(@NonNull String sourceLayer) {
         super(sourceLayer);

@@ -58,10 +58,10 @@ public class GnssPositionInfo extends InfoDialogFragment {
     TableLayout              tl;
 
     /**
-     * Show an info dialog for the supplied GeoJSON Feature
+     * Show an info dialog for the supplied Location
      * 
      * @param activity the calling Activity
-     * @param feature the Feature
+     * @param location the Location we want to display
      */
     public static void showDialog(@NonNull FragmentActivity activity, @NonNull Location location) {
         dismissDialog(activity);
@@ -118,10 +118,10 @@ public class GnssPositionInfo extends InfoDialogFragment {
     }
 
     /**
-     * Create a new instance of the FeatureInfo dialog
+     * Create a new instance of the GnssPositionInfo dialog
      * 
-     * @param feature Feature to display the info on
-     * @return an instance of ElementInfo
+     * @param location the Location we want to display
+     * @return an instance of GnssPositionInfo
      */
     @NonNull
     private static GnssPositionInfo newInstance(@NonNull Location location) {

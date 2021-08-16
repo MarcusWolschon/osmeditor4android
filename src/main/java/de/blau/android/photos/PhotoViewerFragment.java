@@ -110,6 +110,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
      * @param photoList list of Uris
      * @param startPos starting position in the list
      * @param loader callback for loading images etc.
+     * @param wrap if true wrap around when last/first photo is reached
      * @return a new instance of PhotoViwerFragment
      */
     @NonNull
@@ -188,8 +189,10 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
     /**
      * Create the view we want to display
      * 
+     * @param savedInstanceState the saved state if any
      * @return the View
      */
+    @NonNull
     private View createView(@Nullable Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
         LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
@@ -286,6 +289,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
          * Construct a new adapter
          * 
          * @param context an Android Context
+         * @param loader the PhotoLoader to use
          */
         public PhotoPagerAdapter(@NonNull Context context, @NonNull PhotoLoader loader) {
             mContext = context;

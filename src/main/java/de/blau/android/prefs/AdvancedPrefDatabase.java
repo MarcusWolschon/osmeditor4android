@@ -559,10 +559,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     /**
      * Create an empty AutoPreset from template
      * 
+     * @param context an Android Context
      * @param activePresets an array holding the current active presets
      * @param autopresetPosition the position where the new preset should go
      */
-    public static void createEmptyAutoPreset(Context context, Preset[] activePresets, int autopresetPosition) {
+    public static void createEmptyAutoPreset(@NonNull Context context, @NonNull Preset[] activePresets, int autopresetPosition) {
         try {
             FileUtil.copyFileFromAssets(context, Files.FILE_NAME_AUTOPRESET_TEMPLATE,
                     FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context), Paths.DIRECTORY_PATH_AUTOPRESET), Files.FILE_NAME_AUTOPRESET);
@@ -1063,7 +1064,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param db a writable DB
      * @param position the position of the layer
      * @param type the layer type
-     * @param visible if the layer is visible
      */
     private synchronized void addLayer(@NonNull SQLiteDatabase db, int position, @NonNull LayerType type) {
         addLayer(db, position, type, true, null);
@@ -1162,7 +1162,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * Set layer content id
      * 
      * @param position the layer position
-     * @param visible true if visible
+     * @param contentId the id
      */
     public synchronized void setLayerContentId(@NonNull int position, @NonNull String contentId) {
         try (SQLiteDatabase db = getWritableDatabase()) {
@@ -1175,7 +1175,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     /**
      * Insert a layer at position
      * 
-     * @param db a writable DB
      * @param position the position of the layer
      * @param type the layer type
      * @param visible if the layer is visible

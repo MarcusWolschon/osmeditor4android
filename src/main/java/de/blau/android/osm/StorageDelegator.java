@@ -3084,6 +3084,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param nodeIndex index to the nodes in temp
      * @param wayIndex index to the ways in temp
      * @param relationIndex index to the relations in temp
+     * @return true if successful
      */
     private boolean redoBacklinks(@NonNull Storage tempCurrent, @NonNull LongOsmElementMap<Node> nodeIndex, @NonNull LongOsmElementMap<Way> wayIndex,
             @NonNull LongOsmElementMap<Relation> relationIndex) {
@@ -3168,7 +3169,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Generate a log message and throw an IllegalStateException if rm or the type is null
      * 
-     * @param if the relation OSM id
+     * @param id the relation OSM id
      * @param rm the member
      */
     private void checkMember(long id, @Nullable RelationMember rm) {

@@ -293,6 +293,7 @@ public class GeoJSONTest {
      * Load a file into a geojson layer
      * 
      * @param fileName the filename
+     * @return the layer
      */
     private de.blau.android.layer.geojson.MapOverlay loadGeoJOSN(String fileName) {
         try {

@@ -98,7 +98,8 @@ public final class Nmea {
      * This method is not thread safe
      * 
      * @param sentence the NMEA sentence including checksum
-     * @returns a Location object if we have a valid new fix otherwise null
+     * @param nmeaLocation the ExtendedLocation to update and return
+     * @return an ExtendedLocation object if we have a valid new fix otherwise null
      */
     @Nullable
     public static ExtendedLocation processSentence(@NonNull String sentence, @NonNull ExtendedLocation nmeaLocation) {

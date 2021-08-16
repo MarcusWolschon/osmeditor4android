@@ -56,6 +56,7 @@ public class StringWithDescriptionAndIcon extends StringWithDescription {
     /**
      * Get the Icon
      * 
+     * @param context an Android Context
      * @param preset the current PresetItem
      * @return a Drawable with the icon
      */

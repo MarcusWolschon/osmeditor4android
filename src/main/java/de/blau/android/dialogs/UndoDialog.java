@@ -148,7 +148,7 @@ public class UndoDialog extends ImmersiveDialogFragment {
          * 
          * @param activity the current Activity
          * @param logic the current Logic instance
-         * @param dialog the current AlertDialog
+         * @param undoDialog the current AlertDialog
          * @param actions an array holding the list of items
          */
         UndoItemClickListener(@NonNull final FragmentActivity activity, @NonNull final Logic logic, @NonNull final AlertDialog undoDialog,

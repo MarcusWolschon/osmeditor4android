@@ -2048,7 +2048,7 @@ public class Logic {
      * @param fromEnd if true remove last node else first
      * @param way the Way
      * @param deleteNode delete the Node after removing it
-     * @param createCheckpoint if true create an undo checkpoint
+     * @param createCheckPoint if true create an undo checkpoint
      */
     public synchronized void performRemoveEndNodeFromWay(@Nullable FragmentActivity activity, boolean fromEnd, @NonNull Way way, boolean deleteNode,
             boolean createCheckPoint) {
@@ -4698,6 +4698,7 @@ public class Logic {
      * <li>If set to a non-null value, the map will highlight only elements in the list.</li>
      * </ul>
      * 
+     * @param <T> type of element
      * @param clickable a set of elements to which highlighting should be limited, or null to remove the limitation
      */
     @SuppressWarnings("unchecked")

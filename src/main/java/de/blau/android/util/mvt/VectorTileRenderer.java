@@ -99,6 +99,7 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
      * Get a specific style layer for a source layer
      * 
      * @param sourceLayer the source layer name
+     * @param type the Layer.Type we want
      * @return the style or null
      */
     @Nullable
@@ -331,8 +332,9 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
      * 
      * @param rect pre-allocated Rect
      * @param g the Geometry
-     * @return
+     * @return the REct set to the bounding box
      */
+    @NonNull
     private Rect getBoundingBox(@NonNull Rect rect, @NonNull Geometry g) {
         switch (g.type()) {
         case GeoJSONConstants.POINT:

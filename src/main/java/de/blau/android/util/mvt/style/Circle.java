@@ -60,6 +60,8 @@ public class Circle extends Layer {
 
     /**
      * Default constructor
+     * 
+     * @param sourceLayer the source (data) layer
      */
     public Circle(@NonNull String sourceLayer) {
         super(sourceLayer);

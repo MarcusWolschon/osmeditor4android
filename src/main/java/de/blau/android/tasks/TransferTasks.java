@@ -798,11 +798,12 @@ public final class TransferTasks {
     /**
      * Merge tasks in to existing
      * 
+     * @param <T> the Task type
      * @param context an Android Context
      * @param storage the target TaskStorage
      * @param tasks a Collection of tasks
      */
-    public static <T extends Task> void merge(final Context context, final TaskStorage storage, Collection<T> tasks) {
+    public static <T extends Task> void merge(@NonNull final Context context, @NonNull final TaskStorage storage, @NonNull Collection<T> tasks) {
         final Preferences prefs = App.getLogic().getPrefs();
         boolean generateAlerts = prefs.generateAlerts();
         long now = System.currentTimeMillis();

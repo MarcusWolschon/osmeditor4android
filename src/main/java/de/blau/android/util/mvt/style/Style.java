@@ -313,6 +313,7 @@ public class Style implements Serializable {
     /**
      * Parse a Mapbox-GL style layer object
      * 
+     * @param ctx an Android Context
      * @param layers the existing Layers
      * @param layer the layer JsonObject
      * @return a Layer

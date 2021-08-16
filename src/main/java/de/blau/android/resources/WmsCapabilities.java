@@ -536,6 +536,7 @@ public class WmsCapabilities {
     /**
      * Check if this is a WMS 1.3 or later service
      * 
+     * @param version the Version to check
      * @return true if this is a WMS 1.3 or later service
      */
     public static boolean is130(@NonNull Version version) {

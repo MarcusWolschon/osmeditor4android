@@ -3269,7 +3269,7 @@ public class Preset implements Serializable {
         /**
          * Add a linked preset to the PresetItem
          * 
-         * @param presetName name of the PresetItem to link to
+         * @param presetLink the PresetLink
          */
         public void addLinkedPresetItem(@NonNull PresetItemLink presetLink) {
             if (linkedPresetItems == null) {
@@ -3281,7 +3281,7 @@ public class Preset implements Serializable {
         /**
          * Add a linked alternative preset to the PresetItem
          * 
-         * @param presetName name of the PresetItem to link to
+         * @param presetLink the PresetLink
          */
         public void addAlternativePresetItem(@NonNull PresetItemLink presetLink) {
             if (alternativePresetItems == null) {

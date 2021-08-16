@@ -243,7 +243,7 @@ public final class Color {
      * @param s Saturation is specified as a percentage in the range 1 - 100.
      * @param l Lumanance is specified as a percentage in the range 1 - 100.
      *
-     * @returns the RGB Color object
+     * @return the RGB Color object
      */
     public static int toRGB(float h, float s, float l) {
         return toRGB(h, s, l, 1.0f);
@@ -257,7 +257,7 @@ public final class Color {
      * @param l Lumanance is specified as a percentage in the range 1 - 100.
      * @param alpha the alpha value between 0 - 1
      *
-     * @returns the RGB Color object
+     * @return the RGB Color object
      */
     public static int toRGB(float h, float s, float l, float alpha) {
         if (s < 0.0f || s > 100.0f) {
@@ -308,7 +308,7 @@ public final class Color {
      * @param p
      * @param q
      * @param h
-     * @return
+     * @return a float RGB color value ?
      */
     private static float hueToRGB(float p, float q, float h) {
         if (h < 0) {

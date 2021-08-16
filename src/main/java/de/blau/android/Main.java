@@ -1335,6 +1335,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Parse a JOSM RC element spec and return the OsmElement
      * 
+     * @param elementName textual indication of element type
      * @param storageDelegator current StorageDelegator
      * @param s the spec
      * @return an OsmElement or null if not found
@@ -2979,7 +2980,6 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * Will include Tasks for the same if enabled
      * 
-     * @param main the instance of Main calling this
      * @param add if true merge the data with the current contents, if false replace
      */
     public void performCurrentViewHttpLoad(boolean add) {

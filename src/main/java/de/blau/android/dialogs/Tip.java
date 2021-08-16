@@ -100,8 +100,8 @@ public class Tip extends ImmersiveDialogFragment {
      * Display a simple alert dialog with an OK button that displays a text once
      * 
      * @param activity the calling Activity
-     * @param prefId res id for the preference key
-     * @param messageId res id for the message text
+     * @param prefIds res ids for the preference keys
+     * @param messageIds res ids for the message texts
      */
     public static void showDialog(@NonNull FragmentActivity activity, List<Integer> prefIds, List<Integer> messageIds) {
         prefs = PreferenceManager.getDefaultSharedPreferences(activity);
@@ -128,8 +128,9 @@ public class Tip extends ImmersiveDialogFragment {
     /**
      * Create a new instance of a Tip dialog
      * 
+     * @param prefIds res ids for the preference keys
      * @param messageIds the message resource ids
-     * @param optional if true a check box will be shown that allows turning optional messages off
+     * @param optionals if value is true a check box will be shown that allows turning optional messages off
      * @return a new instance of an ErrorAlert dialog
      */
     @NonNull
