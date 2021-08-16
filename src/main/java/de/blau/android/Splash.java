@@ -141,7 +141,7 @@ public class Splash extends AppCompatActivity {
      * 
      * @param ctx an Android Context
      */
-    private void directoryMigration(@NonNull Context ctx) {
+    static void directoryMigration(@NonNull Context ctx) {
         Log.w(DEBUG_TAG, "Migrating public directory ...");
         try {
             FileUtil.copyDirectory(FileUtil.getLegacyPublicDirectory(), FileUtil.getPublicDirectory(ctx));
