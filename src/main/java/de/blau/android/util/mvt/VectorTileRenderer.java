@@ -44,15 +44,15 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
 
     private VectorTileDecoder decoder = new VectorTileDecoder();
 
-    float scaleX = 1f;
-    float scaleY = 1f;
+    private float scaleX = 1f;
+    private float scaleY = 1f;
 
     private Set<String>              layerNames    = new HashSet<>();
     private Map<String, Set<String>> attributeKeys = new HashMap<>();
 
-    Rect destinationRect;
-    Rect screenRect;
-    Rect tempRect = new Rect();
+    private Rect destinationRect;
+    private Rect screenRect;
+    private Rect tempRect = new Rect();
 
     private Style   style;
     private int     lastZoom      = -1;
@@ -157,7 +157,6 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
         scaleX = destinationRect.width() / 256f;
         scaleY = destinationRect.height() / 256f;
         this.destinationRect = destinationRect;
-        setScreenRect(c);
         layerToRender.clear();
         List<Layer> temp = style.getLayers();
         synchronized (temp) { // protect against CME
@@ -201,15 +200,15 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     }
 
     /**
-     * Save the screen rect if it hasn't been yet
+     * Set and save the screen rect if it hasn't been yet
      * 
      * @param c the Canvas
      */
     private void setScreenRect(@NonNull Canvas c) {
         if (screenRect == null) {
             screenRect = new Rect();
-            c.getClipBounds(screenRect);
         }
+        c.getClipBounds(screenRect);
     }
 
     /**
