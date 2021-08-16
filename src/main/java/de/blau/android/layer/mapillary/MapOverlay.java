@@ -243,7 +243,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
             } else {
                 MapillaryViewerActivity.start(activity, ids, pos, new MapillaryLoader(cacheDir, cacheSize, imagesUrl, ids));
             }
-            map.invalidate();
+            activity.runOnUiThread(() -> map.invalidate());
         } else {
             Log.e(DEBUG_TAG, "image id " + id + " not found in sequence");
         }
