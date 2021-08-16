@@ -296,14 +296,14 @@ public class GeoJSONTest {
      */
     private de.blau.android.layer.geojson.MapOverlay loadGeoJOSN(String fileName) {
         try {
-            JavaResources.copyFileFromResources(context, fileName, "geojson/", "/geojson", false);
+            JavaResources.copyFileFromResources(context, fileName, "geojson/", "/geojson");
         } catch (IOException e) {
             fail(e.getMessage());
         }
         TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true);
         TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/add", true);
         TestUtils.clickText(device, false, context.getString(R.string.menu_layers_load_geojson), true);
-        TestUtils.selectFile(device, context, "geojson", fileName, false);
+        TestUtils.selectFile(device, context, "geojson", fileName, true);
         TestUtils.clickText(device, false, context.getString(R.string.okay), true);
         TestUtils.clickText(device, false, context.getString(R.string.done), true);
         return main.getMap().getGeojsonLayer();

@@ -158,7 +158,7 @@ public class PresetEditorTest {
         Activity presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(presetEditor instanceof PresetEditorActivity);
         try {
-            JavaResources.copyFileFromResources(main, "military2.zip", "fixtures/", "/", true);
+            JavaResources.copyFileFromResources(main, "military2.zip", "fixtures/", "/");
         } catch (IOException e1) {
             fail(e1.getMessage());
         }

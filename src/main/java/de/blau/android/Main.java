@@ -861,7 +861,7 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * Ceck if this device has an active camera
+     * Check if this device has an active camera
      * 
      * @return true is a camera is present
      */
@@ -2573,7 +2573,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     @NonNull
     private File getImageFile() throws IOException {
-        File outDir = FileUtil.getPublicDirectory();
+        File outDir = FileUtil.getPublicDirectory(this);
         outDir = FileUtil.getPublicDirectory(outDir, Paths.DIRECTORY_PATH_PICTURES);
         String imageFileName = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
         File newImageFile = File.createTempFile(imageFileName, Paths.FILE_EXTENSION_IMAGE, outDir);

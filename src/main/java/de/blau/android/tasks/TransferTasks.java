@@ -435,7 +435,7 @@ public final class TransferTasks {
     public static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final String fileName,
             @Nullable final PostAsyncActionHandler postWrite) {
         try {
-            File outfile = FileUtil.openFileForWriting(fileName);
+            File outfile = FileUtil.openFileForWriting(activity, fileName);
             Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
             writeOsnFile(activity, all, new BufferedOutputStream(new FileOutputStream(outfile)), postWrite);
         } catch (IOException e) {
@@ -723,7 +723,7 @@ public final class TransferTasks {
     public static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final String fileName,
             @Nullable final PostAsyncActionHandler postWrite) {
         try {
-            File outfile = FileUtil.openFileForWriting(fileName);
+            File outfile = FileUtil.openFileForWriting(activity, fileName);
             Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
             writeCustomBugFile(activity, new FileOutputStream(outfile), postWrite);
         } catch (IOException e) {

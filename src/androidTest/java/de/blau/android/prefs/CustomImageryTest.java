@@ -94,7 +94,7 @@ public class CustomImageryTest {
     @Test
     public void customImageryValidMBTiles() {
         try {
-            JavaResources.copyFileFromResources(main, "map.mbt", null, "mbtiles", false);
+            JavaResources.copyFileFromResources(main, "map.mbt", null, "mbtiles");
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
@@ -107,7 +107,7 @@ public class CustomImageryTest {
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true, false));
         Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
         Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/file_button", true));
-        TestUtils.selectFile(device, main, "mbtiles", "map.mbt", false);
+        TestUtils.selectFile(device, main, "mbtiles", "map.mbt", true);
         Assert.assertTrue(TestUtils.findText(device, false, "My Map"));
         Assert.assertTrue(TestUtils.findText(device, false, "57.0527713171221"));
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save_and_set), true, false));
@@ -124,7 +124,7 @@ public class CustomImageryTest {
     @Test
     public void customImageryInvalidMBTiles() {
         try {
-            JavaResources.copyFileFromResources(main, "map-no-meta.mbt", null, "mbtiles", false);
+            JavaResources.copyFileFromResources(main, "map-no-meta.mbt", null, "mbtiles");
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
@@ -137,7 +137,7 @@ public class CustomImageryTest {
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true, false));
         Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
         Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/file_button", true));
-        TestUtils.selectFile(device, main, "mbtiles", "map-no-meta.mbt", false);
+        TestUtils.selectFile(device, main, "mbtiles", "map-no-meta.mbt", true);
         UiObject url = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/url"));
         try {
             Assert.assertEquals("", url.getText()); // url not set

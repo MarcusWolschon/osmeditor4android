@@ -61,7 +61,7 @@ public final class CustomPreset {
                     Preset preset = Preset.dummyInstance();
                     try {
                         preset.setIconManager(new PresetIconManager(ctx,
-                                FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET).getAbsolutePath(), null));
+                                FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(ctx), Paths.DIRECTORY_PATH_AUTOPRESET).getAbsolutePath(), null));
                     } catch (IOException e) {
                         Log.e(DEBUG_TAG, "Setting icon manager failed " + e.getMessage());
                     }
@@ -109,7 +109,7 @@ public final class CustomPreset {
                         Log.e(DEBUG_TAG, "Preset null");
                         return;
                     }
-                    AutoPreset.save(autoPreset);
+                    AutoPreset.save(ctx, autoPreset);
                     caller.deselectAllRows();
                     caller.presetSelectedListener.onPresetSelected(customItem);
                 }).show();

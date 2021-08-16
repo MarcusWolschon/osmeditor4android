@@ -10,7 +10,6 @@ import java.io.OutputStream;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import de.blau.android.util.FileUtil;
 
 public final class JavaResources {
@@ -23,20 +22,16 @@ public final class JavaResources {
     }
 
     /**
-     * Copy a file from resources to a sub-directory of the public Vespucci directory
+     * Copy a file from resources to a sub-directory of the standard public Vespucci directory
      * 
      * @param context Android Context
      * @param fileName the name of the file to copy
      * @param source the source sub-directory, can be null
      * @param destination the destination sub-directory
-     * @param useVespucciDir if true use the Vespucci directory instead of the standard ones
      * @throws IOException if copying goes wrong
      */
-    public static void copyFileFromResources(@NonNull Context context, @NonNull String fileName, @Nullable String source, @NonNull String destination,
-            boolean useVespucciDir) throws IOException {
-        
-        File[] storageDirectories = ContextCompat.getExternalFilesDirs(context, null);
-        File destinationDir = FileUtil.getPublicDirectory(useVespucciDir ? FileUtil.getPublicDirectory() : storageDirectories[0], destination);
+    public static void copyFileFromResources(@NonNull Context context, @NonNull String fileName, @Nullable String source, @NonNull String destination) throws IOException {
+        File destinationDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context) , destination);
         File destinationFile = new File(destinationDir, fileName);   
         copyFileFromResources(fileName, source, destinationFile);
     }

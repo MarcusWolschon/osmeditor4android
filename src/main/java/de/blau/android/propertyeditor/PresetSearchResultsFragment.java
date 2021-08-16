@@ -174,7 +174,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
                 } else {
                     Log.e(DEBUG_TAG, "Couldn't find preset group");
                 }
-                AutoPreset.save(preset);
+                AutoPreset.save(getContext(), preset);
                 mPresetUpdateListener.update(null);
             }
             mOnPresetSelectedListener.onPresetSelected(item);

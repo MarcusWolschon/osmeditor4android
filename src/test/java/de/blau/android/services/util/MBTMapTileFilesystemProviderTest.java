@@ -17,7 +17,6 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
 import android.database.sqlite.SQLiteDatabase;
-import androidx.core.content.ContextCompat;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.JavaResources;
@@ -26,6 +25,7 @@ import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.Provider;
+import de.blau.android.util.FileUtil;
 import de.blau.android.views.util.MapTileProviderCallback;
 import okhttp3.mockwebserver.MockWebServer;
 
@@ -45,15 +45,16 @@ public class MBTMapTileFilesystemProviderTest {
         ShadowLog.setupLogging();
         provider = new MapTileFilesystemProvider(ApplicationProvider.getApplicationContext(), new File("."), 1000000);
         try {
-            JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "ersatz_background.mbt", null, "/", false);
+            JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "ersatz_background.mbt", null, "/");
         } catch (IOException e) {
             fail(e.getMessage());
         }
         try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
-            File[] storageDirectories = ContextCompat.getExternalFilesDirs(ApplicationProvider.getApplicationContext(), null);
-            File mbtFile = new File(storageDirectories[0], "ersatz_background.mbt");
+            File mbtFile = new File(FileUtil.getPublicDirectory(ApplicationProvider.getApplicationContext()), "ersatz_background.mbt");
             TileLayerSource.addOrUpdateCustomLayer(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), MockTileServer.MOCK_TILE_SOURCE, null,
                     -1, -1, "Vespucci Test", new Provider(), Category.other, null, null, 0, 19, false, "file://" + mbtFile.getAbsolutePath());
+        } catch (IOException e) {
+            fail(e.getMessage());
         }
         // force update of tile sources
         try (TileLayerDatabase tlDb = new TileLayerDatabase(ApplicationProvider.getApplicationContext()); SQLiteDatabase db = tlDb.getReadableDatabase()) {

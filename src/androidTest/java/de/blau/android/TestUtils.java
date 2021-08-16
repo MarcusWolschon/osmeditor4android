@@ -39,7 +39,6 @@ import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiScrollable;
 import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
-import de.blau.android.contract.Paths;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.ApiTest;
@@ -320,7 +319,7 @@ public class TestUtils {
     /**
      * Long click at a screen location
      * 
-     * @param devie the UiDevice
+     * @param device the UiDevice
      * @param x screen X coordinate
      * @param y screen y coordinate
      */
@@ -1021,7 +1020,7 @@ public class TestUtils {
             }
             String storagePath = "Android/data/" + context.getPackageName() + "/files";
             if (useVespucciDir) {
-                storagePath = Paths.DIRECTORY_PATH_VESPUCCI;
+                storagePath = "Download/Vespucci"; // FIXME use FileUtil...
             }
             selectDirectory(device, storagePath, scrollableSelector);
         }
@@ -1191,6 +1190,8 @@ public class TestUtils {
      * 
      * MockWebServerPlus currently doesn't handle non-text bodies properly so we do this manually
      *
+     * @param contentType the content type we are returning
+     * @param fixture the filename of the fixture
      * @return a MockResponse
      */
     public static MockResponse createBinaryReponse(@NonNull String contentType, @NonNull String fixture) {
@@ -1210,6 +1211,9 @@ public class TestUtils {
 
     /**
      * Load test data
+     * 
+     * @param activity the calling activity
+     * @param fileName file name for the test data
      */
     public static void loadTestData(@NonNull FragmentActivity activity, @NonNull String fileName) {
         final CountDownLatch signal1 = new CountDownLatch(1);

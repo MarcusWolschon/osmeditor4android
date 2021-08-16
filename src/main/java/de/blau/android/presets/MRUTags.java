@@ -290,7 +290,7 @@ public class MRUTags {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    File outfile = FileUtil.openFileForWriting(FileUtil.getPublicDirectory() + "/" + Files.FILE_NAME_MRUTAGS);
+                    File outfile = FileUtil.openFileForWriting(ctx, FileUtil.getPublicDirectory(ctx) + "/" + Files.FILE_NAME_MRUTAGS);
                     Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
                     try (FileOutputStream fout = new FileOutputStream(outfile); OutputStream out = new BufferedOutputStream(fout);) {
                         writeXml(ctx, out);
@@ -407,7 +407,7 @@ public class MRUTags {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    File infile = FileUtil.openFileForWriting(FileUtil.getPublicDirectory() + "/" + Files.FILE_NAME_MRUTAGS);
+                    File infile = FileUtil.openFileForWriting(ctx, FileUtil.getPublicDirectory(ctx) + "/" + Files.FILE_NAME_MRUTAGS);
                     Log.d(DEBUG_TAG, "Loading from " + infile.getPath());
                     try (FileInputStream fin = new FileInputStream(infile); InputStream in = new BufferedInputStream(fin);) { // NOSONAR
                         readXml(ctx, in);

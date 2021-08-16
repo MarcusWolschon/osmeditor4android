@@ -98,7 +98,7 @@ public class AutoPreset {
         Preset preset = Preset.dummyInstance();
         try {
             preset.setIconManager(new PresetIconManager(context,
-                    FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET).getAbsolutePath(), null));
+                    FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context), Paths.DIRECTORY_PATH_AUTOPRESET).getAbsolutePath(), null));
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Setting icon managery failed " + e.getMessage());
         }
@@ -309,15 +309,16 @@ public class AutoPreset {
     /**
      * Save a Preset to our public directory
      * 
+     * @param context Android Context
      * @param preset the Preset to save
      */
-    public static void save(@NonNull final Preset preset) {
+    public static void save(@NonNull Context context, @NonNull final Preset preset) {
         AsyncTask<Void, Void, Void> save = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    File outfile = FileUtil
-                            .openFileForWriting(FileUtil.getPublicDirectory() + "/" + Paths.DIRECTORY_PATH_AUTOPRESET + "/" + Files.FILE_NAME_AUTOPRESET);
+                    File outfile = FileUtil.openFileForWriting(context,
+                            FileUtil.getPublicDirectory(context) + "/" + Paths.DIRECTORY_PATH_AUTOPRESET + "/" + Files.FILE_NAME_AUTOPRESET);
                     try (FileOutputStream fout = new FileOutputStream(outfile); OutputStream out = new BufferedOutputStream(fout);) { // NOSONAR
                         Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
                         XmlSerializer s = XmlPullParserFactory.newInstance().newSerializer();
@@ -354,7 +355,7 @@ public class AutoPreset {
         String autopresetGroupName = context.getString(R.string.preset_autopreset);
 
         try {
-            File autoPresetDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET);
+            File autoPresetDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context), Paths.DIRECTORY_PATH_AUTOPRESET);
             File autoIcon = new File(autoPresetDir, AutoPreset.ICON);
             if (!autoIcon.exists()) {
                 for (int i = 0; i < ICONS.length; i++) {
@@ -369,10 +370,10 @@ public class AutoPreset {
             }
         } catch (IOException e) {
             // don't fail because of an exception here
-            Log.e(DEBUG_TAG, "Icon not found ", e);
+            Log.e(DEBUG_TAG, "Icon/file not found ", e);
         }
-        activePresets[autopresetPosition] = new Preset(context, FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET),
-                null, true);
+        activePresets[autopresetPosition] = new Preset(context,
+                FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context), Paths.DIRECTORY_PATH_AUTOPRESET), null, true);
         Preset autopreset = activePresets[autopresetPosition];
         PresetGroup group = autopreset.getGroupByName(autopresetGroupName);
         if (group == null) {

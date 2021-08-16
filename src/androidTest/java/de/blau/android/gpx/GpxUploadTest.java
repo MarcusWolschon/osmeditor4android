@@ -126,7 +126,7 @@ public class GpxUploadTest {
         }
 
         try {
-            JavaResources.copyFileFromResources(main, GPX_FILE, null, "/", false);
+            JavaResources.copyFileFromResources(main, GPX_FILE, null, "/");
             screenshotRule.screenshot(main, "gpx_upload_1");
             clickGpsButton();
             if (TestUtils.findObjectWithText(device, false, main.getString(R.string.menu_gps_clear), 1000).getParent().getParent().getParent().isEnabled()) {
@@ -136,7 +136,7 @@ public class GpxUploadTest {
             }
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_track_managment), true, false));
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_import), true, false));
-            TestUtils.selectFile(device, main, null, GPX_FILE, false);
+            TestUtils.selectFile(device, main, null, GPX_FILE, true);
             TestUtils.textGone(device, "Imported", 10000);
             clickGpsButton();
             screenshotRule.screenshot(main, "gpx_upload_2");
