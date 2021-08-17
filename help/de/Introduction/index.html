@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -376,7 +388,7 @@ i-->
 <p>Ein zweites Antippen des Objekts öffnet den "Tag-Editor", in dem die mit dem Objekt verknüpften Eigenschaften bearbeitet werden können.</p>
 <p>Hinweis: für sich überlappende Objekte (z. B. ein Punkt auf einem Weg) erscheint das Auswahlmenü ein weiteres Mal. Wählt man das schon ausgewählte Objekt nochmals, wird der Tag-Editor gestartet, wählt man ein anderes Objekt, so wird dieses ausgewählt.</p>
 <h4 id="ausgewahlte-objekte-einen-knoten-oder-weg-verschieben">Ausgewählte Objekte: Einen Knoten oder Weg verschieben</h4>
-<p>Ist ein Objekt ausgewählt, kann es verschoben werden. Hinweis: Objekte können erst verschoben werden, nachdem sie ausgewählt wurden. Durch Ziehen an der Umgebung (d. h. innerhalb der Toleranzzone) des Objekts, kann es dann bewegt werden. In den Einstellungen lässt sich ein größerer Bereich rund um den markierten Knoten einschalten, der die Verschiebung eines Objekts erleichtert. </p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object. </p>
 <h4 id="hinzufugen-eines-knotenspunkts-oder-weges">Hinzufügen eines Knotens/Punkts oder Weges</h4>
 <p>Beim ersten Start der App ist der "Einfache Modus" aktiviert. Dies kann im Hauptmenü geändert werden, indem die entsprechende Auswahlbox deaktiviert wird.</p>
 <h5 id="einfacher-modus">Einfacher Modus</h5>
@@ -444,12 +456,15 @@ i-->
 <p>Auf der Karte werden die Notizen und Fehler mit einem kleinen Käfer-Symbol  <img alt="Bug" src="../../images/bug_open.png" /> angezeigt, grüne sind behoben, blaue sind neu erstellt oder geändert, und Gelb zeigt an, dass die Notiz respektive der Fehler noch unverändert aktiv ist. </p>
 <p>In der OSMOSE-Fehlerdarstellung wird für die betroffenen Objekte jeweils ein blau hervorgehobener Link angezeigt. Wählt man den Link an, wird das Objekt ausgewählt, der Bildschirm darauf zentriert und, falls nötig, das entsprechende Gebiet heruntergeladen. </p>
 <h3 id="anzeigefilter">Anzeigefilter</h3>
-<p>Zusätzlich zum Freischalten der Notiz- und Fehleranzeige kann eine grobe Auswahl der angezeigten Objekte eingestellt werden. In den "Erweiterten Einstellungen" kann Folgendes ausgewählt werden:   </p>
-<p><item>Notizen</item>
-<item>Osmose-Fehler</item>
-<item>Osmose-Warnung</item>
-<item>Osmose-Hinweis</item>
-<item>Benutzerdefiniert</item></p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
+<ul>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Custom</li>
+</ul>
 <p><a id="indoor"></a></p>
 <h2 id="innenraum-modus">Innenraum-Modus</h2>
 <p>In Innenräumen Daten zu erfassen ist anspruchsvoll aufgrund der grossen Anzahl von Objekten, die sich häufig überlappen. Vespucci hat einen speziellen Innenraum-Modus, der es ermöglicht, alle Objekte, die nicht auf der gleichen Etage sind, auszufiltern, und der bei neu erstellten Objekten automatisch die richtige Etage in den Objekteigenschaften einträgt. </p>
@@ -459,7 +474,7 @@ i-->
 <p>Im C-Modus werden nur Objekte angezeigt, die ein Problem haben, was das Finden von Objekten, die spezifische Probleme haben oder zu  konfigurierbaren Qualitätsprüfungen passen, erleichtert. Wird ein solches Objekt angewählt, startet der Eigenschaftseditor und die am besten passende Vorlage wird automatisch angewandt.</p>
 <p>In den Modus kann durch einen langen Druck auf das Schlosssymbol gewechselt werden, siehe auch <a href="#lock">Sperren, entsperren, Modus wechseln</a>.</p>
 <h3 id="prufungen-konfigurieren">Prüfungen konfigurieren</h3>
-<p>Im Augenblick sind zwei der Tests konfigurierbar, beide können durch Auswahl der "Validierungseinstellungen" in den "Einstellungen" geändert werden. (Die Tests für FIXME-Tags und  für fehlende "type"-Tags bei Relationen sind derzeit nicht konfigurierbar.)  </p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the <a href="Preferences.md">preferences</a>. </p>
 <p>Die Liste ist zweigeteilt, die obere Hälfte enthält die "Überprüfungstests", die untere die Tests auf "Fehlende Tags". Einträge können durch anklicken bearbeitet werden, der grüne Menüknopf erlaubt es weitere Einträge hinzuzufügen.</p>
 <h4 id="eintrage-fur-elemente-die-uberpruft-werden-sollten">Einträge für Elemente die überprüft werden sollten</h4>
 <p>Überprüfungstest-Einträge haben die folgenden Eigenschaften:</p>
@@ -484,6 +499,7 @@ i-->
 <p>Eine Alternative zu obigem. Objekte werden entweder durch Einzelvorlagen oder Vorlagengruppen gefiltert. Nach einem Tipp auf die Filter-Schaltfläche wird ein Dialog zur  Vorlagenauswahl angezeigt, ähnlich wie er an anderer Stelle in Vespucci benutzt wird. Einzelne Vorlagen können durch einen normalen Klick ausgewählt werden, Vorlagengruppen durch einen langen Klick (normaler Klick öffnet die Gruppe). Mehr Informationen unter <a href="../../en/Preset filter/">Vorlagenfilter</a>.</p>
 <h2 id="vespucci-individuell-anpassen">Vespucci individuell anpassen</h2>
 <p>Viele Gesichtspunkte der App können angepasst werden. Wenn man nach etwas Bestimmtem sucht und es nicht findet, ist die <a href="https://vespucci.io/">Vespucci-Website</a> durchsuchbar und enthält zusätzliche Informationen, was auf dem Gerät möglich ist.</p>
+<p><a id="layers"></a></p>
 <h3 id="ebeneneigenschaften">Ebeneneigenschaften</h3>
 <p>Die Ebeneneigenschaften können über den Ebenen-Schalter (obere rechte Ecke) geändert werden, alle anderen Festlegungen sind über die Einstellungen im Hauptmenü zugänglich.</p>
 <p>Verfügbare Ebenen:</p>
@@ -497,6 +513,7 @@ i-->
 <li>GeoJSON-Ebene - zeigt den Inhalt eine GeoJSON Datei an. Standardeinstellung: ausgeschaltet.</li>
 <li>Gitter / Skalen - zeigt eine Skala entlang der Seiten der Karte oder Gitterlinien an. Standardeinstellung: eingeschaltet. </li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4 id="einstellungen">Einstellungen</h4>
 <ul>
 <li>Bildschirm eingeschaltet lassen. Standard: aus.</li>
@@ -587,7 +604,7 @@ i-->
 <p>Ein zweites Antippen des Objekts öffnet den "Tag-Editor", in dem die mit dem Objekt verknüpften Eigenschaften bearbeitet werden können.</p>
 <p>Hinweis: für sich überlappende Objekte (z. B. ein Punkt auf einem Weg) erscheint das Auswahlmenü ein weiteres Mal. Wählt man das schon ausgewählte Objekt nochmals, wird der Tag-Editor gestartet, wählt man ein anderes Objekt, so wird dieses ausgewählt.</p>
 <h4 id="ausgewahlte-objekte-einen-knoten-oder-weg-verschieben">Ausgewählte Objekte: Einen Knoten oder Weg verschieben</h4>
-<p>Ist ein Objekt ausgewählt, kann es verschoben werden. Hinweis: Objekte können erst verschoben werden, nachdem sie ausgewählt wurden. Durch Ziehen an der Umgebung (d. h. innerhalb der Toleranzzone) des Objekts, kann es dann bewegt werden. In den Einstellungen lässt sich ein größerer Bereich rund um den markierten Knoten einschalten, der die Verschiebung eines Objekts erleichtert. </p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object. </p>
 <h4 id="hinzufugen-eines-knotenspunkts-oder-weges">Hinzufügen eines Knotens/Punkts oder Weges</h4>
 <p>Beim ersten Start der App ist der "Einfache Modus" aktiviert. Dies kann im Hauptmenü geändert werden, indem die entsprechende Auswahlbox deaktiviert wird.</p>
 <h5 id="einfacher-modus">Einfacher Modus</h5>
@@ -655,12 +672,15 @@ i-->
 <p>Auf der Karte werden die Notizen und Fehler mit einem kleinen Käfer-Symbol  <img alt="Bug" src="../../images/bug_open.png" /> angezeigt, grüne sind behoben, blaue sind neu erstellt oder geändert, und Gelb zeigt an, dass die Notiz respektive der Fehler noch unverändert aktiv ist. </p>
 <p>In der OSMOSE-Fehlerdarstellung wird für die betroffenen Objekte jeweils ein blau hervorgehobener Link angezeigt. Wählt man den Link an, wird das Objekt ausgewählt, der Bildschirm darauf zentriert und, falls nötig, das entsprechende Gebiet heruntergeladen. </p>
 <h3 id="anzeigefilter">Anzeigefilter</h3>
-<p>Zusätzlich zum Freischalten der Notiz- und Fehleranzeige kann eine grobe Auswahl der angezeigten Objekte eingestellt werden. In den "Erweiterten Einstellungen" kann Folgendes ausgewählt werden:   </p>
-<p><item>Notizen</item>
-<item>Osmose-Fehler</item>
-<item>Osmose-Warnung</item>
-<item>Osmose-Hinweis</item>
-<item>Benutzerdefiniert</item></p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
+<ul>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Custom</li>
+</ul>
 <p><a id="indoor"></a></p>
 <h2 id="innenraum-modus">Innenraum-Modus</h2>
 <p>In Innenräumen Daten zu erfassen ist anspruchsvoll aufgrund der grossen Anzahl von Objekten, die sich häufig überlappen. Vespucci hat einen speziellen Innenraum-Modus, der es ermöglicht, alle Objekte, die nicht auf der gleichen Etage sind, auszufiltern, und der bei neu erstellten Objekten automatisch die richtige Etage in den Objekteigenschaften einträgt. </p>
@@ -670,7 +690,7 @@ i-->
 <p>Im C-Modus werden nur Objekte angezeigt, die ein Problem haben, was das Finden von Objekten, die spezifische Probleme haben oder zu  konfigurierbaren Qualitätsprüfungen passen, erleichtert. Wird ein solches Objekt angewählt, startet der Eigenschaftseditor und die am besten passende Vorlage wird automatisch angewandt.</p>
 <p>In den Modus kann durch einen langen Druck auf das Schlosssymbol gewechselt werden, siehe auch <a href="#lock">Sperren, entsperren, Modus wechseln</a>.</p>
 <h3 id="prufungen-konfigurieren">Prüfungen konfigurieren</h3>
-<p>Im Augenblick sind zwei der Tests konfigurierbar, beide können durch Auswahl der "Validierungseinstellungen" in den "Einstellungen" geändert werden. (Die Tests für FIXME-Tags und  für fehlende "type"-Tags bei Relationen sind derzeit nicht konfigurierbar.)  </p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the <a href="Preferences.md">preferences</a>. </p>
 <p>Die Liste ist zweigeteilt, die obere Hälfte enthält die "Überprüfungstests", die untere die Tests auf "Fehlende Tags". Einträge können durch anklicken bearbeitet werden, der grüne Menüknopf erlaubt es weitere Einträge hinzuzufügen.</p>
 <h4 id="eintrage-fur-elemente-die-uberpruft-werden-sollten">Einträge für Elemente die überprüft werden sollten</h4>
 <p>Überprüfungstest-Einträge haben die folgenden Eigenschaften:</p>
@@ -695,6 +715,7 @@ i-->
 <p>Eine Alternative zu obigem. Objekte werden entweder durch Einzelvorlagen oder Vorlagengruppen gefiltert. Nach einem Tipp auf die Filter-Schaltfläche wird ein Dialog zur  Vorlagenauswahl angezeigt, ähnlich wie er an anderer Stelle in Vespucci benutzt wird. Einzelne Vorlagen können durch einen normalen Klick ausgewählt werden, Vorlagengruppen durch einen langen Klick (normaler Klick öffnet die Gruppe). Mehr Informationen unter <a href="../../en/Preset filter/">Vorlagenfilter</a>.</p>
 <h2 id="vespucci-individuell-anpassen">Vespucci individuell anpassen</h2>
 <p>Viele Gesichtspunkte der App können angepasst werden. Wenn man nach etwas Bestimmtem sucht und es nicht findet, ist die <a href="https://vespucci.io/">Vespucci-Website</a> durchsuchbar und enthält zusätzliche Informationen, was auf dem Gerät möglich ist.</p>
+<p><a id="layers"></a></p>
 <h3 id="ebeneneigenschaften">Ebeneneigenschaften</h3>
 <p>Die Ebeneneigenschaften können über den Ebenen-Schalter (obere rechte Ecke) geändert werden, alle anderen Festlegungen sind über die Einstellungen im Hauptmenü zugänglich.</p>
 <p>Verfügbare Ebenen:</p>
@@ -708,6 +729,7 @@ i-->
 <li>GeoJSON-Ebene - zeigt den Inhalt eine GeoJSON Datei an. Standardeinstellung: ausgeschaltet.</li>
 <li>Gitter / Skalen - zeigt eine Skala entlang der Seiten der Karte oder Gitterlinien an. Standardeinstellung: eingeschaltet. </li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4 id="einstellungen">Einstellungen</h4>
 <ul>
 <li>Bildschirm eingeschaltet lassen. Standard: aus.</li>
@@ -730,7 +752,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

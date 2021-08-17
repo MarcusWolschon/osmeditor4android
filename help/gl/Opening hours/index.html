@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -317,7 +329,7 @@ i-->
 <p><em>Esta documentación é preliminar e está en progreso</em></p>
 <h2 id="empregando-o-editor-dos-horarios-de-apertura">Empregando o editor dos horarios de apertura</h2>
 <p>In a typical workflow the object you are editing will either already have an opening hours tag (opening_hours, service_times and collection_times) or you can re-apply the preset for the object to get an empty opening hours field. If you need to add the field manually and you are using Vespucci you can enter the key on the details page and then switch back to the form based tab to edit. If you believe that the opening hours tag should have been part of the preset, please open an issue for your editor.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. </p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Por suposto, pode construír un valor de horas de apertura desde cero, pero recomendaríamos usar un dos modelos existentes como punto de partida.</p>
 <p>Se se carga un valor de horas de horario existente, faise un intento automático para corrixilo para que se axuste á especificación de horas de apertura. Se isto non é posible, o lugar en bruto onde se produciu o erro quedará resaltado na visualización do valor de OH sin procesar e pode tentar corrixilo manualmente. Aproximadamente un cuarto dos valores de OH na base de datos OpenStreetMap teñen problemas, pero non se pode corrixir menos do 10%. <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> Para obter máis información sobre as tolerancias das desviacións da especificación.</p>
 <h3 id="boton-menu-principal">Botón menú principal</h3>
@@ -367,7 +379,11 @@ i-->
 <li><strong>Con offsets...</strong>: As mesmas entradas que o anterior pero con offsets especificados (isto raramente se usa).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Engadir rango anual</strong>: Engade un selector baseado no ano.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Engadir rango semanal</strong>: Engade un selector baseado en números semanais.</li>
 <li><strong>Duplicate</strong>: create a copy of this rule and insert it after the current position.</li>
 <li><strong>Amosar tipo de regra</strong>: Amosar e permitir o cambio do tipo de regra <em>normal</em>, <em>aditivo</em> and <em>fallback</em> (Non dispoñible na primeira regra).</li>
@@ -387,6 +403,15 @@ i-->
 <li><strong>Comezar a medianoite</strong>: Inicie a barra de rango á medianoite.</li>
 <li><strong>Amosar intervalo</strong>: Amosa o campo de intervalo para especificar un intervalo en minutos.</li>
 <li><strong>Borrar</strong>: Borra este período de tempo.</li>
+</ul>
+<h3 id="xestionar-modelos">Xestionar modelos</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -403,7 +428,7 @@ i-->
 <p><em>Esta documentación é preliminar e está en progreso</em></p>
 <h2 id="empregando-o-editor-dos-horarios-de-apertura">Empregando o editor dos horarios de apertura</h2>
 <p>In a typical workflow the object you are editing will either already have an opening hours tag (opening_hours, service_times and collection_times) or you can re-apply the preset for the object to get an empty opening hours field. If you need to add the field manually and you are using Vespucci you can enter the key on the details page and then switch back to the form based tab to edit. If you believe that the opening hours tag should have been part of the preset, please open an issue for your editor.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. </p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Por suposto, pode construír un valor de horas de apertura desde cero, pero recomendaríamos usar un dos modelos existentes como punto de partida.</p>
 <p>Se se carga un valor de horas de horario existente, faise un intento automático para corrixilo para que se axuste á especificación de horas de apertura. Se isto non é posible, o lugar en bruto onde se produciu o erro quedará resaltado na visualización do valor de OH sin procesar e pode tentar corrixilo manualmente. Aproximadamente un cuarto dos valores de OH na base de datos OpenStreetMap teñen problemas, pero non se pode corrixir menos do 10%. <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> Para obter máis información sobre as tolerancias das desviacións da especificación.</p>
 <h3 id="boton-menu-principal">Botón menú principal</h3>
@@ -453,7 +478,11 @@ i-->
 <li><strong>Con offsets...</strong>: As mesmas entradas que o anterior pero con offsets especificados (isto raramente se usa).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Engadir rango anual</strong>: Engade un selector baseado no ano.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Engadir rango semanal</strong>: Engade un selector baseado en números semanais.</li>
 <li><strong>Duplicate</strong>: create a copy of this rule and insert it after the current position.</li>
 <li><strong>Amosar tipo de regra</strong>: Amosar e permitir o cambio do tipo de regra <em>normal</em>, <em>aditivo</em> and <em>fallback</em> (Non dispoñible na primeira regra).</li>
@@ -473,6 +502,15 @@ i-->
 <li><strong>Comezar a medianoite</strong>: Inicie a barra de rango á medianoite.</li>
 <li><strong>Amosar intervalo</strong>: Amosa o campo de intervalo para especificar un intervalo en minutos.</li>
 <li><strong>Borrar</strong>: Borra este período de tempo.</li>
+</ul>
+<h3 id="xestionar-modelos">Xestionar modelos</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div>
                 
         </div>
@@ -480,7 +518,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

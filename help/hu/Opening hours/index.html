@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -317,7 +329,7 @@ i-->
 <p><em>Ez a dokumentáció ideiglenes, és dolgozunk rajta</em></p>
 <h2 id="a-nyitvatartas-szerkeszto-hasznalata">A nyitvatartás-szerkesztő használata</h2>
 <p>A szokásos munkamenet szerint a szerkesztett térképelemnek vagy már van egy nyitva tartást tartalmazó címkéje (opening_hours, service_times vagy collection_times), vagy az előbeállításnak a térképelemre történő újraalkalmazásával nyithat egy üres nyitva tartási mezőt. Ha a mezőt kézzel kell hozzáadnia és Vespuccit használ, akkor a kulcsot megadhatja a részletes adatok oldalán, majd visszakapcsolhat az űrlapalapú fülre a szerkesztéshez. Ha úgy véli, hogy a nyitva tartási címkének az előbeállításban is szerepelnie kellene, kérjük, nyisson egy kérdést (issue) a szerkesztőjéhez.</p>
-<p>Ha meghatározott egy alapértelmezett sablont (ezt a „Sablonok kezelése” menüpontban teheti meg), akkor az automatikusan be fog töltődni, amikor a szerkesztő egy üres értékkel indul. A „Sablon betöltése” funkcióval bármilyen sablont betölthet, a „Sablon mentése” menüvel pedig sablonként elmentheti az adott értéket. Az „opening_hours”, a „collection_times” és a „service_times” címkékre külön sablonokat és alapértelmezéseket határozhat meg.</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Természetesen a semmiből is elkezdheted összeállítani a nyitva tartást, azonban azt talácsoljuk, hogy kiindulási pontként használd valamelyik sablont.</p>
 <p>Amikor egy meglévő nyitva tartás betöltődik, akkor történik egy automatikus javítási kísérlet, hogy megfeleljen a nyitva tartási idők specifikációjának. Ha ez nem lehetséges, akkor a hiba körülbelüli helye kiemelődik a nyers nyitva tartás kijelzőjén, és megpróbálhatod kézzel kijavítani. Az OpenStreetMap adatbázisában a nyitva tartási értékek mintegy negyede hibás, azonban csak kevesebb mint 10% -uk nem javítható. A specifikációtól való megtűrt eltérések: <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a></p>
 <h3 id="fomenu-gomb">Főmenü gomb</h3>
@@ -367,7 +379,11 @@ i-->
 <li><strong>Eltolásokkal…</strong>: a fentiekkel megegyező bejegyzések, azonban egy adott értékkel eltolva (ritka).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Évtartomány hozzáadása</strong>: évalapú kijelölő hozzáadása.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Héttartomány hozzáadása</strong>: hétalapú kijelölő hozzáadása.</li>
 <li><strong>Duplikálás</strong>: másolat készítése erről a szabályról és beillesztése a következő helyre.</li>
 <li><strong>Szabálytípus megjelenítése</strong>: a <em>rendes</em>, <em>kiegészítő</em> és <em>helyettesítő</em> szabálytípus megjelenítése és esetleges módosítása (az első szabálynál nem alkalmazható).</li>
@@ -387,6 +403,15 @@ i-->
 <li><strong>Éjfélkor indul</strong>: a tartománysáv éjfélnél kezdődik.</li>
 <li><strong>Intervallum megjelenítése</strong>: megjeleníti az intervallummezőt, ahol percben megadható, hogy milyen időközönként történik valami.</li>
 <li><strong>Törlés</strong>: ennek az időtartamnak a törlése.</li>
+</ul>
+<h3 id="sablonok-kezelese">Sablonok kezelése</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -403,7 +428,7 @@ i-->
 <p><em>Ez a dokumentáció ideiglenes, és dolgozunk rajta</em></p>
 <h2 id="a-nyitvatartas-szerkeszto-hasznalata">A nyitvatartás-szerkesztő használata</h2>
 <p>A szokásos munkamenet szerint a szerkesztett térképelemnek vagy már van egy nyitva tartást tartalmazó címkéje (opening_hours, service_times vagy collection_times), vagy az előbeállításnak a térképelemre történő újraalkalmazásával nyithat egy üres nyitva tartási mezőt. Ha a mezőt kézzel kell hozzáadnia és Vespuccit használ, akkor a kulcsot megadhatja a részletes adatok oldalán, majd visszakapcsolhat az űrlapalapú fülre a szerkesztéshez. Ha úgy véli, hogy a nyitva tartási címkének az előbeállításban is szerepelnie kellene, kérjük, nyisson egy kérdést (issue) a szerkesztőjéhez.</p>
-<p>Ha meghatározott egy alapértelmezett sablont (ezt a „Sablonok kezelése” menüpontban teheti meg), akkor az automatikusan be fog töltődni, amikor a szerkesztő egy üres értékkel indul. A „Sablon betöltése” funkcióval bármilyen sablont betölthet, a „Sablon mentése” menüvel pedig sablonként elmentheti az adott értéket. Az „opening_hours”, a „collection_times” és a „service_times” címkékre külön sablonokat és alapértelmezéseket határozhat meg.</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Természetesen a semmiből is elkezdheted összeállítani a nyitva tartást, azonban azt talácsoljuk, hogy kiindulási pontként használd valamelyik sablont.</p>
 <p>Amikor egy meglévő nyitva tartás betöltődik, akkor történik egy automatikus javítási kísérlet, hogy megfeleljen a nyitva tartási idők specifikációjának. Ha ez nem lehetséges, akkor a hiba körülbelüli helye kiemelődik a nyers nyitva tartás kijelzőjén, és megpróbálhatod kézzel kijavítani. Az OpenStreetMap adatbázisában a nyitva tartási értékek mintegy negyede hibás, azonban csak kevesebb mint 10% -uk nem javítható. A specifikációtól való megtűrt eltérések: <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a></p>
 <h3 id="fomenu-gomb">Főmenü gomb</h3>
@@ -453,7 +478,11 @@ i-->
 <li><strong>Eltolásokkal…</strong>: a fentiekkel megegyező bejegyzések, azonban egy adott értékkel eltolva (ritka).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Évtartomány hozzáadása</strong>: évalapú kijelölő hozzáadása.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Héttartomány hozzáadása</strong>: hétalapú kijelölő hozzáadása.</li>
 <li><strong>Duplikálás</strong>: másolat készítése erről a szabályról és beillesztése a következő helyre.</li>
 <li><strong>Szabálytípus megjelenítése</strong>: a <em>rendes</em>, <em>kiegészítő</em> és <em>helyettesítő</em> szabálytípus megjelenítése és esetleges módosítása (az első szabálynál nem alkalmazható).</li>
@@ -473,6 +502,15 @@ i-->
 <li><strong>Éjfélkor indul</strong>: a tartománysáv éjfélnél kezdődik.</li>
 <li><strong>Intervallum megjelenítése</strong>: megjeleníti az intervallummezőt, ahol percben megadható, hogy milyen időközönként történik valami.</li>
 <li><strong>Törlés</strong>: ennek az időtartamnak a törlése.</li>
+</ul>
+<h3 id="sablonok-kezelese">Sablonok kezelése</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div>
                 
         </div>
@@ -480,7 +518,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

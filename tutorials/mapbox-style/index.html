@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Features - Vespucci</title>
+        <title>Mapbox-GL Style Support - Vespucci</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -52,7 +52,7 @@
                                     
                                         <a href="../.."><img src="/vespucci_logo_small.png"></a>
                                 </li>
-                                <li class="dropdown active">
+                                <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         
@@ -60,8 +60,8 @@
     <a href="../../help/en/Introduction/">Introduction</a>
 </li>
                                         
-<li class="active">
-    <a href="./">Features</a>
+<li >
+    <a href="../features/">Features</a>
 </li>
                                         
 <li >
@@ -234,7 +234,7 @@
 </li>
                                     </ul>
                                 </li>
-                                <li class="dropdown">
+                                <li class="dropdown active">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         
@@ -282,8 +282,8 @@
     <a href="../offline/">Going completely offline with Vespucci</a>
 </li>
                                         
-<li >
-    <a href="../mapbox-style/">Mapbox-GL Style Support</a>
+<li class="active">
+    <a href="./">Mapbox-GL Style Support</a>
 </li>
                                     </ul>
                                 </li>
@@ -309,12 +309,12 @@
                         </li>
 <!--- Remove Prev - Next
                             <li >
-                                <a rel="next" href="../../help/en/Introduction/">
+                                <a rel="next" href="../offline/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../../help/en/16.0.0 Release notes/">
+                                <a rel="prev" href="../screenshots/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -327,581 +327,772 @@ i-->
         <div class="container">
 <!--                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#vespucci-features">Vespucci Features</a></li>
+        <li class="main active"><a href="#vespucci-mapbox-gl-style-support">Vespucci Mapbox-GL Style Support</a></li>
+            <li><a href="#further-caveats">Further caveats</a></li>
+            <li><a href="#style-attributes">Style attributes</a></li>
+            <li><a href="#layer-attributes-for-supported-layers">Layer attributes for supported layers</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h2 id="vespucci-features">Vespucci Features</h2>
-<p><em>Documentation for Vespucci 15.2</em></p>
-<p>This list is likely not really complete, but gives some idea of the supported functionality.</p>
+<h2 id="vespucci-mapbox-gl-style-support">Vespucci Mapbox-GL Style Support</h2>
+<p>Only one vector tile source is currently supported, all other source configuration is ignored.</p>
+<p>Supported layers: <em>background</em>, <em>fill</em>, <em>fill-extrusion</em>, <em>line</em>, <em>symbol</em>, <em>circle</em></p>
+<p><em>fill-extrusion</em> layers are treated as flat fill layers</p>
+<p>Unsupported layers: raster, heatmap, hillshade, sky</p>
+<p>Unsupported attributes are ignored.</p>
+<p>Font selection is not supported, we render with a standard Android system font.</p>
+<p>None of the new "expression" functions are currently supported, however "old style" filter expressions are supported and interpolation linear, identity and exponential interpolation for numbers, colors and categories work for lots of the supported attributes.</p>
+<h4 id="further-caveats">Further caveats</h4>
+<p>While a number of styles and corresponding vector tile schemas have been tested and within the limits described on this page things work, following specific points should be taken in to account:</p>
+<ul>
+<li>the support was mainly intended for relatively light weight QA data overlays, as this is based on Android Canvas rendering and not a purpose specific OpenGL rendering implementation performance will in general be slow. This is further confounded by many sources providing tiles up to a maximum of zoom level 14, these then tend to be very large and often contain far more data than what would be needed for the current view.</li>
+<li>we've implemented some simple label and icon collision detection, however if a collision is detected, we simply doesn't render one of the colliding objects without attempting to relocate the offending symbol (collision avoidance). Further there is currently a hard wired limit of 200 objects that are handled by this, any further ones are not rendered (the choice of limit is not of any particular significance).</li>
+<li>there is currently no TileJSON support.</li>
+</ul>
+<h3 id="style-attributes">Style attributes</h3>
 <table>
 <thead>
 <tr>
-<th>Category</th>
-<th>Feature</th>
+<th>Key</th>
+<th>Value</th>
+<th>Support</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Geometry</strong></td>
+<td><strong>version</strong></td>
 <td></td>
-<td></td>
+<td>yes</td>
+<td>ignored</td>
 </tr>
 <tr>
+<td><strong>sprite</strong></td>
 <td></td>
-<td>Create Node</td>
+<td>yes</td>
 <td></td>
 </tr>
+</tbody>
+</table>
+<h3 id="layer-attributes-for-supported-layers">Layer attributes for supported layers</h3>
+<p>Value support:</p>
+<ul>
+<li><strong>l</strong> literal</li>
+<li><strong>z</strong> "legacy" zoom based interpolation function</li>
+<li><strong>m</strong> moustache replacement</li>
+<li><strong>f</strong> "legacy" filter expressions</li>
+</ul>
+<table>
+<thead>
 <tr>
-<td></td>
-<td>Create Way</td>
-<td></td>
+<th>Key</th>
+<th>Values</th>
+<th>Support</th>
+<th>Notes</th>
 </tr>
+</thead>
+<tbody>
 <tr>
+<td><em>All layers</em></td>
+<td></td>
 <td></td>
-<td>Create Relation</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>minzoom</strong></td>
+<td>l</td>
+<td>yes</td>
 <td></td>
-<td>Create Route</td>
-<td></td>
 </tr>
 <tr>
-<td></td>
-<td>Create Multipolygon</td>
+<td><strong>maxzoom</strong></td>
+<td>l</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>Delete Node</td>
-<td></td>
+<td><strong>ref</strong></td>
+<td>l</td>
+<td>yes</td>
+<td>missing from mapbox documentation</td>
 </tr>
 <tr>
+<td><strong>visibility</strong></td>
+<td>l</td>
+<td>yes</td>
 <td></td>
-<td>Delete Way</td>
-<td></td>
 </tr>
 <tr>
-<td></td>
-<td>Delete Relation</td>
-<td></td>
+<td><strong>interactive</strong></td>
+<td>l</td>
+<td>yes</td>
+<td>missing from mapbox documentation</td>
 </tr>
 <tr>
+<td><em>background</em></td>
+<td></td>
 <td></td>
-<td>Move Node</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>background-color</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Move Way</td>
-<td></td>
 </tr>
 <tr>
-<td></td>
-<td>Merge Nodes</td>
+<td><strong>backgroud-opacity</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>background-pattern</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Add Node to Way</td>
-<td></td>
 </tr>
 <tr>
+<td><em>Vector/geometry tile layers</em></td>
+<td></td>
 <td></td>
-<td>Merge Ways</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>filter</strong></td>
+<td>f</td>
+<td>yes</td>
 <td></td>
-<td>Merge Polygons (closed ways)</td>
-<td></td>
 </tr>
 <tr>
-<td></td>
-<td>Append to Way</td>
+<td><strong>source-layer</strong></td>
+<td>l</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><em>fill</em></td>
 <td></td>
-<td>Split Way at Node</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
-<td></td>
-<td>Split Way at marked position</td>
+<td><strong>fill-antialias</strong></td>
+<td>l</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-color</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Split closed Way</td>
-<td></td>
 </tr>
 <tr>
-<td></td>
-<td>Split closed Way in to polygons</td>
+<td><strong>fill_opacity</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-outline-color</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Invert Way direction</td>
-<td></td>
 </tr>
 <tr>
-<td></td>
-<td>Rotate Way</td>
+<td><strong>fill-pattern</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-sort-key</strong></td>
 <td></td>
-<td>Improve Way geometry</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-translate</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Move multiple elements (multi-select)</td>
-<td></td>
 </tr>
 <tr>
+<td><strong>fill-translate-anchor</strong></td>
 <td></td>
-<td>Extract Node from Way</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><em>fill-extrusion</em></td>
+<td></td>
 <td></td>
-<td>Add element to Relation</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-extrusion-base</strong></td>
 <td></td>
-<td>Remove element from Relation</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-extrusion-color</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Add element to Route</td>
-<td></td>
 </tr>
 <tr>
+<td><strong>fill-extrusion-height</strong></td>
 <td></td>
-<td>Move Node to specific coordinates</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>Create Node at current coordinates</td>
+<td><strong>fill-extrusion-opacity</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-extrusion-pattern</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Orthogonalize Way(s)</td>
+</tr>
+<tr>
+<td><strong>fill-extrusion-translate</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-extrusion-translate-anchor</strong></td>
 <td></td>
-<td>Circulize closed Way</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>Tags</strong></td>
+<td><strong>fill-extrusion-vertical-gradient</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><em>line</em></td>
 <td></td>
-<td>Tag copy and paste</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
+<td><strong>line-blur</strong></td>
 <td></td>
-<td>Form and preset based editor</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>Conventional key - value editor</td>
+<td><strong>line-cap</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line_color</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Auto-suggest for keys and values</td>
+</tr>
+<tr>
+<td><strong>line-dasharray</strong></td>
+<td>l</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-gap-width</strong></td>
 <td></td>
-<td>Change tags for multiple objects</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>OSM Data</strong></td>
+<td><strong>line-gradient</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-join</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Up- and Download</td>
-<td></td>
 </tr>
 <tr>
+<td><strong>line-miter-limit</strong></td>
 <td></td>
-<td>Load and save in JOSM compatible .OSM format</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-offset</strong></td>
 <td></td>
-<td>Auto-Download around current position</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>Auto-Download of current map view</td>
+<td><strong>line-opacity</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-pattern</strong></td>
 <td></td>
-<td>Save and apply changes in OSC format</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-round-limit</strong></td>
 <td></td>
-<td>Configurable API servers</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-sort-key</strong></td>
 <td></td>
-<td>Load data from PBF files</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-translate</strong></td>
 <td></td>
-<td>Load data from tiled offline format</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>Presets</strong></td>
+<td><strong>line-translate-anchor</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-width</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>JOSM Preset format support with extensions</td>
-<td></td>
 </tr>
 <tr>
+<td><em>symbol</em></td>
+<td></td>
 <td></td>
-<td>Custom presets</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-allow-overlap</strong></td>
 <td></td>
-<td>Presets can be updated and installed from app online</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-anchor</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Preset search</td>
-<td></td>
 </tr>
 <tr>
+<td><strong>icon-color</strong></td>
 <td></td>
-<td>Auto-Presets from taginfo</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-halo-blur</strong></td>
 <td></td>
-<td>JavaScript scripting support</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-halo-color</strong></td>
 <td></td>
-<td>Create custom presets on the fly</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>Backgrounds and Layers</strong></td>
+<td><strong>icon-halo-width</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-ignore-placement</strong></td>
 <td></td>
-<td>Supports the JOSM Imagery Sources</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>On device tile caching</td>
+<td><strong>icon-image</strong></td>
+<td>l m z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-keep-upright</strong></td>
 <td></td>
-<td>Custom background and overlays</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-offset</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>OpenAerialMap support</td>
-<td></td>
 </tr>
 <tr>
+<td><strong>icon-opacity</strong></td>
 <td></td>
-<td>On device MBTiles (raster) support</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-optional</strong></td>
 <td></td>
-<td>GeoJSON layer support</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-padding</strong></td>
 <td></td>
-<td>Imagery offset database support</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-pitch-alignment</strong></td>
 <td></td>
-<td>Grid / scale layer</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>WMS server support</td>
+<td><strong>icon-rotate</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>Tasks and bugs</strong></td>
+<td><strong>icon-rotation-alignment</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-size</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>OSM Notes</td>
-<td></td>
 </tr>
 <tr>
+<td><strong>icon-text-fit</strong></td>
 <td></td>
-<td>OSMOSE</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-text-fit-padding</strong></td>
 <td></td>
-<td>MapRoulette tasks</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-translate</strong></td>
 <td></td>
-<td>Custom tasks</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td>__icon-translate-anchor</td>
 <td></td>
-<td>Auto-Download</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>symbol-avoid-edges</strong></td>
 <td></td>
-<td>Save and load OSM Notes in OSN format files</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>symbol-placement</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Load Notes in .osc files</td>
-<td>OsmAnd extension</td>
 </tr>
 <tr>
+<td><strong>symbol-sort-key</strong></td>
 <td></td>
-<td>Configurable API server</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>Modes and Filters</strong></td>
+<td><strong>symbol-spacing</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>symbol-z-order</strong></td>
 <td></td>
-<td>Tag editing only mode</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-allow-overlap</strong></td>
 <td></td>
-<td>Indoor mode</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>C-Mode (display and edit objects with validation issues)</td>
-<td></td>
+<td><strong>text-anchor</strong></td>
+<td>l z</td>
+<td>yes</td>
+<td>just "top" and "bottom" supported</td>
 </tr>
 <tr>
-<td></td>
-<td>Tag filter</td>
+<td><strong>text-color</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-field</strong></td>
+<td>l m</td>
+<td>yes</td>
 <td></td>
-<td>Preset filter</td>
-<td></td>
 </tr>
 <tr>
-<td><strong>Special editors</strong></td>
+<td><strong>text-font</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-halo-blur</strong></td>
 <td></td>
-<td>Opening hours</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>Conditional restrictions</td>
+<td><strong>text-halo-color</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-halo-width</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Turn restrictions</td>
-<td></td>
 </tr>
 <tr>
-<td><strong>Validation</strong></td>
+<td><strong>text-ignore-placement</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
+</tr>
+<tr>
+<td><strong>text-justify</strong></td>
+<td>l z</td>
+<td>yes</td>
+<td>"auto" not supported</td>
 </tr>
 <tr>
+<td><strong>text-keep-upright</strong></td>
 <td></td>
-<td>Missing tags (preset driven)</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>Re-survey after n-days</td>
+<td><strong>text-letter-spacing</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-line-height</strong></td>
 <td></td>
-<td>Missing street names</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-max-angle</strong></td>
 <td></td>
-<td>FIXMEs</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-max-width</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Unconnected ways</td>
-<td></td>
 </tr>
 <tr>
+<td><strong>text-offset</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Validation issues trigger notifications</td>
+</tr>
+<tr>
+<td><strong>text-opacity</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>GPS/GPX</strong></td>
+<td><strong>text-optional</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-padding</strong></td>
 <td></td>
-<td>Support for external GPS sources</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-pitch-alignment</strong></td>
 <td></td>
-<td>GPX track recording, loading and saving</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-radial-offset</strong></td>
 <td></td>
-<td>GPX track upload</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-rotate</strong></td>
 <td></td>
-<td>GPX waypoint support</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>Street level imagery</strong></td>
+<td><strong>text-rotation-alignment</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-size</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Mapillary support</td>
+</tr>
+<tr>
+<td><strong>text-transform</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>Misc</strong></td>
+<td><strong>text-translate</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-translate-anchor</strong></td>
 <td></td>
-<td>Styleable data layer</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-variable-anchor</strong></td>
 <td></td>
-<td>Turn restriction rendering</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-writing-mode</strong></td>
 <td></td>
-<td>Address prediction</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle</em></td>
+<td></td>
 <td></td>
-<td>JavaScript scripting support</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-blur</em></td>
 <td></td>
-<td>GeoJSON Feature display</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-color</em></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Start camera app</td>
+</tr>
+<tr>
+<td><em>circle-opacity</em></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-pitch-alignment</em></td>
 <td></td>
-<td>Display on device photos with location and orientation</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-pitch-scale</em></td>
 <td></td>
-<td>Undo- and redo functions</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-radius</em></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>OLC support</td>
-<td></td>
 </tr>
 <tr>
+<td><em>circle-sort-key</em></td>
 <td></td>
-<td>Validate URLs from property editor</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-stroke-color</em></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Search for objects in loaded data (JOSM syntax)</td>
+</tr>
+<tr>
+<td><em>circle-stroke-opacity</em></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-stroke-width</em></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Barometer support</td>
+</tr>
+<tr>
+<td><em>circle-translate</em></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-translate-anchor</em></td>
 <td></td>
-<td>On-device help</td>
+<td>no</td>
 <td></td>
 </tr>
 </tbody>
@@ -909,581 +1100,772 @@ i-->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#vespucci-features">Vespucci Features</a></li>
+        <li class="main active"><a href="#vespucci-mapbox-gl-style-support">Vespucci Mapbox-GL Style Support</a></li>
+            <li><a href="#further-caveats">Further caveats</a></li>
+            <li><a href="#style-attributes">Style attributes</a></li>
+            <li><a href="#layer-attributes-for-supported-layers">Layer attributes for supported layers</a></li>
     </ul>
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h2 id="vespucci-features">Vespucci Features</h2>
-<p><em>Documentation for Vespucci 15.2</em></p>
-<p>This list is likely not really complete, but gives some idea of the supported functionality.</p>
+<h2 id="vespucci-mapbox-gl-style-support">Vespucci Mapbox-GL Style Support</h2>
+<p>Only one vector tile source is currently supported, all other source configuration is ignored.</p>
+<p>Supported layers: <em>background</em>, <em>fill</em>, <em>fill-extrusion</em>, <em>line</em>, <em>symbol</em>, <em>circle</em></p>
+<p><em>fill-extrusion</em> layers are treated as flat fill layers</p>
+<p>Unsupported layers: raster, heatmap, hillshade, sky</p>
+<p>Unsupported attributes are ignored.</p>
+<p>Font selection is not supported, we render with a standard Android system font.</p>
+<p>None of the new "expression" functions are currently supported, however "old style" filter expressions are supported and interpolation linear, identity and exponential interpolation for numbers, colors and categories work for lots of the supported attributes.</p>
+<h4 id="further-caveats">Further caveats</h4>
+<p>While a number of styles and corresponding vector tile schemas have been tested and within the limits described on this page things work, following specific points should be taken in to account:</p>
+<ul>
+<li>the support was mainly intended for relatively light weight QA data overlays, as this is based on Android Canvas rendering and not a purpose specific OpenGL rendering implementation performance will in general be slow. This is further confounded by many sources providing tiles up to a maximum of zoom level 14, these then tend to be very large and often contain far more data than what would be needed for the current view.</li>
+<li>we've implemented some simple label and icon collision detection, however if a collision is detected, we simply doesn't render one of the colliding objects without attempting to relocate the offending symbol (collision avoidance). Further there is currently a hard wired limit of 200 objects that are handled by this, any further ones are not rendered (the choice of limit is not of any particular significance).</li>
+<li>there is currently no TileJSON support.</li>
+</ul>
+<h3 id="style-attributes">Style attributes</h3>
 <table>
 <thead>
 <tr>
-<th>Category</th>
-<th>Feature</th>
+<th>Key</th>
+<th>Value</th>
+<th>Support</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Geometry</strong></td>
+<td><strong>version</strong></td>
 <td></td>
-<td></td>
+<td>yes</td>
+<td>ignored</td>
 </tr>
 <tr>
+<td><strong>sprite</strong></td>
 <td></td>
-<td>Create Node</td>
+<td>yes</td>
 <td></td>
 </tr>
+</tbody>
+</table>
+<h3 id="layer-attributes-for-supported-layers">Layer attributes for supported layers</h3>
+<p>Value support:</p>
+<ul>
+<li><strong>l</strong> literal</li>
+<li><strong>z</strong> "legacy" zoom based interpolation function</li>
+<li><strong>m</strong> moustache replacement</li>
+<li><strong>f</strong> "legacy" filter expressions</li>
+</ul>
+<table>
+<thead>
 <tr>
-<td></td>
-<td>Create Way</td>
-<td></td>
+<th>Key</th>
+<th>Values</th>
+<th>Support</th>
+<th>Notes</th>
 </tr>
+</thead>
+<tbody>
 <tr>
+<td><em>All layers</em></td>
+<td></td>
 <td></td>
-<td>Create Relation</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>minzoom</strong></td>
+<td>l</td>
+<td>yes</td>
 <td></td>
-<td>Create Route</td>
-<td></td>
 </tr>
 <tr>
-<td></td>
-<td>Create Multipolygon</td>
+<td><strong>maxzoom</strong></td>
+<td>l</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>Delete Node</td>
-<td></td>
+<td><strong>ref</strong></td>
+<td>l</td>
+<td>yes</td>
+<td>missing from mapbox documentation</td>
 </tr>
 <tr>
+<td><strong>visibility</strong></td>
+<td>l</td>
+<td>yes</td>
 <td></td>
-<td>Delete Way</td>
-<td></td>
 </tr>
 <tr>
-<td></td>
-<td>Delete Relation</td>
-<td></td>
+<td><strong>interactive</strong></td>
+<td>l</td>
+<td>yes</td>
+<td>missing from mapbox documentation</td>
 </tr>
 <tr>
+<td><em>background</em></td>
+<td></td>
 <td></td>
-<td>Move Node</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>background-color</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Move Way</td>
-<td></td>
 </tr>
 <tr>
-<td></td>
-<td>Merge Nodes</td>
+<td><strong>backgroud-opacity</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>background-pattern</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Add Node to Way</td>
-<td></td>
 </tr>
 <tr>
+<td><em>Vector/geometry tile layers</em></td>
+<td></td>
 <td></td>
-<td>Merge Ways</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>filter</strong></td>
+<td>f</td>
+<td>yes</td>
 <td></td>
-<td>Merge Polygons (closed ways)</td>
-<td></td>
 </tr>
 <tr>
-<td></td>
-<td>Append to Way</td>
+<td><strong>source-layer</strong></td>
+<td>l</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><em>fill</em></td>
 <td></td>
-<td>Split Way at Node</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
-<td></td>
-<td>Split Way at marked position</td>
+<td><strong>fill-antialias</strong></td>
+<td>l</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-color</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Split closed Way</td>
-<td></td>
 </tr>
 <tr>
-<td></td>
-<td>Split closed Way in to polygons</td>
+<td><strong>fill_opacity</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-outline-color</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Invert Way direction</td>
-<td></td>
 </tr>
 <tr>
-<td></td>
-<td>Rotate Way</td>
+<td><strong>fill-pattern</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-sort-key</strong></td>
 <td></td>
-<td>Improve Way geometry</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-translate</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Move multiple elements (multi-select)</td>
-<td></td>
 </tr>
 <tr>
+<td><strong>fill-translate-anchor</strong></td>
 <td></td>
-<td>Extract Node from Way</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><em>fill-extrusion</em></td>
+<td></td>
 <td></td>
-<td>Add element to Relation</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-extrusion-base</strong></td>
 <td></td>
-<td>Remove element from Relation</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-extrusion-color</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Add element to Route</td>
-<td></td>
 </tr>
 <tr>
+<td><strong>fill-extrusion-height</strong></td>
 <td></td>
-<td>Move Node to specific coordinates</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>Create Node at current coordinates</td>
+<td><strong>fill-extrusion-opacity</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-extrusion-pattern</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Orthogonalize Way(s)</td>
+</tr>
+<tr>
+<td><strong>fill-extrusion-translate</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>fill-extrusion-translate-anchor</strong></td>
 <td></td>
-<td>Circulize closed Way</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>Tags</strong></td>
+<td><strong>fill-extrusion-vertical-gradient</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><em>line</em></td>
 <td></td>
-<td>Tag copy and paste</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
+<td><strong>line-blur</strong></td>
 <td></td>
-<td>Form and preset based editor</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>Conventional key - value editor</td>
+<td><strong>line-cap</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line_color</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Auto-suggest for keys and values</td>
+</tr>
+<tr>
+<td><strong>line-dasharray</strong></td>
+<td>l</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-gap-width</strong></td>
 <td></td>
-<td>Change tags for multiple objects</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>OSM Data</strong></td>
+<td><strong>line-gradient</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-join</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Up- and Download</td>
-<td></td>
 </tr>
 <tr>
+<td><strong>line-miter-limit</strong></td>
 <td></td>
-<td>Load and save in JOSM compatible .OSM format</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-offset</strong></td>
 <td></td>
-<td>Auto-Download around current position</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>Auto-Download of current map view</td>
+<td><strong>line-opacity</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-pattern</strong></td>
 <td></td>
-<td>Save and apply changes in OSC format</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-round-limit</strong></td>
 <td></td>
-<td>Configurable API servers</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-sort-key</strong></td>
 <td></td>
-<td>Load data from PBF files</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-translate</strong></td>
 <td></td>
-<td>Load data from tiled offline format</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>Presets</strong></td>
+<td><strong>line-translate-anchor</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>line-width</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>JOSM Preset format support with extensions</td>
-<td></td>
 </tr>
 <tr>
+<td><em>symbol</em></td>
+<td></td>
 <td></td>
-<td>Custom presets</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-allow-overlap</strong></td>
 <td></td>
-<td>Presets can be updated and installed from app online</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-anchor</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Preset search</td>
-<td></td>
 </tr>
 <tr>
+<td><strong>icon-color</strong></td>
 <td></td>
-<td>Auto-Presets from taginfo</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-halo-blur</strong></td>
 <td></td>
-<td>JavaScript scripting support</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-halo-color</strong></td>
 <td></td>
-<td>Create custom presets on the fly</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>Backgrounds and Layers</strong></td>
+<td><strong>icon-halo-width</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-ignore-placement</strong></td>
 <td></td>
-<td>Supports the JOSM Imagery Sources</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>On device tile caching</td>
+<td><strong>icon-image</strong></td>
+<td>l m z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-keep-upright</strong></td>
 <td></td>
-<td>Custom background and overlays</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-offset</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>OpenAerialMap support</td>
-<td></td>
 </tr>
 <tr>
+<td><strong>icon-opacity</strong></td>
 <td></td>
-<td>On device MBTiles (raster) support</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-optional</strong></td>
 <td></td>
-<td>GeoJSON layer support</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-padding</strong></td>
 <td></td>
-<td>Imagery offset database support</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-pitch-alignment</strong></td>
 <td></td>
-<td>Grid / scale layer</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>WMS server support</td>
+<td><strong>icon-rotate</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>Tasks and bugs</strong></td>
+<td><strong>icon-rotation-alignment</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-size</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>OSM Notes</td>
-<td></td>
 </tr>
 <tr>
+<td><strong>icon-text-fit</strong></td>
 <td></td>
-<td>OSMOSE</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-text-fit-padding</strong></td>
 <td></td>
-<td>MapRoulette tasks</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>icon-translate</strong></td>
 <td></td>
-<td>Custom tasks</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td>__icon-translate-anchor</td>
 <td></td>
-<td>Auto-Download</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>symbol-avoid-edges</strong></td>
 <td></td>
-<td>Save and load OSM Notes in OSN format files</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>symbol-placement</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Load Notes in .osc files</td>
-<td>OsmAnd extension</td>
 </tr>
 <tr>
+<td><strong>symbol-sort-key</strong></td>
 <td></td>
-<td>Configurable API server</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>Modes and Filters</strong></td>
+<td><strong>symbol-spacing</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>symbol-z-order</strong></td>
 <td></td>
-<td>Tag editing only mode</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-allow-overlap</strong></td>
 <td></td>
-<td>Indoor mode</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>C-Mode (display and edit objects with validation issues)</td>
-<td></td>
+<td><strong>text-anchor</strong></td>
+<td>l z</td>
+<td>yes</td>
+<td>just "top" and "bottom" supported</td>
 </tr>
 <tr>
-<td></td>
-<td>Tag filter</td>
+<td><strong>text-color</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-field</strong></td>
+<td>l m</td>
+<td>yes</td>
 <td></td>
-<td>Preset filter</td>
-<td></td>
 </tr>
 <tr>
-<td><strong>Special editors</strong></td>
+<td><strong>text-font</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-halo-blur</strong></td>
 <td></td>
-<td>Opening hours</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>Conditional restrictions</td>
+<td><strong>text-halo-color</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-halo-width</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Turn restrictions</td>
-<td></td>
 </tr>
 <tr>
-<td><strong>Validation</strong></td>
+<td><strong>text-ignore-placement</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
+</tr>
+<tr>
+<td><strong>text-justify</strong></td>
+<td>l z</td>
+<td>yes</td>
+<td>"auto" not supported</td>
 </tr>
 <tr>
+<td><strong>text-keep-upright</strong></td>
 <td></td>
-<td>Missing tags (preset driven)</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td>Re-survey after n-days</td>
+<td><strong>text-letter-spacing</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-line-height</strong></td>
 <td></td>
-<td>Missing street names</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-max-angle</strong></td>
 <td></td>
-<td>FIXMEs</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-max-width</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Unconnected ways</td>
-<td></td>
 </tr>
 <tr>
+<td><strong>text-offset</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Validation issues trigger notifications</td>
+</tr>
+<tr>
+<td><strong>text-opacity</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>GPS/GPX</strong></td>
+<td><strong>text-optional</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-padding</strong></td>
 <td></td>
-<td>Support for external GPS sources</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-pitch-alignment</strong></td>
 <td></td>
-<td>GPX track recording, loading and saving</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-radial-offset</strong></td>
 <td></td>
-<td>GPX track upload</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-rotate</strong></td>
 <td></td>
-<td>GPX waypoint support</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>Street level imagery</strong></td>
+<td><strong>text-rotation-alignment</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-size</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Mapillary support</td>
+</tr>
+<tr>
+<td><strong>text-transform</strong></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>Misc</strong></td>
+<td><strong>text-translate</strong></td>
 <td></td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-translate-anchor</strong></td>
 <td></td>
-<td>Styleable data layer</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-variable-anchor</strong></td>
 <td></td>
-<td>Turn restriction rendering</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><strong>text-writing-mode</strong></td>
 <td></td>
-<td>Address prediction</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle</em></td>
+<td></td>
 <td></td>
-<td>JavaScript scripting support</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-blur</em></td>
 <td></td>
-<td>GeoJSON Feature display</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-color</em></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Start camera app</td>
+</tr>
+<tr>
+<td><em>circle-opacity</em></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-pitch-alignment</em></td>
 <td></td>
-<td>Display on device photos with location and orientation</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-pitch-scale</em></td>
 <td></td>
-<td>Undo- and redo functions</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-radius</em></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>OLC support</td>
-<td></td>
 </tr>
 <tr>
+<td><em>circle-sort-key</em></td>
 <td></td>
-<td>Validate URLs from property editor</td>
+<td>no</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-stroke-color</em></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Search for objects in loaded data (JOSM syntax)</td>
+</tr>
+<tr>
+<td><em>circle-stroke-opacity</em></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-stroke-width</em></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
-<td>Barometer support</td>
+</tr>
+<tr>
+<td><em>circle-translate</em></td>
+<td>l z</td>
+<td>yes</td>
 <td></td>
 </tr>
 <tr>
+<td><em>circle-translate-anchor</em></td>
 <td></td>
-<td>On-device help</td>
+<td>no</td>
 <td></td>
 </tr>
 </tbody>

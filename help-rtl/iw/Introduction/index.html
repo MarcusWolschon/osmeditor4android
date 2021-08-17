@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../../help/en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../../help/en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -377,7 +389,7 @@ i-->
 <p>נגיעה שנייה בפריט הנבחר פותחת את עורך התגיות וכך ניתן לערוך התגיות שמשויכות לפריט.</p>
 <p>נא לשים לב שפריטים חופפים (כגון מפרק על דרך) מעלים את תפריט הבחירה בפעם השנייה. בחירה באותו הפריט מעלה את עורך התגיות, בחירה בפריט אחר פשוט מעבירה את הבחירה אליו.</p>
 <h4 id="_9">פריטים נבחרים: העברת צומת או דרך</h4>
-<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. </p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object. </p>
 <h4 id="_10">הוספת צומת/נקודה או דרך חדשים</h4>
 <p>בהתחלה היישומון נטען ב„מצב פשוט”, ניתן לשנות זאת בתפריט הראשי על ידי ביטול סימון התיבה המתאימה.</p>
 <h5 id="_11">מצב פשוט</h5>
@@ -445,13 +457,14 @@ i-->
 <p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. </p>
 <p>The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
 <h3 id="_21">סינון</h3>
-<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the <a href="Advanced%20preferences.md">Advanced preferences</a> you can individually select:</p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
-<li>הערות</li>
-<li>שגיאה ב־Osmose</li>
-<li>אזהרה ב־Osmose</li>
-<li>תקלה מזערית ב־Osmose</li>
-<li>מותאם אישית</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2 id="_22">מצב ניווט במבנה</h2>
@@ -462,7 +475,7 @@ i-->
 <p>במצב תיקון (מיוצג בסמל האות C) מוצגים פריטים עבורם מוגדרים דגלוני אזהרה, אלו מקלים על איתור הפריטים שיש להם תקלות מסוימות או שתואמים לבדיקות מוגדרות. אם נבחר פריט ועורך התכונות התחיל במצב תיקון תחול הערכה המוגדרת המתאימה ביותר אוטומטית.</p>
 <p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
 <h3 id="_23">הגדרת בדיקות</h3>
-<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". </p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the <a href="Preferences.md">preferences</a>. </p>
 <p>רשימת הרשומות מחולקת לשתיים, החלק העליון מציג רשומות „תשאול מחדש” והחלק השני מציג „רשומות שנבדקו”. ניתן לערוך רשומות על ידי לחיצה עליהן, התפריט הירוק בתפריט מאפשר הוספת רשומות.</p>
 <h4 id="_24">תשאול רשומות מחדש</h4>
 <p>לתשאול של רשומות מחדש יש את המאפיינים הבאים:</p>
@@ -488,6 +501,7 @@ i-->
 <p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here <a href="Preset%20filter.md">Preset filter</a>.</p>
 <h2 id="_29">התאמת וספוצ׳י לטעמך</h2>
 <p>ניתן להתאים היבטים מגוונים של היישומון, אם מעניין אותך משהו מסוים ולא הצלחת למצוא, <a href="https://vespucci.io/">באתר של וספוצ׳י</a> זמין לביצוע חיפושים ומכיל מידע נוסף על מה שזמין במכשיר.</p>
+<p><a id="layers"></a></p>
 <h3 id="_30">הגדרות שכבה</h3>
 <p>Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
 <p>Available layer types:</p>
@@ -501,6 +515,7 @@ i-->
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4 id="_31">העדפות</h4>
 <ul>
 <li>Keep screen on. Default: off.</li>
@@ -592,7 +607,7 @@ i-->
 <p>נגיעה שנייה בפריט הנבחר פותחת את עורך התגיות וכך ניתן לערוך התגיות שמשויכות לפריט.</p>
 <p>נא לשים לב שפריטים חופפים (כגון מפרק על דרך) מעלים את תפריט הבחירה בפעם השנייה. בחירה באותו הפריט מעלה את עורך התגיות, בחירה בפריט אחר פשוט מעבירה את הבחירה אליו.</p>
 <h4 id="_9">פריטים נבחרים: העברת צומת או דרך</h4>
-<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. </p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object. </p>
 <h4 id="_10">הוספת צומת/נקודה או דרך חדשים</h4>
 <p>בהתחלה היישומון נטען ב„מצב פשוט”, ניתן לשנות זאת בתפריט הראשי על ידי ביטול סימון התיבה המתאימה.</p>
 <h5 id="_11">מצב פשוט</h5>
@@ -660,13 +675,14 @@ i-->
 <p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. </p>
 <p>The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
 <h3 id="_21">סינון</h3>
-<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the <a href="Advanced%20preferences.md">Advanced preferences</a> you can individually select:</p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
-<li>הערות</li>
-<li>שגיאה ב־Osmose</li>
-<li>אזהרה ב־Osmose</li>
-<li>תקלה מזערית ב־Osmose</li>
-<li>מותאם אישית</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2 id="_22">מצב ניווט במבנה</h2>
@@ -677,7 +693,7 @@ i-->
 <p>במצב תיקון (מיוצג בסמל האות C) מוצגים פריטים עבורם מוגדרים דגלוני אזהרה, אלו מקלים על איתור הפריטים שיש להם תקלות מסוימות או שתואמים לבדיקות מוגדרות. אם נבחר פריט ועורך התכונות התחיל במצב תיקון תחול הערכה המוגדרת המתאימה ביותר אוטומטית.</p>
 <p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
 <h3 id="_23">הגדרת בדיקות</h3>
-<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". </p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the <a href="Preferences.md">preferences</a>. </p>
 <p>רשימת הרשומות מחולקת לשתיים, החלק העליון מציג רשומות „תשאול מחדש” והחלק השני מציג „רשומות שנבדקו”. ניתן לערוך רשומות על ידי לחיצה עליהן, התפריט הירוק בתפריט מאפשר הוספת רשומות.</p>
 <h4 id="_24">תשאול רשומות מחדש</h4>
 <p>לתשאול של רשומות מחדש יש את המאפיינים הבאים:</p>
@@ -703,6 +719,7 @@ i-->
 <p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here <a href="Preset%20filter.md">Preset filter</a>.</p>
 <h2 id="_29">התאמת וספוצ׳י לטעמך</h2>
 <p>ניתן להתאים היבטים מגוונים של היישומון, אם מעניין אותך משהו מסוים ולא הצלחת למצוא, <a href="https://vespucci.io/">באתר של וספוצ׳י</a> זמין לביצוע חיפושים ומכיל מידע נוסף על מה שזמין במכשיר.</p>
+<p><a id="layers"></a></p>
 <h3 id="_30">הגדרות שכבה</h3>
 <p>Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
 <p>Available layer types:</p>
@@ -716,6 +733,7 @@ i-->
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4 id="_31">העדפות</h4>
 <ul>
 <li>Keep screen on. Default: off.</li>
@@ -738,7 +756,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../help/en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../help/en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -326,7 +338,7 @@ i-->
                 <div class="col-md-9" role="main">
 
 <h2 id="vespucci-data-styling">Vespucci Data Styling</h2>
-<p><em>Documentation for Vespucci 15.2 Style file format version 0.3.0</em></p>
+<p><em>Documentation for Vespucci 16.0 Style file format version 0.3.0</em></p>
 <p>The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.</p>
 <h3 id="using-custom-style-files-in-vespucci">Using custom style files in Vespucci</h3>
 <p>Files need to need have an unique <em>name</em> attribute and the <em>.xml</em> extension and reside in a <em>styles</em> directory in an app specific files directory (for example <em>Android/data/de.blau.android/files/styles/test.xml</em> ). Currently the legacy storage format and location continues to work: unique <em>name</em> attribute and a filename in the format <em>name</em>-profile.xml and stored in the <em>Vespucci</em> directory, this is the only location that will work for devices with Android version older than 4.4. </p>
@@ -338,6 +350,7 @@ i-->
 <tr>
 <th>Element</th>
 <th>Attributes</th>
+<th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -345,186 +358,235 @@ i-->
 <tr>
 <td><strong>&lt;profile&gt;</strong></td>
 <td></td>
+<td></td>
 <td>Top level enclosing element</td>
 </tr>
 <tr>
 <td></td>
 <td>name</td>
+<td></td>
 <td>Style name</td>
 </tr>
 <tr>
 <td></td>
 <td>format</td>
-<td>Format version, currently 0.2.0</td>
+<td></td>
+<td>Format version, currently 0.3.0</td>
 </tr>
 <tr>
 <td><strong>&lt;!--&nbsp;comment&nbsp;--&gt;</strong></td>
+<td></td>
 <td></td>
 <td>A comment</td>
 </tr>
 <tr>
 <td><strong>&lt;config&gt;</strong></td>
 <td></td>
+<td></td>
 <td>Configuration element</td>
 </tr>
 <tr>
 <td></td>
 <td>type</td>
+<td></td>
 <td>One of "large_drag_area", "marker_scale", "min_handle_len", "icon_zoom_limit"</td>
 </tr>
 <tr>
 <td></td>
 <td>touchRadius</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td></td>
 <td>scale</td>
+<td></td>
 <td>Used with marker_scale, increase/decrease size of various markers</td>
 </tr>
 <tr>
 <td></td>
 <td>length</td>
+<td></td>
 <td>User with min_handle_len, defines the minimum length a way segment must have on screen so that the geometry improvement handles are shown</td>
 </tr>
 <tr>
 <td></td>
 <td>zoom</td>
+<td>15</td>
 <td>Used with icon_zoom_limit, minimum zoom level at which POI icons are still displayed</td>
 </tr>
 <tr>
+<td></td>
+<td>labelZoomLimit</td>
+<td>20</td>
+<td>Used with icon_zoom_limit, the minimum zoom level for displaying labels with icons</td>
+</tr>
+<tr>
 <td><strong>&lt;feature&gt;</strong></td>
+<td></td>
 <td></td>
 <td>Feature elements can be nested and each feature can contain one or more other feature elements. Nested elements inherit attributes from their parents.</td>
 </tr>
 <tr>
 <td></td>
 <td>type</td>
+<td></td>
 <td>"way", "node" or "relation" to match the corresponding OSM elements, or a name</td>
 </tr>
 <tr>
 <td></td>
 <td>tags</td>
+<td></td>
 <td>Tags to use for matching, ignored for named styles, in the format <em>key</em>=<em>value</em> or <em>key</em>=<em>*</em> for any value. Multiple tags can be added using <strong>&vert;</strong> as a separator.</td>
 </tr>
 <tr>
 <td></td>
 <td>closed</td>
+<td></td>
 <td>If not present will match all ways, if present will match closed ways if true, or if false open ways, ignored for relations</td>
 </tr>
 <tr>
 <td></td>
 <td>area</td>
+<td></td>
 <td>Use area semantics for rendering if true</td>
 </tr>
 <tr>
 <td></td>
 <td>dontrender</td>
+<td></td>
 <td>Don't render the matching element</td>
 </tr>
 <tr>
 <td></td>
 <td>updateWidth</td>
+<td></td>
 <td>Dynamically update the way width on zoom changes if true</td>
 </tr>
 <tr>
 <td></td>
 <td>widthFactor</td>
+<td></td>
 <td>Determine a way width relative to the extent of the current map shown, ignored if updateWidth is false</td>
 </tr>
 <tr>
 <td></td>
 <td>color</td>
+<td></td>
 <td>A 32bit hex value representing alpha and rgb</td>
 </tr>
 <tr>
 <td></td>
 <td>style</td>
+<td></td>
 <td>One of "FILL", "FILL_AND_STROKE", "STROKE"</td>
 </tr>
 <tr>
 <td></td>
 <td>cap</td>
+<td></td>
 <td>One of "BUTT", "ROUND", "SQUARE"</td>
 </tr>
 <tr>
 <td></td>
 <td>join</td>
+<td></td>
 <td>One of "BEVEL", "MITER", "ROUND"</td>
 </tr>
 <tr>
 <td></td>
 <td>strokeWidth</td>
+<td></td>
 <td>A float value for the width of the lines, 0 draws a one pixel width line, ignored if updateWidth is true</td>
 </tr>
 <tr>
 <td></td>
 <td>typefacestyle</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td></td>
 <td>textsize</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
 <td>shadow</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td></td>
 <td>pathPattern</td>
+<td></td>
 <td>Reference to a pattern to apply along the path, one of "triangle_left", "triangle_right", "border_left", "border_right"</td>
 </tr>
 <tr>
 <td></td>
 <td>minVisibleZoom</td>
+<td></td>
 <td>Minimum zoom that has to be reached before the element is rendered</td>
 </tr>
 <tr>
 <td></td>
 <td>casingStyle</td>
+<td></td>
 <td>Reference to a style to use for casing</td>
 </tr>
 <tr>
 <td></td>
 <td>arrowStyle</td>
+<td></td>
 <td>Reference to a style to use for way arrows</td>
 </tr>
 <tr>
 <td></td>
 <td>oneway</td>
+<td></td>
 <td>Set this on the referenced arrowStyle if it should have oneway semantics</td>
 </tr>
 <tr>
 <td></td>
 <td>labelKey</td>
+<td></td>
 <td>Tag key to use as label if present, magic value "preset" will use the preset name.</td>
 </tr>
 <tr>
 <td></td>
+<td>labelZoomLimit</td>
+<td></td>
+<td>List for displaying labels on ways, if not set no label will be displayed</td>
+</tr>
+<tr>
+<td></td>
 <td>iconPath</td>
+<td></td>
 <td>Path, relative to the directory in which the style file resides, to a PNG format icon, magic value "preset" will use the preset icon.</td>
 </tr>
 <tr>
 <td><strong>&lt;dash&gt;</strong></td>
+<td></td>
 <td></td>
 <td>feature sub-element used to define a dash pattern</td>
 </tr>
 <tr>
 <td></td>
 <td>phase</td>
+<td></td>
 <td>Phase of the dash</td>
 </tr>
 <tr>
 <td><strong>&lt;interval&gt;</strong></td>
+<td></td>
 <td></td>
 <td>dash sub-element used to define the length of the dash/no-dash phases</td>
 </tr>
 <tr>
 <td></td>
 <td>length</td>
+<td></td>
 <td>Length of the dash as a float</td>
 </tr>
 </tbody>
@@ -1121,7 +1183,7 @@ i-->
                     <div class="col-md-9" role="main">
 
 <h2 id="vespucci-data-styling">Vespucci Data Styling</h2>
-<p><em>Documentation for Vespucci 15.2 Style file format version 0.3.0</em></p>
+<p><em>Documentation for Vespucci 16.0 Style file format version 0.3.0</em></p>
 <p>The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.</p>
 <h3 id="using-custom-style-files-in-vespucci">Using custom style files in Vespucci</h3>
 <p>Files need to need have an unique <em>name</em> attribute and the <em>.xml</em> extension and reside in a <em>styles</em> directory in an app specific files directory (for example <em>Android/data/de.blau.android/files/styles/test.xml</em> ). Currently the legacy storage format and location continues to work: unique <em>name</em> attribute and a filename in the format <em>name</em>-profile.xml and stored in the <em>Vespucci</em> directory, this is the only location that will work for devices with Android version older than 4.4. </p>
@@ -1133,6 +1195,7 @@ i-->
 <tr>
 <th>Element</th>
 <th>Attributes</th>
+<th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -1140,186 +1203,235 @@ i-->
 <tr>
 <td><strong>&lt;profile&gt;</strong></td>
 <td></td>
+<td></td>
 <td>Top level enclosing element</td>
 </tr>
 <tr>
 <td></td>
 <td>name</td>
+<td></td>
 <td>Style name</td>
 </tr>
 <tr>
 <td></td>
 <td>format</td>
-<td>Format version, currently 0.2.0</td>
+<td></td>
+<td>Format version, currently 0.3.0</td>
 </tr>
 <tr>
 <td><strong>&lt;!--&nbsp;comment&nbsp;--&gt;</strong></td>
+<td></td>
 <td></td>
 <td>A comment</td>
 </tr>
 <tr>
 <td><strong>&lt;config&gt;</strong></td>
 <td></td>
+<td></td>
 <td>Configuration element</td>
 </tr>
 <tr>
 <td></td>
 <td>type</td>
+<td></td>
 <td>One of "large_drag_area", "marker_scale", "min_handle_len", "icon_zoom_limit"</td>
 </tr>
 <tr>
 <td></td>
 <td>touchRadius</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td></td>
 <td>scale</td>
+<td></td>
 <td>Used with marker_scale, increase/decrease size of various markers</td>
 </tr>
 <tr>
 <td></td>
 <td>length</td>
+<td></td>
 <td>User with min_handle_len, defines the minimum length a way segment must have on screen so that the geometry improvement handles are shown</td>
 </tr>
 <tr>
 <td></td>
 <td>zoom</td>
+<td>15</td>
 <td>Used with icon_zoom_limit, minimum zoom level at which POI icons are still displayed</td>
 </tr>
 <tr>
+<td></td>
+<td>labelZoomLimit</td>
+<td>20</td>
+<td>Used with icon_zoom_limit, the minimum zoom level for displaying labels with icons</td>
+</tr>
+<tr>
 <td><strong>&lt;feature&gt;</strong></td>
+<td></td>
 <td></td>
 <td>Feature elements can be nested and each feature can contain one or more other feature elements. Nested elements inherit attributes from their parents.</td>
 </tr>
 <tr>
 <td></td>
 <td>type</td>
+<td></td>
 <td>"way", "node" or "relation" to match the corresponding OSM elements, or a name</td>
 </tr>
 <tr>
 <td></td>
 <td>tags</td>
+<td></td>
 <td>Tags to use for matching, ignored for named styles, in the format <em>key</em>=<em>value</em> or <em>key</em>=<em>*</em> for any value. Multiple tags can be added using <strong>&vert;</strong> as a separator.</td>
 </tr>
 <tr>
 <td></td>
 <td>closed</td>
+<td></td>
 <td>If not present will match all ways, if present will match closed ways if true, or if false open ways, ignored for relations</td>
 </tr>
 <tr>
 <td></td>
 <td>area</td>
+<td></td>
 <td>Use area semantics for rendering if true</td>
 </tr>
 <tr>
 <td></td>
 <td>dontrender</td>
+<td></td>
 <td>Don't render the matching element</td>
 </tr>
 <tr>
 <td></td>
 <td>updateWidth</td>
+<td></td>
 <td>Dynamically update the way width on zoom changes if true</td>
 </tr>
 <tr>
 <td></td>
 <td>widthFactor</td>
+<td></td>
 <td>Determine a way width relative to the extent of the current map shown, ignored if updateWidth is false</td>
 </tr>
 <tr>
 <td></td>
 <td>color</td>
+<td></td>
 <td>A 32bit hex value representing alpha and rgb</td>
 </tr>
 <tr>
 <td></td>
 <td>style</td>
+<td></td>
 <td>One of "FILL", "FILL_AND_STROKE", "STROKE"</td>
 </tr>
 <tr>
 <td></td>
 <td>cap</td>
+<td></td>
 <td>One of "BUTT", "ROUND", "SQUARE"</td>
 </tr>
 <tr>
 <td></td>
 <td>join</td>
+<td></td>
 <td>One of "BEVEL", "MITER", "ROUND"</td>
 </tr>
 <tr>
 <td></td>
 <td>strokeWidth</td>
+<td></td>
 <td>A float value for the width of the lines, 0 draws a one pixel width line, ignored if updateWidth is true</td>
 </tr>
 <tr>
 <td></td>
 <td>typefacestyle</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td></td>
 <td>textsize</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
 <td>shadow</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td></td>
 <td>pathPattern</td>
+<td></td>
 <td>Reference to a pattern to apply along the path, one of "triangle_left", "triangle_right", "border_left", "border_right"</td>
 </tr>
 <tr>
 <td></td>
 <td>minVisibleZoom</td>
+<td></td>
 <td>Minimum zoom that has to be reached before the element is rendered</td>
 </tr>
 <tr>
 <td></td>
 <td>casingStyle</td>
+<td></td>
 <td>Reference to a style to use for casing</td>
 </tr>
 <tr>
 <td></td>
 <td>arrowStyle</td>
+<td></td>
 <td>Reference to a style to use for way arrows</td>
 </tr>
 <tr>
 <td></td>
 <td>oneway</td>
+<td></td>
 <td>Set this on the referenced arrowStyle if it should have oneway semantics</td>
 </tr>
 <tr>
 <td></td>
 <td>labelKey</td>
+<td></td>
 <td>Tag key to use as label if present, magic value "preset" will use the preset name.</td>
 </tr>
 <tr>
 <td></td>
+<td>labelZoomLimit</td>
+<td></td>
+<td>List for displaying labels on ways, if not set no label will be displayed</td>
+</tr>
+<tr>
+<td></td>
 <td>iconPath</td>
+<td></td>
 <td>Path, relative to the directory in which the style file resides, to a PNG format icon, magic value "preset" will use the preset icon.</td>
 </tr>
 <tr>
 <td><strong>&lt;dash&gt;</strong></td>
+<td></td>
 <td></td>
 <td>feature sub-element used to define a dash pattern</td>
 </tr>
 <tr>
 <td></td>
 <td>phase</td>
+<td></td>
 <td>Phase of the dash</td>
 </tr>
 <tr>
 <td><strong>&lt;interval&gt;</strong></td>
+<td></td>
 <td></td>
 <td>dash sub-element used to define the length of the dash/no-dash phases</td>
 </tr>
 <tr>
 <td></td>
 <td>length</td>
+<td></td>
 <td>Length of the dash as a float</td>
 </tr>
 </tbody>
@@ -1908,7 +2020,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../..",

@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -347,11 +359,11 @@ i-->
 <p>A véletlen szerkesztések elkerülése miatt a Vespucci „zárolt” módban indul, olyan módban, amely csak a nagyítást és a térkép mozgatását engedélyezi. Koppintson a <img alt="Zárolt" src="../../images/locked.png" /> ikonra a képernyő feloldásához. </p>
 <p>A zárolás ikonra hosszan nyomva egy menü jelenik meg, amely jelenleg 4 lehetőséget kínál:</p>
 <ul>
-<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
-<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.</li>
-<li><strong>Address</strong> - enables Address mode, a slightly simplified mode with specific actions available from the <a href="../../en/Simple actions/">Simple mode</a> "+" button. White lock icon with an "A" is displayed.</li>
-<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with an "I" is displayed.</li>
-<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a "C" is displayed.</li>
+<li><strong>Normál</strong> - az alapértelmezett szerkesztési mód, új elemek adhatóak hozzá, a létezők szerkeszhetőek, mozgathatóak és törölhetőek. Egy egyszerű fehér lakatikon lesz megjelenítve.</li>
+<li><strong>Cím</strong> - lehetővé tezi a cím módot, amely az <a href="../../en/Simple actions/">egyszerű mód</a> „+” gombjával elérhető kicsit egyszerűsített mód néhány specifikus funkcióval. Egy „A” betűvel ellátott fehér lakatikon jelzi.</li>
+<li><strong>Csak címkézés</strong> - egy létező objektum kiválasztása a Tulajdonságszerkesztőt jeleníti meg, a hosszú nyomás a főképernyőn objektumokat ad hozzá, de más geometriai műveletek nem működnek. Egy fehér lakatikon fog megjelenni, egy „T” betűvel.</li>
+<li><strong>Beltéri</strong> - engedélyezi a beltéri módot, lásd <a href="#indoor">Beltéri mód</a>. Egy fehér lakatikon lesz megjelenítve, egy „I” betűvel.</li>
+<li><strong>C-mód</strong> - engedélyezi a C-módot, csak a figyelmeztetés jelzővel megjelölt elemek lesznek megjelenítve, lásd <a href="#c-mode">C-mód</a>. Egy fehér lakatikon lesz megjelenítve, egy „C” betűvel.</li>
 </ul>
 <h4 id="egyszeres-koppintas-dupla-koppintas-hosszu-nyomas">Egyszeres koppintás, dupla koppintás, hosszú nyomás</h4>
 <p>Alapból a kiválasztható pontok és vonalak körül egy narancssárga terület van, amely azt jelzi, hol kell megérintenie az objektumot a kiválasztásához. Három lehetősége van:</p>
@@ -375,7 +387,7 @@ i-->
 <p>A kiválasztott objektum másodszori megérintése megnyitja a címkeszerkesztőt, és így szerkesztheti az objektumhoz rendelt címkéket.</p>
 <p>Ne feledje, hogy az átfedő objektumok esetén (mint a vonalon lévő pontok) a kiválasztási menü még egyszer megjelenik. Az ugyanazon objektum kiválasztása előhozza a címkeszerkesztőt; egy másik objektum kiválasztása egyszerűen kiválasztja a másik objektumot.</p>
 <h4 id="kijelolt-objektumok-pont-vagy-vonal-mozgatasa">Kijelölt objektumok: pont vagy vonal mozgatása</h4>
-<p>Amint kiválasztott egy objektumot, az mozgatható lesz. Ne feledje, hogy csak a kijelölt objektumok mozgathatóak. Egyszerűen húzza (a tolerancia zónán belül) a kiválasztott objektumot a mozgatáshoz. Ha nagy húzási területet választ ki a beállításokban, akkor nagy területet kap a kiválasztott pont körül, így könnyebben pozicionálhatja az objektumot. </p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object. </p>
 <h4 id="uj-pont-vagy-vonal-hozzaadasa">Új pont vagy vonal hozzáadása</h4>
 <p>Az alkalmazás első indításakor „Egyszerű módban” indul, ez módosítható a főmenüben, a megfelelő jelölőmező kikapcsolásával.</p>
 <h5 id="egyszeru-mod">Egyszerű mód</h5>
@@ -424,7 +436,7 @@ i-->
 <li>állítsa be a korlátozás típusát</li>
 </ul>
 <h3 id="vespucci-zarolt-modban">Vespucci „zárolt” módban</h3>
-<p>Ha a piros zár látszik, akkor az összes nem szerkesztési művelet elérhető. Továbbá egy objektumon vagy a közelében történő hosszú nyomás megjeleníti a részletes információs képernyőt, ha az egy OSM objektum.</p>
+<p>Ha a piros lakat látszik, akkor az összes nem szerkesztési művelet elérhető. Továbbá egy objektumon vagy a közelében történő hosszú nyomás megjeleníti a részletes információs képernyőt, ha az egy OSM objektum.</p>
 <h3 id="modositasok-mentese">Módosítások mentése</h3>
 <p><em>(hálózati kapcsolatot igényel)</em></p>
 <p>Válassza ugyanazt a gombot vagy menüelemet, melyet a letöltésnél használt, és most válassza az „Adatok feltöltése az OSM kiszolgálóra” lehetőséget.</p>
@@ -441,13 +453,14 @@ i-->
 <p>A térképen a jegyzeteket vagy hibákat kis hiba ikonok <img alt="Hiba" src="../../images/bug_open.png" /> jelzik, a zöldek lezártak/megoldottak, a kékeket Ön hozta létre vagy szerkesztette, a sárgák pedig még mindig aktívak, és Ön nem változtatott rajtuk. </p>
 <p>Az OSMOSE hibák kék hivatkozást jelenítenek meg az érintett objektumhoz, a hivatkozás megnyomása kiválasztja az objektumot, a képernyő közepére teszi azt, és letölti a területet, ha az szükséges. </p>
 <h3 id="szures">Szűrés</h3>
-<p>A jegyzetek és hibák megjelenítésének globális engedélyezése mellett beállíthat egy durva szűrést, hogy csökkentse a zsúfoltságot. A <a href="Advanced%20preferences.md">Speciális beállításokban</a> egyenként kiválaszthatja:</p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
-<li>Jegyzetek</li>
-<li>Osmose szerinti hiba</li>
-<li>Osmose szerinti figyelmeztetés</li>
-<li>Osmose szerinti kisebb probléma</li>
-<li>Egyéni</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2 id="belteri-mod">Beltéri mód</h2>
@@ -458,7 +471,7 @@ i-->
 <p>C-módban csak azok az objektumok jelennek meg, melyeken figyelmeztetés jelző van, így könnyen kiszúrhatja azokat az objektumokat, melyekkel konkrét probléma van, vagy egyeznek a beállítható ellenőrzésekkel. Ha egy objektum kiválasztásra kerül és elindul a tulajdonságszerkesztő C-módban, akkor a legjobban illeszkedő előbeállítás automatikusan beállításra kerül.</p>
 <p>A mód a zárolás gomb hosszú megnyomásával, és a megfelelő menüelem kiválasztásával engedélyezhető, lásd: <a href="#lock">Zárolás, feloldás, módváltás</a>.</p>
 <h3 id="ellenorzesek-beallitasa">Ellenőrzések beállítása</h3>
-<p>Jelenleg két konfigurálható ellenőrzés van (nem konfigurálható a FIXME címkék ellenőrzése és a kapcsolatokról hiányzó type címkék ellenőrzése), mindkettő a Beállítások &gt; Érvényesítő beállításai menöben állítható be. </p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the <a href="Preferences.md">preferences</a>. </p>
 <p>A bejegyzések listája két részre van osztva, a felső része az „újbóli felmérési” bejegyzéseket tartalmazza, az alsó rész pedig az „ellenőrzési bejegyzéseket”. A bejegyzések koppintással szerkeszthetőek, és a zöld menügombbal adhatóak hozzá új bejegyzések.</p>
 <h4 id="ujboli-felmeresi-bejegyzesek">Újbóli felmérési bejegyzések</h4>
 <p>Az újbóli felmérési bejegyzések a következő tulajdonságokkal rendelkeznek:</p>
@@ -484,6 +497,7 @@ i-->
 <p>A fentiek alternatívájaként, az objektumok egyes előbeállítások vagy előbeállítás-csoportok alapján kerülnek szűrésre. A szűrő ikonra koppintva megjelenik egy előbeállítás-választó párbeszédablak, amely hasonlít a Vespucciban máshol előfordulókra. Az egyes előbeállítások normál koppintással válaszhatóak ki, az előbeállítás-csoportok pedig hosszú lenyomással (a normál koppintás belép a csoportba). További dokumentáció található itt: <a href="Preset%20filter.md">Előbeállítás-szűrő</a>.</p>
 <h2 id="a-vespucci-testreszabasa">A Vespucci testreszabása</h2>
 <p>Az alkalmazás számos vonatkozása testreszabható. Ha valami konkrét dolgot keres, de nem találja meg, akkor a <a href="https://vespucci.io/">Vespucci webhely</a> kereshető, és további tájékoztatást ad mindarról, ami az eszközön elérhető.</p>
+<p><a id="layers"></a></p>
 <h3 id="retegbeallitasok">Rétegbeállítások</h3>
 <p>A rétegbeállítások a rétegvezérlőn keresztül módosíthatók (a jobb felső sarokban található „hamburgermenüben”), az összes többi beállítás a főmenübeállítások gombbal érhető el. A rétegeket lehet engedélyezni, letiltani és ideiglenesen elrejteni.</p>
 <p>Elérhető rétegtípusok</p>
@@ -497,6 +511,7 @@ i-->
 <li>GeoJSON-réteg - Megjeleníti egy GeoJSON fájl tartalmát. Alapértelmezés: kikapcsolva</li>
 <li>Rács - megjeleníti a méretarányt a térkép vagy a rács oldalán. Alapértelmezés: bekapcsolva. </li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4 id="beallitasok">Beállítások</h4>
 <ul>
 <li>Hagyja bekapcsolva a kijelzőt. Alapértelmezés: kikapcsolva.</li>
@@ -558,11 +573,11 @@ i-->
 <p>A véletlen szerkesztések elkerülése miatt a Vespucci „zárolt” módban indul, olyan módban, amely csak a nagyítást és a térkép mozgatását engedélyezi. Koppintson a <img alt="Zárolt" src="../../images/locked.png" /> ikonra a képernyő feloldásához. </p>
 <p>A zárolás ikonra hosszan nyomva egy menü jelenik meg, amely jelenleg 4 lehetőséget kínál:</p>
 <ul>
-<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
-<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.</li>
-<li><strong>Address</strong> - enables Address mode, a slightly simplified mode with specific actions available from the <a href="../../en/Simple actions/">Simple mode</a> "+" button. White lock icon with an "A" is displayed.</li>
-<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with an "I" is displayed.</li>
-<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a "C" is displayed.</li>
+<li><strong>Normál</strong> - az alapértelmezett szerkesztési mód, új elemek adhatóak hozzá, a létezők szerkeszhetőek, mozgathatóak és törölhetőek. Egy egyszerű fehér lakatikon lesz megjelenítve.</li>
+<li><strong>Cím</strong> - lehetővé tezi a cím módot, amely az <a href="../../en/Simple actions/">egyszerű mód</a> „+” gombjával elérhető kicsit egyszerűsített mód néhány specifikus funkcióval. Egy „A” betűvel ellátott fehér lakatikon jelzi.</li>
+<li><strong>Csak címkézés</strong> - egy létező objektum kiválasztása a Tulajdonságszerkesztőt jeleníti meg, a hosszú nyomás a főképernyőn objektumokat ad hozzá, de más geometriai műveletek nem működnek. Egy fehér lakatikon fog megjelenni, egy „T” betűvel.</li>
+<li><strong>Beltéri</strong> - engedélyezi a beltéri módot, lásd <a href="#indoor">Beltéri mód</a>. Egy fehér lakatikon lesz megjelenítve, egy „I” betűvel.</li>
+<li><strong>C-mód</strong> - engedélyezi a C-módot, csak a figyelmeztetés jelzővel megjelölt elemek lesznek megjelenítve, lásd <a href="#c-mode">C-mód</a>. Egy fehér lakatikon lesz megjelenítve, egy „C” betűvel.</li>
 </ul>
 <h4 id="egyszeres-koppintas-dupla-koppintas-hosszu-nyomas">Egyszeres koppintás, dupla koppintás, hosszú nyomás</h4>
 <p>Alapból a kiválasztható pontok és vonalak körül egy narancssárga terület van, amely azt jelzi, hol kell megérintenie az objektumot a kiválasztásához. Három lehetősége van:</p>
@@ -586,7 +601,7 @@ i-->
 <p>A kiválasztott objektum másodszori megérintése megnyitja a címkeszerkesztőt, és így szerkesztheti az objektumhoz rendelt címkéket.</p>
 <p>Ne feledje, hogy az átfedő objektumok esetén (mint a vonalon lévő pontok) a kiválasztási menü még egyszer megjelenik. Az ugyanazon objektum kiválasztása előhozza a címkeszerkesztőt; egy másik objektum kiválasztása egyszerűen kiválasztja a másik objektumot.</p>
 <h4 id="kijelolt-objektumok-pont-vagy-vonal-mozgatasa">Kijelölt objektumok: pont vagy vonal mozgatása</h4>
-<p>Amint kiválasztott egy objektumot, az mozgatható lesz. Ne feledje, hogy csak a kijelölt objektumok mozgathatóak. Egyszerűen húzza (a tolerancia zónán belül) a kiválasztott objektumot a mozgatáshoz. Ha nagy húzási területet választ ki a beállításokban, akkor nagy területet kap a kiválasztott pont körül, így könnyebben pozicionálhatja az objektumot. </p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object. </p>
 <h4 id="uj-pont-vagy-vonal-hozzaadasa">Új pont vagy vonal hozzáadása</h4>
 <p>Az alkalmazás első indításakor „Egyszerű módban” indul, ez módosítható a főmenüben, a megfelelő jelölőmező kikapcsolásával.</p>
 <h5 id="egyszeru-mod">Egyszerű mód</h5>
@@ -635,7 +650,7 @@ i-->
 <li>állítsa be a korlátozás típusát</li>
 </ul>
 <h3 id="vespucci-zarolt-modban">Vespucci „zárolt” módban</h3>
-<p>Ha a piros zár látszik, akkor az összes nem szerkesztési művelet elérhető. Továbbá egy objektumon vagy a közelében történő hosszú nyomás megjeleníti a részletes információs képernyőt, ha az egy OSM objektum.</p>
+<p>Ha a piros lakat látszik, akkor az összes nem szerkesztési művelet elérhető. Továbbá egy objektumon vagy a közelében történő hosszú nyomás megjeleníti a részletes információs képernyőt, ha az egy OSM objektum.</p>
 <h3 id="modositasok-mentese">Módosítások mentése</h3>
 <p><em>(hálózati kapcsolatot igényel)</em></p>
 <p>Válassza ugyanazt a gombot vagy menüelemet, melyet a letöltésnél használt, és most válassza az „Adatok feltöltése az OSM kiszolgálóra” lehetőséget.</p>
@@ -652,13 +667,14 @@ i-->
 <p>A térképen a jegyzeteket vagy hibákat kis hiba ikonok <img alt="Hiba" src="../../images/bug_open.png" /> jelzik, a zöldek lezártak/megoldottak, a kékeket Ön hozta létre vagy szerkesztette, a sárgák pedig még mindig aktívak, és Ön nem változtatott rajtuk. </p>
 <p>Az OSMOSE hibák kék hivatkozást jelenítenek meg az érintett objektumhoz, a hivatkozás megnyomása kiválasztja az objektumot, a képernyő közepére teszi azt, és letölti a területet, ha az szükséges. </p>
 <h3 id="szures">Szűrés</h3>
-<p>A jegyzetek és hibák megjelenítésének globális engedélyezése mellett beállíthat egy durva szűrést, hogy csökkentse a zsúfoltságot. A <a href="Advanced%20preferences.md">Speciális beállításokban</a> egyenként kiválaszthatja:</p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
-<li>Jegyzetek</li>
-<li>Osmose szerinti hiba</li>
-<li>Osmose szerinti figyelmeztetés</li>
-<li>Osmose szerinti kisebb probléma</li>
-<li>Egyéni</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2 id="belteri-mod">Beltéri mód</h2>
@@ -669,7 +685,7 @@ i-->
 <p>C-módban csak azok az objektumok jelennek meg, melyeken figyelmeztetés jelző van, így könnyen kiszúrhatja azokat az objektumokat, melyekkel konkrét probléma van, vagy egyeznek a beállítható ellenőrzésekkel. Ha egy objektum kiválasztásra kerül és elindul a tulajdonságszerkesztő C-módban, akkor a legjobban illeszkedő előbeállítás automatikusan beállításra kerül.</p>
 <p>A mód a zárolás gomb hosszú megnyomásával, és a megfelelő menüelem kiválasztásával engedélyezhető, lásd: <a href="#lock">Zárolás, feloldás, módváltás</a>.</p>
 <h3 id="ellenorzesek-beallitasa">Ellenőrzések beállítása</h3>
-<p>Jelenleg két konfigurálható ellenőrzés van (nem konfigurálható a FIXME címkék ellenőrzése és a kapcsolatokról hiányzó type címkék ellenőrzése), mindkettő a Beállítások &gt; Érvényesítő beállításai menöben állítható be. </p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the <a href="Preferences.md">preferences</a>. </p>
 <p>A bejegyzések listája két részre van osztva, a felső része az „újbóli felmérési” bejegyzéseket tartalmazza, az alsó rész pedig az „ellenőrzési bejegyzéseket”. A bejegyzések koppintással szerkeszthetőek, és a zöld menügombbal adhatóak hozzá új bejegyzések.</p>
 <h4 id="ujboli-felmeresi-bejegyzesek">Újbóli felmérési bejegyzések</h4>
 <p>Az újbóli felmérési bejegyzések a következő tulajdonságokkal rendelkeznek:</p>
@@ -695,6 +711,7 @@ i-->
 <p>A fentiek alternatívájaként, az objektumok egyes előbeállítások vagy előbeállítás-csoportok alapján kerülnek szűrésre. A szűrő ikonra koppintva megjelenik egy előbeállítás-választó párbeszédablak, amely hasonlít a Vespucciban máshol előfordulókra. Az egyes előbeállítások normál koppintással válaszhatóak ki, az előbeállítás-csoportok pedig hosszú lenyomással (a normál koppintás belép a csoportba). További dokumentáció található itt: <a href="Preset%20filter.md">Előbeállítás-szűrő</a>.</p>
 <h2 id="a-vespucci-testreszabasa">A Vespucci testreszabása</h2>
 <p>Az alkalmazás számos vonatkozása testreszabható. Ha valami konkrét dolgot keres, de nem találja meg, akkor a <a href="https://vespucci.io/">Vespucci webhely</a> kereshető, és további tájékoztatást ad mindarról, ami az eszközön elérhető.</p>
+<p><a id="layers"></a></p>
 <h3 id="retegbeallitasok">Rétegbeállítások</h3>
 <p>A rétegbeállítások a rétegvezérlőn keresztül módosíthatók (a jobb felső sarokban található „hamburgermenüben”), az összes többi beállítás a főmenübeállítások gombbal érhető el. A rétegeket lehet engedélyezni, letiltani és ideiglenesen elrejteni.</p>
 <p>Elérhető rétegtípusok</p>
@@ -708,6 +725,7 @@ i-->
 <li>GeoJSON-réteg - Megjeleníti egy GeoJSON fájl tartalmát. Alapértelmezés: kikapcsolva</li>
 <li>Rács - megjeleníti a méretarányt a térkép vagy a rács oldalán. Alapértelmezés: bekapcsolva. </li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4 id="beallitasok">Beállítások</h4>
 <ul>
 <li>Hagyja bekapcsolva a kijelzőt. Alapértelmezés: kikapcsolva.</li>
@@ -730,7 +748,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

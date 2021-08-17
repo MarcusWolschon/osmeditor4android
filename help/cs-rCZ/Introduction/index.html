@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -377,7 +389,7 @@ i-->
 <p>Druhé klepnutí na zvolený objekt otevře editor tagů, ve kterém můžete upravovat tagy přiřazené k objektu.</p>
 <p>Všimněte si, že pro překrývající se objekty (např. uzel na cestě) se podruhé zobrazí menu s výběrem. Zvolení stejného objektu zobrazí editor tagů; zvolení jiného objektu jednoduše zvolí daný objekt.</p>
 <h4 id="zvolene-objekty-posun-uzlu-nebo-cesty">Zvolené objekty: Posun Uzlu nebo Cesty</h4>
-<p>Zvolené objekty můžete posouvat. Všimněte si, že objekty lze přetahovat/posouvat pouze pokud jsou zvolené. Jednoduše uchopte vybraný objekt (v oblasti tolerance) a posuňte jej. V nastavení můžete zvolit Větší oblast pro výběr uzlu, díky které je snazší objekt uchopit a umístit. </p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object. </p>
 <h4 id="pridani-noveho-uzlubodu-nebo-cesty">Přidání nového Uzlu/Bodu nebo Cesty</h4>
 <p>Při prvním spuštění je aplikace v „Jednoduchém režimu“, to lze změnit v hlavní nabídce zrušením zatržení odpovídající volby.</p>
 <h5 id="jednoduchy-rezim">Jednoduchý režim</h5>
@@ -445,13 +457,14 @@ i-->
 <p>Na mapě jsou poznámky a chyby reprezentovány malou ikonkou chyby <img alt="Bug" src="../../images/bug_open.png" />, zelené jsou uzavřené / vyřešené, modré byly vytvořeny nebo editovány vámi a žlutá označuje, že je stále aktivní a nebyla změněna. </p>
 <p>Chybová zpráva OSMOSE poskytne odkaz na postižený objekt v modré barvě, dotykem na odkaz vybere objekt, vystředí jej na obrazovku a v případě potřeby načte oblast předem. </p>
 <h3 id="filtrovani">Filtrování</h3>
-<p>Kromě toho, že globálně umožňuje zobrazování poznámek a chyb, můžete nastavit filtr hrubého zrnitého displeje pro snížení chaosu. Ve složce <a href="Advanced%20preferences.md">Pokročilé preference</a> to můžete individuálně zvolit:</p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
-<li>Poznámky </li>
-<li>Osmose chyba</li>
-<li>Osmose varování</li>
-<li>Osmose drobná záležitost </li>
-<li>Vlastní</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2 id="interierovy-rezim">Interierový režim</h2>
@@ -462,7 +475,7 @@ i-->
 <p>V režimu C-Mód jsou zobrazeny pouze objekty, které mají nastavenou varovnou vlajku, což usnadňuje detekci objektů, které mají specifické problémy nebo odpovídají konfigurovatelným kontrolám. Pokud je vybrán objekt a editor vlastností je spuštěn v režimu C-Mód, automaticky se použije nejlépe odpovídající předvolba.</p>
 <p>Režim lze aktivovat dlouhým stisknutím tlačítka zámku, viz <a href="#lock">Zamknout, odemknout, přepnout režim</a> a vybrat odpovídající položku nabídky.</p>
 <h3 id="konfigurace-kontrol">Konfigurace kontrol</h3>
-<p>V současné době existují dvě konfigurovatelné kontroly (existuje kontrola pro značky FIXME a test na chybějící typové značky ve vztazích, které momentálně nelze konfigurovat), oba lze nakonfigurovat výběrem "Nastavení ověřovatele" v "Předvolbách". </p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the <a href="Preferences.md">preferences</a>. </p>
 <p>Seznam záznamů je rozdělen na dvě části, políčka nahoře vypisují "ověřit záznamy", dolní polovina "zkontrolované záznamy". Záznamy lze editovat kliknutím na ně, zelené tlačítko nabídky umožňuje přidání položek.</p>
 <h4 id="overeni-zaznamu">Ověření záznamů</h4>
 <p>Položky opětovného Ověření mají následující vlastnosti:</p>
@@ -488,6 +501,7 @@ i-->
 <p>Alternativou k výše uvedeným objektům jsou objekty filtrovány buď na základě individuálních předvoleb nebo na přednastavených skupinách. Klepnutím na ikonu filtru se zobrazí přednastavené dialogové okno pro výběr, které se používá ve Vespucci. Jednotlivé předvolby lze zvolit pomocí normálního kliknutí, přednastavených skupin dlouhým kliknutím (normální kliknutí se dostane do skupiny). Další dokumentaci naleznete zde <a href="Preset%20filter.md">Přednastavený filtr</a>.</p>
 <h2 id="prizpusobeni-vespucci">Přizpůsobení Vespucci</h2>
 <p>Mnoho aspektů aplikace lze přizpůsobit, pokud hledáte něco konkrétního a nemůžete jej najít, <a href="https://vespucci.io/">web Vespucci</a> je prohledávatelný a obsahuje další informace o tom, co je k dispozici na zařízení.</p>
+<p><a id="layers"></a></p>
 <h3 id="nastaveni-vrstev">nastavení vrstev</h3>
 <p>Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
 <p>Available layer types:</p>
@@ -501,6 +515,7 @@ i-->
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4 id="predvolby">Předvolby</h4>
 <ul>
 <li>Nechte obrazovku zapnutou. Výchozí: vypnuto.</li>
@@ -592,7 +607,7 @@ i-->
 <p>Druhé klepnutí na zvolený objekt otevře editor tagů, ve kterém můžete upravovat tagy přiřazené k objektu.</p>
 <p>Všimněte si, že pro překrývající se objekty (např. uzel na cestě) se podruhé zobrazí menu s výběrem. Zvolení stejného objektu zobrazí editor tagů; zvolení jiného objektu jednoduše zvolí daný objekt.</p>
 <h4 id="zvolene-objekty-posun-uzlu-nebo-cesty">Zvolené objekty: Posun Uzlu nebo Cesty</h4>
-<p>Zvolené objekty můžete posouvat. Všimněte si, že objekty lze přetahovat/posouvat pouze pokud jsou zvolené. Jednoduše uchopte vybraný objekt (v oblasti tolerance) a posuňte jej. V nastavení můžete zvolit Větší oblast pro výběr uzlu, díky které je snazší objekt uchopit a umístit. </p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object. </p>
 <h4 id="pridani-noveho-uzlubodu-nebo-cesty">Přidání nového Uzlu/Bodu nebo Cesty</h4>
 <p>Při prvním spuštění je aplikace v „Jednoduchém režimu“, to lze změnit v hlavní nabídce zrušením zatržení odpovídající volby.</p>
 <h5 id="jednoduchy-rezim">Jednoduchý režim</h5>
@@ -660,13 +675,14 @@ i-->
 <p>Na mapě jsou poznámky a chyby reprezentovány malou ikonkou chyby <img alt="Bug" src="../../images/bug_open.png" />, zelené jsou uzavřené / vyřešené, modré byly vytvořeny nebo editovány vámi a žlutá označuje, že je stále aktivní a nebyla změněna. </p>
 <p>Chybová zpráva OSMOSE poskytne odkaz na postižený objekt v modré barvě, dotykem na odkaz vybere objekt, vystředí jej na obrazovku a v případě potřeby načte oblast předem. </p>
 <h3 id="filtrovani">Filtrování</h3>
-<p>Kromě toho, že globálně umožňuje zobrazování poznámek a chyb, můžete nastavit filtr hrubého zrnitého displeje pro snížení chaosu. Ve složce <a href="Advanced%20preferences.md">Pokročilé preference</a> to můžete individuálně zvolit:</p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
-<li>Poznámky </li>
-<li>Osmose chyba</li>
-<li>Osmose varování</li>
-<li>Osmose drobná záležitost </li>
-<li>Vlastní</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2 id="interierovy-rezim">Interierový režim</h2>
@@ -677,7 +693,7 @@ i-->
 <p>V režimu C-Mód jsou zobrazeny pouze objekty, které mají nastavenou varovnou vlajku, což usnadňuje detekci objektů, které mají specifické problémy nebo odpovídají konfigurovatelným kontrolám. Pokud je vybrán objekt a editor vlastností je spuštěn v režimu C-Mód, automaticky se použije nejlépe odpovídající předvolba.</p>
 <p>Režim lze aktivovat dlouhým stisknutím tlačítka zámku, viz <a href="#lock">Zamknout, odemknout, přepnout režim</a> a vybrat odpovídající položku nabídky.</p>
 <h3 id="konfigurace-kontrol">Konfigurace kontrol</h3>
-<p>V současné době existují dvě konfigurovatelné kontroly (existuje kontrola pro značky FIXME a test na chybějící typové značky ve vztazích, které momentálně nelze konfigurovat), oba lze nakonfigurovat výběrem "Nastavení ověřovatele" v "Předvolbách". </p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the <a href="Preferences.md">preferences</a>. </p>
 <p>Seznam záznamů je rozdělen na dvě části, políčka nahoře vypisují "ověřit záznamy", dolní polovina "zkontrolované záznamy". Záznamy lze editovat kliknutím na ně, zelené tlačítko nabídky umožňuje přidání položek.</p>
 <h4 id="overeni-zaznamu">Ověření záznamů</h4>
 <p>Položky opětovného Ověření mají následující vlastnosti:</p>
@@ -703,6 +719,7 @@ i-->
 <p>Alternativou k výše uvedeným objektům jsou objekty filtrovány buď na základě individuálních předvoleb nebo na přednastavených skupinách. Klepnutím na ikonu filtru se zobrazí přednastavené dialogové okno pro výběr, které se používá ve Vespucci. Jednotlivé předvolby lze zvolit pomocí normálního kliknutí, přednastavených skupin dlouhým kliknutím (normální kliknutí se dostane do skupiny). Další dokumentaci naleznete zde <a href="Preset%20filter.md">Přednastavený filtr</a>.</p>
 <h2 id="prizpusobeni-vespucci">Přizpůsobení Vespucci</h2>
 <p>Mnoho aspektů aplikace lze přizpůsobit, pokud hledáte něco konkrétního a nemůžete jej najít, <a href="https://vespucci.io/">web Vespucci</a> je prohledávatelný a obsahuje další informace o tom, co je k dispozici na zařízení.</p>
+<p><a id="layers"></a></p>
 <h3 id="nastaveni-vrstev">nastavení vrstev</h3>
 <p>Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
 <p>Available layer types:</p>
@@ -716,6 +733,7 @@ i-->
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4 id="predvolby">Předvolby</h4>
 <ul>
 <li>Nechte obrazovku zapnutou. Výchozí: vypnuto.</li>
@@ -738,7 +756,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -377,7 +389,7 @@ i-->
 <p>Un segon toc a l'objecte seleccionat obre l'editor d'etiquetes i pot editar les etiquetes associades a l'objecte.</p>
 <p>Tingueu en compte que per superposar objectes (com ara un node o una via) el menú de selecció torna a funcionar per segona vegada. Si seleccioneu el mateix objecte, apareixerà l'editor d'etiquetes; si seleccioneu un altre objecte simplement seleccioneu l'altre objecte.</p>
 <h4 id="objectes-seleccionats-moure-un-node-o-una-via">Objectes seleccionats: Moure un node o una via</h4>
-<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. </p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object. </p>
 <h4 id="adding-a-new-nodepoint-or-way">Adding a new Node/Point or Way</h4>
 <p>On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.</p>
 <h5 id="mode-simple">Mode simple</h5>
@@ -445,12 +457,13 @@ i-->
 <p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. </p>
 <p>The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
 <h3 id="filtratge">Filtratge</h3>
-<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the <a href="Advanced%20preferences.md">Advanced preferences</a> you can individually select:</p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
 <li>Notes</li>
 <li>Osmose error</li>
 <li>Osmose warning</li>
 <li>Osmose minor issue</li>
+<li>Maproulette</li>
 <li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
@@ -462,7 +475,7 @@ i-->
 <p>In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.</p>
 <p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
 <h3 id="configurant-marques">Configurant marques</h3>
-<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". </p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the <a href="Preferences.md">preferences</a>. </p>
 <p>The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.</p>
 <h4 id="reenviament-dentrades">Reenviament d'entrades</h4>
 <p>Reenviament d'entrades tenen les següents propietats:</p>
@@ -488,6 +501,7 @@ i-->
 <p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here <a href="Preset%20filter.md">Preset filter</a>.</p>
 <h2 id="personalitzacio-vespucci">Personalització Vespucci</h2>
 <p>Many aspects of the app can be customized, if you are looking for something specific and can't find it, <a href="https://vespucci.io/">the Vespucci website</a> is searchable and contains additional information over what is available on device.</p>
+<p><a id="layers"></a></p>
 <h3 id="layer-settings">Layer settings</h3>
 <p>Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
 <p>Available layer types:</p>
@@ -501,6 +515,7 @@ i-->
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4 id="preferences">Preferences</h4>
 <ul>
 <li>Keep screen on. Default: off.</li>
@@ -592,7 +607,7 @@ i-->
 <p>Un segon toc a l'objecte seleccionat obre l'editor d'etiquetes i pot editar les etiquetes associades a l'objecte.</p>
 <p>Tingueu en compte que per superposar objectes (com ara un node o una via) el menú de selecció torna a funcionar per segona vegada. Si seleccioneu el mateix objecte, apareixerà l'editor d'etiquetes; si seleccioneu un altre objecte simplement seleccioneu l'altre objecte.</p>
 <h4 id="objectes-seleccionats-moure-un-node-o-una-via">Objectes seleccionats: Moure un node o una via</h4>
-<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. </p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object. </p>
 <h4 id="adding-a-new-nodepoint-or-way">Adding a new Node/Point or Way</h4>
 <p>On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.</p>
 <h5 id="mode-simple">Mode simple</h5>
@@ -660,12 +675,13 @@ i-->
 <p>On the map the Notes and bugs are represented by a small bug icon <img alt="Bug" src="../../images/bug_open.png" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. </p>
 <p>The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. </p>
 <h3 id="filtratge">Filtratge</h3>
-<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the <a href="Advanced%20preferences.md">Advanced preferences</a> you can individually select:</p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
 <li>Notes</li>
 <li>Osmose error</li>
 <li>Osmose warning</li>
 <li>Osmose minor issue</li>
+<li>Maproulette</li>
 <li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
@@ -677,7 +693,7 @@ i-->
 <p>In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.</p>
 <p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
 <h3 id="configurant-marques">Configurant marques</h3>
-<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". </p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the <a href="Preferences.md">preferences</a>. </p>
 <p>The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.</p>
 <h4 id="reenviament-dentrades">Reenviament d'entrades</h4>
 <p>Reenviament d'entrades tenen les següents propietats:</p>
@@ -703,6 +719,7 @@ i-->
 <p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here <a href="Preset%20filter.md">Preset filter</a>.</p>
 <h2 id="personalitzacio-vespucci">Personalització Vespucci</h2>
 <p>Many aspects of the app can be customized, if you are looking for something specific and can't find it, <a href="https://vespucci.io/">the Vespucci website</a> is searchable and contains additional information over what is available on device.</p>
+<p><a id="layers"></a></p>
 <h3 id="layer-settings">Layer settings</h3>
 <p>Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
 <p>Available layer types:</p>
@@ -716,6 +733,7 @@ i-->
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4 id="preferences">Preferences</h4>
 <ul>
 <li>Keep screen on. Default: off.</li>
@@ -738,7 +756,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

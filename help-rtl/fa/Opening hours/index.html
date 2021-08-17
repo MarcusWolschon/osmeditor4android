@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../../help/en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../../help/en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -317,7 +329,7 @@ i-->
 <p><em>این سند مقدماتی است و در حال بهبود آن هستیم</em></p>
 <h2 id="_2">استفاده از ویرایشگر ساعت کاری</h2>
 <p>به‌طور معمول شیئی که ویرایش می‌کنید یا تگ ساعت کاری دارد (opening_hours،‏ service_times و collection_times) یا می‌توانید با به‌کارگیری پیش‌تنظیمی برای آن شیء، یک خانه برای ساعت کاری اضافه کنید. اگر لازم باشد که خانهٔ ساعت کاری را دستی اضافه نمایید و از وسپوچی استفاده می‌کنید، باید در زبانهٔ جزئیات، کلید آن را وارد کنید و سپس به زبانهٔ فرم (زبانهٔ خصوصیات) برگردید و آن را ویرایش نمایید. اگر معتقدید که تگ ساعت کاری باید در پیش‌تنظیم بخصوصی وجود داشته باشد، لطفاً برای ویرایشگر مدنظر گزارش بدهید.</p>
-<p>اگر الگوی پیشفرضی تعریف کرده باشید (از طریق گزینهٔ «مدیریت الگوها» در منو) هنگامی که ویرایشگر با مقدار خالی شروع شود، این الگو به‌طور خودکار بار می‌شود. با استفاده از قابلیت «بارکردن الگو» می‌توانید هر الگوی ذخیره‌شده‌ای را بار کنید و با استفاده از گزینهٔ «ذخیره‌سازی الگو»  می‌توانید مقدار کنونی را به‌عنوان الگو ذخیره نمایید. می‌توانید برای تگ‌های opening_hours،‏ service_times و collection_times الگوها و پیشفرض‌های جداگانه تعریف کنید.</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>به‌طور طبیعی می‌توانید مقدار ساعت کاری را از صفر بنویسید. اما پیشنهاد می‌کنیم یکی از الگوهای موجود نقطهٔ آغازتان باشد.</p>
 <p>هنگامی که یک مقدار ساعت کاری موجود بار می‌شود، برای پیروی از تعاریف فنی ساعت کاری، تلاشی برای اصلاح خودکار آن انجام می‌شود. اگر اصلاح خودکار میسر نشود، مکان تقریبی رخداد خطا در قسمت نمایش خام ساعت کاری، مشخص می‌شود و می‌توانید به‌طور دستی آن را اصلاح نمایید. به‌طور تقریبی یک‌چهارم ساعت‌های کاری ثبت‌شده در پایگاه‌دادهٔ اوپن‌استریت‌مپ مشکل دارند، اما کمتر از ۱۰٪ آن‌ها اصلاح‌نشدنی هستند. برای اینکه بدانید کدام انحراف از تعاریف قابل‌مدارا هستند، <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> را ببینید.</p>
 <h3 id="_3">دکمهٔ منوی اصلی</h3>
@@ -367,7 +379,11 @@ i-->
 <li><strong>با آفست...</strong>: همان مدخل‌هایی که پیشتر گفته شد با مشخص‌کردن آفست (به‌ندرت استفاده می‌شود).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>افزودن بازهٔ سال</strong>: انتخابگری بر اساس سال اضافه کنید.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>افزودن بازهٔ هفته</strong>: انتخابگری بر اساس شمارهٔ هفته اضافه کنید.</li>
 <li><strong>تکرار</strong>: از این قاعده کپی بگیرید و پس از موقعیت کنونی درج کنید.</li>
 <li><strong>نمایش نوع قاعده</strong>: نمایش و تغییر نوع قاعده (<em>عادی</em>،‏ <em>افزودنی</em> و <em>fallback</em> (برای قاعدهٔ اول امکان‌پذیر نیست).</li>
@@ -387,6 +403,15 @@ i-->
 <li><strong>آغاز از نیمه‌شب</strong>: نوار بازه از نیمه‌شب آغاز می‌شود.</li>
 <li><strong>نمایش دوره</strong>: برای مشخص‌کردن دوره به دقیقه خانهٔ دوره را نمایش می‌دهد.</li>
 <li><strong>حذف</strong>: این بازهٔ زمان را حذف کنید.</li>
+</ul>
+<h3 id="_8">مدیریت الگوها</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -403,7 +428,7 @@ i-->
 <p><em>این سند مقدماتی است و در حال بهبود آن هستیم</em></p>
 <h2 id="_2">استفاده از ویرایشگر ساعت کاری</h2>
 <p>به‌طور معمول شیئی که ویرایش می‌کنید یا تگ ساعت کاری دارد (opening_hours،‏ service_times و collection_times) یا می‌توانید با به‌کارگیری پیش‌تنظیمی برای آن شیء، یک خانه برای ساعت کاری اضافه کنید. اگر لازم باشد که خانهٔ ساعت کاری را دستی اضافه نمایید و از وسپوچی استفاده می‌کنید، باید در زبانهٔ جزئیات، کلید آن را وارد کنید و سپس به زبانهٔ فرم (زبانهٔ خصوصیات) برگردید و آن را ویرایش نمایید. اگر معتقدید که تگ ساعت کاری باید در پیش‌تنظیم بخصوصی وجود داشته باشد، لطفاً برای ویرایشگر مدنظر گزارش بدهید.</p>
-<p>اگر الگوی پیشفرضی تعریف کرده باشید (از طریق گزینهٔ «مدیریت الگوها» در منو) هنگامی که ویرایشگر با مقدار خالی شروع شود، این الگو به‌طور خودکار بار می‌شود. با استفاده از قابلیت «بارکردن الگو» می‌توانید هر الگوی ذخیره‌شده‌ای را بار کنید و با استفاده از گزینهٔ «ذخیره‌سازی الگو»  می‌توانید مقدار کنونی را به‌عنوان الگو ذخیره نمایید. می‌توانید برای تگ‌های opening_hours،‏ service_times و collection_times الگوها و پیشفرض‌های جداگانه تعریف کنید.</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>به‌طور طبیعی می‌توانید مقدار ساعت کاری را از صفر بنویسید. اما پیشنهاد می‌کنیم یکی از الگوهای موجود نقطهٔ آغازتان باشد.</p>
 <p>هنگامی که یک مقدار ساعت کاری موجود بار می‌شود، برای پیروی از تعاریف فنی ساعت کاری، تلاشی برای اصلاح خودکار آن انجام می‌شود. اگر اصلاح خودکار میسر نشود، مکان تقریبی رخداد خطا در قسمت نمایش خام ساعت کاری، مشخص می‌شود و می‌توانید به‌طور دستی آن را اصلاح نمایید. به‌طور تقریبی یک‌چهارم ساعت‌های کاری ثبت‌شده در پایگاه‌دادهٔ اوپن‌استریت‌مپ مشکل دارند، اما کمتر از ۱۰٪ آن‌ها اصلاح‌نشدنی هستند. برای اینکه بدانید کدام انحراف از تعاریف قابل‌مدارا هستند، <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> را ببینید.</p>
 <h3 id="_3">دکمهٔ منوی اصلی</h3>
@@ -453,7 +478,11 @@ i-->
 <li><strong>با آفست...</strong>: همان مدخل‌هایی که پیشتر گفته شد با مشخص‌کردن آفست (به‌ندرت استفاده می‌شود).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>افزودن بازهٔ سال</strong>: انتخابگری بر اساس سال اضافه کنید.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>افزودن بازهٔ هفته</strong>: انتخابگری بر اساس شمارهٔ هفته اضافه کنید.</li>
 <li><strong>تکرار</strong>: از این قاعده کپی بگیرید و پس از موقعیت کنونی درج کنید.</li>
 <li><strong>نمایش نوع قاعده</strong>: نمایش و تغییر نوع قاعده (<em>عادی</em>،‏ <em>افزودنی</em> و <em>fallback</em> (برای قاعدهٔ اول امکان‌پذیر نیست).</li>
@@ -473,6 +502,15 @@ i-->
 <li><strong>آغاز از نیمه‌شب</strong>: نوار بازه از نیمه‌شب آغاز می‌شود.</li>
 <li><strong>نمایش دوره</strong>: برای مشخص‌کردن دوره به دقیقه خانهٔ دوره را نمایش می‌دهد.</li>
 <li><strong>حذف</strong>: این بازهٔ زمان را حذف کنید.</li>
+</ul>
+<h3 id="_8">مدیریت الگوها</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div>
                 
         </div>
@@ -480,7 +518,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

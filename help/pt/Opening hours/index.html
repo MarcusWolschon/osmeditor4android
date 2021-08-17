@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -317,7 +329,7 @@ i-->
 <p><em>Esta documentação é temporária e encontra-se em desenvolvimento</em></p>
 <h2 id="usar-o-editor-de-horario-de-abertura">Usar o editor de horário de abertura</h2>
 <p>Num processo normal, o objeto que está a editar irá ter uma etiqueta de horário de abertura (opening_hours, service_times e collection_times) ou então poderá tornar a aplicar o modelo de etiquetas ao objeto para obter um campo de horário de abertura limpo. Se necessitar de adicionar o campo manualmente e estiver a usar o Vespucci, pode introduzir a chave na página de detalhes e então mudar para a aba baseada em formulário para editá-la. Se acreditar que a etiqueta de horário de abertura devia fazer parte do modelo de etiquetas, por favor abra um relatório para o seu editor.</p>
-<p>Se definiu um modelo padrão (através do menu "Gerir modelos"), este será carregado automaticamente quando o editor for iniciado com um valor vazio. Com a funcionalidade "Carregar modelo" pode carregar um modelo qualquer gravado e com a função "Gravar modelo" pode gravar o valor atual num modelo. Pode definir modelos separados e valores padrão nas etiquetas "opening_hours" (horário de abertura) "collection_times" (hora de recolha) e "service_times" (horário de serviços).</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Claro que pode construir um valor de abertura a partir do nada, mas recomendamos usar um dos modelos existentes como ponto de partida.</p>
 <p>Se for carregado um valor de horário de abertura existente, é feita uma tentativa para corrigir automaticamente para estar conforme a especificação do horário de abertura. Se isso não for possível, a localização onde o erro se encontra é destacada e poderá corrigir manualmente. Certa de um quarto de todos os valores de horários de abertura no OpenStreetMap têm problemas, mas menos de 10% não podem ser corrigidos. Veja <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para mais informação sobre que desvios da especificação são tolerados.</p>
 <h3 id="botao-do-menu-principal">Botão do menu principal</h3>
@@ -367,7 +379,11 @@ i-->
 <li><strong>Com deslocamentos...</strong>: como as mesmas entradas de cima mas com deslocamentos especificados (isto raramente é usado)</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Adicionar intervalo de anos</strong>: adiciona um seletor baseado em anos.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Adicionar intervalo de semanas</strong>: adiciona um seletor baseado no número da semana</li>
 <li><strong>Duplicar</strong>: cria uma cópia da regra atual e insere-a após a posição atual.</li>
 <li><strong>Mostrar tipo de regra</strong>: mostra e permite mudar o tipo de regra <em>normal</em>, <em>aditivo</em> e <em>alternativo (ou)</em> (não disponível na primeira regra).</li>
@@ -387,6 +403,15 @@ i-->
 <li><strong>Começar à meia-noite</strong>: a barra de intervalo começa à meia-noite.</li>
 <li><strong>Mostrar intervalo</strong>: mostra o campo de intervalo para especificar um intervalo em minutos.</li>
 <li><strong>Eliminar</strong>: eliminar este segmento de tempo.</li>
+</ul>
+<h3 id="gerir-modelos">Gerir modelos</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -403,7 +428,7 @@ i-->
 <p><em>Esta documentação é temporária e encontra-se em desenvolvimento</em></p>
 <h2 id="usar-o-editor-de-horario-de-abertura">Usar o editor de horário de abertura</h2>
 <p>Num processo normal, o objeto que está a editar irá ter uma etiqueta de horário de abertura (opening_hours, service_times e collection_times) ou então poderá tornar a aplicar o modelo de etiquetas ao objeto para obter um campo de horário de abertura limpo. Se necessitar de adicionar o campo manualmente e estiver a usar o Vespucci, pode introduzir a chave na página de detalhes e então mudar para a aba baseada em formulário para editá-la. Se acreditar que a etiqueta de horário de abertura devia fazer parte do modelo de etiquetas, por favor abra um relatório para o seu editor.</p>
-<p>Se definiu um modelo padrão (através do menu "Gerir modelos"), este será carregado automaticamente quando o editor for iniciado com um valor vazio. Com a funcionalidade "Carregar modelo" pode carregar um modelo qualquer gravado e com a função "Gravar modelo" pode gravar o valor atual num modelo. Pode definir modelos separados e valores padrão nas etiquetas "opening_hours" (horário de abertura) "collection_times" (hora de recolha) e "service_times" (horário de serviços).</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Claro que pode construir um valor de abertura a partir do nada, mas recomendamos usar um dos modelos existentes como ponto de partida.</p>
 <p>Se for carregado um valor de horário de abertura existente, é feita uma tentativa para corrigir automaticamente para estar conforme a especificação do horário de abertura. Se isso não for possível, a localização onde o erro se encontra é destacada e poderá corrigir manualmente. Certa de um quarto de todos os valores de horários de abertura no OpenStreetMap têm problemas, mas menos de 10% não podem ser corrigidos. Veja <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para mais informação sobre que desvios da especificação são tolerados.</p>
 <h3 id="botao-do-menu-principal">Botão do menu principal</h3>
@@ -453,7 +478,11 @@ i-->
 <li><strong>Com deslocamentos...</strong>: como as mesmas entradas de cima mas com deslocamentos especificados (isto raramente é usado)</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Adicionar intervalo de anos</strong>: adiciona um seletor baseado em anos.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Adicionar intervalo de semanas</strong>: adiciona um seletor baseado no número da semana</li>
 <li><strong>Duplicar</strong>: cria uma cópia da regra atual e insere-a após a posição atual.</li>
 <li><strong>Mostrar tipo de regra</strong>: mostra e permite mudar o tipo de regra <em>normal</em>, <em>aditivo</em> e <em>alternativo (ou)</em> (não disponível na primeira regra).</li>
@@ -473,6 +502,15 @@ i-->
 <li><strong>Começar à meia-noite</strong>: a barra de intervalo começa à meia-noite.</li>
 <li><strong>Mostrar intervalo</strong>: mostra o campo de intervalo para especificar um intervalo em minutos.</li>
 <li><strong>Eliminar</strong>: eliminar este segmento de tempo.</li>
+</ul>
+<h3 id="gerir-modelos">Gerir modelos</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div>
                 
         </div>
@@ -480,7 +518,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

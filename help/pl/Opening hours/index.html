@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -317,7 +329,7 @@ i-->
 <p><em>Ta dokumentacja jest w trakcie opracowywania</em></p>
 <h2 id="uzywanie-edytora-godzin-otwarcia">Używanie edytora godzin otwarcia</h2>
 <p>Zazwyczaj podczas pracy obiekty, które edytujesz już mają tagi godzin otwarcia (opening_hours, service_times i collection_times) lub możesz ponownie zastosować wstępny zestaw dla obiektu, aby uzyskać puste pole godzin otwarcia. Jeżeli potrzebujesz dodać pole ręcznie i używasz Vespucci możesz wpisać klucz na stronie szczegółów i przełączyć się z powrotem na zakładkę z formularzem edycji. Jeżeli uważasz, że tag godzin otwarcia powinien być częścią wstępnych ustawień, zgłoś to twórcom swojego edytora.</p>
-<p>Jeśli masz zdefiniowany domyślny szablon (zrób to prze "Zarządzanie szablonami"  w menu), to zostanie on automatycznie załadowany, jeśli edytor włączy się z pustą wartością. Funkcja "Wczytaj szablon" pozwala wczytać dowolny zapisany szablon, a menu "Zapisz szablon" umożliwia zapisanie aktualnych wartości jako szablon. Możesz określić osobne szablony i domyślne wartości dla tagów "opening_hours", "collection_times" i "service_times".</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Oczywiście możesz zbudować wartość godzin otwarcia do podstaw, ale zalecamy na początek użycie jednego z istniejących szablonów.</p>
 <p>Jeżeli są załadowane istniejące godziny otwarcia, zostaje podjęta próba automatycznej korekty, aby dostosować się do specyfikacji godzin otwarcia. Jeżeli to jest niemożliwe, to taka lokalizacja zostanie podświetlona w wyświetlaniu surowych danych OH i możesz spróbować poprawić to ręcznie. Z grubsza jedna czwarta wartości OH w bazie danych OpenStreetMap ma problemy, ale mniej niż 10% nie może być poprawionych. Zobacz <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a>, aby dowiedzieć się jakie odstępstwa od specyfikacji są tolerowane.</p>
 <h3 id="przycisk-gownego-menu">Przycisk głównego menu</h3>
@@ -367,7 +379,11 @@ i-->
 <li><strong>Z przesunięciami...</strong>: te same wpisy, co powyżej, ale z określonymi przesunięciami (rzadko używane).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Dodaj zakres roczny</strong>: dodaje selektor bazujący na roku.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Dodaj zakres tygodniowy</strong>: dodaje selektor bazujący na numerze tygodnia.</li>
 <li><strong>Duplikuj</strong>: tworzy kopię tej reguły i wstawia ją za aktualną pozycją.</li>
 <li><strong>Pokaż rodzaj reguły</strong>: wyświetla i pozwala zmieniać rodzaj reguły pomiędzy <em>normalna</em>, <em>dodająca</em> i <em>awaryjna</em> (niedostępne dla pierwszej reguły).</li>
@@ -387,6 +403,15 @@ i-->
 <li><strong>Początek o północy</strong>: ustawia początek paska zakresu o północy.</li>
 <li><strong>Pokaż interwał</strong>: pokazuje pole interwału dla określenia go w minutach.</li>
 <li><strong>Usuń</strong>: usuwa ten okres czasu.</li>
+</ul>
+<h3 id="zarzadzaj-szablonami">Zarządzaj szablonami</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -403,7 +428,7 @@ i-->
 <p><em>Ta dokumentacja jest w trakcie opracowywania</em></p>
 <h2 id="uzywanie-edytora-godzin-otwarcia">Używanie edytora godzin otwarcia</h2>
 <p>Zazwyczaj podczas pracy obiekty, które edytujesz już mają tagi godzin otwarcia (opening_hours, service_times i collection_times) lub możesz ponownie zastosować wstępny zestaw dla obiektu, aby uzyskać puste pole godzin otwarcia. Jeżeli potrzebujesz dodać pole ręcznie i używasz Vespucci możesz wpisać klucz na stronie szczegółów i przełączyć się z powrotem na zakładkę z formularzem edycji. Jeżeli uważasz, że tag godzin otwarcia powinien być częścią wstępnych ustawień, zgłoś to twórcom swojego edytora.</p>
-<p>Jeśli masz zdefiniowany domyślny szablon (zrób to prze "Zarządzanie szablonami"  w menu), to zostanie on automatycznie załadowany, jeśli edytor włączy się z pustą wartością. Funkcja "Wczytaj szablon" pozwala wczytać dowolny zapisany szablon, a menu "Zapisz szablon" umożliwia zapisanie aktualnych wartości jako szablon. Możesz określić osobne szablony i domyślne wartości dla tagów "opening_hours", "collection_times" i "service_times".</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Oczywiście możesz zbudować wartość godzin otwarcia do podstaw, ale zalecamy na początek użycie jednego z istniejących szablonów.</p>
 <p>Jeżeli są załadowane istniejące godziny otwarcia, zostaje podjęta próba automatycznej korekty, aby dostosować się do specyfikacji godzin otwarcia. Jeżeli to jest niemożliwe, to taka lokalizacja zostanie podświetlona w wyświetlaniu surowych danych OH i możesz spróbować poprawić to ręcznie. Z grubsza jedna czwarta wartości OH w bazie danych OpenStreetMap ma problemy, ale mniej niż 10% nie może być poprawionych. Zobacz <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a>, aby dowiedzieć się jakie odstępstwa od specyfikacji są tolerowane.</p>
 <h3 id="przycisk-gownego-menu">Przycisk głównego menu</h3>
@@ -453,7 +478,11 @@ i-->
 <li><strong>Z przesunięciami...</strong>: te same wpisy, co powyżej, ale z określonymi przesunięciami (rzadko używane).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Dodaj zakres roczny</strong>: dodaje selektor bazujący na roku.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Dodaj zakres tygodniowy</strong>: dodaje selektor bazujący na numerze tygodnia.</li>
 <li><strong>Duplikuj</strong>: tworzy kopię tej reguły i wstawia ją za aktualną pozycją.</li>
 <li><strong>Pokaż rodzaj reguły</strong>: wyświetla i pozwala zmieniać rodzaj reguły pomiędzy <em>normalna</em>, <em>dodająca</em> i <em>awaryjna</em> (niedostępne dla pierwszej reguły).</li>
@@ -473,6 +502,15 @@ i-->
 <li><strong>Początek o północy</strong>: ustawia początek paska zakresu o północy.</li>
 <li><strong>Pokaż interwał</strong>: pokazuje pole interwału dla określenia go w minutach.</li>
 <li><strong>Usuń</strong>: usuwa ten okres czasu.</li>
+</ul>
+<h3 id="zarzadzaj-szablonami">Zarządzaj szablonami</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div>
                 
         </div>
@@ -480,7 +518,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

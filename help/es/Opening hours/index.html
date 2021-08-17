@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -317,7 +329,7 @@ i-->
 <p><em>Esta documentación es preliminar y está en progreso</em></p>
 <h2 id="uso-del-editor-de-horarios-de-apertura">Uso del editor de horarios de apertura</h2>
 <p>En un flujo de trabajo típico, el objeto que está editando ya tendrá una etiqueta de horas de apertura (opening_hours, service_times y collection_times) o puede volver a aplicar el ajuste preestablecido para el objeto para obtener un campo de horario de apertura vacío. Si necesita agregar el campo manualmente y está utilizando Vespucci, puede ingresar la clave en la página de detalles y luego volver a la pestaña basada en el formulario para editar. Si cree que la etiqueta de las horas de apertura debería haber sido parte del ajuste preestablecido, abra una publicación para su editor.</p>
-<p>Si ha definido una plantilla predeterminada (haga esto mediante el artículo del menú «Administrar Plantillas») se cargará automáticamente cuando el editor se inicie con un valor vacío. Con la función «Cargar plantilla» puede cargar cualquier plantilla guardada y con el menú «Guardar plantilla» puede guardar el valor actual como una plantilla. Puede definir plantillas separadas y valores predeterminados para las etiquetas «opening_hours», «collection_times» y »service_times». </p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Naturalmente, puedes crear un valor de horarios de apertura desde cero, pero recomendamos usar una de las plantillas existentes para empezar.</p>
 <p>Si se carga un valor existente, se intentará autocorregir para ajustarlo a las especificaciones de horarios de apertura. Si no es posible, la ubicación aproximada del error se marcará el la pantalla del valor en texto plano de los horarios de apertura, y podrás intentar corregirlo manualmente. Aproximadamente, una cuarta parte de los valores de horarios de apertura en la base de datos de OpenStreetMap tienen problemas, pero menos del 10% no son corregibles; ver <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para más información sobre qué desviaciones sobre las especificaciones son toleradas.</p>
 <h3 id="boton-del-menu-principal">Botón del menú principal</h3>
@@ -367,7 +379,11 @@ i-->
 <li><strong>Con compensaciones...</strong>: las mismas entradas que arriba pero con compensaciones especificadas (esto no se utiliza a menudo).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Añadir rango de año</strong>: añadir un selector basado en el año.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Añadir rango de semana</strong>: agregar un selector basado en el número de la semana.</li>
 <li><strong>Duplicar</strong>: crear una copia de esta regla y insertarla después de la posición actual.</li>
 <li><strong>Mostrar tipo de regla</strong>: mostrar y permitir el cambio del tipo de regla <em>normal</em>, <em>additive</em> y <em>fallback</em> (no disponible en la primera regla).</li>
@@ -387,6 +403,15 @@ i-->
 <li><strong>Comienzar a la medianoche</strong>: iniciar la barra de rango a la medianoche.</li>
 <li><strong>Mostrar intervalo</strong>: mostrar el campo de intervalo para especificar un intervalo en minutos.</li>
 <li><strong>Eliminar</strong>: eliminar este lapso de tiempo.</li>
+</ul>
+<h3 id="administrar-plantillas">Administrar plantillas</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -403,7 +428,7 @@ i-->
 <p><em>Esta documentación es preliminar y está en progreso</em></p>
 <h2 id="uso-del-editor-de-horarios-de-apertura">Uso del editor de horarios de apertura</h2>
 <p>En un flujo de trabajo típico, el objeto que está editando ya tendrá una etiqueta de horas de apertura (opening_hours, service_times y collection_times) o puede volver a aplicar el ajuste preestablecido para el objeto para obtener un campo de horario de apertura vacío. Si necesita agregar el campo manualmente y está utilizando Vespucci, puede ingresar la clave en la página de detalles y luego volver a la pestaña basada en el formulario para editar. Si cree que la etiqueta de las horas de apertura debería haber sido parte del ajuste preestablecido, abra una publicación para su editor.</p>
-<p>Si ha definido una plantilla predeterminada (haga esto mediante el artículo del menú «Administrar Plantillas») se cargará automáticamente cuando el editor se inicie con un valor vacío. Con la función «Cargar plantilla» puede cargar cualquier plantilla guardada y con el menú «Guardar plantilla» puede guardar el valor actual como una plantilla. Puede definir plantillas separadas y valores predeterminados para las etiquetas «opening_hours», «collection_times» y »service_times». </p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Naturalmente, puedes crear un valor de horarios de apertura desde cero, pero recomendamos usar una de las plantillas existentes para empezar.</p>
 <p>Si se carga un valor existente, se intentará autocorregir para ajustarlo a las especificaciones de horarios de apertura. Si no es posible, la ubicación aproximada del error se marcará el la pantalla del valor en texto plano de los horarios de apertura, y podrás intentar corregirlo manualmente. Aproximadamente, una cuarta parte de los valores de horarios de apertura en la base de datos de OpenStreetMap tienen problemas, pero menos del 10% no son corregibles; ver <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para más información sobre qué desviaciones sobre las especificaciones son toleradas.</p>
 <h3 id="boton-del-menu-principal">Botón del menú principal</h3>
@@ -453,7 +478,11 @@ i-->
 <li><strong>Con compensaciones...</strong>: las mismas entradas que arriba pero con compensaciones especificadas (esto no se utiliza a menudo).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Añadir rango de año</strong>: añadir un selector basado en el año.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Añadir rango de semana</strong>: agregar un selector basado en el número de la semana.</li>
 <li><strong>Duplicar</strong>: crear una copia de esta regla y insertarla después de la posición actual.</li>
 <li><strong>Mostrar tipo de regla</strong>: mostrar y permitir el cambio del tipo de regla <em>normal</em>, <em>additive</em> y <em>fallback</em> (no disponible en la primera regla).</li>
@@ -473,6 +502,15 @@ i-->
 <li><strong>Comienzar a la medianoche</strong>: iniciar la barra de rango a la medianoche.</li>
 <li><strong>Mostrar intervalo</strong>: mostrar el campo de intervalo para especificar un intervalo en minutos.</li>
 <li><strong>Eliminar</strong>: eliminar este lapso de tiempo.</li>
+</ul>
+<h3 id="administrar-plantillas">Administrar plantillas</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div>
                 
         </div>
@@ -480,7 +518,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

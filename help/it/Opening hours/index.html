@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -317,7 +329,7 @@ i-->
 <p><em>Questa documentazione è in continuo sviluppo</em></p>
 <h2 id="utilizzare-leditor-degli-orari-di-apertura">Utilizzare l'editor degli orari di apertura</h2>
 <p>Nello scenario tipico, l’oggetto che stai modificando può sia avere già un’etichetta per gli orari di apertura (opening_hours, service_times e collection_times) oppure puoi riapplicare il valore predefinito all’oggetto per avere il campo degli orari di apertura vuoto. Se senti la necessità di inserire il valore manualmente e stai usando Vespucci, puoi modificare il campo nella pagina dettagli e poi tornare alla scheda per le modifiche. Se pensi che l’etichetta per gli orari di apertura debba far parte delle preimpostazioni, segnala il problema agli sviluppatori del tuo editor.</p>
-<p>Se hai definito un modello predefinito (puoi farlo attraverso il menù “Gestisci modelli”) questo verrà caricato automaticamente con un valore vuoto all’avvio dell’editor. Con la funzione “Carica modello” carichi un qualsiasi modello precedentemente salvato mentre con il menù “Salva modello” salvi il valore attuale in un nuovo modello. Puoi definire modelli diversi e predefiniti per le etichette “opening_hours”, “collection_times” e “service_times”.</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Chiaramente puoi anche decidere di scrivere di tuo pugno un valore per gli orari di apertura, ma è consigliato partire da un modello preesistente.</p>
 <p>Quando viene caricato un valore esistente per gli orari di apertura, il programma cerca di renderlo conforme alle specifiche degli orari di apertura. Qualora non fosse possibile, la posizione approssimativa dell’errore verrà evidenziata nella stringa grezza degli orari di apertura così che tu possa provare a correggerla manualmente. Circa un quarto dei valori degli orari di apertura nel database di OpenStreetMap hanno qualche problema, di questi meno del 10% può essere corretto, vedi <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> per ulteriori dettagli su quali deviazioni dalle specifiche sono tollerate.</p>
 <h3 id="bottone-menu-principale">Bottone menù principale</h3>
@@ -367,7 +379,11 @@ i-->
 <li><strong>Con scostamenti...</strong>: le stesse voci come sopra solo con specificati degli scostamenti (raramente usato).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Aggiungi intervallo annuale</strong>: aggiungi un selettore per gli anni.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Aggiungi intervallo di settimane</strong>: aggiungi un selettore per il numero della settimana.</li>
 <li><strong>Duplica</strong>: crea una copia di questa regola e inseriscila dopo la posizione corrente.</li>
 <li><strong>Mostra tipo di regola</strong>: visualizza e modifica il tipo di regola <em>normale</em>, <em>additivo</em> e <em>di riserva</em> (non disponibile per la prima regola).</li>
@@ -377,16 +393,25 @@ i-->
 </ul>
 <h3 id="intervalli-di-tempo">Intervalli di tempo</h3>
 <p>Per rendere la modifica degli intervalli di tempo più semplice possibile, quando vengono caricati valori già esistenti scegliamo un intervallo di tempo ed una granularità per le barre di intervallo che riteniamo ottimali. Per gli intervalli temporali nuovi le barre iniziano alle 6 del mattino e hanno incrementi di 15 minuti, questo può essere modificato attraverso il menù.</p>
-<p>Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.</p>
+<p>Cliccando sulla barra del tempo (non sui pin) si aprirà il selezionatore di tempo grande, più pratico quando usare direttamente le barre è troppo difficile. I selezionatori di tempo si estendono fino al giorno successivo, quindi sono un modo semplice per estendere un intervallo di tempo senza dover cancellare e riaggiungere l'intervallo.</p>
 <h4 id="menu-intervalli-di-tempo">Menù intervalli di tempo</h4>
 <ul>
-<li><strong>Display time picker</strong>: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.</li>
+<li><strong>Display time picker</strong>: mostra un selezionatore di tempo grande per selezionare l'ora di inizio e di fine, su display molto piccoli questo è il modo preferito di cambiare i tempi.</li>
 <li><strong>Passa a scatti di 15 minuti</strong>: utilizza una granularità di 15 minuti per la barra dell’intervallo.</li>
 <li><strong>Passa a scatti di 5 minuti</strong>: utilizza una granularità di 5 minuti per la barra dell’intervallo.</li>
 <li><strong>Passa a scatti di 1 minuto</strong>: utilizza una granularità di 1 minuto per la barra dell’intervallo.</li>
 <li><strong>Inizia a mezzanotte</strong>: fa iniziare la barra dell’intervallo dalla mezzanotte.</li>
 <li><strong>Mostra intervallo</strong>: visualizza il campo dell’intervallo per specificare un intervallo in minuti.</li>
 <li><strong>Elimina</strong>: elimina questo intervallo di tempo.</li>
+</ul>
+<h3 id="gestisci-modelli">Gestisci modelli</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -403,7 +428,7 @@ i-->
 <p><em>Questa documentazione è in continuo sviluppo</em></p>
 <h2 id="utilizzare-leditor-degli-orari-di-apertura">Utilizzare l'editor degli orari di apertura</h2>
 <p>Nello scenario tipico, l’oggetto che stai modificando può sia avere già un’etichetta per gli orari di apertura (opening_hours, service_times e collection_times) oppure puoi riapplicare il valore predefinito all’oggetto per avere il campo degli orari di apertura vuoto. Se senti la necessità di inserire il valore manualmente e stai usando Vespucci, puoi modificare il campo nella pagina dettagli e poi tornare alla scheda per le modifiche. Se pensi che l’etichetta per gli orari di apertura debba far parte delle preimpostazioni, segnala il problema agli sviluppatori del tuo editor.</p>
-<p>Se hai definito un modello predefinito (puoi farlo attraverso il menù “Gestisci modelli”) questo verrà caricato automaticamente con un valore vuoto all’avvio dell’editor. Con la funzione “Carica modello” carichi un qualsiasi modello precedentemente salvato mentre con il menù “Salva modello” salvi il valore attuale in un nuovo modello. Puoi definire modelli diversi e predefiniti per le etichette “opening_hours”, “collection_times” e “service_times”.</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Chiaramente puoi anche decidere di scrivere di tuo pugno un valore per gli orari di apertura, ma è consigliato partire da un modello preesistente.</p>
 <p>Quando viene caricato un valore esistente per gli orari di apertura, il programma cerca di renderlo conforme alle specifiche degli orari di apertura. Qualora non fosse possibile, la posizione approssimativa dell’errore verrà evidenziata nella stringa grezza degli orari di apertura così che tu possa provare a correggerla manualmente. Circa un quarto dei valori degli orari di apertura nel database di OpenStreetMap hanno qualche problema, di questi meno del 10% può essere corretto, vedi <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> per ulteriori dettagli su quali deviazioni dalle specifiche sono tollerate.</p>
 <h3 id="bottone-menu-principale">Bottone menù principale</h3>
@@ -453,7 +478,11 @@ i-->
 <li><strong>Con scostamenti...</strong>: le stesse voci come sopra solo con specificati degli scostamenti (raramente usato).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Aggiungi intervallo annuale</strong>: aggiungi un selettore per gli anni.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Aggiungi intervallo di settimane</strong>: aggiungi un selettore per il numero della settimana.</li>
 <li><strong>Duplica</strong>: crea una copia di questa regola e inseriscila dopo la posizione corrente.</li>
 <li><strong>Mostra tipo di regola</strong>: visualizza e modifica il tipo di regola <em>normale</em>, <em>additivo</em> e <em>di riserva</em> (non disponibile per la prima regola).</li>
@@ -463,16 +492,25 @@ i-->
 </ul>
 <h3 id="intervalli-di-tempo">Intervalli di tempo</h3>
 <p>Per rendere la modifica degli intervalli di tempo più semplice possibile, quando vengono caricati valori già esistenti scegliamo un intervallo di tempo ed una granularità per le barre di intervallo che riteniamo ottimali. Per gli intervalli temporali nuovi le barre iniziano alle 6 del mattino e hanno incrementi di 15 minuti, questo può essere modificato attraverso il menù.</p>
-<p>Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.</p>
+<p>Cliccando sulla barra del tempo (non sui pin) si aprirà il selezionatore di tempo grande, più pratico quando usare direttamente le barre è troppo difficile. I selezionatori di tempo si estendono fino al giorno successivo, quindi sono un modo semplice per estendere un intervallo di tempo senza dover cancellare e riaggiungere l'intervallo.</p>
 <h4 id="menu-intervalli-di-tempo">Menù intervalli di tempo</h4>
 <ul>
-<li><strong>Display time picker</strong>: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.</li>
+<li><strong>Display time picker</strong>: mostra un selezionatore di tempo grande per selezionare l'ora di inizio e di fine, su display molto piccoli questo è il modo preferito di cambiare i tempi.</li>
 <li><strong>Passa a scatti di 15 minuti</strong>: utilizza una granularità di 15 minuti per la barra dell’intervallo.</li>
 <li><strong>Passa a scatti di 5 minuti</strong>: utilizza una granularità di 5 minuti per la barra dell’intervallo.</li>
 <li><strong>Passa a scatti di 1 minuto</strong>: utilizza una granularità di 1 minuto per la barra dell’intervallo.</li>
 <li><strong>Inizia a mezzanotte</strong>: fa iniziare la barra dell’intervallo dalla mezzanotte.</li>
 <li><strong>Mostra intervallo</strong>: visualizza il campo dell’intervallo per specificare un intervallo in minuti.</li>
 <li><strong>Elimina</strong>: elimina questo intervallo di tempo.</li>
+</ul>
+<h3 id="gestisci-modelli">Gestisci modelli</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div>
                 
         </div>
@@ -480,7 +518,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

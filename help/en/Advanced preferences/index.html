@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -370,7 +382,9 @@ i-->
 <h3 id="disable-feedback-activity">Disable feedback activity</h3>
 <p>Disable the feedback activity and use an URL instead. Default: <em>false</em>.</p>
 <h3 id="beep-volume">Beep volume</h3>
-<p>Set how load the beep is Vespucci uses when you are pressing unsupported short cut keys on a connected real keyboard. Default: <em>50</em></p>
+<p>Set how load the beep is Vespucci uses when you are pressing unsupported short cut keys on a connected real keyboard. Default: <em>50</em>.</p>
+<h3 id="minimum-zoom-for-mapillary">Minimum zoom for Mapillary</h3>
+<p>Set the minimum zoom level for Mapillary data to be displayed. If set too low the application might crash in areas with very high density Mapillary data. Consider increasing the number if your display if very large or very high resolution. Default: <em>16</em></p>
 <h2 id="data-and-editing-settings">Data and Editing Settings</h2>
 <p>Settings related to editing.</p>
 <h3 id="always-use-contextual-menu">Always use contextual menu</h3>
@@ -456,6 +470,8 @@ i-->
 <p>Maximum number of simultaneous download threads. Default: <em>4</em>.</p>
 <h3 id="tile-cache-size">Tile cache size</h3>
 <p>Total on device size for caching imagery tiles. Default: <em>100MB</em>.</p>
+<h3 id="prefer-removable-storage">Prefer removable storage</h3>
+<p>Prefer removable storage for storing tiles. Requires restart of app to take effect, you will need to manually remove the existing tile cache if you change this. Default: <em>true</em>.</p>
 <h3 id="mapillary-cache-size">Mapillary cache size</h3>
 <p>Total on device size for caching Mapillary images. Default: <em>100MB</em>.</p>
 <h2 id="miscellaneous">Miscellaneous</h2>
@@ -528,7 +544,9 @@ i-->
 <h3 id="disable-feedback-activity">Disable feedback activity</h3>
 <p>Disable the feedback activity and use an URL instead. Default: <em>false</em>.</p>
 <h3 id="beep-volume">Beep volume</h3>
-<p>Set how load the beep is Vespucci uses when you are pressing unsupported short cut keys on a connected real keyboard. Default: <em>50</em></p>
+<p>Set how load the beep is Vespucci uses when you are pressing unsupported short cut keys on a connected real keyboard. Default: <em>50</em>.</p>
+<h3 id="minimum-zoom-for-mapillary">Minimum zoom for Mapillary</h3>
+<p>Set the minimum zoom level for Mapillary data to be displayed. If set too low the application might crash in areas with very high density Mapillary data. Consider increasing the number if your display if very large or very high resolution. Default: <em>16</em></p>
 <h2 id="data-and-editing-settings">Data and Editing Settings</h2>
 <p>Settings related to editing.</p>
 <h3 id="always-use-contextual-menu">Always use contextual menu</h3>
@@ -614,6 +632,8 @@ i-->
 <p>Maximum number of simultaneous download threads. Default: <em>4</em>.</p>
 <h3 id="tile-cache-size">Tile cache size</h3>
 <p>Total on device size for caching imagery tiles. Default: <em>100MB</em>.</p>
+<h3 id="prefer-removable-storage">Prefer removable storage</h3>
+<p>Prefer removable storage for storing tiles. Requires restart of app to take effect, you will need to manually remove the existing tile cache if you change this. Default: <em>true</em>.</p>
 <h3 id="mapillary-cache-size">Mapillary cache size</h3>
 <p>Total on device size for caching Mapillary images. Default: <em>100MB</em>.</p>
 <h2 id="miscellaneous">Miscellaneous</h2>
@@ -634,7 +654,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -317,7 +329,7 @@ i-->
 <p><em>Diese Dokumentation ist vorläufig und eine laufende Arbeit</em></p>
 <h2 id="verwenden-des-editors-fur-die-offnungszeiten">Verwenden des Editors für die Öffnungszeiten</h2>
 <p>In einem typischen Arbeitsablauf enthält das Objekt, das Sie bearbeiten, entweder bereits ein Tag für die Öffnungszeiten (opening_hours, service_times und collection_times) oder Sie können die Voreinstellung für das Objekt erneut anwenden, um ein leeres Feld für die Öffnungszeiten zu erhalten. Wenn Sie das Feld manuell hinzufügen müssen und Vespucci verwenden, können Sie den Schlüssel auf der Detailseite eingeben und zur Bearbeitung auf die formularbasierte Registerkarte wechseln. Wenn Sie der Meinung sind, dass das Tag für die Öffnungszeiten Teil des Presets gewesen sein sollte, öffnen Sie eine Fehlermeldung für Ihren Editor.</p>
-<p>Wenn Sie eine Standardvorlage definiert haben (tun Sie dies über den Menüpunkt "Vorlagen verwalten"), wird diese automatisch geladen, wenn der Editor mit einem leeren Wert gestartet wird. Mit der Funktion "Vorlage laden" können Sie jede gespeicherte Vorlage laden und mit dem Menü "Vorlage speichern" den aktuellen Wert als Vorlage speichern. Sie können für die Tags "opening_hours", "collection_times" und "service_times" separate Vorlagen und Standardwerte definieren.</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Natürlich können Sie einen Wert für die Öffnungszeiten von Grund auf erstellen, wir empfehlen jedoch, eine der vorhandenen Vorlagen als Ausgangspunkt zu verwenden.</p>
 <p>Wenn ein existierender Öffnungszeiten-Wert geladen wird, wird versucht diesen automatisch an die Öffnungszeiten-Spezifikationen anzupassen. Wenn das nicht möglich ist, wird die ungefähre Stelle des Fehlers angezeigt und Sie können versuchen den Fehler manuell zu korrigieren. Ungefähr ein Viertel der Öffnungszeiten-Werte hat Fehler, aber weniger als 10% können nicht korrigiert werden. Siehe <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> für weitere Informationen welche Abweichungen von den Spezifikationen toleriert werden.</p>
 <h3 id="hauptmenu-schaltflache">Hauptmenü-Schaltfläche</h3>
@@ -367,7 +379,11 @@ i-->
 <li><strong>Mit Versatz...</strong>: Die gleichen Angaben wie vorher aber mit angegebenen Versatz (wird nur selten verwendet).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Jahresbereich hinzufügen</strong>: Jahres-Auswahlschalter hinzufügen.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Wochenbereich hinzufügen</strong>: Wochen-Auswahlschalter hinzufügen.</li>
 <li><strong>Kopieren</strong>: Kopieren einer Regel und Einfügen der Kopie nach der aktuellen Position.</li>
 <li><strong>Regeltype anzeigen</strong>: Anzeigen der Regel und die Möglichkeit den Regeltype zu ändern <em>Normal</em>, <em>Zusätzlich</em> und <em>Rückfall</em> (nicht verfügbar für die erste Regel).</li>
@@ -387,6 +403,15 @@ i-->
 <li><strong>Start um Mitternacht</strong>: Start des Zeitschiebers um Mitternacht.</li>
 <li><strong>Intervall anzeigen</strong>: Intervallfeld zum Festlegen eines Intervalls in Minuten anzeigen.</li>
 <li><strong>Löschen</strong>: diese Zeitspanne löschen.</li>
+</ul>
+<h3 id="vorlagen-verwalten">Vorlagen verwalten</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -403,7 +428,7 @@ i-->
 <p><em>Diese Dokumentation ist vorläufig und eine laufende Arbeit</em></p>
 <h2 id="verwenden-des-editors-fur-die-offnungszeiten">Verwenden des Editors für die Öffnungszeiten</h2>
 <p>In einem typischen Arbeitsablauf enthält das Objekt, das Sie bearbeiten, entweder bereits ein Tag für die Öffnungszeiten (opening_hours, service_times und collection_times) oder Sie können die Voreinstellung für das Objekt erneut anwenden, um ein leeres Feld für die Öffnungszeiten zu erhalten. Wenn Sie das Feld manuell hinzufügen müssen und Vespucci verwenden, können Sie den Schlüssel auf der Detailseite eingeben und zur Bearbeitung auf die formularbasierte Registerkarte wechseln. Wenn Sie der Meinung sind, dass das Tag für die Öffnungszeiten Teil des Presets gewesen sein sollte, öffnen Sie eine Fehlermeldung für Ihren Editor.</p>
-<p>Wenn Sie eine Standardvorlage definiert haben (tun Sie dies über den Menüpunkt "Vorlagen verwalten"), wird diese automatisch geladen, wenn der Editor mit einem leeren Wert gestartet wird. Mit der Funktion "Vorlage laden" können Sie jede gespeicherte Vorlage laden und mit dem Menü "Vorlage speichern" den aktuellen Wert als Vorlage speichern. Sie können für die Tags "opening_hours", "collection_times" und "service_times" separate Vorlagen und Standardwerte definieren.</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Natürlich können Sie einen Wert für die Öffnungszeiten von Grund auf erstellen, wir empfehlen jedoch, eine der vorhandenen Vorlagen als Ausgangspunkt zu verwenden.</p>
 <p>Wenn ein existierender Öffnungszeiten-Wert geladen wird, wird versucht diesen automatisch an die Öffnungszeiten-Spezifikationen anzupassen. Wenn das nicht möglich ist, wird die ungefähre Stelle des Fehlers angezeigt und Sie können versuchen den Fehler manuell zu korrigieren. Ungefähr ein Viertel der Öffnungszeiten-Werte hat Fehler, aber weniger als 10% können nicht korrigiert werden. Siehe <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> für weitere Informationen welche Abweichungen von den Spezifikationen toleriert werden.</p>
 <h3 id="hauptmenu-schaltflache">Hauptmenü-Schaltfläche</h3>
@@ -453,7 +478,11 @@ i-->
 <li><strong>Mit Versatz...</strong>: Die gleichen Angaben wie vorher aber mit angegebenen Versatz (wird nur selten verwendet).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Jahresbereich hinzufügen</strong>: Jahres-Auswahlschalter hinzufügen.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Wochenbereich hinzufügen</strong>: Wochen-Auswahlschalter hinzufügen.</li>
 <li><strong>Kopieren</strong>: Kopieren einer Regel und Einfügen der Kopie nach der aktuellen Position.</li>
 <li><strong>Regeltype anzeigen</strong>: Anzeigen der Regel und die Möglichkeit den Regeltype zu ändern <em>Normal</em>, <em>Zusätzlich</em> und <em>Rückfall</em> (nicht verfügbar für die erste Regel).</li>
@@ -473,6 +502,15 @@ i-->
 <li><strong>Start um Mitternacht</strong>: Start des Zeitschiebers um Mitternacht.</li>
 <li><strong>Intervall anzeigen</strong>: Intervallfeld zum Festlegen eines Intervalls in Minuten anzeigen.</li>
 <li><strong>Löschen</strong>: diese Zeitspanne löschen.</li>
+</ul>
+<h3 id="vorlagen-verwalten">Vorlagen verwalten</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div>
                 
         </div>
@@ -480,7 +518,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

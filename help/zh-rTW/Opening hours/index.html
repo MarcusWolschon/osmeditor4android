@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -317,7 +329,7 @@ i-->
 <p><em>這份文件是初步的並且正在進展</em></p>
 <h2 id="_2">使用營業時間編輯器</h2>
 <p>在一般的工作流程中，你編輯的物件一般已經有開放時間的標籤 (opening_hour、service_times 和 colllection_times)，或是你可以重新設定物件的預設組合，用空白的開放時間欄位。如果你需要手動輸入欄位，像是用 Vespucci，你可以在詳情頁面輸入鍵值，之後切換回欄位頁籤繼續編輯。如果你相信開放時間標籤必須扅於預設組合的話，請在你的編輯器開啟 issue。</p>
-<p>如果你已經定議預設的模板 (經由"管理模板"選單項目)，會在編輯器的空白數值自動載入。使用"載入模板"功能，你可以載入任何已經儲存的模板，然後用"儲存模板"選單你可以儲存目前的數值為模板。你可以定議不同的模板，預設"opening_hours"、"collection_times"和"service_times"標籤。</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>當然，您可以從頭開始構建營業時間的值，但我們建議使用現有的模板之一作為起點。</p>
 <p>如果已經有營業時間的數值則會載入，另外會自動修正以符合營業時間規範。如果無法修正，則會在大概的位置顯示錯誤訊息，原始的營業時間數值，等待人工修正。開放街圖資料庫中有大約1/4的營業時間數值有問題，但只有少於10%的狀況是無法修正。詳見 <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a>，並且看有那些允許的規範變體。</p>
 <h3 id="_3">主選單按鈕</h3>
@@ -367,7 +379,11 @@ i-->
 <li><strong>使用偏差量...</strong>：與上述相同的內容，但是指定了偏差量 (這很少使用)。</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>增加年範圍</strong>：增加以年為依據的選擇器。</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>增加週範圍</strong>：增加以週為依據的選擇器。</li>
 <li><strong>複製</strong>：複製此規則，並且插入目前位置之後。 </li>
 <li><strong>顯示規則類型</strong>：顯示並允許更改規則類型_正常_，<em>增加_和_倒退</em>(位於第一條規則中不可用)。</li>
@@ -387,6 +403,15 @@ i-->
 <li><strong>從午夜開始</strong>：午夜開始範圍欄。</li>
 <li><strong>顯示間隔</strong>：顯示指定間隔（以分鐘為單位）的間隔字段。</li>
 <li><strong>刪除</strong>：刪除此一時間跨度。</li>
+</ul>
+<h3 id="_8">管理模版</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -403,7 +428,7 @@ i-->
 <p><em>這份文件是初步的並且正在進展</em></p>
 <h2 id="_2">使用營業時間編輯器</h2>
 <p>在一般的工作流程中，你編輯的物件一般已經有開放時間的標籤 (opening_hour、service_times 和 colllection_times)，或是你可以重新設定物件的預設組合，用空白的開放時間欄位。如果你需要手動輸入欄位，像是用 Vespucci，你可以在詳情頁面輸入鍵值，之後切換回欄位頁籤繼續編輯。如果你相信開放時間標籤必須扅於預設組合的話，請在你的編輯器開啟 issue。</p>
-<p>如果你已經定議預設的模板 (經由"管理模板"選單項目)，會在編輯器的空白數值自動載入。使用"載入模板"功能，你可以載入任何已經儲存的模板，然後用"儲存模板"選單你可以儲存目前的數值為模板。你可以定議不同的模板，預設"opening_hours"、"collection_times"和"service_times"標籤。</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>當然，您可以從頭開始構建營業時間的值，但我們建議使用現有的模板之一作為起點。</p>
 <p>如果已經有營業時間的數值則會載入，另外會自動修正以符合營業時間規範。如果無法修正，則會在大概的位置顯示錯誤訊息，原始的營業時間數值，等待人工修正。開放街圖資料庫中有大約1/4的營業時間數值有問題，但只有少於10%的狀況是無法修正。詳見 <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a>，並且看有那些允許的規範變體。</p>
 <h3 id="_3">主選單按鈕</h3>
@@ -453,7 +478,11 @@ i-->
 <li><strong>使用偏差量...</strong>：與上述相同的內容，但是指定了偏差量 (這很少使用)。</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>增加年範圍</strong>：增加以年為依據的選擇器。</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>增加週範圍</strong>：增加以週為依據的選擇器。</li>
 <li><strong>複製</strong>：複製此規則，並且插入目前位置之後。 </li>
 <li><strong>顯示規則類型</strong>：顯示並允許更改規則類型_正常_，<em>增加_和_倒退</em>(位於第一條規則中不可用)。</li>
@@ -473,6 +502,15 @@ i-->
 <li><strong>從午夜開始</strong>：午夜開始範圍欄。</li>
 <li><strong>顯示間隔</strong>：顯示指定間隔（以分鐘為單位）的間隔字段。</li>
 <li><strong>刪除</strong>：刪除此一時間跨度。</li>
+</ul>
+<h3 id="_8">管理模版</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div>
                 
         </div>
@@ -480,7 +518,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

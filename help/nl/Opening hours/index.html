@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -317,7 +329,7 @@ i-->
 <p><em>Deze documentatie is voorlopig is werk in uitvoering</em></p>
 <h2 id="gebruik-van-de-openingstijdenbewerker">Gebruik van de openingstijdenbewerker</h2>
 <p>In een typische workflow zal het object dat wordt bewerkt al een bestaande openingstijden tag (opening_hours, service_times en collection_times) hebben, of je kan opnieuw een voorkeuze toepassen op het object om een leeg openingstijden veld te krijgen. Om handmatig het veld toe te voegen in Vespucci kan je in de detailspagina de sleutel toevoegen en dan terug naar de formuliergebaseerde wijzigingstab om te wijzigen. Als je denkt dat de openingstijden tag deel had moeten zijn van de voorkeuze, dan kan je een probleemmelding openen voor jouw bewerker. </p>
-<p>Als je een standaardsjabloon hebt gedefiniëerd (doe dit via het "Beheer sjablonen" menu item) zal het sjabloon automatisch worden geladen als de bewerker wordt geladen met een lege waarde. Met de "Laad sjabloon" kan je een ander opgeslagen sjabloon laden en met de "Sjabloon opslaan" menu kan je de huidige waarde als een sjabloon opslaan. Je kan verschillende standaardsjablonen definiëren voor de "opening_hours", "collection_times" en "service_times" tags. </p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Natuurlijk kan je een openingstijden met de hand maken, maar we raden aan om een van de bestaande sjablonen als een startpunt te gebruiken.</p>
 <p>Als een bestaande openingstijden waarde is geladen, wordt geprobeerd om het automatisch te corrigeren naar de openingstijden specificatie. Als dat niet mogelijk is zal de locatie van de found worden getoond op de plek in de rauwe OT waarde, en kan worden geprobeerd om het handmatig te herstellen. Ongeveer een kwart van de OT waarden in de OpenStreetMap gegevensbank heeft problemen, maar minder dan 10% kan niet automatisch worden gecorrigeerd, zie <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> voor meer informatie over de afwijkingen in de specificatie die worden getolereerd.</p>
 <h3 id="hoofdmenu-knop">Hoofdmenu knop</h3>
@@ -368,7 +380,11 @@ i-->
 <li><strong>Met verplaatsingen...</strong>: hetzelfde als hierboven maar met verplaatsingen gespecificeerd (dit wordt zelden gebruikt).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Voeg jaarbereik toe</strong>: voeg een jaargebaseerde selector toe.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Voeg weekbereik toe</strong>: voeg een selector voor een weeknummer.</li>
 <li><strong>Dupliceer</strong>: maak een kopie van deze regel en voeg hem toe achter de huidige positie.</li>
 <li><strong>Toon regeltype</strong>: toon en wijzig het regeltype tussen <em>normal</em>, <em>additief</em> en <em>terugval</em> (niet beschikbaar op de eerste regel).</li>
@@ -388,6 +404,15 @@ i-->
 <li><strong>Begin op middernacht</strong>: laat de balk op middernacht beginnen.</li>
 <li><strong>Toon interval</strong>: toont het interval veld om een interval in minuten op te geven.</li>
 <li><strong>Verwijder</strong>: verwijder dit tijdsbereik.</li>
+</ul>
+<h3 id="beheer-sjablonen">Beheer sjablonen</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -404,7 +429,7 @@ i-->
 <p><em>Deze documentatie is voorlopig is werk in uitvoering</em></p>
 <h2 id="gebruik-van-de-openingstijdenbewerker">Gebruik van de openingstijdenbewerker</h2>
 <p>In een typische workflow zal het object dat wordt bewerkt al een bestaande openingstijden tag (opening_hours, service_times en collection_times) hebben, of je kan opnieuw een voorkeuze toepassen op het object om een leeg openingstijden veld te krijgen. Om handmatig het veld toe te voegen in Vespucci kan je in de detailspagina de sleutel toevoegen en dan terug naar de formuliergebaseerde wijzigingstab om te wijzigen. Als je denkt dat de openingstijden tag deel had moeten zijn van de voorkeuze, dan kan je een probleemmelding openen voor jouw bewerker. </p>
-<p>Als je een standaardsjabloon hebt gedefiniëerd (doe dit via het "Beheer sjablonen" menu item) zal het sjabloon automatisch worden geladen als de bewerker wordt geladen met een lege waarde. Met de "Laad sjabloon" kan je een ander opgeslagen sjabloon laden en met de "Sjabloon opslaan" menu kan je de huidige waarde als een sjabloon opslaan. Je kan verschillende standaardsjablonen definiëren voor de "opening_hours", "collection_times" en "service_times" tags. </p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
 <p>Natuurlijk kan je een openingstijden met de hand maken, maar we raden aan om een van de bestaande sjablonen als een startpunt te gebruiken.</p>
 <p>Als een bestaande openingstijden waarde is geladen, wordt geprobeerd om het automatisch te corrigeren naar de openingstijden specificatie. Als dat niet mogelijk is zal de locatie van de found worden getoond op de plek in de rauwe OT waarde, en kan worden geprobeerd om het handmatig te herstellen. Ongeveer een kwart van de OT waarden in de OpenStreetMap gegevensbank heeft problemen, maar minder dan 10% kan niet automatisch worden gecorrigeerd, zie <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> voor meer informatie over de afwijkingen in de specificatie die worden getolereerd.</p>
 <h3 id="hoofdmenu-knop">Hoofdmenu knop</h3>
@@ -455,7 +480,11 @@ i-->
 <li><strong>Met verplaatsingen...</strong>: hetzelfde als hierboven maar met verplaatsingen gespecificeerd (dit wordt zelden gebruikt).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>    <ul>
 <li><strong>Voeg jaarbereik toe</strong>: voeg een jaargebaseerde selector toe.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Voeg weekbereik toe</strong>: voeg een selector voor een weeknummer.</li>
 <li><strong>Dupliceer</strong>: maak een kopie van deze regel en voeg hem toe achter de huidige positie.</li>
 <li><strong>Toon regeltype</strong>: toon en wijzig het regeltype tussen <em>normal</em>, <em>additief</em> en <em>terugval</em> (niet beschikbaar op de eerste regel).</li>
@@ -475,6 +504,15 @@ i-->
 <li><strong>Begin op middernacht</strong>: laat de balk op middernacht beginnen.</li>
 <li><strong>Toon interval</strong>: toont het interval veld om een interval in minuten op te geven.</li>
 <li><strong>Verwijder</strong>: verwijder dit tijdsbereik.</li>
+</ul>
+<h3 id="beheer-sjablonen">Beheer sjablonen</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul></div>
                 
         </div>
@@ -482,7 +520,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

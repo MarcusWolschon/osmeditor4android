@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/16.0.0 Release notes/">16.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/15.2.0 Release notes/">15.2.0 Release notes</a>
 </li>
                                         
@@ -273,6 +277,14 @@
 <li >
     <a href="../../../tutorials/object_search/">Object search</a>
 </li>
+                                        
+<li >
+    <a href="../../../tutorials/offline/">Going completely offline with Vespucci</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/mapbox-style/">Mapbox-GL Style Support</a>
+</li>
                                     </ul>
                                 </li>
                                 <li >
@@ -379,7 +391,7 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <p>Um segundo toque no objeto selecionado abre o editor de etiquetas e poderá editar as etiquetas associadas ao objeto.</p>
 <p>Note que nos objetos que se sobrepõem (como um nó numa linha) irá aparecer de novo o menu. Selecionando de novo o mesmo objeto irá mostrar o editor de etiquetas; selecionando outro objeto simplesmente seleciona o outro objeto.</p>
 <h4 id="objetos-selecionados-mover-um-no-ou-linha">Objetos selecionados: Mover um Nó ou Linha</h4>
-<p>Após selecionar um objeto, este pode ser movido. Note que os objetos podem ser arrastados/movidos apenas quando estão selecionados. Simplesmente arraste perto de um objeto selecionado (dentro da zona de tolerância) para o mover. Se tiver definido nas preferências uma área grande de arrasto, obtém uma zona larga à volta do nó selecionado que torna mais fácil posicionar o objeto. </p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object. </p>
 <h4 id="adicionar-um-novo-no-ou-linha">Adicionar um novo Nó ou Linha</h4>
 <p>No primeiro arranque a app começa com o "Modo simples" ativado. Isto pode ser alterado no menu principal desativando essa opção.</p>
 <h5 id="modo-simples">Modo simples</h5>
@@ -447,13 +459,14 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <p>As Notas e Erros Reportados são mostrados no mapa com um pequeno ícone <img alt="Erro" src="../../images/bug_open.png" />, os verdes são erros fechados/resolvidos, os azuis são os criados ou editados por si e os amarelos são aqueles que ainda estão abertos/por resolver. </p>
 <p>Os erros OSMOSE fornecem um link para o objeto em questão a azul, tocando no link selecionará o objeto, centra o ecrã nele e descarrega a área se for necessário. </p>
 <h3 id="filtros">Filtros</h3>
-<p>Para além de ativar globalmente a visualização de notas e erros também pode pode aplicar um filtro para reduzir a confusão. Em <a href="Advanced%20preferences.md">Preferências avançadas</a> pode selecionar individualmente:</p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
-<li>Erros reportados</li>
-<li>Erro Osmose</li>
-<li>Aviso Osmose</li>
-<li>Pequeno problema Osmose</li>
-<li>Personalizado</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2 id="modo-interiores">Modo interiores</h2>
@@ -464,7 +477,7 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <p>No Modo-C apenas são mostrados os objetos que têm uma bandeira de aviso definida, o que torna fácil detetar objetos que têm problemas específicos ou que correspondam a verificações configuráveis. Se for selecionado um objeto e o Editor de Propriedades iniciado no Modo-C, será aplicado automaticamente o modelo de melhor correspondência.</p>
 <p>O modo pode ser ativado ao pressionar de forma longa o botão do cadeado, ver <a href="#lock">Bloquear, desbloquear, alternar modo</a> e selecionar o respetivo menu.</p>
 <h3 id="configurar-verificacoes">Configurar verificações</h3>
-<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". </p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the <a href="Preferences.md">preferences</a>. </p>
 <p>A lista de entradas está dividida em duas, a primeira metade mostra entradas de "novos levantamentos" e a segunda metade "entradas" de verificação. As entradas podem ser editadas clicando nelas. O botão do menu verde permite adicionar entradas.</p>
 <h4 id="entradas-de-novos-levantamentos">Entradas de novos levantamentos</h4>
 <p>O levantamento possui as seguintes propriedades:</p>
@@ -490,6 +503,7 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <p>Uma alternativa ao descrito anteriormente, os objetos podem ser filtrados com base em modelos de etiquetas individuais ou grupos destas. Tocando no ícone de filtro irá mostrar uma lista de seleção de modelos. Os modelos individuais podem ser selecionados apenas com um toque, e os grupos de modelos por um toque longo (toque normal abre o grupo). Para mais informações ver <a href="Preset%20filter.md">Filtro de modelos de etiquetas</a>.</p>
 <h2 id="personalizar-o-vespucci">Personalizar o Vespucci</h2>
 <p>Many aspects of the app can be customized, if you are looking for something specific and can't find it, <a href="https://vespucci.io/">the Vespucci website</a> is searchable and contains additional information over what is available on device.</p>
+<p><a id="layers"></a></p>
 <h3 id="layer-settings">Layer settings</h3>
 <p>Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
 <p>Available layer types:</p>
@@ -503,6 +517,7 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4 id="preferences">Preferences</h4>
 <ul>
 <li>Keep screen on. Default: off.</li>
@@ -596,7 +611,7 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <p>Um segundo toque no objeto selecionado abre o editor de etiquetas e poderá editar as etiquetas associadas ao objeto.</p>
 <p>Note que nos objetos que se sobrepõem (como um nó numa linha) irá aparecer de novo o menu. Selecionando de novo o mesmo objeto irá mostrar o editor de etiquetas; selecionando outro objeto simplesmente seleciona o outro objeto.</p>
 <h4 id="objetos-selecionados-mover-um-no-ou-linha">Objetos selecionados: Mover um Nó ou Linha</h4>
-<p>Após selecionar um objeto, este pode ser movido. Note que os objetos podem ser arrastados/movidos apenas quando estão selecionados. Simplesmente arraste perto de um objeto selecionado (dentro da zona de tolerância) para o mover. Se tiver definido nas preferências uma área grande de arrasto, obtém uma zona larga à volta do nó selecionado que torna mais fácil posicionar o objeto. </p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object. </p>
 <h4 id="adicionar-um-novo-no-ou-linha">Adicionar um novo Nó ou Linha</h4>
 <p>No primeiro arranque a app começa com o "Modo simples" ativado. Isto pode ser alterado no menu principal desativando essa opção.</p>
 <h5 id="modo-simples">Modo simples</h5>
@@ -664,13 +679,14 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <p>As Notas e Erros Reportados são mostrados no mapa com um pequeno ícone <img alt="Erro" src="../../images/bug_open.png" />, os verdes são erros fechados/resolvidos, os azuis são os criados ou editados por si e os amarelos são aqueles que ainda estão abertos/por resolver. </p>
 <p>Os erros OSMOSE fornecem um link para o objeto em questão a azul, tocando no link selecionará o objeto, centra o ecrã nele e descarrega a área se for necessário. </p>
 <h3 id="filtros">Filtros</h3>
-<p>Para além de ativar globalmente a visualização de notas e erros também pode pode aplicar um filtro para reduzir a confusão. Em <a href="Advanced%20preferences.md">Preferências avançadas</a> pode selecionar individualmente:</p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
-<li>Erros reportados</li>
-<li>Erro Osmose</li>
-<li>Aviso Osmose</li>
-<li>Pequeno problema Osmose</li>
-<li>Personalizado</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2 id="modo-interiores">Modo interiores</h2>
@@ -681,7 +697,7 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <p>No Modo-C apenas são mostrados os objetos que têm uma bandeira de aviso definida, o que torna fácil detetar objetos que têm problemas específicos ou que correspondam a verificações configuráveis. Se for selecionado um objeto e o Editor de Propriedades iniciado no Modo-C, será aplicado automaticamente o modelo de melhor correspondência.</p>
 <p>O modo pode ser ativado ao pressionar de forma longa o botão do cadeado, ver <a href="#lock">Bloquear, desbloquear, alternar modo</a> e selecionar o respetivo menu.</p>
 <h3 id="configurar-verificacoes">Configurar verificações</h3>
-<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". </p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the <a href="Preferences.md">preferences</a>. </p>
 <p>A lista de entradas está dividida em duas, a primeira metade mostra entradas de "novos levantamentos" e a segunda metade "entradas" de verificação. As entradas podem ser editadas clicando nelas. O botão do menu verde permite adicionar entradas.</p>
 <h4 id="entradas-de-novos-levantamentos">Entradas de novos levantamentos</h4>
 <p>O levantamento possui as seguintes propriedades:</p>
@@ -707,6 +723,7 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <p>Uma alternativa ao descrito anteriormente, os objetos podem ser filtrados com base em modelos de etiquetas individuais ou grupos destas. Tocando no ícone de filtro irá mostrar uma lista de seleção de modelos. Os modelos individuais podem ser selecionados apenas com um toque, e os grupos de modelos por um toque longo (toque normal abre o grupo). Para mais informações ver <a href="Preset%20filter.md">Filtro de modelos de etiquetas</a>.</p>
 <h2 id="personalizar-o-vespucci">Personalizar o Vespucci</h2>
 <p>Many aspects of the app can be customized, if you are looking for something specific and can't find it, <a href="https://vespucci.io/">the Vespucci website</a> is searchable and contains additional information over what is available on device.</p>
+<p><a id="layers"></a></p>
 <h3 id="layer-settings">Layer settings</h3>
 <p>Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
 <p>Available layer types:</p>
@@ -720,6 +737,7 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4 id="preferences">Preferences</h4>
 <ul>
 <li>Keep screen on. Default: off.</li>
@@ -742,7 +760,7 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",
