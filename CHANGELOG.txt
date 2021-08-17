@@ -12,7 +12,7 @@
 - Add GPX layer: squash short adjacent lines
 - Fix pref keys for tips need to be unique
 - Fix missing empty line in MultiTextLine
-- Bump OH parser version
+- Update OH parser and fragment version
 - Fix Increase width of border pattern
 - Add preference for tile storage location
 - Add keep compressed tiles compressed
@@ -24,10 +24,14 @@
 - Add bookmarks feature
 - Fix update stroke width for validation style too
 - Add styling for icons on amenity, shop and tourist tags on closed ways
-- Fix logic bug for non downloadede Relation members
+- Fix logic bug for non downloaded Relation members
 - Improve layer list sorting
 - Add imagery layer info button
 - Add support for labeling ways at a configurable zoom level
+- Update translations tasks to include Arabic as RTL script
+- Update translations
+- Update imagery from ELI
+- Update presets
 
 15.2.0:
 
