@@ -15,7 +15,7 @@ Node styling is limited to the __labelKey__ and __iconPath__ attributes.
 
 
 |Element                    | Attributes     | Default | Description
-|---------------------------|----------------|----------------------------------------------------------------
+|---------------------------|----------------|---------|------------------------------------------------------
 |__&lt;profile&gt;__        |                |         | Top level enclosing element
 |                           | name           |         | Style name
 |                           | format         |         | Format version, currently 0.3.0
