@@ -284,6 +284,7 @@
   <string name="layer_info_terms">Termos</string>
   <string name="layer_info_privacy_policy">Política de privacidade</string>
   <string name="errors">Erros</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <!--API info dialog-->
   <string name="api_info_bounds">Caixa de limites</string>
@@ -845,6 +846,7 @@ há %3$s %4$s</string>
   <string name="config_closeChangesetOnSave_summary">Fechar os conjuntos de alterações ao gravar.</string>
   <string name="config_enableAutoPresets_title">Ativar criação automática de etiquetas</string>
   <string name="config_enableAutoPresets_summary">Permitir criação de etiquetas de Taginfo.</string>
+  <string name="config_maxOffsetDistance_current">%1$d metro(s)</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Raio para descarregar</string>
   <string name="config_extTriggeredDownloadRadius_summary">Raio (m) dos descarregamentos desencadeados externamente, 0 = centrar apenas no mapa.</string>
@@ -1060,4 +1062,5 @@ há %3$s %4$s</string>
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Sem ajuda aqui.</string>
+  <!--Bookmarks-->
 </resources>

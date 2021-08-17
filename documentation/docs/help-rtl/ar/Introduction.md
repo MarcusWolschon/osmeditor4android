@@ -81,7 +81,7 @@
 
 #### العناصر المحددة: تحريك عقدة أو طريق
 
-بمجرد تحديد عنصر، يمكنك نقله وتحريكه. لاحظ أنه يمكن سحب / نقل العناصر فقط عند تحديدها. ما عليك سوى السحب بالقرب من العنصر المحدد لتحريكه (في داخل منطقة التغيير). إذا قمت بتحديد مساحة السحب الكبيرة في التفضيلات ، فستحصل على مساحة كبيرة حول العقدة المحددة مما يسهل تحريك العنصر. 
+Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 
 #### إضافة عقدة/ نقطة جديدة أو طريق جديد 
 
@@ -184,13 +184,14 @@
 
 ### الفلتره والتصفية
 
-إلى جانب تمكين عرض الملاحظات والأخطاء العامة، يمكنك ضبط مصفي العرض لتقليل الفوضى. في [التفضيلات المتقدمة](Advanced٪ 20preferences.md) يمكنك تحديد:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
-* الملاحظات
-* أخطاء Osmose
-* تحذيرات Osmose
-* مشاكل Osmose الثانوية
-* مخصص
+* Notes
+* Osmose error
+* Osmose warning
+* Osmose minor issue
+* Maproulette
+* Custom
 
 <a id="indoor"></a>
 
@@ -210,7 +211,7 @@
 
 ### إعداد الفحوصات
 
-يوجد حاليًا نوعان من عمليات التحقق القابلة للإعداد والضبط (حالياً فحص وسوم FIXME واختبار الوسوم المفقودة التي تحدد النوع العلاقات غير قابلة للتكوين) ويمكن تكوين كليهما عن طريق تحديد "إعدادات أداة التحقق" في "التفضيلات". 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
 
 يتم تقسيم قائمة الإدخالات إلى قسمين ، النصف العلوي يسرد إدخالات "إعادة دراسة واستطلاع" ، والنصف السفلي "فحص الإدخالات". يمكن تحرير الإدخالات بالنقر فوقها ، ويسمح زر القائمة الأخضر بإضافة إدخالات.
 
@@ -250,6 +251,8 @@
 
 يمكن تخصيص العديد من جوانب التطبيق ، إذا كنت تبحث عن شيء محدد ولا يمكنك العثور عليه ، فإنه يمكنك البحث في [موقع Vespucci](https://vespucci.io/) كما أنه يحتوي على معلومات إضافية حول ما هو متاح على الجهاز.
 
+<a id="layers"></a>
+
 ### إعدادات الطبقات
 
 يمكن تغيير إعدادات الطبقات عن طريق التحكم في الطبقة (قائمة "hamburger" في الزاوية العليا على اليمين) ، ويمكن الوصول إلى جميع الإعدادات الأخرى عبر زر تفضيلات القائمة الرئيسية. كما يمكن تمكين الطبقات وتعطيلها وإخفائها مؤقتًا.
@@ -264,6 +267,8 @@
 * طبقة Mapillary - وهي طبقة تعرض مقاطع صور Mapillary بعلامات تحدد مكان وجود الصور ، سيؤدي النقر علا العلامة إلى عرض الصورة. وهي طبقة معطلة بشكل افتراضي.
 * طبقة GeoJSON - تعرض محتويات ملف GeoJSON. وهي طبقة معطلة بشكل افتراضي.
 * المسطرة - وهي مسطرة للقياس تظهر على جوانب الشاشة. وهي طبقة مفعلة بشكل افتراضي. 
+
+More information can be found in the section on the [map display](Main%20map%20display.md).
 
 #### التفضيلات
 

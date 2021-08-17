@@ -279,6 +279,7 @@
   <string name="layer_info_terms">Termes</string>
   <string name="layer_info_privacy_policy">Política de privacitat</string>
   <string name="errors">Errors</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Tag conflict dialog-->
@@ -634,6 +635,7 @@
   <string name="config_notificationCacheSize_current">%1$d notificacions</string>
   <string name="config_maxAlertDistance_current">%1$d metres</string>
   <string name="config_closeChangesetOnSave_title">Tanca els conjunts de canvis</string>
+  <string name="config_maxOffsetDistance_current">%1$d metres</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Radi de baixada</string>
   <string name="config_downloadRadius_current">%1$d metres</string>
@@ -801,4 +803,5 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">No hi ha cap ajuda.</string>
+  <!--Bookmarks-->
 </resources>

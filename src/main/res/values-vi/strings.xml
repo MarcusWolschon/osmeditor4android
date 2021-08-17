@@ -265,6 +265,7 @@
   <string name="layer_info_start_date">Ngày bắt đầu</string>
   <string name="layer_info_end_date">Ngày kết thúc</string>
   <string name="errors">Lỗi</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <!--API info dialog-->
   <string name="api_info_attribution">Ghi công</string>
@@ -694,4 +695,5 @@
   <!--Tag issues-->
   <!--time and distance-->
   <!--Help system-->
+  <!--Bookmarks-->
 </resources>

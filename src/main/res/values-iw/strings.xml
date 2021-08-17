@@ -321,6 +321,7 @@
   <string name="layer_info_terms">תנאים</string>
   <string name="layer_info_privacy_policy">מדיניות פרטיות</string>
   <string name="errors">שגיאות</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">מחיקת תמונה</string>
   <string name="photo_viewer_delete_button">מחיקה לצמיתות</string>
@@ -963,6 +964,7 @@
   <string name="config_dataWarn_summary">הגבלה (במספר מפרקים) שבו נתחיל להזהיר בנוגע לכמות גדולה מדי של נתונים שנטענים</string>
   <string name="config_useUrlForFeedback_title">להשבית פעילות משוב</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">הגדרות נתונים ועריכה</string>
   <string name="config_category_editing_summary">הגדרות הורדה אוטומטית, שמירה והתראות.</string>
@@ -994,6 +996,7 @@
   <string name="config_orthogonalizeThreshold_summary">הסף ב‏־° שמעבר לו מתעלמים מזוויות</string>
   <string name="config_orthogonalizeThreshold_current">‎%1$d°‎</string>
   <string name="config_autoformatPhoneNumbers_title">סידור מספרי טלפון בתבנית</string>
+  <string name="config_maxOffsetDistance_current">%1$d מטר/ים</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">הגדרות הורדה אוטומטית</string>
   <string name="config_category_auto_download_summary">הגדרות להורדה אוטומטית של נתונים ומשימות</string>
@@ -1238,4 +1241,5 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">אין כאן עזרה.</string>
+  <!--Bookmarks-->
 </resources>

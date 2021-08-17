@@ -81,7 +81,7 @@ Once the selection has completed you will see (either as buttons or as menu item
 
 #### פריטים נבחרים: העברת צומת או דרך
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 
 #### הוספת צומת/נקודה או דרך חדשים 
 
@@ -184,13 +184,14 @@ The OSMOSE bug display will provide a link to the affected object in blue, touch
 
 ### סינון
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
-* הערות
-* שגיאה ב־Osmose
-* אזהרה ב־Osmose
-* תקלה מזערית ב־Osmose
-* מותאם אישית
+* Notes
+* Osmose error
+* Osmose warning
+* Osmose minor issue
+* Maproulette
+* Custom
 
 <a id="indoor"></a>
 
@@ -210,7 +211,7 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 ### הגדרת בדיקות
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
 
 רשימת הרשומות מחולקת לשתיים, החלק העליון מציג רשומות „תשאול מחדש” והחלק השני מציג „רשומות שנבדקו”. ניתן לערוך רשומות על ידי לחיצה עליהן, התפריט הירוק בתפריט מאפשר הוספת רשומות.
 
@@ -250,6 +251,8 @@ An alternative to the above, objects are filtered either on individual presets o
 
 ניתן להתאים היבטים מגוונים של היישומון, אם מעניין אותך משהו מסוים ולא הצלחת למצוא, [באתר של וספוצ׳י](https://vespucci.io/) זמין לביצוע חיפושים ומכיל מידע נוסף על מה שזמין במכשיר.
 
+<a id="layers"></a>
+
 ### הגדרות שכבה
 
 Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
@@ -264,6 +267,8 @@ Available layer types:
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+
+More information can be found in the section on the [map display](Main%20map%20display.md).
 
 #### העדפות
 

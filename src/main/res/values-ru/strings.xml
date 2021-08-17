@@ -331,6 +331,7 @@
   <string name="layer_info_privacy_policy">Политика конфиденциальности</string>
   <string name="projection">Проекция</string>
   <string name="errors">Ошибки</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Удалить фото</string>
   <string name="photo_viewer_delete_button">Удалить окончательно</string>
@@ -505,6 +506,7 @@
   <string name="toast_device_not_found_for">Не найдено устройство для %1$s</string>
   <string name="toast_file_already_exists">Файл %1$s уже существует</string>
   <string name="toast_file_error_for">Ошибка для файла %1$s</string>
+  <string name="toast_successfully_written">Файл успешно записан</string>
   <string name="toast_http_data_error_for">Ошибка данных HTTP для %1$s</string>
   <string name="toast_error_insufficient_space_for">На устройстве нет места для %1$s</string>
   <string name="toast_error_too_many_redirects_for">Слишком много переадресации для %1$s</string>
@@ -952,6 +954,7 @@
   <string name="config_beepVolume_title">Громкость звукового сигнала</string>
   <string name="config_beepVolume_summary">Настройки громкости для звуковых сигналов</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Данные и редактирование</string>
   <string name="config_category_editing_summary">Автозагрузка, сохранение изменений, оповещения</string>
@@ -1226,4 +1229,5 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Справка недоступна.</string>
+  <!--Bookmarks-->
 </resources>

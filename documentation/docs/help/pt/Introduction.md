@@ -83,7 +83,7 @@ Note que nos objetos que se sobrepõem (como um nó numa linha) irá aparecer de
 
 #### Objetos selecionados: Mover um Nó ou Linha
 
-Após selecionar um objeto, este pode ser movido. Note que os objetos podem ser arrastados/movidos apenas quando estão selecionados. Simplesmente arraste perto de um objeto selecionado (dentro da zona de tolerância) para o mover. Se tiver definido nas preferências uma área grande de arrasto, obtém uma zona larga à volta do nó selecionado que torna mais fácil posicionar o objeto. 
+Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 
 #### Adicionar um novo Nó ou Linha 
 
@@ -186,13 +186,14 @@ Os erros OSMOSE fornecem um link para o objeto em questão a azul, tocando no li
 
 ### Filtros
 
-Para além de ativar globalmente a visualização de notas e erros também pode pode aplicar um filtro para reduzir a confusão. Em [Preferências avançadas](Advanced%20preferences.md) pode selecionar individualmente:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
-* Erros reportados
-* Erro Osmose
-* Aviso Osmose
-* Pequeno problema Osmose
-* Personalizado
+* Notes
+* Osmose error
+* Osmose warning
+* Osmose minor issue
+* Maproulette
+* Custom
 
 <a id="indoor"></a>
 
@@ -212,7 +213,7 @@ O modo pode ser ativado ao pressionar de forma longa o botão do cadeado, ver [B
 
 ### Configurar verificações
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
 
 A lista de entradas está dividida em duas, a primeira metade mostra entradas de "novos levantamentos" e a segunda metade "entradas" de verificação. As entradas podem ser editadas clicando nelas. O botão do menu verde permite adicionar entradas.
 
@@ -252,6 +253,8 @@ Uma alternativa ao descrito anteriormente, os objetos podem ser filtrados com ba
 
 Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
+<a id="layers"></a>
+
 ### Layer settings
 
 Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
@@ -266,6 +269,8 @@ Available layer types:
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+
+More information can be found in the section on the [map display](Main%20map%20display.md).
 
 #### Preferences
 

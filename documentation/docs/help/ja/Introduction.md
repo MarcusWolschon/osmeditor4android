@@ -82,7 +82,7 @@ Vespucciには良い「取り消し/やり直し」システムがあるので�
 
 #### 選択したオブジェクト: ノードやウェイを移動する
 
-いったんオブジェクトを選択すると、移動させることができます。オブジェクトを移動/削除できるのは選択したときだけであることに注意してください。単純に選択されたオブジェクトのあたり(反応域ゾーン内)をドラッグして移動します。独自設定で大きなドラッグ領域を選択すると、選択されたノードの周りに大きな領域が得られ、オブジェクトの位置合わせがしやすくなります。 
+Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 
 #### Adding a new Node/Point or Way 
 
@@ -185,13 +185,14 @@ OSMOSEバグ表示は影響するオブジェクトへのリンクを青色で�
 
 ### フィルタリング
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
-* メモ
-* Osmose エラー
-* Osmose 警告
-* Osmose マイナーな問題
-* カスタム
+* Notes
+* Osmose error
+* Osmose warning
+* Osmose minor issue
+* Maproulette
+* Custom
 
 <a id="indoor"></a>
 
@@ -211,7 +212,7 @@ Cモードでは、警告フラグセットを持つオブジェクトだけが�
 
 ### 構成チェック
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
 
 エントリーのリストは、リスト上半分の「再調査」エントリーと下半分の「チェックエントリー」の2つに分割されます。エントリーはクリックすると編集でき、緑のメニューモタンでエントリーを追加できます。
 
@@ -251,6 +252,8 @@ An alternative to the above, objects are filtered either on individual presets o
 
 Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
+<a id="layers"></a>
+
 ### Layer settings
 
 Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
@@ -265,6 +268,8 @@ Available layer types:
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+
+More information can be found in the section on the [map display](Main%20map%20display.md).
 
 #### Preferences
 

@@ -64,7 +64,7 @@
 <p>با لمس دوبارهٔ شیء انتخاب‌شده، ویرایشگر تگ باز می‌شود و می‌توانید تگ‌های آن را ویرایش کنید.</p>
 <p>توجه کنید که برای اشیای هم‌پوشان (مانند گره روی راه) منوی انتخاب دوباره ظاهر می‌شود. اگر دوباره شیء انتخاب‌شده را برگزینید ویرایشگر تگ باز می‌شود. اما اگر شیء دیگری را برگزینید، آن شیء در حالت انتخاب قرار می‌گیرد.</p>
 <h4>اشیای انتخاب‌شده: جابه‌جایی گره یا راه</h4>
-<p>پس از انتخاب هر شی، می‌توانید جابه‌جایش کنید. توجه کنید که اشیا را فقط پس از انتخاب‌کردن می‌توانید بکشید و جابه‌جا کنید. برای جابه‌جاکردنش، کافی است از محدودهٔ نزدیک آن، شیء انتخاب‌شده را بکشید. اگر در تنظیمات گزینهٔ «فضای بزرگ برای کشیدن» را روشن کنید، محدودهٔ بزرگی دور گره انتخاب‌شده می‌بینید که کار جابه‌جاکردن شیء را آسان‌تر می‌کند.</p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object.</p>
 <h4>افزودن گره/نقطه یا راه جدید</h4>
 <p>در اولین اجرا، برنامه در «حالت ساده» بالا می‌آید. این حالت را می‌توانید از منوی اصلی با برداشتن تیک مربوطه غیرفعال کنید.</p>
 <h5>حالت ساده</h5>
@@ -131,13 +131,14 @@
 <p>یادداشت‌ها و باگ‌ها روی نقشه با نماد کوچک حشره <img src="../images/bug_open.png" alt="Bug" /> نشان داده می شوند. سبزرنگ‌ها حل/بسته شده‌اند. آبی‌رنگ‌ها را شما ایجاد/ویرایش کرده‌اید. زردرنگ‌ها هنوز فعال هستند و تغییر نکرده‌اند.</p>
 <p>در هنگام نمایش هر کدام از باگ‌های OSMOSE پیوند آبی‌رنگی مشاهده می‌کنید. با لمس این پیوند عنصر مربوطه انتخاب می‌شود و صفحه روی آن متمرکز می‌گردد و محدودهٔ قرارگیری آن در صورت نیاز دانلود می‌شود.</p>
 <h3>پالایش</h3>
-<p>علاوه بر اینکه یادداشت‌ها و باگ‌ها به‌طور کلی روشن/خاموش می‌شوند، می‌توانید آن‌ها را الک کنید تا از درهم‌ریختگی صفحه بکاهید. در <a href="Advanced%20preferences.md">ترجیحات پیشرفته</a> می‌توانید موارد موردنیاز را تک‌به‌تک انتخاب کنید:</p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
-<li>یادداشت‌ها</li>
-<li>خطای Osmose</li>
-<li>هشدار Osmose</li>
-<li>مسئلهٔ جزئی Osmose</li>
-<li>سفارشی</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2>حالت داخلی</h2>
@@ -148,7 +149,7 @@
 <p>در حالت C فقط چیزهایی نشان داده می‌شود که پرچم هشدار داشته باشند که درنتیجه کمک می‌کند تا چیزهای مشکل‌دار یا چیزهایی را که بر اساس بررسی‌های قابل‌پیکربندی به دست می‌آیند، آسان‌تر بیابیم. در حالت C اگر عنصری انتخاب و ویرایشگر خصوصیت باز شود، جورترین پیش‌تنظیم به‌طور خودکار به کار گرفته می‌شود.</p>
 <p>این حالت با لمس طولانی روی نماد قفل و انتخاب گزینهٔ مربوطه از منو قابل‌فعال‌سازی است. <a href="#lock">حالت قفل، حالت باز، تعویض حالت</a> را ببینید.</p>
 <h3>پیکربندی بررسی‌ها</h3>
-<p>در حال حاضر دو نوع بررسی قابل‌پیکربندی وجود دارد (بررسی تگ‌های fixme و بررسی کمبود تگ type برای رابطه‌ها فعلاً قابل‌پیکربندی نیستند). هر دو نوع از طریق «ترجیحات &gt;&gt; تنظیمات اعتبارسنج» قابل‌تنظیم هستند.</p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting &quot;Validator settings&quot; in the <a href="Preferences.md">preferences</a>.</p>
 <p>فهرست مدخل‌ها دو بخش دارد. یک بخش «بازنقشه‌برداری» و یک بخش «مدخل‌های بررسی». با کلیک روی هر مدخل می‌توانید آن را اصلاح کنید. دکمهٔ سبزرنگ منو را برای افزودن مدخل‌ها استفاده نمایید.</p>
 <h4>مدخل‌های بازنقشه‌برداری</h4>
 <p>مدخل‌های نقشه‌برداری مجدد این خصوصیت‌ها را دارند:</p>
@@ -174,6 +175,7 @@
 <p>راه دیگری برای کار بالا، پالایش عارضه‌ها بر اساس پیش‌تنظیم یا گروهی از پیش‌تنظیم‌ها است. با زدن روی نماد پالایه، مشابه با جاهای دیگر وسپوچی، کادری برای انتخاب پیش‌تنظیم باز می‌شود. برای انتخاب پیش‌تنظیم، یک بار لمس کافی است. برای انتخاب گروه پیش‌تنظیم‌ها لمس طولانی بکنید (لمس کوتاه گروه را باز می‌کند). مستندات بیشتر در <a href="Preset%20filter.md">پالایش با پیش‌تنظیم</a> آمده است.</p>
 <h2>سفارشی‌سازی وسپوچی</h2>
 <p>برنامه را از جنبه‌های مختلفی می‌توانید سفارشی کنید. اگر به دنبال چیز خاصی هستید و پیدایش نمی‌کنید، <a href="https://vespucci.io/">وبسایت وسپوچی</a> قابل‌جستجو است و اطلاعاتی علاوه بر اطلاعات موجود روی دستگاه دارد.</p>
+<p><a id="layers"></a></p>
 <h3>تنظیمات لایه</h3>
 <p>Layer settings can be changed via the layer control (&quot;hamburger&quot; menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
 <p>Available layer types:</p>
@@ -187,6 +189,7 @@
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on.</li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4>ترجیحات</h4>
 <ul>
 <li>روشن‌ماندن صفحه. پیشفرض: خاموش.</li>

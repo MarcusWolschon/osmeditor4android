@@ -64,7 +64,7 @@
 <p>Ένα δεύτερο άγγιγμα στο επιλεγμένο αντικείμενο ανοίγει τον επεξεργαστή ετικετών και μπορείτε να επεξεργαστείτε τις ετικέτες που σχετίζονται με το αντικείμενο.</p>
 <p>Σημειώστε ότι για τα επικαλυπτόμενα αντικείμενα (όπως ένας κόμβος σε μία διαδρομή) το μενού επιλογής εμφανίζεται για δεύτερη φορά. Επιλέγοντας το ίδιο αντικείμενο εμφανίζεται ο επεξεργαστής ετικετών, επιλέγοντας ένα άλλο αντικείμενο απλά επιλέγει το άλλο αντικείμενο.</p>
 <h4>Επιλεγμένα αντικείμενα: Μετακίνηση ενός κόμβου ή διαδρομής</h4>
-<p>Μόλις επιλέξετε ένα αντικείμενο, αυτό μπορεί να μετακινηθεί. Σημειώστε ότι τα αντικείμενα μπορούν να συρθούν/μετακινηθούν μόνο όταν είναι επιλεγμένα. Απλά σύρετε κοντά (π.χ. εντός της ζώνης ανοχής) του επιλεγμένου αντικειμένου για να το μετακινήσετε. Εάν επιλέξετε σύροντας μια μεγάλη περιοχή στις προτιμήσεις, θα έχετε μια μεγάλη περιοχή γύρω από τον επιλεγμένο κόμβο που διευκολύνει την τοποθέτηση του αντικειμένου.</p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object.</p>
 <h4>Προσθέτοντας ένα νέο Κόμβο/Σημείο ή Διαδρομή</h4>
 <p>Κατά την πρώτη εκκίνηση η εφαρμογή ξεκινάει σε &quot;απλή λειτουργία&quot;, αυτό μπορεί να αλλάξει στο κύριο μενού, με το ξετσεκάρισμα του αντίστοιχου πλαίσιο ελέγχου.</p>
 <h5>Απλή λειτουργία</h5>
@@ -130,13 +130,14 @@
 <p>Στον χάρτη οι Σημειώσεις και τα σφάλματα αντιπροσωπεύονται από ένα μικρό εικονίδιο σφάλματος ! <a href="../images/bug_open.png">Σφάλμα</a>, τα πράσινα είναι κλειστά/επιλυμένα, τα μπλε έχουν δημιουργηθεί ή επεξεργαστεί από εσάς και τα κίτρινο υποδεικνύουν ότι εξακολουθούν να είναι ενεργά και δεν έχουν αλλάξει.</p>
 <p>Η απεικόνιση σφαλμάτων του OSMOSE θα παρέχει μια σύνδεση με το επηρεασμένο αντικείμενο με μπλε χρώμα, αγγίζοντας το σύνδεσμο θα επιλέγεται το αντικείμενο, θα κεντράρεται η οθόνη πάνω του και θα φορτώνει εκ των προτέρων την περιοχή, εάν είναι απαραίτητο.</p>
 <h3>Φιλτράρισμα</h3>
-<p>Εκτός από την παγκόσμια ενεργοποίηση εμφάνισης των σημειώσεων και των σφαλμάτων, μπορείτε να ορίσετε ένα χονδροειδές φίλτρο απεικόνισης για να μειώσετε όλο αυτόν τον όγκο. Στις <a href="Advanced%20preferences.md">Προηγμένες προτιμήσεις</a> μπορείτε να επιλέξετε ξεχωριστά:</p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
-<li>Σημειώσεις</li>
-<li>Σφάλμα Osmose</li>
-<li>Προειδοποίση Osmose</li>
-<li>Μικρό ζήτημα Osmose</li>
-<li>Προτίμηση</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2>Εσωτερική λειτουργία</h2>
@@ -147,7 +148,7 @@
 <p>Στη Λειτουργία-C εμφανίζονται μόνο αντικείμενα που έχουν μια προειδοποιητική σημαία σήμανσης, γεγονός που καθιστά εύκολο το εντοπισμό αντικειμένων που παρουσιάζουν συγκεκριμένα προβλήματα ή ταιριάζουν με ρυθμιζόμενους ελέγχους. Αν επιλεγεί ένα αντικείμενο και ο Επεξεργαστής Ιδιοτήτων ξεκινήσει στη Λειτουργία-C, θα εφαρμοστεί αυτόματα η καλύτερη προεπιλεγμένη προρύθμιση.</p>
 <p>Η λειτουργία μπορεί να ενεργοποιηθεί πατώντας παρατεταμένα το στοιχείο κλειδώματος, δείτε στο <a href="#κλειδαριά">Κλείδωμα, ξεκλείδωμα, εναλλαγή λειτουργίας</a> και επιλέγοντας την αντίστοιχη καταχώρηση μενού.</p>
 <h3>Διαμόρφωση των ελέγχων</h3>
-<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting &quot;Validator settings&quot; in the &quot;Preferences&quot;.</p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting &quot;Validator settings&quot; in the <a href="Preferences.md">preferences</a>.</p>
 <p>Ο κατάλογος των καταχωρίσεων χωρίζεται στα δύο, ο πάνω μισός κατάλογος καταγράφει την &quot;επανεξέταση&quot;, ο κάτω μισός ελέγχει τις &quot;καταχωρήσεις&quot;. Οι καταχωρίσεις μπορούν να επεξεργαστούν κάνοντας κλικ σε αυτές, το πράσινο κουμπί μενού επιτρέπει την προσθήκη των καταχωρήσεων.</p>
 <h4>Εισαγωγές επανεξέτασης</h4>
 <p>Οι εισαγωγές επανεξέτασης έχουν τις εξής ιδιότητες:</p>
@@ -173,6 +174,7 @@
 <p>Μια εναλλακτική λύση στα παραπάνω αντικείμενα φιλτράρονται είτε σε μεμονωμένες προεπιλογές είτε σε προκαθορισμένες ομάδες. Χτυπώντας στο εικονίδιο του φίλτρου θα εμφανιστεί ένα προκαθορισμένο παράθυρο επιλογής παρόμοιο με αυτό που χρησιμοποιείται κάπου αλλού στο Vespucci. Οι μεμονωμένες προεπιλογές μπορούν να επιλεγούν με κανονικό κλικ, οι προκαθορισμένες ομάδες με παρατεταμένο κλικ (το κανονικό κλικ μπαίνει στην ομάδα). Περισσότερες οδηγίες μπορείτε να βρείτε εδώ <a href="../en/Preset%20filter.md">Προκαθορισμένο φίλτρο</a>.</p>
 <h2>Προσαρμογή του Vespucci</h2>
 <p>Many aspects of the app can be customized, if you are looking for something specific and can't find it, <a href="https://vespucci.io/">the Vespucci website</a> is searchable and contains additional information over what is available on device.</p>
+<p><a id="layers"></a></p>
 <h3>Layer settings</h3>
 <p>Layer settings can be changed via the layer control (&quot;hamburger&quot; menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
 <p>Available layer types:</p>
@@ -186,6 +188,7 @@
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on.</li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4>Preferences</h4>
 <ul>
 <li>Keep screen on. Default: off.</li>

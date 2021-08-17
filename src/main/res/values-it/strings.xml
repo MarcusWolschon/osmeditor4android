@@ -306,6 +306,7 @@
   <string name="layer_info_terms">Termini</string>
   <string name="layer_info_privacy_policy">Privacy policy</string>
   <string name="errors">Errori</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Cancella foto</string>
   <string name="photo_viewer_delete_button">Cancella definitvamente</string>
@@ -830,6 +831,7 @@
   <string name="config_dataWarn_title">Avviso di troppi dati</string>
   <string name="config_dataWarn_summary">Limite (nel numero di nodi) in cui iniziamo ad avvisarti che troppi dati sono da caricare</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Dati e impostazioni di modifica</string>
   <string name="config_category_editing_summary">Impostazioni di download automatico, salvataggio e notifiche</string>
@@ -847,6 +849,7 @@
   <string name="config_closeChangesetOnSave_title">Chiudi i gruppi di modifiche</string>
   <string name="config_enableAutoPresets_title">Abilita la generazione dei predefiniti automatici</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
+  <string name="config_maxOffsetDistance_current">%1$d metro(i)</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Impostazioni per lo scaricamento automatico</string>
   <string name="config_extTriggeredDownloadRadius_title">Scarica nel raggio di</string>
@@ -1050,4 +1053,5 @@
     <item quantity="other">%1$dmetri</item>
   </plurals>
   <!--Help system-->
+  <!--Bookmarks-->
 </resources>

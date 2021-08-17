@@ -81,7 +81,7 @@ Huomaa että päällekkäisten kohteiden tapauksessa (kuten piste viivalla) vali
 
 #### Valitut kohteet: Pisteen tai viivan siirtäminen
 
-Kun jokin kohde on valittuna, sitä voi siirtää. Huomaa että kohteita voi siirtää vain, jos ne on valittu. Siirto tehdään yksinkertaisesti vetämällä kohdetta sen läheltä (toleranssialueen sisältä). Asetuksista voit valita laajan vetoalueen valitun kohteen ympärille, jolloin sen siirtäminen tarkasti tiettyyn kohtaan on helpompaa. 
+Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 
 #### Adding a new Node/Point or Way 
 
@@ -184,12 +184,13 @@ OSMOSE-virheiden tiedoissa on sininen linkki kyseessä olevaan kohteeseen, ja li
 
 ### Suodattaminen
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
 * Notes
 * Osmose error
 * Osmose warning
 * Osmose minor issue
+* Maproulette
 * Custom
 
 <a id="indoor"></a>
@@ -210,7 +211,7 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 ### Configuring checks
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
 
 The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 
@@ -250,6 +251,8 @@ An alternative to the above, objects are filtered either on individual presets o
 
 Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
+<a id="layers"></a>
+
 ### Tason asetukset
 
 Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
@@ -264,6 +267,8 @@ Available layer types:
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+
+More information can be found in the section on the [map display](Main%20map%20display.md).
 
 #### Preferences
 

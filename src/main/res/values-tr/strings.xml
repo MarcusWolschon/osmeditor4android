@@ -331,6 +331,7 @@
   <string name="layer_info_privacy_policy">Gizlilik Politikası</string>
   <string name="projection">Projeksiyon</string>
   <string name="errors">Hatalar</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Fotoğrafı sil</string>
   <string name="photo_viewer_delete_button">Kalıcı olarak sil</string>
@@ -992,6 +993,7 @@
   <string name="config_beepVolume_title">Bip sesi seviyesi</string>
   <string name="config_beepVolume_summary">Bip sesleri için ses seviyesi ayarı.</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Veriler ve düzenleme ayarları</string>
   <string name="config_category_editing_summary">Otomatik indirme, kaydetme ve bildirim ayarları.</string>
@@ -1266,4 +1268,5 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Burada yardım yok</string>
+  <!--Bookmarks-->
 </resources>

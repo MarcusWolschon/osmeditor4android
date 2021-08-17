@@ -81,7 +81,7 @@ With the default settings any non-downloaded areas will be dimmed relative to th
 
 #### اشیای انتخاب‌شده: جابه‌جایی گره یا راه
 
-پس از انتخاب هر شی، می‌توانید جابه‌جایش کنید. توجه کنید که اشیا را فقط پس از انتخاب‌کردن می‌توانید بکشید و جابه‌جا کنید. برای جابه‌جاکردنش، کافی است از محدودهٔ نزدیک آن، شیء انتخاب‌شده را بکشید. اگر در تنظیمات گزینهٔ «فضای بزرگ برای کشیدن» را روشن کنید، محدودهٔ بزرگی دور گره انتخاب‌شده می‌بینید که کار جابه‌جاکردن شیء را آسان‌تر می‌کند. 
+Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 
 #### افزودن گره/نقطه یا راه جدید 
 
@@ -184,13 +184,14 @@ Simply touch the screen where you want to add further nodes of the way. To finis
 
 ### پالایش
 
-علاوه بر اینکه یادداشت‌ها و باگ‌ها به‌طور کلی روشن/خاموش می‌شوند، می‌توانید آن‌ها را الک کنید تا از درهم‌ریختگی صفحه بکاهید. در [ترجیحات پیشرفته](Advanced%20preferences.md) می‌توانید موارد موردنیاز را تک‌به‌تک انتخاب کنید:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
-* یادداشت‌ها
-* خطای Osmose
-* هشدار Osmose
-* مسئلهٔ جزئی Osmose
-* سفارشی
+* Notes
+* Osmose error
+* Osmose warning
+* Osmose minor issue
+* Maproulette
+* Custom
 
 <a id="indoor"></a>
 
@@ -210,7 +211,7 @@ Simply touch the screen where you want to add further nodes of the way. To finis
 
 ### پیکربندی بررسی‌ها
 
-در حال حاضر دو نوع بررسی قابل‌پیکربندی وجود دارد (بررسی تگ‌های fixme و بررسی کمبود تگ type برای رابطه‌ها فعلاً قابل‌پیکربندی نیستند). هر دو نوع از طریق «ترجیحات >> تنظیمات اعتبارسنج» قابل‌تنظیم هستند. 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
 
 فهرست مدخل‌ها دو بخش دارد. یک بخش «بازنقشه‌برداری» و یک بخش «مدخل‌های بررسی». با کلیک روی هر مدخل می‌توانید آن را اصلاح کنید. دکمهٔ سبزرنگ منو را برای افزودن مدخل‌ها استفاده نمایید.
 
@@ -250,6 +251,8 @@ Simply touch the screen where you want to add further nodes of the way. To finis
 
 برنامه را از جنبه‌های مختلفی می‌توانید سفارشی کنید. اگر به دنبال چیز خاصی هستید و پیدایش نمی‌کنید، [وبسایت وسپوچی](https://vespucci.io/) قابل‌جستجو است و اطلاعاتی علاوه بر اطلاعات موجود روی دستگاه دارد.
 
+<a id="layers"></a>
+
 ### تنظیمات لایه
 
 Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
@@ -264,6 +267,8 @@ Available layer types:
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+
+More information can be found in the section on the [map display](Main%20map%20display.md).
 
 #### ترجیحات
 

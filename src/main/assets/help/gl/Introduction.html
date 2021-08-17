@@ -64,7 +64,7 @@
 <p>Un segundo premido no obxecto seleccionado abre o editor de etiquetas e pode editar as etiquetas asociadas ó obxecto.</p>
 <p>Teña en conta que para sobreponer obxectos (coma un nó nunha vía) o menú de selección volve a subir por segunda vez. Ó escolle-lo mesmo obxecto aparecerá o editor de etiquetas; escoller outro obxecto sinxelamente escolle o outro obxecto.</p>
 <h4>Obxectos seleccionados: movendo un nó ou camiño</h4>
-<p>Despois de seleccionar un obxecto, pode moverse. Teña en conta que os obxectos poden ser arrastrados/movidos só cando están seleccionados. Sinxelamente arrastre preto (isto é, dentro da zona de tolerancia) o obxecto seleccionado para movelo. Se escolle a área de arrastre grande nos axustes, obtén unha grande área ó redor do nó escollido que facilita a posicionamento do obxecto.</p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object.</p>
 <h4>Engadindo un nevo Nodo/Punto ou Vía</h4>
 <p>On first start the app launches in &quot;Simple mode&quot;, this can be changed in the main menu by un-checking the corresponding checkbox.</p>
 <h5>Simple mode</h5>
@@ -131,12 +131,13 @@
 <p>No mapa, as notas e os erros están representados por unha pequena icona de erro! <a href="../images/bug_open.png">Bug</a>, os verdes están pechados/resoltos, os que foron creados ou editados son azuis e o amarelo indica que aínda está activo e non foi modificado.</p>
 <p>A visualización de erros do OSMOSE fornecerá unha ligazón ó obxecto afectado en azul, premendo a ligazón seleccionará o obxecto, centrará a pantalla nel e baixará a área previamente se fose necesario.</p>
 <h3>Filtrado</h3>
-<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the <a href="Advanced%20preferences.md">Advanced preferences</a> you can individually select:</p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
 <li>Notes</li>
 <li>Osmose error</li>
 <li>Osmose warning</li>
 <li>Osmose minor issue</li>
+<li>Maproulette</li>
 <li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
@@ -148,7 +149,7 @@
 <p>No Modo-C só se amosan os obxectos que teñen activa un sinal de aviso, isto fai máis doado resaltar obxectos que teñen problemas específicos ou coinciden con comprobacións configurábeis. Se un obxecto é seleccionado e o Editor de Propiedades iniciado no Modo-C aplicarase de xeito automático o predefinido que mellor se axuste.</p>
 <p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
 <h3>Estasen a configura-las comprobacións</h3>
-<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting &quot;Validator settings&quot; in the &quot;Preferences&quot;.</p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting &quot;Validator settings&quot; in the <a href="Preferences.md">preferences</a>.</p>
 <p>The list of entries is split in to two, the top half lists &quot;re-survey&quot; entries, the bottom half &quot;check entries&quot;. Entries can be edited by clicking them, the green menu button allows adding of entries.</p>
 <h4>Re-survey entries</h4>
 <p>Re-survey entries have the following properties:</p>
@@ -174,6 +175,7 @@
 <p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here <a href="Preset%20filter.md">Preset filter</a>.</p>
 <h2>Persoalizando Vespucci</h2>
 <p>Many aspects of the app can be customized, if you are looking for something specific and can't find it, <a href="https://vespucci.io/">the Vespucci website</a> is searchable and contains additional information over what is available on device.</p>
+<p><a id="layers"></a></p>
 <h3>Layer settings</h3>
 <p>Layer settings can be changed via the layer control (&quot;hamburger&quot; menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
 <p>Available layer types:</p>
@@ -187,6 +189,7 @@
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on.</li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4>Preferences</h4>
 <ul>
 <li>Keep screen on. Default: off.</li>

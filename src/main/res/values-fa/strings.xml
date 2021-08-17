@@ -330,6 +330,7 @@
   <string name="layer_info_terms">مقررات</string>
   <string name="layer_info_privacy_policy">سیاست حریم خصوصی</string>
   <string name="errors">خطاها</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">حذف عکس</string>
   <string name="photo_viewer_delete_button">حذف همیشگی</string>
@@ -957,6 +958,7 @@
   <string name="config_dataWarn_title">هشدار دادهٔ خیلی زیاد</string>
   <string name="config_dataWarn_summary">محدودیتی (بر حسب تعداد گره) تعیین کنید که از آنجا به بعد دربارهٔ بارشدن دادهٔ بسیار زیاد هشدار دهیم.</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">تنظیمات داده و ویرایش</string>
   <string name="config_category_editing_summary">دانلود خودکار، ذخیره‌سازی و تنظیمات اعلان.</string>
@@ -1220,4 +1222,5 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">این راهنما ندارد.</string>
+  <!--Bookmarks-->
 </resources>

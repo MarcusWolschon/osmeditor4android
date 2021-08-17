@@ -81,7 +81,7 @@ With the default settings any non-downloaded areas will be dimmed relative to th
 
 #### Επιλεγμένα αντικείμενα: Μετακίνηση ενός κόμβου ή διαδρομής
 
-Μόλις επιλέξετε ένα αντικείμενο, αυτό μπορεί να μετακινηθεί. Σημειώστε ότι τα αντικείμενα μπορούν να συρθούν/μετακινηθούν μόνο όταν είναι επιλεγμένα. Απλά σύρετε κοντά (π.χ. εντός της ζώνης ανοχής) του επιλεγμένου αντικειμένου για να το μετακινήσετε. Εάν επιλέξετε σύροντας μια μεγάλη περιοχή στις προτιμήσεις, θα έχετε μια μεγάλη περιοχή γύρω από τον επιλεγμένο κόμβο που διευκολύνει την τοποθέτηση του αντικειμένου. 
+Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 
 #### Προσθέτοντας ένα νέο Κόμβο/Σημείο ή Διαδρομή 
 
@@ -184,13 +184,14 @@ Vespucci has an ![Address](../images/address.png) "add address tags" function th
 
 ### Φιλτράρισμα
 
-Εκτός από την παγκόσμια ενεργοποίηση εμφάνισης των σημειώσεων και των σφαλμάτων, μπορείτε να ορίσετε ένα χονδροειδές φίλτρο απεικόνισης για να μειώσετε όλο αυτόν τον όγκο. Στις [Προηγμένες προτιμήσεις](Advanced%20preferences.md) μπορείτε να επιλέξετε ξεχωριστά:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
-* Σημειώσεις
-* Σφάλμα Osmose
-* Προειδοποίση Osmose
-* Μικρό ζήτημα Osmose
-* Προτίμηση
+* Notes
+* Osmose error
+* Osmose warning
+* Osmose minor issue
+* Maproulette
+* Custom
 
 <a id="indoor"></a>
 
@@ -210,7 +211,7 @@ Vespucci has an ![Address](../images/address.png) "add address tags" function th
 
 ### Διαμόρφωση των ελέγχων
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
 
 Ο κατάλογος των καταχωρίσεων χωρίζεται στα δύο, ο πάνω μισός κατάλογος καταγράφει την "επανεξέταση", ο κάτω μισός ελέγχει τις "καταχωρήσεις". Οι καταχωρίσεις μπορούν να επεξεργαστούν κάνοντας κλικ σε αυτές, το πράσινο κουμπί μενού επιτρέπει την προσθήκη των καταχωρήσεων.
 
@@ -250,6 +251,8 @@ This check works by first determining the matching preset and then checking if *
 
 Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
+<a id="layers"></a>
+
 ### Layer settings
 
 Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
@@ -264,6 +267,8 @@ Available layer types:
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+
+More information can be found in the section on the [map display](Main%20map%20display.md).
 
 #### Preferences
 

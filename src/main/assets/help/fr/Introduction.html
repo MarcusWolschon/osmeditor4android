@@ -64,7 +64,7 @@
 <p>Un deuxième appui sur l'objet sélectionné ouvre l'éditeur d'attributs et vous pouvez modifier les attributs associés à l'objet</p>
 <p>Remarquez que pour les objets se chevauchant (tel qu'un nœud sur une voie) le menu de sélection apparaît une seconde fois. Sélectionnez le même objet pour faire apparaître l'éditeur de tag ; sélectionnez un autre objet pour sélectionner simplement cet autre objet.</p>
 <h3>Objet sélectionné : déplacer un nœud ou une voie</h3>
-<p>Une fois que vous avez sélectionné un objet, il peut être déplacé. Remarquez que les objets peuvent être déplacés uniquement lorsqu'ils sont sélectionnés. Glissez simplement (dans la zone interactive) l'objet sélectionné pour le déplacer Si vous sélectionnez l'option zone élargie dans les préférences vous aurez une zone plus large autour du nœud sélectionné, ce qui rendra plus facile le positionnement de l'objet</p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object.</p>
 <h4>Ajouter un nouveau nœud ou un nouveau point sur un chemin</h4>
 <p>Au premier démarrage, l'appli se lance en « mode simple », ce que vous pouvez changer dans le menu principal en désélectionnant la case correspondante.</p>
 <h5>Mode simple</h5>
@@ -131,13 +131,14 @@
 <p>Sur la carte, les notes et les bugs sont représentés par une petite icône d'insecte <img src="../images/bug_open.png" alt="Bug" />, les verts sont fermés/résolus, les bleus sont à vous, et les jaunes indiquent qu'ils sont toujours actifs et n'ont pas été changés.</p>
 <p>L'affichage des bugs Osmose fournit un lien vers l'objet affecté en bleu. Appuyez sur le lien pour sélectionner l'objet, centrer l'écran dessus et télécharger la zone en avance si nécessaire.</p>
 <h3>Filtres</h3>
-<p>En plus de l'activation générale des notes et des bugs vous pouvez indiquer un filtre d'affichage grossier pour réduire l'encombrement. Dans les <a href="Advanced%20preferences.md">préférences avancées</a> vous pouvez sélectionner individuellement :</p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
 <li>Notes</li>
-<li>Erreur Osmose</li>
-<li>Avertissement Osmose</li>
-<li>Problème mineur Osmose</li>
-<li>Personnalisé</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2>Mode intérieur</h2>
@@ -148,7 +149,7 @@
 <p>En mode C seuls les objets avec un avertissement sont affichés, ce qui rend facile la détection des objets qui ont leur propre problème ou qui correspondent à des tests configurables. Si un objet est sélectionné et que l'éditeur de propriétés est démarré dans le mode C, le modèle d'attributs le plus proche sera automatiquement appliqué.</p>
 <p>Le mode peut être activé par un appui long sur le cadenas, voir <a href="#lock">Lock, unlock, mode switching</a> et en sélectionnant l'entrée du menu correspondant.</p>
 <h3>Configurer des tests</h3>
-<p>Actuellement il y a deux tests configurables (le test pour l'attribut FIXME et le test pour l'attribut de type manquant sur les relations ne sont pas actuellement configurables). Ces deux tests peuvent être configurés en sélectionnant les « préférences du validateur » dans « Préférences ».</p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting &quot;Validator settings&quot; in the <a href="Preferences.md">preferences</a>.</p>
 <p>La liste des entrées est coupée en deux, la première moitié liste les entrée « nouveau relevé de terrain » et la deuxième moité les « vérifications ». On peut modifier les entrées en cliquant dessus et le bouton de menu vert permet d'ajouter des entrées.</p>
 <h4>Entrées de demande de nouveaux relevés de terrain</h4>
 <p>Les entrées de demande de nouveaux relevés de terrain ont les propriétés suivantes :</p>
@@ -174,6 +175,7 @@
 <p>Autrement, les objets peuvent être filtrés suivant des modèles individuels ou des groupes de modèles. Appuyez sur l'icône de filtre pour afficher un dialogue de sélection de modèles similaire à ceux utilisés ailleurs dans Vespucci. On peut sélectionner des modèles individuels en cliquant simplement dessus, et des groupes de modèles en cliquant longuement (un clic normal ouvre le groupe). Plus de documentation sur <a href="Preset%20filter.md">Fitre de modèle</a>.</p>
 <h2>Personnaliser Vespucci</h2>
 <p>De multiples aspects de l'application sont personnalisables. <a href="https://vespucci.io/">Le site internet de Vespucci</a> contiens des informations complémentaires par rapport aux informations intégrée à l'appareil, notamment sur les personnalisations avancées.</p>
+<p><a id="layers"></a></p>
 <h3>Configuration des couches</h3>
 <p>Layer settings can be changed via the layer control (&quot;hamburger&quot; menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
 <p>Types de calques disponibles :</p>
@@ -187,6 +189,7 @@
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on.</li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4>Préférences</h4>
 <ul>
 <li>Garder l'écran allumé. Par défaut : désactivé.</li>

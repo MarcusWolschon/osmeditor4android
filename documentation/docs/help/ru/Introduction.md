@@ -1,10 +1,10 @@
 # Введение в Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+Vespucci это полнофункциональный редактор OpenStreetMap для мобильных устройств, который поддерживает большинство операции доступных редакторам для ПК. Работа редактора протестирована на версиях от 2.3 до 10 Android и различных вариантах этой операционной от Google, основанных на AOSP. В качестве предостережения: в то время, как возможности современных мобильных устройств достигли уровня ПК, старые устройства, как правило, довольно медленны и имеют ограниченный размер памяти. Это нужно учитывать при использовании Vespucci — например, разумно ограничивать размер редактируемой области. 
 
 ## Первое использование
 
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
+Сразу после запуска и запроса всех необходимых разрешений и показа приветственного сообщения Vespucci показывает диалог “загрузить область”. Если программа уже определила ваше местоположение, Вы можете выбрать для загрузки область отображаемую на экране. Не загружайте большие области на медленных устройствах. 
 
 Кроме того, вы можете проигнорировать диалог, нажав на кнопку "Перейти к карте", и при помощи перетаскивания и масштабирования карты переместиться к нужному месту на ней, а затем скачать его для редактирования. (См. ниже: "Редактирование в Vespucci")
 
@@ -18,18 +18,18 @@ On startup Vespucci shows you the "Download other location"/"Load Area" dialog a
 
 Выберите значок передачи ![Transfer](../images/menu_transfer.png) или меню "Передать". Будет предложено семь вариантов:
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
-* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
-* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Загрузить текущее место** - загрузить пространство видимое на экране и добавить полученное к уже загруженным данным *(необходимо соединение с интернет или локальный источник данных)*
+* **Очистить и загрузить текущее место** - очищает ранее загруженные данные, а затем загружает пространство видимое на экране *(необходимо соединение с интернет)*
+* **Передать данные на сервер OSM** - загружает правки в OpenStreetMap *(необходима авторизация)*. *(необходимо соединение с интернет)*
+* **Обновить данные** - заново загружает в память данные для всех редактируемых областей *(необходимо соединение с интернет)*
+* **Автозагрузка по местоположению** - автоматически загружает область вокруг текущего географического местоположения *(необходимо соединение с интернет или локальный источник данных)* *(необходим доступ к GPS)*
+* **Автозагрузка по масштабированию** - автоматически загружает данные в области, которая в данный момент отображается на экране *(необходимо соединение с интернет или локальный источник данных)* *(необходим доступ к GPS)*
+* **Файл…** - загрузка и сохранение данных OSM из/в память устройства..
+* **Задачи...** - автоматическая или ручная загрузка заметок OSM и “проблем” из инструментов контроля качества (в настоящий момент только из OSMOSE) *(необходимо соединение с интернет)*
 
 Самый простой способ загрузить данные на устройство - найти нужную позицию на карте и выбрать "Загрузить текущее место". Вы можете менять масштаб сведением пальцев, кнопками на экране или кнопками громкости. Vespucci загрузит данные для текущей области на карте. Для загрузки данных не требуется авторизация.
 
-With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md).
+По-умолчанию, незагруженные области будут затемнены относительно загруженных. Это сделано для того, чтобы избежать случайного добавления уже существующих объектов в областях, которые не загружены и не отображаются. Такое поведение программы можно изменить в разделе [Расшиненные настройки](Advanced%20preferences.md).
 
 ### Редактирование
 
@@ -41,22 +41,23 @@ With the default settings any non-downloaded areas will be dimmed relative to th
 
 Долгое нажатие на значке блокировки покажет меню с 4-мя элементами:
 
-* **Нормальный** - режим редактирования по умолчанию, новые объекты могут быть добавлены, существующие - отредактированы, перемещены или удалены. Будет отображаться простой белый значок режима.
-* **Только теги** - выбор существующего объекта запустит редактор свойств, долгое нажатие на экран будет добавлять новые объекты, но другие операции изменения геометрии ну будут работать. Будет отображаться белый значок с буквой "T".
-* **План помещения** - включает редактирование внутри помещений, см. [План помещения](#indoor). Будет отображаться белый значок с буквой "I".
-* **Только конфликты** - включает режим C-Mode, на карте будут видны только объекты, имеющие замечания или ошибки, см. [C-Mode](#c-mode). Будет отображаться белый значок с буквой "C".
+* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
+* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
+* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
+* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 #### Простое, двойное и долгое нажатие
 
 По умолчанию, выделяемые линии и точки имеют вокруг себя оранжевую область, означающую, где нужно прикоснуться, чтобы выбрать объект. У Вас есть три возможности:
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
-* Double tap: Start [Multiselect mode](Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md). This is only enabled if "Simple mode" is deactivated.
+* Простое нажатие: выделяет объект. 
+    * При этом отдельная точка или линия подсвечиваются. 
+    * Однако если вы попытаетесь выделить объект и vespucci определит что можно выделить несколько объектов, появится диалог со списком объектов для выбора.
+    * Выделенные объекты подсвечиваются желтым. 
+    * Дополнительная информация содержится в главах [Выделена точка](Node%20selected.md), [Выделена линия](Way%20selected.md) и [Выделено отношение](Relation%20selected.md).
+* Двойное нажатие: включает режим одновременного выбора объектов [Множественное выделение](Multiselect.md)
+* Долгое нажатие: включает "прицел", режим создания точек, который описан, в разделе [Создание новых объектов](Creating%20new%20objects.md). Эти действия доступны, когда отключен "Простой режим" редактора.
 
 Если вы пытаетесь редактировать область с высокой плотностью данных, разумно будет приблизить её.
 
@@ -64,7 +65,7 @@ With the default settings any non-downloaded areas will be dimmed relative to th
 
 #### Выделение / Снятие выделения (простое нажатие и меню выделения)
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
+Нажмите на объект, чтобы выделить его и выбрать. Касание экрана в пустом месте отменит выбор. Если Вы выбрали объект, а вам нужно выбрать другой, просто нажмите на нужный объект: нет необходимости сначала отменять выбор выделенного объекта. Двойное нажатие на объекте включит режим [Множественное выделение](Multiselect.md). 
 
 Обратите внимание, когда Вы пытаетесь выделить объект и Vespucci посчитает, что может быть выделено несколько объектов (таких, как точка на линии или другие перекрывающиеся объекты), будет показано меню выделения: нажмите на объект, который Вы хотели выбрать и он будет выделен. 
 
@@ -80,7 +81,7 @@ Note that for overlapping objects (such as a node on a way) the selection menu c
 
 #### Selected objects: Moving a Node or Way
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 
 #### Добавление новой точки/узла или линии 
 
@@ -183,12 +184,13 @@ On the map the Notes and bugs are represented by a small bug icon ![Bug](../imag
 
 ### Filtering
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
 * Notes
 * Osmose error
 * Osmose warning
 * Osmose minor issue
+* Maproulette
 * Custom
 
 <a id="indoor"></a>
@@ -209,7 +211,7 @@ In C-Mode only objects are displayed that have a warning flag set, this makes it
 
 ### Настройка проверок
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
 
 The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 
@@ -249,6 +251,8 @@ An alternative to the above, objects are filtered either on individual presets o
 
 Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
+<a id="layers"></a>
+
 ### Layer settings
 
 Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
@@ -263,6 +267,8 @@ Available layer types:
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+
+More information can be found in the section on the [map display](Main%20map%20display.md).
 
 #### Preferences
 

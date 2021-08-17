@@ -160,6 +160,7 @@
   <!--Search objects dialog-->
   <string name="search_objects_title">Objektum keresése</string>
   <string name="search_objects_hint">JOSM szűrő-/keresőkifejezés megadása</string>
+  <string name="search_objects_use_regexps">Reguláris kifejezés használata</string>
   <string name="search_objects_unsupported">Nem támogatott kifejezés: „%1$s”</string>
   <!---->
   <string name="preset_search_hint">Előbeállítás-kereső szöveg</string>
@@ -191,6 +192,7 @@
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON tulajdonságinformációk</string>
   <string name="copy_properties">Tulajdonságok másolása</string>
+  <string name="create_osm_element">OSM objektum létrehozása</string>
   <!--API/Data layer info dialog-->
   <string name="data_in_memory">Adat a memóriában</string>
   <string name="total">Összesen</string>
@@ -215,6 +217,7 @@
   <string name="duplicate_relation_member_remove_button">Tag eltávolítása</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Címkék áthelyezése a külső körvonalról a multipoligonra</string>
+  <string name="move_outer_tags_message">Objektummeghatározó címkék csak a multipoligonon lehetnek. Ez a művelet a közös címkéket áthelyezi a külső gyűrűkről a multipoligonra.</string>
   <string name="move">Áthelyezés</string>
   <string name="leave_as_is">Maradjon így, ahogy van</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
@@ -224,6 +227,7 @@
   <!--Abort action mode dialog-->
   <string name="abort_action_title">Művelet megszakítása</string>
   <!--Address interpoation dialog-->
+  <string name="address_interpolation_title">Címek interpolálása</string>
   <string name="start">Kezdés</string>
   <string name="end">Zárás</string>
   <string name="even">Páros</string>
@@ -332,6 +336,7 @@ elemek megkövetelése</string>
   <string name="layer_info_privacy_policy">Adatvédelmi irányelvek</string>
   <string name="projection">Térképvetület</string>
   <string name="errors">Hibák</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Fénykép törlése</string>
   <string name="photo_viewer_delete_button">Végleges törlés</string>
@@ -519,6 +524,9 @@ elemek megkövetelése</string>
   <string name="toast_file_already_exists">A(z) %1$s fájl már létezik</string>
   <string name="toast_file_error_for">Fájlhiba ennél: %1$s</string>
   <string name="toast_error_reading">Olvasási hiba itt: %1$s</string>
+  <string name="toast_read_successfully">Fájl sikeresen beolvasva</string>
+  <string name="toast_error_writing">Írási hiba itt: %1$s</string>
+  <string name="toast_successfully_written">Fájl írása sikeres</string>
   <string name="toast_http_data_error_for">HTTP adathiba ennél: %1$s</string>
   <string name="toast_error_insufficient_space_for">Nincs elég hely az eszközön a következőhöz: %1$s</string>
   <string name="toast_error_too_many_redirects_for">Túl sok átirányítás ennél: %1$s</string>
@@ -766,6 +774,7 @@ elemek megkövetelése</string>
   <string name="menu_transfer_autodownload_long">Feladatok automatikus letöltése</string>
   <string name="menu_transfer_save_notes_all">Összes jegyzet mentése…</string>
   <string name="menu_transfer_save_notes_new_and_changed">Új és módosított jegyzetek mentése…</string>
+  <string name="menu_transfer_read_notes">Jegyzetek betöltése…</string>
   <string name="menu_transfer_read_custom_bugs">Egyéni feladatok betöltése…</string>
   <string name="menu_transfer_write_custom_bugs">Nyitott egyéni feladatok mentése…</string>
   <string name="menu_save">Mentés fájlként</string>
@@ -849,6 +858,8 @@ elemek megkövetelése</string>
   <string name="reverse_anyway">Megfordítás mindenképp</string>
   <string name="deleteway_description">Arra készül, hogy töröljön egy vonalat.\n\nMegtarthatja az összes pontot, vagy törölheti azokat a pontokat, amelyek a vonalhoz tartoznak, és nincs más címkéjük.</string>
   <string name="deleteway_relation_description">Törölni kíván egy olyan vonalat, amely egy vagy több kapcsolatnak is tagja. A vonal eltávolítása érvénytelenné teheti a kapcsolatokat.</string>
+  <string name="deleteway_nodesnotdownloaded_description">A vonal a letöltött területen kívül is tartalmaz pontokat, és nem törölhető anélkül, hogy potenciálisan következetlen állapotot hozna létre.\n\nTöltse le a körülötte lévő területet is, mielőtt újra megpróbálja.</string>
+  <string name="deleteways_nodesnotdownloaded_description">A kijelölés olyan vonalakat tartalmaz, amelyeknek a letöltött területen kívül is vannak pontjai, és nem törölhetők anélkül, hogy esetlegesen következetlen állapotot hoznának létre.\n\nTöltse le a vonalak körüli teljes területet, mielőtt újra megpróbálja.</string>
   <string name="deleteway_wayonly">Csak a vonal törlése</string>
   <string name="deleteway_wayandnodes">Vonal törlése</string>
   <string name="deletenode_relation_description">Törölni kíván egy olyan pontot, amely egy vagy több kapcsolatnak is tagja. A pont eltávolítása érvénytelenné teheti a kapcsolatokat.</string>
@@ -859,6 +870,7 @@ elemek megkövetelése</string>
   <string name="merge_context_title">Egyesítés…</string>
   <string name="merge_with_all_ways">…minden közeli vonallal</string>
   <string name="merge_with_all_nodes">…minden közeli ponttal</string>
+  <string name="append_context_title">Hozzáfűzés…</string>
   <string name="delete_note_description">A jegyzet törlése nem vonható vissza!</string>
   <string name="delete_note">Jegyzet törlése</string>
   <!--EasyEdit action mode titles-->
@@ -893,6 +905,8 @@ elemek megkövetelése</string>
   <string name="menu_add_node">Pont hozzáadása</string>
   <string name="simple_add_node">Koppintson a pozíció megadásához</string>
   <string name="menu_add_node_tags">Címkézett pont hozzáadása</string>
+  <string name="menu_add_node_address">Címpont hozzáadása</string>
+  <string name="menu_add_address_interpolation">Címek interpolálása</string>
   <string name="menu_add_way">Vonal hozzáadása</string>
   <string name="simple_add_way">Koppintson a pozíció megadásához</string>
   <string name="menu_add_map_note">Térképjegyzet hozzáadása</string>
@@ -992,11 +1006,14 @@ elemek megkövetelése</string>
   <string name="config_beepVolume_title">Hangjelzés hangereje</string>
   <string name="config_beepVolume_summary">A hangjelzés erejének beállítása.</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Adat- és szerkesztési beállítások</string>
   <string name="config_category_editing_summary">Automatikus letöltési, mentési és értesítési beállítások.</string>
   <string name="config_forceContextMenu_title">Mindig használja a helyi menüt</string>
   <string name="config_forceContextMenu_summary">Nem egyértelmű kijelölésnél mindig jelenjék meg a helyi menü</string>
+  <string name="config_overrideRegionAddressTags_title">Alapértelmezett címcímke felülbírálása</string>
+  <string name="config_overrideRegionAddressTags_summary">A régióspecifikus értékek helyett használja a címcímke-konfigurációnkat </string>
   <string name="config_address_tags">Címcímkék</string>
   <string name="config_address_tags_summary">A címelőrejelzéshez használt címkék.</string>
   <string name="config_enableNameSuggestions_title">Névjavaslatok engedélyezése</string>
@@ -1024,6 +1041,8 @@ elemek megkövetelése</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">Telefonszám automatikus formázása</string>
   <string name="config_autoformatPhoneNumbers_summary">Telefonszámok automatikus formázásának engedélyezése</string>
+  <string name="config_maxOffsetDistance_title">A tárolt légifelvétel-eltolások legnagyobb távolsága</string>
+  <string name="config_maxOffsetDistance_summary">Az a legnagyobb távolság, amennyire a helyben tárolt rétegeltolás automatikusan alkalmazódni fog.</string>
   <string name="config_maxOffsetDistance_current">%1$d méter</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Beállítások automatikus letöltése</string>
@@ -1081,6 +1100,8 @@ elemek megkövetelése</string>
   <string name="config_osmoseServer_summary">Az OSMOSE kiszolgáló URL-címe.</string>
   <string name="config_geocoderbutton_title">Geokódolók beállítása</string>
   <string name="config_geocoderbutton_summary">Geokódolók hozzáadása, szerkesztése, törlése a keresőfunkcióhoz.</string>
+  <string name="config_taginfoServer_title">Taginfo kiszolgáló</string>
+  <string name="config_taginfoServer_summary">Az előbeállítás-létrehozáshoz használt Taginfo kiszolgáló</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Rétegek letöltése és tárolása</string>
   <string name="config_category_layers_summary">Csempealapú háttér-légifelvételek letöltése és tárolása.</string>
@@ -1179,9 +1200,11 @@ elemek megkövetelése</string>
   <string name="undo_action_set_tags">Címkézés</string>
   <string name="undo_action_join">Összekapcsolás</string>
   <string name="undo_action_unjoin_ways">Vonalak szétválasztása</string>
+  <string name="undo_action_merge_polygons">Sokszögek egyesítése</string>
   <string name="undo_action_create_relation">Kapcsolat létrehozása</string>
   <string name="undo_action_delete_relation">Kapcsolat törlése</string>
   <string name="undo_action_update_relations">Kapcsolat frissítése</string>
+  <string name="undo_action_move_tags">Címkék áthelyezése kapcsolatra</string>
   <string name="undo_action_cut">Kivágás</string>
   <string name="undo_action_paste">Beillesztés</string>
   <string name="undo_action_rotateway">Vonal forgatása</string>
@@ -1224,6 +1247,7 @@ elemek megkövetelése</string>
   <string name="deleterelation_relation_description">Arra készül, hogy töröljön egy kapcsolatot, amely egy vagy több kapcsolat tagja. Az ilyen kapcsolatok törlése érvénytelenné teheti a többi kapcsolatot.</string>
   <string name="deleterelation">Kapcsolat törlése</string>
   <string name="delete_from_relation_description">Arra készül, hogy törölje ezt az elemet egy kapcsolatból.</string>
+  <string name="delete_elements_from_relation_description">Arra készül, hogy elemeket töröljön egy vagy több kapcsolatból.</string>
   <string name="unset_relation_type">Kapcsolattípus eltávolítása</string>
   <!--Things-->
   <string name="bridge">Híd</string>
@@ -1266,4 +1290,5 @@ elemek megkövetelése</string>
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Ehhez nincs súgó.</string>
+  <!--Bookmarks-->
 </resources>

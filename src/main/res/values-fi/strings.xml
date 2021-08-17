@@ -166,6 +166,7 @@
   <string name="empty_role">Tyhjä rooli</string>
   <string name="last_edited">Viimeksi muokattu</string>
   <string name="original">Alkuperäinen</string>
+  <string name="previous">Edellinen</string>
   <string name="current">Nykyinen</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Tietoja GeoJSON-kohteesta</string>
@@ -270,6 +271,7 @@
   <string name="layer_category_other">Muu</string>
   <!--Layer info dialog-->
   <string name="errors">Virheet</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Tag conflict dialog-->
@@ -754,6 +756,7 @@
   <string name="config_maxStrokeWidth_current">%1$d pikseliä</string>
   <string name="config_upload_current">%1$d kohdetta</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Data- ja muokkausasetukset</string>
   <string name="config_category_editing_summary">Automaattilataus-, tallennus ja ilmoitusasetukset.</string>
@@ -780,6 +783,7 @@
   <string name="config_enableAutoPresets_title">Käytä esivalintojen automaattiluontia</string>
   <string name="config_enableAutoPresets_summary">Salli esivalintojen luonti taginfosta.</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
+  <string name="config_maxOffsetDistance_current">%1$d metri(ä)</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Lataussäde</string>
   <string name="config_extTriggeredDownloadRadius_summary">Säde (m) ulkopuolelta käynnistetyille latauksille, 0 = pelkkä kartan keskitys.</string>
@@ -992,4 +996,5 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Tähän ei ole ohjetta.</string>
+  <!--Bookmarks-->
 </resources>

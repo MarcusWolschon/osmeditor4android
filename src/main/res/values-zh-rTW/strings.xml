@@ -159,6 +159,7 @@
   <!--Search objects dialog-->
   <string name="search_objects_title">搜尋物件</string>
   <string name="search_objects_hint">輸入 JOSM 過濾/搜尋表示式</string>
+  <string name="search_objects_use_regexps">做用正規表示式</string>
   <string name="search_objects_unsupported">不支援的表示式 \"%1$s\"</string>
   <!---->
   <string name="preset_search_hint">預置搜尋字串</string>
@@ -190,6 +191,7 @@
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON 圖徵資訊 </string>
   <string name="copy_properties">複製性質</string>
+  <string name="create_osm_element">創建 OSM 元件</string>
   <!--API/Data layer info dialog-->
   <string name="data_in_memory">記憶體中的資料</string>
   <string name="total">總共</string>
@@ -214,6 +216,7 @@
   <string name="duplicate_relation_member_remove_button">移除成員</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">從外環移動標籤到多重多邊形</string>
+  <string name="move_outer_tags_message">物件定議的標籤只應該在多重多邊形上面，這個動作將會移動原先在外圈的一般標籤移到多重多邊形。</string>
   <string name="move">移動</string>
   <string name="leave_as_is">如同棄置</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
@@ -223,6 +226,7 @@
   <!--Abort action mode dialog-->
   <string name="abort_action_title">放棄行動</string>
   <!--Address interpoation dialog-->
+  <string name="address_interpolation_title">創建地址插值</string>
   <string name="start">開始</string>
   <string name="end">結束</string>
   <string name="even">偶數</string>
@@ -330,6 +334,7 @@
   <string name="layer_info_privacy_policy">隱私政策</string>
   <string name="projection">投景</string>
   <string name="errors">錯誤</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">刪除圖片</string>
   <string name="photo_viewer_delete_button">永久刪除</string>
@@ -516,6 +521,9 @@
   <string name="toast_file_already_exists">%1$s檔案已經存在了</string>
   <string name="toast_file_error_for">%1$s檔案錯誤</string>
   <string name="toast_error_reading">%1$s 讀取錯誤</string>
+  <string name="toast_read_successfully">成功讀取檔案</string>
+  <string name="toast_error_writing">寫入 %1$s 錯誤</string>
+  <string name="toast_successfully_written">檔案成功寫入</string>
   <string name="toast_http_data_error_for">%1$sHTTP 資料錯誤</string>
   <string name="toast_error_insufficient_space_for">裝置 %1$s 沒有足夠空間</string>
   <string name="toast_error_too_many_redirects_for">%1$s有太多重定向</string>
@@ -763,6 +771,7 @@
   <string name="menu_transfer_autodownload_long">自動下載任務</string>
   <string name="menu_transfer_save_notes_all">儲存所有註解...</string>
   <string name="menu_transfer_save_notes_new_and_changed">儲存新的和變更的註解...</string>
+  <string name="menu_transfer_read_notes">存取備註…</string>
   <string name="menu_transfer_read_custom_bugs">載入客製任務...</string>
   <string name="menu_transfer_write_custom_bugs">儲存開啟的客製任務...</string>
   <string name="menu_save">儲存為檔案</string>
@@ -846,6 +855,8 @@
   <string name="reverse_anyway">仍然反向</string>
   <string name="deleteway_description">您即將刪除一條路徑。\n\n您可以保留所有節點，或者刪除只屬於這條路徑，並且沒有任何標籤的節點。</string>
   <string name="deleteway_relation_description">你即將刪除屬於一個或多個關聯當中成員的路徑，移除路徑意味著處理關聯可能無效。</string>
+  <string name="deleteway_nodesnotdownloaded_description">路徑含有的節點位於下載區以外，所以無法在確保可能不穩定狀況下刪除。\n\n請先下載週邊區域再試一次。</string>
+  <string name="deleteways_nodesnotdownloaded_description">路徑含有的部分位於下載區以外，所以無法在確保可能不穩定狀況下刪除。\n\n請先下載路徑週邊區域再試一次。</string>
   <string name="deleteway_wayonly">只刪除路徑</string>
   <string name="deleteway_wayandnodes">刪除路徑</string>
   <string name="deletenode_relation_description">你即將刪除屬一個或多個關聯當中成員的節點，移除節點意味著處理關聯可能無效。</string>
@@ -856,6 +867,7 @@
   <string name="merge_context_title">與合併...</string>
   <string name="merge_with_all_ways">...所有相鄰路徑</string>
   <string name="merge_with_all_nodes">...所有相鄰節點</string>
+  <string name="append_context_title">附加至</string>
   <string name="delete_note_description">刪除註解並無法復原！</string>
   <string name="delete_note">刪除註解</string>
   <!--EasyEdit action mode titles-->
@@ -889,6 +901,8 @@
   <string name="menu_add_node">增加節點</string>
   <string name="simple_add_node">點螢幕位置</string>
   <string name="menu_add_node_tags">增加有加標籤的節點</string>
+  <string name="menu_add_node_address">新增地址節點</string>
+  <string name="menu_add_address_interpolation">新增地址插值</string>
   <string name="menu_add_way">增加路徑</string>
   <string name="simple_add_way">點螢幕位置</string>
   <string name="menu_add_map_note">增加地圖註解</string>
@@ -988,11 +1002,14 @@
   <string name="config_beepVolume_title">蜂鳴聲大小</string>
   <string name="config_beepVolume_summary">蜂鳴聲音設定</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">資料和編輯設定</string>
   <string name="config_category_editing_summary">自動下載，儲存和通知設定</string>
   <string name="config_forceContextMenu_title">總是使用快顯選單。</string>
   <string name="config_forceContextMenu_summary">如果選取是不明確的，始終顯示快顯選單。</string>
+  <string name="config_overrideRegionAddressTags_title">覆寫預設地址標籤</string>
+  <string name="config_overrideRegionAddressTags_summary">使用我們的地址標籤設定取代任何區域特別值</string>
   <string name="config_address_tags">地址標簽</string>
   <string name="config_address_tags_summary">為地址預測使用標籤。</string>
   <string name="config_enableNameSuggestions_title">啟用建議名稱</string>
@@ -1020,6 +1037,8 @@
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">自動格式的電話號碼</string>
   <string name="config_autoformatPhoneNumbers_summary">啟用電話號碼的自動格式化功能</string>
+  <string name="config_maxOffsetDistance_title">儲存影像偏移的最大距離</string>
+  <string name="config_maxOffsetDistance_summary">本地儲存圖層偏移的最遠距離會被自動套用。</string>
   <string name="config_maxOffsetDistance_current">%1$d公尺</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動下載設定</string>
@@ -1077,6 +1096,8 @@
   <string name="config_osmoseServer_summary">OSMOSE 伺服器網址</string>
   <string name="config_geocoderbutton_title">設定 geocoders</string>
   <string name="config_geocoderbutton_summary">為搜尋功能增加、編輯、刪除 geocoders。</string>
+  <string name="config_taginfoServer_title">Taginfo 伺服器</string>
+  <string name="config_taginfoServer_summary">Taginfo 伺服器會使用預設。</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">圖層下載和儲存</string>
   <string name="config_category_layers_summary">圖磚為主的背景影像下載和儲存。</string>
@@ -1175,9 +1196,11 @@
   <string name="undo_action_set_tags">下標籤 </string>
   <string name="undo_action_join">加入</string>
   <string name="undo_action_unjoin_ways">路徑分離</string>
+  <string name="undo_action_merge_polygons">合併多邊形</string>
   <string name="undo_action_create_relation">建立關聯</string>
   <string name="undo_action_delete_relation">刪除關聯</string>
   <string name="undo_action_update_relations">更新關聯</string>
+  <string name="undo_action_move_tags">移動標籤到關聯</string>
   <string name="undo_action_cut">剪下</string>
   <string name="undo_action_paste">貼上</string>
   <string name="undo_action_rotateway">路徑旋轉</string>
@@ -1220,6 +1243,7 @@
   <string name="deleterelation_relation_description">您將要刪除的關聯，它是一個或多個關聯中的一部分。從關聯中移除此關聯，可能會使得它或它們變成無效。</string>
   <string name="deleterelation">刪除關係</string>
   <string name="delete_from_relation_description">您即將從一個關係中刪除該元件。</string>
+  <string name="delete_elements_from_relation_description">你即將移除一個或多個關聯當中的元素。</string>
   <string name="unset_relation_type">未設定關係類型</string>
   <!--Things-->
   <string name="bridge">橋樑</string>
@@ -1256,4 +1280,5 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">這裡沒幫助。</string>
+  <!--Bookmarks-->
 </resources>
