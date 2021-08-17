@@ -1,5 +1,5 @@
 ## Vespucci Data Styling
-_Documentation for Vespucci 15.2 Style file format version 0.3.0_
+_Documentation for Vespucci 16.0 Style file format version 0.3.0_
 
 The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.
 
@@ -14,46 +14,47 @@ The styles are for a major part not much more than an external representation of
 Node styling is limited to the __labelKey__ and __iconPath__ attributes.
 
 
-|Element                    | Attributes     | Description
+|Element                    | Attributes     | Default | Description
 |---------------------------|----------------|----------------------------------------------------------------
-|__&lt;profile&gt;__        |                | Top level enclosing element
-|                           | name           | Style name
-|                           | format         | Format version, currently 0.2.0
-|__&lt;!--&nbsp;comment&nbsp;--&gt;__ |      | A comment
-|__&lt;config&gt;__         |                | Configuration element
-|                           | type           | One of "large_drag_area", "marker_scale", "min_handle_len", "icon_zoom_limit"
-|                           | touchRadius    | 
-|                           | scale          | Used with marker_scale, increase/decrease size of various markers
-|                           | length         | User with min_handle_len, defines the minimum length a way segment must have on screen so that the geometry improvement handles are shown
-|                           | zoom           | Used with icon_zoom_limit, minimum zoom level at which POI icons are still displayed, and labelZoomLimit for the limit for displaying labels
-|__&lt;feature&gt;__        |                | Feature elements can be nested and each feature can contain one or more other feature elements. Nested elements inherit attributes from their parents. 
-|                           | type           | "way", "node" or "relation" to match the corresponding OSM elements, or a name
-|                           | tags           | Tags to use for matching, ignored for named styles, in the format _key_=_value_ or _key_=_*_ for any value. Multiple tags can be added using __&vert;__ as a separator.
-|                           | closed         | If not present will match all ways, if present will match closed ways if true, or if false open ways, ignored for relations
-|                           | area           | Use area semantics for rendering if true
-|                           | dontrender     | Don't render the matching element
-|                           | updateWidth    | Dynamically update the way width on zoom changes if true
-|                           | widthFactor    | Determine a way width relative to the extent of the current map shown, ignored if updateWidth is false
-|                           | color          | A 32bit hex value representing alpha and rgb
-|                           | style          | One of "FILL", "FILL_AND_STROKE", "STROKE" 
-|                           | cap            | One of "BUTT", "ROUND", "SQUARE"
-|                           | join           | One of "BEVEL", "MITER", "ROUND"
-|                           | strokeWidth    | A float value for the width of the lines, 0 draws a one pixel width line, ignored if updateWidth is true
-|                           | typefacestyle  |
-|                           | textsize       |
-|                           | shadow         |
-|                           | pathPattern    | Reference to a pattern to apply along the path, one of "triangle_left", "triangle_right", "border_left", "border_right"
-|                           | minVisibleZoom | Minimum zoom that has to be reached before the element is rendered
-|                           | casingStyle    | Reference to a style to use for casing
-|                           | arrowStyle     | Reference to a style to use for way arrows                          
-|                           | oneway         | Set this on the referenced arrowStyle if it should have oneway semantics
-|                           | labelKey       | Tag key to use as label if present, magic value "preset" will use the preset name.
-|                           | labelZoomLimit | List for displaying labels on ways, if not set no label will be displayed
-|                           | iconPath       | Path, relative to the directory in which the style file resides, to a PNG format icon, magic value "preset" will use the preset icon.
-|__&lt;dash&gt;__           |                | feature sub-element used to define a dash pattern
-|                           | phase          | Phase of the dash
-|__&lt;interval&gt;__       |                | dash sub-element used to define the length of the dash/no-dash phases
-|                           | length         | Length of the dash as a float
+|__&lt;profile&gt;__        |                |         | Top level enclosing element
+|                           | name           |         | Style name
+|                           | format         |         | Format version, currently 0.3.0
+|__&lt;!--&nbsp;comment&nbsp;--&gt;__ |      |         | A comment
+|__&lt;config&gt;__         |                |         | Configuration element
+|                           | type           |         | One of "large_drag_area", "marker_scale", "min_handle_len", "icon_zoom_limit"
+|                           | touchRadius    |         | 
+|                           | scale          |         | Used with marker_scale, increase/decrease size of various markers
+|                           | length         |         | User with min_handle_len, defines the minimum length a way segment must have on screen so that the geometry improvement handles are shown
+|                           | zoom           |      15 | Used with icon_zoom_limit, minimum zoom level at which POI icons are still displayed
+|                           | labelZoomLimit |      20 | Used with icon_zoom_limit, the minimum zoom level for displaying labels with icons
+|__&lt;feature&gt;__        |                |         | Feature elements can be nested and each feature can contain one or more other feature elements. Nested elements inherit attributes from their parents. 
+|                           | type           |         | "way", "node" or "relation" to match the corresponding OSM elements, or a name
+|                           | tags           |         | Tags to use for matching, ignored for named styles, in the format _key_=_value_ or _key_=_*_ for any value. Multiple tags can be added using __&vert;__ as a separator.
+|                           | closed         |         | If not present will match all ways, if present will match closed ways if true, or if false open ways, ignored for relations
+|                           | area           |         | Use area semantics for rendering if true
+|                           | dontrender     |         | Don't render the matching element
+|                           | updateWidth    |         | Dynamically update the way width on zoom changes if true
+|                           | widthFactor    |         | Determine a way width relative to the extent of the current map shown, ignored if updateWidth is false
+|                           | color          |         | A 32bit hex value representing alpha and rgb
+|                           | style          |         | One of "FILL", "FILL_AND_STROKE", "STROKE" 
+|                           | cap            |         | One of "BUTT", "ROUND", "SQUARE"
+|                           | join           |         | One of "BEVEL", "MITER", "ROUND"
+|                           | strokeWidth    |         | A float value for the width of the lines, 0 draws a one pixel width line, ignored if updateWidth is true
+|                           | typefacestyle  |         |
+|                           | textsize       |         |
+|                           | shadow         |         |
+|                           | pathPattern    |         | Reference to a pattern to apply along the path, one of "triangle_left", "triangle_right", "border_left", "border_right"
+|                           | minVisibleZoom |         | Minimum zoom that has to be reached before the element is rendered
+|                           | casingStyle    |         | Reference to a style to use for casing
+|                           | arrowStyle     |         | Reference to a style to use for way arrows                          
+|                           | oneway         |         | Set this on the referenced arrowStyle if it should have oneway semantics
+|                           | labelKey       |         | Tag key to use as label if present, magic value "preset" will use the preset name.
+|                           | labelZoomLimit |         | List for displaying labels on ways, if not set no label will be displayed
+|                           | iconPath       |         | Path, relative to the directory in which the style file resides, to a PNG format icon, magic value "preset" will use the preset icon.
+|__&lt;dash&gt;__           |                |         | feature sub-element used to define a dash pattern
+|                           | phase          |         | Phase of the dash
+|__&lt;interval&gt;__       |                |         | dash sub-element used to define the length of the dash/no-dash phases
+|                           | length         |         | Length of the dash as a float
                  
 ### Internal features
 
