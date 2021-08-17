@@ -147,6 +147,7 @@ task updateTranslations(type: Exec) {
         commandLine 'tx', 'pull', '-a'
     }
     doLast {
+        ant.move(file: projectDir.getPath() + "/documentation/docs/help/ar", tofile: projectDir.getPath() + "/documentation/docs/help-rtl/ar")
         ant.move(file: projectDir.getPath() + "/documentation/docs/help/fa", tofile: projectDir.getPath() + "/documentation/docs/help-rtl/fa")
         ant.move(file: projectDir.getPath() + "/documentation/docs/help/iw", tofile: projectDir.getPath() + "/documentation/docs/help-rtl/iw")
     }
