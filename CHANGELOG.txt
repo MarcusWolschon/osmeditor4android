@@ -1,5 +1,13 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.2.6
+
+- Fix don't try to turn GPS on if we don't actually have permission
+- Update imagery from ELI
+- Update translations tasks to include Arabic as RTL script
+- Update translations
+- Update preset
+
 15.2.5:
 
 - Catch RejectedExecutionException when using thread pools.
