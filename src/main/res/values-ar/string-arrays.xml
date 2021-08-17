@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Arrays - in a separate file as these need to be 100% translated for use -->
+    <string-array name="gpx_visibility">
+        <item>خاص</item>
+        <item>عام</item>
+        <item>قابل للتتبع</item>
+        <item>متعارف عليها</item>
+    </string-array>
+    <string-array name="gps_source">
+        <item>داخلي</item>
+        <item>NMEA الداخلية</item>
+        <item>NMEA من عميل TCP</item>
+        <item>NMEA من خادم TCP</item>
+    </string-array>
+    <string-array name="bug_state">
+        <item>مفتوح</item>
+        <item>مغلق</item>
+        <item>ليس بخطأ</item>
+    </string-array>
+    <string-array name="note_state">
+        <item>مفتوح</item>
+        <item>مغلق</item>
+    </string-array>
+    <string-array name="maproulette_state">
+        <item>دلتا مفتوحة</item>
+        <item>مغلق</item>
+        <item>ليس بخطأ</item>
+        <item>متجاوز</item> 
+        <item>محذوف</item>
+        <item>تم اصلاحه</item>
+        <item>صعب جدا</item>
+    </string-array>
+    <string-array name="followGPSbutton_entries">
+        <item>يسار</item>
+        <item>يمين</item>
+        <item>لا يوجد</item>
+    </string-array>
+    <string-array name="full_screen_preference_entries">
+        <item>آلي</item>
+        <item>أبدا</item>
+        <item>فرض وإجبار</item>
+        <item>لا يوجد شريط الحالة</item>
+    </string-array>
+    <string-array name="full_screen_preference_no_auto_entries">
+        <item>أبدا</item>
+        <item>فرض وإجبار</item>
+        <item>لا يوجد شريط الحالة</item>
+    </string-array>
+    <string-array name="map_orientation_entries">
+        <item>آلي</item>
+        <item>مقفل</item>
+        <item>عمودي</item>
+        <item>أفقي</item>
+    </string-array>
+    <string-array name="tagfilter_type_entries">
+        <item>الكل</item>
+        <item>العقد/النقاط</item>
+        <item>الطرق</item>
+        <item>الطرق+</item>
+        <item>العلاقات</item>
+        <item>العلاقات+</item>
+    </string-array>
+    <!-- The entries need to match the order of the CheckStatus enum -->
+    <string-array name="checkstatus_entries">
+        <item>HTTP</item>
+        <item>HTTPS</item>
+        <item>رابط المجال غير موجود</item>
+        <item>لا يمكن الوصول إلى المجال</item>
+        <item>عنوان URL غير صحيح</item>
+        <item>وسيطة غير صالحة</item>
+    </string-array>
+ </resources>

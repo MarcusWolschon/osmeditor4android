@@ -10,7 +10,7 @@ _本文档是早期文档，正在开发中_
 
 在一般的工作流程中，你编辑的物件一般已经有开放时间的标签 (opening_hour、service_times 和 colllection_times)，或是你可以重新设定物件的预设组合，用空白的开放时间栏位。如果你需要手动输入栏位，像是用 Vespucci，你可以在详情页面输入关键值，之后切换回栏位页签继续编辑。如果你相信开放时间标签必须多于预设组合的话，请在你的编辑器开启 issue。
 
-如果你已经定议预设的模板 (经由"管理模板"选单项目)，会在编辑器的空白数值自动载入。使用"载入模板"功能，你可以载入任何已经储存的模板，然后用"储存模板"选单你可以储存目前的数值为模板。你可以定议不同的模板，预设"opening_hours"、"collection_times"和"service_times"标签。
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
 
 当然，您可以从头开始构建营业时间的值，但我们建议使用现有的模板之一作为开始。
 
@@ -61,7 +61,9 @@ _本文档是早期文档，正在开发中_
     * __Variable date - open end__: from a start variable date onwards.
     * __Occurrence in month - open end__: from a start weekday occurrence in a month onwards.
     * __With offsets...__: the same entries as above however with offsets specified (this is rarely used).
-* __Add year range__: add a year based selector.
+* __Add year range...__    
+    * __Add year range__: add a year based selector.
+    * __Add starting year__: add an open ended year range.
 * __Add week range__: add a week number based selector.
 * __Duplicate__: create a copy of this rule and insert it after the current position.
 * __Show rule type__: display and allow changing of the rule type _normal_, _additive_ and _fallback_ (not available on the first rule).
@@ -85,3 +87,13 @@ Clicking (not on the pins) the time bar will open the large time picker, when us
 * __Show interval__: show the interval field for specifying an interval in minutes.
 * __Delete__: delete this time span.
 
+### Manage templates
+
+The template management dialog allows you to add, edit and delete templates.
+
+In Android 4.4 and later the following additional functionality is available from the menu button. 
+
+* __Show all__: display all templates in the database.
+* __Save to file__: write the contents of the template database to a file.
+* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
+* __Load from file__: load templates from a file retaining the current contents.

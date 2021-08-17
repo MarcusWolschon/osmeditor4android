@@ -10,7 +10,7 @@ _Ta dokumentacja jest w trakcie opracowywania_
 
 Zazwyczaj podczas pracy obiekty, które edytujesz już mają tagi godzin otwarcia (opening_hours, service_times i collection_times) lub możesz ponownie zastosować wstępny zestaw dla obiektu, aby uzyskać puste pole godzin otwarcia. Jeżeli potrzebujesz dodać pole ręcznie i używasz Vespucci możesz wpisać klucz na stronie szczegółów i przełączyć się z powrotem na zakładkę z formularzem edycji. Jeżeli uważasz, że tag godzin otwarcia powinien być częścią wstępnych ustawień, zgłoś to twórcom swojego edytora.
 
-Jeśli masz zdefiniowany domyślny szablon (zrób to prze "Zarządzanie szablonami"  w menu), to zostanie on automatycznie załadowany, jeśli edytor włączy się z pustą wartością. Funkcja "Wczytaj szablon" pozwala wczytać dowolny zapisany szablon, a menu "Zapisz szablon" umożliwia zapisanie aktualnych wartości jako szablon. Możesz określić osobne szablony i domyślne wartości dla tagów "opening_hours", "collection_times" i "service_times".
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
 
 Oczywiście możesz zbudować wartość godzin otwarcia do podstaw, ale zalecamy na początek użycie jednego z istniejących szablonów.
 
@@ -61,7 +61,9 @@ Domyślne reguły są dodawane jako _normalne_, co skutkuje tym, że nadpisują 
     * __Zmienna data - bez końca__: od początkowej zmiennej daty dalej.
     * __Wystąpienie w miesiącu - bez końca__: od początkowego dnia wystąpienia w miesiącu dalej.
     * __Z przesunięciami...__: te same wpisy, co powyżej, ale z określonymi przesunięciami (rzadko używane).
-* __Dodaj zakres roczny__: dodaje selektor bazujący na roku.
+* __Add year range...__    
+    * __Dodaj zakres roczny__: dodaje selektor bazujący na roku.
+    * __Add starting year__: add an open ended year range.
 * __Dodaj zakres tygodniowy__: dodaje selektor bazujący na numerze tygodnia.
 * __Duplikuj__: tworzy kopię tej reguły i wstawia ją za aktualną pozycją.
 * __Pokaż rodzaj reguły__: wyświetla i pozwala zmieniać rodzaj reguły pomiędzy _normalna_, _dodająca_ i _awaryjna_ (niedostępne dla pierwszej reguły).
@@ -85,3 +87,13 @@ Kiedy używanie paska czasu jest zbyt trudne, to kliknięcie go (poza znacznikam
 * __Pokaż interwał__: pokazuje pole interwału dla określenia go w minutach.
 * __Usuń__: usuwa ten okres czasu.
 
+### Zarządzaj szablonami
+
+The template management dialog allows you to add, edit and delete templates.
+
+In Android 4.4 and later the following additional functionality is available from the menu button. 
+
+* __Show all__: display all templates in the database.
+* __Save to file__: write the contents of the template database to a file.
+* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
+* __Load from file__: load templates from a file retaining the current contents.

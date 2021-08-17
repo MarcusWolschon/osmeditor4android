@@ -10,7 +10,7 @@ _Tämä dokumentaatio on alustava ja työn alla._
 
 Tyypillisessä tapauksessa muokattavana olevalla kohteella joko on jo aukioloaikatägi (opening_hours, service_times ja collection_times) tai siihen voi soveltaa uudelleen esivalinnan, joka lisää tyhjän aukioloaikakentän. Jos sinun täytyy lisätä kenttä käsin Vespuccia käyttäessäsi, niin voit lisätä avaimen yksityikohtasivulta ja palata sitten takaisin muokkaamaan lomakepohjaiselle välilehdelle. Jos esivalinnassa kuuluisi mielestäsi olla aukioloaikatägi, voit lähettää muutospyynnön käyttämäsi muokkaimen kehittäjille.
 
-Jos olet määrittänyt oletusmallipohjan (valikosta "Mallipohjien hallinta"), niin se ladataan automaattisesti muokkainta avatessa, mikäli muokattava kenttä on tyhjä. Toiminnolla "Lataa mallipohja" voit ladata jonkin tallennetuista mallipohjista, ja toiminnolla "Tallenna mallipohja" voit tallentaa senhetkisen arvon mallipohjaksi. Tägeille "opening_hours", "collection_times" ja "service_times" voi kullekin määrittää erilliset mallipohjat ja oletusarvot.
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
 
 Voit luonnollisesti rakentaa aukioloajan (aoa) tyhjästä, mutta suosittelemme jonkin valmiin mallineen käyttämistä pohjana.
 
@@ -61,7 +61,9 @@ Oletussäännöt lisätään _tavallisina_ sääntöinä, mikä tarkoittaa sitä
     * __Vaihteleva pvm–avoin loppu__: vaihtelevasta päivämäärästä eteenpäin.
     * __Esiintymiskerta kuussa–avoin loppu__: viikonpäivän tietystä esiintymiskerrasta kuukauden aikana eteenpäin.
     * __Poikkeama...__: samat vaihtoehdot kuin edellä poikkeaman kanssa (harvoin käytetty).
-* __Lisää vuosijakso__: lisää vuosiin perustuva valitsin.
+* __Add year range...__    
+    * __Lisää vuosijakso__: lisää vuosiin perustuva valitsin.
+    * __Add starting year__: add an open ended year range.
 * __Lisää viikkojakso__: lisää viikkonumeroihin perustuva valitsin.
 * __Kahdenna__: tee kopio tästä säännöstä välittömästi sen perään.
 * __Näytä sääntötyyppi__: näytä säännön tyyppi ja/tai muuta sitä: _tavallinen_, _lisäävä_ ja _vara_ (ei ensimmäiselle säännölle).
@@ -85,3 +87,13 @@ Aikapalkin (ei jakomerkkien) klikkaaminen avaa ison aikavalitsimen, kun palkin k
 * __Näytä aikaväli__: näytä kenttä, johon asetetaan toistuva aikaväli minuutteina.
 * __Poista__: poista ajanjakso.
 
+### Hallitse mallineita
+
+The template management dialog allows you to add, edit and delete templates.
+
+In Android 4.4 and later the following additional functionality is available from the menu button. 
+
+* __Show all__: display all templates in the database.
+* __Save to file__: write the contents of the template database to a file.
+* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
+* __Load from file__: load templates from a file retaining the current contents.

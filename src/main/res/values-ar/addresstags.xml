@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>رقم المنزل (addr:housenumber)</item>
+    <item>رقم المستوطنة (addr:conscriptionnumber)</item>
+    <item>الشارع (addr:street)</item>
+    <item>الرمز البريدي (addr:postcode)</item>
+    <item>القرية / المدينة / الخ....  (addr:city)</item>
+    <item>الدولة (addr:country)</item>
+    <item>العنوان كاملاً (addr:full)</item>
+    <item>المكان (addr:place)</item>
+    <item>المربع (addr:block)</item>
+    <item>رقم المربع السكني (addr:block_number)</item>
+    <item>هجرة/قرية صغيرة (addr:hamlet)</item>
+    <item>ضاحية (addr:suburb)</item>
+    <item>مديرية فرعية (addr:subdistrict)</item>
+    <item>المديرية/المركز (addr:district)</item>
+    <item>المحافظة (addr:province)</item>
+    <item>المنطقة (addr:state)</item>
+    <item>العمارة (addr:flats)</item>
+    <item>رقم الباب (addr:door)</item>
+    <item>رقم الوحدة (addr:unit)</item>
+  </string-array>
+</resources>
