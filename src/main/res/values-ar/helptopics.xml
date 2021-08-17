@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_app_label">المساعدة</string>
+    <string name="help_app_description">مستعرض تعليمات فسبوتشي</string>
+    <string name="help_title">التعليمات: %1$s</string>
+    <string name="help_introduction">مقدمة</string>
+    <string name="help_main">عرض الخريطة الرئيسية</string>
+    <string name="help_simple_actions">إجراءات بسيطة</string>
+    <string name="help_addrelationmember">تم تحديد العلاقة</string>
+    <string name="help_multiselect">الاختيار المتعدد</string>
+    <string name="help_longclick">إنشاء عناصر جديدة</string>
+    <string name="help_nodeselection">تم تحديد عقدة</string>
+    <string name="help_pathcreation">إضافة عقد الطريق</string>
+    <string name="help_relationselection">تم تحديد العلاقة</string>
+    <string name='help_add_route_segmement'>أضف جزء المسار</string>
+    <string name="help_wayselection">طريق محدد</string>
+    <string name="help_aligningbackgroundiamgery">محاذاة صور الخلفية</string>
+    <string name="help_propertyeditor">محرر الخصائص</string>
+    <string name="help_preferences">التفضيلات</string>
+    <string name="help_advanced_preferences">التفضيلات المتقدمة</string>
+    <string name="help_presets">القوالب</string>
+    <string name="help_conflictresolution">حل التعارضات</string>
+    <string name="help_gpssources">مصادر GPS</string>
+    <string name="help_keyboard">لوحة المفاتيح</string>
+    <string name="help_tagfilter">مرشح العلامة</string>
+    <string name="help_presetfilter">فلتر القوالب</string>
+    <string name="help_opening_hours">ساعات العمل</string>
+    <string name="help_newnoteselection">اختيار ملاحظة جديدة</string>
+    <string name="help_voice_commands">اوامر صوتية</string>
+    <string name="help_add_route_segment">إضافة جزء مسار</string>
+    <string name="help_upgrade">ملاحظات الإصدار 15.2</string>
+    <string name="help_upgrade_151">ملاحظات الإصدار 15.1</string>
+    <string name="help_upgrade_150">ملاحظات الإصدار 15.0</string>
+    <string name="help_upgrade_141">ملاحظات الإصدار 14.1</string>
+    <string name="help_upgrade_140">ملاحظات الإصدار 14.0</string>
+    <string name="help_upgrade_131">ملاحظات الإصدار 13.1</string>
+    <string name="help_upgrade_130">ملاحظات الإصدار 13.0</string>
+    <string name="help_upgrade_121">ملاحظات الإصدار 12.1</string>
+    <string name="help_upgrade_120">ملاحظات الإصدار 12.0</string>
+    <string name="help_upgrade_112">ملاحظات الإصدار 11.2</string>
+    <string name="help_upgrade_111">ملاحظات الإصدار 11.1</string>
+    <string name="help_upgrade_110">ملاحظات الإصدار 11.0</string>
+    <string name="help_upgrade_102">ملاحظات الإصدار 10.2</string>
+    <string name="help_upgrade_101">ملاحظات الإصدار 10.1</string>
+    <string name="help_upgrade_100">ملاحظات الإصدار 10.0</string>
+    <string name="help_upgrade_099">ملاحظات الإصدار 0.9.9</string>
+    <string name="help_upgrade_098">ملاحظات الإصدار 0.9.8</string>
+    <string name="help_upgrade_097">ملاحظات الإصدار 0.9.7</string>
+    <string name="help_upgrade_096">ملاحظات الإصدار 0.9.6</string>
+    <string name="help_privacy">سياسة الخصوصية</string>
+    <array translatable="false" name="help_tableofcontents">
+        <item>@string/help_introduction</item>
+        <item>@string/help_main</item>
+        <item>@string/help_simple_actions</item>
+        <item>@string/help_propertyeditor</item>
+        <item>@string/help_nodeselection</item>
+    	<item>@string/help_wayselection</item>
+    	<item>@string/help_relationselection</item>
+    	<item>@string/help_multiselect</item>
+    	<item>@string/help_longclick</item>
+        <item>@string/help_pathcreation</item>
+        <item>@string/help_preferences</item>
+        <item>@string/help_advanced_preferences</item>
+    	<item>@string/help_presets</item>	
+    	<item>@string/help_aligningbackgroundiamgery</item>
+    	<item>@string/help_conflictresolution</item>
+    	<item>@string/help_gpssources</item>
+    	<item>@string/help_keyboard</item>
+    	<item>@string/help_tagfilter</item>
+    	<item>@string/help_presetfilter</item>
+    	<item>@string/help_opening_hours</item>
+        <item>@string/help_newnoteselection</item>
+        <item>@string/help_voice_commands</item>
+    	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_151</item>
+        <item>@string/help_upgrade_150</item>
+        <item>@string/help_upgrade_141</item>
+        <item>@string/help_upgrade_140</item>
+        <item>@string/help_upgrade_131</item>
+        <item>@string/help_upgrade_130</item>
+        <item>@string/help_upgrade_121</item>
+        <item>@string/help_upgrade_120</item>
+        <item>@string/help_upgrade_112</item>
+        <item>@string/help_upgrade_111</item>
+        <item>@string/help_upgrade_110</item>
+        <item>@string/help_upgrade_102</item>
+        <item>@string/help_upgrade_101</item>
+    	<item>@string/help_upgrade_100</item>
+    	<item>@string/help_upgrade_099</item>
+    	<item>@string/help_upgrade_098</item>
+    	<item>@string/help_upgrade_097</item>
+    	<item>@string/help_upgrade_096</item>
+        <item>@string/help_privacy</item>
+    </array>
+<!--    The following array needs to mirror the positions in the above one -->
+    <array translatable="false" name="help_files">
+        <item>Introduction</item>
+        <item>Main map display</item>
+        <item>Simple actions</item>
+        <item>Property editor</item>
+        <item>Node selected</item>
+    	<item>Way selected</item>
+    	<item>Relation selected</item>
+    	<item>Multiselect</item>
+    	<item>Creating new objects</item>
+        <item>Adding way nodes</item>
+        <item>Preferences</item>
+        <item>Advanced preferences</item>
+    	<item>Presets</item>	
+    	<item>Aligning background imagery</item>
+    	<item>Conflict resolution</item>
+    	<item>GPS sources</item>
+    	<item>Keyboard</item>
+    	<item>Tag filter</item>
+    	<item>Preset filter</item>
+    	<item>Opening hours</item>
+        <item>New Note selected</item>
+        <item>Voice commands</item>
+        <item>15.2.0 Release notes</item>
+        <item>15.1.0 Release notes</item>
+        <item>15.0.0 Release notes</item>
+        <item>14.1.0 Release notes</item>
+        <item>14.0.0 Release notes</item>
+        <item>13.1.0 Release notes</item>
+        <item>13.0.0 Release notes</item>
+        <item>12.1.0 Release notes</item>
+        <item>12.0.0 Release notes</item>
+        <item>11.2.0 Release notes</item>
+        <item>11.1.0 Release notes</item>
+        <item>11.0.0 Release notes</item>
+        <item>10.2.0 Release notes</item>
+    	<item>10.1.0 Release notes</item>
+    	<item>10.0.0 Release notes</item>
+    	<item>0.9.9 Release notes</item>
+    	<item>0.9.8 Release notes</item>
+    	<item>0.9.7 Release notes</item>
+    	<item>0.9.6 Release notes</item>
+        <item>Privacy</item>
+    </array>
+</resources>

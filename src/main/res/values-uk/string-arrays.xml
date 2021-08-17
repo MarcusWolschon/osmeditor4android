@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Arrays - in a separate file as these need to be 100% translated for use -->
+    <string-array name="gpx_visibility">
+        <item>приватний</item>
+        <item>загальнодоступний</item>
+        <item>відстежуваний</item>
+        <item>ідентифікується</item>
+    </string-array>
+    <string-array name="gps_source">
+        <item>Внутрішній</item>
+        <item>Внутішній NMEA</item>
+        <item>NMEA через TCP – клієнт</item>
+        <item>NMEA через TCP – сервер</item>
+    </string-array>
+    <string-array name="bug_state">
+        <item>Відкриті</item>
+        <item>Закриті</item>
+        <item>Хибно позитивні</item>
+    </string-array>
+    <string-array name="note_state">
+        <item>Відкриті</item>
+        <item>Закриті</item>
+    </string-array>
+    <string-array name="maproulette_state">
+        <item>Відкриті</item>
+        <item>Закриті</item>
+        <item>Хибно позитивні</item>
+        <item>Пропущені</item> 
+        <item>Вилучено</item>
+        <item>Виже виправлено</item>
+        <item>Занадто складно</item>
+    </string-array>
+    <string-array name="followGPSbutton_entries">
+        <item>Ліворуч</item>
+        <item>Праворуч</item>
+        <item>Немає</item>
+    </string-array>
+    <string-array name="full_screen_preference_entries">
+        <item>Авто</item>
+        <item>Ніколи</item>
+        <item>Примусово</item>
+        <item>Без рядка стану</item>
+    </string-array>
+    <string-array name="full_screen_preference_no_auto_entries">
+        <item>Ніколи</item>
+        <item>Примусово</item>
+        <item>Без рядка стану</item>
+    </string-array>
+    <string-array name="map_orientation_entries">
+        <item>Авто</item>
+        <item>Перегляд</item>
+        <item>Портретний</item>
+        <item>Ландшафтний</item>
+    </string-array>
+    <string-array name="tagfilter_type_entries">
+        <item>Всі</item>
+        <item>Точки</item>
+        <item>Лінії</item>
+        <item>Лінії+</item>
+        <item>Зв’язки</item>
+        <item>Зв’язки+</item>
+    </string-array>
+    <!-- The entries need to match the order of the CheckStatus enum -->
+    <string-array name="checkstatus_entries">
+        <item>HTTP</item>
+        <item>HTTPS</item>
+        <item>Домен не існує</item>
+        <item>Домен недоступний</item>
+        <item>Спотворений URL</item>
+        <item>Помилковий параметр</item>
+    </string-array>
+ </resources>

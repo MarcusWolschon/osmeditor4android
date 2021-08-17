@@ -10,7 +10,7 @@ _Questa documentazione è in continuo sviluppo_
 
 Nello scenario tipico, l’oggetto che stai modificando può sia avere già un’etichetta per gli orari di apertura (opening_hours, service_times e collection_times) oppure puoi riapplicare il valore predefinito all’oggetto per avere il campo degli orari di apertura vuoto. Se senti la necessità di inserire il valore manualmente e stai usando Vespucci, puoi modificare il campo nella pagina dettagli e poi tornare alla scheda per le modifiche. Se pensi che l’etichetta per gli orari di apertura debba far parte delle preimpostazioni, segnala il problema agli sviluppatori del tuo editor.
 
-Se hai definito un modello predefinito (puoi farlo attraverso il menù “Gestisci modelli”) questo verrà caricato automaticamente con un valore vuoto all’avvio dell’editor. Con la funzione “Carica modello” carichi un qualsiasi modello precedentemente salvato mentre con il menù “Salva modello” salvi il valore attuale in un nuovo modello. Puoi definire modelli diversi e predefiniti per le etichette “opening_hours”, “collection_times” e “service_times”.
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
 
 Chiaramente puoi anche decidere di scrivere di tuo pugno un valore per gli orari di apertura, ma è consigliato partire da un modello preesistente.
 
@@ -61,7 +61,9 @@ Le regole predefinite sono aggiunte come _normali_ regole, ciò implica che esse
     * __Data variabile - senza un termine__: da una data di inizio variabile in poi.
     * __Occorrenza nel mese - senza un termine__: dal numero di giorno della settimana di un mese in poi.
     * __Con scostamenti...__: le stesse voci come sopra solo con specificati degli scostamenti (raramente usato).
-* __Aggiungi intervallo annuale__: aggiungi un selettore per gli anni.
+* __Add year range...__    
+    * __Aggiungi intervallo annuale__: aggiungi un selettore per gli anni.
+    * __Add starting year__: add an open ended year range.
 * __Aggiungi intervallo di settimane__: aggiungi un selettore per il numero della settimana.
 * __Duplica__: crea una copia di questa regola e inseriscila dopo la posizione corrente.
 * __Mostra tipo di regola__: visualizza e modifica il tipo di regola _normale_, _additivo_ e _di riserva_ (non disponibile per la prima regola).
@@ -73,11 +75,11 @@ Le regole predefinite sono aggiunte come _normali_ regole, ciò implica che esse
 
 Per rendere la modifica degli intervalli di tempo più semplice possibile, quando vengono caricati valori già esistenti scegliamo un intervallo di tempo ed una granularità per le barre di intervallo che riteniamo ottimali. Per gli intervalli temporali nuovi le barre iniziano alle 6 del mattino e hanno incrementi di 15 minuti, questo può essere modificato attraverso il menù.
 
-Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.
+Cliccando sulla barra del tempo (non sui pin) si aprirà il selezionatore di tempo grande, più pratico quando usare direttamente le barre è troppo difficile. I selezionatori di tempo si estendono fino al giorno successivo, quindi sono un modo semplice per estendere un intervallo di tempo senza dover cancellare e riaggiungere l'intervallo.
 
 #### Menù intervalli di tempo
 
-* __Display time picker__: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.
+* __Display time picker__: mostra un selezionatore di tempo grande per selezionare l'ora di inizio e di fine, su display molto piccoli questo è il modo preferito di cambiare i tempi.
 * __Passa a scatti di 15 minuti__: utilizza una granularità di 15 minuti per la barra dell’intervallo.
 * __Passa a scatti di 5 minuti__: utilizza una granularità di 5 minuti per la barra dell’intervallo.
 * __Passa a scatti di 1 minuto__: utilizza una granularità di 1 minuto per la barra dell’intervallo.
@@ -85,3 +87,13 @@ Clicking (not on the pins) the time bar will open the large time picker, when us
 * __Mostra intervallo__: visualizza il campo dell’intervallo per specificare un intervallo in minuti.
 * __Elimina__: elimina questo intervallo di tempo.
 
+### Gestisci modelli
+
+The template management dialog allows you to add, edit and delete templates.
+
+In Android 4.4 and later the following additional functionality is available from the menu button. 
+
+* __Show all__: display all templates in the database.
+* __Save to file__: write the contents of the template database to a file.
+* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
+* __Load from file__: load templates from a file retaining the current contents.

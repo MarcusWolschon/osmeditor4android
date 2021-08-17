@@ -10,7 +10,7 @@ _Esta documentación é preliminar e está en progreso_
 
 In a typical workflow the object you are editing will either already have an opening hours tag (opening_hours, service_times and collection_times) or you can re-apply the preset for the object to get an empty opening hours field. If you need to add the field manually and you are using Vespucci you can enter the key on the details page and then switch back to the form based tab to edit. If you believe that the opening hours tag should have been part of the preset, please open an issue for your editor.
 
-If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. 
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
 
 Por suposto, pode construír un valor de horas de apertura desde cero, pero recomendaríamos usar un dos modelos existentes como punto de partida.
 
@@ -61,7 +61,9 @@ As regras por defecto son engadidas como regras _normais_: isto implica que ter�
     * __Data variable - fin indefinido__: Dende unha data de inicio variable en diante.
     * __Occurrence in month - open end__: from a start weekday occurrence in a month onwards.
     * __Con offsets...__: As mesmas entradas que o anterior pero con offsets especificados (isto raramente se usa).
-* __Engadir rango anual__: Engade un selector baseado no ano.
+* __Add year range...__    
+    * __Engadir rango anual__: Engade un selector baseado no ano.
+    * __Add starting year__: add an open ended year range.
 * __Engadir rango semanal__: Engade un selector baseado en números semanais.
 * __Duplicate__: create a copy of this rule and insert it after the current position.
 * __Amosar tipo de regra__: Amosar e permitir o cambio do tipo de regra _normal_, _aditivo_ and _fallback_ (Non dispoñible na primeira regra).
@@ -85,3 +87,13 @@ Clicking (not on the pins) the time bar will open the large time picker, when us
 * __Amosar intervalo__: Amosa o campo de intervalo para especificar un intervalo en minutos.
 * __Borrar__: Borra este período de tempo.
 
+### Xestionar modelos
+
+The template management dialog allows you to add, edit and delete templates.
+
+In Android 4.4 and later the following additional functionality is available from the menu button. 
+
+* __Show all__: display all templates in the database.
+* __Save to file__: write the contents of the template database to a file.
+* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
+* __Load from file__: load templates from a file retaining the current contents.

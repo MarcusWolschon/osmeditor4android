@@ -1,0 +1,29 @@
+# 
+# Translators:
+# Ibrahim Saed <ibraheem5000@hotmail.com>, 2020
+# Abdullah Abdullrhman, 2021
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2020-04-25 11:28+0200\n"
+"PO-Revision-Date: 2020-05-21 07:54+0000\n"
+"Last-Translator: Abdullah Abdullrhman, 2021\n"
+"Language-Team: Arabic (https://www.transifex.com/openstreetmap/teams/26285/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Default"
+msgstr "الافتراضي"
+
+msgid "Color Round Nodes"
+msgstr "نقاط ملونة ومستديرة"
+
+msgid "Color Round Nodes No Multipolygons"
+msgstr "نقاط ملونة ومستديرة بدون المضلعات المتعددة"
+
+msgid "Pen Round Nodes"
+msgstr "نقاط مستديرة للقلم"

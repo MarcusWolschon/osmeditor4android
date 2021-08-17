@@ -10,7 +10,7 @@ _這份文件是初步的並且正在進展_
 
 在一般的工作流程中，你編輯的物件一般已經有開放時間的標籤 (opening_hour、service_times 和 colllection_times)，或是你可以重新設定物件的預設組合，用空白的開放時間欄位。如果你需要手動輸入欄位，像是用 Vespucci，你可以在詳情頁面輸入鍵值，之後切換回欄位頁籤繼續編輯。如果你相信開放時間標籤必須扅於預設組合的話，請在你的編輯器開啟 issue。
 
-如果你已經定議預設的模板 (經由"管理模板"選單項目)，會在編輯器的空白數值自動載入。使用"載入模板"功能，你可以載入任何已經儲存的模板，然後用"儲存模板"選單你可以儲存目前的數值為模板。你可以定議不同的模板，預設"opening_hours"、"collection_times"和"service_times"標籤。
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
 
 當然，您可以從頭開始構建營業時間的值，但我們建議使用現有的模板之一作為起點。
 
@@ -61,7 +61,9 @@ _這份文件是初步的並且正在進展_
     * __日期變化 - 開端__：從起始變化日期開始。
     * __發生在月中 - 一直持續__：從一個月中開始週間發生。
     * __使用偏差量...__：與上述相同的內容，但是指定了偏差量 (這很少使用)。
-* __增加年範圍__：增加以年為依據的選擇器。
+* __Add year range...__    
+    * __增加年範圍__：增加以年為依據的選擇器。
+    * __Add starting year__: add an open ended year range.
 * __增加週範圍__：增加以週為依據的選擇器。
 * __複製__：複製此規則，並且插入目前位置之後。 
 * __顯示規則類型__：顯示並允許更改規則類型_正常_，_增加_和_倒退_(位於第一條規則中不可用)。
@@ -85,3 +87,13 @@ _這份文件是初步的並且正在進展_
 * __顯示間隔__：顯示指定間隔（以分鐘為單位）的間隔字段。
 * __刪除__：刪除此一時間跨度。
 
+### 管理模版
+
+The template management dialog allows you to add, edit and delete templates.
+
+In Android 4.4 and later the following additional functionality is available from the menu button. 
+
+* __Show all__: display all templates in the database.
+* __Save to file__: write the contents of the template database to a file.
+* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
+* __Load from file__: load templates from a file retaining the current contents.

@@ -10,7 +10,7 @@ _Esta documentação é temporária e encontra-se em desenvolvimento_
 
 Num processo normal, o objeto que está a editar irá ter uma etiqueta de horário de abertura (opening_hours, service_times e collection_times) ou então poderá tornar a aplicar o modelo de etiquetas ao objeto para obter um campo de horário de abertura limpo. Se necessitar de adicionar o campo manualmente e estiver a usar o Vespucci, pode introduzir a chave na página de detalhes e então mudar para a aba baseada em formulário para editá-la. Se acreditar que a etiqueta de horário de abertura devia fazer parte do modelo de etiquetas, por favor abra um relatório para o seu editor.
 
-Se definiu um modelo padrão (através do menu "Gerir modelos"), este será carregado automaticamente quando o editor for iniciado com um valor vazio. Com a funcionalidade "Carregar modelo" pode carregar um modelo qualquer gravado e com a função "Gravar modelo" pode gravar o valor atual num modelo. Pode definir modelos separados e valores padrão nas etiquetas "opening_hours" (horário de abertura) "collection_times" (hora de recolha) e "service_times" (horário de serviços).
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
 
 Claro que pode construir um valor de abertura a partir do nada, mas recomendamos usar um dos modelos existentes como ponto de partida.
 
@@ -61,7 +61,9 @@ As regras padrão são adicionadas como regras _normais_, isto implica que elas 
     * __Data variável - fecho após últ.cliente__: começa numa data inicial variável.
     * __Ocorrência no mês - fecho após últ.cliente__: começa num dia da semana num mês inicial.
     * __Com deslocamentos...__: como as mesmas entradas de cima mas com deslocamentos especificados (isto raramente é usado)
-* __Adicionar intervalo de anos__: adiciona um seletor baseado em anos.
+* __Add year range...__    
+    * __Adicionar intervalo de anos__: adiciona um seletor baseado em anos.
+    * __Add starting year__: add an open ended year range.
 * __Adicionar intervalo de semanas__: adiciona um seletor baseado no número da semana
 * __Duplicar__: cria uma cópia da regra atual e insere-a após a posição atual.
 * __Mostrar tipo de regra__: mostra e permite mudar o tipo de regra _normal_, _aditivo_ e _alternativo (ou)_ (não disponível na primeira regra).
@@ -85,3 +87,13 @@ Clicking (not on the pins) the time bar will open the large time picker, when us
 * __Mostrar intervalo__: mostra o campo de intervalo para especificar um intervalo em minutos.
 * __Eliminar__: eliminar este segmento de tempo.
 
+### Gerir modelos
+
+The template management dialog allows you to add, edit and delete templates.
+
+In Android 4.4 and later the following additional functionality is available from the menu button. 
+
+* __Show all__: display all templates in the database.
+* __Save to file__: write the contents of the template database to a file.
+* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
+* __Load from file__: load templates from a file retaining the current contents.

@@ -10,7 +10,7 @@ _این سند مقدماتی است و در حال بهبود آن هستیم_
 
 به‌طور معمول شیئی که ویرایش می‌کنید یا تگ ساعت کاری دارد (opening_hours،‏ service_times و collection_times) یا می‌توانید با به‌کارگیری پیش‌تنظیمی برای آن شیء، یک خانه برای ساعت کاری اضافه کنید. اگر لازم باشد که خانهٔ ساعت کاری را دستی اضافه نمایید و از وسپوچی استفاده می‌کنید، باید در زبانهٔ جزئیات، کلید آن را وارد کنید و سپس به زبانهٔ فرم (زبانهٔ خصوصیات) برگردید و آن را ویرایش نمایید. اگر معتقدید که تگ ساعت کاری باید در پیش‌تنظیم بخصوصی وجود داشته باشد، لطفاً برای ویرایشگر مدنظر گزارش بدهید.
 
-اگر الگوی پیشفرضی تعریف کرده باشید (از طریق گزینهٔ «مدیریت الگوها» در منو) هنگامی که ویرایشگر با مقدار خالی شروع شود، این الگو به‌طور خودکار بار می‌شود. با استفاده از قابلیت «بارکردن الگو» می‌توانید هر الگوی ذخیره‌شده‌ای را بار کنید و با استفاده از گزینهٔ «ذخیره‌سازی الگو»  می‌توانید مقدار کنونی را به‌عنوان الگو ذخیره نمایید. می‌توانید برای تگ‌های opening_hours،‏ service_times و collection_times الگوها و پیشفرض‌های جداگانه تعریف کنید.
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
 
 به‌طور طبیعی می‌توانید مقدار ساعت کاری را از صفر بنویسید. اما پیشنهاد می‌کنیم یکی از الگوهای موجود نقطهٔ آغازتان باشد.
 
@@ -61,7 +61,9 @@ _این سند مقدماتی است و در حال بهبود آن هستیم_
     * __تاریخ متغیر - پایان باز__: از تاریخ آغاز غیرثابت به بعد.
     * __وقوع در ماه - پایان باز__: از وقوع یک روز هفته در ماه به بعد.
     * __با آفست...__: همان مدخل‌هایی که پیشتر گفته شد با مشخص‌کردن آفست (به‌ندرت استفاده می‌شود).
-* __افزودن بازهٔ سال__: انتخابگری بر اساس سال اضافه کنید.
+* __Add year range...__    
+    * __افزودن بازهٔ سال__: انتخابگری بر اساس سال اضافه کنید.
+    * __Add starting year__: add an open ended year range.
 * __افزودن بازهٔ هفته__: انتخابگری بر اساس شمارهٔ هفته اضافه کنید.
 * __تکرار__: از این قاعده کپی بگیرید و پس از موقعیت کنونی درج کنید.
 * __نمایش نوع قاعده__: نمایش و تغییر نوع قاعده (_عادی_،‏ _افزودنی_ و _fallback_ (برای قاعدهٔ اول امکان‌پذیر نیست).
@@ -85,3 +87,13 @@ _این سند مقدماتی است و در حال بهبود آن هستیم_
 * __نمایش دوره__: برای مشخص‌کردن دوره به دقیقه خانهٔ دوره را نمایش می‌دهد.
 * __حذف__: این بازهٔ زمان را حذف کنید.
 
+### مدیریت الگوها
+
+The template management dialog allows you to add, edit and delete templates.
+
+In Android 4.4 and later the following additional functionality is available from the menu button. 
+
+* __Show all__: display all templates in the database.
+* __Save to file__: write the contents of the template database to a file.
+* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
+* __Load from file__: load templates from a file retaining the current contents.

@@ -61,7 +61,9 @@ Default rules are added as _normal_ rules, this implies that they will override 
     * __Variable date - open end__: from a start variable date onwards.
     * __Occurrence in month - open end__: from a start weekday occurrence in a month onwards.
     * __With offsets...__: the same entries as above however with offsets specified (this is rarely used).
-* __Add year range__: add a year based selector.
+* __Add year range...__    
+    * __Add year range__: add a year based selector.
+    * __Add starting year__: add an open ended year range.
 * __Add week range__: add a week number based selector.
 * __Duplicate__: create a copy of this rule and insert it after the current position.
 * __Show rule type__: display and allow changing of the rule type _normal_, _additive_ and _fallback_ (not available on the first rule).

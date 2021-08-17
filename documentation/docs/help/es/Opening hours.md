@@ -10,7 +10,7 @@ _Esta documentación es preliminar y está en progreso_
 
 En un flujo de trabajo típico, el objeto que está editando ya tendrá una etiqueta de horas de apertura (opening_hours, service_times y collection_times) o puede volver a aplicar el ajuste preestablecido para el objeto para obtener un campo de horario de apertura vacío. Si necesita agregar el campo manualmente y está utilizando Vespucci, puede ingresar la clave en la página de detalles y luego volver a la pestaña basada en el formulario para editar. Si cree que la etiqueta de las horas de apertura debería haber sido parte del ajuste preestablecido, abra una publicación para su editor.
 
-Si ha definido una plantilla predeterminada (haga esto mediante el artículo del menú «Administrar Plantillas») se cargará automáticamente cuando el editor se inicie con un valor vacío. Con la función «Cargar plantilla» puede cargar cualquier plantilla guardada y con el menú «Guardar plantilla» puede guardar el valor actual como una plantilla. Puede definir plantillas separadas y valores predeterminados para las etiquetas «opening_hours», «collection_times» y »service_times». 
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
 
 Naturalmente, puedes crear un valor de horarios de apertura desde cero, pero recomendamos usar una de las plantillas existentes para empezar.
 
@@ -61,7 +61,9 @@ Se añaden reglas predeterminadas como_reglas_ normales, esto implica que anular
     * __Fecha variable - final abierto__: desde una fecha de inicio variable en adelante.
     * __Ocurrencia en mes - final abierto__: a partir de una ocurrencia de un día de la semana en un mes en adelante.
     * __Con compensaciones...__: las mismas entradas que arriba pero con compensaciones especificadas (esto no se utiliza a menudo).
-* __Añadir rango de año__: añadir un selector basado en el año.
+* __Add year range...__    
+    * __Añadir rango de año__: añadir un selector basado en el año.
+    * __Add starting year__: add an open ended year range.
 * __Añadir rango de semana__: agregar un selector basado en el número de la semana.
 * __Duplicar__: crear una copia de esta regla y insertarla después de la posición actual.
 * __Mostrar tipo de regla__: mostrar y permitir el cambio del tipo de regla _normal_, _additive_ y _fallback_ (no disponible en la primera regla).
@@ -85,3 +87,13 @@ Clicking (not on the pins) the time bar will open the large time picker, when us
 * __Mostrar intervalo__: mostrar el campo de intervalo para especificar un intervalo en minutos.
 * __Eliminar__: eliminar este lapso de tiempo.
 
+### Administrar plantillas
+
+The template management dialog allows you to add, edit and delete templates.
+
+In Android 4.4 and later the following additional functionality is available from the menu button. 
+
+* __Show all__: display all templates in the database.
+* __Save to file__: write the contents of the template database to a file.
+* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
+* __Load from file__: load templates from a file retaining the current contents.

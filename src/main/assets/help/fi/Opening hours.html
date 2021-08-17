@@ -11,7 +11,7 @@
 <p><em>Tämä dokumentaatio on alustava ja työn alla.</em></p>
 <h2>Aukioloaikamuokkaimen käyttö</h2>
 <p>Tyypillisessä tapauksessa muokattavana olevalla kohteella joko on jo aukioloaikatägi (opening_hours, service_times ja collection_times) tai siihen voi soveltaa uudelleen esivalinnan, joka lisää tyhjän aukioloaikakentän. Jos sinun täytyy lisätä kenttä käsin Vespuccia käyttäessäsi, niin voit lisätä avaimen yksityikohtasivulta ja palata sitten takaisin muokkaamaan lomakepohjaiselle välilehdelle. Jos esivalinnassa kuuluisi mielestäsi olla aukioloaikatägi, voit lähettää muutospyynnön käyttämäsi muokkaimen kehittäjille.</p>
-<p>Jos olet määrittänyt oletusmallipohjan (valikosta &quot;Mallipohjien hallinta&quot;), niin se ladataan automaattisesti muokkainta avatessa, mikäli muokattava kenttä on tyhjä. Toiminnolla &quot;Lataa mallipohja&quot; voit ladata jonkin tallennetuista mallipohjista, ja toiminnolla &quot;Tallenna mallipohja&quot; voit tallentaa senhetkisen arvon mallipohjaksi. Tägeille &quot;opening_hours&quot;, &quot;collection_times&quot; ja &quot;service_times&quot; voi kullekin määrittää erilliset mallipohjat ja oletusarvot.</p>
+<p>If you have defined a default template (do this via the &quot;Manage templates&quot; menu item) it will be loaded automatically when the editor is started with an empty value. With the &quot;Load template&quot; function you can load any saved template and with the &quot;Save template&quot; menu you can save the current value as a template. You can define separate templates and defaults for the &quot;opening_hours&quot;, &quot;collection_times&quot; and &quot;service_times&quot; tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant).</p>
 <p>Voit luonnollisesti rakentaa aukioloajan (aoa) tyhjästä, mutta suosittelemme jonkin valmiin mallineen käyttämistä pohjana.</p>
 <p>Kun muokkaimeen ladataan olemassa oleva arvo, se yritetään korjata automaattisesti aukioloaikamäärittelyn mukaiseksi. Jos tämä ei ole mahdollista, virheen summittainen paikka raa'assa aoa-arvossa korostetaan, ja voit yrittää korjata sen käsin. Suurinpiirtein neljänneksessä OpenStreetMapin tietokannan aoa-arvoista on ongelmia, ja alle kymmentä prosenttia ei voi korjata. Sivulla <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHourParser</a> kerrotaan tarkemmin mitä poikkeamia määrittelystä sallitaan.</p>
 <h3>Päävalikkonappi</h3>
@@ -63,7 +63,12 @@
 <li><strong>Poikkeama...</strong>: samat vaihtoehdot kuin edellä poikkeaman kanssa (harvoin käytetty).</li>
 </ul>
 </li>
+<li><strong>Add year range...</strong>
+<ul>
 <li><strong>Lisää vuosijakso</strong>: lisää vuosiin perustuva valitsin.</li>
+<li><strong>Add starting year</strong>: add an open ended year range.</li>
+</ul>
+</li>
 <li><strong>Lisää viikkojakso</strong>: lisää viikkonumeroihin perustuva valitsin.</li>
 <li><strong>Kahdenna</strong>: tee kopio tästä säännöstä välittömästi sen perään.</li>
 <li><strong>Näytä sääntötyyppi</strong>: näytä säännön tyyppi ja/tai muuta sitä: <em>tavallinen</em>, <em>lisäävä</em> ja <em>vara</em> (ei ensimmäiselle säännölle).</li>
@@ -83,6 +88,15 @@
 <li><strong>Aloita keskiyöstä</strong>: aseta säätöpalkin alkuaika keskiyöhön.</li>
 <li><strong>Näytä aikaväli</strong>: näytä kenttä, johon asetetaan toistuva aikaväli minuutteina.</li>
 <li><strong>Poista</strong>: poista ajanjakso.</li>
+</ul>
+<h3>Hallitse mallineita</h3>
+<p>The template management dialog allows you to add, edit and delete templates.</p>
+<p>In Android 4.4 and later the following additional functionality is available from the menu button.</p>
+<ul>
+<li><strong>Show all</strong>: display all templates in the database.</li>
+<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
+<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
+<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul>
 
 </body>
