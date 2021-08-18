@@ -39,7 +39,7 @@
 "Bizikletentzako Aparkalekua"
 ],
 "amenity/bicycle_rental":[
-"Bizikleten Alokairua "
+"Bizikleten Alokairua"
 ],
 "amenity/bicycle_repair_station":[
 "Bizikleta konpontzeko tresneriaren postua"
@@ -195,7 +195,7 @@
 "Xintoismo Santutegia"
 ],
 "amenity/place_of_worship/sikh":[
-"Tenplu Sikhista "
+"Tenplu Sikhista"
 ],
 "amenity/place_of_worship/taoist":[
 "Tenplu Taoista"
@@ -445,5 +445,11 @@
 ],
 "man_made/chimney":[
 "Tximinia"
+],
+"natural/hot_spring":[
+"Iturburu termala"
+],
+"natural/spring":[
+"Iturburua"
 ]
 }

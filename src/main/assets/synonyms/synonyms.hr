@@ -259,10 +259,10 @@
 "Kanta sa šljunkom za poledicu"
 ],
 "amenity/hospital":[
-"Bolnica",
 "klinički centar",
 "Bolničko zemljište",
-"klinika"
+"klinika",
+"bolnica"
 ],
 "amenity/hunting_stand":[
 "Lovačka čeka"
@@ -480,7 +480,7 @@
 "Toalet",
 "toalet",
 "sanitarni čvor",
-"WC",
+"wc",
 "nužnik"
 ],
 "amenity/townhall":[
@@ -581,14 +581,14 @@
 "Bungee skokovi"
 ],
 "attraction/carousel":[
-"Ringišpil",
+"ringišpil",
 "Mehanički vrtuljak"
 ],
 "attraction/maze":[
 "Labirint"
 ],
 "barrier":[
-"Prepreka"
+"Pregrada"
 ],
 "barrier/block":[
 "Blok"
@@ -610,7 +610,7 @@
 "gradske zidine"
 ],
 "barrier/cycle_barrier":[
-"Biciklistička prepreka"
+"Pregrada za biciklističku traku"
 ],
 "barrier/ditch":[
 "Rov"
@@ -645,6 +645,9 @@
 ],
 "barrier/wall":[
 "Zid"
+],
+"barrier/wall/noise_barrier":[
+"Pregrada za buku"
 ],
 "boundary/administrative":[
 "Administrativna granica"
@@ -702,7 +705,7 @@
 ],
 "building/greenhouse":[
 "Staklenik",
-"Plastenik"
+"plastenik"
 ],
 "building/hospital":[
 "Zgrada bolnice"
@@ -933,7 +936,13 @@
 "Ulaz / izlaz"
 ],
 "ford":[
-"Prijelaz preko potoka"
+"gaz",
+"Gaz",
+"brod",
+"prijelaz"
+],
+"ford_line":[
+"Gaz"
 ],
 "golf/bunker":[
 "sand trap",
@@ -1150,8 +1159,8 @@
 "citadela",
 "Povijesna tvrđava",
 "zamak",
+"utvrda",
 "fort",
-"Utvrda",
 "gradina",
 "kaštel"
 ],
@@ -1288,6 +1297,9 @@
 "leisure/dog_park":[
 "Park za pse"
 ],
+"leisure/fishing":[
+"Mjesto za pecanje"
+],
 "leisure/fitness_centre":[
 "pilates",
 "aerobik",
@@ -1304,6 +1316,9 @@
 "bašća",
 "povrtnjak"
 ],
+"leisure/garden/botanical":[
+"Botanički vrt"
+],
 "leisure/golf_course":[
 "Igralište za golf",
 "golf teren"
@@ -1314,6 +1329,9 @@
 "leisure/marina":[
 "marina",
 "Marina"
+],
+"leisure/miniature_golf":[
+"Minigolf"
 ],
 "leisure/nature_reserve":[
 "Prirodni rezervat"
@@ -1328,6 +1346,9 @@
 "leisure/picnic_table":[
 "Stol za piknik"
 ],
+"leisure/picnic_table/chess":[
+"Stol za šah"
+],
 "leisure/pitch":[
 "sportsko igralište",
 "Sportski teren"
@@ -1335,6 +1356,12 @@
 "leisure/pitch/american_football":[
 "Američki nogomet",
 "igralište za američki nogomet"
+],
+"leisure/pitch/badminton":[
+"Teren za badminton"
+],
+"leisure/pitch/baseball":[
+"Teren za bejzbol"
 ],
 "leisure/pitch/basketball":[
 "Košarkaški teren",
@@ -1344,6 +1371,12 @@
 "Odbojka na pijesku",
 "odbojka na pjesku",
 "odbojka na plaži"
+],
+"leisure/pitch/boules":[
+"Teren za boćanje/kuglanje"
+],
+"leisure/pitch/chess":[
+"Golema šahovska ploča"
 ],
 "leisure/pitch/skateboard":[
 "skejt",
@@ -1356,6 +1389,9 @@
 "leisure/pitch/soccer":[
 "Nogometno igralište",
 "nogometno igralište"
+],
+"leisure/pitch/table_tennis":[
+"Stol za stolni tenis"
 ],
 "leisure/pitch/tennis":[
 "Teniski teren",
@@ -1372,12 +1408,27 @@
 "tobogan",
 "penjalice"
 ],
+"leisure/sauna":[
+"Sauna"
+],
 "leisure/slipway":[
 "istezalište",
 "Navoz za brodove"
 ],
+"leisure/slipway_point":[
+"Navoz za brodove"
+],
+"leisure/sports_centre":[
+"Sportski centar"
+],
+"leisure/sports_centre/climbing":[
+"Dvorana za penjanje"
+],
 "leisure/sports_centre/swimming":[
-"Ustanova sa bazenima"
+"Objekt sa bazenima"
+],
+"leisure/sports_hall":[
+"Sportska dvorana"
 ],
 "leisure/stadium":[
 "stadion",
@@ -1385,14 +1436,23 @@
 "Stadion"
 ],
 "leisure/swimming_pool":[
-"bazen",
-"Sportski bazen"
+"kupanje",
+"Bazen"
+],
+"leisure/track":[
+"Staza za utrkivanje (nemotorizirane discipline)"
+],
+"leisure/track/cycling":[
+"Staza za utrkivanje bicikala"
+],
+"leisure/track/horse_racing":[
+"Staza za utrkivanje konja"
 ],
 "leisure/track/running":[
 "Staza za trčanje"
 ],
 "leisure/water_park":[
-"Aquapark",
+"aquapark",
 "Vodeni park",
 "akvapark",
 "bazeni"
@@ -1439,8 +1499,14 @@
 "toranj za svjetlosnu navigaciju",
 "Svjetionik"
 ],
+"man_made/manhole":[
+"Šaht"
+],
 "man_made/monitoring_station":[
 "Stanica za mjerenje"
+],
+"man_made/obelisk":[
+"Obelisk"
 ],
 "man_made/observatory":[
 "Opservatorij"
@@ -1471,14 +1537,23 @@
 "man_made/pipeline/underground":[
 "Podzemni cjevovod"
 ],
+"man_made/pipeline/valve":[
+"Ventil cjevovoda"
+],
 "man_made/pumping_station":[
 "Crpna stanica"
+],
+"man_made/reservoir_covered":[
+"Pokriveni rezervoar"
 ],
 "man_made/silo":[
 "Silos"
 ],
 "man_made/storage_tank":[
 "Spremnik"
+],
+"man_made/storage_tank/water":[
+"Spremnik za vodu"
 ],
 "man_made/street_cabinet":[
 "ulični ormar",
@@ -1494,15 +1569,15 @@
 "Nadzorna kamera"
 ],
 "man_made/survey_point":[
-"GPS točka",
 "trigonometar",
 "Geodetska točka",
+"gnss točka",
 "geodetska točka",
 "poligonska točka",
 "geodetska oznaka",
-"GNSS točka",
 "trigonometrijska točka",
-"poligon"
+"poligon",
+"gps točka"
 ],
 "man_made/tower":[
 "obrambeni toranj",
@@ -1521,9 +1596,12 @@
 "man_made/tower/communication":[
 "Komunikacijski toranj"
 ],
+"man_made/tower/cooling":[
+"Rashladni toranj"
+],
 "man_made/tower/defensive":[
-"Utvrđeni toranj",
-"Kula"
+"Kula",
+"utvrđeni toranj"
 ],
 "man_made/tower/minaret":[
 "Minaret"
@@ -1531,9 +1609,18 @@
 "man_made/tower/observation":[
 "Toranj za promatranje"
 ],
+"man_made/tunnel":[
+"Površina tunela"
+],
 "man_made/wastewater_plant":[
 "Pogon za pročiščivanje otpadnih voda",
 "pročistač voda"
+],
+"man_made/water_tap":[
+"slavina za vodu",
+"Slavina",
+"pipa",
+"pipa za vodu"
 ],
 "man_made/water_tower":[
 "spremište za vodu",
@@ -1562,6 +1649,9 @@
 ],
 "man_made/works":[
 "Tvornica"
+],
+"natural":[
+"Prirodne značajke"
 ],
 "natural/bare_rock":[
 "Goli kamen"
@@ -1741,7 +1831,7 @@
 "natural/water/pond":[
 "bara",
 "umjetni bazen",
-"Ribnjak",
+"Jezerce",
 "bazen za uzgoj ribe",
 "ribnjak",
 "jezero"
@@ -2076,9 +2166,9 @@
 "shop/baby_goods":[
 "Trgovina za bebe",
 "pelene",
+"baby",
 "bebe",
 "dojenčad",
-"Baby",
 "kolica"
 ],
 "shop/bag":[
@@ -2106,8 +2196,8 @@
 ],
 "shop/beauty/tanning":[
 "studio za sunčanje",
-"Salon za sunčanje",
-"Solarij"
+"Solarij",
+"salon za sunčanje"
 ],
 "shop/bed":[
 "jastuk",
@@ -2197,7 +2287,7 @@
 "kvartovska trgovina"
 ],
 "shop/copyshop":[
-"Copy dućan",
+"copy dućan",
 "Fotokopiraona",
 "kopiraonica",
 "trgovina za kopiranje"
@@ -2274,7 +2364,7 @@
 "shop/funeral_directors":[
 "posmrtna pripomoć",
 "Pogrebno poduzeće",
-"Pogrebna služba"
+"pogrebna služba"
 ],
 "shop/furniture":[
 "prodavaonica namještaja",
@@ -2381,7 +2471,7 @@
 "gitare",
 "muzički dućan",
 "bubnjevi",
-"Muzička trgovina"
+"muzička trgovina"
 ],
 "shop/newsagent":[
 "Trgovina za novine i magazine"
@@ -2490,6 +2580,9 @@
 "veletrgovina",
 "trgovina",
 "Veletrgovina"
+],
+"shop/swimming_pool":[
+"Trgovina opreme za bazene"
 ],
 "shop/tailor":[
 "Krojač"
@@ -2611,7 +2704,7 @@
 ],
 "tourism/artwork/bust":[
 "Poprsje",
-"Bista"
+"bista"
 ],
 "tourism/artwork/graffiti":[
 "Grafiti"
@@ -2623,8 +2716,8 @@
 "Mural"
 ],
 "tourism/artwork/sculpture":[
-"Statua",
-"Skulptura"
+"Skulptura",
+"statua"
 ],
 "tourism/artwork/statue":[
 "skulptura",
@@ -2641,7 +2734,6 @@
 "turizam"
 ],
 "tourism/caravan_site":[
-"RV park",
 "park za kamp prikolice",
 "kamp za kamp-prikolice",
 "park za kamp-prikolice",
@@ -2650,11 +2742,12 @@
 "kamp",
 "Parkiralište za kamp kućice",
 "park za rekreativna vozila",
-"kamp prikolica"
+"kamp prikolica",
+"rv park"
 ],
 "tourism/chalet":[
-"Bungalov",
-"Kuća za iznajmljivanje"
+"kuća za iznajmljivanje",
+"Bungalov"
 ],
 "tourism/gallery":[
 "Umjetnička galerija"
@@ -2766,6 +2859,9 @@
 "međa",
 "Administrativna granica",
 "administrativna linija"
+],
+"type/connectivity":[
+"Povezivost trake"
 ],
 "type/multipolygon":[
 "Multipoligon"

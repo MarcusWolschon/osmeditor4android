@@ -2,6 +2,9 @@
 "amenity/arts_centre":[
 "Arts Centre"
 ],
+"amenity/bbq":[
+"Barbeque"
+],
 "amenity/community_centre":[
 "Community Centre"
 ],
@@ -16,6 +19,9 @@
 ],
 "amenity/fuel":[
 "Service Station"
+],
+"amenity/parking/park_ride":[
+"Park & Ride Car Park"
 ],
 "amenity/payment_centre":[
 "Payment Centre"
@@ -83,6 +89,9 @@
 "highway/living_street":[
 "Shared Zone Road"
 ],
+"highway/track":[
+"Track Road"
+],
 "leisure/adult_gaming_centre":[
 "Adult Gaming Centre"
 ],
@@ -93,19 +102,22 @@
 "Sports Centre / Complex"
 ],
 "shop/cheese":[
-"Cheesemonger",
-"Cheese Shop"
+"Cheese Shop",
+"cheesemonger"
 ],
 "shop/chemist":[
-"Chemist",
-"Pharmacy"
+"Pharmacy",
+"chemist"
 ],
 "shop/chocolate":[
-"Chocolatier",
-"Chocolate Shop"
+"Chocolate Shop",
+"chocolatier"
 ],
 "shop/garden_centre":[
 "Garden Centre"
+],
+"shop/mall":[
+"Shopping Centre"
 ],
 "shop/tyres":[
 "Tyre Shop"

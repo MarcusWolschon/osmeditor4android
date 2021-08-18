@@ -398,6 +398,9 @@
 "amenity/motorcycle_parking":[
 "Паркиралиште за мотоцикли"
 ],
+"amenity/motorcycle_rental":[
+"Изнајмување мотоцикли"
+],
 "amenity/music_school":[
 "Музичко училиште"
 ],
@@ -621,7 +624,7 @@
 "Излетнички заслон"
 ],
 "amenity/shelter/public_transport":[
-"Покриена постојка "
+"Покриена постојка"
 ],
 "amenity/shower":[
 "Туш"
@@ -1364,6 +1367,9 @@
 "emergency/life_ring":[
 "Спасувачка гума"
 ],
+"emergency/lifeboat_station":[
+"Станица за спасителни чамци"
+],
 "emergency/lifeguard":[
 "Спасувач"
 ],
@@ -1399,6 +1405,9 @@
 ],
 "entrance/emergency_ward_entrance":[
 "Влез за ургентно"
+],
+"entrance/main":[
+"Главен влез"
 ],
 "ford":[
 "Брод"
@@ -1556,6 +1565,9 @@
 "highway/elevator":[
 "Лифт"
 ],
+"highway/elevator_line":[
+"Накосен лифт"
+],
 "highway/emergency_bay":[
 "Итно запиралиште"
 ],
@@ -1581,7 +1593,7 @@
 "Тротоар"
 ],
 "highway/footway/unmarked":[
-"Необележан премин (испакнат)",
+"необележан премин (испакнат)",
 "Необележан премин"
 ],
 "highway/footway/unmarked-raised":[
@@ -2052,6 +2064,9 @@
 "leisure/ice_rink":[
 "Лизгалиште"
 ],
+"leisure/indoor_play":[
+"Игротека на покриено"
+],
 "leisure/marina":[
 "Сидриште"
 ],
@@ -2147,6 +2162,9 @@
 ],
 "leisure/playground":[
 "Игралиште"
+],
+"leisure/playground/indoor":[
+"Игралиште на покриено"
 ],
 "leisure/resort":[
 "Одморалиште"
@@ -2387,6 +2405,9 @@
 ],
 "man_made/tower/observation":[
 "Видиковска кула"
+],
+"man_made/tower/pagoda":[
+"Пагода"
 ],
 "man_made/tunnel":[
 "Тунелско подрачје"
@@ -2694,6 +2715,9 @@
 "office/research":[
 "Истражувачка служба"
 ],
+"office/security":[
+"Обезбедување"
+],
 "office/surveyor":[
 "Земјомерна служба"
 ],
@@ -2790,16 +2814,16 @@
 "playground":[
 "Справа на детско игралиште"
 ],
-"playground/balance_beam":[
-"Детска греда"
+"playground/balancebeam":[
+"Гимнастичка греда"
 ],
-"playground/basket_spinner":[
+"playground/basketrotator":[
 "Вртелешка-кошница"
 ],
-"playground/basket_swing":[
+"playground/basketswing":[
 "Лулашка-кошница"
 ],
-"playground/climbing_frame":[
+"playground/climbingframe":[
 "Рамка за искачување"
 ],
 "playground/cushion":[
@@ -2808,8 +2832,8 @@
 "playground/horizontal_bar":[
 "Детско вратило"
 ],
-"playground/rocker":[
-"Нишалка на пружина"
+"playground/playhouse":[
+"Куќичка"
 ],
 "playground/roundabout":[
 "Вртелешка"
@@ -2822,6 +2846,9 @@
 ],
 "playground/slide":[
 "Лизгалка"
+],
+"playground/springy":[
+"Нишалка на пружина"
 ],
 "playground/structure":[
 "Игралишна справа"
@@ -2853,6 +2880,12 @@
 "power/generator/method/photovoltaic":[
 "Сончева плоча"
 ],
+"power/generator/method/photovoltaic/building/roof":[
+"Покривалиште од сончеви плочи"
+],
+"power/generator/method/photovoltaic/location/roof":[
+"Покривна сончева плоча"
+],
 "power/generator/source/hydro":[
 "Водна турбина"
 ],
@@ -2883,8 +2916,14 @@
 "power/plant/source/nuclear":[
 "Нуклеарна електрана"
 ],
+"power/plant/source/oil":[
+"Нафтена електрана"
+],
 "power/plant/source/solar":[
 "Сончева фарма"
+],
+"power/plant/source/waste":[
+"Погон за горење отпад"
 ],
 "power/plant/source/wind":[
 "Ветропарк"
@@ -3430,7 +3469,7 @@
 "Продавница за домот"
 ],
 "shop/hunting":[
-"Ловечка продавница    "
+"Ловечка продавница"
 ],
 "shop/interior_decoration":[
 "Продавница за внатрешно уредување"
@@ -3554,6 +3593,9 @@
 ],
 "shop/rental":[
 "Изнајмувачница"
+],
+"shop/repair":[
+"Поправачница"
 ],
 "shop/scuba_diving":[
 "Продавница за нуркачка опрема"
@@ -3900,6 +3942,9 @@
 "type/route":[
 "Патен правец"
 ],
+"type/route/aerialway":[
+"Жичнички патен правец"
+],
 "type/route/bicycle":[
 "Велосипедски патен правец"
 ],
@@ -3916,16 +3961,19 @@
 "Пешачки правец"
 ],
 "type/route/hiking":[
-"Планинарски равец"
+"Планинарски правец"
 ],
 "type/route/horse":[
-"Јавачки патен правец"
+"Јавачки правец"
 ],
 "type/route/light_rail":[
-"Лесножелезничк патен правец"
+"Лесножелезнички патен правец"
 ],
 "type/route/monorail":[
 "Едношински патен правец"
+],
+"type/route/mtb":[
+"Планинсковелосипедски правец"
 ],
 "type/route/pipeline":[
 "Цевководен патен правец"

@@ -39,8 +39,8 @@
 "Perpustakaan"
 ],
 "amenity/motorcycle_parking":[
-"Tempat Letak Motosikal",
-"Parkir Motosikal"
+"parkir motosikal",
+"Tempat Letak Motosikal"
 ],
 "amenity/music_school":[
 "Sekolah Muzik"
@@ -121,8 +121,8 @@
 "Mesin Layan Diri"
 ],
 "amenity/veterinary":[
-"Klinik Haiwan",
-"Veterinar"
+"Veterinar",
+"klinik haiwan"
 ],
 "area":[
 "Kawasan"
@@ -131,7 +131,7 @@
 "Pintu"
 ],
 "barrier/toll_booth":[
-"Plaza Tol",
+"plaza tol",
 "Pondok Tol"
 ],
 "barrier/wall":[
@@ -184,15 +184,15 @@
 ],
 "building/hut":[
 "Pondok",
-"Dangau"
+"dangau"
 ],
 "building/industrial":[
 "Bangunan Perindustrian"
 ],
 "building/mosque":[
-"Musolla",
-"Bangunan Surau",
-"Bangunan Masjid"
+"bangunan surau",
+"Bangunan Masjid",
+"musolla"
 ],
 "building/public":[
 "Bangunan Awam"
@@ -204,8 +204,8 @@
 "Bangunan Kedai"
 ],
 "building/roof":[
-"Bumbung",
-"Atap"
+"Atap",
+"bumbung"
 ],
 "building/school":[
 "Bangunan Sekolah"
@@ -457,20 +457,20 @@
 "Kedai Komputer"
 ],
 "shop/convenience":[
-"Kedai mudah beli",
+"kedai mudah beli",
 "Kedai Kecil"
 ],
 "shop/doityourself":[
-"Kedai Dibuat Individu dengan Yakin",
-"Kedai DIY",
-"Kedai Buat Sendiri"
+"kedai dibuat individu dengan yakin",
+"kedai buat sendiri",
+"Kedai DIY"
 ],
 "shop/dry_cleaning":[
 "Kedai Cucian Kering"
 ],
 "shop/e-cigarette":[
-"Vape",
-"Kedai E-Rokok",
+"kedai e-rokok",
+"vape",
 "Kedai Rokok Elektronik"
 ],
 "shop/electronics":[
@@ -486,16 +486,16 @@
 "Kedai Menjual Sayur"
 ],
 "shop/mobile_phone":[
-"Kredit",
-"Bil Telefon",
-"Topup",
-"Tambah Nilai",
-"Kedai Telefon Bimbit"
+"tambah nilai",
+"topup",
+"Kedai Telefon Bimbit",
+"kredit",
+"bil telefon"
 ],
 "shop/money_lender":[
+"along",
 "Ceti",
-"Along",
-"Peminjam Wang"
+"peminjam wang"
 ],
 "shop/music":[
 "Kedai Muzik"

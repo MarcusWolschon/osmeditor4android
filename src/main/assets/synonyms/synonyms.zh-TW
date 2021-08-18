@@ -48,6 +48,7 @@
 "貨運纜車"
 ],
 "aerialway/j-bar":[
+"j 形纜車",
 "J 形纜車"
 ],
 "aerialway/magic_carpet":[
@@ -68,7 +69,8 @@
 "牽繩"
 ],
 "aerialway/t-bar":[
-"T 形纜車"
+"T 形纜車",
+"t 形纜車"
 ],
 "aerialway/zip_line":[
 "流籠",
@@ -154,8 +156,8 @@
 ],
 "amenity/atm":[
 "提款機",
-"ATM",
-"自動櫃員機"
+"自動櫃員機",
+"atm"
 ],
 "amenity/bank":[
 "信用合作社",
@@ -165,10 +167,11 @@
 "酒吧"
 ],
 "amenity/bar/lgbtq":[
+"lgbtq+ 酒吧",
 "LGBTQ+ 酒吧"
 ],
 "amenity/bbq":[
-"BBQ",
+"bbq",
 "燒烤"
 ],
 "amenity/bench":[
@@ -203,7 +206,6 @@
 "單車自助維修站"
 ],
 "amenity/biergarten":[
-"啤酒花園 ",
 "屋外花園酒店",
 "啤酒花園"
 ],
@@ -268,7 +270,7 @@
 "amenity/cinema":[
 "說書樓",
 "戲館",
-"Cinema",
+"cinema",
 "電影院"
 ],
 "amenity/clinic":[
@@ -291,12 +293,12 @@
 "日晷"
 ],
 "amenity/college":[
+"college",
 "學院",
-"College Grounds",
 "學校",
 "獨立學院",
 "學院用地",
-"College",
+"college grounds",
 "學院範圍",
 "技術學院"
 ],
@@ -308,6 +310,7 @@
 "社區發展協會"
 ],
 "amenity/community_centre/lgbtq":[
+"lgbtq+ 社群中心",
 "LGBTQ+ 社群中心"
 ],
 "amenity/compressed_air":[
@@ -464,13 +467,14 @@
 "網吧",
 "網咖",
 "網路咖啡店",
-"Internet Cafe"
+"internet cafe"
 ],
 "amenity/karaoke_box":[
-"卡拉OK包廂",
-"卡拉 OK",
+"卡拉 ok",
 "卡拉 OK 包廂",
-"卡拉OK"
+"卡拉 ok 包廂",
+"卡拉ok",
+"卡拉ok包廂"
 ],
 "amenity/kindergarten":[
 "幼兒園",
@@ -478,7 +482,8 @@
 "幼兒園範圍"
 ],
 "amenity/kneipp_water_cure":[
-"Kneipp 水療"
+"Kneipp 水療",
+"kneipp 水療"
 ],
 "amenity/language_school":[
 "語言學校"
@@ -529,6 +534,10 @@
 "速克達停車場",
 "機車停車場"
 ],
+"amenity/motorcycle_rental":[
+"摩托車租賃",
+"機車租賃"
+],
 "amenity/music_school":[
 "音樂學校",
 "音樂學院"
@@ -538,6 +547,7 @@
 "夜總會"
 ],
 "amenity/nightclub/lgbtq":[
+"lgbtq+ 夜店",
 "LGBTQ+ 夜店"
 ],
 "amenity/nursing_home":[
@@ -613,7 +623,8 @@
 "耶和華見證人"
 ],
 "amenity/place_of_worship/christian/la_luz_del_mundo":[
-"La Luz del Mundo Temple"
+"La Luz del Mundo Temple",
+"la luz del mundo temple"
 ],
 "amenity/place_of_worship/christian/quaker":[
 "貴格會聚會所",
@@ -621,7 +632,7 @@
 ],
 "amenity/place_of_worship/hindu":[
 "印度寺廟",
-"Hindu Temple"
+"hindu temple"
 ],
 "amenity/place_of_worship/jewish":[
 "猶太教堂",
@@ -676,13 +687,15 @@
 ],
 "amenity/pub":[
 "酒館",
+"pub",
 "Pub"
 ],
 "amenity/pub/irish":[
 "愛爾蘭酒吧"
 ],
 "amenity/pub/lgbtq":[
-"LGBTQ+ Pub"
+"LGBTQ+ Pub",
+"lgbtq+ pub"
 ],
 "amenity/pub/microbrewery":[
 "自釀酒吧",
@@ -804,20 +817,20 @@
 "越式餐廳"
 ],
 "amenity/sanitary_dump_station":[
-"RV流動廁所",
 "RV移動廁所",
+"rv流動廁所",
 "流動廁所"
 ],
 "amenity/school":[
 "學校",
 "中學",
 "小學",
-"School",
+"school",
 "高中",
 "國中",
 "學校用地",
 "學校範圍",
-"School Grounds",
+"school grounds",
 "中小學範圍",
 "國小"
 ],
@@ -862,8 +875,8 @@
 "日間護理服務"
 ],
 "amenity/social_facility/food_bank":[
-"食物銀行",
-"Food Bank"
+"food bank",
+"食物銀行"
 ],
 "amenity/social_facility/group_home":[
 "老人之家",
@@ -881,12 +894,12 @@
 "amenity/social_facility/nursing_home":[
 "療養院",
 "養老院",
-"Nursing Home",
+"nursing home",
 "老人安養中心"
 ],
 "amenity/studio":[
-"工作室",
-"Studio"
+"studio",
+"工作室"
 ],
 "amenity/studio/audio":[
 "錄音室"
@@ -951,12 +964,12 @@
 ],
 "amenity/university":[
 "學校",
-"University",
 "大學用地",
+"university",
 "大學範圍",
-"University Grounds",
 "大學",
-"大專"
+"大專",
+"university grounds"
 ],
 "amenity/vacuum_cleaner":[
 "吸塵器站"
@@ -1192,8 +1205,8 @@
 "鏈式柵欄"
 ],
 "barrier/city_wall":[
-"City Wall",
-"城牆"
+"城牆",
+"city wall"
 ],
 "barrier/cycle_barrier":[
 "自行車柵欄"
@@ -1232,8 +1245,7 @@
 "平齊路緣"
 ],
 "barrier/kerb/lowered":[
-"低路緣",
-"低路緣 "
+"低路緣"
 ],
 "barrier/kerb/raised":[
 "高路緣"
@@ -1243,8 +1255,8 @@
 "容許車輛駛上的緣石"
 ],
 "barrier/kissing_gate":[
-"V形旋轉小門",
-"U形旋轉小門",
+"u形旋轉小門",
+"v形旋轉小門",
 "單人轉門"
 ],
 "barrier/lift_gate":[
@@ -1457,10 +1469,10 @@
 ],
 "building/school":[
 "高中建築",
-"School Building",
 "校舍",
 "國中建築",
 "小學建築",
+"school building",
 "國小建築",
 "中學建築",
 "中小學建築物",
@@ -1511,15 +1523,15 @@
 "building/university":[
 "大學建築物",
 "校舍",
+"university building",
 "大學校舍",
-"University Building",
 "學校建築"
 ],
 "building/warehouse":[
 "倉庫"
 ],
 "building_part":[
-"建物的一部分 ",
+"建物的一部分",
 "建築物的一部分",
 "建築的一部分"
 ],
@@ -1527,7 +1539,7 @@
 "建築物"
 ],
 "club":[
-"Club",
+"club",
 "俱樂部"
 ],
 "club/sport":[
@@ -1574,8 +1586,8 @@
 "備辦宴會者"
 ],
 "craft/chimney_sweeper":[
-"煙囪清掃工 ",
-"掃煙囪"
+"掃煙囪",
+"煙囪清掃工"
 ],
 "craft/cleaning":[
 "清潔服務"
@@ -1644,7 +1656,7 @@
 "油漆工程"
 ],
 "craft/parquet_layer":[
-" 嵌木細工"
+"嵌木細工"
 ],
 "craft/photographer":[
 "攝影店"
@@ -1745,7 +1757,7 @@
 "救護站"
 ],
 "emergency/defibrillator":[
-"AED",
+"aed",
 "去顫器",
 "自動體外心臟去顫器",
 "心臟去顫器"
@@ -1779,6 +1791,9 @@
 ],
 "emergency/life_ring":[
 "救生圈"
+],
+"emergency/lifeboat_station":[
+"救生艇站"
 ],
 "emergency/lifeguard":[
 "救生員"
@@ -1815,6 +1830,9 @@
 ],
 "entrance/emergency_ward_entrance":[
 "急診室入口"
+],
+"entrance/main":[
+"主要入口"
 ],
 "ford":[
 "淺灘"
@@ -1991,6 +2009,9 @@
 "highway/elevator":[
 "升降梯",
 "電梯"
+],
+"highway/elevator_line":[
+"斜行升降機"
 ],
 "highway/emergency_bay":[
 "避車彎"
@@ -2323,7 +2344,8 @@
 "室內牆壁"
 ],
 "internet_access/wlan":[
-"Wi-Fi 熱點"
+"Wi-Fi 熱點",
+"wi-fi 熱點"
 ],
 "junction":[
 "槽化車道",
@@ -2341,8 +2363,8 @@
 ],
 "landuse/aquaculture":[
 "水產養殖",
-"養殖漁業",
-"Aquaculture"
+"aquaculture",
+"養殖漁業"
 ],
 "landuse/basin":[
 "水池"
@@ -2540,7 +2562,7 @@
 "leisure/fitness_centre":[
 "健身中心",
 "健身房",
-"Gym",
+"gym",
 "健身房／健身中心"
 ],
 "leisure/fitness_centre/yoga":[
@@ -2603,7 +2625,7 @@
 ],
 "leisure/hackerspace":[
 "駭客空間",
-"Hackerspace"
+"hackerspace"
 ],
 "leisure/horse_riding":[
 "騎馬場",
@@ -2612,6 +2634,9 @@
 ],
 "leisure/ice_rink":[
 "溜冰場"
+],
+"leisure/indoor_play":[
+"室內遊樂中心"
 ],
 "leisure/marina":[
 "遊艇碼頭"
@@ -2725,6 +2750,9 @@
 ],
 "leisure/playground":[
 "遊樂場"
+],
+"leisure/playground/indoor":[
+"室內遊樂場"
 ],
 "leisure/resort":[
 "度假勝地",
@@ -3018,6 +3046,9 @@
 "man_made/tower/observation":[
 "瞭望塔"
 ],
+"man_made/tower/pagoda":[
+"寶塔"
+],
 "man_made/tunnel":[
 "隧道區域"
 ],
@@ -3049,9 +3080,14 @@
 "man_made/windmill":[
 "風力磨坊"
 ],
+"man_made/windpump":[
+"風力抽水機",
+"風能抽水機",
+"風泵"
+],
 "man_made/works":[
 "工廠",
-"Factory",
+"factory",
 "加工廠"
 ],
 "marker":[
@@ -3127,7 +3163,7 @@
 "山陵"
 ],
 "natural/rock":[
-" 巨礫"
+"巨礫"
 ],
 "natural/saddle":[
 "埡口",
@@ -3246,7 +3282,7 @@
 "建築師"
 ],
 "office/association":[
-"NGO",
+"ngo",
 "非營利組織",
 "非營利組織辦公室"
 ],
@@ -3348,7 +3384,7 @@
 ],
 "office/it":[
 "資訊公司辦公室",
-"IT"
+"it"
 ],
 "office/lawyer":[
 "律師樓",
@@ -3370,7 +3406,7 @@
 "網路媒體"
 ],
 "office/ngo":[
-"NGO辦公室",
+"ngo辦公室",
 "非政府機構辦公室",
 "非政府組織"
 ],
@@ -3401,6 +3437,9 @@
 "研究機構",
 "研究辦公室",
 "研究中心"
+],
+"office/security":[
+"保全辦公室"
 ],
 "office/surveyor":[
 "地圖測繪",
@@ -3486,9 +3525,9 @@
 "地點（無人定居）"
 ],
 "place/neighbourhood":[
+"neighborhood",
 "四鄰",
-"鄰里",
-"Neighborhood"
+"鄰里"
 ],
 "place/plot":[
 "地籍"
@@ -3515,16 +3554,16 @@
 "playground":[
 "遊樂場設備"
 ],
-"playground/balance_beam":[
-"平衡梁"
+"playground/balancebeam":[
+"平衡木"
 ],
-"playground/basket_spinner":[
+"playground/basketrotator":[
 "籃子旋轉器"
 ],
-"playground/basket_swing":[
+"playground/basketswing":[
 "籃子鞦韆"
 ],
-"playground/climbing_frame":[
+"playground/climbingframe":[
 "攀爬架",
 "玩攀爬架"
 ],
@@ -3534,8 +3573,8 @@
 "playground/horizontal_bar":[
 "單槓"
 ],
-"playground/rocker":[
-"彈簧椅"
+"playground/playhouse":[
+"兒童遊戲館"
 ],
 "playground/roundabout":[
 "旋轉輪"
@@ -3551,6 +3590,9 @@
 ],
 "playground/slide":[
 "溜滑梯"
+],
+"playground/springy":[
+"彈簧椅"
 ],
 "playground/structure":[
 "遊樂場設施"
@@ -3585,6 +3627,12 @@
 "power/generator/method/photovoltaic":[
 "太陽能板"
 ],
+"power/generator/method/photovoltaic/building/roof":[
+"太陽能板天篷"
+],
+"power/generator/method/photovoltaic/location/roof":[
+"屋頂太陽能板"
+],
 "power/generator/source/hydro":[
 "水利渦輪"
 ],
@@ -3608,8 +3656,8 @@
 "發電廠用地",
 "發電廠範圍",
 "發電廠廠區",
-"發電廠",
-"Power Station Grounds"
+"power station grounds",
+"發電廠"
 ],
 "power/plant/source/coal":[
 "燃煤發電廠",
@@ -3624,8 +3672,14 @@
 "power/plant/source/nuclear":[
 "核能發電廠"
 ],
+"power/plant/source/oil":[
+"燃油發電廠"
+],
 "power/plant/source/solar":[
 "太陽能農場"
+],
+"power/plant/source/waste":[
+"焚化爐發電廠"
 ],
 "power/plant/source/wind":[
 "風力場",
@@ -4141,6 +4195,7 @@
 "百貨公司"
 ],
 "shop/doityourself":[
+"diy商店",
 "DIY商店"
 ],
 "shop/doors":[
@@ -4167,7 +4222,8 @@
 "情趣用品店"
 ],
 "shop/erotic/lgbtq":[
-"LGBTQ+ 情趣用品店"
+"LGBTQ+ 情趣用品店",
+"lgbtq+ 情趣用品店"
 ],
 "shop/fabric":[
 "帆布店",
@@ -4444,6 +4500,9 @@
 "shop/rental":[
 "租賃店"
 ],
+"shop/repair":[
+"維修店"
+],
 "shop/scuba_diving":[
 "潛水用品店",
 "潛水用具店"
@@ -4495,8 +4554,8 @@
 ],
 "shop/tattoo":[
 "刺青行",
-"刺青店",
-"Tattoo Parlor"
+"tattoo parlor",
+"刺青店"
 ],
 "shop/tea":[
 "茶行",
@@ -4633,7 +4692,7 @@
 ],
 "tourism/artwork/mural":[
 "壁畫",
-"Mural"
+"mural"
 ],
 "tourism/artwork/sculpture":[
 "雕塑"
@@ -4863,6 +4922,9 @@
 "type/route":[
 "路線"
 ],
+"type/route/aerialway":[
+"空中路線"
+],
 "type/route/bicycle":[
 "腳踏車路線",
 "單車路線"
@@ -4887,14 +4949,16 @@
 "遠足路線"
 ],
 "type/route/horse":[
-"騎馬路線",
-"騎乘路線"
+"騎馬路線"
 ],
 "type/route/light_rail":[
 "輕軌路線"
 ],
 "type/route/monorail":[
 "單軌路線"
+],
+"type/route/mtb":[
+"山地自行車路線"
 ],
 "type/route/pipeline":[
 "管線路線",
@@ -4926,8 +4990,7 @@
 "無軌電車路線"
 ],
 "type/route_master":[
-"路線總目",
-"路線總纜"
+"路線總目"
 ],
 "type/site":[
 "地點",
@@ -5005,7 +5068,7 @@
 "海洋飲用水"
 ],
 "waterway/waterfall":[
-"Waterfall",
+"waterfall",
 "跌水",
 "瀑布"
 ],

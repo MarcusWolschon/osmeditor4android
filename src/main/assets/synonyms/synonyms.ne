@@ -24,7 +24,7 @@
 "घर"
 ],
 "highway/street_lamp":[
-" सडक बत्ति"
+"सडक बत्ति"
 ],
 "leisure/park":[
 "पार्क"

@@ -80,10 +80,10 @@
 "kafana"
 ],
 "amenity/car_rental":[
+"iznajmljivanje automobila",
 "Rent-a-car",
 "rent-a-car",
-"najam automobila",
-"Iznajmljivanje automobila"
+"najam automobila"
 ],
 "amenity/car_wash":[
 "autopraonica",
@@ -156,8 +156,8 @@
 "tržnica"
 ],
 "amenity/place_of_worship":[
-"Božja kuća",
 "mjesto za molitvu",
+"božja kuća",
 "hram",
 "bogomolja",
 "Bogomolja"
@@ -469,8 +469,8 @@
 ],
 "golf/tee":[
 "kutija područja na početku rupe",
-"Tee Box",
-""Tee" kutija"
+""tee" kutija",
+"Tee Box"
 ],
 "highway/bridleway":[
 "konjička staza",
@@ -736,6 +736,7 @@
 "Sportsko igralište"
 ],
 "leisure/pitch/american_football":[
+"polje za američki fudbal",
 "igralište za američki fudbal",
 "Polje za američki fudbal"
 ],
@@ -991,10 +992,10 @@
 "pravna kancelarija"
 ],
 "office/ngo":[
-"NVO kancelarija",
 "Ured NVO",
-"ured NVO",
-"Nevladin ured"
+"ured nvo",
+"nevladin ured",
+"nvo kancelarija"
 ],
 "office/physician":[
 "Ljekar"
@@ -1245,7 +1246,8 @@
 "gvožđara"
 ],
 "shop/hifi":[
-"radnja za prodaju HiFi uređaja",
+"radnja za prodaju hifi uređaja",
+"hifi prodavnica",
 "HiFi prodavnica"
 ],
 "shop/laundry":[

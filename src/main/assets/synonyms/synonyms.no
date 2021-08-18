@@ -856,6 +856,9 @@
 "building/school":[
 "Skole"
 ],
+"building/service":[
+"Servicebygning"
+],
 "building/shed":[
 "Skur/naust"
 ],
@@ -1064,7 +1067,7 @@
 "Defibrillator"
 ],
 "emergency/designated":[
-"Dedikert Nødtilgang "
+"Dedikert Nødtilgang"
 ],
 "emergency/fire_alarm":[
 "Brannalarm Telefonboks"
@@ -1270,6 +1273,9 @@
 "highway/primary":[
 "Primær hovedvei"
 ],
+"highway/raceway":[
+"Motorsport Racerbane"
+],
 "highway/residential":[
 "Boligvei"
 ],
@@ -1344,6 +1350,9 @@
 ],
 "historic/boundary_stone":[
 "Grensestein"
+],
+"historic/building":[
+"Historisk Bygning"
 ],
 "historic/castle":[
 "Slott"
@@ -1474,6 +1483,9 @@
 "landuse/vineyard":[
 "Vingård"
 ],
+"landuse/winter_sports":[
+"Vintersport Område"
+],
 "leisure/adult_gaming_centre":[
 "Spillekasino"
 ],
@@ -1600,6 +1612,9 @@
 "leisure/slipway":[
 "Båtslipp"
 ],
+"leisure/sports_centre":[
+"Idrettssenter / kompleks"
+],
 "leisure/sports_centre/climbing":[
 "Klatresenter"
 ],
@@ -1611,6 +1626,9 @@
 ],
 "leisure/swimming_pool":[
 "Svømmebasseng"
+],
+"leisure/track":[
+"Racerbane (Ikke motorsport)"
 ],
 "leisure/track/cycling":[
 "Sykkelbane"
@@ -1939,6 +1957,9 @@
 "piste/downhill":[
 "Utforløype"
 ],
+"piste/downhill/halfpipe":[
+"Snøsport Half-Pipe"
+],
 "piste/hike":[
 "Truger / Vintertursti"
 ],
@@ -1947,6 +1968,9 @@
 ],
 "piste/nordic":[
 "Langrennsløype"
+],
+"piste/piste":[
+"Snøsportsti/ Piste"
 ],
 "piste/skitour":[
 "Tur Ski Sti"
@@ -1986,9 +2010,6 @@
 ],
 "place/village":[
 "Tettsted"
-],
-"playground/balance_beam":[
-"Leke Balansebjelke"
 ],
 "playground/seesaw":[
 "Vippehuske"
@@ -2462,6 +2483,9 @@
 ],
 "shop/watches":[
 "Urmaker"
+],
+"shop/water_sports":[
+"Vannsport/Svømmebutikk"
 ],
 "shop/weapons":[
 "Våpenbutikk"
