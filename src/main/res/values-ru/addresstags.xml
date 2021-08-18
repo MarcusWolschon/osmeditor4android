@@ -1,21 +1,24 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string-array name="address_tags_entries">
-    <item>Номер дома (addr:housenumber)</item>
-    <item>Улица (addr:street)</item>
-    <item>Почтовый индекс (addr:postcode)</item>
-    <item>Город/посёлок/деревня/.. (addr:city)</item>
-    <item>Страна (addr:country)</item>
-    <item>Полный адрес (addr:full)</item>
-    <item>Территория без улиц (addr:place)</item>
-    <item>Малое селение (addr:hamlet)</item>
-    <item>Микрорайон — для одноим. улиц (addr:suburb)</item>
-    <item>Подрайон (addr:subdistrict)</item>
-    <item>Район (addr:district)</item>
-    <item>Провинция (addr:province)</item>
-    <item>Штат (addr:state)</item>
-    <item>Диапазон квартир (addr:flats)</item>
-    <item>Номер комнаты/офиса (addr:door)</item>
-    <item>Номер лестницы/подъезда/... (addr:unit)</item>
+    <item>Housenumber (addr:housenumber)</item>
+    <item>Conscription number (addr:conscriptionnumber)</item>
+    <item>Street (addr:street)</item>
+    <item>Postcode (addr:postcode)</item>
+    <item>City/Town/Village/..  (addr:city)</item>
+    <item>Country (addr:country)</item>
+    <item>Full address (addr:full)</item>
+    <item>Place (addr:place)</item>
+    <item>Block (addr:block)</item>
+    <item>Block number (addr:block_number)</item>
+    <item>Hamlet (addr:hamlet)</item>
+    <item>Suburb (addr:suburb)</item>
+    <item>Subdistrict (addr:subdistrict)</item>
+    <item>District (addr:district)</item>
+    <item>Province (addr:province)</item>
+    <item>State (addr:state)</item>
+    <item>Flats (addr:flats)</item>
+    <item>Door (addr:door)</item>
+    <item>Unit (addr:unit)</item>
   </string-array>
 </resources>

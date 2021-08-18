@@ -81,7 +81,7 @@
 
 #### العناصر المحددة: تحريك عقدة أو طريق
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
+بمجرد تحديد عنصر، يمكن نقله. لاحظ أنه يمكن سحب/نقل العناصر فقط عند تحديدها، ما عليك سوى السحب بالقرب من (أي مكان من داخل منطقة التسامح) للعنصر المحدد لتحريكه. إذا قمت بتحديد مساحة السحب الكبيرة في [التفضيلات](Preferences.md), فستحصل على مساحة كبيرة حول العقدة المحددة مما يسهل عليك إعادة تموضع اي عنصر. 
 
 #### إضافة عقدة/ نقطة جديدة أو طريق جديد 
 
@@ -184,14 +184,14 @@ Once you have selected an object, it can be moved. Note that objects can be drag
 
 ### الفلتره والتصفية
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
+إلى جانب التمكين العام لعرض الملاحظات والمشاكل، يمكنك تحديد مصفي لعرض الحبوب الخشنة لتقليل الفوضى. يمكن الوصول إلى تكوين المصفي من إدخال طبقة المهمة في [التحكم في الطبقة](#layers):
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
+* الملاحظات
+* أخطاء Osmose
+* تحذيرات Osmose
+* المشاكل الثانوية Osmose
 * Maproulette
-* Custom
+* مخصص
 
 <a id="indoor"></a>
 
@@ -211,7 +211,7 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 ### إعداد الفحوصات
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
+يوجد حاليًا نوعان من عمليات التحقق القابلة للتكوين (بالنسبة لفحص وسم أصلحني -FIXME واختبار لوسوم النوع الغير موجودة على العلاقات فهي غير قابلة للتكوين حاليًا) كما يمكن تكوين كليهما عن طريق تحديد "إعدادات التحقق من الصحة" في [التفضيلات](Preferences.md). 
 
 يتم تقسيم قائمة الإدخالات إلى قسمين ، النصف العلوي يسرد إدخالات "إعادة دراسة واستطلاع" ، والنصف السفلي "فحص الإدخالات". يمكن تحرير الإدخالات بالنقر فوقها ، ويسمح زر القائمة الأخضر بإضافة إدخالات.
 
@@ -268,7 +268,7 @@ Currently there are two configurable checks (there is a check for FIXME tags and
 * طبقة GeoJSON - تعرض محتويات ملف GeoJSON. وهي طبقة معطلة بشكل افتراضي.
 * المسطرة - وهي مسطرة للقياس تظهر على جوانب الشاشة. وهي طبقة مفعلة بشكل افتراضي. 
 
-More information can be found in the section on the [map display](Main%20map%20display.md).
+يمكن العثور على مزيد من المعلومات في القسم الموجود على [عرض الخريطة](Main%20map%20display.md).
 
 #### التفضيلات
 

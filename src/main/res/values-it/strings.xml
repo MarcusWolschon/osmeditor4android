@@ -63,8 +63,11 @@
   <string name="applying_osc_failed_message">Molto probabilmente non hai caricato tutti i dati originali che sono richiesti per applicare i cambiamenti.</string>
   <!---->
   <string name="welcome_title">Benvenuto</string>
+  <string name="welcome_message">Grazie per aver installato Vespucci.\n&lt;br&gt;&lt;br&gt;Per iniziare devi sapere tre cose:\n&lt;ul&gt;&lt;li&gt;premendo l’icona del lucchetto nell’angolo in alto a sinistra passerai dalla modalità bloccata (nessuna modifica ammessa) a quella sbloccata,&lt;/li&gt;&lt;li&gt;per modificare OpenStreetMap devi prima scaricare l’area dove intendi fare le tue modifiche (ingrandisci la mappa prima di farlo),&lt;/li&gt;&lt;li&gt;per aggiungere un nuovo oggetto: premi il grande pulsante verde e seleziona quello che vuoi aggiungere, poi premi nella punto in cui vuoi posizionarlo.&lt;/li&gt;&lt;/ul&gt;\nAdesso sei pronto a partire. Inizia a mappare e a divertirti!</string>
+  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Il tuo dispositivo ha i “tasti virtuali” che vengono nascosti alla vista. Trascina dal fondo per vederli nuovamente.</string>
   <string name="read_introduction">Leggi l\'introduzione</string>
   <string name="upgrade_title">Questa è una nuova versione di Vespucci</string>
+  <string name="upgrade_message">Le nuove funzionalità e come agiscono sono dettagliate nelle note di rilascio.</string>
   <string name="read_upgrade">Scopri la nuova versione</string>
   <string name="progress_title">Caricamento</string>
   <string name="progress_message">Caricamento dati in memoria…</string>
@@ -79,6 +82,8 @@
   <string name="progress_oauth">Caricamento del tuo account da openstreetmap.org per l\'autorizzazione OAuth...</string>
   <string name="progress_building_imagery_database">Generazione del database delle immagini…</string>
   <string name="progress_query_oam">Richiesta OAM inviata…</string>
+  <string name="progress_pruning">Riduzione…</string>
+  <string name="progress_migration">Migrazione…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" cancellato</string>
   <string name="changes_changed">\"%1$s\" modificato</string>
@@ -147,6 +152,7 @@
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Suggerimento del nome</string>
   <!--Search/Find dialog-->
+  <string name="tag_editor_name_suggestion_overwrite_message">Questo suggerimento può rimpiazzare alcune valori di etichette con altri più popolari.</string>
   <string name="search_results_title">Cerca risultati</string>
   <string name="search_online">Cerca online</string>
   <string name="find_message">Inserisci il testo di ricerca</string>
@@ -155,6 +161,7 @@
   <!--Search objects dialog-->
   <string name="search_objects_title">Cerca oggetti</string>
   <string name="search_objects_hint">Inserisci un’espressione di ricerca JOSM</string>
+  <string name="search_objects_use_regexps">Usa espressioni regolari</string>
   <string name="search_objects_unsupported">Espressione “%1$s” non supportata</string>
   <!---->
   <string name="preset_search_hint">Testo di ricerca dei predefiniti</string>
@@ -185,7 +192,10 @@
   <string name="edit_properties">Modifica etichette</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Info elemento GeoJSON</string>
+  <string name="vt_feature_information">Info elemento tassello vettoriale</string>
+  <string name="vt_layer">Livello tasselli vettoriali</string>
   <string name="copy_properties">Copia proprietà</string>
+  <string name="create_osm_element">Crea elemento OSM</string>
   <!--API/Data layer info dialog-->
   <string name="data_in_memory">Dati in memoria</string>
   <string name="total">Totale</string>
@@ -199,14 +209,28 @@
   <string name="upload_data_now">Carica modifiche</string>
   <string name="prune_data_now">Riduci i dati</string>
   <!--Delete custom preset dialog-->
+  <string name="delete_custom_preset_title">Cancellare predefinito personalizzato?</string>
   <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_title">Aggiungi segmento di ‘route’</string>
+  <string name="duplicate_route_segment_message">Questo percorso è già un membro della ‘route’.</string>
+  <string name="duplicate_route_segment_button">Aggiungi comunque</string>
   <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_title">Aggiungi membro della relazione</string>
+  <string name="duplicate_relation_member_message">Questo elemento è già membro della relazione.</string>
+  <string name="duplicate_relation_member_remove_button">Rimuovi membro</string>
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move_outer_tags_title">Sposta le etichette dalle aree perimetrali al multi-poligono</string>
+  <string name="move_outer_tags_message">Le etichette che definiscono l’oggetto dovrebbero essere presenti solo nel multi-poligono. Questa azione sposterà le etichette comuni dalle aree perimetrali al multi-poligono.</string>
   <string name="move">Muovi</string>
+  <string name="leave_as_is">Non cambiare</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
-  <string name="remove">Rimuovere</string>
+  <string name="remove_duplicate_outer_tags_title">Rimuovi etichette duplicate dalle aree perimetrali</string>
+  <string name="remove_duplicate_outer_tags_message">Rimuovi le etichette che si trovano sia sul multi-poligono che sulle aree perimetrali</string>
+  <string name="remove">Rimuovi</string>
   <!--Abort action mode dialog-->
+  <string name="abort_action_title">Annulla operazione</string>
   <!--Address interpoation dialog-->
+  <string name="address_interpolation_title">Crea interpolazione degli indirizzi</string>
   <string name="start">Inizia</string>
   <string name="end">Fine</string>
   <string name="even">Pari</string>
@@ -219,6 +243,7 @@
   <string name="unknown_error_level">Errore sconosciuto</string>
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Questa operazione ha effetti sugli oggetti filtrati</string>
+  <string name="attached_object_warning_message">L’oggetto modificato è collegato a degli elementi nascosti che cambieranno insieme a esso.</string>
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">Ok, continua a mostrare</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -230,6 +255,7 @@
   <string name="js_console_msg_live">Modalità live!</string>
   <string name="js_console_msg_debug">Modalità debug!</string>
   <string name="js_console_input_hint">Inserisci codice JavaScript</string>
+  <string name="js_console_output_hint">Il risultato apparirà qui</string>
   <!--Validator dialogs-->
   <string name="validator_title">Insieme di regole di validazione %1$s</string>
   <string name="resurvey_entries">Controlla di nuovo</string>
@@ -250,11 +276,13 @@
   <string name="add_members">Aggiungi membri</string>
   <string name="leave_empty">Lascia vuoto</string>
   <!--GPX waypoint dialog-->
+  <string name="waypoint_title">Waypoint GPX</string>
   <string name="waypoint_description">WPT: %1$s</string>
   <string name="description">Descrizione</string>
   <string name="created">Creato</string>
   <string name="altitude">Altitudine</string>
   <string name="create_osm_object">Crea oggetto OSM</string>
+  <string name="create_osm_object_search">Crea oggetto OSM da ricerca predefinito</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Livello immagini personalizzato</string>
   <string name="oam_layer_title">Immagini OAM</string>
@@ -278,6 +306,7 @@
   <string name="layer_style_stroke_width">Larghezza linee</string>
   <string name="layer_style_color">Colore</string>
   <string name="layer_style_label">Etichetta</string>
+  <string name="layer_style_symbol">Simbolo</string>
   <string name="json_object_not_displayed">Oggetto JSON (non visibile)</string>
   <string name="json_array_not_displayed">Array JSON (non visibile)</string>
   <!--Layer dialog-->
@@ -291,12 +320,17 @@
   <string name="layer_data_name">%1$s data</string>
   <string name="layer_flush_tile_cache">Cancella la cache delle immagini</string>
   <string name="layer_change_style">Cambia stile</string>
+  <string name="layer_load_style">Carica stile</string>
+  <string name="layer_reset_style">Reimposta stile</string>
   <string name="layer_select_imagery">Seleziona immagini</string>
   <string name="layer_category_all">Tutti</string>
   <string name="layer_category_photo">Immagini aeree</string>
+  <string name="layer_category_elevation">Terreno</string>
   <string name="layer_category_historicphoto">Immagini aeree vecchie</string>
   <string name="layer_category_map">Mappa</string>
+  <string name="layer_category_historicmap">Mappa obsoleta</string>
   <string name="layer_category_osmbasedmap">Mappa basata su OSM</string>
+  <string name="layer_category_qa">Controllo qualità</string>
   <string name="layer_category_other">Altro</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Zoom minimo</string>
@@ -305,8 +339,10 @@
   <string name="layer_info_end_date">Data di fine</string>
   <string name="layer_info_terms">Termini</string>
   <string name="layer_info_privacy_policy">Privacy policy</string>
+  <string name="projection">Proiezione</string>
   <string name="errors">Errori</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Cancella foto</string>
   <string name="photo_viewer_delete_button">Cancella definitvamente</string>
@@ -318,8 +354,11 @@
   <string name="api_info_latest_date">Ultima data inclusa</string>
   <string name="api_info_attribution">Attribuzione</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">Etichette modificate</string>
   <!--Relation selection dialog-->
+  <string name="select_relation_title">Seleziona relazione</string>
   <!--Preset selection dialog-->
+  <string name="select_relation_type_title">Seleziona tipo di relazione</string>
   <string name="select_relation_type_other">Altro</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Punti di controllo</string>
@@ -347,13 +386,17 @@
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
+  <string name="default_channel_name">Predefinito di Vespucci</string>
+  <string name="default_channel_description">Canale di notifica predefinito</string>
   <string name="qa_channel_name">QA Vespucci</string>
   <!--Toaster-->
   <string name="toast_permission_denied">Permesso negato %1$s</string>
   <string name="toast_name_empty">Scegli un nome</string>
   <string name="toast_url_empty">Inserisci URL</string>
+  <string name="toast_min_zoom">Imposta lo zoom minimo ad un valore minore del massimo</string>
   <string name="toast_no_changes">Non hai ancora modificato niente…</string>
   <string name="toast_jpeg_not_transparent">I file JPEG non sono trasparenti e non possono essere utilizzati come overlay</string>
+  <string name="toast_unsaved_changes">Prima carica sul server le tue modifiche non salvate.</string>
   <string name="clear_anyway">Cancella comunque?</string>
   <string name="toast_upload_success">Caricate sul server OSM.</string>
   <string name="toast_not_in_edit_range">Per favore ingrandisci per modificare (Volume ↑/↓ o lens/shift)</string>
@@ -364,8 +407,11 @@
   <string name="toast_export_success">Esportato su %1$s</string>
   <string name="toast_preset_overwrote_tags">Nota - il predefinito ha sovrascritto una o più etichette</string>
   <string name="toast_merge_overwrote_tags">Nota - l\'operazione ha sovrascritto una o più etichette</string>
+  <string name="toast_cant_autoapply_preset">Questo predefinito non può essere applicato automaticamente</string>
   <string name="toast_oneway_reversed">Hai invertito una strada a senso unico o una strada con tag dipendenti dalla direzione. Per favore controlla i tag e correggili se necessario.</string>
+  <string name="toast_potential_merge_tag_conflict">Stai tentando di unire elementi con valori di etichette in conflitto.\n\nVerifica e correggi le etichette prima di tentare di nuovo.</string>
   <string name="toast_state_file_failed">File di stato illegibile o corrotto</string>
+  <string name="toast_way_nodes_moved">%1$d nodi nel percorso spostato</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Ha un messaggio OSM non letto</item>
     <item quantity="other">Hai %1$dmessaggi OSM non letti</item>
@@ -385,14 +431,21 @@
   <string name="toast_no_oauth">Con le API attuali non è disponibile alcuna configurazione OAuth, inserisci login e password.</string>
   <string name="toast_oauth_not_enabled">OAuth non è disponibile con le API attuali.</string>
   <string name="toast_oauth_handshake_failed">Impossibile gestire l\'handshake di OAuth: %1$s</string>
+  <string name="toast_timeout">Timeout del server</string>
   <string name="coordinates_out_of_range">La longitudine deve essere compresa tra -180° e +180°, la latitudine tra -85° e 85°</string>
   <string name="toast_nothing_found">Non è stato trovato nulla</string>
   <string name="toast_missing_filemanager">Per favore installa un file manager</string>
+  <string name="toast_outside_of_download">Scarica più dati per modificare quest’area.</string>
   <string name="toast_file_not_found">%1$s non è stato trovato.</string>
+  <string name="toast_inconsistent_state">È stato rilevato uno stato inconsistente: si prega di inviare il rapporto di errore.</string>
+  <string name="toast_camera_error">Impossibile eseguire l’app della telecamera: %1$s</string>
   <string name="toast_no_voice">Il riconoscimento vocale non è disponibile</string>
+  <string name="toast_storage_error">Vespucci non è in grado di scrivere su %1$s.\nCiò potrebbe essere dovuto a permessi insufficienti oppure a un problema tecnico del tuo dispositivo.</string>
   <string name="toast_no_suitable_storage">Il sistema non ha restituito una corretta posizione per il database delle immagini della mappa</string>
   <string name="toast_min_one_preset">Devi selezionare almeno un predefinito!</string>
   <string name="toast_min_one_geocoder">Deve essere selezionato almeno un geo-codificatore</string>
+  <string name="toast_used_backup">File di stato corrotto, al suo posto è stato usato il file di recupero.</string>
+  <string name="toast_used_bug_backup">File di stato dei bug corrotto, al suo posto è stato usato il file di recupero.</string>
   <string name="toast_split_from">Percorso \"da\" diviso</string>
   <string name="toast_split_via">Percorso \"via\" diviso</string>
   <string name="toast_split_from_and_via">Percorsi \"da\" e \"via\" divisi</string>
@@ -400,36 +453,59 @@
   <string name="toast_tile_database_issue_short">Problema nel database dei tasselli</string>
   <string name="toast_invalid_apiurl">URL dell\'API non valida</string>
   <string name="toast_invalid_readonlyurl">URL invalido per le API in sola lettura</string>
+  <string name="toast_invalid_notesurl">Indirizzo delle API per le note non valido</string>
+  <string name="toast_invalid_preseturl">Indirizzo per i preset non valido</string>
+  <string name="toast_missing_preset_file">File predefiniti mancante per “%1$s”</string>
   <string name="toast_invalid_filter_regexp">Espressione regolare non valida nel filtro con key=\"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">Impossibile accedere alla foto %1$s</string>
   <string name="toast_security_error_accessing_photo">Non autorizzato ad accedere alla foto %1$s</string>
   <string name="toast_no_coverage">%1$s non ha copertura qua</string>
+  <string name="toast_tile_layer_errors">La fonte delle immagini ‘%1$s’ sta generando un errore</string>
   <string name="toast_file_exists">Il file %1$s esiste.</string>
   <string name="toast_needs_resurvey">L\'oggetto potrebbe non essere aggiornato</string>
   <string name="toast_missing_key">%1$s chiave mancante</string>
   <string name="toast_invalid_object">Oggetto non valido</string>
   <string name="toast_openinghours_invalid">Il valore orari di apertura non è valido per %1$s</string>
+  <string name="toast_openinghours_autocorrected">Il valore degli orari di apertura %1$s è stato corretto automaticamente</string>
   <string name="toast_exit_multiselect">Per uscire tocca due volte in uno spazio vuoto oppure usa il tasto ←</string>
   <string name="toast_abort_actionmode">Usa il tasto ← per interrompere</string>
   <string name="toast_null_island">Per favole non aggiungere elementi a 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Sequenza troppo lunga (%1$d caratteri), accorciata!</string>
   <string name="toast_illegal_operation">Operazione non consentita: %1$s</string>
+  <string name="toast_preset_creation_failed">Impossibile creare il predefinito “%1$s”: %2$s</string>
   <string name="toast_imperial_units">Manca la misura</string>
+  <string name="toast_server_connection_failed">Impossibile collegarsi al server: %1$s</string>
   <string name="toast_flus_all_caches">Questo cancellerà la cache di tutti i livelli di immagini.</string>
   <string name="toast_applied_offset">Applicato allineamento alle immagini.</string>
   <string name="toast_unsupported_format">Formato non supportato: %1$s</string>
   <string name="toast_returning_less_than_found">Ho trovato %1$d voci di %2$d</string>
   <string name="toast_not_mbtiles">Non è file in formato MBTiles</string>
   <string name="toast_using_network_location">Sto usando la posizione della rete dati</string>
+  <string name="toast_using_gps_location">Sto usando la posizione GPS/GNSS</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">Rilevamento della posizione GPS/GNSS spento, la registrazione GPX è stata interrotta</string>
   <string name="toast_tags_copied">Etichette copiate in memoria</string>
   <string name="toast_tags_cut">Etichette tagliate in memoria</string>
   <string name="toast_properties_copied">Proprietà copiate in memoria</string>
+  <string name="toast_move_note_warning">Solo le nuove note possono essere spostate</string>
   <string name="toast_task_layer_disabled">Livello compiti disabilitato</string>
   <string name="toast_unable_to_create_task_layer">Impossibile creare un livello per i compiti</string>
   <string name="toast_merged">Unito</string>
   <string name="toast_invalid_style_file">Formato dei file invalido per %1$s</string>
+  <string name="toast_no_geometry">Non è stata trovata alcuna geometria per l’elemento</string>
   <string name="toast_updated">Aggiornato%1$s</string>
+  <string name="toast_cannot_resume_download_of">Impossibile continuare lo scaricamento di %1$s</string>
+  <string name="toast_device_not_found_for">Impossibile trovare il dispositivo per %1$s</string>
+  <string name="toast_file_already_exists">File %1$s già esistente</string>
+  <string name="toast_file_error_for">Errore file per %1$s</string>
   <string name="toast_error_reading">Errore nella lettura di %1$s</string>
+  <string name="toast_read_successfully">File letto con successo</string>
+  <string name="toast_error_writing">Errore di scrittura %1$s</string>
+  <string name="toast_successfully_written">File scritto con successo</string>
+  <string name="toast_http_data_error_for">Errore nei dati HTTP per %1$s</string>
+  <string name="toast_error_insufficient_space_for">Spazio esaurito sul dispositivo per %1$s</string>
+  <string name="toast_error_too_many_redirects_for">Troppe redirezioni per %1$s</string>
+  <string name="toast_error_too_unhandled_http_code_for">Codice HTTP non gestito correttamente per %1$s</string>
+  <string name="toast_unknown_error_for">Errore sconosciuto per %1$s</string>
   <string name="toast_download_started">Iniziato download di %1$s</string>
   <string name="toast_phone_number_reformatted">Numero di telefono riformattato</string>
   <string name="toast_members_not_downloaded">Alcuni membri della relazione non sono stati scaricati</string>
@@ -439,6 +515,7 @@
   </plurals>
   <string name="toast_out_of_memory">MEMORIA ESAURITA!</string>
   <string name="toast_error_downloading_mapillary_image">Errore nel caricamento dell\'immagine mapillary %1$s</string>
+  <string name="toast_preset_failed">Creazione del predefinito %1$s fallita\nErrore %2$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Le sorgenti MapSplit devono avere un valore di zoom massimo e minimo</string>
   <string name="error_pbf_no_version">Informazione sulla versione mancante nel file PBF</string>
@@ -492,6 +569,7 @@
   <string name="tag_menu_address">Aggiungi le etichette dell\'indirizzo civico</string>
   <string name="tag_menu_sourcesurvey">Da rilevamento</string>
   <string name="tag_menu_preset">Predefiniti</string>
+  <string name="tag_menu_apply_preset">Applica predefinito</string>
   <string name="tag_menu_revert">Ripristina</string>
   <string name="tag_menu_mapfeatures">Map feature wiki</string>
   <string name="tag_menu_addtorelation">Aggiungi alla relazione</string>
@@ -644,6 +722,7 @@
   <string name="menu_transfer_autodownload_long">Scarica automaticamente i compiti</string>
   <string name="menu_transfer_save_notes_all">Salva tutte le note...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Salva note nuove e modificate</string>
+  <string name="menu_transfer_read_notes">Carica note…</string>
   <string name="menu_transfer_read_custom_bugs">Carica compito personalizzato...</string>
   <string name="menu_transfer_write_custom_bugs">Salva compiti personalizzati aperti...</string>
   <string name="menu_save">Salva come file</string>
@@ -660,6 +739,7 @@
   <string name="menu_straighten">Raddrizzare</string>
   <string name="menu_circulize">Disponi in cerchio</string>
   <string name="menu_split_polygon">Dividi in poligoni</string>
+  <string name="menu_unjoin_dissimilar">Separa dissimile</string>
   <string name="menu_extract_segment">Estrai segmento</string>
   <string name="menu_newnode_gps">Nuovo nodo alla posizione GPS</string>
   <string name="menu_extend_selection">Estendi selezione</string>
@@ -699,6 +779,8 @@
   <!--Menus in layers dialog-->
   <string name="menu_layers">Livelli...</string>
   <string name="menu_layers_load_geojson">Aggiungi livello GeoJSON</string>
+  <string name="menu_layers_add_backgroundlayer">Aggiungi livello immagini di sfondo</string>
+  <string name="menu_layers_add_overlaylayer">Aggiungi livello immagini sovrimpresso</string>
   <string name="menu_layers_add_tasklayer">Abilita il livello compiti</string>
   <string name="menu_layers_add_grid">Abilita griglia</string>
   <string name="menu_layers_add_photolayer">Abilita il livello foto</string>
@@ -759,9 +841,14 @@
   <string name="actionmode_rotateway">Ruota percorso</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Aggiungi punto</string>
+  <string name="simple_add_node">Premi sul punto dello schermo</string>
   <string name="menu_add_way">Aggiungi linea</string>
+  <string name="simple_add_way">Premi sul punto dello schermo</string>
   <string name="menu_add_map_note">Aggiungi nota</string>
+  <string name="simple_add_note">Premi sul punto dello schermo</string>
   <string name="menu_paste_object">Incolla oggetto</string>
+  <string name="simple_paste">Premi sul punto dello schermo</string>
+  <string name="simple_paste_multiple">Premi sul punto dello schermo</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Sfondo della mappa</string>
   <string name="config_backgroundLayer_summary">Lo sfondo della mappa fatto di tasselli.</string>
@@ -854,7 +941,7 @@
   <string name="config_category_auto_download">Impostazioni per lo scaricamento automatico</string>
   <string name="config_extTriggeredDownloadRadius_title">Scarica nel raggio di</string>
   <string name="config_downloadRadius_current">%1$d metro(i)</string>
-  <string name="config_maxDownloadSpeed_title">Velocità di scaricamento automatico massima</string>
+  <string name="config_maxDownloadSpeed_title">Max velocità per scaricamento automatico</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
   <string name="config_autoPruneNodeLimit_title">Limite di riduzione automatica</string>
   <string name="config_autoPruneNodeLimit_summary">Numero di nodi in memoria oltre al quale verrà effettuata una riduzione automatica.</string>
@@ -1027,6 +1114,13 @@
   <string name="tunnel">Tunnel</string>
   <string name="culvert">Canale sotterraneo</string>
   <!--Tag issues-->
+  <string name="issue_not_reversable">Etichette non invertibili</string>
+  <string name="issue_shared_node">Condiviso con un altro percorso</string>
+  <string name="issue_tags_reversed">Etichette invertite</string>
+  <string name="issue_role_reversed">Ruoli invertiti</string>
+  <string name="issue_role_conflict">Conflitto di ruolo</string>
+  <string name="issue_merged_tags">Etichette unite</string>
+  <string name="issue_same_object">Stesso oggetto</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 giorno</item>
@@ -1053,5 +1147,12 @@
     <item quantity="other">%1$dmetri</item>
   </plurals>
   <!--Help system-->
+  <string name="toast_nohelp">Nessun aiuto disponibile.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark">Aggiungi segnalibro…</string>
+  <string name="bookmarks_desc">Aggiungi commenti</string>
+  <string name="show_bookmarks">Segnalibri…</string>
+  <string name="_dots">⋮</string>
+  <string name="gotobookmark">Vai</string>
+  <string name="bookmarkstitle">Segnalibri</string>
 </resources>

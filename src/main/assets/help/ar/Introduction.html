@@ -61,7 +61,7 @@
 <p>لمسة ثانية على العنصر المحدد ستفتح لك محرر الوسوم ويمكنك تحرير الوسوم المرتبطة بالعنصر.</p>
 <p>لاحظ أنه بالنسبة للعناصر المتداخلة (مثل عقدة ما في طريق ما) ، فإن قائمة التحديد ستظهر لك مرة أخرى عند تحديد نفس العنصر وسيظهر محرر الوسوم؛ وتحديد عنصر آخر سيؤدي لاختيار العنصر الآخر بكل بساطة.</p>
 <h4>العناصر المحددة: تحريك عقدة أو طريق</h4>
-<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object.</p>
+<p>بمجرد تحديد عنصر، يمكن نقله. لاحظ أنه يمكن سحب/نقل العناصر فقط عند تحديدها، ما عليك سوى السحب بالقرب من (أي مكان من داخل منطقة التسامح) للعنصر المحدد لتحريكه. إذا قمت بتحديد مساحة السحب الكبيرة في <a href="Preferences.md">التفضيلات</a>, فستحصل على مساحة كبيرة حول العقدة المحددة مما يسهل عليك إعادة تموضع اي عنصر.</p>
 <h4>إضافة عقدة/ نقطة جديدة أو طريق جديد</h4>
 <p>عند بدء تشغيل التطبيق لأول مرة في &quot;الوضع البسيط&quot; ، يمكن تغيير ذلك في القائمة الرئيسية عن طريق إلغاء تحديد مربع الاختيار المقابل.</p>
 <h5>الوضع البسيط</h5>
@@ -125,14 +125,14 @@
 <p>على الخريطة ، يتم تمثيل الملاحظات والأخطاء برمز خطأ صغير <img src="../images/bug_open.png" alt="Bug" />، الملاحظات الخضراء مغلقة / تم حلها ، الملاحظات الزرقاء هي التي تم إنشاؤها أو تحريرها بواسطتك، والصفراء تشير إلى أنها لا تزال نشطة ولم يتم تغييرها.</p>
 <p>ستوفر شاشة عرض الأخطاء من OSMOSE رابطًا للعنصر المتأثر باللون الأزرق ، وسيؤدي لمس الرابط إلى تحديد العنصر وتوسيط الشاشة عليه وتحميل المنطقة مسبقًا إذا لزم الأمر.</p>
 <h3>الفلتره والتصفية</h3>
-<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
+<p>إلى جانب التمكين العام لعرض الملاحظات والمشاكل، يمكنك تحديد مصفي لعرض الحبوب الخشنة لتقليل الفوضى. يمكن الوصول إلى تكوين المصفي من إدخال طبقة المهمة في <a href="#layers">التحكم في الطبقة</a>:</p>
 <ul>
-<li>Notes</li>
-<li>Osmose error</li>
-<li>Osmose warning</li>
-<li>Osmose minor issue</li>
+<li>الملاحظات</li>
+<li>أخطاء Osmose</li>
+<li>تحذيرات Osmose</li>
+<li>المشاكل الثانوية Osmose</li>
 <li>Maproulette</li>
-<li>Custom</li>
+<li>مخصص</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2>الوضع الداخلي</h2>
@@ -143,7 +143,7 @@
 <p>في وضع التحكم يتم عرض العناصر التي تحتوي على علامة تحذير، وهذا يسهل عليك تحديد العناصر التي بها مشاكل محددة أو تطابق المشاكل المعينة التي قمت بإعدادها لتظهر لك. إذا تم تحديد عنصر وبدأ محرر الخصائص في وضع التحكم، فسيتم تطبيق أفضل قالب مطابق بشكل تلقائي.</p>
 <p>يمكن تمكين الوضع من خلال الضغط لفترة طويلة على رمز القفل ، راجع <a href="#lock">وضع القفل ، الفتح ، تبديل الوضع</a> واختيار إدخال القائمة المقابل.</p>
 <h3>إعداد الفحوصات</h3>
-<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting &quot;Validator settings&quot; in the <a href="Preferences.md">preferences</a>.</p>
+<p>يوجد حاليًا نوعان من عمليات التحقق القابلة للتكوين (بالنسبة لفحص وسم أصلحني -FIXME واختبار لوسوم النوع الغير موجودة على العلاقات فهي غير قابلة للتكوين حاليًا) كما يمكن تكوين كليهما عن طريق تحديد &quot;إعدادات التحقق من الصحة&quot; في <a href="Preferences.md">التفضيلات</a>.</p>
 <p>يتم تقسيم قائمة الإدخالات إلى قسمين ، النصف العلوي يسرد إدخالات &quot;إعادة دراسة واستطلاع&quot; ، والنصف السفلي &quot;فحص الإدخالات&quot;. يمكن تحرير الإدخالات بالنقر فوقها ، ويسمح زر القائمة الأخضر بإضافة إدخالات.</p>
 <h4>مدخلات إعادة الدراسة والاستطلاع</h4>
 <p>تحتوي مدخلات إعادة الدراسة والاستطلاع على الخصائص التالية:</p>
@@ -183,7 +183,7 @@
 <li>طبقة GeoJSON - تعرض محتويات ملف GeoJSON. وهي طبقة معطلة بشكل افتراضي.</li>
 <li>المسطرة - وهي مسطرة للقياس تظهر على جوانب الشاشة. وهي طبقة مفعلة بشكل افتراضي.</li>
 </ul>
-<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
+<p>يمكن العثور على مزيد من المعلومات في القسم الموجود على <a href="Main%20map%20display.md">عرض الخريطة</a>.</p>
 <h4>التفضيلات</h4>
 <ul>
 <li>حافظ على الشاشة قيد التشغيل. وهو خيار معطل بشكل افتراضي.</li>

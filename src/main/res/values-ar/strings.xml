@@ -83,6 +83,7 @@
   <string name="progress_building_imagery_database">إنشاء قاعدة بيانات الصور...</string>
   <string name="progress_query_oam">يتم الآن الاستعلام عن OAM...</string>
   <string name="progress_pruning">جارٍ التقليم …</string>
+  <string name="progress_migration">جارٍ الترحيل ...</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">تم حذف \"%1$s\"</string>
   <string name="changes_changed">تم تغيير \"%1$s\"</string>
@@ -195,6 +196,8 @@
   <string name="edit_properties">تعديل الوسوم</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">معلومات ميزة GeoJSON</string>
+  <string name="vt_feature_information">معلومات عنصر صور البيانات</string>
+  <string name="vt_layer">طبقة صور البيانات</string>
   <string name="copy_properties">نسخ الخصائص</string>
   <string name="create_osm_element">إنشاء عنصر OSM</string>
   <!--API/Data layer info dialog-->
@@ -307,7 +310,9 @@
   <string name="layer_style_title">نمط الطبقة</string>
   <string name="layer_style_stroke_width">عرض المرسم</string>
   <string name="layer_style_color">اللون</string>
+  <string name="layer_style_layer">طبقة فرعية</string>
   <string name="layer_style_label">العلامة/المسمى</string>
+  <string name="layer_style_symbol">الرمز</string>
   <string name="json_object_not_displayed">عنصر JSON (غير معروض)</string>
   <string name="json_array_not_displayed">مصفوفة JSON (غير معروضة)</string>
   <!--Layer dialog-->
@@ -321,9 +326,12 @@
   <string name="layer_data_name">%1$s بيانات</string>
   <string name="layer_flush_tile_cache">مسح ذاكرة التخزين المؤقت للخرائط المصورة</string>
   <string name="layer_change_style">تغيير النمط</string>
+  <string name="layer_load_style">تحميل النمط</string>
+  <string name="layer_reset_style">إعادة ضبط النمط</string>
   <string name="layer_select_imagery">حدد الخريطة المصورة</string>
   <string name="layer_category_all">الكل</string>
   <string name="layer_category_photo">الصور الجوية</string>
+  <string name="layer_category_elevation">أرضية</string>
   <string name="layer_category_historicphoto">الصور الجوية التي عفا عليها الزمن</string>
   <string name="layer_category_map">خريطة</string>
   <string name="layer_category_historicmap">خريطة قديمة</string>
@@ -340,6 +348,7 @@
   <string name="projection">إسقاط الخريطة</string>
   <string name="errors">الأخطاء</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">%1$s مابلاري </string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">حذف الصورة</string>
   <string name="photo_viewer_delete_button">حذف نهائيًا</string>
@@ -488,6 +497,7 @@
   <string name="toast_invalid_readonlyurl">عنوان URL غير صالح للقراءة فقط لواجهة برمجة التطبيقات</string>
   <string name="toast_invalid_notesurl">عنوان URL لواجهة برمجة تطبيقات للملاحظات غير صالح</string>
   <string name="toast_invalid_preseturl">عنوان URL غير صحيح للقالب</string>
+  <string name="toast_missing_preset_file">ملف القالب غير موجود لـ\"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">تعبير عادي غير صالح في عامل التصفية بالمفتاح = \"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">لا يمكن الوصول إلى الصورة %1$s</string>
   <string name="toast_security_error_accessing_photo">غير مسموح بالوصول إلى الصورة%1$s</string>
@@ -571,6 +581,8 @@
   <string name="toast_outer_rings_differing_tags">الحلقات الخارجية لها وسوم مختلفة</string>
   <string name="toast_multipolygon_has_incomplete_rings">المضلعات المتعددة لها حلقات غير كاملة/لا تشكل مساحة</string>
   <string name="toast_multipolygon_inconsistent_roles">المضلعات المتعددة له قيم أدوار غير متسقة للحلقة</string>
+  <string name="toast_error_saving_bookmark">تعذر حفظ المفضلة</string>
+  <string name="toast_error_loading_style">غير قادر على تشغيل النمط: %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">مصادر MapSplit تتطلب تحديد الحد الأدنى والحد الأقصى للتكبير</string>
   <string name="error_pbf_no_version">معلومات الإصدار مفقودة في ملف PBF</string>
@@ -1025,6 +1037,8 @@
   <string name="config_beepVolume_title">حجم صوت الصفير</string>
   <string name="config_beepVolume_summary">ضبط مستوى الصوت للصفير.</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_title">الحد الأدنى للتكبير لمابلاري</string>
+  <string name="config_mapillary_min_zoom_summary">الحد الأدنى لمستوى التكبير المطلوب لعرض بيانات Mapillary.</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">البيانات وتحرير الإعدادات</string>
@@ -1129,6 +1143,8 @@
   <string name="config_downLoadThreads_current">%1$d خط</string>
   <string name="config_tileCacheSize_title">حجم ذاكرة التخزين المؤقت للصور المتجانبة</string>
   <string name="config_tileCacheSize_summary">إجمالي مساحة التخزين المستخدمة للتخزين المؤقت للصور المتجانبة، بالميغا بايت.</string>
+  <string name="config_preferRemovableStorage_title">يفضل التخزين القابل للإزالة</string>
+  <string name="config_preferRemovableStorage_summary">يفضل وسائل التخزين القابلة للإزالة لذاكرة التخزين المؤقت للصور المتجانبة.</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">حجم ذاكرة التخزين المؤقت لخدمة Mapillary</string>
   <string name="config_mapillaryCacheSize_summary">إجمالي مساحة التخزين المستخدمة للتخزين المؤقت لصور Mapillary ، بالميجابايت</string>
@@ -1334,4 +1350,10 @@
   <!--Help system-->
   <string name="toast_nohelp">لا توجد تعليمات هنا.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark">إضافة للمفضلة…</string>
+  <string name="bookmarks_desc">أضف التعليقات</string>
+  <string name="show_bookmarks">المفضلات…</string>
+  <string name="_dots">⋮</string>
+  <string name="gotobookmark">انطلق</string>
+  <string name="bookmarkstitle">المفضلات</string>
 </resources>
