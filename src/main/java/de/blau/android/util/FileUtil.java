@@ -180,18 +180,20 @@ public abstract class FileUtil {
      * @throws IOException if reading or writing goes wrong
      */
     public static void copyDirectory(@NonNull File source, @NonNull File target) throws IOException {
-        if (source.isDirectory()) {
-            if (!target.exists()) {
-                target.mkdir();
-            }
-            String[] children = source.list();
-            if (children != null) {
-                for (int i = 0; i < source.listFiles().length; i++) {
-                    copyDirectory(new File(source, children[i]), new File(target, children[i]));
+        if (source.exists()) {
+            if (source.isDirectory()) {
+                if (!target.exists()) {
+                    target.mkdir();
                 }
+                String[] children = source.list();
+                if (children != null) {
+                    for (int i = 0; i < source.listFiles().length; i++) {
+                        copyDirectory(new File(source, children[i]), new File(target, children[i]));
+                    }
+                }
+            } else {
+                copy(source, target);
             }
-        } else {
-            copy(source, target);
         }
     }
 
