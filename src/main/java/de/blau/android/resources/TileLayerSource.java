@@ -2171,7 +2171,6 @@ public class TileLayerSource implements Serializable {
      */
     public void setTileType(@NonNull TileType tileType) {
         this.tileType = tileType;
-        Log.d(DEBUG_TAG, "Setting tile type to " + tileType);
     }
 
     /**

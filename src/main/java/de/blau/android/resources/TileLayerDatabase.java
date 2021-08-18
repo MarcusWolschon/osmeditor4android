@@ -93,8 +93,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
 
             db.execSQL(
                     "CREATE TABLE layers (id TEXT NOT NULL PRIMARY KEY, name TEXT NOT NULL, server_type TEXT NOT NULL, category TEXT DEFAULT NULL, tile_type TEXT DEFAULT NULL,"
-                            + " source TEXT NOT NULL, url TEXT NOT NULL,"
-                            + " tou_url TEXT, attribution TEXT, overlay INTEGER NOT NULL DEFAULT 0,"
+                            + " source TEXT NOT NULL, url TEXT NOT NULL," + " tou_url TEXT, attribution TEXT, overlay INTEGER NOT NULL DEFAULT 0,"
                             + " default_layer INTEGER NOT NULL DEFAULT 0, zoom_min INTEGER NOT NULL DEFAULT 0, zoom_max INTEGER NOT NULL DEFAULT 18,"
                             + " over_zoom_max INTEGER NOT NULL DEFAULT 4, tile_width INTEGER NOT NULL DEFAULT 256, tile_height INTEGER NOT NULL DEFAULT 256,"
                             + " proj TEXT DEFAULT NULL, preference INTEGER NOT NULL DEFAULT 0, start_date INTEGER DEFAULT NULL, end_date INTEGER DEFAULT NULL,"
@@ -213,14 +212,13 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param layer a TileLayerServer object
      */
     public static void addLayer(@NonNull SQLiteDatabase db, @NonNull String source, @NonNull TileLayerSource layer) {
-        Log.e(DEBUG_TAG, "addLayer " + source + " " + layer);
         ContentValues values = getContentValuesForLayer(source, layer);
         try {
             db.insertOrThrow(LAYERS_TABLE, null, values);
             addCoverageFromLayer(db, layer);
         } catch (SQLiteConstraintException e) {
             // even when in a transaction only this insert will get rolled back
-            Log.e(DEBUG_TAG, "Constraint exception " + layer.getId() + " " + e.getMessage());
+            Log.e(DEBUG_TAG, "Constraint exception " + source + " " + layer + " " + e.getMessage());
         }
     }
 
@@ -425,7 +423,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     public static void deleteLayerWithRowId(@NonNull SQLiteDatabase db, int rowId) {
         db.delete(LAYERS_TABLE, "layers.rowid=?", new String[] { Integer.toString(rowId) });
     }
-    
+
     /**
      * Delete a layer with a specific id
      * 
