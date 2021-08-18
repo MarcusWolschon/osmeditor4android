@@ -7,9 +7,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.MapTile;
-import de.blau.android.util.FileUtil;
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -28,14 +28,15 @@ public class TileDispatcher extends Dispatcher {
      */
     public TileDispatcher(@NonNull Context context, @NonNull String mbtSource) throws IOException {
         try {
-            JavaResources.copyFileFromResources(context, mbtSource, null, "/");
-            File mbtFile = new File(FileUtil.getPublicDirectory(context), mbtSource);
+            File destinationDir = ContextCompat.getExternalCacheDirs(context)[0];
+            File mbtFile = new File(destinationDir, mbtSource);
+            JavaResources.copyFileFromResources(mbtSource, null, mbtFile);
             if (!mbtFile.exists()) {
                 throw new IOException(mbtFile.getAbsolutePath() + " doesn't exist");
             }
             tileDb = new MBTileProviderDataBase(context, Uri.fromFile(mbtFile), 1);
         } catch (IOException e) {
-            Log.e(DEBUG_TAG, "mbt file not found " + e.getMessage());
+            Log.e(DEBUG_TAG, "mbt file " + mbtSource + " not found " + e.getMessage());
             throw e;
         }
     }
