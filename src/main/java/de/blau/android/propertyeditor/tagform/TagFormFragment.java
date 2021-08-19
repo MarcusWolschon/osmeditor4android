@@ -851,7 +851,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, field, allTags);
                         int count = 0;
                         if (adapter != null) {
-                            count = adapter.getCount();
+                            // adapters other than for PresetCheckField have an empty value added that we don't want to
+                            // count
+                            count = adapter.getCount() - (isCheckField ? 0 : 1);
                         } else {
                             Log.d(DEBUG_TAG, "adapter null " + key + " " + value + " " + preset);
                         }
