@@ -66,17 +66,22 @@ Synonyms are retrieved from the iD repository with the grade task ``updateSynony
 
 ## Testing
 
-Automated testing has come relatively late to Vespucci, however we have made large advances in improving the coverage from 2017 onwards. Note: the on-device tests will typically fail the first time if Vespucci was already installed on the device (due to previous state being loaded). Either de-install or simply run the tests twice.
+Automated testing has come relatively late to Vespucci, however we have made large advances in improving the coverage from 2017 onwards.
 
-Tests need to be run with the emulator locale set to English and with the "high precision" (aka GPS and network) location option set, currently the only OS versions all tests run on successfully are 8.0 and later. The current expectation is that all tests should pass, if this doesn't happen (for example because default applications and other android app settings have been changed) restarting the emulator should typically help.
+Unit test coverage is 23%, overall test coverage is currently 65%.
+
+In general if you are writing new tests that do not involve the UI use unit tests and if you need to mock parts of Android use roboelectic. These tests can be completed in far less time than the on device checks, and the unit tests will also be run as part of the CI pipeline.
+
+On device tests need to be run with the emulator locale set to English and with the "high precision" (aka GPS and network) location option set, currently the only OS versions all tests run on successfully are 8.0 and later. The current expectation is that all tests should pass, if this doesn't happen (for example because default applications and other android app settings have been changed) restarting the emulator should typically help. 
 
 On an Intel based emulator the tests currently take something around 45 minutes to complete if run with ``connectedCurrentDebugAndroidTest``.
 
-The time to run the tests can be reduced substantially by running ``spoonCurrentDebugAndroidTest`` spoon will execute the tests sharded over as many emulators that are currently running on the system, the additional bonus is that the test output is much easier to consume and understand.
+For the on device tests the time to run the tests can be reduced substantially by running ``spoonCurrentDebugAndroidTest`` spoon will execute the tests sharded over as many emulators that are currently running on the system, the additional bonus is that the test output is much easier to consume and understand.
 
-To make running individual tests simpler refreshing the gradle tasks (assuming there was a prior complete run of the tests) will create individual tasks for the tests, for the failed ones in the "failed tests" group, for successful ones in the "successful tests" group. 
+To make running individual tests simpler refreshing the gradle tasks (assuming there was a prior complete run of the tests with ``connectedCurrentDebugAndroidTest``) will create individual tasks for the tests, for the failed ones in the "failed tests" group, for successful ones in the "successful tests" group. 
 
 Notes: 
 
 * a number of the tests start with the splash screen activity and then wait for the main activity to be started. Experience shows that if one of these fails to complete in certain ways, the following tests that start via the splash screen will not be able to start the main activity. Reason unknown.
 * as the complete set of tests takes a long time to run, if running the tests with spoon you can generate screenshots to debug things instead of trying to catch the test running, see LayerDialogTest.backgroundLayer() for an example of this.
+* the CameraTest assumes that the emulator has a working camera app of some kind installed.
