@@ -47,11 +47,13 @@ public class OAuthHelper {
     /**
      * Construct a new helper instance
      * 
+     * @param context an Android Context
      * @param osmBaseUrl the base URL for the API instance
+     * 
      * @throws OsmException if no configuration could be found for the API instance
      */
-    public OAuthHelper(@NonNull String osmBaseUrl) throws OsmException {
-        Resources r = App.resources();
+    public OAuthHelper(@NonNull Context context, @NonNull String osmBaseUrl) throws OsmException {
+        Resources r = context.getResources();
         String[] urls = r.getStringArray(R.array.api_urls);
         String[] keys = r.getStringArray(R.array.api_consumer_keys);
         String[] secrets = r.getStringArray(R.array.api_consumer_secrets);
@@ -101,12 +103,14 @@ public class OAuthHelper {
     /**
      * Returns an OAuthConsumer initialized with the consumer keys for the API in question
      * 
+     * @param context an Android Context
      * @param osmBaseUrl the base URL for the API instance
+     * 
      * @return an initialized OAuthConsumer or null if something blows up
      */
     @Nullable
-    public OkHttpOAuthConsumer getOkHttpConsumer(@NonNull String osmBaseUrl) {
-        Resources r = App.resources();
+    public OkHttpOAuthConsumer getOkHttpConsumer(Context context, @NonNull String osmBaseUrl) {
+        Resources r = context.getResources();
 
         String[] urls = r.getStringArray(R.array.api_urls);
         String[] keys = r.getStringArray(R.array.api_consumer_keys);

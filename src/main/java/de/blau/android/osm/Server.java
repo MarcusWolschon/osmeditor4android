@@ -71,9 +71,16 @@ import se.akerfeldt.okhttp.signpost.SigningInterceptor;
 
 /**
  * @author mb
+ * @author Simon
  */
 public class Server {
     private static final String DEBUG_TAG = Server.class.getName();
+
+    /**
+     * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
+     */
+    private static final String API_VERSION       = "0.6";
+    private static final String OSMCHANGE_VERSION = "0.3";
 
     private static final String VERSION_KEY   = "version";
     private static final String GENERATOR_KEY = "generator";
@@ -90,6 +97,10 @@ public class Server {
      */
     public static final int TIMEOUT = 45 * 1000;
 
+    /**
+     * Name of the API entry used for this instance
+     */
+    private final String name;
     /**
      * Location of OSM API
      */
@@ -150,13 +161,6 @@ public class Server {
      */
     private Capabilities readOnlyCapabilities = Capabilities.getReadOnlyDefault();
 
-    /**
-     * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
-     */
-    private static final String API_VERSION = "0.6";
-
-    private static final String OSMCHANGE_VERSION = "0.3";
-
     private long changesetId = -1;
 
     private final String generator;
@@ -164,6 +168,8 @@ public class Server {
     private final XmlPullParserFactory xmlParserFactory;
 
     private final DiscardedTags discardedTags;
+
+    private final OkHttpOAuthConsumer oAuthConsumer;
 
     /**
      * Date pattern used for suggesting a file name when uploading GPX tracks.
@@ -199,6 +205,7 @@ public class Server {
         } else {
             this.serverURL = Urls.DEFAULT_API_NO_HTTPS; // probably not needed anymore
         }
+        this.name = api.name;
         this.readonlyURL = api.readonlyurl;
         this.notesURL = api.notesurl;
         this.password = api.pass;
@@ -207,6 +214,15 @@ public class Server {
         this.generator = generator;
         this.accesstoken = api.accesstoken;
         this.accesstokensecret = api.accesstokensecret;
+
+        if (oauth) {
+            oAuthConsumer = new OAuthHelper().getOkHttpConsumer(context, getBaseUrl(getReadWriteUrl()));
+            if (oAuthConsumer != null) {
+                oAuthConsumer.setTokenWithSecret(accesstoken, accesstokensecret);
+            }
+        } else {
+            oAuthConsumer = null;
+        }
 
         userDetails = null;
         Log.d(DEBUG_TAG, "using " + this.username + " with " + this.serverURL);
@@ -803,13 +819,8 @@ public class Server {
 
         OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT,
                 TimeUnit.MILLISECONDS);
-        if (oauth) {
-            OAuthHelper oa = new OAuthHelper();
-            OkHttpOAuthConsumer consumer = oa.getOkHttpConsumer(getBaseUrl(getReadWriteUrl()));
-            if (consumer != null) {
-                consumer.setTokenWithSecret(accesstoken, accesstokensecret);
-                builder.addInterceptor(new SigningInterceptor(consumer));
-            }
+        if (oAuthConsumer != null) {
+            builder.addInterceptor(new SigningInterceptor(oAuthConsumer));
         } else {
             builder.addInterceptor(new BasicAuthInterceptor(username, password));
         }
