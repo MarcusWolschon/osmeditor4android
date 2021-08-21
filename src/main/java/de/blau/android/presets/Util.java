@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.osm.Tags;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.taginfo.TaginfoServer;
 import de.blau.android.taginfo.TaginfoServer.ValueResult;
 import de.blau.android.util.StringWithDescription;
@@ -72,7 +73,7 @@ public final class Util {
     /**
      * Get values for key from Taginfo Limit to the top 20
      * 
-     * This can be used by presets do not remove 
+     * This can be used by presets do not remove
      * 
      * @param key the key we want values for
      * @return a List of the values or null if nothing could be found
@@ -81,7 +82,8 @@ public final class Util {
     public static StringWithDescription[] getValuesFromTaginfo(@NonNull String key) {
         StringWithDescription[] result = null;
         try {
-            List<ValueResult> temp = TaginfoServer.keyValues(App.getCurrentInstance(), key, 50);
+            String server = new Preferences(App.getCurrentInstance()).getTaginfoServer();
+            List<ValueResult> temp = TaginfoServer.keyValues(null, server, key, 50);
             if (temp != null) {
                 result = new StringWithDescription[temp.size()];
                 for (int i = 0; i < temp.size(); i++) {
@@ -103,9 +105,9 @@ public final class Util {
      * @param i18nKeys List of keys that potentially have i18n variants
      * @param map a Map containing PresetFields and their current values
      */
-    public static <V> void groupI18nKeys(List<String> i18nKeys, LinkedHashMap<PresetField, V> map) {
-        LinkedHashMap<PresetField, V> temp = new LinkedHashMap<>();
-        ArrayList<PresetField> keys = new ArrayList<>(map.keySet());
+    public static <V> void groupI18nKeys(List<String> i18nKeys, Map<PresetField, V> map) {
+        Map<PresetField, V> temp = new LinkedHashMap<>();
+        List<PresetField> keys = new ArrayList<>(map.keySet());
         while (!keys.isEmpty()) {
             PresetField field = keys.get(0);
             String key = field.getKey();
@@ -144,11 +146,9 @@ public final class Util {
         for (Entry<PresetField, V> entry : new HashSet<>(map.entrySet())) { // needs a copy since we are modifying map
             PresetField field = entry.getKey();
             String key = field.getKey();
-            if (key.startsWith(Tags.KEY_ADDR_BASE)) {
-                if (Tags.KEY_ADDR_HOUSENUMBER.equals(key)) {
-                    temp.add(entry);
-                    map.remove(field);
-                }
+            if (key.startsWith(Tags.KEY_ADDR_BASE) && Tags.KEY_ADDR_HOUSENUMBER.equals(key)) {
+                temp.add(entry);
+                map.remove(field);
             }
         }
         Collections.sort(temp, (e0, e1) -> Tags.ADDRESS_SORT_ORDER.get(e0.getValue()).compareTo(Tags.ADDRESS_SORT_ORDER.get(e1.getValue())));

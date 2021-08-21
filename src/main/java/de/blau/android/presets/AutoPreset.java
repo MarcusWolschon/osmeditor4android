@@ -33,6 +33,7 @@ import de.blau.android.contract.Files;
 import de.blau.android.contract.Paths;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Tags;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
@@ -93,7 +94,8 @@ public class AutoPreset {
      */
     @NonNull
     public Preset fromTaginfo(@NonNull String term, int maxResults) {
-        List<SearchResult> candidateTags = TaginfoServer.searchByKeyword(context, term, -1);
+        String server = new Preferences(context).getTaginfoServer();
+        List<SearchResult> candidateTags = TaginfoServer.searchByKeyword(context, server, term, -1);
 
         Preset preset = Preset.dummyInstance();
         try {
@@ -109,9 +111,9 @@ public class AutoPreset {
                 // and presets that we already have
                 if (sr.getValue() != null && !"".equals(sr.getValue()) && !existsInPresets(sr)) {
                     String resultKey = sr.getKey();
-                    WikiPageResult wikiPage = TaginfoServer.wikiPage(context, resultKey, sr.getValue(), language, null);
+                    WikiPageResult wikiPage = TaginfoServer.wikiPage(context, server, resultKey, sr.getValue(), language, null);
                     if (wikiPage != null) {
-                        SearchResult stats = TaginfoServer.tagStats(context, resultKey, sr.getValue());
+                        SearchResult stats = TaginfoServer.tagStats(context, server, resultKey, sr.getValue());
                         if (stats != null) {
                             Log.d(DEBUG_TAG, "Creating PresetItem for " + wikiPage);
                             String presetIcon = ICON;
@@ -141,7 +143,8 @@ public class AutoPreset {
                             Log.e(DEBUG_TAG, "adding " + resultKey + " " + sr.getValue());
                             item.addTag(resultKey, PresetKeyType.TEXT, sr.getValue(), null);
 
-                            List<String> combinationsFromTaginfo = TaginfoServer.tagCombinations(context, resultKey, sr.getValue(), getAppliesTo(item), 10);
+                            List<String> combinationsFromTaginfo = TaginfoServer.tagCombinations(context, server, resultKey, sr.getValue(), getAppliesTo(item),
+                                    10);
                             if (combinationsFromTaginfo != null) {
                                 combinationsFromTaginfo.addAll(wikiPage.getCombinations());
                             } else {
