@@ -328,29 +328,105 @@ i-->
 <!--                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#vespucci-mapbox-gl-style-support">Vespucci Mapbox-GL Style Support</a></li>
-            <li><a href="#further-caveats">Further caveats</a></li>
-            <li><a href="#style-attributes">Style attributes</a></li>
+            <li><a href="#caveats">Caveats</a></li>
+            <li><a href="#sources">Sources</a></li>
+            <li><a href="#layers">Layers</a></li>
             <li><a href="#layer-attributes-for-supported-layers">Layer attributes for supported layers</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
 <h2 id="vespucci-mapbox-gl-style-support">Vespucci Mapbox-GL Style Support</h2>
+<p><em>For the Mapbox documents see <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/">https://docs.mapbox.com/mapbox-gl-js/style-spec/</a></em></p>
+<h3 id="caveats">Caveats</h3>
+<p>While a number of styles and corresponding vector tile schemas have been tested and within the limits described on this page things work, following specific points should be taken in to account:</p>
+<ul>
+<li>the support was mainly intended for relatively light weight QA data overlays, as this is based on Android Canvas rendering and not a purpose specific OpenGL rendering implementation performance will in general be slow. This is further confounded by many sources providing tiles up to a maximum of zoom level 14, these then tend to be very large and often contain far more data than what would be needed for the current view.</li>
+<li>we've implemented some simple label and icon collision detection, however if a collision is detected, we simply doesn't render one of the colliding objects without attempting to relocate the offending symbol (collision avoidance). Further there is currently a hard wired limit of 200 objects that are handled by this, any further ones are not rendered (the choice of limit is not of any particular significance).</li>
+</ul>
+<h3 id="sources">Sources</h3>
 <p>Only one vector tile source is currently supported, all other source configuration is ignored.</p>
+<h4 id="source-attributes">Source attributes</h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+<th>Support</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>type</strong></td>
+<td><strong>vector</strong></td>
+<td>yes</td>
+<td>source objects of other types are ignored</td>
+</tr>
+<tr>
+<td><strong>tiles</strong></td>
+<td></td>
+<td>yes</td>
+<td>only the first entry is used, if the element is missing the source will be ignored</td>
+</tr>
+<tr>
+<td><strong>minzoom</strong></td>
+<td></td>
+<td>yes</td>
+<td>default: 0</td>
+</tr>
+<tr>
+<td><strong>maxzoom</strong></td>
+<td></td>
+<td>yes</td>
+<td>default: 22</td>
+</tr>
+<tr>
+<td><strong>attribution</strong></td>
+<td></td>
+<td>yes</td>
+<td>default: nothing</td>
+</tr>
+<tr>
+<td><strong>bounds</strong></td>
+<td></td>
+<td>yes</td>
+<td>default: web mercator extent</td>
+</tr>
+<tr>
+<td><strong>url</strong></td>
+<td></td>
+<td>no</td>
+<td>there is currently no TileJSON support</td>
+</tr>
+<tr>
+<td><strong>promoteId</strong></td>
+<td></td>
+<td>no</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>scheme</strong></td>
+<td></td>
+<td>no</td>
+<td>always xyz</td>
+</tr>
+<tr>
+<td><strong>volatile</strong></td>
+<td></td>
+<td>no</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="layers">Layers</h3>
 <p>Supported layers: <em>background</em>, <em>fill</em>, <em>fill-extrusion</em>, <em>line</em>, <em>symbol</em>, <em>circle</em></p>
 <p><em>fill-extrusion</em> layers are treated as flat fill layers</p>
 <p>Unsupported layers: raster, heatmap, hillshade, sky</p>
 <p>Unsupported attributes are ignored.</p>
 <p>Font selection is not supported, we render with a standard Android system font.</p>
 <p>None of the new "expression" functions are currently supported, however "old style" filter expressions are supported and interpolation linear, identity and exponential interpolation for numbers, colors and categories work for lots of the supported attributes.</p>
-<h4 id="further-caveats">Further caveats</h4>
-<p>While a number of styles and corresponding vector tile schemas have been tested and within the limits described on this page things work, following specific points should be taken in to account:</p>
-<ul>
-<li>the support was mainly intended for relatively light weight QA data overlays, as this is based on Android Canvas rendering and not a purpose specific OpenGL rendering implementation performance will in general be slow. This is further confounded by many sources providing tiles up to a maximum of zoom level 14, these then tend to be very large and often contain far more data than what would be needed for the current view.</li>
-<li>we've implemented some simple label and icon collision detection, however if a collision is detected, we simply doesn't render one of the colliding objects without attempting to relocate the offending symbol (collision avoidance). Further there is currently a hard wired limit of 200 objects that are handled by this, any further ones are not rendered (the choice of limit is not of any particular significance).</li>
-<li>there is currently no TileJSON support.</li>
-</ul>
-<h3 id="style-attributes">Style attributes</h3>
+<h4 id="style-attributes">Style attributes</h4>
 <table>
 <thead>
 <tr>
@@ -1101,29 +1177,105 @@ i-->
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#vespucci-mapbox-gl-style-support">Vespucci Mapbox-GL Style Support</a></li>
-            <li><a href="#further-caveats">Further caveats</a></li>
-            <li><a href="#style-attributes">Style attributes</a></li>
+            <li><a href="#caveats">Caveats</a></li>
+            <li><a href="#sources">Sources</a></li>
+            <li><a href="#layers">Layers</a></li>
             <li><a href="#layer-attributes-for-supported-layers">Layer attributes for supported layers</a></li>
     </ul>
 </div></div>
                     <div class="col-md-9" role="main">
 
 <h2 id="vespucci-mapbox-gl-style-support">Vespucci Mapbox-GL Style Support</h2>
+<p><em>For the Mapbox documents see <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/">https://docs.mapbox.com/mapbox-gl-js/style-spec/</a></em></p>
+<h3 id="caveats">Caveats</h3>
+<p>While a number of styles and corresponding vector tile schemas have been tested and within the limits described on this page things work, following specific points should be taken in to account:</p>
+<ul>
+<li>the support was mainly intended for relatively light weight QA data overlays, as this is based on Android Canvas rendering and not a purpose specific OpenGL rendering implementation performance will in general be slow. This is further confounded by many sources providing tiles up to a maximum of zoom level 14, these then tend to be very large and often contain far more data than what would be needed for the current view.</li>
+<li>we've implemented some simple label and icon collision detection, however if a collision is detected, we simply doesn't render one of the colliding objects without attempting to relocate the offending symbol (collision avoidance). Further there is currently a hard wired limit of 200 objects that are handled by this, any further ones are not rendered (the choice of limit is not of any particular significance).</li>
+</ul>
+<h3 id="sources">Sources</h3>
 <p>Only one vector tile source is currently supported, all other source configuration is ignored.</p>
+<h4 id="source-attributes">Source attributes</h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+<th>Support</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>type</strong></td>
+<td><strong>vector</strong></td>
+<td>yes</td>
+<td>source objects of other types are ignored</td>
+</tr>
+<tr>
+<td><strong>tiles</strong></td>
+<td></td>
+<td>yes</td>
+<td>only the first entry is used, if the element is missing the source will be ignored</td>
+</tr>
+<tr>
+<td><strong>minzoom</strong></td>
+<td></td>
+<td>yes</td>
+<td>default: 0</td>
+</tr>
+<tr>
+<td><strong>maxzoom</strong></td>
+<td></td>
+<td>yes</td>
+<td>default: 22</td>
+</tr>
+<tr>
+<td><strong>attribution</strong></td>
+<td></td>
+<td>yes</td>
+<td>default: nothing</td>
+</tr>
+<tr>
+<td><strong>bounds</strong></td>
+<td></td>
+<td>yes</td>
+<td>default: web mercator extent</td>
+</tr>
+<tr>
+<td><strong>url</strong></td>
+<td></td>
+<td>no</td>
+<td>there is currently no TileJSON support</td>
+</tr>
+<tr>
+<td><strong>promoteId</strong></td>
+<td></td>
+<td>no</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>scheme</strong></td>
+<td></td>
+<td>no</td>
+<td>always xyz</td>
+</tr>
+<tr>
+<td><strong>volatile</strong></td>
+<td></td>
+<td>no</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="layers">Layers</h3>
 <p>Supported layers: <em>background</em>, <em>fill</em>, <em>fill-extrusion</em>, <em>line</em>, <em>symbol</em>, <em>circle</em></p>
 <p><em>fill-extrusion</em> layers are treated as flat fill layers</p>
 <p>Unsupported layers: raster, heatmap, hillshade, sky</p>
 <p>Unsupported attributes are ignored.</p>
 <p>Font selection is not supported, we render with a standard Android system font.</p>
 <p>None of the new "expression" functions are currently supported, however "old style" filter expressions are supported and interpolation linear, identity and exponential interpolation for numbers, colors and categories work for lots of the supported attributes.</p>
-<h4 id="further-caveats">Further caveats</h4>
-<p>While a number of styles and corresponding vector tile schemas have been tested and within the limits described on this page things work, following specific points should be taken in to account:</p>
-<ul>
-<li>the support was mainly intended for relatively light weight QA data overlays, as this is based on Android Canvas rendering and not a purpose specific OpenGL rendering implementation performance will in general be slow. This is further confounded by many sources providing tiles up to a maximum of zoom level 14, these then tend to be very large and often contain far more data than what would be needed for the current view.</li>
-<li>we've implemented some simple label and icon collision detection, however if a collision is detected, we simply doesn't render one of the colliding objects without attempting to relocate the offending symbol (collision avoidance). Further there is currently a hard wired limit of 200 objects that are handled by this, any further ones are not rendered (the choice of limit is not of any particular significance).</li>
-<li>there is currently no TileJSON support.</li>
-</ul>
-<h3 id="style-attributes">Style attributes</h3>
+<h4 id="style-attributes">Style attributes</h4>
 <table>
 <thead>
 <tr>
