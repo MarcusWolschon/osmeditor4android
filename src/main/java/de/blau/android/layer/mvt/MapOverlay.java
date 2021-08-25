@@ -490,7 +490,7 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
      * 
      * @param style a Mapbox-GL derived Style or null
      */
-    public void setStyle(@Nullable Style style) {
+    public void setStyle(@NonNull Style style) {
         ((VectorTileRenderer) tileRenderer).setStyle(style);
     }
 
