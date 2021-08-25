@@ -336,6 +336,7 @@
     <string name="layer_category_osmbasedmap">OSM based map</string>
     <string name="layer_category_qa">QA</string>
     <string name="layer_category_other">Other</string>
+    <string name="layer_add_layer_from_mvt_style">Add layer from MVT style</string>
     <!--  Layer info dialog -->
     <string name="layer_info_min_zoom">Min zoom</string>
     <string name="layer_info_max_zoom">Max zoom</string>
@@ -570,6 +571,7 @@ avoided by using an offline data source.</string>
     <string name="toast_multipolygon_inconsistent_roles">Multi-polygon has inconsistent role values for a ring</string>
     <string name="toast_error_saving_bookmark">Unable to save bookmark</string>
     <string name="toast_error_loading_style">Unable to load style: %1$s</string>
+    <string name="toast_only_one_source_supported">Only one source per style supported</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
