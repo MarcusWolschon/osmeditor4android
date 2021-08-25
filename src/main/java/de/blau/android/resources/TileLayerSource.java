@@ -2282,7 +2282,7 @@ public class TileLayerSource implements Serializable {
     public String getPrivacyPolicyUrl() {
         return privacyPolicyUrl;
     }
-
+    
     /**
      * Add or update a custom tile source
      * 

@@ -2,8 +2,11 @@ package de.blau.android.util.mvt.style;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +19,9 @@ import androidx.annotation.Nullable;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import ch.poole.android.sprites.Sprites;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.util.GeoMath;
 
 @RunWith(RobolectricTestRunner.class)
 @LargeTest
@@ -98,6 +103,29 @@ public class StyleTest {
         assertNotNull(something);
         assertEquals(6 * density, something.circleRadius.literal, 0.01);
         assertEquals(2 * density, something.stroke.getStrokeWidth(), 0.01);
+    }
+
+    /**
+     * Load a style with a sources configuration and check if we got what we expected
+     */
+    @Test
+    public void sourcesTest() {
+        Style style = new Style();
+        final Context ctx = ApplicationProvider.getApplicationContext();
+        style.loadStyle(ctx, getClass().getResourceAsStream("/rob.json"));
+        Map<String, Source> sources = style.getSources();
+        assertEquals(1, sources.size());
+        List<Source> valueList = new ArrayList<>(sources.values());
+        Source source = valueList.get(0);
+        assertEquals(0, source.getMinZoom());
+        assertEquals(13, source.getMaxZoom());
+        String[] urls = source.getTileUrls();
+        assertNotNull(urls);
+        assertEquals(1, urls.length);
+        assertEquals("https://api.mapbox.com/v4/robjn.3uur23nz/{zoom}/{x}/{y}.mvt?access_token=pk.eyJ1Ijoicm9iam4iLCJhIjoid0dYNkY1QSJ9.A-0lzQOawGYICYPfURsjDA",
+                urls[0]);
+        assertEquals(new BoundingBox(-GeoMath.MAX_LON, -GeoMath.MAX_COMPAT_LAT, GeoMath.MAX_LON, GeoMath.MAX_COMPAT_LAT), source.getBounds());
+        assertEquals("Test", source.getAttribution());
     }
 
     /**

@@ -486,6 +486,15 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
     }
 
     /**
+     * Set the style
+     * 
+     * @param style a Mapbox-GL derived Style or null
+     */
+    public void setStyle(@Nullable Style style) {
+        ((VectorTileRenderer) tileRenderer).setStyle(style);
+    }
+
+    /**
      * Load a mapbox gl version 8 style file
      * 
      * @param activity the calling FragmentActivity
@@ -500,7 +509,7 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
                 try (InputStream is = activity.getContentResolver().openInputStream(fileUri)) {
                     Style style = new Style();
                     style.loadStyle(activity, is);
-                    ((VectorTileRenderer) tileRenderer).setStyle(style);
+                    setStyle(style);
                     flushTileCache();
                     dirty = true;
                     Log.d(DEBUG_TAG, "Loaded " + fileUri + " successfully");

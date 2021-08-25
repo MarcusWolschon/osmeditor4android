@@ -68,6 +68,7 @@ The layer dialog supports the following:
     * Add GeoJSON layer. Loads a GeoJSON layer from a file in to a new GeoJSON layer.
     * Add background imagery layer. Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.
     * Add overlay imagery layer. As above but assumes that the layer is partially transparent.
+    * Add layer from MVT style. Load a Mapbox-GL style file that has a "sources" section and create a layer. 
     * Add imagery from OAM. Add a layer from the OpenAerialMap catalogue. *(requires network connectivity)*
     * Add imagery from WMS. This allows you to add a specific layer from a WMS endpoint. *(requires network connectivity)*
 

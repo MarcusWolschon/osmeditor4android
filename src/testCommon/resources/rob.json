@@ -9,6 +9,7 @@
       "tiles": [
         "https://api.mapbox.com/v4/robjn.3uur23nz/{zoom}/{x}/{y}.mvt?access_token=pk.eyJ1Ijoicm9iam4iLCJhIjoid0dYNkY1QSJ9.A-0lzQOawGYICYPfURsjDA"
       ],
+      "attribution": "Test",
       "type": "vector"
     }
   },
