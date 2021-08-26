@@ -68,7 +68,7 @@ Synonyms are retrieved from the iD repository with the grade task ``updateSynony
 
 Automated testing has come relatively late to Vespucci, however we have made large advances in improving the coverage from 2017 onwards.
 
-Unit test coverage is 23%, overall test coverage is currently 65%.
+Unit test coverage is 27%, overall test coverage is currently 65%.
 
 In general if you are writing new tests that do not involve the UI use unit tests and if you need to mock parts of Android use roboelectic. These tests can be completed in far less time than the on device checks, and the unit tests will also be run as part of the CI pipeline.
 
@@ -85,3 +85,4 @@ Notes:
 * a number of the tests start with the splash screen activity and then wait for the main activity to be started. Experience shows that if one of these fails to complete in certain ways, the following tests that start via the splash screen will not be able to start the main activity. Reason unknown.
 * as the complete set of tests takes a long time to run, if running the tests with spoon you can generate screenshots to debug things instead of trying to catch the test running, see LayerDialogTest.backgroundLayer() for an example of this.
 * the CameraTest assumes that the emulator has a working camera app of some kind installed.
+* some tests assume that a file keys.txt holding imagery API keys is present (otherwise the layers in question are not added), this should be located in ../private_assets/keys.txt relative to the repo directory. A fake such file is provided in the unit test assets.
