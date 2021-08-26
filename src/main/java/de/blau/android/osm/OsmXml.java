@@ -39,7 +39,7 @@ public final class OsmXml {
     public static final String VERSION     = "version";
     public static final String GENERATOR   = "generator";
 
-    private final static Comparator<Relation> relationOrder = (r1, r2) -> {
+    private static final Comparator<Relation> relationOrder = (r1, r2) -> {
         if (r1.hasParentRelation(r2)) {
             return -1;
         }
