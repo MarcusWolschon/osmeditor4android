@@ -447,7 +447,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         boolean squareTiles = myRendererInfo.getTileWidth() == myRendererInfo.getTileHeight();
         // Draw all the MapTiles that intersect with the screen
         // y = y tile number (latitude)
-        // int requiredTiles = (tileNeededBottom - tileNeededTop + 1) * (tileNeededRight - tileNeededLeft + 1);
+        // requiredTiles = (tileNeededBottom - tileNeededTop + 1) * (tileNeededRight - tileNeededLeft + 1)
         int row = tileNeededRight - tileNeededLeft + 1;
         rendered.clear();
         for (int y = tileNeededTop; y <= tileNeededBottom; y++) {
@@ -655,7 +655,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
      * @param latOffset imagery latitude offset correction in WGS84
      * @return true if the space could be filled with tiles
      */
-    private boolean drawTile(Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset, double latOffset) {
+    private boolean drawTile(@NonNull Canvas c, @NonNull IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset, double latOffset) {
         final MapTile tile = new MapTile(myRendererInfo.getId(), z, x, y);
         T bitmap = mTileProvider.getMapTileFromCache(tile);
         if (bitmap != null) {

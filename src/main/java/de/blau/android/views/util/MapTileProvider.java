@@ -49,6 +49,8 @@ public class MapTileProvider<T> {
      */
     private static final String DEBUG_TAG = MapTileProvider.class.getSimpleName();
 
+    private static final int MVT_CACHE_SIZE = 128;
+
     // ===========================================================
     // Fields
     // ===========================================================
@@ -106,7 +108,7 @@ public class MapTileProvider<T> {
      * @param aDownloadFinishedListener handler to call when a tile download is complete
      */
     public MapTileProvider(@NonNull final Context ctx, @NonNull TileDecoder<T> decoder, @NonNull final Handler aDownloadFinishedListener) {
-        mTileCache = decoder instanceof BitmapDecoder ? new MapTileCache<>() : new MapTileCache<>(128);
+        mTileCache = decoder instanceof BitmapDecoder ? new MapTileCache<>() : new MapTileCache<>(MVT_CACHE_SIZE);
 
         smallHeap = Util.smallHeap();
         this.decoder = decoder;
@@ -268,15 +270,15 @@ public class MapTileProvider<T> {
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
             String id = t.toId();
             try {
-                T tileBitmap = decoder.decode(unGZip(data), smallHeap);
-                if (tileBitmap == null) {
+                T tileBlob = decoder.decode(unGZip(data), smallHeap);
+                if (tileBlob == null) {
                     Log.d(DEBUG_TAG, "decoded tile is null");
                     throw new IOException("decoded tile is null");
                 }
                 synchronized (pending) {
                     Long l = pending.get(id);
                     if (l != null) {
-                        mTileCache.putTile(t, tileBitmap, l);
+                        mTileCache.putTile(t, tileBlob, l);
                     } // else wasn't in pending queue just ignore
                 }
                 mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_SUCCESS_ID);
