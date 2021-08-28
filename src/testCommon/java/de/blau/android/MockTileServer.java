@@ -66,7 +66,7 @@ public final class MockTileServer {
         Log.i(DEBUG_TAG, "Set up tileserver on " + tileUrl + " for id " + id);
         try (TileLayerDatabase db = new TileLayerDatabase(context)) {
             TileLayerSource.addOrUpdateCustomLayer(context, db.getWritableDatabase(), id, null, -1, -1, "Vespucci Test", new Provider(), Category.other, null,
-                    tileType, 0, 19, false, tileUrl);
+                    tileType, 0, 19, TileLayerSource.DEFAULT_TILE_SIZE, false, tileUrl);
         }
         if (removeLayers) {
             LayerUtils.removeImageryLayers(context);

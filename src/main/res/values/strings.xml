@@ -298,6 +298,7 @@
     <string name="coverage_left">Left</string>
     <string name="coverage_right">Right</string>
     <string name="coverage_bottom">Bottom</string>
+    <string name="tile_size">Tile size</string>
     <string name="toast_invalid_box">Invalid or incomplete bounding box</string>
     <string name="delete_layer">Delete layer?</string>
     <string name="delete_endpoint">Delete endpoint?</string>

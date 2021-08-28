@@ -230,6 +230,29 @@
                 numberpicker:repeat="1"
                 numberpicker:focusable="true"
                 numberpicker:custom_layout="@layout/number_picker_custom_small_layout" />
+            <TextView
+                android:id="@+id/tile_size_legend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/zoom_min_legend"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/tile_size" />
+            <ch.poole.android.numberpicker.library.NumberPicker
+                android:id="@+id/tile_size"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/tile_size_legend"
+                android:layout_toRightOf="@id/tile_size_legend"
+                android:layout_toEndOf="@id/tile_size_legend"
+                numberpicker:min="256"
+                numberpicker:max="4096"
+                numberpicker:unit="256"
+                numberpicker:repeat="1"
+                numberpicker:focusable="true"
+                numberpicker:custom_layout="@layout/number_picker_custom_small_layout" />
         </RelativeLayout>
         <View
             xmlns:android="http://schemas.android.com/apk/res/android"

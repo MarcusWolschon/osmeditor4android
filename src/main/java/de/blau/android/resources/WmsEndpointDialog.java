@@ -102,7 +102,7 @@ public final class WmsEndpointDialog {
                 }
                 try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
                     TileLayerSource.addOrUpdateCustomLayer(activity, db, endpointId, existingEndpoint, -1, -1, name, null, null,
-                            TileLayerSource.TYPE_WMS_ENDPOINT, null, -1, -1, false, endpointUrl);
+                            TileLayerSource.TYPE_WMS_ENDPOINT, null, -1, -1, TileLayerSource.WMS_TILE_SIZE, false, endpointUrl);
                 }
                 if (onUpdate != null) {
                     onUpdate.update();

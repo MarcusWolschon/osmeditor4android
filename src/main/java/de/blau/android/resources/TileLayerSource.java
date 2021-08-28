@@ -2282,7 +2282,7 @@ public class TileLayerSource implements Serializable {
     public String getPrivacyPolicyUrl() {
         return privacyPolicyUrl;
     }
-    
+
     /**
      * Add or update a custom tile source
      * 
@@ -2299,13 +2299,14 @@ public class TileLayerSource implements Serializable {
      * @param tileType the type of tile if null the automatic detection will be used
      * @param minZoom minimum zoom level
      * @param maxZoom maximum zoom level
+     * @param tileSize tile size to use
      * @param isOverlay if true add as an overlay
      * @param tileUrl the url for the tiles
      */
     public static void addOrUpdateCustomLayer(@NonNull final Context ctx, @NonNull final SQLiteDatabase db, @NonNull final String layerId,
             @Nullable final TileLayerSource existingTileServer, final long startDate, final long endDate, @NonNull String name, @Nullable Provider provider,
-            Category category, @Nullable String type, @Nullable TileType tileType, int minZoom, int maxZoom, boolean isOverlay, @NonNull String tileUrl) {
-        int tileSize = DEFAULT_TILE_SIZE;
+            Category category, @Nullable String type, @Nullable TileType tileType, int minZoom, int maxZoom, int tileSize, boolean isOverlay,
+            @NonNull String tileUrl) {
         String proj = null;
         // hack, but saves people extracting and then having to re-select the projection
         if (tileUrl.contains(EPSG_3857) || tileUrl.contains(EPSG_900913)) {
@@ -2337,6 +2338,8 @@ public class TileLayerSource implements Serializable {
             if (tileType != null) { // if null use automatic detection
                 existingTileServer.setTileType(tileType);
             }
+            existingTileServer.setTileWidth(tileSize);
+            existingTileServer.setTileHeight(tileSize);
             TileLayerDatabase.updateLayer(db, existingTileServer);
         }
     }

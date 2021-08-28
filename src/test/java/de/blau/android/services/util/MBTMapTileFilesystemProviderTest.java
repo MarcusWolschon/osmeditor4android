@@ -53,11 +53,9 @@ public class MBTMapTileFilesystemProviderTest {
         try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
             File mbtFile = new File(FileUtil.getPublicDirectory(ApplicationProvider.getApplicationContext()),
                     "ersatz_background.mbt");
-            TileLayerSource.addOrUpdateCustomLayer(ApplicationProvider.getApplicationContext(),
-                    db.getWritableDatabase(), MockTileServer.MOCK_TILE_SOURCE, null, -1, -1, "Vespucci Test",
-                    new Provider(), Category.other, null, null, 0, 19, false,
-                    "file://" + (System.getProperty("os.name").toLowerCase().contains("windows") ? "\\" : "")
-                            + mbtFile.getAbsolutePath());
+            TileLayerSource.addOrUpdateCustomLayer(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), MockTileServer.MOCK_TILE_SOURCE, null,
+                    -1, -1, "Vespucci Test", new Provider(), Category.other, null, null, 0, 19, TileLayerSource.DEFAULT_TILE_SIZE, false,
+                    "file://" + (System.getProperty("os.name").toLowerCase().contains("windows") ? "\\" : "")       + mbtFile.getAbsolutePath());
         } catch (IOException e) {
             fail(e.getMessage());
         }

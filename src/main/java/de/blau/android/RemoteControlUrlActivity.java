@@ -197,20 +197,26 @@ public class RemoteControlUrlActivity extends UrlActivity {
                     }
                     // unused and undocumented String cookies = data.getQueryParameter("cookies");
                     int minZoom = TileLayerSource.DEFAULT_MIN_ZOOM;
-                    try {
+                    try { // NOSONAR
                         minZoom = Integer.parseInt(data.getQueryParameter("min_zoom"));
                     } catch (Exception e) {
                         // ignore
                     }
                     int maxZoom = TileLayerSource.DEFAULT_MAX_ZOOM;
-                    try {
+                    try { // NOSONAR
                         maxZoom = Integer.parseInt(data.getQueryParameter("max_zoom"));
+                    } catch (Exception e) {
+                        // ignore
+                    }
+                    int tileSize = TileLayerSource.DEFAULT_TILE_SIZE;
+                    try { // NOSONAR
+                        tileSize = Integer.parseInt(data.getQueryParameter("tileSize"));
                     } catch (Exception e) {
                         // ignore
                     }
                     try (TileLayerDatabase tlDb = new TileLayerDatabase(this); SQLiteDatabase db = tlDb.getWritableDatabase()) {
                         TileLayerSource.addOrUpdateCustomLayer(this, db, title, existing, -1, -1, title, new TileLayerSource.Provider(), null, null, null,
-                                minZoom, maxZoom, false, url);
+                                minZoom, maxZoom, tileSize, false, url);
                     }
                     de.blau.android.layer.Util.addLayer(this, LayerType.IMAGERY, id);
                     intent.setAction(Main.ACTION_UPDATE);
