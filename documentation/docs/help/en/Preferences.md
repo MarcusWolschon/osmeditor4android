@@ -8,7 +8,21 @@ The style that is used to render OpenStreetmap data. Additional styles can be ad
 
 ## Custom layers
 
-Configure a custom imagery layer not included in the standard configuration.
+Configure a custom imagery layer not included in the standard configuration. This supports configuring both remote tile sources with a URL or on device MBTiles.
+
+Most important supported url place holders
+
+- {x} tile x number                      
+- {y} tile y number
+- {z} {zoom} zoom level
+- {ty} {-y} tile y number OGC TMS numbering
+                    
+WMS server specific place holders
+
+- {proj} EPSG projection number, one of 3857, 900913 and 4326.
+- {width} image width.
+- {height} image height.
+- {bbox} WMS bounding box.
 
 ## Keep screen on
 
