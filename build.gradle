@@ -325,16 +325,11 @@ task enableFreeform(type: Exec) {
 enableFreeform.group = 'emulators'
 enableFreeform.description = 'turn on free form window support'
 
-task dumpTaginfoJson(dependsOn: ["installCurrentDebug", "installCurrentDebugAndroidTest"],type: Exec) {
-    commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  "de.blau.android.TaginfoDump", 'de.blau.android.test/androidx.test.runner.AndroidJUnitRunner'
-}
-
-task updateTaginfoJson(dependsOn: "dumpTaginfoJson", type: Exec) {
-    commandLine adb, 'pull', 'sdcard/Vespucci/taginfo.json', projectDir.getPath()
-}
-updateTaginfoJson.group = 'vespucci'
-updateTaginfoJson.description = 'Update the taginfo.json file from test device'
-
+// task updateTaginfoJson() {
+//    
+// }
+// updateTaginfoJson.group = 'vespucci'
+// updateTaginfoJson.description = 'Update the taginfo.json file'
 
 afterEvaluate{
     android.applicationVariants.all { variant ->

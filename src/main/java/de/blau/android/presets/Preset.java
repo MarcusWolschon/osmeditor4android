@@ -79,7 +79,6 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
 import de.blau.android.search.Wrapper;
-import de.blau.android.util.FileUtil;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
@@ -4247,14 +4246,14 @@ public class Preset implements Serializable {
      * This is for the taginfo project repo
      * 
      * @param ctx Android Context
-     * @param filename the filename to save to
+     * @param output the File to save to
      * @return true if things worked
      */
-    public static boolean generateTaginfoJson(@NonNull Context ctx, @NonNull String filename) {
+    public static boolean generateTaginfoJson(@NonNull Context ctx, @NonNull File output) {
         Preset[] presets = App.getCurrentPresets(ctx);
 
-        try (FileOutputStream fout = new FileOutputStream(new File(FileUtil.getPublicDirectory(ctx), filename));
-                PrintStream outputStream = new PrintStream(new BufferedOutputStream(fout));) {
+        try (FileOutputStream fout = new FileOutputStream(output);
+                PrintStream outputStream = new PrintStream(new BufferedOutputStream(fout))) {
             outputStream.println("{");
             outputStream.println("\"data_format\":1,");
             outputStream.println("\"data_url\":\"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/taginfo.json\",");
@@ -4270,10 +4269,14 @@ public class Preset implements Serializable {
             outputStream.println("]},");
 
             outputStream.println("\"tags\":[");
-            for (int i = 0; i < presets.length; i++) {
+            int presetsCount = presets.length;
+            for (int i = 0; i < presetsCount; i++) {
                 if (presets[i] != null) {
                     if (i != 0) {
-                        outputStream.print(",\n");
+                        if (i != presetsCount - 1) {
+                            outputStream.print(",");
+                        }
+                        outputStream.println();
                     }
                     String json = presets[i].toJSON();
                     outputStream.print(json);
@@ -4281,7 +4284,7 @@ public class Preset implements Serializable {
             }
             outputStream.println("]}");
         } catch (Exception e) {
-            Log.e(DEBUG_TAG, "Export failed - " + filename + " exception " + e);
+            Log.e(DEBUG_TAG, "Export failed - " + output.getAbsolutePath() + " exception " + e);
             return false;
         }
         return true;
