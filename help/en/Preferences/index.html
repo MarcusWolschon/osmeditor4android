@@ -345,7 +345,21 @@ i-->
 <h2 id="data-style">Data style</h2>
 <p>The style that is used to render OpenStreetmap data. Additional styles can be added by including corresponding files in the Vespucci directory.</p>
 <h2 id="custom-layers">Custom layers</h2>
-<p>Configure a custom imagery layer not included in the standard configuration.</p>
+<p>Configure a custom imagery layer not included in the standard configuration. This supports configuring both remote tile sources with a URL or on device MBTiles.</p>
+<p>Most important supported url place holders</p>
+<ul>
+<li>{x} tile x number                      </li>
+<li>{y} tile y number</li>
+<li>{z} {zoom} zoom level</li>
+<li>{ty} {-y} tile y number OGC TMS numbering</li>
+</ul>
+<p>WMS server specific place holders</p>
+<ul>
+<li>{proj} EPSG projection number, one of 3857, 900913 and 4326.</li>
+<li>{width} image width.</li>
+<li>{height} image height.</li>
+<li>{bbox} WMS bounding box.</li>
+</ul>
 <h2 id="keep-screen-on">Keep screen on</h2>
 <p>Disable the Android automatic screen lock.</p>
 <h2 id="large-node-drag-area">Large node drag area</h2>
@@ -385,7 +399,21 @@ i-->
 <h2 id="data-style">Data style</h2>
 <p>The style that is used to render OpenStreetmap data. Additional styles can be added by including corresponding files in the Vespucci directory.</p>
 <h2 id="custom-layers">Custom layers</h2>
-<p>Configure a custom imagery layer not included in the standard configuration.</p>
+<p>Configure a custom imagery layer not included in the standard configuration. This supports configuring both remote tile sources with a URL or on device MBTiles.</p>
+<p>Most important supported url place holders</p>
+<ul>
+<li>{x} tile x number                      </li>
+<li>{y} tile y number</li>
+<li>{z} {zoom} zoom level</li>
+<li>{ty} {-y} tile y number OGC TMS numbering</li>
+</ul>
+<p>WMS server specific place holders</p>
+<ul>
+<li>{proj} EPSG projection number, one of 3857, 900913 and 4326.</li>
+<li>{width} image width.</li>
+<li>{height} image height.</li>
+<li>{bbox} WMS bounding box.</li>
+</ul>
 <h2 id="keep-screen-on">Keep screen on</h2>
 <p>Disable the Android automatic screen lock.</p>
 <h2 id="large-node-drag-area">Large node drag area</h2>
