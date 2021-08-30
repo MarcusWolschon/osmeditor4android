@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import de.blau.android.layer.MapViewLayer;
+import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.TaskStorage;
@@ -35,10 +36,12 @@ public class DebugInformation extends AppCompatActivity {
 
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
+    private Preferences prefs;
+
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Preferences prefs = new Preferences(this);
+        prefs = new Preferences(this);
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_customLight);
         }
@@ -112,8 +115,8 @@ public class DebugInformation extends AppCompatActivity {
             if (map != null) {
                 for (MapViewLayer ov : map.getLayers()) {
                     if (ov instanceof MapTilesLayer || ov instanceof MapTilesOverlayLayer) {
-                        builder.append("Tile Cache " + ((MapTilesLayer) ov).getTileLayerConfiguration().getId() + " usage "
-                                + ((MapTilesLayer) ov).getTileProvider().getCacheUsageInfo() + eol);
+                        builder.append("Tile Cache " + ((MapTilesLayer<?>) ov).getTileLayerConfiguration().getId() + " usage "
+                                + ((MapTilesLayer<?>) ov).getTileProvider().getCacheUsageInfo() + eol);
                     }
                 }
             } else {
@@ -144,6 +147,12 @@ public class DebugInformation extends AppCompatActivity {
         for (String providerName : locationManager.getAllProviders()) {
             builder.append(providerName + " enabled " + locationManager.isProviderEnabled(providerName) + eol);
         }
+
+        UserDetails userDetails = prefs.getServer().getCachedUserDetails();
+        if (userDetails != null) {
+            builder.append("Display name " + userDetails.getDisplayName() + eol);
+        }
+
         return builder.toString();
     }
 }

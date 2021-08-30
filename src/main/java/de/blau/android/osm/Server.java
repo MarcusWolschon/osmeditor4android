@@ -149,7 +149,7 @@ public class Server {
     /**
      * display name of the user and other stuff
      */
-    private final UserDetails userDetails;
+    private UserDetails cachedUserDetails;
 
     /**
      * Current capabilities
@@ -224,7 +224,6 @@ public class Server {
             oAuthConsumer = null;
         }
 
-        userDetails = null;
         Log.d(DEBUG_TAG, "using " + this.username + " with " + this.serverURL);
         Log.d(DEBUG_TAG, "oAuth: " + this.oauth + " token " + this.accesstoken + " secret " + this.accesstokensecret);
 
@@ -327,57 +326,63 @@ public class Server {
     }
 
     /**
+     * Get the cached details for the user.
+     * 
+     * @return An UserDetails object, or null if we haven't cached it yet.
+     */
+    @Nullable
+    public UserDetails getCachedUserDetails() {
+        return cachedUserDetails;
+    }
+
+    /**
      * Get the details for the user.
      * 
-     * @return The display name for the user, or null if it couldn't be determined.
+     * Caches the result for applications where a current version isn't needed
+     * 
+     * @return A current UserDetails object, or null if it couldn't be determined.
      */
+    @Nullable
     public UserDetails getUserDetails() {
-        UserDetails result = null;
-        if (userDetails == null) {
-            // Haven't retrieved the details from OSM - try to
-            try {
-                Response response = openConnectionForAuthenticatedAccess(getUserDetailsUrl(), HTTP_GET, (RequestBody) null);
-                checkResponseCode(response);
-                XmlPullParser parser = xmlParserFactory.newPullParser();
-                parser.setInput(response.body().byteStream(), null);
-                int eventType;
-                result = new UserDetails();
-                boolean messages = false;
-                while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-                    String tagName = parser.getName();
-                    if (eventType == XmlPullParser.START_TAG && "user".equals(tagName)) {
-                        result.setDisplayName(parser.getAttributeValue(null, "display_name"));
-                        Log.d(DEBUG_TAG, "getUserDetails display name " + result.getDisplayName());
+        try {
+            Response response = openConnectionForAuthenticatedAccess(getUserDetailsUrl(), HTTP_GET, (RequestBody) null);
+            checkResponseCode(response);
+            XmlPullParser parser = xmlParserFactory.newPullParser();
+            parser.setInput(response.body().byteStream(), null);
+            int eventType;
+            UserDetails result = new UserDetails();
+            boolean messages = false;
+            while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+                String tagName = parser.getName();
+                if (eventType == XmlPullParser.START_TAG && "user".equals(tagName)) {
+                    result.setDisplayName(parser.getAttributeValue(null, "display_name"));
+                    Log.d(DEBUG_TAG, "getUserDetails display name " + result.getDisplayName());
+                }
+                if (eventType == XmlPullParser.START_TAG && "messages".equals(tagName)) {
+                    messages = true;
+                }
+                if (eventType == XmlPullParser.END_TAG && "messages".equals(tagName)) {
+                    messages = false;
+                }
+                if (messages) {
+                    if (eventType == XmlPullParser.START_TAG && "received".equals(tagName)) {
+                        result.setReceivedMessages(Integer.parseInt(parser.getAttributeValue(null, "count")));
+                        Log.d(DEBUG_TAG, "getUserDetails received " + result.getReceivedMessages());
+                        result.setUnreadMessages(Integer.parseInt(parser.getAttributeValue(null, "unread")));
+                        Log.d(DEBUG_TAG, "getUserDetails unread " + result.getUnreadMessages());
                     }
-                    if (eventType == XmlPullParser.START_TAG && "messages".equals(tagName)) {
-                        messages = true;
-                    }
-                    if (eventType == XmlPullParser.END_TAG && "messages".equals(tagName)) {
-                        messages = false;
-                    }
-                    if (messages) {
-                        if (eventType == XmlPullParser.START_TAG && "received".equals(tagName)) {
-                            result.setReceivedMessages(Integer.parseInt(parser.getAttributeValue(null, "count")));
-                            Log.d(DEBUG_TAG, "getUserDetails received " + result.getReceivedMessages());
-                            result.setUnreadMessages(Integer.parseInt(parser.getAttributeValue(null, "unread")));
-                            Log.d(DEBUG_TAG, "getUserDetails unread " + result.getUnreadMessages());
-                        }
-                        if (eventType == XmlPullParser.START_TAG && "sent".equals(tagName)) {
-                            result.setSentMessages(Integer.parseInt(parser.getAttributeValue(null, "count")));
-                            Log.d(DEBUG_TAG, "getUserDetails sent " + result.getSentMessages());
-                        }
+                    if (eventType == XmlPullParser.START_TAG && "sent".equals(tagName)) {
+                        result.setSentMessages(Integer.parseInt(parser.getAttributeValue(null, "count")));
+                        Log.d(DEBUG_TAG, "getUserDetails sent " + result.getSentMessages());
                     }
                 }
-            } catch (XmlPullParserException e) {
-                Log.e(DEBUG_TAG, "Problem parsing user details", e);
-            } catch (MalformedURLException e) {
-                Log.e(DEBUG_TAG, "Problem retrieving user details", e);
-            } catch (IOException | NumberFormatException e) {
-                Log.e(DEBUG_TAG, "Problem accessing user details", e);
             }
+            cachedUserDetails = result;
             return result;
+        } catch (XmlPullParserException | IOException | NumberFormatException e) {
+            Log.e(DEBUG_TAG, "Problem accessing user details", e);
         }
-        return userDetails; // might not make sense
+        return null;
     }
 
     /**
