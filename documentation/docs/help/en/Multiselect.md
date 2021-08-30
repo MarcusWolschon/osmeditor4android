@@ -46,7 +46,7 @@ Search for OSM objects in the loaded data using JOSMs search expressions.
 
 ### Upload elements
 
-Upload the selected elements.
+Upload the selected elements (only available for new or modified elements).
 
 ### ![Help](../images/menu_help.png) Help
 

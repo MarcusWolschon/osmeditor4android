@@ -126,7 +126,7 @@ Search for OSM objects in the loaded data using JOSMs search expressions.
 
 ### Upload element
 
-Upload the selected element.
+Upload the selected element (only available for a new or modified element).
 
 ### Share position
 
