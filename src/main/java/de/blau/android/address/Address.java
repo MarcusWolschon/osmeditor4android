@@ -246,10 +246,31 @@ public final class Address implements Serializable {
      * @param current current tags potentially from a multi-select
      * @param maxRank determines how far away from the nearest street the last address street can be, 0 will always use
      *            the nearest, higher numbers will provide some hysteresis
-     * @return map containing the predicted address tags
+     * @return map containing the predicted address tags, tags with empty values removed
      */
     public static synchronized Map<String, List<String>> predictAddressTags(@NonNull Context context, @NonNull final String elementType,
             final long elementOsmId, @Nullable final ElementSearch es, @NonNull final Map<String, List<String>> current, int maxRank) {
+        return predictAddressTags(context, elementType, elementOsmId, es, current, maxRank, false);
+    }
+
+    /**
+     * Predict address tags
+     * 
+     * This uses a file to cache/save the address information over invocations, if the cache doesn't have entries for a
+     * specific street/place an attempt to extract the information from the downloaded data is made
+     *
+     * @param context Android context
+     * @param elementType element type (node, way, relation)
+     * @param elementOsmId osm object id
+     * @param es ElementSearch instance for finding street and place names
+     * @param current current tags potentially from a multi-select
+     * @param maxRank determines how far away from the nearest street the last address street can be, 0 will always use
+     *            the nearest, higher numbers will provide some hysteresis
+     * @param keepEmpty keep empty tags
+     * @return map containing the predicted address tags
+     */
+    public static synchronized Map<String, List<String>> predictAddressTags(@NonNull Context context, @NonNull final String elementType,
+            final long elementOsmId, @Nullable final ElementSearch es, @NonNull final Map<String, List<String>> current, int maxRank, boolean keepEmpty) {
         getGeoContext(context);
         Address newAddress = null;
 
@@ -297,7 +318,7 @@ public final class Address implements Serializable {
             }
         }
 
-        if (newAddress == null) { // make sure we have the address object
+        if (newAddress == null) { // make sure we have an address object
             try {
                 newAddress = new Address(elementType, elementOsmId, null);
                 LinkedHashMap<String, String> defaultTags = new LinkedHashMap<>();
@@ -385,10 +406,11 @@ public final class Address implements Serializable {
                         Log.d(DEBUG_TAG, "predictAddressTags got " + e.getMessage());
                     }
                 }
-            } else { // last ditch attempt
-                fillWithDefaultAddressTags(context, newAddress.lon, newAddress.lat, newAddress.tags);
             }
         }
+
+        fillWithDefaultAddressTags(context, newAddress.lon, newAddress.lat, newAddress.tags);
+        setCountryAndState(newAddress.lon, newAddress.lat, newAddress.tags);
 
         // if this is a node on a building outline, we add entrance=yes if it doesn't already exist
         if (elementType.equals(Node.NAME)) {
@@ -422,7 +444,7 @@ public final class Address implements Serializable {
         // merge address tags back
         for (Entry<String, String> entry : newAddress.tags.entrySet()) {
             String value = entry.getValue();
-            if (!"".equals(value)) {
+            if (keepEmpty || !"".equals(value)) {
                 current.put(entry.getKey(), Util.wrapInList(value));
             }
         }
@@ -451,7 +473,7 @@ public final class Address implements Serializable {
     }
 
     /**
-     * Fill tags with the default address tags
+     * Fill tags with the default address tags, if not present
      * 
      * @param context an Android Context
      * @param lon WGS84 longitude
@@ -460,9 +482,33 @@ public final class Address implements Serializable {
      */
     private static void fillWithDefaultAddressTags(@NonNull Context context, double lon, double lat, @NonNull Map<String, String> tags) {
         Set<String> addressTags = getAddressKeys(context, lon, lat);
+        boolean hasStreet = hasTagWithValue(tags, Tags.KEY_ADDR_STREET);
+        boolean hasPlace = hasTagWithValue(tags, Tags.KEY_ADDR_PLACE);
+        boolean hasNumber = hasTagWithValue(tags, Tags.KEY_ADDR_HOUSENUMBER);
+        boolean hasName = hasTagWithValue(tags, Tags.KEY_ADDR_HOUSENAME);
         for (String key : addressTags) {
-            tags.put(key, "");
+            // addr:place and addr:street are mutually exclusive
+            // addr:housename and addr:housenumber maybe not, but it is clearly less confusing
+            if ((Tags.KEY_ADDR_PLACE.equals(key) && hasStreet) || (Tags.KEY_ADDR_STREET.equals(key) && hasPlace)
+                    || (Tags.KEY_ADDR_HOUSENUMBER.equals(key) && hasName) || (Tags.KEY_ADDR_HOUSENAME.equals(key) && hasNumber)) {
+                continue;
+            }
+            if (!tags.containsKey(key)) { // NOSONAR
+                tags.put(key, "");
+            }
         }
+    }
+
+    /**
+     * Check for a non-empty value for a key
+     * 
+     * @param tags the tags
+     * @param key the key
+     * @return true if tags has a non-empty mapping for key
+     */
+    private static boolean hasTagWithValue(@NonNull Map<String, String> tags, @NonNull String key) {
+        String value = tags.get(key);
+        return value != null && !"".equals(value);
     }
 
     /**
@@ -704,7 +750,7 @@ public final class Address implements Serializable {
         if (address != null) {
             for (Entry<String, String> entry : address.tags.entrySet()) {
                 String key = entry.getKey();
-                if (!tags.containsKey(key)) {
+                if (!tags.containsKey(key)) { // NOSONAR
                     tags.put(key, entry.getValue());
                 }
             }

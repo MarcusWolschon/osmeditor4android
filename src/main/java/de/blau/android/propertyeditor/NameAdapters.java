@@ -6,7 +6,7 @@ import android.widget.ArrayAdapter;
 import de.blau.android.presets.ValueWithCount;
 
 /**
- * Interface for retrieving name adapaters
+ * Interface for retrieving name adapters
  */
 public interface NameAdapters {
 
