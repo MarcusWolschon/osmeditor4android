@@ -72,8 +72,8 @@ public class Progress extends ImmersiveDialogFragment {
 
         FragmentManager fm = activity.getSupportFragmentManager();
         Progress progressDialogFragment = newInstance(dialogType);
+        progressDialogFragment.setCancelable(true);
         try {
-
             progressDialogFragment.show(fm, tag);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
