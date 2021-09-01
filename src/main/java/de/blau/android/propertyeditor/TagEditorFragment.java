@@ -336,19 +336,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 focusOnEmptyValue(editRowLayout); // probably never actually works
             }
         }
-        //
-        if (applyLastAddressTags) {
-            loadEdits(editRowLayout,
-                    Address.predictAddressTags(getActivity(), getType(), getOsmId(),
-                            ((StreetPlaceNamesAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(editRowLayout, false),
-                            Address.DEFAULT_HYSTERESIS),
-                    false);
-            if (getUserVisibleHint()) {
-                if (!focusOnValue(editRowLayout, Tags.KEY_ADDR_HOUSENUMBER)) {
-                    focusOnValue(editRowLayout, Tags.KEY_ADDR_STREET);
-                } // this could be a bit more refined
-            }
-        }
 
         // Add any extra tags that were supplied
         @SuppressWarnings("unchecked")
@@ -358,8 +345,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 addTag(editRowLayout, e.getKey(), e.getValue(), true, false);
             }
         }
-
-        updateAutocompletePresetItem(editRowLayout, null, false); // set preset from initial tags
 
         if (displayMRUpresets) {
             Log.d(DEBUG_TAG, "Adding MRU prests");
@@ -407,6 +392,22 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 }
             }
         }
+        // this needs to happen -after- the preset has been applied
+        if (applyLastAddressTags) {
+            loadEdits(editRowLayout,
+                    Address.predictAddressTags(getActivity(), getType(), getOsmId(),
+                            ((StreetPlaceNamesAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(editRowLayout, false),
+                            Address.DEFAULT_HYSTERESIS, true),
+                    false);
+            if (getUserVisibleHint()) {
+                if (!focusOnValue(editRowLayout, Tags.KEY_ADDR_HOUSENUMBER)) {
+                    focusOnValue(editRowLayout, Tags.KEY_ADDR_STREET);
+                } // this could be a bit more refined
+            }
+        }
+
+        updateAutocompletePresetItem(editRowLayout, null, false); // set preset from initial tags
+
         Log.d(DEBUG_TAG, "onCreateView returning");
         return rowLayout;
     }
@@ -828,8 +829,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     @Override
     public void predictAddressTags(boolean allowBlanks) {
         loadEdits(Address.predictAddressTags(getActivity(), getType(), getOsmId(),
-                ((StreetPlaceNamesAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(allowBlanks),
-                Address.DEFAULT_HYSTERESIS), false);
+                ((StreetPlaceNamesAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(allowBlanks), Address.DEFAULT_HYSTERESIS,
+                true), false);
         updateAutocompletePresetItem(null);
     }
 
