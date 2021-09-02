@@ -181,7 +181,6 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         return newState != task.getState().ordinal();
     }
 
-    
     /**
      * Update the task on its destination server
      * 
