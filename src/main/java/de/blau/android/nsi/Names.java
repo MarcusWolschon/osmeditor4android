@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -48,6 +50,8 @@ public class Names {
 
     private static final String CATEGORIES_FILE = "categories.json";
     private static final String NSI_FILE        = "name-suggestions.min.json";
+
+    private static final List<String> AMENITY_VALUES_TO_REMOVE = Collections.unmodifiableList(Arrays.asList(Tags.VALUE_ATM, Tags.VALUE_VENDING_MACHINE));
 
     public class TagMap extends TreeMap<String, String> {
 
@@ -270,16 +274,7 @@ public class Names {
                                             reader.endObject();
                                             break;
                                         case TAGS_FIELD:
-                                            reader.beginObject();
-                                            while (reader.hasNext()) {
-                                                String k = reader.nextName();
-                                                if (!Tags.KEY_BRAND_WIKIPEDIA.equals(k) && !Tags.KEY_BRAND_WIKIDATA.equals(k)) {
-                                                    tags.put(k, reader.nextString());
-                                                } else {
-                                                    reader.skipValue();
-                                                }
-                                            }
-                                            reader.endObject(); // tags
+                                            readTags(reader, tags);
                                             break;
                                         default:
                                             reader.skipValue();
@@ -310,6 +305,38 @@ public class Names {
             reader.endObject(); // top level
         } catch (IOException | IllegalStateException e) {
             Log.e(DEBUG_TAG, "Got exception reading " + NSI_FILE + " " + e.getMessage());
+        }
+    }
+
+    /**
+     * Read and filter tags
+     * 
+     * @param reader the JsonReader
+     * @param tags the map to save the tags in
+     * @throws IOException if reading or parsing fails
+     */
+    private void readTags(@NonNull JsonReader reader, @NonNull TagMap tags) throws IOException {
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String k = reader.nextName();
+            if (!Tags.KEY_BRAND_WIKIPEDIA.equals(k) && !Tags.KEY_BRAND_WIKIDATA.equals(k)) {
+                tags.put(k, reader.nextString());
+            } else {
+                reader.skipValue();
+            }
+        }
+        reader.endObject(); // tags
+        // remove bogus name tags
+        String name = tags.get(Tags.KEY_NAME);
+        String brand = tags.get(Tags.KEY_BRAND);
+        if (name != null && name.equals(brand)) {
+            boolean hasAmenity = tags.containsKey(Tags.KEY_AMENITY);
+            String amenity = tags.get(Tags.KEY_AMENITY);
+            if (hasAmenity && AMENITY_VALUES_TO_REMOVE.contains(amenity)) {
+                for (String nameTag : Tags.I18N_NAME_KEYS) {
+                    tags.remove(nameTag);
+                }
+            }
         }
     }
 
