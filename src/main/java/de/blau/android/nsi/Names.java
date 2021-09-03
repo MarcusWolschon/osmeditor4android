@@ -1,4 +1,4 @@
-package de.blau.android.names;
+package de.blau.android.nsi;
 
 import java.io.IOException;
 import java.io.InputStream;
