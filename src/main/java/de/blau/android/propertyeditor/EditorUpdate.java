@@ -6,7 +6,7 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import de.blau.android.names.Names;
+import de.blau.android.nsi.Names;
 import de.blau.android.presets.Preset.PresetItem;
 
 /**

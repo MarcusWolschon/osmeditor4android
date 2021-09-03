@@ -371,17 +371,19 @@ public final class Tags {
     public static final String KEY_LAYER = "layer";
 
     // more primary keys
-    public static final String KEY_AEROWAY      = "aeroway";
-    public static final String KEY_AERIALWAY    = "aerialway";
-    public static final String KEY_POWER        = "power";
-    public static final String KEY_LEISURE      = "leisure";
-    public static final String KEY_AMENITY      = "amenity";
-    public static final String VALUE_RESTAURANT = "restaurant";
-    public static final String VALUE_FAST_FOOD  = "fast_food";
-    public static final String VALUE_CAFE       = "cafe";
-    public static final String VALUE_PUB        = "pub";
-    public static final String VALUE_BAR        = "bar";
-    public static final String VALUE_TOILETS    = "toilets";
+    public static final String KEY_AEROWAY           = "aeroway";
+    public static final String KEY_AERIALWAY         = "aerialway";
+    public static final String KEY_POWER             = "power";
+    public static final String KEY_LEISURE           = "leisure";
+    public static final String KEY_AMENITY           = "amenity";
+    public static final String VALUE_RESTAURANT      = "restaurant";
+    public static final String VALUE_FAST_FOOD       = "fast_food";
+    public static final String VALUE_CAFE            = "cafe";
+    public static final String VALUE_PUB             = "pub";
+    public static final String VALUE_BAR             = "bar";
+    public static final String VALUE_TOILETS         = "toilets";
+    public static final String VALUE_ATM             = "atm";
+    public static final String VALUE_VENDING_MACHINE = "vending_machine";
 
     public static final String KEY_OFFICE     = "office";
     public static final String KEY_SHOP       = "shop";

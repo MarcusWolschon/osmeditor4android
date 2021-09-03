@@ -1,21 +1,17 @@
 package de.blau.android;
 
-import android.app.Activity;
-import android.content.Context;
-
-import org.robolectric.*;
-
-
-import androidx.test.core.app.ApplicationProvider;
-
+import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
 
-import java.util.ArrayList;
-
+import android.app.Activity;
+import android.content.Context;
+import androidx.test.core.app.ApplicationProvider;
 import de.blau.android.bookmarks.BookmarkIO;
 import de.blau.android.bookmarks.BookmarksStorage;
 import de.blau.android.osm.ViewBox;
