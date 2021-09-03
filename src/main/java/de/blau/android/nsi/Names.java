@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -14,6 +13,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -27,11 +27,24 @@ import de.blau.android.util.collections.MultiHashMap;
 /**
  * Support for the name suggestion index see https://github.com/simonpoole/name-suggestion-index
  * 
+ * Current supports v6 format
+ * 
  * @author simon
  *
  */
 public class Names {
-    static final String DEBUG_TAG = "Names";
+    private static final String WERID_WHOLE_WORLD_NSI_VALUE = "001";
+
+    private static final String DEBUG_TAG = "Names";
+
+    private static final String TAGS_FIELD         = "tags";
+    private static final String EXCLUDE_FIELD      = "exclude";
+    private static final String INCLUDE_FIELD      = "include";
+    private static final String LOCATION_SET_FIELD = "locationSet";
+    private static final String DISPLAY_NAME_FIELD = "displayName";
+    private static final String ITEMS_FIELD        = "items";
+    private static final String PROPERTIES_FIELD   = "properties";
+    private static final String NSI_FIELD          = "nsi";
 
     private static final String CATEGORIES_FILE = "categories.json";
     private static final String NSI_FILE        = "name-suggestions.min.json";
@@ -60,24 +73,29 @@ public class Names {
      *
      */
     public class NameAndTags implements Comparable<NameAndTags> {
-        private final String   name;
-        private final int      count;
-        private final String[] regions;
-        final TagMap           tags;
+        private final String       name;
+        private final int          count;
+        private final List<String> includeRegions;
+        private final List<String> excludeRegions;
+        final TagMap               tags;
 
         /**
          * Construct a new instance
          * 
          * @param name the value for the name tag
          * @param tags associated tags
-         * @param count the times this establishment was found, works as a proxy for importance
-         * @param regions if this is region specific, add that here
+         * @param count the times this establishment was found, works as a proxy for importance, NSI V6 doesn't support
+         *            this anymore
+         * @param includeRegions regions this is applicable to
+         * @param excludeRegions regions this is not applicable to
          */
-        public NameAndTags(@NonNull String name, @NonNull TagMap tags, @NonNull int count, @Nullable String[] regions) {
+        public NameAndTags(@NonNull String name, @NonNull TagMap tags, @NonNull int count, @Nullable List<String> includeRegions,
+                @Nullable List<String> excludeRegions) {
             this.name = name;
             this.tags = tags;
             this.count = count;
-            this.regions = regions;
+            this.includeRegions = includeRegions;
+            this.excludeRegions = excludeRegions;
         }
 
         @Override
@@ -107,20 +125,33 @@ public class Names {
         }
 
         /**
-         * Check if this entry is in use in a specific region
+         * Check if this entry is in use or not in use in a specific region
          * 
          * @param currentRegions the list of regions to check for, null == any region
          * @return true if the entry is appropriate for the region
          */
         public boolean inUseIn(@Nullable List<String> currentRegions) {
-            if (currentRegions != null && regions != null) {
-                List<String> regionsList = Arrays.asList(regions);
-                for (String current : currentRegions) {
-                    if (regionsList.contains(current)) {
-                        return true;
+            if (currentRegions != null) {
+                boolean inUse = false;
+                if (includeRegions != null) {
+                    for (String current : currentRegions) {
+                        if (includeRegions.contains(current)) {
+                            inUse = true;
+                            break;
+                        }
+                    }
+                } else {
+                    inUse = true;
+                }
+                if (excludeRegions != null) {
+                    for (String current : currentRegions) {
+                        if (excludeRegions.contains(current)) {
+                            inUse = false;
+                            break;
+                        }
                     }
                 }
-                return false;
+                return inUse;
             }
             return true;
         }
@@ -172,122 +203,172 @@ public class Names {
     /**
      * Construct a new instance of the data structure holding names and tags
      * 
-     * The contents are currently read from a hardwired file
+     * The contents are currently read from a hardwired file as the
      * 
      * @param ctx an Android Context
      */
     public Names(@NonNull Context ctx) {
         synchronized (nameList) {
-
             if (!ready) {
                 Log.d(DEBUG_TAG, "Parsing configuration files");
-
                 AssetManager assetManager = ctx.getAssets();
-                try {
-                    try (InputStream is = assetManager.open(NSI_FILE); JsonReader reader = new JsonReader(new InputStreamReader(is));) {
-                        try {
-                            // key object
-                            String key = null;
-                            reader.beginObject();
-                            while (reader.hasNext()) {
-                                key = reader.nextName(); // amenity, shop
-                                // value object
-                                String value = null;
-                                reader.beginObject();
-                                while (reader.hasNext()) { // restaurant, fast_food, ....
-                                    value = reader.nextName();
-                                    // name object
-                                    String name = null;
-                                    reader.beginObject();
-                                    while (reader.hasNext()) {
-                                        name = reader.nextName(); // name of establishment
-                                        reader.beginObject();
-                                        int count = 0;
-                                        List<String> regions = null;
-                                        TagMap secondaryTags = null; // any extra tags store here
-                                        while (reader.hasNext()) {
-                                            String jsonName = reader.nextName();
-                                            switch (jsonName) {
-                                            case "count":
-                                                count = reader.nextInt();
-                                                break;
-                                            case "countryCodes":
-                                                reader.beginArray();
-                                                regions = new ArrayList<>();
-                                                while (reader.hasNext()) {
-                                                    regions.add(reader.nextString().toUpperCase(Locale.US));
-                                                }
-                                                reader.endArray();
-                                                break;
-                                            case "tags":
-                                                reader.beginObject();
-                                                secondaryTags = new TagMap();
-                                                while (reader.hasNext()) {
-                                                    String k = reader.nextName();
-                                                    if (!Tags.KEY_BRAND_WIKIPEDIA.equals(k) && !Tags.KEY_BRAND_WIKIDATA.equals(k)) {
-                                                        secondaryTags.put(k, reader.nextString());
-                                                    } else {
-                                                        reader.skipValue();
-                                                    }
-                                                }
-                                                reader.endObject(); // tags
-                                                break;
-                                            default:
-                                                reader.skipValue();
-                                                break;
-                                            }
-                                        }
-                                        reader.endObject(); // name
-
-                                        // add to lists here
-                                        TagMap tags = new TagMap();
-                                        tags.put(key, value);
-                                        if (secondaryTags != null) {
-                                            tags.putAll(secondaryTags);
-                                        }
-                                        NameAndTags entry = new NameAndTags(name, tags, count,
-                                                regions == null ? null : regions.toArray(new String[regions.size()]));
-                                        nameList.add(name, entry);
-                                        tags2namesList.add(tags.toString(), entry);
-                                    }
-                                    reader.endObject(); // value
-                                }
-                                reader.endObject(); // key
-                            }
-                            reader.endObject();
-                        } catch (IOException | IllegalStateException e) {
-                            Log.e(DEBUG_TAG, "Got exception reading " + NSI_FILE + " " + e.getMessage());
-                        }
-                    }
-
-                    try (InputStream is = assetManager.open(CATEGORIES_FILE); JsonReader reader = new JsonReader(new InputStreamReader(is));) {
-                        String category = null;
-                        reader.beginObject();
-                        while (reader.hasNext()) {
-                            category = reader.nextName();
-                            String poiType = null;
-                            reader.beginObject();
-                            while (reader.hasNext()) {
-                                poiType = reader.nextName();
-                                reader.beginArray();
-                                while (reader.hasNext()) {
-                                    categories.add(category, poiType + "=" + reader.nextString());
-                                }
-                                reader.endArray();
-                            }
-                            reader.endObject();
-                        }
-                        reader.endObject();
-
-                    } catch (IOException e) {
-                        Log.d(DEBUG_TAG, "Got exception reading " + CATEGORIES_FILE + " " + e.getMessage());
-                    }
-                } catch (IOException | IllegalStateException e) {
-                    Log.d(DEBUG_TAG, "Got exception " + e.getMessage());
-                }
+                readNSI(assetManager);
+                readCategories(assetManager);
                 ready = true;
             }
         }
+    }
+
+    /**
+     * Read the NSI configuration from assets
+     * 
+     * @param assetManager an AssetManager instance
+     */
+    private void readNSI(@NonNull AssetManager assetManager) {
+        try (InputStream is = assetManager.open(NSI_FILE); JsonReader reader = new JsonReader(new InputStreamReader(is))) {
+            reader.beginObject(); // top level
+            while (reader.hasNext()) {
+                if (NSI_FIELD.equals(reader.nextName())) {
+                    reader.beginObject(); // entries
+                    while (reader.hasNext()) {
+                        reader.nextName();
+                        reader.beginObject(); // entry
+                        while (reader.hasNext()) {
+                            String jsonName = reader.nextName();
+                            switch (jsonName) {
+                            case PROPERTIES_FIELD:
+                                reader.skipValue();
+                                break;
+                            case ITEMS_FIELD:
+                                reader.beginArray(); // item
+                                while (reader.hasNext()) {
+                                    reader.beginObject();
+                                    String name = null;
+                                    List<String> includeRegions = null;
+                                    List<String> excludeRegions = null;
+                                    TagMap tags = new TagMap();
+                                    while (reader.hasNext()) {
+                                        String field = reader.nextName();
+                                        switch (field) {
+                                        case DISPLAY_NAME_FIELD:
+                                            name = reader.nextString();
+                                            break;
+                                        case LOCATION_SET_FIELD:
+                                            reader.beginObject();
+                                            while (reader.hasNext()) {
+                                                switch (reader.nextName()) {
+                                                case INCLUDE_FIELD:
+                                                    includeRegions = readStringArray(reader);
+                                                    break;
+                                                case EXCLUDE_FIELD:
+                                                    excludeRegions = readStringArray(reader);
+                                                    break;
+                                                default:
+                                                    reader.skipValue();
+                                                }
+                                            }
+                                            reader.endObject();
+                                            break;
+                                        case TAGS_FIELD:
+                                            reader.beginObject();
+                                            while (reader.hasNext()) {
+                                                String k = reader.nextName();
+                                                if (!Tags.KEY_BRAND_WIKIPEDIA.equals(k) && !Tags.KEY_BRAND_WIKIDATA.equals(k)) {
+                                                    tags.put(k, reader.nextString());
+                                                } else {
+                                                    reader.skipValue();
+                                                }
+                                            }
+                                            reader.endObject(); // tags
+                                            break;
+                                        default:
+                                            reader.skipValue();
+                                            break;
+                                        }
+                                    } // item
+                                    reader.endObject();
+                                    if (name != null) {
+                                        NameAndTags entry = new NameAndTags(name, tags, 1, includeRegions, excludeRegions);
+                                        nameList.add(name, entry);
+                                        tags2namesList.add(tags.toString(), entry);
+                                    }
+                                } // items
+                                reader.endArray();
+                                break;
+                            default:
+                                reader.skipValue();
+                                break;
+                            }
+                        }
+                        reader.endObject(); // entry
+                    }
+                    reader.endObject(); // entries
+                } else {
+                    reader.skipValue();
+                }
+            }
+            reader.endObject(); // top level
+        } catch (IOException | IllegalStateException e) {
+            Log.e(DEBUG_TAG, "Got exception reading " + NSI_FILE + " " + e.getMessage());
+        }
+    }
+
+    /**
+     * Read the category configuration from assets
+     * 
+     * @param assetManager an AssetManager instance
+     */
+    private void readCategories(AssetManager assetManager) {
+        try (InputStream is = assetManager.open(CATEGORIES_FILE); JsonReader reader = new JsonReader(new InputStreamReader(is));) {
+            String category = null;
+            reader.beginObject();
+            while (reader.hasNext()) {
+                category = reader.nextName();
+                String poiType = null;
+                reader.beginObject();
+                while (reader.hasNext()) {
+                    poiType = reader.nextName();
+                    reader.beginArray();
+                    while (reader.hasNext()) {
+                        categories.add(category, poiType + "=" + reader.nextString());
+                    }
+                    reader.endArray();
+                }
+                reader.endObject();
+            }
+            reader.endObject();
+        } catch (IOException | IllegalStateException e) {
+            Log.d(DEBUG_TAG, "Got exception reading " + CATEGORIES_FILE + " " + e.getMessage());
+        }
+    }
+
+    /**
+     * Read a JsonArray of string in to a String[]
+     * 
+     * @param reader the JsonReader
+     * @return a String[] with the JSON strings
+     * @throws IOException on IO and parse errors
+     */
+    @Nullable
+    private List<String> readStringArray(@NonNull JsonReader reader) throws IOException {
+        boolean valid = true;
+        List<String> result = new ArrayList<>();
+        reader.beginArray();
+        while (reader.hasNext()) {
+            if (reader.peek() == JsonToken.STRING) { // FIXME weird location stuff
+                String code = reader.nextString().toUpperCase(Locale.US);
+                if (WERID_WHOLE_WORLD_NSI_VALUE.equals(code)) {
+                    valid = false;
+                } else {
+                    result.add(code);
+                }
+            } else {
+                reader.skipValue();
+                valid = false;
+            }
+        }
+        reader.endArray();
+        return valid ? result : null;
     }
 
     /**
