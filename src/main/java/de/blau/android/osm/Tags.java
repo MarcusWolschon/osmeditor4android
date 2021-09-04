@@ -106,6 +106,7 @@ public final class Tags {
     public static final String KEY_REF              = "ref";
     public static final String KEY_NONAME           = "noname";
     public static final String KEY_VALIDATE_NO_NAME = "validate:no_name";
+    public static final String KEY_NOREF            = "noref";
     public static final String KEY_HIGHWAY          = "highway";
     public static final String VALUE_ROAD           = "road";
     public static final String VALUE_MOTORWAY       = "motorway";
