@@ -662,11 +662,11 @@ public class PropertyEditorTest {
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_M);
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_C);
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_D);
-        Assert.assertTrue(TestUtils.findText(device, false, "MCB", 5000));
+        Assert.assertTrue(TestUtils.findText(device, false, "MCM", 5000));
         Assert.assertTrue(TestUtils.findText(device, false, "McDonald's", 1000));
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_O);
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_N);
-        Assert.assertTrue(TestUtils.textGone(device, "MCB", 5000));
+        Assert.assertTrue(TestUtils.textGone(device, "MCM", 5000));
         Assert.assertTrue(TestUtils.findText(device, false, "McDonald's", 1000));
         Assert.assertTrue(TestUtils.clickText(device, false, "McDonald's", true, true));
         Assert.assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_tags), 5000));
