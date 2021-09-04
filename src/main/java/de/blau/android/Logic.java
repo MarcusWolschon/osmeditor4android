@@ -4642,7 +4642,7 @@ public class Logic {
      * @param map the new Map-Instance. Be aware: The View-dimensions are not yet set...
      * @param deselect if true de-select objects
      */
-    public void setMap(Map map, boolean deselect) {
+    public void setMap(@NonNull Map map, boolean deselect) {
         Log.d(DEBUG_TAG, "setting map");
         this.map = map;
         map.setDelegator(getDelegator());
@@ -4661,6 +4661,7 @@ public class Logic {
      * 
      * @return map object
      */
+    @Nullable
     public Map getMap() {
         return map;
     }
