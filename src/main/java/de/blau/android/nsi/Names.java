@@ -51,7 +51,8 @@ public class Names {
     private static final String CATEGORIES_FILE = "categories.json";
     private static final String NSI_FILE        = "name-suggestions.min.json";
 
-    private static final List<String> AMENITY_VALUES_TO_REMOVE = Collections.unmodifiableList(Arrays.asList(Tags.VALUE_ATM, Tags.VALUE_VENDING_MACHINE));
+    private static final List<String> AMENITY_VALUES_TO_REMOVE = Collections
+            .unmodifiableList(Arrays.asList(Tags.VALUE_ATM, Tags.VALUE_VENDING_MACHINE, Tags.VALUE_PAYMENT_TERMINAL));
 
     public class TagMap extends TreeMap<String, String> {
 
@@ -442,7 +443,7 @@ public class Names {
             }
         }
 
-        TreeSet<String> seen = new TreeSet<>();
+        Set<String> seen = new TreeSet<>();
         // check categories for similar tags and add names from them too
         seen.add(origTagKey); // skip stuff we've already added
         for (String category : categories.getKeys()) { // loop over categories
