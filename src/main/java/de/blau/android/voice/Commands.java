@@ -1,6 +1,5 @@
 package de.blau.android.voice;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -8,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
@@ -68,14 +68,13 @@ public class Commands {
      * @param location the current Location
      */
     public void processIntentResult(@NonNull Intent data, @NonNull Location location) {
-
         // Fill the list view with the strings the recognizer thought it
         // could have heard
-        ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+        List<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
         final Logic logic = App.getLogic();
         // try to find a command it simply stops at the first string that is valid
-        for (String v : matches) {
-            String[] words = v.split("\\s+", 3);
+        for (String text : matches) {
+            String[] words = text.split("\\s+", 3);
             if (words.length > 1) {
                 String loc = words[0].toLowerCase(Locale.getDefault());
                 if (match(R.string.voice_left, loc) || match(R.string.voice_here, loc) || match(R.string.voice_right, loc) || match(R.string.voice_note, loc)) {
@@ -94,19 +93,11 @@ public class Commands {
                     try {
                         int number = Integer.parseInt(first);
                         // worked if there is a further word(s) simply add it/them
-                        Snack.toastTopInfo(main, loc + " " + number + (words.length == 3 ? words[2] : ""));
+                        String additionalText = words.length == 3 ? words[2] : "";
+                        Snack.toastTopInfo(main, loc + " " + number + additionalText);
                         Node node = createNode(loc, location);
                         if (node != null) {
-                            TreeMap<String, String> tags = new TreeMap<>(node.getTags());
-                            tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number) + (words.length == 3 ? words[2] : ""));
-                            tags.put("source:original_text", v);
-                            Map<String, List<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(),
-                                    new ElementSearch(new IntCoordinates(node.getLon(), node.getLat()), true), Util.getListMap(tags), Address.NO_HYSTERESIS);
-                            tags = new TreeMap<>();
-                            for (Entry<String, List<String>> entry : map.entrySet()) {
-                                tags.put(entry.getKey(), entry.getValue().get(0));
-                            }
-                            logic.setTags(main, node, tags);
+                            setAddressTags(main, logic, number, additionalText, node, text);
                         }
                         return;
                     } catch (NumberFormatException ex) {
@@ -118,7 +109,7 @@ public class Commands {
 
                     List<PresetElement> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1, null);
                     if (presetItems != null && presetItems.size() == 1) {
-                        addNode(createNode(loc, location), words.length == 3 ? words[2] : null, (PresetItem) presetItems.get(0), logic, v);
+                        addNode(main, createNode(loc, location), words.length == 3 ? words[2] : null, (PresetItem) presetItems.get(0), logic, text);
                         return;
                     }
 
@@ -129,11 +120,17 @@ public class Commands {
                     }
                     NameAndTags nt = SearchIndexUtils.searchInNames(main, input.toString(), 2);
                     if (nt != null) {
-                        HashMap<String, String> map = new HashMap<>();
+                        Map<String, String> map = new HashMap<>();
                         map.putAll(nt.getTags());
                         PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(main), map, null);
                         if (pi != null) {
-                            addNode(createNode(loc, location), nt.getName(), pi, logic, v);
+                            Node node = addNode(main, createNode(loc, location), nt.getName(), pi, logic, text);
+                            if (node != null) {
+                                // set tags from name suggestions
+                                Map<String, String> tags = new TreeMap<>(node.getTags());
+                                tags.putAll(map);
+                                App.getDelegator().setTags(node, tags); // note doesn't create a new undo checkpoint,
+                            }
                             return;
                         }
                     }
@@ -147,42 +144,63 @@ public class Commands {
                 }
             }
         }
+    }
 
+    /**
+     * Set address tags from a voice command
+     * 
+     * @param activity calling Activity
+     * @param logic current Logic instance
+     * @param number parsed number
+     * @param additionalText any additional text
+     * @param node the Node
+     * @param originalText the original text from the voice recording
+     */
+    public static void setAddressTags(@NonNull Activity activity, @NonNull final Logic logic, int number, @NonNull String additionalText, @NonNull Node node,
+            @NonNull String originalText) {
+        Map<String, String> tags = new TreeMap<>(node.getTags());
+        tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number) + additionalText);
+        tags.put(SOURCE_ORIGINAL_TEXT, originalText);
+        Map<String, List<String>> map = Address.predictAddressTags(activity, Node.NAME, node.getOsmId(),
+                new ElementSearch(new IntCoordinates(node.getLon(), node.getLat()), true), Util.getListMap(tags), Address.NO_HYSTERESIS);
+        tags = Address.multiValueToSingle(map);
+        logic.setTags(activity, node, tags);
     }
 
     /**
      * "add" a Node
      * 
+     * @param activity the calling Activity
      * @param node the Node
      * @param name the name of the establishment
      * @param pi the PresetItem
      * @param logic the current logic instance
      * @param original the text the voice recognition understood
-     * @return if successful
+     * @return the Node or null
      */
-    private boolean addNode(@Nullable Node node, @Nullable String name, @NonNull PresetItem pi, @NonNull Logic logic, @NonNull String original) {
+    @Nullable
+    public static Node addNode(@NonNull Activity activity, @Nullable Node node, @Nullable String name, @NonNull PresetItem pi, @NonNull Logic logic,
+            @NonNull String original) {
         if (node != null) {
-            Snack.toastTopInfo(main, pi.getName() + (name != null ? " name: " + name : ""));
-            if (node != null) {
-                try {
-                    TreeMap<String, String> tags = new TreeMap<>(node.getTags());
-                    for (Entry<String, PresetFixedField> tag : pi.getFixedTags().entrySet()) {
-                        PresetFixedField field = tag.getValue();
-                        tags.put(tag.getKey(), field.getValue().getValue());
-                    }
-                    if (name != null) {
-                        tags.put(Tags.KEY_NAME, name);
-                    }
-                    tags.put(SOURCE_ORIGINAL_TEXT, original);
-                    logic.setTags(main, node, tags);
-                    return true;
-                } catch (OsmIllegalOperationException e) {
-                    Log.e(DEBUG_TAG, "addNode got " + e.getMessage());
-                    Snack.toastTopError(main, e.getLocalizedMessage());
+            Snack.toastTopInfo(activity, pi.getName() + (name != null ? " name: " + name : ""));
+            try {
+                TreeMap<String, String> tags = new TreeMap<>(node.getTags());
+                for (Entry<String, PresetFixedField> tag : pi.getFixedTags().entrySet()) {
+                    PresetFixedField field = tag.getValue();
+                    tags.put(tag.getKey(), field.getValue().getValue());
                 }
+                if (name != null) {
+                    tags.put(Tags.KEY_NAME, name);
+                }
+                tags.put(SOURCE_ORIGINAL_TEXT, original);
+                logic.setTags(activity, node, tags);
+                return node;
+            } catch (OsmIllegalOperationException e) {
+                Log.e(DEBUG_TAG, "addNode got " + e.getMessage());
+                Snack.toastTopError(activity, e.getLocalizedMessage());
             }
         }
-        return false;
+        return null;
     }
 
     /**

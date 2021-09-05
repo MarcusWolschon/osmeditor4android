@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import android.content.Intent;
@@ -15,13 +14,10 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
-import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.address.Address;
 import de.blau.android.dialogs.GnssPositionInfo;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.nsi.Names.NameAndTags;
@@ -30,16 +26,12 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.presets.PresetFixedField;
 import de.blau.android.tasks.NoteFragment;
-import de.blau.android.util.ElementSearch;
-import de.blau.android.util.IntCoordinates;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
@@ -236,7 +228,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             }
             Node lastSelectedNode = logic.getSelectedNode();
             if (lastSelectedNode != null) {
-                main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, lastSelectedNode));
+                startNodeSelectedActionMode(lastSelectedNode);
                 // show preset screen or add addresses
                 main.performTagEdit(lastSelectedNode, null, item.getItemId() == MENUITEM_NEWNODE_ADDRESS, item.getItemId() == MENUITEM_NEWNODE_PRESET);
             }
@@ -303,65 +295,55 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
      */
     void handleActivityResult(final int requestCode, final int resultCode, final Intent data) {
         if (requestCode == Main.VOICE_RECOGNITION_REQUEST_CODE) {
-            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            List<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             //
             StorageDelegator storageDelegator = App.getDelegator();
-            for (String v : matches) {
-                String[] words = v.split("\\s+", 2);
+            for (String text : matches) {
+                String[] words = text.split("\\s+", 2);
                 if (words.length > 0) {
                     //
                     String first = words[0];
                     try {
                         int number = Integer.parseInt(first);
                         // worked if there is a further word(s) simply add it/them
-                        Snack.barInfoShort(main, +number + (words.length == 2 ? words[1] : ""));
+                        String additionalText = words.length == 2 ? words[1] : "";
+                        Snack.barInfoShort(main, +number + additionalText);
                         Node node = logic.performAddNode(main, startLon, startLat);
                         if (node != null) {
-                            Map<String, String> tags = new TreeMap<>(node.getTags());
-                            tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number) + (words.length == 3 ? words[2] : ""));
-                            tags.put(Commands.SOURCE_ORIGINAL_TEXT, v);
-                            Map<String, List<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(),
-                                    new ElementSearch(new IntCoordinates(node.getLon(), node.getLat()), true), Util.getListMap(tags), Address.NO_HYSTERESIS);
-                            tags = Address.multiValueToSingle(map);
-                            logic.setTags(main, node, tags);
-                            main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
+                            Commands.setAddressTags(main, logic, number, additionalText, node, text);
+                            startNodeSelectedActionMode(node);
                             return;
                         }
                     } catch (NumberFormatException ex) {
                         // ok wasn't a number, just ignore
                     } catch (OsmIllegalOperationException e) {
-                        // FIXME something went seriously wrong
                         Log.e(DEBUG_TAG, "handleActivityResult got exception " + e.getMessage());
                     }
 
                     List<PresetElement> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1, null);
-
                     if (presetItems != null && presetItems.size() == 1) {
-                        Node node = addNode(logic.performAddNode(main, startLon, startLat), words.length == 2 ? words[1] : null,
-                                (PresetItem) presetItems.get(0), logic, v);
+                        Node node = Commands.addNode(main, logic.performAddNode(main, startLon, startLat), words.length == 2 ? words[1] : null,
+                                (PresetItem) presetItems.get(0), logic, text);
                         if (node != null) {
-                            main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
+                            startNodeSelectedActionMode(node);
                             return;
                         }
                     }
 
                     // search in names
-                    NameAndTags nt = SearchIndexUtils.searchInNames(main, v, 2);
+                    NameAndTags nt = SearchIndexUtils.searchInNames(main, text, 2);
                     if (nt != null) {
-                        HashMap<String, String> map = new HashMap<>();
+                        Map<String, String> map = new HashMap<>();
                         map.putAll(nt.getTags());
                         PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(main), map, null);
                         if (pi != null) {
-                            Node node = addNode(logic.performAddNode(main, startLon, startLat), nt.getName(), pi, logic, v);
+                            Node node = Commands.addNode(main, logic.performAddNode(main, startLon, startLat), nt.getName(), pi, logic, text);
                             if (node != null) {
                                 // set tags from name suggestions
                                 Map<String, String> tags = new TreeMap<>(node.getTags());
-                                for (Entry<String, String> entry : map.entrySet()) {
-                                    tags.put(entry.getKey(), entry.getValue());
-                                }
+                                tags.putAll(map);
                                 storageDelegator.setTags(node, tags); // note doesn't create a new undo checkpoint,
-                                                                      // performAddNode has already done that
-                                main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
+                                startNodeSelectedActionMode(node);
                                 return;
                             }
                         }
@@ -373,36 +355,12 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     }
 
     /**
-     * Add a Node using a PresetItem and select it
+     * Start the NodeSelectionActionMode
      * 
-     * @param node an existing Node
-     * @param name a name or null
-     * @param pi the PresetITem
-     * @param logic the current instance of Logic
-     * @param original the source string used to create the Node
-     * @return the Node or null
+     * @param node the selected Node
      */
-    @Nullable
-    Node addNode(@NonNull Node node, @Nullable String name, @NonNull PresetItem pi, @NonNull Logic logic, @NonNull String original) {
-        try {
-            Snack.barInfo(main, pi.getName() + (name != null ? " name: " + name : ""));
-            TreeMap<String, String> tags = new TreeMap<>(node.getTags());
-            for (Entry<String, PresetFixedField> tag : pi.getFixedTags().entrySet()) {
-                PresetFixedField field = tag.getValue();
-                tags.put(tag.getKey(), field.getValue().getValue());
-            }
-            if (name != null) {
-                tags.put(Tags.KEY_NAME, name);
-            }
-            tags.put(Commands.SOURCE_ORIGINAL_TEXT, original);
-            logic.setTags(main, node, tags);
-            logic.setSelectedNode(node);
-            return node;
-        } catch (OsmIllegalOperationException e) {
-            Log.e(DEBUG_TAG, "addNode got exception " + e.getMessage());
-            Snack.barError(main, e.getLocalizedMessage());
-            return null;
-        }
+    public void startNodeSelectedActionMode(@NonNull Node node) {
+        main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
     }
 
     @Override
