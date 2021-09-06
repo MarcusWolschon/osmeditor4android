@@ -20,10 +20,12 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
+import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.layer.PruneableInterface;
@@ -46,7 +48,8 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends MapViewLayer implements ExtentInterface, DiscardInterface, ClickableInterface<Task>, ConfigureInterface, PruneableInterface {
+public class MapOverlay extends MapViewLayer
+        implements ExtentInterface, DiscardInterface, ClickableInterface<Task>, LayerInfoInterface, ConfigureInterface, PruneableInterface {
 
     private static final String DEBUG_TAG = "tasks";
 
@@ -264,6 +267,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Discard
         ViewBox pruneBox = new ViewBox(map.getViewBox());
         pruneBox.scale(1.6);
         tasks.prune(pruneBox);
+    }
+
+    @Override
+    public void showInfo(FragmentActivity activity) {
+        LayerInfo f = new TaskLayerInfo();
+        f.setShowsDialog(true);
+        LayerInfo.showDialog(activity, f);
     }
 
     /**
