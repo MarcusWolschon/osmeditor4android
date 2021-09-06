@@ -153,13 +153,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         // potentially the imagery layer lists don't exist yet, force create them now
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                TileLayerSource.get(getContext(), TileLayerSource.LAYER_MAPNIK, true);
-                return null;
-            }
-        }.execute();
+        loadTileLayerSources();
 
         AppCompatDialog dialog = new AppCompatDialog(getActivity());
         View layout = createView(null);
@@ -230,6 +224,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                         item.setOnMenuItemClickListener(unused -> {
                             de.blau.android.layer.Util.addLayer(activity, LayerType.MAPILLARY);
                             updateDialogAndPrefs(activity, prefs, map);
+                            Tip.showDialog(activity, R.string.tip_mapillary_privacy_key, R.string.tip_mapillary_privacy);
                             return true;
                         });
                     }
@@ -274,6 +269,19 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         window.setAttributes(wlp);
 
         return dialog;
+    }
+
+    /**
+     * Force load the tile layers by requesting the standard OSM layer
+     */
+    public void loadTileLayerSources() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                TileLayerSource.get(getContext(), TileLayerSource.LAYER_MAPNIK, true);
+                return null;
+            }
+        }.execute();
     }
 
     /**
