@@ -47,7 +47,7 @@ import de.blau.android.util.Screen;
 import de.blau.android.util.ThemeUtils;
 
 /**
- * Display a dialog allowing the user to change some properties of the current background
+ * Display a dialog allowing the user to change styling of a layer
  *
  */
 public class LayerStyle extends ImmersiveDialogFragment {
@@ -56,10 +56,11 @@ public class LayerStyle extends ImmersiveDialogFragment {
 
     private static final String TAG = "fragment_layer_style";
 
-    private static final String LAYERINDEX = "layer_index";
+    private static final String LAYER_INDEX_KEY = "layer_index";
 
     private final Map map;
 
+    private int                layerIndex;
     private StyleableInterface layer;
     private View               colorView;
     private String             subLayerName = null;
@@ -99,7 +100,7 @@ public class LayerStyle extends ImmersiveDialogFragment {
     private static LayerStyle newInstance(int layerIndex) {
         LayerStyle f = new LayerStyle();
         Bundle args = new Bundle();
-        args.putInt(LAYERINDEX, layerIndex);
+        args.putInt(LAYER_INDEX_KEY, layerIndex);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -118,6 +119,11 @@ public class LayerStyle extends ImmersiveDialogFragment {
     @SuppressLint("InflateParams")
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            layerIndex = savedInstanceState.getInt(LAYER_INDEX_KEY);
+        } else {
+            layerIndex = getArguments().getInt(LAYER_INDEX_KEY);
+        }
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.layer_style_title);
 
@@ -133,7 +139,6 @@ public class LayerStyle extends ImmersiveDialogFragment {
         final NumberPicker minZoomPicker = (NumberPicker) layerContainer.findViewById(R.id.zoom_min);
         final NumberPicker maxZoomPicker = (NumberPicker) layerContainer.findViewById(R.id.zoom_max);
         colorView = layout.findViewById(R.id.layer_color);
-        int layerIndex = getArguments().getInt(LAYERINDEX);
         MapViewLayer tempLayer = map.getLayer(layerIndex);
         if (tempLayer instanceof StyleableInterface) {
             builder.setTitle(tempLayer.getName());
@@ -346,6 +351,12 @@ public class LayerStyle extends ImmersiveDialogFragment {
         if (dialog != null) {
             dialog.getWindow().setLayout((int) (Screen.getScreenSmallDimemsion(getActivity()) * 0.9), ViewGroup.LayoutParams.WRAP_CONTENT);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(LAYER_INDEX_KEY, layerIndex);
     }
 
     /**
