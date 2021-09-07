@@ -155,9 +155,16 @@ public class Tip extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefIds = getArguments().getIntegerArrayList(PREF_IDS_KEY);
-        messageIds = getArguments().getIntegerArrayList(MESSAGE_IDS_KEY);
-        optionals = getArguments().getBooleanArray(OPTIONALS_KEY);
+        if (savedInstanceState != null) {
+            prefIds = savedInstanceState.getIntegerArrayList(PREF_IDS_KEY);
+            messageIds = savedInstanceState.getIntegerArrayList(MESSAGE_IDS_KEY);
+            optionals = savedInstanceState.getBooleanArray(OPTIONALS_KEY);
+            Log.d(DEBUG_TAG, "restoring from saved state");
+        } else {
+            prefIds = getArguments().getIntegerArrayList(PREF_IDS_KEY);
+            messageIds = getArguments().getIntegerArrayList(MESSAGE_IDS_KEY);
+            optionals = getArguments().getBooleanArray(OPTIONALS_KEY);
+        }
     }
 
     @NonNull
@@ -206,5 +213,13 @@ public class Tip extends ImmersiveDialogFragment {
             View checkContainer = layout.findViewById(R.id.tip_check_container);
             checkContainer.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putIntegerArrayList(PREF_IDS_KEY, new ArrayList<>(prefIds));
+        outState.putIntegerArrayList(MESSAGE_IDS_KEY, new ArrayList<>(messageIds));
+        outState.putBooleanArray(OPTIONALS_KEY, optionals);
     }
 }
