@@ -54,6 +54,8 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
 
     private static final String TAG = "fragment_view_waypoint";
 
+    private WayPoint wp = null;
+
     /**
      * Show dialog for a WayPoint
      * 
@@ -113,6 +115,13 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
     @SuppressLint("InflateParams")
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            Log.d(DEBUG_TAG, "restoring from saved state");
+            wp = (WayPoint) savedInstanceState.getSerializable(WAYPOINT);
+        } else {
+            wp = (WayPoint) getArguments().getSerializable(WAYPOINT);
+        }
+
         FragmentActivity activity = getActivity();
         Builder builder = new AlertDialog.Builder(activity);
 
@@ -121,8 +130,6 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
 
         ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, null, false);
         TableLayout tl = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
-
-        final WayPoint wp = (WayPoint) getArguments().getSerializable(WAYPOINT);
 
         TableLayout.LayoutParams tp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         tp.setMargins(10, 2, 10, 2);
@@ -193,5 +200,11 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
             }
             ((Main) activity).performTagEdit(n, presetPath, tags, presetPath == null);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(WAYPOINT, wp);
     }
 }
