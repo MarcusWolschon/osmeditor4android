@@ -174,7 +174,7 @@ public class ExtendedLocation extends Location implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
-        dest.writeInt(flags);
+        dest.writeInt(this.flags);
         dest.writeDouble(hdop);
         dest.writeDouble(geoidHeight);
         dest.writeDouble(geoidCorrection);

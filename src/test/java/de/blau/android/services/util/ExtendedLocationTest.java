@@ -27,6 +27,7 @@ public class ExtendedLocationTest {
         loc.setLongitude(lon);
         loc.setAltitude(600);
         loc.setBarometricHeight(555);
+        loc.setUseBarometricHeight();
         loc.setGeoidCorrection(48);
         loc.setGeoidHeight(552);
         loc.setHdop(2.0);
@@ -37,15 +38,16 @@ public class ExtendedLocationTest {
         ExtendedLocation restoredLoc = ExtendedLocation.CREATOR.createFromParcel(p);
         assertEquals(lat, restoredLoc.getLatitude(), 0.0);
         assertEquals(lon, restoredLoc.getLongitude(), 0.0);
-        assertTrue(loc.hasAltitude());
+        assertTrue(restoredLoc.hasAltitude());
         assertEquals(600, restoredLoc.getAltitude(), 0.0);
-        assertTrue(loc.hasBarometricHeight());
+        assertTrue(restoredLoc.hasBarometricHeight());
         assertEquals(555, restoredLoc.getBarometricHeight(), 0.0);
-        assertTrue(loc.hasGeoidCorrection());
+        assertTrue(restoredLoc.useBarometricHeight());
+        assertTrue(restoredLoc.hasGeoidCorrection());
         assertEquals(48, restoredLoc.getGeoidCorrection(), 0.0);
-        assertTrue(loc.hasGeoidHeight());
+        assertTrue(restoredLoc.hasGeoidHeight());
         assertEquals(552, restoredLoc.getGeoidHeight(), 0.0);
-        assertTrue(loc.hasHdop());
+        assertTrue(restoredLoc.hasHdop());
         assertEquals(2.0, restoredLoc.getHdop(), 0.0);
     }
 }
