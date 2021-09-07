@@ -81,6 +81,8 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
 
     private Resources resources;
 
+    private List<OsmElement> elements = null;
+
     /**
      * Instantiate and show the dialog
      * 
@@ -127,11 +129,17 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         return f;
     }
 
+    @SuppressWarnings("unchecked")
     @NonNull
     @SuppressLint("InflateParams")
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        final List<OsmElement> elements = (List<OsmElement>) getArguments().getSerializable(ELEMENTS_KEY);
+        if (savedInstanceState != null) {
+            Log.d(DEBUG_TAG, "restoring from saved state");
+            elements = (List<OsmElement>) savedInstanceState.getSerializable(ELEMENTS_KEY);
+        } else {
+            elements = (List<OsmElement>) getArguments().getSerializable(ELEMENTS_KEY);
+        }
 
         FragmentActivity activity = getActivity();
         resources = getResources();
@@ -477,5 +485,11 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
                 }
             }
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(ELEMENTS_KEY, new ArrayList<>(elements));
     }
 }
