@@ -200,9 +200,9 @@ public class ElementInfo extends InfoDialogFragment {
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
         final FragmentActivity activity = getActivity();
-        BoundingBox tempBox = element != null ? element.getBounds() : null;
-        final ViewBox box = tempBox != null ? new ViewBox(tempBox) : null;
-        if (activity instanceof Main) {
+        if (activity instanceof Main && element != null) {
+            BoundingBox tempBox = element.getBounds();
+            final ViewBox box = tempBox != null ? new ViewBox(tempBox) : null;
             if (getArguments().getBoolean(SHOW_JUMP_TO_KEY)) {
                 builder.setNeutralButton(R.string.goto_element, (dialog, which) -> {
                     de.blau.android.dialogs.Util.dismissDialog(activity, ConfirmUpload.TAG);
