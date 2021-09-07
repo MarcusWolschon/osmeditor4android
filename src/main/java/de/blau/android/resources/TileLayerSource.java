@@ -25,7 +25,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.mapbox.geojson.Feature;
@@ -467,10 +466,8 @@ public class TileLayerSource implements Serializable {
             if (ctx instanceof Main && ((Main) ctx).getMap() != null) { // don't do this in the service
                 ((Main) ctx).getMap().setPrefs(ctx, new Preferences(ctx));
             }
-        } catch (IOException e) {
-            Log.d(DEBUG_TAG, "Tileserver problem (IOException) metadata URL " + metadataUrl, e);
-        } catch (XmlPullParserException e) {
-            Log.e(DEBUG_TAG, "Tileserver problem (XmlPullParserException) metadata URL " + metadataUrl, e);
+        } catch (Exception e) {
+            Log.d(DEBUG_TAG, "Tileserver problem metadata URL " + metadataUrl, e);
         }
     }
 
