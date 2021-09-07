@@ -81,8 +81,14 @@ public class DataLossActivity extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        intent = getArguments().getParcelable(INTENT_KEY);
-        requestCode = getArguments().getInt(REQUESTCODE_KEY);
+        if (savedInstanceState != null) {
+            Log.d(DEBUG_TAG, "restoring from saved state");
+            intent = savedInstanceState.getParcelable(INTENT_KEY);
+            requestCode = savedInstanceState.getInt(REQUESTCODE_KEY);
+        } else {
+            intent = getArguments().getParcelable(INTENT_KEY);
+            requestCode = getArguments().getInt(REQUESTCODE_KEY);
+        }
     }
 
     @NonNull
@@ -95,5 +101,12 @@ public class DataLossActivity extends ImmersiveDialogFragment {
         builder.setPositiveButton(R.string.unsaved_data_proceed, (dialog, which) -> getActivity().startActivityForResult(intent, requestCode));
         builder.setNegativeButton(R.string.cancel, null);
         return builder.create();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(INTENT_KEY, intent);
+        outState.putInt(REQUESTCODE_KEY, requestCode);
     }
 }
