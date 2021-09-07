@@ -1,7 +1,5 @@
 package de.blau.android.dialogs;
 
-import java.util.ArrayList;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;

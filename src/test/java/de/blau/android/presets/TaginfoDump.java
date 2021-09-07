@@ -19,7 +19,7 @@ import androidx.test.filters.LargeTest;
  */
 @RunWith(RobolectricTestRunner.class)
 @LargeTest
-public class TaginfoDump {
+public class TaginfoDump { // NOSONAR
 
     /**
      * Write out the current preset in taginfo format
