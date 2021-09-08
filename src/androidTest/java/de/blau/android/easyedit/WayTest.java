@@ -186,7 +186,7 @@ public class WayTest {
     public void geometryImprovement() {
         map.getDataLayer().setVisible(true);
         TestUtils.unlock(device);
-        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.zoomToLevel(device, main, 22);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         Assert.assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         Way way = App.getLogic().getSelectedWay();
