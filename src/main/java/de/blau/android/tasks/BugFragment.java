@@ -1,5 +1,6 @@
 package de.blau.android.tasks;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ import de.blau.android.util.Util;
 import io.noties.markwon.Markwon;
 
 /**
- * Very simple dialog fragment to display an OSMOSE bug 
+ * Very simple dialog fragment to display an OSMOSE bug
  * 
  * @author Simon
  *
@@ -102,44 +103,46 @@ public class BugFragment extends TaskFragment {
             TextView instructionText = new TextView(getActivity());
             instructionText.setClickable(true);
             instructionText.setOnClickListener(unused -> {
-                final FragmentActivity activity = getActivity();
-                final Markwon markwon = Markwon.create(activity);
-                OsmoseMeta meta = App.getTaskStorage().getOsmoseMeta();
-                final int itemId = ((OsmoseBug) task).getOsmoseItem();
-                final int classId = ((OsmoseBug) task).getOsmoseClass();
-                OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
-                if (osmoseClass == null) {
-                    if (new NetworkStatus(activity).isConnected()) {
-                        new AsyncTask<Void, Void, Void>() {
-                            @Override
-                            protected Void doInBackground(Void... arg0) {
-                                OsmoseServer.getMeta(getContext(), itemId, classId);
-                                return null;
-                            }
+                final Context context = getContext();
+                if (context != null) {
+                    final Markwon markwon = Markwon.create(context);
+                    OsmoseMeta meta = App.getTaskStorage().getOsmoseMeta();
+                    final int itemId = ((OsmoseBug) task).getOsmoseItem();
+                    final int classId = ((OsmoseBug) task).getOsmoseClass();
+                    OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
+                    if (osmoseClass == null) {
+                        if (new NetworkStatus(context).isConnected()) {
+                            new AsyncTask<Void, Void, Void>() {
+                                @Override
+                                protected Void doInBackground(Void... arg0) {
+                                    OsmoseServer.getMeta(context, itemId, classId);
+                                    return null;
+                                }
 
-                            @Override
-                            protected void onPostExecute(Void arg0) {
-                                OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
-                                if (osmoseClass != null) {
-                                    String text = osmoseClass.getText();
-                                    if (text != null) {
-                                        showAdditionalText(activity, markwon.toMarkdown(text));
+                                @Override
+                                protected void onPostExecute(Void arg0) {
+                                    OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
+                                    if (osmoseClass != null) {
+                                        String text = osmoseClass.getText();
+                                        if (text != null) {
+                                            showAdditionalText(context, markwon.toMarkdown(text));
+                                        }
                                     }
                                 }
-                            }
 
-                        }.execute();
+                            }.execute();
+                        } else {
+                            Snack.toastTopWarning(context, R.string.network_required);
+                        }
                     } else {
-                        Snack.toastTopWarning(getContext(), R.string.network_required);
-                    }
-                } else {
-                    String text = osmoseClass.getText();
-                    if (text != null) {
-                        showAdditionalText(activity, markwon.toMarkdown(text));
+                        String text = osmoseClass.getText();
+                        if (text != null) {
+                            showAdditionalText(context, markwon.toMarkdown(text));
+                        }
                     }
                 }
             });
-            instructionText.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
+            instructionText.setTextColor(ContextCompat.getColor(getContext(), R.color.holo_blue_light));
             instructionText.setText(R.string.maproulette_task_explanations);
             elementLayout.addView(instructionText);
         }
@@ -156,23 +159,25 @@ public class BugFragment extends TaskFragment {
                 tv.setClickable(true);
                 tv.setOnClickListener(unused -> {
                     dismiss();
-                    final FragmentActivity activity = getActivity();
                     final int lonE7 = task.getLon();
                     final int latE7 = task.getLat();
-                    if (e.getOsmVersion() < 0) { // fake element
-                        try {
-                            BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50, true);
-                            App.getLogic().downloadBox(activity, b, true, () -> {
-                                OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
-                                if (osm != null && activity != null && activity instanceof Main) {
-                                    ((Main) activity).zoomToAndEdit(lonE7, latE7, osm);
-                                }
-                            });
-                        } catch (OsmException e1) {
-                            Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
+                    final FragmentActivity activity = getActivity();
+                    if (activity instanceof Main) { // activity may have vanished so re-check
+                        if (e.getOsmVersion() < 0) { // fake element
+                            try {
+                                BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50, true);
+                                App.getLogic().downloadBox(activity, b, true, () -> {
+                                    OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
+                                    if (osm != null && activity != null && activity instanceof Main) {
+                                        ((Main) activity).zoomToAndEdit(lonE7, latE7, osm);
+                                    }
+                                });
+                            } catch (OsmException e1) {
+                                Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
+                            }
+                        } else { // real
+                            ((Main) activity).zoomToAndEdit(lonE7, latE7, e);
                         }
-                    } else { // real
-                        ((Main) activity).zoomToAndEdit(lonE7, latE7, e);
                     }
                 });
                 tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
