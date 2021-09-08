@@ -18,6 +18,7 @@ import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
+import ch.poole.android.screenshotrule.ScreenshotRule;
 import de.blau.android.App;
 import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
@@ -46,6 +47,9 @@ public class WayTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    @Rule
+    public ScreenshotRule screenshotRule = new ScreenshotRule();
+    
     /**
      * Pre-test setup
      */
@@ -194,7 +198,9 @@ public class WayTest {
         int originalNodeCount = App.getDelegator().getApiNodeCount();
 
         // drag a handle
+        screenshotRule.screenshot(main, "geometry_improvement_pre_drag");
         TestUtils.drag(device, map, 8.3893800, 47.389559, 8.38939, 47.389550, false, 10);
+        screenshotRule.screenshot(main, "geometry_improvement_post_drag");
         Assert.assertEquals(origWayNodes.size() + 1, way.getNodes().size());
         Assert.assertEquals(originalNodeCount + 1, App.getDelegator().getApiNodeCount());
 
