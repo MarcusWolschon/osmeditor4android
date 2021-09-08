@@ -369,9 +369,14 @@ i-->
 <h2 id="validator-settings">Validator settings</h2>
 <h3 id="validator-settings_1">Validator settings</h3>
 <p>Configure the standard validator.</p>
-<p>There are currently two configurable checks: a check for missing keys and an aged based one for re-surveying.</p>
+<p>There are currently two configurable checks: a check for missing keys and an age based one for re-surveying.</p>
+<h4 id="re-survey-check">Re-survey check</h4>
+<p>For objects with the configured tags the validator will check if they have been modified in the number of days set in the rule and if they have not, highlight the objects. <em>check_date</em> and <em>check_date:...</em> keys with last modified dates are taken in to consideration if they are older than the modification date of the object.</p>
+<h4 id="missing-tags-check">Missing tags check</h4>
 <p>The missing tag check works on the combination of the keys that should be checked and the preset for element.</p>
-<p>Example: the default configuration checks that a "name" tag is present on a object if the matching preset contains a "name" field in the non-optional tags, optionally the check can be extended to require "optional" tags.</p>
+<p>Example: the default configuration checks that a <em>name</em> tag is present on a object if the matching preset contains a <em>name</em> field in the non-optional tags (the check rules can be configured to require "optional" tags).</p>
+<p>Alternative tags can be indicated by separating them with a vertical bar "|". </p>
+<p>Example: "name|ref" will fail only if neither a <em>name</em> or a <em>ref</em> tag is present. Note that is a tag is present that leads to the absence of a tag being ignored (currently supported: <em>noname=yes</em>, <em>validate:no_name=yes</em>, <em>noref=yes</em> for <em>name</em> and <em>ref</em> tags), the check will terminate with the corresponding missing tag.  </p>
 <h3 id="connected-node-tolerance">Connected node tolerance</h3>
 <p>Configure how far away from a highway a highway end node must be to not be highlighted as an error.</p>
 <h2 id="opening-hours-templates">Opening hours templates</h2>
@@ -423,9 +428,14 @@ i-->
 <h2 id="validator-settings">Validator settings</h2>
 <h3 id="validator-settings_1">Validator settings</h3>
 <p>Configure the standard validator.</p>
-<p>There are currently two configurable checks: a check for missing keys and an aged based one for re-surveying.</p>
+<p>There are currently two configurable checks: a check for missing keys and an age based one for re-surveying.</p>
+<h4 id="re-survey-check">Re-survey check</h4>
+<p>For objects with the configured tags the validator will check if they have been modified in the number of days set in the rule and if they have not, highlight the objects. <em>check_date</em> and <em>check_date:...</em> keys with last modified dates are taken in to consideration if they are older than the modification date of the object.</p>
+<h4 id="missing-tags-check">Missing tags check</h4>
 <p>The missing tag check works on the combination of the keys that should be checked and the preset for element.</p>
-<p>Example: the default configuration checks that a "name" tag is present on a object if the matching preset contains a "name" field in the non-optional tags, optionally the check can be extended to require "optional" tags.</p>
+<p>Example: the default configuration checks that a <em>name</em> tag is present on a object if the matching preset contains a <em>name</em> field in the non-optional tags (the check rules can be configured to require "optional" tags).</p>
+<p>Alternative tags can be indicated by separating them with a vertical bar "|". </p>
+<p>Example: "name|ref" will fail only if neither a <em>name</em> or a <em>ref</em> tag is present. Note that is a tag is present that leads to the absence of a tag being ignored (currently supported: <em>noname=yes</em>, <em>validate:no_name=yes</em>, <em>noref=yes</em> for <em>name</em> and <em>ref</em> tags), the check will terminate with the corresponding missing tag.  </p>
 <h3 id="connected-node-tolerance">Connected node tolerance</h3>
 <p>Configure how far away from a highway a highway end node must be to not be highlighted as an error.</p>
 <h2 id="opening-hours-templates">Opening hours templates</h2>
