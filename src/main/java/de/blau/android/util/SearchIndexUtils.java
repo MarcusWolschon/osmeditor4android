@@ -22,6 +22,7 @@ import de.blau.android.App;
 import de.blau.android.nsi.Names.NameAndTags;
 import de.blau.android.nsi.Names.TagMap;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
@@ -181,6 +182,7 @@ public final class SearchIndexUtils {
                             TagMap tags = nat.getTags();
                             PresetItem pi = Preset.findBestMatch(presets, tags, false);
                             PresetItem namePi = preset.new PresetItem(null, nat.getName(), pi == null ? null : pi.getIconpath(), null);
+
                             for (Entry<String, String> entry : tags.entrySet()) {
                                 namePi.addTag(entry.getKey(), PresetKeyType.TEXT, entry.getValue(), null);
                             }
@@ -194,6 +196,10 @@ public final class SearchIndexUtils {
                                 }
                             }
                             IndexSearchResult isr = new IndexSearchResult(rescale(term, distance, namePi), namePi);
+                            // penalize results that aren't shops etc
+                            if (namePi.hasKey(Tags.KEY_MAN_MADE)) {
+                                isr.weight += 5;
+                            }
                             addToResult(rawResult, isr.weight, isr);
                         }
                     }
@@ -293,18 +299,16 @@ public final class SearchIndexUtils {
         name = SearchIndexUtils.normalize(name);
         for (String key : namesSearchIndex.getKeys()) {
             int distance = OptimalStringAlignment.editDistance(key, name, maxDistance);
-            if (distance >= 0 && distance <= maxDistance) {
-                if (distance < lastDistance) {
-                    Set<NameAndTags> list = namesSearchIndex.get(key);
-                    for (NameAndTags nt : list) {
-                        if (result == null || nt.getCount() > result.getCount()) {
-                            result = nt;
-                        }
+            if (distance >= 0 && distance <= maxDistance && distance < lastDistance) {
+                Set<NameAndTags> list = namesSearchIndex.get(key);
+                for (NameAndTags nt : list) {
+                    if (result == null || nt.getCount() > result.getCount()) {
+                        result = nt;
                     }
-                    lastDistance = distance;
-                    if (distance == 0) { // no point in searching for better results
-                        return result;
-                    }
+                }
+                lastDistance = distance;
+                if (distance == 0) { // no point in searching for better results
+                    return result;
                 }
             }
         }
