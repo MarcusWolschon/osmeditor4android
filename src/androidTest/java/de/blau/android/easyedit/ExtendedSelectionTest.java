@@ -106,8 +106,8 @@ public class ExtendedSelectionTest {
         int deltaLon = node.getLon() - origLon;
         int deltaLat = node.getLat() - origLat;
 
-        assertEquals(8.3879 - 8.3877977, deltaLon / 1E7D, 0.00001);
-        assertEquals(47.38967 - 47.3897371, deltaLat / 1E7D, 0.00001);
+        assertEquals(8.3879 - 8.3877977, deltaLon / 1E7D, 0.0001);
+        assertEquals(47.38967 - 47.3897371, deltaLat / 1E7D, 0.0001);
         TestUtils.clickUp(device);
     }
 
