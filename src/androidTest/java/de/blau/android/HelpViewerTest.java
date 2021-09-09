@@ -13,7 +13,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.uiautomator.By;
+import androidx.test.uiautomator.BySelector;
 import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.Until;
 import ch.poole.android.screenshotrule.ScreenshotRule;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -31,7 +34,6 @@ public class HelpViewerTest {
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
-    
 
     @Rule
     public ScreenshotRule screenshotRule = new ScreenshotRule();
@@ -44,7 +46,7 @@ public class HelpViewerTest {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
-        main = (Main) mActivityRule.getActivity();
+        main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
@@ -65,7 +67,9 @@ public class HelpViewerTest {
         Assert.assertTrue(TestUtils.findText(device, false, "Help: Main map display", 10000));
         Assert.assertTrue(TestUtils.clickMenuButton(device, "OK", false, true));
         Assert.assertTrue(TestUtils.clickText(device, false, "GPS sources", true, false));
-        Assert.assertTrue(TestUtils.findText(device, false, "Help: GPS sources", 10000));
+        // contents seems to take longer than the header
+        BySelector bySelector = By.clickable(true).textContains("This is currently experimental");
+        device.wait(Until.findObject(bySelector), 10000);
         screenshotRule.screenshot(main, "help_viewer_gps_sources");
         Assert.assertTrue(TestUtils.clickMenuButton(device, "Back", false, true));
         screenshotRule.screenshot(main, "help_viewer_main_map_display");
