@@ -66,7 +66,8 @@ public final class MockTileServer {
             String tileUrl = tileServer.url("/").toString() + "{zoom}/{x}/{y}";
             Log.i(DEBUG_TAG, "Set up tileserver on " + tileUrl + " for id " + id);
             try (TileLayerDatabase db = new TileLayerDatabase(context)) {
-                TileLayerSource.addOrUpdateCustomLayer(context, db.getWritableDatabase(), id, null, -1, -1, name, new Provider(), Category.other, null,
+                TileLayerSource source = TileLayerSource.get(context, id, false);
+                TileLayerSource.addOrUpdateCustomLayer(context, db.getWritableDatabase(), id, source, -1, -1, name, new Provider(), Category.other, null,
                         tileType, mbt.getMinMaxZoom()[0], mbt.getMinMaxZoom()[1], TileLayerSource.DEFAULT_TILE_SIZE, false, tileUrl);
             }
             if (removeLayers) {
