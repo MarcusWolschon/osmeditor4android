@@ -279,7 +279,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     /**
      * Get the current displayed tile layer configuration
      * 
-     * @return a TileLayerServer object
+     * @return a TileLayerSource object
      */
     @Nullable
     public TileLayerSource getTileLayerConfiguration() {

@@ -35,6 +35,7 @@ import de.blau.android.layer.StyleableInterface;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.GeoMath;
@@ -96,41 +97,46 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
     @Override
     public List<VectorTileDecoder.Feature> getClicked(final float x, final float y, @NonNull final ViewBox viewBox) {
         Log.d(DEBUG_TAG, "getClicked");
-        Set<VectorTileDecoder.Feature> result = new LinkedHashSet<>();
-        int z = map.getZoomLevel();
 
-        MapTile mapTile = getTile(z, x, y);
-        java.util.Map<String, List<VectorTileDecoder.Feature>> tile = mTileProvider.getMapTileFromCache(mapTile);
-        while (tile == null && z > myRendererInfo.getMinZoom()) { // try zooming out
-            z--;
-            mapTile = getTile(z, x, y);
-            tile = mTileProvider.getMapTileFromCache(mapTile);
-        }
-        if (tile != null) {
-            Rect rect = getScreenRectForTile(new Rect(), map.getWidth(), map.getHeight(), map, mapTile.zoomLevel, mapTile.y, mapTile.x, true, 0, 0);
-            final float tolerance = DataStyle.getCurrent().getNodeToleranceValue() * 256 / rect.width();
-            final float scaledX = (x - rect.left) * 256 / rect.width();
-            final float scaledY = (y - rect.top) * 256 / rect.height();
-            Style style = ((VectorTileRenderer) tileRenderer).getStyle();
-            // we need layer information to be able to check the interactive status
-            for (Layer layer : style.getLayers()) {
-                if (layer instanceof Background) {
-                    continue; // this is not particularly safe
-                }
-                for (List<VectorTileDecoder.Feature> list : tile.values()) {
-                    for (VectorTileDecoder.Feature f : list) {
-                        if (f.getLayerName().equals(layer.getSourceLayer()) && (layer.getFilter() == null || layer.evaluateFilter(layer.getFilter(), f))
-                                && layer.isInteractive()) {
-                            Geometry g = f.getGeometry();
-                            if (geometryClicked(scaledX, scaledY, tolerance, g)) {
-                                result.add(f);
+        Set<VectorTileDecoder.Feature> result = new LinkedHashSet<>();
+        if (myRendererInfo != null) {
+            int z = map.getZoomLevel();
+
+            MapTile mapTile = getTile(z, x, y);
+            java.util.Map<String, List<VectorTileDecoder.Feature>> tile = mTileProvider.getMapTileFromCache(mapTile);
+            while (tile == null && z > myRendererInfo.getMinZoom()) { // try zooming out
+                z--;
+                mapTile = getTile(z, x, y);
+                tile = mTileProvider.getMapTileFromCache(mapTile);
+            }
+            if (tile != null) {
+                Rect rect = getScreenRectForTile(new Rect(), map.getWidth(), map.getHeight(), map, mapTile.zoomLevel, mapTile.y, mapTile.x, true, 0, 0);
+                final float tolerance = DataStyle.getCurrent().getNodeToleranceValue() * 256 / rect.width();
+                final float scaledX = (x - rect.left) * 256 / rect.width();
+                final float scaledY = (y - rect.top) * 256 / rect.height();
+                Style style = ((VectorTileRenderer) tileRenderer).getStyle();
+                // we need layer information to be able to check the interactive status
+                for (Layer layer : style.getLayers()) {
+                    if (layer instanceof Background) {
+                        continue; // this is not particularly safe
+                    }
+                    for (List<VectorTileDecoder.Feature> list : tile.values()) {
+                        for (VectorTileDecoder.Feature f : list) {
+                            if (f.getLayerName().equals(layer.getSourceLayer()) && (layer.getFilter() == null || layer.evaluateFilter(layer.getFilter(), f))
+                                    && layer.isInteractive()) {
+                                Geometry g = f.getGeometry();
+                                if (geometryClicked(scaledX, scaledY, tolerance, g)) {
+                                    result.add(f);
+                                }
                             }
                         }
                     }
                 }
+            } else {
+                Log.e(DEBUG_TAG, "Tile " + mapTile + " not found in cache");
             }
         } else {
-            Log.e(DEBUG_TAG, "Tile " + mapTile + " not found in cache");
+            Log.e(DEBUG_TAG, "No tile layer source set");
         }
         return new ArrayList<>(result);
     }
@@ -467,12 +473,16 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
     }
 
     /**
-     * Get an unique state filename
+     * Get a state filename
+     * 
+     * If a TileLayerSource is set for the layer it will return a name based on that otherwise based on the class name
      * 
      * @return a filename
      */
-    public String getStateFileName() {
-        return (getTileLayerConfiguration().getImageryOffsetId() + ".res").replace('/', '-');
+    @NonNull
+    private String getStateFileName() {
+        TileLayerSource source = getTileLayerConfiguration();
+        return (source != null ? source.getImageryOffsetId().replace('/', '-') : MapOverlay.class.getSimpleName()) + ".res";
     }
 
     /**
