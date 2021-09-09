@@ -71,8 +71,8 @@ public class NmeaTest {
 
         TestUtils.grantPermissons(device);
 
+        tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
         prefs = new Preferences(main);
-        tileServer = MockTileServer.setupTileServer(main, prefs, "ersatz_background.mbt", true);
         prefs.setGpsSource(R.string.gps_source_tcpserver);
         App.getLogic().setPrefs(prefs);
         main.getMap().setPrefs(main, prefs);

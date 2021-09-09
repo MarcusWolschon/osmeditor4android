@@ -70,13 +70,11 @@ public class MapillaryTest {
         assertNotNull(main);
         TestUtils.grantPermissons(device);
 
-        Preferences prefs = new Preferences(main);
-
-        tileServer = MockTileServer.setupTileServer(main, prefs, "mapillary.mbt", true, LayerType.MAPILLARY, TileType.MVT,
-                de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_TILES_ID);
+        tileServer = MockTileServer.setupTileServer(main, "mapillary.mbt", true, LayerType.MAPILLARY, TileType.MVT, de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_TILES_ID);
 
         mockApiServer = new MockWebServerPlus();
         HttpUrl mockApiBaseUrl = mockApiServer.server().url("/");
+        Preferences prefs = new Preferences(main);
         prefs.setMapillarySequencseUrlV4(mockApiBaseUrl.toString());
         prefs.setMapillaryImagesUrlV4(mockApiBaseUrl.toString());
 

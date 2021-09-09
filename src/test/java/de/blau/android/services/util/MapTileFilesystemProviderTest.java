@@ -43,7 +43,7 @@ public class MapTileFilesystemProviderTest {
     public void setup() {
         ShadowLog.setupLogging();
         provider = new MapTileFilesystemProvider(ApplicationProvider.getApplicationContext(), new File("."), 1000000);
-        tileServer = MockTileServer.setupTileServer(ApplicationProvider.getApplicationContext(), null, "ersatz_background.mbt", true);
+        tileServer = MockTileServer.setupTileServer(ApplicationProvider.getApplicationContext(), "ersatz_background.mbt", true);
         // force update of tile sources
         try (TileLayerDatabase tlDb = new TileLayerDatabase(ApplicationProvider.getApplicationContext()); SQLiteDatabase db = tlDb.getReadableDatabase()) {
             TileLayerSource.getListsLocked(ApplicationProvider.getApplicationContext(), db, false);

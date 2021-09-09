@@ -6,7 +6,6 @@ import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.layer.LayerType;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.MBTileConstants;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
@@ -33,20 +32,18 @@ public final class MockTileServer {
      * Setup a mock web server that serves tiles from a MBT source and set it to the current source
      * 
      * @param context an Android Context
-     * @param prefs the current Preferences
      * @param mbtSource the MBT file name
      * @param removeLayers if true remove any other layers
      * @return a MockWebServer
      */
-    public static MockWebServer setupTileServer(@NonNull Context context, @NonNull Preferences prefs, @NonNull String mbtSource, boolean removeLayers) {
-        return setupTileServer(context, prefs, mbtSource, removeLayers, LayerType.IMAGERY, TileType.BITMAP, MOCK_TILE_SOURCE);
+    public static MockWebServer setupTileServer(@NonNull Context context, @NonNull String mbtSource, boolean removeLayers) {
+        return setupTileServer(context, mbtSource, removeLayers, LayerType.IMAGERY, TileType.BITMAP, MOCK_TILE_SOURCE);
     }
 
     /**
      * Setup a mock web server that serves tiles from a MBT source and set it to the current source
      * 
      * @param context an Android Context
-     * @param prefs the current Preferences
      * @param mbtSource the MBT file name
      * @param removeLayers if true remove any other layers
      * @param layerType the LayerType
@@ -54,8 +51,8 @@ public final class MockTileServer {
      * @param id layer id
      * @return a MockWebServer
      */
-    public static MockWebServer setupTileServer(@NonNull Context context, @NonNull Preferences prefs, @NonNull String mbtSource, boolean removeLayers,
-            @NonNull LayerType layerType, @NonNull TileType tileType, @NonNull String id) {
+    public static MockWebServer setupTileServer(@NonNull Context context, @NonNull String mbtSource, boolean removeLayers, @NonNull LayerType layerType,
+            @NonNull TileType tileType, @NonNull String id) {
         MockWebServer tileServer = new MockWebServer();
         try {
             TileDispatcher tileDispatcher = new TileDispatcher(context, mbtSource);

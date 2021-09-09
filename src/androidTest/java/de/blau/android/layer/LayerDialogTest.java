@@ -91,8 +91,8 @@ public class LayerDialogTest {
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 30000); // NOSONAR wait for main
         assertNotNull(main);
         TestUtils.grantPermissons(device);
+        tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
         Preferences prefs = new Preferences(main);
-        tileServer = MockTileServer.setupTileServer(main, prefs, "ersatz_background.mbt", true);
         map = main.getMap();
         map.setPrefs(main, prefs);
 

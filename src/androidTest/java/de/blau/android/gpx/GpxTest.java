@@ -89,9 +89,9 @@ public class GpxTest {
 
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 60000); // wait for main
 
-        prefs = new Preferences(main);
-        tileServer = MockTileServer.setupTileServer(main, prefs, "ersatz_background.mbt", true);
+        tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
         de.blau.android.layer.Util.addLayer(main, LayerType.GPX);
+        prefs = new Preferences(main);
         App.getLogic().setPrefs(prefs);
         main.getMap().setPrefs(main, prefs);
 
