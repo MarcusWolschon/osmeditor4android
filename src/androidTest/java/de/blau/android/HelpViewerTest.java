@@ -14,6 +14,7 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
+import ch.poole.android.screenshotrule.ScreenshotRule;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 
@@ -30,6 +31,10 @@ public class HelpViewerTest {
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
+    
+
+    @Rule
+    public ScreenshotRule screenshotRule = new ScreenshotRule();
 
     /**
      * Pre-test setup
@@ -61,7 +66,9 @@ public class HelpViewerTest {
         Assert.assertTrue(TestUtils.clickMenuButton(device, "OK", false, true));
         Assert.assertTrue(TestUtils.clickText(device, false, "GPS sources", true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "Help: GPS sources", 10000));
+        screenshotRule.screenshot(main, "help_viewer_gps_sources");
         Assert.assertTrue(TestUtils.clickMenuButton(device, "Back", false, true));
+        screenshotRule.screenshot(main, "help_viewer_main_map_display");
         Assert.assertTrue(TestUtils.clickMenuButton(device, "Back", false, true));
     }
 }
