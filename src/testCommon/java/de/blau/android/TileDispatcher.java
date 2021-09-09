@@ -41,6 +41,16 @@ public class TileDispatcher extends Dispatcher {
         }
     }
 
+    /**
+     * Get the configured MTB source
+     * 
+     * @return a MBTileProviderDataBase instance
+     */
+    @NonNull
+    public MBTileProviderDataBase getSource() {
+        return tileDb;
+    }
+
     @Override
     public MockResponse dispatch(RecordedRequest request) throws InterruptedException {
         Log.i(DEBUG_TAG, "request " + request);

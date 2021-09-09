@@ -12,7 +12,7 @@ public final class MBTileConstants {
     public static final String BOUNDS  = "bounds";
     static final String        TYPE    = "type";
     static final String        OVERLAY = "overlay";
-    static final String        NAME    = "name";
+    public static final String NAME    = "name";
     static final String        JPG     = "jpg";
     static final String        PNG     = "png";
     static final String        PBF     = "pbf";

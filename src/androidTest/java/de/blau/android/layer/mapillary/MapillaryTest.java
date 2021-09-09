@@ -1,7 +1,6 @@
 package de.blau.android.layer.mapillary;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -24,6 +23,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
+import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
@@ -69,14 +69,9 @@ public class MapillaryTest {
 
         assertNotNull(main);
         TestUtils.grantPermissons(device);
+
         Preferences prefs = new Preferences(main);
-        map = main.getMap();
 
-        prefs = new Preferences(main);
-
-        try (TileLayerDatabase tlDb = new TileLayerDatabase(main); SQLiteDatabase db = tlDb.getWritableDatabase()) {
-            TileLayerDatabase.deleteLayerWithRowId(db, de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_TILES_ID);
-        }
         tileServer = MockTileServer.setupTileServer(main, prefs, "mapillary.mbt", true, LayerType.MAPILLARY, TileType.MVT,
                 de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_TILES_ID);
 
@@ -89,6 +84,7 @@ public class MapillaryTest {
         mockImagesBaseUrl = mockImagesServer.server().url("/");
 
         App.getLogic().setPrefs(prefs);
+        map = main.getMap();
         map.setPrefs(main, prefs);
 
         TestUtils.dismissStartUpDialogs(device, main);
@@ -112,6 +108,9 @@ public class MapillaryTest {
             tileServer.close();
         } catch (IOException | NullPointerException e) {
             // ignore
+        }
+        try (TileLayerDatabase tlDb = new TileLayerDatabase(main); SQLiteDatabase db = tlDb.getWritableDatabase()) {
+            TileLayerDatabase.deleteLayerWithRowId(db, de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_TILES_ID);
         }
         instrumentation.waitForIdleSync();
     }
@@ -142,8 +141,6 @@ public class MapillaryTest {
         mockImagesServer.server().enqueue(image);
         mockImagesServer.server().enqueue(image);
 
-        TestUtils.zoomToLevel(device, main, 22);
-
         TestUtils.unlock(device);
         TestUtils.sleep();
 
@@ -151,7 +148,7 @@ public class MapillaryTest {
         // hack around slow rendering on some emulators
         map.getViewBox().moveTo(map, (int) (8.407748800863 * 1E7), (int) (47.412813485744 * 1E7));
         map.invalidate();
-        TestUtils.sleep(10000);
+        TestUtils.zoomToLevel(device, main, 22);
         TestUtils.clickAtCoordinates(device, map, 8.407748800863, 47.412813485744, true);
         if (TestUtils.clickText(device, false, "OK", true)) {
             TestUtils.clickAtCoordinates(device, map, 8.407748800863, 47.412813485744, true);

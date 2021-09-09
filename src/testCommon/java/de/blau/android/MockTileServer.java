@@ -7,11 +7,13 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.MBTileConstants;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.Provider;
 import de.blau.android.resources.TileLayerSource.TileType;
+import de.blau.android.services.util.MBTileProviderDataBase;
 import okhttp3.mockwebserver.MockWebServer;
 
 public final class MockTileServer {
@@ -56,22 +58,28 @@ public final class MockTileServer {
             @NonNull LayerType layerType, @NonNull TileType tileType, @NonNull String id) {
         MockWebServer tileServer = new MockWebServer();
         try {
-            tileServer.setDispatcher(new TileDispatcher(context, mbtSource));
+            TileDispatcher tileDispatcher = new TileDispatcher(context, mbtSource);
+            tileServer.setDispatcher(tileDispatcher);
+            MBTileProviderDataBase mbt = tileDispatcher.getSource();
+            java.util.Map<String, String> metadata = mbt.getMetadata();
+            String name = "Vespucci Test";
+            if (metadata != null && metadata.containsKey(MBTileConstants.NAME)) {
+                name = metadata.get(MBTileConstants.NAME);
+            }
+            String tileUrl = tileServer.url("/").toString() + "{zoom}/{x}/{y}";
+            Log.i(DEBUG_TAG, "Set up tileserver on " + tileUrl + " for id " + id);
+            try (TileLayerDatabase db = new TileLayerDatabase(context)) {
+                TileLayerSource.addOrUpdateCustomLayer(context, db.getWritableDatabase(), id, null, -1, -1, name, new Provider(), Category.other, null,
+                        tileType, mbt.getMinMaxZoom()[0], mbt.getMinMaxZoom()[1], TileLayerSource.DEFAULT_TILE_SIZE, false, tileUrl);
+            }
+            if (removeLayers) {
+                LayerUtils.removeImageryLayers(context);
+            }
+            de.blau.android.layer.Util.addLayer(context, layerType, id);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "setDispatcher " + e.getMessage());
             e.printStackTrace();
         }
-
-        String tileUrl = tileServer.url("/").toString() + "{zoom}/{x}/{y}";
-        Log.i(DEBUG_TAG, "Set up tileserver on " + tileUrl + " for id " + id);
-        try (TileLayerDatabase db = new TileLayerDatabase(context)) {
-            TileLayerSource.addOrUpdateCustomLayer(context, db.getWritableDatabase(), id, null, -1, -1, "Vespucci Test", new Provider(), Category.other, null,
-                    tileType, 0, 19, TileLayerSource.DEFAULT_TILE_SIZE, false, tileUrl);
-        }
-        if (removeLayers) {
-            LayerUtils.removeImageryLayers(context);
-        }
-        de.blau.android.layer.Util.addLayer(context, layerType, id);
         return tileServer;
     }
 }
