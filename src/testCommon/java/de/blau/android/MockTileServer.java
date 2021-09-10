@@ -69,6 +69,7 @@ public final class MockTileServer {
                 TileLayerSource source = TileLayerSource.get(context, id, false);
                 TileLayerSource.addOrUpdateCustomLayer(context, db.getWritableDatabase(), id, source, -1, -1, name, new Provider(), Category.other, null,
                         tileType, mbt.getMinMaxZoom()[0], mbt.getMinMaxZoom()[1], TileLayerSource.DEFAULT_TILE_SIZE, false, tileUrl);
+                TileLayerSource.getListsLocked(context, db.getReadableDatabase(), false);
             }
             if (removeLayers) {
                 LayerUtils.removeImageryLayers(context);
