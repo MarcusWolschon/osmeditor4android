@@ -10,10 +10,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -104,6 +106,13 @@ public class GpxTest {
      */
     @After
     public void teardown() {
+        instrumentation.removeMonitor(monitor);
+        instrumentation.waitForIdleSync();
+        try {
+            tileServer.close();
+        } catch (IOException | NullPointerException e) {
+            // ignore
+        }
         if (main != null) {
             try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(main)) {
                 db.deleteLayer(LayerType.GPX, null);
@@ -114,13 +123,6 @@ public class GpxTest {
         } else {
             System.out.println("main is null");
         }
-        try {
-            tileServer.close();
-        } catch (IOException | NullPointerException e) {
-            // ignore
-        }
-        instrumentation.removeMonitor(monitor);
-        instrumentation.waitForIdleSync();
     }
 
     /**
@@ -175,7 +177,12 @@ public class GpxTest {
         final CountDownLatch signal = new CountDownLatch(1);
         main.getTracker().getTrack().reset(); // clear out anything saved
         TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_FINE, 1000, new SignalHandler(signal));
-        TestUtils.sleep(TIMEOUT * 1000L);
+        // TestUtils.sleep(TIMEOUT * 1000L);
+        try {
+            signal.await(TIMEOUT, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Assert.fail(e.getMessage());
+        }
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true, false));
         List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
