@@ -24,7 +24,7 @@ import de.blau.android.R;
 import de.blau.android.address.Address;
 import de.blau.android.dialogs.GnssPositionInfo;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.names.Names.NameAndTags;
+import de.blau.android.nsi.Names.NameAndTags;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;

@@ -861,7 +861,7 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * Ceck if this device has an active camera
+     * Check if this device has an active camera
      * 
      * @return true is a camera is present
      */
@@ -1335,6 +1335,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Parse a JOSM RC element spec and return the OsmElement
      * 
+     * @param elementName textual indication of element type
      * @param storageDelegator current StorageDelegator
      * @param s the spec
      * @return an OsmElement or null if not found
@@ -2573,7 +2574,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     @NonNull
     private File getImageFile() throws IOException {
-        File outDir = FileUtil.getPublicDirectory();
+        File outDir = FileUtil.getPublicDirectory(this);
         outDir = FileUtil.getPublicDirectory(outDir, Paths.DIRECTORY_PATH_PICTURES);
         String imageFileName = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
         File newImageFile = File.createTempFile(imageFileName, Paths.FILE_EXTENSION_IMAGE, outDir);
@@ -2640,6 +2641,10 @@ public class Main extends FullScreenAppCompatActivity
      * @return the provider if a usable one is enabled, null if not
      */
     private String[] getEnabledLocationProviders() {
+        // no permission no point in trying to turn stuff on
+        if (!locationPermissionGranted) {
+            return null;
+        }
         List<String> temp = new ArrayList<>();
         try {
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -2975,7 +2980,6 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * Will include Tasks for the same if enabled
      * 
-     * @param main the instance of Main calling this
      * @param add if true merge the data with the current contents, if false replace
      */
     public void performCurrentViewHttpLoad(boolean add) {

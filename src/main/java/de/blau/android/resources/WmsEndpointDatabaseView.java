@@ -180,8 +180,9 @@ public class WmsEndpointDatabaseView {
          * Remove WMS request and service parameters
          * 
          * @param url the url to sanitize
-         * @return
+         * @return the sanitized url string
          */
+        @NonNull
         private String sanitize(@NonNull String url) {
             Uri uri = Uri.parse(url);
             Uri.Builder uriBuilder = uri.buildUpon();

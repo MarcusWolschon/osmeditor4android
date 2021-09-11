@@ -1,0 +1,64 @@
+{
+    "features": [
+        {
+            "properties": {
+                "id": "NONE",
+                "overlay": false,
+                "name": "None",
+                "type": "tms",
+                "url": "",
+                "default": true
+            },
+            "type": "Feature"
+        },
+        {
+            "properties": {
+                "id": "NOOVERLAY",
+                "overlay": true,
+                "name": "None",
+                "type": "tms",
+                "url": "",
+                "default": true
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": null,
+            "properties": {
+                "attribution": {
+                    "required": true,
+                    "text": "\u00a9 OpenStreetMap contributors, CC-BY-SA 2.0",
+                    "url": "https://www.openstreetmap.org"
+                },
+                "default": true,
+                "description": "The default OpenStreetMap layer.",
+                "i18n": true,
+                "icon": "https://osmlab.github.io/editor-layer-index/sources/world/OpenStreetMap-GPS.png",
+                "id": "MAPNIK",
+                "max_zoom": 19,
+                "name": "OpenStreetMap (Standard)",
+                "type": "tms",
+                "category": "osmbasedmap",
+                "url": "https://{switch:a,b,c}.tile.openstreetmap.org/{zoom}/{x}/{y}.png",
+                "license_url": "https://wiki.osmfoundation.org/wiki/Terms_of_Use",
+                "privacy_policy_url": "https://wiki.osmfoundation.org/wiki/Privacy_Policy"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": null,
+            "properties": {
+                "id": "MAPILLARYV4",
+                "overlay": true,
+                "max_zoom": 14,
+                "name": "Mapillary V4",
+                "type": "tms",
+                "tile_type": "mvt",
+                "category": "internal",
+                "url": "https://tiles.mapillary.com/maps/vtp/mly1_computed_public/2/{z}/{x}/{y}?access_token={apikey}"
+            },
+            "type": "Feature"
+        }
+    ],
+    "type": "FeatureCollection"
+}

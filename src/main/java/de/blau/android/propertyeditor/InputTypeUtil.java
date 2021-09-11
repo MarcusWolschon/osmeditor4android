@@ -6,7 +6,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import de.blau.android.names.Names;
+import de.blau.android.nsi.Names;
 import de.blau.android.presets.ValueType;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.StringWithDescription;

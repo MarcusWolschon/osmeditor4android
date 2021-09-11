@@ -78,7 +78,12 @@ public class TooMuchData extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        nodeCount = getArguments().getInt(NODECOUNT_KEY);
+        if (savedInstanceState != null) {
+            nodeCount = savedInstanceState.getInt(NODECOUNT_KEY);
+            Log.d(DEBUG_TAG, "restoring from saved state");
+        } else {
+            nodeCount = getArguments().getInt(NODECOUNT_KEY);
+        }
     }
 
     @NonNull
@@ -115,5 +120,11 @@ public class TooMuchData extends ImmersiveDialogFragment {
         builder.setNeutralButton(R.string.cancel, null);
 
         return builder.create();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(NODECOUNT_KEY, nodeCount);
     }
 }

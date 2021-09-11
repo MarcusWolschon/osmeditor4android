@@ -84,6 +84,8 @@ public class TileLayerDialog {
         final NumberPicker minZoomPicker = (NumberPicker) templateView.findViewById(R.id.zoom_min);
         final NumberPicker maxZoomPicker = (NumberPicker) templateView.findViewById(R.id.zoom_max);
 
+        final NumberPicker tileSizePicker = (NumberPicker) templateView.findViewById(R.id.tile_size);
+
         TileLayerSource layer = null;
         String attribution = null;
 
@@ -116,6 +118,7 @@ public class TileLayerDialog {
                         setBoundingBoxFields(templateView, box);
                     }
                 }
+                tileSizePicker.setValue(layer.getTileWidth());
             } else {
                 nameEdit.setText(layerEntry.title);
                 urlEdit.setText(layerEntry.tileUrl);
@@ -139,6 +142,7 @@ public class TileLayerDialog {
                         attribution += " " + layerEntry.license;
                     }
                 }
+                tileSizePicker.setValue(TileLayerSource.DEFAULT_TILE_SIZE);
                 alertDialog.setNeutralButton(R.string.cancel, null);
             }
 
@@ -209,6 +213,8 @@ public class TileLayerDialog {
                             minZoomPicker.setValue(zooms[0]);
                             maxZoomPicker.setValue(zooms[1]);
                         }
+                        // this should really be in the metadata
+                        tileSizePicker.setValue(TileLayerSource.DEFAULT_TILE_SIZE);
                         SelectFile.savePref(prefs, R.string.config_mbtilesPreferredDir_key, fileUri);
                         return true;
                     } catch (SQLiteException sqex) {
@@ -294,12 +300,14 @@ public class TileLayerDialog {
                     Snack.toastTopError(activity, R.string.toast_min_zoom);
                     moan = true;
                 }
+                int tileSize = tileSizePicker.getValue();
+
                 if (moan) { // abort and leave the dialog intact
                     return false;
                 }
                 try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
                     TileLayerSource.addOrUpdateCustomLayer(activity, db, layerId, existingLayer, finalStartDate, finalEndDate, name, provider, category, null,
-                            mvtInMBT[0] ? TileType.MVT : null, minZoom, maxZoom, isOverlay, tileUrl);
+                            mvtInMBT[0] ? TileType.MVT : null, minZoom, maxZoom, tileSize, isOverlay, tileUrl);
                 }
                 return true;
             }
@@ -338,7 +346,7 @@ public class TileLayerDialog {
      * @param layout the parent layout of the TextViews
      * @param box the BoundingBox
      */
-    private static void setBoundingBoxFields(View layout, BoundingBox box) {
+    private static void setBoundingBoxFields(@NonNull View layout, @NonNull BoundingBox box) {
         setBoundingBoxFields(layout, Double.toString(box.getLeft() / 1E7D), Double.toString(box.getBottom() / 1E7D), Double.toString(box.getRight() / 1E7D),
                 Double.toString(box.getTop() / 1E7D));
     }
@@ -352,7 +360,7 @@ public class TileLayerDialog {
      * @param right coordinate of right
      * @param top coordinate of top
      */
-    private static void setBoundingBoxFields(View layout, String left, String bottom, String right, String top) {
+    private static void setBoundingBoxFields(@NonNull View layout, @NonNull String left, @NonNull String bottom, @NonNull String right, @NonNull String top) {
         final EditText leftEdit = (EditText) layout.findViewById(R.id.left);
         final EditText bottomEdit = (EditText) layout.findViewById(R.id.bottom);
         final EditText rightEdit = (EditText) layout.findViewById(R.id.right);

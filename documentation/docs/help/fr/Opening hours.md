@@ -10,7 +10,7 @@ _Cette documentation est inachevée_
 
 Dans votre travail quotidien, l'objet que vous modifiez peut soit avoir déjà un attribut d'horaires d'ouverture (opening_hours, service_times ou collection_times) ou vous pouvez ré-appliquer le modèle d'attribut pour obtenir un attribut vide. Si vous avez besoin d'ajouter le champs manuellement et que vous utilisez Vespucci, vous pouvez saisir la clef sur la page de détails puis revenir sur le formulaire pour la modifier. Si vous pensez que l'attribut d'horaires d'ouverture aurait dû faire parti du modèle, ouvrez un rapport de bogue pour votre éditeur.
 
-Si vous avez défini un modèle par défaut (pour cela, utilisez l'élément de menu « Gérer les modèles  »), il sera chargé automatiquement au démarrage de l'éditeur avec une valeur vide. Vous pouvez charger n'importe quel modèle sauvegardé avec la fonctionnalité « Charger un modèle » et vous pouvez sauvegarder les valeurs actuelles dans un modèle avec « Enregistrer le modèle ». Vous pouvez définir des modèles et un modèle par défaut différents pour les attributs « opening_hours », « collection_times » et « service_times ».
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
 
 Naturellement vous pouvez construire des horaires d'ouverture à partir de rien, mais nous recommandons d'utiliser l'un des modèles existants comme point de départ.
 
@@ -61,7 +61,9 @@ Les règles par défaut sont ajoutées comme des règles _normales_, ce qui impl
     * __Date variable à durée indéterminée__ : à partir d'une date de début variable.
     * __Occurrence dans le mois à durée indéterminée__ : à partir d'une occurrence d'un jour de la semaine dans un mois.
     * __Avec décalages…__ : les mêmes entrées que précédemment, mais avec des décalages spécifiés (c'est rarement utile).
-* __Ajouter un intervalle d'années__ : ajouter un sélecteur d'années.
+* __Add year range...__    
+    * __Ajouter un intervalle d'années__ : ajouter un sélecteur d'années.
+    * __Add starting year__: add an open ended year range.
 * __Ajouter un intervalle de semaines__ : ajouter un sélecteur de numéro de semaine.
 * __Dupliquer__ : créer une copie de cette règle et l'insérer après la position actuelle.
 * __Montrer le type de règle__ : afficher et permettre de changer le type de règle entre _normal_, _additif_ et _par défaut_ (indisponible sur la première règle).
@@ -85,3 +87,13 @@ Cliquer sur la barre (mais pas sur les épingles) ouvrira le grand sélecteur d'
 * __Montrer l'intervalle__ : montrer le champ d'intervalle pour spécifier un intervalle en minutes.
 * __Effacer__  : supprimer cet intervalle de temps.
 
+### Gérer les modèles
+
+The template management dialog allows you to add, edit and delete templates.
+
+In Android 4.4 and later the following additional functionality is available from the menu button. 
+
+* __Show all__: display all templates in the database.
+* __Save to file__: write the contents of the template database to a file.
+* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
+* __Load from file__: load templates from a file retaining the current contents.

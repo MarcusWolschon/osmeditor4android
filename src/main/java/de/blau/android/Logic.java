@@ -2048,7 +2048,7 @@ public class Logic {
      * @param fromEnd if true remove last node else first
      * @param way the Way
      * @param deleteNode delete the Node after removing it
-     * @param createCheckpoint if true create an undo checkpoint
+     * @param createCheckPoint if true create an undo checkpoint
      */
     public synchronized void performRemoveEndNodeFromWay(@Nullable FragmentActivity activity, boolean fromEnd, @NonNull Way way, boolean deleteNode,
             boolean createCheckPoint) {
@@ -3418,7 +3418,7 @@ public class Logic {
      */
     public void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @Nullable final PostAsyncActionHandler postSaveHandler) {
         try {
-            File outfile = FileUtil.openFileForWriting(fileName);
+            File outfile = FileUtil.openFileForWriting(activity, fileName);
             Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
             writeOsmFile(activity, new FileOutputStream(outfile), postSaveHandler);
         } catch (IOException e) {
@@ -4642,7 +4642,7 @@ public class Logic {
      * @param map the new Map-Instance. Be aware: The View-dimensions are not yet set...
      * @param deselect if true de-select objects
      */
-    public void setMap(Map map, boolean deselect) {
+    public void setMap(@NonNull Map map, boolean deselect) {
         Log.d(DEBUG_TAG, "setting map");
         this.map = map;
         map.setDelegator(getDelegator());
@@ -4661,6 +4661,7 @@ public class Logic {
      * 
      * @return map object
      */
+    @Nullable
     public Map getMap() {
         return map;
     }
@@ -4698,6 +4699,7 @@ public class Logic {
      * <li>If set to a non-null value, the map will highlight only elements in the list.</li>
      * </ul>
      * 
+     * @param <T> type of element
      * @param clickable a set of elements to which highlighting should be limited, or null to remove the limitation
      */
     @SuppressWarnings("unchecked")

@@ -247,6 +247,7 @@
   <string name="layer_info_privacy_policy">Sekretesspolicy</string>
   <string name="projection">Projektion</string>
   <string name="errors">Fel</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Ta bort foto</string>
   <string name="photo_viewer_delete_button">Ta bort permanent</string>
@@ -796,4 +797,5 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Ingen hjälp här.</string>
+  <!--Bookmarks-->
 </resources>

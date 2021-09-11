@@ -77,7 +77,7 @@ public class EmptyRelation extends ImmersiveDialogFragment {
     /**
      * Create a new EmptyRelation dialog instance
      * 
-     * @param relationId the id of the empty Relation
+     * @param relationIds ids of the empty Relations
      * @return a new EmptyRelation dialog instance
      */
     @NonNull

@@ -85,4 +85,29 @@ public class TileLayerSourceTest {
             fail(e.getMessage());
         }
     }
+    
+    /**
+     * Test for tile size
+     */
+    @Test
+    public void tileSize() {
+        try {
+            TileLayerDatabase.addSource(db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI);
+            TileLayerSource.parseImageryFile(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI,
+                    getClass().getResourceAsStream("/imagery_test.geojson"), true);
+            TileLayerSource.getListsLocked(ApplicationProvider.getApplicationContext(), db.getReadableDatabase(), true);
+            String[] ids = TileLayerSource.getIds(null, false, null, null);
+            assertEquals(5, ids.length);
+            TileLayerSource b = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "B", false);
+            assertNotNull(b);
+            assertEquals(256, b.getTileWidth());
+            assertEquals(256, b.getTileHeight());
+            TileLayerSource c = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "C", false);
+            assertNotNull(c);
+            assertEquals(512, c.getTileWidth());
+            assertEquals(512, c.getTileHeight());
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+    }
 }

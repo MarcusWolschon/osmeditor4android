@@ -29,6 +29,7 @@ import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
+import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -144,7 +145,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
                         }
                         // Start download
                         DownloadManager.Request request = new DownloadManager.Request(uri).setAllowedOverRoaming(false).setTitle(filename)
-                                .setDestinationInExternalFilesDir(DownloadActivity.this, Environment.DIRECTORY_DOWNLOADS, filename);
+                                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, Paths.DIRECTORY_PATH_VESPUCCI + Paths.DELIMITER + filename);
                         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                         if (!allNetworks) {
                             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
@@ -277,13 +278,13 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
         } else {
             queryCursor.moveToFirst();
             try {
-            int status = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
-            if (status == DownloadManager.STATUS_FAILED) {
-                int reason = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON));
-                Snack.toastTopError(DownloadActivity.this, errorMessage(this, reason, filename));
-            } else if (status == DownloadManager.STATUS_RUNNING) {
-                Snack.toastTopInfo(this, getString(R.string.toast_download_started, filename));
-            }
+                int status = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
+                if (status == DownloadManager.STATUS_FAILED) {
+                    int reason = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON));
+                    Snack.toastTopError(DownloadActivity.this, errorMessage(this, reason, filename));
+                } else if (status == DownloadManager.STATUS_RUNNING) {
+                    Snack.toastTopInfo(this, getString(R.string.toast_download_started, filename));
+                }
             } catch (IllegalArgumentException iaex) {
                 Log.e(DEBUG_TAG, iaex.getMessage());
                 Snack.toastTopError(DownloadActivity.this, errorMessage(this, DownloadManager.ERROR_UNKNOWN, filename));

@@ -68,8 +68,6 @@ public class MergeAction {
      * 
      * Updates ways and relations the node is a member of.
      * 
-     * @param mergeInto The node to merge into. Tags are combined.
-     * @param mergeFrom The node to merge from. Is deleted.
      * @return a MergeResult object with a reference to the resulting object and any issues
      */
     @NonNull
@@ -544,7 +542,8 @@ public class MergeAction {
      * Compares two angles defined by four nodes
      * 
      * @param map the current map instance
-     * @param b Node a (start)
+     * @param a Node a (start)
+     * @param b Node b (start)
      * @param c1 Node c1 (end 1)
      * @param c2 Node c2 (end 2)
      * @return true if the first angle is larger than the 2nd
@@ -591,12 +590,13 @@ public class MergeAction {
     /**
      * Find a Node in ring1 that is on the outer part of the ring
      * 
+     * @param map the current Map instance
      * @param ring1 the 1st List of Node
      * @param ring2 the 2nd List of Node
      * @return the Node or null if there is none
      */
     @Nullable
-    private Node findInitalStartNode(de.blau.android.Map map, List<Node> ring1, List<Node> ring2) {
+    private Node findInitalStartNode(@NonNull de.blau.android.Map map, @NonNull List<Node> ring1, @NonNull List<Node> ring2) {
         List<Node> allNodes = new ArrayList<>(ring1);
         allNodes.addAll(ring2);
         Node maxX = allNodes.get(0);

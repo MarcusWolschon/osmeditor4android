@@ -190,6 +190,8 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
 
     /**
      * Reverse a way displaying any serious issues
+     * 
+     * @param way the Way
      */
     private void reverseWay(@NonNull final Way way) {
         List<Result> result = logic.performReverse(main, way);

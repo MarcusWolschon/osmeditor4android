@@ -1,8 +1,11 @@
 package de.blau.android.dialogs;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -51,6 +54,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
@@ -60,12 +64,14 @@ import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.layer.PruneableInterface;
 import de.blau.android.layer.StyleableInterface;
+import de.blau.android.layer.mvt.MapOverlay;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.OAMCatalogView;
+import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.TileType;
@@ -76,6 +82,8 @@ import de.blau.android.util.SelectFile;
 import de.blau.android.util.SizedFixedImmersiveDialogFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.mvt.style.Source;
+import de.blau.android.util.mvt.style.Style;
 import de.blau.android.views.layers.ImageryLayerInfo;
 import de.blau.android.views.layers.MapTilesLayer;
 
@@ -145,13 +153,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         // potentially the imagery layer lists don't exist yet, force create them now
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                TileLayerSource.get(getContext(), TileLayerSource.LAYER_MAPNIK, true);
-                return null;
-            }
-        }.execute();
+        loadTileLayerSources();
 
         AppCompatDialog dialog = new AppCompatDialog(getActivity());
         View layout = createView(null);
@@ -166,29 +168,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             MenuItem item = popup.getMenu().add(R.string.menu_layers_load_geojson);
             final Map map = App.getLogic().getMap();
             item.setOnMenuItemClickListener(unused -> {
-                SelectFile.read(activity, R.string.config_osmPreferredDir_key, new ReadFile() {
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public boolean read(Uri fileUri) {
-                        de.blau.android.layer.geojson.MapOverlay geojsonLayer = (de.blau.android.layer.geojson.MapOverlay) map.getLayer(LayerType.GEOJSON,
-                                fileUri.toString());
-                        if (geojsonLayer == null) {
-                            de.blau.android.layer.Util.addLayer(activity, LayerType.GEOJSON, fileUri.toString());
-                            map.setUpLayers(activity);
-                            geojsonLayer = (de.blau.android.layer.geojson.MapOverlay) map.getLayer(LayerType.GEOJSON, fileUri.toString());
-                        }
-                        if (geojsonLayer != null) { // if null setUpLayers will have toasted
-                            geojsonLayer.resetStyling();
-                            LayerStyle.showDialog(activity, geojsonLayer.getIndex());
-                            SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
-                            geojsonLayer.invalidate();
-                            tl.removeAllViews();
-                            addRows(activity);
-                        }
-                        return true;
-                    }
-                });
+                addGeoJsonLayerFromFile(activity, prefs, map);
                 return false;
             });
 
@@ -244,11 +224,18 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                         item.setOnMenuItemClickListener(unused -> {
                             de.blau.android.layer.Util.addLayer(activity, LayerType.MAPILLARY);
                             updateDialogAndPrefs(activity, prefs, map);
+                            Tip.showDialog(activity, R.string.tip_mapillary_privacy_key, R.string.tip_mapillary_privacy);
                             return true;
                         });
                     }
                 }
             }
+
+            item = popup.getMenu().add(R.string.layer_add_layer_from_mvt_style);
+            item.setOnMenuItemClickListener(unused -> {
+                addMVTLayerFromStyle(activity, prefs, map);
+                return true;
+            });
 
             item = popup.getMenu().add(R.string.menu_tools_add_imagery_from_oam);
             item.setOnMenuItemClickListener(unused -> {
@@ -282,6 +269,98 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         window.setAttributes(wlp);
 
         return dialog;
+    }
+
+    /**
+     * Force load the tile layers by requesting the standard OSM layer
+     */
+    public void loadTileLayerSources() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                TileLayerSource.get(getContext(), TileLayerSource.LAYER_MAPNIK, true);
+                return null;
+            }
+        }.execute();
+    }
+
+    /**
+     * Add a Layer from a GeoJson file
+     * 
+     * @param activity the calling Activity
+     * @param prefs current Preferences
+     * @param map current Map
+     */
+    private void addGeoJsonLayerFromFile(final FragmentActivity activity, final Preferences prefs, final Map map) {
+        SelectFile.read(activity, R.string.config_osmPreferredDir_key, new ReadFile() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public boolean read(Uri fileUri) {
+                de.blau.android.layer.geojson.MapOverlay geojsonLayer = (de.blau.android.layer.geojson.MapOverlay) map.getLayer(LayerType.GEOJSON,
+                        fileUri.toString());
+                if (geojsonLayer == null) {
+                    de.blau.android.layer.Util.addLayer(activity, LayerType.GEOJSON, fileUri.toString());
+                    map.setUpLayers(activity);
+                    geojsonLayer = (de.blau.android.layer.geojson.MapOverlay) map.getLayer(LayerType.GEOJSON, fileUri.toString());
+                }
+                if (geojsonLayer != null) { // if null setUpLayers will have toasted
+                    geojsonLayer.resetStyling();
+                    LayerStyle.showDialog(activity, geojsonLayer.getIndex());
+                    SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                    geojsonLayer.invalidate();
+                    tl.removeAllViews();
+                    addRows(activity);
+                }
+                return true;
+            }
+        });
+    }
+
+    /**
+     * Add a Layer from a mapbox-gl Style
+     * 
+     * Adds a custom imagery entry then sets the style
+     * 
+     * @param activity the calling Activity
+     * @param prefs current Preferences
+     * @param map current Map
+     */
+    private void addMVTLayerFromStyle(@NonNull final FragmentActivity activity, @NonNull final Preferences prefs, @NonNull final Map map) {
+        SelectFile.read(getActivity(), R.string.config_osmPreferredDir_key, new ReadFile() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public boolean read(Uri fileUri) {
+                Style style = new Style();
+                try {
+                    style.loadStyle(activity, activity.getContentResolver().openInputStream(fileUri));
+                    if (style.getSources().size() != 1) {
+                        Snack.toastTopError(activity, R.string.toast_only_one_source_supported);
+                        return false;
+                    }
+                    Entry<String, Source> entry = new ArrayList<>(style.getSources().entrySet()).get(0);
+                    try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
+                        String id = entry.getValue().createLayer(activity, db, entry.getKey(), Category.other, true);
+                        de.blau.android.layer.Util.addLayer(activity, LayerType.OVERLAYIMAGERY, id);
+                        updateDialogAndPrefs(activity, prefs, map);
+                        de.blau.android.layer.mvt.MapOverlay mvtLayer = (MapOverlay) map.getLayer(LayerType.OVERLAYIMAGERY, id);
+                        if (mvtLayer != null) {
+                            mvtLayer.setStyle(style);
+                        } else {
+                            Log.e(DEBUG_TAG, "Didn't find MVT layer after adding");
+                        }
+                    }
+                    return true;
+                } catch (FileNotFoundException e) {
+                    Snack.toastTopError(activity, activity.getString(R.string.toast_file_not_found, fileUri.toString()));
+                    return false;
+                } catch (OsmIllegalOperationException e) {
+                    Snack.toastTopError(activity, e.getMessage());
+                    return false;
+                }
+            }
+        });
     }
 
     /**

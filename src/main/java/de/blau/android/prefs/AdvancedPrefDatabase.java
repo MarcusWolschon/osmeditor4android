@@ -185,7 +185,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         if (oldVersion <= 11 && newVersion >= 12) {
             try {
                 FileUtil.copyFileFromAssets(context, "images/" + CustomPreset.ICON,
-                        FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), CustomPreset.ICON);
+                        FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context), Paths.DIRECTORY_PATH_AUTOPRESET), CustomPreset.ICON);
             } catch (IOException e) {
                 Log.e(DEBUG_TAG, "Unable to copy custom preset icon");
             }
@@ -559,13 +559,14 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     /**
      * Create an empty AutoPreset from template
      * 
+     * @param context an Android Context
      * @param activePresets an array holding the current active presets
      * @param autopresetPosition the position where the new preset should go
      */
-    public static void createEmptyAutoPreset(Context context, Preset[] activePresets, int autopresetPosition) {
+    public static void createEmptyAutoPreset(@NonNull Context context, @NonNull Preset[] activePresets, int autopresetPosition) {
         try {
             FileUtil.copyFileFromAssets(context, Files.FILE_NAME_AUTOPRESET_TEMPLATE,
-                    FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), Files.FILE_NAME_AUTOPRESET);
+                    FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context), Paths.DIRECTORY_PATH_AUTOPRESET), Files.FILE_NAME_AUTOPRESET);
             AutoPreset.readAutoPreset(context, activePresets, autopresetPosition);
         } catch (Exception e1) {
             Log.e(DEBUG_TAG, "Failed to create auto-preset", e1);
@@ -1058,19 +1059,18 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     * Add a layer to the end of the layer list
+     * Add a layer to the layer list
      * 
      * @param db a writable DB
      * @param position the position of the layer
      * @param type the layer type
-     * @param visible if the layer is visible
      */
     private synchronized void addLayer(@NonNull SQLiteDatabase db, int position, @NonNull LayerType type) {
         addLayer(db, position, type, true, null);
     }
 
     /**
-     * Add a layer to the end of the layer list
+     * Add a layer to the layer list
      * 
      * @param db a writable DB
      * @param position the position of the layer
@@ -1162,7 +1162,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * Set layer content id
      * 
      * @param position the layer position
-     * @param visible true if visible
+     * @param contentId the id
      */
     public synchronized void setLayerContentId(@NonNull int position, @NonNull String contentId) {
         try (SQLiteDatabase db = getWritableDatabase()) {
@@ -1175,7 +1175,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     /**
      * Insert a layer at position
      * 
-     * @param db a writable DB
      * @param position the position of the layer
      * @param type the layer type
      * @param visible if the layer is visible

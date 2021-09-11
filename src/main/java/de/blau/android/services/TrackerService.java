@@ -601,7 +601,6 @@ public class TrackerService extends Service implements Exportable {
         @Override
         public void onProviderDisabled(String provider) {
             if (tracking) {
-                stopTracking(false);
                 Snack.toastTopInfo(TrackerService.this, R.string.toast_using_gps_disabled_tracking_stopped);
             }
         }

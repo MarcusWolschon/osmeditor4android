@@ -223,7 +223,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     }
 
     @Override
-    public boolean onCreateContextMenu(ContextMenu menu) {
+    public boolean onCreateContextMenu(@NonNull ContextMenu menu) {
         if (action == MENUITEM_JOIN && joinableElements.size() > 1) {
             menu.setHeaderTitle(R.string.merge_context_title);
             menu.add(Menu.NONE, 0, Menu.NONE, joinableElements.get(0) instanceof Way ? R.string.merge_with_all_ways : R.string.merge_with_all_nodes)
@@ -244,8 +244,9 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      * @param <T> the type of element
      * @param menu the menu
      * @param startIndex the index to use for the item
+     * @param elements list of elements to add
      */
-    private <T extends OsmElement> void addElementsToContextMenu(ContextMenu menu, int startIndex, List<T> elements) {
+    private <T extends OsmElement> void addElementsToContextMenu(@NonNull ContextMenu menu, int startIndex, @NonNull List<T> elements) {
         for (OsmElement e : elements) {
             menu.add(Menu.NONE, startIndex++, Menu.NONE, main.descriptionForContextMenu(e)).setOnMenuItemClickListener(this);
         }

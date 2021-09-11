@@ -364,7 +364,7 @@ public class EasyEditManager {
     /**
      * Check if the saved ActionModeCallback cab be restarted or not
      * 
-     * @param restartActionModeCallbackName the name of the callback
+     * @param actionModeCallbackName the name of the callback
      * @return true if the callback can be restarted
      */
     private boolean isRestartable(@NonNull String actionModeCallbackName) {

@@ -12,7 +12,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:4.1.0'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.3'
         classpath 'org.jacoco:org.jacoco.core:0.8.5'
-        classpath "ch.poole:preset-utils:0.23.1"
+        classpath "ch.poole:preset-utils:0.24.0"
         classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:2.0.0'
         classpath 'com.jaredsburrows:gradle-spoon-plugin:1.5.0'
@@ -146,6 +146,7 @@ task updateTranslations(type: Exec) {
         commandLine 'tx', 'pull', '-a'
     }
     doLast {
+        ant.move(file: projectDir.getPath() + "/documentation/docs/help/ar", tofile: projectDir.getPath() + "/documentation/docs/help-rtl/ar")
         ant.move(file: projectDir.getPath() + "/documentation/docs/help/fa", tofile: projectDir.getPath() + "/documentation/docs/help-rtl/fa")
         ant.move(file: projectDir.getPath() + "/documentation/docs/help/iw", tofile: projectDir.getPath() + "/documentation/docs/help-rtl/iw")
     }
@@ -155,7 +156,7 @@ updateTranslations.description = 'Update translations by executing the transifex
 
 task updateSynonyms() {
     doLast {
-        def dir = 'https://api.github.com/repos/openstreetmap/iD/contents/dist/locales?ref=release'
+        def dir = 'https://api.github.com/repos/openstreetmap/id-tagging-schema/contents/dist/translations?ref=main'
         // download directory listing via GitHub API
         def contentsFile = new File(buildDir, "directory_contents.json")
         download {
@@ -164,16 +165,17 @@ task updateSynonyms() {
         }
         // parse directory listing
         def contents = new groovy.json.JsonSlurper().parseFile(contentsFile, "utf-8")
-        def langs = contents.collect { it.name.replace('.json', '') }
-
-        langs.each { lang ->
+        def langs = contents.collect { it.name.replaceAll('(.json$)|(.min.json$)', '') }
+        langs.unique().each { lang ->
+            if ('index'.equals(lang)) {
+                return
+            }
             def name="updateSynonyms${lang.capitalize()}"
             def output = "src/main/assets/synonyms/synonyms.$lang"
- 
             javaexec {
                 main = "ch.poole.osm.presetutils.Synonyms"
                 classpath = buildscript.configurations.classpath
-                args('-u', 'https://raw.githubusercontent.com/openstreetmap/iD/release/dist/locales/',
+                args('-u', 'https://raw.githubusercontent.com/openstreetmap/id-tagging-schema/main/dist/translations/',
                      '-l', "$lang",
                      '-x', "military",
                      '-o', output,
@@ -323,16 +325,11 @@ task enableFreeform(type: Exec) {
 enableFreeform.group = 'emulators'
 enableFreeform.description = 'turn on free form window support'
 
-task dumpTaginfoJson(dependsOn: ["installCurrentDebug", "installCurrentDebugAndroidTest"],type: Exec) {
-    commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  "de.blau.android.TaginfoDump", 'de.blau.android.test/androidx.test.runner.AndroidJUnitRunner'
-}
-
-task updateTaginfoJson(dependsOn: "dumpTaginfoJson", type: Exec) {
-    commandLine adb, 'pull', 'sdcard/Vespucci/taginfo.json', projectDir.getPath()
-}
-updateTaginfoJson.group = 'vespucci'
-updateTaginfoJson.description = 'Update the taginfo.json file from test device'
-
+// task updateTaginfoJson() {
+//    
+// }
+// updateTaginfoJson.group = 'vespucci'
+// updateTaginfoJson.description = 'Update the taginfo.json file'
 
 afterEvaluate{
     android.applicationVariants.all { variant ->
@@ -437,9 +434,9 @@ dependencies {
     implementation "com.mapbox.mapboxsdk:mapbox-sdk-turf:$mapboxVersion"
     implementation 'com.github.Kunzisoft:AndroidClearChroma:2.3'
     implementation "ch.poole:PoParser:0.8.0"
-    implementation "ch.poole:OpeningHoursParser:0.23.3"
+    implementation "ch.poole:OpeningHoursParser:0.25.0"
     implementation "ch.poole:ConditionalRestrictionParser:0.3.0"
-    implementation "ch.poole:OpeningHoursFragment:0.9.3"
+    implementation "ch.poole:OpeningHoursFragment:0.11.0"
     implementation 'ch.poole.android:numberpicker:1.0.10'
     implementation 'ch.poole.android:numberpickerpreference:2.0.1'
     implementation "ch.poole.osm:JosmFilterParser:0.5.1"

@@ -888,7 +888,7 @@
 "Magazin"
 ],
 "shop/alcohol":[
-"G",
+"g",
 "Magazin de Băuturi Alcoolice"
 ],
 "shop/antiques":[
@@ -1271,9 +1271,6 @@
 ],
 "type/route/hiking":[
 "Rută de Drumeție"
-],
-"type/route/horse":[
-"Rută de Călărit"
 ],
 "type/route/pipeline":[
 "Rută de Conducte"

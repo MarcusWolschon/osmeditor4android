@@ -10,10 +10,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -89,9 +91,9 @@ public class GpxTest {
 
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 60000); // wait for main
 
-        prefs = new Preferences(main);
-        tileServer = MockTileServer.setupTileServer(main, prefs, "ersatz_background.mbt", true);
+        tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
         de.blau.android.layer.Util.addLayer(main, LayerType.GPX);
+        prefs = new Preferences(main);
         App.getLogic().setPrefs(prefs);
         main.getMap().setPrefs(main, prefs);
 
@@ -104,6 +106,13 @@ public class GpxTest {
      */
     @After
     public void teardown() {
+        instrumentation.removeMonitor(monitor);
+        instrumentation.waitForIdleSync();
+        try {
+            tileServer.close();
+        } catch (IOException | NullPointerException e) {
+            // ignore
+        }
         if (main != null) {
             try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(main)) {
                 db.deleteLayer(LayerType.GPX, null);
@@ -114,13 +123,6 @@ public class GpxTest {
         } else {
             System.out.println("main is null");
         }
-        try {
-            tileServer.close();
-        } catch (IOException | NullPointerException e) {
-            // ignore
-        }
-        instrumentation.removeMonitor(monitor);
-        instrumentation.waitForIdleSync();
     }
 
     /**
@@ -175,7 +177,11 @@ public class GpxTest {
         final CountDownLatch signal = new CountDownLatch(1);
         main.getTracker().getTrack().reset(); // clear out anything saved
         TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_FINE, 1000, new SignalHandler(signal));
-        TestUtils.sleep(TIMEOUT * 1000L);
+        try {
+            signal.await(TIMEOUT, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Assert.fail(e.getMessage());
+        }
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true, false));
         List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
@@ -211,7 +217,7 @@ public class GpxTest {
         recordedTrack = main.getTracker().getTrack().getTrack(); // has been reloaded
         compareTrack(track, recordedTrack);
         try {
-            File exportedFile = new File(FileUtil.getPublicDirectory(), filename);
+            File exportedFile = new File(FileUtil.getPublicDirectory(main), filename);
             exportedFile.delete();
         } catch (IOException e) {
             fail(e.getMessage());

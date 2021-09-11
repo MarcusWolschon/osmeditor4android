@@ -8,6 +8,11 @@
 "advertising/column":[
 "Advertising Column"
 ],
+"advertising/poster_box":[
+"city light",
+"lollylop",
+"snowshoe"
+],
 "aerialway/cable_car":[
 "Cable Car"
 ],
@@ -357,6 +362,11 @@
 "amenity/university":[
 "University Grounds"
 ],
+"amenity/vehicle_inspection":[
+"car inspection",
+"mot centre",
+"mot test"
+],
 "amenity/vending_machine":[
 "Vending Machine"
 ],
@@ -697,7 +707,7 @@
 "Clockmaker"
 ],
 "craft/confectionery":[
-"Candy Maker"
+"Confectioner"
 ],
 "craft/distillery":[
 "Distillery"
@@ -1267,7 +1277,7 @@
 "Hackerspace"
 ],
 "leisure/horse_riding":[
-"Horseback Riding Facility"
+"Horse Riding Facility"
 ],
 "leisure/ice_rink":[
 "Ice Rink"
@@ -1755,23 +1765,11 @@
 "place/village":[
 "Village"
 ],
-"playground/balance_beam":[
-"Play Balance Beam"
-],
-"playground/basket_spinner":[
-"Basket Spinner"
-],
-"playground/basket_swing":[
-"Basket Swing"
-],
 "playground/cushion":[
 "Bouncy Cushion"
 ],
 "playground/horizontal_bar":[
 "Play Horizontal Bar"
-],
-"playground/rocker":[
-"Spring Rider"
 ],
 "playground/roundabout":[
 "Play Roundabout"
@@ -2282,7 +2280,7 @@
 "Weapon Shop"
 ],
 "shop/wholesale":[
-"Wholesale Shop / Cash & Carry "
+"Wholesale Shop / Cash & Carry"
 ],
 "shop/window_blind":[
 "Window Blind Shop"
@@ -2445,9 +2443,6 @@
 ],
 "type/route/hiking":[
 "Hiking Route"
-],
-"type/route/horse":[
-"Riding Route"
 ],
 "type/route/light_rail":[
 "Light Rail Route"

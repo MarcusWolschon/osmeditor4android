@@ -44,7 +44,7 @@ import de.blau.android.R;
 import de.blau.android.address.Address;
 import de.blau.android.contract.Github;
 import de.blau.android.exception.IllegalOperationException;
-import de.blau.android.names.Names.TagMap;
+import de.blau.android.nsi.Names.TagMap;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;

@@ -112,6 +112,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
     /**
      * Get the trimmed contents from an EditText
      * 
+     * @param editText the EditText
      * @return a String with the EditText contents
      */
     String getString(@NonNull EditText editText) {

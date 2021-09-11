@@ -335,6 +335,7 @@
   <string name="layer_info_privacy_policy">Ochrana osobních údajů</string>
   <string name="projection">Zobrazení</string>
   <string name="errors">Chyby</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Smazat fotku</string>
   <string name="photo_viewer_delete_button">Smazat trvale</string>
@@ -550,6 +551,7 @@
   <string name="toast_error_downloading_mapillary_image">Chyba při stahování obrázku mapillary %1$s</string>
   <string name="toast_error_downloading_mapillary_sequences">Chyba při stahování  sekvencí Mapillary %1$s</string>
   <string name="toast_nothing_changed">Žádná změna</string>
+  <string name="toast_outer_rings_differing_tags">Vnější kroužky mají různé značky</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Zdroje MapSplit musí mít nastaveno minimální a maximální zvětšení</string>
   <string name="error_pbf_no_version">V souboru PBF chybí informace o verzi</string>
@@ -649,6 +651,7 @@
   <string name="tag_restriction_add_expression">Přidat výraz</string>
   <string name="tag_restriction_add_opening_hours">Přidat otevírací hodiny</string>
   <string name="tag_restriction_value_hint">Podmíněné omezení</string>
+  <string name="default_checkgroup_hint">Další atributy</string>
   <string name="tag_form_unknown_element">Neznámý prvek (bez nalezených předvoleb)</string>
   <string name="tag_form_untagged_element">Neoznačený prvek</string>
   <!--Custom preset creation-->
@@ -849,6 +852,7 @@
   <string name="reverse_anyway">Přesto obrátit</string>
   <string name="deleteway_description">Chystáte se smazat cestu.\n\nMůžete zachovat všechny uzly, nebo smazat ty, které patří pouze k této cestě a nemají žádné tagy.</string>
   <string name="deleteway_relation_description">Chystáte se odstranit cestu, která je členem jedné nebo více relací. Odstranění cesty v relaci může způsobit chybné vykreslování.</string>
+  <string name="deleteway_nodesnotdownloaded_description">Tato cesta obsahuje uzly mimo staženou oblast a nelze ji smazat, aniž byste potenciálně vytvořili nekonzistentní stav.\n\nPřed dalším pokusem si oblast kolem ní stáhněte.</string>
   <string name="deleteway_wayonly">Smazat pouze cestu</string>
   <string name="deleteway_wayandnodes">Smazat cestu</string>
   <string name="deletenode_relation_description">Chystáte se odstranit uzel, který je členem jedné nebo více relací. Odstranění uzlu v relaci může způsobit chybné vykreslování.</string>
@@ -988,6 +992,7 @@
   <string name="config_dataWarn_title">Varování na příliš mnoho dat</string>
   <string name="config_dataWarn_summary">Limit (v počtu uzlů), při kterém začneme varovat před příliš velkým množstvím načítaných dat</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Nastavení dat a úprav</string>
   <string name="config_category_editing_summary">Nastavení automatického stahování, ukládání a notifikací.</string>
@@ -1019,6 +1024,8 @@
   <string name="config_orthogonalizeThreshold_summary">Prahová hodnota v  ° , ve které jsou úhly ignorovány</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">Automatické formátování telefonních čísel</string>
+  <string name="config_autoformatPhoneNumbers_summary">Povolit automatické formátování telefonních čísel</string>
+  <string name="config_maxOffsetDistance_current">%1$d m</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Nastavení automatického stahování</string>
   <string name="config_category_auto_download_summary">Nastavení automatického stahování dat a úkolů</string>
@@ -1226,6 +1233,7 @@
   <string name="culvert">Propustek</string>
   <!--Tag issues-->
   <string name="issue_merged_tags">Tagy sloučeny</string>
+  <string name="issue_split_metric">Hodnota závislá na délce byla rozdělena</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 den</item>
@@ -1265,4 +1273,5 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Nápověda není k dispozici.</string>
+  <!--Bookmarks-->
 </resources>

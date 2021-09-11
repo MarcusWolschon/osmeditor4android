@@ -435,7 +435,7 @@ public final class TransferTasks {
     public static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final String fileName,
             @Nullable final PostAsyncActionHandler postWrite) {
         try {
-            File outfile = FileUtil.openFileForWriting(fileName);
+            File outfile = FileUtil.openFileForWriting(activity, fileName);
             Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
             writeOsnFile(activity, all, new BufferedOutputStream(new FileOutputStream(outfile)), postWrite);
         } catch (IOException e) {
@@ -723,7 +723,7 @@ public final class TransferTasks {
     public static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final String fileName,
             @Nullable final PostAsyncActionHandler postWrite) {
         try {
-            File outfile = FileUtil.openFileForWriting(fileName);
+            File outfile = FileUtil.openFileForWriting(activity, fileName);
             Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
             writeCustomBugFile(activity, new FileOutputStream(outfile), postWrite);
         } catch (IOException e) {
@@ -798,11 +798,12 @@ public final class TransferTasks {
     /**
      * Merge tasks in to existing
      * 
+     * @param <T> the Task type
      * @param context an Android Context
      * @param storage the target TaskStorage
      * @param tasks a Collection of tasks
      */
-    public static <T extends Task> void merge(final Context context, final TaskStorage storage, Collection<T> tasks) {
+    public static <T extends Task> void merge(@NonNull final Context context, @NonNull final TaskStorage storage, @NonNull Collection<T> tasks) {
         final Preferences prefs = App.getLogic().getPrefs();
         boolean generateAlerts = prefs.generateAlerts();
         long now = System.currentTimeMillis();

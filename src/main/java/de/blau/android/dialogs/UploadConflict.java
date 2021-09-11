@@ -28,7 +28,7 @@ import de.blau.android.util.ThemeUtils;
  */
 public class UploadConflict extends ImmersiveDialogFragment {
 
-    private static final String UPLOADRESULT = "uploadresult";
+    private static final String UPLOAD_RESULT_KEY = "uploadresult";
 
     private static final String DEBUG_TAG = UploadConflict.class.getSimpleName();
 
@@ -74,7 +74,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
         UploadConflict f = new UploadConflict();
 
         Bundle args = new Bundle();
-        args.putSerializable(UPLOADRESULT, result);
+        args.putSerializable(UPLOAD_RESULT_KEY, result);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -85,7 +85,12 @@ public class UploadConflict extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        result = (UploadResult) getArguments().getSerializable(UPLOADRESULT);
+        if (savedInstanceState != null) {
+            Log.d(DEBUG_TAG, "restoring from saved state");
+            result = (UploadResult) savedInstanceState.getSerializable(UPLOAD_RESULT_KEY);
+        } else {
+            result = (UploadResult) getArguments().getSerializable(UPLOAD_RESULT_KEY);
+        }
     }
 
     @NonNull
@@ -147,5 +152,11 @@ public class UploadConflict extends ImmersiveDialogFragment {
         builder.setNegativeButton(R.string.cancel, null);
 
         return builder.create();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(UPLOAD_RESULT_KEY, result);
     }
 }

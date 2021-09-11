@@ -13,7 +13,7 @@ public interface Validator {
     int AGE                  = 0x00000002;
     int FIXME                = 0x00000004;
     int MISSING_TAG          = 0x00000008;
-    int HIGHWAY_NAME         = 0x00000010;
+    int HIGHWAY_NAME         = 0x00000010; // no longer used
     int HIGHWAY_ROAD         = 0x00000020;
     int NO_TYPE              = 0x00000040;
     int IMPERIAL_UNITS       = 0x00000080;

@@ -1,9 +1,11 @@
 package de.blau.android.services.util;
 
 import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
-public class ExtendedLocation extends Location {
+public class ExtendedLocation extends Location implements Parcelable {
 
     private static final int HAS_HDOP_MASK              = 1;
     private static final int HAS_GEOID_HEIGHT_MASK      = 2;
@@ -17,6 +19,27 @@ public class ExtendedLocation extends Location {
     private double geoidHeight      = Double.NaN;
     private double geoidCorrection  = Double.NaN;
     private double barometricHeight = Double.NaN;
+
+    public static final Parcelable.Creator<ExtendedLocation> CREATOR = new Parcelable.Creator<ExtendedLocation>() {
+
+        @Override
+        public ExtendedLocation createFromParcel(Parcel in) {
+            Location l = Location.CREATOR.createFromParcel(in);
+            ExtendedLocation el = new ExtendedLocation(l);
+            el.flags = in.readInt();
+            el.hdop = in.readDouble();
+            el.geoidHeight = in.readDouble();
+            el.geoidCorrection = in.readDouble();
+            el.barometricHeight = in.readDouble();
+            return el;
+        }
+
+        @Override
+        public ExtendedLocation[] newArray(int size) {
+            return new ExtendedLocation[size];
+        }
+
+    };
 
     /**
      * Construct a new instance for a specific provider
@@ -146,5 +169,15 @@ public class ExtendedLocation extends Location {
      */
     public void setUseBarometricHeight() {
         flags |= USE_BAROMETRIC_HEIGHT_MASK;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(this.flags);
+        dest.writeDouble(hdop);
+        dest.writeDouble(geoidHeight);
+        dest.writeDouble(geoidCorrection);
+        dest.writeDouble(barometricHeight);
     }
 }

@@ -402,7 +402,9 @@ public final class TableLayoutUtils {
      * Display three cells with a button in the last one
      * 
      * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param res resource id for the text in the first cell
      * @param text the text
+     * @param button the ImageButton
      * @param tp LayoutParams for the row
      * @return a TableRow
      */

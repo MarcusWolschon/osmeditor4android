@@ -82,7 +82,11 @@ Disable the feedback activity and use an URL instead. Default: _false_.
 
 ### Beep volume
 
-Set how load the beep is Vespucci uses when you are pressing unsupported short cut keys on a connected real keyboard. Default: _50_
+Set how load the beep is Vespucci uses when you are pressing unsupported short cut keys on a connected real keyboard. Default: _50_.
+
+### Minimum zoom for Mapillary
+
+Set the minimum zoom level for Mapillary data to be displayed. If set too low the application might crash in areas with very high density Mapillary data. Consider increasing the number if your display if very large or very high resolution. Default: _16_
 
 ## Data and Editing Settings
 

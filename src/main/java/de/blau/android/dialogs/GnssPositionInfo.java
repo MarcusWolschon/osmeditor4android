@@ -58,10 +58,10 @@ public class GnssPositionInfo extends InfoDialogFragment {
     TableLayout              tl;
 
     /**
-     * Show an info dialog for the supplied GeoJSON Feature
+     * Show an info dialog for the supplied Location
      * 
      * @param activity the calling Activity
-     * @param feature the Feature
+     * @param location the Location we want to display
      */
     public static void showDialog(@NonNull FragmentActivity activity, @NonNull Location location) {
         dismissDialog(activity);
@@ -118,10 +118,10 @@ public class GnssPositionInfo extends InfoDialogFragment {
     }
 
     /**
-     * Create a new instance of the FeatureInfo dialog
+     * Create a new instance of the GnssPositionInfo dialog
      * 
-     * @param feature Feature to display the info on
-     * @return an instance of ElementInfo
+     * @param location the Location we want to display
+     * @return an instance of GnssPositionInfo
      */
     @NonNull
     private static GnssPositionInfo newInstance(@NonNull Location location) {
@@ -139,7 +139,12 @@ public class GnssPositionInfo extends InfoDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        location = getArguments().getParcelable(LOCATION_KEY);
+        if (savedInstanceState != null) {
+            location = savedInstanceState.getParcelable(LOCATION_KEY);
+            Log.d(DEBUG_TAG, "restoring from saved state");
+        } else {
+            location = getArguments().getParcelable(LOCATION_KEY);
+        }
     }
 
     @Override
@@ -165,47 +170,7 @@ public class GnssPositionInfo extends InfoDialogFragment {
                 builder.setNegativeButton(R.string.menu_newnode_gps, (dialog, which) -> {
                     if (Util.notZero(lon) || Util.notZero(lat)) {
                         if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
-                            try {
-                                Logic logic = App.getLogic();
-                                Node node = logic.performAddNode(getActivity(), lon, lat);
-                                TreeMap<String, String> tags = new TreeMap<>(node.getTags());
-
-                                if (location instanceof ExtendedLocation) {
-                                    ExtendedLocation loc = (ExtendedLocation) location;
-                                    Preferences prefs = logic.getPrefs();
-                                    if (loc.hasBarometricHeight()) {
-                                        if (prefs.useBarometricHeight()) {
-                                            tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.3f", loc.getBarometricHeight()));
-                                            tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_BAROMETER);
-                                        }
-                                        tags.put(Tags.KEY_ELE_BAROMETRIC, String.format(Locale.US, "%.3f", loc.getBarometricHeight()));
-                                    }
-                                    if (loc.hasGeoidHeight()) {
-                                        if (!prefs.useBarometricHeight()) {
-                                            tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.3f", loc.getGeoidHeight()));
-                                            tags.put(Tags.KEY_SOURCE, Tags.VALUE_GNSS);
-                                        }
-                                        tags.put(Tags.KEY_ELE_GEOID, String.format(Locale.US, "%.3f", loc.getGeoidHeight()));
-                                    }
-                                    if (loc.hasGeoidCorrection()) {
-                                        tags.put("note:ele", "geoid correction " + String.format(Locale.US, "%.3f", loc.getGeoidCorrection()));
-                                    }
-                                    if (loc.hasHdop()) {
-                                        tags.put(Tags.KEY_GNSS_HDOP, String.format(Locale.US, "%.1f", loc.getHdop()));
-                                    }
-                                }
-                                if (location.hasAltitude()) {
-                                    tags.put(Tags.KEY_ELE_ELLIPSOID, String.format(Locale.US, "%.3f", location.getAltitude()));
-                                }
-
-                                logic.setTags(getActivity(), node, tags);
-                                if (getActivity() instanceof Main) {
-                                    ((Main) getActivity()).edit(node);
-                                }
-                            } catch (OsmIllegalOperationException e) {
-                                Snack.barError(getActivity(), e.getLocalizedMessage());
-                                Log.d(DEBUG_TAG, "Caught exception " + e);
-                            }
+                            addNodeAtLocation(lon, lat);
                         } else {
                             Snack.barError(getActivity(), R.string.toast_null_island);
                         }
@@ -218,6 +183,56 @@ public class GnssPositionInfo extends InfoDialogFragment {
         builder.setTitle(R.string.position_info_title);
         builder.setView(createView(null));
         return builder.create();
+    }
+
+    /**
+     * Add a new Node at the specified coordinates
+     * 
+     * @param lon WGS84 longitude
+     * @param lat WGS84 latitude
+     */
+    private void addNodeAtLocation(final double lon, final double lat) {
+        try {
+            Logic logic = App.getLogic();
+            Node node = logic.performAddNode(getActivity(), lon, lat);
+            TreeMap<String, String> tags = new TreeMap<>(node.getTags());
+
+            if (location instanceof ExtendedLocation) {
+                ExtendedLocation loc = (ExtendedLocation) location;
+                Preferences prefs = logic.getPrefs();
+                if (loc.hasBarometricHeight()) {
+                    if (prefs.useBarometricHeight()) {
+                        tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.3f", loc.getBarometricHeight()));
+                        tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_BAROMETER);
+                    }
+                    tags.put(Tags.KEY_ELE_BAROMETRIC, String.format(Locale.US, "%.3f", loc.getBarometricHeight()));
+                }
+                if (loc.hasGeoidHeight()) {
+                    if (!prefs.useBarometricHeight()) {
+                        tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.3f", loc.getGeoidHeight()));
+                        tags.put(Tags.KEY_SOURCE, Tags.VALUE_GNSS);
+                    }
+                    tags.put(Tags.KEY_ELE_GEOID, String.format(Locale.US, "%.3f", loc.getGeoidHeight()));
+                }
+                if (loc.hasGeoidCorrection()) {
+                    tags.put("note:ele", "geoid correction " + String.format(Locale.US, "%.3f", loc.getGeoidCorrection()));
+                }
+                if (loc.hasHdop()) {
+                    tags.put(Tags.KEY_GNSS_HDOP, String.format(Locale.US, "%.1f", loc.getHdop()));
+                }
+            }
+            if (location != null && location.hasAltitude()) { // location may have gone
+                tags.put(Tags.KEY_ELE_ELLIPSOID, String.format(Locale.US, "%.3f", location.getAltitude()));
+            }
+
+            logic.setTags(getActivity(), node, tags);
+            if (getActivity() instanceof Main) {
+                ((Main) getActivity()).edit(node);
+            }
+        } catch (OsmIllegalOperationException e) {
+            Snack.barError(getActivity(), e.getLocalizedMessage());
+            Log.d(DEBUG_TAG, "Caught exception " + e);
+        }
     }
 
     Runnable update = new Runnable() { // NOSONAR
@@ -263,32 +278,40 @@ public class GnssPositionInfo extends InfoDialogFragment {
      */
     private void updateView(@NonNull FragmentActivity activity, @NonNull TableLayout tl, @NonNull TableLayout.LayoutParams tp) {
         tl.removeAllViews();
-        tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, String.format(Locale.US, "%.8f", location.getLatitude()), tp));
-        tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, String.format(Locale.US, "%.8f", location.getLongitude()), tp));
-        tl.addView(TableLayoutUtils.divider(activity));
+        if (location != null) {
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, String.format(Locale.US, "%.8f", location.getLatitude()), tp));
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, String.format(Locale.US, "%.8f", location.getLongitude()), tp));
+            tl.addView(TableLayoutUtils.divider(activity));
 
-        if (location instanceof ExtendedLocation) {
-            ExtendedLocation loc = (ExtendedLocation) location;
-            if (loc.hasHdop()) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_hdop, String.format(Locale.US, "%.1f", loc.getHdop()), tp));
+            if (location instanceof ExtendedLocation) {
+                ExtendedLocation loc = (ExtendedLocation) location;
+                if (loc.hasHdop()) {
+                    tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_hdop, String.format(Locale.US, "%.1f", loc.getHdop()), tp));
+                }
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_altitude, null, tp));
+                if (loc.hasGeoidHeight()) {
+                    tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_geoid_height, String.format(Locale.US, "%.3f", loc.getGeoidHeight()),
+                            tp));
+                }
+                if (loc.hasBarometricHeight()) {
+                    tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_barometric_height,
+                            String.format(Locale.US, "%.3f", loc.getBarometricHeight()), tp));
+                }
+                if (loc.hasGeoidCorrection()) {
+                    tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_geoid_correction,
+                            String.format(Locale.US, "%.3f", loc.getGeoidCorrection()), tp));
+                }
             }
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_altitude, null, tp));
-            if (loc.hasGeoidHeight()) {
-                tl.addView(
-                        TableLayoutUtils.createRow(activity, R.string.position_info_geoid_height, String.format(Locale.US, "%.3f", loc.getGeoidHeight()), tp));
-            }
-            if (loc.hasBarometricHeight()) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_barometric_height,
-                        String.format(Locale.US, "%.3f", loc.getBarometricHeight()), tp));
-            }
-            if (loc.hasGeoidCorrection()) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_geoid_correction,
-                        String.format(Locale.US, "%.3f", loc.getGeoidCorrection()), tp));
+            if (location.hasAltitude()) {
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_ellipsoid_height,
+                        String.format(Locale.US, "%.3f", location.getAltitude()), tp));
             }
         }
-        if (location.hasAltitude()) {
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_ellipsoid_height, String.format(Locale.US, "%.3f", location.getAltitude()),
-                    tp));
-        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(LOCATION_KEY, location);
     }
 }

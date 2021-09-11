@@ -14,13 +14,14 @@ import androidx.annotation.Nullable;
  *
  */
 public class MapillaryViewerActivity extends PhotoViewerActivity {
-    
+
     /**
      * Start a new activity with the PhotoViewer as the contents
      * 
      * @param context the Android Context calling this
      * @param photoList a list of photos to show
      * @param startPos the starting position in the list
+     * @param loader the PhotoLoader to use
      */
     public static void start(@NonNull Context context, @NonNull ArrayList<String> photoList, int startPos, @Nullable PhotoLoader loader) {
         Intent intent = new Intent(context, MapillaryViewerActivity.class);

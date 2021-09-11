@@ -27,7 +27,7 @@
 ],
 "aeroway/helipad":[
 "Kopteriväljak",
-"Helikopteriväljak"
+"helikopteriväljak"
 ],
 "aeroway/runway":[
 "Lennurada"
@@ -35,8 +35,8 @@
 "aeroway/spaceport":[
 "raketiplatvorm",
 "Kosmodroom",
-"stardiplatvorm",
-"Kosmosekeskus"
+"kosmosekeskus",
+"stardiplatvorm"
 ],
 "aeroway/taxiway":[
 "Ruleerimistee"
@@ -170,7 +170,7 @@
 "seminari"
 ],
 "amenity/courthouse":[
-"Kohus",
+"kohus",
 "Kohtumaja"
 ],
 "amenity/coworking_space":[
@@ -218,24 +218,24 @@
 "Kiirtoitlustus"
 ],
 "amenity/fire_station":[
-"Tuletõrjedepoo",
+"tuletõrjedepoo",
 "merepääste",
 "Päästedepoo",
 "tuletõrjujad"
 ],
 "amenity/food_court":[
 "söögiplats",
+"toiduala",
 "söögiala",
-"Toiduväljak",
-"Toiduala"
+"Toiduväljak"
 ],
 "amenity/fountain":[
 "Purskkaev"
 ],
 "amenity/fuel":[
+"bensiinijaam",
 "kütusejaam",
 "kütus",
-"Bensiinijaam",
 "Tankla"
 ],
 "amenity/grave_yard":[
@@ -247,7 +247,7 @@
 ],
 "amenity/hospital":[
 "Haigla territoorium",
-"Haigla"
+"haigla"
 ],
 "amenity/hunting_stand":[
 "jahipukk",
@@ -259,7 +259,7 @@
 "Jäätisekohvik"
 ],
 "amenity/internet_cafe":[
-"Internetipunkt",
+"internetipunkt",
 "Internetikohvik"
 ],
 "amenity/library":[
@@ -267,7 +267,7 @@
 ],
 "amenity/marketplace":[
 "Turg",
-"Turuplats"
+"turuplats"
 ],
 "amenity/monastery":[
 "Kloostriala"
@@ -282,10 +282,10 @@
 "Hoolduskodu"
 ],
 "amenity/parking":[
+"parkla",
 "sõiduauto",
 "parkimisplats",
-"Autoparkla",
-"Parkla"
+"Autoparkla"
 ],
 "amenity/parking/multi-storey":[
 "parkla",
@@ -304,13 +304,13 @@
 "Fotokabiin"
 ],
 "amenity/place_of_worship":[
+"pühapaik",
 "Pühakoda",
-"Pühapaik",
 "palvekoht"
 ],
 "amenity/place_of_worship/buddhist":[
-"Budistlik tempel",
-"Budistlik pühakoda"
+"budistlik pühakoda",
+"Budistlik tempel"
 ],
 "amenity/place_of_worship/christian":[
 "kabel",
@@ -347,12 +347,12 @@
 "Postkontor"
 ],
 "amenity/prison":[
-"Arestimaja",
+"arestimaja",
 "Vangla"
 ],
 "amenity/pub":[
 "Kõrts",
-"Pubi"
+"pubi"
 ],
 "amenity/pub/irish":[
 "Iiri pubi"
@@ -366,15 +366,15 @@
 "Looduskeskus"
 ],
 "amenity/recycling_centre":[
-"Taaskasutuskeskus",
-"Ümbertöötluskeskus"
+"Ümbertöötluskeskus",
+"taaskasutuskeskus"
 ],
 "amenity/restaurant":[
 "Restoran"
 ],
 "amenity/school":[
 "Kool",
-"Koolimaja"
+"koolimaja"
 ],
 "amenity/shelter":[
 "ulualune",
@@ -392,8 +392,8 @@
 "Sotsiaalkeskus"
 ],
 "amenity/social_facility":[
-"Sotsiaalkeskus",
-"Sotsiaalamet"
+"sotsiaalamet",
+"Sotsiaalkeskus"
 ],
 "amenity/social_facility/food_bank":[
 "Toidupank"
@@ -403,15 +403,15 @@
 "Vanadekodu"
 ],
 "amenity/social_facility/homeless_shelter":[
+"kodutute öömaja",
 "Kodutute varjupaik",
-"Kodutute öömaja",
 "varjupaik"
 ],
 "amenity/social_facility/nursing_home":[
 "Hooldekodu"
 ],
 "amenity/studio":[
-"TV",
+"tv",
 "Stuudio",
 "raadiomaja",
 "lindistus",
@@ -441,7 +441,7 @@
 ],
 "amenity/telephone":[
 "Taksofon",
-"Telefon",
+"telefon",
 "telefoniautomaat"
 ],
 "amenity/theatre":[
@@ -450,7 +450,7 @@
 "amenity/toilets":[
 "Tualett",
 "kemmerg",
-"WC",
+"wc",
 "peldik"
 ],
 "amenity/townhall":[
@@ -465,7 +465,7 @@
 "Parkimispileti automaat"
 ],
 "amenity/veterinary":[
-"Loomakliinik",
+"loomakliinik",
 "Loomaarst"
 ],
 "amenity/waste_basket":[
@@ -492,8 +492,8 @@
 "tõke"
 ],
 "barrier/block":[
+"betoonplokk",
 "Plokk",
-"Betoonplokk",
 "betoon"
 ],
 "barrier/bollard":[
@@ -503,7 +503,7 @@
 ],
 "barrier/border_control":[
 "piiriületuspunkt",
-"Piirikontroll",
+"piirikontroll",
 "Piiripunkt"
 ],
 "barrier/cattle_grid":[
@@ -542,7 +542,7 @@
 ],
 "barrier/retaining_wall":[
 "Tugisein",
-"Kaitsemüür"
+"kaitsemüür"
 ],
 "barrier/stile":[
 "Astmestik",
@@ -565,7 +565,7 @@
 "pöördvärav"
 ],
 "barrier/wall":[
-"Sein",
+"sein",
 "Müür",
 "vall"
 ],
@@ -588,7 +588,7 @@
 "building/barn":[
 "laut",
 "Küün",
-"Tall"
+"tall"
 ],
 "building/bungalow":[
 "bungalo",
@@ -600,7 +600,7 @@
 "building/cabin":[
 "metsamajake",
 "Tare",
-"Majake",
+"majake",
 "onn"
 ],
 "building/cathedral":[
@@ -655,11 +655,11 @@
 ],
 "building/garage":[
 "Garaaž",
-"Garaaz"
+"garaaz"
 ],
 "building/garages":[
-"Garaazid",
-"Garaažid"
+"Garaažid",
+"garaazid"
 ],
 "building/greenhouse":[
 "Kasvuhoone"
@@ -688,12 +688,12 @@
 "Avalik hoone"
 ],
 "building/residential":[
-"Elamu",
-"Eramu"
+"eramu",
+"Elamu"
 ],
 "building/retail":[
-"Kaubandushoone",
-"Kaubandus"
+"kaubandus",
+"Kaubandushoone"
 ],
 "building/roof":[
 "Katus"
@@ -711,21 +711,21 @@
 "õppehoone"
 ],
 "building/semidetached_house":[
-"Elumajaosa",
-"Ridaelamu"
+"Ridaelamu",
+"elumajaosa"
 ],
 "building/shed":[
 "Kuur"
 ],
 "building/stable":[
-"Tall",
-"Hobusetall"
+"hobusetall",
+"Tall"
 ],
 "building/stadium":[
 "Staadionihoone"
 ],
 "building/static_caravan":[
-"Haagiselamu",
+"haagiselamu",
 "haagismaja",
 "teisaldatav maja",
 "Paikne haagismaja"
@@ -779,7 +779,7 @@
 "Pruulikoda"
 ],
 "craft/carpenter":[
-"Puusepp",
+"puusepp",
 "puussepp",
 "Tisler"
 ],
@@ -809,8 +809,8 @@
 "Soojustaja"
 ],
 "craft/key_cutter":[
-"Võtmeabi",
-"Võtmete valmistamine",
+"võtmete valmistamine",
+"võtmeabi",
 "Võtmemeister"
 ],
 "craft/locksmith":[
@@ -836,7 +836,7 @@
 "Krohvija"
 ],
 "craft/plumber":[
-"Toruabi",
+"toruabi",
 "Santehnik"
 ],
 "craft/rigger":[
@@ -890,8 +890,8 @@
 "Kiirabipunkt"
 ],
 "emergency/fire_hydrant":[
-"Hüdrant",
-"Tulehüdrant"
+"tulehüdrant",
+"Hüdrant"
 ],
 "emergency/phone":[
 "Hädaabi telefon"
@@ -902,7 +902,10 @@
 "tuletõrjemahuti"
 ],
 "ford":[
-"Koole",
+"koole",
+"Koolmekoht"
+],
+"ford_line":[
 "Koolmekoht"
 ],
 "golf/clubhouse":[
@@ -986,23 +989,28 @@
 "ülekäik",
 "ratta",
 "ülekäigu",
-"Märgistamatta lõikumine (jalg- ja) jalgrattateega"
+"Märgistamata lõikumine (jalg- ja) jalgrattateega"
 ],
 "highway/footway":[
+"promenaad",
 "Jalgtee",
+"matkarada",
 "kõnnitee"
 ],
 "highway/footway/crossing":[
-"Jalakäia ülekäik"
+"Jalakäija ülekäik"
+],
+"highway/footway/sidewalk":[
+"Kõnnitee"
 ],
 "highway/give_way":[
 "Anna teed märk"
 ],
 "highway/living_street":[
 "Õueala tee",
+"majadevaheline",
 "elamu",
 "linna",
-"Majadevaheline",
 "elutänav"
 ],
 "highway/mini_roundabout":[
@@ -1010,7 +1018,7 @@
 ],
 "highway/motorway":[
 "Kiirtee",
-"Eraldatud sõiduradadega tee"
+"eraldatud sõiduradadega tee"
 ],
 "highway/motorway_junction":[
 "Kiirtee mahasõit"
@@ -1090,9 +1098,9 @@
 "Parkla vahetee"
 ],
 "highway/services":[
-"Teenindusala",
 "Maantee teenindusala",
 "kiirtee teenindusala",
+"teenindusala",
 "puhkeala"
 ],
 "highway/speed_camera":[
@@ -1140,8 +1148,8 @@
 "Liikluspeegel"
 ],
 "highway/traffic_signals":[
-"Foorid",
 "Valgusfoorid",
+"foorid",
 "signaaltuled"
 ],
 "highway/trailhead":[
@@ -1155,7 +1163,7 @@
 ],
 "highway/trunk":[
 "maantee",
-"Trunk Road",
+"trunk road",
 "põhimaantee",
 "E-tähistusega põhimaantee"
 ],
@@ -1189,8 +1197,8 @@
 "Piirikivi"
 ],
 "historic/castle":[
-"Loss",
-"Kindlus"
+"kindlus",
+"Loss"
 ],
 "historic/castle/fortress":[
 "müür",
@@ -1237,13 +1245,13 @@
 "mõisa"
 ],
 "historic/memorial":[
-"Mälestusmärk",
-"Memoriaal"
+"memoriaal",
+"Mälestusmärk"
 ],
 "historic/monument":[
 "Monument",
-"ausammas",
-"Mälestis"
+"mälestis",
+"ausammas"
 ],
 "historic/ruins":[
 "Varemed"
@@ -1269,7 +1277,7 @@
 "Kogumisbassein"
 ],
 "landuse/cemetery":[
-"Kalmistu",
+"kalmistu",
 "Surnuaed"
 ],
 "landuse/churchyard":[
@@ -1312,7 +1320,7 @@
 "laevasadam"
 ],
 "landuse/industrial":[
-"Tööstusala",
+"tööstusala",
 "Tööstuspiirkond"
 ],
 "landuse/industrial/scrap_yard":[
@@ -1323,10 +1331,10 @@
 ],
 "landuse/landfill":[
 "Prügila",
-"Prügimägi"
+"prügimägi"
 ],
 "landuse/meadow":[
-"Niit",
+"niit",
 "luht",
 "Heinamaa"
 ],
@@ -1357,7 +1365,7 @@
 "Sakraalmaa"
 ],
 "landuse/residential":[
-"Elurajoon",
+"elurajoon",
 "Elamuala",
 "elamurajoon"
 ],
@@ -1416,8 +1424,8 @@
 "Golfiväljak"
 ],
 "leisure/horse_riding":[
-"Ratsakeskus",
-"Ratsutuskeskus"
+"ratsutuskeskus",
+"Ratsakeskus"
 ],
 "leisure/ice_rink":[
 "Uisuväljak"
@@ -1427,18 +1435,18 @@
 "sadam",
 "jaht",
 "kaatrisadam",
-"Jahisadam",
+"jahisadam",
 "kaater",
 "Väikesadam"
 ],
 "leisure/miniature_golf":[
-"Minatuurgolf",
-"Minigolf"
+"minigolf",
+"Minatuurgolf"
 ],
 "leisure/nature_reserve":[
 "looduspark",
-"Maastikukaitseala",
-"Looduskaitseala"
+"Looduskaitseala",
+"maastikukaitseala"
 ],
 "leisure/park":[
 "Park"
@@ -1463,7 +1471,7 @@
 ],
 "leisure/pitch/skateboard":[
 "Rulapark",
-"Skate park"
+"skate park"
 ],
 "leisure/pitch/soccer":[
 "Jalgpalliväljak"
@@ -1483,16 +1491,17 @@
 "Mänguväljak"
 ],
 "leisure/resort":[
+"kuurort",
 "spaa",
-"Puhkekeskus",
-"Kuurort"
+"Puhkekeskus"
 ],
 "leisure/sauna":[
 "Saun"
 ],
 "leisure/slipway":[
 "väikesadam",
-"Slipp"
+"Slipp",
+"slipp"
 ],
 "leisure/slipway_point":[
 "paadi",
@@ -1503,18 +1512,43 @@
 ],
 "leisure/sports_centre":[
 "Spordikeskus",
-"Spordikompleks"
+"spordikompleks"
+],
+"leisure/sports_centre/climbing":[
+"ronimine",
+"ronila",
+"Ronimiskeskus",
+"ronimisrada"
 ],
 "leisure/sports_centre/swimming":[
-"Ujula"
+"ujumisbassein",
+"veekeskus",
+"välisujula",
+"bassein",
+"Ujula",
+"supelhoone",
+"väliujula",
+"siseujula",
+"lastebassein"
 ],
 "leisure/sports_hall":[
-"Spordisaal",
+"spordisaal",
 "Spordihall",
 "spordikeskus"
 ],
 "leisure/stadium":[
-"Staadion"
+"jalgpallistaadion",
+"Staadion",
+"spordiväljak",
+"spordiplats",
+"lastestaadion",
+"keskstaadion"
+],
+"leisure/swimming_area":[
+"rand",
+"Looduslik ujumiskoht",
+"järv",
+"jõgi"
 ],
 "leisure/swimming_pool":[
 "Ujumisbassein"
@@ -1522,8 +1556,14 @@
 "leisure/track":[
 "Staadion"
 ],
+"leisure/trampoline_park":[
+"laste mängutuba",
+"batuudimaastik",
+"Batuudikeskus",
+"seiklusparl"
+],
 "leisure/water_park":[
-"Veekeskus",
+"veekeskus",
 "Veepark"
 ],
 "line":[
@@ -1628,8 +1668,8 @@
 "raadiomast",
 "telefonimast",
 "televisioonimast",
-"Mobiilimast",
-"tv mast"
+"tv mast",
+"mobiilimast"
 ],
 "man_made/observatory":[
 "Observatoorium"
@@ -1649,15 +1689,21 @@
 "Torujuhe"
 ],
 "man_made/silo":[
-"Silo mahuti",
-"Silo hoidla",
+"silo mahuti",
+"silo hoidla",
 "Silo"
 ],
 "man_made/storage_tank":[
 "Mahuti"
 ],
+"man_made/surveillance/camera":[
+"Valvekaamera"
+],
 "man_made/tower":[
 "Torn"
+],
+"man_made/tower/bell_tower":[
+"Kellatorn"
 ],
 "man_made/tower/cooling":[
 "gradiir",
@@ -1669,6 +1715,12 @@
 "Kindlustorn",
 "kaitse"
 ],
+"man_made/tower/observation":[
+"Vaatlustorn"
+],
+"man_made/tower/pagoda":[
+"Pagood"
+],
 "man_made/wastewater_plant":[
 "Reoveepuhastusjaam"
 ],
@@ -1676,26 +1728,33 @@
 "Veetorn"
 ],
 "man_made/water_well":[
-"Kaev",
+"kaev",
 "Veekaev"
 ],
 "man_made/water_works":[
 "Joogivee varustusjaam"
 ],
+"man_made/watermill":[
+"Vesiveski"
+],
+"man_made/windmill":[
+"tuulik",
+"Tuuleveski"
+],
 "man_made/works":[
 "Tehas",
-"Vabrik"
+"vabrik"
 ],
 "natural/bare_rock":[
-"Kivi paljand",
-"Paljand"
+"Paljand",
+"kivi paljand"
 ],
 "natural/bay":[
 "Laht"
 ],
 "natural/beach":[
 "Rand",
-"Liivarand"
+"liivarand"
 ],
 "natural/cape":[
 "poolsaar",
@@ -1704,22 +1763,25 @@
 ],
 "natural/cave_entrance":[
 "õõs",
-"Koobas",
 "auk",
 "Koopa sissepääs",
-"sissepääs"
+"sissepääs",
+"koobas"
 ],
 "natural/cliff":[
-"Kuristik",
+"kuristik",
 "Kalju"
 ],
 "natural/coastline":[
-"Rand",
+"rand",
 "Rannajoon"
 ],
 "natural/fell":[
-"Mägitundra",
-"Tundra"
+"tundra",
+"Mägitundra"
+],
+"natural/geyser":[
+"Geiser"
 ],
 "natural/glacier":[
 "Liustik"
@@ -1838,6 +1900,9 @@
 "roostik",
 "Märgala"
 ],
+"natural/wood":[
+"Looduslik mets"
+],
 "noexit/yes":[
 "tupik",
 "Tee lõpp",
@@ -1888,7 +1953,7 @@
 "Krunt"
 ],
 "place/suburb":[
-"Äärelinn",
+"äärelinn",
 "Eeslinn"
 ],
 "place/town":[
@@ -1916,9 +1981,9 @@
 "pais"
 ],
 "power/line":[
-"Elektriliin",
 "õhuliin",
 "Kõrgepingeliin",
+"elektriliin",
 "kõrgliin"
 ],
 "power/minor_line":[
@@ -1939,7 +2004,7 @@
 "Kõrgepingetorn"
 ],
 "power/transformer":[
-"Transformaator",
+"transformaator",
 "Trafo"
 ],
 "public_transport/platform/bus_point":[
@@ -1953,8 +2018,8 @@
 ],
 "railway/disused":[
 "Mittekasutatav raudtee",
-"Kasutusest väljasolev raudtee",
-"raudtee"
+"raudtee",
+"kasutusest väljasolev raudtee"
 ],
 "railway/funicular":[
 "Köisraudtee",
@@ -2010,26 +2075,26 @@
 "Alkoholipood"
 ],
 "shop/antiques":[
-"Antiigi kauplus",
+"antiigi kauplus",
 "Antikvariaat"
 ],
 "shop/art":[
 "Kunstitarvete kauplus"
 ],
 "shop/baby_goods":[
-"Lastepood",
+"lastepood",
 "Beebipood",
 "tita pood"
 ],
 "shop/bag":[
-"Käekoti pood",
+"käekoti pood",
 "Kotipood"
 ],
 "shop/bakery":[
 "Pagariäri"
 ],
 "shop/bathroom_furnishing":[
-"Sanitaartehnika",
+"sanitaartehnika",
 "Santehnika kauplus"
 ],
 "shop/beauty":[
@@ -2047,21 +2112,21 @@
 "padjapood",
 "mööblipood",
 "Magamistoa kauba pood",
-"Voodipood",
-"madratsipood"
+"madratsipood",
+"voodipood"
 ],
 "shop/beverages":[
 "karastusjoogid",
 "Joogikauplus"
 ],
 "shop/bicycle":[
-"Spordipood",
+"spordipood",
 "Rattapood"
 ],
 "shop/bookmaker":[
 "raamatutrükikoda",
-"Köitmiskoda",
 "trükikoda",
+"köitmiskoda",
 "Trükkal",
 "köitja"
 ],
@@ -2072,15 +2137,18 @@
 "Butiik"
 ],
 "shop/butcher":[
-"Lihunik",
-"Lihapood"
+"Lihapood",
+"lihunik"
 ],
 "shop/candles":[
 "Küünlapood"
 ],
 "shop/car":[
-"Auto esindus",
+"auto esindus",
 "Autopood"
+],
+"shop/car/second_hand":[
+"Kasutatud autode müügiplats"
 ],
 "shop/car_parts":[
 "Autoosade pood"
@@ -2103,7 +2171,7 @@
 "Vaibapood"
 ],
 "shop/charity":[
-"Mittetulunduslik kauplus",
+"mittetulunduslik kauplus",
 "Heategevuslik kauplus"
 ],
 "shop/cheese":[
@@ -2121,32 +2189,32 @@
 "keemia"
 ],
 "shop/chocolate":[
-"Sokolaadikauplus",
 "shokolaadikauplus",
-"Šokolaadikauplus"
+"Šokolaadikauplus",
+"sokolaadikauplus"
 ],
 "shop/clothes":[
-"Moekauplus",
+"moekauplus",
 "Riidepood"
 ],
 "shop/coffee":[
 "Kohvipood"
 ],
 "shop/computer":[
-"IT kauplus",
 "arvutitarvikud",
-"Arvutipood"
+"Arvutipood",
+"it kauplus"
 ],
 "shop/confectionery":[
 "Kommipood"
 ],
 "shop/convenience":[
 "pood",
-"Kauplus",
 "väike pood",
 "külapood",
 "Toidupood",
-"esmatarbekaup"
+"esmatarbekaup",
+"kauplus"
 ],
 "shop/copyshop":[
 "Koopiateenuse kauplus"
@@ -2160,14 +2228,14 @@
 ],
 "shop/dairy":[
 "Piimapood",
-"Meierei kauplus",
+"meierei kauplus",
 "piimatoodete kauplus"
 ],
 "shop/deli":[
+"deli",
 "Delikatessikauplus",
 "delikaadid",
-"hõrgutised",
-"Deli"
+"hõrgutised"
 ],
 "shop/department_store":[
 "pood",
@@ -2175,8 +2243,8 @@
 "kauplus"
 ],
 "shop/doityourself":[
-"Ehituskaubad",
 "ehituspood",
+"ehituskaubad",
 "Ehituskauplus",
 "ehitustarvikud",
 "santehnika"
@@ -2193,13 +2261,13 @@
 "shop/electronics":[
 "Elektroonikapood",
 "tehnika kauplus",
+"arvutipood",
 "tehnika pood",
-"Arvutipood",
 "köögitehnika"
 ],
 "shop/erotic":[
-"Seksipood",
 "Erootikapood",
+"seksipood",
 "seksitarbed"
 ],
 "shop/fabric":[
@@ -2208,10 +2276,10 @@
 ],
 "shop/farm":[
 "aiasaadused",
-"Talusaadused",
 "farmikaup",
 "Talukaup",
-"põllusaadused"
+"põllusaadused",
+"talusaadused"
 ],
 "shop/fashion":[
 "Moekauplus"
@@ -2226,13 +2294,13 @@
 "Kalastustarvete pood"
 ],
 "shop/florist":[
-"Florist",
-"Lillepood"
+"Lillepood",
+"florist"
 ],
 "shop/frame":[
 "maali raamimine",
-"Raamikauplus",
-"Piltide raamimine"
+"piltide raamimine",
+"Raamikauplus"
 ],
 "shop/fuel":[
 "õli",
@@ -2257,8 +2325,8 @@
 "Mööblipood"
 ],
 "shop/garden_centre":[
-"Aianduskeskus",
-"Aianduskauplus"
+"aianduskauplus",
+"Aianduskeskus"
 ],
 "shop/gas":[
 "grillgaas",
@@ -2503,7 +2571,9 @@
 "Rätsep"
 ],
 "shop/tattoo":[
-"Tatoveeringu salong"
+"tatoveering",
+"Tätoveeringu salong",
+"tint"
 ],
 "shop/tea":[
 "Teepood",
@@ -2532,7 +2602,7 @@
 "sigarid"
 ],
 "shop/toys":[
-"Lastekaup",
+"lastekaup",
 "Mänguasjapood"
 ],
 "shop/travel_agency":[
@@ -2812,16 +2882,16 @@
 "Piirang"
 ],
 "type/restriction/no_left_turn":[
-"Vasakpöörd keelatud"
+"Vasakpööre keelatud"
 ],
 "type/restriction/no_right_turn":[
-"Parempöörd keelatud"
+"Parempööre keelatud"
 ],
 "type/restriction/no_straight_on":[
 "Edasisõit keelatud"
 ],
 "type/restriction/no_u_turn":[
-"Tagasipöörd keelatud"
+"Tagasipööre keelatud"
 ],
 "type/restriction/only_left_turn":[
 "Ainult vasakpööre"
@@ -2852,6 +2922,7 @@
 "Ümbersõidu marsruut"
 ],
 "type/route/ferry":[
+"praamimarsruut",
 "Praamlaeva marsruut"
 ],
 "type/route/foot":[
@@ -2863,16 +2934,31 @@
 "Matkamarsruut"
 ],
 "type/route/horse":[
-"Ratsamarsruut"
+"Ratsaraja marsruut"
+],
+"type/route/light_rail":[
+"Kergraudtee marsruut"
+],
+"type/route/monorail":[
+"Monorelsstee marsruut"
+],
+"type/route/mtb":[
+"Maastikurattatee marsruut"
 ],
 "type/route/pipeline":[
 "Torujuhtme marsruut"
+],
+"type/route/piste":[
+"Suusaraja marsruut"
 ],
 "type/route/power":[
 "Elektrimarsruut"
 ],
 "type/route/road":[
 "Teemarsruut"
+],
+"type/route/subway":[
+"Metroomarsruut"
 ],
 "type/route/train":[
 "Rongimarsruut"
@@ -2885,11 +2971,17 @@
 ],
 "type/route_master":[
 "koondmarsruut",
-"Peamarsruut",
+"peamarsruut",
 "Ülemmarsruut"
 ],
 "type/site":[
 "Asukoht"
+],
+"type/waterway":[
+"Veetee"
+],
+"waterway":[
+"Veetee omadus"
 ],
 "waterway/boatyard":[
 "dokk",
@@ -2957,7 +3049,8 @@
 "vee"
 ],
 "waterway/waterfall":[
-"Juga"
+"Juga",
+"kosk"
 ],
 "waterway/weir":[
 "Ülevoolupais",

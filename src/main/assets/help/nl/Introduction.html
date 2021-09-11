@@ -64,7 +64,7 @@
 <p>Een tweede klik op een geselecteerd object, opent de tag bewerker waarmee de toegekende tags van het object kunnen worden gewijzigd.</p>
 <p>Voor overlappende objecten (zoals een knoop op een weg) wordt het selectiemenu een tweede keer getoond. Als je hetzelfde object aanklikt wordt de tag bewerker getoond; als je een ander object aanklikt wordt dat object geselecteerd.</p>
 <h4>Geselecteerde objecten: Knoop of weg verplaatsen</h4>
-<p>Als je een object hebt geselecteed, dan kan het worden verplaatst. Objecten kunnen alleen worden verplaatst als ze zijn geselecteerd. Sleep dichtbij (dus binnen de tolerantie zone van) het geselecteerde object om het te verplaatsen. Als je een grote sleepoppervlakte selecteert in de instellingen, dan krijg je een grote oppervlakte rond de geselecteerde knoop waarmee het gemakkelijker geplaatst kan worden.</p>
+<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object.</p>
 <h4>Een nieuwe Knoop/Punt of Weg toevoegen</h4>
 <p>De eerste keer start de app in &quot;Simpele modus&quot;. Dat kan worden gewijzigd in het hoofdmenu door de bijbehorende selectievakje uit te vinken.</p>
 <h5>Simpele modus</h5>
@@ -131,13 +131,14 @@
 <p>Op de kaart worden Notities en Bugs weergegeven door een klein insectenicoon <img src="../images/bug_open.png" alt="Bug" />, groene zijn gesloten/opgelost, blauwe zijn aangemaakt of gewijzigd door jou en geel geeft aan dat het nog steeds actief en ongewijzigd is.</p>
 <p>De OSMOSE Bug weergave laat een blauwe link zien naar het beïnvloede object. Klikken op de link selecteert het object, centreert het scherm erop en downloadt zo nodig de omgeving eromheen.</p>
 <h3>Filteren</h3>
-<p>Behalve het globaal activeren van de weergave van Notities en Bugs, kan je een grove weergavefilter instellen om rommel te voorkomen. In de <a href="Advanced%20preferences.md">Geavanceerde instellingen</a> kan je selecteren:</p>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
 <ul>
-<li>Notities</li>
-<li>Osmose fout</li>
-<li>Osmose waarschuwing</li>
-<li>Osmose klein probleem</li>
-<li>Anders</li>
+<li>Notes</li>
+<li>Osmose error</li>
+<li>Osmose warning</li>
+<li>Osmose minor issue</li>
+<li>Maproulette</li>
+<li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2>Binnen modus</h2>
@@ -148,7 +149,7 @@
 <p>In C-Modus worden alleen objecten weergegeven met waarschuwingen. Dit maakt het gemakkelijk om objecten met specifieke problemen te vinden of het koppelen van configureerbare controles. Als een object is geselecteerd en de Eigenschappen Bewerker is gestart in C-Modus dan zal de best passende voorkeuze automatisch worden toegepast.</p>
 <p>De modus kan worden aangezet door lang te klikken op de slot knop, zie <a href="#lock">Vergendelen, ontgrendelen, modus wijzigen</a> en de goede modus te selecteren.</p>
 <h3>Configureren van controles</h3>
-<p>Op het moment zijn er twee configureerbare controles (een controle voor FIXME en een controle voor missende type tags op relaties die niet configureerbaar zijn). Beide kunnen worden geconfigureerd door &quot;Validator instellingen&quot; te selecteren in de &quot;Instellingen&quot;.</p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting &quot;Validator settings&quot; in the <a href="Preferences.md">preferences</a>.</p>
 <p>De lijst is in tweën gesplitst. De bovenste helft toont &quot;opniew bekijken&quot; items en de onderkant toont &quot;check&quot; items. Items kunnen worden gewijzigd door erop te klikken. Met de groene menu knop kunnen nieuwe items worden toegevoegd.</p>
 <h4>Opnieuw bekijken items</h4>
 <p>Opnieuw bekijken items hebben de volgende eigenschappen:</p>
@@ -174,6 +175,7 @@
 <p>Een alternatief op het bovenstaande is het filteren van objecten op basis van losse voorkeuzes of voorkeuzegroepen. Tikken op het filtericoon toont een voorkeuze selectie scherm net als op andere plekken in Vespucci. Losse voorkeuzes kunnen met een normale tik worden selecteerd, voorkeuzegroepen kunnen met een lange tik worden geselecteerd (een normale tik gaat de groep binnen). Meer documentatie kan worden gevonden op <a href="Preset%20filter.md">Voorkeuze filter</a>.</p>
 <h2>Vespucci aanpassen</h2>
 <p>Veel aspecten van de app kunnen worden aangepast. Als je zoekt naar iets specifieks en het niet kan vinden, dan is <a href="https://vespucci.io/">de Vespucci website</a> zoekbaar en die bevat additionele informatie over wat er beschikbaar is op het apparaat.</p>
+<p><a id="layers"></a></p>
 <h3>Lagen instellingen</h3>
 <p>Lagen instellingen kunnen worden aangepast via de lagen instellingen knop (&quot;hamburger&quot; menu in rechter bovenhoek). Alle andere instellingen zijn bereikbaar via de instellingen in het hoofdmenu. Lagen kunnen worden ingeschakeld, uitgeschakeld of tijdelijk verborgen.</p>
 <p>Beschikbare laagtypes:</p>
@@ -187,6 +189,7 @@
 <li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on.</li>
 </ul>
+<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
 <h4>Instellingen</h4>
 <ul>
 <li>Houd scherm aan. Standaard: uit.</li>

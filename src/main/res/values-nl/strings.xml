@@ -32,7 +32,7 @@
   <string name="wrong_login_data_re_authenticate">Herauthenticeren</string>
   <string name="forbidden_login_title">Login niet toegestaan</string>
   <string name="not_found_title">Element niet gevonden</string>
-  <string name="not_found_message">De API kon geen bestaand element of wijzigingsset vinden met deze ID.&lt;br&gt;&lt;br&gt;</string>
+  <string name="not_found_message">De API kon geen bestaand element of wijzigingenset vinden met deze ID.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Onbekende fout</string>
   <string name="unknown_error_message">De API gaf een foutcode of het bericht kon niet worden verwerkt.&lt;br&gt;&lt;br&gt;</string>
   <string name="no_data_title">Geen gegevens</string>
@@ -160,6 +160,7 @@
   <!--Search objects dialog-->
   <string name="search_objects_title">Zoek naar objecten</string>
   <string name="search_objects_hint">Voer een JOSM filter/zoek expressie in</string>
+  <string name="search_objects_use_regexps">Gebruik reguliere expressies</string>
   <string name="search_objects_unsupported">Niet ondersteunde expressie \"%1$s\"</string>
   <!---->
   <string name="preset_search_hint">Voorkeuze zoekterm</string>
@@ -331,6 +332,7 @@
   <string name="layer_info_privacy_policy">Privacybeleid</string>
   <string name="projection">Projectie</string>
   <string name="errors">Fouten</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Verwijder foto</string>
   <string name="photo_viewer_delete_button">Permanent verwijderen</string>
@@ -518,6 +520,9 @@
   <string name="toast_file_already_exists">Bestand %1$s bestaat al</string>
   <string name="toast_file_error_for">Bestandsfout voor  %1$s</string>
   <string name="toast_error_reading">Fout tijdens het lezen van %1$s</string>
+  <string name="toast_read_successfully">Bestand succesvol gelezen</string>
+  <string name="toast_error_writing">Fout tijdens het schrijven van %1$s</string>
+  <string name="toast_successfully_written">Bestand succesvol geschreven</string>
   <string name="toast_http_data_error_for">HTTP gegevensfout voor %1$s</string>
   <string name="toast_error_insufficient_space_for">Niet genoeg ruimte op apparaat voor %1$s</string>
   <string name="toast_error_too_many_redirects_for">Te veel doorverwijzingen voor %1$s</string>
@@ -765,6 +770,7 @@
   <string name="menu_transfer_autodownload_long">Download taken automatisch</string>
   <string name="menu_transfer_save_notes_all">Sla alle notities op...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Sla nieuwe en gewijzigde notities...</string>
+  <string name="menu_transfer_read_notes">Opmerkingen laden...</string>
   <string name="menu_transfer_read_custom_bugs">Laad handmatige taken...</string>
   <string name="menu_transfer_write_custom_bugs">Sla open handmatige taken op...</string>
   <string name="menu_save">Sla op als bestand</string>
@@ -858,6 +864,7 @@
   <string name="merge_context_title">Voeg samen met ...</string>
   <string name="merge_with_all_ways">... alle dichtbijzijnde wegen</string>
   <string name="merge_with_all_nodes">... alle dichtbijzijnde knopen</string>
+  <string name="append_context_title">Voeg toe aan ...</string>
   <string name="delete_note_description">Verwijderen van een notitie kan niet ongedaan worden gemaakt!</string>
   <string name="delete_note">Verwijder notitie</string>
   <!--EasyEdit action mode titles-->
@@ -991,6 +998,7 @@
   <string name="config_beepVolume_title">Signaal volume</string>
   <string name="config_beepVolume_summary">Volume instelling voor geluidssignaal.</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Gegevens en wijzigen instellingen</string>
   <string name="config_category_editing_summary">Auto-download, opslaan en notificatieinstellingen</string>
@@ -1015,7 +1023,7 @@
   <string name="config_maxAlertDistance_summary">De grootste afstand dat een probleem of notitie mag liggen vanaf de huidige positie om een notificatie te veroorzaken.</string>
   <string name="config_maxAlertDistance_current">%1$d meter</string>
   <string name="config_closeChangesetOnSave_title">Sluit wijzigingensets</string>
-  <string name="config_closeChangesetOnSave_summary">Sluit wijzigingssets standaard automatisch bij opslaan. </string>
+  <string name="config_closeChangesetOnSave_summary">Sluit wijzigingensets standaard automatisch bij opslaan. </string>
   <string name="config_enableAutoPresets_title">Activeer auto-voorkeuze generatie</string>
   <string name="config_enableAutoPresets_summary">Sta toe om automatisch voorkeuzes van taginfo te genereren.</string>
   <string name="config_orthogonalizeThreshold_title">Vierkant-maak drempel</string>
@@ -1266,4 +1274,5 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Geen help hier.</string>
+  <!--Bookmarks-->
 </resources>

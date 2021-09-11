@@ -14,7 +14,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -39,6 +42,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.util.collections.MultiHashMap;
+import de.blau.android.util.mvt.style.Source.SourceType;
 
 public class Style implements Serializable {
 
@@ -47,8 +51,19 @@ public class Style implements Serializable {
     /**
      * 
      */
-    private static final long serialVersionUID = 5L;
+    private static final long serialVersionUID = 7L;
 
+    private static final String STYLE_SOURCES             = "sources";
+    private static final String STYLE_SPRITE              = "sprite";
+    private static final String STYLE_LAYERS              = "layers";
+    private static final String STYLE_VERSION             = "version";
+    private static final String SOURCE_TYPE               = "type";
+    private static final String SOURCE_TYPE_VECTOR        = "vector";
+    private static final String SOURCE_TILES              = "tiles";
+    private static final String SOURCE_MINZOOM            = "minzoom";
+    private static final String SOURCE_MAXZOOM            = "maxzoom";
+    private static final String SOURCE_ATTRIBUTION        = "attribution";
+    private static final String SOURCE_BOUNDS             = "bounds";
     private static final String ICON_SIZE                 = "icon-size";
     private static final String ICON_OFFSET               = "icon-offset";
     private static final String TEXT_OFFSET               = "text-offset";
@@ -56,16 +71,13 @@ public class Style implements Serializable {
     private static final String ICON_IMAGE                = "icon-image";
     private static final String ICON_ROTATE               = "icon-rotate";
     private static final String SYMBOL_PLACEMENT          = "symbol-placement";
-    private static final String STYLE_SPRITE              = "sprite";
-    private static final String STYLE_LAYERS              = "layers";
-    private static final String STYLE_VERSION             = "version";
     static final String         INTERPOLATION_STOPS       = "stops";
     private static final String TEXT_HALO_COLOR           = "text-halo-color";
     private static final String TEXT_HALO_WIDTH           = "text-halo-width";
     private static final String TEXT_ANCHOR               = "text-anchor";
-    static final String         TEXT_JUSTIFY_CENTER       = "center";
-    static final String         TEXT_JUSTIFY_RIGHT        = "right";
-    static final String         TEXT_JUSTIFY_LEFT         = "left";
+    public static final String  TEXT_JUSTIFY_CENTER       = "center";
+    public static final String  TEXT_JUSTIFY_RIGHT        = "right";
+    public static final String  TEXT_JUSTIFY_LEFT         = "left";
     private static final String TEXT_JUSTIFY              = "text-justify";
     static final String         TEXT_TRANSFORM_NONE       = "none";
     static final String         TEXT_TRANSFORM_LOWERCASE  = "lowercase";
@@ -102,6 +114,14 @@ public class Style implements Serializable {
     private static final String BACKGROUND_OPACITY        = "background-opacity";
     private static final String BACKGROUND_COLOR          = "background-color";
     private static final String LAYER_TYPE_BACKGROUND     = "background";
+    private static final String CIRCLE_RADIUS             = "circle-radius";
+    private static final String CIRCLE_STROKE_COLOR       = "circle-stroke-color";
+    private static final String CIRCLE_STROKE_OPACITY     = "circle-stroke-opacity";
+    private static final String CIRCLE_STROKE_WIDTH       = "circle-stroke-width";
+    private static final String CIRCLE_TRANSLATE          = "circle-translate";
+    private static final String CIRCLE_OPACITY            = "circle-opacity";
+    private static final String CIRCLE_COLOR              = "circle-color";
+    private static final String LAYER_TYPE_CIRCLE         = "circle";
     private static final String LAYER_MAXZOOM             = "maxzoom";
     private static final String LAYER_MINZOOM             = "minzoom";
     private static final String LAYER_ID                  = "id";
@@ -117,13 +137,15 @@ public class Style implements Serializable {
 
     private static final String RETINA = "@2x";
 
-    private static final List<String> SOURCE_LAYER_REQUIRED = Arrays.asList(LAYER_TYPE_FILL, LAYER_TYPE_FILL_EXTRUSION, LAYER_TYPE_LINE, LAYER_TYPE_SYMBOL);
+    private static final List<String> SOURCE_LAYER_REQUIRED = Arrays.asList(LAYER_TYPE_FILL, LAYER_TYPE_FILL_EXTRUSION, LAYER_TYPE_LINE, LAYER_TYPE_SYMBOL,
+            LAYER_TYPE_CIRCLE);
 
     private int                               version;
     private final MultiHashMap<String, Layer> layerMap   = new MultiHashMap<>();
     private final List<Layer>                 layers     = new ArrayList<>();
     private boolean                           autoStyles = true;
     private Sprites                           sprites;
+    private Map<String, Source>               sources    = new HashMap<>();
 
     private transient CollisionDetector detector = new SimpleCollisionDetector();
 
@@ -204,7 +226,7 @@ public class Style implements Serializable {
      * @param is the InputStream
      */
     public void loadStyle(@NonNull Context ctx, @NonNull InputStream is) {
-        ArrayList<Layer> tempList = new ArrayList<>();
+        List<Layer> tempList = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)))) {
             StringBuilder sb = new StringBuilder();
             int cp;
@@ -214,9 +236,13 @@ public class Style implements Serializable {
             JsonElement root = JsonParser.parseString(sb.toString());
             if (root.isJsonObject()) {
                 JsonObject rootObject = (JsonObject) root;
-                JsonPrimitive temp = rootObject.getAsJsonPrimitive(STYLE_VERSION);
+                JsonElement temp = rootObject.get(STYLE_VERSION);
                 if (temp != null) {
                     version = temp.getAsInt();
+                }
+                temp = rootObject.get(STYLE_SOURCES);
+                if (isObject(temp)) {
+                    getSources((JsonObject) temp);
                 }
                 temp = rootObject.getAsJsonPrimitive(STYLE_SPRITE);
                 if (temp != null) {
@@ -242,6 +268,55 @@ public class Style implements Serializable {
             }
         } catch (IOException | JsonSyntaxException e) {
             Log.e(DEBUG_TAG, "Opening " + e.getMessage());
+        }
+    }
+
+    /**
+     * Add sources from the sources object
+     * 
+     * Only adds vector sources and does not support TileJson
+     * 
+     * @param sourcesObject the input JsonObject
+     */
+    private void getSources(@NonNull JsonObject sourcesObject) {
+        for (Entry<String, JsonElement> entry : sourcesObject.entrySet()) {
+            JsonElement value = entry.getValue();
+            if (value.isJsonObject()) {
+                JsonObject valueObject = (JsonObject) value;
+                JsonElement type = valueObject.get(SOURCE_TYPE);
+                JsonElement tiles = valueObject.get(SOURCE_TILES);
+                if (isString(type) && SOURCE_TYPE_VECTOR.equals(type.getAsString()) && isArray(tiles) && ((JsonArray) tiles).size() > 0) {
+                    Source source = new Source(SourceType.VECTOR);
+                    sources.put(entry.getKey(), source);
+                    int size = ((JsonArray) tiles).size();
+                    source.tileUrls = new String[size];
+                    for (int i = 0; i < size; i++) {
+                        source.getTileUrls()[i] = ((JsonArray) tiles).get(i).getAsString();
+                    }
+                    JsonElement minZoom = valueObject.get(SOURCE_MINZOOM);
+                    if (isNumber(minZoom)) {
+                        source.minZoom = minZoom.getAsInt();
+                    }
+                    JsonElement maxZoom = valueObject.get(SOURCE_MAXZOOM);
+                    if (isNumber(maxZoom)) {
+                        source.maxZoom = maxZoom.getAsInt();
+                    }
+                    JsonElement attribution = valueObject.get(SOURCE_ATTRIBUTION);
+                    if (isString(attribution)) {
+                        source.attribution = attribution.getAsString();
+                    }
+                    JsonElement bounds = valueObject.get(SOURCE_BOUNDS);
+                    if (isArray(bounds) && ((JsonArray) bounds).size() == 4) {
+                        JsonArray boundsArray = ((JsonArray) bounds);
+                        try {
+                            source.bounds.set((int) (boundsArray.get(0).getAsDouble() * 1E7), (int) (boundsArray.get(1).getAsDouble() * 1E7),
+                                    (int) (boundsArray.get(2).getAsDouble() * 1E7), (int) (boundsArray.get(3).getAsDouble() * 1E7));
+                        } catch (IllegalStateException isex) {
+                            Log.e(DEBUG_TAG, "Not a legal bounding box " + bounds);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -304,6 +379,7 @@ public class Style implements Serializable {
     /**
      * Parse a Mapbox-GL style layer object
      * 
+     * @param ctx an Android Context
      * @param layers the existing Layers
      * @param layer the layer JsonObject
      * @return a Layer
@@ -351,17 +427,17 @@ public class Style implements Serializable {
         String iD = layer.get(LAYER_ID).getAsString();
         tempElement = layer.get(LAYER_FILTER);
         JsonArray filter = null;
-        if (tempElement != null && tempElement.isJsonArray()) {
+        if (isArray(tempElement)) {
             filter = tempElement.getAsJsonArray();
         }
         tempElement = layer.get(LAYER_LAYOUT);
         JsonObject layout = null;
-        if (tempElement != null && tempElement.isJsonObject()) {
+        if (isObject(tempElement)) {
             layout = tempElement.getAsJsonObject();
         }
         tempElement = layer.get(LAYER_PAINT);
         JsonObject paint = null;
-        if (tempElement != null && tempElement.isJsonObject()) {
+        if (isObject(tempElement)) {
             paint = tempElement.getAsJsonObject();
         }
         tempElement = layer.get(LAYER_MINZOOM);
@@ -487,6 +563,22 @@ public class Style implements Serializable {
                 symbol.iconSize.set(ctx, ICON_SIZE, layout, 1f);
             }
             return symbol;
+        case LAYER_TYPE_CIRCLE:
+            Circle circle = new Circle(sourceLayer); // NOSONAR
+            setBasicAttributes(circle, iD, filter, minZoom, maxZoom, interactive);
+            if (paint != null) {
+                circle.color.set(ctx, CIRCLE_COLOR, paint);
+                circle.opacity.set(ctx, CIRCLE_OPACITY, paint);
+                circle.strokeColor.set(ctx, CIRCLE_STROKE_COLOR, paint);
+                circle.strokeOpacity.set(ctx, CIRCLE_STROKE_OPACITY, paint);
+                circle.strokeWidth.set(ctx, CIRCLE_STROKE_WIDTH, paint);
+                circle.circleTranslate.set(ctx, CIRCLE_TRANSLATE, paint);
+                circle.circleRadius.set(ctx, CIRCLE_RADIUS, paint, Circle.DEFAULT_RADIUS);
+            }
+            if (layout != null) {
+                setVisibility(layout, circle);
+            }
+            return circle;
         default:
             // ignore
         }
@@ -555,6 +647,26 @@ public class Style implements Serializable {
     }
 
     /**
+     * Test if a JsonElement is an JsonObject
+     * 
+     * @param element the JsonElement
+     * @return true if a Boolean
+     */
+    private boolean isObject(@Nullable JsonElement element) {
+        return element != null && element.isJsonObject();
+    }
+
+    /**
+     * Test if a JsonElement is an JsonObject
+     * 
+     * @param element the JsonElement
+     * @return true if a Boolean
+     */
+    private boolean isArray(@Nullable JsonElement element) {
+        return element != null && element.isJsonArray();
+    }
+
+    /**
      * Copy an object from one JsonObject to the destination if it is missing
      * 
      * @param name of the JsonObject
@@ -620,11 +732,23 @@ public class Style implements Serializable {
     }
 
     /**
+     * Get the Sprites object for this style
+     * 
      * @return the sprites
      */
     @Nullable
     public Sprites getSprites() {
         return sprites;
+    }
+
+    /**
+     * Get any configured sources for this style
+     * 
+     * @return a Map containing the sources
+     */
+    @NonNull
+    public Map<String, Source> getSources() {
+        return sources;
     }
 
     /**

@@ -36,6 +36,8 @@ public class Line extends Layer {
 
     /**
      * Default constructor
+     * 
+     * @param sourceLayer the source (data) layer
      */
     public Line(@NonNull String sourceLayer) {
         super(sourceLayer);
@@ -53,11 +55,11 @@ public class Line extends Layer {
     }
 
     /**
-     * Create a rudimentary style from Paint objects for the geometries and labels
+     * Create a rudimentary Layer from Paint objects for the geometries
      * 
      * @param layer source layer
      * @param paint the Paint to use for the geometries
-     * @return a Style
+     * @return a Line Layer
      */
     @NonNull
     public static Line fromPaint(@NonNull String layer, @NonNull Paint paint) {

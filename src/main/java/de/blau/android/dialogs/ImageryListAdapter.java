@@ -19,13 +19,13 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
     private String                                            currentId;
     private final LayoutParams                                buttonLayoutParams;
     private android.widget.RadioGroup.OnCheckedChangeListener groupChangeListener = null;
-    private OnInfoClickListener infoClickListener = null;
+    private OnInfoClickListener                               infoClickListener   = null;
 
     private int selected = -1;
 
     public static class ImageryViewHolder extends RecyclerView.ViewHolder {
         AppCompatRadioButton button;
-        ImageButton infoButton;
+        ImageButton          infoButton;
 
         /**
          * Create a new ViewHolder
@@ -42,8 +42,8 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
     /**
      * Create a new adapter
      *
-     * @param names an array with imagery names
-     * @param currentId an array with imagery ids
+     * @param ids an array with imagery ids
+     * @param currentId the current imagery id
      * @param isOverlay true if overlay should be displayed
      * @param buttonLayoutParams layout params for the RadioButtons
      * @param groupChangeListener a listener to call when a RadioButton has been selected
@@ -66,7 +66,7 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
         }
     };
 
-    interface OnInfoClickListener{
+    interface OnInfoClickListener {
 
         /**
          * Implements info icon click logic
@@ -89,8 +89,7 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
     public ImageryListAdapter.ImageryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final AppCompatRadioButton button = new AppCompatRadioButton(parent.getContext());
         button.setLayoutParams(buttonLayoutParams);
-        View listItem = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.imagery_layer_list_item, parent, false);
+        View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.imagery_layer_list_item, parent, false);
         return new ImageryViewHolder(listItem);
     }
 
@@ -107,7 +106,7 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
         }
         holder.button.setOnCheckedChangeListener(onCheckedChangeListener);
         holder.infoButton.setOnClickListener(view -> {
-            if(infoClickListener != null){
+            if (infoClickListener != null) {
                 infoClickListener.onInfoClick(ids[position]);
             }
         });
@@ -122,7 +121,7 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
      * Set the ids and name arrays that are going to be display
      *
      * @param ids the array of imagery ids
-     * @param true if this is for overlay selection
+     * @param isOverlay true if this is for overlay selection
      * @param update if true this is an update of an existing adapter
      */
     void setIds(@NonNull String[] ids, boolean isOverlay, boolean update) {

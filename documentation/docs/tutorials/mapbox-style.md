@@ -1,12 +1,40 @@
 ## Vespucci Mapbox-GL Style Support
 
+_For the Mapbox documents see [https://docs.mapbox.com/mapbox-gl-js/style-spec/](https://docs.mapbox.com/mapbox-gl-js/style-spec/)_
+
+### Caveats
+
+While a number of styles and corresponding vector tile schemas have been tested and within the limits described on this page things work, following specific points should be taken in to account:
+
+- the support was mainly intended for relatively light weight QA data overlays, as this is based on Android Canvas rendering and not a purpose specific OpenGL rendering implementation performance will in general be slow. This is further confounded by many sources providing tiles up to a maximum of zoom level 14, these then tend to be very large and often contain far more data than what would be needed for the current view.
+- we've implemented some simple label and icon collision detection, however if a collision is detected, we simply doesn't render one of the colliding objects without attempting to relocate the offending symbol (collision avoidance). Further there is currently a hard wired limit of 200 objects that are handled by this, any further ones are not rendered (the choice of limit is not of any particular significance).
+
+### Sources
+
 Only one vector tile source is currently supported, all other source configuration is ignored.
 
-Supported layers: _background_, _fill_, _fill-extrusion_, _line_, _symbol_
+#### Source attributes
+
+|Key                        | Value      | Support   | Notes
+|---------------------------|------------|-----------|----------------------------------------------------------------
+|__type__                   | __vector__ | yes       | source objects of other types are ignored
+|__tiles__                  |            | yes       | only the first entry is used, if the element is missing the source will be ignored
+|__minzoom__                |            | yes       | default: 0
+|__maxzoom__                |            | yes       | default: 22
+|__attribution__            |            | yes       | default: nothing
+|__bounds__                 |            | yes       | default: web mercator extent
+|__url__                    |            | no        | there is currently no TileJSON support
+|__promoteId__              |            | no        |
+|__scheme__                 |            | no        | always xyz
+|__volatile__               |            | no        |
+
+### Layers
+
+Supported layers: _background_, _fill_, _fill-extrusion_, _line_, _symbol_, _circle_
 
 _fill-extrusion_ layers are treated as flat fill layers
 
-Unsupported layers: raster, circle, heatmap, hillshade, sky
+Unsupported layers: raster, heatmap, hillshade, sky
 
 Unsupported attributes are ignored.
 
@@ -14,15 +42,7 @@ Font selection is not supported, we render with a standard Android system font.
 
 None of the new "expression" functions are currently supported, however "old style" filter expressions are supported and interpolation linear, identity and exponential interpolation for numbers, colors and categories work for lots of the supported attributes.
 
-#### Further caveats
-
-While a number of styles and corresponding vector tile schemas have been tested and within the limits described on this page things work, following specific points should be taken in to account:
-
-- the support was mainly intended for relatively light weight QA data overlays, as this is based on Android Canvas rendering and not a purpose specific OpenGL rendering implementation performance will in general be slow. This is further confounded by many sources providing tiles up to a maximum of zoom level 14, these then tend to be very large and often contain far more data than what would be needed for the current view.
-- we've implemented some simple label and icon collision detection, however if a collision is detected, we simply doesn't render one of the colliding objects without attempting to relocate the offending symbol (collision avoidance). Further there is currently a hard wired limit of 200 objects that are handled by this, any further ones are not rendered (the choice of limit is not of any particular significance).
-- there is currently no TileJSON support.
-
-### Style attributes
+#### Style attributes
 
 |Key                        | Value     | Support   | Notes
 |---------------------------|-----------|-----------|----------------------------------------------------------------
@@ -144,4 +164,17 @@ Value support:
 |__text-translate__         |           | no
 |__text-translate-anchor__  |           | no
 |__text-variable-anchor__   |           | no
-|__test-writing-mode__      |           | no
+|__text-writing-mode__      |           | no
+|_circle_                   |           |
+|_circle-blur_              |           | no
+|_circle-color_             | l z       | yes
+|_circle-opacity_           | l z       | yes
+|_circle-pitch-alignment_   |           | no
+|_circle-pitch-scale_       |           | no 
+|_circle-radius_            | l z       | yes
+|_circle-sort-key_          |           | no
+|_circle-stroke-color_      | l z       | yes
+|_circle-stroke-opacity_    | l z       | yes
+|_circle-stroke-width_      | l z       | yes
+|_circle-translate_         | l z       | yes
+|_circle-translate-anchor_  |           | no

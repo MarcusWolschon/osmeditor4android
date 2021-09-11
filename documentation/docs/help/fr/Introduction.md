@@ -81,7 +81,7 @@ Remarquez que pour les objets se chevauchant (tel qu'un nœud sur une voie) le m
 
 ### Objet sélectionné : déplacer un nœud ou une voie
 
-Une fois que vous avez sélectionné un objet, il peut être déplacé. Remarquez que les objets peuvent être déplacés uniquement lorsqu'ils sont sélectionnés. Glissez simplement (dans la zone interactive) l'objet sélectionné pour le déplacer Si vous sélectionnez l'option zone élargie dans les préférences vous aurez une zone plus large autour du nœud sélectionné, ce qui rendra plus facile le positionnement de l'objet 
+Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 
 #### Ajouter un nouveau nœud ou un nouveau point sur un chemin 
 
@@ -184,13 +184,14 @@ L'affichage des bugs Osmose fournit un lien vers l'objet affecté en bleu. Appuy
 
 ### Filtres
 
-En plus de l'activation générale des notes et des bugs vous pouvez indiquer un filtre d'affichage grossier pour réduire l'encombrement. Dans les [préférences avancées](Advanced%20preferences.md) vous pouvez sélectionner individuellement :
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
 * Notes
-* Erreur Osmose
-* Avertissement Osmose
-* Problème mineur Osmose
-* Personnalisé
+* Osmose error
+* Osmose warning
+* Osmose minor issue
+* Maproulette
+* Custom
 
 <a id="indoor"></a>
 
@@ -210,7 +211,7 @@ Le mode peut être activé par un appui long sur le cadenas, voir [Lock, unlock,
 
 ### Configurer des tests
 
-Actuellement il y a deux tests configurables (le test pour l'attribut FIXME et le test pour l'attribut de type manquant sur les relations ne sont pas actuellement configurables). Ces deux tests peuvent être configurés en sélectionnant les « préférences du validateur » dans « Préférences ». 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
 
 La liste des entrées est coupée en deux, la première moitié liste les entrée « nouveau relevé de terrain » et la deuxième moité les « vérifications ». On peut modifier les entrées en cliquant dessus et le bouton de menu vert permet d'ajouter des entrées.
 
@@ -250,6 +251,8 @@ Autrement, les objets peuvent être filtrés suivant des modèles individuels ou
 
 De multiples aspects de l'application sont personnalisables. [Le site internet de Vespucci](https://vespucci.io/) contiens des informations complémentaires par rapport aux informations intégrée à l'appareil, notamment sur les personnalisations avancées.
 
+<a id="layers"></a>
+
 ### Configuration des couches
 
 Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
@@ -264,6 +267,8 @@ Types de calques disponibles :
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+
+More information can be found in the section on the [map display](Main%20map%20display.md).
 
 #### Préférences
 

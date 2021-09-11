@@ -28,6 +28,7 @@
     <string name="help_newnoteselection">Új jegyzet kiválasztás</string>
     <string name="help_voice_commands">Hangutasítások</string>
     <string name="help_add_route_segment">Útvonalszakasz hozzáadása</string>
+    <string name="help_upgrade_152">15.2 kiadási megjegyzések</string>
     <string name="help_upgrade_151">15.1 kiadási megjegyzések</string>
     <string name="help_upgrade_150">15.0 kiadási megjegyzések</string>
     <string name="help_upgrade_141">14.1 kiadási megjegyzések</string>
@@ -71,6 +72,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_152</item>
         <item>@string/help_upgrade_151</item>
         <item>@string/help_upgrade_150</item>
         <item>@string/help_upgrade_141</item>
@@ -115,6 +117,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>16.0.0 Release notes</item>
         <item>15.2.0 Release notes</item>
         <item>15.1.0 Release notes</item>
         <item>15.0.0 Release notes</item>

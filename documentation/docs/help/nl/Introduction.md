@@ -81,7 +81,7 @@ Voor overlappende objecten (zoals een knoop op een weg) wordt het selectiemenu e
 
 #### Geselecteerde objecten: Knoop of weg verplaatsen
 
-Als je een object hebt geselecteed, dan kan het worden verplaatst. Objecten kunnen alleen worden verplaatst als ze zijn geselecteerd. Sleep dichtbij (dus binnen de tolerantie zone van) het geselecteerde object om het te verplaatsen. Als je een grote sleepoppervlakte selecteert in de instellingen, dan krijg je een grote oppervlakte rond de geselecteerde knoop waarmee het gemakkelijker geplaatst kan worden. 
+Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 
 #### Een nieuwe Knoop/Punt of Weg toevoegen 
 
@@ -184,13 +184,14 @@ De OSMOSE Bug weergave laat een blauwe link zien naar het beïnvloede object. Kl
 
 ### Filteren
 
-Behalve het globaal activeren van de weergave van Notities en Bugs, kan je een grove weergavefilter instellen om rommel te voorkomen. In de [Geavanceerde instellingen](Advanced%20preferences.md) kan je selecteren:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
-* Notities
-* Osmose fout
-* Osmose waarschuwing
-* Osmose klein probleem
-* Anders
+* Notes
+* Osmose error
+* Osmose warning
+* Osmose minor issue
+* Maproulette
+* Custom
 
 <a id="indoor"></a>
 
@@ -210,7 +211,7 @@ De modus kan worden aangezet door lang te klikken op de slot knop, zie [Vergende
 
 ### Configureren van controles
 
-Op het moment zijn er twee configureerbare controles (een controle voor FIXME en een controle voor missende type tags op relaties die niet configureerbaar zijn). Beide kunnen worden geconfigureerd door "Validator instellingen" te selecteren in de "Instellingen". 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
 
 De lijst is in tweën gesplitst. De bovenste helft toont "opniew bekijken" items en de onderkant toont "check" items. Items kunnen worden gewijzigd door erop te klikken. Met de groene menu knop kunnen nieuwe items worden toegevoegd.
 
@@ -250,6 +251,8 @@ Een alternatief op het bovenstaande is het filteren van objecten op basis van lo
 
 Veel aspecten van de app kunnen worden aangepast. Als je zoekt naar iets specifieks en het niet kan vinden, dan is [de Vespucci website](https://vespucci.io/) zoekbaar en die bevat additionele informatie over wat er beschikbaar is op het apparaat.
 
+<a id="layers"></a>
+
 ### Lagen instellingen
 
 Lagen instellingen kunnen worden aangepast via de lagen instellingen knop ("hamburger" menu in rechter bovenhoek). Alle andere instellingen zijn bereikbaar via de instellingen in het hoofdmenu. Lagen kunnen worden ingeschakeld, uitgeschakeld of tijdelijk verborgen.
@@ -264,6 +267,8 @@ Beschikbare laagtypes:
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+
+More information can be found in the section on the [map display](Main%20map%20display.md).
 
 #### Instellingen
 

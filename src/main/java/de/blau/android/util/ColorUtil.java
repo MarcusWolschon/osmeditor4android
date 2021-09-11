@@ -29,7 +29,7 @@ public final class ColorUtil {
      * 
      * All values must be between 0 and 1
      * 
-     * @param a alpha
+     * @param alpha alpha
      * @param r red
      * @param g green
      * @param b blue

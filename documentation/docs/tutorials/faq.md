@@ -210,9 +210,13 @@ Android 9 introduced the option to replace the navigation bar at the bottom of t
 There is no completely satisfactory solution to this, but if you don't want to disable the gestures the best setup is to change the following settings in the [Advanced preferences](../help/en/Advanced%20preferences.md) user interface settings:
 
 * turn off __Enable split action bar__, this will move the menu bar to the top of the screen.
-* set __Fullscreen mode__ to _never_
+* set __Fullscreen mode__ to _never_ in the _Advanced preferences_ 
 
 Vespucci 15.0 and higher will detect that gestures have been enabled and will try to configure itself appropriately.
+
+#### Long press on Undo button doesn't do anything
+
+This most likely due to you having navigation gestures configured, but the app not being able to detect this. For example this has been the case with devices running the /e/ variant of Android. Switching __Fullscreen mode__ to _never_ in the _Advanced preferences_ should allow the Undo button to work as intended.
 
 #### Can't (re-)authenticate - TLS 1.0 / 1.1 issues
 

@@ -126,11 +126,16 @@ public class NoteFragment extends TaskFragment {
     }
 
     @Override
-    protected void onShowListener(Button save, Button upload) {
+    protected void onShowListener(Task task, Button save, Button upload) {
         comment.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable arg0) {
-                // required, but not used
+                boolean changed = changed(state.getSelectedItemPosition());
+                save.setEnabled(changed);
+                upload.setEnabled(changed);
+                if (comment.length() != 0) {
+                    state.setSelection(State.OPEN.ordinal());
+                }
             }
 
             @Override
@@ -140,11 +145,14 @@ public class NoteFragment extends TaskFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                save.setEnabled(true);
-                upload.setEnabled(true);
-                state.setSelection(State.OPEN.ordinal());
+                // required, but not used
             }
         });
+    }
+
+    @Override
+    protected boolean changed(int newState) {
+        return comment.length() != 0 || super.changed(newState);
     }
 
     @Override

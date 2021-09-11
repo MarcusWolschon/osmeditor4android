@@ -319,6 +319,7 @@
   <string name="layer_info_terms">Conditions d\'utilisation</string>
   <string name="layer_info_privacy_policy">Politique de vie privée</string>
   <string name="errors">Erreurs</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Supprimer la photo</string>
   <string name="photo_viewer_delete_button">Supprimer de manière permanente</string>
@@ -942,6 +943,7 @@
   <string name="config_beepVolume_title">Volume du signal sonore</string>
   <string name="config_beepVolume_summary">Réglage du volume des signaux sonores</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Paramètres de données et de modifications</string>
   <string name="config_category_editing_summary">Paramètres de téléchargement automatique, de sauvegardes et de notifications.</string>
@@ -1210,4 +1212,5 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Pas d\'aide ici.</string>
+  <!--Bookmarks-->
 </resources>

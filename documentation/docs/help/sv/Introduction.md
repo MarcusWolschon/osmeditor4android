@@ -1,10 +1,10 @@
 # Vespucci introduktion
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+Vespucci är en fullfjädrad redigerare för OpenStreetMap som har stöd för de flesta operationer som skrivbordsredigerare tillhandahåller. Den har framgångsrikt testats på Google's Android 2.3 till 10.0 och olika AOSP-baserade varianter. Ett varningens ord: medan mobila enheters kapacitet har kommit ikapp sina skrivbordsrivaler så tenderar äldre enheter vara något slöare. Du bör ta hänsyn till detta när du använder Vespucci och håller exempelvis de områden du redigerar till en rimlig storlek. 
 
 ## Första gången användning
 
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
+Vid uppstarten visar Vespucci dig dialogrutan "Hämta annan plats"/"Läs in område" efter att ha frågat om tillåtelse och välkommenmeddelande. Om du har koordinaterna som visas och vill hämta direkt, kan du välja lämpligt alternativ och ställa in radien runt platsen du vill hämta. Välj inte ett stort område på långsamma enheter. 
 
 Alternativt kan du stänga dialogen genom att trycka på "Gå till karta" knappen och panorera och zooma in en plats som du vill redigera och hämta data därefter (se nedan: "Redigering med Vespucci").
 
@@ -16,7 +16,7 @@ Beroende på skärmstorlek och ålder på enheten redigering åtgärder kan anti
 
 ### Nedladdning av OSM-data
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+Välj antingen överföringsikonen ![Transfer](../images/menu_transfer.png) eller "Överför" i menyn. Detta visa sju alternativ:
 
 * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
@@ -43,7 +43,8 @@ A long press on the lock icon will display a menu currently offering 4 options:
 
 * **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
 * **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
+* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
+* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
 * **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
 #### Single tap, double tap, and long press
@@ -80,7 +81,7 @@ Note that for overlapping objects (such as a node on a way) the selection menu c
 
 #### Selected objects: Moving a Node or Way
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 
 #### Adding a new Node/Point or Way 
 
@@ -183,13 +184,14 @@ The OSMOSE bug display will provide a link to the affected object in blue, touch
 
 ### Filtrering
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
-* Anteckningar
-* Osmose-fel
-* Osmose-varning
-* Osmose mindre fel
-* Anpassad
+* Notes
+* Osmose error
+* Osmose warning
+* Osmose minor issue
+* Maproulette
+* Custom
 
 <a id="indoor"></a>
 
@@ -209,7 +211,7 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 ### Configuring checks
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
 
 The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 
@@ -249,6 +251,8 @@ An alternative to the above, objects are filtered either on individual presets o
 
 Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
+<a id="layers"></a>
+
 ### Layer settings
 
 Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
@@ -263,6 +267,8 @@ Available layer types:
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+
+More information can be found in the section on the [map display](Main%20map%20display.md).
 
 #### Preferences
 

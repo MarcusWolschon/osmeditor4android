@@ -2,6 +2,9 @@
 "address":[
 "Адрес"
 ],
+"advertising/billboard":[
+"Билборд"
+],
 "aeroway/aerodrome":[
 "Летище"
 ],
@@ -112,6 +115,19 @@
 ],
 "amenity/townhall":[
 "Кметство"
+],
+"amenity/vending_machine":[
+"Автомат за стоки"
+],
+"amenity/vending_machine/coffee":[
+"кафе-автомат",
+"Автомат за кафе"
+],
+"amenity/vending_machine/drinks":[
+"Автомат за напитки"
+],
+"amenity/vending_machine/parking_tickets":[
+"Автомат за талони за паркиране"
 ],
 "amenity/waste_basket":[
 "Кош за боклук"
@@ -309,7 +325,7 @@
 "Пасище"
 ],
 "landuse/orchard":[
-"Овощна градина "
+"Овощна градина"
 ],
 "landuse/quarry":[
 "Кариера"
@@ -473,6 +489,18 @@
 "power/line":[
 "Електропровод"
 ],
+"power/plant/source/hydro":[
+"ВЕЦ"
+],
+"power/plant/source/nuclear":[
+"АЕЦ"
+],
+"power/plant/source/solar":[
+"Фото-волтаична станция"
+],
+"power/plant/source/wind":[
+"ВяЕЦ"
+],
 "power/pole":[
 "Електрически стълб"
 ],
@@ -481,6 +509,9 @@
 ],
 "power/transformer":[
 "Трансформатор"
+],
+"public_transport/platform/bus_point":[
+"Автобусна спирка"
 ],
 "railway/abandoned":[
 "Изоставена железопътна линия"

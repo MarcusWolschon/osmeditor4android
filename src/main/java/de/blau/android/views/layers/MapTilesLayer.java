@@ -77,11 +77,11 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     private String  coverageWarningMessage;
 
     /** Tap tracking */
-    private float   downX;
-    private float   downY;
-    private boolean moved;
-    private Rect    tapArea  = new Rect();
-    private Rect    logoRect = new Rect();
+    private float      downX;
+    private float      downY;
+    private boolean    moved;
+    private final Rect tapArea  = new Rect();
+    private final Rect logoRect = new Rect();
 
     /**
      * The view we are a part of.
@@ -100,9 +100,9 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     /**
      * MRU of last servers
      */
-    protected static final int            MRU_SIZE        = 5;
-    private static final MRUList<String>  lastServers     = new MRUList<>(MRU_SIZE);
-    private SavingHelper<MRUList<String>> mruSavingHelper = new SavingHelper<>();
+    protected static final int                  MRU_SIZE        = 5;
+    private static final MRUList<String>        lastServers     = new MRUList<>(MRU_SIZE);
+    private final SavingHelper<MRUList<String>> mruSavingHelper = new SavingHelper<>();
 
     private int     prevZoomLevel = -1;  // zoom level from previous draw
     private boolean saved         = true;
@@ -113,14 +113,14 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
 
     private final Context ctx;
 
-    private TileRenderer<T> mTileRenderer;
+    private final TileRenderer<T> mTileRenderer;
 
     // avoid creating new Rects in onDraw
-    private Rect destRect = new Rect(); // destination rect for bit map
-    private Rect srcRect  = new Rect();
-    private Rect tempRect = new Rect();
+    private Rect       destRect = new Rect(); // destination rect for bit map
+    private final Rect srcRect  = new Rect();
+    private final Rect tempRect = new Rect();
 
-    private BitSet rendered = new BitSet();
+    private final BitSet rendered = new BitSet();
 
     public interface TileRenderer<B> {
 
@@ -141,6 +141,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
          * 
          * @return a TileDecoder
          */
+        @NonNull
         MapTileProvider.TileDecoder<B> decoder();
 
         /**
@@ -167,11 +168,12 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     public static class BitmapTileRenderer implements TileRenderer<Bitmap> {
 
         @Override
-        public void render(Canvas c, Bitmap tileBlob, int z, Rect fromRect, Rect screenRect, Paint paint) {
+        public void render(@NonNull Canvas c, @NonNull Bitmap tileBlob, int z, @Nullable Rect fromRect, @NonNull Rect screenRect, @NonNull Paint paint) {
             c.drawBitmap(tileBlob, fromRect, screenRect, paint);
         }
 
         @Override
+        @NonNull
         public TileDecoder<Bitmap> decoder() {
             return new MapTileProvider.BitmapDecoder();
         }
@@ -277,7 +279,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     /**
      * Get the current displayed tile layer configuration
      * 
-     * @return a TileLayerServer object
+     * @return a TileLayerSource object
      */
     @Nullable
     public TileLayerSource getTileLayerConfiguration() {
@@ -445,7 +447,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         boolean squareTiles = myRendererInfo.getTileWidth() == myRendererInfo.getTileHeight();
         // Draw all the MapTiles that intersect with the screen
         // y = y tile number (latitude)
-        // int requiredTiles = (tileNeededBottom - tileNeededTop + 1) * (tileNeededRight - tileNeededLeft + 1);
+        // requiredTiles = (tileNeededBottom - tileNeededTop + 1) * (tileNeededRight - tileNeededLeft + 1)
         int row = tileNeededRight - tileNeededLeft + 1;
         rendered.clear();
         for (int y = tileNeededTop; y <= tileNeededBottom; y++) {
@@ -489,7 +491,8 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                 // mTileProvider.preCacheTile(tile); already done in getMapTile
                 // See if there are any alternative tiles available - try using larger tiles up to
                 // maximum maxOverZoom zoom levels up, with standard tiles this reduces the width to 64 bits
-                while (tileBlob == null && (!bitmapRenderer || (zoomLevel - tile.zoomLevel) <= maxOverZoom) && tile.zoomLevel > minZoom) {
+                while (tileBlob == null && ((!bitmapRenderer && tile.zoomLevel > maxZoom) || (bitmapRenderer && (zoomLevel - tile.zoomLevel) <= maxOverZoom))
+                        && tile.zoomLevel > minZoom) {
                     tile.reinit();
                     // As we zoom out to larger-scale tiles, we want to
                     // draw smaller and smaller sections of them
@@ -564,7 +567,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     }
 
     @Override
-    public int onDrawAttribution(Canvas c, IMapView osmv, int offset) {
+    public int onDrawAttribution(@NonNull Canvas c, @NonNull IMapView osmv, int offset) {
         return myRendererInfo.isMetadataLoaded() ? drawAttribution(c, osmv.getViewBox(), osmv.getZoomLevel(), offset) : offset;
     }
 
@@ -573,7 +576,6 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
      * 
      * @param c the Canvas we are drawing on
      * @param viewBox the ViewBox with the currently displayed area
-     * @param viewPort the screen size in screen coordinates
      * @param zoomLevel the current tile zoom level
      * @param offset starting offset
      * @return next offset
@@ -653,7 +655,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
      * @param latOffset imagery latitude offset correction in WGS84
      * @return true if the space could be filled with tiles
      */
-    private boolean drawTile(Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset, double latOffset) {
+    private boolean drawTile(@NonNull Canvas c, @NonNull IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset, double latOffset) {
         final MapTile tile = new MapTile(myRendererInfo.getId(), z, x, y);
         T bitmap = mTileProvider.getMapTileFromCache(tile);
         if (bitmap != null) {
@@ -739,7 +741,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
             // FALL THROUGH
         case MotionEvent.ACTION_MOVE:
             moved |= (Math.abs(event.getX() - downX) > 20 || Math.abs(event.getY() - downY) > 20);
-            if (done && !moved && (tapArea != null) && tapArea.contains((int) event.getX(), (int) event.getY())) {
+            if (done && !moved && tapArea.contains((int) event.getX(), (int) event.getY())) {
                 String attributionUri = myRendererInfo.getTouUri();
                 if (attributionUri == null) {
                     attributionUri = myRendererInfo.getAttributionUrl();
@@ -753,7 +755,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                         ctx.startActivity(intent);
                     } catch (ActivityNotFoundException anfe) {
                         Log.e(DEBUG_TAG, "Activity not found " + anfe.getMessage());
-                        Snack.toastTopError(ctx, anfe.getLocalizedMessage());
+                        Snack.toastTopError(ctx, anfe.getLocalizedMessage() != null ? anfe.getLocalizedMessage() : anfe.getMessage());
                     }
                     return true;
                 }
@@ -771,10 +773,10 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     private class SimpleInvalidationHandler extends Handler {
         private static final String DEBUG_TAG_1 = "SimpleInvalidationH...";
 
-        private View        v;
-        private int         viewInvalidates = 0;
-        private Handler     handler         = new Handler(Looper.getMainLooper());
-        private Invalidator invalidator     = new Invalidator();
+        private final View        v;
+        private int               viewInvalidates = 0;
+        private final Handler     handler         = new Handler(Looper.getMainLooper());
+        private final Invalidator invalidator     = new Invalidator();
 
         /**
          * Handle success messages from downloaded tiles, and invalidate View v if necessary
@@ -810,6 +812,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     }
 
     @Override
+    @NonNull
     public String getName() {
         return myRendererInfo.getName();
     }
@@ -822,8 +825,12 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     }
 
     @Override
+    @Nullable
     public String getContentId() {
-        return myRendererInfo.getId();
+        if (myRendererInfo != null) {
+            return myRendererInfo.getId();
+        }
+        return null;
     }
 
     @Override
@@ -832,6 +839,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     }
 
     @Override
+    @Nullable
     public BoundingBox getExtent() {
         if (myRendererInfo != null) {
             return myRendererInfo.getOverallCoverage();
@@ -889,7 +897,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     }
 
     @Override
-    public void showInfo(FragmentActivity activity) {
+    public void showInfo(@NonNull FragmentActivity activity) {
         LayerInfo f = new ImageryLayerInfo();
         f.setShowsDialog(true);
         Bundle args = new Bundle();
@@ -900,12 +908,13 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     }
 
     @Override
+    @NonNull
     public LayerType getType() {
         return LayerType.IMAGERY;
     }
 
     @Override
-    public void discard(Context context) {
+    public void discard(@NonNull Context context) {
         onDestroy();
     }
 

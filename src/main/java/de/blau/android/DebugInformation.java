@@ -6,6 +6,11 @@ import java.util.Date;
 import org.acra.ACRA;
 
 import android.annotation.SuppressLint;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.PermissionInfo;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import de.blau.android.layer.MapViewLayer;
+import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.TaskStorage;
@@ -30,10 +36,12 @@ public class DebugInformation extends AppCompatActivity {
 
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
+    private Preferences prefs;
+
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Preferences prefs = new Preferences(this);
+        prefs = new Preferences(this);
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_customLight);
         }
@@ -82,6 +90,23 @@ public class DebugInformation extends AppCompatActivity {
 
         builder.append(getString(R.string.app_name_version) + eol);
         builder.append("Flavor: " + BuildConfig.FLAVOR + eol);
+        ApplicationInfo appInfo = getApplicationContext().getApplicationInfo();
+        builder.append("Target SDK: " + appInfo.targetSdkVersion + eol);
+        try {
+            PackageManager packageManager = getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageInfo(appInfo.packageName, PackageManager.GET_PERMISSIONS);
+            builder.append("Permissions: " + eol);
+            if (packageInfo.permissions != null) {
+                for (PermissionInfo p : packageInfo.permissions) {
+                    builder.append("   " + p.loadDescription(packageManager) + eol);
+                }
+            } else {
+                builder.append("Permissions not available" + eol);
+            }
+        } catch (NameNotFoundException e) {
+            builder.append("Name not available, this is a seriously curious state, please report a bug!" + eol);
+        }
+
         builder.append("Maximum avaliable memory " + Runtime.getRuntime().maxMemory() + eol);
         builder.append("Total memory used " + Runtime.getRuntime().totalMemory() + eol);
         Logic logic = App.getLogic();
@@ -90,15 +115,15 @@ public class DebugInformation extends AppCompatActivity {
             if (map != null) {
                 for (MapViewLayer ov : map.getLayers()) {
                     if (ov instanceof MapTilesLayer || ov instanceof MapTilesOverlayLayer) {
-                        builder.append("Tile Cache " + ((MapTilesLayer) ov).getTileLayerConfiguration().getId() + " usage "
-                                + ((MapTilesLayer) ov).getTileProvider().getCacheUsageInfo() + eol);
+                        builder.append("Tile Cache " + ((MapTilesLayer<?>) ov).getTileLayerConfiguration().getId() + " usage "
+                                + ((MapTilesLayer<?>) ov).getTileProvider().getCacheUsageInfo() + eol);
                     }
                 }
             } else {
-                builder.append("Map not available, this is a seriously curious state, please report a bug!\n");
+                builder.append("Map not available, this is a seriously curious state, please report a bug!" + eol);
             }
         } else {
-            builder.append("Logic not available, this is a seriously curious state, please report a bug!\n");
+            builder.append("Logic not available, this is a seriously curious state, please report a bug!" + eol);
         }
         File stateFile = new File(getFilesDir(), StorageDelegator.FILENAME);
         if (stateFile.exists()) {
@@ -122,6 +147,12 @@ public class DebugInformation extends AppCompatActivity {
         for (String providerName : locationManager.getAllProviders()) {
             builder.append(providerName + " enabled " + locationManager.isProviderEnabled(providerName) + eol);
         }
+
+        UserDetails userDetails = prefs.getServer().getCachedUserDetails();
+        if (userDetails != null) {
+            builder.append("Display name " + userDetails.getDisplayName() + eol);
+        }
+
         return builder.toString();
     }
 }

@@ -38,10 +38,12 @@ public final class Bing {
      * Create a coverage area given Bing XML data.
      * 
      * @param parser The XML parser.
+     * @return a CoverageArea
      * @throws IOException if there was an IO error
      * @throws XmlPullParserException If there was a problem parsing the XML.
      * @throws NumberFormatException If any of the numbers couldn't be parsed.
      */
+    @NonNull
     private static CoverageArea coverageArea(XmlPullParser parser) throws IOException, NumberFormatException, XmlPullParserException {
         int eventType;
         int zoomMin = 0;
@@ -91,10 +93,12 @@ public final class Bing {
      * Create a new Provider from Bing XML data.
      * 
      * @param parser The XML parser.
+     * @return a Provider
      * @throws IOException If there was a problem parsing the XML.
      * @throws XmlPullParserException If there was a problem parsing the XML.
      */
-    private static Provider provider(XmlPullParser parser) throws XmlPullParserException, IOException {
+    @NonNull
+    private static Provider provider(@NonNull XmlPullParser parser) throws XmlPullParserException, IOException {
         Provider result = new Provider();
 
         int eventType;

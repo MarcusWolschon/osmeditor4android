@@ -45,6 +45,8 @@ public class Progress extends ImmersiveDialogFragment {
 
     public static final int PROGRESS_PRUNING = 12;
 
+    public static final int PROGRESS_MIGRATION = 13;
+
     private int dialogType;
 
     /**
@@ -70,8 +72,8 @@ public class Progress extends ImmersiveDialogFragment {
 
         FragmentManager fm = activity.getSupportFragmentManager();
         Progress progressDialogFragment = newInstance(dialogType);
+        progressDialogFragment.setCancelable(true);
         try {
-
             progressDialogFragment.show(fm, tag);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
@@ -119,6 +121,7 @@ public class Progress extends ImmersiveDialogFragment {
         dismissDialog(activity, PROGRESS_BUILDING_IMAGERY_DATABASE);
         dismissDialog(activity, PROGRESS_QUERY_OAM);
         dismissDialog(activity, PROGRESS_PRUNING);
+        dismissDialog(activity, PROGRESS_MIGRATION);
     }
 
     /**
@@ -154,6 +157,8 @@ public class Progress extends ImmersiveDialogFragment {
             return "dialog_progress_query_oam";
         case PROGRESS_PRUNING:
             return "dialog_progress_pruning";
+        case PROGRESS_MIGRATION:
+            return "dialog_progress_migration";
         default:
             Log.w(DEBUG_TAG, "Unknown dialog type " + dialogType);
         }

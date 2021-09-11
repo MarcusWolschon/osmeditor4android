@@ -158,6 +158,7 @@
                 "name": "C imagery",
                 "url": "http://mapproxy.osm.ch:8080/tiles/AGIS2016/EPSG900913/{zoom}/{x}/{y}.png?origin=nw",
                 "max_zoom": 19,
+                "tile-size": 512,
                 "type": "tms",
                 "id": "C"
             },

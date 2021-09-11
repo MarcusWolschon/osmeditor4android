@@ -205,7 +205,7 @@ public interface StyleableInterface {
     /**
      * Set the current minimum zoom for a specific (sub)layer of this layer
      * 
-     * @param layerName the (sub)layer name
+     * @param subLayerName the (sub)layer name
      * @param zoom a value equal to or larger than 0
      */
     default void setMinZoom(@NonNull String subLayerName, int zoom) {
@@ -225,7 +225,7 @@ public interface StyleableInterface {
     /**
      * Set the current maximum zoom for a specific (sub)layer of this layer
      * 
-     * @param layerName the (sub)layer name
+     * @param subLayerName the (sub)layer name
      * @param zoom a value equal to or larger than 0
      */
     default void setMaxZoom(@NonNull String subLayerName, int zoom) {

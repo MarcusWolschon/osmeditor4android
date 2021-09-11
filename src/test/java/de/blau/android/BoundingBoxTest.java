@@ -3,14 +3,12 @@ package de.blau.android;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.Node;
 
 public class BoundingBoxTest {
 

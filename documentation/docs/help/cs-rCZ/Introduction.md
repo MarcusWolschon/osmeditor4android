@@ -81,7 +81,7 @@ Všimněte si, že pro překrývající se objekty (např. uzel na cestě) se po
 
 #### Zvolené objekty: Posun Uzlu nebo Cesty
 
-Zvolené objekty můžete posouvat. Všimněte si, že objekty lze přetahovat/posouvat pouze pokud jsou zvolené. Jednoduše uchopte vybraný objekt (v oblasti tolerance) a posuňte jej. V nastavení můžete zvolit Větší oblast pro výběr uzlu, díky které je snazší objekt uchopit a umístit. 
+Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 
 #### Přidání nového Uzlu/Bodu nebo Cesty 
 
@@ -184,13 +184,14 @@ Chybová zpráva OSMOSE poskytne odkaz na postižený objekt v modré barvě, do
 
 ### Filtrování
 
-Kromě toho, že globálně umožňuje zobrazování poznámek a chyb, můžete nastavit filtr hrubého zrnitého displeje pro snížení chaosu. Ve složce [Pokročilé preference](Advanced%20preferences.md) to můžete individuálně zvolit:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
-* Poznámky 
-* Osmose chyba
-* Osmose varování
-* Osmose drobná záležitost 
-* Vlastní
+* Notes
+* Osmose error
+* Osmose warning
+* Osmose minor issue
+* Maproulette
+* Custom
 
 <a id="indoor"></a>
 
@@ -210,7 +211,7 @@ Režim lze aktivovat dlouhým stisknutím tlačítka zámku, viz [Zamknout, odem
 
 ### Konfigurace kontrol
 
-V současné době existují dvě konfigurovatelné kontroly (existuje kontrola pro značky FIXME a test na chybějící typové značky ve vztazích, které momentálně nelze konfigurovat), oba lze nakonfigurovat výběrem "Nastavení ověřovatele" v "Předvolbách". 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
 
 Seznam záznamů je rozdělen na dvě části, políčka nahoře vypisují "ověřit záznamy", dolní polovina "zkontrolované záznamy". Záznamy lze editovat kliknutím na ně, zelené tlačítko nabídky umožňuje přidání položek.
 
@@ -250,6 +251,8 @@ Alternativou k výše uvedeným objektům jsou objekty filtrovány buď na zákl
 
 Mnoho aspektů aplikace lze přizpůsobit, pokud hledáte něco konkrétního a nemůžete jej najít, [web Vespucci](https://vespucci.io/) je prohledávatelný a obsahuje další informace o tom, co je k dispozici na zařízení.
 
+<a id="layers"></a>
+
 ### nastavení vrstev
 
 Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
@@ -264,6 +267,8 @@ Available layer types:
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+
+More information can be found in the section on the [map display](Main%20map%20display.md).
 
 #### Předvolby
 

@@ -90,7 +90,7 @@ public class Authorize extends FullScreenAppCompatActivity {
         String url = Server.getBaseUrl(server.getReadWriteUrl());
         OAuthHelper oa;
         try {
-            oa = new OAuthHelper(url);
+            oa = new OAuthHelper(this, url);
         } catch (OsmException oe) {
             server.setOAuth(false); // ups something went wrong turn oauth off
             Snack.barError(this, R.string.toast_no_oauth);

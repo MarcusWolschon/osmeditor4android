@@ -49,6 +49,7 @@ public final class Eli {
     private static final String NO_TILE_HEADER_KEY        = "no_tile_header";
     private static final String NO_TILE_TILE_KEY          = "no_tile_tile";
     private static final String AVAILABLE_PROJECTIONS_KEY = "available_projections";
+    private static final String TILE_SIZE_KEY             = "tile-size";
     private static final String TILE_TYPE_KEY             = "tile_type"; // extension
     private static final String MVT_VALUE                 = "mvt";
 
@@ -257,7 +258,12 @@ public final class Eli {
                     }
                 }
             }
-
+            // tile-size will override anything determined automatically
+            JsonElement tileSize = properties.get(TILE_SIZE_KEY);
+            if (tileSize != null && tileSize.isJsonPrimitive()) {
+                tileWidth = tileSize.getAsInt();
+                tileHeight = tileWidth;
+            }
             if (type == null || url == null || (isWMS && proj == null)) {
                 Log.w(DEBUG_TAG, "skipping name " + name + " id " + id + " type " + type + " url " + url);
                 if (TileLayerSource.TYPE_WMS.equals(type)) {

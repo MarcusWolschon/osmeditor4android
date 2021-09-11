@@ -59,6 +59,7 @@ public final class GeoJson {
      * 
      * If this generated a MP, it will be the 1st element of the result
      * 
+     * @param f the Feature to convert
      * @param maxNodes maximum number of Nodes in an OSM Way
      * @return a List of OsmElement
      */
@@ -87,6 +88,7 @@ public final class GeoJson {
      * 
      * If this generated a MP, it will be the 1st element of the result
      * 
+     * @param factory an instance of OsmElementFactory
      * @param g GeoJson geometry
      * @param maxNodes maximum number of Nodes in an OSM Way
      * 
@@ -191,9 +193,10 @@ public final class GeoJson {
      * @param factory an instance of OsmFactory
      * @param rings a list of rings
      * @param maxNodes maximum number of Nodes in an OSM Way
-     * @returns a List of OsmElements
+     * @return a List of OsmElements
      */
-    private static List<OsmElement> polygonToOsm(OsmElementFactory factory, List<List<Point>> rings, int maxNodes) {
+    @NonNull
+    private static List<OsmElement> polygonToOsm(@NonNull OsmElementFactory factory, @NonNull List<List<Point>> rings, int maxNodes) {
         List<List<Way>> temp = new ArrayList<>();
         for (List<Point> l : rings) {
             List<Way> ways = pointsToWays(factory, l, maxNodes);

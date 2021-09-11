@@ -208,6 +208,8 @@ public class Symbol extends Layer {
 
     /**
      * Default constructor
+     * 
+     * @param sourceLayer the source (data) layer
      */
     public Symbol(@NonNull String sourceLayer) {
         super(sourceLayer);
@@ -229,7 +231,7 @@ public class Symbol extends Layer {
     /**
      * Copy constructor
      * 
-     * @param other another Style
+     * @param other another Layer
      */
     public Symbol(@NonNull Symbol other) {
         super(other);
@@ -256,9 +258,10 @@ public class Symbol extends Layer {
     /**
      * Create a rudimentary style from Paint objects for the geometries and labels
      * 
+     * @param layerName the layer name
      * @param paint the Paint to use for the geometries
      * @param labelPaint the Paint to use for labels
-     * @param symbolPath a Path to use for point symbols
+     * @param symbolName a name to use for point symbols
      * @return a Style
      */
     @NonNull
@@ -319,6 +322,15 @@ public class Symbol extends Layer {
      */
     public SerializableTextPaint getLabelPaint() {
         return labelPaint;
+    }
+
+    /**
+     * Set text justification
+     * 
+     * @param justify one of left, right or center
+     */
+    public void setTextJustify(@NonNull String justify) {
+        textJustify.set(justify);
     }
 
     /**
@@ -493,6 +505,9 @@ public class Symbol extends Layer {
      * 
      * @param canvas Canvas object we are drawing on
      * @param sprites Object holding the sprite bitmap and sheet
+     * @param screenRect current screen Rect
+     * @param x screen x coordinate
+     * @param y screen y coordinate
      * @param feature the Feature we are rendering
      */
     public void drawIcon(@NonNull Canvas canvas, Sprites sprites, @NonNull Rect screenRect, float x, float y, @NonNull Feature feature) {
@@ -574,6 +589,7 @@ public class Symbol extends Layer {
     /**
      * Get an icon caching it if necessary
      * 
+     * @param sprites the Sprites object
      * @param name the name of the icon
      * @return a Bitmap or null
      */
@@ -599,7 +615,7 @@ public class Symbol extends Layer {
          * 
          * @param source CharSequence
          * @param paint TextPaint
-         * @param width int
+         * @param outerwidth int
          * @param align Layout.Alignment
          * @param spacingmult float
          * @param spacingadd float
@@ -681,6 +697,7 @@ public class Symbol extends Layer {
      * Draw a line label
      * 
      * @param canvas Canvas object we are drawing on
+     * @param destinationRect where we are drawing to
      * @param line a List of Points making up the line
      * @param feature the Feature we are displaying
      */
@@ -761,7 +778,9 @@ public class Symbol extends Layer {
      * Actually get the anchor variable
      * 
      * @param anchor see above
+     * @return the anchor value
      */
+    @Nullable
     private String getAnchor(@Nullable String anchor) {
         if (anchor != null) {
             switch (anchor) {

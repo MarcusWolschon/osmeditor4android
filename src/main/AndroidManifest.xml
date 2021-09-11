@@ -27,6 +27,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
 
     <application
         android:name="de.blau.android.App"
@@ -271,16 +277,6 @@
             </intent-filter>
         </receiver>
 
-        <!-- Service to download tiles -->
-        <service
-            android:name=".services.MapTileProviderService"
-            android:exported="false"
-            android:label="MapTileProviderService"
-            android:process=":remote" >
-            <intent-filter>
-                <action android:name="de.blau.android.services.IMapTileProviderService" />
-            </intent-filter>
-        </service>
         <!-- Service for GPS tracking -->
         <service
             android:name=".services.TrackerService"

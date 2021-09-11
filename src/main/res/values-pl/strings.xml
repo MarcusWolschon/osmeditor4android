@@ -335,6 +335,7 @@
   <string name="layer_info_privacy_policy">Polityka prywatności</string>
   <string name="projection">Odwzorowanie</string>
   <string name="errors">Błędy</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Usuń zdjęcie</string>
   <string name="photo_viewer_delete_button">Usuń na stałe</string>
@@ -966,6 +967,7 @@
   <string name="config_beepVolume_title">Głośność brzęczyka</string>
   <string name="config_beepVolume_summary">Ustawienie głośności brzęczyka.</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Dane i ustawienia edycji</string>
   <string name="config_category_editing_summary">Opcje automatycznego pobierania, zapisywania i powiadomień.</string>
@@ -1237,4 +1239,5 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Brak tutaj pomocy.</string>
+  <!--Bookmarks-->
 </resources>

@@ -31,6 +31,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
+import de.blau.android.util.KeyValue;
 import de.blau.android.util.collections.MultiHashMap;
 
 public class BaseValidator implements Validator {
@@ -59,6 +60,16 @@ public class BaseValidator implements Validator {
      * Regex for general tagged issues with the object
      */
     static final Pattern FIXME_PATTERN = Pattern.compile("(?i).*\\b(?:fixme|todo)\\b.*");
+
+    /**
+     * Keys that suppress missing keys, this might make more sense as configuration
+     */
+    private static final MultiHashMap<String, KeyValue> MISSING_KEY_SUPPRESSION = new MultiHashMap<>();
+    static {
+        MISSING_KEY_SUPPRESSION.add(Tags.KEY_NAME, new KeyValue(Tags.KEY_NONAME, Tags.VALUE_YES));
+        MISSING_KEY_SUPPRESSION.add(Tags.KEY_NAME, new KeyValue(Tags.KEY_VALIDATE_NO_NAME, Tags.VALUE_YES));
+        MISSING_KEY_SUPPRESSION.add(Tags.KEY_REF, new KeyValue(Tags.KEY_NOREF, Tags.VALUE_YES));
+    }
 
     /**
      * Construct a new instance
@@ -138,24 +149,15 @@ public class BaseValidator implements Validator {
             for (Entry<String, Boolean> entry : checkTags.entrySet()) {
                 String[] keys = entry.getKey().split("\\|");
                 int tempStatus = 0;
-                boolean first = true;
                 for (String key : keys) {
                     key = key.trim();
-                    // first key has to exist in preset
-                    // others are only considered if they are present
                     if (pi.hasKey(key, entry.getValue())) {
-                        first = false;
-                        if (!e.hasTagKey(key)) {
-                            if (!(Tags.KEY_NAME.equals(key)
-                                    && (e.hasTagWithValue(Tags.KEY_NONAME, Tags.VALUE_YES) || e.hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME, Tags.VALUE_YES)))) {
-                                tempStatus = Validator.MISSING_TAG;
-                            }
+                        if (!e.hasTagKey(key) && reportMissingKey(e, key)) {
+                            tempStatus = Validator.MISSING_TAG;
                         } else {
-                            tempStatus = 0;
+                            tempStatus = 0; // found a key
                             break;
                         }
-                    } else if (first) {
-                        break;
                     }
                 }
                 status = status | tempStatus;
@@ -405,19 +407,31 @@ public class BaseValidator implements Validator {
                 String[] keys = entry.getKey().split("\\|");
                 for (String key : keys) {
                     key = key.trim();
-                    if (pi.hasKey(key, entry.getValue())) {
-                        if (!e.hasTagKey(key)) {
-                            if (!(Tags.KEY_NAME.equals(key)
-                                    && (e.hasTagWithValue(Tags.KEY_NONAME, Tags.VALUE_YES) || e.hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME, Tags.VALUE_YES)))) {
-                                String hint = pi.getHint(key);
-                                result.add(ctx.getString(R.string.toast_missing_key, hint != null ? hint : key));
-                            }
-                        }
+                    if (pi.hasKey(key, entry.getValue()) && !e.hasTagKey(key) && reportMissingKey(e, key)) {
+                        String hint = pi.getHint(key);
+                        result.add(ctx.getString(R.string.toast_missing_key, hint != null ? hint : key));
                     }
                 }
             }
         }
         return result;
+    }
+
+    /**
+     * Check if missing key validation isn't suppressed by other tags
+     * 
+     * @param e the OsmElement to validate
+     * @param key the missing key
+     * @return true if we need to report
+     */
+    private boolean reportMissingKey(@NonNull OsmElement e, @NonNull String key) {
+        Set<KeyValue> suppressionTags = MISSING_KEY_SUPPRESSION.get(key);
+        for (KeyValue tag : suppressionTags) {
+            if (e.hasTagWithValue(tag.getKey(), tag.getValue())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

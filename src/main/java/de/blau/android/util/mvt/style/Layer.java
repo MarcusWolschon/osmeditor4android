@@ -158,6 +158,8 @@ public abstract class Layer implements Serializable {
 
     /**
      * Default constructor
+     * 
+     * @param sourceLayer the source (data) layer
      */
     protected Layer(@Nullable String sourceLayer) {
         this.sourceLayer = sourceLayer;
@@ -473,7 +475,7 @@ public abstract class Layer implements Serializable {
      * @param scaleY scaling factor for tile in x direction
      */
     @CallSuper
-    public void render(@NonNull Canvas c, @NonNull Style style, @Nullable VectorTileDecoder.Feature feature, int z, @NonNull Rect screenRect,
+    public void render(@NonNull Canvas c, @NonNull Style style, @Nullable VectorTileDecoder.Feature feature, int z, @Nullable Rect screenRect,
             @NonNull Rect destinationRect, float scaleX, float scaleY) {
         if (!patternChecked) {
             patternChecked = true;

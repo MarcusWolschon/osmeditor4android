@@ -81,7 +81,7 @@ Tenga en cuenta que para superponer objetos (como un nodo en un camino) el menú
 
 #### Objetos seleccionados: Moviendo un nodo o vía
 
-Una vez que haya seleccionado un objeto, puede moverlo. Tenga en cuenta que los objetos sólo se pueden arrastrar/mover cuando se seleccionan. Simplemente arrastre cerca (es decir, dentro de su zona de tolerancia) el objeto seleccionado para moverlo. Si selecciona el área de arrastre grande en las preferencias, obtiene un área grande alrededor del nodo seleccionado que facilita la colocación del objeto. 
+Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 
 #### Añadiendo un nuevo Nodo/Punto o Vía 
 
@@ -106,7 +106,7 @@ Una vez pueda ver el símbolo de la cruz, tiene estas opciones:
     * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
 * _Normal touch in another place._ Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. 
+Simplemente toque la pantalla donde desea agregar más nodos del camino. Para terminar, toque el nodo final dos veces. Si el nodo final se encuentra en una vía o nodo, el segmento se conectará a la vía o nodo automáticamente. 
 
 También puede usar un elemento de menú: consulte [Creación de nuevos objetos](Creating%20new%20objects.md) para obtener más información.
 
@@ -126,7 +126,7 @@ Si hace el suficiente zoom en una ruta seleccionada, verá pequeños segmentos �
 
 Usted puede copiar o cortar los nodos y caminos seleccionados, y después pegarlos una o múltiples veces en una nueva ubicación. Cortar retendrá la ID y la versión de osm. Para pegar presione un rato la ubicación en la que desea pegar (verá una línea cruzada creando la ubicación). Después seleccione "Pegar" desde el menú.
 
-#### Añadiendo direcciones de manera eficiente
+#### Agregar direcciones de manera eficiente
 
 Vespucci tiene una función ![Dirección](../images/address.png) "agregar etiquetas de dirección" que intenta hacer que las direcciones de topografía sean más eficientes al predecir el número de casa actual. Se puede seleccionar:
 
@@ -170,7 +170,7 @@ Vespucci tiene un solucionador de conflictos simple. Sin embargo, si sospecha qu
 
 ## Usando GPS
 
-Puede utilizar Vespucci para crear una pista GPX y mostrarla en su dispositivo. Además puede mostrar la ubicación GPS actual (seleccione "Mostrar ubicación" en el menú GPS) y/o centrar la pantalla y seguir su posición (seleccione "Seguir ubicación GPS" en el menú GPS). 
+Puede utilizar Vespucci para crear una traza GPX y mostrarla en su dispositivo. Además puede mostrar la ubicación GPS actual (seleccione "Mostrar ubicación" en el menú GPS) y/o centrar la pantalla y seguir su posición (seleccione "Seguir ubicación GPS" en el menú GPS). 
 
 Si tiene este último conjunto, mover la pantalla manualmente o editar hará que se deshabilite el modo «Seguir GPS» y la flecha azul del GPS cambiará de un esquema a una flecha llena. Para volver rápidamente al modo «seguir», simplemente toque el botón GPS o vuelva a verificar la opción de menú.
 
@@ -184,13 +184,14 @@ La exposición de error OSMOSE proveerá un enlace al objeto azul afectado, toca
 
 ### Filtrado
 
-Además de habilitar globalmente la visualización de notas y errores, puede configurar un filtro de visualización de grano grueso para reducir el desorden. En [Preferencias avanzadas] (Avanced%20preferences.md) puede seleccionar individualmente:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
-* Notas
-* Error de OSMOSE
-* Advertencia de OSMOSE
-* Problema menor de OSMOSE
-* Personalizado
+* Notes
+* Osmose error
+* Osmose warning
+* Osmose minor issue
+* Maproulette
+* Custom
 
 <a id="indoor"></a>
 
@@ -210,7 +211,7 @@ El modo puede activarse con una pulsación larga en el icono del cansado, ver [C
 
 ### Configurando chequeos
 
-Actualmente hay dos comprobaciones configurables (hay una comprobación para las etiquetas FIXME y una prueba para las etiquetas de tipo faltantes en las relaciones que actualmente no son configurables) ambas se pueden configurar seleccionando "Configuración del validador" en las "Preferencias". 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
 
 La lista de entradas se divide en dos, la mitad superior enumera las entradas de "relevamiento", la mitad inferior "las entradas de control". Las entradas se pueden editar haciendo clic en ellas, el botón de menú verde permite agregar entradas.
 
@@ -250,11 +251,13 @@ Una alternativa a lo anterior, los objetos se filtran en predefinidos individual
 
 Muchos aspectos de la aplicación se pueden personalizar, si está buscando algo específico y no puede encontrarlo, [el sitio web de Vespucci](https://vespucci.io/) se puede buscar y contiene información adicional sobre lo que está disponible en el dispositivo.
 
+<a id="layers"></a>
+
 ### Configuraciones de capa
 
-Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
+La configuración de la capa se puede cambiar a través del control de capa (menú "hamburguesa" en la esquina superior derecha), todas las demás configuraciones son accesibles a través del botón de preferencias del menú principal. Las capas se pueden habilitar, deshabilitar y ocultar temporalmente.
 
-Available layer types:
+Tipos de capas disponibles:
 
 * Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
 * Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
@@ -264,6 +267,8 @@ Available layer types:
 * Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+
+More information can be found in the section on the [map display](Main%20map%20display.md).
 
 #### Preferencias
 

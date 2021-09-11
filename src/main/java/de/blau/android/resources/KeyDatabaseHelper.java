@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +16,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.contract.Files;
 
 /**
  * Database helper for managing private keys
@@ -127,6 +129,22 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
             Log.e(DEBUG_TAG, "exception reading stream  " + e.getMessage());
         } finally {
             db.close();
+        }
+    }
+
+    /**
+     * Read keys from assets
+     * 
+     * Assumes they are in a file named Files.FILE_NAME_KEYS
+     * 
+     * @param ctx an Android Context
+     */
+    public static void readKeysFromAssets(@NonNull Context ctx) {
+        AssetManager assetManager = ctx.getAssets();
+        try (KeyDatabaseHelper keys = new KeyDatabaseHelper(ctx)) {
+            keys.keysFromStream(assetManager.open(Files.FILE_NAME_KEYS));
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "Error reading keys file " + e.getMessage());
         }
     }
 }

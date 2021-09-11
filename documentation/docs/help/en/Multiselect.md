@@ -44,6 +44,10 @@ Pan and zoom the map to the currently selected object.
 
 Search for OSM objects in the loaded data using JOSMs search expressions.
 
+### Upload elements
+
+Upload the selected elements (only available for new or modified elements).
+
 ### ![Help](../images/menu_help.png) Help
 
 Start the Vespucci Help browser

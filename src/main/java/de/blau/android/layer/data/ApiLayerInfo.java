@@ -23,7 +23,6 @@ import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.MBTileConstants;
-import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.util.DateFormatter;
 
@@ -31,8 +30,6 @@ public class ApiLayerInfo extends LayerInfo {
     private static final String DEBUG_TAG = ApiLayerInfo.class.getName();
 
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm Z";
-
-    TileLayerSource layer = null;
 
     private static final Map<String, Integer> META_FIELDS_TO_RES = new HashMap<>();
     static {

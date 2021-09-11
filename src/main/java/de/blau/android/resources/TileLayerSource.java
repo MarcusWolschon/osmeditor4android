@@ -27,7 +27,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.mapbox.geojson.Feature;
@@ -370,13 +369,13 @@ public class TileLayerSource implements Serializable {
     public static final int DEFAULT_MAX_OVERZOOM = 4;
 
     public static final int DEFAULT_TILE_SIZE = 256;
-    public static final int WMS_TILE_SIZE     = 256;
+    public static final int WMS_TILE_SIZE     = 512;
 
     private static final String WMS_AXIS_XY = "XY";
     private static final String WMS_AXIS_YX = "YX";
 
     public enum Category {
-        photo, map, historicmap, osmbasedmap, historicphoto, qa, other, elevation // NOSONAR
+        photo, map, historicmap, osmbasedmap, historicphoto, qa, other, elevation, internal // NOSONAR
     }
 
     // ===========================================================
@@ -478,10 +477,8 @@ public class TileLayerSource implements Serializable {
             if (ctx instanceof Main && ((Main) ctx).getMap() != null) { // don't do this in the service
                 ((Main) ctx).getMap().setPrefs(ctx, new Preferences(ctx));
             }
-        } catch (IOException e) {
-            Log.d(DEBUG_TAG, "Tileserver problem (IOException) metadata URL " + metadataUrl, e);
-        } catch (XmlPullParserException e) {
-            Log.e(DEBUG_TAG, "Tileserver problem (XmlPullParserException) metadata URL " + metadataUrl, e);
+        } catch (Exception e) {
+            Log.d(DEBUG_TAG, "Tileserver problem metadata URL " + metadataUrl, e);
         }
     }
 
@@ -767,9 +764,9 @@ public class TileLayerSource implements Serializable {
     public static TileLayerSource get(@NonNull final Context ctx, @Nullable final String id, final boolean async) {
         synchronized (serverListLock) {
             if (!ready) {
-                TileLayerDatabase db = new TileLayerDatabase(ctx);
-                getLists(ctx, db, async);
-                db.close();
+                try (TileLayerDatabase db = new TileLayerDatabase(ctx)) {
+                    getLists(ctx, db, async);
+                }
                 if (imageryBlacklist != null && async) {
                     applyBlacklist(imageryBlacklist);
                 }
@@ -793,16 +790,16 @@ public class TileLayerSource implements Serializable {
         synchronized (serverListLock) {
             // layer couldn't be found in memory, check database
             Log.d(DEBUG_TAG, "Getting layer " + id + " from database");
-            TileLayerDatabase db = new TileLayerDatabase(ctx);
-            TileLayerSource layer = TileLayerDatabase.getLayer(ctx, db.getReadableDatabase(), id);
-            db.close();
-            if (layer != null && layer.replaceApiKey(ctx)) {
-                if (layer.isOverlay()) {
-                    overlayServerList.put(id, layer);
-                } else {
-                    backgroundServerList.put(id, layer);
+            try (TileLayerDatabase db = new TileLayerDatabase(ctx)) {
+                TileLayerSource layer = TileLayerDatabase.getLayer(ctx, db.getReadableDatabase(), id);
+                if (layer != null && layer.replaceApiKey(ctx)) {
+                    if (layer.isOverlay()) {
+                        overlayServerList.put(id, layer);
+                    } else {
+                        backgroundServerList.put(id, layer);
+                    }
+                    return layer;
                 }
-                return layer;
             }
             Log.e(DEBUG_TAG, "Layer " + id + " null from database");
         }
@@ -833,8 +830,7 @@ public class TileLayerSource implements Serializable {
             }
             String[] imageryFiles = { Files.FILE_NAME_VESPUCCI_IMAGERY, Files.FILE_NAME_USER_IMAGERY };
             for (String fn : imageryFiles) {
-                try {
-                    InputStream is = assetManager.open(fn);
+                try (InputStream is = assetManager.open(fn)) {
                     parseImageryFile(ctx, writableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY, is, async);
                 } catch (IOException e) {
                     Log.e(DEBUG_TAG, "reading conf file " + fn + " got " + e.getMessage());
@@ -861,7 +857,7 @@ public class TileLayerSource implements Serializable {
         long lastDatabaseUpdate = TileLayerDatabase.getSourceUpdate(writeableDb, TileLayerDatabase.SOURCE_CUSTOM);
         long lastUpdateTime = 0L;
         try {
-            File userImageryFile = new File(FileUtil.getPublicDirectory(), Files.FILE_NAME_USER_IMAGERY);
+            File userImageryFile = new File(FileUtil.getPublicDirectory(ctx), Files.FILE_NAME_USER_IMAGERY);
             Log.i(DEBUG_TAG, "Trying to read custom imagery from " + userImageryFile.getPath());
             lastUpdateTime = userImageryFile.lastModified();
             boolean newConfig = lastUpdateTime > lastDatabaseUpdate;
@@ -873,8 +869,9 @@ public class TileLayerSource implements Serializable {
                         TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_CUSTOM);
                         TileLayerDatabase.addSource(writeableDb, TileLayerDatabase.SOURCE_CUSTOM);
                     }
-                    InputStream is = new FileInputStream(userImageryFile);
-                    parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_CUSTOM, is, async);
+                    try (InputStream is = new FileInputStream(userImageryFile)) {
+                        parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_CUSTOM, is, async);
+                    }
                     writeableDb.setTransactionSuccessful();
                 } finally {
                     writeableDb.endTransaction();
@@ -906,8 +903,7 @@ public class TileLayerSource implements Serializable {
             TileLayerDatabase.addSource(writeableDb, source);
 
             // still need to read our base config first
-            try {
-                InputStream is = assetManager.open(Files.FILE_NAME_VESPUCCI_IMAGERY);
+            try (InputStream is = assetManager.open(Files.FILE_NAME_VESPUCCI_IMAGERY)) {
                 parseImageryFile(ctx, writeableDb, source, is, true);
             } catch (IOException e) {
                 Log.e(DEBUG_TAG, "reading conf files got " + e.getMessage());
@@ -1331,6 +1327,10 @@ public class TileLayerSource implements Serializable {
         TileLayerSource noneLayer = null;
         List<TileLayerSource> list = new ArrayList<>();
         for (TileLayerSource osmts : servers.values()) {
+            if (Category.internal.equals(osmts.getCategory())) {
+                // never return internal configs
+                continue;
+            }
             if (filtered) {
                 if (category != null && !category.equals(osmts.getCategory())) {
                     continue;
@@ -2167,7 +2167,6 @@ public class TileLayerSource implements Serializable {
      */
     public void setTileType(@NonNull TileType tileType) {
         this.tileType = tileType;
-        Log.d(DEBUG_TAG, "Setting tile type to " + tileType);
     }
 
     /**
@@ -2296,13 +2295,14 @@ public class TileLayerSource implements Serializable {
      * @param tileType the type of tile if null the automatic detection will be used
      * @param minZoom minimum zoom level
      * @param maxZoom maximum zoom level
+     * @param tileSize tile size to use
      * @param isOverlay if true add as an overlay
      * @param tileUrl the url for the tiles
      */
     public static void addOrUpdateCustomLayer(@NonNull final Context ctx, @NonNull final SQLiteDatabase db, @NonNull final String layerId,
             @Nullable final TileLayerSource existingTileServer, final long startDate, final long endDate, @NonNull String name, @Nullable Provider provider,
-            Category category, @Nullable String type, @Nullable TileType tileType, int minZoom, int maxZoom, boolean isOverlay, @NonNull String tileUrl) {
-        int tileSize = DEFAULT_TILE_SIZE;
+            Category category, @Nullable String type, @Nullable TileType tileType, int minZoom, int maxZoom, int tileSize, boolean isOverlay,
+            @NonNull String tileUrl) {
         String proj = null;
         // hack, but saves people extracting and then having to re-select the projection
         if (tileUrl.contains(EPSG_3857) || tileUrl.contains(EPSG_900913)) {
@@ -2334,6 +2334,8 @@ public class TileLayerSource implements Serializable {
             if (tileType != null) { // if null use automatic detection
                 existingTileServer.setTileType(tileType);
             }
+            existingTileServer.setTileWidth(tileSize);
+            existingTileServer.setTileHeight(tileSize);
             TileLayerDatabase.updateLayer(db, existingTileServer);
         }
     }

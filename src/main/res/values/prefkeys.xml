@@ -110,6 +110,7 @@
     <string name="config_mapillaryCacheSize_key">mapillaryCacheSize</string>
     <string name="config_beepVolume_key">beepVolume</string>
     <string name="config_maxOffsetDistance_key">maxOffsetDistance</string>
+    <string name="config_mapillary_min_zoom_key">mapillaryMinZoom</string>
 
     <string name="gps_source_internal">internal</string>
     <string name="gps_source_nmea">nmea</string>

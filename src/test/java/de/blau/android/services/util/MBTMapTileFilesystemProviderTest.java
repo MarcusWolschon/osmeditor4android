@@ -17,9 +17,6 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
 import android.database.sqlite.SQLiteDatabase;
-import android.os.IBinder;
-import android.os.RemoteException;
-import androidx.core.content.ContextCompat;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.JavaResources;
@@ -28,7 +25,8 @@ import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.Provider;
-import de.blau.android.services.IMapTileProviderCallback;
+import de.blau.android.util.FileUtil;
+import de.blau.android.views.util.MapTileProviderCallback;
 import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(RobolectricTestRunner.class)
@@ -47,18 +45,23 @@ public class MBTMapTileFilesystemProviderTest {
         ShadowLog.setupLogging();
         provider = new MapTileFilesystemProvider(ApplicationProvider.getApplicationContext(), new File("."), 1000000);
         try {
-            JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "ersatz_background.mbt", null, "/", false);
+            JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "ersatz_background.mbt",
+                    null, "/");
         } catch (IOException e) {
             fail(e.getMessage());
         }
         try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
-            File[] storageDirectories = ContextCompat.getExternalFilesDirs(ApplicationProvider.getApplicationContext(), null);
-            File mbtFile = new File(storageDirectories[0], "ersatz_background.mbt");
+            File mbtFile = new File(FileUtil.getPublicDirectory(ApplicationProvider.getApplicationContext()),
+                    "ersatz_background.mbt");
             TileLayerSource.addOrUpdateCustomLayer(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), MockTileServer.MOCK_TILE_SOURCE, null,
-                    -1, -1, "Vespucci Test", new Provider(), Category.other, null, null, 0, 19, false, "file://" + mbtFile.getAbsolutePath());
+                    -1, -1, "Vespucci Test", new Provider(), Category.other, null, null, 0, 19, TileLayerSource.DEFAULT_TILE_SIZE, false,
+                    "file://" + (System.getProperty("os.name").toLowerCase().contains("windows") ? "\\" : "")       + mbtFile.getAbsolutePath());
+        } catch (IOException e) {
+            fail(e.getMessage());
         }
         // force update of tile sources
-        try (TileLayerDatabase tlDb = new TileLayerDatabase(ApplicationProvider.getApplicationContext()); SQLiteDatabase db = tlDb.getReadableDatabase()) {
+        try (TileLayerDatabase tlDb = new TileLayerDatabase(ApplicationProvider.getApplicationContext());
+                SQLiteDatabase db = tlDb.getReadableDatabase()) {
             TileLayerSource.getListsLocked(ApplicationProvider.getApplicationContext(), db, false);
         }
     }
@@ -82,18 +85,15 @@ public class MBTMapTileFilesystemProviderTest {
         CallbackWithResult callback = new CallbackWithResult() {
 
             @Override
-            public IBinder asBinder() {
-                return null;
-            }
-
-            @Override
-            public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage) throws RemoteException {
+            public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage)
+                    throws IOException {
                 result = 1;
                 signal1.countDown();
             }
 
             @Override
-            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws RemoteException {
+            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason)
+                    throws IOException {
                 result = 2;
                 signal1.countDown();
             }
@@ -107,7 +107,7 @@ public class MBTMapTileFilesystemProviderTest {
         assertEquals(1, callback.result);
     }
 
-    abstract class CallbackWithResult implements IMapTileProviderCallback {
+    abstract class CallbackWithResult implements MapTileProviderCallback {
         /**
          * support returning a result for testing
          */
@@ -124,18 +124,15 @@ public class MBTMapTileFilesystemProviderTest {
         CallbackWithResult callback = new CallbackWithResult() {
 
             @Override
-            public IBinder asBinder() {
-                return null;
-            }
-
-            @Override
-            public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage) throws RemoteException {
+            public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage)
+                    throws IOException {
                 result = 0;
                 signal1.countDown();
             }
 
             @Override
-            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws RemoteException {
+            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason)
+                    throws IOException {
                 result = reason;
                 signal1.countDown();
             };

@@ -22,7 +22,7 @@ public class Background extends Layer {
     /**
      * Copy constructor
      * 
-     * @param other another Style
+     * @param other another Layer
      */
     public Background(@NonNull Background other) {
         super(other);

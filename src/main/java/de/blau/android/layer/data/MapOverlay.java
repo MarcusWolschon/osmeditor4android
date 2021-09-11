@@ -1110,9 +1110,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     /**
      * Retrieve an icon and put it in the cache for the specific element
      * 
-     * @param style an optional FeatureStlye for the object with an icon path
      * @param element the OsmElement
-     * @param isWayif the element is a Way
+     * @param isWay if the element is a Way
      * @param cache the relevant cache
      */
     private void retrieveIcon(@NonNull OsmElement element, boolean isWay, @NonNull WeakHashMap<java.util.Map<String, String>, Bitmap> cache) {

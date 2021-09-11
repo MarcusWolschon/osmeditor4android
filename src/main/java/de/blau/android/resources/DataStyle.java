@@ -43,8 +43,6 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PathDashPathEffect;
 import android.graphics.Typeface;
-import android.os.Build;
-import android.os.Environment;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,6 +59,7 @@ import de.blau.android.osm.StyleableFeature;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.symbols.Symbols;
 import de.blau.android.util.Density;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Version;
@@ -1358,7 +1357,7 @@ public final class DataStyle extends DefaultHandler {
      * Get the list of available Styles translated
      * 
      * @param context an Android Context
-     * @param the list of style names to translate
+     * @param styleNames the list of style names to translate
      * @return list of available Styles translated (or untranslated if no translation is avilable)
      */
     @NonNull
@@ -1788,35 +1787,27 @@ public final class DataStyle extends DefaultHandler {
         } catch (Exception ex) {
             Log.i(DEBUG_TAG, ex.toString());
         }
-
-        // from "sdcard" this will stop working with android 11 or so
-        @SuppressWarnings("deprecation")
-        File sdcard = Environment.getExternalStorageDirectory();
-        File indir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
-        class StyleFilter implements FilenameFilter {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(FILE_PATH_STYLE_SUFFIX);
-            }
-        }
+        // old style named files
         try {
+            File indir = FileUtil.getPublicDirectory(ctx);
+            class StyleFilter implements FilenameFilter {
+                @Override
+                public boolean accept(File dir, String name) {
+                    return name.endsWith(FILE_PATH_STYLE_SUFFIX);
+                }
+            }
             File[] list = indir.listFiles(new StyleFilter());
             readStylesFromFileList(ctx, list);
         } catch (Exception ex) {
-            Log.e(DEBUG_TAG, "Unable to access directory " + indir.getAbsolutePath() + " " + ex.getMessage());
+            Log.e(DEBUG_TAG, "Unable to read style files " + ex.getMessage());
         }
-
-        // from app specific directories
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            for (File fileDir : ctx.getExternalFilesDirs(null)) {
-                indir = new File(fileDir, Paths.DIRECTORY_PATH_STYLES);
-                try {
-                    File[] list = indir.listFiles(new XmlFileFilter());
-                    readStylesFromFileList(ctx, list);
-                } catch (Exception ex) {
-                    Log.e(DEBUG_TAG, "Unable to access directory " + indir.getAbsolutePath() + " " + ex.getMessage());
-                }
-            }
+        // from styles directory
+        try {
+            File indir = new File(FileUtil.getPublicDirectory(ctx), Paths.DIRECTORY_PATH_STYLES);
+            File[] list = indir.listFiles(new XmlFileFilter());
+            readStylesFromFileList(ctx, list);
+        } catch (Exception ex) {
+            Log.e(DEBUG_TAG, "Unable to read style files " + ex.getMessage());
         }
     }
 

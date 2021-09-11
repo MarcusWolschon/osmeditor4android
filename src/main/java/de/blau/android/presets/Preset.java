@@ -3,6 +3,7 @@ package de.blau.android.presets;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -66,6 +67,7 @@ import ch.poole.poparser.Po;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
+import de.blau.android.contract.Paths;
 import de.blau.android.contract.Urls;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -77,7 +79,6 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
 import de.blau.android.search.Wrapper;
-import de.blau.android.util.FileUtil;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
@@ -298,12 +299,8 @@ public class Preset implements Serializable {
     private final PresetMRUInfo mru;
     private String              externalPackage;
 
-    private static class PresetFileFilter implements FilenameFilter {
-        @Override
-        public boolean accept(File dir, String name) {
-            return name.endsWith(".xml");
-        }
-    }
+    private static final FilenameFilter presetFileFilter = (File dir, String name) -> name.endsWith(".xml");
+    private static final FileFilter     directoryFilter  = File::isDirectory;
 
     /**
      * create a dummy preset
@@ -1154,14 +1151,26 @@ public class Preset implements Serializable {
     /**
      * Get a candidate preset file name in presetDir
      * 
+     * Will descend recursively in to sub-directories if preset file is not found at top
+     * 
      * @param presetDir the directory
      * @return the file name or null
      */
     @Nullable
     private static String getPresetFileName(@NonNull File presetDir) {
-        File[] list = presetDir.listFiles(new PresetFileFilter());
+        File[] list = presetDir.listFiles(presetFileFilter);
         if (list != null && list.length > 0) { // simply use the first XML file found
             return list[0].getName();
+        } else {
+            list = presetDir.listFiles(directoryFilter);
+            if (list != null) {
+                for (File f : list) {
+                    String fileName = getPresetFileName(f);
+                    if (fileName != null) {
+                        return f.getName() + Paths.DELIMITER + fileName;
+                    }
+                }
+            }
         }
         return null;
     }
@@ -3259,7 +3268,7 @@ public class Preset implements Serializable {
         /**
          * Add a linked preset to the PresetItem
          * 
-         * @param presetName name of the PresetItem to link to
+         * @param presetLink the PresetLink
          */
         public void addLinkedPresetItem(@NonNull PresetItemLink presetLink) {
             if (linkedPresetItems == null) {
@@ -3271,7 +3280,7 @@ public class Preset implements Serializable {
         /**
          * Add a linked alternative preset to the PresetItem
          * 
-         * @param presetName name of the PresetItem to link to
+         * @param presetLink the PresetLink
          */
         public void addAlternativePresetItem(@NonNull PresetItemLink presetLink) {
             if (alternativePresetItems == null) {
@@ -4237,14 +4246,14 @@ public class Preset implements Serializable {
      * This is for the taginfo project repo
      * 
      * @param ctx Android Context
-     * @param filename the filename to save to
+     * @param output the File to save to
      * @return true if things worked
      */
-    public static boolean generateTaginfoJson(@NonNull Context ctx, @NonNull String filename) {
+    public static boolean generateTaginfoJson(@NonNull Context ctx, @NonNull File output) {
         Preset[] presets = App.getCurrentPresets(ctx);
 
-        try (FileOutputStream fout = new FileOutputStream(new File(FileUtil.getPublicDirectory(), filename));
-                PrintStream outputStream = new PrintStream(new BufferedOutputStream(fout));) {
+        try (FileOutputStream fout = new FileOutputStream(output);
+                PrintStream outputStream = new PrintStream(new BufferedOutputStream(fout))) {
             outputStream.println("{");
             outputStream.println("\"data_format\":1,");
             outputStream.println("\"data_url\":\"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/taginfo.json\",");
@@ -4260,10 +4269,14 @@ public class Preset implements Serializable {
             outputStream.println("]},");
 
             outputStream.println("\"tags\":[");
-            for (int i = 0; i < presets.length; i++) {
+            int presetsCount = presets.length;
+            for (int i = 0; i < presetsCount; i++) {
                 if (presets[i] != null) {
                     if (i != 0) {
-                        outputStream.print(",\n");
+                        if (i != presetsCount - 1) {
+                            outputStream.print(",");
+                        }
+                        outputStream.println();
                     }
                     String json = presets[i].toJSON();
                     outputStream.print(json);
@@ -4271,7 +4284,7 @@ public class Preset implements Serializable {
             }
             outputStream.println("]}");
         } catch (Exception e) {
-            Log.e(DEBUG_TAG, "Export failed - " + filename + " exception " + e);
+            Log.e(DEBUG_TAG, "Export failed - " + output.getAbsolutePath() + " exception " + e);
             return false;
         }
         return true;

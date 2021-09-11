@@ -10,7 +10,7 @@ _Deze documentatie is voorlopig is werk in uitvoering_
 
 In een typische workflow zal het object dat wordt bewerkt al een bestaande openingstijden tag (opening_hours, service_times en collection_times) hebben, of je kan opnieuw een voorkeuze toepassen op het object om een leeg openingstijden veld te krijgen. Om handmatig het veld toe te voegen in Vespucci kan je in de detailspagina de sleutel toevoegen en dan terug naar de formuliergebaseerde wijzigingstab om te wijzigen. Als je denkt dat de openingstijden tag deel had moeten zijn van de voorkeuze, dan kan je een probleemmelding openen voor jouw bewerker. 
 
-Als je een standaardsjabloon hebt gedefiniëerd (doe dit via het "Beheer sjablonen" menu item) zal het sjabloon automatisch worden geladen als de bewerker wordt geladen met een lege waarde. Met de "Laad sjabloon" kan je een ander opgeslagen sjabloon laden en met de "Sjabloon opslaan" menu kan je de huidige waarde als een sjabloon opslaan. Je kan verschillende standaardsjablonen definiëren voor de "opening_hours", "collection_times" en "service_times" tags. 
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
 
 Natuurlijk kan je een openingstijden met de hand maken, maar we raden aan om een van de bestaande sjablonen als een startpunt te gebruiken.
 
@@ -62,7 +62,9 @@ Standaard regels worden toegevoegd als _normale_ rules, dat betekent dat ze waar
     * __Variable datum - open eind__: vanaf een variabele startdatum.
     * __Voorkomen in maand - open einde__: vanafeen voorkomen van een dag in de week in de maand.
     * __Met verplaatsingen...__: hetzelfde als hierboven maar met verplaatsingen gespecificeerd (dit wordt zelden gebruikt).
-* __Voeg jaarbereik toe__: voeg een jaargebaseerde selector toe.
+* __Add year range...__    
+    * __Voeg jaarbereik toe__: voeg een jaargebaseerde selector toe.
+    * __Add starting year__: add an open ended year range.
 * __Voeg weekbereik toe__: voeg een selector voor een weeknummer.
 * __Dupliceer__: maak een kopie van deze regel en voeg hem toe achter de huidige positie.
 * __Toon regeltype__: toon en wijzig het regeltype tussen _normal_, _additief_ en _terugval_ (niet beschikbaar op de eerste regel).
@@ -86,3 +88,13 @@ Klikken (niet op de bolletjes) op de tijdsbalk opent een groter tijdskeuzescherm
 * __Toon interval__: toont het interval veld om een interval in minuten op te geven.
 * __Verwijder__: verwijder dit tijdsbereik.
 
+### Beheer sjablonen
+
+The template management dialog allows you to add, edit and delete templates.
+
+In Android 4.4 and later the following additional functionality is available from the menu button. 
+
+* __Show all__: display all templates in the database.
+* __Save to file__: write the contents of the template database to a file.
+* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
+* __Load from file__: load templates from a file retaining the current contents.

@@ -1,0 +1,335 @@
+{
+"aeroway/aerodrome":[
+"አየር ማረፊያ"
+],
+"amenity/bank":[
+"ባንክ"
+],
+"amenity/bar":[
+"ቡና ቤት"
+],
+"amenity/bicycle_repair_station":[
+"ቢስክሌት ጠጋኝ"
+],
+"amenity/bureau_de_change":[
+"የውጭ ምንዛሬ ቢሮ"
+],
+"amenity/bus_station":[
+"አውቶቡስ መናኃሪያ"
+],
+"amenity/cafe":[
+"ሻይ ቤት"
+],
+"amenity/car_rental":[
+"የመኪና ማከራያ"
+],
+"amenity/car_sharing":[
+"የመኪና ዕቃ መለዋወጫ መሸጫ"
+],
+"amenity/cinema":[
+"ሲኒማ ቤት"
+],
+"amenity/clinic":[
+"ክሊኒክ"
+],
+"amenity/college":[
+"ኮሌጅ"
+],
+"amenity/community_centre":[
+"የማህበረሰብ ማዕከል"
+],
+"amenity/courthouse":[
+"ፍርድ ቤት"
+],
+"amenity/dentist":[
+"የጥርስ ሃኪም"
+],
+"amenity/doctors":[
+"ክሊኒክ"
+],
+"amenity/driving_school":[
+"የመኪና ትምህርት ቤት"
+],
+"amenity/embassy":[
+"ኤምባሲ"
+],
+"amenity/fast_food":[
+"ፈጣን ምግብ"
+],
+"amenity/fire_station":[
+"እሳትና ድንገተኛ አደጋዎች መከላከያ"
+],
+"amenity/grave_yard":[
+"የቀብር ቦታ"
+],
+"amenity/hospital":[
+"ሆስፒታል"
+],
+"amenity/ice_cream":[
+"አይስ ክሬም"
+],
+"amenity/kindergarten":[
+"ሕፃናት መዋያ"
+],
+"amenity/library":[
+"ቤተ-መፃሕፍት"
+],
+"amenity/marketplace":[
+"የገበያ ቦታ"
+],
+"amenity/music_school":[
+"የሙዚቃ ትምህርት ቤት"
+],
+"amenity/nightclub":[
+"የምሽት ክለብ"
+],
+"amenity/pharmacy":[
+"መድሃኒት ቤት"
+],
+"amenity/place_of_worship":[
+"የእምነት ቦታ"
+],
+"amenity/police":[
+"ፖሊስ ጣቢያ"
+],
+"amenity/post_office":[
+"ፖስታ ቤት"
+],
+"amenity/prison":[
+"እስር ቤት"
+],
+"amenity/pub":[
+"ፐብ"
+],
+"amenity/restaurant":[
+"ምግብ ቤት"
+],
+"amenity/school":[
+"ትምህርት ቤት"
+],
+"amenity/studio":[
+"ስቱዲዮ"
+],
+"amenity/taxi":[
+"ታክሲ"
+],
+"amenity/telephone":[
+"የህዝብ ስልክ"
+],
+"amenity/theatre":[
+"ቲያትር ቤት"
+],
+"amenity/toilets":[
+"መፀዳጃ ቤት"
+],
+"amenity/university":[
+"ዩኒቨርሲቲ"
+],
+"amenity/veterinary":[
+"የእንስሳት መድሃኒት ቤት"
+],
+"building/apartments":[
+"የመኖሪያ ቤት"
+],
+"building/commercial":[
+"የንግድ ህንፃ"
+],
+"building/house":[
+"የመኖሪያ ቤት"
+],
+"building/industrial":[
+"የኢንዱስትሪ ቢሮ"
+],
+"building/public":[
+"የህዝብ ህንፃ"
+],
+"building/retail":[
+"የችርቻሮ ህንፃ"
+],
+"building/warehouse":[
+"የዕቃ ቤት"
+],
+"highway/primary":[
+"ዋና መንገድ"
+],
+"highway/residential":[
+"የመኖሪያ አካባቢ መንገድ"
+],
+"highway/secondary":[
+"ሁለተኛ መንገድ"
+],
+"highway/tertiary":[
+"ተለዋጭ መንገድ"
+],
+"landuse/industrial":[
+"ኢንዱስትሪ"
+],
+"leisure/garden":[
+"መናፈሻ"
+],
+"leisure/golf_course":[
+"የጎልፍ መጫወቻ"
+],
+"leisure/pitch/tennis":[
+"ቴኒስ"
+],
+"leisure/stadium":[
+"ስታዲዩም"
+],
+"office/accountant":[
+"ሒሳብ ሠራተኛ"
+],
+"office/administrative":[
+"አስተዳደር ቢሮ"
+],
+"office/advertising_agency":[
+"የማስታወቂያ ድርጅት"
+],
+"office/architect":[
+"አርኪቴክት"
+],
+"office/association":[
+"ማኅበር"
+],
+"office/company":[
+"ኩባንያ"
+],
+"office/educational_institution":[
+"የትምህርት ተቋም"
+],
+"office/employment_agency":[
+"የስራ ቅጥር ኤጀንሲ"
+],
+"office/estate_agent":[
+"የሪል እስቴት ወኪል"
+],
+"office/foundation":[
+"ተቋም"
+],
+"office/government":[
+"የመንግስት ድርጅት"
+],
+"office/insurance":[
+"ኢንሹራንስ"
+],
+"office/it":[
+"አይ.ቲ."
+],
+"office/lawyer":[
+"ጠበቃ"
+],
+"office/newspaper":[
+"ጋዜጣ"
+],
+"office/ngo":[
+"መንግስታዊ ያልሆነ ድርጅት"
+],
+"office/religion":[
+"ሃይማኖት"
+],
+"office/research":[
+"ምርምር ቢሮ"
+],
+"office/telecommunication":[
+"ቴሌኮሙኒኬሽን"
+],
+"office/travel_agent":[
+"የጉዞ ወኪል"
+],
+"place/city":[
+"ከተማ"
+],
+"place/hamlet":[
+"ከተማ"
+],
+"place/suburb":[
+"አካባቢ"
+],
+"shop/beauty":[
+"ውበት / ስፓ"
+],
+"shop/beverages":[
+"የለስላሳ መጠጦች ማከፋፈያ"
+],
+"shop/books":[
+"መፃሕፍት መሸጫ"
+],
+"shop/butcher":[
+"ሥጋ ቤት"
+],
+"shop/car":[
+"መኪና መሸጫ"
+],
+"shop/computer":[
+"ኮምፒውተር"
+],
+"shop/department_store":[
+"የተደራጀ ግዙፍ ማከፋፈያ"
+],
+"shop/electrical":[
+"የኤሌትሪክ ዕቃዎች መሸጫ"
+],
+"shop/electronics":[
+"ኤሌክትሮኒክስ መሸጫ ሱቅ"
+],
+"shop/florist":[
+"የአበባ መሸጫ"
+],
+"shop/fuel":[
+"ነዳጅ ማደያ"
+],
+"shop/furniture":[
+"የቤትና የቢሮ ዕቃዎች መሸጫ"
+],
+"shop/greengrocer":[
+"አትክልት መሸጫ ሱቆች"
+],
+"shop/hairdresser":[
+"ፀጉር ቤት"
+],
+"shop/hardware":[
+"ሲኒማ ቤት"
+],
+"shop/kiosk":[
+"አነስተኛ ሱቅ"
+],
+"shop/laundry":[
+"የልብስ ንጽህና መስጫ"
+],
+"shop/massage":[
+"ማሳጅ ቤት"
+],
+"shop/optician":[
+"መነፅር ቤት"
+],
+"shop/shoes":[
+"ጫማ ቤት"
+],
+"shop/stationery":[
+"የጽሕፈት መሳሪያ መሸጫ"
+],
+"shop/supermarket":[
+"የገበያ ማዕከል"
+],
+"shop/video":[
+"ቪዲዮ"
+],
+"tourism/guest_house":[
+"እንግዳ ማረፊያ"
+],
+"tourism/hostel":[
+"ሆስቴል"
+],
+"tourism/hotel":[
+"ሆቴል"
+],
+"tourism/motel":[
+"ሞቴል"
+],
+"tourism/museum":[
+"ሙዚየም"
+],
+"tourism/zoo":[
+"የእንስሳት ግቢ"
+]
+}

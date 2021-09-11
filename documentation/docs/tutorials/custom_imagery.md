@@ -1,8 +1,10 @@
 # Custom imagery
-_by Simon Poole, updated 2020-10-31_
+_by Simon Poole, updated 2021-08-30_
 
 For Vespucci 10.1 we've added four long requested features: a simple UI to add custom imagery sources, support for WMS servers that support the same projection as conventional
 OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913, later Vespucci versions support EPSG:4326 for WMS servers too), support for layers from [OAM](https://openaerialmap.org/) and support for imagery layers in [MBTiles](https://github.com/mapbox/mbtiles-spec) format.
+
+__NOTE__ even though the URLs may look similar to those for a WMS layer, we do not support requesting data from ESRI MapServer with their native protocol.
 
 ## Adding a custom imagery source
 
@@ -15,6 +17,7 @@ To add a custom layer goto the _Preferences_ screen and select _Custom imagery_,
 * the__Overlay__ flag, indicating that the layer is not a background, but partially transparent images for displaying over a background layer.
 * __Coverage__ left, bottom, right and top coordinates of a coverage bounding box in WGS84 coordinates, if the values are empty it is assumed that the layer covers the whole visible web-mercator area, that is -180°, -85°, 180°, 85°.
 * __Zoom__ _Min_ and _Max_ zoom levels, these indicates the minimum and maximum zoom levels available and are important for the app to determine over- and under-zoom correctly.
+* __Tile size__ side length in pixels for the tiles, default 256. _Available from version 16.0 and later_
 
 ### Supported placeholders
 
@@ -47,7 +50,7 @@ __{bbox}__ bounding box in _proj_ coordinates for WMS servers. _JOSM_, _Vespucci
 __{subdomain}__ reserved, used internally by _Vespucci_
 
 * A valid normal (non-Bing) URL for a tile server must contain at least at least __{zoom}__, __{x}__ and one of __{y}__, __{-y}__ or __{ty}__.
-* A valid WMS server entry must contain at least __{width}__, __{height}__ and __{bbox}__ placeholders. Note: do not add a __{proj}__ placeholder when adding such a layer in the "Custom imagery" form in Vespucci (it is supported in the configuration files), simply leave the SRS or CRS attribute in the URL as is with the desired projection value.
+* A valid WMS entry must be a legal URL for a layer containing at least __{width}__, __{height}__ and __{bbox}__ placeholders. Note: do not add a __{proj}__ placeholder when adding such a layer in the "Custom imagery" form in Vespucci (it is supported in the configuration files), simply leave the SRS or CRS attribute in the URL as is with the desired projection value.
 
 ### Examples
 

@@ -108,7 +108,7 @@ public class AutoPresetTest {
         try {
             // zap the generated preset file
             FileUtil.copyFileFromAssets(context, Files.FILE_NAME_AUTOPRESET_TEMPLATE,
-                    FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), Files.FILE_NAME_AUTOPRESET);
+                    FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(main), Paths.DIRECTORY_PATH_AUTOPRESET), Files.FILE_NAME_AUTOPRESET);
         } catch (IOException e) {
             System.out.println("Removing auto-preset exception " + e); // NOSONAR
         }

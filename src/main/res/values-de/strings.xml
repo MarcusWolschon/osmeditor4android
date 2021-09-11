@@ -13,23 +13,23 @@
   <string name="transfer_download_current_download">Verwerfen</string>
   <string name="transfer_download_current_back">Zurück</string>
   <string name="upload_problem_title">Hochladen fehlgeschlagen</string>
-  <string name="upload_problem_message">Ein Teil oder alle Daten wurden nicht hochgeladen. Versuchen Sie es später nochmals. </string>
+  <string name="upload_problem_message">Ein Teil oder alle Daten wurden nicht hochgeladen. Versuchen Sie es später nochmals.</string>
   <string name="bad_request_message">Die API gab einen Fehler zurück, bitte die Daten sichern und den Fehler melden:\n\n</string>
   <string name="upload_conflict_title">Konflikt beim Hochladen</string>
-  <string name="upload_conflict_message_version">%1$s \nhat lokale Version %2$d \nund auf dem Server %3$d </string>
+  <string name="upload_conflict_message_version">%1$s \nhat lokale Version %2$d \nund auf dem Server %3$d</string>
   <string name="upload_conflict_message_deleted">%1$s \nhat lokale Version %2$d \nund ist auf dem Server gelöscht</string>
-  <string name="upload_conflict_message_referential">%1$s \nwurde lokal gelöscht \naber hat noch aktive Bezüge auf dem Server </string>
+  <string name="upload_conflict_message_referential">%1$s \nwurde lokal gelöscht \naber hat noch aktive Bezüge auf dem Server</string>
   <string name="upload_conflict_message_already_deleted">%1$s \n ist auf dem Server schon gelöscht</string>
   <string name="use_local_version">Lokale Version verwenden</string>
   <string name="use_server_version">Version auf dem Server verwenden</string>
   <string name="no_login_data_title">Authentifizierung fehlgeschlagen</string>
-  <string name="no_login_data_message">Falls OAuth verwendet wird, ist dies wahrscheinlich ein Fehler, der gemeldet werden sollte. Falls Login und Passwort verwendet werden (nicht empfohlen), sollte überprüft werden, ob sie korrekt eingegeben wurden. </string>
+  <string name="no_login_data_message">Falls OAuth verwendet wird, ist dies wahrscheinlich ein Fehler, der gemeldet werden sollte. Falls Login und Passwort verwendet werden (nicht empfohlen), sollte überprüft werden, ob sie korrekt eingegeben wurden.</string>
   <string name="no_connection_title">Keine Verbindung zum Server</string>
   <string name="no_connection_message">Verbindung zum OSM-Server fehlgeschlagen. Bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später noch einmal.</string>
   <string name="ssl_handshake_failed">Konnte keine Verbindung zum OSM-Server herstellen, da das Aushandeln einer https-Verbindung fehlschlug. Versuchen Sie in den API-Einstellungen auf eine nicht verschlüsselte Verbindung umzustellen.</string>
   <string name="wrong_login_data_title">Authentifizierung fehlgeschlagen</string>
   <string name="wrong_login_data_message">Falls OAuth verwendet wird, nochmals authentisieren und dann wiederholen. Falls Login und Passwort verwendet werden (nicht empfohlen), sollte überprüft werden, ob sie korrekt konfiguriert wurden.</string>
-  <string name="wrong_login_data_re_authenticate">Authentifizerung wiederholen</string>
+  <string name="wrong_login_data_re_authenticate">Authentifizierung wiederholen</string>
   <string name="forbidden_login_title">Einloggen verboten</string>
   <string name="not_found_title">Element nicht gefunden.</string>
   <string name="not_found_message">Die API konnte kein bestehendes Objekt oder Changeset mit der ID finden.&lt;br&gt;&lt;br&gt;</string>
@@ -54,13 +54,13 @@
   <string name="out_of_memory_message">Vespucci konnte die angeforderten Daten nicht laden. Bitte neu starten und ein kleineres Gebiet wählen.</string>
   <string name="out_of_memory_dirty_message">Vespucci konnte die angeforderten Daten nicht laden. Bitte die bereits gemachten Änderungen speichern, neu starten und ein kleineres Gebiet wählen.</string>
   <string name="invalid_data_received_title">Ungültige Daten erhalten</string>
-  <string name="invalid_data_received_message">Falls es keine erkennbaren Gründe für den Fehler gibt, bitte eine Fehlermeldung erstellen. </string>
+  <string name="invalid_data_received_message">Falls es keine erkennbaren Gründe für den Fehler gibt, bitte eine Fehlermeldung erstellen.</string>
   <string name="invalid_data_read_title">Ungültige Daten gelesen</string>
   <string name="invalid_data_read_message">Bitte die Dokumentation zu unterstützten Dateiformaten und erforderlichen Datenfeldern lesen.</string>
   <string name="file_write_failed_title">Datei konnte nicht geschrieben werden</string>
   <string name="file_write_failed_message">Die gewünschte Datei konnte nicht geschrieben werden.</string>
-  <string name="applying_osc_failed_title">OSC Datei konnte nicht verarbeitet werden</string>
-  <string name="applying_osc_failed_message">Wahrscheinlich waren die ursprünglichen Daten die benötigt werden um die Änderungen durchzuführen nicht geladen.</string>
+  <string name="applying_osc_failed_title">OSC-Datei konnte nicht verarbeitet werden</string>
+  <string name="applying_osc_failed_message">Wahrscheinlich waren die ursprünglichen Daten, die benötigt werden um die Änderungen durchzuführen, nicht geladen.</string>
   <!---->
   <string name="welcome_title">Willkommen</string>
   <string name="welcome_message">Danke, dass Sie Vespucci installiert haben.\n&lt;br&gt;&lt;br&gt;Um anzufangen, müssen Sie 3 Sachen wissen:\n&lt;ul&gt;&lt;li&gt;durch Antippen des Schlosses in der oberen linken Ecke schalten Sie zwischen dem gesperrten (keine Bearbeitung) und dem entsperrten Status um,&lt;/li&gt;&lt;li&gt;um OpenStreetMap zu editieren, müssen Sie zuerst das Gebiet, das Sie bearbeiten wollen, herunterladen (es empfiehlt sich zuerst hineinzuzoomen),&lt;/li&gt;&lt;li&gt;um ein neues Objekt zu erstellen, müssen Sie den großen grünen Knopf antippen, auswählen, was Sie hinzufügen wollen, und dann die entsprechende Bildschirmposition berühren.&lt;/li&gt;&lt;/ul&gt;\nViel Spaß beim Kartieren!</string>
@@ -73,16 +73,16 @@
   <string name="progress_message">Daten in den Speicher laden…</string>
   <string name="progress_download_message">Daten vom Server herunterladen…</string>
   <string name="progress_general_title">Bitte warten</string>
-  <string name="progress_deleting_message">Löschen...</string>
-  <string name="progress_searching_message">Suchen...</string>
-  <string name="progress_saving_message">Speichern...</string>
-  <string name="progress_uploading_message">Hochladen...</string>
-  <string name="progress_preset_message">Vorlage herunterladen...</string>
-  <string name="progress_running_message">Wird ausgeführt...</string>
-  <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth-Autorisierung...</string>
+  <string name="progress_deleting_message">Löschen…</string>
+  <string name="progress_searching_message">Suchen…</string>
+  <string name="progress_saving_message">Speichern…</string>
+  <string name="progress_uploading_message">Hochladen…</string>
+  <string name="progress_preset_message">Vorlage herunterladen…</string>
+  <string name="progress_running_message">Wird ausgeführt…</string>
+  <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth-Autorisierung…</string>
   <string name="progress_building_imagery_database">Hintergrundbilderdatenbank wird erstellt…</string>
   <string name="progress_query_oam">Abfrage von OAM…</string>
-  <string name="progress_pruning">Zurück schneiden…</string>
+  <string name="progress_pruning">Zurückschneiden…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" gelöscht</string>
   <string name="changes_changed">\"%1$s\" verändert</string>
@@ -114,7 +114,7 @@
   <string name="openstreetbug_commit_ok">Aufgabenänderungen gespeichert</string>
   <string name="openstreetbug_commit_fail">Aufgabenänderungen konnten nicht gespeichert werden</string>
   <string name="openstreetbug_unknown_task_type">Unbekannter Tasktyp</string>
-  <string name="openstreetbug_not_supported">%1$sist nicht unterstützt.</string>
+  <string name="openstreetbug_not_supported">%1$s ist nicht unterstützt.</string>
   <string name="note_description">Notiz: %1$s - %2$s</string>
   <string name="bug_description">%1$s: %2$s - %3$s</string>
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
@@ -159,7 +159,7 @@
   <string name="geocoder_limit_label">in der Ansicht</string>
   <!--Search objects dialog-->
   <string name="search_objects_title">Objektsuche</string>
-  <string name="search_objects_hint">Ein JOSM Suchausdruck eingeben</string>
+  <string name="search_objects_hint">Einen JOSM-Suchausdruck eingeben</string>
   <string name="search_objects_use_regexps">Reguläre Ausdrücke verwenden</string>
   <string name="search_objects_unsupported">Ausdruck \"%1$s\" wird nicht unterstützt</string>
   <!---->
@@ -202,7 +202,7 @@
   <string name="attribution">Quellenhinweis</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Zu viele Daten!</string>
-  <string name="too_much_data_message"> Es sind%1$d Nodes geladen, mehr als die konfigurierte Maximalwert  Dies macht die App langsam und führt möglicherweise zu Problemen beim Sichern des aktuellen Zustandes. </string>
+  <string name="too_much_data_message"> Es sind %1$d Nodes geladen, mehr als die konfigurierte Maximalwert. Dies macht die App langsam und führt möglicherweise zu Problemen beim Sichern des aktuellen Zustandes.</string>
   <string name="upload_data_now">Änderungen hochladen</string>
   <string name="prune_data_now">Daten zurückschneiden</string>
   <!--Delete custom preset dialog-->
@@ -216,13 +216,13 @@
   <string name="duplicate_relation_member_message">Dieses Element ist bereits ein Mitglied der Relation.</string>
   <string name="duplicate_relation_member_remove_button">Relationsmitglied entfernen</string>
   <!--Move multi-polygon outer element tags to relation-->
-  <string name="move_outer_tags_title">Eigenschaften von äusseren Ringen auf das Multipolygon verschieben</string>
-  <string name="move_outer_tags_message">Objekt definierende Eigenschaften sollten sich nur auf dem Multipolygon befinden. Diese Aktion wird gemeinsame Eigenschaften von den äusseren Ringe auf das Multipolygon verschieben.</string>
+  <string name="move_outer_tags_title">Eigenschaften von äußeren Ringen auf das Multipolygon verschieben</string>
+  <string name="move_outer_tags_message">Objekt-definierende Eigenschaften sollten sich nur auf dem Multipolygon befinden. Diese Aktion wird gemeinsame Eigenschaften von den äußeren Ringen auf das Multipolygon verschieben.</string>
   <string name="move">Verschieben</string>
   <string name="leave_as_is">Wie bisher lassen</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
-  <string name="remove_duplicate_outer_tags_title">Doppelte Eigenschaften von äusseren Ringen entfernen</string>
-  <string name="remove_duplicate_outer_tags_message">Eigenschaften von äusseren Ringen entfernen die auf dem Multipolygon vorhanden sind.</string>
+  <string name="remove_duplicate_outer_tags_title">Doppelte Eigenschaften von äußeren Ringen entfernen</string>
+  <string name="remove_duplicate_outer_tags_message">Eigenschaften von äußeren Ringen entfernen, die auf dem Multipolygon vorhanden sind.</string>
   <string name="remove">Entfernen</string>
   <!--Abort action mode dialog-->
   <string name="abort_action_title">Aktion abbrechen</string>
@@ -283,7 +283,7 @@
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Benutzerdefinierter Hintergrund</string>
   <string name="oam_layer_title">Hintergründe von OAM</string>
-  <string name="wms_endpoints_title">WMS Server</string>
+  <string name="wms_endpoints_title">WMS-Server</string>
   <string name="edit_layer_title">Hintergrundeintrag bearbeiten</string>
   <string name="add_layer_title">Hintergrundeintrag hinzufügen</string>
   <string name="select_layer_title">Ebene auswählen</string>
@@ -296,8 +296,8 @@
   <string name="toast_invalid_box">Ungültiges oder unvollständiges Begrenzungsrechteck</string>
   <string name="delete_layer">Hintergrundeintrag löschen?</string>
   <string name="delete_endpoint">Server löschen?</string>
-  <string name="add_wms_endpoint_title">WMS Server hinzufügen</string>
-  <string name="edit_wms_endpoint_title">WMS Server ändern</string>
+  <string name="add_wms_endpoint_title">WMS-Server hinzufügen</string>
+  <string name="edit_wms_endpoint_title">WMS-Server ändern</string>
   <string name="add_imagery_from_wms_endpoint">Ebene vom WMS hinzufügen</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Ebenenstil</string>
@@ -323,7 +323,7 @@
   <string name="layer_category_historicphoto">Veraltetes Luftbild</string>
   <string name="layer_category_map">Karte</string>
   <string name="layer_category_historicmap">Veraltete Karte</string>
-  <string name="layer_category_osmbasedmap">OSM basierte Karte</string>
+  <string name="layer_category_osmbasedmap">OSM-basierte Karte</string>
   <string name="layer_category_qa">Qualitätskontrolle</string>
   <string name="layer_category_other">Andere</string>
   <!--Layer info dialog-->
@@ -335,6 +335,7 @@
   <string name="layer_info_privacy_policy">Datenschutz</string>
   <string name="projection">Projektion</string>
   <string name="errors">Fehler</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Foto löschen</string>
   <string name="photo_viewer_delete_button">Endgültig löschen</string>
@@ -350,7 +351,7 @@
   <string name="tag_conflict_title">Eigenschaften geändert</string>
   <string name="tag_conflict_message">Die Operation musste Eigenschaften der beteiligten Objekte ändern.</string>
   <!--Relation selection dialog-->
-  <string name="no_suitable_relations_message">Keine geeignete Relationen in den heruntergeladenen Daten gefunden</string>
+  <string name="no_suitable_relations_message">Keine geeigneten Relationen in den heruntergeladenen Daten gefunden</string>
   <string name="select_route_title">Route auswählen</string>
   <string name="select_relation_title">Relation auswählen</string>
   <!--Preset selection dialog-->
@@ -380,15 +381,15 @@
   <string name="tip_title">Wussten Sie?</string>
   <string name="tip_check_label">Optionale Tipps nicht mehr anzeigen</string>
   <string name="tip_undo">Ein langer Druck auf den \"Rückgängig\"-Knopf zeigt alle Sicherungspunkte, die rückgängig gemacht und wiederhergestellt werden können.</string>
-  <string name="tip_imagery_privacy">Hintergrund- und Vordergrundlayer werden von Dritten angeboten. Beim Verwenden eines Layers werden Ihre Netzwerkadresse und ein Anhaltspunkt für das betrachtete Gebiet an den Anbieter übertragen.  &lt;p&gt;
+  <string name="tip_imagery_privacy">Hintergrund- und Vordergrundlayer werden von Dritten angeboten. Beim Verwenden eines Layers werden Ihre Netzwerkadresse und ein Anhaltspunkt für das betrachtete Gebiet an den Anbieter übertragen.&lt;p&gt;
 Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den Menüpunkt \"Info\" in der Anforderung für den Layer eingesehen werden.</string>
-  <string name="tip_pan_and_zoom_auto_download">Das automatische Laden der aktuellen Ansicht sollte mit Vorsicht verwendet werden, da es das Potential hat, sowohl die OpenStreetMap API als auch dieses Gerät erheblich zu belasten.&lt;p&gt;Ersteres kann durch die Verwendung einer Offlinedatenquelle vermieden werden.</string>
-  <string name="tip_locked_mode">Im gesperrten Zustand kann nicht editiert werden, aber ein langer Click auf ein Objekt zeigt Detailinformationen an.</string>
-  <string name="tip_longpress_simple_mode">Im einfachen Modus hat ein langer Klick keine Funktion. Schalte den einfachen Modus ab wenn du mit langem Klick Objekte erstellen willst.</string>
-  <string name="tip_gpx_no_elevation">Ab Version 15 enthalten GPX-Aufzeichnungen standardmässig keine Höhendaten mehr.&lt;p&gt;Um Höhendaten hinzufügen entweder im Werkzeugmenu &lt;i&gt;EGM installieren&lt;/i&gt; auswählen, oder als Standortdatenquelle NMEA Input verwenden.</string>
-  <string name="tip_tag_conflict">Das Zusammenführen und Umdrehen von OSM Objekten führt manchmal dazu, dass Eigenschaften der Objekte geändert werden. Falls das zu einem Fehler oder Konflikt führen könnte wird eine Meldung angezeigt, und die Änderungen können geprüft werden.</string>
-  <string name="tip_gpx_recording">Beim Aufzeichnen eine GPX-Spur verwendet Vespucci Standortdaten um die Aufzeichnung zu ermöglichen auch wenn die App nicht sichtbar ist..&lt;p&gt;Wird die App explizit verlassen, oder die GPX-Aufzeichnung beendet, wird der Standort nicht mehr verwendet.</string>
-  <string name="tip_auto_download">Beim automatischen Download von Daten oder Aufgaben um den aktuellen Standort verwendet Vespucci Standortdaten um den aktuellen Standort zu bestimmen auch wenn die App nicht sichtbar ist..&lt;p&gt;Wird die App explizit verlassen, oder die GPX-Aufzeichnung beendet, wird der Standort nicht mehr verwendet.</string>
+  <string name="tip_pan_and_zoom_auto_download">Das automatische Laden der aktuellen Ansicht sollte mit Vorsicht verwendet werden, da es das Potential hat, sowohl die OpenStreetMap-API als auch dieses Gerät erheblich zu belasten.&lt;p&gt;Ersteres kann durch die Verwendung einer Offlinedatenquelle vermieden werden.</string>
+  <string name="tip_locked_mode">Im gesperrten Zustand kann nicht editiert werden, aber ein langer Klick auf ein Objekt zeigt Detailinformationen an.</string>
+  <string name="tip_longpress_simple_mode">Im einfachen Modus hat ein langer Klick keine Funktion. Schalten Sie den einfachen Modus ab, wenn Sie mit langem Klick Objekte erstellen wollen.</string>
+  <string name="tip_gpx_no_elevation">Ab Version 15 enthalten GPX-Aufzeichnungen standardmäßig keine Höhendaten mehr.&lt;p&gt;Um Höhendaten hinzufügen entweder im Werkzeugmenü &lt;i&gt;EGM installieren&lt;/i&gt; auswählen, oder als Standortdatenquelle NMEA-Input verwenden.</string>
+  <string name="tip_tag_conflict">Das Zusammenführen und Umdrehen von OSM-Objekten führt manchmal dazu, dass Eigenschaften der Objekte geändert werden. Falls das zu einem Fehler oder Konflikt führen könnte wird eine Meldung angezeigt, und die Änderungen können geprüft werden.</string>
+  <string name="tip_gpx_recording">Beim Aufzeichnen eine GPX-Spur verwendet Vespucci Standortdaten um die Aufzeichnung zu ermöglichen, auch wenn die App nicht sichtbar ist.&lt;p&gt;Wird die App explizit verlassen, oder die GPX-Aufzeichnung beendet, wird der Standort nicht mehr verwendet.</string>
+  <string name="tip_auto_download">Beim automatischen Download von Daten oder Aufgaben um den aktuellen Standort verwendet Vespucci Standortdaten um den aktuellen Standort zu bestimmen, auch wenn die App nicht sichtbar ist.&lt;p&gt;Wird die App explizit verlassen, oder die GPX-Aufzeichnung beendet, wird der Standort nicht mehr verwendet.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -396,7 +397,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <!--NotificationChannels-->
   <string name="default_channel_name">Vespucci-Voreinstellung</string>
   <string name="default_channel_description">Voreingestellter Benachrichtigungskanal</string>
-  <string name="qa_channel_name">Vespucci QA</string>
+  <string name="qa_channel_name">Vespucci-QA</string>
   <string name="qa_channel_description">Kanal für Qualitätsalarm bei Datenproblemen und Aufgaben</string>
   <!--Toaster-->
   <string name="toast_permission_denied">Zugriff verweigert %1$s</string>
@@ -405,7 +406,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_url_empty">URL darf nicht leer sein</string>
   <string name="toast_min_zoom">Minimaler Zoom muss kleiner sein als der maximale Zoom</string>
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
-  <string name="toast_jpeg_not_transparent">JPEG Kacheln sind nicht transparent und können nicht als Overlay verwendet werden</string>
+  <string name="toast_jpeg_not_transparent">JPEG-Kacheln sind nicht transparent und können nicht als Overlay verwendet werden</string>
   <string name="toast_unsaved_changes">Sie haben ungespeicherte Änderungen, bitte zuerst hochladen.</string>
   <string name="clear_anyway">Trotzdem löschen?</string>
   <string name="toast_upload_success">Hochladen zum OSM-Server beendet.</string>
@@ -418,12 +419,12 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_preset_overwrote_tags">Achtung: Die Vorlage hat einen oder mehrere Tags überschrieben</string>
   <string name="toast_merge_overwrote_tags">Achtung: Die Operation hat einen oder mehrere Tags überschrieben</string>
   <string name="toast_cant_autoapply_preset">Die Vorlage kann nicht automatisch angewendet werden</string>
-  <string name="toast_oneway_reversed">Die Richtung einer Einbahnstraße oder eines Weges mit richtungsabhängigen Tags wurde geändert. Bitte Tags überprüfen und ggf. korrigieren. </string>
+  <string name="toast_oneway_reversed">Die Richtung einer Einbahnstraße oder eines Weges mit richtungsabhängigen Tags wurde geändert. Bitte Tags überprüfen und ggf. korrigieren.</string>
   <string name="toast_potential_merge_tag_conflict">Es sollen Elemente mit sich widersprechenden Tags zusammengeführt werden. Bitte Tags überprüfen und vor einem neuen Versuch korrigieren.</string>
-  <string name="toast_state_file_failed">Gespeicherte Zustandsdaten sind unlesbar oder beschädigt </string>
+  <string name="toast_state_file_failed">Gespeicherte Zustandsdaten sind unlesbar oder beschädigt</string>
   <string name="toast_way_nodes_moved">%1$dKnoten eines Weges verschoben.</string>
   <plurals name="toast_unread_mail">
-    <item quantity="one">Im OpenStreetMap Posteingang befinden sich eine ungelesene Nachricht.</item>
+    <item quantity="one">Im OSM-Posteingang befindet sich eine ungelesene Nachricht.</item>
     <item quantity="other">Im OSM-Posteingang befinden sich %1$d ungelesene Nachrichten.</item>
   </plurals>
   <string name="read_mail">Lesen</string>
@@ -438,9 +439,9 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_unconnected_end_node">Knoten ist in der Nähe eines Elements, mit dem er verbunden werden kann</string>
   <string name="toast_degenerate_way">Weg mit fehlerhafter Geometrie</string>
   <!---->
-  <string name="toast_oauth_retry">Bitte OAuth-Zugang zum OSM-Konto erlauben und dann nochmals versuchen. </string>
-  <string name="toast_oauth">Bitte OAuth-Zugang zum OSM-Konto erlauben. </string>
-  <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth-Konfiguration verfügbar, bitte Benutzernamen und Passwort festlegen. </string>
+  <string name="toast_oauth_retry">Bitte OAuth-Zugang zum OSM-Konto erlauben und dann nochmals versuchen.</string>
+  <string name="toast_oauth">Bitte OAuth-Zugang zum OSM-Konto erlauben.</string>
+  <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth-Konfiguration verfügbar, bitte Benutzernamen und Passwort festlegen.</string>
   <string name="toast_oauth_not_enabled">OAuth ist für die aktuelle API nicht eingeschaltet.</string>
   <string name="toast_oauth_timeout">Timeout während der Authentifizierung, bitte nochmals versuchen.</string>
   <string name="toast_oauth_communication">Kommunikationsfehler während der Authentifizierung, bitte nochmals versuchen.</string>
@@ -461,7 +462,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_camera_error">Fehler beim Starten der Kamera-App: %1$s</string>
   <string name="toast_no_voice">Keine Spracherkennung vorhanden</string>
   <string name="toast_storage_error">%1$s ist nicht von Vespucci beschreibbar.\nDies könnte ein Rechteproblem oder ein technisches Problem mit dem Gerät sein.</string>
-  <string name="toast_no_suitable_storage">Das Betriebssystem hat keinen verwendbaren Speicherort für die Datenbank zurückgegeben. </string>
+  <string name="toast_no_suitable_storage">Das Betriebssystem hat keinen verwendbaren Speicherort für die Datenbank zurückgegeben.</string>
   <string name="toast_min_one_preset">Mindestens 1 Vorlagensatz muss ausgewählt sein!</string>
   <string name="toast_min_one_geocoder">Mindestens 1 Geocoder muss ausgewählt sein!</string>
   <string name="toast_used_backup">Beschädigte Zustandsdatei, Backup verwendet!</string>
@@ -481,7 +482,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_security_error_accessing_photo">Zugriff auf Foto %1$s nicht gestattet</string>
   <string name="toast_no_voice_recognition">Keine Spracherkennung vorhanden</string>
   <string name="toast_no_coverage">%1$s hat hier keine Abdeckung</string>
-  <string name="toast_tile_layer_errors">Die Quelle \'%1$s\'  produziert Fehler</string>
+  <string name="toast_tile_layer_errors">Die Quelle \'%1$s\' produziert Fehler</string>
   <string name="toast_file_exists">Datei %1$s existiert bereits.</string>
   <string name="toast_needs_resurvey">Objekt könnte veraltet sein</string>
   <string name="toast_missing_key">Schlüssel %1$s fehlt</string>
@@ -494,8 +495,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_string_too_long">Text ist zu lang (%1$d Zeichen), gekürzt!</string>
   <string name="toast_illegal_operation">Unzulässige Operation: %1$s</string>
   <string name="toast_preset_creation_failed">Vorlage \"%1$s\" konnte nicht erstellt werden: %2$s</string>
-  <string name="toast_imperial_units">Fehlende britische Einheiten </string>
-  <string name="toast_server_connection_failed">Verbindung zum Server schlug fehl mit:  %1$s</string>
+  <string name="toast_imperial_units">Fehlende britische Einheiten</string>
+  <string name="toast_server_connection_failed">Verbindung zum Server schlug fehl mit: %1$s</string>
   <string name="toast_flus_all_caches">Dies wird alle gespeicherten Hintergrundbilder löschen!</string>
   <string name="toast_applied_offset">Hintergrundversatzkorrektur automatisch angewendet</string>
   <string name="toast_unsupported_format">Nicht unterstütztes Format: %1$s</string>
@@ -504,8 +505,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_using_network_location">Netzwerkstandort</string>
   <string name="toast_using_gps_location">GPS/GNSS-Standort</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS abgeschaltet, Aufzeichnung gestoppt</string>
-  <string name="toast_remote_nmea_connection">Externe NMEA Verbindung von/zu %1$s</string>
-  <string name="toast_remote_nmea_connection_closed">Externe NMEA Verbindung geschlossen</string>
+  <string name="toast_remote_nmea_connection">Externe NMEA-Verbindung von/zu %1$s</string>
+  <string name="toast_remote_nmea_connection_closed">Externe NMEA-Verbindung geschlossen</string>
   <string name="toast_tags_copied">Tags wurden in die Zwischenablage kopiert</string>
   <string name="toast_tags_cut">Tags wurden in die Zwischenablage verschoben</string>
   <string name="toast_properties_copied">Eigenschaften wurden in die Zwischenablage kopiert</string>
@@ -520,7 +521,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_updated">Aktualisiert %1$s</string>
   <string name="toast_cannot_resume_download_of">Download von %1$s kann nicht wieder aufgenommen werden</string>
   <string name="toast_device_not_found_for">Gerät nicht gefunden %1$s</string>
-  <string name="toast_file_already_exists">Datei %1$sexistiert bereits. </string>
+  <string name="toast_file_already_exists">Datei %1$s existiert bereits.</string>
   <string name="toast_file_error_for">Dateifehler für %1$s</string>
   <string name="toast_error_reading">Fehler beim Lesen von %1$s</string>
   <string name="toast_read_successfully">Datei erfolgreich gelesen</string>
@@ -535,9 +536,9 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_phone_number_reformatted">Telefonnummer neu formatiert</string>
   <string name="toast_members_not_downloaded">Einige Relationsmitglieder sind nicht heruntergeladen</string>
   <string name="toast_restart_required">Vespucci muss neu gestartet werden um diese Änderungen anzuwenden</string>
-  <string name="toast_unable_to_open_offline_data">Offline Daten können nicht geöffnet werden %1$s %2$s</string>
+  <string name="toast_unable_to_open_offline_data">Offlinedaten können nicht geöffnet werden %1$s %2$s</string>
   <string name="toast_no_usable_location">Keine brauchbare Position</string>
-  <string name="toast_default_channel_needs_to_be_enabled">Standard Benachrichtigungskanal muss eingeschaltet sein um eine Aufzeichnung zu beginnen</string>
+  <string name="toast_default_channel_needs_to_be_enabled">Standard-Benachrichtigungskanal muss eingeschaltet sein um eine Aufzeichnung zu beginnen</string>
   <plurals name="added_required_elements">
     <item quantity="one">Benötigtes Element hinzugefügt</item>
     <item quantity="other">%1$d benötigte Elemente hinzugefügt</item>
@@ -552,9 +553,9 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_split_next_segment">Das nächste Routensegment geteilt</string>
   <string name="toast_nothing_changed">Keine Änderungen</string>
   <string name="toast_preset_failed">Vorlage %1$s konnte nicht erstellt werden\nFehler%2$s</string>
-  <string name="toast_outer_rings_differing_tags">Äussere Ringe haben unterschiedliche Eigenschaften</string>
+  <string name="toast_outer_rings_differing_tags">Äußere Ringe haben unterschiedliche Eigenschaften</string>
   <string name="toast_multipolygon_has_incomplete_rings">Das Multipolygon hat unvollständige Ringe</string>
-  <string name="toast_multipolygon_inconsistent_roles">Das Multipolygon had inkonsistente Rollenwerte für einen Ring </string>
+  <string name="toast_multipolygon_inconsistent_roles">Das Multipolygon hat inkonsistente Rollenwerte für einen Ring</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -596,7 +597,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <!--Dialog for back button-->
   <string name="exit_title">Vespucci verlassen</string>
   <string name="exit_text">Wirklich die Anwendung schließen?</string>
-  <string name="pause_exit_text">Wirklich die Aufzeichnung pausieren und  die Anwendung verlassen?</string>
+  <string name="pause_exit_text">Wirklich die Aufzeichnung pausieren und die Anwendung verlassen?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">Schlüssel</string>
   <string name="Key">Schlüssel</string>
@@ -646,7 +647,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="menu_deselect_all">Alles abwählen</string>
   <string name="menu_preset_help">Hilfe zu Vorlagen</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i18n">Sprach spezifische Tags hinzufügen</string>
+  <string name="tag_menu_i18n">Sprachspezifische Tags hinzufügen</string>
   <string name="tag_restriction_header">Wert</string>
   <string name="tag_restriction_when">falls</string>
   <string name="tag_restriction_and">und</string>
@@ -695,7 +696,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="position_info_altitude">Höhe</string>
   <string name="position_info_geoid_height">Höhe über dem Geoid</string>
   <string name="position_info_barometric_height">Barometrische Höhe</string>
-  <string name="position_info_geoid_correction">Geoid Körrecktur</string>
+  <string name="position_info_geoid_correction">Geoid-Korrektur</string>
   <string name="position_info_ellipsoid_height">Höhe über dem Ellipsoid</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Dateien herunterladen</string>
@@ -741,7 +742,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="menu_gps_start">GPX-Track starten</string>
   <string name="menu_gps_pause">GPX-Track pausieren</string>
   <string name="menu_gps_clear">GPX-Track und dessen Wegpunkte löschen</string>
-  <string name="menu_gps_track_managment">GPX-Trackverwaltung...</string>
+  <string name="menu_gps_track_managment">GPX-Trackverwaltung…</string>
   <string name="menu_gps_upload">GPX-Track hochladen</string>
   <string name="menu_gps_export">GPX-Track exportieren</string>
   <string name="menu_gps_import">GPX-Track importieren</string>
@@ -760,10 +761,10 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="menu_transfer_file">Datei…</string>
   <string name="menu_transfer_export">Änderungen in eine OSC-Datei exportieren</string>
   <string name="menu_transfer_apply_osc_file">Änderungen von OSC-Datei anwenden</string>
-  <string name="menu_transfer_read_file">JOSM-Datei einlesen...</string>
+  <string name="menu_transfer_read_file">JOSM-Datei einlesen…</string>
   <string name="menu_transfer_read_pbf_file">Aus PBF-Datei einlesen</string>
-  <string name="menu_transfer_save_file">Daten in JOSM-Datei speichern...</string>
-  <string name="menu_transfer_download_msf">Daten-Download zur Offline-Verwendung...</string>
+  <string name="menu_transfer_save_file">Daten in JOSM-Datei speichern…</string>
+  <string name="menu_transfer_download_msf">Daten-Download zur Offline-Verwendung…</string>
   <string name="menu_transfer_bugs">Aufgaben…</string>
   <string name="menu_transfer_bugs_download_current">Aufgaben für die aktuelle Ansicht herunterladen</string>
   <string name="menu_transfer_bugs_upload">Alle hochladen</string>
@@ -775,7 +776,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="menu_transfer_save_notes_new_and_changed">Geänderte und neue Notizen speichern…</string>
   <string name="menu_transfer_read_notes">Notizen laden…</string>
   <string name="menu_transfer_read_custom_bugs">Benutzerdefinierte Aufgaben laden…</string>
-  <string name="menu_transfer_write_custom_bugs">Benutzerdefinierte Aufgaben speichern...</string>
+  <string name="menu_transfer_write_custom_bugs">Benutzerdefinierte Aufgaben speichern…</string>
   <string name="menu_save">Als Datei speichern</string>
   <string name="menu_join">Verbinden</string>
   <string name="menu_unjoin">Trennen</string>
@@ -857,8 +858,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="reverse_anyway">Trotzdem umkehren</string>
   <string name="deleteway_description">Sie sind im Begriff, einen Weg zu löschen.\n\nSie können entweder alle Knoten behalten oder die Knoten löschen, die nur zu diesem Weg gehören und keine Tags haben.</string>
   <string name="deleteway_relation_description">Dieser Weg ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht, wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
-  <string name="deleteway_nodesnotdownloaded_description">Dieser Weg besitzt Punkte außerhalb des heruntergeladenen Bereichs und kann nicht gelöscht werden ohne möglicherweise einen inkonsistenten Zustand zu verursachen.\n\nVor einem erneuten Versuch, bitte zuerst den ganzen Bereich um den Weg herunterladen.  </string>
-  <string name="deleteways_nodesnotdownloaded_description">Diese Auswahl enthält Wege die Punkte außerhalb des heruntergeladenen Bereichs besitzen und kann nicht gelöscht werden ohne möglicherweise einen inkonsistenten Zustand zu verursachen.\n\nVor einem erneuten Versuch, bitte zuerst den ganzen Bereich um die Wege herunterladen.  </string>
+  <string name="deleteway_nodesnotdownloaded_description">Dieser Weg besitzt Punkte außerhalb des heruntergeladenen Bereichs und kann nicht gelöscht werden ohne möglicherweise einen inkonsistenten Zustand zu verursachen.\n\nVor einem erneuten Versuch, bitte zuerst den ganzen Bereich um den Weg herunterladen.</string>
+  <string name="deleteways_nodesnotdownloaded_description">Diese Auswahl enthält Wege die Punkte außerhalb des heruntergeladenen Bereichs besitzen und kann nicht gelöscht werden ohne möglicherweise einen inkonsistenten Zustand zu verursachen.\n\nVor einem erneuten Versuch, bitte zuerst den ganzen Bereich um die Wege herunterladen.</string>
   <string name="deleteway_wayonly">Nur Weg löschen</string>
   <string name="deleteway_wayandnodes">Weg löschen</string>
   <string name="deletenode_relation_description">Dieser Punkt ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht, wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
@@ -999,12 +1000,13 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_uploadWarn_title">Ausstehende Uploads Warnung</string>
   <string name="config_uploadWarn_summary">Grenze unter der ausstehende Objekt-Uploads Warnstatus haben</string>
   <string name="config_dataWarn_title">Zu viele Datenwarnung</string>
-  <string name="config_dataWarn_summary">Grenze (Anzahl Nodes) ab welcher wir wegen zu viele Daten warnen</string>
+  <string name="config_dataWarn_summary">Grenze (Anzahl Nodes) ab welcher wir wegen zu vieler Daten warnen</string>
   <string name="config_useUrlForFeedback_title">Rückmeldungsaktivität deaktivieren</string>
   <string name="config_useUrlForFeedback_summary">Die Rückmeldungsaktivität deaktivieren und anstatt eine URL verwenden.</string>
   <string name="config_beepVolume_title">Warntonlautstärke</string>
   <string name="config_beepVolume_summary">Lautstärke des Warntons.</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
   <string name="config_category_editing_summary">Auto-Download-Einstellungen</string>
@@ -1039,6 +1041,9 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">Telefonnummern automatisch formatieren</string>
   <string name="config_autoformatPhoneNumbers_summary">Telefonnummern automatisch formatieren einschalten</string>
+  <string name="config_maxOffsetDistance_title">Max. Abstand für gespeicherte Hintergrundversatzwerte</string>
+  <string name="config_maxOffsetDistance_summary">Der größte Abstand bei dem ein Hintergrundversatzkorrekturwert noch automatisch angewendet wird.</string>
+  <string name="config_maxOffsetDistance_current">%1$d Meter</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Auto-Download-Einstellungen</string>
   <string name="config_category_auto_download_summary">Einstellungen für das automatische Herunterladen von Daten und Aufgaben</string>
@@ -1046,7 +1051,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_extTriggeredDownloadRadius_summary">Radius in Metern für extern ausgelöste Downloads</string>
   <string name="config_downloadRadius_current">%1$d Meter</string>
   <string name="config_maxDownloadSpeed_title">Höchstgeschwindigkeit für Auto-Download</string>
-  <string name="config_maxDownloadSpeed_summary">Geschwindigkeit (in km/h), über der der Auto-Download pausiert wird. </string>
+  <string name="config_maxDownloadSpeed_summary">Geschwindigkeit (in km/h), über der der Auto-Download pausiert wird.</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
   <string name="config_autoPruneNodeLimit_title">Grenzwert automatisches Beschneiden</string>
   <string name="config_autoPruneNodeLimit_summary">Anzahl der Knoten im Speicher, die ein Beschneiden auslöst.</string>
@@ -1064,10 +1069,10 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_category_gps">Standorteinstellungen</string>
   <string name="config_category_gps_summary">GPS/GNSS-Einstellungen und andere Standortdienste</string>
   <string name="config_gps_source_title">GPS/GNSS-Quelle</string>
-  <string name="config_gps_source_summary">Quelle für GPS/GNSS-Daten </string>
+  <string name="config_gps_source_summary">Quelle für GPS/GNSS-Daten</string>
   <string name="config_gps_source_tcp_title">NMEA-Netzwerkquelle</string>
   <string name="config_gps_source_tcp_summary">TCP-Adresse der NMEA-Quelle als host:port</string>
-  <string name="config_gps_interval_title">Minimales GPS/GNSS-Interval</string>
+  <string name="config_gps_interval_title">Minimales GPS/GNSS-Intervall</string>
   <string name="config_gps_interval_summary">Kleinstes Zeitintervall zwischen GPS/GNSS-Standortanzeigen in Millisekunden. Kleinere Werte erhöhen den Stromverbrauch.</string>
   <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_gps_distance_title">Minimale GPS/GNSS-Distanz</string>
@@ -1084,7 +1089,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_useBarometricHeight_summary">Höhenwerte vom Barometer verwenden falls verfügbar</string>
   <!--Server Settings-->
   <string name="config_category_server">Server-Einstellungen</string>
-  <string name="config_category_server_summary">Einstellungen für die OSM-API und andere Server </string>
+  <string name="config_category_server_summary">Einstellungen für die OSM-API und andere Server</string>
   <string name="config_apibutton_title">OSM-API-URL</string>
   <string name="config_apibutton_summary">Sie können hier eine eigene API-URL einstellen. Sollte normalerweise nicht verändert werden!</string>
   <string name="config_loginbutton_title">Benutzerkonto</string>
@@ -1095,8 +1100,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_osmoseServer_summary">URL für den OSMOSE-Server</string>
   <string name="config_geocoderbutton_title">Geocoder konfigurieren</string>
   <string name="config_geocoderbutton_summary">Geocoder für die Suchfunktion hinzufügen, bearbeiten und löschen</string>
-  <string name="config_taginfoServer_title">Taginfo Server</string>
-  <string name="config_taginfoServer_summary">Der Taginfo Server für das automatische Erstellen von Vorlagen</string>
+  <string name="config_taginfoServer_title">Taginfo-Server</string>
+  <string name="config_taginfoServer_summary">Der Taginfo-Server für das automatische Erstellen von Vorlagen</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Hintergrundbilder laden und speichern</string>
   <string name="config_category_layers_summary">Download und Speicher der auf Kacheln basierenden Hintergrundbilder</string>
@@ -1106,8 +1111,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_tileCacheSize_title">Größe des Tile-Caches</string>
   <string name="config_tileCacheSize_summary">Gesamtgröße des Caches für Kartenkacheln in MB</string>
   <string name="config_tileCache_current">%1$d MB</string>
-  <string name="config_mapillaryCacheSize_title">Mapillary Cache Grösse</string>
-  <string name="config_mapillaryCacheSize_summary">Speicher zum Speichern von Mapillary-Bilder in MB</string>
+  <string name="config_mapillaryCacheSize_title">Mapillary-Cache Größe</string>
+  <string name="config_mapillaryCacheSize_summary">Speicher zum Speichern von Mapillary-Bildern in MB</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Verschiedenes</string>
   <string name="pref_enable_acra">Programmabstürze melden</string>
@@ -1118,7 +1123,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <!--Experimental-->
   <string name="config_category_experimental">Experimentell</string>
   <string name="config_js_console_title">JS-Konsole freischalten</string>
-  <string name="config_js_console_summary">Den \"live\" Modus der JS-Konsole freischalten</string>
+  <string name="config_js_console_summary">Den \"live\"-Modus der JS-Konsole freischalten</string>
   <string name="config_voiceCommandsEnabled_title">Sprachbefehle unterstützen</string>
   <string name="config_voiceCommandsEnabled_summary">Unterstützung von Sprachbefehlen aktivieren</string>
   <!---->
@@ -1174,7 +1179,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="tracking_active_title">Vespucci-Hintergrunddienst</string>
   <string name="tracking_active_title_short">Hintergrunddienst aktiv</string>
   <string name="tracking_active_text">Ein GPS-Track wird aufgezeichnet oder Daten automatisch heruntergeladen</string>
-  <string name="tracking_long_text">Vespucci zeichnet einen GPS-Track auf oder lädt Daten automatisch herunter. Um die App vollständig zu beenden, entweder die Schaltfläche unten oder die Zurücktaste in der App drücken. </string>
+  <string name="tracking_long_text">Vespucci zeichnet einen GPS-Track auf oder lädt Daten automatisch herunter. Um die App vollständig zu beenden, entweder die Schaltfläche unten oder die Zurücktaste in der App drücken.</string>
   <string name="gps_failure">GPS-Aktivierung fehlgeschlagen</string>
   <!--element description-->
   <string name="address_housenumber">Adresse %1$s</string>
@@ -1240,7 +1245,7 @@ in %1$d m %2$s</string>
   <string name="position">Position</string>
   <string name="type">Objekttyp</string>
   <string name="object">Objekt</string>
-  <string name="deleterelation_relation_description">Diese Relation ist Teil einer oder mehrerer Relationen. Jede Entfernung einer solchen Relation aus den anderen, macht diese eventuell ungültig.</string>
+  <string name="deleterelation_relation_description">Diese Relation ist Teil einer oder mehrerer Relationen. Jede Entfernung einer solchen Relation aus den anderen macht diese eventuell ungültig.</string>
   <string name="deleterelation">Relation löschen</string>
   <string name="delete_from_relation_description">Dieses Element wird aus der Relation gelöscht.</string>
   <string name="delete_elements_from_relation_description">Diese Elemente werden aus einer oder mehrere Relationen gelöscht.</string>
@@ -1248,7 +1253,7 @@ in %1$d m %2$s</string>
   <!--Things-->
   <string name="bridge">Brücke</string>
   <string name="tunnel">Tunnel</string>
-  <string name="culvert"> Durchlass</string>
+  <string name="culvert">Durchlass</string>
   <!--Tag issues-->
   <string name="issue_not_reversable">Eigenschaft konnte nicht gedreht werden</string>
   <string name="issue_shared_node">Wird mit anderem Weg geteilt</string>
@@ -1256,9 +1261,9 @@ in %1$d m %2$s</string>
   <string name="issue_role_reversed">Rolle umgedreht</string>
   <string name="issue_role_conflict">Rollenkonflikt</string>
   <string name="issue_merged_tags">Eigenschaften zusammengeführt</string>
-  <string name="issue_same_object">Dasselbe Objekt</string>
-  <string name="issue_merged_metric">Löngenabhängiger Wert wurde zusammengeführt</string>
-  <string name="issue_split_metric">Löngenabhängiger Wert wurde geteilt</string>
+  <string name="issue_same_object">Das selbe Objekt</string>
+  <string name="issue_merged_metric">Längenabhängiger Wert wurde zusammengeführt</string>
+  <string name="issue_split_metric">Längenabhängiger Wert wurde geteilt</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 Tag</item>
@@ -1286,4 +1291,5 @@ in %1$d m %2$s</string>
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Keine Hilfe zu diesem Thema!</string>
+  <!--Bookmarks-->
 </resources>

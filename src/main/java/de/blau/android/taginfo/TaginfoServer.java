@@ -19,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.osm.Server;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.util.StringWithDescription;
 
 /**
@@ -371,17 +370,18 @@ public final class TaginfoServer {
      * Search for by key and value
      * 
      * @param context Android Context
+     * @param server server url
      * @param key the key
      * @param value the value
      * @param maxResults maximum number of results
      * @return a List of SearchResults, or null is something seriously went wrong
      */
     @Nullable
-    public static List<SearchResult> searchByKeyAndValue(@NonNull final Context context, @NonNull String key, @NonNull String value, int maxResults) {
+    public static List<SearchResult> searchByKeyAndValue(@Nullable final Context context, @NonNull String server, @NonNull String key, @NonNull String value,
+            int maxResults) {
         // https://taginfo.openstreetmap.org/api/4/search/by_key_and_value?query=%3Dresidential&page=1&rp=10&sortname=count_all&sortorder=desc
-        Preferences prefs = new Preferences(context);
-        String url = prefs.getTaginfoServer() + "api/4/search/by_key_and_value?query=" + key + "%3D" + value + "&page=1"
-                + (maxResults != -1 ? "&rp=" + maxResults : "") + "&sortname=count_all&sortorder=desc";
+        String url = server + "api/4/search/by_key_and_value?query=" + key + "%3D" + value + "&page=1" + (maxResults != -1 ? "&rp=" + maxResults : "")
+                + "&sortname=count_all&sortorder=desc";
         return search(context, url);
     }
 
@@ -389,15 +389,15 @@ public final class TaginfoServer {
      * Search for by value
      * 
      * @param context Android Context
+     * @param server server url
      * @param value the value
      * @param maxResults maximum number of results
      * @return a List of SearchResults, or null is something seriously went wrong
      */
     @Nullable
-    public static List<SearchResult> searchByValue(@NonNull final Context context, @NonNull String value, int maxResults) {
+    public static List<SearchResult> searchByValue(@Nullable final Context context, @NonNull String server, @NonNull String value, int maxResults) {
         // https://taginfo.openstreetmap.org/api/4/search/by_value?query=residential&page=1&rp=10&sortname=count_all&sortorder=desc
-        Preferences prefs = new Preferences(context);
-        String url = prefs.getTaginfoServer() + "api/4/search/by_value?query=" + value + "&page=1" + (maxResults != -1 ? "&rp=" + maxResults : "")
+        String url = server + "api/4/search/by_value?query=" + value + "&page=1" + (maxResults != -1 ? "&rp=" + maxResults : "")
                 + "&sortname=count_all&sortorder=desc";
         return search(context, url);
     }
@@ -406,14 +406,14 @@ public final class TaginfoServer {
      * Search for a keyword
      * 
      * @param context Android Context
+     * @param server server url
      * @param keyword the keyword
      * @param maxResults maximum number of results
      * @return a List of SearchResults, or null is something seriously went wrong
      */
     @Nullable
-    public static List<SearchResult> searchByKeyword(@NonNull final Context context, @NonNull String keyword, int maxResults) {
-        Preferences prefs = new Preferences(context);
-        String url = prefs.getTaginfoServer() + "api/4/search/by_keyword?query=" + keyword + "&page=1" + (maxResults != -1 ? "&rp=" + maxResults : "");
+    public static List<SearchResult> searchByKeyword(@Nullable final Context context, @NonNull String server, @NonNull String keyword, int maxResults) {
+        String url = server + "api/4/search/by_keyword?query=" + keyword + "&page=1" + (maxResults != -1 ? "&rp=" + maxResults : "");
         return search(context, url);
     }
 
@@ -426,7 +426,7 @@ public final class TaginfoServer {
      */
     @SuppressWarnings("unchecked")
     @Nullable
-    private static List<SearchResult> search(final Context context, String url) {
+    private static List<SearchResult> search(@Nullable final Context context, @NonNull String url) {
         ResultReader resultReader = new ResultReader() {
 
             @Override
@@ -461,6 +461,7 @@ public final class TaginfoServer {
      * Query a taginfo server for wikipage info on a specific tag
      * 
      * @param context Android Context
+     * @param server server url
      * @param key the tag key
      * @param value the tag value
      * @param lang the preferred language
@@ -468,10 +469,9 @@ public final class TaginfoServer {
      * @return a WikiPageResult instance, or null is something seriously went wrong
      */
     @Nullable
-    public static WikiPageResult wikiPage(@NonNull final Context context, @NonNull String key, @NonNull String value, final String lang,
-            @Nullable final PostAsyncActionHandler handler) {
-        Preferences prefs = new Preferences(context);
-        final String url = prefs.getTaginfoServer() + "api/4/tag/wiki_pages?key=" + key + "&value=" + value;
+    public static WikiPageResult wikiPage(@Nullable final Context context, @NonNull String server, @NonNull String key, @NonNull String value,
+            final String lang, @Nullable final PostAsyncActionHandler handler) {
+        final String url = server + "api/4/tag/wiki_pages?key=" + key + "&value=" + value;
         return (WikiPageResult) querySync(context, url, new ResultReader() {
 
             @Override
@@ -485,16 +485,15 @@ public final class TaginfoServer {
      * Get a list of values for a key
      * 
      * @param context Android Context
+     * @param server server url
      * @param key the key
      * @param maxResults maximum number of results
      * @return a List of ValueResults, or null is something seriously went wrong
      */
     @SuppressWarnings("unchecked")
     @Nullable
-    public static List<ValueResult> keyValues(@NonNull final Context context, @NonNull String key, int maxResults) {
-        Preferences prefs = new Preferences(context);
-        String url = prefs.getTaginfoServer() + "api/4/key/values?key=" + key + "&page=1" + (maxResults != -1 ? "&rp=" + maxResults : "")
-                + "&sortname=count_all&sortorder=desc";
+    public static List<ValueResult> keyValues(@Nullable final Context context, @NonNull String server, @NonNull String key, int maxResults) {
+        String url = server + "api/4/key/values?key=" + key + "&page=1" + (maxResults != -1 ? "&rp=" + maxResults : "") + "&sortname=count_all&sortorder=desc";
         return (List<ValueResult>) querySync(context, url, new ResultReader() {
 
             @Override
@@ -530,14 +529,14 @@ public final class TaginfoServer {
      * Get the count of the tag in the DB
      * 
      * @param context Android Context
+     * @param server server url
      * @param key the tag key
      * @param value the tag value
      * @return a SearchResult instance containing the count, or null is something seriously went wrong
      */
     @Nullable
-    public static SearchResult tagStats(@NonNull final Context context, @NonNull String key, @NonNull String value) {
-        Preferences prefs = new Preferences(context);
-        String url = prefs.getTaginfoServer() + "api/4/tags/list?tags=" + key + "%3D" + value;
+    public static SearchResult tagStats(@Nullable final Context context, @NonNull String server, @NonNull String key, @NonNull String value) {
+        String url = server + "api/4/tags/list?tags=" + key + "%3D" + value;
         return (SearchResult) querySync(context, url, new ResultReader() {
 
             @Override
@@ -574,6 +573,7 @@ public final class TaginfoServer {
      * Retrieve tags that are used together with tag or key
      * 
      * @param context Android Context
+     * @param server server url
      * @param key the tag key
      * @param value the tag value, if null combinations with the key will be returned
      * @param filter filter for element type
@@ -582,12 +582,10 @@ public final class TaginfoServer {
      */
     @SuppressWarnings("unchecked")
     @Nullable
-    public static List<String> tagCombinations(@NonNull final Context context, @NonNull String key, @Nullable String value, @Nullable String filter,
-            int maxResults) {
-        Preferences prefs = new Preferences(context);
-        String url = prefs.getTaginfoServer() + "api/4/tag/combinations?key=" + key + (value != null ? "&value=" + value : "")
-                + (filter != null ? "&filter=" + filter : "") + "&page=1" + (maxResults != -1 ? "&rp=" + maxResults : "")
-                + "&sortname=together_count&sortorder=desc";
+    public static List<String> tagCombinations(@Nullable final Context context, @NonNull String server, @NonNull String key, @Nullable String value,
+            @Nullable String filter, int maxResults) {
+        String url = server + "api/4/tag/combinations?key=" + key + (value != null ? "&value=" + value : "") + (filter != null ? "&filter=" + filter : "")
+                + "&page=1" + (maxResults != -1 ? "&rp=" + maxResults : "") + "&sortname=together_count&sortorder=desc";
         return (List<String>) querySync(context, url, new ResultReader() {
 
             @Override
@@ -642,6 +640,7 @@ public final class TaginfoServer {
      * Retrieve tags that are used together with tag or key
      * 
      * @param context Android Context
+     * @param server server url
      * @param key the tag key
      * @param filter filter for element type
      * @param maxResults the maximum number of results to return
@@ -649,9 +648,9 @@ public final class TaginfoServer {
      */
     @SuppressWarnings("unchecked")
     @Nullable
-    public static List<String> keyCombinations(@NonNull final Context context, @NonNull String key, @Nullable String filter, int maxResults) {
-        Preferences prefs = new Preferences(context);
-        String url = prefs.getTaginfoServer() + "api/4/key/combinations?key=" + key + (filter != null ? "&filter=" + filter : "") + "&page=1"
+    public static List<String> keyCombinations(@Nullable final Context context, @NonNull String server, @NonNull String key, @Nullable String filter,
+            int maxResults) {
+        String url = server + "api/4/key/combinations?key=" + key + (filter != null ? "&filter=" + filter : "") + "&page=1"
                 + (maxResults != -1 ? "&rp=" + maxResults : "") + "&sortname=together_count&sortorder=desc";
         return (List<String>) querySync(context, url, new ResultReader() {
 
@@ -707,7 +706,7 @@ public final class TaginfoServer {
      */
     @SuppressWarnings("rawtypes")
     @Nullable
-    public static Object querySync(@NonNull final Context context, @NonNull final String url, @NonNull final ResultReader resultReader,
+    public static Object querySync(@Nullable final Context context, @NonNull final String url, @NonNull final ResultReader resultReader,
             @Nullable final PostAsyncActionHandler handler) {
         Log.d(DEBUG_TAG, "querying server for " + url);
         Object result = null;
@@ -734,7 +733,7 @@ public final class TaginfoServer {
      * @return an Object that has to be cast to the correct type, or null is something seriously went wrong
      */
     @Nullable
-    public static Object queryAsync(@NonNull final Context context, @NonNull final String url, @NonNull final ResultReader resultReader,
+    public static Object queryAsync(@Nullable final Context context, @NonNull final String url, @NonNull final ResultReader resultReader,
             @Nullable final PostAsyncActionHandler handler) {
         AsyncTask<Void, Void, Object> list = new AsyncTask<Void, Void, Object>() {
             @Override

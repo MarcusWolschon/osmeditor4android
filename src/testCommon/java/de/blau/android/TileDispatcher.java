@@ -28,13 +28,27 @@ public class TileDispatcher extends Dispatcher {
      */
     public TileDispatcher(@NonNull Context context, @NonNull String mbtSource) throws IOException {
         try {
-            JavaResources.copyFileFromResources(context, mbtSource, null, "/", false);
-            File[] storageDirectories = ContextCompat.getExternalFilesDirs(context, null);
-            tileDb = new MBTileProviderDataBase(context, Uri.fromFile(new File(storageDirectories[0], mbtSource)), 1);
+            File destinationDir = ContextCompat.getExternalCacheDirs(context)[0];
+            File mbtFile = new File(destinationDir, mbtSource);
+            JavaResources.copyFileFromResources(mbtSource, null, mbtFile);
+            if (!mbtFile.exists()) {
+                throw new IOException(mbtFile.getAbsolutePath() + " doesn't exist");
+            }
+            tileDb = new MBTileProviderDataBase(context, Uri.fromFile(mbtFile), 1);
         } catch (IOException e) {
-            Log.e(DEBUG_TAG, "mbt file not found " + e.getMessage());
+            Log.e(DEBUG_TAG, "mbt file " + mbtSource + " not found " + e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Get the configured MTB source
+     * 
+     * @return a MBTileProviderDataBase instance
+     */
+    @NonNull
+    public MBTileProviderDataBase getSource() {
+        return tileDb;
     }
 
     @Override

@@ -142,7 +142,7 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
     /**
      * Set the date and time the Note was closed
      * 
-     * @param the number of milliseconds since the UNIX epoch
+     * @param closed the number of milliseconds since the UNIX epoch
      */
     public void setClosedAt(long closed) {
         this.closed = closed;
@@ -152,11 +152,13 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
      * Parse a Note from XML
      * 
      * @param parser the parser instance
-     * @param note an existing Note if any
+     * @param existingNote an existing Note if any
+     * @return a List of Notes
      * @throws XmlPullParserException if parsing fails
      * @throws IOException for XML reading issues
      * @throws NumberFormatException if a number conversion fails
      */
+    @NonNull
     public static List<Note> parseNotes(@NonNull XmlPullParser parser, @Nullable Note existingNote)
             throws XmlPullParserException, IOException, NumberFormatException {
 

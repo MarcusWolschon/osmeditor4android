@@ -285,6 +285,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      * 
      * @param members the RelationMembers
      * @param member the RelationMember to check
+     * @return true if the member is present
      */
     private boolean contains(@NonNull Collection<RelationMember> members, @NonNull RelationMember member) {
         for (RelationMember rm : members) {
@@ -544,6 +545,9 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
 
     /**
      * Remove duplicate tags from the outer members, asking for confirmation first
+     * 
+     * @param tags tags to remove
+     * @param outers list of outer rings
      */
     private void removeTagsFromMembers(@NonNull Map<String, String> tags, @NonNull List<RelationMember> outers) {
         AlertDialog alertDialog = new AlertDialog.Builder(main).setTitle(R.string.remove_duplicate_outer_tags_title)
@@ -592,6 +596,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     /**
      * Check if any of the outer members has some specific tags
      * 
+     * @param tags map of tags to check
      * @param members a List of the members
      * @return true if at least one of the members has some of these tags
      */

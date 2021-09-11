@@ -141,7 +141,7 @@ public class ModeTest {
     /**
      * Switch modes
      * 
-     * @üaram ctx Android Context
+     * @param ctx Android Context
      * @param device the current device
      * @param lock the lock button
      * @param newModeName resource new mode name

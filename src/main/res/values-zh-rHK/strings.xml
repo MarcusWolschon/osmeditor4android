@@ -273,6 +273,7 @@
   <string name="layer_info_terms">條款</string>
   <string name="layer_info_privacy_policy">隱私政策</string>
   <string name="errors">錯誤</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Tag conflict dialog-->
@@ -791,6 +792,7 @@
   <string name="config_closeChangesetOnSave_summary">在預設情況下，關閉變更時儲存</string>
   <string name="config_enableAutoPresets_title">啟用自動預設產生</string>
   <string name="config_enableAutoPresets_summary">允許從 taginfo 產生預置</string>
+  <string name="config_maxOffsetDistance_current">%1$d 公尺</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">下載半徑</string>
   <string name="config_extTriggeredDownloadRadius_summary">只有在地圖上的時候，從外部觸發下載的半徑 (m) 0 = 中心。</string>
@@ -999,4 +1001,5 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">這裡沒幫助。</string>
+  <!--Bookmarks-->
 </resources>

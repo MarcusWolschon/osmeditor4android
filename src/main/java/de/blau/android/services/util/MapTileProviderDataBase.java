@@ -119,7 +119,7 @@ public class MapTileProviderDataBase {
         Preferences prefs = new Preferences(context);
         int maxThreads = prefs.getMaxTileDownloadThreads();
         getStatements = new Pools.SynchronizedPool<>(maxThreads);
-        Log.i(DEBUG_TAG, "Allocating " + maxThreads + " prepared statements");
+        Log.i(DEBUG_TAG, "Allocating " + (maxThreads) + " prepared statements");
         for (int i = 0; i < maxThreads; i++) {
             getStatements.release(mDatabase.compileStatement(T_FSCACHE_GET));
         }
@@ -165,7 +165,7 @@ public class MapTileProviderDataBase {
      * @param aTile tile meta data
      * @param tileData the tile image data
      * @return the size of the tile if successfully added
-     * @throws IOException
+     * @throws IOException if adding the tile fails
      */
     public int addTile(@NonNull final MapTile aTile, @Nullable final byte[] tileData) throws IOException {
         if (MapViewConstants.DEBUGMODE) {
@@ -226,7 +226,7 @@ public class MapTileProviderDataBase {
      * 
      * @param aTile the tile meta data
      * @return the contents of the tile or null on failure to retrieve
-     * @throws IOException
+     * @throws IOException if reading the tile fails
      */
     @Nullable
     public byte[] getTile(@NonNull final MapTile aTile) throws IOException {

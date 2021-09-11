@@ -81,10 +81,13 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
 
     private Resources resources;
 
+    private List<OsmElement> elements = null;
+
     /**
      * Instantiate and show the dialog
      * 
      * @param activity the calling FragmentActivity
+     * @param elements an optional list of changed elements
      */
     public static void showDialog(@NonNull FragmentActivity activity, @Nullable List<OsmElement> elements) {
         dismissDialog(activity);
@@ -111,6 +114,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
     /**
      * Create a new instance of this Fragment
      * 
+     * @param elements an optional list of changed elements
      * @return a new ConfirmUpload instance
      */
     @NonNull
@@ -125,11 +129,17 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         return f;
     }
 
+    @SuppressWarnings("unchecked")
     @NonNull
     @SuppressLint("InflateParams")
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        final List<OsmElement> elements = (List<OsmElement>) getArguments().getSerializable(ELEMENTS_KEY);
+        if (savedInstanceState != null) {
+            Log.d(DEBUG_TAG, "restoring from saved state");
+            elements = (List<OsmElement>) savedInstanceState.getSerializable(ELEMENTS_KEY);
+        } else {
+            elements = (List<OsmElement>) getArguments().getSerializable(ELEMENTS_KEY);
+        }
 
         FragmentActivity activity = getActivity();
         resources = getResources();
@@ -329,6 +339,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
      * This will sort the result in a reasonable way: tagged elements first then untagged, newly created before modified
      * and then deleted, then the convention node, way and relation ordering.
      * 
+     * @param changedElements the (unsorted) list of changed elements
      * @return a List of all pending pending elements to upload
      */
     @NonNull
@@ -474,5 +485,11 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
                 }
             }
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(ELEMENTS_KEY, new ArrayList<>(elements));
     }
 }

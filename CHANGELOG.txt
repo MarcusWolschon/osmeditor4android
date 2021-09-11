@@ -1,5 +1,42 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+16.0.0-2:
+
+- Improve test behaviour on Android 10 and later
+- Update translations
+
+16.0.0-1:
+
+- Change public directory to Download/Vespucci and migrate existing files there
+- Refactor tile caching/downloading
+- Add recursively search for the preset file
+- Add Mapillary V4 API
+- Add support for tile_type parameter in ELI config files
+- Add GPX layer: squash short adjacent lines
+- Add preference for tile storage location
+- Add keep compressed tiles compressed
+- Add styling for icons on amenity, shop and tourist tags on closed ways
+- Add imagery layer info button
+- Add support for labeling ways at a configurable zoom level
+- Add support for mapbox-gl style definitions
+- Add multi-layer MVT style support
+- Add clickable MVT layer support
+- Add filter background layer by terrain
+- Add bookmarks feature
+- Fix try to always close down the TrackerService properly in onDestroy
+- Fix logic bug for non downloaded Relation members
+- Fix don't try to turn GPS on if we don't actually have permission
+- Fix update stroke width for validation style too
+- Fix pref keys for tips need to be unique
+- Fix missing empty line in MultiTextLine
+- Fix increase width of border pattern
+- Fix improve layer list sorting
+- Update OH parser and fragment version
+- Update translations tasks to include Arabic as RTL script
+- Update translations
+- Update imagery from ELI
+- Update presets
+
 15.2.0:
 
 - Update release notes for release

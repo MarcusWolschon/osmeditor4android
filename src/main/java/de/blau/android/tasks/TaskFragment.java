@@ -153,9 +153,10 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
                     }
                     state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                            save.setEnabled(true);
-                            upload.setEnabled(true);
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            boolean changed = changed(position);
+                            save.setEnabled(changed);
+                            upload.setEnabled(changed);
                         }
 
                         @Override
@@ -163,11 +164,21 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
                             // required, but not used
                         }
                     });
-                    onShowListener(save, upload);
+                    onShowListener(task, save, upload);
                 });
         // this should keep the buttons visible
         d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         return d;
+    }
+
+    /**
+     * Check if we have changed the Task
+     * 
+     * @param newState the new state
+     * @return true if we've changed something wrt the Task
+     */
+    protected boolean changed(int newState) {
+        return newState != task.getState().ordinal();
     }
 
     /**
@@ -203,10 +214,11 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
     /**
      * Do any Task specific things on showing of the dialog
      * 
+     * @param task the current Task
      * @param save the save Button
      * @param upload the upload Button
      */
-    protected void onShowListener(@NonNull Button save, @NonNull Button upload) {
+    protected void onShowListener(@NonNull Task task, @NonNull Button save, @NonNull Button upload) {
         // empty
     }
 

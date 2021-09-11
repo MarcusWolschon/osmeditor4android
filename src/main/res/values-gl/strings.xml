@@ -300,6 +300,7 @@
   <string name="layer_info_terms">Termos</string>
   <string name="layer_info_privacy_policy">Política de privacidade</string>
   <string name="errors">Erros</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Eliminar imaxe</string>
   <string name="photo_viewer_delete_button">Eliminar de xeito permanente</string>
@@ -803,6 +804,7 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="config_maxAlertDistance_current">%1$d metro(s)</string>
   <string name="config_closeChangesetOnSave_title">Pechar conxuntos de modificacións</string>
   <string name="config_closeChangesetOnSave_summary">Pechar os conxuntos de modificacións por defecto ó gardar.</string>
+  <string name="config_maxOffsetDistance_current">%1$d metro(s)</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Raio da baixada</string>
   <string name="config_downloadRadius_current">%1$d metro(s)</string>
@@ -958,4 +960,5 @@ evitada empregando unha fonte de datos sen conexión.</string>
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Non hai axuda aquí.</string>
+  <!--Bookmarks-->
 </resources>

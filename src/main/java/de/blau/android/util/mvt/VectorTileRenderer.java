@@ -44,20 +44,21 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
 
     private VectorTileDecoder decoder = new VectorTileDecoder();
 
-    float scaleX = 1f;
-    float scaleY = 1f;
+    private float scaleX = 1f;
+    private float scaleY = 1f;
 
     private Set<String>              layerNames    = new HashSet<>();
     private Map<String, Set<String>> attributeKeys = new HashMap<>();
 
-    Rect destinationRect;
-    Rect screenRect;
-    Rect tempRect = new Rect();
+    private Rect destinationRect;
+    private Rect screenRect;
+    private Rect tempRect = new Rect();
 
     private Style   style;
     private int     lastZoom      = -1;
     private Picture symbolPicture = new Picture();
     private Canvas  symbolCanvas;
+    private boolean renderPass;
 
     /**
      * Create a new instance
@@ -98,6 +99,7 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
      * Get a specific style layer for a source layer
      * 
      * @param sourceLayer the source layer name
+     * @param type the Layer.Type we want
      * @return the style or null
      */
     @Nullable
@@ -131,7 +133,7 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     List<VectorTileDecoder.Feature> featuresToRender = new ArrayList<>();
 
     @Override
-    public void preRender(Canvas c, int z) {
+    public void preRender(@NonNull Canvas c, int z) {
         style.resetCollisionDetection();
         setScreenRect(c);
         symbolPicture.endRecording(); // if we haven't finished rendering abort here
@@ -139,17 +141,22 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     }
 
     @Override
-    public void postRender(Canvas c, int z) {
-        lastZoom = z;
+    public void postRender(@NonNull Canvas c, int z) {
         symbolPicture.draw(c);
+        if (renderPass) {
+            // we need to be sure that we've actually processed tiles
+            lastZoom = z;
+            renderPass = false;
+        }
     }
 
     @Override
-    public void render(Canvas c, Map<String, List<VectorTileDecoder.Feature>> features, int z, Rect fromRect, Rect destinationRect, Paint paint) {
+    public void render(@NonNull Canvas c, @NonNull Map<String, List<VectorTileDecoder.Feature>> features, int z, @Nullable Rect fromRect,
+            @NonNull Rect destinationRect, @NonNull Paint paint) {
+        renderPass = true;
         scaleX = destinationRect.width() / 256f;
         scaleY = destinationRect.height() / 256f;
         this.destinationRect = destinationRect;
-        setScreenRect(c);
         layerToRender.clear();
         List<Layer> temp = style.getLayers();
         synchronized (temp) { // protect against CME
@@ -193,27 +200,28 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     }
 
     /**
-     * Save the screen rect if it hasn't been yet
+     * Set and save the screen rect if it hasn't been yet
      * 
      * @param c the Canvas
      */
     private void setScreenRect(@NonNull Canvas c) {
         if (screenRect == null) {
             screenRect = new Rect();
-            c.getClipBounds(screenRect);
         }
+        c.getClipBounds(screenRect);
     }
 
     /**
      * Actually render a list of features
      * 
      * @param c the target Canvas
-     * @param style the current style
+     * @param layer the current Layer
      * @param z current zoom level
      * @param destinationRect destination rect
      * @param features the List of Features
      */
-    private void renderFeatures(Canvas c, Layer layer, int z, Rect destinationRect, List<VectorTileDecoder.Feature> features) {
+    private void renderFeatures(@NonNull Canvas c, @NonNull Layer layer, int z, @NonNull Rect destinationRect,
+            @NonNull List<VectorTileDecoder.Feature> features) {
         for (VectorTileDecoder.Feature feature : features) {
             if (z != lastZoom) {
                 layer.onZoomChange(style, feature, z);
@@ -223,6 +231,7 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     }
 
     @Override
+    @NonNull
     public TileDecoder<Map<String, List<VectorTileDecoder.Feature>>> decoder() {
         return (byte[] data, boolean small) -> {
             try {
@@ -322,8 +331,9 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
      * 
      * @param rect pre-allocated Rect
      * @param g the Geometry
-     * @return
+     * @return the REct set to the bounding box
      */
+    @NonNull
     private Rect getBoundingBox(@NonNull Rect rect, @NonNull Geometry g) {
         switch (g.type()) {
         case GeoJSONConstants.POINT:

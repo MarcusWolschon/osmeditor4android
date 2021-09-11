@@ -67,10 +67,10 @@ public class OffsetTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
         TestUtils.grantPermissons(device);
-
-        prefs = new Preferences(main);
+        
         LayerUtils.removeImageryLayers(main);
-        tileServer = MockTileServer.setupTileServer(main, prefs, "ersatz_background.mbt", true);
+        tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
+        prefs = new Preferences(main);
         main.getMap().setPrefs(main, prefs);
         TestUtils.resetOffsets(main.getMap());
         TestUtils.dismissStartUpDialogs(device, main);

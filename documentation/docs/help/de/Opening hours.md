@@ -10,7 +10,7 @@ _Diese Dokumentation ist vorläufig und eine laufende Arbeit_
 
 In einem typischen Arbeitsablauf enthält das Objekt, das Sie bearbeiten, entweder bereits ein Tag für die Öffnungszeiten (opening_hours, service_times und collection_times) oder Sie können die Voreinstellung für das Objekt erneut anwenden, um ein leeres Feld für die Öffnungszeiten zu erhalten. Wenn Sie das Feld manuell hinzufügen müssen und Vespucci verwenden, können Sie den Schlüssel auf der Detailseite eingeben und zur Bearbeitung auf die formularbasierte Registerkarte wechseln. Wenn Sie der Meinung sind, dass das Tag für die Öffnungszeiten Teil des Presets gewesen sein sollte, öffnen Sie eine Fehlermeldung für Ihren Editor.
 
-Wenn Sie eine Standardvorlage definiert haben (tun Sie dies über den Menüpunkt "Vorlagen verwalten"), wird diese automatisch geladen, wenn der Editor mit einem leeren Wert gestartet wird. Mit der Funktion "Vorlage laden" können Sie jede gespeicherte Vorlage laden und mit dem Menü "Vorlage speichern" den aktuellen Wert als Vorlage speichern. Sie können für die Tags "opening_hours", "collection_times" und "service_times" separate Vorlagen und Standardwerte definieren.
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
 
 Natürlich können Sie einen Wert für die Öffnungszeiten von Grund auf erstellen, wir empfehlen jedoch, eine der vorhandenen Vorlagen als Ausgangspunkt zu verwenden.
 
@@ -61,7 +61,9 @@ Standard-Regeln werden als _normale_ Regeln hinzugefügt. Dies bedeutet, dass di
     * __variables Datum - offenes Ende__: ein variables Startdatum und ein offenes Ende.
     * __Vorkommen im Monat - offenes Ende__: ein Startvorkommen im Monat und ein offenes Ende.
     * __Mit Versatz...__: Die gleichen Angaben wie vorher aber mit angegebenen Versatz (wird nur selten verwendet).
-* __Jahresbereich hinzufügen__: Jahres-Auswahlschalter hinzufügen.
+* __Add year range...__    
+    * __Jahresbereich hinzufügen__: Jahres-Auswahlschalter hinzufügen.
+    * __Add starting year__: add an open ended year range.
 * __Wochenbereich hinzufügen__: Wochen-Auswahlschalter hinzufügen.
 * __Kopieren__: Kopieren einer Regel und Einfügen der Kopie nach der aktuellen Position.
 * __Regeltype anzeigen__: Anzeigen der Regel und die Möglichkeit den Regeltype zu ändern _Normal_, _Zusätzlich_ und _Rückfall_ (nicht verfügbar für die erste Regel).
@@ -85,3 +87,13 @@ Klicken auf die Zeitleiste (nicht auf die Nadeln) öffnet den grossen Zeitauswä
 * __Intervall anzeigen__: Intervallfeld zum Festlegen eines Intervalls in Minuten anzeigen.
 * __Löschen__: diese Zeitspanne löschen.
 
+### Vorlagen verwalten
+
+The template management dialog allows you to add, edit and delete templates.
+
+In Android 4.4 and later the following additional functionality is available from the menu button. 
+
+* __Show all__: display all templates in the database.
+* __Save to file__: write the contents of the template database to a file.
+* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
+* __Load from file__: load templates from a file retaining the current contents.

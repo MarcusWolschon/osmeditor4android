@@ -92,6 +92,7 @@ public class RelationListAdapter extends RecyclerView.Adapter<RelationListAdapte
     /**
      * Set the ids and name arrays that are going to be display
      * 
+     * @param context an Android Context
      * @param ids the array of ids
      * @param update if true this is an update of an existing adapter
      */

@@ -86,7 +86,12 @@ public class ImportTrack extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        uri = getArguments().getParcelable(URI_KEY);
+        if (savedInstanceState != null) {
+            uri = savedInstanceState.getParcelable(URI_KEY);
+            Log.d(DEBUG_TAG, "restoring from saved state");
+        } else {
+            uri = getArguments().getParcelable(URI_KEY);
+        }
     }
 
     @NonNull
@@ -114,5 +119,11 @@ public class ImportTrack extends ImmersiveDialogFragment {
         });
         builder.setNegativeButton(R.string.cancel, null);
         return builder.create();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(URI_KEY, uri);
     }
 }

@@ -102,7 +102,8 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
      * Construct a new callback for adding segments to a route
      * 
      * @param manager the current EasyEditManager instance
-     * @param way the "from" role Way
+     * @param way the Way where we start appending
+     * @param route the route the way will be added to
      * @param potentialSegments potential further segments
      */
     public RouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Relation route,

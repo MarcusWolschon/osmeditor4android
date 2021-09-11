@@ -39,6 +39,16 @@ public final class OsmXml {
     public static final String VERSION     = "version";
     public static final String GENERATOR   = "generator";
 
+    private static final Comparator<Relation> relationOrder = (r1, r2) -> {
+        if (r1.hasParentRelation(r2)) {
+            return -1;
+        }
+        if (r2.hasParentRelation(r1)) {
+            return 1;
+        }
+        return 0;
+    };
+    
     /**
      * Empty private constructor to prevent instantiation
      */
@@ -148,15 +158,6 @@ public final class OsmXml {
                 }
             }
         }
-        Comparator<Relation> relationOrder = (r1, r2) -> {
-            if (r1.hasParentRelation(r2)) {
-                return -1;
-            }
-            if (r2.hasParentRelation(r1)) {
-                return 1;
-            }
-            return 0;
-        };
         if (!createdRelations.isEmpty()) {
             // sort the relations so that childs come first, will not handle loops and similar brokenness
             Collections.sort(createdRelations, relationOrder);

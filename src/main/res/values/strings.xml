@@ -85,6 +85,7 @@
     <string name="progress_building_imagery_database">Building imagery database…</string>
     <string name="progress_query_oam">Querying OAM…</string>
     <string name="progress_pruning">Pruning…</string>
+    <string name="progress_migration">Migrating…</string>
     <!-- Confirm upload dialog -->
     <string name="changes_deleted">"%1$s" deleted</string>
     <string name="changes_changed">"%1$s" changed</string>
@@ -297,6 +298,7 @@
     <string name="coverage_left">Left</string>
     <string name="coverage_right">Right</string>
     <string name="coverage_bottom">Bottom</string>
+    <string name="tile_size">Tile size</string>
     <string name="toast_invalid_box">Invalid or incomplete bounding box</string>
     <string name="delete_layer">Delete layer?</string>
     <string name="delete_endpoint">Delete endpoint?</string>
@@ -335,6 +337,7 @@
     <string name="layer_category_osmbasedmap">OSM based map</string>
     <string name="layer_category_qa">QA</string>
     <string name="layer_category_other">Other</string>
+    <string name="layer_add_layer_from_mvt_style">Add layer from MVT style</string>
     <!--  Layer info dialog -->
     <string name="layer_info_min_zoom">Min zoom</string>
     <string name="layer_info_max_zoom">Max zoom</string>
@@ -392,6 +395,7 @@
     <string name="tip_check_label">Stop showing optional tips</string>
     <string name="tip_undo">Long pressing the undo button will show all undo and redo checkpoints.</string>
     <string name="tip_imagery_privacy">Background and overlay layers are provided by third parties. Using a layer transmits your network address and a rough indication of the area you are looking at to the provider.&lt;p&gt;If the provider has supplied privacy policy information, you can view it with the \"Info\" menu item in the layer dialog. </string>
+    <string name="tip_mapillary_privacy">Mapillary is a service provided by Mapillary AB, Sweden, a subsidary of Facebook. Using the service transmits your network address and information on which images you have viewed to the company.</string>
     <string name="tip_pan_and_zoom_auto_download">Pan and zoom auto download should be used with caution as it has the potential to severely tax both the OpenStreetMap APIs and your device.&lt;p&gt;The load on the API servers can be 
 avoided by using an offline data source.</string>
     <string name="tip_locked_mode">In locked mode you can\'t edit, but a long press on an object will open a display with detailed information.</string>
@@ -515,7 +519,7 @@ avoided by using an offline data source.</string>
     <string name="toast_not_mbtiles">Not a MBTiles format file</string>
     <string name="toast_using_network_location">Using network location</string>
     <string name="toast_using_gps_location">Using GPS/GNSS location</string>
-    <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS positioning turned off, GPX tracking stopped</string>
+    <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS positioning turned off, consider stopping tracking.</string>
     <string name="toast_remote_nmea_connection">Remote NMEA connection from/to %1$s</string>
     <string name="toast_remote_nmea_connection_closed">Remote NMEA connection closed</string>
     <string name="toast_tags_copied">Tags copied to clipboard</string>
@@ -569,6 +573,7 @@ avoided by using an offline data source.</string>
     <string name="toast_multipolygon_inconsistent_roles">Multi-polygon has inconsistent role values for a ring</string>
     <string name="toast_error_saving_bookmark">Unable to save bookmark</string>
     <string name="toast_error_loading_style">Unable to load style: %1$s</string>
+    <string name="toast_only_one_source_supported">Only one source per style supported</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
@@ -1019,6 +1024,9 @@ avoided by using an offline data source.</string>
     <string name="config_beepVolume_title">Beep volume</string>
     <string name="config_beepVolume_summary">Volume setting for beeps.</string>
     <string name="config_beepVolume_current">%1$d</string>
+    <string name="config_mapillary_min_zoom_title">Minimum zoom for Mapillary</string>
+    <string name="config_mapillary_min_zoom_summary">Minimum zoom level required before Mapillary data is displayed.</string>
+    <string name="config_mapillary_min_zoom_current">%1$d</string>
     
     <!-- Data and Editing Settings -->
     <string name="config_category_editing">Data and edit settings</string>

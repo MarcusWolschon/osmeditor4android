@@ -315,12 +315,12 @@
 "amenity/bureau_de_change":[
 "vaihtaminen",
 "vaihto",
-"Forex",
 "rahanvaihto",
 "valuutta",
 "valuutanvaihto",
 "raha",
 "valuutanvaihtaminen",
+"forex",
 "Valuutanvaihtopiste",
 "rahanvaihtaminen"
 ],
@@ -329,8 +329,12 @@
 ],
 "amenity/cafe":[
 "Kahvila",
-"Teehuone",
-"Kahvitupa"
+"teehuone",
+"kahvitupa",
+"kahvila"
+],
+"amenity/cafe/bubble_tea":[
+"Kuplateekahvila"
 ],
 "amenity/car_pooling":[
 "Kimppakyytiasema"
@@ -576,11 +580,9 @@
 "amenity/fast_food":[
 "ravintola",
 "ranskalaiset",
-"Hesburger",
-"McDonald's",
 "hampurilainen",
 "ranskikset",
-"McDonalds",
+"mcdonalds",
 "hampurilais",
 "hamppari",
 "subway",
@@ -589,6 +591,8 @@
 "roska",
 "mättö",
 "Pikaruokaravintola",
+"hesburger",
+"mcdonald's",
 "hampurilaisravintola",
 "subi",
 "ruoka"
@@ -610,6 +614,9 @@
 ],
 "amenity/fast_food/ice_cream":[
 "Jäätelöpikaruokaravintola"
+],
+"amenity/fast_food/juice":[
+"Mehuravintola"
 ],
 "amenity/fast_food/kebab":[
 "Kebabpikaruokaravintola"
@@ -721,6 +728,9 @@
 "amenity/language_school":[
 "Kielikoulu"
 ],
+"amenity/lavoir":[
+"Pyykinpesupaikka"
+],
 "amenity/letter_box":[
 "Asunnon postilaatikko"
 ],
@@ -758,6 +768,9 @@
 ],
 "amenity/motorcycle_parking":[
 "Moottoripyöräpysäköinti"
+],
+"amenity/motorcycle_rental":[
+"Moottoripyörävuokraamo"
 ],
 "amenity/music_school":[
 "musiikkioppilaitos",
@@ -828,7 +841,7 @@
 "pysäköinti"
 ],
 "amenity/parking_space/disabled":[
-"Invapaikka"
+"Liikkumisesteisten pysäköintipaikka"
 ],
 "amenity/payment_centre":[
 "Maksupalvelu"
@@ -843,10 +856,10 @@
 "Valokuvauskoppi"
 ],
 "amenity/place_of_worship":[
+"uskonnollinen rakennus",
 "seita",
 "katedraali",
 "loosi",
-"Kirkkorakennus",
 "pyhäkkö",
 "pyhättö",
 "munkki",
@@ -858,12 +871,12 @@
 "pyhä",
 "kappeli",
 "Rukoilupaikka",
-"Uskonnollinen rakennus",
 "temppeli",
 "jumalanpalvelus",
 "valtakunnansali",
 "luostari",
 "nunna",
+"kirkkorakennus",
 "rukoushuone"
 ],
 "amenity/place_of_worship/buddhist":[
@@ -916,7 +929,6 @@
 "honden",
 "pyhättö",
 "henki",
-"Šintopyhäkkö",
 "shinden",
 "asuinpaikka",
 "japanilainen",
@@ -924,6 +936,7 @@
 "shintolainen",
 "seremonia",
 "heiden",
+"šintopyhäkkö",
 "haiden",
 "uhrihalli",
 "Šintolainen pyhäkkö"
@@ -945,8 +958,9 @@
 "Planetaario"
 ],
 "amenity/police":[
-"Poliisiasema",
-"Poliisi"
+"poliisi",
+"poliisiasema",
+"Poliisiasema"
 ],
 "amenity/polling_station":[
 "äänestys",
@@ -976,6 +990,9 @@
 "postikonttori",
 "paketti"
 ],
+"amenity/prep_school":[
+"Valmennuskoulu"
+],
 "amenity/prison":[
 "Vankila-alue"
 ],
@@ -994,6 +1011,9 @@
 "pubi",
 "yöravintola",
 "pub"
+],
+"amenity/pub/irish":[
+"Irlantilainen pubi"
 ],
 "amenity/pub/lgbtq":[
 "Seksuaalivähemmistöjen pubi"
@@ -1051,13 +1071,14 @@
 "Tutkimuslaitos"
 ],
 "amenity/restaurant":[
+"ravintola",
+"krouvi",
 "Ravintola",
-"Ruokaravintola",
-"Ruokala",
-"Krouvi",
-"Bistro",
-"Pizzeria",
-"Pitseria"
+"pitseria",
+"pizzeria",
+"ruokaravintola",
+"ruokala",
+"bistro"
 ],
 "amenity/restaurant/american":[
 "Amerikkalainen ravintola"
@@ -1198,6 +1219,9 @@
 "amenity/social_facility":[
 "Sosiaalipalvelu"
 ],
+"amenity/social_facility/ambulatory_care":[
+"Kotihoito"
+],
 "amenity/social_facility/food_bank":[
 "ruokajakelu",
 "ruokajako",
@@ -1266,9 +1290,10 @@
 "puhelinkoppi"
 ],
 "amenity/theatre":[
-"Kansallisteatteri",
-"Kaupunginteatteri",
-"Teatteri"
+"teatteri",
+"kansallisteatteri",
+"Teatteri",
+"kaupunginteatteri"
 ],
 "amenity/theatre/type/amphi":[
 "ulkoteatteri",
@@ -1582,6 +1607,9 @@
 "vitkutin",
 "huvipuisto",
 "elämyspuisto"
+],
+"attraction/swing_carousel":[
+"Ketjukaruselli"
 ],
 "attraction/train":[
 "turisti",
@@ -1972,7 +2000,7 @@
 "Liikuntakerho"
 ],
 "craft":[
-"Kädentaitoja vaativa kohde"
+"Käsityö"
 ],
 "craft/agricultural_engines":[
 "Maatalousmekaanikko"
@@ -2333,6 +2361,9 @@
 "entrance/emergency_ward_entrance":[
 "Päivystyssisäänkäynti"
 ],
+"entrance/main":[
+"Pääsisäänkäynti"
+],
 "ford":[
 "Kahlauspaikka"
 ],
@@ -2509,23 +2540,32 @@
 "Pyörätie"
 ],
 "highway/cycleway/bicycle_foot":[
-"tie",
-"jalankulkija",
-"Pyörätie ja jalkakäytävä",
-"kävelijä",
+"kvl",
+"liikenteen",
+"kevyt",
+"Kävely- ja pyörätie",
 "jalankulku",
 "polku",
-"reitti",
 "väylä",
+"kävely",
+"jkpp",
+"tie",
+"jalankulkija",
+"liikenne",
+"polkupyöräily",
+"kävelijä",
+"reitti",
+"pyöräily",
 "pyörä",
-"yhdistetty pyörätie ja jalkakäytävä",
-"kävely"
+"polkupyörä",
+"kevyen",
+"yhdistetty"
 ],
 "highway/cycleway/crossing":[
 "Pyörätien jatke"
 ],
 "highway/cycleway/crossing/bicycle_foot":[
-"Pyörätien jatke"
+"Pyörätien jatke ja suojatie"
 ],
 "highway/cycleway/crossing/marked":[
 "suojatie",
@@ -2687,7 +2727,7 @@
 "Autokaista"
 ],
 "highway/service/driveway":[
-"Pihatie",
+"pihatie",
 "Ajoväylä"
 ],
 "highway/service/emergency_access":[
@@ -2708,11 +2748,12 @@
 "kamera"
 ],
 "highway/steps":[
-"Rappuset",
-"Portaikko",
+"portaat",
+"portaikko",
+"kierreportaat",
+"tikapuut",
 "Portaat",
-"Kierreportaat",
-"Tikapuut"
+"rappuset"
 ],
 "highway/steps/conveying":[
 "Liukuportaat"
@@ -2782,11 +2823,11 @@
 "highway/turning_circle":[
 "kääntöympyrä",
 "kääntöpaikka",
+"u-käännöksen tekopaikka",
 "kääntymispaikka",
+"u-käännös",
 "Kääntymispaikka",
-"U-käännös",
-"kääntymisympyrä",
-"U-käännöksen tekopaikka"
+"kääntymisympyrä"
 ],
 "highway/turning_loop":[
 "Saarekkeellinen kääntöpaikka"
@@ -3284,8 +3325,9 @@
 "Ulkoterassi"
 ],
 "leisure/park":[
-"Puistikko",
-"Viheralue",
+"viheralue",
+"puistikko",
+"puisto",
 "Puisto"
 ],
 "leisure/picnic_table":[
@@ -3763,7 +3805,7 @@
 ],
 "natural/coastline":[
 "Rannikko",
-"Rantaviiva"
+"rantaviiva"
 ],
 "natural/fell":[
 "Tunturi"
@@ -3787,10 +3829,11 @@
 "Muta"
 ],
 "natural/peak":[
-"Korkein kohta",
-"Huippu",
+"korkein kohta",
+"huippu",
+"vuorenhuippu",
 "Vuorenhuippu",
-"Vuoren huippu"
+"vuoren huippu"
 ],
 "natural/reef":[
 "Riutta"
@@ -3863,17 +3906,19 @@
 "Kanavan alue"
 ],
 "natural/water/lake":[
+"järvi",
 "Järvi",
-"Vesistö"
+"vesistö"
 ],
 "natural/water/moat":[
 "Vallihauta"
 ],
 "natural/water/pond":[
-"Lampare",
-"Lammikko",
+"luoma",
+"lammikko",
+"lampare",
 "Lampi",
-"Luoma"
+"lampi"
 ],
 "natural/water/reservoir":[
 "Tekojärvi"
@@ -4249,9 +4294,10 @@
 "taajama"
 ],
 "place/island":[
-"Luoto",
 "Saari",
-"Saareke"
+"saari",
+"luoto",
+"saareke"
 ],
 "place/islet":[
 "Luoto",
@@ -4294,20 +4340,14 @@
 "playground":[
 "Leikkipuiston laite"
 ],
-"playground/balance_beam":[
-"Nuorallakävely"
-],
-"playground/basket_swing":[
-"Korikeinu"
-],
 "playground/cushion":[
 "Pomppulinna"
 ],
-"playground/rocker":[
-"Keinuhevonen"
-],
 "playground/roundabout":[
 "Karuselli"
+],
+"playground/sandpit":[
+"Hiekkalaatikko"
 ],
 "playground/seesaw":[
 "Keinulauta"
@@ -4361,6 +4401,9 @@
 ],
 "power/generator/method/photovoltaic":[
 "Aurinkopaneeli"
+],
+"power/generator/method/photovoltaic/building/roof":[
+"Aurinkopaneelikatos"
 ],
 "power/generator/source/hydro":[
 "Vesivoimala"
@@ -4629,7 +4672,7 @@
 "Keskeneräinen rautatie"
 ],
 "railway/crossing":[
-"Tasoristeys (kevyt liikenne)"
+"Jalankulun ja pyöräilyn tasoristeys"
 ],
 "railway/derail":[
 "Raiteensulku"
@@ -4644,7 +4687,7 @@
 "Seisake"
 ],
 "railway/level_crossing":[
-"Tasoristeys (moottoriliikenne)"
+"Moottoriajoneuvoliikenteen tasoristeys"
 ],
 "railway/light_rail":[
 "Pikaraitiotie"
@@ -4712,7 +4755,7 @@
 "Katuraitiotie"
 ],
 "railway/tram_crossing":[
-"Raitiotien ja polun tasoristeys"
+"Raitiotien ja jalankulun/pyöräilyn tasoristeys"
 ],
 "railway/tram_level_crossing":[
 "Raitiotien ja kadun tasoristeys"
@@ -5105,7 +5148,7 @@
 "seksi",
 "erotiikka",
 "lelu",
-"K18",
+"k18",
 "eroottinen",
 "seksilelu",
 "aikuinen",
@@ -5116,7 +5159,7 @@
 "Seksuaalivähemmistöjen erotiikkamyymälä"
 ],
 "shop/fabric":[
-"Rakennusliike"
+"Kangaskauppa"
 ],
 "shop/farm":[
 "Maatilan suoramyynti",
@@ -5170,7 +5213,7 @@
 ],
 "shop/games":[
 "live-roolipelaaminen",
-"LARP",
+"larp",
 "sotapeli",
 "pelikauppa",
 "lautapeli",
@@ -6028,9 +6071,6 @@
 "vaellus",
 "patikka"
 ],
-"type/route/horse":[
-"Ratsastusreitti"
-],
 "type/route/light_rail":[
 "Pikaraitiotielinja"
 ],
@@ -6148,7 +6188,7 @@
 "poisto",
 "likavesi",
 "poistaa",
-"WC",
+"wc",
 "viemäri",
 "jätevesi",
 "vene",

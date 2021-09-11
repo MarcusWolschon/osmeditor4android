@@ -95,7 +95,11 @@ public class SearchForm extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bbox = (ViewBox) getArguments().getSerializable(BBOX_KEY);
+        if (savedInstanceState != null) {
+            bbox = (ViewBox) savedInstanceState.getSerializable(BBOX_KEY);
+        } else {
+            bbox = (ViewBox) getArguments().getSerializable(BBOX_KEY);
+        }
     }
 
     @Override
@@ -194,5 +198,11 @@ public class SearchForm extends ImmersiveDialogFragment {
     public void onStart() {
         super.onStart();
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(BBOX_KEY, bbox);
     }
 }

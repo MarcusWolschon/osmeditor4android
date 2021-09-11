@@ -92,12 +92,12 @@
 "Kazino"
 ],
 "amenity/charging_station":[
-"Elektroauto",
-"Uzlāde",
-"Zemsprieguma uzlāde",
 "Uzlādes stacija",
-"Superlāde",
-"Elektriskā"
+"superlāde",
+"uzlāde",
+"elektroauto",
+"elektriskā",
+"zemsprieguma uzlāde"
 ],
 "amenity/childcare":[
 "Bērnistaba / Bērnu aprūpe"
@@ -127,9 +127,9 @@
 "Kopienas centrs"
 ],
 "amenity/compressed_air":[
-"Riepu uzpilde",
-"Saspiests Gaiss",
-"Augstspiediena"
+"riepu uzpilde",
+"augstspiediena",
+"Saspiests Gaiss"
 ],
 "amenity/courthouse":[
 "Tiesas nams",
@@ -245,17 +245,17 @@
 "Naktsklubs"
 ],
 "amenity/parking":[
-"Auto",
+"auto",
+"mašīnas",
 "apstāšanās",
 "stāvēšana",
 "stāvvieta",
 "Stāvvieta",
-"pieturvieta",
-"Mašīnas"
+"pieturvieta"
 ],
 "amenity/parking/multi-storey":[
 "daudzstāvu",
-"Garāža",
+"garāža",
 "ēka",
 "stāvi",
 "autostāvieta",
@@ -284,12 +284,12 @@
 "Planetārijs"
 ],
 "amenity/police":[
-"Detektīvs",
-"Iecirknis",
-"Kruķi",
-"Likums",
-"Poliči",
-"Policija"
+"poliči",
+"detektīvs",
+"likums",
+"kruķi",
+"Policija",
+"iecirknis"
 ],
 "amenity/post_office":[
 "Pasta nodaļa",
@@ -519,7 +519,7 @@
 "attraction/carousel":[
 "Karuseļu",
 "zirgu",
-"Atrakciju"
+"atrakciju"
 ],
 "attraction/maze":[
 "Labirints"
@@ -673,7 +673,7 @@
 "Māja"
 ],
 "building/industrial":[
-"Industijas Ēka"
+"Ražošanas ēka"
 ],
 "building/mosque":[
 "Mošejas Ēka"
@@ -737,7 +737,7 @@
 "Grozu veidotājs"
 ],
 "craft/beekeeper":[
-"Bišu kopējs",
+"bišu kopējs",
 "Biškopis"
 ],
 "craft/blacksmith":[
@@ -761,17 +761,17 @@
 ],
 "craft/chimney_sweeper":[
 "Skursteņslauķis",
-"Skursteņu slaucītājs"
+"skursteņu slaucītājs"
 ],
 "craft/clockmaker":[
-"Pulksteņmeistars",
+"pulksteņmeistars",
 "Pulksteņdaris"
 ],
 "craft/confectionery":[
-"Saldumi",
-"Konfektes",
-"Saldumu veidotājs",
-"Konfekcionārs"
+"saldumi",
+"konfektes",
+"konfekcionārs",
+"Saldumu veidotājs"
 ],
 "craft/electrician":[
 "Elektriķis"
@@ -966,9 +966,9 @@
 "Kapsēta"
 ],
 "landuse/commercial":[
+"komerciāla platība",
 "Komercplatība",
-"Komercapgabals",
-"Komerciāla platība"
+"komercapgabals"
 ],
 "landuse/farmyard":[
 "Lauku sēta"
@@ -981,6 +981,9 @@
 ],
 "landuse/harbour":[
 "Osta"
+],
+"landuse/industrial":[
+"Ražošanas zona"
 ],
 "landuse/industrial/slaughterhouse":[
 "Kautuve"
@@ -1064,8 +1067,8 @@
 "skrituļdēļi"
 ],
 "leisure/pitch/soccer":[
-"Futbols",
-"Futbola laukums"
+"Futbola laukums",
+"futbols"
 ],
 "leisure/pitch/table_tennis":[
 "pingpongs",
@@ -1379,9 +1382,9 @@
 "Manikīra/Nagu salons"
 ],
 "shop/beauty/tanning":[
-"Solārija",
-"Solārijs",
-"Solārija Salons"
+"solārijs",
+"Solārija Salons",
+"solārija"
 ],
 "shop/bed":[
 "Gultasveļas / Matraču veikals",

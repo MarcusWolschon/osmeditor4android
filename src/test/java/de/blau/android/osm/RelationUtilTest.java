@@ -88,6 +88,7 @@ public class RelationUtilTest {
     /**
      * Add tag to element
      * 
+     * @param d current StorageDelegator
      * @param e the tag
      * @param key tag key
      * @param value tag value
@@ -103,6 +104,7 @@ public class RelationUtilTest {
      * 
      * @param d a StorageDelegator
      * @param id the OSM id
+     * @return a Way
      */
     static Way getWay(@NonNull StorageDelegator d, long id) {
         Way w = (Way) d.getOsmElement(Way.NAME, id);
@@ -113,6 +115,7 @@ public class RelationUtilTest {
     /**
      * Load some test data in to storage
      * 
+     * @param c Class
      * @return the StorageDelegator
      * 
      */

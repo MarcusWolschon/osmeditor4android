@@ -32,7 +32,7 @@ public class EliTest {
         Version formatVersion = fc.formatVersion();
         assertNull(formatVersion);
     }
-    
+
     /**
      * Parse a sample ELI geojson config with meta
      */
@@ -42,20 +42,20 @@ public class EliTest {
         assertEquals(5, fc.features().size());
         Version formatVersion = fc.formatVersion();
         assertNotNull(formatVersion);
-        assertEquals("1.0.0",formatVersion.toString());
+        assertEquals("1.0.0", formatVersion.toString());
         assertEquals("2020-12-06 10:02:10", fc.generated());
     }
 
     /**
      * Get a resource file as a String
      * 
+     * @param path path for the resource
      * @return a resource file as a String
      */
     String stringFromResource(@NonNull String path) {
         StringBuilder sb = new StringBuilder();
         try (InputStream is = getClass().getResourceAsStream(path)) {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)));
-
             int cp;
             while ((cp = rd.read()) != -1) {
                 sb.append((char) cp);

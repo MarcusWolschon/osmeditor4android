@@ -9,9 +9,11 @@
 "Adress",
 "destination",
 "gatuadress",
+"adress",
 "postort"
 ],
 "advertising/billboard":[
+"annonstavla",
 "affischtavla",
 "reklamskylt",
 "reklamtavla",
@@ -20,6 +22,7 @@
 "Annonstavla"
 ],
 "advertising/board":[
+"anslagstavla",
 "tillkännagivanden",
 "Anslagstavla",
 "reklam",
@@ -45,6 +48,7 @@
 "advertising/poster_box":[
 "affischtavla",
 "reklamyta",
+"reklamtavla",
 "reklamlåda",
 "reklambox",
 "reklampelare",
@@ -64,29 +68,32 @@
 "aerialway/cable_car":[
 "Kabinbana",
 "linbana",
+"kabinbana",
 "pendelbana"
 ],
 "aerialway/chair_lift":[
+"stollift",
+"expresslift",
 "lift",
 "linbana",
-"Expresslift",
 "Stollift",
 "stolslift",
 "skidlift"
 ],
 "aerialway/drag_lift":[
 "Släplift",
-"Draglift",
+"släplift",
 "lift",
 "linbana",
-"skidlift"
+"skidlift",
+"draglift"
 ],
 "aerialway/gondola":[
-"Gondolbana",
+"gondol",
 "lift",
 "linbana",
-"Gondol",
 "skidlift",
+"gondolbana",
 "Gondollinbana"
 ],
 "aerialway/goods":[
@@ -98,23 +105,24 @@
 "linbana",
 "transport",
 "industrilift",
-"Transportlift",
+"transportlift",
 "transportlinbana",
 "lift",
 "industri",
 "Transportlinbana"
 ],
 "aerialway/j-bar":[
-"Ankarlift",
+"j-lift",
+"ankarlift",
+"j-bygellift",
 "släplift",
 "lift",
-"J-bygellift",
 "linbana",
 "skidlift",
-"J-lift",
 "J-krokslift"
 ],
 "aerialway/magic_carpet":[
+"rullband",
 "skidliften",
 "släplift",
 "lift",
@@ -125,10 +133,10 @@
 "Hybridlift (Telemixlift)",
 "stollift",
 "expresslift",
-"Telemixlift",
 "gondol",
 "lift",
 "linbana",
+"telemixlift",
 "skidlift",
 "stolslift",
 "hybridlift",
@@ -139,10 +147,11 @@
 "släplift",
 "lift",
 "knapp",
+"knapplift",
 "linbana",
 "tallrik",
-"Knapplift",
-"skidlift"
+"skidlift",
+"Knapplift"
 ],
 "aerialway/pylon":[
 "pylon",
@@ -152,6 +161,7 @@
 "pelare"
 ],
 "aerialway/rope_tow":[
+"replift",
 "släplift",
 "lift",
 "linbana",
@@ -160,16 +170,18 @@
 ],
 "aerialway/t-bar":[
 "Ankarlift",
+"ankarlift",
+"t-bygellift",
 "släplift",
-"T-lift",
 "lift",
+"t-lift",
 "linbana",
-"skidlift",
-"T-bygellift"
+"skidlift"
 ],
 "aerialway/zip_line":[
 "zipwire",
 "glidbana",
+"zipline",
 "zip-line",
 "linbana",
 "travers",
@@ -194,69 +206,75 @@
 "tamac",
 "ramp",
 "flygparkering",
-"Flygplansparkering",
 "parkering av flygplan",
 "apron",
 "parkering av plan",
 "flygplansplatta",
 "flygplatsplatta",
+"flygplansparkering",
 "taxibana"
 ],
 "aeroway/gate":[
 "flyggate",
 "flygplatsgate",
-"Gate"
+"Gate",
+"gate"
 ],
 "aeroway/hangar":[
-"Hangar",
+"hangar",
 "flygverkstad",
+"Hangar",
 "flygplansgarage",
 "flyggarage",
 "garage för flygplan",
 "flygplanshall"
 ],
 "aeroway/helipad":[
-"Helipad",
+"helikopterplatta",
 "Helikopterplatta",
-"helikopter"
+"helikopter",
+"helipad"
 ],
 "aeroway/holding_position":[
 "holding",
-"ILS",
+"ils",
 "väntplats",
+"väntplats för flygplan",
 "holding position",
-"MLS",
+"mls",
 "Väntplats för flygplan"
 ],
 "aeroway/jet_bridge":[
 "jetbridge",
 "landgång",
-"PBB",
+"pbb",
 "brygga",
 "Ombordstigningsbrygga",
 "passagerarbrygga",
 "skybridge",
 "jet bridge",
 "gate",
+"ombordstigningsbrygga",
 "embarkeringsbrygga"
 ],
 "aeroway/parking_position":[
 "flyg",
 "flygparkering",
 "flygplan",
-"Parkeringsplats för flygplan",
-"parkering"
+"parkeringsplats för flygplan",
+"parkering",
+"Parkeringsplats för flygplan"
 ],
 "aeroway/runway":[
 "Start- och landningsbana",
 "flyg",
-"RWY",
+"rwy",
 "flygplats",
 "landningsbana",
-"Startbana",
 "landa",
 "landning",
 "landningsfällt",
+"startbana",
 "rullbana"
 ],
 "aeroway/spaceport":[
@@ -267,6 +285,7 @@
 "raketuppskattningskomplex",
 "raketuppskjutning",
 "kosmodrom",
+"rymdbas",
 "raketområde",
 "Rymdbas",
 "raket"
@@ -274,18 +293,19 @@
 "aeroway/taxiway":[
 "flygplansväg",
 "transportbana",
-"Taxibana",
+"taxiway",
 "transportsträcka",
-"Taxiway"
+"Taxibana",
+"taxibana"
 ],
 "aeroway/terminal":[
 "flygplats",
 "Flygterminal",
-"Flygplatsterminal",
 "flygterminal",
 "terminal",
 "avgångshall",
-"ankomsthall"
+"ankomsthall",
+"flygplatsterminal"
 ],
 "aeroway/windsock":[
 "Vindstrut",
@@ -300,9 +320,10 @@
 "odlingslott",
 "lott",
 "koloniträdgård",
+"kolonilott",
 "koloniområde",
-"Kolonilott",
 "koloni",
+"Kolonilott",
 "täppa"
 ],
 "amenity":[
@@ -314,14 +335,15 @@
 "hundkollo",
 "Djurhotell",
 "katthotell",
+"hundhotell",
 "häst",
-"Hundhotell",
+"hundpensionat",
 "hund",
-"Hundpensionat",
 "inackordering",
 "reptil",
 "djurkollo",
-"Djurpensionat",
+"djurpensionat",
+"djurhotell",
 "husdjur",
 "kattkollo"
 ],
@@ -331,6 +353,7 @@
 "tjur",
 "kattunge",
 "djurhållning",
+"uppfödning",
 "häst",
 "avel",
 "hund",
@@ -340,7 +363,6 @@
 "Djuruppfödning",
 "djuravel",
 "husdjur",
-"Uppfödning",
 "djuruppfödning"
 ],
 "amenity/animal_shelter":[
@@ -356,18 +378,20 @@
 "omplacering",
 "djuradoption",
 "karantän",
+"djurhem",
 "husdjur",
 "omhändertagande",
 "djurskydd"
 ],
 "amenity/arts_centre":[
 "kulturcenter",
+"konstcenter",
 "museum",
 "kultur",
 "tavlor",
 "kulturhus",
-"Konstcenter",
-"konst"
+"konst",
+"Konstcenter"
 ],
 "amenity/atm":[
 "bankomat",
@@ -389,6 +413,7 @@
 "låneinstitut",
 "bankvalv",
 "besparing",
+"bank",
 "penninginrättning",
 "fonder",
 "banklokal",
@@ -396,6 +421,7 @@
 "penninganstalt"
 ],
 "amenity/bar":[
+"bar",
 "Bar",
 "matställe",
 "servering",
@@ -407,6 +433,7 @@
 "krog"
 ],
 "amenity/bar/lgbtq":[
+"hbtq-bar",
 "lgbtq bar",
 "gay-bar",
 "lgb bar",
@@ -416,12 +443,12 @@
 ],
 "amenity/bbq":[
 "bbq",
-"Grill",
+"barbecue",
 "eldning",
 "eldstad",
-"Barbecue",
 "grillplats",
 "Grillplats/Grill",
+"grill",
 "eldplats",
 "grillning"
 ],
@@ -434,14 +461,16 @@
 "Bänk"
 ],
 "amenity/bicycle_parking":[
+"cykelparkering",
 "ställplats",
 "cykel",
 "Cykelparkering",
 "cykelställ",
-"Parkering"
+"parkering"
 ],
 "amenity/bicycle_parking/building":[
 "Cykelparkeringsgarage",
+"cykelparkeringsgarage",
 "cykelparkering",
 "cykel",
 "flervåningscykelgarage",
@@ -450,16 +479,18 @@
 "flervåningscykelparkering"
 ],
 "amenity/bicycle_parking/lockers":[
+"cykellås",
 "fastlåsning av cykel",
-"Cykellås",
 "cykel",
+"Cykellås",
 "fastlåsning",
 "lås"
 ],
 "amenity/bicycle_parking/shed":[
+"cykelskydd",
 "cykelparkering",
-"Cykelskydd",
 "cykelparkeringsskydd",
+"Cykelskydd",
 "cykel",
 "cykeltak",
 "tak",
@@ -471,19 +502,21 @@
 "cykellån",
 "cykel",
 "cykelleasing",
-"hyrcykel"
+"hyrcykel",
+"cykeluthyrning"
 ],
 "amenity/bicycle_repair_station":[
-"Cykelreparation",
 "kedjebrytare",
 "Station för cykelreparation",
 "cykel",
 "tryckluft",
 "cykelpump",
-"pumpstation"
+"pumpstation",
+"cykelreparation"
 ],
 "amenity/biergarten":[
 "ölträdgård",
+"biergarten",
 "servering",
 "trädgårdsbar",
 "sprit",
@@ -492,7 +525,6 @@
 "utecafé",
 "bar",
 "Ölträdgård",
-"Biergarten",
 "utebar",
 "öl",
 "pub",
@@ -504,14 +536,16 @@
 "utsikt",
 "Fast monterad kikare",
 "kikare",
+"fast monterad kikare",
 "teleskop"
 ],
 "amenity/boat_rental":[
 "båtleasing",
 "lånebåt",
-"Båtuthyrning",
 "hyrbåt",
-"båtlån"
+"Båtuthyrning",
+"båtlån",
+"båtuthyrning"
 ],
 "amenity/boat_storage":[
 "båt",
@@ -520,14 +554,16 @@
 "uppställning",
 "Båtförvaring",
 "båthus",
-"torrdocka"
+"torrdocka",
+"båtförvaring"
 ],
 "amenity/bureau_de_change":[
+"växlingskontor",
 "resecheckar",
 "valuta",
 "pengaväxlare",
-"Växlingskontor",
 "pengaväxling",
+"Växlingskontor",
 "växling",
 "pengar"
 ],
@@ -553,9 +589,11 @@
 "taiwanesiskt te",
 "boba",
 "Bubble tea-café",
-"café. Bubble tea"
+"bubble tea-café",
+"café. bubble tea"
 ],
 "amenity/cafe/coffee_shop":[
+"kaffehus",
 "espresso",
 "cappuccino",
 "americano",
@@ -583,6 +621,7 @@
 "Biluthyrning",
 "lånebil",
 "hyrbil",
+"biluthyrning",
 "billån",
 "billeasing"
 ],
@@ -595,6 +634,7 @@
 "bildelningsstation"
 ],
 "amenity/car_wash":[
+"biltvätt",
 "biltvättanläggning",
 "tvättgata",
 "tvätt-tunnel",
@@ -602,51 +642,54 @@
 "Biltvätt"
 ],
 "amenity/casino":[
-"Tärning",
 "spelsalong",
 "Kasino",
 "poker",
 "spelklubb",
+"casino",
 "spelhåla",
 "spelrum",
+"tärning",
 "blackjack",
 "kasino",
 "spelhus",
 "spel",
-"Casino",
 "roulette",
 "kortspel",
 "hasardspel"
 ],
 "amenity/charging_station":[
 "snabbladdning",
+"laddstation",
 "eluttag",
 "el",
 "Laddstation",
 "elbil"
 ],
 "amenity/childcare":[
+"dagmamma",
 "lekgrupp",
-"Förskola",
+"barnomsorg",
+"barnhem",
+"dagis",
 "Barnomsorg",
 "daghem",
-"Barnhem",
-"Dagmamma",
-"Dagis"
+"förskola"
 ],
 "amenity/cinema":[
+"biograf",
 "bioduk",
-"Bio",
-"Biografteater",
+"biografteater",
+"bio",
 "film",
 "Biograf",
 "drive-in"
 ],
 "amenity/clinic":[
+"klinik",
 "sjukvård",
 "distriktssköterska",
 "doktor",
-"Klinik",
 "vårdcentral",
 "distriktsläkare",
 "sjukhus",
@@ -664,71 +707,76 @@
 "avbrytande av havandeskap"
 ],
 "amenity/clinic/fertility":[
-"Insemination",
-"Fertilitetscentrum",
-"Fertilitet",
+"äggfrys",
 "barnlöshet",
 "fortplantning",
+"fertilitetscentrum",
 "ägglossning",
-"Äggfrys",
 "spermie",
 "spermadonation",
+"fertilitet",
+"insemination",
 "befruktning",
 "reproduktion",
-"IVF",
+"ivf",
 "äggdonation",
-"Fertilitetsklinik"
+"Fertilitetsklinik",
+"fertilitetsklinik"
 ],
 "amenity/clock":[
 "väggur",
 "urtavla",
 "kyrkklocka",
 "solur",
+"klocka",
 "Klocka",
 "ur",
 "väggklocka",
 "tidur"
 ],
 "amenity/clock/sundial":[
+"gnomon",
 "skugga",
 "soltid",
 "skuggklocka",
+"solur",
 "solklocka",
 "Solur",
-"Gnomon",
 "solvisare"
 ],
 "amenity/college":[
 "college",
+"gymnasium",
 "gymnasieområde",
 "gymnasie",
 "vidareutbildning",
 "gymnasiumområde",
-"Gymnasium",
 "Collegeområde"
 ],
 "amenity/community_centre":[
 "folkets hus",
+"hembygdsgård",
 "bygdegård",
-"Sockenstuga",
-"Samlingslokal",
+"byalag",
+"samlingslokal",
 "folkets park",
-"Hembygdsgård",
 "byförening",
+"Samlingslokal",
 "festlokal",
-"Byalag",
+"sockenstuga",
 "bystuga",
 "evenemang"
 ],
 "amenity/community_centre/lgbtq":[
-"HBTQ",
-"HBTQ-samlingslokal",
-"HBTQ-Samlingslokal",
-"HBTQ-festlokal",
-"HBTQ--evenemang"
+"hbtq-festlokal",
+"hbtq-samlingslokal",
+"hbtq--evenemang",
+"hbtq",
+"HBTQ-samlingslokal"
 ],
 "amenity/compressed_air":[
 "Tryckluft",
+"tryckluft",
 "pumpstation",
 "komprimerad luft"
 ],
@@ -736,35 +784,39 @@
 "föreläsning",
 "auditorium",
 "mässcenter",
-"Kongresshall",
+"kongresscenter",
 "mässa",
-"Kongresscenter",
+"kongresshall",
 "utställning",
+"Kongresscenter",
 "konferens",
 "mässhall"
 ],
 "amenity/courthouse":[
 "lag",
 "rätt",
-"Domstol",
 "juridik",
+"Domstol",
 "ting",
 "rättskipare",
 "tribunal",
 "instans",
-"lagbok"
+"lagbok",
+"domstol"
 ],
 "amenity/coworking_space":[
 "Dagkontor"
 ],
 "amenity/crematorium":[
 "begravning",
+"krematorium",
 "Krematorium",
 "kremering"
 ],
 "amenity/dentist":[
 "tänder",
 "tanddoktor",
+"tandläkare",
 "odontolog",
 "tandborstning",
 "tand",
@@ -779,6 +831,7 @@
 "Dykcenter",
 "scuba",
 "dykning",
+"dykcenter",
 "grodman"
 ],
 "amenity/doctors":[
@@ -789,11 +842,10 @@
 "vårdcentral",
 "sjukhus",
 "läkare",
-"Doktor",
-"vårdinrättning"
+"vårdinrättning",
+"Doktor"
 ],
 "amenity/dojo":[
-"Dojo",
 "kampsport",
 "budo",
 "japan",
@@ -801,9 +853,11 @@
 "Dojo / Akademi för kampsport",
 "kampkonst",
 "dojang",
-"träningslokal"
+"träningslokal",
+"dojo"
 ],
 "amenity/dressing_room":[
+"omklädningsrum",
 "påklädningsrum",
 "loge",
 "avklädningsrum",
@@ -814,18 +868,19 @@
 "ombyte"
 ],
 "amenity/drinking_water":[
-"Dricksvatten ",
-"Dricksvatten",
+"dricksvatten",
 "källa",
+"Dricksvatten",
 "fontän",
 "vatten"
 ],
 "amenity/driving_school":[
+"trafikskola",
 "bilskola",
 "körkort",
-"Trafikskola",
 "uppkörning",
 "lastbilskort",
+"Trafikskola",
 "övningskörning",
 "körskola"
 ],
@@ -857,10 +912,11 @@
 ],
 "amenity/fast_food":[
 "skräpmat",
-"Snabbmat",
 "gatuköksmat",
 "hämtmat",
+"Snabbmat",
 "gatukök",
+"snabbmat",
 "restaurang",
 "takeaway",
 "bukfylla",
@@ -876,10 +932,10 @@
 "bukfylla",
 "junk-food",
 "skräpmat",
-"Snabbmat",
 "gatuköksmat",
 "hämtmat",
 "äta",
+"snabbmat",
 "hamburgare",
 "Snabbmat – Hamburgare",
 "drive-in",
@@ -895,10 +951,10 @@
 "bukfylla",
 "junk-food",
 "skräpmat",
-"Snabbmat",
 "gatuköksmat",
 "hämtmat",
 "äta",
+"snabbmat",
 "kyckling",
 "drive-in",
 "grill"
@@ -913,13 +969,13 @@
 "junk-food",
 "café",
 "skräpmat",
-"Snabbmat",
 "gatuköksmat",
 "hämtmat",
 "äta",
 "munkar",
 "munk",
 "brunch",
+"snabbmat",
 "donut",
 "drive-in",
 "kaffe",
@@ -932,16 +988,16 @@
 "gatukök",
 "restaurang",
 "Snabbmat – Fish & Chips",
+"fish and chips",
 "takeaway",
 "bukfylla",
 "junk-food",
 "skräpmat",
-"Snabbmat",
 "gatuköksmat",
 "hämtmat",
 "äta",
-"Fish and chips",
-"Fish & chips",
+"fish & chips",
+"snabbmat",
 "drive-in",
 "grill"
 ],
@@ -950,7 +1006,7 @@
 "Snabbmat – Korv med bröd",
 "snabbmat",
 "korv",
-"Korv med bröd",
+"korv med bröd",
 "varmkorv"
 ],
 "amenity/fast_food/ice_cream":[
@@ -972,10 +1028,10 @@
 "bukfylla",
 "junk-food",
 "skräpmat",
-"Snabbmat",
 "gatuköksmat",
 "hämtmat",
 "äta",
+"snabbmat",
 "juicebar",
 "drive-in",
 "grill"
@@ -989,10 +1045,10 @@
 "bukfylla",
 "junk-food",
 "skräpmat",
-"Snabbmat",
 "gatuköksmat",
 "hämtmat",
 "äta",
+"snabbmat",
 "kebab",
 "Snabbmat – Kebab",
 "drive-in",
@@ -1008,12 +1064,12 @@
 "bukfylla",
 "junk-food",
 "skräpmat",
-"Snabbmat",
 "gatuköksmat",
 "hämtmat",
 "äta",
 "mexico",
 "Snabbmat – Mexikanskt",
+"snabbmat",
 "drive-in",
 "grill"
 ],
@@ -1028,12 +1084,12 @@
 "bukfylla",
 "junk-food",
 "skräpmat",
-"Snabbmat",
 "gatuköksmat",
 "hämtmat",
 "äta",
 "pizza",
 "pizzeria",
+"snabbmat",
 "drive-in",
 "grill"
 ],
@@ -1044,12 +1100,12 @@
 "bargetter",
 "Snabbmat – Smörgås",
 "skräpmat",
-"Snabbmat",
 "gatuköksmat",
 "hämtmat",
 "äta",
 "smörgås",
 "baguetter",
+"snabbmat",
 "mackor",
 "drive-in",
 "baguette",
@@ -1071,6 +1127,7 @@
 "brandstång",
 "brandbil",
 "räddningstjänsten",
+"brandstation",
 "Brandstation",
 "brandtorn"
 ],
@@ -1086,19 +1143,21 @@
 ],
 "amenity/fountain":[
 "springbrunn",
+"fontän",
 "Fontän",
 "vattenkonst"
 ],
 "amenity/fuel":[
 "bensin",
 "diesel",
-"LNG",
+"lng",
+"bensinstation",
 "Bensinstation",
 "bränsle",
 "propan",
 "tapp",
 "tankstation",
-"CNG",
+"cng",
 "mack",
 "biodiesel"
 ],
@@ -1125,12 +1184,13 @@
 "frilåda",
 "donation",
 "free table",
+"bortskänkningslåda",
 "fritt bord",
 "Bortskänkningslåda"
 ],
 "amenity/grave_yard":[
-"Gravplats",
 "urnlund",
+"gravplats",
 "griftegård",
 "kyrkogård",
 "begravningsplats",
@@ -1139,8 +1199,8 @@
 ],
 "amenity/grit_bin":[
 "sand",
-"Sandlåda",
 "salt",
+"sandlåda",
 "halkbekämpning",
 "Sandkista",
 "sandkista",
@@ -1151,6 +1211,7 @@
 "sanatorium",
 "sjukhus",
 "läkare",
+"sjukhusområde",
 "Sjukhusområde",
 "klinik",
 "sjukvård",
@@ -1168,10 +1229,11 @@
 "viltjakt",
 "Jakttorn",
 "utkik",
+"skjutstege",
 "älgtorn",
 "utkikstorn",
 "vilt",
-"Skjutstege"
+"jakttorn"
 ],
 "amenity/ice_cream":[
 "glasskiosk",
@@ -1183,11 +1245,12 @@
 "sherbet",
 "frozen",
 "kulglass",
-"gelato"
+"gelato",
+"glassaffär"
 ],
 "amenity/internet_cafe":[
-"Internetcafé",
 "internetkafé",
+"internetcafé",
 "internetcaffe",
 "internetcafe",
 "cybercafé",
@@ -1196,47 +1259,49 @@
 "amenity/karaoke_box":[
 "karaoke box",
 "karaoke-rum",
-"karaoke-TV",
+"karaoke-tv",
 "karaoke-klubb",
 "Karaoke Box",
-"KTV",
+"ktv",
 "karaoke lounge"
 ],
 "amenity/kindergarten":[
 "kindergarten",
-"Förskola",
 "lekplats",
 "Förskoleområde",
 "dagis",
 "lekskola",
 "daghem",
-"lekis"
+"lekis",
+"förskola"
 ],
 "amenity/kneipp_water_cure":[
+"kallvattenkuranstalt",
 "vattenkur",
 "kallvattenkur",
-"Hydrotherapie",
+"kneipp vattenterapi",
+"kneipp",
+"hydrotherapie",
 "Kneipp vattenterapi",
-"Kneipp",
-"fotbad. vatten",
-"Kallvattenkuranstalt"
+"fotbad. vatten"
 ],
 "amenity/language_school":[
 "språk",
+"språkskola",
 "språkkurs",
 "Språkskola",
 "språkutbildning",
 "esl"
 ],
 "amenity/lavoir":[
+"tvättstuga",
 "tvättning",
 "tvättställe",
 "Tvättbrygga",
 "klädtvätt",
 "tvättbrygga",
-"Lavoir",
 "tvätt",
-"Tvättstuga",
+"lavoir",
 "kläder",
 "handtvätt"
 ],
@@ -1244,10 +1309,12 @@
 "Postlåda",
 "brevlåda",
 "brevinkast",
-"postlucka"
+"postlucka",
+"postlåda"
 ],
 "amenity/library":[
 "läsesal",
+"bibliotek",
 "bokrum",
 "Bibliotek",
 "boksamling",
@@ -1272,24 +1339,25 @@
 ],
 "amenity/lounger":[
 "soldäck",
-"Solstolar",
 "solning",
 "Solstol(ar)",
+"solstolar",
 "stolar",
 "bänkar"
 ],
 "amenity/love_hotel":[
+"kärlekshotell",
 "Kärlekshotell",
 "hotell",
 "sexhotell",
 "korttidshotell"
 ],
 "amenity/marketplace":[
+"saluhall",
 "Marknadsplats",
 "salutorg",
 "marknad",
-"torg",
-"Saluhall"
+"torg"
 ],
 "amenity/monastery":[
 "helgedom",
@@ -1358,6 +1426,7 @@
 "räkning",
 "valuta",
 "utbetalning",
+"pengaöverföring",
 "betalning",
 "inbetalning",
 "Pengaöverföring",
@@ -1381,12 +1450,27 @@
 "amenity/motorcycle_parking":[
 "motorcykelställ",
 "parkeringsplats",
+"motorcykelparkering",
 "ställplats",
 "motorcykel",
 "parkering motorcykel",
 "parkeringsplats motorcykel",
-"Motorcykelparkering",
-"parkering"
+"parkering",
+"Motorcykelparkering"
+],
+"amenity/motorcycle_rental":[
+"motorcykeluthyrning",
+"minibike",
+"hyrmotorcykel",
+"motorcykelleasing",
+"motorcykel",
+"moped",
+"dirt bike",
+"scooter",
+"Motorcykeluthyrning",
+"sidovagn",
+"motorscooter",
+"motorcykellån"
 ],
 "amenity/music_school":[
 "musikskola",
@@ -1406,6 +1490,7 @@
 "dansställe",
 "klubb",
 "bar",
+"nattklubb",
 "nöjeslokal",
 "Nattklubb",
 "disco",
@@ -1414,17 +1499,17 @@
 "dansklubb"
 ],
 "amenity/nightclub/lgbtq":[
-"HBTQ-Nattklubb",
-"HBTQ-klubb",
 "lesbisk klubb",
 "HBTQ-nattklubb",
 "gay nattklub",
+"hbtq-nattklubb",
 "lesbisk nattklubb",
 "lesbiskt disko",
 "gay disko",
 "gay-klubb",
 "gay-nattklubb",
-"gay-disko"
+"gay-disko",
+"hbtq-klubb"
 ],
 "amenity/nursing_home":[
 "Vårdhem"
@@ -1434,21 +1519,21 @@
 "bil",
 "p-plats",
 "bilparkering",
-"Parkering",
 "parkeringsområde",
-"Parkeringsplats"
+"Parkeringsplats",
+"parkering"
 ],
 "amenity/parking/multi-storey":[
 "parkeringsbyggnad",
 "flervånig",
 "bil",
-"Flervånig bilparkering",
 "flervånig parkeringsgarage",
 "parkeringshus",
 "garage",
 "bilparkering",
 "parkeringsgarage",
 "inomhusparkering",
+"flervånig bilparkering",
 "parkering",
 "parkeringsramp",
 "parkeringsdäck",
@@ -1458,27 +1543,29 @@
 "amenity/parking/park_ride":[
 "pendling",
 "parkeringsplats",
-"pendlare",
-"Pendelparkering",
 "bil",
 "infartsparkering",
-"pendlarparkering",
 "p-plats",
 "bilparkering",
-"Parkering",
 "parkeringsområde",
-"Pendelparkeringsplats"
+"pendelparkeringsplats",
+"parkering",
+"Pendelparkeringsplats",
+"pendlare",
+"pendelparkering",
+"pendlarparkering"
 ],
 "amenity/parking/underground":[
+"underjordisk parkering",
 "parkeringsplats",
 "fordonsparkering",
 "Underjordisk parkering",
 "p-plats",
 "bilparkering",
-"Underjordisk",
 "parkeringshus",
 "parkeringsgarage",
 "parkeringsområde",
+"underjordisk",
 "parkering"
 ],
 "amenity/parking_entrance":[
@@ -1490,19 +1577,21 @@
 "In- och utfart parkeringsgarage"
 ],
 "amenity/parking_space":[
+"parkeringsruta",
 "handikapsparkering",
 "handikapsficka",
 "Parkeringsruta",
+"enskild parkeringsplats",
 "parkeringsyta",
-"Enskild parkeringsplats",
 "parkeringsficka"
 ],
 "amenity/parking_space/disabled":[
 "handikapad",
+"handikappsplats",
 "rullstolsplats",
 "rullstol",
-"Handikappsplats",
 "handikapsparkering",
+"Handikappsplats",
 "handikapsficka"
 ],
 "amenity/payment_centre":[
@@ -1510,20 +1599,22 @@
 "valuta",
 "utbetalning",
 "betalningskontor",
-"betalning",
 "inbetalning",
 "check",
-"faktura",
 "kontanter",
+"skatt",
+"betalning",
+"betalningscenter",
+"faktura",
 "pengar",
-"Betalningscenter",
-"skatt"
+"Betalningscenter"
 ],
 "amenity/payment_terminal":[
 "Betalningsterminal",
 "räkning",
 "valuta",
 "överföring",
+"betalningsterminal",
 "utbetalning",
 "inbetalning",
 "ekiosk",
@@ -1540,7 +1631,7 @@
 "Läkemedel",
 "drog*",
 "medicin",
-"Läkemedel*",
+"läkemedel*",
 "droghandel",
 "apotek",
 "läkemedelsaffär",
@@ -1553,6 +1644,7 @@
 "Fotoautomat",
 "foto",
 "kameraautomat",
+"fotoautomat",
 "kamera"
 ],
 "amenity/place_of_worship":[
@@ -1623,11 +1715,11 @@
 "amenity/place_of_worship/buddhist":[
 "pagoda",
 "Buddhisttempel",
-"Buddhism",
-"Buddha",
 "kloster",
+"buddha",
 "meditation",
 "zendo",
+"buddhism",
 "chörten",
 "stupa",
 "tempel",
@@ -1696,17 +1788,18 @@
 "tabernakel"
 ],
 "amenity/place_of_worship/christian/jehovahs_witness":[
-"Rikets sal för Jehovas vittne",
 "bönehus",
+"Rikets sal för Jehovas vittne",
 "kyrka",
 "hus för tillbedjan",
 "jehovas vittne",
 "guds hus",
+"rikets sal för jehovas vittne",
 "tillbedjan",
 "bön",
 "kristen",
-"kristendom",
-"Rikets sal"
+"rikets sal",
+"kristendom"
 ],
 "amenity/place_of_worship/christian/la_luz_del_mundo":[
 "bönehus",
@@ -1714,30 +1807,32 @@
 "hus för bön",
 "kyrka",
 "guds hus",
-"La Luz del Mundo",
+"la luz del mundo-tempel",
 "kristen",
-"La Luz del Mundo-tempel",
 "the light of the world-kyrka",
+"La Luz del Mundo-tempel",
 "kristendom",
+"la luz del mundo",
 "tempel"
 ],
 "amenity/place_of_worship/christian/quaker":[
-"Vännernas samfund",
+"kväkarevännernas möteshus",
 "bönehus",
 "hus för bön",
-"Kväkarevännernas möteshus",
+"kväkare",
 "guds hus",
-"Kväkare",
+"Kväkarevännernas möteshus",
 "kristen",
-"kristendom"
+"kristendom",
+"vännernas samfund"
 ],
 "amenity/place_of_worship/hindu":[
 "hinduism",
+"sanatana dharma",
 "helgedom",
 "hindu",
 "Hindutempel",
 "garbhagriha",
-"Sanatana Dharma",
 "puja",
 "arcana",
 "tempel"
@@ -1748,18 +1843,18 @@
 "predikan",
 "judisk",
 "katedral",
-"Synagoga",
+"synagoga",
 "böneplats",
 "tempel",
 "religion",
-"Jude",
 "tro",
 "bönehus",
 "Judisk synagoga",
 "gudshus",
 "gudstjänstlokal",
-"Judendom",
 "tillbedjan",
+"jude",
+"judendom",
 "missionshus"
 ],
 "amenity/place_of_worship/muslim":[
@@ -1782,39 +1877,41 @@
 "amenity/place_of_worship/shinto":[
 "kami",
 "helgedom",
+"jinja",
 "torii",
-"Jinja",
 "shintohelgedom",
 "shrine",
 "tempel",
 "yashiro",
 "jingū",
-"Shinto shrine",
+"shinto shrine",
 "miya",
-"Shinto",
 "Jinja (Shintoistisk helgedom)",
-"shintoism"
+"shintoism",
+"shinto"
 ],
 "amenity/place_of_worship/sikh":[
 "helgedom",
-"Sikh-tempel",
-"Sikh",
-"Sikhtempel",
-"Sikhism",
-"Gurudwara",
+"gurudwara",
+"sikh",
 "Sikhiskt tempel",
+"sikhtempel",
+"sikh-tempel",
+"sikhism",
 "tempel"
 ],
 "amenity/place_of_worship/taoist":[
 "helgedom",
 "Taoistiskt tempel",
-"Taoism",
 "tao",
+"taoism",
+"taoistiskt tempel",
 "daoism",
 "tempel"
 ],
 "amenity/planetarium":[
 "museum",
+"planetarium",
 "observatorium",
 "astronomi",
 "Planetarium"
@@ -1823,6 +1920,7 @@
 "polisman",
 "pass",
 "poliskonstapel",
+"polis",
 "Polis",
 "snut",
 "polismyndighet",
@@ -1854,14 +1952,17 @@
 "brevinlämning",
 "brevinkast",
 "postfack",
+"post",
 "postbox",
 "Brevlåda",
 "paketinlämning",
-"postlåda"
+"postlåda",
+"brev"
 ],
 "amenity/post_depot":[
 "brevsortering",
 "post",
+"postsorteringskontor",
 "postterminal",
 "postdistribution",
 "sortering",
@@ -1872,6 +1973,7 @@
 ],
 "amenity/post_office":[
 "Postkontor",
+"postkontor",
 "post",
 "kort",
 "postverk",
@@ -1884,6 +1986,7 @@
 "brev"
 ],
 "amenity/prep_school":[
+"kvälsskola",
 "matematik",
 "akademisk",
 "testförberedelse",
@@ -1893,18 +1996,18 @@
 "pluggskola",
 "läxhjälp",
 "handledning",
-"skrivning",
-"Kvälsskola"
+"skrivning"
 ],
 "amenity/prison":[
 "häkte",
 "fångvårdsanstalt",
 "polisarrest",
-"Fängelseområde",
 "fängelse",
 "arrest",
+"Fängelseområde",
 "anstalt",
 "fängelseförvar",
+"fängelseområde",
 "fånganstalt",
 "finka"
 ],
@@ -1917,16 +2020,18 @@
 "alkohol",
 "ölstuga",
 "drinkar",
+"pub",
 "Pub",
 "krog"
 ],
 "amenity/pub/irish":[
+"irland",
 "irländsk",
 "bar",
 "irländsk bar",
-"Irländsk pub",
+"irländsk pub",
 "pub",
-"Irland"
+"Irländsk pub"
 ],
 "amenity/pub/lgbtq":[
 "lesbisk pub",
@@ -1934,20 +2039,22 @@
 "lgbt pub",
 "HBTQ-pub",
 "gay-pub",
+"hbtq-pub",
 "lgb pub"
 ],
 "amenity/pub/microbrewery":[
-"Brewpub",
-"mikrobryggeri",
-"bar",
 "ölframställning",
-"öl",
+"brewpub",
 "alkohol",
 "sprit",
 "öltillverkning",
+"drink",
+"Brewpub",
+"mikrobryggeri",
+"bar",
+"öl",
 "bryggeri",
 "pub",
-"drink",
 "hantverksbryggeri"
 ],
 "amenity/public_bath":[
@@ -1959,6 +2066,7 @@
 "bassängbad",
 "bassäng",
 "badplats",
+"publikt bad",
 "strandbad",
 "onsen",
 "strand",
@@ -1968,26 +2076,29 @@
 ],
 "amenity/public_bookcase":[
 "begagnade böcker",
-"Offentlig bokhylla",
 "publik bokhylla",
+"Offentlig bokhylla",
 "låneböcker",
 "bokdelning",
 "bibliotek",
+"offentlig bokhylla",
 "bokbyte"
 ],
 "amenity/ranger_station":[
 "informationscenter",
 "infocenter",
 "besökscenter",
+"friluftsanläggningen",
 "friluftsområde",
-"Friluftsanläggningen",
 "park",
-"friluftsliv"
+"friluftsliv",
+"Friluftsanläggningen"
 ],
 "amenity/recycling":[
 "Återvinning"
 ],
 "amenity/recycling/container/electrical_items":[
+"elektronikskrot",
 "surfplattor",
 "återvinningsstation",
 "Elektronikskrot",
@@ -2005,10 +2116,10 @@
 "skräp",
 "biologiskt nedbrytbart",
 "biologiskt",
+"komposterbart",
 "nedbrytbart",
 "Komposterbart",
 "trädgårdsavfall",
-"Trädgårdsavfall",
 "matavfall",
 "organiskt",
 "trädgård",
@@ -2032,12 +2143,12 @@
 "skräp",
 "container",
 "metall",
+"Återvinningscontainer",
 "återvinningscontainer",
 "återvinningsstation",
 "flaskor",
 "glas",
 "återbruk",
-"Återvinningscontainer ",
 "sopstation",
 "skrot",
 "burkar",
@@ -2046,23 +2157,25 @@
 ],
 "amenity/refugee_site":[
 "flykting",
+"flyktingläger",
 "evakueringsläger",
 "migranter",
-"Flyktingläger",
-"flyktingar"
+"flyktingar",
+"Flyktingläger"
 ],
 "amenity/research_institute":[
 "forskningslaboratorium",
+"forskningsinstitutsområde",
 "experiment",
 "forskning",
 "tillämpad forskning",
 "forskningsinstitution",
 "forskningslaboratorier",
-"Forskningsinstitut",
 "institut",
-"Forskningsinstitutsområde",
 "forskning och utveckling",
-"FoU"
+"Forskningsinstitutsområde",
+"forskningsinstitut",
+"fou"
 ],
 "amenity/restaurant":[
 "café. matsal",
@@ -2070,6 +2183,7 @@
 "servering",
 "grillbar",
 "värdshus",
+"restaurang",
 "kafé",
 "brasserie",
 "cafeteria",
@@ -2080,15 +2194,16 @@
 "bar",
 "matställe",
 "pizzeria",
-"Restaurang",
 "restauration",
 "pub",
+"Restaurang",
 "näringsställe",
 "sylta",
 "kaffe"
 ],
 "amenity/restaurant/american":[
 "lunch",
+"usa",
 "servering",
 "grillbar",
 "värdshus",
@@ -2101,13 +2216,12 @@
 "näringsställe",
 "kaffe",
 "café. matsal",
-"USA",
+"restaurang",
 "kafé",
 "amerikansk mat",
 "bodega",
 "rotisseri",
 "pizzeria",
-"Restaurang",
 "restauration",
 "pub",
 "amerikansk restaurang",
@@ -2121,6 +2235,7 @@
 "servering",
 "grillbar",
 "värdshus",
+"restaurang",
 "kafé",
 "brasserie",
 "cafeteria",
@@ -2133,7 +2248,6 @@
 "Asiatisk restaurang",
 "pizzeria",
 "asiatisk mat",
-"Restaurang",
 "restauration",
 "pub",
 "näringsställe",
@@ -2153,17 +2267,17 @@
 "krog",
 "matservering",
 "bar",
-"Kina",
 "Kinesisk restaurang",
 "matställe",
 "näringsställe",
 "kaffe",
 "café. matsal",
+"kina",
+"restaurang",
 "kafé",
 "bodega",
 "rotisseri",
 "pizzeria",
-"Restaurang",
 "restauration",
 "pub",
 "sylta"
@@ -2172,7 +2286,6 @@
 "fransk restaurang",
 "lunch",
 "servering",
-"Frankrike",
 "grillbar",
 "värdshus",
 "brasserie",
@@ -2185,11 +2298,12 @@
 "näringsställe",
 "kaffe",
 "café. matsal",
+"restaurang",
 "kafé",
 "bodega",
 "rotisseri",
 "pizzeria",
-"Restaurang",
+"frankrike",
 "restauration",
 "pub",
 "fransk mat",
@@ -2211,13 +2325,13 @@
 "kaffe",
 "tysk restaurang",
 "café. matsal",
-"Tyskland",
+"tyskland",
+"restaurang",
 "kafé",
 "Tysk restaurang",
 "bodega",
 "rotisseri",
 "pizzeria",
-"Restaurang",
 "restauration",
 "pub",
 "sylta"
@@ -2239,12 +2353,12 @@
 "kaffe",
 "café. matsal",
 "grekisk mat",
+"restaurang",
 "kafé",
 "bodega",
 "rotisseri",
-"Grekland",
+"grekland",
 "pizzeria",
-"Restaurang",
 "restauration",
 "pub",
 "sylta"
@@ -2265,15 +2379,15 @@
 "kaffe",
 "indisk mat",
 "café. matsal",
+"restaurang",
 "kafé",
 "bodega",
 "rotisseri",
 "pizzeria",
 "Indisk restaurang",
-"Restaurang",
+"indien",
 "restauration",
 "pub",
-"Indien",
 "sylta"
 ],
 "amenity/restaurant/italian":[
@@ -2288,19 +2402,19 @@
 "bar",
 "matställe",
 "Italiensk restaurang",
+"italien",
 "näringsställe",
 "kaffe",
 "café. matsal",
+"restaurang",
 "kafé",
 "bodega",
 "rotisseri",
 "italiensk mat",
 "pizzeria",
-"Restaurang",
 "restauration",
 "pub",
 "sylta",
-"Italien",
 "italiensk restaurang"
 ],
 "amenity/restaurant/japanese":[
@@ -2309,6 +2423,7 @@
 "Japansk restaurang",
 "grillbar",
 "värdshus",
+"japan",
 "brasserie",
 "cafeteria",
 "krog",
@@ -2319,13 +2434,12 @@
 "kaffe",
 "café. matsal",
 "japansk restaurang",
-"Japan",
+"restaurang",
 "kafé",
 "bodega",
 "rotisseri",
 "pizzeria",
 "japansk mat",
-"Restaurang",
 "restauration",
 "pub",
 "sylta"
@@ -2345,14 +2459,14 @@
 "näringsställe",
 "kaffe",
 "café. matsal",
-"Mexiko",
 "Mexikansk restaurang",
+"restaurang",
+"mexiko",
 "kafé",
 "bodega",
 "rotisseri",
 "pizzeria",
 "mexikansk mat",
-"Restaurang",
 "restauration",
 "pub",
 "sylta"
@@ -2375,12 +2489,12 @@
 "kaffe",
 "café. matsal",
 "Nudelrestaurang",
+"restaurang",
 "kafé",
 "nudelrestaurang",
 "bodega",
 "rotisseri",
 "pizzeria",
-"Restaurang",
 "restauration",
 "pub",
 "sylta"
@@ -2403,12 +2517,12 @@
 "kaffe",
 "café. matsal",
 "pan pizza",
+"restaurang",
 "pizzarestaurang",
 "kafé",
 "bodega",
 "rotisseri",
 "pizzeria",
-"Restaurang",
 "restauration",
 "pub",
 "Pizzarestaurang",
@@ -2436,6 +2550,8 @@
 "kaffe",
 "café. matsal",
 "seafood",
+"fisk- och skaldjursrestaurang",
+"restaurang",
 "kafé",
 "bodega",
 "skaldjur",
@@ -2446,7 +2562,6 @@
 "ostron",
 "krabbor",
 "pizzeria",
-"Restaurang",
 "restauration",
 "pub",
 "sylta",
@@ -2471,11 +2586,11 @@
 "café. matsal",
 "Stekhus",
 "biff",
+"restaurang",
 "kafé",
 "bodega",
 "rotisseri",
 "pizzeria",
-"Restaurang",
 "restauration",
 "pub",
 "slakthus",
@@ -2497,14 +2612,15 @@
 "sushi",
 "näringsställe",
 "kaffe",
+"sushi-restaurang",
 "café. matsal",
 "asiatisk restaurang",
+"restaurang",
 "kafé",
 "bodega",
 "rotisseri",
 "Sushi-restaurang",
 "pizzeria",
-"Restaurang",
 "restauration",
 "pub",
 "sylta"
@@ -2517,29 +2633,31 @@
 "Thai-restaurang",
 "brasserie",
 "cafeteria",
-"Thailand",
 "krog",
 "matservering",
 "bar",
 "matställe",
 "asiatisk mat",
+"thai-restaurang",
 "thaimat",
+"thailand",
 "näringsställe",
 "kaffe",
 "café. matsal",
 "asiatisk restaurang",
+"restaurang",
 "thai",
 "kafé",
 "bodega",
 "rotisseri",
 "pizzeria",
-"Restaurang",
 "restauration",
 "pub",
 "sylta"
 ],
 "amenity/restaurant/turkish":[
 "lunch",
+"turkisk restaurang",
 "servering",
 "grillbar",
 "värdshus",
@@ -2549,24 +2667,25 @@
 "matservering",
 "bar",
 "matställe",
-"Turkiet",
 "näringsställe",
 "kaffe",
 "café. matsal",
 "Turkisk restaurang",
+"restaurang",
 "kafé",
+"turkiet",
 "bodega",
 "rotisseri",
 "turkisk mat",
 "turkisk",
 "pizzeria",
-"Restaurang",
 "restauration",
 "pub",
 "sylta"
 ],
 "amenity/restaurant/vietnamese":[
 "lunch",
+"vietnamesisk restaurang",
 "servering",
 "grillbar",
 "värdshus",
@@ -2575,20 +2694,20 @@
 "krog",
 "matservering",
 "bar",
-"Vietnam",
 "matställe",
 "asiatisk mat",
 "Vietnamesisk restaurang",
-"Vietnamesisk mat",
 "näringsställe",
 "kaffe",
 "café. matsal",
 "asiatisk restaurang",
+"vietnam",
+"restaurang",
 "kafé",
 "bodega",
 "rotisseri",
 "pizzeria",
-"Restaurang",
+"vietnamesisk mat",
 "restauration",
 "pub",
 "sylta"
@@ -2597,21 +2716,21 @@
 "tömningsplats",
 "gråvatten",
 "toalettömning",
-"Campingtoalett",
 "Latrintömning för campingfordon",
 "sanitet",
+"latrintömning",
 "campingplats",
 "torrtoalett",
-"Latrintömning"
+"campingtoalett"
 ],
 "amenity/school":[
-"Campus",
 "högskoleområde",
 "gymnasium",
 "grundskola",
+"campus",
 "Skolområde",
+"skolgård",
 "universitet",
-"Skolgård",
 "högskola",
 "högstadium",
 "mellanstadium",
@@ -2623,7 +2742,7 @@
 "väntkur",
 "grotta",
 "hydda",
-"Skydd",
+"skydd",
 "vindskydd",
 "Väderskydd",
 "koja",
@@ -2637,27 +2756,31 @@
 "fåfänga",
 "paviljong",
 "Lusthus",
-"kolonistuga"
+"kolonistuga",
+"lusthus"
 ],
 "amenity/shelter/lean_to":[
+"vindskydd",
 "gapskjul",
 "Vindskydd",
 "skärmskydd"
 ],
 "amenity/shelter/picnic_shelter":[
 "Picknicktak",
-"Picknickplats",
+"picknickplats",
 "rastplats",
 "paviljong",
 "pavilion",
 "utflykt",
-"Picknick"
+"picknicktak",
+"picknick"
 ],
 "amenity/shelter/public_transport":[
 "busskur",
 "busshållplats",
 "väntplats",
 "skydd",
+"väderskydd för kollektivtrafik",
 "väderskydd",
 "spårvagnshållplats",
 "Väderskydd för kollektivtrafik"
@@ -2668,7 +2791,8 @@
 "duschrum",
 "badrum",
 "duschkabin",
-"duschutrymme"
+"duschutrymme",
+"dusch"
 ],
 "amenity/smoking_area":[
 "rökruta",
@@ -2701,9 +2825,11 @@
 "kurs",
 "föreningsgård",
 "allaktivitetshus",
-"event"
+"event",
+"medborgarhus"
 ],
 "amenity/social_facility":[
+"social inrättning",
 "uteliggare",
 "social",
 "välgörenhetsorganisationer",
@@ -2714,9 +2840,10 @@
 "Social inrättning"
 ],
 "amenity/social_facility/ambulatory_care":[
+"öppenvård",
 "Öppenvård",
+"ambulerande vård",
 "vård",
-"Ambulerande vård",
 "hemvård",
 "hemtjänst"
 ],
@@ -2728,19 +2855,21 @@
 "matpaket"
 ],
 "amenity/social_facility/group_home":[
+"gruppboende",
 "grupphem",
 "välgörenhetsorganisationer",
 "gammal",
 "välgörenhet",
 "hjälparbete",
 "ålderdomshem",
-"Gruppboende",
-"kollektiv"
+"kollektiv",
+"Gruppboende"
 ],
 "amenity/social_facility/homeless_shelter":[
 "Härbärge",
 "hemlös",
 "sovsal",
+"härbärge",
 "bostadslös"
 ],
 "amenity/social_facility/nursing_home":[
@@ -2749,30 +2878,32 @@
 "hem för gamla",
 "Seniorboende",
 "servicehem",
+"hvb-hem",
 "äldreboende",
-"HVB-hem",
 "seniorboende",
 "senior",
 "pensionär",
+"vårdhem",
 "assistansboende",
-"Vårdhem",
 "ålderdomshem",
 "hem för vård och boende"
 ],
 "amenity/studio":[
+"studio",
 "utsändningslokal",
-"TV",
+"tv",
 "filminspelning",
 "inspelningslokal",
 "television",
-"TV-studio",
 "inspelning",
 "filmstudio",
-"Studio",
 "radiostudio",
+"tv-studio",
+"Studio",
 "radio"
 ],
 "amenity/studio/audio":[
+"inspelningsstudio",
 "ljudstudio",
 "ljudinspelning",
 "ljudproduktion",
@@ -2784,25 +2915,28 @@
 "studio",
 "radiosändning",
 "sändning",
-"Radiostation",
 "fm",
+"Radiostation",
+"radiostation",
 "am",
 "radiostudio",
 "radio"
 ],
 "amenity/studio/television":[
 "studio",
-"TV",
+"tv",
 "television",
+"tv-sändning",
 "TV-studio",
-"TV-sändning",
-"TV-station"
+"tv-station",
+"tv-studio"
 ],
 "amenity/studio/video":[
 "filminspelning",
 "videoinspelning",
 "Filmstudio",
 "videoproduktion",
+"filmstudio",
 "film",
 "video",
 "filmproduktion"
@@ -2811,12 +2945,14 @@
 "taxificka",
 "taxistation",
 "taxi",
+"taxihållplats",
 "Taxihållplats"
 ],
 "amenity/telephone":[
 "telefonautomat",
 "telefonkiosk",
 "telefonkur",
+"telefon",
 "telefonhytt",
 "Telefon"
 ],
@@ -2837,15 +2973,15 @@
 "utomhus",
 "utomhusteater",
 "läktare",
+"amfiteater",
 "scen",
-"Amfiteater",
 "teater",
+"Amfiteater",
 "utescen"
 ],
 "amenity/toilets":[
 "avträde",
 "latrin",
-"Toalett",
 "hemlighus",
 "skithus",
 "badrum",
@@ -2854,12 +2990,13 @@
 "utedass",
 "bekvämlighetsinrättning",
 "wc",
-"Baja-Maja",
+"baja-maja",
 "klo",
 "vattentoalett",
 "dass",
 "torrklosett",
 "klosett",
+"toalett",
 "vattenklosett",
 "bajamaja",
 "mugg"
@@ -2869,9 +3006,11 @@
 "Vattentoalett",
 "toalett",
 "spoltoalett",
-"WC"
+"wc",
+"vattentoalett"
 ],
 "amenity/toilets/disposal/pitlatrine":[
+"grop-latrin",
 "uthus",
 "dass",
 "toalett",
@@ -2888,9 +3027,9 @@
 "portabel toalett"
 ],
 "amenity/townhall":[
+"stadshus",
 "ämbetsverk",
 "folkets hus",
-"Stadshus",
 "fullmäktige",
 "riksdag",
 "domstolsbyggnad",
@@ -2910,25 +3049,27 @@
 "amenity/townhall/city":[
 "stadshus",
 "kommunhus",
-"Rådhus",
 "regering",
+"Rådhus",
 "borgmästare",
+"rådhus",
 "kommun",
 "tingshus"
 ],
 "amenity/toy_library":[
 "spel",
 "Leksaksbibliotek",
-"leksak"
+"leksak",
+"leksaksbibliotek"
 ],
 "amenity/university":[
 "college",
 "universitetsbyggnad",
 "högskola",
 "högskoleområde",
-"Universitet",
 "universitetsområde",
 "akademi",
+"universitet",
 "Universitetsområde",
 "lärosäte"
 ],
@@ -2937,23 +3078,26 @@
 "bildammsugare",
 "sugstation",
 "bilsugare",
-"bildtvätt"
+"bildtvätt",
+"dammsugarstation"
 ],
 "amenity/vehicle_inspection":[
-"Bilbesiktning",
+"bilprovning",
 "Fordonsbesiktning",
 "bilprovningen",
 "fordonsinspektion",
-"Bilprovning",
 "besiktning",
+"fordonsbesiktning",
+"bilbesiktning",
 "bilinspektion"
 ],
 "amenity/vending_machine":[
 "biljett",
 "tuggummiautomater",
 "läsk",
-"Varuautomat",
 "biljettautomat",
+"Varuautomat",
+"varuautomat",
 "läskautomat",
 "varumaskin",
 "biljetter",
@@ -2971,12 +3115,13 @@
 "mat",
 "matvarumaskin",
 "matautomat",
-"Varuautomat",
-"Matvaruautomat",
+"varuautomat",
 "Brödvarumaskin",
-"varumaskin"
+"varumaskin",
+"matvaruautomat"
 ],
 "amenity/vending_machine/cigarettes":[
+"cigarettautomat",
 "cigaretter",
 "snusautomat",
 "tobaksautomat",
@@ -2985,15 +3130,17 @@
 "amenity/vending_machine/coffee":[
 "the",
 "te",
-"Varuautomat",
-"Espresso",
+"kaffeautomat",
+"espresso",
 "expresso",
+"varuautomat",
 "Kaffeautomat",
 "varumaskin",
 "kaffe"
 ],
 "amenity/vending_machine/condoms":[
 "kondomomat",
+"kondomautomat",
 "Kondomautomat",
 "kondomer"
 ],
@@ -3003,23 +3150,24 @@
 "läsk",
 "dryck",
 "dryckesautomat",
-"Dryckesautomat ",
 "läskautomat",
 "kaffemaskin",
 "juice",
 "kaffe",
+"Dryckesautomat",
 "dryckautomat"
 ],
 "amenity/vending_machine/eggs":[
-"Äggvarumaskin",
+"äggvarumaskin",
 "mat",
 "matvarumaskin",
+"Äggvarumaskin",
 "matautomat",
-"Matvaruautomat",
-"Varuautomat",
 "ägg",
+"varuautomat",
 "äggautomat",
 "varumaskin",
+"matvaruautomat",
 "äggmaskin"
 ],
 "amenity/vending_machine/electronics":[
@@ -3029,26 +3177,27 @@
 "varumaskin",
 "laddkabel",
 "laddkablar",
+"varumaskin för elektronik",
 "mobiltelefon",
 "pekplatta",
 "telefon",
 "surfplatta",
 "varuautomat",
-"Varumaskin för elektronik",
 "elektronik",
+"Varumaskin för elektronik",
 "öronsnäckor",
 "hörlurar"
 ],
 "amenity/vending_machine/elongated_coin":[
 "mynt",
-"Penny Press",
 "minnesmyntmaskin",
 "elongated penny",
 "myntpressmaskin",
-"ECM",
+"ecm",
 "coin maskin",
 "minne",
 "minnesmynt",
+"penny press",
 "souvenirmynt",
 "elongated coin-maskin",
 "Elongated coin-maskin (myntpressmaskin)",
@@ -3064,12 +3213,14 @@
 "hundbajs",
 "avföringspåse",
 "djur",
+"bajspåsar",
 "skitpåse",
 "hundbajspåsar"
 ],
 "amenity/vending_machine/feminine_hygiene":[
-"Varumaskin för mensskydd",
 "kvinnor",
+"Varumaskin för mensskydd",
+"varumaskin för mensskydd",
 "binda",
 "tampong",
 "kvinna",
@@ -3084,8 +3235,9 @@
 "matvarumaskin",
 "matautomat",
 "Matvaruautomat",
-"Varuautomat",
+"varuautomat",
 "varumaskin",
+"matvaruautomat",
 "mellanmål"
 ],
 "amenity/vending_machine/fuel":[
@@ -3095,6 +3247,7 @@
 "tanka",
 "bensinstation",
 "propan",
+"bränslepump",
 "tankomat",
 "tankstation",
 "mack",
@@ -3109,22 +3262,25 @@
 "amenity/vending_machine/ice_cream":[
 "glass",
 "Glassautomat",
-"Varuautomat",
+"varuautomat",
 "isglass",
-"varumaskin"
+"varumaskin",
+"glassautomat"
 ],
 "amenity/vending_machine/ice_cubes":[
 "Ismaskin",
 "varuautomat",
 "is",
 "varumaskin",
-"iskuber"
+"iskuber",
+"ismaskin"
 ],
 "amenity/vending_machine/newspapers":[
 "Tidningsautomat",
 "tidning",
 "tidningsdistribution",
 "tidningar",
+"tidningsautomat",
 "tidningsutlämning",
 "tidningslåda"
 ],
@@ -3134,12 +3290,12 @@
 "paketutlämning",
 "leverans",
 "internetbutik",
-"InPosts",
 "paketautomat",
 "paketleverans",
 "paket",
 "utlämning",
-"Paketautomat (utlämning)"
+"Paketautomat (utlämning)",
+"inposts"
 ],
 "amenity/vending_machine/parcel_pickup_dropoff":[
 "amazon",
@@ -3148,20 +3304,21 @@
 "paketutlämning",
 "leverans",
 "internetbutik",
-"InPosts",
 "paketautomat",
 "paketleverans",
 "paket",
 "utlämning",
-"Paketautomat (ut- och inlämning)"
+"Paketautomat (ut- och inlämning)",
+"inposts"
 ],
 "amenity/vending_machine/parking_tickets":[
 "parkeringsur",
 "biljett",
 "parkeringsavgift",
+"parkeringsautomat",
 "parkometer",
-"Parkeringsautomat",
-"parkering"
+"parkering",
+"Parkeringsautomat"
 ],
 "amenity/vending_machine/public_transport_tickets":[
 "tågbiljett",
@@ -3173,19 +3330,20 @@
 "Biljettautomat för kollektivtrafik",
 "bussbiljetter",
 "biljett",
+"biljettautomat",
 "tåg",
 "bussbiljett",
 "spårvagn",
-"Biljettautomat",
 "buss"
 ],
 "amenity/vending_machine/stamps":[
 "porto",
 "frankering",
 "post",
-"Varuautomat",
+"varuautomat",
 "Frimärksautomat",
 "frankeringsautomat",
+"frimärksautomat",
 "varumaskin",
 "frimärke",
 "vykort",
@@ -3201,10 +3359,10 @@
 "mellanmål"
 ],
 "amenity/veterinary":[
+"veterinär",
 "djurdoktor",
 "djurläkare",
 "djurklinik",
-"Veterinär ",
 "djursjukhus",
 "Veterinär"
 ],
@@ -3214,6 +3372,7 @@
 "hundbajspåse",
 "bajs",
 "Sopkärl för hundbajspåsar",
+"sopkärl för hundbajspåsar",
 "hundskit",
 "hundbajs",
 "bajspåsar",
@@ -3224,16 +3383,15 @@
 "amenity/waste_basket":[
 "skräpkorg",
 "skräp",
-"Soptunna",
 "Soptunna (liten)",
 "sopkärl",
 "papperskorg",
 "papperskärl",
 "avfallskorg",
+"soptunna",
 "sopor"
 ],
 "amenity/waste_disposal":[
-"Soptunna",
 "industrisopor",
 "sopkärl",
 "avfall",
@@ -3242,17 +3400,20 @@
 "hushållssopor",
 "avfallskontainer",
 "Soptunna (hushålls- eller industrisopor)",
+"soptunna",
 "sopor"
 ],
 "amenity/waste_transfer_station":[
 "skräp",
+"avfallscentral",
 "dumpa",
 "skrot",
 "återvinning",
 "Avfallscentral"
 ],
 "amenity/water_point":[
-"Dricksvatten",
+"dricksvatten",
+"dricksvatten för campingfordon",
 "vattenpåfyllning",
 "Dricksvatten för campingfordon"
 ],
@@ -3269,6 +3430,7 @@
 "amenity/weighbridge":[
 "väga",
 "Lastbilsvåg",
+"lastbilsvåg",
 "våg",
 "vågstation",
 "vikt",
@@ -3279,15 +3441,17 @@
 "areal",
 "område",
 "utrymme",
+"yta",
 "Yta",
 "plan",
 "mark"
 ],
 "area/highway":[
 "trottoarkant",
-"Vägbeläggning",
 "vägplan",
+"vägbeläggning",
 "Vägyta",
+"vägyta",
 "area:highway",
 "torg",
 "vägform",
@@ -3300,16 +3464,17 @@
 "Attraktion"
 ],
 "attraction/amusement_ride":[
+"åkattraktion",
 "karusell",
-"Åkattraktion",
 "nöjespark",
+"Åkattraktion",
 "temapark",
 "tivoli",
 "nöjeskarusell"
 ],
 "attraction/animal":[
-"Djurinhägnad",
 "safari",
+"Djurinhägnad",
 "djurpark",
 "temapark",
 "fiskar",
@@ -3319,6 +3484,7 @@
 "djur",
 "akvarium",
 "insekt",
+"djurinhägnad",
 "lejon",
 "djurhage",
 "björn",
@@ -3332,6 +3498,7 @@
 "attraction/big_wheel":[
 "åkattraktion",
 "karusell",
+"pariserhjul",
 "nöjespark",
 "temapark",
 "stort hjul",
@@ -3345,7 +3512,8 @@
 "nöjespark",
 "temapark",
 "radiobil",
-"tivoli"
+"tivoli",
+"radiobilar"
 ],
 "attraction/bungee_jumping":[
 "Bungyjump",
@@ -3353,13 +3521,14 @@
 "nöjespark",
 "temapark",
 "hopplattform",
-"tivoli"
+"tivoli",
+"bungyjump"
 ],
 "attraction/carousel":[
 "åkattraktion",
+"karusell",
 "nöjespark",
 "temapark",
-"Karusell",
 "Karusell (roterande)",
 "tivoli",
 "nöjeskarusell"
@@ -3370,67 +3539,72 @@
 "nöjespark",
 "temapark",
 "tivoli",
+"mörk åktur",
 "spöktåg",
-"Mörk åktur",
-"nöjeskarusell"
+"nöjeskarusell",
+"Mörk åktur"
 ],
 "attraction/drop_tower":[
+"fritt fall",
 "åkattraktion",
 "karusell",
 "nöjespark",
 "temapark",
 "tivoli",
-"Fritt fall",
-"nöjeskarusell"
+"nöjeskarusell",
+"Fritt fall"
 ],
 "attraction/kiddie_ride":[
 "åkattraktion",
 "småbarnskarusell",
+"kiddie ride",
 "Kiddie Ride (åkattraktion för små barn)",
-"Kiddie Ride",
 "småbarnsåkattraktion"
 ],
 "attraction/log_flume":[
+"log flume",
 "nöjespark",
-"Log Flume",
 "temapark",
 "tivoli",
-"FlumeRide",
 "stock",
-"Flumeride"
+"Flumeride",
+"flumeride"
 ],
 "attraction/maze":[
-"Trojeborg",
 "slingergång",
-"Trädgårdslabyrint",
+"trojeborg",
 "Labyrint",
-"Trojaborg",
+"trojaborg",
+"trädgårdslabyrint",
+"labyrint",
 "irrgång"
 ],
 "attraction/pirate_ship":[
 "karusell",
-"roterande båt",
-"vikingaskepp",
-"Åkattraktion",
 "nöjespark",
 "temapark",
+"piratskepp",
+"nöjeskarusell",
+"åkattraktion",
+"båtgunga",
+"roterande båt",
+"vikingaskepp",
 "gunga",
 "tivoli",
 "Båtgunga",
-"piratskepp",
-"gungande båt",
-"nöjeskarusell"
+"gungande båt"
 ],
 "attraction/river_rafting":[
+"åkattraktion",
 "karusell",
-"Åkattraktion",
 "nöjespark",
+"forsränning",
 "temapark",
 "forsbana",
 "fors",
 "tivoli",
 "Forsränning",
-"Vattenbana",
+"vattenbana",
 "nöjeskarusell"
 ],
 "attraction/roller_coaster":[
@@ -3448,20 +3622,22 @@
 ],
 "attraction/summer_toboggan":[
 "kälke",
+"sommerrodelbahn",
 "Sommarrodel",
 "rodel",
-"Sommerrodelbahn",
-"mountain coaster",
-"Alpine slide"
+"sommarrodel",
+"alpine slide",
+"mountain coaster"
 ],
 "attraction/swing_carousel":[
 "åkattraktion",
+"karusell",
 "nöjespark",
 "temapark",
-"Karusell",
 "gunga",
 "Gungkarusell",
 "tivoli",
+"gungkarusell",
 "nöjeskarusell"
 ],
 "attraction/train":[
@@ -3471,8 +3647,8 @@
 "sightseeingtåg",
 "Turisttåg (ej på räls)",
 "turisttåg",
-"Tschu-Tschu",
-"Tuff tuff-tåg"
+"tuff tuff-tåg",
+"tschu-tschu"
 ],
 "attraction/water_slide":[
 "vattenrutschkana",
@@ -3498,32 +3674,35 @@
 "trafikbarriärer",
 "sugga",
 "Block",
-"Trafikhinder",
+"block",
 "betongsugga",
-"avspärrare"
+"avspärrare",
+"trafikhinder"
 ],
 "barrier/bollard":[
-"Pollare",
 "stolpe",
-"Stolpe"
+"Stolpe",
+"pollare"
 ],
 "barrier/bollard_line":[
-"Pollare",
 "stolpe",
 "Stolprad",
 "stolprad",
-"barriär"
+"barriär",
+"pollare"
 ],
 "barrier/border_control":[
 "passkontroll",
 "pass",
 "tull",
+"gränskontroll",
 "Gränskontroll",
 "säkerhetskontroll",
 "gräns"
 ],
 "barrier/cattle_grid":[
 "Färist",
+"färist",
 "galler",
 "rist"
 ],
@@ -3540,18 +3719,20 @@
 "fort",
 "barrikad",
 "mur",
-"ringmur"
+"ringmur",
+"stadsmur"
 ],
 "barrier/cycle_barrier":[
 "Cykelbarriär",
-"Cykelbarriär ",
 "hinder",
-"barriär"
+"barriär",
+"cykelbarriär"
 ],
 "barrier/ditch":[
+"dike",
 "ränna",
-"Dike",
-"vallgrav"
+"vallgrav",
+"Dike"
 ],
 "barrier/entrance":[
 "Entré"
@@ -3559,33 +3740,39 @@
 "barrier/fence":[
 "gärdsgård",
 "inhägnad",
+"staket",
 "stängsel",
 "Staket"
 ],
 "barrier/fence/railing":[
 "skyddsräcke",
 "trafikseparering",
-"Räcke",
+"räcke",
 "staket",
+"Räcke",
 "handräcke"
 ],
 "barrier/gate":[
+"grind",
 "Grind"
 ],
 "barrier/guard_rail":[
 "kraschbarriär",
+"skyddsräcke",
 "krockbarriär",
 "trafikseparation",
 "trafikbarriär",
-"Skyddsräcke",
-"kollisionsbarriär"
+"kollisionsbarriär",
+"Skyddsräcke"
 ],
 "barrier/hedge":[
 "Häck",
+"häck",
 "buskar"
 ],
 "barrier/height_restrictor":[
 "restriktion",
+"höjdrestriktion",
 "Höjdrestriktion",
 "max",
 "maxhöjd",
@@ -3598,8 +3785,9 @@
 "kant"
 ],
 "barrier/kerb/flush":[
-"Trottoarkant utan upphöjning",
 "trottoarkant",
+"Trottoarkant utan upphöjning",
+"trottoarkant utan upphöjning",
 "kantsten",
 "barnvagnsramp",
 "kantstensramp",
@@ -3609,7 +3797,7 @@
 "nedsänkt kant",
 "sluttande",
 "nedsänkt trottoar",
-"Avfasad trottoar",
+"avfasad trottoar",
 "kantstensskärning"
 ],
 "barrier/kerb/lowered":[
@@ -3640,19 +3828,23 @@
 "trottoarkant",
 "kantsten",
 "Rundad trottoarkant",
+"rundad trottoarkant",
 "kant"
 ],
 "barrier/kissing_gate":[
 "Grind vid betesmark",
-"Kryssgrind"
+"kryssgrind",
+"grind vid betesmark"
 ],
 "barrier/lift_gate":[
+"bom",
 "Bom",
 "avspärrning",
 "lyftbom",
 "spärr"
 ],
 "barrier/retaining_wall":[
+"stödmur",
 "Stödmur",
 "nivåskillnad"
 ],
@@ -3662,10 +3854,12 @@
 "port",
 "entréport",
 "Befäst entréport",
-"borgport"
+"borgport",
+"befäst entréport"
 ],
 "barrier/spikes":[
 "stingers",
+"spikremsa",
 "däckförstörare",
 "Spikremsa",
 "däckdeflationsanordning",
@@ -3675,14 +3869,16 @@
 "stopppinnar"
 ],
 "barrier/stile":[
-"Övergång",
-"trappa"
+"övergång",
+"trappa",
+"Övergång"
 ],
 "barrier/swing_gate":[
 "bom",
 "Svänggrind",
 "grind",
 "avspärrning",
+"svänggrind",
 "spärr"
 ],
 "barrier/toll_booth":[
@@ -3693,13 +3889,15 @@
 "tullvisitation",
 "tullkontroll",
 "Tullstation",
+"tullstation",
 "tullhus",
 "införselavgift",
 "skatt"
 ],
 "barrier/turnstile":[
-"Vändkors",
 "spärrkors",
+"Vändkors",
+"vändkors",
 "spärr"
 ],
 "barrier/wall":[
@@ -3707,16 +3905,18 @@
 "vägg",
 "hinder",
 "murverk",
-"Mur",
+"mur",
 "skyddsvärn",
+"Mur",
 "barriär"
 ],
 "barrier/wall/noise_barrier":[
-"Ljudbarriär",
 "bullerhinder",
+"Ljudbarriär",
 "bullerskärm",
 "akustik",
 "ljudhinder",
+"ljudbarriär",
 "buller",
 "akustisk barriär",
 "ljudvägg",
@@ -3727,10 +3927,10 @@
 "Gräns"
 ],
 "boundary/administrative":[
-"Gräns",
 "gränslinje",
 "Administrativ gräns",
-"administrativ gräns"
+"administrativ gräns",
+"gräns"
 ],
 "bridge/support":[
 "pylon",
@@ -3738,9 +3938,10 @@
 "anfang",
 "bropelare",
 "landfäste",
+"brostöd",
 "akvedukt",
-"Brostöd",
 "snedkabelbro",
+"Brostöd",
 "stöd",
 "viadukt",
 "förankring",
@@ -3763,6 +3964,7 @@
 "anläggning",
 "fastighet",
 "kåk",
+"byggnad",
 "bygge",
 "konstruktion",
 "hus",
@@ -3770,14 +3972,16 @@
 "byggnadsverk"
 ],
 "building/apartments":[
-"Bostad",
 "bostadshus",
 "lägenheter",
 "Lägenhetsbyggnad",
+"bostad",
+"lägenhetsbyggnad",
 "lägenhet",
 "hyreshus"
 ],
 "building/barn":[
+"lada",
 "lagård",
 "loge",
 "ladugård",
@@ -3788,11 +3992,13 @@
 ],
 "building/boathouse":[
 "Båthus",
+"båthus",
 "sjöbod",
 "strandbod"
 ],
 "building/bungalow":[
 "fristående hus",
+"bungalow",
 "stuga",
 "sommarstuga",
 "Bungalow",
@@ -3804,8 +4010,9 @@
 ],
 "building/cabin":[
 "kåk",
-"Stuga",
+"stuga",
 "sommarstuga",
+"Stuga",
 "hus",
 "koja",
 "fritidshus",
@@ -3818,6 +4025,7 @@
 "bilparkering",
 "biltak",
 "övertäckt parkering",
+"carport",
 "parkering"
 ],
 "building/cathedral":[
@@ -3826,11 +4034,11 @@
 "stiftskyrka",
 "Katedral",
 "kyrka",
+"katedral",
 "religiös anläggning",
 "kyrkogård",
 "basilika",
 "kyrkobyggnad",
-"Huvudkyrka",
 "religiös",
 "religiöst område",
 "vallfärdsort",
@@ -3839,6 +4047,7 @@
 "tillbedjan",
 "andligt område",
 "fristad",
+"huvudkyrka",
 "kloster",
 "predikan",
 "vallfärgsplats",
@@ -3876,9 +4085,11 @@
 "tillbedjan",
 "begravningskapell",
 "fristad",
+"kranskapell",
 "socken",
 "predikan",
 "dopkapell",
+"kapell",
 "kristen",
 "Kapell",
 "kyrkbyggnad",
@@ -3894,7 +4105,6 @@
 "andaktslokal",
 "gudstjänstlokal",
 "gud",
-"Kranskapell",
 "dyrkan",
 "guds hus",
 "gudstjänst",
@@ -3908,6 +4118,7 @@
 "helgedom",
 "församling",
 "tempelområde",
+"kyrka",
 "katedral",
 "religiös anläggning",
 "kor",
@@ -3918,7 +4129,6 @@
 "begravningskapell",
 "andligt område",
 "fristad",
-"Kyrka",
 "kloster",
 "dopkapell",
 "kapell",
@@ -3968,49 +4178,49 @@
 "kommunal",
 "stadshus",
 "kommunhus",
-"Civil",
+"civil",
 "publik",
 "Kommunal byggnad",
 "medborgarhus"
 ],
 "building/college":[
-"Gymnasie",
 "gymnasium",
+"gymnasie",
 "gymnasiebyggnad",
 "Collegebyggnad",
 "universitet"
 ],
 "building/commercial":[
-"Kommersiell byggnad",
+"kommersiell byggnad",
 "kommersiellt",
 "Kontorsbyggnad",
 "affärsbyggnad",
 "handelsbyggnad"
 ],
 "building/construction":[
+"byggnad under uppförande",
 "bygge",
+"byggnad under konstruktion",
 "byggarbete",
 "byggnadsplats",
 "byggarbetsplats",
 "byggnation",
-"Byggnad under uppförande",
-"Byggnad under konstruktion"
+"Byggnad under uppförande"
 ],
 "building/cowshed":[
 "kalvar",
 "kostall",
+"ladugård",
 "ko",
 "Kostall",
 "mjölkstall",
 "kvigor",
 "tjurar",
-"Ladugård",
 "mjölk"
 ],
 "building/detached":[
 "enfamiljshus",
 "fristående hus",
-"Villa",
 "hus",
 "friliggande villa",
 "Fristående hus",
@@ -4020,7 +4230,8 @@
 "egnahem",
 "kåk",
 "enbostadshus",
-"småhus"
+"småhus",
+"villa"
 ],
 "building/dormitory":[
 "sovsal",
@@ -4029,8 +4240,8 @@
 "internatskola",
 "internat",
 "kollektiv",
-"Korridorboende",
-"studentkorridor"
+"studentkorridor",
+"elevhem"
 ],
 "building/entrance":[
 "Entré/utgång"
@@ -4038,17 +4249,18 @@
 "building/farm":[
 "lantbruk",
 "gård",
-"Mangårdsbyggnad",
 "bostadshus",
 "hus",
 "Mangårdsbyggnad (bostadshus på gård)",
-"bostad"
+"bostad",
+"mangårdsbyggnad"
 ],
 "building/farm_auxiliary":[
 "lantbruk",
 "ekonomibyggnader",
 "gård",
 "ladugård",
+"gårdsbyggnader",
 "gårdshus",
 "stall",
 "Gårdsbyggnader",
@@ -4080,8 +4292,9 @@
 "building/grandstand":[
 "åskådarplats",
 "åskådare",
-"Huvudläktare",
 "sittplats",
+"Huvudläktare",
+"huvudläktare",
 "läktare",
 "publik",
 "sport"
@@ -4098,12 +4311,12 @@
 "växtodling"
 ],
 "building/hangar":[
-"Hangarbyggnad",
 "hangar",
 "flyg",
 "Hangar",
 "flyggarage",
-"flygplan"
+"flygplan",
+"hangarbyggnad"
 ],
 "building/hospital":[
 "sjukvårdsinrättning",
@@ -4112,17 +4325,18 @@
 "sjukhem",
 "sjukstuga",
 "vårdhem",
+"sjukhusbyggnad",
 "sjukhus",
-"Sjukhusbyggnad",
 "hospital",
+"Sjukhusbyggnad",
 "vårdanstalt"
 ],
 "building/hotel":[
-"",
+"hotellbyggnad",
 "motell",
 "hotell",
-"Hotellbyggnad",
 "vandrarhem",
+"Hotellbyggnad",
 "värdshus",
 "härbärge",
 "pensionat",
@@ -4131,12 +4345,12 @@
 "building/house":[
 "enfamiljshus",
 "kåk",
-"Villa",
 "bostadshus",
 "enbostadshus",
 "hus",
 "småhus",
 "Enfamiljshus",
+"villa",
 "parhus",
 "egnahem",
 "radhus"
@@ -4144,6 +4358,7 @@
 "building/houseboat":[
 "båt",
 "hem",
+"husbåt",
 "Husbåt",
 "bostad"
 ],
@@ -4153,11 +4368,13 @@
 "stuga",
 "skydd",
 "Koja",
+"koja",
 "kyffe"
 ],
 "building/industrial":[
 "lager",
 "Industribyggnad",
+"industribyggnad",
 "industri",
 "fabrik"
 ],
@@ -4166,19 +4383,20 @@
 "förskolehus",
 "kindergarten",
 "förskolebyggnad",
-"Förskola",
 "barnomsorg",
 "dagis",
 "lekskola",
 "dagisbyggnad",
 "daghem",
 "lekis",
+"förskola",
 "Förskolebyggnad"
 ],
 "building/mosque":[
 "Moskébyggnad",
 "islam",
 "muslim",
+"moskébyggnad",
 "muhammedansk helgedom",
 "muhammedanism",
 "moské",
@@ -4190,33 +4408,37 @@
 "Kontorsbyggnad",
 "kontor",
 "arbetsplatser",
+"kontorsbyggnad",
 "kontorsområde"
 ],
 "building/pavilion":[
 "Klubbhus",
-"Sport",
 "omklädningsrum",
 "paviljong",
 "klubbhus",
 "idrott",
-"idrottsklubb"
+"idrottsklubb",
+"sport"
 ],
 "building/public":[
 "allmän byggnad",
+"publik byggnad",
 "offentlig byggnad",
 "Publik byggnad"
 ],
 "building/residential":[
-"Hyreshus",
-"Boningshus",
+"flerfamiljshus",
+"bostadshus",
 "Bostadshus",
-"Flerfamiljshus"
+"boningshus",
+"hyreshus"
 ],
 "building/retail":[
-"Affärsbyggnad",
+"affärsbyggnad",
 "detaljhandel",
 "butik",
 "försäljningsställe",
+"Affärsbyggnad",
 "varuhus",
 "kiosk",
 "affärshus",
@@ -4227,6 +4449,7 @@
 "valv",
 "övertäckning",
 "regnskydd",
+"tak",
 "Tak"
 ],
 "building/ruins":[
@@ -4234,6 +4457,7 @@
 "fornlämning",
 "raserad",
 "förfallen",
+"ruinbyggnad",
 "ödehus",
 "huslämning",
 "ruin",
@@ -4251,6 +4475,7 @@
 "folkhögskola",
 "mellanstadium",
 "komvux",
+"skolbyggnad",
 "Skolbyggnad",
 "läroanstalt",
 "läroverk",
@@ -4260,11 +4485,11 @@
 ],
 "building/semidetached_house":[
 "fristående hus",
-"Villa",
 "radhusområde",
 "hus",
 "friliggande hus",
 "småhus",
+"villa",
 "parhus",
 "Delvist Fristående hus",
 "radhus",
@@ -4292,6 +4517,7 @@
 "Skjul",
 "förvaring",
 "verkstad",
+"skjul",
 "förvaringsskjul",
 "barack",
 "hobbyhus",
@@ -4305,19 +4531,21 @@
 "ridhusanläggning",
 "ridhus",
 "Stall",
+"stall",
 "häst"
 ],
 "building/stadium":[
-"arenabyggnad",
 "stadion",
+"arenabyggnad",
 "byggnad",
-"Stadionbyggnad",
 "friidrottsstadion",
+"Stadionbyggnad",
 "stadium",
-"Stadion",
-"arena"
+"arena",
+"stadionbyggnad"
 ],
 "building/static_caravan":[
+"villavagn",
 "husvagn",
 "campingvagn",
 "Villavagn"
@@ -4328,6 +4556,7 @@
 "sugga",
 "grislada",
 "gris",
+"svinstia",
 "kulting",
 "grisladugård",
 "grisbås",
@@ -4344,10 +4573,11 @@
 "tempel",
 "religion",
 "tro",
+"tempelbyggnad",
 "religiös",
 "religiöst område",
-"Tempelbyggnad",
 "mission",
+"Tempelbyggnad",
 "bönehus",
 "bönhus",
 "andaktsrum",
@@ -4358,15 +4588,16 @@
 "tillbedjan"
 ],
 "building/terrace":[
-"Terrasshus"
+"Terrasshus",
+"terrasshus"
 ],
 "building/train_station":[
-"Tågstationsbyggnad"
+"Stationshus"
 ],
 "building/transportation":[
-"Byggnad för kollektivtrafik",
 "linbaneterminal",
-"Färjeterminal",
+"Byggnad för kollektivtrafik",
+"färjeterminal",
 "linbana",
 "linjetrafik",
 "terminal",
@@ -4375,16 +4606,18 @@
 "båt",
 "kollektivtrafikbyggnad",
 "kollektivtrafik",
-"Perrong",
 "bussterminal",
 "båtterminal",
 "spårvagnsterminal",
 "metro",
 "transit",
 "station",
+"byggnad för kollektivtrafik",
+"perrong",
 "buss"
 ],
 "building/university":[
+"universitetsbyggnad",
 "högskola",
 "Universitetsbyggnad",
 "högskolebyggnad",
@@ -4393,6 +4626,7 @@
 "building/warehouse":[
 "lager",
 "lada",
+"lagerhus",
 "upplag",
 "depå",
 "packhus",
@@ -4400,8 +4634,8 @@
 "magasin"
 ],
 "building_part":[
-"3D",
-"enkla 3D-byggnader",
+"3d",
+"enkla 3d-byggnader",
 "Byggnadsdel",
 "byggnadsdel",
 "tak"
@@ -4441,40 +4675,45 @@
 ],
 "craft":[
 "hantverkare",
+"hantverk",
 "Hantverk",
 "skrå",
 "slöjd"
 ],
 "craft/agricultural_engines":[
-"Jordbruksmekaniker",
+"jordbruksmekaniker",
+"jordbruksmaskiner",
 "mekaniker",
 "jordbruk",
+"Jordbruksmekaniker",
 "skördare",
 "skördetröskor",
-"Jordbruksmaskiner",
 "lantbruksmaskiner",
 "traktorer",
 "motormekaniker"
 ],
 "craft/basket_maker":[
+"korgslöjd",
 "korgflätning",
 "korgtillverkning",
 "Korgtillverkare",
 "korg",
-"Korgslöjd"
+"korgtillverkare"
 ],
 "craft/beekeeper":[
 "honung",
 "bi",
+"biodlare",
 "honungstillverkning",
-"Biodlare",
-"biodling"
+"biodling",
+"Biodlare"
 ],
 "craft/blacksmith":[
 "konsthantverk",
 "smide",
 "smidesverkstad",
 "smida",
+"smed",
 "Smed"
 ],
 "craft/boatbuilder":[
@@ -4486,6 +4725,7 @@
 "craft/bookbinder":[
 "bokbinderi",
 "bokbindning",
+"bokbindare",
 "bindning",
 "Bokbindare",
 "böcker",
@@ -4496,11 +4736,13 @@
 "ölframställning",
 "öl",
 "Bryggeri",
-"öltillverkning"
+"öltillverkning",
+"bryggeri"
 ],
 "craft/carpenter":[
 "timmerman",
 "byggnadssnickare",
+"snickare",
 "träarbetare",
 "grovsnickare",
 "Snickare"
@@ -4509,6 +4751,7 @@
 "matta",
 "mattläggning",
 "golv",
+"mattläggare",
 "golvläggare",
 "Mattläggare"
 ],
@@ -4520,8 +4763,9 @@
 "cateringfirma"
 ],
 "craft/chimney_sweeper":[
-"Sotare",
+"sotare",
 "skorstensfejare",
+"Sotare",
 "rökgång",
 "sotarmurre",
 "skorsten"
@@ -4531,15 +4775,17 @@
 "städ",
 "rengöring",
 "städservice",
-"Städtjänst"
+"Städtjänst",
+"städtjänst"
 ],
 "craft/clockmaker":[
 "Urmakare (väggur)",
-"klockmakare",
-"Urmakare"
+"urmakare",
+"klockmakare"
 ],
 "craft/confectionery":[
 "konfekt",
+"godistillverkare",
 "sötsaker",
 "godisfabrik",
 "choklad",
@@ -4557,6 +4803,7 @@
 "alkohol",
 "sprit",
 "gin",
+"destilleri",
 "hembränning",
 "rom",
 "tequila",
@@ -4571,13 +4818,14 @@
 "scotch"
 ],
 "craft/dressmaker":[
+"sömmerska",
+"klädsömmare",
 "Sömmerska",
-"Dressmaker",
 "sy",
 "kvinnokläder",
 "klädtillverkning",
 "skräddare",
-"Klädsömmare",
+"dressmaker",
 "sömnad",
 "klänning",
 "kläder"
@@ -4588,6 +4836,7 @@
 "montör",
 "el",
 "elkraft",
+"elektriker",
 "elmontör",
 "elreparatör",
 "starkströmsmontör",
@@ -4614,11 +4863,13 @@
 "parkett",
 "mattläggare",
 "Golvläggare",
+"golvläggare",
 "heltäckningsmatta"
 ],
 "craft/gardener":[
 "landskapsarkitekt",
 "Trädgårdsmästare",
+"trädgårdsmästare",
 "trädgård",
 "handelsträdgård"
 ],
@@ -4636,8 +4887,9 @@
 "hantverk",
 "konsthantverk",
 "textil",
-"Hantverkare",
+"hantverksverkstad",
 "Hantverksverkstad",
+"hantverkare",
 "vävstuga",
 "handarbete",
 "sömnad",
@@ -4647,15 +4899,15 @@
 "vävning"
 ],
 "craft/hvac":[
-"AC",
+"hvac",
+"ac",
 "inomhusklimat",
 "energiförsörjning",
 "ventilation",
 "sanitet",
 "avlopp",
 "kyla",
-"HVAC",
-"VVS",
+"vvs",
 "värme",
 "air condition",
 "rörmokare",
@@ -4673,12 +4925,14 @@
 ],
 "craft/insulator":[
 "Isolering",
+"isolering",
 "ljudisolering",
 "isolerare",
 "värmeisolering",
 "isolationsmaterial"
 ],
 "craft/joiner":[
+"finsnickare",
 "snickare",
 "möbler",
 "träarbetare",
@@ -4687,43 +4941,47 @@
 ],
 "craft/key_cutter":[
 "nyckelringar",
-"Nyckeltillverkning",
 "hänglås",
+"Nyckeltillverkning",
 "nyckel",
 "nycklar",
 "nyckelkopiering",
-"nyckelring"
+"nyckelring",
+"nyckeltillverkning"
 ],
 "craft/locksmith":[
 "Låssmed"
 ],
 "craft/metal_construction":[
-"Metallarbete",
 "metallarbetare",
+"Metallarbete",
 "metallindustri",
+"metallarbete",
 "kallbearbetning",
 "svets",
 "svetsare",
 "svetsning"
 ],
 "craft/painter":[
-"Målare",
 "färg",
 "måleriarbetare",
+"Målare",
 "penslar",
 "tapetsering",
 "måleri",
 "tapetserare",
 "lackering",
+"målare",
 "målarmästare",
 "tapeter"
 ],
 "craft/parquet_layer":[
-"Parkettläggning",
+"parkettläggare",
 "golv",
 "parkett",
-"Parkettläggare",
-"golvläggare"
+"parkettläggning",
+"golvläggare",
+"Parkettläggare"
 ],
 "craft/photographer":[
 "Fotograf",
@@ -4732,7 +4990,8 @@
 "porträttfotografering",
 "bildkonst",
 "porträtt",
-"kamera"
+"kamera",
+"fotograf"
 ],
 "craft/photographic_laboratory":[
 "mörkrum",
@@ -4741,20 +5000,22 @@
 "framkallning",
 "fotoframkallning",
 "foto",
-"Filmframkallning",
 "film",
-"utskrift"
+"utskrift",
+"filmframkallning"
 ],
 "craft/plasterer":[
 "puts",
 "Putsare",
 "cement",
 "gips",
-"väggputs"
+"väggputs",
+"putsare"
 ],
 "craft/plumber":[
 "rörmontör",
 "rörläggare",
+"rörmokare",
 "Rörmokare",
 "dränering",
 "vatten",
@@ -4763,10 +5024,10 @@
 ],
 "craft/pottery":[
 "lergods",
+"krukmakare",
 "Krukmakeri",
 "krukgods",
 "keramik",
-"Krukmakare",
 "porslin",
 "stengods",
 "glasering",
@@ -4780,6 +5041,7 @@
 "craft/rigger":[
 "tackling",
 "rigg",
+"riggare",
 "segelbåt",
 "segelfartyg",
 "mast",
@@ -4789,16 +5051,18 @@
 ],
 "craft/roofer":[
 "yttertak",
+"taktegel",
 "takläggning",
-"Taktegel",
 "takpannor",
 "Takläggare",
+"takläggare",
 "tak",
 "tegel"
 ],
 "craft/saddler":[
 "läder",
 "säte",
+"sadelmakare",
 "Sadelmakare",
 "sadelmakeri",
 "sadel"
@@ -4806,12 +5070,14 @@
 "craft/sailmaker":[
 "Segelmakare",
 "segelsömnad",
+"segelmakare",
 "segel",
 "segelmakeri"
 ],
 "craft/sawmill":[
 "Sågverk",
 "trä",
+"sågverk",
 "virke",
 "brädor",
 "bräda",
@@ -4819,6 +5085,7 @@
 "plank"
 ],
 "craft/scaffolder":[
+"ställningsbyggare",
 "ställning",
 "Ställningsbyggare",
 "byggnadsställning"
@@ -4833,10 +5100,12 @@
 "staty"
 ],
 "craft/shoemaker":[
-"Skomakare",
-"skor"
+"skomakare",
+"skor",
+"Skomakare"
 ],
 "craft/signmaker":[
+"skyltmakare",
 "skyltar",
 "neon",
 "skylttillverkare",
@@ -4844,6 +5113,7 @@
 "neonskyltar"
 ],
 "craft/stonemason":[
+"stenhuggare",
 "Stenhuggare",
 "stenbrott"
 ],
@@ -4852,19 +5122,20 @@
 ],
 "craft/tiler":[
 "plattsättare",
+"plattläggare",
 "golvläggare",
-"Plattläggare",
 "Plattsättare"
 ],
 "craft/tinsmith":[
 "plåtslagare",
-"Tennsmed ",
 "tenn",
 "förtennare",
+"tunnplåtslagare",
 "Tennsmed",
-"Tunnplåtslagare"
+"tennsmed"
 ],
 "craft/upholsterer":[
+"möbelstoppare",
 "Möbelstoppare",
 "stoppning",
 "tapetserare",
@@ -4872,34 +5143,37 @@
 ],
 "craft/watchmaker":[
 "Urmakare (små klockor)",
-"Urmakare",
+"urmakare",
 "armbandsur",
 "fickur",
 "klockreparatör"
 ],
 "craft/window_construction":[
-"fönsterinstallatör",
-"Fönstertillverkare",
 "dörr",
 "dörrleverantör",
 "dörrar",
 "glas",
-"dörrmontör",
 "dörrinstallatör",
 "fönster",
-"fönsterleverantör",
 "fönstermontör",
-"dörrtillverkare"
+"fönsterinstallatör",
+"Fönstertillverkare",
+"dörrmontör",
+"fönsterleverantör",
+"dörrtillverkare",
+"fönstertillverkare"
 ],
 "craft/winery":[
-"Vinfabrik",
 "vinframställnig",
+"Vinfabrik",
 "vineri",
 "vinproduktion",
-"Vinframställning",
-"vin"
+"vin",
+"vinframställning",
+"vinfabrik"
 ],
 "cycleway/asl":[
+"cykelbox",
 "cykelstoppmarkering",
 "Cykelbox",
 "cykelstopp",
@@ -4927,12 +5201,14 @@
 "Ambulansstation",
 "räddning",
 "räddningstjänst",
+"ambulansstation",
 "ambulans"
 ],
 "emergency/defibrillator":[
 "hjärtstartare",
-"Defibrillator",
-"hjärthjälp"
+"defibrillator",
+"hjärthjälp",
+"Defibrillator"
 ],
 "emergency/designated":[
 "Åtkomst för utryckningsfordon – Avsedd för"
@@ -4942,7 +5218,8 @@
 ],
 "emergency/fire_alarm":[
 "brandtelefon",
-"Nödtelefon"
+"Nödtelefon",
+"nödtelefon"
 ],
 "emergency/fire_extinguisher":[
 "skumsläckare",
@@ -4952,9 +5229,10 @@
 "eldsläckare",
 "koldioxidsläckare",
 "brandsläckning",
-"Brandpost",
-"Brandsläckare",
+"brandpost",
 "brandslang",
+"Brandsläckare",
+"brandsläckare",
 "handbrandsläckare",
 "kolsyresläckare",
 "brand"
@@ -4964,6 +5242,7 @@
 "brandsläckning",
 "brandpost",
 "Brandslang",
+"brandslang",
 "vattenpost",
 "brandsläckare",
 "brand"
@@ -4971,6 +5250,7 @@
 "emergency/fire_hydrant":[
 "brandsläckning",
 "Brandpost",
+"brandpost",
 "vattenpost",
 "brandslang"
 ],
@@ -4983,13 +5263,15 @@
 "första hjälpen låda",
 "första hjälpen kit",
 "förbandslåda",
+"första hjälpen",
 "förband",
 "bandage"
 ],
 "emergency/landing_site":[
-"Helikopterplatta",
-"Helipad",
+"nödlandningsplats",
+"helikopterplatta",
 "helikopter",
+"helipad",
 "Nödlandningsplats"
 ],
 "emergency/life_ring":[
@@ -4999,14 +5281,22 @@
 "livräddning",
 "livboj"
 ],
+"emergency/lifeboat_station":[
+"livbåt",
+"Livbåtsstation",
+"räddningsbåt",
+"båträddning",
+"livbåtsstation",
+"livräddning"
+],
 "emergency/lifeguard":[
 "Badvakt",
-"CPR",
+"cpr",
 "strandvakt",
 "livräddare",
 "badvakt",
-"räddning",
-"Lifeguard"
+"lifeguard",
+"räddning"
 ],
 "emergency/mountain_rescue":[
 "räddning",
@@ -5023,6 +5313,7 @@
 "emergency/phone":[
 "nödnummer",
 "Nödtelefon",
+"nödtelefon",
 "alarmtelefon",
 "larmtelefon",
 "alarmeringscentral"
@@ -5032,16 +5323,17 @@
 ],
 "emergency/siren":[
 "larm",
-"Viktigt Meddelande till Allmänheten",
+"siren",
 "beredskapslarm",
 "mistlur",
 "starktonssiren",
 "varning",
 "flyglarm",
 "Siren",
-"Tyfon",
-"Hesa Fredrik",
-"VMA"
+"vma",
+"tyfon",
+"viktigt meddelande till allmänheten",
+"hesa fredrik"
 ],
 "emergency/water_tank":[
 "vattensamling",
@@ -5053,9 +5345,10 @@
 "brandsläckningstank",
 "lagringstank",
 "brandsläckning",
+"vattentank för brandsläckning",
 "cistern",
-"Vattentank för brandsläckning",
 "tank",
+"Vattentank för brandsläckning",
 "brand",
 "nöd",
 "vatten",
@@ -5065,14 +5358,15 @@
 "Åtkomst för utryckningsfordon – Ja"
 ],
 "entrance":[
+"ingång",
 "entré",
 "huvudentré",
 "dörr",
 "utgång",
-"Ingång",
 "Entré / utgång"
 ],
 "entrance/emergency":[
+"nödutgång",
 "dörr",
 "branddörr",
 "brandutgång",
@@ -5085,17 +5379,31 @@
 "akutmottagning",
 "olycksmottagning",
 "ambulansmottagning",
-"akutavdelning"
+"akutavdelning",
+"entré till akutmottagning"
+],
+"entrance/main":[
+"entré",
+"ingång",
+"exit",
+"huvudentré",
+"dörr",
+"Huvudentré",
+"port",
+"utgång",
+"inträde"
 ],
 "ford":[
 "vad",
 "Vadställe",
-"övergångsställe"
+"övergångsställe",
+"vadställe"
 ],
 "ford_line":[
 "Vadställe"
 ],
 "golf/bunker":[
+"bunker",
 "golf",
 "sandhål",
 "sandfälla",
@@ -5111,19 +5419,21 @@
 "golfbana",
 "golfgångväg",
 "stig",
+"väg för golfbil",
 "golfbil"
 ],
 "golf/clubhouse":[
-"Klubbhus",
 "golfklubb",
 "Golfklubbhus",
 "fritid",
 "golfhus",
 "kansli",
+"klubbhus",
 "golfkansli",
 "golfklubbhus"
 ],
 "golf/driving_range":[
+"driving range",
 "drivingrange",
 "golf",
 "driverang",
@@ -5134,6 +5444,7 @@
 ],
 "golf/fairway":[
 "golf",
+"fairway",
 "Fairway"
 ],
 "golf/green":[
@@ -5144,6 +5455,7 @@
 "Green"
 ],
 "golf/hole":[
+"golfhål",
 "golf",
 "Golfhål",
 "hål"
@@ -5152,19 +5464,21 @@
 "golfhinder",
 "dike",
 "dam",
+"golf",
 "vattenhinder",
-"Golf",
 "golfbana",
+"sidovattenhinder",
 "vattenhål",
 "sjö",
 "Sidovattenhinder"
 ],
 "golf/path":[
 "golf",
+"gångväg på golfbana",
 "gångväg",
 "gång",
-"Gångväg på golfbana",
 "golfbana",
+"Gångväg på golfbana",
 "golfgångväg",
 "stig"
 ],
@@ -5177,18 +5491,21 @@
 "golf/tee":[
 "golf",
 "utslagsplats",
+"tee",
 "Tee"
 ],
 "golf/water_hazard":[
 "dike",
 "dam",
 "golf",
+"vattenhinde",
 "golfbana",
 "Vattenhinde",
 "vattenhål",
 "sjö"
 ],
 "healthcare":[
+"hälsovård",
 "klinik",
 "institution",
 "välmående",
@@ -5211,9 +5528,10 @@
 "hypnos",
 "unani",
 "ayurveda",
-"Alternativmedicin",
+"alternativmedicin",
 "aromaterapi",
 "osteopati",
+"Alternativmedicin",
 "shiatsu",
 "tillämpad kinesiologi",
 "örtmedicin",
@@ -5225,37 +5543,37 @@
 ],
 "healthcare/alternative/chiropractic":[
 "ryggen",
+"kiropraktik",
 "ryggsmärta",
 "ryggrad",
 "ryggbesvär",
 "smärta",
-"Kiropraktor",
-"Kiropraktik",
+"kotknackare",
 "Kiropraktik (rygg)",
-"Kotknackare"
+"kiropraktor"
 ],
 "healthcare/audiologist":[
+"audionomi",
 "hörapparat",
-"Audionom",
-"Audionomist",
+"audionomist",
 "Audionomi (hörsel)",
-"Audionomi",
 "öra",
+"audionom",
 "örat",
 "hörsel",
 "ljud"
 ],
 "healthcare/birthing_center":[
-"BB",
+"barnbördshus",
+"bb",
 "graviditet",
 "barnafödsel",
-"Förlossning",
 "bäbis",
+"Förlossning",
 "barn",
-"Förlossningsavdelning",
+"förlossningsavdelning",
 "baby",
 "förlossning",
-"Barnbördshus ",
 "bebis"
 ],
 "healthcare/blood_donation":[
@@ -5269,13 +5587,15 @@
 "stamcellsdonation",
 "Blodgivarcentral",
 "blodgivare",
+"plateletpheresis",
+"blodgivarcentral",
 "aferes",
-"Plateletpheresis",
 "blodbank"
 ],
 "healthcare/counselling":[
 "rådgivning",
 "sexrådgivning",
+"rådgivningscenter",
 "Rådgivningscenter",
 "sexualrådgivning",
 "kostrådgivning"
@@ -5287,25 +5607,26 @@
 "tandställning",
 "tandläkare",
 "tand",
+"ortodontist",
 "tandreglering"
 ],
 "healthcare/hospice":[
-"Hospis",
 "döende",
 "död",
-"Palliativ vård",
+"hospis",
 "terminalvård",
-"Hospis (palliativ vård)"
+"Hospis (palliativ vård)",
+"palliativ vård"
 ],
 "healthcare/laboratory":[
 "Medicinskt laboratorium",
 "diagnos",
 "kemi",
 "blodkontroll",
+"laboratoriemedicin",
 "diagnosering",
 "lab",
 "immunologi",
-"Laboratoriemedicin",
 "patologi",
 "laboratorium",
 "analys",
@@ -5322,13 +5643,14 @@
 "healthcare/midwife":[
 "mödrahälsovård",
 "ungdomsmottagning",
-"Gynekologi",
 "gynekolog",
 "jordemo",
 "ackuschörska",
-"Preventivmedel",
+"gynekologi",
+"barnmorska",
+"mödravårdscentra",
 "Barnmorska",
-"mödravårdscentra"
+"preventivmedel"
 ],
 "healthcare/occupational_therapist":[
 "ergonomi",
@@ -5336,6 +5658,7 @@
 "Arbetsterapi",
 "rehabilitering",
 "hjälpmedel",
+"arbetsterapi",
 "terapi"
 ],
 "healthcare/optometrist":[
@@ -5343,21 +5666,21 @@
 "ögon",
 "glasögon",
 "Optometri (ögon)",
-"Optometrier",
-"Optometri",
 "linser",
 "syn",
+"optometri",
 "synhjälpmedel",
+"optometrier",
 "synfel",
 "ögonlaser"
 ],
 "healthcare/physiotherapist":[
 "Fysioterapi (sjukgymnastik)",
 "terapeut",
+"fysioterapi",
 "sjukgymnastik",
-"Fysioterapi",
 "fysisk",
-"Fysioterapeut",
+"fysioterapeut",
 "terapi"
 ],
 "healthcare/podiatrist":[
@@ -5365,17 +5688,17 @@
 "fötter",
 "fothälsa",
 "fotkirurgi",
-"Podiatri",
 "naglar",
 "podiatriker",
-"fot"
+"fot",
+"podiatri"
 ],
 "healthcare/psychotherapist":[
-"Psykoterapi",
 "terapeut",
+"Psykoterapi",
+"psykoterapeut",
 "rådgivare",
 "psykolog",
-"Psykoterapeut",
 "sinne",
 "ångest",
 "kuratorer",
@@ -5383,12 +5706,14 @@
 "terapi",
 "psykologisk behandling",
 "mental hälsa",
-"depression"
+"depression",
+"psykoterapi"
 ],
 "healthcare/rehabilitation":[
 "Rehabilitering",
-"Rehab",
+"rehab",
 "terapeut",
+"rehabilitering",
 "terapi"
 ],
 "healthcare/speech_therapist":[
@@ -5397,9 +5722,9 @@
 "terapeut",
 "Logoped (röst/tal)",
 "dysfagi",
-"Logoped",
 "språkstörning",
 "röststörning",
+"logoped",
 "tal",
 "terapi",
 "talstörning"
@@ -5409,6 +5734,7 @@
 ],
 "highway/bridleway":[
 "rida",
+"ridväg",
 "ryttare",
 "ridstig",
 "Ridväg",
@@ -5416,6 +5742,7 @@
 "häst"
 ],
 "highway/bus_guideway":[
+"spårbuss",
 "guidad buss",
 "Spårbuss",
 "buss"
@@ -5425,7 +5752,7 @@
 ],
 "highway/construction":[
 "stängd",
-"Väg avstängd",
+"väg avstängd",
 "Avstängd väg",
 "avstängd",
 "väg under konstruktion",
@@ -5438,6 +5765,7 @@
 "inomhuskorridor",
 "korridor",
 "gång",
+"korridor inomhus",
 "gångpassage",
 "förbindelsegång",
 "Korridor inomhus"
@@ -5446,26 +5774,28 @@
 "Korsning"
 ],
 "highway/crossing/marked":[
-"Vägövergång",
+"övergångsställe för gående",
+"vägövergång",
 "vägpassage",
 "gångpassage",
 "Markerad gångpassage",
+"markerad gångpassage",
 "övergångsställe",
 "gångvägspassage",
-"Övergångsställe för gående",
 "markerat övergångsställe"
 ],
 "highway/crossing/marked-raised":[
-"Markerat övergångsställe (upphöjt)",
-"Vägövergång",
 "vägpassage",
+"markerad gångpassage",
 "puckel",
-"Övergångsställe för gående",
+"markerad gångpassage (upphöjt)",
 "markerat övergångsställe",
+"övergångsställe för gående",
+"vägövergång",
 "gångpassage",
-"Markerad gångpassage",
-"Markerad gångpassage (upphöjt)",
+"markerat övergångsställe (upphöjt)",
 "fartpuckel",
+"Markerad gångpassage (upphöjt)",
 "fartgupp",
 "farthinder",
 "övergångsställe",
@@ -5473,32 +5803,34 @@
 "gupp"
 ],
 "highway/crossing/unmarked":[
-"Omarkerad gångpassage",
+"övergångsställe för gående",
+"vägövergång",
 "Omarkerad övergång",
-"Vägövergång",
 "vägpassage",
 "gångpassage",
+"omarkerad gångpassage",
 "övergångsställe",
 "gångvägspassage",
-"Övergångsställe för gående",
-"omarkerat övergångsställe"
+"omarkerat övergångsställe",
+"omarkerad övergång"
 ],
 "highway/crossing/unmarked-raised":[
-"Vägövergång",
 "vägpassage",
 "omarkerat övergångsställe (upphöjt)",
 "puckel",
-"Övergångsställe för gående",
 "omarkerat övergångsställe",
 "Omarkerad övergång (upphöjt)",
-"Omarkerad övergång",
+"omarkerad övergång (upphöjt)",
+"övergångsställe för gående",
+"vägövergång",
 "gångpassage",
 "fartpuckel",
 "fartgupp",
 "farthinder",
 "övergångsställe",
 "gångvägspassage",
-"gupp"
+"gupp",
+"omarkerad övergång"
 ],
 "highway/crossing/zebra":[
 "Markerat övergångsställe"
@@ -5517,44 +5849,47 @@
 "gång- och cykelväg",
 "gång och cykelväg",
 "cykelväg",
+"gc-väg",
 "gångväg",
 "gående",
 "gång",
-"GC-väg",
 "Cykel- och gångväg",
+"cykel- och gångväg",
 "gångbana",
 "cykelbana",
 "cykel",
 "cyklande",
-"GCM-väg"
+"gcm-väg"
 ],
 "highway/cycleway/crossing":[
 "Cykelkorsning"
 ],
 "highway/cycleway/crossing/bicycle_foot":[
 "cykelväg",
+"cykel- och gångkorsning",
 "gång- och cykelkorsning",
 "gångväg",
-"GC-korsning",
 "gående",
 "gång",
 "cykelkorsning",
+"gc-övergång",
 "cykelpassage",
 "gång och cykelkorsning",
-"GC-övergång",
 "gångkorsning",
 "gångpassage",
 "cykel",
 "cyklande",
-"GC-passage",
 "övergångsställe",
-"Cykel- och gångkorsning"
+"gc-korsning",
+"Cykel- och gångkorsning",
+"gc-passage"
 ],
 "highway/cycleway/crossing/marked":[
 "Markerad cykelkorsning",
 "cykelöverfart",
 "cykelpassage",
-"cykelkorsning"
+"cykelkorsning",
+"markerad cykelkorsning"
 ],
 "highway/cycleway/crossing/unmarked":[
 "cykelöverfart",
@@ -5564,16 +5899,33 @@
 "omarkerad cykelkorsning"
 ],
 "highway/elevator":[
+"hiss",
 "Hiss"
+],
+"highway/elevator_line":[
+"bergbana",
+"lutning",
+"Snedhiss",
+"lutande hiss",
+"kabelspårväg",
+"vinsch",
+"funikular",
+"hiss",
+"elevator",
+"banhiss",
+"lift",
+"snedbanehiss",
+"snedhiss"
 ],
 "highway/emergency_bay":[
 "stopp",
 "uppställning",
 "Nöduppställningsplats",
+"nöduppställningsplats",
 "haveri",
 "motorstopp",
 "nödtelefon",
-"Nödstoppplats",
+"nödstoppplats",
 "nödstopp"
 ],
 "highway/footway":[
@@ -5586,6 +5938,7 @@
 "promenad"
 ],
 "highway/footway/access_aisle":[
+"åtkomstgång",
 "gångväg",
 "rullstolsgång",
 "Åtkomstgång",
@@ -5603,34 +5956,35 @@
 "rullande trottoar",
 "rullramp",
 "transportband för personer",
+"rullgångbana",
 "rullande gångbana",
-"Rullgångbana",
 "rulltrottoar"
 ],
 "highway/footway/crossing":[
 "Gångpassage"
 ],
 "highway/footway/marked":[
+"övergångsställe för gående",
 "Markerat övergångsställe",
-"Vägövergång",
+"vägövergång",
 "vägpassage",
 "gångpassage",
-"Markerad gångpassage",
+"markerad gångpassage",
 "övergångsställe",
 "gångvägspassage",
-"Övergångsställe för gående",
 "markerat övergångsställe"
 ],
 "highway/footway/marked-raised":[
 "Markerat övergångsställe (upphöjt)",
-"Vägövergång",
 "vägpassage",
+"markerad gångpassage",
 "puckel",
-"Övergångsställe för gående",
+"markerad gångpassage (upphöjt)",
 "markerat övergångsställe",
+"övergångsställe för gående",
+"vägövergång",
 "gångpassage",
-"Markerad gångpassage",
-"Markerad gångpassage (upphöjt)",
+"markerat övergångsställe (upphöjt)",
 "fartpuckel",
 "fartgupp",
 "farthinder",
@@ -5639,37 +5993,40 @@
 "gupp"
 ],
 "highway/footway/sidewalk":[
-"Trottoar",
 "gångbana",
-"gångväg"
+"Trottoar",
+"gångväg",
+"trottoar"
 ],
 "highway/footway/unmarked":[
-"Omarkerad gångpassage",
+"övergångsställe för gående",
+"vägövergång",
 "Omarkerad övergång",
-"Vägövergång",
 "vägpassage",
 "gångpassage",
+"omarkerad gångpassage",
 "övergångsställe",
 "gångvägspassage",
-"Övergångsställe för gående",
-"omarkerat övergångsställe"
+"omarkerat övergångsställe",
+"omarkerad övergång"
 ],
 "highway/footway/unmarked-raised":[
-"Vägövergång",
 "vägpassage",
 "omarkerat övergångsställe (upphöjt)",
 "puckel",
-"Övergångsställe för gående",
 "omarkerat övergångsställe",
 "Omarkerad övergång (upphöjt)",
-"Omarkerad övergång",
+"omarkerad övergång (upphöjt)",
+"övergångsställe för gående",
+"vägövergång",
 "gångpassage",
 "fartpuckel",
 "fartgupp",
 "farthinder",
 "övergångsställe",
 "gångvägspassage",
-"gupp"
+"gupp",
+"omarkerad övergång"
 ],
 "highway/footway/zebra":[
 "Markerat övergångsställe"
@@ -5688,22 +6045,26 @@
 ],
 "highway/living_street":[
 "torg",
+"gångfartsområde",
 "Gångfartsområde",
 "gårdsgata"
 ],
 "highway/milestone":[
 "milstolpe",
-"Väghållningsten",
 "postament",
+"väghållningsten",
+"milsten",
 "Milsten"
 ],
 "highway/mini_roundabout":[
 "Minirondell",
+"minirondell",
 "cirkulationsplats",
 "rondell",
 "trafikrondell"
 ],
 "highway/motorway":[
+"motorväg",
 "Motorväg",
 "snabbled",
 "stadsmotorväg"
@@ -5715,18 +6076,19 @@
 "avfart",
 "Motorvägspåfart / -avfart",
 "motorvägsavfart",
-"Påfart",
+"påfart",
 "vägkorsning"
 ],
 "highway/motorway_link":[
 "trafikplats",
 "motorvägsanslutning",
 "avfart",
-"Anslutning",
+"anslutning",
 "påfart",
 "Anslutning, motorväg"
 ],
 "highway/passing_place":[
+"mötesplats",
 "passage",
 "Mötesplats",
 "passeringsplats",
@@ -5738,6 +6100,7 @@
 "vandra",
 "vandringsled",
 "Stig",
+"stig",
 "led",
 "spår",
 "löparbana",
@@ -5750,6 +6113,7 @@
 "brädor",
 "stig",
 "plankor",
+"spång",
 "plankstig",
 "brädväg"
 ],
@@ -5765,8 +6129,8 @@
 "centrum",
 "gångväg",
 "torg",
+"gångfartsområde",
 "gångfart",
-"Gångfartsområde",
 "Gågateområde",
 "gågata",
 "gårdsgata"
@@ -5779,6 +6143,7 @@
 "gång",
 "gående",
 "torg",
+"gågata",
 "shoppinggata",
 "promenad",
 "plaza",
@@ -5789,8 +6154,9 @@
 "highway/primary":[
 "primärväg",
 "riksväg",
-"Primär väg",
+"primär väg",
 "länsväg",
+"Primär väg",
 "huvudväg"
 ],
 "highway/primary_link":[
@@ -5799,7 +6165,7 @@
 "avfart",
 "riksväg",
 "primär väg",
-"Anslutning",
+"anslutning",
 "påfart",
 "huvudväg"
 ],
@@ -5807,8 +6173,8 @@
 "motorracerbana",
 "go-kart",
 "bil*",
-"F1",
-"F-1",
+"f1",
+"f-1",
 "race*",
 "formula one",
 "racerbana",
@@ -5823,12 +6189,12 @@
 ],
 "highway/raceway/karting":[
 "go kart",
+"gokart",
 "motorsport",
-"Gokart",
+"kartingbana",
 "Kartingbana (Gokart)",
 "karting",
-"kart",
-"Kartingbana"
+"kart"
 ],
 "highway/raceway/motocross":[
 "motorsport",
@@ -5837,16 +6203,19 @@
 "motorcross",
 "off road",
 "Motocrossbana",
-"motorcykelbana"
+"motorcykelbana",
+"motocrossbana"
 ],
 "highway/residential":[
 "bostadsområde",
 "Bostadsgata",
 "gata",
+"bostadsgata",
 "villaväg",
 "villagata"
 ],
 "highway/rest_area":[
+"rastplats",
 "bensinstation",
 "Rastplats"
 ],
@@ -5862,9 +6231,11 @@
 "highway/road/bridge":[
 "Okänd vägbro",
 "väg",
+"okänd vägbro",
 "bro"
 ],
 "highway/secondary":[
+"sekundär väg",
 "sekundärväg",
 "länsväg",
 "Sekundär väg",
@@ -5875,17 +6246,17 @@
 "Anslutning, sekundär väg",
 "avfart",
 "sekundärväg",
+"anslutning",
 "länsväg",
-"Anslutning",
 "påfart",
 "huvudväg"
 ],
 "highway/service":[
 "Serviceväg",
 "bakgård",
+"uppfart",
 "campinggata",
 "parkeringsväg",
-"Uppfart",
 "industriväg"
 ],
 "highway/service/alley":[
@@ -5897,59 +6268,65 @@
 ],
 "highway/service/drive-through":[
 "hämtmat",
-"McDrive",
-"Drive-through",
-"Genomkörning"
+"genomkörning",
+"drive-through",
+"mcdrive",
+"Drive-through"
 ],
 "highway/service/driveway":[
+"uppfart",
 "privat väg",
 "garageinfart",
-"Uppfart",
 "infart",
+"Uppfart",
 "villaväg"
 ],
 "highway/service/emergency_access":[
 "räddningsväg",
 "brandbil",
 "nödväg",
-"Brandväg",
 "polis",
 "utrymningsväg",
+"utryckningsfordon",
 "brandkår",
-"Utryckningsfordon",
 "ambulans",
 "utryckningsväg",
+"brandväg",
 "Åtkomst för utryckningsfordon"
 ],
 "highway/service/parking_aisle":[
 "parkeringsplats",
+"parkeringsväg",
 "Parkeringsväg",
 "parkeringsgata"
 ],
 "highway/services":[
+"rastplats",
 "bensinstation",
 "snabbmat",
 "restaurang",
-"Rastplats",
 "vägmat",
 "Rastplats med försäljning"
 ],
 "highway/speed_camera":[
+"fartkamera",
 "fartkontroll",
 "hastighetskamera",
-"Trafiksäkerhetskamera",
+"trafiksäkerhetskamera",
 "Fartkamera"
 ],
 "highway/steps":[
 "rulltrappa",
 "trappor",
 "trapp",
-"Trappa",
 "trappsteg",
+"Trappa",
+"trappa",
 "trappnedgång",
 "trappuppgång"
 ],
 "highway/steps/conveying":[
+"rulltrappa",
 "Rulltrappa",
 "trappa",
 "rörlig trappa"
@@ -5957,30 +6334,32 @@
 "highway/stop":[
 "lämna företräde",
 "stopp",
+"stoppskylt",
 "Stoppskylt"
 ],
 "highway/street_lamp":[
 "lyktstolpe",
-"Gatlampa ",
 "lampa",
-"Gatubelysning",
+"gatlampa",
+"gatubelysning",
 "belysning",
 "gatuljus",
 "Gatlampa"
 ],
 "highway/tertiary":[
-"Tertiär väg",
 "sekundära länsväg",
 "huvudgata",
+"Tertiär väg",
 "allmän väg",
-"länsväg"
+"länsväg",
+"tertiär väg"
 ],
 "highway/tertiary_link":[
 "huvudgata",
 "Anslutning, tertiär väg",
 "avfart",
+"anslutning",
 "länsväg",
-"Anslutning",
 "påfart",
 "tertiär väg"
 ],
@@ -5991,6 +6370,7 @@
 "portal för vägavgift",
 "vägtullsportal",
 "vägtull",
+"portal för vägtull",
 "kamera för registreringsnummer",
 "portal",
 "Portal för vägtull",
@@ -6005,8 +6385,8 @@
 "brandväg",
 "jordbruk",
 "brandgata",
+"bruksväg",
 "virkesväg",
-"Bruksväg",
 "skogsmaskin",
 "åker",
 "traktorväg",
@@ -6014,6 +6394,7 @@
 "timmerväg"
 ],
 "highway/traffic_mirror":[
+"trafikspegel",
 "utfartspegel",
 "spegel",
 "hörn",
@@ -6024,7 +6405,6 @@
 ],
 "highway/traffic_signals":[
 "trafikljus",
-"Trafikljus",
 "signalljus",
 "Trafiksignaler",
 "trafiksignal",
@@ -6035,11 +6415,12 @@
 "cykelled",
 "vandring",
 "ledstart",
-"Start av led",
 "start av vandringsled",
+"Start av led",
 "led",
 "vandringsstart",
 "start av cykelled",
+"start av led",
 "spårstart"
 ],
 "highway/trunk":[
@@ -6051,32 +6432,32 @@
 "huvudväg"
 ],
 "highway/trunk_link":[
+"Anslutning, stamväg",
 "avfart",
 "ramp",
 "anslutning",
 "europaväg",
 "påfart",
-"Stamvägsramp",
 "huvudväg"
 ],
 "highway/turning_circle":[
-"Vändplan",
 "vändplats",
 "Vändplats",
-"återvändsgata"
+"återvändsgata",
+"vändplan"
 ],
 "highway/turning_loop":[
 "refug",
 "Vändslinga (refug)",
-"Vändslinga",
+"vändslinga",
 "vändlop",
 "vändplats"
 ],
 "highway/unclassified":[
 "mindre väg",
+"oklassificerad väg",
 "Mindre/oklassificerad väg",
 "övrig väg",
-"Oklassificerad väg",
 "industrigata",
 "enskild väg",
 "skogsväg",
@@ -6084,10 +6465,11 @@
 "industriväg"
 ],
 "historic":[
-"Historisk plats",
 "historia",
+"Historisk plats",
 "arv",
-"historik"
+"historik",
+"historisk plats"
 ],
 "historic/archaeological_site":[
 "historia",
@@ -6095,10 +6477,12 @@
 "Arkeologisk plats",
 "ruin",
 "arkeologi",
-"historisk plats"
+"historisk plats",
+"arkeologisk plats"
 ],
 "historic/boundary_stone":[
-"Gränsmärke",
+"gränsmärke",
+"gränssten",
 "Gränssten",
 "milsten",
 "råmärke",
@@ -6106,6 +6490,7 @@
 ],
 "historic/building":[
 "slott",
+"historisk byggnad",
 "byggnad",
 "historisk",
 "museum",
@@ -6114,6 +6499,7 @@
 "Historisk byggnad"
 ],
 "historic/castle":[
+"slott",
 "Slott",
 "herrsäte",
 "fästning",
@@ -6132,12 +6518,12 @@
 "ringmur",
 "borg",
 "Historisk fästning",
-"Historiskt fort",
 "citadell",
 "slott",
 "försvar",
 "militär",
-"fortifikation"
+"fortifikation",
+"historiskt fort"
 ],
 "historic/castle/palace":[
 "residens",
@@ -6158,6 +6544,7 @@
 "slott",
 "Château",
 "praktfull byggnad",
+"château",
 "slottsvin",
 "adel",
 "vingård",
@@ -6167,6 +6554,7 @@
 "vinslott"
 ],
 "historic/city_gate":[
+"stadsport",
 "Stadsport",
 "port",
 "ringmur"
@@ -6185,39 +6573,43 @@
 "slott",
 "försvar",
 "militär",
-"fortifikation"
+"fortifikation",
+"historiskt fort"
 ],
 "historic/manor":[
 "herrskap",
 "herresäte",
-"Mansion",
 "Herrgård",
 "adel",
 "gods",
 "slot",
 "egendom",
-"herrgård"
+"herrgård",
+"mansion"
 ],
 "historic/memorial":[
 "Minnesmärke",
 "monument",
 "minnessten",
+"minnesmärke",
 "minnestavla"
 ],
 "historic/memorial/plaque":[
 "Minnestavla",
 "minne",
-"Jubileumsplatta",
-"inskription"
+"inskription",
+"minnestavla",
+"jubileumsplatta"
 ],
 "historic/monument":[
 "Monument",
-"Minnesmärke",
-"monument"
+"monument",
+"minnesmärke"
 ],
 "historic/pillory":[
 "Historisk skampåle",
 "attraktion",
+"historisk skampåle",
 "spöpåle",
 "skampåle",
 "stupa"
@@ -6228,35 +6620,36 @@
 "ödehus",
 "Ruiner",
 "lämning",
-"Ruin",
+"ruin",
 "förfallen byggnad"
 ],
 "historic/tomb":[
-"Grav",
+"grav",
 "gravhög",
-"Mausoleum",
+"Grav",
+"mausoleum",
+"sarkofag",
 "krigsgrav",
 "pyramid",
 "klippgrav",
 "katakomb",
 "massgrav",
-"Sarkofag",
 "krypta",
 "gravvalv"
 ],
 "historic/wayside_cross":[
+"vägkors",
 "kors vid väg",
 "Kors vid väg",
-"Vägkors",
 "pilgrim",
 "krucifix"
 ],
 "historic/wayside_shrine":[
 "helgedom",
-"Helgedom längs väg",
 "Helgedom vid väg",
 "helgedom vid väg",
-"pilgrim"
+"pilgrim",
+"helgedom längs väg"
 ],
 "historic/wreck":[
 "båt",
@@ -6264,13 +6657,14 @@
 "mast",
 "skrov",
 "Skeppsvrak",
-"skepp"
+"skepp",
+"skeppsvrak"
 ],
 "indoor":[
 "Inomhusobjekt"
 ],
 "indoor/area":[
-"Inomhusområde",
+"inomhusområde",
 "inomhus",
 "område",
 "Yta inomhus",
@@ -6283,6 +6677,7 @@
 "inomhuskorridor",
 "korridor",
 "gång",
+"korridor inomhus",
 "gångpassage",
 "förbindelsegång",
 "Korridor inomhus"
@@ -6296,6 +6691,7 @@
 "inomhusdörr",
 "dörröppning",
 "dörram",
+"dörr inomhus",
 "Dörr inomhus",
 "utgång"
 ],
@@ -6310,6 +6706,7 @@
 "lobby",
 "foajé",
 "inomhusrum",
+"rum",
 "Rum",
 "cell",
 "kammare"
@@ -6321,15 +6718,17 @@
 "steg",
 "trappa",
 "trappnedgång",
-"Inomhustrappa",
-"trappuppgång"
+"inomhustrappa",
+"trappuppgång",
+"Inomhustrappa"
 ],
 "indoor/wall":[
 "inomhusbarriär",
 "vägg",
 "rumsindelning",
-"Vägg inomhus",
 "rumsuppdelning",
+"Vägg inomhus",
+"vägg inomhus",
 "barriär inomhus"
 ],
 "internet_access/wlan":[
@@ -6370,13 +6769,12 @@
 "odlingslott",
 "lott",
 "koloniträdgård",
+"kolonilott",
 "koloniområde",
-"Kolonilott",
 "Koloniområde",
 "täppa"
 ],
 "landuse/aquaculture":[
-"Fiskodling",
 "alger",
 "musselodling",
 "pärlodling",
@@ -6384,23 +6782,24 @@
 "Akvakultur",
 "akvakultur",
 "skaldjur",
-"Ostronodling",
+"fiskodling",
 "vattenväxter",
 "räkor",
 "fisk",
-"utplantering av fisk"
+"utplantering av fisk",
+"ostronodling"
 ],
 "landuse/basin":[
 "Avrinningsområde"
 ],
 "landuse/brownfield":[
-"Brownfield",
 "rivningstomt",
 "byggtomt",
+"industriområde",
+"brownfield",
 "rivet",
 "förorenat",
 "industri",
-"Industriområde",
 "Övergivet industriområde (Brownfield)",
 "övergivet",
 "ödetomt"
@@ -6410,30 +6809,31 @@
 "grav",
 "griftegård",
 "Gravfällt",
-"begravningsplats",
-"Kyrkogård"
+"kyrkogård",
+"begravningsplats"
 ],
 "landuse/churchyard":[
 "Kyrkogård (utan gravar)"
 ],
 "landuse/commercial":[
-"Kommersiell",
 "shoppingområde",
 "handelsområde",
 "handel",
 "Kommersiell område",
 "kommersiellt",
 "butiksområde",
+"kommersiell",
 "affärsområde"
 ],
 "landuse/construction":[
-"Byggarbetsplats",
+"byggnad under uppförande",
 "bygge",
+"Byggarbetsplats",
+"byggnad under konstruktion",
 "byggarbete",
 "byggnadsplats",
-"byggnation",
-"Byggnad under uppförande",
-"Byggnad under konstruktion"
+"byggarbetsplats",
+"byggnation"
 ],
 "landuse/farm":[
 "Åkermark"
@@ -6444,13 +6844,13 @@
 "gärde",
 "inäga",
 "odlingsfält",
-"Åker",
 "åkerlapp",
 "åkerjord",
 "Åkermark",
 "odling",
 "fält",
 "teg",
+"åker",
 "åkermark"
 ],
 "landuse/farmyard":[
@@ -6459,13 +6859,15 @@
 "jordbruk",
 "lantegendom",
 "Bondgård",
+"bondgård",
 "lantgård"
 ],
 "landuse/flowerbed":[
+"rabatt",
 "blommor",
 "blomsterrabatt",
-"Rabatt",
 "plantering",
+"Rabatt",
 "blomträdgård"
 ],
 "landuse/forest":[
@@ -6473,7 +6875,7 @@
 "skogsvård",
 "skogsområde",
 "Skog (brukad)",
-"Skog",
+"skog",
 "skogsplan",
 "skogstrakt",
 "träd",
@@ -6485,10 +6887,11 @@
 "landuse/garages":[
 "parking",
 "kallgarage",
-"Garageområde",
 "bilskjul",
+"Garageområde",
 "garage",
 "varmgarage",
+"garageområde",
 "bilstall",
 "bilplatser",
 "carport"
@@ -6498,10 +6901,11 @@
 "mittremsa",
 "Gräs",
 "klippt gräs",
+"gräs",
 "rondell"
 ],
 "landuse/greenfield":[
-"Greenfield",
+"greenfield",
 "framtid",
 "Planerad byggnation",
 "urbanisering",
@@ -6514,6 +6918,7 @@
 "blomsterhus",
 "orangeri",
 "odlingshus",
+"växthus för trädgårdsväxter",
 "blomma",
 "växthus",
 "drivhus",
@@ -6526,9 +6931,11 @@
 "båtterminal",
 "båtplats",
 "Hamn",
+"hamn",
 "marin"
 ],
 "landuse/industrial":[
+"industriområde",
 "fabriksområde",
 "Industriområde",
 "fabriksdistrikt",
@@ -6540,12 +6947,12 @@
 "skräp",
 "bil",
 "fordon",
+"bilskrot",
 "bärgning",
 "Skrotupplag",
 "vrak",
 "metallavfall",
 "metallåtervinning",
-"Bilskrot",
 "skrotningsanläggning",
 "bildemontering",
 "skrot",
@@ -6559,8 +6966,8 @@
 "gris",
 "fläsk",
 "fjäderfän",
-"styckning",
 "slaktare",
+"styckning",
 "styckare",
 "kalv",
 "slakt",
@@ -6576,19 +6983,23 @@
 "tipp",
 "Soptipp",
 "avskrädeshög",
-"återvinningscentral"
+"återvinningscentral",
+"soptipp"
 ],
 "landuse/meadow":[
 "slåttermark",
+"äng",
 "Äng"
 ],
 "landuse/orchard":[
 "fruktträd",
+"fruktodling",
 "äppelträd",
 "fruktträdgård",
 "Fruktodling"
 ],
 "landuse/plant_nursery":[
+"plantskola",
 "Plantskola",
 "handelsträdgård"
 ],
@@ -6608,9 +7019,10 @@
 "stenbrott"
 ],
 "landuse/railway":[
+"banområde",
 "spårväg",
-"Banområde",
 "spårkorridor",
+"Banområde",
 "tåg",
 "spårvagn",
 "järnvägsområde",
@@ -6628,7 +7040,7 @@
 "rekreationsområde",
 "parkområde",
 "trädgård",
-"Park"
+"park"
 ],
 "landuse/religious":[
 "helgedom",
@@ -6637,13 +7049,14 @@
 "religiös anläggning",
 "vallfärgsplats",
 "kyrkogård",
-"Religiöst område",
 "kristen",
+"Religiöst område",
 "synagoga",
 "böneplats",
 "religion",
 "tempel",
 "tro",
+"religiöst område",
 "religiös",
 "vallfärdsort",
 "gud",
@@ -6658,6 +7071,7 @@
 "Reservoar"
 ],
 "landuse/residential":[
+"bostadsområde",
 "lägenhetsområde",
 "förort",
 "villaområde",
@@ -6666,14 +7080,15 @@
 "getto"
 ],
 "landuse/residential/apartments":[
+"lägenhetsområde",
 "bostadsområde",
 "område",
-"Lägenhetskomplex",
 "bostadshus",
 "lägenheter",
 "bostad",
 "lägenhet",
 "hyreshus",
+"lägenhetskomplex",
 "Lägenhetsområde"
 ],
 "landuse/retail":[
@@ -6682,8 +7097,9 @@
 "shoppingområde",
 "handel",
 "handelsområde",
-"Detaljhandel",
 "shoppingcenter",
+"Detaljhandel",
+"detaljhandel",
 "affärer",
 "affärsområde",
 "shopping"
@@ -6692,6 +7108,7 @@
 "druvor",
 "château",
 "vineri",
+"vingård",
 "vinodling",
 "vin",
 "vindruvor",
@@ -6710,8 +7127,9 @@
 "vintersport",
 "pist",
 "skidåkning",
-"Vintersportområde",
+"vintersportområde",
 "snowboardområde",
+"Vintersportområde",
 "snowboard"
 ],
 "leisure":[
@@ -6720,6 +7138,7 @@
 "leisure/adult_gaming_centre":[
 "spelmaskiner",
 "spel",
+"center för vuxenspel",
 "flipper",
 "spelmaskin",
 "vuxenspel",
@@ -6728,6 +7147,7 @@
 ],
 "leisure/amusement_arcade":[
 "spelhall",
+"spelkonsol",
 "pay-to-play-spel",
 "arkadmaskin",
 "flipperspel",
@@ -6738,7 +7158,6 @@
 "arkad",
 "spel",
 "flipper",
-"Spelkonsol",
 "körsimulatorer",
 "videospel"
 ],
@@ -6759,7 +7178,6 @@
 "leisure/beach_resort":[
 "semesteranläggning",
 "turist",
-"Resort",
 "turism",
 "turistanläggning",
 "badort",
@@ -6769,6 +7187,8 @@
 "hotell",
 "strand",
 "kurort",
+"strandresort",
+"resort",
 "hotellanläggning"
 ],
 "leisure/bird_hide":[
@@ -6777,9 +7197,9 @@
 "fågeltorn",
 "fågelskådningstorn",
 "fågelskådare",
+"fågelskådning",
 "fågelskådartorn",
 "Torn/gömsle för fågelskådning",
-"Fågelskådning",
 "vilttorn"
 ],
 "leisure/bleachers":[
@@ -6796,12 +7216,13 @@
 "kägelspel",
 "Bowlinghall",
 "kägelsport",
-"Bowlingbana",
 "bowlinghall",
-"bowling"
+"bowling",
+"bowlingbana"
 ],
 "leisure/common":[
 "fritt tillträde",
+"allmänning",
 "Allmänning",
 "öppet område",
 "allmän mark"
@@ -6818,6 +7239,7 @@
 "swing",
 "balsal",
 "tango",
+"dansbana",
 "danshus",
 "bugg",
 "jive"
@@ -6830,6 +7252,7 @@
 "dans",
 "salsa",
 "swing",
+"dansskola",
 "tiodans",
 "tango",
 "dansutbildning",
@@ -6838,12 +7261,14 @@
 "jive"
 ],
 "leisure/disc_golf_course":[
-"Frisbee",
+"frisbeegolfbana",
+"frisbee golf",
+"frisbeegolf",
 "Frisbeegolfbana",
-"Frisbee golf",
-"Frisbeegolf"
+"frisbee"
 ],
 "leisure/dog_park":[
+"hundpark",
 "hund",
 "rastgård",
 "Hundpark",
@@ -6855,6 +7280,7 @@
 "Escape Room",
 "quest room",
 "escape game",
+"escape room",
 "pusselrum",
 "rymningsspel"
 ],
@@ -6863,6 +7289,7 @@
 "lägereld",
 "eldning",
 "brasa",
+"eldstad",
 "campingbrasa",
 "lägerplats",
 "eldgrop",
@@ -6871,9 +7298,10 @@
 "grillning"
 ],
 "leisure/fishing":[
-"Fiskeplats",
 "fiske",
 "fisk",
+"Fiskeplats",
+"fiskeplats",
 "fiskare",
 "fiskevatten"
 ],
@@ -6881,23 +7309,25 @@
 "träning",
 "styrketräning",
 "gym",
+"fitnesscenter",
 "träningslokal",
-"Fitnesscenter",
 "Gym / Fitnesscenter",
 "konditionsträning",
 "motionsinstitut",
 "styrketräningslokal"
 ],
 "leisure/fitness_centre/yoga":[
-"Yoga studio",
-"Yogastudio",
 "meditation",
-"joga"
+"Yogastudio",
+"yogastudio",
+"joga",
+"yoga studio"
 ],
 "leisure/fitness_station":[
 "träning",
 "motion",
 "fitness",
+"utomhusgym",
 "gym",
 "naturgym",
 "utegym",
@@ -6908,14 +7338,14 @@
 "leisure/fitness_station/balance_beam":[
 "träning",
 "motion",
-"Balansbom",
 "fitness",
 "Balansbom (träning)",
+"balansbom",
+"utomhusgym",
 "gym",
 "naturgym",
 "utegym",
-"balans",
-"Utomhusgym"
+"balans"
 ],
 "leisure/fitness_station/box":[
 "hoppövning",
@@ -6943,15 +7373,16 @@
 "räck",
 "bar",
 "pull up",
-"Räckhäv",
 "Räck (träning)",
 "fitness",
-"gym"
+"gym",
+"räckhäv"
 ],
 "leisure/fitness_station/horizontal_ladder":[
 "träna",
 "träning",
 "pullup",
+"armgång",
 "motion",
 "stege",
 "utomhusgym",
@@ -6960,34 +7391,36 @@
 "räck",
 "pull up",
 "bar",
-"Monkey Bars",
+"monkey bars",
 "fitness",
 "gym",
 "Armgång"
 ],
 "leisure/fitness_station/hyperextension":[
 "träna",
-"Hyperextension",
 "träning",
 "motion",
 "utomhusgym",
 "naturgym",
 "utegym",
 "Ryggsträckare",
+"ryggsträckare",
 "rygg",
+"roman chair",
 "fitness",
 "gym",
-"Roman Chair",
-"rygglyft"
+"rygglyft",
+"hyperextension"
 ],
 "leisure/fitness_station/parallel_bars":[
 "träna",
-"Barrpress",
 "barr",
 "träning",
+"Barrpress",
 "motion",
+"barrpress",
 "fitness",
-"Dips",
+"dips",
 "utomhusgym",
 "gym",
 "naturgym",
@@ -6995,17 +7428,18 @@
 ],
 "leisure/fitness_station/push-up":[
 "träna",
-"pushup",
 "träning",
-"Armhävningsstation",
 "push up",
 "motion",
-"fitness",
 "utomhusgym",
 "armhävning",
-"gym",
 "naturgym",
-"utegym"
+"utegym",
+"armhävningsstation",
+"pushup",
+"Armhävningsstation",
+"fitness",
+"gym"
 ],
 "leisure/fitness_station/rings":[
 "träna",
@@ -7028,24 +7462,25 @@
 "motion",
 "fitness",
 "utomhusgym",
+"träningsinstruktioner",
 "gym",
 "instruktionsskylt",
 "naturgym",
 "utegym",
-"Träningsinstruktioner",
-"skylt"
+"skylt",
+"Träningsinstruktioner"
 ],
 "leisure/fitness_station/sit-up":[
 "träna",
 "crunch",
 "träning",
 "motion",
+"sit-up-ramp. situp-ramp",
 "sit up",
 "utomhusgym",
 "naturgym",
 "utegym",
 "sit-up",
-"Sit-up-ramp. situp-ramp",
 "fitness",
 "Situp-ramp",
 "gym",
@@ -7078,10 +7513,12 @@
 "botanik",
 "plantering",
 "zoologisk trädgård",
+"trädgård",
 "park",
 "botanisk"
 ],
 "leisure/garden/botanical":[
+"botanisk trädgård",
 "Botanisk trädgård",
 "ovanliga växter",
 "botanik",
@@ -7095,14 +7532,15 @@
 "odlingslott",
 "lott",
 "koloniträdgård",
+"kolonilott",
 "koloniområde",
-"Kolonilott",
 "Koloniområde",
 "täppa"
 ],
 "leisure/golf_course":[
 "golf",
 "golfcenter",
+"golfbana",
 "Golfbana",
 "golfanläggning"
 ],
@@ -7117,6 +7555,7 @@
 "hacklab"
 ],
 "leisure/horse_riding":[
+"ridskola",
 "rida",
 "ryttare",
 "Ridskola",
@@ -7129,7 +7568,6 @@
 "häst*"
 ],
 "leisure/ice_rink":[
-"Skridskobana ",
 "hockey",
 "skridsko",
 "ishockeybana",
@@ -7140,15 +7578,24 @@
 "isbana",
 "skridskohall",
 "skridskoåkning",
+"skridskobana",
 "konstisbana",
 "ishockeyhall",
 "curling"
+],
+"leisure/indoor_play":[
+"bollhav",
+"lekplats",
+"inomhuslekland",
+"Inomhuslekland",
+"lekland"
 ],
 "leisure/marina":[
 "småbåt",
 "båt",
 "småbåtshamn",
 "yacht",
+"marina",
 "segelbåt",
 "hamn",
 "fritidsbåt",
@@ -7156,6 +7603,7 @@
 "Marina"
 ],
 "leisure/miniature_golf":[
+"minigolf",
 "miniatyrgolf",
 "bangolf",
 "äventyrsgolf",
@@ -7183,7 +7631,8 @@
 "utomhus",
 "terrass",
 "pub",
-"glassbar"
+"glassbar",
+"uteservering"
 ],
 "leisure/park":[
 "grönområde",
@@ -7207,25 +7656,28 @@
 "äng"
 ],
 "leisure/picnic_table":[
-"Picknickbord",
 "bänk",
+"Picknickbord",
 "bord",
 "matbord",
 "utflyktsbord",
-"Picknick",
+"picknickbord",
+"picknick",
 "utebord"
 ],
 "leisure/picnic_table/chess":[
 "bänk",
 "shack",
-"Schackspelare",
+"schackspelare",
 "spelbord",
 "schackbräda",
+"schackbord",
 "Schackbord"
 ],
 "leisure/pitch":[
 "stadion",
 "fällt",
+"idrottsplats",
 "idrottsplan",
 "sportplats",
 "Idrottsplats",
@@ -7234,59 +7686,62 @@
 "idrottsanläggning"
 ],
 "leisure/pitch/american_football":[
-"Amerikansk fotbollsplan",
-"Amerikansk fotboll",
+"amerikansk fotbollsplan",
+"amerikansk fotboll",
 "football",
 "Plan för amerikansk fotboll"
 ],
 "leisure/pitch/australian_football":[
-"Aussie",
 "australiensisk fotboll",
+"afl",
 "Australisk fotbollsplan",
-"AFL",
-"Australisk fotboll",
+"australisk fotboll",
+"australisk fotbollsplan",
+"aussie",
 "fotboll"
 ],
 "leisure/pitch/badminton":[
-"Badmintonbana",
+"badmintonbana",
 "badminton",
+"badmintonplan",
 "Badmintonplan",
 "fjäderboll"
 ],
 "leisure/pitch/baseball":[
 "baseballplan",
-"Baseball",
+"baseball",
 "Baseballplan",
 "baseball-plan"
 ],
 "leisure/pitch/basketball":[
 "Basketplan",
 "basket",
+"basketplan",
 "korgboll"
 ],
 "leisure/pitch/beachvolleyball":[
+"beachvolleyhall",
 "beachfotboll",
+"beachhall",
 "beachvolleyplan",
-"Beachvolleyboll",
-"Beachvolleyhall",
 "Beachvolleyplan",
 "beachhandboll",
+"beachvolleyboll",
 "beachvolley",
 "strandvolleyboll",
 "volleyboll",
-"Beachhall",
 "beachplan"
 ],
 "leisure/pitch/boules":[
+"bocce",
 "pétanque",
-"Boule",
+"boule",
 "Boule/Bocce-plan",
-"lyonnaise",
-"Bocce"
+"lyonnaise"
 ],
 "leisure/pitch/bowls":[
-"Shortmat",
-"Bowls",
+"shortmat",
+"bowls",
 "Bowlsplan"
 ],
 "leisure/pitch/chess":[
@@ -7295,19 +7750,21 @@
 "Stort schackbräde",
 "schackbräde",
 "parkschack",
+"stort schackbräde",
 "schackbord",
 "schackbräda",
 "trädgårdsschack"
 ],
 "leisure/pitch/cricket":[
 "kricket",
-"Cricket",
+"cricket",
 "Cricketplan",
+"cricketplan",
 "kricketplan"
 ],
 "leisure/pitch/equestrian":[
+"ridskola",
 "rida",
-"Ridskola",
 "trav",
 "ridhus",
 "ridklubb",
@@ -7323,53 +7780,59 @@
 "hästhoppning"
 ],
 "leisure/pitch/field_hockey":[
-"Landhockey",
-"Landhockeyplan"
+"landhockey",
+"Landhockeyplan",
+"landhockeyplan"
 ],
 "leisure/pitch/horseshoes":[
 "Kasta hästsko",
+"kasta hästsko",
 "hästsko"
 ],
 "leisure/pitch/netball":[
 "Nätbollsplan",
 "basket",
+"nätbollsplan",
+"nätboll",
 "dambasket",
-"netball",
-"Nätboll"
+"netball"
 ],
 "leisure/pitch/rugby_league":[
 "rugby football",
 "rugby",
 "rugger",
 "rugbyplan",
-"Rugby League",
+"rugby league",
 "Rugby League-plan"
 ],
 "leisure/pitch/rugby_union":[
 "Rugby Union-plan",
 "rugby football",
+"rugby union-plan",
 "rugby",
 "rugger",
 "rugbyplan",
 "rugby union"
 ],
 "leisure/pitch/shuffleboard":[
-"golvShuffleboard",
+"golvshuffleboard",
+"bordsshuffleboard",
 "Shuffleboardbana",
-"bordsShuffleboard",
-"Shuffleboard"
+"shuffleboard",
+"shuffleboardbana"
 ],
 "leisure/pitch/skateboard":[
-"Skate Park",
 "skateboardramp",
 "halfpipe",
+"skateboard",
 "Skateboardpark",
-"skateboard"
+"skateboardpark",
+"skate park"
 ],
 "leisure/pitch/soccer":[
-"Fotboll",
 "fotbollsplan",
-"Fotbollsplan"
+"Fotbollsplan",
+"fotboll"
 ],
 "leisure/pitch/softball":[
 "softball",
@@ -7381,30 +7844,41 @@
 ],
 "leisure/pitch/table_tennis":[
 "ping pong",
+"bordtennisbord",
 "pingis",
 "bordtennis",
 "pingpongbord",
 "Pingisbord",
-"Bordtennisbord",
-"pingpong"
+"pingpong",
+"pingisbord"
 ],
 "leisure/pitch/tennis":[
+"tennisbana",
 "Tennisbana",
 "tennis",
 "tennisplan"
 ],
 "leisure/pitch/volleyball":[
-"Volleybollplan",
+"volleybollplan",
 "beachvolleyboll",
+"Volleybollplan",
 "volleyboll"
 ],
 "leisure/playground":[
 "Lekplats",
 "lek",
+"lekplats",
 "lekområde",
 "klätterställning",
 "gunga",
 "lekpark"
+],
+"leisure/playground/indoor":[
+"bollhav",
+"lekplats",
+"Inomhuslekplats",
+"inomhuslekplats",
+"lekland"
 ],
 "leisure/resort":[
 "semesteranläggning",
@@ -7416,35 +7890,39 @@
 "kurort",
 "turism",
 "turistanläggning",
+"resort",
 "badort",
 "hotellanläggning"
 ],
 "leisure/sauna":[
 "kölna",
 "badstuga",
+"bastu",
 "sauna",
 "Bastu"
 ],
 "leisure/slipway":[
-"Stapelbädd",
 "sjösättning",
+"Stapelbädd",
 "båtramp",
-"Sjösättningsplats",
 "staplar",
+"sjösättningsplats",
 "varv",
 "docka",
 "torrdocka",
+"stapelbädd",
 "fartygsdocka"
 ],
 "leisure/slipway_point":[
-"Stapelbädd",
 "sjösättning",
 "båtramp",
 "Sjösättningsplats",
 "staplar",
+"sjösättningsplats",
 "varv",
 "docka",
 "torrdocka",
+"stapelbädd",
 "fartygsdocka"
 ],
 "leisure/sports_centre":[
@@ -7456,15 +7934,16 @@
 "träningsanläggning",
 "fitnes",
 "sportpalats",
-"Sportcenter",
 "idrottshall",
 "Sportcenter / -anläggning",
 "gym",
 "simhall",
+"sportcenter",
 "sporthall",
 "idrottsanläggning"
 ],
 "leisure/sports_centre/climbing":[
+"firning",
 "klättringsgym",
 "klättring",
 "repellering",
@@ -7472,10 +7951,10 @@
 "bouldering",
 "bergsvägg",
 "topprepsklättring",
+"klättergym",
 "repklättring",
 "Klättergym",
 "konstgjord klättervägg",
-"Firning",
 "topprep",
 "rep",
 "bergsklättring"
@@ -7485,9 +7964,10 @@
 "simbassäng",
 "badhall",
 "simning",
-"Badanläggning",
 "pool",
 "tävlingssim",
+"Badanläggning",
+"badanläggning",
 "simhall",
 "bassäng",
 "swimmingpool",
@@ -7498,10 +7978,12 @@
 "sportarena",
 "idrottshall",
 "gym",
+"sporthall",
 "Sporthall"
 ],
 "leisure/stadium":[
 "Stadium",
+"stadium",
 "arena"
 ],
 "leisure/swimming_area":[
@@ -7510,6 +7992,7 @@
 "badstrand",
 "bad",
 "dyka",
+"naturbadområde",
 "klippbad",
 "badsjö",
 "vatten",
@@ -7517,6 +8000,7 @@
 ],
 "leisure/swimming_pool":[
 "Simbassäng",
+"simbassäng",
 "simning",
 "pool",
 "bassäng",
@@ -7530,15 +8014,15 @@
 "travbana",
 "Tävlingsbana (Icke motorsport)",
 "hundkapplöpning",
-"Tävlingsbana",
 "löpbana",
 "galoppbana",
+"tävlingsbana",
 "hästkapplöpning",
 "löpning"
 ],
 "leisure/track/cycling":[
 "cykelväg",
-"Cykelspår",
+"cykelspår",
 "cykel",
 "cykelbana",
 "Tävlingsbana (Cykel)",
@@ -7550,53 +8034,55 @@
 "kapplöpningsbana",
 "trav",
 "Tävlingsbana (Hästkapplöpning)",
-"Hästkapplöpningsbana",
-"Hästkapplöpning",
+"hästkapplöpningsbana",
+"hästkapplöpning",
 "häst"
 ],
 "leisure/track/running":[
 "kapplöpningsbana",
-"Löpning",
 "sprint",
 "språng",
 "springa",
 "Tävlingsbana (Löpning)",
-"Tävlingsbana",
 "löpbana",
+"tävlingsbana",
+"löpning",
 "löparbana"
 ],
 "leisure/trampoline_park":[
 "hoppa",
-"Trampolinpark",
+"trampolinpark",
 "studsa",
+"Trampolinpark",
 "studsmatta",
 "trampolin"
 ],
 "leisure/water_park":[
+"vattenpark",
 "vattenland",
 "Äventyrsbad / Vattenpark",
-"vattenlekpark",
-"Äventyrsbad",
-"Vattenpark"
+"äventyrsbad",
+"vattenlekpark"
 ],
 "line":[
 "utsträckning",
 "sträcka",
 "streck",
-"Linje"
+"Linje",
+"linje"
 ],
 "man_made":[
 "Människoskapat objekt"
 ],
 "man_made/adit":[
 "gruvhål",
-"Stollen",
 "gruvingång",
 "stoll",
 "gruva",
 "gruvgång",
 "horisontell gruvgång",
 "Horisontell gruvgång (Stoll)",
+"stollen",
 "lichtloch",
 "dagort",
 "sidoort"
@@ -7606,6 +8092,7 @@
 "Antenn",
 "mobilmast",
 "tv",
+"antenn",
 "överföring",
 "mast",
 "sändning",
@@ -7617,6 +8104,7 @@
 "man_made/beacon":[
 "vårdkase",
 "beacon",
+"fyrbåk",
 "böte",
 "Fyrbåk",
 "båk",
@@ -7628,14 +8116,15 @@
 "honung",
 "bikupa",
 "bi",
-"Bikupa",
 "pollinisation",
+"Bikupa",
 "pollinering",
 "bifarm"
 ],
 "man_made/breakwater":[
 "fördämning",
 "hamnarm",
+"vågbrytare",
 "Vågbrytare",
 "pir",
 "vågskydd",
@@ -7658,13 +8147,14 @@
 ],
 "man_made/bunker_silo":[
 "lager",
-"Ensilage",
 "spannmålssilo",
 "spannmål",
+"ensilage",
 "pressfoder",
 "foder",
 "fodersilo",
 "Plansilo",
+"plansilo",
 "silo",
 "djurfoder",
 "spannmålslagring"
@@ -7672,10 +8162,11 @@
 "man_made/cairn":[
 "röse",
 "råmärken stenar",
-"Stenröse",
 "stenstapel",
+"Stenröse",
 "stenrös",
 "röjningsröse",
+"stenröse",
 "stenhög",
 "rös",
 "gränsrösen"
@@ -7697,7 +8188,7 @@
 "avverkning",
 "föryngringsyta",
 "avskogning",
-"Slutavverkning",
+"slutavverkning",
 "skövlat skogsområde",
 "avverkningsområde"
 ],
@@ -7712,6 +8203,7 @@
 "inhägnad öppet område"
 ],
 "man_made/crane":[
+"kran",
 "Kran",
 "vinsch",
 "travers",
@@ -7721,6 +8213,7 @@
 "man_made/cross":[
 "vägkors",
 "Kors",
+"kors",
 "kristet kors",
 "pilgrim",
 "jesuskors",
@@ -7729,7 +8222,6 @@
 ],
 "man_made/cutline":[
 "pipelinegata",
-"Snittlinje",
 "jaktgata",
 "skiljelinje",
 "skogssektion",
@@ -7739,6 +8231,7 @@
 "gränslinje",
 "skogsområde",
 "brandgata",
+"snittlinje",
 "skidspår",
 "domän",
 "gräns",
@@ -7748,37 +8241,41 @@
 "duvor",
 "duva",
 "brevduvor",
-"Duvslag",
 "duvbostad",
+"Duvslag",
 "fågel",
 "fågelholk",
 "fåglar",
-"duvhus"
+"duvhus",
+"duvslag"
 ],
 "man_made/dyke":[
+"fördämningsvall",
 "flodvall. vattenvall",
 "skyddsvall",
 "vall",
 "Vall (mot vatten)",
-"strandvall",
-"Fördämningsvall"
+"strandvall"
 ],
 "man_made/embankment":[
 "bank",
+"upphöjning",
 "Vägbank",
-"Upphöjning",
 "barnvall",
-"vall"
+"vall",
+"vägbank"
 ],
 "man_made/flagpole":[
 "Flaggstång",
+"flaggstång",
 "flagga"
 ],
 "man_made/gasometer":[
-"Gasklocka",
 "gasbehållare",
+"Gasklocka",
 "gasometer",
 "gascistern",
+"gasklocka",
 "gas",
 "cistern",
 "stadsgas",
@@ -7786,9 +8283,9 @@
 ],
 "man_made/goods_conveyor":[
 "Transportband",
-" transportband",
+"transportband",
+"transportörsystem",
 "bandtransportörer och palltransportörsystem",
-"Transportörsystem",
 "rullbanor"
 ],
 "man_made/groyne":[
@@ -7802,21 +8299,23 @@
 "man_made/lighthouse":[
 "fyrtorn",
 "fyrskepp",
+"fyr",
 "Fyr"
 ],
 "man_made/manhole":[
-"Brunnslock",
+"gatubrunn",
 "dagvatten",
 "telefoni",
 "dagvattenbrunn",
 "manhålslucka",
-"Rensbrunn",
 "Gatubrunn",
 "manlucka",
 "avlopp",
 "telekom",
-"Brandpost",
+"brunnslock",
 "a-brunn",
+"brandpost",
+"rensbrunn",
 "avloppsbrunn",
 "brunn",
 "manhål"
@@ -7824,6 +8323,7 @@
 "man_made/manhole/drain":[
 "Dagvattenbrunn",
 "dagvatten",
+"dagvattenbrunn",
 "avrinning",
 "regnvatten",
 "brunn",
@@ -7831,11 +8331,11 @@
 "avlopp"
 ],
 "man_made/manhole/gas":[
-"Brunnslock",
+"manhålslucka för gas",
+"brunnslock",
 "gatubrunn",
 "gas",
 "manhålslucka",
-"Manhålslucka för gas",
 "gas-brunn",
 "manlucka",
 "Gatubrunn för gas",
@@ -7843,11 +8343,12 @@
 "manhål"
 ],
 "man_made/manhole/power":[
-"Brunnslock",
+"brunnslock",
 "el-brunn",
 "ström",
 "Manhålslucka för elkraft",
 "gatubrunn",
+"manhålslucka för elkraft",
 "el",
 "elkraft",
 "manhålslucka",
@@ -7856,7 +8357,8 @@
 "manhål"
 ],
 "man_made/manhole/sewer":[
-"Brunnslock",
+"brunnslock",
+"manhålslucka för avlopp",
 "gatubrunn",
 "manhålslucka",
 "Manhålslucka för avlopp",
@@ -7867,8 +8369,8 @@
 "manhål"
 ],
 "man_made/manhole/telecom":[
-"Brunnslock",
 "kabel",
+"manhålslucka för telekom",
 "gatubrunn",
 "telekom-brunn",
 "telefoni",
@@ -7876,22 +8378,24 @@
 "manlucka",
 "telekabel",
 "telekom",
-"Manhålslucka för telekom",
+"brunnslock",
 "telefon",
+"Manhålslucka för telekom",
 "tele",
 "brunn",
 "manhål"
 ],
 "man_made/manhole/water":[
-"Brunnslock",
 "dricksvatten",
+"brunnslock",
+"manhålslucka för vattenförsörjning",
 "gatubrunn",
 "vatenbrunn",
 "manhålslucka",
 "vattenförsörjning",
 "manlucka",
-"Manhålslucka för vattenförsörjning",
 "vatten",
+"Manhålslucka för vattenförsörjning",
 "brunn",
 "manhål"
 ],
@@ -7901,6 +8405,7 @@
 "stagas torn",
 "överföringsmast",
 "antennbärare",
+"mast",
 "mobiltelefonmast",
 "radiomast",
 "sändarmast",
@@ -7928,9 +8433,9 @@
 "kommunikationsmast",
 "transmissionsmast",
 "radioantenn",
-"TV-mast",
 "Kommunikationsmast",
-"TV-torn",
+"tv-mast",
+"tv-torn",
 "kommunikationstorn",
 "överföringstorn"
 ],
@@ -7962,11 +8467,12 @@
 ],
 "man_made/mast/communication/television":[
 "mobilmast",
-"TV",
+"tv",
 "överföringsmast",
 "mast",
 "radiomast",
 "television",
+"tv-sändning",
 "sändartorn",
 "mobilantenn",
 "mobiltelefon",
@@ -7975,13 +8481,14 @@
 "transmissionsmast",
 "radioantenn",
 "TV-mast",
-"TV-sändning",
-"TV-torn",
+"tv-mast",
+"tv-torn",
 "kommunikationstorn",
 "överföringstorn"
 ],
 "man_made/mineshaft":[
 "grotta",
+"gruvschakt",
 "gruva",
 "gruvgång",
 "underjordisk",
@@ -7989,7 +8496,6 @@
 "Gruvschakt"
 ],
 "man_made/monitoring_station":[
-"Seismolog",
 "vattennivå",
 "radon",
 "väderstation",
@@ -7999,40 +8505,46 @@
 "observation",
 "övervakningsstation",
 "observationsrör",
-"Mätstation",
 "luftkvalité",
+"Mätstation",
 "gps",
 "jordbävning",
 "trafikmätning",
+"seismolog",
 "seismologi",
+"mätstation",
 "luftmätning",
 "mätning",
 "ljud"
 ],
 "man_made/obelisk":[
+"obelisk",
 "pelare",
 "Obelisk"
 ],
 "man_made/observatory":[
 "astronomisk",
 "astronom",
-"Observatorium",
 "meteorologisk",
+"Observatorium",
+"observatorium",
 "rymd",
 "teleskop"
 ],
 "man_made/petroleum_well":[
 "olja",
 "oljetorn",
-"Oljeborrning",
+"oljeborr",
 "Oljeborr",
 "oljepump",
-"petroleum"
+"petroleum",
+"oljeborrning"
 ],
 "man_made/pier":[
 "hamnarm",
 "vågbrytare",
 "kaj",
+"pir",
 "Pir",
 "hamnpir"
 ],
@@ -8043,11 +8555,13 @@
 "strandpromenad",
 "vågbrytare",
 "kaj",
+"flytande pir",
 "pir",
 "flytande brygga",
 "hamnpir"
 ],
 "man_made/pipeline":[
+"pipeline",
 "ledning",
 "oljeledning",
 "avloppsledning",
@@ -8056,22 +8570,24 @@
 "Pipeline"
 ],
 "man_made/pipeline/underground":[
-"pipeline",
 "olja",
 "avloppsrör",
 "oljepipeline",
 "underjordiskt rör",
-"gas",
+"underjordisk pipeline",
 "Underjordisk pipeline",
 "naturgas",
-"vatten",
 "rör",
 "avlopp",
+"pipeline",
+"gas",
+"vatten",
 "vattenrör"
 ],
 "man_made/pipeline/valve":[
 "olja",
 "pipelineventil",
+"kran till pipeline",
 "kran",
 "ventil",
 "kran till rör",
@@ -8089,11 +8605,12 @@
 "oljepump",
 "spillvattenspump",
 "pump",
+"pumpstation",
 "dräneringspump",
 "pumpaggregat"
 ],
 "man_made/reservoir_covered":[
-"Övertäckt reservoar",
+"övertäckt reservoar",
 "vattenreservoar",
 "underjordisk reservoar",
 "Övertäckt reservoir",
@@ -8101,9 +8618,9 @@
 ],
 "man_made/silo":[
 "lager",
-"Ensilage",
 "spannmålssilo",
 "spannmål",
+"ensilage",
 "pressfoder",
 "foder",
 "fodersilo",
@@ -8114,51 +8631,54 @@
 ],
 "man_made/storage_tank":[
 "reservoar",
-"Lagringstank",
 "vattentorn",
 "cistern",
-"tank"
+"Lagringstank",
+"tank",
+"lagringstank"
 ],
 "man_made/storage_tank/water":[
 "vattencistern",
 "vattenlager",
 "cistern",
 "vattentorn",
-"Vattentank"
+"Vattentank",
+"vattentank"
 ],
 "man_made/street_cabinet":[
+"gatuskåp",
 "kabeltv",
 "teknikskåp",
-"Kopplingsskåp",
+"kopplingsskåp",
 "teleskåp",
 "Teknikskåp",
 "trafikljuskontroll",
-"Gatuskåp",
 "telefoni",
 "övervakning",
-"kabel-TV",
+"kabel-tv",
 "elskåp",
 "telekommunikation"
 ],
 "man_made/surveillance":[
 "övervakningsutrustning",
 "bevakningskamera",
+"övervakning",
 "bevakning",
 "övervakningskamera",
-"Övervakning",
-"kamera"
+"kamera",
+"Övervakning"
 ],
 "man_made/surveillance/camera":[
-"ANPR",
+"alpr",
 "registreringsskylt",
+"anpr",
 "webbkamera",
-"ALPR",
 "vakt",
 "övervakning",
 "Övervakningskamera",
 "video",
+"cctv",
 "kamera",
-"CCTV",
 "webcam säkerhetskamera",
 "säkerhet"
 ],
@@ -8166,15 +8686,17 @@
 "fixpunkt",
 "Trianguleringspunkt",
 "triangulering",
+"trianguleringspunkt",
 "kartritning"
 ],
 "man_made/torii":[
+"torii",
+"jinja",
 "japansk port",
-"Jinja",
-" shintohelgedom",
 "Torii",
-"Shinto shrine",
-"fågelsittpinne"
+"shinto shrine",
+"fågelsittpinne",
+"shintohelgedom"
 ],
 "man_made/tower":[
 "Torn",
@@ -8182,11 +8704,11 @@
 "radiotorn"
 ],
 "man_made/tower/bell_tower":[
-"Klockgavel",
+"klockgavel",
 "Klocktorn",
 "kyrkklocka",
 "klockstapel",
-"Klockstapel",
+"klocktorn",
 "kampanil",
 "kyrktorn",
 "klockspel"
@@ -8205,9 +8727,9 @@
 "kommunikationsmast",
 "transmissionsmast",
 "radioantenn",
-"TV-mast",
+"tv-mast",
 "Kommunikationstorn",
-"TV-torn",
+"tv-torn",
 "kommunikationstorn",
 "överföringstorn"
 ],
@@ -8216,6 +8738,7 @@
 "kolkraftverk",
 "Kyltorn",
 "kraftverk",
+"kyltorn",
 "kraftstation",
 "elkraftstation",
 "kärnkraftverk"
@@ -8226,6 +8749,7 @@
 "försvar",
 "borgtorn",
 "befästningstorn",
+"befäst torn",
 "försvarstorn",
 "borg",
 "Befäst torn"
@@ -8239,23 +8763,38 @@
 "bönetorn",
 "Minaret",
 "moské",
-"Muaddhin"
+"muaddhin",
+"minaret"
 ],
 "man_made/tower/observation":[
 "utsiktstorn",
 "observationstorn",
 "utsiktspost",
+"utkikstorn",
 "observationspost",
 "Utkikstorn",
 "brandtorn"
 ],
+"man_made/tower/pagoda":[
+"kinesiska pagoder",
+"tempeltorn",
+"buddhistisk tempelbyggnad",
+"buddistiskt torn",
+"asiatiskt tempel",
+"gudstjänstbyggnad",
+"stupor",
+"pagod",
+"stupa",
+"Pagod",
+"tempel"
+],
 "man_made/tunnel":[
-"Tunnel",
 "underpassage",
 "Tunnelområde",
 "tunnelområde",
 "underjordisk passage",
-"underjordisk"
+"underjordisk",
+"tunnel"
 ],
 "man_made/utility_pole":[
 "elstolpe",
@@ -8266,6 +8805,7 @@
 "kraftledningsstolpe"
 ],
 "man_made/wastewater_plant":[
+"avloppsreningsverk",
 "reningsverk",
 "avloppsverk",
 "vattenreningsverk",
@@ -8276,6 +8816,7 @@
 "man_made/water_tap":[
 "dricksvatten",
 "vattenkälla",
+"vattenkran",
 "kran",
 "Vattenkran",
 "vattenfontän",
@@ -8285,6 +8826,7 @@
 "man_made/water_tower":[
 "vattenreservoar",
 "Vattentorn",
+"vattentorn",
 "vatten"
 ],
 "man_made/water_well":[
@@ -8292,27 +8834,31 @@
 "källa",
 "vattenbrunn",
 "grundvatten",
-"vattenhål"
+"vattenhål",
+"brunn"
 ],
 "man_made/water_works":[
 "vattenreningsanläggning",
 "vattenreningsverk",
 "vatten",
-"Vattenverk",
-"vattenanläggning"
+"vattenverk",
+"vattenanläggning",
+"Vattenverk"
 ],
 "man_made/watermill":[
+"vattenkvarn",
 "vattenmölla",
 "kvarnhjul",
 "kvarn",
-"Vattenkvarn",
 "mölla",
 "skovelhjul",
 "skvalta",
+"Vattenkvarn",
 "skvaltkvarn"
 ],
 "man_made/windmill":[
 "Väderkvarn",
+"väderkvarn",
 "vindmölla",
 "kvarn",
 "mölla",
@@ -8320,6 +8866,7 @@
 "vindkraft"
 ],
 "man_made/windpump":[
+"vindpump",
 "vattenpump",
 "väderkvarn",
 "aerorotor",
@@ -8337,34 +8884,37 @@
 "monteringsanläggning",
 "fabrikstillverkning",
 "verkstad",
-"Fabrik",
 "raffinaderi",
+"Fabrik",
 "oljeraffinaderi",
 "tillverkning",
 "plast",
 "industri",
 "möbeltillverkning",
 "bryggeri",
-"bearbetning"
+"bearbetning",
+"fabrik"
 ],
 "marker":[
 "platta",
 "post",
+"markör",
 "milsten",
 "stolpe",
-"Markör",
 "märkning",
+"Markör",
 "identifierare",
 "skylt"
 ],
 "marker/utility":[
 "platta",
 "markör",
+"markör av samhällsservice",
 "oljeledning",
 "stolpe",
 "märkning",
-"Markör av samhällsservice",
 "markör av gasledning",
+"Markör av samhällsservice",
 "skylt",
 "rörmarkering",
 "post",
@@ -8376,24 +8926,25 @@
 "markör av oljeledning"
 ],
 "marker/utility/power":[
-"kraftledning",
 "platta",
+"markör",
+"stolpe",
+"märkning",
+"Kraftledningsmarkör",
+"skylt",
+"markör av kraftledning",
+"kraftledning",
 "markering av kraftledning",
 "post",
 "elledning",
-"stolpe",
-"Markör",
-"märkning",
-"Kraftledningsmarkör",
 "identifierare",
-"skylt",
-"markör av kraftledning"
+"kraftledningsmarkör"
 ],
 "natural":[
 "Naturobjekt"
 ],
 "natural/bare_rock":[
-"Kala klippor ",
+"Kala klippor",
 "klippor",
 "berghäll",
 "häll",
@@ -8401,10 +8952,12 @@
 ],
 "natural/bay":[
 "bukt",
+"vik",
 "Vik"
 ],
 "natural/beach":[
 "strandlinje",
+"strand",
 "badstrand",
 "flodstrand",
 "sandstrand",
@@ -8427,10 +8980,11 @@
 "grotta",
 "bergrum",
 "berghåla",
-"Grottingång",
 "bergsöppning",
+"Grottingång",
 "grotthål",
 "grottöppning",
+"grottingång",
 "grottsystem"
 ],
 "natural/cliff":[
@@ -8453,12 +9007,14 @@
 "hav"
 ],
 "natural/fell":[
+"fjäll",
 "fjällandskap",
 "trädgräns",
 "högfjäll",
 "Fjäll"
 ],
 "natural/geyser":[
+"gejser",
 "het källa",
 "varmvatten",
 "källa",
@@ -8470,11 +9026,13 @@
 "natural/glacier":[
 "landis",
 "jökel",
+"glaciär",
 "gletscher",
 "ismassa",
 "Glaciär"
 ],
 "natural/grassland":[
+"grässlätt",
 "Grässlätt",
 "gräsfällt",
 "äng"
@@ -8492,9 +9050,9 @@
 "stäpp"
 ],
 "natural/hot_spring":[
+"gejser",
 "het källa",
 "termalkälla",
-"Gejser",
 "Het källa"
 ],
 "natural/mud":[
@@ -8503,6 +9061,7 @@
 "dy",
 "våtmark",
 "gegga",
+"lera",
 "gyttja",
 "Lera",
 "lerigt"
@@ -8511,20 +9070,20 @@
 "kulle",
 "höjdpunkt",
 "alp",
-"berg",
 "hjässa",
+"bergstopp",
+"topp",
+"berg",
 "klint",
-"Bergstopp",
 "kalott",
+"Bergstopp",
 "höjd",
 "klätt",
-"topp",
 "klack"
 ],
 "natural/reef":[
 "grund",
 "rev",
-"Sandbank",
 "Rev",
 "sandbank",
 "undervattensgrund",
@@ -8553,6 +9112,7 @@
 ],
 "natural/rock":[
 "klippa",
+"klippa/stenbumling fäst i berggrund",
 "stenbumling",
 "berggrund",
 "sten",
@@ -8563,27 +9123,30 @@
 "Bergskam",
 "bergskrön",
 "berg",
+"bergskam",
 "dal",
 "dalgång"
 ],
 "natural/sand":[
-"Sand",
+"sand",
 "strand",
+"Sand",
 "öken"
 ],
 "natural/scree":[
+"stensamling",
 "röse",
 "lösa block",
 "stenanhopning",
 "Stensamling",
 "block",
-"stenras",
-"Taluskon"
+"taluskon",
+"stenras"
 ],
 "natural/scrub":[
 "busksnår",
 "sly",
-"Buskskog",
+"buskskog",
 "snår"
 ],
 "natural/shingle":[
@@ -8592,14 +9155,15 @@
 "klappersten",
 "småsten",
 "Grus (singel)",
+"grus",
 "rundade stenfragment",
-"Grus",
 "singel",
 "flodbädd"
 ],
 "natural/shrub":[
 "Buskmark",
 "buskage",
+"buskmark",
 "buskar"
 ],
 "natural/spring":[
@@ -8615,6 +9179,7 @@
 ],
 "natural/stone":[
 "klippa",
+"klippa/stenbumling friliggande",
 "friliggande sten",
 "stenbumling",
 "sten",
@@ -8634,7 +9199,6 @@
 "björk"
 ],
 "natural/tree_row":[
-"Träallé",
 "trädrad",
 "boulevard",
 "allé",
@@ -8642,6 +9206,7 @@
 "trädkantad väg",
 "Trädrad",
 "lövgång",
+"träallé",
 "esplanad"
 ],
 "natural/valley":[
@@ -8652,6 +9217,7 @@
 ],
 "natural/volcano":[
 "lava",
+"vulkan",
 "berg",
 "vulkankrater",
 "magma",
@@ -8681,12 +9247,13 @@
 "natural/water/canal":[
 "vattenväg",
 "ränna",
+"kanal",
 "vattenled",
 "vattendrag",
+"kanalområde",
 "segelränna",
-"Kanalområde",
 "å",
-"Kanal",
+"Kanalområde",
 "farled"
 ],
 "natural/water/lake":[
@@ -8697,6 +9264,7 @@
 "tjärn",
 "göl",
 "vatten",
+"sjö",
 "Sjö",
 "innanhav"
 ],
@@ -8725,10 +9293,11 @@
 "vattenled",
 "ström",
 "jokk",
-"Å",
+"å",
+"flodområde",
 "fors",
-"Flodområde",
 "flod",
+"Flodområde",
 "älv"
 ],
 "natural/water/stream":[
@@ -8740,6 +9309,7 @@
 "bäck",
 "biflöde",
 "flod",
+"bäckområde",
 "rännil",
 "Bäckområde"
 ],
@@ -8750,17 +9320,19 @@
 "reningsbassäng",
 "avföring",
 "avloppsvatten",
+"avloppsvattenbassäng",
 "segmenteringsbassäng"
 ],
 "natural/wetland":[
-"Våtmark",
 "mad",
+"Våtmark",
 "sump",
 "moras",
 "sankmark",
 "myr",
 "mosse",
 "träsk",
+"våtmark",
 "torvmark",
 "kärr",
 "sumpmark"
@@ -8769,12 +9341,12 @@
 "vildmark",
 "naturskog",
 "skog",
-"Urskog",
 "bush",
 "regnskog",
 "träd",
 "djungel",
-"Naturskog"
+"Naturskog",
+"urskog"
 ],
 "network/type/node_network":[
 "Nod i rekreationsvägsnätverk",
@@ -8782,13 +9354,14 @@
 "vandringsled",
 "nodnätverk",
 "cykelnätverk",
-"vandringsnätverk"
+"vandringsnätverk",
+"nod i rekreationsvägsnätverk"
 ],
 "noexit/yes":[
 "vägslut",
+"återvändsgränd",
 "Återvändsgata",
-"blindgata återvändsgata",
-"Återvändsgränd"
+"blindgata återvändsgata"
 ],
 "office":[
 "tjänsteman",
@@ -8796,25 +9369,27 @@
 "tjänstemän",
 "Kontor",
 "expedition",
+"kontor",
 "tjänster"
 ],
 "office/accountant":[
 "bokhållare",
 "bokföring",
 "tjänsteman",
+"redovisningsekonom",
 "Bokhållare",
 "kontorist",
-"räkenskap",
-"Redovisningsekonom"
+"räkenskap"
 ],
 "office/administrative":[
 "Lokal myndighet"
 ],
 "office/adoption_agency":[
+"adoption",
 "adoptering",
 "Adoptionsbyrå",
 "barnupptagande",
-"Adoption",
+"adoptionsbyrå",
 "adoptera"
 ],
 "office/advertising_agency":[
@@ -8823,17 +9398,21 @@
 "annonsbyrå",
 "reklam",
 "marknadsföring",
+"reklambyrå",
 "annonsering"
 ],
 "office/architect":[
+"arkitektbyrå",
+"arkitekt",
 "ritningar",
 "byggnadskonstnär",
 "Arkitektbyrå",
 "arkitektkontor",
-"byggnadskonst",
-"Arkitekt"
+"byggnadskonst"
 ],
 "office/association":[
+"frivillig",
+"frivilligorganisation",
 "Frivilligorganisation",
 "ideell",
 "förening",
@@ -8842,21 +9421,23 @@
 "frivilligarbetare",
 "samhälle",
 "icke vinstdrivande",
-"Frivillig",
 "biståndsarbetare"
 ],
 "office/bail_bond_agent":[
+"bail bond-agent",
 "Bail Bond-agent",
 "borgen"
 ],
 "office/charity":[
-"Välgörenhet",
 "biståndsorganisation",
+"välgörenhet",
 "hjälpverksamhet",
 "Välgörenhetsorganisation",
+"välgörenhetsorganisation",
 "bistånd"
 ],
 "office/company":[
+"företagskontor",
 "expedition",
 "kontor",
 "Företagskontor",
@@ -8865,20 +9446,22 @@
 ],
 "office/consulting":[
 "konsultföretag",
-"Konsultkontor",
 "konsulter",
-"konsult"
+"Konsultkontor",
+"konsult",
+"konsultkontor"
 ],
 "office/coworking":[
 "distansarbete",
+"dagkontor",
+"kontorsplats",
+"coworking",
 "mötesrum",
 "kontor",
 "lånekontor",
 "Dagkontor",
 "affärslounger",
 "tillfällig arbetsplats",
-"Coworking",
-"Kontorsplats",
 "kontorsarbetsplats",
 "tillfälligt kontor",
 "fjärrarbetsplats",
@@ -8888,6 +9471,7 @@
 "konsulat",
 "statssändebud",
 "ambassadkontor",
+"diplomatkontor",
 "diplomat",
 "ambassadör",
 "envoyé",
@@ -8898,10 +9482,10 @@
 "konsulat",
 "statssändebud",
 "ambassadkontor",
+"diplomatkontor",
 "diplomat",
 "ambassadör",
 "envoyé",
-"Diplomatkontor",
 "ambassad",
 "Konsulat"
 ],
@@ -8909,16 +9493,17 @@
 "konsulat",
 "statssändebud",
 "ambassadkontor",
+"diplomatkontor",
 "Ambassad",
 "diplomat",
 "ambassadör",
 "envoyé",
-"Diplomatkontor",
 "ambassad"
 ],
 "office/diplomatic/liaison":[
 "konsulat",
 "ambassadkontor",
+"diplomatkontor",
 "ambassadör",
 "envoyé",
 "ambassad",
@@ -8928,8 +9513,7 @@
 "kontaktkontor",
 "sambandsmän",
 "Kontaktkontor",
-"diplomat",
-"Diplomatkontor"
+"diplomat"
 ],
 "office/educational_institution":[
 "rektorsexpedition",
@@ -8937,7 +9521,8 @@
 "rektor",
 "skolexpedition",
 "Utbildningskontor",
-"expedition"
+"expedition",
+"utbildningskontor"
 ],
 "office/employment_agency":[
 "förmedling",
@@ -8945,13 +9530,15 @@
 "arbetsförmedlingen",
 "jobb",
 "arbetssökande",
+"arbetsförmedling",
 "arbetslös"
 ],
 "office/energy_supplier":[
 "ström",
+"elbolag",
 "el",
 "gas",
-"Elbolag",
+"energibolag",
 "Energibolag",
 "energi"
 ],
@@ -8959,19 +9546,20 @@
 "fastighet",
 "husförmedling",
 "mäklare",
-"Bostadsförmedling",
 "fastighetsmäklare",
 "fastighetsuthyrning",
 "fastighetsförmedling",
 "Mäklare/bostadsförmedling",
 "egendom",
 "bostadsuthyrning",
+"bostadsförmedling",
 "mark",
 "kontorsuthyrning"
 ],
 "office/financial":[
 "finans",
 "bank",
+"bankkontor",
 "Bankkontor",
 "ekonomisk",
 "ekonomi",
@@ -8985,6 +9573,7 @@
 "sparande",
 "kapitalförvaltning",
 "ekonomisk",
+"finansiell rådgivare",
 "aktier",
 "finanskontor",
 "bank",
@@ -8993,21 +9582,25 @@
 "ekonomi"
 ],
 "office/forestry":[
+"skogsbolag",
 "skog",
-"Skogsbolag",
-"skogsvaktare"
+"skogsvaktare",
+"Skogsbolag"
 ],
 "office/foundation":[
 "Stiftelse",
 "donation",
+"stiftelse",
 "fond"
 ],
 "office/government":[
 "myndighetskontor",
 "statlig myndighet",
-"Myndighet"
+"Myndighet",
+"myndighet"
 ],
 "office/government/prosecutor":[
+"åklagarmyndighet",
 "åklagare",
 "åtal",
 "justitieminister",
@@ -9017,31 +9610,35 @@
 "office/government/register_office":[
 "stadshus",
 "inskrivningskontor",
-"Folkbokföring",
+"registreringsbyrå",
+"folkbokföring",
 "registreringskontor",
-"Skattemyndigheten",
 "mantalslängder",
+"skattemyndigheten",
 "registrerade enhet",
 "Registreringsbyrå",
 "borgerlig vigsel"
 ],
 "office/government/tax":[
 "Skattekontor",
+"skattekontor",
 "skattemyndigheten",
 "myndighet",
 "skatt"
 ],
 "office/guide":[
-"Turistguide",
+"rundtur",
+"turistguide",
+"dykguide",
 "Guidekontor",
-"Fjällguide",
-"Rundtur",
-"Dykguide",
-"guide"
+"guidekontor",
+"guide",
+"fjällguide"
 ],
 "office/insurance":[
 "försäkringar",
 "försäkringsförmedling",
+"försäkringskontor",
 "Försäkringskontor"
 ],
 "office/it":[
@@ -9058,6 +9655,7 @@
 "programmering",
 "datorkonsult",
 "dator",
+"it-kontor",
 "systemutveckling",
 "mjukvara",
 "konsult"
@@ -9069,13 +9667,15 @@
 "lagman",
 "rättsombud",
 "ombud",
-"Advokatkontor",
-"försvarare"
+"advokatkontor",
+"försvarare",
+"Advokatkontor"
 ],
 "office/lawyer/notary":[
 "Notariekontor"
 ],
 "office/moving_company":[
+"flyttfirma",
 "flytt",
 "flyttlass",
 "Flyttfirma",
@@ -9092,11 +9692,13 @@
 "Tidningsredaktion",
 "tidningslokal",
 "magasin",
+"tidningsredaktion",
 "tidskrift"
 ],
 "office/ngo":[
 "frivillig",
 "ideell förening",
+"icke-statlig organisation",
 "frivilligorganisation",
 "intresseorganisation",
 "ideell",
@@ -9111,19 +9713,20 @@
 "Notarie",
 "arv",
 "avtal",
+"notarie",
 "värdehandlningar",
 "bevittna",
 "egendom",
 "fullmakt",
 "handlingar",
-"Notarius",
 "testamente",
 "namnteckning",
+"notarius",
+"notarius publicus",
 "dödsbo",
-"Notariekontor",
+"notariekontor",
 "underskrift",
 "signatur",
-"Notarius publicus",
 "kontrakt",
 "påskrift"
 ],
@@ -9141,20 +9744,22 @@
 "office/private_investigator":[
 "detektiv",
 "deckare",
+"privatdetektiv",
 "Privatdetektiv"
 ],
 "office/quango":[
+"kvasiautonom",
 "Kvasiautonom icke-statlig organisation",
 "kvasi",
 "organisation",
-"Kvasiautonom",
-"icke-statlig",
-"Quango"
+"quango",
+"icke-statlig"
 ],
 "office/religion":[
 "religiös",
 "församling",
 "församlingshem",
+"religiöst kontor",
 "Religiöst kontor",
 "religion"
 ],
@@ -9165,18 +9770,35 @@
 "utveckling",
 "vetenskapligt studium",
 "vetenskapligt arbete",
+"forskning och utveckling",
 "Forskning och utveckling",
 "research"
+],
+"office/security":[
+"vakt",
+"skyddsvakt",
+"säkerhetskontor",
+"säkerhetsinspektör",
+"Bevakningskontor",
+"bevakningskontor",
+"väktarkontor",
+"områdesbevakning",
+"väktare",
+"bevakning",
+"säkerhetsvakt",
+"vaktkontor",
+"säkerhet",
+"ordningsvakt"
 ],
 "office/surveyor":[
 "riskbedömare",
 "riskbedömning",
-"Undersökning",
 "Undersökning/inspektion",
 "inspektion",
 "stickprovsundersökning",
 "statistik",
 "enkät",
+"undersökning",
 "lantmätare",
 "opinionsundersökning",
 "skadebedömare",
@@ -9185,9 +9807,10 @@
 "mätning"
 ],
 "office/tax_advisor":[
+"skatterådgivning",
 "ekonomirådgivning",
-"Skatterådgivning",
 "skattekonsultation",
+"Skatterådgivning",
 "skatteplanering",
 "moms",
 "ekonomi",
@@ -9196,6 +9819,7 @@
 ],
 "office/telecommunication":[
 "mobiltelefon",
+"telekom",
 "mobiltelefoni",
 "surfning",
 "internetcafé",
@@ -9207,42 +9831,43 @@
 "internet"
 ],
 "office/therapist":[
-"Radioterapi",
+"språkterapi",
 "beteendeterapi",
-"Psykoterapi",
-"Talterapi",
+"terapeut",
+"fysioterapi",
+"kognitiv beteendeterapi",
 "psykolog",
-"Språkterapi",
-"Psykoanalys",
-"Samtalsterapi",
+"sexterapi",
+"kemoterapi",
+"samtalsterapi",
 "psykologi",
 "behandling",
-"Kognitiv beteendeterapi",
-"Arbetsterapi",
+"talterapi",
 "cellgiftsbehandling",
+"radioterapi",
+"röstterapi",
 "sjukgymnast",
-"Kemoterapi",
-"Farmakoterapi",
+"farmakoterapi",
+"psykoterapi",
 "Terapeut",
-"Familjeterapi",
+"familjeterapi",
 "behandlare",
 "psykoterapeut",
-"Röstterapi",
-"Beteendeterapi",
+"kognitiv terapi",
 "logoped",
 "terapi",
 "arbetsterapeut",
-"Sexterapi",
-"Kognitiv terapi",
-"Fysioterapi",
+"psykoanalys",
+"arbetsterapi",
 "kbt"
 ],
 "office/travel_agent":[
-"Resebyrå "
+"Resebyrå"
 ],
 "office/water_utility":[
-"Dricksvatten",
+"dricksvatten",
 "Vattenleverantör",
+"vattenleverantör",
 "vattenbolag"
 ],
 "piste/downhill":[
@@ -9251,6 +9876,7 @@
 "slalombacke",
 "Utförsåkning",
 "skidbacke",
+"utförsåkning",
 "pist",
 "snowboard"
 ],
@@ -9260,12 +9886,13 @@
 "alpint",
 "skida",
 "skidbacke",
+"utförsåkning",
 "pist",
 "vintersport",
 "halfpipe",
 "half-pipe",
+"halfpipe för vintersport",
 "slalombacke",
-"Utförsåkning",
 "half pipe",
 "snowboard"
 ],
@@ -9275,8 +9902,8 @@
 "snöskor",
 "skidor",
 "Snöskor- / vintervandring",
-"Snöskorvandring",
 "vandringsled",
+"snöskorvandring",
 "pist"
 ],
 "piste/ice_skate":[
@@ -9285,15 +9912,16 @@
 "isbana",
 "skridskor",
 "skridskoåkning",
-"Skridskoled",
 "skridskobana",
+"Skridskoled",
 "is",
+"skridskoled",
 "pist"
 ],
 "piste/nordic":[
 "off-pist",
+"längdskidåkning",
 "skidor",
-"Längdskidåkning",
 "skating",
 "skidspår",
 "längdåkning",
@@ -9312,7 +9940,6 @@
 "utför",
 "skidtur",
 "släde",
-"Vintersportspår",
 "alpint",
 "skida",
 "is",
@@ -9322,6 +9949,7 @@
 "längdskidor",
 "skidåkning",
 "Vintersportspår / Pist",
+"vintersportspår",
 "snöskor",
 "skridskoåkning",
 "offpist",
@@ -9330,6 +9958,7 @@
 "piste/skitour":[
 "skidturåkning",
 "skidåkning",
+"skidturspår",
 "skidtur",
 "skidor",
 "skidspår",
@@ -9352,9 +9981,9 @@
 "kälke",
 "slädspår",
 "husky",
+"släde",
 "hundsläde",
 "Slädspår",
-"Släde",
 "slädpist",
 "pist",
 "häst",
@@ -9364,6 +9993,7 @@
 "Plats"
 ],
 "place/city":[
+"större stad",
 "stad",
 "metropol",
 "storstad",
@@ -9374,6 +10004,7 @@
 "place/city_block":[
 "bostadskomplex",
 "husgrupp",
+"kvarter",
 "Kvarter"
 ],
 "place/farm":[
@@ -9382,8 +10013,9 @@
 "place/hamlet":[
 "småort",
 "gårdar",
-"By",
+"by",
 "litet samhälle",
+"By",
 "gårdssamling"
 ],
 "place/island":[
@@ -9414,20 +10046,23 @@
 "place/isolated_dwelling":[
 "bosättning",
 "Isolerad boplats",
+"isolerad boplats",
 "boplats"
 ],
 "place/locality":[
 "läge",
+"plats",
 "lokalitet",
 "ställe",
 "trakt",
-"Plats",
-"obefolkad plats"
+"obefolkad plats",
+"Plats"
 ],
 "place/neighbourhood":[
 "bostadsområde",
 "område",
 "närområde",
+"kvarter",
 "stadsdel",
 "Kvarter"
 ],
@@ -9444,10 +10079,10 @@
 "place/quarter":[
 "Kvarter / Under-Borough",
 "område",
-"Under-Borough",
+"kvarter",
 "grannskap",
-"stadsdel",
-"Kvarter"
+"under-borough",
+"stadsdel"
 ],
 "place/square":[
 "plaza",
@@ -9462,13 +10097,13 @@
 "kranskommun",
 "förort",
 "kommundelsnämnd",
-"Borough",
 "område",
 "stadsområde",
 "Förort / Borough",
 "förstad",
 "kommun",
 "grannskap",
+"borough",
 "stadsdel"
 ],
 "place/town":[
@@ -9485,7 +10120,7 @@
 "playground":[
 "Lekplatsutrustning"
 ],
-"playground/balance_beam":[
+"playground/balancebeam":[
 "Balansbom (lekplats)",
 "bom",
 "lek",
@@ -9495,32 +10130,35 @@
 "balans",
 "lekpark"
 ],
-"playground/basket_spinner":[
+"playground/basketrotator":[
 "karusell",
 "lek",
 "lekplats",
 "lekområde",
+"korgkarusell",
 "lekpark",
 "Korgkarusell"
 ],
-"playground/basket_swing":[
+"playground/basketswing":[
 "lek",
 "lekplats",
 "lekområde",
 "gunga",
+"korggunga",
 "kompisgunga",
-"Korggunga",
 "korg",
 "fågelbogunga",
+"Korggunga",
 "gungställning",
 "lekpark"
 ],
-"playground/climbing_frame":[
+"playground/climbingframe":[
 "Klätterställning",
 "klättring",
 "lek",
 "lekplats",
 "lekområde",
+"klätterställning",
 "klättra",
 "lekpark"
 ],
@@ -9541,12 +10179,15 @@
 "lekpark",
 "Räck (lekplats)"
 ],
-"playground/rocker":[
-"Fjädergunga",
+"playground/playhouse":[
 "lek",
 "lekplats",
 "lekområde",
-"Gungdjur",
+"Lekhus",
+"lekslott",
+"lekplatshus",
+"lekhus",
+"lekstuga",
 "lekpark"
 ],
 "playground/roundabout":[
@@ -9578,27 +10219,38 @@
 "lek",
 "lekplats",
 "lekområde",
+"rutschkana",
 "Rutschkana",
 "rutschbana",
 "lekpark",
 "rutchelbana"
+],
+"playground/springy":[
+"lek",
+"Fjädergunga",
+"lekplats",
+"lekområde",
+"fjädergunga",
+"gungdjur",
+"lekpark"
 ],
 "playground/structure":[
 "lek",
 "lekplats",
 "lekområde",
 "Lekhus",
-"Lekslott",
+"lekslott",
 "lekhus",
 "lekstuga",
 "lekpark"
 ],
 "playground/swing":[
 "lek",
-"Gunga",
 "lekplats",
 "lekområde",
+"gunga",
 "Gungställning",
+"gungställning",
 "lekpark"
 ],
 "playground/zipwire":[
@@ -9611,6 +10263,7 @@
 ],
 "point":[
 "läge",
+"punkt",
 "fläck",
 "plats",
 "ställe",
@@ -9638,14 +10291,14 @@
 "Kraftkabel"
 ],
 "power/cable/underground":[
+"kraftledning",
 "kraft",
 "ström",
 "högspänning",
 "underjordisk kraftkabel",
-"Kraftledning",
 "elledning",
 "elnät",
-"El",
+"el",
 "högspänningsledning",
 "strömförsörjning",
 "elförsörjning",
@@ -9656,23 +10309,42 @@
 "Elgenerator",
 "kraftgenerator",
 "kraftkälla",
-"generator"
+"generator",
+"elgenerator"
 ],
 "power/generator/method/photovoltaic":[
 "solenergi",
-"PV-modul",
+"pv-modul",
 "fotovoltaik",
 "solcell",
 "solkraft",
 "solljus",
 "solkraftverk",
-"Solpanel",
+"solpanel",
 "termisk solkraft",
+"Solpanel",
 "solcellsmodul",
 "solel"
 ],
+"power/generator/method/photovoltaic/building/roof":[
+"soltak",
+"solcell",
+"solcarport",
+"solmarkis",
+"solpanel",
+"solcellstak",
+"Solpaneltak"
+],
+"power/generator/method/photovoltaic/location/roof":[
+"Solpanel på byggnad",
+"pv-modul",
+"solcell",
+"hemsolpanel",
+"solpanel",
+"taksolcellsmodul",
+"taksolpanel"
+],
 "power/generator/source/hydro":[
-"Vattenturbin",
 "dam",
 "vattenkraftverk",
 "vattenturbin",
@@ -9687,11 +10359,12 @@
 "kärnreaktor",
 "atomkraftverk",
 "kärnkraft",
+"kärnkraftsreaktor",
 "kärnkraftvärk",
 "reaktor",
 "atomkraft",
-"Kärnkraftsreaktor",
 "nukleär energi",
+"Kärnkraftsreaktor",
 "kärnkraftverk",
 "atomenergi",
 "kärnkraftsanläggning"
@@ -9699,6 +10372,7 @@
 "power/generator/source/wind":[
 "vindmölla",
 "Vindturbin",
+"vindturbin",
 "vindkraftverk",
 "vindkraft"
 ],
@@ -9710,13 +10384,13 @@
 "Högspänningsledning"
 ],
 "power/minor_line":[
-"Kraftledning",
+"kraftledning",
 "elledning",
 "Mindre kraftledning"
 ],
 "power/plant":[
 "el",
-"Kol",
+"kol",
 "generator",
 "kraft",
 "vind*",
@@ -9732,6 +10406,7 @@
 "power/plant/source/coal":[
 "kolkraftverk",
 "eldkraftverk",
+"koleldat kraftverk",
 "kraftstation",
 "kol",
 "fossilkraftverk",
@@ -9747,6 +10422,7 @@
 "fossilkraftverk",
 "Gaseldat kraftverk",
 "fossil",
+"gaseldat kraftverk",
 "naturgas"
 ],
 "power/plant/source/hydro":[
@@ -9760,6 +10436,7 @@
 "turbin"
 ],
 "power/plant/source/nuclear":[
+"kärnkraftsverk",
 "atomkraft",
 "atomkraftverk",
 "kraftstation",
@@ -9767,16 +10444,45 @@
 "generator",
 "Kärnkraftsverk"
 ],
+"power/plant/source/oil":[
+"olja",
+"eldkraftverk",
+"kraftstation",
+"fossilkraftverk",
+"oljeeldat kraftverk",
+"oljekraftverk",
+"fossil",
+"Oljeeldat kraftverk"
+],
 "power/plant/source/solar":[
-"Solfarm",
 "ljuskraft",
 "solpark",
+"Solfarm",
 "solkraft",
 "solkraftverk",
 "ljuskraftverk",
-"solpanel"
+"solpanel",
+"solfarm"
+],
+"power/plant/source/waste":[
+"avfallsförbränningsanläggning",
+"avfall",
+"förbränning",
+"kraftstation",
+"generator",
+"sopförbränningsanläggning",
+"Avfallsförbränningskraftverk",
+"avfallsförbränningskraftverk",
+"förgasning",
+"avfallsanläggning",
+"förbränningsanläggning",
+"kraftverk",
+"eldkraftverk",
+"sopor",
+"graftverk"
 ],
 "power/plant/source/wind":[
+"vindfarm",
 "vindpark",
 "vindmölla",
 "Vindfarm",
@@ -9790,30 +10496,34 @@
 "mast",
 "stolpe",
 "Kraftledningsstolpe",
+"kraftledningsstolpe",
 "kraftledningsmast",
 "elledningsmast"
 ],
 "power/substation":[
 "elomvandling",
+"transformator",
 "Fördelningsstation",
 "fördelningsstation",
 "stadsnätstation",
 "elskåp",
-"Transformator",
 "elfördelning"
 ],
 "power/switch":[
-"Strömbrytare",
-"Frånskiljare"
+"frånskiljare",
+"Frånskiljare",
+"strömbrytare"
 ],
 "power/tower":[
 "mast",
+"högspänningsmast",
 "Högspänningsmast",
 "kraftledningsstolpe",
 "kraftledningsmast"
 ],
 "power/transformer":[
 "elomvandling",
+"transformator",
 "nätstation",
 "Transformator"
 ],
@@ -9822,8 +10532,8 @@
 "kollektivtrafik",
 "transit",
 "avsats",
+"plattform",
 "Plattform för kollektivtrafik",
-"Plattform",
 "transport",
 "påstigningsplats",
 "perrong"
@@ -9839,7 +10549,7 @@
 "terminal",
 "linjetrafik",
 "transport",
-"Linbanehållplats",
+"linbanehållplats",
 "kollektivtrafik",
 "transit",
 "plattform",
@@ -9861,12 +10571,12 @@
 "buss"
 ],
 "public_transport/platform/bus_point":[
-"Busstopp",
 "Busshållplats",
 "busshållplats",
 "busstation",
 "hållplats",
 "station",
+"busstopp",
 "anhalt",
 "buss"
 ],
@@ -9877,6 +10587,7 @@
 "spårvägshållplats",
 "spårvagnstopp",
 "anhalt",
+"spårvagns- & busstopp",
 "Spårvagns- & busstopp",
 "spårväg",
 "kollektivtrafik",
@@ -9890,11 +10601,12 @@
 "buss"
 ],
 "public_transport/platform/ferry":[
+"färjestation",
 "brygga",
+"färjehållplats",
 "stopp",
+"färjeterminal",
 "båthållplats",
-"Färjeterminal",
-"Färjestation",
 "färjestopp",
 "terminal",
 "linjetrafik",
@@ -9909,7 +10621,6 @@
 "pir",
 "station",
 "plattform",
-"Färjehållplats",
 "båtstopp"
 ],
 "public_transport/platform/ferry_point":[
@@ -9921,10 +10632,10 @@
 "light rail",
 "spårvagnsplattform",
 "vagn",
+"spårvägshållplats",
 "stadsbana",
 "terminal",
 "transport",
-"Spårvägshållplats",
 "snabbspårväg",
 "spårväg",
 "kollektivtrafik",
@@ -9960,13 +10671,14 @@
 "Tunnelbaneplattform",
 "kollektivtrafik",
 "metro",
+"tunnelbanestopp",
 "plattform",
-"Tunnelbanestopp",
 "transport",
 "tunnelbana",
 "järnväg",
 "spår",
-"underjordisk"
+"underjordisk",
+"tunnelbaneplattform"
 ],
 "public_transport/platform/subway_point":[
 "Tunnelbanestopp / -plattform"
@@ -9977,13 +10689,13 @@
 "järnvägsplattform",
 "linjetrafik",
 "transport",
-"Perrong",
+"tågstopp",
 "kollektivtrafik",
 "transit",
 "tåg",
 "Järnvägsperrong",
 "plattform",
-"Tågstopp",
+"perrong",
 "järnväg",
 "spår"
 ],
@@ -9994,10 +10706,10 @@
 "hållplats",
 "spårvagnsplattform",
 "vagn",
+"spårvägshållplats",
 "Spårvagnsplattform",
 "terminal",
 "transport",
-"Spårvägshållplats",
 "spårväg",
 "kollektivtrafik",
 "spårvagnsterminal",
@@ -10011,10 +10723,10 @@
 "hållplats",
 "spårvagnsplattform",
 "vagn",
+"spårvägshållplats",
 "Spårvagnshållplats / -plattform",
 "terminal",
 "transport",
-"Spårvägshållplats",
 "spårväg",
 "kollektivtrafik",
 "spårvagnsterminal",
@@ -10025,7 +10737,7 @@
 "järnväg"
 ],
 "public_transport/platform/trolleybus":[
-"Busshållplats",
+"busshållplats",
 "hållplats",
 "spårlös",
 "vagn",
@@ -10040,7 +10752,7 @@
 "buss"
 ],
 "public_transport/platform/trolleybus_point":[
-"Busshållplats",
+"busshållplats",
 "hållplats",
 "spårlös",
 "vagn",
@@ -10057,7 +10769,7 @@
 "public_transport/platform_point":[
 "väntplats",
 "avsats",
-"Plattform",
+"plattform",
 "Hållplats / Plattform för kollektivtrafik",
 "påstigningsplats",
 "perrong"
@@ -10068,38 +10780,42 @@
 "bytespunkt",
 "station",
 "resecenter",
+"station för kollektivtrafik",
 "terminal",
 "transport"
 ],
 "public_transport/station_aerialway":[
+"linbanestation",
 "kollektivtrafik",
 "transit",
-"Linbanestation",
 "station",
 "aerialway",
+"Linbanestation",
 "linbana",
 "terminal",
 "transport"
 ],
 "public_transport/station_bus":[
-"Busshållplats",
+"busshållplats",
+"busstation",
 "kollektivtrafik",
+"bussterminal",
 "transit",
 "station",
 "resecenter",
-"Bussterminal",
 "reseterminal",
 "terminal",
 "transport",
 "Busstation / Bussterminal",
-"Busstation",
 "buss"
 ],
 "public_transport/station_ferry":[
+"färjestation",
 "brygga",
-"Färjeterminal",
+"färjehållplats",
+"färjeterminal",
 "båthållplats",
-"Färjestation",
+"Färjeterminal",
 "terminal",
 "transport",
 "färja",
@@ -10108,13 +10824,13 @@
 "båtterminal",
 "transit",
 "pir",
-"station",
-"Färjehållplats"
+"station"
 ],
 "public_transport/station_light_rail":[
 "light rail",
 "lättbana",
 "hållplats",
+"station för snabbspårväg",
 "stadsbana",
 "spårvagnstopp",
 "Station för snabbspårväg / stadsbana",
@@ -10125,11 +10841,10 @@
 "spårväg",
 "kollektivtrafik",
 "spårvagnsterminal",
-"Station för snabbspårväg",
+"station för light rail",
 "spårvagn",
 "station",
 "spårvagnshållplats",
-"Station för light rail",
 "järnväg",
 "spår"
 ],
@@ -10149,7 +10864,7 @@
 "balkbana"
 ],
 "public_transport/station_subway":[
-"",
+"tunnelbanestation",
 "kollektivtrafik",
 "metro",
 "station",
@@ -10167,11 +10882,12 @@
 "central",
 "tåghållplats",
 "hållplats",
-"Järnvägsstation",
 "järnvägshållplats",
+"Järnvägsstation",
 "centralstation",
 "huvudbangård",
 "hållställe",
+"järnvägsstation",
 "tågstation"
 ],
 "public_transport/station_train_halt":[
@@ -10189,7 +10905,8 @@
 "plattform",
 "järnvägsstation",
 "järnväg",
-"spår"
+"spår",
+"mindre järnvägshållplats"
 ],
 "public_transport/station_tram":[
 "spårväg",
@@ -10197,11 +10914,13 @@
 "spårvagnsterminal",
 "spårvagn",
 "station",
-"spårvägshållplats"
+"spårvägshållplats",
+"spårvagnsstation"
 ],
 "public_transport/station_trolleybus":[
 "busshållplats",
 "hållplats",
+"station / terminal för trådbuss",
 "terminal",
 "linjetrafik",
 "transport",
@@ -10231,6 +10950,7 @@
 "Bytespunkt / knutpunkt"
 ],
 "public_transport/stop_position":[
+"stopposition för kollektivtrafik",
 "stopposition",
 "kollektivtrafik",
 "hållplats",
@@ -10239,10 +10959,11 @@
 "transport"
 ],
 "public_transport/stop_position_aerialway":[
-"Stopposition för linbana",
 "stopposition",
+"Stopposition för linbana",
 "linbanestation",
 "linbanestopp",
+"stopposition för linbana",
 "kollektivtrafik",
 "hållplats",
 "linbaneterminal",
@@ -10252,6 +10973,7 @@
 "linbanehållplats"
 ],
 "public_transport/stop_position_bus":[
+"stopposition för buss",
 "stopposition",
 "busshållplats",
 "kollektivtrafik",
@@ -10267,14 +10989,15 @@
 "båt",
 "stopposition",
 "busshållplats",
+"stopposition för färja",
 "kollektivtrafik",
 "hållplats",
 "bussterminal",
 "busstopp",
 "linjetrafik",
 "transport",
-"Stopposition för färja",
-"färja"
+"färja",
+"Stopposition för färja"
 ],
 "public_transport/stop_position_light_rail":[
 "stopposition",
@@ -10292,9 +11015,9 @@
 "spårvagn",
 "Stopposition för snabbspårväg / stadsbana",
 "spårvagnshållplats",
-"Stopposition för snabbspårväg",
 "järnväg",
-"spår"
+"spår",
+"stopposition för snabbspårväg"
 ],
 "public_transport/stop_position_monorail":[
 "stopposition",
@@ -10306,6 +11029,7 @@
 "transport",
 "balkbana",
 "spår",
+"stopposition för monorail",
 "räls",
 "monorail"
 ],
@@ -10316,6 +11040,7 @@
 "kollektivtrafik",
 "hållplats",
 "tunnelbanestopp",
+"stopposition för tunnelbana",
 "linjetrafik",
 "transport",
 "tunnelbana",
@@ -10334,21 +11059,23 @@
 "järnvägshållplats",
 "tåg",
 "järnvägsterminal",
+"stopposition för tåg",
 "järnvägsstation",
-"Stopposition för tåg",
-"tågstation"
+"tågstation",
+"Stopposition för tåg"
 ],
 "public_transport/stop_position_tram":[
 "stopposition",
 "kollektivtrafik",
 "hållplats",
 "spårvagnsterminal",
-"Stopposition för spårvagn",
 "spårvagn",
+"Stopposition för spårvagn",
 "spårvagnstopp",
 "spårvagnshållplats",
 "linjetrafik",
-"transport"
+"transport",
+"stopposition för spårvagn"
 ],
 "public_transport/stop_position_trolleybus":[
 "stopposition",
@@ -10358,6 +11085,7 @@
 "linjetrafik",
 "transport",
 "trådbussterminal",
+"stopposition för trådbuss",
 "trådbuss",
 "trådbusstopp",
 "kollektivtrafik",
@@ -10371,21 +11099,24 @@
 ],
 "railway/abandoned":[
 "borttagen järnväg",
-"Riven järnväg"
+"riven järnväg",
+"Uppriven spårsträcka"
 ],
 "railway/buffer_stop":[
 "Stoppbock",
-"Buffertstopp",
-"Buffert",
+"stoppbock",
+"buffert",
+"buffertstopp",
 "stoppblock"
 ],
 "railway/construction":[
 "järnväg under uppförande",
 "bygge",
-"Järnväg under konstruktion",
+"Spår under uppbyggnad",
 "byggarbete",
 "byggnadsplats",
 "järnväg under byggnad",
+"järnväg under konstruktion",
 "järnväg",
 "byggarbetsplats",
 "byggnation"
@@ -10411,16 +11142,18 @@
 "railway/derail":[
 "utspårare",
 "Spårspärr",
-"omläggningsanordning"
+"omläggningsanordning",
+"spårspärr"
 ],
 "railway/disused":[
 "övergiven järnväg",
+"Nedlagd spårsträcka",
 "oanvänd tågbana",
-"övergiven tågbana",
-"Oanvänd järnväg"
+"oanvänd järnväg",
+"övergiven tågbana"
 ],
 "railway/funicular":[
-"Bergbana ",
+"bergbana",
 "klippbana",
 "linbana",
 "Bergbana"
@@ -10449,11 +11182,11 @@
 "snabbspårväg"
 ],
 "railway/milestone":[
-"Kilometerstolpe",
 "kilometertavla",
 "kilometerpåle",
 "milsten",
 "referenstavla",
+"kilometerstolpe",
 "Kilometerstolpe vid järnväg",
 "avståndsmärke"
 ],
@@ -10461,8 +11194,9 @@
 "smalspår",
 "smalspårig järnväg",
 "trädgårdsjärnväg",
-"Åkbar miniatyrjärnväg",
-"Miniatyrjärnväg"
+"miniatyrjärnväg",
+"Miniatyrjärnväg",
+"åkbar miniatyrjärnväg"
 ],
 "railway/monorail":[
 "Monorail",
@@ -10472,10 +11206,12 @@
 "transport",
 "balkbana",
 "spår",
-"räls"
+"räls",
+"monorail"
 ],
 "railway/monorail/hanging":[
 "hängande enskensbana",
+"hängande monorail-spår",
 "hängande balkbana",
 "hängande järnväg",
 "Hängande monorail-spår"
@@ -10486,6 +11222,7 @@
 "smalspårig järnväg",
 "Smalspårbana",
 "smalspårig",
+"smalspårbana",
 "järnväg"
 ],
 "railway/platform":[
@@ -10493,6 +11230,7 @@
 ],
 "railway/preserved":[
 "historisk järnväg",
+"museijärnväg",
 "historiskt tåg",
 "turistjärnväg",
 "turisttåg",
@@ -10501,27 +11239,29 @@
 "ångtåg"
 ],
 "railway/rail":[
-"Räls",
 "järnvägsspår",
+"Järnväg",
 "spår",
-"bana"
+"bana",
+"räls"
 ],
 "railway/rail/highspeed":[
+"höghastighetsbana",
 "snabbspår",
 "järnvägsspår",
 "snabbjärnväg",
 "höghastighet",
-"Järnväg",
-"Höghastighetsbana",
+"järnväg",
 "spår",
 "bana",
+"Höghastighetsbana",
 "räls"
 ],
 "railway/railway_crossing":[
 "spårkors",
 "tågkorsning",
-"Korsande järnvägsspår",
 "plankorsning",
+"korsande järnvägsspår",
 "järnvägskorsning",
 "korsning",
 "Korsning järnväg/järnväg",
@@ -10544,14 +11284,15 @@
 "Järnvägsstation"
 ],
 "railway/subway":[
-"T-bana",
+"t-bana",
 "tunnelbanespår",
 "metro",
 "underjordisk järnväg",
-"Tunnelbanespår",
+"tunnelbana",
 "Tunnelbana"
 ],
 "railway/subway_entrance":[
+"tunnelbaneingång",
 "Tunnelbaneingång",
 "t-banenedgång",
 "t-baneingång",
@@ -10562,24 +11303,26 @@
 "järnvägskorsning",
 "växel",
 "Järnvägsväxel",
-"korsning"
+"korsning",
+"järnvägsväxel"
 ],
 "railway/train_wash":[
 "tvätthall",
+"tågtvätt",
 "Tågtvätt",
 "loktvätt"
 ],
 "railway/tram":[
 "spårvägsspår",
-"Spårvagn",
 "spårväg",
 "motorvagn",
-"Spårvägsspår"
+"spårvagn",
+"Spårväg"
 ],
 "railway/tram_crossing":[
 "spårvagnskorsning",
+"korsande spårvagnsspår",
 "plankorsning",
-"Korsande spårvagnsspår",
 "korsande spårvägsspår",
 "korsning",
 "korsande",
@@ -10588,8 +11331,8 @@
 ],
 "railway/tram_level_crossing":[
 "spårvagnskorsning",
+"korsande spårvagnsspår",
 "plankorsning",
-"Korsande spårvagnsspår",
 "korsande spårvägsspår",
 "korsning",
 "Korsning spårvagn/väg",
@@ -10601,14 +11344,15 @@
 ],
 "railway/yard":[
 "rangerbangård",
-"Växlingsbangårdar",
 "godsvagnstopp",
 "godstågstation",
 "bangård",
-"Godsbangård",
+"växlingsbangårdar",
 "järnvägsstation",
 "järnvägsgård",
-"kombiterminal"
+"kombiterminal",
+"Bangård",
+"godsbangård"
 ],
 "relation":[
 "Relation",
@@ -10618,15 +11362,17 @@
 "anknytning",
 "förbindelse",
 "förhållande",
-"kontext"
+"kontext",
+"relation"
 ],
 "route/ferry":[
 "färjelinje",
 "båtlinje",
 "båtrutt",
 "rutt",
-"Färjerutt",
 "färja",
+"Färjerutt",
+"färjerutt",
 "båt i linjetrafik"
 ],
 "seamark":[
@@ -10634,19 +11380,20 @@
 ],
 "seamark/beacon_isolated_danger":[
 "Punktmärke",
+"punktmärke",
 "iala"
 ],
 "seamark/beacon_lateral":[
 "fastmärke",
-"lateralmärke",
 "farledsmärke",
-"Farledsmärke",
+"lateralmärke",
 "iala",
+"Farledsmärke",
 "farled"
 ],
 "seamark/buoy_lateral":[
-"Farledsboj ",
 "Farledsboj",
+"farledsboj",
 "farledsmärke",
 "lateralmärke",
 "boj",
@@ -10675,6 +11422,7 @@
 "krysshult",
 "förtöjningspåle",
 "påle",
+"förtöjning",
 "Förtöjning",
 "boj",
 "pollare"
@@ -10682,23 +11430,26 @@
 "shop":[
 "shop",
 "butik",
+"affär",
 "Affär"
 ],
 "shop/agrarian":[
-"utsäde",
 "jordbruksmaskiner",
-"frön",
 "Jordbruksaffär",
-"gödsel",
 "djurmat",
+"jordbruksaffär",
+"utsäde",
+"frön",
+"jordbruk",
+"gödsel",
 "gödningsmedel",
 "jordbruksverktyg",
 "lantmannaföreningen",
 "bekämpningsmedel",
-"jordbruksutrustning",
-"Jordbruk"
+"jordbruksutrustning"
 ],
 "shop/alcohol":[
+"vinaffär",
 "spritaffär",
 "systemet",
 "öl",
@@ -10709,11 +11460,11 @@
 "alkohol",
 "sprit",
 "vin- och sprit",
-"vin",
-"Vinaffär"
+"vin"
 ],
 "shop/anime":[
 "cosplay",
+"anime/manga-affär",
 "figurer",
 "japan",
 "manga",
@@ -10724,9 +11475,10 @@
 "shop/antiques":[
 "antikvitetsaffär",
 "antikt",
-"Antikaffär",
 "antikshop",
-"antikvariat"
+"Antikaffär",
+"antikvariat",
+"antikaffär"
 ],
 "shop/appliance":[
 "tvättmaskin",
@@ -10746,6 +11498,7 @@
 "diskmaskin"
 ],
 "shop/art":[
+"konstaffär",
 "konstverk",
 "Konstaffär",
 "tavlor",
@@ -10758,17 +11511,18 @@
 "konstutställning"
 ],
 "shop/baby_goods":[
-"Bäbis",
-"Babyprodukter",
-"småbarn",
 "nappflaskor",
+"bäbis",
 "nappar",
 "babykläder",
-"Baby",
+"spjälsängar",
+"Babyprodukter",
+"småbarn",
+"babyprodukter",
+"baby",
 "barnkläder",
 "bäbiskläder",
 "barnvagnar",
-"spjälsängar",
 "blöjor"
 ],
 "shop/bag":[
@@ -10777,25 +11531,29 @@
 "bagage",
 "handväska",
 "väskor",
-"Väskaffär",
+"väskaffär",
 "plånbok",
+"Väskaffär",
 "handväskor"
 ],
 "shop/bakery":[
 "bröd",
 "Bageri",
+"bageri",
 "bullar",
 "baka",
 "bagare"
 ],
 "shop/bathroom_furnishing":[
 "Badrumsinredning",
-"badrum"
+"badrum",
+"badrumsinredning"
 ],
 "shop/beauty":[
 "Skönhetssalong",
 "nagelsalong",
 "spa",
+"skönhetssalong",
 "skönhet",
 "kuranstalt",
 "smink",
@@ -10812,6 +11570,7 @@
 "shop/beauty/nails":[
 "nagel",
 "nagelvård",
+"nagelsalong",
 "naglar",
 "manikur",
 "handvård",
@@ -10828,18 +11587,19 @@
 "Solarium"
 ],
 "shop/bed":[
+"sängaffär",
 "madrasser",
-"Sängaffär",
 "sängar",
 "påslakan",
+"Sängaffär",
 "täcken",
 "lakan",
 "kuddar"
 ],
 "shop/beverages":[
-"Dryck",
 "dricka",
 "läsk",
+"dryck",
 "alkohol",
 "Dryckaffär",
 "läskedryck"
@@ -10847,18 +11607,20 @@
 "shop/bicycle":[
 "cykelförsäljning",
 "Cykelaffär",
+"cykelaffär",
 "cykel",
 "cykelreparatör"
 ],
 "shop/boat":[
-"båt",
 "båttillbehör",
-"fiskebåt",
+"båtaffär",
 "motorboat",
+"Båtaffär",
+"båt",
+"fiskebåt",
 "vattenskoter",
 "roddbåt",
 "segelbåt",
-"Båtaffär",
 "segel",
 "eka",
 "jet-ski",
@@ -10866,15 +11628,17 @@
 ],
 "shop/bookmaker":[
 "spel",
-"Stryktipset",
 "måltipset",
 "trav",
-"Vadslagning",
+"vadslagning",
 "dobbel",
-"vadhållning"
+"Vadslagning",
+"vadhållning",
+"stryktipset"
 ],
 "shop/books":[
 "Bokhandel",
+"bokhandel",
 "antikvariat",
 "bokförsäljning"
 ],
@@ -10883,10 +11647,11 @@
 ],
 "shop/brewing_supplies":[
 "bryggning",
-"Affär för hembryggningstillbehör",
 "vintillverkning",
+"Affär för hembryggningstillbehör",
 "öl",
 "vinbryggning",
+"affär för hembryggningstillbehör",
 "hembryggning",
 "vin",
 "öltillverkning",
@@ -10904,52 +11669,57 @@
 "charkuterist"
 ],
 "shop/camera":[
-"Affär för kameratillbehör",
 "fotografering",
+"Affär för kameratillbehör",
 "foto",
 "kameratillbehör. kamera",
 "linser",
 "kameratillbehöraffär",
 "film",
-"objektiv"
+"objektiv",
+"affär för kameratillbehör"
 ],
 "shop/candles":[
 "värmeljus",
 "Ljusaffär",
+"ljusaffär",
 "mysljus",
 "ljusstakar",
 "ljus",
 "stearinljus"
 ],
 "shop/cannabis":[
-"Cannabis",
 "420",
+"cannabisaffär",
 "pot",
 "reefer",
 "Cannabisaffär",
+"cannabis",
 "marijuana",
 "weed"
 ],
 "shop/car":[
 "bilfirma",
+"bilhandlare",
 "bilreparatör",
 "bilförsäljning",
 "bilverkstad",
 "bilsäljare",
-"Bilhandlare",
-"biltillbehör"
+"biltillbehör",
+"Bilhandlare"
 ],
 "shop/car/second_hand":[
 "bilar",
+"bilhandlare med begagnade bilar",
 "begagnat",
 "begagnade bilar",
 "Bilhandlare med begagnade bilar"
 ],
 "shop/car_parts":[
-"Bildelar",
 "bilreservdelar",
 "motor",
 "Biltillbehör",
+"bildelar",
 "reservdelar",
 "biltillbehör"
 ],
@@ -10957,10 +11727,12 @@
 "motor",
 "bilreparatör",
 "Bilverkstad",
+"bilverkstad",
 "verkstad"
 ],
 "shop/caravan":[
 "tältvagn",
+"husvagnsförsäljare",
 "husbil",
 "husvagn",
 "husbilsförsäljare",
@@ -10969,6 +11741,7 @@
 "shop/carpet":[
 "matta",
 "Mattaffär",
+"mattaffär",
 "mattor"
 ],
 "shop/catalogue":[
@@ -10995,6 +11768,7 @@
 "shop/cheese":[
 "ost",
 "ostar",
+"ostaffär",
 "Ostaffär",
 "ostbutik"
 ],
@@ -11002,7 +11776,7 @@
 "hygienartiklar",
 "kosmetik",
 "kemi",
-"Kemiaffär",
+"kemiaffär",
 "städ",
 "rengöring",
 "smink",
@@ -11015,19 +11789,20 @@
 "shop/chocolate":[
 "pralin",
 "konfekt",
+"choklad",
 "Chokladaffär",
-"Choklad",
+"chokladaffär",
 "praliner"
 ],
 "shop/clothes":[
 "klädbutik",
 "ekipering",
 "Klädaffär",
+"klädaffär",
 "kläder"
 ],
 "shop/clothes/second_hand":[
 "klädbutik",
-"Affär för secondhandkläder",
 "klänningar",
 "secondhandkläder",
 "kostymer",
@@ -11035,6 +11810,7 @@
 "kjolar",
 "begagnade",
 "secondhand",
+"affär för secondhandkläder",
 "skjortor",
 "byxor",
 "blusar",
@@ -11052,10 +11828,12 @@
 "lingeri",
 "strumpor",
 "damunderkläder",
+"underklädersaffär",
 "sockar"
 ],
 "shop/clothes/wedding":[
 "festkläder",
+"affär med bröllopskläder",
 "brud",
 "Affär med bröllopskläder",
 "brudtärna",
@@ -11076,22 +11854,24 @@
 "kaffe"
 ],
 "shop/collector":[
-"samling",
 "mynt",
 "samlare",
-"Numismatik",
 "medaljer",
 "figurer",
+"Affär med samlarobjekt",
+"samling",
+"affär med samlarobjekt",
 "serier",
 "filateli",
 "dockor",
 "frimärken'",
-"antikviteter",
-"Affär med samlarobjekt"
+"numismatik",
+"antikviteter"
 ],
 "shop/computer":[
 "data",
 "dator",
+"datorbutik",
 "datorförsäljning",
 "Datorbutik",
 "datorer",
@@ -11111,6 +11891,7 @@
 "karameller"
 ],
 "shop/convenience":[
+"närbutik",
 "livsmedelsbutik",
 "mataffär",
 "Närbutik",
@@ -11121,24 +11902,26 @@
 "kopiering",
 "Tryckeri",
 "tryckeri",
-"Copyshop"
+"copyshop"
 ],
 "shop/cosmetics":[
+"sminkaffär",
 "Sminkaffär",
 "smink",
 "kosmetika",
 "kosmetikaffär"
 ],
 "shop/country_store":[
+"lanthandel",
 "Lanthandel",
 "landet"
 ],
 "shop/craft":[
 "konstverk",
 "hantverk",
-"Konsthantverk",
+"konsthantverk",
+"konst",
 "Konst- & hantverksbutik",
-"Konst",
 "slöjd"
 ],
 "shop/curtain":[
@@ -11146,10 +11929,12 @@
 "drapera",
 "fönster",
 "draperier",
-"gardiner"
+"gardiner",
+"gardinaffär"
 ],
 "shop/dairy":[
 "ost",
+"mejeriaffär",
 "ägg",
 "mejeri",
 "mjölk",
@@ -11159,6 +11944,7 @@
 "shop/deli":[
 "lunch",
 "smörgås",
+"delikatessaffär",
 "delikatess",
 "Delikatessaffär",
 "delikatesser",
@@ -11167,6 +11953,7 @@
 ],
 "shop/department_store":[
 "Varuhus",
+"varuhus",
 "affärshus"
 ],
 "shop/doityourself":[
@@ -11175,12 +11962,13 @@
 "heminredning",
 "elverktyg",
 "byggvaruhus",
+"byggmarknad",
 "inredning",
 "byggsatser",
 "verktyg",
 "byggsats",
-"Gör-det-själv",
 "gördetsjälv",
+"gör-det-själv",
 "gör det själv",
 "Byggmarknad",
 "byggmaterial",
@@ -11188,6 +11976,7 @@
 "bygghandel"
 ],
 "shop/doors":[
+"affär med dörrar",
 "dörr",
 "dörreparation",
 "Affär med dörrar",
@@ -11196,7 +11985,7 @@
 "dörrförsäljning"
 ],
 "shop/dry_cleaning":[
-"Kemtvättar",
+"kemtvättar",
 "Kemtvätt",
 "kemisk tvätt"
 ],
@@ -11204,25 +11993,28 @@
 "elektrisk cigarett",
 "elcigarett",
 "Affär för elektroniska cigaretter",
-"e-cigarett"
+"e-cigarett",
+"affär för elektroniska cigaretter"
 ],
 "shop/electrical":[
-"kraft",
 "kabel",
-"fläkt",
 "el",
 "kablage",
-"Affär med elutrustning",
 "elutrustning",
 "kablar",
+"led",
+"amatur",
+"kraft",
+"affär med elutrustning",
+"fläkt",
+"Affär med elutrustning",
 "elektronik",
-"LED",
-"belysning",
-"amatur"
+"belysning"
 ],
 "shop/electronics":[
+"elektronikbutik",
 "spisar",
-"TV",
+"tv",
 "batterier",
 "tvättmaskin",
 "kablar",
@@ -11233,15 +12025,15 @@
 "hemelektronik",
 "kylskåp",
 "torktumlare",
-"Elektronikbutik",
 "vitvaror",
+"Elektronikbutik",
 "hushållsapparater",
 "ljud"
 ],
 "shop/erotic":[
 "erotik",
 "sexaffär",
-"Sex",
+"sex",
 "sexleksaker",
 "sexshop",
 "porr",
@@ -11259,31 +12051,34 @@
 "erotik",
 "sexaffär",
 "lesbisk",
-"Sex",
+"sex",
+"hbtq",
 "sexleksaker",
 "sexshop",
 "porr",
 "pornografi",
 "porrfilmer",
 "erotikaffär",
-"HBTQ",
 "porrtidningar",
 "underkläder",
+"hbtq-sexshop",
 "sexfilmer",
 "kondomer",
-"HBTQ-sexshop",
 "gay",
+"HBTQ-sexshop",
 "erotisk"
 ],
 "shop/fabric":[
-"Tygaffär",
 "tyg",
+"Tygaffär",
 "tyger",
 "sy",
+"tygaffär",
 "sömnad"
 ],
 "shop/farm":[
 "närproducerat",
+"gårdsbutik",
 "Gårdsbutik",
 "egenproducerat"
 ],
@@ -11291,8 +12086,9 @@
 "Modebutik"
 ],
 "shop/fashion_accessories":[
-"Affär för modeaccessoarer",
 "plånböcker",
+"Affär för modeaccessoarer",
+"affär för modeaccessoarer",
 "paraply",
 "klockor",
 "handväskor",
@@ -11317,6 +12113,7 @@
 "shop/fishing":[
 "fiskeutrustning",
 "vinterfiske",
+"fiskeaffär",
 "fiske",
 "fisk",
 "sommarfiske",
@@ -11334,22 +12131,24 @@
 "Affär för golv"
 ],
 "shop/florist":[
-"Florist",
 "bukett",
+"Florist",
 "blomsterhandlare",
 "blommor",
+"florist",
 "blomsterbindare",
 "blomförsäljning"
 ],
 "shop/frame":[
 "Ramaffär",
+"ramaffär",
 "ramar",
 "inramning"
 ],
 "shop/frozen_food":[
-"Fryst mat",
 "färdigmat",
 "mat",
+"fryst mat",
 "färdigrätter",
 "lunch",
 "matlådor",
@@ -11361,15 +12160,16 @@
 "fryst"
 ],
 "shop/fuel":[
-"Bränsleaffär",
 "fotogen",
-"LPG",
+"Bränsleaffär",
+"lpg",
 "träkol",
 "bränslebutik",
 "eldningsolja",
 "bränsle",
 "kol",
 "propan",
+"bränsleaffär",
 "motorbränsle"
 ],
 "shop/funeral_directors":[
@@ -11392,18 +12192,20 @@
 "soffor",
 "inredning",
 "stol",
-"Möbelaffär",
 "stolar",
+"Möbelaffär",
+"möbelaffär",
 "möbelvaruhus",
 "soffa"
 ],
 "shop/games":[
+"affär för brädspel",
 "tärningsspel",
 "spelbutik",
 "spel",
 "live action-rollspel",
-"Affär för brädspel",
 "brädspel",
+"Affär för brädspel",
 "kortspel",
 "strategispel",
 "miniatyrer krigsspel"
@@ -11415,6 +12217,7 @@
 "Trädgårdscenter",
 "träd",
 "trädgårdsverktyg",
+"trädgårdscenter",
 "planteringsjord",
 "kompost",
 "blomkrukor",
@@ -11440,10 +12243,12 @@
 "gasolflaskor"
 ],
 "shop/general":[
+"generell affär",
 "byaffär",
 "Generell affär"
 ],
 "shop/gift":[
+"presentbutik",
 "gratulationskort",
 "souvenirbutik",
 "grattiskort",
@@ -11460,10 +12265,12 @@
 "frukthandlare",
 "grönsaker",
 "frukthandel",
+"grönsakshandlare",
 "Grönsakshandlare",
 "vegetabiliskt"
 ],
 "shop/hairdresser":[
+"hårfrisör",
 "hårkonstnär",
 "skägg",
 "skönhet",
@@ -11505,6 +12312,7 @@
 "bultar",
 "bygg",
 "lås",
+"järnaffär",
 "kök",
 "elverktyg",
 "badrum",
@@ -11524,19 +12332,21 @@
 "shop/health_food":[
 "Hälsokostbutik",
 "kosttillskott",
-"hälsokost",
 "naturligt",
 "organisk",
-"köttersättning",
-"vegetarian",
 "vegan",
 "mjölkersättning",
 "hälsomat",
 "organist",
-"vitaminer"
+"vitaminer",
+"hälsokost",
+"köttersättning",
+"vegetarian",
+"hälsokostbutik"
 ],
 "shop/hearing_aids":[
 "hörselskada",
+"hörapparater",
 "Hörapparater",
 "hörselskadade",
 "hörsel",
@@ -11549,7 +12359,6 @@
 "Medicinalväxter"
 ],
 "shop/hifi":[
-"HIFI-butik",
 "ljudåtergivning",
 "hifi",
 "förstärkare",
@@ -11558,11 +12367,13 @@
 "HiFi-butik",
 "ljudanläggning",
 "stereo",
+"hifi-butik",
 "audio",
 "video",
 "ljud"
 ],
 "shop/hobby":[
+"hobbyaffär",
 "Hobbyaffär",
 "manga",
 "model",
@@ -11578,6 +12389,7 @@
 "näsdukar",
 "gardiner",
 "bäddning",
+"affär för hushållstextilier",
 "Affär för hushållstextilier",
 "filtar",
 "handdukar",
@@ -11603,8 +12415,8 @@
 "shop/hunting":[
 "jakt",
 "Jaktbutik",
-"Jaktaffär",
 "jaktbutik",
+"jaktaffär",
 "jaktutrustning",
 "jaktgevär",
 "jaktvapen"
@@ -11612,6 +12424,7 @@
 "shop/interior_decoration":[
 "Inredningsaffär",
 "inredning",
+"inredningsaffär",
 "dekoration"
 ],
 "shop/jewelry":[
@@ -11621,6 +12434,7 @@
 "Juvelerare",
 "ring",
 "klockor",
+"juvelerare",
 "pärlor",
 "halsband",
 "diamant",
@@ -11643,11 +12457,13 @@
 "butik",
 "godis",
 "korv",
+"cigaretter",
 "Kiosk",
-"cigaretter"
+"kiosk"
 ],
 "shop/kitchen":[
 "kök",
+"köksinredning",
 "bänkskivor",
 "köksskåp",
 "skåpluckor",
@@ -11658,18 +12474,20 @@
 "tvättomat",
 "tvättstuga",
 "tvättemat",
+"tvättinrättning",
 "tvättautomat",
 "tvätt",
 "tvätteri"
 ],
 "shop/laundry/self_service":[
-"Tvättinrättning",
+"tvättinrättning med självbetjäning",
 "tvättomat",
 "tvättstuga",
 "tvättemat",
-"Tvättinrättning med självbetjäning",
+"tvättinrättning",
 "tvättautomat",
 "tvätt",
+"Tvättinrättning med självbetjäning",
 "tvätteri",
 "mynttvätt"
 ],
@@ -11677,30 +12495,34 @@
 "läder",
 "läderjackor",
 "läderkläder",
-"Läderaffär"
+"Läderaffär",
+"läderaffär"
 ],
 "shop/lighting":[
-"LED",
+"belysningsbutik",
+"led",
 "belysning",
 "lampor",
-"Belysningsbutik",
-"glödlampor"
+"glödlampor",
+"Belysningsbutik"
 ],
 "shop/locksmith":[
-"Låsdyrkning",
+"låssmed",
 "dyrkning",
 "nyckel",
 "nyckelkopiering",
 "Låssmed",
 "lås",
 "låsinstallation",
-"nyckeltillverkning"
+"nyckeltillverkning",
+"låsdyrkning"
 ],
 "shop/lottery":[
 "lottförsäljningen",
 "bingospel",
-"Lotteri",
 "lottstånd",
+"Lotteri",
+"lotteri",
 "hasardspel",
 "hasard",
 "lottdragning",
@@ -11711,41 +12533,43 @@
 "shoppingcentrum",
 "köpcentrum",
 "köpcenter",
-"Varuhus",
 "shoppingcenter",
+"varuhus",
 "affärshus"
 ],
 "shop/massage":[
 "massagebehandling",
 "thaimassage",
-"Massage"
+"Massage",
+"massage"
 ],
 "shop/medical_supply":[
 "medicinsk utrustning",
 "rullstol",
-"Bandage",
 "blodtrycksmätare",
-"Glucometer",
-"Träningsbollar",
-"Ortopedteknik",
+"kryckor",
+"ortopedteknik",
+"glucometer",
 "hjälpmedel",
 "ledstöd",
 "glukometer",
-"Kryckor",
-"Medicinsk utrustning "
+"träningsbollar",
+"Medicinsk utrustning",
+"bandage"
 ],
 "shop/military_surplus":[
 "armé",
 "krigsöverskott",
-"militärkläder",
+"affär med militäröverskott",
 "vapen",
 "militärutrustning",
+"militärt överskott",
+"militärkläder",
 "överskottslagret",
 "arméöverskott",
-"militärt överskott",
 "marinöverskott",
-"Affär med militäröverskott",
 "militäröverskott",
+"Affär med militäröverskott",
 "militär"
 ],
 "shop/mobile_phone":[
@@ -11753,6 +12577,7 @@
 "Mobiltelefoner",
 "mobiltelefoni",
 "telefon",
+"mobiltelefoner",
 "telefonbutik",
 "mobiltelefonbutik"
 ],
@@ -11774,42 +12599,46 @@
 "mikrolån",
 "pantbank",
 "Långivare",
-"utlåning"
+"utlåning",
+"långivare"
 ],
 "shop/motorcycle":[
 "motorcykelbutik",
 "motorcyklar",
 "Återförsäljare av motorcyklar",
-"Motorcykel",
 "motorcykeltillbehör",
+"motorcykel",
 "motorcykelåterförsäljare"
 ],
 "shop/motorcycle_repair":[
-"motorcykelreparatör",
-"motorcyklar",
 "motorcykel",
-"service",
-"cykel",
 "Motorcykelverkstad",
-"moped",
-"reparatör",
+"motorcykelverkstad",
 "motorcykelservice",
 "verkstad",
 "reparation",
-"mopedverkstad"
+"mopedverkstad",
+"motorcykelreparatör",
+"motorcyklar",
+"service",
+"cykel",
+"moped",
+"reparatör"
 ],
 "shop/music":[
-"CD",
+"cd",
 "Musikaffär",
-"CD-affär",
 "kassett",
-"LP",
+"lp",
 "musikbutik",
 "skivaffär",
+"cd-affär",
+"musikaffär",
 "vinyl",
 "skivbutik"
 ],
 "shop/musical_instrument":[
+"musikinstrument",
 "noter",
 "instrument",
 "Musikinstrument"
@@ -11817,6 +12646,7 @@
 "shop/newsagent":[
 "pressbyrå",
 "tidskrifter",
+"tidningsaffär",
 "Tidningsaffär",
 "pressbyrån",
 "tidningar",
@@ -11827,6 +12657,7 @@
 ],
 "shop/nutrition_supplements":[
 "viktminskning",
+"hälsokost",
 "hälsoörter",
 "Hälsokost",
 "hälsoprodukter",
@@ -11837,6 +12668,7 @@
 "shop/optician":[
 "glasögon",
 "ögon",
+"optiker",
 "synundersökning",
 "linser",
 "Optiker"
@@ -11849,11 +12681,13 @@
 "klättring",
 "vandringsutrustning",
 "uteliv",
-"Friluftsaffär",
+"friluftsaffär",
 "campingutrustning",
-"friluftsliv"
+"friluftsliv",
+"Friluftsaffär"
 ],
 "shop/outpost":[
+"utlämning av online-beställningar",
 "paketutlämning",
 "online",
 "posten",
@@ -11864,12 +12698,14 @@
 ],
 "shop/paint":[
 "färg",
-"Färgbutik",
+"färgbutik",
 "målarfärg",
+"Färgbutik",
 "målning"
 ],
 "shop/party":[
 "partyutrustning",
+"partybutik",
 "utklädning",
 "kallasdekoration",
 "festival",
@@ -11927,28 +12763,28 @@
 "Djurbutik",
 "hundar",
 "djurmat",
+"djuraffär",
 "djur",
 "akvarium",
 "hund",
 "fisk",
 "djurburar",
 "husdjur",
-"djurtillbehör",
-"Djuraffär"
+"djurtillbehör"
 ],
 "shop/pet_grooming":[
 "hund",
+"pälsvård för husdjur",
 "pälsvård",
 "hundvård",
+"trimning",
 "husdjur",
-"Pälsvård för husdjur",
-"Trimning"
+"Pälsvård för husdjur"
 ],
 "shop/photo":[
 "fotoaffär",
 "framkallning",
 "kameratillbehör",
-"Fotoaffär ",
 "fotokamera",
 "video",
 "film",
@@ -11957,18 +12793,21 @@
 "fotografi",
 "foto",
 "kameror",
+"Fotoaffär",
 "filmkamera",
 "fotoredigering",
 "kamera",
 "ram"
 ],
 "shop/pottery":[
+"keramikaffär",
 "krukor",
 "vaser",
 "Keramikaffär",
 "keramik"
 ],
 "shop/printer_ink":[
+"butik för skrivarbläck",
 "skrivare",
 "faxbläck",
 "toner",
@@ -11983,13 +12822,24 @@
 "shop/psychic":[
 "seare",
 "Medium / Psykisk",
+"parapsykologi",
+"spåman",
 "ande",
-"kristallkula",
-"Medium",
-"Psykisk",
-"astrologi",
+"klärvoajans",
+"tarotkort",
+"ockult",
+"medium",
 "spådom",
-"spårdam"
+"klärvoajant",
+"synsk",
+"spiritist",
+"spåkvinna",
+"kristallkula",
+"sierska",
+"spådam",
+"tarot",
+"astrologi",
+"siare"
 ],
 "shop/pyrotechnics":[
 "Fyrverkerier",
@@ -12004,14 +12854,14 @@
 "elektronikbutik",
 "radiotillbehör",
 "radiobutik",
-"Radio",
 "elektronik",
 "elektronikkomponenter",
-"Radio/Elektronikbutik"
+"Radio/Elektronikbutik",
+"radio"
 ],
 "shop/religion":[
+"religiös",
 "biblar",
-"Religiös",
 "kyrkobutik",
 "psalmböcker",
 "Religiös butik",
@@ -12019,13 +12869,24 @@
 ],
 "shop/rental":[
 "hyra",
+"hyrbutik",
 "låna",
 "Hyrbutik",
 "uthyrning"
 ],
+"shop/repair":[
+"reparera",
+"renovera",
+"trasig",
+"reparatör",
+"Reparatör",
+"laga",
+"verkstad"
+],
 "shop/scuba_diving":[
-"Dykning",
 "Dykarbutik",
+"dykning",
+"dykarbutik",
 "dykutrustning"
 ],
 "shop/seafood":[
@@ -12034,16 +12895,18 @@
 "fisk",
 "ostron",
 "bläckfisk",
+"fiskaffär",
 "krabba",
 "skaldjur",
 "fiskhandlare",
-"Fiskaffär",
-"musslor"
+"musslor",
+"Fiskaffär"
 ],
 "shop/second_hand":[
 "loppis",
 "Second hand",
 "loppmarknad",
+"second hand",
 "secondhand"
 ],
 "shop/sewing":[
@@ -12060,11 +12923,13 @@
 "shop/shoe_repair":[
 "skoreparation",
 "skoreparatör",
-"Skomakare",
-"skor"
+"skomakare",
+"skor",
+"Skomakare"
 ],
 "shop/shoes":[
 "Skoaffär",
+"skoaffär",
 "skobutik",
 "skor"
 ],
@@ -12079,6 +12944,7 @@
 "curry",
 "kryddor",
 "kanel",
+"affär för kryddor",
 "saffran",
 "kryddbutik",
 "ingefära"
@@ -12089,15 +12955,16 @@
 "träningskläder",
 "sportkläder",
 "löpskor",
+"träningsskor",
 "Sportaffär",
-"träningsskor"
+"sportaffär"
 ],
 "shop/stationery":[
-"Kontorsmaterial",
 "grattiskort",
 "papper",
 "kort",
 "kuvert",
+"kontorsmaterial",
 "pennor",
 "anteckningsböcker",
 "pappersvaror",
@@ -12109,14 +12976,15 @@
 "långtidslager",
 "förrådsutrymme",
 "bilförvaring",
+"hyrlager",
 "magasinera",
-"Magasinering",
 "förvaring",
 "husvagnsförvaring",
 "Hyrlager",
 "båtförvaring",
 "säsongsförvaring",
 "vinterförvaring",
+"magasinering",
 "möbelförvaring"
 ],
 "shop/supermarket":[
@@ -12135,21 +13003,22 @@
 "shop/supermarket/organic":[
 "supermarket",
 "mat",
-"Organisk mataffär",
 "snabbköp",
+"Organisk mataffär",
 "naturligt",
 "naturlig mat",
+"organisk mataffär",
 "organisk mat",
 "mataffär",
 "organiskt"
 ],
 "shop/swimming_pool":[
-"Pooltillbehörsbutik",
 "basäng",
 "poolinstallation",
 "Butik för pooltillbehör",
 "pool",
 "poolbutik",
+"pooltillbehörsbutik",
 "poolservice",
 "poolunderhåll",
 "poolinstallationsbutik",
@@ -12161,20 +13030,21 @@
 ],
 "shop/tailor":[
 "kostym",
+"skräddare",
 "klänning",
-"Skräddare",
-"kläder"
+"kläder",
+"Skräddare"
 ],
 "shop/tattoo":[
 "Tatueringsstudio",
 "tatuera",
 "tatuering",
 "tatueringssalong",
-"tatuerare"
+"tatuerare",
+"tatueringsstudio"
 ],
 "shop/tea":[
 "the",
-"Te",
 "te",
 "teblad",
 "thé",
@@ -12185,10 +13055,11 @@
 "shop/telecommunication":[
 "talkommunikation",
 "röst",
+"telekombutik",
 "telefon",
 "isp",
-"Telekombutik",
 "internetleverantör",
+"Telekombutik",
 "tele",
 "nätverk",
 "internet",
@@ -12198,20 +13069,23 @@
 "biljettlucka",
 "biljettkassa",
 "biljettkontor",
-"Biljettförsäljning",
 "biljetter",
 "biljettsäljare",
+"Biljettförsäljning",
+"biljettförsäljning",
 "biljettåterförsäljare"
 ],
 "shop/tiles":[
+"klinker",
 "kakelplatta",
 "plattsättare",
-"Klinker",
 "plattor",
 "Kakelbutik",
+"kakelbutik",
 "kakel"
 ],
 "shop/tobacco":[
+"tobaksbutik",
 "pipor",
 "cigarett",
 "röktillbehör",
@@ -12227,6 +13101,7 @@
 "shop/tool_hire":[
 "Verktygsuthyrning",
 "byggverktyg",
+"verktygsuthyrning",
 "uthyrning av verktyg",
 "hyrning",
 "verktyg",
@@ -12235,6 +13110,7 @@
 ],
 "shop/toys":[
 "leksaker",
+"leksaksaffär",
 "barnsaker",
 "Leksaksaffär"
 ],
@@ -12242,42 +13118,45 @@
 "Proffshandel",
 "granngården",
 "trävaror",
+"trähandel",
 "fönster",
 "kakel",
+"vvs-specialist",
 "jordbruksprodukter",
+"proffshandel",
 "proffsmarknad",
-"VVS",
-"Trähandel",
+"vvs",
 "jordbruk",
 "brädor",
 "byggmaterial",
 "lantmannaföreningen",
 "brädgård",
-"VVS-specialist",
 "byggnadsmaterial",
 "proffs"
 ],
 "shop/travel_agency":[
 "charterflyg",
 "charter",
+"resebyrå",
 "reseagent",
-"Resebyrå",
 "biljettförsäljning",
-"charterresa"
+"charterresa",
+"Resebyrå"
 ],
 "shop/trophy":[
-"utmärkelser",
 "medaljer",
+"affär för troféer",
 "trofe",
 "troféer",
 "Affär för troféer",
-"trofeer",
 "plackat",
+"trofé",
+"priser",
+"utmärkelser",
+"trofeer",
 "belöningar",
 "gravyrer",
-"trofé",
-"trofébutik",
-"priser"
+"trofébutik"
 ],
 "shop/tyres":[
 "däckförsäljning",
@@ -12287,14 +13166,16 @@
 "däck",
 "fälg",
 "hjul",
-"Däckfirma",
 "hjulförsäljning",
-"balansering"
+"balansering",
+"Däckfirma",
+"däckfirma"
 ],
 "shop/vacant":[
 "Tom lokal"
 ],
 "shop/vacuum_cleaner":[
+"dammsugarbutik",
 "dammsugaråterförsäljare",
 "dammsugarpåsar",
 "Dammsugarbutik",
@@ -12302,24 +13183,27 @@
 "dammsugare"
 ],
 "shop/variety_store":[
-"Fyndbutik",
 "överskott",
+"Fyndbutik",
 "lågprisbutik",
 "fynd",
+"fyndbutik",
 "billigt",
 "lågpris",
 "överskottsaffär"
 ],
 "shop/video":[
-"VHS",
+"vhs",
 "filmbutik",
 "filmförsäljning",
-"DVD",
+"dvd",
+"videobutik",
 "Videobutik",
 "filmuthyrning"
 ],
 "shop/video_games":[
 "tvspel",
+"tv-spel",
 "TV-spel",
 "konsolspel",
 "spelkonsoler",
@@ -12328,6 +13212,7 @@
 "dataspel"
 ],
 "shop/watches":[
+"klockaffär",
 "Klockaffär",
 "klockbutik",
 "klocka",
@@ -12337,15 +13222,15 @@
 "ur"
 ],
 "shop/water":[
-"Dricksvatten",
+"dricksvatten",
 "Affär för dricksvatten",
 "vatten"
 ],
 "shop/water_sports":[
-"Vattensport",
 "simning",
 "badkläder",
-"Vattensport/simning "
+"Vattensport/simning",
+"vattensport"
 ],
 "shop/weapons":[
 "ammunition",
@@ -12355,6 +13240,7 @@
 "kniv",
 "knivar",
 "pistol",
+"vapenaffär",
 "Vapenaffär"
 ],
 "shop/wholesale":[
@@ -12362,34 +13248,38 @@
 "grossistverksamhet",
 "engros",
 "mängdhandel",
-"Partihandel",
 "lagerklubb",
 "grosist",
-"Grosistaffär",
 "grossistklubb",
-"grossistlager"
+"Grosistaffär",
+"partihandel",
+"grossistlager",
+"grosistaffär"
 ],
 "shop/wigs":[
 "peruker",
 "Affär för peruker",
 "hårförlängning",
 "löshår",
-"tupé"
+"tupé",
+"affär för peruker"
 ],
 "shop/window_blind":[
 "spjälgardin",
 "spjäljalusi",
 "Persienner",
 "markis",
+"persienner",
 "jalusi",
 "rullgardin"
 ],
 "shop/wine":[
+"vinaffär",
 "systemet",
 "systembolaget",
 "vin",
-"Vinaffär",
-"vinförsäljning"
+"vinförsäljning",
+"Vinaffär"
 ],
 "telecom":[
 "Telekomobjekt"
@@ -12397,14 +13287,15 @@
 "telecom/data_center":[
 "datasystem",
 "datorcenter",
-"IT",
+"datacenter",
+"it",
 "serverfarm",
 "telekommunikation",
 "serverhall",
 "it-center",
 "informationsteknologi",
-"Datacenter",
 "datorsystem",
+"Datacenter",
 "serverrum",
 "molnet",
 "datalagring"
@@ -12419,21 +13310,23 @@
 "Turistobjekt"
 ],
 "tourism/alpine_hut":[
-"Fjällstuga",
+"fjällstuga",
 "Fjällstation",
 "fjällstation"
 ],
 "tourism/apartment":[
 "turist",
 "hotell",
-"Andelslägenhet",
-"Gästlägenhet",
-"Turistlägenhet",
+"turistlägenhet",
+"andelslägenhet",
+"gästlägenhet",
 "condo",
+"Turistlägenhet",
 "lägenhetshotell",
 "lägenhet"
 ],
 "tourism/aquarium":[
+"akvarium",
 "fisk",
 "Akvarium",
 "hav",
@@ -12442,9 +13335,9 @@
 "tourism/artwork":[
 "Publik konst",
 "målning",
+"konst",
 "gatukonst",
 "väggmålning",
-"Konst",
 "offentlig konst",
 "publik konst",
 "skulptur",
@@ -12463,9 +13356,11 @@
 "graffitikonst",
 "kladd",
 "sprayfärg",
+"graffiti",
 "gatukonst"
 ],
 "tourism/artwork/installation":[
+"konstinstallation",
 "interaktiv konst",
 "kultur",
 "installation",
@@ -12481,11 +13376,11 @@
 "väggmålning"
 ],
 "tourism/artwork/sculpture":[
-"Staty",
 "byst",
 "Skulptur",
 "monument",
 "snideri",
+"staty",
 "skulptur",
 "figur"
 ],
@@ -12494,29 +13389,32 @@
 "byst",
 "monument",
 "snideri",
+"staty",
 "skulptur",
 "figur"
 ],
 "tourism/attraction":[
 "Turistattraktion",
 "sevärdighet",
+"turistattraktion",
 "sevärdhet"
 ],
 "tourism/camp_pitch":[
 "tält",
+"tältplats",
 "camping",
 "husvagn",
 "Tältplats/husvagnsplats",
-"Campingplats",
 "husvagnsplats",
-"Tältplats"
+"campingplats"
 ],
 "tourism/camp_site":[
 "tält",
 "campinganläggning",
 "camping",
 "husvagn",
-"Campingplats"
+"Campingplats",
+"campingplats"
 ],
 "tourism/camp_site/backcountry":[
 "vildmark",
@@ -12526,10 +13424,12 @@
 "friluftscamping",
 "naturcamping",
 "informell camping",
+"vildmarkscamping",
 "campingplats"
 ],
 "tourism/camp_site/group_only":[
 "Gruppcampingplats",
+"gruppcampingplats",
 "campingplats för grupp",
 "lägerplats",
 "campingplats",
@@ -12540,6 +13440,7 @@
 "camping",
 "husvagnscamping",
 "husbilscamping",
+"ställplats",
 "Ställplats",
 "campingplats",
 "fricamping"
@@ -12551,16 +13452,16 @@
 "sommarstuga",
 "Stuga",
 "helg",
+"campingstuga",
 "semester",
 "semesterboende",
 "semesterstuga",
-"ledighet",
-"Campingstuga"
+"ledighet"
 ],
 "tourism/gallery":[
+"konstaffär",
 "Konstgalleri",
 "konstverk",
-"Konstaffär",
 "tavlor",
 "kulturer",
 "konst",
@@ -12571,19 +13472,22 @@
 "konstutställning"
 ],
 "tourism/guest_house":[
-"B&D",
+"b&d",
 "vandrarhem",
+"gästhus",
 "logi",
+"bed & breakfast",
 "övernattningsställe",
 "pensionat",
-"Bed & Breakfast",
 "Gästhus"
 ],
 "tourism/hostel":[
 "Vandrarhem",
+"vandrarhem",
 "övernattningsställe"
 ],
 "tourism/hotel":[
+"hotell",
 "värdshus",
 "Hotell",
 "hotellanläggning"
@@ -12592,11 +13496,12 @@
 "infokarta",
 "karta",
 "informationskarta",
-"Informationstavla",
-"Turistbyråer",
+"information",
 "Information",
 "turistkontor",
-"informationskällan"
+"informationstavla",
+"informationskällan",
+"turistbyråer"
 ],
 "tourism/information/board":[
 "turistinformation",
@@ -12606,25 +13511,29 @@
 "karta",
 "Informationstavla",
 "information",
-"historisk information"
+"historisk information",
+"informationstavla"
 ],
 "tourism/information/board/welcome_sign":[
+"välkomstskylt",
 "välkomna",
 "välkommen",
 "Välkomstskylt",
 "skylt"
 ],
 "tourism/information/guidepost":[
-"Vägmärke",
-"Guidepost",
+"guidepost",
 "stigvisning",
 "Vägvisare",
-"vandringsskyllt"
+"vandringsskyllt",
+"vägvisare",
+"vägmärke"
 ],
 "tourism/information/map":[
 "*karta",
 "cykelkarta",
 "Karta",
+"karta",
 "navigering",
 "information",
 "stadskarta",
@@ -12633,18 +13542,19 @@
 "industrikarta"
 ],
 "tourism/information/office":[
-"Turistbyrå",
 "turist",
-"turistinformation",
+"Turistbyrå",
 "turistinformationscenter",
 "informationskontor",
-"resebyrå",
 "turism",
-"besökscenter",
 "besöksinformationscenter",
-"välkomstcenter",
 "turistkontor",
-"reseguide"
+"reseguide",
+"turistinformation",
+"turistbyrå",
+"resebyrå",
+"besökscenter",
+"välkomstcenter"
 ],
 "tourism/information/route_marker":[
 "skidled",
@@ -12662,9 +13572,11 @@
 "Spårmarkör",
 "rutt",
 "vandringsled",
-"spår"
+"spår",
+"spårmarkör"
 ],
 "tourism/information/terminal":[
+"informationsterminal",
 "infokarta",
 "turistbyrå",
 "turistkartor",
@@ -12677,9 +13589,9 @@
 ],
 "tourism/motel":[
 "motorhotell",
+"motell",
 "hotell",
 "väghotell",
-"Motell",
 "Motel"
 ],
 "tourism/museum":[
@@ -12699,19 +13611,21 @@
 "tourism/museum/history":[
 "diorama",
 "historia",
-"artefakter",
 "grund",
+"historisk",
+"utställning",
+"Historiskt museum",
+"hall",
+"utställningar",
+"artefakter",
 "institution",
 "museum",
-"historisk",
-"Historiskt museum",
-"utställning",
-"hall",
-"stadsmuseum",
-"utställningar"
+"historiskt museum",
+"stadsmuseum"
 ],
 "tourism/picnic_site":[
 "Picknickplats",
+"picknickplats",
 "camping",
 "rastplats",
 "utflykt",
@@ -12720,12 +13634,12 @@
 ],
 "tourism/theme_park":[
 "nöjespark",
+"temapark",
 "åkattraktioner",
 "nöjesplats",
 "tivoli",
 "nöjesfält",
-"Nöjespark",
-"Temapark"
+"Nöjespark"
 ],
 "tourism/trail_riding_station":[
 "tur",
@@ -12735,6 +13649,7 @@
 "gästhus",
 "ridningsstation",
 "stall",
+"turridningsstation",
 "turridning",
 "Turridningsstation",
 "häst"
@@ -12742,12 +13657,13 @@
 "tourism/viewpoint":[
 "utsikt",
 "vy",
-"Utsiktspunkt",
-"Utsiktsplats"
+"utsiktsplats",
+"Utsiktspunkt"
 ],
 "tourism/wilderness_hut":[
 "hydda",
 "vandring",
+"ödestuga",
 "stuga",
 "skydd",
 "koja",
@@ -12758,11 +13674,12 @@
 "vildmarksstuga",
 "barack",
 "fjällstuga",
-"fjällstation",
-"Ödestuga"
+"stuga (för vandrare o.d.)",
+"fjällstation"
 ],
 "tourism/zoo":[
 "djurpark",
+"zoo",
 "Zoo",
 "zoologisk trädgård"
 ],
@@ -12787,9 +13704,10 @@
 "safaridjurpark",
 "djurpark",
 "zoo",
-"Safaripark"
+"safaripark"
 ],
 "tourism/zoo/wildlife":[
+"vilddjurspark",
 "Vilddjurspark",
 "djurpark",
 "inhemska djur",
@@ -12801,6 +13719,7 @@
 "hastighet",
 "fartgupp",
 "* fart*",
+"farthinder",
 "gupp",
 "trafikhinder",
 "säkerhet",
@@ -12809,53 +13728,53 @@
 "traffic_calming/bump":[
 "bula",
 "Fartbula (kort gupp)",
+"fartbula",
 "bump",
 "fartgupp",
 "vägbula",
 "farthinder",
-"Fartbula",
 "gupp"
 ],
 "traffic_calming/chicane":[
+"sidoförskjutning",
 "trafikchikan",
 "långsam",
 "hastighet",
 "* fart*",
+"farthinder",
 "Sidoförskjutning (chikan)",
 "kurvor",
-"Sidoförskjutning",
 "chikan",
 "slalom",
 "trafikhinder",
-"säkerhet",
-"Farthinder"
+"säkerhet"
 ],
 "traffic_calming/choker":[
 "lins",
 "choker",
 "Avsmalning",
-"Timglas",
+"avsmalning",
 "långsam",
 "hastighet",
-"* fart*",
-"trafikhinder",
-"Farthinder",
-"säkerhet"
-],
-"traffic_calming/cushion":[
-"Timglas",
-"långsam",
-"hastighet",
-"Vägkudde",
-"Farthinder",
-"lins",
-"vägkudde",
-"fartgupp",
 "* fart*",
 "farthinder",
 "trafikhinder",
+"säkerhet",
+"timglas"
+],
+"traffic_calming/cushion":[
+"lins",
+"vägkudde",
+"långsam",
+"hastighet",
+"fartgupp",
+"* fart*",
+"farthinder",
+"Vägkudde",
+"trafikhinder",
 "gupp",
-"säkerhet"
+"säkerhet",
+"timglas"
 ],
 "traffic_calming/dip":[
 "långsam",
@@ -12866,21 +13785,20 @@
 "farthinder",
 "trafikhinder",
 "Grop",
-"Farthinder",
 "säkerhet",
 "försänkning"
 ],
 "traffic_calming/hump":[
-"Wattgupp",
 "normalt fartgupp",
-"Wattska guppet",
+"cirkulärt gupp",
+"wattgupp",
+"wattska guppet",
+"gp-gupp",
 "fartpuckel",
-"GP-gupp",
 "puckel",
 "fartgupp",
 "farthinder",
 "Normalt fartgupp",
-"Cirkulärt gupp",
 "standardgupp",
 "gupp"
 ],
@@ -12890,7 +13808,7 @@
 "hastighet",
 "cirkel",
 "sidorefug",
-"Farthinder",
+"refug",
 "mittrefug",
 "trafikö",
 "ö",
@@ -12903,20 +13821,22 @@
 "rondell"
 ],
 "traffic_calming/rumble_strip":[
+"pennsylvaniaräfflor",
 "Bullerräfflor",
-"Pennsylvaniaräfflor"
+"bullerräfflor"
 ],
 "traffic_calming/table":[
+"fartgupp (långt)",
 "Fartgupp (långt)",
 "fartgupp",
 "farthinder",
+"platågupp",
 "långt fartgupp",
-"gupp",
-"Platågupp"
+"gupp"
 ],
 "traffic_sign":[
-"Trafikskyllt",
 "Vägmärke",
+"trafikskyllt",
 "trafikmärke",
 "skyllt",
 "vägskyllt",
@@ -12925,11 +13845,11 @@
 ],
 "traffic_sign/city_limit":[
 "Skyllt för tättbebyggt område",
+"trafikskyllt",
+"tättbebyggt område",
 "skyllt",
-"Tättbebyggt område",
 "stadsgräns",
 "ort",
-"Trafikskyllt",
 "stad",
 "tätort",
 "trafikmärke",
@@ -12939,27 +13859,30 @@
 "vägvisare"
 ],
 "traffic_sign/maxspeed":[
-"Trafikskyllt",
+"trafikskyllt",
+"hastighetsskylt",
+"skyllt",
+"hastighet",
 "fart",
 "maxhastighet",
 "trafikmärke",
 "maxfart",
-"skyllt",
-"hastighet",
 "Hastighetsskylt",
-"Hastighetsbegränsning",
 "vägskyllt",
+"hastighetsbegränsning",
 "vägmärke",
 "vägvisare"
 ],
 "type/boundary":[
-"Gräns",
 "gränslinje",
-"administrativ gräns"
+"Gräns",
+"administrativ gräns",
+"gräns"
 ],
 "type/boundary/administrative":[
-"Administrativ gräns",
 "stat",
+"Administrativ gräns",
+"administrativ gräns",
 "administrativ enhet",
 "gräns",
 "territorium"
@@ -12968,6 +13891,7 @@
 "Filkoppling",
 "filer",
 "sammankoppling av filer",
+"filkoppling",
 "vägfil",
 "anslutning",
 "filbyte"
@@ -12977,6 +13901,7 @@
 "vägskylt",
 "Destinationsskylt",
 "destination",
+"destinationsskylt",
 "skylt",
 "vägvisare"
 ],
@@ -12987,12 +13912,13 @@
 "Trafiksäkerhetsutrustning",
 "trafiksäkerhet",
 "övervakning",
-"hastighetskontroll"
+"hastighetskontroll",
+"trafiksäkerhetsutrustning"
 ],
 "type/enforcement/maxspeed":[
+"fartkamera",
 "hastighetskamera",
 "fartkontroll",
-"Trafiksäkerhetsutrustning",
 "fart",
 "radar",
 "trafiksäkerhetskamera",
@@ -13000,7 +13926,8 @@
 "Fartkamera",
 "övervakning",
 "hastighetskontroll",
-"hastighet"
+"hastighet",
+"trafiksäkerhetsutrustning"
 ],
 "type/multipolygon":[
 "Multipolygon"
@@ -13020,30 +13947,35 @@
 "transport"
 ],
 "type/restriction":[
+"restriktion",
 "begränsning",
 "inskränkning",
-"Restriktion",
-"förbehåll"
+"förbehåll",
+"Restriktion"
 ],
 "type/restriction/no_left_turn":[
+"ingen vänstersväng",
 "Ingen vänstersväng",
 "sväng ej vänster"
 ],
 "type/restriction/no_right_turn":[
+"ingen högersväng",
 "ej högersväng",
-"Ingen högersväng",
-"sväng ej höger"
+"sväng ej höger",
+"Ingen högersväng"
 ],
 "type/restriction/no_straight_on":[
 "ej rakt fram",
 "Ej rakt fram",
-"Fortsätt ej framåt"
+"fortsätt ej framåt"
 ],
 "type/restriction/no_u_turn":[
+"ingen u-sväng",
 "får ej vända",
 "Ingen U-sväng"
 ],
 "type/restriction/only_left_turn":[
+"enbart vänstersväng",
 "vänster",
 "Enbart vänstersväng",
 "vänstersväng"
@@ -13051,17 +13983,20 @@
 "type/restriction/only_right_turn":[
 "Enbart högersväng",
 "högersväng",
-"höger"
+"höger",
+"enbart högersväng"
 ],
 "type/restriction/only_straight_on":[
 "Enbart rakt fram",
 "fortsätt framåt",
-"får ej svänga"
+"får ej svänga",
+"enbart rakt fram"
 ],
 "type/restriction/only_u_turn":[
+"u-sväng",
 "måste vända",
-"U-sväng",
-"Enbart U-sväng"
+"Enbart U-sväng",
+"enbart u-sväng"
 ],
 "type/route":[
 "Rutt",
@@ -13069,28 +14004,37 @@
 "färdled",
 "färdväg"
 ],
+"type/route/aerialway":[
+"rutt för linbana",
+"linbanerutt",
+"linbana",
+"Linbanerutt"
+],
 "type/route/bicycle":[
 "cykelled",
 "cykelförbindelse",
 "cykelnät",
-"Cykelrutt"
+"Cykelrutt",
+"cykelrutt"
 ],
 "type/route/bus":[
 "busslinje",
 "bussväg",
 "Busslinje",
-"Bussrutt",
+"bussrutt",
 "bussled"
 ],
 "type/route/detour":[
 "Alternativ rutt",
+"alternativ rutt",
 "omväg",
 "alternativ väg"
 ],
 "type/route/ferry":[
 "båtrutt",
 "båtlinjetrafik",
-"Färjerutt"
+"Färjerutt",
+"färjerutt"
 ],
 "type/route/foot":[
 "Vandringsled",
@@ -13100,23 +14044,29 @@
 "vandringsled",
 "gångrutt",
 "stig",
-"Vandringsrutt"
+"vandringsrutt"
 ],
 "type/route/hiking":[
 "Vandringsled",
 "vandringsled",
 "stig",
-"Vandringsrutt"
+"vandringsrutt"
 ],
 "type/route/horse":[
-"Hästspår",
 "rida",
-"Ridrutt",
+"ridled",
+"ridturism",
 "ridning",
-"hästspår",
-"hästrutt",
-"ridspår",
-"häst"
+"hästled",
+"häst",
+"ridväg",
+"hästsport",
+"hästväg",
+"långfärdsridning",
+"ridrutt",
+"Ridled",
+"ridetapp",
+"hästrutt"
 ],
 "type/route/light_rail":[
 "tågrutt",
@@ -13125,16 +14075,15 @@
 "järnvägsförbindelse",
 "stadsbana",
 "järnvägsrutt",
+"rutt på smalspårig järnväg",
 "snabbspårväg",
 "smalspår",
 "Rutt på snabbspårväg / stadsbana",
 "tågnät",
 "rutt för stadsbana",
-"Rutt på smalspårig järnväg",
 "järnväg"
 ],
 "type/route/monorail":[
-"Monorail",
 "Monorailrutt",
 "kollektivtrafik",
 "enskensbana",
@@ -13142,13 +14091,26 @@
 "transport",
 "balkbana",
 "spår",
-"räls"
+"räls",
+"monorail"
+],
+"type/route/mtb":[
+"enduro",
+"mountainbikerutt",
+"Mountainbikerutt",
+"terrängcykling",
+"freeride",
+"trail ridning",
+"mtb",
+"mountainbike",
+"utförsåkning"
 ],
 "type/route/pipeline":[
 "pipeline",
 "oljeledning",
 "vattenledning",
 "avloppsledning",
+"rörledningsrutt",
 "rörledning",
 "Rörledningsrutt"
 ],
@@ -13161,6 +14123,7 @@
 "snöpark",
 "skidbacke",
 "utförsåkning",
+"pist",
 "skridskorutt",
 "skidrutt",
 "slädspår",
@@ -13169,10 +14132,10 @@
 "skidspår",
 "skidbana",
 "skridskospår",
-"skridskobana",
-"Pist"
+"skridskobana"
 ],
 "type/route/power":[
+"kraftledningsrutt",
 "kraftledning",
 "elnät",
 "Kraftledningsrutt",
@@ -13181,13 +14144,16 @@
 "type/route/road":[
 "Vägrutt",
 "vägförbindelse",
-"vägnät"
+"vägnät",
+"vägrutt"
 ],
 "type/route/subway":[
 "Tunnelbanerutt",
+"tunnelbanerutt",
 "tunnelbana"
 ],
 "type/route/train":[
+"tågrutt",
 "tågnät",
 "järnvägsförbindelse",
 "Tågrutt",
@@ -13195,6 +14161,7 @@
 "järnvägsrutt"
 ],
 "type/route/tram":[
+"spårvagnsrutt",
 "spårvagnsnät",
 "Spårvagnsrutt",
 "spårvagn",
@@ -13204,6 +14171,7 @@
 "type/route/trolleybus":[
 "Trådbussrutt",
 "trådbuss",
+"trådbussrutt",
 "kollektivtrafik",
 "spårlös",
 "bussrutt",
@@ -13214,18 +14182,20 @@
 "vag"
 ],
 "type/route_master":[
+"huvudrutt",
 "huvudförbindelse",
-"Huvudrutt",
-"huvudväg"
+"huvudväg",
+"Huvudrutt"
 ],
 "type/site":[
 "anläggning",
 "läge",
+"plats",
 "ställe",
 "Plats"
 ],
 "type/waterway":[
-"Vattenväg",
+"vattenväg",
 "vattendrag",
 "Vattendrag",
 "vattenflöde"
@@ -13234,6 +14204,7 @@
 "Vattenvägobjekt"
 ],
 "waterway/boatyard":[
+"båtvarv",
 "båtställplats",
 "varv",
 "Båtvarv",
@@ -13242,6 +14213,7 @@
 ],
 "waterway/canal":[
 "vattenväg",
+"kanal",
 "vattenled",
 "Kanal"
 ],
@@ -13251,7 +14223,8 @@
 "slussbassäng",
 "vattenlås",
 "Sluss",
-"kanalsluss"
+"kanalsluss",
+"sluss"
 ],
 "waterway/dam":[
 "fördämning",
@@ -13261,8 +14234,9 @@
 "Fördämning"
 ],
 "waterway/ditch":[
-"Dike",
-"fåra"
+"dike",
+"fåra",
+"Dike"
 ],
 "waterway/dock":[
 "båtdocka",
@@ -13270,7 +14244,7 @@
 "fartygsvarv",
 "Våt- / Torrdocka",
 "varv",
-"Torrdocka",
+"torrdocka",
 "docka",
 "lastdocka",
 "våtdocka",
@@ -13288,13 +14262,15 @@
 "fiskväg",
 "ålstege",
 "fisksteg",
-"Fisktrappa",
+"fisktrappa",
 "fiskpassage",
+"Fisktrappa",
 "fiskstege",
 "fiskvandring",
 "ålpassering"
 ],
 "waterway/fuel":[
+"sjömack",
 "båtmack",
 "tankstation båtbensninmack",
 "bränslestation",
@@ -13302,6 +14278,7 @@
 "Sjömack"
 ],
 "waterway/lock_gate":[
+"slussport",
 "kanal",
 "Slussport",
 "sluss"
@@ -13313,6 +14290,7 @@
 "sjöfart",
 "milsten",
 "referenstavla",
+"milsten vid vattendrag",
 "kilometerstolpe",
 "avståndsmärke"
 ],
@@ -13320,7 +14298,7 @@
 "vattendrag",
 "ström",
 "jokk",
-"Å",
+"å",
 "fors",
 "Flod",
 "flod",
@@ -13332,25 +14310,26 @@
 "waterway/sanitary_dump_station":[
 "tömningsplats",
 "båtlatrin",
-"CTDP",
-"Dumpstation",
 "gråvatten",
 "båtsanitet",
 "gråvattentömning",
-"Elsan",
 "Marin latrintömning",
 "sanitet",
-"Pumpa ut",
 "latrintömning",
-"CDP",
+"vattenfarkoster",
+"cdp",
 "båttömnig",
-"Båt",
+"båt",
 "sanitära",
+"marin latrintömning",
+"ctdp",
 "kemisk toalett",
 "toalettömning",
+"pumpa ut",
 "utpumpning",
-"campingtoalett",
-"Vattenfarkoster"
+"dumpstation",
+"elsan",
+"campingtoalett"
 ],
 "waterway/stream":[
 "dike",
@@ -13365,10 +14344,10 @@
 "rännil"
 ],
 "waterway/stream_intermittent":[
-"Arroyo",
 "Periodiskt vattendrag",
 "bäck",
 "periodiskt",
+"arroyo",
 "dagvatten",
 "biflöde",
 "tillfälligt",
@@ -13377,6 +14356,7 @@
 "vattendrag",
 "tillfälligt vattendrag",
 "dränering",
+"periodiskt vattendrag",
 "avrinning",
 "rännil"
 ],
@@ -13387,11 +14367,13 @@
 "Tidvattenskanal",
 "kust",
 "salt kärr",
+"tidvattenskanal",
 "tidvatteninlopp",
 "marin"
 ],
 "waterway/water_point":[
-"Dricksvatten",
+"dricksvatten för båt",
+"dricksvatten",
 "Dricksvatten för båt",
 "vattenpåfyllning",
 "vattentank"
@@ -13399,6 +14381,7 @@
 "waterway/waterfall":[
 "Vattenfall",
 "fall",
+"vattenfall",
 "fors"
 ],
 "waterway/weir":[
