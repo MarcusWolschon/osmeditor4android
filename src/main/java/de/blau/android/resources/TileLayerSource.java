@@ -764,9 +764,9 @@ public class TileLayerSource implements Serializable {
     public static TileLayerSource get(@NonNull final Context ctx, @Nullable final String id, final boolean async) {
         synchronized (serverListLock) {
             if (!ready) {
-                TileLayerDatabase db = new TileLayerDatabase(ctx);
-                getLists(ctx, db, async);
-                db.close();
+                try (TileLayerDatabase db = new TileLayerDatabase(ctx)) {
+                    getLists(ctx, db, async);
+                }
                 if (imageryBlacklist != null && async) {
                     applyBlacklist(imageryBlacklist);
                 }
@@ -790,16 +790,16 @@ public class TileLayerSource implements Serializable {
         synchronized (serverListLock) {
             // layer couldn't be found in memory, check database
             Log.d(DEBUG_TAG, "Getting layer " + id + " from database");
-            TileLayerDatabase db = new TileLayerDatabase(ctx);
-            TileLayerSource layer = TileLayerDatabase.getLayer(ctx, db.getReadableDatabase(), id);
-            db.close();
-            if (layer != null && layer.replaceApiKey(ctx)) {
-                if (layer.isOverlay()) {
-                    overlayServerList.put(id, layer);
-                } else {
-                    backgroundServerList.put(id, layer);
+            try (TileLayerDatabase db = new TileLayerDatabase(ctx)) {
+                TileLayerSource layer = TileLayerDatabase.getLayer(ctx, db.getReadableDatabase(), id);
+                if (layer != null && layer.replaceApiKey(ctx)) {
+                    if (layer.isOverlay()) {
+                        overlayServerList.put(id, layer);
+                    } else {
+                        backgroundServerList.put(id, layer);
+                    }
+                    return layer;
                 }
-                return layer;
             }
             Log.e(DEBUG_TAG, "Layer " + id + " null from database");
         }
@@ -830,8 +830,7 @@ public class TileLayerSource implements Serializable {
             }
             String[] imageryFiles = { Files.FILE_NAME_VESPUCCI_IMAGERY, Files.FILE_NAME_USER_IMAGERY };
             for (String fn : imageryFiles) {
-                try {
-                    InputStream is = assetManager.open(fn);
+                try (InputStream is = assetManager.open(fn)) {
                     parseImageryFile(ctx, writableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY, is, async);
                 } catch (IOException e) {
                     Log.e(DEBUG_TAG, "reading conf file " + fn + " got " + e.getMessage());
@@ -870,8 +869,9 @@ public class TileLayerSource implements Serializable {
                         TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_CUSTOM);
                         TileLayerDatabase.addSource(writeableDb, TileLayerDatabase.SOURCE_CUSTOM);
                     }
-                    InputStream is = new FileInputStream(userImageryFile);
-                    parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_CUSTOM, is, async);
+                    try (InputStream is = new FileInputStream(userImageryFile)) {
+                        parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_CUSTOM, is, async);
+                    }
                     writeableDb.setTransactionSuccessful();
                 } finally {
                     writeableDb.endTransaction();
@@ -903,8 +903,7 @@ public class TileLayerSource implements Serializable {
             TileLayerDatabase.addSource(writeableDb, source);
 
             // still need to read our base config first
-            try {
-                InputStream is = assetManager.open(Files.FILE_NAME_VESPUCCI_IMAGERY);
+            try (InputStream is = assetManager.open(Files.FILE_NAME_VESPUCCI_IMAGERY)) {
                 parseImageryFile(ctx, writeableDb, source, is, true);
             } catch (IOException e) {
                 Log.e(DEBUG_TAG, "reading conf files got " + e.getMessage());
