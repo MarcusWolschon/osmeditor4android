@@ -3,6 +3,7 @@ package de.blau.android;
 import java.io.IOException;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.layer.LayerType;
@@ -65,11 +66,11 @@ public final class MockTileServer {
             }
             String tileUrl = tileServer.url("/").toString() + "{zoom}/{x}/{y}";
             Log.i(DEBUG_TAG, "Set up tileserver on " + tileUrl + " for id " + id);
-            try (TileLayerDatabase db = new TileLayerDatabase(context)) {
-                TileLayerSource source = TileLayerSource.get(context, id, false);
-                TileLayerSource.addOrUpdateCustomLayer(context, db.getWritableDatabase(), id, source, -1, -1, name, new Provider(), Category.other, null,
-                        tileType, mbt.getMinMaxZoom()[0], mbt.getMinMaxZoom()[1], TileLayerSource.DEFAULT_TILE_SIZE, false, tileUrl);
-                TileLayerSource.getListsLocked(context, db.getReadableDatabase(), true);
+            try (TileLayerDatabase db = new TileLayerDatabase(context); SQLiteDatabase writableDatabase = db.getWritableDatabase()) {
+                TileLayerDatabase.deleteLayerWithId(writableDatabase, id);
+                TileLayerSource.addOrUpdateCustomLayer(context, writableDatabase, id, null, -1, -1, name, new Provider(), Category.other, null, tileType,
+                        mbt.getMinMaxZoom()[0], mbt.getMinMaxZoom()[1], TileLayerSource.DEFAULT_TILE_SIZE, false, tileUrl);
+                TileLayerSource.getListsLocked(context, writableDatabase, true);
             }
             if (removeLayers) {
                 LayerUtils.removeImageryLayers(context);
