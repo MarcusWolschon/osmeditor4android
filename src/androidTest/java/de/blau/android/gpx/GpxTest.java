@@ -177,7 +177,6 @@ public class GpxTest {
         final CountDownLatch signal = new CountDownLatch(1);
         main.getTracker().getTrack().reset(); // clear out anything saved
         TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_FINE, 1000, new SignalHandler(signal));
-        // TestUtils.sleep(TIMEOUT * 1000L);
         try {
             signal.await(TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {

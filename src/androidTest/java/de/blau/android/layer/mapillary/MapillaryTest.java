@@ -108,7 +108,7 @@ public class MapillaryTest {
             // ignore
         }
         try (TileLayerDatabase tlDb = new TileLayerDatabase(main); SQLiteDatabase db = tlDb.getWritableDatabase()) {
-            TileLayerDatabase.deleteLayerWithRowId(db, de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_TILES_ID);
+            TileLayerDatabase.deleteLayerWithId(db, de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_TILES_ID);
         }
         instrumentation.waitForIdleSync();
     }
