@@ -73,6 +73,8 @@ public class HelpViewerTest {
         screenshotRule.screenshot(main, "help_viewer_gps_sources");
         Assert.assertTrue(TestUtils.clickMenuButton(device, "Back", false, true));
         screenshotRule.screenshot(main, "help_viewer_main_map_display");
+        bySelector = By.clickable(true).textContains("Main Vespucci Screen");
+        device.wait(Until.findObject(bySelector), 10000);
         Assert.assertTrue(TestUtils.clickMenuButton(device, "Back", false, true));
     }
 }
