@@ -1,5 +1,14 @@
 package de.blau.android.layer.gpx;
 
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Paint.FontMetrics;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,13 +17,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Paint.FontMetrics;
-import android.util.Log;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.dialogs.ViewWayPoint;
@@ -33,6 +35,7 @@ import de.blau.android.services.TrackerService;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SerializablePaint;
+import de.blau.android.util.Util;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.views.IMapView;
 
@@ -42,18 +45,18 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
-    private transient TrackerService tracker;
+    private static final String FILENAME = "gpxlayer.res";
+
+    private static final int TRACKPOINT_PARALLELIZATION_THRESHOLD = 10000; // multithreaded if more trackpoints
 
     /** Map this is an overlay of. */
     private final transient Map map;
 
-    private final ExecutorService executorService;
+    private final transient ExecutorService executorService;
+    private final transient ArrayList<FloatPrimitiveList> linePointsList;
+    private final transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
 
-    private final transient ArrayList<FloatPrimitiveList> linePointsList; // final transient fields get recreated
-
-    public static final String FILENAME = "gpxlayer.res";
-
-    private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
+    private transient TrackerService tracker;
 
     private SerializablePaint wayPointPaint;
     private String            labelKey;
@@ -67,18 +70,11 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         this.map = map;
         resetStyling();
 
-        int concurrency = Runtime.getRuntime().availableProcessors();
-        if (concurrency > 4) {
-            // Typically has big+little architecture. Try to avoid the 'little' cores
-            // as they would need a smaller chunk to finish in similar time.
-            // E.g. on Samsung A50 it's faster to use only the 4 fast cores instead of using
-            // all 8 cores and wait for 4 slower cores to finish their equal sized chunk.
-            concurrency /= 2;
-        }
-        Log.d(DEBUG_TAG,"using " + concurrency + " threads");
-        executorService = Executors.newFixedThreadPool(concurrency);
-        linePointsList = new ArrayList<>(concurrency);
-        for(int i = 0; i < concurrency; i++) {
+        int threadPoolSize = Util.usableProcessors();
+        Log.d(DEBUG_TAG,"using " + threadPoolSize + " threads");
+        executorService = Executors.newFixedThreadPool(threadPoolSize);
+        linePointsList = new ArrayList<>(threadPoolSize);
+        for(int i = 0; i < threadPoolSize; i++) {
             linePointsList.add(new FloatPrimitiveList());
         }
     }
@@ -94,10 +90,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         if (!isVisible || tracker == null) {
             return;
         }
-        //long t0 = System.currentTimeMillis();
         List<TrackPoint> trackPoints = tracker.getTrackPoints();
         if (!trackPoints.isEmpty()) {
-            if (trackPoints.size() < 10000 || linePointsList.size() == 1) {
+            if (trackPoints.size() < TRACKPOINT_PARALLELIZATION_THRESHOLD || linePointsList.size() == 1) {
                 final FloatPrimitiveList linePoints = linePointsList.get(0);
                 map.pointListToLinePointsArray(linePoints, trackPoints);
                 GeoMath.squashPointsArray(linePoints, getStrokeWidth() * 2);
@@ -116,12 +111,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                         finalLength = trackPoints.size() - offset; // last chunk slightly different due to division remainder
                     }
                     callableTasks.add(() -> {
-                        //long t1 = System.currentTimeMillis();
                         map.pointListToLinePointsArray(finalLinePoints, trackPoints, finalOffset, finalLength);
                         GeoMath.squashPointsArray(finalLinePoints, getStrokeWidth() * 2);
                         canvas.drawLines(finalLinePoints.getArray(), 0, finalLinePoints.size(), paint);
-                        //Log.d(DEBUG_TAG, "onDraw: duration=" + (System.currentTimeMillis()-t1) + ", offset=" +
-                        //        finalOffset + ", length=" + finalLength + ", draw=" + finalLinePoints.size());
                         return null;
                     });
                     offset += length;
@@ -129,10 +121,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                 try {
                     executorService.invokeAll(callableTasks);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Log.e(DEBUG_TAG, e.getMessage());
                 }
             }
-            //Log.d(DEBUG_TAG, "onDraw: duration=" + (System.currentTimeMillis() - t0));
         }
         WayPoint[] wayPoints = tracker.getTrack().getWayPoints();
         if (wayPoints.length != 0 && symbolPath != null) {
