@@ -430,7 +430,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param db a writable SQLiteDatabase
      * @param id the id
      */
-    public static void deleteLayerWithRowId(@NonNull SQLiteDatabase db, @NonNull String id) {
+    public static void deleteLayerWithId(@NonNull SQLiteDatabase db, @NonNull String id) {
         db.delete(LAYERS_TABLE, "layers.id=?", new String[] { id });
     }
 
