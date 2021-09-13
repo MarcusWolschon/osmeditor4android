@@ -84,7 +84,7 @@ public class BaseValidatorTest {
         Node n = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
         tags.clear();
         tags.put("tourism", "information");
-        tags.put("information", "guidepost");
+        tags.put("information", "terminal");
         d.setTags(n, tags);
         result = v.validate(n);
         assertEquals(Validator.MISSING_TAG, result & Validator.MISSING_TAG);
