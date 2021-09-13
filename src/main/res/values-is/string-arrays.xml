@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Arrays - in a separate file as these need to be 100% translated for use -->
+    <string-array name="gpx_visibility">
+        <item>einka</item>
+        <item>opinbert</item>
+        <item>rekjanlegt</item>
+        <item>auðkennanlegt</item>
+    </string-array>
+    <string-array name="gps_source">
+        <item>Innra</item>
+        <item>Innra NMEA</item>
+        <item>NMEA frá TCP-biðlara</item>
+        <item>NMEA frá TCP-þjóni</item>
+    </string-array>
+    <string-array name="bug_state">
+        <item>Opið</item>
+        <item>Lokað</item>
+        <item>Ranglega greint (false positive)</item>
+    </string-array>
+    <string-array name="note_state">
+        <item>Opið</item>
+        <item>Lokað</item>
+    </string-array>
+    <string-array name="maproulette_state">
+        <item>Opið</item>
+        <item>Lokað</item>
+        <item>Ranglega greint (false positive)</item>
+        <item>Sleppt</item> 
+        <item>Eytt</item>
+        <item>Þegar lagað</item>
+        <item>Of erfitt</item>
+    </string-array>
+    <string-array name="followGPSbutton_entries">
+        <item>Vinstri</item>
+        <item>Hægri</item>
+        <item>Ekkert</item>
+    </string-array>
+    <string-array name="full_screen_preference_entries">
+        <item>Sjálfvirkt</item>
+        <item>Aldrei</item>
+        <item>Þvinga</item>
+        <item>Engin stöðustika</item>
+    </string-array>
+    <string-array name="full_screen_preference_no_auto_entries">
+        <item>Aldrei</item>
+        <item>Þvinga</item>
+        <item>Engin stöðustika</item>
+    </string-array>
+    <string-array name="map_orientation_entries">
+        <item>Sjálfvirkt</item>
+        <item>Læst</item>
+        <item>Lóðrétt</item>
+        <item>Lárétt</item>
+    </string-array>
+    <string-array name="tagfilter_type_entries">
+        <item>Allt</item>
+        <item>Hnútar</item>
+        <item>Leiðir</item>
+        <item>Leiðir+</item>
+        <item>Vensl</item>
+        <item>Vensl+</item>
+    </string-array>
+    <!-- The entries need to match the order of the CheckStatus enum -->
+    <string-array name="checkstatus_entries">
+        <item>HTTP</item>
+        <item>HTTPS</item>
+        <item>Lén fyrirfinnst ekki</item>
+        <item>Lén ekki tiltækt</item>
+        <item>Rangt formuð vefslóð</item>
+        <item>Ógilt viðfang</item>
+    </string-array>
+ </resources>

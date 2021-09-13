@@ -2,14 +2,17 @@
 <resources>
   <string-array name="address_tags_entries">
     <item>Numéro de maison (addr:housenumber)</item>
+    <item>Numéro de conscription (addr:conscriptionnumber)</item>
     <item>Rue (addr:street)</item>
     <item>Code postal (addr:postcode)</item>
-    <item>Ville/Village/...  (addr:city)</item>
+    <item>Ville/Village/..  (addr:city)</item>
     <item>Pays (addr:country)</item>
-    <item>Addresse complète (addr:full)</item>
-    <item>Place (addr:place)</item>
+    <item>Adresse complète (addr:full)</item>
+    <item>Commune associée (addr:place)</item>
+    <item>Bloc (addr:block)</item>
+    <item>Numéro de bloc (addr:block_number)</item>
     <item>Hameau (addr:hamlet)</item>
-    <item>Banlieue (addr:suburb)</item>
+    <item>Quartier (addr:suburb)</item>
     <item>Sous-district (addr:subdistrict)</item>
     <item>District (addr:district)</item>
     <item>Province (addr:province)</item>
