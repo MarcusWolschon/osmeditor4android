@@ -29,6 +29,11 @@ Vespucci has been tested and is known to work on a wide range of devices, from s
  * [Follow us on Twitter](https://twitter.com/vespucci_editor)
  * [Google Group](https://groups.google.com/forum/#!forum/osmeditor4android)
  * [Vespucci on OpenHub](https://www.openhub.net/p/osmeditor4android)
+ 
+#### Support Vespuccis Development
+
+Besides the large amount of time spent directly on Vespucci and related projects, there a numerous direct costs that occur, for example for server rental, development infrastructure, trips and the like. You can support this if you want to with <script src="https://liberapay.com/SimonPoole/widgets/button.js"></script>
+<noscript><a href="https://liberapay.com/SimonPoole/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>   
 
 #### On device help
 
