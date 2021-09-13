@@ -1,5 +1,19 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+16.0.0-3:
+
+- Add support for configuring tile source from mapbox GL style
+- Add support for name suggestion index (NSI) V6
+- Add support for tile size in custom imagery configuration
+- Update OH fragment
+- Update imagery from ELI
+- Update presets
+- Update synonyms
+- Fix protect against all exceptions when retrieving Bing metatdata
+- Fix numerous saving and restoring state issues in dialogs
+- Fix counting of inline values in the property editor
+- Improve business logic for states when editing notes
+
 16.0.0-2:
 
 - Improve test behaviour on Android 10 and later
