@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="2.10.1" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="2.13.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -552,6 +552,14 @@
         </optional>
         <preset_link preset_name="No name"/>
     </chunk>
+    <chunk id="optional_name_ref_operator">
+        <optional>
+            <text key="name" text="Name"/>
+            <text key="ref" text="Reference"/>
+            <text key="operator" text="Operator"/>
+        </optional>
+        <preset_link preset_name="No name"/>
+    </chunk>
     <chunk id="wikipedia_wikidata">
         <text key="wikipedia" text="Wikipedia" value_type="wikipedia"/>
         <text key="wikidata" text="Wikidata" value_type="wikidata"/>
@@ -836,11 +844,6 @@
     <chunk id="power_loc">
         <combo key="location" text="Location" values="outdoor,indoor,underground,platform,roof" display_values="Outdoor,Indoor,Underground,Platform,Roof" values_context="power"/>
     </chunk>
-    <chunk id="power_extra">
-        <reference ref="power_loc"/>
-        <reference ref="voltage_frequency"/>
-        <reference ref="ref_operator"/>
-    </chunk>
     <chunk id="power_line_extra">
         <reference ref="cables_circuits"/>
         <reference ref="voltage_frequency"/>
@@ -1013,14 +1016,6 @@
     <chunk id="motorcycle_brands">
         <multiselect key="brand" text="Motorcycle brand" values="Aprilia;BMW;Ducati;Gilera;Harley-Davidson;Honda;Kawasaki;KTM;Kymco;Moto Guzzi;Peugeot;Piaggio;Suzuki;Triumph;Vespa;Yamaha" match="key"/>
     </chunk>
-    <chunk id="walking_routes_roles">
-        <roles>
-            <role key="" text="Route segment" requisite="required" type="way,closedway" member_expression="highway|route=ferry"/>
-            <role key="" text="Infrastructure" requisite="optional" type="node,closedway" member_expression="tourism OR amenity"/>
-            <role key="" text="Natural" requisite="optional" type="node,closedway" member_expression="natural=peak OR natural=volcano OR mountain_pass=yes OR natural=water OR tourism=viewpoint OR amenity=drinking_water OR natural=spring OR place=locality"/>
-            <role key="guidepost" text="Guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
-        </roles>
-    </chunk>
     <chunk id="kerb">
         <combo key="kerb" text="Kerb" match="key" values_sort="false">
             <list_entry value="yes" display_value="Present"/>
@@ -1060,7 +1055,17 @@
         <text key="network" text="Network"/>
         <text key="description" text="Description" length="255"/>
         <reference ref="colours" />
-        <combo key="interval" text="Interval (M, MM, HH:MM, or HH:MM:SS)" values="5,10,15,20,30,60,120" values_no_i18n="true" />
+    </chunk>
+       <chunk id="fee_reservation_roundtrip_website">
+        <reference ref="fee" />
+        <combo key="reservation" text="Reservation" values="yes,no,required,recommended" display_values="yes,no,required,recommended" />
+        <check key="roundtrip" text="Roundtrip"/>
+        <text key="website" text="Website" />
+    </chunk>
+    <chunk id="public_transport_route_optionals_2">
+        <combo key="duration" text="Duration (M, MM, HH:MM, or HH:MM:SS)" values="5,10,15,20,30,60,120,10:30,00:02:30" values_no_i18n="true" />
+        <combo key="interval" text="Interval (M, MM, HH:MM, or HH:MM:SS)" values="5,10,15,20,30,60,120,10:30,00:02:30" values_no_i18n="true" />
+        <reference ref="fee_reservation_roundtrip_website" />
     </chunk>
     <chunk id="tactile_paving">
         <combo key="tactile_paving" text="Tactile paving" values_context="tactile_paving" match="key" values_sort="false">
@@ -1082,10 +1087,22 @@
             <combo key="cash_withdrawal:foreign_cards" text="Foreign cards" values="yes,no,varies" display_values="Yes,No,Varies" values_searchable="true" match="none"/>        
         </optional>
     </chunk>
+    <chunk id="walking_routes_roles">
+        <roles>
+            <role key="" text="Route segment" requisite="required" type="way,closedway" member_expression="highway|route=ferry"/>
+             <role key="alternative" text="alternative segment" requisite="optional" type="way,closedway,relation" member_expression="highway|route=ferry" />
+            <role key="approach" text="Approach segment" requisite="optional" type="way,closedway,relation" member_expression="highway|route=ferry" />
+            <role key="excursion" text="Excursion segment" requisite="optional" type="way,closedway,relation" member_expression="highway|route=ferry" />
+            <role key="connection" text="Connection segment" requisite="optional" type="way,closedway,relation" member_expression="highway|route=ferry" />
+            <role key="" text="Infrastructure" requisite="optional" type="node,closedway" member_expression="tourism OR amenity"/>
+            <role key="" text="Natural" requisite="optional" type="node,closedway" member_expression="natural=peak OR natural=volcano OR mountain_pass=yes OR natural=water OR tourism=viewpoint OR amenity=drinking_water OR natural=spring OR place=locality"/>
+            <role key="guidepost" text="Guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
+        </roles>
+    </chunk>
     <chunk id="route_segment_roles">
         <role key="" text="route segment" requisite="optional" type="way,closedway" member_expression="highway|route=ferry|leisure=track"/>
-        <role key="forward" text="forward segment" requisite="optional" type="way,closedway" />
-        <role key="backward" text="backward segment" requisite="optional" type="way,closedway" />
+        <role key="forward" text="forward segment" requisite="optional" type="way,closedway" member_expression="highway|route=ferry|leisure=track" />
+        <role key="backward" text="backward segment" requisite="optional" type="way,closedway" member_expression="highway|route=ferry|leisure=track" />
         <role key="guidepost" text="guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
     </chunk>
     <chunk id="route_start_stop_roles">
@@ -1436,6 +1453,9 @@
             <check key="ferry" text="Ferry" disable_off="true"/>
         </optional>
     </chunk>
+    <chunk id="backrest">
+        <check key="backrest" text="Backrest"/>
+    </chunk>
     <!-- Groups -->
     <group name="Highways" icon="icons/png/highway_highway_sp.png">
     <group name="Streets" icon="icons/png/highway_highway_sp.png" items_sort="false" >
@@ -1638,12 +1658,13 @@
             <reference ref="lane_presets"/>
             <reference ref="cycle_lanes"/>
         </item> <!-- Residential -->
-        <item name="Bicycle Road" icon="icons/png/highway_residential_sp.png" type="way,closedway" preset_name_label="true">
+        <item name="Bicycle Road" region="AT,DE" icon="icons/png/highway_residential_sp.png" type="way,closedway" preset_name_label="true">
             <link wiki="Key:bicycle_road"/>
             <space/>
             <key key="bicycle_road" value="yes"/>
             <key key="bicycle" value="designated"/>
-            <combo key="highway" text="Highway type" values="residential,service,unclassified,path,cycleway" values_context="Highway" default="residential" match="none"/>
+            <combo key="highway" text="Highway type" values="residential,service,unclassified,path,cycleway" 
+                display_values="Residential,Service,Unclassified,Path,Cycleway" values_context="Highway" default="cycleway" match="none"/>
             <text key="name" text="Name"/>
             <combo key="vehicle" text="Vehicle access" values="yes,no,destination" default="no" values_context="access"/>
             <text key="maxspeed" text="Max. speed" default="30"/>
@@ -1812,7 +1833,7 @@
                     <list_entry value="through" short_description="Through"/>
                     <list_entry value="merge_to_right" short_description="Merge to right"/>
                     <list_entry value="slight_right" short_description="Slight right"/>
-                    <list_entry value="right;through" short_description="Right and through"/>
+                    <list_entry value="through;right" short_description="Through and right"/>
                     <list_entry value="right" short_description="Right"/>
                     <list_entry value="sharp_right" short_description="Sharp right"/>
                 </multiselect>
@@ -1836,7 +1857,7 @@
                     <list_entry value="through" short_description="Through"/>
                     <list_entry value="merge_to_right" short_description="Merge to right"/>
                     <list_entry value="slight_right" short_description="Slight right"/>
-                    <list_entry value="right;through" short_description="Right and through"/>
+                    <list_entry value="through;right" short_description="Through and right"/>
                     <list_entry value="right" short_description="Right"/>
                     <list_entry value="sharp_right" short_description="Sharp right"/>
                 </multiselect>
@@ -1854,7 +1875,7 @@
                     <list_entry value="through" short_description="Through"/>
                     <list_entry value="merge_to_right" short_description="Merge to right"/>
                     <list_entry value="slight_right" short_description="Slight right"/>
-                    <list_entry value="right;through" short_description="Right and through"/>
+                    <list_entry value="through;right" short_description="Through and right"/>
                     <list_entry value="right" short_description="Right"/>
                     <list_entry value="sharp_right" short_description="Sharp right"/>
                 </multiselect>
@@ -2115,6 +2136,7 @@
             <combo key="supervised" text="Crossing attendant" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" match="none" values_i18n="false" values_sort="false" />
             <check key="bicycle" text="Cross by bicycle" disable_off="true"/>
             <check key="horse" text="Cross on horseback" disable_off="true"/>
+            <reference ref="tactile_paving"/>
             <reference ref="kerb"/>
             <label text="In case of traffic signals:"/>
             <check key="button_operated" text="Button operated" disable_off="true"/>
@@ -2774,7 +2796,7 @@
             <combo key="access" text="General access" values="yes,destination,delivery,permissive,private,customers,agricultural,forestry,permit,no" display_values="General access,Destination,Delivery,Permissive,Private,Customers,Agricultural,Forestry,Permit required,No access" values_context="access" values_sort="false" match="key" values_searchable="true"/>
             <combo key="access:conditional" text="General access @" delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key"/>
         </item> <!-- General access -->
-        <item name="Physical restrictions" icon="icons/png/maximum_width.png" type="node,way,closedway" preset_name_label="true">
+        <item name="Physical restrictions" icon="icons/png/maximum_width.png" type="node,way,closedway,multipolygon,relation" preset_name_label="true">
             <link wiki="Key:access"/>
             <space/>
             <reference ref="maxweight"/>
@@ -2791,7 +2813,7 @@
             <text key="maxspeed:backward" text="Max speed &#x2190;" long_text="Maximum speed opposite way direction specified in km/h"/>
             <combo key="maxspeed:backward:conditional" text="Max speed &#x2190; @" long_text="Conditional maximum speed opposite way direction specified in km/h" match="key" delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0"/>
         </item> <!--  Conditional max speed -->
-        <item name="Other mode restrictions" icon="icons/png/no_walking.png" type="node,way,closedway" preset_name_label="true">
+        <item name="Other mode restrictions" icon="icons/png/no_walking.png" type="node,way,closedway,multipolygon,relation" preset_name_label="true">
             <link wiki="Key:access"/>
             <space/>
             <combo key="foot" text="Foot" values="yes,official,designated,permissive,destination,delivery,private,permit,use_sidepath,no"
@@ -2957,7 +2979,7 @@
             <key key="man_made" value="pipeline"/>
             <key key="substance" value="water"/>
             <key key="usage" value="penstock"/>
-            <combo key="location" text="Location" values="overground,underground" display_values="Overground,Underground" values_context="pipeline"/>
+            <combo key="location" text="Location" values="overground,overhead,underground,underwater" display_values="Overground,Overhead,Underground,Underwater" values_context="pipeline"/>
             <optional>
                 <reference ref="name_operator" />
                 <combo key="diameter" text="Diameter (mm)" values="800,1000,1200,1500,1600,1800,2200,2300,2400,2500,2600,2800,3200,3300,3400,3500,4000,4200,4300,4800"/>
@@ -3122,11 +3144,9 @@
                 <reference ref="name_ref_operator" />
                 <reference ref="oh_wheelchair" />
                 <space />
-                <combo key="duration" text="Duration (M, MM, HH:MM, or HH:MM:SS)" values="5,10,15,20,30,60,120" values_no_i18n="true" />
-                <combo key="interval" text="Interval (M, MM, HH:MM, or HH:MM:SS)" values="5,10,15,20,30,60,120" values_no_i18n="true" />
-                <reference ref="fee" />
                 <combo key="ferry" text="Highway type connected" values="trunk,primary,secondary,tertiary,unclassified" values_context="Highway" values_sort="false" />
                 <check key="ferry:cable" text="Reaction ferry" />
+                <reference ref="public_transport_route_optionals_2" />
             </optional>
             <reference ref="road_access_restrictions"/>
         </item> <!-- Ferry Route -->
@@ -3884,7 +3904,7 @@
     </group> <!-- Bicycle -->
     <group name="Public Transport" icon="icons/png/transport_bus_stop.png">
         <item name="Public Transport Route (Rail)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true">
-            <link wiki="Proposed_features/Public_Transport#Route"/>
+            <link wiki="Public_transport"/>
             <space/>
             <key key="type" value="route"/>
             <combo key="route" text="Route type" values="train,subway,monorail,tram,light_rail" display_values="Train,Subway,Monorail,Tram,Light rail" values_searchable="true" match="keyvalue!"/>
@@ -3892,6 +3912,7 @@
             <reference ref="name_ref"/>
             <optional>
                 <reference ref="public_transport_route_optionals"/>
+                <reference ref="public_transport_route_optionals_2" />
             </optional>
             <roles>
                 <role key="stop" text="stop position" requisite="optional" type="node" member_expression="public_transport=stop_position (train=yes OR subway=yes OR monorail=yes OR tram=yes OR light_rail=yes)"/>
@@ -3900,11 +3921,11 @@
                 <role key="platform" text="platform" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform"/>
                 <role key="platform_exit_only" text="platform (exit only)" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform"/>
                 <role key="platform_entry_only" text="platform (entry only)" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform"/>
-                <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="railway"/>
+                <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="railway|route=ferry"/>
             </roles>
         </item> <!-- Public Transport Route (Rail) -->
         <item name="Public Transport Route (Bus)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true">
-            <link wiki="Proposed_features/Public_Transport#Route"/>
+            <link wiki="Tag:route=bus"/>
             <space/>
             <key key="type" value="route"/>
             <combo key="route" text="Route type" values="bus,share_taxi,trolleybus" display_values="Bus,Share taxi,Trolleybus" values_searchable="true" match="keyvalue!"/>
@@ -3912,7 +3933,7 @@
             <reference ref="name_ref"/>
             <optional>
                 <reference ref="public_transport_route_optionals"/>
-                <reference ref="reservation"/>
+                <reference ref="public_transport_route_optionals_2"/>
             </optional>
             <roles>
                 <role key="stop" text="stop position" requisite="optional" type="node" member_expression="public_transport=stop_position (bus=yes OR share_taxi=yes OR trolleybus=yes)"/>
@@ -3921,10 +3942,52 @@
                 <role key="platform" text="platform" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform"/>
                 <role key="platform_exit_only" text="platform (exit only)" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform"/>
                 <role key="platform_entry_only" text="platform (entry only)" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform"/>
-                <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="highway"/>
+                <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="highway|route=ferry"/>
                 <role key="hail_and_ride" text="hail and ride route segment" requisite="optional" type="way,closedway" member_expression="highway" />
             </roles>
         </item> <!-- Public Transport Route (Bus) -->
+        <item name="Public Transport Route (Ferry)" icon="icons/png/transport_ferry_route_sp.png" type="relation" preset_name_label="true">
+            <link wiki="Tag:route=ferry" />
+            <key key="type" value="route" />
+            <key key="route" value="ferry" />
+            <key key="public_transport:version" value="2" /> <!-- only validate marked relations in order to avoid false positives -->
+            <optional>
+                <check key="ferry:cable" text="Reaction ferry" />
+                <space />
+                <reference ref="oh" />
+                <reference ref="public_transport_route_optionals" />
+                <reference ref="public_transport_route_optionals_2" />
+            </optional>
+            <reference ref="road_access_restrictions"/>
+            <roles>
+                <role key="stop" text="stop_position" requisite="optional" type="node" member_expression="public_transport=stop_position ferry=yes" />
+                <role key="platform" text="platform" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform ferry=yes" />
+                <role key="platform_exit_only" text="platform (exit only)" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform ferry=yes" />
+                <role key="platform_entry_only" text="platform (entry only)" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform ferry=yes" />
+                <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="route=ferry" />
+            </roles>
+        </item> <!-- Public Transport Route (Ferry) -->
+        <item name="Public Transport Route (Aerialway)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true">
+            <link wiki="Public_transport" />
+            <space />
+            <key key="type" value="route" />
+            <key key="route" value="aerialway"/>
+            <key key="public_transport:version" value="2" /> <!-- only validate marked relations in order to avoid false positives -->
+            <reference ref="name_ref" />
+            <optional>
+                <reference ref="public_transport_route_optionals" />
+                <reference ref="public_transport_route_optionals_2" />
+            </optional>
+            <roles>
+               <role key="stop" text="stop position" requisite="optional" type="node" member_expression="public_transport=stop_position (aerialway=yes OR aerialway=station)" />
+                <role key="stop_exit_only" text="stop position (exit only)" requisite="optional" type="node" member_expression="public_transport=stop_position (aerialway=yes OR aerialway=station)" />
+                <role key="stop_entry_only" text="stop position (entry only)" requisite="optional" type="node" member_expression="public_transport=stop_position (aerialway=yes OR aerialway=station)" />
+                <role key="platform" text="platform" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform" />
+                <role key="platform_exit_only" text="platform (exit only)" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform" />
+                <role key="platform_entry_only" text="platform (entry only)" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform" />
+                <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="aerialway" />
+            </roles>
+        </item> <!-- Public Transport Route (Aerialway) -->
         <item name="Route Master" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
             <link wiki="Proposed_features/Public_Transport#Route_master"/>
             <space/>
@@ -4053,28 +4116,67 @@
             <key key="public_transport:version" text="Version" value="1" match="none"/>  <!-- only validate marked relations in order to avoid false positives -->
             <reference ref="name_ref"/>
             <optional>
-                <text key="from" text="From (initial stop)"/>
-                <text key="to" text="To (terminal stop)"/>
-                <text key="via" text="Via (intermediate stops)"/>
-                <text key="operator" text="Operator"/>
-                <text key="network" text="Network"/>
-                <text key="description" text="Description" length="255"/>
-                <reference ref="colours" />
-                <reference ref="oh" />
-                <reference ref="fee" />
-                <reference ref="reservation" />
-                <text key="website" text="Website"  value_type="website"/>
+                <reference ref="public_transport_route_optionals" />
+                <reference ref="fee_reservation_roundtrip_website" />
             </optional>
             <roles>
-                <role key="" text="route segment" requisite="optional" type="way,closedway"/>
-                <role key="forward" text="forward segment" requisite="optional" type="way,closedway"/>
-                <role key="backward" text="backward segment" requisite="optional" type="way,closedway"/>
+               <role key="" text="route segment" requisite="optional" type="way,closedway" member_expression="highway|railway|route=ferry" />
+                <role key="forward" text="forward segment" requisite="optional" type="way,closedway" member_expression="highway|railway|route=ferry" />
+                <role key="backward" text="backward segment" requisite="optional" type="way,closedway" member_expression="highway|railway|route=ferry" />
                 <role key="stop" text="halt point" requisite="optional" type="node" member_expression="highway=bus_stop OR railway=station OR railway=halt OR railway=tram_stop"/>
                 <role key="forward_stop" text="forward halt point" requisite="optional" type="node" member_expression="highway=bus_stop OR railway=station OR railway=halt OR railway=tram_stop"/>
                 <role key="backward_stop" text="backward halt point" requisite="optional" type="node" member_expression="highway=bus_stop OR railway=station OR railway=halt OR railway=tram_stop"/>
                 <role key="platform" text="platform" requisite="optional" type="node,way,closedway" member_expression="highway=platform OR railway=platform"/>
             </roles>
         </item> <!-- Public transport route (Legacy) -->
+         <item name="Public transport route (Legacy) (Ferry)" icon="icons/png/transport_ferry_route_sp.png" type="relation" preset_name_label="true">
+            <link wiki="Tag:route=ferry" />
+            <space />
+            <key key="type" value="route" />
+            <key key="route" value="ferry" />
+            <key key="public_transport:version" value="1" /> <!-- only validate marked relations in order to avoid false positives -->
+            <reference ref="name_ref_operator" />
+            <combo key="ferry" text="Highway type the ferry connects" values="trunk,primary,secondary,tertiary,unclassified" values_context="Highway" values_sort="false" />
+            <check key="ferry:cable" text="Reaction ferry" />
+            <optional>
+                <reference ref="oh_wheelchair" />
+                <text key="network" text="Network" />
+                <text key="description" text="Description" />
+                <reference ref="colours" />
+                <reference ref="public_transport_route_optionals_2" />
+            </optional>
+            <reference ref="road_access_restrictions" />
+            <roles>
+                <role key="" text="route segment" requisite="optional" type="way,closedway" member_expression="route=ferry" />
+                <role key="forward" text="forward segment" requisite="optional" type="way,closedway" member_expression="route=ferry" />
+                <role key="backward" text="backward segment" requisite="optional" type="way,closedway" member_expression="route=ferry" />
+                <role key="stop" text="halt point" requisite="optional" type="node" member_expression="amenity=ferry_terminal OR (public_transport=stop_position ferry=yes)" />
+                <role key="platform" text="platform" requisite="optional" type="node,way,closedway,multipolygon" member_expression="man_made=pier OR (public_transport=platform ferry=yes)" />
+            </roles>
+        </item> <!-- Public transport route (Legacy) (Ferry) -->
+        <item name="Public transport route (Legacy) (Aerialway)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true">
+            <link wiki="Public_transport" />
+            <space />
+            <key key="type" value="route" />
+            <key key="route" value="aerialway" />
+            <key key="public_transport:version" value="1" /> <!-- only validate marked relations in order to avoid false positives -->
+            <reference ref="name_ref_operator" />
+            <optional>
+                <reference ref="oh_wheelchair" />
+                <text key="network" text="Network" />
+                <text key="description" text="Description" />
+                <reference ref="colours" />
+                <reference ref="public_transport_route_optionals_2" />
+            </optional>
+            <roles>
+                <role key="" text="route segment" requisite="optional" type="way,closedway" member_expression="aerialway" />
+                <role key="forward" text="forward segment" requisite="optional" type="way,closedway" member_expression="aerialway" />
+                <role key="backward" text="backward segment" requisite="optional" type="way,closedway" member_expression="aerialway" />
+                <role key="stop" text="halt point" requisite="optional" type="node" member_expression="aerialway=station OR (public_transport=stop_position aerialway=yes)" />
+                <role key="platform" text="platform" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform" />
+            </roles>
+        </item> <!-- Public transport route (Legacy) (Aerialway) -->
+        <separator/>
         <item name="Station" name_context="railway" icon="icons/png/transport_train_station2.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:railway=station"/>
             <key key="railway" value="station"/>
@@ -4631,7 +4733,7 @@
             <reference ref="optional_name"/>
             <combo key="direction" text="Direction" delimiter="|" values="N|E|S|W|NE|NNE-S|180|90-270|270-90|0-360|70-110;250-290" values_no_i18n="true" values_sort="false" match="none"/>
             <space/>
-            <label text="" icon="presets/misc/angles.svg" icon_size="300"/>
+            <label text="" icon="presets/misc/angles.svg" icon_size="315"/>
             <preset_link preset_name="Binoculars"/>
         </item> <!-- Viewpoint -->
         <separator/>
@@ -4653,7 +4755,7 @@
             <space/>
             <key key="tourism" value="information"/>
             <key key="information" value="map"/>
-            <reference ref="optional_name"/>
+            <reference ref="optional_name_ref_operator" />
             <combo key="map_type" text="Detail Grade" values="topo,street,scheme,toposcope" display_values="Topo,Street,Scheme,Toposcope"/>
             <combo key="map_size" text="Shown Area" values="site,city,region" display_values="Site,City,Region" values_sort="false" />
             <text key="description" text="Detailed description" length="255"/>
@@ -4674,7 +4776,7 @@
             <space />
             <key key="tourism" value="information"/>
             <key key="information" value="board"/>
-            <reference ref="optional_name"/>
+            <reference ref="optional_name_ref_operator" />
             <combo key="board_type" text="Board Content" values="art,astronomy,geography,geology,history,nature,notice,planet_walk,plants,public_transport,sight,sport,technology,welcome_sign,wildlife"
                 display_values="Art,Astronomy,Geography,Geology,History,Nature,Notice,Planet walk,Plants,Public transport,Sight,Sport,Technology,Welcome sign,Wildlife"  />
             <text key="description" text="Detailed description" length="255"/>
@@ -4686,7 +4788,7 @@
             <space/>
             <key key="tourism" value="information"/>
             <key key="information" value="guidepost"/>
-            <reference ref="name_ref_operator"/>
+            <reference ref="optional_name_ref_operator" />
             <text key="ele" text="Elevation (meters)" length="10" />
             <optional text="Routes shown for:">
                 <check key="hiking" text="Hiking" disable_off="true"/>
@@ -4924,6 +5026,12 @@
             <preset_link preset_name="Public bath" text="Similar but different tags:" alternative="true" />
             <preset_link preset_name="Sports Centre" text="Similar but different tags:" alternative="true" />
         </item> <!-- Water Park -->
+        <item name="Water Slide" icon="icons/png/tourist_empty.png" type="node,way" preset_name_label="true">
+            <link wiki="Tag:attraction=water_slide" />
+            <space />
+            <key key="attraction" value="water_slide" />
+            <reference ref="name_operator_oh_wheelchair" />
+        </item> <!-- Water Slide -->
         <item name="Rides" icon="icons/png/tourist_ride.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:attraction"/>
             <space/>
@@ -5231,6 +5339,9 @@
             <link wiki="Tag:leisure=picnic_table"/>
             <space/>
             <key key="leisure" value="picnic_table"/>
+            <reference ref="backrest"/>
+            <reference ref="material"/>
+            <reference ref="colours" />
             <check key="covered" text="Covered"/>
         </item> <!-- Picnic Table -->
         <item name="Public Grill" icon="icons/png/tourist_bbq_12006.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5481,7 +5592,7 @@
             <link wiki="Tag:amenity=arts_centre"/>
             <space/>
             <key key="amenity" value="arts_centre"/>
-            <text key="name" text="Name"/>
+            <reference ref="name_operator_oh_wheelchair" />
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Arts Centre -->
         <item name="Artwork" icon="icons/png/tourist_artwork_30002.png" type="node,way,closedway,multipolygon" preset_name_label="true">
@@ -6079,7 +6190,6 @@
             </combo>
             <combo key="fire_hydrant:diameter" text="Diameter (in mm)" values="50,70,75,80,100,110,125,150,200,250,300,400"/>
             <space/>
-            <combo key="fire_hydrant:position" text="Hydrant Position" values="lane,parking_lot,sidewalk,green" values_context="hydrant position"/>
             <combo key="fire_hydrant:pressure" text="Pressure (in bar)" values="yes,5,6,8,suction" display_values="Pressurized,5,6,8,Suction" values_context="pipeline"/>
             <text key="ref" text="Reference"/>
             <optional>
@@ -6475,6 +6585,7 @@
             <reference ref="name_operator_oh_wheelchair_level"/>
             <reference ref="link_contact_address"/>
             <reference ref="kids_area" />
+            <preset_link preset_name="Building" />
         </item> <!-- Events venue -->
         <item name="Internet Cafe" icon="icons/png/amenity_internet_cafe.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=internet_cafe"/>
@@ -6586,18 +6697,21 @@
             <link wiki="Tag:amenity=bench"/>
             <space/>
             <key key="amenity" value="bench"/>
-            <check key="backrest" text="Backrest" disable_off="true"/>
+            <reference ref="backrest"/>
             <reference ref="material"/>
             <reference ref="colours" />
             <combo key="seats" text="Seats count" values="1,2,3,4,5,6,7,8,9,10"/>
+            <optional>
+                <check key="covered" text="Covered"/>
+            </optional>
         </item> <!-- Bench -->
         <item name="Bleachers" icon="icons/png/amenity_bleachers.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=bleachers"/>
             <space/>
             <key key="leisure" value="bleachers"/>
+            <reference ref="backrest"/>
             <reference ref="material"/>
             <reference ref="colours" />
-            <check key="backrest" text="Backrest" />
             <optional>
                 <reference ref="name_operator_oh_wheelchair" />
             </optional>
@@ -6632,7 +6746,7 @@
             <combo key="shelter_type" text="Type of shelter" values_context="shelter" values_searchable="true">
                 <list_entry value="basic_hut" short_description="Basic hut" icon="presets/accommodation/basic_hut_blue.png"/>
                 <list_entry value="field_shelter" short_description="Field shelter" />
-                <list_entry value="gazebo" short_description="Gazebo" />
+                <list_entry value="gazebo" short_description="Gazebo" icon="${shelter_gazebo}" />
                 <list_entry value="lean_to" short_description="lean to" icon="presets/accommodation/shelter_lean_to.svg"/>
                 <list_entry value="picnic_shelter" short_description="Picnic shelter" icon="presets/accommodation/shelter_picnic_brown.png"/>
                 <list_entry value="public_transport" short_description="Public transport" icon="presets/accommodation/shelter_public_transport_brown.png"/>
@@ -7975,7 +8089,7 @@
             <key key="man_made" value="pipeline"/>
             <reference ref="name_ref"/>
             <reference ref="operator_substance"/>
-            <combo key="location" text="Location" values="underground,underwater,overground" display_values="Underground,Underwater,Overground" values_context="pipeline"/>
+            <combo key="location" text="Location" values="overground,overhead,underground,underwater" display_values="Overground,Overhead,Underground,Underwater" values_context="pipeline"/>
             <combo key="diameter" text="Diameter (mm)" values="800,1000,1200,1500,1600,1800,2200,2300,2400,2500,2600,2800,3200,3300,3400,3500,4000,4200,4300,4800" />
             <text key="pressure" text="Pressure (bar)" />
         </item> <!-- Pipeline -->
@@ -8022,7 +8136,7 @@
                 <reference ref="ref_operator" />
                 <combo key="material" text="Material" values="concrete,metal,plastic,steel,stone,wood" display_values="Concrete,Metal,Plastic,Steel,Stone,Wood" values_context="material"/>
                 <reference ref="colours"/>
-                <combo key="location" text="Location" values="underground,overground" display_values="underground,overground" values_context="pipeline" />
+                <combo key="location" text="Location" values="overground,overhead,underground,underwater" display_values="Overground,Overhead,Underground,Underwater" values_context="pipeline" />
             </optional>
         </item> <!-- Marker -->
         <item name="Manhole" icon="icons/png/man_made_manhole.png" type="node" preset_name_label="true">
@@ -8473,7 +8587,9 @@
             <key key="power" value="substation"/>
             <text key="name" text="Name"/>
             <combo key="substation" text="Type of substation" values="transmission,distribution,minor_distribution,converter,compensation,transition,traction,industrial" values_context="power"/>
-            <reference ref="power_extra"/>
+            <reference ref="power_loc" />
+            <reference ref="voltage_frequency" />
+            <reference ref="ref_operator" />
             <optional>
                 <combo key="rating" text="Power rating (kVA/MVA)" values="2700 kVA,12500 kVA,15 MVA,50 MVA,100 MVA"/>
                 <text key="start_date" text="Start date"/>
@@ -8683,7 +8799,7 @@
             <reference ref="ref_operator"/>
             <optional>
                 <reference ref="cables_circuits"/>
-                <combo key="location" text="Location" values="underground,underwater,overground" display_values="Underground,Underwater,Overground" values_context="power cable"/>
+                <combo key="location" text="Location" values="overground,overhead,underground,underwater" display_values="Overground,Overhead,Underground,Underwater" values_context="power cable"/>
                 <reference ref="layer"/>
                 <check key="communication" text="Used for data communications" value_on="line" value_off="" default="off"/>
             </optional>
@@ -8911,8 +9027,21 @@
         <link wiki="Tag:historic=boundary_stone"/>
         <space/>
         <key key="historic" value="boundary_stone"/>
-        <text key="name" text="Name"/>
+        <optional>
+            <text key="name" text="Name" />
+            <text key="inscription" text="Inscription" />
+        </optional>
+        <preset_link preset_name="Boundary Marker" text="Similar but different tags:" alternative="true" />
     </item> <!-- Boundary Stone -->
+    <item name="Milestone" icon="icons/png/poi_milestone_18006.png" type="node" preset_name_label="true">
+        <link wiki="Tag:historic=milestone" />
+        <space />
+        <key key="historic" value="milestone" />
+        <optional>
+            <text key="name" text="Name" />
+            <text key="inscription" text="Inscription" />
+        </optional>
+    </item> <!-- Milestone -->
     <item name="Pillory" icon="icons/png/tourist_empty.png" type="node,closedway" preset_name_label="true">
         <link wiki="Tag:historic=pillory"/>
         <space/>
@@ -10254,6 +10383,18 @@
             <combo key="border_type" text="Border type" values="baseline,territorial,contiguous,eez"/>
             <text key="name" text="Name"/>
         </item> <!-- Maritime -->
+        <separator/>
+        <item name="Boundary Marker" icon="icons/png/poi_empty.png" type="node" preset_name_label="true">
+            <link wiki="Tag:boundary=marker" />
+            <space />
+            <key key="boundary" value="marker" />
+            <optional>
+                <reference ref="name_ref" />
+                <text key="inscription" text="Inscription" />
+                <reference ref="material" />
+            </optional>
+            <preset_link preset_name="Boundary Stone" text="Similar but different tags:" alternative="true" />
+        </item> <!-- Boundary Marker -->
     </group> <!-- Boundaries -->
     <group name="Places" icon="icons/png/poi_place_city.png" items_sort="false" >
         <item name="Continent" icon="icons/png/poi_boundary_administrative.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
@@ -11488,15 +11629,33 @@
             <link wiki="Relation:network" />
             <space/>
             <key key="type" value="network"/>
-            <text key="name" text="Name"/>
+            <text key="network" text="Network" />
             <optional>
-                <text key="network" text="Network"/>
+                <text key="name" text="Name" />
                 <text key="operator" text="Operator"/>
             </optional>
             <roles>
                 <role key="" text="member" requisite="required" type="relation"/>
             </roles>
         </item> <!-- Route Network -->
+         <item name="Node Network" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+            <link wiki="Cycle_Node_Network_Tagging#(C)_Network_tagging" />
+            <space />
+            <key key="type" value="network" />
+            <key key="network:type" value="node_network" />
+            <combo key="network" text="Network" values="icn,ncn,rcn,lcn,ihn,nhn,rhn,lhn,iwn,nwn,rwn,lwn" 
+                display_values="International cycling,National cycling,Regional cycling,Local cycling,International riding,National riding,Regional riding,Local riding,International walking,National walking,Regional walking,Local walking" values_context="network" values_sort="false"/>
+            <optional>
+                <text key="name" text="Name" />
+                <text key="operator" text="Operator" />
+            </optional>
+            <roles>
+                <role key="" text="route" requisite="required" type="relation" member_expression="&quot;network:type&quot;=node_network (type=route|type=network)" />
+                <role key="" text="junction" requisite="required" type="node" member_expression="&quot;network:type&quot;=node_network" />
+                <role key="connection" text="connection route" requisite="optional" type="relation" member_expression="&quot;network:type&quot;=node_network type=route" />
+                <role key="connection" text="connection junction" requisite="optional" type="node" member_expression="&quot;network:type&quot;=node_network" />
+            </roles>
+        </item> <!-- Route Node Network -->
         <item name="Generic route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
             <link wiki="Relation:route" />
             <space/>
@@ -12416,7 +12575,7 @@
     </group> <!-- Offices -->
     <group name="Lifecycle" icon="icons/png/lifecycle.png">
         <item name="Set to disused" icon="icons/png/javascript.png" type="node,way,closedway,relation" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Key:check_date" />
+            <link wiki="Key:disused:"/>
             <!-- originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags
                  before the PropertyEditor was started, tags are the current values, by removing the key at the
                  end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
@@ -12442,7 +12601,7 @@ for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {
 tags.remove('set_to_disused');" />
         </item>
         <item name="Set to disused (remove tags)" icon="icons/png/javascript.png" type="node,way,closedway,relation" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Key:check_date" />
+            <link wiki="Key:disused:"/>
             <!-- This preset will only remove tags on app version 703 and higher (Vespucci 11.1.1)
                  originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags
                  before the PropertyEditor was started, tags are the current values, by removing the key at the
