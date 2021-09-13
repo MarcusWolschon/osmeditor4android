@@ -1,5 +1,13 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.2.7:
+
+- Update OG fragment
+- Update imagery from ELI
+- Update presets
+- Fix protect against all exceptions when retrieving Bing metatdata
+- Fix numerous saving and restoring state issues in dialogs
+
 15.2.6
 
 - Fix don't try to turn GPS on if we don't actually have permission
