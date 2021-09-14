@@ -112,8 +112,7 @@
         <feature type="way" tags="man_made=embankment" color="ff996633" pathPattern="triangle_right" />
         <feature type="way" tags="man_made=bridge" color="aa585c63" closed="true" area="true" pathPattern="border_right" />
     </feature>
-    <feature type="way" tags="building" updateWidth="true" widthFactor="1.0" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" >
-        <feature type="way" tags="building|addr:housenumber" closed="true" labelKey="addr:housenumber"/>
+    <feature type="way" tags="building" updateWidth="true" widthFactor="1.0" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" > 
         <feature type="way" tags="building|shop" closed="true" iconPath="preset" labelKey="name" />
         <feature type="way" tags="building|amenity" closed="true" iconPath="preset" labelKey="name"/>
         <feature type="way" tags="building|tourism" closed="true" iconPath="preset" labelKey="name"/>
@@ -132,13 +131,13 @@
         <feature type="way" tags="building|aerialway" closed="true" iconPath="preset" labelKey="name"/>
         <feature type="way" tags="building|aeroway" closed="true" iconPath="preset" labelKey="name"/>
         <feature type="way" tags="building|railway" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building|addr:housenumber" closed="true" labelKey="addr:housenumber"/>
     </feature>
     <feature type="way" tags="building:part" updateWidth="true" widthFactor="0.8" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" >
         <dash phase="1.0">
             <interval length="2.0" />
             <interval length="2.0" />
         </dash>
-        <feature type="way" tags="building:part|addr:housenumber" closed="true" labelKey="addr:housenumber"/>
         <feature type="way" tags="building:part|shop" closed="true" iconPath="preset" labelKey="name" />
         <feature type="way" tags="building:part|amenity" closed="true" iconPath="preset" labelKey="name"/>
         <feature type="way" tags="building:part|tourism" closed="true" iconPath="preset" labelKey="name"/>
@@ -157,6 +156,7 @@
         <feature type="way" tags="building:part|aerialway" closed="true" iconPath="preset" labelKey="name"/>
         <feature type="way" tags="building:part|aeroway" closed="true" iconPath="preset" labelKey="name"/>
         <feature type="way" tags="building:part|railway" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building:part|addr:housenumber" closed="true" labelKey="addr:housenumber"/>
     </feature>
     <feature type="way" tags="shop" closed="true" iconPath="preset" labelKey="name" />
     <feature type="way" tags="amenity" closed="true" iconPath="preset" labelKey="name">
