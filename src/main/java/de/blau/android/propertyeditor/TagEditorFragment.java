@@ -680,7 +680,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param presets array containing all currently used Presets
      * @param item the PresetItem to add to the MRU
      */
-    void addToMru(Preset[] presets, PresetItem item) {
+    void addToMru(@NonNull Preset[] presets, @NonNull PresetItem item) {
         for (Preset p : presets) {
             if (p != null && p.contains(item)) {
                 p.putRecentlyUsed(item, null);
@@ -694,7 +694,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * 
      * @param row the row to set the hint on
      */
-    private void setHint(TagEditRow row) {
+    private void setHint(@NonNull TagEditRow row) {
         String aTagKey = row.getKey();
         PresetItem preset = getPreset(aTagKey);
         if (preset != null && !"".equals(aTagKey)) { // set hints even if value isn't empty
@@ -721,6 +721,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param tags the tags we want to assign
      * @return map of tags that couldn't be assigned
      */
+    @NonNull
     private Map<String, String> addPresetsToTags(@Nullable PresetItem preset, @NonNull Map<String, String> tags) {
         Map<String, String> leftOvers = new LinkedHashMap<>();
         if (preset != null) {

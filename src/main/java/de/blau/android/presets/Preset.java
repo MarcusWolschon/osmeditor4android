@@ -1269,6 +1269,7 @@ public class Preset implements Serializable {
      * @param name the name of the PresetItem
      * @return the index or null if not found
      */
+    @Nullable
     private Integer getItemIndexByName(@NonNull String name) {
         Log.d(DEBUG_TAG, "getItemIndexByName " + name);
         for (PresetItem pi : allItems) {
