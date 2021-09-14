@@ -1568,6 +1568,7 @@ public class Preset implements Serializable {
      * 
      * @return JSON format string
      */
+    @NonNull
     private String toJSON() {
         StringBuilder result = new StringBuilder();
         for (PresetItem pi : allItems) {
@@ -1594,7 +1595,7 @@ public class Preset implements Serializable {
      * @return null, or the "best" matching item for the given tag set
      */
     @Nullable
-    public static PresetItem findBestMatch(Preset[] presets, Map<String, String> tags) {
+    public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags) {
         return findBestMatch(presets, tags, false);
     }
 
