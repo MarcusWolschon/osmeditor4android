@@ -1140,6 +1140,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     // don't show building icons, only icons for those with POI tags
                     SortedMap<String, String> tempTags = new TreeMap<>(tags);
                     tempTags.remove(Tags.KEY_BUILDING);
+                    tempTags.remove(Tags.KEY_BUILDING_PART);
                     match = Preset.findBestMatch(tmpPresets, tempTags);
                 }
             } else {

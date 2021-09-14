@@ -117,12 +117,46 @@
         <feature type="way" tags="building|shop" closed="true" iconPath="preset" labelKey="name" />
         <feature type="way" tags="building|amenity" closed="true" iconPath="preset" labelKey="name"/>
         <feature type="way" tags="building|tourism" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building|craft" closed="true" iconPath="preset" labelKey="name" />
+        <feature type="way" tags="building|office" closed="true" iconPath="preset" labelKey="name" />
+        <feature type="way" tags="building|power" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building|leisure" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building|man_made" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building|healthcare" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building|police" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building|club" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building|telecom" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building|historic" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building|military" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building|emergency" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building|aerialway" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building|aeroway" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building|railway" closed="true" iconPath="preset" labelKey="name"/>
     </feature>
     <feature type="way" tags="building:part" updateWidth="true" widthFactor="0.8" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" >
-    	<dash phase="1.0">
-    		<interval length="2.0" />
-    		<interval length="2.0" />
-    	</dash>
+        <dash phase="1.0">
+            <interval length="2.0" />
+            <interval length="2.0" />
+        </dash>
+        <feature type="way" tags="building:part|addr:housenumber" closed="true" labelKey="addr:housenumber"/>
+        <feature type="way" tags="building:part|shop" closed="true" iconPath="preset" labelKey="name" />
+        <feature type="way" tags="building:part|amenity" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building:part|tourism" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building:part|craft" closed="true" iconPath="preset" labelKey="name" />
+        <feature type="way" tags="building:part|office" closed="true" iconPath="preset" labelKey="name" />
+        <feature type="way" tags="building:part|power" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building:part|leisure" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building:part|man_made" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building:part|healthcare" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building:part|police" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building:part|club" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building:part|telecom" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building:part|historic" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building:part|military" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building:part|emergency" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building:part|aerialway" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building:part|aeroway" closed="true" iconPath="preset" labelKey="name"/>
+        <feature type="way" tags="building:part|railway" closed="true" iconPath="preset" labelKey="name"/>
     </feature>
     <feature type="way" tags="shop" closed="true" iconPath="preset" labelKey="name" />
     <feature type="way" tags="amenity" closed="true" iconPath="preset" labelKey="name">

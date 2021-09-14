@@ -50,11 +50,13 @@ Node styling is limited to the __labelKey__ and __iconPath__ attributes.
 |                           | oneway         |         | Set this on the referenced arrowStyle if it should have oneway semantics
 |                           | labelKey       |         | Tag key to use as label if present, magic value "preset" will use the preset name.
 |                           | labelZoomLimit |         | List for displaying labels on ways, if not set no label will be displayed
-|                           | iconPath       |         | Path, relative to the directory in which the style file resides, to a PNG format icon, magic value "preset" will use the preset icon.
+|                           | iconPath       |         | Path, relative to the directory in which the style file resides, to a PNG format icon, magic value "preset" (see below) will use the preset icon.
 |__&lt;dash&gt;__           |                |         | feature sub-element used to define a dash pattern
 |                           | phase          |         | Phase of the dash
 |__&lt;interval&gt;__       |                |         | dash sub-element used to define the length of the dash/no-dash phases
 |                           | length         |         | Length of the dash as a float
+
+Using "preset" as the value for iconPath will match the objects tags with the presets, just as this is done throughout the application, however "building" and "building:part" tags are ignored. If you need to render icons specifically for buildings, reference an icon directly. 
                  
 ### Internal features
 
