@@ -534,7 +534,9 @@ spoon {
     noAnimations = false
     adbTimeout = 5
     codeCoverage = true
+    // set shard to true, and numShards for sharding support 
     shard = false
+    // numShards = 2
     singleInstrumentationCall = true
     ignoreFailures = true
     clearAppDataBeforeEachTest = true
