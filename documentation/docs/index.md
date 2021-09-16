@@ -13,9 +13,9 @@ icon: "/vespucci_logo_small.png"
 <br></br>
 Vespucci is the first [OpenStreetMap](//openstreetmap.org) editor for Android, continuously improved and developed since 2009. It supports the full OpenStreetMap data model including lots of less known quirks and can be used, if necessary, completely offline. 
 
-Editing is supported by rich, extensible and searchable presets based on the JOSM system, compatible 3rd party presets can be downloaded directly to your device. Fast "on the go" surveying is easy with address prediction and [name based POI creation](markdown/tutorials/name_suggestions.md).
+Editing is supported by rich, extensible and searchable presets based on the JOSM system, compatible 3rd party presets can be downloaded directly to your device. Fast "on the go" surveying is easy with address prediction and name based point-of-interest creation.
 
-Vespucci has been tested and is known to work on a wide range of devices, from small phones, tablets to more exotic or unusual hardware, for example on an Amazon Fire TV Stick. Vespucci currently works on all Android versions since 4.0 (access to openstreetmap.org requires at least Android 4.1, see [Can't (re-)authenticate - TLS 1.0 / 1.1 issues](http://vespucci.io/tutorials/faq/#cant-re-authenticate-tls-10-11-issues)).  It can also be used in a Google-free environment.
+Vespucci has been tested and is known to work on a wide range of devices, from small phones, tablets to more exotic or unusual hardware, for example on an Amazon Fire TV Stick. Vespucci currently works on all Android versions since 4.0 ([access to openstreetmap.org requires at least Android 4.1](tutorials/faq/#cant-re-authenticate-tls-10-11-issues)). It can also be used in a Google-free environment.
 
 #### Obtaining Vespucci:
 
@@ -27,7 +27,6 @@ Vespucci has been tested and is known to work on a wide range of devices, from s
 #### Vespucci on Social Media
 
  * [Follow us on Twitter](https://twitter.com/vespucci_editor)
- * [Google Group](https://groups.google.com/forum/#!forum/osmeditor4android)
  * [Vespucci on OpenHub](https://www.openhub.net/p/osmeditor4android)
  
 #### Support Vespuccis Development
@@ -37,7 +36,7 @@ Besides the large amount of time spent on Vespucci and related projects, there a
 
 #### On device help
 
-The texts in the _Introduction_ and _Editing_ sections are available on device as context sensitive help.
+The texts in the [_Introduction_](help/en/Introduction/) and _Editing_ sections are available on device as context sensitive help.
 
 #### Roadmap
 
@@ -47,7 +46,7 @@ The Vespucci team doesn't have a formal road map, however you can see what we ha
 
 If you have suggestions for enhancements or are experiencing a problem, please open an [issue on GitHub](https://github.com/MarcusWolschon/osmeditor4android/issues). Please check [known issues](https://github.com/MarcusWolschon/osmeditor4android/issues?q=is%3Aopen+is%3Aissue+label%3A%22Known+issue%22) for the current release first.
 
-If you're interested in this project, you're welcome to help improving it. We need UI designers, translators, and of course Java programmers. Join our Google group or mail Marcus@Wolschon.biz.
+If you're interested in this project, you're welcome to help improving it. We need UI designers, translators, and of course Java programmers.
 
 #### Legal 
 
