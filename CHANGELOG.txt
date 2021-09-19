@@ -1,5 +1,9 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.2.8:
+
+- Fix crash in upload dialog when navigating away from it
+
 15.2.7:
 
 - Update OG fragment
