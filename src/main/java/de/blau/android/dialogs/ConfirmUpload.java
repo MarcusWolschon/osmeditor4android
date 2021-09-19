@@ -487,6 +487,8 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(ELEMENTS_KEY, new ArrayList<>(elements));
+        if (elements != null) {
+            outState.putSerializable(ELEMENTS_KEY, new ArrayList<>(elements));
+        }
     }
 }
