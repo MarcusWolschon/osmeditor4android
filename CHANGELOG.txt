@@ -1,5 +1,11 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+16.0.0:
+
+- Add more icons on buildings rendering in the data styles
+- Update translations
+- Fix crash in upload dialog when navigating away from it (regression)
+
 16.0.0-3:
 
 - Add support for configuring tile source from mapbox GL style
