@@ -10,12 +10,14 @@ import de.blau.android.R;
  *
  */
 public enum SplitIssue implements Issue {
-    SPLITMETRIC;
+    SPLIT_METRIC, SPLIT_ROUTE_ORDERING;
 
     @Override
     public String toTranslatedString(Context context) {
-        if (SPLITMETRIC.equals(this)) {
+        if (SPLIT_METRIC.equals(this)) {
             return context.getString(R.string.issue_split_metric);
+        } else if (SPLIT_ROUTE_ORDERING.equals(this)) {
+            return context.getString(R.string.issue_split_route_ordering);
         } else {
             return "";
         }

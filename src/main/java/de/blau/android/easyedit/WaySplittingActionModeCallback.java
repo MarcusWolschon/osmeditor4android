@@ -64,7 +64,7 @@ public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback 
         if (way.isClosed()) {
             main.startSupportActionMode(new ClosedWaySplittingActionModeCallback(manager, way, (Node) element, createPolygons));
         } else {
-            Result result = logic.performSplit(main, way, (Node) element);
+            List<Result> result = logic.performSplit(main, way, (Node) element);
             checkSplitResult(way, result);
             manager.finish();
         }

@@ -1066,6 +1066,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param createPolygons split in to two polygons
      * @return null if split failed or wasn't possible, the two resulting ways otherwise
      */
+    @Nullable
     public Way[] splitAtNodes(@NonNull Way way, @NonNull Node node1, @NonNull Node node2, boolean createPolygons) {
         Log.d(DEBUG_TAG, "splitAtNodes way " + way.getOsmId() + " node1 " + node1.getOsmId() + " node2 " + node2.getOsmId());
         // undo - old way is saved here, new way is saved at insert
@@ -1130,7 +1131,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             nodesForOldWay2.remove(0);
             oldNodes.addAll(nodesForOldWay2);
         }
-        ArrayList<OsmElement> changedElements = new ArrayList<>();
+        List<OsmElement> changedElements = new ArrayList<>();
         try {
             if (createPolygons && way.nodeCount() > Way.MINIMUM_NODES_IN_WAY) { // close the original way now
                 way.addNode(way.getFirstNode());
@@ -1167,10 +1168,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @param way way to split
      * @param node node to split at
-     * @return the new Way
+     * @return the new Way in the first Result
      */
     @NonNull
-    public Result splitAtNode(@NonNull final Way way, @NonNull final Node node) {
+    public List<Result> splitAtNode(@NonNull final Way way, @NonNull final Node node) {
         Log.d(DEBUG_TAG, "splitAtNode way " + way.getOsmId() + " node " + node.getOsmId());
         Result result = new Result();
         // undo - old way is saved here, new way is saved at insert
@@ -1222,7 +1223,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Log.d(DEBUG_TAG, msg);
             throw new OsmIllegalOperationException(msg);
         }
-        ArrayList<OsmElement> changedElements = new ArrayList<>();
+        List<OsmElement> changedElements = new ArrayList<>();
         try {
             // update original way
             way.updateState(OsmElement.STATE_MODIFIED);
@@ -1236,17 +1237,19 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             insertElementUnsafe(newWay);
 
             if (!metricKeys.isEmpty() && originalLength != 0) {
-                result.addIssue(SplitIssue.SPLITMETRIC);
+                result.addIssue(SplitIssue.SPLIT_METRIC);
                 for (String key : metricKeys) {
                     distributeMetric(key, originalLength, way);
                     distributeMetric(key, originalLength, newWay);
                 }
             }
 
-            addSplitWayToRelations(way, false, newWay, changedElements);
+            List<Result> relationResults = addSplitWayToRelations(way, false, newWay, changedElements);
             onElementChanged(null, changedElements);
             result.setElement(newWay);
-            return result;
+            List<Result> resultList = Util.wrapInList(result);
+            resultList.addAll(relationResults);
+            return resultList;
         } catch (StorageException e) {
             Log.e(DEBUG_TAG, "splitAtNode got " + e.getMessage());
             throw e;
@@ -1285,8 +1288,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param wasClosed indicate if the existing way was closed
      * @param newWay the new Way
      * @param changedElements add changed Relations to this
+     * @return a Set containing any issues
      */
-    private void addSplitWayToRelations(@NonNull final Way way, boolean wasClosed, @NonNull Way newWay, @NonNull ArrayList<OsmElement> changedElements) {
+    @NonNull
+    private List<Result> addSplitWayToRelations(@NonNull final Way way, boolean wasClosed, @NonNull Way newWay, @NonNull List<OsmElement> changedElements) {
+        List<Result> result = new ArrayList<>();
         // check for relation membership
         if (way.getParentRelations() != null) {
             Set<Relation> relations = new HashSet<>(way.getParentRelations()); // copy and only unique relations!
@@ -1307,8 +1313,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 String type = r.getTagWithKey(Tags.KEY_TYPE);
                 // determine if the relation is potentially like a restriction, as hasFromViaTo is fairly expensive
                 // avoid calling it if we are sure that it can't be restriction like
+                boolean isRoute = Tags.VALUE_ROUTE.equals(type);
                 boolean isRestrictionLike = Tags.VALUE_RESTRICTION.equals(type)
-                        || (!Tags.VALUE_MULTIPOLYGON.equals(type) && !Tags.VALUE_BOUNDARY.equals(type) && !Tags.VALUE_ROUTE.equals(type) && hasFromViaTo(r));
+                        || (!Tags.VALUE_MULTIPOLYGON.equals(type) && !Tags.VALUE_BOUNDARY.equals(type) && !isRoute && hasFromViaTo(r));
                 for (RelationMember rm : members) {
                     Log.d(DEBUG_TAG, "addSplitWayToRelations member " + rm);
                     int memberPos = r.getPosition(rm);
@@ -1328,10 +1335,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                                 if (((Way) rm.getElement()).hasNode((Node) viaE)) {
                                     foundVia = true;
                                 }
-                            } else if (viaE instanceof Way) {
-                                if (((Way) rm.getElement()).hasCommonNode((Way) viaE)) {
-                                    foundVia = true;
-                                }
+                            } else if (viaE instanceof Way && ((Way) rm.getElement()).hasCommonNode((Way) viaE)) {
+                                foundVia = true;
                             }
                         }
                         Log.d(DEBUG_TAG, "addSplitWayToRelations foundVia " + foundVia);
@@ -1349,8 +1354,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                                 }
                             }
                         }
-                    } else {
-                        RelationMember newMember = new RelationMember(rm.getRole(), newWay);
+                    } else { // default handling of relations membership
+                        RelationMember newMember = new RelationMember(rm.getRole(), newWay); // use the same role
                         RelationMember prevMember = r.getMemberAt(memberPos - 1);
                         RelationMember nextMember = r.getMemberAt(memberPos + 1);
                         /*
@@ -1358,14 +1363,24 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                          * way has a common node with the previous member or if the existing way has a common node with
                          * the following member we insert before, otherwise we insert after the existing member.
                          * 
-                         * FIXME To do this really properly we would have to download the previous and next elements
+                         * FIXME To do this really properly we would have to download the previous and next elements for
+                         * routes
                          */
-                        if (prevMember != null && prevMember.getElement() instanceof Way && newWay.hasCommonNode((Way) prevMember.getElement())) {
+                        if (hasCommonNode(prevMember, newWay)) {
                             r.addMemberBefore(rm, newMember);
-                        } else if (nextMember != null && nextMember.getElement() instanceof Way && way.hasCommonNode((Way) nextMember.getElement())) {
+                        } else if (hasCommonNode(nextMember, way)) {
                             r.addMemberBefore(rm, newMember);
                         } else {
                             r.addMemberAfter(rm, newMember);
+                            boolean hasPrev = prevMember != null;
+                            boolean hasNext = nextMember != null;
+                            if (isRoute && (hasPrev || hasNext) && (!hasPrev || !prevMember.downloaded()) && (!hasNext || !nextMember.downloaded())) {
+                                Log.w(DEBUG_TAG, "Incomplete route relation " + r.getOsmId() + " modified");
+                                Result relationResult = new Result();
+                                relationResult.setElement(r);
+                                relationResult.addIssue(SplitIssue.SPLIT_ROUTE_ORDERING);
+                                result.add(relationResult);
+                            }
                         }
                         newWay.addParentRelation(r);
                     }
@@ -1375,6 +1390,18 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 changedElements.add(r);
             }
         }
+        return result;
+    }
+
+    /**
+     * Check if a way relation member has a common node with a way
+     * 
+     * @param member the RelationMember
+     * @param way the Way
+     * @return true if there is a common node
+     */
+    private boolean hasCommonNode(@Nullable RelationMember member, @NonNull Way way) {
+        return member != null && member.getElement() instanceof Way && way.hasCommonNode((Way) member.getElement());
     }
 
     /**
@@ -1392,18 +1419,20 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         boolean hasTo = false;
         for (RelationMember rm : members) {
             String role = rm.getRole();
-            switch (role) {
-            case Tags.ROLE_FROM:
-                hasFrom = true;
-                break;
-            case Tags.ROLE_INTERSECTION:
-            case Tags.ROLE_VIA:
-                hasVia = true;
-                break;
-            case Tags.ROLE_TO:
-                hasTo = true;
-                break;
-            default: // do nothing
+            if (role != null) {
+                switch (role) {
+                case Tags.ROLE_FROM:
+                    hasFrom = true;
+                    break;
+                case Tags.ROLE_INTERSECTION:
+                case Tags.ROLE_VIA:
+                    hasVia = true;
+                    break;
+                case Tags.ROLE_TO:
+                    hasTo = true;
+                    break;
+                default: // do nothing
+                }
             }
         }
         return hasFrom && hasVia && hasTo;

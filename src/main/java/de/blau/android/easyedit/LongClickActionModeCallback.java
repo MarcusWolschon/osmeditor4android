@@ -168,7 +168,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             if (splitPosition != null) {
                 for (Way way : ways) {
                     if (way.hasNode(splitPosition)) {
-                        Result result = logic.performSplit(main, way, logic.getSelectedNode());
+                        List<Result> result = logic.performSplit(main, way, logic.getSelectedNode());
                         checkSplitResult(way, result);
                     }
                 }
@@ -209,7 +209,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                 try {
                     Node node = logic.performAddOnWay(main, ways, startX, startY, false);
                     if (node != null) {
-                        Result result = logic.performSplit(main, way, node);
+                        List<Result> result = logic.performSplit(main, way, node);
                         checkSplitResult(way, result);
                     }
                 } catch (OsmIllegalOperationException e) {

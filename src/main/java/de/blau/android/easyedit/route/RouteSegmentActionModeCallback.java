@@ -222,8 +222,8 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
         Way newCurrentSegment = null;
         if (!currentSegment.isClosed() && !currentSegment.getFirstNode().equals(commonNode) && !currentSegment.getLastNode().equals(commonNode)) {
             // split from at node
-            Result result = logic.performSplit(main, currentSegment, commonNode);
-            newCurrentSegment = result != null ? (Way) result.getElement() : null;
+            List<Result> result = logic.performSplit(main, currentSegment, commonNode);
+            newCurrentSegment = newWayFromSplitResult(result);
             checkSplitResult(currentSegment, result);
             if (size > 1) { // not the first segment
                 // keep the bit that connects to previous segment
@@ -241,8 +241,8 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
         }
         Way newNextSegment = null;
         if (!nextSegment.isClosed() && !nextSegment.getFirstNode().equals(commonNode) && !nextSegment.getLastNode().equals(commonNode)) {
-            Result result = logic.performSplit(main, nextSegment, commonNode);
-            newNextSegment = result != null ? (Way) result.getElement() : null;
+            List<Result> result = logic.performSplit(main, nextSegment, commonNode);
+            newNextSegment = newWayFromSplitResult(result);
             checkSplitResult(nextSegment, result);
         } else if (newCurrentSegment == null) {
             segments.add(nextSegment);

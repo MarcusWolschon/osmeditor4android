@@ -161,7 +161,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
      * Get the RelationMember at a specific position
      * 
      * @param pos the position
-     * @return the RelationMember of null if the position was out of bounds
+     * @return the RelationMember or null if the position was out of bounds
      */
     @Nullable
     public RelationMember getMemberAt(int pos) {

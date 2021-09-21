@@ -1,6 +1,7 @@
 package de.blau.android.easyedit.turnrestriction;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import android.util.Log;
@@ -72,8 +73,8 @@ public class FromElementWithViaNodeActionModeCallback extends NonSimpleActionMod
         Way newFromWay = null;
         if (!fromWay.getFirstNode().equals(viaNode) && !fromWay.getLastNode().equals(viaNode)) {
             // split from at node
-            Result result = logic.performSplit(main, fromWay, viaNode);
-            newFromWay = result != null ? (Way) result.getElement() : null;
+            List<Result> result = logic.performSplit(main, fromWay, viaNode);
+            newFromWay = newWayFromSplitResult(result);
             checkSplitResult(fromWay, result);
         }
 

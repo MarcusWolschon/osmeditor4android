@@ -1944,10 +1944,10 @@ public class Logic {
      * @return a Result object containing the new Way or null if failed
      */
     @Nullable
-    public synchronized Result performSplit(@Nullable final FragmentActivity activity, @NonNull final Way way, @NonNull final Node node) {
+    public synchronized List<Result> performSplit(@Nullable final FragmentActivity activity, @NonNull final Way way, @NonNull final Node node) {
         createCheckpoint(activity, R.string.undo_action_split_way);
         try {
-            Result result = getDelegator().splitAtNode(way, node);
+            List<Result> result = getDelegator().splitAtNode(way, node);
             invalidateMap();
             return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
@@ -1991,37 +1991,52 @@ public class Logic {
      * @return null if the split fails, the segment otherwise
      */
     @Nullable
-    public synchronized Result performExtractSegment(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2) {
+    public synchronized List<Result> performExtractSegment(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2) {
         createCheckpoint(activity, R.string.undo_action_extract_segment);
         try {
             displayAttachedObjectWarning(activity, way);
-            Result result = null;
+            List<Result> result = null;
             if (way.isEndNode(node1)) {
-                result = getDelegator().splitAtNode(way, node2);
-                Way newWay = (Way) result.getElement();
-                result.setElement(newWay.isEndNode(node1) ? newWay : way);
+                result = extractSegmentAtEnd(way, node1, node2);
             } else if (way.isEndNode(node2)) {
-                result = getDelegator().splitAtNode(way, node1);
-                Way newWay = (Way) result.getElement();
-                result.setElement(newWay.isEndNode(node2) ? newWay : way);
+                result = extractSegmentAtEnd(way, node2, node1);
             } else {
-                Result result1 = getDelegator().splitAtNode(way, node1);
+                result = getDelegator().splitAtNode(way, node1);
+                if (result.isEmpty()) {
+                    throw new OsmIllegalOperationException("Splitting way " + way.getOsmId() + " at node " + node1.getOsmId() + " failed");
+                }
+                Result first = result.get(0);
                 boolean splitOriginal = way.hasNode(node2);
-                Way newWay = (Way) result1.getElement();
-                Result result2 = getDelegator().splitAtNode(way.hasNode(node2) ? way : newWay, node2);
-                Way newWay2 = (Way) result2.getElement();
-                result = new Result();
-                result.addAllIssues(result1.getIssues());
-                result.setElement(newWay2.hasNode(node1) && newWay2.hasNode(node2) ? newWay2 : (splitOriginal ? way : newWay));
+                Way newWay = (Way) first.getElement();
+                List<Result> result2 = getDelegator().splitAtNode(way.hasNode(node2) ? way : newWay, node2);
+                Way newWay2 = (Way) result2.get(0).getElement();
+                first.setElement(newWay2.hasNode(node1) && newWay2.hasNode(node2) ? newWay2 : (splitOriginal ? way : newWay));
             }
             invalidateMap();
             return result;
-        } catch (OsmIllegalOperationException |
-
-                StorageException ex) {
+        } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             return null;
         }
+    }
+
+    /**
+     * Extract a segment at the end of a way
+     * 
+     * @param way the original Way
+     * @param endNode the end Node
+     * @param splitNode the Node to split at
+     * @return a List of Result with the segment in the 1st Result
+     */
+    private List<Result> extractSegmentAtEnd(@NonNull Way way, @NonNull Node endNode, @NonNull Node splitNode) {
+        List<Result> result = getDelegator().splitAtNode(way, splitNode);
+        if (result.isEmpty()) {
+            throw new OsmIllegalOperationException("Splitting way " + way.getOsmId() + " at node " + splitNode.getOsmId() + " failed");
+        }
+        Result first = result.get(0);
+        Way newWay = (Way) first.getElement();
+        first.setElement(newWay.isEndNode(endNode) ? newWay : way);
+        return result;
     }
 
     /**

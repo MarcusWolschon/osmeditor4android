@@ -66,8 +66,8 @@ public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionMo
         if (way.isClosed()) {
             main.startSupportActionMode(new RestrictionClosedWaySplittingActionModeCallback(manager, way, (Node) element, fromWay));
         } else {
-            Result result = logic.performSplit(main, way, (Node) element);
-            Way newWay = result != null ? (Way) result.getElement() : null;
+            List<Result> result = logic.performSplit(main, way, (Node) element);
+            Way newWay = newWayFromSplitResult(result);
             if (newWay != null) {
                 checkSplitResult(way, result);
                 if (fromWay == null) {

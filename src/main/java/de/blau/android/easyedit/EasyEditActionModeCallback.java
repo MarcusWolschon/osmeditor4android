@@ -409,17 +409,32 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * Check the result of a way split operation, and if there was an error display a dialog
      * 
      * @param originalWay the original Way
-     * @param result the Result of the split
+     * @param resultList a List containing Results of the split, new Way in 1st
      */
-    protected void checkSplitResult(@NonNull Way originalWay, @Nullable Result result) {
-        if (result != null && result.hasIssue()) {
-            List<Result> resultList = new ArrayList<>();
-            resultList.add(result);
-            Result orig = new Result();
-            orig.setElement(originalWay);
-            orig.addAllIssues(result.getIssues());
-            resultList.add(orig);
-            TagConflictDialog.showDialog(main, resultList);
+    protected void checkSplitResult(@NonNull Way originalWay, @Nullable List<Result> resultList) {
+        if (resultList != null && !resultList.isEmpty() && (resultList.get(0).hasIssue() || resultList.size() > 1)) {
+            List<Result> tempList = new ArrayList<>(resultList);
+            Result first = tempList.get(0);
+            if (first.hasIssue()) {
+                Result orig = new Result();
+                orig.setElement(originalWay);
+                orig.addAllIssues(first.getIssues());
+                tempList.add(1, orig);
+            } else {
+                tempList.remove(0);
+            }
+            TagConflictDialog.showDialog(main, tempList);
         }
+    }
+
+    /**
+     * Get the new Way from a split
+     * 
+     * @param result a List of Results
+     * @return the new split off Way or null
+     */
+    @Nullable
+    protected Way newWayFromSplitResult(@Nullable List<Result> result) {
+        return result != null && !result.isEmpty() ? (Way) result.get(0).getElement() : null;
     }
 }

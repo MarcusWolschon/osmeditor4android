@@ -1,6 +1,7 @@
 package de.blau.android.easyedit.turnrestriction;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import android.util.Log;
@@ -82,8 +83,8 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
             viaNode = ((Way) viaElement).getCommonNode(toWay);
             if (!viaWay.getFirstNode().equals(viaNode) && !viaWay.getLastNode().equals(viaNode)) {
                 // split via way and use appropriate segment
-                Result result = logic.performSplit(main, viaWay, viaNode);
-                Way newViaWay = result != null ? (Way) result.getElement() : null;
+                List<Result> result = logic.performSplit(main, viaWay, viaNode);
+                Way newViaWay = newWayFromSplitResult(result);
                 if (newViaWay != null) {
                     checkSplitResult(viaWay, result);
                     Snack.barInfo(main, R.string.toast_split_via);
@@ -105,8 +106,8 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
         }
         // now check if we need to split the toWay
         if (!toWay.getFirstNode().equals(viaNode) && !toWay.getLastNode().equals(viaNode) && !toWay.isClosed()) {
-            Result result = logic.performSplit(main, toWay, viaNode);
-            Way newToWay = result != null ? (Way) result.getElement() : null;
+            List<Result> result = logic.performSplit(main, toWay, viaNode);
+            Way newToWay = newWayFromSplitResult(result);
             checkSplitResult(toWay, result);
             Snack.barInfo(main, R.string.toast_split_to);
             Set<OsmElement> toCandidates = new HashSet<>();
@@ -117,7 +118,8 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
         }
 
         toSelected = true;
-        main.startSupportActionMode(new ToElementActionModeCallback(manager, fromWay, viaElement, (Way) element)); // NOSONAR viaElement can't actually be null
+        main.startSupportActionMode(new ToElementActionModeCallback(manager, fromWay, viaElement, (Way) element)); // NOSONAR
+        // viaElement can't actually be null
         return true;
     }
 
