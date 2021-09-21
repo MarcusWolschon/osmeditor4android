@@ -2669,42 +2669,48 @@ public class Logic {
     /**
      * Loads the area defined by mapBox from the OSM-Server.
      * 
-     * @param activity activity this was called from
+     * @param context Android Context, if this is a FRagmentActivity, animations will be shown
      * @param mapBox Box defining the area to be loaded.
      * @param add if true add this data to existing
      * @param postLoadHandler handler to execute after successful download
      */
-    public synchronized void downloadBox(@NonNull final FragmentActivity activity, @NonNull final BoundingBox mapBox, final boolean add,
+    public synchronized void downloadBox(@NonNull final Context context, @NonNull final BoundingBox mapBox, final boolean add,
             @Nullable final PostAsyncActionHandler postLoadHandler) {
-        final Validator validator = App.getDefaultValidator(activity);
+        final Validator validator = App.getDefaultValidator(context);
 
         mapBox.makeValidForApi();
 
         final PostMergeHandler postMerge = new PostMergeHandler() {
             @Override
             public void handler(OsmElement e) {
-                e.hasProblem(activity, validator);
+                e.hasProblem(context, validator);
             }
         };
 
         new AsyncTask<Boolean, Void, ReadAsyncResult>() {
 
+            boolean hasActivity = context instanceof FragmentActivity;
+
             @Override
             protected void onPreExecute() {
-                Progress.showDialog(activity, Progress.PROGRESS_DOWNLOAD);
+                if (hasActivity) {
+                    Progress.showDialog((FragmentActivity) context, Progress.PROGRESS_DOWNLOAD);
+                }
             }
 
             @Override
             protected ReadAsyncResult doInBackground(Boolean... arg) {
                 boolean merge = arg != null && arg[0] != null && arg[0].booleanValue();
-                return download(activity, prefs.getServer(), mapBox, postMerge, null, merge, false);
+                return download(context, prefs.getServer(), mapBox, postMerge, null, merge, false);
             }
 
             @Override
             protected void onPostExecute(ReadAsyncResult result) {
-                Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
 
-                Map mainMap = activity instanceof Main ? ((Main) activity).getMap() : null;
+                if (hasActivity) {
+                    Progress.dismissDialog((FragmentActivity) context, Progress.PROGRESS_DOWNLOAD);
+                }
+                Map mainMap = context instanceof Main ? ((Main) context).getMap() : null;
                 if (mainMap != null) {
                     try {
                         viewBox.setRatio(mainMap, (float) mainMap.getWidth() / (float) mainMap.getHeight());
@@ -2724,8 +2730,8 @@ public class Logic {
                         // do nothing
                     }
                     try {
-                        if (!activity.isFinishing()) {
-                            ErrorAlert.showDialog(activity, result);
+                        if (hasActivity && !((FragmentActivity) context).isFinishing()) {
+                            ErrorAlert.showDialog((FragmentActivity) context, result);
                         }
                     } catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException,
                                              // however report, don't crash
@@ -2748,7 +2754,9 @@ public class Logic {
                     }
                     invalidateMap();
                 }
-                activity.invalidateOptionsMenu();
+                if (hasActivity) {
+                    ((FragmentActivity) context).invalidateOptionsMenu();
+                }
             }
         }.execute(add);
     }
@@ -3365,17 +3373,17 @@ public class Logic {
     /**
      * Read a stream in (J)OSM format
      * 
-     * @param activity activity that called this
+     * @param context Android Context
      * @param is input
      * @param add unused currently (if there are new objects in the file they could potentially conflict with in memory
      *            ones)
      * @param postLoad callback to execute once stream has been loaded
      * @throws FileNotFoundException when the selected file could not be found
      */
-    public void readOsmFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
+    public void readOsmFile(@NonNull final Context context, @NonNull final InputStream is, boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
 
-        new ReadAsyncClass(activity, is, false, postLoad) {
+        new ReadAsyncClass(context, is, false, postLoad) {
             @Override
             protected ReadAsyncResult doInBackground(Boolean... arg) {
                 synchronized (Logic.this) {
@@ -3604,9 +3612,9 @@ public class Logic {
                         oscParser.clearBoundingBoxes(); // this removes the default bounding box
                         oscParser.start(in);
                         StorageDelegator sd = getDelegator();
-                        createCheckpoint(activity, R.string.undo_action_apply_osc);
+                        createCheckpoint((FragmentActivity) context, R.string.undo_action_apply_osc);
                         if (!sd.applyOsc(oscParser.getStorage(), null)) {
-                            removeCheckpoint(activity, R.string.undo_action_apply_osc, true);
+                            removeCheckpoint((FragmentActivity) context, R.string.undo_action_apply_osc, true);
                             return new ReadAsyncResult(ErrorCodes.APPLYING_OSC_FAILED);
                         }
                         if (map != null) {
@@ -3615,7 +3623,7 @@ public class Logic {
                         // support for OSMAND extension
                         List<Note> notes = oscParser.getNotes();
                         if (!notes.isEmpty()) {
-                            TransferTasks.merge(activity, App.getTaskStorage(), notes);
+                            TransferTasks.merge(context, App.getTaskStorage(), notes);
                             TransferTasks.addBoundingBoxFromData(App.getTaskStorage(), notes);
                         }
                     } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException e) {
