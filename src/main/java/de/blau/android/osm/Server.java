@@ -224,8 +224,7 @@ public class Server {
             oAuthConsumer = null;
         }
 
-        Log.d(DEBUG_TAG, "using " + this.username + " with " + this.serverURL);
-        Log.d(DEBUG_TAG, "oAuth: " + this.oauth + " token " + this.accesstoken + " secret " + this.accesstokensecret);
+        Log.d(DEBUG_TAG, "API entry " + name + " with " + this.serverURL);
 
         XmlPullParserFactory factory = null;
         try {

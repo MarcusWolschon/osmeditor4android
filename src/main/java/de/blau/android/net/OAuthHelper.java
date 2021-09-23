@@ -62,8 +62,6 @@ public class OAuthHelper {
             for (int i = 0; i < urls.length; i++) {
                 if (urls[i].equalsIgnoreCase(osmBaseUrl)) {
                     mConsumer = new OkHttpOAuthConsumer(keys[i], secrets[i]);
-                    Log.d(DEBUG_TAG, "Using " + osmBaseUrl + REQUEST_TOKEN_PATH + " " + osmBaseUrl + ACCESS_TOKEN_PATH + " " + osmBaseUrl + AUTHORIZE_PATH);
-                    Log.d(DEBUG_TAG, "With key " + keys[i] + " secret " + secrets[i]);
                     mProvider = new OkHttpOAuthProvider(oauthUrls[i] + REQUEST_TOKEN_PATH, oauthUrls[i] + ACCESS_TOKEN_PATH, oauthUrls[i] + AUTHORIZE_PATH,
                             App.getHttpClient());
                     mProvider.setOAuth10a(true);
