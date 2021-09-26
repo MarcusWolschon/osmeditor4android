@@ -124,12 +124,12 @@ public class Splash extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void result) {
                 Log.d(DEBUG_TAG, "onPostExecute");
-                if (newInstall || newConfig) {
-                    Progress.dismissDialog(Splash.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
-                }
                 Intent intent = new Intent(Splash.this, Main.class);
                 intent.putExtra(SHORTCUT_EXTRAS_KEY, getIntent().getExtras());
                 startActivity(intent);
+                if (newInstall || newConfig) {
+                    Progress.dismissDialog(Splash.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
+                }
                 Splash.this.finish();
             }
 
