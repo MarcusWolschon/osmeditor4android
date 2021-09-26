@@ -66,7 +66,8 @@ public class TestUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             boolean notdone = true;
             while (notdone) {
-                notdone = clickText(device, true, "allow", true, false) || clickText(device, true, "zulassen", false, false);
+                notdone = clickText(device, false, "While using the app", true, true) || clickText(device, true, "allow", true, false)
+                        || clickText(device, true, "zulassen", false, false);
             }
         }
     }
@@ -1057,7 +1058,7 @@ public class TestUtils {
      * @param entry the text of the entry to select
      * @param scrollableSelector what Android widget is used for scrolling
      */
-    private static void scrollToAndSelect(@NonNull UiDevice device, @NonNull String entry, @NonNull UiSelector scrollableSelector) {
+    public static void scrollToAndSelect(@NonNull UiDevice device, @NonNull String entry, @NonNull UiSelector scrollableSelector) {
         UiScrollable appView;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             appView = new UiScrollable(scrollableSelector);
