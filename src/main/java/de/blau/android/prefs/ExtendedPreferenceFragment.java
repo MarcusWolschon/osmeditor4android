@@ -83,7 +83,7 @@ public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompa
     }
 
     /**
-     * Set the summary of a list preference from its current value and add an OnPreferenceChangeListener
+     * Set the summary of an EditText preference from its current value and add an OnPreferenceChangeListener
      * 
      * @param keyResource resource id for the key of the ListPreference
      * @param restart if true point the user to the fact that he needs to restart

@@ -1,10 +1,18 @@
 package de.blau.android.prefs;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import de.blau.android.R;
+import de.blau.android.util.Util;
 
 public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
 
@@ -42,6 +50,30 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
                 loginpref.setSummary(current.user != null && !"".equals(current.user) ? current.user : r.getString(R.string.config_username_summary));
             }
         }
+
+        ListPreference cameraAppPref = getPreferenceScreen().findPreference(r.getString(R.string.config_selectCameraApp_key));
+        if (cameraAppPref != null) {
+            // remove not installed apps
+            List<CharSequence> entries = new ArrayList<>();
+            Collections.addAll(entries, cameraAppPref.getEntryValues());
+            List<CharSequence> values = new ArrayList<>();
+            Collections.addAll(values, cameraAppPref.getEntries());
+            PackageManager pm = getContext().getPackageManager();
+            CharSequence[] temp = cameraAppPref.getEntryValues();
+            int removed = 0;
+            for (int i = 0; i < temp.length; i++) {
+                String p = temp[i].toString();
+                if (!"".equals(p) && !Util.isPackageInstalled(p, pm)) {
+                    entries.remove(i - removed); // NOSONAR
+                    values.remove(i - removed); // NOSONAR
+                    removed++;
+                }
+            }
+            cameraAppPref.setEntryValues(entries.toArray(new CharSequence[entries.size()]));
+            cameraAppPref.setEntries(values.toArray(new CharSequence[values.size()]));
+        }
+
+        setListPreferenceSummary(R.string.config_selectCameraApp_key, false);
         setListPreferenceSummary(R.string.config_fullscreenMode_key, true);
         setListPreferenceSummary(R.string.config_mapOrientation_key, false);
         setListPreferenceSummary(R.string.config_gps_source_key, false);

@@ -24,6 +24,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.drawable.LayerDrawable;
@@ -1962,6 +1963,10 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_camera:
             Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             try {
+                String cameraApp = prefs.getCameraApp();
+                if (cameraApp != null && !"".equals(cameraApp)) {
+                    startCamera.setPackage(cameraApp);
+                }
                 imageFile = getImageFile();
                 Uri photoUri = FileProvider.getUriForFile(this, getString(R.string.content_provider), imageFile);
                 if (photoUri != null) {

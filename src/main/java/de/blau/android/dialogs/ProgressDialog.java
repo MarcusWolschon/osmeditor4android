@@ -106,7 +106,6 @@ public final class ProgressDialog {
                     .createBlendModeColorFilterCompat(ThemeUtils.getStyleAttribColorValue(ctx, R.attr.colorAccent, 0), BlendModeCompat.SRC_IN));
         }
         builder.setView(layout);
-
         return builder.create();
     }
 }

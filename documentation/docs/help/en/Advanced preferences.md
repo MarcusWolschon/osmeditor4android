@@ -18,7 +18,11 @@ Enable the form based tag editor. Default: _on_.
 
 ### Show camera action
 
-Show a camera button on the main display (if a camera is present). Default: _on_.
+Show a camera button on the main display (if a camera app is present). Default: _on_.
+
+### Camera app
+
+Select the camera app to use. If your, installed, camera app is not listed, please report this and we will add it to the list. Unluckily google does not allow to automatically determine installed camera apps outside of pre-installed ones. Default: _System default_.
 
 ### Follow position button layout
 
