@@ -1011,7 +1011,7 @@ public class TestUtils {
                 TestUtils.clickMenuButton(device, "List view", false, false);
                 TestUtils.clickMenuButton(device, "Show roots", false, true);
 
-                UiSelector android = new UiSelector().resourceIdMatches(".*:id/title").textMatches("(^Android SDK.*)|(^AOSP.*)|(^Internal.*)|(^Samsung.*)");
+                UiSelector android = new UiSelector().resourceIdMatches(".*:id/title").textMatches("(^Android SDK.*)|(^AOSP.*)|(^Internal.*)|(^Samsung.*)|(^sdk_.*)");
                 UiObject androidButton = device.findObject(android);
                 try {
                     androidButton.clickAndWaitForNewWindow();
