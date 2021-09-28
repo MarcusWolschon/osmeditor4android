@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.preference.PreferenceManager;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 
@@ -137,9 +139,10 @@ public final class ThemeUtils {
      * @param darkTheme resource id for the dark theme
      * @return a themed Context
      */
-    public static ContextThemeWrapper getThemedContext(Context caller, int lightTheme, int darkTheme) {
-        Preferences prefs = new Preferences(caller);
-        return new ContextThemeWrapper(caller, prefs.lightThemeEnabled() ? lightTheme : darkTheme);
+    public static ContextThemeWrapper getThemedContext(@NonNull Context caller, int lightTheme, int darkTheme) {
+        // don't use Preferences here as this will create a lot of disk activity and create the default foulder
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(caller);
+        return new ContextThemeWrapper(caller, prefs.getBoolean(caller.getString(R.string.config_enableLightTheme_key), true) ? lightTheme : darkTheme);
     }
 
     /**
