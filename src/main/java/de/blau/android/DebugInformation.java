@@ -25,6 +25,7 @@ import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.DateFormatter;
@@ -115,8 +116,11 @@ public class DebugInformation extends AppCompatActivity {
             if (map != null) {
                 for (MapViewLayer ov : map.getLayers()) {
                     if (ov instanceof MapTilesLayer || ov instanceof MapTilesOverlayLayer) {
-                        builder.append("Tile Cache " + ((MapTilesLayer<?>) ov).getTileLayerConfiguration().getId() + " usage "
-                                + ((MapTilesLayer<?>) ov).getTileProvider().getCacheUsageInfo() + eol);
+                        TileLayerSource tileLayerConfiguration = ((MapTilesLayer<?>) ov).getTileLayerConfiguration();
+                        if (tileLayerConfiguration != null) {
+                            builder.append("Tile Cache " + tileLayerConfiguration.getId() + " usage "
+                                    + ((MapTilesLayer<?>) ov).getTileProvider().getCacheUsageInfo() + eol);
+                        }
                     }
                 }
             } else {
