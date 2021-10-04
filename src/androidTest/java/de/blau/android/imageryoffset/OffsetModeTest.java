@@ -12,8 +12,6 @@ import org.junit.runner.RunWith;
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
 import android.app.Instrumentation;
-import android.app.Instrumentation.ActivityMonitor;
-import android.content.Intent;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -43,7 +41,6 @@ public class OffsetModeTest {
     Splash                  splash          = null;
     Main                    main            = null;
     UiDevice                device          = null;
-    ActivityMonitor         monitor         = null;
     Instrumentation         instrumentation = null;
     MockWebServerPlus       mockServer      = null;
     MockWebServer           tileServer      = null;
@@ -52,7 +49,7 @@ public class OffsetModeTest {
     Map                     map             = null;
 
     @Rule
-    public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
+    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
     /**
      * Pre-test setup
@@ -62,13 +59,7 @@ public class OffsetModeTest {
         instrumentation = InstrumentationRegistry.getInstrumentation();
 
         device = UiDevice.getInstance(instrumentation);
-        monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
-
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        splash = mActivityRule.launchActivity(intent);
-
-        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 30000); // wait for main
-        Assert.assertNotNull(main);
+        main = mActivityRule.getActivity();
 
         TestUtils.grantPermissons(device);
 
@@ -108,7 +99,6 @@ public class OffsetModeTest {
         } catch (IOException e) {
             // ignore
         }
-        instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
     }
 

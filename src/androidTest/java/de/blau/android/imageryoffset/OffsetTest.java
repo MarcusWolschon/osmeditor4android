@@ -12,8 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
-import android.app.Instrumentation.ActivityMonitor;
-import android.content.Intent;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -39,7 +37,6 @@ public class OffsetTest {
     Splash          splash          = null;
     Main            main            = null;
     UiDevice        device          = null;
-    ActivityMonitor monitor         = null;
     Instrumentation instrumentation = null;
     Preferences     prefs           = null;
     MockWebServer   tileServer      = null;
@@ -48,7 +45,7 @@ public class OffsetTest {
      * Manual start of activity so that we can set up the monitor for main
      */
     @Rule
-    public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
+    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
     /**
      * Pre-test setup
@@ -56,13 +53,8 @@ public class OffsetTest {
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
-        monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
-
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        splash = mActivityRule.launchActivity(intent);
-
-        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 30000); // wait for main
-        Assert.assertNotNull(main);
+       
+        main = mActivityRule.getActivity();
 
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
@@ -93,7 +85,6 @@ public class OffsetTest {
         } catch (Exception e) {
             // ignore
         }
-        instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
     }
 
