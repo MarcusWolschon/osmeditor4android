@@ -11,7 +11,6 @@ import android.app.Instrumentation;
 import android.content.Context;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
@@ -70,13 +69,13 @@ public class UndoRedoTest {
     @After
     public void teardown() {
         TestUtils.stopEasyEdit(main);
-        TestUtils.zoomToLevel(device, main, 18);
+        TestUtils.zoomToNullIsland(logic, map);
     }
 
     /**
      * Change a node, show the undo/redo dialog, undo, redo
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void dialog() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);

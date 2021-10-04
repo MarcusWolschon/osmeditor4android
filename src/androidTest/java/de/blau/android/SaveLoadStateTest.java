@@ -68,7 +68,7 @@ public class SaveLoadStateTest {
     @After
     public void teardown() {
         logic.deselectAll();
-        TestUtils.zoomToLevel(device, main, 18);
+        TestUtils.zoomToNullIsland(logic, map);
     }
 
     /**

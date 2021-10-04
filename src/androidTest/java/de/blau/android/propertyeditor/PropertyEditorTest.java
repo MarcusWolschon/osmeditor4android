@@ -26,7 +26,6 @@ import android.view.KeyEvent;
 import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.By;
@@ -107,6 +106,7 @@ public class PropertyEditorTest {
         device = UiDevice.getInstance(instrumentation);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
     }
 
     /**
@@ -236,7 +236,6 @@ public class PropertyEditorTest {
             Assert.fail(e.getMessage());
         }
         main.getMap().getDataLayer().setVisible(true);
-        TestUtils.stopEasyEdit(main);
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         // trying to get node click work properly is frustrating
@@ -325,7 +324,7 @@ public class PropertyEditorTest {
      * and sidewalk:left checkboxes, change role in relation check that changed keys end up in the MRU tags, undo the
      * role change.
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void way() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -339,7 +338,6 @@ public class PropertyEditorTest {
             Assert.fail(e.getMessage());
         }
         main.getMap().getDataLayer().setVisible(true);
-        TestUtils.stopEasyEdit(main);
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 22);
         TestUtils.clickAtCoordinates(device, main.getMap(), 8.3848461, 47.3899166, true);
@@ -481,7 +479,7 @@ public class PropertyEditorTest {
     /**
      * Test for max tag length
      */
-    @SdkSuppress(minSdkVersion = 24)
+    // @SdkSuppress(minSdkVersion = 24)
     @Test
     public void maxTagLength() {
         final CountDownLatch signal = new CountDownLatch(1);

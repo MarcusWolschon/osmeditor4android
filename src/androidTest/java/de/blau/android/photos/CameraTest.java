@@ -72,6 +72,7 @@ public class CameraTest {
 
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
     }
 
     /**
@@ -94,13 +95,16 @@ public class CameraTest {
     /**
      * Click on the camera button, then take a photograph
      */
-    @FlakyTest(detail="This requires a camera app to be present")
+    @FlakyTest(detail = "This requires a camera app to be present")
     @Test
     public void takePicture() {
         MapOverlay photoLayer = map.getPhotoLayer();
         assertNotNull(photoLayer);
         int origCount = photoCount();
-        assertTrue(TestUtils.clickMenuButton(device, "Camera", false, true));
+        assertTrue(TestUtils.clickMenuButton(device, "Camera", false, false));
+        TestUtils.clickText(device, false, "Camera", false);
+        TestUtils.clickText(device, false, "Just Once", false); // FIXME needs more work
+        device.waitForWindowUpdate(null, 5000);
         TestUtils.grantPermissons(device);
         if (TestUtils.findText(device, false, "Next", 2000)) {
             TestUtils.clickText(device, false, "Next", true);

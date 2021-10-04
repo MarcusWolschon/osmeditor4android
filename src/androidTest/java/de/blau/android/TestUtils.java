@@ -1,10 +1,13 @@
 package de.blau.android;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -12,20 +15,18 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 
-import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Rect;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Bundle;
-import android.os.ResultReceiver;
 import android.os.SystemClock;
+import android.provider.DocumentsContract;
 import android.util.Log;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
@@ -39,10 +40,13 @@ import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiScrollable;
 import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
+import de.blau.android.filter.Filter;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.ApiTest;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.layers.MapTilesLayer;
 import okhttp3.mockwebserver.MockResponse;
@@ -83,6 +87,18 @@ public class TestUtils {
         if (findText(device, false, "Download", 2000)) {
             clickHome(device, false);
         }
+    }
+
+    /**
+     * Zoom to null island
+     * 
+     * @param logic current logic instance
+     * @param map current map
+     */
+    public static void zoomToNullIsland(@NonNull Logic logic, @NonNull Map map) {
+        logic.setZoom(map, 18);
+        map.getViewBox().moveTo(map, 0, 0);
+        map.invalidate();
     }
 
     /**
@@ -567,6 +583,21 @@ public class TestUtils {
      * @return true if successful
      */
     public static boolean clickText(@NonNull UiDevice device, boolean clickable, @NonNull String text, boolean waitForNewWindow, boolean exact) {
+        return clickText(device, clickable, text, waitForNewWindow, exact, 500);
+    }
+
+    /**
+     * Click a text on screen (case insensitive, start of a string, if exact is false)
+     * 
+     * @param device UiDevice object
+     * @param clickable clickable if true the search will be restricted to clickable objects
+     * @param text text to search (case insensitive, uses textStartsWith)
+     * @param waitForNewWindow set the wait for new window flag if true
+     * @param exact if true use an exact text match
+     * @param wait how long to wait for the object to appear in ms
+     * @return true if successful
+     */
+    public static boolean clickText(@NonNull UiDevice device, boolean clickable, @NonNull String text, boolean waitForNewWindow, boolean exact, long wait) {
         Log.w(DEBUG_TAG, "Searching for object with " + text);
         // Note: contrary to "text", "textStartsWith" is case insensitive
         BySelector bySelector = exact ? By.text(text) : By.textStartsWith(text);
@@ -576,7 +607,7 @@ public class TestUtils {
             bySelector = bySelector.clickable(true);
             uiSelector = uiSelector.clickable(true);
         }
-        device.wait(Until.findObject(bySelector), 500);
+        device.wait(Until.findObject(bySelector), wait);
         UiObject button = device.findObject(uiSelector);
         if (button.exists()) {
             try {
@@ -584,8 +615,8 @@ public class TestUtils {
                     button.clickAndWaitForNewWindow();
                 } else {
                     button.click();
-                    Log.e(DEBUG_TAG, ".... clicked");
                 }
+                Log.e(DEBUG_TAG, ".... clicked");
                 return true;
             } catch (UiObjectNotFoundException e) {
                 Log.e(DEBUG_TAG, "Object vanished.");
@@ -692,23 +723,41 @@ public class TestUtils {
      */
     public static boolean findText(@NonNull UiDevice device, boolean clickable, @NonNull String text, long wait) {
         Log.w(DEBUG_TAG, "Searching for  " + text);
-        return findObjectWithText(device, clickable, text, wait) != null;
+        return findText(device, clickable, text, wait, false);
     }
 
     /**
-     * Find object with text on screen (case insensitive)
+     * Find text on screen
      * 
      * @param device UiDevice object
      * @param clickable if true the search will be restricted to clickable objects
      * @param text the text to find
      * @param wait time to wait in ms before timing out
-     * @return a UiObject2 if sucessful or null
+     * @param contains if true check if text contains the value case sensitive, if false check if text starts with the
+     *            text case insensitive
+     * @return true if successful
+     */
+    public static boolean findText(@NonNull UiDevice device, boolean clickable, @NonNull String text, long wait, boolean contains) {
+        Log.w(DEBUG_TAG, "Searching for  " + text);
+        return findObjectWithText(device, clickable, text, wait, contains) != null;
+    }
+
+    /**
+     * Find object with text on screen
+     * 
+     * @param device UiDevice object
+     * @param clickable if true the search will be restricted to clickable objects
+     * @param text the text to find
+     * @param wait time to wait in ms before timing out
+     * @param contains if true check if text contains the value case sensitive, if false check if text starts with the
+     *            text case insensitive
+     * @return a UiObject2 if successful or null
      */
     @Nullable
-    public static UiObject2 findObjectWithText(@NonNull UiDevice device, boolean clickable, @NonNull String text, long wait) {
+    public static UiObject2 findObjectWithText(@NonNull UiDevice device, boolean clickable, @NonNull String text, long wait, boolean contains) {
         Log.w(DEBUG_TAG, "Searching for object with " + text);
         // Note: contrary to "text", "textStartsWith" is case insensitive
-        BySelector bySelector = By.textStartsWith(text);
+        BySelector bySelector = contains ? By.textContains(text) : By.textStartsWith(text);
         if (clickable) {
             bySelector = bySelector.clickable(true);
         }
@@ -872,8 +921,9 @@ public class TestUtils {
                         true, // supportsAltitude
                         true, // supportsSpeed
                         true, // supportsBearing
-                        0, // powerRequirement
-                        5 // accuracy
+                        1, // powerRequirement see
+                           // https://developer.android.com/reference/android/location/provider/ProviderProperties
+                        1 // accuracy
                 );
                 try {
                     locationManager.removeTestProvider(LocationManager.NETWORK_PROVIDER);
@@ -887,8 +937,8 @@ public class TestUtils {
                         true, // supportsAltitude
                         true, // supportsSpeed
                         true, // supportsBearing
-                        0, // powerRequirement
-                        500 // accuracy
+                        1, // powerRequirement
+                        1 // accuracy
                 );
 
                 if (providerCriteria == Criteria.ACCURACY_FINE) {
@@ -937,18 +987,31 @@ public class TestUtils {
     }
 
     /**
-     * Finish any currently running EasyEdit modes
+     * Finish any currently running EasyEdit modes, switch to simple mode, and turn off any filters
      * 
      * @param main the current Main instance
      */
     public static void stopEasyEdit(@NonNull final Main main) {
-        App.getLogic().deselectAll();
+        Logic logic = App.getLogic();
+        logic.deselectAll();
+        Preferences prefs = logic.getPrefs();
+        prefs.enableSimpleActions(true);
+        prefs.enablePresetFilter(false);
+        prefs.enableTagFilter(false);
+        Filter filter = logic.getFilter();
+        if (filter != null) {
+            filter.hideControls();
+            filter.removeControls();
+            logic.setFilter(null);
+        }
+        logic.setMode(main, Mode.MODE_EASYEDIT);
         main.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 main.getEasyEditManager().finish();
             }
         });
+
     }
 
     /**
@@ -977,12 +1040,27 @@ public class TestUtils {
      * @param context Android Context
      * @param directory optional sub-directory
      * @param fileName the name of the file
-     * @param useVespucciDir if true ise the Vespucci directory on external storage
+     * @param useVespucciDir if true use the Vespucci directory on external storage
      */
     public static void selectFile(@NonNull UiDevice device, @NonNull Context context, @Nullable String directory, @NonNull String fileName,
             boolean useVespucciDir) {
+        selectFile(device, context, directory, fileName, useVespucciDir, false);
+    }
+
+    /**
+     * Select a file from the file picker
+     * 
+     * @param device the current UiDevice
+     * @param context Android Context
+     * @param directory optional sub-directory
+     * @param fileName the name of the file
+     * @param useVespucciDir if true use the Vespucci directory on external storage
+     * @param create if true create a new file with the name
+     */
+    public static void selectFile(@NonNull UiDevice device, @NonNull Context context, @Nullable String directory, @NonNull String fileName,
+            boolean useVespucciDir, boolean create) {
         // if the fileName we are looking for is on screen click and be done with it
-        if (TestUtils.findText(device, false, fileName) && TestUtils.clickText(device, false, fileName, true, true)) {
+        if (!create && TestUtils.findText(device, false, fileName) && TestUtils.clickText(device, false, fileName, true, true)) {
             return;
         }
         UiSelector scrollableSelector = Build.VERSION.SDK_INT > Build.VERSION_CODES.P ? new UiSelector().className("android.widget.FrameLayout")
@@ -1009,9 +1087,18 @@ public class TestUtils {
                     TestUtils.clickAt(device, device.getDisplayWidth() / 2, device.getDisplayHeight() / 2);
                 }
                 TestUtils.clickMenuButton(device, "List view", false, false);
-                TestUtils.clickMenuButton(device, "Show roots", false, true);
+                if (!TestUtils.clickMenuButton(device, "Show roots", false, true)) {
+                    // TestUtils.clickResource(device, false, "android:id/roots_toolbar", true);
+                    UiObject drawerButton = device.findObject(new UiSelector().classNameMatches("^.*.ImageButton$"));
+                    try {
+                        drawerButton.clickAndWaitForNewWindow();
+                    } catch (UiObjectNotFoundException e) {
 
-                UiSelector android = new UiSelector().resourceIdMatches(".*:id/title").textMatches("(^Android SDK.*)|(^AOSP.*)|(^Internal.*)|(^Samsung.*)|(^sdk_.*)");
+                    }
+                }
+
+                UiSelector android = new UiSelector().resourceIdMatches(".*:id/title")
+                        .textMatches("(^Android SDK.*)|(^AOSP.*)|(^Internal.*)|(^Samsung.*)|(^sdk_.*)");
                 UiObject androidButton = device.findObject(android);
                 try {
                     androidButton.clickAndWaitForNewWindow();
@@ -1028,7 +1115,60 @@ public class TestUtils {
         if (directory != null) {
             scrollToAndSelect(device, directory, scrollableSelector);
         }
-        scrollToAndSelect(device, fileName, scrollableSelector);
+        if (create) {
+            UiObject editText = device.findObject(new UiSelector().classNameMatches("^.*.EditText$"));
+            try {
+                editText.setText(fileName);
+                clickText(device, false, context.getString(R.string.save), true);
+            } catch (UiObjectNotFoundException e) {
+                Assert.fail(e.getMessage());
+            }
+        } else {
+            scrollToAndSelect(device, fileName, scrollableSelector);
+        }
+    }
+
+    /**
+     * Delete a file in the Vespucci directory
+     * 
+     * Very hackish for Android 30 up
+     * 
+     * @param ctx Android context
+     * @param fileName the relative path to the file
+     */
+    public static void deleteFile(@NonNull Context ctx, @NonNull String fileName) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) { // Android 11 and up
+                ContentResolver cr = ctx.getContentResolver();
+                String uriString = "content://com.android.externalstorage.documents/document/primary%3ADownload%2FVespucci%2F" + Uri.encode(fileName);
+                if (!DocumentsContract.deleteDocument(cr, Uri.parse(uriString))) {
+                    throw new IOException(uriString);
+                }
+            } else {
+                File testFile = new File(FileUtil.getPublicDirectory(ctx), fileName);
+                Files.delete(testFile.toPath());
+            }
+        } catch (IOException e) {
+            fail("Deleting file failed " + e.getMessage());
+        }
+    }
+
+    /**
+     * Determine if soft keyboard is visible
+     * 
+     * @param device the UiDevice
+     * @return true is the keyboard is visible
+     */
+    private static boolean softKeyboardIsVisible(@NonNull UiDevice device) {
+        UiObject editText = device.findObject(new UiSelector().classNameMatches("^.*.EditText$"));
+        try {
+            Rect bounds = editText.getVisibleBounds();
+            int height = device.getDisplayHeight();
+            return height - bounds.bottom > height / 4; // view has been pushed up
+        } catch (UiObjectNotFoundException e) {
+            return false;
+        }
+
     }
 
     /**
@@ -1041,10 +1181,22 @@ public class TestUtils {
     private static void selectDirectory(@NonNull UiDevice device, @NonNull String path, @NonNull UiSelector scrollableSelector) {
         System.out.println("Path: " + path);
         String[] dirs = path.split("/");
+        String prev = null;
         if (dirs.length > 0) {
             for (String dir : dirs) {
                 if (!"".equals(dir)) {
-                    scrollToAndSelect(device, dir, scrollableSelector);
+                    if (!scrollToAndSelect(device, dir, scrollableSelector)) {
+                        if (prev != null) {
+                            // retry to get around suspected flaky android resend back button pressed
+                            scrollToAndSelect(device, prev, scrollableSelector);
+                            if (!scrollToAndSelect(device, dir, scrollableSelector)) {
+                                Assert.fail("selectDirectory failed click on " + dir);
+                            }
+                        } else {
+                            Assert.fail("selectDirectory failed click on " + dir + " no prev dir");
+                        }
+                    }
+                    prev = dir;
                 }
             }
         }
@@ -1057,22 +1209,32 @@ public class TestUtils {
      * @param device the UiDevice
      * @param entry the text of the entry to select
      * @param scrollableSelector what Android widget is used for scrolling
+     * @return true if successful
      */
-    public static void scrollToAndSelect(@NonNull UiDevice device, @NonNull String entry, @NonNull UiSelector scrollableSelector) {
+    public static boolean scrollToAndSelect(@NonNull UiDevice device, @NonNull String entry, @NonNull UiSelector scrollableSelector) {
+        if (softKeyboardIsVisible(device)) {
+            device.pressBack();
+            device.waitForWindowUpdate(null, 10000);
+        }
         UiScrollable appView;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             appView = new UiScrollable(scrollableSelector);
         } else {
             appView = new UiScrollable(new UiSelector().scrollable(true));
         }
+        appView.setSwipeDeadZonePercentage(0.2);
+
         try {
             appView.scrollIntoView(new UiSelector().text(entry));
         } catch (UiObjectNotFoundException e) {
             // if there is no scrollable then this will fail
         }
-        if (!TestUtils.clickText(device, false, entry, true, true)) {
-            Assert.fail("scrollToAndSelect failed click on " + entry);
+
+        if (!TestUtils.clickText(device, false, entry, true, true, 1000)) {
+            Log.i(DEBUG_TAG, "scrollToAndSelect failed click on " + entry);
+            return false;
         }
+        return true;
     }
 
     /**
@@ -1120,33 +1282,6 @@ public class TestUtils {
             }
         } else {
             Log.e(DEBUG_TAG, "resetOffsets layer is null");
-        }
-    }
-
-    /**
-     * Try to hide any visible soft keyboard
-     * 
-     * FIXME doesn't seem to work
-     * 
-     * @param activity the current Activity
-     */
-    public static void hideSoftKeyboard(@NonNull Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        View view = activity.getWindow().getCurrentFocus();
-        if (view != null) {
-            final CountDownLatch signal = new CountDownLatch(1);
-            ResultReceiver receiver = new ResultReceiver(null) {
-                @Override
-                protected void onReceiveResult(int resultCode, Bundle resultData) {
-                    signal.countDown();
-                }
-            };
-            imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0, receiver);
-            try {
-                signal.await(10, TimeUnit.SECONDS); // NOSONAR
-            } catch (InterruptedException e) { // NOSONAR
-                Log.w(DEBUG_TAG, "Keyboed hiding failed");
-            }
         }
     }
 

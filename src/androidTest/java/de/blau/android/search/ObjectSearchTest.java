@@ -84,7 +84,7 @@ public class ObjectSearchTest {
     @After
     public void teardown() {
         logic.deselectAll();
-        TestUtils.zoomToLevel(device, main, 18);
+        TestUtils.zoomToNullIsland(logic, map);
     }
 
     /**
@@ -102,7 +102,7 @@ public class ObjectSearchTest {
             Assert.fail(e.getMessage());
         }
         TestUtils.clickButton(device, "android:id/button1", true);
-        device.waitForWindowUpdate(null, 500);
+        TestUtils.findText(device, false, main.getString(R.string.actionmode_wayselect), 5000);
         List<OsmElement> selected = logic.getSelectedElements();
         Assert.assertEquals(1, selected.size());
         Assert.assertTrue(selected.get(0) instanceof Way);
@@ -130,7 +130,7 @@ public class ObjectSearchTest {
             Assert.fail(e.getMessage());
         }
         TestUtils.clickButton(device, "android:id/button1", true);
-        device.waitForWindowUpdate(null, 500);
+        TestUtils.findText(device, false, main.getString(R.string.actionmode_wayselect), 5000);
         List<OsmElement> selected = logic.getSelectedElements();
         Assert.assertEquals(1, selected.size());
         Assert.assertTrue(selected.get(0) instanceof Way);
@@ -152,7 +152,7 @@ public class ObjectSearchTest {
             Assert.fail(e.getMessage());
         }
         TestUtils.clickButton(device, "android:id/button1", true);
-        device.waitForWindowUpdate(null, 500);
+        TestUtils.findText(device, false, main.getString(R.string.actionmode_multiselect), 5000);
         List<OsmElement> selected = logic.getSelectedElements();
         Assert.assertEquals(4, selected.size());
         for (OsmElement e : selected) {
@@ -176,7 +176,7 @@ public class ObjectSearchTest {
             Assert.fail(e.getMessage());
         }
         TestUtils.clickButton(device, "android:id/button1", true);
-        device.waitForWindowUpdate(null, 500);
+        TestUtils.findText(device, false, main.getString(R.string.actionmode_multiselect), 5000);
         List<OsmElement> selected = logic.getSelectedElements();
         Assert.assertEquals(9, selected.size());
         for (OsmElement e : selected) {

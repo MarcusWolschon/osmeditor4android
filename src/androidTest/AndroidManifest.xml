@@ -10,10 +10,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="28" 
+        android:targetSdkVersion="30" 
         tools:overrideLibrary="android_libs.ub_uiautomator" />
 
     <instrumentation

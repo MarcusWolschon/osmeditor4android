@@ -19,7 +19,6 @@ import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
@@ -86,13 +85,13 @@ public class RelationTest {
     @After
     public void teardown() {
         TestUtils.stopEasyEdit(main);
-        TestUtils.zoomToLevel(device, main, 18);
+        TestUtils.zoomToNullIsland(logic, map);
     }
 
     /**
      * Select, show info dialog, delete, undelete
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void selectRelation() {
         map.getDataLayer().setVisible(true);
@@ -127,7 +126,7 @@ public class RelationTest {
     /**
      * Select way, create relation, set tag, delete
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void createRelation() {
         map.getDataLayer().setVisible(true);
@@ -176,7 +175,7 @@ public class RelationTest {
     /**
      * Create way, create multipolygon, check roles
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void createAndAddToMultiPolygon() {
         map.getDataLayer().setVisible(true);

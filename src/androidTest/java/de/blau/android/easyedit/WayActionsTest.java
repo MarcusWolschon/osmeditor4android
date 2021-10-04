@@ -20,7 +20,6 @@ import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.By;
@@ -89,14 +88,14 @@ public class WayActionsTest {
     @After
     public void teardown() {
         TestUtils.stopEasyEdit(main);
-        TestUtils.zoomToLevel(device, main, 18);
+        TestUtils.zoomToNullIsland(logic, map);
         App.getTaskStorage().reset();
     }
 
     /**
      * Create a new way from menu and clicks at two more locations and finishing via home button, then square
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void square() {
         map.getDataLayer().setVisible(true);
@@ -141,7 +140,7 @@ public class WayActionsTest {
     /**
      * Select, remove two nodes
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void removeNodeFromWay() {
         map.getDataLayer().setVisible(true);
@@ -185,7 +184,7 @@ public class WayActionsTest {
     /**
      * Select way, create route, add a further segment
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void createRoute() {
         map.getDataLayer().setVisible(true);
@@ -235,7 +234,7 @@ public class WayActionsTest {
     /**
      * Select way, select route, add a further segment, re-select first segment, add 2nd segment
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void addToRoute() {
         map.getDataLayer().setVisible(true);
@@ -289,7 +288,7 @@ public class WayActionsTest {
     /**
      * Select from way, select via node, re-select from, select to way
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void createTurnRestriction() {
         map.getDataLayer().setVisible(true);
@@ -346,11 +345,11 @@ public class WayActionsTest {
         assertEquals(1, restriction.getMembersWithRole(Tags.ROLE_TO).size());
         assertEquals(49855525L, restriction.getMembersWithRole(Tags.ROLE_TO).get(0).getElement().getOsmId());
     }
-    
+
     /**
      * Create a new way from menu and append at the end and the start
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void append() {
         map.getDataLayer().setVisible(true);
@@ -370,12 +369,12 @@ public class WayActionsTest {
         assertNotNull(way);
         assertTrue(way.getOsmId() < 0);
         assertEquals(2, way.nodeCount());
-        
+
         // start append
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_append), false, true));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_append)));
-        
+
         // append at end
         TestUtils.clickAtCoordinates(device, map, 8.3887655, 47.3892752, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
@@ -387,19 +386,19 @@ public class WayActionsTest {
         assertNotNull(way);
         assertTrue(way.getOsmId() < 0);
         assertEquals(3, way.nodeCount());
-        
+
         // undo
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
         TestUtils.findText(device, false, context.getString(R.string.undo));
         TestUtils.textGone(device, context.getString(R.string.undo), 5000);
         TestUtils.clickText(device, false, context.getString(R.string.okay), true); // in case we get a tip
         assertEquals(2, way.nodeCount());
-        
+
         // start append
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_append), false, true));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_append)));
-        
+
         // append at start
         TestUtils.clickAtCoordinates(device, map, 8.3886384, 47.3892752, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
@@ -411,8 +410,7 @@ public class WayActionsTest {
         assertNotNull(way);
         assertTrue(way.getOsmId() < 0);
         assertEquals(3, way.nodeCount());
-        
-        
+
         device.waitForIdle(1000);
         TestUtils.clickUp(device);
     }

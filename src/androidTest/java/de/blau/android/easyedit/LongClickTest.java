@@ -17,7 +17,6 @@ import android.content.Context;
 import android.util.Log;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
@@ -82,7 +81,7 @@ public class LongClickTest {
      */
     private void switchSimpleMode(boolean on) {
         if (TestUtils.clickOverflowButton(device)) {
-            UiObject2 simpleMode = TestUtils.findObjectWithText(device, false, "Simple mode", 5000);
+            UiObject2 simpleMode = TestUtils.findObjectWithText(device, false, main.getString(R.string.menu_simple_actions), 5000, false);
             if (simpleMode != null) {
                 UiObject2 check = simpleMode.getParent().getParent().getChildren().get(1);
                 assertTrue(check.isCheckable());
@@ -106,7 +105,7 @@ public class LongClickTest {
     @After
     public void teardown() {
         TestUtils.stopEasyEdit(main);
-        TestUtils.zoomToLevel(device, main, 18);
+        TestUtils.zoomToNullIsland(logic, map);
         TestUtils.clickOverflowButton(device);
         switchSimpleMode(true);
         App.getTaskStorage().reset();
@@ -115,7 +114,7 @@ public class LongClickTest {
     /**
      * Create a new Node by long click plus re-click
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newNode() {
         map.getDataLayer().setVisible(true);
@@ -136,7 +135,7 @@ public class LongClickTest {
     /**
      * Create a new way from long click and clicks at two more locations and finishing via home button
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newWay() {
         map.getDataLayer().setVisible(true);
@@ -161,7 +160,7 @@ public class LongClickTest {
     /**
      * Create a new Note from long click
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newBug() {
         LayerUtils.addTaskLayer(main);

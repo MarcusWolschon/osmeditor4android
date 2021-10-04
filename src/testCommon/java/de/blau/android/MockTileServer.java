@@ -37,6 +37,7 @@ public final class MockTileServer {
      * @param removeLayers if true remove any other layers
      * @return a MockWebServer
      */
+    @NonNull
     public static MockWebServer setupTileServer(@NonNull Context context, @NonNull String mbtSource, boolean removeLayers) {
         return setupTileServer(context, mbtSource, removeLayers, LayerType.IMAGERY, TileType.BITMAP, MOCK_TILE_SOURCE);
     }
@@ -52,6 +53,7 @@ public final class MockTileServer {
      * @param id layer id
      * @return a MockWebServer
      */
+    @NonNull
     public static MockWebServer setupTileServer(@NonNull Context context, @NonNull String mbtSource, boolean removeLayers, @NonNull LayerType layerType,
             @NonNull TileType tileType, @NonNull String id) {
         MockWebServer tileServer = new MockWebServer();

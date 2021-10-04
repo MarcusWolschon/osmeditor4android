@@ -1,5 +1,6 @@
 package de.blau.android.prefs;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.junit.After;
@@ -11,7 +12,6 @@ import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
-import android.content.Intent;
 import android.view.View;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -53,7 +53,7 @@ public class CustomImageryTest {
      * Manual start of activity so that we can set up the monitor for main
      */
     @Rule
-    public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
+    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
     /**
      * Pre-test setup
@@ -63,14 +63,10 @@ public class CustomImageryTest {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
-
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        splash = mActivityRule.launchActivity(intent);
-
-        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
-
+        main = mActivityRule.getActivity();
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
     }
 
     /**
@@ -93,29 +89,34 @@ public class CustomImageryTest {
      */
     @Test
     public void customImageryValidMBTiles() {
+        File mbtiles = null;
         try {
-            JavaResources.copyFileFromResources(main, "map.mbt", null, "mbtiles");
+            mbtiles = JavaResources.copyFileFromResources(main, "map.mbt", null, "mbtiles");
+            Preferences prefs = new Preferences(main);
+            LayerUtils.removeImageryLayers(main);
+            main.getMap().setPrefs(main, prefs);
+            monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
+            Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
+            instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for prefs
+            Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true, false));
+            Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+            Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/file_button", true));
+            TestUtils.selectFile(device, main, "mbtiles", "map.mbt", true);
+            Assert.assertTrue(TestUtils.findText(device, false, "My Map"));
+            Assert.assertTrue(TestUtils.findText(device, false, "57.0527713171221"));
+            Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save_and_set), true, false));
+            Assert.assertTrue(TestUtils.findText(device, false, "My Map"));
+            Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true, false));
+            Assert.assertTrue(TestUtils.clickHome(device, true));
+            UiObject2 extentButton = TestUtils.getLayerButton(device, "My Map", LayerDialogTest.EXTENT_BUTTON);
+            extentButton.clickAndWait(Until.newWindow(), 2000);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
+        } finally {
+            if (mbtiles != null) {
+                mbtiles.delete();
+            }
         }
-        Preferences prefs = new Preferences(main);
-        LayerUtils.removeImageryLayers(main);
-        main.getMap().setPrefs(main, prefs);
-        monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
-        Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
-        instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
-        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true, false));
-        Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
-        Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/file_button", true));
-        TestUtils.selectFile(device, main, "mbtiles", "map.mbt", true);
-        Assert.assertTrue(TestUtils.findText(device, false, "My Map"));
-        Assert.assertTrue(TestUtils.findText(device, false, "57.0527713171221"));
-        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save_and_set), true, false));
-        Assert.assertTrue(TestUtils.findText(device, false, "My Map"));
-        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true, false));
-        Assert.assertTrue(TestUtils.clickHome(device, true));
-        UiObject2 extentButton = TestUtils.getLayerButton(device, "My Map", LayerDialogTest.EXTENT_BUTTON);
-        extentButton.clickAndWait(Until.newWindow(), 2000);
     }
 
     /**
@@ -123,26 +124,32 @@ public class CustomImageryTest {
      */
     @Test
     public void customImageryInvalidMBTiles() {
+        File mbtiles = null;
         try {
-            JavaResources.copyFileFromResources(main, "map-no-meta.mbt", null, "mbtiles");
+            mbtiles = JavaResources.copyFileFromResources(main, "map-no-meta.mbt", null, "mbtiles");
+            Preferences prefs = new Preferences(main);
+            LayerUtils.removeImageryLayers(main);
+            main.getMap().setPrefs(main, prefs);
+            monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
+            Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
+            instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for prefs
+            Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true, false));
+            Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+            Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/file_button", true));
+            TestUtils.selectFile(device, main, "mbtiles", "map-no-meta.mbt", true);
+            UiObject url = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/url"));
+            try {
+                Assert.assertEquals("", url.getText()); // url not set
+            } catch (UiObjectNotFoundException e) {
+                Assert.fail(e.getMessage());
+            }
+
         } catch (IOException e) {
             Assert.fail(e.getMessage());
-        }
-        Preferences prefs = new Preferences(main);
-        LayerUtils.removeImageryLayers(main);
-        main.getMap().setPrefs(main, prefs);
-        monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
-        Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
-        instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
-        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true, false));
-        Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
-        Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/file_button", true));
-        TestUtils.selectFile(device, main, "mbtiles", "map-no-meta.mbt", true);
-        UiObject url = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/url"));
-        try {
-            Assert.assertEquals("", url.getText()); // url not set
-        } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+        } finally {
+            if (mbtiles != null) {
+                mbtiles.delete();
+            }
         }
     }
 }

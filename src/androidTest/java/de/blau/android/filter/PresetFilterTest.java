@@ -58,6 +58,7 @@ public class PresetFilterTest {
 
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
         TestUtils.loadTestData(main, "test2.osm");
     }
 
@@ -86,7 +87,7 @@ public class PresetFilterTest {
         TestUtils.sleep(2000);
         TestUtils.clickAtCoordinates(device, main.getMap(), 8.38819D, 47.38961D);
         assertTrue(TestUtils.findText(device, false, "Way selected", 5000));
-        assertEquals(206010144L,App.getLogic().getSelectedWay().getOsmId());
+        assertEquals(206010144L, App.getLogic().getSelectedWay().getOsmId());
         TestUtils.clickUp(device);
         TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Preset filter", true, false);

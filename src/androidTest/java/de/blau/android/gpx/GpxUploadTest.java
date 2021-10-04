@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.junit.After;
@@ -15,12 +16,13 @@ import org.junit.runner.RunWith;
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
 import android.app.Instrumentation;
+import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
-import ch.poole.android.screenshotrule.ScreenshotRule;
+import androidx.test.uiautomator.UiObject2;
 import de.blau.android.App;
 import de.blau.android.JavaResources;
 import de.blau.android.Main;
@@ -51,9 +53,6 @@ public class GpxUploadTest {
      */
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
-    
-    @Rule
-    public ScreenshotRule screenshotRule = new ScreenshotRule();
 
     /**
      * Pre-test setup
@@ -124,39 +123,63 @@ public class GpxUploadTest {
                 }
             }
         }
-
         try {
-            JavaResources.copyFileFromResources(main, GPX_FILE, null, "/");
-            screenshotRule.screenshot(main, "gpx_upload_1");
-            clickGpsButton();
-            if (TestUtils.findObjectWithText(device, false, main.getString(R.string.menu_gps_clear), 1000).getParent().getParent().getParent().isEnabled()) {
-                TestUtils.clickText(device, false, main.getString(R.string.menu_gps_clear), true, false);
-                TestUtils.clickText(device, false, main.getString(R.string.clear_anyway), true, false);
-                clickGpsButton();
+            File gpxFile = JavaResources.copyFileFromResources(main, GPX_FILE, null, "/");
+            try {
+                clickGpsButton(device);
+                UiObject2 clearItem = TestUtils.findObjectWithText(device, false, main.getString(R.string.menu_gps_clear), 1000, false);
+                assertNotNull(clearItem);
+                if (isEnabled(clearItem)) {
+                    TestUtils.clickText(device, false, main.getString(R.string.menu_gps_clear), true, false);
+                    TestUtils.clickText(device, false, main.getString(R.string.clear_anyway), true, false);
+                    clickGpsButton(device);
+                }
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_track_managment), true, false));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_import), true, false));
+                TestUtils.selectFile(device, main, null, GPX_FILE, true);
+                TestUtils.textGone(device, "Imported", 10000);
+                clickGpsButton(device);
+                if (!TestUtils.findText(device, false, main.getString(R.string.menu_gps_goto_start))) {
+                    TestUtils.scrollTo(main.getString(R.string.menu_gps_goto_start));
+                }
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_goto_start), true, false));
+                TestUtils.clickText(device, false, main.getString(R.string.okay), false); // click away tip
+                clickGpsButton(device);
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_track_managment), true, false));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_upload), true, false));
+                mockServer.enqueue("200");
+                assertTrue(TestUtils.clickResource(device, false, "android:id/button1", true));
+                assertTrue(TestUtils.textGone(device, "Uploading", 5000));
+            } finally {
+                TestUtils.deleteFile(main, GPX_FILE);
             }
-            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_track_managment), true, false));
-            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_import), true, false));
-            TestUtils.selectFile(device, main, null, GPX_FILE, true);
-            TestUtils.textGone(device, "Imported", 10000);
-            clickGpsButton();
-            screenshotRule.screenshot(main, "gpx_upload_2");
-            TestUtils.scrollTo(main.getString(R.string.menu_gps_goto_start));
-            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_goto_start), true, false));
-            clickGpsButton();
-            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_track_managment), true, false));
-            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_upload), true, false));
-            mockServer.enqueue("200");
-            assertTrue(TestUtils.clickResource(device, false, "android:id/button1", true));
-            assertTrue(TestUtils.textGone(device, "Uploading", 5000));
         } catch (IOException e) {
             fail(e.getMessage());
         }
     }
 
     /**
-     * Click the GPS menu button
+     * Check if all parents are enabled
+     * 
+     * @param item the object to check
+     * @return true if all parents are enabled
      */
-    void clickGpsButton() {
+    public static boolean isEnabled(@NonNull UiObject2 item) {
+        do {
+            if (!item.isEnabled()) {
+                return false;
+            }
+            item = item.getParent();
+        } while (item != null);
+        return true;
+    }
+
+    /**
+     * Click the GPS menu button
+     * 
+     * @param device the UiDevice
+     */
+    public static void clickGpsButton(@NonNull UiDevice device) {
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
     }
 }

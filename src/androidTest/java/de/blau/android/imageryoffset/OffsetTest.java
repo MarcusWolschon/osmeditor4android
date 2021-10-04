@@ -67,7 +67,7 @@ public class OffsetTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
         TestUtils.grantPermissons(device);
-        
+
         LayerUtils.removeImageryLayers(main);
         tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
         prefs = new Preferences(main);
@@ -125,7 +125,7 @@ public class OffsetTest {
         App.getLogic().setZoom(map, 19);
         map.getViewBox().moveTo(map, (int) (offset.getLon() * 1E7D), (int) (offset.getLat() * 1E7D));
         map.invalidate();
-        TestUtils.sleep();
+        TestUtils.sleep(10000);
         map.setPrefs(main, prefs);
         Offset[] tlo = osmts.getOffsets();
         Assert.assertEquals(20, tlo.length);

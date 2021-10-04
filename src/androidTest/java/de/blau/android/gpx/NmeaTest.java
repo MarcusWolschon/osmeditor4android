@@ -1,12 +1,16 @@
 package de.blau.android.gpx;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,12 +22,14 @@ import android.content.Intent;
 import android.location.Location;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject2;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.Map;
 import de.blau.android.MockTileServer;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
@@ -74,10 +80,13 @@ public class NmeaTest {
         tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
         prefs = new Preferences(main);
         prefs.setGpsSource(R.string.gps_source_tcpserver);
-        App.getLogic().setPrefs(prefs);
-        main.getMap().setPrefs(main, prefs);
+        Logic logic = App.getLogic();
+        logic.setPrefs(prefs);
+        Map map = main.getMap();
+        map.setPrefs(main, prefs);
 
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.zoomToNullIsland(logic, map);
     }
 
     /**
@@ -103,23 +112,19 @@ public class NmeaTest {
     /**
      * Replay a pre-recorded track with NMEA data
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void recordNmea() {
-        Assert.assertNotNull(main);
+        assertNotNull(main);
 
         // wait for the trackerservice to start
         // unluckily there doesn't seem to be any elegant way to do this
         int retries = 0;
         while (main.getTracker() == null && retries < 60) {
-            try {
-                Thread.sleep(1000); // NOSONAR
-            } catch (InterruptedException e) {
-                // Ignore
-            }
+            TestUtils.sleep();
             retries++;
             if (retries >= 60) {
-                Assert.fail("Tracker service didn't start");
+                fail("Tracker service didn't start");
             }
         }
         // set min distance to 1m
@@ -128,21 +133,20 @@ public class NmeaTest {
         main.invalidateOptionsMenu();
 
         TestUtils.zoomToLevel(device, main, 19);
-        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/follow", false);
+        GpxUploadTest.clickGpsButton(device);
 
-        Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Start GPX track", false, false));
+        UiObject2 startItem = TestUtils.findObjectWithText(device, false, main.getString(R.string.menu_gps_start), 1000, false);
+        assertNotNull(startItem);
+        assertTrue(GpxUploadTest.isEnabled(startItem));
+        startItem.click();
+        TestUtils.clickText(device, false, main.getString(R.string.okay), false); // click away tip
         // wait for the tracking to actually start
         retries = 0;
         while (!main.getTracker().isTracking() && retries < 60) {
-            try {
-                Thread.sleep(1000); // NOSONAR
-            } catch (InterruptedException e) {
-                // Ignore
-            }
+            TestUtils.sleep();
             retries++;
             if (retries >= 60) {
-                Assert.fail("Tracker service didn't start tracking");
+                fail("Tracker service didn't start tracking");
             }
         }
 
@@ -152,14 +156,14 @@ public class NmeaTest {
         try {
             signal.await(TIMEOUT, TimeUnit.SECONDS); // NOSONAR
         } catch (InterruptedException e) { // NOSONAR
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
-        Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true, false));
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_pause), true, false));
         List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
-        Assert.assertEquals(216, recordedTrack.size());
+        assertEquals(216, recordedTrack.size());
         Location lastLocation = main.getTracker().getLastLocation();
-        Assert.assertEquals(47.39804275, lastLocation.getLatitude(), 0.000001);
-        Assert.assertEquals(8.376432616666667, lastLocation.getLongitude(), 0.000001);
+        assertEquals(47.39804275, lastLocation.getLatitude(), 0.000001);
+        assertEquals(8.376432616666667, lastLocation.getLongitude(), 0.000001);
     }
 }

@@ -15,7 +15,6 @@ import org.junit.runner.RunWith;
 import android.content.Context;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
@@ -79,13 +78,13 @@ public class NodeTest {
     @After
     public void teardown() {
         TestUtils.stopEasyEdit(main);
-        TestUtils.zoomToLevel(device, main, 18);
+        TestUtils.zoomToNullIsland(logic, map);
     }
 
     /**
      * Select, show info dialog, show position dialog, delete, undelete
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void selectNode() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
@@ -114,7 +113,7 @@ public class NodeTest {
     /**
      * Select, drag, undo
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void dragNode() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
@@ -139,7 +138,7 @@ public class NodeTest {
     /**
      * Select, unjoin, merge
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void unjoinMergeWays() {
         TestUtils.zoomToLevel(device, main, 21);
@@ -170,7 +169,7 @@ public class NodeTest {
     /**
      * Select, unjoin, merge multiple nodes
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void unjoinMergeNodes() {
         TestUtils.zoomToLevel(device, main, 21);
@@ -203,7 +202,7 @@ public class NodeTest {
     /**
      * Select node that is member of a way, append to it
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void append() {
         TestUtils.zoomToLevel(device, main, 21);
@@ -220,7 +219,7 @@ public class NodeTest {
     /**
      * Select node that is member of multiple ways, append to it
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void appendWithMenu() {
         TestUtils.zoomToLevel(device, main, 21);

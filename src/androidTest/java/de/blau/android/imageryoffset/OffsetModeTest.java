@@ -16,11 +16,11 @@ import android.app.Instrumentation.ActivityMonitor;
 import android.content.Intent;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.MockTileServer;
@@ -48,6 +48,7 @@ public class OffsetModeTest {
     MockWebServerPlus       mockServer      = null;
     MockWebServer           tileServer      = null;
     Preferences             prefs           = null;
+    Logic                   logic           = null;
     Map                     map             = null;
 
     @Rule
@@ -81,9 +82,11 @@ public class OffsetModeTest {
 
         map = main.getMap();
         map.setPrefs(main, prefs);
-        App.getLogic().setPrefs(prefs);
+        logic = App.getLogic();
+        logic.setPrefs(prefs);
         TestUtils.resetOffsets(main.getMap());
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.zoomToNullIsland(logic, map);
         main.invalidateOptionsMenu(); // to be sure that the menu entry is actually shown
     }
 
@@ -93,7 +96,7 @@ public class OffsetModeTest {
     @After
     public void teardown() {
         if (main != null) {
-            TestUtils.zoomToLevel(device, main, 18);
+            TestUtils.zoomToNullIsland(logic, map);
             TestUtils.resetOffsets(main.getMap());
             main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
             main.finish();
@@ -112,7 +115,7 @@ public class OffsetModeTest {
     /**
      * Start offset mode and drag the screen
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void createOffset() {
         startMode();
@@ -181,7 +184,7 @@ public class OffsetModeTest {
     /**
      * Start offset mode and download a offset
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void downloadOffset() {
         mockServer.enqueue("imagery_offset");

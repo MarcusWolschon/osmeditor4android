@@ -1,13 +1,11 @@
 package de.blau.android.tasks;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -47,20 +45,21 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.util.FileUtil;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class ReadSaveTasksTest {
 
-    private static final String TEST_OSN   = "test.osn";
-    MockWebServerPlus           mockServer = null;
-    Context                     context    = null;
-    AdvancedPrefDatabase        prefDB     = null;
-    Main                        main       = null;
-    TaskStorage                 ts         = null;
-    UiDevice                    device     = null;
+    private static final String TEST_RESULT_OSN = "test-result.osn";
+    private static final String TEST_JSON       = "test.json";
+    private static final String TEST_OSN        = "test.osn";
+    MockWebServerPlus           mockServer      = null;
+    Context                     context         = null;
+    AdvancedPrefDatabase        prefDB          = null;
+    Main                        main            = null;
+    TaskStorage                 ts              = null;
+    UiDevice                    device          = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -82,7 +81,6 @@ public class ReadSaveTasksTest {
         ts = App.getTaskStorage();
         ts.reset();
         prefDB = new AdvancedPrefDatabase(context);
-        App.getTaskStorage().reset();
     }
 
     /**
@@ -118,25 +116,27 @@ public class ReadSaveTasksTest {
         assertTrue(tasks.get(0) instanceof CustomBug);
         CustomBug bug = (CustomBug) tasks.get(0);
         bug.close();
-        final CountDownLatch signal2 = new CountDownLatch(1);
-        TransferTasks.writeCustomBugFile(main, "test.json", new SignalHandler(signal2));
         try {
-            signal2.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            fail(e.getMessage());
-        }
+            assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_write_custom_bugs), true, false));
+            TestUtils.selectFile(device, context, null, TEST_JSON, true, true);
 
-        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_read_custom_bugs), true, false));
-        TestUtils.selectFile(device, main, null, "test.json", true);
-        TestUtils.findText(device, false, main.getString(R.string.toast_read_successfully), 1000);
-        TestUtils.textGone(device, main.getString(R.string.toast_read_successfully), 1000);
-        //
-        tasks = ts.getTasks();
-        assertEquals(1, tasks.size());
-        assertTrue(tasks.get(0) instanceof CustomBug);
+            assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_read_custom_bugs), true, false));
+            TestUtils.selectFile(device, main, null, TEST_JSON, true);
+            TestUtils.findText(device, false, main.getString(R.string.toast_read_successfully), 1000);
+            TestUtils.textGone(device, main.getString(R.string.toast_read_successfully), 1000);
+            //
+            tasks = ts.getTasks();
+            assertEquals(1, tasks.size());
+            assertTrue(tasks.get(0) instanceof CustomBug);
+        } finally {
+            TestUtils.deleteFile(main, TEST_JSON);
+        }
     }
 
     /**
@@ -170,25 +170,26 @@ public class ReadSaveTasksTest {
         } catch (InterruptedException e) {
             fail(e.getMessage());
         }
-        List<Task> tasks = App.getTaskStorage().getTasks();
+        List<Task> tasks = ts.getTasks();
         // note the fixture contains 100 notes, however 41 of them are closed and expired
         assertEquals(59, tasks.size());
+        try {
+            assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_save_notes_all), true, false));
+            TestUtils.selectFile(device, context, null, TEST_OSN, true, true);
 
-        final CountDownLatch signal1 = new CountDownLatch(1);
-        TransferTasks.writeOsnFile(main, true, TEST_OSN, new SignalHandler(signal1));
-        try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            fail(e.getMessage());
-        }
-        try {
-            byte[] testContent = TestUtils.readInputStream(new FileInputStream(new File(FileUtil.getPublicDirectory(main), TEST_OSN)));
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            InputStream is = loader.getResourceAsStream("test-result.osn");
-            byte[] correctContent = TestUtils.readInputStream(is);
-            assertArrayEquals(correctContent, testContent);
-        } catch (IOException e) {
-            fail(e.getMessage());
+            assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_read_notes), true, false));
+            TestUtils.selectFile(device, main, null, TEST_OSN, true);
+
+            tasks = ts.getTasks();
+            assertEquals(59, tasks.size());
+        } finally {
+            TestUtils.deleteFile(main, TEST_OSN);
         }
     }
 
@@ -198,25 +199,29 @@ public class ReadSaveTasksTest {
     @Test
     public void readNotes() {
         try {
-            JavaResources.copyFileFromResources(main, "test-result.osn", null, "/");
+            File notes = JavaResources.copyFileFromResources(main, TEST_RESULT_OSN, null, "/");
+            try {
+                assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_read_notes), true, false));
+                TestUtils.selectFile(device, main, null, TEST_RESULT_OSN, true);
+                TestUtils.findText(device, false, main.getString(R.string.toast_read_successfully), 1000);
+                TestUtils.textGone(device, main.getString(R.string.toast_read_successfully), 1000);
+                List<Task> tasks = App.getTaskStorage().getTasks();
+                // see previous test
+                assertEquals(59, tasks.size());
+                for (Task t : tasks) {
+                    if (t instanceof Note && t.getId() == 893035) {
+                        return;
+                    }
+                }
+                fail("Note 893035 not found");
+            } finally {
+                TestUtils.deleteFile(main, TEST_RESULT_OSN);
+            }
         } catch (IOException e) {
             fail(e.getMessage());
         }
-        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_read_notes), true, false));
-        TestUtils.selectFile(device, main, null, "test-result.osn", true);
-        TestUtils.findText(device, false, main.getString(R.string.toast_read_successfully), 1000);
-        TestUtils.textGone(device, main.getString(R.string.toast_read_successfully), 1000);
-        List<Task> tasks = App.getTaskStorage().getTasks();
-        // see previous test
-        assertEquals(59, tasks.size());
-        for (Task t : tasks) {
-            if (t instanceof Note && t.getId() == 893035) {
-                return;
-            }
-        }
-        fail("Note 893035 not found");
     }
 }

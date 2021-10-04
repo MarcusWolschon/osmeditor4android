@@ -1,10 +1,15 @@
 package de.blau.android;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,6 +31,8 @@ import de.blau.android.osm.Node;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.tasks.Note;
+import de.blau.android.tasks.OsmoseBug;
 import de.blau.android.tasks.Task;
 import okhttp3.HttpUrl;
 
@@ -81,6 +88,9 @@ public class IntentsTest {
         map.setUpLayers(main);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
+        App.getDelegator().reset(false);
+        App.getTaskStorage().reset();
     }
 
     /**
@@ -124,17 +134,22 @@ public class IntentsTest {
         main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
         TestUtils.selectIntentRecipient(device);
         GeoUrlActivity geo = (GeoUrlActivity) instrumentation.waitForMonitorWithTimeout(geoMonitor, 60000);
-        Assert.assertNotNull(geo);
-        // there currently doesn't seem to be a reasonable way to wait until we have downloaded
-        // reading both the data, Notes and so on takes quite long
-        try {
-            Thread.sleep(10000); // NOSONAR
-        } catch (InterruptedException e1) {
-        }
-        Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
+        assertNotNull(geo);
+        takeRequests();
+        assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
         List<Task> tasks = App.getTaskStorage().getTasks();
         //
-        Assert.assertEquals(151, tasks.size()); // combined count of OSMOSE bugs and notes
+        int osmose = 0;
+        int notes = 0;
+        for (Task t : tasks) {
+            if (t instanceof Note) {
+                notes++;
+            } else if (t instanceof OsmoseBug) {
+                osmose++;
+            }
+        }
+        System.out.println("Counts " + osmose + " " + notes);
+        assertEquals(151, tasks.size()); // combined count of OSMOSE bugs and notes
     }
 
     /**
@@ -155,17 +170,12 @@ public class IntentsTest {
         main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
         TestUtils.selectIntentRecipient(device);
         GeoUrlActivity geo = (GeoUrlActivity) instrumentation.waitForMonitorWithTimeout(geoMonitor, 60000);
-        Assert.assertNotNull(geo);
-
-        // there currently doesn't seem to be a reasonable way to wait until we have downloaded
-        try {
-            Thread.sleep(5000); // NOSONAR
-        } catch (InterruptedException e1) {
-        }
-        Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
-        Assert.assertEquals(18, main.getMap().getZoomLevel());
-        Assert.assertEquals(8.385D, main.getMap().getViewBox().getCenter()[0], 0.0001D);
-        Assert.assertEquals(47.3905D, main.getMap().getViewBox().getCenter()[1], 0.0001D);
+        assertNotNull(geo);
+        takeRequests();
+        assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
+        assertEquals(18, main.getMap().getZoomLevel());
+        assertEquals(8.385D, main.getMap().getViewBox().getCenter()[0], 0.0001D);
+        assertEquals(47.3905D, main.getMap().getViewBox().getCenter()[1], 0.0001D);
     }
 
     /**
@@ -187,17 +197,28 @@ public class IntentsTest {
         main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
         TestUtils.selectIntentRecipient(device);
         RemoteControlUrlActivity rc = (RemoteControlUrlActivity) instrumentation.waitForMonitorWithTimeout(rcMonitor, 60000);
-        Assert.assertNotNull(rc);
+        assertNotNull(rc);
+        takeRequests();
+        assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
+        assertTrue(18 <= main.getMap().getZoomLevel());
+        assertEquals(101792984L, App.getLogic().getSelectedNode().getOsmId());
+        assertEquals("thisisatest", App.getLogic().getDraftComment());
+    }
 
-        // there currently doesn't seem to be a reasonable way to wait until we have downloaded
+    /**
+     * Wait till all api requests have been answered
+     */
+    private void takeRequests() {
         try {
-            Thread.sleep(5000); // NOSONAR
-        } catch (InterruptedException e1) {
+            mockServer.server().takeRequest(10L, TimeUnit.SECONDS);
+            mockServer.server().takeRequest(10L, TimeUnit.SECONDS);
+            mockServerNotes.server().takeRequest(10L, TimeUnit.SECONDS);
+            mockServerOsmose.server().takeRequest(10L, TimeUnit.SECONDS);
+            // processing the downloads takes time
+            TestUtils.sleep(30000);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
         }
-        Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
-        Assert.assertTrue(18 <= main.getMap().getZoomLevel());
-        Assert.assertEquals(101792984L, App.getLogic().getSelectedNode().getOsmId());
-        Assert.assertEquals("thisisatest", App.getLogic().getDraftComment());
     }
 
     /**
@@ -210,16 +231,13 @@ public class IntentsTest {
         main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
         TestUtils.selectIntentRecipient(device);
         RemoteControlUrlActivity rc = (RemoteControlUrlActivity) instrumentation.waitForMonitorWithTimeout(rcMonitor, 60000);
-        Assert.assertNotNull(rc);
+        assertNotNull(rc);
 
-        // there currently doesn't seem to be a reasonable way to wait until we have downloaded
-        try {
-            Thread.sleep(5000); // NOSONAR
-        } catch (InterruptedException e1) {
-        }
+        // there currently doesn't seem to be a reasonable way to wait
+        TestUtils.sleep(5000);
         TileLayerSource tileServer = TileLayerSource.get(context, TileLayerSource.nameToId("osmtest"), false);
-        Assert.assertEquals("osmtest", tileServer.getName());
-        Assert.assertEquals(2, tileServer.getMinZoomLevel());
-        Assert.assertEquals(19, tileServer.getMaxZoomLevel());
+        assertEquals("osmtest", tileServer.getName());
+        assertEquals(2, tileServer.getMinZoomLevel());
+        assertEquals(19, tileServer.getMaxZoomLevel());
     }
 }

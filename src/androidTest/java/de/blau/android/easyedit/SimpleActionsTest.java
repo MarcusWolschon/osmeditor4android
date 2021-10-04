@@ -5,7 +5,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -15,10 +18,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
@@ -32,6 +36,7 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
+import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -49,6 +54,7 @@ public class SimpleActionsTest {
     UiDevice             device  = null;
     Map                  map     = null;
     Logic                logic   = null;
+    Preferences          prefs   = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -61,7 +67,7 @@ public class SimpleActionsTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
-        Preferences prefs = new Preferences(context);
+        prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
         prefs.enableSimpleActions(true);
         main.runOnUiThread(() -> main.showSimpleActionsButton());
@@ -82,14 +88,14 @@ public class SimpleActionsTest {
     @After
     public void teardown() {
         TestUtils.stopEasyEdit(main);
-        TestUtils.zoomToLevel(device, main, 18);
+        TestUtils.zoomToNullIsland(logic, map);
         App.getTaskStorage().reset();
     }
 
     /**
      * Create a new Node
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newNode() {
         map.getDataLayer().setVisible(true);
@@ -111,7 +117,7 @@ public class SimpleActionsTest {
     /**
      * Create a new way from menu and clicks at two more locations and finishing via home button
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newWay() {
         map.getDataLayer().setVisible(true);
@@ -145,9 +151,19 @@ public class SimpleActionsTest {
     /**
      * Create a new Note
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newBug() {
+        SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
+        Resources r = context.getResources();
+        String notesSelector = r.getString(R.string.bugfilter_notes);
+        Set<String> set = new HashSet<String>(Arrays.asList(notesSelector));
+        p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
+        if (map.getTaskLayer() == null) {
+            de.blau.android.layer.Util.addLayer(main, LayerType.TASKS);
+            main.getMap().setPrefs(context, prefs);
+            map.invalidate();
+        }
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);

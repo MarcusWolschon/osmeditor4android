@@ -19,7 +19,6 @@ import android.app.Instrumentation;
 import android.content.Context;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
@@ -88,27 +87,32 @@ public class ReadSaveDataTest {
         }
 
         final CountDownLatch signal2 = new CountDownLatch(1);
-        logic.writeOsmFile(main, TEST_OSM, new SignalHandler(signal2));
+        File output = new File(context.getExternalCacheDir(), TEST_OSM);
         try {
-            signal2.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
-        } catch (InterruptedException e) { // NOSONAR
-            Assert.fail(e.getMessage());
-        }
+            logic.writeOsmFile(main, output.getAbsolutePath(), new SignalHandler(signal2));
+            try {
+                signal2.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+            } catch (InterruptedException e) { // NOSONAR
+                Assert.fail(e.getMessage());
+            }
 
-        try {
-            byte[] testContent = TestUtils.readInputStream(new FileInputStream(new File(FileUtil.getPublicDirectory(main), TEST_OSM)));
-            is = loader.getResourceAsStream("test-result.osm");
-            byte[] correctContent = TestUtils.readInputStream(is);
-            Assert.assertTrue(dataIsSame(correctContent, testContent));
-        } catch (IOException e) {
-            Assert.fail(e.getMessage());
+            try {
+                byte[] testContent = TestUtils.readInputStream(new FileInputStream(output));
+                is = loader.getResourceAsStream("test-result.osm");
+                byte[] correctContent = TestUtils.readInputStream(is);
+                Assert.assertTrue(dataIsSame(correctContent, testContent));
+            } catch (IOException e) {
+                Assert.fail(e.getMessage());
+            }
+        } finally {
+            output.delete();
         }
     }
 
     /**
      * Read a file in OSM/JOSM XML format, then write it and check if the contents are the same
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void dataReadModifySave() {
         Logic logic = App.getLogic();

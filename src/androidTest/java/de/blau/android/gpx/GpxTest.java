@@ -29,7 +29,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
@@ -37,6 +36,7 @@ import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.MockTileServer;
@@ -94,11 +94,15 @@ public class GpxTest {
         tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
         de.blau.android.layer.Util.addLayer(main, LayerType.GPX);
         prefs = new Preferences(main);
-        App.getLogic().setPrefs(prefs);
-        main.getMap().setPrefs(main, prefs);
+        Logic logic = App.getLogic();
+        logic.setPrefs(prefs);
+        Map map = main.getMap();
+        map.setPrefs(main, prefs);
 
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
+        TestUtils.zoomToNullIsland(logic, map);
     }
 
     /**
@@ -128,7 +132,7 @@ public class GpxTest {
     /**
      * Replay a pre-recorded track and check that we record the same
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void recordSaveAndImportGpx() {
         assertNotNull(main);
@@ -227,18 +231,19 @@ public class GpxTest {
     /**
      * Import a track file with waypoints and create an OSM object from one of them
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void importWayPoints() {
         assertNotNull(main);
-        main.getTracker().getTrack().reset(); // clear out anything saved
+        Track track = main.getTracker().getTrack();
+        track.reset(); // clear out anything saved
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
-        main.getTracker().getTrack().importFromGPX(is);
-        assertEquals(112, main.getTracker().getTrack().getTrack().size());
-        assertEquals(79, main.getTracker().getTrack().getWayPoints().length);
+        track.importFromGPX(is);
+        assertEquals(112, track.getTrack().size());
+        assertEquals(79, track.getWayPoints().length);
         WayPoint foundWp = null;
-        for (WayPoint wp : main.getTracker().getTrack().getWayPoints()) {
+        for (WayPoint wp : track.getWayPoints()) {
             if (doubleEquals(47.3976189, wp.getLatitude()) && doubleEquals(8.3770144, wp.getLongitude())) {
                 foundWp = wp;
                 break;
@@ -344,6 +349,8 @@ public class GpxTest {
         int trackSize = trackPoints.size();
         int recordedTrackSize = recordedTrack.size();
         // compare with a bit of tolerance
+        System.out.println("Track size " + trackSize);
+        System.out.println("Recorded track size " + recordedTrackSize);
         assertTrue((recordedTrackSize >= (trackSize - 2)) && (recordedTrackSize <= trackSize));
         int i = 0;
         int offset = 0;

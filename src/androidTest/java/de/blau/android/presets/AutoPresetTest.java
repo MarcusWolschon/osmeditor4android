@@ -1,11 +1,16 @@
 package de.blau.android.presets;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,8 +29,10 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
+import androidx.test.uiautomator.UiObject2;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
+import androidx.test.uiautomator.Until;
 import de.blau.android.App;
 import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
@@ -47,15 +54,16 @@ import okhttp3.HttpUrl;
 @LargeTest
 public class AutoPresetTest {
 
-    private static final String AMENITY_PAYMENT_CENTRE = "amenity\tpayment_centre";
-    MockWebServerPlus           mockTaginfoServer      = null;
-    MockWebServerPlus           mockApiServer          = null;
-    Context                     context                = null;
-    AdvancedPrefDatabase        prefDB                 = null;
-    Instrumentation             instrumentation        = null;
-    Main                        main                   = null;
-    UiDevice                    device                 = null;
-    Preferences                 prefs                  = null;
+    private static final String AMENITY_PAYMENT_CENTRE_LABEL = "amenity payment_centre";
+    private static final String AMENITY_PAYMENT_CENTRE       = "amenity\tpayment_centre";
+    MockWebServerPlus           mockTaginfoServer            = null;
+    MockWebServerPlus           mockApiServer                = null;
+    Context                     context                      = null;
+    AdvancedPrefDatabase        prefDB                       = null;
+    Instrumentation             instrumentation              = null;
+    Main                        main                         = null;
+    UiDevice                    device                       = null;
+    Preferences                 prefs                        = null;
     private ActivityMonitor     monitor;
 
     @Rule
@@ -127,14 +135,14 @@ public class AutoPresetTest {
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 577098580L);
-        Assert.assertNotNull(n);
+        assertNotNull(n);
 
         main.performTagEdit(n, null, false, true);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditor);
         // in case these presets exist, this removes them
         // from the index so that they will not be found when
         // de-duping
@@ -146,7 +154,7 @@ public class AutoPresetTest {
         try {
             field.click();
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_P);
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_A);
@@ -163,27 +171,28 @@ public class AutoPresetTest {
         mockTaginfoServer.enqueue("autopreset6");
         mockTaginfoServer.enqueue("autopreset7");
         device.waitForIdle();
-        Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/search_online", true));
-        Assert.assertTrue(TestUtils.findText(device, false, "amenity payment_centre", 10000));
-        Assert.assertTrue(TestUtils.clickText(device, false, "amenity payment_centre", true, true));
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/search_online", true));
+        UiObject2 preset = TestUtils.findObjectWithText(device, false, AMENITY_PAYMENT_CENTRE_LABEL, 20000, true);
+        assertNotNull(preset);
+        preset.clickAndWait(Until.newWindow(), 10000);
         TestUtils.clickHome(device, true); // close the PropertEditor and save
-        Assert.assertEquals("payment_centre", n.getTagWithKey(Tags.KEY_AMENITY));
+        assertEquals("payment_centre", n.getTagWithKey(Tags.KEY_AMENITY));
         // check auto-preset
         Preset[] presets = App.getCurrentPresets(main);
         Preset autoPreset = presets[presets.length - 1];
-        Assert.assertNotNull(autoPreset);
-        Assert.assertFalse(autoPreset.getItemByTag(AMENITY_PAYMENT_CENTRE).isEmpty());
+        assertNotNull(autoPreset);
+        assertFalse(autoPreset.getItemByTag(AMENITY_PAYMENT_CENTRE).isEmpty());
         // restart and remove
         instrumentation.removeMonitor(monitor);
         monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
         main.performTagEdit(n, null, false, true);
         propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditor);
         TestUtils.clickText(device, false, "Auto-preset", true);
-        TestUtils.longClickText(device, "amenity payment_centre");
+        TestUtils.longClickText(device, AMENITY_PAYMENT_CENTRE_LABEL);
         TestUtils.findText(device, true, "Delete", 10000);
         TestUtils.clickText(device, true, "Delete", true);
         TestUtils.clickHome(device, true);
-        Assert.assertTrue(autoPreset.getItemByTag(AMENITY_PAYMENT_CENTRE).isEmpty());
+        assertTrue(autoPreset.getItemByTag(AMENITY_PAYMENT_CENTRE).isEmpty());
     }
 }

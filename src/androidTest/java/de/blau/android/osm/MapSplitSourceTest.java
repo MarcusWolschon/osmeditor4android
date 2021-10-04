@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.junit.After;
@@ -37,6 +38,7 @@ public class MapSplitSourceTest {
     AdvancedPrefDatabase        prefDB   = null;
     Main                        main     = null;
     UiDevice                    device   = null;
+    File                        msfFile  = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -57,7 +59,7 @@ public class MapSplitSourceTest {
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         try {
-            JavaResources.copyFileFromResources(main, MSF_FILE, null, ".");
+            msfFile = JavaResources.copyFileFromResources(main, MSF_FILE, null, ".");
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
@@ -72,6 +74,9 @@ public class MapSplitSourceTest {
     public void teardown() {
         API api = prefDB.getCurrentAPI();
         prefDB.setAPIDescriptors(api.id, api.name, api.url, null, api.notesurl, api.oauth);
+        if (msfFile != null) {
+            msfFile.delete();
+        }
     }
 
     /**
