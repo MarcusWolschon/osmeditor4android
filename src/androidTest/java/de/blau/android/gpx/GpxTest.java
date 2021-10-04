@@ -22,8 +22,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
-import android.app.Instrumentation.ActivityMonitor;
-import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -64,7 +62,6 @@ public class GpxTest {
     Splash          splash          = null;
     Main            main            = null;
     UiDevice        device          = null;
-    ActivityMonitor monitor         = null;
     Instrumentation instrumentation = null;
     MockWebServer   tileServer      = null;
     Preferences     prefs           = null;
@@ -73,7 +70,7 @@ public class GpxTest {
      * Manual start of activity so that we can set up the monitor for main
      */
     @Rule
-    public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
+    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
     /**
      * Pre-test setup
@@ -84,12 +81,8 @@ public class GpxTest {
         device = UiDevice.getInstance(instrumentation);
         // this sets the mock location permission
         instrumentation.getUiAutomation().executeShellCommand("appops set de.blau.android 58 allow");
-        monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
 
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        splash = mActivityRule.launchActivity(intent);
-
-        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 60000); // wait for main
+        main = mActivityRule.getActivity();
 
         tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
         de.blau.android.layer.Util.addLayer(main, LayerType.GPX);
@@ -110,7 +103,6 @@ public class GpxTest {
      */
     @After
     public void teardown() {
-        instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
         try {
             tileServer.close();
@@ -135,7 +127,6 @@ public class GpxTest {
     // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void recordSaveAndImportGpx() {
-        assertNotNull(main);
 
         // wait for the trackerservice to start
         // unluckily there doesn't seem to be any elegant way to do this
@@ -234,7 +225,6 @@ public class GpxTest {
     // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void importWayPoints() {
-        assertNotNull(main);
         Track track = main.getTracker().getTrack();
         track.reset(); // clear out anything saved
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -269,8 +259,6 @@ public class GpxTest {
      */
     @Test
     public void followNetworkLocation() {
-        assertNotNull(main);
-
         // set min distance to 1m
         prefs.setGpsDistance(0);
 
@@ -298,8 +286,6 @@ public class GpxTest {
      */
     @Test
     public void createNodeAtLocation() {
-        assertNotNull(main);
-
         ExtendedLocation loc = new ExtendedLocation(LocationManager.GPS_PROVIDER);
         final double lat = 47.3978982D;
         final double lon = 8.3762937D;
