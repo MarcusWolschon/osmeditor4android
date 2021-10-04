@@ -5,18 +5,23 @@ buildscript {
     repositories {
         mavenCentral()
         google()
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' } // For Spoon snapshot, until 2.0.0 is released
         mavenLocal()
     }
     dependencies {
+        classpath('com.google.guava:guava'){ // fixes dependency issue with marathon
+            version {
+                strictly '28.1-jre'
+            }
+        }
+        
         classpath 'com.android.tools.build:gradle:4.1.0'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.3'
         classpath 'org.jacoco:org.jacoco.core:0.8.5'
         classpath "ch.poole:preset-utils:0.24.0"
         classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:2.0.0'
-        classpath 'com.jaredsburrows:gradle-spoon-plugin:1.5.0'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.16'
+        classpath 'com.malinskiy.marathon:marathon-gradle-plugin:0.6.5'
     }
 }
 
@@ -33,7 +38,6 @@ allprojects {
         mavenCentral()
         maven { url "https://maven.google.com" }
         maven { url "https://jitpack.io" }
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' } // For Spoon snapshot, until 2.0.0 is released
         mavenLocal()
         google()
         jcenter()
@@ -47,8 +51,8 @@ apply plugin: "net.ltgt.apt"
 apply plugin: 'ch.poole.gradle.markdown'
 apply plugin: 'jacoco'
 apply plugin: 'com.getkeepsafe.dexcount'
-apply plugin: 'com.jaredsburrows.spoon'
 apply plugin: 'com.google.protobuf'
+apply plugin: 'marathon'
 
 markdownToHtml {
     sourceDir =  new File(projectDir.getPath() + '/documentation/docs/help')
@@ -326,13 +330,13 @@ enableFreeform.group = 'emulators'
 enableFreeform.description = 'turn on free form window support'
 
 import com.android.ddmlib.AndroidDebugBridge
+import com.android.ddmlib.CollectingOutputReceiver
 import com.android.ddmlib.IDevice
 
 task installDummyCameraApp() {
-    AndroidDebugBridge.initIfNeeded(false)
-    def bridge = AndroidDebugBridge.createBridge(android.adbExecutable.path, false)
-
     doLast {
+        AndroidDebugBridge.initIfNeeded(false)
+        def bridge = AndroidDebugBridge.createBridge(android.adbExecutable.path, false)
         bridge.devices.each {
             it.installPackage(projectDir.getPath() + '/src/androidTest/resources/DummyCameraApp.apk', true)
         }
@@ -340,16 +344,26 @@ task installDummyCameraApp() {
 }
 
 task deinstallDummyCameraApp() {
-    AndroidDebugBridge.initIfNeeded(false)
-    def bridge = AndroidDebugBridge.createBridge(android.adbExecutable.path, false)
-
     doLast {
+        AndroidDebugBridge.initIfNeeded(false)
+        def bridge = AndroidDebugBridge.createBridge(android.adbExecutable.path, false)
         bridge.devices.each {
             it.uninstallPackage('ch.poole.android.dummycameraapp')
         }
     }
 }
 
+task setLongClickTimeout() {
+    doLast {
+        AndroidDebugBridge.initIfNeeded(false)
+        def bridge = AndroidDebugBridge.createBridge(android.adbExecutable.path, false)
+        bridge.devices.each {
+            CollectingOutputReceiver receiver = new CollectingOutputReceiver()
+            // 400 short, 1000 medium
+            it.executeShellCommand("settings put secure long_press_timeout 1000", receiver)
+        }
+    }
+}
 
 afterEvaluate{
     android.applicationVariants.all { variant ->
@@ -364,7 +378,8 @@ afterEvaluate{
             exclude '**/R.java'
         }
         
-        spoonCurrentDebugAndroidTest.dependsOn installDummyCameraApp
+        marathonCurrentDebugAndroidTest.dependsOn installDummyCameraApp
+        marathonCurrentDebugAndroidTest.dependsOn setLongClickTimeout
         uninstallAll.dependsOn deinstallDummyCameraApp
     }
 
@@ -481,13 +496,13 @@ dependencies {
     testImplementation 'xmlpull:xmlpull:1.1.3.1'
     testImplementation 'net.sf.kxml:kxml2:2.3.0'
     testImplementation 'org.robolectric:robolectric:4.5.1'
-    testImplementation 'androidx.test.ext:junit:1.1.1'
-    testImplementation 'androidx.test:rules:1.1.1'
+    testImplementation 'androidx.test.ext:junit:1.1.3'
+    testImplementation 'androidx.test:rules:1.4.0'
     testImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
 
     // Instrumentation tests
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test:rules:1.4.0'
     androidTestImplementation "org.hamcrest:hamcrest-library:1.3"
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
     androidTestImplementation "pl.droidsonroids.yaml:snakeyaml:1.18-android"
@@ -495,8 +510,6 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
-    androidTestImplementation "com.squareup.spoon:spoon-client:2.0.0-SNAPSHOT"
-    androidTestImplementation 'ch.poole.android:ScreenshotRule:0.0.0'
 }
 
 int getVersionCode() {
@@ -542,7 +555,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
     sourceDirectories.from = files(coverageSourceDirs)
     executionData.from     = fileTree(
             dir     : "$buildDir",
-            include : ['jacoco/testCurrentDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/CURRENT/*coverage.ec', 'spoon-output/currentDebug/coverage/merged-coverage.ec'])
+            include : ['jacoco/testCurrentDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/CURRENT/*coverage.ec', 'reports/marathon/currentDebugAndroidTest/device-files/*/coverage/*.ec'])
     reports {
         xml.enabled = true
         html.enabled = true
@@ -551,20 +564,31 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
     sourceDirectories.from = files(coverageSourceDirs)
 }
 
-spoon {
-    // https://github.com/jaredsburrows/gradle-spoon-plugin for configuration
-    debug = true
-    noAnimations = false
-    adbTimeout = 5
-    codeCoverage = true
-    // set shard to true, and numShards for sharding support 
-    shard = false
-    // numShards = 2
-    singleInstrumentationCall = true
-    ignoreFailures = true
-    clearAppDataBeforeEachTest = true
-    // set these for individual text execution
-    // className = "de.blau.android.layer.mvt.MvtTest"
-    // methodName = "dataLayerPrune"
+marathon {
+    uncompletedTestRetryQuota = 1
+    poolingStrategy {
+        operatingSystem = true
+    }
+    // uncommenting this makes things slower, but potentially less flaky
+//    applicationPmClear = true
+    codeCoverageEnabled = true
+    autoGrantPermission = true
+    vendor = com.malinskiy.marathon.android.VendorType.ADAM
+    retryStrategy {
+        fixedQuota {
+            retryPerTestQuota = 2
+            totalAllowedRetryQuota = 100
+        }
+    }
+    // uncomment for running specific tests
+//    filteringConfiguration {
+//        allowlist = [
+//            new com.malinskiy.marathon.execution.filter.FullyQualifiedTestnameFilter(null,
+//               [
+//                    'de.blau.android.tasks.ReadSaveTasksTest#readAndSaveCustomBugs'
+//               ], 
+//               null)
+//        ]
+//    }
 }
 
