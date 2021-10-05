@@ -51,7 +51,7 @@ public class OffsetTest {
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
-       
+
         main = mActivityRule.getActivity();
 
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
@@ -108,11 +108,11 @@ public class OffsetTest {
         offset.setImageryLat(47.40814D);
         offset.setMinZoom(16);
         offset.setMaxZoom(19);
-        ImageryOffsetDatabase db = new ImageryOffsetDatabase(main);
-        ImageryOffsetDatabase.addOffset(db.getWritableDatabase(), offset);
-        db.close();
+        try (ImageryOffsetDatabase db = new ImageryOffsetDatabase(main)) {
+            ImageryOffsetDatabase.addOffset(db.getWritableDatabase(), offset);
+        }
         App.getLogic().setZoom(map, 19);
-        map.getViewBox().moveTo(map, (int) (offset.getLon() * 1E7D), (int) (offset.getLat() * 1E7D));
+        map.getViewBox().moveTo(map, (int) (offset.getLon() * 1E7D), (int) ((offset.getLat() - 0.0001) * 1E7D));
         map.invalidate();
         TestUtils.sleep(10000);
         map.setPrefs(main, prefs);

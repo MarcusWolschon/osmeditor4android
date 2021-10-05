@@ -90,18 +90,6 @@ public class ImageryOffsetDatabase extends SQLiteOpenHelper {
     /**
      * Retrieve offsets for specific imagery identified by its id
      * 
-     * @param context Android Context
-     * @param db readable SQLiteDatabase
-     * @param id imagery offset db id
-     * @return a List of Offsets instances
-     */
-    public static List<ImageryOffset> getOffsets(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull String id) {
-        return getOffsets(db, id);
-    }
-
-    /**
-     * Retrieve offsets for specific imagery identified by its id
-     * 
      * @param db readable SQLiteDatabase
      * @param id imagery offset db id
      * 
