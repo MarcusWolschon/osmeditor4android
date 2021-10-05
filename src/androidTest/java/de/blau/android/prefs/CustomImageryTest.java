@@ -27,7 +27,6 @@ import de.blau.android.JavaResources;
 import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.Splash;
 import de.blau.android.TestUtils;
 import de.blau.android.layer.LayerDialogTest;
 import de.blau.android.resources.TileLayerDatabase;
@@ -44,7 +43,6 @@ public class CustomImageryTest {
 
     Main            main            = null;
     View            v               = null;
-    Splash          splash          = null;
     ActivityMonitor monitor         = null;
     Instrumentation instrumentation = null;
     UiDevice        device          = null;

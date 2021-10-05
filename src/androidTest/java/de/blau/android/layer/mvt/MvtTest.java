@@ -15,7 +15,6 @@ import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
-import android.content.Intent;
 import android.view.View;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -30,7 +29,6 @@ import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.Splash;
 import de.blau.android.TestUtils;
 import de.blau.android.layer.LayerDialogTest;
 import de.blau.android.layer.LayerType;
@@ -55,8 +53,6 @@ public class MvtTest {
 
     Main            main            = null;
     View            v               = null;
-    Splash          splash          = null;
-    ActivityMonitor monitor         = null;
     Instrumentation instrumentation = null;
     UiDevice        device          = null;
 
@@ -64,7 +60,7 @@ public class MvtTest {
      * Manual start of activity so that we can set up the monitor for main
      */
     @Rule
-    public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
+    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
     /**
      * Pre-test setup
@@ -73,12 +69,8 @@ public class MvtTest {
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
 
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        splash = mActivityRule.launchActivity(intent);
-
-        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
+        main = mActivityRule.getActivity();
 
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
@@ -90,7 +82,6 @@ public class MvtTest {
      */
     @After
     public void teardown() {
-        instrumentation.removeMonitor(monitor);
         if (main != null) {
             main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
             main.finish();
@@ -110,6 +101,7 @@ public class MvtTest {
             File styleFile = JavaResources.copyFileFromResources(main, "osm-liberty.json", null, "mbtiles");
             File spriteJson = JavaResources.copyFileFromResources(main, "osm-liberty-sprite.json", null, "mbtiles");
             File spritePng = JavaResources.copyFileFromResources(main, "osm-liberty-sprite.png", null, "mbtiles");
+            ActivityMonitor monitor = null;
             try {
                 Preferences prefs = new Preferences(main);
                 LayerUtils.removeImageryLayers(main);
@@ -170,6 +162,9 @@ public class MvtTest {
                 }
                 if (spritePng != null) {
                     spritePng.delete();
+                }
+                if (monitor != null) {
+                    instrumentation.removeMonitor(monitor);
                 }
             }
         } catch (IOException e) {

@@ -23,7 +23,6 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.MockTileServer;
 import de.blau.android.SignalHandler;
-import de.blau.android.Splash;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
@@ -34,7 +33,6 @@ import okhttp3.mockwebserver.MockWebServer;
 @LargeTest
 public class OffsetTest {
 
-    Splash          splash          = null;
     Main            main            = null;
     UiDevice        device          = null;
     Instrumentation instrumentation = null;

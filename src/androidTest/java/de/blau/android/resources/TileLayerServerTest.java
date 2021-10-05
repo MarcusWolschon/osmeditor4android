@@ -15,8 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
-import android.app.Instrumentation.ActivityMonitor;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -28,7 +26,6 @@ import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.SignalHandler;
-import de.blau.android.Splash;
 import de.blau.android.TestUtils;
 import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.Preferences;
@@ -46,15 +43,13 @@ public class TileLayerServerTest {
 
     Main            main            = null;
     View            v               = null;
-    Splash          splash          = null;
-    ActivityMonitor monitor         = null;
     Instrumentation instrumentation = null;
 
     /**
      * Manual start of activity so that we can set up the monitor for main
      */
     @Rule
-    public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
+    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
     /**
      * Pre-test setup
@@ -63,14 +58,14 @@ public class TileLayerServerTest {
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         UiDevice device = UiDevice.getInstance(instrumentation);
-        monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
 
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        splash = mActivityRule.launchActivity(intent);
-        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
-        Assert.assertNotNull(main);
+        main = mActivityRule.getActivity();
 
         TestUtils.grantPermissons(device);
+
+        try (TileLayerDatabase db = new TileLayerDatabase(main)) {
+            TileLayerSource.createOrUpdateFromAssetsSource(main, db.getWritableDatabase(), true, false);
+        }
         TestUtils.dismissStartUpDialogs(device, main);
     }
 
@@ -85,7 +80,6 @@ public class TileLayerServerTest {
         } else {
             System.out.println("main is null");
         }
-        instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
     }
 

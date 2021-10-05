@@ -17,8 +17,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
-import android.app.Instrumentation.ActivityMonitor;
-import android.content.Intent;
 import android.location.Location;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -33,7 +31,6 @@ import de.blau.android.Map;
 import de.blau.android.MockTileServer;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
-import de.blau.android.Splash;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
@@ -45,10 +42,8 @@ public class NmeaTest {
 
     public static final int TIMEOUT = 240;
 
-    Splash          splash          = null;
     Main            main            = null;
     UiDevice        device          = null;
-    ActivityMonitor monitor         = null;
     Instrumentation instrumentation = null;
     MockWebServer   tileServer      = null;
     Preferences     prefs           = null;
@@ -57,7 +52,7 @@ public class NmeaTest {
      * Manual start of activity so that we can set up the monitor for main
      */
     @Rule
-    public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
+    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
     /**
      * Pre-test setup
@@ -68,12 +63,8 @@ public class NmeaTest {
         device = UiDevice.getInstance(instrumentation);
         // this sets the mock location permission
         instrumentation.getUiAutomation().executeShellCommand("appops set de.blau.android 58 allow");
-        monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
 
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        splash = mActivityRule.launchActivity(intent);
-
-        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 60000); // wait for main
+        main = mActivityRule.getActivity();
 
         TestUtils.grantPermissons(device);
 
@@ -105,7 +96,6 @@ public class NmeaTest {
         } catch (IOException | NullPointerException e) {
             // ignore
         }
-        instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
     }
 

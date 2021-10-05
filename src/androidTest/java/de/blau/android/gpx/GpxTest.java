@@ -39,7 +39,6 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.MockTileServer;
 import de.blau.android.SignalHandler;
-import de.blau.android.Splash;
 import de.blau.android.TestUtils;
 import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Node;
@@ -59,7 +58,6 @@ public class GpxTest {
     public static final int      TIMEOUT                = 115;
     private static final Pattern EXPORT_MESSAGE_PATTERN = Pattern.compile("^Exported\\sto\\s(.*\\.gpx)$", Pattern.CASE_INSENSITIVE);
 
-    Splash          splash          = null;
     Main            main            = null;
     UiDevice        device          = null;
     Instrumentation instrumentation = null;

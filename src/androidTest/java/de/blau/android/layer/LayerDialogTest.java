@@ -18,8 +18,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
-import android.app.Instrumentation.ActivityMonitor;
-import android.content.Intent;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -35,7 +33,6 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.MockTileServer;
 import de.blau.android.R;
-import de.blau.android.Splash;
 import de.blau.android.TestUtils;
 import de.blau.android.layer.data.MapOverlay;
 import de.blau.android.osm.BoundingBox;
@@ -62,13 +59,11 @@ public class LayerDialogTest {
     UiDevice             device          = null;
     Map                  map             = null;
     Logic                logic           = null;
-    Splash               splash          = null;
-    ActivityMonitor      monitor         = null;
     Instrumentation      instrumentation = null;
     MockWebServer        tileServer      = null;
 
     @Rule
-    public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
+    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
     /**
      * Pre-test setup
@@ -78,20 +73,16 @@ public class LayerDialogTest {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         instrumentation.getTargetContext().deleteDatabase(TileLayerDatabase.DATABASE_NAME);
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
-
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        splash = mActivityRule.launchActivity(intent);
-
-        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 30000); // NOSONAR wait for main
-        assertNotNull(main);
+        main = mActivityRule.getActivity();
         TestUtils.grantPermissons(device);
+        try (TileLayerDatabase db = new TileLayerDatabase(main)) {
+            TileLayerSource.createOrUpdateFromAssetsSource(main, db.getWritableDatabase(), true, false);
+        }
         tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
         assertNotNull(tileServer);
         Preferences prefs = new Preferences(main);
         map = main.getMap();
         map.setPrefs(main, prefs);
-
         TestUtils.dismissStartUpDialogs(device, main);
         TestUtils.loadTestData(main, "test2.osm");
         map.getDataLayer().setVisible(true);
@@ -111,7 +102,6 @@ public class LayerDialogTest {
             // ignore
         }
         instrumentation.getTargetContext().deleteDatabase(TileLayerDatabase.DATABASE_NAME);
-        instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
     }
 
@@ -144,7 +134,6 @@ public class LayerDialogTest {
 
         TestUtils.clickText(device, true, main.getString(R.string.done), false, false);
         assertTrue(map.getDataLayer().isVisible());
-
     }
 
     /**
@@ -262,7 +251,7 @@ public class LayerDialogTest {
         TestUtils.sleep();
         main.getMap().invalidate();
         TestUtils.sleep();
-        MapTilesLayer layer = main.getMap().getBackgroundLayer();
+        MapTilesLayer<?> layer = main.getMap().getBackgroundLayer();
         assertNotNull(layer);
         assertEquals(TileLayerSource.LAYER_MAPNIK, layer.getTileLayerConfiguration().getId());
     }

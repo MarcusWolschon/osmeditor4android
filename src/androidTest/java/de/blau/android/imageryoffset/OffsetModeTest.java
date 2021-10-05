@@ -22,7 +22,6 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.MockTileServer;
-import de.blau.android.Splash;
 import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
@@ -38,7 +37,6 @@ import okhttp3.mockwebserver.MockWebServer;
 public class OffsetModeTest {
 
     public static final int TIMEOUT         = 90;
-    Splash                  splash          = null;
     Main                    main            = null;
     UiDevice                device          = null;
     Instrumentation         instrumentation = null;
