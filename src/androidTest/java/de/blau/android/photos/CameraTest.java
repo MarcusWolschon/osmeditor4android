@@ -29,6 +29,7 @@ import androidx.test.uiautomator.UiDevice;
 import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.contract.Paths;
 import de.blau.android.layer.LayerType;
@@ -101,7 +102,9 @@ public class CameraTest {
         MapOverlay photoLayer = map.getPhotoLayer();
         assertNotNull(photoLayer);
         int origCount = photoCount();
-        assertTrue(TestUtils.clickMenuButton(device, "Camera", false, false));
+        TestUtils.findText(device, false, main.getString(R.string.toast_photo_indexing_started), 2000);
+        TestUtils.textGone(device, main.getString(R.string.toast_photo_indexing_finished), 5000);
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_camera), false, false));
         TestUtils.clickText(device, false, "Camera", false);
         TestUtils.clickText(device, false, "Just Once", false); // FIXME needs more work
         device.waitForWindowUpdate(null, 5000);
