@@ -146,10 +146,25 @@ public class TestUtils {
      * @return true if successful
      */
     public static boolean clickMenuButton(@NonNull UiDevice device, String description, boolean longClick, boolean waitForNewWindow) {
+        return clickMenuButton(device, description, longClick, waitForNewWindow, 500);
+    }
+
+    /**
+     * Click a menu bar button
+     * 
+     * @param device the UiDevice
+     * @param description the description of the button
+     * @param longClick if true perform a long click
+     * @param waitForNewWindow if true wait for a new window
+     * @param wait how long to wait for the test to appear
+     * 
+     * @return true if successful
+     */
+    public static boolean clickMenuButton(@NonNull UiDevice device, String description, boolean longClick, boolean waitForNewWindow, long wait) {
         // Note: contrary to "text", "textStartsWith" is case insensitive
         BySelector bySelector = By.clickable(true).descStartsWith(description);
         UiSelector uiSelector = new UiSelector().clickable(true).descriptionStartsWith(description);
-        device.wait(Until.findObject(bySelector), 500);
+        device.wait(Until.findObject(bySelector), wait);
         UiObject button = device.findObject(uiSelector);
         if (button.exists()) {
             try {

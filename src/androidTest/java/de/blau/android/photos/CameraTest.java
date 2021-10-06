@@ -104,7 +104,7 @@ public class CameraTest {
         int origCount = photoCount();
         TestUtils.findText(device, false, main.getString(R.string.toast_photo_indexing_started), 2000);
         TestUtils.textGone(device, main.getString(R.string.toast_photo_indexing_finished), 5000);
-        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_camera), false, false));
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_camera), false, false, 10000));
         TestUtils.clickText(device, false, "Camera", false);
         TestUtils.clickText(device, false, "Just Once", false); // FIXME needs more work
         device.waitForWindowUpdate(null, 5000);
