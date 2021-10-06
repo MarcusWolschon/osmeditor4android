@@ -22,9 +22,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
+import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -38,6 +40,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.MockTileServer;
+import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
 import de.blau.android.layer.LayerType;
@@ -163,9 +166,8 @@ public class GpxTest {
         main.invalidateOptionsMenu();
 
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-        assertTrue(TestUtils.clickText(device, false, "Start GPX track", false, false));
-        TestUtils.clickText(device, false, "Next", false); // 1. Tip
-        TestUtils.clickText(device, false, "OK", false); // 2. Tip
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_start), false, false));
+        clickAwayTip(device, main);
 
         final CountDownLatch signal = new CountDownLatch(1);
         main.getTracker().getTrack().reset(); // clear out anything saved
@@ -353,5 +355,16 @@ public class GpxTest {
             // we don't include altitude anymore assertEquals(tp.getAltitude(), recordedTrackPoint.getAltitude(),
             // 0.000001);
         }
+    }
+
+    /**
+     * Click away the tip dialogs
+     * 
+     * @param device the UiDevice
+     * @param context an Android context
+     */
+    static void clickAwayTip(@NonNull UiDevice device, @NonNull Context context) {
+        TestUtils.clickText(device, false, context.getString(R.string.next), false);
+        TestUtils.clickText(device, false, context.getString(R.string.okay), false); // click away tip
     }
 }

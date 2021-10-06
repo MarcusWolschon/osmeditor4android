@@ -129,7 +129,7 @@ public class NmeaTest {
         assertNotNull(startItem);
         assertTrue(GpxUploadTest.isEnabled(startItem));
         startItem.click();
-        TestUtils.clickText(device, false, main.getString(R.string.okay), false); // click away tip
+        GpxTest.clickAwayTip(device, main);
         // wait for the tracking to actually start
         retries = 0;
         while (!main.getTracker().isTracking() && retries < 60) {
