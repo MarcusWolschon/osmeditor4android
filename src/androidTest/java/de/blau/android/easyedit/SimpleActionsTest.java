@@ -157,7 +157,7 @@ public class SimpleActionsTest {
         SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
         Resources r = context.getResources();
         String notesSelector = r.getString(R.string.bugfilter_notes);
-        Set<String> set = new HashSet<String>(Arrays.asList(notesSelector));
+        Set<String> set = new HashSet<>(Arrays.asList(notesSelector));
         p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
         if (map.getTaskLayer() == null) {
             de.blau.android.layer.Util.addLayer(main, LayerType.TASKS);
@@ -165,6 +165,9 @@ public class SimpleActionsTest {
             map.invalidate();
         }
         map.getDataLayer().setVisible(true);
+        de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
+        assertNotNull(taskLayer);
+        taskLayer.setVisible(true);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
         TestUtils.clickSimpleButton(device);
