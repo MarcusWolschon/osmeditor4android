@@ -323,15 +323,22 @@ ext {
     adb = android.getAdbExe().toString()
 }
 
-task enableFreeform(type: Exec) {
-    commandLine adb, 'shell', 'settings', 'put', 'global', 'enable_freeform_support', '1'
-}
-enableFreeform.group = 'emulators'
-enableFreeform.description = 'turn on free form window support'
-
 import com.android.ddmlib.AndroidDebugBridge
 import com.android.ddmlib.CollectingOutputReceiver
 import com.android.ddmlib.IDevice
+
+task enableFreeform() {
+    doLast {
+        AndroidDebugBridge.initIfNeeded(false)
+        def bridge = AndroidDebugBridge.createBridge(android.adbExecutable.path, false)
+        bridge.devices.each {
+            CollectingOutputReceiver receiver = new CollectingOutputReceiver()
+            it.executeShellCommand("settings put global enable_freeform_support 1", receiver)
+        }
+    }
+}
+enableFreeform.group = 'emulators'
+enableFreeform.description = 'turn on free form window support'
 
 task installDummyCameraApp() {
     doLast {
@@ -364,6 +371,19 @@ task setLongClickTimeout() {
         }
     }
 }
+
+task removeVespucciDirectory() {
+    doLast {
+        AndroidDebugBridge.initIfNeeded(false)
+        def bridge = AndroidDebugBridge.createBridge(android.adbExecutable.path, false)
+        bridge.devices.each {
+            CollectingOutputReceiver receiver = new CollectingOutputReceiver()
+            it.executeShellCommand("rm -r /sdcard/Download/Vespucci", receiver)
+        }
+    }
+}
+removeVespucciDirectory.group = 'verification'
+removeVespucciDirectory.description = 'remove /sdcard/Download/Vespucci'
 
 afterEvaluate{
     android.applicationVariants.all { variant ->
@@ -574,6 +594,7 @@ marathon {
     codeCoverageEnabled = true
     autoGrantPermission = true
     vendor = com.malinskiy.marathon.android.VendorType.ADAM
+    debug = true
     retryStrategy {
         fixedQuota {
             retryPerTestQuota = 2
@@ -585,7 +606,7 @@ marathon {
 //        allowlist = [
 //            new com.malinskiy.marathon.execution.filter.FullyQualifiedTestnameFilter(null,
 //               [
-//                    'de.blau.android.tasks.ReadSaveTasksTest#readAndSaveCustomBugs'
+//                    'de.blau.android.presets.AutoPresetTest#onlinePresetSearch'
 //               ], 
 //               null)
 //        ]
