@@ -79,6 +79,8 @@ To make running individual tests simpler refreshing the gradle tasks (assuming t
 
 For the on device tests the time to run the tests can be reduced substantially by running against multiple emulators with ``marathonCurrentDebugAndroidTest`` marathon can execute the tests sharded according to the configuration and retry failed tests. An additional bonus is that the test output is much easier to consume and understand. marathon will include a video of failed tests (we migrated from ``spool`` to `` marathon`` for 16.1). For more information see [https://marathonlabs.github.io/marathon/](https://marathonlabs.github.io/marathon/).
 
+__Important:__ currently marathon requires requesting and granting the MANAGE_EXTERNAL_STORAGE permission on Android 11 and higher to generate coverage output. A corresponding manifest files is located in src/debug/AndroidManifest.xml with the relevant element commented out. Using this however leads to tests not reflecting the conditions they would be run under in the production app, so you should consider running the tests without the permission during the actual testing and only request it once testing is completed to generate coverage stats.
+
 Notes: 
 
 * a number of the tests start with the splash screen activity and then wait for the main activity to be started. Experience shows that if one of these fails to complete in certain ways, the following tests that start via the splash screen will not be able to start the main activity. Reason unknown.
