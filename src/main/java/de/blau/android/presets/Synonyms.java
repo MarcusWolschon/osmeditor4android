@@ -19,6 +19,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.IndexSearchResult;
@@ -33,12 +34,11 @@ import de.blau.android.util.collections.MultiHashMap;
  *
  */
 public class Synonyms {
-    static final String DEBUG_TAG = "Synonyms";
+    private static final String DEBUG_TAG = Synonyms.class.getSimpleName();
 
-    private static final String SYNONYMS_PREFIX = "synonyms/synonyms.";
-    private static final String SYNONYMS_EN     = "synonyms/synonyms.en";
+    private static final String SYNONYMS_DIR = "synonyms/";
 
-    private MultiHashMap<String, String> synonyms = new MultiHashMap<>(false); // names -> tags
+    private MultiHashMap<String, String> synonymMap = new MultiHashMap<>(false); // names -> tags
 
     /**
      * Construct a new instance
@@ -48,26 +48,22 @@ public class Synonyms {
     public Synonyms(@NonNull Context ctx) {
         Log.d(DEBUG_TAG, "Parsing configuration files");
         AssetManager assetManager = ctx.getAssets();
-        InputStream is = null;
         Locale locale = Locale.getDefault();
         Log.d(DEBUG_TAG, "Locale " + locale);
-        try {
-            is = assetManager.open(SYNONYMS_PREFIX + locale);
+        try (InputStream is = assetManager.open(SYNONYMS_DIR + locale + "." + FileExtensions.JSON)) {
+            parse(is);
         } catch (IOException ioex) {
-            try {
-                is = assetManager.open(SYNONYMS_PREFIX + locale.getLanguage());
+            try (InputStream is2 = assetManager.open(SYNONYMS_DIR + locale.getLanguage() + "." + FileExtensions.JSON)) {
+                parse(is2);
             } catch (IOException ioex2) {
                 Log.d(DEBUG_TAG, "No synonym file found for " + locale + " or " + locale.getLanguage());
             }
         }
-        parse(is);
-
         // always add English synonyms
-        try {
-            is = assetManager.open(SYNONYMS_EN);
+        try (InputStream is = assetManager.open(SYNONYMS_DIR + Locale.ENGLISH.getLanguage() + "." + FileExtensions.JSON)) {
             parse(is);
         } catch (IOException e) {
-            Log.e(DEBUG_TAG, "Reading " + SYNONYMS_EN + " failed " + e.getMessage());
+            Log.e(DEBUG_TAG, "Reading " + Locale.ENGLISH + " failed " + e.getMessage());
         }
     }
 
@@ -77,30 +73,27 @@ public class Synonyms {
      * @param is the InputStream
      */
     public void parse(@Nullable InputStream is) {
-        if (is != null) {
-            try (JsonReader reader = new JsonReader(new InputStreamReader(is))) {
-                String presetName = null;
-                reader.beginObject();
-                while (reader.hasNext()) {
-                    presetName = reader.nextName(); // landuse/military/bunker
-                    try {
-                        reader.beginArray();
-                        while (reader.hasNext()) { // synonyms
-                            String synonym = reader.nextString();
-                            if (synonym != null && !"".equals(synonym)) {
-                                synonyms.add(SearchIndexUtils.normalize(synonym), presetName);
-                            }
+        try (JsonReader reader = new JsonReader(new InputStreamReader(is))) {
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String presetName = reader.nextName(); // landuse/military/bunker
+                try {
+                    reader.beginArray();
+                    while (reader.hasNext()) { // synonyms
+                        String synonym = reader.nextString();
+                        if (synonym != null && !"".equals(synonym)) {
+                            synonymMap.add(SearchIndexUtils.normalize(synonym), presetName);
                         }
-                        reader.endArray(); // key
-                    } catch (IOException e) {
-                        // this is not documented, but it seems to work to simply continue
-                        Log.e(DEBUG_TAG, "reading synonyms array " + e.getMessage());
                     }
+                    reader.endArray(); // key
+                } catch (IOException e) {
+                    // this is not documented, but it seems to work to simply continue
+                    Log.e(DEBUG_TAG, "reading synonyms array " + e.getMessage());
                 }
-                reader.endObject();
-            } catch (IOException e) {
-                Log.e(DEBUG_TAG, "reading synonyms " + e.getMessage());
             }
+            reader.endObject();
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "reading synonyms " + e.getMessage());
         }
     }
 
@@ -118,7 +111,7 @@ public class Synonyms {
         Log.d(DEBUG_TAG, "Searching for " + term + " type " + type);
         Map<IndexSearchResult, IndexSearchResult> result = new HashMap<>();
         Preset[] presets = App.getCurrentPresets(ctx);
-        for (String s : synonyms.getKeys()) {
+        for (String s : synonymMap.getKeys()) {
             int distance = s.indexOf(term);
             if (distance == -1) {
                 distance = OptimalStringAlignment.editDistance(s, term, maxDistance);
@@ -126,7 +119,7 @@ public class Synonyms {
                 distance = 0; // literal substring match, we don't want to weight this worse than a fuzzy match
             }
             if ((distance >= 0 && distance <= maxDistance)) {
-                Set<String> presetNames = synonyms.get(s);
+                Set<String> presetNames = synonymMap.get(s);
                 for (String presetName : presetNames) {
                     String[] parts = presetName.split("/");
                     Set<PresetItem> items = new HashSet<>();

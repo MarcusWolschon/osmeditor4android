@@ -1,0 +1,80 @@
+{
+"amenity/bus_station":[
+"Stacioni i Autobusave"
+],
+"building/college":[
+"Ndërtesa e Kollegjit"
+],
+"highway/cycleway":[
+"Rrugë biçikletash"
+],
+"highway/elevator":[
+"Ashensor"
+],
+"highway/footway":[
+"Rrugë këmbësorësh"
+],
+"highway/secondary":[
+"Rrugë Dytësore"
+],
+"place/city":[
+"Qytet"
+],
+"power/transformer":[
+"Transformator"
+],
+"railway/abandoned":[
+"Hekurudhë E Braktisur"
+],
+"shop":[
+"Dyqan"
+],
+"shop/bakery":[
+"Furrë buke"
+],
+"shop/clothes":[
+"Dyqan Veshjesh"
+],
+"shop/copyshop":[
+"Fotokopje"
+],
+"shop/dry_cleaning":[
+"Pastrim Kimik"
+],
+"shop/kiosk":[
+"Kioskë"
+],
+"shop/kitchen":[
+"Dyqan për Aredim të Kuzhinës"
+],
+"shop/laundry":[
+"Lavanderi"
+],
+"shop/optician":[
+"Okulist"
+],
+"shop/supermarket":[
+"Supermarket"
+],
+"tourism/hotel":[
+"Hotel"
+],
+"tourism/information":[
+"Informacion"
+],
+"tourism/information/map":[
+"Hartë"
+],
+"type/boundary/administrative":[
+"Kufi Administrativ"
+],
+"waterway/canal":[
+"Kanal"
+],
+"waterway/river":[
+"Lumë"
+],
+"waterway/waterfall":[
+"Ujëvarë"
+]
+}

@@ -1,5 +1,0 @@
-{
-"building":[
-"Gusali"
-]
-}

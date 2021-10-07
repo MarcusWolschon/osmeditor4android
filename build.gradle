@@ -175,7 +175,7 @@ task updateSynonyms() {
                 return
             }
             def name="updateSynonyms${lang.capitalize()}"
-            def output = "src/main/assets/synonyms/synonyms.$lang"
+            def output = "src/main/assets/synonyms/$lang" + '.json'
             javaexec {
                 main = "ch.poole.osm.presetutils.Synonyms"
                 classpath = buildscript.configurations.classpath
