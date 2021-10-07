@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import de.blau.android.R;
@@ -52,24 +53,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
 
         ListPreference cameraAppPref = getPreferenceScreen().findPreference(r.getString(R.string.config_selectCameraApp_key));
         if (cameraAppPref != null) {
-            // remove not installed apps
-            List<CharSequence> entries = new ArrayList<>();
-            Collections.addAll(entries, cameraAppPref.getEntryValues());
-            List<CharSequence> values = new ArrayList<>();
-            Collections.addAll(values, cameraAppPref.getEntries());
-            PackageManager pm = getContext().getPackageManager();
-            CharSequence[] temp = cameraAppPref.getEntryValues();
-            int removed = 0;
-            for (int i = 0; i < temp.length; i++) {
-                String p = temp[i].toString();
-                if (!"".equals(p) && !Util.isPackageInstalled(p, pm)) {
-                    entries.remove(i - removed); // NOSONAR
-                    values.remove(i - removed); // NOSONAR
-                    removed++;
-                }
-            }
-            cameraAppPref.setEntryValues(entries.toArray(new CharSequence[entries.size()]));
-            cameraAppPref.setEntries(values.toArray(new CharSequence[values.size()]));
+            setupCameraPref(cameraAppPref);
         }
 
         setListPreferenceSummary(R.string.config_selectCameraApp_key, false);
@@ -85,6 +69,32 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         setRestartRequiredMessage(R.string.config_preferRemovableStorage_key);
         setRestartRequiredMessage(R.string.config_mapillary_min_zoom_key);
         setTitle();
+    }
+
+    /**
+     * Setup the possible camera apps for selection
+     * 
+     * @param cameraAppPref the preference
+     */
+    public void setupCameraPref(@NonNull ListPreference cameraAppPref) {
+        // remove not installed apps
+        List<CharSequence> entries = new ArrayList<>();
+        Collections.addAll(entries, cameraAppPref.getEntryValues());
+        List<CharSequence> values = new ArrayList<>();
+        Collections.addAll(values, cameraAppPref.getEntries());
+        PackageManager pm = getContext().getPackageManager();
+        CharSequence[] temp = cameraAppPref.getEntryValues();
+        int removed = 0;
+        for (int i = 0; i < temp.length; i++) {
+            String p = temp[i].toString();
+            if (!"".equals(p) && !Util.isPackageInstalled(p, pm)) {
+                entries.remove(i - removed); // NOSONAR
+                values.remove(i - removed); // NOSONAR
+                removed++;
+            }
+        }
+        cameraAppPref.setEntryValues(entries.toArray(new CharSequence[entries.size()]));
+        cameraAppPref.setEntries(values.toArray(new CharSequence[values.size()]));
     }
 
     /**
