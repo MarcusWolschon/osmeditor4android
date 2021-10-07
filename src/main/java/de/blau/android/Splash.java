@@ -113,15 +113,15 @@ public class Splash extends AppCompatActivity {
                 } finally {
                     db.close();
                 }
+                Intent intent = new Intent(Splash.this, Main.class);
+                intent.putExtra(SHORTCUT_EXTRAS_KEY, getIntent().getExtras());
+                startActivity(intent);
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void result) {
                 Log.d(DEBUG_TAG, "onPostExecute");
-                Intent intent = new Intent(Splash.this, Main.class);
-                intent.putExtra(SHORTCUT_EXTRAS_KEY, getIntent().getExtras());
-                startActivity(intent);
                 if (newInstall || newConfig) {
                     Progress.dismissDialog(Splash.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
                 }
