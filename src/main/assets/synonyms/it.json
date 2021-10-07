@@ -4077,7 +4077,7 @@
 "caruggio"
 ],
 "highway/service/drive-through":[
-"Accesso al servizio "consegna in auto"",
+"Accesso al servizio \"consegna in auto\"",
 "consegna al volo",
 "drive-it",
 "drive-through",
@@ -7758,7 +7758,7 @@
 ],
 "shop/variety_store":[
 "Negozio a prezzo fisso",
-"articoli a basso costo ("tutto a ...")"
+"articoli a basso costo (\"tutto a ...\")"
 ],
 "shop/video":[
 "Videoteca",

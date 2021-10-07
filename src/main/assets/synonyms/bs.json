@@ -463,13 +463,13 @@
 "Rupa za golf"
 ],
 "golf/rough":[
-"područje "divlje" trave van igre",
+"područje \"divlje\" trave van igre",
 "trava van golf terena",
 "Rough"
 ],
 "golf/tee":[
 "kutija područja na početku rupe",
-""tee" kutija",
+"\"tee\" kutija",
 "Tee Box"
 ],
 "highway/bridleway":[
@@ -1196,7 +1196,7 @@
 "prodajni centar"
 ],
 "shop/doityourself":[
-"prodaja dijelova za "uradi sam" radove",
+"prodaja dijelova za \"uradi sam\" radove",
 "Sve za kuću",
 "sve za kuću"
 ],
