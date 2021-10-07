@@ -12,6 +12,7 @@ public final class Files {
     public static final String FILE_NAME_KEYS                = "keys.txt";
     public static final String FILE_NAME_GEOCONTEXT          = "geocontext.json";
     public static final String FILE_NAME_BOUNDARIES          = "boundaries.ser";
+    public static final String FILE_NAME_MRUFILE             = "mru.dat";
 
     /**
      * Where we install the current version of vespucci
