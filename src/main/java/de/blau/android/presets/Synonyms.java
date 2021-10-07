@@ -56,7 +56,7 @@ public class Synonyms {
             try (InputStream is2 = assetManager.open(SYNONYMS_DIR + locale.getLanguage() + "." + FileExtensions.JSON)) {
                 parse(is2);
             } catch (IOException ioex2) {
-                Log.d(DEBUG_TAG, "No synonym file found for " + locale + " or " + locale.getLanguage());
+                Log.w(DEBUG_TAG, "No synonym file found for " + locale + " or " + locale.getLanguage());
             }
         }
         // always add English synonyms
@@ -108,7 +108,6 @@ public class Synonyms {
      */
     @NonNull
     public List<IndexSearchResult> search(@NonNull Context ctx, @NonNull String term, @Nullable ElementType type, int maxDistance) {
-        Log.d(DEBUG_TAG, "Searching for " + term + " type " + type);
         Map<IndexSearchResult, IndexSearchResult> result = new HashMap<>();
         Preset[] presets = App.getCurrentPresets(ctx);
         for (String s : synonymMap.getKeys()) {
