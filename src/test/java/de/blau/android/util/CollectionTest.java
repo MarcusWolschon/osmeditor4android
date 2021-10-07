@@ -1,4 +1,4 @@
-package de.blau.android;
+package de.blau.android.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -16,10 +16,10 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
-import de.blau.android.util.GeoMath;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.LongOsmElementMap;
 import de.blau.android.util.collections.MultiHashMap;
+import de.blau.android.util.collections.UnsignedSparseBitSet;
 import de.blau.android.util.rtree.RTree;
 
 public class CollectionTest {
@@ -147,5 +147,35 @@ public class CollectionTest {
         r = map.get("M");
         assertEquals(1, r.size());
         assertTrue(r.contains("3"));
+    }
+    
+    /**
+     * Test our extension of SparseBitSet
+     */
+    @Test 
+    public void unsignedSparseBitSet() {
+        UnsignedSparseBitSet bs = new UnsignedSparseBitSet();
+        // bottom half
+        assertEquals(-1, bs.nextSetBit(0));
+        bs.set(25034);
+        assertTrue(bs.get(25034));
+        assertEquals(25034, bs.nextSetBit(0));
+        assertEquals(1, bs.cardinality());
+        // top half
+        bs.set(0x80150A00);
+        assertTrue(bs.get(0x80150A00));
+        assertEquals(0x80150A00, bs.nextSetBit(0x80000000));
+        assertEquals(0x80150A00, bs.nextSetBit(25035));
+        assertEquals(2, bs.cardinality());
+        // undo
+        bs.clear(0x80150A00);
+        assertFalse(bs.get(0x80150A00));
+        assertEquals(1, bs.cardinality());
+        bs.clear(25034);
+        assertFalse(bs.get(25034));
+        assertEquals(0, bs.cardinality());
+        // misc
+        assertEquals(25035, UnsignedSparseBitSet.inc(25034));
+        assertEquals(0x80150A01, UnsignedSparseBitSet.inc(0x80150A00));
     }
 }
