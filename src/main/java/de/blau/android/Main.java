@@ -1962,7 +1962,7 @@ public class Main extends FullScreenAppCompatActivity
             Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             try {
                 String cameraApp = prefs.getCameraApp();
-                if (cameraApp != null && !"".equals(cameraApp)) {
+                if (!"".equals(cameraApp)) {
                     startCamera.setPackage(cameraApp);
                 }
                 imageFile = getImageFile();
