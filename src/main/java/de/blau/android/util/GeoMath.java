@@ -2,9 +2,7 @@ package de.blau.android.util;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-
 import androidx.annotation.NonNull;
-
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;

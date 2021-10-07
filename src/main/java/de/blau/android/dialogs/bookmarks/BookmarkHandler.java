@@ -3,7 +3,6 @@ package de.blau.android.dialogs.bookmarks;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
-
 import de.blau.android.R;
 import de.blau.android.dialogs.TextLineDialog;
 

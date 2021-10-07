@@ -18,7 +18,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.preference.PreferenceManager;
 import de.blau.android.R;
-import de.blau.android.prefs.Preferences;
 
 /**
  *

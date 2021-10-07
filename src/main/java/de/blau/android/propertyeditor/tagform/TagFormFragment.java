@@ -74,7 +74,6 @@ import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.propertyeditor.RecentPresetsFragment;
 import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.propertyeditor.TagEditorFragment;
-import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.Snack;

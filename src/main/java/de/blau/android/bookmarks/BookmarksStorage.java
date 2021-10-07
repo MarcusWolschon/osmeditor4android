@@ -1,9 +1,8 @@
 package de.blau.android.bookmarks;
 
-import androidx.annotation.NonNull;
-
 import java.io.Serializable;
 
+import androidx.annotation.NonNull;
 import de.blau.android.osm.ViewBox;
 
 /**

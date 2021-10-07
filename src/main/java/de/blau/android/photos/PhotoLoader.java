@@ -5,7 +5,6 @@ import java.io.Serializable;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 import android.content.Context;
-
 import androidx.annotation.NonNull;
 
 public interface PhotoLoader extends Serializable {

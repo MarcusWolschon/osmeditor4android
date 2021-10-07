@@ -33,6 +33,7 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import com.mapbox.geojson.BoundingBox;
 import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.GeoJson;
 import com.mapbox.geojson.GeometryAdapterFactory;
 import com.mapbox.geojson.gson.BoundingBoxTypeAdapter;

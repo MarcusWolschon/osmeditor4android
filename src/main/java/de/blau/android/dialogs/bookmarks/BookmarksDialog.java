@@ -1,17 +1,15 @@
 package de.blau.android.dialogs.bookmarks;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-
 import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;

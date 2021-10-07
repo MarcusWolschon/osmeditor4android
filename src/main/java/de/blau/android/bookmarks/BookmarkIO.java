@@ -1,11 +1,9 @@
 package de.blau.android.bookmarks;
 
-import android.content.Context;
-
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 
+import android.content.Context;
+import androidx.annotation.NonNull;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.util.SavingHelper;
 

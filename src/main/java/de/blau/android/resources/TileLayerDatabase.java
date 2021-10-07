@@ -19,8 +19,8 @@ import androidx.annotation.Nullable;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.Provider;
-import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
+import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.util.collections.MultiHashMap;
 
 public class TileLayerDatabase extends SQLiteOpenHelper {
