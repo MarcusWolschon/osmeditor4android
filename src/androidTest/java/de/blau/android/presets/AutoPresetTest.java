@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -22,6 +23,7 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
+import android.graphics.Path;
 import android.view.KeyEvent;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -113,10 +115,18 @@ public class AutoPresetTest {
         } catch (IOException ioex) {
             System.out.println("Stopping mock webserver exception " + ioex); // NOSONAR
         }
+
+        // zap the contents of the directory
         try {
-            // zap the generated preset file
-            FileUtil.copyFileFromAssets(context, Files.FILE_NAME_AUTOPRESET_TEMPLATE,
-                    FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(main), Paths.DIRECTORY_PATH_AUTOPRESET), Files.FILE_NAME_AUTOPRESET);
+            File dir = new File(FileUtil.getPublicDirectory(main), Paths.DIRECTORY_PATH_AUTOPRESET);
+            for (String fileName : dir.list()) {
+                try {
+                    java.nio.file.Files
+                            .delete(new File(FileUtil.getPublicDirectory(main), Paths.DIRECTORY_PATH_AUTOPRESET + Paths.DELIMITER + fileName).toPath());
+                } catch (IOException e) {
+                    System.out.println("Removing auto-preset file " + fileName + " exception " + e); // NOSONAR
+                }
+            }
         } catch (IOException e) {
             System.out.println("Removing auto-preset exception " + e); // NOSONAR
         }
