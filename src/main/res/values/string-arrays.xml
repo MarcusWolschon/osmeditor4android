@@ -143,4 +143,19 @@
         <item>Malformed URL</item>
         <item>Invalid argument</item>
     </string-array>
+    <!-- list of supported camera apps -->
+    <string-array translatable="false" name="camera_app_entries">
+        <item>@string/config_system_camera</item>
+        <item>@string/config_open_camera</item>
+        <item>@string/config_fv5_lite</item>
+        <item>@string/config_fv5_pro</item>
+        <item>Dummy camera</item>
+    </string-array>
+    <string-array translatable="false" name="camera_app_values">
+        <item></item>
+        <item>net.sourceforge.opencamera</item>
+        <item>com.flavionet.android.camera.lite</item>
+        <item>com.flavionet.android.camera.pro</item>
+        <item>ch.poole.android.dummycameraapp</item>
+    </string-array>
  </resources>

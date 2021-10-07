@@ -27,6 +27,13 @@
             android:key="@string/config_showCameraAction_key"
             android:summary="@string/config_showCameraAction_summary"
             android:title="@string/config_showCameraAction_title" />
+        <androidx.preference.ListPreference
+            android:defaultValue=""
+            android:entries="@array/camera_app_entries"
+            android:entryValues="@array/camera_app_values"
+            android:key="@string/config_selectCameraApp_key"
+            android:summary="@string/config_selectCameraApp_summary"
+            android:title="@string/config_selectCameraApp_title" />
         <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_useInternalPhotoViewer_key"

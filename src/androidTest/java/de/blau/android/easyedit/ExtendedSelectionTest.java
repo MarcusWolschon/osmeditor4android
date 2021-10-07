@@ -70,7 +70,7 @@ public class ExtendedSelectionTest {
     @After
     public void teardown() {
         TestUtils.stopEasyEdit(main);
-        TestUtils.zoomToLevel(device, main, 18);
+        TestUtils.zoomToNullIsland(logic, map);
     }
 
     /**
@@ -176,7 +176,7 @@ public class ExtendedSelectionTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_relationselect)));
         assertTrue(way.hasParentRelations());
         List<Relation> parents = way.getParentRelations();
-        assertEquals(1,parents.size());
+        assertEquals(1, parents.size());
         Relation mp = parents.get(0);
         assertEquals(2, mp.getMembers().size());
     }

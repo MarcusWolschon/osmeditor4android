@@ -59,15 +59,14 @@ public class GeometryEditsTest {
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
-        main.getMap().setPrefs(main, prefs);
-        App.getDelegator().reset(false);
-        App.getDelegator().setOriginalBox(ViewBox.getMaxMercatorExtent());
         Logic logic = App.getLogic();
         Map map = logic.getMap();
-        logic.setZoom(map, 18);
-        map.getViewBox().moveTo(map, 0, 0);
+        map.setPrefs(main, prefs);
+        App.getDelegator().reset(false);
+        App.getDelegator().setOriginalBox(ViewBox.getMaxMercatorExtent());
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, context);
+        TestUtils.zoomToNullIsland(logic, map);
     }
 
     /**
@@ -802,7 +801,7 @@ public class GeometryEditsTest {
             tags.put(Tags.KEY_TURN_LANES + ":backward", Tags.VALUE_LEFT + "|" + Tags.VALUE_RIGHT);
             logic.setTags(main, w, tags);
             List<Result> result = logic.performReverse(main, w);
-            assertFalse(result.isEmpty()); 
+            assertFalse(result.isEmpty());
             assertTrue(result.get(0).hasIssue());
             assertEquals(Tags.ROLE_BACKWARD, route.getMember(w).getRole());
             // when we are interactively reserving the way, we assume that it is because we
@@ -814,7 +813,7 @@ public class GeometryEditsTest {
             assertEquals(Tags.VALUE_THROUGH + "|" + Tags.VALUE_RIGHT, w.getTagWithKey(Tags.KEY_TURN_LANES + ":backward"));
             assertEquals(Tags.VALUE_LEFT + "|" + Tags.VALUE_RIGHT, w.getTagWithKey(Tags.KEY_TURN_LANES + ":forward"));
             result = logic.performReverse(main, w);
-            assertFalse(result.isEmpty()); 
+            assertFalse(result.isEmpty());
             assertTrue(result.get(0).hasIssue());
             assertEquals(Tags.ROLE_FORWARD, route.getMember(w).getRole());
             assertEquals(Tags.VALUE_YES, w.getTagWithKey(Tags.KEY_ONEWAY));
@@ -831,12 +830,12 @@ public class GeometryEditsTest {
             tags.put(Tags.KEY_INCLINE, Tags.VALUE_UP);
             logic.setTags(main, w, tags);
             result = logic.performReverse(main, w);
-            assertFalse(result.isEmpty()); 
+            assertFalse(result.isEmpty());
             assertTrue(result.get(0).hasIssue());
             assertEquals(String.valueOf(Tags.VALUE_SOUTH), w.getTagWithKey(Tags.KEY_DIRECTION));
             assertEquals(Tags.VALUE_DOWN, w.getTagWithKey(Tags.KEY_INCLINE));
             result = logic.performReverse(main, w);
-            assertFalse(result.isEmpty()); 
+            assertFalse(result.isEmpty());
             assertTrue(result.get(0).hasIssue());
             assertEquals(String.valueOf(Tags.VALUE_NORTH), w.getTagWithKey(Tags.KEY_DIRECTION));
             assertEquals(Tags.VALUE_UP, w.getTagWithKey(Tags.KEY_INCLINE));
@@ -847,12 +846,12 @@ public class GeometryEditsTest {
             tags.put(Tags.KEY_INCLINE, "10°");
             logic.setTags(main, w, tags);
             result = logic.performReverse(main, w);
-            assertFalse(result.isEmpty()); 
+            assertFalse(result.isEmpty());
             assertTrue(result.get(0).hasIssue());
             assertEquals("20°", w.getTagWithKey(Tags.KEY_DIRECTION));
             assertEquals("-10°", w.getTagWithKey(Tags.KEY_INCLINE));
             result = logic.performReverse(main, w);
-            assertFalse(result.isEmpty()); 
+            assertFalse(result.isEmpty());
             assertTrue(result.get(0).hasIssue());
             assertEquals("200°", w.getTagWithKey(Tags.KEY_DIRECTION));
             assertEquals("10°", w.getTagWithKey(Tags.KEY_INCLINE));
@@ -863,12 +862,12 @@ public class GeometryEditsTest {
             tags.put(Tags.KEY_INCLINE, "10");
             logic.setTags(main, w, tags);
             result = logic.performReverse(main, w);
-            assertFalse(result.isEmpty()); 
+            assertFalse(result.isEmpty());
             assertTrue(result.get(0).hasIssue());
             assertEquals("20", w.getTagWithKey(Tags.KEY_DIRECTION));
             assertEquals("-10", w.getTagWithKey(Tags.KEY_INCLINE));
             result = logic.performReverse(main, w);
-            assertFalse(result.isEmpty()); 
+            assertFalse(result.isEmpty());
             assertTrue(result.get(0).hasIssue());
             assertEquals("200", w.getTagWithKey(Tags.KEY_DIRECTION));
             assertEquals("10", w.getTagWithKey(Tags.KEY_INCLINE));
@@ -880,12 +879,12 @@ public class GeometryEditsTest {
 
             logic.setTags(main, w, tags);
             result = logic.performReverse(main, w);
-            assertFalse(result.isEmpty()); 
+            assertFalse(result.isEmpty());
             assertTrue(result.get(0).hasIssue());
             assertFalse(w.hasTagKey(Tags.KEY_ONEWAY));
             assertEquals(String.valueOf(Tags.VALUE_WEST), w.getTagWithKey(Tags.KEY_DIRECTION));
             result = logic.performReverse(main, w);
-            assertFalse(result.isEmpty()); 
+            assertFalse(result.isEmpty());
             assertTrue(result.get(0).hasIssue());
             assertFalse(w.hasTagKey(Tags.KEY_ONEWAY));
             assertEquals(String.valueOf(Tags.VALUE_EAST), w.getTagWithKey(Tags.KEY_DIRECTION));

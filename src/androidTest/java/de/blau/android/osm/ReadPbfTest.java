@@ -1,7 +1,9 @@
 package de.blau.android.osm;
 
+import java.io.File;
 import java.io.IOException;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -31,6 +33,7 @@ public class ReadPbfTest {
     AdvancedPrefDatabase        prefDB   = null;
     Main                        main     = null;
     UiDevice                    device   = null;
+    File                        pbfFile  = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -49,11 +52,21 @@ public class ReadPbfTest {
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         try {
-            JavaResources.copyFileFromResources(main, PBF_FILE, null, ".");
+            pbfFile = JavaResources.copyFileFromResources(main, PBF_FILE, null, ".");
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
         App.getDelegator().reset(false);
+    }
+
+    /**
+     * Post test clean up
+     */
+    @After
+    public void teardown() {
+        if (pbfFile != null) {
+            pbfFile.delete();
+        }
     }
 
     /**

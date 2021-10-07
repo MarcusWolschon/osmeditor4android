@@ -17,7 +17,6 @@ import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.BySelector;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.Until;
-import ch.poole.android.screenshotrule.ScreenshotRule;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 
@@ -34,9 +33,6 @@ public class HelpViewerTest {
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
-
-    @Rule
-    public ScreenshotRule screenshotRule = new ScreenshotRule();
 
     /**
      * Pre-test setup
@@ -70,11 +66,9 @@ public class HelpViewerTest {
         // contents seems to take longer than the header
         BySelector bySelector = By.clickable(true).textContains("This is currently experimental");
         device.wait(Until.findObject(bySelector), 10000);
-        screenshotRule.screenshot(main, "help_viewer_gps_sources");
         Assert.assertTrue(TestUtils.clickMenuButton(device, "Back", false, true));
         bySelector = By.clickable(true).textContains("Main Vespucci Screen");
         device.wait(Until.findObject(bySelector), 10000);
-        screenshotRule.screenshot(main, "help_viewer_main_map_display");
         Assert.assertTrue(TestUtils.clickMenuButton(device, "Back", false, true));
     }
 }

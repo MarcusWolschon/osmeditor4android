@@ -65,8 +65,8 @@ public class Splash extends AppCompatActivity {
             boolean           migratePublicDirectory;
 
             @Override
-            protected void onPreExecute() {
-                Log.d(DEBUG_TAG, "onPreExecute");
+            protected Void doInBackground(Void... params) {
+                Log.d(DEBUG_TAG, "doInBackGround");
                 Log.d(DEBUG_TAG, "checking last tile source update");
                 long lastDatabaseUpdate = 0;
                 try {
@@ -93,11 +93,6 @@ public class Splash extends AppCompatActivity {
                     migratePublicDirectory = !FileUtil.publicDirectoryExists();
                     Progress.showDialog(Splash.this, migratePublicDirectory ? Progress.PROGRESS_MIGRATION : Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
                 }
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                Log.d(DEBUG_TAG, "doInBackGround");
                 if (migratePublicDirectory) {
                     directoryMigration(Splash.this);
                     Splash.this.runOnUiThread(() -> {
@@ -118,6 +113,9 @@ public class Splash extends AppCompatActivity {
                 } finally {
                     db.close();
                 }
+                Intent intent = new Intent(Splash.this, Main.class);
+                intent.putExtra(SHORTCUT_EXTRAS_KEY, getIntent().getExtras());
+                startActivity(intent);
                 return null;
             }
 
@@ -127,12 +125,8 @@ public class Splash extends AppCompatActivity {
                 if (newInstall || newConfig) {
                     Progress.dismissDialog(Splash.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
                 }
-                Intent intent = new Intent(Splash.this, Main.class);
-                intent.putExtra(SHORTCUT_EXTRAS_KEY, getIntent().getExtras());
-                startActivity(intent);
                 Splash.this.finish();
             }
-
         }.execute();
     }
 

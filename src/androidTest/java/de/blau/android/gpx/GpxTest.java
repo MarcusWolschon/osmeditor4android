@@ -22,14 +22,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
-import android.app.Instrumentation.ActivityMonitor;
-import android.content.Intent;
+import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
@@ -37,11 +36,12 @@ import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.MockTileServer;
+import de.blau.android.R;
 import de.blau.android.SignalHandler;
-import de.blau.android.Splash;
 import de.blau.android.TestUtils;
 import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Node;
@@ -61,10 +61,8 @@ public class GpxTest {
     public static final int      TIMEOUT                = 115;
     private static final Pattern EXPORT_MESSAGE_PATTERN = Pattern.compile("^Exported\\sto\\s(.*\\.gpx)$", Pattern.CASE_INSENSITIVE);
 
-    Splash          splash          = null;
     Main            main            = null;
     UiDevice        device          = null;
-    ActivityMonitor monitor         = null;
     Instrumentation instrumentation = null;
     MockWebServer   tileServer      = null;
     Preferences     prefs           = null;
@@ -73,7 +71,7 @@ public class GpxTest {
      * Manual start of activity so that we can set up the monitor for main
      */
     @Rule
-    public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
+    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
     /**
      * Pre-test setup
@@ -84,21 +82,21 @@ public class GpxTest {
         device = UiDevice.getInstance(instrumentation);
         // this sets the mock location permission
         instrumentation.getUiAutomation().executeShellCommand("appops set de.blau.android 58 allow");
-        monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
 
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        splash = mActivityRule.launchActivity(intent);
-
-        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 60000); // wait for main
+        main = mActivityRule.getActivity();
 
         tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
         de.blau.android.layer.Util.addLayer(main, LayerType.GPX);
         prefs = new Preferences(main);
-        App.getLogic().setPrefs(prefs);
-        main.getMap().setPrefs(main, prefs);
+        Logic logic = App.getLogic();
+        logic.setPrefs(prefs);
+        Map map = main.getMap();
+        map.setPrefs(main, prefs);
 
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
+        TestUtils.zoomToNullIsland(logic, map);
     }
 
     /**
@@ -106,7 +104,6 @@ public class GpxTest {
      */
     @After
     public void teardown() {
-        instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
         try {
             tileServer.close();
@@ -128,10 +125,9 @@ public class GpxTest {
     /**
      * Replay a pre-recorded track and check that we record the same
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void recordSaveAndImportGpx() {
-        assertNotNull(main);
 
         // wait for the trackerservice to start
         // unluckily there doesn't seem to be any elegant way to do this
@@ -170,9 +166,8 @@ public class GpxTest {
         main.invalidateOptionsMenu();
 
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-        assertTrue(TestUtils.clickText(device, false, "Start GPX track", false, false));
-        TestUtils.clickText(device, false, "Next", false); // 1. Tip
-        TestUtils.clickText(device, false, "OK", false); // 2. Tip
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_start), false, false));
+        clickAwayTip(device, main);
 
         final CountDownLatch signal = new CountDownLatch(1);
         main.getTracker().getTrack().reset(); // clear out anything saved
@@ -227,18 +222,18 @@ public class GpxTest {
     /**
      * Import a track file with waypoints and create an OSM object from one of them
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void importWayPoints() {
-        assertNotNull(main);
-        main.getTracker().getTrack().reset(); // clear out anything saved
+        Track track = main.getTracker().getTrack();
+        track.reset(); // clear out anything saved
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
-        main.getTracker().getTrack().importFromGPX(is);
-        assertEquals(112, main.getTracker().getTrack().getTrack().size());
-        assertEquals(79, main.getTracker().getTrack().getWayPoints().length);
+        track.importFromGPX(is);
+        assertEquals(112, track.getTrack().size());
+        assertEquals(79, track.getWayPoints().length);
         WayPoint foundWp = null;
-        for (WayPoint wp : main.getTracker().getTrack().getWayPoints()) {
+        for (WayPoint wp : track.getWayPoints()) {
             if (doubleEquals(47.3976189, wp.getLatitude()) && doubleEquals(8.3770144, wp.getLongitude())) {
                 foundWp = wp;
                 break;
@@ -264,8 +259,6 @@ public class GpxTest {
      */
     @Test
     public void followNetworkLocation() {
-        assertNotNull(main);
-
         // set min distance to 1m
         prefs.setGpsDistance(0);
 
@@ -293,8 +286,6 @@ public class GpxTest {
      */
     @Test
     public void createNodeAtLocation() {
-        assertNotNull(main);
-
         ExtendedLocation loc = new ExtendedLocation(LocationManager.GPS_PROVIDER);
         final double lat = 47.3978982D;
         final double lon = 8.3762937D;
@@ -344,6 +335,8 @@ public class GpxTest {
         int trackSize = trackPoints.size();
         int recordedTrackSize = recordedTrack.size();
         // compare with a bit of tolerance
+        System.out.println("Track size " + trackSize);
+        System.out.println("Recorded track size " + recordedTrackSize);
         assertTrue((recordedTrackSize >= (trackSize - 2)) && (recordedTrackSize <= trackSize));
         int i = 0;
         int offset = 0;
@@ -362,5 +355,16 @@ public class GpxTest {
             // we don't include altitude anymore assertEquals(tp.getAltitude(), recordedTrackPoint.getAltitude(),
             // 0.000001);
         }
+    }
+
+    /**
+     * Click away the tip dialogs
+     * 
+     * @param device the UiDevice
+     * @param context an Android context
+     */
+    static void clickAwayTip(@NonNull UiDevice device, @NonNull Context context) {
+        TestUtils.clickText(device, false, context.getString(R.string.next), false);
+        TestUtils.clickText(device, false, context.getString(R.string.okay), false); // click away tip
     }
 }

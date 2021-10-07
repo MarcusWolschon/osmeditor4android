@@ -29,6 +29,7 @@ import androidx.test.uiautomator.UiDevice;
 import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.contract.Paths;
 import de.blau.android.layer.LayerType;
@@ -72,6 +73,7 @@ public class CameraTest {
 
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
     }
 
     /**
@@ -94,13 +96,18 @@ public class CameraTest {
     /**
      * Click on the camera button, then take a photograph
      */
-    @FlakyTest(detail="This requires a camera app to be present")
+    @FlakyTest(detail = "This requires a camera app to be present")
     @Test
     public void takePicture() {
         MapOverlay photoLayer = map.getPhotoLayer();
         assertNotNull(photoLayer);
         int origCount = photoCount();
-        assertTrue(TestUtils.clickMenuButton(device, "Camera", false, true));
+        TestUtils.findText(device, false, main.getString(R.string.toast_photo_indexing_started), 2000);
+        TestUtils.textGone(device, main.getString(R.string.toast_photo_indexing_finished), 5000);
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_camera), false, false, 10000));
+        TestUtils.clickText(device, false, "Camera", false);
+        TestUtils.clickText(device, false, "Just Once", false); // FIXME needs more work
+        device.waitForWindowUpdate(null, 5000);
         TestUtils.grantPermissons(device);
         if (TestUtils.findText(device, false, "Next", 2000)) {
             TestUtils.clickText(device, false, "Next", true);

@@ -81,13 +81,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentActivity;
-
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.address.Address;
 import de.blau.android.bookmarks.BookmarkIO;
-import de.blau.android.dialogs.bookmarks.BookmarksDialog;
-import de.blau.android.dialogs.bookmarks.BookmarkHandler;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Flavors;
 import de.blau.android.contract.MimeTypes;
@@ -112,6 +109,8 @@ import de.blau.android.dialogs.SearchForm;
 import de.blau.android.dialogs.Tip;
 import de.blau.android.dialogs.TooMuchData;
 import de.blau.android.dialogs.UndoDialog;
+import de.blau.android.dialogs.bookmarks.BookmarkHandler;
+import de.blau.android.dialogs.bookmarks.BookmarksDialog;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.SimpleActionModeCallback;
 import de.blau.android.exception.OsmException;
@@ -1962,6 +1961,10 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_camera:
             Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             try {
+                String cameraApp = prefs.getCameraApp();
+                if (!"".equals(cameraApp)) {
+                    startCamera.setPackage(cameraApp);
+                }
                 imageFile = getImageFile();
                 Uri photoUri = FileProvider.getUriForFile(this, getString(R.string.content_provider), imageFile);
                 if (photoUri != null) {

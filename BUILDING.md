@@ -70,19 +70,19 @@ Automated testing has come relatively late to Vespucci, however we have made lar
 
 Unit test coverage is 27%, overall test coverage is currently 65%.
 
-In general if you are writing new tests that do not involve the UI use unit tests and if you need to mock parts of Android use roboelectic. These tests can be completed in far less time than the on device checks, and the unit tests will also be run as part of the CI pipeline.
+In general if you are writing new tests that do not involve the UI use unit tests and if you need to mock parts of Android use roboelectric. These tests can be completed in far less time than the on device checks, and the unit tests will also be run as part of the CI pipeline.
 
 On device tests need to be run with the emulator locale set to English and with the "high precision" (aka GPS and network) location option set, currently the only OS versions all tests run on successfully are 8.0 and later. The current expectation is that all tests should pass, if this doesn't happen (for example because default applications and other android app settings have been changed) restarting the emulator should typically help. 
 
-On an Intel based emulator the tests currently take something around 45 minutes to complete if run with ``connectedCurrentDebugAndroidTest``.
+On an Intel based emulator the tests currently take something around 90 to 120 minutes to complete if run with the standard ``connectedCurrentDebugAndroidTest``.
+To make running individual tests simpler refreshing the gradle tasks (assuming there was a prior complete run of the tests with ``connectedCurrentDebugAndroidTest``) will create individual tasks for the tests, for the failed ones in the "failed tests" group, for successful ones in the "successful tests" group.
 
-For the on device tests the time to run the tests can be reduced substantially by running ``spoonCurrentDebugAndroidTest`` spoon will execute the tests sharded over as many emulators that are currently running on the system, the additional bonus is that the test output is much easier to consume and understand.
+For the on device tests the time to run the tests can be reduced substantially by running against multiple emulators with ``marathonCurrentDebugAndroidTest`` marathon can execute the tests sharded according to the configuration and retry failed tests. An additional bonus is that the test output is much easier to consume and understand. marathon will include a video of failed tests (we migrated from ``spool`` to `` marathon`` for 16.1). For more information see [https://marathonlabs.github.io/marathon/](https://marathonlabs.github.io/marathon/).
 
-To make running individual tests simpler refreshing the gradle tasks (assuming there was a prior complete run of the tests with ``connectedCurrentDebugAndroidTest``) will create individual tasks for the tests, for the failed ones in the "failed tests" group, for successful ones in the "successful tests" group. 
+__Important:__ currently marathon requires requesting and granting the MANAGE_EXTERNAL_STORAGE permission on Android 11 and higher to generate coverage output. A corresponding manifest files is located in src/debug/AndroidManifest.xml with the relevant element commented out. Using this however leads to tests not reflecting the conditions they would be run under in the production app, so you should consider running the tests without the permission during the actual testing and only request it once testing is completed to generate coverage stats.
 
 Notes: 
 
 * a number of the tests start with the splash screen activity and then wait for the main activity to be started. Experience shows that if one of these fails to complete in certain ways, the following tests that start via the splash screen will not be able to start the main activity. Reason unknown.
-* as the complete set of tests takes a long time to run, if running the tests with spoon you can generate screenshots to debug things instead of trying to catch the test running, see LayerDialogTest.backgroundLayer() for an example of this.
 * the CameraTest assumes that the emulator has a working camera app of some kind installed.
 * some tests assume that a file keys.txt holding imagery API keys is present (otherwise the layers in question are not added), this should be located in ../private_assets/keys.txt relative to the repo directory. A fake such file is provided in the unit test assets.

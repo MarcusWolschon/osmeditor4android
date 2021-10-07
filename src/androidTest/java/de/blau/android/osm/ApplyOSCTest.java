@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -42,6 +43,7 @@ public class ApplyOSCTest {
     Main                        main     = null;
     UiDevice                    device   = null;
     Logic                       logic    = null;
+    File                        oscFile  = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -61,7 +63,7 @@ public class ApplyOSCTest {
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         try {
-            JavaResources.copyFileFromResources(main, OSC_FILE, null, ".");
+            oscFile = JavaResources.copyFileFromResources(main, OSC_FILE, null, ".");
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
@@ -93,6 +95,9 @@ public class ApplyOSCTest {
     public void teardown() {
         API api = prefDB.getCurrentAPI();
         prefDB.setAPIDescriptors(api.id, api.name, api.url, null, api.notesurl, api.oauth);
+        if (oscFile != null) {
+            oscFile.delete();
+        }
     }
 
     /**

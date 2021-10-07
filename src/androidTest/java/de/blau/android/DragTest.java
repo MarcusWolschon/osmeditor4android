@@ -47,7 +47,7 @@ public class DragTest {
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
- 
+
         logic = App.getLogic();
         logic.deselectAll();
         TestUtils.loadTestData(main, "test2.osm");
@@ -59,7 +59,7 @@ public class DragTest {
     @After
     public void teardown() {
         logic.deselectAll();
-        TestUtils.zoomToLevel(device, main, 18);
+        TestUtils.zoomToNullIsland(logic, map);
     }
 
     /**

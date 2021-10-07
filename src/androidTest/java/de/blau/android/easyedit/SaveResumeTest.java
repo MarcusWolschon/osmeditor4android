@@ -21,7 +21,6 @@ import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
@@ -100,7 +99,7 @@ public class SaveResumeTest {
     @After
     public void teardown() {
         TestUtils.stopEasyEdit(main);
-        TestUtils.zoomToLevel(device, main, 18);
+        TestUtils.zoomToNullIsland(logic, map);
         App.getTaskStorage().reset();
         scenario.moveToState(State.DESTROYED);
     }
@@ -108,7 +107,7 @@ public class SaveResumeTest {
     /**
      * Select way, create route, add a further segment - restart app
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void createRoute() {
         map.getDataLayer().setVisible(true);
@@ -143,7 +142,7 @@ public class SaveResumeTest {
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertNotNull(propertyEditor);
         TestUtils.sleep(2000);
-        TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false);   
+        TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false);
         assertTrue(TestUtils.clickHome(device, true));
         instrumentation.removeMonitor(monitor);
 
@@ -159,7 +158,7 @@ public class SaveResumeTest {
     /**
      * Select way, create reation - restart app
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void createRelation() {
         map.getDataLayer().setVisible(true);
@@ -187,7 +186,7 @@ public class SaveResumeTest {
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertNotNull(propertyEditor);
         TestUtils.sleep(2000);
-        TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false);   
+        TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false);
         TestUtils.clickHome(device, true);
         List<Relation> relations = App.getLogic().getSelectedRelations();
         assertEquals(1, relations.size());

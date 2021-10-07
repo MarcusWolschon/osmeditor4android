@@ -15,7 +15,6 @@ import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
@@ -57,13 +56,14 @@ public class AddressTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         instrumentation = InstrumentationRegistry.getInstrumentation();
         main = mActivityRule.getActivity();
-        Preferences prefs = new Preferences(context);
+        logic = App.getLogic();
+        Preferences prefs = logic.getPrefs();
         LayerUtils.removeImageryLayers(context);
         map = main.getMap();
+        prefs.enableSimpleActions(true);
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
-        logic = App.getLogic();
         logic.deselectAll();
         TestUtils.loadTestData(main, "test2.osm");
         App.getTaskStorage().reset();
@@ -78,10 +78,9 @@ public class AddressTest {
     public void teardown() {
         logic.deselectAll();
         TestUtils.stopEasyEdit(main);
-        TestUtils.zoomToLevel(device, main, 18);
+        TestUtils.zoomToNullIsland(logic, map);
         App.getTaskStorage().reset();
-        ModeTest.switchMode(main, device, TestUtils.getLock(device), R.string.mode_easy, Mode.MODE_EASYEDIT);
-        Preferences prefs = new Preferences(context);
+        Preferences prefs = logic.getPrefs();
         prefs.enableSimpleActions(true);
         map.setPrefs(main, prefs);
     }
@@ -90,13 +89,13 @@ public class AddressTest {
      * Create a new Node by long click and check that we get correct street suggestion and then correct house number
      * from prediction
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newAddressLongClick() {
+        TestUtils.unlock(device);
         TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, main.getString(R.string.menu_simple_actions), true);
         map.getDataLayer().setVisible(true);
-        TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.longClickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
@@ -115,7 +114,7 @@ public class AddressTest {
     /**
      * Create a new address Node in address mode
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newAddress() {
         map.getDataLayer().setVisible(true);
@@ -132,11 +131,11 @@ public class AddressTest {
         Assert.assertTrue(TestUtils.findText(device, false, "35"));
         TestUtils.clickHome(device, true);
     }
-    
+
     /**
      * Create a new address interpolation in address mode
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newInterpolation() {
         map.getDataLayer().setVisible(true);

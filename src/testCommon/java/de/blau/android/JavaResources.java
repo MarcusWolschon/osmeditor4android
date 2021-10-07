@@ -28,12 +28,16 @@ public final class JavaResources {
      * @param fileName the name of the file to copy
      * @param source the source sub-directory, can be null
      * @param destination the destination sub-directory
+     * @return the destination File
      * @throws IOException if copying goes wrong
      */
-    public static void copyFileFromResources(@NonNull Context context, @NonNull String fileName, @Nullable String source, @NonNull String destination) throws IOException {
-        File destinationDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context) , destination);
-        File destinationFile = new File(destinationDir, fileName);   
+    @NonNull
+    public static File copyFileFromResources(@NonNull Context context, @NonNull String fileName, @Nullable String source, @NonNull String destination)
+            throws IOException {
+        File destinationDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context), destination);
+        File destinationFile = new File(destinationDir, fileName);
         copyFileFromResources(fileName, source, destinationFile);
+        return destinationFile;
     }
 
     /**
@@ -45,7 +49,8 @@ public final class JavaResources {
      * @throws IOException if copying goes wrong
      * @throws FileNotFoundException if the file is not found
      */
-    public static void copyFileFromResources(@NonNull String fileName, @Nullable String source, @NonNull File destinationFile) throws IOException, FileNotFoundException {
+    public static void copyFileFromResources(@NonNull String fileName, @Nullable String source, @NonNull File destinationFile)
+            throws IOException, FileNotFoundException {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try (OutputStream os = new FileOutputStream(destinationFile); InputStream is = loader.getResourceAsStream((source != null ? source : "") + fileName)) {
             byte[] buffer = new byte[8 * 1024];

@@ -15,7 +15,6 @@ import android.view.KeyEvent;
 import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
@@ -63,6 +62,7 @@ public class KeyboardTest {
         TestUtils.dismissStartUpDialogs(device, main);
         logic = App.getLogic();
         logic.deselectAll();
+        TestUtils.zoomToNullIsland(logic, map);
         TestUtils.loadTestData(main, "test2.osm");
         TestUtils.stopEasyEdit(main);
     }
@@ -73,14 +73,14 @@ public class KeyboardTest {
     @After
     public void teardown() {
         TestUtils.stopEasyEdit(main);
-        TestUtils.zoomToLevel(device, main, 18);
+        TestUtils.zoomToNullIsland(logic, map);
         prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
     }
 
     /**
      * Select, show info dialog, delete (check that nodes are deleted), undelete
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void zoomAndPan() {
         map.getDataLayer().setVisible(true);
@@ -137,7 +137,7 @@ public class KeyboardTest {
     /**
      * Select, start property editor, delete, undelete, re-select, copy, paste, start help
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void way() {
 
@@ -204,7 +204,7 @@ public class KeyboardTest {
     /**
      * Start help on the map display, beep
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void help() {
         TestUtils.zoomToLevel(device, main, 21); // delays things a bit

@@ -23,7 +23,6 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
@@ -32,6 +31,7 @@ import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.LayerUtils;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
@@ -113,7 +113,7 @@ public class MapRouletteTest {
      * Download some MapRoulette tasks and check that a certain one exists, then re-download and check that it got
      * correctly merged
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void mapRouletteDownload() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -178,10 +178,11 @@ public class MapRouletteTest {
         Assert.assertEquals(2237667L, t.getId());
 
         Map map = main.getMap();
-        App.getLogic().getViewBox().setBorders(map, boundingBox);
-        map.setViewBox(App.getLogic().getViewBox());
+        Logic logic = App.getLogic();
+        logic.getViewBox().setBorders(map, boundingBox);
+        map.setViewBox(logic.getViewBox());
         map.invalidate();
-        TestUtils.zoomToLevel(device, main, 18);
+        TestUtils.zoomToNullIsland(logic, map);
         try {
             Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e) {
@@ -191,7 +192,7 @@ public class MapRouletteTest {
     /**
      * Update a MapRoulette task
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void mapRouletteUpdate() {
         mapRouletteDownload();
@@ -219,7 +220,7 @@ public class MapRouletteTest {
     /**
      * Check that we handle error messages from the MapRoulette server correctly
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void mapRouletteUpdateFail() {
         mapRouletteDownload();
@@ -247,7 +248,7 @@ public class MapRouletteTest {
     /**
      * Close a MapRoulette task via dialog
      */
-    @SdkSuppress(minSdkVersion = 26)
+    // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void mapRouletteDialog() {
         mapRouletteDownload();

@@ -23,7 +23,6 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
-import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
@@ -70,7 +69,8 @@ public class MapillaryTest {
         assertNotNull(main);
         TestUtils.grantPermissons(device);
 
-        tileServer = MockTileServer.setupTileServer(main, "mapillary.mbt", true, LayerType.MAPILLARY, TileType.MVT, de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_TILES_ID);
+        tileServer = MockTileServer.setupTileServer(main, "mapillary.mbt", true, LayerType.MAPILLARY, TileType.MVT,
+                de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_TILES_ID);
 
         mockApiServer = new MockWebServerPlus();
         HttpUrl mockApiBaseUrl = mockApiServer.server().url("/");

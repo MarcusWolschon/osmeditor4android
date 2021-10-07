@@ -67,6 +67,7 @@ import ch.poole.poparser.Po;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
+import de.blau.android.contract.Files;
 import de.blau.android.contract.Paths;
 import de.blau.android.contract.Urls;
 import de.blau.android.osm.Node;
@@ -203,8 +204,6 @@ public class Preset implements Serializable {
     private static final long   serialVersionUID           = 7L;
     /** name of the preset XML file in a preset directory */
     public static final String  PRESETXML                  = "preset.xml";
-    /** name of the MRU serialization file in a preset directory */
-    private static final String MRUFILE                    = "mru.dat";
     public static final String  APKPRESET_URLPREFIX        = "apk:";
 
     // hardwired layout stuff
@@ -1135,7 +1134,8 @@ public class Preset implements Serializable {
     public PresetMRUInfo initMRU(File directory, String hashValue) {
         PresetMRUInfo tmpMRU;
 
-        try (FileInputStream fout = new FileInputStream(new File(directory, MRUFILE)); ObjectInputStream mruReader = new ObjectInputStream(fout)) {
+        try (FileInputStream fout = new FileInputStream(new File(directory, Files.FILE_NAME_MRUFILE));
+                ObjectInputStream mruReader = new ObjectInputStream(fout)) {
             tmpMRU = (PresetMRUInfo) mruReader.readObject();
             if (!tmpMRU.presetHash.equals(hashValue)) {
                 throw new InvalidObjectException("hash mismatch");
@@ -1533,7 +1533,8 @@ public class Preset implements Serializable {
     /** Saves the current MRU data to a file */
     public void saveMRU() {
         if (mru != null && mru.isChanged()) {
-            try (FileOutputStream fout = new FileOutputStream(new File(directory, MRUFILE)); ObjectOutputStream out = new ObjectOutputStream(fout)) {
+            try (FileOutputStream fout = new FileOutputStream(new File(directory, Files.FILE_NAME_MRUFILE));
+                    ObjectOutputStream out = new ObjectOutputStream(fout)) {
                 out.writeObject(mru);
             } catch (Exception e) {
                 Log.e(DEBUG_TAG, "MRU saving failed", e);
@@ -4254,8 +4255,7 @@ public class Preset implements Serializable {
     public static boolean generateTaginfoJson(@NonNull Context ctx, @NonNull File output) {
         Preset[] presets = App.getCurrentPresets(ctx);
 
-        try (FileOutputStream fout = new FileOutputStream(output);
-                PrintStream outputStream = new PrintStream(new BufferedOutputStream(fout))) {
+        try (FileOutputStream fout = new FileOutputStream(output); PrintStream outputStream = new PrintStream(new BufferedOutputStream(fout))) {
             outputStream.println("{");
             outputStream.println("\"data_format\":1,");
             outputStream.println("\"data_url\":\"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/taginfo.json\",");
