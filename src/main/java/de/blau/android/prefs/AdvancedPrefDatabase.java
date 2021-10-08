@@ -48,7 +48,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     private final SharedPreferences prefs;
     private final String            selectedApi;
 
-    private static final int DATA_VERSION = 14;
+    private static final int DATA_VERSION = 15;
 
     /** The ID string for the default API and the default Preset */
     public static final String ID_DEFAULT = "default";
@@ -213,6 +213,15 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         }
         if (oldVersion <= 13 && newVersion >= 14) {
             db.execSQL("UPDATE geocoders SET url='" + Urls.DEFAULT_PHOTON_SERVER + "' WHERE url='https://photon.komoot.de/'");
+        }
+        if (oldVersion <= 14 && newVersion >= 15) {
+            // hack to fix offset server preference
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            String offsetServerKey = r.getString(R.string.config_offsetServer_key);
+            if ("https://offsets.textual.ru/".equals(prefs.getString(offsetServerKey, Urls.DEFAULT_OFFSET_SERVER))) {
+                Log.w(DEBUG_TAG, "fixing up offset server url");
+                prefs.edit().putString(offsetServerKey, Urls.DEFAULT_OFFSET_SERVER).commit();
+            }
         }
     }
 
