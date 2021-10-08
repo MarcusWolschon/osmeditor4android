@@ -234,8 +234,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
      */
     private class OffsetLoader extends AsyncTask<Double, Void, List<ImageryOffset>> {
 
-        String                       error = null;
-        final PostAsyncActionHandler handler;
+        private String                       error = null;
+        private final PostAsyncActionHandler handler;
 
         /**
          * Construct a new OffsetLoader
@@ -349,8 +349,12 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         protected void onPostExecute(List<ImageryOffset> res) {
             Progress.dismissDialog(main, Progress.PROGRESS_SEARCHING);
             offsetList = res;
-            if (handler != null) {
-                handler.onSuccess();
+            if (error == null) {
+                if (handler != null) {
+                    handler.onSuccess();
+                }
+            } else {
+                Snack.toastTopError(main, main.getString(R.string.toast_imagery_offset_download_failed, error));
             }
         }
 
@@ -372,7 +376,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
      *
      */
     private class OffsetSaver extends AsyncTask<ImageryOffset, Void, Integer> {
-        String error = null;
+        private String error = null;
 
         @Override
         protected void onPreExecute() {

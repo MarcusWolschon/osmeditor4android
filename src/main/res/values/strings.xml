@@ -574,6 +574,7 @@ avoided by using an offline data source.</string>
     <string name="toast_error_saving_bookmark">Unable to save bookmark</string>
     <string name="toast_error_loading_style">Unable to load style: %1$s</string>
     <string name="toast_only_one_source_supported">Only one source per style supported</string>
+    <string name="toast_imagery_offset_download_failed">Offset download failed: %1$s</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
