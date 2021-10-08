@@ -12,8 +12,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
-import com.buildware.widget.indeterm.IndeterminateCheckBox;
-
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
@@ -40,6 +38,7 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import ch.poole.android.checkbox.IndeterminateCheckBox;
 import ch.poole.conditionalrestrictionparser.ConditionalRestrictionParser;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
@@ -965,7 +964,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 Log.d(DEBUG_TAG, "adapter size " + adapter.getCount());
                 for (int i = 0; i < adapter.getCount(); i++) {
                     Object o = adapter.getItem(i);
-
                     StringWithDescription swd = new StringWithDescription(o);
                     Log.d(DEBUG_TAG, "adding " + swd);
                     String v = swd.getValue();

@@ -1,14 +1,11 @@
 package de.blau.android.views;
 
-import com.buildware.widget.indeterm.IndeterminateCheckBox;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.View.OnLongClickListener;
 import androidx.core.content.ContextCompat;
+import ch.poole.android.checkbox.IndeterminateCheckBox;
 import de.blau.android.R;
 
 public class TriStateCheckBox extends IndeterminateCheckBox {

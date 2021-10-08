@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.buildware.widget.indeterm.IndeterminateCheckBox.OnStateChangedListener;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Spannable;
@@ -23,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
+import ch.poole.android.checkbox.IndeterminateCheckBox.OnStateChangedListener;
 import de.blau.android.R;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetCheckField;

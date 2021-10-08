@@ -1,12 +1,11 @@
 package de.blau.android.propertyeditor.tagform;
 
-import com.buildware.widget.indeterm.IndeterminateCheckBox;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import ch.poole.android.checkbox.IndeterminateCheckBox;
 import de.blau.android.R;
 import de.blau.android.views.TriStateCheckBox;
 
