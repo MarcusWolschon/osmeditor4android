@@ -277,7 +277,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                     final String localizedMessage = e.getLocalizedMessage();
                     final String message = mCtx.getString(R.string.toast_tile_database_issue, localizedMessage);
                     Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(() -> Snack.toastTopError(mCtx, message));
+                    handler.post(() -> Snack.toastTopError(mCtx, message, false));
                     Notifications.error(mCtx, R.string.toast_tile_database_issue_short,
                             Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ? localizedMessage : message, random.nextInt());
                     errorDisplayed = true;

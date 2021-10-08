@@ -1,12 +1,14 @@
 package de.blau.android.util;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -38,6 +40,8 @@ public final class Snack {
     protected static LinkedList<Snackbar> infoQueue    = new LinkedList<>();
     protected static LinkedList<Snackbar> warningQueue = new LinkedList<>();
     protected static LinkedList<Snackbar> errorQueue   = new LinkedList<>();
+
+    private static final Random random = new Random();
 
     /**
      * Private constructor to stop instantiation
@@ -685,8 +689,22 @@ public final class Snack {
      * @param msgRes the message resource to display
      */
     public static void toastTopError(@Nullable Context context, int msgRes) {
+        toastTopError(context, msgRes, true);
+    }
+
+    /**
+     * Display an error toast underneath the top action bar
+     * 
+     * @param context Android Context that called this
+     * @param msgRes the message resource to display
+     * @param persist persist message as a notification
+     */
+    public static void toastTopError(@Nullable Context context, int msgRes, boolean persist) {
         if (context != null) {
             toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red), Toast.LENGTH_LONG);
+            if (persist) {
+                Notifications.error(context, R.string.error, context.getString(msgRes), random.nextInt());
+            }
         }
     }
 
@@ -697,8 +715,22 @@ public final class Snack {
      * @param msg the message to display
      */
     public static void toastTopError(@Nullable Context context, @NonNull String msg) {
+        toastTopError(context, msg, true);
+    }
+
+    /**
+     * Display an error toast underneath the top action bar
+     * 
+     * @param context Android Context that called this
+     * @param msg the message to display
+     * @param persist persist message as a notification
+     */
+    public static void toastTopError(@Nullable Context context, @NonNull String msg, boolean persist) {
         if (context != null) {
             toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red), Toast.LENGTH_LONG);
+            if (persist) {
+                Notifications.error(context, R.string.error, msg, random.nextInt());
+            }
         }
     }
 

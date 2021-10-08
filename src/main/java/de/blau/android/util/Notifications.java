@@ -127,7 +127,8 @@ public final class Notifications {
      * @param id unique notification id
      */
     public static void error(@NonNull Context ctx, int titleRes, @NonNull final String message, int id) {
-        NotificationCompat.Builder builder = Notifications.builder(ctx).setSmallIcon(R.drawable.logo_simplified).setContentTitle(ctx.getString(titleRes));
+        NotificationCompat.Builder builder = Notifications.builder(ctx).setSmallIcon(R.drawable.logo_simplified).setContentTitle(ctx.getString(titleRes))
+                .setColorized(true).setColor(ThemeUtils.getStyleAttribColorValue(ctx, R.color.material_red, 0xFFFF0000));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             builder.setContentText(message);
         } else {
