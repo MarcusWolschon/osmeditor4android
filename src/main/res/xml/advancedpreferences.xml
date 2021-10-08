@@ -440,7 +440,7 @@
             android:summary="@string/config_username_summary"
             android:title="@string/config_loginbutton_title" />
         <androidx.preference.EditTextPreference
-            android:defaultValue="https://offsets.textual.ru/"
+            android:defaultValue="http://offsets.textual.ru/"
             android:key="@string/config_offsetServer_key"
             android:summary="@string/config_offsetServer_summary"
             android:dialogMessage="@string/config_offsetServer_summary"
