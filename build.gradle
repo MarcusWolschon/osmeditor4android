@@ -325,6 +325,7 @@ ext {
 
 import com.android.ddmlib.AndroidDebugBridge
 import com.android.ddmlib.CollectingOutputReceiver
+import com.android.ddmlib.EmulatorConsole
 import com.android.ddmlib.IDevice
 
 task enableFreeform() {
@@ -384,6 +385,22 @@ task removeVespucciDirectory() {
 }
 removeVespucciDirectory.group = 'verification'
 removeVespucciDirectory.description = 'remove /sdcard/Download/Vespucci'
+
+task killEmulators() {
+    doLast {
+        AndroidDebugBridge.initIfNeeded(false)
+        def bridge = AndroidDebugBridge.createBridge(android.adbExecutable.path, false)
+        bridge.devices.each {
+            if (it.isEmulator()) {
+                project.logger.lifecycle('Stopping ' + it.getSerialNumber())
+                def console = EmulatorConsole.getConsole(it)
+                console.kill()
+            }
+        }
+    }
+}
+killEmulators.group = 'emulators'
+killEmulators.description = 'kill all emulators'
 
 afterEvaluate{
     android.applicationVariants.all { variant ->
