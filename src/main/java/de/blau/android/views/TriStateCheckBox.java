@@ -9,8 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import ch.poole.android.checkbox.IndeterminateCheckBox;
-import ch.poole.android.checkbox.IndeterminateCheckBox.OnStateChangedListener;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.Tip;
 
