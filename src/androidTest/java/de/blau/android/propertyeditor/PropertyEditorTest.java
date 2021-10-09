@@ -1,5 +1,11 @@
 package de.blau.android.propertyeditor;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +16,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -137,14 +142,14 @@ public class PropertyEditorTest {
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
-        Assert.assertNotNull(n);
+        assertNotNull(n);
 
         main.performTagEdit(n, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditor);
         TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
         final String original = "Bergdietikon";
         final String edited = "dietikonBerg";
@@ -154,10 +159,10 @@ public class PropertyEditorTest {
             editText.click(); // NOTE this seems to be necessary
             editText.setText(edited);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         TestUtils.clickHome(device, true);
-        Assert.assertEquals(edited, n.getTagWithKey(Tags.KEY_NAME));
+        assertEquals(edited, n.getTagWithKey(Tags.KEY_NAME));
     }
 
     /**
@@ -183,41 +188,41 @@ public class PropertyEditorTest {
         try {
             logic.performAdd(main, 1000.0f, 0.0f);
         } catch (OsmIllegalOperationException e1) {
-            Assert.fail(e1.getMessage());
+            fail(e1.getMessage());
         }
 
         Node n = logic.getSelectedNode();
-        Assert.assertNotNull(n);
+        assertNotNull(n);
 
         main.performTagEdit(n, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditor);
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
         device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/editKey")), 500);
         UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editKey"));
         try {
             editText.setText("key");
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editValue"));
         try {
             editText.setText("value");
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
 
-        Assert.assertTrue(TestUtils.clickText(device, true, main.getString(R.string.relations), false, false));
-        Assert.assertTrue(TestUtils.clickOverflowButton(device));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Add to relation", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "test", true));
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.relations), false, false));
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, "Add to relation", true));
+        assertTrue(TestUtils.clickText(device, false, "test", true));
 
         TestUtils.clickHome(device, true);
-        Assert.assertTrue(n.hasTag("key", "value"));
+        assertTrue(n.hasTag("key", "value"));
         List<Relation> parents = n.getParentRelations();
-        Assert.assertNotNull(parents);
-        Assert.assertEquals(1, parents.size());
-        Assert.assertEquals(r, parents.get(0));
+        assertNotNull(parents);
+        assertEquals(1, parents.size());
+        assertEquals(r, parents.get(0));
     }
 
     /**
@@ -233,7 +238,7 @@ public class PropertyEditorTest {
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         main.getMap().getDataLayer().setVisible(true);
         TestUtils.unlock(device);
@@ -241,82 +246,145 @@ public class PropertyEditorTest {
         // trying to get node click work properly is frustrating
         // TestUtils.clickAtCoordinates(main.getMap(), 8.3856255, 47.3894333, true);
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 599672192L);
-        Assert.assertNotNull(n);
+        assertNotNull(n);
         final CountDownLatch signal2 = new CountDownLatch(1);
-        main.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                main.getEasyEditManager().editElement(n);
-                (new SignalHandler(signal2)).onSuccess();
-            }
+        main.runOnUiThread(() -> {
+            main.getEasyEditManager().editElement(n);
+            (new SignalHandler(signal2)).onSuccess();
         });
         try {
             signal2.await(20, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
 
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         // Node n = App.getLogic().getSelectedNode();
-        // Assert.assertNotNull(n);
+        // assertNotNull(n);
 
-        Assert.assertTrue(TestUtils.clickMenuButton(device, "Properties", false, true));
+        assertTrue(TestUtils.clickMenuButton(device, "Properties", false, true));
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditor);
 
         if (!((PropertyEditor) propertyEditor).paneLayout()) {
-            Assert.assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
+            assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Facilities"), true, false);
-        Assert.assertTrue(found);
+        assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Food+Drinks"), true, false);
-        Assert.assertTrue(found);
+        assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetItemName("Restaurant"), true, false);
-        Assert.assertTrue(found);
+        assertTrue(found);
         UiObject2 cusine = null;
         try {
             cusine = getField(device, "Cuisine", 1);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail();
+            fail();
         }
-        Assert.assertNotNull(cusine);
+        assertNotNull(cusine);
         cusine.click();
         TestUtils.scrollTo("Asian");
-        Assert.assertTrue(TestUtils.clickText(device, true, "Asian", false, false));
+        assertTrue(TestUtils.clickText(device, true, "Asian", false, false));
         TestUtils.scrollTo("German");
-        Assert.assertTrue(TestUtils.clickText(device, true, "German", false, false));
-        Assert.assertTrue(TestUtils.clickText(device, true, "SAVE", true, false));
+        assertTrue(TestUtils.clickText(device, true, "German", false, false));
+        assertTrue(TestUtils.clickText(device, true, "SAVE", true, false));
         UiObject2 openingHours = null;
         try {
             openingHours = getField(device, "Opening Hours", 1);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail();
+            fail();
         }
-        Assert.assertNotNull(openingHours);
+        assertNotNull(openingHours);
         openingHours.click();
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.load_templates_title)));
-        Assert.assertTrue(TestUtils.clickText(device, false, "24 Hours", true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.load_templates_title)));
+        assertTrue(TestUtils.clickText(device, false, "24 Hours", true, false));
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/save", true);
 
         TestUtils.scrollTo("Contact");
-        Assert.assertTrue(TestUtils.clickText(device, false, "Contact", false, false));
+        assertTrue(TestUtils.clickText(device, false, "Contact", false, false));
         UiObject2 phone = null;
         try {
             phone = getField2("Phone number", 0);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail();
+            fail();
         }
         phone.click();
 
         instrumentation.sendStringSync("444400160");
 
-        Assert.assertTrue(TestUtils.findText(device, false, "+41 44 440 01 60", 5000));
+        assertTrue(TestUtils.findText(device, false, "+41 44 440 01 60", 5000));
+
+        // check that tristate checkboxes work
+        TestUtils.scrollTo("Toilets");
+        UiObject2 toilets = null;
+        try {
+            toilets = getField(device, "Toilets", 1);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        toilets.click();
+        clickOK(); // click away tip
+
+        switchToDetailsTab();
+        TestUtils.scrollTo("toilets");
+        UiObject2 toiletValue = null;
+        try {
+            toiletValue = getField(device, "toilets", 2);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        assertEquals(Tags.VALUE_YES, toiletValue.getText());
+        switchtoTagsTab();
+        try {
+            toilets = getField(device, "Toilets", 1);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        toilets.click();
+        switchToDetailsTab();
+        TestUtils.scrollTo("toilets");
+        try {
+            toiletValue = getField(device, "toilets", 2);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        assertEquals(Tags.VALUE_NO, toiletValue.getText());
+        switchtoTagsTab();
+        try {
+            toilets = getField(device, "Toilets", 1);
+            TestUtils.longClick(device, toilets);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+
         TestUtils.clickHome(device, true);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         device.waitForIdle();
-        Assert.assertTrue(n.hasTag("cuisine", "asian;german") || n.hasTag("cuisine", "german;asian"));
-        Assert.assertTrue(n.hasTag("opening_hours", "24/7"));
-        Assert.assertTrue(n.hasTag("phone", "+41 44 440 01 60"));
+        assertTrue(n.hasTag("cuisine", "asian;german") || n.hasTag("cuisine", "german;asian"));
+        assertTrue(n.hasTag("opening_hours", "24/7"));
+        assertTrue(n.hasTag("phone", "+41 44 440 01 60"));
+        assertFalse(n.hasTagKey("toilets"));
+    }
+
+    /**
+     * What the name says
+     */
+    public void clickOK() {
+        TestUtils.clickText(device, false, main.getString(R.string.okay), true);
+    }
+
+    /**
+     * Switch to the tag form tab
+     */
+    public void switchtoTagsTab() {
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false));
+    }
+
+    /**
+     * switch to the details tab
+     */
+    public void switchToDetailsTab() {
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false));
     }
 
     /**
@@ -335,97 +403,96 @@ public class PropertyEditorTest {
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         main.getMap().getDataLayer().setVisible(true);
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 22);
         TestUtils.clickAtCoordinates(device, main.getMap(), 8.3848461, 47.3899166, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Kindhauserstrasse", false, false));
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertTrue(TestUtils.clickText(device, false, "Kindhauserstrasse", false, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Way w = App.getLogic().getSelectedWay();
-        Assert.assertNotNull(w);
+        assertNotNull(w);
 
-        Assert.assertTrue(TestUtils.clickMenuButton(device, "Properties", false, true));
+        assertTrue(TestUtils.clickMenuButton(device, "Properties", false, true));
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
-        Assert.assertTrue(TestUtils.findText(device, false, "Kindhauserstrasse"));
+        assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(TestUtils.findText(device, false, "Kindhauserstrasse"));
         try {
             UiObject2 valueField = getField(device, "50", 1);
             // clicking doesn't work see https://issuetracker.google.com/issues/37017411
             valueField.click();
             valueField.setText("100");
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
 
         //
         // Apply best preset
-        Assert.assertTrue(TestUtils.clickMenuButton(device, "Apply preset with optional", false, false));
+        assertTrue(TestUtils.clickMenuButton(device, "Apply preset with optional", false, false));
         UiObject2 bridge = null;
         try {
             bridge = getField(device, "Bridge", 1);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail();
+            fail();
         }
-        Assert.assertNotNull(bridge);
+        assertNotNull(bridge);
         bridge.click();
+        clickOK(); // click away tip
         UiObject2 sidewalk = null;
         try {
             sidewalk = getField(device, "Sidewalk", 1);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail();
+            fail();
         }
-        Assert.assertNotNull(sidewalk);
+        assertNotNull(sidewalk);
         sidewalk.click();
-        Assert.assertTrue(TestUtils.clickText(device, true, "Only left side", true, false));
+        assertTrue(TestUtils.clickText(device, true, "Only left side", true, false));
 
-        //
-        // switch to relation membership tab
-        Assert.assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false));
-        Assert.assertTrue(TestUtils.clickText(device, true, main.getString(R.string.relations), false, false));
-        Assert.assertTrue(TestUtils.findText(device, false, "Bus 305"));
+        switchToDetailsTab();
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.relations), false, false));
+        assertTrue(TestUtils.findText(device, false, "Bus 305"));
         try {
             UiObject2 roleField = getField(device, "Bus 305", 1);
             // clicking doesn't work see https://issuetracker.google.com/issues/37017411
             roleField.setText("platform");
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
 
         // exit and test that everything has been set correctly
         TestUtils.clickHome(device, true);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
-        Assert.assertTrue(w.hasTag("maxspeed", "100"));
-        Assert.assertTrue(w.hasTag("bridge", "yes"));
-        Assert.assertTrue(w.hasTag("sidewalk", "left"));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertTrue(w.hasTag("maxspeed", "100"));
+        assertTrue(w.hasTag("bridge", "yes"));
+        assertTrue(w.hasTag("sidewalk", "left"));
 
         List<Relation> parents = w.getParentRelations();
-        Assert.assertNotNull(parents);
-        Assert.assertTrue(findRole("platform", w, parents));
+        assertNotNull(parents);
+        assertTrue(findRole("platform", w, parents));
         TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, true);
-        Assert.assertFalse(findRole("platform", w, parents));
+        assertFalse(findRole("platform", w, parents));
 
         //
         MRUTags mruTags = App.getMruTags();
         List<String> path = Arrays.asList(new String[] { "Highways", "Streets", "Tertiary" });
         PresetItem item = (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(context).getRootGroup(), new PresetElementPath(path));
-        Assert.assertNotNull(item);
-        Assert.assertTrue(mruTags.getValues(item, "bridge").contains("yes"));
-        Assert.assertTrue(mruTags.getValues(item, "sidewalk").contains("left"));
-        Assert.assertTrue(mruTags.getValues(item, "maxspeed").contains("100"));
-        Assert.assertTrue(mruTags.getKeys(ElementType.WAY).contains("bridge"));
-        Assert.assertTrue(mruTags.getKeys(ElementType.WAY).contains("sidewalk"));
+        assertNotNull(item);
+        assertTrue(mruTags.getValues(item, "bridge").contains("yes"));
+        assertTrue(mruTags.getValues(item, "sidewalk").contains("left"));
+        assertTrue(mruTags.getValues(item, "maxspeed").contains("100"));
+        assertTrue(mruTags.getKeys(ElementType.WAY).contains("bridge"));
+        assertTrue(mruTags.getKeys(ElementType.WAY).contains("sidewalk"));
         path = Arrays.asList(new String[] { "Transport", "Public Transport (Legacy)", "Public transport route (Legacy)" });
         item = (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(context).getRootGroup(), new PresetElementPath(path));
-        Assert.assertNotNull(item);
+        assertNotNull(item);
         if (mruTags.getRoles(item) == null) { // hack: we matched the non-legacy version of the preset
             path = Arrays.asList(new String[] { "Transport", "Public Transport", "Public Transport Route (Bus)" });
             item = (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(context).getRootGroup(), new PresetElementPath(path));
-            Assert.assertNotNull(item);
+            assertNotNull(item);
         }
-        Assert.assertNotNull(mruTags.getRoles(item));
-        Assert.assertTrue(mruTags.getRoles(item).contains("platform"));
+        assertNotNull(mruTags.getRoles(item));
+        assertTrue(mruTags.getRoles(item).contains("platform"));
     }
 
     /**
@@ -461,19 +528,19 @@ public class PropertyEditorTest {
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
-        Assert.assertNotNull(r);
+        assertNotNull(r);
 
         main.performTagEdit(r, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditor);
 
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
         TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
         UiObject text = device.findObject(new UiSelector().textStartsWith("Vorbühl"));
-        Assert.assertTrue(text.exists());
+        assertTrue(text.exists());
     }
 
     /**
@@ -490,14 +557,14 @@ public class PropertyEditorTest {
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
-        Assert.assertNotNull(r);
+        assertNotNull(r);
 
         main.performTagEdit(r, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditor);
 
         String tooLongText = "This is a very long text string to test the that the API limit of 255 characters is enforced by the PropertyEditor by truncating and showing a toast."
                 + "This is some more text so that we can actually test the limit by entering a string that is too long to trigger the check";
@@ -510,7 +577,7 @@ public class PropertyEditorTest {
             editText.click(); // NOTE this seems to be necessary
             editText.setText(tooLongText);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
 
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
@@ -521,7 +588,7 @@ public class PropertyEditorTest {
             editText.click(); // NOTE this seems to be necessary
             editText.setText(tooLongText);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
 
         editText = device.findObject(new UiSelector().clickable(true).textStartsWith("Kindhausen AG"));
@@ -529,7 +596,7 @@ public class PropertyEditorTest {
             editText.click(); // NOTE this seems to be necessary
             editText.setText(tooLongText);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
 
         TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
@@ -541,18 +608,18 @@ public class PropertyEditorTest {
             editText.click(); // NOTE this seems to be necessary
             editText.setText(tooLongText);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
 
         TestUtils.clickHome(device, true); // close the PropertEditor and save
 
-        Assert.assertEquals(255, r.getTagWithKey("to").length()); // value on the form
+        assertEquals(255, r.getTagWithKey("to").length()); // value on the form
 
         String tooLongKey = tooLongText.substring(0, 255);
-        Assert.assertTrue(r.hasTagKey(tooLongKey)); // key on details
-        Assert.assertEquals(255, r.getTagWithKey(tooLongKey).length()); // value on details
+        assertTrue(r.hasTagKey(tooLongKey)); // key on details
+        assertEquals(255, r.getTagWithKey(tooLongKey).length()); // value on details
 
-        Assert.assertEquals(255, r.getMember(Node.NAME, 416064528).getRole().length()); // role of node #416064528
+        assertEquals(255, r.getMember(Node.NAME, 416064528).getRole().length()); // role of node #416064528
     }
 
     /**
@@ -608,24 +675,24 @@ public class PropertyEditorTest {
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604L);
-        Assert.assertNotNull(w);
+        assertNotNull(w);
 
         main.performTagEdit(w, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditor);
 
         if (!((PropertyEditor) propertyEditor).paneLayout()) {
-            Assert.assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
+            assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Highways"), true, false);
-        Assert.assertTrue(found);
+        assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Streets"), true, false);
-        Assert.assertTrue(found);
+        assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetItemName("Motorway"), true, false);
-        Assert.assertTrue(found);
+        assertTrue(found);
     }
 
     /**
@@ -641,35 +708,35 @@ public class PropertyEditorTest {
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 577098580L);
-        Assert.assertNotNull(n);
+        assertNotNull(n);
 
         main.performTagEdit(n, null, false, true);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditor);
 
         UiSelector uiSelector = new UiSelector().resourceId(device.getCurrentPackageName() + ":id/preset_search_edit");
         UiObject field = device.findObject(uiSelector);
         try {
             field.click();
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_M);
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_C);
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_D);
-        Assert.assertTrue(TestUtils.findText(device, false, "MCM", 5000));
-        Assert.assertTrue(TestUtils.findText(device, false, "McDonald's", 1000));
+        assertTrue(TestUtils.findText(device, false, "MCM", 5000));
+        assertTrue(TestUtils.findText(device, false, "McDonald's", 1000));
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_O);
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_N);
-        Assert.assertTrue(TestUtils.textGone(device, "MCM", 5000));
-        Assert.assertTrue(TestUtils.findText(device, false, "McDonald's", 1000));
-        Assert.assertTrue(TestUtils.clickText(device, false, "McDonald's", true, true));
-        Assert.assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_tags), 5000));
+        assertTrue(TestUtils.textGone(device, "MCM", 5000));
+        assertTrue(TestUtils.findText(device, false, "McDonald's", 1000));
+        assertTrue(TestUtils.clickText(device, false, "McDonald's", true, true));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_tags), 5000));
         TestUtils.clickHome(device, true); // close the PropertEditor and save
-        Assert.assertEquals("McDonald's", n.getTagWithKey(Tags.KEY_NAME));
+        assertEquals("McDonald's", n.getTagWithKey(Tags.KEY_NAME));
     }
 
     /**
@@ -685,47 +752,47 @@ public class PropertyEditorTest {
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604L);
-        Assert.assertNotNull(w);
+        assertNotNull(w);
 
         main.performTagEdit(w, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditor);
 
         if (!((PropertyEditor) propertyEditor).paneLayout()) {
-            Assert.assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
+            assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Highways"), true, false);
-        Assert.assertTrue(found);
+        assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Ways"), true, false);
-        Assert.assertTrue(found);
+        assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetItemName("Steps"), true, false);
-        Assert.assertTrue(found);
+        assertTrue(found);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/tag_menu_apply_preset_with_optional", false);
         device.waitForIdle(1000);
         UiObject2 handrail = null;
         try {
             handrail = getField(device, "Handrail", 1);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail();
+            fail();
         }
-        Assert.assertNotNull(handrail);
+        assertNotNull(handrail);
         handrail.click();
-
+        clickOK(); // click away tip
         UiObject2 overtaking = null;
         try {
             overtaking = getField(device, "Overtaking", 1);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail();
+            fail();
         }
-        Assert.assertNotNull(overtaking);
+        assertNotNull(overtaking);
         overtaking.click();
         device.waitForIdle(1000);
         TestUtils.clickText(device, true, "In way direction", false, false);
         TestUtils.clickText(device, true, "Save", true, false);
-        Assert.assertTrue(TestUtils.findText(device, false, "In way direction"));
+        assertTrue(TestUtils.findText(device, false, "In way direction"));
     }
 
     /**
@@ -741,36 +808,36 @@ public class PropertyEditorTest {
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604L);
-        Assert.assertNotNull(w);
+        assertNotNull(w);
 
         main.performTagEdit(w, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditor);
 
         if (!((PropertyEditor) propertyEditor).paneLayout()) {
-            Assert.assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
+            assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Highways"), true, false);
-        Assert.assertTrue(found);
+        assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Streets"), true, false);
-        Assert.assertTrue(found);
+        assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetItemName("Residential"), true, false);
-        Assert.assertTrue(found);
-        Assert.assertTrue(TestUtils.findText(device, false, "Kindhauserstrasse"));
+        assertTrue(found);
+        assertTrue(TestUtils.findText(device, false, "Kindhauserstrasse"));
         found = TestUtils.clickText(device, true, getTranslatedPresetItemName("Cond. & direct. max speed"), true, false);
-        Assert.assertTrue(found);
+        assertTrue(found);
         UiObject2 conditionalMaxSpeed = null;
         try {
             conditionalMaxSpeed = getField(device, "Max speed @", 1);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail();
+            fail();
         }
-        Assert.assertNotNull(conditionalMaxSpeed);
+        assertNotNull(conditionalMaxSpeed);
         conditionalMaxSpeed.click();
-        Assert.assertTrue(TestUtils.findText(device, false, "50 @"));
+        assertTrue(TestUtils.findText(device, false, "50 @"));
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/save", true);
     }
 
@@ -787,19 +854,19 @@ public class PropertyEditorTest {
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 210468113L);
-        Assert.assertNotNull(w);
+        assertNotNull(w);
         try {
             logic.setTags(main, w, null);
         } catch (OsmIllegalOperationException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
 
         main.performTagEdit(w, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditor);
 
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
         device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/editValue")), 500);
@@ -815,17 +882,17 @@ public class PropertyEditorTest {
             valueEditText.click();
             valueEditText.setText(value);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
 
         if (!((PropertyEditor) propertyEditor).paneLayout()) {
             TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
         }
         PresetItem presetItem = ((PropertyEditor) propertyEditor).getBestPreset();
-        Assert.assertNotNull(presetItem);
-        Assert.assertEquals("Building", presetItem.getName());
-        Assert.assertTrue(TestUtils.clickText(device, true, presetItem.getTranslatedName(), false, false)); // building
-                                                                                                            // preset
+        assertNotNull(presetItem);
+        assertEquals("Building", presetItem.getName());
+        assertTrue(TestUtils.clickText(device, true, presetItem.getTranslatedName(), false, false)); // building
+                                                                                                     // preset
         // should now be
         // added to MRU
     }
@@ -843,14 +910,14 @@ public class PropertyEditorTest {
         try {
             signal.await(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         Node n = (Node) logic.performAddNode(main, 1.0, 1.0);
-        Assert.assertNotNull(n);
+        assertNotNull(n);
 
         main.performTagEdit(n, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditor);
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
         device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/editValue")), 500);
         UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editValue"));
@@ -859,10 +926,10 @@ public class PropertyEditorTest {
             editText.click(); // NOTE this seems to be necessary
             editText.setText(edited);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         TestUtils.clickHome(device, true);
-        Assert.assertFalse(n.hasTag("", edited));
+        assertFalse(n.hasTag("", edited));
     }
 
     /**

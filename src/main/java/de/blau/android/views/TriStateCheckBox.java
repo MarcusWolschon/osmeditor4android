@@ -1,17 +1,22 @@
 package de.blau.android.views;
 
-import com.buildware.widget.indeterm.IndeterminateCheckBox;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.ColorStateList;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.View.OnLongClickListener;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import ch.poole.android.checkbox.IndeterminateCheckBox;
+import ch.poole.android.checkbox.IndeterminateCheckBox.OnStateChangedListener;
+import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.dialogs.Tip;
 
 public class TriStateCheckBox extends IndeterminateCheckBox {
+
+    private OnStateChangedListener onStateChangedListener = null;
 
     /**
      * Standard View constructor
@@ -58,5 +63,39 @@ public class TriStateCheckBox extends IndeterminateCheckBox {
             setIndeterminate(!isIndeterminate());
             return true;
         });
+    }
+
+    @Override
+    public void setOnStateChangedListener(OnStateChangedListener listener) {
+        // we assume that the initial state has been set before this happens
+        super.setOnStateChangedListener((IndeterminateCheckBox arg0, Boolean arg1) -> {
+            FragmentActivity activity = getActivity();
+            if (activity != null) {
+                Tip.showOptionalDialog(activity, R.string.tip_tristate_checkbox_key, R.string.tip_tristate_checkbox);
+            }
+            if (onStateChangedListener != null) {
+                onStateChangedListener.onStateChanged(arg0, arg1);
+            }
+            // the code above only needs to run once, so short cut from now on
+            super.setOnStateChangedListener(onStateChangedListener);
+        });
+        onStateChangedListener = listener;
+    }
+
+    /**
+     * Find the fragment activity we are being showed on
+     * 
+     * @return a FragmentActivity or null
+     */
+    @Nullable
+    private FragmentActivity getActivity() {
+        Context context = getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof FragmentActivity) {
+                return (FragmentActivity) context;
+            }
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+        return null;
     }
 }

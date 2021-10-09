@@ -43,9 +43,9 @@
 -keep,includedescriptorclasses class cn.carbswang.android.numberpickerview.library.NumberPickerView$OnValueChangeListener
 -keep,includedescriptorclasses class cn.carbswang.android.numberpickerview.library.NumberPickerView$OnValueChangeListenerRelativeToRaw
 -keep,includedescriptorclasses class cn.carbswang.android.numberpickerview.library.NumberPickerView$OnValueChangeListenerInScrolling
--keep,includedescriptorclasses class com.buildware.widget.indeterm.IndeterminateRadioButton$OnStateChangedListener
+-keep,includedescriptorclasses class ch.poole.android.checkbox.IndeterminateRadioButton$OnStateChangedListener
 -keep,includedescriptorclasses class com.afollestad.materialdialogs.GravityEnum
--keep,includedescriptorclasses class com.buildware.widget.indeterm.IndeterminateCheckBox$OnStateChangedListener
+-keep,includedescriptorclasses class ch.poole.android.checkbox.IndeterminateCheckBox$OnStateChangedListener
 -keep,includedescriptorclasses class com.github.aakira.expandablelayout.ExpandableLayoutListener
 -keep,includedescriptorclasses class org.acra.config.CoreConfiguration
 -keep,includedescriptorclasses class org.acra.builder.ReportBuilder

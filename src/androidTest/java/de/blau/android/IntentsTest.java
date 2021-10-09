@@ -68,6 +68,7 @@ public class IntentsTest {
         App.getTaskStorage().reset();
         Preferences prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
+        prefs.setTaskFilter(null);
         final Map map = main.getMap();
         map.setPrefs(main, prefs);
         mockServer = new MockWebServerPlus();
@@ -133,9 +134,10 @@ public class IntentsTest {
         Uri uri = Uri.parse("geo:47.3905,8.385");
         main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
         TestUtils.selectIntentRecipient(device);
-        GeoUrlActivity geo = (GeoUrlActivity) instrumentation.waitForMonitorWithTimeout(geoMonitor, 60000);
+        GeoUrlActivity geo = (GeoUrlActivity) instrumentation.waitForMonitorWithTimeout(geoMonitor, 20000);
         assertNotNull(geo);
         takeRequests();
+        // a bit of time is needed to load the results
         assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
         List<Task> tasks = App.getTaskStorage().getTasks();
         //

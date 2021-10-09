@@ -325,6 +325,7 @@ ext {
 
 import com.android.ddmlib.AndroidDebugBridge
 import com.android.ddmlib.CollectingOutputReceiver
+import com.android.ddmlib.EmulatorConsole
 import com.android.ddmlib.IDevice
 
 task enableFreeform() {
@@ -384,6 +385,22 @@ task removeVespucciDirectory() {
 }
 removeVespucciDirectory.group = 'verification'
 removeVespucciDirectory.description = 'remove /sdcard/Download/Vespucci'
+
+task killEmulators() {
+    doLast {
+        AndroidDebugBridge.initIfNeeded(false)
+        def bridge = AndroidDebugBridge.createBridge(android.adbExecutable.path, false)
+        bridge.devices.each {
+            if (it.isEmulator()) {
+                project.logger.lifecycle('Stopping ' + it.getSerialNumber())
+                def console = EmulatorConsole.getConsole(it)
+                console.kill()
+            }
+        }
+    }
+}
+killEmulators.group = 'emulators'
+killEmulators.description = 'kill all emulators'
 
 afterEvaluate{
     android.applicationVariants.all { variant ->
@@ -499,8 +516,8 @@ dependencies {
     implementation 'ch.poole.android:numberpickerpreference:2.0.1'
     implementation "ch.poole.osm:JosmFilterParser:0.5.1"
     implementation 'ch.poole.android:sprites:0.0.4'
+    implementation 'ch.poole.android:indeterminate-checkbox:1.1.0@aar'
     implementation 'de.westnordost:countryboundaries:1.5'
-    implementation 'com.github.sevar83:indeterminate-checkbox:1.0.5@aar'
     implementation 'de.ruedigermoeller:fst:2.57'
     implementation 'org.openstreetmap.osmosis:osmosis-osm-binary:0.48.3'
     implementation 'com.zaxxer:SparseBitSet:1.2'

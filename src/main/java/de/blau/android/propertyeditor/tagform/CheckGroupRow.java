@@ -1,11 +1,10 @@
 package de.blau.android.propertyeditor.tagform;
 
-import com.buildware.widget.indeterm.IndeterminateCheckBox.OnStateChangedListener;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import ch.poole.android.checkbox.IndeterminateCheckBox.OnStateChangedListener;
 import de.blau.android.views.TriStateCheckBox;
 
 /**
