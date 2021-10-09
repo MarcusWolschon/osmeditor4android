@@ -29,6 +29,11 @@ public class PresetRole implements Comparable<PresetRole> {
     private String hint;
 
     /**
+     * This role is deprecated
+     */
+    private boolean deprecated = false;
+
+    /**
      * this role applies to
      */
     private boolean appliesToWay;
@@ -123,6 +128,20 @@ public class PresetRole implements Comparable<PresetRole> {
      */
     public void setHint(@Nullable String hint) {
         this.hint = hint;
+    }
+
+    /**
+     * @return true if deprecated
+     */
+    public boolean isDeprecated() {
+        return deprecated;
+    }
+
+    /**
+     * @param deprecated make this field deprecated
+     */
+    public void setDeprecated(boolean deprecated) {
+        this.deprecated = deprecated;
     }
 
     /**

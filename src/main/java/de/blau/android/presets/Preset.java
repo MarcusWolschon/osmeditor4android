@@ -513,8 +513,8 @@ public class Preset implements Serializable {
      * 
      * @param input the input stream from which to read XML data
      * @throws ParserConfigurationException
-     * @throws SAXException
-     * @throws IOException
+     * @throws SAXException on parsing issues
+     * @throws IOException when reading the presets fails
      */
     private void parseXML(InputStream input) throws ParserConfigurationException, SAXException, IOException {
         SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
@@ -658,6 +658,7 @@ public class Preset implements Serializable {
                     } else {
                         // Optional fixed tags should not happen, their values will NOT be automatically inserted.
                         field = currentItem.addTag(true, key, PresetKeyType.TEXT, attr.getValue(VALUE), MatchType.fromString(match));
+                        field.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED))); // fixed fields can't be deprecated
                     }
                     if (match != null) {
                         field.setMatchType(match);
@@ -711,6 +712,7 @@ public class Preset implements Serializable {
                             Log.e(DEBUG_TAG, "Parsing of 'length' failed " + length + " " + e.getMessage());
                         }
                     }
+                    field.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
                     break;
                 case LINK:
                     String language = Locale.getDefault().getLanguage();
@@ -741,6 +743,7 @@ public class Preset implements Serializable {
                         checkGroup.setHint(currentLabel);
                     }
                     checkGroup.setOptional(inOptionalSection);
+                    checkGroup.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
                     break;
                 case CHECK_FIELD:
                     key = attr.getValue(KEY_ATTR);
@@ -775,6 +778,7 @@ public class Preset implements Serializable {
                     if (useLastAsDefault != null) {
                         checkField.setUseLastAsDefault(useLastAsDefault);
                     }
+                    checkField.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
                     if (checkGroup != null) {
                         checkGroup.addCheckField(checkField);
                     } else {
@@ -861,6 +865,7 @@ public class Preset implements Serializable {
                     if (valueCountKey != null) {
                         ((PresetComboField) field).setValueCountKey(valueCountKey);
                     }
+                    field.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
                     break;
                 case ROLES:
                     break;
@@ -873,6 +878,7 @@ public class Preset implements Serializable {
                     role.setRequisite(attr.getValue(REQUISITE));
                     role.setCount(attr.getValue(COUNT));
                     role.setRegexp(attr.getValue(REGEXP));
+                    role.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
                     currentItem.addRole(role);
                     break;
                 case REFERENCE:
