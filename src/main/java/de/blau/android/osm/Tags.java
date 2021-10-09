@@ -267,8 +267,10 @@ public final class Tags {
     public static final String KEY_GNSS_HDOP      = "gnss:hdop";
 
     //
-    public static final String VALUE_YES  = "yes";
-    public static final String VALUE_TRUE = "true";
+    public static final String VALUE_YES   = "yes";
+    public static final String VALUE_TRUE  = "true";
+    public static final String VALUE_NO    = "no";
+    public static final String VALUE_FALSE = "false";
     //
     public static final String KEY_WIKIPEDIA = "wikipedia";
     public static final String KEY_WIKIDATA  = "wikidata";

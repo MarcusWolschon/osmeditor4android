@@ -17,6 +17,7 @@ import org.junit.Assert;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.location.Criteria;
 import android.location.Location;
@@ -345,6 +346,19 @@ public class TestUtils {
     public static void longClick(@NonNull UiDevice device, @NonNull UiObject o) throws UiObjectNotFoundException {
         Rect rect = o.getBounds();
         device.swipe(rect.centerX(), rect.centerY(), rect.centerX(), rect.centerY(), 200);
+        sleep(2000);
+    }
+    
+    /**
+     * An attempt at getting reliable long clicks with swiping
+     * 
+     * @param device the current UiDevice
+     * @param o the UiObject2 to long click on
+     * @throws UiObjectNotFoundException if o is not found
+     */
+    public static void longClick(@NonNull UiDevice device, @NonNull UiObject2 o) throws UiObjectNotFoundException {
+        Point p = o.getVisibleCenter();
+        device.swipe(p.x, p.y, p.x, p.y, 200);
         sleep(2000);
     }
 
