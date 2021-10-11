@@ -1775,8 +1775,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     private boolean addTagFromPreset(@NonNull PresetItem item, @Nullable PresetField field, @NonNull Map<String, List<String>> tags, @NonNull String key,
             Map<String, String> scripts, boolean useDefault) {
-        List<String> values = tags.get(key);
-        if (values == null || (values.size() == 1 && "".equals(values.get(0)))) {
+        List<String> values = tags.get(key);      
+        boolean isDeprecated = field != null && field.isDeprecated();
+        if ((values == null || (values.size() == 1 && "".equals(values.get(0)))) && !isDeprecated) {
             String value = "";
             if (field != null && useDefault) {
                 String defaultValue = field.getDefaultValue();
