@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle.State;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -69,18 +70,12 @@ public class SaveResumeTest {
         context = instrumentation.getTargetContext();
         ActivityMonitor monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
         scenario = ActivityScenario.launch(Main.class);
-        // scenario.moveToState(State.STARTED);
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         instrumentation.removeMonitor(monitor);
         Preferences prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
         prefs.enableSimpleActions(true);
-        main.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                main.showSimpleActionsButton();
-            }
-        });
+        main.runOnUiThread(() -> main.showSimpleActionsButton());
 
         map = main.getMap();
         map.setPrefs(main, prefs);
@@ -138,7 +133,7 @@ public class SaveResumeTest {
 
         ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
         // finish
-        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        clickSimpleButton(device);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertNotNull(propertyEditor);
         TestUtils.sleep(2000);
@@ -153,6 +148,15 @@ public class SaveResumeTest {
         assertEquals(2, route.getMembers().size());
         assertNotNull(route.getMember(Way.NAME, 104148456L));
         assertNotNull(route.getMember(Way.NAME, 50059937L));
+    }
+
+    /**
+     * Click the simple button
+     * 
+     * @param device the UiDevice
+     */
+    public void clickSimpleButton(@NonNull UiDevice device) {
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
     }
 
     /**
@@ -181,8 +185,7 @@ public class SaveResumeTest {
 
         scenario.recreate();
 
-        // finish
-        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        clickSimpleButton(device);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertNotNull(propertyEditor);
         TestUtils.sleep(2000);
@@ -216,7 +219,7 @@ public class SaveResumeTest {
 
         scenario.recreate();
 
-        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        clickSimpleButton(device);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
         TestUtils.clickHome(device, true);
         Way way = App.getLogic().getSelectedWay();
