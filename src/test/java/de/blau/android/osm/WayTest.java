@@ -9,9 +9,14 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
+import androidx.test.filters.LargeTest;
 import de.blau.android.osm.OsmElement.ElementType;
 
+@RunWith(RobolectricTestRunner.class)
+@LargeTest
 public class WayTest {
 
     /**

@@ -16,14 +16,19 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import androidx.annotation.NonNull;
+import androidx.test.filters.LargeTest;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.Util;
 
+@RunWith(RobolectricTestRunner.class)
+@LargeTest
 public class StorageDelegatorTest {
 
     /**

@@ -6,16 +6,19 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import android.util.Log;
+import androidx.test.filters.LargeTest;
 import de.blau.android.exception.OsmException;
 
+@RunWith(RobolectricTestRunner.class)
+@LargeTest
 public class StorageTest {
 
     private static final String DEBUG_TAG = "StorageTest";
@@ -150,44 +153,5 @@ public class StorageTest {
         Node changed = (Node) storage.getOsmElement(Node.NAME, -12345L);
         assertNotNull(changed);
         assertEquals(node, changed);
-    }
-
-    private class LineCounter extends PrintStream {
-        int lineCount = 0;
-
-        /**
-         * Create a PrintStream that simply counts println ops
-         * 
-         * @param out an existing OutputStream
-         */
-        public LineCounter(OutputStream out) {
-            super(out, true);
-        }
-
-        @Override
-        public void print(String s) {// do what ever you like
-            fail();
-        }
-
-        @Override
-        public void println(String s) {// do what ever you like
-            lineCount++;
-        }
-    }
-
-    /**
-     * Check that logStorage outputs something
-     */
-    @Test
-    public void logStorage() {
-        PrintStream savedOut = System.out;
-        try {
-            LineCounter counter = new LineCounter(System.out);
-            System.setOut(counter);
-            storage.logStorage();
-            assertEquals(732534, counter.lineCount);
-        } finally {
-            System.setOut(savedOut);
-        }
     }
 }

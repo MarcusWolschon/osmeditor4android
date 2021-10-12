@@ -12,12 +12,17 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import androidx.annotation.NonNull;
+import androidx.test.filters.LargeTest;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.resources.eli.EliFeatureCollection;
 import de.blau.android.util.Version;
 
+@RunWith(RobolectricTestRunner.class)
+@LargeTest
 public class EliTest {
 
     private static final String DEBUG_TAG = EliTest.class.getSimpleName();

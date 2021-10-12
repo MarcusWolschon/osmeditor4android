@@ -16,11 +16,16 @@ import java.security.NoSuchAlgorithmException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 
+import androidx.test.filters.LargeTest;
 import de.blau.android.util.Hash;
 
+@RunWith(RobolectricTestRunner.class)
+@LargeTest
 public class XmlTest {
 
     /**
