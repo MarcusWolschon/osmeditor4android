@@ -219,7 +219,7 @@ public class UndoStorage implements Serializable {
      * 
      * @param element element for which the state should be removed
      */
-    void remove(@NonNull OsmElement element) {
+    public void remove(@NonNull OsmElement element) {
         Checkpoint checkpoint = undoCheckpoints.getLast();
         if (checkpoint != null) {
             checkpoint.remove(element);
@@ -552,7 +552,7 @@ public class UndoStorage implements Serializable {
      * @author Jan
      */
     public abstract class UndoElement implements Serializable {
-        private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 2L;
 
         final OsmElement element;
 
@@ -716,6 +716,15 @@ public class UndoStorage implements Serializable {
         }
 
         /**
+         * Get the state of the underlying OsmELement
+         * 
+         * @return the state
+         */
+        public byte getState() {
+            return state;
+        }
+
+        /**
          * Get a BoundingBox for the element
          * 
          * @param checkpoint the Checkpoint this element is located in
@@ -792,7 +801,7 @@ public class UndoStorage implements Serializable {
      * @see UndoElement
      */
     public class UndoWay extends UndoElement implements Serializable {
-        private static final long serialVersionUID = 2L;
+        private static final long serialVersionUID = 3L;
         private final List<Node>  nodes;
 
         /**
@@ -877,12 +886,21 @@ public class UndoStorage implements Serializable {
         }
 
         /**
-         * Return the number of nodes in the is way
+         * Return the number of nodes in this way
          * 
          * @return the number of nodes in this Way
          */
         public int nodeCount() {
             return nodes == null ? 0 : nodes.size();
+        }
+
+        /**
+         * Get an unmodifiable list of the node
+         * 
+         * @return a list of the nodes
+         */
+        public List<Node> getNodes() {
+            return Collections.unmodifiableList(nodes);
         }
 
         @Override

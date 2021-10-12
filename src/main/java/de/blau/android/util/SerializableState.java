@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
  */
 public class SerializableState implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private final Map<String, Serializable> state = new HashMap<>();
 
@@ -52,6 +52,16 @@ public class SerializableState implements Serializable {
     }
 
     /**
+     * Store an Integer
+     * 
+     * @param key the key
+     * @param i the Integer object
+     */
+    public void putInteger(@NonNull String key, @Nullable Integer i) {
+        state.put(key, i);
+    }
+
+    /**
      * Store a String
      * 
      * @param key the key
@@ -60,7 +70,7 @@ public class SerializableState implements Serializable {
     public void putString(@NonNull String key, @Nullable String s) {
         state.put(key, s);
     }
-    
+
     /**
      * Get a serializable object
      * 
@@ -86,7 +96,21 @@ public class SerializableState implements Serializable {
             return null;
         }
     }
-    
+
+    /**
+     * Get an Integer
+     * 
+     * @param key the key
+     * @return an Integer or null if not found or not an Integer
+     */
+    public Integer getInteger(String key) {
+        try {
+            return (Integer) state.get(key);
+        } catch (ClassCastException e) {
+            return null;
+        }
+    }
+
     /**
      * Get a String
      * 
