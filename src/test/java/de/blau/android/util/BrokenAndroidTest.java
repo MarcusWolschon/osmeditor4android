@@ -16,7 +16,7 @@ import androidx.test.filters.LargeTest;
 public class BrokenAndroidTest {
 
     /**
-     * Test if the US is imperial
+     * TEst that we detect broken deiveces properly
      */
     @Test
     public void brokenTest() {
@@ -38,5 +38,7 @@ public class BrokenAndroidTest {
         // test non existent entry
         props = ba.getProperties("google", "something");
         assertNull(props);
+        
+        assertFalse(ba.isFullScreenBroken()); // whatever is set as device for roboelectric
     }
 }
