@@ -1,5 +1,5 @@
 {
-    "xiaomi|daisy_sprout": {
+    "xiaomi|*": {
         "fullscreen": false
     },
     "google|sargo": {

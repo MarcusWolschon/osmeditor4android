@@ -97,7 +97,7 @@ public class BrokenAndroid {
     }
 
     /**
-     * Get the properties for a specific device
+     * Get the properties for a specific device or all devices of the manufacturer
      * 
      * @param manufacturer the manufacturer
      * @param device the device name
@@ -105,6 +105,8 @@ public class BrokenAndroid {
      */
     @Nullable
     public Properties getProperties(@NonNull String manufacturer, @NonNull String device) {
-        return properties.get(manufacturer + "|" + device);
+        Properties allDevices = properties.get(manufacturer + "|*"); // wildcard entry for manufacturer
+        Properties justThisDevice = properties.get(manufacturer + "|" + device);
+        return justThisDevice != null ? justThisDevice : allDevices;
     }
 }
