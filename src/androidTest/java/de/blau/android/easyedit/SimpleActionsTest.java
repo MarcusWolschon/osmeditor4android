@@ -1,7 +1,9 @@
 package de.blau.android.easyedit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -146,6 +148,45 @@ public class SimpleActionsTest {
         assertEquals(3, way.nodeCount());
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         TestUtils.clickUp(device);
+    }
+
+    /**
+     * Create a new way and completely undo it
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void newWayUndo() {
+        int prevChanges = App.getDelegator().getApiElementCount();
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickSimpleButton(device);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
+        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
+        TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3897000, 47.3903500, true);
+        TestUtils.sleep();
+        // undo last addition
+        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        TestUtils.sleep();
+        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        TestUtils.sleep();
+        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        TestUtils.sleep();
+        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        TestUtils.sleep();
+
+        Way way = App.getLogic().getSelectedWay();
+        assertNull(way);
+        // nothing to undo
+        assertFalse(App.getLogic().getUndo().canUndo());
+        // nothing to upload
+        assertEquals(prevChanges, App.getDelegator().getApiElementCount());
     }
 
     /**
