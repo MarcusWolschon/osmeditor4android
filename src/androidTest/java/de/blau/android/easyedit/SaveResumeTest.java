@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -192,6 +193,39 @@ public class SaveResumeTest {
         assertEquals(1, relations.size());
         Relation relation = relations.get(0);
         assertTrue(relation.getOsmId() < 0);
+    }
+
+    /**
+     * Create a new way from menu
+     */
+    @Test
+    public void createWay() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickSimpleButton(device);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
+        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
+        TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3897000, 47.3903500, true);
+        TestUtils.sleep();
+
+        scenario.recreate();
+
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
+        TestUtils.clickHome(device, true);
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertTrue(way.getOsmId() < 0);
+        assertEquals(4, way.nodeCount());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        TestUtils.clickUp(device);
     }
 
 }
