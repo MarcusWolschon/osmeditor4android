@@ -454,7 +454,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
      */
     static void addValues(@NonNull final TagFormFragment caller, @NonNull final String key, @Nullable final ArrayAdapter<?> adapter,
             @NonNull final MultiTextRow row, @Nullable List<String> splitValues) {
-        final boolean notEmpty = splitValues != null;
+        final boolean notEmpty = splitValues != null && !splitValues.isEmpty() && !(splitValues.size() == 1 && "".equals(splitValues.get(0)));
         if (notEmpty) {
             int phoneNumberReformatted = 0;
             int count = 1;
@@ -481,7 +481,10 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
             }
         }
         int currentCount = splitValues.size();
-        for (int i = (notEmpty ? currentCount : 0); i < (row.valueCount > 0 && row.valueCountKey != null ? row.valueCount : currentCount + 1); i++) {
+        int start = notEmpty ? currentCount : 0;
+        boolean hasValueCount = row.valueCount > 0 && row.valueCountKey != null;
+        int end = hasValueCount ? row.valueCount : (notEmpty ? currentCount + 1 : 1);
+        for (int i = start; i < end; i++) {
             row.addEditText("", row.listener, row.valueType, row.adapter, -1);
         }
     }
