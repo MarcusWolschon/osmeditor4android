@@ -17,6 +17,9 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.UndoStorage;
+import de.blau.android.osm.UndoStorage.UndoElement;
+import de.blau.android.osm.UndoStorage.UndoWay;
 import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
 import de.blau.android.util.Snack;
@@ -37,6 +40,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private static final String EXISTING_NODE_IDS_KEY = "existing node ids";
     private static final String WAY_ID_KEY            = "way id";
     private static final String TITLE_KEY             = "title";
+    private static final String CHECKPOINT_NAME_KEY   = "checkpoint name";
 
     /** x coordinate of first node */
     private float   x;
@@ -57,6 +61,9 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private List<Node>   existingNodes = new ArrayList<>();
 
     private String savedTitle = null;
+
+    /** what the checkpoint is called **/
+    private Integer checkpointName;
 
     /**
      * Construct a new callback from saved state
@@ -94,6 +101,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             appendTargetWay = createdWay;
         }
         savedTitle = state.getString(TITLE_KEY);
+        checkpointName = state.getInteger(CHECKPOINT_NAME_KEY);
     }
 
     /**
@@ -187,8 +195,14 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         if (appendTargetNode != null) {
             logic.performAppendAppend(main, x, y, firstNode);
             appendTargetNode = logic.getSelectedNode();
+            if (firstNode) {
+                checkpointName = R.string.undo_action_append;
+            }
         } else {
             logic.performAdd(main, x, y, firstNode);
+            if (firstNode) {
+                checkpointName = R.string.undo_action_add;
+            }
         }
         if (logic.getSelectedNode() == null) {
             // user clicked last node again -> finish adding
@@ -258,6 +272,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         }
         Node removedNode = addedNodes.remove(addedNodes.size() - 1);
         final boolean deleteNode = !existingNodes.contains(removedNode);
+        final List<Way> modifiedWays = logic.getWaysForNode(removedNode);
         if (createdWay != null) {
             logic.performRemoveEndNodeFromWay(main, createdWay.getLastNode().equals(logic.getSelectedNode()), createdWay, deleteNode, false);
             createdWay.dontValidate();
@@ -267,9 +282,35 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         } else if (deleteNode) {
             logic.performEraseNode(main, removedNode, false);
         }
+        // undo any changes from creating and then removing nodes on ways
+        if (deleteNode) {
+            for (Way w : modifiedWays) {
+                if (!w.equals(createdWay)) {
+                    UndoStorage undo = logic.getUndo();
+                    List<UndoElement> undoWays = undo.getUndoElements(w);
+                    UndoElement undoWay = undoWays.get(undoWays.size() - 1);
+                    if (undoWay instanceof UndoWay) {
+                        if (((UndoWay) undoWay).getState() == OsmElement.STATE_UNCHANGED && w.getNodes().equals(((UndoWay) undoWay).getNodes())) {
+                            undoWay.restore(); // this should just update the state
+                            undo.remove(w);
+                        } else {
+                            Log.w(DEBUG_TAG, "Not fixing up " + w);
+                        }
+                    } else {
+                        Log.e(DEBUG_TAG, "UndoElement should be an UndoWay " + undoWay.toString());
+                    }
+                }
+            }
+        }
         // exit or select the previous node
         if (addedNodes.isEmpty()) {
             logic.setSelectedNode(null);
+            // delete undo checkpoint
+            if (checkpointName != null) {
+                logic.removeCheckpoint(main, checkpointName, true);
+            } else {
+                Log.e(DEBUG_TAG, "checkpointName is null");
+            }
             // all nodes have been deleted, cancel action mode
             manager.finish();
         } else {
@@ -355,6 +396,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             state.putLong(WAY_ID_KEY, createdWay.getOsmId());
         }
         state.putString(TITLE_KEY, mode.getTitle().toString());
+        state.putInteger(CHECKPOINT_NAME_KEY, checkpointName);
     }
 
     @Override
