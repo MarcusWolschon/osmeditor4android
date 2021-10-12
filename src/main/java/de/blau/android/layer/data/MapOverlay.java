@@ -918,28 +918,19 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         // style for small label text
         FeatureStyle featureStyleFontSmall = labelTextStyleSmall;
 
-        if (tmpDrawingInEditRange) {
-            if (isSelected) {
-                featureStyle = nodeFeatureStyleSelected;
-                featureStyleThin = nodeFeatureStyleThinSelected;
-                featureStyleTagged = nodeFeatureStyleTaggedSelected;
-                featureStyleFont = labelTextStyleNormalSelected;
-                featureStyleFontSmall = labelTextStyleSmallSelected;
-                DataStyle currentStyle = DataStyle.getCurrent();
-                if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea()
-                        && tmpDrawingEditMode.elementsGeomEditiable()) {
-                    // don't draw large areas in multi-select mode
-                    canvas.drawCircle(x, y, currentStyle.getLargDragToleranceRadius(), nodeDragRadiusPaint);
-                } else {
-                    canvas.drawCircle(x, y, currentStyle.getNodeToleranceValue(), nodeDragRadiusPaint);
-                }
-            } else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node))) {
-                featureStyle = nodeFeatureStyleRelation;
-                featureStyleThin = nodeFeatureStyleThinRelation;
-                featureStyleTagged = nodeFeatureStyleTaggedRelation;
-                featureStyleFont = nodeFeatureStyleFontRelation;
-                featureStyleFontSmall = nodeFeatureStyleFontSmallRelation;
-                isSelected = true;
+        // node is selected
+        if (tmpDrawingInEditRange && isSelected) {
+            featureStyle = nodeFeatureStyleSelected;
+            featureStyleThin = nodeFeatureStyleThinSelected;
+            featureStyleTagged = nodeFeatureStyleTaggedSelected;
+            featureStyleFont = labelTextStyleNormalSelected;
+            featureStyleFontSmall = labelTextStyleSmallSelected;
+            DataStyle currentStyle = DataStyle.getCurrent();
+            if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea() && tmpDrawingEditMode.elementsGeomEditiable()) {
+                // don't draw large areas in multi-select mode
+                canvas.drawCircle(x, y, currentStyle.getLargDragToleranceRadius(), nodeDragRadiusPaint);
+            } else {
+                canvas.drawCircle(x, y, currentStyle.getNodeToleranceValue(), nodeDragRadiusPaint);
             }
         }
 
@@ -961,6 +952,16 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 nodeValidationColor = validationColor;
             }
             hasProblem = true;
+        }
+
+        // relation member highlighting needs to overrule validation
+        if (tmpDrawingInEditRange && tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) {
+            featureStyle = nodeFeatureStyleRelation;
+            featureStyleThin = nodeFeatureStyleThinRelation;
+            featureStyleTagged = nodeFeatureStyleTaggedRelation;
+            featureStyleFont = nodeFeatureStyleFontRelation;
+            featureStyleFontSmall = nodeFeatureStyleFontSmallRelation;
+            isSelected = true;
         }
 
         if (filterMode && !filteredObject) {
