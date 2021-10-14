@@ -2,6 +2,8 @@ package de.blau.android;
 
 import java.io.InputStreamReader;
 
+import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
+
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Util;
@@ -20,7 +21,7 @@ import de.blau.android.util.Util;
  * Show licence and author information for the app
  *
  */
-public class LicenseViewer extends AppCompatActivity {
+public class LicenseViewer extends LocaleAwareCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         Preferences prefs = new Preferences(this);

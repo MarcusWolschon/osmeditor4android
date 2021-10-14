@@ -5,6 +5,8 @@ import java.util.Date;
 
 import org.acra.ACRA;
 
+import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
+
 import android.annotation.SuppressLint;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -20,7 +22,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.osm.StorageDelegator;
@@ -32,7 +33,7 @@ import de.blau.android.util.DateFormatter;
 import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
 
-public class DebugInformation extends AppCompatActivity {
+public class DebugInformation extends LocaleAwareCompatActivity {
     private static final String DEBUG_TAG = "DebugInformation";
 
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
