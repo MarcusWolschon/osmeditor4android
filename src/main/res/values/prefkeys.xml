@@ -84,6 +84,8 @@
     <string name="config_useBarometricHeight_key">useBarometricHeight</string>
     <string name="config_useUrlForFeedback_key">useUrlForFeedback</string>
     <string name="config_preferRemovableStorage_key">preferRemovableStorage</string>
+    <string name="config_disableTranslations_key">disableTranslations</string>
+    <string name="config_savedLocale_key">savedLocale</string>
     
 	<!-- Preference keys used in the pref editor(s) int prefs -->
 	<string name="config_maxInlineValues_key">maxInlineValuesInt</string>
