@@ -2,11 +2,13 @@ package de.blau.android.easyedit.turnrestriction;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import android.util.Log;
 import android.view.Menu;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditManager;
@@ -45,9 +47,13 @@ public class FromElementActionModeCallback extends NonSimpleActionModeCallback {
      * @param way the "from" role Way
      * @param vias potential "via" role elements
      */
-    public FromElementActionModeCallback(@NonNull EasyEditManager manager, int titleId, @NonNull Way way, @NonNull Set<OsmElement> vias) {
+    public FromElementActionModeCallback(@NonNull EasyEditManager manager, int titleId, @NonNull Way way, @NonNull Set<OsmElement> vias,
+            @Nullable Map<OsmElement, Result> results) {
         this(manager, way, vias);
         this.titleId = titleId;
+        if (results != null) {
+            savedResults = results;
+        }
     }
 
     @Override
@@ -87,7 +93,8 @@ public class FromElementActionModeCallback extends NonSimpleActionModeCallback {
         }
         if (viaWay != null && viaWay.equals(fromWay)) {
             // we need to split fromWay first
-            main.startSupportActionMode(new RestrictionWaySplittingActionModeCallback(manager, R.string.actionmode_restriction_split_from, fromWay, null));
+            main.startSupportActionMode(
+                    new RestrictionWaySplittingActionModeCallback(manager, R.string.actionmode_restriction_split_from, fromWay, null, savedResults));
             return true;
         }
         Way newFromWay = null;
@@ -95,13 +102,13 @@ public class FromElementActionModeCallback extends NonSimpleActionModeCallback {
             // split from at node
             List<Result> result = logic.performSplit(main, fromWay, viaNode);
             newFromWay = newWayFromSplitResult(result);
-            checkSplitResult(fromWay, result);
+            saveSplitResult(fromWay, result);
         }
         Way newViaWay = null;
         if (viaWay != null && !viaWay.getFirstNode().equals(viaNode) && !viaWay.getLastNode().equals(viaNode)) {
             List<Result> result = logic.performSplit(main, viaWay, viaNode);
             newViaWay = newWayFromSplitResult(result);
-            checkSplitResult(viaWay, result);
+            saveSplitResult(viaWay, result);
         }
         Set<OsmElement> newViaElements = new HashSet<>();
         newViaElements.add(element);
@@ -113,17 +120,18 @@ public class FromElementActionModeCallback extends NonSimpleActionModeCallback {
             fromElements.add(fromWay);
             fromElements.add(newFromWay);
             Snack.barInfo(main, newViaWay == null ? R.string.toast_split_from : R.string.toast_split_from_and_via);
-            main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, fromElements, newViaElements));
+            main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, fromElements, newViaElements, savedResults));
             return true;
         }
         if (newViaWay != null) {
             // restart via selection
             Snack.barInfo(main, R.string.toast_split_via);
-            main.startSupportActionMode(new FromElementActionModeCallback(manager, R.string.actionmode_restriction_restart_via, fromWay, newViaElements));
+            main.startSupportActionMode(
+                    new FromElementActionModeCallback(manager, R.string.actionmode_restriction_restart_via, fromWay, newViaElements, savedResults));
             return true;
         }
         viaSelected = true;
-        main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, element));
+        main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, element, savedResults));
         return true;
     }
 

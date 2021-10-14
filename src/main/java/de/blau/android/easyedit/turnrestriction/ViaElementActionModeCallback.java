@@ -2,11 +2,13 @@ package de.blau.android.easyedit.turnrestriction;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import android.util.Log;
 import android.view.Menu;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditManager;
@@ -32,11 +34,14 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
      * @param from selected "from" role Way
      * @param via selected "via" role OsmElement
      */
-    public ViaElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via) {
+    public ViaElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via, @Nullable Map<OsmElement, Result> results) {
         super(manager);
         fromWay = from;
         viaElement = via;
         cachedToElements = findToElements(viaElement);
+        if (results != null) {
+            savedResults = results;
+        }
     }
 
     /**
@@ -47,12 +52,15 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
      * @param via selected "via" role OsmElement
      * @param toElements potential "to" role OsmElements
      */
-    public ViaElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via, @NonNull Set<OsmElement> toElements) {
+    public ViaElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via, @NonNull Set<OsmElement> toElements, @Nullable Map<OsmElement, Result> results) {
         super(manager);
         fromWay = from;
         viaElement = via;
         cachedToElements = toElements;
         this.titleId = R.string.actionmode_restriction_restart_to;
+        if (results != null) {
+            savedResults = results;
+        }
     }
 
     @Override
@@ -101,24 +109,24 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
             return true;
         }
         if (viaElement != null && viaElement.equals(toWay)) {
-            main.startSupportActionMode(new RestrictionWaySplittingActionModeCallback(manager, R.string.actionmode_restriction_split_via, toWay, fromWay));
+            main.startSupportActionMode(new RestrictionWaySplittingActionModeCallback(manager, R.string.actionmode_restriction_split_via, toWay, fromWay, savedResults));
             return true;
         }
         // now check if we need to split the toWay
         if (!toWay.getFirstNode().equals(viaNode) && !toWay.getLastNode().equals(viaNode) && !toWay.isClosed()) {
             List<Result> result = logic.performSplit(main, toWay, viaNode);
             Way newToWay = newWayFromSplitResult(result);
-            checkSplitResult(toWay, result);
+            saveSplitResult(toWay, result);
             Snack.barInfo(main, R.string.toast_split_to);
             Set<OsmElement> toCandidates = new HashSet<>();
             toCandidates.add(toWay);
             toCandidates.add(newToWay);
-            main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaElement, toCandidates));
+            main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaElement, toCandidates, savedResults));
             return true;
         }
 
         toSelected = true;
-        main.startSupportActionMode(new ToElementActionModeCallback(manager, fromWay, viaElement, (Way) element)); // NOSONAR
+        main.startSupportActionMode(new ToElementActionModeCallback(manager, fromWay, viaElement, (Way) element, savedResults)); // NOSONAR
         // viaElement can't actually be null
         return true;
     }

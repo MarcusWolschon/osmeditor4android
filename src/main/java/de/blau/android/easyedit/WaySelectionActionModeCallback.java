@@ -234,7 +234,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 buildRelationSelectDialog(main, r -> {
                     Relation route = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
                     if (route != null) {
-                        main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, route, findViaElements(way, false)));
+                        main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, route, findViaElements(way, false), null));
                     }
                 }, -1, R.string.select_route_title, Tags.KEY_TYPE, Tags.VALUE_ROUTE).show();
                 break;

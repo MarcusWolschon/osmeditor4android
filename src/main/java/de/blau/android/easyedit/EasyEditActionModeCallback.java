@@ -2,8 +2,10 @@ package de.blau.android.easyedit;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import android.util.Log;
@@ -47,15 +49,16 @@ import de.blau.android.util.Util;
  */
 public abstract class EasyEditActionModeCallback implements ActionMode.Callback {
 
-    private static final String     DEBUG_TAG = "EasyEditActionModeCa...";
-    protected int                   helpTopic = 0;
-    MenuUtil                        menuUtil;
-    private ActionMenuView          cabBottomBar;
-    protected final Main            main;
-    protected final Logic           logic;
-    protected final EasyEditManager manager;
-    protected ActionMode            mode;
-    private boolean                 created   = true;
+    private static final String       DEBUG_TAG = "EasyEditActionModeCa...";
+    protected int                     helpTopic = 0;
+    MenuUtil                          menuUtil;
+    private ActionMenuView            cabBottomBar;
+    protected final Main              main;
+    protected final Logic             logic;
+    protected final EasyEditManager   manager;
+    protected ActionMode              mode;
+    private boolean                   created   = true;
+    protected Map<OsmElement, Result> savedResults   = new HashMap<>();
 
     public static final int GROUP_MODE = 0;
     public static final int GROUP_BASE = 1;
@@ -412,10 +415,23 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @param resultList a List containing Results of the split, new Way in 1st
      */
     protected void checkSplitResult(@NonNull Way originalWay, @Nullable List<Result> resultList) {
+        saveSplitResult(originalWay, resultList);
+        if (!savedResults.isEmpty()) {
+            TagConflictDialog.showDialog(main, new ArrayList<>(savedResults.values()));
+        }
+    }
+
+    /**
+     * Save the result of a way split operation for later display if necessary
+     * 
+     * @param originalWay the original Way
+     * @param resultList a List containing Results of the split, new Way in 1st
+     */
+    protected void saveSplitResult(@NonNull Way originalWay, @Nullable List<Result> resultList) {
         if (resultList != null && !resultList.isEmpty() && (resultList.get(0).hasIssue() || resultList.size() > 1)) {
             List<Result> tempList = new ArrayList<>(resultList);
             Result first = tempList.get(0);
-            if (first.hasIssue()) {
+            if (first.hasIssue()) { // create a result for the original way
                 Result orig = new Result();
                 orig.setElement(originalWay);
                 orig.addAllIssues(first.getIssues());
@@ -423,7 +439,14 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
             } else {
                 tempList.remove(0);
             }
-            TagConflictDialog.showDialog(main, tempList);
+            for (Result r : tempList) {
+                Result saved = savedResults.get(r.getElement());
+                if (saved != null) {
+                    saved.addAllIssues(r.getIssues());
+                } else {
+                    savedResults.put(r.getElement(), r);
+                }
+            }
         }
     }
 

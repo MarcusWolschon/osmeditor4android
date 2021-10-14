@@ -1,15 +1,18 @@
 package de.blau.android.easyedit.turnrestriction;
 
+import java.util.Map;
 import java.util.Set;
 
 import android.util.Log;
 import android.view.Menu;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 
 public class RestartFromElementActionModeCallback extends NonSimpleActionModeCallback {
@@ -25,10 +28,14 @@ public class RestartFromElementActionModeCallback extends NonSimpleActionModeCal
      * @param froms potential "from" role Ways
      * @param vias potential "via" role elements
      */
-    public RestartFromElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Set<OsmElement> froms, @NonNull Set<OsmElement> vias) {
+    public RestartFromElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Set<OsmElement> froms, @NonNull Set<OsmElement> vias,
+            @Nullable Map<OsmElement, Result> results) {
         super(manager);
         fromElements = froms;
         viaElements = vias;
+        if (results != null) {
+            savedResults = results;
+        }
     }
 
     @Override
@@ -52,12 +59,13 @@ public class RestartFromElementActionModeCallback extends NonSimpleActionModeCal
             fromSelected = true;
             logic.addSelectedRelationWay((Way) element);
             // redo via selection, this time with pre-split way
-            main.startSupportActionMode(new FromElementActionModeCallback(manager, R.string.actionmode_restriction_restart_via, (Way) element, viaElements));
+            main.startSupportActionMode(
+                    new FromElementActionModeCallback(manager, R.string.actionmode_restriction_restart_via, (Way) element, viaElements, savedResults));
             return true;
         } else if (viaElements.size() == 1) {
             fromSelected = true;
             logic.addSelectedRelationWay((Way) element);
-            main.startSupportActionMode(new ViaElementActionModeCallback(manager, (Way) element, viaElements.iterator().next()));
+            main.startSupportActionMode(new ViaElementActionModeCallback(manager, (Way) element, viaElements.iterator().next(), savedResults));
             return true;
         }
         Log.e(DEBUG_TAG, "viaElements size " + viaElements.size());

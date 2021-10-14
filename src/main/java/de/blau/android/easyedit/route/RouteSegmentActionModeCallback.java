@@ -3,16 +3,19 @@ package de.blau.android.easyedit.route;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.easyedit.BuilderActionModeCallback;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.ElementSelectionActionModeCallback;
@@ -107,9 +110,12 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
      * @param potentialSegments potential further segments
      */
     public RouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Relation route,
-            @NonNull Set<OsmElement> potentialSegments) {
+            @NonNull Set<OsmElement> potentialSegments, @Nullable Map<OsmElement, Result> results) {
         this(manager, way, potentialSegments);
         this.route = route;
+        if (results != null) {
+            this.savedResults = results;
+        }
     }
 
     @Override
@@ -224,7 +230,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
             // split from at node
             List<Result> result = logic.performSplit(main, currentSegment, commonNode);
             newCurrentSegment = newWayFromSplitResult(result);
-            checkSplitResult(currentSegment, result);
+            saveSplitResult(currentSegment, result);
             if (size > 1) { // not the first segment
                 // keep the bit that connects to previous segment
                 Way prevSegment = segments.get(size - 2);
@@ -243,7 +249,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
         if (!nextSegment.isClosed() && !nextSegment.getFirstNode().equals(commonNode) && !nextSegment.getLastNode().equals(commonNode)) {
             List<Result> result = logic.performSplit(main, nextSegment, commonNode);
             newNextSegment = newWayFromSplitResult(result);
-            checkSplitResult(nextSegment, result);
+            saveSplitResult(nextSegment, result);
         } else if (newCurrentSegment == null) {
             segments.add(nextSegment);
             logic.setSelectedRelationWays(segments);
@@ -257,7 +263,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
             fromElements.add(currentSegment);
             fromElements.add(newCurrentSegment);
             Snack.barInfo(main, newNextSegment == null ? R.string.toast_split_first_segment : R.string.toast_split_first_and_next_segment);
-            main.startSupportActionMode(new RestartRouteSegmentActionModeCallback(manager, fromElements, route));
+            main.startSupportActionMode(new RestartRouteSegmentActionModeCallback(manager, fromElements, route, savedResults));
             return false;
         }
         if (newNextSegment != null) {
@@ -293,6 +299,9 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
         segments.clear();
         main.performTagEdit(route, Tags.VALUE_ROUTE, false, false);
         main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, route));
+        if (!savedResults.isEmpty()) {
+            TagConflictDialog.showDialog(main, new ArrayList<>(savedResults.values()));
+        }
     }
 
     @Override

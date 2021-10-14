@@ -1,15 +1,21 @@
 package de.blau.android.easyedit.turnrestriction;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import android.util.Log;
 import android.view.Menu;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
+import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
 import de.blau.android.easyedit.RelationSelectionActionModeCallback;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 
@@ -28,11 +34,14 @@ public class ToElementActionModeCallback extends NonSimpleActionModeCallback {
      * @param via the "via" role OsmELement
      * @param to the "to" role Way
      */
-    public ToElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via, Way to) {
+    public ToElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via, Way to, @Nullable Map<OsmElement, Result> results) {
         super(manager);
         fromWay = from;
         viaElement = via;
         toWay = to;
+        if (results != null) {
+            savedResults = results;
+        }
     }
 
     @Override
@@ -46,6 +55,9 @@ public class ToElementActionModeCallback extends NonSimpleActionModeCallback {
         Log.i(DEBUG9_TAG, "Created restriction");
         main.performTagEdit(restriction, !uTurn ? Tags.VALUE_RESTRICTION : null, false, false);
         main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, restriction));
+        if (!savedResults.isEmpty()) {
+            TagConflictDialog.showDialog(main, new ArrayList<>(savedResults.values()));
+        }
         return false; // we are actually already finished
     }
 

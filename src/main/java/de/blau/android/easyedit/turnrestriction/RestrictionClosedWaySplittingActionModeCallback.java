@@ -2,6 +2,7 @@ package de.blau.android.easyedit.turnrestriction;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import android.util.Log;
@@ -14,6 +15,7 @@ import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 
 /**
@@ -37,7 +39,8 @@ public class RestrictionClosedWaySplittingActionModeCallback extends NonSimpleAc
      * @param node the first node to split at the callback will ask for the 2nd one
      * @param fromWay the current from segment or null
      */
-    public RestrictionClosedWaySplittingActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Node node, @Nullable Way fromWay) {
+    public RestrictionClosedWaySplittingActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Node node, @Nullable Way fromWay,
+            @Nullable Map<OsmElement, Result> results) {
         super(manager);
         this.way = way;
         this.node = node;
@@ -45,6 +48,9 @@ public class RestrictionClosedWaySplittingActionModeCallback extends NonSimpleAc
         List<Node> allNodes = way.getNodes();
         nodes.addAll(allNodes);
         nodes.remove(node);
+        if (results != null) {
+            savedResults = results;
+        }
     }
 
     @Override
@@ -68,13 +74,13 @@ public class RestrictionClosedWaySplittingActionModeCallback extends NonSimpleAc
                     Set<OsmElement> candidates = new HashSet<>();
                     candidates.add(result[0]);
                     candidates.add(result[1]);
-                    main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, candidates, candidates));
+                    main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, candidates, candidates, savedResults));
                 } else {
                     Way viaWay = result[0];
                     if (fromWay.hasCommonNode(result[1])) {
                         viaWay = result[1];
                     }
-                    main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaWay));
+                    main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaWay, savedResults));
                 }
                 return true;
             }

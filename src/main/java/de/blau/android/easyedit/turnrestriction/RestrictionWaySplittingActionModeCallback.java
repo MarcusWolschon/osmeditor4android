@@ -3,6 +3,7 @@ package de.blau.android.easyedit.turnrestriction;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import android.view.Menu;
@@ -31,7 +32,7 @@ public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionMo
      * @param way the existing Way
      * @param fromWay the current from segment or null
      */
-    public RestrictionWaySplittingActionModeCallback(@NonNull EasyEditManager manager, int subTitle, @NonNull Way way, @Nullable Way fromWay) {
+    public RestrictionWaySplittingActionModeCallback(@NonNull EasyEditManager manager, int subTitle, @NonNull Way way, @Nullable Way fromWay, @Nullable Map<OsmElement, Result> results) {
         super(manager);
         this.way = way;
         this.fromWay = fromWay;
@@ -42,6 +43,9 @@ public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionMo
             nodes.remove(nodes.size() - 1);
         }
         this.subTitle = subTitle;
+        if (results != null) {
+            this.savedResults = results;
+        }
     }
 
     @Override
@@ -64,23 +68,23 @@ public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionMo
             return false;
         }
         if (way.isClosed()) {
-            main.startSupportActionMode(new RestrictionClosedWaySplittingActionModeCallback(manager, way, (Node) element, fromWay));
+            main.startSupportActionMode(new RestrictionClosedWaySplittingActionModeCallback(manager, way, (Node) element, fromWay, savedResults));
         } else {
             List<Result> result = logic.performSplit(main, way, (Node) element);
             Way newWay = newWayFromSplitResult(result);
             if (newWay != null) {
-                checkSplitResult(way, result);
+                saveSplitResult(way, result);
                 if (fromWay == null) {
                     Set<OsmElement> candidates = new HashSet<>();
                     candidates.add(way);
                     candidates.add(newWay);
-                    main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, candidates, candidates));
+                    main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, candidates, candidates, savedResults));
                 } else {
                     Way viaWay = newWay;
                     if (fromWay.hasCommonNode(way)) {
                         viaWay = way;
                     }
-                    main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaWay));
+                    main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaWay, savedResults));
                 }
             }
         }
