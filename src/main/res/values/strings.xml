@@ -984,7 +984,7 @@ avoided by using an offline data source.</string>
     <string name="config_showCameraAction_title">Show camera action</string>
     <string name="config_showCameraAction_summary">Show camera icon on action bar.</string>
     <string name="config_selectCameraApp_title">Camera app</string>
-    <string name="config_selectCameraApp_summary">Select camaera app to use.</string>
+    <string name="config_selectCameraApp_summary">Select camera app to use.</string>
     <string name="config_system_camera">System default</string>
     <string name="config_open_camera">Open Camera</string>
     <string name="config_fv5_lite">FV5 lite</string>
