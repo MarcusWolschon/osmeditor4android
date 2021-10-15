@@ -19,6 +19,7 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import de.blau.android.R;
+import de.blau.android.util.LocaleUtils;
 import de.blau.android.util.Util;
 
 public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
@@ -134,11 +135,11 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(lac);
                 if (((CheckBoxPreference) disableTranslationsPref).isChecked()) {
                     if (!prefs.contains(savedLocaleKey)) {
-                        prefs.edit().putString(savedLocaleKey, Locale.getDefault().toLanguageTag()).commit();
+                        prefs.edit().putString(savedLocaleKey, LocaleUtils.toLanguageTag(Locale.getDefault())).commit();
                     }
                     lac.updateLocale(Locale.ENGLISH);
                 } else {
-                    lac.updateLocale(Locale.forLanguageTag(prefs.getString(savedLocaleKey, Locale.ENGLISH.toString())));
+                    lac.updateLocale(LocaleUtils.forLanguageTag(prefs.getString(savedLocaleKey, Locale.ENGLISH.toString())));
                 }
                 return true;
             });
