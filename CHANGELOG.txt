@@ -1,5 +1,29 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+16.1.0-1:
+
+- Fix multiple undo issues in path create mode
+- Fix: only display 1 row for empty multitext fields
+- Fix http vs https for imagery offset server
+- Fix ANRs when testing on Android 11
+- Fix: produce a proper error message if downloading offsets fail
+- Allow disabling translations
+- Support device wildcard, blacklist all Xiaomi devices
+- Run unit tests that require logging with roboelectric
+- Overwrite validation highlighting if selected as relation member
+- Display a tip the first time a tristate checkbox is touched
+- Replace IndeterminateCheckBox implementation with fork
+- Persist error toasts as notification per default
+- Add unit test version of apply OSC test
+- Use different naming scheme for synonym files
+- Migrate from spoon to marathon
+- Avoid NPEs on null tile sources
+- Android 11 related test changes and improvements
+- Support selecting camera app independent of system default
+- Target SDK/API 30
+- Update translations
+- Update synonyms
+
 16.0.0:
 
 - Add more icons on buildings rendering in the data styles
