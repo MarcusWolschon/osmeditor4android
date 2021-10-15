@@ -1,5 +1,15 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+16.0.1:
+
+- Fix: only display 1 row for empty multitext fields
+- Fix http vs https for imagery offset server
+- Overwrite validation highlighting if selected as relation member
+- Update translations
+- Update presets
+- Update imagery
+- Update synonyms
+
 16.0.0:
 
 - Add more icons on buildings rendering in the data styles
