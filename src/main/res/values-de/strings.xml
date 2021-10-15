@@ -83,6 +83,7 @@
   <string name="progress_building_imagery_database">Hintergrundbilderdatenbank wird erstellt…</string>
   <string name="progress_query_oam">Abfrage von OAM…</string>
   <string name="progress_pruning">Zurückschneiden…</string>
+  <string name="progress_migration">Migrieren…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" gelöscht</string>
   <string name="changes_changed">\"%1$s\" verändert</string>
@@ -191,6 +192,8 @@
   <string name="edit_properties">Tags bearbeiten</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON-Feature-Information</string>
+  <string name="vt_feature_information">Infos zur Vektorkachelfunktion</string>
+  <string name="vt_layer">Vektor-Kachel-Ebene</string>
   <string name="copy_properties">Eigenschaften kopieren</string>
   <string name="create_osm_element">OSM-Objekt erstellen</string>
   <!--API/Data layer info dialog-->
@@ -293,6 +296,7 @@
   <string name="coverage_left">Links</string>
   <string name="coverage_right">Rechts</string>
   <string name="coverage_bottom">Unten</string>
+  <string name="tile_size">Kartenkachelgrösse</string>
   <string name="toast_invalid_box">Ungültiges oder unvollständiges Begrenzungsrechteck</string>
   <string name="delete_layer">Hintergrundeintrag löschen?</string>
   <string name="delete_endpoint">Server löschen?</string>
@@ -303,7 +307,9 @@
   <string name="layer_style_title">Ebenenstil</string>
   <string name="layer_style_stroke_width">Strichbreite</string>
   <string name="layer_style_color">Farbe</string>
+  <string name="layer_style_layer">Unterebene</string>
   <string name="layer_style_label">Beschriftung</string>
+  <string name="layer_style_symbol">Symbol</string>
   <string name="json_object_not_displayed">JSON-Objekt (nicht angezeigt)</string>
   <string name="json_array_not_displayed">JSON-Array (nicht angezeigt)</string>
   <!--Layer dialog-->
@@ -317,15 +323,19 @@
   <string name="layer_data_name">%1$s Daten</string>
   <string name="layer_flush_tile_cache">Tile-Cache bereinigen</string>
   <string name="layer_change_style">Stil ändern</string>
+  <string name="layer_load_style">Stil laden</string>
+  <string name="layer_reset_style">Stil zurücksetzen</string>
   <string name="layer_select_imagery">Bildmaterial auswählen</string>
   <string name="layer_category_all">Alle</string>
   <string name="layer_category_photo">Luftbild</string>
+  <string name="layer_category_elevation">Terrain</string>
   <string name="layer_category_historicphoto">Veraltetes Luftbild</string>
   <string name="layer_category_map">Karte</string>
   <string name="layer_category_historicmap">Veraltete Karte</string>
   <string name="layer_category_osmbasedmap">OSM-basierte Karte</string>
   <string name="layer_category_qa">Qualitätskontrolle</string>
   <string name="layer_category_other">Andere</string>
+  <string name="layer_add_layer_from_mvt_style">Ebene aus MVT Stil hinzufügen</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Minimaler Zoom</string>
   <string name="layer_info_max_zoom">Maximaler Zoom</string>
@@ -336,6 +346,7 @@
   <string name="projection">Projektion</string>
   <string name="errors">Fehler</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Foto löschen</string>
   <string name="photo_viewer_delete_button">Endgültig löschen</string>
@@ -383,13 +394,15 @@
   <string name="tip_undo">Ein langer Druck auf den \"Rückgängig\"-Knopf zeigt alle Sicherungspunkte, die rückgängig gemacht und wiederhergestellt werden können.</string>
   <string name="tip_imagery_privacy">Hintergrund- und Vordergrundlayer werden von Dritten angeboten. Beim Verwenden eines Layers werden Ihre Netzwerkadresse und ein Anhaltspunkt für das betrachtete Gebiet an den Anbieter übertragen.&lt;p&gt;
 Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den Menüpunkt \"Info\" in der Anforderung für den Layer eingesehen werden.</string>
+  <string name="tip_mapillary_privacy">Mapillary ist eine Dienst der Mapillary AB, Schweden, eine Tochtergesellschaft von Facebook. Die Benutzung des Dienstes übermittelt deine IP Adresse und Information über die Bilder, die du betrachtest hast an die Firma.</string>
   <string name="tip_pan_and_zoom_auto_download">Das automatische Laden der aktuellen Ansicht sollte mit Vorsicht verwendet werden, da es das Potential hat, sowohl die OpenStreetMap-API als auch dieses Gerät erheblich zu belasten.&lt;p&gt;Ersteres kann durch die Verwendung einer Offlinedatenquelle vermieden werden.</string>
   <string name="tip_locked_mode">Im gesperrten Zustand kann nicht editiert werden, aber ein langer Klick auf ein Objekt zeigt Detailinformationen an.</string>
   <string name="tip_longpress_simple_mode">Im einfachen Modus hat ein langer Klick keine Funktion. Schalten Sie den einfachen Modus ab, wenn Sie mit langem Klick Objekte erstellen wollen.</string>
   <string name="tip_gpx_no_elevation">Ab Version 15 enthalten GPX-Aufzeichnungen standardmäßig keine Höhendaten mehr.&lt;p&gt;Um Höhendaten hinzufügen entweder im Werkzeugmenü &lt;i&gt;EGM installieren&lt;/i&gt; auswählen, oder als Standortdatenquelle NMEA-Input verwenden.</string>
   <string name="tip_tag_conflict">Das Zusammenführen und Umdrehen von OSM-Objekten führt manchmal dazu, dass Eigenschaften der Objekte geändert werden. Falls das zu einem Fehler oder Konflikt führen könnte wird eine Meldung angezeigt, und die Änderungen können geprüft werden.</string>
   <string name="tip_gpx_recording">Beim Aufzeichnen eine GPX-Spur verwendet Vespucci Standortdaten um die Aufzeichnung zu ermöglichen, auch wenn die App nicht sichtbar ist.&lt;p&gt;Wird die App explizit verlassen, oder die GPX-Aufzeichnung beendet, wird der Standort nicht mehr verwendet.</string>
-  <string name="tip_auto_download">Beim automatischen Download von Daten oder Aufgaben um den aktuellen Standort verwendet Vespucci Standortdaten um den aktuellen Standort zu bestimmen, auch wenn die App nicht sichtbar ist.&lt;p&gt;Wird die App explizit verlassen, oder die GPX-Aufzeichnung beendet, wird der Standort nicht mehr verwendet.</string>
+  <string name="tip_auto_download">Beim automatischen Download von Daten oder Aufgaben um den aktuellen Standort verwendet Vespucci Standortdaten um den aktuellen Standort zu bestimmen, auch wenn die App nicht sichtbar ist.&lt;p&gt;Wird die App explizit verlassen, oder der automatischer Download beendet, wird der Standort nicht mehr verwendet.</string>
+  <string name="tip_tristate_checkbox">Du hast gerade eine Checkbox mit drei Zuständen verwendet. Diese schalten genau so wie normale Checkboxen zwischen zwei Werten hin und her, z.B. yes/no oder true/false.&lt;p&gt;Ein dritter Zustand &lt;b&gt;nicht gesetzt&lt;/b&gt; führt dazu, dass der Tag nicht hinzugefügt wird. Diesen Zustand, bei dem die Checkbox ausgegraut ist, kann mit einem langen Druck gesetzt werden.  </string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -477,6 +490,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_invalid_readonlyurl">Ungültige \"nur lesen\" API-URL</string>
   <string name="toast_invalid_notesurl">Ungültige API-URL für Notizen</string>
   <string name="toast_invalid_preseturl">Ungültige Vorlagen-URL</string>
+  <string name="toast_missing_preset_file">Vorlagendatei für \"%1$s\" fehlt</string>
   <string name="toast_invalid_filter_regexp">Ungültiger Auswahlausdruck im Filter mit Schlüssel \"%1$s\" und Wert \"%2$s\"</string>
   <string name="toast_error_accessing_photo">Foto %1$s nicht abrufbar</string>
   <string name="toast_security_error_accessing_photo">Zugriff auf Foto %1$s nicht gestattet</string>
@@ -504,7 +518,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_not_mbtiles">Die Datei ist nicht im MBTiles-Format</string>
   <string name="toast_using_network_location">Netzwerkstandort</string>
   <string name="toast_using_gps_location">GPS/GNSS-Standort</string>
-  <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS abgeschaltet, Aufzeichnung gestoppt</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS ist abgeschaltet, gegebenenfalls sollte die Aufzeichnung gestoppt werden.  </string>
   <string name="toast_remote_nmea_connection">Externe NMEA-Verbindung von/zu %1$s</string>
   <string name="toast_remote_nmea_connection_closed">Externe NMEA-Verbindung geschlossen</string>
   <string name="toast_tags_copied">Tags wurden in die Zwischenablage kopiert</string>
@@ -556,6 +570,10 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_outer_rings_differing_tags">Äußere Ringe haben unterschiedliche Eigenschaften</string>
   <string name="toast_multipolygon_has_incomplete_rings">Das Multipolygon hat unvollständige Ringe</string>
   <string name="toast_multipolygon_inconsistent_roles">Das Multipolygon hat inkonsistente Rollenwerte für einen Ring</string>
+  <string name="toast_error_saving_bookmark">Speichern des Lesezeichens nicht möglich</string>
+  <string name="toast_error_loading_style">Kann Stil \"%1$s\" nicht laden</string>
+  <string name="toast_only_one_source_supported">Nur eine Quelle per Stil unterstützt.</string>
+  <string name="toast_imagery_offset_download_failed">Download vom Versatz fehlgeschlagen: %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -963,6 +981,12 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_tagFormEnabled_summary">Formularansicht für Eigenschaften anzeigen</string>
   <string name="config_showCameraAction_title">Kameraaktion anzeigen</string>
   <string name="config_showCameraAction_summary">Kamera-Symbol in Menüleiste anzeigen</string>
+  <string name="config_selectCameraApp_title">Kamera-App</string>
+  <string name="config_selectCameraApp_summary">Kamera-App auswählen.</string>
+  <string name="config_system_camera">Systemvoreinstellung</string>
+  <string name="config_open_camera">Open Camera</string>
+  <string name="config_fv5_lite">FV5 lite</string>
+  <string name="config_fv5_pro">FV5 pro</string>
   <string name="config_useInternalPhotoViewer_title">Eingebaute Bildanzeige verwenden</string>
   <string name="config_useInternalPhotoViewer_summary">Die eingebaute Bildanzeige verwenden, ansonsten eine externe App verwenden.</string>
   <string name="config_followGPSbutton_title">Anordnung des \"Position folgen\" Knopfes</string>
@@ -981,6 +1005,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_enableLightTheme_summary">Helle und weiße Hintergründe.</string>
   <string name="config_splitActionBarEnabled_title">Geteilte Action-Bar</string>
   <string name="config_splitActionBarEnabled_summary">Geteilte Action-Bar erlauben, Nutzung hängt vom Gerät ab. Benötigt einen Neustart und eine Android-Version ab 4.0</string>
+  <string name="config_disableTranslations_title">Übersetzungen ausschalten</string>
+  <string name="config_disableTranslations_summary">Englisch für die Benutzerschnittstelle verwenden</string>
   <string name="config_maxInlineValues_title">Max. Anzahl direkt angezeigter Werte</string>
   <string name="config_maxInlineValues_summary">Höchstzahl der Werte, die im Eigenschaftsformular direkt angezeigt werden.</string>
   <string name="config_maxInlineValues_current">%1$d Werte</string>
@@ -1006,6 +1032,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_beepVolume_title">Warntonlautstärke</string>
   <string name="config_beepVolume_summary">Lautstärke des Warntons.</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_title">Kleinster Zoom für Mapillary</string>
+  <string name="config_mapillary_min_zoom_summary">Kleinstes Zoom-Level, auf dem Mapillary-Daten angezeigt werden.</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
@@ -1110,6 +1138,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_downLoadThreads_current">%1$d Threads</string>
   <string name="config_tileCacheSize_title">Größe des Tile-Caches</string>
   <string name="config_tileCacheSize_summary">Gesamtgröße des Caches für Kartenkacheln in MB</string>
+  <string name="config_preferRemovableStorage_title">Entfernbare Speichermedien bevorzugen</string>
+  <string name="config_preferRemovableStorage_summary">Entfernbare Speichermedien für Kachel-Cache bevorzugen</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Mapillary-Cache Größe</string>
   <string name="config_mapillaryCacheSize_summary">Speicher zum Speichern von Mapillary-Bildern in MB</string>
@@ -1292,4 +1322,10 @@ in %1$d m %2$s</string>
   <!--Help system-->
   <string name="toast_nohelp">Keine Hilfe zu diesem Thema!</string>
   <!--Bookmarks-->
+  <string name="add_bookmark">Lesezeichen hinzufügen…</string>
+  <string name="bookmarks_desc">Kommentare hinzufügen</string>
+  <string name="show_bookmarks">Lesezeichen…</string>
+  <string name="_dots">⋮</string>
+  <string name="gotobookmark">Los</string>
+  <string name="bookmarkstitle">Lesezeichen…</string>
 </resources>

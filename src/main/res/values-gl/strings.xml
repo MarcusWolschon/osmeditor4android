@@ -303,7 +303,6 @@
   <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Eliminar imaxe</string>
-  <string name="photo_viewer_delete_button">Eliminar de xeito permanente</string>
   <string name="photo_viewer_goto">Ir á imaxe</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Caixa de limites</string>

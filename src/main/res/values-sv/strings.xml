@@ -250,7 +250,6 @@
   <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Ta bort foto</string>
-  <string name="photo_viewer_delete_button">Ta bort permanent</string>
   <string name="photo_viewer_goto">Gå till foto</string>
   <string name="photo_viewer_label">Fotovisare</string>
   <string name="mapillary_viewer_label">Mapillary visare</string>

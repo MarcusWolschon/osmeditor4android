@@ -339,7 +339,6 @@
   <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Вилучити фото</string>
-  <string name="photo_viewer_delete_button">Вилучити фото назавжди</string>
   <string name="photo_viewer_goto">Перейти до фото</string>
   <string name="photo_viewer_label">Дивитись фото</string>
   <string name="mapillary_viewer_label">Mapillary Viewer</string>
@@ -388,8 +387,6 @@
   <string name="tip_longpress_simple_mode">В спрощеному режимі довге натискання не працює. Відключить спрощений режим в головному меню, якщо ви бажаєте додавати об’єкти довгим натисканням.</string>
   <string name="tip_gpx_no_elevation">Починаючи з версії 15, треки GPX типово не містять інформацію про висоту над рівнем моря.&lt;p&gt;Для увімкнення такої можливості встановіть модель Геоіда обравши пункт &lt;i&gt;Встановити EGM&lt;/i&gt; з меню Інструменти, або перемкніться на використання формату NMEA.</string>
   <string name="tip_tag_conflict">Злиття та відновлення елементів OSM іноді вимагають зміни їх атрибутів, якщо виникають потенційні конфлікти даних у змінених об’єктів, у вас буде можливість перевірити такі об’єкти та прийняти відповідне рішення.</string>
-  <string name="tip_gpx_recording">Коли ви вмикаєте запис треків GPX, Веспуччі збирає інформацію про ваше положення, навіть у фоновому режимі.&lt;p&gt;Вихід із застосунку явним чином або зупинка запису GPX припиняє збирання даних про місцезнаходження.</string>
-  <string name="tip_auto_download">Коли ви вмикаєте автозавантаження даних OSM чи інших завдань, Веспуччі використовує дані про ваше місцеположення навіть у фоновому режимі.&lt;p&gt;Вихід із застосунку явним чином або відключення автозавантаження даних припиняє збирання інформації про ваше місце положення.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -508,7 +505,6 @@
   <string name="toast_not_mbtiles">Формат файлу не MBTiles</string>
   <string name="toast_using_network_location">Використовується мережеве положення</string>
   <string name="toast_using_gps_location">Використовується GPS/GNSS положення</string>
-  <string name="toast_using_gps_disabled_tracking_stopped">Визначення положення GPS/GNSS відключено, запис GPX-треку зупинено</string>
   <string name="toast_remote_nmea_connection_closed">Віддалене з\'єднання NMEA закрито</string>
   <string name="toast_tags_copied">Теґи скопійовано до буфера обміну</string>
   <string name="toast_tags_cut">Теґи вирізані до буфера обміну</string>

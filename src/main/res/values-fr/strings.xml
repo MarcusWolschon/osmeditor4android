@@ -203,6 +203,7 @@
   <string name="prune_data_now">Élaguer les données</string>
   <!--Delete custom preset dialog-->
   <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_title">Ajout de segment de route</string>
   <string name="duplicate_route_segment_button">Ajouter quand même</string>
   <!--Duplicate relation element dialog-->
   <string name="duplicate_relation_member_title">Ajouter un membre de la relation</string>
@@ -322,7 +323,6 @@
   <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Supprimer la photo</string>
-  <string name="photo_viewer_delete_button">Supprimer de manière permanente</string>
   <string name="photo_viewer_goto">Aller à la photo</string>
   <string name="photo_viewer_label">Visionneuse de photos</string>
   <string name="mapillary_viewer_label">Visionneuse Mapillary</string>
@@ -475,7 +475,6 @@
   <string name="toast_not_mbtiles">Ce n\'est pas un fichier au format MBTiles</string>
   <string name="toast_using_network_location">Utilisation de l\'emplacement par le réseau</string>
   <string name="toast_using_gps_location">Utilisation de l\'emplacement du GPS / GNSS</string>
-  <string name="toast_using_gps_disabled_tracking_stopped">GPS / GNSS désactivé, suivi terminé</string>
   <string name="toast_remote_nmea_connection">Connexion NMEA distante depuis/vers %1$s</string>
   <string name="toast_remote_nmea_connection_closed">Connexion NMEA distante fermée</string>
   <string name="toast_tags_copied">Attributs copiés dans le presse-papier</string>
@@ -1043,7 +1042,6 @@
   <string name="config_tileCacheSize_summary">Taille totale du cache des tuiles, en Mo.</string>
   <string name="config_tileCache_current">%1$d Mo</string>
   <string name="config_mapillaryCacheSize_title">Taille du cache Mapillary</string>
-  <string name="config_mapillaryCacheSize_summary">Stockage total utilisé pour mettre en cache les images Mapillary (en Mo)</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Divers</string>
   <string name="pref_enable_acra">Signaler les plantages de l\'application</string>
@@ -1110,7 +1108,6 @@
   <string name="tracking_active_title">Service en tâche de fond de Vespucci</string>
   <string name="tracking_active_title_short">Service de tâche de fond actif</string>
   <string name="tracking_active_text">Enregistrement d\'une trace GPS ou téléchargement automatique</string>
-  <string name="tracking_long_text">Vespucci enregistre une trace GPX ou effectue un téléchargement automatique. Pour quitter complètement appuyez sur le bouton ci-dessous ou sur le bouton retour dans l\'appli.</string>
   <string name="gps_failure">Échec de l\'activation du GPS</string>
   <!--element description-->
   <string name="address_housenumber">Adresse%1$s</string>

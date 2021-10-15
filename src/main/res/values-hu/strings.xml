@@ -83,6 +83,7 @@
   <string name="progress_building_imagery_database">Légifelvétel-adatbázis felépítése…</string>
   <string name="progress_query_oam">OpenAerialMap lekérdezése…</string>
   <string name="progress_pruning">Tisztogatás…</string>
+  <string name="progress_migration">Költöztetés…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">„%1$s” törölve</string>
   <string name="changes_changed">„%1$s” módosítva</string>
@@ -191,6 +192,8 @@
   <string name="edit_properties">Címkék szerkesztése</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON tulajdonságinformációk</string>
+  <string name="vt_feature_information">Vektorcsempe tulajdonságinformációik</string>
+  <string name="vt_layer">Vektorcsemperéteg</string>
   <string name="copy_properties">Tulajdonságok másolása</string>
   <string name="create_osm_element">OSM objektum létrehozása</string>
   <!--API/Data layer info dialog-->
@@ -304,7 +307,9 @@ elemek megkövetelése</string>
   <string name="layer_style_title">Rétegstílus</string>
   <string name="layer_style_stroke_width">Vonalszélesség</string>
   <string name="layer_style_color">Szín</string>
+  <string name="layer_style_layer">Alréteg</string>
   <string name="layer_style_label">Címke</string>
+  <string name="layer_style_symbol">Szimbólum</string>
   <string name="json_object_not_displayed">JSON objektum (nincs megjelenítve)</string>
   <string name="json_array_not_displayed">JSON tömb (nincs megjelenítve)</string>
   <!--Layer dialog-->
@@ -318,9 +323,12 @@ elemek megkövetelése</string>
   <string name="layer_data_name">%1$s adatok</string>
   <string name="layer_flush_tile_cache">Csempegyorsítótár ürítése</string>
   <string name="layer_change_style">Stílus módosítása</string>
+  <string name="layer_load_style">Stílus betöltése</string>
+  <string name="layer_reset_style">Stílus visszaállítása</string>
   <string name="layer_select_imagery">Légifelvétel kijelölése</string>
   <string name="layer_category_all">Összes</string>
   <string name="layer_category_photo">Légifelvétel</string>
+  <string name="layer_category_elevation">Domborzat</string>
   <string name="layer_category_historicphoto">Elavult légifelvétel</string>
   <string name="layer_category_map">Térkép</string>
   <string name="layer_category_historicmap">Elavult térkép</string>
@@ -337,9 +345,9 @@ elemek megkövetelése</string>
   <string name="projection">Térképvetület</string>
   <string name="errors">Hibák</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Fénykép törlése</string>
-  <string name="photo_viewer_delete_button">Végleges törlés</string>
   <string name="photo_viewer_goto">Ugrás a fényképhez</string>
   <string name="photo_viewer_label">Fényképnézegető</string>
   <string name="mapillary_viewer_label">Mapillary utcaképek</string>
@@ -388,8 +396,6 @@ elemek megkövetelése</string>
   <string name="tip_longpress_simple_mode">Egyszerű módban a hosszú megnyomásra nem történik semmi. Ha hosszú kattintásokkal kíván objektumokat létrehozni, kapcsolja ki az egyszerű módot a főmenüben.</string>
   <string name="tip_gpx_no_elevation">A 15. verziótól kezdve a GPX-nyomvonalak alapértelmezés szerint már nem tartalmaznak magassági információkat.&lt;p&gt;A magasságrögzítés engedélyezéséhez telepítsen egy Geoid-modellt az Eszközök menü &lt;i&gt;EGM telepítése&lt;/i&gt; pontjánál, vagy váltson NMEA-bemenetre.</string>
   <string name="tip_tag_conflict">Az OSM-elemek egyesítése és megfordítása néha az elemek tulajdonságainak megváltoztatását is megköveteli. Potenciális hiba vagy ütközés esetén figyelmeztetést kap, és lehetősége lesz a kérdéses objektumok áttekintésére.</string>
-  <string name="tip_gpx_recording">Amikor elindítja a GPX-nyomvonalrögzítést, a Vespucci helyadatokat gyűjt, hogy a GPX-felvétel akkor is lehetővé váljék, ha az alkalmazás nem látható.&lt;p&gt;Az alkalmazás kifejezett bezárása vagy a GPX-nyomvonalrögzítés kikapcsolása leállítja a helyadatok használatát ilyen helyzetekben.</string>
-  <string name="tip_auto_download">Amikor elkezdi az OSM-adatok vagy -feladatok automatikus letöltését, a Vespucci a helyadatok alapján határozza meg az aktuális pozíciót akkor is, ha az alkalmazás nem látható.&lt;p&gt;Az alkalmazás kifejezett bezárása vagy az automatikus letöltés kikapcsolása leállítja a helyadatok használatát ilyen helyzetekben.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">–</string>
@@ -477,6 +483,7 @@ elemek megkövetelése</string>
   <string name="toast_invalid_readonlyurl">Érvénytelen csak olvasható API URL</string>
   <string name="toast_invalid_notesurl">Érvénytelen jegyzet API URL</string>
   <string name="toast_invalid_preseturl">Érvénytelen előbeállítás URL</string>
+  <string name="toast_missing_preset_file">Hiányzó címkesablonfájl ehhez: „%1$s”</string>
   <string name="toast_invalid_filter_regexp">Érvénytelen reguláris kifejezés ezekkel: kulcs=\"%1$s\" érték=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">A(z) %1$s fénykép nem érhető el</string>
   <string name="toast_security_error_accessing_photo">Nincs engedély a fénykép megnézéséhez: %1$s</string>
@@ -504,7 +511,6 @@ elemek megkövetelése</string>
   <string name="toast_not_mbtiles">Nem MBTiles formátumú fájl</string>
   <string name="toast_using_network_location">Hálózati helyadatok használata</string>
   <string name="toast_using_gps_location">GPS/GNSS helyadatok használata</string>
-  <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS pozicionálás letiltva, GPX követés leállítva</string>
   <string name="toast_remote_nmea_connection">Távoli NMEA-kapcsolat innen/ide: %1$s</string>
   <string name="toast_remote_nmea_connection_closed">Távoli NMEA-kapcsolat lezárva</string>
   <string name="toast_tags_copied">Címkék vágólapra másolva</string>
@@ -556,6 +562,8 @@ elemek megkövetelése</string>
   <string name="toast_outer_rings_differing_tags">A külső körvonalon különböző címkék vannak</string>
   <string name="toast_multipolygon_has_incomplete_rings">A multipoligon külső körvonala hiányos</string>
   <string name="toast_multipolygon_inconsistent_roles">A multipoligon külső körvonalán következetlenek a szerepértékek</string>
+  <string name="toast_error_saving_bookmark">A könyvjelző nem menthető</string>
+  <string name="toast_error_loading_style">A stílus nem tölthető be: %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">A MapSplit forrásoknál meg kell adni a legkisebb és legnagyobb nagyítást</string>
   <string name="error_pbf_no_version">A verzióinformációk hiányoznak a PBF-fájlban</string>
@@ -1006,6 +1014,8 @@ elemek megkövetelése</string>
   <string name="config_beepVolume_title">Hangjelzés hangereje</string>
   <string name="config_beepVolume_summary">A hangjelzés erejének beállítása.</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_title">Legkisebb nagyítási szint a Mapillaryhez</string>
+  <string name="config_mapillary_min_zoom_summary">A Mapillary adatok megjelenítéshez szükséges legkisebb nagyítási szint.</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Adat- és szerkesztési beállítások</string>
@@ -1110,9 +1120,10 @@ elemek megkövetelése</string>
   <string name="config_downLoadThreads_current">%1$d szál</string>
   <string name="config_tileCacheSize_title">Csempegyorsítótár mérete</string>
   <string name="config_tileCacheSize_summary">A csempegyorsítótárhoz használt összes tárhely MB-ban.</string>
+  <string name="config_preferRemovableStorage_title">Cserélhető tároló előnyben részesítése</string>
+  <string name="config_preferRemovableStorage_summary">Cserélhető tároló előnyben részesítése a csempék gyorsítótárához.</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Mapillary gyorsítótár mérete</string>
-  <string name="config_mapillaryCacheSize_summary">A Mapillary-képek tárolására használt teljes tárhely (MegaByte)</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Egyebek</string>
   <string name="pref_enable_acra">Alkalmazás-összeomlások jelentése</string>
@@ -1179,7 +1190,6 @@ elemek megkövetelése</string>
   <string name="tracking_active_title">Vespucci háttérszolgáltatás</string>
   <string name="tracking_active_title_short">A háttérszolgáltatás aktív</string>
   <string name="tracking_active_text">GPS nyomvonal rögzítése vagy automatikus letöltés</string>
-  <string name="tracking_long_text">A Vespucci GPX nyomvonalat rögzít vagy automatikus letöltést végez. A teljes kilépéshez nyomja meg a lenti gombot, vagy a vissza gombot az alkalmazásban.</string>
   <string name="gps_failure">Nem sikerült engedélyezni a GPS-t</string>
   <!--element description-->
   <string name="address_housenumber">Cím: %1$s</string>
@@ -1291,4 +1301,10 @@ elemek megkövetelése</string>
   <!--Help system-->
   <string name="toast_nohelp">Ehhez nincs súgó.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark">Könyvjelző hozzáadása…</string>
+  <string name="bookmarks_desc">Megjegyzés hozzáadása</string>
+  <string name="show_bookmarks">Könyvjelzők…</string>
+  <string name="_dots">⋮</string>
+  <string name="gotobookmark">Ugrás</string>
+  <string name="bookmarkstitle">Könyvjelzők</string>
 </resources>

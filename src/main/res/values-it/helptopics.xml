@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_app_label">Aiuto</string>
+    <string name="help_app_description">Guida di Vespucci</string>
+    <string name="help_title">Aiuto: %1$s</string>
     <string name="help_introduction">Introduzione</string>
     <string name="help_main">Visualizza mappa principale</string>
     <string name="help_simple_actions">Azioni semplici</string>
@@ -8,7 +10,9 @@
     <string name="help_multiselect">Selezione multipla</string>
     <string name="help_longclick">Creazione nuovi oggetti</string>
     <string name="help_nodeselection">Nodo selezionato</string>
+    <string name="help_pathcreation">Aggiunta nodi ai percorsi</string>
     <string name="help_relationselection">Relazione selezionata</string>
+    <string name='help_add_route_segmement'>Aggiungi segmento di ‘route’</string>
     <string name="help_wayselection">Percorso selezionato</string>
     <string name="help_aligningbackgroundiamgery">Allinea immagini di sfondo</string>
     <string name="help_propertyeditor">Editor delle proprietà</string>
@@ -23,18 +27,27 @@
     <string name="help_opening_hours">Orari di apertura</string>
     <string name="help_newnoteselection">Seleziona nuova nota</string>
     <string name="help_voice_commands">Comandi vocali</string>
-    <string name="help_upgrade_121">Informazioni sulla versione 12.1</string>
-    <string name="help_upgrade_120">Informazioni sulla versione 12.0</string>
-    <string name="help_upgrade_112">Informazioni sulla versione 11.2</string>
-    <string name="help_upgrade_111">11.1 Note di rilascio</string>
-    <string name="help_upgrade_110">11.0 Note di rilascio</string>
-    <string name="help_upgrade_102">10.2 Note di rilascio</string>
-    <string name="help_upgrade_101">10.1 Note di rilascio</string>
-    <string name="help_upgrade_100">10.0 Note di rilascio</string>
-    <string name="help_upgrade_099">0.9.9 Note di rilascio</string>
-    <string name="help_upgrade_098">0.9.8 Note di rilascio</string>
-    <string name="help_upgrade_097">0.9.7 Note di rilascio</string>
-    <string name="help_upgrade_096">0.9.6 Note di rilascio</string>
+    <string name="help_add_route_segment">Aggiungi segmento di ‘route’</string>
+    <string name="help_upgrade_160">Note di rilascio 16.0</string>
+    <string name="help_upgrade_152">Note di rilascio 15.2</string>
+    <string name="help_upgrade_151">Note di rilascio 15.1</string>
+    <string name="help_upgrade_150">Note di rilascio 15.0</string>
+    <string name="help_upgrade_141">Note di rilascio 14.1</string>
+    <string name="help_upgrade_140">Note di rilascio 14.0</string>
+    <string name="help_upgrade_131">Note di rilascio 13.1</string>
+    <string name="help_upgrade_130">Note di rilascio 13.0</string>
+    <string name="help_upgrade_121">Note di rilascio 12.1</string>
+    <string name="help_upgrade_120">Note di rilascio 12.0</string>
+    <string name="help_upgrade_112">Note di rilascio 11.2</string>
+    <string name="help_upgrade_111">Note di rilascio 11.1</string>
+    <string name="help_upgrade_110">Note di rilascio 11.0</string>
+    <string name="help_upgrade_102">Note di rilascio 10.2</string>
+    <string name="help_upgrade_101">Note di rilascio 10.1</string>
+    <string name="help_upgrade_100">Note di rilascio 10.0</string>
+    <string name="help_upgrade_099">Note di rilascio 0.9.9</string>
+    <string name="help_upgrade_098">Note di rilascio 0.9.8</string>
+    <string name="help_upgrade_097">Note di rilascio 0.9.7</string>
+    <string name="help_upgrade_096">Note di rilascio 0.9.6</string>
     <string name="help_privacy">Privacy</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
@@ -60,6 +73,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_160</item>
         <item>@string/help_upgrade_152</item>
         <item>@string/help_upgrade_151</item>
         <item>@string/help_upgrade_150</item>
@@ -105,6 +119,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>16.1.0 Release notes</item>
         <item>16.0.0 Release notes</item>
         <item>15.2.0 Release notes</item>
         <item>15.1.0 Release notes</item>

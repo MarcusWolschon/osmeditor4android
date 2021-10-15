@@ -60,6 +60,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_160</item>
         <item>@string/help_upgrade_152</item>
         <item>@string/help_upgrade_151</item>
         <item>@string/help_upgrade_150</item>
@@ -105,6 +106,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>16.1.0 Release notes</item>
         <item>16.0.0 Release notes</item>
         <item>15.2.0 Release notes</item>
         <item>15.1.0 Release notes</item>

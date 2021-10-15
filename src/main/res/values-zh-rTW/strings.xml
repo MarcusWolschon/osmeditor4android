@@ -337,7 +337,6 @@
   <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">刪除圖片</string>
-  <string name="photo_viewer_delete_button">永久刪除</string>
   <string name="photo_viewer_goto">到圖片</string>
   <string name="photo_viewer_label">照片觀看器</string>
   <string name="mapillary_viewer_label">Mapillary 觀看器</string>
@@ -387,8 +386,6 @@
   <string name="tip_longpress_simple_mode">在簡單模式之下長按什麼事情都不會發生。如果要用長按方式來新增物件，則要在主選單關閉簡單模式。</string>
   <string name="tip_gpx_no_elevation">從版本 15 開始，GPX 軌跡預設將不會有海拔資訊。&lt;p&gt;要啟用海拔記錄，請在用&lt;i&gt;安裝 Geoid 模式。從工具選單安裝 EGM&lt;/i&gt; ，或是切換為 NMEA 輸入。</string>
   <string name="tip_tag_conflict">合併或回復 OSM 元件有時候需要改變元件的屬性，如果變動時有可能出現錯誤或衝突的話，你能手動審核有問題的元件。</string>
-  <string name="tip_gpx_recording">當你開始錄製 GPX 時，Vespucci 收集位置資料來啟用 GPX 錄製功能，即便 app 是屬於看不到狀況。&lt;p&gt;特別是關係程式或是關閉 GPX 錄製功能，則會停止採用位置資訊。</string>
-  <string name="tip_auto_download">當下自動下載 OSM 資料時，或是讓 Vespucci 運用位置資訊，甚至能在看不到 app 情形下來判定目前位置。&lt;p&gt;特別是關係程式或是關係自動下載功能，則會停止採用位置資訊。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -501,7 +498,6 @@
   <string name="toast_not_mbtiles">不是 MBTiles 格式檔案</string>
   <string name="toast_using_network_location">使用網路位置</string>
   <string name="toast_using_gps_location">使用 GPS/GNSS 位置</string>
-  <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS 已停用，GPX 記錄已中止</string>
   <string name="toast_remote_nmea_connection">遠端 NMEA 連線從/到 %1$s</string>
   <string name="toast_remote_nmea_connection_closed">遠端 NMEA 連線關閉</string>
   <string name="toast_tags_copied">標籤已複製到剪貼簿</string>
@@ -1108,7 +1104,6 @@
   <string name="config_tileCacheSize_summary">用 MB 計算的暫存圖磚所有儲存空間。</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Mapillary 快取大小</string>
-  <string name="config_mapillaryCacheSize_summary">用 MB 計算的 Mapillary 影像快取</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">雜項</string>
   <string name="pref_enable_acra">回報 app 當機</string>
@@ -1175,7 +1170,6 @@
   <string name="tracking_active_title">Vespucci 背景服務</string>
   <string name="tracking_active_title_short">啟用背景服務</string>
   <string name="tracking_active_text">錄製 GPS 軌跡或是自動下載</string>
-  <string name="tracking_long_text">Vespucci 正錄製 GPS 軌跡，或是自動下載。要完全離開的話，請按下方的按鈕，或是按 App 裡的退後鍵。</string>
   <string name="gps_failure">啟用 GPS 失敗</string>
   <!--element description-->
   <string name="address_housenumber">地址 %1$s</string>

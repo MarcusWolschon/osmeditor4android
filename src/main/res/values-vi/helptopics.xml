@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_app_label">Trợ giúp</string>
+    <string name="help_app_description">Trợ giúp Vespucci</string>
+    <string name="help_title">Trợ giúp: %1$s</string>
     <string name="help_introduction">Giới thiệu</string>
     <string name="help_main">Màn hình bản đồ chính</string>
+    <string name="help_simple_actions">Tác vụ đơn giản</string>
     <string name="help_addrelationmember">Quan hệ đã chọn</string>
     <string name="help_multiselect">Chọn nhiều</string>
     <string name="help_longclick">Tạo đối tượng mới</string>
     <string name="help_nodeselection">Nốt đã chọn</string>
+    <string name="help_pathcreation">Thêm nốt vào lối</string>
     <string name="help_relationselection">Quan hệ đã chọn</string>
     <string name='help_add_route_segmement'>Thêm khúc tuyến đường</string>
     <string name="help_wayselection">Lối đã chọn</string>
@@ -21,8 +25,21 @@
     <string name="help_tagfilter">Bộ lọc thẻ</string>
     <string name="help_presetfilter">Bộ lọc thẻ đặt trước</string>
     <string name="help_opening_hours">Giờ mở cửa</string>
+    <string name="help_newnoteselection">Lựa chọn ghi chú mới</string>
     <string name="help_voice_commands">Lệnh bằng giọng nói</string>
     <string name="help_add_route_segment">Thêm khúc tuyến đường</string>
+    <string name="help_upgrade_160">Ghi chú phát hành 16.0</string>
+    <string name="help_upgrade_152">Ghi chú phát hành 15.2</string>
+    <string name="help_upgrade_151">Ghi chú phát hành 15.1</string>
+    <string name="help_upgrade_150">Ghi chú phát hành 15.0</string>
+    <string name="help_upgrade_141">Ghi chú phát hành 14.1</string>
+    <string name="help_upgrade_140">Ghi chú phát hành 14.0</string>
+    <string name="help_upgrade_131">Ghi chú phát hành 13.1</string>
+    <string name="help_upgrade_130">Ghi chú phát hành 13.0</string>
+    <string name="help_upgrade_121">Ghi chú phát hành 12.1</string>
+    <string name="help_upgrade_120">Ghi chú phát hành 12.0</string>
+    <string name="help_upgrade_112">Ghi chú phát hành 11.2</string>
+    <string name="help_upgrade_111">Ghi chú phát hành 11.1</string>
     <string name="help_upgrade_110">Ghi chú phát hành 11.0</string>
     <string name="help_upgrade_102">Ghi chú phát hành 10.2</string>
     <string name="help_upgrade_101">Ghi chú phát hành 10.1</string>
@@ -56,6 +73,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_160</item>
         <item>@string/help_upgrade_152</item>
         <item>@string/help_upgrade_151</item>
         <item>@string/help_upgrade_150</item>
@@ -101,6 +119,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>16.1.0 Release notes</item>
         <item>16.0.0 Release notes</item>
         <item>15.2.0 Release notes</item>
         <item>15.1.0 Release notes</item>

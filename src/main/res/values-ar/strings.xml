@@ -4,7 +4,7 @@
   <string name="mode_easy">عادي</string>
   <string name="mode_tag_only">الوسم فقط</string>
   <string name="mode_indoor">الوضع الداخلي</string>
-  <string name="mode_correct">وضع التحكم</string>
+  <string name="mode_correct">وضع الاكمال</string>
   <string name="mode_address">العنوان</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">تنبيه!</string>
@@ -351,7 +351,6 @@
   <string name="mapillary_image">%1$s مابلاري </string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">حذف الصورة</string>
-  <string name="photo_viewer_delete_button">حذف نهائيًا</string>
   <string name="photo_viewer_goto">انتقل إلى الصورة</string>
   <string name="photo_viewer_label">عارض الصور</string>
   <string name="mapillary_viewer_label">عارض Mapillary</string>
@@ -400,8 +399,6 @@
   <string name="tip_longpress_simple_mode">في الوضع البسيط، وعند الضغط لفترة طويلة على عنصر ما لن يحدث أي شيء. قم بإيقاف تشغيل الوضع البسيط من القائمة الرئيسية إذا كنت تريد استخدام هذه الميزة.</string>
   <string name="tip_gpx_no_elevation">بدءًا من الإصدار 15 ، لم تعد مسارات GPX تحتوي على معلومات الارتفاع بشكل افتراضي.&lt;p&gt;لتمكين من تسجيل الارتفاع ، قم بتثبيت نموذج Geoid باستخدام &lt;i&gt; وتثبيت EGM&lt;/i&gt; من قائمة الأدوات ، أو قم بالتبديل إلى مدخلات NMEA.</string>
   <string name="tip_tag_conflict">يتطلب دمج وعكس عناصر الخريطة في بعض الأحيان إلى تغيير السمات الموجودة على العناصر ، إذا كان هناك خطأ أو تعارض محتمل ، يتم تنبيهك إلى ذلك ويتم تقديم فرصة لمراجعة العناصر ذات العلاقة.</string>
-  <string name="tip_gpx_recording">عند بدء تسجيل GPX ، يقوم فسبوتشي بجمع بيانات الموقع ولتمكين تسجيل GPX حتى عندما لا يكون التطبيق مرئيًا.&lt;p&gt;سيؤدي إغلاق التطبيق أو إيقاف تشغيل تسجيل GPX إلى إيقاف استخدام بيانات الموقع في مثل هذه الحالات.</string>
-  <string name="tip_auto_download">عند بدء التنزيل التلقائي لبيانات أو مهام خريطة الشارع المفتوحة، يستخدم فسبوتشي بيانات الموقع لتحديد الموضع الحالي حتى عندما لا يكون التطبيق مرئيًا.&lt;p&gt; سيؤدي إغلاق التطبيق أو إيقاف التنزيل التلقائي إلى إيقاف استخدام بيانات الموقع في مثل هذا الحالات.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -501,12 +498,12 @@
   <string name="toast_invalid_filter_regexp">تعبير عادي غير صالح في عامل التصفية بالمفتاح = \"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">لا يمكن الوصول إلى الصورة %1$s</string>
   <string name="toast_security_error_accessing_photo">غير مسموح بالوصول إلى الصورة%1$s</string>
-  <string name="toast_no_voice_recognition">ميزة التعرف على الصوت مفقودة</string>
+  <string name="toast_no_voice_recognition">ميزة التعرف على الصوت غير موجودة</string>
   <string name="toast_no_coverage">%1$s غير مغطى هنا</string>
   <string name="toast_tile_layer_errors">مصدر الصور \"%1$s\" به خطأ</string>
   <string name="toast_file_exists">الملف %1$s موجود.</string>
   <string name="toast_needs_resurvey">قد يكون العنصر قديمًا</string>
-  <string name="toast_missing_key">%1$s مفتاح مفقود</string>
+  <string name="toast_missing_key">المفتاح %1$s غير موجود</string>
   <string name="toast_invalid_object">عنصر غير صالح</string>
   <string name="toast_openinghours_invalid">قيمة ساعات العمل غير صالحة لـ%1$s</string>
   <string name="toast_openinghours_autocorrected">قيمة ساعات العمل لـ%1$s قد تم تصحيحها تلقائياً</string>
@@ -525,7 +522,6 @@
   <string name="toast_not_mbtiles">هذا ليس ملفاً بتنسيق MBTiles</string>
   <string name="toast_using_network_location">باستخدام موقع الشبكة</string>
   <string name="toast_using_gps_location">استخدام موقع GPS/GNSS</string>
-  <string name="toast_using_gps_disabled_tracking_stopped">تم إيقاف تشغيل تحديد المواقع GPS/GNSS ، وإيقاف تتبع GPX</string>
   <string name="toast_remote_nmea_connection">اتصال NMEA البعيد من / إلى %1$s</string>
   <string name="toast_remote_nmea_connection_closed">تم إغلاق اتصال NMEA البعيد</string>
   <string name="toast_tags_copied">تم نسخ الوسوم إلى الحافظة</string>
@@ -1147,7 +1143,6 @@
   <string name="config_preferRemovableStorage_summary">يفضل وسائل التخزين القابلة للإزالة لذاكرة التخزين المؤقت للصور المتجانبة.</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">حجم ذاكرة التخزين المؤقت لخدمة Mapillary</string>
-  <string name="config_mapillaryCacheSize_summary">إجمالي مساحة التخزين المستخدمة للتخزين المؤقت لصور Mapillary ، بالميجابايت</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">متفرقات</string>
   <string name="pref_enable_acra">الإبلاغ عن أعطال التطبيق</string>
@@ -1214,7 +1209,6 @@
   <string name="tracking_active_title">خدمة فسبوتشي الخلفية</string>
   <string name="tracking_active_title_short">الخدمة الخلفية نشطة</string>
   <string name="tracking_active_text">تسجيل مسار GPS أو التنزيل التلقائي</string>
-  <string name="tracking_long_text">يقوم فسبوتشي بتسجيل مسار GPX أو تنزيله تلقائيًا.  للخروج تمامًا ، اضغط على الزر أدناه أو زر الرجوع في التطبيق.</string>
   <string name="gps_failure">فشل تمكين GPS</string>
   <!--element description-->
   <string name="address_housenumber">عنوان %1$s</string>

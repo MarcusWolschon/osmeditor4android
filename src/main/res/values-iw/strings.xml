@@ -191,6 +191,7 @@
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">פרטי תכונת GeoJSON</string>
   <string name="copy_properties">העתקת מאפיינים</string>
+  <string name="create_osm_element">יצירת רכיב OSM</string>
   <!--API/Data layer info dialog-->
   <string name="data_in_memory">נתונים בזיכרון</string>
   <string name="total">סך הכול</string>
@@ -209,6 +210,7 @@
   <string name="duplicate_route_segment_title">הוספת מקטע מסלול</string>
   <string name="duplicate_route_segment_button">להוסיף בכל זאת</string>
   <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_remove_button">הסרת חבר</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move">העברה</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
@@ -290,7 +292,9 @@
   <string name="layer_style_title">סגנון שכבה</string>
   <string name="layer_style_stroke_width">עובי קו מתאר</string>
   <string name="layer_style_color">צבע</string>
+  <string name="layer_style_layer">תת־שכבה</string>
   <string name="layer_style_label">תווית</string>
+  <string name="layer_style_symbol">סמל</string>
   <string name="json_object_not_displayed">פריט JSON (לא מוצג)</string>
   <string name="json_array_not_displayed">מערך JSON (לא מוצג)</string>
   <!--Layer dialog-->
@@ -304,9 +308,12 @@
   <string name="layer_data_name">נתוני %1$s</string>
   <string name="layer_flush_tile_cache">פינוי מטמון האריחים</string>
   <string name="layer_change_style">שינוי סגנון</string>
+  <string name="layer_load_style">טעינת סגנון</string>
+  <string name="layer_reset_style">איפוס סגנון</string>
   <string name="layer_select_imagery">בחירת תמונת רקע</string>
   <string name="layer_category_all">הכול</string>
   <string name="layer_category_photo">צילום אווירי</string>
+  <string name="layer_category_elevation">תוואי שטח</string>
   <string name="layer_category_historicphoto">צילום אווירי פג תוקף</string>
   <string name="layer_category_map">מפה</string>
   <string name="layer_category_historicmap">מפה בלתי עדכנית</string>
@@ -320,11 +327,12 @@
   <string name="layer_info_end_date">מועד סיום</string>
   <string name="layer_info_terms">תנאים</string>
   <string name="layer_info_privacy_policy">מדיניות פרטיות</string>
+  <string name="projection">היטל</string>
   <string name="errors">שגיאות</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">מחיקת תמונה</string>
-  <string name="photo_viewer_delete_button">מחיקה לצמיתות</string>
   <string name="photo_viewer_goto">מעבר לתמונה</string>
   <string name="photo_viewer_label">מציג תמונות</string>
   <string name="mapillary_viewer_label">מציג Mapillary</string>
@@ -334,8 +342,14 @@
   <string name="api_info_attribution">ייחוס</string>
   <string name="api_info_mapsplit_source">מקור לקריאה בלבד MapSplit</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">התגיות השתנו</string>
+  <string name="tag_conflict_message">הפעולה דורש שינוי תגיות ברכיבים המעורבים.</string>
   <!--Relation selection dialog-->
+  <string name="no_suitable_relations_message">אין קשרים מתאימים בנתונים שהתקבלו</string>
+  <string name="select_route_title">בחירת מסלול</string>
+  <string name="select_relation_title">בחירת יחס</string>
   <!--Preset selection dialog-->
+  <string name="select_relation_type_title">בחירת סוג יחס</string>
   <string name="select_relation_type_other">אחר</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">נקודות ביקורת</string>
@@ -343,6 +357,7 @@
   <string name="undo_redo_one">רק נקודת הביקורת הנבחרת (לא בטיחותי)</string>
   <string name="undo_all">ביטול כל נקודות הביקורת האחרונות (בטיחותי)</string>
   <string name="redo_all">שחזור הביטול של כל נקודות הביקורת המוקדמות (בטיחותי)</string>
+  <string name="undo_latest">העדכני ביותר</string>
   <!--Undo location not in view dialog-->
   <string name="undo_location_title">מיקום הביטול לא בתצוגה</string>
   <string name="undo_location_text">המיקום שיושפע מהביטול אינו מופיע בתצוגה.</string>
@@ -481,7 +496,6 @@
   <string name="toast_not_mbtiles">קובץ שאינו בתבנית MBTiles</string>
   <string name="toast_using_network_location">נעשה שימוש במיקום הרשת</string>
   <string name="toast_using_gps_location">נעשה שימוש במיקום מה־GPS/GNSS</string>
-  <string name="toast_using_gps_disabled_tracking_stopped">איתור מיקום בעזרת GPS/GNSS כבוי, מעקב GPX נעצר</string>
   <string name="toast_remote_nmea_connection">חיבור NMEA מרוחק מ/אל %1$s</string>
   <string name="toast_remote_nmea_connection_closed">החיבור המרוחק ל־NMEA נסגר</string>
   <string name="toast_tags_copied">התגיות הועתקו ללוח הגזירים</string>
@@ -1063,7 +1077,6 @@
   <string name="config_tileCacheSize_summary">נפח האחסון הכולל שמנוצל לטובת מטמון של אריחים במ״ב.</string>
   <string name="config_tileCache_current">%1$d מ״ב</string>
   <string name="config_mapillaryCacheSize_title">גודל המטמון של Mapillary</string>
-  <string name="config_mapillaryCacheSize_summary">סך כל נפח האחסון שישמש לטובת מטמון של תמונות מ־Mapillary במ״ב.</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">שונות</string>
   <string name="pref_enable_acra">דיווח על קריסות ביישומון</string>
@@ -1130,7 +1143,6 @@
   <string name="tracking_active_title">שירות רקע וספוצ׳י</string>
   <string name="tracking_active_title_short">שירות הרקע פעיל</string>
   <string name="tracking_active_text">הקלטת מסלול GPS או הורדה אוטומטית</string>
-  <string name="tracking_long_text">וספוצ׳י מקליט מסלול GPX או מוריד אוטומטית. כדי לצאת לחלוטין יש ללחוץ על הכפתור שלהלן או על כפתור החזרה ביישומון.</string>
   <string name="gps_failure">הפעלת ה־GPS נכשלה</string>
   <!--element description-->
   <string name="address_housenumber">כתובת %1$s</string>
@@ -1242,4 +1254,10 @@
   <!--Help system-->
   <string name="toast_nohelp">אין כאן עזרה.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark">הוספת סימנייה…</string>
+  <string name="bookmarks_desc">הוספת הערות</string>
+  <string name="show_bookmarks">סימניות…</string>
+  <string name="_dots">⋮</string>
+  <string name="gotobookmark">מעבר</string>
+  <string name="bookmarkstitle">סימניות</string>
 </resources>

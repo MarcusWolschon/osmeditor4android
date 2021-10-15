@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1>Vespucci 16.1 BETA Highlights</h1>
+<p>2021-10-15</p>
+<h3>Android 11 compatibility</h3>
+<p>As previously announced, 16.1 targets Android 11 so that we can continue to distribute the app on googles play store.</p>
+<p>If you have migrated your user generated files to the <em>Download/Vespucci</em> directory, the app should continue to work as expected. If you de-install and then re-install the app it is however possible that you the app will loose access to files in the <em>autopreset</em> sub-directory. If this happens you should rename that directory and a fresh one will be automatically created.</p>
+<h3>Preference to select camera app</h3>
+<p>Android 11 no longer provides a built in way to select a camera app, nor does it allow an app to determine which camera apps are installed on the device. To work around this we now have a hardwired list of camera apps that can be selected from, currently that includes Open Camera, FV5 lite and FV5 pro. If you want your faviourite app included please open an issue and we will include it in the next maintenance release.</p>
+<p>While this is naturally not a good state of affairs it does have the advantage that on devices with earlier Android version you can select a camera app to use with Vespucci that is different from you normal default choice.</p>
+<h3>Preference to disable user interface translation</h3>
+<p>There is now a setting in the advanced preferences to disable translating the user interface.</p>
+<p>Google does not provide an API to facilitate this so you should be aware that this functionality is based on a number of workarounds and can cease to work at any time.</p>
+<h2>Miscellaneous</h2>
+<ul>
+<li>test orchestrator has been migrated from Spoon to Marathon</li>
+<li>various small issues when undoing steps when creating a way or appending to one have been fixed</li>
+<li>tip shown on first use of a tri-state checkbox</li>
+<li>use http instead of https for default imagery offset server</li>
+<li>persist error toasts as notification per default</li>
+</ul>
+<h1>Upgrading from previous versions</h1>
+<ul>
+<li>As a safety measure, you should always upload any changes before updating.</li>
+</ul>
+<h1>Known problems</h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul>
+
+</body>
+</html>

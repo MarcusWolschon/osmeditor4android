@@ -338,7 +338,6 @@
   <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Usuń zdjęcie</string>
-  <string name="photo_viewer_delete_button">Usuń na stałe</string>
   <string name="photo_viewer_goto">Przejdź do zdjęcia</string>
   <string name="photo_viewer_label">Przeglądarka Zdjęć</string>
   <string name="mapillary_viewer_label">Przeglądarka Mapillary</string>
@@ -497,7 +496,6 @@
   <string name="toast_not_mbtiles">Plik nie jest w formacie MBTiles</string>
   <string name="toast_using_network_location">Używanie lokalizacji na podstawie sieci</string>
   <string name="toast_using_gps_location">Używanie lokalizacji na podstawie GPS/GNSS</string>
-  <string name="toast_using_gps_disabled_tracking_stopped">Pozycjonowanie GPS/GNSS wyłączone, zatrzymano rejestrowanie śladu GPX</string>
   <string name="toast_remote_nmea_connection_closed">Zdalne połączenie NMEA zamknięte</string>
   <string name="toast_tags_copied">Skopiowano znaczniki do schowka</string>
   <string name="toast_tags_cut">Wycięto znaczniki do schowka</string>
@@ -1125,7 +1123,6 @@
   <string name="tracking_active_title">Usługa Vespucci w tle</string>
   <string name="tracking_active_title_short">Usługa w tle aktywna</string>
   <string name="tracking_active_text">Rejestrowanie śladu GPS lub automatyczne pobieranie</string>
-  <string name="tracking_long_text">Vespucci rejestruje ślad GPX lub automatycznie pobiera dane. Aby całkowicie wyjść, naciśnij przycisk poniżej lub klawisz wstecz w aplikacji.</string>
   <string name="gps_failure">Nie udało się włączyć GPSa</string>
   <!--element description-->
   <string name="address_housenumber">Adres%1$s</string>

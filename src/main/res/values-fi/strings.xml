@@ -394,7 +394,6 @@
   <string name="toast_not_mbtiles">Tiedosto ei ole MBTiles-tyyppiä</string>
   <string name="toast_using_network_location">Käytetään verkkosijaintia</string>
   <string name="toast_using_gps_location">Käytetään GPS/GNSS-sijaintia</string>
-  <string name="toast_using_gps_disabled_tracking_stopped">GPX-jäljitys pysäytettiin, koska GPS/GNSS-paikannus otettiin pois päältä</string>
   <string name="toast_tags_copied">Tägit kopioitiin leikepöydälle</string>
   <string name="toast_tags_cut">Tägit siirrettiin leikepöydälle</string>
   <string name="toast_properties_copied">Ominaisuudet kopioitin leikepöydälle</string>
@@ -902,7 +901,6 @@
   <string name="tracking_active_title">Vespuccin taustapalvelin</string>
   <string name="tracking_active_title_short">Taustapalvelin käytössä</string>
   <string name="tracking_active_text">GPX-jäljen tallennus tai automaattilataus meneillään.</string>
-  <string name="tracking_long_text">Vespucci on tallentamassa GPX-jälkeä tai lataamassa dataa automaattisesti. Ohjelma suljetaan täysin, jos painat allaolevaa nappia tai sovelluksen peruutusnappia.</string>
   <string name="gps_failure">GPS:ää ei voitu käynnistää</string>
   <!--element description-->
   <string name="address_housenumber">Osoite %1$s</string>

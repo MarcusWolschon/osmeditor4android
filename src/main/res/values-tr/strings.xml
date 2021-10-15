@@ -334,7 +334,6 @@
   <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Fotoğrafı sil</string>
-  <string name="photo_viewer_delete_button">Kalıcı olarak sil</string>
   <string name="photo_viewer_goto">Fotoğrafa git</string>
   <string name="photo_viewer_label">Fotoğraf görüntüleyici</string>
   <string name="mapillary_viewer_label">Mapillary Görüntüleyici</string>
@@ -383,8 +382,6 @@
   <string name="tip_longpress_simple_mode">Basit modda uzun basış hiçbir şey yapmaz. Nesne oluşturmak için uzun tıklamaları kullanmak istiyorsanız ana menüden basit modu kapatın.</string>
   <string name="tip_gpx_no_elevation">Sürüm 15\'ten itibaren, GPX izleri artık varsayılan olarak yükseklik bilgisi içermiyor.&lt;p&gt;Yükseklik kaydını etkinleştirmek için, Araçlar menüsünden EGM&lt;/i&gt; &lt;i&gt;Yükle ile bir Geoid modeli kurun veya NMEA girişine geçin.</string>
   <string name="tip_tag_conflict">OSM öğelerinin birleştirilmesi ve tersine çevrilmesi bazen öğelerdeki özniteliklerin değiştirilmesini gerektirir; olası bir hata veya uyuşmazlık varsa, bu konuda size uyarı verilir ve söz konusu nesneleri gözden geçirme fırsatı sunulur.</string>
-  <string name="tip_gpx_recording">GPX kaydını başlattığınızda, Vespucci, uygulama görünür olmadığında bile GPX kaydını etkinleştirmek için konum verilerini toplar.&lt;p&gt;Uygulamayı açıkça kapatmak veya GPX kaydını kapatmak, bu tür durumlarda konum verilerinin kullanımını durduracaktır.</string>
-  <string name="tip_auto_download">OSM verilerini veya görevleri otomatik indirmeye başladığınızda, Vespucci, uygulama görünür olmadığında bile geçerli konumu belirlemek için konum verilerini kullanır.&lt;p&gt;Uygulamayı açıkça kapatmak veya otomatik indirmeyi kapatmak, bu tür durumlarda konum verilerinin kullanımını durduracaktır.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -500,7 +497,6 @@
   <string name="toast_not_mbtiles">MBTiles format dosyası değil</string>
   <string name="toast_using_network_location">Ağ konumunu kullanılıyor</string>
   <string name="toast_using_gps_location">GPS/GNSS konumu kullanılıyor</string>
-  <string name="toast_using_gps_disabled_tracking_stopped">GPS / GNSS konumlandırma kapalı, GPX izleme durduruldu</string>
   <string name="toast_remote_nmea_connection">%1$s \'dan/a uzak NMEA bağlantısı </string>
   <string name="toast_remote_nmea_connection_closed">Uzak NMEA bağlantısı kapatıldı</string>
   <string name="toast_tags_copied">Etiket notpanosuna kopyalandı</string>
@@ -1093,7 +1089,6 @@
   <string name="config_tileCacheSize_summary">Döşeme önbelleği için kullanılan toplam depolama alanı, MB cinsinden.</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Mapillary önbellek boyutu</string>
-  <string name="config_mapillaryCacheSize_summary">Mapillary görüntülerini MB cinsinden önbelleğe almak için kullanılan toplam depolama alanı</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Çeşitli</string>
   <string name="pref_enable_acra">Uygulama çökmelerini bildir</string>
@@ -1160,7 +1155,6 @@
   <string name="tracking_active_title">Vespucci arkaplan hizmeti</string>
   <string name="tracking_active_title_short">Arkaplan hizmeti etkin</string>
   <string name="tracking_active_text">GPS izini kaydetme veya otomatik indirme</string>
-  <string name="tracking_long_text">Vespucci bir GPX izi kaydediyor veya otomatik olarak indiriyor. Tamamen çıkmak için aşağıdaki düğmeye veya uygulamadaki geri düğmesine basın.</string>
   <string name="gps_failure">GPS etkinleştirme başarısız</string>
   <!--element description-->
   <string name="address_housenumber">Adres %1$s</string>

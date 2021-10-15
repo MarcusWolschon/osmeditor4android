@@ -338,7 +338,6 @@
   <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Smazat fotku</string>
-  <string name="photo_viewer_delete_button">Smazat trvale</string>
   <string name="photo_viewer_goto">Zobrazit na mapě</string>
   <string name="photo_viewer_label">Prohlížeč fotek</string>
   <string name="mapillary_viewer_label">Prohlížeč Mapillary</string>
@@ -504,7 +503,6 @@
   <string name="toast_not_mbtiles">Soubor nemá formát MBTiles</string>
   <string name="toast_using_network_location">Použita poloha ze sítě</string>
   <string name="toast_using_gps_location">Použita GPS/GNSS poloha</string>
-  <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS poloha vypnuta, GPX trasování zastaveno</string>
   <string name="toast_remote_nmea_connection">Vzdálené připojení NMEA z / do %1$s</string>
   <string name="toast_remote_nmea_connection_closed">Vzdálené připojení NMEA bylo ukončeno</string>
   <string name="toast_tags_copied">Tagy zkopírovány do schránky</string>
@@ -1092,7 +1090,6 @@
   <string name="config_tileCacheSize_summary">Celková velikost mezipaměti s dlaždicemi v MB.</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Velikost mezipaměti Mapillary</string>
-  <string name="config_mapillaryCacheSize_summary">Celkové úložiště použité pro ukládání obrázků Mapillary do mezipaměti, v  MB</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Různé</string>
   <string name="pref_enable_acra">Hlásit pády aplikace</string>
@@ -1159,7 +1156,6 @@
   <string name="tracking_active_title">Vespucci služba na pozadí</string>
   <string name="tracking_active_title_short">Aktivní služba na pozadí</string>
   <string name="tracking_active_text">Nahrává se GPS stopa nebo je zapnuto automatické stahování</string>
-  <string name="tracking_long_text">Vespucci nahrává GPX stopu nebo je zapnuto Automatické stahování. Pro úplné ukončení stiskněte tlačítko níže nebo tlačítko zpět v aplikaci.</string>
   <string name="gps_failure">Nepovedlo se zapnout GPS</string>
   <!--element description-->
   <string name="address_housenumber">Adresa %1$s</string>

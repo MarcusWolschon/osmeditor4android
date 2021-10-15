@@ -6,12 +6,12 @@
     <string name="help_introduction">مقدمة</string>
     <string name="help_main">عرض الخريطة الرئيسية</string>
     <string name="help_simple_actions">إجراءات بسيطة</string>
-    <string name="help_addrelationmember">تم تحديد العلاقة</string>
+    <string name="help_addrelationmember">العلاقة المحددة</string>
     <string name="help_multiselect">الاختيار المتعدد</string>
     <string name="help_longclick">إنشاء عناصر جديدة</string>
-    <string name="help_nodeselection">تم تحديد عقدة</string>
+    <string name="help_nodeselection">العقدة المحددة</string>
     <string name="help_pathcreation">إضافة عقد الطريق</string>
-    <string name="help_relationselection">تم تحديد العلاقة</string>
+    <string name="help_relationselection">العلاقة المحددة</string>
     <string name='help_add_route_segmement'>أضف جزء المسار</string>
     <string name="help_wayselection">طريق محدد</string>
     <string name="help_aligningbackgroundiamgery">محاذاة صور الخلفية</string>
@@ -28,6 +28,7 @@
     <string name="help_newnoteselection">اختيار ملاحظة جديدة</string>
     <string name="help_voice_commands">اوامر صوتية</string>
     <string name="help_add_route_segment">إضافة جزء مسار</string>
+    <string name="help_upgrade_160">ملاحظات الإصدار 16.0</string>
     <string name="help_upgrade_152">ملاحظات الإصدار 15.2</string>
     <string name="help_upgrade_151">ملاحظات الإصدار 15.1</string>
     <string name="help_upgrade_150">ملاحظات الإصدار 15.0</string>
@@ -72,6 +73,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_160</item>
         <item>@string/help_upgrade_152</item>
         <item>@string/help_upgrade_151</item>
         <item>@string/help_upgrade_150</item>
@@ -117,6 +119,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>16.1.0 Release notes</item>
         <item>16.0.0 Release notes</item>
         <item>15.2.0 Release notes</item>
         <item>15.1.0 Release notes</item>

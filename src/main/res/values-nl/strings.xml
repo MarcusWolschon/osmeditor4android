@@ -2,16 +2,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
   <string name="mode_easy">Normaal</string>
-  <string name="mode_tag_only">Tags alleen</string>
+  <string name="mode_tag_only">Alleen tags</string>
   <string name="mode_indoor">Binnen</string>
   <string name="mode_correct">C-Modus</string>
   <string name="mode_address">Adres</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Let op!</string>
-  <string name="transfer_download_current_dialog_message">Je hebt wijzigingen gemaakt. Wil je uploaden in plaats van ze verwerpen?</string>
+  <string name="transfer_download_current_dialog_message">Je hebt wijzigingen gemaakt. Wil je ze uploaden in plaats van verwerpen?</string>
   <string name="transfer_download_current_upload">Uploaden</string>
   <string name="transfer_download_current_download">Verwerp &amp; download</string>
-  <string name="transfer_download_current_back">Terug (doe niks)</string>
+  <string name="transfer_download_current_back">Terug (doe niets)</string>
   <string name="upload_problem_title">Kon niet uploaden</string>
   <string name="upload_problem_message">Sommige of alle gegevens zijn niet geüpload. Probeer het later opnieuw.</string>
   <string name="bad_request_message">De API antwoordde met een fout, sla je gegevens op en rapporteer de fout:\n\n</string>
@@ -23,7 +23,7 @@
   <string name="use_local_version">Gebruik lokale versie</string>
   <string name="use_server_version">Gebruik versie op server</string>
   <string name="no_login_data_title">Kon niet authenticeren</string>
-  <string name="no_login_data_message">Als je OAuth gebruikt is dit waarschijnlijk een bug, verstuur alsjeblieft een probleemrapportage, als je gebruikersnaam en wachtwoord gebruikt (niet aanbevolen), controleer dan of ze correct zijn. </string>
+  <string name="no_login_data_message">Als je OAuth gebruikt is dit waarschijnlijk een bug, verstuur alsjeblieft een probleemrapportage, als je gebruikersnaam en wachtwoord gebruikt (niet aanbevolen), controleer dan of ze correct zijn.</string>
   <string name="no_connection_title">Geen verbinding met server</string>
   <string name="no_connection_message">Kon niet verbinden met de OSM server. Controleer of je verbonden bent met het internet, of probeer het later opnieuw.</string>
   <string name="ssl_handshake_failed">Kon niet verbinden met de OSM server, omdat de HTTPS onderhandeling mislukte. Probeer te wisselen naar een onversleutelde verbinding in de API voorkeuren.</string>
@@ -108,7 +108,7 @@
   <string name="openstreetbug_new_title">Nieuwe opmerking</string>
   <string name="openstreetbug_new_bug">Meld probleem</string>
   <string name="openstreetbug_bug_title">Probleem</string>
-  <string name="openstreetbug_new_nodeway">Creëer knoop/weg</string>
+  <string name="openstreetbug_new_nodeway">Knoop/weg aanmaken</string>
   <string name="openstreetbug_edit_title">Bewerk opmerking</string>
   <string name="openstreetbug_comment_label">Opemerking:</string>
   <string name="openstreetbug_commit_ok">Taakwijzigingen opgeslagen</string>
@@ -192,6 +192,7 @@
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON kenmerken informatie</string>
   <string name="copy_properties">Kopieer eigenschappen</string>
+  <string name="create_osm_element">OSM-element aanmaken</string>
   <!--API/Data layer info dialog-->
   <string name="data_in_memory">Gegevens in geheugen</string>
   <string name="total">Totaal</string>
@@ -225,6 +226,7 @@
   <!--Abort action mode dialog-->
   <string name="abort_action_title">Breek actie af</string>
   <!--Address interpoation dialog-->
+  <string name="address_interpolation_title">Adres-interpolatie aanmaken</string>
   <string name="start">Begin</string>
   <string name="end">Einde</string>
   <string name="even">Even</string>
@@ -275,8 +277,8 @@
   <string name="description">Beschrijving</string>
   <string name="created">Aangemaakt</string>
   <string name="altitude">Hoogte</string>
-  <string name="create_osm_object">Creëer OSM object</string>
-  <string name="create_osm_object_search">Maak OSM object van voorkeuze zoekopdracht</string>
+  <string name="create_osm_object">OSM-object aanmaken</string>
+  <string name="create_osm_object_search">OSM-object met voorkeuze-type aanmaken</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Aangepaste foto\'s</string>
   <string name="oam_layer_title">OAM foto\'s</string>
@@ -301,6 +303,7 @@
   <string name="layer_style_stroke_width">Pendikte</string>
   <string name="layer_style_color">Kleur</string>
   <string name="layer_style_label">Label</string>
+  <string name="layer_style_symbol">Symbool</string>
   <string name="json_object_not_displayed">JSON object (niet weergegeven)</string>
   <string name="json_array_not_displayed">JSON lijst (niet weergegeven)</string>
   <!--Layer dialog-->
@@ -333,9 +336,9 @@
   <string name="projection">Projectie</string>
   <string name="errors">Fouten</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Verwijder foto</string>
-  <string name="photo_viewer_delete_button">Permanent verwijderen</string>
   <string name="photo_viewer_goto">Ga naar foto</string>
   <string name="photo_viewer_label">Fotoweergave</string>
   <string name="mapillary_viewer_label">Mapillary Weergave</string>
@@ -381,11 +384,9 @@
   <string name="tip_imagery_privacy">Achtergrond- en overlagen worden door verstrekt door derde partijen. Het gebruik van een laag verzendt je netwerkadres en een grove indicatie van de getoonde locatie naar de verstrekker.&lt;p&gt;Als de verstrekker een privacybeleid aanbiedt, kan dat worden ingezien met het \"Info\" menu item in het lagen scherm.</string>
   <string name="tip_pan_and_zoom_auto_download">Slepen en zoom automatisch downloaden moeten met beleid worden gebruikt omdat het de potentie heeft om de OpenStreetMap APIs en jouw apparaat een hoge last te bezorgen.&lt;p&gt;De last op de API servers kan worden voorkomen door een offline gegevensbron te gebruiken.</string>
   <string name="tip_locked_mode">In vergrendelde modus kan je niets wijzigen, maar een lange klik op een object zal een scherm openen met gedetaileerde informatie.</string>
-  <string name="tip_longpress_simple_mode">In simpele modus doet een lange klik niets. Zet simpele modus uit in het hoofdmenu als je lange kliks wilt gebruiken om objecten te maken.</string>
+  <string name="tip_longpress_simple_mode">In de simpele modus doet een lange klik niets. Zet de simpele modus uit in het hoofdmenu als je lange kliks wilt gebruiken om objecten aan te maken.</string>
   <string name="tip_gpx_no_elevation">Beginnend met versie 15, zullen GPX tracks niet langer hoogteinformatie bevatten.&lt;p&gt;Om hoogteinformatie op te nemen kan een Geoid model worden geïnstalleerd met &lt;i&gt;Installeer EGM&lt;/i&gt; in het Hulpmiddelen menu, of wissel naar NMEA invoer.</string>
   <string name="tip_tag_conflict">Het samenvoegen of omkeren van OSM elementen vereist soms het wijzigen van attributen op de elementen. Als er mogelijk een fout of conflict kan ontstaan zal je op de hoogte worden gesteld en de mogelijkheid krijgen om te objecten in kwestie na te kijken.</string>
-  <string name="tip_gpx_recording">Wanneer je GPX opnames begint, zal Vespucci locatiegegevens verzamelen om GPX opnames mogelijk te maken zelfs als de app niet zichtbaar is.&lt;p&gt;Sluit te app expliciet of zet GPX opnames uit om het gebruik van locatiegegevens te stoppen in zulke situaties.</string>
-  <string name="tip_auto_download">Als je begint met auto-downloaden van OSM gegevens of taken, zal Vespucci locatiegegevens gebruiken om de huidige positie te bepalen, zelfs als de app niet zichtbaar is.&lt;p&gt;Sluit te app expliciet of zet automatisch downloaden uit om het gebruik van locatiegegevens te stoppen in zulke situaties.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -490,7 +491,7 @@
   <string name="toast_null_island">Voer geen elementen toe op 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Tekst is te lang (%1$d tekens), afgekapt!</string>
   <string name="toast_illegal_operation">Ongeldige actie: %1$s</string>
-  <string name="toast_preset_creation_failed">Kon voorkeuze \"%1$s\" niet maken: %2$s</string>
+  <string name="toast_preset_creation_failed">Kon voorkeuze \"%1$s\" niet aanmaken: %2$s</string>
   <string name="toast_imperial_units">Missende imperiale eenheden</string>
   <string name="toast_server_connection_failed">Kon niet met server verbinden: %1$s</string>
   <string name="toast_flus_all_caches">Dit leegt alle tegelopslag!</string>
@@ -500,7 +501,6 @@
   <string name="toast_not_mbtiles">Geen MBTiles formaat bestand</string>
   <string name="toast_using_network_location">Gebruikt netwerklocatie</string>
   <string name="toast_using_gps_location">Gebruikt GPS/GNSS locatie</string>
-  <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS positionering is uitgezet, GPX tracking gestopt</string>
   <string name="toast_remote_nmea_connection">NMEA connectie van buiten van/naar %1$s</string>
   <string name="toast_remote_nmea_connection_closed">NMEA connectie van buiten gesloten</string>
   <string name="toast_tags_copied">Tags gekopieerd naar klembord</string>
@@ -509,7 +509,7 @@
   <string name="toast_task_conflict">%1$s is veranderd op de server, upload eerst en download dan opnieuw</string>
   <string name="toast_move_note_warning">Alleen nieuwe opmerkingen kunnen verplaatst worden</string>
   <string name="toast_task_layer_disabled">Taaklaag uitgeschakeld</string>
-  <string name="toast_unable_to_create_task_layer">Taaklaag creëren mislukt</string>
+  <string name="toast_unable_to_create_task_layer">Taaklaag aanmaken mislukt</string>
   <string name="toast_merged">Samengevoegd</string>
   <string name="toast_invalid_style_file">Ongeldig stijlbestandsformaat voor %1$s</string>
   <string name="toast_no_geometry">Geen geometrie voor element gevonden</string>
@@ -548,7 +548,7 @@
   <string name="toast_split_first_and_next_segment">Splits eerste en volgende segment</string>
   <string name="toast_split_next_segment">Splits volgend segment</string>
   <string name="toast_nothing_changed">Niets veranderd</string>
-  <string name="toast_preset_failed">Kon voorkeuze %1$s niet maken\nFout %2$s</string>
+  <string name="toast_preset_failed">Kon voorkeuze %1$s niet aanmaken\nFout %2$s</string>
   <string name="toast_outer_rings_differing_tags">Buitenringen hebben verschillende tags</string>
   <string name="toast_multipolygon_has_incomplete_rings">Multipolygoon heeft incomplete ringen</string>
   <string name="toast_multipolygon_inconsistent_roles">Multipolygoon heeft inconsistente waardes van rollen voor een ring</string>
@@ -656,7 +656,7 @@
   <string name="tag_form_unknown_element">Onbekend element (geen voorkeuze gevonden)</string>
   <string name="tag_form_untagged_element">Element zonder tags</string>
   <!--Custom preset creation-->
-  <string name="tag_menu_create_preset">Creëer aangepaste voorkeuze</string>
+  <string name="tag_menu_create_preset">Aangepaste voorkeuze aanmaken</string>
   <string name="create_preset_title">Aangepaste voorkeuze naam</string>
   <string name="create_preset_default_name">Handmatige %1$s</string>
   <!--Strings in Box/LocationPicker-->
@@ -718,9 +718,9 @@
   <string name="menu_remove_node_from_way">Verwijder knoop uit de weg</string>
   <string name="menu_extract">Extraheer knoop</string>
   <string name="menu_append">Voeg toe</string>
-  <string name="menu_create_route">Creëer route</string>
+  <string name="menu_create_route">Route aanmaken</string>
   <string name="menu_add_to_route">Voeg toe aan route</string>
-  <string name="menu_relation">Creëer relatie</string>
+  <string name="menu_relation">Relatie aanmaken</string>
   <string name="menu_edit_relation">Wijzig relatie</string>
   <string name="menu_add_relation_member">Voeg toe / verwijder lid </string>
   <string name="menu_select_relation_members">Selecteen leden</string>
@@ -919,7 +919,7 @@
   <string name="config_mapProfile_title">Gegevensstijl</string>
   <string name="config_mapProfile_summary">Kies de stijl voor de gegevenslaag.</string>
   <string name="config_enableOpenStreetBugs_title">Weergeef taken</string>
-  <string name="config_enableOpenStreetBugs_summary">Toon, wijzig en creëer notities, bugs en taken.</string>
+  <string name="config_enableOpenStreetBugs_summary">Toon, wijzig en maak notities, bugs en taken aan.</string>
   <string name="config_enablePhotoLayer_title">Zet fotolaag aan</string>
   <string name="config_enablePhotoLayer_summary">Toon geo-gerefereerde foto\'s.</string>
   <string name="config_enableKeepScreenOn_title">Houd scherm aan</string>
@@ -1098,8 +1098,6 @@
   <string name="config_tileCacheSize_summary">Totale grootte van opslag dat wordt gebruikt voor het tijdelijk opslaan van tegels, in MB.</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Mapillary opslaggrootte</string>
-  <string name="config_mapillaryCacheSize_summary">Totale grootte van opslag dat wordt gebruikt voor het tijdelijk opslaan van Mapillary afbeeldingen, in MB.
- </string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Overig</string>
   <string name="pref_enable_acra">Rapporteer app crashes</string>
@@ -1166,7 +1164,6 @@
   <string name="tracking_active_title">Vespucci achtergrondservice</string>
   <string name="tracking_active_title_short">Achtergrondservice actief</string>
   <string name="tracking_active_text">GPS route wordt opgenomen, of auto-downloaden staat aan</string>
-  <string name="tracking_long_text">Vespucci is een GPX route aan het opnemen of auto-downloading staat aan. Om helemaal af te sluiten, druk op de knop hieronder of op de \"terug\" knop in de app.</string>
   <string name="gps_failure">GPS inschakelen mislukt</string>
   <!--element description-->
   <string name="address_housenumber">Adres %1$s</string>
@@ -1206,7 +1203,7 @@
   <string name="report_success">Gerapporteerd.</string>
   <string name="report_failure">Kon rapport niet versturen.</string>
   <!--Exceptions messages-->
-  <string name="exception_too_many_nodes">Deze actie zou een weg met te veel kopen maken.</string>
+  <string name="exception_too_many_nodes">Deze actie zou een weg met te veel knopen aanmaken.</string>
   <!--Notifications-->
   <string name="alert_data_issue">OSM-gegevensprobleem ontdekt</string>
   <string name="alert_note">Dichtbijgelegen OSM-notitie ontdekt.</string>
@@ -1232,6 +1229,7 @@
   <string name="deleterelation_relation_description">Je staat op het punt om een relatie te verwijderen, die lid is van een of meer relaties. Een dergelijke relatie verwijderen, kan deze ongeldig maken.</string>
   <string name="deleterelation">Verwijder relatie</string>
   <string name="delete_from_relation_description">Je staat op het punt om dit element van een relatie te verwijderen.</string>
+  <string name="delete_elements_from_relation_description">Je staat op het punt om elementen van één of meer relaties te verwijderen.</string>
   <string name="unset_relation_type">Niet ingesteld relatietype</string>
   <!--Things-->
   <string name="bridge">Brug</string>
@@ -1275,4 +1273,5 @@
   <!--Help system-->
   <string name="toast_nohelp">Geen help hier.</string>
   <!--Bookmarks-->
+  <string name="_dots">⋮</string>
 </resources>

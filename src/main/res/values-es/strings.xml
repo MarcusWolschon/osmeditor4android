@@ -338,7 +338,6 @@
   <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Borrar foto</string>
-  <string name="photo_viewer_delete_button">Borrar permanentemente</string>
   <string name="photo_viewer_goto">Ir a la foto</string>
   <string name="photo_viewer_label">Visor de fotos</string>
   <string name="mapillary_viewer_label">Visor Mapillary</string>
@@ -387,8 +386,6 @@
   <string name="tip_longpress_simple_mode">En modo simple, una pulsación larga no hará nada. Desactive el modo simple en el menú principal si desea utilizar clicks largos para crear objetos.</string>
   <string name="tip_gpx_no_elevation">A partir de la versión 15, las trazas GPX ya no contienen información de elevación de forma predeterminada.&lt;p&gt;Para habilitar el registro de elevación, instale un modelo de geoide con &lt;i&gt;Instalar EGM&lt;/i&gt; desde el menú Herramientas, o cambie a la entrada NMEA.</string>
   <string name="tip_tag_conflict">Combinar e invertir elementos OSM a veces requiere cambiar los atributos de los elementos, si hay un posible error o conflicto, se le alerta y se le ofrece la oportunidad de revisar los objetos en cuestión.</string>
-  <string name="tip_gpx_recording">Cuando inicia la grabación GPX, Vespucci recopila datos de ubicación para habilitar la grabación GPX incluso cuando la aplicación no está visible.&lt;p&gt;Cerrar explícitamente la aplicación o desactivar la grabación GPX detendrá el uso de datos de ubicación en tales situaciones.</string>
-  <string name="tip_auto_download">Cuando comienzas a descargar automáticamente datos o tareas de OSM, Vespucci utiliza datos de ubicación para determinar la posición actual incluso cuando la aplicación no está visible.&lt;p&gt;Cerrar explícitamente la aplicación o desactivar la descarga automática detendrá el uso de datos de ubicación en tales situaciones.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -503,7 +500,6 @@
   <string name="toast_not_mbtiles">No es un archivo en formato MBTiles</string>
   <string name="toast_using_network_location">Usando la localización por red</string>
   <string name="toast_using_gps_location">Usando la ubicación GPS / GNSS</string>
-  <string name="toast_using_gps_disabled_tracking_stopped">Posicionamiento GPS / GNSS apagado, seguimiento GPX detenido</string>
   <string name="toast_remote_nmea_connection">Conexión NMEA remota desde/hasta %1$s</string>
   <string name="toast_remote_nmea_connection_closed">Conexión NMEA remota cerrada</string>
   <string name="toast_tags_copied">Etiquetas copiadas al portapapeles</string>
@@ -1112,7 +1108,6 @@
   <string name="config_tileCacheSize_summary">Almacenamiento total utilizado para el almacenamiento en caché de teselas, en MB</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Tamaño de caché de Mapillary</string>
-  <string name="config_mapillaryCacheSize_summary">Almacenamiento total utilizado para el almacenamiento en caché de imágenes Mapillary, en MB</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Misceláneo</string>
   <string name="pref_enable_acra">Informar bloqueos de aplicación</string>
@@ -1179,7 +1174,6 @@
   <string name="tracking_active_title">Servicio de fondo de Vespucci</string>
   <string name="tracking_active_title_short">Servicio en segundo plano activo</string>
   <string name="tracking_active_text">Grabación de una traza GPS o descarga automática</string>
-  <string name="tracking_long_text">Vespucci está grabando una traza GPX o descargando automáticamente. Para salir completamente, presione el botón a continuación o el botón Atrás en la aplicación.</string>
   <string name="gps_failure">Fallo al habilitar el GPS</string>
   <!--element description-->
   <string name="address_housenumber">Dirección %1$s</string>

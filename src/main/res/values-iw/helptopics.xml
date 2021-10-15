@@ -28,6 +28,8 @@
     <string name="help_newnoteselection">בחירה בהערות חדשות</string>
     <string name="help_voice_commands">פקודות קוליות</string>
     <string name="help_add_route_segment">הוספת מקטע מסלול</string>
+    <string name="help_upgrade_160">הערות הוצאה לאור של 16.0</string>
+    <string name="help_upgrade_152">הערות הוצאה לאור של 15.2</string>
     <string name="help_upgrade_151">הערות הוצאה לאור של 15.1</string>
     <string name="help_upgrade_150">הערות הוצאה לאור של 15.0</string>
     <string name="help_upgrade_141">הערות הוצאה לאור של 14.1</string>
@@ -71,6 +73,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_160</item>
         <item>@string/help_upgrade_152</item>
         <item>@string/help_upgrade_151</item>
         <item>@string/help_upgrade_150</item>
@@ -116,6 +119,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>16.1.0 Release notes</item>
         <item>16.0.0 Release notes</item>
         <item>15.2.0 Release notes</item>
         <item>15.1.0 Release notes</item>

@@ -709,7 +709,6 @@
   <string name="tracking_active_title">Servei en segon pla de Vespucci</string>
   <string name="tracking_active_title_short">Servei en segon pla actiu</string>
   <string name="tracking_active_text">Gravar una pista GPX o autobaixant.</string>
-  <string name="tracking_long_text">Vespucci està gravant una pista GPX o autobaixant. Per sortir completament, prem el botó de sota o el botó Enrere de l’app.</string>
   <string name="gps_failure">No s\'ha pogut habilitar el GPS</string>
   <!--element description-->
   <string name="address_housenumber">Direcció %1$s</string>

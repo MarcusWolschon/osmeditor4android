@@ -418,7 +418,6 @@
   <string name="toast_not_mbtiles">Não é um formato MBTiles</string>
   <string name="toast_using_network_location">A usar a localização da rede de telemóveis</string>
   <string name="toast_using_gps_location">A usar a localização GPS/GNSS</string>
-  <string name="toast_using_gps_disabled_tracking_stopped">Posicionamento GPS/GNSS desligado, localização GPX parada</string>
   <string name="toast_tags_copied">Etiquetas copiadas</string>
   <string name="toast_tags_cut">Etiquetas recortadas</string>
   <string name="toast_properties_copied">Propriedades copiadas</string>
@@ -965,7 +964,6 @@ há %3$s %4$s</string>
   <string name="tracking_active_title">Serviço em segundo plano Vespucci</string>
   <string name="tracking_active_title_short">Serviço em segundo planto ativo</string>
   <string name="tracking_active_text">A gravar um trilho GPS ou a auto-descarregar</string>
-  <string name="tracking_long_text">O Vespucci está a gravar um trilho GPX ou a descarregar automaticamente. Para sair completamente prima o botão abaixo ou o botão de voltar na app.</string>
   <string name="gps_failure">Não foi possível ativar o GPS</string>
   <!--element description-->
   <string name="address_housenumber">Endereço %1$s</string>
