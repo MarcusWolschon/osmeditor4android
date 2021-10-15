@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-09-01 23:31+0200\n"
-"PO-Revision-Date: 2021-09-20 14:48+0000\n"
+"PO-Revision-Date: 2021-10-11 04:13+0000\n"
 "Last-Translator: Abdullah Abdullrhman\n"
 "Language-Team: Arabic (http://www.transifex.com/openstreetmap/presets/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -2395,7 +2395,7 @@ msgstr "كيميائي"
 
 #: master_preset.xml:9531(item:name|group:For_the_body|preset:Chemist)
 msgid "Chemist"
-msgstr "كيميائي"
+msgstr "أدوات النظافة الشخصية والتجميل"
 
 #: master_preset.xml:10734(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Cherimoya trees"
@@ -4107,7 +4107,7 @@ msgstr "خليط من المواد الصلبة واللينة"
 
 #: master_preset.xml:6477(item:name|group:Facilities|preset:Events_venue)
 msgid "Events venue"
-msgstr "مكان الفعاليات"
+msgstr "صالة مناسبات / قصر أفراح"
 
 #: master_preset.xml:759(list_entry:display_value|value:evergreen)
 msgid "Evergreen"
@@ -4167,7 +4167,7 @@ msgstr "المزرعة (مهمل)"
 
 #: master_preset.xml:9087(item:name|group:Food|preset:Farm_Stand)
 msgid "Farm Stand"
-msgstr "متجر داخل مزرعة ليبيع منتجاتها"
+msgstr "متجر مزرعة ليبيع منتجاتها"
 
 #: master_preset.xml:10707(item:name|group:Land_use|preset:Farmland)
 msgid "Farmland"
@@ -4775,7 +4775,7 @@ msgstr "حديقة"
 
 #: master_preset.xml:9749(item:name|group:Other|preset:Garden_Centre)
 msgid "Garden Centre"
-msgstr "مركز الحديقة"
+msgstr "مشتل"
 
 #: master_preset.xml:12016(item:name|group:Crafts|preset:Gardener)
 msgid "Gardener"
@@ -4901,7 +4901,7 @@ msgstr "ألماني"
 
 #: master_preset.xml:10487(item:name|group:Geography|preset:Geyser)
 msgid "Geyser"
-msgstr "فوارة حارة"
+msgstr "نبع المياه الفوار والحار"
 
 #: master_preset.xml:9887(item:name|group:Other|preset:Gift/Souvenir)
 msgid "Gift/Souvenir"
@@ -13192,7 +13192,7 @@ msgstr "متنوعه"
 
 #: master_preset.xml:9898(item:name|group:Other|preset:Variety_Store)
 msgid "Variety Store"
-msgstr "محلات كماليات رخيصة"
+msgstr "منوعات وكماليات رخيصة"
 
 #: master_preset.xml:8863(combo:display_values|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
 msgid "Vault"
@@ -19136,7 +19136,7 @@ msgstr "مركز البيئة"
 #: master_preset.xml:5641(combo:display_values|group:Public_Building|preset:Community_Centre|key:community_centre)
 msgctxt "community_centre"
 msgid "Events venue"
-msgstr "مكان الفعاليات"
+msgstr "صالة مناسبات / قصر أفراح"
 
 #: master_preset.xml:5645(multiselect:display_values|group:Public_Building|preset:Community_Centre|key:community_centre:for)
 msgctxt "community_centre"

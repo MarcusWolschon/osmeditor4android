@@ -34,7 +34,7 @@
     <string-array name="followGPSbutton_entries">
         <item>چپ</item>
         <item>راست</item>
-        <item>هیچ‌کدام</item>
+        <item>هیچ کدام</item>
     </string-array>
     <string-array name="full_screen_preference_entries">
         <item>خودکار</item>

@@ -2,20 +2,23 @@
 <resources>
   <string-array name="address_tags_entries">
     <item>پلاک خانه (addr:housenumber)</item>
+    <item>شماره شهرک (addr:conscriptionnumber)</item>
     <item>خیابان (addr:street)</item>
-    <item>کد پستی (addr:postcode)</item>
-    <item>شهر/شهرک/روستا/..  (addr:city)</item>
+    <item>کدپستی (addr:postcode)</item>
+    <item>شهر/شهر کوچک/روستا/..  (addr:city)</item>
     <item>کشور (addr:country)</item>
     <item>آدرس کامل (addr:full)</item>
-    <item>مکان (addr:place)</item>
-    <item>دهکده (addr:hamlet)</item>
+    <item>محل (addr:place)</item>
+    <item>بلوک (addr:block)</item>
+    <item>شماره بلوک (addr:block_number)</item>
+    <item>روستای کوچک/دهکده (addr:hamlet)</item>
     <item>حومه شهر (addr:suburb)</item>
-    <item>حوزه (addr:subdistrict)</item>
-    <item>ناحیه (addr:district)</item>
+    <item>ناحیه (addr:subdistrict)</item>
+    <item>بخش (addr:district)</item>
     <item>استان (addr:province)</item>
-    <item>ایالت (addr:state)</item>
+    <item>شهرستان (addr:state)</item>
     <item>آپارتمان (addr:flats)</item>
-    <item>درب (addr:door)</item>
+    <item>در (addr:door)</item>
     <item>واحد (addr:unit)</item>
   </string-array>
 </resources>

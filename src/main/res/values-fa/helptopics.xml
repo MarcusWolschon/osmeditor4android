@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_app_label">راهنما</string>
+    <string name="help_app_description">وسپوچی کمک به تماشاگر میکند</string>
     <string name="help_title">راهنما: %1$s</string>
     <string name="help_introduction">معرفی</string>
     <string name="help_main">نمای اصلی نقشه</string>
@@ -9,6 +10,7 @@
     <string name="help_multiselect">انتخاب چندتایی</string>
     <string name="help_longclick">ایجاد اشیاء جدید</string>
     <string name="help_nodeselection">انتخاب گره</string>
+    <string name="help_pathcreation">افزودن گره های راه</string>
     <string name="help_relationselection">انتخاب رابطه</string>
     <string name='help_add_route_segmement'>افزودن پارهٔ مسیر</string>
     <string name="help_wayselection">انتخاب راه</string>
@@ -19,13 +21,17 @@
     <string name="help_presets">پیش‌تنظیم‌ها</string>
     <string name="help_conflictresolution">حل تداخل</string>
     <string name="help_gpssources">منابع GPS</string>
-    <string name="help_keyboard">صفحه‌کلید</string>
-    <string name="help_tagfilter">پالایش با تگ</string>
-    <string name="help_presetfilter">پالایش با پیش‌تنظیم</string>
+    <string name="help_keyboard">صفحه کلید</string>
+    <string name="help_tagfilter">فیلتر با برچسب</string>
+    <string name="help_presetfilter">فیلتر با پیش‌تنظیم</string>
     <string name="help_opening_hours">ساعت‌های کاری</string>
     <string name="help_newnoteselection">انتخاب یادداشت تازه</string>
     <string name="help_voice_commands">فرمان‌های صوتی</string>
     <string name="help_add_route_segment">افزودن پارهٔ مسیر</string>
+    <string name="help_upgrade">یادداشت های عرضه 16.0</string>
+    <string name="help_upgrade_152">یادداشت های عرضه 15.2</string>
+    <string name="help_upgrade_151">یادداشت های عرضه 15.1</string>
+    <string name="help_upgrade_150">یادداشت های عرضه 15.0</string>
     <string name="help_upgrade_141">یادداشت‌های عرضهٔ 14.1</string>
     <string name="help_upgrade_140">یادداشت‌های عرضهٔ 14.0</string>
     <string name="help_upgrade_131">یادداشت‌های عرضهٔ 13.1</string>

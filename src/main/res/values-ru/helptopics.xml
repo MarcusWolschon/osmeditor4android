@@ -28,6 +28,7 @@
     <string name="help_newnoteselection">Создание новой заметки</string>
     <string name="help_voice_commands">Голосовые команды</string>
     <string name="help_add_route_segment">Добавление участников в маршрут</string>
+    <string name="help_upgrade">Примечания к версии 16.0</string>
     <string name="help_upgrade_152">Примечания к выпуску 15.2</string>
     <string name="help_upgrade_151">Примечания к версии 15.1</string>
     <string name="help_upgrade_150">Примечания к версии 15.0</string>

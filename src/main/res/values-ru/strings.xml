@@ -83,6 +83,7 @@
   <string name="progress_building_imagery_database">Подготовка базы снимков...</string>
   <string name="progress_query_oam">Выполняется запрос к OAM...</string>
   <string name="progress_pruning">Очистка...</string>
+  <string name="progress_migration">Перемещение...</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" удалено</string>
   <string name="changes_changed">\"%1$s\" изменено</string>
@@ -162,6 +163,7 @@
   <!--Search objects dialog-->
   <string name="search_objects_title">Поиск объектов</string>
   <string name="search_objects_hint">Введите выражение JOSM для фильтра/поиска</string>
+  <string name="search_objects_use_regexps">Используйте регулярные выражения</string>
   <string name="search_objects_unsupported">Неподдерживаемое выражение \"%1$s\"</string>
   <!---->
   <string name="preset_search_hint">Строка поиска заготовок</string>
@@ -192,7 +194,10 @@
   <string name="edit_properties">Редактировать</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Информация о функциях GeoJSON</string>
+  <string name="vt_feature_information">Сведения о векторном тайле</string>
+  <string name="vt_layer">Векторный тайловый слой</string>
   <string name="copy_properties">Скопировать свойства</string>
+  <string name="create_osm_element">Создать элемент OSM</string>
   <!--API/Data layer info dialog-->
   <string name="data_in_memory">Данные в памяти</string>
   <string name="total">Всего</string>
@@ -217,6 +222,7 @@
   <string name="duplicate_relation_member_remove_button">Удалить участника</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Перенесите теги на полигон</string>
+  <string name="move_outer_tags_message">Теги, определяющие объекты, должны присутствовать только на мультиполигоне. Это действие переместит общие теги из внешних контуров в мультиполигон.</string>
   <string name="move">Перенести</string>
   <string name="leave_as_is">Оставить как есть</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
@@ -226,6 +232,7 @@
   <!--Abort action mode dialog-->
   <string name="abort_action_title">Прервать</string>
   <!--Address interpoation dialog-->
+  <string name="address_interpolation_title">Создание интерполяции адресов</string>
   <string name="start">Начало</string>
   <string name="end">Конец</string>
   <string name="even">Четные</string>
@@ -253,8 +260,10 @@
   <string name="js_console_output_hint">Вывод появится здесь</string>
   <!--Validator dialogs-->
   <string name="validator_title">Набор проверок \"%1$s\"</string>
+  <string name="resurvey_entries">Повторное обследование</string>
   <string name="edit_resurvey_title">Проверка по дате</string>
   <string name="add_resurvey_title">Добавить проверку по дате</string>
+  <string name="check_entries">Проверка</string>
   <string name="edit_check_title">Редактировать проверку по дате</string>
   <string name="add_check_title">Добавить проверку по значению</string>
   <string name="max_age">Макс. возраст</string>
@@ -299,7 +308,9 @@
   <string name="layer_style_title">Стиль слоя</string>
   <string name="layer_style_stroke_width">Ширина линий</string>
   <string name="layer_style_color">Цвет</string>
+  <string name="layer_style_layer">Подложка</string>
   <string name="layer_style_label">Название</string>
+  <string name="layer_style_symbol">Символ</string>
   <string name="json_object_not_displayed">Объект JSON (не отображается)</string>
   <string name="json_array_not_displayed">Массив JSON (не отображается)</string>
   <!--Layer dialog-->
@@ -313,9 +324,12 @@
   <string name="layer_data_name">Данные %1$s</string>
   <string name="layer_flush_tile_cache">Очистить  базу для карты</string>
   <string name="layer_change_style">Изменить стиль</string>
+  <string name="layer_load_style">Загрузить стиль</string>
+  <string name="layer_reset_style">Сбросить стиль</string>
   <string name="layer_select_imagery">Выберите источник</string>
   <string name="layer_category_all">Все</string>
   <string name="layer_category_photo">Аэроснимки</string>
+  <string name="layer_category_elevation">Местность</string>
   <string name="layer_category_historicphoto">Старые аэроснимки</string>
   <string name="layer_category_map">Карта</string>
   <string name="layer_category_historicmap">Старая карта</string>
@@ -332,15 +346,21 @@
   <string name="projection">Проекция</string>
   <string name="errors">Ошибки</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Удалить фото</string>
   <string name="photo_viewer_delete_button">Удалить окончательно</string>
   <string name="photo_viewer_goto">Перейти к фото</string>
+  <string name="photo_viewer_label">Просмотрщик фотографий</string>
+  <string name="mapillary_viewer_label">Mapillary Viewer</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Границы</string>
   <string name="api_info_attribution">Атрибуция</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">Теги изменены</string>
+  <string name="tag_conflict_message">Операция потребовала изменения тегов задействованных элементов.</string>
   <!--Relation selection dialog-->
+  <string name="no_suitable_relations_message">Нет подходящих отношений в загруженных данных</string>
   <string name="select_route_title">Выбрать маршрут</string>
   <string name="select_relation_title">Выбрать отношение</string>
   <!--Preset selection dialog-->
@@ -352,6 +372,7 @@
   <string name="undo_redo_one">Только выбранная контрольная точка (небезопасно)</string>
   <string name="undo_all">Отменить все предыдущие контрольные точки (безопасно)</string>
   <string name="redo_all">Повторить все предыдущие контрольные точки (безопасно)</string>
+  <string name="undo_latest">Последний</string>
   <!--Undo location not in view dialog-->
   <string name="undo_location_title">Действие за пределами экрана</string>
   <string name="undo_location_text">Место, где будет произведена отмена, за пределами экрана.</string>
@@ -372,6 +393,11 @@
   <string name="tip_imagery_privacy">Слои фона и наложений предоставляются сторонними организациями. Использование таких слоев подразумевает передачу им вашего сетевого адреса и приблизительного местоположения области, которую вы просматриваете.&lt;p&gt;Если доступна информация о политике конфиденциальности, ‎‎ее‎‎ можно будет найти в меню \"Инфо\" диалога слоя.</string>
   <string name="tip_pan_and_zoom_auto_download">Масштаб на основе автозагрузки  должен использоваться осторожно, так каr он потенциально может создать условия, когда вызовы OpenStreetMap API могут стать платными.&lt;p&gt;Нагрузки на API-сервера можно избежать при использовании заранее загруженных данных.</string>
   <string name="tip_locked_mode">Вы не можете редактировать в заблокированном режиме, но долгое нажатие на объекте покажет его дополнительную информацию.</string>
+  <string name="tip_longpress_simple_mode">В простом режиме долгое нажатие ничего не даст. Отключите простой режим в главном меню, если вы хотите использовать долгие нажатия для создания объектов.</string>
+  <string name="tip_gpx_no_elevation">Начиная с версии 15, треки GPX больше не содержат информацию о высоте по умолчанию.&lt;p&gt; Чтобы включить запись высоты, установите модель геоида с помощью &lt;i&gt; Установить EGM&lt;/i&gt; в меню «Инструменты» или переключитесь на ввод NMEA.</string>
+  <string name="tip_tag_conflict">Слияние и реверсирование элементов OSM иногда требует изменения атрибутов элементов. Если есть потенциальная ошибка или конфликт, вы будете предупреждены об этом и получите возможность просмотреть рассматриваемые объекты.</string>
+  <string name="tip_gpx_recording">Когда вы начинаете запись GPX, Vespucci собирает данные о местоположении, чтобы включить запись GPX, даже когда приложение не отображается.&lt;p&gt; Явное закрытие приложения или отключение записи GPX остановит использование данных о местоположении.</string>
+  <string name="tip_auto_download">Когда вы запускаете автоматическую загрузку данных или задач OSM, Vespucci использует данные о местоположении для определения текущего положения, даже если приложение не отображается.&lt;p&gt; Явное закрытие приложения или отключение автоматической загрузки остановит использование данных о местоположении.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -383,6 +409,7 @@
   <string name="qa_channel_description">Канал Vespucci для ошибок</string>
   <!--Toaster-->
   <string name="toast_permission_denied">Отказано в доступе: %1$s</string>
+  <string name="toast_unable_to_persist_permissions">Невозможно сохранить разрешения</string>
   <string name="toast_name_empty">Выберите название</string>
   <string name="toast_url_empty">Введите URL</string>
   <string name="toast_min_zoom">Установите минимальный масштаб меньше максимального</string>
@@ -462,11 +489,13 @@
   <string name="toast_invalid_readonlyurl">Неправильный API URL только для чтения</string>
   <string name="toast_invalid_notesurl">Неправильный API URL для заметок</string>
   <string name="toast_invalid_preseturl">Неправильный URL заготовки</string>
+  <string name="toast_missing_preset_file">Отсутствует заготовка для \"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">Неправильное регулярное выражение в фильтре с ключом \"%1$s\" и значением \"%2$s\"</string>
   <string name="toast_error_accessing_photo">Нет доступа к фотографии %1$s</string>
   <string name="toast_security_error_accessing_photo">Не разрешён доступ к фото %1$s</string>
   <string name="toast_no_voice_recognition">Отсутствуют средства распознавания голоса</string>
   <string name="toast_no_coverage">%1$s не имеет здесь покрытия</string>
+  <string name="toast_tile_layer_errors">Источник изображений \'%1$s\' ошибочен</string>
   <string name="toast_file_exists">Файл %1$s уже существует.</string>
   <string name="toast_needs_resurvey">Объект может быть устаревшим</string>
   <string name="toast_missing_key">Нужен ключ %1$s</string>
@@ -506,6 +535,9 @@
   <string name="toast_device_not_found_for">Не найдено устройство для %1$s</string>
   <string name="toast_file_already_exists">Файл %1$s уже существует</string>
   <string name="toast_file_error_for">Ошибка для файла %1$s</string>
+  <string name="toast_error_reading">Ошибка чтения %1$s</string>
+  <string name="toast_read_successfully">Файл успешно прочитан</string>
+  <string name="toast_error_writing">Ошибка записи %1$s</string>
   <string name="toast_successfully_written">Файл успешно записан</string>
   <string name="toast_http_data_error_for">Ошибка данных HTTP для %1$s</string>
   <string name="toast_error_insufficient_space_for">На устройстве нет места для %1$s</string>
@@ -516,9 +548,26 @@
   <string name="toast_phone_number_reformatted">Номер телефона отформатирован</string>
   <string name="toast_members_not_downloaded">Некоторые участники отношения не загружены</string>
   <string name="toast_restart_required">Вам нужно перезапустить Vespucci для применения изменений</string>
+  <string name="toast_unable_to_open_offline_data">Невозможно открыть офлайн-данные %1$s %2$s</string>
+  <string name="toast_no_usable_location">Нет пригодного для использования местоположения</string>
+  <string name="toast_default_channel_needs_to_be_enabled">Чтобы начать запись, необходимо включить канал уведомлений по умолчанию</string>
   <string name="toast_out_of_memory">НЕДОСТАТОЧНО ПАМЯТИ!</string>
   <string name="toast_egm_installed">EGM загружен и установлен</string>
+  <string name="toast_invalid_number_format">Неверный формат числа %1$s</string>
+  <string name="toast_error_downloading_mapillary_image">Ошибка при загрузке изображения Mapillary%1$s</string>
+  <string name="toast_error_downloading_mapillary_sequences">Ошибка при загрузке последовательностей Mapillary %1$s</string>
+  <string name="toast_split_first_segment">Разделить первый сегмент</string>
+  <string name="toast_split_first_and_next_segment">Разделить первый и следующий сегменты</string>
+  <string name="toast_split_next_segment">Разделить следующий сегмент</string>
+  <string name="toast_nothing_changed">Ничего не изменилось</string>
+  <string name="toast_preset_failed">Не удалось создать пресет %1$s\nError %2$s</string>
+  <string name="toast_outer_rings_differing_tags">На внешних контурах разные теги</string>
+  <string name="toast_multipolygon_has_incomplete_rings">Мульти-полигон имеет незамкнутые контуры</string>
+  <string name="toast_multipolygon_inconsistent_roles">Мульти-полигон имеет несовместимые значения ролей для контура</string>
+  <string name="toast_error_saving_bookmark">Невозможно сохранить закладку</string>
+  <string name="toast_error_loading_style">Не удалось загрузить стиль: %1$s</string>
   <!--Error messages-->
+  <string name="error_mapsplit_missing_zoom">В источниках MapSplit должны быть установлены минимальное и максимальное масштабирование</string>
   <string name="error_pbf_no_version">В PBF-файле нет информации о версии</string>
   <string name="error_pbf_unknown_relation_member_type">Неизвестный тип участника отношения %1$s</string>
   <!--Some generic labels/buttons-->
@@ -544,6 +593,7 @@
   <string name="discard">Отменить</string>
   <string name="retry">Повторить</string>
   <string name="prune">Очистка</string>
+  <string name="check">Проверка</string>
   <!--Read a file-->
   <string name="read">Прочесть</string>
   <string name="overwrite">Переписать</string>
@@ -571,6 +621,7 @@
   <string name="tag_menu_preset">Заготовки</string>
   <string name="tag_menu_apply_preset">Применить заготовку</string>
   <string name="tag_menu_apply_preset_with_optional">Применить заготовку с дополнениями</string>
+  <string name="tag_menu_show_alternatives">Показать альтернативные теги</string>
   <string name="tag_menu_revert">Откатить</string>
   <string name="tag_menu_mapfeatures">Условные обозначения на Wiki</string>
   <string name="tag_menu_addtorelation">Добавить к отношению</string>
@@ -736,6 +787,7 @@
   <string name="menu_transfer_autodownload_long">Загружать задачи автоматически</string>
   <string name="menu_transfer_save_notes_all">Сохранить все заметки...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Сохранить новые и изменённые заметки...</string>
+  <string name="menu_transfer_read_notes">Загрузить заметки…</string>
   <string name="menu_transfer_read_custom_bugs">Загрузить пакет задач...</string>
   <string name="menu_transfer_write_custom_bugs">Сохранить пакет ошибок...</string>
   <string name="menu_save">Сохранить в файл</string>
@@ -753,10 +805,13 @@
   <string name="menu_circulize">Выстроить в круг</string>
   <string name="menu_split_polygon">Разделить на полигоны</string>
   <string name="menu_unjoin_dissimilar">Разъединить непохожие</string>
+  <string name="menu_extract_segment">Извлечь сегмент</string>
   <string name="menu_newnode_gps">Новая точка на позиции GPS</string>
   <string name="menu_extend_selection">Расширить выделение</string>
   <string name="menu_information">Инфо</string>
   <string name="menu_voice_commands">Голосовые команды</string>
+  <string name="menu_upload_element">Загрузка элемента</string>
+  <string name="menu_upload_elements">Загрузка элементов</string>
   <string name="menu_set_name">Задать название</string>
   <string name="menu_tools">Инструменты...</string>
   <string name="menu_tools_imagery">Другие действия со снимками...</string>
@@ -767,6 +822,7 @@
   <string name="menu_tools_update_imagery_configuration_eli">Обновить настройки из ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Приблизить к нижнему слою</string>
   <string name="menu_tools_clear_clipboard">Очистить буфер обмена</string>
+  <string name="menu_tools_calibrate_height">Откалибруйте датчик давления</string>
   <string name="menu_tools_install_egm">Установить EGM</string>
   <string name="menu_tools_remove_egm">Удалить EGM</string>
   <!---->
@@ -833,8 +889,8 @@
   <string name="actionmode_multiselect">Мультивыбор</string>
   <string name="actionmode_newnoteselect">Выбрана новая заметка</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Разбить замкнутую линию, 1-я точка</string>
-  <string name="actionmode_closed_way_split_2">Разбить замкнутую линию, 2-я точка</string>
+  <string name="actionmode_closed_way_split_1">Разделить замкнутую линию, 1-я точка</string>
+  <string name="actionmode_closed_way_split_2">Разделить замкнутую линию, 2-я точка</string>
   <string name="actionmode_restriction">Добавить ограничение поворота</string>
   <string name="actionmode_restriction_restart_from">Повторно выбрать сегмент \"from\"</string>
   <string name="actionmode_restriction_select_from">Выбрать сегмент \"from\"</string>
@@ -954,6 +1010,7 @@
   <string name="config_beepVolume_title">Громкость звукового сигнала</string>
   <string name="config_beepVolume_summary">Настройки громкости для звуковых сигналов</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_title">Минимальный зум для Mapillary</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Данные и редактирование</string>
@@ -970,6 +1027,7 @@
   <string name="config_autoApplyPreset_summary">Автоматически применять заготовку при открытии редактора свойств.</string>
   <string name="config_generateAlerts_title">Уведомления</string>
   <string name="config_generateAlerts_summary">Показывать уведомления о данных с проблемами или заметками</string>
+  <string name="config_groupAlertsOnly_title">Только групповые оповещения</string>
   <string name="config_notificationCacheSize_title">Макс. число уведомлений</string>
   <string name="config_notificationCacheSize_summary">Максимальное число показываемых уведомлений для каждого типа (минимально 1).</string>
   <string name="config_notificationCacheSize_current">%1$d уведомлений</string>
@@ -985,6 +1043,7 @@
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">Форматирование телефонов</string>
   <string name="config_autoformatPhoneNumbers_summary">Форматировать номера телефонов</string>
+  <string name="config_maxOffsetDistance_title">Максимальная дистанция для сохраненных смещений изображений</string>
   <string name="config_maxOffsetDistance_current">%1$d м</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Автозагрузка</string>
@@ -998,7 +1057,7 @@
   <string name="config_autoPruneNodeLimit_title">Лимит авто-очистки</string>
   <string name="config_autoPruneNodeLimit_summary">Число точек в памяти, после которого будет запущена очистка.</string>
   <string name="config_autoPruneNodeLimit_current">%1$d точек</string>
-  <string name="config_panAndZoomLimit_title">Минимальный масштаб</string>
+  <string name="config_panAndZoomLimit_title">Предел масштабирования</string>
   <string name="config_panAndZoomLimit_summary">Минимальный уровень масштаба для автозагрузки.</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>
   <string name="config_bugFilter_title">Фильтр задач</string>
@@ -1152,6 +1211,7 @@
   <string name="undo_action_extract_node">Извлечение точки</string>
   <string name="undo_action_apply_osc">Применение OSC-файла</string>
   <string name="undo_action_remove_node_from_way">Удаление точки из линии</string>
+  <string name="undo_action_extract_segment">Извлечь сегмент</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci обнаружил серьёзный сбой при последнем запуске.\n\nПожалуйста, помогите нам, отправив отчёт об ошибке, нажав \'OK\'.\n</string>
   <string name="crash_dialog_comment_prompt">Добавьте любую другую информацию, которая, по вашему мнению, сможет помочь, и (необязательно) имя вашей учётной записи OSM, если хотите получить ответ.\n\nСпасибо.</string>
@@ -1190,6 +1250,7 @@
   <string name="tunnel">Тоннель</string>
   <string name="culvert">Водопропускная труба</string>
   <!--Tag issues-->
+  <string name="issue_merged_tags">Объединенные теги</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 день</item>
@@ -1230,4 +1291,8 @@
   <!--Help system-->
   <string name="toast_nohelp">Справка недоступна.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark">Добавить закладку...</string>
+  <string name="bookmarks_desc">Добавить комментарии</string>
+  <string name="show_bookmarks">Закладки...</string>
+  <string name="bookmarkstitle">Закладки</string>
 </resources>
