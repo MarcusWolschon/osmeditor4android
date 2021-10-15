@@ -23,6 +23,8 @@
 - Target SDK/API 30
 - Update translations
 - Update synonyms
+- Update presets
+- Update imagery from ELI
 
 16.0.0:
 
