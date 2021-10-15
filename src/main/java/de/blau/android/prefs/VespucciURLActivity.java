@@ -4,6 +4,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -18,7 +20,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import de.blau.android.Authorize;
 import de.blau.android.R;
 import de.blau.android.net.OAuthHelper;
@@ -39,7 +40,7 @@ import oauth.signpost.exception.OAuthException;
  * @author Jan
  *
  */
-public class VespucciURLActivity extends AppCompatActivity implements OnClickListener {
+public class VespucciURLActivity extends LocaleAwareCompatActivity implements OnClickListener {
     private static final String DEBUG_TAG          = "VespucciURLActivity";
     private static final int    REQUEST_PRESETEDIT = 0;
 

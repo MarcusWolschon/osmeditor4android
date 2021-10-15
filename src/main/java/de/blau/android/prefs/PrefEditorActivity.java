@@ -1,5 +1,7 @@
 package de.blau.android.prefs;
 
+import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
+
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -8,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
@@ -25,7 +26,7 @@ import de.blau.android.util.Util;
  * @author simon
  *
  */
-public abstract class PrefEditorActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
+public abstract class PrefEditorActivity extends LocaleAwareCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
 
     private static final String DEBUG_TAG = "PrefEditorActivity";
 

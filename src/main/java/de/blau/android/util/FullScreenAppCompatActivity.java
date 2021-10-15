@@ -9,7 +9,7 @@ import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 
@@ -19,7 +19,7 @@ import de.blau.android.prefs.Preferences;
  * @author Simon Poole
  *
  */
-public abstract class FullScreenAppCompatActivity extends AppCompatActivity {
+public abstract class FullScreenAppCompatActivity extends LocaleAwareCompatActivity {
 
     private static final String DEBUG_TAG  = FullScreenAppCompatActivity.class.getSimpleName();
     private boolean             fullScreen = false;

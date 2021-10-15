@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 
+import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -34,7 +36,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.geocode.Search;
@@ -59,7 +60,7 @@ import de.blau.android.util.Util;
  * @author mb
  * @author Simon Poole
  */
-public class BoxPicker extends AppCompatActivity implements LocationListener, SearchItemSelectedCallback {
+public class BoxPicker extends LocaleAwareCompatActivity implements LocationListener, SearchItemSelectedCallback {
 
     private static final int MINUTE_SECONDS = 60;
 

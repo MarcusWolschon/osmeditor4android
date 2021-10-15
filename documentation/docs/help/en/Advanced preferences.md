@@ -56,6 +56,10 @@ Use a theme with a light background. Default: _on_. You need to restart the app 
 
 Show the menu buttons at the bottom of the screen. Default: _on_. You need to restart the app for changes to this setting to take effect.
 
+### Disable translations
+
+Use English for the user interface. Google does not provide a supported way to switch languages for individual apps, as a result this setting relies on multiple workarounds that may, or may not, work on your device. Preset translations can be disabled in the preset configurations. 
+
 ### Max. number of inline values
 
 Maximum number of values that will directly be displayed in the form based editor for Tags with pre-determined values. Default: _4_.

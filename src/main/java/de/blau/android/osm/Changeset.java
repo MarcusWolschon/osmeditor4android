@@ -14,7 +14,7 @@ import org.xmlpull.v1.XmlSerializer;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import de.blau.android.util.Util;
+import de.blau.android.util.LocaleUtils;
 
 /**
  * An OSM Changeset
@@ -60,7 +60,7 @@ public class Changeset {
         tags.put(Tags.KEY_CREATED_BY, generator);
         putTag(Tags.KEY_COMMENT, comment);
         putTag(Tags.KEY_SOURCE, source);
-        tags.put(Tags.KEY_LOCALE, Util.toBcp47Language(Locale.getDefault()));
+        tags.put(Tags.KEY_LOCALE, LocaleUtils.toBcp47Language(Locale.getDefault()));
         putTag(Tags.KEY_IMAGERY_USED, imagery);
         if (extraTags != null) {
             for (Entry<String, String> t : extraTags.entrySet()) {

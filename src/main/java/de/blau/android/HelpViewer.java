@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map.Entry;
 
+import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -40,7 +42,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -58,7 +59,7 @@ import de.blau.android.util.Util;
  * @author Simon Poole
  *
  */
-public class HelpViewer extends AppCompatActivity {
+public class HelpViewer extends LocaleAwareCompatActivity {
 
     private static final String HTML_SUFFIX = ".html";
     private static final String DEBUG_TAG   = HelpViewer.class.getName();

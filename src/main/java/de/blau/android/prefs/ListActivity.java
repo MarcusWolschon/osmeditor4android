@@ -1,5 +1,7 @@
 package de.blau.android.prefs;
 
+import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
+
 import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.View;
@@ -7,14 +9,13 @@ import android.widget.HeaderViewListAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * This is a quick hack around the issue that there is no Fragment version of SherlockListActivity
  *
  */
 @SuppressLint("Registered")
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends LocaleAwareCompatActivity {
     private ListView mListView;
 
     /**
