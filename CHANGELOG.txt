@@ -1,5 +1,10 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+16.1.0-2:
+
+- Update translations
+- Update JosmFilterParser
+
 16.1.0-1:
 
 - Fix multiple undo issues in path create mode
