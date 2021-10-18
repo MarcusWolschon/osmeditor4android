@@ -28,6 +28,7 @@
     <string name="help_newnoteselection">اختيار ملاحظة جديدة</string>
     <string name="help_voice_commands">اوامر صوتية</string>
     <string name="help_add_route_segment">إضافة جزء مسار</string>
+    <string name="help_upgrade">ملاحظات الإصدار 16.1</string>
     <string name="help_upgrade_160">ملاحظات الإصدار 16.0</string>
     <string name="help_upgrade_152">ملاحظات الإصدار 15.2</string>
     <string name="help_upgrade_151">ملاحظات الإصدار 15.1</string>

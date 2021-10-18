@@ -300,6 +300,7 @@
   <string name="coverage_left">يسار</string>
   <string name="coverage_right">يمين</string>
   <string name="coverage_bottom">أسفل</string>
+  <string name="tile_size">حجم الصور المتجانبة للخرائط</string>
   <string name="toast_invalid_box">مربع إحاطة غير صالح أو غير مكتمل</string>
   <string name="delete_layer">حذف الطبقة؟</string>
   <string name="delete_endpoint">حذف نقطة النهاية؟</string>
@@ -338,6 +339,7 @@
   <string name="layer_category_osmbasedmap">خريطة قائمة على OSM</string>
   <string name="layer_category_qa">ضمان الجودة</string>
   <string name="layer_category_other">آخر</string>
+  <string name="layer_add_layer_from_mvt_style">أضف طبقة من نمط MVT</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">تصغير</string>
   <string name="layer_info_max_zoom">تكبير</string>
@@ -351,6 +353,7 @@
   <string name="mapillary_image">%1$s مابلاري </string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">حذف الصورة</string>
+  <string name="photo_viewer_delete_button">حذف نهائيًا</string>
   <string name="photo_viewer_goto">انتقل إلى الصورة</string>
   <string name="photo_viewer_label">عارض الصور</string>
   <string name="mapillary_viewer_label">عارض Mapillary</string>
@@ -394,11 +397,15 @@
   <string name="tip_check_label">توقف عن إظهار النصائح الاختيارية</string>
   <string name="tip_undo">سيؤدي الضغط بشكل مطول على زر التراجع إلى إظهار جميع نقاط التحقق الخاصة بالتراجع والإعادة.</string>
   <string name="tip_imagery_privacy">يتم توفير الخلفية وطبقات الخرائط من قبل جهات أخرى. يؤدي استخدام أي طبقة إلى إرسال عنوان الشبكة وإشارة تقريبية للمنطقة التي تبحث عنها إلى الموفر.&lt;p&gt; إذا كان موفر معلومات الطبيقة لديه سياسة الخصوصية، فيمكنك عرضها باستخدام عنصر قائمة \"المعلومات\" في مربع إعدادات الطبقة .</string>
+  <string name="tip_mapillary_privacy">Mapillary هي خدمة تقدمها Mapillary AB، في السويد ، وهي شركة تابعة لـ Facebook. ويؤدي استخدام الخدمة إلى نقل عنوان الشبكة والمعلومات الخاصة بالصور التي شاهدتها إلى الشركة.</string>
   <string name="tip_pan_and_zoom_auto_download">يجب استخدام التحميل التلقائي كلما قمت بالتكبير/التصغير بشكل حذر ، حيث يتسبب ذلك في إثقال كاهل كل من الواجهة البرمجية للخريطة الشارع المفتوحة بالإضافة إلى جهازك.&lt;p&gt; يمكن تجنب هذا باستخدام مصدر بيانات غير متصل بالإنترنت.</string>
   <string name="tip_locked_mode">في وضع القفل ، لا يمكنك التحرير على بيانات الخريطة، ولكن الضغط لفترة طويلة على عنصر ما سيفتح شاشة تحتوي على معلومات مفصلة عنه.</string>
   <string name="tip_longpress_simple_mode">في الوضع البسيط، وعند الضغط لفترة طويلة على عنصر ما لن يحدث أي شيء. قم بإيقاف تشغيل الوضع البسيط من القائمة الرئيسية إذا كنت تريد استخدام هذه الميزة.</string>
   <string name="tip_gpx_no_elevation">بدءًا من الإصدار 15 ، لم تعد مسارات GPX تحتوي على معلومات الارتفاع بشكل افتراضي.&lt;p&gt;لتمكين من تسجيل الارتفاع ، قم بتثبيت نموذج Geoid باستخدام &lt;i&gt; وتثبيت EGM&lt;/i&gt; من قائمة الأدوات ، أو قم بالتبديل إلى مدخلات NMEA.</string>
   <string name="tip_tag_conflict">يتطلب دمج وعكس عناصر الخريطة في بعض الأحيان إلى تغيير السمات الموجودة على العناصر ، إذا كان هناك خطأ أو تعارض محتمل ، يتم تنبيهك إلى ذلك ويتم تقديم فرصة لمراجعة العناصر ذات العلاقة.</string>
+  <string name="tip_gpx_recording">عند بدء تسجيل GPX ، يقوم فسبوتشي بجمع بيانات الموقع ولتمكين تسجيل GPX حتى عندما لا يكون التطبيق مرئيًا.&lt;p&gt;سيؤدي إغلاق التطبيق أو إيقاف تشغيل تسجيل GPX إلى إيقاف استخدام بيانات الموقع في مثل هذه الحالات.</string>
+  <string name="tip_auto_download">عند بدء التنزيل التلقائي لبيانات أو مهام خريطة الشارع المفتوحة فسوف يستخدم تطبيق فسبوتشي بيانات الموقع لتحديد الموضع الحالي حتى عندما لا يكون التطبيق مرئيًا.&lt;p&gt; سيؤدي إغلاق التطبيق أو إيقاف التنزيل التلقائي إلى إيقاف استخدام بيانات الموقع في مثل هذا الحالات.</string>
+  <string name="tip_tristate_checkbox">لقد لمست للتو مربع اختيار ثلاثي ، وهذه المربعات تتضمن الحالات العادية للاختيار مثل مفعل أو غير مفعل true/false أو نعم/لا وهكذا &lt;p&gt; لكن توجد حالة ثالثة لهذا الخيار &lt;b&gt;not set&lt;/b&gt; ألا وهو أن يكون الخيار باللون الرمادي والذي يعني أنه لن يضاف هذا الوسم المتعلق بهذا الخيار وللوصول لتلك الحالة اضغط على مربع الاختيار ضغطة مطولة.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -522,6 +529,7 @@
   <string name="toast_not_mbtiles">هذا ليس ملفاً بتنسيق MBTiles</string>
   <string name="toast_using_network_location">باستخدام موقع الشبكة</string>
   <string name="toast_using_gps_location">استخدام موقع GPS/GNSS</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">تم إيقاف تشغيل محدد المواقع GPS/GNSS، وربما عليك التفكير في إيقاف التتبع.</string>
   <string name="toast_remote_nmea_connection">اتصال NMEA البعيد من / إلى %1$s</string>
   <string name="toast_remote_nmea_connection_closed">تم إغلاق اتصال NMEA البعيد</string>
   <string name="toast_tags_copied">تم نسخ الوسوم إلى الحافظة</string>
@@ -579,6 +587,8 @@
   <string name="toast_multipolygon_inconsistent_roles">المضلعات المتعددة له قيم أدوار غير متسقة للحلقة</string>
   <string name="toast_error_saving_bookmark">تعذر حفظ المفضلة</string>
   <string name="toast_error_loading_style">غير قادر على تشغيل النمط: %1$s</string>
+  <string name="toast_only_one_source_supported">مصدر واحد فقط لكل نمط مدعوم</string>
+  <string name="toast_imagery_offset_download_failed">فشل تنزيل الإزاحة: %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">مصادر MapSplit تتطلب تحديد الحد الأدنى والحد الأقصى للتكبير</string>
   <string name="error_pbf_no_version">معلومات الإصدار مفقودة في ملف PBF</string>
@@ -990,6 +1000,12 @@
   <string name="config_tagFormEnabled_summary">عرض شكل الوسم للتحرير.</string>
   <string name="config_showCameraAction_title">إظهار زر الكاميرا</string>
   <string name="config_showCameraAction_summary">إظهار رمز الكاميرا على شريط الإجراءات.</string>
+  <string name="config_selectCameraApp_title">تطبيق الكاميرا</string>
+  <string name="config_selectCameraApp_summary">حدد تطبيق الكاميرا المراد استخدامه.</string>
+  <string name="config_system_camera">النظام الافتراضي</string>
+  <string name="config_open_camera">افتح الكاميرا</string>
+  <string name="config_fv5_lite">FV5 لايت</string>
+  <string name="config_fv5_pro">FV5 pro</string>
   <string name="config_useInternalPhotoViewer_title">استخدم عارض الصور المدمج</string>
   <string name="config_useInternalPhotoViewer_summary">استخدم عارض الصورة المدمج، إذا لم يتم تحديده فسيتم استخدام عارض خارجي.</string>
   <string name="config_followGPSbutton_title">تحديد موضع تخطيط الزر</string>
@@ -1008,6 +1024,8 @@
   <string name="config_enableLightTheme_summary">خلفيات بيضاء وخفيفة.</string>
   <string name="config_splitActionBarEnabled_title">تمكين تجزئة شريط الإجراءات</string>
   <string name="config_splitActionBarEnabled_summary">السماح بتجزئة شريط الإجراءات ، والاستخدام خاص بالجهاز.  يتطلب تشغيل فسبوتشي مرة أخرى ، ونظام أندرويد 4.0 أو أحدث.</string>
+  <string name="config_disableTranslations_title">تعطيل الترجمات</string>
+  <string name="config_disableTranslations_summary">استخدم اللغة الإنجليزية كواجهة للتطبيق</string>
   <string name="config_maxInlineValues_title">الأعلى.  عدد القيم المضمنة</string>
   <string name="config_maxInlineValues_summary">الحد الأقصى لعدد القيم التي تظهر في نموذج الخصائص والوسوم.</string>
   <string name="config_maxInlineValues_current">%1$d قيمة</string>
@@ -1143,6 +1161,7 @@
   <string name="config_preferRemovableStorage_summary">يفضل وسائل التخزين القابلة للإزالة لذاكرة التخزين المؤقت للصور المتجانبة.</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">حجم ذاكرة التخزين المؤقت لخدمة Mapillary</string>
+  <string name="config_mapillaryCacheSize_summary">إجمالي مساحة التخزين المستخدمة للتخزين المؤقت لصور Mapillary بالميغابايت</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">متفرقات</string>
   <string name="pref_enable_acra">الإبلاغ عن أعطال التطبيق</string>
@@ -1209,6 +1228,7 @@
   <string name="tracking_active_title">خدمة فسبوتشي الخلفية</string>
   <string name="tracking_active_title_short">الخدمة الخلفية نشطة</string>
   <string name="tracking_active_text">تسجيل مسار GPS أو التنزيل التلقائي</string>
+  <string name="tracking_long_text">يقوم فسبوتشي بتسجيل مسار GPX أو تنزيله تلقائيًا. للخروج بشكل كامل، اضغط على الزر أدناه أو زر الرجوع في التطبيق.</string>
   <string name="gps_failure">فشل تمكين GPS</string>
   <!--element description-->
   <string name="address_housenumber">عنوان %1$s</string>

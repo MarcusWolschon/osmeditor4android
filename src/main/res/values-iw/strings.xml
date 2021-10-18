@@ -82,6 +82,7 @@
   <string name="progress_building_imagery_database">מסד נתוני תמונות הרקע נבנה כעת…</string>
   <string name="progress_query_oam">OAM מתושאל…</string>
   <string name="progress_pruning">מתבצע קיצוץ…</string>
+  <string name="progress_migration">מתבצע ייבוא…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">„%1$s” נמחקה</string>
   <string name="changes_changed">„%1$s” נערכה</string>
@@ -118,9 +119,11 @@
   <string name="openstreetbug_not_supported">אין תמיכה ב־%1$s.</string>
   <string name="note_description">הערה: %1$s - %2$s</string>
   <string name="bug_description">%1$s: %2$s - %3$s</string>
+  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">תקלה</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">התאמה אישית</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;עדכון אחרון:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (לא התקבל) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
@@ -190,6 +193,8 @@
   <string name="edit_properties">עריכת תגיות</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">פרטי תכונת GeoJSON</string>
+  <string name="vt_feature_information">פרטים על תכונה של אריח וקטורי</string>
+  <string name="vt_layer">שכבת אריח וקטורי</string>
   <string name="copy_properties">העתקת מאפיינים</string>
   <string name="create_osm_element">יצירת רכיב OSM</string>
   <!--API/Data layer info dialog-->
@@ -208,8 +213,11 @@
   <string name="delete_custom_preset_title">למחוק ערכה מוגדרת אישית?</string>
   <!--Duplicate route segment dialog-->
   <string name="duplicate_route_segment_title">הוספת מקטע מסלול</string>
+  <string name="duplicate_route_segment_message">דרך זאת כבר חברה במסלול.</string>
   <string name="duplicate_route_segment_button">להוסיף בכל זאת</string>
   <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_title">הוספת חבר ליחס</string>
+  <string name="duplicate_relation_member_message">רכיב זה כבר חלק מהיחס.</string>
   <string name="duplicate_relation_member_remove_button">הסרת חבר</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move">העברה</string>
@@ -282,6 +290,7 @@
   <string name="coverage_left">שמאל</string>
   <string name="coverage_right">ימין</string>
   <string name="coverage_bottom">תחתון</string>
+  <string name="tile_size">גודל אריח</string>
   <string name="toast_invalid_box">תיבה תוחמת שגויה או חלקית</string>
   <string name="delete_layer">למחוק שכבה</string>
   <string name="delete_endpoint">למחוק נקודת גישה?</string>
@@ -320,6 +329,7 @@
   <string name="layer_category_osmbasedmap">מפה מבוססת OSM</string>
   <string name="layer_category_qa">אבטחת איכות</string>
   <string name="layer_category_other">אחר</string>
+  <string name="layer_add_layer_from_mvt_style">הוספת שכבה מסגנון MVT</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">תקריב מזערי</string>
   <string name="layer_info_max_zoom">תקריב מרבי</string>
@@ -333,6 +343,7 @@
   <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">מחיקת תמונה</string>
+  <string name="photo_viewer_delete_button">למחוק לצמיתות</string>
   <string name="photo_viewer_goto">מעבר לתמונה</string>
   <string name="photo_viewer_label">מציג תמונות</string>
   <string name="mapillary_viewer_label">מציג Mapillary</string>
@@ -391,6 +402,7 @@
   <string name="qa_channel_description">ערוץ הודעות אבטחת איכות לתקלות נתונים ולמשימות</string>
   <!--Toaster-->
   <string name="toast_permission_denied">ההרשאה נדחתה %1$s</string>
+  <string name="toast_unable_to_persist_permissions">לא ניתן לקבע את ההרשאות</string>
   <string name="toast_name_empty">נא לבחור שם</string>
   <string name="toast_url_empty">נא להקליד כתובת</string>
   <string name="toast_min_zoom">יש להגדיר את רמת התקריב המזערית מתחת למרבית</string>
@@ -515,6 +527,9 @@
   <string name="toast_file_already_exists">הקובץ %1$s כבר קיים</string>
   <string name="toast_file_error_for">שגיאת קובץ עבור %1$s</string>
   <string name="toast_error_reading">שגיאה בקריאה של %1$s</string>
+  <string name="toast_read_successfully">הקובץ נקרא בהצלחה</string>
+  <string name="toast_error_writing">שגיאה בכתיבת %1$s</string>
+  <string name="toast_successfully_written">הקובץ נכתב בהצלחה</string>
   <string name="toast_http_data_error_for">שגיאת נתוני HTTP עבור %1$s</string>
   <string name="toast_error_insufficient_space_for">אין מספיק מקום על המכשיר עבור %1$s</string>
   <string name="toast_error_too_many_redirects_for">יותר מדי הפניות עבור %1$s</string>
@@ -537,8 +552,13 @@
   <string name="toast_invalid_number_format">תצורת המספר שגויה %1$s</string>
   <string name="toast_error_downloading_mapillary_image">שגיאה בהורדת התמונה מ־Mapillary %1$s</string>
   <string name="toast_error_downloading_mapillary_sequences">שגיאה בהורדת הרצפים מ־Mapillary %1$s</string>
+  <string name="toast_split_first_segment">פיצול המקטע הראשון</string>
+  <string name="toast_split_first_and_next_segment">פיצול המקטעים הראשון והאחרון</string>
   <string name="toast_split_next_segment">פיצול המקטע הבא</string>
   <string name="toast_nothing_changed">שום דבר לא השתנה</string>
+  <string name="toast_preset_failed">יצירת הערכה %1$s נכשלה\nשגיאה %2$s</string>
+  <string name="toast_error_saving_bookmark">לא ניתן לשמור סימניה</string>
+  <string name="toast_error_loading_style">לא ניתן לטעון סגנון: %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">למקורות MapSplit חובה להגדיר תקריב מזערי ומרבי</string>
   <string name="error_pbf_no_version">פרטי הגרסה חסרים בקובץ PBF</string>
@@ -594,6 +614,7 @@
   <string name="tag_menu_preset">ערכות מוגדרות</string>
   <string name="tag_menu_apply_preset">החלת ערכה מוגדרת</string>
   <string name="tag_menu_apply_preset_with_optional">להחיל את הערכה עם רשות</string>
+  <string name="tag_menu_show_alternatives">הצגת תיוג חלופי</string>
   <string name="tag_menu_revert">החזרה</string>
   <string name="tag_menu_mapfeatures">ויקי תכונות מפה</string>
   <string name="tag_menu_addtorelation">הוספה ליחס</string>
@@ -938,6 +959,10 @@
   <string name="config_tagFormEnabled_summary">הצגת טופס תגיות לעריכה.</string>
   <string name="config_showCameraAction_title">הצגת פעולת מצלמה</string>
   <string name="config_showCameraAction_summary">הצגת סמל מצלמה בסרגל הפעולות.</string>
+  <string name="config_selectCameraApp_title">יישומון מצלמה</string>
+  <string name="config_selectCameraApp_summary">נא לבחור יישומון מצלמה לשימוש.</string>
+  <string name="config_system_camera">בררת המחדל של המערכת</string>
+  <string name="config_open_camera">פתיחת מצלמה</string>
   <string name="config_useInternalPhotoViewer_title">להשתמש במציג התמונות המובנה</string>
   <string name="config_useInternalPhotoViewer_summary">להשתמש במציג התמונות המובנה, אם לא סומן ייעשה שימוש במציג תמונות חיצוני.</string>
   <string name="config_followGPSbutton_title">פריסת כפתור מעקב מיקום</string>
@@ -956,6 +981,8 @@
   <string name="config_enableLightTheme_summary">רקעים בהירים ולבנים.</string>
   <string name="config_splitActionBarEnabled_title">לאפשר סרגל פעולות מפוצל</string>
   <string name="config_splitActionBarEnabled_summary">לאפשר סרגל פעולה מפוצל, השימוש תלוי מכשיר. דורש הפעלה של וספוצ׳י ו־Android 4.0 ומעלה.</string>
+  <string name="config_disableTranslations_title">השבתת תרגומים</string>
+  <string name="config_disableTranslations_summary">להשתמש באנגלית למנשק המשתמש</string>
   <string name="config_maxInlineValues_title">מספר מרבי של ערכים פנימיים</string>
   <string name="config_maxInlineValues_summary">מספר הערכים המרבי בתוך השורה שמוצגים בתצורת תגיות.</string>
   <string name="config_maxInlineValues_current">%1$d ערכים</string>
@@ -977,13 +1004,19 @@
   <string name="config_dataWarn_title">יותר מדי אזהרות נתונים</string>
   <string name="config_dataWarn_summary">הגבלה (במספר מפרקים) שבו נתחיל להזהיר בנוגע לכמות גדולה מדי של נתונים שנטענים</string>
   <string name="config_useUrlForFeedback_title">להשבית פעילות משוב</string>
+  <string name="config_useUrlForFeedback_summary">השבתת פעילות המשוב ושימוש בכתובת במקום.</string>
+  <string name="config_beepVolume_title">עצמת צפצוף</string>
+  <string name="config_beepVolume_summary">הגדרות שמע לצפצופים.</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_title">רמת תקריב מזערית ל־Mapillary</string>
+  <string name="config_mapillary_min_zoom_summary">רצת התקריב המזערכית שנדרשת לפני שהנתונים מ־Mapillary מוצגים.</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">הגדרות נתונים ועריכה</string>
   <string name="config_category_editing_summary">הגדרות הורדה אוטומטית, שמירה והתראות.</string>
   <string name="config_forceContextMenu_title">תמיד להציג תפריט הקשר</string>
   <string name="config_forceContextMenu_summary">תמיד להציג את תפריט ההקשר אם בחירה אינה חד משמעית.</string>
+  <string name="config_overrideRegionAddressTags_title">דריסת תגית הכתובת כבררת מחדל</string>
   <string name="config_address_tags">תגיות כתובת</string>
   <string name="config_address_tags_summary">תגים בהם נעשה שימוש לחיזוי כתובות.</string>
   <string name="config_enableNameSuggestions_title">הפעלת הצעות שמות</string>
@@ -1010,6 +1043,7 @@
   <string name="config_orthogonalizeThreshold_summary">הסף ב‏־° שמעבר לו מתעלמים מזוויות</string>
   <string name="config_orthogonalizeThreshold_current">‎%1$d°‎</string>
   <string name="config_autoformatPhoneNumbers_title">סידור מספרי טלפון בתבנית</string>
+  <string name="config_autoformatPhoneNumbers_summary">להפעיל תבנית אוטומטית למספרי טלפון</string>
   <string name="config_maxOffsetDistance_current">%1$d מטר/ים</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">הגדרות הורדה אוטומטית</string>
@@ -1075,8 +1109,11 @@
   <string name="config_downLoadThreads_current">%1$d תהליכים</string>
   <string name="config_tileCacheSize_title">גודל מטמון האריחים</string>
   <string name="config_tileCacheSize_summary">נפח האחסון הכולל שמנוצל לטובת מטמון של אריחים במ״ב.</string>
+  <string name="config_preferRemovableStorage_title">להעדיף אחסון נתיק</string>
+  <string name="config_preferRemovableStorage_summary">להעדיף אחסון נתיק לטובת אחסון האריחים.</string>
   <string name="config_tileCache_current">%1$d מ״ב</string>
   <string name="config_mapillaryCacheSize_title">גודל המטמון של Mapillary</string>
+  <string name="config_mapillaryCacheSize_summary">נפח האחסון הכולל שישמש לאחסון תמונות Mapillary, במ״ב</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">שונות</string>
   <string name="pref_enable_acra">דיווח על קריסות ביישומון</string>
@@ -1163,9 +1200,11 @@
   <string name="undo_action_set_tags">תיוג</string>
   <string name="undo_action_join">צירוף</string>
   <string name="undo_action_unjoin_ways">הפרדת דרכים</string>
+  <string name="undo_action_merge_polygons">מיזוג מצולעים</string>
   <string name="undo_action_create_relation">יצירת יחס</string>
   <string name="undo_action_delete_relation">מחיקת יחס</string>
   <string name="undo_action_update_relations">עדכון יחס</string>
+  <string name="undo_action_move_tags">העברת תגיות ליחס</string>
   <string name="undo_action_cut">גזירה</string>
   <string name="undo_action_paste">הדבקה</string>
   <string name="undo_action_rotateway">הטיית דרך</string>
@@ -1214,6 +1253,9 @@
   <string name="tunnel">מנהרה</string>
   <string name="culvert">מעבר מים</string>
   <!--Tag issues-->
+  <string name="issue_not_reversable">התגיות אינן הפיכות</string>
+  <string name="issue_tags_reversed">תגיות התהפכו</string>
+  <string name="issue_role_conflict">סתירת תפקיד</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">יום</item>
