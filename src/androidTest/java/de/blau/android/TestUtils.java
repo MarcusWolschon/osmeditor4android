@@ -68,6 +68,7 @@ public class TestUtils {
      * @param device the UiDevice
      */
     public static void grantPermissons(@NonNull UiDevice device) {
+        clickText(device, false, "Wait", true, false, 5000);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             boolean notdone = true;
             while (notdone) {
