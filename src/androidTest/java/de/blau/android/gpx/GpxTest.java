@@ -163,6 +163,7 @@ public class GpxTest {
         loc.setLatitude(startPoint.getLatitude());
         loc.setLongitude(startPoint.getLongitude());
         main.getTracker().updateLocation(loc);
+        TestUtils.sleep();
         main.invalidateOptionsMenu();
 
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
