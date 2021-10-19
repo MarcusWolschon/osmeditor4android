@@ -84,6 +84,7 @@ public class ApplyOSCTest {
         } catch (IOException e1) {
             // Ignored
         }
+        TestUtils.stopEasyEdit(main);
     }
 
     /**
