@@ -329,7 +329,7 @@ public class WayActionsTest {
         TestUtils.sleep(5000);
         assertTrue(TestUtils.clickText(device, false, "No left turn", true, false));
         assertTrue(TestUtils.findText(device, false, "No left turn"));
-        assertTrue(TestUtils.clickHome(device, true));
+        TestUtils.clickHome(device, true);
         instrumentation.removeMonitor(monitor);
 
         List<Relation> rels = logic.getSelectedRelations();
