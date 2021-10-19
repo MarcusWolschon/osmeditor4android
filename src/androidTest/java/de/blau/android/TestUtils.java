@@ -114,7 +114,7 @@ public class TestUtils {
         device.waitForWindowUpdate(null, 1000);
         String shareWithOSM = "Share on OpenStreetMap";
         String justOnce = "Just once";
-        if (device.wait(Until.findObject(By.text("Open with")), 500) != null) {
+        if (device.wait(Until.findObject(By.text("^Open with$|^Open with Maps$")), 500) != null) {
             UiObject2 share = findObjectWithText(device, false, shareWithOSM, 500, false);
             List<UiObject2> l = share.getParent().getParent().getParent().getChildren(); // found experimentally
             for (UiObject2 o : l) {
