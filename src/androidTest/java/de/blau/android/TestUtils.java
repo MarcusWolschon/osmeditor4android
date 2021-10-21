@@ -68,6 +68,7 @@ public class TestUtils {
      * @param device the UiDevice
      */
     public static void grantPermissons(@NonNull UiDevice device) {
+        clickText(device, false, "Wait", true, false, 5000);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             boolean notdone = true;
             while (notdone) {
@@ -111,17 +112,32 @@ public class TestUtils {
      */
     public static void selectIntentRecipient(@NonNull UiDevice device) {
         device.waitForWindowUpdate(null, 1000);
-        if (findText(device, false, "Open with Vespucci")) {
-            if (findText(device, false, "Share on OpenStreetMap")) {
-                clickText(device, false, "Just once", false, false);
-            } else {
-                // Open with Vespucci was actually Share on OpenStreetMap
-                clickText(device, false, "Vespucci", false, false);
+        String shareWithOSM = "Share on OpenStreetMap";
+        String justOnce = "Just once";
+        if (device.wait(Until.findObject(By.text("^Open with$|^Open with Maps$")), 500) != null) {
+            UiObject2 share = findObjectWithText(device, false, shareWithOSM, 500, false);
+            List<UiObject2> l = share.getParent().getParent().getParent().getChildren(); // found experimentally
+            for (UiObject2 o : l) {
+                if (o.findObject(By.text(shareWithOSM)) == null) {
+                    o.click();
+                    clickText(device, false, justOnce, false, false);
+                    return;
+                }
             }
         } else {
-            clickText(device, false, "Vespucci", false, false);
-            if (!clickText(device, false, "Just once", false, false)) {
-                clickText(device, false, "Nur diesmal", false, false);
+            String vespucci = "Vespucci";
+            if (findText(device, false, "Open with Vespucci")) {
+                if (findText(device, false, shareWithOSM)) {
+                    clickText(device, false, justOnce, false, false);
+                } else {
+                    // Open with Vespucci was actually Share on OpenStreetMap
+                    clickText(device, false, vespucci, false, false);
+                }
+            } else {
+                clickText(device, false, vespucci, false, false);
+                if (!clickText(device, false, justOnce, false, false)) {
+                    clickText(device, false, "Nur diesmal", false, false);
+                }
             }
         }
     }
@@ -348,7 +364,7 @@ public class TestUtils {
         device.swipe(rect.centerX(), rect.centerY(), rect.centerX(), rect.centerY(), 200);
         sleep(2000);
     }
-    
+
     /**
      * An attempt at getting reliable long clicks with swiping
      * 
