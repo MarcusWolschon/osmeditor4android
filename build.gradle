@@ -608,6 +608,8 @@ marathon {
         operatingSystem = true
     }
     // uncommenting this makes things slower, but potentially less flaky
+    // this will however lead to tests failing on Android 11 and later
+    // because access to app generated files will be lost.
 //    applicationPmClear = true
     codeCoverageEnabled = true
     autoGrantPermission = true
@@ -628,6 +630,26 @@ marathon {
 //               ], 
 //               null)
 //        ]
+//    }
+    // analytics and sorting configuration requires a DB to be installed
+//    analytics {
+//       influx {
+//           url = "http://127.0.0.1:8086"
+//           dbName = "Marathon"
+//       }
+//    }
+//    sortingStrategy {
+//       successRate {
+//          limit = Instant.now().minus(Duration.parse("PT48H"))
+//       }
+//    }
+    // this currently doesn't seem to have any benefical effects
+//    flakinessStrategy {
+//       probabilityBased {
+//          minSuccessRate = 0.7
+//          maxCount = 1
+//          timeLimit = Instant.now().minus(Duration.parse("PT12H"))
+//       }
 //    }
 }
 
