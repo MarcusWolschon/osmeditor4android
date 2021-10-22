@@ -120,7 +120,7 @@ public class RelationUtilTest {
      * 
      */
     @NonNull
-    static StorageDelegator loadTestData(@NonNull Class c) {
+    public static StorageDelegator loadTestData(@NonNull Class c) {
         StorageDelegator d = App.getDelegator();
         InputStream input = c.getResourceAsStream("/rings.osm");
         OsmParser parser = new OsmParser();

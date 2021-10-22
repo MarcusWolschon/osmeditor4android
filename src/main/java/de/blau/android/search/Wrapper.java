@@ -1,5 +1,6 @@
 package de.blau.android.search;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import java.util.SortedMap;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import ch.poole.osm.josmfilterparser.ElementState.State;
+import ch.poole.osm.josmfilterparser.Condition;
 import ch.poole.osm.josmfilterparser.Meta;
 import ch.poole.osm.josmfilterparser.Type;
 import de.blau.android.App;
@@ -21,6 +23,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
@@ -271,9 +274,11 @@ public class Wrapper implements Meta {
     @Override
     public boolean isAllInDownloadedArea() {
         BoundingBox bounds = element.getBounds();
-        for (BoundingBox box : App.getDelegator().getBoundingBoxes()) {
-            if (box.contains(bounds)) {
-                return true;
+        if (!(element instanceof Relation) || ((Relation) element).allDownloaded()) {
+            for (BoundingBox box : App.getDelegator().getBoundingBoxes()) {
+                if (box.contains(bounds)) {
+                    return true;
+                }
             }
         }
         return false;
@@ -331,16 +336,95 @@ public class Wrapper implements Meta {
 
     @Override
     public boolean isAllInview() {
-        return logic.getViewBox().contains(element.getBounds());
+        return logic.getViewBox().contains(element.getBounds()) && (!(element instanceof Relation) || ((Relation) element).allDownloaded());
     }
 
     @Override
-    public boolean isChild(@NonNull Type type, @NonNull Meta element, @NonNull List<Object> parents) {
-        throw new IllegalArgumentException(context.getString(R.string.search_objects_unsupported, "child"));
+    public boolean isChild(@NonNull Type type, @NonNull Meta meta, @NonNull List<Object> parents) {
+        for (Object o : parents) {
+            if (o instanceof Relation) {
+                if (element.hasParentRelation((Relation) o)) {
+                    return true;
+                }
+            } else if (o instanceof Way && element instanceof Node) {
+                if (((Way) o).hasNode((Node) element)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean isParent(@NonNull Type type, @NonNull Meta meta, @NonNull List<Object> children) {
-        throw new IllegalArgumentException(context.getString(R.string.search_objects_unsupported, "parent"));
+        for (Object o : children) {
+            if (element instanceof Relation) {
+                if (((OsmElement) o).hasParentRelation((Relation) element)) {
+                    return true;
+                }
+            } else if (element instanceof Way && o instanceof Node) {
+                if (((Way) element).hasNode((Node) o)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @NonNull
+    @Override
+    public List<Object> getMatchingElements(@NonNull Condition c) {
+        List<Object> result = new ArrayList<>();
+        SearchResult sr = getMatchingElementsInternal(c);
+        result.addAll(sr.nodes);
+        result.addAll(sr.ways);
+        result.addAll(sr.relations);
+        return result;
+    }
+
+    class SearchResult {
+        List<Node>     nodes     = new ArrayList<>();
+        List<Way>      ways      = new ArrayList<>();
+        List<Relation> relations = new ArrayList<>();
+
+        /**
+         * Check if the result is empty
+         * 
+         * @return true if empty
+         */
+        public boolean isEmpty() {
+            return nodes.isEmpty() && ways.isEmpty() && relations.isEmpty();
+        }
+    }
+
+    /**
+     * Eval the condition on all objects in memory
+     * 
+     * @param c the Condition to check
+     * @return a SearchResult object
+     */
+    SearchResult getMatchingElementsInternal(@NonNull Condition c) {
+        StorageDelegator delegator = App.getDelegator();
+        SearchResult result = new SearchResult();
+
+        for (Node n : delegator.getCurrentStorage().getNodes()) {
+            setElement(n);
+            if (c.eval(Type.NODE, this, n.getTags())) {
+                result.nodes.add(n);
+            }
+        }
+        for (Way w : delegator.getCurrentStorage().getWays()) {
+            setElement(w);
+            if (c.eval(Type.WAY, this, w.getTags())) {
+                result.ways.add(w);
+            }
+        }
+        for (Relation r : delegator.getCurrentStorage().getRelations()) {
+            setElement(r);
+            if (c.eval(Type.RELATION, this, r.getTags())) {
+                result.relations.add(r);
+            }
+        }
+        return result;
     }
 }

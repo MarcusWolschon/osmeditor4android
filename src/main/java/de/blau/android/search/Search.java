@@ -1,7 +1,6 @@
 package de.blau.android.search;
 
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.os.AsyncTask;
@@ -11,7 +10,6 @@ import androidx.fragment.app.FragmentActivity;
 import ch.poole.osm.josmfilterparser.Condition;
 import ch.poole.osm.josmfilterparser.JosmFilterParser;
 import ch.poole.osm.josmfilterparser.ParseException;
-import ch.poole.osm.josmfilterparser.Type;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -21,8 +19,8 @@ import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
-import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
+import de.blau.android.search.Wrapper.SearchResult;
 import de.blau.android.util.Snack;
 
 /**
@@ -52,9 +50,6 @@ public final class Search {
     public static void search(@NonNull final FragmentActivity activity) {
         final Logic logic = App.getLogic();
         final List<String> lastSearches = logic.getLastObjectSearches();
-        final List<Node> nodeResult = new ArrayList<>();
-        final List<Way> wayResult = new ArrayList<>();
-        final List<Relation> relationResult = new ArrayList<>();
 
         dialog = TextLineDialog.get(activity, R.string.search_objects_title, R.string.search_objects_hint, R.string.search_objects_use_regexps, lastSearches,
                 activity.getString(R.string.search), (input, useRegexp) -> {
@@ -63,6 +58,7 @@ public final class Search {
                         return;
                     }
                     new AsyncTask<Void, Void, String>() {
+                        SearchResult result;
 
                         @Override
                         protected void onPreExecute() {
@@ -81,35 +77,14 @@ public final class Search {
                                 return err.getMessage();
                             }
 
-                            nodeResult.clear();
-                            wayResult.clear();
-                            relationResult.clear();
-
                             Wrapper wrapper = new Wrapper(activity);
-                            StorageDelegator delegator = App.getDelegator();
+
                             try {
-                                for (Node n : delegator.getCurrentStorage().getNodes()) {
-                                    wrapper.setElement(n);
-                                    if (condition.eval(Type.NODE, wrapper, n.getTags())) {
-                                        nodeResult.add(n);
-                                    }
-                                }
-                                for (Way w : delegator.getCurrentStorage().getWays()) {
-                                    wrapper.setElement(w);
-                                    if (condition.eval(Type.WAY, wrapper, w.getTags())) {
-                                        wayResult.add(w);
-                                    }
-                                }
-                                for (Relation r : delegator.getCurrentStorage().getRelations()) {
-                                    wrapper.setElement(r);
-                                    if (condition.eval(Type.RELATION, wrapper, r.getTags())) {
-                                        relationResult.add(r);
-                                    }
-                                }
+                                result = wrapper.getMatchingElementsInternal(condition);
                             } catch (Exception e) {
                                 return e.getMessage();
                             }
-                            if (nodeResult.isEmpty() && wayResult.isEmpty() && relationResult.isEmpty()) {
+                            if (result.isEmpty()) {
                                 return activity.getString(R.string.toast_nothing_found);
                             }
                             return null;
@@ -121,24 +96,7 @@ public final class Search {
                             if (errorMsg == null) {
                                 logic.pushObjectSearch(text);
                                 if (activity instanceof Main) {
-                                    Main main = (Main) activity;
-                                    EasyEditManager easyEditManager = main.getEasyEditManager();
-                                    if (easyEditManager.inElementSelectedMode()) {
-                                        easyEditManager.finish();
-                                    }
-                                    logic.deselectAll();
-                                    for (Node n : nodeResult) {
-                                        logic.addSelectedNode(n);
-                                    }
-                                    for (Way w : wayResult) {
-                                        logic.addSelectedWay(w);
-                                    }
-                                    for (Relation r : relationResult) {
-                                        logic.addSelectedRelation(r);
-                                    }
-                                    easyEditManager.editElements();
-                                    main.zoomTo(logic.getSelectedElements());
-                                    main.invalidateMap();
+                                    selectResult((Main) activity, logic, result);
                                 }
                                 dismiss();
                             } else {
@@ -160,4 +118,30 @@ public final class Search {
         }
     }
 
+    /**
+     * Select the elements that we found
+     * 
+     * @param main current instance of Main
+     * @param logic current instance of Logic
+     * @param result the SearchResult
+     */
+    public static void selectResult(@NonNull final Main main, @NonNull final Logic logic, @NonNull final SearchResult result) {
+        EasyEditManager easyEditManager = main.getEasyEditManager();
+        if (easyEditManager.inElementSelectedMode()) {
+            easyEditManager.finish();
+        }
+        logic.deselectAll();
+        for (Node n : result.nodes) {
+            logic.addSelectedNode(n);
+        }
+        for (Way w : result.ways) {
+            logic.addSelectedWay(w);
+        }
+        for (Relation r : result.relations) {
+            logic.addSelectedRelation(r);
+        }
+        easyEditManager.editElements();
+        main.zoomTo(logic.getSelectedElements());
+        main.invalidateMap();
+    }
 }
