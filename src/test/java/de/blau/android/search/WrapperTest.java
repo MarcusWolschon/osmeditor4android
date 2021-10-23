@@ -24,6 +24,7 @@ import ch.poole.osm.josmfilterparser.ElementState;
 import ch.poole.osm.josmfilterparser.Type;
 import ch.poole.osm.josmfilterparser.Version;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.PbfTest;
 import de.blau.android.osm.Relation;
@@ -49,7 +50,9 @@ public class WrapperTest {
         delegator.reset(true);
         delegator.setCurrentStorage(PbfTest.read());
         App.newLogic();
-        App.getLogic().setMap(new de.blau.android.Map(ApplicationProvider.getApplicationContext()), false);
+        Logic logic = App.getLogic();
+        logic.setMap(new de.blau.android.Map(ApplicationProvider.getApplicationContext()), false);
+        logic.getViewBox().fitToBoundingBox(logic.getMap(), delegator.getLastBox());
         wrapper = new Wrapper(ApplicationProvider.getApplicationContext());
     }
 
