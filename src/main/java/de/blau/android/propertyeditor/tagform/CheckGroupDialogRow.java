@@ -198,17 +198,12 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
                     for (PresetCheckField check : field.getCheckFields()) {
                         String checkKey = check.getKey();
                         String checkValue = keyValues.get(checkKey);
-                        Boolean state = null;
 
-                        boolean selected = checkValue != null && checkValue.equals(check.getOnValue().getValue());
-                        boolean off = check.isOffValue(checkValue);
+                        Boolean state = getState(check, checkValue);
 
-                        String d = check.getHint();
-                        if (checkValue == null || "".equals(checkValue) || selected || off) {
-                            if (selected || off || check.getOffValue() == null) {
-                                state = selected;
-                            }
-                            TriStateCheckBox checkBox = row.addCheck(d == null ? checkKey : d, state, onStateChangeListener);
+                        String checkHint = check.getHint();
+                        if (checkHint != null && !"".equals(checkHint)) {
+                            TriStateCheckBox checkBox = row.addCheck(checkHint == null ? checkKey : checkHint, state, onStateChangeListener);
                             checkBox.setTag(check);
                         } else {
                             // unknown value: add non-editable checkbox
@@ -247,6 +242,24 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
     }
 
     /**
+     * Determine the state a tristate check box should be in
+     * 
+     * @param check the field
+     * @param checkValue the value
+     * @return a Boolean or null
+     */
+    @Nullable
+    public static Boolean getState(@NonNull PresetCheckField check, @Nullable String checkValue) {
+        Boolean state = null;
+        boolean selected = checkValue != null && checkValue.equals(check.getOnValue().getValue());
+        boolean off = check.isOffValue(checkValue);
+        if (selected || off || check.getOffValue() == null) {
+            state = selected;
+        }
+        return state;
+    }
+
+    /**
      * Build a dialog that allows multiple PresetCheckFields to be checked etc
      * 
      * @param caller the calling TagFormFragment instance
@@ -275,14 +288,15 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
         for (PresetCheckField check : field.getCheckFields()) {
             String checkKey = check.getKey();
             String checkValue = row.keyValues.get(checkKey);
-            boolean selected = checkValue != null && checkValue.equals(check.getOnValue().getValue());
-            boolean off = checkValue == null || "".equals(checkValue) || check.isOffValue(checkValue);
-            if (selected || off) {
-                addTriStateCheck(caller.getActivity(), valueGroup, new StringWithDescription(checkKey, check.getHint()), selected, null, buttonLayoutParams);
+            String checkHint = check.getHint();
+            Boolean state = getState(check, checkValue);
+
+            if (checkHint != null && !"".equals(checkHint)) {
+                addTriStateCheck(caller.getActivity(), valueGroup, new StringWithDescription(checkKey, checkHint), state, null, buttonLayoutParams);
             } else {
                 // unknown value: add non-editable checkbox
                 TriStateCheckBox checkBox = addTriStateCheck(caller.getActivity(), valueGroup, new StringWithDescription(checkKey, checkKey + "=" + checkValue),
-                        false, null, buttonLayoutParams);
+                        state, null, buttonLayoutParams);
                 checkBox.setEnabled(false);
             }
         }
@@ -326,13 +340,13 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
      * @param context Android Context
      * @param layout the Layout we want to add the CheckBox to
      * @param swd the value
-     * @param selected if true the CheckBox will be selected
+     * @param selected if true the CheckBox will be selected, null sets indeterminate
      * @param icon an icon if there is one
      * @param layoutParams the LayoutParams for the CheckBox
      * @return the CheckBox for further use
      */
     private static TriStateCheckBox addTriStateCheck(@NonNull Context context, @NonNull LinearLayout layout, @NonNull StringWithDescription swd,
-            boolean selected, @Nullable Drawable icon, @NonNull ViewGroup.LayoutParams layoutParams) {
+            Boolean selected, @Nullable Drawable icon, @NonNull ViewGroup.LayoutParams layoutParams) {
         final TriStateCheckBox check = new TriStateCheckBox(context);
         String description = swd.getDescription();
         check.setText(description != null && !"".equals(description) ? description : swd.getValue());
@@ -341,7 +355,7 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
             check.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
         }
         check.setLayoutParams(layoutParams);
-        check.setChecked(selected);
+        check.setState(selected);
         layout.addView(check);
         return check;
     }
