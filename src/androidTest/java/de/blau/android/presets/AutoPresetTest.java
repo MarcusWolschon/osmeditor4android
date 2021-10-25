@@ -180,7 +180,7 @@ public class AutoPresetTest {
         mockTaginfoServer.enqueue("autopreset7");
         device.waitForIdle();
         assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/search_online", true));
-        UiObject2 preset = TestUtils.findObjectWithText(device, false, AMENITY_PAYMENT_CENTRE_LABEL, 20000, true);
+        UiObject2 preset = TestUtils.findObjectWithText(device, false, AMENITY_PAYMENT_CENTRE_LABEL, 20000, false);
         assertNotNull(preset);
         preset.clickAndWait(Until.newWindow(), 10000);
         TestUtils.clickHome(device, true); // close the PropertEditor and save
