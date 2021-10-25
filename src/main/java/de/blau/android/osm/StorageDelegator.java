@@ -3094,22 +3094,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             if (members != null) {
                 for (RelationMember rm : members) {
                     checkMember(r.getOsmId(), rm);
-                    String type = rm.getType();
                     final long ref = rm.getRef();
-                    OsmElement e = null;
-                    switch (type) {
-                    case Node.NAME:
-                        e = nodeIndex.get(ref);
-                        break;
-                    case Way.NAME:
-                        e = wayIndex.get(ref);
-                        break;
-                    case Relation.NAME:
-                        e = relationIndex.get(ref);
-                        break;
-                    default:
-                        logUnknownMemberType(r, type);
-                    }
+                    final String type = rm.getType();
+                    OsmElement e = elementFromIndex(r, type, ref, nodeIndex, wayIndex, relationIndex);
                     if (e != null) {
                         e.clearParentRelations();
                     }
@@ -3127,26 +3114,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     checkMember(r.getOsmId(), rm);
                     final long ref = rm.getRef();
                     final String type = rm.getType();
-                    OsmElement e = null;
-                    switch (type) {
-                    case Node.NAME:
-                        e = nodeIndex.get(ref);
-                        break;
-                    case Way.NAME:
-                        e = wayIndex.get(ref);
-                        break;
-                    case Relation.NAME:
-                        e = relationIndex.get(ref);
-                        break;
-                    default:
-                        logUnknownMemberType(r, type);
-                    }
+                    OsmElement e = elementFromIndex(r, type, ref, nodeIndex, wayIndex, relationIndex);
                     if (e != null) {
                         rm.setElement(e);
                         e.addParentRelation(r);
                     } else if (memberIsDeleted(r, rm)) {
-                        Log.e(DEBUG_TAG, "redoBacklinks " + type + " " + ref + " missing");
+                        Log.e(DEBUG_TAG, "redoBacklinks relation " + r.getOsmId() + " member " + type + " " + ref + " missing");
                         return false;
+                    } else if (rm.downloaded()) {
+                        Log.w(DEBUG_TAG, "redoBacklinks relation " + r.getOsmId() + " member " + type + " " + ref + " not in target storage");
+                        rm.setElement(null);
                     }
                 }
             } else {
@@ -3154,6 +3131,36 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
         }
         return true; // successful
+    }
+
+    /**
+     * Retrieve a relation member OsmElement from the appropriate index
+     * 
+     * @param r the Relation
+     * @param type type of OsmElement
+     * @param ref the OSM id of the element
+     * @param nodeIndex node index
+     * @param wayIndex way index
+     * @param relationIndex relation index
+     * @return the element or null
+     */
+    public OsmElement elementFromIndex(@NonNull Relation r, @NonNull final String type, final long ref, @NonNull LongOsmElementMap<Node> nodeIndex,
+            @NonNull LongOsmElementMap<Way> wayIndex, @NonNull LongOsmElementMap<Relation> relationIndex) {
+        OsmElement e = null;
+        switch (type) {
+        case Node.NAME:
+            e = nodeIndex.get(ref);
+            break;
+        case Way.NAME:
+            e = wayIndex.get(ref);
+            break;
+        case Relation.NAME:
+            e = relationIndex.get(ref);
+            break;
+        default:
+            logUnknownMemberType(r, type);
+        }
+        return e;
     }
 
     /**
@@ -3564,7 +3571,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Log.d(DEBUG_TAG, "applyOsc done relations");
 
             // fixup relation back links and memberships
-
             if (!redoBacklinks(tempCurrent, nodeIndex, wayIndex, relationIndex)) {
                 Log.e(DEBUG_TAG, "applyOsc redoBacklinks failed");
                 return false;
