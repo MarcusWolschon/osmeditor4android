@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,13 +44,12 @@ public class UndoStorageTest {
         Way w = StorageDelegatorTest.addWayToStorage(d, false);
         assertEquals(1, d.getCurrentStorage().getWayCount());
         assertEquals(1, d.getApiStorage().getWayCount());
+        assertEquals(4, w.nodeCount());
         assertTrue(undo.canUndo());
         UndoElement ue = undo.getOriginal(w);
         assertTrue(ue instanceof UndoWay);
-        assertFalse(((UndoWay) ue).isClosed());
-        assertEquals(4, ((UndoWay) ue).nodeCount());
-        assertEquals(637.56, ((UndoWay) ue).length(), 0.01);
-        assertEquals(new BoundingBox(0.0000000, 51.4760000, 0.0030000, 51.4780000), undo.getLastBounds());
+        assertEquals(0, ((UndoWay) ue).nodeCount());
+        
         String[] undoActions = undo.getUndoActions(ApplicationProvider.getApplicationContext());
         assertEquals(1, undoActions.length);
         String[] redoActions = undo.getRedoActions(ApplicationProvider.getApplicationContext());
@@ -58,6 +59,15 @@ public class UndoStorageTest {
         assertTrue(undo.canRedo());
         assertEquals(0, d.getCurrentStorage().getWayCount());
         assertEquals(0, d.getApiStorage().getWayCount());
+        List<UndoElement> redoElements = undo.getRedoElements(w);
+        assertNotNull(redoElements);
+        assertEquals(1, redoElements.size());
+        ue = redoElements.get(0);
+        assertTrue(ue instanceof UndoWay);
+        assertFalse(((UndoWay) ue).isClosed());
+        assertEquals(4, ((UndoWay) ue).nodeCount());
+        assertEquals(637.56, ((UndoWay) ue).length(), 0.01);
+        assertEquals(new BoundingBox(0.0000000, 51.4760000, 0.0030000, 51.4780000), undo.getLastRedoBounds());
         // redo
         assertNotNull(undo.redo());
         assertTrue(undo.canUndo());
