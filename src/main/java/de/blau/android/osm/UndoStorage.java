@@ -252,17 +252,37 @@ public class UndoStorage implements Serializable {
     }
 
     /**
-     * Get the BoundingBox of the last Checkpoint
+     * Get the BoundingBox of the last undo Checkpoint
      * 
      * @return a BoundingBox or null
      */
     @Nullable
     public BoundingBox getLastBounds() {
-        if (undoCheckpoints.isEmpty()) {
+        return getLastBounds(undoCheckpoints);
+    }
+
+    /**
+     * Get the BoundingBox of the last redo Checkpoint
+     * 
+     * @return a BoundingBox or null
+     */
+    @Nullable
+    public BoundingBox getLastRedoBounds() {
+        return getLastBounds(redoCheckpoints);
+    }
+
+    /**
+     * Get the BoundingBox for the last checkpoint
+     * 
+     * @param checkpoints list of checkpoints
+     * @return a BoundingBox or null
+     */
+    @Nullable
+    private BoundingBox getLastBounds(@NonNull LinkedList<Checkpoint> checkpoints) {
+        if (checkpoints.isEmpty()) {
             return null;
         }
-        Checkpoint checkpoint = undoCheckpoints.getLast();
-        return getBounds(checkpoint);
+        return getBounds(checkpoints.getLast());
     }
 
     /**
@@ -813,7 +833,7 @@ public class UndoStorage implements Serializable {
          */
         public UndoWay(@NonNull Way originalWay, boolean inCurrentStorage, boolean inApiStorage) {
             super(originalWay, inCurrentStorage, inApiStorage);
-            nodes = new ArrayList<>(originalWay.getNodes());
+            nodes = inCurrentStorage || inApiStorage ? new ArrayList<>(originalWay.getNodes()) : new ArrayList<>();
         }
 
         @Override
@@ -931,8 +951,10 @@ public class UndoStorage implements Serializable {
             super(originalRelation, inCurrentStorage, inApiStorage);
             // deep copy
             members = new ArrayList<>();
-            for (RelationMember member : originalRelation.members) {
-                members.add(new RelationMember(member));
+            if (inCurrentStorage || inApiStorage) {
+                for (RelationMember member : originalRelation.members) {
+                    members.add(new RelationMember(member));
+                }
             }
         }
 
@@ -1065,10 +1087,33 @@ public class UndoStorage implements Serializable {
      */
     @NonNull
     public List<UndoElement> getUndoElements(@NonNull OsmElement element) {
+        return getElements(undoCheckpoints, element);
+    }
+
+    /**
+     * Get a list of all UndoElements for a specific element for Redo
+     * 
+     * @param element the OsmElement
+     * @return a List of UndoElement empty if nothing found
+     */
+    @NonNull
+    public List<UndoElement> getRedoElements(@NonNull OsmElement element) {
+        return getElements(redoCheckpoints, element);
+    }
+
+    /**
+     * Get a list of all UndoElements for a specific element
+     * 
+     * @param checkpoints list of checkpoints
+     * @param element the element
+     * @return a list of UndoElements empty if nothing found
+     */
+    @NonNull
+    private List<UndoElement> getElements(@NonNull LinkedList<Checkpoint> checkpoints, @NonNull OsmElement element) {
         List<UndoElement> result = new ArrayList<>();
         String name = element.getName();
         long osmId = element.getOsmId();
-        for (Checkpoint checkpoint : undoCheckpoints) {
+        for (Checkpoint checkpoint : checkpoints) {
             for (UndoElement undoElement : checkpoint.elements.values()) {
                 if (undoElement.element.getName().equals(name) && undoElement.osmId == osmId) {
                     result.add(undoElement);
