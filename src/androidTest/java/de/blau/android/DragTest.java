@@ -47,10 +47,8 @@ public class DragTest {
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
-
-        logic = App.getLogic();
-        logic.deselectAll();
         TestUtils.loadTestData(main, "test2.osm");
+        TestUtils.stopEasyEdit(main);
     }
 
     /**
