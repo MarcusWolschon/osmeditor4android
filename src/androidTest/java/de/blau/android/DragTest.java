@@ -56,8 +56,8 @@ public class DragTest {
      */
     @After
     public void teardown() {
-        logic.deselectAll();
-        TestUtils.zoomToNullIsland(logic, map);
+        TestUtils.stopEasyEdit(main);
+        TestUtils.zoomToNullIsland(App.getLogic(), map);
     }
 
     /**
