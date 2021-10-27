@@ -6,69 +6,42 @@ import java.util.TreeMap;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
-import com.orhanobut.mockwebserverplus.MockWebServerPlus;
-
-import android.app.Instrumentation;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.ActivityTestRule;
-import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
-import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
-import de.blau.android.Main;
-import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
-import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.Preferences;
 
-@RunWith(AndroidJUnit4.class)
-@LargeTest
 /**
  * Note: these test currently only test the filter logic not the UI
  * 
  * @author simon
  *
  */
+@RunWith(RobolectricTestRunner.class)
+@LargeTest
 public class TagFilterTest {
 
-    MockWebServerPlus    mockServer = null;
-    Context              context    = null;
-    AdvancedPrefDatabase prefDB     = null;
-    SQLiteDatabase       db;
-    Main                 main       = null;
-
-    @Rule
-    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
+    Context context = null;
 
     /**
      * Pre-test setup
      */
     @Before
     public void setup() {
-        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-        context = instrumentation.getTargetContext();
-        UiDevice device = UiDevice.getInstance(instrumentation);
-        main = mActivityRule.getActivity();
-        Preferences prefs = new Preferences(context);
-        LayerUtils.removeImageryLayers(context);
-        db = new TagFilterDatabaseHelper(context).getWritableDatabase();
-        main.getMap().setPrefs(main, prefs);
-        TestUtils.grantPermissons(device);
-        TestUtils.dismissStartUpDialogs(device, context);
+        context = ApplicationProvider.getApplicationContext();
     }
 
     /**
@@ -76,8 +49,9 @@ public class TagFilterTest {
      */
     @After
     public void teardown() {
-        db.delete("filterentries", null, null);
-        db.close();
+        try (SQLiteDatabase db = new TagFilterDatabaseHelper(context).getWritableDatabase()) {
+            db.delete("filterentries", null, null);
+        }
     }
 
     /**
@@ -85,18 +59,18 @@ public class TagFilterTest {
      */
     @Test
     public void tagFilterNode() {
-        try {
+        try (SQLiteDatabase db = new TagFilterDatabaseHelper(context).getWritableDatabase()) {
             TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_BARRIER, Tags.VALUE_KERB);
             Logic logic = App.getLogic();
 
-            logic.performAdd(main, 100.0f, 100.0f);
+            logic.performAdd(null, 100.0f, 100.0f);
 
             Node n1 = logic.getSelectedNode();
 
             logic.setSelectedNode(null);
             logic.setSelectedWay(null);
-            logic.setTags(main, n1, tags);
+            logic.setTags(null, n1, tags);
 
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "node", Tags.KEY_BUILDING, null);
 
@@ -118,20 +92,20 @@ public class TagFilterTest {
      */
     @Test
     public void tagFilterWay() {
-        try {
+        try (SQLiteDatabase db = new TagFilterDatabaseHelper(context).getWritableDatabase()) {
             TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_BUILDING, "yes");
             Logic logic = App.getLogic();
 
-            logic.performAdd(main, 100.0f, 100.0f);
+            logic.performAdd(null, 100.0f, 100.0f);
 
             Node n1 = logic.getSelectedNode();
-            logic.performAdd(main, 1000.0f, 1000.0f);
+            logic.performAdd(null, 1000.0f, 1000.0f);
             Node n2 = logic.getSelectedNode();
             Way w = logic.getSelectedWay();
             logic.setSelectedNode(null);
             logic.setSelectedWay(null);
-            logic.setTags(main, w, tags);
+            logic.setTags(null, w, tags);
 
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "way", Tags.KEY_BUILDING, null);
 
@@ -149,20 +123,20 @@ public class TagFilterTest {
      */
     @Test
     public void tagFilterWayWithNodes() {
-        try {
+        try (SQLiteDatabase db = new TagFilterDatabaseHelper(context).getWritableDatabase()) {
             TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_BUILDING, "yes");
             Logic logic = App.getLogic();
 
-            logic.performAdd(main, 100.0f, 100.0f);
+            logic.performAdd(null, 100.0f, 100.0f);
 
             Node n1 = logic.getSelectedNode();
-            logic.performAdd(main, 1000.0f, 1000.0f);
+            logic.performAdd(null, 1000.0f, 1000.0f);
             Node n2 = logic.getSelectedNode();
             Way w = logic.getSelectedWay();
             logic.setSelectedNode(null);
             logic.setSelectedWay(null);
-            logic.setTags(main, w, tags);
+            logic.setTags(null, w, tags);
 
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "way+", Tags.KEY_BUILDING, null);
 
@@ -176,19 +150,20 @@ public class TagFilterTest {
     }
 
     /**
-     * Test against a way tagged as building that is member of a Relation that the way will be included if the relation matches
+     * Test against a way tagged as building that is member of a Relation that the way will be included if the relation
+     * matches
      */
     @Test
     public void tagFilterWayInRelation() {
-        try {
+        try (SQLiteDatabase db = new TagFilterDatabaseHelper(context).getWritableDatabase()) {
             TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_BUILDING, Tags.VALUE_YES);
             Logic logic = App.getLogic();
 
-            logic.performAdd(main, 100.0f, 100.0f);
+            logic.performAdd(null, 100.0f, 100.0f);
 
             Node n1 = logic.getSelectedNode();
-            logic.performAdd(main, 1000.0f, 1000.0f);
+            logic.performAdd(null, 1000.0f, 1000.0f);
             Node n2 = logic.getSelectedNode();
             Way w = logic.getSelectedWay();
             logic.setSelectedNode(null);
@@ -196,8 +171,8 @@ public class TagFilterTest {
 
             ArrayList<OsmElement> members = new ArrayList<>();
             members.add(w);
-            Relation r = logic.createRelation(main, "", members);
-            logic.setTags(main, r, tags);
+            Relation r = logic.createRelation(null, "", members);
+            logic.setTags(null, r, tags);
 
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, Relation.NAME, Tags.KEY_BUILDING, null);
 
@@ -211,19 +186,20 @@ public class TagFilterTest {
     }
 
     /**
-     * Test against a way tagged as building that is member of a Relation that the way will be included with way nodes if the relation matches
+     * Test against a way tagged as building that is member of a Relation that the way will be included with way nodes
+     * if the relation matches
      */
     @Test
     public void tagFilterWayInRelationWithNodes() {
-        try {
+        try (SQLiteDatabase db = new TagFilterDatabaseHelper(context).getWritableDatabase()) {
             TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_BUILDING, "yes");
             Logic logic = App.getLogic();
 
-            logic.performAdd(main, 100.0f, 100.0f);
+            logic.performAdd(null, 100.0f, 100.0f);
 
             Node n1 = logic.getSelectedNode();
-            logic.performAdd(main, 1000.0f, 1000.0f);
+            logic.performAdd(null, 1000.0f, 1000.0f);
             Node n2 = logic.getSelectedNode();
             Way w = logic.getSelectedWay();
             logic.setSelectedNode(null);
@@ -231,8 +207,8 @@ public class TagFilterTest {
 
             ArrayList<OsmElement> members = new ArrayList<OsmElement>();
             members.add(w);
-            Relation r = logic.createRelation(main, "", members);
-            logic.setTags(main, r, tags);
+            Relation r = logic.createRelation(null, "", members);
+            logic.setTags(null, r, tags);
 
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "relation+", Tags.KEY_BUILDING, null);
 
