@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Locale;
 
 import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
-import com.zeugmasolutions.localehelper.LocaleHelper;
 
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;

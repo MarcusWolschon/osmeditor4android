@@ -45,7 +45,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     private static final String DEBUG_TAG = "AdvancedPrefDB";
 
     private final Resources         r;
-    private final SharedPreferences prefs;
+    private final SharedPreferences sharedPrefs;
     private final String            selectedApi;
 
     private static final int DATA_VERSION = 15;
@@ -105,9 +105,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
                                                                                      // context
         this.context = context;
         r = context.getResources();
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         selectedApi = r.getString(R.string.config_selected_api);
-        currentAPI = prefs.getString(selectedApi, null);
+        currentAPI = sharedPrefs.getString(selectedApi, null);
         if (currentAPI == null) {
             migrateAPI(getWritableDatabase());
         }
@@ -193,21 +193,21 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         if (oldVersion <= 12 && newVersion >= 13) {
             db.execSQL("CREATE TABLE layers (type TEXT, position INTEGER DEFAULT -1, visible INTEGER DEFAULT 1, content_id TEXT)");
             int position = 0;
-            String backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), TileLayerSource.LAYER_NONE);
+            String backgroundLayer = sharedPrefs.getString(r.getString(R.string.config_backgroundLayer_key), TileLayerSource.LAYER_NONE);
             if (!TileLayerSource.LAYER_NONE.equals(backgroundLayer)) {
                 addLayer(db, position++, LayerType.IMAGERY, true, backgroundLayer);
             }
-            String overlayLayer = prefs.getString(r.getString(R.string.config_overlayLayer_key), TileLayerSource.LAYER_NOOVERLAY);
+            String overlayLayer = sharedPrefs.getString(r.getString(R.string.config_overlayLayer_key), TileLayerSource.LAYER_NOOVERLAY);
             if (!TileLayerSource.LAYER_NOOVERLAY.equals(overlayLayer)) {
                 addLayer(db, position++, LayerType.OVERLAYIMAGERY, true, overlayLayer);
             }
-            String scaleLayer = prefs.getString(r.getString(R.string.config_scale_key), de.blau.android.layer.grid.MapOverlay.SCALE_NONE);
+            String scaleLayer = sharedPrefs.getString(r.getString(R.string.config_scale_key), de.blau.android.layer.grid.MapOverlay.SCALE_NONE);
             if (!de.blau.android.layer.grid.MapOverlay.SCALE_NONE.equals(scaleLayer)) {
                 addLayer(db, position++, LayerType.SCALE);
             }
             addLayer(db, position++, LayerType.OSMDATA);
             // can't automatically add an existing geojson layer
-            if (prefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), true)) {
+            if (sharedPrefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), true)) {
                 addLayer(db, position, LayerType.TASKS);
             }
         }
@@ -243,8 +243,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      */
     private synchronized void migrateAPI(@NonNull SQLiteDatabase db) {
         Log.d(DEBUG_TAG, "Migrating API");
-        String user = prefs.getString(r.getString(R.string.config_username_key), "");
-        String pass = prefs.getString(r.getString(R.string.config_password_key), "");
+        String user = sharedPrefs.getString(r.getString(R.string.config_username_key), "");
+        String pass = sharedPrefs.getString(r.getString(R.string.config_password_key), "");
         Log.d(DEBUG_TAG, "Adding default URL with user '" + user + "'");
         addAPI(db, ID_DEFAULT, Urls.DEFAULT_API_NAME, Urls.DEFAULT_API, null, user, pass, ID_DEFAULT, true);
         Log.d(DEBUG_TAG, "Adding default dev URL");
@@ -252,7 +252,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         Log.d(DEBUG_TAG, "Selecting default API");
         selectAPI(db, ID_DEFAULT);
         Log.d(DEBUG_TAG, "Deleting old user/pass settings");
-        Editor editor = prefs.edit();
+        Editor editor = sharedPrefs.edit();
         editor.remove(r.getString(R.string.config_username_key));
         editor.remove(r.getString(R.string.config_password_key));
         editor.commit();
@@ -281,7 +281,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         if (getAPIs(db, id).length == 0) {
             throw new IllegalOperationException("Non-existant API selected");
         }
-        prefs.edit().putString(selectedApi, id).commit();
+        sharedPrefs.edit().putString(selectedApi, id).commit();
         currentAPI = id;
         resetCurrentServer();
     }
