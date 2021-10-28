@@ -894,7 +894,7 @@ public class Preset implements Serializable {
                                     copy.setOptional(true);
                                     currentItem.fields.put(copy.getKey(), copy);
                                 } else {
-                                    Log.e(DEBUG_TAG, "Error in PresetItem " + currentItem.getName() + " chunk " + attr.getValue(REF) + " field " + key
+                                    Log.w(DEBUG_TAG, "PresetItem " + currentItem.getName() + " chunk " + attr.getValue(REF) + " field " + key
                                             + " overwrites existing field");
                                 }
                             }
