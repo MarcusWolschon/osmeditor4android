@@ -918,6 +918,62 @@ public class TestUtils {
     }
 
     /**
+     * Setup a mock location provider
+     * 
+     * @param context an Android context
+     * @param providerCriteria if coarse use network, if fine use gps
+     */
+    public static void setupMockLocation(@NonNull final Context context, final int providerCriteria) {
+        String provider = "none";
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        try {
+            locationManager.removeTestProvider(LocationManager.GPS_PROVIDER);
+        } catch (IllegalArgumentException iaex) {
+            // according to googles doc this shouldn't happen
+            Log.e(DEBUG_TAG, "injectLocation " + iaex.getMessage());
+        }
+        locationManager.addTestProvider(LocationManager.GPS_PROVIDER, false, // requiresNetwork
+                false, // requiresSatellite
+                false, // requiresCell
+                false, // hasMonetaryCost
+                true, // supportsAltitude
+                true, // supportsSpeed
+                true, // supportsBearing
+                1, // powerRequirement see
+                   // https://developer.android.com/reference/android/location/provider/ProviderProperties
+                1 // accuracy
+        );
+        try {
+            locationManager.removeTestProvider(LocationManager.NETWORK_PROVIDER);
+        } catch (IllegalArgumentException iaex) {
+            // ignore
+            Log.e(DEBUG_TAG, "injectLocation " + iaex.getMessage());
+        }
+        locationManager.addTestProvider(LocationManager.NETWORK_PROVIDER, false, // requiresNetwork
+                false, // requiresSatellite
+                false, // requiresCell
+                false, // hasMonetaryCost
+                true, // supportsAltitude
+                true, // supportsSpeed
+                true, // supportsBearing
+                1, // powerRequirement
+                1 // accuracy
+        );
+
+        if (providerCriteria == Criteria.ACCURACY_FINE) {
+            provider = LocationManager.GPS_PROVIDER;
+        } else {
+            provider = LocationManager.NETWORK_PROVIDER;
+        }
+
+        Log.d(DEBUG_TAG, "injectLocation Provider " + provider);
+        locationManager.setTestProviderEnabled(provider, true);
+        for (String p : locationManager.getAllProviders()) {
+            Log.d(DEBUG_TAG, "injectLocation available " + p);
+        }
+    }
+
+    /**
      * Inject a Location to the app in testing
      * 
      * @param context Android context
@@ -952,48 +1008,14 @@ public class TestUtils {
 
             @Override
             protected void onPreExecute() {
-                System.out.println("Injecting " + track.size() + " Locations");
+                Log.d(DEBUG_TAG, "injectLocation injecting " + track.size() + " Locations");
                 locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                try {
-                    locationManager.removeTestProvider(LocationManager.GPS_PROVIDER);
-                } catch (IllegalArgumentException iaex) {
-                    // according to googles doc this shouldn't happen
-                }
-                locationManager.addTestProvider(LocationManager.GPS_PROVIDER, false, // requiresNetwork
-                        false, // requiresSatellite
-                        false, // requiresCell
-                        false, // hasMonetaryCost
-                        true, // supportsAltitude
-                        true, // supportsSpeed
-                        true, // supportsBearing
-                        1, // powerRequirement see
-                           // https://developer.android.com/reference/android/location/provider/ProviderProperties
-                        1 // accuracy
-                );
-                try {
-                    locationManager.removeTestProvider(LocationManager.NETWORK_PROVIDER);
-                } catch (IllegalArgumentException iaex) {
-                    // ignore
-                }
-                locationManager.addTestProvider(LocationManager.NETWORK_PROVIDER, false, // requiresNetwork
-                        false, // requiresSatellite
-                        false, // requiresCell
-                        false, // hasMonetaryCost
-                        true, // supportsAltitude
-                        true, // supportsSpeed
-                        true, // supportsBearing
-                        1, // powerRequirement
-                        1 // accuracy
-                );
 
                 if (providerCriteria == Criteria.ACCURACY_FINE) {
                     provider = LocationManager.GPS_PROVIDER;
                 } else {
                     provider = LocationManager.NETWORK_PROVIDER;
                 }
-
-                System.out.println("Provider " + provider);
-                locationManager.setTestProviderEnabled(provider, true);
             }
 
             @Override
@@ -1008,22 +1030,15 @@ public class TestUtils {
                     }
                     loc.setTime(System.currentTimeMillis());
                     loc.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
-                    System.out.println("injecting " + loc.toString());
                     locationManager.setTestProviderLocation(provider, loc);
-                    try {
-                        Thread.sleep(interval); // NOSONAR
-                    } catch (InterruptedException e) {
-                    }
+                    TestUtils.sleep(interval);
                 }
+                TestUtils.sleep(interval); // let location drain
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void result) {
-                try {
-                    Thread.sleep(1000); // NOSONAR
-                } catch (InterruptedException e) {
-                }
                 if (handler != null) {
                     handler.onSuccess();
                 }

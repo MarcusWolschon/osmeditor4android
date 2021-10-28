@@ -58,7 +58,7 @@ import okhttp3.mockwebserver.MockWebServer;
 @LargeTest
 public class GpxTest {
 
-    public static final int      TIMEOUT                = 115;
+    public static final int      TIMEOUT                = 180;
     private static final Pattern EXPORT_MESSAGE_PATTERN = Pattern.compile("^Exported\\sto\\s(.*\\.gpx)$", Pattern.CASE_INSENSITIVE);
 
     Main            main            = null;
@@ -81,7 +81,7 @@ public class GpxTest {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         device = UiDevice.getInstance(instrumentation);
         // this sets the mock location permission
-        instrumentation.getUiAutomation().executeShellCommand("appops set de.blau.android 58 allow");
+        instrumentation.getUiAutomation().executeShellCommand("appops set de.blau.android android:mock_location allow");
 
         main = mActivityRule.getActivity();
 
@@ -128,7 +128,7 @@ public class GpxTest {
     // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void recordSaveAndImportGpx() {
-
+        TestUtils.setupMockLocation(main, Criteria.ACCURACY_FINE);
         // wait for the trackerservice to start
         // unluckily there doesn't seem to be any elegant way to do this
         int retries = 0;
@@ -260,6 +260,7 @@ public class GpxTest {
      */
     @Test
     public void followNetworkLocation() {
+        TestUtils.setupMockLocation(main, Criteria.ACCURACY_COARSE);
         // set min distance to 1m
         prefs.setGpsDistance(0);
 
