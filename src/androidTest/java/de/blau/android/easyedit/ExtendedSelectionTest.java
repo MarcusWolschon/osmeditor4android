@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.After;
@@ -27,6 +28,7 @@ import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -141,7 +143,16 @@ public class ExtendedSelectionTest {
         TestUtils.clickAtCoordinates(device, map, 8.3900912, 47.3899572, true);
         assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         assertTrue(TestUtils.findText(device, false, context.getResources().getQuantityString(R.plurals.actionmode_object_count, 2, 2)));
+        // force the highway type to something else
+        List<Way> ways = App.getLogic().getSelectedWays();
+        assertEquals(2, ways.size());
+        java.util.Map<String, String> tags = new HashMap<>();
+        tags.put(Tags.KEY_HIGHWAY, Tags.VALUE_FOOTWAY);
+        App.getLogic().setTags(main, ways.get(0), tags);
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_merge), false, true));
+        TestUtils.clickText(device, false, context.getString(R.string.okay), true); // click away tip
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.issue_merged_tags)));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
     }
 
