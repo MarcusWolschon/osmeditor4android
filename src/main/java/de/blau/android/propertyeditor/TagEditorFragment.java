@@ -1678,7 +1678,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         Set<String> keySet = new HashSet<>(currentValues.keySet()); // shallow copy
         for (String key : keySet) {
             List<String> list = currentValues.get(key);
-            if (list == null || list.isEmpty() || (list.size() == 1 && "".equals(list.get(0)))) {
+            if (list == null || list.isEmpty()) {
                 currentValues.remove(key);
             }
         }
@@ -1775,7 +1775,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     private boolean addTagFromPreset(@NonNull PresetItem item, @Nullable PresetField field, @NonNull Map<String, List<String>> tags, @NonNull String key,
             Map<String, String> scripts, boolean useDefault) {
-        if (!tags.containsKey(key)) {
+        List<String> values = tags.get(key);
+        if (values == null || (values.size() == 1 && "".equals(values.get(0)))) {
             String value = "";
             if (field != null && useDefault) {
                 String defaultValue = field.getDefaultValue();
