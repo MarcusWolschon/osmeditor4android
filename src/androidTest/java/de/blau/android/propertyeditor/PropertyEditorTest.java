@@ -541,6 +541,23 @@ public class PropertyEditorTest {
         TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
         UiObject text = device.findObject(new UiSelector().textStartsWith("Vorbühl"));
         assertTrue(text.exists());
+
+        // select all members
+        assertTrue(TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/header_member_selected", false));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.tag_action_members_title), 20000));
+
+        // delete all members
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.delete), false, false));
+        assertTrue(TestUtils.textGone(device, "Vorbühl", 10000));
+
+        // exit property editor
+        TestUtils.clickHome(device, false);
+
+        // empty relation dialog
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.empty_relation_title), 5000));
+        assertTrue(r.getMembers().isEmpty());
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.delete), true));
+        assertEquals(OsmElement.STATE_DELETED, r.getState());
     }
 
     /**
