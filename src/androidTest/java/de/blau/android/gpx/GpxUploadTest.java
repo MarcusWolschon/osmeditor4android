@@ -126,25 +126,25 @@ public class GpxUploadTest {
         try {
             File gpxFile = JavaResources.copyFileFromResources(main, GPX_FILE, null, "/");
             try {
-                clickGpsButton(device);
+                GpxTest.clickGpsButton(device);
                 UiObject2 clearItem = TestUtils.findObjectWithText(device, false, main.getString(R.string.menu_gps_clear), 1000, false);
                 assertNotNull(clearItem);
                 if (isEnabled(clearItem)) {
                     TestUtils.clickText(device, false, main.getString(R.string.menu_gps_clear), true, false);
                     TestUtils.clickText(device, false, main.getString(R.string.clear_anyway), true, false);
-                    clickGpsButton(device);
+                    GpxTest.clickGpsButton(device);
                 }
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_track_managment), true, false));
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_import), true, false));
                 TestUtils.selectFile(device, main, null, GPX_FILE, true);
                 TestUtils.textGone(device, "Imported", 10000);
-                clickGpsButton(device);
+                GpxTest.clickGpsButton(device);
                 if (!TestUtils.findText(device, false, main.getString(R.string.menu_gps_goto_start))) {
                     TestUtils.scrollTo(main.getString(R.string.menu_gps_goto_start));
                 }
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_goto_start), true, false));
                 TestUtils.clickText(device, false, main.getString(R.string.okay), false); // click away tip
-                clickGpsButton(device);
+                GpxTest.clickGpsButton(device);
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_track_managment), true, false));
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_upload), true, false));
                 mockServer.enqueue("200");
@@ -172,14 +172,5 @@ public class GpxUploadTest {
             item = item.getParent();
         } while (item != null);
         return true;
-    }
-
-    /**
-     * Click the GPS menu button
-     * 
-     * @param device the UiDevice
-     */
-    public static void clickGpsButton(@NonNull UiDevice device) {
-        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
     }
 }

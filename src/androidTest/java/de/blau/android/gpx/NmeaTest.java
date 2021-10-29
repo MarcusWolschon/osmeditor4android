@@ -123,7 +123,7 @@ public class NmeaTest {
         main.invalidateOptionsMenu();
 
         TestUtils.zoomToLevel(device, main, 19);
-        GpxUploadTest.clickGpsButton(device);
+        GpxTest.clickGpsButton(device);
 
         UiObject2 startItem = TestUtils.findObjectWithText(device, false, main.getString(R.string.menu_gps_start), 1000, false);
         assertNotNull(startItem);
