@@ -1678,7 +1678,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         Set<String> keySet = new HashSet<>(currentValues.keySet()); // shallow copy
         for (String key : keySet) {
             List<String> list = currentValues.get(key);
-            if (list == null || list.isEmpty()) {
+            if (list == null || list.isEmpty() || (list.size() == 1 && "".equals(list.get(0)))) {
                 currentValues.remove(key);
             }
         }
