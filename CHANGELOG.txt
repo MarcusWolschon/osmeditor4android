@@ -1,5 +1,11 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+16.0.2:
+
+- Fix: don't start ElementSelectionMode if no elements are selected
+- Fix: remove keys that only have an empty string as value
+- Fix: ensure that checkboxes in checkgroup modal have correct state
+
 16.0.1:
 
 - Fix: only display 1 row for empty multitext fields
