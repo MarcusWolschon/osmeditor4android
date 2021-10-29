@@ -23,6 +23,7 @@ import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.LayerUtils;
 import de.blau.android.Main;
+import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -77,7 +78,7 @@ public class PresetFilterTest {
     public void presetFilter() {
         TestUtils.unlock(device);
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Preset filter", true, false);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_enable_presetfilter), true, false);
         TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/tagFilterButton", true);
         Activity presetFilterActivity = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(presetFilterActivity instanceof PresetFilterActivity);
@@ -86,10 +87,10 @@ public class PresetFilterTest {
         assertTrue(TestUtils.clickText(device, false, "Church", true));
         TestUtils.sleep(2000);
         TestUtils.clickAtCoordinates(device, main.getMap(), 8.38819D, 47.38961D);
-        assertTrue(TestUtils.findText(device, false, "Way selected", 5000));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_wayselect), 5000));
         assertEquals(206010144L, App.getLogic().getSelectedWay().getOsmId());
         TestUtils.clickUp(device);
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Preset filter", true, false);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_enable_presetfilter), true, false);
     }
 }
