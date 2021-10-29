@@ -1,10 +1,14 @@
 package de.blau.android.osm;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.IOException;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -20,6 +24,7 @@ import de.blau.android.App;
 import de.blau.android.JavaResources;
 import de.blau.android.LayerUtils;
 import de.blau.android.Main;
+import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -54,7 +59,7 @@ public class ReadPbfTest {
         try {
             pbfFile = JavaResources.copyFileFromResources(main, PBF_FILE, null, ".");
         } catch (IOException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         App.getDelegator().reset(false);
     }
@@ -74,19 +79,23 @@ public class ReadPbfTest {
      */
     @Test
     public void pbfRead() {
-        TestUtils.clickMenuButton(device, "Transfer", false, false);
-        TestUtils.clickText(device, false, "File", false, false);
-        TestUtils.clickText(device, false, "Read from PBF file", false, false);
+        StorageDelegator delegator = App.getDelegator();
+        App.getLogic().performAddNode(main, 8.3874640 * 1E7D, 47.3906515 * 1E7D); // force menu
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), false, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_read_pbf_file), true, false));
+        // warning dialog
+        TestUtils.clickText(device, false, main.getString(R.string.unsaved_data_proceed), false, false);
         //
         TestUtils.selectFile(device, main, null, PBF_FILE, true);
         TestUtils.findText(device, false, "Loading", 2000); // spinner appears
         TestUtils.textGone(device, "Loading", 60000);// spinner goes away
-        StorageDelegator delegator = App.getDelegator();
-        Assert.assertNotNull(delegator.getOsmElement(Relation.NAME, 1252853L));
-        Assert.assertNotNull(delegator.getOsmElement(Way.NAME, 243055643L));
+
+        assertNotNull(delegator.getOsmElement(Relation.NAME, 1252853L));
+        assertNotNull(delegator.getOsmElement(Way.NAME, 243055643L));
         Storage current = delegator.getCurrentStorage();
-        Assert.assertEquals(3404, current.getNodes().size());
-        Assert.assertEquals(391, current.getWays().size());
-        Assert.assertEquals(76, current.getRelations().size());
+        assertEquals(3404, current.getNodes().size());
+        assertEquals(391, current.getWays().size());
+        assertEquals(76, current.getRelations().size());
     }
 }
