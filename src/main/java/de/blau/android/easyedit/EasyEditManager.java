@@ -328,6 +328,7 @@ public class EasyEditManager {
     public void startElementSelectionMode() {
         ActionMode.Callback cb = null;
         OsmElement e = null;
+        List<OsmElement> selection = new ArrayList<>();
         if (logic.getSelectedNodes() != null && logic.getSelectedNodes().size() == 1 && logic.getSelectedWays() == null
                 && logic.getSelectedRelations() == null) {
             e = logic.getSelectedNode();
@@ -341,7 +342,6 @@ public class EasyEditManager {
             e = logic.getSelectedRelations().get(0);
             cb = new RelationSelectionActionModeCallback(this, (Relation) e);
         } else if (logic.getSelectedNodes() != null || logic.getSelectedWays() != null || logic.getSelectedRelations() != null) {
-            ArrayList<OsmElement> selection = new ArrayList<>();
             if (logic.getSelectedNodes() != null) {
                 selection.addAll(logic.getSelectedNodes());
             }
@@ -353,7 +353,7 @@ public class EasyEditManager {
             }
             cb = new ExtendSelectionActionModeCallback(this, selection);
         }
-        if (cb != null) {
+        if (cb != null && (e != null || !selection.isEmpty())) {
             getMain().startSupportActionMode(cb);
             if (e != null) {
                 elementToast(e);
