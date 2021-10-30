@@ -198,18 +198,34 @@ public class UploadConflictTest {
         } catch (UiObjectNotFoundException e1) {
             fail(e1.getMessage());
         }
-        device.waitForIdle();
-        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/upload_comment", true));
-        instrumentation.sendStringSync(COMMENT_1);
-        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_ENTER);
-
-        instrumentation.sendStringSync(SOURCE_1);
-        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_BACK);
+        fillCommentAndSource(instrumentation, device);
         try {
             button.clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e1) {
             fail(e1.getMessage());
         }
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_conflict_title), 10000));
+    }
+
+    /**
+     * Fill our comment and source fields
+     * 
+     * @param instrumentation Instrumentation
+     * @param device Device
+     */
+    public static void fillCommentAndSource(@NonNull Instrumentation instrumentation, @NonNull UiDevice device) {
+        device.waitForIdle();
+        TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/upload_comment_clear", false);
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/upload_comment", true));
+        instrumentation.sendStringSync(COMMENT_1);
+        instrumentation.waitForIdleSync();
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_ENTER); // this makes the dropdown disappear
+        TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/upload_source_clear", false);
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/upload_source", false));
+        instrumentation.sendStringSync(SOURCE_1);
+        instrumentation.waitForIdleSync();
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_ENTER); 
+        instrumentation.waitForIdleSync();
+        device.pressBack();
     }
 }
