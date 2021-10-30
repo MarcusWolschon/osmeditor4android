@@ -3610,13 +3610,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Set an OemElement to unchanged and remove it from the upload This is only used when trying to fix conflicts
+     * Set an OemElement to new state and remove it from the upload This is only used when trying to fix conflicts
      * 
      * @param element the OsmElement
+     * @param state the new state
      */
-    public void removeFromUpload(@NonNull OsmElement element) {
+    public void removeFromUpload(@NonNull OsmElement element, byte state) {
         apiStorage.removeElement(element);
-        element.setState(OsmElement.STATE_UNCHANGED);
+        undo.save(element);
+        element.setState(state);
     }
 
     /**

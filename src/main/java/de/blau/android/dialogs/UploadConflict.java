@@ -12,12 +12,14 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.UploadResult;
 import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.StorageDelegator;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -101,8 +103,10 @@ public class UploadConflict extends ImmersiveDialogFragment {
         builder.setTitle(R.string.upload_conflict_title);
         Resources res = getActivity().getResources();
         final Logic logic = App.getLogic();
-        final OsmElement elementOnServer = logic.getElement(getActivity(), result.getElementType(), result.getOsmId());
-        final OsmElement elementLocal = App.getDelegator().getOsmElement(result.getElementType(), result.getOsmId());
+        String elementType = result.getElementType();
+        long osmId = result.getOsmId();
+        final OsmElement elementOnServer = logic.getElement(getActivity(), elementType, osmId);
+        final OsmElement elementLocal = App.getDelegator().getOsmElement(elementType, osmId);
         final long newVersion;
         try {
             boolean useServerOnly = false;
@@ -118,7 +122,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
             } else {
                 if (elementLocal.getState() == OsmElement.STATE_DELETED) {
                     builder.setMessage(res.getString(R.string.upload_conflict_message_already_deleted, elementLocal.getDescription(true)));
-                    App.getDelegator().removeFromUpload(elementLocal);
+                    App.getDelegator().removeFromUpload(elementLocal, OsmElement.STATE_DELETED);
                     builder.setPositiveButton(R.string.retry, (dialog, which) -> ConfirmUpload.showDialog(getActivity(), null));
                     return builder.create();
                 } else {
@@ -133,17 +137,31 @@ public class UploadConflict extends ImmersiveDialogFragment {
                     ConfirmUpload.showDialog(getActivity(), null);
                 });
             }
+            final FragmentActivity activity = getActivity();
             builder.setNeutralButton(R.string.use_server_version, (dialog, which) -> {
-                StorageDelegator storageDelegator = App.getDelegator();
-                storageDelegator.removeFromUpload(elementLocal);
+                PostAsyncActionHandler handler = new PostAsyncActionHandler() {
+                    @Override
+                    public void onSuccess() {
+                        if (activity instanceof Main) {
+                            ((Main) activity).invalidateMap();
+                        }
+                        if (App.getDelegator().hasChanges()) {
+                            ConfirmUpload.showDialog(activity, null);
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+                        Snack.toastTopError(activity, getString(R.string.toast_download_server_version_failed, elementLocal.getDescription()));
+                    }
+                };
                 if (elementOnServer != null) {
-                    logic.downloadElement(getActivity(), elementLocal.getName(), elementLocal.getOsmId(), false, true, null);
+                    logic.replaceElement(getActivity(), elementLocal, handler);
                 } else { // delete local element
                     logic.updateToDeleted(getActivity(), elementLocal);
+                    handler.onSuccess();
                 }
-                if (!storageDelegator.hasChanges()) {
-                    ConfirmUpload.showDialog(getActivity(), null);
-                }
+
             });
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Caught exception " + e);

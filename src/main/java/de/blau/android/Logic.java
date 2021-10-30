@@ -3306,13 +3306,13 @@ public class Logic {
 
     /**
      * Remove an element if it is deleted on the server
-     * <p>
+     * 
      * Element is deleted on server, delete locally but don't upload A bit iffy because of memberships in other objects
      * 
      * @param activity activity we were called from
      * @param e element to delete
      */
-    public synchronized void updateToDeleted(@Nullable Activity activity, OsmElement e) {
+    public synchronized void updateToDeleted(@Nullable Activity activity, @NonNull OsmElement e) {
         createCheckpoint(activity, R.string.undo_action_fix_conflict);
         if (e.getName().equals(Node.NAME)) {
             getDelegator().removeNode((Node) e);
@@ -3321,8 +3321,19 @@ public class Logic {
         } else if (e.getName().equals(Relation.NAME)) {
             getDelegator().removeRelation((Relation) e);
         }
-        getDelegator().removeFromUpload(e);
-        invalidateMap();
+        getDelegator().removeFromUpload(e, OsmElement.STATE_DELETED);
+    }
+
+    /**
+     * Replace an element by a downloaded one with a higher version
+     * 
+     * @param activity activity we were called from
+     * @param e the element to replace
+     */
+    public synchronized void replaceElement(@Nullable Activity activity, @NonNull OsmElement e, @Nullable PostAsyncActionHandler postLoad) {
+        createCheckpoint(activity, R.string.undo_action_fix_conflict);
+        getDelegator().removeFromUpload(e, OsmElement.STATE_UNCHANGED); // this will allow merging to replace it
+        downloadElement(activity, e.getName(), e.getOsmId(), false, true, postLoad);
     }
 
     /**
@@ -5143,7 +5154,7 @@ public class Logic {
             } else { // deleted locally too
                 // note this sets the state to unchanged, but the element
                 // isn't referenced anywhere anymore so that doesn't matter
-                getDelegator().removeFromUpload(elementLocal);
+                getDelegator().removeFromUpload(elementLocal, OsmElement.STATE_UNCHANGED);
                 return;
             }
         }
