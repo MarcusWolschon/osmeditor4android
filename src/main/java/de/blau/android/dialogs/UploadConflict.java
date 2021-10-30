@@ -1,5 +1,6 @@
 package de.blau.android.dialogs;
 
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -112,6 +113,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
             boolean useServerOnly = false;
             if (elementOnServer != null) {
                 if (elementLocal.getState() == OsmElement.STATE_DELETED) {
+                    // we are deleting an element that is still in use on the server
                     builder.setMessage(res.getString(R.string.upload_conflict_message_referential, elementLocal.getDescription(true)));
                     useServerOnly = true;
                 } else {
@@ -121,11 +123,12 @@ public class UploadConflict extends ImmersiveDialogFragment {
                 newVersion = elementOnServer.getOsmVersion();
             } else {
                 if (elementLocal.getState() == OsmElement.STATE_DELETED) {
+                    // we are trying to delete something that already is
                     builder.setMessage(res.getString(R.string.upload_conflict_message_already_deleted, elementLocal.getDescription(true)));
                     App.getDelegator().removeFromUpload(elementLocal, OsmElement.STATE_DELETED);
                     builder.setPositiveButton(R.string.retry, (dialog, which) -> ConfirmUpload.showDialog(getActivity(), null));
                     return builder.create();
-                } else {
+                } else { // can this happen? don't think so
                     builder.setMessage(
                             res.getString(R.string.upload_conflict_message_deleted, elementLocal.getDescription(true), elementLocal.getOsmVersion()));
                 }
@@ -152,13 +155,13 @@ public class UploadConflict extends ImmersiveDialogFragment {
 
                     @Override
                     public void onError() {
-                        Snack.toastTopError(activity, getString(R.string.toast_download_server_version_failed, elementLocal.getDescription()));
+                        Snack.toastTopError(activity, activity.getString(R.string.toast_download_server_version_failed, elementLocal.getDescription()));
                     }
                 };
                 if (elementOnServer != null) {
-                    logic.replaceElement(getActivity(), elementLocal, handler);
+                    logic.replaceElement(activity, elementLocal, handler);
                 } else { // delete local element
-                    logic.updateToDeleted(getActivity(), elementLocal);
+                    logic.updateToDeleted(activity, elementLocal);
                     handler.onSuccess();
                 }
 

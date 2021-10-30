@@ -22,6 +22,7 @@ import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 import android.app.Instrumentation;
 import android.content.Context;
 import android.view.KeyEvent;
+import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -97,11 +98,11 @@ public class UploadConflictTest {
     }
 
     /**
-     * Use the local element
+     * Version conflict use the local element
      */
     @Test
     public void versionConflictUseLocal() {
-        versionConflict();
+        versionConflict("conflict1", new String[] { "conflictdownload1" });
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.use_local_version), true));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.confirm_upload_title), 5000));
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
@@ -109,20 +110,20 @@ public class UploadConflictTest {
     }
 
     /**
-     * Use the server element
+     * Version conflict use the server element
      */
     @Test
     public void versionConflictUseServer() {
-        versionConflict();
+        versionConflict("conflict1", new String[] { "conflictdownload1" });
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
         assertNotNull(n);
         assertEquals(6, n.getOsmVersion()); // version should now be server and not in the API
         assertTrue(n.hasTagKey(Tags.KEY_IS_IN));
         assertEquals(OsmElement.STATE_MODIFIED, n.getState());
         assertNotNull(App.getDelegator().getApiStorage().getNode(101792984L));
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.use_server_version), true));
         mockServer.enqueue("conflictdownload1");
         mockServer.enqueue("empty");
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.use_server_version), true));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.confirm_upload_title), 20000));
         n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
         assertEquals(7, n.getOsmVersion()); // version should now be server and not in the API
@@ -132,9 +133,42 @@ public class UploadConflictTest {
     }
 
     /**
-     * Upload to changes (mock-)server and wait for version conflict dialog
+     * Server side element is already deleted
      */
-    private void versionConflict() {
+    @Test
+    public void severElementAlreadyDeleted() {
+        versionConflict("conflict2", new String[] { "410" });
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.retry), true));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.confirm_upload_title), 20000));
+        assertNull(App.getDelegator().getApiStorage().getWay(210461100L));
+        assertNull(App.getDelegator().getOsmElement(Way.NAME, 210461100L));
+    }
+
+    /**
+     * Server side element is still in use
+     */
+    @Test
+    public void severElementInUse() {
+        versionConflict("conflict3", new String[] { "conflictdownload2" });
+        Way w = (Way) App.getDelegator().getApiStorage().getWay(210461100L);
+        assertNotNull(w);
+        assertEquals(OsmElement.STATE_DELETED, w.getState());
+        mockServer.enqueue("conflictdownload2");
+        mockServer.enqueue("empty");
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.use_server_version), true));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.confirm_upload_title), 20000));
+        assertNull(App.getDelegator().getApiStorage().getWay(210461100L));
+        w = (Way) App.getDelegator().getOsmElement(Way.NAME, 210461100L);
+        assertNotNull(w);
+        assertEquals(OsmElement.STATE_UNCHANGED, w.getState());
+    }
+
+    /**
+     * Upload to changes (mock-)server and wait for version conflict dialog
+     * 
+     * @param fixtures name of additional fixtures with the response to the upload
+     */
+    private void versionConflict(@NonNull String conflictReponse, @NonNull String[] fixtures) {
         final CountDownLatch signal = new CountDownLatch(1);
         Logic logic = App.getLogic();
 
@@ -146,9 +180,11 @@ public class UploadConflictTest {
         mockServer.enqueue("capabilities1"); // for whatever reason this gets asked for twice
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("changeset1");
-        mockServer.enqueue("conflict1");
+        mockServer.enqueue(conflictReponse);
         mockServer.enqueue("userdetails");
-        mockServer.enqueue("conflictdownload1");
+        for (String fixture : fixtures) {
+            mockServer.enqueue(fixture);
+        }
 
         TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
