@@ -73,6 +73,7 @@ public class GeoJSONTest {
         TestUtils.dismissStartUpDialogs(device, main);
         LayerUtils.removeImageryLayers(context);
         map.setUpLayers(context);
+        TestUtils.stopEasyEdit(main);
     }
 
     /**

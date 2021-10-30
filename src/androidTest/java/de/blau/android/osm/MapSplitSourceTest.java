@@ -58,6 +58,7 @@ public class MapSplitSourceTest {
         main.getMap().setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
         try {
             msfFile = JavaResources.copyFileFromResources(main, MSF_FILE, null, ".");
         } catch (IOException e) {

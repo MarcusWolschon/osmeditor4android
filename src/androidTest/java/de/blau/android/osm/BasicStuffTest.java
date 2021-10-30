@@ -55,6 +55,7 @@ public class BasicStuffTest {
         App.getDelegator().setOriginalBox(ViewBox.getMaxMercatorExtent());
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, context);
+        TestUtils.stopEasyEdit(main);
     }
 
     /**

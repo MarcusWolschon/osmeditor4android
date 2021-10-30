@@ -61,6 +61,7 @@ public class ReadSaveDataTest {
         main.getMap().setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
     }
 
     /**

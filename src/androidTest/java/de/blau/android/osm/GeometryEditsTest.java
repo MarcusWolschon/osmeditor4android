@@ -66,6 +66,7 @@ public class GeometryEditsTest {
         App.getDelegator().setOriginalBox(ViewBox.getMaxMercatorExtent());
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, context);
+        TestUtils.stopEasyEdit(main);
         TestUtils.zoomToNullIsland(logic, map);
     }
 

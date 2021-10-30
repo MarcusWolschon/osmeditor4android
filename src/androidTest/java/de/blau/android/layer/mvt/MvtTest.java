@@ -75,6 +75,7 @@ public class MvtTest {
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         TestUtils.zoomToNullIsland(App.getLogic(), main.getMap());
+        TestUtils.stopEasyEdit(main);
     }
 
     /**

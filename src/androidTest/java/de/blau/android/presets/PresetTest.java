@@ -51,6 +51,7 @@ public class PresetTest {
         presets = App.getCurrentPresets(main);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
     }
 
     /**

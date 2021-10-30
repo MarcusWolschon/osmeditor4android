@@ -100,6 +100,7 @@ public class ApiTest {
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
     }
 
     /**

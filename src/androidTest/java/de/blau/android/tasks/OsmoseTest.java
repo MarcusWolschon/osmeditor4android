@@ -86,6 +86,7 @@ public class OsmoseTest {
         System.out.println(prefs.getServer().getReadWriteUrl());
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
     }
 
     /**
