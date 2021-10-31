@@ -3055,7 +3055,7 @@ public class Logic {
      * @param postLoadHandler callback to execute after download completes if null method waits for download to finish
      * @return an error code, 0 for success
      */
-    public synchronized int downloadElement(@NonNull final Context ctx, @NonNull final String type, final long id, final boolean relationFull,
+    public synchronized int downloadElement(@Nullable final Context ctx, @NonNull final String type, final long id, final boolean relationFull,
             final boolean withParents, @Nullable final PostAsyncActionHandler postLoadHandler) {
         class DownLoadElementTask extends AsyncTask<Void, Void, Integer> {
             @Override
