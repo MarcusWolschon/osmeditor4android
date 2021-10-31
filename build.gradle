@@ -613,7 +613,7 @@ marathon {
     // because access to app generated files will be lost.
 //    applicationPmClear = true
     codeCoverageEnabled = true
-    autoGrantPermission = true
+//    autoGrantPermission = true
     vendor = com.malinskiy.marathon.android.VendorType.ADAM
     debug = true
     retryStrategy {
