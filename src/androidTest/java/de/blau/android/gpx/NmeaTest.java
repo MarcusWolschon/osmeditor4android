@@ -78,6 +78,7 @@ public class NmeaTest {
 
         TestUtils.dismissStartUpDialogs(device, main);
         TestUtils.zoomToNullIsland(logic, map);
+        TestUtils.stopEasyEdit(main);
     }
 
     /**

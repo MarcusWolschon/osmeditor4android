@@ -419,6 +419,9 @@ public final class Tags {
     public static final String KEY_LOCALE           = "locale";
     public static final String KEY_REVIEW_REQUESTED = "review_requested";
 
+    // deprecated
+    public static final String KEY_IS_IN = "is_in";
+
     /**
      * An set of tags considered 'important'. These are typically tags that define real-world objects and not properties
      * of such.

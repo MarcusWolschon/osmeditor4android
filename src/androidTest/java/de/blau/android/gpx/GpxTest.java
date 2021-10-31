@@ -92,6 +92,8 @@ public class GpxTest {
         logic.setPrefs(prefs);
         Map map = main.getMap();
         map.setPrefs(main, prefs);
+        
+        App.getDelegator().reset(true);
 
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);

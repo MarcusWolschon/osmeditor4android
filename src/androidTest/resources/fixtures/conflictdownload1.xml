@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.5.8 (5120 thorn-02.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="47.3883000" minlon="8.3838500" maxlat="47.3898500" maxlon="8.3865200"/>
+ <node id='101792984' timestamp='2014-09-16T22:46:40Z' uid='92387' user='SimonPoole' visible='true' version='7' changeset='25490245' lat='47.38983877909' lon='8.3863993784'>
+    <tag k='name' v='Bergdietikon' />
+    <tag k='openGeoDB:auto_update' v='population,is_in' />
+    <tag k='openGeoDB:community_identification_number' v='G4023' />
+    <tag k='openGeoDB:is_in' v='Bezirk Baden,Aargau,Schweiz,Europe' />
+    <tag k='openGeoDB:is_in_loc_id' v='78623' />
+    <tag k='openGeoDB:layer' v='6' />
+    <tag k='openGeoDB:license_plate_code' v='AG' />
+    <tag k='openGeoDB:loc_id' v='79393' />
+    <tag k='openGeoDB:name' v='Bergdietikon' />
+    <tag k='openGeoDB:population' v='2256' />
+    <tag k='openGeoDB:postal_codes' v='8962' />
+    <tag k='openGeoDB:sort_name' v='BERGDIETIKON' />
+    <tag k='openGeoDB:type' v='Gemeinde' />
+    <tag k='openGeoDB:version' v='0.2.6.11 / 2007-12-04 / http://fa-technik.adfc.de/code/opengeodb/dump/' />
+    <tag k='opengeodb:lat' v='47.3954925' />
+    <tag k='opengeodb:lon' v='8.3766218' />
+    <tag k='place' v='village' />
+    <tag k='population' v='2256' />
+    <tag k='wikipedia' v='de:Bergdietikon' />
+  </node>
+</osm>

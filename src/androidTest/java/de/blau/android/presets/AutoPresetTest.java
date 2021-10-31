@@ -83,6 +83,7 @@ public class AutoPresetTest {
         main.getMap().setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
         mockTaginfoServer = new MockWebServerPlus();
         HttpUrl mockTaginfoUrl = mockTaginfoServer.server().url("");
         System.out.println("mock api url " + mockTaginfoUrl.toString()); // NOSONAR

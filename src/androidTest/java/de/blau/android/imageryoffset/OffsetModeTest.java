@@ -75,6 +75,7 @@ public class OffsetModeTest {
         logic.setPrefs(prefs);
         TestUtils.resetOffsets(main.getMap());
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
         TestUtils.zoomToNullIsland(logic, map);
         main.invalidateOptionsMenu(); // to be sure that the menu entry is actually shown
     }

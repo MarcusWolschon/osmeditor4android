@@ -36,7 +36,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
-import android.view.KeyEvent;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -70,9 +69,6 @@ public class ApiTest {
 
     public static final int TIMEOUT = 90;
 
-    private static final String SOURCE_1  = "source 1";
-    private static final String COMMENT_1 = "comment 1";
-
     MockWebServerPlus       mockServer = null;
     Context                 context    = null;
     AdvancedPrefDatabase    prefDB     = null;
@@ -104,6 +100,7 @@ public class ApiTest {
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
     }
 
     /**
@@ -378,14 +375,7 @@ public class ApiTest {
         } catch (UiObjectNotFoundException e1) {
             fail(e1.getMessage());
         }
-        device.waitForIdle();
-        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/upload_comment", true));
-        instrumentation.sendStringSync(COMMENT_1);
-        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_ENTER);
-        // assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/upload_source",
-        // true));
-        instrumentation.sendStringSync(SOURCE_1);
-        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_BACK);
+        UploadConflictTest.fillCommentAndSource(instrumentation, device);
         try {
             button.clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e1) {

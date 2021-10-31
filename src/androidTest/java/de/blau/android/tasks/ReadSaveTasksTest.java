@@ -81,6 +81,7 @@ public class ReadSaveTasksTest {
         ts = App.getTaskStorage();
         ts.reset();
         prefDB = new AdvancedPrefDatabase(context);
+        TestUtils.stopEasyEdit(main);
     }
 
     /**

@@ -56,6 +56,7 @@ public class ReadPbfTest {
         main.getMap().setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
         try {
             pbfFile = JavaResources.copyFileFromResources(main, PBF_FILE, null, ".");
         } catch (IOException e) {

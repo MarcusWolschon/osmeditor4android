@@ -64,6 +64,7 @@ public class OffsetTest {
         main.getMap().setPrefs(main, prefs);
         TestUtils.resetOffsets(main.getMap());
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.stopEasyEdit(main);
     }
 
     /**
