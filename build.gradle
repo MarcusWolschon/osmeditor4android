@@ -602,8 +602,9 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
     sourceDirectories.from = files(coverageSourceDirs)
 }
 
+// see https://marathonlabs.github.io/marathon/doc/configuration.html
 marathon {
-    uncompletedTestRetryQuota = 1
+    uncompletedTestRetryQuota = 3
     poolingStrategy {
         operatingSystem = true
     }
@@ -617,7 +618,7 @@ marathon {
     debug = true
     retryStrategy {
         fixedQuota {
-            retryPerTestQuota = 2
+            retryPerTestQuota = 3
             totalAllowedRetryQuota = 100
         }
     }
@@ -639,8 +640,13 @@ marathon {
 //       }
 //    }
 //    sortingStrategy {
+    // one of successRate or executionTime
 //       successRate {
 //          limit = Instant.now().minus(Duration.parse("PT48H"))
+//       }
+//       executionTime {
+//          percentile = 80.0
+//          timeLimit = Instant.now().minus(Duration.parse("PT48H"))
 //       }
 //    }
     // this currently doesn't seem to have any benefical effects
