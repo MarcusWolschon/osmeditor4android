@@ -25,6 +25,7 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
+import de.blau.android.bookmarks.BookmarkIO;
 import de.blau.android.bookmarks.BookmarksStorage;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.ViewBox;
@@ -59,6 +60,9 @@ public class BookmarkDialogsTest {
         map = main.getMap();
         TestUtils.dismissStartUpDialogs(device, main);
         TestUtils.stopEasyEdit(main);
+        // zap current contents
+        (new BookmarkIO()).writeList(main, new ArrayList<>());
+        TestUtils.sleep();
         bookmarksStorages = new ArrayList<>();
         try {
             //India
