@@ -113,15 +113,13 @@ public class TagFilterTest {
 
         // exit config activity
         TestUtils.clickHome(device, false);
+        TestUtils.sleep(5000); // android 9 needs this
 
-        TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
-        assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect), 2000));
+        TestUtils.clickAtCoordinates(device, map, t.getLon() / 1E7D, t.getLat() / 1E7D, true);
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect), 5000));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
         assertEquals(3465444349L, node.getOsmId());
-
-        TestUtils.clickAtCoordinates(device, map, 8.3883131, 47.3900211, false);
-        assertTrue(TestUtils.textGone(device, main.getString(R.string.actionmode_nodeselect), 2000));
 
         // start filter config activity
         monitor = instrumentation.addMonitor(TagFilterActivity.class.getName(), null, false);
@@ -134,9 +132,10 @@ public class TagFilterTest {
 
         // exit config activity
         TestUtils.clickHome(device, false);
+        TestUtils.sleep(5000); // android 9 needs this
 
         // clicking now should select nothing
-        TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
+        TestUtils.clickAtCoordinates(device, map, t.getLon() / 1E7D, t.getLat() / 1E7D, true);
         assertFalse(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect), 2000));
 
         // disable tag filter
