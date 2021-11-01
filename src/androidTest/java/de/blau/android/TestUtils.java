@@ -1060,17 +1060,14 @@ public class TestUtils {
         prefs.enableTagFilter(false);
         Filter filter = logic.getFilter();
         if (filter != null) {
-            filter.hideControls();
-            filter.removeControls();
-            logic.setFilter(null);
+            main.runOnUiThread(() -> {
+                filter.hideControls();
+                filter.removeControls();
+                logic.setFilter(null);
+            });
         }
         logic.setMode(main, Mode.MODE_EASYEDIT);
-        main.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                main.getEasyEditManager().finish();
-            }
-        });
+        main.runOnUiThread(() -> main.getEasyEditManager().finish());
 
     }
 
