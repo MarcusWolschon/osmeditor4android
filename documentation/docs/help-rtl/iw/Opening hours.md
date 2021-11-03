@@ -10,7 +10,7 @@ _תיעוד זה הוא ראשוני בלבד וכרגע מתבצעות עליו
 
 במצב עבודה טיפוסי לפריט שבחרת לערוך כבר יש תגית שעות פתיחה (opening_hours,‏ service_times ו־collection_times) או שניתן להחיל מחדש את הערכה עבור הפריט כדי לקבל שדה שעות פתיחה ריק. אם יש לך צורך בהוספת השדה ידנית וניסית לעשות זאת דרך וספוצ׳י ניתן להקליד את שם המפתח בעמוד הפרטים ואז לחזור ללשונית מבוססת הטפסים לטובת עריכה. אם לדעתך תגית שעות הפתיחה אמורה להיות חלק מהערכה הראשונית, נא לדווח על תקלה כנגד העורך שלך.
 
-אם הגדרת תבנית בררת מחדל (ניתן לעשות זאת דרך הפריט „ניהול תבניות” שבתפריט) היא תיטען אוטומטית עם הפעלת העורך עם ערך ריק. עם התכונה „טעינת תבנית” ניתן לטעון תבניות שנשמרו ועם התפריט „שמירת תבנית” ניתן לשמור את הערך הנוכחי כתבנית. ניתן להגדיר תבניות נפרדות ובררות מחדל עבור התגיות „opening_hours” (שעות פתיחה),‏ „collection_times” (מועדי איסוף) ו־„service_times” (שעות שירות). יתרה מכך, ניתן להגביל את הזמינות של תבנית לאזור ולמזהה מסוים, בדרך כלל נגיעה בפריט משכבת על ב־OSM (למשל נקודת נוחות=מסעדה).
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). 
 
 באופן טבעי ניתן להרכיב ערך שעות פתיחה מאפשר, אך אנו ממליצים להשתמש באחת מהתבניות הקיימות כנקודת התחלה.
 
@@ -97,3 +97,14 @@ _תיעוד זה הוא ראשוני בלבד וכרגע מתבצעות עליו
 * __שמירה לקובץ__: כתיבת תכני מסד נתוני התבניות לקובץ.
 * __טעינה מקובץ (החלפה)__: טעינת תבניות מקובץ שמחליפה את התוכן הנוכחי של מסד הנתונים.
 * __טעינה מקובץ__: טעינת תבניות מקובץ תוך שימור התכנים הנוכחיים.
+
+#### Save and edit template dialogs
+
+The dialog allows you to set
+
+* __Name__ a descriptive name for the template.
+* __Default__ if checked this will be consider as a default template (typically further constrained by the other fields).
+* __Key__ the key this template is relevant for, if set to _Custom key_ you can add a non-standard value in the field below. The key values support SQL wild cards, that is _%_ matches zero or more characters, *_* matches a single character. Both wild card characters can be escaped with _\\_ for literal matches.
+* __Region__ the region the template is applicable to.
+* __Object__ an application specific string to use for matching.
+

@@ -11,7 +11,7 @@
 <p><em>這份文件是初步的並且正在進展</em></p>
 <h2>使用營業時間編輯器</h2>
 <p>在一般的工作流程中，你編輯的物件一般已經有開放時間的標籤 (opening_hour、service_times 和 colllection_times)，或是你可以重新設定物件的預設組合，用空白的開放時間欄位。如果你需要手動輸入欄位，像是用 Vespucci，你可以在詳情頁面輸入鍵值，之後切換回欄位頁籤繼續編輯。如果你相信開放時間標籤必須扅於預設組合的話，請在你的編輯器開啟 issue。</p>
-<p>If you have defined a default template (do this via the &quot;Manage templates&quot; menu item) it will be loaded automatically when the editor is started with an empty value. With the &quot;Load template&quot; function you can load any saved template and with the &quot;Save template&quot; menu you can save the current value as a template. You can define separate templates and defaults for the &quot;opening_hours&quot;, &quot;collection_times&quot; and &quot;service_times&quot; tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant).</p>
+<p>If you have defined a default template (do this via the &quot;Manage templates&quot; menu item) it will be loaded automatically when the editor is started with an empty value. With the &quot;Load template&quot; function you can load any saved template and with the &quot;Save template&quot; menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example &quot;opening_hours&quot;, &quot;collection_times&quot; and &quot;service_times&quot; or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant).</p>
 <p>當然，您可以從頭開始構建營業時間的值，但我們建議使用現有的模板之一作為起點。</p>
 <p>如果已經有營業時間的數值則會載入，另外會自動修正以符合營業時間規範。如果無法修正，則會在大概的位置顯示錯誤訊息，原始的營業時間數值，等待人工修正。開放街圖資料庫中有大約1/4的營業時間數值有問題，但只有少於10%的狀況是無法修正。詳見 <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a>，並且看有那些允許的規範變體。</p>
 <h3>主選單按鈕</h3>
@@ -97,6 +97,15 @@
 <li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
 <li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
 <li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
+</ul>
+<h4>Save and edit template dialogs</h4>
+<p>The dialog allows you to set</p>
+<ul>
+<li><strong>Name</strong> a descriptive name for the template.</li>
+<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
+<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
+<li><strong>Region</strong> the region the template is applicable to.</li>
+<li><strong>Object</strong> an application specific string to use for matching.</li>
 </ul>
 
 </body>

@@ -3,6 +3,7 @@
 # yetanothernickname <1096425@gmail.com>, 2019,2021
 # Ekaterina <nawsikaya@bk.ru>, 2020
 # Nikolay Parukhin <parukhin@gmail.com>, 2015
+# Roman Deev <roman.deev06@gmail.com>, 2021
 # yetanothernickname <1096425@gmail.com>, 2019
 # 4004 <transifex.4004@mailhero.io>, 2017-2018
 # Yury Lebedev, 2018,2021
@@ -12,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-09-01 23:31+0200\n"
-"PO-Revision-Date: 2021-10-15 19:14+0000\n"
-"Last-Translator: Yury Lebedev\n"
+"PO-Revision-Date: 2021-10-30 19:17+0000\n"
+"Last-Translator: Roman Deev <roman.deev06@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/openstreetmap/presets/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4017,7 +4018,7 @@ msgstr ""
 
 #: master_preset.xml:7702(text:text|preset:Entrance|key:ref)
 msgid "Entrance number"
-msgstr ""
+msgstr "Номер"
 
 #: master_preset.xml:387(text:text|key:wheelchair:entrance_width)
 msgid "Entrance width in cm"
@@ -4395,7 +4396,7 @@ msgstr ""
 
 #: master_preset.xml:7704(text:text|preset:Entrance|key:addr:flats)
 msgid "Flat numbers"
-msgstr ""
+msgstr "Номера квартир"
 
 #: master_preset.xml:10105(check:text|preset:Payment_Methods|key:payment:ep_flazz)
 msgid "Flazz"

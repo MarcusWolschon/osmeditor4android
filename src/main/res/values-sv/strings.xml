@@ -26,7 +26,7 @@
   <string name="no_login_data_message">Om du använder OAuth detta är sannolikt ett fel, skicka en felrapport, om du använder inloggning och lösenord (rekommenderas inte), kontrollera att de är korrekt inmatade.</string>
   <string name="no_connection_title">Ingen anslutning till servern</string>
   <string name="no_connection_message">Det gick inte att ansluta till OSM-servern nu. Kontrollera att du är ansluten till Internet, eller försök igen senare.</string>
-  <string name="ssl_handshake_failed">Kunde inte ansluta till OSM servern pga HTTPS-förhandling misslyckades. Försök att byta till en okrypterad anslutning i API inställningarna.</string>
+  <string name="ssl_handshake_failed">Kunde inte ansluta till OSM servern pga att HTTPS-förhandling misslyckades. Försök att byta till en okrypterad anslutning i API-inställningarna.</string>
   <string name="wrong_login_data_title">Kunde inte autentisera</string>
   <string name="wrong_login_data_message">Om du använder OAuth, autentisera om och försök igen. Om du använder inloggning och lösenord (rekommenderas inte), vänligen kontrollera att de är korrekt inmatade.</string>
   <string name="wrong_login_data_re_authenticate">Autentisera igen</string>
@@ -39,6 +39,7 @@
   <string name="corrupted_data_title">Korrupt data</string>
   <string name="invalid_bounding_box_title">Felaktig avgränsningsruta</string>
   <string name="bounding_box_too_large_title">Hämtningsområdet för stort</string>
+  <string name="bounding_box_too_large_message">Området du försöker ladda ner är för stort eller innehåller för mycket data.\n\nZooma in och försök igen.</string>
   <string name="api_offline_title">API frånkopplad</string>
   <string name="api_offline_message">API:n är för närvarande frånkopplad, ingen data kan hämtas eller skrivas.</string>
   <string name="out_of_memory_title">Slut på minne</string>
@@ -108,6 +109,7 @@
   <string name="unsaved_data_message">Dina osparade ändringar kommer att kasseras om du fortsätter.</string>
   <string name="unsaved_data_proceed">Kasta bort &amp; fortsätt</string>
   <!--Imagery offset dialog-->
+  <string name="imagery_offset_title">Förskjutning av bakgrundsbilder</string>
   <string name="imagery_offset_description">Beskrivning</string>
   <string name="imagery_offset_not_found">Inga justeringar hittade inom 10 km radie!</string>
   <string name="imagery_offset_author">Författare</string>
@@ -124,6 +126,7 @@
   <string name="find_message">Ange söksträng</string>
   <string name="geocoder_prompt">med</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">Sök efter objekt</string>
   <!---->
   <string name="preset_search_hint">Förinställda söksträngar</string>
   <string name="preset_autopreset">Förinställning</string>
@@ -174,6 +177,7 @@
   <string name="remove">Ta bort</string>
   <!--Abort action mode dialog-->
   <!--Address interpoation dialog-->
+  <string name="start">Start</string>
   <string name="end">End</string>
   <string name="even">Jämna</string>
   <string name="odd">Udda</string>
@@ -196,6 +200,7 @@
   <string name="js_console_msg_debug">Felsökningsläge!</string>
   <string name="js_console_input_hint">Lägg till JavaScript här</string>
   <!--Validator dialogs-->
+  <string name="validator_title">Validator regeluppsättning %1$s</string>
   <string name="check_entries">Kontrollerat</string>
   <string name="max_age">Max. ålder</string>
   <string name="age">Ålder</string>
@@ -215,6 +220,7 @@
   <string name="coverage_right">Höger</string>
   <string name="coverage_bottom">Nederst</string>
   <string name="delete_layer">Ta bort lagret?</string>
+  <string name="add_imagery_from_wms_endpoint">Lägg till bildlager från WMS</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Stil på lagret</string>
   <string name="layer_style_color">Färg</string>
@@ -278,6 +284,8 @@
   <string name="boxpicker_firsttimetitle">Ladda ner OpenStreetMap data</string>
   <!--Clear/Reset GPX Track-->
   <!--Tips-->
+  <string name="tip_pan_and_zoom_auto_download">Panorera och zooma med automatisk nedladdning bör användas med försiktighet eftersom det potentiellt kan belasta båda OpenStreetMaps API och din enhet. 
+Belastningen på API-servrar kan undvikas genom att använda en offline datakälla.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -296,7 +304,7 @@
   <string name="toast_export_failed">Kunde inte exportera</string>
   <string name="toast_export_success">Exporterade till %1$s</string>
   <string name="toast_preset_overwrote_tags">Obs - förinställd skrev över tagg(ar)</string>
-  <string name="toast_potential_merge_tag_conflict">Du försöker slå samman element med motstridiga taggvärden.\n\nVänligen kontrollera taggarna och korrigera dem innan du försöker igen.</string>
+  <string name="toast_potential_merge_tag_conflict">Du försöker sammanfoga element med motstridiga taggvärden.\n\nVänligen kontrollera taggarna och korrigera dem innan du försöker igen.</string>
   <string name="toast_state_file_failed">Icke läsbar eller korrupt statusfil</string>
   <string name="toast_way_nodes_moved">%1$d noder i flyttad väg</string>
   <plurals name="toast_unread_mail">
@@ -323,6 +331,7 @@
   <string name="toast_missing_key">%1$s key saknas</string>
   <string name="toast_invalid_object">Felaktigt objekt</string>
   <string name="toast_openinghours_invalid">Felaktig öppettid med värde %1$s</string>
+  <string name="toast_openinghours_autocorrected">Ãppettider fÃ¶r %1$sautomatiskt korrigerade</string>
   <string name="toast_preset_creation_failed">Kunde inte skapa den förinställda \"%1$s\": %2$s</string>
   <string name="toast_server_connection_failed">Kunde inte ansluta till server: %1$s</string>
   <string name="toast_flus_all_caches">Detta rensar alla bildrutor som är lagrade!</string>
@@ -334,6 +343,7 @@
   <string name="toast_tags_cut">Taggar klipptes ut till urklipp</string>
   <string name="toast_properties_copied">Egenskaper kopierade till urklipp</string>
   <string name="toast_task_conflict">%1$s har ändrats på servern, skicka först och hämta sedan</string>
+  <string name="toast_merged">Sammanfogad</string>
   <string name="toast_out_of_memory">SLUT PÅ MINNE!</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->
@@ -384,9 +394,11 @@
   <string name="tag_menu_address">Lägg till adresstaggar</string>
   <string name="tag_menu_sourcesurvey">Kartlagd</string>
   <string name="tag_menu_preset">Förinställningar</string>
+  <string name="tag_menu_apply_preset">Aktivera förval</string>
   <string name="tag_menu_revert">Ångra</string>
   <string name="tag_menu_addtorelation">Lägg till i relation</string>
   <string name="tag_menu_resetMRU">Återställ förinställningar</string>
+  <string name="tag_menu_reset_address_prediction">Nollställ förutsagd adress</string>
   <string name="tag_menu_exit_no_save">Avsluta\n utan att spara</string>
   <string name="tag_menu_delete_unassociated_tags">Radera icke-associerade taggar</string>
   <string name="tag_menu_top">Skrolla till toppen</string>
@@ -478,15 +490,21 @@
   <string name="menu_gps_upload">Ladda upp GPX-spår</string>
   <string name="menu_gps_export">Exportera GPX-spår</string>
   <string name="menu_gps_import">Importera GPX-spår</string>
+  <string name="menu_enable_gps_autodownload">Platsbaserad automatisk nedladdning</string>
+  <string name="menu_enable_pan_and_zoom_auto_download">Panorera och zooma med automatisk nedladdning</string>
   <string name="menu_transfer">Överför...</string>
   <string name="menu_transfer_download_current">Hämta nuvarande vy</string>
+  <string name="menu_transfer_download_replace">Rensa och ladda ner nuvarande vy</string>
   <string name="menu_transfer_upload">Ladda upp data till OSM-servern</string>
   <string name="menu_transfer_update">Uppdatera data</string>
   <string name="menu_transfer_close_changeset">Stäng nuvarande chnageset</string>
   <string name="menu_transfer_file">Fil…</string>
   <string name="menu_transfer_export">Exportera ändringar till OSC-fil</string>
+  <string name="menu_transfer_apply_osc_file">Verkställ ändringar från OSC-fil</string>
   <string name="menu_transfer_read_file">Läs från JOSM-fil...</string>
+  <string name="menu_transfer_read_pbf_file">Läs från PBF-fil</string>
   <string name="menu_transfer_save_file">Spara till JOSM-fil...</string>
+  <string name="menu_transfer_download_msf">Ladda ner data för offline-användning...</string>
   <string name="menu_transfer_bugs">Uppgifter…</string>
   <string name="menu_transfer_bugs_download_current">Hämta uppgifter för aktuell vy</string>
   <string name="menu_transfer_bugs_upload">Ladda upp allt</string>
@@ -515,6 +533,8 @@
   <string name="menu_voice_commands">Röstkommandon</string>
   <string name="menu_set_name">Sätt namn</string>
   <string name="menu_tools">Verktyg...</string>
+  <string name="menu_tools_imagery">Fler bildverktyg...</string>
+  <string name="menu_tools_add_imagery_from_oam">Lägg till bildlager från OAM</string>
   <string name="menu_tools_background_properties">Bakgrundsinställningar</string>
   <string name="menu_tools_clear_clipboard">Rensa urklipp</string>
   <!---->
@@ -533,6 +553,8 @@
   <string name="distance_meter">%1$.2f meter</string>
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
+  <string name="menu_layers">Lager...</string>
+  <string name="menu_layers_add_backgroundlayer">Lägg till bildlager som bakgrund</string>
   <string name="menu_layers_configure">Konfigurera…</string>
   <!---->
   <string name="menu_tools_background_contrast">Kontrast</string>
@@ -553,6 +575,11 @@
   <string name="deleteway_wayandnodes">Ta bort vägen</string>
   <string name="deletenode">Ta bort nod</string>
   <!--EasyEdit context menus-->
+  <string name="split_context_title">Dela ...</string>
+  <string name="split_all_ways">... alla sträckor</string>
+  <string name="merge_context_title">Sammanfoga med ...</string>
+  <string name="merge_with_all_ways">... alla närliggande sträckor</string>
+  <string name="merge_with_all_nodes">... alla närliggande noder</string>
   <string name="delete_note">Ta bort anteckning</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Väg vald</string>
@@ -586,13 +613,17 @@
   <string name="config_enableOpenStreetBugs_summary">Visa, redigera och skapa anteckningar, felrapporter och uppgifter.</string>
   <string name="config_enablePhotoLayer_summary">Visa geo-orienterade foton.</string>
   <string name="config_enableKeepScreenOn_title">Behåll skärmen på</string>
+  <string name="config_enableKeepScreenOn_summary">Hindra skärmen från att släckas för att spara batteri.</string>
   <string name="config_advancedprefs">Avancerade inställningar</string>
   <string name="config_moreprefs">Mer inställningar...</string>
   <string name="config_presetbutton_title">Förinställningar</string>
   <string name="config_presetbutton_summary">Lägg till och aktivera JOSM-kompatibla förinställningar</string>
   <string name="config_built_in_preset">Inbyggd förinställning</string>
   <!--Validator preferences-->
+  <string name="config_validatorprefs_title">Inställningar för Validator</string>
   <!--opening hours templates-->
+  <string name="config_opening_hours_title">Mall fÃ¶r Ã¶ppettider</string>
+  <string name="config_opening_hours_summary">Ladda, spara och radera mallar fÃ¶r Ã¶ppettider</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Upphovsmän och licenser</string>
   <string name="config_debugbutton_title">Felsökning</string>
@@ -651,6 +682,7 @@
   <string name="config_gnssTimeToStale_current">%1$d s</string>
   <!--Server Settings-->
   <string name="config_category_server">Serverinställningar</string>
+  <string name="config_category_server_summary">OSM API och konfiguration av andra servrar.</string>
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_apibutton_summary">Du kan ställa in en icke-standard-API-webbadress här. Bör vanligtvis inte ändras!</string>
   <string name="config_loginbutton_title">Användarkonto</string>
@@ -732,6 +764,7 @@
   <string name="undo_action_cut">Klipp ut</string>
   <string name="undo_action_paste">Klistra in</string>
   <string name="undo_action_rotateway">Vägrotation</string>
+  <string name="undo_action_orthogonalize">Gör vinkelrät</string>
   <string name="undo_action_circulize">Arrangera i cirkel</string>
   <string name="undo_action_fix_conflict">Lösa konflikter</string>
   <!--ACRA-->
@@ -765,9 +798,9 @@
   <string name="issue_tags_reversed">Taggar omvända</string>
   <string name="issue_role_reversed">Roll omvänd</string>
   <string name="issue_role_conflict">Roll konflikt</string>
-  <string name="issue_merged_tags">Hopslagna taggar</string>
+  <string name="issue_merged_tags">Sammanfogade taggar</string>
   <string name="issue_same_object">Samma objekt</string>
-  <string name="issue_merged_metric">Längdberoende värde hopslaget</string>
+  <string name="issue_merged_metric">Längdberoende värde sammanfogat</string>
   <string name="issue_split_metric">Längdberoende värde delat</string>
   <!--time and distance-->
   <plurals name="days">

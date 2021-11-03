@@ -2,7 +2,7 @@
 
 Az OpenStreetMapben a nyitvatartási idők megadása meglehetősen bonyolult, ezért nem könnyű egyszerű és intuitív felhasználói felületet készíteni hozzá.
 
-Azonban az esetek többségében csak egy kis részét használjuk a definícióknak. A szerkesztő ezt figyelembe véve megpróbálja menükbe rejteni a bonyolultabb funkciókat, és az esetek többségében lecsökkenteni az általános használatot az előre definiált sablonok testreszabására.
+Azonban az esetek többségében csak egy kis részét használjuk a definícióknak. A szerkesztő ezt figyelembe véve megpróbálja menükbe rejteni a bonyolultabb funkciókat, és az esetek többségében az előre definiált sablonok testreszabására csökkenteni a mindennapos használatot.
 
 _Ez a dokumentáció ideiglenes, és dolgozunk rajta_
 
@@ -10,7 +10,7 @@ _Ez a dokumentáció ideiglenes, és dolgozunk rajta_
 
 A szokásos munkamenet szerint a szerkesztett térképelemnek vagy már van egy nyitva tartást tartalmazó címkéje (opening_hours, service_times vagy collection_times), vagy az előbeállításnak a térképelemre történő újraalkalmazásával nyithat egy üres nyitva tartási mezőt. Ha a mezőt kézzel kell hozzáadnia és Vespuccit használ, akkor a kulcsot megadhatja a részletes adatok oldalán, majd visszakapcsolhat az űrlapalapú fülre a szerkesztéshez. Ha úgy véli, hogy a nyitva tartási címkének az előbeállításban is szerepelnie kellene, kérjük, nyisson egy kérdést (issue) a szerkesztőjéhez.
 
-If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). 
 
 Természetesen a semmiből is elkezdheted összeállítani a nyitva tartást, azonban azt talácsoljuk, hogy kiindulási pontként használd valamelyik sablont.
 
@@ -61,9 +61,9 @@ Az alapértelmezett szabályok _rendes_ szabályként jelennek meg. Ez azzal já
     * __Változó dátum – örökké__: egy változó dátumtól kezdve mindörökké.
     * __Előfordulás hónapban – örökké__: a hónap valamely hétnapjától (pl. első kedd) kezdődően.
     * __Eltolásokkal…__: a fentiekkel megegyező bejegyzések, azonban egy adott értékkel eltolva (ritka).
-* __Add year range...__    
+* __Évtartomány hozzáadása…__
     * __Évtartomány hozzáadása__: évalapú kijelölő hozzáadása.
-    * __Add starting year__: add an open ended year range.
+    * __Kezdő év hozzáadása__: nyitott végű évtartomány hozzáadása.
 * __Héttartomány hozzáadása__: hétalapú kijelölő hozzáadása.
 * __Duplikálás__: másolat készítése erről a szabályról és beillesztése a következő helyre.
 * __Szabálytípus megjelenítése__: a _rendes_, _kiegészítő_ és _helyettesítő_ szabálytípus megjelenítése és esetleges módosítása (az első szabálynál nem alkalmazható).
@@ -89,11 +89,22 @@ Az idősáv használata olykor túl nehézkes. Ha ilyenkor az idősávra (nem a 
 
 ### Sablonok kezelése
 
-The template management dialog allows you to add, edit and delete templates.
+A sablonkezelő párbeszédablakkal hozzáadhat, szerkeszthet és törölhet sablonokat.
 
-In Android 4.4 and later the following additional functionality is available from the menu button. 
+Az Android 4.4 és újabb verziókban a következő további funkciók állnak rendelkezésre a menügombon keresztül. 
 
-* __Show all__: display all templates in the database.
-* __Save to file__: write the contents of the template database to a file.
-* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
-* __Load from file__: load templates from a file retaining the current contents.
+* __Összes megjelenítése__: megjeleníti az adatbázis összes sablonját.
+* __Mentés fájlba__: a sablonadatbázis tartalmát egy fájlba írja.
+* __Betöltés fájlból (csere)__: egy fájlból betölti a sablonokat, és ezzel lecseréli az adatbázis jelenlegi tartalmát.
+* __Betöltés fájlból__: egy fájlból betölti a sablonokat miközben a jelenlegi tartalom is megmarad.
+
+#### Save and edit template dialogs
+
+The dialog allows you to set
+
+* __Name__ a descriptive name for the template.
+* __Default__ if checked this will be consider as a default template (typically further constrained by the other fields).
+* __Key__ the key this template is relevant for, if set to _Custom key_ you can add a non-standard value in the field below. The key values support SQL wild cards, that is _%_ matches zero or more characters, *_* matches a single character. Both wild card characters can be escaped with _\\_ for literal matches.
+* __Region__ the region the template is applicable to.
+* __Object__ an application specific string to use for matching.
+

@@ -11,7 +11,7 @@
 <p><em>این سند مقدماتی است و در حال بهبود آن هستیم</em></p>
 <h2>استفاده از ویرایشگر ساعت کاری</h2>
 <p>به‌طور معمول شیئی که ویرایش می‌کنید یا تگ ساعت کاری دارد (opening_hours،‏ service_times و collection_times) یا می‌توانید با به‌کارگیری پیش‌تنظیمی برای آن شیء، یک خانه برای ساعت کاری اضافه کنید. اگر لازم باشد که خانهٔ ساعت کاری را دستی اضافه نمایید و از وسپوچی استفاده می‌کنید، باید در زبانهٔ جزئیات، کلید آن را وارد کنید و سپس به زبانهٔ فرم (زبانهٔ خصوصیات) برگردید و آن را ویرایش نمایید. اگر معتقدید که تگ ساعت کاری باید در پیش‌تنظیم بخصوصی وجود داشته باشد، لطفاً برای ویرایشگر مدنظر گزارش بدهید.</p>
-<p>If you have defined a default template (do this via the &quot;Manage templates&quot; menu item) it will be loaded automatically when the editor is started with an empty value. With the &quot;Load template&quot; function you can load any saved template and with the &quot;Save template&quot; menu you can save the current value as a template. You can define separate templates and defaults for the &quot;opening_hours&quot;, &quot;collection_times&quot; and &quot;service_times&quot; tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant).</p>
+<p>If you have defined a default template (do this via the &quot;Manage templates&quot; menu item) it will be loaded automatically when the editor is started with an empty value. With the &quot;Load template&quot; function you can load any saved template and with the &quot;Save template&quot; menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example &quot;opening_hours&quot;, &quot;collection_times&quot; and &quot;service_times&quot; or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant).</p>
 <p>به‌طور طبیعی می‌توانید مقدار ساعت کاری را از صفر بنویسید. اما پیشنهاد می‌کنیم یکی از الگوهای موجود نقطهٔ آغازتان باشد.</p>
 <p>هنگامی که یک مقدار ساعت کاری موجود بار می‌شود، برای پیروی از تعاریف فنی ساعت کاری، تلاشی برای اصلاح خودکار آن انجام می‌شود. اگر اصلاح خودکار میسر نشود، مکان تقریبی رخداد خطا در قسمت نمایش خام ساعت کاری، مشخص می‌شود و می‌توانید به‌طور دستی آن را اصلاح نمایید. به‌طور تقریبی یک‌چهارم ساعت‌های کاری ثبت‌شده در پایگاه‌دادهٔ اوپن‌استریت‌مپ مشکل دارند، اما کمتر از ۱۰٪ آن‌ها اصلاح‌نشدنی هستند. برای اینکه بدانید کدام انحراف از تعاریف قابل‌مدارا هستند، <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> را ببینید.</p>
 <h3>دکمهٔ منوی اصلی</h3>
@@ -97,6 +97,15 @@
 <li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
 <li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
 <li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
+</ul>
+<h4>Save and edit template dialogs</h4>
+<p>The dialog allows you to set</p>
+<ul>
+<li><strong>Name</strong> a descriptive name for the template.</li>
+<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
+<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
+<li><strong>Region</strong> the region the template is applicable to.</li>
+<li><strong>Object</strong> an application specific string to use for matching.</li>
 </ul>
 
 </body>

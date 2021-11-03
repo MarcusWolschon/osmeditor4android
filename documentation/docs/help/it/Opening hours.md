@@ -10,7 +10,7 @@ _Questa documentazione è in continuo sviluppo_
 
 Nello scenario tipico, l’oggetto che stai modificando può sia avere già un’etichetta per gli orari di apertura (opening_hours, service_times e collection_times) oppure puoi riapplicare il valore predefinito all’oggetto per avere il campo degli orari di apertura vuoto. Se senti la necessità di inserire il valore manualmente e stai usando Vespucci, puoi modificare il campo nella pagina dettagli e poi tornare alla scheda per le modifiche. Se pensi che l’etichetta per gli orari di apertura debba far parte delle preimpostazioni, segnala il problema agli sviluppatori del tuo editor.
 
-If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). 
 
 Chiaramente puoi anche decidere di scrivere di tuo pugno un valore per gli orari di apertura, ma è consigliato partire da un modello preesistente.
 
@@ -97,3 +97,14 @@ In Android 4.4 and later the following additional functionality is available fro
 * __Save to file__: write the contents of the template database to a file.
 * __Load from file (replace)__: load templates from a file replacing the current contents of the database.
 * __Load from file__: load templates from a file retaining the current contents.
+
+#### Save and edit template dialogs
+
+The dialog allows you to set
+
+* __Name__ a descriptive name for the template.
+* __Default__ if checked this will be consider as a default template (typically further constrained by the other fields).
+* __Key__ the key this template is relevant for, if set to _Custom key_ you can add a non-standard value in the field below. The key values support SQL wild cards, that is _%_ matches zero or more characters, *_* matches a single character. Both wild card characters can be escaped with _\\_ for literal matches.
+* __Region__ the region the template is applicable to.
+* __Object__ an application specific string to use for matching.
+

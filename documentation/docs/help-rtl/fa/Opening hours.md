@@ -10,7 +10,7 @@ _این سند مقدماتی است و در حال بهبود آن هستیم_
 
 به‌طور معمول شیئی که ویرایش می‌کنید یا تگ ساعت کاری دارد (opening_hours،‏ service_times و collection_times) یا می‌توانید با به‌کارگیری پیش‌تنظیمی برای آن شیء، یک خانه برای ساعت کاری اضافه کنید. اگر لازم باشد که خانهٔ ساعت کاری را دستی اضافه نمایید و از وسپوچی استفاده می‌کنید، باید در زبانهٔ جزئیات، کلید آن را وارد کنید و سپس به زبانهٔ فرم (زبانهٔ خصوصیات) برگردید و آن را ویرایش نمایید. اگر معتقدید که تگ ساعت کاری باید در پیش‌تنظیم بخصوصی وجود داشته باشد، لطفاً برای ویرایشگر مدنظر گزارش بدهید.
 
-If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). 
 
 به‌طور طبیعی می‌توانید مقدار ساعت کاری را از صفر بنویسید. اما پیشنهاد می‌کنیم یکی از الگوهای موجود نقطهٔ آغازتان باشد.
 
@@ -97,3 +97,14 @@ In Android 4.4 and later the following additional functionality is available fro
 * __Save to file__: write the contents of the template database to a file.
 * __Load from file (replace)__: load templates from a file replacing the current contents of the database.
 * __Load from file__: load templates from a file retaining the current contents.
+
+#### Save and edit template dialogs
+
+The dialog allows you to set
+
+* __Name__ a descriptive name for the template.
+* __Default__ if checked this will be consider as a default template (typically further constrained by the other fields).
+* __Key__ the key this template is relevant for, if set to _Custom key_ you can add a non-standard value in the field below. The key values support SQL wild cards, that is _%_ matches zero or more characters, *_* matches a single character. Both wild card characters can be escaped with _\\_ for literal matches.
+* __Region__ the region the template is applicable to.
+* __Object__ an application specific string to use for matching.
+

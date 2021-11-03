@@ -10,7 +10,7 @@ _本文档是早期文档，正在开发中_
 
 在一般的工作流程中，你编辑的物件一般已经有开放时间的标签 (opening_hour、service_times 和 colllection_times)，或是你可以重新设定物件的预设组合，用空白的开放时间栏位。如果你需要手动输入栏位，像是用 Vespucci，你可以在详情页面输入关键值，之后切换回栏位页签继续编辑。如果你相信开放时间标签必须多于预设组合的话，请在你的编辑器开启 issue。
 
-If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). 
+If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). 
 
 当然，您可以从头开始构建营业时间的值，但我们建议使用现有的模板之一作为开始。
 
@@ -97,3 +97,14 @@ In Android 4.4 and later the following additional functionality is available fro
 * __Save to file__: write the contents of the template database to a file.
 * __Load from file (replace)__: load templates from a file replacing the current contents of the database.
 * __Load from file__: load templates from a file retaining the current contents.
+
+#### Save and edit template dialogs
+
+The dialog allows you to set
+
+* __Name__ a descriptive name for the template.
+* __Default__ if checked this will be consider as a default template (typically further constrained by the other fields).
+* __Key__ the key this template is relevant for, if set to _Custom key_ you can add a non-standard value in the field below. The key values support SQL wild cards, that is _%_ matches zero or more characters, *_* matches a single character. Both wild card characters can be escaped with _\\_ for literal matches.
+* __Region__ the region the template is applicable to.
+* __Object__ an application specific string to use for matching.
+
