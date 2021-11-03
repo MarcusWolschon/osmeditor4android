@@ -223,6 +223,7 @@ public class GpxTest {
 
         // goto start while we are here
         clickGpsButton(device);
+        TestUtils.scrollToEnd();
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_goto_start), false, false));
         TestUtils.sleep(2000);
         double[] center = main.getMap().getViewBox().getCenter();

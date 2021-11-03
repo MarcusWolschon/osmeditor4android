@@ -367,8 +367,10 @@ task setLongClickTimeout() {
         def bridge = AndroidDebugBridge.createBridge(android.adbExecutable.path, false)
         bridge.devices.each {
             CollectingOutputReceiver receiver = new CollectingOutputReceiver()
-            // 400 short, 1000 medium
-            it.executeShellCommand("settings put secure long_press_timeout 1000", receiver)
+            String api = it.getProperty(IDevice.PROP_BUILD_API_LEVEL)
+            // 400 short, 1000 medium, 1500 long
+            int timeout = api.equals("28") ? 1500 : 1000
+            it.executeShellCommand("settings put secure long_press_timeout $timeout", receiver)
         }
     }
 }
@@ -605,6 +607,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
 // see https://marathonlabs.github.io/marathon/doc/configuration.html
 marathon {
     uncompletedTestRetryQuota = 3
+    testOutputTimeoutMillis = 360000
     poolingStrategy {
         operatingSystem = true
     }
@@ -627,7 +630,7 @@ marathon {
 //        allowlist = [
 //            new com.malinskiy.marathon.execution.filter.FullyQualifiedTestnameFilter(null,
 //               [
-//                    'de.blau.android.presets.AutoPresetTest#onlinePresetSearch'
+//                    'de.blau.android.easyedit.NodeTest#selectNode'
 //               ], 
 //               null)
 //        ]

@@ -64,11 +64,11 @@ public class NodeTest {
         logic.deselectAll();
         TestUtils.loadTestData(main, "test2.osm");
         TestUtils.stopEasyEdit(main);
+        TestUtils.unlock(device);
         map.getViewBox().fitToBoundingBox(map, map.getDataLayer().getExtent());
         logic.updateStyle();
         map.getDataLayer().setVisible(true);
         map.invalidate();
-        TestUtils.unlock(device);
         device.waitForWindowUpdate(null, 2000);
     }
 
@@ -88,7 +88,7 @@ public class NodeTest {
     @Test
     public void selectNode() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
-        assertTrue(TestUtils.clickText(device, false, "Toilets", false, false));
+        assertTrue(TestUtils.clickText(device, false, "Toilets", true, false, 5000));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
         assertEquals(3465444349L, node.getOsmId());
