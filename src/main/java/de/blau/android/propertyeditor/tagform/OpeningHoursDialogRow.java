@@ -146,7 +146,7 @@ public class OpeningHoursDialogRow extends MultiselectDialogRow {
         OpeningHoursParser parser = new OpeningHoursParser(new ByteArrayInputStream(value.getBytes()));
 
         try {
-            rules = parser.rules(true);
+            rules = parser.rules(true, false);
             strictSucceeded = true;
         } catch (Exception e) {
             parser = new OpeningHoursParser(new ByteArrayInputStream(value.getBytes()));

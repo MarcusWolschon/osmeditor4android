@@ -511,9 +511,9 @@ dependencies {
     implementation "com.mapbox.mapboxsdk:mapbox-sdk-turf:$mapboxVersion"
     implementation 'com.github.Kunzisoft:AndroidClearChroma:2.3'
     implementation "ch.poole:PoParser:0.8.0"
-    implementation "ch.poole:OpeningHoursParser:0.25.0"
+    implementation "ch.poole:OpeningHoursParser:0.26.0"
     implementation "ch.poole:ConditionalRestrictionParser:0.3.0"
-    implementation "ch.poole:OpeningHoursFragment:0.11.0"
+    implementation "ch.poole:OpeningHoursFragment:0.12.0"
     implementation 'ch.poole.android:numberpicker:1.0.10'
     implementation 'ch.poole.android:numberpickerpreference:2.0.1'
     implementation "ch.poole.osm:JosmFilterParser:0.6.1"
