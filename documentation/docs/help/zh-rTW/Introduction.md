@@ -81,7 +81,7 @@ Vespucci 擁有一個良好的"取消/重做"系統，所以不要害怕在您�
 
 #### 選擇物件：移動節點或路徑
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
+一旦你選取物件，也可以移動。注意這個物件在選取動況可以被拖動/移動。簡單在選取物件附近拖動 (在容忍範圍內)。如果你在[設定](Preferences.md)中選擇大拖動範圍，你在選擇節點時會有物件附近的大範圍，能讓你有很方便置放物件。 
 
 #### 增加新節點/點或是路徑 
 
@@ -188,14 +188,14 @@ OSMOSE臭蟲則會將受影響的物件顯示為藍色連結，碰觸連結則�
 
 ### 篩選
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
+除了全域時啟用顯示註解和臭蟲以外，你可以設定粗略顯示過瀘降低雜亂程度。你可以從任務圖層當中的[圖層控制](#layers)當中，設定過濾選項：
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
+* 註解
+* Osmose 錯誤
+* Osmose 警告
+* Osmose 小問題
 * Maproulette
-* Custom
+* 客製
 
 <a id="indoor"></a>
 
@@ -215,7 +215,7 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 ### 設定檢查
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
+目前擁有兩個設定檢查 (一個是檢查 FIXME 標籤，以及一個檢查關聯上面遺失的標籤，不過目前無法自訂)，兩種都可以在"[設定](Preferences.md)"裡的"驗證器設定"調整。 
 
 列表清單分成兩部分，上半部列出"重新踏察"列表，下半部列出檢查"列表列表"。列表點了之後就可以編輯了，綠色選單按鍵則允許增加列表。
 
@@ -272,7 +272,7 @@ Currently there are two configurable checks (there is a check for FIXME tags and
 * GeoJSON 圖層 - 顯示 GeoJSON 檔案的內容。預設：關閉。
 * 網格 - 在地圖兩邊顯示尺規或網格。預設：啟用。 
 
-More information can be found in the section on the [map display](Main%20map%20display.md).
+更多資訊能在[地圖顯示](Main%20map%20display.md)取得。
 
 #### 參數選項 
 
