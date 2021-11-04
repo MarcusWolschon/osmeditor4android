@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="2.13.1" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="2.14.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -271,6 +271,7 @@
         <combo key="electrified" text="Electrified" values="contact_line,no,yes,rail" values_context="electrified"/>
         <combo key="voltage" text="Voltage in Volts (V)" values="600,650,750,1500,3000,15000,25000" length="5"/>
         <combo key="frequency" text="Frequency in Hertz (Hz)" values="0,16.67,16.7,25" length="5" values_sort="false" />
+        <reference ref="layer" />
     </chunk>
     <chunk id="railway_service_gauge_electrified">
         <reference ref="railway_service"/>
@@ -283,10 +284,10 @@
                display_values="North,East,South,West,0°,90°,180°,270°,Forward,Backward" values_sort="false" />
     </chunk>
     <chunk id="min_age">
-        <text key="min_age" text="Minimum age" value_type="integer"/>
+        <text key="min_age" text="Minimum age"/>
     </chunk>
     <chunk id="max_age">
-        <text key="max_age" text="Maximum age" value_type="integer"/>
+        <text key="max_age" text="Maximum age"/>
     </chunk>
     <chunk id="min_max_age">
         <reference ref="min_age"/>
@@ -375,13 +376,16 @@
         <reference ref="toilets"/>
         <combo key="toilets:access" text="Toilet access" values="yes,permissive,customers,private" display_values="Public,Permissive,Customers,Private" match="none"/>
     </chunk>
-    <chunk id="wheelchair">
+    <chunk id="essential_wheelchair">
         <combo key="wheelchair" text="Wheelchairs" match="none" values_searchable="true" values_sort="false">
-        <list_entry value="designated" short_description="Dedicated facilities"/>
-        <list_entry value="yes" short_description="Unrestricted access"/>
-        <list_entry value="limited" short_description="Partial access"/>
-        <list_entry value="no" short_description="No access"/>
+            <list_entry value="designated" short_description="Dedicated facilities"/>
+            <list_entry value="yes" short_description="Unrestricted access"/>
+            <list_entry value="limited" short_description="Partial access"/>
+            <list_entry value="no" short_description="No access"/>
         </combo>
+    </chunk>
+    <chunk id="wheelchair">
+        <reference ref="essential_wheelchair"/>
         <optional>
             <text key="wheelchair:description" text="Wheelchair access details" length="255" i18n="true"/>
             <text key="wheelchair:entrance_width" text="Entrance width in cm"/>
@@ -618,7 +622,7 @@
         <reference ref="internet"/>
         <combo key="smoking" text="Smoking" values="yes,dedicated,separated,isolated,outside,no" display_values="Yes,Dedicated,Separated,Isolated,Outside,No" values_sort="false"/>
     </chunk>
-        <chunk id="check_access_nomotor">
+    <chunk id="check_access_nomotor">
         <optional text="Non-motorized traffic:">
             <checkgroup text="Non-motorized traffic" columns="3">
                 <check key="foot" text="Foot" />
@@ -653,6 +657,9 @@
         <optional>
             <text key="height" text="Height (meters)" length="7"/>
         </optional>
+    </chunk>
+    <chunk id="maxwidthphysical">
+        <text key="maxwidth:physical" text="Physical max. width (meters)" length="7"/>
     </chunk>
     <chunk id="optional_maxwidth">
         <optional>
@@ -834,6 +841,12 @@
         <text key="ref" text="Reference"/>
         <text key="operator" text="Operator"/>
     </chunk>
+    <chunk id="optional_ref_operator">
+        <optional>
+            <text key="ref" text="Reference"/>
+            <text key="operator" text="Operator"/>
+        </optional>
+    </chunk>
     <chunk id="cables">
         <combo key="cables" text="Cable count" values="1,2,3,4,6,9,12" values_sort="false"/>
     </chunk>
@@ -849,8 +862,6 @@
         <reference ref="voltage_frequency"/>
     </chunk>
     <chunk id="power_generator">
-        <link wiki="Tag:power=generator"/>
-        <space/>
         <key key="power" value="generator"/>
         <reference ref="name_ref_operator"/>
         <text key="branch" text="Branch operator"/>
@@ -867,7 +878,8 @@
         </optional>
     </chunk>
     <chunk id="power_output">
-        <optional text="Output forms of energy:">
+        <combo key="generator:plant" text="Plant generator type" values="output,intermediate" />
+        <optional text="Energy output:">
             <combo key="generator:output:biogas" text="biogas" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
             <combo key="generator:output:electricity" text="electricity" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
             <combo key="generator:output:hot_water" text="hot water" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
@@ -885,15 +897,38 @@
         <combo key="line_attachment" text="Line attachment" values="anchor,pin,pulley,suspension" display_values="Anchor,Pin,Pulley,Suspension" values_context="power" />
         <combo key="line_management" text="Line management" values="branch,cross,split,straight,termination,transition,transpose" display_values="Branch,Cross,Split,Straight,Termination,Transition,Transpose" values_context="power" />
     </chunk>
-    <chunk id="power_pole">
+    <chunk id="power_plant">
+        <key key="power" value="plant" />
+        <reference ref="name_ref_operator" />
+        <text key="start_date" text="Start date" />
+        <optional text="Energy ouput:">
+            <combo key="plant:output:electricity" text="electricity" values="yes,2 W,3 kW,5 MW,7 GW" />
+            <combo key="plant:output:hot_water" text="hot water" values="yes,2 W,3 kW,5 MW,7 GW" />
+            <combo key="plant:output:hot_air" text="hot air" values="yes,2 W,3 kW,5 MW,7 GW" />
+            <combo key="plant:output:cold_water" text="cold water" values="yes,2 W,3 kW,5 MW,7 GW" />
+            <combo key="plant:output:cold_air" text="cold air" values="yes,2 W,3 kW,5 MW,7 GW" />
+            <combo key="plant:output:compressed_air" text="compressed air" values="yes,2 W,3 kW,5 MW,7 GW" />
+            <combo key="plant:output:steam" text="steam" values="yes,2 W,3 kW,5 MW,7 GW" />
+            <combo key="plant:output:vacuum" text="vacuum" values="yes,2 W,3 kW,5 MW,7 GW" />
+        </optional>
+    </chunk>
+    <chunk id="utilities">
+        <combo key="utility" text="Utility" values="chemical,gas,heating,hydrant,oil,power,sewerage,street_lighting,telecom,television,waste,water"
+            display_values="Chemical,Gas,Heating,Hydrant,Oil,Power,Sewerage,Street lighting,Telecom,Television,Waste,Water" values_searchable="true"/>
+    </chunk>
+    <chunk id="pole">
         <text key="height" text="Height (meters)" length="7" />
         <reference ref="material"/>
+        <reference ref="ref_operator" />
+    </chunk>
+    <chunk id="power_pole">
+        <reference ref="pole"/>
         <reference ref="power_line_extra2"/>
         <check key="location:transition" text="Location transition" disable_off="true"/>
-        <reference ref="ref_operator"/>
         <optional>
             <!-- This tag seems to have been "deprecated" even though it is more popular than the newer proposal -->
-            <combo key="pole:type" text="Pole type" values="termination,branch,transposing,crossing,transition" display_values="Termination,Branch,Transposing,Crossing,Transition" text_context="power" values_context="power"/>
+            <combo key="pole:type" text="Pole type" values="termination,branch,transposing,crossing,transition" 
+                display_values="Termination,Branch,Transposing,Crossing,Transition" text_context="power" values_context="power"/>
         </optional>
     </chunk>
     <chunk id="rating_phases">
@@ -917,11 +952,15 @@
     <chunk id="telecom_medium">
         <combo key="telecom:medium" text="Local loop type" values="copper,fibre,coaxial" display_values="Copper,Fibre,Coaxial" values_context="telecom" />
     </chunk>
-    <chunk id="utility">
-        <combo key="utility" text="Utility" values="chemical,gas,heating,hydrant,oil,power,sewerage,street_lighting,telecom,television,waste,water" display_values="Chemical,Gas,Heating,Hydrant,Oil,Power,Sewerage,Street lighting,Telecom,Television,Waste,Water" />
-    </chunk>
     <chunk id="bridge_details">
-        <combo key="bridge:structure" text="Structure" values="arch,beam,truss,floating,suspension,cable-stayed,simple-suspension,humpback" display_values="Arch,Beam,Truss,Floating,Suspension,Cable-stayed,Simple-suspension,Humpback" match="key" values_context="bridge"/>
+        <combo key="bridge" text="Bridge" values="aqueduct,boardwalk,cantilever,covered,low_water_crossing,trestle,viaduct,yes" 
+            display_values="Aqueduct,Boardwalk,Cantilever,Covered,Low water crossing,Trestle,Viaduct,Yes" default="yes" match="keyvalue!" values_context="bridge"/>
+        <combo key="bridge:structure" text="Structure" values="arch,beam,truss,floating,suspension,cable-stayed,simple-suspension,humpback" 
+            display_values="Arch,Beam,Truss,Floating,Suspension,Cable-stayed,Simple suspension,Humpback" match="key" values_context="bridge"/>
+        <combo key="bridge:movable" text="Moveable bridge type" values="bascule,drawbridge,lift,submersible,swing,transporter,retractable,tilt" 
+            display_values="Bascule,Drawbridge,Lift,Submersible,Swing,Transporter,Retractable,Tilt" match="key" values_context="bridge"/>
+        <combo key="bridge:support" text="Bridge support type" values="pier,abutment,lift_pier,pivot_pier,pylon" 
+            display_values="Pier,Abutment,Lift pier,Pivot pier,Pylon" match="key" values_context="bridge" />
     </chunk>
     <chunk id="maxweight">
         <text key="maxweight" text="Max. weight (tonnes)" match="key" />
@@ -970,11 +1009,33 @@
             <combo key="canoe" text="Canoe" values="yes,designated,destination,delivery,permissive,private,permit,no" 
                 display_values="Yes,Designated,Destination,Delivery,Permissive,Private,Permit required,No" values_sort="false" values_context="access"/>
         </optional>
+    </chunk> 
+    <chunk id="substance">
+        <combo key="substance" text="Substance" values="water,hot_water,steam,sewage,gas,oil" 
+            display_values="Water,Hot water,Steam,Sewage,Gas,Oil" values_sort="false" values_searchable="true" />
     </chunk>
     <chunk id="operator_substance">
         <text key="operator" text="Operator"/>
-        <combo key="substance" text="Substance" values="water,gas,heat,oil,sewage" display_values="Water,Gas,Heat,Oil,Sewage"/>
+        <reference ref="substance" />
     </chunk>
+    <chunk id="handle">
+        <optional text="Only in case of manual actuator or manual mechanical drive: ">
+        <combo key="handle" text="Handle" values="wheel,cross,lever,crank,button,no" display_values="Wheel,Cross,Lever,Crank,Button,None" values_context="handle" values_sort="false" values_searchable="true" />
+        <combo key="turn_to_close" text="Direction to close" values="clockwise,anti_clockwise" />
+        </optional>
+        <space />
+    </chunk>
+    <chunk id="pumpMechanism">
+        <combo key="pump_mechanism" text="Pump mechanism" values="gear,screw,progressive_cavity,diaphragm,peristaltic,rope,rotary_vane,piston,centrifugal,axial_flow,eductor_jet,ram,siphon,pulser,airlift" values_sort="false" values_searchable="true" />
+    </chunk>
+    <chunk id="mechCoupling">
+        <combo key="mechanical_coupling" text="Mechanical coupling" values="direct,reducer,gearbox,nodding_donkey,belt" values_sort="false" values_searchable="true" />
+    </chunk>
+    <chunk id="pump_details">
+        <reference ref="pumpMechanism" />
+        <combo key="mechanical_driver" text="Mechanical driver" values="manual,electric_motor,combustion_engine,reciprocating_solenoid,cylinder,turbine" values_sort="false" values_searchable="true" />
+        <reference ref="mechCoupling" />
+     </chunk>
     <chunk id="support">
         <combo key="support" text="Support" values="pole,wall_mounted,billboard,ground" display_values="Pole,Wall mounted,Billboard,Ground" values_context="mounting/support"/>
     </chunk>
@@ -1322,6 +1383,12 @@
     <chunk id="reservation">
         <combo key="reservation" text="Reservation" values="yes,no,required,recommended,members_only" display_values="Yes,No,Required,Recommended,Members only" />
     </chunk>
+    <chunk id="check_crossing_access">
+        <checkgroup test="Permitted use" columns="2">
+            <check key="horse" text="On horseback" disable_off="true"/>
+            <check key="bicycle" text="By bicycle" disable_off="true"/>
+        </checkgroup>
+    </chunk>
     <chunk id="advertising_optional">
         <optional>
             <check key="lit" text="Lit" disable_off="true"/>
@@ -1441,20 +1508,30 @@
             <text key="operator" text="Operator"/>
             <text key="network" text="Network"/>
             <space/>
-            <check key="bus" text="Bus" disable_off="true"/>
-            <check key="tram" text="Tram" disable_off="true"/>
-            <check key="train" text="Train" disable_off="true"/>
-            <check key="trolleybus" text="Trolleybus" disable_off="true"/>
-            <check key="share_taxi" text="Share taxi" disable_off="true"/>
-            <check key="subway" text="Subway" disable_off="true"/>
-            <check key="monorail" text="Monorail" disable_off="true"/>
-            <check key="funicular" text="Funicular" disable_off="true"/>
-            <check key="aerialway" text="Aerialway" disable_off="true"/>
-            <check key="ferry" text="Ferry" disable_off="true"/>
+            <checkgroup text="Transportation type" columns="3">
+                <check key="bus" text="Bus" disable_off="true"/>
+                <check key="tram" text="Tram" disable_off="true"/>
+                <check key="train" text="Train" disable_off="true"/>
+                <check key="trolleybus" text="Trolleybus" disable_off="true"/>
+                <check key="share_taxi" text="Share taxi" disable_off="true"/>
+                <check key="subway" text="Subway" disable_off="true"/>
+                <check key="monorail" text="Monorail" disable_off="true"/>
+                <check key="funicular" text="Funicular" disable_off="true"/>
+                <check key="aerialway" text="Aerialway" disable_off="true"/>
+                <check key="ferry" text="Ferry" disable_off="true"/>
+            </checkgroup>
         </optional>
     </chunk>
     <chunk id="backrest">
         <check key="backrest" text="Backrest"/>
+    </chunk>
+    <chunk id="water_body">
+        <check key="salt" text="Salt Water" disable_off="true"/>
+        <check key="intermittent" text="Is the water body intermittent (doesn't permanently contain water)?" disable_off="true"/>
+        <check key="tidal" text="In the tidal range" disable_off="true"/>
+        <reference ref="wikipedia_wikidata" />
+        <reference ref="water_access"/>
+        <preset_link preset_name="No name"/>
     </chunk>
     <!-- Groups -->
     <group name="Highways" icon="icons/png/highway_highway_sp.png">
@@ -1666,7 +1743,7 @@
             <combo key="highway" text="Highway type" values="residential,service,unclassified,path,cycleway" 
                 display_values="Residential,Service,Unclassified,Path,Cycleway" values_context="Highway" default="cycleway" match="none"/>
             <text key="name" text="Name"/>
-            <combo key="vehicle" text="Vehicle access" values="yes,no,destination" default="no" values_context="access"/>
+            <combo key="motor_vehicle" text="Vehicle access" values="yes,no,destination" values_context="access"/>
             <text key="maxspeed" text="Max. speed" default="30"/>
             <optional>
                 <check key="noname" text="Street has no name" disable_off="true"/>
@@ -2089,18 +2166,21 @@
             <optional text="Optional signal attributes:">
                 <combo key="traffic_signals" text="Type" values="blinker,blink_mode,bus_priority,continuous_green,emergency,ramp_meter,tram_priority"
                     display_values="Blinker,Blink mode,Bus priority,Continuous green,Emergency,Ramp meter,Tram priority" />
-                <combo key="traffic_signals:direction" text="For traffic direction" values="forward,backward,both" display_values="Forward,Backward,Both"/>
-                <check key="button_operated" text="Button operated" disable_off="true"/>
                 <check key="traffic_signals:sound" text="Sound signals" disable_off="true"/>
                 <check key="traffic_signals:vibration" text="Vibration" disable_off="true"/>
                 <check key="traffic_signals:arrow" text="Arrow (tactile)" disable_off="true"/>
                 <check key="traffic_signals:floor_vibration" text="Floor vibration" disable_off="true"/>
                 <reference ref="tactile_paving"/>
-                <check key="bicycle" text="For bicycles" disable_off="true"/>
             </optional>
             <optional text="Optional crossing attributes">
                 <reference ref="crossing_type" />
             </optional>
+            <reference ref="check_crossing_access" />
+            <label text="For pedestrian crossings:" />
+            <checkgroup text="For pedestrian crossings:" columns="2">
+                <check key="button_operated" text="Button operated" />
+                <check key="traffic_signals:sound" text="Sound signals" />
+            </checkgroup>
             <optional text="Optional values for specific countries">
                 <text key="name" text="Name"/>
             </optional>
@@ -2134,13 +2214,14 @@
             <key key="highway" value="crossing"/>
             <reference ref="crossing_type"/>
             <combo key="supervised" text="Crossing attendant" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" match="none" values_i18n="false" values_sort="false" />
-            <check key="bicycle" text="Cross by bicycle" disable_off="true"/>
-            <check key="horse" text="Cross on horseback" disable_off="true"/>
+            <reference ref="check_crossing_access" />
             <reference ref="tactile_paving"/>
             <reference ref="kerb"/>
             <label text="In case of traffic signals:"/>
-            <check key="button_operated" text="Button operated" disable_off="true"/>
-            <check key="traffic_signals:sound" text="Sound signals" disable_off="true"/>
+            <checkgroup text="In case of traffic signals:" columns="2">  
+                <check key="button_operated" text="Button operated" disable_off="true"/>
+                <check key="traffic_signals:sound" text="Sound signals" disable_off="true"/>
+            </checkgroup>
         </item> <!-- Pedestrian Crossing -->
         <group name="Traffic Calming" icon="icons/png/transport_speedbump.png">
             <item name="Traffic Calming" icon="icons/png/transport_speedbump.png" type="node,way" preset_name_label="true">
@@ -2333,14 +2414,17 @@
             <list_entry value="dangerous_junction" short_description="Dangerous junction"/>
             <list_entry value="dip" short_description="Dip"/>
             <list_entry value="falling_rocks" short_description="Falling rocks"/>
+            <list_entry value="frail_pedestrians" short_description="Frail pedestrians"/>
             <list_entry value="frost_heave" short_description="Frost heave"/>
             <list_entry value="horse_riders" short_description="Horse riders"/>
             <list_entry value="ice" short_description="Ice"/>
             <list_entry value="landslide" short_description="Landslide"/>
             <list_entry value="loose_gravel" short_description="Loose gravel"/>
             <list_entry value="low_flying_aircraft" short_description="Low flying aircraft"/>
+            <list_entry value="other" short_description="Other"/>
             <list_entry value="pedestrians" short_description="Pedestrians"/>
             <list_entry value="queues_likely" short_description="Queues likely"/>
+            <list_entry value="road_narrows" short_description="Road narrows"/>
             <list_entry value="school_zone" short_description="School zone"/>
             <list_entry value="side_winds" short_description="Side winds"/>
             <list_entry value="slippery" short_description="Slippery"/>
@@ -2380,21 +2464,41 @@
         <item name="Cycle Barrier" icon="icons/png/barrier_cycle_barrier.png" type="node" preset_name_label="true">
             <link wiki="Tag:barrier=cycle_barrier"/>
             <key key="barrier" value="cycle_barrier"/>
-            <optional>
-                <reference ref="optional_maxwidth"/>
-                <reference ref="material"/>
-            </optional>
-            <reference ref="vehicle_access" />
+            <combo key="bicycle" text="Bicycle access" values_context="access" values_sort="false">
+                <list_entry value="yes" display_value="Yes" />
+                <list_entry value="no" display_value="No" />
+                <list_entry value="dismount" display_value="Dismount" />
+            </combo>
             <optional text="Non-motorized traffic:">
                 <checkgroup text="Non-motorized traffic" columns="2">
                     <check key="foot" text="Foot" icon="icons/png/no_walking.png" />
                     <check key="horse" text="Horse" icon="icons/png/no_riding.png" />
                 </checkgroup>
                 <space />
-                <reference ref="wheelchair" />
-                <combo key="bicycle" text="Bicycle" values="dismount,no" display_values="Dismount,No" values_context="access" values_sort="false" />
+                <reference ref="essential_wheelchair" />
+                <reference ref="check_access_motor" />
             </optional>
-            <reference ref="check_access_motor" />
+            <combo key="cycle_barrier" text="Type" values_searchable="true" values_sort="false">
+                <list_entry value="single" display_value="Single" />
+                <list_entry value="double" display_value="Double" />
+                <list_entry value="triple" display_value="Triple" />
+                <list_entry value="diagonal" display_value="Diagonal" />
+                <list_entry value="squeeze" display_value="Squeeze" />
+            </combo>
+            <combo key="cycle_barrier:installation" text="Installation" values_searchable="true" values_sort="false">
+                <list_entry value="fixed" display_value="Fixed to the ground" />
+                <list_entry value="openable" display_value="Openable (e.g. like swing gate)" />
+                <list_entry value="removable" display_value="Removable" />
+                <list_entry value="foldable" display_value="Foldable (hinge at base)" />
+            </combo>
+            <optional>
+                <reference ref="maxwidthphysical"/>
+                <text key="spacing" text="Spacing between grids (meters)" length="7"/>
+                <text key="opening" text="Opening width of grids (meters)" length="7"/>
+                <text key="overlap" text="Overlap width of grids (meters)" length="7"/>
+                <text key="corners" text="Corners" value_type="integer"/>
+                <reference ref="material"/>
+            </optional>
         </item> <!-- Cycle Barrier -->
         <item name="Cattle Grid" icon="icons/png/barrier_cattle_grid.png" type="node" preset_name_label="true">
             <link wiki="Tag:barrier=cattle_grid"/>
@@ -2432,6 +2536,7 @@
             <reference ref="vehicle_access" />
             <reference ref="check_access_nomotor" />
             <reference ref="check_access_motor" />
+            <preset_link preset_name="Access Restrictions" />
         </item> <!-- Height resctrictor -->
         <item name="Toll Booth" icon="icons/png/barrier_toll_booth.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:barrier=toll_booth"/>
@@ -2542,6 +2647,15 @@
             <key key="barrier" value="jersey_barrier"/>
             <combo key="material" text="Material" values="concrete,plastic" display_values="Concrete,Plastic"/>
         </item> <!-- Jersey Barrier -->
+        <item name="Log" icon="icons/png/barrier_empty.png"  type="node,way" preset_name_label="true">
+            <link wiki="Tag:barrier=log" />
+            <key key="barrier" value="log" />
+            <space />
+            <reference ref="check_access_nomotor" />
+            <reference ref="check_access_motor" />
+            <reference ref="vehicle_access" />
+            <preset_link preset_name="Access Restrictions" />
+        </item> <!-- Log -->
         <item name="Ditch" icon="icons/png/barrier_empty.png" name_context="Barrier" type="way,closedway" preset_name_label="true">
             <link wiki="Tag:barrier=ditch"/>
             <key key="barrier" value="ditch"/>
@@ -2649,9 +2763,20 @@
             <link wiki="Tag:barrier=turnstile" />
             <key key="barrier" value="turnstile" />
             <reference ref="optional_maxwidth" />
+            <text key="maxlength" text="Max. length (meters)" match="key"/>
             <reference ref="vehicle_access" />
             <reference ref="check_access_nomotor" />
         </item> <!-- Turnstile -->
+        <item name="Full-Height Turnstile" icon="icons/png/barrier_full-height_turnstile_13038.png" type="node" preset_name_label="true">
+            <link wiki="Tag:barrier=full-height_turnstile" />
+            <key key="barrier" value="full-height_turnstile" />
+            <reference ref="optional_maxheight_maxwidth" />
+            <text key="maxlength" text="Max. length (meters)" match="key" />
+            <space />
+            <reference ref="vehicle_access" />
+            <reference ref="check_access_nomotor" />
+            <preset_link preset_name="Access Restrictions" />
+        </item> <!-- Full-Height Turnstile -->
         <item name="Sally Port" icon="icons/png/highway_sally_port_13031.png" type="node" preset_name_label="true">
             <link wiki="Tag:barrier=sally_port" />
             <key key="barrier" value="sally_port"/>
@@ -2670,6 +2795,7 @@
                 <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="-1" length="3" match="none" editable="true"/>
                 <text key="width" text="Width (meters)"/>
                 <text key="maxheight" text="Max. height (meters)"/>
+                <text key="maxwidth" text="Max. width (meters)" />
                 <space/>
                 <reference ref="maxspeed"/>
                 <space/>
@@ -2983,11 +3109,13 @@
             <optional>
                 <reference ref="name_operator" />
                 <combo key="diameter" text="Diameter (mm)" values="800,1000,1200,1500,1600,1800,2200,2300,2400,2500,2600,2800,3200,3300,3400,3500,4000,4200,4300,4800"/>
+                <text key="pressure" text="Pressure (bar)" />
+                <text key="flow_rate" text="Flow rate with unit of measure" />
                 <combo key="material" text="Material" values="metal,steel" display_values="Metal,Steel"/>
             </optional>
         </item> <!-- Penstock -->
         <separator/>
-        <item name="Basin" icon="icons/png/water_landuse_sp.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Basin" icon="icons/png/water_waterbody_shallow.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:landuse=basin"/>
             <space/>
             <key key="landuse" value="basin"/>
@@ -3008,14 +3136,37 @@
             <reference ref="optional_name"/>
         </item> <!-- Covered Reservoir -->
         <separator/>
-        <item name="Water" name_context="natural" icon="icons/png/water_water_24008.png" type="closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:natural=water"/>
+        <item name="Lake" name_context="natural" icon="icons/png/water_waterbody.png" type="closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:natural=water" />
+            <key key="natural" value="water" />
+            <key key="water" value="lake" />
+            <text key="name" text="Name"/>  
+            <space/>        
+            <reference ref="water_body" />
+        </item> <!-- Lake -->
+        <item name="Lagoon" name_context="natural" icon="icons/png/water_waterbody.png" type="closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:natural=water" />
+            <key key="natural" value="water" />
+            <key key="water" value="lagoon" />
+            <text key="name" text="Name"/>  
             <space/>
-            <label text="A body of standing water, such as a lake or pond."/>
-            <space/>
-            <key key="natural" value="water"/>
+            <reference ref="water_body" />
+        </item> <!-- Lagoon -->
+        <item name="Pond" name_context="natural" icon="icons/png/water_pond_17021.png" type="closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:natural=water" />
+            <key key="natural" value="water" />
+            <key key="water" value="pond" />
             <text key="name" text="Name"/>
-            <combo key="water" text="Water Body" match="key" values_searchable="true" >
+            <space/>
+            <reference ref="water_body" />
+        </item> <!-- Pond -->
+        <item name="Other waterbodies" name_context="natural" icon="icons/png/water_waterbody.png" type="closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:natural=water"/>
+            <key key="natural" value="water"/>
+            <space/>
+            <label text="A body of water, such as a lake or pond."/>
+            <reference ref="optional_name" />
+            <combo key="water" text="Waterbody" match="key" values_searchable="true" >
                 <list_entry value="stream" display_value="Stream" icon="" />
                 <list_entry value="river" display_value="River" icon="" />
                 <list_entry value="canal" display_value="Canal" icon="" />
@@ -3034,13 +3185,8 @@
                 <list_entry value="reflecting_pool" display_value="Reflecting pool" />
                 <list_entry value="stream_pool" display_value="Stream pool" />
             </combo>
-            <check key="salt" text="Salt Water" disable_off="true"/>
-            <check key="intermittent" text="Is the water body intermittent (doesn't permanently contain water)?" disable_off="true"/>
-            <check key="tidal" text="In the tidal range" disable_off="true"/>
-            <reference ref="wikipedia_wikidata" />
-            <reference ref="water_access"/>
-            <preset_link preset_name="No name"/>
-        </item> <!-- Water -->
+            <reference ref="water_body" />
+        </item> <!-- Other water bodies -->
         <item name="Coastline" icon="presets/coastline.png" type="way,closedway" preset_name_label="true">
             <link wiki="Tag:natural=coastline"/>
             <space />
@@ -3379,6 +3525,7 @@
             <key key="railway" value="disused"/>
             <optional>
                 <reference ref="railway_service"/>
+                <reference ref="layer" />
             </optional>
         </item> <!-- Disused Rail -->
         <item name="Abandoned Rail" icon="icons/png/transport_disused_railway.png" type="way" preset_name_label="true">
@@ -3386,6 +3533,7 @@
             <key key="railway" value="abandoned"/>
             <optional>
                 <reference ref="railway_service"/>
+                <reference ref="layer" />
             </optional>
         </item> <!-- Abandoned Rail -->
         <item name="Level Crossing" icon="icons/png/level_crossing.png" type="node" preset_name_label="true">
@@ -3404,8 +3552,7 @@
             <optional>
                 <combo key="crossing" text="Crossing type" values="uncontrolled,traffic_signals" display_values="Uncontrolled,Traffic signals"/>
                 <reference ref="supervised"/>
-                <check key="horse" text="Cross on horseback" disable_off="true"/>
-                <check key="bicycle" text="Cross by bicycle" disable_off="true"/>
+                <reference ref="check_crossing_access" />
                 <check key="crossing:light" text="Traffic lights" disable_off="true"/>
                 <check key="crossing:bell" text="Sound signals" disable_off="true"/>
                 <combo key="crossing:barrier" text="Barrier" values="yes,no,half,full,double_half" display_values="Yes,No,Half,Full,Double half" text_context="railway" values_context="crossing:barrier"/>
@@ -3834,6 +3981,13 @@
             <multiselect key="service" text="Service" text_context="shop=car_repair" values="dealer;repair;parts;tyres" display_values="Dealer;Repair;Parts;Tyres"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Motorcycle repair -->
+        <item name="Rental" icon="icons/png/transport_motorcycle_rental.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=motorcycle_rental"/>
+            <space/>
+            <key key="amenity" value="motorcycle_rental"/>
+            <reference ref="name_brand_operator_oh_wheelchair"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Rental -->
     </group> <!-- Motorcycle -->
     <group name="Bicycle" icon="icons/png/transport_bicycle.png">
         <item name="Parking" name_context="bicycle" icon="icons/png/transport_parking_bicycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
@@ -3987,7 +4141,7 @@
                 <role key="platform_entry_only" text="platform (entry only)" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform" />
                 <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="aerialway" />
             </roles>
-        </item> <!-- Public Transport Route (Aerialway) -->
+        </item> <!-- Public Transport Route (Ferry) -->
         <item name="Route Master" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
             <link wiki="Proposed_features/Public_Transport#Route_master"/>
             <space/>
@@ -4175,7 +4329,7 @@
                 <role key="stop" text="halt point" requisite="optional" type="node" member_expression="aerialway=station OR (public_transport=stop_position aerialway=yes)" />
                 <role key="platform" text="platform" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform" />
             </roles>
-        </item> <!-- Public transport route (Legacy) (Aerialway) -->
+        </item> <!-- Public transport route (Legacy) (Ferry) -->
         <separator/>
         <item name="Station" name_context="railway" icon="icons/png/transport_train_station2.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:railway=station"/>
@@ -6182,7 +6336,7 @@
             <link wiki="Tag:emergency=fire_hydrant"/>
             <space/>
             <key key="emergency" value="fire_hydrant"/>
-            <combo key="fire_hydrant:type" text="Type" values_searchable="true" values_context="pipeline" default="pillar">
+            <combo key="fire_hydrant:type" text="Type" values_searchable="true" values_context="pipeline" >
                 <list_entry value="pillar" display_value="Pillar" short_description="A pillar type hydrant."/>
                 <list_entry value="underground" display_value="Underground" short_description="A fire hydrant simple outlet located underground."/>
                 <list_entry value="wall" display_value="Wall" short_description="A wall-mounted fire hydrant."/>
@@ -6422,6 +6576,14 @@
             <reference ref="link_contact_address"/>
         </item> <!-- Social Workshop -->
         <item name="Youth Centre" icon="icons/png/amenity_youth_centre_12356.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:community_centre"/>
+            <space/>
+            <key key="amenity" value="community_centre"/>
+            <key key="community_centre" value="youth_centre" />
+            <reference ref="name_operator_oh_wheelchair_level_toilets"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Youth Centre -->
+        <item name="Youth Centre (deprecated)" icon="icons/png/amenity_youth_centre_12356.png" deprecated="true" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:social_facility"/>
             <space/>
             <key key="amenity" value="youth_centre"/>
@@ -6746,7 +6908,7 @@
             <combo key="shelter_type" text="Type of shelter" values_context="shelter" values_searchable="true">
                 <list_entry value="basic_hut" short_description="Basic hut" icon="presets/accommodation/basic_hut_blue.png"/>
                 <list_entry value="field_shelter" short_description="Field shelter" />
-                <list_entry value="gazebo" short_description="Gazebo" icon="${shelter_gazebo}" />
+                <list_entry value="gazebo" short_description="Gazebo" icon="" />
                 <list_entry value="lean_to" short_description="lean to" icon="presets/accommodation/shelter_lean_to.svg"/>
                 <list_entry value="picnic_shelter" short_description="Picnic shelter" icon="presets/accommodation/shelter_picnic_brown.png"/>
                 <list_entry value="public_transport" short_description="Public transport" icon="presets/accommodation/shelter_public_transport_brown.png"/>
@@ -7880,8 +8042,8 @@
             <link wiki="Tag:man_made=tower"/>
             <space/>
             <key key="man_made" value="tower"/>
-            <combo key="tower:type" text="Tower type" values="bell_tower,communication,cooling,defensive,minaret,observation,radar,watchtower"
-                display_values="Bell tower,Communication,Cooling,Defensive,Minaret,Observation,Radar,Watchtower" editable="true" match="key" values_searchable="true"/>
+            <combo key="tower:type" text="Tower type" values="bell_tower,communication,cooling,defensive,minaret,observation,pagoda,radar,watchtower"
+                display_values="Bell tower,Communication,Cooling,Defensive,Minaret,Observation,Pagoda,Radar,Watchtower" editable="true" match="key" values_searchable="true"/>
             <optional>
                 <text key="name" text="Name"/>
                 <text key="height" text="Height (meters)" length="7" />
@@ -7910,11 +8072,9 @@
         <item name="Utility pole" icon="icons/png/man_made_pole.png" type="node" preset_name_label="true" deprecated="true">
             <link wiki="Tag:man_made=utility_pole"/>
             <space />
-            <reference ref="utility" />
-            <optional>
-                <reference ref="ref_operator" />
-                <combo key="material" text="Material" values="concrete,metal,plastic,steel,stone,wood" display_values="Concrete,Metal,Plastic,Steel,Stone,Wood" values_context="material"/>
-            </optional>
+            <reference ref="pole" />
+            <reference ref="utilities" />
+            <preset_link preset_name="Pole" text="Similar preset:" alternative="true" />
         </item> <!-- Utility pole -->
         <item name="Antenna" icon="icons/png/man_made_antenna_22088.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=antenna"/>
@@ -7933,6 +8093,8 @@
         <item name="Flagpole" icon="icons/png/man_made_flagpole_22023.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=flagpole"/>
             <key key="man_made" value="flagpole"/>
+            <combo key="flag:type" text="Type" values="advertising,athletic,governmental,military,municipal,national,organisation,regional,religious,signal" 
+                display_values="Advertising,Athletic,Governmental,Military,Municipal,National,Organisation,Regional,Religious,Signal" values_context="flag" match="keyvalue!" values_searchable="true" />
         </item> <!-- Flagpole -->
         <item name="Cross" icon="icons/png/man_made_cross_12107.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=cross"/>
@@ -7949,38 +8111,67 @@
             <link wiki="Tag:man_made=chimney"/>
             <space/>
             <key key="man_made" value="chimney"/>
-            <reference ref="optional_name_operator"/>
+            <reference ref="optional_name_ref_operator"/>
             <text key="height" text="Height (meters)"/>
         </item> <!-- Chimney -->
         <item name="Kiln" icon="icons/png/man_made_empty.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:man_made=kiln"/>
             <space/>
             <key key="man_made" value="kiln"/>
-            <reference ref="optional_name_operator"/>
+            <reference ref="optional_name_ref_operator"/>
             <combo key="product" text="Product" values="lime,charcoal,bricks" display_values="Lime,Charcoal,Bricks"/>
         </item> <!-- Kiln -->
         <item name="Windmill" icon="icons/png/tourist_windmill.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:man_made=windmill"/>
             <space/>
             <key key="man_made" value="windmill"/>
-            <reference ref="optional_name" />
+            <reference ref="optional_name_ref_operator" />
         </item> <!-- Windmill -->
         <item name="Windpump" icon="icons/png/man_made_windpump.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:man_made=windpump"/>
             <space/>
             <key key="man_made" value="windpump"/>
+            <reference ref="substance" />
             <optional>
-                <reference ref="name_operator"/>
                 <text key="height" text="Height (meters)" length="7"/>
                 <reference ref="material"/>
+                <reference ref="pumpMechanism" />
+                <reference ref="mechCoupling" />
+                <reference ref="handle" />
+                <text key="pressure" text="Pressure (bar)" />
+                <text key="flow_rate" text="Flow rate with unit of measure" />
+                <space />
+                <reference ref="name_ref_operator" />
+                <text key="manufacturer" text="Manufacturer" />
             </optional>
+            <preset_link preset_name="Pump" text="Similar but different tags:" alternative="true" />
+            <preset_link preset_name="Water Well" text="Similar but different tags:" alternative="true" />
+            <preset_link preset_name="Petroleum well" text="Similar but different tags:" alternative="true" />
         </item> <!-- Windpump -->
+        <item name="Pump" icon="icons/png/man_made_empty.png" type="node,closedway" preset_name_label="true">
+            <link wiki="Tag:man_made=pump" />
+            <space />
+            <key key="man_made" value="pump" />
+            <reference ref="substance" />
+            <optional>
+                <reference ref="pump_details" />
+                <reference ref="handle" />
+                <text key="pressure" text="Pressure (bar)" />
+                <text key="flow_rate" text="Flow rate with unit of measure" />
+                <space />
+                <reference ref="name_ref_operator" />
+                <text key="manufacturer" text="Manufacturer" />
+                <combo key="location" text="Location" values="outdoor,indoor,underground,underwater" values_context="pump" />
+            </optional>
+            <preset_link preset_name="Windpump" text="Similar but different tags:"  alternative="true" />
+            <preset_link preset_name="Water Well" text="Similar but different tags:"  alternative="true" />
+            <preset_link preset_name="Petroleum well" text="Similar but different tags:" alternative="true" />
+        </item> <!-- Pump -->
         <item name="Gasometer" icon="icons/png/man_made_gasometer_22024.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:man_made=gasometer"/>
-            <space/>
             <key key="man_made" value="gasometer"/>
             <optional>
-                <reference ref="name_operator"/>
+                <reference ref="name_ref_operator"/>
                 <combo key="building" text="Building" values="gasometer" values_context="building"/>
                 <text key="height" text="Height (meters)" length="7"/>
             </optional>
@@ -7990,7 +8181,7 @@
             <space/>
             <key key="man_made" value="silo"/>
             <optional>
-                <reference ref="name_operator"/>
+                <reference ref="name_ref_operator"/>
                 <combo key="building" text="Building" values="silo" values_context="building"/>
                 <text key="height" text="Height (meters)" length="7"/>
             </optional>
@@ -7999,7 +8190,7 @@
             <link wiki="Tag:man_made=storage_tank"/>
             <key key="man_made" value="storage_tank"/>
             <optional>
-                <reference ref="name_operator"/>
+                <reference ref="name_ref_operator"/>
                 <combo key="building" text="Building" values="storage_tank" values_context="building"/>
                 <combo key="content" text="Content" values="fuel,manure,oil,sewage,silage,slurry,water,wine" display_values="Fuel,Manure,Oil,Sewage,Silage,Slurry,Water,Wine" values_context="content"/>
                 <text key="height" text="Height (meters)" length="7"/>
@@ -8016,7 +8207,7 @@
             <space/>
             <key key="man_made" value="bunker_silo"/>
             <optional>
-                <reference ref="name_operator"/>
+                <reference ref="name_ref_operator"/>
             </optional>
         </item> <!-- Bunker Silo -->
         <item name="Crane" icon="icons/png/poi_crane.png" type="node,way,closedway" preset_name_label="true">
@@ -8025,7 +8216,7 @@
             <key key="man_made" value="crane"/>
             <optional>
                 <combo key="crane:type" text="Type" values="floor-mounted_crane,gantry_crane,portal_crane,travel_lift" display_values="Floor-mounted crane,Gantry crane,Portal crane,Travel lift"/>
-                <reference ref="name_operator"/>
+                <reference ref="name_ref_operator"/>
             </optional>
         </item> <!-- Crane -->
         <item name="Goods conveyor" icon="icons/png/man_made_empty.png" type="way" preset_name_label="true">
@@ -8033,13 +8224,14 @@
             <space />
             <key key="man_made" value="goods_conveyor" />
             <optional>
-                <reference ref="name_operator" />
+                <reference ref="name_ref_operator" />
                 <reference ref="resource" />
                 <checkgroup columns="3">
                     <check key="covered" text="Covered" />
                     <check key="bridge" text="Bridge" disable_off="true" />
                     <check key="tunnel" text="Tunnel" disable_off="true" />
                 </checkgroup>
+                <reference ref="layer" />
             </optional>
         </item> <!-- Goods conveyor -->
         <item name="Mineshaft" icon="icons/png/poi_mine.png" type="node,closedway" preset_name_label="true">
@@ -8055,12 +8247,22 @@
             <check key="disused" text="Disused" disable_off="true"/>
         </item> <!-- Mineshaft -->
         <item name="Petroleum well" icon="icons/png/man_made_petroleum_well_22045.png" type="node,closedway" preset_name_label="true">
-            <link wiki="Tag:man_made=petroleum_well"/>
-            <space/>
-            <key key="man_made" value="petroleum_well"/>
+            <link wiki="Tag:man_made=petroleum_well" />
+            <space />
+            <key key="man_made" value="petroleum_well" />
+            <combo key="substance" text="Substance" values="gas,oil" />
             <optional>
-                <text key="name" text="Name"/>
+                <reference ref="pump_details" />
+                <reference ref="handle" />
+                <text key="pressure" text="Pressure (bar)" />
+                <text key="flow_rate" text="Flow rate with unit of measure" />
+                <space />
+                <reference ref="name_ref_operator" />
+                <text key="manufacturer" text="Manufacturer" />
             </optional>
+            <preset_link preset_name="Water Well" text="Similar but different tags:" alternative="true" />
+            <preset_link preset_name="Windpump" text="Similar but different tags:" alternative="true" />
+            <preset_link preset_name="Pump" text="Similar but different tags:" alternative="true" />
         </item> <!-- Petroleum well -->
         <item name="Adit" icon="icons/png/man_made_adit_22001.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=adit"/>
@@ -8087,8 +8289,8 @@
             <link wiki="Tag:man_made=pipeline"/>
             <space/>
             <key key="man_made" value="pipeline"/>
-            <reference ref="name_ref"/>
-            <reference ref="operator_substance"/>
+            <reference ref="optional_name_ref_operator"/>
+            <reference ref="substance"/>
             <combo key="location" text="Location" values="overground,overhead,underground,underwater" display_values="Overground,Overhead,Underground,Underwater" values_context="pipeline"/>
             <combo key="diameter" text="Diameter (mm)" values="800,1000,1200,1500,1600,1800,2200,2300,2400,2500,2600,2800,3200,3300,3400,3500,4000,4200,4300,4800" />
             <text key="pressure" text="Pressure (bar)" />
@@ -8099,39 +8301,38 @@
             <key key="pipeline" value="substation" />
             <text key="name" text="Name" />
             <combo key="substation" text="Type" values="compression,distribution,field_gathering,inspection_gauge,measurement,valve,valve_group"
-                display_values="Compression,Distribution,Field gathering,Inspection gauge,Measurement,Valve,Valve group" values_context="pipeline" />
-            <text key="ref" text="Reference" />
-            <reference ref="operator_substance" />
+                display_values="Compression,Distribution,Field gathering,Inspection gauge,Measurement,Valve,Valve group" values_context="pipeline" values_searchable="true" />
+            <reference ref="ref_operator" />
+            <reference ref="substance" />
         </item> <!-- Pipeline Substation -->
         <item name="Pipeline Marker" icon="icons/png/man_made_pipeline_marker.png" deprecated="true" type="node" preset_name_label="true">
             <link wiki="Tag:pipeline=marker"/>
             <space/>
             <key key="pipeline" value="marker"/>
-            <text key="ref" text="Reference"/>
-            <reference ref="operator_substance"/>
+            <reference ref="optional_ref_operator" />
+            <reference ref="substance" />
             <reference ref="support"/>
         </item> <!-- Pipeline Marker -->
         <item name="Pipeline Valve" icon="icons/png/man_made_pipeline_valve.png" type="node" preset_name_label="true">
             <link wiki="Tag:pipeline=valve"/>
             <space/>
             <key key="pipeline" value="valve"/>
-            <text key="ref" text="Reference"/>
-            <reference ref="operator_substance"/>
+            <reference ref="optional_ref_operator" />
+            <reference ref="substance" />
             <combo key="valve" text="Valve type"
                 values="butterfly,globe,ball,plug,gate,needle,spool"
                 display_values="Butterfly,Globe,Ball,Plug,Gate,Needle,Spool" values_context="valve" />
             <combo key="actuator" text="Actuator"
                 values="electric_motor,hydraulic_cylinder,manual,pneumatic_cylinder,solenoid,thermostatic"
                 display_values="Electric motor,Hydraulic cylinder,Manual,Pneumatic cylinder,Solenoid,Thermostatic" values_context="actuator" />
-            <combo key="handle" text="Handle" values="lever,wheel,cross,button" display_values="Lever,Wheel,Cross,Button" values_context="handle" />
-            <combo key="turn_to_close" text="Direction to close" values="clockwise,anti_clockwise" display_values="Clockwise,Anticlockwise" />
+            <reference ref="handle" />
             <combo key="sensor:position" text="Position sensor" values="optical,mechanical,inductive,yes" display_values="Optical,Mechanical,Inductive,Yes" />
         </item> <!-- Pipeline Valve -->
         <item name="Marker" icon="icons/png/man_made_pipeline_marker.png" type="node" preset_name_label="true">
             <link wiki="Key:marker" />
             <space />
             <combo key="marker" text="Type" values="aerial,ground,pedestal,plate,post,stone" display_values="Aerial,Ground,Pedestal,Plate,Post,Stone" values_context="marker" match="key" />
-            <reference ref="utility" />
+            <reference ref="utilities" />
             <optional>
                 <reference ref="ref_operator" />
                 <combo key="material" text="Material" values="concrete,metal,plastic,steel,stone,wood" display_values="Concrete,Metal,Plastic,Steel,Stone,Wood" values_context="material"/>
@@ -8177,10 +8378,9 @@
             <link wiki="Tag:man_made=pumping_station"/>
             <space/>
             <key key="man_made" value="pumping_station"/>
-            <reference ref="optional_name"/>
             <optional>
-                <text key="ref" text="Reference"/>
-                <reference ref="operator_substance"/>
+                <reference ref="name_ref_operator"/>
+                <reference ref="substance"/>
             </optional>
         </item> <!-- Pumping station -->
         <item name="Dyke" icon="icons/png/man_made_dyke_22021.png" type="way" preset_name_label="true">
@@ -8188,7 +8388,7 @@
             <space/>
             <key key="man_made" value="dyke"/>
             <reference ref="optional_name"/>
-        </item> <!-- Pumping station -->
+        </item> <!-- Dyke -->
         <item name="Fountain" icon="icons/png/amenity_fountain2.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=fountain"/>
             <space/>
@@ -8203,10 +8403,19 @@
             <link wiki="Tag:man_made=water_well"/>
             <space/>
             <key key="man_made" value="water_well"/>
+            <combo key="pump" text="Pump" values="yes,no,manual,powered" display_values="Yes,No,Manual,Powered" values_sort="false"/>
             <optional>
                 <text key="name" text="Name"/>
-                <combo key="pump" text="Pump" values="yes,no,manual,powered" display_values="Yes,No,Manual,Powered" values_sort="false"/>
+                <reference ref="pump_details" />
+                <reference ref="handle" />
+                <text key="pressure" text="Pressure (bar)" />
+                <text key="flow_rate" text="Flow rate with unit of measure" />
+                <space />
+                <reference ref="name_ref_operator" />
             </optional>
+            <preset_link preset_name="Petroleum well" text="Similar but different tags:" alternative="true" />
+            <preset_link preset_name="Windpump" text="Similar but different tags:" alternative="true" />
+            <preset_link preset_name="Pump" text="Similar but different tags:" alternative="true" />
         </item> <!-- Water Well -->
         <item name="Water tap" icon="icons/png/man_made_water_point_34025.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=water_tap"/>
@@ -8371,76 +8580,198 @@
         <item name="Bridge" icon="icons/png/highway_bridge_sp.png" type="way,relation,multipolygon" preset_name_label="true">
             <link wiki="Key:bridge"/>
             <space/>
-            <combo key="bridge" text="Bridge" values="yes,aqueduct,boardwalk,cantilever,covered,low_water_crossing,trestle,viaduct" display_values="Yes,Aqueduct,Boardwalk,Cantilever,Covered,Low water crossing,Trestle,Viaduct" match="keyvalue!" default="yes" values_context="bridge"/>
             <reference ref="bridge_details"/>
             <reference ref="optional_bridge"/>
-            <preset_link preset_name="Movable Bridge"/>
-            <preset_link preset_name="Movable Support"/>
         </item> <!-- Bridge -->
-        <item name="Movable Bridge" icon="icons/png/highway_movable_bridge_sp.png" type="way,relation,multipolygon" preset_name_label="true">
-            <link wiki="Key:bridge:movable"/>
-            <space/>
-            <key key="bridge" value="movable"/>
-            <combo key="bridge:movable" text="Type" values="bascule,drawbridge,lift,submersible,swing,transporter,retractable,tilt" display_values="Bascule,Drawbridge,Lift,Submersible,Swing,Transporter,Retractable,Tilt" match="key" values_context="bridge"/>
-            <reference ref="optional_bridge"/>
-        </item> <!-- Movable Bridge -->
-        <item name="Bridge Support" icon="icons/png/highway_bridge_sp.png" type="node,closedway" preset_name_label="true">
-            <link wiki="Key:bridge:support"/>
-            <space/>
-            <combo key="bridge:support" text="Type" values="pier,abutment,lift_pier,pivot_pier,pylon" display_values="Pier,Abutment,Lift pier,Pivot pier,Pylon" match="key" values_context="bridge" />
-        </item> <!-- Bridge Support -->
         <item name="Bridge outline" icon="icons/png/highway_bridge_sp.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:man_made=bridge"/>
             <space/>
             <key key="man_made" value="bridge"/>
-            <combo key="bridge" text="Bridge type" values="aqueduct,boardwalk,cantilever,covered,low_water_crossing,trestle,viaduct" display_values="Aqueduct,Boardwalk,Cantilever,Covered,Low water crossing,Trestle,Viaduct" values_context="bridge"/>
             <reference ref="bridge_details"/>
             <optional>
                 <reference ref="name_layer"/>
             </optional>
-            <preset_link preset_name="Movable Bridge"/>
-            <preset_link preset_name="Movable Support"/>
         </item> <!-- Bridge outline -->
     </group> <!-- Bridges -->
     <group name="Power" icon="icons/png/power_station_coal.png">
-        <item name="Power Plant" icon="icons/png/power_station_coal.png" gtype="closedway,relation,multipolygon" preset_name_label="true">
-            <link wiki="Tag:power=plant"/>
-            <space/>
-            <key key="power" value="plant"/>
-            <reference ref="name_ref_operator"/>
-            <text key="start_date" text="Start date"/>
-            <optional text="Output forms of energy (optional):">
-                <combo key="plant:output:electricity" text="electricity" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
-                <combo key="plant:output:hot_water" text="hot water" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
-                <combo key="plant:output:hot_air" text="hot air" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
-                <combo key="plant:output:cold_water" text="cold water" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
-                <combo key="plant:output:cold_air" text="cold air" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
-                <combo key="plant:output:compressed_air" text="compressed air" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
-                <combo key="plant:output:steam" text="steam" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
-                <combo key="plant:output:vacuum" text="vacuum" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
-                <space/>
-                <reference ref="voltage_frequency"/>
-            </optional>
-        </item> <!-- Power Plant -->
+        <group name="Power Plant" icon="icons/png/power_station_coal.png">
+            <item name="Power Plant" icon="icons/png/power_station_coal.png" type="closedway,multipolygon,relation" preset_name_label="true" match_expression="power=plant -(&quot;plant:source&quot;=biofuel|&quot;plant:source&quot;=biogas|&quot;plant:source&quot;=biomass|&quot;plant:source&quot;=coal|&quot;plant:source&quot;=diesel|&quot;plant:source&quot;=gas|&quot;plant:source&quot;=gasoline|&quot;plant:source&quot;=geothermal|&quot;plant:source&quot;=hydro|&quot;plant:source&quot;=nuclear|&quot;plant:source&quot;=oil|&quot;plant:source&quot;=osmotic|&quot;plant:source&quot;=solar|&quot;plant:source&quot;=tidal|&quot;plant:source&quot;=waste|&quot;plant:source&quot;=wave|&quot;plant:source&quot;=wind)">
+                <link wiki="Tag:power=plant" />
+                <space />
+                <reference ref="power_plant" />
+                <multiselect key="plant:source" text="Plant source" values_searchable="true" values_sort="false">
+                    <list_entry value="biofuel" display_value="Biofuel" icon="presets/power/power_source-biofuel.svg" />
+                    <list_entry value="oil" display_value="Oil" icon="presets/power/power_source-oil.svg" />
+                    <list_entry value="diesel" display_value="Diesel" icon="presets/power/power_source-oil.svg" />
+                    <list_entry value="gasoline" display_value="Gasoline" icon="presets/power/power_source-oil.svg" />
+                    <list_entry value="biogas" display_value="Biogas" icon="presets/power/power_source-biofuel.svg" />
+                    <list_entry value="gas" display_value="Gas" icon="presets/power/power_source-gas.svg" />
+                    <list_entry value="biomass" display_value="Biomass" icon="presets/power/power_source-biofuel.svg" />
+                    <list_entry value="waste" display_value="Waste" icon="presets/power/power_source-waste.svg" />
+                    <list_entry value="coal" display_value="Coal" icon="presets/power/power_source-coal.svg" />
+                    <list_entry value="nuclear" display_value="Nuclear" icon="presets/power/power_source-nuclear.svg" />
+                    <list_entry value="geothermal" display_value="Geothermal" icon="presets/power/power_source-geothermal.svg" />
+                    <list_entry value="hydro" display_value="Hydro" icon="presets/power/power_source-water.svg" />
+                    <list_entry value="osmotic" display_value="Osmotic" icon="presets/power/power_source-water.svg" />
+                    <list_entry value="tidal" display_value="Tidal" icon="presets/power/power_source-water.svg" />
+                    <list_entry value="wave" display_value="Wave" icon="presets/power/power_source-water.svg" />
+                    <list_entry value="solar" display_value="Solar" icon="presets/power/power_source-sun.svg" />
+                    <list_entry value="wind" display_value="Wind" icon="presets/power/power_source-wind.svg" />
+                </multiselect>
+            </item> <!-- Power Plant -->
+            <separator/>
+            <item name="Biofuel Power Plant" icon="icons/png/power_generator_biofuel_26006.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:power=plant" />
+                <key key="plant:source" value="biofuel" />
+                <key key="plant:method" value="combustion" match="none" />
+                <space />
+                <reference ref="power_plant" />
+            </item> <!-- Biofuel Power Plant -->
+            <item name="Biogas Power Plant" icon="icons/png/power_generator_biogas_26007.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:power=plant" />
+                <key key="plant:source" value="biogas" />
+                <key key="plant:method" value="combustion" match="none" />
+                <space />
+                <reference ref="power_plant" />
+            </item> <!-- Biogas Power Plant -->
+            <item name="Biomass Power Plant" icon="icons/png/power_generator_biomass_26008.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:plant:source=biomass" />
+                <key key="plant:source" value="biomass" />
+                <space />
+                <reference ref="power_plant" />
+                <space />
+                <combo key="plant:method" text="Method" values_context="generator method" values="anaerobic_digestion,combustion,gasification" 
+                    display_values="Anaerobic digestion,Combustion,Gasification" match="none" text_context="power" />
+            </item> <!-- Biomass Power Plant -->
+            <item name="Coal Power Plant" icon="icons/png/power_station_coal.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:plant:source=coal" />
+                <key key="plant:source" value="coal" />
+                <key key="plant:method" value="combustion" match="none" />
+                <space />
+                <reference ref="power_plant" />
+            </item> <!-- Coal Power Plant -->
+            <item name="Gas Power Plant" icon="icons/png/power_station_gas.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:plant:source=gas" />
+                <key key="plant:source" value="gas" />
+                <key key="plant:method" value="combustion" match="none" />
+                <space />
+                <reference ref="power_plant" />
+            </item> <!-- Gas Power Plant -->
+            <item name="Oil Power Plant" icon="icons/png/power_generator_oil_26025.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:plant:source=oil" />
+                <key key="plant:source" value="oil" />
+                <key key="plant:method" value="combustion" match="none" />
+                <space />
+                <reference ref="power_plant" />
+            </item> <!-- Oil Power Plant -->
+            <item name="Diesel Power Plant" icon="icons/png/power_generator_diesel_26025.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:power=plant" />
+                <key key="plant:source" value="diesel" />
+                <key key="plant:method" value="combustion" match="none" />
+                <space />
+                <reference ref="power_plant" />
+            </item> <!-- Diesel Power Plant -->
+            <item name="Gasoline Power Plant" icon="icons/png/power_generator_gasoline_26022.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:power=plant" />
+                <key key="plant:source" value="gasoline" />
+                <key key="plant:method" value="combustion" match="none" />
+                <space />
+                <reference ref="power_plant" />
+            </item> <!-- Gasoline Power Plant -->
+            <item name="Nuclear Power Plant" icon="icons/png/power_generator_nuclear_26024.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:plant:source=nuclear" />
+                <key key="plant:source" value="nuclear" />
+                <space />
+                <reference ref="power_plant" />
+                <space />
+                <combo key="plant:method" text="Method" values_context="generator method" values="fission,fusion" 
+                    display_values="Fission,Fusion" match="none" text_context="power" />
+            </item> <!-- Nuclear Power Plant -->
+            <item name="Waste Power Plant" icon="icons/png/power_generator_waste_26028.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:plant:source=waste" />
+                <key key="plant:source" value="waste" />
+                <space />
+                <reference ref="power_plant" />
+                <space />
+                <combo key="plant:method" text="Method" values_context="generator method" values="combustion,gasification,pyrolysis" />
+            </item> <!-- Waste Power Plant -->
+            <item name="Geothermal Power Plant" icon="icons/png/power_generator_26005.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:plant:source=geothermal" />
+                <key key="plant:source" value="geothermal" />
+                <space />
+                <reference ref="power_plant" />
+            </item> <!-- Geothermal Power Plant -->
+            <item name="Hydro Power Plant" icon="icons/png/power_station_water.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:plant:source=hydro" />
+                <key key="plant:source" value="hydro" />
+                <space />
+                <reference ref="power_plant" />
+                <space />
+                <combo key="plant:method" text="Method" values_context="generator method" values="run-of-the-river,water-pumped-storage,water-storage" 
+                    display_values="Run of the river,Water pumped storage,Water storage" match="none" text_context="power" />               
+            </item> <!-- Hydro Power Plant -->
+            <item name="Tidal Power Plant" icon="icons/png/power_generator_tidal_26027.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:power=plant" />
+                <key key="plant:source" value="tidal" />
+                <space />
+                <reference ref="power_plant" />
+                <space />
+                <combo key="plant:method" text="Method" values_context="generator method" values="barrage,stream" />
+            </item> <!-- Tidal Power Plant -->
+            <item name="Wave Power Plant" icon="icons/png/power_generator_wave_26029.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:power=plant" />
+                <key key="plant:source" value="wave" />
+                <space />
+                <reference ref="power_plant" />
+            </item> <!-- Wave Power Plant -->
+            <item name="Osmotic Power Plant" icon="icons/png/power_generator_26005.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:power=plant" />
+                <key key="plant:source" value="osmotic" />
+                <space />
+                <reference ref="power_plant" />
+            </item> <!-- Osmotic Power Plant -->
+            <item name="Solar Power Plant" icon="icons/png/power_station_solar.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:plant:source=solar" />
+                <key key="plant:source" value="solar" />
+                <space />
+                <reference ref="power_plant" />
+                <space />
+                <combo key="plant:method" text="Method" values_context="generator method" values="photovoltaic,thermal" display_values="Photovoltaic,Thermal" match="none" text_context="power" />
+            </item> <!-- Solar Power Plant -->
+            <item name="Wind Power Plant" icon="icons/png/power_station_wind.png" type="closedway,multipolygon,relation" preset_name_label="true">
+                <link wiki="Tag:plant:source=wind" />
+                <key key="plant:source" value="wind" />
+                <key key="plant:method" value="wind_turbine" match="none" />
+                <space />
+                <reference ref="power_plant" />
+            </item> <!-- Wind Power Plant -->
+        </group> <!-- Power Plant -->
         <group name="Power Generator" icon="icons/png/power_station_coal.png">
             <item name="Biofuel Power Generator" icon="icons/png/power_generator_biofuel_26006.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=biofuel" />
                 <key key="generator:source" value="biofuel"/>
+                <space />
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none" />
                 <combo key="generator:type" text="Generator Type" values="gas_turbine,reciprocating_engine,steam_generator" display_values="Gas turbine,Reciprocating engine,Steam generator"/>
                 <reference ref="power_output"/>
             </item> <!-- Power Generator -->
             <item name="Biogas Power Generator" icon="icons/png/power_generator_biogas_26007.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=biogas" />
                 <key key="generator:source" value="biogas"/>
+                <space />
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none" />
                 <combo key="generator:type" text="Generator Type" values="reciprocating_engine,steam_generator" display_values="Reciprocating engine,Steam generator"/>
                 <reference ref="power_output"/>
             </item> <!-- Biogas Power Generator -->
             <item name="Biomass Power Generator" icon="icons/png/power_generator_biomass_26008.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=biomass" />
                 <key key="generator:source" value="biomass"/>
+                <space />
                 <reference ref="power_generator"/>
-                <combo key="generator:method" text="Method" values_context="generator method" values="anaerobic_digestion,combustion,gasification" display_values="Anaerobic digestion,Combustion,Gasification" match="none" text_context="power" />
+                <combo key="generator:method" text="Method" values_context="generator method" values="anaerobic_digestion,combustion,gasification" 
+                    display_values="Anaerobic digestion,Combustion,Gasification" match="none" text_context="power" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
                     <list_entry value="bioreactor" short_description="Bioreactor"/>
                     <list_entry value="pyrolysis" short_description="Pyrolysis"/>
@@ -8450,42 +8781,54 @@
                 <reference ref="power_output"/>
             </item> <!-- Biomass Power Generator -->
             <item name="Coal Power Generator" icon="icons/png/power_station_coal.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=coal" />
                 <key key="generator:source" value="coal"/>
+                <space />
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none" />
                 <combo key="generator:type" text="Generator Type" values="steam_generator,steam_turbine" display_values="Steam generator,Steam turbine"/>
                 <reference ref="power_output"/>
             </item> <!-- Coal Power Generator -->
             <item name="Gas Power Generator" icon="icons/png/power_station_gas.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=gas" />
                 <key key="generator:source" value="gas"/>
+                <space />
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none" />
                 <combo key="generator:type" text="Generator Type" values="combined_cycle,gas_turbine,reciprocating_engine,steam_generator,steam_turbine" display_values="Combined cycle,Gas turbine,Reciprocating engine,Steam generator,Steam turbine"/>
                 <reference ref="power_output"/>
             </item> <!-- Gas Power Generator -->
             <item name="Oil Power Generator" icon="icons/png/power_generator_oil_26025.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=oil" />
                 <key key="generator:source" value="oil"/>
+                <space />
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none" />
                 <combo key="generator:type" text="Generator Type" values="steam_generator,steam_turbine" display_values="Steam generator,Steam turbine"/>
                 <reference ref="power_output"/>
             </item> <!-- Oil Power Generator -->
             <item name="Diesel Power Generator" icon="icons/png/power_generator_diesel_26025.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=diesel" />
                 <key key="generator:source" value="diesel"/>
+                <space />
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none" />
                 <combo key="generator:type" text="Generator Type" values="reciprocating_engine,steam_generator" display_values="Reciprocating engine,Steam generator"/>
                 <reference ref="power_output"/>
             </item> <!-- Diesel Power Generator -->
             <item name="Gasoline Power Generator" icon="icons/png/power_generator_gasoline_26022.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=gasoline" />
                 <key key="generator:source" value="gasoline"/>
+                <space />
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none" />
                 <combo key="generator:type" text="Generator Type" values="reciprocating_engine,steam_generator" display_values="Reciprocating engine,Steam generator"/>
                 <reference ref="power_output"/>
             </item> <!-- Gasoline Power Generator -->
             <item name="Nuclear Reactor" icon="icons/png/power_generator_nuclear_26024.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=nuclear" />
                 <key key="generator:source" value="nuclear"/>
+                <space />
                 <reference ref="power_generator"/>
                 <combo key="generator:method" text="Method" values_context="generator method" values="fission,fusion" display_values="Fission,Fusion" match="none" text_context="power" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
@@ -8510,7 +8853,9 @@
                 <reference ref="power_output"/>
             </item> <!-- Nuclear Reactor -->
             <item name="Solar Power Generator" icon="icons/png/power_station_solar.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=solar" />
                 <key key="generator:source" value="solar"/>
+                <space />
                 <reference ref="power_generator_optional_name_ref"/>
                 <combo key="generator:method" text="Method" values_context="generator method" values="photovoltaic,thermal" display_values="Photovoltaic,Thermal" match="none" text_context="power" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
@@ -8522,7 +8867,9 @@
                 <reference ref="power_output"/>
             </item> <!-- Solar Power Generator -->
             <item name="Waste Power Generator" icon="icons/png/power_generator_waste_26028.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=waste" />
                 <key key="generator:source" value="waste"/>
+                <space />
                 <reference ref="power_generator"/>
                 <combo key="generator:method" text="Method" values_context="generator method" values="combustion,gasification,pyrolysis" display_values="Combustion,Gasification,Pyrolysis" match="none" text_context="power" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
@@ -8534,9 +8881,12 @@
                 <reference ref="power_output"/>
             </item> <!-- Waste Power Generator -->
             <item name="Water Turbine" icon="icons/png/power_station_water.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=hydro" />
                 <key key="generator:source" value="hydro"/>
+                <space />
                 <reference ref="power_generator"/>
-                <combo key="generator:method" text="Method" values_context="generator method" values="run-of-the-river,water-pumped-storage,water-storage" display_values="Run of the river,Water pumped storage,Water storage" match="none" text_context="power" />
+                <combo key="generator:method" text="Method" values_context="generator method" values="run-of-the-river,water-pumped-storage,water-storage" 
+                    display_values="Run of the river,Water pumped storage,Water storage" match="none" text_context="power" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
                     <list_entry value="francis_turbine" short_description="Francis turbine"/>
                     <list_entry value="hydrodynamic_screw" short_description="Hydrodynamic screw"/>
@@ -8546,7 +8896,9 @@
                 <reference ref="power_output"/>
             </item> <!-- Water Turbine -->
             <item name="Tidal Water Turbine" icon="icons/png/power_generator_tidal_26027.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=tidal" />
                 <key key="generator:source" value="tidal"/>
+                <space />
                 <reference ref="power_generator"/>
                 <combo key="generator:method" text="Method" values_context="generator method" values="barrage,stream" display_values="Barrage,Stream" match="none" text_context="power" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
@@ -8557,28 +8909,46 @@
                 <reference ref="power_output"/>
             </item> <!-- Tidal Water Turbine -->
             <item name="Wave Energy Converter" icon="icons/png/power_generator_wave_26029.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=wave" />
                 <key key="generator:source" value="wave"/>
+                <space />
                 <reference ref="power_generator"/>
                 <reference ref="power_output"/>
             </item> <!-- Wave Energy Converter -->
             <item name="Osmotic Power Generator" icon="icons/png/power_generator_26005.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=osmotic" />
                 <key key="generator:source" value="osmotic"/>
+                <space />
                 <reference ref="power_generator"/>
                 <reference ref="power_output"/>
             </item> <!-- Osmotic Power Generator -->
             <item name="Geothermal Power Generator" icon="icons/png/power_generator_26005.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:generator:source=geothermal" />
                 <key key="generator:source" value="geothermal"/>
+                <space />
                 <reference ref="power_generator"/>
                 <combo key="generator:type" text="Generator Type" values="heat_pump,steam_turbine" display_values="Heat pump,Steam turbine"/>
                 <reference ref="power_output"/>
             </item> <!-- Geothermal Power Generator -->
             <item name="Wind Turbine" icon="icons/png/power_station_wind.png" type="node,closedway" preset_name_label="true">
+                <link wiki="Tag:generator:source=wind" />
                 <key key="generator:source" value="wind"/>
+                <space />
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="wind_turbine" match="none" />
                 <combo key="generator:type" text="Generator Type" values="horizontal_axis,vertical_axis" display_values="Horizontal axis,Vertical axis"/>
                 <reference ref="power_output"/>
             </item> <!-- Wind Turbine -->
+            <item name="Heliostat" icon="" type="node" preset_name_label="true">
+                <link wiki="Tag:power=heliostat" />
+                <key key="power" value="heliostat" />
+                <optional>
+                    <text key="ref" text="Reference" />
+                    <text key="start_date" text="Start date" />
+                    <text key="height" text="Height (meters)" length="7" />
+                    <text key="width" text="Width (meters)" />
+                </optional>
+            </item> <!-- Heliostat -->
         </group> <!-- Power Generator -->
         <separator/>
         <item name="Power Substation" icon="icons/png/power_substation.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -8736,6 +9106,7 @@
             <space/>
             <key key="power" value="pole"/>
             <reference ref="power_pole"/>
+            <preset_link preset_name="Utility pole" text="Similar preset:" alternative="true" />
         </item> <!-- Pole -->
         <item name="Pole with Switch" icon="icons/png/power_pole_with_switch.png" type="node" preset_name_label="true">
             <link wiki="Tag:power=pole"/>
@@ -10464,7 +10835,7 @@
             <reference ref="name_wikipedia"/>
             <reference ref="population_postcode_website"/>
         </item> <!-- Hamlet -->
-        <item name="Isolated Dwelling" icon="presets/places.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
+        <item name="Isolated Dwelling" icon="icons/png/poi_empty.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
             <link wiki="Tag:place=isolated_dwelling"/>
             <space/>
             <key key="place" value="isolated_dwelling"/>
@@ -10487,7 +10858,7 @@
             <text key="population" text="Population"/>
             <text key="website" text="Website" value_type="website"/>
         </item> <!-- Quarter -->
-        <item name="Neighbourhood" icon="presets/places.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
+        <item name="Neighbourhood" icon="icons/png/poi_empty.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
             <link wiki="Tag:place=neighbourhood"/>
             <space/>
             <key key="place" value="neighbourhood"/>
@@ -10495,7 +10866,7 @@
             <text key="population" text="Population"/>
             <text key="website" text="Website" value_type="website"/>
         </item> <!-- Neighbourhood -->
-        <item name="City block" icon="presets/places.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
+        <item name="City block" icon="icons/png/poi_empty.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
             <link wiki="Tag:place=city_block"/>
             <space/>
             <key key="place" value="city_block"/>
@@ -10514,7 +10885,7 @@
             <reference ref="population_postcode_website"/>
         </item> <!-- Farm -->
         <separator/>
-        <item name="Locality" icon="presets/locality.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
+        <item name="Locality" icon="icons/png/poi_empty.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
             <link wiki="Tag:place=locality"/>
             <space/>
             <key key="place" value="locality"/>
@@ -11731,10 +12102,13 @@
             <space/>
             <key key="type" value="bridge"/>
             <reference ref="layer"/>
-            <reference ref="name_ref"/>
-            <text key="height" text="Height (meters)" length="7"/>
-            <text key="length" text="Length (meters)"/>
-            <text key="operator" text="Operator"/>
+            <optional>
+                <reference ref="name_ref"/>
+                <reference ref="bridge_details"/>
+                <text key="height" text="Height (meters)" length="7"/>
+                <text key="length" text="Length (meters)"/>
+                <text key="operator" text="Operator"/>
+            </optional>
             <roles>
                 <role key="across" text="ways supported by (on top of) the bridge" requisite="optional" type="way"/>
                 <role key="under" text="ways passing under the bridge" requisite="optional" type="way"/>
@@ -11747,9 +12121,11 @@
             <space/>
             <key key="type" value="tunnel"/>
             <reference ref="layer"/>
-            <reference ref="name_ref"/>
-            <text key="length" text="Length (meters)"/>
-            <text key="operator" text="Operator"/>
+            <optional>
+                <reference ref="name_ref"/>
+                <text key="length" text="Length (meters)"/>
+                <text key="operator" text="Operator"/>
+            </optional>
             <roles>
                 <role key="through" text="ways passing through the tunnel" requisite="required" type="way"/>
                 <role key="outline" text="way forming the outline footprint" requisite="optional" count="1" type="closedway,multipolygon"/>
