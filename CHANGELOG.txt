@@ -1,5 +1,20 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+16.1.0:
+
+- Fix inconsistent default values application when multiple elements are selected
+- Fix start ElementSelectionMode if no elements are selected
+- Fix don't store child references for newly created elements in undo storage
+- Fix ensure that checkboxes in checkgroup modal have correct initial state
+- Improve handling of version conflicts
+- Update opening hours dependencies, use new `strictTimes`parameter
+- Update object search dependency
+- Update preset
+- Update NSI
+- Update translations
+- Update imagery from ELI
+- Many test improvements
+
 16.1.0-2:
 
 - Update translations
