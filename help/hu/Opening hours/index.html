@@ -329,11 +329,11 @@ i-->
 
 <h1 id="openstreetmap-nyitvatartas-szerkeszto">OpenStreetMap nyitvatartás-szerkesztő</h1>
 <p>Az OpenStreetMapben a nyitvatartási idők megadása meglehetősen bonyolult, ezért nem könnyű egyszerű és intuitív felhasználói felületet készíteni hozzá.</p>
-<p>Azonban az esetek többségében csak egy kis részét használjuk a definícióknak. A szerkesztő ezt figyelembe véve megpróbálja menükbe rejteni a bonyolultabb funkciókat, és az esetek többségében lecsökkenteni az általános használatot az előre definiált sablonok testreszabására.</p>
+<p>Azonban az esetek többségében csak egy kis részét használjuk a definícióknak. A szerkesztő ezt figyelembe véve megpróbálja menükbe rejteni a bonyolultabb funkciókat, és az esetek többségében az előre definiált sablonok testreszabására csökkenteni a mindennapos használatot.</p>
 <p><em>Ez a dokumentáció ideiglenes, és dolgozunk rajta</em></p>
 <h2 id="a-nyitvatartas-szerkeszto-hasznalata">A nyitvatartás-szerkesztő használata</h2>
 <p>A szokásos munkamenet szerint a szerkesztett térképelemnek vagy már van egy nyitva tartást tartalmazó címkéje (opening_hours, service_times vagy collection_times), vagy az előbeállításnak a térképelemre történő újraalkalmazásával nyithat egy üres nyitva tartási mezőt. Ha a mezőt kézzel kell hozzáadnia és Vespuccit használ, akkor a kulcsot megadhatja a részletes adatok oldalán, majd visszakapcsolhat az űrlapalapú fülre a szerkesztéshez. Ha úgy véli, hogy a nyitva tartási címkének az előbeállításban is szerepelnie kellene, kérjük, nyisson egy kérdést (issue) a szerkesztőjéhez.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
 <p>Természetesen a semmiből is elkezdheted összeállítani a nyitva tartást, azonban azt talácsoljuk, hogy kiindulási pontként használd valamelyik sablont.</p>
 <p>Amikor egy meglévő nyitva tartás betöltődik, akkor történik egy automatikus javítási kísérlet, hogy megfeleljen a nyitva tartási idők specifikációjának. Ha ez nem lehetséges, akkor a hiba körülbelüli helye kiemelődik a nyers nyitva tartás kijelzőjén, és megpróbálhatod kézzel kijavítani. Az OpenStreetMap adatbázisában a nyitva tartási értékek mintegy negyede hibás, azonban csak kevesebb mint 10% -uk nem javítható. A specifikációtól való megtűrt eltérések: <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a></p>
 <h3 id="fomenu-gomb">Főmenü gomb</h3>
@@ -383,9 +383,9 @@ i-->
 <li><strong>Eltolásokkal…</strong>: a fentiekkel megegyező bejegyzések, azonban egy adott értékkel eltolva (ritka).</li>
 </ul>
 </li>
-<li><strong>Add year range...</strong>    <ul>
+<li><strong>Évtartomány hozzáadása…</strong><ul>
 <li><strong>Évtartomány hozzáadása</strong>: évalapú kijelölő hozzáadása.</li>
-<li><strong>Add starting year</strong>: add an open ended year range.</li>
+<li><strong>Kezdő év hozzáadása</strong>: nyitott végű évtartomány hozzáadása.</li>
 </ul>
 </li>
 <li><strong>Héttartomány hozzáadása</strong>: hétalapú kijelölő hozzáadása.</li>
@@ -409,13 +409,22 @@ i-->
 <li><strong>Törlés</strong>: ennek az időtartamnak a törlése.</li>
 </ul>
 <h3 id="sablonok-kezelese">Sablonok kezelése</h3>
-<p>The template management dialog allows you to add, edit and delete templates.</p>
-<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<p>A sablonkezelő párbeszédablakkal hozzáadhat, szerkeszthet és törölhet sablonokat.</p>
+<p>Az Android 4.4 és újabb verziókban a következő további funkciók állnak rendelkezésre a menügombon keresztül. </p>
 <ul>
-<li><strong>Show all</strong>: display all templates in the database.</li>
-<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
-<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
-<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
+<li><strong>Összes megjelenítése</strong>: megjeleníti az adatbázis összes sablonját.</li>
+<li><strong>Mentés fájlba</strong>: a sablonadatbázis tartalmát egy fájlba írja.</li>
+<li><strong>Betöltés fájlból (csere)</strong>: egy fájlból betölti a sablonokat, és ezzel lecseréli az adatbázis jelenlegi tartalmát.</li>
+<li><strong>Betöltés fájlból</strong>: egy fájlból betölti a sablonokat miközben a jelenlegi tartalom is megmarad.</li>
+</ul>
+<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs</h4>
+<p>The dialog allows you to set</p>
+<ul>
+<li><strong>Name</strong> a descriptive name for the template.</li>
+<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
+<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
+<li><strong>Region</strong> the region the template is applicable to.</li>
+<li><strong>Object</strong> an application specific string to use for matching.</li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -428,11 +437,11 @@ i-->
 
 <h1 id="openstreetmap-nyitvatartas-szerkeszto">OpenStreetMap nyitvatartás-szerkesztő</h1>
 <p>Az OpenStreetMapben a nyitvatartási idők megadása meglehetősen bonyolult, ezért nem könnyű egyszerű és intuitív felhasználói felületet készíteni hozzá.</p>
-<p>Azonban az esetek többségében csak egy kis részét használjuk a definícióknak. A szerkesztő ezt figyelembe véve megpróbálja menükbe rejteni a bonyolultabb funkciókat, és az esetek többségében lecsökkenteni az általános használatot az előre definiált sablonok testreszabására.</p>
+<p>Azonban az esetek többségében csak egy kis részét használjuk a definícióknak. A szerkesztő ezt figyelembe véve megpróbálja menükbe rejteni a bonyolultabb funkciókat, és az esetek többségében az előre definiált sablonok testreszabására csökkenteni a mindennapos használatot.</p>
 <p><em>Ez a dokumentáció ideiglenes, és dolgozunk rajta</em></p>
 <h2 id="a-nyitvatartas-szerkeszto-hasznalata">A nyitvatartás-szerkesztő használata</h2>
 <p>A szokásos munkamenet szerint a szerkesztett térképelemnek vagy már van egy nyitva tartást tartalmazó címkéje (opening_hours, service_times vagy collection_times), vagy az előbeállításnak a térképelemre történő újraalkalmazásával nyithat egy üres nyitva tartási mezőt. Ha a mezőt kézzel kell hozzáadnia és Vespuccit használ, akkor a kulcsot megadhatja a részletes adatok oldalán, majd visszakapcsolhat az űrlapalapú fülre a szerkesztéshez. Ha úgy véli, hogy a nyitva tartási címkének az előbeállításban is szerepelnie kellene, kérjük, nyisson egy kérdést (issue) a szerkesztőjéhez.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
 <p>Természetesen a semmiből is elkezdheted összeállítani a nyitva tartást, azonban azt talácsoljuk, hogy kiindulási pontként használd valamelyik sablont.</p>
 <p>Amikor egy meglévő nyitva tartás betöltődik, akkor történik egy automatikus javítási kísérlet, hogy megfeleljen a nyitva tartási idők specifikációjának. Ha ez nem lehetséges, akkor a hiba körülbelüli helye kiemelődik a nyers nyitva tartás kijelzőjén, és megpróbálhatod kézzel kijavítani. Az OpenStreetMap adatbázisában a nyitva tartási értékek mintegy negyede hibás, azonban csak kevesebb mint 10% -uk nem javítható. A specifikációtól való megtűrt eltérések: <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a></p>
 <h3 id="fomenu-gomb">Főmenü gomb</h3>
@@ -482,9 +491,9 @@ i-->
 <li><strong>Eltolásokkal…</strong>: a fentiekkel megegyező bejegyzések, azonban egy adott értékkel eltolva (ritka).</li>
 </ul>
 </li>
-<li><strong>Add year range...</strong>    <ul>
+<li><strong>Évtartomány hozzáadása…</strong><ul>
 <li><strong>Évtartomány hozzáadása</strong>: évalapú kijelölő hozzáadása.</li>
-<li><strong>Add starting year</strong>: add an open ended year range.</li>
+<li><strong>Kezdő év hozzáadása</strong>: nyitott végű évtartomány hozzáadása.</li>
 </ul>
 </li>
 <li><strong>Héttartomány hozzáadása</strong>: hétalapú kijelölő hozzáadása.</li>
@@ -508,13 +517,22 @@ i-->
 <li><strong>Törlés</strong>: ennek az időtartamnak a törlése.</li>
 </ul>
 <h3 id="sablonok-kezelese">Sablonok kezelése</h3>
-<p>The template management dialog allows you to add, edit and delete templates.</p>
-<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<p>A sablonkezelő párbeszédablakkal hozzáadhat, szerkeszthet és törölhet sablonokat.</p>
+<p>Az Android 4.4 és újabb verziókban a következő további funkciók állnak rendelkezésre a menügombon keresztül. </p>
 <ul>
-<li><strong>Show all</strong>: display all templates in the database.</li>
-<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
-<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
-<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
+<li><strong>Összes megjelenítése</strong>: megjeleníti az adatbázis összes sablonját.</li>
+<li><strong>Mentés fájlba</strong>: a sablonadatbázis tartalmát egy fájlba írja.</li>
+<li><strong>Betöltés fájlból (csere)</strong>: egy fájlból betölti a sablonokat, és ezzel lecseréli az adatbázis jelenlegi tartalmát.</li>
+<li><strong>Betöltés fájlból</strong>: egy fájlból betölti a sablonokat miközben a jelenlegi tartalom is megmarad.</li>
+</ul>
+<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs</h4>
+<p>The dialog allows you to set</p>
+<ul>
+<li><strong>Name</strong> a descriptive name for the template.</li>
+<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
+<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
+<li><strong>Region</strong> the region the template is applicable to.</li>
+<li><strong>Object</strong> an application specific string to use for matching.</li>
 </ul></div>
                 
         </div>

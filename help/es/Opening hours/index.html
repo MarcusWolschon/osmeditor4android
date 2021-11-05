@@ -333,7 +333,7 @@ i-->
 <p><em>Esta documentación es preliminar y está en progreso</em></p>
 <h2 id="uso-del-editor-de-horarios-de-apertura">Uso del editor de horarios de apertura</h2>
 <p>En un flujo de trabajo típico, el objeto que está editando ya tendrá una etiqueta de horas de apertura (opening_hours, service_times y collection_times) o puede volver a aplicar el ajuste preestablecido para el objeto para obtener un campo de horario de apertura vacío. Si necesita agregar el campo manualmente y está utilizando Vespucci, puede ingresar la clave en la página de detalles y luego volver a la pestaña basada en el formulario para editar. Si cree que la etiqueta de las horas de apertura debería haber sido parte del ajuste preestablecido, abra una publicación para su editor.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
 <p>Naturalmente, puedes crear un valor de horarios de apertura desde cero, pero recomendamos usar una de las plantillas existentes para empezar.</p>
 <p>Si se carga un valor existente, se intentará autocorregir para ajustarlo a las especificaciones de horarios de apertura. Si no es posible, la ubicación aproximada del error se marcará el la pantalla del valor en texto plano de los horarios de apertura, y podrás intentar corregirlo manualmente. Aproximadamente, una cuarta parte de los valores de horarios de apertura en la base de datos de OpenStreetMap tienen problemas, pero menos del 10% no son corregibles; ver <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para más información sobre qué desviaciones sobre las especificaciones son toleradas.</p>
 <h3 id="boton-del-menu-principal">Botón del menú principal</h3>
@@ -416,6 +416,15 @@ i-->
 <li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
 <li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
 <li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
+</ul>
+<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs</h4>
+<p>The dialog allows you to set</p>
+<ul>
+<li><strong>Name</strong> a descriptive name for the template.</li>
+<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
+<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
+<li><strong>Region</strong> the region the template is applicable to.</li>
+<li><strong>Object</strong> an application specific string to use for matching.</li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -432,7 +441,7 @@ i-->
 <p><em>Esta documentación es preliminar y está en progreso</em></p>
 <h2 id="uso-del-editor-de-horarios-de-apertura">Uso del editor de horarios de apertura</h2>
 <p>En un flujo de trabajo típico, el objeto que está editando ya tendrá una etiqueta de horas de apertura (opening_hours, service_times y collection_times) o puede volver a aplicar el ajuste preestablecido para el objeto para obtener un campo de horario de apertura vacío. Si necesita agregar el campo manualmente y está utilizando Vespucci, puede ingresar la clave en la página de detalles y luego volver a la pestaña basada en el formulario para editar. Si cree que la etiqueta de las horas de apertura debería haber sido parte del ajuste preestablecido, abra una publicación para su editor.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tap (for example amenity=restaurant). </p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
 <p>Naturalmente, puedes crear un valor de horarios de apertura desde cero, pero recomendamos usar una de las plantillas existentes para empezar.</p>
 <p>Si se carga un valor existente, se intentará autocorregir para ajustarlo a las especificaciones de horarios de apertura. Si no es posible, la ubicación aproximada del error se marcará el la pantalla del valor en texto plano de los horarios de apertura, y podrás intentar corregirlo manualmente. Aproximadamente, una cuarta parte de los valores de horarios de apertura en la base de datos de OpenStreetMap tienen problemas, pero menos del 10% no son corregibles; ver <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para más información sobre qué desviaciones sobre las especificaciones son toleradas.</p>
 <h3 id="boton-del-menu-principal">Botón del menú principal</h3>
@@ -515,6 +524,15 @@ i-->
 <li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
 <li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
 <li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
+</ul>
+<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs</h4>
+<p>The dialog allows you to set</p>
+<ul>
+<li><strong>Name</strong> a descriptive name for the template.</li>
+<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
+<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
+<li><strong>Region</strong> the region the template is applicable to.</li>
+<li><strong>Object</strong> an application specific string to use for matching.</li>
 </ul></div>
                 
         </div>
