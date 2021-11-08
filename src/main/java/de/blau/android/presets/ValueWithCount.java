@@ -58,13 +58,14 @@ public class ValueWithCount implements Comparable<ValueWithCount> {
         if (count == -1) {
             return descriptionOnly ? (description != null ? description : value) : (description != null ? value + " - " + description : value);
         } else if (count >= 1) {
-            return value + " (" + count + ")" + (description != null ? value + " - " + description : "");
+            return value + " (" + count + ")" + (description != null ? " " + description : "");
         }
         return null; // NOSONAR this breaks the implicit contract for toString, however this class is specifically for
                      // use in ArrayAdapters
     }
 
     /**
+     * Get the actual value
      * 
      * @return the value
      */
@@ -74,12 +75,22 @@ public class ValueWithCount implements Comparable<ValueWithCount> {
     }
 
     /**
+     * Get the description for this value
      * 
      * @return the description or null if none
      */
     @Nullable
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Set the description for this value
+     * 
+     * @param description the description
+     */
+    public void setDescription(@Nullable String description) {
+        this.description = description;
     }
 
     @Override

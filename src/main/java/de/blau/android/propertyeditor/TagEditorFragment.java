@@ -76,6 +76,7 @@ import de.blau.android.presets.UseLastAsDefaultType;
 import de.blau.android.presets.ValueType;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.util.ArrayAdapterWithRuler;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.GeoContext.Properties;
@@ -156,6 +157,12 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     private int maxStringLength; // maximum key, value and role length
 
     OnPresetSelectedListener presetSelectedListener;
+
+    private final class Ruler extends ValueWithCount {
+        public Ruler() {
+            super("");
+        }
+    }
 
     /**
      * Interface for handling the key:value pairs in the TagEditor.
@@ -949,7 +956,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 }
             } else {
                 Map<String, Integer> counter = new HashMap<>();
-                ArrayAdapter<ValueWithCount> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row);
+                Map<String, ValueWithCount> valueMap = new HashMap<>();
+                ArrayAdapterWithRuler<ValueWithCount> adapter2 = new ArrayAdapterWithRuler<>(getActivity(), R.layout.autocomplete_row, Ruler.class);
                 if (hasTagValues) {
                     for (String t : row.tagValues) {
                         if ("".equals(t)) {
@@ -964,18 +972,24 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     List<String> keys = new ArrayList<>(counter.keySet());
                     Collections.sort(keys);
                     for (String t : keys) {
-                        // FIXME determine description in some way
                         ValueWithCount v = new ValueWithCount(t, counter.get(t));
                         adapter2.add(v);
+                        valueMap.put(t, v);
                     }
+                    adapter2.add(new Ruler());
                 }
                 if (preset != null) {
                     List<String> mruValues = App.getMruTags().getValues(preset, key);
-                    if (mruValues != null) {
+                    if (mruValues != null && !mruValues.isEmpty()) {
                         for (String v : mruValues) {
-                            adapter2.add(new ValueWithCount(v));
-                            counter.put(v, 1);
+                            if (!valueMap.containsKey(v)) {
+                                ValueWithCount vwc = new ValueWithCount(v);
+                                adapter2.add(vwc);
+                                counter.put(v, 1);
+                                valueMap.put(v, vwc);
+                            }
                         }
+                        adapter2.add(new Ruler());
                     }
                     Collection<StringWithDescription> values = preset.getAutocompleteValues(key);
                     Log.d(DEBUG_TAG, "setting autocomplete adapter for values " + values + " based on " + preset.getName());
@@ -985,8 +999,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                             Collections.sort(result);
                         }
                         for (StringWithDescription s : result) {
-                            if (counter != null && counter.containsKey(s.getValue())) {
-                                continue; // skip stuff that is already listed
+                            ValueWithCount v = valueMap.get(s.getValue());
+                            if (v != null) {
+                                v.setDescription(s.getDescription());
                             }
                             adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
                         }
@@ -1775,7 +1790,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     private boolean addTagFromPreset(@NonNull PresetItem item, @Nullable PresetField field, @NonNull Map<String, List<String>> tags, @NonNull String key,
             Map<String, String> scripts, boolean useDefault) {
-        List<String> values = tags.get(key);      
+        List<String> values = tags.get(key);
         boolean isDeprecated = field != null && field.isDeprecated();
         if ((values == null || (values.size() == 1 && "".equals(values.get(0)))) && !isDeprecated) {
             String value = "";
