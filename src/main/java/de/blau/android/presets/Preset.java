@@ -80,6 +80,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
 import de.blau.android.search.Wrapper;
+import de.blau.android.util.ExtendedStringWithDescription;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
@@ -935,11 +936,10 @@ public class Preset implements Serializable {
                                 d = attr.getValue(SHORT_DESCRIPTION);
                             }
                             String iconPath = attr.getValue(ICON);
-                            if (iconPath == null) {
-                                listValues.add(new StringWithDescription(v, d));
-                            } else {
-                                listValues.add(new StringWithDescriptionAndIcon(v, d, iconPath));
-                            }
+                            ExtendedStringWithDescription swd = iconPath == null ? new ExtendedStringWithDescription(v, d)
+                                    : new StringWithDescriptionAndIcon(v, d, iconPath);
+                            swd.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                            listValues.add(swd);
                         }
                     }
                     break;

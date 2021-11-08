@@ -98,7 +98,7 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
     /**
      * Get the predefined values for this field
      * 
-     * @return and array of StringWithDescription
+     * @return an array of StringWithDescription
      */
     @Nullable
     public StringWithDescription[] getValues() {
