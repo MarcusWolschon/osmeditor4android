@@ -34,6 +34,18 @@ public final class Nmea {
     private static final int GGA_HEIGHT           = 9;
     private static final int GGA_GEOID_CORRECTION = 11;
 
+    private static final int GGA_FIX_AUTONOMOUS   = 1;
+    private static final int GGA_FIX_DIFFERENTIAL = 2;
+    private static final int GGA_FIX_RTK_FIXED    = 4;
+    private static final int GGA_FIX_RTK_FLOAT    = 5;
+
+    // Based on mode, assume accuracy in meters, for HDOP of 1.
+    // Further assume that accuracy scales with HDOP.
+    private static final double GGA_FIX_AUTONOMOUS_MUL          = 10;
+    private static final double GGA_FIX_DIFFERENTIAL_MUL        = 5;
+    private static final double GGA_FIX_RTK_FIXED_MUL           = 0.1;
+    private static final double GGA_FIX_RTK_FLOAT_MUL           = 1;
+
     private static final String GNS_SENTENCE = "GNS";
 
     private static final int GNS_FIX_TYPE         = 6;
@@ -127,6 +139,7 @@ public final class Nmea {
                         double lat = Double.NaN;
                         double lon = Double.NaN;
                         double hdop = Double.NaN;
+                        double fauxAccuracy = Double.NaN;
                         double geoidHeight = Double.NaN;
                         double geoidCorrection = Double.NaN;
 
@@ -161,6 +174,29 @@ public final class Nmea {
                                     hdop = Double.parseDouble(values[GGA_HDOP]);
                                     geoidHeight = Double.parseDouble(values[GGA_HEIGHT]);
                                     geoidCorrection = Double.parseDouble(values[GGA_GEOID_CORRECTION]);
+                                    // Extract fix type and create faux accuracy.  The key idea is to
+                                    // 1) give some sort of not-crazy accuracy in non-RTK mode
+                                    // 2) give an accuracy in RTK which is arguably reasonable, and also a signal
+                                    // to the user about fixed vs float vs not-RTK.
+                                    int fixType = Integer.parseInt(values[GGA_FIX_TYPE]);
+                                    switch (fixType) {
+                                    case GGA_FIX_AUTONOMOUS:
+                                      fauxAccuracy = GGA_FIX_AUTONOMOUS_MUL * hdop;
+                                      break;
+                                    case GGA_FIX_DIFFERENTIAL:
+                                      fauxAccuracy = GGA_FIX_DIFFERENTIAL_MUL * hdop;
+                                      break;
+                                    case GGA_FIX_RTK_FIXED:
+                                      fauxAccuracy = GGA_FIX_RTK_FIXED_MUL * hdop;
+                                      break;
+                                    case GGA_FIX_RTK_FLOAT:
+                                      fauxAccuracy = GGA_FIX_RTK_FLOAT_MUL * hdop;
+                                      break;
+                                    default:
+                                      // Should not happen.  Indicate poor accuracy, without log spam.
+                                      fauxAccuracy = 50.0;
+                                      break;
+                                    }
                                     posUpdate = true;
                                 }
                             } else {
@@ -207,6 +243,9 @@ public final class Nmea {
                             nmeaLocation.setLatitude(lat);
                             nmeaLocation.setLongitude(lon);
                             nmeaLocation.setHdop(hdop);
+                            if (fauxAccuracy != Double.NaN) {
+                              nmeaLocation.setAccuracy((float) fauxAccuracy);
+                            }
                             nmeaLocation.setGeoidCorrection(geoidCorrection);
                             // we only really need to know this for determining how old the fix is
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
