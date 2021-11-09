@@ -75,6 +75,7 @@ import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.util.ArrayAdapterWithRuler;
 import de.blau.android.util.BaseFragment;
+import de.blau.android.util.ExtendedStringWithDescription;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
@@ -301,12 +302,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 int position = 0;
                 ArrayAdapterWithRuler<StringWithDescription> adapter2 = new ArrayAdapterWithRuler<>(getActivity(), R.layout.autocomplete_row, Ruler.class);
                 if (preset != null) {
-                    Collection<StringWithDescription> presetValues;
-                    if (field != null) {
-                        presetValues = preset.getAutocompleteValues(field);
-                    } else {
-                        presetValues = preset.getAutocompleteValues(key);
-                    }
+                    Collection<StringWithDescription> presetValues = field != null ? preset.getAutocompleteValues(field) : preset.getAutocompleteValues(key);
                     List<String> mruValues = App.getMruTags().getValues(preset, key);
                     if (mruValues != null) {
                         for (String v : mruValues) {
@@ -334,18 +330,23 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             Collections.sort(result, comparator);
                         }
                         for (StringWithDescription s : result) {
+                            boolean addValue = true;
+                            boolean deprecated = (s instanceof ExtendedStringWithDescription) && ((ExtendedStringWithDescription) s).isDeprecated();
                             Integer storedPosition = counter.get(s.getValue());
                             if (storedPosition != null) {
                                 if (storedPosition >= 0) { // hack so that we retain the descriptions
                                     StringWithDescription r = adapter2.getItem(storedPosition);
                                     r.setDescription(s.getDescription());
                                 }
-                                if (!addRuler) {
-                                    continue; // skip stuff that is already listed
-                                }
+                                addValue = addRuler;
+                            } else {
+                                // skip deprecated values except if it is actually already present
+                                addValue = !deprecated;
                             }
-                            adapter2.add(s);
-                            counter.put(s.getValue(), position++);
+                            if (addValue) {
+                                adapter2.add(s);
+                                counter.put(s.getValue(), position++);
+                            }
                         }
                         Log.d(DEBUG_TAG, "key " + key + " type " + preset.getKeyType(key));
                     }
@@ -375,7 +376,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         if (value != null && !"".equals(value) && !counter.containsKey(value)) {
                             StringWithDescription s = new StringWithDescription(value);
                             // FIXME determine description in some way
-                            // ValueWithCount v = new ValueWithCount(value, 1);
                             adapter2.remove(s);
                             adapter2.insert(s, 0);
                         }
