@@ -116,7 +116,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 
     int maxStringLength; // maximum key, value and role length
 
-    private final class Ruler extends StringWithDescription {
+    final class Ruler extends StringWithDescription {
         private static final long serialVersionUID = 1L;
 
         public Ruler() {
@@ -252,7 +252,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     @Nullable
     ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable List<String> values, @Nullable PresetItem preset, @Nullable PresetField field,
             @NonNull Map<String, String> allTags) {
-        return getValueAutocompleteAdapter(key, values, preset, field, allTags, false, maxInlineValues);
+        return getValueAutocompleteAdapter(key, values, preset, field, allTags, false, true, maxInlineValues);
     }
 
     /**
@@ -266,12 +266,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param field a PresetField or null
      * @param allTags all the tags of the element
      * @param addRuler add a special value to indicate the position of a ruler
+     * @param dedup TODO
      * @param addMruSize number of values from on we add the full MRU tag list
      * @return an ArrayAdapter for key, or null if something went wrong
      */
     @Nullable
     ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable List<String> values, @Nullable PresetItem preset, @Nullable PresetField field,
-            @NonNull Map<String, String> allTags, boolean addRuler, int addMruSize) {
+            @NonNull Map<String, String> allTags, boolean addRuler, boolean dedup, int addMruSize) {
         ArrayAdapter<?> adapter = null;
 
         if (key != null && key.length() > 0) {
@@ -343,7 +344,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                                     StringWithDescription r = adapter2.getItem(storedPosition);
                                     r.setDescription(s.getDescription());
                                 }
-                                addValue = addRuler;
+                                addValue = !dedup;
                             } else {
                                 // skip deprecated values except if it is actually already present
                                 addValue = !deprecated;
@@ -884,7 +885,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             rowLayout.addView(TextRow.getRow(this, inflater, rowLayout, preset, field, value, values, allTags));
                         }
                     } else {
-                        ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, field, allTags);
+                        ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, field, allTags, true, true, maxInlineValues * 2);
                         int count = 0;
                         if (adapter != null) {
                             // adapters other than for PresetCheckField have an empty value added that we don't want to

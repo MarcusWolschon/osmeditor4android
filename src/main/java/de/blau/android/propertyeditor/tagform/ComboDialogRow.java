@@ -104,12 +104,7 @@ public class ComboDialogRow extends DialogRow {
             for (int i = 0; i < adapter.getCount(); i++) {
                 Object o = adapter.getItem(i);
 
-                StringWithDescription swd;
-                if (o instanceof StringWithDescriptionAndIcon) {
-                    swd = new StringWithDescriptionAndIcon(o);
-                } else {
-                    swd = new StringWithDescription(o);
-                }
+                StringWithDescription swd = o instanceof StringWithDescriptionAndIcon ? new StringWithDescriptionAndIcon(o) : new StringWithDescription(o);
                 String v = swd.getValue();
                 String description = swd.getDescription();
 
@@ -165,8 +160,9 @@ public class ComboDialogRow extends DialogRow {
         Builder builder = new AlertDialog.Builder(caller.getActivity());
         builder.setTitle(hint);
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(caller.getActivity());
-
         final View layout = themedInflater.inflate(R.layout.form_combo_dialog, null);
+        final View divider = themedInflater.inflate(R.layout.divider2, null);
+        divider.setLayoutParams(new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
         RadioGroup valueGroup = (RadioGroup) layout.findViewById(R.id.valueGroup);
         builder.setView(layout);
 
@@ -188,7 +184,10 @@ public class ComboDialogRow extends DialogRow {
                 Object o = adapter.getItem(i);
                 StringWithDescription swd;
                 Drawable icon = null;
-                if (o instanceof StringWithDescriptionAndIcon) {
+                if (o instanceof TagFormFragment.Ruler) {
+                    valueGroup.addView(divider);
+                    continue;
+                } else if (o instanceof StringWithDescriptionAndIcon) {
                     icon = ((StringWithDescriptionAndIcon) o).getIcon(caller.getContext(), preset);
                     if (icon != null) {
                         swd = new StringWithDescriptionAndIcon(o);
