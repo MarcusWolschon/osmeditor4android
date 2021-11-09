@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="2.14.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="3.0.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -257,7 +257,7 @@
             <list_entry value="traffic_signals" short_description="Traffic signals" icon="presets/vehicle/crossing_traffic_signals.svg"/>
             <list_entry value="unmarked" short_description="Unmarked" icon="presets/vehicle/crossing_unmarked.svg"/>
             <list_entry value="no" short_description="No crossing"/>
-            <list_entry value="island" short_description="Island (deprecated)" icon="presets/vehicle/crossing_island.svg"/>
+            <list_entry value="island" short_description="Island (deprecated)" icon="presets/vehicle/crossing_island.svg" deprecated="true" />
         </multiselect>
         <check key="crossing:island" text="With island" />
         <optional>
@@ -335,7 +335,7 @@
         </optional>
     </chunk>
     <chunk id="changing_table">
-        <combo key="diaper" text="Diaper changing (deprecated)" values_sort="false">
+        <combo key="diaper" text="Diaper changing (deprecated)" values_sort="false" deprecated="true">
             <list_entry value="yes" short_description="Available"/>
             <list_entry value="no" short_description="Not available"/>
             <list_entry value="room" short_description="Dedicated room"/>
@@ -6316,13 +6316,13 @@
             <key key="emergency" value="fire_extinguisher"/>
             <reference ref="ref_operator" />
             <reference ref="level"/>
-            <check key="indoor" text="Indoor" match="none"/>
+            <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
         </item> <!-- Fire Extinguisher -->
         <item name="Fire Alarm Box" icon="icons/png/emergency_fire_alarm.png" type="node" preset_name_label="true">
             <key key="emergency" value="fire_alarm_box" />
             <text key="ref" text="Reference Code" />
             <reference ref="level"/>
-            <check key="indoor" text="Indoor" match="none"/>
+            <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
         </item> <!-- Fire Alarm Box -->
         <item name="Fire Hose" icon="icons/png/emergency_fire_hose_17010.png" type="node" preset_name_label="true">
             <link wiki="Tag:emergency=fire_hose"/>
@@ -6330,7 +6330,7 @@
             <key key="emergency" value="fire_hose"/>
             <reference ref="ref_operator" />
             <reference ref="level"/>
-            <check key="indoor" text="Indoor" match="none"/>
+            <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
         </item> <!-- Fire Hose -->
         <item name="Fire Hydrant" icon="icons/png/emergency_fire_hydrant_17020.png" type="node" preset_name_label="true">
             <link wiki="Tag:emergency=fire_hydrant"/>
@@ -6416,7 +6416,7 @@
             <key key="emergency" value="phone"/>
             <reference ref="ref_operator" />
             <reference ref="facility_access" />
-            <check key="indoor" text="Indoor" />
+            <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
         </item> <!-- Emergency Phone -->
         <item name="Siren" icon="icons/png/emergency_siren_17026.png" type="node" preset_name_label="true">
             <link wiki="Tag:emergency=siren"/>
@@ -6940,7 +6940,7 @@
             <link wiki="Tag:amenity=drinking_water"/>
             <space/>
             <key key="amenity" value="drinking_water"/>
-            <check key="indoor" text="Indoor" disable_off="true" match="none"/>
+            <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
             <optional>
                 <text key="name" text="Name"/>
                 <text key="description" text="Description" length="255"/>
@@ -6958,7 +6958,7 @@
             <optional>
                 <text key="name" text="Name"/>
                 <text key="description" text="Description" length="255"/>
-                <check key="indoor" text="Indoor" />
+                <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
                 <reference ref="level"/>
                 <reference ref="facility_access"/>
             </optional>
