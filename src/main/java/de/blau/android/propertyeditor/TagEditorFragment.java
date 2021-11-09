@@ -1286,7 +1286,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             }
             keyEdit = (AutoCompleteTextView) findViewById(R.id.editKey);
             keyEdit.setOnKeyListener(PropertyEditor.myKeyListener);
-            // lastEditKey.setSingleLine(true);
 
             valueEdit = (CustomAutoCompleteTextView) findViewById(R.id.editValue);
             valueEdit.setOnKeyListener(PropertyEditor.myKeyListener);
@@ -1309,16 +1308,16 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         @Override
         public void onSizeChanged(int w, int h, int oldw, int oldh) {
             super.onSizeChanged(w, h, oldw, oldh);
-            // Log.d(DEBUG_TAG, "onSizeChanged");
 
             if (w == 0 && h == 0) {
                 return;
             }
-            // Log.d(DEBUG_TAG,"w=" + w +" h="+h);
+
             // this is not really satisfactory
             keyEdit.setDropDownAnchor(valueEdit.getId());
-            // keyEdit.setDropDownVerticalOffset(-h);
-            // valueEdit.setDropDownVerticalOffset(-h);
+            // note wrap_content does not actually wrap the contents of the drop
+            // down, instead in makes it the same width as the AutoCompleteTextView
+            valueEdit.setDropDownWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
             valueEdit.setParentWidth(w);
             //
         }

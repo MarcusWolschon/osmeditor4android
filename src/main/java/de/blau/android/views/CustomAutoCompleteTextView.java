@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.text.method.QwertyKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.Filter;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
@@ -75,20 +76,22 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
     @Override
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        // Log.d(DEBUG_TAG, "onSizeChanged");
-
         if (w == 0 && h == 0) {
             return;
         }
-        // Log.d(DEBUG_TAG,"w=" + w +" h="+h);
-        // this is not really satisfactory
+
         if (parentWidth == -1) {
-            // upps
+            // We want normal behaviour
             return;
         }
+
+        // this is not really satisfactory
         int ddw = parentWidth - w;
         setDropDownHorizontalOffset(-ddw);
-        setDropDownWidth(ddw);
+        int dropDownWidth = getDropDownWidth();
+        if (dropDownWidth != ViewGroup.LayoutParams.MATCH_PARENT && dropDownWidth != ViewGroup.LayoutParams.WRAP_CONTENT) {
+            setDropDownWidth(ddw);
+        }
     }
 
     /**
