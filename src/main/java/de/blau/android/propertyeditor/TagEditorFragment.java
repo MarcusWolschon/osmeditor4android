@@ -372,7 +372,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         if (savedInstanceState == null) { // the following should only happen once on initial creation
             @SuppressWarnings("unchecked")
             List<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getArguments().getSerializable(PRESETSTOAPPLY_KEY);
-            if (presetsToApply != null) {
+            if (presetsToApply != null && !presetsToApply.isEmpty()) {
                 Preset preset = App.getCurrentRootPreset(getActivity());
                 PresetGroup rootGroup = preset.getRootGroup();
                 for (PresetElementPath pp : presetsToApply) {
@@ -381,9 +381,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                         applyPreset(editRowLayout, (PresetItem) pi, false, true, true);
                     }
                 }
+                updateAutocompletePresetItem(editRowLayout, null, false); // here after preset has been applied
             } else if (prefs.autoApplyPreset()) {
+                updateAutocompletePresetItem(editRowLayout, null, false); // here before preset has been applied
                 PresetItem pi = getBestPreset();
-                if (pi != null) {
+                if (pi != null) {    
                     if (pi.autoapply()) {
                         applyPreset(editRowLayout, pi, false, true, false);
                     } else {
@@ -405,9 +407,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 } // this could be a bit more refined
             }
         }
-
-        updateAutocompletePresetItem(editRowLayout, null, false); // set preset from initial tags
-
         Log.d(DEBUG_TAG, "onCreateView returning");
         return rowLayout;
     }
@@ -1799,7 +1798,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 }
             }
             tags.put(key, Util.wrapInList(value));
-            return value != null && !"".equals(value);
+            return !"".equals(value);
         }
         return false;
     }
