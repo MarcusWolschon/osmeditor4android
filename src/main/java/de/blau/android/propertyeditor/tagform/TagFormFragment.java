@@ -252,7 +252,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     @Nullable
     ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable List<String> values, @Nullable PresetItem preset, @Nullable PresetField field,
             @NonNull Map<String, String> allTags) {
-        return getValueAutocompleteAdapter(key, values, preset, field, allTags, false);
+        return getValueAutocompleteAdapter(key, values, preset, field, allTags, false, maxInlineValues);
     }
 
     /**
@@ -266,11 +266,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param field a PresetField or null
      * @param allTags all the tags of the element
      * @param addRuler add a special value to indicate the position of a ruler
+     * @param addMruSize number of values from on we add the full MRU tag list
      * @return an ArrayAdapter for key, or null if something went wrong
      */
     @Nullable
     ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable List<String> values, @Nullable PresetItem preset, @Nullable PresetField field,
-            @NonNull Map<String, String> allTags, boolean addRuler) {
+            @NonNull Map<String, String> allTags, boolean addRuler, int addMruSize) {
         ArrayAdapter<?> adapter = null;
 
         if (key != null && key.length() > 0) {
@@ -303,6 +304,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 ArrayAdapterWithRuler<StringWithDescription> adapter2 = new ArrayAdapterWithRuler<>(getActivity(), R.layout.autocomplete_row, Ruler.class);
                 if (preset != null) {
                     Collection<StringWithDescription> presetValues = field != null ? preset.getAutocompleteValues(field) : preset.getAutocompleteValues(key);
+                    int presetValuesCount = presetValues.size();
                     List<String> mruValues = App.getMruTags().getValues(preset, key);
                     if (mruValues != null) {
                         for (String v : mruValues) {
@@ -315,11 +317,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             }
                             if (mruValue == null) {
                                 mruValue = new StringWithDescription(v);
+                            } else if (presetValuesCount < addMruSize) {
+                                // only add unknown values for small numbers
+                                continue;
                             }
                             adapter2.add(mruValue);
                             counter.put(v, position++);
                         }
-                        if (addRuler) {
+                        if (addRuler && !adapter2.isEmpty()) {
                             adapter2.add(new Ruler());
                         }
                     }
