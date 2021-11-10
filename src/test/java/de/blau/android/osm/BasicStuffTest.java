@@ -9,53 +9,28 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
-import android.app.Instrumentation;
-import android.content.Context;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.ActivityTestRule;
-import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
-import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
-import de.blau.android.Main;
 import de.blau.android.SignalHandler;
-import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.prefs.Preferences;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(RobolectricTestRunner.class)
 @LargeTest
 public class BasicStuffTest {
-
-    Context context = null;
-    Main    main    = null;
-
-    @Rule
-    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
     /**
      * Pre-test setup
      */
     @Before
     public void setup() {
-        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-        context = instrumentation.getTargetContext();
-        UiDevice device = UiDevice.getInstance(instrumentation);
-        main = mActivityRule.getActivity();
-        Preferences prefs = new Preferences(context);
-        LayerUtils.removeImageryLayers(context);
-        main.getMap().setPrefs(main, prefs);
         App.getDelegator().reset(false);
         App.getDelegator().setOriginalBox(ViewBox.getMaxMercatorExtent());
-        TestUtils.grantPermissons(device);
-        TestUtils.dismissStartUpDialogs(device, context);
-        TestUtils.stopEasyEdit(main);
     }
 
     /**
@@ -114,7 +89,7 @@ public class BasicStuffTest {
         tags.put(key1, value1);
         // new form
         try {
-            logic.setTags(main, eInStorage, tags);
+            logic.setTags(null, eInStorage, tags);
         } catch (OsmIllegalOperationException e) {
             Assert.fail(e.getMessage());
         }
@@ -133,7 +108,7 @@ public class BasicStuffTest {
         tags.putAll(m);
         tags.put(key2, value2);
         try {
-            logic.setTags(main, eInStorage, tags);
+            logic.setTags(null, eInStorage, tags);
         } catch (OsmIllegalOperationException e) {
             Assert.fail(e.getMessage());
         }
@@ -145,14 +120,14 @@ public class BasicStuffTest {
         Assert.assertTrue(eInStorage.hasTag(key2, value2));
         Assert.assertEquals(value2, eInStorage.getTagWithKey(key2));
         try {
-            logic.setTags(main, eInStorage, null);
+            logic.setTags(null, eInStorage, null);
         } catch (OsmIllegalOperationException e) {
             Assert.fail(e.getMessage());
         }
         Assert.assertFalse(eInStorage.hasTags());
         // old form
         try {
-            logic.setTags(main, eInStorage.getName(), eInStorage.getOsmId(), tags);
+            logic.setTags(null, eInStorage.getName(), eInStorage.getOsmId(), tags);
         } catch (OsmIllegalOperationException e) {
             Assert.fail(e.getMessage());
         }
@@ -161,7 +136,7 @@ public class BasicStuffTest {
         Assert.assertTrue(eInStorage.hasTag(key1, value1));
         Assert.assertEquals(value1, eInStorage.getTagWithKey(key1));
         try {
-            logic.setTags(main, eInStorage.getName(), eInStorage.getOsmId(), null);
+            logic.setTags(null, eInStorage.getName(), eInStorage.getOsmId(), null);
         } catch (OsmIllegalOperationException e) {
             Assert.fail(e.getMessage());
         }
@@ -169,13 +144,13 @@ public class BasicStuffTest {
         //
 
         try {
-            logic.setTags(main, eNotInStorage, tags);
+            logic.setTags(null, eNotInStorage, tags);
             Assert.fail("Element not in storage should fail");
         } catch (OsmIllegalOperationException e) {
             // carry on
         }
         try { // NOSONAR
-            logic.setTags(main, eNotInStorage.getName(), eNotInStorage.getOsmId(), tags);
+            logic.setTags(null, eNotInStorage.getName(), eNotInStorage.getOsmId(), tags);
             Assert.fail("Element not in storage should fail");
         } catch (OsmIllegalOperationException e) {
             // carry on
@@ -193,7 +168,7 @@ public class BasicStuffTest {
 
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             InputStream is = loader.getResourceAsStream("closedways.osm");
-            logic.readOsmFile(main, is, false, new SignalHandler(signal));
+            logic.readOsmFile(ApplicationProvider.getApplicationContext(), is, false, new SignalHandler(signal));
             try {
                 signal.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
             } catch (InterruptedException e) { // NOSONAR
@@ -225,7 +200,7 @@ public class BasicStuffTest {
 
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             InputStream is = loader.getResourceAsStream("closedways.osm");
-            logic.readOsmFile(main, is, false, new SignalHandler(signal));
+            logic.readOsmFile(ApplicationProvider.getApplicationContext(), is, false, new SignalHandler(signal));
             try {
                 signal.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
             } catch (InterruptedException e) { // NOSONAR
@@ -282,7 +257,7 @@ public class BasicStuffTest {
 
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             InputStream is = loader.getResourceAsStream("relationloop.osm");
-            logic.readOsmFile(main, is, false, new SignalHandler(signal));
+            logic.readOsmFile(ApplicationProvider.getApplicationContext(), is, false, new SignalHandler(signal));
             try {
                 signal.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
             } catch (InterruptedException e) { // NOSONAR
