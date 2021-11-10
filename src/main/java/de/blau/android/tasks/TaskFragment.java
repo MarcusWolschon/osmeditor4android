@@ -95,24 +95,17 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
                     Log.e(DEBUG_TAG, "Activity vanished");
                     return;
                 }
-                (new AsyncTask<Void, Void, Void>() {
+                update(prefs.getServer(), new PostAsyncActionHandler() {
                     @Override
-                    protected Void doInBackground(Void... arg0) {
-                        PostAsyncActionHandler handler = new PostAsyncActionHandler() {
-                            @Override
-                            public void onSuccess() {
-                                updateMenu(activity);
-                            }
-
-                            @Override
-                            public void onError() {
-                                updateMenu(activity);
-                            }
-                        };
-                        update(prefs.getServer(), handler, task);
-                        return null;
+                    public void onSuccess() {
+                        updateMenu(activity);
                     }
-                }).execute();
+
+                    @Override
+                    public void onError() {
+                        updateMenu(activity);
+                    }
+                }, task);
                 cancelAlert(task);
             });
         }
@@ -183,6 +176,8 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
 
     /**
      * Update the task on its destination server
+     * 
+     * Note the process called by this must be async
      * 
      * @param <T> the Task type
      * @param server a Server instance

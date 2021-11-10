@@ -93,7 +93,7 @@ public class NoteFragment extends TaskFragment {
     protected <T extends Task> void update(Server server, PostAsyncActionHandler handler, T task) {
         Note n = (Note) task;
         NoteComment nc = n.getLastComment();
-        TransferTasks.uploadNote(getActivity(), server, n, (nc != null && nc.isNew()) ? nc.getText() : null, n.getState() == State.CLOSED, false, handler);
+        TransferTasks.uploadNote(getActivity(), server, n, (nc != null && nc.isNew()) ? nc.getText() : null, n.getState() == State.CLOSED, handler);
     }
 
     @Override

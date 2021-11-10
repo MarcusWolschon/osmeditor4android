@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,7 +24,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -42,10 +42,13 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.ForbiddenLogin;
 import de.blau.android.dialogs.InvalidLogin;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.exception.OsmServerException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.tasks.Task.State;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.IssueAlert;
 import de.blau.android.util.SavingHelper;
@@ -96,6 +99,7 @@ public final class TransferTasks {
      * @param maxClosedAge maximum time in ms since a Note was closed
      * @param handler handler to run after the download if not null
      */
+    @SuppressWarnings("deprecation")
     public static void downloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final BoundingBox box, final boolean add,
             long maxClosedAge, @Nullable final PostAsyncActionHandler handler) {
 
@@ -168,19 +172,16 @@ public final class TransferTasks {
      * @param server current server configuration
      * @param postUploadHandler execute code after an upload
      */
+    @SuppressWarnings("deprecation")
     public static void upload(@NonNull final FragmentActivity activity, @NonNull final Server server,
             @Nullable final PostAsyncActionHandler postUploadHandler) {
         final String PROGRESS_TAG = "tasks";
 
-        Set<String> bugFilter = App.getLogic().getPrefs().taskFilter();
         final List<Task> queryResult = App.getTaskStorage().getTasks();
         // check if we need to oAuth first
         for (Task b : queryResult) {
-            if (b.hasBeenChanged() && b instanceof Note && bugFilter.contains(activity.getString(R.string.bugfilter_notes))) {
-                PostAsyncActionHandler restartAction = () -> {
-                    Preferences prefs = new Preferences(activity);
-                    upload(activity, prefs.getServer(), postUploadHandler);
-                };
+            if (b.hasBeenChanged() && b instanceof Note) {
+                PostAsyncActionHandler restartAction = () -> upload(activity, server, postUploadHandler);
                 if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
                     return;
                 }
@@ -199,20 +200,14 @@ public final class TransferTasks {
                 for (Task b : queryResult) {
                     if (b.hasBeenChanged()) {
                         Log.d(DEBUG_TAG, b.getDescription());
-                        if (b instanceof Note && bugFilter.contains(activity.getString(R.string.bugfilter_notes))) {
+                        if (b instanceof Note) {
                             Note n = (Note) b;
                             NoteComment nc = n.getLastComment();
-                            if (nc != null && nc.isNew()) {
-                                uploadFailed = !uploadNote(activity, server, n, nc.getText(), n.isClosed(), true, null) || uploadFailed;
-                            } else {
-                                // just a state change
-                                uploadFailed = !uploadNote(activity, server, n, null, n.isClosed(), true, null) || uploadFailed;
-                            }
-                        } else if (b instanceof OsmoseBug && (bugFilter.contains(activity.getString(R.string.bugfilter_osmose_error))
-                                || bugFilter.contains(activity.getString(R.string.bugfilter_osmose_warning))
-                                || bugFilter.contains(activity.getString(R.string.bugfilter_osmose_minor_issue)))) {
+                            uploadFailed = (uploadNote(server, n, nc != null && nc.isNew() ? nc.getText() : null, n.isClosed()).getError() != ErrorCodes.OK)
+                                    || uploadFailed;
+                        } else if (b instanceof OsmoseBug) {
                             uploadFailed = !OsmoseServer.changeState(activity, (OsmoseBug) b) || uploadFailed;
-                        } else if (b instanceof MapRouletteTask && bugFilter.contains(activity.getString(R.string.bugfilter_maproulette))) {
+                        } else if (b instanceof MapRouletteTask) {
                             uploadFailed = !updateMapRouletteTask(activity, server, (MapRouletteTask) b, true, null) || uploadFailed;
                         }
                     }
@@ -250,6 +245,7 @@ public final class TransferTasks {
      * @param postUploadHandler if not null run this handler after update
      * @return true if successful
      */
+    @SuppressWarnings("deprecation")
     @SuppressLint("InlinedApi")
     public static boolean updateOsmoseBug(@NonNull final Context context, @NonNull final OsmoseBug b, final boolean quiet,
             @Nullable final PostAsyncActionHandler postUploadHandler) {
@@ -265,7 +261,7 @@ public final class TransferTasks {
                 finishUpload(context, uploadSucceded, quiet, postUploadHandler);
             }
         };
-        a.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        a.execute();
         try {
             return a.get();
         } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
@@ -278,57 +274,120 @@ public final class TransferTasks {
     /**
      * Commit changes to a Note
      * 
+     * @param server Server configuration
+     * @param note the Note
+     * @param comment optional comment
+     * @param close if true close the Note
+     * @return an UploadResult object indicating the result of the operation
+     */
+    private static UploadResult uploadNote(@NonNull final Server server, @NonNull final Note note, @Nullable final String comment, final boolean close) {
+        Log.d(DEBUG_TAG, "uploadNote " + server.getReadWriteUrl());
+        UploadResult result = new UploadResult();
+        try {
+            boolean newNote = note.isNew();
+            boolean isClosed = note.getOriginalState() == State.CLOSED;
+            if (!newNote && isClosed && !close) {
+                // reopen, do this before trying to add anything
+                server.reopenNote(note);
+            }
+
+            if (!isClosed) {
+                if (comment != null && comment.length() > 0) {
+                    // Make the comment
+                    NoteComment bc = new NoteComment(note, comment);
+                    // Add or edit the bug as appropriate
+                    if (newNote) {
+                        server.addNote(note, bc);
+                    } else {
+                        server.addComment(note, bc);
+                    }
+                }
+                // Close the bug if requested, but only if there haven't been any problems
+                if (close) {
+                    server.closeNote(note);
+                }
+            }
+            note.setChanged(false);
+        } catch (final OsmServerException e) {
+            int errorCode = e.getErrorCode();
+            result.setHttpError(errorCode);
+            String message = e.getMessage();
+            result.setMessage(message);
+            switch (errorCode) {
+            case HttpURLConnection.HTTP_FORBIDDEN:
+                result.setError(ErrorCodes.FORBIDDEN);
+                break;
+            case HttpURLConnection.HTTP_UNAUTHORIZED:
+                result.setError(ErrorCodes.INVALID_LOGIN);
+                break;
+            case HttpURLConnection.HTTP_BAD_REQUEST:
+            case HttpURLConnection.HTTP_NOT_FOUND:
+            case HttpURLConnection.HTTP_INTERNAL_ERROR:
+            case HttpURLConnection.HTTP_BAD_GATEWAY:
+            case HttpURLConnection.HTTP_UNAVAILABLE:
+                result.setError(ErrorCodes.UPLOAD_PROBLEM);
+                break;
+            default:
+                Log.e(DEBUG_TAG, "", e);
+                ACRAHelper.nocrashReport(e, message);
+                result.setError(ErrorCodes.UPLOAD_PROBLEM); // use this as generic error
+                break;
+            }
+        } catch (XmlPullParserException e) {
+            result.setError(ErrorCodes.INVALID_DATA_RECEIVED);
+        } catch (IOException e) {
+            result.setError(ErrorCodes.NO_CONNECTION);
+        }
+        return result;
+    }
+
+    /**
+     * Commit changes to a Note
+     * 
+     * Interactive version that uploads asynchronously
+     * 
      * @param activity activity that called this
      * @param server Server configuration
      * @param note the Note to upload
      * @param comment Comment to add to the Note.
      * @param close if true the Note is to be closed.
-     * @param quiet don't display an error message on errors
      * @param postUploadHandler execute code after an upload
      * @return true if upload was successful
      */
-    @TargetApi(11)
+    @SuppressWarnings("deprecation")
     public static boolean uploadNote(@NonNull final FragmentActivity activity, @NonNull final Server server, @NonNull final Note note, final String comment,
-            final boolean close, final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
+            final boolean close, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "uploadNote");
         PostAsyncActionHandler restartAction = () -> {
             Preferences prefs = new Preferences(activity); // need to re-get this post authentication
-            uploadNote(activity, prefs.getServer(), note, comment, close, quiet, postUploadHandler);
+            uploadNote(activity, prefs.getServer(), note, comment, close, postUploadHandler);
         };
         if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
             return false;
         }
 
-        CommitTask ct = new CommitTask(note, comment, close) {
+        AsyncTask<Server, Void, UploadResult> ct = new AsyncTask<Server, Void, UploadResult>() {
 
-            /** Flag to track if the bug is new. */
-            private boolean newBug;
+            boolean newNote; // needs to be determined before upload
 
             @Override
             protected void onPreExecute() {
-                newBug = bug.isNew();
-                if (!quiet) {
-                    Progress.showDialog(activity, Progress.PROGRESS_UPLOADING);
-                }
+                newNote = note.isNew();
+                Progress.showDialog(activity, Progress.PROGRESS_UPLOADING);
             }
 
             @Override
             protected UploadResult doInBackground(Server... args) {
-                // execute() is called below with no arguments (args will be empty)
-                // getDisplayName() is deferred to here in case a lengthy OSM query
-                // is required to determine the nickname
-                Log.d(DEBUG_TAG, "uploadNote " + server.getReadWriteUrl());
-                return super.doInBackground(server);
+                return uploadNote(server, note, comment, close);
             }
 
             @Override
             protected void onPostExecute(UploadResult result) {
-                if (newBug && !App.getTaskStorage().contains(bug)) {
-                    App.getTaskStorage().add(bug);
+                if (newNote && !App.getTaskStorage().contains(note)) {
+                    App.getTaskStorage().add(note);
                 }
                 if (result.getError() == ErrorCodes.OK) {
                     // upload successful
-                    bug.setChanged(false);
                     if (activity instanceof Main) {
                         ((Main) activity).invalidateMap();
                     }
@@ -336,26 +395,21 @@ public final class TransferTasks {
                         postUploadHandler.onSuccess();
                     }
                 }
-                if (!quiet) {
-                    Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING);
-                    if (!activity.isFinishing()) {
-                        if (result.getError() == ErrorCodes.INVALID_LOGIN) {
-                            InvalidLogin.showDialog(activity);
-                        } else if (result.getError() == ErrorCodes.FORBIDDEN) {
-                            ForbiddenLogin.showDialog(activity, result.getMessage());
-                        } else if (result.getError() != ErrorCodes.OK) {
-                            ErrorAlert.showDialog(activity, result.getError());
-                        } else { // no error
-                            Snack.barInfo(activity, R.string.openstreetbug_commit_ok);
-                        }
+                Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING);
+                if (!activity.isFinishing()) {
+                    if (result.getError() == ErrorCodes.INVALID_LOGIN) {
+                        InvalidLogin.showDialog(activity);
+                    } else if (result.getError() == ErrorCodes.FORBIDDEN) {
+                        ForbiddenLogin.showDialog(activity, result.getMessage());
+                    } else if (result.getError() != ErrorCodes.OK) {
+                        ErrorAlert.showDialog(activity, result.getError());
+                    } else { // no error
+                        Snack.barInfo(activity, R.string.openstreetbug_commit_ok);
                     }
                 }
             }
         };
-
-        // FIXME seems as if AsyncTask tends to run out of threads here .... not clear if executeOnExecutor actually
-        // helps
-        ct.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        ct.execute();
         try {
             return ct.get().getError() == ErrorCodes.OK;
         } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
@@ -376,6 +430,7 @@ public final class TransferTasks {
      * @param postUploadHandler if not null run this handler after update
      * @return true if successful
      */
+    @SuppressWarnings("deprecation")
     @SuppressLint("InlinedApi")
     public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, @NonNull Server server, @NonNull final MapRouletteTask task,
             final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
@@ -412,7 +467,7 @@ public final class TransferTasks {
                 finishUpload(activity, uploadSucceded, quiet, postUploadHandler);
             }
         };
-        a.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        a.execute();
         try {
             return a.get();
         } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
@@ -490,6 +545,7 @@ public final class TransferTasks {
      * @param out OutputStream to write to
      * @param postWrite handler to execute after the AsyncTask has finished
      */
+    @SuppressWarnings("deprecation")
     private static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final OutputStream out,
             @Nullable final PostAsyncActionHandler postWrite) {
         new AsyncTask<Void, Void, Integer>() {
@@ -564,6 +620,7 @@ public final class TransferTasks {
      * @param add if true the elements will be added to the existing ones, otherwise replaced
      * @param postLoad callback to execute once stream has been loaded
      */
+    @SuppressWarnings("deprecation")
     public static void readOsnFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, final boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
 
@@ -638,6 +695,7 @@ public final class TransferTasks {
      * @param add if true the elements will be added to the existing ones, otherwise replaced
      * @param postLoad callback to execute once stream has been loaded
      */
+    @SuppressWarnings("deprecation")
     public static void readCustomBugs(@NonNull final FragmentActivity activity, @NonNull final InputStream is, final boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
 
@@ -753,6 +811,7 @@ public final class TransferTasks {
      * @param fileOut OutputStream to write to
      * @param postWrite call this when finished
      */
+    @SuppressWarnings("deprecation")
     private static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final OutputStream fileOut,
             @Nullable final PostAsyncActionHandler postWrite) {
         new AsyncTask<Void, Void, Integer>() {
