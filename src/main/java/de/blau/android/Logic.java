@@ -2892,7 +2892,6 @@ public class Logic {
                 handler.onSuccess();
             }
         } catch (SAXException e) {
-            Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
             Exception ce = e.getException();
             if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
                 result = new ReadAsyncResult(ErrorCodes.OUT_OF_MEMORY, "");
@@ -2903,11 +2902,9 @@ public class Logic {
             // crash and burn
             // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
             // network device... need to display what we actually got
-            Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
             result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
         } catch (OsmServerException e) {
             int code = e.getErrorCode();
-            Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
             if (code == HttpURLConnection.HTTP_BAD_REQUEST) {
                 // check error messages
                 Matcher m = Server.ERROR_MESSAGE_BAD_OAUTH_REQUEST.matcher(e.getMessage());
@@ -2916,20 +2913,22 @@ public class Logic {
                 } else {
                     result = new ReadAsyncResult(ErrorCodes.BOUNDING_BOX_TOO_LARGE);
                 }
+            } else {
+                result = new ReadAsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage());
             }
         } catch (IOException e) {
             if (e instanceof SSLProtocolException) {
                 result = new ReadAsyncResult(ErrorCodes.SSL_HANDSHAKE);
             } else {
                 result = new ReadAsyncResult(ErrorCodes.NO_CONNECTION);
-            }
-            Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
+            }      
         }
         if (result.getCode() != ErrorCodes.OK) {
             removeBoundingBox(mapBox);
             if (handler != null) {
                 handler.onError();
             }
+            Log.e(DEBUG_TAG, "downloadBox problem downloading " + result.getClass() + " " + result.getMessage());
         }
         return result;
     }
