@@ -3,7 +3,6 @@ package de.blau.android.tasks;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
