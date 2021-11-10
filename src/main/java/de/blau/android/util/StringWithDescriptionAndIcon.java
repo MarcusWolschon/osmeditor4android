@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 
-public class StringWithDescriptionAndIcon extends StringWithDescription {
+public class StringWithDescriptionAndIcon extends ExtendedStringWithDescription {
     private static final long serialVersionUID = 1L;
 
     private transient Drawable icon;

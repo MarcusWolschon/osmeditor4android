@@ -262,7 +262,7 @@ public class PropertyEditorTest {
         // Node n = App.getLogic().getSelectedNode();
         // assertNotNull(n);
 
-        assertTrue(TestUtils.clickMenuButton(device, "Properties", false, true));
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, true));
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(propertyEditor instanceof PropertyEditor);
 
@@ -287,7 +287,7 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.clickText(device, true, "Asian", false, false));
         TestUtils.scrollTo("German");
         assertTrue(TestUtils.clickText(device, true, "German", false, false));
-        assertTrue(TestUtils.clickText(device, true, "SAVE", true, false));
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.save), true, false));
         UiObject2 openingHours = null;
         try {
             openingHours = getField(device, "Opening Hours", 1);
@@ -356,7 +356,11 @@ public class PropertyEditorTest {
         } catch (UiObjectNotFoundException e) {
             fail();
         }
-
+        // apply optional tags and check that diaper tag isn't present
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.tag_menu_apply_preset_with_optional), false, false));
+        TestUtils.scrollTo("Diaper changing (deprecated)");
+        assertFalse(TestUtils.findText(device, false, "Diaper changing (deprecated)"));
+        
         TestUtils.clickHome(device, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         device.waitForIdle();

@@ -36,6 +36,11 @@ public abstract class PresetField {
     private boolean optional = false;
 
     /**
+     * This field is deprecated
+     */
+    private boolean deprecated = false;
+
+    /**
      * Does this key have i18n variants
      */
     private boolean i18n = false;
@@ -76,6 +81,7 @@ public abstract class PresetField {
         this.defaultValue = field.defaultValue;
         this.matchType = field.matchType;
         this.optional = field.optional;
+        this.deprecated = field.deprecated;
         this.setI18n(field.isI18n());
         this.textContext = field.textContext;
         this.valueContext = field.valueContext;
@@ -95,6 +101,20 @@ public abstract class PresetField {
      */
     public void setOptional(boolean optional) {
         this.optional = optional;
+    }
+
+    /**
+     * @return true if deprecated
+     */
+    public boolean isDeprecated() {
+        return deprecated;
+    }
+
+    /**
+     * @param deprecated make this field deprecated
+     */
+    public void setDeprecated(boolean deprecated) {
+        this.deprecated = deprecated;
     }
 
     /**

@@ -73,7 +73,9 @@ import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.propertyeditor.RecentPresetsFragment;
 import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.propertyeditor.TagEditorFragment;
+import de.blau.android.util.ArrayAdapterWithRuler;
 import de.blau.android.util.BaseFragment;
+import de.blau.android.util.ExtendedStringWithDescription;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
@@ -113,6 +115,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     int maxInlineValues = 3;
 
     int maxStringLength; // maximum key, value and role length
+
+    final class Ruler extends StringWithDescription {
+        private static final long serialVersionUID = 1L;
+
+        public Ruler() {
+            super("");
+        }
+    }
 
     private StringWithDescription.LocaleComparator comparator;
 
@@ -242,6 +252,27 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     @Nullable
     ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable List<String> values, @Nullable PresetItem preset, @Nullable PresetField field,
             @NonNull Map<String, String> allTags) {
+        return getValueAutocompleteAdapter(key, values, preset, field, allTags, false, true, maxInlineValues);
+    }
+
+    /**
+     * Get an Adapter containing value suggestions for a specific key
+     * 
+     * Simplified version for non-multi-select and preset only situation
+     * 
+     * @param key the key for which we are generating the adapter
+     * @param values existing values
+     * @param preset the PresetItem that matched the tags
+     * @param field a PresetField or null
+     * @param allTags all the tags of the element
+     * @param addRuler add a special value to indicate the position of a ruler
+     * @param dedup TODO
+     * @param addMruSize number of values from on we add the full MRU tag list
+     * @return an ArrayAdapter for key, or null if something went wrong
+     */
+    @Nullable
+    ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable List<String> values, @Nullable PresetItem preset, @Nullable PresetField field,
+            @NonNull Map<String, String> allTags, boolean addRuler, boolean dedup, int addMruSize) {
         ArrayAdapter<?> adapter = null;
 
         if (key != null && key.length() > 0) {
@@ -271,14 +302,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             } else {
                 Map<String, Integer> counter = new HashMap<>();
                 int position = 0;
-                ArrayAdapter<StringWithDescription> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row);
+                ArrayAdapterWithRuler<StringWithDescription> adapter2 = new ArrayAdapterWithRuler<>(getActivity(), R.layout.autocomplete_row, Ruler.class);
                 if (preset != null) {
-                    Collection<StringWithDescription> presetValues;
-                    if (field != null) {
-                        presetValues = preset.getAutocompleteValues(field);
-                    } else {
-                        presetValues = preset.getAutocompleteValues(key);
-                    }
+                    Collection<StringWithDescription> presetValues = field != null ? preset.getAutocompleteValues(field) : preset.getAutocompleteValues(key);
+                    int presetValuesCount = presetValues.size();
                     List<String> mruValues = App.getMruTags().getValues(preset, key);
                     if (mruValues != null) {
                         for (String v : mruValues) {
@@ -291,9 +318,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             }
                             if (mruValue == null) {
                                 mruValue = new StringWithDescription(v);
+                            } else if (presetValuesCount < addMruSize) {
+                                // only add unknown values for small numbers
+                                continue;
                             }
                             adapter2.add(mruValue);
                             counter.put(v, position++);
+                        }
+                        if (addRuler && !adapter2.isEmpty()) {
+                            adapter2.add(new Ruler());
                         }
                     }
                     Log.d(DEBUG_TAG, "setting autocomplete adapter for values " + presetValues);
@@ -303,16 +336,23 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             Collections.sort(result, comparator);
                         }
                         for (StringWithDescription s : result) {
+                            boolean addValue = true;
+                            boolean deprecated = (s instanceof ExtendedStringWithDescription) && ((ExtendedStringWithDescription) s).isDeprecated();
                             Integer storedPosition = counter.get(s.getValue());
                             if (storedPosition != null) {
                                 if (storedPosition >= 0) { // hack so that we retain the descriptions
                                     StringWithDescription r = adapter2.getItem(storedPosition);
                                     r.setDescription(s.getDescription());
                                 }
-                                continue; // skip stuff that is already listed
+                                addValue = !dedup;
+                            } else {
+                                // skip deprecated values except if it is actually already present
+                                addValue = !deprecated;
                             }
-                            adapter2.add(s);
-                            counter.put(s.getValue(), position++);
+                            if (addValue) {
+                                adapter2.add(s);
+                                counter.put(s.getValue(), position++);
+                            }
                         }
                         Log.d(DEBUG_TAG, "key " + key + " type " + preset.getKeyType(key));
                     }
@@ -342,7 +382,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         if (value != null && !"".equals(value) && !counter.containsKey(value)) {
                             StringWithDescription s = new StringWithDescription(value);
                             // FIXME determine description in some way
-                            // ValueWithCount v = new ValueWithCount(value, 1);
                             adapter2.remove(s);
                             adapter2.insert(s, 0);
                         }
@@ -846,7 +885,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             rowLayout.addView(TextRow.getRow(this, inflater, rowLayout, preset, field, value, values, allTags));
                         }
                     } else {
-                        ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, field, allTags);
+                        ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, field, allTags, true, true, maxInlineValues * 2);
                         int count = 0;
                         if (adapter != null) {
                             // adapters other than for PresetCheckField have an empty value added that we don't want to

@@ -193,7 +193,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
                     ((EditableLayout) rowLayout).putTag(key, rowValue);
                 }
             } else if (hasFocus) {
-                ArrayAdapter<?> adapter = caller.getValueAutocompleteAdapter(key, values, preset, null, allTags);
+                ArrayAdapter<?> adapter = caller.getValueAutocompleteAdapter(key, values, preset, null, allTags, true, false, -1);
                 if (adapter != null && !adapter.isEmpty()) {
                     ourValueView.setAdapter(adapter);
                 }

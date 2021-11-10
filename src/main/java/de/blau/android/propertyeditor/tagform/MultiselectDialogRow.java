@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -188,6 +189,8 @@ public class MultiselectDialogRow extends DialogRow {
 
         final View layout = themedInflater.inflate(R.layout.form_multiselect_dialog, null);
         final LinearLayout valueGroup = (LinearLayout) layout.findViewById(R.id.valueGroup);
+        final View divider = themedInflater.inflate(R.layout.divider2, null);
+        divider.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
         builder.setView(layout);
 
         android.view.ViewGroup.LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
@@ -201,7 +204,10 @@ public class MultiselectDialogRow extends DialogRow {
                 Object o = adapter.getItem(i);
                 StringWithDescription swd;
                 Drawable icon = null;
-                if (o instanceof StringWithDescriptionAndIcon) {
+                if (o instanceof TagFormFragment.Ruler) {
+                    valueGroup.addView(divider);
+                    continue;
+                } else if (o instanceof StringWithDescriptionAndIcon) {
                     icon = ((StringWithDescriptionAndIcon) o).getIcon(caller.getContext(), preset);
                     if (icon != null) {
                         swd = new StringWithDescriptionAndIcon(o);

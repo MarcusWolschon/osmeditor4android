@@ -76,6 +76,7 @@ import de.blau.android.presets.UseLastAsDefaultType;
 import de.blau.android.presets.ValueType;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.util.ArrayAdapterWithRuler;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.GeoContext.Properties;
@@ -156,6 +157,12 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     private int maxStringLength; // maximum key, value and role length
 
     OnPresetSelectedListener presetSelectedListener;
+
+    private final class Ruler extends ValueWithCount {
+        public Ruler() {
+            super("");
+        }
+    }
 
     /**
      * Interface for handling the key:value pairs in the TagEditor.
@@ -372,7 +379,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         if (savedInstanceState == null) { // the following should only happen once on initial creation
             @SuppressWarnings("unchecked")
             List<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getArguments().getSerializable(PRESETSTOAPPLY_KEY);
-            if (presetsToApply != null) {
+            if (presetsToApply != null && !presetsToApply.isEmpty()) {
                 Preset preset = App.getCurrentRootPreset(getActivity());
                 PresetGroup rootGroup = preset.getRootGroup();
                 for (PresetElementPath pp : presetsToApply) {
@@ -381,9 +388,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                         applyPreset(editRowLayout, (PresetItem) pi, false, true, true);
                     }
                 }
+                updateAutocompletePresetItem(editRowLayout, null, false); // here after preset has been applied
             } else if (prefs.autoApplyPreset()) {
+                updateAutocompletePresetItem(editRowLayout, null, false); // here before preset has been applied
                 PresetItem pi = getBestPreset();
-                if (pi != null) {
+                if (pi != null) {    
                     if (pi.autoapply()) {
                         applyPreset(editRowLayout, pi, false, true, false);
                     } else {
@@ -405,9 +414,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 } // this could be a bit more refined
             }
         }
-
-        updateAutocompletePresetItem(editRowLayout, null, false); // set preset from initial tags
-
         Log.d(DEBUG_TAG, "onCreateView returning");
         return rowLayout;
     }
@@ -949,7 +955,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 }
             } else {
                 Map<String, Integer> counter = new HashMap<>();
-                ArrayAdapter<ValueWithCount> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row);
+                Map<String, ValueWithCount> valueMap = new HashMap<>();
+                ArrayAdapterWithRuler<ValueWithCount> adapter2 = new ArrayAdapterWithRuler<>(getActivity(), R.layout.autocomplete_row, Ruler.class);
                 if (hasTagValues) {
                     for (String t : row.tagValues) {
                         if ("".equals(t)) {
@@ -964,18 +971,24 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     List<String> keys = new ArrayList<>(counter.keySet());
                     Collections.sort(keys);
                     for (String t : keys) {
-                        // FIXME determine description in some way
                         ValueWithCount v = new ValueWithCount(t, counter.get(t));
                         adapter2.add(v);
+                        valueMap.put(t, v);
                     }
+                    adapter2.add(new Ruler());
                 }
                 if (preset != null) {
                     List<String> mruValues = App.getMruTags().getValues(preset, key);
-                    if (mruValues != null) {
+                    if (mruValues != null && !mruValues.isEmpty()) {
                         for (String v : mruValues) {
-                            adapter2.add(new ValueWithCount(v));
-                            counter.put(v, 1);
+                            if (!valueMap.containsKey(v)) {
+                                ValueWithCount vwc = new ValueWithCount(v);
+                                adapter2.add(vwc);
+                                counter.put(v, 1);
+                                valueMap.put(v, vwc);
+                            }
                         }
+                        adapter2.add(new Ruler());
                     }
                     Collection<StringWithDescription> values = preset.getAutocompleteValues(key);
                     Log.d(DEBUG_TAG, "setting autocomplete adapter for values " + values + " based on " + preset.getName());
@@ -985,8 +998,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                             Collections.sort(result);
                         }
                         for (StringWithDescription s : result) {
-                            if (counter != null && counter.containsKey(s.getValue())) {
-                                continue; // skip stuff that is already listed
+                            ValueWithCount v = valueMap.get(s.getValue());
+                            if (v != null) {
+                                v.setDescription(s.getDescription());
                             }
                             adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
                         }
@@ -1271,7 +1285,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             }
             keyEdit = (AutoCompleteTextView) findViewById(R.id.editKey);
             keyEdit.setOnKeyListener(PropertyEditor.myKeyListener);
-            // lastEditKey.setSingleLine(true);
 
             valueEdit = (CustomAutoCompleteTextView) findViewById(R.id.editValue);
             valueEdit.setOnKeyListener(PropertyEditor.myKeyListener);
@@ -1294,16 +1307,16 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         @Override
         public void onSizeChanged(int w, int h, int oldw, int oldh) {
             super.onSizeChanged(w, h, oldw, oldh);
-            // Log.d(DEBUG_TAG, "onSizeChanged");
 
             if (w == 0 && h == 0) {
                 return;
             }
-            // Log.d(DEBUG_TAG,"w=" + w +" h="+h);
+
             // this is not really satisfactory
             keyEdit.setDropDownAnchor(valueEdit.getId());
-            // keyEdit.setDropDownVerticalOffset(-h);
-            // valueEdit.setDropDownVerticalOffset(-h);
+            // note wrap_content does not actually wrap the contents of the drop
+            // down, instead in makes it the same width as the AutoCompleteTextView
+            valueEdit.setDropDownWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
             valueEdit.setParentWidth(w);
             //
         }
@@ -1776,7 +1789,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     private boolean addTagFromPreset(@NonNull PresetItem item, @Nullable PresetField field, @NonNull Map<String, List<String>> tags, @NonNull String key,
             Map<String, String> scripts, boolean useDefault) {
         List<String> values = tags.get(key);
-        if (values == null || (values.size() == 1 && "".equals(values.get(0)))) {
+        boolean isDeprecated = field != null && field.isDeprecated();
+        if ((values == null || (values.size() == 1 && "".equals(values.get(0)))) && !isDeprecated) {
             String value = "";
             if (field != null && useDefault) {
                 String defaultValue = field.getDefaultValue();
@@ -1799,7 +1813,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 }
             }
             tags.put(key, Util.wrapInList(value));
-            return value != null && !"".equals(value);
+            return !"".equals(value);
         }
         return false;
     }
