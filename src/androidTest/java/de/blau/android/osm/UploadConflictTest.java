@@ -37,6 +37,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
+import de.blau.android.SignalUtils;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -176,7 +177,7 @@ public class UploadConflictTest {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("test1.osm");
         logic.readOsmFile(main, is, false, new SignalHandler(signal));
-        TestUtils.signalAwait(signal, TIMEOUT);
+        SignalUtils.signalAwait(signal, TIMEOUT);
 
         mockServer.enqueue("capabilities1"); // for whatever reason this gets asked for twice
         mockServer.enqueue("capabilities1");
