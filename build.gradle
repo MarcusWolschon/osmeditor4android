@@ -527,6 +527,7 @@ dependencies {
     implementation 'io.michaelrocks:libphonenumber-android:8.12.22'
     implementation 'io.noties.markwon:core:4.5.1'
     implementation 'com.zeugmasolutions.localehelper:locale-helper-android:1.1.4'
+    implementation 'com.github.zedlabs:ElementHistoryDialog:1.0.0'
     
     // for temp stuff during dev
     // implementation(name:'alibrary', ext:'jar')

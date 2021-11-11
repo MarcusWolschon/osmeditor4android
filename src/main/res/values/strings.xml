@@ -873,6 +873,7 @@ avoided by using an offline data source.</string>
     <string name="menu_tags">Properties</string>
     <!-- Text should be as short as possible -->
     <string name="menu_history">History</string>
+    <string name="menu_history_web">History (Web)</string>
     <string name="menu_merge">Join</string>
     <string name="menu_reverse">Reverse</string>
     <string name="notreversable_description">This way is unreversible due to being tagged with directionally dependent attributes. Reversing it would break the tagging.</string>

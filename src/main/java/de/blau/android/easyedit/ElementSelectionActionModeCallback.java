@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,6 +54,7 @@ import de.blau.android.services.TrackerService;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import me.zed.elementhistorydialog.ElementHistoryDialog;
 
 /**
  * This action mode handles element selection. When a node or way should be selected, just start this mode. The element
@@ -67,14 +69,15 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private static final int    MENUITEM_UNDO                 = 0;
     static final int            MENUITEM_TAG                  = 1;
     static final int            MENUITEM_DELETE               = 2;
-    private static final int    MENUITEM_HISTORY              = 3;
-    static final int            MENUITEM_COPY                 = 4;
-    static final int            MENUITEM_CUT                  = 5;
-    private static final int    MENUITEM_PASTE_TAGS           = 6;
-    private static final int    MENUITEM_CREATE_RELATION      = 7;
-    private static final int    MENUITEM_ADD_RELATION_MEMBERS = 8;
-    private static final int    MENUITEM_EXTEND_SELECTION     = 9;
-    private static final int    MENUITEM_ELEMENT_INFO         = 10;
+    private static final int    MENUITEM_HISTORY_WEB          = 3;
+    private static final int    MENUITEM_HISTORY              = 4;
+    static final int            MENUITEM_COPY                 = 5;
+    static final int            MENUITEM_CUT                  = 6;
+    private static final int    MENUITEM_PASTE_TAGS           = 7;
+    private static final int    MENUITEM_CREATE_RELATION      = 8;
+    private static final int    MENUITEM_ADD_RELATION_MEMBERS = 9;
+    private static final int    MENUITEM_EXTEND_SELECTION     = 10;
+    private static final int    MENUITEM_ELEMENT_INFO         = 11;
     protected static final int  LAST_REGULAR_MENUITEM         = MENUITEM_ELEMENT_INFO;
 
     private static final int   MENUITEM_UPLOAD              = 31;
@@ -145,7 +148,11 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                 element instanceof Relation ? R.string.menu_add_relation_member : R.string.tag_menu_addtorelation)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation_add_member));
         if (element.getOsmId() > 0) {
-            menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history)
+                        .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(main.isConnectedOrConnecting());
+            }
+            menu.add(GROUP_BASE, MENUITEM_HISTORY_WEB, Menu.CATEGORY_SYSTEM, R.string.menu_history_web)
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(main.isConnectedOrConnecting());
         }
         menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information)
@@ -270,6 +277,10 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             menuDelete(mode);
             break;
         case MENUITEM_HISTORY:
+            ElementHistoryDialog ehd = ElementHistoryDialog.create(element.getOsmId(), element.getName());
+            ehd.show(main.getSupportFragmentManager(), "history_dialog");
+            break;
+        case MENUITEM_HISTORY_WEB:
             showHistory();
             break;
         case MENUITEM_COPY:
