@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -402,7 +403,6 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      */
     private void showHistory() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        Preferences prefs = new Preferences(main);
         intent.setData(Uri.parse(prefs.getServer().getWebsiteBaseUrl() + element.getName() + "/" + element.getOsmId() + "/history"));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         main.startActivity(intent);
@@ -567,7 +567,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
         final AlertDialog dialog = builder.create();
 
-        final Handler handler = new Handler();
+        final Handler handler = new Handler(Looper.getMainLooper());
         OnCheckedChangeListener onCheckedChangeListener = (group, position) -> {
             if (position != -1) {
                 onRelationSelectedListener.selected(ids.get(position));
