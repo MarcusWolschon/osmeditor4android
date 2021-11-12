@@ -35,10 +35,10 @@ import de.blau.android.util.Util;
 public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallback {
     private static final String DEBUG_TAG = "ExtendSelectionAct...";
 
-    private static final int MENUITEM_MERGE                = 6;
-    private static final int MENUITEM_RELATION             = 7;
-    private static final int MENUITEM_ADD_RELATION_MEMBERS = 8;
-    private static final int MENUITEM_ORTHOGONALIZE        = 9;
+    private static final int MENUITEM_MERGE                = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 1;
+    private static final int MENUITEM_RELATION             = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 2;
+    private static final int MENUITEM_ADD_RELATION_MEMBERS = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 3;
+    private static final int MENUITEM_ORTHOGONALIZE        = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 4;
     private static final int MENUITEM_UPLOAD               = 31;
     private static final int MENUITEM_ZOOM_TO_SELECTION    = 34;
     private static final int MENUITEM_SEARCH_OBJECTS       = 35;

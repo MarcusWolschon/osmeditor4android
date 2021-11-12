@@ -442,6 +442,17 @@ public class Preferences {
         API api = advancedPrefs.getCurrentAPI();
         return api != null ? api.name : null;
     }
+    
+    /**
+     * Get the url of the current API configuration
+     * 
+     * @return the url or null if not found
+     */
+    @Nullable
+    public String getApiUrl() {
+        API api = advancedPrefs.getCurrentAPI();
+        return api != null ? api.url : null;
+    }
 
     /**
      * Get the currently active Presets

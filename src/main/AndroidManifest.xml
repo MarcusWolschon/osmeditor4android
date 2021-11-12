@@ -6,7 +6,7 @@
     android:versionCode="1902"
     android:versionName="@string/app_version" >
 
-    <uses-sdk tools:overrideLibrary="com.heinrichreimersoftware.androidissuereporter,ch.poole.android.checkbox,io.noties.markwon" />
+    <uses-sdk tools:overrideLibrary="com.heinrichreimersoftware.androidissuereporter,ch.poole.android.checkbox,io.noties.markwon,me.zed.elementhistorydialog" />
 
     <uses-feature
         android:name="android.hardware.sensor.compass"
