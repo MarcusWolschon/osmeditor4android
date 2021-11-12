@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.8.5 (1535786 spike-08.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <way id="49695069" visible="true" version="1" changeset="3805940" timestamp="2010-02-06T15:11:53Z" user="SimonPoole" uid="92387">
+  <nd ref="296055264"/>
+  <nd ref="631659175"/>
+  <nd ref="631659176"/>
+  <nd ref="631659178"/>
+  <nd ref="631659179"/>
+  <nd ref="631659181"/>
+  <nd ref="631659182"/>
+  <nd ref="631659184"/>
+  <nd ref="631659185"/>
+  <nd ref="631659186"/>
+  <nd ref="631659188"/>
+  <nd ref="631659190"/>
+  <nd ref="631659191"/>
+  <nd ref="631659193"/>
+  <nd ref="631659194"/>
+  <nd ref="631659195"/>
+  <nd ref="631659197"/>
+  <nd ref="631659198"/>
+  <tag k="highway" v="residential"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Vorbühlstrasse"/>
+ </way>
+ <way id="49695069" visible="true" version="2" changeset="3825307" timestamp="2010-02-08T17:36:06Z" user="SimonPoole" uid="92387">
+  <nd ref="296055264"/>
+  <nd ref="631659175"/>
+  <nd ref="631659176"/>
+  <nd ref="631659178"/>
+  <nd ref="631659179"/>
+  <nd ref="631659181"/>
+  <nd ref="631659182"/>
+  <nd ref="631659184"/>
+  <nd ref="631659185"/>
+  <nd ref="633469124"/>
+  <nd ref="631659186"/>
+  <nd ref="631659188"/>
+  <nd ref="631659190"/>
+  <nd ref="631659191"/>
+  <nd ref="631659193"/>
+  <nd ref="631659194"/>
+  <nd ref="633469064"/>
+  <nd ref="631659195"/>
+  <nd ref="631659197"/>
+  <nd ref="631659198"/>
+  <tag k="highway" v="residential"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Vorbühlstrasse"/>
+ </way>
+ <way id="49695069" visible="true" version="3" changeset="7055336" timestamp="2011-01-22T21:05:55Z" user="kuede" uid="8296">
+  <nd ref="296055264"/>
+  <nd ref="631659175"/>
+  <nd ref="631659176"/>
+  <nd ref="1116134471"/>
+  <nd ref="631659179"/>
+  <nd ref="631659181"/>
+  <nd ref="631659182"/>
+  <nd ref="631659184"/>
+  <nd ref="631659185"/>
+  <nd ref="633469124"/>
+  <nd ref="631659186"/>
+  <nd ref="631659188"/>
+  <nd ref="631659190"/>
+  <nd ref="631659191"/>
+  <nd ref="631659193"/>
+  <nd ref="631659194"/>
+  <nd ref="633469064"/>
+  <nd ref="631659195"/>
+  <nd ref="631659197"/>
+  <nd ref="631659198"/>
+  <tag k="highway" v="residential"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Vorbühlstrasse"/>
+ </way>
+ <way id="49695069" visible="true" version="4" changeset="10579724" timestamp="2012-02-03T22:05:52Z" user="SimonPoole" uid="92387">
+  <nd ref="296055264"/>
+  <nd ref="631659175"/>
+  <nd ref="631659176"/>
+  <nd ref="1617097165"/>
+  <nd ref="1116134471"/>
+  <nd ref="631659179"/>
+  <nd ref="631659181"/>
+  <nd ref="631659182"/>
+  <nd ref="631659184"/>
+  <nd ref="1617097164"/>
+  <nd ref="631659185"/>
+  <nd ref="633469124"/>
+  <nd ref="631659186"/>
+  <nd ref="631659188"/>
+  <nd ref="631659190"/>
+  <nd ref="631659191"/>
+  <nd ref="631659193"/>
+  <nd ref="631659194"/>
+  <nd ref="633469064"/>
+  <nd ref="631659195"/>
+  <nd ref="631659197"/>
+  <nd ref="631659198"/>
+  <tag k="highway" v="residential"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Vorbühlstrasse"/>
+ </way>
+ <way id="49695069" visible="true" version="5" changeset="15367898" timestamp="2013-03-14T22:33:03Z" user="SimonPoole" uid="92387">
+  <nd ref="296055264"/>
+  <nd ref="2202485409"/>
+  <nd ref="631659175"/>
+  <nd ref="2202485399"/>
+  <nd ref="631659176"/>
+  <nd ref="1617097165"/>
+  <nd ref="1116134471"/>
+  <nd ref="631659179"/>
+  <nd ref="2202485255"/>
+  <nd ref="631659181"/>
+  <nd ref="2202485256"/>
+  <nd ref="631659182"/>
+  <nd ref="631659184"/>
+  <nd ref="1617097164"/>
+  <nd ref="631659185"/>
+  <nd ref="2202485362"/>
+  <nd ref="633469124"/>
+  <nd ref="631659186"/>
+  <nd ref="2202485396"/>
+  <nd ref="2202485401"/>
+  <nd ref="631659188"/>
+  <nd ref="2202485413"/>
+  <nd ref="631659190"/>
+  <nd ref="631659191"/>
+  <nd ref="631659193"/>
+  <nd ref="631659194"/>
+  <nd ref="633469064"/>
+  <nd ref="631659195"/>
+  <nd ref="631659197"/>
+  <nd ref="631659198"/>
+  <tag k="highway" v="residential"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Vorbühlstrasse"/>
+ </way>
+ <way id="49695069" visible="true" version="6" changeset="28271871" timestamp="2015-01-20T09:30:21Z" user="SimonPoole" uid="92387">
+  <nd ref="296055264"/>
+  <nd ref="2202485409"/>
+  <nd ref="631659175"/>
+  <nd ref="2202485399"/>
+  <nd ref="631659176"/>
+  <nd ref="1617097165"/>
+  <nd ref="3300051302"/>
+  <nd ref="1116134471"/>
+  <nd ref="3300051292"/>
+  <nd ref="631659179"/>
+  <nd ref="2202485255"/>
+  <nd ref="631659181"/>
+  <nd ref="2202485256"/>
+  <nd ref="631659182"/>
+  <nd ref="631659184"/>
+  <nd ref="1617097164"/>
+  <nd ref="631659185"/>
+  <nd ref="2202485362"/>
+  <nd ref="633469124"/>
+  <nd ref="631659186"/>
+  <nd ref="2202485396"/>
+  <nd ref="2202485401"/>
+  <nd ref="631659188"/>
+  <nd ref="2202485413"/>
+  <nd ref="631659190"/>
+  <nd ref="631659191"/>
+  <nd ref="631659193"/>
+  <nd ref="631659194"/>
+  <nd ref="633469064"/>
+  <nd ref="631659195"/>
+  <nd ref="631659197"/>
+  <nd ref="631659198"/>
+  <tag k="highway" v="residential"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Vorbühlstrasse"/>
+ </way>
+ <way id="49695069" visible="true" version="7" changeset="85377622" timestamp="2020-05-18T10:32:03Z" user="SimonPoole" uid="92387">
+  <nd ref="296055264"/>
+  <nd ref="2202485409"/>
+  <nd ref="631659175"/>
+  <nd ref="2202485399"/>
+  <nd ref="631659176"/>
+  <nd ref="1617097165"/>
+  <nd ref="3300051302"/>
+  <nd ref="1116134471"/>
+  <nd ref="3300051292"/>
+  <nd ref="631659179"/>
+  <nd ref="2202485255"/>
+  <nd ref="631659181"/>
+  <nd ref="2202485256"/>
+  <nd ref="631659182"/>
+  <nd ref="631659184"/>
+  <nd ref="1617097164"/>
+  <nd ref="631659185"/>
+  <nd ref="2202485362"/>
+  <nd ref="633469124"/>
+  <nd ref="631659186"/>
+  <nd ref="2202485396"/>
+  <nd ref="2202485401"/>
+  <nd ref="631659188"/>
+  <nd ref="2202485413"/>
+  <nd ref="631659190"/>
+  <nd ref="631659191"/>
+  <nd ref="631659193"/>
+  <nd ref="631659194"/>
+  <nd ref="633469064"/>
+  <tag k="highway" v="residential"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Vorbühlstrasse"/>
+  <tag k="sidewalk" v="right"/>
+ </way>
+</osm>

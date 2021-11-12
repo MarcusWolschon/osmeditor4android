@@ -99,6 +99,8 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private MenuItem pasteItem;
     private MenuItem calibrateItem;
 
+    Preferences prefs;
+
     /**
      * Construct a new ActionModeCallback
      * 
@@ -120,7 +122,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         logic.setSelectedRelationNodes(null);
         main.getMap().deselectObjects();
 
-        Preferences prefs = logic.getPrefs();
+        prefs = logic.getPrefs();
         // setup menu
         menu = replaceMenu(menu, mode, this);
         menu.clear();
@@ -277,10 +279,12 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             menuDelete(mode);
             break;
         case MENUITEM_HISTORY:
-            ElementHistoryDialog ehd = ElementHistoryDialog.create(element.getOsmId(), element.getName());
+            main.descheduleAutoLock();
+            ElementHistoryDialog ehd = ElementHistoryDialog.create(prefs.getApiUrl(), element.getOsmId(), element.getName());
             ehd.show(main.getSupportFragmentManager(), "history_dialog");
             break;
         case MENUITEM_HISTORY_WEB:
+            main.descheduleAutoLock();
             showHistory();
             break;
         case MENUITEM_COPY:
@@ -338,6 +342,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             main.invalidateMap();
             break;
         case MENUITEM_SEARCH_OBJECTS:
+            main.descheduleAutoLock();
             Search.search(main);
             break;
         case MENUITEM_CALIBRATE_BAROMETER:
