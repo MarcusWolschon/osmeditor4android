@@ -34,7 +34,7 @@ public final class Urls {
     public static final String DEFAULT_MAPILLARY_SEQUENCES_URL_V4 = "https://graph.mapillary.com/image_ids?sequence_id=%s&access_token=%s&fields=id";
 
     // currently not configurable
-    public static final String WIKIPEDIA = "https://en.wikipedia.org/wiki/";
+    public static final String WIKIPEDIA = "https://wikipedia.org/wiki/";
     public static final String WIKIDATA  = "https://wikidata.org/wiki/";
 
     public static final String OSM       = "https://openstreetmap.org";
