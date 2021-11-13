@@ -1054,7 +1054,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             }
             FeatureStyle style = DataStyle.matchStyle(e);
             if (style.usePresetLabel() && tmpPresets != null) {
-                PresetItem match = Preset.findBestMatch(tmpPresets, e.getTags());
+                PresetItem match = Preset.findBestMatch(tmpPresets, e.getTags(), null);
                 if (match != null) {
                     label = match.getTranslatedName();
                 } else {
@@ -1142,10 +1142,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     SortedMap<String, String> tempTags = new TreeMap<>(tags);
                     tempTags.remove(Tags.KEY_BUILDING);
                     tempTags.remove(Tags.KEY_BUILDING_PART);
-                    match = Preset.findBestMatch(tmpPresets, tempTags);
+                    match = Preset.findBestMatch(tmpPresets, tempTags, null);
                 }
             } else {
-                match = Preset.findBestMatch(tmpPresets, tags);
+                match = Preset.findBestMatch(tmpPresets, tags, null);
             }
             if (match != null) {
                 iconDrawable = match.getMapIcon(context);

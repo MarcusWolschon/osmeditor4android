@@ -392,7 +392,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             } else if (prefs.autoApplyPreset()) {
                 updateAutocompletePresetItem(editRowLayout, null, false); // here before preset has been applied
                 PresetItem pi = getBestPreset();
-                if (pi != null) {    
+                if (pi != null) {
                     if (pi.autoapply()) {
                         applyPreset(editRowLayout, pi, false, true, false);
                     } else {
@@ -662,14 +662,15 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         clearPresets();
         clearSecondaryPresets();
         if (presetItem == null) {
-            primaryPresetItem = Preset.findBestMatch(presets, allTags, true); // FIXME multiselect;
+            primaryPresetItem = Preset.findBestMatch(presets, allTags, propertyEditorListener.getCountryIsoCode(), true); // FIXME
+                                                                                                                          // multiselect;
         } else {
             primaryPresetItem = presetItem;
         }
         Map<String, String> nonAssigned = addPresetsToTags(primaryPresetItem, allTags);
         int nonAssignedCount = nonAssigned.size();
         while (nonAssignedCount > 0) {
-            PresetItem nonAssignedPreset = Preset.findBestMatch(presets, nonAssigned, true);
+            PresetItem nonAssignedPreset = Preset.findBestMatch(presets, nonAssigned, propertyEditorListener.getCountryIsoCode(), true);
             if (nonAssignedPreset == null) {
                 // no point in continuing
                 break;
@@ -1458,7 +1459,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             loadEdits(currentValues, false);// FIXME
         }
         if (prefs.nameSuggestionPresetsEnabled()) {
-            PresetItem p = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false)); // FIXME
+            PresetItem p = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false), null); // FIXME
             if (p != null) {
                 applyPreset((LinearLayout) getOurView(), p, false, false, true);
             }
@@ -1921,7 +1922,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             return true;
         case R.id.tag_menu_apply_preset:
         case R.id.tag_menu_apply_preset_with_optional:
-            PresetItem pi = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false)); // FIXME
+            PresetItem pi = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false), null); // FIXME
             if (pi != null) {
                 presetSelectedListener.onPresetSelected(pi, itemId == R.id.tag_menu_apply_preset_with_optional);
             }

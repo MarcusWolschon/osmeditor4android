@@ -13,7 +13,9 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
@@ -38,7 +40,8 @@ public class BaseValidator implements Validator {
 
     public static final int MAX_CONNECTION_TOLERANCE = 10; // maximum tolerance value for non-connected end nodes
 
-    private Preset[] presets;
+    private Preset[]   presets;
+    private GeoContext geoContext;
 
     /**
      * Tags for objects that should be re-surveyed regularly.
@@ -93,6 +96,7 @@ public class BaseValidator implements Validator {
     private void init(@NonNull Context ctx) {
         // !!!! don't store ctx as that will cause a potential memory leak
         presets = App.getCurrentPresets(ctx);
+        geoContext = App.getGeoContext(ctx);
         try (ValidatorRulesDatabaseHelper vrDb = new ValidatorRulesDatabaseHelper(ctx); SQLiteDatabase db = vrDb.getReadableDatabase()) {
             resurveyTags = ValidatorRulesDatabase.getDefaultResurvey(db);
             checkTags = ValidatorRulesDatabase.getDefaultCheck(db);
@@ -109,7 +113,7 @@ public class BaseValidator implements Validator {
      * @param tags the associated tags
      * @return the output status
      */
-    int validateElement(int status, OsmElement e, SortedMap<String, String> tags) {
+    private int validateElement(int status, @NonNull OsmElement e, @NonNull SortedMap<String, String> tags) {
         // test for fixme etc // NOSONAR
         for (Entry<String, String> entry : new ArrayList<>(tags.entrySet())) {
             // test key and value against pattern
@@ -120,12 +124,12 @@ public class BaseValidator implements Validator {
 
         // age check
         if (resurveyTags != null) {
+            long now = System.currentTimeMillis() / 1000;
+            long timestamp = e.getTimestamp();
             for (String key : resurveyTags.getKeys()) {
                 Set<PatternAndAge> values = resurveyTags.get(key);
                 for (PatternAndAge value : values) {
                     if (tags.containsKey(key) && (value.getValue() == null || "".equals(value.getValue()) || value.matches(tags.get(key)))) {
-                        long now = System.currentTimeMillis() / 1000;
-                        long timestamp = e.getTimestamp();
                         if (timestamp >= 0 && (now - timestamp > value.getAge())) {
                             status = status | Validator.AGE;
                             break;
@@ -144,7 +148,8 @@ public class BaseValidator implements Validator {
         }
 
         // find missing keys
-        PresetItem pi = Preset.findBestMatch(presets, tags);
+        String country = getCountry(e);
+        PresetItem pi = Preset.findBestMatch(presets, tags, country);
         if (pi != null && checkTags != null) {
             for (Entry<String, Boolean> entry : checkTags.entrySet()) {
                 String[] keys = entry.getKey().split("\\|");
@@ -204,7 +209,6 @@ public class BaseValidator implements Validator {
             // unsurveyed road
             result = result | Validator.HIGHWAY_ROAD;
         }
-        GeoContext geoContext = App.getGeoContext();
         if (geoContext != null) {
             boolean imperial = geoContext.imperial(w);
             if (imperial) {
@@ -401,7 +405,8 @@ public class BaseValidator implements Validator {
         }
 
         // missing tags
-        PresetItem pi = Preset.findBestMatch(presets, tags);
+        String country = getCountry(e);
+        PresetItem pi = Preset.findBestMatch(presets, tags, country);
         if (pi != null && checkTags != null) {
             for (Entry<String, Boolean> entry : checkTags.entrySet()) {
                 String[] keys = entry.getKey().split("\\|");
@@ -415,6 +420,23 @@ public class BaseValidator implements Validator {
             }
         }
         return result;
+    }
+
+    /**
+     * Get the country the element is located in
+     * 
+     * @param e the OsmElement
+     * @return the country the element is located in or null
+     */
+    @Nullable
+    private String getCountry(@NonNull OsmElement e) {
+        if (geoContext != null) {
+            List<String> isoCodes = geoContext.getIsoCodes(e);
+            if (isoCodes != null) {
+                return GeoContext.getCountryIsoCode(isoCodes);
+            }
+        }
+        return null;
     }
 
     /**
@@ -458,8 +480,10 @@ public class BaseValidator implements Validator {
     public int validate(@NonNull Node node) {
         int status = Validator.NOT_VALIDATED;
         SortedMap<String, String> tags = node.getTags();
-        // tag based checks
-        status = validateElement(status, node, tags);
+        if (!tags.isEmpty()) {
+            // tag based checks
+            status = validateElement(status, node, tags);
+        }
         if (status == Validator.NOT_VALIDATED) {
             status = Validator.OK;
         }
@@ -480,14 +504,17 @@ public class BaseValidator implements Validator {
             status = status | Validator.DEGENERATE_WAY;
         }
         SortedMap<String, String> tags = way.getTags();
-        // tag based checks
-        status = validateElement(status, way, tags);
-        if (tags.isEmpty() && !way.hasParentRelations()) {
+        boolean noTags = tags.isEmpty();
+        if (noTags && !way.hasParentRelations()) {
             status = status | Validator.UNTAGGED;
         }
-        String highway = way.getTagWithKey(Tags.KEY_HIGHWAY);
-        if (highway != null) {
-            status = status | validateHighway(way, highway);
+        if (!noTags) {
+            // tag based checks
+            status = validateElement(status, way, tags);
+            String highway = way.getTagWithKey(Tags.KEY_HIGHWAY);
+            if (highway != null) {
+                status = status | validateHighway(way, highway);
+            }
         }
         if (status == Validator.NOT_VALIDATED) {
             status = Validator.OK;
@@ -499,13 +526,15 @@ public class BaseValidator implements Validator {
     public int validate(@NonNull Relation relation) {
         int status = Validator.NOT_VALIDATED;
         SortedMap<String, String> tags = relation.getTags();
+        boolean noTags = tags.isEmpty();
         // tag based checks
-        if (tags.isEmpty()) {
-            status = status | Validator.UNTAGGED;
-        }
-        status = validateElement(status, relation, tags);
-        if (noType(relation)) {
-            status = status | Validator.NO_TYPE;
+        if (noTags) {
+            status = status | Validator.UNTAGGED | Validator.NO_TYPE;
+        } else {
+            status = validateElement(status, relation, tags);
+            if (noType(relation)) {
+                status = status | Validator.NO_TYPE;
+            }
         }
         List<RelationMember> members = relation.getMembers();
         if (members == null || members.isEmpty()) {

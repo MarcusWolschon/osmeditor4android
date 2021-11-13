@@ -1599,11 +1599,12 @@ public class Preset implements Serializable {
      * 
      * @param presets presets to match against
      * @param tags tags to check against (i.e. tags of a map element)
+     * @param region if not null this will be taken in to account wrt scoring
      * @return null, or the "best" matching item for the given tag set
      */
     @Nullable
-    public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags) {
-        return findBestMatch(presets, tags, false);
+    public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, String region) {
+        return findBestMatch(presets, tags, region, false);
     }
 
     /**
@@ -1616,11 +1617,12 @@ public class Preset implements Serializable {
      * 
      * @param presets presets presets to match against
      * @param tags tags to check against (i.e. tags of a map element)
+     * @param region if not null this will be taken in to account wrt scoring
      * @param useAddressKeys use addr: keys if true
      * @return a preset or null if none found
      */
     @Nullable
-    public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, boolean useAddressKeys) {
+    public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, @Nullable String region, boolean useAddressKeys) {
         int bestMatchStrength = 0;
         PresetItem bestMatch = null;
 
@@ -1636,7 +1638,7 @@ public class Preset implements Serializable {
             possibleMatches = buildPossibleMatches(presets, tags, true);
         }
         // Find best
-        final int FIXED_WEIGHT = 100; // always prioritize presets with fixed keys
+        final int FIXED_WEIGHT = 1000; // always prioritize presets with fixed keys
         for (PresetItem possibleMatch : possibleMatches) {
             int fixedTagCount = possibleMatch.getFixedTagCount() * FIXED_WEIGHT;
             int recommendedTagCount = possibleMatch.getRecommendedKeyCount();
@@ -1647,6 +1649,10 @@ public class Preset implements Serializable {
             if (fixedTagCount > 0 && possibleMatch.matches(tags)) {
                 // has all required tags
                 matches = fixedTagCount;
+            }
+            if (region != null && !possibleMatch.appliesIn(region)) {
+                // downgrade so much that recommended tags can't compensate
+                matches -= 200; 
             }
             if (recommendedTagCount > 0) {
                 matches = matches + possibleMatch.matchesRecommended(tags);

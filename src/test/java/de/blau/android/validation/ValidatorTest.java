@@ -1,27 +1,38 @@
 package de.blau.android.validation;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.xml.sax.SAXException;
+
+import com.drew.lang.annotations.NotNull;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
+import de.blau.android.JavaResources;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
@@ -33,6 +44,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset;
 
 /**
  *
@@ -42,7 +54,6 @@ import de.blau.android.prefs.Preferences;
 @RunWith(RobolectricTestRunner.class)
 @LargeTest
 public class ValidatorTest {
-    private static final int TIMEOUT = 10;
 
     Main  main  = null;
     Logic logic = null;
@@ -52,6 +63,8 @@ public class ValidatorTest {
      */
     @Before
     public void setup() {
+        App.resetPresets();
+        resetValidator();
         main = Robolectric.buildActivity(Main.class).create().resume().get();
         Preferences prefs = new Preferences(ApplicationProvider.getApplicationContext());
         logic = App.getLogic();
@@ -60,25 +73,20 @@ public class ValidatorTest {
     }
 
     /**
+     * Post-test teardown
+     */
+    @After
+    public void teardown() {
+        App.resetPresets();
+        resetValidator();
+    }
+
+    /**
      * Test base validation stuff, age, missing tags, road names
      */
     @Test
     public void baseValidator() {
-        // read in test data
-        final CountDownLatch signal1 = new CountDownLatch(1);
-
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        try (InputStream is = loader.getResourceAsStream("test3.osm")) {
-            logic.readOsmFile(main, is, false, new SignalHandler(signal1));
-            try {
-                signal1.await(TIMEOUT, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                fail(e.getMessage());
-            }
-
-        } catch (IOException e1) {
-            fail(e1.getMessage());
-        }
+        readTestData("test3.osm");
 
         Node zumRueden = (Node) App.getDelegator().getOsmElement(Node.NAME, 370530329);
         assertNotNull(zumRueden);
@@ -145,20 +153,7 @@ public class ValidatorTest {
      */
     @Test
     public void baseValidatorUk() {
-        // read in test data
-        final CountDownLatch signal1 = new CountDownLatch(1);
-
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        try (InputStream is = loader.getResourceAsStream("london.osm")) {
-            logic.readOsmFile(main, is, false, new SignalHandler(signal1));
-            try {
-                signal1.await(10, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                fail(e.getMessage());
-            }
-        } catch (IOException e1) {
-            fail(e1.getMessage());
-        }
+        readTestData("london.osm");
 
         Way constitutionHill = (Way) App.getDelegator().getOsmElement(Way.NAME, 451984385L);
         assertNotNull(constitutionHill);
@@ -171,6 +166,84 @@ public class ValidatorTest {
             assertEquals(Validator.IMPERIAL_UNITS, constitutionHill.hasProblem(main, validator) & Validator.IMPERIAL_UNITS);
         } catch (OsmIllegalOperationException oioe) {
             fail();
+        }
+    }
+
+    @Test
+    public void missingTagsCH() {
+        setupTestPreset();
+        readTestData("motorway_link_ch.osm");
+
+        Way link = (Way) App.getDelegator().getOsmElement(Way.NAME, 22937041L);
+        assertNotNull(link);
+        assertTrue(link.hasTagKey(Tags.KEY_REF));
+        java.util.Map<String, String> tags = new HashMap<>(link.getTags());
+        tags.remove(Tags.KEY_REF);
+        logic.setTags(main, link, tags);
+        Validator validator = App.getDefaultValidator(main);
+        assertEquals(Validator.MISSING_TAG, link.hasProblem(main, validator));
+    }
+
+    @Test
+    public void missingTagsUS() {
+        setupTestPreset();
+        readTestData("motorway_link_us.osm");
+
+        Way link = (Way) App.getDelegator().getOsmElement(Way.NAME, 688767606L);
+        assertNotNull(link);
+        assertFalse(link.hasTagKey(Tags.KEY_REF));
+        Validator validator = App.getDefaultValidator(main);
+        assertEquals(Validator.OK, link.hasProblem(main, validator));
+    }
+
+    /**
+     * Read test data into memory
+     * 
+     * @param fileName the resource file name
+     */
+    private void readTestData(@NotNull String fileName) {
+        // read in test data
+        final CountDownLatch signal1 = new CountDownLatch(1);
+
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        try (InputStream is = loader.getResourceAsStream(fileName)) {
+            logic.readOsmFile(main, is, false, new SignalHandler(signal1));
+            signal1.await(10, TimeUnit.SECONDS); // NOSONAR
+        } catch (IOException | InterruptedException e1) { // NOSONAR
+            fail(e1.getMessage());
+        }
+    }
+
+    /**
+     * Setup a test preset uses reflection to fudge things
+     */
+    private void setupTestPreset() {
+        try {
+            File testPresetFile = JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "test_preset1.xml", null, "test_preset");
+            Preset testPreset = new Preset(ApplicationProvider.getApplicationContext(), testPresetFile.getParentFile(), null, false);
+            App.resetPresets();
+            Field field = App.class.getDeclaredField("currentPresets");
+            field.setAccessible(true); // NOSONAR
+            field.set(null, new Preset[] { testPreset }); // NOSONAR
+            field.setAccessible(false); // NOSONAR
+            resetValidator();
+        } catch (IOException | NoSuchAlgorithmException | ParserConfigurationException | SAXException | NoSuchFieldException | SecurityException
+                | IllegalArgumentException | IllegalAccessException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    /**
+     * Reset the validator
+     */
+    private void resetValidator() {
+        try {
+            Field field = App.class.getDeclaredField("defaultValidator");
+            field.setAccessible(true); // NOSONAR
+            field.set(null, null); // NOSONAR
+            field.setAccessible(false); // NOSONAR
+        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+            fail(e.getMessage());
         }
     }
 }

@@ -1,0 +1,318 @@
+<?xml version="1.0"?>
+<presets version="3.1.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+    description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
+    object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
+<!--
+    Icons have been derived from mainly from
+  
+    http://www.sjjb.co.uk/mapicons/ (meanwhile in osm svn)
+    http://osm-icons.org/
+
+    Format description: https://josm.openstreetmap.de/wiki/TaggingPresets and http://vespucci.io/tutorials/presets/
+-->
+    <!-- Item chunks -->
+    <chunk id="incline">
+        <combo key="incline" text="Incline" values="10%,-10%,10&#xB0;,-10&#xB0;,up,down" display_values="10%,-10%,10&#xB0;,-10&#xB0;,Up,Down" values_sort="false"/>
+    </chunk>
+    <chunk id="surface">
+        <combo key="surface" text="Surface" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,woodchips,paving_stones,sett,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud"
+                                    display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Woodchips,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface" match="none" />
+    </chunk>
+    <chunk id="surface_smoothness">
+        <reference ref="surface"/>
+        <combo key="smoothness" text="Smoothness" values_searchable="true" values_sort="false">
+            <list_entry value="excellent" short_description="Thin Rollers: rollerblade, skateboard"/>
+            <list_entry value="good" short_description="Thin Wheels: racing bike"/>
+            <list_entry value="intermediate" short_description="Wheels: city bike, wheelchair, scooter"/>
+            <list_entry value="bad" short_description="Robust Wheels: trekking bike, car, rickshaw"/>
+            <list_entry value="very_bad" short_description="High Clearance: light duty off-road vehicle"/>
+            <list_entry value="horrible" short_description="Off-Road: heavy duty off-road vehicle"/>
+            <list_entry value="very_horrible" short_description="Specialized off-road: tractor, ATV"/>
+            <list_entry value="impassable" short_description="No wheeled vehicle"/>
+        </combo>
+    </chunk>
+    <chunk id="lanes">
+        <combo key="lanes" text="Lanes" values="1,2,3,4,5,6" length="3" match="none" value_type="integer"/>
+        <combo key="lanes:forward" text="Lanes &#x2192;" long_text="Number of lanes in way direction" values="1,2,3,4,5" length="3" match="none" value_type="integer"/>
+        <combo key="lanes:backward" text="Lanes &#x2190;" long_text="Number of lanes opposite way direction" values="1,2,3,4,5" length="3" match="none" value_type="integer"/>
+        <preset_link preset_name="Public transport lanes"/>
+    </chunk>
+    <chunk id="maxspeed">
+        <text key="maxspeed" text="Max speed" long_text="Maximum speed in km/h if no units specified"/>
+    </chunk>
+    <chunk id="highway_base">
+        <reference ref="maxspeed"/>
+        <preset_link preset_name="Cond. &amp; direct. max speed"/>
+        <space/>
+        <reference ref="surface_smoothness"/>
+        <space/>
+        <reference ref="lanes"/>
+    </chunk>
+    <chunk id="layer">
+        <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" length="3" match="none" editable="true" values_sort="false" value_type="integer"/>
+    </chunk>
+    <chunk id="name">
+        <text key="name" text="Name"/>
+        <preset_link preset_name="No name"/>
+    </chunk>
+    <chunk id="name_layer">
+        <reference ref="name"/>
+        <reference ref="layer"/>
+    </chunk>
+    <chunk id="tunnel">
+        <combo key="tunnel" text="Tunnel" values="yes,building_passage" display_values="Yes,Building passage" values_sort="false" match="key"/>
+        <optional>
+            <reference ref="layer"/>
+            <text key="width" text="Width (meters)"/>
+            <text key="maxheight" text="Max. height (meters)"/>
+            <reference ref="maxspeed"/>
+            <reference ref="incline"/>
+        </optional>
+    </chunk>
+    <chunk id="highway_additional">
+        <check key="bridge" text="Bridge" disable_off="true"/>
+        <reference ref="tunnel"/>
+        <reference ref="layer"/>
+        <check key="cutting" text="Cutting" disable_off="true"/>
+        <check key="embankment" text="Embankment" disable_off="true"/>
+        <reference ref="incline"/>
+        <check key="noexit" text="No exit (cul-de-sac)" disable_off="true"/>
+        <check key="narrow" text="Narrow" disable_off="true"/>
+    </chunk>
+    <chunk id="highway_additional_oneway">
+        <check key="oneway" text="Oneway" disable_off="true"/>
+        <reference ref="highway_additional"/>
+        <combo key="overtaking" text="Overtaking" values="yes,both,forward,backward,no" display_values="Yes,Both directions,In way direction,Opposite to way direction,No" values_sort="false" values_context="overtaking" match="key"/>
+    </chunk>
+    <chunk id="highway_additional_oneway_lit_width">
+        <reference ref="highway_additional_oneway"/>
+        <check key="lit" text="Lit" disable_off="true"/>
+        <text key="width" text="Width (meters)"/>
+    </chunk>
+    <chunk id="sidewalk">
+        <combo key="sidewalk" text="Sidewalk" values_context="sidewalk" match="key">
+            <list_entry value="both" short_description="Both sides"/>
+            <list_entry value="left" short_description="Only left side"/>
+            <list_entry value="right" short_description="Only right side"/>
+            <list_entry value="no" short_description="None"/>
+            <list_entry value="separate" short_description="Mapped separately"/>
+        </combo>
+    </chunk>
+    <chunk id="bus_bay">
+        <combo key="bus_bay" text="Bus bay" values_context="bus_bay" match="key">
+            <list_entry value="both" short_description="Both sides"/>
+            <list_entry value="left" short_description="Only left side"/>
+            <list_entry value="right" short_description="Only right side"/>
+        </combo>
+    </chunk>
+    <chunk id="highway_additional_oneway_lit_width_sidewalk">
+        <reference ref="highway_additional_oneway_lit_width"/>
+        <reference ref="sidewalk"/>
+        <reference ref="bus_bay"/>
+    </chunk>
+    <chunk id="highway_additional_oneway_lit_width_sidewalk_winter">
+        <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
+        <reference ref="sidewalk"/>
+        <reference ref="bus_bay"/>
+        <check key="winter_road" text="Winter road" disable_off="true" />
+        <check key="ice_road" text="Ice road" disable_off="true" />
+    </chunk>
+    <chunk id="placement">
+        <combo key="placement" text="Placement" values="left_of:1,left_of:2,left_of:3,left_of:4,left_of:5,middle_of:1,middle_of:2,middle_of:3,middle_of:4,middle_of:5,right_of:1,right_of:2,right_of:3,right_of:4,right_of:5,transition" />
+        <combo key="placement:forward" text="Placement in way direction" values="left_of:1,left_of:2,left_of:3,left_of:4,left_of:5,middle_of:1,middle_of:2,middle_of:3,middle_of:4,middle_of:5,right_of:1,right_of:2,right_of:3,right_of:4,right_of:5" />
+        <combo key="placement:backward" text="Placement opposed to way direction" values="left_of:1,left_of:2,left_of:3,left_of:4,left_of:5,middle_of:1,middle_of:2,middle_of:3,middle_of:4,middle_of:5,right_of:1,right_of:2,right_of:3,right_of:4,right_of:5" />
+    </chunk>
+    <chunk id="optional_placement">
+        <optional>
+            <reference ref="placement"/>
+        </optional>
+    </chunk>
+    <chunk id="shoulder">
+        <combo key="shoulder" text="Shoulder" values="yes,no,left,right,both" display_values="Yes,No,Left,Right,Both" />
+    </chunk>
+    <chunk id="major_highway_additional">
+        <text key="destination" text="Destination"/>
+        <text key="destination:ref" text="Destination reference"/>
+        <text key="junction:ref" text="Junction reference" />
+        <text key="width" text="Width (meters)"/>
+        <reference ref="shoulder"/>
+        <checkgroup text="Additional attributes" columns="4">
+            <check key="oneway" text="Oneway" default="on"/>
+            <check key="motorroad" text="Motorroad" disable_off="true"/>
+            <check key="bridge" text="Bridge" disable_off="true"/>
+            <check key="tunnel" text="Tunnel" disable_off="true"/>
+            <check key="cutting" text="Cutting" disable_off="true"/>
+            <check key="embankment" text="Embankment" disable_off="true"/>
+            <check key="lit" text="Lit" disable_off="true"/>
+            <check key="toll" text="Toll" disable_off="true"/>
+            <check key="winter_road" text="Winter road" disable_off="true" />
+            <check key="ice_road" text="Ice road" disable_off="true" />
+        </checkgroup>
+        <reference ref="placement"/>
+    </chunk>
+    <chunk id="highway_ref">
+        <text key="ref" text="Reference"/>
+        <optional>
+            <text key="unsigned_ref" text="Unsigned reference"/>
+            <check key="noref" text="No reference" disable_off="true" />
+        </optional>
+    </chunk>
+    <chunk id="traffic_signals_direction">
+        <combo key="direction" text="For traffic direction" values="N,E,S,W,0,90,180,270,forward,backward"
+               display_values="North,East,South,West,0°,90°,180°,270°,Forward,Backward" values_sort="false" />
+    </chunk>
+    <chunk id="name_ref">
+        <text key="name" text="Name"/>
+        <text key="ref" text="Reference"/>
+        <preset_link preset_name="No name"/>
+    </chunk>
+    <chunk id="name_ref_operator">
+        <text key="name" text="Name"/>
+        <text key="ref" text="Reference"/>
+        <text key="operator" text="Operator"/>
+        <preset_link preset_name="No name"/>
+    </chunk>
+    <chunk id="name_operator">
+        <text key="name" text="Name"/>
+        <text key="operator" text="Operator"/>
+        <preset_link preset_name="No name"/>
+    </chunk>
+    <chunk id="optional_name">
+        <optional>
+            <text key="name" text="Name"/>
+        </optional>
+        <preset_link preset_name="No name"/>
+    </chunk>
+    <chunk id="optional_name_operator">
+        <optional>
+            <text key="name" text="Name"/>
+            <text key="operator" text="Operator"/>
+        </optional>
+        <preset_link preset_name="No name"/>
+    </chunk>
+    <chunk id="optional_name_ref_operator">
+        <optional>
+            <text key="name" text="Name"/>
+            <text key="ref" text="Reference"/>
+            <text key="operator" text="Operator"/>
+        </optional>
+        <preset_link preset_name="No name"/>
+    </chunk>
+    <chunk id="wikipedia_wikidata">
+        <text key="wikipedia" text="Wikipedia" value_type="wikipedia"/>
+        <text key="wikidata" text="Wikidata" value_type="wikidata"/>
+    </chunk>
+    <chunk id="name_wikipedia">
+        <text key="name" text="Name"/>
+        <reference ref="wikipedia_wikidata"/>
+        <preset_link preset_name="Name"/>
+        <preset_link preset_name="No name"/>
+    </chunk>
+    <chunk id="optional_name_wikipedia">
+        <optional>
+            <text key="name" text="Name"/>
+            <reference ref="wikipedia_wikidata" />
+        </optional>
+        <preset_link preset_name="No name"/>
+    </chunk>
+    <chunk id="vehicle_access">
+        <combo key="vehicle" text="All vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,permit,no"
+            display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,Permit required,No access" values_context="access" values_sort="false" match="key"/>
+    </chunk>
+    <chunk id="motor_vehicle_access">
+        <combo key="motor_vehicle" text="Motor vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,permit,no"
+            display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,Permit required,No access" values_context="access" values_sort="false" match="key"/>
+    </chunk>
+    <chunk id="check_access_motor">
+        <optional text="Motor vehicle traffic:">
+            <reference ref="motor_vehicle_access" />
+            <space />
+            <checkgroup text="Exceptions" columns="2">
+                <check key="motorcar" text="Motorcar" />
+                <check key="motorcycle" text="Motorcycle" />
+                <check key="moped" text="Moped" />
+                <check key="mofa" text="Mofa" />
+            </checkgroup>
+        </optional>
+    </chunk>
+    <chunk id="optional_height">
+        <optional>
+            <text key="height" text="Height (meters)" length="7"/>
+        </optional>
+    </chunk>
+    <chunk id="maxwidthphysical">
+        <text key="maxwidth:physical" text="Physical max. width (meters)" length="7"/>
+    </chunk>
+    <chunk id="optional_maxwidth">
+        <optional>
+            <text key="maxwidth" text="Max. width (meters)" length="7"/>
+        </optional>
+    </chunk>
+    <chunk id="maxheight_maxwidth">
+        <text key="maxheight" text="Max. height (meters)" length="7"/>
+        <text key="maxwidth" text="Max. width (meters)" length="7"/>
+    </chunk>
+    <chunk id="optional_maxheight_maxwidth">
+        <optional>
+            <reference ref="maxheight_maxwidth" />
+        </optional>
+    </chunk>
+    <chunk id="maxweight">
+        <text key="maxweight" text="Max. weight (tonnes)" match="key" />
+    </chunk>
+    <chunk id="optional_bridge">
+        <optional>
+            <text key="bridge:name" text="Bridge name" />
+            <reference ref="layer"/>
+            <space/>
+            <reference ref="maxspeed"/>
+            <space/>
+            <reference ref="maxweight"/>
+            <reference ref="incline"/>
+            <text key="width" text="Width (meters)"/>
+            <check key="toll" text="Toll" disable_off="true"/>
+        </optional>
+    </chunk>
+    <chunk id="road_access_restrictions">
+        <preset_link preset_name="All vehicles"/>
+        <preset_link preset_name="Motor vehicle"/>
+        <preset_link preset_name="Motorcar"/>
+        <preset_link preset_name="Motorcycle"/>
+        <preset_link preset_name="Motor vehicle (CH)"/>
+        <preset_link preset_name="Motorcar and -cycle (CH)"/>
+        <preset_link preset_name="Heavy Goods Vehicle"/>
+        <preset_link preset_name="Physical restrictions"/>
+        <preset_link preset_name="Other mode restrictions"/>
+    </chunk>
+    <chunk id="lane_presets">
+        <preset_link preset_name="Single direction roads"/>
+        <preset_link preset_name="Bi-directional roads"/>
+    </chunk>
+    <chunk id="cycle_lanes">
+        <preset_link preset_name="Cycle Lane/Track"/>
+    </chunk>
+    <group name="Test" icon="icons/png/highway_highway_sp.png" items_sort="false" >
+        <item name="Motorway Link" icon="icons/png/highway_dual_sp.png" regions="us" exclude_regions="true" type="way" preset_name_label="true">
+            <link wiki="Tag:highway=motorway_link"/>
+            <key key="highway" value="motorway_link"/>
+            <reference ref="highway_ref"/>
+            <optional>
+                <reference ref="highway_base"/>
+                <reference ref="major_highway_additional"/>
+            </optional>
+            <reference ref="road_access_restrictions"/>
+            <reference ref="lane_presets"/>
+        </item> <!-- Motorway Link -->
+        <item name="Motorway Link (US)" icon="icons/png/highway_dual_sp.png" regions="us" type="way" preset_name_label="true">
+            <link wiki="Tag:highway=motorway_link"/>
+            <key key="highway" value="motorway_link"/>
+            <optional>
+                <reference ref="highway_ref"/>
+                <reference ref="highway_base"/>
+                <reference ref="major_highway_additional"/>
+            </optional>
+            <reference ref="road_access_restrictions"/>
+            <reference ref="lane_presets"/>
+        </item> <!-- Motorway Link -->
+    </group>
+</presets>

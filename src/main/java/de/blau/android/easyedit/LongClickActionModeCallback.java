@@ -345,7 +345,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                     if (nt != null) {
                         HashMap<String, String> map = new HashMap<>();
                         map.putAll(nt.getTags());
-                        PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(main), map);
+                        PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(main), map, null);
                         if (pi != null) {
                             Node node = addNode(logic.performAddNode(main, startLon, startLat), nt.getName(), pi, logic, v);
                             if (node != null) {
