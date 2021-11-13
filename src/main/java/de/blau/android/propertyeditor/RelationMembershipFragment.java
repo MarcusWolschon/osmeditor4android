@@ -374,7 +374,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             Preset[] presets = owner.getPresets();
             Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, relationId);
             if (relationPreset == null && presets != null && r != null) {
-                relationPreset = Preset.findBestMatch(presets, r.getTags());
+                relationPreset = Preset.findBestMatch(presets, r.getTags(), null);
             }
             return relationPreset;
         }
