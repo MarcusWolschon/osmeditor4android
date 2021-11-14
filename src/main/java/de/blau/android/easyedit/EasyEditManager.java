@@ -126,6 +126,20 @@ public class EasyEditManager {
     }
 
     /**
+     * Check if we are in a mode that supports dragging
+     * 
+     * @return true if we are in a supported ActionMode
+     */
+    public boolean draggingEnabled() {
+        synchronized (actionModeCallbackLock) {
+            return currentActionModeCallback instanceof ElementSelectionActionModeCallback
+                    || currentActionModeCallback instanceof ExtendSelectionActionModeCallback
+                    || currentActionModeCallback instanceof NewNoteSelectionActionModeCallback
+                    || currentActionModeCallback instanceof WayRotationActionModeCallback;
+        }
+    }
+
+    /**
      * Call if you need to abort the current action mode
      */
     public void finish() {
