@@ -266,7 +266,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param field a PresetField or null
      * @param allTags all the tags of the element
      * @param addRuler add a special value to indicate the position of a ruler
-     * @param dedup TODO
+     * @param dedup if true de-duplicate the results
      * @param addMruSize number of values from on we add the full MRU tag list
      * @return an ArrayAdapter for key, or null if something went wrong
      */
