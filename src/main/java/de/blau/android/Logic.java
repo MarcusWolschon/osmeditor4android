@@ -1265,11 +1265,15 @@ public class Logic {
      */
     synchronized void handleTouchEventDown(@NonNull Activity activity, final float x, final float y) {
         boolean draggingMultiselect = false;
+        draggingNode = false;
+        draggingWay = false;
+        draggingHandle = false;
+        draggingNote = false;
         if (!isLocked() && isInEditZoomRange() && mode.elementsGeomEditiable()) {
-            draggingNode = false;
-            draggingWay = false;
-            draggingHandle = false;
-            draggingNote = false;
+            if (activity instanceof Main && !((Main) activity).getEasyEditManager().draggingEnabled()) {
+                // dragging is currently only supported in element selection modes
+                return;
+            }
             Task selectedTask = null;
             de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
             if (taskLayer != null) {
@@ -1348,15 +1352,9 @@ public class Logic {
                     }
                 }
             }
-        } else {
-            draggingNode = false;
-            draggingWay = false;
-            rotatingWay = false;
-            draggingHandle = false;
-            draggingNote = false;
         }
         Log.d(DEBUG_TAG, "handleTouchEventDown creating checkpoints");
-        if ((draggingNode || draggingWay) && (!(activity instanceof Main) || !((Main) activity).getEasyEditManager().inPathCreationMode())) {
+        if ((draggingNode || draggingWay)) {
             if (draggingMultiselect) {
                 createCheckpoint(activity, R.string.undo_action_moveobjects);
             } else {
@@ -2929,7 +2927,7 @@ public class Logic {
                 result = new ReadAsyncResult(ErrorCodes.SSL_HANDSHAKE);
             } else {
                 result = new ReadAsyncResult(ErrorCodes.NO_CONNECTION);
-            }      
+            }
         }
         if (result.getCode() != ErrorCodes.OK) {
             removeBoundingBox(mapBox);
@@ -3380,8 +3378,7 @@ public class Logic {
      * @param postLoad callback to execute once stream has been loaded
      * @throws FileNotFoundException when the selected file could not be found
      */
-    public void readOsmFile(@NonNull final Context context, @NonNull final InputStream is, boolean add,
-            @Nullable final PostAsyncActionHandler postLoad) {
+    public void readOsmFile(@NonNull final Context context, @NonNull final InputStream is, boolean add, @Nullable final PostAsyncActionHandler postLoad) {
 
         new ReadAsyncClass(context, is, false, postLoad) {
             @Override
