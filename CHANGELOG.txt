@@ -1,5 +1,16 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+16.1.1:
+
+- Fix disable dragging in modes that do not support it properly
+- Fix use neutral WP link
+- Fix missing failure on some server errors
+- Fix auto apply preset regression
+- Update translations
+- Update imagery from ELI
+- Update preset
+- Update NSI
+
 16.1.0:
 
 - Fix inconsistent default values application when multiple elements are selected
