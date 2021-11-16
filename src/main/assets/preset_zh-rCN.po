@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-11-04 19:30+0100\n"
-"PO-Revision-Date: 2021-11-04 18:32+0000\n"
-"Last-Translator: Stenive <stenive@gmail.com>\n"
+"PO-Revision-Date: 2021-11-15 15:34+0000\n"
+"Last-Translator: anodern\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/openstreetmap/presets/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -70,7 +70,7 @@ msgstr ""
 
 #: master_preset.xml:1483(combo:display_values|key:highchair)
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: master_preset.xml:1989(list_entry:display_value|group:Ways|preset:Track|value:grade1)
 msgid "1 - Solid"
@@ -417,7 +417,7 @@ msgstr ""
 
 #: master_preset.xml:233(checkgroup:text)
 msgid "Additional attributes"
-msgstr ""
+msgstr "额外属性"
 
 #: master_preset.xml:3790(label:text|group:Car|preset:Fuel)
 msgid "Additives:"
@@ -1412,7 +1412,7 @@ msgstr ""
 
 #: master_preset.xml:11770(item:name|group:Routes|preset:Bicycle_Route)
 msgid "Bicycle Route"
-msgstr ""
+msgstr "自行车线路"
 
 #: master_preset.xml:2113(check:text|group:Ways|preset:Steps|key:ramp:bicycle)
 msgid "Bicycle ramp"
@@ -2395,7 +2395,7 @@ msgstr ""
 
 #: master_preset.xml:11746(list_entry:display_value|preset:Enforcement|value:check)
 msgid "Check"
-msgstr ""
+msgstr "检查"
 
 #: master_preset.xml:1142(combo:display_values|key:cash_withdrawal:type)
 msgid "Checkout"
@@ -3136,7 +3136,7 @@ msgstr ""
 #: master_preset.xml:3093(item:name|group:Water|preset:Culvert)
 #: master_preset.xml:994(combo:display_values|key:tunnel)
 msgid "Culvert"
-msgstr ""
+msgstr "涵洞"
 
 #: master_preset.xml:7441(item:name|group:Sport|preset:Curling)
 msgid "Curling"
@@ -6383,7 +6383,7 @@ msgstr ""
 #: master_preset.xml:1948(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
 #: master_preset.xml:225(combo:display_values|key:shoulder)
 msgid "Left"
-msgstr ""
+msgstr "左边"
 
 #: master_preset.xml:1907(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:left;through)
 #: master_preset.xml:1931(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left;through)
@@ -10555,7 +10555,7 @@ msgstr ""
 #: master_preset.xml:1956(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 #: master_preset.xml:225(combo:display_values|key:shoulder)
 msgid "Right"
-msgstr ""
+msgstr "右边"
 
 #: master_preset.xml:2122(check:text|group:Ways|preset:Steps|key:handrail:right)
 msgid "Right handrail"
@@ -11839,7 +11839,7 @@ msgstr ""
 #: master_preset.xml:9376(text:text|group:Historic_Places_&_Objects|preset:Wayside_Cross|key:start_date)
 #: master_preset.xml:9388(text:text|group:Historic_Places_&_Objects|preset:Wayside_Shrine|key:start_date)
 msgid "Start date"
-msgstr ""
+msgstr "开始日期"
 
 #: master_preset.xml:9276(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Stately"
@@ -13804,7 +13804,7 @@ msgstr ""
 
 #: master_preset.xml:1983(group:name|group:Ways)
 msgid "Ways"
-msgstr ""
+msgstr "路径"
 
 #: master_preset.xml:9370(item:name|group:Historic_Places_&_Objects|preset:Wayside_Cross)
 msgid "Wayside Cross"
@@ -17081,7 +17081,7 @@ msgstr ""
 #: master_preset.xml:1238(list_entry:short_description|value:internal)
 msgctxt "healthcare"
 msgid "Internal"
-msgstr ""
+msgstr "内部"
 
 #: master_preset.xml:6256(list_entry:short_description|group:Health|preset:Alternative_medicine|value:naturopathy)
 msgctxt "healthcare"

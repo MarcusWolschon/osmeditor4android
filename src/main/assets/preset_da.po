@@ -1,12 +1,13 @@
 # 
 # Translators:
+# danieldegroot2 <danieldegroot18@gmail.com>, 2021
 # Jurbo Lator <joern.map@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-11-04 19:30+0100\n"
-"PO-Revision-Date: 2021-11-04 18:32+0000\n"
-"Last-Translator: Mikkel Kirkgaard Nielsen <memb_transifex@mikini.dk>\n"
+"PO-Revision-Date: 2021-11-14 23:19+0000\n"
+"Last-Translator: danieldegroot2 <danieldegroot18@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/openstreetmap/presets/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -448,7 +449,7 @@ msgstr ""
 #: master_preset.xml:11637(combo:display_values|group:Relations|preset:Boundary|key:boundary)
 #: master_preset.xml:12676(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Administrative"
-msgstr ""
+msgstr "Administrativ"
 
 #: master_preset.xml:12614(item:name|group:Offices|preset:Administrative_(deprecated))
 msgid "Administrative (deprecated)"
@@ -1713,7 +1714,7 @@ msgstr "Grænser"
 #: master_preset.xml:11608(list_entry:display_value|group:Relations|preset:Relations|value:boundary)
 #: master_preset.xml:11632(item:name|group:Relations|preset:Boundary)
 msgid "Boundary"
-msgstr ""
+msgstr "Afgrænsning"
 
 #: master_preset.xml:10758(item:name|group:Boundaries|preset:Boundary_Marker)
 msgid "Boundary Marker"
@@ -3582,11 +3583,11 @@ msgstr ""
 #: master_preset.xml:2354(text:text|preset:Highway_milestone|key:distance)
 #: master_preset.xml:3427(text:text|group:Shipping|preset:Waterway_milestone|key:distance)
 msgid "Distance (kilometers)"
-msgstr ""
+msgstr "Afstand (kilometer)"
 
 #: master_preset.xml:758(text:text|key:distance)
 msgid "Distance (km)"
-msgstr ""
+msgstr "Afstand (km)"
 
 #: master_preset.xml:12235(item:name|group:Crafts|preset:Distillery)
 msgid "Distillery"
@@ -5813,19 +5814,19 @@ msgstr "Indendørs"
 
 #: master_preset.xml:7996(item:name|group:Indoor_elements|preset:Indoor_area)
 msgid "Indoor area"
-msgstr ""
+msgstr "Område indendørs"
 
 #: master_preset.xml:8009(item:name|group:Indoor_elements|preset:Indoor_door)
 msgid "Indoor door"
-msgstr ""
+msgstr "Dør indendørs"
 
 #: master_preset.xml:7995(group:name|group:Indoor_elements)
 msgid "Indoor elements"
-msgstr ""
+msgstr "Element indendørs"
 
 #: master_preset.xml:8028(item:name|group:Indoor_elements|preset:Indoor_wall)
 msgid "Indoor wall"
-msgstr ""
+msgstr "Mur indendørs"
 
 #: master_preset.xml:8329(combo:display_values|group:Man_Made|preset:Pipeline_Valve|key:sensor:position)
 msgid "Inductive"
@@ -6347,7 +6348,7 @@ msgstr ""
 #: master_preset.xml:3098(combo:text|group:Water|preset:Culvert|key:layer)
 #: master_preset.xml:88(combo:text|key:layer)
 msgid "Layer"
-msgstr ""
+msgstr "Lag"
 
 #: master_preset.xml:1473(combo:display_values|key:resource)
 msgid "Lead"
@@ -7250,7 +7251,7 @@ msgstr ""
 
 #: master_preset.xml:287(text:text|key:min_age)
 msgid "Minimum age"
-msgstr ""
+msgstr "Minimumsalder"
 
 #: master_preset.xml:1147(combo:text|key:cash_withdrawal:purchase_minimum)
 msgid "Minimum purchase"
@@ -11921,7 +11922,7 @@ msgstr ""
 
 #: master_preset.xml:2750(item:name|group:Barriers|preset:Stile)
 msgid "Stile"
-msgstr ""
+msgstr "Stente"
 
 #: master_preset.xml:6151(list_entry:display_value|group:Health|preset:Dentist|value:stomatology)
 msgid "Stomatology"
@@ -12173,7 +12174,7 @@ msgstr ""
 #: master_preset.xml:68(combo:text|key:surface)
 #: master_preset.xml:7741(combo:text|group:Motorsport|preset:Model_Aerodrome|key:surface)
 msgid "Surface"
-msgstr ""
+msgstr "Overflade"
 
 #: master_preset.xml:3247(multiselect:display_values|group:Water|preset:Beach|key:sport)
 msgid "Surfing"
@@ -15011,7 +15012,7 @@ msgstr ""
 #: master_preset.xml:25(combo:text|key:surface)
 msgctxt "surface"
 msgid "Surface"
-msgstr ""
+msgstr "Overflade"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -15214,7 +15215,7 @@ msgstr ""
 #: master_preset.xml:715(list_entry:display_value|value:surface)
 msgctxt "parking"
 msgid "Surface"
-msgstr ""
+msgstr "Overflade"
 
 #: master_preset.xml:125(list_entry:short_description|value:ticket)
 #: master_preset.xml:142(list_entry:short_description|value:ticket)

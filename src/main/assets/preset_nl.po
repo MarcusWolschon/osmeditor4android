@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-11-04 19:30+0100\n"
-"PO-Revision-Date: 2021-11-04 18:32+0000\n"
-"Last-Translator: Thibault Rommel <thibault.rommel@gmail.com>\n"
+"PO-Revision-Date: 2021-11-14 16:39+0000\n"
+"Last-Translator: danieldegroot2 <danieldegroot18@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/openstreetmap/presets/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -262,7 +262,7 @@ msgstr "Een bord met informatie."
 
 #: master_preset.xml:3167(label:text|group:Water|preset:Other_waterbodies)
 msgid "A body of water, such as a lake or pond."
-msgstr ""
+msgstr "Een lichaam van water, zoals een meer of vijver."
 
 #: master_preset.xml:10880(label:text|group:Places|preset:Farm)
 msgid "A farm within a bigger settlement"
@@ -359,7 +359,7 @@ msgstr "Een vulkaan, slapend, uitgedoofd of actief."
 
 #: master_preset.xml:6354(list_entry:short_description|group:Emergency|preset:Fire_Hydrant|value:groundwater)
 msgid "A water well."
-msgstr ""
+msgstr "Een waterput."
 
 #: master_preset.xml:8517(multiselect:display_values|group:Man_Made|preset:Surveillance|key:surveillance:type)
 msgid "ALPR"
@@ -3390,7 +3390,7 @@ msgstr "Omschrijving"
 #: master_preset.xml:2094(combo:display_values|group:Ways|preset:Dedicated_Footway|key:bicycle)
 #: master_preset.xml:2383(combo:display_values|preset:Elevator|key:goods)
 msgid "Designated"
-msgstr "Geadviseerd"
+msgstr "Zoals aangegeven"
 
 #: master_preset.xml:11931(text:text|group:Routes|preset:Detour_Route|key:destination)
 #: master_preset.xml:1616(text:text|group:Streets|preset:Primary_Link|key:destination)
@@ -7570,7 +7570,7 @@ msgstr "Multi-pitch klimmen"
 #: master_preset.xml:11604(list_entry:display_value|group:Relations|preset:Relations|value:multipolygon)
 #: master_preset.xml:11621(item:name|group:Relations|preset:Multipolygon)
 msgid "Multipolygon"
-msgstr "Meervoudige polygoon"
+msgstr "Multipolygoon"
 
 #: master_preset.xml:5634(combo:display_values|group:Culture|preset:Museum|key:museum_type)
 msgid "Municipal"
@@ -13766,7 +13766,7 @@ msgstr "Watervoorzieningen"
 
 #: master_preset.xml:3169(combo:text|group:Water|preset:Other_waterbodies|key:water)
 msgid "Waterbody"
-msgstr ""
+msgstr "Waterlichaam"
 
 #: master_preset.xml:3052(item:name|group:Water|preset:Waterfall)
 msgid "Waterfall"
@@ -14093,7 +14093,7 @@ msgstr "Fabriek"
 
 #: master_preset.xml:330(combo:text|key:opening_hours:workshop)
 msgid "Workshop Opening Hours"
-msgstr ""
+msgstr "Workshop openingstijden"
 
 #: master_preset.xml:614(list_entry:short_description|value:workwear)
 msgid "Workwear"
@@ -14206,7 +14206,7 @@ msgstr "Jeugdcentrum"
 
 #: master_preset.xml:6586(item:name|group:Social_Facilities|preset:Youth_Centre_(deprecated))
 msgid "Youth Centre (deprecated)"
-msgstr ""
+msgstr "Jeugdcentrum (verouderd)"
 
 #: master_preset.xml:6639(list_entry:display_value|group:Clubs|preset:Club|value:youth_movement)
 msgid "Youth movement"
@@ -15013,7 +15013,7 @@ msgstr "Rechthoekig gekapte kasseien"
 #: master_preset.xml:25(combo:text|key:surface)
 msgctxt "surface"
 msgid "Surface"
-msgstr "Oppervlakt"
+msgstr "Oppervlak"
 
 #: master_preset.xml:25(combo:display_values|key:surface)
 #: master_preset.xml:29(combo:display_values|key:footway:surface)
@@ -15216,7 +15216,7 @@ msgstr ""
 #: master_preset.xml:715(list_entry:display_value|value:surface)
 msgctxt "parking"
 msgid "Surface"
-msgstr "Oppervlakt"
+msgstr "Oppervlak"
 
 #: master_preset.xml:125(list_entry:short_description|value:ticket)
 #: master_preset.xml:142(list_entry:short_description|value:ticket)
@@ -15668,7 +15668,7 @@ msgstr "Levering"
 #: master_preset.xml:2958(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:psv)
 msgctxt "access"
 msgid "Designated"
-msgstr "Geadviseerd"
+msgstr "Zoals aangegeven"
 
 #: master_preset.xml:1004(combo:display_values|key:ship)
 #: master_preset.xml:1006(combo:display_values|key:boat)
@@ -20954,7 +20954,7 @@ msgstr ""
 #: master_preset.xml:11296(combo:text|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
 msgid "Style"
-msgstr ""
+msgstr "Stijl"
 
 #: master_preset.xml:11294(combo:text|group:Land_use|preset:Garden|key:garden:type)
 msgctxt "garden"

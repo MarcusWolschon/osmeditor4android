@@ -18,7 +18,7 @@
   <string name="upload_conflict_title">Uppladdningskonflikt</string>
   <string name="upload_conflict_message_version">%1$s \nhar lokal version %2$d \noch servern har %3$d</string>
   <string name="upload_conflict_message_deleted">%1$s \nhar lokal version %2$d \noch togs bort på servern</string>
-  <string name="upload_conflict_message_referential">%1$s \ntogs bort lokalt \nmen har kopplingar på servern</string>
+  <string name="upload_conflict_message_referential">%1$s \ntogs bort lokalt \nmen har referenser på servern</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nvar redan borttagen på servern</string>
   <string name="use_local_version">Använd lokal version</string>
   <string name="use_server_version">Använd version på server</string>
@@ -32,12 +32,13 @@
   <string name="wrong_login_data_re_authenticate">Autentisera igen</string>
   <string name="forbidden_login_title">Inloggning förbjuden</string>
   <string name="not_found_title">Element hittades inte</string>
-  <string name="unknown_error_title">Okänt fel</string>
+  <string name="unknown_error_title">Okänd fel</string>
   <string name="no_data_title">Ingen data</string>
+  <string name="required_feature_missing_title">Saknad eller avaktiverad komponent</string>
   <string name="go_to_openstreetmap">Gå till openstreetmap.org</string>
   <string name="data_conflict_title">Versionskonflikt</string>
   <string name="corrupted_data_title">Korrupt data</string>
-  <string name="invalid_bounding_box_title">Felaktig avgränsningsruta</string>
+  <string name="invalid_bounding_box_title">Ogiltiga avgränsningsruta</string>
   <string name="bounding_box_too_large_title">Hämtningsområdet för stort</string>
   <string name="bounding_box_too_large_message">Området du försöker ladda ner är för stort eller innehåller för mycket data.\n\nZooma in och försök igen.</string>
   <string name="api_offline_title">API frånkopplad</string>
@@ -45,7 +46,7 @@
   <string name="out_of_memory_title">Slut på minne</string>
   <string name="invalid_data_received_title">Ogiltiga data mottaget</string>
   <string name="invalid_data_received_message">Om du inte orsakade felet, vänligen lämna in en felrapport.</string>
-  <string name="invalid_data_read_title">Felaktigt dataläsning</string>
+  <string name="invalid_data_read_title">Ogiltiga dataläsning</string>
   <string name="file_write_failed_title">Kunde inte skriva till fil</string>
   <string name="file_write_failed_message">Vespucci kunde inte ändra eller spara filen.</string>
   <!---->
@@ -61,10 +62,11 @@
   <string name="progress_deleting_message">Tar bort...</string>
   <string name="progress_searching_message">Söker...</string>
   <string name="progress_saving_message">Sparar...</string>
-  <string name="progress_uploading_message">Läser in upp...</string>
+  <string name="progress_uploading_message">Laddar upp...</string>
   <string name="progress_preset_message">Hämta förinställning...</string>
   <string name="progress_running_message">Körs...</string>
   <string name="progress_building_imagery_database">Bygger bild-databas...</string>
+  <string name="progress_migration">Migrerar...</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" raderad</string>
   <string name="changes_changed">\"%1$s\" ändrad</string>
@@ -77,15 +79,19 @@
   <string name="confirm_upload_edits_page">Ändringar</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Källa:</string>
-  <string name="upload_close_changeset_label">Stäng changeset:</string>
+  <string name="upload_close_open_changeset_label">Stäng öppna ändringsuppsättning först:</string>
+  <string name="upload_close_changeset_label">Stäng ändringsuppsättning:</string>
+  <string name="upload_request_review_label">Begär granskning:</string>
   <!---->
   <string name="upload_gpx_description_label">Beskrivning</string>
   <string name="upload_gpx_tags_label">Etiketter</string>
   <string name="upload_gpx_visibility_label">Synlighet</string>
+  <string name="upload_validation_error_empty_comment">Kommentar bör inte vara tom</string>
+  <string name="upload_validation_error_empty_source">Källa bör inte vara tom</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Ny anteckning</string>
-  <string name="openstreetbug_new_bug">Rapportera fel</string>
-  <string name="openstreetbug_bug_title">Fel</string>
+  <string name="openstreetbug_new_bug">Rapportera problem</string>
+  <string name="openstreetbug_bug_title">Problem</string>
   <string name="openstreetbug_new_nodeway">Skapa nod/väg</string>
   <string name="openstreetbug_edit_title">Redigera anteckning</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
@@ -133,6 +139,8 @@
   <string name="search">Sök</string>
   <string name="no_valid_preset">Inga giltiga förinställningar</string>
   <string name="save_file">Spara till</string>
+  <string name="existing_track_title">Existerande GPX-spårdata</string>
+  <string name="delete_tags">Radera alla taggar för objekt \"%1$s\"</string>
   <!--element information dialog-->
   <string name="element_information">Element info</string>
   <string name="id">ID</string>
@@ -160,23 +168,33 @@
   <string name="changed">Ändrat</string>
   <string name="ways">Vägar</string>
   <!--Tile layer info dialog-->
-  <string name="attribution">Attribut</string>
+  <string name="attribution">Attribuering</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">För mycket data laddat!</string>
   <string name="upload_data_now">Ladda upp ändringar</string>
   <string name="prune_data_now">Beskär data</string>
   <!--Delete custom preset dialog-->
-  <string name="delete_custom_preset_title">Ta bort anpassade presets?</string>
+  <string name="delete_custom_preset_title">Radera anpassade presets?</string>
   <!--Duplicate route segment dialog-->
   <string name="duplicate_route_segment_title">Lägg till ruttsegment</string>
-  <string name="duplicate_route_segment_button">Lätt till ändå</string>
+  <string name="duplicate_route_segment_message">Den här sträckan är redan medlem av rutten.</string>
+  <string name="duplicate_route_segment_button">Lägg till ändå</string>
   <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_title">Lägg till relationsmedlem</string>
+  <string name="duplicate_relation_member_message">Det här elementet är redan medlem av relationen.</string>
+  <string name="duplicate_relation_member_remove_button">Ta bort medlem</string>
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move_outer_tags_title">Flytta taggar från ytterkonturen till multipolygonen</string>
   <string name="move">Flytta</string>
+  <string name="leave_as_is">Lämna orört</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove_duplicate_outer_tags_title">Ta bort duplicerade taggar från ytterkonturen.</string>
+  <string name="remove_duplicate_outer_tags_message">Ta bort taggar från ytterkonturen som är satta på multipolygonen.</string>
   <string name="remove">Ta bort</string>
   <!--Abort action mode dialog-->
+  <string name="abort_action_title">Avbryt åtgärd</string>
   <!--Address interpoation dialog-->
+  <string name="address_interpolation_title">Skapa adressinterpolering</string>
   <string name="start">Start</string>
   <string name="end">End</string>
   <string name="even">Jämna</string>
@@ -198,13 +216,15 @@
   <string name="evaluate">Utvärdera</string>
   <string name="js_console_msg_live">Live-läge!</string>
   <string name="js_console_msg_debug">Felsökningsläge!</string>
-  <string name="js_console_input_hint">Lägg till JavaScript här</string>
+  <string name="js_console_input_hint">Ange JavaScript här</string>
   <!--Validator dialogs-->
   <string name="validator_title">Validator regeluppsättning %1$s</string>
   <string name="check_entries">Kontrollerat</string>
   <string name="max_age">Max. ålder</string>
   <string name="age">Ålder</string>
   <!--Empty relation dialog-->
+  <string name="empty_relation_title">Tom relation</string>
+  <string name="empty_relation_message">Relationen %1$shar inga medlemmar.\n\nOm den lämnas som den är kommer den inte att gå att editera i Vespucci.</string>
   <string name="add_members">Lägg till medlemmar</string>
   <string name="leave_empty">Lämna tom</string>
   <!--GPX waypoint dialog-->
@@ -214,17 +234,20 @@
   <string name="altitude">Höjd</string>
   <string name="create_osm_object">Skapa OSM-föremål</string>
   <!--Custom imagery dialogs-->
+  <string name="select_layer_title">Välj lager</string>
   <string name="coverage">Täckning</string>
   <string name="coverage_top">Överst</string>
   <string name="coverage_left">Vänster</string>
   <string name="coverage_right">Höger</string>
   <string name="coverage_bottom">Nederst</string>
-  <string name="delete_layer">Ta bort lagret?</string>
+  <string name="tile_size">Rutastorlek</string>
+  <string name="delete_layer">Radera lager?</string>
   <string name="add_imagery_from_wms_endpoint">Lägg till bildlager från WMS</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Stil på lagret</string>
   <string name="layer_style_color">Färg</string>
   <string name="layer_style_label">Etikett</string>
+  <string name="layer_style_symbol">Symbol</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
@@ -234,7 +257,9 @@
   <string name="layer_tasks">Uppgifter</string>
   <string name="layer_data">OSM data</string>
   <string name="layer_data_name">%1$s data</string>
-  <string name="layer_change_style">Byt stil</string>
+  <string name="layer_change_style">Ändra stil</string>
+  <string name="layer_load_style">Läs in stil</string>
+  <string name="layer_reset_style">Återställ stil</string>
   <string name="layer_select_imagery">Välj bildkälla</string>
   <string name="layer_category_all">Alla</string>
   <string name="layer_category_photo">Flygfoto</string>
@@ -255,14 +280,14 @@
   <string name="errors">Fel</string>
   <!--Mapillary layer-->
   <!--Photo viewer-->
-  <string name="photo_viewer_delete_title">Ta bort foto</string>
+  <string name="photo_viewer_delete_title">Radera foto</string>
   <string name="photo_viewer_goto">Gå till foto</string>
   <string name="photo_viewer_label">Fotovisare</string>
   <string name="mapillary_viewer_label">Mapillary visare</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Avgränsningssruta</string>
   <string name="api_info_latest_date">Senast inkluderade datum</string>
-  <string name="api_info_attribution">Attribut</string>
+  <string name="api_info_attribution">Attribuering</string>
   <string name="api_info_mapsplit_source">MapSplit skrivskyddad källa</string>
   <!--Tag conflict dialog-->
   <string name="tag_conflict_title">Taggar ändrade</string>
@@ -323,6 +348,9 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="toast_file_not_found">%1$s hittades inte.</string>
   <string name="toast_camera_error">Kunde inte starta kamera app: %1$s</string>
   <string name="toast_min_one_preset">Minst en förinställning måste väljas!</string>
+  <string name="toast_min_one_geocoder">Minst en geocoder måste väljas!</string>
+  <string name="toast_invalid_apiurl">Ogiltiga API-URL</string>
+  <string name="toast_invalid_readonlyurl">Ogiltiga ReadOnly API-URL</string>
   <string name="toast_invalid_preseturl">Ogiltig förinställd webbadress</string>
   <string name="toast_no_coverage">%1$s har ingen täckning här</string>
   <string name="toast_tile_layer_errors">Bildkällan \'%1$s\' är felaktig</string>
@@ -344,6 +372,7 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="toast_properties_copied">Egenskaper kopierade till urklipp</string>
   <string name="toast_task_conflict">%1$s har ändrats på servern, skicka först och hämta sedan</string>
   <string name="toast_merged">Sammanfogad</string>
+  <string name="toast_unknown_error_for">Okänd fel för %1$s</string>
   <string name="toast_out_of_memory">SLUT PÅ MINNE!</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->
@@ -396,6 +425,7 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="tag_menu_preset">Förinställningar</string>
   <string name="tag_menu_apply_preset">Aktivera förval</string>
   <string name="tag_menu_revert">Ångra</string>
+  <string name="tag_menu_mapfeatures">Kartobjekt wiki</string>
   <string name="tag_menu_addtorelation">Lägg till i relation</string>
   <string name="tag_menu_resetMRU">Återställ förinställningar</string>
   <string name="tag_menu_reset_address_prediction">Nollställ förutsagd adress</string>
@@ -431,10 +461,14 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="tag_restriction_header">Värde</string>
   <string name="tag_restriction_when">när</string>
   <string name="tag_restriction_and">och</string>
+  <string name="tag_restriction_add_restriction">Lägg till restriktion</string>
   <string name="tag_restriction_add_opening_hours">Lägg till öppettider</string>
   <string name="default_checkgroup_hint">Ytterligare attribut</string>
   <string name="tag_form_unknown_element">Okänt element (ingen uppsättning påträffad)</string>
   <!--Custom preset creation-->
+  <string name="tag_menu_create_preset">Skapa anpassade presets</string>
+  <string name="create_preset_title">Anpassade presetsnamn</string>
+  <string name="create_preset_default_name">Anpassade %1$s</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Välj radie:</string>
   <string name="location_default_radius">300 m</string>
@@ -460,6 +494,7 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="position_info_altitude">Höjd</string>
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
+  <string name="go_to_coordinates_title">Gå till koordinater</string>
   <!--Menu-->
   <string name="menu_move">Flytta</string>
   <string name="menu_edit">Redigera</string>
@@ -471,10 +506,13 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="menu_erase">Radera node</string>
   <string name="menu_set_position">Position</string>
   <string name="menu_split">Dela</string>
+  <string name="menu_remove_node_from_way">Ta bort nod från väg</string>
   <string name="menu_extract">Extrahera nod</string>
   <string name="menu_append">Fäst</string>
+  <string name="menu_create_route">Skapa rutt</string>
   <string name="menu_relation">Skapa relation</string>
   <string name="menu_edit_relation">Redigera relation</string>
+  <string name="menu_add_relation_member">Lägg till / ta bort medlem</string>
   <string name="menu_select_relation_members">Välj medlemmar</string>
   <string name="menu_tag">Redigera taggar</string>
   <string name="menu_openstreetbug">Lägg till anteckning</string>
@@ -484,6 +522,8 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="menu_gps_show">Visa plats</string>
   <string name="menu_gps_follow">Följ platsen</string>
   <string name="menu_gps_goto">Gå till aktuell plats</string>
+  <string name="menu_gps_goto_coordinates">Gå till koordinater…</string>
+  <string name="menu_gps_goto_last_edit">Gå till senast redigering</string>
   <string name="menu_gps_start">Starta GPX-spår</string>
   <string name="menu_gps_pause">Pausa GPX-spårning</string>
   <string name="menu_gps_clear">Rensa GPX-spår och dess vägpunkter</string>
@@ -497,7 +537,7 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="menu_transfer_download_replace">Rensa och ladda ner nuvarande vy</string>
   <string name="menu_transfer_upload">Ladda upp data till OSM-servern</string>
   <string name="menu_transfer_update">Uppdatera data</string>
-  <string name="menu_transfer_close_changeset">Stäng nuvarande chnageset</string>
+  <string name="menu_transfer_close_changeset">Stäng nuvarande ändringsuppsättning</string>
   <string name="menu_transfer_file">Fil…</string>
   <string name="menu_transfer_export">Exportera ändringar till OSC-fil</string>
   <string name="menu_transfer_apply_osc_file">Verkställ ändringar från OSC-fil</string>
@@ -527,6 +567,7 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="menu_straighten">Räta ut</string>
   <string name="menu_circulize">Arrangera i cirkel</string>
   <string name="menu_split_polygon">Dela upp i polygoner</string>
+  <string name="menu_extract_segment">Extrahera segment</string>
   <string name="menu_newnode_gps">Ny nod vid GPS-position</string>
   <string name="menu_extend_selection">Utöka markering</string>
   <string name="menu_information">Info</string>
@@ -554,6 +595,7 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Lager...</string>
+  <string name="menu_layers_load_geojson">Lägg till GeoJSON-lager</string>
   <string name="menu_layers_add_backgroundlayer">Lägg till bildlager som bakgrund</string>
   <string name="menu_layers_configure">Konfigurera…</string>
   <!---->
@@ -571,22 +613,23 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="menu_merge">Anslut</string>
   <string name="menu_reverse">Omvänd</string>
   <string name="reverse_anyway">Omvänd ändå</string>
-  <string name="deleteway_wayonly">Ta endast bort väg</string>
-  <string name="deleteway_wayandnodes">Ta bort vägen</string>
-  <string name="deletenode">Ta bort nod</string>
+  <string name="deleteway_wayonly">Radera endast väg</string>
+  <string name="deleteway_wayandnodes">Radera vägen</string>
+  <string name="deletenode">Radera nod</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">Dela ...</string>
   <string name="split_all_ways">... alla sträckor</string>
   <string name="merge_context_title">Sammanfoga med ...</string>
   <string name="merge_with_all_ways">... alla närliggande sträckor</string>
   <string name="merge_with_all_nodes">... alla närliggande noder</string>
-  <string name="delete_note">Ta bort anteckning</string>
+  <string name="delete_note">Radera anteckning</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Väg vald</string>
   <string name="actionmode_nodeselect">Nod vald</string>
   <string name="actionmode_relationselect">Relation vald</string>
   <string name="actionmode_createpath">Skapa väg</string>
   <string name="actionmode_multiselect">Markera flera</string>
+  <string name="actionmode_add_segment">Lägg till segment</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_restriction">Lägg till svängrestriktion</string>
   <string name="actionmode_restriction_to">Lägg till i segment</string>
@@ -598,8 +641,11 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <!--Simple Action Mode-->
   <string name="menu_add_node">Lägg till nod</string>
   <string name="simple_add_node">Tryck på skärmens position</string>
+  <string name="menu_add_node_address">Lägg till adressnod</string>
+  <string name="menu_add_address_interpolation">Lägg till adressinterpolering</string>
   <string name="menu_add_way">Lägg till väg</string>
   <string name="simple_add_way">Tryck på skärmens position</string>
+  <string name="menu_add_map_note">Lägg till kartanteckning</string>
   <string name="simple_add_note">Tryck på skärmens position</string>
   <string name="menu_paste_object">Klistra in föremål</string>
   <string name="simple_paste">Tryck på skärmens position</string>
@@ -607,6 +653,7 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kartans bakgrund</string>
   <string name="config_overlayLayer_title">Kartöverdrag</string>
+  <string name="config_customlayers_title">Anpassade lager</string>
   <string name="config_scale_title">Visa skala</string>
   <string name="config_mapProfile_title">Datastil</string>
   <string name="config_enableOpenStreetBugs_title">Visa uppgifter</string>
@@ -650,6 +697,8 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="config_maxStrokeWidth_summary">Rita inte en väg tjockare än detta.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <string name="config_upload_current">%1$d objekt</string>
+  <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Data och redigera inställningar</string>
   <string name="config_forceContextMenu_title">Använd alltid kontextmeny</string>
@@ -661,13 +710,16 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="config_generateAlerts_summary">Generera aviseringar för data med problem eller anteckningar</string>
   <string name="config_maxAlertDistance_title">Max avstånd för aviseringar</string>
   <string name="config_maxAlertDistance_current">%1$d meter</string>
-  <string name="config_closeChangesetOnSave_title">Stäng changesets</string>
+  <string name="config_closeChangesetOnSave_title">Stäng ändringsuppsättningar</string>
   <string name="config_maxOffsetDistance_current">%1$d meter</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Nedladdningsradie</string>
   <string name="config_downloadRadius_current">%1$d meter</string>
   <string name="config_maxDownloadSpeed_title">Maximal automatisk hämtningshastighet</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_autoPruneNodeLimit_current">%1$d Noder</string>
+  <string name="config_panAndZoomLimit_title">Zoombegränsning</string>
+  <string name="config_panAndZoomLimit_current">%1$d</string>
   <!--Location Settings-->
   <string name="config_gps_source_title">GPS/GNSS-källa</string>
   <string name="config_gps_source_tcp_title">NMEA-nätverkskälla</string>
@@ -726,6 +778,7 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="urldialog_api_exists">Ett API med denna webbadress finns redan. Du kan dock lägga till en annan (t.ex. att byta konton enkelt).</string>
   <string name="urldialog_add_api">Lägg till API</string>
   <string name="urldialog_nodata_text">Konfigurationswebbadressen innehåller inte giltiga data.</string>
+  <string name="urldialog_add_geocoder">Lägg till geocoder</string>
   <!--API configuration-->
   <string name="api_name">API-namn</string>
   <string name="api_url">API URL</string>
@@ -733,7 +786,7 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <!--common terms-->
   <string name="add">Lägg till</string>
   <string name="edit">Redigera</string>
-  <string name="delete">Ta bort</string>
+  <string name="delete">Radera</string>
   <string name="name">Namn</string>
   <string name="url">URL</string>
   <string name="default_">Standard</string>
@@ -767,6 +820,8 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="undo_action_orthogonalize">Gör vinkelrät</string>
   <string name="undo_action_circulize">Arrangera i cirkel</string>
   <string name="undo_action_fix_conflict">Lösa konflikter</string>
+  <string name="undo_action_remove_node_from_way">Ta bort nod från väg</string>
+  <string name="undo_action_extract_segment">Extrahera segment</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
@@ -788,8 +843,8 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="position">Position</string>
   <string name="type">Typ</string>
   <string name="object">Objekt</string>
-  <string name="deleterelation">Ta bort relation</string>
-  <string name="delete_from_relation_description">Du håller på att ta bort detta element från en relation.</string>
+  <string name="deleterelation">Radera relation</string>
+  <string name="delete_from_relation_description">Du håller på att radera detta element från en relation.</string>
   <!--Things-->
   <string name="bridge">Brygga</string>
   <string name="tunnel">Tunnel</string>
@@ -830,4 +885,6 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <!--Help system-->
   <string name="toast_nohelp">Ingen hjälp här.</string>
   <!--Bookmarks-->
+  <string name="bookmarks_desc">Lägg till kommentarer</string>
+  <string name="gotobookmark">Gå</string>
 </resources>
