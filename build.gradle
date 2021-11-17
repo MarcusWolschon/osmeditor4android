@@ -118,6 +118,14 @@ task updateGeocontext(type: Download) {
 updateGeocontext.group = 'vespucci'
 updateGeocontext.description = 'Update the geocontext configuration'
 
+task updateNameSuggestionIndex(type: Download) {
+    acceptAnyCertificate true
+    src 'https://raw.githubusercontent.com/osmlab/name-suggestion-index/main/dist/nsi.min.json'
+    dest new File(projectDir.getPath() + '/src/main/assets/name-suggestions.min.json')
+}
+updateNameSuggestionIndex.group = 'vespucci'
+updateNameSuggestionIndex.description = 'Update the name-suggestion-index'
+
 task update3rdPartyDocs() {
 }
 update3rdPartyDocs.group = 'vespucci'
