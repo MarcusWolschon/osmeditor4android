@@ -43,7 +43,6 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.speech.RecognizerIntent;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
@@ -182,7 +181,6 @@ import de.blau.android.util.Util;
 import de.blau.android.util.Version;
 import de.blau.android.views.ZoomControls;
 import de.blau.android.views.layers.MapTilesLayer;
-import de.blau.android.voice.Commands;
 
 /**
  * This is the main Activity from where other Activities will be started.
@@ -216,7 +214,8 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Requests voice recognition.
      */
-    public static final int VOICE_RECOGNITION_REQUEST_CODE = 3;
+    public static final int VOICE_RECOGNITION_REQUEST_CODE      = 3;
+    public static final int VOICE_RECOGNITION_NOTE_REQUEST_CODE = 4;
 
     public static final String ACTION_EXIT             = "de.blau.android.EXIT";
     public static final String ACTION_UPDATE           = "de.blau.android.UPDATE";
@@ -418,8 +417,6 @@ public class Main extends FullScreenAppCompatActivity
     private BackgroundAlignmentActionModeCallback backgroundAlignmentActionModeCallback = null;
 
     private Location lastLocation = null;
-
-    private Location locationForIntent = null;
 
     /**
      * Status of permissions
@@ -1542,6 +1539,10 @@ public class Main extends FullScreenAppCompatActivity
     private void setupLockButton() {
         final Logic logic = App.getLogic();
         Mode mode = logic.getMode();
+
+        // this is experimental
+        Mode.MODE_VOICE.setEnabled(logic.getPrefs().voiceCommandsEnabled());
+
         Log.d(DEBUG_TAG, "setupLockButton mode " + mode);
         //
         final FloatingActionButton lock = setLock(mode);
@@ -1585,7 +1586,7 @@ public class Main extends FullScreenAppCompatActivity
             PopupMenu popup = new PopupMenu(Main.this, lock);
 
             // per mode menu items
-            ArrayList<Mode> allModes = new ArrayList<>(Arrays.asList(Mode.values()));
+            List<Mode> allModes = new ArrayList<>(Arrays.asList(Mode.values()));
             // add menu entries for all proper modes
             for (final Mode newMode : allModes) {
                 if (newMode.isSubModeOf() == null && newMode.isEnabled()) {
@@ -1770,11 +1771,6 @@ public class Main extends FullScreenAppCompatActivity
 
         menu.findItem(R.id.menu_transfer_bugs_download_current).setEnabled(networkConnected);
         menu.findItem(R.id.menu_transfer_bugs_upload).setEnabled(networkConnected && App.getTaskStorage().hasChanges());
-        menu.findItem(R.id.menu_voice).setVisible(false); // don't display
-                                                          // button for now
-        // experimental
-        // menu.findItem(R.id.menu_voice).setEnabled(networkConnected &&
-        // prefs.voiceCommandsEnabled()).setVisible(prefs.voiceCommandsEnabled());
 
         // the following depends on us having permission to write to "external"
         // storage
@@ -1955,9 +1951,6 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_help:
             HelpViewer.start(this, R.string.help_main);
             return true;
-        // case R.id.menu_voice:
-        //
-        // return true;
         case R.id.menu_camera:
             Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             try {
@@ -2556,20 +2549,6 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * Start voice recognition
-     */
-    private void startVoiceRecognition() {
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        try {
-            startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
-        } catch (Exception ex) {
-            Log.d(DEBUG_TAG, "Caught exception " + ex);
-            Snack.barError(this, R.string.toast_no_voice);
-        }
-    }
-
-    /**
      * Get a new File for storing an image
      * 
      * @return a File object
@@ -2814,14 +2793,6 @@ public class Main extends FullScreenAppCompatActivity
                 handleBoxPickerResult(resultCode, data);
             } else if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK) {
                 handlePropertyEditorResult(data);
-            } else if (requestCode == VOICE_RECOGNITION_REQUEST_CODE && resultCode == RESULT_OK) {
-                if (easyEditManager != null && easyEditManager.isProcessingAction()) {
-                    easyEditManager.handleActivityResult(requestCode, resultCode, data);
-                } else {
-                    (new Commands(this)).processIntentResult(data, locationForIntent);
-                    locationForIntent = null;
-                    map.invalidate();
-                }
             } else if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
                     && resultCode == RESULT_OK) {
                 SelectFile.handleResult(requestCode, data);
@@ -3492,15 +3463,8 @@ public class Main extends FullScreenAppCompatActivity
 
             if (isInEditZoomRange) {
                 if (logic.isLocked()) {
-                    if (isConnectedOrConnecting() && prefs.voiceCommandsEnabled()) {
-                        locationForIntent = lastLocation; // location when we
-                                                          // touched the
-                                                          // screen
-                        startVoiceRecognition();
-                    } else {
-                        Snack.barInfoShort(Main.this, R.string.toast_unlock_to_edit);
-                        Tip.showOptionalDialog(Main.this, R.string.tip_locked_mode_key, R.string.tip_locked_mode);
-                    }
+                    Snack.barInfoShort(Main.this, R.string.toast_unlock_to_edit);
+                    Tip.showOptionalDialog(Main.this, R.string.tip_locked_mode_key, R.string.tip_locked_mode);
                 } else {
                     if (mode.elementsEditable()) {
                         performEdit(mode, v, x, y);

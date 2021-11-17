@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.PopupMenu;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.layer.LayerType;
@@ -21,6 +22,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.tasks.NoteFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.voice.Commands;
 
 public class SimpleActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
 
@@ -142,6 +144,30 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             @Override
             public boolean isEnabled() {
                 return !App.getLogic().clipboardIsEmpty() && !App.getDelegator().clipboardContentWasCut();
+            }
+        },
+        /**
+         * Add node from voice input
+         */
+        VOICE_NODE(R.string.menu_add_node_tags, R.string.simple_add_node, (main, manager, x, y) -> {
+            Logic logic = App.getLogic();
+            Commands.startVoiceRecognition(main, Main.VOICE_RECOGNITION_REQUEST_CODE, logic.xToLonE7(x), logic.yToLatE7(y));
+        }) {
+            @Override
+            public boolean isEnabled() {
+                return App.getLogic().getMode().enabledSimpleActions().contains(this);
+            }
+        },
+        /**
+         * Add a note
+         */
+        VOICE_NOTE(R.string.menu_add_map_note, R.string.simple_add_note, (main, manager, x, y) -> {
+            Logic logic = App.getLogic();
+            Commands.startVoiceRecognition(main, Main.VOICE_RECOGNITION_NOTE_REQUEST_CODE, logic.xToLonE7(x), logic.yToLatE7(y));
+        }) {
+            @Override
+            public boolean isEnabled() {
+                return App.getLogic().getMode().enabledSimpleActions().contains(this);
             }
         };
 

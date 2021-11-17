@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import android.content.Intent;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.HapticFeedbackConstants;
@@ -493,21 +492,6 @@ public class EasyEditManager {
                 return currentActionModeCallback.onBackPressed();
             }
             return false;
-        }
-    }
-
-    /**
-     * Handle results from starting an activity with an Intent
-     * 
-     * @param requestCode the Intent request code
-     * @param resultCode the Intent result code
-     * @param data any returned data
-     */
-    public void handleActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        synchronized (actionModeCallbackLock) {
-            if (currentActionModeCallback instanceof LongClickActionModeCallback) {
-                ((LongClickActionModeCallback) currentActionModeCallback).handleActivityResult(requestCode, resultCode, data);
-            }
         }
     }
 

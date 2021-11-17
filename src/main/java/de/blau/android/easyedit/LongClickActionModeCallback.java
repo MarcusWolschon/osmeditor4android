@@ -1,38 +1,25 @@
 package de.blau.android.easyedit;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
-import android.content.Intent;
 import android.location.LocationManager;
-import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
-import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.GnssPositionInfo;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.nsi.Names.NameAndTags;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Result;
-import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetElement;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.tasks.NoteFragment;
-import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -228,7 +215,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             }
             Node lastSelectedNode = logic.getSelectedNode();
             if (lastSelectedNode != null) {
-                startNodeSelectedActionMode(lastSelectedNode);
+                main.edit(lastSelectedNode);
                 // show preset screen or add addresses
                 main.performTagEdit(lastSelectedNode, null, item.getItemId() == MENUITEM_NEWNODE_ADDRESS, item.getItemId() == MENUITEM_NEWNODE_PRESET);
             }
@@ -256,13 +243,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
         case MENUITEM_NEWNODE_VOICE:
             logic.hideCrosshairs();
             logic.setSelectedNode(null);
-            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            try {
-                main.startActivityForResult(intent, Main.VOICE_RECOGNITION_REQUEST_CODE);
-            } catch (Exception ex) {
-                Log.d(DEBUG_TAG, "Caught exception " + ex);
-                Snack.barError(main, R.string.toast_no_voice_recognition);
+            if (!Commands.startVoiceRecognition(main, Main.VOICE_RECOGNITION_REQUEST_CODE, startLon, startLat)) {
                 logic.showCrosshairs(startX, startY);
             }
             return true;
@@ -280,87 +261,6 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     public void onDestroyActionMode(ActionMode mode) {
         logic.setSelectedNode(null);
         super.onDestroyActionMode(mode);
-    }
-
-    /**
-     * Handle the result from starting an activity via an Intent
-     * 
-     * This is currently only used for experimental voice commands
-     * 
-     * FIXME This is still very hackish with lots of code duplication
-     * 
-     * @param requestCode the Intent request code
-     * @param resultCode the Intent result code
-     * @param data any Intent data
-     */
-    void handleActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        if (requestCode == Main.VOICE_RECOGNITION_REQUEST_CODE) {
-            List<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            //
-            StorageDelegator storageDelegator = App.getDelegator();
-            for (String text : matches) {
-                String[] words = text.split("\\s+", 2);
-                if (words.length > 0) {
-                    //
-                    String first = words[0];
-                    try {
-                        int number = Integer.parseInt(first);
-                        // worked if there is a further word(s) simply add it/them
-                        String additionalText = words.length == 2 ? words[1] : "";
-                        Snack.barInfoShort(main, +number + additionalText);
-                        Node node = logic.performAddNode(main, startLon, startLat);
-                        if (node != null) {
-                            Commands.setAddressTags(main, logic, number, additionalText, node, text);
-                            startNodeSelectedActionMode(node);
-                            return;
-                        }
-                    } catch (NumberFormatException ex) {
-                        // ok wasn't a number, just ignore
-                    } catch (OsmIllegalOperationException e) {
-                        Log.e(DEBUG_TAG, "handleActivityResult got exception " + e.getMessage());
-                    }
-
-                    List<PresetElement> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1, null);
-                    if (presetItems != null && presetItems.size() == 1) {
-                        Node node = Commands.addNode(main, logic.performAddNode(main, startLon, startLat), words.length == 2 ? words[1] : null,
-                                (PresetItem) presetItems.get(0), logic, text);
-                        if (node != null) {
-                            startNodeSelectedActionMode(node);
-                            return;
-                        }
-                    }
-
-                    // search in names
-                    NameAndTags nt = SearchIndexUtils.searchInNames(main, text, 2);
-                    if (nt != null) {
-                        Map<String, String> map = new HashMap<>();
-                        map.putAll(nt.getTags());
-                        PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(main), map, null);
-                        if (pi != null) {
-                            Node node = Commands.addNode(main, logic.performAddNode(main, startLon, startLat), nt.getName(), pi, logic, text);
-                            if (node != null) {
-                                // set tags from name suggestions
-                                Map<String, String> tags = new TreeMap<>(node.getTags());
-                                tags.putAll(map);
-                                storageDelegator.setTags(node, tags); // note doesn't create a new undo checkpoint,
-                                startNodeSelectedActionMode(node);
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-            logic.showCrosshairs(startX, startY); // re-show the cross hairs nothing found/something went wrong
-        }
-    }
-
-    /**
-     * Start the NodeSelectionActionMode
-     * 
-     * @param node the selected Node
-     */
-    public void startNodeSelectedActionMode(@NonNull Node node) {
-        main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
     }
 
     @Override

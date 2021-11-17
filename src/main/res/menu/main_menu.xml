@@ -14,11 +14,6 @@
         android:title="@string/menu_camera"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menu_voice"
-        android:icon="?attr/mic"
-        android:title="@string/menu_voice_commands"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/menu_gps"
         android:icon="?attr/menu_gps"
         android:title="@string/menu_gps"

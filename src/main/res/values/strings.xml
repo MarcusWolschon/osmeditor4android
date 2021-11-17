@@ -7,6 +7,7 @@
 	<string name="mode_indoor">Indoor</string>
 	<string name="mode_correct">C-Mode</string>
     <string name="mode_address">Address</string>
+    <string name="mode_voice">Voice</string>
     
     <!-- Dialogs -->
     <string name="transfer_download_current_dialog_title">Caution!</string>
