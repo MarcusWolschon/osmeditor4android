@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="3.0.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="3.3.1" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -1735,7 +1735,7 @@
             <reference ref="lane_presets"/>
             <reference ref="cycle_lanes"/>
         </item> <!-- Residential -->
-        <item name="Bicycle Road" region="AT,DE" icon="icons/png/highway_residential_sp.png" type="way,closedway" preset_name_label="true">
+        <item name="Bicycle Road" regions="AT,DE" icon="icons/png/highway_residential_sp.png" type="way,closedway" preset_name_label="true">
             <link wiki="Key:bicycle_road"/>
             <space/>
             <key key="bicycle_road" value="yes"/>
@@ -2873,14 +2873,14 @@
             <combo key="motor_vehicle:conditional" text="Motor vehicles @" long_text="Conditional restriction for motor vehicles" delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key"/>
             <reference ref="additional_access_tags"/>
         </item> <!-- Motor vehicle -->
-        <item name="Motor vehicle (CH)" region="CH" icon="icons/png/no_motor_vehicles_CH.png" type="node,way,closedway" preset_name_label="true">
+        <item name="Motor vehicle (CH)" regions="CH" icon="icons/png/no_motor_vehicles_CH.png" type="node,way,closedway" preset_name_label="true">
             <link wiki="Key:access"/>
             <space/>
             <reference ref="motor_vehicle_access" />
             <combo key="motor_vehicle:conditional" text="Motor vehicles @" long_text="Conditional restriction for motor vehicles" delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key"/>
             <reference ref="additional_access_tags"/>
         </item> <!-- Motor vehicle CH -->
-        <item name="Motorcar and -cycle (CH)" region="CH" icon="icons/png/no_motor_vehicles.png" type="node,way,closedway" preset_name_label="true">
+        <item name="Motorcar and -cycle (CH)" regions="CH" icon="icons/png/no_motor_vehicles.png" type="node,way,closedway" preset_name_label="true">
             <link wiki="Key:access"/>
             <space/>
             <combo key="motorcar" text="Motorcar" values="yes,destination,delivery,permissive,private,agricultural,forestry,permit,no" display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,Permit required,No access" values_context="access" values_sort="false" match="key"/>
@@ -3806,6 +3806,8 @@
             <reference ref="name_ref_operator"/>
             <reference ref="oh"/>
             <reference ref="fee"/>
+            <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
+            <reference ref="level"/>
             <space/>
             <combo key="voltage" text="Voltage" values="230,400"/>
             <combo key="amperage" text="Amperage" values="16,32"/>
@@ -7182,7 +7184,7 @@
             <item name="Golf clubhouse" name_context="golf" icon="icons/png/sport_empty.png" type="node,closedway" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
-                <key key="golf" value="clubhuse"/>
+                <key key="golf" value="clubhouse"/>
             </item> <!-- Golf clubhouse -->
             <separator/>
             <item name="Tee" name_context="golf" icon="icons/png/sport_empty.png" type="node,closedway" preset_name_label="true">
@@ -7994,12 +7996,14 @@
     </group> <!-- Buildings -->
     <group name="Indoor elements" icon="icons/png/indoor_floorplan.png" >
         <item name="Indoor area" icon="icons/png/indoor_area.png" type="closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:indoor=area" />
             <key key="indoor" value="area" />
             <reference ref="level" />
             <text key="name" text="Name" i18n="true" />
             <text key="ref" text="Room Number" />
         </item>
         <item name="Corridor" icon="icons/png/indoor_corridor.png" type="closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:indoor=corridor" />
             <key key="indoor" value="corridor" />
             <reference ref="level" />
             <text key="name" text="Name" i18n="true" />
@@ -8007,6 +8011,7 @@
             <text key="height" text="Height (Meters)" value_type="integer" />
         </item>
         <item name="Indoor door" icon="icons/png/indoor_doors_13011.png" type="node" preset_name_label="true" >
+            <link wiki="Tag:indoor=door" />
             <key key="indoor" value="door" />
             <reference ref="level" />
             <text key="ref" text="Reference Code" />
@@ -8016,6 +8021,7 @@
             <text key="height" text="Height (Meters)" value_type="integer" />
         </item>
         <item name="Room" icon="icons/png/indoor_room.png" type="closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:indoor=room" />
             <key key="indoor" value="room" />
             <reference ref="level" />
             <text key="name" text="Name" i18n="true" />
@@ -8026,18 +8032,20 @@
             <text key="height" text="Height (Meters)" value_type="integer" />
         </item>
         <item name="Indoor wall" icon="icons/png/indoor_wall.png" type="way" preset_name_label="true">
+            <link wiki="Tag:indoor=wall" />
             <key key="indoor" value="wall" />
             <reference ref="level" />
             <text key="height" text="Height (Meters)" value_type="integer" />
         </item>
         <item name="Highway corridor" icon="icons/png/indoor_highway_corridor.png" type="way" preset_name_label="true">
+            <link wiki="Tag:highway=corridor" />
             <key key="highway" value="corridor" />
             <reference ref="level" />
             <combo key="conveying" text="Conveyor" values="yes,forward,backward,reversible" display_values="Yes,Forward,Backward,Reversible"/>
         </item>
     </group> <!-- Indoor elements -->
     <group name="Man Made" icon="icons/png/man_made_works_22087.png">
-    <group name="Man Made" icon="icons/png/man_made_works_22087.png">
+      <group name="Man Made" icon="icons/png/man_made_works_22087.png">
         <item name="Tower" icon="icons/png/poi_tower_communications.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:man_made=tower"/>
             <space/>
@@ -10513,36 +10521,55 @@
         <key key="amenity" value="vending_machine"/>
         <multiselect key="vending" text="Vending products" values_searchable="true" match="key">
             <list_entry value="admission_tickets" short_description="Admission tickets"/>
-            <list_entry value="animal_feed" short_description="Animal feed"/>
+            <list_entry value="animal_feed" short_description="Animal feed (non-domestic)"/>
+            <list_entry value="art" short_description="Art"/>
             <list_entry value="bicycle_tube" short_description="Bicycle tubes"/>
+            <list_entry value="books" short_description="Books"/>
+            <list_entry value="bottle_return" short_description="Return empty bottles"/>
             <list_entry value="bread" short_description="Bread"/>
+            <list_entry value="candles" short_description="Candle"/>
+            <list_entry value="chemist" short_description="Chemistry or paramedical products"/>
             <list_entry value="cigarettes" short_description="Cigarettes"/>
             <list_entry value="chewing_gums" short_description="Chewing gums"/>
             <list_entry value="coffee" short_description="Coffee"/>
             <list_entry value="condoms" short_description="Condoms"/>
+            <list_entry value="contact_lenses" short_description="Contact lenses"/>
             <list_entry value="drinks" short_description="Drinks"/>
+            <list_entry value="e-cigarettes" short_description="E-cigarettes or e-cigarette refills"/>
             <list_entry value="eggs" short_description="Eggs"/>
             <list_entry value="electronics" short_description="Electronics"/>
             <list_entry value="elongated_coin" short_description="Elongated coin"/>
             <list_entry value="excrement_bags" short_description="Excrement bags"/>
             <list_entry value="feminine_hygiene" short_description="Feminine hygiene articles"/>
+            <list_entry value="fishing_bait" short_description="Fishing bait"/>
+            <list_entry value="fishing_tackle" short_description="Fishing equipment"/>
+            <list_entry value="flowers" short_description="Flowers"/>
             <list_entry value="food" short_description="Food"/>
             <list_entry value="fuel" short_description="Fuel"/>
             <list_entry value="ice_cream" short_description="Ice cream"/>
             <list_entry value="ice_cubes" short_description="Ice cubes"/>
+            <list_entry value="ink_cartridges" short_description="Ink cartridges"/>
+            <list_entry value="laundry_detergent" short_description="Laundry detergent"/>
             <list_entry value="milk" short_description="Milk"/>
             <list_entry value="newspapers" short_description="Newspapers"/>
             <list_entry value="parking_tickets" short_description="Parking tickets"/>
             <list_entry value="parcel_pickup" short_description="Parcel pickup"/>
             <list_entry value="parcel_mail_in" short_description="Parcel mail in"/>
+            <list_entry value="pet_food" short_description="Animal feed (domestic)"/>
+            <list_entry value="pizza" short_description="Pizza"/>
             <list_entry value="public_transport_plans" short_description="Plans (public transport)"/>
             <list_entry value="public_transport_tickets" short_description="Tickets (public transport)"/>
-            <list_entry value="SIM_cards" short_description="SIM_cards"/>
+            <list_entry value="raw_milk" short_description="Milk (raw)"/>
+            <list_entry value="SIM_cards" short_description="SIM cards"/>
+            <list_entry value="sex_toys" short_description="Sex toys"/>
             <list_entry value="stamps" short_description="Stamps"/>
             <list_entry value="sweets" short_description="Sweets"/>
+            <list_entry value="syringes" short_description="Needles"/>
             <list_entry value="tampons" short_description="Tampons"/>
             <list_entry value="telephone_vouchers" short_description="Telephone vouchers"/>
+            <list_entry value="toll" short_description="Road toll tickets"/>
             <list_entry value="toys" short_description="Toys"/>
+            <list_entry value="umbrellas" short_description="Umbrellas"/>
             <list_entry value="vouchers" short_description="Vouchers"/>
             <list_entry value="water" short_description="Water"/>
         </multiselect>
@@ -11678,7 +11705,17 @@
                 <link wiki="Relation:restriction"/>
                 <space/>
                 <key key="type" value="restriction"/>
-                <combo key="restriction" text="Restriction" values="no_left_turn,no_right_turn,no_straight_on,no_u_turn,only_right_turn,only_left_turn,only_straight_on" display_values="No left turn,No right turn,No straight on,No u-turn,Only right turn,Only left turn,Only straight on" values_searchable="true"/>
+                <combo key="restriction" text="Restriction" values_searchable="true" values_sort="false">
+                    <list_entry value="no_left_turn" display_value="No left turn" icon="icons/png/no_left_turn.png" />
+                    <list_entry value="no_right_turn" display_value="No right turn" icon="icons/png/no_right_turn.png" />
+                    <list_entry value="no_u_turn" display_value="No u-turn" icon="icons/png/no_u_turn.png" />
+                    <list_entry value="only_right_turn" display_value="Only right turn" icon="icons/png/only_right_turn.png" />
+                    <list_entry value="only_left_turn" display_value="Only left turn" icon="icons/png/only_left_turn.png" />
+                    <list_entry value="only_straight_on" display_value="Only straight on" icon="icons/png/only_straight_on.png" />
+                    <list_entry value="no_straight_on" display_value="No straight on" icon="icons/png/no_straight_on.png" />
+                    <list_entry value="no_entry" display_value="No entry" icon="icons/png/no_entry.png" />
+                    <list_entry value="no_exit" display_value="No exit" icon="icons/png/no_entry.png" />
+                </combo>
                 <reference ref="turn_restriction_exceptions"/>  
                 <reference ref="turn_restriction_roles"/>
             </item> <!-- Turn Restriction -->
@@ -11730,6 +11767,30 @@
                 <reference ref="turn_restriction_exceptions"/>
                 <reference ref="turn_restriction_roles"/>
             </item> <!-- Straight on only -->
+            <item name="No straight on" icon="icons/png/no_straight_on.png" type="relation" preset_name_label="true">
+                <link wiki="Relation:restriction"/>
+                <space/>
+                <key key="type" value="restriction"/>
+                <key key="restriction" value="no_straight_on"/>
+                <reference ref="turn_restriction_exceptions"/>
+                <reference ref="turn_restriction_roles"/>
+            </item> <!-- No straight on -->
+            <item name="No entry" icon="icons/png/no_entry.png" type="relation" preset_name_label="true">
+                <link wiki="Relation:restriction"/>
+                <space/>
+                <key key="type" value="restriction"/>
+                <key key="restriction" value="no_entry"/>
+                <reference ref="turn_restriction_exceptions"/>
+                <reference ref="turn_restriction_roles"/>
+            </item> <!-- No entry -->
+            <item name="No exit" icon="icons/png/no_entry.png" type="relation" preset_name_label="true">
+                <link wiki="Relation:restriction"/>
+                <space/>
+                <key key="type" value="restriction"/>
+                <key key="restriction" value="no_exit"/>
+                <reference ref="turn_restriction_exceptions"/>
+                <reference ref="turn_restriction_roles"/>
+            </item> <!-- No exit -->
         </group> <!-- Turn Restrictions -->
         <item name="Lane connectivity" icon="icons/png/only_straight_on.png" type="relation" preset_name_label="true">
             <link wiki="Relation:connectivity"/>
