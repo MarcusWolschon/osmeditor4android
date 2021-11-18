@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import de.blau.android.R;
+import de.blau.android.contract.Ui;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.StringWithDescription;
@@ -122,6 +123,7 @@ public class MultiselectRow extends LinearLayout {
         check.setTag(value);
         if (icon != null) {
             check.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            check.setCompoundDrawablePadding(Ui.COMPOUND_DRAWABLE_PADDING);
         }
         check.setChecked(selected);
         valueLayout.addView(check);

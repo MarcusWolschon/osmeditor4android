@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import de.blau.android.R;
+import de.blau.android.contract.Ui;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.StringWithDescription;
@@ -264,6 +265,7 @@ public class MultiselectDialogRow extends DialogRow {
         check.setTag(swd);
         if (icon != null) {
             check.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            check.setCompoundDrawablePadding(Ui.COMPOUND_DRAWABLE_PADDING);
         }
         check.setLayoutParams(layoutParams);
         check.setChecked(selected);

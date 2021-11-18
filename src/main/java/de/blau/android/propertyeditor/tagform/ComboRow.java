@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import de.blau.android.R;
+import de.blau.android.contract.Ui;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.StringWithDescription;
@@ -137,6 +138,7 @@ public class ComboRow extends LinearLayout {
         button.setId(idCounter++);
         if (icon != null) {
             button.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            button.setCompoundDrawablePadding(Ui.COMPOUND_DRAWABLE_PADDING);
         }
         valueGroup.addView(button);
         if (selected) {

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
+import de.blau.android.contract.Ui;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.StringWithDescription;
@@ -116,8 +117,9 @@ public class DialogRow extends LinearLayout {
         Log.d(DEBUG_TAG, "got swd but no swdai");
         if (swd instanceof StringWithDescriptionAndIcon) {
             icon = ((StringWithDescriptionAndIcon) swd).getIcon(getContext(), preset);
+            valueView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            valueView.setCompoundDrawablePadding(Ui.COMPOUND_DRAWABLE_PADDING);
         }
-        valueView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
     }
 
     /**

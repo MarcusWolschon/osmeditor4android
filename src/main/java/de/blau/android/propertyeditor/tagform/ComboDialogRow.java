@@ -3,6 +3,7 @@ package de.blau.android.propertyeditor.tagform;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import de.blau.android.R;
+import de.blau.android.contract.Ui;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;
@@ -205,7 +207,7 @@ public class ComboDialogRow extends DialogRow {
                 addButton(caller.getActivity(), valueGroup, i, swd, v.equals(value), icon, listener, buttonLayoutParams);
             }
         }
-        final Handler handler = new Handler();
+        final Handler handler = new Handler(Looper.getMainLooper());
         builder.setPositiveButton(R.string.clear, (dialog, which) -> {
             caller.updateSingleValue((String) layout.getTag(), "");
             row.setValue("", "");
@@ -255,6 +257,7 @@ public class ComboDialogRow extends DialogRow {
         button.setId(id);
         if (icon != null) {
             button.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            button.setCompoundDrawablePadding(Ui.COMPOUND_DRAWABLE_PADDING);
         }
         button.setLayoutParams(layoutParams);
         group.addView(button);
