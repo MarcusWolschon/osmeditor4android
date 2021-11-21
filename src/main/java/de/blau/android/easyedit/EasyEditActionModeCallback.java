@@ -474,26 +474,26 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      */
     protected void splitSafe(@NonNull List<Way> ways, @NonNull Runnable runnable) {
         List<Long> missing = new ArrayList<>();
-        for (Way way: ways) {
+        for (Way way : ways) {
             missing.addAll(RelationUtils.checkForNeighbours(way));
         }
         if (!missing.isEmpty()) {
             Builder builder = new AlertDialog.Builder(main);
             builder.setTitle(R.string.split_safe_title);
             builder.setMessage(R.string.split_safe_message);
-            builder.setPositiveButton(R.string.download, (DialogInterface dialog, int which) -> {
-                logic.downloadElements(main, null, missing, null, new PostAsyncActionHandler() {
+            builder.setPositiveButton(R.string.download,
+                    (DialogInterface dialog, int which) -> logic.downloadElements(main, null, missing, null, new PostAsyncActionHandler() {
 
-                    @Override
-                    public void onSuccess() {
-                        runnable.run();
-                    }
+                        @Override
+                        public void onSuccess() {
+                            runnable.run();
+                        }
 
-                    public void onError() {
-                        // something?
-                    }
-                });
-            });
+                        @Override
+                        public void onError() {
+                            // something?
+                        }
+                    }));
             builder.setNegativeButton(R.string.ignore, (DialogInterface dialog, int which) -> runnable.run());
             builder.setNeutralButton(R.string.abort, (DialogInterface dialog, int which) -> manager.finish());
             builder.show();

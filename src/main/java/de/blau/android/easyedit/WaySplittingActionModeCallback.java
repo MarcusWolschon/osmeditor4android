@@ -4,18 +4,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.view.Menu;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.view.ActionMode;
-import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Util;
