@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import android.util.Log;
 import android.view.Menu;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,8 +18,11 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
+import de.blau.android.util.Util;
 
 public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionModeCallback {
+    private static final String DEBUG_TAG = "Restriction...";
+    
     private final Way        way;
     private final Way        fromWay;
     private List<OsmElement> nodes = new ArrayList<>();
@@ -32,7 +36,8 @@ public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionMo
      * @param way the existing Way
      * @param fromWay the current from segment or null
      */
-    public RestrictionWaySplittingActionModeCallback(@NonNull EasyEditManager manager, int subTitle, @NonNull Way way, @Nullable Way fromWay, @Nullable Map<OsmElement, Result> results) {
+    public RestrictionWaySplittingActionModeCallback(@NonNull EasyEditManager manager, int subTitle, @NonNull Way way, @Nullable Way fromWay,
+            @Nullable Map<OsmElement, Result> results) {
         super(manager);
         this.way = way;
         this.fromWay = fromWay;
@@ -65,28 +70,28 @@ public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionMo
         // protect against race conditions
         if (!(element instanceof Node)) {
             // TODO fix properly
-            return false;
+            Log.e(DEBUG_TAG, element.getName() + " clicked");
+            return true;
         }
         if (way.isClosed()) {
             main.startSupportActionMode(new RestrictionClosedWaySplittingActionModeCallback(manager, way, (Node) element, fromWay, savedResults));
         } else {
-            List<Result> result = logic.performSplit(main, way, (Node) element);
-            Way newWay = newWayFromSplitResult(result);
-            if (newWay != null) {
-                saveSplitResult(way, result);
-                if (fromWay == null) {
-                    Set<OsmElement> candidates = new HashSet<>();
-                    candidates.add(way);
-                    candidates.add(newWay);
-                    main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, candidates, candidates, savedResults));
-                } else {
-                    Way viaWay = newWay;
-                    if (fromWay.hasCommonNode(way)) {
-                        viaWay = way;
+            splitSafe(Util.wrapInList(way), () -> {
+                List<Result> result = logic.performSplit(main, way, (Node) element);
+                Way newWay = newWayFromSplitResult(result);
+                if (newWay != null) {
+                    saveSplitResult(way, result);
+                    if (fromWay == null) {
+                        Set<OsmElement> candidates = new HashSet<>();
+                        candidates.add(way);
+                        candidates.add(newWay);
+                        main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, candidates, candidates, savedResults));
+                    } else {
+                        Way viaWay = fromWay.hasCommonNode(way) ? way : newWay;
+                        main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaWay, savedResults));
                     }
-                    main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaWay, savedResults));
                 }
-            }
+            });
         }
         return true;
     }

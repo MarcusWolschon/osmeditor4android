@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -16,16 +17,20 @@ import android.view.View;
 import android.view.ViewStub;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.ActionMenuView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -49,16 +54,16 @@ import de.blau.android.util.Util;
  */
 public abstract class EasyEditActionModeCallback implements ActionMode.Callback {
 
-    private static final String       DEBUG_TAG = "EasyEditActionModeCa...";
-    protected int                     helpTopic = 0;
+    private static final String       DEBUG_TAG    = "EasyEditActionModeCa...";
+    protected int                     helpTopic    = 0;
     MenuUtil                          menuUtil;
     private ActionMenuView            cabBottomBar;
     protected final Main              main;
     protected final Logic             logic;
     protected final EasyEditManager   manager;
     protected ActionMode              mode;
-    private boolean                   created   = true;
-    protected Map<OsmElement, Result> savedResults   = new HashMap<>();
+    private boolean                   created      = true;
+    protected Map<OsmElement, Result> savedResults = new HashMap<>();
 
     public static final int GROUP_MODE = 0;
     public static final int GROUP_BASE = 1;
@@ -459,5 +464,41 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     @Nullable
     protected Way newWayFromSplitResult(@Nullable List<Result> result) {
         return result != null && !result.isEmpty() ? (Way) result.get(0).getElement() : null;
+    }
+
+    /**
+     * Split ways after checking that we have all neighbouring relevant relation members
+     * 
+     * @param ways the List of Ways we will split
+     * @param runnable run this once we've downloaded any missing ways or otherwise can continue
+     */
+    protected void splitSafe(@NonNull List<Way> ways, @NonNull Runnable runnable) {
+        List<Long> missing = new ArrayList<>();
+        for (Way way: ways) {
+            missing.addAll(RelationUtils.checkForNeighbours(way));
+        }
+        if (!missing.isEmpty()) {
+            Builder builder = new AlertDialog.Builder(main);
+            builder.setTitle(R.string.split_safe_title);
+            builder.setMessage(R.string.split_safe_message);
+            builder.setPositiveButton(R.string.download, (DialogInterface dialog, int which) -> {
+                logic.downloadElements(main, null, missing, null, new PostAsyncActionHandler() {
+
+                    @Override
+                    public void onSuccess() {
+                        runnable.run();
+                    }
+
+                    public void onError() {
+                        // something?
+                    }
+                });
+            });
+            builder.setNegativeButton(R.string.ignore, (DialogInterface dialog, int which) -> runnable.run());
+            builder.setNeutralButton(R.string.abort, (DialogInterface dialog, int which) -> manager.finish());
+            builder.show();
+        } else {
+            runnable.run();
+        }
     }
 }

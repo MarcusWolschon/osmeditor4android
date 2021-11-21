@@ -18,6 +18,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Util;
 
 public class FromElementWithViaNodeActionModeCallback extends NonSimpleActionModeCallback {
     private static final String   DEBUG_TAG   = "FromElement...";
@@ -66,24 +67,33 @@ public class FromElementWithViaNodeActionModeCallback extends NonSimpleActionMod
         // due to clickableElements, only valid nodes can be clicked
         super.handleElementClick(element);
         // check if we have to split from or via
-
-        Way fromWay = null;
-        if (Way.NAME.equals(element.getName())) {
-            fromWay = (Way) element;
-        } else {
+        if (!Way.NAME.equals(element.getName())) {
             // FIXME show a warning
             Log.e(DEBUG_TAG, element.getName() + " clicked");
             return true;
         }
-
-        Way newFromWay = null;
-        if (!fromWay.getFirstNode().equals(viaNode) && !fromWay.getLastNode().equals(viaNode)) {
-            // split from at node
-            List<Result> result = logic.performSplit(main, fromWay, viaNode);
-            newFromWay = newWayFromSplitResult(result);
-            saveSplitResult(fromWay, result);
+        final Way fromWay = (Way) element;
+        if (!fromWay.isEndNode(viaNode)) {
+            splitSafe(Util.wrapInList(fromWay), () -> {
+                // split from at node
+                List<Result> result = logic.performSplit(main, fromWay, viaNode);
+                Way newFromWay = newWayFromSplitResult(result);
+                saveSplitResult(fromWay, result);
+                nextStep(fromWay, newFromWay);
+            });
+        } else {
+            nextStep(fromWay, null);
         }
+        return true;
+    }
 
+    /**
+     * Next step in adding the restriction
+     * 
+     * @param fromWay the original from way
+     * @param newFromWay a new from way or null
+     */
+    private void nextStep(@NonNull Way fromWay, @Nullable Way newFromWay) {
         if (newFromWay != null) {
             Set<OsmElement> fromElements = new HashSet<>();
             fromElements.add(fromWay);
@@ -92,11 +102,10 @@ public class FromElementWithViaNodeActionModeCallback extends NonSimpleActionMod
             Set<OsmElement> via = new HashSet<>();
             via.add(viaNode);
             main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, fromElements, via, savedResults));
-            return true;
+        } else {
+            viaSelected = true;
+            main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaNode, savedResults));
         }
-        viaSelected = true;
-        main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaNode, savedResults));
-        return true;
     }
 
     @Override

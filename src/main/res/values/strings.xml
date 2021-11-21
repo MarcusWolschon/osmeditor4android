@@ -238,6 +238,9 @@
     <string name="even">Even</string>
     <string name="odd">Odd</string>
     <string name="other">Other</string>
+    <!-- Safe split dialog -->
+    <string name="split_safe_title">Missing relation members</string>
+    <string name="split_safe_message">Neigbour relation member ways are not downloaded. Maintaining relation members ordering may depend on these.</string>
     <!--  -->
     <string name="error">Error</string>
     <string name="warning">Warning</string>
@@ -605,6 +608,9 @@ avoided by using an offline data source.</string>
     <string name="retry">Retry</string>
     <string name="prune">Prune</string>
     <string name="check">Check</string>
+    <string name="download">Download</string>
+    <string name="abort">Abort</string>
+    <string name="ignore">Ignore</string>
     <!-- Read a file -->
     <string name="read">Read</string>
     <string name="overwrite">Overwrite</string>

@@ -79,6 +79,22 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
     public List<RelationMember> getMembers() {
         return members;
     }
+    
+    /**
+     * Return complete list of relation members of a certain type
+     * 
+     * @return list of members
+     */
+    @NonNull
+    public List<RelationMember> getMembers(@NonNull String type) {
+        List<RelationMember> result = new ArrayList<>();
+        for (RelationMember member: getMembers()) {
+            if (type.equals(member.getType())) {
+                result.add(member);
+            }
+        }
+        return result;
+    }
 
     /**
      * Return first relation member element for this OSM element

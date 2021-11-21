@@ -4,14 +4,21 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.view.Menu;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.view.ActionMode;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
+import de.blau.android.util.Util;
 
 public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback {
     private final Way        way;
@@ -64,9 +71,11 @@ public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback 
         if (way.isClosed()) {
             main.startSupportActionMode(new ClosedWaySplittingActionModeCallback(manager, way, (Node) element, createPolygons));
         } else {
-            List<Result> result = logic.performSplit(main, way, (Node) element);
-            checkSplitResult(way, result);
-            manager.finish();
+            splitSafe(Util.wrapInList(way), () -> {
+                List<Result> result = logic.performSplit(main, way, (Node) element);
+                checkSplitResult(way, result);
+                manager.finish();
+            });
         }
         return true;
     }

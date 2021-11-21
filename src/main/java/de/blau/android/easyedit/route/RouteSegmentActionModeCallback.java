@@ -226,7 +226,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
         }
 
         Way newCurrentSegment = null;
-        if (!currentSegment.isClosed() && !currentSegment.getFirstNode().equals(commonNode) && !currentSegment.getLastNode().equals(commonNode)) {
+        if (!currentSegment.isClosed() && !currentSegment.isEndNode(commonNode)) {
             // split from at node
             List<Result> result = logic.performSplit(main, currentSegment, commonNode);
             newCurrentSegment = newWayFromSplitResult(result);
@@ -246,7 +246,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
             }
         }
         Way newNextSegment = null;
-        if (!nextSegment.isClosed() && !nextSegment.getFirstNode().equals(commonNode) && !nextSegment.getLastNode().equals(commonNode)) {
+        if (!nextSegment.isClosed() && !nextSegment.isEndNode(commonNode)) {
             List<Result> result = logic.performSplit(main, nextSegment, commonNode);
             newNextSegment = newWayFromSplitResult(result);
             saveSplitResult(nextSegment, result);
