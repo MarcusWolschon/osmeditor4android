@@ -314,6 +314,9 @@ public class WayActionsTest {
         assertNotNull(via);
         TestUtils.clickAtCoordinates(device, map, via.getLon(), via.getLat(), true);
         TestUtils.sleep();
+        // download would require mocking
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.ignore), true, false));
+
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_restriction_restart_from)));
 
         // reselect 119104094 and then 47001849
@@ -331,6 +334,10 @@ public class WayActionsTest {
         assertTrue(TestUtils.findText(device, false, "No left turn"));
         TestUtils.clickHome(device, true);
         instrumentation.removeMonitor(monitor);
+
+        TestUtils.clickText(device, false, context.getString(R.string.okay), true, false); // TIP
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_conflict_title))); // warning dialog
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true, false)); // warning dialog
 
         List<Relation> rels = logic.getSelectedRelations();
         assertNotNull(rels);
