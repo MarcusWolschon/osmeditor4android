@@ -28,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.app.ShareCompat;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.BuildConfig;
@@ -242,11 +243,12 @@ public final class Utils {
                 popupMenu.setOnMenuItemClickListener(item -> {
                     switch (item.getItemId()) {
                     case R.id.js_menu_share:
-                        Intent sendIntent = new Intent();
-                        sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, input.getText().toString());
-                        sendIntent.setType("text/plain");
-                        activity.startActivity(sendIntent);
+                        String text = input.getText().toString();
+                        Intent shareIntent = ShareCompat.IntentBuilder.from(activity)
+                                .setText(text)
+                                .setType("text/plain")
+                                .getIntent();
+                        activity.startActivity(shareIntent);
                         break;
                     case R.id.js_menu_save:
                         SelectFile.save(activity, R.string.config_scriptsPreferredDir_key, new SaveFile() {
