@@ -79,6 +79,22 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
     public List<RelationMember> getMembers() {
         return members;
     }
+    
+    /**
+     * Return complete list of relation members of a certain type
+     * 
+     * @return list of members
+     */
+    @NonNull
+    public List<RelationMember> getMembers(@NonNull String type) {
+        List<RelationMember> result = new ArrayList<>();
+        for (RelationMember member: getMembers()) {
+            if (type.equals(member.getType())) {
+                result.add(member);
+            }
+        }
+        return result;
+    }
 
     /**
      * Return first relation member element for this OSM element
@@ -161,7 +177,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
      * Get the RelationMember at a specific position
      * 
      * @param pos the position
-     * @return the RelationMember of null if the position was out of bounds
+     * @return the RelationMember or null if the position was out of bounds
      */
     @Nullable
     public RelationMember getMemberAt(int pos) {

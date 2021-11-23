@@ -238,6 +238,9 @@
     <string name="even">Even</string>
     <string name="odd">Odd</string>
     <string name="other">Other</string>
+    <!-- Safe split dialog -->
+    <string name="split_safe_title">Missing relation members</string>
+    <string name="split_safe_message">Neigbour relation member ways are not downloaded. Maintaining relation members ordering may depend on these.</string>
     <!--  -->
     <string name="error">Error</string>
     <string name="warning">Warning</string>
@@ -361,8 +364,8 @@
     <string name="api_info_attribution">Attribution</string>
     <string name="api_info_mapsplit_source">MapSplit read only source</string>
     <!-- Tag conflict dialog -->
-    <string name="tag_conflict_title">Tags changed</string>
-    <string name="tag_conflict_message">The operation required changing tags on the elements involved.</string>
+    <string name="tag_conflict_title">Properties changed</string>
+    <string name="tag_conflict_message">The operation required changing properties of the elements involved.</string>
     <!-- Relation selection dialog -->
     <string name="no_suitable_relations_message">No suitable relations in downloaded data</string>
     <string name="select_route_title">Select route</string>
@@ -605,6 +608,9 @@ avoided by using an offline data source.</string>
     <string name="retry">Retry</string>
     <string name="prune">Prune</string>
     <string name="check">Check</string>
+    <string name="download">Download</string>
+    <string name="abort">Abort</string>
+    <string name="ignore">Ignore</string>
     <!-- Read a file -->
     <string name="read">Read</string>
     <string name="overwrite">Overwrite</string>
@@ -1298,6 +1304,7 @@ avoided by using an offline data source.</string>
     <string name="issue_same_object">Same object</string>
     <string name="issue_merged_metric">Length dependent value was merged</string>
     <string name="issue_split_metric">Length dependent value was split</string>
+    <string name="issue_split_route_ordering">Route may need manual reordering</string>
     <!-- time and distance -->
     <plurals name="days">
         <item quantity="one">1 day</item>

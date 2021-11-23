@@ -3,8 +3,10 @@ package de.blau.android.easyedit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -41,13 +45,13 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.util.Coordinates;
+import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class WayActionsTest {
 
     Context                 context = null;
-    AdvancedPrefDatabase    prefDB  = null;
     Main                    main    = null;
     UiDevice                device  = null;
     Map                     map     = null;
@@ -258,6 +262,10 @@ public class WayActionsTest {
         Node way2Node = way2.getNodes().get(2);
         TestUtils.clickAtCoordinates(device, map, way2Node.getLon(), way2Node.getLat(), true);
         TestUtils.sleep();
+
+        // download would require mocking
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.ignore), true, false));
+
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_reselect_first_segment)));
 
         // reselect 119104094 and then 47001849
@@ -275,6 +283,10 @@ public class WayActionsTest {
         TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false);
         assertTrue(TestUtils.clickHome(device, true));
         instrumentation.removeMonitor(monitor);
+
+        TestUtils.clickText(device, false, context.getString(R.string.okay), true, false); // TIP
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_conflict_title))); // warning dialog
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true, false)); // warning dialog
 
         List<Relation> rels = logic.getSelectedRelations();
         assertNotNull(rels);
@@ -314,6 +326,9 @@ public class WayActionsTest {
         assertNotNull(via);
         TestUtils.clickAtCoordinates(device, map, via.getLon(), via.getLat(), true);
         TestUtils.sleep();
+        // download would require mocking
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.ignore), true, false));
+
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_restriction_restart_from)));
 
         // reselect 119104094 and then 47001849
@@ -331,6 +346,10 @@ public class WayActionsTest {
         assertTrue(TestUtils.findText(device, false, "No left turn"));
         TestUtils.clickHome(device, true);
         instrumentation.removeMonitor(monitor);
+
+        TestUtils.clickText(device, false, context.getString(R.string.okay), true, false); // TIP
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_conflict_title))); // warning dialog
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true, false)); // warning dialog
 
         List<Relation> rels = logic.getSelectedRelations();
         assertNotNull(rels);
@@ -413,5 +432,70 @@ public class WayActionsTest {
 
         device.waitForIdle(1000);
         TestUtils.clickUp(device);
+    }
+
+    /**
+     * Select way, try to split, download missing ways
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void splitRouteMember() {
+        MockWebServerPlus mockServer = new MockWebServerPlus();
+        HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
+        AdvancedPrefDatabase prefDB = new AdvancedPrefDatabase(context);
+        try {
+            prefDB.deleteAPI("Test");
+            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
+            prefDB.selectAPI("Test");
+            Preferences prefs = new Preferences(context);
+            LayerUtils.removeImageryLayers(context);
+            main.getMap().setPrefs(main, prefs);
+            System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
+            mockServer.enqueue("119104093-full");
+            mockServer.enqueue("45180812-full");
+            map.getDataLayer().setVisible(true);
+            TestUtils.unlock(device);
+            TestUtils.zoomToLevel(device, main, 21);
+            TestUtils.clickAtCoordinates(device, map, 8.3884403, 47.3884988, true);
+            assertTrue(TestUtils.clickText(device, false, "Bergstrasse", false, false));
+            Way way = App.getLogic().getSelectedWay();
+            assertNotNull(way);
+            assertEquals(119104094L, way.getOsmId());
+            List<Relation> parents = way.getParentRelations();
+            assertNotNull(parents);
+            Relation route = parents.get(0);
+            assertTrue(route.hasTag(Tags.KEY_TYPE, Tags.VALUE_ROUTE));
+            int memberCount = route.getMembers().size();
+            //
+            assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+
+            assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_split), false, true));
+
+            assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_split)));
+
+            // split at node 633468409
+            Node via = (Node) App.getDelegator().getOsmElement(Node.NAME, 633468409L);
+            assertNotNull(via);
+            TestUtils.clickAtCoordinates(device, map, via.getLon(), via.getLat(), true);
+            TestUtils.sleep();
+            assertNull(App.getDelegator().getOsmElement(Way.NAME, 119104093L));
+            assertNull(App.getDelegator().getOsmElement(Way.NAME, 45180812L));
+            int apiWayCount = App.getDelegator().getApiWayCount();
+            // download requires mocking
+            assertTrue(TestUtils.clickText(device, false, context.getString(R.string.download), true, false));
+            TestUtils.sleep();
+            assertNotNull(App.getDelegator().getOsmElement(Way.NAME, 119104093L));
+            assertNotNull(App.getDelegator().getOsmElement(Way.NAME, 45180812L));
+            assertEquals(apiWayCount + 2, App.getDelegator().getApiWayCount());
+            assertEquals(memberCount + 1, route.getMembers().size());
+        } finally {
+            try {
+                mockServer.server().shutdown();
+            } catch (IOException ioex) {
+                System.out.println("Stopping mock webserver exception " + ioex); // NOSONAR
+            }
+            prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
+            prefDB.close();
+        }
     }
 }

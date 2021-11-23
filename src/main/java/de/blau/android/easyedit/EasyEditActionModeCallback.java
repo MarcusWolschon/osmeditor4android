@@ -2,10 +2,13 @@ package de.blau.android.easyedit;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -14,16 +17,22 @@ import android.view.View;
 import android.view.ViewStub;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.ActionMenuView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.ReadAsyncResult;
+import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -47,15 +56,16 @@ import de.blau.android.util.Util;
  */
 public abstract class EasyEditActionModeCallback implements ActionMode.Callback {
 
-    private static final String     DEBUG_TAG = "EasyEditActionModeCa...";
-    protected int                   helpTopic = 0;
-    MenuUtil                        menuUtil;
-    private ActionMenuView          cabBottomBar;
-    protected final Main            main;
-    protected final Logic           logic;
-    protected final EasyEditManager manager;
-    protected ActionMode            mode;
-    private boolean                 created   = true;
+    private static final String       DEBUG_TAG    = "EasyEditActionModeCa...";
+    protected int                     helpTopic    = 0;
+    MenuUtil                          menuUtil;
+    private ActionMenuView            cabBottomBar;
+    protected final Main              main;
+    protected final Logic             logic;
+    protected final EasyEditManager   manager;
+    protected ActionMode              mode;
+    private boolean                   created      = true;
+    protected Map<OsmElement, Result> savedResults = new HashMap<>();
 
     public static final int GROUP_MODE = 0;
     public static final int GROUP_BASE = 1;
@@ -409,17 +419,88 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * Check the result of a way split operation, and if there was an error display a dialog
      * 
      * @param originalWay the original Way
-     * @param result the Result of the split
+     * @param resultList a List containing Results of the split, new Way in 1st
      */
-    protected void checkSplitResult(@NonNull Way originalWay, @Nullable Result result) {
-        if (result != null && result.hasIssue()) {
-            List<Result> resultList = new ArrayList<>();
-            resultList.add(result);
-            Result orig = new Result();
-            orig.setElement(originalWay);
-            orig.addAllIssues(result.getIssues());
-            resultList.add(orig);
-            TagConflictDialog.showDialog(main, resultList);
+    protected void checkSplitResult(@NonNull Way originalWay, @Nullable List<Result> resultList) {
+        saveSplitResult(originalWay, resultList);
+        if (!savedResults.isEmpty()) {
+            TagConflictDialog.showDialog(main, new ArrayList<>(savedResults.values()));
+        }
+    }
+
+    /**
+     * Save the result of a way split operation for later display if necessary
+     * 
+     * @param originalWay the original Way
+     * @param resultList a List containing Results of the split, new Way in 1st
+     */
+    protected void saveSplitResult(@NonNull Way originalWay, @Nullable List<Result> resultList) {
+        if (resultList != null && !resultList.isEmpty() && (resultList.get(0).hasIssue() || resultList.size() > 1)) {
+            List<Result> tempList = new ArrayList<>(resultList);
+            Result first = tempList.get(0);
+            if (first.hasIssue()) { // create a result for the original way
+                Result orig = new Result();
+                orig.setElement(originalWay);
+                orig.addAllIssues(first.getIssues());
+                tempList.add(1, orig);
+            } else {
+                tempList.remove(0);
+            }
+            for (Result r : tempList) {
+                Result saved = savedResults.get(r.getElement());
+                if (saved != null) {
+                    saved.addAllIssues(r.getIssues());
+                } else {
+                    savedResults.put(r.getElement(), r);
+                }
+            }
+        }
+    }
+
+    /**
+     * Get the new Way from a split
+     * 
+     * @param result a List of Results
+     * @return the new split off Way or null
+     */
+    @Nullable
+    protected Way newWayFromSplitResult(@Nullable List<Result> result) {
+        return result != null && !result.isEmpty() ? (Way) result.get(0).getElement() : null;
+    }
+
+    /**
+     * Split ways after checking that we have all neighbouring relevant relation members
+     * 
+     * @param ways the List of Ways we will split
+     * @param runnable run this once we've downloaded any missing ways or otherwise can continue
+     */
+    protected void splitSafe(@NonNull List<Way> ways, @NonNull Runnable runnable) {
+        List<Long> missing = new ArrayList<>();
+        for (Way way : ways) {
+            missing.addAll(RelationUtils.checkForNeighbours(way));
+        }
+        if (!missing.isEmpty() && main.isConnectedOrConnecting()) {
+            Builder builder = new AlertDialog.Builder(main);
+            builder.setTitle(R.string.split_safe_title);
+            builder.setMessage(R.string.split_safe_message);
+            builder.setPositiveButton(R.string.download,
+                    (DialogInterface dialog, int which) -> logic.downloadElements(main, null, missing, null, new PostAsyncActionHandler() {
+
+                        @Override
+                        public void onSuccess() {
+                            runnable.run();
+                        }
+
+                        @Override
+                        public void onError(@Nullable ReadAsyncResult result) {
+                            ErrorAlert.showDialog(main, result);
+                        }
+                    }));
+            builder.setNegativeButton(R.string.ignore, (DialogInterface dialog, int which) -> runnable.run());
+            builder.setNeutralButton(R.string.abort, (DialogInterface dialog, int which) -> manager.finish());
+            builder.show();
+        } else {
+            runnable.run();
         }
     }
 }

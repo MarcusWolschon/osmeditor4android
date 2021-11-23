@@ -174,7 +174,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 manager.invalidate();
                 break;
             case MENUITEM_RESTRICTION:
-                main.startSupportActionMode(new FromElementWithViaNodeActionModeCallback(manager, new HashSet<>(highways), (Node) element));
+                main.startSupportActionMode(new FromElementWithViaNodeActionModeCallback(manager, new HashSet<>(highways), (Node) element, null));
                 break;
             case MENUITEM_SET_POSITION:
                 setPosition();

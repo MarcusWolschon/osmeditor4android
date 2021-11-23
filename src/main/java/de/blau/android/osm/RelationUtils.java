@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -291,5 +292,57 @@ public final class RelationUtils {
         Map<String, String> tags = new TreeMap<>(original);
         tags.put(Tags.KEY_TYPE, value);
         return tags;
+    }
+
+    /**
+     * Check if the neighbour ways in a Relation for way are downloaded
+     * 
+     * Only considers routes, MPs and boundaries for now and assumes the relation is sorted
+     * 
+     * @param way the Way
+     * @return a List of Ways that are not downloaded
+     */
+    @NonNull
+    public static List<Long> checkForNeighbours(@NonNull Way way) {
+        Set<Long> result = new HashSet<>();
+        List<Relation> parents = way.getParentRelations();
+        if (parents != null) {
+            for (Relation r : parents) {
+                String type = r.getTagWithKey(Tags.KEY_TYPE);
+                if ((Tags.VALUE_ROUTE.equals(type) || Tags.VALUE_MULTIPOLYGON.equals(type) || Tags.VALUE_BOUNDARY.equals(type)) && !r.allDownloaded()) {
+                    // we need to check if the neighbours of way are present,
+                    List<RelationMember> wayMembers = r.getMembers(Way.NAME);
+                    // as the way can be present multiple times we need to loop here
+                    for (RelationMember member : r.getAllMembers(way)) {
+                        int pos = wayMembers.indexOf(member);
+                        addIfNotDownloaded(result, r, pos - 1, wayMembers); // previous
+                        addIfNotDownloaded(result, r, pos + 1, wayMembers); // next
+                    }
+                }
+            }
+        }
+        return new ArrayList<>(result);
+    }
+
+    /**
+     * Add the RelationMember at pos to the Set if not downloaded
+     * 
+     * If pos is out of range the position will wrap around
+     * 
+     * @param result the resulting Set of member refs/ids
+     * @param r the Relation
+     * @param pos the position
+     */
+    private static void addIfNotDownloaded(@NonNull Set<Long> result, @NonNull Relation r, int pos, @NonNull List<RelationMember> members) {
+        int last = members.size() - 1;
+        if (pos < 0) {
+            pos = last;
+        } else if (pos > last) {
+            pos = 0;
+        }
+        RelationMember member = members.get(pos);
+        if (member != null && !member.downloaded()) {
+            result.add(member.getRef());
+        }
     }
 }

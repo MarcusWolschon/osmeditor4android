@@ -1,11 +1,14 @@
 package de.blau.android.easyedit.turnrestriction;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import android.util.Log;
 import android.view.Menu;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditManager;
@@ -15,6 +18,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Util;
 
 public class FromElementWithViaNodeActionModeCallback extends NonSimpleActionModeCallback {
     private static final String   DEBUG_TAG   = "FromElement...";
@@ -29,11 +33,16 @@ public class FromElementWithViaNodeActionModeCallback extends NonSimpleActionMod
      * @param manager the current EasyEditManager instance
      * @param fromWays the candidate "from" role Ways
      * @param via the "via" node
+     * @param results saved intermediate results
      */
-    public FromElementWithViaNodeActionModeCallback(@NonNull EasyEditManager manager, @NonNull Set<OsmElement> fromWays, @NonNull Node via) {
+    public FromElementWithViaNodeActionModeCallback(@NonNull EasyEditManager manager, @NonNull Set<OsmElement> fromWays, @NonNull Node via,
+            @Nullable Map<OsmElement, Result> results) {
         super(manager);
         this.fromWays = fromWays;
         this.viaNode = via;
+        if (results != null) {
+            savedResults = results;
+        }
     }
 
     @Override
@@ -59,24 +68,33 @@ public class FromElementWithViaNodeActionModeCallback extends NonSimpleActionMod
         // due to clickableElements, only valid nodes can be clicked
         super.handleElementClick(element);
         // check if we have to split from or via
-
-        Way fromWay = null;
-        if (Way.NAME.equals(element.getName())) {
-            fromWay = (Way) element;
-        } else {
+        if (!Way.NAME.equals(element.getName())) {
             // FIXME show a warning
             Log.e(DEBUG_TAG, element.getName() + " clicked");
             return true;
         }
-
-        Way newFromWay = null;
-        if (!fromWay.getFirstNode().equals(viaNode) && !fromWay.getLastNode().equals(viaNode)) {
-            // split from at node
-            Result result = logic.performSplit(main, fromWay, viaNode);
-            newFromWay = result != null ? (Way) result.getElement() : null;
-            checkSplitResult(fromWay, result);
+        final Way fromWay = (Way) element;
+        if (!fromWay.isEndNode(viaNode)) {
+            splitSafe(Util.wrapInList(fromWay), () -> {
+                // split from at node
+                List<Result> result = logic.performSplit(main, fromWay, viaNode);
+                Way newFromWay = newWayFromSplitResult(result);
+                saveSplitResult(fromWay, result);
+                nextStep(fromWay, newFromWay);
+            });
+        } else {
+            nextStep(fromWay, null);
         }
+        return true;
+    }
 
+    /**
+     * Next step in adding the restriction
+     * 
+     * @param fromWay the original from way
+     * @param newFromWay a new from way or null
+     */
+    private void nextStep(@NonNull Way fromWay, @Nullable Way newFromWay) {
         if (newFromWay != null) {
             Set<OsmElement> fromElements = new HashSet<>();
             fromElements.add(fromWay);
@@ -84,12 +102,11 @@ public class FromElementWithViaNodeActionModeCallback extends NonSimpleActionMod
             Snack.barInfo(main, R.string.toast_split_from);
             Set<OsmElement> via = new HashSet<>();
             via.add(viaNode);
-            main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, fromElements, via));
-            return true;
+            main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, fromElements, via, savedResults));
+        } else {
+            viaSelected = true;
+            main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaNode, savedResults));
         }
-        viaSelected = true;
-        main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaNode));
-        return true;
     }
 
     @Override

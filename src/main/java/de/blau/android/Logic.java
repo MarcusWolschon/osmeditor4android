@@ -1944,10 +1944,10 @@ public class Logic {
      * @return a Result object containing the new Way or null if failed
      */
     @Nullable
-    public synchronized Result performSplit(@Nullable final FragmentActivity activity, @NonNull final Way way, @NonNull final Node node) {
+    public synchronized List<Result> performSplit(@Nullable final FragmentActivity activity, @NonNull final Way way, @NonNull final Node node) {
         createCheckpoint(activity, R.string.undo_action_split_way);
         try {
-            Result result = getDelegator().splitAtNode(way, node);
+            List<Result> result = getDelegator().splitAtNode(way, node);
             invalidateMap();
             return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
@@ -1991,37 +1991,52 @@ public class Logic {
      * @return null if the split fails, the segment otherwise
      */
     @Nullable
-    public synchronized Result performExtractSegment(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2) {
+    public synchronized List<Result> performExtractSegment(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2) {
         createCheckpoint(activity, R.string.undo_action_extract_segment);
         try {
             displayAttachedObjectWarning(activity, way);
-            Result result = null;
+            List<Result> result = null;
             if (way.isEndNode(node1)) {
-                result = getDelegator().splitAtNode(way, node2);
-                Way newWay = (Way) result.getElement();
-                result.setElement(newWay.isEndNode(node1) ? newWay : way);
+                result = extractSegmentAtEnd(way, node1, node2);
             } else if (way.isEndNode(node2)) {
-                result = getDelegator().splitAtNode(way, node1);
-                Way newWay = (Way) result.getElement();
-                result.setElement(newWay.isEndNode(node2) ? newWay : way);
+                result = extractSegmentAtEnd(way, node2, node1);
             } else {
-                Result result1 = getDelegator().splitAtNode(way, node1);
+                result = getDelegator().splitAtNode(way, node1);
+                if (result.isEmpty()) {
+                    throw new OsmIllegalOperationException("Splitting way " + way.getOsmId() + " at node " + node1.getOsmId() + " failed");
+                }
+                Result first = result.get(0);
                 boolean splitOriginal = way.hasNode(node2);
-                Way newWay = (Way) result1.getElement();
-                Result result2 = getDelegator().splitAtNode(way.hasNode(node2) ? way : newWay, node2);
-                Way newWay2 = (Way) result2.getElement();
-                result = new Result();
-                result.addAllIssues(result1.getIssues());
-                result.setElement(newWay2.hasNode(node1) && newWay2.hasNode(node2) ? newWay2 : (splitOriginal ? way : newWay));
+                Way newWay = (Way) first.getElement();
+                List<Result> result2 = getDelegator().splitAtNode(way.hasNode(node2) ? way : newWay, node2);
+                Way newWay2 = (Way) result2.get(0).getElement();
+                first.setElement(newWay2.hasNode(node1) && newWay2.hasNode(node2) ? newWay2 : (splitOriginal ? way : newWay));
             }
             invalidateMap();
             return result;
-        } catch (OsmIllegalOperationException |
-
-                StorageException ex) {
+        } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
             return null;
         }
+    }
+
+    /**
+     * Extract a segment at the end of a way
+     * 
+     * @param way the original Way
+     * @param endNode the end Node
+     * @param splitNode the Node to split at
+     * @return a List of Result with the segment in the 1st Result
+     */
+    private List<Result> extractSegmentAtEnd(@NonNull Way way, @NonNull Node endNode, @NonNull Node splitNode) {
+        List<Result> result = getDelegator().splitAtNode(way, splitNode);
+        if (result.isEmpty()) {
+            throw new OsmIllegalOperationException("Splitting way " + way.getOsmId() + " at node " + splitNode.getOsmId() + " failed");
+        }
+        Result first = result.get(0);
+        Way newWay = (Way) first.getElement();
+        first.setElement(newWay.isEndNode(endNode) ? newWay : way);
+        return result;
     }
 
     /**
@@ -3178,13 +3193,13 @@ public class Logic {
      * @param ways List containing the way ids
      * @param relations List containing the relation ids
      * @param postLoadHandler callback to execute after download completes if null method waits for download to finish
-     * @return an error code, 0 for success
+     * @return a ReadAsyncResult
      */
-    public synchronized int downloadElements(@NonNull final Context ctx, @Nullable final List<Long> nodes, @Nullable final List<Long> ways,
+    public synchronized ReadAsyncResult downloadElements(@NonNull final Context ctx, @Nullable final List<Long> nodes, @Nullable final List<Long> ways,
             @Nullable final List<Long> relations, @Nullable final PostAsyncActionHandler postLoadHandler) {
 
-        class DownLoadElementsTask extends AsyncTask<Void, Void, Integer> {
-            int result = 0;
+        class DownLoadElementsTask extends AsyncTask<Void, Void, ReadAsyncResult> {
+            ReadAsyncResult result;
 
             /**
              * Convert a List&lt;Long&gt; to an array of long
@@ -3202,7 +3217,7 @@ public class Logic {
             }
 
             @Override
-            protected Integer doInBackground(Void... arg) {
+            protected ReadAsyncResult doInBackground(Void... arg) {
                 try {
                     final OsmParser osmParser = new OsmParser();
                     InputStream in = null;
@@ -3251,43 +3266,44 @@ public class Logic {
                     try {
                         // FIXME need to check if providing a handler makes sense here
                         if (!getDelegator().mergeData(osmParser.getStorage(), null)) {
-                            result = ErrorCodes.DATA_CONFLICT;
+                            result = new ReadAsyncResult(ErrorCodes.DATA_CONFLICT);
                         }
                     } catch (IllegalStateException iex) {
-                        result = ErrorCodes.CORRUPTED_DATA;
+                        result = new ReadAsyncResult(ErrorCodes.CORRUPTED_DATA);
                     }
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
                     Exception ce = e.getException();
                     if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-                        result = ErrorCodes.OUT_OF_MEMORY;
+                        result = new ReadAsyncResult(ErrorCodes.OUT_OF_MEMORY);
                     } else {
-                        result = ErrorCodes.INVALID_DATA_RECEIVED;
+                        result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
                     }
                 } catch (ParserConfigurationException e) {
                     // crash and burn
                     // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
                     // network device... need to display what we actually got
                     Log.e(DEBUG_TAG, "downloadElements problem parsing", e);
-                    result = ErrorCodes.INVALID_DATA_RECEIVED;
+                    result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
                 } catch (OsmServerException e) {
+                    result = new ReadAsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessageWithDescription());
                     Log.e(DEBUG_TAG, "downloadElements problem downloading", e);
                 } catch (IOException e) {
-                    result = ErrorCodes.NO_CONNECTION;
+                    result = new ReadAsyncResult(ErrorCodes.NO_CONNECTION);
                     Log.e(DEBUG_TAG, "downloadElements problem downloading", e);
                 }
                 return result;
             }
 
             @Override
-            protected void onPostExecute(Integer result) {
-                if (result == 0) {
+            protected void onPostExecute(ReadAsyncResult result) {
+                if (result == null) {
                     if (postLoadHandler != null) {
                         postLoadHandler.onSuccess();
                     }
                 } else {
                     if (postLoadHandler != null) {
-                        postLoadHandler.onError();
+                        postLoadHandler.onError(result);
                     }
                 }
             }
@@ -3302,10 +3318,10 @@ public class Logic {
             } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt
                                                                                        // the thread in question
                 loader.cancel(true);
-                return -1;
+                return new ReadAsyncResult(ErrorCodes.NO_CONNECTION);
             }
         } else {
-            return 0;
+            return new ReadAsyncResult(ErrorCodes.OK);
         }
     }
 

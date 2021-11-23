@@ -2,9 +2,11 @@ package de.blau.android.osm;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -129,8 +131,10 @@ public class WayTest {
         StorageDelegator d = new StorageDelegator();
         Way w = StorageDelegatorTest.addWayToStorage(d, false);
         Node n = w.getNodes().get(2);
-        Result splitResult = d.splitAtNode(w, n);
-        Way w2 = (Way) splitResult.getElement();
+        List<Result> splitResult = d.splitAtNode(w, n);
+        assertNotNull(splitResult);
+        assertFalse(splitResult.isEmpty());
+        Way w2 = (Way) splitResult.get(0).getElement();
 
         assertTrue(w.hasCommonNode(w2));
         assertEquals(n, w.getCommonNode(w2));

@@ -157,27 +157,30 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     public boolean onMenuItemClick(MenuItem item) {
         int itemId = item.getItemId();
 
-        List<Way> ways = new ArrayList<>();
+        final List<Way> ways = new ArrayList<>();
         if (itemId == 0) {
-            ways = clickedNonClosedWays;
+            ways.addAll(clickedNonClosedWays);
         } else {
             ways.add(clickedNonClosedWays.get(itemId - 1));
         }
         try {
             Node splitPosition = logic.performAddOnWay(main, ways, startX, startY, false);
             if (splitPosition != null) {
-                for (Way way : ways) {
-                    if (way.hasNode(splitPosition)) {
-                        Result result = logic.performSplit(main, way, logic.getSelectedNode());
-                        checkSplitResult(way, result);
+                splitSafe(ways, () -> {
+                    for (Way way : ways) {
+                        if (way.hasNode(splitPosition)) {
+                            List<Result> result = logic.performSplit(main, way, logic.getSelectedNode());
+                            checkSplitResult(way, result);
+                        }
                     }
-                }
+                    manager.finish();
+                });
             }
         } catch (OsmIllegalOperationException e) {
             Snack.barError(main, e.getLocalizedMessage());
             Log.d(DEBUG_TAG, "Caught exception " + e);
+            manager.finish();
         }
-        manager.finish();
         return false;
     }
 
@@ -204,19 +207,21 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                 manager.showContextMenu();
             } else {
                 Way way = clickedNonClosedWays.get(0);
-                ArrayList<Way> ways = new ArrayList<>();
-                ways.add(way);
                 try {
+                    List<Way> ways = Util.wrapInList(way);
                     Node node = logic.performAddOnWay(main, ways, startX, startY, false);
                     if (node != null) {
-                        Result result = logic.performSplit(main, way, node);
-                        checkSplitResult(way, result);
+                        splitSafe(ways, () -> {
+                            List<Result> result = logic.performSplit(main, way, node);
+                            checkSplitResult(way, result);
+                            manager.finish();
+                        });
                     }
                 } catch (OsmIllegalOperationException e) {
                     Snack.barError(main, e.getLocalizedMessage());
                     Log.d(DEBUG_TAG, "Caught exception " + e);
+                    manager.finish();
                 }
-                manager.finish();
             }
             return true;
         case MENUITEM_NEWNODE_ADDRESS:

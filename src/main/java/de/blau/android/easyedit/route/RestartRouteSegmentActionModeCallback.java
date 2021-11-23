@@ -3,6 +3,7 @@ package de.blau.android.easyedit.route;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import android.view.Menu;
@@ -15,6 +16,7 @@ import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
@@ -55,10 +57,14 @@ public class RestartRouteSegmentActionModeCallback extends NonSimpleActionModeCa
      * @param segments potential initial segments Ways
      * @param route if not null the route to add too
      */
-    public RestartRouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull Set<Way> segments, @Nullable Relation route) {
+    public RestartRouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull Set<Way> segments, @Nullable Relation route,
+            @Nullable Map<OsmElement, Result> results) {
         super(manager);
         segmentWays = segments;
         this.route = route;
+        if (results != null) {
+            this.savedResults = results;
+        }
     }
 
     @Override
@@ -79,7 +85,7 @@ public class RestartRouteSegmentActionModeCallback extends NonSimpleActionModeCa
     public boolean handleElementClick(OsmElement element) {
         super.handleElementClick(element);
         segmentSelected = true;
-        main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, (Way) element, route, findViaElements((Way) element, true)));
+        main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, (Way) element, route, findViaElements((Way) element, true), savedResults));
         return true;
     }
 

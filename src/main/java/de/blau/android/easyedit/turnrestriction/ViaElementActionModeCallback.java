@@ -1,11 +1,14 @@
 package de.blau.android.easyedit.turnrestriction;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import android.util.Log;
 import android.view.Menu;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditManager;
@@ -15,6 +18,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Util;
 
 public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
     private static final String DEBUG_TAG  = "ViaElement..";
@@ -30,12 +34,17 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
      * @param manager the current EasyEditManager instance
      * @param from selected "from" role Way
      * @param via selected "via" role OsmElement
+     * @param results saved intermediate results
      */
-    public ViaElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via) {
+    public ViaElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via,
+            @Nullable Map<OsmElement, Result> results) {
         super(manager);
         fromWay = from;
         viaElement = via;
         cachedToElements = findToElements(viaElement);
+        if (results != null) {
+            savedResults = results;
+        }
     }
 
     /**
@@ -45,13 +54,18 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
      * @param from selected "from" role Way
      * @param via selected "via" role OsmElement
      * @param toElements potential "to" role OsmElements
+     * @param results saved intermediate results
      */
-    public ViaElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via, @NonNull Set<OsmElement> toElements) {
+    public ViaElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via, @NonNull Set<OsmElement> toElements,
+            @Nullable Map<OsmElement, Result> results) {
         super(manager);
         fromWay = from;
         viaElement = via;
         cachedToElements = toElements;
         this.titleId = R.string.actionmode_restriction_restart_to;
+        if (results != null) {
+            savedResults = results;
+        }
     }
 
     @Override
@@ -73,52 +87,66 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
     public boolean handleElementClick(OsmElement element) { // NOSONAR
         // due to clickableElements, only valid elements can be clicked
         super.handleElementClick(element);
-        Node viaNode = null;
-        Way toWay = (Way) element;
+        final Way toWay = (Way) element;
         if (Node.NAME.equals(viaElement.getName())) {
-            viaNode = (Node) viaElement;
+            nextStep(element, (Node) viaElement, toWay);
         } else if (Way.NAME.equals(viaElement.getName())) {
-            Way viaWay = (Way) viaElement;
-            viaNode = ((Way) viaElement).getCommonNode(toWay);
-            if (!viaWay.getFirstNode().equals(viaNode) && !viaWay.getLastNode().equals(viaNode)) {
-                // split via way and use appropriate segment
-                Result result = logic.performSplit(main, viaWay, viaNode);
-                Way newViaWay = result != null ? (Way) result.getElement() : null;
-                if (newViaWay != null) {
-                    checkSplitResult(viaWay, result);
-                    Snack.barInfo(main, R.string.toast_split_via);
-                    if (fromWay.hasNode(newViaWay.getFirstNode()) || fromWay.hasNode(newViaWay.getLastNode())) {
-                        viaElement = newViaWay;
+            final Way viaWay = (Way) viaElement;
+            final Node viaNode = ((Way) viaElement).getCommonNode(toWay);
+            if (!viaWay.isEndNode(viaNode)) {
+                splitSafe(Util.wrapInList(viaWay), () -> {
+                    // split via way and use appropriate segment
+                    List<Result> result = logic.performSplit(main, viaWay, viaNode);
+                    Way newViaWay = newWayFromSplitResult(result);
+                    if (newViaWay != null) {
+                        checkSplitResult(viaWay, result);
+                        Snack.barInfo(main, R.string.toast_split_via);
+                        if (fromWay.hasNode(newViaWay.getFirstNode()) || fromWay.hasNode(newViaWay.getLastNode())) {
+                            viaElement = newViaWay;
+                        }
+                    } else {
+                        Log.e(DEBUG_TAG, "newViaWay is null");
                     }
-                } else {
-                    Log.e(DEBUG_TAG, "newViaWay is null");
-                }
+                    nextStep(element, viaNode, toWay);
+                });
+                return true;
             }
+            nextStep(element, viaNode, toWay);
         } else {
             // FIXME show a warning
             Log.e(DEBUG_TAG, element.getName() + " clicked");
             return true;
         }
-        if (viaElement != null && viaElement.equals(toWay)) {
-            main.startSupportActionMode(new RestrictionWaySplittingActionModeCallback(manager, R.string.actionmode_restriction_split_via, toWay, fromWay));
-            return true;
-        }
-        // now check if we need to split the toWay
-        if (!toWay.getFirstNode().equals(viaNode) && !toWay.getLastNode().equals(viaNode) && !toWay.isClosed()) {
-            Result result = logic.performSplit(main, toWay, viaNode);
-            Way newToWay = result != null ? (Way) result.getElement() : null;
-            checkSplitResult(toWay, result);
-            Snack.barInfo(main, R.string.toast_split_to);
-            Set<OsmElement> toCandidates = new HashSet<>();
-            toCandidates.add(toWay);
-            toCandidates.add(newToWay);
-            main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaElement, toCandidates));
-            return true;
-        }
-
-        toSelected = true;
-        main.startSupportActionMode(new ToElementActionModeCallback(manager, fromWay, viaElement, (Way) element)); // NOSONAR viaElement can't actually be null
         return true;
+    }
+
+    /**
+     * The next step in adding the restriction
+     * 
+     * @param element the clicked element
+     * @param viaNode the via node
+     * @param toWay the to way
+     */
+    private void nextStep(@NonNull OsmElement element, @NonNull Node viaNode, @NonNull Way toWay) {
+        if (viaElement != null && viaElement.equals(toWay)) {
+            main.startSupportActionMode(
+                    new RestrictionWaySplittingActionModeCallback(manager, R.string.actionmode_restriction_split_via, toWay, fromWay, savedResults));
+        } else if (!toWay.isEndNode(viaNode) && !toWay.isClosed()) { // now check if we need to split the toWay
+            splitSafe(Util.wrapInList(toWay), () -> {
+                List<Result> result = logic.performSplit(main, toWay, viaNode);
+                Way newToWay = newWayFromSplitResult(result);
+                saveSplitResult(toWay, result);
+                Snack.barInfo(main, R.string.toast_split_to);
+                Set<OsmElement> toCandidates = new HashSet<>();
+                toCandidates.add(toWay);
+                toCandidates.add(newToWay);
+                main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaElement, toCandidates, savedResults));
+            });
+        } else {
+            toSelected = true;
+            main.startSupportActionMode(new ToElementActionModeCallback(manager, fromWay, viaElement, (Way) element, savedResults)); // NOSONAR
+            // viaElement can't actually be null
+        }
     }
 
     @Override

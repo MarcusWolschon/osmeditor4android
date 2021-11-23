@@ -17,9 +17,9 @@ import de.blau.android.util.Util;
 
 public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
 
-    private final Way           way;
-    private float               x         = -Float.MAX_VALUE;
-    private float               y         = -Float.MAX_VALUE;
+    private final Way way;
+    private float     x = -Float.MAX_VALUE;
+    private float     y = -Float.MAX_VALUE;
 
     /**
      * Construct a new WayMergingActionModeCallback from an existing Way and potentially mergable Ways
@@ -86,10 +86,10 @@ public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
         }
 
         if (distance >= 0 && node1 != null) {
-            Result result = logic.performExtractSegment(main, way, node1, node2);
+            List<Result> result = logic.performExtractSegment(main, way, node1, node2);
             if (result != null) {
                 checkSplitResult(way, result);
-                Way segment = (Way) result.getElement();
+                Way segment = newWayFromSplitResult(result);
                 if (segment.hasTagKey(Tags.KEY_HIGHWAY) || segment.hasTagKey(Tags.KEY_WATERWAY)) {
                     main.startSupportActionMode(new WaySegmentModifyActionModeCallback(manager, segment));
                 } else {
