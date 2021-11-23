@@ -27,6 +27,7 @@ public class RestartFromElementActionModeCallback extends NonSimpleActionModeCal
      * @param manager the current EasyEditManager instance
      * @param froms potential "from" role Ways
      * @param vias potential "via" role elements
+     * @param results saved intermediate results
      */
     public RestartFromElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Set<OsmElement> froms, @NonNull Set<OsmElement> vias,
             @Nullable Map<OsmElement, Result> results) {

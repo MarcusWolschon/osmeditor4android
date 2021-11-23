@@ -22,7 +22,7 @@ import de.blau.android.util.Util;
 
 public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionModeCallback {
     private static final String DEBUG_TAG = "Restriction...";
-    
+
     private final Way        way;
     private final Way        fromWay;
     private List<OsmElement> nodes = new ArrayList<>();
@@ -35,6 +35,7 @@ public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionMo
      * @param subTitle the resource id of the sub title
      * @param way the existing Way
      * @param fromWay the current from segment or null
+     * @param results saved intermediate results
      */
     public RestrictionWaySplittingActionModeCallback(@NonNull EasyEditManager manager, int subTitle, @NonNull Way way, @Nullable Way fromWay,
             @Nullable Map<OsmElement, Result> results) {

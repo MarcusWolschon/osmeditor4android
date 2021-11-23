@@ -34,6 +34,7 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
      * @param manager the current EasyEditManager instance
      * @param from selected "from" role Way
      * @param via selected "via" role OsmElement
+     * @param results saved intermediate results
      */
     public ViaElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via,
             @Nullable Map<OsmElement, Result> results) {
@@ -53,6 +54,7 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
      * @param from selected "from" role Way
      * @param via selected "via" role OsmElement
      * @param toElements potential "to" role OsmElements
+     * @param results saved intermediate results
      */
     public ViaElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via, @NonNull Set<OsmElement> toElements,
             @Nullable Map<OsmElement, Result> results) {

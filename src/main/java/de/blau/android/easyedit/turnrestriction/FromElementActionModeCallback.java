@@ -47,6 +47,7 @@ public class FromElementActionModeCallback extends NonSimpleActionModeCallback {
      * @param titleId the resource id for an alternative title
      * @param way the "from" role Way
      * @param vias potential "via" role elements
+     * @param results saved intermediate results
      */
     public FromElementActionModeCallback(@NonNull EasyEditManager manager, int titleId, @NonNull Way way, @NonNull Set<OsmElement> vias,
             @Nullable Map<OsmElement, Result> results) {

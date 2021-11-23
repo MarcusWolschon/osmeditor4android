@@ -33,8 +33,10 @@ public class ToElementActionModeCallback extends NonSimpleActionModeCallback {
      * @param from the "from" role Way
      * @param via the "via" role OsmELement
      * @param to the "to" role Way
+     * @param results saved intermediate results
      */
-    public ToElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via, Way to, @Nullable Map<OsmElement, Result> results) {
+    public ToElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via, Way to,
+            @Nullable Map<OsmElement, Result> results) {
         super(manager);
         fromWay = from;
         viaElement = via;

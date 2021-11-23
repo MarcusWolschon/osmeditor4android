@@ -38,6 +38,7 @@ public class RestrictionClosedWaySplittingActionModeCallback extends NonSimpleAc
      * @param way the closed way
      * @param node the first node to split at the callback will ask for the 2nd one
      * @param fromWay the current from segment or null
+     * @param results saved intermediate results
      */
     public RestrictionClosedWaySplittingActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Node node, @Nullable Way fromWay,
             @Nullable Map<OsmElement, Result> results) {

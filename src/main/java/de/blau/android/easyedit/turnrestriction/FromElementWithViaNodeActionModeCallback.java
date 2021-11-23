@@ -33,6 +33,7 @@ public class FromElementWithViaNodeActionModeCallback extends NonSimpleActionMod
      * @param manager the current EasyEditManager instance
      * @param fromWays the candidate "from" role Ways
      * @param via the "via" node
+     * @param results saved intermediate results
      */
     public FromElementWithViaNodeActionModeCallback(@NonNull EasyEditManager manager, @NonNull Set<OsmElement> fromWays, @NonNull Node via,
             @Nullable Map<OsmElement, Result> results) {
