@@ -258,6 +258,10 @@ public class WayActionsTest {
         Node way2Node = way2.getNodes().get(2);
         TestUtils.clickAtCoordinates(device, map, way2Node.getLon(), way2Node.getLat(), true);
         TestUtils.sleep();
+
+        // download would require mocking
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.ignore), true, false));
+
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_reselect_first_segment)));
 
         // reselect 119104094 and then 47001849
@@ -276,6 +280,10 @@ public class WayActionsTest {
         assertTrue(TestUtils.clickHome(device, true));
         instrumentation.removeMonitor(monitor);
 
+        TestUtils.clickText(device, false, context.getString(R.string.okay), true, false); // TIP
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_conflict_title))); // warning dialog
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true, false)); // warning dialog
+        
         List<Relation> rels = logic.getSelectedRelations();
         assertNotNull(rels);
         assertEquals(1, rels.size());
