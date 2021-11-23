@@ -27,6 +27,8 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.ReadAsyncResult;
+import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -477,7 +479,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
         for (Way way : ways) {
             missing.addAll(RelationUtils.checkForNeighbours(way));
         }
-        if (!missing.isEmpty()) {
+        if (!missing.isEmpty() && main.isConnectedOrConnecting()) {
             Builder builder = new AlertDialog.Builder(main);
             builder.setTitle(R.string.split_safe_title);
             builder.setMessage(R.string.split_safe_message);
@@ -490,8 +492,8 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
                         }
 
                         @Override
-                        public void onError() {
-                            // something?
+                        public void onError(@Nullable ReadAsyncResult result) {
+                            ErrorAlert.showDialog(main, result);
                         }
                     }));
             builder.setNegativeButton(R.string.ignore, (DialogInterface dialog, int which) -> runnable.run());

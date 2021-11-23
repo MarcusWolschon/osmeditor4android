@@ -3193,13 +3193,13 @@ public class Logic {
      * @param ways List containing the way ids
      * @param relations List containing the relation ids
      * @param postLoadHandler callback to execute after download completes if null method waits for download to finish
-     * @return an error code, 0 for success
+     * @return a ReadAsyncResult
      */
-    public synchronized int downloadElements(@NonNull final Context ctx, @Nullable final List<Long> nodes, @Nullable final List<Long> ways,
+    public synchronized ReadAsyncResult downloadElements(@NonNull final Context ctx, @Nullable final List<Long> nodes, @Nullable final List<Long> ways,
             @Nullable final List<Long> relations, @Nullable final PostAsyncActionHandler postLoadHandler) {
 
-        class DownLoadElementsTask extends AsyncTask<Void, Void, Integer> {
-            int result = 0;
+        class DownLoadElementsTask extends AsyncTask<Void, Void, ReadAsyncResult> {
+            ReadAsyncResult result;
 
             /**
              * Convert a List&lt;Long&gt; to an array of long
@@ -3217,7 +3217,7 @@ public class Logic {
             }
 
             @Override
-            protected Integer doInBackground(Void... arg) {
+            protected ReadAsyncResult doInBackground(Void... arg) {
                 try {
                     final OsmParser osmParser = new OsmParser();
                     InputStream in = null;
@@ -3266,43 +3266,44 @@ public class Logic {
                     try {
                         // FIXME need to check if providing a handler makes sense here
                         if (!getDelegator().mergeData(osmParser.getStorage(), null)) {
-                            result = ErrorCodes.DATA_CONFLICT;
+                            result = new ReadAsyncResult(ErrorCodes.DATA_CONFLICT);
                         }
                     } catch (IllegalStateException iex) {
-                        result = ErrorCodes.CORRUPTED_DATA;
+                        result = new ReadAsyncResult(ErrorCodes.CORRUPTED_DATA);
                     }
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
                     Exception ce = e.getException();
                     if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-                        result = ErrorCodes.OUT_OF_MEMORY;
+                        result = new ReadAsyncResult(ErrorCodes.OUT_OF_MEMORY);
                     } else {
-                        result = ErrorCodes.INVALID_DATA_RECEIVED;
+                        result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
                     }
                 } catch (ParserConfigurationException e) {
                     // crash and burn
                     // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
                     // network device... need to display what we actually got
                     Log.e(DEBUG_TAG, "downloadElements problem parsing", e);
-                    result = ErrorCodes.INVALID_DATA_RECEIVED;
+                    result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
                 } catch (OsmServerException e) {
+                    result = new ReadAsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessageWithDescription());
                     Log.e(DEBUG_TAG, "downloadElements problem downloading", e);
                 } catch (IOException e) {
-                    result = ErrorCodes.NO_CONNECTION;
+                    result = new ReadAsyncResult(ErrorCodes.NO_CONNECTION);
                     Log.e(DEBUG_TAG, "downloadElements problem downloading", e);
                 }
                 return result;
             }
 
             @Override
-            protected void onPostExecute(Integer result) {
-                if (result == 0) {
+            protected void onPostExecute(ReadAsyncResult result) {
+                if (result == null) {
                     if (postLoadHandler != null) {
                         postLoadHandler.onSuccess();
                     }
                 } else {
                     if (postLoadHandler != null) {
-                        postLoadHandler.onError();
+                        postLoadHandler.onError(result);
                     }
                 }
             }
@@ -3317,10 +3318,10 @@ public class Logic {
             } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt
                                                                                        // the thread in question
                 loader.cancel(true);
-                return -1;
+                return new ReadAsyncResult(ErrorCodes.NO_CONNECTION);
             }
         } else {
-            return 0;
+            return new ReadAsyncResult(ErrorCodes.OK);
         }
     }
 
