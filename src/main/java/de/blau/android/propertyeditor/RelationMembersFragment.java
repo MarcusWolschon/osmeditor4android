@@ -25,7 +25,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -129,7 +128,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         this.inflater = inflater;
-        ScrollView relationMembersLayout = (ScrollView) inflater.inflate(R.layout.members_view, null);
+        LinearLayout relationMembersLayout = (LinearLayout) inflater.inflate(R.layout.members_view, null);
         LinearLayout membersVerticalLayout = (LinearLayout) relationMembersLayout.findViewById(R.id.members_vertical_layout);
         // membersVerticalLayout.setSaveFromParentEnabled(false);
         membersVerticalLayout.setSaveEnabled(false);
@@ -950,7 +949,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     private void processRelationMembers(final RelationMemberHandler handler) {
         LinearLayout relationMembersLayout = (LinearLayout) getOurView();
         final int size = relationMembersLayout.getChildCount();
-        for (int i = 0; i < size; ++i) { // -> avoid header
+        for (int i = 0; i < size; i++) {
             View view = relationMembersLayout.getChildAt(i);
             RelationMemberRow row = (RelationMemberRow) view;
             handler.handleRelationMember(row);
