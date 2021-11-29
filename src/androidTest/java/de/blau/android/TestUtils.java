@@ -1269,10 +1269,7 @@ public class TestUtils {
      * @return true if successful
      */
     public static boolean scrollToAndSelect(@NonNull UiDevice device, @NonNull String entry, @NonNull UiSelector scrollableSelector) {
-        if (softKeyboardIsVisible(device)) {
-            device.pressBack();
-            device.waitForWindowUpdate(null, 10000);
-        }
+        hideSoftKeyboard(device);
         UiScrollable appView;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             appView = new UiScrollable(scrollableSelector);
@@ -1295,6 +1292,18 @@ public class TestUtils {
     }
 
     /**
+     * Try to hide any visible softkeyboard
+     * 
+     * @param device the UiDevice
+     */
+    private static void hideSoftKeyboard(@NonNull UiDevice device) {
+        if (softKeyboardIsVisible(device)) {
+            device.pressBack();
+            device.waitForWindowUpdate(null, 10000);
+        }
+    }
+
+    /**
      * Scroll to a specific text
      * 
      * @param text the text
@@ -1303,6 +1312,7 @@ public class TestUtils {
     public static void scrollTo(@NonNull String text) {
         UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
         try {
+            appView.setSwipeDeadZonePercentage(0.4);
             appView.scrollIntoView(new UiSelector().text(text));
         } catch (UiObjectNotFoundException e) {
             Assert.fail(text + " not found");

@@ -601,9 +601,10 @@ public class PropertyEditorTest {
             fail(e.getMessage());
         }
 
-        TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
-
+        TestUtils.clickText(device, true, main.getString(R.string.tag_details), true, false);
         device.wait(Until.findObject(By.clickable(true).textStartsWith("from")), 500);
+        TestUtils.scrollTo("from");
+        
         editText = device.findObject(new UiSelector().clickable(true).textStartsWith("from"));
         try {
             editText.click(); // NOTE this seems to be necessary
@@ -623,6 +624,7 @@ public class PropertyEditorTest {
         TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
 
         device.wait(Until.findObject(By.clickable(true).textStartsWith("stop")), 500);
+        TestUtils.scrollTo("stop");
         editText = device.findObject(new UiSelector().clickable(true).textStartsWith("stop")); // this should be node
                                                                                                // #416064528
         try {
