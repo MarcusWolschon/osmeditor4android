@@ -76,17 +76,12 @@
             android:text="@string/object"
             android:maxLines="1" />
     </LinearLayout>
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:saveEnabled="false">
-        <LinearLayout
-            android:id="@+id/members_vertical_layout"
-            android:saveEnabled="false"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="0dp">
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:id="@+id/members_vertical_layout"
+        android:saveEnabled="false"
+        android:padding="0dp">
+    </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>
