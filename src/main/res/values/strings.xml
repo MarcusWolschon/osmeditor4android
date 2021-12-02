@@ -580,6 +580,7 @@ avoided by using an offline data source.</string>
     <string name="toast_only_one_source_supported">Only one source per style supported</string>
     <string name="toast_imagery_offset_download_failed">Offset download failed: %1$s</string>
     <string name="toast_download_server_version_failed">Download of server version failed for %1$s</string>
+    <string name="toast_error_element_too_large">Element is too large for the property editor</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>

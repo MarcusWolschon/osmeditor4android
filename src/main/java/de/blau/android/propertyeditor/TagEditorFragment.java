@@ -34,7 +34,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -198,7 +197,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     private void processKeyValues(@NonNull LinearLayout rowLayout, @NonNull final KeyValueHandler handler) {
         final int size = rowLayout.getChildCount();
-        for (int i = 0; i < size; ++i) {
+        for (int i = 0; i < size; i++) {
             View view = rowLayout.getChildAt(i);
             TagEditRow row = (TagEditRow) view;
             handler.handleKeyValue(row.keyEdit, row.valueEdit, row.tagValues);
@@ -258,7 +257,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ScrollView rowLayout = null;
 
         boolean applyLastAddressTags = false;
         String focusOnKey = null;
@@ -293,8 +291,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         maxStringLength = server.getCachedCapabilities().getMaxStringLength();
 
         this.inflater = inflater;
-        rowLayout = (ScrollView) inflater.inflate(R.layout.taglist_view, container, false);
-
+        LinearLayout rowLayout = (LinearLayout) inflater.inflate(R.layout.taglist_view, container, false);
         LinearLayout editRowLayout = (LinearLayout) rowLayout.findViewById(R.id.edit_row_layout);
         editRowLayout.setSaveEnabled(false);
 

@@ -195,7 +195,11 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
         intent.putExtra(TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
         intent.putExtra(TAGEDIT_EXTRA_TAGS, extraTags);
         intent.putExtra(TAGEDIT_PRESETSTOAPPLY, presetItems);
-        activity.startActivityForResult(intent, requestCode);
+        try {
+            activity.startActivityForResult(intent, requestCode);
+        } catch (RuntimeException rex) {
+            Snack.toastTopError(activity, R.string.toast_error_element_too_large);
+        }
     }
 
     @Override

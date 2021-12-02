@@ -25,7 +25,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -117,13 +116,11 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     @SuppressWarnings("unchecked")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ScrollView parentRelationsLayout = null;
-        LinearLayout membershipVerticalLayout = null;
 
         // Inflate the layout for this fragment
         this.inflater = inflater;
-        parentRelationsLayout = (ScrollView) inflater.inflate(R.layout.membership_view, container, false);
-        membershipVerticalLayout = (LinearLayout) parentRelationsLayout.findViewById(R.id.membership_vertical_layout);
+        LinearLayout parentRelationsLayout = (LinearLayout) inflater.inflate(R.layout.membership_view, container, false);
+        LinearLayout membershipVerticalLayout = (LinearLayout) parentRelationsLayout.findViewById(R.id.membership_vertical_layout);
         membershipVerticalLayout.setSaveEnabled(false);
 
         MultiHashMap<Long, RelationMemberPosition> parents;
@@ -633,7 +630,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     private void processParentRelations(final ParentRelationHandler handler) {
         LinearLayout membershipVerticalLayout = (LinearLayout) getOurView();
         final int size = membershipVerticalLayout.getChildCount();
-        for (int i = 0; i < size; ++i) {
+        for (int i = 0; i < size; i++) {
             View view = membershipVerticalLayout.getChildAt(i);
             RelationMembershipRow row = (RelationMembershipRow) view;
             handler.handleParentRelation(row);
