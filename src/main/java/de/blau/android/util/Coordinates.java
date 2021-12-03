@@ -101,6 +101,25 @@ public class Coordinates {
     }
 
     /**
+     * Convert the coordinates from a list of Nodes to an array of mercator coordinates (in degrees)
+     * 
+     * @param nodes the List of Nodes
+     * @return an array of Coordinates
+     */
+    @NonNull
+    public static Coordinates[] nodeListToMercatorCoordinateArray(@NonNull List<Node> nodes) {
+        int size = nodes.size();
+        Coordinates[] points = new Coordinates[size];
+        // loop over all nodes
+        for (int i = 0; i < size; i++) {
+            Node node = nodes.get(i);
+            points[i] = new Coordinates(node.getLon()/1E7D, GeoMath.latE7ToMercator(node.getLat()));
+        }
+        return points;
+    }
+
+    
+    /**
      * Convert the coordinates from a Node to screen coordinates
      * 
      * @param width screen width

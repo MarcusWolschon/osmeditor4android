@@ -50,7 +50,7 @@ public final class GeoMath {
     /**
      * The arithmetic middle of the two WGS84 reference-ellipsoids.
      */
-    private static final int   EARTH_RADIUS       = (EARTH_RADIUS_EQUATOR + EARTH_RADIUS_POLAR) / 2;
+    public static final int    EARTH_RADIUS       = (EARTH_RADIUS_EQUATOR + EARTH_RADIUS_POLAR) / 2;
 
     /**
      * Private constructor to stop instantiation
@@ -123,6 +123,8 @@ public final class GeoMath {
     /**
      * Calculates a projected coordinate for a given latitude value. When lat is bigger than MAX_LAT, it will be clamped
      * to MAX_LAT.
+     * 
+     * NOTE: this is a degree, not a meter value
      * 
      * @param lat the latitude as double value
      * @return the mercator-projected y-coordinate for a cartesian coordinate system in degrees.

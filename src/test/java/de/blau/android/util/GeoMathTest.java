@@ -2,6 +2,7 @@ package de.blau.android.util;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import de.blau.android.util.collections.FloatPrimitiveList;
@@ -215,5 +216,22 @@ public class GeoMathTest {
         assertEquals(5, points.get(13), 0.01);
         assertEquals(6, points.get(14), 0.01);
         assertEquals(7, points.get(15), 0.01);
+    }
+
+    /**
+     * Silly test
+     */
+    @Test
+    public void constants() {
+        Assert.assertEquals(180d, GeoMath.MAX_MLAT, 0.000001); // NOSONAR
+    }
+
+    /**
+     * Convert some values and back again
+     */
+    @Test
+    public void mercator() {
+        assertEquals(4865942.28D, GeoMath.latE7ToMercator((int) (40 * 1E7D)) * 2 * GeoMath.EARTH_RADIUS_EQUATOR / GeoMath._360_PI, 0.01);
+        assertEquals(40 * 1E7D, GeoMath.mercatorToLatE7(4865942.28D * GeoMath._360_PI / (2 * GeoMath.EARTH_RADIUS_EQUATOR)), 0.1);
     }
 }

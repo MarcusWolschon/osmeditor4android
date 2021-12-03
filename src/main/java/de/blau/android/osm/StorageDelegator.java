@@ -825,134 +825,118 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * This function converts to and then operates on screen coordinates.
      * 
-     * FIXME use w,h,v parameters instead of map for testing
-     * 
-     * @param map current map view
      * @param ways List of Way to square
      * @param threshold maximum difference to 90°/180° to process
      */
-    public void orthogonalizeWay(@NonNull de.blau.android.Map map, @NonNull List<Way> ways, final int threshold) {
+    public void orthogonalizeWay(@NonNull List<Way> ways, final int threshold) {
         final double lowerThreshold = Math.cos((90 - threshold) * Math.PI / 180);
         final double upperThreshold = Math.cos(threshold * Math.PI / 180);
-        final double epsilon = 1e-4;
+        final double epsilon = 1e-5;
 
         dirty = true;
-        try {
-            // save nodes for undo
-            // adding to a Set first removes duplication
-            Set<Node> save = new HashSet<>();
-            for (Way way : ways) {
-                if (way.getNodes() != null) {
-                    save.addAll(way.getNodes());
+        // save nodes for undo
+        // adding to a Set first removes duplication
+        Set<Node> save = new HashSet<>();
+        for (Way way : ways) {
+            if (way.getNodes() != null) {
+                save.addAll(way.getNodes());
+            }
+        }
+        for (Node nd : save) {
+            undo.save(nd);
+        }
+        invalidateWayBoundingBox(save);
+        List<List<Way>> groups = groupWays(ways);
+
+        List<Coordinates[]> coordsArray = new ArrayList<>();
+
+        for (List<Way> wayList : groups) {
+            coordsArray.clear();
+
+            int totalNodes = 0;
+            for (Way w : wayList) {
+                coordsArray.add(Coordinates.nodeListToMercatorCoordinateArray(w.getNodes()));
+                totalNodes += w.getNodes().size();
+            }
+            int coordsArraySize = coordsArray.size();
+            double lonOffset = coordsArray.get(0)[0].x;
+            double latOffset = coordsArray.get(0)[0].y;
+            for (int coordIndex = 0; coordIndex < coordsArraySize; coordIndex++) {
+                Coordinates[] coords = coordsArray.get(coordIndex);
+                for (Coordinates c : coords) {
+                    c.x -= lonOffset;
+                    c.y -= latOffset;
                 }
             }
-            for (Node nd : save) {
-                undo.save(nd);
+
+            Coordinates a;
+            Coordinates b;
+            Coordinates c;
+            Coordinates p;
+            Coordinates q;
+
+            double loopEpsilon = epsilon * (totalNodes / 4D); // NOTE the original algorithm didn't take the number
+                                                              // of corners in to account
+            // iterate until score is low enough
+            for (int iteration = 0; iteration < 1000; iteration++) {
+                // calculate position changes and score
+                double score = 0.0;
+                for (int coordIndex = 0; coordIndex < coordsArraySize; coordIndex++) {
+                    Coordinates[] coords = coordsArray.get(coordIndex);
+                    int length = coords.length;
+                    int start = 0;
+                    int end = length;
+                    if (!wayList.get(coordIndex).isClosed()) {
+                        start = 1;
+                        end = end - 1;
+                    }
+                    Coordinates[] motions = new Coordinates[length];
+                    for (int i = start; i < end; i++) {
+                        a = coords[(i - 1 + length) % length];
+                        b = coords[i];
+                        c = coords[(i + 1) % length];
+                        p = a.subtract(b);
+                        q = c.subtract(b);
+                        double scale = 2 * Math.min(Math.hypot(p.x, p.y), Math.hypot(q.x, q.y));
+                        p = Coordinates.normalize(p, 1.0);
+                        q = Coordinates.normalize(q, 1.0);
+                        double dotp = filter((p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
+                        score = score + 2.0 * Math.min(Math.abs(dotp - 1.0), Math.min(Math.abs(dotp), Math.abs(dotp + 1.0)));
+                        // nasty hack to deal with almost-straight segments (angle is closer to 180 than to 90/270).
+                        if (dotp < -0.707106781186547) {
+                            dotp += 1.0;
+                        }
+                        if (2 * Math.min(Math.abs(dotp - 1.0), Math.min(Math.abs(dotp), Math.abs(dotp + 1.0))) < epsilon) {
+                            dotp = 0;
+                        }
+                        motions[i] = Coordinates.normalize(p.add(q), 0.1 * dotp * scale);
+                    }
+
+                    // apply position changes
+                    for (int i = start; i < end; i++) {
+                        coords[i] = coords[i].add(motions[i]);
+                    }
+                }
+                if (score < loopEpsilon) {
+                    Log.d(DEBUG_TAG, "orthogonalize last iteration " + iteration + " score " + score);
+                    break;
+                }
+                Log.d(DEBUG_TAG, "orthogonalize  " + iteration + " score " + score);
             }
-            invalidateWayBoundingBox(save);
-            List<List<Way>> groups = groupWays(ways);
 
-            int width = map.getWidth();
-            int height = map.getHeight();
-            ViewBox box = map.getViewBox();
-
-            for (List<Way> wayList : groups) {
-                List<Coordinates[]> coordsArray = new ArrayList<>();
-
-                int totalNodes = 0;
-                for (Way w : wayList) {
-                    coordsArray.add(Coordinates.nodeListToCoordinateArray(width, height, box, w.getNodes()));
-                    totalNodes += w.getNodes().size();
-                }
-                int coordsArraySize = coordsArray.size();
-                Coordinates a;
-                Coordinates b;
-                Coordinates c;
-                Coordinates p;
-                Coordinates q;
-
-                double loopEpsilon = epsilon * (totalNodes / 4D); // NOTE the original algorithm didn't take the number
-                                                                  // of corners in to account
-                // iterate until score is low enough
-                for (int iteration = 0; iteration < 1000; iteration++) {
-                    // calculate score
-                    double score = 0.0;
-                    for (int coordIndex = 0; coordIndex < coordsArraySize; coordIndex++) {
-                        Coordinates[] coords = coordsArray.get(coordIndex);
-                        int length = coords.length;
-                        int start = 0;
-                        int end = length;
-                        if (!wayList.get(coordIndex).isClosed()) {
-                            start = 1;
-                            end = end - 1;
-                        }
-                        for (int i = start; i < end; i++) {
-                            a = coords[(i - 1 + length) % length];
-                            b = coords[i];
-                            c = coords[(i + 1) % length];
-                            p = a.subtract(b);
-                            q = c.subtract(b);
-                            p = Coordinates.normalize(p, 1.0);
-                            q = Coordinates.normalize(q, 1.0);
-                            double dotp = filter((p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
-                            score = score + 2.0 * Math.min(Math.abs(dotp - 1.0), Math.min(Math.abs(dotp), Math.abs(dotp + 1.0)));
-                        }
-                    }
-                    if (score < loopEpsilon) {
-                        break;
-                    }
-                    // calculate position changes
-                    for (int coordIndex = 0; coordIndex < coordsArraySize; coordIndex++) {
-                        Coordinates[] coords = coordsArray.get(coordIndex);
-                        int length = coords.length;
-                        int start = 0;
-                        int end = length;
-                        if (!wayList.get(coordIndex).isClosed()) {
-                            start = 1;
-                            end = end - 1;
-                        }
-                        Coordinates[] motions = new Coordinates[length];
-                        for (int i = start; i < end; i++) {
-                            a = coords[(i - 1 + length) % length];
-                            b = coords[i];
-                            c = coords[(i + 1) % length];
-                            p = a.subtract(b);
-                            q = c.subtract(b);
-                            double scale = 2 * Math.min(Math.hypot(p.x, p.y), Math.hypot(q.x, q.y));
-                            p = Coordinates.normalize(p, 1.0);
-                            q = Coordinates.normalize(q, 1.0);
-                            double dotp = filter((p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
-                            // nasty hack to deal with almost-straight segments (angle is closer to 180 than to 90/270).
-                            if (dotp < -0.707106781186547) {
-                                dotp += 1.0;
-                            }
-                            if (2 * Math.min(Math.abs(dotp - 1.0), Math.min(Math.abs(dotp), Math.abs(dotp + 1.0))) < epsilon) {
-                                dotp = 0;
-                            }
-                            motions[i] = Coordinates.normalize(p.add(q), 0.1 * dotp * scale);
-                        }
-                        // apply position changes
-                        for (int i = start; i < end; i++) {
-                            coords[i] = coords[i].add(motions[i]);
-                        }
-                    }
-                }
-
-                // prepare updated nodes for upload
+            // prepare updated nodes for upload
+            synchronized (this) {
                 for (int wayIndex = 0; wayIndex < wayList.size(); wayIndex++) {
                     List<Node> nodes = wayList.get(wayIndex).getNodes();
                     Coordinates[] coords = coordsArray.get(wayIndex);
                     for (int i = 0; i < nodes.size(); i++) {
                         Node nd = nodes.get(i);
-                        updateLatLon(nd, GeoMath.yToLatE7(height, width, box, (float) coords[i].y), GeoMath.xToLonE7(width, box, (float) coords[i].x));
+                        updateLatLon(nd, GeoMath.mercatorToLatE7(coords[i].y + latOffset), (int) ((coords[i].x + lonOffset) * 1E7D));
                     }
                 }
             }
-            // Don't call onElementChanged
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "orthogonalizeWay got " + e.getMessage());
         }
+        // Don't call onElementChanged
     }
 
     /**
