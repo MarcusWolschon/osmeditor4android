@@ -36,6 +36,7 @@ import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.contract.MimeTypes;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.osm.OsmXml;
@@ -246,7 +247,7 @@ public final class Utils {
                         String text = input.getText().toString();
                         Intent shareIntent = ShareCompat.IntentBuilder.from(activity)
                                 .setText(text)
-                                .setType("text/plain")
+                                .setType(MimeTypes.TEXTPLAIN)
                                 .getIntent();
                         activity.startActivity(shareIntent);
                         break;
