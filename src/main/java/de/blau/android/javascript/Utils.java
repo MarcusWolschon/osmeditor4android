@@ -28,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.app.ShareCompat;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.BuildConfig;
@@ -35,6 +36,7 @@ import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.contract.MimeTypes;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.osm.OsmXml;
@@ -242,11 +244,12 @@ public final class Utils {
                 popupMenu.setOnMenuItemClickListener(item -> {
                     switch (item.getItemId()) {
                     case R.id.js_menu_share:
-                        Intent sendIntent = new Intent();
-                        sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, input.getText().toString());
-                        sendIntent.setType("text/plain");
-                        activity.startActivity(sendIntent);
+                        String text = input.getText().toString();
+                        Intent shareIntent = ShareCompat.IntentBuilder.from(activity)
+                                .setText(text)
+                                .setType(MimeTypes.TEXTPLAIN)
+                                .getIntent();
+                        activity.startActivity(shareIntent);
                         break;
                     case R.id.js_menu_save:
                         SelectFile.save(activity, R.string.config_scriptsPreferredDir_key, new SaveFile() {
