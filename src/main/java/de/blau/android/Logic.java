@@ -2201,29 +2201,35 @@ public class Logic {
         }
 
         final int threshold = prefs.getOrthogonalizeThreshold();
-        new AsyncTask<Void, Void, Void>() {
+        new AsyncTask<Void, Void, StorageException>() {
 
             @Override
-            protected Void doInBackground(Void... params) {
-                synchronized (this) {
-                    createCheckpoint(activity, R.string.undo_action_orthogonalize);
-                    getDelegator().orthogonalizeWay(map, ways, threshold);
+            protected StorageException doInBackground(Void... params) {
+                createCheckpoint(activity, R.string.undo_action_orthogonalize);
+                try {
+                    getDelegator().orthogonalizeWay(ways, threshold);
+                } catch (StorageException ex) {
+                    return ex;
                 }
                 return null;
             }
 
             @Override
-            protected void onPostExecute(Void v) {
-                invalidateMap();
-                if (activity != null) {
-                    Snack.toastTopInfo(activity, R.string.Done);
-                }
-                if (getFilter() != null && showAttachedObjectWarning()) {
-                    Set<Node> nodes = new HashSet<>();
-                    for (Way w : ways) {
-                        nodes.addAll(w.getNodes());
+            protected void onPostExecute(StorageException ex) {
+                if (ex != null) {
+                    handleDelegatorException(activity, ex);
+                } else {
+                    invalidateMap();
+                    if (activity != null) {
+                        Snack.toastTopInfo(activity, R.string.Done);
                     }
-                    displayAttachedObjectWarning(activity, nodes);
+                    if (getFilter() != null && showAttachedObjectWarning()) {
+                        Set<Node> nodes = new HashSet<>();
+                        for (Way w : ways) {
+                            nodes.addAll(w.getNodes());
+                        }
+                        displayAttachedObjectWarning(activity, nodes);
+                    }
                 }
             }
         }.execute();
