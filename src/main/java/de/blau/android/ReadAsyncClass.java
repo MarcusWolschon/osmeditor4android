@@ -1,9 +1,10 @@
 package de.blau.android;
 
 import java.io.InputStream;
+import java.util.concurrent.ExecutorService;
 
 import android.content.Context;
-import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,14 +15,15 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.ExecutorTask;
 
 /**
- * Simple extension around AsyncTask for loading OSM data files or similar which typically have a lot of boilerplate code
+ * Simple extension around ExecutorTask for loading OSM data files or similar which typically have a lot of boilerplate code
  * 
  * @author simon
  *
  */
-public abstract class ReadAsyncClass extends AsyncTask<Boolean, Void, ReadAsyncResult> {
+public abstract class ReadAsyncClass extends ExecutorTask<Boolean, Void, ReadAsyncResult> {
 
     private static final String  DEBUG_TAG = "ReadAsyncClass";
     final Context                context;
@@ -38,9 +40,10 @@ public abstract class ReadAsyncClass extends AsyncTask<Boolean, Void, ReadAsyncR
      * @param context an Android Context
      * @param is the InputStream
      * @param add if true add to exiting data (not always used)
-     * @param postLoad a handler to call afte the load has completed
+     * @param postLoad a handler to call after the load has completed
      */
-    protected ReadAsyncClass(@NonNull final Context context, @NonNull final InputStream is, boolean add, @Nullable final PostAsyncActionHandler postLoad) {
+    protected ReadAsyncClass(@NonNull ExecutorService executorService, @NonNull Handler uiHandler, @NonNull final Context context, @NonNull final InputStream is, boolean add, @Nullable final PostAsyncActionHandler postLoad) {
+        super(executorService, uiHandler);
         this.context = context;
         this.is = is;
         this.add = add;
