@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.dialogs.ConfirmUpload;
 import de.blau.android.dialogs.ErrorAlert;
@@ -91,12 +92,11 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
                 if (hasDataChanges || hasBugChanges) {
                     if (hasDataChanges) {
                         logic.upload(caller, getString(commentField), getString(sourceField), closeOpenChangeset != null && closeOpenChangeset.isChecked(),
-                                closeChangeset.isChecked(), extraTags, elements);
+                                closeChangeset.isChecked(), extraTags, elements, () -> logic.checkForMail(caller, server));
                     }
                     if (hasBugChanges) {
                         TransferTasks.upload(caller, server, null);
                     }
-                    logic.checkForMail(caller, server);
                 } else {
                     Snack.barInfo(caller, R.string.toast_no_changes);
                 }

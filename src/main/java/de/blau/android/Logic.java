@@ -3703,7 +3703,7 @@ public class Logic {
      * 
      * @param activity activity that we were called from
      */
-    void saveAsync(final Activity activity) {
+    void saveAsync(@NonNull final Activity activity) {
         new ExecutorTask<Void, Void, Void>(executorService, uiHandler) {
             @Override
             protected Void doInBackground(Void params) {
@@ -4005,9 +4005,11 @@ public class Logic {
      * @param closeChangeset Whether to close the changeset after upload or not.
      * @param extraTags Additional tags to add to changeset
      * @param elements List of OsmElement to upload if null all changed elements will be uploaded
+     * @param postUploadHandler code to execute after an upload
      */
     public void upload(@NonNull final FragmentActivity activity, @Nullable final String comment, @Nullable final String source, boolean closeOpenChangeset,
-            final boolean closeChangeset, @Nullable java.util.Map<String, String> extraTags, @Nullable List<OsmElement> elements) {
+            final boolean closeChangeset, @Nullable java.util.Map<String, String> extraTags, @Nullable List<OsmElement> elements, 
+            @Nullable PostAsyncActionHandler postUploadHandler) {
         final String PROGRESS_TAG = "data";
         final Server server = prefs.getServer();
         new ExecutorTask<Void, Void, UploadResult>(executorService, uiHandler) {
@@ -4087,10 +4089,13 @@ public class Logic {
                 Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
                 final int error = result.getError();
                 if (error == 0) {
-                    save(activity); // save now to avoid problems if it doesn't succeed later on, FIXME async or sync
+                    save(activity); // save now to avoid problems if it doesn't succeed later on, this currently writes sync and potentially cause ANRs
                     Snack.barInfo(activity, R.string.toast_upload_success);
                     getDelegator().clearUndo(); // only clear on successful upload
                     activity.invalidateOptionsMenu();
+                    if (postUploadHandler != null) {
+                        postUploadHandler.onSuccess();
+                    }
                 }
                 activity.getCurrentFocus().invalidate();
                 if (!activity.isFinishing()) {
@@ -4110,6 +4115,9 @@ public class Logic {
                         ErrorAlert.showDialog(activity, error, result.getMessage());
                     } else if (error != 0) {
                         ErrorAlert.showDialog(activity, error);
+                    }
+                    if (postUploadHandler != null) {
+                        postUploadHandler.onError(null);
                     }
                 }
             }
