@@ -94,20 +94,6 @@ public class DebugInformation extends LocaleAwareCompatActivity {
         builder.append("Flavor: " + BuildConfig.FLAVOR + eol);
         ApplicationInfo appInfo = getApplicationContext().getApplicationInfo();
         builder.append("Target SDK: " + appInfo.targetSdkVersion + eol);
-        try {
-            PackageManager packageManager = getPackageManager();
-            PackageInfo packageInfo = packageManager.getPackageInfo(appInfo.packageName, PackageManager.GET_PERMISSIONS);
-            builder.append("Permissions: " + eol);
-            if (packageInfo.permissions != null) {
-                for (PermissionInfo p : packageInfo.permissions) {
-                    builder.append("   " + p.loadDescription(packageManager) + eol);
-                }
-            } else {
-                builder.append("Permissions not available" + eol);
-            }
-        } catch (NameNotFoundException e) {
-            builder.append("Name not available, this is a seriously curious state, please report a bug!" + eol);
-        }
 
         builder.append("Maximum avaliable memory " + Runtime.getRuntime().maxMemory() + eol);
         builder.append("Total memory used " + Runtime.getRuntime().totalMemory() + eol);
