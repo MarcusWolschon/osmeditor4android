@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -24,7 +25,9 @@ public class DiscardedTags {
 
     private static final String DEBUG_TAG = "DiscardedTags";
 
-    private HashSet<String> redundantTags = new HashSet<>();
+    private static final String ASSET_FILE = "discarded.json";
+
+    private Set<String> redundantTags = new HashSet<>();
 
     /**
      * Implicit assumption that the list will be short and that it is OK to read in synchronously
@@ -34,19 +37,20 @@ public class DiscardedTags {
     public DiscardedTags(@NonNull Context context) {
         Log.d(DEBUG_TAG, "Parsing configuration file");
         AssetManager assetManager = context.getAssets();
-        try (InputStream is = assetManager.open("discarded.json"); JsonReader reader = new JsonReader(new InputStreamReader(is, OsmXml.UTF_8));) {
+        try (InputStream is = assetManager.open(ASSET_FILE); JsonReader reader = new JsonReader(new InputStreamReader(is, OsmXml.UTF_8));) {
             try {
-                reader.beginArray();
+                reader.beginObject();
                 while (reader.hasNext()) {
-                    redundantTags.add(reader.nextString());
+                    redundantTags.add(reader.nextName());
+                    reader.skipValue();
                 }
-                reader.endArray();
+                reader.endObject();
                 Log.d(DEBUG_TAG, "Found " + redundantTags.size() + " tags.");
             } catch (IOException e) {
-                Log.d(DEBUG_TAG, "Reading discarded.json " + e.getMessage());
+                Log.d(DEBUG_TAG, "Reading " + ASSET_FILE + " " + e.getMessage());
             }
         } catch (IOException e) {
-            Log.d(DEBUG_TAG, "Opening discarded.json " + e.getMessage());
+            Log.d(DEBUG_TAG, "Opening " + ASSET_FILE + " " + e.getMessage());
         }
     }
 
@@ -83,7 +87,7 @@ public class DiscardedTags {
     }
 
     /**
-     * Check if the element has only tags that would be disarded
+     * Check if the element has only tags that would be discarded
      * 
      * @param element the OsmElement to check
      * @return true if only automatically removable tags are present
