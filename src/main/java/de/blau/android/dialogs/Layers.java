@@ -15,7 +15,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -77,6 +76,7 @@ import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.resources.WmsEndpointDatabaseView;
 import de.blau.android.util.Density;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.SizedFixedImmersiveDialogFragment;
@@ -275,9 +275,9 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
      * Force load the tile layers by requesting the standard OSM layer
      */
     public void loadTileLayerSources() {
-        new AsyncTask<Void, Void, Void>() {
+        new ExecutorTask<Void, Void, Void>(App.getLogic().getExecutorService(), App.getLogic().getHandler()) {
             @Override
-            protected Void doInBackground(Void... params) {
+            protected Void doInBackground(Void param) {
                 TileLayerSource.get(getContext(), TileLayerSource.LAYER_MAPNIK, true);
                 return null;
             }
@@ -679,14 +679,15 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 MenuItem item = menu.add(R.string.prune);
                 item.setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
-                        new AsyncTask<Void, Void, Void>() {
+                        Logic logic = App.getLogic();
+                        new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
                             @Override
                             protected void onPreExecute() {
                                 Progress.showDialog(activity, Progress.PROGRESS_PRUNING);
                             }
 
                             @Override
-                            protected Void doInBackground(Void... arg) {
+                            protected Void doInBackground(Void arg) {
                                 ((PruneableInterface) layer).prune();
                                 return null;
                             }

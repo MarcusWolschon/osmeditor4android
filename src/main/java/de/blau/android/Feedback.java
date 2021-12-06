@@ -17,7 +17,6 @@ import com.heinrichreimersoftware.androidissuereporter.model.github.GithubTarget
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
@@ -36,6 +35,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ActivityResultHandler;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Util;
 
 /**
@@ -181,10 +181,10 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
             public void onSuccess() {
                 server = prefs.getServer(); // should be authenticated now
 
-                new AsyncTask<Void, UserDetails, UserDetails>() {
+                new ExecutorTask<Void, UserDetails, UserDetails>() {
 
                     @Override
-                    protected UserDetails doInBackground(Void... params) {
+                    protected UserDetails doInBackground(Void param) {
                         return server.getUserDetails();
                     }
 

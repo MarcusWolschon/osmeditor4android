@@ -4008,7 +4008,7 @@ public class Logic {
      * @param postUploadHandler code to execute after an upload
      */
     public void upload(@NonNull final FragmentActivity activity, @Nullable final String comment, @Nullable final String source, boolean closeOpenChangeset,
-            final boolean closeChangeset, @Nullable java.util.Map<String, String> extraTags, @Nullable List<OsmElement> elements, 
+            final boolean closeChangeset, @Nullable java.util.Map<String, String> extraTags, @Nullable List<OsmElement> elements,
             @Nullable PostAsyncActionHandler postUploadHandler) {
         final String PROGRESS_TAG = "data";
         final Server server = prefs.getServer();
@@ -4089,7 +4089,8 @@ public class Logic {
                 Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
                 final int error = result.getError();
                 if (error == 0) {
-                    save(activity); // save now to avoid problems if it doesn't succeed later on, this currently writes sync and potentially cause ANRs
+                    save(activity); // save now to avoid problems if it doesn't succeed later on, this currently writes
+                                    // sync and potentially cause ANRs
                     Snack.barInfo(activity, R.string.toast_upload_success);
                     getDelegator().clearUndo(); // only clear on successful upload
                     activity.invalidateOptionsMenu();
@@ -5728,9 +5729,31 @@ public class Logic {
     }
 
     /**
-     * @return the prefs
+     * Get the Preferences instance held by this logic instance
+     * 
+     * @return the Preferences instance
      */
     public Preferences getPrefs() {
         return prefs;
+    }
+
+    /**
+     * Get the ExecutorService allocated when this instance of Logic was created
+     * 
+     * @return the executorService
+     */
+    @NonNull
+    public ExecutorService getExecutorService() {
+        return executorService;
+    }
+
+    /**
+     * Get the Handler allocated when this instance of Logic was created
+     * 
+     * @return the Handler
+     */
+    @NonNull
+    public Handler getHandler() {
+        return uiHandler;
     }
 }
