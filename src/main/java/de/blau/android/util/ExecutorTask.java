@@ -2,11 +2,13 @@ package de.blau.android.util;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import android.os.Handler;
+import android.os.Looper;
 import androidx.annotation.NonNull;
 
 /**
@@ -22,6 +24,20 @@ public abstract class ExecutorTask<INPUT, PROGRESS, OUTPUT> {
     private final ExecutorService executorService;
     private final Handler         handler;
 
+    /**
+     * Create a new instance with a single thread executor
+     */
+    protected ExecutorTask() {
+        this.executorService = Executors.newSingleThreadScheduledExecutor();
+        this.handler = new Handler(Looper.getMainLooper());
+    }
+    
+    /**
+     * Create a new instance
+     * 
+     * @param executorService ExecutorService to use
+     * @param handler Handler to use
+     */
     protected ExecutorTask(@NonNull ExecutorService executorService, @NonNull Handler handler) {
         this.executorService = executorService;
         this.handler = handler;
@@ -35,7 +51,7 @@ public abstract class ExecutorTask<INPUT, PROGRESS, OUTPUT> {
     }
 
     /**
-     * Starts is all
+     * Starts it all
      * 
      * @param input Data you want to work with in the background
      */
