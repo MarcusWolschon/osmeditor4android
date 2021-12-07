@@ -30,6 +30,7 @@ import de.blau.android.TestUtils;
 import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.MapTile;
+import de.blau.android.util.ExecutorTask;
 
 /**
  * Note these tests are not mocked
@@ -101,9 +102,9 @@ public class TileLayerServerTest {
         if (!t.isMetadataLoaded()) {
             final CountDownLatch signal = new CountDownLatch(1);
             final SignalHandler handler = new SignalHandler(signal);
-            new AsyncTask<Void, Void, Void>() {
+            new ExecutorTask<Void, Void, Void>() {
                 @Override
-                protected Void doInBackground(Void... params) {
+                protected Void doInBackground(Void param) {
                     for (int i = 0; i < 10; i++) {
                         try {
                             Thread.sleep(1000); // NOSONAR
