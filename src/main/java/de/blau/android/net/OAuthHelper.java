@@ -1,18 +1,21 @@
 package de.blau.android.net;
 
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
+import de.blau.android.util.ExecutorTask;
 import oauth.signpost.OAuth;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.OAuthProvider;
@@ -141,11 +144,15 @@ public class OAuthHelper {
      */
     public String getRequestToken() throws OAuthException, TimeoutException, ExecutionException {
         Log.d(DEBUG_TAG, "getRequestToken");
-        class RequestTokenTask extends AsyncTask<Void, Void, String> {
+        class RequestTokenTask extends ExecutorTask<Void, Void, String> {
             private OAuthException ex = null;
 
+            RequestTokenTask(@NonNull ExecutorService executorService, @NonNull Handler handler) {
+                super(executorService, handler);
+            }
+
             @Override
-            protected String doInBackground(Void... params) {
+            protected String doInBackground(Void param) {
                 try {
                     return mProvider.retrieveRequestToken(mConsumer, mCallbackUrl);
                 } catch (OAuthException e) {
@@ -164,13 +171,15 @@ public class OAuthHelper {
                 return ex;
             }
         }
-        RequestTokenTask requester = new RequestTokenTask();
+
+        Logic logic = App.getLogic();
+        RequestTokenTask requester = new RequestTokenTask(logic.getExecutorService(), logic.getHandler());
         requester.execute();
         String result = null;
         try {
             result = requester.get(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) { // NOSONAR cancel does interrupt the thread in question
-            requester.cancel(true);
+            requester.cancel();
             throw new TimeoutException(e.getMessage());
         }
         if (result == null) {
