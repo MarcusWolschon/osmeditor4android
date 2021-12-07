@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
  */
 public abstract class ExecutorTask<I, P, O> {
     private boolean               cancelled = false;
-    private Future<O>        outputFuture;
+    private Future<O>             outputFuture;
     private final ExecutorService executorService;
     private final Handler         handler;
 
@@ -31,7 +31,7 @@ public abstract class ExecutorTask<I, P, O> {
         this.executorService = Executors.newSingleThreadScheduledExecutor();
         this.handler = new Handler(Looper.getMainLooper());
     }
-    
+
     /**
      * Create a new instance
      * 
@@ -148,7 +148,7 @@ public abstract class ExecutorTask<I, P, O> {
      * @throws Exception Any uncaught exception which occurred while working in background. If any occurs,
      *             {@link #onBackgroundError(Exception)} will be executed (on the UI thread)
      */
-    protected abstract O doInBackground(I input) throws Exception;
+    protected abstract O doInBackground(I input) throws Exception; // NOSONAR
 
     /**
      * Work which you want to be done on UI thread after {@link #doInBackground(Object)}
@@ -171,8 +171,8 @@ public abstract class ExecutorTask<I, P, O> {
 
     private OnProgressListener<P> onProgressListener;
 
-    public interface OnProgressListener<PROGRESS> {
-        void onProgress(PROGRESS progress);
+    public interface OnProgressListener<P> {
+        void onProgress(P progress);
     }
 
     public void setOnProgressListener(OnProgressListener<P> onProgressListener) {
@@ -187,5 +187,14 @@ public abstract class ExecutorTask<I, P, O> {
 
     public void setOnCancelledListener(OnCancelledListener onCancelledListener) {
         this.onCancelledListener = onCancelledListener;
+    }
+
+    /**
+     * Check that task has started execution and is neither cancelled or done
+     * 
+     * @return true if the task has started execution and is neither cancelled or done
+     */
+    public boolean isExecuting() {
+        return outputFuture != null && !outputFuture.isCancelled() && !outputFuture.isDone();
     }
 }
