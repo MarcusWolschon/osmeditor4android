@@ -15,10 +15,13 @@ import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.util.ExecutorTask;
 
 public final class Wiki {
 
@@ -97,9 +100,10 @@ public final class Wiki {
             if (url != null) {
                 if (!url.startsWith("http")) { // build full url from wiki page name, locale or language and check if it
                                                // exists
-                    new AsyncTask<Void, Void, String>() {
+                    Logic logic = App.getLogic();
+                    new ExecutorTask<Void, Void, String>(logic.getExecutorService(), logic.getHandler()) {
                         @Override
-                        protected String doInBackground(Void... params) {
+                        protected String doInBackground(Void param) {
                             try {
                                 Locale locale = Locale.getDefault();
                                 String l = mapLocale(locale);

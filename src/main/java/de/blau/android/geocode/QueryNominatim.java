@@ -42,9 +42,8 @@ public class QueryNominatim extends Query {
     }
 
     @Override
-    protected List<SearchResult> doInBackground(String... params) {
+    protected List<SearchResult> doInBackground(String query) {
         List<SearchResult> result = new ArrayList<>();
-        String query = params[0];
         Uri.Builder builder = Uri.parse(url).buildUpon().appendPath("search").appendQueryParameter("q", query);
         if (bbox != null) {
             String viewBoxCoordinates = bbox.getLeft() / 1E7D + "," + bbox.getBottom() / 1E7D + "," + bbox.getRight() / 1E7D + "," + bbox.getTop() / 1E7D;
@@ -74,7 +73,7 @@ public class QueryNominatim extends Query {
                 reader.beginArray();
                 while (reader.hasNext()) {
                     SearchResult searchResult = readNominatimResult(reader);
-                    if (searchResult != null) { // TODO handle deprecated
+                    if (searchResult != null) {
                         result.add(searchResult);
                         Log.d("Search", "received: " + searchResult.toString());
                     }
