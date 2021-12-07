@@ -23,13 +23,17 @@ public abstract class ExecutorTask<I, P, O> {
     private Future<O>             outputFuture;
     private final ExecutorService executorService;
     private final Handler         handler;
+    private final boolean         shutdown;
 
     /**
      * Create a new instance with a single thread executor
+     * 
+     * Note the executor with be shutdown once the task has completed.
      */
     protected ExecutorTask() {
         this.executorService = Executors.newSingleThreadScheduledExecutor();
         this.handler = new Handler(Looper.getMainLooper());
+        shutdown = true;
     }
 
     /**
@@ -41,6 +45,7 @@ public abstract class ExecutorTask<I, P, O> {
     protected ExecutorTask(@NonNull ExecutorService executorService, @NonNull Handler handler) {
         this.executorService = executorService;
         this.handler = handler;
+        shutdown = false;
     }
 
     /**
@@ -66,6 +71,10 @@ public abstract class ExecutorTask<I, P, O> {
             } catch (Exception e) {
                 handler.post(() -> onBackgroundError(e));
                 throw e;
+            } finally {
+                if (shutdown) {
+                    executorService.shutdown();
+                }
             }
         });
 
