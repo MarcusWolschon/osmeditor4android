@@ -14,13 +14,13 @@ import androidx.annotation.NonNull;
 /**
  * Based on https://stackoverflow.com/questions/69217817/best-replacement-for-async-task
  *
- * @param <INPUT>
- * @param <PROGRESS>
- * @param <OUTPUT>
+ * @param <I> input value
+ * @param <P> progress value
+ * @param <O> returned value
  */
-public abstract class ExecutorTask<INPUT, PROGRESS, OUTPUT> {
+public abstract class ExecutorTask<I, P, O> {
     private boolean               cancelled = false;
-    private Future<OUTPUT>        outputFuture;
+    private Future<O>        outputFuture;
     private final ExecutorService executorService;
     private final Handler         handler;
 
@@ -46,7 +46,7 @@ public abstract class ExecutorTask<INPUT, PROGRESS, OUTPUT> {
     /**
      * @see #execute(Object)
      */
-    public ExecutorTask<INPUT, PROGRESS, OUTPUT> execute() {
+    public ExecutorTask<I, P, O> execute() {
         return execute(null);
     }
 
@@ -55,12 +55,12 @@ public abstract class ExecutorTask<INPUT, PROGRESS, OUTPUT> {
      * 
      * @param input Data you want to work with in the background
      */
-    public ExecutorTask<INPUT, PROGRESS, OUTPUT> execute(final INPUT input) {
+    public ExecutorTask<I, P, O> execute(final I input) {
         onPreExecute();
 
         outputFuture = executorService.submit(() -> {
             try {
-                final OUTPUT output = doInBackground(input);
+                final O output = doInBackground(input);
                 handler.post(() -> onPostExecute(output));
                 return output;
             } catch (Exception e) {
@@ -72,7 +72,7 @@ public abstract class ExecutorTask<INPUT, PROGRESS, OUTPUT> {
         return this;
     }
 
-    public OUTPUT get() throws InterruptedException, ExecutionException {
+    public O get() throws InterruptedException, ExecutionException {
         if (outputFuture == null) {
             throw new IllegalStateException("future is null");
         } else {
@@ -80,7 +80,7 @@ public abstract class ExecutorTask<INPUT, PROGRESS, OUTPUT> {
         }
     }
 
-    public OUTPUT get(long timeout, TimeUnit timeUnit) throws InterruptedException, ExecutionException, TimeoutException {
+    public O get(long timeout, TimeUnit timeUnit) throws InterruptedException, ExecutionException, TimeoutException {
         if (outputFuture == null) {
             throw new IllegalStateException("future is null");
         } else {
@@ -93,7 +93,7 @@ public abstract class ExecutorTask<INPUT, PROGRESS, OUTPUT> {
      * 
      * @param progress Progress made
      */
-    protected void publishProgress(final PROGRESS progress) {
+    protected void publishProgress(final P progress) {
         handler.post(() -> {
             onProgress(progress);
 
@@ -103,7 +103,7 @@ public abstract class ExecutorTask<INPUT, PROGRESS, OUTPUT> {
         });
     }
 
-    protected void onProgress(final PROGRESS progress) {
+    protected void onProgress(final P progress) {
 
     }
 
@@ -148,14 +148,14 @@ public abstract class ExecutorTask<INPUT, PROGRESS, OUTPUT> {
      * @throws Exception Any uncaught exception which occurred while working in background. If any occurs,
      *             {@link #onBackgroundError(Exception)} will be executed (on the UI thread)
      */
-    protected abstract OUTPUT doInBackground(INPUT input) throws Exception;
+    protected abstract O doInBackground(I input) throws Exception;
 
     /**
      * Work which you want to be done on UI thread after {@link #doInBackground(Object)}
      * 
      * @param output Output data from {@link #doInBackground(Object)}
      */
-    protected void onPostExecute(OUTPUT output) {
+    protected void onPostExecute(O output) {
 
     }
 
@@ -169,13 +169,13 @@ public abstract class ExecutorTask<INPUT, PROGRESS, OUTPUT> {
 
     }
 
-    private OnProgressListener<PROGRESS> onProgressListener;
+    private OnProgressListener<P> onProgressListener;
 
     public interface OnProgressListener<PROGRESS> {
         void onProgress(PROGRESS progress);
     }
 
-    public void setOnProgressListener(OnProgressListener<PROGRESS> onProgressListener) {
+    public void setOnProgressListener(OnProgressListener<P> onProgressListener) {
         this.onProgressListener = onProgressListener;
     }
 
