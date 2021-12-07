@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
-import android.os.AsyncTask;
 import android.view.View;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;

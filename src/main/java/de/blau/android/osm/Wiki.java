@@ -11,7 +11,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

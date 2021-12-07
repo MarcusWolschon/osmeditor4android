@@ -10,8 +10,8 @@ import java.util.SortedMap;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
-import ch.poole.osm.josmfilterparser.ElementState.State;
 import ch.poole.osm.josmfilterparser.Condition;
+import ch.poole.osm.josmfilterparser.ElementState.State;
 import ch.poole.osm.josmfilterparser.Meta;
 import ch.poole.osm.josmfilterparser.Type;
 import de.blau.android.App;

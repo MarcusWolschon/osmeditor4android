@@ -485,7 +485,7 @@ public final class TransferTasks {
      * @param activity activity that called this
      * @param all if true write all notes, if false just those that have been modified
      * @param fileName file to write to
-     * @param postWrite handler to execute after the AsyncTask has finished
+     * @param postWrite handler to execute after the task has finished
      */
     public static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final String fileName,
             @Nullable final PostAsyncActionHandler postWrite) {
@@ -524,7 +524,7 @@ public final class TransferTasks {
      * @param activity activity that called this
      * @param all if true write all notes, if false just those that have been modified
      * @param uri Uri to write to
-     * @param postWrite handler to execute after the AsyncTask has finished
+     * @param postWrite handler to execute after the task has finished
      */
     public static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final Uri uri,
             @Nullable final PostAsyncActionHandler postWrite) {
@@ -543,7 +543,7 @@ public final class TransferTasks {
      * @param activity activity that called this
      * @param all if true write all notes, if false just those that have been modified
      * @param out OutputStream to write to
-     * @param postWrite handler to execute after the AsyncTask has finished
+     * @param postWrite handler to execute after the task has finished
      */
     private static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final OutputStream out,
             @Nullable final PostAsyncActionHandler postWrite) {

@@ -22,7 +22,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
@@ -43,6 +42,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.MimeTypes;
@@ -54,6 +54,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
 import de.blau.android.services.util.StreamUtils;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
@@ -271,8 +272,8 @@ public class PresetEditorActivity extends URLListEditActivity {
             PresetEditorActivity.super.sendResultIfApplicable(item);
             return;
         }
-
-        new AsyncTask<Void, Integer, Integer>() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Void, Integer, Integer>(logic.getExecutorService(), logic.getHandler()) {
             private boolean canceled = false;
 
             private static final int RESULT_TOTAL_FAILURE       = 0;
@@ -291,7 +292,7 @@ public class PresetEditorActivity extends URLListEditActivity {
             }
 
             @Override
-            protected Integer doInBackground(Void... args) {
+            protected Integer doInBackground(Void args) {
                 int loadResult = RESULT_TOTAL_SUCCESS;
                 Uri uri = Uri.parse(item.value);
                 final String scheme = uri.getScheme();
@@ -314,14 +315,11 @@ public class PresetEditorActivity extends URLListEditActivity {
                 }
 
                 boolean allImagesSuccessful = true;
-                int count = 0;
                 for (String url : urls) {
                     if (canceled) {
                         return RESULT_DOWNLOAD_CANCELED;
                     }
-                    count++;
                     allImagesSuccessful &= (download(url, null) == DOWNLOADED_PRESET_XML);
-                    publishProgress(count, url.length());
                 }
                 return allImagesSuccessful ? RESULT_TOTAL_SUCCESS : RESULT_IMAGE_FAILURE;
             }

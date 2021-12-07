@@ -9,10 +9,6 @@ import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.PermissionInfo;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;

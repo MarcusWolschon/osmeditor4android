@@ -50,7 +50,6 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -65,6 +64,7 @@ import androidx.core.content.ContextCompat;
 import ch.poole.osm.josmfilterparser.JosmFilterParser;
 import ch.poole.poparser.Po;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Files;
@@ -80,6 +80,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
 import de.blau.android.search.Wrapper;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ExtendedStringWithDescription;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
@@ -982,9 +983,10 @@ public class Preset implements Serializable {
             private void setValuesFromMethod(final String key, final String valuesFrom, final PresetKeyType keyType, final PresetItem item,
                     final boolean inOptionalSection, final String delimiter) {
                 item.addTag(inOptionalSection, key, keyType, (StringWithDescription[]) null, delimiter, MatchType.KEY_VALUE);
-                (new AsyncTask<Void, Void, Object>() {
+                Logic logic = App.getLogic();
+                new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
                     @Override
-                    protected Object doInBackground(Void... params) {
+                    protected Void doInBackground(Void param) {
                         Object result = de.blau.android.presets.Util.invokeMethod(valuesFrom, key);
                         PresetComboField field = (PresetComboField) item.getField(key);
                         synchronized (field) {
@@ -1004,7 +1006,7 @@ public class Preset implements Serializable {
                         }
                         return null;
                     }
-                }).execute();
+                }.execute();
             }
 
             /**
@@ -1652,7 +1654,7 @@ public class Preset implements Serializable {
             }
             if (region != null && !possibleMatch.appliesIn(region)) {
                 // downgrade so much that recommended tags can't compensate
-                matches -= 200; 
+                matches -= 200;
             }
             if (recommendedTagCount > 0) {
                 matches = matches + possibleMatch.matchesRecommended(tags);

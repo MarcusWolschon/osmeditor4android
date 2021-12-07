@@ -16,7 +16,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +42,7 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
@@ -204,7 +204,8 @@ public final class Utils {
         dialog.setOnShowListener(d -> {
             Button positive = ((AlertDialog) d).getButton(DialogInterface.BUTTON_POSITIVE);
             positive.setOnClickListener(view -> {
-                final AsyncTask<String, Void, String> runner = new AsyncTask<String, Void, String>() {
+                Logic logic = App.getLogic();
+                final ExecutorTask<String, Void, String> runner = new ExecutorTask<String, Void, String>(logic.getExecutorService(), logic.getHandler()) {
                     final AlertDialog progress = ProgressDialog.get(activity, Progress.PROGRESS_RUNNING);
 
                     @Override
@@ -213,9 +214,9 @@ public final class Utils {
                     }
 
                     @Override
-                    protected String doInBackground(String... js) {
+                    protected String doInBackground(String js) {
                         try {
-                            return callback.eval(js[0]);
+                            return callback.eval(js);
                         } catch (Exception ex) {
                             Log.e(DEBUG_TAG, "dialog failed with " + ex);
                             return ex.getMessage();
@@ -245,10 +246,7 @@ public final class Utils {
                     switch (item.getItemId()) {
                     case R.id.js_menu_share:
                         String text = input.getText().toString();
-                        Intent shareIntent = ShareCompat.IntentBuilder.from(activity)
-                                .setText(text)
-                                .setType(MimeTypes.TEXTPLAIN)
-                                .getIntent();
+                        Intent shareIntent = ShareCompat.IntentBuilder.from(activity).setText(text).setType(MimeTypes.TEXTPLAIN).getIntent();
                         activity.startActivity(shareIntent);
                         break;
                     case R.id.js_menu_save:
@@ -301,8 +299,8 @@ public final class Utils {
      */
     private static void writeScriptFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @NonNull final String script,
             @Nullable final PostAsyncActionHandler postSaveHandler) {
-
-        new AsyncTask<Void, Void, Integer>() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Void, Void, Integer>(logic.getExecutorService(), logic.getHandler()) {
 
             @Override
             protected void onPreExecute() {
@@ -310,7 +308,7 @@ public final class Utils {
             }
 
             @Override
-            protected Integer doInBackground(Void... arg) {
+            protected Integer doInBackground(Void arg) {
                 int result = 0;
                 try (BufferedOutputStream out = new BufferedOutputStream(activity.getContentResolver().openOutputStream(uri))) {
                     try {
@@ -351,7 +349,8 @@ public final class Utils {
      * @param postLoad called after loading
      */
     public static void readScriptFile(@NonNull final FragmentActivity activity, final Uri uri, final EditText input, final PostAsyncActionHandler postLoad) {
-        new AsyncTask<Void, Void, String>() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Void, Void, String>(logic.getExecutorService(), logic.getHandler()) {
 
             @Override
             protected void onPreExecute() {
@@ -359,7 +358,7 @@ public final class Utils {
             }
 
             @Override
-            protected String doInBackground(Void... arg) {
+            protected String doInBackground(Void arg) {
                 ByteArrayOutputStream result = null;
                 String r = null;
                 try (InputStream is = activity.getContentResolver().openInputStream(uri)) {

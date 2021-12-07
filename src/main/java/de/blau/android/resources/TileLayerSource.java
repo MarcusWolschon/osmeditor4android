@@ -40,12 +40,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
@@ -65,6 +65,7 @@ import de.blau.android.resources.eli.EliFeatureCollection;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.services.util.MapTileDownloader;
 import de.blau.android.util.Density;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
@@ -560,7 +561,7 @@ public class TileLayerSource implements Serializable {
      * @param noTileValues values that together with the header indicated that a tile isn't valid
      * @param description a textual description of the layer or null
      * @param privacyPolicyUrl a link to a privacy policy or null
-     * @param async run loadInfo in a AsyncTask needed for main process
+     * @param async run loadInfo async, needed for main process
      */
     public TileLayerSource(@NonNull final Context ctx, @Nullable final String id, @NonNull final String name, final String url, final String type,
             Category category, final boolean overlay, final boolean defaultLayer, @Nullable final Provider provider, final String termsOfUseUrl,
@@ -672,10 +673,11 @@ public class TileLayerSource implements Serializable {
             metadataLoaded = false;
 
             if (async) {
-                new AsyncTask<String, Void, Void>() {
+                Logic logic = App.getLogic();
+                new ExecutorTask<String, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
                     @Override
-                    protected Void doInBackground(String... params) {
-                        loadMeta(params[0]);
+                    protected Void doInBackground(String url) {
+                        loadMeta(url);
                         Log.i(DEBUG_TAG, "Meta-data loaded for layer " + getId());
                         return null;
                     }
@@ -1084,9 +1086,10 @@ public class TileLayerSource implements Serializable {
             if (logoBitmap != null) {
                 setLogoDrawable(scaledBitmap(logoBitmap));
             } else {
-                new AsyncTask<String, Void, Void>() {
+                Logic logic = App.getLogic();
+                new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
                     @Override
-                    protected Void doInBackground(String... params) {
+                    protected Void doInBackground(Void param) {
                         synchronized (TileLayerSource.this) {
                             Drawable cached = logoCache.get(logoUrl);
                             if (cached != NOLOGO && logoUrl != null) { // recheck logoURl
@@ -1106,7 +1109,7 @@ public class TileLayerSource implements Serializable {
                         }
                         return null;
                     }
-                }.execute(logoUrl);
+                }.execute();
             }
         }
         return logoDrawable;

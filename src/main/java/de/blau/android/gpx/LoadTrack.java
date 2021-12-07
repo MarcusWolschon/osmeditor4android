@@ -5,14 +5,16 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Snack;
 
 public final class LoadTrack {
@@ -36,8 +38,8 @@ public final class LoadTrack {
      */
     public static void fromFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @NonNull Track track,
             @Nullable PostAsyncActionHandler handler) {
-
-        new AsyncTask<Void, Void, Integer>() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Void, Void, Integer>(logic.getExecutorService(), logic.getHandler()) {
 
             static final int FILENOTFOUND = -1;
             static final int OK           = 0;
@@ -50,7 +52,7 @@ public final class LoadTrack {
             }
 
             @Override
-            protected Integer doInBackground(Void... arg) {
+            protected Integer doInBackground(Void arg) {
                 int result = OK;
                 try (InputStream is = activity.getContentResolver().openInputStream(uri); BufferedInputStream in = new BufferedInputStream(is)) {
                     track.importFromGPX(in);

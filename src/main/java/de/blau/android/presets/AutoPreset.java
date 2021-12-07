@@ -23,11 +23,11 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.contract.Files;
 import de.blau.android.contract.Paths;
@@ -41,6 +41,7 @@ import de.blau.android.propertyeditor.CustomPreset;
 import de.blau.android.taginfo.TaginfoServer;
 import de.blau.android.taginfo.TaginfoServer.SearchResult;
 import de.blau.android.taginfo.TaginfoServer.WikiPageResult;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.collections.MultiHashMap;
@@ -316,9 +317,10 @@ public class AutoPreset {
      * @param preset the Preset to save
      */
     public static void save(@NonNull Context context, @NonNull final Preset preset) {
-        AsyncTask<Void, Void, Void> save = new AsyncTask<Void, Void, Void>() {
+        Logic logic = App.getLogic();
+        ExecutorTask<Void, Void, Void> save = new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
             @Override
-            protected Void doInBackground(Void... params) {
+            protected Void doInBackground(Void param) {
                 try {
                     File outfile = FileUtil.openFileForWriting(context,
                             FileUtil.getPublicDirectory(context) + "/" + Paths.DIRECTORY_PATH_AUTOPRESET + "/" + Files.FILE_NAME_AUTOPRESET);

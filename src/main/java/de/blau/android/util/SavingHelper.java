@@ -20,7 +20,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.media.MediaScannerConnection;
-import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -349,9 +348,9 @@ public class SavingHelper<T extends Serializable> {
      * @param exportable the exportable to run
      */
     public static void asyncExport(@Nullable final Context ctx, @NonNull final Exportable exportable) {
-        new AsyncTask<Void, Void, String>() {
+        new ExecutorTask<Void, Void, String>() {
             @Override
-            protected String doInBackground(Void... params) {
+            protected String doInBackground(Void param) {
 
                 String filename = DateFormatter.getFormattedString(DATE_PATTERN_EXPORT_FILE_NAME_PART) + "." + exportable.exportExtension();
 

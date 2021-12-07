@@ -2,10 +2,10 @@ package de.blau.android.util;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.widget.LinearLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import de.blau.android.R;
 

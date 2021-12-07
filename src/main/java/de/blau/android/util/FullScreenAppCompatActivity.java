@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
+
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.os.Build;
@@ -9,7 +11,6 @@ import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
 import androidx.annotation.NonNull;
-import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 
