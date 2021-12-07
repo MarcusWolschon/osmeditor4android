@@ -15,7 +15,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -26,6 +25,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.dialogs.LayerInfo;
@@ -44,6 +45,7 @@ import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.services.util.MapAsyncTileProvider;
 import de.blau.android.services.util.MapTile;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
@@ -234,7 +236,8 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
      * @param all if true flush the on device cache too
      */
     public void flushTileCache(@Nullable final FragmentActivity activity, final String renderer, boolean all) {
-        new AsyncTask<Void, Void, Void>() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
 
             @Override
             protected void onPreExecute() {
@@ -244,7 +247,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
             }
 
             @Override
-            protected Void doInBackground(Void... params) {
+            protected Void doInBackground(Void param) {
                 if (mTileProvider != null) {
                     mTileProvider.flushCache(renderer, all);
                 }
@@ -655,7 +658,8 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
      * @param latOffset imagery latitude offset correction in WGS84
      * @return true if the space could be filled with tiles
      */
-    private boolean drawTile(@NonNull Canvas c, @NonNull IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset, double latOffset) {
+    private boolean drawTile(@NonNull Canvas c, @NonNull IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset,
+            double latOffset) {
         final MapTile tile = new MapTile(myRendererInfo.getId(), z, x, y);
         T bitmap = mTileProvider.getMapTileFromCache(tile);
         if (bitmap != null) {

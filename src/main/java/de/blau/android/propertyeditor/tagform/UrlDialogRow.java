@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
+import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
@@ -21,6 +23,7 @@ import de.blau.android.net.UrlCheck;
 import de.blau.android.net.UrlCheck.CheckStatus;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.PropertyEditorListener;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
@@ -122,7 +125,9 @@ public class UrlDialogRow extends DialogRow {
                 neutral.setEnabled(((PropertyEditorListener) caller.getActivity()).isConnected());
             }
             neutral.setOnClickListener(view -> {
-                AsyncTask<String, Void, UrlCheck.Result> loader = new AsyncTask<String, Void, UrlCheck.Result>() {
+                Logic logic = App.getLogic();
+                ExecutorTask<String, Void, UrlCheck.Result> loader = new ExecutorTask<String, Void, UrlCheck.Result>(logic.getExecutorService(),
+                        logic.getHandler()) {
 
                     @Override
                     protected void onPreExecute() {
@@ -130,8 +135,8 @@ public class UrlDialogRow extends DialogRow {
                     }
 
                     @Override
-                    protected UrlCheck.Result doInBackground(String... url) {
-                        return UrlCheck.check(caller.getContext(), url[0]);
+                    protected UrlCheck.Result doInBackground(String url) {
+                        return UrlCheck.check(caller.getContext(), url);
                     }
 
                     @Override

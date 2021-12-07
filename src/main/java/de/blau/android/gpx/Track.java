@@ -34,10 +34,12 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.osm.OsmXml;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.SavingHelper;
 
 /**
@@ -302,11 +304,12 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
      * Load saved track state asynchronously, locking against changes in the time
      */
     private void asyncLoad() {
-        new AsyncTask<Void, Void, Void>() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
             private ArrayList<TrackPoint> loaded = new ArrayList<>();
 
             @Override
-            protected Void doInBackground(Void... params) {
+            protected Void doInBackground(Void param) {
                 loadingLock.lock();
                 try {
                     List<WayPoint> loadedWayPoints = wayPointsSaver.load(ctx, WAYPOINT_SAVEFILE, true);

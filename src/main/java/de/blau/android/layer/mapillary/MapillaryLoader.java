@@ -23,17 +23,18 @@ import com.google.gson.JsonParser;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 import androidx.exifinterface.media.ExifInterface;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Schemes;
 import de.blau.android.photos.PhotoLoader;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.Snack;
 import okhttp3.Call;
@@ -151,9 +152,10 @@ class MapillaryLoader implements PhotoLoader {
                     }
 
                     setImage(view, imageFile);
-                    new AsyncTask<Void, Void, Void>() {
+                    Logic logic = App.getLogic();
+                    new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
                         @Override
-                        protected Void doInBackground(Void... arg0) {
+                        protected Void doInBackground(Void arg) {
                             FileUtil.pruneCache(cacheDir, cacheSize);
                             return null;
                         }
