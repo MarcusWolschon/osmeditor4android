@@ -106,7 +106,7 @@ public class CoordinatesOrOLC {
                                                 return;
                                             }
                                         } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR
-                                            querier.cancel(true);
+                                            querier.cancel();
                                             handler.onError(activity.getString(R.string.no_nominatim_result, loc));
                                             return;
                                         }
