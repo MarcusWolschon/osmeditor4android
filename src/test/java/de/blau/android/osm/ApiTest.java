@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.robolectric.Shadows.shadowOf;
 import static org.robolectric.annotation.LooperMode.Mode.LEGACY;
 
 import java.io.IOException;
@@ -32,6 +33,7 @@ import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
@@ -99,6 +101,7 @@ public class ApiTest {
 
         @Override
         public void onSuccess() {
+            System.out.println("FailOnErrorHandler onSuccess");
             signal.countDown();
         }
 
@@ -167,9 +170,8 @@ public class ApiTest {
         Logic logic = App.getLogic();
         logic.downloadBox(ApplicationProvider.getApplicationContext(), new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false,
                 new FailOnErrorHandler(signal));
-
+        runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
-
         assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984));
 
         // check that we have parsed and post processed relations correctly
@@ -180,6 +182,18 @@ public class ApiTest {
         assertTrue(r2.hasParentRelation(2078158));
         assertNotNull(parent.getMember(r1));
         assertNotNull(parent.getMember(r2));
+    }
+
+    /**
+     * Super ugly hack to get the looper to run
+     */
+    private void runLooper() {
+        try {
+            Thread.sleep(3000); // NOSONAR
+        } catch (InterruptedException e) { // NOSONAR
+            // Ignore
+        }
+        shadowOf(Looper.getMainLooper()).idle();
     }
 
     /**
@@ -205,6 +219,7 @@ public class ApiTest {
         mockServer.enqueue(DOWNLOAD2_FIXTURE);
         logic.downloadBox(ApplicationProvider.getApplicationContext(), new BoundingBox(8.3838500D, 47.3883000D, 8.3865200D, 47.3898500D), true,
                 new FailOnErrorHandler(signal));
+        runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
         assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
         n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
@@ -248,7 +263,7 @@ public class ApiTest {
         ways.add(Long.valueOf(35479120L));
 
         logic.downloadElements(ApplicationProvider.getApplicationContext(), nodes, ways, null, new FailOnErrorHandler(signal));
-
+        runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
         assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 573380242L));
         assertNotNull(App.getDelegator().getOsmElement(Way.NAME, 35479116L));
@@ -264,7 +279,7 @@ public class ApiTest {
         Logic logic = App.getLogic();
 
         logic.downloadElement(ApplicationProvider.getApplicationContext(), Relation.NAME, 2807173L, true, false, new FailOnErrorHandler(signal));
-
+        runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
         assertNotNull(App.getDelegator().getOsmElement(Relation.NAME, 2807173L));
         assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 416426192L));
@@ -282,6 +297,7 @@ public class ApiTest {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream(TEST1_OSM_FIXTURE);
         logic.readOsmFile(ApplicationProvider.getApplicationContext(), is, false, new FailOnErrorHandler(signal));
+        runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
         assertEquals(33, App.getDelegator().getApiElementCount());
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
@@ -320,6 +336,7 @@ public class ApiTest {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream(TEST1_OSM_FIXTURE);
         logic.readOsmFile(ApplicationProvider.getApplicationContext(), is, false, new FailOnErrorHandler(signal));
+        runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
         assertEquals(33, App.getDelegator().getApiElementCount());
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
@@ -356,6 +373,7 @@ public class ApiTest {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream(TEST1_OSM_FIXTURE);
         logic.readOsmFile(ApplicationProvider.getApplicationContext(), is, false, new FailOnErrorHandler(signal));
+        runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
         assertEquals(33, App.getDelegator().getApiElementCount());
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
@@ -387,6 +405,7 @@ public class ApiTest {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream(TEST1_OSM_FIXTURE);
         logic.readOsmFile(ApplicationProvider.getApplicationContext(), is, false, new FailOnErrorHandler(signal));
+        runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
 
         assertEquals(33, App.getDelegator().getApiElementCount());
@@ -449,6 +468,7 @@ public class ApiTest {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream(TEST1_OSM_FIXTURE);
         logic.readOsmFile(ApplicationProvider.getApplicationContext(), is, false, new FailOnErrorHandler(signal));
+        runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
         assertTrue(App.getDelegator().getApiElementCount() > 0);
         uploadErrorTest(401);
@@ -491,6 +511,7 @@ public class ApiTest {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream(TEST1_OSM_FIXTURE);
         logic.readOsmFile(ApplicationProvider.getApplicationContext(), is, false, new FailOnErrorHandler(signal));
+        runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
         assertEquals(33, App.getDelegator().getApiElementCount());
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
@@ -570,6 +591,7 @@ public class ApiTest {
                         signal.countDown();
                     }
                 });
+        runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
     }
 
@@ -594,6 +616,7 @@ public class ApiTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+        runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
         List<Task> tasks = App.getTaskStorage().getTasks();
         // note the fixture contains 100 notes, however 41 of them are closed and expired
@@ -624,6 +647,7 @@ public class ApiTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+        runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
         try {
             assertFalse(App.getTaskStorage().isEmpty());
