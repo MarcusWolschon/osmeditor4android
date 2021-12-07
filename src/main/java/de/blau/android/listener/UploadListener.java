@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
-import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.dialogs.ConfirmUpload;
 import de.blau.android.dialogs.ErrorAlert;
