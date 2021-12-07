@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -37,6 +36,7 @@ import de.blau.android.App;
 import de.blau.android.BuildConfig;
 import de.blau.android.Feedback;
 import de.blau.android.HelpViewer;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.contract.Flavors;
 import de.blau.android.contract.Github;
@@ -50,6 +50,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetClickHandler;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.util.BaseFragment;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Sound;
@@ -308,11 +309,12 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             return false;
         }
         final FragmentManager fm = getChildFragmentManager();
-
-        AsyncTask<Void, Void, ArrayList<PresetElement>> list = new AsyncTask<Void, Void, ArrayList<PresetElement>>() {
+        Logic logic = App.getLogic();
+        ExecutorTask<Void, Void, ArrayList<PresetElement>> list = new ExecutorTask<Void, Void, ArrayList<PresetElement>>(logic.getExecutorService(),
+                logic.getHandler()) {
 
             @Override
-            protected ArrayList<PresetElement> doInBackground(Void... params) {
+            protected ArrayList<PresetElement> doInBackground(Void param) {
                 return new ArrayList<>(SearchIndexUtils.searchInPresets(activity, term, type, 2, MAX_SEARCHRESULTS, propertyEditorListener.getIsoCodes()));
             }
 
