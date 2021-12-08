@@ -2,6 +2,7 @@ package de.blau.android.layer.tasks;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executors;
@@ -72,12 +73,11 @@ public class MapOverlay extends MapViewLayer
     private Task selected             = null;
     private Task restoredSelectedTask = null;
 
-    private boolean panAndZoomDownLoad = false;
-    private int     panAndZoomLimit    = 16;
-
-    private int minDownloadSize = 50;
-
-    private float maxDownloadSpeed = 30;
+    private boolean     panAndZoomDownLoad = false;
+    private int         panAndZoomLimit    = 16;
+    private int         minDownloadSize    = 50;
+    private float       maxDownloadSpeed   = 30;
+    private Set<String> filter             = new HashSet<>();
 
     private ThreadPoolExecutor mThreadPool;
 
@@ -122,7 +122,10 @@ public class MapOverlay extends MapViewLayer
             }
             tasks.addBoundingBox(b);
             try {
-                mThreadPool.execute(() -> TransferTasks.downloadBox(context, server, b, true, () -> map.postInvalidate()));
+                mThreadPool.execute(() -> {
+                    TransferTasks.downloadBoxSync(context, server, b, true, App.getTaskStorage(), filter, TransferTasks.MAX_CLOSED_AGE);
+                    map.postInvalidate();
+                });
             } catch (RejectedExecutionException rjee) {
                 Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
                 tasks.deleteBoundingBox(b);
@@ -136,9 +139,7 @@ public class MapOverlay extends MapViewLayer
         int zoomLevel = map.getZoomLevel();
 
         if (isVisible && zoomLevel >= SHOW_TASKS_LIMIT) {
-
             ViewBox bb = osmv.getViewBox();
-
             Location location = map.getLocation();
 
             if (zoomLevel >= panAndZoomLimit && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
@@ -350,6 +351,7 @@ public class MapOverlay extends MapViewLayer
         server = prefs.getServer();
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
         panAndZoomLimit = prefs.getPanAndZoomLimit();
+        filter = prefs.taskFilter();
     }
 
     @Override
