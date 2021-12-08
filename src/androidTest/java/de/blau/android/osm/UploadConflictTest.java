@@ -104,7 +104,7 @@ public class UploadConflictTest {
      */
     @Test
     public void versionConflictUseLocal() {
-        versionConflict("conflict1", new String[] { "conflictdownload1" });
+        versionConflict("conflict1", new String[] { "conflictdownload1" }, false);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.use_local_version), true));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.confirm_upload_title), 5000));
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
@@ -116,7 +116,7 @@ public class UploadConflictTest {
      */
     @Test
     public void versionConflictUseServer() {
-        versionConflict("conflict1", new String[] { "conflictdownload1" });
+        versionConflict("conflict1", new String[] { "conflictdownload1" }, false);
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
         assertNotNull(n);
         assertEquals(6, n.getOsmVersion()); // version should now be server and not in the API
@@ -139,7 +139,7 @@ public class UploadConflictTest {
      */
     @Test
     public void severElementAlreadyDeleted() {
-        versionConflict("conflict2", new String[] { "410" });
+        versionConflict("conflict2", new String[] { "410" }, false);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.retry), true));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.confirm_upload_title), 20000));
         assertNull(App.getDelegator().getApiStorage().getWay(210461100L));
@@ -151,8 +151,8 @@ public class UploadConflictTest {
      */
     @Test
     public void severElementInUse() {
-        versionConflict("conflict3", new String[] { "conflictdownload2" });
-        Way w = (Way) App.getDelegator().getApiStorage().getWay(210461100L);
+        versionConflict("conflict3", new String[] { "conflictdownload2" }, false);
+        Way w = App.getDelegator().getApiStorage().getWay(210461100L);
         assertNotNull(w);
         assertEquals(OsmElement.STATE_DELETED, w.getState());
         mockServer.enqueue("conflictdownload2");
@@ -169,8 +169,9 @@ public class UploadConflictTest {
      * Upload to changes (mock-)server and wait for version conflict dialog
      * 
      * @param fixtures name of additional fixtures with the response to the upload
+     * @param userDetails if true enqueue user details
      */
-    private void versionConflict(@NonNull String conflictReponse, @NonNull String[] fixtures) {
+    private void versionConflict(@NonNull String conflictReponse, @NonNull String[] fixtures, boolean userDetails) {
         final CountDownLatch signal = new CountDownLatch(1);
         Logic logic = App.getLogic();
 
@@ -183,7 +184,9 @@ public class UploadConflictTest {
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("changeset1");
         mockServer.enqueue(conflictReponse);
-        mockServer.enqueue("userdetails");
+        if (userDetails) {
+            mockServer.enqueue("userdetails");
+        }
         for (String fixture : fixtures) {
             mockServer.enqueue(fixture);
         }
@@ -226,7 +229,7 @@ public class UploadConflictTest {
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/upload_source", false));
         instrumentation.sendStringSync(SOURCE_1);
         instrumentation.waitForIdleSync();
-        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_ENTER); 
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_ENTER);
         instrumentation.waitForIdleSync();
         device.pressBack();
     }

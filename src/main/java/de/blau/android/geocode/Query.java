@@ -3,20 +3,21 @@ package de.blau.android.geocode;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Snack;
 
-class Query extends AsyncTask<String, Void, List<SearchResult>> {
+class Query extends ExecutorTask<String, Void, List<SearchResult>> {
     private static final String DEBUG_TAG = "Search.Query";
 
     AlertDialog progress = null;
@@ -33,6 +34,7 @@ class Query extends AsyncTask<String, Void, List<SearchResult>> {
      * @param bbox a ViewBox to restrict the query to, if null the whole world will be considered
      */
     public Query(@Nullable FragmentActivity activity, @NonNull String url, @Nullable ViewBox bbox) {
+        super(App.getLogic().getExecutorService(), App.getLogic().getHandler());
         this.url = url;
         this.bbox = bbox;
         this.activity = activity;
@@ -47,7 +49,7 @@ class Query extends AsyncTask<String, Void, List<SearchResult>> {
     }
 
     @Override
-    protected List<SearchResult> doInBackground(String... params) {
+    protected List<SearchResult> doInBackground(String query) {
         return new ArrayList<>();
     }
 

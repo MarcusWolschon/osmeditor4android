@@ -7,18 +7,19 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialog;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Snack;
 
 public final class MapRouletteApiKey {
@@ -48,10 +49,11 @@ public final class MapRouletteApiKey {
         final AppCompatDialog dialog = TextLineDialog.get(activity, R.string.maproulette_task_set_apikey, -1, apiKey, (input, check) -> {
 
             final String newApiKey = input.getText().toString().trim();
-            new AsyncTask<Void, Void, Void>() {
+            Logic logic = App.getLogic();
+            new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
 
                 @Override
-                protected Void doInBackground(Void... params) {
+                protected Void doInBackground(Void param) {
                     try {
                         if (newApiKey.length() > 0) {
                             server.setUserPreference(TransferTasks.MAPROULETTE_APIKEY_V2, newApiKey);
@@ -104,9 +106,10 @@ public final class MapRouletteApiKey {
      */
     @Nullable
     public static String get(@NonNull final Server server) {
-        AsyncTask<Void, Void, String> getKey = new AsyncTask<Void, Void, String>() {
+        Logic logic = App.getLogic();
+        ExecutorTask<Void, Void, String> getKey = new ExecutorTask<Void, Void, String>(logic.getExecutorService(), logic.getHandler()) {
             @Override
-            protected String doInBackground(Void... params) {
+            protected String doInBackground(Void param) {
                 return server.getUserPreferences().get(TransferTasks.MAPROULETTE_APIKEY_V2);
             }
         };
@@ -115,7 +118,7 @@ public final class MapRouletteApiKey {
             getKey.execute();
             return getKey.get(1000, TimeUnit.MILLISECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt
-            getKey.cancel(true);
+            getKey.cancel();
             return null;
         }
     }

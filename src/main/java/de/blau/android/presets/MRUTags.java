@@ -29,16 +29,17 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.contract.Files;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.collections.MRUList;
 
@@ -286,9 +287,10 @@ public class MRUTags {
      * @param ctx Android Context
      */
     public void save(@NonNull Context ctx) {
-        AsyncTask<Void, Void, Void> save = new AsyncTask<Void, Void, Void>() {
+        Logic logic = App.getLogic();
+        ExecutorTask<Void, Void, Void> save = new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
             @Override
-            protected Void doInBackground(Void... params) {
+            protected Void doInBackground(Void param) {
                 try {
                     File outfile = FileUtil.openFileForWriting(ctx, FileUtil.getPublicDirectory(ctx) + "/" + Files.FILE_NAME_MRUTAGS);
                     Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
@@ -403,9 +405,10 @@ public class MRUTags {
      * @param ctx Android Context
      */
     public synchronized void load(@NonNull Context ctx) {
-        AsyncTask<Void, Void, Void> load = new AsyncTask<Void, Void, Void>() {
+        Logic logic = App.getLogic();
+        ExecutorTask<Void, Void, Void> load = new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
             @Override
-            protected Void doInBackground(Void... params) {
+            protected Void doInBackground(Void param) {
                 try {
                     File infile = FileUtil.openFileForWriting(ctx, FileUtil.getPublicDirectory(ctx) + "/" + Files.FILE_NAME_MRUTAGS);
                     Log.d(DEBUG_TAG, "Loading from " + infile.getPath());

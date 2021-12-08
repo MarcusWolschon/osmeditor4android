@@ -30,17 +30,19 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Paint;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import ch.poole.android.sprites.Sprites;
+import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Schemes;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.symbols.TriangleDown;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.util.mvt.style.Source.SourceType;
 
@@ -327,7 +329,8 @@ public class Style implements Serializable {
      * @param url the Url to load the sprites from
      */
     private void getSprites(@NonNull Context ctx, @NonNull String url) {
-        new AsyncTask<Void, Void, Sprites>() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Void, Void, Sprites>(logic.getExecutorService(), logic.getHandler()) {
 
             /**
              * Get the sheet and image for a sprite url
@@ -359,7 +362,7 @@ public class Style implements Serializable {
             }
 
             @Override
-            protected Sprites doInBackground(Void... params) {
+            protected Sprites doInBackground(Void param) {
                 Sprites result = get(url + RETINA); // try "retina" resolution 1st
                 if (result == null) {
                     return get(url);

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
+import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 
@@ -81,14 +83,15 @@ public final class OAMCatalogView {
      */
     public static void queryAndSelectLayers(@NonNull FragmentActivity activity, @Nullable final BoundingBox box,
             @Nullable final TileLayerDialog.OnUpdateListener updateListener) {
-        new AsyncTask<Void, Void, List<LayerEntry>>() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Void, Void, List<LayerEntry>>(logic.getExecutorService(), logic.getHandler()) {
             @Override
             protected void onPreExecute() {
                 Progress.showDialog(activity, Progress.PROGRESS_QUERY_OAM);
             }
 
             @Override
-            protected List<LayerEntry> doInBackground(Void... params) {
+            protected List<LayerEntry> doInBackground(Void param) {
                 OAMCatalog catalog = new OAMCatalog();
                 List<LayerEntry> list = null;
                 try {

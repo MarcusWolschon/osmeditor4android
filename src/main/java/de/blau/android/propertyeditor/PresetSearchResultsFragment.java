@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +35,7 @@ import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetClickHandler;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Screen;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
@@ -199,7 +199,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
         }
     };
 
-    class OnlineQuery extends AsyncTask<Void, Void, List<PresetElement>> {
+    class OnlineQuery extends ExecutorTask<Void, Void, List<PresetElement>> {
         private AlertDialog            progress = null;
         private final FragmentActivity activity;
 
@@ -209,6 +209,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
          * @param activity the calling activity
          */
         OnlineQuery(@NonNull FragmentActivity activity) {
+            super(App.getLogic().getExecutorService(), App.getLogic().getHandler());
             this.activity = activity;
         }
 
@@ -219,7 +220,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
         }
 
         @Override
-        protected List<PresetElement> doInBackground(Void... params) {
+        protected List<PresetElement> doInBackground(Void param) {
             List<PresetElement> searchResults = new ArrayList<>();
             AutoPreset autoPreset = new AutoPreset(activity);
             Preset fromTaginfo = autoPreset.fromTaginfo(searchTerm.trim(), PresetFragment.MAX_SEARCHRESULTS);

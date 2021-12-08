@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -19,7 +20,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface.OnClickListener;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +39,7 @@ import androidx.appcompat.view.ActionMode.Callback;
 import androidx.appcompat.widget.ActionMenuView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.Mode;
@@ -49,6 +51,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.Snack;
@@ -205,9 +208,10 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         if (cabBottomBar != null) {
             cabBottomBar.setVisibility(View.GONE);
         }
-        new AsyncTask<Void, Void, Void>() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
             @Override
-            protected Void doInBackground(Void... params) {
+            protected Void doInBackground(Void param) {
                 Log.i(DEBUG_TAG, "Saving offsets");
                 List<ImageryOffset> offsets = ImageryOffsetUtils.offsets2ImageryOffset(osmts, map.getViewBox(), null);
                 try (ImageryOffsetDatabase db = new ImageryOffsetDatabase(main); SQLiteDatabase writableDb = db.getWritableDatabase()) {
@@ -221,7 +225,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         }.execute();
 
         main.showBottomBar();
-        App.getLogic().setMode(main, oldMode);
+        logic.setMode(main, oldMode);
         main.showLock();
         main.showLayersControl();
     }
@@ -232,7 +236,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
      * @author simon
      *
      */
-    private class OffsetLoader extends AsyncTask<Double, Void, List<ImageryOffset>> {
+    private class OffsetLoader extends ExecutorTask<Double[], Void, List<ImageryOffset>> {
 
         private String                       error = null;
         private final PostAsyncActionHandler handler;
@@ -242,7 +246,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
          * 
          * @param postLoadHandler a handler to call after loading or null
          */
-        OffsetLoader(@Nullable final PostAsyncActionHandler postLoadHandler) {
+        OffsetLoader(@NonNull ExecutorService executorService, @NonNull Handler uiHandler, @Nullable final PostAsyncActionHandler postLoadHandler) {
+            super(executorService, uiHandler);
             handler = postLoadHandler;
         }
 
@@ -327,7 +332,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         }
 
         @Override
-        protected List<ImageryOffset> doInBackground(Double... params) {
+        protected List<ImageryOffset> doInBackground(Double[] params) {
 
             if (params.length != 3) {
                 Log.e(DEBUG_TAG, "wrong number of params in OffsetLoader " + params.length);
@@ -375,8 +380,12 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
      * @author simon
      *
      */
-    private class OffsetSaver extends AsyncTask<ImageryOffset, Void, Integer> {
+    private class OffsetSaver extends ExecutorTask<ImageryOffset, Void, Integer> {
         private String error = null;
+
+        OffsetSaver(@NonNull ExecutorService executorService, @NonNull Handler handler) {
+            super(executorService, handler);
+        }
 
         @Override
         protected void onPreExecute() {
@@ -384,10 +393,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         }
 
         @Override
-        protected Integer doInBackground(ImageryOffset... params) {
+        protected Integer doInBackground(ImageryOffset offset) {
 
             try {
-                ImageryOffset offset = params[0];
                 String urlString = offset.toSaveUrl(offsetServerUri);
                 Log.d(DEBUG_TAG, "urlString " + urlString);
                 RequestBody reqbody = RequestBody.create(null, "");
@@ -443,7 +451,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             double d2 = GeoMath.haversineDistance(centerLon, centerLat, offset2.getLon(), offset2.getLat());
             return Double.valueOf(d1).compareTo(d2);
         };
-        OffsetLoader loader = new OffsetLoader(() -> {
+        Logic logic = App.getLogic();
+        OffsetLoader loader = new OffsetLoader(logic.getExecutorService(), logic.getHandler(), () -> {
             if (offsetList != null && !offsetList.isEmpty()) {
                 Collections.sort(offsetList, cmp);
                 AppCompatDialog d = createDisplayOffsetDialog(0);
@@ -457,7 +466,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         double wm = GeoMath.haversineDistance(bbox.getLeft() / 1E7d, centerLat, bbox.getRight() / 1E7d, centerLat);
         int radius = (int) Math.max(1, Math.round(Math.min(hm, wm) / 2000d)); // convert to km and make it at least 1
                                                                               // and /2 for radius
-        loader.execute(centerLat, centerLon, (double) radius);
+        loader.execute(new Double[] { centerLat, centerLon, (double) radius });
     }
 
     /**
@@ -471,10 +480,12 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         // try to find current display name
         final Server server = prefs.getServer();
         if (!server.needOAuthHandshake()) {
-            AsyncTask<Void, Void, Server.UserDetails> loader = new AsyncTask<Void, Void, Server.UserDetails>() {
+            Logic logic = App.getLogic();
+            ExecutorTask<Void, Void, Server.UserDetails> loader = new ExecutorTask<Void, Void, Server.UserDetails>(logic.getExecutorService(),
+                    logic.getHandler()) {
 
                 @Override
-                protected Server.UserDetails doInBackground(Void... params) {
+                protected Server.UserDetails doInBackground(Void param) {
                     return server.getUserDetails();
                 }
             };
@@ -489,7 +500,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 }
             } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
                                                                     // question
-                loader.cancel(true);
+                loader.cancel();
                 error = e.getMessage();
             } catch (TimeoutException e) {
                 error = main.getString(R.string.toast_timeout);
@@ -688,7 +699,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             offset.author = author.getText().toString();
             offset.imageryId = osmts.getImageryOffsetId();
             Log.d("Background...", offset.toSaveUrl(offsetServerUri));
-            OffsetSaver saver = new OffsetSaver();
+            Logic logic = App.getLogic();
+            OffsetSaver saver = new OffsetSaver(logic.getExecutorService(), logic.getHandler());
             saver.execute(offset);
             try {
                 int result = saver.get();
@@ -697,7 +709,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 }
             } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
                                                                     // question
-                saver.cancel(true);
+                saver.cancel();
                 error = e.getMessage();
             }
             if (error != null) {

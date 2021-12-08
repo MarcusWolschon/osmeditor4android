@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
-import android.os.AsyncTask;
 import android.view.View;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -30,6 +29,7 @@ import de.blau.android.TestUtils;
 import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.MapTile;
+import de.blau.android.util.ExecutorTask;
 
 /**
  * Note these tests are not mocked
@@ -101,9 +101,9 @@ public class TileLayerServerTest {
         if (!t.isMetadataLoaded()) {
             final CountDownLatch signal = new CountDownLatch(1);
             final SignalHandler handler = new SignalHandler(signal);
-            new AsyncTask<Void, Void, Void>() {
+            new ExecutorTask<Void, Void, Void>() {
                 @Override
-                protected Void doInBackground(Void... params) {
+                protected Void doInBackground(Void param) {
                     for (int i = 0; i < 10; i++) {
                         try {
                             Thread.sleep(1000); // NOSONAR

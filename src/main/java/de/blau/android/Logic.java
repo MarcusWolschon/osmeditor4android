@@ -22,6 +22,8 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
@@ -39,7 +41,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -102,6 +105,7 @@ import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.EditState;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
@@ -125,10 +129,10 @@ import de.blau.android.validation.Validator;
  * @author Simon Poole
  */
 public class Logic {
-
-    private static final String METHOD_UPLOAD = "upload";
-
     private static final String DEBUG_TAG = Logic.class.getSimpleName();
+
+    private static final int    EXECUTOR_THREADS = 4;
+    private static final String METHOD_UPLOAD    = "upload";
 
     /**
      * Enums for directions. Used for translation via cursor-pad.
@@ -325,6 +329,9 @@ public class Logic {
      */
     private boolean attachedObjectWarning = true;
 
+    private ExecutorService executorService;
+    private Handler         uiHandler;
+
     /**
      * Initiate all needed values. Starts Tracker and delegate the first values for the map.
      * 
@@ -333,6 +340,8 @@ public class Logic {
         viewBox = new ViewBox(getDelegator().getLastBox());
         mode = Mode.MODE_EASYEDIT;
         setLocked(true);
+        executorService = Executors.newFixedThreadPool(EXECUTOR_THREADS);
+        uiHandler = new Handler(Looper.getMainLooper());
     }
 
     /**
@@ -2201,10 +2210,10 @@ public class Logic {
         }
 
         final int threshold = prefs.getOrthogonalizeThreshold();
-        new AsyncTask<Void, Void, StorageException>() {
+        new ExecutorTask<Void, Void, StorageException>(executorService, uiHandler) {
 
             @Override
-            protected StorageException doInBackground(Void... params) {
+            protected StorageException doInBackground(Void param) {
                 createCheckpoint(activity, R.string.undo_action_orthogonalize);
                 try {
                     getDelegator().orthogonalizeWay(ways, threshold);
@@ -2706,7 +2715,7 @@ public class Logic {
             }
         };
 
-        new AsyncTask<Boolean, Void, ReadAsyncResult>() {
+        new ExecutorTask<Boolean, Void, ReadAsyncResult>(executorService, uiHandler) {
 
             boolean hasActivity = context instanceof FragmentActivity;
 
@@ -2718,8 +2727,8 @@ public class Logic {
             }
 
             @Override
-            protected ReadAsyncResult doInBackground(Boolean... arg) {
-                boolean merge = arg != null && arg[0] != null && arg[0].booleanValue();
+            protected ReadAsyncResult doInBackground(Boolean arg) {
+                boolean merge = arg != null && arg.booleanValue();
                 return download(context, prefs.getServer(), mapBox, postMerge, null, merge, false);
             }
 
@@ -2814,9 +2823,9 @@ public class Logic {
             }
         };
 
-        new AsyncTask<Void, Void, ReadAsyncResult>() {
+        new ExecutorTask<Void, Void, ReadAsyncResult>(executorService, uiHandler) {
             @Override
-            protected ReadAsyncResult doInBackground(Void... arg) {
+            protected ReadAsyncResult doInBackground(Void arg) {
                 ReadAsyncResult result = download(context, prefs.getServer(), mapBox, postMerge, handler, true, true);
                 if (getDelegator().getCurrentStorage().getNodeCount() > prefs.getAutoPruneNodeLimit()) {
                     ViewBox pruneBox = new ViewBox(map.getViewBox());
@@ -2984,14 +2993,14 @@ public class Logic {
                 e.hasProblem(activity, validator);
             }
         };
-        new AsyncTask<Void, Void, ReadAsyncResult>() {
+        new ExecutorTask<Void, Void, ReadAsyncResult>(executorService, uiHandler) {
             @Override
             protected void onPreExecute() {
                 Progress.showDialog(activity, Progress.PROGRESS_DOWNLOAD);
             }
 
             @Override
-            protected ReadAsyncResult doInBackground(Void... arg) {
+            protected ReadAsyncResult doInBackground(Void arg) {
                 for (BoundingBox box : boxes) {
                     if (box != null && box.isValidForApi()) {
                         ReadAsyncResult result = download(activity, prefs.getServer(), box, postMerge, null, true, true);
@@ -3045,10 +3054,14 @@ public class Logic {
     @Nullable
     public synchronized OsmElement getElement(@Nullable final Activity activity, final String type, final long id) {
 
-        class GetElementTask extends AsyncTask<Void, Void, OsmElement> {
+        class GetElementTask extends ExecutorTask<Void, Void, OsmElement> {
+
+            protected GetElementTask(ExecutorService executorService, Handler handler) {
+                super(executorService, handler);
+            }
 
             @Override
-            protected OsmElement doInBackground(Void... arg) {
+            protected OsmElement doInBackground(Void arg) {
                 final OsmParser osmParser = new OsmParser();
                 if (downloadElement(activity, type, id, false, false, osmParser) == ErrorCodes.OK) {
                     return osmParser.getStorage().getOsmElement(type, id);
@@ -3056,14 +3069,14 @@ public class Logic {
                 return null;
             }
         }
-        GetElementTask loader = new GetElementTask();
+        GetElementTask loader = new GetElementTask(executorService, uiHandler);
         loader.execute();
 
         try {
             return loader.get(20, TimeUnit.SECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt the
                                                                                    // thread in question
-            loader.cancel(true);
+            loader.cancel();
             return null;
         }
     }
@@ -3083,9 +3096,14 @@ public class Logic {
      */
     public synchronized int downloadElement(@Nullable final Context ctx, @NonNull final String type, final long id, final boolean relationFull,
             final boolean withParents, @Nullable final PostAsyncActionHandler postLoadHandler) {
-        class DownLoadElementTask extends AsyncTask<Void, Void, Integer> {
+        class DownLoadElementTask extends ExecutorTask<Void, Void, Integer> {
+
+            protected DownLoadElementTask(ExecutorService executorService, Handler handler) {
+                super(executorService, handler);
+            }
+
             @Override
-            protected Integer doInBackground(Void... arg) {
+            protected Integer doInBackground(Void arg) {
                 final OsmParser osmParser = new OsmParser();
                 int result = downloadElement(ctx, type, id, relationFull, withParents, osmParser);
                 if (result == ErrorCodes.OK) {
@@ -3114,7 +3132,7 @@ public class Logic {
                 }
             }
         }
-        DownLoadElementTask loader = new DownLoadElementTask();
+        DownLoadElementTask loader = new DownLoadElementTask(executorService, uiHandler);
         loader.execute();
 
         if (postLoadHandler == null) {
@@ -3122,7 +3140,7 @@ public class Logic {
                 return loader.get(20, TimeUnit.SECONDS);
             } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt
                                                                                        // the thread in question
-                loader.cancel(true);
+                loader.cancel();
                 return -1;
             }
         } else {
@@ -3204,7 +3222,11 @@ public class Logic {
     public synchronized ReadAsyncResult downloadElements(@NonNull final Context ctx, @Nullable final List<Long> nodes, @Nullable final List<Long> ways,
             @Nullable final List<Long> relations, @Nullable final PostAsyncActionHandler postLoadHandler) {
 
-        class DownLoadElementsTask extends AsyncTask<Void, Void, ReadAsyncResult> {
+        class DownLoadElementsTask extends ExecutorTask<Void, Void, ReadAsyncResult> {
+            protected DownLoadElementsTask(ExecutorService executorService, Handler handler) {
+                super(executorService, handler);
+            }
+
             ReadAsyncResult result;
 
             /**
@@ -3223,7 +3245,7 @@ public class Logic {
             }
 
             @Override
-            protected ReadAsyncResult doInBackground(Void... arg) {
+            protected ReadAsyncResult doInBackground(Void arg) {
                 try {
                     final OsmParser osmParser = new OsmParser();
                     InputStream in = null;
@@ -3315,7 +3337,7 @@ public class Logic {
             }
 
         }
-        DownLoadElementsTask loader = new DownLoadElementsTask();
+        DownLoadElementsTask loader = new DownLoadElementsTask(executorService, uiHandler);
         loader.execute();
 
         if (postLoadHandler == null) {
@@ -3323,7 +3345,7 @@ public class Logic {
                 return loader.get(20, TimeUnit.SECONDS);
             } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt
                                                                                        // the thread in question
-                loader.cancel(true);
+                loader.cancel();
                 return new ReadAsyncResult(ErrorCodes.NO_CONNECTION);
             }
         } else {
@@ -3402,9 +3424,9 @@ public class Logic {
      */
     public void readOsmFile(@NonNull final Context context, @NonNull final InputStream is, boolean add, @Nullable final PostAsyncActionHandler postLoad) {
 
-        new ReadAsyncClass(context, is, false, postLoad) {
+        new ReadAsyncClass(executorService, uiHandler, context, is, false, postLoad) {
             @Override
-            protected ReadAsyncResult doInBackground(Boolean... arg) {
+            protected ReadAsyncResult doInBackground(Boolean arg) {
                 synchronized (Logic.this) {
                     try {
                         final OsmParser osmParser = new OsmParser();
@@ -3499,7 +3521,7 @@ public class Logic {
     private void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final OutputStream fout,
             @Nullable final PostAsyncActionHandler postSaveHandler) {
 
-        new AsyncTask<Void, Void, Integer>() {
+        new ExecutorTask<Void, Void, Integer>(executorService, uiHandler) {
 
             @Override
             protected void onPreExecute() {
@@ -3507,7 +3529,7 @@ public class Logic {
             }
 
             @Override
-            protected Integer doInBackground(Void... arg) {
+            protected Integer doInBackground(Void arg) {
                 int result = 0;
                 try (OutputStream out = new BufferedOutputStream(fout)) {
                     OsmXml.write(getDelegator().getCurrentStorage(), getDelegator().getApiStorage(), out, App.getUserAgent());
@@ -3578,9 +3600,9 @@ public class Logic {
     private synchronized void readPbfFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
 
-        new ReadAsyncClass(activity, is, add, postLoad) {
+        new ReadAsyncClass(executorService, uiHandler, activity, is, add, postLoad) {
             @Override
-            protected ReadAsyncResult doInBackground(Boolean... arg) {
+            protected ReadAsyncResult doInBackground(Boolean arg) {
                 synchronized (Logic.this) {
                     try {
                         Storage storage = new Storage();
@@ -3622,9 +3644,9 @@ public class Logic {
 
         final InputStream is = activity.getContentResolver().openInputStream(fileUri);
 
-        new ReadAsyncClass(activity, is, false, postLoad) {
+        new ReadAsyncClass(executorService, uiHandler, activity, is, false, postLoad) {
             @Override
-            protected ReadAsyncResult doInBackground(Boolean... arg) {
+            protected ReadAsyncResult doInBackground(Boolean arg) {
                 synchronized (Logic.this) {
                     try (final InputStream in = new BufferedInputStream(is)) {
                         OsmChangeParser oscParser = new OsmChangeParser();
@@ -3681,10 +3703,10 @@ public class Logic {
      * 
      * @param activity activity that we were called from
      */
-    void saveAsync(final Activity activity) {
-        new AsyncTask<Void, Void, Void>() {
+    void saveAsync(@NonNull final Activity activity) {
+        new ExecutorTask<Void, Void, Void>(executorService, uiHandler) {
             @Override
-            protected Void doInBackground(Void... params) {
+            protected Void doInBackground(Void params) {
                 save(activity);
                 // the disadvantage of saving async is that something might have
                 // changed during the write .... so we force the dirty flags on
@@ -3738,7 +3760,7 @@ public class Logic {
 
         final Map mainMap = activity instanceof Main ? ((Main) activity).getMap() : null;
 
-        AsyncTask<Void, Void, Integer> loader = new AsyncTask<Void, Void, Integer>() {
+        ExecutorTask<Void, Void, Integer> loader = new ExecutorTask<Void, Void, Integer>(executorService, uiHandler) {
 
             final AlertDialog progress = ProgressDialog.get(activity, Progress.PROGRESS_LOADING);
 
@@ -3749,7 +3771,7 @@ public class Logic {
             }
 
             @Override
-            protected Integer doInBackground(Void... v) {
+            protected Integer doInBackground(Void v) {
                 if (getDelegator().readFromFile(activity)) {
                     if (mainMap != null) {
                         viewBox.setBorders(mainMap, getDelegator().getLastBox());
@@ -3827,7 +3849,7 @@ public class Logic {
         final int READ_OK = 1;
         final int READ_BACKUP = 2;
 
-        AsyncTask<Void, Void, Integer> loader = new AsyncTask<Void, Void, Integer>() {
+        ExecutorTask<Void, Void, Integer> loader = new ExecutorTask<Void, Void, Integer>(executorService, uiHandler) {
 
             @Override
             protected void onPreExecute() {
@@ -3835,7 +3857,7 @@ public class Logic {
             }
 
             @Override
-            protected Integer doInBackground(Void... v) {
+            protected Integer doInBackground(Void v) {
                 if (App.getTaskStorage().readFromFile(activity)) {
                     // viewBox.setBorders(getDelegator().getLastBox());
                     return READ_OK;
@@ -3878,7 +3900,7 @@ public class Logic {
         final int READ_FAILED = 0;
         final int READ_OK = 1;
 
-        AsyncTask<Void, Void, Integer> loader = new AsyncTask<Void, Void, Integer>() {
+        ExecutorTask<Void, Void, Integer> loader = new ExecutorTask<Void, Void, Integer>(executorService, uiHandler) {
 
             @Override
             protected void onPreExecute() {
@@ -3886,7 +3908,7 @@ public class Logic {
             }
 
             @Override
-            protected Integer doInBackground(Void... v) {
+            protected Integer doInBackground(Void v) {
                 boolean result = true;
                 for (MapViewLayer layer : map.getLayers()) {
                     if (layer != null) {
@@ -3983,12 +4005,14 @@ public class Logic {
      * @param closeChangeset Whether to close the changeset after upload or not.
      * @param extraTags Additional tags to add to changeset
      * @param elements List of OsmElement to upload if null all changed elements will be uploaded
+     * @param postUploadHandler code to execute after an upload
      */
     public void upload(@NonNull final FragmentActivity activity, @Nullable final String comment, @Nullable final String source, boolean closeOpenChangeset,
-            final boolean closeChangeset, @Nullable java.util.Map<String, String> extraTags, @Nullable List<OsmElement> elements) {
+            final boolean closeChangeset, @Nullable java.util.Map<String, String> extraTags, @Nullable List<OsmElement> elements,
+            @Nullable PostAsyncActionHandler postUploadHandler) {
         final String PROGRESS_TAG = "data";
         final Server server = prefs.getServer();
-        new AsyncTask<Void, Void, UploadResult>() {
+        new ExecutorTask<Void, Void, UploadResult>(executorService, uiHandler) {
 
             @Override
             protected void onPreExecute() {
@@ -3998,7 +4022,7 @@ public class Logic {
             }
 
             @Override
-            protected UploadResult doInBackground(Void... params) {
+            protected UploadResult doInBackground(Void params) {
                 UploadResult result = new UploadResult();
                 try {
                     server.getCapabilities(); // update status
@@ -4065,10 +4089,14 @@ public class Logic {
                 Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
                 final int error = result.getError();
                 if (error == 0) {
-                    save(activity); // save now to avoid problems if it doesn't succeed later on, FIXME async or sync
+                    save(activity); // save now to avoid problems if it doesn't succeed later on, this currently writes
+                                    // sync and potentially cause ANRs
                     Snack.barInfo(activity, R.string.toast_upload_success);
                     getDelegator().clearUndo(); // only clear on successful upload
                     activity.invalidateOptionsMenu();
+                    if (postUploadHandler != null) {
+                        postUploadHandler.onSuccess();
+                    }
                 }
                 activity.getCurrentFocus().invalidate();
                 if (!activity.isFinishing()) {
@@ -4089,6 +4117,9 @@ public class Logic {
                     } else if (error != 0) {
                         ErrorAlert.showDialog(activity, error);
                     }
+                    if (postUploadHandler != null) {
+                        postUploadHandler.onError(null);
+                    }
                 }
             }
         }.execute();
@@ -4106,7 +4137,7 @@ public class Logic {
     public void uploadTrack(@NonNull final FragmentActivity activity, @NonNull final Track track, @NonNull final String description, @NonNull final String tags,
             final Visibility visibility) {
         final Server server = prefs.getServer();
-        new AsyncTask<Void, Void, Integer>() {
+        new ExecutorTask<Void, Void, Integer>(executorService, uiHandler) {
 
             @Override
             protected void onPreExecute() {
@@ -4114,7 +4145,7 @@ public class Logic {
             }
 
             @Override
-            protected Integer doInBackground(Void... params) {
+            protected Integer doInBackground(Void params) {
                 int result = 0;
                 try {
                     server.uploadTrack(track, description, tags, visibility);
@@ -4181,9 +4212,9 @@ public class Logic {
      * @param server current server configuration
      */
     public void checkForMail(@NonNull final FragmentActivity activity, @NonNull final Server server) {
-        new AsyncTask<Void, Void, Integer>() {
+        new ExecutorTask<Void, Void, Integer>(executorService, uiHandler) {
             @Override
-            protected Integer doInBackground(Void... params) {
+            protected Integer doInBackground(Void params) {
                 int result = 0;
 
                 UserDetails userDetails = server.getUserDetails();
@@ -5698,9 +5729,31 @@ public class Logic {
     }
 
     /**
-     * @return the prefs
+     * Get the Preferences instance held by this logic instance
+     * 
+     * @return the Preferences instance
      */
     public Preferences getPrefs() {
         return prefs;
+    }
+
+    /**
+     * Get the ExecutorService allocated when this instance of Logic was created
+     * 
+     * @return the executorService
+     */
+    @NonNull
+    public ExecutorService getExecutorService() {
+        return executorService;
+    }
+
+    /**
+     * Get the Handler allocated when this instance of Logic was created
+     * 
+     * @return the Handler
+     */
+    @NonNull
+    public Handler getHandler() {
+        return uiHandler;
     }
 }

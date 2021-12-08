@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.List;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.HapticFeedbackConstants;
@@ -34,6 +33,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.tasks.Note;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SerializableState;
 import de.blau.android.util.Snack;
@@ -288,9 +288,9 @@ public class EasyEditManager {
             if (currentActionModeCallback == null) {
                 Log.d(DEBUG_TAG, "Trying to restart " + restartActionModeCallbackName);
                 if (isRestartable(restartActionModeCallbackName)) {
-                    new AsyncTask<Void, Void, SerializableState>() {
+                    new ExecutorTask<Void, Void, SerializableState>(logic.getExecutorService(), logic.getHandler()) {
                         @Override
-                        protected SerializableState doInBackground(Void... params) {
+                        protected SerializableState doInBackground(Void param) {
                             return savingHelper.load(main, FILENAME, false, true, true);
                         }
 

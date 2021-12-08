@@ -51,9 +51,8 @@ class QueryPhoton extends Query {
     }
 
     @Override
-    protected List<SearchResult> doInBackground(String... params) {
+    protected List<SearchResult> doInBackground(String query) {
         List<SearchResult> result = new ArrayList<>();
-        String query = params[0];
         Uri.Builder builder = Uri.parse(url).buildUpon().appendPath("api").appendQueryParameter("q", query);
         if (bbox != null) {
             double lat = bbox.getCenterLat();

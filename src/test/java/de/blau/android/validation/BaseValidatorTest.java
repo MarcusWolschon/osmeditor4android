@@ -32,6 +32,7 @@ public class BaseValidatorTest {
      */
     @Test
     public void relationTest() {
+        Logic logic = App.newLogic();
         Validator v = App.getDefaultValidator(ApplicationProvider.getApplicationContext());
         StorageDelegator d = new StorageDelegator();
         OsmElementFactory factory = d.getFactory();
@@ -55,9 +56,9 @@ public class BaseValidatorTest {
      */
     @Test
     public void suppressedMissingTest() {
+        Logic logic = App.newLogic();
         // this needs a lot of setup as highway validation relies on a valid map object
         DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext()); 
-        Logic logic = App.newLogic();
         de.blau.android.Map map = new de.blau.android.Map(ApplicationProvider.getApplicationContext());
         logic.setMap(map, false);
         map.setPrefs(ApplicationProvider.getApplicationContext(), new Preferences(ApplicationProvider.getApplicationContext()));

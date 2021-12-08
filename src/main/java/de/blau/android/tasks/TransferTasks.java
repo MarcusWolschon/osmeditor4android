@@ -27,13 +27,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
@@ -49,6 +49,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Task.State;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.IssueAlert;
 import de.blau.android.util.SavingHelper;
@@ -99,7 +100,6 @@ public final class TransferTasks {
      * @param maxClosedAge maximum time in ms since a Note was closed
      * @param handler handler to run after the download if not null
      */
-    @SuppressWarnings("deprecation")
     public static void downloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final BoundingBox box, final boolean add,
             long maxClosedAge, @Nullable final PostAsyncActionHandler handler) {
 
@@ -107,10 +107,10 @@ public final class TransferTasks {
         final Preferences prefs = new Preferences(context);
 
         box.makeValidForApi();
-
-        new AsyncTask<Void, Void, Collection<Task>>() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Void, Void, Collection<Task>>(logic.getExecutorService(), logic.getHandler()) {
             @Override
-            protected Collection<Task> doInBackground(Void... params) {
+            protected Collection<Task> doInBackground(Void param) {
                 Log.d(DEBUG_TAG, "querying server for " + box);
                 Set<String> bugFilter = prefs.taskFilter();
                 Collection<Task> result = new ArrayList<>();
@@ -187,7 +187,8 @@ public final class TransferTasks {
                 }
             }
         }
-        new AsyncTask<Void, Void, Boolean>() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Void, Void, Boolean>(logic.getExecutorService(), logic.getHandler()) {
             @Override
             protected void onPreExecute() {
                 Progress.showDialog(activity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
@@ -195,7 +196,7 @@ public final class TransferTasks {
             }
 
             @Override
-            protected Boolean doInBackground(Void... params) {
+            protected Boolean doInBackground(Void param) {
                 boolean uploadFailed = false;
                 for (Task b : queryResult) {
                     if (b.hasBeenChanged()) {
@@ -245,14 +246,14 @@ public final class TransferTasks {
      * @param postUploadHandler if not null run this handler after update
      * @return true if successful
      */
-    @SuppressWarnings("deprecation")
     @SuppressLint("InlinedApi")
     public static boolean updateOsmoseBug(@NonNull final Context context, @NonNull final OsmoseBug b, final boolean quiet,
             @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "updateOsmoseBug");
-        AsyncTask<Void, Void, Boolean> a = new AsyncTask<Void, Void, Boolean>() {
+        Logic logic = App.getLogic();
+        ExecutorTask<Void, Void, Boolean> a = new ExecutorTask<Void, Void, Boolean>(logic.getExecutorService(), logic.getHandler()) {
             @Override
-            protected Boolean doInBackground(Void... params) {
+            protected Boolean doInBackground(Void param) {
                 return OsmoseServer.changeState(context, b);
             }
 
@@ -266,7 +267,7 @@ public final class TransferTasks {
             return a.get();
         } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
             Log.e(DEBUG_TAG, "updateOsmoseBug got " + e.getMessage());
-            a.cancel(true);
+            a.cancel();
         }
         return false;
     }
@@ -354,7 +355,6 @@ public final class TransferTasks {
      * @param postUploadHandler execute code after an upload
      * @return true if upload was successful
      */
-    @SuppressWarnings("deprecation")
     public static boolean uploadNote(@NonNull final FragmentActivity activity, @NonNull final Server server, @NonNull final Note note, final String comment,
             final boolean close, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "uploadNote");
@@ -365,8 +365,8 @@ public final class TransferTasks {
         if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
             return false;
         }
-
-        AsyncTask<Server, Void, UploadResult> ct = new AsyncTask<Server, Void, UploadResult>() {
+        Logic logic = App.getLogic();
+        ExecutorTask<Server, Void, UploadResult> ct = new ExecutorTask<Server, Void, UploadResult>(logic.getExecutorService(), logic.getHandler()) {
 
             boolean newNote; // needs to be determined before upload
 
@@ -377,7 +377,7 @@ public final class TransferTasks {
             }
 
             @Override
-            protected UploadResult doInBackground(Server... args) {
+            protected UploadResult doInBackground(Server args) {
                 return uploadNote(server, note, comment, close);
             }
 
@@ -415,7 +415,7 @@ public final class TransferTasks {
         } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
                                                                 // question
             Log.e(DEBUG_TAG, "uploadNote got " + e.getMessage());
-            ct.cancel(true);
+            ct.cancel();
             return false;
         }
     }
@@ -430,16 +430,16 @@ public final class TransferTasks {
      * @param postUploadHandler if not null run this handler after update
      * @return true if successful
      */
-    @SuppressWarnings("deprecation")
     @SuppressLint("InlinedApi")
     public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, @NonNull Server server, @NonNull final MapRouletteTask task,
             final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "updateMapRouletteTask");
         PostAsyncActionHandler restartAction = () -> {
             Log.d(DEBUG_TAG, "--- restarting");
-            new AsyncTask<Void, Void, Void>() {
+            Logic logic = App.getLogic();
+            new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
                 @Override
-                protected Void doInBackground(Void... params) {
+                protected Void doInBackground(Void param) {
                     Preferences prefs = new Preferences(activity);
                     updateMapRouletteTask(activity, prefs.getServer(), task, quiet, postUploadHandler);
                     return null;
@@ -455,10 +455,10 @@ public final class TransferTasks {
             activity.runOnUiThread(() -> MapRouletteApiKey.set(activity, server, true));
             return false;
         }
-
-        AsyncTask<Void, Void, Boolean> a = new AsyncTask<Void, Void, Boolean>() {
+        Logic logic = App.getLogic();
+        ExecutorTask<Void, Void, Boolean> a = new ExecutorTask<Void, Void, Boolean>(logic.getExecutorService(), logic.getHandler()) {
             @Override
-            protected Boolean doInBackground(Void... params) {
+            protected Boolean doInBackground(Void param) {
                 return MapRouletteServer.changeState(activity, apiKey, task);
             }
 
@@ -472,7 +472,7 @@ public final class TransferTasks {
             return a.get();
         } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
             Log.e(DEBUG_TAG, "updateMapRouletteTask got " + e.getMessage());
-            a.cancel(true);
+            a.cancel();
         }
         return false;
     }
@@ -485,7 +485,7 @@ public final class TransferTasks {
      * @param activity activity that called this
      * @param all if true write all notes, if false just those that have been modified
      * @param fileName file to write to
-     * @param postWrite handler to execute after the AsyncTask has finished
+     * @param postWrite handler to execute after the task has finished
      */
     public static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final String fileName,
             @Nullable final PostAsyncActionHandler postWrite) {
@@ -509,7 +509,7 @@ public final class TransferTasks {
             @NonNull IOException e) {
         Log.e(DEBUG_TAG, "Problem writing", e);
         if (postWrite != null) {
-            postWrite.onError();
+            postWrite.onError(null);
         }
         if (!activity.isFinishing()) {
             ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
@@ -524,7 +524,7 @@ public final class TransferTasks {
      * @param activity activity that called this
      * @param all if true write all notes, if false just those that have been modified
      * @param uri Uri to write to
-     * @param postWrite handler to execute after the AsyncTask has finished
+     * @param postWrite handler to execute after the task has finished
      */
     public static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final Uri uri,
             @Nullable final PostAsyncActionHandler postWrite) {
@@ -543,12 +543,12 @@ public final class TransferTasks {
      * @param activity activity that called this
      * @param all if true write all notes, if false just those that have been modified
      * @param out OutputStream to write to
-     * @param postWrite handler to execute after the AsyncTask has finished
+     * @param postWrite handler to execute after the task has finished
      */
-    @SuppressWarnings("deprecation")
     private static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final OutputStream out,
             @Nullable final PostAsyncActionHandler postWrite) {
-        new AsyncTask<Void, Void, Integer>() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Void, Void, Integer>(logic.getExecutorService(), logic.getHandler()) {
 
             @Override
             protected void onPreExecute() {
@@ -556,7 +556,7 @@ public final class TransferTasks {
             }
 
             @Override
-            protected Integer doInBackground(Void... arg) {
+            protected Integer doInBackground(Void arg) {
                 final List<Task> queryResult = App.getTaskStorage().getTasks();
                 int result = 0;
                 try {
@@ -620,11 +620,10 @@ public final class TransferTasks {
      * @param add if true the elements will be added to the existing ones, otherwise replaced
      * @param postLoad callback to execute once stream has been loaded
      */
-    @SuppressWarnings("deprecation")
     public static void readOsnFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, final boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
-
-        new AsyncTask<Boolean, Void, List<Note>>() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Boolean, Void, List<Note>>(logic.getExecutorService(), logic.getHandler()) {
 
             @Override
             protected void onPreExecute() {
@@ -632,7 +631,7 @@ public final class TransferTasks {
             }
 
             @Override
-            protected List<Note> doInBackground(Boolean... arg) {
+            protected List<Note> doInBackground(Boolean arg) {
                 OsnParser parser = null;
                 try (InputStream in = new BufferedInputStream(is)) {
                     parser = new OsnParser();
@@ -695,11 +694,10 @@ public final class TransferTasks {
      * @param add if true the elements will be added to the existing ones, otherwise replaced
      * @param postLoad callback to execute once stream has been loaded
      */
-    @SuppressWarnings("deprecation")
     public static void readCustomBugs(@NonNull final FragmentActivity activity, @NonNull final InputStream is, final boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
-
-        new AsyncTask<Boolean, Void, Collection<CustomBug>>() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Boolean, Void, Collection<CustomBug>>(logic.getExecutorService(), logic.getHandler()) {
 
             @Override
             protected void onPreExecute() {
@@ -707,7 +705,7 @@ public final class TransferTasks {
             }
 
             @Override
-            protected Collection<CustomBug> doInBackground(Boolean... arg) {
+            protected Collection<CustomBug> doInBackground(Boolean arg) {
                 try (InputStream in = new BufferedInputStream(is)) {
                     return CustomBug.parseBugs(is);
                 } catch (IllegalStateException | NumberFormatException | IOException e) {
@@ -738,7 +736,7 @@ public final class TransferTasks {
         Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
         if (tasks == null) {
             if (postLoad != null) {
-                postLoad.onError();
+                postLoad.onError(null);
             }
         } else {
             final TaskStorage bugs = App.getTaskStorage();
@@ -811,10 +809,10 @@ public final class TransferTasks {
      * @param fileOut OutputStream to write to
      * @param postWrite call this when finished
      */
-    @SuppressWarnings("deprecation")
     private static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final OutputStream fileOut,
             @Nullable final PostAsyncActionHandler postWrite) {
-        new AsyncTask<Void, Void, Integer>() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Void, Void, Integer>(logic.getExecutorService(), logic.getHandler()) {
 
             @Override
             protected void onPreExecute() {
@@ -822,7 +820,7 @@ public final class TransferTasks {
             }
 
             @Override
-            protected Integer doInBackground(Void... arg) {
+            protected Integer doInBackground(Void arg) {
                 final List<Task> queryResult = App.getTaskStorage().getTasks();
                 int result = 0;
                 try (final OutputStream out = new BufferedOutputStream(fileOut)) {
@@ -931,7 +929,7 @@ public final class TransferTasks {
                 result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
             }
             if (postWrite != null) {
-                postWrite.onError();
+                postWrite.onError(null);
             }
             if (!activity.isFinishing()) {
                 ErrorAlert.showDialog(activity, result);
@@ -962,7 +960,7 @@ public final class TransferTasks {
             }
         } else {
             if (postUploadHandler != null) {
-                postUploadHandler.onError();
+                postUploadHandler.onError(null);
             }
             if (!quiet) {
                 Snack.toastTopError(context, R.string.openstreetbug_commit_fail);

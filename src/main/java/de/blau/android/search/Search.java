@@ -3,7 +3,6 @@ package de.blau.android.search;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
-import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -21,6 +20,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.search.Wrapper.SearchResult;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Snack;
 
 /**
@@ -57,7 +57,7 @@ public final class Search {
                     if ("".equals(text)) {
                         return;
                     }
-                    new AsyncTask<Void, Void, String>() {
+                    new ExecutorTask<Void, Void, String>(logic.getExecutorService(), logic.getHandler()) {
                         SearchResult result;
 
                         @Override
@@ -66,7 +66,7 @@ public final class Search {
                         }
 
                         @Override
-                        protected String doInBackground(Void... params) {
+                        protected String doInBackground(Void param) {
                             Condition condition = null;
                             try {
                                 JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(text.getBytes()));

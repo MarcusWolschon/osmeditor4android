@@ -6,14 +6,10 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -719,52 +715,6 @@ public final class TaginfoServer {
             return result;
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "querySync got exception " + e.getMessage());
-        }
-        return null;
-    }
-
-    /**
-     * Query a taginfo server in the background
-     * 
-     * @param context Android Context
-     * @param url the url to query
-     * @param resultReader the ResultReader instance to use
-     * @param handler a handler to call after the download or null
-     * @return an Object that has to be cast to the correct type, or null is something seriously went wrong
-     */
-    @Nullable
-    public static Object queryAsync(@Nullable final Context context, @NonNull final String url, @NonNull final ResultReader resultReader,
-            @Nullable final PostAsyncActionHandler handler) {
-        AsyncTask<Void, Void, Object> list = new AsyncTask<Void, Void, Object>() {
-            @Override
-            protected Object doInBackground(Void... params) {
-                Log.d(DEBUG_TAG, "querying server for " + url);
-                try (InputStream is = Server.openConnection(context, new URL(url), 1000, 1000); JsonReader reader = new JsonReader(new InputStreamReader(is))) {
-                    return resultReader.read(reader);
-                } catch (IOException e) {
-                    Log.e(DEBUG_TAG, "queryAsync got exception " + e.getMessage());
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Object result) {
-                if (result == null) {
-                    Log.d(DEBUG_TAG, "no result found");
-                    return;
-                }
-                if (handler != null) {
-                    handler.onSuccess();
-                }
-            }
-        };
-        list.execute();
-        try {
-            return list.get(5, TimeUnit.SECONDS);
-        } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt the
-                                                                                   // thread in question
-            Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
-            list.cancel(true);
         }
         return null;
     }

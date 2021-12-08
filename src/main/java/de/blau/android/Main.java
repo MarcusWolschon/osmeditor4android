@@ -37,7 +37,6 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.nfc.Tag;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -163,6 +162,7 @@ import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.BadgeDrawable;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.DownloadActivity;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.FullScreenAppCompatActivity;
 import de.blau.android.util.GeoMath;
@@ -2171,9 +2171,9 @@ public class Main extends FullScreenAppCompatActivity
             if (server.hasOpenChangeset()) {
                 // fail silently if it doesn't work, next upload will open a new
                 // changeset in any case
-                new AsyncTask<Void, Integer, Void>() {
+                new ExecutorTask<Void, Integer, Void>(logic.getExecutorService(), logic.getHandler()) {
                     @Override
-                    protected Void doInBackground(Void... params) {
+                    protected Void doInBackground(Void param) {
                         try {
                             server.closeChangeset();
                         } catch (IOException e) {
@@ -2384,7 +2384,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_tools_update_imagery_configuration:
         case R.id.menu_tools_update_imagery_configuration_eli:
-            new AsyncTask<Void, Void, Void>() {
+            new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
                 TileLayerDatabase db = new TileLayerDatabase(Main.this);
 
                 @Override
@@ -2393,7 +2393,7 @@ public class Main extends FullScreenAppCompatActivity
                 }
 
                 @Override
-                protected Void doInBackground(Void... params) {
+                protected Void doInBackground(Void param) {
                     try {
                         TileLayerSource.updateImagery(Main.this, db.getWritableDatabase(),
                                 item.getItemId() == R.id.menu_tools_update_imagery_configuration_eli);

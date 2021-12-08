@@ -16,7 +16,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,11 +29,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.cursoradapter.widget.CursorAdapter;
 import androidx.fragment.app.FragmentActivity;
+import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.resources.WmsCapabilities.Layer;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 
@@ -119,14 +121,15 @@ public class WmsEndpointDatabaseView {
             view.setOnClickListener(v -> {
                 Integer idTag = (Integer) view.getTag();
                 final TileLayerSource endpoint = TileLayerDatabase.getLayerWithRowId(activity, db, idTag);
-                new AsyncTask<Void, Integer, WmsCapabilities>() {
+                Logic logic = App.getLogic();
+                new ExecutorTask<Void, Integer, WmsCapabilities>(logic.getExecutorService(), logic.getHandler()) {
                     @Override
                     protected void onPreExecute() {
                         Progress.showDialog(activity, Progress.PROGRESS_DOWNLOAD);
                     }
 
                     @Override
-                    protected WmsCapabilities doInBackground(Void... params) {
+                    protected WmsCapabilities doInBackground(Void params) {
                         String url = Util.appendQuery(sanitize(endpoint.getTileUrl()), "request=GetCapabilities&service=wms");
                         try (InputStream is = Server.openConnection(activity, new URL(url))) {
                             return new WmsCapabilities(is);

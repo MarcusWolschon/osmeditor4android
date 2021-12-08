@@ -1,7 +1,6 @@
 package de.blau.android.tasks;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
@@ -22,6 +22,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.tasks.OsmoseMeta.OsmoseClass;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Snack;
@@ -112,9 +113,10 @@ public class BugFragment extends TaskFragment {
                     OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
                     if (osmoseClass == null) {
                         if (new NetworkStatus(context).isConnected()) {
-                            new AsyncTask<Void, Void, Void>() {
+                            Logic logic = App.getLogic();
+                            new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
                                 @Override
-                                protected Void doInBackground(Void... arg0) {
+                                protected Void doInBackground(Void arg0) {
                                     OsmoseServer.getMeta(context, itemId, classId);
                                     return null;
                                 }

@@ -23,7 +23,6 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.SystemClock;
 import android.provider.DocumentsContract;
@@ -47,6 +46,7 @@ import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.ApiTest;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.layers.MapTilesLayer;
@@ -1002,7 +1002,7 @@ public class TestUtils {
     public static void injectLocation(@NonNull final Context context, @NonNull final List<TrackPoint> track, final int providerCriteria, final int interval,
             @Nullable final SignalHandler handler) {
 
-        new AsyncTask<Void, Void, Void>() {
+        new ExecutorTask<Void, Void, Void>() {
             String          provider        = "none";
             LocationManager locationManager = null;
 
@@ -1019,7 +1019,7 @@ public class TestUtils {
             }
 
             @Override
-            protected Void doInBackground(Void... arg) {
+            protected Void doInBackground(Void arg) {
                 Location loc = new Location(provider);
                 loc.setAccuracy(5.0f);
                 for (TrackPoint tp : track) {

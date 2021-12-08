@@ -1,6 +1,7 @@
 package de.blau.android.prefs;
 
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -8,8 +9,8 @@ import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,11 +21,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import de.blau.android.App;
 import de.blau.android.Authorize;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.net.OAuthHelper;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Snack;
 import oauth.signpost.exception.OAuthException;
 
@@ -177,15 +181,25 @@ public class VespucciURLActivity extends LocaleAwareCompatActivity implements On
      * @throws ExecutionException
      */
     private void oAuthHandshake(@NonNull String verifier) throws OAuthException, TimeoutException, ExecutionException {
-        String[] s = { verifier };
-        class OAuthAccessTokenTask extends AsyncTask<String, Void, Boolean> {
+
+        class OAuthAccessTokenTask extends ExecutorTask<String, Void, Boolean> {
             private OAuthException ex = null;
 
+            /**
+             * Create a new instance
+             * 
+             * @param executorService the ExcutorService to use
+             * @param handler the Handler to use
+             */
+            OAuthAccessTokenTask(@NonNull ExecutorService executorService, @NonNull Handler handler) {
+                super(executorService, handler);
+            }
+
             @Override
-            protected Boolean doInBackground(String... s) {
+            protected Boolean doInBackground(String verifier) {
                 OAuthHelper oa = new OAuthHelper(); // if we got here it has already been initialized once
                 try {
-                    String[] access = oa.getAccessToken(s[0]);
+                    String[] access = oa.getAccessToken(verifier);
                     prefdb.setAPIAccessToken(access[0], access[1]);
                 } catch (OAuthException e) {
                     Log.d(DEBUG_TAG, "oAuthHandshake: " + e);
@@ -213,8 +227,9 @@ public class VespucciURLActivity extends LocaleAwareCompatActivity implements On
             }
         }
 
-        OAuthAccessTokenTask requester = new OAuthAccessTokenTask();
-        requester.execute(s);
+        Logic logic = App.getLogic();
+        OAuthAccessTokenTask requester = new OAuthAccessTokenTask(logic.getExecutorService(), logic.getHandler());
+        requester.execute(verifier);
         try {
             if (Boolean.FALSE.equals(requester.get(60, TimeUnit.SECONDS))) {
                 OAuthException ex = requester.getException();
@@ -223,7 +238,7 @@ public class VespucciURLActivity extends LocaleAwareCompatActivity implements On
                 }
             }
         } catch (InterruptedException e) { // NOSONAR cancel does interrupt the thread in question
-            requester.cancel(true);
+            requester.cancel();
             throw new TimeoutException(e.getMessage());
         }
     }

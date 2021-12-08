@@ -1,6 +1,5 @@
 package de.blau.android.dialogs;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -11,9 +10,11 @@ import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
@@ -96,25 +97,27 @@ public class TooMuchData extends ImmersiveDialogFragment {
         builder.setMessage(getString(R.string.too_much_data_message, nodeCount));
         if (activity instanceof Main) {
             builder.setPositiveButton(R.string.upload_data_now, (dialog, which) -> ((Main) activity).confirmUpload(null));
-            builder.setNegativeButton(R.string.prune_data_now, (dialog, which) -> new AsyncTask<Void, Void, Void>() {
-                @Override
-                protected void onPreExecute() {
-                    Progress.showDialog(activity, Progress.PROGRESS_PRUNING);
-                }
+            Logic logic = App.getLogic();
+            builder.setNegativeButton(R.string.prune_data_now,
+                    (dialog, which) -> new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
+                        @Override
+                        protected void onPreExecute() {
+                            Progress.showDialog(activity, Progress.PROGRESS_PRUNING);
+                        }
 
-                @Override
-                protected Void doInBackground(Void... arg) {
-                    ViewBox pruneBox = new ViewBox(App.getLogic().getViewBox());
-                    pruneBox.scale(1.1);
-                    App.getDelegator().prune(pruneBox);
-                    return null;
-                }
+                        @Override
+                        protected Void doInBackground(Void arg) {
+                            ViewBox pruneBox = new ViewBox(App.getLogic().getViewBox());
+                            pruneBox.scale(1.1);
+                            App.getDelegator().prune(pruneBox);
+                            return null;
+                        }
 
-                @Override
-                protected void onPostExecute(Void result) {
-                    Progress.dismissDialog(activity, Progress.PROGRESS_PRUNING);
-                }
-            }.execute());
+                        @Override
+                        protected void onPostExecute(Void result) {
+                            Progress.dismissDialog(activity, Progress.PROGRESS_PRUNING);
+                        }
+                    }.execute());
         }
 
         builder.setNeutralButton(R.string.cancel, null);

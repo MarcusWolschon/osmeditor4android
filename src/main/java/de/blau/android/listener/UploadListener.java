@@ -91,12 +91,11 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
                 if (hasDataChanges || hasBugChanges) {
                     if (hasDataChanges) {
                         logic.upload(caller, getString(commentField), getString(sourceField), closeOpenChangeset != null && closeOpenChangeset.isChecked(),
-                                closeChangeset.isChecked(), extraTags, elements);
+                                closeChangeset.isChecked(), extraTags, elements, () -> logic.checkForMail(caller, server));
                     }
                     if (hasBugChanges) {
                         TransferTasks.upload(caller, server, null);
                     }
-                    logic.checkForMail(caller, server);
                 } else {
                     Snack.barInfo(caller, R.string.toast_no_changes);
                 }

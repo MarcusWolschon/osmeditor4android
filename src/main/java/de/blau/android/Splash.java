@@ -11,7 +11,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteException;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +23,7 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 
 /**
@@ -57,7 +57,7 @@ public class Splash extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d(DEBUG_TAG, "onResume");
-        new AsyncTask<Void, Void, Void>() {
+        new ExecutorTask<Void, Void, Void>() {
 
             TileLayerDatabase db = new TileLayerDatabase(Splash.this);
             boolean           newInstall;
@@ -65,7 +65,7 @@ public class Splash extends AppCompatActivity {
             boolean           migratePublicDirectory;
 
             @Override
-            protected Void doInBackground(Void... params) {
+            protected Void doInBackground(Void param) {
                 Log.d(DEBUG_TAG, "doInBackGround");
                 Log.d(DEBUG_TAG, "checking last tile source update");
                 long lastDatabaseUpdate = 0;
@@ -75,7 +75,7 @@ public class Splash extends AppCompatActivity {
                 } catch (SQLiteException sex) {
                     if (sex instanceof SQLiteDatabaseLockedException) {
                         Log.e(DEBUG_TAG, "tile layer database is locked");
-                        cancel(true);
+                        cancel();
                     }
                 }
                 Log.d(DEBUG_TAG, "checking last package update");

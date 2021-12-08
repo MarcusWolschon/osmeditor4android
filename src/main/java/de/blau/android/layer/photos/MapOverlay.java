@@ -2,6 +2,7 @@ package de.blau.android.layer.photos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -9,14 +10,15 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.AsyncTask.Status;
 import android.os.Build;
+import android.os.Handler;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
@@ -32,6 +34,7 @@ import de.blau.android.photos.PhotoViewerFragment;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
 import de.blau.android.views.IMapView;
@@ -79,16 +82,29 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
     /** last selected photo, may not be still displayed */
     private Photo selected = null;
 
-    /**
-     * Request to update the bugs for the current view. Ensure cur is set before invoking.
-     */
-    private final AsyncTask<PostAsyncActionHandler, Integer, Void> indexPhotos = new AsyncTask<PostAsyncActionHandler, Integer, Void>() {
+    private PhotoIndexer indexer;
 
-        PostAsyncActionHandler handler;
+    /**
+     * Update the photo index
+     */
+    private class PhotoIndexer extends ExecutorTask<PostAsyncActionHandler, Integer, Void> {
+
+        private PostAsyncActionHandler handler;
+
+        /**
+         * Create a new indexer
+         * 
+         * @param executorService the ExecutorService to use
+         * @param uiHandler the Hander for the mail looper
+         * @param handler code to call after indexing
+         */
+        PhotoIndexer(@NonNull ExecutorService executorService, @NonNull Handler uiHandler) {
+            super(executorService, uiHandler);
+        }
 
         @Override
-        protected Void doInBackground(PostAsyncActionHandler... params) {
-            handler = params[0];
+        protected Void doInBackground(PostAsyncActionHandler handler) {
+            this.handler = handler;
             if (!indexing) {
                 indexing = true;
                 publishProgress(0);
@@ -102,22 +118,21 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
         }
 
         @Override
-        protected void onProgressUpdate(Integer... progress) {
-            if (progress[0] == 0) {
+        protected void onProgress(Integer progress) {
+            if (progress == 0) {
                 Snack.barInfoShort(map, R.string.toast_photo_indexing_started);
-            }
-            if (progress[0] == 1) {
+            } else if (progress == 1) {
                 Snack.barInfoShort(map, R.string.toast_photo_indexing_finished);
             }
         }
 
         @Override
-        protected void onPostExecute(Void params) {
+        protected void onPostExecute(Void param) {
             if (handler != null) {
                 handler.onSuccess();
             }
         }
-    };
+    }
 
     /**
      * Construct a new photo layer
@@ -135,6 +150,8 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
         h2 = icon.getIntrinsicHeight() / 2;
 
         pi = new PhotoIndex(context);
+        Logic logic = App.getLogic();
+        indexer = new PhotoIndexer(logic.getExecutorService(), logic.getHandler());
     }
 
     @Override
@@ -145,8 +162,8 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
         if (isVisible) {
-            if (!indexed && !indexing && indexPhotos.getStatus() != Status.RUNNING) {
-                indexPhotos.execute((PostAsyncActionHandler) () -> {
+            if (!indexed && !indexing && !indexer.isExecuting()) {
+                indexer.execute((PostAsyncActionHandler) () -> {
                     if (indexed) {
                         map.invalidate();
                     }
@@ -306,8 +323,8 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
      * @param handler handler to run after the index has been created
      */
     public void createIndex(@Nullable PostAsyncActionHandler handler) {
-        if (!indexed && !indexing && indexPhotos.getStatus() != Status.RUNNING) {
-            indexPhotos.execute(handler);
+        if (!indexed && !indexing && !indexer.isExecuting()) {
+            indexer.execute(handler);
         }
     }
 
