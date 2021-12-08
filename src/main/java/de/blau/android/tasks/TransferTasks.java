@@ -62,7 +62,7 @@ public final class TransferTasks {
     public static final String MAPROULETTE_APIKEY_V2 = "maproulette_apikey_v2";
 
     /** Maximum closed age to display: 7 days. */
-    private static final long MAX_CLOSED_AGE = 7L * 24L * 60L * 60L * 1000L;
+    public static final long MAX_CLOSED_AGE = 7L * 24L * 60L * 60L * 1000L;
 
     /** maximum of tasks per request */
     private static final int MAX_PER_REQUEST = 1000;
@@ -77,21 +77,7 @@ public final class TransferTasks {
     /**
      * Download tasks for a bounding box, actual requests will depend on what the current filter for tasks is set to
      * 
-     * Will not load Notes and Bugs that have been closed for more than a week
-     * 
-     * @param context Android context
-     * @param server current server configuration
-     * @param box the bounding box
-     * @param add if true merge the download with existing task data
-     * @param handler handler to run after the download if not null
-     */
-    public static void downloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final BoundingBox box, final boolean add,
-            @Nullable final PostAsyncActionHandler handler) {
-        downloadBox(context, server, box, add, MAX_CLOSED_AGE, handler);
-    }
-
-    /**
-     * Download tasks for a bounding box, actual requests will depend on what the current filter for tasks is set to
+     * Executed in background thread
      * 
      * @param context Android context
      * @param server current server configuration
@@ -112,57 +98,69 @@ public final class TransferTasks {
             @Override
             protected Collection<Task> doInBackground(Void param) {
                 Log.d(DEBUG_TAG, "querying server for " + box);
-                Set<String> bugFilter = prefs.taskFilter();
-                Collection<Task> result = new ArrayList<>();
-                Collection<Note> noteResult = null;
-                Resources r = context.getResources();
-                if (bugFilter.contains(r.getString(R.string.bugfilter_notes))) {
-                    noteResult = server.getNotesForBox(box, MAX_PER_REQUEST);
-                }
-                if (noteResult != null) {
-                    result.addAll(noteResult);
-                }
-                Collection<OsmoseBug> osmoseResult = null;
-                if (bugFilter.contains(r.getString(R.string.bugfilter_osmose_error)) || bugFilter.contains(r.getString(R.string.bugfilter_osmose_warning))
-                        || bugFilter.contains(r.getString(R.string.bugfilter_osmose_minor_issue))) {
-                    osmoseResult = OsmoseServer.getBugsForBox(context, box, MAX_PER_REQUEST);
-                }
-                if (osmoseResult != null) {
-                    result.addAll(osmoseResult);
-                }
-                Collection<MapRouletteTask> mapRouletteResult = null;
-                if (bugFilter.contains(r.getString(R.string.bugfilter_maproulette))) {
-                    mapRouletteResult = MapRouletteServer.getTasksForBox(context, box, MAX_PER_REQUEST);
-                }
-                if (mapRouletteResult != null) {
-                    result.addAll(mapRouletteResult);
-                    Map<Long, MapRouletteChallenge> challenges = bugs.getChallenges();
-                    for (Entry<Long, MapRouletteChallenge> entry : challenges.entrySet()) {
-                        if (entry.getValue() == null) {
-                            challenges.put(entry.getKey(), MapRouletteServer.getChallenge(context, entry.getKey()));
-                        }
-                    }
-                }
-                return result;
+                return downloadBoxSync(context, server, box, add, bugs, prefs.taskFilter(), maxClosedAge);
             }
 
             @Override
             protected void onPostExecute(Collection<Task> result) {
-                if (result == null) {
-                    Log.d(DEBUG_TAG, "no bugs found");
-                    return;
-                }
-                if (!add) {
-                    Log.d(DEBUG_TAG, "resetting bug storage");
-                    bugs.reset();
-                }
                 bugs.addBoundingBox(box);
-                merge(context, bugs, result);
                 if (handler != null) {
                     handler.onSuccess();
                 }
             }
         }.execute();
+    }
+
+    /**
+     * Download tasks for a bounding box, actual requests will depend on what the current filter for tasks is set to
+     * 
+     * @param context Android context
+     * @param server current server configuration
+     * @param box the bounding box
+     * @param add if true merge the download with existing task data
+     * @param bugFilter Strings indicating which tasks to download
+     * @param maxClosedAge maximum time in ms since a Note was closed
+     * @return any tasks found in the BoundingBox
+     */
+    @NonNull 
+    public static Collection<Task> downloadBoxSync(final Context context, final Server server, final BoundingBox box, final boolean add, final TaskStorage bugs,
+            final Set<String> bugFilter, long maxClosedAge) {
+        Collection<Task> result = new ArrayList<>();
+        Collection<Note> noteResult = null;
+        Resources r = context.getResources();
+        if (bugFilter.contains(r.getString(R.string.bugfilter_notes))) {
+            noteResult = server.getNotesForBox(box, maxClosedAge);
+        }
+        if (noteResult != null) {
+            result.addAll(noteResult);
+        }
+        Collection<OsmoseBug> osmoseResult = null;
+        if (bugFilter.contains(r.getString(R.string.bugfilter_osmose_error)) || bugFilter.contains(r.getString(R.string.bugfilter_osmose_warning))
+                || bugFilter.contains(r.getString(R.string.bugfilter_osmose_minor_issue))) {
+            osmoseResult = OsmoseServer.getBugsForBox(context, box, MAX_PER_REQUEST);
+        }
+        if (osmoseResult != null) {
+            result.addAll(osmoseResult);
+        }
+        Collection<MapRouletteTask> mapRouletteResult = null;
+        if (bugFilter.contains(r.getString(R.string.bugfilter_maproulette))) {
+            mapRouletteResult = MapRouletteServer.getTasksForBox(context, box, MAX_PER_REQUEST);
+        }
+        if (mapRouletteResult != null) {
+            result.addAll(mapRouletteResult);
+            Map<Long, MapRouletteChallenge> challenges = bugs.getChallenges();
+            for (Entry<Long, MapRouletteChallenge> entry : challenges.entrySet()) {
+                if (entry.getValue() == null) {
+                    challenges.put(entry.getKey(), MapRouletteServer.getChallenge(context, entry.getKey()));
+                }
+            }
+        }
+        if (!add) {
+            Log.d(DEBUG_TAG, "resetting bug storage");
+            bugs.reset();
+        }
+        merge(context, bugs, result);
+        return result;
     }
 
     /**

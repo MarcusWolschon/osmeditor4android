@@ -1247,7 +1247,7 @@ public class Main extends FullScreenAppCompatActivity
     public void downLoadBugs(BoundingBox bbox) {
         if (isConnected()) { // don't try if we are not connected
             Progress.showDialog(this, Progress.PROGRESS_DOWNLOAD);
-            TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, new PostAsyncActionHandler() {
+            TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, TransferTasks.MAX_CLOSED_AGE, new PostAsyncActionHandler() {
                 @Override
                 public void onSuccess() {
                     Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
