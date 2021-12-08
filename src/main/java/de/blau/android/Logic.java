@@ -129,10 +129,10 @@ import de.blau.android.validation.Validator;
  * @author Simon Poole
  */
 public class Logic {
-
-    private static final String METHOD_UPLOAD = "upload";
-
     private static final String DEBUG_TAG = Logic.class.getSimpleName();
+
+    private static final int    EXECUTOR_THREADS = 4;
+    private static final String METHOD_UPLOAD    = "upload";
 
     /**
      * Enums for directions. Used for translation via cursor-pad.
@@ -340,7 +340,7 @@ public class Logic {
         viewBox = new ViewBox(getDelegator().getLastBox());
         mode = Mode.MODE_EASYEDIT;
         setLocked(true);
-        executorService = Executors.newFixedThreadPool(4);
+        executorService = Executors.newFixedThreadPool(EXECUTOR_THREADS);
         uiHandler = new Handler(Looper.getMainLooper());
     }
 
