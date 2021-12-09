@@ -15,6 +15,7 @@ import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
+import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -27,6 +28,9 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.search.Search;
+import de.blau.android.util.BentleyOttmannForOsm;
+import de.blau.android.util.Coordinates;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
@@ -39,6 +43,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     private static final int MENUITEM_RELATION             = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 2;
     private static final int MENUITEM_ADD_RELATION_MEMBERS = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 3;
     private static final int MENUITEM_ORTHOGONALIZE        = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 4;
+    private static final int MENUITEM_INTERSECT            = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 5;
     private static final int MENUITEM_UPLOAD               = 31;
     private static final int MENUITEM_ZOOM_TO_SELECTION    = 34;
     private static final int MENUITEM_SEARCH_OBJECTS       = 35;
@@ -54,6 +59,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     private MenuItem mergeItem;
     private MenuItem orthogonalizeItem;
     private MenuItem uploadItem;
+    private MenuItem intersectItem;
 
     /**
      * Construct an Multi-Select actionmode from a List of OsmElements
@@ -177,6 +183,8 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         orthogonalizeItem = menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_ortho));
 
+        intersectItem = menu.add(Menu.NONE, MENUITEM_INTERSECT, Menu.NONE, R.string.menu_add_node_at_intersection);
+
         menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
         menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
 
@@ -210,6 +218,8 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
 
         List<Way> selectedWays = logic.getSelectedWays();
         updated |= ElementSelectionActionModeCallback.setItemVisibility(selectedWays != null && !selectedWays.isEmpty(), orthogonalizeItem, false);
+
+        updated |= ElementSelectionActionModeCallback.setItemVisibility(intersect(selectedWays), intersectItem, false);
 
         boolean changedElementsSelected = false;
         for (OsmElement e : selection) {
@@ -246,10 +256,10 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     }
 
     /**
-     * Check if the current selection are cloased ways
+     * Check if the current selection are closed ways
      * 
      * @param selection the current selection
-     * @return true if they are all cloased ways
+     * @return true if they are all closed ways
      */
     private boolean canMergePolygons(@NonNull List<OsmElement> selection) {
         for (OsmElement e : selection) {
@@ -304,6 +314,9 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                     mergeWays();
                 }
                 break;
+            case MENUITEM_INTERSECT:
+                intersectWays();
+                break;
             case MENUITEM_ZOOM_TO_SELECTION:
                 main.zoomTo(selection);
                 main.invalidateMap();
@@ -334,7 +347,45 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     }
 
     /**
-     * Qrthogonalize any selected Ways
+     * Check if the current selection are ways that can be intersected
+     * 
+     * @param ways the current selected ways
+     * @return true if the ways intersect
+     */
+    private boolean intersect(@Nullable List<Way> ways) {
+        if (ways != null && !ways.isEmpty()) {
+            List<Coordinates> intersections = BentleyOttmannForOsm.findIntersections(ways);
+            return !intersections.isEmpty();
+        }
+        return false;
+    }
+
+    private void intersectWays() {
+        List<Way> ways = logic.getSelectedWays();
+        if (ways != null && !ways.isEmpty()) {            
+            List<Coordinates> intersections = BentleyOttmannForOsm.findIntersections(ways);           
+            if (!intersections.isEmpty()) {
+                Map map = logic.getMap();
+                int width = map.getWidth();
+                float x = GeoMath.lonToX(width, logic.getViewBox(), intersections.get(0).x);
+                int height = map.getHeight();
+                float y = GeoMath.latMercatorToY(height, width, logic.getViewBox(), intersections.get(0).y);
+                Node node = logic.performAddOnWay(main, ways, x, y, false);
+                if (node != null) {
+                    List<Way> waysWithNode = logic.getWaysForNode(node);
+                    selection.removeAll(waysWithNode);
+                    logic.performJoinNodeToWays(main, selection, node);
+                    main.zoomTo(node);
+                    main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
+                } else {
+                    Snack.toastTopError(main, R.string.toast_no_intersection_found);
+                }
+            }
+        }
+    }
+
+    /**
+     * Orthogonalize any selected Ways
      */
     private void orthogonalizeWays() {
         List<Way> selectedWays = logic.getSelectedWays();

@@ -3,6 +3,7 @@ package de.blau.android.util;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import bentleyottmann.IPoint;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.ViewBox;
 
@@ -12,7 +13,7 @@ import de.blau.android.osm.ViewBox;
  * @author simon
  *
  */
-public class Coordinates {
+public class Coordinates implements IPoint {
 
     public double x; // NOSONAR
     public double y; // NOSONAR
@@ -113,12 +114,11 @@ public class Coordinates {
         // loop over all nodes
         for (int i = 0; i < size; i++) {
             Node node = nodes.get(i);
-            points[i] = new Coordinates(node.getLon()/1E7D, GeoMath.latE7ToMercator(node.getLat()));
+            points[i] = new Coordinates(node.getLon() / 1E7D, GeoMath.latE7ToMercator(node.getLat()));
         }
         return points;
     }
 
-    
     /**
      * Convert the coordinates from a Node to screen coordinates
      * 
@@ -213,5 +213,20 @@ public class Coordinates {
             return false;
         }
         return Double.doubleToLongBits(y) == Double.doubleToLongBits(other.y);
+    }
+
+    @Override
+    public double x() {
+        return x;
+    }
+
+    @Override
+    public double y() {
+        return y;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + Double.toString(x) + "," + Double.toString(y) + "]";
     }
 }
