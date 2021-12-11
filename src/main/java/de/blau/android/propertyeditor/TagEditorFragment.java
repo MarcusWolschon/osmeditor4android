@@ -393,6 +393,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     }
                 }
             }
+        } else {
+            updateAutocompletePresetItem(editRowLayout, null, false);
         }
         // this needs to happen -after- the preset has been applied
         if (applyLastAddressTags) {
