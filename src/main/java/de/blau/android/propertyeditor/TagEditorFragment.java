@@ -1815,7 +1815,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         boolean replacedValue = false;
 
-        // Fixed tags, always have a value. We overwrite mercilessly.
+        // Existing tags with the same key will be overwritten
         for (Entry<String, String> tag : newTags.entrySet()) {
             List<String> oldValue = currentValues.put(tag.getKey(), Util.wrapInList(tag.getValue()));
             if (oldValue != null && !oldValue.isEmpty() && !oldValue.contains(tag.getValue())) {
@@ -1825,7 +1825,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         loadEdits(currentValues, false);
         if (replacedValue) {
-            Snack.barWarning(getActivity(), R.string.toast_preset_overwrote_tags);
+            Snack.barWarning(getActivity(), R.string.toast_merge_overwrote_tags);
         }
         focusOnEmptyValue();
     }
@@ -1872,7 +1872,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         ensureEmptyRow(rowLayout);
 
         if (replacedValue) {
-            Snack.barWarning(getActivity(), R.string.toast_preset_overwrote_tags);
+            Snack.barWarning(getActivity(), R.string.toast_merge_overwrote_tags);
         }
         focusOnEmptyValue();
     }
