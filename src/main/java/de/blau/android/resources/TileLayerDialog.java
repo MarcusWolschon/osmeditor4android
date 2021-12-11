@@ -22,8 +22,10 @@ import androidx.fragment.app.FragmentActivity;
 import ch.poole.android.numberpicker.library.NumberPicker;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.layer.LayerConfig;
 import de.blau.android.layer.LayerType;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.Provider;
@@ -292,6 +294,7 @@ public class TileLayerDialog {
                     Snack.toastTopError(activity, R.string.toast_url_empty);
                     moan = true;
                 }
+
                 if (isOverlay && (tileUrl.contains(WmsCapabilities.IMAGE_JPEG) || tileUrl.contains(".jpg"))) {
                     Snack.toastTopError(activity, R.string.toast_jpeg_not_transparent);
                     moan = true;
@@ -301,11 +304,15 @@ public class TileLayerDialog {
                     moan = true;
                 }
                 int tileSize = tileSizePicker.getValue();
-
                 if (moan) { // abort and leave the dialog intact
                     return false;
                 }
                 try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
+                    TileLayerSource existing = TileLayerDatabase.getLayerWithUrl(activity, db, tileUrl);
+                    if (existing != null) {
+                        Snack.toastTopError(activity, activity.getString(R.string.toast_tile_layer_exists, existing.getName()));
+                        return false;
+                    }
                     TileLayerSource.addOrUpdateCustomLayer(activity, db, layerId, existingLayer, finalStartDate, finalEndDate, name, provider, category, null,
                             mvtInMBT[0] ? TileType.MVT : null, minZoom, maxZoom, tileSize, isOverlay, tileUrl);
                 }
@@ -330,7 +337,9 @@ public class TileLayerDialog {
             @Override
             public void onClick(View v) {
                 if (save()) {
-                    de.blau.android.layer.Util.addLayer(activity, isOverlay ? LayerType.OVERLAYIMAGERY : LayerType.IMAGERY, layerId);
+                    try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
+                        de.blau.android.layer.Util.addImageryLayer(db, db.getLayers(), isOverlay, layerId);
+                    }
                     if (onUpdate != null) {
                         onUpdate.update();
                     }

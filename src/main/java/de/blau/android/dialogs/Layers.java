@@ -933,16 +933,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     Log.e(DEBUG_TAG, "setNewImagery tile source null");
                 }
             } else if (tileSource != null) {
-                // determine the position to insert the layer at,
-                // essentially on top of the latest layer of the same type
-                final LayerType layerType = tileSource.isOverlay() ? LayerType.OVERLAYIMAGERY : LayerType.IMAGERY;
-                int position = 0;
-                for (LayerConfig config : layerConfigs) {
-                    if (layerType.equals(config.getType()) && config.getPosition() >= position) {
-                        position = config.getPosition() + 1;
-                    }
-                }
-                db.insertLayer(position, layerType, true, tileSource.getId());
+                de.blau.android.layer.Util.addImageryLayer(db, layerConfigs, tileSource.isOverlay(), tileSource.getId());
                 App.getLogic().getMap().invalidate();
             } else {
                 Log.e(DEBUG_TAG, "setNewImagery both layer and tile source null");
