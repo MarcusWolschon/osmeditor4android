@@ -17,6 +17,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -71,6 +72,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.OAMCatalogView;
 import de.blau.android.resources.TileLayerDatabase;
+import de.blau.android.resources.TileLayerDialog;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.TileType;
@@ -230,6 +232,12 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     }
                 }
             }
+
+            item = popup.getMenu().add(R.string.layer_add_custom_imagery);
+            item.setOnMenuItemClickListener(unused -> {
+                TileLayerDialog.showLayerDialog(activity, null, () -> updateDialogAndPrefs(activity, prefs, map));
+                return true;
+            });
 
             item = popup.getMenu().add(R.string.layer_add_layer_from_mvt_style);
             item.setOnMenuItemClickListener(unused -> {
@@ -887,7 +895,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 Log.e(DEBUG_TAG, "position out of range 0-" + (ids.length - 1) + ": " + position);
             }
             // allow a tiny bit of time to see that the action actually worked
-            Handler handler = new Handler();
+            Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(() -> {
                 dialog.dismiss(); // dismiss this
                 dismissDialog(); // and then the caller

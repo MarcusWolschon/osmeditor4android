@@ -54,7 +54,7 @@ public class TileLayerDialog {
      * how a dialog for editing and saving a layer entry
      * 
      * @param activity Android Context
-     * @param entry an entry from OAM
+     * @param entry an entry from OAM, WMS or null
      * @param onUpdate call this if the DB has been updated
      */
     public static void showLayerDialog(@NonNull FragmentActivity activity, @Nullable LayerEntry entry, @Nullable final OnUpdateListener onUpdate) {
