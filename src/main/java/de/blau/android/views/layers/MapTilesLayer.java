@@ -730,39 +730,53 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     @Override
     public boolean onTouchEvent(MotionEvent event, IMapView mapView) {
         boolean done = false;
-        switch (event.getAction()) {
-        case MotionEvent.ACTION_DOWN:
-            downX = event.getX();
-            downY = event.getY();
-            moved = false;
-            break;
-        case MotionEvent.ACTION_UP:
-            done = true;
-            // FALL THROUGH
-        case MotionEvent.ACTION_MOVE:
-            moved |= (Math.abs(event.getX() - downX) > 20 || Math.abs(event.getY() - downY) > 20);
-            if (done && !moved && tapArea.contains((int) event.getX(), (int) event.getY())) {
-                String attributionUri = myRendererInfo.getTouUri();
-                if (attributionUri == null) {
-                    attributionUri = myRendererInfo.getAttributionUrl();
-                }
-                if (attributionUri != null) {
-                    // Display the End User Terms Of Use (in the browser)
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(attributionUri));
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    try {
-                        ctx.startActivity(intent);
-                    } catch (ActivityNotFoundException anfe) {
-                        Log.e(DEBUG_TAG, "Activity not found " + anfe.getMessage());
-                        Snack.toastTopError(ctx, anfe.getLocalizedMessage() != null ? anfe.getLocalizedMessage() : anfe.getMessage());
-                    }
+        float x = event.getX();
+        float y = event.getY();
+        if (tapArea.contains((int) x, (int) y)) {
+            switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                downX = x;
+                downY = y;
+                moved = false;
+                return true;
+            case MotionEvent.ACTION_UP:
+                done = true;
+                // FALL THROUGH
+            case MotionEvent.ACTION_MOVE:
+                moved |= (Math.abs(x - downX) > 20 || Math.abs(y - downY) > 20);
+                if (done && !moved && displayAttribution()) {
                     return true;
                 }
+                break;
+            default:
+                // do nothing
             }
-            break;
-        default:
-            // do nothing
+        }
+        return false;
+    }
+
+    /**
+     * Display attribution
+     * 
+     * @return true if an attribution uri was found
+     */
+    private boolean displayAttribution() {
+        String attributionUri = myRendererInfo.getTouUri();
+        if (attributionUri == null) {
+            attributionUri = myRendererInfo.getAttributionUrl();
+        }
+        if (attributionUri != null) {
+            // Display the End User Terms Of Use (in the browser)
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(attributionUri));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            try {
+                ctx.startActivity(intent);
+            } catch (ActivityNotFoundException anfe) {
+                Log.e(DEBUG_TAG, "Activity not found " + anfe.getMessage());
+                Snack.toastTopError(ctx, anfe.getLocalizedMessage() != null ? anfe.getLocalizedMessage() : anfe.getMessage());
+            }
+            return true;
         }
         return false;
     }
