@@ -10,22 +10,17 @@ import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
 
-import android.app.Instrumentation;
 import android.view.View;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.ActivityTestRule;
-import androidx.test.uiautomator.UiDevice;
 import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.SignalHandler;
-import de.blau.android.TestUtils;
 import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.MapTile;
@@ -37,36 +32,23 @@ import de.blau.android.util.ExecutorTask;
  * @author simon
  *
  */
-@RunWith(AndroidJUnit4.class)
+@RunWith(RobolectricTestRunner.class)
 @LargeTest
 public class TileLayerServerTest {
 
-    Main            main            = null;
-    View            v               = null;
-    Instrumentation instrumentation = null;
-
-    /**
-     * Manual start of activity so that we can set up the monitor for main
-     */
-    @Rule
-    public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
+    Main main = null;
+    View v    = null;
 
     /**
      * Pre-test setup
      */
     @Before
     public void setup() {
-        instrumentation = InstrumentationRegistry.getInstrumentation();
-        UiDevice device = UiDevice.getInstance(instrumentation);
-
-        main = mActivityRule.getActivity();
-
-        TestUtils.grantPermissons(device);
+        main = Robolectric.buildActivity(Main.class).create().resume().get();
 
         try (TileLayerDatabase db = new TileLayerDatabase(main)) {
             TileLayerSource.createOrUpdateFromAssetsSource(main, db.getWritableDatabase(), true, false);
         }
-        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -80,7 +62,6 @@ public class TileLayerServerTest {
         } else {
             System.out.println("main is null");
         }
-        instrumentation.waitForIdleSync();
     }
 
     /**
@@ -159,11 +140,9 @@ public class TileLayerServerTest {
     public void sort() {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("imagery_test.geojson");
-        try {
-            TileLayerDatabase db = new TileLayerDatabase(main);
+        try (TileLayerDatabase db = new TileLayerDatabase(main)) {
             TileLayerSource.parseImageryFile(main, db.getWritableDatabase(), TileLayerDatabase.SOURCE_JOSM_IMAGERY, is, false);
             TileLayerSource.getListsLocked(main, db.getReadableDatabase(), true);
-            db.close();
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
