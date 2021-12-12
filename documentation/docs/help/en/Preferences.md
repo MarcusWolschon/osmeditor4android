@@ -8,7 +8,7 @@ The style that is used to render OpenStreetmap data. Additional styles can be ad
 
 ## Custom layers
 
-Configure a custom imagery layer not included in the standard configuration. This supports configuring both remote tile sources with a URL or on device MBTiles.
+Manage custom imagery layers not included in the standard configuration. This supports configuring both remote tile sources with a URL or on device MBTiles.
 
 Most important supported url place holders
 
