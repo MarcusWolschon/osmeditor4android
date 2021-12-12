@@ -22,8 +22,8 @@ import androidx.fragment.app.FragmentActivity;
 import ch.poole.android.numberpicker.library.NumberPicker;
 import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.layer.LayerType;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.Provider;
@@ -52,7 +52,7 @@ public class TileLayerDialog {
      * how a dialog for editing and saving a layer entry
      * 
      * @param activity Android Context
-     * @param entry an entry from OAM
+     * @param entry an entry from OAM, WMS or null
      * @param onUpdate call this if the DB has been updated
      */
     public static void showLayerDialog(@NonNull FragmentActivity activity, @Nullable LayerEntry entry, @Nullable final OnUpdateListener onUpdate) {
@@ -67,7 +67,7 @@ public class TileLayerDialog {
      * @param layerEntry an entry from OAM, WMS or null
      * @param onUpdate call this if the DB has been updated
      */
-    static void showLayerDialog(@NonNull final FragmentActivity activity, final int id, @Nullable LayerEntry layerEntry,
+    public static void showLayerDialog(@NonNull final FragmentActivity activity, final long id, @Nullable LayerEntry layerEntry,
             @Nullable final OnUpdateListener onUpdate) {
         final boolean existing = id > 0;
         final Preferences prefs = App.getLogic().getPrefs();
@@ -150,7 +150,7 @@ public class TileLayerDialog {
                 final TileLayerSource finalLayer = layer;
                 alertDialog.setTitle(R.string.edit_layer_title);
                 alertDialog.setNeutralButton(R.string.Delete, (dialog, which) -> {
-                    Log.d(DEBUG_TAG, "deleting layer " + Integer.toString(id));
+                    Log.d(DEBUG_TAG, "deleting layer " + Long.toString(id));
                     TileLayerDatabaseView.removeLayerSelection(activity, prefs, finalLayer);
                     try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
                         TileLayerDatabase.deleteLayerWithRowId(db, id);
@@ -301,11 +301,16 @@ public class TileLayerDialog {
                     moan = true;
                 }
                 int tileSize = tileSizePicker.getValue();
-
                 if (moan) { // abort and leave the dialog intact
                     return false;
                 }
                 try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
+                    TileLayerSource existing = TileLayerDatabase.getLayerWithUrl(activity, db, tileUrl);
+                    if (existing != null && !existing.getId().equals(layerId)) {
+                        // we are not editing the same entry
+                        Snack.toastTopError(activity, activity.getString(R.string.toast_tile_layer_exists, existing.getName()));
+                        return false;
+                    }
                     TileLayerSource.addOrUpdateCustomLayer(activity, db, layerId, existingLayer, finalStartDate, finalEndDate, name, provider, category, null,
                             mvtInMBT[0] ? TileType.MVT : null, minZoom, maxZoom, tileSize, isOverlay, tileUrl);
                 }
@@ -326,18 +331,24 @@ public class TileLayerDialog {
         final OnClickListener saveListener = new SaveListener();
         dialog.show();
         dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(saveListener);
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new SaveListener() {
-            @Override
-            public void onClick(View v) {
-                if (save()) {
-                    de.blau.android.layer.Util.addLayer(activity, isOverlay ? LayerType.OVERLAYIMAGERY : LayerType.IMAGERY, layerId);
-                    if (onUpdate != null) {
-                        onUpdate.update();
+        if (existingLayer != null) {
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setVisibility(View.GONE);
+        } else {
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new SaveListener() {
+                @Override
+                public void onClick(View v) {
+                    if (save()) {
+                        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
+                            de.blau.android.layer.Util.addImageryLayer(db, db.getLayers(), isOverlay, layerId);
+                        }
+                        if (onUpdate != null) {
+                            onUpdate.update();
+                        }
+                        dialog.dismiss();
                     }
-                    dialog.dismiss();
                 }
-            }
-        });
+            });
+        }
     }
 
     /**

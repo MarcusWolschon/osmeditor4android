@@ -41,7 +41,12 @@
 <li><strong>Info</strong> Display information on the currently selected imagery.</li>
 </ul>
 </li>
-<li>Mapbox Vector Tile layers (additionally to the above):
+<li>Custom imagery tile based layers (additionally to the above):
+<ul>
+<li><strong>Edit custom imagery configuration</strong> edit the configuration of the imagery, for example the URL.</li>
+</ul>
+</li>
+<li>Mapbox Vector Tile layers (additionally to <em>Tile based layers</em>):
 <ul>
 <li><strong>Change style</strong> Show the layer styling dialog (disabled if a style has been loaded).</li>
 <li><strong>Load style</strong> Load a mapbox-gl style.</li>
@@ -88,16 +93,17 @@
 <li><strong>+</strong> button:
 <ul>
 <li>for disabled layers that can only be displayed once it will show a corresponding &quot;Enable ...&quot; entry that will turn the layer on.</li>
-<li>Add GeoJSON layer. Loads a GeoJSON layer from a file in to a new GeoJSON layer.</li>
-<li>Add background imagery layer. Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.</li>
-<li>Add overlay imagery layer. As above but assumes that the layer is partially transparent.</li>
-<li>Add layer from MVT style. Load a Mapbox-GL style file that has a &quot;sources&quot; section and create a layer.</li>
-<li>Add imagery from OAM. Add a layer from the OpenAerialMap catalogue. <em>(requires network connectivity)</em></li>
-<li>Add imagery from WMS. This allows you to add a specific layer from a WMS endpoint. <em>(requires network connectivity)</em></li>
+<li><strong>Add GeoJSON layer</strong> Loads a GeoJSON layer from a file in to a new GeoJSON layer.</li>
+<li><strong>Add background imagery layer</strong> Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.</li>
+<li><strong>Add overlay imagery layer</strong> As above but assumes that the layer is partially transparent.</li>
+<li><strong>Add custom imagery</strong> Adds a custom imagery configuration, this can then be used just as any tile based imagery source, the entries can be managed in the <a href="Preferences.md">preferences</a>.</li>
+<li><strong>Add layer from MVT style</strong> Load a Mapbox-GL style file that has a &quot;sources&quot; section and create a layer.</li>
+<li><strong>Add imagery from OAM</strong> Add a layer from the OpenAerialMap catalogue. <em>(requires network connectivity)</em></li>
+<li><strong>Add imagery from WMS</strong> This allows you to add a specific layer from a WMS endpoint. <em>(requires network connectivity)</em></li>
 </ul>
 </li>
 </ul>
-<p>Custom tile layers, including on device MBTile containers can be added in the <a href="Preferences.md">preferences</a>.</p>
+<p>Custom tile layers, including on device MBTile containers can be added in the <a href="Preferences.md">preferences</a> or as decribed above..</p>
 <h3>Highlighting of data issues</h3>
 <p>With the standard map style certain data issues will be highlighted in magenta, these are</p>
 <ul>

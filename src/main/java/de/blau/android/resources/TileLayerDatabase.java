@@ -327,19 +327,65 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      */
     public static TileLayerSource getLayer(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull String id) {
         TileLayerSource layer = null;
-        Cursor dbresult = db.query(COVERAGES_TABLE, null, ID_FIELD + "='" + id + "'", null, null, null, null);
-        Provider provider = getProviderFromCursor(dbresult);
-
-        dbresult = db.query(LAYERS_TABLE, null, ID_FIELD + "='" + id + "'", null, null, null, null);
-        if (dbresult.getCount() >= 1) {
-            boolean haveEntry = dbresult.moveToFirst();
-            if (haveEntry) {
-                initLayerFieldIndices(dbresult);
-                layer = getLayerFromCursor(context, provider, dbresult);
+        try (Cursor providerCursor = db.query(COVERAGES_TABLE, null, ID_FIELD + "='" + id + "'", null, null, null, null)) {
+            Provider provider = getProviderFromCursor(providerCursor);
+            try (Cursor layerCursor = db.query(LAYERS_TABLE, null, ID_FIELD + "='" + id + "'", null, null, null, null)) {
+                if (layerCursor.getCount() >= 1) {
+                    boolean haveEntry = layerCursor.moveToFirst();
+                    if (haveEntry) {
+                        initLayerFieldIndices(layerCursor);
+                        layer = getLayerFromCursor(context, provider, layerCursor);
+                    }
+                }
             }
         }
-        dbresult.close();
         return layer;
+    }
+
+    /**
+     * Retrieve a single layer identified by its url
+     * 
+     * @param context Android Context
+     * @param db readable SQLiteDatabase
+     * @param id the layer id
+     * @return a TileLayerServer instance of null if none could be found
+     */
+    @Nullable
+    public static TileLayerSource getLayerWithUrl(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull String url) {
+        TileLayerSource layer = null;
+        try (Cursor layerCursor = db.query(LAYERS_TABLE, null, TILE_URL_FIELD + "='" + url + "'", null, null, null, null)) {
+            if (layerCursor.getCount() >= 1) {
+                boolean haveEntry = layerCursor.moveToFirst();
+                if (haveEntry) {
+                    initLayerFieldIndices(layerCursor);
+                    String id = layerCursor.getString(idLayerFieldIndex);
+                    try (Cursor providerCursor = db.query(COVERAGES_TABLE, null, ID_FIELD + "='" + id + "'", null, null, null, null)) {
+                        Provider provider = getProviderFromCursor(providerCursor);
+                        layer = getLayerFromCursor(context, provider, layerCursor);
+                    }
+                }
+            }
+        }
+        return layer;
+    }
+
+    /**
+     * Get a layers rowid
+     * 
+     * @param db the database
+     * @param id the layer id
+     * @return the rowid
+     */
+    public static long getLayerRowId(@NonNull SQLiteDatabase db, @NonNull String id) throws IllegalArgumentException {
+        try (Cursor layerCursor = db.query(LAYERS_TABLE, new String[] { "rowid" }, ID_FIELD + "='" + id + "'", null, null, null, null)) {
+            if (layerCursor.getCount() >= 1) {
+                boolean haveEntry = layerCursor.moveToFirst();
+                if (haveEntry) {
+                    return layerCursor.getLong(layerCursor.getColumnIndexOrThrow("rowid"));
+                }
+            }
+        }
+        return -1;
     }
 
     /**
@@ -350,19 +396,19 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param rowId the mysql rowid
      * @return a TileLayerServer instance of null if none could be found
      */
-    public static TileLayerSource getLayerWithRowId(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull int rowId) {
+    public static TileLayerSource getLayerWithRowId(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull long rowId) {
         TileLayerSource layer = null;
-        try (Cursor dbresult = db.rawQuery(
+        try (Cursor providerCursor = db.rawQuery(
                 "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE layers.rowid=? AND layers.id=coverages.id",
-                new String[] { Integer.toString(rowId) })) {
-            Provider provider = getProviderFromCursor(dbresult);
+                new String[] { Long.toString(rowId) })) {
+            Provider provider = getProviderFromCursor(providerCursor);
 
-            try (Cursor dbresultLayer = db.rawQuery(QUERY_LAYER_BY_ROWID, new String[] { Integer.toString(rowId) })) {
-                if (dbresultLayer.getCount() >= 1) {
-                    boolean haveEntry = dbresultLayer.moveToFirst();
+            try (Cursor layerCursor = db.rawQuery(QUERY_LAYER_BY_ROWID, new String[] { Long.toString(rowId) })) {
+                if (layerCursor.getCount() >= 1) {
+                    boolean haveEntry = layerCursor.moveToFirst();
                     if (haveEntry) {
-                        initLayerFieldIndices(dbresultLayer);
-                        layer = getLayerFromCursor(context, provider, dbresultLayer);
+                        initLayerFieldIndices(layerCursor);
+                        layer = getLayerFromCursor(context, provider, layerCursor);
                     }
                 }
             } catch (IllegalArgumentException iaex) {
@@ -393,8 +439,6 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
             }
         } catch (IllegalArgumentException iaex) {
             Log.e(DEBUG_TAG, "retrieving provider failed " + iaex.getMessage());
-        } finally {
-            cursor.close();
         }
         return provider;
     }
@@ -420,8 +464,8 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param db a writable SQLiteDatabase
      * @param rowId the rowId
      */
-    public static void deleteLayerWithRowId(@NonNull SQLiteDatabase db, int rowId) {
-        db.delete(LAYERS_TABLE, "layers.rowid=?", new String[] { Integer.toString(rowId) });
+    public static void deleteLayerWithRowId(@NonNull SQLiteDatabase db, long rowId) {
+        db.delete(LAYERS_TABLE, "layers.rowid=?", new String[] { Long.toString(rowId) });
     }
 
     /**
@@ -524,43 +568,44 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         Map<String, TileLayerSource> layers = new HashMap<>();
         try {
             MultiHashMap<String, CoverageArea> coverages = new MultiHashMap<>();
-            Cursor dbresult = db.rawQuery(
+            try (Cursor coverageCursor = db.rawQuery(
                     "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE coverages.id=layers.id AND overlay=?",
-                    new String[] { overlay ? "1" : "0" });
-            if (dbresult.getCount() >= 1) {
-                initCoverageFieldIndices(dbresult);
-                boolean haveEntry = dbresult.moveToFirst();
-                while (haveEntry) {
-                    String id = dbresult.getString(idFieldIndex);
-                    CoverageArea ca = getCoverageFromCursor(dbresult);
-                    coverages.add(id, ca);
-                    haveEntry = dbresult.moveToNext();
+                    new String[] { overlay ? "1" : "0" })) {
+                if (coverageCursor.getCount() >= 1) {
+                    initCoverageFieldIndices(coverageCursor);
+                    boolean haveEntry = coverageCursor.moveToFirst();
+                    while (haveEntry) {
+                        String id = coverageCursor.getString(idFieldIndex);
+                        CoverageArea ca = getCoverageFromCursor(coverageCursor);
+                        coverages.add(id, ca);
+                        haveEntry = coverageCursor.moveToNext();
+                    }
                 }
             }
-            dbresult.close();
 
-            dbresult = db.query(LAYERS_TABLE, null,
-                    OVERLAY_FIELD + "=" + (overlay ? 1 : 0) + " AND " + TYPE_FIELD + " <> '" + TileLayerSource.TYPE_WMS_ENDPOINT + "'", null, null, null, null);
-            if (dbresult.getCount() >= 1) {
-                boolean haveEntry = dbresult.moveToFirst();
-                initLayerFieldIndices(dbresult);
-                while (haveEntry) {
-                    String id = dbresult.getString(idLayerFieldIndex);
-                    Provider provider = new Provider();
-                    for (CoverageArea ca : coverages.get(id)) {
-                        provider.addCoverageArea(ca);
+            try (Cursor layerCursor = db.query(LAYERS_TABLE, null,
+                    OVERLAY_FIELD + "=" + (overlay ? 1 : 0) + " AND " + TYPE_FIELD + " <> '" + TileLayerSource.TYPE_WMS_ENDPOINT + "'", null, null, null,
+                    null)) {
+                if (layerCursor.getCount() >= 1) {
+                    boolean haveEntry = layerCursor.moveToFirst();
+                    initLayerFieldIndices(layerCursor);
+                    while (haveEntry) {
+                        String id = layerCursor.getString(idLayerFieldIndex);
+                        Provider provider = new Provider();
+                        for (CoverageArea ca : coverages.get(id)) {
+                            provider.addCoverageArea(ca);
+                        }
+                        TileLayerSource layer = getLayerFromCursor(context, provider, layerCursor);
+                        // if we have an apikey parameter and can't replace it, don't add
+                        if (layer.replaceApiKey(context)) {
+                            layers.put(id, layer);
+                        } else {
+                            Log.e(DEBUG_TAG, "layer " + id + " is missing an apikey, not added");
+                        }
+                        haveEntry = layerCursor.moveToNext();
                     }
-                    TileLayerSource layer = getLayerFromCursor(context, provider, dbresult);
-                    // if we have an apikey parameter and can't replace it, don't add
-                    if (layer.replaceApiKey(context)) {
-                        layers.put(id, layer);
-                    } else {
-                        Log.e(DEBUG_TAG, "layer " + id + " is missing an apikey, not added");
-                    }
-                    haveEntry = dbresult.moveToNext();
                 }
             }
-            dbresult.close();
         } catch (IllegalArgumentException iaex) {
             Log.e(DEBUG_TAG, "Retrieveing sources failed " + iaex.getMessage());
         }

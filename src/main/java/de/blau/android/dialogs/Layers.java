@@ -17,6 +17,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -71,6 +72,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.OAMCatalogView;
 import de.blau.android.resources.TileLayerDatabase;
+import de.blau.android.resources.TileLayerDialog;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.TileType;
@@ -230,6 +232,12 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     }
                 }
             }
+
+            item = popup.getMenu().add(R.string.layer_add_custom_imagery);
+            item.setOnMenuItemClickListener(unused -> {
+                TileLayerDialog.showLayerDialog(activity, null, () -> updateDialogAndPrefs(activity, prefs, map));
+                return true;
+            });
 
             item = popup.getMenu().add(R.string.layer_add_layer_from_mvt_style);
             item.setOnMenuItemClickListener(unused -> {
@@ -567,9 +575,11 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             if (layer instanceof MapTilesLayer && !(layer instanceof de.blau.android.layer.mapillary.MapOverlay)) {
                 // get MRU list from layer
                 final String[] tileServerIds = ((MapTilesLayer<?>) layer).getMRU();
+                final TileLayerSource tileLayerConfiguration = ((MapTilesLayer<?>) layer).getTileLayerConfiguration();
+                final String currentServerId = tileLayerConfiguration.getId();
                 for (int i = 0; i < tileServerIds.length; i++) {
                     final String id = tileServerIds[i];
-                    final String currentServerId = ((MapTilesLayer<?>) layer).getTileLayerConfiguration().getId();
+
                     if (!currentServerId.equals(id)) {
                         final TileLayerSource tileServer = TileLayerSource.get(activity, id, true);
                         if (tileServer != null) {
@@ -601,6 +611,25 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     }
                     return true;
                 });
+
+                if (TileLayerDatabase.SOURCE_MANUAL.equals(tileLayerConfiguration.getSource())) {
+                    MenuItem editItem = menu.add(R.string.layer_edit_custom_imagery_configuration);
+                    editItem.setOnMenuItemClickListener(unused -> {
+                        try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
+                            long rowid = TileLayerDatabase.getLayerRowId(db, currentServerId);
+                            TileLayerDialog.showLayerDialog(activity, rowid, null, () -> {
+                                // the original DB is closed here
+                                try (TileLayerDatabase tlDb2 = new TileLayerDatabase(activity); SQLiteDatabase db2 = tlDb2.getReadableDatabase()) {
+                                    TileLayerSource.getListsLocked(activity, db2, false); // recreate in memory lists
+                                    layer.invalidate();
+                                }
+                            });
+                        } catch (IllegalArgumentException iaex) {
+                            Snack.toastTopError(activity, iaex.getMessage());
+                        }
+                        return true;
+                    });
+                }
             }
 
             if (layer instanceof ConfigureInterface && ((ConfigureInterface) layer).enableConfiguration()) {
@@ -887,7 +916,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 Log.e(DEBUG_TAG, "position out of range 0-" + (ids.length - 1) + ": " + position);
             }
             // allow a tiny bit of time to see that the action actually worked
-            Handler handler = new Handler();
+            Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(() -> {
                 dialog.dismiss(); // dismiss this
                 dismissDialog(); // and then the caller
@@ -933,16 +962,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     Log.e(DEBUG_TAG, "setNewImagery tile source null");
                 }
             } else if (tileSource != null) {
-                // determine the position to insert the layer at,
-                // essentially on top of the latest layer of the same type
-                final LayerType layerType = tileSource.isOverlay() ? LayerType.OVERLAYIMAGERY : LayerType.IMAGERY;
-                int position = 0;
-                for (LayerConfig config : layerConfigs) {
-                    if (layerType.equals(config.getType()) && config.getPosition() >= position) {
-                        position = config.getPosition() + 1;
-                    }
-                }
-                db.insertLayer(position, layerType, true, tileSource.getId());
+                de.blau.android.layer.Util.addImageryLayer(db, layerConfigs, tileSource.isOverlay(), tileSource.getId());
                 App.getLogic().getMap().invalidate();
             } else {
                 Log.e(DEBUG_TAG, "setNewImagery both layer and tile source null");

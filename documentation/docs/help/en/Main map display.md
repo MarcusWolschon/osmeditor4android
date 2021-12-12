@@ -42,7 +42,9 @@ The layer dialog supports the following:
         * __Flush tile cache__ Flush the on device cache for this layer.
         * __Background properties__ Set contrast of layer.
         * __Info__ Display information on the currently selected imagery.
-    * Mapbox Vector Tile layers (additionally to the above):
+    * Custom imagery tile based layers (additionally to the above):
+        * __Edit custom imagery configuration__ edit the configuration of the imagery, for example the URL.
+    * Mapbox Vector Tile layers (additionally to _Tile based layers_):
         * __Change style__ Show the layer styling dialog (disabled if a style has been loaded).
         * __Load style__ Load a mapbox-gl style.
         * __Reset style__ Reset the style to the default.
@@ -65,14 +67,17 @@ The layer dialog supports the following:
         * __Down__ move the layer down.
 * __+__ button:
     * for disabled layers that can only be displayed once it will show a corresponding "Enable ..." entry that will turn the layer on.
-    * Add GeoJSON layer. Loads a GeoJSON layer from a file in to a new GeoJSON layer.
-    * Add background imagery layer. Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.
-    * Add overlay imagery layer. As above but assumes that the layer is partially transparent.
-    * Add layer from MVT style. Load a Mapbox-GL style file that has a "sources" section and create a layer. 
-    * Add imagery from OAM. Add a layer from the OpenAerialMap catalogue. *(requires network connectivity)*
-    * Add imagery from WMS. This allows you to add a specific layer from a WMS endpoint. *(requires network connectivity)*
+    * __Add GeoJSON layer__ Loads a GeoJSON layer from a file in to a new GeoJSON layer.
+    * __Add background imagery layer__ Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.
+    * __Add overlay imagery layer__ As above but assumes that the layer is partially transparent.
+    * __Add custom imagery__ Adds a custom imagery configuration, this can then be used just 
+      as any tile based imagery source, the entries can be managed in the [preferences](Preferences.md).
+    * __Add layer from MVT style__ Load a Mapbox-GL style file that has a "sources" section and create a layer. 
+    * __Add imagery from OAM__ Add a layer from the OpenAerialMap catalogue. *(requires network connectivity)*
+    * __Add imagery from WMS__ This allows you to add a specific layer from a WMS endpoint. *(requires network connectivity)*
 
-Custom tile layers, including on device MBTile containers can be added in the [preferences](Preferences.md).
+Custom tile layers, including on device MBTile containers can be added in the [preferences](Preferences.md) 
+or as decribed above..
 
 ### Highlighting of data issues
 
