@@ -370,6 +370,25 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     }
 
     /**
+     * Get a layers rowid
+     * 
+     * @param db the database
+     * @param id the layer id
+     * @return the rowid
+     */
+    public static long getLayerRowId(@NonNull SQLiteDatabase db, @NonNull String id) throws IllegalArgumentException {
+        try (Cursor layerCursor = db.query(LAYERS_TABLE, new String[] { "rowid" }, ID_FIELD + "='" + id + "'", null, null, null, null)) {
+            if (layerCursor.getCount() >= 1) {
+                boolean haveEntry = layerCursor.moveToFirst();
+                if (haveEntry) {
+                    return layerCursor.getLong(layerCursor.getColumnIndexOrThrow("rowid"));
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
      * Retrieve a single layer identified by its mysql rowid
      * 
      * @param context Androic Context
@@ -377,14 +396,14 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param rowId the mysql rowid
      * @return a TileLayerServer instance of null if none could be found
      */
-    public static TileLayerSource getLayerWithRowId(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull int rowId) {
+    public static TileLayerSource getLayerWithRowId(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull long rowId) {
         TileLayerSource layer = null;
         try (Cursor providerCursor = db.rawQuery(
                 "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE layers.rowid=? AND layers.id=coverages.id",
-                new String[] { Integer.toString(rowId) })) {
+                new String[] { Long.toString(rowId) })) {
             Provider provider = getProviderFromCursor(providerCursor);
 
-            try (Cursor layerCursor = db.rawQuery(QUERY_LAYER_BY_ROWID, new String[] { Integer.toString(rowId) })) {
+            try (Cursor layerCursor = db.rawQuery(QUERY_LAYER_BY_ROWID, new String[] { Long.toString(rowId) })) {
                 if (layerCursor.getCount() >= 1) {
                     boolean haveEntry = layerCursor.moveToFirst();
                     if (haveEntry) {
@@ -445,8 +464,8 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param db a writable SQLiteDatabase
      * @param rowId the rowId
      */
-    public static void deleteLayerWithRowId(@NonNull SQLiteDatabase db, int rowId) {
-        db.delete(LAYERS_TABLE, "layers.rowid=?", new String[] { Integer.toString(rowId) });
+    public static void deleteLayerWithRowId(@NonNull SQLiteDatabase db, long rowId) {
+        db.delete(LAYERS_TABLE, "layers.rowid=?", new String[] { Long.toString(rowId) });
     }
 
     /**

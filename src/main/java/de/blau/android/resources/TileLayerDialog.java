@@ -69,7 +69,7 @@ public class TileLayerDialog {
      * @param layerEntry an entry from OAM, WMS or null
      * @param onUpdate call this if the DB has been updated
      */
-    static void showLayerDialog(@NonNull final FragmentActivity activity, final int id, @Nullable LayerEntry layerEntry,
+    public static void showLayerDialog(@NonNull final FragmentActivity activity, final long id, @Nullable LayerEntry layerEntry,
             @Nullable final OnUpdateListener onUpdate) {
         final boolean existing = id > 0;
         final Preferences prefs = App.getLogic().getPrefs();
@@ -152,7 +152,7 @@ public class TileLayerDialog {
                 final TileLayerSource finalLayer = layer;
                 alertDialog.setTitle(R.string.edit_layer_title);
                 alertDialog.setNeutralButton(R.string.Delete, (dialog, which) -> {
-                    Log.d(DEBUG_TAG, "deleting layer " + Integer.toString(id));
+                    Log.d(DEBUG_TAG, "deleting layer " + Long.toString(id));
                     TileLayerDatabaseView.removeLayerSelection(activity, prefs, finalLayer);
                     try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
                         TileLayerDatabase.deleteLayerWithRowId(db, id);
@@ -294,7 +294,6 @@ public class TileLayerDialog {
                     Snack.toastTopError(activity, R.string.toast_url_empty);
                     moan = true;
                 }
-
                 if (isOverlay && (tileUrl.contains(WmsCapabilities.IMAGE_JPEG) || tileUrl.contains(".jpg"))) {
                     Snack.toastTopError(activity, R.string.toast_jpeg_not_transparent);
                     moan = true;
@@ -309,7 +308,8 @@ public class TileLayerDialog {
                 }
                 try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
                     TileLayerSource existing = TileLayerDatabase.getLayerWithUrl(activity, db, tileUrl);
-                    if (existing != null) {
+                    if (existing != null && !existing.getId().equals(layerId)) {
+                        // we are not editing the same entry
                         Snack.toastTopError(activity, activity.getString(R.string.toast_tile_layer_exists, existing.getName()));
                         return false;
                     }
@@ -333,20 +333,24 @@ public class TileLayerDialog {
         final OnClickListener saveListener = new SaveListener();
         dialog.show();
         dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(saveListener);
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new SaveListener() {
-            @Override
-            public void onClick(View v) {
-                if (save()) {
-                    try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
-                        de.blau.android.layer.Util.addImageryLayer(db, db.getLayers(), isOverlay, layerId);
+        if (existingLayer != null) {
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setVisibility(View.GONE);
+        } else {
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new SaveListener() {
+                @Override
+                public void onClick(View v) {
+                    if (save()) {
+                        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
+                            de.blau.android.layer.Util.addImageryLayer(db, db.getLayers(), isOverlay, layerId);
+                        }
+                        if (onUpdate != null) {
+                            onUpdate.update();
+                        }
+                        dialog.dismiss();
                     }
-                    if (onUpdate != null) {
-                        onUpdate.update();
-                    }
-                    dialog.dismiss();
                 }
-            }
-        });
+            });
+        }
     }
 
     /**

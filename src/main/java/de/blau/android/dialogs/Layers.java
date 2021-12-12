@@ -70,6 +70,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;
+import de.blau.android.resources.LayerEntry;
 import de.blau.android.resources.OAMCatalogView;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerDialog;
@@ -77,6 +78,7 @@ import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.resources.WmsEndpointDatabaseView;
+import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ReadFile;
@@ -575,9 +577,11 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             if (layer instanceof MapTilesLayer && !(layer instanceof de.blau.android.layer.mapillary.MapOverlay)) {
                 // get MRU list from layer
                 final String[] tileServerIds = ((MapTilesLayer<?>) layer).getMRU();
+                final TileLayerSource tileLayerConfiguration = ((MapTilesLayer<?>) layer).getTileLayerConfiguration();
+                final String currentServerId = tileLayerConfiguration.getId();
                 for (int i = 0; i < tileServerIds.length; i++) {
                     final String id = tileServerIds[i];
-                    final String currentServerId = ((MapTilesLayer<?>) layer).getTileLayerConfiguration().getId();
+
                     if (!currentServerId.equals(id)) {
                         final TileLayerSource tileServer = TileLayerSource.get(activity, id, true);
                         if (tileServer != null) {
@@ -609,6 +613,25 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     }
                     return true;
                 });
+
+                if (TileLayerDatabase.SOURCE_MANUAL.equals(tileLayerConfiguration.getSource())) {
+                    MenuItem editItem = menu.add(R.string.layer_edit_custom_imagery_configuration);
+                    editItem.setOnMenuItemClickListener(unused -> {
+                        try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
+                            long rowid = TileLayerDatabase.getLayerRowId(db, currentServerId);
+                            TileLayerDialog.showLayerDialog(activity, rowid, null, () -> {
+                                // the original DB is closed here
+                                try (TileLayerDatabase tlDb2 = new TileLayerDatabase(activity); SQLiteDatabase db2 = tlDb2.getReadableDatabase()) {
+                                    TileLayerSource.getListsLocked(activity, db2, false); // recreate in memory lists
+                                    layer.invalidate();
+                                }
+                            });
+                        } catch (IllegalArgumentException iaex) {
+                            Snack.toastTopError(activity, iaex.getMessage());
+                        }
+                        return true;
+                    });
+                }
             }
 
             if (layer instanceof ConfigureInterface && ((ConfigureInterface) layer).enableConfiguration()) {
