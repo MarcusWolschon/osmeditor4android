@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,7 +25,10 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObject2;
+import androidx.test.uiautomator.UiObjectNotFoundException;
+import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
 import de.blau.android.App;
 import de.blau.android.LayerUtils;
@@ -274,5 +278,50 @@ public class LayerDialogTest {
         assertTrue(TestUtils.clickText(device, true, main.getString(R.string.layer_category_photo), true, false));
         assertTrue(TestUtils.clickText(device, true, main.getString(R.string.layer_category_elevation), true, false));
         assertTrue(TestUtils.clickText(device, true, "Terrain Test", false, false));
+    }
+
+    /**
+     * Test adding and then modifiy custom imagery
+     */
+    @Test
+    public void customImagery() {
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/add", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_custom_imagery), true));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.add_layer_title)));
+        UiObject name = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/name"));
+        try {
+            name.setText("Custom imagery");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        UiObject url = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/url"));
+        try {
+            url.setText("https://test/");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save_and_set), true));
+        try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
+            TileLayerSource tls = TileLayerDatabase.getLayerWithUrl(main, db.getReadableDatabase(), "https://test/");
+            assertNotNull(tls);
+            assertEquals("Custom imagery", tls.getName());
+        }
+        TestUtils.clickText(device, true, main.getString(R.string.done), true, false);
+        UiObject2 menuButton = TestUtils.getLayerButton(device, "Custom imagery", MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 2000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_edit_custom_imagery_configuration), true));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.edit_layer_title)));
+        url = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/url"));
+        try {
+            url.setText("https://test2/");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save), true));
+        try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
+            TileLayerSource tls = TileLayerDatabase.getLayerWithUrl(main, db.getReadableDatabase(), "https://test2/");
+            assertNotNull(tls);
+        }
     }
 }
