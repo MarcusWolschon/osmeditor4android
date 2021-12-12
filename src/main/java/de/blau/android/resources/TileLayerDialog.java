@@ -22,8 +22,6 @@ import androidx.fragment.app.FragmentActivity;
 import ch.poole.android.numberpicker.library.NumberPicker;
 import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.layer.LayerConfig;
-import de.blau.android.layer.LayerType;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
