@@ -442,7 +442,7 @@ public class Preferences {
         API api = advancedPrefs.getCurrentAPI();
         return api != null ? api.name : null;
     }
-    
+
     /**
      * Get the url of the current API configuration
      * 
@@ -1403,6 +1403,29 @@ public class Preferences {
      */
     public double getMaxOffsetDistance() {
         return maxOffsetDistance;
+    }
+
+    /**
+     * Enable/disable snapping behaviour when creating new ways
+     * 
+     * @param on if true the tag filter will be enabled
+     */
+    public void enableWaySnap(boolean on) {
+        prefs.edit().putBoolean(r.getString(R.string.config_waySnap_key), on).commit();
+    }
+
+    /**
+     * Check if the snapping behaviour when creating new ways is enabled
+     * 
+     * @return true if enabled
+     */
+    public boolean isWaySnapEnabled() {
+        String key = r.getString(R.string.config_waySnap_key);
+        if (!prefs.contains(key)) {
+            // create the entry
+            enableWaySnap(true);
+        }
+        return prefs.getBoolean(key, false);
     }
 
     /**

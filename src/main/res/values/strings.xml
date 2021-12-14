@@ -947,6 +947,7 @@ avoided by using an offline data source.</string>
     <string name="simple_paste">Tap the screen position</string>
     <string name="menu_paste_multiple">Paste multiple times</string>
     <string name="simple_paste_multiple">Tap the screen position</string>
+    <string name="menu_snap">Snap</string>
     <!--  Preferences -->
     <string name="config_backgroundLayer_title">Map background</string>
     <string name="config_backgroundLayer_summary">The tile based map background.</string>

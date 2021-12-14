@@ -1614,7 +1614,7 @@ public class Logic {
      * @throws OsmIllegalOperationException if the operation coudn't be performed
      */
     public synchronized void performAdd(@Nullable final Activity activity, final float x, final float y) throws OsmIllegalOperationException {
-        performAdd(activity, x, y, true);
+        performAdd(activity, x, y, true, true);
     }
 
     /**
@@ -1627,9 +1627,10 @@ public class Logic {
      * @param x screen-coordinate
      * @param y screen-coordinate
      * @param createCheckpoint create a new undo checkpoint, always set to true except if part of a composite operation
+     * @param snap if true existing nodes will be reused and new nodes created on nearby ways
      * @throws OsmIllegalOperationException if the operation coudn't be performed
      */
-    public synchronized void performAdd(@Nullable final Activity activity, final float x, final float y, boolean createCheckpoint)
+    public synchronized void performAdd(@Nullable final Activity activity, final float x, final float y, boolean createCheckpoint, boolean snap)
             throws OsmIllegalOperationException {
         Log.d(DEBUG_TAG, "performAdd");
         if (createCheckpoint) {
@@ -1638,21 +1639,18 @@ public class Logic {
         Node nextNode;
         Node lSelectedNode = selectedNodes != null && !selectedNodes.isEmpty() ? selectedNodes.get(0) : null;
         Way lSelectedWay = selectedWays != null && !selectedWays.isEmpty() ? selectedWays.get(0) : null;
+
         try {
+            nextNode = snap ? getClickedNodeOrCreatedWayNode(x, y) : getClickedNode(x, y);
             if (lSelectedNode == null) {
                 // This will be the first node.
-                lSelectedNode = getClickedNodeOrCreatedWayNode(x, y);
-                if (lSelectedNode == null) {
-                    // A complete new Node...
-                    int lat = yToLatE7(y);
-                    int lon = xToLonE7(x);
-                    lSelectedNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
-                    getDelegator().insertElementSafe(lSelectedNode);
-                    outsideOfDownload(activity, lon, lat);
+                if (!snap || nextNode == null) {
+                    lSelectedNode = addNode(activity, x, y);
+                } else {
+                    lSelectedNode = nextNode;
                 }
             } else {
                 // this is not the first node
-                nextNode = getClickedNodeOrCreatedWayNode(x, y);
                 if (nextNode == null) {
                     // clicked on empty space -> create a new Node
                     if (lSelectedWay == null) {
@@ -1660,12 +1658,8 @@ public class Logic {
                         // way
                         lSelectedWay = getDelegator().createAndInsertWay(lSelectedNode);
                     }
-                    int lat = yToLatE7(y);
-                    int lon = xToLonE7(x);
-                    lSelectedNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
+                    lSelectedNode = addNode(activity, x, y);
                     getDelegator().addNodeToWay(lSelectedNode, lSelectedWay);
-                    getDelegator().insertElementSafe(lSelectedNode);
-                    outsideOfDownload(activity, lon, lat);
                 } else {
                     // User clicks an existing Node
                     if (nextNode == lSelectedNode) {
@@ -1677,6 +1671,9 @@ public class Logic {
                         // Create a new way with the existing node, which was clicked.
                         if (lSelectedWay == null) {
                             lSelectedWay = getDelegator().createAndInsertWay(lSelectedNode);
+                        }
+                        if (!snap) {
+                            nextNode = addNode(activity, x, y);
                         }
                         // Add the new Node.
                         getDelegator().addNodeToWay(nextNode, lSelectedWay);
@@ -1690,6 +1687,24 @@ public class Logic {
         }
         setSelectedNode(lSelectedNode);
         setSelectedWay(lSelectedWay);
+    }
+
+    /**
+     * Create and add node to storage
+     * 
+     * @param activity optional activity for warnings
+     * @param x screen x coordinate
+     * @param y screen y coordinate
+     * @return the new Node
+     */
+    @NonNull
+    private Node addNode(@Nullable final Activity activity, final float x, final float y) {
+        int lat = yToLatE7(y);
+        int lon = xToLonE7(x);
+        Node node = getDelegator().getFactory().createNodeWithNewId(lat, lon);
+        getDelegator().insertElementSafe(node);
+        outsideOfDownload(activity, lon, lat);
+        return node;
     }
 
     /**
@@ -1733,10 +1748,23 @@ public class Logic {
      * @return the created node
      */
     @NonNull
-    public synchronized Node performAddNode(@Nullable final Activity activity, double lonD, double latD) {
+    public Node performAddNode(@Nullable final Activity activity, double lonD, double latD) {
         int lon = (int) (lonD * 1E7D);
         int lat = (int) (latD * 1E7D);
         return performAddNode(activity, lon, lat);
+    }
+
+    /**
+     * Simplified version of creating a new node that takes geo coords and doesn't try to merge with existing features
+     * 
+     * @param activity activity this was called from, if null no warnings will be displayed
+     * @param x screen x coordinate
+     * @param y screen y coordinate
+     * @return the created node
+     */
+    @NonNull
+    public Node performAddNode(@Nullable final Activity activity, float x, float y) {
+        return performAddNode(activity, xToLonE7(x), yToLatE7(y));
     }
 
     /**
@@ -2503,7 +2531,23 @@ public class Logic {
      *            already been created
      * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
-    public synchronized void performAppendAppend(@Nullable final Activity activity, final float x, final float y, boolean createCheckpoint)
+    public void performAppendAppend(@Nullable final Activity activity, final float x, final float y, boolean createCheckpoint) {
+        performAppendAppend(activity, x, y, createCheckpoint, true);
+    }
+
+    /**
+     * Append a Node to the selected Way, if the selected Node is clicked finish, otherwise create a new Node at the
+     * location
+     * 
+     * @param activity activity this method was called from, if null no warnings will be displayed
+     * @param x screen x coordinate
+     * @param y screen y coordinate
+     * @param createCheckpoint normally true, only set to false in a multi-step operation, for which the checkpoint has
+     *            already been created
+     * @param snap if true existing nodes will be reused and new nodes created on nearby ways
+     * @throws OsmIllegalOperationException if the operation couldn't be performed
+     */
+    public synchronized void performAppendAppend(@Nullable final Activity activity, final float x, final float y, boolean createCheckpoint, boolean snap)
             throws OsmIllegalOperationException {
         Log.d(DEBUG_TAG, "performAppendAppend");
         if (createCheckpoint) {
@@ -2512,17 +2556,13 @@ public class Logic {
         Node lSelectedNode = getSelectedNode();
         Way lSelectedWay = getSelectedWay();
         try {
-            Node node = getClickedNodeOrCreatedWayNode(x, y);
+            Node node = snap ? getClickedNodeOrCreatedWayNode(x, y) : getClickedNode(x, y);
             if (node == lSelectedNode) {
                 lSelectedNode = null;
                 lSelectedWay = null;
             } else if (lSelectedWay != null) { // may have been de-selected before we got here
-                if (node == null) {
-                    int lat = yToLatE7(y);
-                    int lon = xToLonE7(x);
-                    node = getDelegator().getFactory().createNodeWithNewId(lat, lon);
-                    getDelegator().insertElementSafe(node);
-                    outsideOfDownload(activity, lon, lat);
+                if (!snap || node == null) { // always create new node if join is false
+                    node = addNode(activity, x, y);
                 }
                 getDelegator().appendNodeToWay(lSelectedNode, node, lSelectedWay);
                 lSelectedNode = node;

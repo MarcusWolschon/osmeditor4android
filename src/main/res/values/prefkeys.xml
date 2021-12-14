@@ -9,6 +9,7 @@
     <string name="config_presetFilter_key">presetFilter</string>
     <string name="config_background_category_key">backgroundCategory</string>
     <string name="config_overlay_category_key">overlayCategory</string>
+    <string name="config_waySnap_key">waySnap</string>
     <!-- Preference keys used in the pref editor(s) string & boolean prefs -->
     <string name="config_showStats_key">showStats</string>
     <string name="config_showTolerance_key">showTolerance</string>
