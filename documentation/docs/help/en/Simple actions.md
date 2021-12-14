@@ -22,6 +22,13 @@ Start a new OSM Way at the tapped position, tapping a further position will crea
 
 Besides tapping the "check mark" button to directly start the [property editor](../en/Property%20editor.md), you can
 
+#### Snap
+
+When the checkbox is checked newly created nodes near to other nodes and ways will snap on to these automatically creating connections. It the checkbox is not checked 
+nodes will be created without merging with other objects. You can toggle this while you are drawing a way.
+
+Note: when the checkbox is not checked you need to manually close closed ways, for example a building outline.
+
 #### ![Address](../images/address.png) Add address tags
 
 Adds address tags with prediction. If the way is closed this will add the predicted address tags and start the [property editor](../en/Property%20editor.md). If the way is not closed an address interpolation is created and a dedicated editor is started.
