@@ -22,9 +22,9 @@ Start a new OSM Way at the tapped position, tapping a further position will crea
 
 Besides tapping the "check mark" button to directly start the [property editor](../en/Property%20editor.md), you can
 
-#### Snap
+#### ![Snap](../images/snap_on.png)  ![Snap](../images/snap_off.png) Snap
 
-When the checkbox is checked newly created nodes near to other nodes and ways will snap on to these automatically creating connections. It the checkbox is not checked 
+When the snap function is active, newly created nodes near to other nodes and ways will snap on to these automatically creating connections. It the checkbox is not checked 
 nodes will be created without merging with other objects. You can toggle this while you are drawing a way.
 
 Note: when the checkbox is not checked you need to manually close closed ways, for example a building outline.

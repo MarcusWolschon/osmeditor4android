@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
@@ -171,7 +172,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         menuUtil.reset();
         menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo))
                 .setVisible(!addedNodes.isEmpty());
-        addJoinCheckBox(main, menu, snap, (CompoundButton buttonView, boolean isChecked) -> {
+        addSnapCheckBox(main, menu, snap, (CompoundButton buttonView, boolean isChecked) -> {
             snap = isChecked;
             logic.getPrefs().enableWaySnap(isChecked);
         });
@@ -188,11 +189,10 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
      * 
      * @param menu the Menu
      */
-    static void addJoinCheckBox(@NonNull Context ctx, @NonNull Menu menu, boolean snap, @NonNull OnCheckedChangeListener listener) {
+    static void addSnapCheckBox(@NonNull Context ctx, @NonNull Menu menu, boolean snap, @NonNull OnCheckedChangeListener listener) {
         // setting an icon will make sure this gets shown
         MenuItem snapItem = menu.add(Menu.NONE, MENUITEM_SNAP, Menu.NONE, R.string.menu_snap).setIcon(ThemeUtils.getResIdFromAttribute(ctx, R.attr.menu_merge));
-        AppCompatCheckBox check = new AppCompatCheckBox(ctx);
-        check.setText(R.string.menu_snap);
+        AppCompatCheckBox check =  (AppCompatCheckBox) LayoutInflater.from(ctx).inflate(R.layout.snap_action_view, null);        
         check.setChecked(snap);
         check.setOnCheckedChangeListener(listener);
         snapItem.setActionView(check);
