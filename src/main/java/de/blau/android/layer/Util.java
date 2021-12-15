@@ -41,7 +41,8 @@ public final class Util {
      * 
      * @param db the pref database
      * @param layerConfigs the current layer config
-     * @param tileSource the TileLayerSource to add
+     * @param isOverlay if true this is an overlay
+     * @param id the layer id
      */
     public static void addImageryLayer(@NonNull final AdvancedPrefDatabase db, @NonNull final LayerConfig[] layerConfigs, boolean isOverlay,
             @NonNull final String id) {

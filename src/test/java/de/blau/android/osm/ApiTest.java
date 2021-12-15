@@ -42,6 +42,7 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
+import de.blau.android.AsyncResult;
 import de.blau.android.R;
 import de.blau.android.SignalUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -106,7 +107,7 @@ public class ApiTest {
         }
 
         @Override
-        public void onError() {
+        public void onError(AsyncResult result) {
             fail("Expected success");
         }
     };
@@ -587,7 +588,7 @@ public class ApiTest {
                     }
 
                     @Override
-                    public void onError() {
+                    public void onError(AsyncResult result) {
                         signal.countDown();
                     }
                 });

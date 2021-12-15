@@ -22,7 +22,7 @@ public class SignalHandler implements PostAsyncActionHandler {
     }
 
     @Override
-    public void onError() {
+    public void onError(AsyncResult result) {
         signal.countDown();
     }
 }
