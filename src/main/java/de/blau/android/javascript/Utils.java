@@ -329,7 +329,7 @@ public final class Utils {
                 Progress.dismissDialog(activity, Progress.PROGRESS_SAVING);
                 if (result != 0) {
                     if (postSaveHandler != null) {
-                        postSaveHandler.onError();
+                        postSaveHandler.onError(null);
                     }
                 } else {
                     if (postSaveHandler != null) {
@@ -382,7 +382,7 @@ public final class Utils {
                 Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
                 if (result == null) {
                     if (postLoad != null) {
-                        postLoad.onError();
+                        postLoad.onError(null);
                     }
                 } else {
                     if (postLoad != null) {

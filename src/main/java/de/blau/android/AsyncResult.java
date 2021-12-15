@@ -2,7 +2,7 @@ package de.blau.android;
 
 import androidx.annotation.Nullable;
 
-public class ReadAsyncResult {
+public class AsyncResult {
     private final int    code;
     private final String message;
 
@@ -11,7 +11,7 @@ public class ReadAsyncResult {
      * 
      * @param code the result code
      */
-    ReadAsyncResult(int code) {
+    AsyncResult(int code) {
         this(code, null);
     }
 
@@ -21,7 +21,7 @@ public class ReadAsyncResult {
      * @param code the result code
      * @param message an optional message
      */
-    ReadAsyncResult(int code, @Nullable String message) {
+    AsyncResult(int code, @Nullable String message) {
         this.code = code;
         this.message = message;
     }

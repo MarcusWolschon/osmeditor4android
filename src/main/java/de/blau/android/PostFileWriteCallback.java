@@ -2,6 +2,7 @@ package de.blau.android;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.util.Snack;
 
 public class PostFileWriteCallback implements PostAsyncActionHandler {
@@ -25,7 +26,7 @@ public class PostFileWriteCallback implements PostAsyncActionHandler {
     }
 
     @Override
-    public void onError() {
+    public void onError(@Nullable AsyncResult result) {
         Snack.toastTopError(context, context.getString(R.string.toast_error_writing, fileName));
     }
 }

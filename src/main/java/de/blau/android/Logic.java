@@ -2755,7 +2755,7 @@ public class Logic {
             }
         };
 
-        new ExecutorTask<Boolean, Void, ReadAsyncResult>(executorService, uiHandler) {
+        new ExecutorTask<Boolean, Void, AsyncResult>(executorService, uiHandler) {
 
             boolean hasActivity = context instanceof FragmentActivity;
 
@@ -2767,13 +2767,13 @@ public class Logic {
             }
 
             @Override
-            protected ReadAsyncResult doInBackground(Boolean arg) {
+            protected AsyncResult doInBackground(Boolean arg) {
                 boolean merge = arg != null && arg.booleanValue();
                 return download(context, prefs.getServer(), mapBox, postMerge, null, merge, false);
             }
 
             @Override
-            protected void onPostExecute(ReadAsyncResult result) {
+            protected void onPostExecute(AsyncResult result) {
 
                 if (hasActivity) {
                     Progress.dismissDialog((FragmentActivity) context, Progress.PROGRESS_DOWNLOAD);
@@ -2791,7 +2791,7 @@ public class Logic {
                     switch (code) {
                     case ErrorCodes.OUT_OF_MEMORY:
                         if (getDelegator().isDirty()) {
-                            result = new ReadAsyncResult(ErrorCodes.OUT_OF_MEMORY_DIRTY);
+                            result = new AsyncResult(ErrorCodes.OUT_OF_MEMORY_DIRTY);
                         }
                         break;
                     default:
@@ -2806,7 +2806,7 @@ public class Logic {
                         ACRAHelper.nocrashReport(ex, ex.getMessage());
                     }
                     if (postLoadHandler != null) {
-                        postLoadHandler.onError();
+                        postLoadHandler.onError(null);
                     }
                 } else {
                     if (postLoadHandler != null) {
@@ -2863,10 +2863,10 @@ public class Logic {
             }
         };
 
-        new ExecutorTask<Void, Void, ReadAsyncResult>(executorService, uiHandler) {
+        new ExecutorTask<Void, Void, AsyncResult>(executorService, uiHandler) {
             @Override
-            protected ReadAsyncResult doInBackground(Void arg) {
-                ReadAsyncResult result = download(context, prefs.getServer(), mapBox, postMerge, handler, true, true);
+            protected AsyncResult doInBackground(Void arg) {
+                AsyncResult result = download(context, prefs.getServer(), mapBox, postMerge, handler, true, true);
                 if (getDelegator().getCurrentStorage().getNodeCount() > prefs.getAutoPruneNodeLimit()) {
                     ViewBox pruneBox = new ViewBox(map.getViewBox());
                     pruneBox.scale(1.6);
@@ -2876,7 +2876,7 @@ public class Logic {
             }
 
             @Override
-            protected void onPostExecute(ReadAsyncResult result) {
+            protected void onPostExecute(AsyncResult result) {
                 if (ErrorCodes.CORRUPTED_DATA == result.getCode()) {
                     Snack.toastTopError(context, R.string.corrupted_data_message);
                 }
@@ -2897,20 +2897,20 @@ public class Logic {
      * @param background this is being called in the background and shouldn't do any thing that effects the UI
      * @return a ReadAsyncResult with detailed result information
      */
-    public ReadAsyncResult download(@NonNull final Context ctx, @NonNull Server server, @NonNull final BoundingBox mapBox,
+    public AsyncResult download(@NonNull final Context ctx, @NonNull Server server, @NonNull final BoundingBox mapBox,
             @Nullable final PostMergeHandler postMerge, @Nullable final PostAsyncActionHandler handler, boolean merge, boolean background) {
-        ReadAsyncResult result = new ReadAsyncResult(ErrorCodes.OK);
+        AsyncResult result = new AsyncResult(ErrorCodes.OK);
         try {
             if (!background) {
                 if (server.hasReadOnly()) {
                     if (server.hasMapSplitSource()) {
                         if (!MapSplitSource.intersects(server.getMapSplitSource(), mapBox)) {
-                            return new ReadAsyncResult(ErrorCodes.NO_DATA);
+                            return new AsyncResult(ErrorCodes.NO_DATA);
                         }
                     } else {
                         server.getReadOnlyCapabilities();
                         if (!(server.readOnlyApiAvailable() && server.readOnlyReadableDB())) {
-                            return new ReadAsyncResult(ErrorCodes.API_OFFLINE);
+                            return new AsyncResult(ErrorCodes.API_OFFLINE);
                         }
                         // try to get write capabilities in any case FIXME unclear what we should do if the write
                         // server is not available
@@ -2919,7 +2919,7 @@ public class Logic {
                 } else {
                     server.getCapabilities();
                     if (!(server.apiAvailable() && server.readableDB())) {
-                        return new ReadAsyncResult(ErrorCodes.API_OFFLINE);
+                        return new AsyncResult(ErrorCodes.API_OFFLINE);
                     }
                 }
             }
@@ -2938,14 +2938,14 @@ public class Logic {
             if (merge) { // incremental load
                 try {
                     if (!getDelegator().mergeData(input, postMerge)) {
-                        result = new ReadAsyncResult(ErrorCodes.DATA_CONFLICT);
+                        result = new AsyncResult(ErrorCodes.DATA_CONFLICT);
                     } else {
                         if (mapBox != null) {
                             getDelegator().mergeBoundingBox(mapBox);
                         }
                     }
                 } catch (IllegalStateException iex) {
-                    result = new ReadAsyncResult(ErrorCodes.CORRUPTED_DATA);
+                    result = new AsyncResult(ErrorCodes.CORRUPTED_DATA);
                 }
             } else { // replace data with new download
                 getDelegator().reset(false);
@@ -2970,39 +2970,39 @@ public class Logic {
         } catch (SAXException e) {
             Exception ce = e.getException();
             if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-                result = new ReadAsyncResult(ErrorCodes.OUT_OF_MEMORY, "");
+                result = new AsyncResult(ErrorCodes.OUT_OF_MEMORY, "");
             } else {
-                result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
+                result = new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
             }
         } catch (ParserConfigurationException | UnsupportedFormatException e) {
             // crash and burn
             // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
             // network device... need to display what we actually got
-            result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
+            result = new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
         } catch (OsmServerException e) {
             int code = e.getErrorCode();
             if (code == HttpURLConnection.HTTP_BAD_REQUEST) {
                 // check error messages
                 Matcher m = Server.ERROR_MESSAGE_BAD_OAUTH_REQUEST.matcher(e.getMessage());
                 if (m.matches()) {
-                    result = new ReadAsyncResult(ErrorCodes.INVALID_LOGIN);
+                    result = new AsyncResult(ErrorCodes.INVALID_LOGIN);
                 } else {
-                    result = new ReadAsyncResult(ErrorCodes.BOUNDING_BOX_TOO_LARGE);
+                    result = new AsyncResult(ErrorCodes.BOUNDING_BOX_TOO_LARGE);
                 }
             } else {
-                result = new ReadAsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage());
+                result = new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage());
             }
         } catch (IOException e) {
             if (e instanceof SSLProtocolException) {
-                result = new ReadAsyncResult(ErrorCodes.SSL_HANDSHAKE);
+                result = new AsyncResult(ErrorCodes.SSL_HANDSHAKE);
             } else {
-                result = new ReadAsyncResult(ErrorCodes.NO_CONNECTION);
+                result = new AsyncResult(ErrorCodes.NO_CONNECTION);
             }
         }
         if (result.getCode() != ErrorCodes.OK) {
             removeBoundingBox(mapBox);
             if (handler != null) {
-                handler.onError();
+                handler.onError(null);
             }
             Log.e(DEBUG_TAG, "downloadBox problem downloading " + result.getClass() + " " + result.getMessage());
         }
@@ -3033,27 +3033,27 @@ public class Logic {
                 e.hasProblem(activity, validator);
             }
         };
-        new ExecutorTask<Void, Void, ReadAsyncResult>(executorService, uiHandler) {
+        new ExecutorTask<Void, Void, AsyncResult>(executorService, uiHandler) {
             @Override
             protected void onPreExecute() {
                 Progress.showDialog(activity, Progress.PROGRESS_DOWNLOAD);
             }
 
             @Override
-            protected ReadAsyncResult doInBackground(Void arg) {
+            protected AsyncResult doInBackground(Void arg) {
                 for (BoundingBox box : boxes) {
                     if (box != null && box.isValidForApi()) {
-                        ReadAsyncResult result = download(activity, prefs.getServer(), box, postMerge, null, true, true);
+                        AsyncResult result = download(activity, prefs.getServer(), box, postMerge, null, true, true);
                         if (result.getCode() != 0) {
                             return result;
                         }
                     }
                 }
-                return new ReadAsyncResult(ErrorCodes.OK, null);
+                return new AsyncResult(ErrorCodes.OK, null);
             }
 
             @Override
-            protected void onPostExecute(ReadAsyncResult result) {
+            protected void onPostExecute(AsyncResult result) {
                 Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
                 int code = result.getCode();
                 if (code != 0) {
@@ -3069,7 +3069,7 @@ public class Logic {
                         getDelegator().addBoundingBox(box);
                     }
                     if (postLoadHandler != null) {
-                        postLoadHandler.onError();
+                        postLoadHandler.onError(null);
                     }
                 } else {
                     if (postLoadHandler != null) {
@@ -3167,7 +3167,7 @@ public class Logic {
                     }
                 } else {
                     if (postLoadHandler != null) {
-                        postLoadHandler.onError();
+                        postLoadHandler.onError(null);
                     }
                 }
             }
@@ -3259,15 +3259,15 @@ public class Logic {
      * @param postLoadHandler callback to execute after download completes if null method waits for download to finish
      * @return a ReadAsyncResult
      */
-    public synchronized ReadAsyncResult downloadElements(@NonNull final Context ctx, @Nullable final List<Long> nodes, @Nullable final List<Long> ways,
+    public synchronized AsyncResult downloadElements(@NonNull final Context ctx, @Nullable final List<Long> nodes, @Nullable final List<Long> ways,
             @Nullable final List<Long> relations, @Nullable final PostAsyncActionHandler postLoadHandler) {
 
-        class DownLoadElementsTask extends ExecutorTask<Void, Void, ReadAsyncResult> {
+        class DownLoadElementsTask extends ExecutorTask<Void, Void, AsyncResult> {
             protected DownLoadElementsTask(ExecutorService executorService, Handler handler) {
                 super(executorService, handler);
             }
 
-            ReadAsyncResult result;
+            AsyncResult result;
 
             /**
              * Convert a List&lt;Long&gt; to an array of long
@@ -3285,7 +3285,7 @@ public class Logic {
             }
 
             @Override
-            protected ReadAsyncResult doInBackground(Void arg) {
+            protected AsyncResult doInBackground(Void arg) {
                 try {
                     final OsmParser osmParser = new OsmParser();
                     InputStream in = null;
@@ -3334,37 +3334,37 @@ public class Logic {
                     try {
                         // FIXME need to check if providing a handler makes sense here
                         if (!getDelegator().mergeData(osmParser.getStorage(), null)) {
-                            result = new ReadAsyncResult(ErrorCodes.DATA_CONFLICT);
+                            result = new AsyncResult(ErrorCodes.DATA_CONFLICT);
                         }
                     } catch (IllegalStateException iex) {
-                        result = new ReadAsyncResult(ErrorCodes.CORRUPTED_DATA);
+                        result = new AsyncResult(ErrorCodes.CORRUPTED_DATA);
                     }
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
                     Exception ce = e.getException();
                     if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-                        result = new ReadAsyncResult(ErrorCodes.OUT_OF_MEMORY);
+                        result = new AsyncResult(ErrorCodes.OUT_OF_MEMORY);
                     } else {
-                        result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
+                        result = new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
                     }
                 } catch (ParserConfigurationException e) {
                     // crash and burn
                     // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
                     // network device... need to display what we actually got
                     Log.e(DEBUG_TAG, "downloadElements problem parsing", e);
-                    result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
+                    result = new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
                 } catch (OsmServerException e) {
-                    result = new ReadAsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessageWithDescription());
+                    result = new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessageWithDescription());
                     Log.e(DEBUG_TAG, "downloadElements problem downloading", e);
                 } catch (IOException e) {
-                    result = new ReadAsyncResult(ErrorCodes.NO_CONNECTION);
+                    result = new AsyncResult(ErrorCodes.NO_CONNECTION);
                     Log.e(DEBUG_TAG, "downloadElements problem downloading", e);
                 }
                 return result;
             }
 
             @Override
-            protected void onPostExecute(ReadAsyncResult result) {
+            protected void onPostExecute(AsyncResult result) {
                 if (result == null) {
                     if (postLoadHandler != null) {
                         postLoadHandler.onSuccess();
@@ -3386,10 +3386,10 @@ public class Logic {
             } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt
                                                                                        // the thread in question
                 loader.cancel();
-                return new ReadAsyncResult(ErrorCodes.NO_CONNECTION);
+                return new AsyncResult(ErrorCodes.NO_CONNECTION);
             }
         } else {
-            return new ReadAsyncResult(ErrorCodes.OK);
+            return new AsyncResult(ErrorCodes.OK);
         }
     }
 
@@ -3466,7 +3466,7 @@ public class Logic {
 
         new ReadAsyncClass(executorService, uiHandler, context, is, false, postLoad) {
             @Override
-            protected ReadAsyncResult doInBackground(Boolean arg) {
+            protected AsyncResult doInBackground(Boolean arg) {
                 synchronized (Logic.this) {
                     try {
                         final OsmParser osmParser = new OsmParser();
@@ -3489,19 +3489,19 @@ public class Logic {
                         Log.e(DEBUG_TAG, "Problem parsing", e);
                         Exception ce = e.getException();
                         if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-                            return new ReadAsyncResult(ErrorCodes.OUT_OF_MEMORY, ce.getMessage());
+                            return new AsyncResult(ErrorCodes.OUT_OF_MEMORY, ce.getMessage());
                         } else {
-                            return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
+                            return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                         }
                     } catch (ParserConfigurationException e) {
                         // crash and burn
                         Log.e(DEBUG_TAG, "Problem parsing", e);
-                        return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
+                        return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                     } catch (IOException e) {
                         Log.e(DEBUG_TAG, "Problem reading", e);
-                        return new ReadAsyncResult(ErrorCodes.NO_CONNECTION, e.getMessage());
+                        return new AsyncResult(ErrorCodes.NO_CONNECTION, e.getMessage());
                     }
-                    return new ReadAsyncResult(ErrorCodes.OK, null);
+                    return new AsyncResult(ErrorCodes.OK, null);
                 }
             }
         }.execute(add);
@@ -3525,7 +3525,7 @@ public class Logic {
                 ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
             }
             if (postSaveHandler != null) {
-                postSaveHandler.onError();
+                postSaveHandler.onError(null);
             }
         }
     }
@@ -3545,7 +3545,7 @@ public class Logic {
                 ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
             }
             if (postSaveHandler != null) {
-                postSaveHandler.onError();
+                postSaveHandler.onError(null);
             }
         }
     }
@@ -3603,7 +3603,7 @@ public class Logic {
                         ErrorAlert.showDialog(activity, result);
                     }
                     if (postSaveHandler != null) {
-                        postSaveHandler.onError();
+                        postSaveHandler.onError(null);
                     }
                 } else {
                     if (postSaveHandler != null) {
@@ -3642,7 +3642,7 @@ public class Logic {
 
         new ReadAsyncClass(executorService, uiHandler, activity, is, add, postLoad) {
             @Override
-            protected ReadAsyncResult doInBackground(Boolean arg) {
+            protected AsyncResult doInBackground(Boolean arg) {
                 synchronized (Logic.this) {
                     try {
                         Storage storage = new Storage();
@@ -3661,9 +3661,9 @@ public class Logic {
                         }
                     } catch (IOException | RuntimeException e) {
                         Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
-                        return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
+                        return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                     }
-                    return new ReadAsyncResult(ErrorCodes.OK, null);
+                    return new AsyncResult(ErrorCodes.OK, null);
                 }
             }
         }.execute(add);
@@ -3686,7 +3686,7 @@ public class Logic {
 
         new ReadAsyncClass(executorService, uiHandler, activity, is, false, postLoad) {
             @Override
-            protected ReadAsyncResult doInBackground(Boolean arg) {
+            protected AsyncResult doInBackground(Boolean arg) {
                 synchronized (Logic.this) {
                     try (final InputStream in = new BufferedInputStream(is)) {
                         OsmChangeParser oscParser = new OsmChangeParser();
@@ -3696,7 +3696,7 @@ public class Logic {
                         createCheckpoint((FragmentActivity) context, R.string.undo_action_apply_osc);
                         if (!sd.applyOsc(oscParser.getStorage(), null)) {
                             removeCheckpoint((FragmentActivity) context, R.string.undo_action_apply_osc, true);
-                            return new ReadAsyncResult(ErrorCodes.APPLYING_OSC_FAILED);
+                            return new AsyncResult(ErrorCodes.APPLYING_OSC_FAILED);
                         }
                         if (map != null) {
                             viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
@@ -3709,13 +3709,13 @@ public class Logic {
                         }
                     } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException e) {
                         Log.e(DEBUG_TAG, "Problem parsing OSC ", e);
-                        return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
+                        return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                     } catch (IllegalStateException iex) {
-                        return new ReadAsyncResult(ErrorCodes.CORRUPTED_DATA);
+                        return new AsyncResult(ErrorCodes.CORRUPTED_DATA);
                     } finally {
                         SavingHelper.close(is);
                     }
-                    return new ReadAsyncResult(ErrorCodes.OK, null);
+                    return new AsyncResult(ErrorCodes.OK, null);
                 }
             }
         }.execute();
@@ -3869,7 +3869,7 @@ public class Logic {
 
                     Snack.barError(activity, R.string.toast_state_file_failed);
                     if (postLoad != null) {
-                        postLoad.onError();
+                        postLoad.onError(null);
                     }
                 }
             }
@@ -3921,7 +3921,7 @@ public class Logic {
                 } else {
                     Log.d(DEBUG_TAG, "loadTasksfromFile: File read failed");
                     if (postLoad != null) {
-                        postLoad.onError();
+                        postLoad.onError(null);
                     }
                 }
             }
@@ -3978,7 +3978,7 @@ public class Logic {
                 } else {
                     Log.d(DEBUG_TAG, "loadLayerState: state load failed");
                     if (postLoad != null) {
-                        postLoad.onError();
+                        postLoad.onError(null);
                     }
                 }
                 map.invalidate();

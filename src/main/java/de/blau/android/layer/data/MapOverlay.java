@@ -45,7 +45,7 @@ import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.Mode;
 import de.blau.android.R;
-import de.blau.android.ReadAsyncResult;
+import de.blau.android.AsyncResult;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.filter.Filter;
 import de.blau.android.layer.ConfigureInterface;
@@ -371,7 +371,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 final Logic logic = App.getLogic();
                 try {
                     dataThreadPoolExecutor.execute(() -> {
-                        ReadAsyncResult result = logic.download(context, prefs.getServer(), b, postMerge, () -> {
+                        AsyncResult result = logic.download(context, prefs.getServer(), b, postMerge, () -> {
                             logic.reselectRelationMembers();
                             map.postInvalidate();
                         }, true, true);

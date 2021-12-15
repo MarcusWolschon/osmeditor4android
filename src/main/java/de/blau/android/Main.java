@@ -791,7 +791,7 @@ public class Main extends FullScreenAppCompatActivity
                         }
 
                         @Override
-                        public void onError() {
+                        public void onError(@Nullable AsyncResult result) {
                             Log.d(DEBUG_TAG, "error loading layers");
                             // always try to load tasks
                             onSuccess();
@@ -1259,7 +1259,7 @@ public class Main extends FullScreenAppCompatActivity
                 }
 
                 @Override
-                public void onError() {
+                public void onError(@Nullable AsyncResult result) {
                     Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
                 }
             });

@@ -1939,7 +1939,7 @@ public class Server {
                         restartAction.onSuccess();
                     } else {
                         Log.w(DEBUG_TAG, "Authorized returned with " + resultCode);
-                        restartAction.onError();
+                        restartAction.onError(null);
                     }
                 }));
                 if (server.getOAuth()) { // if still set

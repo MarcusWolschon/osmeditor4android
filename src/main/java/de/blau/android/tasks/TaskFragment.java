@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
+import de.blau.android.AsyncResult;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
@@ -101,7 +102,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
                     }
 
                     @Override
-                    public void onError() {
+                    public void onError(@Nullable AsyncResult result) {
                         updateMenu(activity);
                     }
                 }, task);

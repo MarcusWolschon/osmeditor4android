@@ -78,7 +78,7 @@ public final class LoadTrack {
                         Snack.barInfo(activity, message);
                     } else {
                         if (handler != null) {
-                            handler.onError();
+                            handler.onError(null);
                         }
                         Snack.barError(activity, R.string.toast_file_not_found);
                     }

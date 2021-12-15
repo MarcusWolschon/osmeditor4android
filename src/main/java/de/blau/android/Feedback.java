@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import de.blau.android.contract.Github;
 import de.blau.android.contract.Urls;
@@ -200,7 +201,7 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
             }
 
             @Override
-            public void onError() {
+            public void onError(@Nullable AsyncResult result) {
                 buttonSend.setEnabled(false);
             }
         };

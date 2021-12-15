@@ -23,7 +23,7 @@ import de.blau.android.util.ExecutorTask;
  * @author simon
  *
  */
-public abstract class ReadAsyncClass extends ExecutorTask<Boolean, Void, ReadAsyncResult> {
+public abstract class ReadAsyncClass extends ExecutorTask<Boolean, Void, AsyncResult> {
 
     private static final String  DEBUG_TAG = "ReadAsyncClass";
     final Context                context;
@@ -37,6 +37,8 @@ public abstract class ReadAsyncClass extends ExecutorTask<Boolean, Void, ReadAsy
     /**
      * Construct a new instance
      * 
+     * @param executorService ExecutorService to run this on
+     * @param uiHandler the Handler to use
      * @param context an Android Context
      * @param is the InputStream
      * @param add if true add to exiting data (not always used)
@@ -61,7 +63,7 @@ public abstract class ReadAsyncClass extends ExecutorTask<Boolean, Void, ReadAsy
     }
 
     @Override
-    protected void onPostExecute(ReadAsyncResult result) {
+    protected void onPostExecute(AsyncResult result) {
         if (hasActivity) {
             Progress.dismissDialog((FragmentActivity) context, Progress.PROGRESS_LOADING);
         }
@@ -86,7 +88,7 @@ public abstract class ReadAsyncClass extends ExecutorTask<Boolean, Void, ReadAsy
                 ACRAHelper.nocrashReport(ex, ex.getMessage());
             }
             if (postLoad != null) {
-                postLoad.onError();
+                postLoad.onError(result);
             }
         } else {
             if (postLoad != null) {

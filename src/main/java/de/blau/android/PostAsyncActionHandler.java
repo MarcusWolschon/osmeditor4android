@@ -10,21 +10,11 @@ public interface PostAsyncActionHandler {
     public void onSuccess();
 
     /**
-     * method for error handling
-     * 
-     * @deprecated use onError(AsyncResult result)
-     */
-    @Deprecated
-    default void onError() {
-        onError(null);
-    }
-
-    /**
      * Error handling with some details
      * 
      * @param result
      */
-    default void onError(@Nullable ReadAsyncResult result) {
+    default void onError(@Nullable AsyncResult result) {
         // do nothing
     }
 }

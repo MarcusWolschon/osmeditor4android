@@ -170,7 +170,6 @@ public final class TransferTasks {
      * @param server current server configuration
      * @param postUploadHandler execute code after an upload
      */
-    @SuppressWarnings("deprecation")
     public static void upload(@NonNull final FragmentActivity activity, @NonNull final Server server,
             @Nullable final PostAsyncActionHandler postUploadHandler) {
         final String PROGRESS_TAG = "tasks";
@@ -227,7 +226,7 @@ public final class TransferTasks {
                     }
                 } else {
                     if (postUploadHandler != null) {
-                        postUploadHandler.onError();
+                        postUploadHandler.onError(null);
                     }
                     Snack.barError(activity, R.string.openstreetbug_commit_fail);
                 }

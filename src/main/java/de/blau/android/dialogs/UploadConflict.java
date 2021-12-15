@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
+import de.blau.android.AsyncResult;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
@@ -153,7 +154,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
                     }
 
                     @Override
-                    public void onError() {
+                    public void onError(@Nullable AsyncResult result) {
                         Snack.toastTopError(activity, activity.getString(R.string.toast_download_server_version_failed, elementLocal.getDescription()));
                     }
                 };

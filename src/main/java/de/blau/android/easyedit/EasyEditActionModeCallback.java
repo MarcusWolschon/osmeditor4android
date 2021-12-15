@@ -27,7 +27,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
-import de.blau.android.ReadAsyncResult;
+import de.blau.android.AsyncResult;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.osm.Node;
@@ -492,7 +492,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
                         }
 
                         @Override
-                        public void onError(@Nullable ReadAsyncResult result) {
+                        public void onError(@Nullable AsyncResult result) {
                             ErrorAlert.showDialog(main, result);
                         }
                     }));

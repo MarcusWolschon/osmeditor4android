@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.ErrorCodes;
 import de.blau.android.R;
-import de.blau.android.ReadAsyncResult;
+import de.blau.android.AsyncResult;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
@@ -53,7 +53,7 @@ public class ErrorAlert extends ImmersiveDialogFragment {
      * @param activity the calling Activity
      * @param result a ReadAsyncResult instance
      */
-    public static void showDialog(@NonNull FragmentActivity activity, ReadAsyncResult result) {
+    public static void showDialog(@NonNull FragmentActivity activity, AsyncResult result) {
         showDialog(activity, result.getCode(), result.getMessage());
     }
 
