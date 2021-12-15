@@ -3,9 +3,11 @@ package de.blau.android.easyedit;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
@@ -16,9 +18,7 @@ import de.blau.android.R;
 import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.ViewBox;
 import de.blau.android.tasks.NoteFragment;
-import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
@@ -41,11 +41,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
          * Add a node without merging with nearby elements, start the PropertyEditor with the Preset tab
          */
         NODE_TAGS(R.string.menu_add_node_tags, R.string.simple_add_node, (main, manager, x, y) -> {
-            de.blau.android.Map map = main.getMap();
-            ViewBox box = map.getViewBox();
-            int width = map.getWidth();
-            int height = map.getHeight();
-            Node node = App.getLogic().performAddNode(main, GeoMath.xToLonE7(width, box, x), GeoMath.yToLatE7(height, width, box, y));
+            Node node = App.getLogic().performAddNode(main, x, y);
             main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
             main.performTagEdit(node, null, false, true);
         }) {
@@ -76,6 +72,13 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             @Override
             public boolean isEnabled() {
                 return App.getLogic().getMode().enabledSimpleActions().contains(this);
+            }
+
+            @Override
+            public void addMenuItems(Context ctx, Menu menu) {
+                boolean snap = App.getLogic().getPrefs().isWaySnapEnabled();
+                PathCreationActionModeCallback.addSnapCheckBox(ctx, menu, snap,
+                        (CompoundButton buttonView, boolean isChecked) -> App.getLogic().getPrefs().enableWaySnap(isChecked));
             }
         },
         /**
@@ -197,6 +200,16 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         public boolean isEnabled() {
             return true;
         }
+
+        /**
+         * Add one or more menu items to the initial menu
+         * 
+         * @param ctx an Android Context
+         * @param menu the Menu we append the items too
+         */
+        public void addMenuItems(@NonNull Context ctx, @NonNull Menu menu) {
+            // nothing
+        }
     }
 
     private final SimpleAction simpleAction;
@@ -227,6 +240,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         super.onPrepareActionMode(mode, menu);
         menu.clear();
         menuUtil.reset();
+        simpleAction.addMenuItems(main, menu);
         menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         arrangeMenu(menu);
         return true;

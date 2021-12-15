@@ -149,7 +149,80 @@ public class SimpleActionsTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         TestUtils.clickUp(device);
     }
+    
+    /**
+     * Create a new closed way from menu and clicks at two more locations and finishing via home button
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void newClosedWay() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickSimpleButton(device);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
+        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
+        TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3897000, 47.3903500, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
+        TestUtils.sleep();
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
+        TestUtils.clickHome(device, true);
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertTrue(way.getOsmId() < 0);
+        assertEquals(5, way.nodeCount());
+        assertTrue(way.isClosed());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        TestUtils.clickUp(device);
+    }
 
+    /**
+     * Create a new way from menu and with snapping turned off
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void newWayNoSnap() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickSimpleButton(device);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
+        
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_snap), false, false));
+        
+        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
+        TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3897000, 47.3903500, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
+        TestUtils.sleep();
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_snap), false, false));
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
+        TestUtils.clickHome(device, true);
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertTrue(way.getOsmId() < 0);
+        assertEquals(5, way.nodeCount());
+        assertFalse(way.isClosed());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        TestUtils.clickUp(device);
+    }
+
+    
     /**
      * Create a new way and completely undo it
      */

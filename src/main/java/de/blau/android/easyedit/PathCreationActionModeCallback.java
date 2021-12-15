@@ -3,12 +3,17 @@ package de.blau.android.easyedit;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
@@ -33,8 +38,9 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private static final String DEBUG_TAG = "PathCreationAction...";
 
     protected static final int MENUITEM_UNDO          = 1;
-    private static final int   MENUITEM_NEWWAY_PRESET = 2;
-    private static final int   MENUITEM_ADDRESS       = 3;
+    private static final int   MENUITEM_SNAP          = 2;
+    private static final int   MENUITEM_NEWWAY_PRESET = 3;
+    private static final int   MENUITEM_ADDRESS       = 4;
 
     private static final String NODE_IDS_KEY          = "node ids";
     private static final String EXISTING_NODE_IDS_KEY = "existing node ids";
@@ -52,6 +58,8 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private Way     appendTargetWay;
     /** flag if we don't want to start the property editor in onDestroy **/
     private boolean dontTag = false;
+    /** snap to existing ways/nodes */
+    private boolean snap    = true;
 
     /** contains a pointer to the created way if one was created. used to fix selection after undo. */
     private Way          createdWay    = null;
@@ -140,6 +148,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             mode.setTitle(savedTitle);
         }
         mode.setSubtitle(R.string.actionmode_createpath);
+        snap = logic.getPrefs().isWaySnapEnabled();
         logic.setSelectedWay(null);
         logic.setSelectedNode(appendTargetNode);
         if (appendTargetNode != null) {
@@ -163,11 +172,30 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         menuUtil.reset();
         menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo))
                 .setVisible(!addedNodes.isEmpty());
+        addSnapCheckBox(main, menu, snap, (CompoundButton buttonView, boolean isChecked) -> {
+            snap = isChecked;
+            logic.getPrefs().enableWaySnap(isChecked);
+        });
+        //
         menu.add(Menu.NONE, MENUITEM_NEWWAY_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_preset));
         menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
         menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         arrangeMenu(menu);
         return super.onPrepareActionMode(mode, menu);
+    }
+
+    /**
+     * Add a checkbox to the menu to turn snapping on/off
+     * 
+     * @param menu the Menu
+     */
+    static void addSnapCheckBox(@NonNull Context ctx, @NonNull Menu menu, boolean snap, @NonNull OnCheckedChangeListener listener) {
+        // setting an icon will make sure this gets shown
+        MenuItem snapItem = menu.add(Menu.NONE, MENUITEM_SNAP, Menu.NONE, R.string.menu_snap).setIcon(ThemeUtils.getResIdFromAttribute(ctx, R.attr.menu_merge));
+        AppCompatCheckBox check =  (AppCompatCheckBox) LayoutInflater.from(ctx).inflate(R.layout.snap_action_view, null);        
+        check.setChecked(snap);
+        check.setOnCheckedChangeListener(listener);
+        snapItem.setActionView(check);
     }
 
     @Override
@@ -193,13 +221,13 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         final boolean firstNode = addedNodes.isEmpty();
         Node clicked = logic.getClickedNode(x, y);
         if (appendTargetNode != null) {
-            logic.performAppendAppend(main, x, y, firstNode);
+            logic.performAppendAppend(main, x, y, firstNode, snap);
             appendTargetNode = logic.getSelectedNode();
             if (firstNode) {
                 checkpointName = R.string.undo_action_append;
             }
         } else {
-            logic.performAdd(main, x, y, firstNode);
+            logic.performAdd(main, x, y, firstNode, snap);
             if (firstNode) {
                 checkpointName = R.string.undo_action_add;
             }
