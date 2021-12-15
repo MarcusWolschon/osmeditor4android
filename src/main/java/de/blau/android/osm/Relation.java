@@ -83,6 +83,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
     /**
      * Return complete list of relation members of a certain type
      * 
+     * @param type the RelationMember type
      * @return list of members
      */
     @NonNull

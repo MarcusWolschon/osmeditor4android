@@ -100,7 +100,12 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         transient Node up      = null;
         transient Node down    = null;
 
-        public MemberEntry(RelationMemberDescription rmd) {
+        /**
+         * Create a MemberEntry from a RelationMemberDescription
+         * 
+         * @param rmd the RelationMemberDescription
+         */
+        public MemberEntry(@NonNull RelationMemberDescription rmd) {
             super(rmd);
         }
 
@@ -242,7 +247,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     /**
      * Loop over the the members and set the connection icon
      *
-     * @param rowLayout the layout holding the rows
+     * @param entries a List of MemberEntry
      */
     void setIcons(@NonNull List<MemberEntry> entries) {
         int s = entries.size();
@@ -599,7 +604,12 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             return this;
         }
 
-        public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
+        /**
+         * Set the OnCheckedChangeListener
+         * 
+         * @param listener the OnCheckedChangeListener
+         */
+        public void setOnCheckedChangeListener(@Nullable OnCheckedChangeListener listener) {
             selected.setOnCheckedChangeListener(listener);
         }
 
@@ -973,7 +983,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     /**
      * Scroll the current View so that a row is visible
      * 
-     * @param postion the position we want to have in view
+     * @param position the position we want to have in view
      */
     public void scrollToRow(int position) {
         membersVerticalLayout.post(() -> layoutManager.smoothScrollToPosition(membersVerticalLayout, null, position));

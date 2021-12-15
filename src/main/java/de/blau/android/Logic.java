@@ -3096,7 +3096,13 @@ public class Logic {
 
         class GetElementTask extends ExecutorTask<Void, Void, OsmElement> {
 
-            protected GetElementTask(ExecutorService executorService, Handler handler) {
+            /**
+             * Create a new GetElementTask
+             * 
+             * @param executorService ExecutorService to run this on
+             * @param handler an Handler
+             */
+            protected GetElementTask(@NonNull ExecutorService executorService, @NonNull Handler handler) {
                 super(executorService, handler);
             }
 
@@ -3138,7 +3144,13 @@ public class Logic {
             final boolean withParents, @Nullable final PostAsyncActionHandler postLoadHandler) {
         class DownLoadElementTask extends ExecutorTask<Void, Void, Integer> {
 
-            protected DownLoadElementTask(ExecutorService executorService, Handler handler) {
+            /**
+             * Create a new DownLoadElementTask
+             * 
+             * @param executorService ExecutorService to run this on
+             * @param handler an Handler
+             */
+            protected DownLoadElementTask(@NonNull ExecutorService executorService, @NonNull Handler handler) {
                 super(executorService, handler);
             }
 
@@ -3263,7 +3275,14 @@ public class Logic {
             @Nullable final List<Long> relations, @Nullable final PostAsyncActionHandler postLoadHandler) {
 
         class DownLoadElementsTask extends ExecutorTask<Void, Void, AsyncResult> {
-            protected DownLoadElementsTask(ExecutorService executorService, Handler handler) {
+            
+            /**
+             * Create a new DownLoadElementsTask
+             * 
+             * @param executorService ExecutorService to run this on
+             * @param handler an Handler
+             */
+            protected DownLoadElementsTask(@NonNull ExecutorService executorService, @NonNull Handler handler) {
                 super(executorService, handler);
             }
 
@@ -3418,6 +3437,7 @@ public class Logic {
      * 
      * @param activity activity we were called from
      * @param e the element to replace
+     * @param postLoad code to run once we've finished
      */
     public synchronized void replaceElement(@Nullable Activity activity, @NonNull OsmElement e, @Nullable PostAsyncActionHandler postLoad) {
         createCheckpoint(activity, R.string.undo_action_fix_conflict);

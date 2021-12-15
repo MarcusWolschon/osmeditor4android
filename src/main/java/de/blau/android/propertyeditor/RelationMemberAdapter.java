@@ -47,7 +47,11 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
     /**
      * Create a new adapter
      * 
-     * 
+     * @param ctx an Android Context
+     * @param inflater a LayoutInflater
+     * @param entries a List of MemberEntry
+     * @param listener an OnCheckedChangeListener
+     * @param maxStringLength the maximum string length to support
      */
     public RelationMemberAdapter(@NonNull Context ctx, @NonNull LayoutInflater inflater, @NonNull List<MemberEntry> entries,
             @NonNull OnCheckedChangeListener listener, int maxStringLength) {

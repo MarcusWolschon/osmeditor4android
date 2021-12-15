@@ -56,6 +56,8 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
      * Construct a new callback for selected RelationMembers
      * 
      * @param caller the calling Fragment
+     * @param adapter a RelationMemberAdapter
+     * @param members a List of MemberEntry
      * @param rows the Layout holding the selectable rows
      */
     public RelationMemberSelectedActionModeCallback(@NonNull Fragment caller, @NonNull RelationMemberAdapter adapter, @NonNull List<MemberEntry> members,

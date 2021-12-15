@@ -10,6 +10,7 @@ import java.util.concurrent.TimeoutException;
 import android.os.Handler;
 import android.os.Looper;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Based on https://stackoverflow.com/questions/69217817/best-replacement-for-async-task
@@ -49,16 +50,19 @@ public abstract class ExecutorTask<I, P, O> {
     }
 
     /**
-     * @see #execute(Object)
+     * Starts execution of the task
+     * 
+     * @return this ExecutorTask
      */
     public ExecutorTask<I, P, O> execute() {
         return execute(null);
     }
 
     /**
-     * Starts it all
+     * Starts execution of the task
      * 
      * @param input Data you want to work with in the background
+     * @return this ExecutorTask
      */
     public ExecutorTask<I, P, O> execute(final I input) {
         onPreExecute();
@@ -81,6 +85,13 @@ public abstract class ExecutorTask<I, P, O> {
         return this;
     }
 
+    /**
+     * Get the task result
+     * 
+     * @return O
+     * @throws InterruptedException if the execution was interrupted
+     * @throws ExecutionException other execution issue
+     */
     public O get() throws InterruptedException, ExecutionException {
         if (outputFuture == null) {
             throw new IllegalStateException("future is null");
@@ -89,6 +100,16 @@ public abstract class ExecutorTask<I, P, O> {
         }
     }
 
+    /**
+     * Get the task result
+     * 
+     * @param timeout timeout
+     * @param timeUnit unit of the timeout
+     * @return O
+     * @throws InterruptedException if the execution was interrupted
+     * @throws ExecutionException other execution issue
+     * @throws TimeoutException if timed out
+     */
     public O get(long timeout, TimeUnit timeUnit) throws InterruptedException, ExecutionException, TimeoutException {
         if (outputFuture == null) {
             throw new IllegalStateException("future is null");
@@ -112,6 +133,11 @@ public abstract class ExecutorTask<I, P, O> {
         });
     }
 
+    /**
+     * Called when progress is updated
+     * 
+     * @param progress P indicating the progress made
+     */
     protected void onProgress(final P progress) {
 
     }
@@ -181,20 +207,38 @@ public abstract class ExecutorTask<I, P, O> {
     private OnProgressListener<P> onProgressListener;
 
     public interface OnProgressListener<P> {
+        /**
+         * Called in an OnProgressListener when progress is updated
+         * 
+         * @param progress a value of P indicating the progress
+         */
         void onProgress(P progress);
     }
 
-    public void setOnProgressListener(OnProgressListener<P> onProgressListener) {
+    /**
+     * Set an OnProgressListener
+     * 
+     * @param onProgressListener the listener
+     */
+    public void setOnProgressListener(@Nullable OnProgressListener<P> onProgressListener) {
         this.onProgressListener = onProgressListener;
     }
 
     private OnCancelledListener onCancelledListener;
 
     public interface OnCancelledListener {
+        /**
+         * Called when execution has been cancelled
+         */
         void onCancelled();
     }
 
-    public void setOnCancelledListener(OnCancelledListener onCancelledListener) {
+    /**
+     * Set an OnCancelledListener
+     * 
+     * @param onCancelledListener the listener
+     */
+    public void setOnCancelledListener(@Nullable OnCancelledListener onCancelledListener) {
         this.onCancelledListener = onCancelledListener;
     }
 

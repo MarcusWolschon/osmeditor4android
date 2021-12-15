@@ -96,7 +96,6 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
          * 
          * @param executorService the ExecutorService to use
          * @param uiHandler the Hander for the mail looper
-         * @param handler code to call after indexing
          */
         PhotoIndexer(@NonNull ExecutorService executorService, @NonNull Handler uiHandler) {
             super(executorService, uiHandler);

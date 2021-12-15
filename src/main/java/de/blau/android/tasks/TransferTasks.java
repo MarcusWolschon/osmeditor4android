@@ -118,6 +118,7 @@ public final class TransferTasks {
      * @param server current server configuration
      * @param box the bounding box
      * @param add if true merge the download with existing task data
+     * @param bugs the TaskStorage
      * @param bugFilter Strings indicating which tasks to download
      * @param maxClosedAge maximum time in ms since a Note was closed
      * @return any tasks found in the BoundingBox

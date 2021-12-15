@@ -187,7 +187,10 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     /**
      * Add a checkbox to the menu to turn snapping on/off
      * 
+     * @param ctx an Android Context
      * @param menu the Menu
+     * @param snap initial state
+     * @param listener an OnCheckedChangeListener
      */
     static void addSnapCheckBox(@NonNull Context ctx, @NonNull Menu menu, boolean snap, @NonNull OnCheckedChangeListener listener) {
         // setting an icon will make sure this gets shown

@@ -244,6 +244,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         /**
          * Construct a new OffsetLoader
          * 
+         * @param executorService ExecutorService to run this on
+         * @param uiHandler Handler to use
          * @param postLoadHandler a handler to call after loading or null
          */
         OffsetLoader(@NonNull ExecutorService executorService, @NonNull Handler uiHandler, @Nullable final PostAsyncActionHandler postLoadHandler) {
@@ -383,6 +385,12 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
     private class OffsetSaver extends ExecutorTask<ImageryOffset, Void, Integer> {
         private String error = null;
 
+        /**
+         * Create a new OffsetSaver
+         * 
+         * @param executorService ExecutorService to run this on
+         * @param handler an Handler
+         */
         OffsetSaver(@NonNull ExecutorService executorService, @NonNull Handler handler) {
             super(executorService, handler);
         }

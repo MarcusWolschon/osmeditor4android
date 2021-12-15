@@ -56,6 +56,7 @@ public class RestartRouteSegmentActionModeCallback extends NonSimpleActionModeCa
      * @param manager the current EasyEditManager instance
      * @param segments potential initial segments Ways
      * @param route if not null the route to add too
+     * @param results results from way splitting
      */
     public RestartRouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull Set<Way> segments, @Nullable Relation route,
             @Nullable Map<OsmElement, Result> results) {

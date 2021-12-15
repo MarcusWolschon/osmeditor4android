@@ -347,7 +347,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * 
      * @param context Android Context
      * @param db readable SQLiteDatabase
-     * @param id the layer id
+     * @param url the tile url
      * @return a TileLayerServer instance of null if none could be found
      */
     @Nullable

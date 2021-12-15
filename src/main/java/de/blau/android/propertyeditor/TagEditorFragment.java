@@ -158,6 +158,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     OnPresetSelectedListener presetSelectedListener;
 
     private final class Ruler extends ValueWithCount {
+        
+        /**
+         * Create a new Ruler
+         */
         public Ruler() {
             super("");
         }

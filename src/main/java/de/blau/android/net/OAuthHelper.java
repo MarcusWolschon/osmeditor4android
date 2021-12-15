@@ -147,6 +147,12 @@ public class OAuthHelper {
         class RequestTokenTask extends ExecutorTask<Void, Void, String> {
             private OAuthException ex = null;
 
+            /**
+             * Create a new RequestTokenTask
+             * 
+             * @param executorService ExecutorService to run this on
+             * @param handler an Handler
+             */
             RequestTokenTask(@NonNull ExecutorService executorService, @NonNull Handler handler) {
                 super(executorService, handler);
             }

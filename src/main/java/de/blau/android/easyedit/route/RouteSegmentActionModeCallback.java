@@ -109,6 +109,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
      * @param way the Way where we start appending
      * @param route the route the way will be added to
      * @param potentialSegments potential further segments
+     * @param results results from way splitting
      */
     public RouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Relation route,
             @NonNull Set<OsmElement> potentialSegments, @Nullable Map<OsmElement, Result> results) {

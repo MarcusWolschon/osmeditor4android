@@ -119,6 +119,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     final class Ruler extends StringWithDescription {
         private static final long serialVersionUID = 1L;
 
+        /**
+         * Create a new Ruler
+         */
         public Ruler() {
             super("");
         }
