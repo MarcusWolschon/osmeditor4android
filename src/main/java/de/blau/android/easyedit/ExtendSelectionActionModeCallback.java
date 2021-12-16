@@ -360,6 +360,9 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         return false;
     }
 
+    /**
+     * Add a node at the 1st intersection we find
+     */
     private void intersectWays() {
         List<Way> ways = logic.getSelectedWays();
         if (ways != null && !ways.isEmpty()) {            

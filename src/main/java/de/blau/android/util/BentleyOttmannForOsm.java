@@ -15,9 +15,12 @@ import bentleyottmann.ISegment;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Way;
 
-public class BentleyOttmannForOsm {
+public final class BentleyOttmannForOsm {
     private static Map<Long, Coordinates> nodeMap = new HashMap<>();
 
+    /**
+     * Private constructor
+     */
     private BentleyOttmannForOsm() {
         // empty
     }
@@ -26,7 +29,13 @@ public class BentleyOttmannForOsm {
         IPoint p1;
         IPoint p2;
 
-        Segment(IPoint p1, IPoint p2) {
+        /**
+         * Construct a new segment
+         * 
+         * @param p1 1st point
+         * @param p2 2nd point
+         */
+        Segment(@NonNull IPoint p1, @NonNull IPoint p2) {
             this.p1 = p1;
             this.p2 = p2;
         }
