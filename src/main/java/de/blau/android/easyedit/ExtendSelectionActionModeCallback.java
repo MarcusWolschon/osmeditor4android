@@ -365,21 +365,22 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
      */
     private void intersectWays() {
         List<Way> ways = logic.getSelectedWays();
-        if (ways != null && !ways.isEmpty()) {            
-            List<Coordinates> intersections = BentleyOttmannForOsm.findIntersections(ways);           
+        if (ways != null && !ways.isEmpty()) {
+            List<Coordinates> intersections = BentleyOttmannForOsm.findIntersections(ways);
             if (!intersections.isEmpty()) {
                 Map map = logic.getMap();
                 int width = map.getWidth();
                 float x = GeoMath.lonToX(width, logic.getViewBox(), intersections.get(0).x);
-                int height = map.getHeight();
-                float y = GeoMath.latMercatorToY(height, width, logic.getViewBox(), intersections.get(0).y);
-                Node node = logic.performAddOnWay(main, ways, x, y, false);
+                float y = GeoMath.latMercatorToY(map.getHeight(), width, logic.getViewBox(), intersections.get(0).y);
+                final Node node = logic.performAddOnWay(main, ways, x, y, true);
                 if (node != null) {
-                    List<Way> waysWithNode = logic.getWaysForNode(node);
-                    selection.removeAll(waysWithNode);
-                    logic.performJoinNodeToWays(main, selection, node);
-                    main.zoomTo(node);
-                    main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
+                    logic.getHandler().post(() -> {
+                        List<Way> waysWithNode = logic.getWaysForNode(node);
+                        selection.removeAll(waysWithNode);
+                        logic.performJoinNodeToWays(main, selection, node);
+                        main.zoomTo(node);
+                        main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
+                    });
                 } else {
                     Snack.toastTopError(main, R.string.toast_no_intersection_found);
                 }
