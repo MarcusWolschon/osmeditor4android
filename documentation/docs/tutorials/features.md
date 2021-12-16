@@ -1,5 +1,5 @@
 ## Vespucci Features
-_Documentation for Vespucci 15.2_
+_Documentation for Vespucci 17.0_
 
 This list is likely not really complete, but gives some idea of the supported functionality.
 
@@ -37,6 +37,7 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | Create Node at current coordinates                       |
 |                           | Orthogonalize Way(s)                                     |
 |                           | Circulize closed Way                                     |
+|                           | Intersect Ways                                           |
 |__Tags__                   |                                                          |
 |                           | Tag copy and paste                                       |
 |                           | Form and preset based editor                             |
