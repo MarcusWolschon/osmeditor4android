@@ -584,6 +584,7 @@ avoided by using an offline data source.</string>
     <string name="toast_imagery_offset_download_failed">Offset download failed: %1$s</string>
     <string name="toast_download_server_version_failed">Download of server version failed for %1$s</string>
     <string name="toast_error_element_too_large">Element is too large for the property editor</string>
+    <string name="toast_no_intersection_found">No intersection found</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
@@ -885,6 +886,7 @@ avoided by using an offline data source.</string>
     <string name="menu_history">History</string>
     <string name="menu_history_web">History (Web)</string>
     <string name="menu_merge">Join</string>
+    <string name="menu_add_node_at_intersection">Add node at intersection</string>
     <string name="menu_reverse">Reverse</string>
     <string name="notreversable_description">This way is unreversible due to being tagged with directionally dependent attributes. Reversing it would break the tagging.</string>
     <string name="reverse_anyway">Reverse anyway</string>

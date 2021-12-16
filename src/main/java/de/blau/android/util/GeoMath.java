@@ -320,6 +320,19 @@ public final class GeoMath {
      * @param screenHeight the height of the screen in px
      * @param screenWidth the width of the screen in px
      * @param viewBox the current ViewBox
+     * @param lat latitude
+     * @return the y screen-coordinate for this latitude value.
+     */
+    public static float latMercatorToY(final int screenHeight, int screenWidth, final ViewBox viewBox, final double lat) {
+        return (float) (screenHeight - (lat - viewBox.getBottomMercator()) * viewBox.getPixelRadius(screenWidth));
+    }
+    
+    /**
+     * Calculates the screen-coordinate to the given latitude.in mercator
+     * 
+     * @param screenHeight the height of the screen in px
+     * @param screenWidth the width of the screen in px
+     * @param viewBox the current ViewBox
      * @param latE7 latitude, multiplied by 1E7.
      * @return the y screen-coordinate for this latitude value.
      */

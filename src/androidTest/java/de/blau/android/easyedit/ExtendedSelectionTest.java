@@ -27,6 +27,7 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -190,5 +191,44 @@ public class ExtendedSelectionTest {
         assertEquals(1, parents.size());
         Relation mp = parents.get(0);
         assertEquals(2, mp.getMembers().size());
+    }
+    
+    /**
+     * Select two ways then intersect
+     */
+    @Test
+    public void selectAndIntersectWays() {
+        TestUtils.loadTestData(main, "test2.osm");
+        TestUtils.zoomToLevel(device, main, 18); // if we are zoomed in too far we might not get the selection popups
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3879054, 47.3898359, true);
+        // assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertEquals(316659573L, way.getOsmId());
+       
+        assertTrue(TestUtils.clickOverflowButton(device));
+        TestUtils.scrollTo(context.getString(R.string.menu_extend_selection));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_extend_selection), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
+        
+        TestUtils.clickAtCoordinates(device, map, 8.3878562, 47.3897689, true);
+        assertTrue(TestUtils.findText(device, false, context.getResources().getQuantityString(R.plurals.actionmode_object_count, 2, 2)));
+        List<Way> ways = App.getLogic().getSelectedWays();
+        assertEquals(2, ways.size());
+        
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_node_at_intersection), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        
+        Node node = logic.getSelectedNode();
+        assertEquals(OsmElement.STATE_CREATED, node.getState());
+        List<Way> ways2 = logic.getWaysForNode(node);
+        assertEquals(2, ways2.size());
+        assertTrue(ways.contains(ways2.get(0)));
+        assertTrue(ways.contains(ways2.get(1)));
     }
 }

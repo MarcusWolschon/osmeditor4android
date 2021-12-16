@@ -2384,7 +2384,7 @@ public class Logic {
      * Join a Node to one or more Ways
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
-     * @param elements List of Node that the Node will be merged to.
+     * @param elements List of Ways that the Node will be merged to.
      * @param nodeToJoin Node to be merged
      * @return a List of Results object containing the result of the merge and if the result was successful
      */

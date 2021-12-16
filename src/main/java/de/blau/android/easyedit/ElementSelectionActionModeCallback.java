@@ -151,12 +151,13 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                 element instanceof Relation ? R.string.menu_add_relation_member : R.string.tag_menu_addtorelation)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation_add_member));
         if (element.getOsmId() > 0) {
+            boolean connectedOrConnecting = main.isConnectedOrConnecting();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history)
-                        .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(main.isConnectedOrConnecting());
+                        .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(connectedOrConnecting);
             }
             menu.add(GROUP_BASE, MENUITEM_HISTORY_WEB, Menu.CATEGORY_SYSTEM, R.string.menu_history_web)
-                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(main.isConnectedOrConnecting());
+                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(connectedOrConnecting);
         }
         menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_information));

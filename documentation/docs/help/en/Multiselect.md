@@ -28,6 +28,10 @@ Remove the objects from the data.
 
 Merge multiple selected ways resulting in a single way. Ways will be reversed if necessary. This option will only be available if only ways with common start/end nodes are selected, or the selection is two closed ways (polygons), in the later case if the polygons do not have common nodes a multi-polygon relation will be created and the ways added as members. If post-merge tag conflicts are detected you will be alerted. 
 
+### Add node at intersection
+
+If two or more ways are selected and they intersect witout a common node, a new node will be added at the first intersection found.
+
 ### ![Relation](../images/relation.png) Create relation
 
 Create a relation starting with the current selected elements. The relation type can be selected from a list generated from the available presets. Further objects can be added until the check button is clicked, then the tag editor will be started on the new relation. 
