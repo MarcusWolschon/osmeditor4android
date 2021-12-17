@@ -197,6 +197,12 @@ public enum Mode {
         public HashMap<String, String> getExtraTags(@NonNull Logic logic, @NonNull OsmElement e) {
             return null;
         }
+    }), MODE_VOICE(R.string.mode_voice, "VOICE", true, true, true, true, null, R.drawable.unlocked_voice_white, new FilterModeConfig() {
+
+        @Override
+        public Set<SimpleAction> enabledSimpleActions() {
+            return Collections.unmodifiableSet(EnumSet.of(SimpleAction.VOICE_NODE, SimpleAction.VOICE_NOTE));
+        }
     });
 
     private final int        nameResId;
@@ -304,14 +310,14 @@ public enum Mode {
     /**
      * Set the enabled status of this mode
      * 
-     * @param enabled if true the mode will be enables
+     * @param enabled if true the mode will be enabled
      */
     void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
     /**
-     * Check if this mode is enables
+     * Check if this mode is enabled
      * 
      * @return true if enabled
      */

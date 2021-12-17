@@ -1,16 +1,13 @@
 package de.blau.android.voice;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationManager;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -24,190 +21,179 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.nsi.Names.NameAndTags;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.tasks.Note;
+import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.ElementSearch;
-import de.blau.android.util.GeoMath;
 import de.blau.android.util.IntCoordinates;
-import de.blau.android.util.OptimalStringAlignment;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 
 /**
- * Support for simple voice commands, format &lt;location&gt; &lt;number&gt; for an address &lt;location&gt;
- * &lt;object&gt; [&lt;name&gt;] for a POI of some kind- &lt;location&gt; can be one of left, here and right
+ * Support for simple voice commands
  * 
  * @author Simon Poole
  *
  */
-public class Commands {
+public final class Commands {
     private static final String DEBUG_TAG = Commands.class.getSimpleName();
 
     public static final String SOURCE_ORIGINAL_TEXT = "source:original_text";
 
-    private Main main;
-
     /**
-     * Construct a new instance
-     * 
-     * @param main the current Main instance
+     * Private constructor
      */
-    public Commands(@NonNull Main main) {
-        this.main = main;
+    private Commands() {
+        // empty
     }
 
     /**
-     * Process the result of what the intent returned
-     * 
-     * @param data the Intent data
-     * @param location the current Location
+     * Process the result of the voice recognition
+     *
+     * @param activity the calling Activity
+     * @param requestCode the Intent request code
+     * @param resultCode the Intent result code
+     * @param data any Intent data
+     * @param lonE7 WGS84*1E7 longitude
+     * @param latE7 WGS84*1E7 latitude
      */
-    public void processIntentResult(@NonNull Intent data, @NonNull Location location) {
-
-        // Fill the list view with the strings the recognizer thought it
-        // could have heard
-        ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-        final Logic logic = App.getLogic();
-        // try to find a command it simply stops at the first string that is valid
-        for (String v : matches) {
-            String[] words = v.split("\\s+", 3);
-            if (words.length > 1) {
-                String loc = words[0].toLowerCase(Locale.getDefault());
-                if (match(R.string.voice_left, loc) || match(R.string.voice_here, loc) || match(R.string.voice_right, loc) || match(R.string.voice_note, loc)) {
-                    if (match(R.string.voice_note, loc)) {
-                        Note n = createNote(words, location);
-                        if (n != null) {
-                            Snack.toastTopInfo(main, "Note: " + n.getDescription());
-                        }
-                        return;
-                    }
-                    if (!match(R.string.voice_here, loc)) {
-                        Snack.toastTopWarning(main, "Sorry currently only the command \"" + main.getString(R.string.voice_here) + "\" is supported");
-                    }
+    public static void processIntentResult(Activity activity, final int requestCode, final int resultCode, final Intent data, int lonE7, int latE7) {
+        Logic logic = App.getLogic();
+        if (requestCode == Main.VOICE_RECOGNITION_REQUEST_CODE) {
+            List<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            //
+            StorageDelegator storageDelegator = App.getDelegator();
+            for (String text : matches) {
+                String[] words = text.split("\\s+", 2);
+                if (words.length > 0) {
                     //
-                    String first = words[1].toLowerCase(Locale.getDefault());
+                    String first = words[0];
                     try {
                         int number = Integer.parseInt(first);
                         // worked if there is a further word(s) simply add it/them
-                        Snack.toastTopInfo(main, loc + " " + number + (words.length == 3 ? words[2] : ""));
-                        Node node = createNode(loc, location);
+                        String additionalText = words.length == 2 ? words[1] : "";
+                        Snack.barInfoShort(activity, +number + additionalText);
+                        Node node = logic.performAddNode(activity, lonE7, latE7);
                         if (node != null) {
-                            TreeMap<String, String> tags = new TreeMap<>(node.getTags());
-                            tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number) + (words.length == 3 ? words[2] : ""));
-                            tags.put("source:original_text", v);
-                            Map<String, List<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(),
-                                    new ElementSearch(new IntCoordinates(node.getLon(), node.getLat()), true), Util.getListMap(tags), Address.NO_HYSTERESIS);
-                            tags = new TreeMap<>();
-                            for (Entry<String, List<String>> entry : map.entrySet()) {
-                                tags.put(entry.getKey(), entry.getValue().get(0));
-                            }
-                            logic.setTags(main, node, tags);
+                            Commands.setAddressTags(activity, logic, number, additionalText, node, text);
+                            edit(activity, node);
+                            return;
                         }
-                        return;
                     } catch (NumberFormatException ex) {
-                        // ok wasn't a number
+                        // ok wasn't a number, just ignore
                     } catch (OsmIllegalOperationException e) {
-                        Log.e(DEBUG_TAG, "processIntentResult got " + e.getMessage());
-                        Snack.toastTopError(main, e.getLocalizedMessage());
+                        Log.e(DEBUG_TAG, "handleActivityResult got exception " + e.getMessage());
                     }
 
-                    List<PresetElement> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1, null);
+                    List<PresetElement> presetItems = SearchIndexUtils.searchInPresets(activity, first, ElementType.NODE, 2, 1, null);
                     if (presetItems != null && presetItems.size() == 1) {
-                        addNode(createNode(loc, location), words.length == 3 ? words[2] : null, (PresetItem) presetItems.get(0), logic, v);
-                        return;
-                    }
-
-                    // search in names
-                    StringBuilder input = new StringBuilder("");
-                    for (int i = 1; i < words.length; i++) {
-                        input.append(words[i] + (i < words.length ? " " : ""));
-                    }
-                    NameAndTags nt = SearchIndexUtils.searchInNames(main, input.toString(), 2);
-                    if (nt != null) {
-                        HashMap<String, String> map = new HashMap<>();
-                        map.putAll(nt.getTags());
-                        PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(main), map, null);
-                        if (pi != null) {
-                            addNode(createNode(loc, location), nt.getName(), pi, logic, v);
+                        Node node = Commands.addNode(activity, logic.performAddNode(activity, lonE7, latE7), words.length == 2 ? words[1] : null,
+                                (PresetItem) presetItems.get(0), logic, text);
+                        if (node != null) {
+                            edit(activity, node);
                             return;
                         }
                     }
-                }
-            } else if (words.length == 1) {
-                if (match(R.string.voice_follow, words[0])) {
-                    main.setFollowGPS(true);
-                    return;
-                } else {
-                    Snack.toastTopWarning(main, main.getResources().getString(R.string.toast_unknown_voice_command, words[0]));
+
+                    // search in names
+                    NameAndTags nt = SearchIndexUtils.searchInNames(activity, text, 2);
+                    if (nt != null) {
+                        Map<String, String> map = new HashMap<>();
+                        map.putAll(nt.getTags());
+                        PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(activity), map, null);
+                        if (pi != null) {
+                            Node node = Commands.addNode(activity, logic.performAddNode(activity, lonE7, latE7), nt.getName(), pi, logic, text);
+                            if (node != null) {
+                                // set tags from name suggestions
+                                Map<String, String> tags = new TreeMap<>(node.getTags());
+                                tags.putAll(map);
+                                storageDelegator.setTags(node, tags); // note doesn't create a new undo checkpoint,
+                                edit(activity, node);
+                                return;
+                            }
+                        }
+                    }
                 }
             }
+        } else if (requestCode == Main.VOICE_RECOGNITION_NOTE_REQUEST_CODE) {
+            List<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            Note n = createNote(matches, lonE7, latE7);
+            if (n != null) {
+                Snack.toastTopInfo(activity, n.getDescription());
+            }
         }
+    }
 
+    /**
+     * Start editing a node
+     * 
+     * @param activity an instance of Main, if something else nothing will happen
+     * @param node the Node
+     */
+    private static void edit(@Nullable Activity activity, @NonNull Node node) {
+        if (activity instanceof Main) {
+            ((Main) activity).edit(node);
+        }
+    }
+
+    /**
+     * Set address tags from a voice command
+     * 
+     * @param activity calling Activity
+     * @param logic current Logic instance
+     * @param number parsed number
+     * @param additionalText any additional text
+     * @param node the Node
+     * @param originalText the original text from the voice recording
+     */
+    public static void setAddressTags(@NonNull Activity activity, @NonNull final Logic logic, int number, @NonNull String additionalText, @NonNull Node node,
+            @NonNull String originalText) {
+        Map<String, String> tags = new TreeMap<>(node.getTags());
+        tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number) + additionalText);
+        tags.put(SOURCE_ORIGINAL_TEXT, originalText);
+        Map<String, List<String>> map = Address.predictAddressTags(activity, Node.NAME, node.getOsmId(),
+                new ElementSearch(new IntCoordinates(node.getLon(), node.getLat()), true), Util.getListMap(tags), Address.NO_HYSTERESIS);
+        tags = Address.multiValueToSingle(map);
+        logic.setTags(activity, node, tags);
     }
 
     /**
      * "add" a Node
      * 
+     * @param activity the calling Activity
      * @param node the Node
      * @param name the name of the establishment
      * @param pi the PresetItem
      * @param logic the current logic instance
      * @param original the text the voice recognition understood
-     * @return if successful
-     */
-    private boolean addNode(@Nullable Node node, @Nullable String name, @NonNull PresetItem pi, @NonNull Logic logic, @NonNull String original) {
-        if (node != null) {
-            Snack.toastTopInfo(main, pi.getName() + (name != null ? " name: " + name : ""));
-            if (node != null) {
-                try {
-                    TreeMap<String, String> tags = new TreeMap<>(node.getTags());
-                    for (Entry<String, PresetFixedField> tag : pi.getFixedTags().entrySet()) {
-                        PresetFixedField field = tag.getValue();
-                        tags.put(tag.getKey(), field.getValue().getValue());
-                    }
-                    if (name != null) {
-                        tags.put(Tags.KEY_NAME, name);
-                    }
-                    tags.put(SOURCE_ORIGINAL_TEXT, original);
-                    logic.setTags(main, node, tags);
-                    return true;
-                } catch (OsmIllegalOperationException e) {
-                    Log.e(DEBUG_TAG, "addNode got " + e.getMessage());
-                    Snack.toastTopError(main, e.getLocalizedMessage());
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Create a new node at the current or at a provided GPS pos
-     * 
-     * @param loc where to put the node, currently only "here"
-     * @param location the current location
      * @return the Node or null
      */
     @Nullable
-    private Node createNode(String loc, @Nullable Location location) {
-        if (location == null) {
-            location = getLocation();
-        }
-        if (location != null) {
-            if (main.getString(R.string.voice_here).equals(loc)) {
-                double lon = location.getLongitude();
-                double lat = location.getLatitude();
-                if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_COMPAT_LAT && lat <= GeoMath.MAX_COMPAT_LAT) {
-                    final Logic logic = App.getLogic();
-                    logic.setSelectedNode(null);
-                    Node node = logic.performAddNode(main, lon, lat);
-                    logic.setSelectedNode(null);
-                    return node;
+    public static Node addNode(@NonNull Activity activity, @Nullable Node node, @Nullable String name, @NonNull PresetItem pi, @NonNull Logic logic,
+            @NonNull String original) {
+        if (node != null) {
+            Snack.toastTopInfo(activity, pi.getName() + (name != null ? " name: " + name : ""));
+            try {
+                TreeMap<String, String> tags = new TreeMap<>(node.getTags());
+                for (Entry<String, PresetFixedField> tag : pi.getFixedTags().entrySet()) {
+                    PresetFixedField field = tag.getValue();
+                    tags.put(tag.getKey(), field.getValue().getValue());
                 }
+                if (name != null) {
+                    tags.put(Tags.KEY_NAME, name);
+                }
+                tags.put(SOURCE_ORIGINAL_TEXT, original);
+                logic.setTags(activity, node, tags);
+                return node;
+            } catch (OsmIllegalOperationException e) {
+                Log.e(DEBUG_TAG, "addNode got " + e.getMessage());
+                Snack.toastTopError(activity, e.getLocalizedMessage());
             }
         }
         return null;
@@ -217,63 +203,48 @@ public class Commands {
      * Create Note at a Location
      * 
      * @param words the text voice recognition understood
-     * @param location the Location the Note should be created at
+     * @param lonE7 WGS84*1E7 longitude
+     * @param latE7 WGS84*1E7 latitude
      * @return the created Note or null
      */
-    @Nullable
-    private Note createNote(@NonNull String[] words, @Nullable Location location) {
-        if (location == null) {
-            location = getLocation();
+    @NonNull
+    private static Note createNote(@NonNull List<String> words, final int lonE7, final int latE7) {
+
+        Note n = new Note(latE7, lonE7);
+        StringBuilder input = new StringBuilder();
+        for (String word : words) {
+            input.append(word);
+            input.append(" ");
         }
-        if (location != null) {
-            double lon = location.getLongitude();
-            double lat = location.getLatitude();
-            if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
-                Note n = new Note((int) (lat * 1E7D), (int) (lon * 1E7D));
-                StringBuilder input = new StringBuilder();
-                for (int i = 1; i < words.length; i++) {
-                    input.append(words[i]);
-                    input.append(" ");
-                }
-                n.addComment(input.toString().trim());
-                n.open();
-                n.setChanged(true);
-                App.getTaskStorage().add(n);
-                return n;
-            }
-        }
-        return null;
+        n.addComment(input.toString().trim());
+        n.open();
+        n.setChanged(true);
+        App.getTaskStorage().add(n);
+        return n;
     }
 
     /**
-     * Get the current Location
+     * Start voice recognition
      * 
-     * @return the Location or null if it could not be determined
+     * @param activity current Activity
+     * @param requestCode the code to identify this request
+     * @param lonE7 WGS84*1E7 longitude
+     * @param latE7 WGS84*1E7 latitude
+     * @return true if started successfully
      */
-    @Nullable
-    private Location getLocation() {
-        LocationManager locationManager = (LocationManager) main.getSystemService(android.content.Context.LOCATION_SERVICE);
-        if (locationManager != null) {
-            try {
-                return locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            } catch (SecurityException sex) {
-                // can be safely ignored
-                return null;
-            }
+    public static boolean startVoiceRecognition(@NonNull Activity activity, final int requestCode, final int lonE7, final int latE7) {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        if (activity instanceof ActivityResultHandler) {
+            ((ActivityResultHandler) activity).setResultListener(requestCode,
+                    (int resultCode, Intent result) -> processIntentResult(activity, requestCode, resultCode, result, lonE7, latE7));
         }
-        return null;
-    }
-
-    /**
-     * Match a String from voice input with the contents of a resource
-     * 
-     * @param resId the id of the resource
-     * @param input the input String
-     * @return true if the input matches
-     */
-    private boolean match(int resId, @NonNull String input) {
-        final int maxDistance = 1;
-        int distance = OptimalStringAlignment.editDistance(main.getString(resId), input, maxDistance);
-        return distance >= 0 && distance <= maxDistance;
+        try {
+            activity.startActivityForResult(intent, requestCode);
+        } catch (Exception ex) {
+            Snack.barError(activity, R.string.toast_no_voice);
+            return false;
+        }
+        return true;
     }
 }
