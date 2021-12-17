@@ -202,7 +202,7 @@ public class ExtendedSelectionTest {
         TestUtils.zoomToLevel(device, main, 18); // if we are zoomed in too far we might not get the selection popups
         map.getDataLayer().setVisible(true);
         TestUtils.unlock(device);
-        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.zoomToLevel(device, main, 22);
         TestUtils.clickAtCoordinates(device, map, 8.3879054, 47.3898359, true);
         // assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
