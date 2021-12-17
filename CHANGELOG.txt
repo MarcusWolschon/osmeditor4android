@@ -1,5 +1,17 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+16.1.2:
+
+- Fix use correct message when paste overwrites tags
+- Fix determine best preset on restore from saved state (regression)
+- Fix consume down event in attribution area
+- Fix remove non-functional permissions display
+- Update translations
+- Update imagery from ELI
+- Update preset
+- Update NSI
+- Add task to update NSI
+
 16.1.1:
 
 - Fix disable dragging in modes that do not support it properly
