@@ -161,7 +161,7 @@ public class ReadSaveTasksTest {
             Set<String> set = new HashSet<String>(Arrays.asList(notesSelector));
             p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
             assertTrue(new Preferences(context).taskFilter().contains(notesSelector));
-            TransferTasks.downloadBox(context, s, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, Long.MAX_VALUE,
+            TransferTasks.downloadBox(context, s, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, TransferTasks.MAX_PER_REQUEST,
                     new SignalHandler(signal));
         } catch (Exception e) {
             fail(e.getMessage());

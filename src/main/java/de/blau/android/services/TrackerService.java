@@ -979,7 +979,7 @@ public class TrackerService extends Service implements Exportable {
                         App.getTaskStorage().addBoundingBox(b); // will be filled once
                         // download is complete
                         Log.d(DEBUG_TAG, "bugAutoDownloads loading " + b.toString());
-                        TransferTasks.downloadBox(this, prefs.getServer(), b, true, TransferTasks.MAX_CLOSED_AGE, null);
+                        TransferTasks.downloadBox(this, prefs.getServer(), b, true, TransferTasks.MAX_PER_REQUEST, null);
                     }
                 }
                 previousBugLocation = location;

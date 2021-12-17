@@ -125,7 +125,7 @@ public class OsmoseTest {
             Assert.assertTrue(new Preferences(context).taskFilter().contains(osmoseErrorSelector));
             Assert.assertTrue(new Preferences(context).taskFilter().contains(osmoseWarningSelector));
             Assert.assertTrue(new Preferences(context).taskFilter().contains(osmoseMinorIssueSelector));
-            TransferTasks.downloadBox(context, s, downloadBox, false, TransferTasks.MAX_CLOSED_AGE, new SignalHandler(signal));
+            TransferTasks.downloadBox(context, s, downloadBox, false, TransferTasks.MAX_PER_REQUEST, new SignalHandler(signal));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
@@ -149,7 +149,7 @@ public class OsmoseTest {
         mockServer.enqueue("osmoseDownload");
         final CountDownLatch signal2 = new CountDownLatch(1);
         try {
-            TransferTasks.downloadBox(context, s, downloadBox, true, TransferTasks.MAX_CLOSED_AGE, new SignalHandler(signal2));
+            TransferTasks.downloadBox(context, s, downloadBox, true, TransferTasks.MAX_PER_REQUEST, new SignalHandler(signal2));
             main.getMap().getViewBox().fitToBoundingBox(main.getMap(), downloadBox);
         } catch (Exception e) {
             Assert.fail(e.getMessage());

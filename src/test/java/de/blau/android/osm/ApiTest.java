@@ -613,7 +613,7 @@ public class ApiTest {
             p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
             assertTrue(new Preferences(ApplicationProvider.getApplicationContext()).taskFilter().contains(notesSelector));
             TransferTasks.downloadBox(ApplicationProvider.getApplicationContext(), s, new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false,
-                    TransferTasks.MAX_CLOSED_AGE, new FailOnErrorHandler(signal));
+                    TransferTasks.MAX_PER_REQUEST, new FailOnErrorHandler(signal));
         } catch (Exception e) {
             fail(e.getMessage());
         }

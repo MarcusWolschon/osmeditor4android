@@ -68,7 +68,6 @@ final class OsmoseServer {
 
             url = new URL(getServerURL(context) + "errors?" + "bbox=" + area.getLeft() / 1E7d + "," + area.getBottom() / 1E7d + "," + area.getRight() / 1E7d
                     + "," + area.getTop() / 1E7d + "&full=true");
-            Log.d(DEBUG_TAG, "query: " + url.toString());
             ResponseBody responseBody = null;
             InputStream inputStream = null;
 

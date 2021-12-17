@@ -133,7 +133,7 @@ public class MapRouletteTest {
             Set<String> set = new HashSet<String>(Arrays.asList(mapRouletteSelector));
             p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
             Assert.assertTrue(new Preferences(context).taskFilter().contains(mapRouletteSelector));
-            TransferTasks.downloadBox(context, s, boundingBox, false, TransferTasks.MAX_CLOSED_AGE, new SignalHandler(signal));
+            TransferTasks.downloadBox(context, s, boundingBox, false, TransferTasks.MAX_PER_REQUEST, new SignalHandler(signal));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
@@ -157,7 +157,7 @@ public class MapRouletteTest {
         mockServerMapRoulette.enqueue("maprouletteDownload");
         final CountDownLatch signal2 = new CountDownLatch(1);
         try {
-            TransferTasks.downloadBox(context, s, boundingBox, true, TransferTasks.MAX_CLOSED_AGE, new SignalHandler(signal2));
+            TransferTasks.downloadBox(context, s, boundingBox, true, TransferTasks.MAX_PER_REQUEST, new SignalHandler(signal2));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }

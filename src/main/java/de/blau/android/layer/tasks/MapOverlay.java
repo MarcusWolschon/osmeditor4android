@@ -123,7 +123,7 @@ public class MapOverlay extends MapViewLayer
             tasks.addBoundingBox(b);
             try {
                 mThreadPool.execute(() -> {
-                    TransferTasks.downloadBoxSync(context, server, b, true, App.getTaskStorage(), filter, TransferTasks.MAX_CLOSED_AGE);
+                    TransferTasks.downloadBoxSync(context, server, b, true, App.getTaskStorage(), filter, TransferTasks.MAX_PER_REQUEST);
                     map.postInvalidate();
                 });
             } catch (RejectedExecutionException rjee) {

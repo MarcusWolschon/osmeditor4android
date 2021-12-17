@@ -62,10 +62,10 @@ public final class TransferTasks {
     public static final String MAPROULETTE_APIKEY_V2 = "maproulette_apikey_v2";
 
     /** Maximum closed age to display: 7 days. */
-    public static final long MAX_CLOSED_AGE = 7L * 24L * 60L * 60L * 1000L;
+    private static final long MAX_CLOSED_AGE = 7L * 24L * 60L * 60L * 1000L;
 
     /** maximum of tasks per request */
-    private static final int MAX_PER_REQUEST = 1000;
+    public static final int MAX_PER_REQUEST = 1000;
 
     /**
      * Private constructor to stop instantiation
@@ -83,11 +83,11 @@ public final class TransferTasks {
      * @param server current server configuration
      * @param box the bounding box
      * @param add if true merge the download with existing task data
-     * @param maxClosedAge maximum time in ms since a Note was closed
+     * @param maxNotes maximum number of notes
      * @param handler handler to run after the download if not null
      */
     public static void downloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final BoundingBox box, final boolean add,
-            long maxClosedAge, @Nullable final PostAsyncActionHandler handler) {
+            int maxNotes, @Nullable final PostAsyncActionHandler handler) {
 
         final TaskStorage bugs = App.getTaskStorage();
         final Preferences prefs = new Preferences(context);
@@ -98,7 +98,7 @@ public final class TransferTasks {
             @Override
             protected Collection<Task> doInBackground(Void param) {
                 Log.d(DEBUG_TAG, "querying server for " + box);
-                return downloadBoxSync(context, server, box, add, bugs, prefs.taskFilter(), maxClosedAge);
+                return downloadBoxSync(context, server, box, add, bugs, prefs.taskFilter(), maxNotes);
             }
 
             @Override
@@ -120,17 +120,17 @@ public final class TransferTasks {
      * @param add if true merge the download with existing task data
      * @param bugs the TaskStorage
      * @param bugFilter Strings indicating which tasks to download
-     * @param maxClosedAge maximum time in ms since a Note was closed
+     * @param maxNotes maximum number of notes
      * @return any tasks found in the BoundingBox
      */
-    @NonNull 
+    @NonNull
     public static Collection<Task> downloadBoxSync(final Context context, final Server server, final BoundingBox box, final boolean add, final TaskStorage bugs,
-            final Set<String> bugFilter, long maxClosedAge) {
+            final Set<String> bugFilter, int maxNotes) {
         Collection<Task> result = new ArrayList<>();
         Collection<Note> noteResult = null;
         Resources r = context.getResources();
         if (bugFilter.contains(r.getString(R.string.bugfilter_notes))) {
-            noteResult = server.getNotesForBox(box, maxClosedAge);
+            noteResult = server.getNotesForBox(box, maxNotes);
         }
         if (noteResult != null) {
             result.addAll(noteResult);
@@ -863,7 +863,6 @@ public final class TransferTasks {
         boolean generateAlerts = prefs.generateAlerts();
         long now = System.currentTimeMillis();
         for (Task b : tasks) {
-            Log.d(DEBUG_TAG, "got bug " + b.getDescription() + " " + storage.toString());
             if (b.getId() < 0 && b instanceof Note) { // need to renumber assuming that there are no duplicates
                 ((Note) b).setId(storage.getNextId());
             }
@@ -872,7 +871,6 @@ public final class TransferTasks {
                 // add open bugs or closed bugs younger than 7 days
                 if (!b.isClosed() || (now - b.getLastUpdate().getTime()) < MAX_CLOSED_AGE) {
                     storage.add(b);
-                    Log.d(DEBUG_TAG, "adding bug " + b.getDescription());
                     if (!b.isClosed() && generateAlerts) {
                         IssueAlert.alert(context, prefs, b);
                     }
