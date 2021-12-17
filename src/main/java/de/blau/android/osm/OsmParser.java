@@ -169,7 +169,7 @@ public class OsmParser extends DefaultHandler {
             case Way.NODE:
                 parseWayNode(atts);
                 break;
-            case Relation.MEMBER:
+            case Relation.MEMBER_ATTR:
                 parseRelationMember(atts);
                 break;
             case OsmElement.TAG:
@@ -291,8 +291,8 @@ public class OsmParser extends DefaultHandler {
 
             switch (name) {
             case Node.NAME:
-                int lat = (new BigDecimal(atts.getValue(Node.LAT)).scaleByPowerOfTen(Node.COORDINATE_SCALE)).intValue();
-                int lon = (new BigDecimal(atts.getValue(Node.LON)).scaleByPowerOfTen(Node.COORDINATE_SCALE)).intValue();
+                int lat = (new BigDecimal(atts.getValue(Node.LAT_ATTR)).scaleByPowerOfTen(Node.COORDINATE_SCALE)).intValue();
+                int lon = (new BigDecimal(atts.getValue(Node.LON_ATTR)).scaleByPowerOfTen(Node.COORDINATE_SCALE)).intValue();
                 currentNode = OsmElementFactory.createNode(osmId, osmVersion, timestamp, status, lat, lon);
                 break;
             case Way.NAME:
@@ -387,9 +387,9 @@ public class OsmParser extends DefaultHandler {
             if (currentRelation == null) {
                 Log.e(DEBUG_TAG, "No currentRelation set!");
             } else {
-                long ref = Long.parseLong(atts.getValue(Relation.MEMBER_REF));
-                String type = atts.getValue(Relation.MEMBER_TYPE);
-                String role = atts.getValue(Relation.MEMBER_ROLE);
+                long ref = Long.parseLong(atts.getValue(Relation.MEMBER_REF_ATTR));
+                String type = atts.getValue(Relation.MEMBER_TYPE_ATTR);
+                String role = atts.getValue(Relation.MEMBER_ROLE_ATTR);
                 RelationMember member = null;
                 switch (type) {
                 case Node.NAME:

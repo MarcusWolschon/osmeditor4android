@@ -33,7 +33,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
     /**
      * 
      */
-    private static final long serialVersionUID = 1104911642016294267L;
+    private static final long serialVersionUID = 1104911642016294268L;
 
     final List<RelationMember> members;
 
@@ -41,10 +41,10 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
 
     public static final String NAME = "relation";
 
-    public static final String MEMBER      = "member";
-    static final String        MEMBER_ROLE = "role";
-    static final String        MEMBER_REF  = "ref";
-    static final String        MEMBER_TYPE = "type";
+    static final String MEMBER_ATTR      = "member";
+    static final String MEMBER_ROLE_ATTR = "role";
+    static final String MEMBER_REF_ATTR  = "ref";
+    static final String MEMBER_TYPE_ATTR = "type";
 
     static final int MAX_DEPTH = 3;
 
@@ -79,7 +79,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
     public List<RelationMember> getMembers() {
         return members;
     }
-    
+
     /**
      * Return complete list of relation members of a certain type
      * 
@@ -89,7 +89,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
     @NonNull
     public List<RelationMember> getMembers(@NonNull String type) {
         List<RelationMember> result = new ArrayList<>();
-        for (RelationMember member: getMembers()) {
+        for (RelationMember member : getMembers()) {
             if (type.equals(member.getType())) {
                 result.add(member);
             }
@@ -263,11 +263,11 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
         s.startTag("", NAME);
         attributesToXml(s, changeSetId, josm);
         for (RelationMember member : members) {
-            s.startTag("", MEMBER);
-            s.attribute("", MEMBER_TYPE, member.getType());
-            s.attribute("", MEMBER_REF, Long.toString(member.getRef()));
-            s.attribute("", MEMBER_ROLE, member.getRole());
-            s.endTag("", MEMBER);
+            s.startTag("", MEMBER_ATTR);
+            s.attribute("", MEMBER_TYPE_ATTR, member.getType());
+            s.attribute("", MEMBER_REF_ATTR, Long.toString(member.getRef()));
+            s.attribute("", MEMBER_ROLE_ATTR, member.getRole());
+            s.endTag("", MEMBER_ATTR);
         }
         tagsToXml(s);
         s.endTag("", NAME);
