@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="3.2.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="3.3.1" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -11705,7 +11705,17 @@
                 <link wiki="Relation:restriction"/>
                 <space/>
                 <key key="type" value="restriction"/>
-                <combo key="restriction" text="Restriction" values="no_left_turn,no_right_turn,no_straight_on,no_u_turn,only_right_turn,only_left_turn,only_straight_on" display_values="No left turn,No right turn,No straight on,No u-turn,Only right turn,Only left turn,Only straight on" values_searchable="true"/>
+                <combo key="restriction" text="Restriction" values_searchable="true" values_sort="false">
+                    <list_entry value="no_left_turn" display_value="No left turn" icon="icons/png/no_left_turn.png" />
+                    <list_entry value="no_right_turn" display_value="No right turn" icon="icons/png/no_right_turn.png" />
+                    <list_entry value="no_u_turn" display_value="No u-turn" icon="icons/png/no_u_turn.png" />
+                    <list_entry value="only_right_turn" display_value="Only right turn" icon="icons/png/only_right_turn.png" />
+                    <list_entry value="only_left_turn" display_value="Only left turn" icon="icons/png/only_left_turn.png" />
+                    <list_entry value="only_straight_on" display_value="Only straight on" icon="icons/png/only_straight_on.png" />
+                    <list_entry value="no_straight_on" display_value="No straight on" icon="icons/png/no_straight_on.png" />
+                    <list_entry value="no_entry" display_value="No entry" icon="icons/png/no_entry.png" />
+                    <list_entry value="no_exit" display_value="No exit" icon="icons/png/no_entry.png" />
+                </combo>
                 <reference ref="turn_restriction_exceptions"/>  
                 <reference ref="turn_restriction_roles"/>
             </item> <!-- Turn Restriction -->
@@ -11757,6 +11767,30 @@
                 <reference ref="turn_restriction_exceptions"/>
                 <reference ref="turn_restriction_roles"/>
             </item> <!-- Straight on only -->
+            <item name="No straight on" icon="icons/png/no_straight_on.png" type="relation" preset_name_label="true">
+                <link wiki="Relation:restriction"/>
+                <space/>
+                <key key="type" value="restriction"/>
+                <key key="restriction" value="no_straight_on"/>
+                <reference ref="turn_restriction_exceptions"/>
+                <reference ref="turn_restriction_roles"/>
+            </item> <!-- No straight on -->
+            <item name="No entry" icon="icons/png/no_entry.png" type="relation" preset_name_label="true">
+                <link wiki="Relation:restriction"/>
+                <space/>
+                <key key="type" value="restriction"/>
+                <key key="restriction" value="no_entry"/>
+                <reference ref="turn_restriction_exceptions"/>
+                <reference ref="turn_restriction_roles"/>
+            </item> <!-- No entry -->
+            <item name="No exit" icon="icons/png/no_entry.png" type="relation" preset_name_label="true">
+                <link wiki="Relation:restriction"/>
+                <space/>
+                <key key="type" value="restriction"/>
+                <key key="restriction" value="no_exit"/>
+                <reference ref="turn_restriction_exceptions"/>
+                <reference ref="turn_restriction_roles"/>
+            </item> <!-- No exit -->
         </group> <!-- Turn Restrictions -->
         <item name="Lane connectivity" icon="icons/png/only_straight_on.png" type="relation" preset_name_label="true">
             <link wiki="Relation:connectivity"/>
