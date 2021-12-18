@@ -88,7 +88,8 @@
     <feature type="way" tags="leisure=swimming_pool" updateWidth="true" widthFactor="1.0" color="880000ff" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />    
     <feature type="way" tags="leisure=playground" area="true" updateWidth="true" widthFactor="0.8" color="88f4a460" style="STROKE" cap="BUTT" join="MITER" offset="0.50"/>
     <feature type="way" tags="leisure=garden" updateWidth="true" widthFactor="1.0" color="882d6e3a" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
-    
+    <feature type="way" tags="leisure=park" minVisibleZoom="10" color="88DFFCE2" />
+
     <feature type="way" tags="natural" updateWidth="true" widthFactor="0.5" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER"> 
         <feature type="way" tags="natural" closed="true" area="true" offset="0.50" >
             <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
@@ -409,7 +410,8 @@
         <feature type="relation" tags="leisure=pitch" updateWidth="true" widthFactor="1.0" color="8839AC39" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
         <feature type="relation" tags="leisure=swimming_pool" updateWidth="true" widthFactor="1.0" color="880000ff" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
         <feature type="relation" tags="leisure=garden" updateWidth="true" widthFactor="1.0" color="882d6e3a" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />    
-        
+        <feature type="relation" tags="leisure=park" minVisibleZoom="10" color="88DFFCE2" />
+
         <feature type="relation" tags="natural" color="ff71BE80" >
             <feature type="relation" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
             <feature type="relation" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" />
