@@ -158,7 +158,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     OnPresetSelectedListener presetSelectedListener;
 
     private final class Ruler extends ValueWithCount {
-        
+
         /**
          * Create a new Ruler
          */
@@ -1829,19 +1829,18 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     private void mergeTags(@NonNull Map<String, String> newTags) {
         LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(true);
-
-        boolean replacedValue = false;
+        int replacedValues = 0;
 
         // Existing tags with the same key will be overwritten
         for (Entry<String, String> tag : newTags.entrySet()) {
-            List<String> oldValue = currentValues.put(tag.getKey(), Util.wrapInList(tag.getValue()));
-            if (oldValue != null && !oldValue.isEmpty() && !oldValue.contains(tag.getValue())) {
-                replacedValue = true;
+            List<String> oldValues = currentValues.put(tag.getKey(), Util.wrapInList(tag.getValue()));
+            if (oldValues != null && !oldValues.isEmpty() && !oldValues.contains(tag.getValue()) && (oldValues.size() == 1 && !"".equals(oldValues.get(0)))) {
+                replacedValues++;
             }
         }
 
         loadEdits(currentValues, false);
-        if (replacedValue) {
+        if (replacedValues > 0) {
             Snack.barWarning(getActivity(), R.string.toast_merge_overwrote_tags);
         }
         focusOnEmptyValue();
