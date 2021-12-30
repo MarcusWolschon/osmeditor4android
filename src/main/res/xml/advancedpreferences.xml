@@ -207,7 +207,7 @@
             android:defaultValue="false"
             android:key="@string/config_overrideRegionAddressTags_key"
             android:summary="@string/config_overrideRegionAddressTags_summary"
-            android:title="@string/config_overrideRegionAddressTags_title" />           
+            android:title="@string/config_overrideRegionAddressTags_title" />
         <androidx.preference.MultiSelectListPreference
             android:key="@string/config_addressTags_key"
             android:title="@string/config_address_tags"
@@ -368,6 +368,18 @@
             app:spt_minValue="0"
             app:spt_increment="5"
             app:spt_currentValueText="@string/config_downloadSpeed_current"
+            app:spt_setWrapSelectorWheel="false" />
+        <ch.poole.android.numberpickerpreference.NumberPickerPreference
+            android:defaultValue="10000"
+            android:dialogTitle="@string/config_autoPruneTaskLimit_title"
+            android:key="@string/config_autoPruneTaskLimit_key"
+            android:numeric="integer"
+            android:summary="@string/config_autoPruneTaskLimit_summary"
+            android:title="@string/config_autoPruneTaskLimit_title"
+            app:spt_maxValue="50000"
+            app:spt_minValue="0"
+            app:spt_increment="1000"
+            app:spt_currentValueText="@string/config_autoPruneTaskLimit_current"
             app:spt_setWrapSelectorWheel="false" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen

@@ -1112,6 +1112,9 @@ avoided by using an offline data source.</string>
     <string name="config_bugDownloadRadius_summary">Radius (m) of task downloads.</string>
     <string name="config_maxBugDownloadSpeed_title">Maximum task auto-download speed</string>
     <string name="config_maxBugDownloadSpeed_summary">Limit (in km/h) above which notes, bugs and task auto-download is suspended.</string>
+    <string name="config_autoPruneTaskLimit_title">Task auto-prune limit</string>
+    <string name="config_autoPruneTaskLimit_summary">Number of tasks in memory that when reached will trigger a prune.</string>
+    <string name="config_autoPruneTaskLimit_current">%1$d Tasks</string>
     <!-- Location Settings -->
     <string name="config_category_gps">Location settings</string>
     <string name="config_category_gps_summary">GPS/GNSS parameters and other location providers.</string>
