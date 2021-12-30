@@ -56,9 +56,12 @@ public class MapOverlay extends MapViewLayer
 
     public static final String FILENAME = "selectedtask.res";
 
-    private static final int THREAD_POOL_SIZE = 1;
+    private static final int THREAD_POOL_SIZE = 2;
 
     private static final int SHOW_TASKS_LIMIT = 13;
+
+    private static final int AUTOPRUNE_MIN_INTERVAL       = 10000;
+    public static final int  DEFAULT_AUTOPRUNE_TASK_LIMIT = 10000;
 
     /** Map this is an overlay of. */
     private Map map = null;
@@ -74,12 +77,16 @@ public class MapOverlay extends MapViewLayer
     private Task restoredSelectedTask = null;
 
     private boolean     panAndZoomDownLoad = false;
-    private int         panAndZoomLimit    = 16;
+    private int         panAndZoomLimit    = de.blau.android.layer.data.MapOverlay.PAN_AND_ZOOM_LIMIT;
     private int         minDownloadSize    = 50;
     private float       maxDownloadSpeed   = 30;
     private Set<String> filter             = new HashSet<>();
+    private int         autoPruneTaskLimit = DEFAULT_AUTOPRUNE_TASK_LIMIT;                            // task count for
+                                                                                                      // autoprune
 
     private ThreadPoolExecutor mThreadPool;
+
+    private List<Task> taskList = new ArrayList<>();
 
     private Server server;
 
@@ -106,29 +113,43 @@ public class MapOverlay extends MapViewLayer
      * 
      * There is some code duplication here, however attempts to merge this didn't work out
      */
-    Runnable download = () -> {
-        if (mThreadPool == null) {
-            mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-        }
-        List<BoundingBox> bbList = new ArrayList<>(tasks.getBoundingBoxes());
-        ViewBox box = new ViewBox(map.getViewBox());
-        box.scale(1.2); // make sides 20% larger
-        box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
-        List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
-        for (BoundingBox b : bboxes) {
-            if (b.getWidth() <= 1 || b.getHeight() <= 1) {
-                Log.w(DEBUG_TAG, "getNextCenter very small bb " + b.toString());
-                continue;
+    Runnable download = new Runnable() {
+        private long lastAutoPrune = 0;
+
+        @Override
+        public void run() {
+            if (mThreadPool == null) {
+                mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
             }
-            tasks.addBoundingBox(b);
-            try {
-                mThreadPool.execute(() -> {
-                    TransferTasks.downloadBoxSync(context, server, b, true, App.getTaskStorage(), filter, TransferTasks.MAX_PER_REQUEST);
-                    map.postInvalidate();
-                });
-            } catch (RejectedExecutionException rjee) {
-                Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
-                tasks.deleteBoundingBox(b);
+            List<BoundingBox> bbList = new ArrayList<>(tasks.getBoundingBoxes());
+            ViewBox box = new ViewBox(map.getViewBox());
+            box.scale(1.2); // make sides 20% larger
+            box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
+            List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
+            for (BoundingBox b : bboxes) {
+                if (b.getWidth() <= 1 || b.getHeight() <= 1) {
+                    Log.w(DEBUG_TAG, "getNextCenter very small bb " + b.toString());
+                    continue;
+                }
+                tasks.addBoundingBox(b);
+                try {
+                    mThreadPool.execute(() -> {
+                        TransferTasks.downloadBoxSync(context, server, b, true, App.getTaskStorage(), filter, TransferTasks.MAX_PER_REQUEST);
+                        map.postInvalidate();
+                    });
+                } catch (RejectedExecutionException rjee) {
+                    Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
+                    tasks.deleteBoundingBox(b);
+                }
+            }
+            // check interval first as tasks.count traverses the whole R-Tree
+            if ((System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL && tasks.count() > autoPruneTaskLimit) {
+                try {
+                    mThreadPool.execute(MapOverlay.this::prune);
+                    lastAutoPrune = System.currentTimeMillis();
+                } catch (RejectedExecutionException rjee) {
+                    Log.e(DEBUG_TAG, "Prune execution rejected " + rjee.getMessage());
+                }
             }
         }
     };
@@ -150,7 +171,7 @@ public class MapOverlay extends MapViewLayer
             //
             int w = map.getWidth();
             int h = map.getHeight();
-            List<Task> taskList = tasks.getTasks(bb);
+            taskList = tasks.getTasks(bb, taskList);
             if (taskList != null) {
                 Set<String> taskFilter = map.getPrefs().taskFilter();
                 for (Task t : taskList) {
@@ -161,12 +182,9 @@ public class MapOverlay extends MapViewLayer
                     float x = GeoMath.lonE7ToX(w, bb, t.getLon());
                     float y = GeoMath.latE7ToY(h, w, bb, t.getLat());
                     boolean isSelected = selected != null && t.equals(selected) && App.getLogic().isInEditZoomRange();
-                    if (isSelected) {
+                    if (isSelected && t instanceof Note && ((Note) t).isNew() && map.getPrefs().largeDragArea()) {
                         // if the task can be dragged and large drag area is turned on show the large drag area
-                        if (t instanceof Note && ((Note) t).isNew() && map.getPrefs().largeDragArea()) {
-                            c.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(),
-                                    DataStyle.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint());
-                        }
+                        c.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint());
                     }
                     if (t.isClosed() && t.hasBeenChanged()) {
                         t.drawBitmapChangedClosed(map.getContext(), c, x, y, isSelected);
@@ -191,9 +209,9 @@ public class MapOverlay extends MapViewLayer
     public List<Task> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<Task> result = new ArrayList<>();
         final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
-        List<Task> taskList = tasks.getTasks(viewBox);
+        List<Task> tasksInViewBox = tasks.getTasks(viewBox);
         Set<String> taskFilter = map.getPrefs().taskFilter();
-        for (Task t : taskList) {
+        for (Task t : tasksInViewBox) {
             // filter
             if (!taskFilter.contains(t.bugFilterKey())) {
                 continue;
@@ -202,10 +220,8 @@ public class MapOverlay extends MapViewLayer
             int lon = t.getLon();
             float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
             float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat) - y);
-            if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
-                if (Math.hypot(differenceX, differenceY) <= tolerance) {
-                    result.add(t);
-                }
+            if ((differenceX <= tolerance) && (differenceY <= tolerance) && (Math.hypot(differenceX, differenceY) <= tolerance)) {
+                result.add(t);
             }
         }
         return result;
@@ -352,6 +368,7 @@ public class MapOverlay extends MapViewLayer
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
         panAndZoomLimit = prefs.getPanAndZoomLimit();
         filter = prefs.taskFilter();
+        autoPruneTaskLimit = prefs.getAutoPruneTaskLimit();
     }
 
     @Override

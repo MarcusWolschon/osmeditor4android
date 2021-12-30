@@ -29,7 +29,7 @@ import de.blau.android.util.rtree.RTree;
  *
  */
 public class TaskStorage implements Serializable, DataStorage {
-    private static final long               serialVersionUID = 7L;
+    private static final long               serialVersionUID = 8L;
     private static final String             DEBUG_TAG        = TaskStorage.class.getSimpleName();
     private int                             newId            = -1;
     private RTree<Task>                     tasks;
@@ -63,6 +63,15 @@ public class TaskStorage implements Serializable, DataStorage {
         tasks = new RTree<>(30, 100);
         boxes = new RTree<>(2, 20);
         dirty = true;
+    }
+    
+    /**
+     * Get the number of stored tasks
+     * 
+     * @return the number of stored tasks
+     */
+    public int count() {
+        return tasks.count();
     }
 
     /**
@@ -169,6 +178,21 @@ public class TaskStorage implements Serializable, DataStorage {
     @NonNull
     public List<Task> getTasks(@NonNull BoundingBox box) {
         List<Task> queryResult = new ArrayList<>();
+        tasks.query(queryResult, box.getBounds());
+        Log.d(DEBUG_TAG, "getTasks result count " + queryResult.size());
+        return queryResult;
+    }
+    
+    /**
+     * Return all tasks in a bounding box
+     * 
+     * @param box BoundingBox that should be searched
+     * @param queryResult a List to use for the result
+     * @return a List of Tasks
+     */
+    @NonNull
+    public List<Task> getTasks(@NonNull BoundingBox box, @NonNull List<Task> queryResult) {
+        queryResult.clear();
         tasks.query(queryResult, box.getBounds());
         Log.d(DEBUG_TAG, "getTasks result count " + queryResult.size());
         return queryResult;

@@ -55,6 +55,7 @@ public class Preferences {
     private int           downloadRadius;                // in m
     private float         maxDownloadSpeed;              // in km/h
     private final int     autoPruneNodeLimit;
+    private final int     autoPruneTaskLimit;
     private final int     panAndZoomLimit;
     private int           bugDownloadRadius;
     private float         maxBugDownloadSpeed;           // in km/h
@@ -147,8 +148,9 @@ public class Preferences {
 
         downloadRadius = getIntPref(R.string.config_extTriggeredDownloadRadius_key, 50);
         maxDownloadSpeed = getIntPref(R.string.config_maxDownloadSpeed_key, 10);
-        autoPruneNodeLimit = getIntPref(R.string.config_autoPruneNodeLimit_key, 5000);
-        panAndZoomLimit = getIntPref(R.string.config_panAndZoomLimit_key, 17);
+        autoPruneNodeLimit = getIntPref(R.string.config_autoPruneNodeLimit_key, de.blau.android.layer.data.MapOverlay.DEFAULT_AUTOPRUNE_NODE_LIMIT);
+        autoPruneTaskLimit = getIntPref(R.string.config_autoPruneTaskLimit_key, de.blau.android.layer.tasks.MapOverlay.DEFAULT_AUTOPRUNE_TASK_LIMIT);
+        panAndZoomLimit = getIntPref(R.string.config_panAndZoomLimit_key, de.blau.android.layer.data.MapOverlay.PAN_AND_ZOOM_LIMIT);
 
         bugDownloadRadius = getIntPref(R.string.config_bugDownloadRadius_key, 200);
         maxBugDownloadSpeed = getIntPref(R.string.config_maxBugDownloadSpeed_key, 30);
@@ -600,6 +602,15 @@ public class Preferences {
      */
     public int getAutoPruneNodeLimit() {
         return autoPruneNodeLimit;
+    }
+
+    /**
+     * Get the number of Tasks at which we start attempting a prune
+     * 
+     * @return the number of Tasks we consider the limit
+     */
+    public int getAutoPruneTaskLimit() {
+        return autoPruneTaskLimit;
     }
 
     /**

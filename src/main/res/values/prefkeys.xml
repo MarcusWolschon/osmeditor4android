@@ -96,6 +96,7 @@
     <string name="config_extTriggeredDownloadRadius_key">extTriggeredDownloadRadiusInt</string>
     <string name="config_maxDownloadSpeed_key">maxDownloadSpeedInt</string>
     <string name="config_autoPruneNodeLimit_key">autoPruneNodeLimit</string>
+    <string name="config_autoPruneTaskLimit_key">autoPruneTaskLimit</string>
     <string name="config_panAndZoomLimit_key">panAndZoomLimit</string>
     <string name="config_bugDownloadRadius_key">config_bugDownloadRadiusInt</string>
     <string name="config_maxBugDownloadSpeed_key">maxBugDownloadSpeedInt</string>

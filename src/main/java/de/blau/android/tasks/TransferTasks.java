@@ -862,28 +862,30 @@ public final class TransferTasks {
         final Preferences prefs = App.getLogic().getPrefs();
         boolean generateAlerts = prefs.generateAlerts();
         long now = System.currentTimeMillis();
-        for (Task b : tasks) {
-            if (b.getId() < 0 && b instanceof Note) { // need to renumber assuming that there are no duplicates
-                ((Note) b).setId(storage.getNextId());
-            }
-            Task existing = storage.get(b);
-            if (existing == null) {
-                // add open bugs or closed bugs younger than 7 days
-                if (!b.isClosed() || (now - b.getLastUpdate().getTime()) < MAX_CLOSED_AGE) {
-                    storage.add(b);
-                    if (!b.isClosed() && generateAlerts) {
-                        IssueAlert.alert(context, prefs, b);
-                    }
+        synchronized (storage) { // NOSONAR this will be the same object
+            for (Task b : tasks) {
+                if (b.getId() < 0 && b instanceof Note) { // need to renumber assuming that there are no duplicates
+                    ((Note) b).setId(storage.getNextId());
                 }
-            } else {
-                if (b.getLastUpdate().getTime() > existing.getLastUpdate().getTime()) {
-                    // downloaded task is newer
-                    if (existing.hasBeenChanged()) { // conflict, show message and abort
-                        Snack.toastTopError(context, context.getString(R.string.toast_task_conflict, existing.getDescription()));
-                        break;
-                    } else {
-                        storage.delete(existing);
+                Task existing = storage.get(b);
+                if (existing == null) {
+                    // add open bugs or closed bugs younger than 7 days
+                    if (!b.isClosed() || (now - b.getLastUpdate().getTime()) < MAX_CLOSED_AGE) {
                         storage.add(b);
+                        if (!b.isClosed() && generateAlerts) {
+                            IssueAlert.alert(context, prefs, b);
+                        }
+                    }
+                } else {
+                    if (b.getLastUpdate().getTime() > existing.getLastUpdate().getTime()) {
+                        // downloaded task is newer
+                        if (existing.hasBeenChanged()) { // conflict, show message and abort
+                            Snack.toastTopError(context, context.getString(R.string.toast_task_conflict, existing.getDescription()));
+                            break;
+                        } else {
+                            storage.delete(existing);
+                            storage.add(b);
+                        }
                     }
                 }
             }

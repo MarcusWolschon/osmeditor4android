@@ -101,8 +101,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private static final int ICON_SELECTED_BORDER = 2;
     private static final int LABEL_EXTRA          = 40;
 
-    protected static final long AUTOPRUNE_MIN_INTERVALL = 10; // seconds between autoprunes
-    private static final int    PAN_AND_ZOOM_LIMIT      = 17;
+    private static final long AUTOPRUNE_MIN_INTERVAL       = 10000; // milli-seconds between autoprunes
+    public static final int   DEFAULT_AUTOPRUNE_NODE_LIMIT = 5000;
+    public static final int   PAN_AND_ZOOM_LIMIT           = 17;
 
     /** half the width/height of a node icon in px */
     private final int iconRadius;
@@ -110,7 +111,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private final int houseNumberRadius;
     private final int verticalNumberOffset;
     private float     maxDownloadSpeed;
-    protected int     autoPruneNodeLimit = 5000;              // node count for autoprune
+    private int       autoPruneNodeLimit = DEFAULT_AUTOPRUNE_NODE_LIMIT; // node count for autoprune
     private int       panAndZoomLimit    = PAN_AND_ZOOM_LIMIT;
 
     private final StorageDelegator delegator;
@@ -384,8 +385,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     logic.removeBoundingBox(b);
                 }
             }
-            if (delegator.getCurrentStorage().getNodeCount() > autoPruneNodeLimit
-                    && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVALL * 1000) {
+            if (delegator.getCurrentStorage().getNodeCount() > autoPruneNodeLimit && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL) {
                 try {
                     dataThreadPoolExecutor.execute(MapOverlay.this::prune);
                     lastAutoPrune = System.currentTimeMillis();
