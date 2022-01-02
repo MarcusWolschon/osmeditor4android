@@ -371,9 +371,9 @@ public abstract class URLListEditActivity extends ListActivity
         final String              id;
         String                    name;
         String                    value;
-        String                    value_2;
-        String                    value_3;
-        boolean                   boolean_0;
+        String                    value2;
+        String                    value3;
+        boolean                   boolean0;
         boolean                   active;
 
         /**
@@ -391,17 +391,17 @@ public abstract class URLListEditActivity extends ListActivity
          * 
          * @param name the name
          * @param value the value
-         * @param value_2 further value 2
-         * @param value_3 further value 3
-         * @param boolean_0 a boolean
+         * @param value2 further value 2
+         * @param value3 further value 3
+         * @param boolean0 a boolean
          */
-        public ListEditItem(@NonNull String name, @NonNull String value, @Nullable String value_2, @Nullable String value_3, boolean boolean_0) {
+        public ListEditItem(@NonNull String name, @NonNull String value, @Nullable String value2, @Nullable String value3, boolean boolean0) {
             id = java.util.UUID.randomUUID().toString();
             this.value = value;
-            this.value_2 = value_2;
-            this.value_3 = value_3;
+            this.value2 = value2;
+            this.value3 = value3;
             this.name = name;
-            this.boolean_0 = boolean_0;
+            this.boolean0 = boolean0;
             this.active = false;
         }
 
@@ -422,10 +422,10 @@ public abstract class URLListEditActivity extends ListActivity
          * @param id an unique internal id
          * @param name the name
          * @param value the value
-         * @param boolean_0 a boolean
+         * @param boolean0 a boolean
          */
-        public ListEditItem(@NonNull String id, @NonNull String name, @NonNull String value, boolean boolean_0) {
-            this(id, name, value, boolean_0, false);
+        public ListEditItem(@NonNull String id, @NonNull String name, @NonNull String value, boolean boolean0) {
+            this(id, name, value, boolean0, false);
         }
 
         /**
@@ -434,11 +434,11 @@ public abstract class URLListEditActivity extends ListActivity
          * @param id an unique internal id
          * @param name the name
          * @param value the value
-         * @param boolean_0 a boolean
+         * @param boolean0 a boolean
          * @param active true if this entry should be active
          */
-        public ListEditItem(@NonNull String id, @NonNull String name, @NonNull String value, boolean boolean_0, boolean active) {
-            this(id, name, value, null, null, boolean_0, active);
+        public ListEditItem(@NonNull String id, @NonNull String name, @NonNull String value, boolean boolean0, boolean active) {
+            this(id, name, value, null, null, boolean0, active);
         }
 
         /**
@@ -447,19 +447,19 @@ public abstract class URLListEditActivity extends ListActivity
          * @param id an unique internal id
          * @param name the name
          * @param value the value
-         * @param value_2 further value 2
-         * @param value_3 further value 3
-         * @param boolean_0 a boolean
+         * @param value2 further value 2
+         * @param value3 further value 3
+         * @param boolean0 a boolean
          * @param active true if this entry should be active
          */
-        public ListEditItem(@NonNull String id, @NonNull String name, @NonNull String value, @Nullable String value_2, @Nullable String value_3,
-                boolean boolean_0, boolean active) {
+        public ListEditItem(@NonNull String id, @NonNull String name, @NonNull String value, @Nullable String value2, @Nullable String value3, boolean boolean0,
+                boolean active) {
             this.id = id;
             this.value = value;
-            this.value_2 = value_2;
-            this.value_3 = value_3;
+            this.value2 = value2;
+            this.value3 = value3;
             this.name = name;
-            this.boolean_0 = boolean_0;
+            this.boolean0 = boolean0;
             this.active = active;
         }
 

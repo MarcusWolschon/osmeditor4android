@@ -82,12 +82,12 @@ public class GeocoderEditorActivity extends URLListEditActivity {
 
     @Override
     protected void onItemCreated(ListEditItem item) {
-        db.addGeocoder(item.id, item.name, GeocoderType.valueOf(item.value), 0, item.value_2, item.active);
+        db.addGeocoder(item.id, item.name, GeocoderType.valueOf(item.value), 0, item.value2, item.active);
     }
 
     @Override
     protected void onItemEdited(ListEditItem item) {
-        db.updateGeocoder(item.id, item.name, GeocoderType.valueOf(item.value), 0, item.value_2, item.boolean_0);
+        db.updateGeocoder(item.id, item.name, GeocoderType.valueOf(item.value), 0, item.value2, item.boolean0);
     }
 
     @Override
@@ -132,7 +132,7 @@ public class GeocoderEditorActivity extends URLListEditActivity {
         if (item != null) {
             editName.setText(item.name);
             geocoderType.setSelection((GeocoderType.valueOf(item.value)).ordinal());
-            url.setText(item.value_2);
+            url.setText(item.value2);
 
             if (item.id.equals(LISTITEM_ID_DEFAULT)) {
                 // name and value are not editable
@@ -147,17 +147,17 @@ public class GeocoderEditorActivity extends URLListEditActivity {
         builder.setPositiveButton(R.string.okay, (dialog, whichButton) -> {
             String name = editName.getText().toString();
             String value = ((GeocoderType) geocoderType.getSelectedItem()).name();
-            String value_2 = url.getText().toString();
+            String value2 = url.getText().toString();
 
             if (item == null) {
                 // new item
                 if (!"".equals(value)) {
-                    finishCreateItem(new ListEditItem(name, value, !"".equals(value_2) ? value_2 : null, null, false));
+                    finishCreateItem(new ListEditItem(name, value, !"".equals(value2) ? value2 : null, null, false));
                 }
             } else {
                 item.name = name;
                 item.value = value;
-                item.value_2 = !"".equals(value_2) ? value_2 : null;
+                item.value2 = !"".equals(value2) ? value2 : null;
                 finishEditItem(item);
             }
         });

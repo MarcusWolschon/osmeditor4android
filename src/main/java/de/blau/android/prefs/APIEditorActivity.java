@@ -127,12 +127,12 @@ public class APIEditorActivity extends URLListEditActivity {
 
     @Override
     protected void onItemCreated(ListEditItem item) {
-        db.addAPI(item.id, item.name, item.value, item.value_2, item.value_3, "", "", item.boolean_0);
+        db.addAPI(item.id, item.name, item.value, item.value2, item.value3, "", "", item.boolean0);
     }
 
     @Override
     protected void onItemEdited(ListEditItem item) {
-        db.setAPIDescriptors(item.id, item.name, item.value, item.value_2, item.value_3, item.boolean_0);
+        db.setAPIDescriptors(item.id, item.name, item.value, item.value2, item.value3, item.boolean0);
     }
 
     @Override
@@ -159,9 +159,9 @@ public class APIEditorActivity extends URLListEditActivity {
     public void onAdditionalMenuItemClick(int menuItemId, ListEditItem clickedItem) {
         switch (menuItemId) {
         case MENU_COPY:
-            ListEditItem item = new ListEditItem(getString(R.string.copy_of, clickedItem.name), clickedItem.value, clickedItem.value_2, clickedItem.value_3,
-                    clickedItem.boolean_0);
-            db.addAPI(item.id, item.name, item.value, item.value_2, item.value_3, "", "", item.boolean_0);
+            ListEditItem item = new ListEditItem(getString(R.string.copy_of, clickedItem.name), clickedItem.value, clickedItem.value2, clickedItem.value3,
+                    clickedItem.boolean0);
+            db.addAPI(item.id, item.name, item.value, item.value2, item.value3, "", "", item.boolean0);
             items.clear();
             onLoadList(items);
             updateAdapter();
@@ -184,17 +184,17 @@ public class APIEditorActivity extends URLListEditActivity {
         final View mainView = inflater.inflate(R.layout.listedit_apiedit, null);
         final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);
         final TextView editValue = (TextView) mainView.findViewById(R.id.listedit_editValue);
-        final TextView editValue_2 = (TextView) mainView.findViewById(R.id.listedit_editValue_2);
-        final TextView editValue_3 = (TextView) mainView.findViewById(R.id.listedit_editValue_3);
+        final TextView editValue2 = (TextView) mainView.findViewById(R.id.listedit_editValue_2);
+        final TextView editValue3 = (TextView) mainView.findViewById(R.id.listedit_editValue_3);
         final CheckBox oauth = (CheckBox) mainView.findViewById(R.id.listedit_oauth);
         final ImageButton fileButton = (ImageButton) mainView.findViewById(R.id.listedit_file_button);
 
         if (item != null) {
             editName.setText(item.name);
             editValue.setText(item.value);
-            editValue_2.setText(item.value_2);
-            editValue_3.setText(item.value_3);
-            oauth.setChecked(item.boolean_0);
+            editValue2.setText(item.value2);
+            editValue3.setText(item.value3);
+            oauth.setChecked(item.boolean0);
         } else if (isAddingViaIntent()) {
             String tmpName = getIntent().getExtras().getString(EXTRA_NAME);
             String tmpValue = getIntent().getExtras().getString(EXTRA_VALUE);
@@ -210,8 +210,8 @@ public class APIEditorActivity extends URLListEditActivity {
                 editValue.setBackground(null);
             }
             editValue.setInputType(InputType.TYPE_NULL);
-            editValue_2.setEnabled(true);
-            editValue_3.setEnabled(false);
+            editValue2.setEnabled(true);
+            editValue3.setEnabled(false);
         }
 
         builder.setView(mainView);
@@ -244,7 +244,7 @@ public class APIEditorActivity extends URLListEditActivity {
                     if (!DatabaseUtil.isValidSQLite(fileUri.getPath())) {
                         throw new SQLiteException("Not a SQLite database file");
                     }
-                    editValue_2.setText(fileUri.toString());
+                    editValue2.setText(fileUri.toString());
                     SelectFile.savePref(new Preferences(APIEditorActivity.this), R.string.config_msfPreferredDir_key, fileUri);
                     return true;
                 } catch (SQLiteException sqex) {
@@ -265,14 +265,14 @@ public class APIEditorActivity extends URLListEditActivity {
             boolean validNotesAPIURL = true;
             String name = editName.getText().toString().trim();
             String apiURL = editValue.getText().toString().trim();
-            String readOnlyAPIURL = editValue_2.getText().toString().trim();
-            String notesAPIURL = editValue_3.getText().toString().trim();
+            String readOnlyAPIURL = editValue2.getText().toString().trim();
+            String notesAPIURL = editValue3.getText().toString().trim();
             boolean enabled = oauth.isChecked();
 
             // (re-)set to black
             changeBackgroundColor(editValue, VALID_COLOR);
-            changeBackgroundColor(editValue_2, VALID_COLOR);
-            changeBackgroundColor(editValue_3, VALID_COLOR);
+            changeBackgroundColor(editValue2, VALID_COLOR);
+            changeBackgroundColor(editValue3, VALID_COLOR);
 
             // validate entries
             validAPIURL = Patterns.WEB_URL.matcher(apiURL).matches();
@@ -297,9 +297,9 @@ public class APIEditorActivity extends URLListEditActivity {
                     } else {
                         item.name = name;
                         item.value = apiURL;
-                        item.value_2 = readOnlyAPIURL;
-                        item.value_3 = notesAPIURL;
-                        item.boolean_0 = enabled;
+                        item.value2 = readOnlyAPIURL;
+                        item.value3 = notesAPIURL;
+                        item.boolean0 = enabled;
                         finishEditItem(item);
                     }
                 }
@@ -309,10 +309,10 @@ public class APIEditorActivity extends URLListEditActivity {
                 changeBackgroundColor(editValue, ERROR_COLOR);
             } else if (!validReadOnlyAPIURL) {
                 Snack.barError(APIEditorActivity.this, R.string.toast_invalid_readonlyurl);
-                changeBackgroundColor(editValue_2, ERROR_COLOR);
+                changeBackgroundColor(editValue2, ERROR_COLOR);
             } else if (!validNotesAPIURL) {
                 Snack.barError(APIEditorActivity.this, R.string.toast_invalid_notesurl);
-                changeBackgroundColor(editValue_3, ERROR_COLOR);
+                changeBackgroundColor(editValue3, ERROR_COLOR);
             }
         });
 

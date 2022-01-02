@@ -201,7 +201,7 @@ public class PresetEditorActivity extends URLListEditActivity {
     @Override
     protected void onItemEdited(ListEditItem item) {
         PresetInfo preset = db.getPreset(item.id);
-        db.setPresetInfo(item.id, item.name, item.value, item.boolean_0);
+        db.setPresetInfo(item.id, item.name, item.value, item.boolean0);
         if (preset.url != null && !preset.url.equals(item.value)) {
             // url changed so better recreate everything
             db.removePresetDirectory(item.id);
@@ -538,7 +538,7 @@ public class PresetEditorActivity extends URLListEditActivity {
         if (item != null) {
             editName.setText(item.name);
             editValue.setText(item.value);
-            useTranslations.setChecked(item.boolean_0);
+            useTranslations.setChecked(item.boolean0);
         } else if (isAddingViaIntent()) {
             String tmpName = getIntent().getExtras().getString(EXTRA_NAME);
             String tmpValue = getIntent().getExtras().getString(EXTRA_VALUE);
@@ -611,7 +611,7 @@ public class PresetEditorActivity extends URLListEditActivity {
                 } else {
                     item.name = name;
                     item.value = presetURL;
-                    item.boolean_0 = useTranslationsEnabled;
+                    item.boolean0 = useTranslationsEnabled;
                     finishEditItem(item);
                 }
                 dialog.dismiss();
