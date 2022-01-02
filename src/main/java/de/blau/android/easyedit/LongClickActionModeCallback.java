@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.Main;
@@ -156,11 +157,20 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                 });
             }
         } catch (OsmIllegalOperationException e) {
-            Snack.barError(main, e.getLocalizedMessage());
-            Log.d(DEBUG_TAG, "Caught exception " + e);
-            manager.finish();
+            finishOnException(e);
         }
         return false;
+    }
+
+    /**
+     * Display a toast and finish the action mode
+     * 
+     * @param e the Exception
+     */
+    private void finishOnException(@NonNull Exception e) {
+        Snack.barError(main, e.getLocalizedMessage());
+        Log.d(DEBUG_TAG, "Caught exception " + e);
+        manager.finish();
     }
 
     @Override
@@ -197,9 +207,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                         });
                     }
                 } catch (OsmIllegalOperationException e) {
-                    Snack.barError(main, e.getLocalizedMessage());
-                    Log.d(DEBUG_TAG, "Caught exception " + e);
-                    manager.finish();
+                    finishOnException(e);
                 }
             }
             return true;
