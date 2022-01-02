@@ -2,7 +2,7 @@ package de.blau.android.dialogs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -55,9 +55,9 @@ import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.FilterlessArrayAdapter;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.validation.ExtendedValidator;
 import de.blau.android.validation.FormValidation;
 import de.blau.android.validation.NotEmptyValidator;
-import de.blau.android.validation.ExtendedValidator;
 import de.blau.android.validation.Validator;
 import de.blau.android.views.ExtendedViewPager;
 
@@ -84,6 +84,54 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
     private Resources resources;
 
     private List<OsmElement> elements = null;
+
+    private Comparator<ChangedElement> comparator = (ce0, ce1) -> {
+        OsmElement element0 = ce0.element;
+        OsmElement element1 = ce1.element;
+        int problems0 = element0.getCachedProblems();
+        int problems1 = element1.getCachedProblems();
+        if (problems0 > Validator.OK && problems1 <= Validator.OK) {
+            return -1;
+        }
+        if (problems0 <= Validator.OK && problems1 > Validator.OK) {
+            return 1;
+        }
+        if (element0.isTagged() && !element1.isTagged()) {
+            return -1;
+        }
+        if (!element0.isTagged() && element1.isTagged()) {
+            return 1;
+        }
+        byte ce0State = element0.getState();
+        byte ce1State = element1.getState();
+        if (ce0State == OsmElement.STATE_CREATED && ce1State != OsmElement.STATE_CREATED) {
+            return -1;
+        }
+        if (ce0State != OsmElement.STATE_CREATED && ce1State == OsmElement.STATE_CREATED) {
+            return 1;
+        }
+        if (ce0State == OsmElement.STATE_MODIFIED && ce1State == OsmElement.STATE_DELETED) {
+            return -1;
+        }
+        if (ce0State == OsmElement.STATE_DELETED && ce1State == OsmElement.STATE_MODIFIED) {
+            return 1;
+        }
+        String ce0Type = element0.getName();
+        String ce1Type = element1.getName();
+        if (Node.NAME.equals(ce0Type) && !Node.NAME.equals(ce1Type)) {
+            return -1;
+        }
+        if (Way.NAME.equals(ce0Type) && Relation.NAME.equals(ce1Type)) {
+            return -1;
+        }
+        if (Way.NAME.equals(ce0Type) && Node.NAME.equals(ce1Type)) {
+            return 1;
+        }
+        if (Relation.NAME.equals(ce0Type) && !Relation.NAME.equals(ce1Type)) {
+            return 1;
+        }
+        return 0;
+    };
 
     /**
      * Instantiate and show the dialog
@@ -193,11 +241,12 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         int changeCount = elements == null ? App.getDelegator().getApiElementCount() : elements.size();
         changesHeading.setText(getResources().getQuantityString(R.plurals.confirm_upload_text, changeCount, changeCount));
         ListView changesView = (ListView) layout.findViewById(R.id.upload_changes);
-        
+
         ExtendedValidator validator = new ExtendedValidator(App.getDefaultValidator(getContext()));
         final ChangedElement[] changes = getPendingChanges(elements == null ? App.getLogic().getPendingChangedElements() : elements);
         revalidate(activity, validator, changes);
-        
+        Arrays.sort(changes, comparator);
+
         changesView.setAdapter(new ValidatorArrayAdapter(activity, R.layout.changes_list_item, changes, validator));
         changesView.setOnItemClickListener((parent, view, position, id) -> {
             ChangedElement clicked = changes[position];
@@ -276,13 +325,13 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
      * @param changes the list of changes
      */
     private void revalidate(@NonNull FragmentActivity activity, @NonNull Validator validator, @NonNull final ChangedElement[] changes) {
-        for (ChangedElement ce:changes) {
+        for (ChangedElement ce : changes) {
             OsmElement element = ce.element;
             element.resetHasProblem();
             element.hasProblem(activity, validator);
         }
         if (activity instanceof Main) {
-           ((Main)activity).invalidateMap(); 
+            ((Main) activity).invalidateMap();
         }
     }
 
@@ -372,44 +421,6 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         for (OsmElement e : changedElements) {
             result.add(new ChangedElement(e));
         }
-        Collections.sort(result, (ce0, ce1) -> {
-
-            if (ce0.element.isTagged() && !ce1.element.isTagged()) {
-                return -1;
-            }
-            if (!ce0.element.isTagged() && ce1.element.isTagged()) {
-                return 1;
-            }
-            byte ce0State = ce0.element.getState();
-            byte ce1State = ce1.element.getState();
-            if (ce0State == OsmElement.STATE_CREATED && ce1State != OsmElement.STATE_CREATED) {
-                return -1;
-            }
-            if (ce0State != OsmElement.STATE_CREATED && ce1State == OsmElement.STATE_CREATED) {
-                return 1;
-            }
-            if (ce0State == OsmElement.STATE_MODIFIED && ce1State == OsmElement.STATE_DELETED) {
-                return -1;
-            }
-            if (ce0State == OsmElement.STATE_DELETED && ce1State == OsmElement.STATE_MODIFIED) {
-                return 1;
-            }
-            String ce0Type = ce0.element.getName();
-            String ce1Type = ce1.element.getName();
-            if (Node.NAME.equals(ce0Type) && !Node.NAME.equals(ce1Type)) {
-                return -1;
-            }
-            if (Way.NAME.equals(ce0Type) && Relation.NAME.equals(ce1Type)) {
-                return -1;
-            }
-            if (Way.NAME.equals(ce0Type) && Node.NAME.equals(ce1Type)) {
-                return 1;
-            }
-            if (Relation.NAME.equals(ce0Type) && !Relation.NAME.equals(ce1Type)) {
-                return 1;
-            }
-            return 0;
-        });
         return result.toArray(new ChangedElement[result.size()]);
     }
 
