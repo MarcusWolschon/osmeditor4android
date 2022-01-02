@@ -324,14 +324,12 @@ public class TagFilterActivity extends ListActivity {
             vh.active.setTag(id);
             vh.active.setOnCheckedChangeListener((button, isChecked) -> {
                 vh.modified = true;
-                Log.d(DEBUG_TAG, "marked view as modified");
             });
             vh.mode.setSelection(cursor.getInt(cursor.getColumnIndexOrThrow(INCLUDE_COLUMN)) == 1 ? 1 : 0);
             OnItemSelectedListener listener = new OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id2) {
                     vh.modified = true;
-                    Log.d(DEBUG_TAG, "marked view as modified");
                 }
 
                 @Override
@@ -349,7 +347,6 @@ public class TagFilterActivity extends ListActivity {
                 @Override
                 public void afterTextChanged(Editable arg0) {
                     vh.modified = true;
-                    Log.d(DEBUG_TAG, "marked view as modified");
                 }
 
                 @Override
