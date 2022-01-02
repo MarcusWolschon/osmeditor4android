@@ -22,6 +22,8 @@ public interface Validator {
     int UNCONNECTED_END_NODE = 0x00000400;
     int DEGENERATE_WAY       = 0x00000800;
     int EMPTY_RELATION       = 0x00001000;
+    int MISSING_ROLE         = 0x00002000;
+    int RELATION_LOOP        = 0x00004000;
 
     /**
      * Reset the state of the validator

@@ -29,6 +29,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetRole;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
@@ -110,14 +111,15 @@ public class BaseValidator implements Validator {
      * @param status status before calling this method
      * @param e the OsmElement
      * @param tags the associated tags
+     * @param pi a matching PrestItem or null
      * @return the output status
      */
-    private int validateElement(int status, @NonNull OsmElement e, @NonNull SortedMap<String, String> tags) {
+    private int validateElement(int status, @NonNull OsmElement e, @NonNull SortedMap<String, String> tags, @Nullable PresetItem pi) {
         // test for fixme etc // NOSONAR
         for (Entry<String, String> entry : new ArrayList<>(tags.entrySet())) {
             // test key and value against pattern
             if (FIXME_PATTERN.matcher(entry.getKey()).matches() || FIXME_PATTERN.matcher(entry.getValue()).matches()) {
-                status = status | Validator.FIXME;
+                status |= Validator.FIXME;
             }
         }
 
@@ -126,20 +128,26 @@ public class BaseValidator implements Validator {
             long now = System.currentTimeMillis() / 1000;
             long timestamp = e.getTimestamp();
             for (String key : resurveyTags.getKeys()) {
-                Set<PatternAndAge> values = resurveyTags.get(key);
-                for (PatternAndAge value : values) {
-                    if (tags.containsKey(key) && (value.getValue() == null || "".equals(value.getValue()) || value.matches(tags.get(key)))) {
-                        if (timestamp >= 0 && (now - timestamp > value.getAge())) {
-                            status = status | Validator.AGE;
-                            break;
-                        }
-                        if (tags.containsKey(Tags.KEY_CHECK_DATE)) {
-                            status = status | checkAge(tags, now, Tags.KEY_CHECK_DATE, value.getAge());
-                            break;
-                        }
-                        if (tags.containsKey(Tags.KEY_CHECK_DATE + ":" + key)) {
-                            status = status | checkAge(tags, now, Tags.KEY_CHECK_DATE + ":" + key, value.getAge());
-                            break;
+                if (tags.containsKey(key)) {
+                    for (PatternAndAge value : resurveyTags.get(key)) {
+                        if ((value.getValue() == null || "".equals(value.getValue()) || value.matches(tags.get(key)))) {
+                            long age = value.getAge();
+                            // timestamp is too old
+                            if (timestamp >= 0 && (now - timestamp > age)) {
+                                status |= Validator.AGE;
+                                break;
+                            }
+                            // check_date tag is too old
+                            if (tags.containsKey(Tags.KEY_CHECK_DATE)) {
+                                status |= checkAge(tags, now, Tags.KEY_CHECK_DATE, age);
+                                break;
+                            }
+                            // key specific check_date tag is too old
+                            final String keyCheckDate = Tags.KEY_CHECK_DATE + ":" + key;
+                            if (tags.containsKey(keyCheckDate)) {
+                                status |= checkAge(tags, now, keyCheckDate, age);
+                                break;
+                            }
                         }
                     }
                 }
@@ -147,11 +155,9 @@ public class BaseValidator implements Validator {
         }
 
         // find missing keys
-        String country = getCountry(e);
-        PresetItem pi = Preset.findBestMatch(presets, tags, country);
         if (pi != null && checkTags != null) {
             for (Entry<String, Boolean> entry : checkTags.entrySet()) {
-                String[] keys = entry.getKey().split("\\|");
+                String[] keys = splitKeys(entry);
                 int tempStatus = 0;
                 for (String key : keys) {
                     key = key.trim();
@@ -164,10 +170,21 @@ public class BaseValidator implements Validator {
                         }
                     }
                 }
-                status = status | tempStatus;
+                status |= tempStatus;
             }
         }
         return status;
+    }
+
+    /**
+     * Split a key from the missing keys data
+     * 
+     * @param entry the Entry
+     * @return an array of individual keys
+     */
+    @NonNull
+    private String[] splitKeys(@NonNull Entry<String, Boolean> entry) {
+        return entry.getKey().split("\\|");
     }
 
     /**
@@ -206,7 +223,7 @@ public class BaseValidator implements Validator {
 
         if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
             // unsurveyed road
-            result = result | Validator.HIGHWAY_ROAD;
+            result |= Validator.HIGHWAY_ROAD;
         }
         if (geoContext != null) {
             boolean imperial = geoContext.imperial(w);
@@ -341,7 +358,7 @@ public class BaseValidator implements Validator {
      * @param e the OsmElement
      * @param problem the problem value
      */
-    void addProblem(@NonNull OsmElement e, int problem) {
+    protected void addProblem(@NonNull OsmElement e, int problem) {
         e.setProblem(e.getCachedProblems() | problem);
     }
 
@@ -351,7 +368,7 @@ public class BaseValidator implements Validator {
      * @param e the OsmElement
      * @param problem the problem value
      */
-    void deleteProblem(@NonNull OsmElement e, int problem) {
+    protected void deleteProblem(@NonNull OsmElement e, int problem) {
         e.setProblem(e.getCachedProblems() & ~problem);
     }
 
@@ -379,15 +396,20 @@ public class BaseValidator implements Validator {
      * @param ctx Android Context
      * @param e OsmElement
      * @param tags the associates tags
+     * @param pi a matching PrestItem or null
      * @return a List of Strings describing the problems
      */
     @NonNull
-    public List<String> describeProblemElement(@NonNull Context ctx, @NonNull OsmElement e, SortedMap<String, String> tags) {
+    private List<String> describeProblemElement(@NonNull Context ctx, @NonNull OsmElement e, @NonNull SortedMap<String, String> tags, @Nullable PresetItem pi) {
         List<String> result = new ArrayList<>();
-
+        int cachedProblems = e.getCachedProblems();
         // invalid OSM element
-        if ((e.getCachedProblems() & Validator.INVALID_OBJECT) != 0) {
+        if ((cachedProblems & Validator.INVALID_OBJECT) != 0) {
             result.add(ctx.getString(R.string.toast_invalid_object));
+        }
+
+        if ((cachedProblems & Validator.UNTAGGED) != 0) {
+            result.add(ctx.getString(R.string.toast_untagged_element));
         }
 
         // fixme etc. // NOSONAR
@@ -399,16 +421,14 @@ public class BaseValidator implements Validator {
         }
 
         // resurvey age
-        if ((e.getCachedProblems() & Validator.AGE) != 0) {
+        if ((cachedProblems & Validator.AGE) != 0) {
             result.add(ctx.getString(R.string.toast_needs_resurvey));
         }
 
         // missing tags
-        String country = getCountry(e);
-        PresetItem pi = Preset.findBestMatch(presets, tags, country);
         if (pi != null && checkTags != null) {
             for (Entry<String, Boolean> entry : checkTags.entrySet()) {
-                String[] keys = entry.getKey().split("\\|");
+                String[] keys = splitKeys(entry);
                 for (String key : keys) {
                     key = key.trim();
                     if (pi.hasKey(key, entry.getValue()) && !e.hasTagKey(key) && reportMissingKey(e, key)) {
@@ -427,8 +447,8 @@ public class BaseValidator implements Validator {
      * @param e the OsmElement
      * @return the country the element is located in or null
      */
-    @Nullable
-    private String getCountry(@NonNull OsmElement e) {
+    @Nullable 
+    String getCountry(@NonNull OsmElement e) {
         if (geoContext != null) {
             List<String> isoCodes = geoContext.getIsoCodes(e);
             if (isoCodes != null) {
@@ -481,7 +501,7 @@ public class BaseValidator implements Validator {
         SortedMap<String, String> tags = node.getTags();
         if (!tags.isEmpty()) {
             // tag based checks
-            status = validateElement(status, node, tags);
+            status = validateElement(status, node, tags, Preset.findBestMatch(presets, tags, getCountry(node)));
         }
         if (status == Validator.NOT_VALIDATED) {
             status = Validator.OK;
@@ -500,19 +520,19 @@ public class BaseValidator implements Validator {
 
         int status = Validator.NOT_VALIDATED;
         if (way.nodeCount() == 1) {
-            status = status | Validator.DEGENERATE_WAY;
+            status |= Validator.DEGENERATE_WAY;
         }
         SortedMap<String, String> tags = way.getTags();
         boolean noTags = tags.isEmpty();
         if (noTags && !way.hasParentRelations()) {
-            status = status | Validator.UNTAGGED;
+            status |= Validator.UNTAGGED;
         }
         if (!noTags) {
             // tag based checks
-            status = validateElement(status, way, tags);
+            status = validateElement(status, way, tags, Preset.findBestMatch(presets, tags, getCountry(way)));
             String highway = way.getTagWithKey(Tags.KEY_HIGHWAY);
             if (highway != null) {
-                status = status | validateHighway(way, highway);
+                status |= validateHighway(way, highway);
             }
         }
         if (status == Validator.NOT_VALIDATED) {
@@ -528,16 +548,17 @@ public class BaseValidator implements Validator {
         boolean noTags = tags.isEmpty();
         // tag based checks
         if (noTags) {
-            status = status | Validator.UNTAGGED | Validator.NO_TYPE;
+            status |= Validator.UNTAGGED | Validator.NO_TYPE;
         } else {
-            status = validateElement(status, relation, tags);
+            PresetItem pi = Preset.findBestMatch(presets, tags, getCountry(relation));
+            status = validateElement(status, relation, tags, pi);
             if (noType(relation)) {
-                status = status | Validator.NO_TYPE;
+                status |= Validator.NO_TYPE;
             }
         }
         List<RelationMember> members = relation.getMembers();
         if (members == null || members.isEmpty()) {
-            status = status | Validator.EMPTY_RELATION;
+            status |= Validator.EMPTY_RELATION;
         }
         if (status == Validator.NOT_VALIDATED) {
             status = Validator.OK;
@@ -561,7 +582,7 @@ public class BaseValidator implements Validator {
     public String[] describeProblem(@NonNull Context ctx, @NonNull Node node) {
         SortedMap<String, String> tags = node.getTags();
         List<String> result = new ArrayList<>();
-        result.addAll(describeProblemElement(ctx, node, tags));
+        result.addAll(describeProblemElement(ctx, node, tags, Preset.findBestMatch(presets, tags, getCountry(node))));
         if ((node.getCachedProblems() & Validator.UNCONNECTED_END_NODE) != 0) {
             result.add(ctx.getString(R.string.toast_unconnected_end_node));
         }
@@ -573,13 +594,9 @@ public class BaseValidator implements Validator {
     public String[] describeProblem(@NonNull Context ctx, @NonNull Way way) {
         SortedMap<String, String> tags = way.getTags();
         List<String> result = new ArrayList<>();
-        result.addAll(describeProblemElement(ctx, way, tags));
+        result.addAll(describeProblemElement(ctx, way, tags, Preset.findBestMatch(presets, tags, getCountry(way))));
         if ((way.getCachedProblems() & Validator.DEGENERATE_WAY) != 0) {
             result.add(ctx.getString(R.string.toast_degenerate_way));
-        }
-        // invalid OSM element
-        if ((way.getCachedProblems() & Validator.UNTAGGED) != 0) {
-            result.add(ctx.getString(R.string.toast_untagged_way));
         }
         String highway = way.getTagWithKey(Tags.KEY_HIGHWAY);
         if (highway != null) {
@@ -593,19 +610,24 @@ public class BaseValidator implements Validator {
     public String[] describeProblem(@NonNull Context ctx, @NonNull Relation relation) {
         SortedMap<String, String> tags = relation.getTags();
         List<String> result = new ArrayList<>();
-        result.addAll(describeProblemElement(ctx, relation, tags));
-        if ((relation.getCachedProblems() & Validator.UNTAGGED) != 0) {
-            result.add(ctx.getString(R.string.toast_untagged_relation));
-        }
+        PresetItem pi = Preset.findBestMatch(presets, tags, getCountry(relation));
+        result.addAll(describeProblemElement(ctx, relation, tags, pi));
         if (noType(relation)) {
             result.add(ctx.getString(R.string.toast_notype));
         }
         if ((relation.getCachedProblems() & Validator.EMPTY_RELATION) != 0) {
             result.add(ctx.getString(R.string.empty_relation_title));
         }
+        if ((relation.getCachedProblems() & Validator.MISSING_ROLE) != 0) {
+            result.add(ctx.getString(R.string.toast_missing_role));
+        }
+        if ((relation.getCachedProblems() & Validator.RELATION_LOOP) != 0) {
+            result.add(ctx.getString(R.string.toast_relation_loop));
+        }
         return result.toArray(new String[result.size()]);
     }
 
+    @NonNull
     @Override
     public String[] describeProblem(@NonNull Context ctx, @NonNull OsmElement e) {
         if (e instanceof Node) {
@@ -617,6 +639,16 @@ public class BaseValidator implements Validator {
         if (e instanceof Relation) {
             return describeProblem(ctx, (Relation) e);
         }
-        return null;
+        return new String[] {};
+    }
+
+    /**
+     * Get the current presets
+     * 
+     * @return the presets object
+     */
+    @NonNull
+    Preset[] getPresets() {
+        return presets;
     }
 }

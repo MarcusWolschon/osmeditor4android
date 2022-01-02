@@ -42,6 +42,7 @@ import androidx.viewpager.widget.PagerTabStrip;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.listener.UploadListener;
 import de.blau.android.osm.Node;
@@ -56,6 +57,7 @@ import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.validation.FormValidation;
 import de.blau.android.validation.NotEmptyValidator;
+import de.blau.android.validation.ExtendedValidator;
 import de.blau.android.validation.Validator;
 import de.blau.android.views.ExtendedViewPager;
 
@@ -191,8 +193,12 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         int changeCount = elements == null ? App.getDelegator().getApiElementCount() : elements.size();
         changesHeading.setText(getResources().getQuantityString(R.plurals.confirm_upload_text, changeCount, changeCount));
         ListView changesView = (ListView) layout.findViewById(R.id.upload_changes);
+        
+        ExtendedValidator validator = new ExtendedValidator(App.getDefaultValidator(getContext()));
         final ChangedElement[] changes = getPendingChanges(elements == null ? App.getLogic().getPendingChangedElements() : elements);
-        changesView.setAdapter(new ValidatorArrayAdapter(activity, R.layout.changes_list_item, changes, App.getDefaultValidator(getContext())));
+        revalidate(activity, validator, changes);
+        
+        changesView.setAdapter(new ValidatorArrayAdapter(activity, R.layout.changes_list_item, changes, validator));
         changesView.setOnItemClickListener((parent, view, position, id) -> {
             ChangedElement clicked = changes[position];
             OsmElement element = clicked.element;
@@ -260,6 +266,24 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
                 new UploadListener(activity, comment, source, openChangeset ? closeOpenChangeset : null, closeChangeset, requestReview, validators, elements));
 
         return dialog;
+    }
+
+    /**
+     * Rerun validation on the changes
+     * 
+     * @param activity the calling activity
+     * @param validator the Validator to use
+     * @param changes the list of changes
+     */
+    private void revalidate(@NonNull FragmentActivity activity, @NonNull Validator validator, @NonNull final ChangedElement[] changes) {
+        for (ChangedElement ce:changes) {
+            OsmElement element = ce.element;
+            element.resetHasProblem();
+            element.hasProblem(activity, validator);
+        }
+        if (activity instanceof Main) {
+           ((Main)activity).invalidateMap(); 
+        }
     }
 
     @Override
