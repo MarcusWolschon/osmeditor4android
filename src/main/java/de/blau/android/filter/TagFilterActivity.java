@@ -322,9 +322,7 @@ public class TagFilterActivity extends ListActivity {
             //
             vh.active.setChecked(cursor.getInt(cursor.getColumnIndexOrThrow(ACTIVE_COLUMN)) == 1);
             vh.active.setTag(id);
-            vh.active.setOnCheckedChangeListener((button, isChecked) -> {
-                vh.modified = true;
-            });
+            vh.active.setOnCheckedChangeListener((button, isChecked) -> vh.modified = true);
             vh.mode.setSelection(cursor.getInt(cursor.getColumnIndexOrThrow(INCLUDE_COLUMN)) == 1 ? 1 : 0);
             OnItemSelectedListener listener = new OnItemSelectedListener() {
                 @Override
