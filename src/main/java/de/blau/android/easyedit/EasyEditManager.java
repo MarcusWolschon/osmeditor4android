@@ -3,7 +3,6 @@ package de.blau.android.easyedit;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -341,29 +340,17 @@ public class EasyEditManager {
     public void startElementSelectionMode() {
         ActionMode.Callback cb = null;
         OsmElement e = null;
-        List<OsmElement> selection = new ArrayList<>();
-        if (logic.getSelectedNodes() != null && logic.getSelectedNodes().size() == 1 && logic.getSelectedWays() == null
-                && logic.getSelectedRelations() == null) {
-            e = logic.getSelectedNode();
-            cb = new NodeSelectionActionModeCallback(this, (Node) e);
-        } else if (logic.getSelectedNodes() == null && logic.getSelectedWays() != null && logic.getSelectedWays().size() == 1
-                && logic.getSelectedRelations() == null) {
-            e = logic.getSelectedWay();
-            cb = new WaySelectionActionModeCallback(this, (Way) e);
-        } else if (logic.getSelectedNodes() == null && logic.getSelectedWays() == null && logic.getSelectedRelations() != null
-                && logic.getSelectedRelations().size() == 1) {
-            e = logic.getSelectedRelations().get(0);
-            cb = new RelationSelectionActionModeCallback(this, (Relation) e);
-        } else if (logic.getSelectedNodes() != null || logic.getSelectedWays() != null || logic.getSelectedRelations() != null) {
-            if (logic.getSelectedNodes() != null) {
-                selection.addAll(logic.getSelectedNodes());
+        List<OsmElement> selection = logic.getSelectedElements();
+        if (selection.size() == 1) {
+            e = selection.get(0);
+            if (e instanceof Node) {
+                cb = new NodeSelectionActionModeCallback(this, (Node) e);
+            } else if (e instanceof Way) {
+                cb = new WaySelectionActionModeCallback(this, (Way) e);
+            } else if (e instanceof Relation) {
+                cb = new RelationSelectionActionModeCallback(this, (Relation) e);
             }
-            if (logic.getSelectedWays() != null) {
-                selection.addAll(logic.getSelectedWays());
-            }
-            if (logic.getSelectedRelations() != null) {
-                selection.addAll(logic.getSelectedRelations());
-            }
+        } else {
             cb = new ExtendSelectionActionModeCallback(this, selection);
         }
         if (cb != null && (e != null || !selection.isEmpty())) {
