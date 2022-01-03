@@ -1117,7 +1117,7 @@ public class Main extends FullScreenAppCompatActivity
         if (loadBox != null) {
             if (rcData.load()) { // download
                 List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox);
-                if (bboxes != null && (!bboxes.isEmpty() || delegator.isEmpty())) {
+                if (!bboxes.isEmpty() || delegator.isEmpty()) {
                     // only download if we haven't yet
                     logic.downloadBox(this, rcData.getBox(), true, () -> {
                         synchronized (newIntentsLock) {
@@ -1170,15 +1170,16 @@ public class Main extends FullScreenAppCompatActivity
                 }
 
                 PostAsyncActionHandler handler = () -> {
+                    ViewBox viewBox = logic.getViewBox();
                     if (hasZoom) {
-                        getMap().getViewBox().setZoom(getMap(), zoom);
-                        getMap().getViewBox().moveTo(getMap(), lonE7, latE7);
+                        viewBox.setZoom(getMap(), zoom);
+                        viewBox.moveTo(getMap(), lonE7, latE7);
                     } else {
-                        logic.getViewBox().fitToBoundingBox(getMap(), bbox);
+                        viewBox.fitToBoundingBox(map, bbox);
                     }
                     map.invalidate();
                 };
-                if (bboxes != null && !bboxes.isEmpty()) {
+                if (!bboxes.isEmpty()) {
                     logic.downloadBox(this, bbox, true, handler);
                     if (map.getTaskLayer() != null) {
                         // always add bugs for now
@@ -1192,11 +1193,12 @@ public class Main extends FullScreenAppCompatActivity
             }
         } else {
             Log.d(DEBUG_TAG, "moving to position");
+            ViewBox viewBox = logic.getViewBox();
             if (hasZoom) {
-                getMap().getViewBox().setZoom(getMap(), zoom);
+                viewBox.setZoom(getMap(), zoom);
             }
-            getMap().getViewBox().moveTo(getMap(), lonE7, latE7);
-            getMap().invalidate();
+            viewBox.moveTo(getMap(), lonE7, latE7);
+            map.invalidate();
         }
     }
 

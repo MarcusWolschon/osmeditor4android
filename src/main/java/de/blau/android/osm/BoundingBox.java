@@ -683,6 +683,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @return list of missing bounding boxes
      * @throws OsmException if one of the BoundingBoxes would have been created with illegal bounds
      */
+    @NonNull
     public static List<BoundingBox> newBoxes(@NonNull List<BoundingBox> existing, @NonNull BoundingBox newBox) {
         List<BoundingBox> result = new ArrayList<>();
         result.add(newBox);
