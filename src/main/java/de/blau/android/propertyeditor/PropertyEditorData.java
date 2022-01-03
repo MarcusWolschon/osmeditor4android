@@ -81,8 +81,8 @@ public class PropertyEditorData implements Serializable {
         if (selectedElement.getParentRelations() != null) {
             Set<Relation> uniqueRelations = new HashSet<>(selectedElement.getParentRelations());
             for (Relation r : uniqueRelations) {
-                List<RelationMember> members = r.getAllMembers(selectedElement);
-                for (RelationMember rm : members) {
+                List<RelationMember> allMembers = r.getAllMembers(selectedElement);
+                for (RelationMember rm : allMembers) {
                     if (rm != null) {
                         // we don't need to actually reference the member
                         RelationMemberPosition rmp = new RelationMemberPosition(new RelationMember(rm.getType(), rm.getRef(), rm.getRole()), r.getPosition(rm));
