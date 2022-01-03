@@ -20,11 +20,11 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Copy dummy keys.txt
+    - name: Copy dummy keys2.txt
       shell: bash
       run: |
          mkdir -p $GITHUB_WORKSPACE/../private_assets
-         cp $GITHUB_WORKSPACE/src/test/assets/keys.txt $GITHUB_WORKSPACE/../private_assets
+         cp $GITHUB_WORKSPACE/src/test/resources/keys2.txt $GITHUB_WORKSPACE/../private_assets
     - name: Build with Gradle
       run: ./gradlew assembleCurrentDebug
     - name: Run unit tests

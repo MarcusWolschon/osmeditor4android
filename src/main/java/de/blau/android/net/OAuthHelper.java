@@ -15,6 +15,7 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
+import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.util.ExecutorTask;
 import oauth.signpost.OAuth;
 import oauth.signpost.OAuthConsumer;
@@ -34,65 +35,100 @@ import se.akerfeldt.okhttp.signpost.OkHttpOAuthProvider;
  *
  */
 public class OAuthHelper {
-    private static final String AUTHORIZE_PATH = "oauth/authorize";
-
-    private static final String ACCESS_TOKEN_PATH = "oauth/access_token";
-
-    private static final String REQUEST_TOKEN_PATH = "oauth/request_token";
-
     private static final String DEBUG_TAG = "OAuthHelper";
 
-    private static final Object  lock = new Object();
+    private static final String CALLBACK_URL       = "vespucci:/oauth/";
+    private static final String AUTHORIZE_PATH     = "oauth/authorize";
+    private static final String ACCESS_TOKEN_PATH  = "oauth/access_token";
+    private static final String REQUEST_TOKEN_PATH = "oauth/request_token";
+
     private static OAuthConsumer mConsumer;
     private static OAuthProvider mProvider;
     private static String        mCallbackUrl;
 
-    /**
-     * Construct a new helper instance
-     * 
-     * @param context an Android Context
-     * @param osmBaseUrl the base URL for the API instance
-     * 
-     * @throws OsmException if no configuration could be found for the API instance
-     */
-    public OAuthHelper(@NonNull Context context, @NonNull String osmBaseUrl) throws OsmException {
-        Resources r = context.getResources();
-        String[] urls = r.getStringArray(R.array.api_urls);
-        String[] keys = r.getStringArray(R.array.api_consumer_keys);
-        String[] secrets = r.getStringArray(R.array.api_consumer_secrets);
-        String[] oauthUrls = r.getStringArray(R.array.api_oauth_urls);
-        synchronized (lock) {
-            for (int i = 0; i < urls.length; i++) {
-                if (urls[i].equalsIgnoreCase(osmBaseUrl)) {
-                    mConsumer = new OkHttpOAuthConsumer(keys[i], secrets[i]);
-                    mProvider = new OkHttpOAuthProvider(oauthUrls[i] + REQUEST_TOKEN_PATH, oauthUrls[i] + ACCESS_TOKEN_PATH, oauthUrls[i] + AUTHORIZE_PATH,
-                            App.getHttpClient());
-                    mProvider.setOAuth10a(true);
-                    mCallbackUrl = "vespucci:/oauth/";
-                    return;
-                }
-            }
+    public static class OAuthConfiguration {
+        private String key;
+        private String secret;
+        private String oauthUrl;
+
+        /**
+         * @param key the key to set
+         */
+        public void setKey(@Nullable String key) {
+            this.key = key;
         }
-        logMissingApi(osmBaseUrl);
-        throw new OsmException("No matching OAuth configuration found for this API");
+
+        /**
+         * @return the key
+         */
+        @Nullable
+        public String getKey() {
+            return key;
+        }
+
+        /**
+         * @param secret the secret to set
+         */
+        public void setSecret(@Nullable String secret) {
+            this.secret = secret;
+        }
+
+        /**
+         * @return the secret
+         */
+        @Nullable
+        public String getSecret() {
+            return secret;
+        }
+
+        /**
+         * @param oauthUrl the oauthUrl to set
+         */
+        public void setOauthUrl(@Nullable String oauthUrl) {
+            this.oauthUrl = oauthUrl;
+        }
+
+        /**
+         * @return the oauthUrl
+         */
+        @Nullable
+        public String getOauthUrl() {
+            return oauthUrl;
+        }
     }
 
     /**
      * Construct a new helper instance
      * 
-     * @param osmBaseUrl the base URL for the API instance
-     * @param consumerKey the consumer key
-     * @param consumerSecret the consumer secret
-     * @param callbackUrl the URL to call back to or null
+     * @param context an Android Context
+     * @param apiName the base URL for the API instance
+     * 
+     * @throws OsmException if no configuration could be found for the API instance
      */
-    public OAuthHelper(@NonNull String osmBaseUrl, @NonNull String consumerKey, @NonNull String consumerSecret, @Nullable String callbackUrl) {
-        synchronized (lock) {
-            mConsumer = new OkHttpOAuthConsumer(consumerKey, consumerSecret);
-            mProvider = new OkHttpOAuthProvider(osmBaseUrl + REQUEST_TOKEN_PATH, osmBaseUrl + ACCESS_TOKEN_PATH, osmBaseUrl + AUTHORIZE_PATH,
-                    App.getHttpClient());
-            mProvider.setOAuth10a(true);
-            mCallbackUrl = (callbackUrl == null ? OAuth.OUT_OF_BAND : callbackUrl);
+    public OAuthHelper(@NonNull Context context, @NonNull String apiName) throws OsmException {
+        try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(context)) {
+            OAuthConfiguration configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), apiName);
+            if (configuration != null) {
+                init(configuration.getKey(), configuration.getSecret(), configuration.getOauthUrl());
+                return;
+            }
+            logMissingApi(apiName);
+            throw new OsmException("No matching OAuth configuration found for this API");
         }
+    }
+
+    /**
+     * Initialize the fields
+     * 
+     * @param key OAuth 1a key
+     * @param secret OAuth 1a secret
+     * @param oauthUrl URL to use for authorization
+     */
+    private static void init(String key, String secret, String oauthUrl) {
+        mConsumer = new OkHttpOAuthConsumer(key, secret);
+        mProvider = new OkHttpOAuthProvider(oauthUrl + REQUEST_TOKEN_PATH, oauthUrl + ACCESS_TOKEN_PATH, oauthUrl + AUTHORIZE_PATH, App.getHttpClient());
+        mProvider.setOAuth10a(true);
+        mCallbackUrl = CALLBACK_URL;
     }
 
     /**
@@ -105,33 +141,29 @@ public class OAuthHelper {
      * Returns an OAuthConsumer initialized with the consumer keys for the API in question
      * 
      * @param context an Android Context
-     * @param osmBaseUrl the base URL for the API instance
+     * @param apiName the name of the API configuration
      * 
      * @return an initialized OAuthConsumer or null if something blows up
      */
     @Nullable
-    public OkHttpOAuthConsumer getOkHttpConsumer(Context context, @NonNull String osmBaseUrl) {
-        Resources r = context.getResources();
-
-        String[] urls = r.getStringArray(R.array.api_urls);
-        String[] keys = r.getStringArray(R.array.api_consumer_keys);
-        String[] secrets = r.getStringArray(R.array.api_consumer_secrets);
-        for (int i = 0; i < urls.length; i++) {
-            if (urls[i].equalsIgnoreCase(osmBaseUrl)) {
-                return new OkHttpOAuthConsumer(keys[i], secrets[i]);
+    public OkHttpOAuthConsumer getOkHttpConsumer(Context context, @NonNull String apiName) {
+        try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(context)) {
+            OAuthConfiguration configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), apiName);
+            if (configuration != null) {
+                return new OkHttpOAuthConsumer(configuration.getKey(), configuration.getSecret());
             }
+            logMissingApi(apiName);
+            return null;
         }
-        logMissingApi(osmBaseUrl);
-        return null;
     }
 
     /**
      * Create a log message for an unmatched api
      * 
-     * @param osmBaseUrl the api url
+     * @param apiName the api url
      */
-    private void logMissingApi(@Nullable String osmBaseUrl) {
-        Log.d(DEBUG_TAG, "No matching API for " + osmBaseUrl + "found");
+    private void logMissingApi(@Nullable String apiName) {
+        Log.d(DEBUG_TAG, "No matching API for " + apiName + "found");
     }
 
     /**

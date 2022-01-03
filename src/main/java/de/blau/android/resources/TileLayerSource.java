@@ -58,6 +58,7 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
 import de.blau.android.resources.bing.Bing;
 import de.blau.android.resources.eli.Eli;
@@ -2343,7 +2344,7 @@ public class TileLayerSource implements Serializable {
         }
     }
 
-    private static final Pattern APIKEY = Pattern.compile(".*\\{apikey\\}.*", Pattern.CASE_INSENSITIVE);
+    private static final Pattern APIKEY_PATTERN = Pattern.compile(".*\\{apikey\\}.*", Pattern.CASE_INSENSITIVE);
 
     /**
      * Replace any apikey placeholder if possible
@@ -2352,11 +2353,11 @@ public class TileLayerSource implements Serializable {
      * @return true if the apikey could be found or wasn't required, false otherwise
      */
     public boolean replaceApiKey(@NonNull Context context) {
-        if (APIKEY.matcher(tileUrl).matches()) {
+        if (APIKEY_PATTERN.matcher(tileUrl).matches()) {
             // check key database
             KeyDatabaseHelper keys = new KeyDatabaseHelper(context);
             try (SQLiteDatabase db = keys.getReadableDatabase()) {
-                String key = KeyDatabaseHelper.getKey(db, ("imagery_apikey:" + getId()).toUpperCase(Locale.US));
+                String key = KeyDatabaseHelper.getKey(db, getId(), EntryType.IMAGERY);
                 if (key != null && !"".equals(key)) {
                     setTileUrl(replaceParameter(tileUrl, "apikey", key));
                     return true;

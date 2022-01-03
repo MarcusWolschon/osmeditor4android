@@ -216,7 +216,7 @@ public class Server {
         this.accesstokensecret = api.accesstokensecret;
 
         if (oauth) {
-            oAuthConsumer = new OAuthHelper().getOkHttpConsumer(context, getBaseUrl(getReadWriteUrl()));
+            oAuthConsumer = new OAuthHelper().getOkHttpConsumer(context, name);
             if (oAuthConsumer != null) {
                 oAuthConsumer.setTokenWithSecret(accesstoken, accesstokensecret);
             }
@@ -2028,5 +2028,14 @@ public class Server {
         if (mapSplitSource != null) {
             mapSplitSource.close();
         }
+    }
+
+    /**
+     * Get the name of the API configuration usesd for this instance
+     * 
+     * @return the API name
+     */
+    public String getApiName() {
+        return name;
     }
 }

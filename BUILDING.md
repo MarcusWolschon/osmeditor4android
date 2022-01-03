@@ -89,4 +89,4 @@ Notes:
 
 * a number of the tests start with the splash screen activity and then wait for the main activity to be started. Experience shows that if one of these fails to complete in certain ways, the following tests that start via the splash screen will not be able to start the main activity. Reason unknown.
 * the CameraTest assumes that the emulator has a working camera app of some kind installed.
-* some tests assume that a file keys.txt holding imagery API keys is present (otherwise the layers in question are not added), this should be located in ../private_assets/keys.txt relative to the repo directory. A fake such file is provided in the unit test assets.
+* some tests assume that a file keys.txt holding imagery API keys is present (otherwise the layers in question are not added), this should be located in ../private_assets/keys2.txt relative to the repo directory. A fake such file is provided in the unit test assets.
