@@ -66,7 +66,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 
     private ArrayList<Relation> parentRelations;
 
-    // seconds since EPOCH, negative == not set
+    // seconds since EPOCH, negative == not set, using an int here limits dates up to 2073
     private int timestamp = -1;
 
     /**
