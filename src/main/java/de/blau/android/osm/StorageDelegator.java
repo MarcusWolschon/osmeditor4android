@@ -379,9 +379,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     }
                     imageryRecorded = true;
                 }
-            } catch (Exception ignored) { // never fail on anything here
-                // IGNORE
-            } catch (Error ignored) {
+            } catch (Exception | Error ignored) { // NOSONAR never fail on anything here
                 // IGNORE
             }
         }

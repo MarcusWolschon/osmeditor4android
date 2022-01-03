@@ -131,10 +131,8 @@ public class NmeaTcpClient implements Runnable {
                     break; // EOF
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception | Error e) { // NOSONAR never fail
             Log.e(DEBUG_TAG, "failed to open/read " + host + ":" + port + " " + e.getMessage());
-            reportError(handler, e);
-        } catch (Error e) {
             reportError(handler, e);
         } finally {
             SavingHelper.close(osw);
