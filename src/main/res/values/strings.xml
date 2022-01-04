@@ -843,9 +843,10 @@ avoided by using an offline data source.</string>
     <string name="menu_tools_update_imagery_configuration_eli">Update configuration from ELI</string>
     <string name="menu_tools_zoom_to_layer_extent">Zoom to background layer extent</string>
     <string name="menu_tools_clear_clipboard">Clear clipboard</string>
-    <string name="menu_tools_calibrate_height">Calibrate pressure sensor</string>
+    <string name="menu_tools_calibrate_height">Calibrate pressure sensor…</string>
     <string name="menu_tools_install_egm">Install EGM</string>
     <string name="menu_tools_remove_egm">Remove EGM</string>
+    <string name="menu_tools_load_keys">Load keys from file…</string>
     <!--  -->
     <string name="menu_simple_actions">Simple mode</string>  
     <string name="menu_feedback">Provide feedback</string> 

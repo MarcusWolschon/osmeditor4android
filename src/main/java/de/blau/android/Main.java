@@ -146,6 +146,7 @@ import de.blau.android.presets.PresetElementPath;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerDatabaseView;
 import de.blau.android.resources.TileLayerSource;
@@ -2197,11 +2198,7 @@ public class Main extends FullScreenAppCompatActivity
                     try {
                         logic.applyOscFile(Main.this, fileUri, new PostFileReadCallback(Main.this, fileUri.toString()));
                     } catch (FileNotFoundException e) {
-                        try {
-                            Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
-                        } catch (Exception ex) {
-                            // protect against translation errors
-                        }
+                        fileNotFound(fileUri);
                     }
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     map.invalidate();
@@ -2224,11 +2221,7 @@ public class Main extends FullScreenAppCompatActivity
                             logic.readPbfFile(Main.this, fileUri, false);
                         }
                     } catch (FileNotFoundException e) {
-                        try {
-                            Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
-                        } catch (Exception ex) {
-                            // protect against translation errors
-                        }
+                        fileNotFound(fileUri);
                     }
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     map.invalidate();
@@ -2426,6 +2419,23 @@ public class Main extends FullScreenAppCompatActivity
                 invalidateOptionsMenu();
             }
             return true;
+        case R.id.menu_tools_load_keys:
+            descheduleAutoLock();
+            SelectFile.read(this, R.string.config_osmPreferredDir_key, new ReadFile() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public boolean read(Uri fileUri) {
+                    try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(Main.this)) {
+                        keyDatabase.keysFromStream(Main.this.getContentResolver().openInputStream(fileUri));
+                        SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                    } catch (FileNotFoundException fex) {
+                        fileNotFound(fileUri);
+                    }
+                    return true;
+                }
+            });
+            return true;
         case R.id.tag_menu_reset_address_prediction:
             Address.resetLastAddresses(this);
             return true;
@@ -2477,7 +2487,20 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * Add a GPX layer in none exists
+     * Display a toast when we can't find a file
+     * 
+     * @param fileUri the file uri
+     */
+    private void fileNotFound(Uri fileUri) {
+        try {
+            Snack.toastTopError(this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
+        } catch (Exception ex) {
+            // protect against translation errors
+        }
+    }
+
+    /**
+     * Add a GPX layer if none exists
      */
     private void addGpxLayer() {
         if (map.getLayer(LayerType.GPX) == null) {
