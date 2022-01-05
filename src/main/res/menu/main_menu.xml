@@ -227,6 +227,10 @@
                 android:id="@+id/menu_tools_remove_egm"
                 android:title="@string/menu_tools_remove_egm" />
             <item
+                android:id="@+id/menu_tools_load_keys"
+                android:title="@string/menu_tools_load_keys"
+                app:showAsAction="never" />
+            <item
                 android:id="@+id/tag_menu_js_console"
                 android:title="@string/tag_menu_js_console"
                 app:showAsAction="never" />

@@ -174,6 +174,11 @@ Show the user preference screens. The settings are split into two sets: the firs
  * **Authorise OAuth** - start authorisation process immediately. *(requires network connectivity)*
  * **Set MapRoulette API key** - set the API key for modifying the status of MapRoulette tasks.
  * **Clear clipboard** - remove content from the internal OSM element clipboard.
+ * **Calibrate pressure sensor...** - calibrate the conversion from barometric pressure to elevation.
+ * **Install EGM** - install a gravitational model of the earth, required for getting height data from the devices GPS. Alternatively you can switch to NMEA input in the "Advanced preferences".
+ * **Remove EGM** - remove the EGM.
+ * **Load keys from file...** - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.
+ * **JS Console** - start the JavaScript console for scripting the application. Note that this needs to be anabled in the "Advaced preferences":
 
 ### ![Find](../images/ic_menu_search_holo_light.png) Find
 

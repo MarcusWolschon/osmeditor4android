@@ -36,6 +36,7 @@ import de.blau.android.photos.MapillaryViewerActivity;
 import de.blau.android.photos.PhotoViewerFragment;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;
+import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.symbols.Mapillary;
 import de.blau.android.util.DateFormatter;
@@ -129,7 +130,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
             Log.e(DEBUG_TAG, "Unable to create cache directory " + e.getMessage());
         }
         try (KeyDatabaseHelper keys = new KeyDatabaseHelper(context); SQLiteDatabase db = keys.getReadableDatabase()) {
-            apiKey = KeyDatabaseHelper.getKey(db, APIKEY_KEY);
+            apiKey = KeyDatabaseHelper.getKey(db, APIKEY_KEY, EntryType.API_KEY);
         }
         setPrefs(map.getPrefs());
 

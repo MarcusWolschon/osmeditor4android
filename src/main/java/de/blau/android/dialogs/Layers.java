@@ -70,6 +70,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;
+import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.resources.OAMCatalogView;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerDialog;
@@ -221,7 +222,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
 
             if (map.getLayer(LayerType.MAPILLARY) == null) {
                 try (KeyDatabaseHelper keys = new KeyDatabaseHelper(activity); SQLiteDatabase db = keys.getReadableDatabase()) {
-                    if (KeyDatabaseHelper.getKey(db, de.blau.android.layer.mapillary.MapOverlay.APIKEY_KEY) != null) {
+                    if (KeyDatabaseHelper.getKey(db, de.blau.android.layer.mapillary.MapOverlay.APIKEY_KEY, EntryType.API_KEY) != null) {
                         item = popup.getMenu().add(R.string.menu_layers_enable_mapillary_layer);
                         item.setOnMenuItemClickListener(unused -> {
                             de.blau.android.layer.Util.addLayer(activity, LayerType.MAPILLARY);
