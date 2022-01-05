@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Handler;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -17,7 +16,6 @@ import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.util.ExecutorTask;
-import oauth.signpost.OAuth;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.OAuthProvider;
 import oauth.signpost.exception.OAuthCommunicationException;
