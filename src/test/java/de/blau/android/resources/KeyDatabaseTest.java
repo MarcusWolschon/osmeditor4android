@@ -27,17 +27,16 @@ public class KeyDatabaseTest {
      */
     @Test
     public void oAuthKeysTest() {
-        try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(ApplicationProvider.getApplicationContext())) {
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            try (InputStream is = loader.getResourceAsStream(Files.FILE_NAME_KEYS_V2)) {
-                keyDatabase.keysFromStream(is);
-            } catch (IOException e) {
-                fail(e.getMessage());
-            }
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(ApplicationProvider.getApplicationContext());
+                InputStream is = loader.getResourceAsStream(Files.FILE_NAME_KEYS_V2)) {
+            keyDatabase.keysFromStream(is);
             OAuthConfiguration configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), "OpenStreetMap");
             assertEquals("1212121212", configuration.getKey());
             assertEquals("2121212121", configuration.getSecret());
             assertEquals("https://www.openstreetmap.org/", configuration.getOauthUrl());
+        } catch (IOException e) {
+            fail(e.getMessage());
         }
     }
 

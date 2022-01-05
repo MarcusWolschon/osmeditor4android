@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.junit.Before;
@@ -15,6 +16,7 @@ import org.robolectric.RobolectricTestRunner;
 import android.database.sqlite.SQLiteDatabase;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
+import de.blau.android.contract.Files;
 import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
@@ -34,7 +36,13 @@ public class MapTest {
     @Before
     public void setup() {
         prefs = new Preferences(ApplicationProvider.getApplicationContext());
-        KeyDatabaseHelper.readKeysFromAssets(ApplicationProvider.getApplicationContext());
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(ApplicationProvider.getApplicationContext());
+                InputStream is = loader.getResourceAsStream(Files.FILE_NAME_KEYS_V2)) {
+            keyDatabase.keysFromStream(is);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
         DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
     }
 
