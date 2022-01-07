@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Arrays - in a separate file as these need to be 100% translated for use -->
+    <string-array name="gpx_visibility">
+        <item>私有</item>
+        <item>公开</item>
+        <item>可追踪的</item>
+        <item>可识别的</item>
+    </string-array>
+    <string-array name="gps_source">
+        <item>内部</item>
+        <item>内部 NMEA</item>
+        <item>来自TCP客户端的NMEA</item>
+        <item>来自TCP服务器的NMEA</item>
+    </string-array>
+    <string-array name="bug_state">
+        <item>开放</item>
+        <item>关闭</item>
+        <item>假阳性</item>
+    </string-array>
+    <string-array name="note_state">
+        <item>开放</item>
+        <item>关闭</item>
+    </string-array>
+    <string-array name="maproulette_state">
+        <item>开放</item>
+        <item>关闭</item>
+        <item>假阳性</item>
+        <item>跳过</item> 
+        <item>删除的</item>
+        <item>已修复</item>
+        <item>太困难了</item>
+    </string-array>
+    <string-array name="followGPSbutton_entries">
+        <item>左边</item>
+        <item>右边</item>
+        <item>无</item>
+    </string-array>
+    <string-array name="full_screen_preference_entries">
+        <item>自动</item>
+        <item>从不</item>
+        <item>强制</item>
+        <item>无状态栏</item>
+    </string-array>
+    <string-array name="full_screen_preference_no_auto_entries">
+        <item>从不</item>
+        <item>强制</item>
+        <item>无状态栏</item>
+    </string-array>
+    <string-array name="map_orientation_entries">
+        <item>自动</item>
+        <item>锁定</item>
+        <item>竖屏</item>
+        <item>横屏</item>
+    </string-array>
+    <string-array name="tagfilter_type_entries">
+        <item>全部</item>
+        <item>节点</item>
+        <item>路径</item>
+        <item>路径+</item>
+        <item>关系</item>
+        <item>关系+</item>
+    </string-array>
+    <!-- The entries need to match the order of the CheckStatus enum -->
+    <string-array name="checkstatus_entries">
+        <item>HTTP</item>
+        <item>HTTPS</item>
+        <item>域名不存在</item>
+        <item>无法连接到域名</item>
+        <item>格式错误的 URL</item>
+        <item>无效的参数</item>
+    </string-array>
+ </resources>

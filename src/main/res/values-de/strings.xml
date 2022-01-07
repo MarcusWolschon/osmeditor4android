@@ -64,7 +64,7 @@
   <!---->
   <string name="welcome_title">Willkommen</string>
   <string name="welcome_message">Danke, dass Sie Vespucci installiert haben.\n&lt;br&gt;&lt;br&gt;Um anzufangen, müssen Sie 3 Sachen wissen:\n&lt;ul&gt;&lt;li&gt;durch Antippen des Schlosses in der oberen linken Ecke schalten Sie zwischen dem gesperrten (keine Bearbeitung) und dem entsperrten Status um,&lt;/li&gt;&lt;li&gt;um OpenStreetMap zu editieren, müssen Sie zuerst das Gebiet, das Sie bearbeiten wollen, herunterladen (es empfiehlt sich zuerst hineinzuzoomen),&lt;/li&gt;&lt;li&gt;um ein neues Objekt zu erstellen, müssen Sie den großen grünen Knopf antippen, auswählen, was Sie hinzufügen wollen, und dann die entsprechende Bildschirmposition berühren.&lt;/li&gt;&lt;/ul&gt;\nViel Spaß beim Kartieren!</string>
-  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Das Gerät besitzt \"Software\"-Tasten, die ausgeblendet sind. Ein Wisch von der unteren Kante blendet sie wieder ein.</string>
+  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Das Gerät besitzt „Bildschirmtasten“, die ausgeblendet sind. Ein Wisch von der unteren Kante blendet sie wieder ein.</string>
   <string name="read_introduction">Die Einführung lesen</string>
   <string name="upgrade_title">Dies ist eine neue Vespucci-Version</string>
   <string name="upgrade_message">Neue Funktionen und Verhalten sind in den \"release notes\" beschrieben.</string>
@@ -85,9 +85,9 @@
   <string name="progress_pruning">Zurückschneiden…</string>
   <string name="progress_migration">Migrieren…</string>
   <!--Confirm upload dialog-->
-  <string name="changes_deleted">\"%1$s\" gelöscht</string>
-  <string name="changes_changed">\"%1$s\" verändert</string>
-  <string name="changes_created">\"%1$s\" angelegt</string>
+  <string name="changes_deleted">„%1$s“ gelöscht</string>
+  <string name="changes_changed">„%1$s“ verändert</string>
+  <string name="changes_created">„%1$s“ angelegt</string>
   <string name="confirm_upload_title">Änderungen hochladen</string>
   <plurals name="confirm_upload_text">
     <item quantity="one">Soll die folgende Änderung hochgeladen werden?</item>
@@ -162,7 +162,7 @@
   <string name="search_objects_title">Objektsuche</string>
   <string name="search_objects_hint">Einen JOSM-Suchausdruck eingeben</string>
   <string name="search_objects_use_regexps">Reguläre Ausdrücke verwenden</string>
-  <string name="search_objects_unsupported">Ausdruck \"%1$s\" wird nicht unterstützt</string>
+  <string name="search_objects_unsupported">Ausdruck „%1$s“ wird nicht unterstützt</string>
   <!---->
   <string name="preset_search_hint">Vorlagensuche</string>
   <string name="preset_autopreset">Auto-Preset</string>
@@ -171,7 +171,7 @@
   <string name="save_file">Datei zum Speichern angeben</string>
   <string name="existing_track_title">GPX-Trackdaten vorhanden</string>
   <string name="existing_track_message">Es sind bereits GPX-Trackdaten vorhanden. Möglicherweise sollten diese zuerst gespeichert werden.</string>
-  <string name="delete_tags">Wirklich alle Eigenschaften für Objekt \"%1$s\" löschen?</string>
+  <string name="delete_tags">Wirklich alle Eigenschaften für Objekt „%1$s“ löschen?</string>
   <!--element information dialog-->
   <string name="element_information">Elementinformationen</string>
   <string name="id">ID</string>
@@ -258,10 +258,10 @@
   <string name="js_console_output_hint">Ausgabe wird hier angezeigt</string>
   <!--Validator dialogs-->
   <string name="validator_title">Validationsregeln %1$s</string>
-  <string name="resurvey_entries">Noch einmal überprüfen</string>
+  <string name="resurvey_entries">Überprüfen</string>
   <string name="edit_resurvey_title">Überprüfungstest hinzufügen</string>
   <string name="add_resurvey_title">Überprüfungstest bearbeiten</string>
-  <string name="check_entries">Prüfen</string>
+  <string name="check_entries">Fehlender Schüssel</string>
   <string name="edit_check_title">Fehlenden Tag-Test bearbeiten</string>
   <string name="add_check_title">Fehlenden Tag-Test hinzufügen</string>
   <string name="max_age">Höchstalter</string>
@@ -393,7 +393,7 @@
   <string name="tip_check_label">Optionale Tipps nicht mehr anzeigen</string>
   <string name="tip_undo">Ein langer Druck auf den \"Rückgängig\"-Knopf zeigt alle Sicherungspunkte, die rückgängig gemacht und wiederhergestellt werden können.</string>
   <string name="tip_imagery_privacy">Hintergrund- und Vordergrundlayer werden von Dritten angeboten. Beim Verwenden eines Layers werden Ihre Netzwerkadresse und ein Anhaltspunkt für das betrachtete Gebiet an den Anbieter übertragen.&lt;p&gt;
-Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den Menüpunkt \"Info\" in der Anforderung für den Layer eingesehen werden.</string>
+Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den Menüpunkt „Info“ in der Anforderung für den Layer eingesehen werden.</string>
   <string name="tip_mapillary_privacy">Mapillary ist eine Dienst der Mapillary AB, Schweden, eine Tochtergesellschaft von Facebook. Die Benutzung des Dienstes übermittelt deine IP Adresse und Information über die Bilder, die du betrachtest hast an die Firma.</string>
   <string name="tip_pan_and_zoom_auto_download">Das automatische Laden der aktuellen Ansicht sollte mit Vorsicht verwendet werden, da es das Potential hat, sowohl die OpenStreetMap-API als auch dieses Gerät erheblich zu belasten.&lt;p&gt;Ersteres kann durch die Verwendung einer Offlinedatenquelle vermieden werden.</string>
   <string name="tip_locked_mode">Im gesperrten Zustand kann nicht editiert werden, aber ein langer Klick auf ein Objekt zeigt Detailinformationen an.</string>
@@ -441,8 +441,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
     <item quantity="other">Im OSM-Posteingang befinden sich %1$d ungelesene Nachrichten.</item>
   </plurals>
   <string name="read_mail">Lesen</string>
-  <string name="toast_photo_indexing_started">Suche nach geo-referenzierten Fotos begonnen</string>
-  <string name="toast_photo_indexing_finished">Suche nach geo-referenzierten Fotos beendet</string>
+  <string name="toast_photo_indexing_started">Suche nach georeferenzierten Fotos begonnen</string>
+  <string name="toast_photo_indexing_finished">Suche nach georeferenzierten Fotos beendet</string>
   <string name="toast_download_failed">Download fehlgeschlagen, zugehöriger Fehlercode: %1$d, Meldung: %2$s</string>
   <string name="toast_unsurveyed_road">Straße nicht überprüft</string>
   <string name="toast_noname">Straße fehlt Tag \'name\' oder \'ref\'</string>
@@ -470,7 +470,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
     <item quantity="one">%1$dGPX-Trackpunkte und 1 Wegpunkt importiert.</item>
     <item quantity="other">%1$d GPX-Trackpunkte und %2$d Wegpunkte importiert.</item>
   </plurals>
-  <string name="toast_unknown_voice_command">\"%1$s\" wird im Augenblick nicht unterstützt</string>
+  <string name="toast_unknown_voice_command">„%1$s“ wird im Augenblick nicht unterstützt</string>
   <string name="toast_inconsistent_state">Inkonsistenter Zustand entdeckt. Bitte senden Sie einen Fehlerreport.</string>
   <string name="toast_camera_error">Fehler beim Starten der Kamera-App: %1$s</string>
   <string name="toast_no_voice">Keine Spracherkennung vorhanden</string>
@@ -480,23 +480,23 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_min_one_geocoder">Mindestens 1 Geocoder muss ausgewählt sein!</string>
   <string name="toast_used_backup">Beschädigte Zustandsdatei, Backup verwendet!</string>
   <string name="toast_used_bug_backup">Beschädigte Zustandsdatei für Fehler/Notizen, Backup verwendet!</string>
-  <string name="toast_split_from">\"from\" Weg aufgetrennt</string>
-  <string name="toast_split_via">\"via\" Weg aufgetrennt</string>
-  <string name="toast_split_from_and_via">\"from\" und \"via\" Wege aufgetrennt</string>
-  <string name="toast_split_to">\"to\" Weg aufgetrennt</string>
+  <string name="toast_split_from">„from“-Weg aufgetrennt</string>
+  <string name="toast_split_via">„via“-Weg aufgetrennt</string>
+  <string name="toast_split_from_and_via">„from“- und „via“-Wege aufgetrennt</string>
+  <string name="toast_split_to">„to“-Weg aufgetrennt</string>
   <string name="toast_tile_database_issue_short">Problem mit den Hintergrundkacheln</string>
-  <string name="toast_tile_database_issue">Ernster Fehler mit der Speicherung der Hintergrundkacheln\n\"%1$s\"\nMehr Informationen unter FAQ auf http://vespucci.io/</string>
+  <string name="toast_tile_database_issue">Ernster Fehler mit der Speicherung der Hintergrundkacheln\n„%1$s“\nMehr Informationen unter FAQ auf https://vespucci.io/</string>
   <string name="toast_invalid_apiurl">Ungültige API-URL</string>
   <string name="toast_invalid_readonlyurl">Ungültige \"nur lesen\" API-URL</string>
   <string name="toast_invalid_notesurl">Ungültige API-URL für Notizen</string>
   <string name="toast_invalid_preseturl">Ungültige Vorlagen-URL</string>
-  <string name="toast_missing_preset_file">Vorlagendatei für \"%1$s\" fehlt</string>
-  <string name="toast_invalid_filter_regexp">Ungültiger Auswahlausdruck im Filter mit Schlüssel \"%1$s\" und Wert \"%2$s\"</string>
+  <string name="toast_missing_preset_file">Vorlagendatei für „%1$s“ fehlt</string>
+  <string name="toast_invalid_filter_regexp">Ungültiger Auswahlausdruck im Filter mit Schlüssel „%1$s“ und Wert „%2$s“</string>
   <string name="toast_error_accessing_photo">Foto %1$s nicht abrufbar</string>
   <string name="toast_security_error_accessing_photo">Zugriff auf Foto %1$s nicht gestattet</string>
   <string name="toast_no_voice_recognition">Keine Spracherkennung vorhanden</string>
   <string name="toast_no_coverage">%1$s hat hier keine Abdeckung</string>
-  <string name="toast_tile_layer_errors">Die Quelle \'%1$s\' produziert Fehler</string>
+  <string name="toast_tile_layer_errors">Die Quelle ‚%1$s‘ produziert Fehler</string>
   <string name="toast_file_exists">Datei %1$s existiert bereits.</string>
   <string name="toast_needs_resurvey">Objekt könnte veraltet sein</string>
   <string name="toast_missing_key">Schlüssel %1$s fehlt</string>
@@ -508,7 +508,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_null_island">Bitte keine Objekte bei 0°/0° (Null Island) hinzufügen</string>
   <string name="toast_string_too_long">Text ist zu lang (%1$d Zeichen), gekürzt!</string>
   <string name="toast_illegal_operation">Unzulässige Operation: %1$s</string>
-  <string name="toast_preset_creation_failed">Vorlage \"%1$s\" konnte nicht erstellt werden: %2$s</string>
+  <string name="toast_preset_creation_failed">Vorlage „%1$s“ konnte nicht erstellt werden: %2$s</string>
   <string name="toast_imperial_units">Fehlende britische Einheiten</string>
   <string name="toast_server_connection_failed">Verbindung zum Server schlug fehl mit: %1$s</string>
   <string name="toast_flus_all_caches">Dies wird alle gespeicherten Hintergrundbilder löschen!</string>
@@ -700,7 +700,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="location_load_button">Laden</string>
   <string name="location_load_dismiss">Zur Karte</string>
   <string name="location_nan_title">Falsche Eingabe!</string>
-  <string name="location_nan_message">Geben Sie bitte die Koordinaten als Fließkommazahlen ein (z. B. \"52.333572\",\"8.741185\"). Lat muss zwischen -85.0 und +85.0, Lon muss zwischen -175.0 und +175.0 liegen.</string>
+  <string name="location_nan_message">Geben Sie bitte die Koordinaten als Fließkommazahlen mit einem Punkt („.“) als Dezimaltrennzeichen ein (z. B. \"52.333572\",\"8.741185\"). Lat muss zwischen -85.0 und +85.0, Lon muss zwischen -175.0 und +175.0 liegen.</string>
   <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
   <string name="barometer_calibration_label">Verwende</string>
@@ -904,14 +904,14 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="actionmode_closed_way_split_1">Geschlossenen Weg aufspalten, 1. Knoten</string>
   <string name="actionmode_closed_way_split_2">Geschlossenen Weg aufspalten, 2. Knoten</string>
   <string name="actionmode_restriction">Abbiegebeschränkung hinzufügen</string>
-  <string name="actionmode_restriction_restart_from">\"from\" Segment nochmals auswählen</string>
-  <string name="actionmode_restriction_select_from">Auswahl \"von\" Segment</string>
-  <string name="actionmode_restriction_via">\"via\" Segment hinzufügen</string>
-  <string name="actionmode_restriction_restart_via">\"via\" Segment nochmals auswählen</string>
-  <string name="actionmode_restriction_to">\"to\" Segment hinzufügen</string>
-  <string name="actionmode_restriction_restart_to">\"to\" Segment nochmals auswählen</string>
-  <string name="actionmode_restriction_split_from">\"from\" Weg trennen</string>
-  <string name="actionmode_restriction_split_via">\"via\" Weg trennen</string>
+  <string name="actionmode_restriction_restart_from">„from“-Segment nochmals auswählen</string>
+  <string name="actionmode_restriction_select_from">Auswahl „von“-Segment</string>
+  <string name="actionmode_restriction_via">„via“-Segment hinzufügen</string>
+  <string name="actionmode_restriction_restart_via">„via“-Segment nochmals auswählen</string>
+  <string name="actionmode_restriction_to">„to“-Segment hinzufügen</string>
+  <string name="actionmode_restriction_restart_to">„to“-Segment nochmals auswählen</string>
+  <string name="actionmode_restriction_split_from">„from“-Weg trennen</string>
+  <string name="actionmode_restriction_split_via">„via“-Weg trennen</string>
   <string name="actionmode_extract_segment_select">Segment auswählen</string>
   <string name="actionmode_extract_segment_set_tags">Tags setzen</string>
   <plurals name="actionmode_object_count">
@@ -947,7 +947,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_enableOpenStreetBugs_title">Aufgaben anzeigen</string>
   <string name="config_enableOpenStreetBugs_summary">Notizen, Fehler und Aufgaben erstellen, ändern und anzeigen</string>
   <string name="config_enablePhotoLayer_title">Foto-Ebene einschalten</string>
-  <string name="config_enablePhotoLayer_summary">Geo-referenzierte Fotos anzeigen</string>
+  <string name="config_enablePhotoLayer_summary">Georeferenzierte Fotos anzeigen</string>
   <string name="config_enableKeepScreenOn_title">Bildschirm nicht abschalten</string>
   <string name="config_enableKeepScreenOn_summary">Den Bildschirm nicht abschalten, um Energie zu sparen</string>
   <string name="config_largeDragArea_title">Große Knoten-Verschiebefläche</string>
@@ -990,11 +990,11 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_useInternalPhotoViewer_title">Eingebaute Bildanzeige verwenden</string>
   <string name="config_useInternalPhotoViewer_summary">Die eingebaute Bildanzeige verwenden, ansonsten eine externe App verwenden.</string>
   <string name="config_followGPSbutton_title">Anordnung des \"Position folgen\" Knopfes</string>
-  <string name="config_followGPSbutton_summary">Wo der \"Position folgen\" Knopf angezeigt wird</string>
+  <string name="config_followGPSbutton_summary">Wo der „Position folgen“ Knopf angezeigt wird</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Abdunkeln nicht heruntergeladener Gebiete</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Nicht heruntergeladene Gebiete sind immer abgedunkelt</string>
   <string name="config_fullscreenMode_title">Vollbild-Modus</string>
-  <string name="config_fullscreenMode_summary">Einstellungen für Geräte mit \"Bildschirmtasten\"</string>
+  <string name="config_fullscreenMode_summary">Einstellungen für Geräte mit „Bildschirmtasten“</string>
   <string name="config_map_orientation_title">Ausrichtung des Karten-Bildschirms</string>
   <string name="config_map_orientation_summary">Verhalten des Karten-Bildschirms bei Ausrichtungswechsel des Geräts.</string>
   <string name="config_showTolerance_title">Toleranz einblenden</string>
@@ -1153,7 +1153,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <!--Experimental-->
   <string name="config_category_experimental">Experimentell</string>
   <string name="config_js_console_title">JS-Konsole freischalten</string>
-  <string name="config_js_console_summary">Den \"live\"-Modus der JS-Konsole freischalten</string>
+  <string name="config_js_console_summary">Den „live“-Modus der JS-Konsole freischalten</string>
   <string name="config_voiceCommandsEnabled_title">Sprachbefehle unterstützen</string>
   <string name="config_voiceCommandsEnabled_summary">Unterstützung von Sprachbefehlen aktivieren</string>
   <!---->
