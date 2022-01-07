@@ -32,11 +32,10 @@ public abstract class FileUtil {
     /**
      * Get our public directory
      * 
-     * @param ctx Android Context
      * @return a File object for the public directory
      * @throws IOException if we can't create the directory
      */
-    public static @NonNull File getPublicDirectory(@NonNull Context ctx) throws IOException {
+    public static @NonNull File getPublicDirectory() throws IOException {
         return getPublicDirectory(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Paths.DIRECTORY_PATH_VESPUCCI);
     }
 
@@ -93,7 +92,7 @@ public abstract class FileUtil {
         File outfile = new File(fileName);
         String parent = outfile.getParent();
         if (parent == null) { // no directory specified, save to standard location
-            outfile = new File(FileUtil.getPublicDirectory(context), fileName);
+            outfile = new File(FileUtil.getPublicDirectory(), fileName);
         } else { // ensure directory exists
             File outdir = new File(parent);
             // noinspection ResultOfMethodCallIgnored

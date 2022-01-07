@@ -185,7 +185,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         if (oldVersion <= 11 && newVersion >= 12) {
             try {
                 FileUtil.copyFileFromAssets(context, "images/" + CustomPreset.ICON,
-                        FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context), Paths.DIRECTORY_PATH_AUTOPRESET), CustomPreset.ICON);
+                        FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), CustomPreset.ICON);
             } catch (IOException e) {
                 Log.e(DEBUG_TAG, "Unable to copy custom preset icon");
             }
@@ -575,7 +575,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     public static void createEmptyAutoPreset(@NonNull Context context, @NonNull Preset[] activePresets, int autopresetPosition) {
         try {
             FileUtil.copyFileFromAssets(context, Files.FILE_NAME_AUTOPRESET_TEMPLATE,
-                    FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context), Paths.DIRECTORY_PATH_AUTOPRESET), Files.FILE_NAME_AUTOPRESET);
+                    FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), Files.FILE_NAME_AUTOPRESET);
             AutoPreset.readAutoPreset(context, activePresets, autopresetPosition);
         } catch (Exception e1) {
             Log.e(DEBUG_TAG, "Failed to create auto-preset", e1);

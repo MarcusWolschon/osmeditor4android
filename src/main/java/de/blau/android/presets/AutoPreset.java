@@ -101,7 +101,7 @@ public class AutoPreset {
         Preset preset = Preset.dummyInstance();
         try {
             preset.setIconManager(new PresetIconManager(context,
-                    FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context), Paths.DIRECTORY_PATH_AUTOPRESET).getAbsolutePath(), null));
+                    FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET).getAbsolutePath(), null));
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Setting icon managery failed " + e.getMessage());
         }
@@ -323,7 +323,7 @@ public class AutoPreset {
             protected Void doInBackground(Void param) {
                 try {
                     File outfile = FileUtil.openFileForWriting(context,
-                            FileUtil.getPublicDirectory(context) + "/" + Paths.DIRECTORY_PATH_AUTOPRESET + "/" + Files.FILE_NAME_AUTOPRESET);
+                            FileUtil.getPublicDirectory() + "/" + Paths.DIRECTORY_PATH_AUTOPRESET + "/" + Files.FILE_NAME_AUTOPRESET);
                     try (FileOutputStream fout = new FileOutputStream(outfile); OutputStream out = new BufferedOutputStream(fout);) { // NOSONAR
                         Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
                         XmlSerializer s = XmlPullParserFactory.newInstance().newSerializer();
@@ -360,7 +360,7 @@ public class AutoPreset {
         String autopresetGroupName = context.getString(R.string.preset_autopreset);
 
         try {
-            File autoPresetDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context), Paths.DIRECTORY_PATH_AUTOPRESET);
+            File autoPresetDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET);
             File autoIcon = new File(autoPresetDir, AutoPreset.ICON);
             if (!autoIcon.exists()) {
                 for (int i = 0; i < ICONS.length; i++) {
@@ -378,7 +378,7 @@ public class AutoPreset {
             Log.e(DEBUG_TAG, "Icon/file not found ", e);
         }
         activePresets[autopresetPosition] = new Preset(context,
-                FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context), Paths.DIRECTORY_PATH_AUTOPRESET), null, true);
+                FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), null, true);
         Preset autopreset = activePresets[autopresetPosition];
         PresetGroup group = autopreset.getGroupByName(autopresetGroupName);
         if (group == null) {

@@ -1789,7 +1789,7 @@ public final class DataStyle extends DefaultHandler {
         }
         // old style named files
         try {
-            File indir = FileUtil.getPublicDirectory(ctx);
+            File indir = FileUtil.getPublicDirectory();
             class StyleFilter implements FilenameFilter {
                 @Override
                 public boolean accept(File dir, String name) {
@@ -1803,7 +1803,7 @@ public final class DataStyle extends DefaultHandler {
         }
         // from styles directory
         try {
-            File indir = new File(FileUtil.getPublicDirectory(ctx), Paths.DIRECTORY_PATH_STYLES);
+            File indir = new File(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_STYLES);
             File[] list = indir.listFiles(new XmlFileFilter());
             readStylesFromFileList(ctx, list);
         } catch (Exception ex) {

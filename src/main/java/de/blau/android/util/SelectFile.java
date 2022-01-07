@@ -83,7 +83,7 @@ public final class SelectFile {
                 i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, path);
             } else {
                 try {
-                    i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, FileUtil.getPublicDirectory(activity).getPath());
+                    i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, FileUtil.getPublicDirectory().getPath());
                 } catch (IOException e) {
                     // if for whatever reason the above doesn't work we use the standard directory
                     Log.d(DEBUG_TAG, "falling back to standard dir instead");
@@ -125,7 +125,7 @@ public final class SelectFile {
                 i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, path);
             } else {
                 try {
-                    i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, FileUtil.getPublicDirectory(activity).getPath());
+                    i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, FileUtil.getPublicDirectory().getPath());
                 } catch (IOException e) {
                     // if for whatever reason the above doesn't work we use the standard directory
                     Log.d(DEBUG_TAG, "falling back to standard dir instead");

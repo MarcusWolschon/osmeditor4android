@@ -53,7 +53,7 @@ public class MigrationTest {
             // migrate
             Splash.directoryMigration(context);
             // check if everything was copied
-            File newDir = FileUtil.getPublicDirectory(context);
+            File newDir = FileUtil.getPublicDirectory();
             assertTrue(newDir.exists());
             pictures = new File(newDir, Paths.DIRECTORY_PATH_PICTURES);
             assertTrue(newDir.exists());

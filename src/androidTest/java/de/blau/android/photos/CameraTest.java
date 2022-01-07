@@ -128,7 +128,7 @@ public class CameraTest {
      */
     private int photoCount() {
         try {
-            File photoDir = new File(FileUtil.getPublicDirectory(main), Paths.DIRECTORY_PATH_PICTURES);
+            File photoDir = new File(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_PICTURES);
             photoDir.mkdirs();
             assertTrue(photoDir.exists());
             return photoDir.list().length;

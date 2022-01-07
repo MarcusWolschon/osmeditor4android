@@ -117,11 +117,11 @@ public class AutoPresetTest {
 
         // zap the contents of the directory
         try {
-            File dir = new File(FileUtil.getPublicDirectory(main), Paths.DIRECTORY_PATH_AUTOPRESET);
+            File dir = new File(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET);
             for (String fileName : dir.list()) {
                 try {
                     java.nio.file.Files
-                            .delete(new File(FileUtil.getPublicDirectory(main), Paths.DIRECTORY_PATH_AUTOPRESET + Paths.DELIMITER + fileName).toPath());
+                            .delete(new File(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET + Paths.DELIMITER + fileName).toPath());
                 } catch (IOException e) {
                     System.out.println("Removing auto-preset file " + fileName + " exception " + e); // NOSONAR
                 }

@@ -2,6 +2,7 @@ package de.blau.android.osm;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
@@ -14,8 +15,10 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.xml.sax.SAXException;
 
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.OscTestCommon;
+import de.blau.android.util.SavingHelper;
 
 @RunWith(RobolectricTestRunner.class)
 @LargeTest
@@ -66,7 +69,8 @@ public class OscTest {
                 } catch (SAXException | IOException | ParserConfigurationException | IllegalArgumentException | IllegalStateException e) {
                     fail(e.getMessage());
                 }
-
+                String path = SavingHelper.export(ApplicationProvider.getApplicationContext(), d);
+                assertNotNull(path); // some more tests might be a good idea
             } catch (Exception e) {
                 fail(e.getMessage());
             }

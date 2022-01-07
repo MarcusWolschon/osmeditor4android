@@ -11,8 +11,6 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -32,9 +30,6 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
-import androidx.test.uiautomator.UiObject;
-import androidx.test.uiautomator.UiObjectNotFoundException;
-import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -58,8 +53,7 @@ import okhttp3.mockwebserver.MockWebServer;
 @LargeTest
 public class GpxTest {
 
-    public static final int      TIMEOUT                = 180;
-    private static final Pattern EXPORT_MESSAGE_PATTERN = Pattern.compile("^Exported\\sto\\s(.*\\.gpx)$", Pattern.CASE_INSENSITIVE);
+    public static final int TIMEOUT = 180;
 
     Main            main            = null;
     UiDevice        device          = null;
@@ -92,7 +86,7 @@ public class GpxTest {
         logic.setPrefs(prefs);
         Map map = main.getMap();
         map.setPrefs(main, prefs);
-        
+
         App.getDelegator().reset(true);
 
         TestUtils.grantPermissons(device);
@@ -188,24 +182,10 @@ public class GpxTest {
         clickGpsButton(device);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_track_managment), true, false));
 
-        UiObject snackbarTextView = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/snackbar_text"));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_export), false, false));
-        //
-        assertTrue(snackbarTextView.waitForExists(10000));
-        String filename = null;
-        try {
-            String t = snackbarTextView.getText();
-            Matcher m = EXPORT_MESSAGE_PATTERN.matcher(t);
-            if (m.find()) {
-                filename = m.group(1);
-            }
-            System.out.println("filename >" + filename + "<");
-        } catch (UiObjectNotFoundException e) {
-            fail(e.getMessage());
-        }
+        String filename = "" + System.currentTimeMillis() + ".gpx";
+        TestUtils.selectFile(device, main, null, filename, true, true);
 
-        // need to wait for the snackbar to go away
-        snackbarTextView.waitUntilGone(5000);
         clickGpsButton(device);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_track_managment), true, false));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_import), true, false));
@@ -215,7 +195,7 @@ public class GpxTest {
         recordedTrack = main.getTracker().getTrack().getTrack(); // has been reloaded
         compareTrack(track, recordedTrack);
         try {
-            File exportedFile = new File(FileUtil.getPublicDirectory(main), filename);
+            File exportedFile = new File(FileUtil.getPublicDirectory(), filename);
             exportedFile.delete();
         } catch (IOException e) {
             fail(e.getMessage());
@@ -223,7 +203,7 @@ public class GpxTest {
 
         // goto start while we are here
         clickGpsButton(device);
-        TestUtils.scrollToEnd();
+        TestUtils.scrollToEnd(false);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_goto_start), false, false));
         TestUtils.sleep(2000);
         double[] center = main.getMap().getViewBox().getCenter();
