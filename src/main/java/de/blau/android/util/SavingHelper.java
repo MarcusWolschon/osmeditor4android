@@ -381,8 +381,10 @@ public class SavingHelper<T extends Serializable> {
      * 
      * @param ctx an optional Android Context
      * @param exportable the Exportable
+     * @return if successful the path the export was to
      */
-    public static void export(@Nullable Context ctx, @NonNull Exportable exportable) {
+    @Nullable
+    public static String export(@Nullable Context ctx, @NonNull Exportable exportable) {
         String filename = DateFormatter.getFormattedString(DATE_PATTERN_EXPORT_FILE_NAME_PART) + "." + exportable.exportExtension();
         try {
             File outfile = new File(FileUtil.getPublicDirectory(), filename);
@@ -392,6 +394,7 @@ public class SavingHelper<T extends Serializable> {
                 if (ctx != null) {
                     new Handler(ctx.getMainLooper()).post(() -> Snack.toastTopInfo(ctx, ctx.getResources().getString(R.string.toast_export_success, filename)));
                 }
+                return outfile.getAbsolutePath();
             }
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Export failed - " + filename);
@@ -399,6 +402,7 @@ public class SavingHelper<T extends Serializable> {
                 new Handler(ctx.getMainLooper()).post(() -> Snack.toastTopError(ctx, R.string.toast_export_failed));
             }
         }
+        return null;
     }
 
     public interface Exportable {
