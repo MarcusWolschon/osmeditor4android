@@ -1443,11 +1443,6 @@
 "Ruta",
 "maršruta"
 ],
-"type/route/bicycle":[
-"biciklistička ruta",
-"Biciklistička ruta",
-"biciklistička trasa"
-],
 "type/route/bus":[
 "autobuska ruta",
 "autobuska trasa",

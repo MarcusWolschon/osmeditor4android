@@ -1650,17 +1650,8 @@
 "type/restriction/no_right_turn":[
 "Dilarang Berbelok ke Kanan"
 ],
-"type/restriction/no_straight_on":[
-"Tidak Boleh Lurus"
-],
-"type/restriction/no_u_turn":[
-"Dilarang Putar Balik"
-],
 "type/route":[
 "Rute"
-],
-"type/route/bicycle":[
-"Rute Sepeda"
 ],
 "type/route/bus":[
 "Rute Bus"

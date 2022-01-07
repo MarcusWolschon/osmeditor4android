@@ -814,17 +814,8 @@
 "type/restriction/no_right_turn":[
 "வலது வளைவுக் கூடாது"
 ],
-"type/restriction/no_straight_on":[
-"நேராகப் போகக் கூடாது"
-],
-"type/restriction/only_left_turn":[
-"இடது வளைவு மட்டும்"
-],
 "type/route":[
 "வழி"
-],
-"type/route/bicycle":[
-"மிதிவண்டிப் பாதை"
 ],
 "type/route/bus":[
 "பேருந்து தடம்"

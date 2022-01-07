@@ -4990,19 +4990,6 @@
 "imbarcazione",
 "varo"
 ],
-"leisure/slipway_point":[
-"nave",
-"slitta",
-"barca",
-"alaggio",
-"carrello",
-"rampa",
-"Scivolo di varo/alaggio",
-"natante",
-"scivolo",
-"imbarcazione",
-"varo"
-],
 "leisure/sports_centre":[
 "palazzetto",
 "Complesso / Centro Sportivo",
@@ -5784,6 +5771,9 @@
 "pietra",
 "roccia",
 "Roccia non fissata"
+],
+"natural/swamp":[
+"Palude"
 ],
 "natural/tree":[
 "Albero",
@@ -7293,7 +7283,12 @@
 "shop/funeral_directors":[
 "cimitero",
 "funerale",
-"Casa funeraria"
+"onoranze",
+"defunto",
+"urna",
+"becchino",
+"Casa funeraria",
+"funebre"
 ],
 "shop/furniture":[
 "negozio di mobili",
@@ -8196,47 +8191,22 @@
 "vietato"
 ],
 "type/restriction/no_straight_on":[
-"divieto",
-"dritto",
-"Divieto di proseguire dritto",
-"vietato"
+"Divieto di proseguire diritto"
 ],
 "type/restriction/no_u_turn":[
-"divieto",
-"Divieto di inversione",
-"vietato",
-"inversione a u"
+"Divieto di inversione di marcia"
 ],
 "type/restriction/only_left_turn":[
-"obbligo",
-"divieto di svolta a destra",
-"Obbligo di svolta a sinistra",
-"svolta a sinistra",
-"divieto di andare diritto"
+"Obbligo di svolta a sinistra"
 ],
 "type/restriction/only_right_turn":[
-"svolta a destra",
-"obbligo",
-"Obbligo di svolta a destra",
-"divieto di svolta sinistra",
-"divieto di andare diritto"
+"Obbligo di svolta a destra"
 ],
 "type/restriction/only_straight_on":[
-"diritto",
-"obbligo",
-"Obbligo di andare diritto",
-"dritto",
-"proseguire diritto",
-"divieto di svolta"
+"Obbligo di andare diritto"
 ],
 "type/restriction/only_u_turn":[
-"inversione di marcia",
-"svolta a u",
-"tornare indietro",
-"inversione",
-"Obbligo di inversione di marcia",
-"curva a u",
-"torna indietro"
+"Obbligo di inversione di marcia"
 ],
 "type/route":[
 "Percorso",
@@ -8246,10 +8216,7 @@
 "Rotta aerea"
 ],
 "type/route/bicycle":[
-"ciclostrada",
-"ciclovia",
-"Itinerario ciclabile",
-"pista ciclabile"
+"Itinerario ciclabile"
 ],
 "type/route/bus":[
 "Linea autobus",

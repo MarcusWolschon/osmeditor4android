@@ -28,9 +28,9 @@
 "advertising/board":[
 "informação",
 "cultura",
-"Painel informativo",
 "cartaz",
 "publicidade institucional",
+"Placa publicitária",
 "cartazes"
 ],
 "advertising/column":[
@@ -1275,6 +1275,14 @@
 "parque de estacionamento integrado",
 "parque de estacionamento de metro",
 "p&r"
+],
+"amenity/parking/street-side":[
+"parquímetro",
+"estacionar",
+"veículos",
+"Estacionamento na berma",
+"parqueamento",
+"carros"
 ],
 "amenity/parking/underground":[
 "estacionamento",
@@ -4389,6 +4397,30 @@
 "lomba",
 "travessia"
 ],
+"highway/crossing/signals":[
+"passagem",
+"Passadeira com semáforos",
+"peões",
+"luzes",
+"pedestre",
+"cruzar",
+"atravessar",
+"travessia",
+"luminosos"
+],
+"highway/crossing/signals-raised":[
+"passagem",
+"peões",
+"Passadeira com semáforos (elevada)",
+"luzes",
+"pedestre",
+"cruzar",
+"atravessar",
+"lombada",
+"travessia",
+"luminosos",
+"lomba"
+],
 "highway/crossing/unmarked":[
 "passadeira sem marcas",
 "peões",
@@ -6153,6 +6185,18 @@
 "ringue de gelo",
 "ice rink"
 ],
+"leisure/indoor_play":[
+"crianças",
+"aniversários",
+"Centro de Diversões Interior",
+"interno",
+"brincar",
+"brincadeiras",
+"parque",
+"filhos",
+"jogos",
+"aniversário"
+],
 "leisure/marina":[
 "porto",
 "abrigo",
@@ -6389,6 +6433,15 @@
 "bola",
 "campo"
 ],
+"leisure/pitch/paintball":[
+"Campo de paintball",
+"disparo",
+"desportivo",
+"desporto",
+"paintball",
+"jogo",
+"lazer"
+],
 "leisure/pitch/rugby_league":[
 "rugby league field",
 "raguebi",
@@ -6407,6 +6460,17 @@
 "rugby de 15",
 "postes",
 "campo"
+],
+"leisure/pitch/shooting":[
+"armas",
+"tiro",
+"estande",
+"Carreira de tiro desportiva",
+"disparo",
+"alvo",
+"treino",
+"disparar",
+"campo de tiro"
 ],
 "leisure/pitch/shuffleboard":[
 "Campo de shuffleboard",
@@ -6525,14 +6589,12 @@
 "rampa de varadouro",
 "Rampa para barcos"
 ],
-"leisure/slipway_point":[
-"rampa para embarcações",
-"rampa para barcos",
-"slipway",
-"rampa",
-"Rampa para barcos",
-"rampa de lançamento",
-"carreira"
+"leisure/slipway_drivable":[
+"barcos",
+"embarcações",
+"Rampa de lançamento",
+"embarcação",
+"barco"
 ],
 "leisure/sports_centre":[
 "centro de desporto",
@@ -6557,6 +6619,17 @@
 "ginásio escalada",
 "rapel",
 "Local de escalada"
+],
+"leisure/sports_centre/shooting":[
+"armas",
+"tiro",
+"estande",
+"Centro desportivo de tiro ao alvo",
+"disparo",
+"alvo",
+"treino",
+"disparar",
+"campo de tiro"
 ],
 "leisure/sports_centre/swimming":[
 "artística",
@@ -6820,6 +6893,19 @@
 "clareira",
 "desflorestação",
 "floresta desmatada"
+],
+"man_made/compass_rose":[
+"norte",
+"este",
+"rose of the winds",
+"compass",
+"oeste",
+"ventos",
+"quadrante",
+"leste",
+"sul",
+"Rosa-dos-ventos",
+"rosa dos ventos"
 ],
 "man_made/courtyard":[
 "pateo",
@@ -7443,6 +7529,17 @@
 "poste de madeira",
 "mastro"
 ],
+"man_made/video_wall":[
+"ecrã",
+"tela",
+"televisão",
+"tv",
+"screen",
+"led",
+"publicidade",
+"vídeo",
+"Painel de vídeo digital"
+],
 "man_made/wastewater_plant":[
 "e.t.a.r.",
 "esgotos",
@@ -7712,6 +7809,17 @@
 "Fonte termal",
 "geotermismo"
 ],
+"natural/marsh":[
+"atoleiro",
+"alagado",
+"estagnado",
+"água",
+"charco",
+"tremedal",
+"lodaçal",
+"paul",
+"Brejo"
+],
 "natural/mud":[
 "lamacenta",
 "lameiros",
@@ -7736,6 +7844,20 @@
 "serra",
 "ápice",
 "topo"
+],
+"natural/reedbed":[
+"atoleiro",
+"canas",
+"alagado",
+"estagnado",
+"água",
+"charco",
+"tremedal",
+"lodaçal",
+"Leito de juncos",
+"canavial",
+"paul",
+"juncal"
 ],
 "natural/reef":[
 "escolho",
@@ -7850,6 +7972,17 @@
 "unattached rock",
 "rochedo",
 "pedregulho"
+],
+"natural/swamp":[
+"atoleiro",
+"alagado",
+"estagnado",
+"Pântano",
+"água",
+"charco",
+"tremedal",
+"lodaçal",
+"paul"
 ],
 "natural/tree":[
 "oliveira",
@@ -12471,15 +12604,17 @@
 "sinal de estrada"
 ],
 "traffic_sign/city_limit":[
-"rodoviária",
 "cidade",
 "aldeia",
 "início da cidade",
+"povoado",
 "Placa de limite de povoação",
+"povoação",
 "limite da cidade",
-"estrada",
+"localidade",
 "borda",
-"fim da cidade"
+"fim da cidade",
+"vila"
 ],
 "traffic_sign/maxspeed":[
 "rodoviária",
@@ -12579,14 +12714,14 @@
 ],
 "type/restriction/only_left_turn":[
 "virar",
+"Virar apenas à esquerda",
 "esquerda",
 "sentido obrigatório",
-"Apenas virar à esquerda",
 "viragem"
 ],
 "type/restriction/only_right_turn":[
 "virar",
-"Apenas virar à direita",
+"Virar apenas à direita",
 "sentido obrigatório",
 "viragem",
 "direita"
@@ -12595,8 +12730,8 @@
 "virar",
 "frente",
 "sentido obrigatório",
-"viragem",
-"Apenas seguir em frente"
+"Seguir apenas em frente",
+"viragem"
 ],
 "type/restriction/only_u_turn":[
 "inversão do sentido de marcha",
@@ -12627,9 +12762,15 @@
 ],
 "type/route/bicycle":[
 "rota de bicicletas",
+"bina",
 "bicicleta",
+"ciclovia",
 "Rota de bicicleta",
-"ciclismo"
+"ciclável",
+"bicla",
+"ciclistas",
+"ciclismo",
+"bike"
 ],
 "type/route/bus":[
 "otocarro",

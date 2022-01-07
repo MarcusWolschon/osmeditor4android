@@ -100,6 +100,14 @@
 "Lufthavnsterminal",
 "lufthavnsterminal"
 ],
+"aeroway/windsock":[
+"vindretning",
+"retning",
+"blæst",
+"Vindpose",
+"indikator",
+"vind"
+],
 "allotments/plot":[
 "fællesskab",
 "koloni",
@@ -1203,6 +1211,9 @@
 ],
 "barrier/wall":[
 "Mur"
+],
+"boundary":[
+"Afgrænsning"
 ],
 "boundary/administrative":[
 "Administrativ grænse",
@@ -4886,7 +4897,7 @@
 ],
 "type/boundary":[
 "grænse",
-"Grænse"
+"Afgrænsning"
 ],
 "type/boundary/administrative":[
 "Administrativ grænse",
@@ -4910,33 +4921,9 @@
 "Ingen højresving",
 "ingen højresving"
 ],
-"type/restriction/no_straight_on":[
-"Ingen lige ud kørsel",
-"ingen lige ud kørsel"
-],
-"type/restriction/no_u_turn":[
-"Ingen U-vending",
-"ingen u-vending"
-],
-"type/restriction/only_left_turn":[
-"Kun venstresving"
-],
-"type/restriction/only_right_turn":[
-"Kun højresving"
-],
-"type/restriction/only_straight_on":[
-"Kun lige ud"
-],
-"type/restriction/only_u_turn":[
-"Kun U-vending"
-],
 "type/route":[
 "rute",
 "Rute"
-],
-"type/route/bicycle":[
-"cykelrute",
-"Cykelrute"
 ],
 "type/route/bus":[
 "busrute",

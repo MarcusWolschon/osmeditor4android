@@ -599,6 +599,12 @@
 "lgb event",
 "lgb hall"
 ],
+"amenity/community_centre/youth_centre":[
+"youth centre",
+"youth center",
+"Youth Center",
+"youth club"
+],
 "amenity/compressed_air":[
 "Compressed Air"
 ],
@@ -631,6 +637,18 @@
 "medic*",
 "physician",
 "Doctor"
+],
+"amenity/doctors/gynaecology":[
+"gynecology",
+"Gynecologist",
+"egg",
+"gynaecologist",
+"women's doctor",
+"gynaecology",
+"obstetrics",
+"woman's doctor",
+"ovulation",
+"reproductive"
 ],
 "amenity/dojo":[
 "Dojo / Martial Arts Academy",
@@ -1144,6 +1162,17 @@
 "park and pool lot",
 "Park & Ride Lot",
 "metro parking lot"
+],
+"amenity/parking/street-side":[
+"car parking",
+"vehicle parking",
+"automobile parking",
+"road-side parking",
+"roadside parking",
+"Street-side Parking",
+"street parking",
+"streetside parking",
+"street-side parking"
 ],
 "amenity/parking/underground":[
 "car lot",
@@ -3491,6 +3520,26 @@
 "crosswalk",
 "Marked Crosswalk"
 ],
+"highway/crossing/signals-raised":[
+"pedestrian traffic lights",
+"hump",
+"bicycle crossing (lights)",
+"slow",
+"pedestrian traffic signals",
+"pedestrian crossing (lights)",
+"crosswalk (lights)",
+"Crossing With Pedestrian Signals (Raised)",
+"speed",
+"flat top"
+],
+"highway/crossing/signals":[
+"pedestrian traffic lights",
+"bicycle crossing (lights)",
+"Crossing With Pedestrian Signals",
+"pedestrian traffic signals",
+"pedestrian crossing (lights)",
+"crosswalk (lights)"
+],
 "highway/crossing/unmarked-raised":[
 "hump",
 "slow",
@@ -3659,6 +3708,15 @@
 "exit",
 "Motorway Junction / Exit"
 ],
+"highway/motorway_link-US-CA":[
+"exit",
+"on ramp",
+"road",
+"street",
+"ramp",
+"off ramp",
+"Motorway Link"
+],
 "highway/motorway_link":[
 "exit",
 "on ramp",
@@ -3734,6 +3792,14 @@
 "center",
 "centre",
 "walkway"
+],
+"highway/primary_link-US-CA":[
+"on ramp",
+"road",
+"street",
+"off ramp",
+"ramp",
+"Primary Link"
 ],
 "highway/primary_link":[
 "on ramp",
@@ -3943,6 +4009,14 @@
 "mountaineering",
 "trail start"
 ],
+"highway/trunk_link-US-CA":[
+"Trunk Link",
+"on ramp",
+"road",
+"street",
+"off ramp",
+"ramp"
+],
 "highway/trunk_link":[
 "Trunk Link",
 "on ramp",
@@ -3952,9 +4026,11 @@
 "ramp"
 ],
 "highway/trunk":[
+"expressway",
 "road",
 "Trunk Road",
-"street"
+"street",
+"highway"
 ],
 "highway/turning_circle":[
 "cul-de-sac",
@@ -4323,6 +4399,7 @@
 "landuse/railway":[
 "Railway Corridor",
 "rail",
+"railway",
 "track",
 "train"
 ],
@@ -4642,7 +4719,7 @@
 "curling"
 ],
 "leisure/indoor_play":[
-"childrens play center",
+"children's play center",
 "indoor playground",
 "ball pit",
 "Indoor Play Center"
@@ -4789,11 +4866,23 @@
 "basketball",
 "Netball Court"
 ],
+"leisure/pitch/paintball":[
+"Paintball Field"
+],
 "leisure/pitch/rugby_league":[
 "Rugby League Field"
 ],
 "leisure/pitch/rugby_union":[
 "Rugby Union Field"
+],
+"leisure/pitch/shooting":[
+"gun range",
+"shooting practice",
+"target practice",
+"Shooting Range",
+"shooting gallery",
+"firing range",
+"gun practice"
 ],
 "leisure/pitch/shuffleboard":[
 "floor shuffleboard",
@@ -4855,11 +4944,11 @@
 "leisure/sauna":[
 "Sauna"
 ],
-"leisure/slipway_point":[
-"Slipway",
+"leisure/slipway_drivable":[
 "boat launch",
 "boat ramp",
-"boat landing"
+"boat landing",
+"Slipway (Drivable)"
 ],
 "leisure/slipway":[
 "Slipway",
@@ -4885,6 +4974,16 @@
 "ropes",
 "abseiling",
 "rock gym"
+],
+"leisure/sports_centre/shooting":[
+"gun range",
+"Shooting Range Facility",
+"shooting practice",
+"shooting club",
+"target practice",
+"shooting gallery",
+"firing range",
+"gun practice"
 ],
 "leisure/sports_centre/swimming":[
 "Swimming Pool Facility",
@@ -5025,6 +5124,16 @@
 "lumber",
 "tree",
 "wood"
+],
+"man_made/compass_rose":[
+"rose of the winds",
+"east",
+"wind rose",
+"compass",
+"south",
+"north",
+"west",
+"Compass Rose"
 ],
 "man_made/courtyard":[
 "yard",
@@ -5359,10 +5468,14 @@
 "camera"
 ],
 "man_made/survey_point":[
+"trig station",
+"survey marker",
+"geodetic mark",
 "triangulation pillar",
 "Survey Point",
 "trig point",
-"trigonometrical station"
+"trigonometrical station",
+"geodetic point"
 ],
 "man_made/torii":[
 "japanese gate",
@@ -5434,6 +5547,15 @@
 ],
 "man_made/utility_pole":[
 "Utility Pole"
+],
+"man_made/video_wall":[
+"Digital Screen",
+"tv",
+"video wall",
+"television",
+"display",
+"screen",
+"led wall"
 ],
 "man_made/wastewater_plant":[
 "sewage*",
@@ -5611,6 +5733,9 @@
 "Hot Spring",
 "thermal pool"
 ],
+"natural/marsh":[
+"Marsh"
+],
 "natural/mud":[
 "wetland",
 "Mud"
@@ -5630,6 +5755,12 @@
 "Peak",
 "crest",
 "crown"
+],
+"natural/reedbed":[
+"cattail",
+"bulrushes",
+"Reed bed",
+"reeds"
 ],
 "natural/reef":[
 "shoal",
@@ -5693,6 +5824,9 @@
 "boulder",
 "Unattached Stone / Boulder",
 "stone"
+],
+"natural/swamp":[
+"Swamp"
 ],
 "natural/tree_row":[
 "Tree Row",
@@ -5840,7 +5974,7 @@
 "forrest",
 "trees"
 ],
-"network/type/node_network":[
+"network/type/node_network-DE-NL-BE-LU":[
 "node network",
 "rwn",
 "rcn",
@@ -5896,7 +6030,7 @@
 "non-profit",
 "Nonprofit Organization Office"
 ],
-"office/bail_bond_agent":[
+"office/bail_bond_agent-US-PH":[
 "bail bond dealer",
 "bail bond man",
 "bail bondsperson",
@@ -6051,6 +6185,7 @@
 "Notary Office"
 ],
 "office/moving_company":[
+"movers",
 "Moving Company Office",
 "relocation"
 ],
@@ -6383,6 +6518,14 @@
 "vertex",
 "vertices",
 "Point"
+],
+"police/checkpoint":[
+"checkpoint",
+"patrol",
+"stop",
+"Police Checkpoint",
+"spot check",
+"roadblock"
 ],
 "polling_station":[
 "Temporary Polling Place",
@@ -8710,22 +8853,22 @@
 "No Right Turn"
 ],
 "type/restriction/no_straight_on":[
-"No Straight On"
+"No Straight Ahead"
 ],
 "type/restriction/no_u_turn":[
-"No U-turn"
+"No U-Turn"
 ],
 "type/restriction/only_left_turn":[
-"Only Left Turn"
+"Left Turn Only"
 ],
 "type/restriction/only_right_turn":[
-"Only Right Turn"
+"Right Turn Only"
 ],
 "type/restriction/only_straight_on":[
-"Only Straight On"
+"Straight Ahead Only"
 ],
 "type/restriction/only_u_turn":[
-"Only U-turn"
+"U-Turn Only"
 ],
 "type/route_master":[
 "Route Master"
@@ -8737,7 +8880,7 @@
 "Aerial Route"
 ],
 "type/route/bicycle":[
-"Cycle Route"
+"Bicycle Route"
 ],
 "type/route/bus":[
 "Bus Route"

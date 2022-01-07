@@ -96,7 +96,23 @@
 "Мењачница"
 ],
 "amenity/cafe":[
-"Кафе"
+"kafa",
+"фићка",
+"fićka",
+"caj",
+"бистро",
+"фука",
+"čaj",
+"fuka",
+"Кафић",
+"kafе",
+"ficka",
+"кафе",
+"kafic",
+"bistro",
+"кафа",
+"kafić",
+"чај"
 ],
 "amenity/cafe/coffee_shop":[
 "Кафеџиница"
@@ -2952,29 +2968,8 @@
 "type/restriction/no_right_turn":[
 "Забрана скретања удесно"
 ],
-"type/restriction/no_straight_on":[
-"Забрана саобраћаја у једном смеру"
-],
-"type/restriction/no_u_turn":[
-"Забрана полукружног окретања"
-],
-"type/restriction/only_left_turn":[
-"Само лево скретање"
-],
-"type/restriction/only_right_turn":[
-"Само десно скретање"
-],
-"type/restriction/only_straight_on":[
-"Само пролазак право"
-],
-"type/restriction/only_u_turn":[
-"Само полукружно скретање"
-],
 "type/route":[
 "Путања"
-],
-"type/route/bicycle":[
-"Бициклистичка путања"
 ],
 "type/route/bus":[
 "Аутобуска путања"

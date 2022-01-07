@@ -2853,14 +2853,6 @@
 "Ni mogoče zaviti desno",
 "zavijanje desno ni dovoljeno"
 ],
-"type/restriction/no_straight_on":[
-"Ni mogoče nadaljevati naravnost",
-"nadaljevanje naravnost ni dovoljen"
-],
-"type/restriction/no_u_turn":[
-"Ni mogoče polkrožno obrniti",
-"polkrožno obračanje ni dovoljeno"
-],
 "type/route":[
 "pot",
 "pohodniška pot",
@@ -2869,10 +2861,6 @@
 "cesta",
 "kolesarska pot",
 "letalska linija"
-],
-"type/route/bicycle":[
-"kolesarska proga",
-"Kolesarska pot"
 ],
 "type/route/bus":[
 "bus proga",

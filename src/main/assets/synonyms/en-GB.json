@@ -511,6 +511,12 @@
 "barrier/kerb/lowered":[
 "Lowered Kerb"
 ],
+"barrier/kerb/raised":[
+"Raised Kerb"
+],
+"barrier/kerb/rolled":[
+"Rolled Kerb"
+],
 "barrier/kissing_gate":[
 "Kissing Gate"
 ],
@@ -1364,9 +1370,6 @@
 "Sauna"
 ],
 "leisure/slipway":[
-"Slipway"
-],
-"leisure/slipway_point":[
 "Slipway"
 ],
 "leisure/sports_centre":[
@@ -2408,29 +2411,8 @@
 "type/restriction/no_right_turn":[
 "No Right Turn"
 ],
-"type/restriction/no_straight_on":[
-"No Straight On"
-],
-"type/restriction/no_u_turn":[
-"No U-turn"
-],
-"type/restriction/only_left_turn":[
-"Only Left Turn"
-],
-"type/restriction/only_right_turn":[
-"Only Right Turn"
-],
-"type/restriction/only_straight_on":[
-"Only Straight On"
-],
-"type/restriction/only_u_turn":[
-"Only U-turn"
-],
 "type/route":[
 "Route"
-],
-"type/route/bicycle":[
-"Cycle Route"
 ],
 "type/route/bus":[
 "Bus Route"

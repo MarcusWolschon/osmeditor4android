@@ -313,6 +313,9 @@
 "lgbtq+ 社群中心",
 "LGBTQ+ 社群中心"
 ],
+"amenity/community_centre/youth_centre":[
+"青年中心"
+],
 "amenity/compressed_air":[
 "冷氣機",
 "冷氣",
@@ -565,6 +568,9 @@
 "amenity/parking/park_ride":[
 "泊車轉乘",
 "轉乘停車場"
+],
+"amenity/parking/street-side":[
+"路邊停車"
 ],
 "amenity/parking/underground":[
 "地下停車場"
@@ -1969,6 +1975,12 @@
 "標記人行穿越道（凸起）",
 "有斑馬線穿越道（凸起）"
 ],
+"highway/crossing/signals":[
+"行人燈號交叉路口"
+],
+"highway/crossing/signals-raised":[
+"行人燈號交叉路口（升起）"
+],
 "highway/crossing/unmarked":[
 "無標記人行穿越道",
 "無斑馬線穿越道"
@@ -2714,11 +2726,18 @@
 "leisure/pitch/netball":[
 "籃網球場"
 ],
+"leisure/pitch/paintball":[
+"漆彈射擊場",
+"漆彈場"
+],
 "leisure/pitch/rugby_league":[
 "聯盟式橄欖球"
 ],
 "leisure/pitch/rugby_union":[
 "聯合式橄欖球"
+],
+"leisure/pitch/shooting":[
+"射擊場"
 ],
 "leisure/pitch/shuffleboard":[
 "沙狐球場"
@@ -2766,8 +2785,8 @@
 "leisure/slipway":[
 "船架滑道"
 ],
-"leisure/slipway_point":[
-"船台"
+"leisure/slipway_drivable":[
+"船台（可駕駛）"
 ],
 "leisure/sports_centre":[
 "體育中心",
@@ -2776,6 +2795,10 @@
 ],
 "leisure/sports_centre/climbing":[
 "攀岩場"
+],
+"leisure/sports_centre/shooting":[
+"射擊設施",
+"射擊場設施"
 ],
 "leisure/sports_centre/swimming":[
 "游泳池附屬設施",
@@ -2862,6 +2885,13 @@
 "man_made/clearcut":[
 "伐木林",
 "人工林"
+],
+"man_made/compass_rose":[
+"羅盤玫瑰",
+"風圖",
+"羅盤方位圖",
+"羅針圖",
+"玫瑰風圖"
 ],
 "man_made/courtyard":[
 "天井",
@@ -2963,6 +2993,7 @@
 "油井"
 ],
 "man_made/pier":[
+"棧橋",
 "碼頭"
 ],
 "man_made/pier/floating":[
@@ -3055,6 +3086,10 @@
 "man_made/utility_pole":[
 "電線桿"
 ],
+"man_made/video_wall":[
+"數位螢幕",
+"電視牆"
+],
 "man_made/wastewater_plant":[
 "水資源回收中心",
 "污水處理廠"
@@ -3146,6 +3181,11 @@
 "natural/hot_spring":[
 "溫泉"
 ],
+"natural/marsh":[
+"草沼",
+"草本沼澤",
+"草澤"
+],
 "natural/mud":[
 "泥地"
 ],
@@ -3153,6 +3193,9 @@
 "山峰",
 "山巔",
 "山頂"
+],
+"natural/reedbed":[
+"蘆原"
 ],
 "natural/reef":[
 "礁",
@@ -3192,6 +3235,10 @@
 ],
 "natural/stone":[
 "孤石"
+],
+"natural/swamp":[
+"木本沼澤",
+"樹沼"
 ],
 "natural/tree":[
 "樹木",
@@ -4900,12 +4947,10 @@
 "禁止右轉"
 ],
 "type/restriction/no_straight_on":[
-"禁止進入",
-"不准直駛"
+"禁止直行"
 ],
 "type/restriction/no_u_turn":[
-"禁止迴轉",
-"不准掉頭"
+"禁止迴轉"
 ],
 "type/restriction/only_left_turn":[
 "只能左轉"
@@ -4926,8 +4971,8 @@
 "空中路線"
 ],
 "type/route/bicycle":[
-"腳踏車路線",
-"單車路線"
+"單車路線",
+"自行車路線"
 ],
 "type/route/bus":[
 "客運路線",

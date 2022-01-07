@@ -1659,6 +1659,9 @@
 "승강기",
 "엘리베이터"
 ],
+"highway/elevator_line":[
+"경사형 엘리베이터"
+],
 "highway/footway":[
 "보도"
 ],
@@ -1834,7 +1837,7 @@
 "루프선 (교통섬)"
 ],
 "highway/unclassified":[
-"비주요/미분류 도로"
+"비주요/마을 내 도로"
 ],
 "historic":[
 "사적지"
@@ -2306,9 +2309,6 @@
 "선양장",
 "선가대",
 "슬립웨이"
-],
-"leisure/slipway_point":[
-"선가대"
 ],
 "leisure/sports_centre":[
 "스포츠 센터/복합 시설",
@@ -4358,33 +4358,12 @@
 "type/restriction/no_right_turn":[
 "우회전 금지"
 ],
-"type/restriction/no_straight_on":[
-"직진 금지"
-],
-"type/restriction/no_u_turn":[
-"유턴 금지"
-],
-"type/restriction/only_left_turn":[
-"좌회전 전용"
-],
-"type/restriction/only_right_turn":[
-"우회전 전용"
-],
-"type/restriction/only_straight_on":[
-"직진 전용"
-],
-"type/restriction/only_u_turn":[
-"유턴 전용"
-],
 "type/route":[
 "경로",
 "노선"
 ],
 "type/route/aerialway":[
 "항공 노선"
-],
-"type/route/bicycle":[
-"자전거 노선"
 ],
 "type/route/bus":[
 "버스 노선"

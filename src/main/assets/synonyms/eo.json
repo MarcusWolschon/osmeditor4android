@@ -546,6 +546,12 @@
 "transseksa",
 "lgbt"
 ],
+"amenity/community_centre/youth_centre":[
+"komunuma centro",
+"Komunuma centro por junuloj",
+"klubejo",
+"azilo"
+],
 "amenity/compressed_air":[
 "kunpremilo",
 "kompresoro",
@@ -1001,6 +1007,12 @@
 "amenity/parking/park_ride":[
 "parkumejo",
 "Parkumejo P+R (ĉe publika transporto)"
+],
+"amenity/parking/street-side":[
+"chestrata parkumejo",
+"ĉestrata parkumejo",
+"apudstrata parkumejo",
+"Parkumejo apudstrata"
 ],
 "amenity/parking/underground":[
 "parkejo subtera",
@@ -3281,34 +3293,59 @@
 "endoma koridoro"
 ],
 "highway/crossing":[
-"Trapasejo"
+"Stratpasejo"
 ],
 "highway/crossing/marked":[
 "Stratpasejo zebrostria",
 "zebro",
 "pasejo",
+"piedira transirejo",
 "irejo",
-"trairejo"
+"trairejo",
+"stripasejo"
 ],
 "highway/crossing/marked-raised":[
 "pasejo",
 "stratĝibo",
 "Stratpasejo zebrostria (kun stratĝibo longa)",
+"piedira transirejo",
 "azendorso",
 "irejo",
+"trairejo",
+"malrapidigilo",
+"stripasejo"
+],
+"highway/crossing/signals":[
+"trafiklumoj",
+"pasejo",
+"Stratpasejo kun trafiklumoj",
+"piedira transpasejo",
+"transpasejo",
+"trairejo"
+],
+"highway/crossing/signals-raised":[
+"trafiklumoj",
+"pasejo",
+"stratĝibo",
+"piedira transirejo",
+"transpasejo",
+"azendorso",
+"Stratpasejo kun trafiklumoj (kun stratĝibo longa)",
 "trairejo",
 "malrapidigilo"
 ],
 "highway/crossing/unmarked":[
 "pasejo",
-"Stratpasejo",
-"irejo",
+"Stratpasejo nemarkita",
+"piedira transirejo",
+"transpasejo",
 "trairejo"
 ],
 "highway/crossing/unmarked-raised":[
 "pasejo",
 "stratĝibo",
-"Stratpasejo (kun stratĝibo longa)",
+"piedira transirejo",
+"Stratpasejo nemarkita (kun stratĝibo longa)",
 "azendorso",
 "irejo",
 "trairejo",
@@ -3338,6 +3375,7 @@
 "highway/cycleway/crossing/bicycle_foot":[
 "zebro",
 "pasejo",
+"transirejo",
 "biciklovojo",
 "Stratpasejo por biciklistoj k piedirantoj",
 "biciklvojo"
@@ -3426,6 +3464,8 @@
 "highway/footway/unmarked":[
 "pasejo",
 "Stratpasejo",
+"piedira transirejo",
+"transpasejo",
 "irejo",
 "trairejo"
 ],
@@ -3433,6 +3473,7 @@
 "pasejo",
 "stratĝibo",
 "Stratpasejo (kun stratĝibo longa)",
+"piedira transirejo",
 "azendorso",
 "irejo",
 "trairejo",
@@ -3515,6 +3556,7 @@
 "piedvojeto",
 "vojeto",
 "pado",
+"dezirpado",
 "irejo",
 "trotuaro"
 ],
@@ -4551,6 +4593,12 @@
 "netbalo",
 "Netbala ludkampo"
 ],
+"leisure/pitch/paintball":[
+"farbopafejo",
+"farbopafado",
+"Ludejo por farbopafado",
+"paintball"
+],
 "leisure/pitch/rugby_league":[
 "rugbio league",
 "rugbeejo",
@@ -4564,6 +4612,10 @@
 "rugbio",
 "rugbeo union",
 "Rugbeo-15 ludkampo"
+],
+"leisure/pitch/shooting":[
+"pafejo",
+"Pafejo sporta (eksterdoma)"
 ],
 "leisure/pitch/shuffleboard":[
 "glitŝtonludo",
@@ -4640,10 +4692,11 @@
 "sxipglitejo",
 "shipglitejo"
 ],
-"leisure/slipway_point":[
-"seka doko",
-"doko",
-"Ŝipglitejo"
+"leisure/slipway_drivable":[
+"sxipglitejo",
+"ŝipglitejo",
+"Enveturejo al ŝipglitejo",
+"shipglitejo"
 ],
 "leisure/sports_centre":[
 "sportejo",
@@ -4655,6 +4708,11 @@
 "grimpejo",
 "Sporta centro (grimpado)",
 "grimpado"
+],
+"leisure/sports_centre/shooting":[
+"pafejo",
+"Pafejo sporta (endoma)",
+"pafdomo"
 ],
 "leisure/sports_centre/swimming":[
 "nagxejo",
@@ -4798,6 +4856,16 @@
 "senarbigita areo",
 "senarba areo",
 "Hakita arbaro"
+],
+"man_made/compass_rose":[
+"Kompasrozo",
+"okcidento",
+"kompasorozo",
+"oriento",
+"sudo",
+"ventcirklo",
+"nordo",
+"ventorozo"
 ],
 "man_made/courtyard":[
 "interkonstruaĵo",
@@ -5151,6 +5219,14 @@
 "Fosto",
 "elektrofosto"
 ],
+"man_made/video_wall":[
+"led panelo",
+"Cifereca ekrano",
+"ekrano",
+"televidilo",
+"reklamo",
+"led-panelo"
+],
 "man_made/wastewater_plant":[
 "purigejo",
 "Akvopurigejo",
@@ -5323,6 +5399,15 @@
 "geovarma akvo",
 "Tervarma akvofonto"
 ],
+"natural/marsh":[
+"marcho",
+"marcxo",
+"ŝlimejo",
+"Marĉo (sen arboj)",
+"marsko",
+"aluvia grundo",
+"malsekejo"
+],
 "natural/mud":[
 "koto;malsekejo;ŝlimejo",
 "Kota tereno"
@@ -5336,6 +5421,11 @@
 "montpinto",
 "kulmino",
 "monteto"
+],
+"natural/reedbed":[
+"Kareksejo",
+"kanejo",
+"malsekejo"
 ],
 "natural/reef":[
 "submara roko",
@@ -5407,6 +5497,14 @@
 "ŝtonego",
 "sxtonego",
 "shtonego"
+],
+"natural/swamp":[
+"marcho",
+"marcxo",
+"Marĉo (kun arboj)",
+"ŝlimejo",
+"aluvia grundo",
+"malsekejo"
 ],
 "natural/tree":[
 "Arbo",
@@ -5565,6 +5663,7 @@
 "organizaĵo",
 "Oficejo de ne-profit-cela organizaĵo",
 "neregistara organizaĵo",
+"oficejo de asocio",
 "neprofitcela organizaĵo"
 ],
 "office/bail_bond_agent":[
@@ -7082,8 +7181,14 @@
 "kosmetikaĵoj"
 ],
 "shop/country_store":[
-"Ĝenerala vendejo",
-"ĝenerala vendejo"
+"ĝenerala vendejo",
+"gxenerala vendejo",
+"ghenerala vendejo",
+"vilagxa vendejo",
+"vilagha vendejo",
+"Ĝenerala vendejo en vilaĝo",
+"butiko oportuna",
+"vilaĝa vendejo"
 ],
 "shop/craft":[
 "artisto",
@@ -8376,27 +8481,40 @@
 "malantaŭen",
 "prohibo",
 "malpermeso",
-"Turno malantaŭen malpermesata"
+"Turniĝo malantaŭen malpermesata",
+"turnigho"
 ],
 "type/restriction/only_left_turn":[
-"liven",
-"Nur turno maldekstren",
-"maldekstren"
+"Nur turniĝo maldekstren",
+"malpermeso",
+"maldekstren",
+"devigo",
+"turnigho"
 ],
 "type/restriction/only_right_turn":[
-"Nur turno dekstren",
-"dekstren"
+"malpermeso",
+"devigo",
+"turnigho",
+"dekstren",
+"Nur turniĝo dekstren"
 ],
 "type/restriction/only_straight_on":[
+"prohibo",
+"malpermeso",
+"devigo",
 "Nur veturo rekten",
 "antaŭen",
 "rekten"
 ],
 "type/restriction/only_u_turn":[
-"Nur turno malantaŭen",
+"uforma",
+"u-forma",
 "malantaŭen",
-"u-turno",
-"reveturen"
+"Nur turniĝo malantaŭen",
+"prohibo",
+"malpermeso",
+"devigo",
+"turnigho"
 ],
 "type/route":[
 "Kurso",

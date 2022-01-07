@@ -2615,29 +2615,8 @@
 "type/restriction/no_right_turn":[
 "Engin hægri beygja"
 ],
-"type/restriction/no_straight_on":[
-"Ekki beint áfram"
-],
-"type/restriction/no_u_turn":[
-"Engin U-beygja"
-],
-"type/restriction/only_left_turn":[
-"Aðeins vinstri beygja"
-],
-"type/restriction/only_right_turn":[
-"Aðeins hægri beygja"
-],
-"type/restriction/only_straight_on":[
-"Aðeins beint áfram"
-],
-"type/restriction/only_u_turn":[
-"Aðeins U-beygja"
-],
 "type/route":[
 "Leið"
-],
-"type/route/bicycle":[
-"Hjólaleið"
 ],
 "type/route/bus":[
 "Strætóleið"

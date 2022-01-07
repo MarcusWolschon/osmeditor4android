@@ -1,4 +1,7 @@
 {
+"addr/interpolation":[
+"Address Interpolation"
+],
 "address":[
 "址",
 "地址"
@@ -648,7 +651,11 @@
 "amenity/fast_food/ice_cream":[
 "冰淇淋快餐"
 ],
+"amenity/fast_food/juice":[
+"Juice Fast Food"
+],
 "amenity/fast_food/kebab":[
+"烧烤",
 "烤串炸串店"
 ],
 "amenity/fast_food/mexican":[
@@ -765,6 +772,7 @@
 "闲置物品交换屋"
 ],
 "amenity/grave_yard":[
+"坟场",
 "墓地",
 "坟地"
 ],
@@ -801,13 +809,13 @@
 "唱歌",
 "唱",
 "卡拉",
-"KTV亭",
 "迷你ktv",
 "点唱亭",
 "点唱",
 "ktv",
 "迷你卡拉ok",
 "唱吧",
+"KTV",
 "卡拉ok"
 ],
 "amenity/kindergarten":[
@@ -1193,7 +1201,7 @@
 "邮政局"
 ],
 "amenity/prep_school":[
-"补习班/培训班/辅导班"
+"补习班"
 ],
 "amenity/prison":[
 "看守所",
@@ -1855,8 +1863,16 @@
 ],
 "amenity/townhall":[
 "市政府",
+"区政府",
+"市政中心",
+"乡镇县市区政府",
+"村礼堂",
 "市政厅",
-"大会堂"
+"大会堂",
+"村委会",
+"镇政府",
+"县政府",
+"乡政府"
 ],
 "amenity/townhall/city":[
 "政府",
@@ -2344,15 +2360,18 @@
 "游乐"
 ],
 "attraction/dark_ride":[
+"幽灵列车",
+"黑暗骑士",
 "游乐设施",
-"儿童乐园",
 "景点",
 "音效",
+"黑暗骑乘",
 "室内",
 "主题乐园",
 "游艺",
 "电影",
 "游乐园",
+"黑暗探险",
 "骑乘",
 "娱乐",
 "乐园",
@@ -2681,6 +2700,7 @@
 "商业建筑物",
 "写字楼",
 "商务办公楼",
+"商务建筑物",
 "办公楼"
 ],
 "building/construction":[
@@ -2690,6 +2710,7 @@
 "牛棚"
 ],
 "building/detached":[
+"独栋式别墅",
 "独立式房屋",
 "独栋住宅"
 ],
@@ -2744,7 +2765,7 @@
 ],
 "building/house":[
 "房屋",
-"洋房"
+"别墅楼"
 ],
 "building/houseboat":[
 "船屋"
@@ -2785,9 +2806,10 @@
 "building/retail":[
 "零售业建筑",
 "购物中心",
+"零售建筑物",
 "百货",
-"商场建筑",
-"商场"
+"商场",
+"商业建筑"
 ],
 "building/roof":[
 "屋顶",
@@ -2828,7 +2850,8 @@
 "房屋",
 "双拼",
 "半独立式房屋",
-"半独立"
+"半独立",
+"双拼式别墅"
 ],
 "building/service":[
 "服务建筑"
@@ -3678,6 +3701,14 @@
 "公交站"
 ],
 "highway/construction":[
+"关闭",
+"绕道",
+"施工",
+"封路",
+"挖路",
+"封闭",
+"在建",
+"修路",
 "关闭的道路"
 ],
 "highway/corridor":[
@@ -3944,7 +3975,13 @@
 "卡丁车赛道"
 ],
 "highway/raceway/motocross":[
-"摩托车越野赛道"
+"摩托赛道",
+"摩托越野赛车道",
+"摩托越野赛道",
+"摩托车越野赛道",
+"摩托车赛车道",
+"摩托赛车道",
+"摩托车赛道"
 ],
 "highway/residential":[
 "马路",
@@ -3964,11 +4001,15 @@
 "马路",
 "未知种类道路",
 "街道",
+"不明种类道路",
 "道路",
 "路"
 ],
 "highway/road/bridge":[
-"未知道路桥梁"
+"无等级",
+"不明道路",
+"不明等级",
+"未知种类桥梁"
 ],
 "highway/secondary":[
 "马路",
@@ -4035,7 +4076,9 @@
 ],
 "highway/speed_camera":[
 "电子眼",
+"监控头",
 "超速摄像头",
+"摄像头",
 "电子警察"
 ],
 "highway/steps":[
@@ -4174,12 +4217,15 @@
 "highway/unclassified":[
 "马路",
 "小型/未分级道路",
+"无等级道路",
 "公路",
 "小型道路",
 "未分级道路",
+"小型/等级外道路",
 "街道",
 "道路",
-"路"
+"路",
+"未知等级"
 ],
 "historic":[
 "历史地点",
@@ -4366,14 +4412,17 @@
 "空地"
 ],
 "landuse/cemetery":[
-"墓地"
+"墓园",
+"墓地",
+"墓园区",
+"陵园"
 ],
 "landuse/churchyard":[
 "教堂庭院"
 ],
 "landuse/commercial":[
 "商务",
-"商务办公用地",
+"商务区",
 "办公用地",
 "商业用地",
 "商业区"
@@ -4535,6 +4584,7 @@
 "住宅"
 ],
 "landuse/retail":[
+"零售区",
 "零售场所",
 "商业用地",
 "购物区",
@@ -4650,11 +4700,17 @@
 "leisure/fitness_station/balance_beam":[
 "平衡木"
 ],
+"leisure/fitness_station/box":[
+"健身箱"
+],
 "leisure/fitness_station/horizontal_bar":[
 "单杠"
 ],
 "leisure/fitness_station/horizontal_ladder":[
 "水平前进攀爬架"
+],
+"leisure/fitness_station/hyperextension":[
+"Hyperextension Station"
 ],
 "leisure/fitness_station/parallel_bars":[
 "双杠"
@@ -4824,11 +4880,20 @@
 "leisure/pitch/netball":[
 "无挡板篮球/篮网球场"
 ],
+"leisure/pitch/paintball":[
+"彩弹场",
+"水弹射击场",
+"漆弹场"
+],
 "leisure/pitch/rugby_league":[
 "橄榄球联盟场地"
 ],
 "leisure/pitch/rugby_union":[
 "橄榄球联合场地"
+],
+"leisure/pitch/shooting":[
+"射击场",
+"射击馆"
 ],
 "leisure/pitch/shuffleboard":[
 "沙壶球场"
@@ -4883,8 +4948,11 @@
 "leisure/slipway":[
 "船台"
 ],
-"leisure/slipway_point":[
-"船台下水滑道"
+"leisure/slipway_drivable":[
+"船台滑道",
+"滑道（可行驶）",
+"滑船道",
+"滑道"
 ],
 "leisure/sports_centre":[
 "综合体育场",
@@ -4897,6 +4965,10 @@
 ],
 "leisure/sports_centre/climbing":[
 "攀岩墙"
+],
+"leisure/sports_centre/shooting":[
+"射击场设施",
+"射击馆设施"
 ],
 "leisure/sports_centre/swimming":[
 "水",
@@ -5011,6 +5083,9 @@
 "桥梁区域",
 "桥面轮廓"
 ],
+"man_made/bunker_silo":[
+"Bunker Silo"
+],
 "man_made/cairn":[
 "石墩/玛尼石"
 ],
@@ -5072,6 +5147,9 @@
 "输送带",
 "货物传送带",
 "传送带"
+],
+"man_made/groyne":[
+"Groin"
 ],
 "man_made/lighthouse":[
 "灯塔"
@@ -5150,9 +5228,14 @@
 "手机通信塔"
 ],
 "man_made/mast/communication/radio":[
+"电波塔",
+"电台",
+"信号塔",
 "广播塔"
 ],
 "man_made/mast/communication/television":[
+"电台",
+"信号塔",
 "电视塔"
 ],
 "man_made/mineshaft":[
@@ -5183,6 +5266,8 @@
 "油井"
 ],
 "man_made/pier":[
+"栈桥",
+"水上平台",
 "码头"
 ],
 "man_made/pier/floating":[
@@ -5251,7 +5336,11 @@
 "探头"
 ],
 "man_made/surveillance/camera":[
-"监控摄像头"
+"电子眼",
+"监控头",
+"监控摄像头",
+"摄像头",
+"电子警察"
 ],
 "man_made/survey_point":[
 "测量点"
@@ -5285,12 +5374,23 @@
 "man_made/tower/observation":[
 "瞭望塔"
 ],
+"man_made/tower/pagoda":[
+"Pagoda"
+],
 "man_made/tunnel":[
 "下立交",
 "隧道区域",
 "隧道范围",
 "地道",
 "隧道"
+],
+"man_made/utility_pole":[
+"Utility Pole"
+],
+"man_made/video_wall":[
+"数码屏",
+"数码屏幕",
+"数码显示屏"
 ],
 "man_made/wastewater_plant":[
 "污水处理厂"
@@ -5357,6 +5457,9 @@
 "marker":[
 "标记物"
 ],
+"marker/utility":[
+"Utility Marker"
+],
 "marker/utility/power":[
 "发电站"
 ],
@@ -5411,6 +5514,11 @@
 "温泉",
 "温泉井"
 ],
+"natural/marsh":[
+"草本沼泽",
+"沼泽",
+"湿地"
+],
 "natural/mud":[
 "泥巴",
 "淤渣",
@@ -5423,6 +5531,11 @@
 ],
 "natural/peak":[
 "山峰"
+],
+"natural/reedbed":[
+"芦苇地",
+"苇地",
+"芦苇荡"
 ],
 "natural/reef":[
 "礁",
@@ -5488,6 +5601,10 @@
 ],
 "natural/stone":[
 "孤立岩石"
+],
+"natural/swamp":[
+"木本沼泽",
+"沼泽"
 ],
 "natural/tree":[
 "树"
@@ -5590,6 +5707,9 @@
 "山林",
 "森",
 "林区"
+],
+"network/type/node_network":[
+"Recreational Network Node"
 ],
 "noexit/yes":[
 "路终点",
@@ -5917,8 +6037,33 @@
 "废水",
 "污水"
 ],
+"piste/downhill":[
+"Downhill Ski Run"
+],
+"piste/downhill/halfpipe":[
+"Snowsports Half-Pipe"
+],
 "piste/hike":[
 "雪鞋/冬季徒步道"
+],
+"piste/ice_skate":[
+"Ice Skating Trail"
+],
+"piste/nordic":[
+"越野滑雪道",
+"滑雪赛道"
+],
+"piste/piste":[
+"Snowsports Trail / Piste"
+],
+"piste/skitour":[
+"Ski Touring Trail"
+],
+"piste/sled":[
+"Sled Run"
+],
+"piste/sleigh":[
+"Sleigh Trail"
 ],
 "place":[
 "地点"
@@ -5955,11 +6100,15 @@
 "社区",
 "街坊"
 ],
+"place/plot":[
+"Plot"
+],
 "place/quarter":[
-"街道办/片区",
-"街道",
-"片区",
-"办"
+"街区",
+"社区",
+"街区/社区",
+"里",
+"片区"
 ],
 "place/square":[
 "广场",
@@ -6037,6 +6186,9 @@
 "横杠",
 "回环",
 "杠子"
+],
+"playground/playhouse":[
+"Play House"
 ],
 "playground/roundabout":[
 "旋转平台 (儿童游乐)",
@@ -6563,9 +6715,11 @@
 "列车站"
 ],
 "public_transport/station_train_halt":[
-"列车站 (小站 / 招呼)",
+"小站",
 "车站",
+"乘降所",
 "动车",
+"招呼站",
 "列车",
 "铁路"
 ],
@@ -6709,7 +6863,8 @@
 "铁路"
 ],
 "railway/crossing":[
-"铁路-步道交叉口"
+"铁路-步道交叉口",
+"平交道口"
 ],
 "railway/derail":[
 "防护",
@@ -6746,6 +6901,7 @@
 "列车站 (小站 / 招呼)"
 ],
 "railway/level_crossing":[
+"平交道口",
 "铁路道路交叉口"
 ],
 "railway/light_rail":[
@@ -6832,6 +6988,7 @@
 "子弹头列车"
 ],
 "railway/railway_crossing":[
+"平交道口",
 "铁路-铁路交叉口"
 ],
 "railway/signal":[
@@ -6919,9 +7076,11 @@
 "电车轨道"
 ],
 "railway/tram_crossing":[
-"有轨电车-步道平交道口"
+"有轨电车-步道平交道口",
+"平交道口"
 ],
 "railway/tram_level_crossing":[
+"平交道口",
 "有轨电车-道路平交道口"
 ],
 "railway/tram_stop":[
@@ -6931,6 +7090,7 @@
 "货场",
 "货运站",
 "铁路货场",
+"铁路车场",
 "货运火车站",
 "铁路"
 ],
@@ -6947,6 +7107,21 @@
 ],
 "seamark":[
 "航标"
+],
+"seamark/beacon_isolated_danger":[
+"危险警号信号"
+],
+"seamark/beacon_lateral":[
+"航道标志"
+],
+"seamark/buoy_lateral":[
+"航道浮标"
+],
+"seamark/buoy_lateral/green":[
+"绿色浮标"
+],
+"seamark/buoy_lateral/red":[
+"Red Buoy"
 ],
 "seamark/mooring":[
 "系泊设备"
@@ -7075,6 +7250,8 @@
 "肉店"
 ],
 "shop/camera":[
+"摄影器材",
+"摄影器材店",
 "相机店"
 ],
 "shop/candles":[
@@ -7104,6 +7281,9 @@
 "shop/carpet":[
 "毯店",
 "地毯店"
+],
+"shop/catalogue":[
+"Catalog Shop"
 ],
 "shop/charity":[
 "慈善资助店",
@@ -7171,6 +7351,9 @@
 "shop/cosmetics":[
 "化妆品店",
 "日化店"
+],
+"shop/country_store":[
+"Country Store"
 ],
 "shop/craft":[
 "工艺美术用品店"
@@ -7324,6 +7507,9 @@
 ],
 "shop/hifi":[
 "音响店"
+],
+"shop/hobby":[
+"Hobby Shop"
 ],
 "shop/household_linen":[
 "布艺店"
@@ -7616,6 +7802,8 @@
 "清茶"
 ],
 "shop/telecommunication":[
+"电信办公室",
+"电信营业厅",
 "电信零售店"
 ],
 "shop/ticket":[
@@ -7698,7 +7886,8 @@
 "商场"
 ],
 "shop/wigs":[
-"假发专卖店"
+"假发专卖店",
+"假发店"
 ],
 "shop/window_blind":[
 "百叶窗店"
@@ -7851,6 +8040,9 @@
 "野外露营地",
 "扎营",
 "露营场地"
+],
+"tourism/camp_site/group_only":[
+"Group Camping Area"
 ],
 "tourism/caravan_site":[
 "房车营地"
@@ -8042,6 +8234,9 @@
 "traffic_sign":[
 "交通标志"
 ],
+"traffic_sign/city_limit":[
+"城市限制标志"
+],
 "traffic_sign/maxspeed":[
 "限速标志"
 ],
@@ -8051,6 +8246,9 @@
 "type/boundary/administrative":[
 "行政区边界",
 "行政边界"
+],
+"type/connectivity":[
+"车道连接性"
 ],
 "type/destination_sign":[
 "出口目的地标识",
@@ -8168,12 +8366,12 @@
 "空中航线"
 ],
 "type/route/bicycle":[
-"路线",
+"脚踏车路线",
+"脚踏车线路",
 "单车线路",
-"单车",
-"自行车",
+"单车路线",
 "自行车线路",
-"线路"
+"自行车路线"
 ],
 "type/route/bus":[
 "路线",
@@ -8208,7 +8406,8 @@
 "线路"
 ],
 "type/route/horse":[
-"骑马路线"
+"骑马路线",
+"骑马线路"
 ],
 "type/route/light_rail":[
 "路线",
@@ -8228,7 +8427,8 @@
 "单轨列车路线"
 ],
 "type/route/mtb":[
-"山地自行车路线"
+"山地自行车路线",
+"山地车路线"
 ],
 "type/route/pipeline":[
 "管道路线",

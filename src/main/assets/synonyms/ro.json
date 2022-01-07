@@ -11,6 +11,9 @@
 "aeroway/aerodrome":[
 "Aeroport"
 ],
+"aeroway/helipad":[
+"Heliport"
+],
 "amenity/arts_centre":[
 "Centru de Artă"
 ],
@@ -131,8 +134,14 @@
 "amenity/nightclub":[
 "Club de Noapte"
 ],
+"amenity/parking":[
+"Parcare"
+],
 "amenity/parking_space":[
 "Loc de Parcare"
+],
+"amenity/pharmacy":[
+"Farmacie"
 ],
 "amenity/place_of_worship":[
 "Loc de Rugăciune"
@@ -140,8 +149,17 @@
 "amenity/place_of_worship/buddhist":[
 "Templu Budist"
 ],
+"amenity/place_of_worship/christian":[
+"Biserică Creștină"
+],
 "amenity/place_of_worship/hindu":[
 "Templu Hinduist"
+],
+"amenity/place_of_worship/jewish":[
+"Sinagogă Evreiască"
+],
+"amenity/place_of_worship/muslim":[
+"Moschee Musulmană"
 ],
 "amenity/place_of_worship/shinto":[
 "Altar Shinto"
@@ -238,6 +256,9 @@
 ],
 "building":[
 "Clădire"
+],
+"building/apartments":[
+"Bloc de apartamente"
 ],
 "building/barn":[
 "Grajd"
@@ -373,6 +394,9 @@
 ],
 "emergency/defibrillator":[
 "Defibrilator"
+],
+"entrance":[
+"Intrare / Ieșire"
 ],
 "ford":[
 "Vad"
@@ -774,7 +798,7 @@
 "Agenție de Muncă"
 ],
 "office/estate_agent":[
-"Oficiu de Proprietate Imobiliară"
+"Agenție Imobiliară"
 ],
 "office/financial":[
 "Oficiu Financiar"
@@ -1183,7 +1207,7 @@
 "Galerie de Artă"
 ],
 "tourism/guest_house":[
-"Casă de Oaspeți"
+"Pensiune"
 ],
 "tourism/hostel":[
 "Hostel"
@@ -1248,17 +1272,8 @@
 "type/restriction/no_right_turn":[
 "Fără Întoarcere la Dreapta"
 ],
-"type/restriction/no_straight_on":[
-"Fără Drum Continuu"
-],
-"type/restriction/no_u_turn":[
-"Fără Întoarcere"
-],
 "type/route":[
 "Rută"
-],
-"type/route/bicycle":[
-"Rută de Biciclete"
 ],
 "type/route/bus":[
 "Traseu Autobuz"

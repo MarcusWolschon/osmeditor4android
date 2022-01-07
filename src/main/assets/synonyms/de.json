@@ -503,6 +503,17 @@
 "lgbtq+ gemeindezentrum",
 "LGBTQ+ Gemeindezentrum"
 ],
+"amenity/community_centre/youth_centre":[
+"jugendfreizeitheim",
+"jugendhaus",
+"jugendtreff",
+"jugendheim",
+"freizeitzentrum",
+"jugendclub",
+"jugendzentrum",
+"Jugendzentrum",
+"teenager"
+],
 "amenity/compressed_air":[
 "Druckluft",
 "druckluft",
@@ -635,9 +646,12 @@
 "smoothies",
 "fruchtgetränke",
 "juicebar",
+"gemüse",
 "shakes",
+"Saftbar",
 "säfte",
-"Juice Fast Food",
+"detox",
+"fruchtsaft",
 "café"
 ],
 "amenity/fast_food/kebab":[
@@ -912,6 +926,18 @@
 "Park & Ride-Platz",
 "eisenbahnparkplatz"
 ],
+"amenity/parking/street-side":[
+"parknische",
+"auto-parken",
+"parken am straßenrand",
+"Straßenseitiges Parken",
+"fahrzeug-parken",
+"parkbucht",
+"straßen-parken",
+"parkhafen",
+"straßenseitiges parken",
+"parktasche"
+],
 "amenity/parking/underground":[
 "Tiefgarage",
 "unterirdische garage",
@@ -1185,9 +1211,14 @@
 "abfallwirtschaftshof"
 ],
 "amenity/recycling_container":[
+"altpapiercontainer",
+"altglascontainer",
 "recyclingcontainer",
 "wertstoffhof",
-"Recyclingcontainer"
+"Recyclingcontainer",
+"altkleidecontainer",
+"altkleidersammlung",
+"altmetallcontainer"
 ],
 "amenity/refugee_site":[
 "Flüchtlingslager",
@@ -3021,6 +3052,20 @@
 "zebrastreifen (erhöht)",
 "markierter / gekennzeichneter Übergang (erhöht)"
 ],
+"highway/crossing/signals":[
+"fahrradüberweg (ampel)",
+"fußgängerüberweg (ampel)",
+"fußgängerampel",
+"zebrastreifen (ampel)",
+"Kreuzung mit Fußgängerampel"
+],
+"highway/crossing/signals-raised":[
+"Kreuzung mit Fußgängersignalen (erhöht)",
+"fahrradüberweg (ampel)",
+"fußgängerüberweg (ampel)",
+"fußgängerampel",
+"zebrastreifen (ampel)"
+],
 "highway/crossing/unmarked":[
 "Nicht gekennzeichneter Übergang",
 "nicht gekennzeichneter übergang",
@@ -4342,6 +4387,12 @@
 "Netballfeld",
 "netballfeld"
 ],
+"leisure/pitch/paintball":[
+"gotcha",
+"Paintball Gelände",
+"paintball",
+"supair"
+],
 "leisure/pitch/rugby_league":[
 "rugby-league-feld",
 "Rugby-League-Feld"
@@ -4349,6 +4400,24 @@
 "leisure/pitch/rugby_union":[
 "rugby-union-feld",
 "Rugby-Union-Feld"
+],
+"leisure/pitch/shooting":[
+"schützenhaus",
+"schießplatz",
+"schützenstand",
+"scheibenstand",
+"Schießbahn",
+"schießkeller",
+"schießübungsplatz",
+"schießhalle",
+"schießen",
+"schießbahn",
+"schießsport",
+"schussfeld",
+"raumschießanlage",
+"sportschießen",
+"schießstätte",
+"schießstand"
 ],
 "leisure/pitch/shuffleboard":[
 "Shuffleboard-Platz",
@@ -4413,13 +4482,11 @@
 "Gleitbahn",
 "sliprampe"
 ],
-"leisure/slipway_point":[
-"helling",
-"slipanlage",
-"ablaufbahn",
-"gleitbahn",
-"Gleitbahn",
-"sliprampe"
+"leisure/slipway_drivable":[
+"bootsanleger",
+"bootsrampe",
+"bootsanlegestelle",
+"Slipanlage (befahrbar)"
 ],
 "leisure/sports_centre":[
 "sportcomplex",
@@ -4431,6 +4498,24 @@
 "leisure/sports_centre/climbing":[
 "Kletterhalle",
 "kletterhalle"
+],
+"leisure/sports_centre/shooting":[
+"schützenhaus",
+"schießplatz",
+"schützenstand",
+"scheibenstand",
+"schießkeller",
+"schießübungsplatz",
+"schießhalle",
+"schießen",
+"Schießsportanlage",
+"schießbahn",
+"schießsport",
+"schussfeld",
+"raumschießanlage",
+"sportschießen",
+"schießstätte",
+"schießstand"
 ],
 "leisure/sports_centre/swimming":[
 "Badeanstalt",
@@ -4577,6 +4662,15 @@
 "kahlfläche",
 "kahlschlagfläche"
 ],
+"man_made/compass_rose":[
+"nord",
+"ost",
+"windrose",
+"kompass",
+"west",
+"süd",
+"Kompassrose"
+],
 "man_made/courtyard":[
 "freier himmel",
 "Innenhof",
@@ -4619,8 +4713,9 @@
 "böschung"
 ],
 "man_made/flagpole":[
+"flagge",
 "flaggenmast",
-"Fahnenstange",
+"Fahnenmast",
 "fahne"
 ],
 "man_made/gasometer":[
@@ -4917,6 +5012,17 @@
 "strommast",
 "Mast (Versorgung allgemein)"
 ],
+"man_made/video_wall":[
+"tv",
+"projektion",
+"bildschirm",
+"videowall",
+"großbild",
+"leinwand",
+"videowand",
+"led",
+"Großbildleinwand"
+],
 "man_made/wastewater_plant":[
 "abwasserreinigungsanlage",
 "Kläranlage",
@@ -5071,6 +5177,10 @@
 "Thermalquelle",
 "heißwasserpool"
 ],
+"natural/marsh":[
+"Sumpf",
+"sumpf"
+],
 "natural/mud":[
 "morast",
 "schlamm",
@@ -5086,6 +5196,12 @@
 "hügel",
 "zipfel",
 "bergkuppe"
+],
+"natural/reedbed":[
+"rohrkolbenschwanz",
+"schilf",
+"Schilfbett",
+"rohrkolben"
 ],
 "natural/reef":[
 "Riff",
@@ -5175,6 +5291,10 @@
 "gesteinsblock",
 "Gesteinsblock",
 "felsbrocken"
+],
+"natural/swamp":[
+"Moor",
+"moor"
 ],
 "natural/tree":[
 "Baum",
@@ -5329,15 +5449,21 @@
 "architekt"
 ],
 "office/association":[
+"bundesverband",
+"verein",
+"arbeitgeberverband",
+"e.v.",
 "büro einer nonprofit-organisation",
 "vereinsheim",
 "verband",
-"verein",
 "studentenverbindung",
+"ngo",
+"Büro eines Berufs- oder Interessenverbands",
 "npo-büro",
-"Büro einer Nonprofit-Organisation",
-"vereinsbüro",
-"e.v."
+"wohlfahrtsverband",
+"berufsverband",
+"interessenverband",
+"vereinsbüro"
 ],
 "office/bail_bond_agent":[
 "kautionsvermittler",
@@ -5569,7 +5695,7 @@
 ],
 "office/surveyor":[
 "sachverständiger",
-"Vermessungstechniker",
+"Sachverständigenbüro",
 "vermessungstechniker",
 "gutachter"
 ],
@@ -5902,7 +6028,7 @@
 ],
 "power/generator/method/photovoltaic/location/roof":[
 "dachsolaranlage",
-"Haudach-Solaranlage",
+"Hausdach-Solaranlage",
 "hausdach-solaranlage",
 "fotovoltaikmodul"
 ],
@@ -8038,8 +8164,8 @@
 "kehrtwende verboten",
 "umkehren verboten",
 "keine umkehren",
-"Keine Kehrtwende",
-"kein umdrehen"
+"kein umdrehen",
+"Kehrtwendeverbot"
 ],
 "type/restriction/only_left_turn":[
 "nur linksabbiegen",

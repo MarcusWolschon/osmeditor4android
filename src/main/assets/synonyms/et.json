@@ -711,7 +711,7 @@
 "õppehoone"
 ],
 "building/semidetached_house":[
-"Ridaelamu",
+"Ridaelamu kahele leibkonnale",
 "elumajaosa"
 ],
 "building/shed":[
@@ -796,12 +796,18 @@
 "craft/electrician":[
 "Elektrik"
 ],
+"craft/electronics_repair":[
+"Elektroonikaparandus"
+],
 "craft/gardener":[
 "Aednik"
 ],
 "craft/glaziery":[
 "Klaasissepp",
 "klaasimesiter"
+],
+"craft/hvac":[
+"Kliimatehnik"
 ],
 "craft/insulator":[
 "isolatsioon",
@@ -1503,13 +1509,6 @@
 "Slipp",
 "slipp"
 ],
-"leisure/slipway_point":[
-"paadi",
-"merre",
-"vettelaskmise",
-"laeva",
-"Slipp"
-],
 "leisure/sports_centre":[
 "Spordikeskus",
 "spordikompleks"
@@ -1925,8 +1924,17 @@
 "office/diplomatic/embassy":[
 "Saatkond"
 ],
+"office/forestry":[
+"Metsaamet"
+],
 "office/government":[
 "Valitsuse kontor"
+],
+"office/government/prosecutor":[
+"Prokuratuur"
+],
+"office/government/tax":[
+"Maksuamet"
 ],
 "office/travel_agent":[
 "Reisibüroo"
@@ -2200,6 +2208,9 @@
 "shop/coffee":[
 "Kohvipood"
 ],
+"shop/collector":[
+"Pood kollektsionääridele"
+],
 "shop/computer":[
 "arvutitarvikud",
 "Arvutipood",
@@ -2248,6 +2259,9 @@
 "Ehituskauplus",
 "ehitustarvikud",
 "santehnika"
+],
+"shop/doors":[
+"Uksepood"
 ],
 "shop/dry_cleaning":[
 "Keemiline puhastus"
@@ -2887,32 +2901,8 @@
 "type/restriction/no_right_turn":[
 "Parempööre keelatud"
 ],
-"type/restriction/no_straight_on":[
-"Edasisõit keelatud"
-],
-"type/restriction/no_u_turn":[
-"Tagasipööre keelatud"
-],
-"type/restriction/only_left_turn":[
-"Ainult vasakpööre"
-],
-"type/restriction/only_right_turn":[
-"Ainult parempööre"
-],
-"type/restriction/only_straight_on":[
-"Ainult otse"
-],
-"type/restriction/only_u_turn":[
-"Ainult ümberpöörd"
-],
 "type/route":[
 "Marsruut"
-],
-"type/route/bicycle":[
-"rattatee",
-"rattamarsruut",
-"jalgrattatee",
-"Jalgrattamarsruut"
 ],
 "type/route/bus":[
 "Bussimarsruut",

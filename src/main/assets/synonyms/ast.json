@@ -2155,17 +2155,8 @@
 "type/restriction/no_right_turn":[
 "Xiru a la drecha torgáu"
 ],
-"type/restriction/no_straight_on":[
-"Nun siguir de frente"
-],
-"type/restriction/no_u_turn":[
-"Sin cambiu de sentíu"
-],
 "type/route":[
 "Ruta"
-],
-"type/route/bicycle":[
-"Ruta ciclista"
 ],
 "type/route/bus":[
 "Ruta d'autobús"

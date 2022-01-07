@@ -97,7 +97,7 @@
 "tirolesa"
 ],
 "aeroway":[
-"Recurso aéreos"
+"Elemento aeroportuário"
 ],
 "aeroway/aerodrome":[
 "aeródromo",
@@ -445,6 +445,12 @@
 "Centro comunitário LGBTQ+",
 "centro comunitário lgbtq+"
 ],
+"amenity/community_centre/youth_centre":[
+"centro de juventude",
+"Centro de juventude",
+"centro comunitário",
+"centro de jovens"
+],
 "amenity/compressed_air":[
 "Bomba de ar comprimido",
 "bicicleta",
@@ -464,7 +470,7 @@
 "tribunal"
 ],
 "amenity/coworking_space":[
-"Espaço de Coworking"
+"Espaço de coworking"
 ],
 "amenity/crematorium":[
 "funeral",
@@ -841,6 +847,14 @@
 "parque de estacionamento integrado",
 "parque de estacionamento de metro",
 "p&r"
+],
+"amenity/parking/street-side":[
+"estacionamento",
+"estacionar ao lado da rua",
+"estacionar",
+"estacionamento na rua",
+"estacionar na rua",
+"Estacionamento ao lado da rua"
 ],
 "amenity/parking/underground":[
 "Estacionamento subterrâneo",
@@ -1287,8 +1301,8 @@
 "abrigo para piquenique"
 ],
 "amenity/shelter/public_transport":[
-"abrigo de trânsito",
-"Abrigo de trânsito"
+"Abrigo para passageiros",
+"abrigo de trânsito"
 ],
 "amenity/shower":[
 "banho",
@@ -1560,7 +1574,7 @@
 "máquina de vendas de bilhete de estacionamento",
 "carro",
 "bilhete de estacionamento",
-"Máquina de Vendas de Ticket de Estacionamento"
+"Máquina de vendas de ticket de estacionamento"
 ],
 "amenity/vending_machine/public_transport_tickets":[
 "trem",
@@ -2926,7 +2940,7 @@
 "fala"
 ],
 "highway":[
-"Recurso de via terrestre"
+"Elemento de via terrestre"
 ],
 "highway/bridleway":[
 "cavalo",
@@ -2954,13 +2968,13 @@
 "via fechada"
 ],
 "highway/corridor":[
-"Corredor Interno",
 "corredor interior",
 "corredor interno",
+"Corredor interno",
 "corredor coberto"
 ],
 "highway/crossing":[
-"Cruzamento"
+"Travessia"
 ],
 "highway/crossing/marked":[
 "Faixa de pedestres",
@@ -2971,13 +2985,27 @@
 "Faixa de pedestres elevada",
 "travessia de pedestres elevada"
 ],
+"highway/crossing/signals":[
+"passagem",
+"cruzamento",
+"luzes",
+"pedestre",
+"cruzar",
+"atravessar",
+"travessia",
+"luminosos",
+"Faixa de pedestres com semáforos"
+],
+"highway/crossing/signals-raised":[
+"Faixa de pedestres elevada com semáforo"
+],
 "highway/crossing/unmarked":[
-"travessia de pedestres",
-"Travessia de pedestres"
+"travessia de pedestres não marcada",
+"Travessia de pedestres não marcada"
 ],
 "highway/crossing/unmarked-raised":[
 "travessia de pedestres elevada",
-"Travessia de pedestres elevada"
+"Travessia de pedestres elevada não marcada"
 ],
 "highway/crossing/zebra":[
 "Faixa de pedestres"
@@ -2998,19 +3026,19 @@
 "ciclovia e via de pedestre"
 ],
 "highway/cycleway/crossing":[
-"Cruzamento de Ciclo"
+"Travessia de bicicleta"
 ],
 "highway/cycleway/crossing/bicycle_foot":[
-"ciclovia e cruzamento do pedestres",
-"Ciclovia e Cruzamento do pedestres"
+"travessia de pedestres com ciclovia",
+"Travessia de pedestres com ciclovia"
 ],
 "highway/cycleway/crossing/marked":[
-"travessia de ciclo marcado",
-"Travessia de ciclo marcado"
+"travessia de bicicleta marcada",
+"Travessia de bicicleta marcada"
 ],
 "highway/cycleway/crossing/unmarked":[
-"Travessia de ciclo não marcado",
-"travessia de ciclo não marcado"
+"travessia de ciclo não marcada",
+"Travessia de bicicleta não marcada"
 ],
 "highway/elevator":[
 "elevador",
@@ -3049,7 +3077,7 @@
 "esteira rolante"
 ],
 "highway/footway/crossing":[
-"Faixa de pedestres"
+"Travessia de pedestres"
 ],
 "highway/footway/marked":[
 "Faixa de pedestres",
@@ -3065,12 +3093,12 @@
 "calçada"
 ],
 "highway/footway/unmarked":[
-"travessia de pedestres",
-"Travessia de pedestres"
+"travessia de pedestres não marcada",
+"Travessia de pedestres não marcada"
 ],
 "highway/footway/unmarked-raised":[
 "travessia de pedestres elevada",
-"Travessia de pedestres elevada"
+"Travessia de pedestres elevada sem marcação"
 ],
 "highway/footway/zebra":[
 "Faixa de pedestres"
@@ -3537,7 +3565,7 @@
 "Entroncamento"
 ],
 "landuse":[
-"Recurso de uso da terra"
+"Elemento de uso do solo"
 ],
 "landuse/allotments":[
 "loteamentos de jardim",
@@ -3688,8 +3716,7 @@
 "pasto",
 "pastagem",
 "fazenda",
-"Pasto ou prado",
-"área de pasto"
+"Pasto ou prado"
 ],
 "landuse/orchard":[
 "pomar",
@@ -3772,7 +3799,7 @@
 "Área de esportes de inverno"
 ],
 "leisure":[
-"Recurso de lazer"
+"Elemento de lazer"
 ],
 "leisure/adult_gaming_centre":[
 "centro de jogos adutos",
@@ -3968,8 +3995,8 @@
 ],
 "leisure/golf_course":[
 "campo de golfe",
-"golfe",
-"Campo de Golfe"
+"Campo de golfe",
+"golfe"
 ],
 "leisure/hackerspace":[
 "hackspace",
@@ -4078,13 +4105,12 @@
 "praia",
 "arena",
 "vôlei",
-"Quadra de Voleibol de Praia"
+"Quadra de voleibol de praia"
 ],
 "leisure/pitch/boules":[
 "bocce",
 "boccia",
 "raffa",
-"Quadra de Boules/Bocha",
 "bocha",
 "cancha de bocha",
 "bowls",
@@ -4092,6 +4118,7 @@
 "boule lyonnaise",
 "pista de bocha",
 "pètanque",
+"Quadra de boules/bocha",
 "boules"
 ],
 "leisure/pitch/bowls":[
@@ -4139,6 +4166,10 @@
 "Tribunal de Netball",
 "tribunal de netball"
 ],
+"leisure/pitch/paintball":[
+"campo de paintball",
+"Campo de paintball"
+],
 "leisure/pitch/rugby_league":[
 "Campo de Rugby League",
 "gramado",
@@ -4150,6 +4181,14 @@
 "Campo de Rugby Union",
 "union",
 "campo"
+],
+"leisure/pitch/shooting":[
+"quadra de tiro",
+"tiro",
+"Campo de tiro (local da prática)",
+"tiro-ao-alvo",
+"pedana",
+"campo de tiro"
 ],
 "leisure/pitch/shuffleboard":[
 "shuffleboard",
@@ -4188,7 +4227,7 @@
 ],
 "leisure/pitch/volleyball":[
 "quadra de vôlei",
-"Quadra de Voleibol"
+"Quadra de voleibol"
 ],
 "leisure/playground":[
 "escorrega",
@@ -4226,9 +4265,8 @@
 "rampa náutica",
 "Rampa náutica"
 ],
-"leisure/slipway_point":[
-"Rampa de lançamento",
-"rampa de lançamento"
+"leisure/slipway_drivable":[
+"Rampa de lançamento (trafegável)"
 ],
 "leisure/sports_centre":[
 "centro de esportes",
@@ -4240,6 +4278,12 @@
 "leisure/sports_centre/climbing":[
 "Academia de escalada",
 "academia de escalada"
+],
+"leisure/sports_centre/shooting":[
+"tiro",
+"tiro-ao-alvo",
+"Campo de tiro (clube)",
+"campo de tiro"
 ],
 "leisure/sports_centre/swimming":[
 "Academia de Natação",
@@ -4316,14 +4360,14 @@
 "Linha"
 ],
 "man_made":[
-"Recurso de construção humana"
+"Elemento de construção humana"
 ],
 "man_made/adit":[
 "passagem",
 "acesso",
 "entrada",
-"mina",
-"Ádito de Mineração"
+"Ádito de mineração",
+"mina"
 ],
 "man_made/antenna":[
 "antena",
@@ -4367,6 +4411,9 @@
 "man_made/clearcut":[
 "Floresta desmatada",
 "floresta desmatada"
+],
+"man_made/compass_rose":[
+"Rosa-dos-ventos"
 ],
 "man_made/courtyard":[
 "Pátio",
@@ -4496,11 +4543,11 @@
 "observatório"
 ],
 "man_made/petroleum_well":[
+"Poço de petróleo",
 "cavalo mecânico",
 "poço de extração de petróleo",
 "óleo",
-"petróleo",
-"Poço de Petróleo"
+"petróleo"
 ],
 "man_made/pier":[
 "ponte-cais",
@@ -4643,6 +4690,14 @@
 "poste",
 "Poste"
 ],
+"man_made/video_wall":[
+"telão led",
+"Telão",
+"painel de vídeo externo",
+"painel de publicidade",
+"painel led",
+"tela digital"
+],
 "man_made/wastewater_plant":[
 "Estação de Tratamento de Esgoto",
 "estação de tratamento de dejetos líquidos"
@@ -4657,7 +4712,7 @@
 "castelo d'água",
 "castelo de água",
 "água",
-"Caixa d'Água",
+"Caixa d'água",
 "caixa d'água",
 "torre",
 "reservatório de água elevado"
@@ -4706,7 +4761,7 @@
 "Marcador de potência"
 ],
 "natural":[
-"Feição da Natureza"
+"Elemento natural"
 ],
 "natural/bare_rock":[
 "solo rochoso",
@@ -4756,7 +4811,7 @@
 ],
 "natural/coastline":[
 "linha costeira",
-"Orla Marítima",
+"Orla marítima",
 "orla marítima"
 ],
 "natural/fell":[
@@ -4784,7 +4839,9 @@
 "pradaria",
 "vegetação",
 "gramínea",
+"capim",
 "Pradaria",
+"mato",
 "vegetação rasteira"
 ],
 "natural/heath":[
@@ -4797,6 +4854,9 @@
 "natural/hot_spring":[
 "Fonte termal",
 "fonte termal"
+],
+"natural/marsh":[
+"Brejo"
 ],
 "natural/mud":[
 "mangue",
@@ -4813,6 +4873,9 @@
 "monte",
 "Cume",
 "serra"
+],
+"natural/reedbed":[
+"Leito de juncos"
 ],
 "natural/reef":[
 "Recife",
@@ -4842,8 +4905,8 @@
 "natural/saddle":[
 "passo",
 "passo de montanha",
-"Passo de Montanha",
-"topo"
+"topo",
+"Passo de montanha"
 ],
 "natural/sand":[
 "areia",
@@ -4883,6 +4946,9 @@
 "natural/stone":[
 "Pedra Deserta / Pedregulho",
 "pedra deserta / pedregulho"
+],
+"natural/swamp":[
+"Pântano"
 ],
 "natural/tree":[
 "vegetação",
@@ -5061,7 +5127,7 @@
 "office/coworking":[
 "lugar de coworking",
 "coworking",
-"Espaço de Coworking",
+"Espaço de coworking",
 "escritório compartilhado"
 ],
 "office/diplomatic":[
@@ -5571,7 +5637,7 @@
 "usina de carvão"
 ],
 "power/plant/source/gas":[
-"Usina a Gás",
+"Usina a gás",
 "usina a gás"
 ],
 "power/plant/source/hydro":[
@@ -5850,7 +5916,7 @@
 "localização de parada do trólebus"
 ],
 "railway":[
-"Recurso de ferrovia"
+"Elemento ferroviário"
 ],
 "railway/abandoned":[
 "Ferrovia Abandonada",
@@ -5872,7 +5938,12 @@
 ],
 "railway/crossing":[
 "cruzamento de ferrovia-pedestre",
-"Cruzamento de ferrovia-pedestre"
+"cruzamento",
+"passagem de nível",
+"cancela",
+"Passagem em nível de pedestre",
+"passagem em nível",
+"travessia"
 ],
 "railway/derail":[
 "trem",
@@ -5893,8 +5964,12 @@
 "Estação de trem (parada / pedido)"
 ],
 "railway/level_crossing":[
+"cruzamento",
+"Passagem em nível com estrada",
 "cruzamento de ferrovia-estrada",
-"Cruzamento de ferrovia-estrada"
+"passagem de nível",
+"cancela",
+"passagem em nível"
 ],
 "railway/light_rail":[
 "veículo leve sobre trilhos (vlt)",
@@ -5985,12 +6060,12 @@
 "trilho de bonde"
 ],
 "railway/tram_crossing":[
-"cruzamento de bonde",
-"Cruzamento de bonde"
+"travessia de bonde com caminho",
+"Travessia de bonde com caminho"
 ],
 "railway/tram_level_crossing":[
-"cruzamento de estrada de bonde",
-"Cruzamento de estrada de bonde"
+"travessia de bonde com via",
+"Travessia de bonde com via"
 ],
 "railway/tram_stop":[
 "Posição de parada do bonde"
@@ -6468,12 +6543,12 @@
 "Centro de Jardinagem"
 ],
 "shop/gas":[
-"Distribuidor de Gás",
+"depósito de gás",
 "botijão",
-"ultragaz",
+"Distribuidora de GLP",
 "glp",
 "fornecedor",
-"ultragás"
+"gás de cozinha"
 ],
 "shop/general":[
 "Loja geral",
@@ -6544,9 +6619,9 @@
 "Loja de roupa de casa"
 ],
 "shop/houseware":[
-"Loja de Utensílios Domésticos",
 "loja de acessórios para casa",
-"loja de utensílios"
+"loja de utensílios",
+"Loja de utensílios domésticos"
 ],
 "shop/hunting":[
 "loja de caça",
@@ -6797,6 +6872,7 @@
 "artigos usados"
 ],
 "shop/sewing":[
+"armarinho",
 "Loja de suprimentos de costura",
 "loja de suprimentos de costura"
 ],
@@ -6849,9 +6925,9 @@
 "shop/tattoo":[
 "tattoo",
 "piercing",
+"Estúdio de tatuagem",
 "bodymod",
-"tatuagem",
-"Estúdio de Tatuagem"
+"tatuagem"
 ],
 "shop/tea":[
 "loja de chás",
@@ -6945,14 +7021,14 @@
 "Loja de Água Potável"
 ],
 "shop/water_sports":[
-"Loja de Esportes Aquáticos",
+"Loja de esportes aquáticos",
 "loja de esportes áquáticos",
 "loja de artigos para natação",
 "loja de equipamentos para esportes áquáticos"
 ],
 "shop/weapons":[
 "loja de tiro",
-"Loja de Armas",
+"Loja de armas",
 "loja de equipamentos de tiro"
 ],
 "shop/wholesale":[
@@ -6967,7 +7043,7 @@
 "shop/window_blind":[
 "cortinas",
 "loja de vidros blindados",
-"Loja de Persianas"
+"Loja de persianas"
 ],
 "shop/wine":[
 "adega",
@@ -6986,7 +7062,7 @@
 "Câmbio de telecomunicações"
 ],
 "tourism":[
-"Recurso de turismo"
+"Elemento turístico"
 ],
 "tourism/alpine_hut":[
 "Abrigo de montanha",
@@ -7302,30 +7378,38 @@
 "proibido virar à direita"
 ],
 "type/restriction/no_straight_on":[
-"Proibido Seguir em Frente",
-"proibido seguir em frente"
+"contra-mão",
+"proibido seguir em frente",
+"contramão",
+"sentido proibido",
+"Proibido seguir em frente"
 ],
 "type/restriction/no_u_turn":[
-"Proibido Retornar",
-"proibido retornar"
+"proibido retorno",
+"Proibido retornar",
+"proibido retornar",
+"retorno proibido"
 ],
 "type/restriction/only_left_turn":[
-"Apenas curva à esquerda",
-"curva à esquerda obrigatória",
-"conversão à esquerda"
+"virar à esquerda",
+"vire à esquerda",
+"Virar à esquerda"
 ],
 "type/restriction/only_right_turn":[
-"Apenas curva à direita",
-"conversão à direita",
-"curva à direita obrigatória"
+"vire à direita",
+"Virar à direita",
+"virar à direita"
 ],
 "type/restriction/only_straight_on":[
+"somente siga em frente",
+"siga em frente",
 "somente seguir em frente",
-"Apenas seguir em frente"
+"Siga em frente"
 ],
 "type/restriction/only_u_turn":[
-"Apenas retorno",
-"somente retornar",
+"somente retorno",
+"retornar",
+"Somente retorno",
 "retorno obrigatório"
 ],
 "type/route":[
@@ -7337,9 +7421,16 @@
 "Rota aérea"
 ],
 "type/route/bicycle":[
-"Rota Ciclística",
-"ciclo rota",
-"rota ciclística"
+"rota de bicicletas",
+"bicicleta",
+"ciclovia",
+"Rota de bicicleta",
+"rota ciclística",
+"ciclável",
+"ciclistas",
+"ciclística",
+"ciclismo",
+"bike"
 ],
 "type/route/bus":[
 "Rota de Ônibus",
@@ -7440,7 +7531,7 @@
 "Hidrovia"
 ],
 "waterway":[
-"Recurso de hidrovia"
+"Elemento hidrográfico"
 ],
 "waterway/boatyard":[
 "Estaleiro",
@@ -7481,7 +7572,7 @@
 "ponto de combustível marítimo",
 "pier de combustível marítimo",
 "ponto de abastecimento marítimo",
-"Posto de Combustível Marítimo"
+"Posto de combustível marítimo"
 ],
 "waterway/lock_gate":[
 "portão de dique",
@@ -7502,7 +7593,7 @@
 "porto",
 "marina",
 "pier",
-"Ponto de Descarga de Dejetos (para barcos)",
+"Ponto de descarga de dejetos (para barcos)",
 "banheiro",
 "mar"
 ],

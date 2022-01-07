@@ -944,6 +944,9 @@
 "parkoviště",
 "parkování u vlaku"
 ],
+"amenity/parking/street-side":[
+"Parkování po straně cesty"
+],
 "amenity/parking/underground":[
 "podzemní garáž",
 "parkování vozidel",
@@ -1005,7 +1008,8 @@
 "Platební terminál"
 ],
 "amenity/pharmacy":[
-"Okénko/přepážka lékárny"
+"lekarna",
+"Lékárna"
 ],
 "amenity/photo_booth":[
 "Foto budka"
@@ -1356,7 +1360,7 @@
 "Altánek"
 ],
 "amenity/shelter/lean_to":[
-"opěradlo / místo k opření"
+"Otevřený přístřešek"
 ],
 "amenity/shelter/picnic_shelter":[
 "Kryté odpočívadlo"
@@ -1869,7 +1873,8 @@
 "Brána"
 ],
 "barrier/guard_rail":[
-"Svodidla"
+"svodidla",
+"Svodidlo"
 ],
 "barrier/hedge":[
 "živý plot",
@@ -2107,7 +2112,7 @@
 ],
 "building/garages":[
 "garáže",
-"Budova garáží",
+"Budova soukromých garáží",
 "kryté parkování",
 "parkování",
 "garáž"
@@ -3085,6 +3090,12 @@
 "zvýšená plocha pro přecházení",
 "přechod"
 ],
+"highway/crossing/signals":[
+"Přechod se semaforem pro chodce"
+],
+"highway/crossing/signals-raised":[
+"Přechod se semaforem pro chodce (zvýšený)"
+],
 "highway/crossing/unmarked":[
 "místo pro přecházení",
 "neoznačený přechod",
@@ -3147,6 +3158,7 @@
 "plocha pro přejezd cyklistů přes pozemní komunikaci",
 "cyklista a chodec",
 "přechod pro cyklisty",
+"Přechod pro chodce a cyklisty",
 "sdružený přechod pro chodce a přejezd pro cyklisty",
 "přejezd pro cyklisty a chodce",
 "pro pěší a cyklisty",
@@ -3668,7 +3680,7 @@
 "Historická pevnost"
 ],
 "historic/manor":[
-"Panský dům"
+"Kaštel"
 ],
 "historic/memorial":[
 "pomník",
@@ -3835,7 +3847,7 @@
 "Lesní porost"
 ],
 "landuse/garages":[
-"Garáže"
+"Oblast soukromých garáží"
 ],
 "landuse/grass":[
 "Tráva"
@@ -3952,7 +3964,7 @@
 "obytné"
 ],
 "landuse/residential/apartments":[
-"Obytný dům"
+"Oblast s bytovými budovami"
 ],
 "landuse/retail":[
 "obchod",
@@ -4151,6 +4163,9 @@
 "kluziště",
 "Kluziště",
 "led"
+],
+"leisure/indoor_play":[
+"Vnitřní herní centrum"
 ],
 "leisure/marina":[
 "jachty",
@@ -4353,9 +4368,6 @@
 "skluzavka",
 "Vodní skluz"
 ],
-"leisure/slipway_point":[
-"lodní skluz"
-],
 "leisure/sports_centre":[
 "sportovní centrum",
 "Sportovní centrum"
@@ -4467,7 +4479,7 @@
 "Anténa"
 ],
 "man_made/beacon":[
-"Maják"
+"Signalizační zařízení"
 ],
 "man_made/beehive":[
 "včelín"
@@ -5556,6 +5568,12 @@
 ],
 "power/generator/method/photovoltaic":[
 "Solární kolektor"
+],
+"power/generator/method/photovoltaic/building/roof":[
+"Kryt solárního panelu"
+],
+"power/generator/method/photovoltaic/location/roof":[
+"Střešní solární panel"
 ],
 "power/generator/source/hydro":[
 "Vodní turbína"
@@ -6672,7 +6690,7 @@
 "prodejna spodního prádla"
 ],
 "shop/clothes/wedding":[
-"obchod se stavebním oblečením"
+"obchod se svatebním oblečením"
 ],
 "shop/coffee":[
 "káva",
@@ -6744,7 +6762,7 @@
 "venkovský obchod"
 ],
 "shop/craft":[
-"Obchod s řemeslnými výrobky"
+"Obchod s uměleckými a řemeslnými potřebami"
 ],
 "shop/curtain":[
 "potah",
@@ -6996,7 +7014,7 @@
 "Hifi elektronika"
 ],
 "shop/hobby":[
-"pro volný čas"
+"Obchod s potřebami pro volný čas"
 ],
 "shop/household_linen":[
 "bytový",
@@ -7725,10 +7743,12 @@
 "Nástěnná malba"
 ],
 "tourism/artwork/sculpture":[
-"Socha"
+"Skulptura",
+"socha",
+"plastika"
 ],
 "tourism/artwork/statue":[
-"Pomník"
+"Socha (osoba nebo zvíře)"
 ],
 "tourism/attraction":[
 "zajímavost",
@@ -8090,35 +8110,6 @@
 "zatočit vpravo",
 "odbočení vpravo"
 ],
-"type/restriction/no_straight_on":[
-"přikázáno odbočení",
-"Zákaz jízdy přímo",
-"přikázaný směr jízdy vpravo a vlevo",
-"zákaz jízdy rovně",
-"zákaz jízdy přímo",
-"přikázáno odbočit",
-"zakázáno jet rovně",
-"zakázáno jet přímo",
-"přikázaný směr jízdy vlevo a vpravo"
-],
-"type/restriction/no_u_turn":[
-"u-turn",
-"Zákaz otáčení",
-"otáčení",
-"otočit"
-],
-"type/restriction/only_left_turn":[
-"Pouze vlevo"
-],
-"type/restriction/only_right_turn":[
-"Pouze vpravo"
-],
-"type/restriction/only_straight_on":[
-"Jen přímo"
-],
-"type/restriction/only_u_turn":[
-"Pouze otáčení"
-],
 "type/route":[
 "linka",
 "Trasa",
@@ -8137,12 +8128,6 @@
 "Trasa nadzemní dopravy",
 "nadzemní doprava",
 "lanovka"
-],
-"type/route/bicycle":[
-"cyklistická trasa",
-"cyklotrasa",
-"cyklistická značka",
-"Cyklotrasa"
 ],
 "type/route/bus":[
 "bus",
@@ -8197,6 +8182,9 @@
 ],
 "type/route/monorail":[
 "dráha monorailu"
+],
+"type/route/mtb":[
+"Trasa pro horská kola"
 ],
 "type/route/pipeline":[
 "potrubní trasa",

@@ -4527,10 +4527,6 @@
 "pochylnia",
 "Pochylnia okrętowa"
 ],
-"leisure/slipway_point":[
-"pochylnia",
-"Pochylnia okrętowa"
-],
 "leisure/sports_centre":[
 "klub sportowy",
 "Centrum sportowe",
@@ -8651,36 +8647,6 @@
 "Zakaz skrętu w prawo",
 "prawoskręt"
 ],
-"type/restriction/no_straight_on":[
-"prosto",
-"zakaz",
-"Zakaz jazdy prosto"
-],
-"type/restriction/no_u_turn":[
-"Zakaz zawracania",
-"zakaz",
-"zawracanie"
-],
-"type/restriction/only_left_turn":[
-"tylko w lewo",
-"Nakaz skrętu w lewo",
-"nakaz skrętu w lewo"
-],
-"type/restriction/only_right_turn":[
-"nakaz skrętu w prawo",
-"tylko w prawo",
-"Nakaz skrętu w prawo"
-],
-"type/restriction/only_straight_on":[
-"tylko prosto",
-"Nakaz jazdy prosto",
-"nakaz jazdy na wprost"
-],
-"type/restriction/only_u_turn":[
-"tylko zawracanie",
-"nakaz zawracania",
-"Tylko zawracanie"
-],
 "type/route":[
 "trasa",
 "linia",
@@ -8690,12 +8656,6 @@
 "kolej linowa",
 "trasa kolei linowej",
 "Trasa kolei linowej"
-],
-"type/route/bicycle":[
-"szlak rowerowy",
-"trasa rowerowa",
-"Trasa rowerowa",
-"rowery"
 ],
 "type/route/bus":[
 "trasa autobusowa",

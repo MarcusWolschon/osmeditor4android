@@ -1285,6 +1285,10 @@
 "Kupalište",
 "sunčanje"
 ],
+"leisure/bleachers":[
+"Tribine",
+"gledalište"
+],
 "leisure/bowling_alley":[
 "Kuglalište"
 ],
@@ -1415,9 +1419,6 @@
 "istezalište",
 "Navoz za brodove"
 ],
-"leisure/slipway_point":[
-"Navoz za brodove"
-],
 "leisure/sports_centre":[
 "Sportski centar"
 ],
@@ -1437,7 +1438,7 @@
 ],
 "leisure/swimming_pool":[
 "kupanje",
-"Bazen"
+"Bazen za kupanje"
 ],
 "leisure/track":[
 "Staza za utrkivanje (nemotorizirane discipline)"
@@ -1907,6 +1908,15 @@
 ],
 "office/travel_agent":[
 "Putnička agencija"
+],
+"piste/downhill":[
+"Staza za skijanje"
+],
+"piste/piste":[
+"Staza za zimske sportove"
+],
+"piste/skitour":[
+"Staza za turno skijanje"
 ],
 "place":[
 "Mjesto"
@@ -2739,10 +2749,11 @@
 "park za kamp-prikolice",
 "kamp za kamp kućice",
 "kamp za kamp prikolice",
+"autocamp",
 "kamp",
-"Parkiralište za kamp kućice",
 "park za rekreativna vozila",
 "kamp prikolica",
+"Autokamp",
 "rv park"
 ],
 "tourism/chalet":[
@@ -2753,8 +2764,8 @@
 "Umjetnička galerija"
 ],
 "tourism/guest_house":[
+"kuća za odmor",
 "Gostinjska kuća",
-"gostinjska kuća",
 "apartmani"
 ],
 "tourism/hostel":[
@@ -2883,34 +2894,11 @@
 "type/restriction/no_right_turn":[
 "Zabranjeno desno skretanje"
 ],
-"type/restriction/no_straight_on":[
-"Zabranjeno prolaženje ravno"
-],
-"type/restriction/no_u_turn":[
-"Zabranjeno polukružno okretanje"
-],
-"type/restriction/only_left_turn":[
-"Samo lijevo skretanje"
-],
-"type/restriction/only_right_turn":[
-"Samo desno skretanje"
-],
-"type/restriction/only_straight_on":[
-"Samo ravno"
-],
-"type/restriction/only_u_turn":[
-"Samo polukružno skretanje"
-],
 "type/route":[
 "ruta",
 "Ruta",
 "linija",
 "pravac"
-],
-"type/route/bicycle":[
-"biciklistička linija",
-"biciklistička ruta",
-"Biciklistička ruta"
 ],
 "type/route/bus":[
 "bus ruta",

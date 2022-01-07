@@ -37,7 +37,7 @@
 "Mainostaulu"
 ],
 "aerialway":[
-"Ilmailukohde"
+"Ilmaratakohde"
 ],
 "aerialway/cable_car":[
 "Köysirata"
@@ -54,6 +54,9 @@
 ],
 "aerialway/drag_lift":[
 "Vetohissi"
+],
+"aerialway/gondola":[
+"Gondolihissi"
 ],
 "aerialway/goods":[
 "hissi",
@@ -101,6 +104,12 @@
 "lasketteluhissi",
 "Naruhissi",
 "laskettelu"
+],
+"aerialway/t-bar":[
+"Ankkurihissi"
+],
+"aerialway/zip_line":[
+"Vaijeriliuku"
 ],
 "aeroway":[
 "Ilmailukohde"
@@ -3481,9 +3490,6 @@
 "järviramppi",
 "järveenlaskupaikka"
 ],
-"leisure/slipway_point":[
-"Veneramppi"
-],
 "leisure/sports_centre":[
 "urheiluhalli",
 "kokonaisuus",
@@ -4458,11 +4464,17 @@
 "ydinvoimalaitos",
 "atominen"
 ],
+"power/plant/source/oil":[
+"Öljyvoimala"
+],
 "power/plant/source/solar":[
 "aurinkopuisto",
 "Aurinkovoimala",
 "voimalaitos",
 "aurinkopaneeli"
+],
+"power/plant/source/waste":[
+"Jätevoimalaitos"
 ],
 "power/plant/source/wind":[
 "voimala",
@@ -6012,24 +6024,6 @@
 "type/restriction/no_right_turn":[
 "Ei saa kääntyä oikealle"
 ],
-"type/restriction/no_straight_on":[
-"Ei saa ajaa suoraan"
-],
-"type/restriction/no_u_turn":[
-"Ei saa tehdä U-käännöstä"
-],
-"type/restriction/only_left_turn":[
-"Kääntyminen vain vasemmalle"
-],
-"type/restriction/only_right_turn":[
-"Kääntyminen vain oikealle"
-],
-"type/restriction/only_straight_on":[
-"Pakollinen ajosuunta suoraan"
-],
-"type/restriction/only_u_turn":[
-"Vain u-käännökset"
-],
 "type/route":[
 "matkareitti",
 "rengasreitti",
@@ -6041,9 +6035,6 @@
 "Reitti",
 "navigointi",
 "reititys"
-],
-"type/route/bicycle":[
-"Pyöräilyreitti"
 ],
 "type/route/bus":[
 "bussireitti",

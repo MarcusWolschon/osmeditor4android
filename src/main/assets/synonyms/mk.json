@@ -233,6 +233,9 @@
 "amenity/community_centre/lgbtq":[
 "Дом на ЛГБТК+"
 ],
+"amenity/community_centre/youth_centre":[
+"Младински дом"
+],
 "amenity/compressed_air":[
 "Компресор"
 ],
@@ -421,6 +424,9 @@
 ],
 "amenity/parking/park_ride":[
 "Преодно паркиралиште"
+],
+"amenity/parking/street-side":[
+"Крајулично паркирање"
 ],
 "amenity/parking/underground":[
 "Подземно паркиралиште"
@@ -1532,6 +1538,12 @@
 "highway/crossing/marked-raised":[
 "Обележан пешачки премин (испакнат)"
 ],
+"highway/crossing/signals":[
+"Премин со пешачки сигнали"
+],
+"highway/crossing/signals-raised":[
+"Премин со пешачки сигнали (издигнат)"
+],
 "highway/crossing/unmarked":[
 "Необележан премин"
 ],
@@ -2133,11 +2145,17 @@
 "leisure/pitch/netball":[
 "Терен за нетбол"
 ],
+"leisure/pitch/paintball":[
+"Терен за пејнтбол"
+],
 "leisure/pitch/rugby_league":[
 "Игралиште за рагби-лига"
 ],
 "leisure/pitch/rugby_union":[
 "Игралиште за рагби - сојузно"
+],
+"leisure/pitch/shooting":[
+"Стрелиште"
 ],
 "leisure/pitch/shuffleboard":[
 "Шафлбордско игралиште"
@@ -2175,14 +2193,17 @@
 "leisure/slipway":[
 "Испуст за пловила"
 ],
-"leisure/slipway_point":[
-"Испуст за пловила"
+"leisure/slipway_drivable":[
+"Испуст (за возило)"
 ],
 "leisure/sports_centre":[
 "Спортски центар / комплекс"
 ],
 "leisure/sports_centre/climbing":[
 "Вежбалница за искачување"
+],
+"leisure/sports_centre/shooting":[
+"Стрелиштен објект"
 ],
 "leisure/sports_centre/swimming":[
 "Базенски објект"
@@ -2252,6 +2273,9 @@
 ],
 "man_made/clearcut":[
 "Сосечена шума"
+],
+"man_made/compass_rose":[
+"Компасна роза"
 ],
 "man_made/courtyard":[
 "Двориште"
@@ -2415,6 +2439,9 @@
 "man_made/utility_pole":[
 "Бандера"
 ],
+"man_made/video_wall":[
+"Дигитален екран"
+],
 "man_made/wastewater_plant":[
 "Канализациска станица"
 ],
@@ -2493,11 +2520,17 @@
 "natural/hot_spring":[
 "Топол извор"
 ],
+"natural/marsh":[
+"Моклиште"
+],
 "natural/mud":[
 "Кал"
 ],
 "natural/peak":[
 "Врв"
+],
+"natural/reedbed":[
+"Трскарник"
 ],
 "natural/reef":[
 "Морски гребен"
@@ -2531,6 +2564,9 @@
 ],
 "natural/stone":[
 "Неприцврстена карпа / камен"
+],
+"natural/swamp":[
+"Мочуриште"
 ],
 "natural/tree":[
 "Дрво"
@@ -3928,10 +3964,10 @@
 "Забрането полукружно свртување"
 ],
 "type/restriction/only_left_turn":[
-"Само вртење лево"
+"Само свртување налево"
 ],
 "type/restriction/only_right_turn":[
-"Само вртење десно"
+"Само свртување надесно"
 ],
 "type/restriction/only_straight_on":[
 "Само одење право"

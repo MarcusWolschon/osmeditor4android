@@ -1,0 +1,168 @@
+{
+"amenity/arts_centre":[
+"Arts Centre"
+],
+"amenity/bbq":[
+"Barbeque/Grill"
+],
+"amenity/community_centre":[
+"Community Centre"
+],
+"amenity/community_centre/lgbtq":[
+"LGBTQ+ Community Centre"
+],
+"amenity/conference_centre":[
+"Convention Centre"
+],
+"amenity/dive_centre":[
+"Dive Centre"
+],
+"amenity/drinking_water":[
+"Drinking Fountain"
+],
+"amenity/exhibition_centre":[
+"Exhibition Centre"
+],
+"amenity/fuel":[
+"Petrol Station"
+],
+"amenity/parking":[
+"Car Park"
+],
+"amenity/parking/multi-storey":[
+"Multistory Car Park"
+],
+"amenity/parking/park_ride":[
+"Park & Ride Car Park"
+],
+"amenity/parking_entrance":[
+"Carpark Building Entrance / Exit"
+],
+"amenity/payment_centre":[
+"Payment Centre"
+],
+"amenity/pharmacy":[
+"Pharmacy"
+],
+"amenity/post_box":[
+"Post Box"
+],
+"amenity/recycling_centre":[
+"Payment Centre"
+],
+"amenity/sanitary_dump_station":[
+"Caravan Toilet Disposal"
+],
+"amenity/social_centre":[
+"Payment Centre"
+],
+"amenity/social_facility/group_home":[
+"Retirement Home"
+],
+"amenity/theatre":[
+"Theatre"
+],
+"amenity/vending_machine/fuel":[
+"Fuel Pump"
+],
+"amenity/waste_basket":[
+"Rubbish Bin"
+],
+"amenity/watering_place":[
+"trough"
+],
+"amenity/weighbridge":[
+"Weighbridge"
+],
+"barrier/kerb":[
+"Kerb"
+],
+"building/terrace":[
+"Terraced Houses"
+],
+"healthcare/birthing_center":[
+"Birthing Centre"
+],
+"healthcare/blood_donation":[
+"Blood Donation Centre"
+],
+"highway/give_way":[
+"Give Way Sign"
+],
+"highway/street_lamp":[
+"Street Light"
+],
+"highway/traffic_signals":[
+"Traffic Lights"
+],
+"landuse/construction":[
+"Construction Site"
+],
+"leisure/adult_gaming_centre":[
+"Adult Gaming Centre"
+],
+"leisure/fitness_centre":[
+"Gym / Fitness Centre"
+],
+"leisure/horse_riding":[
+"Horse Riding Facility"
+],
+"leisure/indoor_play":[
+"Indoor Play Centre"
+],
+"leisure/slipway":[
+"Boat Ramp"
+],
+"leisure/sports_centre":[
+"Sports Centre / Complex"
+],
+"man_made/groyne":[
+"Groyne"
+],
+"man_made/survey_point":[
+"trig station",
+"Survey Marker"
+],
+"natural/cape":[
+"point"
+],
+"place/suburb":[
+"Suburb"
+],
+"playground/zipwire":[
+"Playground Flying Fox"
+],
+"power/line":[
+"High Voltage Power Line"
+],
+"railway/rail":[
+"railway"
+],
+"shop/caravan":[
+"Caravan Shop"
+],
+"shop/chemist":[
+"Chemist"
+],
+"shop/dairy":[
+"Milk Product Shop"
+],
+"shop/garden_centre":[
+"Garden Centre"
+],
+"shop/second_hand":[
+"Second Hand Shop"
+],
+"shop/tyres":[
+"Tyre Store"
+],
+"telecom/data_center":[
+"Data Centre"
+],
+"tourism/caravan_site":[
+"Caravan Site"
+],
+"tourism/information/office":[
+"Visitor Centre"
+]
+}

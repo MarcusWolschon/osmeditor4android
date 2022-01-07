@@ -817,6 +817,11 @@
 "trung tam cong dong song tinh luyen ai",
 "trung tâm cộng đồng lgbtq+"
 ],
+"amenity/community_centre/youth_centre":[
+"trung tam thanh nien",
+"Trung tâm Thanh niên",
+"trung tâm thanh niên"
+],
 "amenity/compressed_air":[
 "khong khi nen",
 "Khí Nén",
@@ -1420,15 +1425,20 @@
 ],
 "amenity/loading_dock":[
 "khu bốc dỡ hàng hoá",
-"nơi bốc dỡ hàng hóa",
-"noi boc do hang hoa",
 "khu boc do hang",
 "nơi bốc dỡ hàng",
-"noi boc do hang",
-"nơi bốc dỡ hàng hoá",
 "khu boc do hang hoa",
 "khu bốc dỡ hàng hóa",
-"Khu Bốc dỡ Hàng hóa",
+"cua boc do hang hoa",
+"cua boc do hang",
+"nơi bốc dỡ hàng hóa",
+"noi boc do hang hoa",
+"cửa bốc dỡ hàng hoá",
+"noi boc do hang",
+"nơi bốc dỡ hàng hoá",
+"Cửa Bốc dỡ Hàng hóa",
+"cửa bốc dỡ hàng hóa",
+"cửa bốc dỡ hàng",
 "khu bốc dỡ hàng"
 ],
 "amenity/lounger":[
@@ -1667,6 +1677,17 @@
 "bai do xe trung chuyen",
 "Bãi Đậu xe Trung chuyển",
 "bãi đỗ xe trung chuyển"
+],
+"amenity/parking/street-side":[
+"chỗ đậu xe dọc đường",
+"chuong dau xe doc duong",
+"cho dau xe doc duong",
+"chuong do xe doc duong",
+"cho do xe doc duong",
+"chỗ đỗ xe dọc đường",
+"Chỗ Đậu xe Dọc đường",
+"chuồng đỗ xe dọc đường",
+"chuồng đậu xe dọc đường"
 ],
 "amenity/parking/underground":[
 "bai do xe ngam",
@@ -5893,6 +5914,28 @@
 "vạch kẻ sang đường nổi lên",
 "vach ke sang duong noi len"
 ],
+"highway/crossing/signals":[
+"vạch qua đường có đèn tín hiệu",
+"vach qua duong co den canh bao",
+"vach qua duong co den tin hieu",
+"lối qua đường có đèn tín hiệu",
+"lối qua đường có đèn cảnh báo",
+"vạch qua đường có đèn cảnh báo",
+"loi qua duong co den canh bao",
+"loi qua duong co den tin hieu",
+"Lối Qua đường có Đèn Cảnh báo"
+],
+"highway/crossing/signals-raised":[
+"vạch qua đường nổi lên có đèn tín hiệu",
+"vach qua duong noi len co den canh bao",
+"vach qua duong noi len co den tin hieu",
+"vạch qua đường nổi lên có đèn cảnh báo",
+"Lối Qua đường Nổi lên có Đèn Cảnh báo",
+"lối qua đường nổi lên có đèn tín hiệu",
+"lối qua đường nổi lên có đèn cảnh báo",
+"loi qua duong noi len co den canh bao",
+"loi qua duong noi len co den tin hieu"
+],
 "highway/crossing/unmarked":[
 "Lối Qua đường Không có Vạch",
 "lối qua đường không có vạch",
@@ -6661,37 +6704,53 @@
 "cuối đường mòn"
 ],
 "highway/trunk":[
-"Xa lộ",
+"đường huyết mạch",
 "xa lộ",
 "xl",
+"đường trục",
+"duong truc",
+"duong huyet mach",
+"Đường Trục / Xa lộ",
 "xa lo"
 ],
 "highway/trunk_link":[
-"nhánh chuyển đường xa lộ",
+"lối vào đường trục",
+"lối ra đường huyết mạch",
 "lối ra vào xa lộ",
-"nhánh ra xa lộ",
-"nhanh chuyen duong xa lo",
+"loi vao duong huyet mach",
+"đường nối đường huyết mạch",
+"duong noi duong huyet mach",
+"nhanh ra vao duong truc",
 "loi ra vao xa lo",
 "đường nhánh xa lộ",
-"nhánh vào xa lộ",
+"nhanh ra vao duong huyet mach",
 "đường nối xa lộ",
 "loi vao xa lo",
 "lối vào xa lộ",
-"nhanh vao xa lo",
-"Nhánh Ra vào Xa lộ",
-"đường nhánh rẽ xa lộ",
+"duong nhanh duong huyet mach",
+"đường nhánh đường huyết mạch",
+"duong nhanh duong truc",
 "duong noi xa lo",
+"loi vao duong truc",
+"loi ra vao duong truc",
 "lối ra xa lộ",
 "duong nhanh xa lo",
-"duong nhanh re xa lo",
-"đoạn nhánh xa lộ",
-"nhanh ra xa lo",
-"đoạn nhánh rẽ xa lộ",
-"doan nhanh xa lo",
+"đường nối đường trục",
+"đường nhánh đường trục",
+"lối ra đường trục",
+"loi ra duong huyet mach",
+"loi ra duong truc",
 "loi ra xa lo",
-"doan nhanh re xa lo",
-"đường nhánh chuyển đường xa lộ",
-"duong nhanh chuyen duong xa lo"
+"lối ra vào đường trục",
+"nhánh ra vào đường huyết mạch",
+"nhanh ra vao xa lo",
+"duong noi duong truc",
+"nhánh ra vào đường trục",
+"nhánh ra vào xa lộ",
+"lối vào đường huyết mạch",
+"loi ra vao duong huyet mach",
+"Nhánh Ra vào Đường Trục / Xa lộ",
+"lối ra vào đường huyết mạch"
 ],
 "highway/turning_circle":[
 "cul-de-sac",
@@ -7870,6 +7929,16 @@
 "san netball",
 "sân netball"
 ],
+"leisure/pitch/paintball":[
+"san ban sung son",
+"Sân Bắn Súng sơn",
+"paintball",
+"sân bắn súng sơn",
+"sân súng sơn",
+"sung son",
+"súng sơn",
+"san sung son"
+],
 "leisure/pitch/rugby_league":[
 "sân cỏ banh rugby league",
 "san banh bau duc lien doan",
@@ -7907,6 +7976,11 @@
 "Sân Bóng bầu dục Liên minh",
 "san banh rugby union",
 "sân cỏ banh rugby union"
+],
+"leisure/pitch/shooting":[
+"Trường bắn",
+"trường bắn",
+"truong ban"
 ],
 "leisure/pitch/skateboard":[
 "san truot van",
@@ -8005,14 +8079,18 @@
 "phong tam hoi"
 ],
 "leisure/slipway":[
+"đường hạ thủy",
 "đường trượt tàu",
-"duong truot tau",
-"Đường Trượt tàu"
+"duong ha thuy",
+"đường hạ thuỷ",
+"Đường Hạ thủy",
+"duong truot tau"
 ],
-"leisure/slipway_point":[
-"đường trượt tàu",
-"duong truot tau",
-"Đường Trượt tàu"
+"leisure/slipway_drivable":[
+"duong keo thuyen ha thuy",
+"đường kéo thuyền hạ thuỷ",
+"Đường Kéo Thuyền Hạ thủy",
+"đường kéo thuyền hạ thủy"
 ],
 "leisure/sports_centre":[
 "toà nhà thể thao",
@@ -8034,6 +8112,13 @@
 "khu tuong leo nui",
 "tường leo núi nhân tạo",
 "Khu Tường Leo núi"
+],
+"leisure/sports_centre/shooting":[
+"trường bắn",
+"trung tam ban sung",
+"Trung tâm Bắn súng",
+"trung tâm bắn súng",
+"truong ban"
 ],
 "leisure/sports_centre/swimming":[
 "trung tam boi loi",
@@ -8212,6 +8297,13 @@
 "rung bi chat trang",
 "rừng được chặt trắng",
 "rừng bị chặt trắng"
+],
+"man_made/compass_rose":[
+"La bàn",
+"la ban",
+"la bàn",
+"tu phuong",
+"tứ phương"
 ],
 "man_made/courtyard":[
 "sân trong",
@@ -8717,6 +8809,20 @@
 "duong ham ham",
 "Đường hầm"
 ],
+"man_made/video_wall":[
+"tường video",
+"tv",
+"tuong led",
+"tường led",
+"man hinh",
+"man hinh ghep",
+"ti-vi",
+"Màn hình",
+"màn hình",
+"màn hình ghép",
+"tivi",
+"tuong video"
+],
 "man_made/wastewater_plant":[
 "nha may xu li nuoc thai",
 "nha may nuoc thai",
@@ -8863,6 +8969,13 @@
 "suoi nuoc nong",
 "Suối nước Nóng"
 ],
+"natural/marsh":[
+"đầm lầy cỏ",
+"Đầm lầy Cỏ",
+"dam lay co",
+"dam lay cay bui",
+"đầm lầy cây bụi"
+],
 "natural/mud":[
 "bùn",
 "Bùn",
@@ -8890,6 +9003,11 @@
 "đỉnh",
 "chóp núi",
 "doi"
+],
+"natural/reedbed":[
+"Đầm lầy Lau sậy",
+"đầm lầy lau sậy",
+"dam lay lau say"
 ],
 "natural/reef":[
 "bai cat",
@@ -8960,6 +9078,11 @@
 "suoi nuoc",
 "Suối",
 "suối nước"
+],
+"natural/swamp":[
+"đầm lầy cây thân gỗ",
+"dam lay cay than go",
+"Đầm lầy Cây thân gỗ"
 ],
 "natural/tree":[
 "cay",
@@ -9079,9 +9202,13 @@
 "bể nước thải"
 ],
 "natural/wetland":[
+"đồng lầy",
+"đất ngập nước",
 "đầm lầy",
 "dam lay",
-"Đầm lầy"
+"dong lay",
+"Đất Ngập nước",
+"dat ngap nuoc"
 ],
 "natural/wood":[
 "rừng thiên nhiên",

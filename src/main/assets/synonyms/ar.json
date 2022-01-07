@@ -18,7 +18,7 @@
 "لوحة إعلانات وملصقات",
 "لوحة إعلانات معلقة بدبابيس",
 "لوحة إعلانات متعددة",
-"لوحة الإعلانات وملصقات"
+"لوحة الإعلانات والملصقات"
 ],
 "advertising/column":[
 "أعمدة موريس",
@@ -181,6 +181,9 @@
 "بار",
 "حانة"
 ],
+"amenity/bar/lgbtq":[
+"LGBTQ+ Bar"
+],
 "amenity/bbq":[
 "مكان مخصص للشواء",
 "شواء، باربيكيو"
@@ -211,6 +214,9 @@
 "amenity/bicycle_repair_station":[
 "دراجات هوائية; دراجة; اصلاح; تصليح دراجات; تصليح",
 "ورشة إصلاح دراجات هوائية"
+],
+"amenity/biergarten":[
+"Biergarten"
 ],
 "amenity/binoculars":[
 "مناظير مثبتة"
@@ -295,9 +301,19 @@
 "amenity/community_centre":[
 "مركز اجتماعي"
 ],
+"amenity/community_centre/lgbtq":[
+"LGBTQ+ Community Center"
+],
+"amenity/community_centre/youth_centre":[
+"بيت الشباب",
+"مركز الشباب"
+],
 "amenity/compressed_air":[
 "منفاخ إطارات دراجات",
 "بنشر دراجات"
+],
+"amenity/conference_centre":[
+"مركز مؤتمرات"
 ],
 "amenity/courthouse":[
 "مجمع محاكم",
@@ -341,7 +357,12 @@
 "سفارة"
 ],
 "amenity/events_venue":[
-"مكان الأحداث"
+"قصر أفراح",
+"صالة مناسبات",
+"صالة مناسبات / قصر أفراح"
+],
+"amenity/exhibition_centre":[
+"Exposition Center"
 ],
 "amenity/fast_food":[
 "مأكولات سريعة",
@@ -426,6 +447,9 @@
 "محطة غاز",
 "محطة وقود"
 ],
+"amenity/gambling":[
+"Gambling Hall"
+],
 "amenity/give_box":[
 "صندوق مشاركة الأشياء المجانية"
 ],
@@ -452,10 +476,13 @@
 "amenity/internet_cafe":[
 "مقهى إنترنت"
 ],
+"amenity/karaoke_box":[
+"Karaoke Box"
+],
 "amenity/kindergarten":[
 "روضة",
-"تمهيدي",
-"مرحلة ما قبل المدرسة / رياض الأطفال",
+"تمهيدي ، حضانة ، روض",
+"أرض حضانة / روض",
 "رياض أطفال"
 ],
 "amenity/kneipp_water_cure":[
@@ -477,11 +504,20 @@
 "amenity/loading_dock":[
 "رصيف التحميل"
 ],
+"amenity/lounger":[
+"Lounger"
+],
+"amenity/love_hotel":[
+"Love Hotel"
+],
 "amenity/marketplace":[
 "ساحة السوق",
 "سوق",
 "محل تسوق",
 "سوق تجارية"
+],
+"amenity/monastery":[
+"Monastery Grounds"
 ],
 "amenity/money_transfer":[
 "محل لتحويل الأموال"
@@ -504,6 +540,9 @@
 "كباريه",
 "ملهى ليلي"
 ],
+"amenity/nightclub/lgbtq":[
+"LGBTQ+ Nightclub"
+],
 "amenity/nursing_home":[
 "دار التمريض"
 ],
@@ -517,6 +556,9 @@
 ],
 "amenity/parking/park_ride":[
 "مكان الاصطفاف والركوب"
+],
+"amenity/parking/street-side":[
+"مواقف بجانب الشارع"
 ],
 "amenity/parking/underground":[
 "موقف تحت الأرض",
@@ -540,7 +582,11 @@
 "محطة دفع نقود"
 ],
 "amenity/pharmacy":[
-"صيدلية"
+"صيدلية",
+"أدوات النظافة الشخصية والتجميل"
+],
+"amenity/photo_booth":[
+"Photo Booth"
 ],
 "amenity/place_of_worship":[
 "محل عبادة",
@@ -551,6 +597,15 @@
 ],
 "amenity/place_of_worship/christian":[
 "كنيسية مسيحية"
+],
+"amenity/place_of_worship/christian/jehovahs_witness":[
+"Kingdom Hall of Jehovah's Witnesses"
+],
+"amenity/place_of_worship/christian/la_luz_del_mundo":[
+"La Luz del Mundo Temple"
+],
+"amenity/place_of_worship/christian/quaker":[
+"Quaker Friends Meeting House"
 ],
 "amenity/place_of_worship/hindu":[
 "معبد هندوسي"
@@ -584,6 +639,9 @@
 "شرطة",
 "الشرطة"
 ],
+"amenity/polling_station":[
+"Permanent Polling Place"
+],
 "amenity/post_box":[
 "صندوق بريد عام"
 ],
@@ -596,6 +654,7 @@
 "دائرة البريد"
 ],
 "amenity/prep_school":[
+"مدرسة إعداد للاختبارات/دروس خصوصية ، ساعات اضافية",
 "مدرسة إعداد للاختبارات/دروس خصوصية"
 ],
 "amenity/prison":[
@@ -605,6 +664,15 @@
 "مشرب",
 "حانة",
 "خمارة"
+],
+"amenity/pub/irish":[
+"Irish Pub"
+],
+"amenity/pub/lgbtq":[
+"LGBTQ+ Pub"
+],
+"amenity/pub/microbrewery":[
+"Brewpub"
 ],
 "amenity/public_bath":[
 "حمام عام",
@@ -636,6 +704,7 @@
 "مخيم لاجئين"
 ],
 "amenity/research_institute":[
+"أراضي معهد بحوث، أرض معهد للبحث العلمي، أرض معهد الأبحاث العلمية، أرض بحث علمي",
 "أراضي معهد بحوث"
 ],
 "amenity/restaurant":[
@@ -762,6 +831,18 @@
 "أستوديو",
 "أستوديو; إذاعة; راديو; تلفزيون"
 ],
+"amenity/studio/audio":[
+"Recording Studio"
+],
+"amenity/studio/radio":[
+"Radio Station"
+],
+"amenity/studio/television":[
+"Television Station"
+],
+"amenity/studio/video":[
+"Film Studio"
+],
 "amenity/taxi":[
 "موقف تاكسي",
 "موقف أجرة"
@@ -805,6 +886,9 @@
 "قاعة البلدية،مجلس المدينة،مبنى البلدية",
 "مركز المدينة/إمارة المدينة",
 "مركز المدينة"
+],
+"amenity/toy_library":[
+"Toy Library"
 ],
 "amenity/university":[
 "أرض جامعة",
@@ -957,23 +1041,62 @@
 "مساحة شارع/طريق",
 "مساحة شارع/طريق،منطقة شارع/طريق،أرض الشارع/الطريق"
 ],
+"attraction":[
+"Attraction"
+],
+"attraction/amusement_ride":[
+"Amusement Ride"
+],
 "attraction/animal":[
-"حضيرة حيوانات،محجر حيوانات،حوش حيوانات،حوز حيوانات،ضميمة حيوانات",
-"حضيرة حيوانات"
+"حظيرة حيوانات،محجر حيوانات،حوش حيوانات،حوز حيوانات،ضميمة حيوانات",
+"حظيرة حيوانات"
 ],
 "attraction/big_wheel":[
 "دولاب هواء; العجلة الكبيرة",
 "دولاب هواء"
 ],
+"attraction/bumper_car":[
+"Bumper Cars"
+],
+"attraction/bungee_jumping":[
+"Bungee Jumping"
+],
 "attraction/carousel":[
 "دوامة خيل"
+],
+"attraction/dark_ride":[
+"Dark Ride"
+],
+"attraction/drop_tower":[
+"Drop Tower Ride"
+],
+"attraction/kiddie_ride":[
+"Kiddie Ride"
+],
+"attraction/log_flume":[
+"Log Flume"
 ],
 "attraction/maze":[
 "متاهة"
 ],
+"attraction/pirate_ship":[
+"Pirate Ship Ride"
+],
+"attraction/river_rafting":[
+"River Rapids Ride"
+],
 "attraction/roller_coaster":[
 "سفينة دوارة",
 "السفينة الدوارة"
+],
+"attraction/summer_toboggan":[
+"Summer Toboggan"
+],
+"attraction/swing_carousel":[
+"Swing Carousel"
+],
+"attraction/train":[
+"Tourist Train"
 ],
 "attraction/water_slide":[
 "التزلق على الماء"
@@ -1268,7 +1391,6 @@
 "بيت بلاستيكي"
 ],
 "building/hangar":[
-"حضيرة طائرات",
 "حظيرة طائرات",
 "حظيرة هيلكوبترات"
 ],
@@ -1309,9 +1431,9 @@
 "مبنى الانتاج"
 ],
 "building/kindergarten":[
-"مبنى الحضانة / رياض الأطفال",
+"رياض الأطفال ، روض ، حضانة ، طفل ، أطفال",
 "مبنى الحضانة",
-"رياض الأطفال"
+"مبنى حضانة / روض"
 ],
 "building/mosque":[
 "مبنى مسجد",
@@ -1372,7 +1494,7 @@
 ],
 "building/school":[
 "مبنى مدرسة",
-"مبنى تعليمي"
+"مبنى تعليمي ، ثانوية ، اعدادية ، تعليم أولي ، ابتدائي ، ابتدائية"
 ],
 "building/semidetached_house":[
 "مبنى شبه منفصل",
@@ -1403,6 +1525,9 @@
 "building/static_caravan":[
 "منزل متحرك موجود في مكانه لفترة",
 "مقطورة متحركة ثابتة في مكانها لفترة"
+],
+"building/sty":[
+"Pigsty"
 ],
 "building/temple":[
 "مبنى المعبد"
@@ -1494,6 +1619,9 @@
 "craft/confectionery":[
 "حلواني",
 "صانع الحلوى"
+],
+"craft/distillery":[
+"Distillery"
 ],
 "craft/dressmaker":[
 "خياط نسائي"
@@ -1684,6 +1812,9 @@
 "تركيب النوافذ",
 "صيانة النوافذ",
 "صناعة النوافذ"
+],
+"craft/winery":[
+"Winery"
 ],
 "cycleway/asl":[
 "حافلات",
@@ -1996,6 +2127,12 @@
 "معبر مشاة على مطب بدون إشارة مرور",
 "معبر مشاة مرتفع عن الطريق بعلامات مرورية"
 ],
+"highway/crossing/signals":[
+"معبر مشاة بإشارات"
+],
+"highway/crossing/signals-raised":[
+"معبر مشاة بإشارة (مرفوع)"
+],
 "highway/crossing/unmarked":[
 "معبر مشاة بدون علامات مرورية أو إشارة مرورية",
 "معبر مشاة بدون علامات أو إشارة مرورية"
@@ -2235,7 +2372,9 @@
 "كاميرا مراقبة السرعة"
 ],
 "highway/steps":[
-"درج"
+"سلم",
+"درج",
+"درج/سلم"
 ],
 "highway/steps/conveying":[
 "سلم آلي",
@@ -2342,6 +2481,9 @@
 "historic/memorial":[
 "نصب تذكاري"
 ],
+"historic/memorial/plaque":[
+"Commemorative Plaque"
+],
 "historic/monument":[
 "مبنى تذكاري",
 "نصب تذكاري"
@@ -2437,6 +2579,9 @@
 "جبانة",
 "مقبرة",
 "مدفن"
+],
+"landuse/churchyard":[
+"Churchyard"
 ],
 "landuse/commercial":[
 "تجارية; تجاري; منطقة تجارة",
@@ -2566,11 +2711,23 @@
 "leisure":[
 "عناصر الترفيه"
 ],
+"leisure/adult_gaming_centre":[
+"Adult Gaming Center"
+],
+"leisure/amusement_arcade":[
+"Amusement Arcade"
+],
+"leisure/bandstand":[
+"Bandstand"
+],
 "leisure/beach_resort":[
 "منتجع الشاطئ"
 ],
 "leisure/bird_hide":[
 "مكان لمراقبة الطيور"
+],
+"leisure/bleachers":[
+"Bleachers"
 ],
 "leisure/bowling_alley":[
 "بولينغ",
@@ -2584,7 +2741,8 @@
 "قاعة الرقص"
 ],
 "leisure/dancing_school":[
-"مدرسة الرقص"
+"مدرسة الرقص",
+"مدرسة رقص"
 ],
 "leisure/disc_golf_course":[
 "مكان للعب قرص الجولف"
@@ -2672,6 +2830,9 @@
 "جليد",
 "حلبة"
 ],
+"leisure/indoor_play":[
+"Indoor Play Center"
+],
 "leisure/marina":[
 "مرسى لليخوت والقوارب الصغيرة",
 "رصيف سفن",
@@ -2752,6 +2913,10 @@
 "شبكة",
 "كرة السلة"
 ],
+"leisure/pitch/paintball":[
+"ملعب لعبة بينتبول",
+"ملعب لعبة كرات الطلاء"
+],
 "leisure/pitch/rugby_league":[
 "ملعب اتحاد الرغبي، رجبي",
 "ملعب اتحاد الرغبي"
@@ -2759,6 +2924,10 @@
 "leisure/pitch/rugby_union":[
 "ملعب دوري الرغبي",
 "ملعب دوري الرغبي، رجبي"
+],
+"leisure/pitch/shooting":[
+"حقل رماية",
+"ميدان رماية"
 ],
 "leisure/pitch/shuffleboard":[
 "شفلبورد"
@@ -2799,8 +2968,8 @@
 "leisure/slipway":[
 "مزلقة سفن"
 ],
-"leisure/slipway_point":[
-"مزلقة سفن"
+"leisure/slipway_drivable":[
+"منزلق سفن وقوارب (قابل للقيادة)"
 ],
 "leisure/sports_centre":[
 "مركز/مجمع رياضي",
@@ -2808,6 +2977,9 @@
 ],
 "leisure/sports_centre/climbing":[
 "مركز رياضة التسلق"
+],
+"leisure/sports_centre/shooting":[
+"مرفق ميدان الرماية"
 ],
 "leisure/sports_centre/swimming":[
 "حمام سباحة; حوض سباحة; حمام; حوض; سباحة; مسبح",
@@ -2899,6 +3071,10 @@
 "غابة مقطوعة أشجارها",
 "غابة تم قطع أشجارها"
 ],
+"man_made/compass_rose":[
+"وردة الريح",
+"وردة البوصلة"
+],
 "man_made/courtyard":[
 "عرصة",
 "أرض الديار",
@@ -2914,6 +3090,9 @@
 "man_made/crane":[
 "رافعة ثابتة",
 "رافعة"
+],
+"man_made/cross":[
+"Cross"
 ],
 "man_made/cutline":[
 "خط مستقيم مقطوع في غابة"
@@ -2997,10 +3176,14 @@
 "برج بث التلفاز"
 ],
 "man_made/mineshaft":[
-"برج منجم"
+"برج منجم",
+"نفق تعدين/منجم"
 ],
 "man_made/monitoring_station":[
 "محطة الرصد"
+],
+"man_made/obelisk":[
+"Obelisk"
 ],
 "man_made/observatory":[
 "مرصد"
@@ -3039,7 +3222,8 @@
 "خزان سوائل أو غاز مضغوط"
 ],
 "man_made/storage_tank/water":[
-"خزان مياه"
+"خزان مياه",
+"خزان ماء"
 ],
 "man_made/street_cabinet":[
 "خزنة مرافق وخدمات في الشارع",
@@ -3055,8 +3239,14 @@
 "man_made/survey_point":[
 "نقطة مسح"
 ],
+"man_made/torii":[
+"Torii"
+],
 "man_made/tower":[
 "برج"
+],
+"man_made/tower/bell_tower":[
+"Bell Tower"
 ],
 "man_made/tower/communication":[
 "برج اتصالات"
@@ -3078,12 +3268,18 @@
 "man_made/tower/observation":[
 "برج مراقبة"
 ],
+"man_made/tower/pagoda":[
+"Pagoda"
+],
 "man_made/tunnel":[
 "مساحة نفق"
 ],
 "man_made/utility_pole":[
 "عمود توصيل كيابل طاقة/اتصالات",
 "عمود توصيل خدمات (كهرباء،اتصالات..الخ)"
+],
+"man_made/video_wall":[
+"شاشة رقمية"
 ],
 "man_made/wastewater_plant":[
 "محطة صرف صحي"
@@ -3130,10 +3326,12 @@
 "صخر",
 "صخر الأديم",
 "صخر عاري",
-"مساحة لصخر أساس (القاعدة الصخرية)",
+"حرة",
+"مساحة لصخر أساس (القاعدة الصخرية) - حرة",
 "صخر أساس",
 "صخور",
-"القاعدة الصخرية"
+"القاعدة الصخرية",
+"حلاة"
 ],
 "natural/bay":[
 "خليج"
@@ -3161,6 +3359,7 @@
 "هضبة، تلة، مرتفع"
 ],
 "natural/geyser":[
+"نبع المياه الفوار والحار",
 "فوارة حارة"
 ],
 "natural/glacier":[
@@ -3179,7 +3378,19 @@
 "قفار ( أراضي الأشجار القمئية)"
 ],
 "natural/hot_spring":[
-"ينبوع ساخن"
+"العين الحمئة / الينبوع الساخن",
+"عيون",
+"الحمئة",
+"الينبوع الساخن",
+"ينبوع",
+"العين الحمئة",
+"عين",
+"نبع"
+],
+"natural/marsh":[
+"هور",
+"سبخة",
+"هور/سبخة"
 ],
 "natural/mud":[
 "وحل",
@@ -3190,6 +3401,10 @@
 "قمة جبل",
 "ذروة",
 "قمة"
+],
+"natural/reedbed":[
+"مقصبة",
+"سرير القصب"
 ],
 "natural/reef":[
 "شعاب مرجانية",
@@ -3234,11 +3449,18 @@
 "شجيرة"
 ],
 "natural/spring":[
-"نبع; منبع",
+"منبع",
+"عيون",
+"‮‮عين / نبع / ينبوع",
+"‮‮عين",
+"ينبوع",
 "نبع"
 ],
 "natural/stone":[
 "صخرة كبيرة غير متصلة بالأرض"
+],
+"natural/swamp":[
+"مستنقع"
 ],
 "natural/tree":[
 "شجرة"
@@ -3305,6 +3527,9 @@
 "natural/wood":[
 "خشب طبيعي"
 ],
+"network/type/node_network":[
+"Recreational Network Node"
+],
 "noexit/yes":[
 "لا يوجد مخرج"
 ],
@@ -3324,6 +3549,9 @@
 ],
 "office/administrative":[
 "مكتب إداري"
+],
+"office/adoption_agency":[
+"Adoption Agency"
 ],
 "office/advertising_agency":[
 "وكالة الإشهار، وكالة إعلانية",
@@ -3491,7 +3719,7 @@
 ],
 "office/research":[
 "مكتب بحوث",
-"مكتب البحوث، مكتب اﻷبحاث، هيئة اﻷبحاث"
+"مكتب البحوث، مكتب اﻷبحاث، هيئة اﻷبحاث، مكتب بحث علمي، مركز للبحث العلمي"
 ],
 "office/security":[
 "مكتب مؤسسات الحراسات الأمنية"
@@ -3662,6 +3890,9 @@
 ],
 "point":[
 "نقطة"
+],
+"polling_station":[
+"Temporary Polling Place"
 ],
 "power":[
 "عنصر طاقة/كهرباء"
@@ -4128,13 +4359,22 @@
 "shop/boutique":[
 "بوتيك"
 ],
+"shop/brewing_supplies":[
+"Brewing Supply Store"
+],
 "shop/butcher":[
 "محل بيع لحوم. محل جزارة",
 "جزار",
 "لحوم"
 ],
+"shop/camera":[
+"Camera Equipment Store"
+],
 "shop/candles":[
 "متجر الشموع"
+],
+"shop/cannabis":[
+"Cannabis Shop"
 ],
 "shop/car":[
 "وكالة سيارات",
@@ -4159,6 +4399,9 @@
 "مفروشات",
 "متجر سجاد ومفروشات",
 "سجاد"
+],
+"shop/catalogue":[
+"Catalog Shop"
 ],
 "shop/charity":[
 "متجر خيري",
@@ -4261,6 +4504,12 @@
 "shop/electronics":[
 "محل إلكترونيات"
 ],
+"shop/erotic":[
+"Erotic Store"
+],
+"shop/erotic/lgbtq":[
+"LGBTQ+ Erotic Store"
+],
 "shop/fabric":[
 "الأقمشة",
 "قماش",
@@ -4268,7 +4517,7 @@
 "محل بيع الأقمشة"
 ],
 "shop/farm":[
-"متجر داخل مزرعة ويبيع منتجاتها",
+"متجر مزرعة ليبيع منتجاتها",
 "المنتج"
 ],
 "shop/fashion":[
@@ -4510,6 +4759,9 @@
 "shop/printer_ink":[
 "متجر أحبار طابعة"
 ],
+"shop/psychic":[
+"Psychic"
+],
 "shop/pyrotechnics":[
 "ألعاب نارية",
 "متجر ألعاب نارية"
@@ -4643,10 +4895,10 @@
 ],
 "shop/variety_store":[
 "محل كل شيء",
-"محلات كماليات رخيصة (أبو خمسة)",
 "أبو ريالين",
 "أبو خمسة",
 "أبو درهمين",
+"منوعات وكماليات رخيصة",
 "محل بالجملة"
 ],
 "shop/video":[
@@ -4708,9 +4960,30 @@
 "tourism/artwork":[
 "عمل فني"
 ],
+"tourism/artwork/bust":[
+"Bust"
+],
+"tourism/artwork/graffiti":[
+"Graffiti"
+],
+"tourism/artwork/installation":[
+"Art Installation"
+],
+"tourism/artwork/mural":[
+"Mural"
+],
+"tourism/artwork/sculpture":[
+"Sculpture"
+],
+"tourism/artwork/statue":[
+"Statue"
+],
 "tourism/attraction":[
 "معلم سياحي",
 "مكان سياحي"
+],
+"tourism/camp_pitch":[
+"Camp Pitch"
 ],
 "tourism/camp_site":[
 "مكان التخييم"
@@ -4751,13 +5024,18 @@
 "لافتة ترحيب"
 ],
 "tourism/information/guidepost":[
-"دليل"
+"علامة إرشادية",
+"لافتة إرشادية",
+"لوحة إرشادية"
 ],
 "tourism/information/map":[
 "خريطة"
 ],
 "tourism/information/office":[
 "مركز الزوار"
+],
+"tourism/information/route_marker":[
+"لافتة مسار سياحي"
 ],
 "tourism/information/terminal":[
 "محطة معلومات"
@@ -4778,8 +5056,14 @@
 "tourism/theme_park":[
 "حديقة ترفيه"
 ],
+"tourism/trail_riding_station":[
+"Trail Riding Station"
+],
 "tourism/viewpoint":[
 "منظر سياحي"
+],
+"tourism/wilderness_hut":[
+"Wilderness Hut"
 ],
 "tourism/zoo":[
 "حديقة الحيوانات",
@@ -4787,6 +5071,9 @@
 ],
 "tourism/zoo/petting":[
 "حديقة حيوان أليفة"
+],
+"tourism/zoo/safari":[
+"Safari Park"
 ],
 "tourism/zoo/wildlife":[
 "حديقة حيوانات برية"
@@ -4877,20 +5164,19 @@
 "غير مسموح بالذهاب للأمام"
 ],
 "type/restriction/no_u_turn":[
-"لا يوجد دوران",
 "ممنوع الدوران (اليوترن)"
 ],
 "type/restriction/only_left_turn":[
-"منعطف لليسار فقط"
+"يسمح بالانعطاف لليسار فقط"
 ],
 "type/restriction/only_right_turn":[
-"منعطف لليمين فقط"
+"يسمح بالانعطاف لليمين فقط"
 ],
 "type/restriction/only_straight_on":[
-"لا يوجد منعطفات"
+"للأمام فقط"
 ],
 "type/restriction/only_u_turn":[
-"دوران للخلف فقط"
+"يسمح بالدوران فقط (اليوتيرن)"
 ],
 "type/route":[
 "مسار"
@@ -4899,8 +5185,8 @@
 "طريق جوي"
 ],
 "type/route/bicycle":[
-"مسار دراجات; مسار; طريق",
-"مسار دراجات"
+"مسار الدراجات",
+"مسارات الدراجات"
 ],
 "type/route/bus":[
 "مسار باصات، حافلات",

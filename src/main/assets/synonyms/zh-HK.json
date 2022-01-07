@@ -3583,25 +3583,10 @@
 "禁止右轉",
 "嚴禁右轉"
 ],
-"type/restriction/no_straight_on":[
-"禁止進入",
-"不准直駛"
-],
-"type/restriction/no_u_turn":[
-"不准掉頭",
-"禁止掉頭"
-],
 "type/route":[
 "route",
 "路線",
 "路綫"
-],
-"type/route/bicycle":[
-"腳踏車路線",
-"單車路綫",
-"cycle route",
-"單車路線",
-"自行車路線"
 ],
 "type/route/bus":[
 "公共汽車路線",

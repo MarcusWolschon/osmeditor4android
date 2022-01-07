@@ -662,9 +662,6 @@
 "type/route":[
 "路线"
 ],
-"type/route/bicycle":[
-"单车路线"
-],
 "type/route/bus":[
 "公共汽车路线"
 ],

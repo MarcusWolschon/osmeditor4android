@@ -707,6 +707,11 @@
 "Centro comunitario LGBTQ+",
 "salón de eventos lgb"
 ],
+"amenity/community_centre/youth_centre":[
+"centro juvenil",
+"Centro Juvenil",
+"club juvenil"
+],
 "amenity/compressed_air":[
 "Aire comprimido",
 "aire comprimido"
@@ -1369,6 +1374,19 @@
 "park",
 "cercanías"
 ],
+"amenity/parking/street-side":[
+"estacionamiento de vehículos",
+"estacionamiento en la carretera",
+"aparcamiento en la calle",
+"dársena",
+"Estacionamiento apartado junto a la calle",
+"estacionamiento de automóviles",
+"aparcamiento de vehículos",
+"aparcamiento en la carretera",
+"darsena",
+"aparcamiento de automóviles",
+"estacionamiento en la calle"
+],
 "amenity/parking/underground":[
 "estacionamiento de vehículos",
 "estacionamiento",
@@ -1746,9 +1764,9 @@
 ],
 "amenity/pub/microbrewery":[
 "alcohol",
-"Pub cervecero",
 "cerveza",
 "cervecería de pequeños lotes",
+"Microcervecería",
 "cervecería artesanal",
 "bebida"
 ],
@@ -3567,8 +3585,8 @@
 ],
 "building/retail":[
 "venta al detalle",
-"venta al por menor",
-"Edificio de ventas al por menor"
+"Edificio de tienda comercial",
+"venta al por menor"
 ],
 "building/roof":[
 "tejado",
@@ -3677,6 +3695,7 @@
 "building/warehouse":[
 "nave",
 "lonja",
+"galpón",
 "Almacén",
 "almacen",
 "depósito",
@@ -4969,6 +4988,21 @@
 "lomada",
 "velocidad"
 ],
+"highway/crossing/signals":[
+"paso de bicicletas",
+"Cruce con señales para peatones",
+"paso de peatones",
+"semáforo para peatones"
+],
+"highway/crossing/signals-raised":[
+"cruce de bicicletas",
+"cruce de peatones",
+"reductor de velocidad",
+"lomo de burro",
+"Cruce con señales para peatones (Elevado)",
+"lomada",
+"semáforo para peatones"
+],
 "highway/crossing/unmarked":[
 "cruce",
 "crucero",
@@ -5066,10 +5100,10 @@
 "highway/footway":[
 "camino",
 "caminar",
-"Senda peatonal",
 "caminata",
 "peatonal",
 "peatón",
+"Sendero peatonal",
 "sendero",
 "hiking",
 "pista",
@@ -5497,8 +5531,10 @@
 "señal"
 ],
 "highway/street_lamp":[
+"luz",
 "Farola de alumbrado público",
 "alumbrado público",
+"lampara",
 "fanal",
 "farola",
 "alumbrado",
@@ -5933,8 +5969,8 @@
 ],
 "landuse/commercial":[
 "área de negocios",
+"Área de servicios comerciales",
 "área de oficinas",
-"Área comercial y oficinas",
 "área de servicios",
 "área comercial",
 "parques empresariales",
@@ -6178,11 +6214,15 @@
 "landuse/retail":[
 "minorista",
 "venta",
-"Área de tiendas",
+"venta al detalle",
 "comercios",
 "tiendas",
 "al por menor",
-"menudeo"
+"menudeo",
+"comercios minoristas",
+"área comercial",
+"locales comerciales",
+"Área de tiendas comerciales"
 ],
 "landuse/vineyard":[
 "viñedo",
@@ -6737,6 +6777,12 @@
 "Cancha de netball",
 "netball"
 ],
+"leisure/pitch/paintball":[
+"Campo de paintball",
+"cancha",
+"paintball",
+"campo"
+],
 "leisure/pitch/rugby_league":[
 "liga",
 "cancha",
@@ -6758,6 +6804,11 @@
 "campo",
 "unión",
 "rugby union"
+],
+"leisure/pitch/shooting":[
+"Campo de tiro",
+"polígono de tiro",
+"campo de tiro"
 ],
 "leisure/pitch/shuffleboard":[
 "tejo",
@@ -6876,11 +6927,12 @@
 "rampa",
 "Rampa para botes"
 ],
-"leisure/slipway_point":[
-"grada",
-"rampa",
-"Grada náutica",
-"barco"
+"leisure/slipway_drivable":[
+"rampa para botes",
+"Grada (Manejable)",
+"embarcadero",
+"lanzamiento de botes",
+"grada náutica"
 ],
 "leisure/sports_centre":[
 "polideportivo",
@@ -6899,6 +6951,11 @@
 "muro interior de roca",
 "rappel",
 "gimnasio de roca"
+],
+"leisure/sports_centre/shooting":[
+"polígono de tiro",
+"campo de tiro",
+"Instalación del campo de tiro"
 ],
 "leisure/sports_centre/swimming":[
 "natatorio",
@@ -7068,6 +7125,15 @@
 "talado",
 "desmonte",
 "árbol"
+],
+"man_made/compass_rose":[
+"este",
+"norte",
+"sur",
+"rosa de los vientos",
+"oeste",
+"Rosa de los vientos",
+"brújula"
 ],
 "man_made/courtyard":[
 "patio",
@@ -7549,6 +7615,15 @@
 "cable",
 "Poste de servicios públicos"
 ],
+"man_made/video_wall":[
+"pantalla",
+"tv",
+"video wall",
+"Pantalla digital",
+"televisión",
+"monitor",
+"led wall"
+],
 "man_made/wastewater_plant":[
 "ptar",
 "planta de tratamiento de aguas residuales",
@@ -7769,14 +7844,14 @@
 ],
 "natural/grassland":[
 "majada",
+"Pastizal",
 "prado",
 "pradería",
 "pradera",
 "dehesa",
 "herbazal",
 "pastos",
-"pastizal",
-"Pradera"
+"pastizal"
 ],
 "natural/heath":[
 "llanura",
@@ -7800,6 +7875,12 @@
 "aguas termales",
 "piscina termal"
 ],
+"natural/marsh":[
+"Ciénaga",
+"marisma",
+"ciénaga",
+"pantano"
+],
 "natural/mud":[
 "barro",
 "charco",
@@ -7821,6 +7902,16 @@
 "cúspide",
 "montaña",
 "corona"
+],
+"natural/reedbed":[
+"Juncal",
+"estero",
+"marisma",
+"carrizal",
+"cañaveral",
+"aguazal",
+"juncal",
+"pantano"
 ],
 "natural/reef":[
 "cardumen",
@@ -7903,6 +7994,12 @@
 "piedra",
 "roca",
 "Piedra sin unir"
+],
+"natural/swamp":[
+"Marisma",
+"marisma",
+"ciénaga",
+"pantano"
 ],
 "natural/tree":[
 "arbol",

@@ -2865,6 +2865,9 @@
 "vidro",
 "Vidreiro"
 ],
+"craft/handicraft":[
+"Taller de artesanía"
+],
 "craft/insulator":[
 "illar",
 "aislar",
@@ -3651,7 +3654,8 @@
 "parada",
 "paraxe",
 "Lugar de pasaxe",
-"escaleirón"
+"escaleirón",
+"apartadero"
 ],
 "highway/path":[
 "camiño",
@@ -3670,6 +3674,12 @@
 "ramal"
 ],
 "highway/path/boardwalk":[
+"paseo de madeira",
+"paseo elevado",
+"pasarela elevada",
+"pasarela de madeira",
+"paseo marítimo elevado",
+"pasarela",
 "Paseo marítimo elevado"
 ],
 "highway/path/informal":[
@@ -3819,15 +3829,26 @@
 "estación de servicio"
 ],
 "highway/speed_camera":[
-"Rádar de velocidade"
+"radar",
+"rádar",
+"Rádar de velocidade",
+"control de velocidade"
 ],
 "highway/steps":[
-"Escadas"
+"esqueira",
+"escaleira",
+"escaleiras",
+"esqueiro",
+"escada",
+"Escaleiras",
+"chanzos",
+"escadas",
+"banzos"
 ],
 "highway/steps/conveying":[
 "escaleira mecánica",
 "escadas mecánicas",
-"Escadas mecánicas"
+"Escaleira mecánica"
 ],
 "highway/stop":[
 "pare",
@@ -3841,7 +3862,14 @@
 "Sinal de Stop"
 ],
 "highway/street_lamp":[
-"Farol"
+"lámpada",
+"poste da luz",
+"foco",
+"pau da luz",
+"farola",
+"iluminación",
+"Farol",
+"farol"
 ],
 "highway/tertiary":[
 "Estrada terciaria",
@@ -3851,7 +3879,17 @@
 "highway/tertiary_link":[
 "Ligazón da estrada terciaria"
 ],
+"highway/toll_gantry":[
+"arco de portaxe",
+"portaxe electrónica",
+"peaxe electrónica",
+"pórtico de peaxe",
+"pórtico de portaxe",
+"arco de peaxe",
+"Arco de peaxe"
+],
 "highway/track":[
+"Pista forestal ou agrícola",
 "vieiro",
 "rural",
 "lugar",
@@ -3871,7 +3909,6 @@
 "atv",
 "sen mantemento",
 "cuadrimotor",
-"Pista ou carreiro sen mantemento",
 "campo",
 "4x4",
 "carreiro",
@@ -3882,10 +3919,15 @@
 "aldea"
 ],
 "highway/traffic_mirror":[
+"espello",
+"espello de tráfico",
+"espello convexo",
 "Espello de tráfico"
 ],
 "highway/traffic_signals":[
-"Semáforo"
+"semáforo",
+"Semáforo",
+"semáforos"
 ],
 "highway/trailhead":[
 "Comezo da pista"
@@ -4783,9 +4825,6 @@
 "Sauna"
 ],
 "leisure/slipway":[
-"Rampla para embarcacións"
-],
-"leisure/slipway_point":[
 "Rampla para embarcacións"
 ],
 "leisure/sports_centre":[
@@ -6893,7 +6932,9 @@
 "Tenda de arte"
 ],
 "shop/baby_goods":[
-"Tenda de produtos para meniños"
+"meniños",
+"Tenda de produtos para meniños",
+"bebés"
 ],
 "shop/bag":[
 "Tenda de maletas"
@@ -6972,13 +7013,23 @@
 "Concesionario de automóbiles"
 ],
 "shop/car/second_hand":[
-"Concesionario de coches usados"
+"Concesionario de coches usados",
+"segunda man",
+"coches",
+"concesionario",
+"usados",
+"ocasión"
 ],
 "shop/car_parts":[
 "Tenda de recambios de automóbiles"
 ],
 "shop/car_repair":[
-"Taller de arranxo de automóbiles"
+"taller de vehículos",
+"taller",
+"Taller de arranxo de automóbiles",
+"taller de automóbiles",
+"taller de coches",
+"taller de reparación"
 ],
 "shop/caravan":[
 "Concesionario de autocaravanas"
@@ -7106,7 +7157,7 @@
 "Tenda de cigarros electrónicos"
 ],
 "shop/electrical":[
-"Tenda de material de electrónica"
+"Tenda de material eléctrico"
 ],
 "shop/electronics":[
 "Tenda de electrodomésticos"
@@ -7497,7 +7548,12 @@
 "Tenda de artigos de costura"
 ],
 "shop/shoe_repair":[
-"Tenda de arranxo de zapatos"
+"reparación de calzado",
+"Tenda de arranxo de zapatos",
+"reparación de zapatos",
+"arranxo de zapatos",
+"arranxo de calzado",
+"zapateiro"
 ],
 "shop/shoes":[
 "Zapataría"
@@ -7988,29 +8044,8 @@
 "type/restriction/no_right_turn":[
 "Prohibido xirar á dereita"
 ],
-"type/restriction/no_straight_on":[
-"Prohibido seguir de fronte"
-],
-"type/restriction/no_u_turn":[
-"Prohibido o cambio de sentido"
-],
-"type/restriction/only_left_turn":[
-"Só cara a esquerda"
-],
-"type/restriction/only_right_turn":[
-"Só cara a dereita"
-],
-"type/restriction/only_straight_on":[
-"Só cara adiante"
-],
-"type/restriction/only_u_turn":[
-"Só cambio de sentido"
-],
 "type/route":[
 "Ruta"
-],
-"type/route/bicycle":[
-"Roteiro ciclista"
 ],
 "type/route/bus":[
 "Liña de bus"
