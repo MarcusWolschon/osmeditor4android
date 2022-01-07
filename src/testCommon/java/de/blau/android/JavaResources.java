@@ -34,7 +34,7 @@ public final class JavaResources {
     @NonNull
     public static File copyFileFromResources(@NonNull Context context, @NonNull String fileName, @Nullable String source, @NonNull String destination)
             throws IOException {
-        File destinationDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(context), destination);
+        File destinationDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), destination);
         File destinationFile = new File(destinationDir, fileName);
         copyFileFromResources(fileName, source, destinationFile);
         return destinationFile;

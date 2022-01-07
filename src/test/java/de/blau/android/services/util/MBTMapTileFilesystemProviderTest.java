@@ -51,7 +51,7 @@ public class MBTMapTileFilesystemProviderTest {
             fail(e.getMessage());
         }
         try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
-            File mbtFile = new File(FileUtil.getPublicDirectory(ApplicationProvider.getApplicationContext()),
+            File mbtFile = new File(FileUtil.getPublicDirectory(),
                     "ersatz_background.mbt");
             TileLayerSource.addOrUpdateCustomLayer(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), MockTileServer.MOCK_TILE_SOURCE, null,
                     -1, -1, "Vespucci Test", new Provider(), Category.other, null, null, 0, 19, TileLayerSource.DEFAULT_TILE_SIZE, false,

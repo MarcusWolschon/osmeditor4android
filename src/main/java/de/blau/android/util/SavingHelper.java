@@ -363,7 +363,7 @@ public class SavingHelper<T extends Serializable> {
             @Override
             protected void onPostExecute(Boolean result) {
                 try {
-                    if (!result) {
+                    if (!result) { // NOSONAR result can't be null
                         Snack.toastTopError(ctx, R.string.toast_export_failed);
                     } else {
                         Log.i(DEBUG_TAG, "Successful export to " + uri);
@@ -384,10 +384,8 @@ public class SavingHelper<T extends Serializable> {
      */
     public static void export(@Nullable Context ctx, @NonNull Exportable exportable) {
         String filename = DateFormatter.getFormattedString(DATE_PATTERN_EXPORT_FILE_NAME_PART) + "." + exportable.exportExtension();
-        File outfile = null;
         try {
-            File outDir = FileUtil.getPublicDirectory(ctx); // NOSONAR ctx is not actually used
-            outfile = new File(outDir, filename);
+            File outfile = new File(FileUtil.getPublicDirectory(), filename);
             try (FileOutputStream fout = new FileOutputStream(outfile); OutputStream outputStream = new BufferedOutputStream(fout)) {
                 exportable.export(outputStream);
                 Log.i(DEBUG_TAG, "Successful export to " + filename);

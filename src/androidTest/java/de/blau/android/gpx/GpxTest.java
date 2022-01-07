@@ -195,7 +195,7 @@ public class GpxTest {
         recordedTrack = main.getTracker().getTrack().getTrack(); // has been reloaded
         compareTrack(track, recordedTrack);
         try {
-            File exportedFile = new File(FileUtil.getPublicDirectory(main), filename);
+            File exportedFile = new File(FileUtil.getPublicDirectory(), filename);
             exportedFile.delete();
         } catch (IOException e) {
             fail(e.getMessage());

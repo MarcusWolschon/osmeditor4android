@@ -148,7 +148,7 @@ public class ReadSaveDataTest {
 
         // read back
         try {
-            InputStream is = new FileInputStream(new File(FileUtil.getPublicDirectory(main), TEST_OSM));
+            InputStream is = new FileInputStream(new File(FileUtil.getPublicDirectory(), TEST_OSM));
             Assert.assertNotNull(is);
             logic.readOsmFile(main, is, false, new SignalHandler(signal1));
             try { // NOSONAR

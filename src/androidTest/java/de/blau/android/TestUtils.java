@@ -1203,7 +1203,7 @@ public class TestUtils {
                     throw new IOException(uriString);
                 }
             } else {
-                File testFile = new File(FileUtil.getPublicDirectory(ctx), fileName);
+                File testFile = new File(FileUtil.getPublicDirectory(), fileName);
                 Files.delete(testFile.toPath());
             }
         } catch (IOException e) {
