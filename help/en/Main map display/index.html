@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../17.0.0 Release notes/">17.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../16.1.0 Release notes/">16.1.0 Release notes</a>
 </li>
                                         
@@ -377,7 +381,11 @@ i-->
 <li><strong>Info</strong> Display information on the currently selected imagery.</li>
 </ul>
 </li>
-<li>Mapbox Vector Tile layers (additionally to the above):<ul>
+<li>Custom imagery tile based layers (additionally to the above):<ul>
+<li><strong>Edit custom imagery configuration</strong> edit the configuration of the imagery, for example the URL.</li>
+</ul>
+</li>
+<li>Mapbox Vector Tile layers (additionally to <em>Tile based layers</em>):<ul>
 <li><strong>Change style</strong> Show the layer styling dialog (disabled if a style has been loaded).</li>
 <li><strong>Load style</strong> Load a mapbox-gl style.</li>
 <li><strong>Reset style</strong> Reset the style to the default.</li>
@@ -416,16 +424,19 @@ i-->
 </li>
 <li><strong>+</strong> button:<ul>
 <li>for disabled layers that can only be displayed once it will show a corresponding "Enable ..." entry that will turn the layer on.</li>
-<li>Add GeoJSON layer. Loads a GeoJSON layer from a file in to a new GeoJSON layer.</li>
-<li>Add background imagery layer. Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.</li>
-<li>Add overlay imagery layer. As above but assumes that the layer is partially transparent.</li>
-<li>Add layer from MVT style. Load a Mapbox-GL style file that has a "sources" section and create a layer. </li>
-<li>Add imagery from OAM. Add a layer from the OpenAerialMap catalogue. <em>(requires network connectivity)</em></li>
-<li>Add imagery from WMS. This allows you to add a specific layer from a WMS endpoint. <em>(requires network connectivity)</em></li>
+<li><strong>Add GeoJSON layer</strong> Loads a GeoJSON layer from a file in to a new GeoJSON layer.</li>
+<li><strong>Add background imagery layer</strong> Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.</li>
+<li><strong>Add overlay imagery layer</strong> As above but assumes that the layer is partially transparent.</li>
+<li><strong>Add custom imagery</strong> Adds a custom imagery configuration, this can then be used just 
+  as any tile based imagery source, the entries can be managed in the <a href="../Preferences/">preferences</a>.</li>
+<li><strong>Add layer from MVT style</strong> Load a Mapbox-GL style file that has a "sources" section and create a layer. </li>
+<li><strong>Add imagery from OAM</strong> Add a layer from the OpenAerialMap catalogue. <em>(requires network connectivity)</em></li>
+<li><strong>Add imagery from WMS</strong> This allows you to add a specific layer from a WMS endpoint. <em>(requires network connectivity)</em></li>
 </ul>
 </li>
 </ul>
-<p>Custom tile layers, including on device MBTile containers can be added in the <a href="../Preferences/">preferences</a>.</p>
+<p>Custom tile layers, including on device MBTile containers can be added in the <a href="../Preferences/">preferences</a> 
+or as decribed above..</p>
 <h3 id="highlighting-of-data-issues">Highlighting of data issues</h3>
 <p>With the standard map style certain data issues will be highlighted in magenta, these are</p>
 <ul>
@@ -517,6 +528,11 @@ directory, however this depends on the specific camera app.</p>
 <li><strong>Authorise OAuth</strong> - start authorisation process immediately. <em>(requires network connectivity)</em></li>
 <li><strong>Set MapRoulette API key</strong> - set the API key for modifying the status of MapRoulette tasks.</li>
 <li><strong>Clear clipboard</strong> - remove content from the internal OSM element clipboard.</li>
+<li><strong>Calibrate pressure sensor...</strong> - calibrate the conversion from barometric pressure to elevation.</li>
+<li><strong>Install EGM</strong> - install a gravitational model of the earth, required for getting height data from the devices GPS. Alternatively you can switch to NMEA input in the "Advanced preferences".</li>
+<li><strong>Remove EGM</strong> - remove the EGM.</li>
+<li><strong>Load keys from file...</strong> - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.</li>
+<li><strong>JS Console</strong> - start the JavaScript console for scripting the application. Note that this needs to be anabled in the "Advaced preferences":</li>
 </ul>
 <h3 id="find"><img alt="Find" src="../../images/ic_menu_search_holo_light.png" /> Find</h3>
 <p>Search for a location and pan to it with the OpenStreetMap Nominatim or Photon service <em>(requires network connectivity)</em></p>
@@ -583,7 +599,11 @@ directory, however this depends on the specific camera app.</p>
 <li><strong>Info</strong> Display information on the currently selected imagery.</li>
 </ul>
 </li>
-<li>Mapbox Vector Tile layers (additionally to the above):<ul>
+<li>Custom imagery tile based layers (additionally to the above):<ul>
+<li><strong>Edit custom imagery configuration</strong> edit the configuration of the imagery, for example the URL.</li>
+</ul>
+</li>
+<li>Mapbox Vector Tile layers (additionally to <em>Tile based layers</em>):<ul>
 <li><strong>Change style</strong> Show the layer styling dialog (disabled if a style has been loaded).</li>
 <li><strong>Load style</strong> Load a mapbox-gl style.</li>
 <li><strong>Reset style</strong> Reset the style to the default.</li>
@@ -622,16 +642,19 @@ directory, however this depends on the specific camera app.</p>
 </li>
 <li><strong>+</strong> button:<ul>
 <li>for disabled layers that can only be displayed once it will show a corresponding "Enable ..." entry that will turn the layer on.</li>
-<li>Add GeoJSON layer. Loads a GeoJSON layer from a file in to a new GeoJSON layer.</li>
-<li>Add background imagery layer. Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.</li>
-<li>Add overlay imagery layer. As above but assumes that the layer is partially transparent.</li>
-<li>Add layer from MVT style. Load a Mapbox-GL style file that has a "sources" section and create a layer. </li>
-<li>Add imagery from OAM. Add a layer from the OpenAerialMap catalogue. <em>(requires network connectivity)</em></li>
-<li>Add imagery from WMS. This allows you to add a specific layer from a WMS endpoint. <em>(requires network connectivity)</em></li>
+<li><strong>Add GeoJSON layer</strong> Loads a GeoJSON layer from a file in to a new GeoJSON layer.</li>
+<li><strong>Add background imagery layer</strong> Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.</li>
+<li><strong>Add overlay imagery layer</strong> As above but assumes that the layer is partially transparent.</li>
+<li><strong>Add custom imagery</strong> Adds a custom imagery configuration, this can then be used just 
+  as any tile based imagery source, the entries can be managed in the <a href="../Preferences/">preferences</a>.</li>
+<li><strong>Add layer from MVT style</strong> Load a Mapbox-GL style file that has a "sources" section and create a layer. </li>
+<li><strong>Add imagery from OAM</strong> Add a layer from the OpenAerialMap catalogue. <em>(requires network connectivity)</em></li>
+<li><strong>Add imagery from WMS</strong> This allows you to add a specific layer from a WMS endpoint. <em>(requires network connectivity)</em></li>
 </ul>
 </li>
 </ul>
-<p>Custom tile layers, including on device MBTile containers can be added in the <a href="../Preferences/">preferences</a>.</p>
+<p>Custom tile layers, including on device MBTile containers can be added in the <a href="../Preferences/">preferences</a> 
+or as decribed above..</p>
 <h3 id="highlighting-of-data-issues">Highlighting of data issues</h3>
 <p>With the standard map style certain data issues will be highlighted in magenta, these are</p>
 <ul>
@@ -723,6 +746,11 @@ directory, however this depends on the specific camera app.</p>
 <li><strong>Authorise OAuth</strong> - start authorisation process immediately. <em>(requires network connectivity)</em></li>
 <li><strong>Set MapRoulette API key</strong> - set the API key for modifying the status of MapRoulette tasks.</li>
 <li><strong>Clear clipboard</strong> - remove content from the internal OSM element clipboard.</li>
+<li><strong>Calibrate pressure sensor...</strong> - calibrate the conversion from barometric pressure to elevation.</li>
+<li><strong>Install EGM</strong> - install a gravitational model of the earth, required for getting height data from the devices GPS. Alternatively you can switch to NMEA input in the "Advanced preferences".</li>
+<li><strong>Remove EGM</strong> - remove the EGM.</li>
+<li><strong>Load keys from file...</strong> - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.</li>
+<li><strong>JS Console</strong> - start the JavaScript console for scripting the application. Note that this needs to be anabled in the "Advaced preferences":</li>
 </ul>
 <h3 id="find"><img alt="Find" src="../../images/ic_menu_search_holo_light.png" /> Find</h3>
 <p>Search for a location and pan to it with the OpenStreetMap Nominatim or Photon service <em>(requires network connectivity)</em></p>
@@ -746,7 +774,7 @@ directory, however this depends on the specific camera app.</p>
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 16.1.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 17.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",
