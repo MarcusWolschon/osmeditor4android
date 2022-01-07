@@ -178,7 +178,7 @@ public class SaveResumeTest {
         assertTrue(TestUtils.clickOverflowButton(device));
         TestUtils.scrollTo(context.getString(R.string.menu_relation));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_relation), true, false));
-        TestUtils.scrollToEnd();
+        TestUtils.scrollToEnd(true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.select_relation_type_other), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add_relation_member)));
         ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);

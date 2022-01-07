@@ -1176,6 +1176,7 @@ public class TestUtils {
             UiObject editText = device.findObject(new UiSelector().classNameMatches("^.*.EditText$"));
             try {
                 editText.setText(fileName);
+                findText(device, false, fileName, 2000);
                 clickText(device, false, context.getString(R.string.save), true);
             } catch (UiObjectNotFoundException e) {
                 Assert.fail(e.getMessage());
@@ -1322,14 +1323,18 @@ public class TestUtils {
     /**
      * Scroll to end
      * 
+     * @param fail fail if scrollable not found
+     * 
      * @throws UiObjectNotFoundException if the UiScrollable couldn't be found
      */
-    public static void scrollToEnd() {
+    public static void scrollToEnd(boolean fail) {
         UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
         try {
             appView.scrollToEnd(100);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail("UiScrollable not found");
+            if (fail) {
+                Assert.fail("UiScrollable not found");
+            }
         }
     }
 

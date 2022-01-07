@@ -2661,7 +2661,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         Log.e(DEBUG_TAG, "Emergency toast failed with " + ignored.getMessage());
                     }
                 }
-                SavingHelper.asyncExport(ctx, this); // ctx == null is checked in method
+                SavingHelper.export(ctx, this); // ctx == null is checked in method
                 Log.d(DEBUG_TAG, "save of state file failed, written emergency change file");
             }
             readingLock.unlock();

@@ -16,10 +16,9 @@ import java.io.Serializable;
 import org.nustaq.serialization.FSTObjectInput;
 import org.nustaq.serialization.FSTObjectOutput;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
-import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Handler;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -345,82 +344,62 @@ public class SavingHelper<T extends Serializable> {
      * Exports an Exportable asynchronously, displaying a toast on success or failure
      * 
      * @param ctx context for the toast
-     * @param exportable the exportable to run
+     * @param exportable the exportable
+     * @param uri Uri to write to
      */
-    public static void asyncExport(@Nullable final Context ctx, @NonNull final Exportable exportable) {
-        new ExecutorTask<Void, Void, String>() {
+    public static void asyncExport(@NonNull final Context ctx, @NonNull final Exportable exportable, @NonNull Uri uri) {
+        new ExecutorTask<Void, Void, Boolean>() {
             @Override
-            protected String doInBackground(Void param) {
-
-                String filename = DateFormatter.getFormattedString(DATE_PATTERN_EXPORT_FILE_NAME_PART) + "." + exportable.exportExtension();
-
-                OutputStream outputStream = null;
-                File outfile = null;
-                FileOutputStream fout = null;
-                try {
-                    File outDir = FileUtil.getPublicDirectory(ctx);
-                    outfile = new File(outDir, filename);
-                    fout = new FileOutputStream(outfile);
-                    outputStream = new BufferedOutputStream(fout);
+            protected Boolean doInBackground(Void param) {
+                try (OutputStream outputStream = ctx.getContentResolver().openOutputStream(uri)) {
                     exportable.export(outputStream);
                 } catch (Exception e) {
-                    Log.e(DEBUG_TAG, "Export failed - " + filename);
-                    return null;
-                } finally {
-                    SavingHelper.close(outputStream);
-                    SavingHelper.close(fout);
+                    Log.e(DEBUG_TAG, "Export failed - " + uri.toString());
+                    return false;
                 }
-                // workaround for android bug - make sure export file shows up via MTP
-                if (ctx != null) {
-                    try {
-                        triggerMediaScanner(ctx.getApplicationContext(), outfile);
-                    } catch (Exception ignored) {
-                        Log.e(DEBUG_TAG, "Toast in asyncExport failed with " + ignored.getMessage());
-                    } catch (Error ignored) { // NOSONAR crashing is not an option
-                        Log.e(DEBUG_TAG, "Toast in asyncExport failed with " + ignored.getMessage());
-                    }
-                }
-                return filename;
+                return true;
             }
 
             @Override
-            protected void onPostExecute(String result) {
-                if (ctx != null) {
-                    try {
-                        if (ctx instanceof Activity) {
-                            if (result == null) {
-                                Snack.barError((Activity) ctx, R.string.toast_export_failed);
-                            } else {
-                                Log.i(DEBUG_TAG, "Successful export to " + result);
-                                String text = ctx.getResources().getString(R.string.toast_export_success, result);
-                                Snack.barInfoShort((Activity) ctx, text);
-                            }
-                        }
-                    } catch (Exception ignored) {
-                        Log.e(DEBUG_TAG, "Toast in asyncExport.onPostExecute failed with " + ignored.getMessage());
-                    } catch (Error ignored) { // NOSONAR crashing is not an option
-                        Log.e(DEBUG_TAG, "Toast in asyncExport.onPostExecute failed with " + ignored.getMessage());
+            protected void onPostExecute(Boolean result) {
+                try {
+                    if (!result) {
+                        Snack.toastTopError(ctx, R.string.toast_export_failed);
+                    } else {
+                        Log.i(DEBUG_TAG, "Successful export to " + uri);
+                        Snack.toastTopInfo(ctx, ctx.getResources().getString(R.string.toast_export_success, uri.getPath()));
                     }
+                } catch (Exception | Error ignored) { // NOSONAR crashing is not an option
+                    Log.e(DEBUG_TAG, "Toast in asyncExport.onPostExecute failed with " + ignored.getMessage());
                 }
             }
         }.execute();
     }
 
     /**
-     * Trigger the media scanner to ensure files show up in MTP.
+     * Sync export an Exportable to a file named with the current date and type
      * 
-     * @param context a context to use for communication with the media scanner
-     * @param scanfile directory or file to scan
+     * @param ctx an optional Android Context
+     * @param exportable the Exportable
      */
-    @TargetApi(11)
-    private static void triggerMediaScanner(@NonNull Context context, @NonNull File scanfile) {
+    public static void export(@Nullable Context ctx, @NonNull Exportable exportable) {
+        String filename = DateFormatter.getFormattedString(DATE_PATTERN_EXPORT_FILE_NAME_PART) + "." + exportable.exportExtension();
+        File outfile = null;
         try {
-            String path = scanfile.getCanonicalPath();
-            Log.i(DEBUG_TAG, "Triggering media scan for " + path);
-            MediaScannerConnection.scanFile(context, new String[] { path }, null,
-                    (p, uri) -> Log.i(DEBUG_TAG, "Media scan completed for " + p + " URI " + uri));
+            File outDir = FileUtil.getPublicDirectory(ctx); // NOSONAR ctx is not actually used
+            outfile = new File(outDir, filename);
+            try (FileOutputStream fout = new FileOutputStream(outfile); OutputStream outputStream = new BufferedOutputStream(fout)) {
+                exportable.export(outputStream);
+                Log.i(DEBUG_TAG, "Successful export to " + filename);
+                if (ctx != null) {
+                    new Handler(ctx.getMainLooper()).post(() -> Snack.toastTopInfo(ctx, ctx.getResources().getString(R.string.toast_export_success, filename)));
+                }
+            }
         } catch (Exception e) {
-            Log.e(DEBUG_TAG, "Exception when triggering media scanner", e);
+            Log.e(DEBUG_TAG, "Export failed - " + filename);
+            if (ctx != null) {
+                new Handler(ctx.getMainLooper()).post(() -> Snack.toastTopError(ctx, R.string.toast_export_failed));
+            }
         }
     }
 

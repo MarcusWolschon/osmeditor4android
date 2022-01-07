@@ -1873,7 +1873,6 @@ public class Main extends FullScreenAppCompatActivity
         final Logic logic = App.getLogic();
         StorageDelegator delegator = App.getDelegator();
         switch (item.getItemId()) {
-
         case R.id.menu_config:
             PrefEditor.start(this);
             return true;
@@ -2091,8 +2090,19 @@ public class Main extends FullScreenAppCompatActivity
             }
             return true;
         case R.id.menu_gps_export:
-            if (getTracker() != null) {
-                SavingHelper.asyncExport(this, getTracker());
+            final TrackerService exportTracker = getTracker();
+            if (exportTracker != null) {
+                descheduleAutoLock();
+                SelectFile.save(this, R.string.config_osmPreferredDir_key, new SaveFile() {
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public boolean save(Uri fileUri) {
+                        SavingHelper.asyncExport(Main.this, exportTracker, fileUri);
+                        SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                        return true;
+                    }
+                });
             }
             return true;
         case R.id.menu_gps_import:
@@ -2186,7 +2196,17 @@ public class Main extends FullScreenAppCompatActivity
             }
             return true;
         case R.id.menu_transfer_export:
-            SavingHelper.asyncExport(this, delegator);
+            descheduleAutoLock();
+            SelectFile.save(this, R.string.config_osmPreferredDir_key, new SaveFile() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public boolean save(Uri fileUri) {
+                    SavingHelper.asyncExport(Main.this, delegator, fileUri);
+                    SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                    return true;
+                }
+            });
             return true;
         case R.id.menu_transfer_apply_osc_file:
             descheduleAutoLock();

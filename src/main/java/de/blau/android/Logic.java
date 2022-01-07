@@ -3275,7 +3275,7 @@ public class Logic {
             @Nullable final List<Long> relations, @Nullable final PostAsyncActionHandler postLoadHandler) {
 
         class DownLoadElementsTask extends ExecutorTask<Void, Void, AsyncResult> {
-            
+
             /**
              * Create a new DownLoadElementsTask
              * 
@@ -3571,8 +3571,7 @@ public class Logic {
     }
 
     /**
-     * Asynchronously write data to an OutputStream in (J)OSM compatible format, if fileName contains directories these
-     * are created, otherwise it is stored in the standard public dir
+     * Asynchronously write data to an OutputStream in (J)OSM compatible format
      * 
      * @param activity the calling FragmentActivity
      * @param fout OutputStream to write to, note: do not close in caller
