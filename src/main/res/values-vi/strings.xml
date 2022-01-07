@@ -200,6 +200,7 @@
   <string name="even">Số chẵn</string>
   <string name="odd">Số lẻ</string>
   <string name="other">Khác</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">Lỗi</string>
   <string name="warning">Cảnh báo</string>
@@ -355,8 +356,6 @@
   <string name="toast_unsurveyed_road">Đường chưa khảo sát</string>
   <string name="toast_noname">Con đường thiếu tên hoặc số</string>
   <string name="toast_notype">Quan hệ thiếu kiểu</string>
-  <string name="toast_untagged_way">Lối thiếu thẻ</string>
-  <string name="toast_untagged_relation">Quan hệ không có thẻ</string>
   <string name="toast_degenerate_way">Lối hỏng</string>
   <!---->
   <string name="toast_oauth">Xin hãy cho phép truy cập tài khoản của bạn qua OAuth.</string>
@@ -441,6 +440,7 @@
   <string name="discard">Bác bỏ</string>
   <string name="retry">Thử lại</string>
   <string name="check">Séc</string>
+  <string name="download">Tải về</string>
   <!--Read a file-->
   <string name="read">Đọc</string>
   <string name="overwrite">Ghi đè</string>

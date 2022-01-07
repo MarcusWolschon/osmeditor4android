@@ -240,6 +240,7 @@
   <string name="even">زوجي</string>
   <string name="odd">فردي</string>
   <string name="other">آخر</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">خطأ</string>
   <string name="warning">تحذير</string>
@@ -363,8 +364,6 @@
   <string name="api_info_attribution">الإسناد</string>
   <string name="api_info_mapsplit_source">قراءة المصدر فقط MapSplit</string>
   <!--Tag conflict dialog-->
-  <string name="tag_conflict_title">تغيرت الوسوم</string>
-  <string name="tag_conflict_message">تتطلب العملية تغيير الوسوم على العناصر ذات العلاقة.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">لا توجد علاقات مناسبة في البيانات التي تم تنزيلها</string>
   <string name="select_route_title">حدد المسار</string>
@@ -454,8 +453,7 @@
   <string name="toast_unsurveyed_road">طريق غير ممسوح</string>
   <string name="toast_noname">الطريق يفتقر إلى الاسم أو المرجع</string>
   <string name="toast_notype">العلاقة لم يحدد نوعها</string>
-  <string name="toast_untagged_way">طريقة غير موسوم</string>
-  <string name="toast_untagged_relation">علاقة غير موسومة</string>
+  <string name="toast_untagged_element">عنصر غير موسوم</string>
   <string name="toast_unconnected_end_node">العقدة/النقطة قريبة من عنصر يمكن توصيلها به</string>
   <string name="toast_degenerate_way">طريق متدهور</string>
   <!---->
@@ -617,6 +615,7 @@
   <string name="retry">إعادة المحاولة</string>
   <string name="prune">تنظيف وتقليص</string>
   <string name="check">التحقق</string>
+  <string name="download">تحميل</string>
   <!--Read a file-->
   <string name="read">اقرأ</string>
   <string name="overwrite">الكتابة فوق</string>
@@ -842,7 +841,6 @@
   <string name="menu_tools_update_imagery_configuration_eli">تحديث التكوينات من ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">تكبير لمدى طبقة الخلفية</string>
   <string name="menu_tools_clear_clipboard">مسح الحافظة</string>
-  <string name="menu_tools_calibrate_height">معايرة مستشعر الضغط</string>
   <string name="menu_tools_install_egm">قم بتثبيت EGM</string>
   <string name="menu_tools_remove_egm">إزالة EGM</string>
   <!---->
@@ -958,7 +956,6 @@
   <string name="config_overlayLayer_title">طبقات الخريطة</string>
   <string name="config_overlayLayer_summary">طبقات الخريطة القائمة على صور متجانبة.</string>
   <string name="config_customlayers_title">طبقات مخصصة</string>
-  <string name="config_customlayers_summary">تكوين طبقات ليست في التكوين الافتراضي.</string>
   <string name="config_scale_title">عرض المقياس</string>
   <string name="config_scale_summary">نوع المقياس المعروض على الخريطة.</string>
   <string name="config_mapProfile_title">نمط البيانات</string>

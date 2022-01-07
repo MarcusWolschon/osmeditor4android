@@ -236,6 +236,7 @@
   <string name="even">زوج</string>
   <string name="odd">فرد</string>
   <string name="other">سایر</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">خطا</string>
   <string name="warning">هشدار</string>
@@ -359,8 +360,6 @@
   <string name="api_info_attribution">انتساب</string>
   <string name="api_info_mapsplit_source">منبع فقط خواندنی MapSplit</string>
   <!--Tag conflict dialog-->
-  <string name="tag_conflict_title">برچسب‌های تغییر کردند</string>
-  <string name="tag_conflict_message">این عملیات نیاز به تغییر برچسب‌ها روی عناصر درگیر داشت.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">روابط مناسبی در داده‌های بارگیری شده وجود ندارد</string>
   <string name="select_route_title">مسیر را انتخاب کنید</string>
@@ -446,8 +445,7 @@
   <string name="toast_unsurveyed_road">جادهٔ نقشه‌برداری‌نشده</string>
   <string name="toast_noname">جاده نام یا ref ندارد</string>
   <string name="toast_notype">نوع رابطه مشخص نشده</string>
-  <string name="toast_untagged_way">راه بدون برچسب</string>
-  <string name="toast_untagged_relation">رابطهٔ بدون برچسب</string>
+  <string name="toast_untagged_element">عنصر بدون برچسب</string>
   <string name="toast_unconnected_end_node">گره نزدیک عنصری است که می‌تواند به آن متصل شود</string>
   <string name="toast_degenerate_way">راه مسدود شده</string>
   <!---->
@@ -601,6 +599,7 @@
   <string name="retry">تلاش مجدد</string>
   <string name="prune">هرس</string>
   <string name="check">بررسی</string>
+  <string name="download">بارگیری</string>
   <!--Read a file-->
   <string name="read">خواندن</string>
   <string name="overwrite">بَرنویسی</string>
@@ -826,7 +825,6 @@
   <string name="menu_tools_update_imagery_configuration_eli">به‌روزرسانی پیکربندی از ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">زوم به گسترهٔ لایهٔ پس‌زمینه</string>
   <string name="menu_tools_clear_clipboard">پاک‌سازی بریده‌دان</string>
-  <string name="menu_tools_calibrate_height">حسگر فشار را واسنجی کنید</string>
   <string name="menu_tools_install_egm">نصب EGM</string>
   <string name="menu_tools_remove_egm">حذف EGM</string>
   <!---->
@@ -938,7 +936,6 @@
   <string name="config_overlayLayer_title">رولایهٔ نقشه</string>
   <string name="config_overlayLayer_summary">رولایهٔ کاشی-پایهٔ نقشه</string>
   <string name="config_customlayers_title">لایه‌های سفارشی</string>
-  <string name="config_customlayers_summary">لایه‌هایی را که در پیکربندی پیشفرض نیستند، پیکربندی کنید.</string>
   <string name="config_scale_title">نمایش مقیاس</string>
   <string name="config_scale_summary">نوع مقیاس نمایش‌یافته بر نقشه.</string>
   <string name="config_mapProfile_title">سبک داده</string>

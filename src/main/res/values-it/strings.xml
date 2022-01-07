@@ -236,6 +236,7 @@
   <string name="even">Pari</string>
   <string name="odd">Dispari</string>
   <string name="other">Altro</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">Errore</string>
   <string name="warning">Attenzione</string>
@@ -347,6 +348,7 @@
   <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Cancella foto</string>
+  <string name="photo_viewer_delete_button">Cancella definitivamente</string>
   <string name="photo_viewer_goto">Vai alla foto</string>
   <string name="photo_viewer_label">Photo Viewer</string>
   <string name="mapillary_viewer_label">Mapillary Viewer</string>
@@ -356,8 +358,6 @@
   <string name="api_info_attribution">Attribuzione</string>
   <string name="api_info_mapsplit_source">Fonte in sola lettura MapSplit</string>
   <!--Tag conflict dialog-->
-  <string name="tag_conflict_title">Etichette modificate</string>
-  <string name="tag_conflict_message">L’operazione richiede la modifica delle etichette sugli elementi coinvolti.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Nessuna relazione idonea nei dati scaricati.</string>
   <string name="select_route_title">Seleziona ‘route’</string>
@@ -440,8 +440,7 @@ evitato usando una fonte di dati offline.</string>
   <string name="toast_unsurveyed_road">Strada non verificata</string>
   <string name="toast_noname">Mancano i valori nome e ref per la strada</string>
   <string name="toast_notype">Manca il tag \"relation\" per questa relazione</string>
-  <string name="toast_untagged_way">Strada senza tag</string>
-  <string name="toast_untagged_relation">Relazione senza tag</string>
+  <string name="toast_untagged_element">Elementi senza etichette</string>
   <string name="toast_unconnected_end_node">Il nodo è vicino a un elemento a cui potrebbe essere connesso</string>
   <string name="toast_degenerate_way">Percorso degenere</string>
   <!---->
@@ -592,6 +591,7 @@ evitato usando una fonte di dati offline.</string>
   <string name="retry">Riprova</string>
   <string name="prune">Riduci</string>
   <string name="check">Verifica</string>
+  <string name="download">Scarica</string>
   <!--Read a file-->
   <string name="read">Leggi</string>
   <string name="overwrite">Sovrascrivi</string>
@@ -818,7 +818,6 @@ evitato usando una fonte di dati offline.</string>
   <string name="menu_tools_update_imagery_configuration_eli">Aggiorna configurazione da ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Ingrandisci sul livello di sfondo</string>
   <string name="menu_tools_clear_clipboard">Cancella gli appunti</string>
-  <string name="menu_tools_calibrate_height">Calibra sensore di pressione</string>
   <string name="menu_tools_install_egm">Installa EGM</string>
   <string name="menu_tools_remove_egm">Rimuovi EGM</string>
   <!---->
@@ -930,7 +929,6 @@ evitato usando una fonte di dati offline.</string>
   <string name="config_overlayLayer_title">Mappa sovrapposta</string>
   <string name="config_overlayLayer_summary">La mappa sovrimpressa fatta di tasselli.</string>
   <string name="config_customlayers_title">Livelli personalizzati</string>
-  <string name="config_customlayers_summary">Configura i livelli non nella configurazione predefinita.</string>
   <string name="config_scale_title">Visibilità della scala grafica</string>
   <string name="config_scale_summary">Tipo di scala mostrata sulla mappa.</string>
   <string name="config_mapProfile_title">Stile dati</string>
@@ -972,6 +970,12 @@ evitato usando una fonte di dati offline.</string>
   <string name="config_tagFormEnabled_summary">Mostra la scheda delle etichette per la modifica.</string>
   <string name="config_showCameraAction_title">Mostra la videocamera</string>
   <string name="config_showCameraAction_summary">Mostra l’icona della telecamera nella barra delle azioni.</string>
+  <string name="config_selectCameraApp_title">App per la telecamera</string>
+  <string name="config_selectCameraApp_summary">Seleziona app della telecamera da usare.</string>
+  <string name="config_system_camera">Predefinita di sistema</string>
+  <string name="config_open_camera">Open Camera</string>
+  <string name="config_fv5_lite">FV5 lite</string>
+  <string name="config_fv5_pro">FV5 pro</string>
   <string name="config_useInternalPhotoViewer_title">Utilizza il visualizzatore interno delle foto</string>
   <string name="config_useInternalPhotoViewer_summary">Usa il visualizzatore interno delle foto, se non selezionato verrà usato un visualizzatore esterno.</string>
   <string name="config_followGPSbutton_title">Posizione del pulsante inseguimento posizione</string>
@@ -990,6 +994,8 @@ evitato usando una fonte di dati offline.</string>
   <string name="config_enableLightTheme_summary">Sfondi chiari e bianchi.</string>
   <string name="config_splitActionBarEnabled_title">Abilita la split action bar</string>
   <string name="config_splitActionBarEnabled_summary">Abilita la barra split action, il cui uso dipende dal dispositivo. Richiede il riavvio di Vespucci e una versione Android 4.0 o successiva.</string>
+  <string name="config_disableTranslations_title">Disabilita traduzioni</string>
+  <string name="config_disableTranslations_summary">Mostra l\'interfaccia grafica in inglese</string>
   <string name="config_maxInlineValues_title">Numero massimo di valori in linea</string>
   <string name="config_maxInlineValues_summary">Numero massimo di valori in linea visualizzati nella scheda delle etichette.</string>
   <string name="config_maxInlineValues_current">%1$d Valori</string>

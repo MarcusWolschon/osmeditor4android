@@ -232,6 +232,7 @@
   <string name="even">Even</string>
   <string name="odd">Oneven</string>
   <string name="other">Overig</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">Fout</string>
   <string name="warning">Waarschuwing</string>
@@ -313,10 +314,12 @@
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Foto\'s</string>
   <string name="layer_tasks">Taken</string>
-  <string name="layer_data">OSM gegevens</string>
-  <string name="layer_data_name">%1$s gegevens</string>
+  <string name="layer_data">OSM-gegevens</string>
+  <string name="layer_data_name">%1$s-gegevens</string>
   <string name="layer_flush_tile_cache">Leeg tijdelijke tegelopslag</string>
   <string name="layer_change_style">Verander stijl</string>
+  <string name="layer_load_style">Laad stijl</string>
+  <string name="layer_reset_style">Reset stijl</string>
   <string name="layer_select_imagery">Selecteer luchtfotografie</string>
   <string name="layer_category_all">Alle</string>
   <string name="layer_category_photo">Luchtfoto\'s</string>
@@ -348,8 +351,6 @@
   <string name="api_info_attribution">Attributie</string>
   <string name="api_info_mapsplit_source">MapSplit alleen-lezen bron</string>
   <!--Tag conflict dialog-->
-  <string name="tag_conflict_title">Tags gewijzigd</string>
-  <string name="tag_conflict_message">De operatie verseist het wijzigen van tags op de betrokken elementen.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Geen bruikbare relaties in gedownloade gegevens</string>
   <string name="select_route_title">Selecteer route</string>
@@ -431,8 +432,7 @@
   <string name="toast_unsurveyed_road">Ongeclassifiseerde weg</string>
   <string name="toast_noname">Straat heeft geen naam of referentie</string>
   <string name="toast_notype">Relatie mist type</string>
-  <string name="toast_untagged_way">Weg zonder tags</string>
-  <string name="toast_untagged_relation">Ongetagde relatie</string>
+  <string name="toast_untagged_element">Element zonder tags</string>
   <string name="toast_unconnected_end_node">Knoop ligt dicht bij een element waarmee het verbonden zou kunnen zijn</string>
   <string name="toast_degenerate_way">Onvolwaardige weg</string>
   <!---->
@@ -580,6 +580,7 @@
   <string name="retry">Opnieuw proberen</string>
   <string name="prune">Opschonen</string>
   <string name="check">Controleren</string>
+  <string name="download">Download</string>
   <!--Read a file-->
   <string name="read">Lezen</string>
   <string name="overwrite">Overschrijven</string>
@@ -753,7 +754,7 @@
   <string name="menu_transfer_load_replace">Wis en laad huidig gebied</string>
   <string name="menu_transfer_upload">Upload gegevens naar OSM server</string>
   <string name="menu_transfer_update">Update gegevens</string>
-  <string name="menu_transfer_close_changeset">Sluid huidige wijzigingenset</string>
+  <string name="menu_transfer_close_changeset">Sluit huidige wijzigingenset</string>
   <string name="menu_transfer_file">Bestand...</string>
   <string name="menu_transfer_export">Exporteer wijzigingen naar OSC bestand</string>
   <string name="menu_transfer_apply_osc_file">Pas wijzigingen van OSC bestand toe</string>
@@ -805,7 +806,6 @@
   <string name="menu_tools_update_imagery_configuration_eli">Update configuratie van ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Zoom naar achtergrondlaag bereik</string>
   <string name="menu_tools_clear_clipboard">Leeg klembord</string>
-  <string name="menu_tools_calibrate_height">Kalibreer druksensor</string>
   <string name="menu_tools_install_egm">Installeer EGM</string>
   <string name="menu_tools_remove_egm">Verwijder EGM</string>
   <!---->
@@ -815,7 +815,7 @@
   <string name="menu_privacy">Privacy</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Lijk achtergrondafbeeldingen uit</string>
-  <string name="menu_tools_background_align_reset">Weggooien</string>
+  <string name="menu_tools_background_align_reset">Reset</string>
   <string name="menu_tools_background_align_zero">Nul</string>
   <string name="menu_tools_background_align_retrieve_from_db">Uit gegevensbank</string>
   <string name="menu_tools_background_align_retrieve_from_device">Van apparaat</string>
@@ -913,7 +913,6 @@
   <string name="config_overlayLayer_title">Kaarttransparant</string>
   <string name="config_overlayLayer_summary">De tegelgebaseerde kaartransparant.</string>
   <string name="config_customlayers_title">Aangepaste lagen</string>
-  <string name="config_customlayers_summary">Configureer lagen die niet in de standaardconfiguratie aanwezig zijn.</string>
   <string name="config_scale_title">Schaal beeld</string>
   <string name="config_scale_summary">Schaaltype dat op kaart wordt weergegeven</string>
   <string name="config_mapProfile_title">Gegevensstijl</string>

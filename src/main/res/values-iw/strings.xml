@@ -230,6 +230,7 @@
   <string name="even">זוגית</string>
   <string name="odd">אי־זוגית</string>
   <string name="other">אחר</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">שגיאה</string>
   <string name="warning">אזהרה</string>
@@ -353,8 +354,6 @@
   <string name="api_info_attribution">ייחוס</string>
   <string name="api_info_mapsplit_source">מקור לקריאה בלבד MapSplit</string>
   <!--Tag conflict dialog-->
-  <string name="tag_conflict_title">התגיות השתנו</string>
-  <string name="tag_conflict_message">הפעולה דורש שינוי תגיות ברכיבים המעורבים.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">אין קשרים מתאימים בנתונים שהתקבלו</string>
   <string name="select_route_title">בחירת מסלול</string>
@@ -437,8 +436,7 @@
   <string name="toast_unsurveyed_road">דרך ללא תיעוד</string>
   <string name="toast_noname">לדרך אין שם או הפניה</string>
   <string name="toast_notype">לקשר חסר סוג</string>
-  <string name="toast_untagged_way">דרך בלתי מתויגת</string>
-  <string name="toast_untagged_relation">יחס בלתי מתויג</string>
+  <string name="toast_untagged_element">רכיב ללא תיוג</string>
   <string name="toast_unconnected_end_node">המפרק הוא ליד רכיב שאין לו אפשרות להתחבר אליו</string>
   <!---->
   <string name="toast_oauth_retry">כדאי לנסות להעלות שוב לאחר מתן גישה ל־OAuth לחשבון שלך ב־OSM.</string>
@@ -587,6 +585,7 @@
   <string name="retry">ניסיון חוזר</string>
   <string name="prune">קיצוץ</string>
   <string name="check">בדיקה</string>
+  <string name="download">הורדה</string>
   <!--Read a file-->
   <string name="read">קריאה</string>
   <string name="overwrite">שכתוב</string>
@@ -810,7 +809,6 @@
   <string name="menu_tools_update_imagery_configuration_eli">עדכון הגדרות מ־ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">לשנות את רמת התקריב עד להיקף שכבת הרקע</string>
   <string name="menu_tools_clear_clipboard">מחיקת לוח הגזירים</string>
-  <string name="menu_tools_calibrate_height">כיול חיישן לחץ</string>
   <string name="menu_tools_install_egm">התקנת EGM</string>
   <string name="menu_tools_remove_egm">הסרת EGM</string>
   <!---->
@@ -917,7 +915,6 @@
   <string name="config_overlayLayer_title">שכבה על מפה</string>
   <string name="config_overlayLayer_summary">שכבת העל למפה מבוססת האריחים.</string>
   <string name="config_customlayers_title">שכבות בהתאמה אישית</string>
-  <string name="config_customlayers_summary">הגדרת שכבות שאינן בתצורת בררת המחדל.</string>
   <string name="config_scale_title">שינוי גודל תצוגה</string>
   <string name="config_scale_summary">סוג הסרגל שמופיע על המפה.</string>
   <string name="config_mapProfile_title">סגנון נתונים</string>

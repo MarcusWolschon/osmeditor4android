@@ -178,6 +178,7 @@
   <!--API/Data layer info dialog-->
   <string name="ways">Vies</string>
   <!--Tile layer info dialog-->
+  <string name="attribution">Atribució</string>
   <!--Too much data dialog-->
   <string name="upload_data_now">Puja els canvis</string>
   <!--Delete custom preset dialog-->
@@ -194,6 +195,7 @@
   <string name="even">Parells</string>
   <string name="odd">Senars</string>
   <string name="other">Altre</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">Error</string>
   <string name="warning">Avís</string>
@@ -205,6 +207,7 @@
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">D\'acord, continua mostrant</string>
   <!--This concerns a shown message that should only be shown once-->
+  <string name="attached_object_warning_stop">D\'acord, ignora-ho</string>
   <!--debug dialog-->
   <string name="send_debug_information">Envia la informació de depuració</string>
   <!--JS console dialog-->
@@ -282,6 +285,7 @@
   <!--Mapillary layer-->
   <!--Photo viewer-->
   <!--API info dialog-->
+  <string name="api_info_attribution">Atribució</string>
   <!--Tag conflict dialog-->
   <!--Relation selection dialog-->
   <!--Preset selection dialog-->
@@ -338,8 +342,6 @@
   <string name="toast_unsurveyed_road">Carretera no revisada</string>
   <string name="toast_noname">Manca el nom o la referència a la carretera</string>
   <string name="toast_notype">Manca el tipus de relació</string>
-  <string name="toast_untagged_way">via no etiquetada</string>
-  <string name="toast_untagged_relation">relació no etiquetada</string>
   <string name="toast_unconnected_end_node">El node està a prop d’element al qual podria connectar-se</string>
   <!---->
   <string name="toast_oauth_retry">Intenta pujar de nou després de permetre l’accés a OAuth al teu compte d\'OSM.</string>
@@ -387,6 +389,7 @@
   <string name="clear">Neteja</string>
   <string name="discard">Descarta</string>
   <string name="retry">Torna a intentar-ho</string>
+  <string name="download">Baixa</string>
   <!--Read a file-->
   <string name="read">Llegeix</string>
   <string name="overwrite">Sobreescriu</string>

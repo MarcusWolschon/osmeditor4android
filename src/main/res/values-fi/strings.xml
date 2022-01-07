@@ -191,6 +191,7 @@
   <string name="even">Parillinen</string>
   <string name="odd">Pariton</string>
   <string name="other">Muu</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">Virhe</string>
   <string name="warning">Varoitus</string>
@@ -330,7 +331,6 @@
   <string name="toast_unsurveyed_road">Tarkastamaton tie</string>
   <string name="toast_noname">Tieltä puuttuu nimi tai viittaus</string>
   <string name="toast_notype">Ralaatiosta puuttuu tyyppi</string>
-  <string name="toast_untagged_relation">Ominaisuustiedoton relaatio</string>
   <!---->
   <string name="toast_oauth_retry">Anna OAuthille lupa päästä OSM-tilillesi, ja yritä sitten lähettää uudestaan.</string>
   <string name="toast_oauth">Anna OAuthille lupa päästä OSM-tilillesi.</string>
@@ -427,6 +427,7 @@
   <string name="discard">Hylkää</string>
   <string name="retry">Yritä uudelleen</string>
   <string name="check">Tarkista</string>
+  <string name="download">Lataa</string>
   <!--Read a file-->
   <string name="read">Lue</string>
   <string name="overwrite">Korvaa</string>
@@ -690,7 +691,6 @@
   <string name="config_overlayLayer_title">Peittotason kartta</string>
   <string name="config_overlayLayer_summary">Laattapohjainen karttapeittotaso.</string>
   <string name="config_customlayers_title">Räätälöidyt tasot</string>
-  <string name="config_customlayers_summary">Määritä omia tasoja oletustasojen jatkoksi.</string>
   <string name="config_scale_title">Mittakaava</string>
   <string name="config_scale_summary">Kartalla näytettävän mittakaavan tyyppi.</string>
   <string name="config_mapProfile_title">Datan tyyli</string>

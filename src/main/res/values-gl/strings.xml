@@ -205,6 +205,7 @@
   <string name="even">Par</string>
   <string name="odd">Impar</string>
   <string name="other">Outros</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">Erro</string>
   <string name="warning">Advertencia</string>
@@ -378,8 +379,7 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="toast_unsurveyed_road">Estrada non medida</string>
   <string name="toast_noname">Falla o nome ou a referencia na estrada</string>
   <string name="toast_notype">Falla o tipo na relación</string>
-  <string name="toast_untagged_way">Vía sen etiquetaxe</string>
-  <string name="toast_untagged_relation">Relación sen etiquetaxe</string>
+  <string name="toast_untagged_element">Elemento sen etiquetar</string>
   <string name="toast_unconnected_end_node">O nó está preto dun elemento ó cal podería estar conectado.</string>
   <string name="toast_degenerate_way">Degenerar vía</string>
   <!---->
@@ -468,6 +468,7 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="discard">Rexeitar</string>
   <string name="retry">Tentar outra</string>
   <string name="check">Comprobar</string>
+  <string name="download">Baixar</string>
   <!--Read a file-->
   <string name="read">Ler</string>
   <string name="overwrite">Sobre escribir</string>

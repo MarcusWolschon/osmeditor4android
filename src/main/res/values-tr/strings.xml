@@ -229,6 +229,7 @@
   <string name="even">Bile</string>
   <string name="odd">Garip</string>
   <string name="other">Diğer</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">Hata</string>
   <string name="warning">Uyarı</string>
@@ -343,8 +344,6 @@
   <string name="api_info_attribution">Atfetme</string>
   <string name="api_info_mapsplit_source">MapSplit salt-okunur kaynağı</string>
   <!--Tag conflict dialog-->
-  <string name="tag_conflict_title">Değiştirilen etiketler</string>
-  <string name="tag_conflict_message">İşlem, ilgili öğelerdeki etiketlerin değiştirilmesini gerektiriyordu.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">İndirilen verilerde uygun ilişki yok</string>
   <string name="select_route_title">Rota seç</string>
@@ -427,8 +426,7 @@
   <string name="toast_unsurveyed_road">Keşfedilmemiş yol</string>
   <string name="toast_noname">Yolun adı veya referansı yok</string>
   <string name="toast_notype">İlişkinin tipi eksik</string>
-  <string name="toast_untagged_way">Yaftasız yol</string>
-  <string name="toast_untagged_relation">Yaftasız ilişki</string>
+  <string name="toast_untagged_element">Etiketsiz öğe</string>
   <string name="toast_unconnected_end_node">Düğüm bağlanabileceği öğeye yakın</string>
   <string name="toast_degenerate_way">Dejenere yol</string>
   <!---->
@@ -573,6 +571,7 @@
   <string name="retry">Yeniden dene</string>
   <string name="prune">Buda</string>
   <string name="check">Denetle</string>
+  <string name="download">İndir</string>
   <!--Read a file-->
   <string name="read">Oku</string>
   <string name="overwrite">Üzerine yaz</string>
@@ -797,7 +796,6 @@
   <string name="menu_tools_update_imagery_configuration_eli">ELI\'den yapılandırmayı güncelle</string>
   <string name="menu_tools_zoom_to_layer_extent">Arka plan katman ölçüsüne yakınlaştır</string>
   <string name="menu_tools_clear_clipboard">Panoyu temizle</string>
-  <string name="menu_tools_calibrate_height">Basınç sensörünü ayarla</string>
   <string name="menu_tools_install_egm">EGM\'yi yükle</string>
   <string name="menu_tools_remove_egm">EGM\'yi kaldır</string>
   <!---->
@@ -904,7 +902,6 @@
   <string name="config_overlayLayer_title">Harita kaplaması</string>
   <string name="config_overlayLayer_summary">Döşeme tabanlı harita kaplaması.</string>
   <string name="config_customlayers_title">Özel katmanlar</string>
-  <string name="config_customlayers_summary">Varsayılan yapılandırmada olmayan katmanları yapılandırın.</string>
   <string name="config_scale_title">Ölçek ekran</string>
   <string name="config_scale_summary">Haritada görüntülenen ölçek türü.</string>
   <string name="config_mapProfile_title">Veri biçemi</string>

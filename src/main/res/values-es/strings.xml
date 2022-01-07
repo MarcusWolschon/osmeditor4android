@@ -233,6 +233,7 @@
   <string name="even">Par</string>
   <string name="odd">Impar</string>
   <string name="other">Otro</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">Error</string>
   <string name="warning">Advertencia</string>
@@ -347,8 +348,6 @@
   <string name="api_info_attribution">Atribución</string>
   <string name="api_info_mapsplit_source">Fuente de solo lectura de MapSplit</string>
   <!--Tag conflict dialog-->
-  <string name="tag_conflict_title">Etiquetas cambiadas</string>
-  <string name="tag_conflict_message">La operación requirió cambiar etiquetas en los elementos involucrados.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">No hay relaciones adecuadas en los datos descargados.</string>
   <string name="select_route_title">Seleccionar ruta</string>
@@ -430,8 +429,7 @@
   <string name="toast_unsurveyed_road">Camino no medido</string>
   <string name="toast_noname">La vía no tiene nombre o referencia</string>
   <string name="toast_notype">La relación no tiene tipo</string>
-  <string name="toast_untagged_way">Vía sin etiqueta</string>
-  <string name="toast_untagged_relation">Relación no etiquetada</string>
+  <string name="toast_untagged_element">Elemento sin etiquetar</string>
   <string name="toast_unconnected_end_node">El nodo está cerca del elemento al que podría conectarse</string>
   <string name="toast_degenerate_way">Degenerar vía</string>
   <!---->
@@ -579,6 +577,7 @@
   <string name="retry">Reintentar</string>
   <string name="prune">Podar</string>
   <string name="check">Comprobar</string>
+  <string name="download">Descargar</string>
   <!--Read a file-->
   <string name="read">Leer</string>
   <string name="overwrite">Sobreescribir</string>
@@ -805,7 +804,6 @@
   <string name="menu_tools_update_imagery_configuration_eli">Actualizar configuración desde ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Acercar a la extensión de la capa de fondo</string>
   <string name="menu_tools_clear_clipboard">Limpiar portapapeles</string>
-  <string name="menu_tools_calibrate_height">Calibrar sensor de presión</string>
   <string name="menu_tools_install_egm">Instalar EGM</string>
   <string name="menu_tools_remove_egm">Quitar EGM</string>
   <!---->
@@ -917,7 +915,6 @@
   <string name="config_overlayLayer_title">Superposición de mapa</string>
   <string name="config_overlayLayer_summary">La superposición de mapa basada en teselas.</string>
   <string name="config_customlayers_title">Capas personalizadas</string>
-  <string name="config_customlayers_summary">Configurar capas que no están en la configuración predeterminada.</string>
   <string name="config_scale_title">Mostrar escala</string>
   <string name="config_scale_summary">Tipo de escala que se muestra en el mapa.</string>
   <string name="config_mapProfile_title">Estilo de datos</string>

@@ -219,6 +219,7 @@
   <string name="even">Paires</string>
   <string name="odd">Impaires</string>
   <string name="other">Autre</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">Erreur</string>
   <string name="warning">Avertissement</string>
@@ -332,7 +333,6 @@
   <string name="api_info_attribution">Attribution</string>
   <string name="api_info_mapsplit_source">Source MapSplit en lecture seule</string>
   <!--Tag conflict dialog-->
-  <string name="tag_conflict_message">L\'opération nécessite de changer les tags des éléments concernés.</string>
   <!--Relation selection dialog-->
   <!--Preset selection dialog-->
   <string name="select_relation_type_other">Autre</string>
@@ -406,8 +406,7 @@
   <string name="toast_unsurveyed_road">Route non vérifiée</string>
   <string name="toast_noname">Nom ou référence manquant</string>
   <string name="toast_notype">La relation n\'a pas de type</string>
-  <string name="toast_untagged_way">Ligne sans attributs</string>
-  <string name="toast_untagged_relation">Relation sans attributs</string>
+  <string name="toast_untagged_element">Élément sans attribut</string>
   <string name="toast_unconnected_end_node">Le nœud est proche d\'un élément auquel il pourrait être relié</string>
   <string name="toast_degenerate_way">Dégénérer le chemin</string>
   <!---->
@@ -534,6 +533,7 @@
   <string name="retry">Réessayer</string>
   <string name="prune">Élaguer</string>
   <string name="check">Vérifier</string>
+  <string name="download">Télécharger</string>
   <!--Read a file-->
   <string name="read">Lire</string>
   <string name="overwrite">Écrire par dessus</string>
@@ -755,7 +755,6 @@
   <string name="menu_tools_update_imagery_configuration_eli">Mettre à jour la configuration depuis ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Zoomer sur l\'étendu de la couche de fond de carte</string>
   <string name="menu_tools_clear_clipboard">Effacer le presse-papier</string>
-  <string name="menu_tools_calibrate_height">Calibrer le capteur de pression</string>
   <string name="menu_tools_install_egm">Installer l\'EGM</string>
   <string name="menu_tools_remove_egm">Supprimer l\'EGM</string>
   <!---->
@@ -859,7 +858,6 @@
   <string name="config_overlayLayer_title">Couche supplémentaire</string>
   <string name="config_overlayLayer_summary">La surcouche sous forme de tuiles.</string>
   <string name="config_customlayers_title">Couches personnalisées</string>
-  <string name="config_customlayers_summary">Configurez les couches qui ne sont pas dans la configuration par défaut</string>
   <string name="config_scale_title">Affichage de l\'échelle</string>
   <string name="config_scale_summary">Type d\'échelle à afficher sur la carte.</string>
   <string name="config_mapProfile_title">Style de données</string>

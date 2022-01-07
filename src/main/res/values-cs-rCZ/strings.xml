@@ -233,6 +233,7 @@
   <string name="even">Sudý</string>
   <string name="odd">Lichý</string>
   <string name="other">Jiné</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">Chyba</string>
   <string name="warning">Varování</string>
@@ -347,8 +348,6 @@
   <string name="api_info_attribution">Autorství</string>
   <string name="api_info_mapsplit_source">MapSplit pouze pro čtení</string>
   <!--Tag conflict dialog-->
-  <string name="tag_conflict_title">Tagy změněny</string>
-  <string name="tag_conflict_message">Akce vyžaduje změnu tagů ovlivněných prvků.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Žádné vhodné relace ve stažené oblasti</string>
   <string name="select_route_title">Zvolte trasu</string>
@@ -431,8 +430,7 @@
   <string name="toast_unsurveyed_road">Neprozkoumaná cesta</string>
   <string name="toast_noname">Cesta bez názvu či referenčního čísla</string>
   <string name="toast_notype">Relaci chybí typ</string>
-  <string name="toast_untagged_way">Neoznačená cesta</string>
-  <string name="toast_untagged_relation">Neoznačená relace</string>
+  <string name="toast_untagged_element">Neoznačený prvek</string>
   <string name="toast_unconnected_end_node">Uzel je poblíž prvku, ke kterému by se mohl připojit</string>
   <string name="toast_degenerate_way">Degenerovaná cesta</string>
   <!---->
@@ -578,6 +576,7 @@
   <string name="retry">Zkusit znovu</string>
   <string name="prune">Vyčistit</string>
   <string name="check">Zkontrolovat</string>
+  <string name="download">Stáhnout</string>
   <!--Read a file-->
   <string name="read">Načíst</string>
   <string name="overwrite">Přepsat</string>
@@ -801,7 +800,6 @@
   <string name="menu_tools_update_imagery_configuration_eli">Aktualizovat konfiguraci z ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Přiblížit na rozsah pozadí</string>
   <string name="menu_tools_clear_clipboard">Vyčistit schránku</string>
-  <string name="menu_tools_calibrate_height">Kalibrovat tlakový senzor</string>
   <string name="menu_tools_install_egm">Instalovat EGM</string>
   <string name="menu_tools_remove_egm">Odstranit EGM</string>
   <!---->
@@ -909,7 +907,6 @@
   <string name="config_overlayLayer_title">Překrytí mapy</string>
   <string name="config_overlayLayer_summary">Dlaždicová překryvná vrstva mapy.</string>
   <string name="config_customlayers_title">Vlastní vrstvy</string>
-  <string name="config_customlayers_summary">Nastavení vrstev, které nejsou ve výchozí konfiguraci.</string>
   <string name="config_scale_title">Zobrazení měřítka</string>
   <string name="config_scale_summary">Typ měřítka zobrazeného na mapě.</string>
   <string name="config_mapProfile_title">Styl dat</string>

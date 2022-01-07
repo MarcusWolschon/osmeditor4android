@@ -63,7 +63,7 @@
   <string name="applying_osc_failed_message">Скорее всего вы загрузили не все исходные объекты, необходимые для применения изменений</string>
   <!---->
   <string name="welcome_title">Добро пожаловать</string>
-  <string name="welcome_message">Спасибо за установку Vespucci.\n&lt;br&gt;&lt;br&gt;Для начала достаточно знать эти три вещи:\n&lt;ul&gt;&lt;li&gt;Нажатие на значке замка в левом верхнем углу переключает между режимами редактирования (замок открыт) и блокировки правок;&lt;/li&gt;&lt;li&gt;Для редактирования OpenStreetMap вам нужно сперва загрузить данные для области, где вы хотите что-либо изменить (выберите нужный масштаб перед этим);&lt;/li&gt;&lt;li&gt;Для добавления объекта нажмите на большую зелёную кнопку и выберите, что вы хотите добавить, а затем нажмите на место, где хотите его установить.&lt;/li&gt;&lt;/ul&gt;\nЭто все, что вам необходимо знать для начала. Успехов!</string>
+  <string name="welcome_message">Спасибо за установку Vespucci.\n&lt;br&gt;&lt;br&gt;Для начала достаточно знать три вещи:\n&lt;ul&gt;&lt;li&gt;Нажатие на значок замка в левом верхнем углу переключает между режимами редактирования (замок открыт) и блокировки правок;&lt;/li&gt;&lt;li&gt;Для редактирования OpenStreetMap  сначала загрузите данные для области, где вы хотите что-либо изменить (выберите нужный масштаб перед этим);&lt;/li&gt;&lt;li&gt;Для добавления объекта нажмите на большую зелёную кнопку и выберите, что вы хотите добавить, а затем нажмите на место, где хотите его установить.&lt;/li&gt;&lt;/ul&gt;\nЭто всё, что вам необходимо знать для начала. Успехов!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Ваше устройство имеет настраиваемые кнопки (\"soft keys\"), которые пока скрыты. Пролистывание от нижнего края покажет их снова. </string>
   <string name="read_introduction">Прочесть введение</string>
   <string name="upgrade_title">Это новая версия Vespucci</string>
@@ -238,6 +238,7 @@
   <string name="even">Четные</string>
   <string name="odd">Нечетные</string>
   <string name="other">Другое</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">Ошибка</string>
   <string name="warning">Предупреждение</string>
@@ -356,8 +357,6 @@
   <string name="api_info_bounds">Границы</string>
   <string name="api_info_attribution">Атрибуция</string>
   <!--Tag conflict dialog-->
-  <string name="tag_conflict_title">Теги изменены</string>
-  <string name="tag_conflict_message">Операция потребовала изменения тегов задействованных элементов.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Нет подходящих отношений в загруженных данных</string>
   <string name="select_route_title">Выбрать маршрут</string>
@@ -441,8 +440,7 @@
   <string name="toast_unsurveyed_road">Необследованная дорога</string>
   <string name="toast_noname">У дороги нет ни имени, ни индекса</string>
   <string name="toast_notype">У отношения нет типа</string>
-  <string name="toast_untagged_way">Линия без тегов</string>
-  <string name="toast_untagged_relation">Отношение без тегов</string>
+  <string name="toast_untagged_element">Элемент без тегов</string>
   <string name="toast_unconnected_end_node">Точка рядом с элементом и может быть присоединена</string>
   <string name="toast_degenerate_way">Вырожденная линия</string>
   <!---->
@@ -590,6 +588,7 @@
   <string name="retry">Повторить</string>
   <string name="prune">Очистка</string>
   <string name="check">Проверка</string>
+  <string name="download">Загрузить</string>
   <!--Read a file-->
   <string name="read">Прочесть</string>
   <string name="overwrite">Переписать</string>
@@ -818,7 +817,6 @@
   <string name="menu_tools_update_imagery_configuration_eli">Обновить настройки из ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Приблизить к нижнему слою</string>
   <string name="menu_tools_clear_clipboard">Очистить буфер обмена</string>
-  <string name="menu_tools_calibrate_height">Откалибруйте датчик давления</string>
   <string name="menu_tools_install_egm">Установить EGM</string>
   <string name="menu_tools_remove_egm">Удалить EGM</string>
   <!---->
@@ -921,7 +919,6 @@
   <string name="config_overlayLayer_title">Наложение</string>
   <string name="config_overlayLayer_summary">Слой, накладываемый поверх фона и данных карты</string>
   <string name="config_customlayers_title">Пользовательские слои</string>
-  <string name="config_customlayers_summary">Настройка пользовательских слоёв, отсутствующих в конфигурации по умолчанию.</string>
   <string name="config_scale_title">Отображение шкалы</string>
   <string name="config_scale_summary">Тип шкалы, показываемой на карте</string>
   <string name="config_mapProfile_title">Стиль данных</string>

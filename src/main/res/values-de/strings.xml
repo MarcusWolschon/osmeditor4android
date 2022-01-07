@@ -236,6 +236,9 @@
   <string name="even">Gerade</string>
   <string name="odd">Ungerade</string>
   <string name="other">Andere</string>
+  <!--Safe split dialog-->
+  <string name="split_safe_title">Fehlende Relationsmitglieder</string>
+  <string name="split_safe_message">Benachbarte Relationsmitglieder fehlen im Download. Ohne diese kann möglicherweise die korrekte Reihenfolge der Mitglieder nicht bestimmt werden.</string>
   <!---->
   <string name="error">Fehler</string>
   <string name="warning">Warnung</string>
@@ -336,6 +339,8 @@
   <string name="layer_category_qa">Qualitätskontrolle</string>
   <string name="layer_category_other">Andere</string>
   <string name="layer_add_layer_from_mvt_style">Ebene aus MVT Stil hinzufügen</string>
+  <string name="layer_add_custom_imagery">Benutzerdefinierter Hintergrund hinzufügen</string>
+  <string name="layer_edit_custom_imagery_configuration">Benutzerdefinierte Hintergrundkonfiguration ändern</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Minimaler Zoom</string>
   <string name="layer_info_max_zoom">Maximaler Zoom</string>
@@ -418,6 +423,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_name_empty">Name darf nicht leer sein</string>
   <string name="toast_url_empty">URL darf nicht leer sein</string>
   <string name="toast_min_zoom">Minimaler Zoom muss kleiner sein als der maximale Zoom</string>
+  <string name="toast_tile_layer_exists">Quelle %1$s hat die gleich URL</string>
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
   <string name="toast_jpeg_not_transparent">JPEG-Kacheln sind nicht transparent und können nicht als Overlay verwendet werden</string>
   <string name="toast_unsaved_changes">Sie haben ungespeicherte Änderungen, bitte zuerst hochladen.</string>
@@ -447,8 +453,9 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_unsurveyed_road">Straße nicht überprüft</string>
   <string name="toast_noname">Straße fehlt Tag \'name\' oder \'ref\'</string>
   <string name="toast_notype">Relation fehlt Tag \'type\'</string>
-  <string name="toast_untagged_way">Weg ohne Tags</string>
-  <string name="toast_untagged_relation">Relation ohne Tags</string>
+  <string name="toast_missing_role">Relationsmitglieder ohne notwendige Rollenwerte</string>
+  <string name="toast_relation_loop">Referenzen der Relationsmitglieder bilden eine Schleife</string>
+  <string name="toast_untagged_element">Element ohne Attribute</string>
   <string name="toast_unconnected_end_node">Knoten ist in der Nähe eines Elements, mit dem er verbunden werden kann</string>
   <string name="toast_degenerate_way">Weg mit fehlerhafter Geometrie</string>
   <!---->
@@ -574,6 +581,9 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_error_loading_style">Kann Stil \"%1$s\" nicht laden</string>
   <string name="toast_only_one_source_supported">Nur eine Quelle per Stil unterstützt.</string>
   <string name="toast_imagery_offset_download_failed">Download vom Versatz fehlgeschlagen: %1$s</string>
+  <string name="toast_download_server_version_failed">Laden der Serverversion fehlgeschlagen für %1$s</string>
+  <string name="toast_error_element_too_large">Element ist zu gross für den Eigenschaftseditor</string>
+  <string name="toast_no_intersection_found">Kein Schnittpunkt gefunden</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -602,6 +612,9 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="retry">Wiederholen</string>
   <string name="prune">Zurückschneiden</string>
   <string name="check">Prüfen</string>
+  <string name="download">Herunterladen</string>
+  <string name="abort">Abbrechen</string>
+  <string name="ignore">Ignorieren</string>
   <!--Read a file-->
   <string name="read">Lesen</string>
   <string name="overwrite">Überschreiben</string>
@@ -827,9 +840,10 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="menu_tools_update_imagery_configuration_eli">Konfiguration von ELI aktualisieren</string>
   <string name="menu_tools_zoom_to_layer_extent">Auf Abdeckung des Hintergrunds zoomen</string>
   <string name="menu_tools_clear_clipboard">Zwischenablage löschen</string>
-  <string name="menu_tools_calibrate_height">Barometer kalibrieren</string>
+  <string name="menu_tools_calibrate_height">Barometer kalibrieren…</string>
   <string name="menu_tools_install_egm">EGM installieren</string>
   <string name="menu_tools_remove_egm">EGM entfernen</string>
+  <string name="menu_tools_load_keys">Schlüssel aus Datei laden…</string>
   <!---->
   <string name="menu_simple_actions">Einfacher Modus</string>
   <string name="menu_feedback">Rückmeldung senden</string>
@@ -870,7 +884,9 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="menu_tags">Eigenschaften</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Chronik</string>
+  <string name="menu_history_web">Chronik (Web)</string>
   <string name="menu_merge">Wege verbinden</string>
+  <string name="menu_add_node_at_intersection">Kreuzungspunkt hinzufügen</string>
   <string name="menu_reverse">Weg umkehren</string>
   <string name="notreversable_description">Der Weg ist nicht umkehrbar, da er Tags mit richtungsabhängigen Eigenschaften besitzt. Das Umkehren würde das Tagging beschädigen.</string>
   <string name="reverse_anyway">Trotzdem umkehren</string>
@@ -939,7 +955,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_overlayLayer_title">Karten-Overlay</string>
   <string name="config_overlayLayer_summary">Auswahl des Bildmaterials für ein Overlay.</string>
   <string name="config_customlayers_title">Benutzerdefinierte Hintergründe</string>
-  <string name="config_customlayers_summary">Zusätzliches Hintergrundbildmaterial konfigurieren</string>
+  <string name="config_customlayers_summary">Zusätzliches Hintergrundbildmaterial verwalten</string>
   <string name="config_scale_title">Maßstabsanzeige</string>
   <string name="config_scale_summary">Art der angezeigeten Skala</string>
   <string name="config_mapProfile_title">Datenebenenstil</string>
@@ -1093,6 +1109,9 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_bugDownloadRadius_summary">Radius (in Metern) des Download-Gebiets für Aufgaben</string>
   <string name="config_maxBugDownloadSpeed_title">Höchstgeschwindigkeit für Auto-Download von Aufgaben</string>
   <string name="config_maxBugDownloadSpeed_summary">Geschwindigkeit (in km/h), über der der Auto-Download von Notizen, Fehlern und Aufgaben pausiert wird.</string>
+  <string name="config_autoPruneTaskLimit_title">Grenzwert automatisches Beschneiden von Aufgaben</string>
+  <string name="config_autoPruneTaskLimit_summary">Anzahl der Aufgaben im Speicher, die ein Beschneiden auslöst.</string>
+  <string name="config_autoPruneTaskLimit_current">%1$d Aufgaben</string>
   <!--Location Settings-->
   <string name="config_category_gps">Standorteinstellungen</string>
   <string name="config_category_gps_summary">GPS/GNSS-Einstellungen und andere Standortdienste</string>
@@ -1294,6 +1313,7 @@ in %1$d m %2$s</string>
   <string name="issue_same_object">Das selbe Objekt</string>
   <string name="issue_merged_metric">Längenabhängiger Wert wurde zusammengeführt</string>
   <string name="issue_split_metric">Längenabhängiger Wert wurde geteilt</string>
+  <string name="issue_split_route_ordering">Die Route muss eventuell händisch geordnet werden</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 Tag</item>

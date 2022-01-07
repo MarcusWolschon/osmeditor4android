@@ -83,6 +83,7 @@
   <string name="progress_building_imagery_database">建構圖像資料庫...</string>
   <string name="progress_query_oam">正在查詢 OAM ...</string>
   <string name="progress_pruning">剪裁中...</string>
+  <string name="progress_migration">正遷移中...</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" 已刪除</string>
   <string name="changes_changed">\"%1$s\" 已變更</string>
@@ -190,6 +191,8 @@
   <string name="edit_properties">編輯標籤</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON 圖徵資訊 </string>
+  <string name="vt_feature_information">向量圖磚特徵資訊</string>
+  <string name="vt_layer">向量圖磚圖層</string>
   <string name="copy_properties">複製性質</string>
   <string name="create_osm_element">創建 OSM 元件</string>
   <!--API/Data layer info dialog-->
@@ -232,6 +235,7 @@
   <string name="even">偶數</string>
   <string name="odd">奇數</string>
   <string name="other">其他</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">錯誤</string>
   <string name="warning">警告</string>
@@ -292,6 +296,7 @@
   <string name="coverage_left">左邊</string>
   <string name="coverage_right">右邊</string>
   <string name="coverage_bottom">底部</string>
+  <string name="tile_size">圖磚大小</string>
   <string name="toast_invalid_box">無效或不完整的邊界框</string>
   <string name="delete_layer">刪除圖層？</string>
   <string name="delete_endpoint">刪除端點？</string>
@@ -302,7 +307,9 @@
   <string name="layer_style_title">圖層樣式</string>
   <string name="layer_style_stroke_width">粗體寬度</string>
   <string name="layer_style_color">顏色</string>
+  <string name="layer_style_layer">次圖層</string>
   <string name="layer_style_label">標籤</string>
+  <string name="layer_style_symbol">象徵</string>
   <string name="json_object_not_displayed">JSON 物件 (未顯示)</string>
   <string name="json_array_not_displayed">JSON 陣列 (未顯示)</string>
   <!--Layer dialog-->
@@ -316,15 +323,19 @@
   <string name="layer_data_name">%1$s資料</string>
   <string name="layer_flush_tile_cache">清理圖磚暫存檔</string>
   <string name="layer_change_style">改變樣式</string>
+  <string name="layer_load_style">載入樣式</string>
+  <string name="layer_reset_style">重設樣式</string>
   <string name="layer_select_imagery">選擇影像</string>
   <string name="layer_category_all">所有</string>
   <string name="layer_category_photo">空照影像</string>
+  <string name="layer_category_elevation">地形</string>
   <string name="layer_category_historicphoto">過期的空照影像</string>
   <string name="layer_category_map">地圖</string>
   <string name="layer_category_historicmap">過期的地圖</string>
   <string name="layer_category_osmbasedmap">OSM 為基準的地圖</string>
   <string name="layer_category_qa">QA</string>
   <string name="layer_category_other">其他</string>
+  <string name="layer_add_layer_from_mvt_style">從 MVT 樣式新增圖層</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">最小縮小</string>
   <string name="layer_info_max_zoom">最大放大</string>
@@ -335,8 +346,10 @@
   <string name="projection">投景</string>
   <string name="errors">錯誤</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">刪除圖片</string>
+  <string name="photo_viewer_delete_button">永久刪除</string>
   <string name="photo_viewer_goto">到圖片</string>
   <string name="photo_viewer_label">照片觀看器</string>
   <string name="mapillary_viewer_label">Mapillary 觀看器</string>
@@ -346,8 +359,6 @@
   <string name="api_info_attribution">貢獻者</string>
   <string name="api_info_mapsplit_source">MapSplit 唯讀來源</string>
   <!--Tag conflict dialog-->
-  <string name="tag_conflict_title">標籤已經改變</string>
-  <string name="tag_conflict_message">這個動作需要改變涉及元素的標籤。</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">下載資料沒有適當的關聯</string>
   <string name="select_route_title">選擇路線</string>
@@ -380,12 +391,16 @@
   <string name="tip_check_label">停止顯示選擇性的技巧</string>
   <string name="tip_undo">長按回復按鈕能夠顯示所有的回復和重新動作。</string>
   <string name="tip_imagery_privacy">背景和重疊圖層由第三方提供，使用圖層能夠穿透你的網路地址，並且用提供者的粗略指示，顯示你感興趣的區域。&lt;p&gt;I 如果提供者有補充的隱私政策資訊，你可以在圖層對話中的\"資訊\"選單找到。</string>
+  <string name="tip_mapillary_privacy">Mapillary 是由 Facebook 子公司，瑞士的 Mapilary AB 所提供的服務。採用這項服務將會傳遞你的網路位址以及你看過那些相片的資訊給公司。</string>
   <string name="tip_pan_and_zoom_auto_download">平移和縮放自動下載功能應當小心使用，因為會造成 OpenStreetMap APIs 還有你的裝置的負擔。&lt;p&gt; API 伺服器的負責可以用
 離線資料來源來避免。</string>
   <string name="tip_locked_mode">在鎖定模式下你無法編輯，但對物件長按之後會開啟視窗顯示詳細的資訊。</string>
   <string name="tip_longpress_simple_mode">在簡單模式之下長按什麼事情都不會發生。如果要用長按方式來新增物件，則要在主選單關閉簡單模式。</string>
   <string name="tip_gpx_no_elevation">從版本 15 開始，GPX 軌跡預設將不會有海拔資訊。&lt;p&gt;要啟用海拔記錄，請在用&lt;i&gt;安裝 Geoid 模式。從工具選單安裝 EGM&lt;/i&gt; ，或是切換為 NMEA 輸入。</string>
   <string name="tip_tag_conflict">合併或回復 OSM 元件有時候需要改變元件的屬性，如果變動時有可能出現錯誤或衝突的話，你能手動審核有問題的元件。</string>
+  <string name="tip_gpx_recording">當你開始錄製 GPX 時，Vespucci 收集地點資訊，即便 app 在背景，仍然在錄製。強制關閉 app 或是停止 GPS 記錄，則會停止收集位置資料。</string>
+  <string name="tip_auto_download">當你自動下載 OSM 資料或是任務時，Vespucci 運用位置資料來決定你所在位置，即便你 app 在背景執行。.&lt;p&gt;強制關閉 app 或是將自動下載關掉則會停止記錄位置資訊。</string>
+  <string name="tip_tristate_checkbox">你剛碰了三態核取框，就像一般核取框那樣能夠變動兩個值，例如說是/否或是真/假&lt;p&gt;然後還有額外的第三種情形&lt;b&gt;沒設定&lt;/b&gt; 狀態，顯示為灰色的核取框，會讓相關的標籤不會被加上去。你可以透過長按來讓核取樞變成沒設定狀態。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -429,8 +444,7 @@
   <string name="toast_unsurveyed_road">未勘測的路</string>
   <string name="toast_noname">道路缺少名稱或編號</string>
   <string name="toast_notype">關聯缺失類型</string>
-  <string name="toast_untagged_way">未加上標籤的路徑</string>
-  <string name="toast_untagged_relation">未加上標籤的關聯</string>
+  <string name="toast_untagged_element">沒有標示標籤的元素</string>
   <string name="toast_unconnected_end_node">節點接近連接的元素</string>
   <string name="toast_degenerate_way">退化的路徑</string>
   <!---->
@@ -471,6 +485,7 @@
   <string name="toast_invalid_readonlyurl">無效的唯讀 API 網址</string>
   <string name="toast_invalid_notesurl">無效的註解 API 網址</string>
   <string name="toast_invalid_preseturl">無效的預置網址</string>
+  <string name="toast_missing_preset_file">\"%1$s\" 遺失預置檔案</string>
   <string name="toast_invalid_filter_regexp">篩選器無效的正規表示式，key=\"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">無法讀取照片 %1$s</string>
   <string name="toast_security_error_accessing_photo">無法讀取照片 %1$s</string>
@@ -498,6 +513,7 @@
   <string name="toast_not_mbtiles">不是 MBTiles 格式檔案</string>
   <string name="toast_using_network_location">使用網路位置</string>
   <string name="toast_using_gps_location">使用 GPS/GNSS 位置</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">關閉 GPS/GNSS 定位，視為停止記錄軌跡。</string>
   <string name="toast_remote_nmea_connection">遠端 NMEA 連線從/到 %1$s</string>
   <string name="toast_remote_nmea_connection_closed">遠端 NMEA 連線關閉</string>
   <string name="toast_tags_copied">標籤已複製到剪貼簿</string>
@@ -548,6 +564,10 @@
   <string name="toast_outer_rings_differing_tags">外圍部分有不同的標籤</string>
   <string name="toast_multipolygon_has_incomplete_rings">多重多邊形有不完整的環</string>
   <string name="toast_multipolygon_inconsistent_roles">多重多邊形環有不一致角色值</string>
+  <string name="toast_error_saving_bookmark">無法儲存書籤</string>
+  <string name="toast_error_loading_style">無法載入樣式：%1$s</string>
+  <string name="toast_only_one_source_supported">每個樣式只支援一個來源</string>
+  <string name="toast_imagery_offset_download_failed">偏移量下載失敗：%1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -576,6 +596,7 @@
   <string name="retry">重試</string>
   <string name="prune">剪裁</string>
   <string name="check">檢查</string>
+  <string name="download">下載</string>
   <!--Read a file-->
   <string name="read">讀取</string>
   <string name="overwrite">覆寫</string>
@@ -802,7 +823,6 @@
   <string name="menu_tools_update_imagery_configuration_eli">從 ELI 更新設定</string>
   <string name="menu_tools_zoom_to_layer_extent">縮放到背景圖層範圍</string>
   <string name="menu_tools_clear_clipboard">清除剪貼簿</string>
-  <string name="menu_tools_calibrate_height">校正氣壓計</string>
   <string name="menu_tools_install_egm">安裝 EGM</string>
   <string name="menu_tools_remove_egm">移除 EGM</string>
   <!---->
@@ -913,7 +933,6 @@
   <string name="config_overlayLayer_title">地圖覆疊層</string>
   <string name="config_overlayLayer_summary">圖層為基礎的地圖套疊。</string>
   <string name="config_customlayers_title">客制圖層</string>
-  <string name="config_customlayers_summary">設定圖層不在預設的設定。</string>
   <string name="config_scale_title">顯示比例尺</string>
   <string name="config_scale_summary">在地圖上顯型的比例尺類型。</string>
   <string name="config_mapProfile_title">資料樣式</string>
@@ -955,6 +974,12 @@
   <string name="config_tagFormEnabled_summary">顯示標籤表格以便編輯。</string>
   <string name="config_showCameraAction_title">顯示相機的動作</string>
   <string name="config_showCameraAction_summary">在動作列上顯示相機圖示。</string>
+  <string name="config_selectCameraApp_title">相機 app</string>
+  <string name="config_selectCameraApp_summary">選擇使用的相機 app。</string>
+  <string name="config_system_camera">系統預設</string>
+  <string name="config_open_camera">開啟相機</string>
+  <string name="config_fv5_lite">PV5 lite</string>
+  <string name="config_fv5_pro">PV5 pro</string>
   <string name="config_useInternalPhotoViewer_title">使用內建照片檢視器</string>
   <string name="config_useInternalPhotoViewer_summary">使用內建照片檢視器，如果沒有勾選則會用外部檢視器。</string>
   <string name="config_followGPSbutton_title">跟隨位置按鈕設計樣式</string>
@@ -973,6 +998,8 @@
   <string name="config_enableLightTheme_summary">明亮主題與白色背景。</string>
   <string name="config_splitActionBarEnabled_title">啟用拆分動作列</string>
   <string name="config_splitActionBarEnabled_summary">允許拆分動作列，於特定裝置才有作用。需要重開程式並且 Android 4.0 或之後版本。</string>
+  <string name="config_disableTranslations_title">關閉翻譯</string>
+  <string name="config_disableTranslations_summary">使用者界面用英文</string>
   <string name="config_maxInlineValues_title">最大內嵌數值</string>
   <string name="config_maxInlineValues_summary">最大內嵌數值顯示的標籤表格。</string>
   <string name="config_maxInlineValues_current">%1$d 數值</string>
@@ -998,6 +1025,8 @@
   <string name="config_beepVolume_title">蜂鳴聲大小</string>
   <string name="config_beepVolume_summary">蜂鳴聲音設定</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_title">Mapillary 的最小縮放層級</string>
+  <string name="config_mapillary_min_zoom_summary">展示 Mapillary 資料前最小所需的縮放層級。</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">資料和編輯設定</string>
@@ -1102,8 +1131,11 @@
   <string name="config_downLoadThreads_current">%1$d 線程</string>
   <string name="config_tileCacheSize_title">圖磚快取大小</string>
   <string name="config_tileCacheSize_summary">用 MB 計算的暫存圖磚所有儲存空間。</string>
+  <string name="config_preferRemovableStorage_title">優先使用外接儲存裝置</string>
+  <string name="config_preferRemovableStorage_summary">圖磚快取夏先使用外接儲存裝置</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Mapillary 快取大小</string>
+  <string name="config_mapillaryCacheSize_summary">以 MB 為單位，Mapillary 相片暫存所用到的總儲存空間</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">雜項</string>
   <string name="pref_enable_acra">回報 app 當機</string>
@@ -1170,6 +1202,7 @@
   <string name="tracking_active_title">Vespucci 背景服務</string>
   <string name="tracking_active_title_short">啟用背景服務</string>
   <string name="tracking_active_text">錄製 GPS 軌跡或是自動下載</string>
+  <string name="tracking_long_text">Vespucci 正在錄製 GPX 軌跡或是自動下載，要徹底關閉的話請按下面的按鈕或是按 app 內的返回鍵。</string>
   <string name="gps_failure">啟用 GPS 失敗</string>
   <!--element description-->
   <string name="address_housenumber">地址 %1$s</string>
@@ -1275,4 +1308,10 @@
   <!--Help system-->
   <string name="toast_nohelp">這裡沒幫助。</string>
   <!--Bookmarks-->
+  <string name="add_bookmark">新增書籤…</string>
+  <string name="bookmarks_desc">新增評論</string>
+  <string name="show_bookmarks">書籤…</string>
+  <string name="_dots">⋮</string>
+  <string name="gotobookmark">到</string>
+  <string name="bookmarkstitle">書籤</string>
 </resources>

@@ -196,6 +196,7 @@
   <string name="even">Par</string>
   <string name="odd">Ímpar</string>
   <string name="other">Outro</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">Erro</string>
   <string name="warning">Aviso</string>
@@ -348,8 +349,6 @@
   <string name="toast_unsurveyed_road">Estrada por verificar no terreno</string>
   <string name="toast_noname">Falta o nome ou a ref na estrada</string>
   <string name="toast_notype">Falta o tipo na relação</string>
-  <string name="toast_untagged_way">Via sem etiquetas</string>
-  <string name="toast_untagged_relation">Relação sem etiquetas</string>
   <string name="toast_unconnected_end_node">O nó está perto de um elemento ao qual poderia estar ligado.</string>
   <string name="toast_degenerate_way">Degenerar via</string>
   <!---->
@@ -468,6 +467,7 @@
   <string name="discard">Descartar</string>
   <string name="retry">Tentar novamente</string>
   <string name="check">Verificado</string>
+  <string name="download">Descarregar</string>
   <!--Read a file-->
   <string name="read">Ler</string>
   <string name="overwrite">Sobrescrever</string>
@@ -747,7 +747,6 @@ há %3$s %4$s</string>
   <string name="config_overlayLayer_title">Camada de cima</string>
   <string name="config_overlayLayer_summary">O mapa de cima baseado em mosaicos.</string>
   <string name="config_customlayers_title">Camadas personalizadas</string>
-  <string name="config_customlayers_summary">Configurar camadas não incluídas na configuração padrão.</string>
   <string name="config_scale_title">Escala mostrada</string>
   <string name="config_scale_summary">Tipo de escala mostrada no mapa
 .</string>

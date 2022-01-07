@@ -28,7 +28,7 @@
     <string name="help_newnoteselection">انتخاب یادداشت تازه</string>
     <string name="help_voice_commands">فرمان‌های صوتی</string>
     <string name="help_add_route_segment">افزودن پارهٔ مسیر</string>
-    <string name="help_upgrade">16.1 یادداشتهای انتشار</string>
+    <string name="help_upgrade_161">16.1 یادداشتهای انتشار</string>
     <string name="help_upgrade_160">یادداشت های عرضه 16.0</string>
     <string name="help_upgrade_152">یادداشت های عرضه 15.2</string>
     <string name="help_upgrade_151">یادداشت های عرضه 15.1</string>
@@ -74,6 +74,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_161</item>
         <item>@string/help_upgrade_160</item>
         <item>@string/help_upgrade_152</item>
         <item>@string/help_upgrade_151</item>
@@ -120,6 +121,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>17.0.0 Release notes</item>
         <item>16.1.0 Release notes</item>
         <item>16.0.0 Release notes</item>
         <item>15.2.0 Release notes</item>

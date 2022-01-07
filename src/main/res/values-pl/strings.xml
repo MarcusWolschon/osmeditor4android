@@ -233,6 +233,7 @@
   <string name="even">Parzyste</string>
   <string name="odd">Nieparzyste</string>
   <string name="other">Inne</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">Błąd</string>
   <string name="warning">Ostrzeżenie</string>
@@ -347,8 +348,6 @@
   <string name="api_info_attribution">Przypisanie</string>
   <string name="api_info_mapsplit_source">Źródło MapSplit tylko do odczytu</string>
   <!--Tag conflict dialog-->
-  <string name="tag_conflict_title">Zmienione znaczniki</string>
-  <string name="tag_conflict_message">Operacja wymaga zmiany znaczników na modyfikowanych elementach</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Nie ma odpowiedniej relacji w pobranych danych</string>
   <string name="select_route_title">Wybierz drogę</string>
@@ -425,8 +424,7 @@
   <string name="toast_unsurveyed_road">Niezidentyfikowana droga</string>
   <string name="toast_noname">Droga nie ma nazwy ani numeru</string>
   <string name="toast_notype">Relacja nie ma rodzaju</string>
-  <string name="toast_untagged_way">Linia bez znaczników</string>
-  <string name="toast_untagged_relation">Relacja bez znaczników</string>
+  <string name="toast_untagged_element">Element bez znaczników</string>
   <string name="toast_unconnected_end_node">Węzeł znajduje się blisko elementu, z którym mógłby być połączony</string>
   <string name="toast_degenerate_way">Uprość linię</string>
   <!---->
@@ -562,6 +560,7 @@
   <string name="retry">Spróbuj ponownie</string>
   <string name="prune">Przytnij</string>
   <string name="check">Sprawdź</string>
+  <string name="download">Pobierz</string>
   <!--Read a file-->
   <string name="read">Odczytaj</string>
   <string name="overwrite">Nadpisz</string>
@@ -780,7 +779,6 @@
   <string name="menu_tools_update_imagery_configuration">Aktualizuj konfigurację</string>
   <string name="menu_tools_zoom_to_layer_extent">Pokaż cały obszar objęty warstwą wyświetlaną w tle</string>
   <string name="menu_tools_clear_clipboard">Wyczyść schowek</string>
-  <string name="menu_tools_calibrate_height">Skalibruj czujnik ciśnienia</string>
   <string name="menu_tools_install_egm">Instaluj EGM</string>
   <string name="menu_tools_remove_egm">Usuń EGM</string>
   <!---->
@@ -888,7 +886,6 @@
   <string name="config_overlayLayer_title">Nakładka mapy</string>
   <string name="config_overlayLayer_summary">Nakładka mapy bazująca na kafelkach.</string>
   <string name="config_customlayers_title">Warstwy własne</string>
-  <string name="config_customlayers_summary">Konfiguruj warstwy niebędące w domyślnej konfiguracji.</string>
   <string name="config_scale_title">Wyświetlanie skali</string>
   <string name="config_scale_summary">Sposób wyświetlania skali na mapie.</string>
   <string name="config_mapProfile_title">Styl danych</string>

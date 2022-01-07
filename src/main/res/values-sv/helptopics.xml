@@ -28,13 +28,27 @@
     <string name="help_newnoteselection">Ny anteckningsval</string>
     <string name="help_voice_commands">Röstkommandon</string>
     <string name="help_add_route_segment">Lägg till ruttsegment</string>
+    <string name="help_upgrade_161">16.1 Utgivningsanteckingar</string>
+    <string name="help_upgrade_160">16.0 Utgivningsanteckingar</string>
+    <string name="help_upgrade_152">15.2 Utgivningsanteckingar</string>
     <string name="help_upgrade_151">15.1 Utgivningsanteckingar</string>
     <string name="help_upgrade_150">15.0 Utgivningsanteckingar</string>
-    <string name="help_upgrade_141">14.1 Release notes</string>
-    <string name="help_upgrade_099">0.9.9 Utgivningsanmärkningar</string>
-    <string name="help_upgrade_098">0.9.8 Utgivningsanmärkningar</string>
-    <string name="help_upgrade_097">0.9.7 Utgivningsanmärkningar</string>
-    <string name="help_upgrade_096">0.9.6 Utgivningsanmärkningar</string>
+    <string name="help_upgrade_141">14.1 Utgivningsanteckingar</string>
+    <string name="help_upgrade_140">14.0 Utgivningsanteckingar</string>
+    <string name="help_upgrade_131">13.1 Utgivningsanteckingar</string>
+    <string name="help_upgrade_130">13.0 Utgivningsanteckingar</string>
+    <string name="help_upgrade_121">12.1 Utgivningsanteckingar</string>
+    <string name="help_upgrade_120">12.0 Utgivningsanteckingar</string>
+    <string name="help_upgrade_112">11.2 Utgivningsanteckingar</string>
+    <string name="help_upgrade_111">11.1 Utgivningsanteckingar</string>
+    <string name="help_upgrade_110">11.0 Utgivningsanteckingar</string>
+    <string name="help_upgrade_102">10.2 Utgivningsanteckingar</string>
+    <string name="help_upgrade_101">10.1 Utgivningsanteckingar</string>
+    <string name="help_upgrade_100">10.0 Utgivningsanteckingar</string>
+    <string name="help_upgrade_099">0.9.9 Utgivningsanteckingar</string>
+    <string name="help_upgrade_098">0.9.8 Utgivningsanteckingar</string>
+    <string name="help_upgrade_097">0.9.7 Utgivningsanteckingar</string>
+    <string name="help_upgrade_096">0.9.6 Utgivningsanteckingar</string>
     <string name="help_privacy">Sekretess</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
@@ -60,6 +74,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_161</item>
         <item>@string/help_upgrade_160</item>
         <item>@string/help_upgrade_152</item>
         <item>@string/help_upgrade_151</item>
@@ -106,6 +121,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>17.0.0 Release notes</item>
         <item>16.1.0 Release notes</item>
         <item>16.0.0 Release notes</item>
         <item>15.2.0 Release notes</item>
