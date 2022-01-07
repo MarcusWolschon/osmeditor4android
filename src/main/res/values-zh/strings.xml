@@ -303,18 +303,4 @@
   <string name="delete_from_relation_description">您即将从一个关系中删除这个元素。</string>
   <!--time and distance-->
   <!--Help system-->
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>私人的</item>
-    <item>公众的</item>
-    <item>可追踪的</item>
-    <item>可识别的</item>
-  </string-array>
-  <string-array name="gps_source">
-    <item>内部</item>
-    <item>内部 NMEA</item>
-    <item>NMEA 来自 TCP 客户端</item>
-    <item>NMEA 来自 TCP 服务端</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>
