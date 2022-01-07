@@ -1,5 +1,47 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.0.0-1:
+
+- Fix correctly detect empty values in the property editor with multi-select
+- Fix don't add the same imagery url twice, add layers at a better position
+- Fix use correct message when paste overwrites tags
+- Fix determine best preset on restore from saved state (regression)
+- Fix consume down event in attribution area
+- Fix don't use a async version of task download when already running async
+- Fix replaced AsyncTask with ExecutorTask
+- Fix disable dragging in modes that do not support it properly
+- Fix use neutral WP link
+- Fix increase width of value dropdown to value view width
+- Fix only add full MRU for longer lists
+- Add refactor GPX and OSC exports to use a normal file selector
+- Add facility to load a key file
+- Add improved key handling
+- Add sort elements with issues at top of change list in upload dialog
+- Add additional validation run pre-upload
+- Add support for task autoprune
+- Add voice mode instead of voice commands
+- Add way intersection function
+- Add toggle to enable/disable snapping when creating a way
+- Add allow editing custom imagery configuration from layer entry
+- Add support adding a custom layer from the layer dialog
+- Add use ShareCompat.IntentBuilder to compose share intent.
+- Add simplified and improved orthogonalization
+- Add use a RecyclerView for displaying relation members
+- Add fixed headers in property editor fragment layouts
+- Add try to download missing members before way splitting
+- Add maintain results from multiple split operations
+- Add improved reporting when splitting incomplete routes
+- Add use location to validate elements for missing keys
+- Add compute pseudo accuracy from NMEA
+- Add ElementHistoryDialog from 2021 GSOC project
+- Add support for rulers in combo and multiselect dialog
+- Add support for deprecated on fields, roles and list_entry values
+- Update translations
+- Update imagery from ELI
+- Update preset
+- Update NSI
+- Update synonyms
+
 16.1.0:
 
 - Fix inconsistent default values application when multiple elements are selected
