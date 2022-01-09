@@ -1,5 +1,9 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.0.0-2:
+
+- Fix wrong database version that cause key database upgrade to be skipped and consequently a crash
+
 17.0.0-1:
 
 - Fix correctly detect empty values in the property editor with multi-select
