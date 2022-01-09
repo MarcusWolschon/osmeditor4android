@@ -29,7 +29,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DEBUG_TAG = "KeyDatabase";
 
     private static final String DATABASE_NAME    = "keys";
-    private static final int    DATABASE_VERSION = 2;
+    private static final int    DATABASE_VERSION = 3;
     private static final int    FIELD_COUNT      = 4;
     private static final String AND              = " AND ";
 
@@ -69,7 +69,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(DEBUG_TAG, "Upgrade from " + oldVersion + " to " + newVersion);
-        if (oldVersion <= 1 && newVersion >= 2) {
+        if (oldVersion <= 2 && newVersion >= 3) {
             db.execSQL("DROP TABLE " + KEYS_TABLE);
             onCreate(db);
         }
