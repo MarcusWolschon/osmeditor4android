@@ -1712,7 +1712,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         if (!scripts.isEmpty()) {
             Preset[] presets = App.getCurrentPresets(getActivity());
-            determinePresets(getKeyValueMapSingle(true), null, presets);
+            determinePresets(getKeyValueMapSingle(rowLayout, true), null, presets);
             for (Entry<String, String> entry : scripts.entrySet()) {
                 evalJavaScript(item, currentValues, entry.getKey(), entry.getValue());
             }
