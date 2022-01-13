@@ -5,6 +5,7 @@
   <string name="mode_tag_only">タグのみ</string>
   <string name="mode_indoor">室内</string>
   <string name="mode_correct">Cモード</string>
+  <string name="mode_address">住所</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">注意！</string>
   <string name="transfer_download_current_upload">アップロード</string>
@@ -101,6 +102,22 @@
   <!--API/Data layer info dialog-->
   <!--Tile layer info dialog-->
   <!--Too much data dialog-->
+  <string name="upload_data_now">変更をアップロード</string>
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <string name="move">表示位置の移動</string>
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove">削除</string>
+  <!--Abort action mode dialog-->
+  <!--Address interpoation dialog-->
+  <string name="start">開始</string>
+  <string name="end">終了</string>
+  <string name="even">最初が奇数</string>
+  <string name="odd">最初が偶数</string>
+  <string name="other">その他</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">エラー</string>
   <!--hidden object warning dialog-->
@@ -153,6 +170,7 @@
   <string name="json_array_not_displayed">JSON配列 (非表示)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">マス目</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">写真</string>
@@ -164,8 +182,14 @@
   <string name="layer_category_map">地図板</string>
   <string name="layer_category_other">その他</string>
   <!--Layer info dialog-->
+  <string name="errors">エラー</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <!--API info dialog-->
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
+  <string name="select_relation_type_other">その他</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">チェックポイント</string>
   <string name="undo_all">以後のチェックポイントを全て取り消し (安全)</string>
@@ -197,11 +221,8 @@
   <string name="toast_download_failed">ダウンロード失敗。エラーコード %1$d メッセージ %2$s</string>
   <string name="toast_unsurveyed_road">未調査の道</string>
   <string name="toast_notype">リレーション種別がありません</string>
-  <string name="toast_untagged_way">タグなしのウェイ</string>
-  <string name="toast_untagged_relation">タグなしのリレーション</string>
   <!---->
   <string name="toast_oauth">ご自分のOSMアカウントに対してOAuth認証を許可してください。</string>
-  <string name="toast_no_oauth">現在のAPIでOAuth設定が利用できません。ログイン名とパスワードを利用してください。</string>
   <string name="toast_oauth_not_enabled">現在のAPI用にはOAuthは有効化されていません。</string>
   <string name="coordinates_out_of_range">経度の値は -180°/+180° 以内です。緯度は -85°/85° です。</string>
   <string name="toast_nothing_found">検索結果なし</string>
@@ -262,6 +283,7 @@
   <string name="clear">クリア</string>
   <string name="discard">無視</string>
   <string name="retry">再試行</string>
+  <string name="download">ダウンロード</string>
   <!--Read a file-->
   <string name="read">読込</string>
   <string name="overwrite">上書き</string>
@@ -341,6 +363,7 @@
   <string name="location_load_dismiss">地図を表示</string>
   <!--Strings in barometer calibration-->
   <!--Strings in postition info-->
+  <string name="position_info_altitude">高度</string>
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
   <!--Menu-->
@@ -357,7 +380,6 @@
   <string name="menu_append">接続</string>
   <string name="menu_relation">リレーションを作成</string>
   <string name="menu_edit_relation">リレーションを編集</string>
-  <string name="menu_add_relation_member">メンバーを追加する</string>
   <string name="menu_select_relation_members">メンバーを選択</string>
   <string name="menu_tag">タグ編集</string>
   <string name="menu_openstreetbug">メモを追加</string>
@@ -602,6 +624,7 @@
   <string name="undo_action_cut">切り取り</string>
   <string name="undo_action_paste">貼り付け</string>
   <string name="undo_action_rotateway">ウェイの回転</string>
+  <string name="undo_action_circulize">円状に配置する</string>
   <string name="undo_action_fix_conflict">競合解決</string>
   <!--ACRA-->
   <!--Exceptions messages-->
@@ -623,6 +646,9 @@
   <string name="delete_from_relation_description">この要素をリレーションから削除しようとしています。</string>
   <string name="unset_relation_type">リレーション種別を解除</string>
   <!--Things-->
+  <string name="bridge">橋</string>
+  <string name="tunnel">トンネル</string>
+  <!--Tag issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="other">%1$d日</item>
@@ -644,4 +670,5 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">ヘルプはありません</string>
+  <!--Bookmarks-->
 </resources>
