@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Bundle;
@@ -59,59 +58,53 @@ public class Splash extends AppCompatActivity {
         Log.d(DEBUG_TAG, "onResume");
         new ExecutorTask<Void, Void, Void>() {
 
-            TileLayerDatabase db = new TileLayerDatabase(Splash.this);
-            boolean           newInstall;
-            boolean           newConfig;
-            boolean           migratePublicDirectory;
+            boolean newInstall;
+            boolean newConfig;
+            boolean migratePublicDirectory;
 
             @Override
             protected Void doInBackground(Void param) {
-                Log.d(DEBUG_TAG, "doInBackGround");
-                Log.d(DEBUG_TAG, "checking last tile source update");
-                long lastDatabaseUpdate = 0;
-                try {
-                    lastDatabaseUpdate = Math.max(TileLayerDatabase.getSourceUpdate(db.getReadableDatabase(), TileLayerDatabase.SOURCE_JOSM_IMAGERY),
-                            TileLayerDatabase.getSourceUpdate(db.getReadableDatabase(), TileLayerDatabase.SOURCE_ELI));
-                } catch (SQLiteException sex) {
-                    if (sex instanceof SQLiteDatabaseLockedException) {
-                        Log.e(DEBUG_TAG, "tile layer database is locked");
+                try (TileLayerDatabase db = new TileLayerDatabase(Splash.this)) {
+                    Log.d(DEBUG_TAG, "checking last tile source update");
+                    long lastDatabaseUpdate = 0;
+                    try {
+                        lastDatabaseUpdate = Math.max(TileLayerDatabase.getSourceUpdate(db.getReadableDatabase(), TileLayerDatabase.SOURCE_JOSM_IMAGERY),
+                                TileLayerDatabase.getSourceUpdate(db.getReadableDatabase(), TileLayerDatabase.SOURCE_ELI));
+                    } catch (SQLiteException sex) {
+                        Log.e(DEBUG_TAG, "Exception asccsing tile layer database " + sex.getMessage());
                         cancel();
                     }
-                }
-                Log.d(DEBUG_TAG, "checking last package update");
-                long lastUpdateTime = 0L;
-                try {
-                    String packageName = Splash.this.getPackageName();
-                    PackageInfo packageInfo = getPackageManager().getPackageInfo(packageName, 0);
-                    lastUpdateTime = packageInfo.lastUpdateTime;
-                } catch (NameNotFoundException e1) {
-                    // can't really happen
-                }
-                newInstall = lastDatabaseUpdate == 0;
-                newConfig = lastUpdateTime > lastDatabaseUpdate;
-                if (newInstall || newConfig) {
-                    migratePublicDirectory = !FileUtil.publicDirectoryExists();
-                    Progress.showDialog(Splash.this, migratePublicDirectory ? Progress.PROGRESS_MIGRATION : Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
-                }
-                if (migratePublicDirectory) {
-                    directoryMigration(Splash.this);
-                    Splash.this.runOnUiThread(() -> {
-                        Progress.dismissDialog(Splash.this, Progress.PROGRESS_MIGRATION);
-                        Progress.showDialog(Splash.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
-                    });
-                }
-                if (newInstall || newConfig) {
-                    KeyDatabaseHelper.readKeysFromAssets(Splash.this);
-                }
-                try {
+                    Log.d(DEBUG_TAG, "checking last package update");
+                    long lastUpdateTime = 0L;
+                    try {
+                        String packageName = Splash.this.getPackageName();
+                        PackageInfo packageInfo = getPackageManager().getPackageInfo(packageName, 0);
+                        lastUpdateTime = packageInfo.lastUpdateTime;
+                    } catch (NameNotFoundException e1) {
+                        // can't really happen
+                    }
+                    newInstall = lastDatabaseUpdate == 0;
+                    newConfig = lastUpdateTime > lastDatabaseUpdate;
+                    if (newInstall || newConfig) {
+                        migratePublicDirectory = !FileUtil.publicDirectoryExists();
+                        Progress.showDialog(Splash.this, migratePublicDirectory ? Progress.PROGRESS_MIGRATION : Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
+                    }
+                    if (migratePublicDirectory) {
+                        directoryMigration(Splash.this);
+                        Splash.this.runOnUiThread(() -> {
+                            Progress.dismissDialog(Splash.this, Progress.PROGRESS_MIGRATION);
+                            Progress.showDialog(Splash.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
+                        });
+                    }
+                    if (newInstall || newConfig) {
+                        KeyDatabaseHelper.readKeysFromAssets(Splash.this);
+                    }
                     if (!isCancelled()) {
                         TileLayerSource.createOrUpdateCustomSource(Splash.this, db.getWritableDatabase(), true);
                         if (newInstall || newConfig) {
                             TileLayerSource.createOrUpdateFromAssetsSource(Splash.this, db.getWritableDatabase(), newConfig, true);
                         }
                     }
-                } finally {
-                    db.close();
                 }
                 Intent intent = new Intent(Splash.this, Main.class);
                 intent.putExtra(SHORTCUT_EXTRAS_KEY, getIntent().getExtras());
