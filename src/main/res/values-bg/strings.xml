@@ -5,6 +5,7 @@
   <string name="mode_tag_only">Само тагове</string>
   <string name="mode_indoor">На закрито</string>
   <string name="mode_correct">C-мод</string>
+  <string name="mode_address">Адрес</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Внимание!</string>
   <string name="transfer_download_current_upload">Качване</string>
@@ -18,6 +19,7 @@
   <string name="go_to_openstreetmap">Отидете на openstreetmap.org</string>
   <string name="bounding_box_too_large_title">Районът за сваляне е твърде голям.</string>
   <!---->
+  <string name="welcome_title">Добре дошли</string>
   <string name="read_upgrade">Прочетете за новата версия</string>
   <string name="progress_title">Зареждане</string>
   <string name="progress_message">Зареждане на данните в паметта...</string>
@@ -31,6 +33,7 @@
   <string name="progress_running_message">Стартиране...</string>
   <string name="progress_oauth">Зареждане на вашия акаунт в openstreetmap.org за OAuth автентикация...</string>
   <!--Confirm upload dialog-->
+  <string name="confirm_upload_edits_page">Промени</string>
   <string name="upload_comment_label">Коментар:</string>
   <string name="upload_source_label">Източник:</string>
   <string name="upload_close_changeset_label">Затвори промяна:</string>
@@ -42,9 +45,11 @@
   <string name="upload_validation_error_empty_source">Източникът не трябва да е празен</string>
   <!--task fragment-->
   <string name="openstreetbug_bug_title">Проблем</string>
+  <string name="openstreetbug_edit_title">редакция на бележка</string>
   <string name="openstreetbug_comment_label">Коментар:</string>
   <string name="openstreetbug_unknown_task_type">Неизвестен вид задача</string>
   <string name="openstreetbug_not_supported">%1$s не се поддържа.</string>
+  <string name="custom_bug">Персонализиран</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Внимание!</string>
   <string name="unsaved_data_proceed">Отхвърляне &amp; продължаване</string>
@@ -83,6 +88,21 @@
   <!--GeoJSON feature display dialog-->
   <!--API/Data layer info dialog-->
   <!--Tile layer info dialog-->
+  <!--Too much data dialog-->
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <string name="move">Преместване</string>
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove">Премахнете</string>
+  <!--Abort action mode dialog-->
+  <!--Address interpoation dialog-->
+  <string name="end">клавиш End</string>
+  <string name="even">Четни</string>
+  <string name="odd">Нечетни</string>
+  <string name="other">Друг</string>
+  <!--Safe split dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Това действие засяга филтрирани прикачени обекти!</string>
@@ -127,6 +147,7 @@
   <string name="json_array_not_displayed">JSON масив (скрит)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Координатна мрежа</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Снимки</string>
@@ -134,9 +155,17 @@
   <string name="layer_flush_tile_cache">Изчистете кеша на тайлове</string>
   <string name="layer_change_style">Смяна стил</string>
   <string name="layer_select_imagery">Изберете изображение</string>
+  <string name="layer_category_all">Всички</string>
+  <string name="layer_category_other">Друг</string>
   <!--Layer info dialog-->
+  <string name="errors">Грешки</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <!--API info dialog-->
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
+  <string name="select_relation_type_other">Друг</string>
   <!--Undo - Redo dialog-->
   <!--Undo location not in view dialog-->
   <!--Feedback activity-->
@@ -159,7 +188,6 @@
   <string name="toast_unsurveyed_road">Неизмерен път</string>
   <!---->
   <string name="toast_oauth">Моля позволете OAuth достъп до вашия OSM акаунт,</string>
-  <string name="toast_no_oauth">Не е достъпна OAuth конфигурация за текущото API, моля използвайте потребител и парола.</string>
   <string name="toast_oauth_not_enabled">OAuth не е позволен за текущото API.</string>
   <string name="coordinates_out_of_range">Географската дължина трябва да е между -180°/+180°, географската дължина между -85°/85°</string>
   <string name="toast_nothing_found">Нищо не е намерено</string>
@@ -180,28 +208,67 @@
   <string name="toast_openinghours_invalid">Невалидна стойност за работно време за %1$s</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->
+  <string name="yes">Да</string>
+  <string name="no">Не</string>
+  <string name="okay">OK</string>
+  <string name="cancel">Отказ</string>
+  <string name="save">Запазване</string>
+  <string name="forward">Напред</string>
+  <string name="retry">Опитай отново.</string>
   <!--Read a file-->
+  <string name="none">Никакъв</string>
   <!--Dialog for back button-->
   <!--Strings in PorpertyEditor-->
+  <string name="tag_menu_preset">Настройки</string>
+  <string name="tag_details">Детайли</string>
+  <string name="menu_up">Нагоре</string>
+  <string name="menu_top">Горе</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
+  <string name="location_text_unknown">Неизвестно</string>
+  <!--Strings in barometer calibration-->
+  <!--Strings in postition info-->
+  <string name="position_info_altitude">Надморска височина</string>
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
   <!--Menu-->
+  <string name="menu_move">Преместване</string>
+  <string name="menu_config">Предпочитания</string>
+  <string name="menu_help">Помощ</string>
+  <string name="menu_set_position">Местоположение</string>
+  <string name="menu_split">Разделяне</string>
+  <string name="menu_copy">Копиране</string>
+  <string name="menu_paste">постави</string>
+  <string name="menu_rotate">Въртене</string>
+  <string name="menu_orthogonalize">Квадрат</string>
+  <string name="menu_straighten">Изправям</string>
   <!---->
+  <string name="menu_privacy">Поверителност</string>
   <!--Background alignment-->
   <!--Menus in layers dialog-->
   <!---->
+  <string name="menu_tools_background_contrast">Контраст</string>
+  <string name="menu_enable_tagfilter">Филтър на таговете</string>
+  <string name="menu_enable_presetfilter">Филтър на настройките</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
+  <string name="menu_history">История</string>
+  <string name="menu_reverse">Объръщане</string>
   <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
+  <string name="actionmode_wayselect">Избран път</string>
+  <string name="actionmode_nodeselect">Избран възел</string>
+  <string name="actionmode_relationselect">Избрана релация</string>
+  <string name="actionmode_multiselect">Избор на много обекти</string>
   <!--EasyEdit action mode sub-titles-->
   <!--Simple Action Mode-->
   <!--Preferences-->
+  <string name="config_advancedprefs">Предпочитания за напреднали</string>
+  <string name="config_presetbutton_title">Настройки</string>
   <!--Validator preferences-->
   <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_category_info">Относно</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <!--Data and Editing Settings-->
@@ -216,16 +283,34 @@
   <!--url handler activity-->
   <!--API configuration-->
   <!--common terms-->
+  <string name="add">Добавяне</string>
+  <string name="delete">Изтриване</string>
+  <string name="name">Име</string>
+  <string name="default_">По подразбиране</string>
+  <string name="state">Икономически район NUT2</string>
   <!---->
   <!--"default" is a reserved Java keyword…-->
+  <string name="undo">отменяне</string>
+  <string name="redo">Повтори след отмяна.</string>
   <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_paste">постави</string>
+  <string name="undo_action_fix_conflict">Разрешаване на конфликти</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
   <!--Misc relation related stuff-->
+  <string name="role">Роля</string>
+  <string name="role_lc">Роля</string>
+  <string name="relation">Релация</string>
+  <string name="relations">Релации</string>
+  <string name="position">Местоположение</string>
+  <string name="type">Вид</string>
+  <!--Things-->
+  <string name="bridge">Мост</string>
+  <string name="tunnel">Тунел</string>
+  <!--Tag issues-->
   <!--time and distance-->
   <!--Help system-->
-  <!--Arrays-->
-  <!--The entries need to match the order of the CheckStatus enum-->
+  <!--Bookmarks-->
 </resources>

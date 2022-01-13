@@ -5,6 +5,7 @@
   <string name="mode_tag_only">Μόνο ετικέτα</string>
   <string name="mode_indoor">Εσωτερικά</string>
   <string name="mode_correct">Λειτουργία-C</string>
+  <string name="mode_address">Διεύθυνση</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Προσοχή!</string>
   <string name="transfer_download_current_dialog_message">Έχετε κάνει αλλαγές. Θέλετε να τις μεταφορτώσετε αντί να τις απορρίψετε;</string>
@@ -79,6 +80,7 @@
   <string name="bug_element_1">%1$s(δεν κατέβηκε) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_explanations">Επεξηγήσεις</string>
+  <string name="maproulette_task_disable">Απενεργοποίηση</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Προσοχή!</string>
   <string name="unsaved_data_proceed">Απόρριψη και συνέχεια</string>
@@ -120,6 +122,22 @@
   <string name="copy_properties">Αντιγραφή ιδιοτήτων</string>
   <!--API/Data layer info dialog-->
   <!--Tile layer info dialog-->
+  <!--Too much data dialog-->
+  <string name="upload_data_now">Μεταφόρτωση αλλαγών</string>
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <string name="move">Μετακίνηση</string>
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove">Αφαίρεση</string>
+  <!--Abort action mode dialog-->
+  <!--Address interpoation dialog-->
+  <string name="end">End</string>
+  <string name="even">Άρτιος</string>
+  <string name="odd">Περιττός</string>
+  <string name="other">Άλλο</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">Σφάλμα</string>
   <string name="warning">Προειδοποίηση</string>
@@ -128,6 +146,7 @@
   <string name="attached_object_warning_title">Αυτή η λειτουργία επηρεάζει τα φιλτραρισμένα αντικείμενα!</string>
   <!--This concerns a shown message that should be shown every time-->
   <!--This concerns a shown message that should only be shown once-->
+  <string name="attached_object_warning_stop">ΟΚ, αγνόησε</string>
   <!--debug dialog-->
   <!--JS console dialog-->
   <string name="evaluate">Αξιολόγηση</string>
@@ -182,11 +201,20 @@
   <string name="layer_flush_tile_cache">Ξέπλυμα πλακιδίων μνήμης</string>
   <string name="layer_change_style">Αλλαγή στυλ</string>
   <string name="layer_select_imagery">Επιλογή εικόνας</string>
+  <string name="layer_category_all">\'Ολα</string>
+  <string name="layer_category_map">Χάρτης</string>
+  <string name="layer_category_other">Άλλο</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Ελάχιστη εστίαση</string>
   <string name="layer_info_max_zoom">Ανώτερη εστίαση</string>
+  <string name="errors">Σφάλματα</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <!--API info dialog-->
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
+  <string name="select_relation_type_other">Άλλο</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Σημεία ελέγχου</string>
   <string name="undo_redo_title">Αναίρεση - επανάληψη</string>
@@ -211,13 +239,13 @@
   <string name="toast_preset_overwrote_tags">Σημείωση - προεπιλογή αντικατάστασης ετικέτας(των)</string>
   <string name="toast_merge_overwrote_tags">Σημείωση - λειτουργία αντικατάστασης ετικέτας(των)</string>
   <string name="toast_state_file_failed">Μη αναγνώσιμο ή κατεστραμμένο αρχείο</string>
+  <string name="read_mail">Διάβασμα</string>
   <string name="toast_photo_indexing_started">Ξεκίνησε η σάρωση γεωαναφερμένων φωτογραφιών</string>
   <string name="toast_photo_indexing_finished">Ολοκληρώθηκε η σάρωση γεωαναφερμένων φωτογραφιών</string>
   <string name="toast_download_failed">Η λήψη απέτυχε με κωδικό σφάλματος %1$d, μήνυμα %2$s</string>
   <string name="toast_unsurveyed_road">Μη ερευνημένος δρόμος</string>
   <!---->
   <string name="toast_oauth">Παρακαλούμε να επιτραπεί η πρόσβαση του OAuth στο λογαριασμό του OSM σας.</string>
-  <string name="toast_no_oauth">Καμία διαμόρφωση του OAuth ειναι διαθέσιμη για το τρέχον API, ορίστε το όνομα χρήστη και τον κωδικό πρόσβασης.</string>
   <string name="toast_oauth_not_enabled">Το OAuth δεν είναι ενεργοποιημένο για το τρέχον API.</string>
   <string name="coordinates_out_of_range">Γεωγραφικό μήκος πρέπει να είναι εντός -180°/+180°, γεωγραφικό πλάτος εντός -85°/85°</string>
   <string name="toast_nothing_found">Δεν βρέθηκαν αποτελέσματα</string>
@@ -253,6 +281,7 @@
   <!--Some generic labels/buttons-->
   <string name="yes">Ναι</string>
   <string name="no">Όχι</string>
+  <string name="okay">Εντάξει</string>
   <string name="cancel">Ακύρωση</string>
   <string name="dismiss">Απόρριψη</string>
   <string name="done">Έγινε</string>
@@ -271,6 +300,7 @@
   <string name="clear">Εκκαθάριση</string>
   <string name="discard">Απόρριψη</string>
   <string name="retry">Επανάληψη</string>
+  <string name="download">Λήψη</string>
   <!--Read a file-->
   <string name="read">Διάβασμα</string>
   <string name="overwrite">Αντικατάσταση</string>
@@ -337,6 +367,7 @@
   <string name="location_radius">%1$dμ</string>
   <string name="location_last_text">Τελευταία γνωστή τοποθεσία:</string>
   <string name="location_current_text">Τωρινή τοποθεσία:</string>
+  <string name="location_text_unknown">Άγνωστο</string>
   <string name="location_last_text_parameterized">Τελευταία γνωστή τοποθεσία: %1$s</string>
   <string name="location_current_text_parameterized">Τωρινή τοποθεσία:</string>
   <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s %4$s ago</string>
@@ -346,6 +377,9 @@
   <string name="location_search_label">Αναζήτηση:</string>
   <string name="location_load_button">Φόρτωση</string>
   <string name="location_load_dismiss">Μετάβαση στο χάρτη</string>
+  <!--Strings in barometer calibration-->
+  <!--Strings in postition info-->
+  <string name="position_info_altitude">Υψόμετρο</string>
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
   <!--Menu-->
@@ -362,11 +396,11 @@
   <string name="menu_append">Προσάρτηση</string>
   <string name="menu_relation">Δημιουργία σχέσης</string>
   <string name="menu_edit_relation">Επεξεργασία σχέσης</string>
-  <string name="menu_add_relation_member">Προσθήκη μέλους</string>
   <string name="menu_select_relation_members">Επιλογή μελών</string>
   <string name="menu_tag">Επεξεργασία χαρακτηριστικών</string>
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_camera">Κάμερα</string>
+  <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">Προβολή τοποθεσίας</string>
   <string name="menu_gps_follow">Ακολουθήστε την τοποθεσία</string>
   <string name="menu_gps_upload">Μεταφόρτωση ίχνους GPX</string>
@@ -380,6 +414,7 @@
   <string name="menu_transfer_bugs_upload">Αποστολή όλων</string>
   <string name="menu_transfer_bugs_clear">Εκκαθάριση</string>
   <string name="menu_transfer_write_custom_bugs">Αποθήκευση ανοιχτών προσαρμοσμένων εργασιών...</string>
+  <string name="menu_save">Αποθήκευση ως αρχείο</string>
   <string name="menu_join">Σύνδεση</string>
   <string name="menu_unjoin">Αποσύνδεση</string>
   <string name="menu_copy">Αντιγραφή</string>
@@ -389,6 +424,8 @@
   <string name="menu_paste_from_clipboard">Επικόλληση από το πρόχειρο</string>
   <string name="menu_zoom_to_selection">Μεγέθυνση στην επιλογή</string>
   <string name="menu_rotate">Περιστροφή</string>
+  <string name="menu_orthogonalize">Πλατεία</string>
+  <string name="menu_straighten">Ευθυγράμμιση</string>
   <string name="menu_circulize">Τακτοποίηση σε κύκλο</string>
   <string name="menu_split_polygon">Διαχωρίστε τα σε πολύγωνα</string>
   <string name="menu_extend_selection">Επέκταση επιλογής</string>
@@ -396,11 +433,9 @@
   <string name="menu_voice_commands">Φωνητικές εντολές</string>
   <string name="menu_set_name">Ορισμός ονόματος</string>
   <string name="menu_tools">Εργαλεία...</string>
-  <string name="menu_tools_imagery">Περισσότερα εργαλεία εικόνων</string>
   <string name="menu_tools_add_imagery_from_oam">Προσθήκη εικόνων από το OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Απομαρύντε όλες τις μνήμες πλακιδίων</string>
   <string name="menu_tools_background_properties">Ιδιότητες φόντου</string>
-  <string name="menu_tools_update_imagery_configuration">Ενημέρωση διαμόρφωσης στρώματος εικόνων</string>
   <string name="menu_tools_zoom_to_layer_extent">Μεγέθυνση στο μέγεθος στρώματος του φόντου</string>
   <!---->
   <string name="menu_privacy">Ιδιωτικότητα</string>
@@ -408,12 +443,16 @@
   <string name="menu_tools_background_align">Ευθυγράμμιση φόντου</string>
   <string name="menu_tools_background_align_reset">Επαναφορά</string>
   <string name="menu_tools_background_align_zero">Μηδέν</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Από την βάση δεδομένων</string>
+  <string name="menu_tools_background_align_retrieve_from_device">Από την συσκευή</string>
+  <string name="menu_tools_background_align_save_db">Αποθήκευση στην βάση δεδομένων</string>
+  <string name="menu_tools_background_align_save_device">Αποθήκευση στην συσκευή</string>
+  <string name="menu_tools_background_align_apply2all">Εφαρμογή (όλα τα επίπεδα εστίασης)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
   <string name="distance_meter">%1$.2f μέτρα</string>
   <string name="distance_km">%1$.3f χλμ</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Επίπεδα...</string>
-  <string name="menu_layers_load_geojson">Φόρτωση του επιπέδου GeoJSON</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Εφαρμογή αποθηκευμένης μετατόπισης στις εικόνες</string>
   <string name="menu_tools_background_contrast">Αντίθεση</string>
@@ -500,16 +539,21 @@
   <string name="config_notificationCacheSize_title">Μέγιστος αριθμός των εμφανιζόμενων ειδοποιήσεων</string>
   <string name="config_notificationCacheSize_current">%1$d Ειδοποιήσεις</string>
   <string name="config_maxAlertDistance_title">Μέγιστη απόσταση για ειδοποιήσεις</string>
+  <string name="config_maxAlertDistance_current">%1$d μέτρο(α)</string>
   <string name="config_closeChangesetOnSave_title">Κλείσιμο ομάδων αλλαγών</string>
   <string name="config_enableAutoPresets_title">Ενεργοποίηση δημιουργίας αυτόματης προεπιλογής</string>
+  <string name="config_maxOffsetDistance_current">%1$d μέτρο(α)</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Ακτίνα λήψης</string>
+  <string name="config_downloadRadius_current">%1$d μέτρο(α)</string>
   <string name="config_maxDownloadSpeed_title">Μέγιστη ταχύτητα αυτόματης λήψης</string>
   <string name="config_downloadSpeed_current">%1$d Χλμ/Ω</string>
   <!--Location Settings-->
   <string name="config_gps_source_tcp_title">NMEA Προέλευση δικτυου</string>
   <string name="config_gps_interval_current">%1$dms </string>
+  <string name="config_gps_distance_current">%1$d μέτρο(α)</string>
   <string name="config_gps_network_title">Επαναφορά στη θέση δικτύου</string>
+  <string name="config_gnssTimeToStale_current">%1$d ς</string>
   <!--Server Settings-->
   <string name="config_apibutton_title">URL για το OSM API</string>
   <string name="config_loginbutton_title">Λογαριασμός χρήστη</string>
@@ -522,6 +566,9 @@
   <string name="config_tileCache_current">%1$d ΜΒ</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Διάφορα</string>
+  <string name="pref_enable_acra">Αναφορά σφαλμάτων εφαρμογής</string>
+  <string name="pref_acra_enabled">Η αναφορά σφαλμάτων ενεργοποιήθηκε</string>
+  <string name="pref_acra_disabled">Η αναφορά σφαλμάτων απενεργοποιήθηκε</string>
   <string name="config_showStats_title">Εμφάνιση στατιστικών</string>
   <!--Experimental-->
   <string name="config_category_experimental">Πειραματικό</string>
@@ -573,6 +620,10 @@
   <string name="address_housenumber">Διεύθυνση %1$s</string>
   <string name="address_housenumber_street">Διεύθυνση %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_cut">Αποκοπή</string>
+  <string name="undo_action_paste">Επικόλληση</string>
+  <string name="undo_action_circulize">Τακτοποίηση σε κύκλο</string>
+  <string name="undo_action_fix_conflict">Επίλυση συγκρούσεων</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Αυτή η πράξη θα δημιουργήσει έναν δρομο με πάρα πολλούς κόμβους.</string>
@@ -583,60 +634,20 @@
   <string name="alert_distance_direction">σε %1$d μ %2$s</string>
   <!--Misc relation related stuff-->
   <string name="role">Ρόλος</string>
+  <string name="role_lc">Ρόλος</string>
   <string name="membership_relation_heading">Μέλος της σχέσης</string>
   <string name="relation">Σχέση</string>
   <string name="relations">Σχέσεις</string>
+  <string name="position">Θέση</string>
   <string name="type">Τύπος</string>
   <string name="object">Αντικείμενο</string>
   <string name="deleterelation">Διαγραφή σχέσης</string>
   <string name="delete_from_relation_description">Πρόκειται να διαγράψετε αυτό το αντικείμενο από μια σχέση.</string>
+  <!--Things-->
+  <string name="bridge">Γέφυρα</string>
+  <string name="tunnel">Τούνελ</string>
+  <!--Tag issues-->
   <!--time and distance-->
   <!--Help system-->
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>private</item>
-    <item>public</item>
-    <item>trackable</item>
-    <item>identifiable</item>
-  </string-array>
-  <string-array name="gps_source">
-    <item>Internal</item>
-    <item>Internal NMEA</item>
-    <item>NMEA from TCP client</item>
-    <item>NMEA from TCP server</item>
-  </string-array>
-  <string-array name="bug_state">
-    <item>Ανοιχτό</item>
-    <item>Κλειστό</item>
-    <item>Θετικό λάθος</item>
-  </string-array>
-  <string-array name="note_state">
-    <item>Ανοιχτό</item>
-    <item>Κλειστό</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>Αριστερά</item>
-    <item>Δεξιά</item>
-    <item>Κανένα</item>
-  </string-array>
-  <string-array name="full_screen_preference_entries">
-    <item>Αυτόματο</item>
-    <item>Ποτέ</item>
-    <item>Ισχύς</item>
-    <item>Όχι γραμμή κατάστασης</item>
-  </string-array>
-  <string-array name="full_screen_preference_no_auto_entries">
-    <item>Ποτέ</item>
-    <item>Ισχύς</item>
-    <item>Όχι γραμμή κατάστασης</item>
-  </string-array>
-  <string-array name="tagfilter_type_entries">
-    <item>Όλα</item>
-    <item>Κόμβοι</item>
-    <item>Διαδρομές</item>
-    <item>Διαδρομές+</item>
-    <item>Σχέσεις</item>
-    <item>Σχέσεις+</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
+  <!--Bookmarks-->
 </resources>
