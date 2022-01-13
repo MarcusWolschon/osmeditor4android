@@ -2,11 +2,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
   <string name="mode_indoor">Innendørs</string>
+  <string name="mode_address">Adresse</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Advarsel!</string>
   <string name="transfer_download_current_upload">Last opp</string>
   <string name="transfer_download_current_download">Avbryt og last ned</string>
   <!---->
+  <string name="welcome_title">Velkommen</string>
   <string name="progress_title">Leser</string>
   <string name="progress_message">Leser inn i minne…</string>
   <string name="progress_download_message">Laster ned data fra teneren…</string>
@@ -14,12 +16,16 @@
   <string name="changes_deleted">«%1$s» sletta</string>
   <string name="changes_changed">«%1$s» endra</string>
   <string name="changes_created">«%1$s» oppretta</string>
+  <string name="confirm_upload_edits_page">Endringer</string>
   <string name="upload_comment_label">Kommentar:</string>
   <!---->
   <string name="upload_gpx_description_label">Beskrivelse</string>
-  <string name="upload_gpx_tags_label">Tagger</string>
+  <string name="upload_gpx_tags_label">Egenskaper</string>
+  <string name="upload_gpx_visibility_label">Synlighet</string>
   <!--task fragment-->
+  <string name="openstreetbug_edit_title">Rediger notat</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
+  <string name="custom_bug">Egendefinert</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Advarsel!</string>
   <string name="unsaved_data_proceed">Skrot og gå videre</string>
@@ -27,16 +33,36 @@
   <string name="imagery_offset_description">Beskrivelse</string>
   <string name="imagery_offset_date">Opprettet</string>
   <string name="imagery_offset_zoom">Zoom</string>
+  <string name="imagery_offset_distance">Avstand</string>
   <!--Search/Find dialog-->
   <!--Search objects dialog-->
   <!---->
   <string name="search">Søk</string>
   <!--element information dialog-->
+  <string name="members">Medlemmer</string>
   <string name="version">Versjon</string>
+  <string name="last_edited">Sist redigert</string>
+  <string name="edit_properties">Rediger egenskaper</string>
   <!--GeoJSON feature display dialog-->
   <!--API/Data layer info dialog-->
   <!--Tile layer info dialog-->
+  <!--Too much data dialog-->
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <string name="move">Flytt</string>
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove">Fjern</string>
+  <!--Abort action mode dialog-->
+  <!--Address interpoation dialog-->
+  <string name="end">End</string>
+  <string name="even">Partall</string>
+  <string name="odd">Oddetall</string>
+  <string name="other">Annen</string>
+  <!--Safe split dialog-->
   <!---->
+  <string name="error">Feil</string>
   <!--hidden object warning dialog-->
   <!--This concerns a shown message that should be shown every time-->
   <!--This concerns a shown message that should only be shown once-->
@@ -45,12 +71,26 @@
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX waypoint dialog-->
+  <string name="description">Beskrivelse</string>
+  <string name="created">Opprettet</string>
   <!--Custom imagery dialogs-->
+  <string name="coverage">Dekning</string>
   <!--Layer style dialog-->
+  <string name="layer_style_label">Etikett</string>
   <!--Layer dialog-->
+  <string name="layer_mapillary">Mapillary</string>
+  <string name="layer_category_all">Alle</string>
+  <string name="layer_category_map">Kart</string>
+  <string name="layer_category_other">Annen</string>
   <!--Layer info dialog-->
+  <string name="errors">Feil</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <!--API info dialog-->
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
+  <string name="select_relation_type_other">Annen</string>
   <!--Undo - Redo dialog-->
   <!--Undo location not in view dialog-->
   <!--Feedback activity-->
@@ -58,6 +98,7 @@
   <!--Clear/Reset GPX Track-->
   <!--Tips-->
   <!--NumberPicker-->
+  <string name="digit_one">1</string>
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke endra noe enda…</string>
@@ -67,10 +108,13 @@
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nei</string>
+  <string name="okay">OK</string>
   <string name="cancel">Avbryt</string>
   <string name="save">Lagre</string>
   <string name="forward">Fremover</string>
+  <string name="retry">Prøv på nytt</string>
   <!--Read a file-->
+  <string name="none">Ingen</string>
   <!--Dialog for back button-->
   <!--Strings in PorpertyEditor-->
   <string name="key">nøkkel</string>
@@ -87,34 +131,45 @@
   <string name="location_default_radius">300m</string>
   <string name="location_last_text">Siste kjente posisjon:</string>
   <string name="location_current_text">Nåværende posisjon:</string>
+  <string name="location_text_unknown">Ukjent</string>
   <string name="location_last_text_parameterized">Siste kjente posisjon: %1$s</string>
   <string name="location_current_text_parameterized">Nåværende posisjon: %1$s</string>
   <string name="location_coordinates_text">Fra koordinater:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
+  <!--Strings in barometer calibration-->
+  <!--Strings in postition info-->
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Flytt</string>
-  <string name="menu_edit">Endre</string>
+  <string name="menu_edit">Rediger</string>
   <string name="menu_add">Ny</string>
   <string name="menu_config">Innstillinger</string>
   <string name="menu_help">Hjelp</string>
   <string name="menu_erase">Slett node</string>
   <string name="menu_split">Kløyv</string>
   <string name="menu_append">Fortsett</string>
-  <string name="menu_tag">Endre tagger</string>
+  <string name="menu_edit_relation">Rediger relasjon</string>
+  <string name="menu_tag">Rediger egenskaper</string>
+  <string name="menu_camera">Kamera</string>
   <string name="menu_gps_show">Vis plassering</string>
   <string name="menu_transfer">Overfør…</string>
   <string name="menu_transfer_download_current">Last ned nåværende utsnitt</string>
   <string name="menu_transfer_upload">Last opp til OSM</string>
   <string name="menu_join">Kombiner</string>
+  <string name="menu_copy">Kopier</string>
+  <string name="menu_paste">Lim inn</string>
   <string name="menu_rotate">Rotér</string>
+  <string name="menu_orthogonalize">Torg</string>
+  <string name="menu_straighten">Gjør rett.</string>
   <!---->
+  <string name="menu_privacy">Personvern</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align_reset">Tilbakestill</string>
   <!--Menus in layers dialog-->
   <!---->
+  <string name="menu_tools_background_contrast">Kontrast</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Historikk</string>
@@ -125,6 +180,7 @@
   <string name="actionmode_wayselect">Veg valgt</string>
   <string name="actionmode_nodeselect">Node valgt</string>
   <string name="actionmode_createpath">Lager bane</string>
+  <string name="actionmode_multiselect">Flervalg</string>
   <!--EasyEdit action mode sub-titles-->
   <!--Simple Action Mode-->
   <!--Preferences-->
@@ -160,11 +216,12 @@
   <!--API configuration-->
   <!--common terms-->
   <string name="add">Legg til</string>
-  <string name="edit">Endre</string>
+  <string name="edit">Rediger</string>
   <string name="delete">Slett</string>
   <string name="name">Navn</string>
   <string name="url">URL</string>
   <string name="default_">Standard</string>
+  <string name="state">Stat</string>
   <!---->
   <!--"default" is a reserved Java keyword…-->
   <string name="api">API</string>
@@ -174,15 +231,21 @@
   <string name="gps_failure">Klarte ikke å slå på GPS</string>
   <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_paste">Lim inn</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Rolle</string>
+  <string name="role_lc">Rolle</string>
   <string name="relation">Relasjon</string>
+  <string name="relations">Relasjoner</string>
   <string name="type">Type</string>
+  <!--Things-->
+  <string name="bridge">Bru</string>
+  <string name="tunnel">Tunell</string>
+  <!--Tag issues-->
   <!--time and distance-->
   <!--Help system-->
-  <!--Arrays-->
-  <!--The entries need to match the order of the CheckStatus enum-->
+  <!--Bookmarks-->
 </resources>
