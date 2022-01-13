@@ -3403,10 +3403,7 @@ public class Main extends FullScreenAppCompatActivity
     public void resync(final Logic logic) {
         // check that we haven't just removed a selected element
         if (logic.resyncSelected()) {
-            // only need to test if anything at all is still selected
-            if (logic.selectedNodesCount() + logic.selectedWaysCount() + logic.selectedRelationsCount() == 0) {
-                getEasyEditManager().finish();
-            }
+            getEasyEditManager().updateSelection();
         }
     }
 
