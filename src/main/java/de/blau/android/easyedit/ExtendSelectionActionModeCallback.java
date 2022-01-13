@@ -437,6 +437,22 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         }
     }
 
+    /**
+     * Update the selection from logic, used after undo/redo
+     */
+    public void updateSelection() {
+        synchronized (selection) {
+            for (OsmElement e : new ArrayList<>(selection)) {
+                if (!logic.isSelected(e)) {
+                    selection.remove(e);
+                }
+            }
+            sortedWays = Util.sortWays(selection);
+            manager.invalidate();
+            setSubTitle(mode);
+        }
+    }
+
     @Override
     public boolean handleElementClick(OsmElement element) {
         // due to clickableElements, only valid elements can be clicked

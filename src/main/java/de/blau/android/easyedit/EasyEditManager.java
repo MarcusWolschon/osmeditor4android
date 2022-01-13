@@ -579,4 +579,20 @@ public class EasyEditManager {
             }
         }
     }
+
+    /**
+     * Update the selection
+     * 
+     * If nothing is selected the current mode is terminated, in multi-select the selection is adjusted
+     */
+    public void updateSelection() {
+        synchronized (actionModeCallbackLock) {
+            // only need to test if anything at all is still selected
+            if (logic.selectedNodesCount() + logic.selectedWaysCount() + logic.selectedRelationsCount() == 0) {
+                finish();
+            } else if (currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
+                ((ExtendSelectionActionModeCallback) currentActionModeCallback).updateSelection();
+            }
+        }
+    }
 }
