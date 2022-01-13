@@ -27,6 +27,7 @@
   <string name="no_data_title">Engin gögn</string>
   <string name="go_to_openstreetmap">Farðu á openstreetmap.org</string>
   <string name="data_conflict_title">Árekstur á milli útgáfa</string>
+  <string name="corrupted_data_title">Skemmd gögn</string>
   <string name="invalid_bounding_box_title">Ógild umgjörð</string>
   <string name="bounding_box_too_large_title">Niðurhalssvæði of stórt</string>
   <string name="out_of_memory_title">Ekki nægilegt minni</string>
@@ -150,6 +151,7 @@
   <string name="even">Jafnar tölur</string>
   <string name="odd">Oddatölur</string>
   <string name="other">Annað</string>
+  <!--Safe split dialog-->
   <!---->
   <string name="error">Villa</string>
   <string name="warning">Aðvörun</string>
@@ -227,9 +229,9 @@
   <string name="layer_info_terms">Skilmálar</string>
   <string name="layer_info_privacy_policy">Meðferð persónuupplýsinga</string>
   <string name="errors">Villur</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Eyða mynd</string>
-  <string name="photo_viewer_delete_button">Eyða endanlega</string>
   <string name="photo_viewer_goto">Fara á mynd</string>
   <string name="photo_viewer_label">Myndaskoðun</string>
   <string name="mapillary_viewer_label">Mapillary-skoðari</string>
@@ -277,10 +279,8 @@
   <string name="toast_photo_indexing_finished">Lauk leit að myndum með staðsetningu</string>
   <string name="toast_download_failed">Niðurhal mistókst með villuskilaboðum %1$d, %2$s</string>
   <string name="toast_unsurveyed_road">Óskoðaður vegur </string>
-  <string name="toast_untagged_relation">Ómerkt vensl</string>
   <!---->
   <string name="toast_oauth">Gefðu OAuth réttindi að OSM-notandaaðgangnum þínum.</string>
-  <string name="toast_no_oauth">Engin OAuth stilling tiltæk fyrir fyrirliggjandi API tengingu, sláðu inn notandanafn og lykilorð.</string>
   <string name="toast_timeout">Vefþjónn féll á tíma</string>
   <string name="coordinates_out_of_range">Lengdargráða þarf að vera milli -180°/+180°, breiddargráða milli -85°/+85°</string>
   <string name="toast_nothing_found">Ekkert fannst</string>
@@ -318,6 +318,7 @@
   <string name="discard">Henda</string>
   <string name="retry">Reyna aftur</string>
   <string name="check">Athugun</string>
+  <string name="download">Sækja</string>
   <!--Read a file-->
   <string name="read">Lesa</string>
   <string name="overwrite">Skrifa yfir</string>
@@ -560,6 +561,7 @@
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <string name="config_upload_current">%1$d hlutir</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_address_tags">Heimilisfangamerki</string>
   <string name="config_enableNameSuggestions_title">Virkja nafnatillögur</string>
@@ -569,6 +571,7 @@
   <string name="config_maxAlertDistance_current">%1$d metrar</string>
   <string name="config_closeChangesetOnSave_title">Loka breytingasetti</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
+  <string name="config_maxOffsetDistance_current">%1$d metrar</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Radíus niðurhals</string>
   <string name="config_downloadRadius_current">%1$d metrar</string>
@@ -710,4 +713,5 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Engin hjálp hér.</string>
+  <!--Bookmarks-->
 </resources>
