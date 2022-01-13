@@ -464,7 +464,7 @@ avoided by using an offline data source.</string>
     <!--  -->
     <string name="toast_oauth_retry">Try uploading again after allowing OAuth access to your OSM account.</string>
     <string name="toast_oauth">Please allow OAuth access to your OSM account.</string>
-    <string name="toast_no_oauth">No OAuth configuration available for current API, please set login and password.</string>
+    <string name="toast_no_oauth">No OAuth configuration available for API \"%1$s\", please set login and password.</string>
     <string name="toast_oauth_not_enabled">OAuth is not enabled for the current API.</string>
     <string name="toast_oauth_timeout">Timeout during authentication handshake, please try again.</string>
     <string name="toast_oauth_communication">Communication error during authentication handshake, please try again.</string>

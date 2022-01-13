@@ -93,7 +93,7 @@ public class Authorize extends FullScreenAppCompatActivity {
             oa = new OAuthHelper(this, apiName);
         } catch (OsmException oe) {
             server.setOAuth(false); // ups something went wrong turn oauth off
-            Snack.barError(this, R.string.toast_no_oauth);
+            Snack.barError(this, getString(R.string.toast_no_oauth, apiName));
             return;
         }
         Log.d(DEBUG_TAG, "oauth auth for " + apiName);

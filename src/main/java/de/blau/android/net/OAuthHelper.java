@@ -111,7 +111,7 @@ public class OAuthHelper {
                 return;
             }
             logMissingApi(apiName);
-            throw new OsmException("No matching OAuth configuration found for this API");
+            throw new OsmException("No matching OAuth configuration found for API " + apiName);
         }
     }
 
