@@ -3,6 +3,7 @@
   <!--Mode names-->
   <string name="mode_easy">보통</string>
   <string name="mode_indoor">실내</string>
+  <string name="mode_address">주소</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">주의!</string>
   <string name="transfer_download_current_upload">업로드</string>
@@ -14,6 +15,7 @@
   <string name="forbidden_login_title">로그인 거부됨</string>
   <string name="go_to_openstreetmap">openstreetmap.org으로 가세요</string>
   <!---->
+  <string name="welcome_title">환영합니다</string>
   <string name="read_upgrade">새 버전에 대해 읽기</string>
   <string name="progress_title">불러오는 중</string>
   <string name="progress_message">메모리 안으로 데이터를 불러오는 중…</string>
@@ -30,6 +32,7 @@
   <string name="changes_deleted">\"%1$s\" 삭제됨</string>
   <string name="changes_changed">\"%1$s\" 변경됨</string>
   <string name="changes_created">\"%1$s\" 만듦</string>
+  <string name="confirm_upload_edits_page">변경 사항</string>
   <string name="upload_comment_label">댓글:</string>
   <string name="upload_source_label">출처:</string>
   <string name="upload_close_changeset_label">바뀜집합 닫음:</string>
@@ -39,7 +42,9 @@
   <string name="upload_gpx_visibility_label">시정</string>
   <!--task fragment-->
   <string name="openstreetbug_bug_title">이슈</string>
+  <string name="openstreetbug_edit_title">참고 편집</string>
   <string name="openstreetbug_comment_label">댓글:</string>
+  <string name="custom_bug">사용자 지정</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">주의!</string>
   <string name="unsaved_data_proceed">버리고 계속</string>
@@ -75,7 +80,24 @@
   <!--GeoJSON feature display dialog-->
   <!--API/Data layer info dialog-->
   <!--Tile layer info dialog-->
+  <!--Too much data dialog-->
+  <!--Delete custom preset dialog-->
+  <!--Duplicate route segment dialog-->
+  <!--Duplicate relation element dialog-->
+  <!--Move multi-polygon outer element tags to relation-->
+  <string name="move">이동</string>
+  <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove">제거</string>
+  <!--Abort action mode dialog-->
+  <!--Address interpoation dialog-->
+  <string name="start">시작</string>
+  <string name="end">끝</string>
+  <string name="even">짝수</string>
+  <string name="odd">홀수</string>
+  <string name="other">기타</string>
+  <!--Safe split dialog-->
   <!---->
+  <string name="error">오류</string>
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">이 작업은 필터링된 부착된 지물에 영향을 미칩니다!</string>
   <!--This concerns a shown message that should be shown every time-->
@@ -88,12 +110,26 @@
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX waypoint dialog-->
+  <string name="description">설명</string>
+  <string name="created">만들어짐</string>
   <!--Custom imagery dialogs-->
+  <string name="coverage">적용범위</string>
+  <string name="coverage_top">상위</string>
   <!--Layer style dialog-->
+  <string name="layer_style_label">이름표</string>
   <!--Layer dialog-->
+  <string name="layer_category_all">모두</string>
+  <string name="layer_category_map">지도</string>
+  <string name="layer_category_other">기타</string>
   <!--Layer info dialog-->
+  <string name="errors">오류</string>
+  <!--Mapillary layer-->
   <!--Photo viewer-->
   <!--API info dialog-->
+  <!--Tag conflict dialog-->
+  <!--Relation selection dialog-->
+  <!--Preset selection dialog-->
+  <string name="select_relation_type_other">기타</string>
   <!--Undo - Redo dialog-->
   <!--Undo location not in view dialog-->
   <!--Feedback activity-->
@@ -109,11 +145,11 @@
   <string name="toast_preset_overwrote_tags">참고 - 프리셋 태그 덮어씀</string>
   <string name="toast_merge_overwrote_tags">참고 - 작업 태그 덮어씀</string>
   <string name="toast_state_file_failed">읽을 수 없거나 오류가 있는 상태 파일</string>
+  <string name="read_mail">읽기</string>
   <string name="toast_download_failed">오류 코드 %1$d, 메시지 %2$s로 다운로드를 실패했습니다</string>
   <string name="toast_unsurveyed_road">측량되지 않은 길</string>
   <!---->
   <string name="toast_oauth">OSM 계정에 접속하기 위해 OAuth를 허용해 주십시요.</string>
-  <string name="toast_no_oauth">현재 API의  사용할 수 있는 OAuth 환경 설정이 없습니다, 로그인 및 비밀번호를 설정해주세요.</string>
   <string name="toast_oauth_not_enabled">OAuth가 현재 API에서 활성화 되지 않았습니다.</string>
   <string name="coordinates_out_of_range">경도는 -180°/+180° 사이이고, 위도는 -85°/85° 사이여야 합니다</string>
   <string name="toast_nothing_found">아무 것도 찾을 수 없음</string>
@@ -129,6 +165,7 @@
   <!--Some generic labels/buttons-->
   <string name="yes">예</string>
   <string name="no">아니오</string>
+  <string name="okay">확인</string>
   <string name="cancel">취소</string>
   <string name="dismiss">무시</string>
   <string name="done">완료</string>
@@ -144,11 +181,13 @@
   <string name="enable">활성화</string>
   <string name="clear">지우기</string>
   <string name="retry">다시 시도</string>
+  <string name="download">다운로드</string>
   <!--Read a file-->
   <string name="read">읽기</string>
   <string name="overwrite">덮어쓰기</string>
   <string name="share">공유</string>
   <string name="share_position">공유 위치</string>
+  <string name="none">없음</string>
   <!--Dialog for back button-->
   <string name="exit_text">종료하기를 원합니까?</string>
   <!--Strings in PorpertyEditor-->
@@ -197,6 +236,7 @@
   <string name="location_default_radius">300m</string>
   <string name="location_last_text">마지막으로 안 위치:</string>
   <string name="location_current_text">현재 위치:</string>
+  <string name="location_text_unknown">알 수 없음</string>
   <string name="location_last_text_parameterized">마지막으로 안 위치: %1$s</string>
   <string name="location_current_text_parameterized">현재 위치: %1$s</string>
   <string name="location_text_metadata_location">\n위도 %1$4g, 경도 %2$4g\n%3$s %4$s 전</string>
@@ -206,6 +246,8 @@
   <string name="location_search_label">검색:</string>
   <string name="location_load_button">불러오기</string>
   <string name="location_load_dismiss">지도로 가기</string>
+  <!--Strings in barometer calibration-->
+  <!--Strings in postition info-->
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
   <!--Menu-->
@@ -221,7 +263,6 @@
   <string name="menu_extract">노드 추출</string>
   <string name="menu_relation">관계 만들기</string>
   <string name="menu_edit_relation">관계 편집</string>
-  <string name="menu_add_relation_member">구성원 추가</string>
   <string name="menu_select_relation_members">구성원 선택</string>
   <string name="menu_tag">태그 편집</string>
   <string name="menu_camera">카메라</string>
@@ -240,6 +281,8 @@
   <string name="menu_paste_from_clipboard">클립보드에서 붙여넣기</string>
   <string name="menu_zoom_to_selection">선택하려면 확대</string>
   <string name="menu_rotate">회전</string>
+  <string name="menu_orthogonalize">각지게 하기</string>
+  <string name="menu_straighten">곧게 하기</string>
   <string name="menu_circulize">동그라미에 정렬</string>
   <string name="menu_split_polygon">다각형으로 분할</string>
   <string name="menu_extend_selection">선택 펼치기</string>
@@ -248,12 +291,14 @@
   <string name="menu_set_name">이름 설정</string>
   <string name="menu_tools_background_properties">배경 속성</string>
   <!---->
+  <string name="menu_privacy">개인정보</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">배경 정렬</string>
   <string name="menu_tools_background_align_reset">재설정</string>
   <string name="menu_tools_background_align_zero">영</string>
   <!--Menus in layers dialog-->
   <!---->
+  <string name="menu_tools_background_contrast">대비</string>
   <string name="menu_tools_oauth_reset">OAuth 재설정</string>
   <string name="menu_tools_oauth_authorisation">OAuth 인증</string>
   <string name="menu_enable_tagfilter">태그 필터</string>
@@ -340,6 +385,7 @@
   <string name="delete">삭제</string>
   <string name="name">이름</string>
   <string name="default_">기본값</string>
+  <string name="state">주</string>
   <!---->
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">프리셋</string>
@@ -351,6 +397,10 @@
   <string name="address_housenumber">주소 %1$s</string>
   <string name="address_housenumber_street">주소 %2$s %1$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_cut">잘라내기</string>
+  <string name="undo_action_paste">붙여넣기</string>
+  <string name="undo_action_circulize">동그라미에 정렬</string>
+  <string name="undo_action_fix_conflict">충돌 해결</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
@@ -359,60 +409,20 @@
   <string name="alert_bug">근처 OSM 버그가 감지됨</string>
   <!--Misc relation related stuff-->
   <string name="role">역할</string>
+  <string name="role_lc">역할</string>
   <string name="membership_relation_heading">관계의 구성원</string>
   <string name="relation">관계</string>
   <string name="relations">관계</string>
+  <string name="position">위치</string>
   <string name="type">종류</string>
   <string name="object">개체</string>
   <string name="deleterelation">관계 삭제</string>
   <string name="delete_from_relation_description">관계에서 이 요소를 삭제하려고 합니다.</string>
+  <!--Things-->
+  <string name="bridge">다리</string>
+  <string name="tunnel">터널</string>
+  <!--Tag issues-->
   <!--time and distance-->
   <!--Help system-->
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>비공개</item>
-    <item>공개</item>
-    <item>추적할 수 있음</item>
-    <item>식별할 수 있음</item>
-  </string-array>
-  <string-array name="gps_source">
-    <item>내부</item>
-    <item>내부 NMEA</item>
-    <item>TCP 클라이언트로부터의 NMEA</item>
-    <item>TCP 서버로부터의 NMEA</item>
-  </string-array>
-  <string-array name="bug_state">
-    <item>열림</item>
-    <item>닫힘</item>
-    <item>거짓 긍정</item>
-  </string-array>
-  <string-array name="note_state">
-    <item>열림</item>
-    <item>닫힘</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>왼쪽</item>
-    <item>오른쪽</item>
-    <item>없음</item>
-  </string-array>
-  <string-array name="full_screen_preference_entries">
-    <item>자동</item>
-    <item>전혀</item>
-    <item>강제</item>
-    <item>상태 표시줄 없음</item>
-  </string-array>
-  <string-array name="full_screen_preference_no_auto_entries">
-    <item>자동</item>
-    <item>강제</item>
-    <item>상태 표시줄 없음</item>
-  </string-array>
-  <string-array name="tagfilter_type_entries">
-    <item>모두</item>
-    <item>노드</item>
-    <item>길</item>
-    <item>길+</item>
-    <item>관계</item>
-    <item>관계+</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
+  <!--Bookmarks-->
 </resources>
