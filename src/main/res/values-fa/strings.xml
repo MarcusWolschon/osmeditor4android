@@ -6,6 +6,7 @@
   <string name="mode_indoor">داخلی</string>
   <string name="mode_correct">حالت C</string>
   <string name="mode_address">نشانی</string>
+  <string name="mode_voice">صدا</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">احتیاط! </string>
   <string name="transfer_download_current_dialog_message">تغییراتی انجام داده‌اید. می‌خواهید به‌جای دورریختن، آن‌ها را بارگذاری کنید؟ </string>
@@ -237,6 +238,8 @@
   <string name="odd">فرد</string>
   <string name="other">سایر</string>
   <!--Safe split dialog-->
+  <string name="split_safe_title">اعضای رابطه گمشده</string>
+  <string name="split_safe_message">راه‌های عضو ارتباط همسایه(کنار) دانلود نمی‌شود. حفظ نظم اعضای رابطه ممکن است به این موارد بستگی داشته باشد.</string>
   <!---->
   <string name="error">خطا</string>
   <string name="warning">هشدار</string>
@@ -337,6 +340,8 @@
   <string name="layer_category_qa">تضمین کیفیت</string>
   <string name="layer_category_other">سایر</string>
   <string name="layer_add_layer_from_mvt_style">لایه ای از سبک MVT اضافه کنید</string>
+  <string name="layer_add_custom_imagery">تصاویر سفارشی را اضافه کنید</string>
+  <string name="layer_edit_custom_imagery_configuration">ویرایش پیکربندی تصاویر سفارشی</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">کمینهٔ زوم</string>
   <string name="layer_info_max_zoom">بیشینهٔ زوم</string>
@@ -360,6 +365,8 @@
   <string name="api_info_attribution">انتساب</string>
   <string name="api_info_mapsplit_source">منبع فقط خواندنی MapSplit</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">خواص تغییر کرده است</string>
+  <string name="tag_conflict_message">این عملیات نیاز به تغییر خواص عناصر درگیر داشت.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">روابط مناسبی در داده‌های بارگیری شده وجود ندارد</string>
   <string name="select_route_title">مسیر را انتخاب کنید</string>
@@ -416,6 +423,7 @@
   <string name="toast_name_empty">نامی برگزینید</string>
   <string name="toast_url_empty">یک URL وارد کنید</string>
   <string name="toast_min_zoom">زوم کمینه را کمتر از بیشینه تنظیم کنید</string>
+  <string name="toast_tile_layer_exists">منبع کاشی %1$s همان آدرس اینترنتی را دارد</string>
   <string name="toast_no_changes">هنوز چیزی را تغییر نداده‌اید‏...</string>
   <string name="toast_jpeg_not_transparent">فایل‌های JPEG شفاف نیستند و نمی‌شود برای رولایه استفاده شوند.</string>
   <string name="toast_unsaved_changes">ابتدا تغییرات ذخیره‌نشدهٔ خود را بارگذاری کنید.</string>
@@ -445,13 +453,14 @@
   <string name="toast_unsurveyed_road">جادهٔ نقشه‌برداری‌نشده</string>
   <string name="toast_noname">جاده نام یا ref ندارد</string>
   <string name="toast_notype">نوع رابطه مشخص نشده</string>
+  <string name="toast_missing_role">عضو رابطه بدون نقش لازم</string>
+  <string name="toast_relation_loop">ارجاعات اعضای رابطه یک حلقه ایجاد می‌کنند</string>
   <string name="toast_untagged_element">عنصر بدون برچسب</string>
   <string name="toast_unconnected_end_node">گره نزدیک عنصری است که می‌تواند به آن متصل شود</string>
   <string name="toast_degenerate_way">راه مسدود شده</string>
   <!---->
   <string name="toast_oauth_retry">پس از اینکه اجازه دادید OAuth به حساب کاربری OSMتان دسترسی داشته باشد دوباره برای بارگذاری تلاش کنید.</string>
   <string name="toast_oauth">لطفاً دسترسی به حساب OSM خود را برای OAuth مجاز کنید.</string>
-  <string name="toast_no_oauth">برای API کنونی هیچ پیکربندی OAuth انجام نشده است. لطفاً نام کاربری و گذرواژه را تنظیم کنید.</string>
   <string name="toast_oauth_not_enabled">‏OAuth برای API کنونی فعال نشده است.</string>
   <string name="toast_oauth_timeout">هنگام دست‌دهی برای احراز هویت، مهلت پایان یافت. لطفاً مجدداً تلاش کنید.</string>
   <string name="toast_oauth_communication">هنگام دست‌دهی برای احراز هویت، خطای ارتباطی رخ داد. لطفاً مجدداً تلاش کنید.</string>
@@ -571,6 +580,9 @@
   <string name="toast_error_loading_style">بارگیری سبک امکان پذیر نیست: %1$s</string>
   <string name="toast_only_one_source_supported">فقط یک منبع در هر سبک پشتیبانی می شود</string>
   <string name="toast_imagery_offset_download_failed">بارگیری افست انجام نشد: %1$s</string>
+  <string name="toast_download_server_version_failed">بارگیری نسخه سرور برای %1$s انجام نشد</string>
+  <string name="toast_error_element_too_large">عنصر برای ویرایشگر ویژگی خیلی بزرگ است</string>
+  <string name="toast_no_intersection_found">تقاطعی پیدا نشد</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">برای منابع MapSplit باید زوم کمینه و بیشینه تنظیم شده باشد</string>
   <string name="error_pbf_no_version">پروندهٔ PBF اطلاعات نسخه ندارد</string>
@@ -600,6 +612,8 @@
   <string name="prune">هرس</string>
   <string name="check">بررسی</string>
   <string name="download">بارگیری</string>
+  <string name="abort">لغو کردن / قطع کردن</string>
+  <string name="ignore">رد کردن</string>
   <!--Read a file-->
   <string name="read">خواندن</string>
   <string name="overwrite">بَرنویسی</string>
@@ -825,8 +839,10 @@
   <string name="menu_tools_update_imagery_configuration_eli">به‌روزرسانی پیکربندی از ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">زوم به گسترهٔ لایهٔ پس‌زمینه</string>
   <string name="menu_tools_clear_clipboard">پاک‌سازی بریده‌دان</string>
+  <string name="menu_tools_calibrate_height">کالیبره‌کردن سنسور فشار…</string>
   <string name="menu_tools_install_egm">نصب EGM</string>
   <string name="menu_tools_remove_egm">حذف EGM</string>
+  <string name="menu_tools_load_keys">بارگیری کلیدها از فایل…</string>
   <!---->
   <string name="menu_simple_actions">حالت ساده</string>
   <string name="menu_feedback">بازخورد</string>
@@ -867,7 +883,9 @@
   <string name="menu_tags">خصوصیات</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">تاریخچه</string>
+  <string name="menu_history_web">تاریخچه (وب)</string>
   <string name="menu_merge">پیوند</string>
+  <string name="menu_add_node_at_intersection">اضافه کردن گره در تقاطع</string>
   <string name="menu_reverse">معکوس‌کردن</string>
   <string name="notreversable_description">این راه برعکس نمی‌شود زیرا با مشخصه‌های وابسته به جهت برچسب‌گذاری شده است. برعکس‌کردنش برچسب‌گذاری را خراب می‌کند.</string>
   <string name="reverse_anyway">به‌هرحال برعکس شود</string>
@@ -930,12 +948,14 @@
   <string name="simple_paste">موقعیت موردنظر از صفحه را لمس کنید</string>
   <string name="menu_paste_multiple">درج چندین‌باره</string>
   <string name="simple_paste_multiple">موقعیت موردنظر از صفحه را لمس کنید</string>
+  <string name="menu_snap">عکس فوری</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">پس‌زمینهٔ نقشه</string>
   <string name="config_backgroundLayer_summary">پس‌زمینهٔ کاشی-پایهٔ نقشه</string>
   <string name="config_overlayLayer_title">رولایهٔ نقشه</string>
   <string name="config_overlayLayer_summary">رولایهٔ کاشی-پایهٔ نقشه</string>
   <string name="config_customlayers_title">لایه‌های سفارشی</string>
+  <string name="config_customlayers_summary">لایه‌هایی را که در تنظیمات پیش فرض نیستند مدیریت کنید.</string>
   <string name="config_scale_title">نمایش مقیاس</string>
   <string name="config_scale_summary">نوع مقیاس نمایش‌یافته بر نقشه.</string>
   <string name="config_mapProfile_title">سبک داده</string>
@@ -1089,6 +1109,9 @@
   <string name="config_bugDownloadRadius_summary">شعاع بارگیری وظیفه (به متر).</string>
   <string name="config_maxBugDownloadSpeed_title">بیشینهٔ سرعت بارگیری خودکار وظیفه</string>
   <string name="config_maxBugDownloadSpeed_summary">محدودیتی (به کیلومتر بر ساعت) که برای فراتر از آن بارگیری خودکار باگ‌ها و وظیفه لغو می‌شود.</string>
+  <string name="config_autoPruneTaskLimit_title">محدودیت هرس خودکار وظیفه</string>
+  <string name="config_autoPruneTaskLimit_summary">شمار وظیفه‌های مقیم در حافظه که با رسیدن به این تعداد، هرس انجام می‌شود.</string>
+  <string name="config_autoPruneTaskLimit_current">%1$d وظیفه و کار</string>
   <!--Location Settings-->
   <string name="config_category_gps">تنظیمات مکان</string>
   <string name="config_category_gps_summary">پارامترهای GPS/GNSS و سایر ارائه‌دهندگان مکان.</string>
@@ -1289,6 +1312,7 @@
   <string name="issue_same_object">شیء یکسان</string>
   <string name="issue_merged_metric">مقدار وابسته به طول ادغام شد</string>
   <string name="issue_split_metric">مقدار وابسته به طول تقسیم شد</string>
+  <string name="issue_split_route_ordering">مسیر ممکن است به سفارش مجدد دستی نیاز داشته باشد</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 روز</item>

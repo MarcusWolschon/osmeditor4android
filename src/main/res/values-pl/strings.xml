@@ -430,7 +430,6 @@
   <!---->
   <string name="toast_oauth_retry">Spróbuj przesłać ponownie po włączeniu dostępu OAuth do twojego konta OSM.</string>
   <string name="toast_oauth">Włącz autoryzację OAuth do konta OSM</string>
-  <string name="toast_no_oauth">Brak dostępnej konfiguracji OAuth aktualnego API, zamiast tego możesz ustawić swój login i hasło.</string>
   <string name="toast_oauth_not_enabled">OAuth jest wyłączony dla aktualnego API.</string>
   <string name="toast_oauth_timeout">Przekroczenie czasu podczas uwierzytelnienia, spróbuj ponownie.</string>
   <string name="toast_oauth_communication">Błąd komunikacji podczas uwierzytelnienia, spróbuj ponownie.</string>

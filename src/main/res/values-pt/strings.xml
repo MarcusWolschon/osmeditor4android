@@ -354,7 +354,6 @@
   <!---->
   <string name="toast_oauth_retry">Tente enviar novamente após autorizar o acesso OAuth à sua conta no OpenStreetMap.</string>
   <string name="toast_oauth">Por favor autorize o Vespucci no OAuth para poder aceder à sua conta no OpenStreetMap.</string>
-  <string name="toast_no_oauth">Nenhuma configuração OAuth disponível para a API atual, por favor indique o nome de utilizador e palavra-chave.</string>
   <string name="toast_oauth_not_enabled">O OAuth não está ativado para a API atual.</string>
   <string name="toast_oauth_timeout">Tempo esgotado do handshake da autenticação, por favor tente de novo.</string>
   <string name="toast_oauth_communication">Erro de comunicação durante o handshake da autenticação, por favor tente de novo.</string>

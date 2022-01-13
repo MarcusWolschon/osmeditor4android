@@ -435,7 +435,6 @@
   <!---->
   <string name="toast_oauth_retry">Intente cargar nuevamente después de permitir el acceso de OAuth a su cuenta de OSM.</string>
   <string name="toast_oauth">Permita el acceso OAuth a su cuenta OSM.</string>
-  <string name="toast_no_oauth">No está disponible la configuración OAuth para la API actual. Establezca su nombre de usuario y contraseña.</string>
   <string name="toast_oauth_not_enabled">OAuth no está habilitado para la API actual.</string>
   <string name="toast_oauth_timeout">Se agotó el tiempo de espera durante el protocolo de autenticación. Vuelva a intentarlo.</string>
   <string name="toast_oauth_communication">Error de comunicación durante el protocolo de autenticación, intente nuevamente.</string>

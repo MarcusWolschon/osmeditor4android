@@ -334,7 +334,6 @@
   <!---->
   <string name="toast_oauth_retry">Anna OAuthille lupa päästä OSM-tilillesi, ja yritä sitten lähettää uudestaan.</string>
   <string name="toast_oauth">Anna OAuthille lupa päästä OSM-tilillesi.</string>
-  <string name="toast_no_oauth">Nykyiselle APIlle ei ole OAuth-asetuksia. Aseta tunnus ja salasana.</string>
   <string name="toast_oauth_not_enabled">OAuth ei ole käytössä nykyisessä APIssa.</string>
   <string name="toast_oauth_timeout">Todennuskättelyn aikaraja umpeutui. Yritä uudestaan.</string>
   <string name="toast_oauth_communication">Tiedonsiirtovirhe todennuskättelyn aikana. Yritä uudestaan.</string>

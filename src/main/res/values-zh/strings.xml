@@ -447,7 +447,6 @@
   <!---->
   <string name="toast_oauth_retry">在允许 OAuth 访问您的 OSM 帐户后再次尝试上传。</string>
   <string name="toast_oauth">请允许 OAuth 访问您的 OSM 账号。</string>
-  <string name="toast_no_oauth">当前 API 没有可用的 OAuth 配置，请设置登录名和密码。</string>
   <string name="toast_oauth_not_enabled">当前 API 未启用 OAuth。</string>
   <string name="toast_oauth_timeout">握手验证超时，请重试。</string>
   <string name="toast_oauth_communication">握手验证时通信错误，请重试。</string>

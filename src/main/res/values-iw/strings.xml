@@ -6,6 +6,7 @@
   <string name="mode_indoor">בתוך מבנה</string>
   <string name="mode_correct">מצב תיקון (C)</string>
   <string name="mode_address">כתובתכ</string>
+  <string name="mode_voice">קול</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">זהירות!</string>
   <string name="transfer_download_current_dialog_message">ערכת שינויים. להעלות אותם במקום להתעלם מהם?</string>
@@ -221,6 +222,7 @@
   <string name="duplicate_relation_member_remove_button">הסרת חבר</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move">העברה</string>
+  <string name="leave_as_is">להשאיר כמו שזה</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
   <string name="remove">הסרה</string>
   <!--Abort action mode dialog-->
@@ -441,7 +443,6 @@
   <!---->
   <string name="toast_oauth_retry">כדאי לנסות להעלות שוב לאחר מתן גישה ל־OAuth לחשבון שלך ב־OSM.</string>
   <string name="toast_oauth">נא לאפשר גישה עם OAuth לחשבון שלך ב־OSM.</string>
-  <string name="toast_no_oauth">אין תצורת OAuth זמינה עבור ה־API הנוכחי, נא להגדיר שם משתמש וססמה.</string>
   <string name="toast_oauth_not_enabled">OAuth אינו מופעל עבור ה־API הנוכחי.</string>
   <string name="toast_oauth_timeout">הזמן שהוקצה ללחיצת יד לאימות פג, נא לנסות שוב.</string>
   <string name="toast_oauth_communication">אירעה שגיאת תקשורת במהלך לחיצת היד של האימות, נא לנסות שוב.</string>
@@ -865,6 +866,7 @@
   <string name="merge_context_title">מיזוג עם…</string>
   <string name="merge_with_all_ways">… כל הדרכים הסמוכות</string>
   <string name="merge_with_all_nodes">… כל המפרקים הסמוכים</string>
+  <string name="append_context_title">הוספה אל…</string>
   <string name="delete_note_description">לא ניתן לשחזר הערה שנמחקה!</string>
   <string name="delete_note">מחיקת הערה</string>
   <!--EasyEdit action mode titles-->
@@ -901,6 +903,7 @@
   <string name="menu_add_node">הוספת מפרק</string>
   <string name="simple_add_node">יש לגעת במיקום במסך</string>
   <string name="menu_add_node_tags">הוספת מפרק מתויג</string>
+  <string name="menu_add_node_address">הוספת מפרק כתובת</string>
   <string name="menu_add_way">הוספת דרך</string>
   <string name="simple_add_way">יש לגעת במיקום במסך</string>
   <string name="menu_add_map_note">הוספת הערה למפה</string>
@@ -909,6 +912,7 @@
   <string name="simple_paste">יש לגעת במיקום במסך</string>
   <string name="menu_paste_multiple">להדביק מספר פעמים</string>
   <string name="simple_paste_multiple">יש לגעת במיקום במסך</string>
+  <string name="menu_snap">הצמדה</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">רקע מפה</string>
   <string name="config_backgroundLayer_summary">רקע המפה מבוססת האריחים.</string>

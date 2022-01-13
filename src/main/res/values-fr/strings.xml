@@ -412,7 +412,6 @@
   <!---->
   <string name="toast_oauth_retry">Envoyez les données de nouveau après avoir accepté l\'accès OAuth à votre compte OSM.</string>
   <string name="toast_oauth">Veuillez autoriser l\'accès à votre compte OSM via OAuth</string>
-  <string name="toast_no_oauth">OAuth n\'est pas disponible avec l\'API actuelle. Vous devez renseigner votre identifiant et mot de passe.</string>
   <string name="toast_oauth_not_enabled">OAuth n\'est pas activé pour l\'API actuelle.</string>
   <string name="toast_oauth_timeout">Délai d\'attente dépassé pendant la phase d\'authentification, réessayez.</string>
   <string name="toast_oauth_communication">Erreur de communication pendant la phase d\'authentification, réessayez.</string>

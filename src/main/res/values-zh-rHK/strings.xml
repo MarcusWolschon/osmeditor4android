@@ -337,7 +337,6 @@
   <!---->
   <string name="toast_oauth_retry">在允許 OAuth 存取你的 OSM 帳號後再上傳一次。</string>
   <string name="toast_oauth">請允許 OAuth 進入您的 OSM 帳號。</string>
-  <string name="toast_no_oauth">沒有 OAuth 的組態可用於目前的API，請設定登入名稱和密碼。</string>
   <string name="toast_oauth_not_enabled">OAuth 未啟用目前的 API。</string>
   <string name="toast_oauth_timeout">握手驗証時逾時，請重試。</string>
   <string name="toast_oauth_communication">交握驗証時發生通信錯誤，請重試。</string>

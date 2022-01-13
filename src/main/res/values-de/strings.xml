@@ -461,7 +461,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <!---->
   <string name="toast_oauth_retry">Bitte OAuth-Zugang zum OSM-Konto erlauben und dann nochmals versuchen.</string>
   <string name="toast_oauth">Bitte OAuth-Zugang zum OSM-Konto erlauben.</string>
-  <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth-Konfiguration verfügbar, bitte Benutzernamen und Passwort festlegen.</string>
+  <string name="toast_no_oauth">Für den aktuell konfigurierten API \"%1$s\" ist keine OAuth-Konfiguration verfügbar, bitte Benutzernamen und Passwort festlegen.</string>
   <string name="toast_oauth_not_enabled">OAuth ist für die aktuelle API nicht eingeschaltet.</string>
   <string name="toast_oauth_timeout">Timeout während der Authentifizierung, bitte nochmals versuchen.</string>
   <string name="toast_oauth_communication">Kommunikationsfehler während der Authentifizierung, bitte nochmals versuchen.</string>

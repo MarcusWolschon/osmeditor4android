@@ -432,7 +432,6 @@
   <!---->
   <string name="toast_oauth_retry">OSM hesabınıza OAuth erişimine izin verdikten sonra tekrar yüklemeyi deneyin.</string>
   <string name="toast_oauth">Lütfen OAuth\'un OSM hesabınıza erişmesine izin verin.</string>
-  <string name="toast_no_oauth">Şu andaki API için OAuth yapılandırması yok, lütfen giriş ve parolayı ayarlayın.</string>
   <string name="toast_oauth_not_enabled">OAuth, mevcut API için etkinleştirilmedi.</string>
   <string name="toast_oauth_timeout">Kimlik doğrulama el sıkışması sırasında zaman aşımı oldu, lütfen tekrar deneyin.</string>
   <string name="toast_oauth_communication">Kimlik doğrulama anlaşması sırasında iletişim hatası, lütfen tekrar deneyin.</string>

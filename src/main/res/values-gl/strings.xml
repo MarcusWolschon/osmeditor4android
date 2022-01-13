@@ -385,7 +385,6 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <!---->
   <string name="toast_oauth_retry">Proba a subir novamente após autorizar o acesso OAuth á túa conta do OpenStreetMap.</string>
   <string name="toast_oauth">Por favor permite o acceso de OAuth á túa conta de OSM.</string>
-  <string name="toast_no_oauth">Non hai dispoñibilidade de configuración OAuth para a API actual, por favor, configure o inicio de sesión e o contrasinal.</string>
   <string name="toast_oauth_not_enabled">OAuth non está habilitado para a API actual.</string>
   <string name="toast_oauth_timeout">Tempo esgotado do handshake da autenticación, por favor téntao de novo.</string>
   <string name="toast_oauth_communication">Erro de comunicación durante o handshake da autenticación, por favor téntao de novo.</string>

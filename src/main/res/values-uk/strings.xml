@@ -437,7 +437,6 @@
   <!---->
   <string name="toast_oauth_retry">Спробуйте надіслати дані ще раз після надання доступу до ваших облікових даних OSM через  OAuth.</string>
   <string name="toast_oauth">Дозвольте OAuth-доступ до свого облікового запису OSM.</string>
-  <string name="toast_no_oauth">Немає доступної конфігурації OAuth для поточного API, вкажіть логін і пароль.</string>
   <string name="toast_oauth_not_enabled">OAuth не включений у поточному API.</string>
   <string name="toast_oauth_timeout">Перевищено час очікування відповіді, спробуйте автентифікуватись ще раз.</string>
   <string name="toast_oauth_communication">Помилка з’єднання під час автентифікації, спробуйте ще раз.</string>

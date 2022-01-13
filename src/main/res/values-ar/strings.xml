@@ -6,6 +6,7 @@
   <string name="mode_indoor">الوضع الداخلي</string>
   <string name="mode_correct">وضع الاكمال</string>
   <string name="mode_address">العنوان</string>
+  <string name="mode_voice">صوت</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">تنبيه!</string>
   <string name="transfer_download_current_dialog_message">لقد قمت بإجراء تغييرات.  هل تريد رفعها بدلا من التخلص منها؟</string>
@@ -241,6 +242,8 @@
   <string name="odd">فردي</string>
   <string name="other">آخر</string>
   <!--Safe split dialog-->
+  <string name="split_safe_title">أعضاء في علاقة مفقودة</string>
+  <string name="split_safe_message">لا يتم تنزيل طرق أعضاء علاقة الجيران. قد يعتمد الحفاظ على علاقة ترتيب الأعضاء على هذه.</string>
   <!---->
   <string name="error">خطأ</string>
   <string name="warning">تحذير</string>
@@ -341,6 +344,8 @@
   <string name="layer_category_qa">ضمان الجودة</string>
   <string name="layer_category_other">آخر</string>
   <string name="layer_add_layer_from_mvt_style">أضف طبقة من نمط MVT</string>
+  <string name="layer_add_custom_imagery">أضف صورًا مخصصة</string>
+  <string name="layer_edit_custom_imagery_configuration">تحرير تكوين الصور المخصصة</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">تصغير</string>
   <string name="layer_info_max_zoom">تكبير</string>
@@ -364,6 +369,8 @@
   <string name="api_info_attribution">الإسناد</string>
   <string name="api_info_mapsplit_source">قراءة المصدر فقط MapSplit</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">تغيرت الخصائص</string>
+  <string name="tag_conflict_message">تتطلب هذه العملية تغيير خصائص العناصر ذات العلاقة.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">لا توجد علاقات مناسبة في البيانات التي تم تنزيلها</string>
   <string name="select_route_title">حدد المسار</string>
@@ -420,6 +427,7 @@
   <string name="toast_name_empty">اختر اسما</string>
   <string name="toast_url_empty">أدخل عنوان URL</string>
   <string name="toast_min_zoom">تعيين الحد الأدنى للتكبير أقل من الحد الأقصى</string>
+  <string name="toast_tile_layer_exists">مصدر الصور المتجانبة %1$s له نفس عنوان الرابط</string>
   <string name="toast_no_changes">لم تقم بتغير أي شيء حتى الآن...</string>
   <string name="toast_jpeg_not_transparent">ملفات JPEG ليست شفافة ولا يمكن استخدامها كطبقة</string>
   <string name="toast_unsaved_changes">قم برفع التغييرات غير المحفوظة أولاً.</string>
@@ -453,13 +461,14 @@
   <string name="toast_unsurveyed_road">طريق غير ممسوح</string>
   <string name="toast_noname">الطريق يفتقر إلى الاسم أو المرجع</string>
   <string name="toast_notype">العلاقة لم يحدد نوعها</string>
+  <string name="toast_missing_role">عضو علاقة لم يحدد دوره المطلوب</string>
+  <string name="toast_relation_loop">عضو علاقة مرجعي يتسبب في تكرار وحلقه متكرره</string>
   <string name="toast_untagged_element">عنصر غير موسوم</string>
   <string name="toast_unconnected_end_node">العقدة/النقطة قريبة من عنصر يمكن توصيلها به</string>
   <string name="toast_degenerate_way">طريق متدهور</string>
   <!---->
   <string name="toast_oauth_retry">حاول التحميل مرة أخرى بعد السماح بوصول OAuth إلى حساب OSM الخاص بك.</string>
   <string name="toast_oauth">يُرجى السماح بالوصول عبر OAuth لحساب OSM الخاص بك.</string>
-  <string name="toast_no_oauth">لا يتوفر تكوين OAuth لواجهة برمجة التطبيقات الحالية، يرجى وضع اسم مستخدم وكلمة المرور.</string>
   <string name="toast_oauth_not_enabled">لم يتم تمكين OAuth لواجهة برمجة التطبيقات الحالية.</string>
   <string name="toast_oauth_timeout">انتهت المهلة الزمنية أثناء اتصال المصادقة، يرجى المحاولة مرة أخرى.</string>
   <string name="toast_oauth_communication">حدث خطأ في الاتصال أثناء اتصال المصادقة، يرجى المحاولة مرة أخرى.</string>
@@ -587,6 +596,9 @@
   <string name="toast_error_loading_style">غير قادر على تشغيل النمط: %1$s</string>
   <string name="toast_only_one_source_supported">مصدر واحد فقط لكل نمط مدعوم</string>
   <string name="toast_imagery_offset_download_failed">فشل تنزيل الإزاحة: %1$s</string>
+  <string name="toast_download_server_version_failed">فشل تنزيل إصدار الخادم لـ %1$s</string>
+  <string name="toast_error_element_too_large">العنصر كبير جدًا بالنسبة لمحرر الخاصية</string>
+  <string name="toast_no_intersection_found">لم يعثر على تقاطع</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">مصادر MapSplit تتطلب تحديد الحد الأدنى والحد الأقصى للتكبير</string>
   <string name="error_pbf_no_version">معلومات الإصدار مفقودة في ملف PBF</string>
@@ -616,6 +628,8 @@
   <string name="prune">تنظيف وتقليص</string>
   <string name="check">التحقق</string>
   <string name="download">تحميل</string>
+  <string name="abort">إلغاء</string>
+  <string name="ignore">تجاهل</string>
   <!--Read a file-->
   <string name="read">اقرأ</string>
   <string name="overwrite">الكتابة فوق</string>
@@ -841,8 +855,10 @@
   <string name="menu_tools_update_imagery_configuration_eli">تحديث التكوينات من ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">تكبير لمدى طبقة الخلفية</string>
   <string name="menu_tools_clear_clipboard">مسح الحافظة</string>
+  <string name="menu_tools_calibrate_height">معايرة مستشعر الضغط ...</string>
   <string name="menu_tools_install_egm">قم بتثبيت EGM</string>
   <string name="menu_tools_remove_egm">إزالة EGM</string>
+  <string name="menu_tools_load_keys">تحميل مفاتيح من ملف ...</string>
   <!---->
   <string name="menu_simple_actions">الوضع البسيط</string>
   <string name="menu_feedback">قدم مقترحاتك</string>
@@ -883,7 +899,9 @@
   <string name="menu_tags">خصائص</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">السجل التاريخي</string>
+  <string name="menu_history_web">السجل التاريخي للعنصر (ويب)</string>
   <string name="menu_merge">ضم</string>
+  <string name="menu_add_node_at_intersection">أضف عقدة عند التقاطع</string>
   <string name="menu_reverse">عكس</string>
   <string name="notreversable_description">لا يمكن عكس اتجاه هذا الطريق بسبب أنه موسوم بوسوم تعتمد على الاتجاه.  سيؤدي عكسها إلى تخريب الوسوم.</string>
   <string name="reverse_anyway">عكس على أية حال</string>
@@ -950,12 +968,14 @@
   <string name="simple_paste">اضغط على موضع الشاشة</string>
   <string name="menu_paste_multiple">الصق عناصر متعددة</string>
   <string name="simple_paste_multiple">انقر على موضع الشاشة</string>
+  <string name="menu_snap">التقاط</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">خلفية الخريطة</string>
   <string name="config_backgroundLayer_summary">خلفية الخريطة المستندة إلى صور متجانبة.</string>
   <string name="config_overlayLayer_title">طبقات الخريطة</string>
   <string name="config_overlayLayer_summary">طبقات الخريطة القائمة على صور متجانبة.</string>
   <string name="config_customlayers_title">طبقات مخصصة</string>
+  <string name="config_customlayers_summary">إدارة الطبقات ليست في التكوين الافتراضي.</string>
   <string name="config_scale_title">عرض المقياس</string>
   <string name="config_scale_summary">نوع المقياس المعروض على الخريطة.</string>
   <string name="config_mapProfile_title">نمط البيانات</string>
@@ -1109,6 +1129,9 @@
   <string name="config_bugDownloadRadius_summary">نصف قطر (م) من تنزيلات المهام.</string>
   <string name="config_maxBugDownloadSpeed_title">السرعة القصوى لتنزيل المهام تلقائيًا</string>
   <string name="config_maxBugDownloadSpeed_summary">الحد (بالكيلومتر/الساعة) الذي تم تعليق التنزيل التلقائي للملاحظات والأخطاء والمهام فوقه.</string>
+  <string name="config_autoPruneTaskLimit_title">حد التقليم التلقائي للمهمة</string>
+  <string name="config_autoPruneTaskLimit_summary">عدد المهام في الذاكرة والتي عند الوصول إليها ستؤدي إلى تقليم.</string>
+  <string name="config_autoPruneTaskLimit_current">%1$d مهمة</string>
   <!--Location Settings-->
   <string name="config_category_gps">إعدادات الموقع</string>
   <string name="config_category_gps_summary">معلمات GPS/GNSS وموفرو الموقع الآخرون.</string>
@@ -1309,6 +1332,7 @@
   <string name="issue_same_object">نفس العنصر</string>
   <string name="issue_merged_metric">تم دمج القيمة التي تعتمد على الطول</string>
   <string name="issue_split_metric">تم تجزئة القيمة المعتمدة على الطول</string>
+  <string name="issue_split_route_ordering">قد يحتاج المسار إلى إعادة ترتيب يدوي</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="zero">ولا يوم</item>

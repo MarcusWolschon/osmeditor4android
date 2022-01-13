@@ -6,6 +6,7 @@
   <string name="mode_indoor">室內</string>
   <string name="mode_correct">C 模式</string>
   <string name="mode_address">地址</string>
+  <string name="mode_voice">語音</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">注意！</string>
   <string name="transfer_download_current_dialog_message">您有做了變更。您是否想上傳而非放棄它們？ </string>
@@ -236,6 +237,8 @@
   <string name="odd">奇數</string>
   <string name="other">其他</string>
   <!--Safe split dialog-->
+  <string name="split_safe_title">遺失關聯成員</string>
+  <string name="split_safe_message">附近關聯成員路徑並沒有下載，要維護關聯成員順序也許需要這些資訊。</string>
   <!---->
   <string name="error">錯誤</string>
   <string name="warning">警告</string>
@@ -336,6 +339,8 @@
   <string name="layer_category_qa">QA</string>
   <string name="layer_category_other">其他</string>
   <string name="layer_add_layer_from_mvt_style">從 MVT 樣式新增圖層</string>
+  <string name="layer_add_custom_imagery">新增自訂影像</string>
+  <string name="layer_edit_custom_imagery_configuration">編輯自訂影像設定</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">最小縮小</string>
   <string name="layer_info_max_zoom">最大放大</string>
@@ -359,6 +364,8 @@
   <string name="api_info_attribution">貢獻者</string>
   <string name="api_info_mapsplit_source">MapSplit 唯讀來源</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">屬性已經變動了</string>
+  <string name="tag_conflict_message">這個操作需要改變涉入元愫的屬性。</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">下載資料沒有適當的關聯</string>
   <string name="select_route_title">選擇路線</string>
@@ -416,6 +423,7 @@
   <string name="toast_name_empty">選擇名稱</string>
   <string name="toast_url_empty">輸入 URL</string>
   <string name="toast_min_zoom">設定比最大值小的最小縮放比例</string>
+  <string name="toast_tile_layer_exists">圖磚來源 %1$s有相同的網址</string>
   <string name="toast_no_changes">您還沒有變更什麼…</string>
   <string name="toast_jpeg_not_transparent">JPEG 檔案並非透明所以不能套疊</string>
   <string name="toast_unsaved_changes">請先上傳您未作存儲的變更。</string>
@@ -444,13 +452,14 @@
   <string name="toast_unsurveyed_road">未勘測的路</string>
   <string name="toast_noname">道路缺少名稱或編號</string>
   <string name="toast_notype">關聯缺失類型</string>
+  <string name="toast_missing_role">關聯成員沒有要求的角色</string>
+  <string name="toast_relation_loop">關聯成員的參照創造循環</string>
   <string name="toast_untagged_element">沒有標示標籤的元素</string>
   <string name="toast_unconnected_end_node">節點接近連接的元素</string>
   <string name="toast_degenerate_way">退化的路徑</string>
   <!---->
   <string name="toast_oauth_retry">在允許 OAuth 存取你的 OSM 帳號後再上傳一次。</string>
   <string name="toast_oauth">請允許 OAuth 進入您的 OSM 帳號。</string>
-  <string name="toast_no_oauth">沒有 OAuth 的組態可用於目前的API，請設定登入名稱和密碼。</string>
   <string name="toast_oauth_not_enabled">OAuth 未啟用目前的 API。</string>
   <string name="toast_oauth_timeout">握手驗証時逾時，請重試。</string>
   <string name="toast_oauth_communication">交握驗証時發生通信錯誤，請重試。</string>
@@ -568,6 +577,9 @@
   <string name="toast_error_loading_style">無法載入樣式：%1$s</string>
   <string name="toast_only_one_source_supported">每個樣式只支援一個來源</string>
   <string name="toast_imagery_offset_download_failed">偏移量下載失敗：%1$s</string>
+  <string name="toast_download_server_version_failed">因為 %1$s而從伺服器下載版本失敗</string>
+  <string name="toast_error_element_too_large">對屬性編輯器來說元件太大了</string>
+  <string name="toast_no_intersection_found">沒有找到交叉</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -597,6 +609,8 @@
   <string name="prune">剪裁</string>
   <string name="check">檢查</string>
   <string name="download">下載</string>
+  <string name="abort">放棄</string>
+  <string name="ignore">忽略</string>
   <!--Read a file-->
   <string name="read">讀取</string>
   <string name="overwrite">覆寫</string>
@@ -823,8 +837,10 @@
   <string name="menu_tools_update_imagery_configuration_eli">從 ELI 更新設定</string>
   <string name="menu_tools_zoom_to_layer_extent">縮放到背景圖層範圍</string>
   <string name="menu_tools_clear_clipboard">清除剪貼簿</string>
+  <string name="menu_tools_calibrate_height">校正氣壓計...</string>
   <string name="menu_tools_install_egm">安裝 EGM</string>
   <string name="menu_tools_remove_egm">移除 EGM</string>
+  <string name="menu_tools_load_keys">從檔案載入鍵...</string>
   <!---->
   <string name="menu_simple_actions">簡易模式</string>
   <string name="menu_feedback">提供反饋</string>
@@ -865,7 +881,9 @@
   <string name="menu_tags">屬性</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">歷史</string>
+  <string name="menu_history_web">編輯歷史 (網頁)</string>
   <string name="menu_merge">加入</string>
+  <string name="menu_add_node_at_intersection">在交叉處加節點</string>
   <string name="menu_reverse">反向</string>
   <string name="notreversable_description">該道路是有標記與屬性的，那是方向依據並且不能反向。反向道路將會破壞標簽。</string>
   <string name="reverse_anyway">仍然反向</string>
@@ -927,12 +945,14 @@
   <string name="simple_paste">點螢幕位置</string>
   <string name="menu_paste_multiple">貼上多次時間</string>
   <string name="simple_paste_multiple">點螢幕位置</string>
+  <string name="menu_snap">拆斷</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">地圖背景</string>
   <string name="config_backgroundLayer_summary">圖層為基礎的地圖背景。</string>
   <string name="config_overlayLayer_title">地圖覆疊層</string>
   <string name="config_overlayLayer_summary">圖層為基礎的地圖套疊。</string>
   <string name="config_customlayers_title">客制圖層</string>
+  <string name="config_customlayers_summary">不在預設設定的管理圖層</string>
   <string name="config_scale_title">顯示比例尺</string>
   <string name="config_scale_summary">在地圖上顯型的比例尺類型。</string>
   <string name="config_mapProfile_title">資料樣式</string>
@@ -1086,6 +1106,9 @@
   <string name="config_bugDownloadRadius_summary">任務下載的半徑 (m)。</string>
   <string name="config_maxBugDownloadSpeed_title">最高任務自動下載速度</string>
   <string name="config_maxBugDownloadSpeed_summary">高於此限制(公里/小時)，註解、錯誤和任務的自動下載暫停。</string>
+  <string name="config_autoPruneTaskLimit_title">任務自動縮減限制</string>
+  <string name="config_autoPruneTaskLimit_summary">當記憶體當中的任務數到達上限時會啟動縮減。</string>
+  <string name="config_autoPruneTaskLimit_current">%1$d任務</string>
   <!--Location Settings-->
   <string name="config_category_gps">位置設定</string>
   <string name="config_category_gps_summary">GPS/GNSS 參數和其他位置提供者。</string>
@@ -1286,6 +1309,7 @@
   <string name="issue_same_object">相同物件</string>
   <string name="issue_merged_metric">長度相關數值已經合併</string>
   <string name="issue_split_metric">長度相關數值已經分割</string>
+  <string name="issue_split_route_ordering">路線也許需要手動調整順序</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="other">%1$d天</item>

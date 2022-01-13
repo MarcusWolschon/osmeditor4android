@@ -359,7 +359,6 @@
   <string name="toast_degenerate_way">Lối hỏng</string>
   <!---->
   <string name="toast_oauth">Xin hãy cho phép truy cập tài khoản của bạn qua OAuth.</string>
-  <string name="toast_no_oauth">Cấu hình OAuth không có sẵn cho API hiện tại. Xin hãy nhập tên người dùng và mật khẩu.</string>
   <string name="toast_oauth_not_enabled">OAuth không được kích hoạt cho API hiện tại.</string>
   <string name="toast_timeout">Máy chủ hết thời gian chờ</string>
   <string name="coordinates_out_of_range">Kinh độ phải nằm giữa −180°/+180°; vĩ độ phải nằm giữa −85°/85°</string>

@@ -436,7 +436,6 @@
   <!---->
   <string name="toast_oauth_retry">Nahrávání zkuste zopakovat poté, co povolíte OAuth přístup k vašemu OSM účtu.</string>
   <string name="toast_oauth">Povolte prosím OAuth přístup k vašemu OSM účtu.</string>
-  <string name="toast_no_oauth">Pro aktuální API není OAuth konfigurace dostupná, nastavte prosím uživatelské jméno a heslo.</string>
   <string name="toast_oauth_not_enabled">OAuth není povolen pro současné API.</string>
   <string name="toast_oauth_timeout">Vypršel časový limit pro navázání spojení, zkuste to prosím znovu.</string>
   <string name="toast_oauth_communication">Chyba komunikace během navazování spojení, zkuste to prosím znovu.</string>

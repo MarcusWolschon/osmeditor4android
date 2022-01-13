@@ -446,7 +446,6 @@ evitato usando una fonte di dati offline.</string>
   <!---->
   <string name="toast_oauth_retry">Prova a caricare di nuovo dopo aver concesso l’accesso OAuth alla tua utenza OSM.</string>
   <string name="toast_oauth">Abilita l\'accesso OAuth del tuo account OSM.</string>
-  <string name="toast_no_oauth">Con le API attuali non è disponibile alcuna configurazione OAuth, inserisci login e password.</string>
   <string name="toast_oauth_not_enabled">OAuth non è disponibile con le API attuali.</string>
   <string name="toast_oauth_timeout">Timeout durante processo di autenticazione, prova di nuovo.</string>
   <string name="toast_oauth_communication">Errore di comunicazione durante il processo di autenticazione, prova di nuovo.</string>

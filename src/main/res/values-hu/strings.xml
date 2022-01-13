@@ -452,7 +452,6 @@ elemek megkövetelése</string>
   <!---->
   <string name="toast_oauth_retry">Próbálja meg újból a feltöltést, miután engedélyezte az OAuth hozzáférést az OSM fiókjához.</string>
   <string name="toast_oauth">Engedélyezze az OAuth hozzáférést az OSM fiókjához.</string>
-  <string name="toast_no_oauth">Az OAuth konfiguráció nem érhető el a jelenlegi API-hoz, állítsa be a bejelentkezési nevet és jelszót.</string>
   <string name="toast_oauth_not_enabled">Az OAuth nem engedélyezett a jelenlegi API-hoz.</string>
   <string name="toast_oauth_timeout">Időtúllépés a hitelesítési kézfogás közben, próbálja újra.</string>
   <string name="toast_oauth_communication">Kommunikációs hiba történt a hitelesítési kézfogás közben, próbálja újra.</string>

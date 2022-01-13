@@ -438,7 +438,6 @@
   <!---->
   <string name="toast_oauth_retry">Probeer nogmaals te uploaden na OAuth toegang tot je OSM accout te hebben gegeven.</string>
   <string name="toast_oauth">Geef OAuth toegang tot je OSM account.</string>
-  <string name="toast_no_oauth">Er is geen OAuth configuratie beschikbaar voor de huidige API. Stel gebruikersnaam en wachtwoord in.</string>
   <string name="toast_oauth_not_enabled">OAuth is niet geactiveerd voor de huidige API.</string>
   <string name="toast_oauth_timeout">Time-out tijdens authenticatie communicatie, probeer nogmaals.</string>
   <string name="toast_oauth_communication">Communicatiefout tijdens authenticatie, probeer nogmaals.</string>
