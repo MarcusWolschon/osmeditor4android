@@ -674,8 +674,7 @@ public class TileLayerSource implements Serializable {
             metadataLoaded = false;
 
             if (async) {
-                Logic logic = App.getLogic();
-                new ExecutorTask<String, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
+                new ExecutorTask<String, Void, Void>() {
                     @Override
                     protected Void doInBackground(String url) {
                         loadMeta(url);
@@ -1078,6 +1077,7 @@ public class TileLayerSource implements Serializable {
      * 
      * @return The branding logo, or null if there is none.
      */
+    @Nullable
     public Drawable getLogoDrawable() {
         checkMetaData();
         /**
@@ -1088,6 +1088,11 @@ public class TileLayerSource implements Serializable {
                 setLogoDrawable(scaledBitmap(logoBitmap));
             } else {
                 Logic logic = App.getLogic();
+                // this may be called before Logic has been instantiated
+                // simply try later
+                if (logic == null) {
+                    return null;
+                }
                 new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
                     @Override
                     protected Void doInBackground(Void param) {
