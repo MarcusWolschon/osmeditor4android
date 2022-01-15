@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="3.3.1" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="3.4.3" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -21,16 +21,16 @@
         <combo key="material" text="Material" values="adobe,brick,concrete,glass,masonry,metal,plastic,reinforced_concrete,steel,stone,wood" display_values="Adobe,Brick,Concrete,Glass,Masonry,Metal,Plastic,Reinforced concrete,Steel,Stone,Wood" values_context="material" />
     </chunk>
     <chunk id="surface">
-        <combo key="surface" text="Surface" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,woodchips,paving_stones,sett,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud"
-                                    display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Woodchips,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface" match="none" />
+        <combo key="surface" text="Surface" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,woodchips,paving_stones,sett,cobblestone,unhewn_cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud"
+                                    display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Woodchips,Paving stones,Sett,Cobblestone,Unhewn cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface" match="none" />
     </chunk>
     <chunk id="footway_surface">
-        <combo key="footway:surface" text="Segregated footway surface" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud"
-                                    display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface" match="none" />
+        <combo key="footway:surface" text="Segregated footway surface" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,unhewn_cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud"
+                                    display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Unhewn cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface" match="none" />
     </chunk>
     <chunk id="cycleway_surface">
-        <combo key="cycleway:surface" text="Segregated cycleway surface" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud"
-                                    display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface" match="none" />
+        <combo key="cycleway:surface" text="Segregated cycleway surface" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,unhewn_cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud"
+                                    display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Unhewn cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface" match="none" />
     </chunk>
     <chunk id="surface_smoothness">
         <reference ref="surface"/>
@@ -1799,8 +1799,15 @@
             <link wiki="Tag:highway=service"/>
             <space/>
             <key key="highway" value="service" values_context="Highway"/>
+            <combo key="service" text="Service way type" values_context="Highway">
+                <list_entry value="alley" short_description="Alley" />
+                <list_entry value="driveway" short_description="Driveway" />
+                <list_entry value="parking" short_description="Parking (deprecated)" deprecated="true" />
+                <list_entry value="parking_aisle" short_description="Parking aisle" />
+                <list_entry value="drive-through" short_description="Drive-through" />
+                <list_entry value="emergency_access" short_description="Emergency access" />
+            </combo>
             <optional>
-                <combo key="service" text="Service way type" values="alley,driveway,parking,parking_aisle,drive-through,emergency_access" display_values="Alley,Driveway,Parking,Parking aisle,Drive-through,Emergency access" values_context="Highway"/>
                 <text key="name" text="Name"/>
                 <reference ref="highway_base"/>
                 <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
@@ -2166,6 +2173,7 @@
             <optional text="Optional signal attributes:">
                 <combo key="traffic_signals" text="Type" values="blinker,blink_mode,bus_priority,continuous_green,emergency,ramp_meter,tram_priority"
                     display_values="Blinker,Blink mode,Bus priority,Continuous green,Emergency,Ramp meter,Tram priority" />
+                <combo key="traffic_signals:direction" text="For traffic direction" values="forward,backward,both" display_values="Forward,Backward,Both"/>
                 <check key="traffic_signals:sound" text="Sound signals" disable_off="true"/>
                 <check key="traffic_signals:vibration" text="Vibration" disable_off="true"/>
                 <check key="traffic_signals:arrow" text="Arrow (tactile)" disable_off="true"/>
@@ -3244,7 +3252,7 @@
                 <reference ref="oh_wheelchair"/>
                 <reference ref="general_access"/>
                 <combo key="surface" text="Surface" values="gravel,pebblestone,sand" display_values="Gravel,Pebblestone,Sand"/>
-                <multiselect key="sport" text="Sport" values="swimming;surfing" display_values="Swimming;Surfing"/>
+                <multiselect key="sport" text="Sport" values="swimming;surfing" display_values="Swimming;Surfing" rows="2"/>
                 <reference ref="nudism" />
             </optional>
         </item> <!-- Beach -->
@@ -3980,7 +3988,7 @@
             <key key="shop" value="motorcycle_repair"/>
             <reference ref="name_operator_oh_wheelchair"/>
             <reference ref="motorcycle_brands"/>
-            <multiselect key="service" text="Service" text_context="shop=car_repair" values="dealer;repair;parts;tyres" display_values="Dealer;Repair;Parts;Tyres"/>
+            <multiselect key="service" text="Service" text_context="shop=car_repair" values="dealer;repair;parts;tyres" display_values="Dealer;Repair;Parts;Tyres" rows="4"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Motorcycle repair -->
         <item name="Rental" icon="icons/png/transport_motorcycle_rental.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5587,6 +5595,8 @@
             <link wiki="Tag:amenity=gambling"/>
             <space/>
             <key key="amenity" value="gambling"/>
+            <multiselect key="gambling" text="Type" values="lottery;pachinko;slot_machines;bingo;betting;poker" 
+                display_values="Lottery;Pachinko;Slot machines;Bingo;Betting;Poker" rows="6" />
             <reference ref="name_operator_oh_wheelchair_level"/>
             <reference ref="min_age" />
             <space/>
@@ -5760,8 +5770,8 @@
             <text key="name" text="Name"/>
             <text key="artwork_subject" text="Subject"/>
             <text key="artist_name" text="Artist Name"/>
-            <combo key="material" text="Material" values="brass,bronze,concrete,glass,granite,metal,plastic,steel,stone,wood"
-                display_values="Brass,Bronze,Concrete,Glass,Granite,Metal,Plastic,Steel,Stone,Wood" values_context="material" />
+            <combo key="material" text="Material" values="aluminium,brass,bronze,concrete,glass,granite,metal,plastic,steel,stone,wood"
+                display_values="Aluminium,Brass,Bronze,Concrete,Glass,Granite,Metal,Plastic,Steel,Stone,Wood" values_context="material" />
             <text key="start_date" text="Start date"/>
         </item> <!-- Artwork -->
         <item name="Studio" icon="icons/png/amenity_studio_12256.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -6597,7 +6607,7 @@
         <item name="Club" icon="icons/png/amenity_club_35000.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:club"/>
             <space/>
-            <combo key="club" text="Club type" match="keyvalue!">
+            <combo key="club" text="Club type" match="keyvalue!" values_context="leisure">
                 <list_entry value="amateur_radio" display_value="Amateur radio" />
                 <list_entry value="art" display_value="Art" />
                 <list_entry value="astronomy" display_value="Astronomy" />
@@ -6990,7 +7000,8 @@
                 <text key="name" text="Name"/>
                 <text key="operator" text="Operator"/>
                 <text key="description" text="Description" length="255"/>
-                <multiselect key="animal_boarding" text="Animals" values="dog;cat;horse;fish;amphibian;reptile;bird;mammal" display_values="Dog;Cat;Horse;Fish;Amphibian;Reptile;Bird;Mammal" values_searchable="true" match="key"/>
+                <multiselect key="animal_boarding" text="Animals" values="dog;cat;horse;fish;amphibian;reptile;bird;mammal;wildlife" 
+                    display_values="Dog;Cat;Horse;Fish;Amphibian;Reptile;Bird;Mammal;Wildlife" values_searchable="true" match="key" rows="9" />
                 <reference ref="oh_wheelchair" />
             </optional>
             <reference ref="link_contact_address"/>
@@ -7034,7 +7045,7 @@
                 <reference ref="name_ref_operator"/>
             </optional>
             <reference ref="fee"/>
-            <multiselect key="valves" text="Valves" values="dunlop;schrader;sclaverand;regina" display_values="Dunlop (Woods);Schrader;Sclaverand (Presta);Regina" rows="5" values_searchable="true"/>
+            <multiselect key="valves" text="Valves" values="dunlop;schrader;sclaverand;regina" display_values="Dunlop (Woods);Schrader;Sclaverand (Presta);Regina" rows="4" values_searchable="true"/>
         </item> <!-- Compressed Air -->
         <item name="Vacuum cleaner station" icon="icons/png/amenity_vacuum_station.png" type="node" preset_name_label="true">
             <link wiki="Tag:amenity=vacuum_cleaner"/>
@@ -7554,7 +7565,7 @@
             <reference ref="sport_surface" />
             <optional>
                 <label text="Games:" />
-                <checkgroup text="Games" columns="2">
+                <checkgroup text="Games" columns="2" text_context="leisure">
                     <check key="gaelic_games:hurling" text="Hurling" disable_off="true"/>
                     <check key="gaelic_games:football" text="Football" disable_off="true"/>
                     <check key="gaelic_games:camogie" text="Camogie" disable_off="true"/>
@@ -7822,6 +7833,7 @@
                 <list_entry value="stable"             display_value="Stable"/>
                 <list_entry value="stadium"            display_value="Stadium"/>
                 <list_entry value="static_caravan"     display_value="Static caravan"/>
+                <list_entry value="stilt_house"        display_value="Stilt house"/>
                 <list_entry value="storage_tank"       display_value="Storage tank"/>
                 <list_entry value="sty"                display_value="Sty"/>
                 <list_entry value="supermarket"        display_value="Supermarket"/>
@@ -8077,9 +8089,10 @@
             <preset_link preset_name="Telescope" text="Similar but different tags:" alternative="true" />
             <preset_link preset_name="Tower" text="Similar but different tags:" alternative="true" />
         </item> <!-- Tower -->
-        <item name="Utility pole" icon="icons/png/man_made_pole.png" type="node" preset_name_label="true" deprecated="true">
+        <item name="Utility pole" icon="icons/png/man_made_pole.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=utility_pole"/>
             <space />
+            <key key="man_made" value="utility_pole" />
             <reference ref="pole" />
             <reference ref="utilities" />
             <preset_link preset_name="Pole" text="Similar preset:" alternative="true" />
@@ -9150,6 +9163,15 @@
                 <reference ref="ref_operator" />
             </optional>
         </item> <!-- Catenary mast -->
+        <item name="Connection" icon="" name_context="power" type="node" preset_name_label="true">
+            <link wiki="Tag:power=connection" />
+            <space />
+            <key key="power" value="connection" />
+            <optional>
+                <reference ref="cables" />
+                <reference ref="ref_operator" />
+            </optional>
+        </item> <!-- Connection -->
         <item name="Insulator" icon="styles/standard/power/insulator.svg" type="node,way" preset_name_label="true">
             <link wiki="Tag:power=insulator"/>
             <space/>
@@ -9482,7 +9504,7 @@
             <space/>
             <key key="shop" value="butcher"/>
             <combo text="Speciality" key="butcher" values="beef,horse,lamb,pork,poultry,game"
-                display_values="Beef,Horse,Lamb,Pork,Poultry,Game" match="key" />
+                display_values="Beef,Horse,Lamb,Pork,Poultry,Game" match="key" values_context="food" />
             <combo key="diet:halal" text="Halal" values="yes,no,only" display_values="Yes,No,Only" />
             <combo key="diet:kosher" text="Kosher" values="yes,no,only" display_values="Yes,No,Only" />
             <reference ref="name_oh_wheelchair_level"/>
@@ -10361,7 +10383,7 @@
             <reference ref="link_contact_address_payment"/>
             <reference ref="kids_area" />
         </item> <!-- Toys -->
-        <item name="Games" icon="icons/png/shopping_games.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Games" icon="icons/png/shopping_games.png" type="node,closedway,multipolygon" preset_name_label="true" name_context="leisure">
             <link wiki="Tag:shop=games"/>
             <space/>
             <key key="shop" value="games"/>
@@ -11252,7 +11274,7 @@
             <space/>
             <key key="landuse" value="meadow"/>
             <reference ref="optional_name"/>
-            <combo key="meadow" text="Meadow type" values="agricultural,perpetual,transitional" display_values="Agricultural,Perpetual,Transitional"/>
+            <combo key="meadow" text="Meadow type" values="agricultural,pasture,paddock,perpetual,transitional" display_values="Agricultural,Pasture,Paddock,Perpetual,Transitional"/>
         </item> <!-- Meadow -->
         <item name="Orchard" icon="icons/png/landuse_greengrocer.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:landuse=orchard"/>
