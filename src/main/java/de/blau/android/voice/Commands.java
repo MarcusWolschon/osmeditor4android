@@ -127,6 +127,9 @@ public final class Commands {
             if (n != null) {
                 Snack.toastTopInfo(activity, n.getDescription());
             }
+            if (activity instanceof Main) {
+                ((Main) activity).getEasyEditManager().finish();
+            }
         }
     }
 

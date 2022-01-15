@@ -129,24 +129,6 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             }
         },
         /**
-         * Paste an object from the clipboard
-         */
-        PASTE(R.string.menu_paste_object, R.string.simple_paste, SimpleActionModeCallback::paste) {
-            @Override
-            public boolean isEnabled() {
-                return !App.getLogic().clipboardIsEmpty();
-            }
-        },
-        /**
-         * Paste an object from the clipboard, without exiting the action mode
-         */
-        PASTEMULTIPLE(R.string.menu_paste_multiple, R.string.simple_paste_multiple, (main, manager, x, y) -> App.getLogic().pasteFromClipboard(main, x, y)) {
-            @Override
-            public boolean isEnabled() {
-                return !App.getLogic().clipboardIsEmpty() && !App.getDelegator().clipboardContentWasCut();
-            }
-        },
-        /**
          * Add node from voice input
          */
         VOICE_NODE(R.string.menu_add_node_tags, R.string.simple_add_node, (main, manager, x, y) -> {
@@ -168,6 +150,24 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             @Override
             public boolean isEnabled() {
                 return App.getLogic().getMode().enabledSimpleActions().contains(this);
+            }
+        },
+        /**
+         * Paste an object from the clipboard
+         */
+        PASTE(R.string.menu_paste_object, R.string.simple_paste, SimpleActionModeCallback::paste) {
+            @Override
+            public boolean isEnabled() {
+                return !App.getLogic().clipboardIsEmpty();
+            }
+        },
+        /**
+         * Paste an object from the clipboard, without exiting the action mode
+         */
+        PASTEMULTIPLE(R.string.menu_paste_multiple, R.string.simple_paste_multiple, (main, manager, x, y) -> App.getLogic().pasteFromClipboard(main, x, y)) {
+            @Override
+            public boolean isEnabled() {
+                return !App.getLogic().clipboardIsEmpty() && !App.getDelegator().clipboardContentWasCut();
             }
         };
 
