@@ -1,5 +1,15 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.0.0-3:
+
+- Fix issue that stopped imagery configuration from being read completely
+- Fix issue with applying presets with embedded JS
+- Fix issue with voice creation of notes not exiting the action mode
+- Fix resync selection after undo/redo in multi-select mode
+- Update translations
+- Update preset
+- Update imagery from ELI
+
 17.0.0-2:
 
 - Fix wrong database version that cause key database upgrade to be skipped and consequently a crash
