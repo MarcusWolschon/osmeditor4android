@@ -1,5 +1,13 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+16.1.3:
+
+- Fix issue with applying presets with embedded JS
+- Fix resync selection after undo/redo in multi-select mode
+- Update imagery from ELI
+- Update preset
+- Update NSI
+
 16.1.2:
 
 - Fix use correct message when paste overwrites tags
