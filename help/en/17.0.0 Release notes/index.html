@@ -343,6 +343,7 @@ i-->
             <li><a href="#way-creation-and-appending-modes-changes">Way creation and appending modes changes</a></li>
             <li><a href="#way-intersection-function">Way intersection function</a></li>
             <li><a href="#additional-valdiations-and-upload-dialog-changes">Additional valdiations and upload dialog changes</a></li>
+            <li><a href="#updated-voice-input-support-experimental">Updated voice input support (experimental)</a></li>
             <li><a href="#miscellaneous">Miscellaneous</a></li>
         <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
         <li class="main "><a href="#known-problems">Known problems</a></li>
@@ -412,11 +413,30 @@ decide to upload. Highlighting of the issues will remain if you exit the upload 
 but will vanish if you then edit the object. </p>
 <p>To make the review of objects pre-upload easier they are now sorted at the top of the 
 upload dialog. </p>
+<h3 id="updated-voice-input-support-experimental">Updated voice input support (experimental)</h3>
+<p>The support of voice input has been simplified and moved to an editing mode.</p>
+<p>To activate:</p>
+<ul>
+<li>enable voice commands in the <em>Advanced preferences</em>, section <em>Experimental</em></li>
+<li>switch the editing mode to <em>Voice</em> by long pressing the lock icon and selecting <em>Voice</em></li>
+</ul>
+<p>In the <em>Voice</em> mode the "+" button offers two possible actions:</p>
+<ul>
+<li><em>Add tagged node</em> this will and a node with tags at a the selected location, possible 
+voice input is <em>thing</em> or <em>thing name</em>. Examples: saying <em>McDonalds's</em> will add a McDonald's 
+at the location, saying <em>butcher</em> will add a butcher and saying <em>butcher Miller</em> will 
+add add a butcher with the name tag set to <em>Miller</em>. To facilitate debugging, a source:original_text 
+tag will be added.</li>
+<li><em>Add map note</em> this will add a map note at the location with the recognized text.</li>
+</ul>
+<p>The previous existing support for adding addresses via voice input of the house number 
+is currently not supported.</p>
+<p>The purpose of this functionality is to explore how future support of alternative input 
+source should work, ideas and feedback is welcome.  </p>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Add refactor GPX and OSC exports to use a normal file selector</li>
 <li>Add support for task autoprune</li>
-<li>Add voice mode instead of voice commands</li>
 <li>Add allow editing custom imagery configuration from layer entry</li>
 <li>Add support adding a custom layer from the layer dialog</li>
 <li>Add simplified and improved orthogonalization</li>
@@ -444,6 +464,7 @@ upload dialog. </p>
             <li><a href="#way-creation-and-appending-modes-changes">Way creation and appending modes changes</a></li>
             <li><a href="#way-intersection-function">Way intersection function</a></li>
             <li><a href="#additional-valdiations-and-upload-dialog-changes">Additional valdiations and upload dialog changes</a></li>
+            <li><a href="#updated-voice-input-support-experimental">Updated voice input support (experimental)</a></li>
             <li><a href="#miscellaneous">Miscellaneous</a></li>
         <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
         <li class="main "><a href="#known-problems">Known problems</a></li>
@@ -513,11 +534,30 @@ decide to upload. Highlighting of the issues will remain if you exit the upload 
 but will vanish if you then edit the object. </p>
 <p>To make the review of objects pre-upload easier they are now sorted at the top of the 
 upload dialog. </p>
+<h3 id="updated-voice-input-support-experimental">Updated voice input support (experimental)</h3>
+<p>The support of voice input has been simplified and moved to an editing mode.</p>
+<p>To activate:</p>
+<ul>
+<li>enable voice commands in the <em>Advanced preferences</em>, section <em>Experimental</em></li>
+<li>switch the editing mode to <em>Voice</em> by long pressing the lock icon and selecting <em>Voice</em></li>
+</ul>
+<p>In the <em>Voice</em> mode the "+" button offers two possible actions:</p>
+<ul>
+<li><em>Add tagged node</em> this will and a node with tags at a the selected location, possible 
+voice input is <em>thing</em> or <em>thing name</em>. Examples: saying <em>McDonalds's</em> will add a McDonald's 
+at the location, saying <em>butcher</em> will add a butcher and saying <em>butcher Miller</em> will 
+add add a butcher with the name tag set to <em>Miller</em>. To facilitate debugging, a source:original_text 
+tag will be added.</li>
+<li><em>Add map note</em> this will add a map note at the location with the recognized text.</li>
+</ul>
+<p>The previous existing support for adding addresses via voice input of the house number 
+is currently not supported.</p>
+<p>The purpose of this functionality is to explore how future support of alternative input 
+source should work, ideas and feedback is welcome.  </p>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Add refactor GPX and OSC exports to use a normal file selector</li>
 <li>Add support for task autoprune</li>
-<li>Add voice mode instead of voice commands</li>
 <li>Add allow editing custom imagery configuration from layer entry</li>
 <li>Add support adding a custom layer from the layer dialog</li>
 <li>Add simplified and improved orthogonalization</li>
