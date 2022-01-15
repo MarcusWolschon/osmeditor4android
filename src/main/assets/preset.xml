@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="3.4.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="3.4.3" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -1799,8 +1799,15 @@
             <link wiki="Tag:highway=service"/>
             <space/>
             <key key="highway" value="service" values_context="Highway"/>
+            <combo key="service" text="Service way type" values_context="Highway">
+                <list_entry value="alley" short_description="Alley" />
+                <list_entry value="driveway" short_description="Driveway" />
+                <list_entry value="parking" short_description="Parking (deprecated)" deprecated="true" />
+                <list_entry value="parking_aisle" short_description="Parking aisle" />
+                <list_entry value="drive-through" short_description="Drive-through" />
+                <list_entry value="emergency_access" short_description="Emergency access" />
+            </combo>
             <optional>
-                <combo key="service" text="Service way type" values="alley,driveway,parking,parking_aisle,drive-through,emergency_access" display_values="Alley,Driveway,Parking,Parking aisle,Drive-through,Emergency access" values_context="Highway"/>
                 <text key="name" text="Name"/>
                 <reference ref="highway_base"/>
                 <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
@@ -2166,6 +2173,7 @@
             <optional text="Optional signal attributes:">
                 <combo key="traffic_signals" text="Type" values="blinker,blink_mode,bus_priority,continuous_green,emergency,ramp_meter,tram_priority"
                     display_values="Blinker,Blink mode,Bus priority,Continuous green,Emergency,Ramp meter,Tram priority" />
+                <combo key="traffic_signals:direction" text="For traffic direction" values="forward,backward,both" display_values="Forward,Backward,Both"/>
                 <check key="traffic_signals:sound" text="Sound signals" disable_off="true"/>
                 <check key="traffic_signals:vibration" text="Vibration" disable_off="true"/>
                 <check key="traffic_signals:arrow" text="Arrow (tactile)" disable_off="true"/>
@@ -8081,9 +8089,10 @@
             <preset_link preset_name="Telescope" text="Similar but different tags:" alternative="true" />
             <preset_link preset_name="Tower" text="Similar but different tags:" alternative="true" />
         </item> <!-- Tower -->
-        <item name="Utility pole" icon="icons/png/man_made_pole.png" type="node" preset_name_label="true" deprecated="true">
+        <item name="Utility pole" icon="icons/png/man_made_pole.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=utility_pole"/>
             <space />
+            <key key="man_made" value="utility_pole" />
             <reference ref="pole" />
             <reference ref="utilities" />
             <preset_link preset_name="Pole" text="Similar preset:" alternative="true" />
