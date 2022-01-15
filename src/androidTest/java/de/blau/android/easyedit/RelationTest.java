@@ -141,7 +141,7 @@ public class RelationTest {
         //
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickOverflowButton(device));
-        TestUtils.scrollTo(context.getString(R.string.menu_relation));
+        TestUtils.scrollTo(context.getString(R.string.menu_relation), false);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_relation), true, false));
         TestUtils.scrollToEnd(true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.select_relation_type_other), true, false));
@@ -210,9 +210,9 @@ public class RelationTest {
         //
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickOverflowButton(device));
-        TestUtils.scrollTo(context.getString(R.string.menu_relation));
+        TestUtils.scrollTo(context.getString(R.string.menu_relation), false);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_relation), true, false));
-        TestUtils.scrollTo("Multipolygon");
+        TestUtils.scrollTo("Multipolygon", true);
         assertTrue(TestUtils.clickText(device, false, "Multipolygon", true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add_relation_member)));
         TestUtils.clickAtCoordinates(device, map, 8.3882060, 47.3885768, true);
@@ -250,7 +250,7 @@ public class RelationTest {
         TestUtils.clickAtCoordinates(device, map, 8.3884429, 47.3887624, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickOverflowButton(device));
-        TestUtils.scrollTo(context.getString(R.string.tag_menu_addtorelation));
+        TestUtils.scrollTo(context.getString(R.string.tag_menu_addtorelation), true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.tag_menu_addtorelation), true, false));
         assertTrue(TestUtils.clickText(device, false, "Multipolygon Building", true, false));
         // finish again

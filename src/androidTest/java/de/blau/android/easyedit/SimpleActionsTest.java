@@ -117,6 +117,33 @@ public class SimpleActionsTest {
     }
 
     /**
+     * Create a new Node, then undo
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void newNodeUndo() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickSimpleButton(device);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_node), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_node)));
+        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+
+        Node node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertTrue(node.getOsmId() < 0);
+
+        // now undo, this should end the node selection mode
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        TestUtils.clickText(device, false, context.getString(R.string.okay), true); // click away tip
+        assertTrue(TestUtils.textGone(device, context.getString(R.string.actionmode_nodeselect), 2000));
+        assertNull(App.getLogic().getSelectedNode());
+    }
+
+    
+    /**
      * Create a new way from menu and clicks at two more locations and finishing via home button
      */
     // @SdkSuppress(minSdkVersion = 26)
@@ -245,13 +272,13 @@ public class SimpleActionsTest {
         TestUtils.clickAtCoordinates(device, map, 8.3897000, 47.3903500, true);
         TestUtils.sleep();
         // undo last addition
-        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
         TestUtils.sleep();
-        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
         TestUtils.sleep();
-        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
         TestUtils.sleep();
-        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
         TestUtils.sleep();
 
         Way way = App.getLogic().getSelectedWay();

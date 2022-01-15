@@ -176,7 +176,7 @@ public class SaveResumeTest {
         //
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickOverflowButton(device));
-        TestUtils.scrollTo(context.getString(R.string.menu_relation));
+        TestUtils.scrollTo(context.getString(R.string.menu_relation), false);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_relation), true, false));
         TestUtils.scrollToEnd(true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.select_relation_type_other), true, false));

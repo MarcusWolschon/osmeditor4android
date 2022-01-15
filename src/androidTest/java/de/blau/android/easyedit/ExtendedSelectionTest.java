@@ -2,6 +2,7 @@ package de.blau.android.easyedit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
@@ -138,7 +139,7 @@ public class ExtendedSelectionTest {
         assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickOverflowButton(device));
-        TestUtils.scrollTo(context.getString(R.string.menu_extend_selection));
+        TestUtils.scrollTo(context.getString(R.string.menu_extend_selection), false);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_extend_selection), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
         TestUtils.clickAtCoordinates(device, map, 8.3900912, 47.3899572, true);
@@ -173,7 +174,7 @@ public class ExtendedSelectionTest {
         assertNotNull(way);
         assertEquals(-1L, way.getOsmId());
         assertTrue(TestUtils.clickOverflowButton(device));
-        TestUtils.scrollTo(context.getString(R.string.menu_extend_selection));
+        TestUtils.scrollTo(context.getString(R.string.menu_extend_selection), false);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_extend_selection), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
         TestUtils.clickAtCoordinates(device, map, -0.1425372, 51.5019187, true);
@@ -192,7 +193,7 @@ public class ExtendedSelectionTest {
         Relation mp = parents.get(0);
         assertEquals(2, mp.getMembers().size());
     }
-    
+
     /**
      * Select two ways then intersect
      */
@@ -209,26 +210,62 @@ public class ExtendedSelectionTest {
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
         assertEquals(316659573L, way.getOsmId());
-       
+
         assertTrue(TestUtils.clickOverflowButton(device));
-        TestUtils.scrollTo(context.getString(R.string.menu_extend_selection));
+        TestUtils.scrollTo(context.getString(R.string.menu_extend_selection), false);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_extend_selection), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
-        
+
         TestUtils.clickAtCoordinates(device, map, 8.3878562, 47.3897689, true);
         assertTrue(TestUtils.findText(device, false, context.getResources().getQuantityString(R.plurals.actionmode_object_count, 2, 2)));
         List<Way> ways = App.getLogic().getSelectedWays();
         assertEquals(2, ways.size());
-        
+
         assertTrue(TestUtils.clickOverflowButton(device));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_node_at_intersection), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
-        
+
         Node node = logic.getSelectedNode();
         assertEquals(OsmElement.STATE_CREATED, node.getState());
         List<Way> ways2 = logic.getWaysForNode(node);
         assertEquals(2, ways2.size());
         assertTrue(ways.contains(ways2.get(0)));
         assertTrue(ways.contains(ways2.get(1)));
+    }
+
+    /**
+     * Create a new Node, start multi select, then undo new node
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void undoInsertion() {
+        TestUtils.loadTestData(main, "test2.osm");
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickSimpleButton(device);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_node), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_node)));
+        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+
+        Node node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertTrue(node.getOsmId() < 0);
+
+        assertTrue(TestUtils.clickOverflowButton(device));
+        TestUtils.scrollTo(context.getString(R.string.menu_extend_selection), false);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_extend_selection), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
+
+        TestUtils.clickAtCoordinates(device, map, 8.3878562, 47.3897689, true);
+        assertTrue(TestUtils.findText(device, false, context.getResources().getQuantityString(R.plurals.actionmode_object_count, 2, 2)));
+
+        // now undo, this should end the node selection mode
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.undo_location_undo_anyway), true));
+        TestUtils.clickText(device, false, context.getString(R.string.okay), true); // click away tip
+        assertTrue(TestUtils.findText(device, false, context.getResources().getQuantityString(R.plurals.actionmode_object_count, 1, 2)));
     }
 }

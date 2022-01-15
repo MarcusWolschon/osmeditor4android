@@ -109,13 +109,13 @@ public class WayTest {
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Assert.assertTrue(TestUtils.clickOverflowButton(device));
         String menuInfo = context.getString(R.string.menu_information);
-        TestUtils.scrollTo(menuInfo);
+        TestUtils.scrollTo(menuInfo, false);
         Assert.assertTrue(TestUtils.clickText(device, false, menuInfo, true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "asphalt"));
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true, false));
         Assert.assertTrue(TestUtils.clickOverflowButton(device));
         String menuDelete = context.getString(R.string.delete);
-        TestUtils.scrollTo(menuDelete);
+        TestUtils.scrollTo(menuDelete, false);
         Assert.assertTrue(TestUtils.clickText(device, false, menuDelete, true, false));
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.deleteway_wayandnodes), true, false));
         Assert.assertEquals(OsmElement.STATE_DELETED, way.getState());
@@ -154,7 +154,7 @@ public class WayTest {
         Assert.assertEquals(104148456L, way.getOsmId());
 
         Assert.assertTrue(TestUtils.clickOverflowButton(device));
-        TestUtils.scrollTo("Extract segment");
+        TestUtils.scrollTo("Extract segment", false);
         Assert.assertTrue(TestUtils.clickText(device, false, "Extract segment", true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "Select segment"));
 
@@ -199,7 +199,7 @@ public class WayTest {
 
         // try to upload the way, check that we have two elements and then cancel
         Assert.assertTrue(TestUtils.clickOverflowButton(device));
-        TestUtils.scrollTo("Upload element");
+        TestUtils.scrollTo("Upload element", false);
         Assert.assertTrue(TestUtils.clickText(device, false, "Upload element", true, true));
         Assert.assertTrue(TestUtils.findText(device, false, "Upload these 2 changes?"));
         Assert.assertTrue(TestUtils.clickText(device, false, "NO", true, true));

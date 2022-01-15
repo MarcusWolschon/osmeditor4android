@@ -1308,15 +1308,17 @@ public class TestUtils {
      * Scroll to a specific text
      * 
      * @param text the text
-     * @throws UiObjectNotFoundException if the UiScrollable couldn't be found
+     * @param fail fail if scrollable not found
      */
-    public static void scrollTo(@NonNull String text) {
+    public static void scrollTo(@NonNull String text, boolean fail) {
         UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
         try {
             appView.setSwipeDeadZonePercentage(0.4);
             appView.scrollIntoView(new UiSelector().text(text));
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(text + " not found");
+            if (fail) {
+                Assert.fail(text + " not found");
+            }
         }
     }
 
@@ -1325,7 +1327,6 @@ public class TestUtils {
      * 
      * @param fail fail if scrollable not found
      * 
-     * @throws UiObjectNotFoundException if the UiScrollable couldn't be found
      */
     public static void scrollToEnd(boolean fail) {
         UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));

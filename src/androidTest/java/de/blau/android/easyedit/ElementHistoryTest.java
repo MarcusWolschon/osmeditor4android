@@ -109,7 +109,7 @@ public class ElementHistoryTest {
         assertNotNull(w);
         assertEquals(49695069, w.getOsmId());
         assertTrue(TestUtils.clickOverflowButton(device));
-        TestUtils.scrollTo(main.getString(R.string.menu_history));
+        TestUtils.scrollTo(main.getString(R.string.menu_history), false);
         mockServer.enqueue("history");
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_history), true));
         assertTrue(TestUtils.findText(device, false, "SimonPoole", 5000));

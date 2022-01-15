@@ -140,7 +140,7 @@ public class GpxUploadTest {
                 TestUtils.textGone(device, "Imported", 10000);
                 GpxTest.clickGpsButton(device);
                 if (!TestUtils.findText(device, false, main.getString(R.string.menu_gps_goto_start))) {
-                    TestUtils.scrollTo(main.getString(R.string.menu_gps_goto_start));
+                    TestUtils.scrollTo(main.getString(R.string.menu_gps_goto_start), true);
                 }
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_goto_start), true, false));
                 TestUtils.clickText(device, false, main.getString(R.string.okay), false); // click away tip

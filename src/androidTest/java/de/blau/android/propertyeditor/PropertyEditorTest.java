@@ -283,9 +283,9 @@ public class PropertyEditorTest {
         }
         assertNotNull(cusine);
         cusine.click();
-        TestUtils.scrollTo("Asian");
+        TestUtils.scrollTo("Asian", false);
         assertTrue(TestUtils.clickText(device, true, "Asian", false, false));
-        TestUtils.scrollTo("German");
+        TestUtils.scrollTo("German", false);
         assertTrue(TestUtils.clickText(device, true, "German", false, false));
         assertTrue(TestUtils.clickText(device, true, main.getString(R.string.save), true, false));
         UiObject2 openingHours = null;
@@ -300,7 +300,7 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.clickText(device, false, "24 Hours", true, false));
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/save", true);
 
-        TestUtils.scrollTo("Contact");
+        TestUtils.scrollTo("Contact", false);
         assertTrue(TestUtils.clickText(device, false, "Contact", false, false));
         UiObject2 phone = null;
         try {
@@ -315,7 +315,7 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.findText(device, false, "+41 44 440 01 60", 5000));
 
         // check that tristate checkboxes work
-        TestUtils.scrollTo("Toilets");
+        TestUtils.scrollTo("Toilets", false);
         UiObject2 toilets = null;
         try {
             toilets = getField(device, "Toilets", 1);
@@ -326,7 +326,7 @@ public class PropertyEditorTest {
         clickOK(); // click away tip
 
         switchToDetailsTab();
-        TestUtils.scrollTo("toilets");
+        TestUtils.scrollTo("toilets", false);
         UiObject2 toiletValue = null;
         try {
             toiletValue = getField(device, "toilets", 2);
@@ -342,7 +342,7 @@ public class PropertyEditorTest {
         }
         toilets.click();
         switchToDetailsTab();
-        TestUtils.scrollTo("toilets");
+        TestUtils.scrollTo("toilets", false);
         try {
             toiletValue = getField(device, "toilets", 2);
         } catch (UiObjectNotFoundException e) {
@@ -358,7 +358,7 @@ public class PropertyEditorTest {
         }
         // apply optional tags and check that diaper tag isn't present
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.tag_menu_apply_preset_with_optional), false, false));
-        TestUtils.scrollTo("Diaper changing (deprecated)");
+        TestUtils.scrollTo("Diaper changing (deprecated)", false);
         assertFalse(TestUtils.findText(device, false, "Diaper changing (deprecated)"));
         
         TestUtils.clickHome(device, true);
@@ -603,7 +603,7 @@ public class PropertyEditorTest {
 
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), true, false);
         device.wait(Until.findObject(By.clickable(true).textStartsWith("from")), 500);
-        TestUtils.scrollTo("from");
+        TestUtils.scrollTo("from", false);
         
         editText = device.findObject(new UiSelector().clickable(true).textStartsWith("from"));
         try {
@@ -624,7 +624,7 @@ public class PropertyEditorTest {
         TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
 
         device.wait(Until.findObject(By.clickable(true).textStartsWith("stop")), 500);
-        TestUtils.scrollTo("stop");
+        TestUtils.scrollTo("stop", false);
         editText = device.findObject(new UiSelector().clickable(true).textStartsWith("stop")); // this should be node
                                                                                                // #416064528
         try {
@@ -966,7 +966,7 @@ public class PropertyEditorTest {
      * @throws UiObjectNotFoundException if we couldn't find the object with text
      */
     public static UiObject2 getField(UiDevice mDevice, @NonNull String text, int fieldIndex) throws UiObjectNotFoundException {
-        TestUtils.scrollTo(text);
+        TestUtils.scrollTo(text, false);
         BySelector bySelector = By.textStartsWith(text);
         UiObject2 keyField = mDevice.wait(Until.findObject(bySelector), 500);
         UiObject2 linearLayout = keyField.getParent();
@@ -986,7 +986,7 @@ public class PropertyEditorTest {
      * @throws UiObjectNotFoundException if we couldn't find the object with text
      */
     private UiObject2 getField2(@NonNull String text, int fieldIndex) throws UiObjectNotFoundException {
-        TestUtils.scrollTo(text);
+        TestUtils.scrollTo(text, false);
         BySelector bySelector = By.textStartsWith(text);
         UiObject2 keyField = device.wait(Until.findObject(bySelector), 500);
         UiObject2 linearLayout = keyField.getParent();

@@ -246,7 +246,7 @@ public class LayerDialogTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_select_imagery), true, false));
         TestUtils.clickText(device, true, main.getString(R.string.okay), true, false); // for the tip alert
         assertTrue(TestUtils.clickText(device, true, main.getString(R.string.layer_category_all), true, false));
-        TestUtils.scrollTo("OpenStreetMap (Standard)");
+        TestUtils.scrollTo("OpenStreetMap (Standard)", false);
         UiObject2 text = TestUtils.findObjectWithText(device, false, "OpenStreetMap (Standard)", 1000, false);
         List<UiObject2> children = text.getParent().getChildren();
         assertNotNull(children.get(1).clickAndWait(Until.newWindow(), 1000));
