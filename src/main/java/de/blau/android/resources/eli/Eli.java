@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.mapbox.geojson.Feature;
 
 import android.content.Context;
@@ -50,7 +51,7 @@ public final class Eli {
     private static final String NO_TILE_TILE_KEY          = "no_tile_tile";
     private static final String AVAILABLE_PROJECTIONS_KEY = "available_projections";
     private static final String TILE_SIZE_KEY             = "tile-size";
-    private static final String TILE_TYPE_KEY             = "tile_type"; // extension
+    private static final String TILE_TYPE_KEY             = "tile_type";            // extension
     private static final String MVT_VALUE                 = "mvt";
 
     /**
@@ -65,12 +66,12 @@ public final class Eli {
      * 
      * @param jsonObject the JsonObject
      * @param name the name of the string we want to retrieve
-     * @return the string or null if it couldb't be found
+     * @return the string or null if it couldn't be found
      */
     @Nullable
     static String getJsonString(@NonNull JsonObject jsonObject, @NonNull String name) {
         JsonElement field = jsonObject.get(name);
-        if (field != null && field.isJsonPrimitive()) {
+        if (field != null && field.isJsonPrimitive() && ((JsonPrimitive) field).isString()) {
             return field.getAsString();
         }
         return null;
