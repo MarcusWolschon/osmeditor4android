@@ -28,6 +28,7 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew assembleCurrentDebug
     - name: Run unit tests
+      timeout-minutes: 20
       run: ./gradlew testCurrentDebugUnitTest
     - name: Upload Test Results
       if: ${{ always() }}
