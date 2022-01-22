@@ -432,7 +432,7 @@ public final class TransferTasks {
     public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, @NonNull Server server, @NonNull final MapRouletteTask task,
             final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "updateMapRouletteTask");
-        PostAsyncActionHandler restartAction = () -> {
+        final PostAsyncActionHandler restartAction = () -> {
             Log.d(DEBUG_TAG, "--- restarting");
             Logic logic = App.getLogic();
             new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
@@ -448,20 +448,25 @@ public final class TransferTasks {
             Log.d(DEBUG_TAG, "not authenticated");
             return false;
         }
-        String apiKey = server.getUserPreferences().get(MAPROULETTE_APIKEY_V2);
-        if (apiKey == null) {
-            activity.runOnUiThread(() -> MapRouletteApiKey.set(activity, server, true));
-            return false;
-        }
         Logic logic = App.getLogic();
         ExecutorTask<Void, Void, Boolean> a = new ExecutorTask<Void, Void, Boolean>(logic.getExecutorService(), logic.getHandler()) {
+            String apiKey;
+
             @Override
             protected Boolean doInBackground(Void param) {
+                apiKey = server.getUserPreferences().get(MAPROULETTE_APIKEY_V2);
+                if (apiKey == null) {
+                    return false;
+                }
                 return MapRouletteServer.changeState(activity, apiKey, task);
             }
 
             @Override
             protected void onPostExecute(Boolean uploadSucceded) {
+                if (!uploadSucceded && apiKey == null) { // NOSONAR uploadSucceded cannot be null here
+                    MapRouletteApiKey.set(activity, server, true);
+                    return;
+                }
                 finishUpload(activity, uploadSucceded, quiet, postUploadHandler);
             }
         };
