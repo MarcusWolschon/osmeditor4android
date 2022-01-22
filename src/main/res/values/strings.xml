@@ -116,7 +116,8 @@
     <string name="openstreetbug_edit_title">Edit note</string>
     <string name="openstreetbug_comment_label">Comment:</string>
     <string name="openstreetbug_commit_ok">Task-changes saved</string>
-    <string name="openstreetbug_commit_fail">Could not save task-changes</string>
+    <string name="openstreetbug_commit_fail">Could not save task changes</string>
+    <string name="openstreetbug_commit_fail_with_message">Could not save task changes\n%1$s</string>
     <string name="openstreetbug_unknown_task_type">Unknown task type</string>
     <string name="openstreetbug_not_supported">%1$s is not supported.</string>
     <string name="note_description">Note: %1$s - %2$s</string>

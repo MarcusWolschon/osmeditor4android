@@ -254,6 +254,7 @@ public class TaskStorage implements Serializable, DataStorage {
                 Log.d(DEBUG_TAG, "read saved state");
                 tasks = newStorage.tasks;
                 boxes = newStorage.boxes;
+                challenges = newStorage.challenges;
                 dirty = false; // data was just read, i.e. memory and file are in sync
                 return true;
             } else {

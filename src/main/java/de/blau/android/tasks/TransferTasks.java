@@ -32,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
+import de.blau.android.AsyncResult;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -205,7 +206,7 @@ public final class TransferTasks {
                             uploadFailed = (uploadNote(server, n, nc != null && nc.isNew() ? nc.getText() : null, n.isClosed()).getError() != ErrorCodes.OK)
                                     || uploadFailed;
                         } else if (b instanceof OsmoseBug) {
-                            uploadFailed = !OsmoseServer.changeState(activity, (OsmoseBug) b) || uploadFailed;
+                            uploadFailed = (OsmoseServer.changeState(activity, (OsmoseBug) b).getError() != ErrorCodes.OK) || uploadFailed;
                         } else if (b instanceof MapRouletteTask) {
                             uploadFailed = !updateMapRouletteTask(activity, server, (MapRouletteTask) b, true, null) || uploadFailed;
                         }
@@ -249,20 +250,20 @@ public final class TransferTasks {
             @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "updateOsmoseBug");
         Logic logic = App.getLogic();
-        ExecutorTask<Void, Void, Boolean> a = new ExecutorTask<Void, Void, Boolean>(logic.getExecutorService(), logic.getHandler()) {
+        ExecutorTask<Void, Void, UploadResult> a = new ExecutorTask<Void, Void, UploadResult>(logic.getExecutorService(), logic.getHandler()) {
             @Override
-            protected Boolean doInBackground(Void param) {
+            protected UploadResult doInBackground(Void param) {
                 return OsmoseServer.changeState(context, b);
             }
 
             @Override
-            protected void onPostExecute(Boolean uploadSucceded) {
-                finishUpload(context, uploadSucceded, quiet, postUploadHandler);
+            protected void onPostExecute(UploadResult result) {
+                finishUpload(context, result, quiet, postUploadHandler);
             }
         };
         a.execute();
         try {
-            return a.get();
+            return a.get().getError() == ErrorCodes.OK;
         } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
             Log.e(DEBUG_TAG, "updateOsmoseBug got " + e.getMessage());
             a.cancel();
@@ -432,7 +433,7 @@ public final class TransferTasks {
     public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, @NonNull Server server, @NonNull final MapRouletteTask task,
             final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "updateMapRouletteTask");
-        PostAsyncActionHandler restartAction = () -> {
+        final PostAsyncActionHandler restartAction = () -> {
             Log.d(DEBUG_TAG, "--- restarting");
             Logic logic = App.getLogic();
             new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
@@ -448,26 +449,30 @@ public final class TransferTasks {
             Log.d(DEBUG_TAG, "not authenticated");
             return false;
         }
-        String apiKey = server.getUserPreferences().get(MAPROULETTE_APIKEY_V2);
-        if (apiKey == null) {
-            activity.runOnUiThread(() -> MapRouletteApiKey.set(activity, server, true));
-            return false;
-        }
         Logic logic = App.getLogic();
-        ExecutorTask<Void, Void, Boolean> a = new ExecutorTask<Void, Void, Boolean>(logic.getExecutorService(), logic.getHandler()) {
+        ExecutorTask<Void, Void, UploadResult> a = new ExecutorTask<Void, Void, UploadResult>(logic.getExecutorService(), logic.getHandler()) {
+
             @Override
-            protected Boolean doInBackground(Void param) {
+            protected UploadResult doInBackground(Void param) {
+                String apiKey = server.getUserPreferences().get(MAPROULETTE_APIKEY_V2);
+                if (apiKey == null) {
+                    return new UploadResult(ErrorCodes.MISSING_API_KEY);
+                }
                 return MapRouletteServer.changeState(activity, apiKey, task);
             }
 
             @Override
-            protected void onPostExecute(Boolean uploadSucceded) {
-                finishUpload(activity, uploadSucceded, quiet, postUploadHandler);
+            protected void onPostExecute(UploadResult result) {
+                if (result.getError() == ErrorCodes.MISSING_API_KEY) {
+                    MapRouletteApiKey.set(activity, server, true);
+                    return;
+                }
+                finishUpload(activity, result, quiet, postUploadHandler);
             }
         };
         a.execute();
         try {
-            return a.get();
+            return a.get().getError() == ErrorCodes.OK;
         } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
             Log.e(DEBUG_TAG, "updateMapRouletteTask got " + e.getMessage());
             a.cancel();
@@ -943,13 +948,13 @@ public final class TransferTasks {
      * Process the result of uploading some data
      * 
      * @param context an Android Context
-     * @param uploadSucceded if true the upload succeded
+     * @param result if true the upload succeeded
      * @param quiet if true don't show toasts
      * @param postUploadHandler callback to use once finished
      */
-    private static void finishUpload(@NonNull final Context context, @Nullable Boolean uploadSucceded, final boolean quiet,
+    private static void finishUpload(@NonNull final Context context, @NonNull UploadResult result, final boolean quiet,
             @Nullable final PostAsyncActionHandler postUploadHandler) {
-        if (Boolean.TRUE.equals(uploadSucceded)) {
+        if (result.getError() == ErrorCodes.OK) {
             if (postUploadHandler != null) {
                 postUploadHandler.onSuccess();
             }
@@ -958,10 +963,15 @@ public final class TransferTasks {
             }
         } else {
             if (postUploadHandler != null) {
-                postUploadHandler.onError(null);
+                postUploadHandler.onError(new AsyncResult(result.getError(), result.getMessage()));
             }
             if (!quiet) {
-                Snack.toastTopError(context, R.string.openstreetbug_commit_fail);
+                String message = result.getMessage();
+                if (message != null && !"".equals(message)) {
+                    Snack.toastTopError(context, context.getString(R.string.openstreetbug_commit_fail_with_message, message));
+                } else {
+                    Snack.toastTopError(context, R.string.openstreetbug_commit_fail);
+                }
             }
         }
     }

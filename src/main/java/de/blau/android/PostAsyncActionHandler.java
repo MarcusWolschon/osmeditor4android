@@ -12,7 +12,7 @@ public interface PostAsyncActionHandler {
     /**
      * Error handling with some details
      * 
-     * @param result
+     * @param result the result we got
      */
     default void onError(@Nullable AsyncResult result) {
         // do nothing

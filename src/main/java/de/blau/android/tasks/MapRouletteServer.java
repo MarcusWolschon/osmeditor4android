@@ -13,7 +13,10 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
+import de.blau.android.ErrorCodes;
+import de.blau.android.UploadResult;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -105,7 +108,8 @@ final class MapRouletteServer {
      * @param task the task with the state the server side task should be changed to
      * @return true if successful
      */
-    public static boolean changeState(@NonNull Context context, @NonNull String apiKey, @NonNull MapRouletteTask task) {
+    @NonNull
+    public static UploadResult changeState(@NonNull Context context, @NonNull String apiKey, @NonNull MapRouletteTask task) {
         try {
             URL url = new URL(getServerURL(context) + "task/" + task.getId() + "/" + task.getState().ordinal());
             Log.d(DEBUG_TAG, "changeState " + url.toString());
@@ -121,16 +125,22 @@ final class MapRouletteServer {
                     task.setChanged(false); // don't retry
                     App.getTaskStorage().setDirty();
                 }
-                return false;
+                UploadResult result = new UploadResult(ErrorCodes.UPLOAD_PROBLEM);
+                String message = Server.readStream(maprouletteCallResponse.body().byteStream());
+                result.setHttpError(responseCode);
+                result.setMessage(message);
+                return result;
             }
             task.setChanged(false);
             App.getTaskStorage().setDirty();
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "changeState got exception " + e.getMessage());
-            return false;
+            UploadResult result = new UploadResult(ErrorCodes.UPLOAD_PROBLEM);
+            result.setMessage(e.getMessage());
+            return result;
         }
-        Log.d(DEBUG_TAG, "changeState sucess");
-        return true;
+        Log.d(DEBUG_TAG, "changeState success");
+        return new UploadResult(ErrorCodes.OK);
     }
 
     /**

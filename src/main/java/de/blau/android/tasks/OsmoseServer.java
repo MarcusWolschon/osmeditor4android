@@ -15,7 +15,10 @@ import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.App;
+import de.blau.android.ErrorCodes;
+import de.blau.android.UploadResult;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Task.State;
 import okhttp3.Call;
@@ -28,8 +31,8 @@ final class OsmoseServer {
 
     private static final String DEBUG_TAG = OsmoseServer.class.getSimpleName();
 
-    private static final String API02PATH = "/api/0.2/"; 
-    private static final String API03PATH = "/api/0.3/"; 
+    private static final String API02PATH = "/api/0.2/";
+    private static final String API03PATH = "/api/0.3/";
 
     /**
      * the list of supported languages was simply generated from the list of .po in the osmose repo and tested against
@@ -97,11 +100,13 @@ final class OsmoseServer {
      * @param bug bug with the state the server side bug should be changed to
      * @return true if successful
      */
-    public static boolean changeState(@NonNull Context context, OsmoseBug bug) {
+    @NonNull
+    public static UploadResult changeState(@NonNull Context context, OsmoseBug bug) {
         // http://osmose.openstreetmap.fr/de/api/0.2/error/3313305479/done
         // http://osmose.openstreetmap.fr/de/api/0.2/error/3313313045/false
         if (bug.getState() == State.OPEN) {
-            return false; // open is the default state and we shouldn't actually get here
+            // open is the default state and we shouldn't actually get here
+            return new UploadResult(ErrorCodes.BAD_REQUEST);
         }
         try {
             URL url = new URL(getServerURL(context) + "error/" + bug.getId() + "/" + (bug.getState() == State.CLOSED ? "done" : "false"));
@@ -118,16 +123,22 @@ final class OsmoseServer {
                     bug.setChanged(false); // don't retry
                     App.getTaskStorage().setDirty();
                 }
-                return false;
+                UploadResult result = new UploadResult(ErrorCodes.UPLOAD_PROBLEM);
+                String message = Server.readStream(osmoseCallResponse.body().byteStream());
+                result.setHttpError(responseCode);
+                result.setMessage(message);
+                return result;
             }
             bug.setChanged(false);
             App.getTaskStorage().setDirty();
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "changeState got exception " + e.getMessage());
-            return false;
+            UploadResult result = new UploadResult(ErrorCodes.UPLOAD_PROBLEM);
+            result.setMessage(e.getMessage());
+            return result;
         }
-        Log.d(DEBUG_TAG, "changeState sucess");
-        return true;
+        Log.d(DEBUG_TAG, "changeState success");
+        return new UploadResult(ErrorCodes.OK);
     }
 
     /**
@@ -145,10 +156,11 @@ final class OsmoseServer {
             if (!SUPPORTED_LANGUAGES.contains(lang)) {
                 lang = "en";
             }
-            URL url = new URL(prefs.getOsmoseServer() + API03PATH + "items/" + Integer.toString(itemId) + "/class/" + Integer.toString(classId) + "?langs=" + lang);
+            URL url = new URL(
+                    prefs.getOsmoseServer() + API03PATH + "items/" + Integer.toString(itemId) + "/class/" + Integer.toString(classId) + "?langs=" + lang);
             Log.d(DEBUG_TAG, "getMeta " + url.toString());
             Request request = new Request.Builder().url(url).build();
-              OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+            OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                     .build();
             Call osmoseCall = client.newCall(request);
             Response osmoseCallResponse = osmoseCall.execute();
@@ -165,7 +177,7 @@ final class OsmoseServer {
         }
         Log.d(DEBUG_TAG, "getMeta sucess");
     }
-    
+
     /**
      * Get the OSMOSE server from preferences
      *
@@ -180,7 +192,7 @@ final class OsmoseServer {
         }
         return prefs.getOsmoseServer() + lang + API02PATH;
     }
-    
+
     /**
      * Get the OSMOSE server from preferences
      *

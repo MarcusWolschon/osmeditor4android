@@ -22,6 +22,22 @@ public class UploadResult implements Serializable {
     private String            message;
 
     /**
+     * Default constructor
+     */
+    public UploadResult() {
+        // empty
+    }
+
+    /**
+     * Constructor that sets the error code
+     * 
+     * @param error the code
+     */
+    public UploadResult(int error) {
+        this.error = error;
+    }
+
+    /**
      * @return the error
      */
     public int getError() {
