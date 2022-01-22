@@ -36,4 +36,5 @@ public final class ErrorCodes {
     public static final int NO_DATA                  = 55;
     public static final int REQUIRED_FEATURE_MISSING = 56;
     public static final int APPLYING_OSC_FAILED      = 57;
+    public static final int MISSING_API_KEY          = 58;
 }

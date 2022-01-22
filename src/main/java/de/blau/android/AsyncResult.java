@@ -11,7 +11,7 @@ public class AsyncResult {
      * 
      * @param code the result code
      */
-    AsyncResult(int code) {
+    public AsyncResult(int code) {
         this(code, null);
     }
 
@@ -21,7 +21,7 @@ public class AsyncResult {
      * @param code the result code
      * @param message an optional message
      */
-    AsyncResult(int code, @Nullable String message) {
+    public AsyncResult(int code, @Nullable String message) {
         this.code = code;
         this.message = message;
     }

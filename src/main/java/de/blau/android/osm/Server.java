@@ -1257,7 +1257,7 @@ public class Server {
      * @return a String containing the read contents
      */
     @NonNull
-    private static String readStream(@Nullable final InputStream in) {
+    public static String readStream(@Nullable final InputStream in) {
         StringBuilder res = new StringBuilder();
         if (in != null) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(in), 8000);
