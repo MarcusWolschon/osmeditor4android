@@ -109,7 +109,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         selectedApi = r.getString(R.string.config_selected_api);
         currentAPI = sharedPrefs.getString(selectedApi, null);
         if (currentAPI == null) {
-            migrateAPI(getWritableDatabase());
+            Log.w(DEBUG_TAG, "No selected API");
+            sharedPrefs.edit().putString(selectedApi, ID_DEFAULT).commit();
+            currentAPI = ID_DEFAULT;
         }
         if (getPreset(ID_DEFAULT) == null) {
             addPreset(ID_DEFAULT, r.getString(R.string.config_built_in_preset), "", true);
@@ -120,6 +122,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     public synchronized void onCreate(SQLiteDatabase db) {
         db.execSQL(
                 "CREATE TABLE apis (id TEXT, name TEXT, url TEXT, readonlyurl TEXT, notesurl TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT)");
+        addDefaultAPIs(db);
         db.execSQL(
                 "CREATE TABLE presets (id TEXT, name TEXT, url TEXT, lastupdate TEXT, data TEXT, position INTEGER DEFAULT 0, active INTEGER DEFAULT 0, usetranslations INTEGER DEFAULT 1)");
         db.execSQL("CREATE TABLE geocoders (id TEXT, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
@@ -233,30 +236,19 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE geocoders");
         db.execSQL("DROP TABLE layers");
         onCreate(db);
-        migrateAPI(db);
     }
 
     /**
-     * Creates the default API entry using the old-style username/password
+     * Creates the default API entries
      * 
      * @param db an instance of the pref database
      */
-    private synchronized void migrateAPI(@NonNull SQLiteDatabase db) {
-        Log.d(DEBUG_TAG, "Migrating API");
-        String user = sharedPrefs.getString(r.getString(R.string.config_username_key), "");
-        String pass = sharedPrefs.getString(r.getString(R.string.config_password_key), "");
-        Log.d(DEBUG_TAG, "Adding default URL with user '" + user + "'");
-        addAPI(db, ID_DEFAULT, Urls.DEFAULT_API_NAME, Urls.DEFAULT_API, null, user, pass, ID_DEFAULT, true);
+    private void addDefaultAPIs(@NonNull SQLiteDatabase db) {
+        Log.d(DEBUG_TAG, "Creating default API entries");
+        Log.d(DEBUG_TAG, "Adding default API URL");
+        addAPI(db, ID_DEFAULT, Urls.DEFAULT_API_NAME, Urls.DEFAULT_API, null, "", "", ID_DEFAULT, true);
         Log.d(DEBUG_TAG, "Adding default dev URL");
         addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, "", "", ID_SANDBOX, true);
-        Log.d(DEBUG_TAG, "Selecting default API");
-        selectAPI(db, ID_DEFAULT);
-        Log.d(DEBUG_TAG, "Deleting old user/pass settings");
-        Editor editor = sharedPrefs.edit();
-        editor.remove(r.getString(R.string.config_username_key));
-        editor.remove(r.getString(R.string.config_password_key));
-        editor.commit();
-        Log.d(DEBUG_TAG, "Migration finished");
     }
 
     /**
@@ -265,9 +257,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param id the ID of the API to be set as active
      */
     public synchronized void selectAPI(@NonNull String id) {
-        SQLiteDatabase db = getReadableDatabase();
-        selectAPI(db, id);
-        db.close();
+        try (SQLiteDatabase db = getReadableDatabase()) {
+            selectAPI(db, id);
+        }
     }
 
     /**
@@ -350,21 +342,21 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      */
     public synchronized void setAPIDescriptors(@NonNull String id, @NonNull String name, @NonNull String url, @Nullable String readonlyurl,
             @Nullable String notesurl, boolean oauth) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(NAME_COL, name);
-        values.put(URL_COL, url);
-        values.put(READONLYURL_COL, readonlyurl);
-        values.put(NOTESURL_COL, notesurl);
-        values.put(OAUTH_COL, oauth ? 1 : 0);
-        db.update(APIS_TABLE, values, WHERE_ID, new String[] { id });
-        if (!oauth) { // zap any key and secret
-            values = new ContentValues();
-            values.put(ACCESSTOKEN_COL, (String) null);
-            values.put(ACCESSTOKENSECRET_COL, (String) null);
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            ContentValues values = new ContentValues();
+            values.put(NAME_COL, name);
+            values.put(URL_COL, url);
+            values.put(READONLYURL_COL, readonlyurl);
+            values.put(NOTESURL_COL, notesurl);
+            values.put(OAUTH_COL, oauth ? 1 : 0);
             db.update(APIS_TABLE, values, WHERE_ID, new String[] { id });
+            if (!oauth) { // zap any key and secret
+                values = new ContentValues();
+                values.put(ACCESSTOKEN_COL, (String) null);
+                values.put(ACCESSTOKENSECRET_COL, (String) null);
+                db.update(APIS_TABLE, values, WHERE_ID, new String[] { id });
+            }
         }
-        db.close();
         resetCurrentServer();
     }
 
@@ -375,13 +367,13 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param secret the OAuth secret
      */
     public synchronized void setAPIAccessToken(@Nullable String token, @Nullable String secret) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ACCESSTOKEN_COL, token);
-        values.put(ACCESSTOKENSECRET_COL, secret);
-        db.update(APIS_TABLE, values, WHERE_ID, new String[] { currentAPI });
-        Log.d(DEBUG_TAG, "setAPIAccessToken " + token + " secret " + secret);
-        db.close();
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            ContentValues values = new ContentValues();
+            values.put(ACCESSTOKEN_COL, token);
+            values.put(ACCESSTOKENSECRET_COL, secret);
+            db.update(APIS_TABLE, values, WHERE_ID, new String[] { currentAPI });
+            Log.d(DEBUG_TAG, "setAPIAccessToken " + token + " secret " + secret);
+        }
         resetCurrentServer();
     }
 
@@ -392,12 +384,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param pass password
      */
     public synchronized void setCurrentAPILogin(@Nullable String user, @Nullable String pass) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("user", user);
-        values.put("pass", pass);
-        db.update(APIS_TABLE, values, WHERE_ID, new String[] { currentAPI });
-        db.close();
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            ContentValues values = new ContentValues();
+            values.put("user", user);
+            values.put("pass", pass);
+            db.update(APIS_TABLE, values, WHERE_ID, new String[] { currentAPI });
+        }
         resetCurrentServer();
     }
 
@@ -415,9 +407,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      */
     public synchronized void addAPI(@NonNull String id, @NonNull String name, @NonNull String url, @Nullable String readonlyurl, @Nullable String notesurl,
             @Nullable String user, @Nullable String pass, boolean oauth) {
-        SQLiteDatabase db = getWritableDatabase();
-        addAPI(db, id, name, url, readonlyurl, notesurl, user, pass, oauth);
-        db.close();
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            addAPI(db, id, name, url, readonlyurl, notesurl, user, pass, oauth);
+        }
     }
 
     /**
@@ -461,9 +453,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         if (id.equals(currentAPI)) {
             selectAPI(ID_DEFAULT);
         }
-        SQLiteDatabase db = getWritableDatabase();
-        db.delete(APIS_TABLE, WHERE_ID, new String[] { id });
-        db.close();
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            db.delete(APIS_TABLE, WHERE_ID, new String[] { id });
+        }
     }
 
     /**
@@ -474,10 +466,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      */
     @NonNull
     public synchronized API[] getAPIs(@Nullable String id) {
-        SQLiteDatabase db = getReadableDatabase();
-        API[] result = getAPIs(db, id);
-        db.close();
-        return result;
+        try (SQLiteDatabase db = getReadableDatabase()) {
+            return getAPIs(db, id);
+        }
     }
 
     /**
@@ -489,21 +480,21 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      */
     @NonNull
     private synchronized API[] getAPIs(@NonNull SQLiteDatabase db, @Nullable String id) {
-        Cursor dbresult = db.query(
+        try (Cursor dbresult = db.query(
                 APIS_TABLE, new String[] { ID_COL, NAME_COL, URL_COL, READONLYURL_COL, NOTESURL_COL, "user", "pass", "preset", "showicon", OAUTH_COL,
                         ACCESSTOKEN_COL, ACCESSTOKENSECRET_COL },
-                id == null ? null : WHERE_ID, id == null ? null : new String[] { id }, null, null, null, null);
-        API[] result = new API[dbresult.getCount()];
-        dbresult.moveToFirst();
-        for (int i = 0; i < result.length; i++) {
-            result[i] = new API(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getString(4),
-                    dbresult.getString(5), dbresult.getString(6), dbresult.getInt(9), dbresult.getString(10), dbresult.getString(11));
-            Log.d(DEBUG_TAG, "id " + dbresult.getString(0) + " name " + dbresult.getString(1) + " url " + dbresult.getString(2) + " readonly url "
-                    + dbresult.getString(3) + " notes url " + dbresult.getString(4) + " " + dbresult.getString(10) + " " + dbresult.getString(11));
-            dbresult.moveToNext();
+                id == null ? null : WHERE_ID, id == null ? null : new String[] { id }, null, null, null, null)) {
+            API[] result = new API[dbresult.getCount()];
+            dbresult.moveToFirst();
+            for (int i = 0; i < result.length; i++) {
+                result[i] = new API(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getString(4),
+                        dbresult.getString(5), dbresult.getString(6), dbresult.getInt(9), dbresult.getString(10), dbresult.getString(11));
+                Log.d(DEBUG_TAG, "id " + dbresult.getString(0) + " name " + dbresult.getString(1) + " url " + dbresult.getString(2) + " readonly url "
+                        + dbresult.getString(3) + " notes url " + dbresult.getString(4) + " " + dbresult.getString(10) + " " + dbresult.getString(11));
+                dbresult.moveToNext();
+            }
+            return result;
         }
-        dbresult.close();
-        return result;
     }
 
     /**
@@ -630,21 +621,20 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      */
     @NonNull
     public PresetInfo[] getActivePresets() {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor dbresult = db.query(PRESETS_TABLE, new String[] { ID_COL, NAME_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL }, "active=1", null,
-                null, null, POSITION_COL);
-        PresetInfo[] result = new PresetInfo[dbresult.getCount()];
-        Log.d(DEBUG_TAG, "#prefs " + result.length);
-        dbresult.moveToFirst();
-        for (int i = 0; i < result.length; i++) {
-            Log.d(DEBUG_TAG, "Reading pref " + i + " " + dbresult.getString(1));
-            result[i] = new PresetInfo(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getInt(4) == 1,
-                    dbresult.getInt(5) == 1);
-            dbresult.moveToNext();
+        try (SQLiteDatabase db = getReadableDatabase();
+                Cursor dbresult = db.query(PRESETS_TABLE, new String[] { ID_COL, NAME_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL },
+                        "active=1", null, null, null, POSITION_COL)) {
+            PresetInfo[] result = new PresetInfo[dbresult.getCount()];
+            Log.d(DEBUG_TAG, "#prefs " + result.length);
+            dbresult.moveToFirst();
+            for (int i = 0; i < result.length; i++) {
+                Log.d(DEBUG_TAG, "Reading pref " + i + " " + dbresult.getString(1));
+                result[i] = new PresetInfo(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getInt(4) == 1,
+                        dbresult.getInt(5) == 1);
+                dbresult.moveToNext();
+            }
+            return result;
         }
-        dbresult.close();
-        db.close();
-        return result;
     }
 
     /**
@@ -656,19 +646,18 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      */
     @NonNull
     private synchronized PresetInfo[] getPresets(@Nullable String value, boolean byURL) {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor dbresult = db.query(PRESETS_TABLE, new String[] { ID_COL, NAME_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL },
-                value == null ? null : (byURL ? "url = ?" : WHERE_ID), value == null ? null : new String[] { value }, null, null, POSITION_COL);
-        PresetInfo[] result = new PresetInfo[dbresult.getCount()];
-        dbresult.moveToFirst();
-        for (int i = 0; i < result.length; i++) {
-            result[i] = new PresetInfo(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getInt(4) == 1,
-                    dbresult.getInt(5) == 1);
-            dbresult.moveToNext();
+        try (SQLiteDatabase db = getReadableDatabase();
+                Cursor dbresult = db.query(PRESETS_TABLE, new String[] { ID_COL, NAME_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL },
+                        value == null ? null : (byURL ? "url = ?" : WHERE_ID), value == null ? null : new String[] { value }, null, null, POSITION_COL)) {
+            PresetInfo[] result = new PresetInfo[dbresult.getCount()];
+            dbresult.moveToFirst();
+            for (int i = 0; i < result.length; i++) {
+                result[i] = new PresetInfo(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getInt(4) == 1,
+                        dbresult.getInt(5) == 1);
+                dbresult.moveToNext();
+            }
+            return result;
         }
-        dbresult.close();
-        db.close();
-        return result;
     }
 
     /**
@@ -680,16 +669,16 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param active if true this will be included in the currently avaliable presets
      */
     public synchronized void addPreset(@NonNull String id, @NonNull String name, @NonNull String url, boolean active) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ID_COL, id);
-        values.put(NAME_COL, name);
-        values.put(URL_COL, url);
-        values.put(ACTIVE_COL, active ? 1 : 0);
-        long count = DatabaseUtils.queryNumEntries(db, PRESETS_TABLE);
-        values.put(POSITION_COL, count);
-        db.insert(PRESETS_TABLE, null, values);
-        db.close();
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            ContentValues values = new ContentValues();
+            values.put(ID_COL, id);
+            values.put(NAME_COL, name);
+            values.put(URL_COL, url);
+            values.put(ACTIVE_COL, active ? 1 : 0);
+            long count = DatabaseUtils.queryNumEntries(db, PRESETS_TABLE);
+            values.put(POSITION_COL, count);
+            db.insert(PRESETS_TABLE, null, values);
+        }
     }
 
     /**
@@ -701,13 +690,13 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param useTranslations if true use the incldued translations
      */
     public synchronized void setPresetInfo(@NonNull String id, @NonNull String name, @NonNull String url, boolean useTranslations) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(NAME_COL, name);
-        values.put(URL_COL, url);
-        values.put(USETRANSLATIONS_COL, useTranslations ? 1 : 0);
-        db.update(PRESETS_TABLE, values, WHERE_ID, new String[] { id });
-        db.close();
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            ContentValues values = new ContentValues();
+            values.put(NAME_COL, name);
+            values.put(URL_COL, url);
+            values.put(USETRANSLATIONS_COL, useTranslations ? 1 : 0);
+            db.update(PRESETS_TABLE, values, WHERE_ID, new String[] { id });
+        }
     }
 
     /**
@@ -716,11 +705,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param id the ID of the preset to update
      */
     public synchronized void setPresetLastupdateNow(@NonNull String id) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(LASTUPDATE_COL, ((Long) System.currentTimeMillis()).toString());
-        db.update(PRESETS_TABLE, values, WHERE_ID, new String[] { id });
-        db.close();
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            ContentValues values = new ContentValues();
+            values.put(LASTUPDATE_COL, ((Long) System.currentTimeMillis()).toString());
+            db.update(PRESETS_TABLE, values, WHERE_ID, new String[] { id });
+        }
     }
 
     /**
@@ -730,12 +719,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param active state to set, active if true
      */
     public synchronized void setPresetState(@NonNull String id, boolean active) {
-        Log.d(DEBUG_TAG, "Setting pref " + id + " active to " + active);
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ACTIVE_COL, active ? 1 : 0);
-        db.update(PRESETS_TABLE, values, WHERE_ID, new String[] { id });
-        db.close();
+        Log.d(DEBUG_TAG, "Setting preset " + id + " active to " + active);
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            ContentValues values = new ContentValues();
+            values.put(ACTIVE_COL, active ? 1 : 0);
+            db.update(PRESETS_TABLE, values, WHERE_ID, new String[] { id });
+        }
     }
 
     /**
@@ -747,20 +736,20 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         if (ID_DEFAULT.equals(id)) {
             throw new IllegalOperationException(CANNOT_DELETE_DEFAULT);
         }
-        SQLiteDatabase db = getWritableDatabase();
-        db.delete(PRESETS_TABLE, WHERE_ID, new String[] { id });
-        // need to renumber after deleting
-        Cursor dbresult = db.query(PRESETS_TABLE, new String[] { ID_COL }, null, null, null, null, POSITION_COL);
-        dbresult.moveToFirst();
-        int count = dbresult.getCount();
-        for (int i = 0; i < count; i++) {
-            ContentValues values = new ContentValues();
-            values.put(POSITION_COL, i);
-            db.update(PRESETS_TABLE, values, WHERE_ID, new String[] { dbresult.getString(0) });
-            dbresult.moveToNext();
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            db.delete(PRESETS_TABLE, WHERE_ID, new String[] { id });
+            // need to renumber after deleting
+            try (Cursor dbresult = db.query(PRESETS_TABLE, new String[] { ID_COL }, null, null, null, null, POSITION_COL)) {
+                dbresult.moveToFirst();
+                int count = dbresult.getCount();
+                for (int i = 0; i < count; i++) {
+                    ContentValues values = new ContentValues();
+                    values.put(POSITION_COL, i);
+                    db.update(PRESETS_TABLE, values, WHERE_ID, new String[] { dbresult.getString(0) });
+                    dbresult.moveToNext();
+                }
+            }
         }
-        dbresult.close();
-        db.close();
         removePresetDirectory(id);
         if (id.equals(getCurrentAPI().preset)) {
             App.resetPresets();
@@ -919,19 +908,18 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      */
     @NonNull
     private synchronized Geocoder[] getGeocoders(@Nullable String id) {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor dbresult = db.query(GEOCODERS_TABLE, new String[] { ID_COL, NAME_COL, TYPE_COL, VERSION_COL, URL_COL, ACTIVE_COL }, id == null ? null : WHERE_ID,
-                id == null ? null : new String[] { id }, null, null, null);
-        Geocoder[] result = new Geocoder[dbresult.getCount()];
-        dbresult.moveToFirst();
-        for (int i = 0; i < result.length; i++) {
-            result[i] = new Geocoder(dbresult.getString(0), dbresult.getString(1), GeocoderType.valueOf(dbresult.getString(2)), dbresult.getInt(3),
-                    dbresult.getString(4), dbresult.getInt(5) == 1);
-            dbresult.moveToNext();
+        try (SQLiteDatabase db = getReadableDatabase();
+                Cursor dbresult = db.query(GEOCODERS_TABLE, new String[] { ID_COL, NAME_COL, TYPE_COL, VERSION_COL, URL_COL, ACTIVE_COL },
+                        id == null ? null : WHERE_ID, id == null ? null : new String[] { id }, null, null, null)) {
+            Geocoder[] result = new Geocoder[dbresult.getCount()];
+            dbresult.moveToFirst();
+            for (int i = 0; i < result.length; i++) {
+                result[i] = new Geocoder(dbresult.getString(0), dbresult.getString(1), GeocoderType.valueOf(dbresult.getString(2)), dbresult.getInt(3),
+                        dbresult.getString(4), dbresult.getInt(5) == 1);
+                dbresult.moveToNext();
+            }
+            return result;
         }
-        dbresult.close();
-        db.close();
-        return result;
     }
 
     /**
@@ -939,20 +927,20 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * 
      * @return Geocoder[]
      */
+    @NonNull
     public synchronized Geocoder[] getActiveGeocoders() {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor dbresult = db.query(GEOCODERS_TABLE, new String[] { ID_COL, NAME_COL, TYPE_COL, VERSION_COL, URL_COL, ACTIVE_COL }, "active = 1", null, null,
-                null, null);
-        Geocoder[] result = new Geocoder[dbresult.getCount()];
-        dbresult.moveToFirst();
-        for (int i = 0; i < result.length; i++) {
-            result[i] = new Geocoder(dbresult.getString(0), dbresult.getString(1), GeocoderType.valueOf(dbresult.getString(2)), dbresult.getInt(3),
-                    dbresult.getString(4), dbresult.getInt(5) == 1);
-            dbresult.moveToNext();
+        try (SQLiteDatabase db = getReadableDatabase();
+                Cursor dbresult = db.query(GEOCODERS_TABLE, new String[] { ID_COL, NAME_COL, TYPE_COL, VERSION_COL, URL_COL, ACTIVE_COL }, "active = 1", null,
+                        null, null, null)) {
+            Geocoder[] result = new Geocoder[dbresult.getCount()];
+            dbresult.moveToFirst();
+            for (int i = 0; i < result.length; i++) {
+                result[i] = new Geocoder(dbresult.getString(0), dbresult.getString(1), GeocoderType.valueOf(dbresult.getString(2)), dbresult.getInt(3),
+                        dbresult.getString(4), dbresult.getInt(5) == 1);
+                dbresult.moveToNext();
+            }
+            return result;
         }
-        dbresult.close();
-        db.close();
-        return result;
     }
 
     /**
@@ -968,9 +956,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param active use this geocoder
      */
     public synchronized void addGeocoder(@NonNull String id, String name, GeocoderType type, int version, String url, boolean active) {
-        SQLiteDatabase db = getWritableDatabase();
-        addGeocoder(db, id, name, type, version, url, active);
-        db.close();
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            addGeocoder(db, id, name, type, version, url, active);
+        }
     }
 
     /**
@@ -1006,17 +994,18 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param url geocoder API url
      * @param active use this geocoder if true
      */
-    public synchronized void updateGeocoder(@NonNull String id, String name, GeocoderType type, int version, String url, boolean active) {
-        Log.d(DEBUG_TAG, "Setting geocoder " + id + " active to " + active);
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(NAME_COL, name);
-        values.put(TYPE_COL, type.name());
-        values.put(VERSION_COL, version);
-        values.put(URL_COL, url);
-        values.put(ACTIVE_COL, active ? 1 : 0);
-        db.update(GEOCODERS_TABLE, values, WHERE_ID, new String[] { id });
-        db.close();
+    public synchronized void updateGeocoder(@NonNull String id, @NonNull String name, @NonNull GeocoderType type, int version, @NonNull String url,
+            boolean active) {
+        Log.d(DEBUG_TAG, "Updating geocoder " + id);
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            ContentValues values = new ContentValues();
+            values.put(NAME_COL, name);
+            values.put(TYPE_COL, type.name());
+            values.put(VERSION_COL, version);
+            values.put(URL_COL, url);
+            values.put(ACTIVE_COL, active ? 1 : 0);
+            db.update(GEOCODERS_TABLE, values, WHERE_ID, new String[] { id });
+        }
     }
 
     /**
@@ -1026,12 +1015,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param active use this geocoder if true
      */
     public synchronized void setGeocoderState(@NonNull String id, boolean active) {
-        Log.d(DEBUG_TAG, "Setting pref " + id + " active to " + active);
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ACTIVE_COL, active ? 1 : 0);
-        db.update(GEOCODERS_TABLE, values, WHERE_ID, new String[] { id });
-        db.close();
+        Log.d(DEBUG_TAG, "Setting gecoder " + id + " active to " + active);
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            ContentValues values = new ContentValues();
+            values.put(ACTIVE_COL, active ? 1 : 0);
+            db.update(GEOCODERS_TABLE, values, WHERE_ID, new String[] { id });
+        }
     }
 
     /**
@@ -1043,9 +1032,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         if (id.equals(ID_DEFAULT_GEOCODER_NOMINATIM)) {
             throw new IllegalOperationException(CANNOT_DELETE_DEFAULT);
         }
-        SQLiteDatabase db = getWritableDatabase();
-        db.delete(GEOCODERS_TABLE, WHERE_ID, new String[] { id });
-        db.close();
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            db.delete(GEOCODERS_TABLE, WHERE_ID, new String[] { id });
+        }
     }
 
     /**
@@ -1054,17 +1043,17 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @return an array of LayerConfig objects sorted by their position
      */
     public synchronized LayerConfig[] getLayers() {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor dbresult = db.query(LAYERS_TABLE, new String[] { POSITION_COL, TYPE_COL, VISIBLE_COL, CONTENT_ID_COL }, null, null, null, null, POSITION_COL);
-        LayerConfig[] result = new LayerConfig[dbresult.getCount()];
-        dbresult.moveToFirst();
-        for (int i = 0; i < result.length; i++) {
-            result[i] = new LayerConfig(dbresult.getInt(0), LayerType.valueOf(dbresult.getString(1)), dbresult.getInt(2) == 1, dbresult.getString(3));
-            dbresult.moveToNext();
+        try (SQLiteDatabase db = getReadableDatabase();
+                Cursor dbresult = db.query(LAYERS_TABLE, new String[] { POSITION_COL, TYPE_COL, VISIBLE_COL, CONTENT_ID_COL }, null, null, null, null,
+                        POSITION_COL)) {
+            LayerConfig[] result = new LayerConfig[dbresult.getCount()];
+            dbresult.moveToFirst();
+            for (int i = 0; i < result.length; i++) {
+                result[i] = new LayerConfig(dbresult.getInt(0), LayerType.valueOf(dbresult.getString(1)), dbresult.getInt(2) == 1, dbresult.getString(3));
+                dbresult.moveToNext();
+            }
+            return result;
         }
-        dbresult.close();
-        db.close();
-        return result;
     }
 
     /**
@@ -1160,11 +1149,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param visible true if visible
      */
     public synchronized void setLayerVisibility(@NonNull int position, boolean visible) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(VISIBLE_COL, visible ? 1 : 0);
-        db.update(LAYERS_TABLE, values, "position = ?", new String[] { Integer.toString(position) });
-        db.close();
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            ContentValues values = new ContentValues();
+            values.put(VISIBLE_COL, visible ? 1 : 0);
+            db.update(LAYERS_TABLE, values, "position = ?", new String[] { Integer.toString(position) });
+        }
     }
 
     /**
@@ -1263,5 +1252,4 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
             }
         }
     }
-
 }
