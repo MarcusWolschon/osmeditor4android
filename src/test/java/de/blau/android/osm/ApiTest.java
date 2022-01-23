@@ -31,22 +31,25 @@ import org.robolectric.annotation.LooperMode;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
+import de.blau.android.AsyncResult;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
-import de.blau.android.AsyncResult;
 import de.blau.android.R;
 import de.blau.android.SignalUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
+import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Note;
@@ -61,6 +64,7 @@ import okhttp3.mockwebserver.RecordedRequest;
 @LooperMode(LEGACY)
 @LargeTest
 public class ApiTest {
+    private static final String DEBUG_TAG = ApiTest.class.getName();
 
     private static final String NOTES_DOWNLOAD1_FIXTURE = "notesDownload1";
     private static final String UPLOAD6_FIXTURE         = "upload6";
@@ -90,8 +94,11 @@ public class ApiTest {
 
     public static final int TIMEOUT = 10;
 
-    MockWebServerPlus    mockServer = null;
-    AdvancedPrefDatabase prefDB     = null;
+    MockWebServerPlus mockServer = null;
+
+    private Context context;
+
+    private API api;
 
     class FailOnErrorHandler implements PostAsyncActionHandler {
         CountDownLatch signal;
@@ -102,7 +109,6 @@ public class ApiTest {
 
         @Override
         public void onSuccess() {
-            System.out.println("FailOnErrorHandler onSuccess");
             signal.countDown();
         }
 
@@ -110,7 +116,7 @@ public class ApiTest {
         public void onError(AsyncResult result) {
             fail("Expected success");
         }
-    };
+    }
 
     /**
      * Pre-test setup
@@ -119,14 +125,15 @@ public class ApiTest {
     public void setup() {
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
-        prefDB = new AdvancedPrefDatabase(ApplicationProvider.getApplicationContext());
-        prefDB.deleteAPI("Test");
+        Logic logic = App.newLogic();
+        context = ApplicationProvider.getApplicationContext();
+        AdvancedPrefDatabase prefDB = new AdvancedPrefDatabase(context);
+        logic.setPrefs(new Preferences(context));
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
-        System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
-        Logic logic = App.newLogic();
-
-        logic.setPrefs(new Preferences(ApplicationProvider.getApplicationContext()));
+        api = prefDB.getCurrentAPI();
+        prefDB.close();
+        Log.d(DEBUG_TAG, "mock api url " + mockBaseUrl.toString()); // NOSONAR
     }
 
     /**
@@ -139,7 +146,6 @@ public class ApiTest {
         } catch (IOException ioex) {
             System.out.println("Stopping mock webserver exception " + ioex); // NOSONAR
         }
-        prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
     }
 
     /**
@@ -149,7 +155,7 @@ public class ApiTest {
     public void capabilities() {
         mockServer.enqueue(CAPABILITIES1_FIXTURE);
 
-        final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
+        final Server s = new Server(ApplicationProvider.getApplicationContext(), api, GENERATOR_NAME);
         Capabilities result = s.getCapabilities();
 
         assertNotNull(result);
@@ -310,7 +316,7 @@ public class ApiTest {
         mockServer.enqueue(UPLOAD1_FIXTURE);
         mockServer.enqueue(CLOSE_CHANGESET_FIXTURE);
 
-        final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
+        final Server s = new Server(ApplicationProvider.getApplicationContext(), api, GENERATOR_NAME);
         try {
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, null);
         } catch (IOException e) {
@@ -349,7 +355,7 @@ public class ApiTest {
         mockServer.enqueue(PARTIALUPLOAD_FIXTURE);
         mockServer.enqueue(CLOSE_CHANGESET_FIXTURE);
 
-        final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
+        final Server s = new Server(ApplicationProvider.getApplicationContext(), api, GENERATOR_NAME);
         try {
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, Util.wrapInList(n));
         } catch (IOException e) {
@@ -387,7 +393,7 @@ public class ApiTest {
         mockServer.enqueue(UPLOAD7_FIXTURE);
         mockServer.enqueue(CLOSE_CHANGESET_FIXTURE);
 
-        final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
+        final Server s = new Server(ApplicationProvider.getApplicationContext(), api, GENERATOR_NAME);
         try {
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, null);
         } catch (IOException e) {
@@ -436,7 +442,7 @@ public class ApiTest {
         mockServer.enqueue(UPLOAD4_FIXTURE);
         mockServer.enqueue(CLOSE_CHANGESET_FIXTURE);
 
-        final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
+        final Server s = new Server(ApplicationProvider.getApplicationContext(), api, GENERATOR_NAME);
         try {
             App.getDelegator().uploadToServer(s, "TEST", "none", false, false, null, null);
         } catch (IOException e) {
@@ -486,12 +492,11 @@ public class ApiTest {
         mockServer.enqueue(CAPABILITIES1_FIXTURE);
         mockServer.enqueue("" + code);
 
-        final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
+        final Server s = new Server(ApplicationProvider.getApplicationContext(), api, GENERATOR_NAME);
         s.resetChangeset();
         try {
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, null);
         } catch (OsmServerException e) {
-            System.out.println(e.getMessage());
             assertEquals(code, e.getErrorCode());
             return;
         } catch (IOException e) {
@@ -527,11 +532,12 @@ public class ApiTest {
         mockServer.enqueue(UPLOAD6_FIXTURE);
         mockServer.enqueue(CLOSE_CHANGESET_FIXTURE);
 
-        final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
+        final Server s = new Server(ApplicationProvider.getApplicationContext(), api, GENERATOR_NAME);
         try {
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, null);
             fail("Expected ProtocolException");
         } catch (ProtocolException e) {
+            // expected
         } catch (IOException e) {
             fail(e.getMessage());
         }
@@ -580,18 +586,19 @@ public class ApiTest {
         mockServer.enqueue(CAPABILITIES1_FIXTURE);
         mockServer.enqueue("" + code);
         Logic logic = App.getLogic();
-        logic.downloadBox(ApplicationProvider.getApplicationContext(), new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false,
-                new PostAsyncActionHandler() {
-                    @Override
-                    public void onSuccess() {
-                        fail("Expected error");
-                    }
+        Preferences prefs = new Preferences(context);
+        logic.setPrefs(prefs);
+        logic.downloadBox(context, new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false, new PostAsyncActionHandler() {
+            @Override
+            public void onSuccess() {
+                fail("Expected error");
+            }
 
-                    @Override
-                    public void onError(AsyncResult result) {
-                        signal.countDown();
-                    }
-                });
+            @Override
+            public void onError(AsyncResult result) {
+                signal.countDown();
+            }
+        });
         runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
     }
@@ -605,7 +612,7 @@ public class ApiTest {
         mockServer.enqueue(NOTES_DOWNLOAD1_FIXTURE);
         App.getTaskStorage().reset();
         try {
-            final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
+            final Server s = new Server(ApplicationProvider.getApplicationContext(), api, GENERATOR_NAME);
             SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(ApplicationProvider.getApplicationContext());
             Resources r = ApplicationProvider.getApplicationContext().getResources();
             String notesSelector = r.getString(R.string.bugfilter_notes);
@@ -641,7 +648,7 @@ public class ApiTest {
         mockServer.enqueue("noteUpload1");
         App.getTaskStorage().reset();
         try {
-            final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
+            final Server s = new Server(ApplicationProvider.getApplicationContext(), api, GENERATOR_NAME);
             Note n = new Note((int) (51.0 * 1E7D), (int) (0.1 * 1E7D));
             assertTrue(n.isNew());
             assertTrue(TransferTasks.uploadNote(main, s, n, "ThisIsANote", false, new FailOnErrorHandler(signal)));
@@ -670,7 +677,7 @@ public class ApiTest {
         mockServer.enqueue("200");
         mockServer.enqueue("200");
         try {
-            final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
+            final Server s = new Server(ApplicationProvider.getApplicationContext(), api, GENERATOR_NAME);
             Map<String, String> preferences = s.getUserPreferences();
             assertEquals(3, preferences.size());
             assertEquals("public", preferences.get("gps.trace.visibility"));
