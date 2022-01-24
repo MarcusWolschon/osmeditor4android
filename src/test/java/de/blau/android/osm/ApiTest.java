@@ -128,11 +128,11 @@ public class ApiTest {
         Logic logic = App.newLogic();
         context = ApplicationProvider.getApplicationContext();
         AdvancedPrefDatabase prefDB = new AdvancedPrefDatabase(context);
-        logic.setPrefs(new Preferences(context));
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
         api = prefDB.getCurrentAPI();
         prefDB.close();
+        logic.setPrefs(new Preferences(context));
         Log.d(DEBUG_TAG, "mock api url " + mockBaseUrl.toString()); // NOSONAR
     }
 
@@ -586,8 +586,6 @@ public class ApiTest {
         mockServer.enqueue(CAPABILITIES1_FIXTURE);
         mockServer.enqueue("" + code);
         Logic logic = App.getLogic();
-        Preferences prefs = new Preferences(context);
-        logic.setPrefs(prefs);
         logic.downloadBox(context, new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false, new PostAsyncActionHandler() {
             @Override
             public void onSuccess() {
