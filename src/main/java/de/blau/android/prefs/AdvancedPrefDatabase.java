@@ -258,8 +258,14 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param id the ID of the API to be set as active
      */
     public synchronized void selectAPI(@NonNull String id) {
-        try (SQLiteDatabase db = getReadableDatabase()) {
-            selectAPI(db, id);
+        SQLiteDatabase db = null;
+        try {
+            db = getReadableDatabase();
+            selectAPI(getReadableDatabase(), id);
+        } finally {
+            if (db != null) {
+                db.close();
+            }
         }
     }
 
@@ -471,8 +477,14 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      */
     @NonNull
     public API[] getAPIs(@Nullable String id) {
-        try (SQLiteDatabase db = getReadableDatabase()) {
+        SQLiteDatabase db = null;
+        try {
+            db = getReadableDatabase();
             return getAPIs(db, id);
+        } finally {
+            if (db != null) {
+                db.close();
+            }
         }
     }
 
@@ -485,10 +497,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      */
     @NonNull
     private API[] getAPIs(@NonNull SQLiteDatabase db, @Nullable String id) {
-        try (Cursor dbresult = db.query(
-                APIS_TABLE, new String[] { ID_COL, NAME_COL, URL_COL, READONLYURL_COL, NOTESURL_COL, "user", "pass", "preset", "showicon", OAUTH_COL,
-                        ACCESSTOKEN_COL, ACCESSTOKENSECRET_COL },
-                id == null ? null : WHERE_ID, id == null ? null : new String[] { id }, null, null, null, null)) {
+        Cursor dbresult = null;
+        try {
+            dbresult = db.query(
+                    APIS_TABLE, new String[] { ID_COL, NAME_COL, URL_COL, READONLYURL_COL, NOTESURL_COL, "user", "pass", "preset", "showicon", OAUTH_COL,
+                            ACCESSTOKEN_COL, ACCESSTOKENSECRET_COL },
+                    id == null ? null : WHERE_ID, id == null ? null : new String[] { id }, null, null, null, null);
             API[] result = new API[dbresult.getCount()];
             dbresult.moveToFirst();
             for (int i = 0; i < result.length; i++) {
@@ -499,6 +513,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
                 dbresult.moveToNext();
             }
             return result;
+        } finally {
+            if (dbresult != null) {
+                dbresult.close();
+            }
         }
     }
 
