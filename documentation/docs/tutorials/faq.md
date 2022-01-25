@@ -112,8 +112,16 @@ On the first time startup, Vespucci requests which area to download. You can cho
  * Search for a location (New in 0.9.4, requires network connectivity)
 
 For all download options, the additional parameter "Radius" is used. It specifies how large the downloaded area is. (In detail: Radius is half the side length of the bounding box that is used when downloading.)
-
 You can alternatively dismiss the dialog, zoom and pan to the area in question and then select the "Download current view" from the transfer menu.
+
+#### I've downloaded data, but the screen remains blank
+
+There are a number of potential reasons for this, all of them harmless:
+
+  * preset or tag filter turned on, check the main 'overflow' menu (three dots).
+  * You are not in the "Normal" editing mode. A long press on the lock button will display the mode menu, switch to "Normal" mode and check if things are better.
+  * data layer disabled or hidden by an other layer, check the layer dialog ('hamburger' menu in the upper right corner). If this is the issue you can move the layers via the menu associated with each layer. Note that the Layer stack is as displayed in the dialog and that non-transparent layers will obscure any layer beneath them.
+  * API sandbox selected instead of normal API, check the configuration of the data layer in the layer dialog. The sandbox API has no data in most places, you would have to strike it very lucky to see something.
 
 #### How can I upload new/changed data to the OSM server?
 
