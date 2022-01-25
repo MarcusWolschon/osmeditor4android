@@ -404,7 +404,11 @@ task killEmulators() {
             if (it.isEmulator()) {
                 project.logger.lifecycle('Stopping ' + it.getSerialNumber())
                 def console = EmulatorConsole.getConsole(it)
-                console.kill()
+                if (console != null) {
+                    console.kill()
+                } else {
+                    project.logger.lifecycle(' ... failed')
+                }
             }
         }
     }
