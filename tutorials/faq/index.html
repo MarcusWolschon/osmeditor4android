@@ -354,6 +354,7 @@ i-->
             <li><a href="#what-are-the-limits-of-vespucci">What are the limits of Vespucci?</a></li>
             <li><a href="#which-languages-are-supported">Which languages are supported?</a></li>
             <li><a href="#how-can-i-download-osm-data">How can I download OSM data?</a></li>
+            <li><a href="#ive-downloaded-data-but-the-screen-remains-blank">I've downloaded data, but the screen remains blank</a></li>
             <li><a href="#how-can-i-upload-newchanged-data-to-the-osm-server">How can I upload new/changed data to the OSM server?</a></li>
             <li><a href="#which-user-account-is-used-when-uploading-data-to-the-osm-server">Which user account is used when uploading data to the OSM server?</a></li>
             <li><a href="#oauth-authorization-fails">OAuth authorization fails</a></li>
@@ -461,8 +462,16 @@ There are plenty of descriptions available (e.g. <a href="http://openhandsetmaga
 <li>Coordinates. If you need access to specific geographic coordinates you can specify latitude/longitude.</li>
 <li>Search for a location (New in 0.9.4, requires network connectivity)</li>
 </ul>
-<p>For all download options, the additional parameter "Radius" is used. It specifies how large the downloaded area is. (In detail: Radius is half the side length of the bounding box that is used when downloading.)</p>
-<p>You can alternatively dismiss the dialog, zoom and pan to the area in question and then select the "Download current view" from the transfer menu.</p>
+<p>For all download options, the additional parameter "Radius" is used. It specifies how large the downloaded area is. (In detail: Radius is half the side length of the bounding box that is used when downloading.)
+You can alternatively dismiss the dialog, zoom and pan to the area in question and then select the "Download current view" from the transfer menu.</p>
+<h4 id="ive-downloaded-data-but-the-screen-remains-blank">I've downloaded data, but the screen remains blank</h4>
+<p>There are a number of potential reasons for this, all of them harmless:</p>
+<ul>
+<li>preset or tag filter turned on, check the main 'overflow' menu (three dots).</li>
+<li>You are not in the "Normal" editing mode. A long press on the lock button will display the mode menu, switch to "Normal" mode and check if things are better.</li>
+<li>data layer disabled or hidden by an other layer, check the layer dialog ('hamburger' menu in the upper right corner). If this is the issue you can move the layers via the menu associated with each layer. Note that the Layer stack is as displayed in the dialog and that non-transparent layers will obscure any layer beneath them.</li>
+<li>API sandbox selected instead of normal API, check the configuration of the data layer in the layer dialog. The sandbox API has no data in most places, you would have to strike it very lucky to see something.</li>
+</ul>
 <h4 id="how-can-i-upload-newchanged-data-to-the-osm-server">How can I upload new/changed data to the OSM server?</h4>
 <p>Choose "Upload data to  OSM server" from the transfer menu.
 (With other words: Data is not automatically uploaded!)</p>
@@ -568,6 +577,7 @@ however older devices tend to have very limited memory and correspondingly the a
             <li><a href="#what-are-the-limits-of-vespucci">What are the limits of Vespucci?</a></li>
             <li><a href="#which-languages-are-supported">Which languages are supported?</a></li>
             <li><a href="#how-can-i-download-osm-data">How can I download OSM data?</a></li>
+            <li><a href="#ive-downloaded-data-but-the-screen-remains-blank">I've downloaded data, but the screen remains blank</a></li>
             <li><a href="#how-can-i-upload-newchanged-data-to-the-osm-server">How can I upload new/changed data to the OSM server?</a></li>
             <li><a href="#which-user-account-is-used-when-uploading-data-to-the-osm-server">Which user account is used when uploading data to the OSM server?</a></li>
             <li><a href="#oauth-authorization-fails">OAuth authorization fails</a></li>
@@ -675,8 +685,16 @@ There are plenty of descriptions available (e.g. <a href="http://openhandsetmaga
 <li>Coordinates. If you need access to specific geographic coordinates you can specify latitude/longitude.</li>
 <li>Search for a location (New in 0.9.4, requires network connectivity)</li>
 </ul>
-<p>For all download options, the additional parameter "Radius" is used. It specifies how large the downloaded area is. (In detail: Radius is half the side length of the bounding box that is used when downloading.)</p>
-<p>You can alternatively dismiss the dialog, zoom and pan to the area in question and then select the "Download current view" from the transfer menu.</p>
+<p>For all download options, the additional parameter "Radius" is used. It specifies how large the downloaded area is. (In detail: Radius is half the side length of the bounding box that is used when downloading.)
+You can alternatively dismiss the dialog, zoom and pan to the area in question and then select the "Download current view" from the transfer menu.</p>
+<h4 id="ive-downloaded-data-but-the-screen-remains-blank">I've downloaded data, but the screen remains blank</h4>
+<p>There are a number of potential reasons for this, all of them harmless:</p>
+<ul>
+<li>preset or tag filter turned on, check the main 'overflow' menu (three dots).</li>
+<li>You are not in the "Normal" editing mode. A long press on the lock button will display the mode menu, switch to "Normal" mode and check if things are better.</li>
+<li>data layer disabled or hidden by an other layer, check the layer dialog ('hamburger' menu in the upper right corner). If this is the issue you can move the layers via the menu associated with each layer. Note that the Layer stack is as displayed in the dialog and that non-transparent layers will obscure any layer beneath them.</li>
+<li>API sandbox selected instead of normal API, check the configuration of the data layer in the layer dialog. The sandbox API has no data in most places, you would have to strike it very lucky to see something.</li>
+</ul>
 <h4 id="how-can-i-upload-newchanged-data-to-the-osm-server">How can I upload new/changed data to the OSM server?</h4>
 <p>Choose "Upload data to  OSM server" from the transfer menu.
 (With other words: Data is not automatically uploaded!)</p>
