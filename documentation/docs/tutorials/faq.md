@@ -193,13 +193,14 @@ The google play store allows only one reply to a review with a maximum length of
 
 350 characters is 100 characters less than the text above.
 
-#### On startup Vespucci complains that it can't write to a directory
+#### On startup Vespucci complains that it can't write to a directory or reports an error
 
 Vespucci stores downloaded background and overlay tiles in a database that it tries to create on removable storage if present, this to preserve space on your device at the expense of access potentially being a bit slower.
 
-If the app can't write to the database it will show a message asking you to submit a crash dump and will not display any background layer. The exact reasons why this happens, even if the installation was able to create and write to the database previously and for example you just rebooted, are not clear. However in some cases is seems to be linked to Vespucci being moved to removable storage. If this happens to you try moving the app back to the regular on device storage. 
+If the app can't write to the database it will show a message and will not display any background layer. 
 
-To recover from the directory containing the tile database not being writable you do not need to re-install Vespucci, simply clearing the apps data in your application manager is enough. Alternatively you can eject the SD card and restart Vespucci, that will then create the directory on your device and you should be able to delete the directory on the SD card (typically: Android/data/de.blau.android).
+To recover from the directory containing the tile database not being writable you do not need to re-install Vespucci, simply clearing the apps data in your application manager is enough. If 
+the problem is related to access to a removable storages, disabling the "Prefer removable storage" in the "Advanced preferences" "Layer download and storage" section may help.
 
 #### Other tile database related issues
 

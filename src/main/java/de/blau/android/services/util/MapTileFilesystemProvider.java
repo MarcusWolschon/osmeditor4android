@@ -400,6 +400,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                 TileLayerSource.get(ctx, TileLayerSource.LAYER_BING, false);
             } catch (SQLiteException slex) {
                 Log.d(DEBUG_TAG, "Opening DB hit " + slex);
+                Snack.toastTopError(ctx, ctx.getString(R.string.toast_tile_database_issue, slex.getMessage()));
             }
         } else {
             Snack.toastTopError(ctx, R.string.toast_no_suitable_storage);
