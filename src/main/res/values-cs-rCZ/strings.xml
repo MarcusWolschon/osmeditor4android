@@ -114,7 +114,6 @@
   <string name="openstreetbug_edit_title">Upravit poznámku</string>
   <string name="openstreetbug_comment_label">Komentář:</string>
   <string name="openstreetbug_commit_ok">Změny chyb uloženy</string>
-  <string name="openstreetbug_commit_fail">Změny chyb nelze uložit</string>
   <string name="openstreetbug_unknown_task_type">Neznámý typ úlohy</string>
   <string name="openstreetbug_not_supported">%1$s není podporována.</string>
   <string name="note_description">Poznámka: %1$s - %2$s</string>

@@ -114,6 +114,7 @@
   <string name="openstreetbug_comment_label">Kommentar:</string>
   <string name="openstreetbug_commit_ok">Aufgabenänderungen gespeichert</string>
   <string name="openstreetbug_commit_fail">Aufgabenänderungen konnten nicht gespeichert werden</string>
+  <string name="openstreetbug_commit_fail_with_message">Aufgabenänderungen konnten nicht gespeichert werden\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Unbekannter Tasktyp</string>
   <string name="openstreetbug_not_supported">%1$s ist nicht unterstützt.</string>
   <string name="note_description">Notiz: %1$s - %2$s</string>
@@ -584,6 +585,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_download_server_version_failed">Laden der Serverversion fehlgeschlagen für %1$s</string>
   <string name="toast_error_element_too_large">Element ist zu gross für den Eigenschaftseditor</string>
   <string name="toast_no_intersection_found">Kein Schnittpunkt gefunden</string>
+  <string name="toast_api_key_missing">Kein API-Schlüssel gefunden für %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-12-29 17:44+0100\n"
-"PO-Revision-Date: 2022-01-07 01:38+0000\n"
+"PO-Revision-Date: 2022-01-25 02:29+0000\n"
 "Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -1616,7 +1616,7 @@ msgstr ""
 
 #: master_preset.xml:3214(list_entry:short_description|group:Water|preset:Wetland|value:bog)
 msgid "Bog"
-msgstr ""
+msgstr "沼澤"
 
 #: master_preset.xml:8847(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-1)
 msgid "Boiling Water Reactor 1 (BWR-1)"
@@ -2161,7 +2161,7 @@ msgstr ""
 #: master_preset.xml:1439(check:text|key:recycling:cans)
 #: master_preset.xml:6795(check:text|group:Facilities|preset:Bottle_return|key:recycling:cans)
 msgid "Cans"
-msgstr ""
+msgstr "金屬容器"
 
 #: master_preset.xml:784(combo:display_values|key:religion)
 #: master_preset.xml:793(combo:display_values|key:religion)
@@ -2230,7 +2230,7 @@ msgstr ""
 
 #: master_preset.xml:1440(check:text|key:recycling:cardboard)
 msgid "Cardboard"
-msgstr ""
+msgstr "紙板"
 
 #: master_preset.xml:590(multiselect:display_values|key:cuisine)
 msgid "Caribbean"
@@ -3310,7 +3310,7 @@ msgstr "敵臺"
 
 #: master_preset.xml:12706(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "Delegation"
-msgstr ""
+msgstr "代表團"
 
 #: master_preset.xml:9533(item:name|group:Food|preset:Deli_(Fine_Food))
 msgid "Deli (Fine Food)"
@@ -4258,7 +4258,7 @@ msgstr ""
 
 #: master_preset.xml:3215(list_entry:short_description|group:Water|preset:Wetland|value:fen)
 msgid "Fen"
-msgstr ""
+msgstr "沼池"
 
 #: master_preset.xml:2587(item:name|group:Barriers|preset:Fence)
 #: master_preset.xml:5355(combo:display_values|group:Leisure|preset:Dog_Park|key:barrier)
@@ -4595,7 +4595,7 @@ msgstr ""
 
 #: master_preset.xml:9297(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Fortress"
-msgstr ""
+msgstr "要塞"
 
 #: master_preset.xml:2125(combo:display_values|group:Ways|preset:Steps|key:conveying)
 #: master_preset.xml:2357(combo:display_values|preset:Highway_milestone|key:direction)
@@ -4987,7 +4987,7 @@ msgstr "玻璃"
 #: master_preset.xml:1448(check:text|key:recycling:glass_bottles)
 #: master_preset.xml:6796(check:text|group:Facilities|preset:Bottle_return|key:recycling:glass_bottles)
 msgid "Glass Bottles"
-msgstr ""
+msgstr "玻璃瓶"
 
 #: master_preset.xml:5737(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 msgid "Glass cabinet"
@@ -5106,7 +5106,7 @@ msgstr ""
 
 #: master_preset.xml:1449(check:text|key:recycling:green_waste)
 msgid "Green Waste"
-msgstr ""
+msgstr "堆肥"
 
 #: master_preset.xml:11467(item:name|group:Land_use|preset:Greenfield)
 msgid "Greenfield"
@@ -6166,7 +6166,7 @@ msgstr "猶太"
 
 #: master_preset.xml:9297(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Kremlin"
-msgstr ""
+msgstr "克里姆林"
 
 #: master_preset.xml:1432(combo:text|key:lgbtq:men)
 msgid "LGBTQ men"
@@ -6739,7 +6739,7 @@ msgstr "芒果樹"
 
 #: master_preset.xml:3216(list_entry:short_description|group:Water|preset:Wetland|value:mangrove)
 msgid "Mangrove"
-msgstr ""
+msgstr "紅樹林"
 
 #: master_preset.xml:8355(item:name|group:Man_Made|preset:Manhole)
 msgid "Manhole"
@@ -8911,7 +8911,7 @@ msgstr "木瓜樹"
 #: master_preset.xml:10305(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
 #: master_preset.xml:1450(check:text|key:recycling:paper)
 msgid "Paper"
-msgstr ""
+msgstr "紙類"
 
 #: master_preset.xml:7203(text:text|group:Golf|preset:Hole|key:par)
 msgid "Par"
@@ -9460,7 +9460,7 @@ msgstr ""
 
 #: master_preset.xml:1454(check:text|key:recycling:plastic_packaging)
 msgid "Plastic Packaging"
-msgstr ""
+msgstr "塑膠包裝"
 
 #: master_preset.xml:4178(role:text|group:Public_Transport|preset:Stop_Area|key:platform)
 #: master_preset.xml:4218(item:name|group:Public_Transport|preset:Platform)
@@ -10141,7 +10141,7 @@ msgstr ""
 #: master_preset.xml:1092(list_entry:display_value|value:raised)
 #: master_preset.xml:1100(list_entry:display_value|value:raised)
 msgid "Raised"
-msgstr ""
+msgstr "交通寧靜區"
 
 #: master_preset.xml:590(multiselect:display_values|key:cuisine)
 msgid "Ramen"
@@ -11035,7 +11035,7 @@ msgstr ""
 
 #: master_preset.xml:1455(check:text|key:recycling:scrap_metal)
 msgid "Scrap Metal"
-msgstr ""
+msgstr "廢金屬"
 
 #: master_preset.xml:11148(item:name|group:Nature|preset:Scree)
 msgid "Scree"
@@ -11337,7 +11337,7 @@ msgstr "船舶運輸"
 
 #: master_preset.xml:9297(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Shiro"
-msgstr ""
+msgstr "日式城堡"
 
 #: master_preset.xml:12637(item:name|group:Crafts|preset:Shoemaker)
 msgid "Shoemaker"
@@ -12920,7 +12920,7 @@ msgstr ""
 
 #: master_preset.xml:12750(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Transportation"
-msgstr ""
+msgstr "運輸"
 
 #: master_preset.xml:1511(checkgroup:text)
 msgid "Transportation type"
@@ -17925,7 +17925,7 @@ msgstr ""
 #: master_preset.xml:7880(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
 msgctxt "building"
 msgid "Transportation"
-msgstr ""
+msgstr "運輸"
 
 #: master_preset.xml:7839(list_entry:display_value|group:Buildings|preset:Building|value:university)
 #: master_preset.xml:7880(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
@@ -18631,32 +18631,32 @@ msgstr "種類"
 #: master_preset.xml:3016(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Headrace"
-msgstr ""
+msgstr "引水道"
 
 #: master_preset.xml:3016(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Irrigation"
-msgstr ""
+msgstr "灌溉"
 
 #: master_preset.xml:3016(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Spillway"
-msgstr ""
+msgstr "溢洪道"
 
 #: master_preset.xml:3016(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Tailrace"
-msgstr ""
+msgstr "尾水道"
 
 #: master_preset.xml:3016(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Transmission"
-msgstr ""
+msgstr "傳輸"
 
 #: master_preset.xml:3016(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Transportation"
-msgstr ""
+msgstr "運輸"
 
 #: master_preset.xml:3016(combo:text|group:Water|preset:Canal|key:usage)
 msgctxt "usage"

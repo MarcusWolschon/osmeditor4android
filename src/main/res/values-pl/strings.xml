@@ -114,7 +114,6 @@
   <string name="openstreetbug_edit_title">Edycja uwagi</string>
   <string name="openstreetbug_comment_label">Komentarz:</string>
   <string name="openstreetbug_commit_ok">Zapisano zmiany zadania</string>
-  <string name="openstreetbug_commit_fail">Nie można zapisać zmian zadania</string>
   <string name="openstreetbug_unknown_task_type">Nieznany typ zadania</string>
   <string name="openstreetbug_not_supported">%1$s nie jest wspierane.</string>
   <string name="note_description">Uwaga: %1$s – %2$s</string>

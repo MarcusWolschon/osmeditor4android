@@ -113,7 +113,6 @@
   <string name="openstreetbug_edit_title">Modifica nota</string>
   <string name="openstreetbug_comment_label">Commento:</string>
   <string name="openstreetbug_commit_ok">Modifiche del compito salvate</string>
-  <string name="openstreetbug_commit_fail">Impossibile salvare le modifiche del compito</string>
   <string name="openstreetbug_unknown_task_type">Tipo di obiettivo sconosciuto</string>
   <string name="openstreetbug_not_supported">%1$s non supportato</string>
   <string name="note_description">Nota: %1$s - %2$s</string>

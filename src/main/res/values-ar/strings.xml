@@ -118,7 +118,6 @@
   <string name="openstreetbug_edit_title">تحرير ملاحظة</string>
   <string name="openstreetbug_comment_label">تعليق:</string>
   <string name="openstreetbug_commit_ok">تم حفظ تغييرات المهام</string>
-  <string name="openstreetbug_commit_fail">تعذر حفظ تغييرات المهام</string>
   <string name="openstreetbug_unknown_task_type">نوع مهمة غير معروف</string>
   <string name="openstreetbug_not_supported">%1$s غير مدعوم.</string>
   <string name="note_description">ملاحظة: %1$s - %2$s</string>
@@ -469,6 +468,7 @@
   <!---->
   <string name="toast_oauth_retry">حاول التحميل مرة أخرى بعد السماح بوصول OAuth إلى حساب OSM الخاص بك.</string>
   <string name="toast_oauth">يُرجى السماح بالوصول عبر OAuth لحساب OSM الخاص بك.</string>
+  <string name="toast_no_oauth">لم تقم بضبط إعدادات OAuth للدخول عبر الـAPI \"%1$s\" ، لذا نرجوا منك إدخال المعرف الخاص بك وكلمة المرور.</string>
   <string name="toast_oauth_not_enabled">لم يتم تمكين OAuth لواجهة برمجة التطبيقات الحالية.</string>
   <string name="toast_oauth_timeout">انتهت المهلة الزمنية أثناء اتصال المصادقة، يرجى المحاولة مرة أخرى.</string>
   <string name="toast_oauth_communication">حدث خطأ في الاتصال أثناء اتصال المصادقة، يرجى المحاولة مرة أخرى.</string>

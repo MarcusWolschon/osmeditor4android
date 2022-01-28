@@ -115,7 +115,6 @@
   <string name="openstreetbug_edit_title">Изменить заметку</string>
   <string name="openstreetbug_comment_label">Комментарий:</string>
   <string name="openstreetbug_commit_ok">Изменения сохранены</string>
-  <string name="openstreetbug_commit_fail">Невозможно сохранить изменения</string>
   <string name="openstreetbug_unknown_task_type">Неизвестный тип задачи</string>
   <string name="openstreetbug_not_supported">%1$s не поддерживается.</string>
   <string name="note_description">Заметка: %1$s - %2$s</string>

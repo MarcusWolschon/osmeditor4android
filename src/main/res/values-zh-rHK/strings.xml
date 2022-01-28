@@ -103,7 +103,6 @@
   <string name="openstreetbug_edit_title">編輯註記</string>
   <string name="openstreetbug_comment_label">評論：</string>
   <string name="openstreetbug_commit_ok">任務變動已經儲存</string>
-  <string name="openstreetbug_commit_fail">無法儲存任務變動</string>
   <string name="openstreetbug_unknown_task_type">不知名任務類型</string>
   <string name="openstreetbug_not_supported">並不支援 %1$s</string>
   <string name="note_description">備註：%1$s - %2$s</string>
@@ -188,6 +187,8 @@
   <!--Abort action mode dialog-->
   <!--Address interpoation dialog-->
   <string name="end">End</string>
+  <string name="even">雙數</string>
+  <string name="odd">單數</string>
   <string name="other">其他</string>
   <!--Safe split dialog-->
   <!---->

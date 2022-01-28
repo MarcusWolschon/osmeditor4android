@@ -111,7 +111,6 @@
   <string name="openstreetbug_edit_title">Modifier la note</string>
   <string name="openstreetbug_comment_label">Commentaire :</string>
   <string name="openstreetbug_commit_ok">Modifications de tâche prises en compte</string>
-  <string name="openstreetbug_commit_fail">Erreur d\'enregistrement des modifications de tâche</string>
   <string name="openstreetbug_unknown_task_type">Type de tâche inconnue</string>
   <string name="openstreetbug_not_supported">%1$s n\'est pas supporté.</string>
   <string name="note_description">Remarque : %1$s - %2$s</string>

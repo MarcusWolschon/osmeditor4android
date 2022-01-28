@@ -104,7 +104,6 @@
   <string name="openstreetbug_edit_title">Edita la nota</string>
   <string name="openstreetbug_comment_label">Comentari:</string>
   <string name="openstreetbug_commit_ok">S\'han desat els canvis en la tasca</string>
-  <string name="openstreetbug_commit_fail">No s\'han pogut desar els canvis en la tasca</string>
   <string name="openstreetbug_unknown_task_type">Tipus de tasca desconegut</string>
   <string name="openstreetbug_not_supported">%1$s no és compatible.</string>
   <string name="note_description">Nota: %1$s - %2$s</string>

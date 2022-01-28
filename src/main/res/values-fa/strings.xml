@@ -114,7 +114,6 @@
   <string name="openstreetbug_edit_title">ویرایش یادداشت</string>
   <string name="openstreetbug_comment_label">نظر: </string>
   <string name="openstreetbug_commit_ok">تغییرات وظیفه ذخیره شد</string>
-  <string name="openstreetbug_commit_fail">ذخیره‌سازی تغییرات وظیفه ناموفق بود</string>
   <string name="openstreetbug_unknown_task_type">نوع ناشناخته از وظیفه</string>
   <string name="openstreetbug_not_supported">‏‏%1$s پشتیبانی نمی‌شود.</string>
   <string name="note_description">یادداشت: %1$s - %2$s</string>
@@ -461,6 +460,7 @@
   <!---->
   <string name="toast_oauth_retry">پس از اینکه اجازه دادید OAuth به حساب کاربری OSMتان دسترسی داشته باشد دوباره برای بارگذاری تلاش کنید.</string>
   <string name="toast_oauth">لطفاً دسترسی به حساب OSM خود را برای OAuth مجاز کنید.</string>
+  <string name="toast_no_oauth">هیچ پیکربندی OAuth برای API \"%1$s\"، موجود نیست. لطفا نام کاربری و گذرواژه تنظیم کنید.</string>
   <string name="toast_oauth_not_enabled">‏OAuth برای API کنونی فعال نشده است.</string>
   <string name="toast_oauth_timeout">هنگام دست‌دهی برای احراز هویت، مهلت پایان یافت. لطفاً مجدداً تلاش کنید.</string>
   <string name="toast_oauth_communication">هنگام دست‌دهی برای احراز هویت، خطای ارتباطی رخ داد. لطفاً مجدداً تلاش کنید.</string>

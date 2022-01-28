@@ -104,7 +104,6 @@
   <string name="openstreetbug_edit_title">Editar nota</string>
   <string name="openstreetbug_comment_label">Comentário:</string>
   <string name="openstreetbug_commit_ok">Alterações de tarefas gravadas</string>
-  <string name="openstreetbug_commit_fail">Não foi possível gravar alterações de tarefas</string>
   <string name="openstreetbug_unknown_task_type">Modo tarefas não designadas</string>
   <string name="openstreetbug_not_supported">%1$snão é suportado</string>
   <string name="note_description">Nota: %1$s - %2$s</string>

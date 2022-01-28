@@ -112,7 +112,6 @@
   <string name="openstreetbug_edit_title">编辑笔记</string>
   <string name="openstreetbug_comment_label">评论：</string>
   <string name="openstreetbug_commit_ok">任务变动已保存</string>
-  <string name="openstreetbug_commit_fail">无法保存任务变动</string>
   <string name="openstreetbug_unknown_task_type">未知任务类型</string>
   <string name="openstreetbug_not_supported">%1$s 不支持。</string>
   <string name="note_description">备注： %1$s - %2$s</string>

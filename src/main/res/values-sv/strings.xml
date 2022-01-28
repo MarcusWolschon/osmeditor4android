@@ -96,7 +96,6 @@
   <string name="openstreetbug_edit_title">Redigera anteckning</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
   <string name="openstreetbug_commit_ok">Uppgift-ändringar sparade</string>
-  <string name="openstreetbug_commit_fail">Kunde inte spara uppgift-ändringar</string>
   <string name="openstreetbug_unknown_task_type">Okänd uppgiftstyp</string>
   <string name="openstreetbug_not_supported">%1$s stöds inte.</string>
   <string name="bug_description">%1$s: %2$s - %3$s</string>

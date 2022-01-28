@@ -113,7 +113,6 @@
   <string name="openstreetbug_edit_title">Jegyzet szerkesztése</string>
   <string name="openstreetbug_comment_label">Hozzászólás:</string>
   <string name="openstreetbug_commit_ok">Feladatmódosítások mentve</string>
-  <string name="openstreetbug_commit_fail">A feladatmódosítások nem menthetőek</string>
   <string name="openstreetbug_unknown_task_type">Ismeretlen feladattípus</string>
   <string name="openstreetbug_not_supported">%1$s nem támogatott.</string>
   <string name="note_description">Jegyzet: %1$s– %2$s</string>

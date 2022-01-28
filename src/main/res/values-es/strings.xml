@@ -112,7 +112,6 @@
   <string name="openstreetbug_edit_title">Editar nota</string>
   <string name="openstreetbug_comment_label">Comentario:</string>
   <string name="openstreetbug_commit_ok">Cambios de tarea guardados</string>
-  <string name="openstreetbug_commit_fail">No se pudieron guardar los cambios de tareas</string>
   <string name="openstreetbug_unknown_task_type">Tipo de tarea desconocida</string>
   <string name="openstreetbug_not_supported">%1$s no está soportado.</string>
   <string name="note_description">Nota: %1$s - %2$s</string>

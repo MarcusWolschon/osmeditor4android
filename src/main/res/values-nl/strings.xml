@@ -112,7 +112,6 @@
   <string name="openstreetbug_edit_title">Bewerk opmerking</string>
   <string name="openstreetbug_comment_label">Opemerking:</string>
   <string name="openstreetbug_commit_ok">Taakwijzigingen opgeslagen</string>
-  <string name="openstreetbug_commit_fail">Kon taakwijzigingen niet opslaan</string>
   <string name="openstreetbug_unknown_task_type">Onbekend taaktype</string>
   <string name="openstreetbug_not_supported">%1$s is niet ondersteund.</string>
   <string name="note_description">Notitie: %1$s - %2$s</string>

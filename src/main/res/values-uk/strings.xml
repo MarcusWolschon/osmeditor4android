@@ -113,7 +113,6 @@
   <string name="openstreetbug_edit_title">Редагувати нотатку</string>
   <string name="openstreetbug_comment_label">Коментар: </string>
   <string name="openstreetbug_commit_ok">Зміни Завдань збережено</string>
-  <string name="openstreetbug_commit_fail">Неможливо зберегти зміни Завдань</string>
   <string name="openstreetbug_unknown_task_type">Невідомий тип завдання</string>
   <string name="openstreetbug_not_supported">%1$s не підтримується</string>
   <string name="note_description">Примітка: %1$s - %2$s</string>

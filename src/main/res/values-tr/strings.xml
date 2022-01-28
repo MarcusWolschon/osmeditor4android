@@ -112,7 +112,6 @@
   <string name="openstreetbug_edit_title">Notu düzenle</string>
   <string name="openstreetbug_comment_label">Yorum:</string>
   <string name="openstreetbug_commit_ok">Görev-değişikliği kaydedildi</string>
-  <string name="openstreetbug_commit_fail">Görev-değişikliği kaydedilemiyor</string>
   <string name="openstreetbug_unknown_task_type">Bilinmeyen görev türü</string>
   <string name="openstreetbug_not_supported">%1$s desteklenmiyor.</string>
   <string name="note_description">Not: %1$s - %2$s</string>

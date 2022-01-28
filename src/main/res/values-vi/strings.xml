@@ -84,7 +84,6 @@
   <string name="openstreetbug_edit_title">Sửa ghi chú</string>
   <string name="openstreetbug_comment_label">Miêu tả:</string>
   <string name="openstreetbug_commit_ok">Đã lưu các thay đổi trong việc làm</string>
-  <string name="openstreetbug_commit_fail">Không thể lưu các thay đổi trong việc làm</string>
   <string name="openstreetbug_unknown_task_type">Kiểu công việc không rõ</string>
   <string name="openstreetbug_not_supported">Không hỗ trợ %1$s.</string>
   <string name="note_description">Ghi chú: %1$s – %2$s</string>

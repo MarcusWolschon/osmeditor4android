@@ -99,7 +99,6 @@
   <string name="openstreetbug_edit_title">Muokkaa huomiota</string>
   <string name="openstreetbug_comment_label">Kommentti:</string>
   <string name="openstreetbug_commit_ok">Tehtävämuutokset tallennettu</string>
-  <string name="openstreetbug_commit_fail">Tehtävämuutoksia ei voitu tallentaa</string>
   <string name="openstreetbug_unknown_task_type">Tuntematon tehtävätyyppi</string>
   <string name="openstreetbug_not_supported">Tehtävää %1$s ei tueta.</string>
   <string name="note_description">Huomio: %1$s - %2$s</string>

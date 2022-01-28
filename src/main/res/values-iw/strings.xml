@@ -115,7 +115,6 @@
   <string name="openstreetbug_edit_title">עריכת הערה</string>
   <string name="openstreetbug_comment_label">הערה:</string>
   <string name="openstreetbug_commit_ok">שינויים במשימה נשמרו</string>
-  <string name="openstreetbug_commit_fail">לא ניתן לשמור את השינויים במשימה</string>
   <string name="openstreetbug_unknown_task_type">סוג המשימה אינו ידוע</string>
   <string name="openstreetbug_not_supported">אין תמיכה ב־%1$s.</string>
   <string name="note_description">הערה: %1$s - %2$s</string>

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2021-12-29 17:44+0100\n"
-"PO-Revision-Date: 2022-01-06 19:37+0000\n"
+"PO-Revision-Date: 2022-01-25 02:30+0000\n"
 "Last-Translator: Minh Nguyễn <minh@nguyen.cincinnati.oh.us>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/openstreetmap/presets/language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -1614,7 +1614,7 @@ msgstr ""
 
 #: master_preset.xml:3214(list_entry:short_description|group:Water|preset:Wetland|value:bog)
 msgid "Bog"
-msgstr ""
+msgstr "Đầm lầy Toan"
 
 #: master_preset.xml:8847(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-1)
 msgid "Boiling Water Reactor 1 (BWR-1)"
@@ -2159,7 +2159,7 @@ msgstr ""
 #: master_preset.xml:1439(check:text|key:recycling:cans)
 #: master_preset.xml:6795(check:text|group:Facilities|preset:Bottle_return|key:recycling:cans)
 msgid "Cans"
-msgstr ""
+msgstr "Đồ hộp"
 
 #: master_preset.xml:784(combo:display_values|key:religion)
 #: master_preset.xml:793(combo:display_values|key:religion)
@@ -2228,7 +2228,7 @@ msgstr ""
 
 #: master_preset.xml:1440(check:text|key:recycling:cardboard)
 msgid "Cardboard"
-msgstr ""
+msgstr "Bìa cứng"
 
 #: master_preset.xml:590(multiselect:display_values|key:cuisine)
 msgid "Caribbean"
@@ -3308,7 +3308,7 @@ msgstr ""
 
 #: master_preset.xml:12706(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "Delegation"
-msgstr ""
+msgstr "Phái đoàn"
 
 #: master_preset.xml:9533(item:name|group:Food|preset:Deli_(Fine_Food))
 msgid "Deli (Fine Food)"
@@ -4256,7 +4256,7 @@ msgstr ""
 
 #: master_preset.xml:3215(list_entry:short_description|group:Water|preset:Wetland|value:fen)
 msgid "Fen"
-msgstr ""
+msgstr "Đầm lầy Kiềm"
 
 #: master_preset.xml:2587(item:name|group:Barriers|preset:Fence)
 #: master_preset.xml:5355(combo:display_values|group:Leisure|preset:Dog_Park|key:barrier)
@@ -4593,7 +4593,7 @@ msgstr ""
 
 #: master_preset.xml:9297(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Fortress"
-msgstr ""
+msgstr "Pháo đài"
 
 #: master_preset.xml:2125(combo:display_values|group:Ways|preset:Steps|key:conveying)
 #: master_preset.xml:2357(combo:display_values|preset:Highway_milestone|key:direction)
@@ -4980,12 +4980,12 @@ msgstr ""
 #: master_preset.xml:1254(combo:display_values|key:roof:material)
 #: master_preset.xml:1447(check:text|key:recycling:glass)
 msgid "Glass"
-msgstr ""
+msgstr "Đồ Thủy tinh"
 
 #: master_preset.xml:1448(check:text|key:recycling:glass_bottles)
 #: master_preset.xml:6796(check:text|group:Facilities|preset:Bottle_return|key:recycling:glass_bottles)
 msgid "Glass Bottles"
-msgstr ""
+msgstr "Chai Thủy tinh"
 
 #: master_preset.xml:5737(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 msgid "Glass cabinet"
@@ -5104,7 +5104,7 @@ msgstr ""
 
 #: master_preset.xml:1449(check:text|key:recycling:green_waste)
 msgid "Green Waste"
-msgstr ""
+msgstr "Lá cây và Cỏ vụn"
 
 #: master_preset.xml:11467(item:name|group:Land_use|preset:Greenfield)
 msgid "Greenfield"
@@ -6164,7 +6164,7 @@ msgstr "Kosher"
 
 #: master_preset.xml:9297(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Kremlin"
-msgstr ""
+msgstr "Kremli"
 
 #: master_preset.xml:1432(combo:text|key:lgbtq:men)
 msgid "LGBTQ men"
@@ -6737,7 +6737,7 @@ msgstr ""
 
 #: master_preset.xml:3216(list_entry:short_description|group:Water|preset:Wetland|value:mangrove)
 msgid "Mangrove"
-msgstr ""
+msgstr "Rừng ngập mặn"
 
 #: master_preset.xml:8355(item:name|group:Man_Made|preset:Manhole)
 msgid "Manhole"
@@ -9458,7 +9458,7 @@ msgstr ""
 
 #: master_preset.xml:1454(check:text|key:recycling:plastic_packaging)
 msgid "Plastic Packaging"
-msgstr ""
+msgstr "Bọc Ni lông"
 
 #: master_preset.xml:4178(role:text|group:Public_Transport|preset:Stop_Area|key:platform)
 #: master_preset.xml:4218(item:name|group:Public_Transport|preset:Platform)
@@ -10139,7 +10139,7 @@ msgstr ""
 #: master_preset.xml:1092(list_entry:display_value|value:raised)
 #: master_preset.xml:1100(list_entry:display_value|value:raised)
 msgid "Raised"
-msgstr ""
+msgstr "Nổi lên"
 
 #: master_preset.xml:590(multiselect:display_values|key:cuisine)
 msgid "Ramen"
@@ -11033,7 +11033,7 @@ msgstr ""
 
 #: master_preset.xml:1455(check:text|key:recycling:scrap_metal)
 msgid "Scrap Metal"
-msgstr ""
+msgstr "Kim loại Phế liệu"
 
 #: master_preset.xml:11148(item:name|group:Nature|preset:Scree)
 msgid "Scree"
@@ -11335,7 +11335,7 @@ msgstr ""
 
 #: master_preset.xml:9297(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Shiro"
-msgstr ""
+msgstr "Tòa thành Nhật Bản"
 
 #: master_preset.xml:12637(item:name|group:Crafts|preset:Shoemaker)
 msgid "Shoemaker"
@@ -12918,7 +12918,7 @@ msgstr ""
 
 #: master_preset.xml:12750(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Transportation"
-msgstr ""
+msgstr "Chở Nước"
 
 #: master_preset.xml:1511(checkgroup:text)
 msgid "Transportation type"
@@ -14726,7 +14726,7 @@ msgstr ""
 #: master_preset.xml:5766(combo:display_values|group:Culture|preset:Artwork|key:material)
 msgctxt "material"
 msgid "Glass"
-msgstr ""
+msgstr "Đồ Thủy tinh"
 
 #: master_preset.xml:5766(combo:display_values|group:Culture|preset:Artwork|key:material)
 #: master_preset.xml:8523(combo:display_values|group:Man_Made|preset:Survey_Point|key:material)
@@ -17461,7 +17461,7 @@ msgstr ""
 #: master_preset.xml:1276(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Glass"
-msgstr ""
+msgstr "Đồ Thủy tinh"
 
 #: master_preset.xml:1274(combo:display_values|key:building:use)
 msgctxt "building"
@@ -17923,7 +17923,7 @@ msgstr ""
 #: master_preset.xml:7880(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
 msgctxt "building"
 msgid "Transportation"
-msgstr ""
+msgstr "Chở Nước"
 
 #: master_preset.xml:7839(list_entry:display_value|group:Buildings|preset:Building|value:university)
 #: master_preset.xml:7880(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
@@ -18629,32 +18629,32 @@ msgstr "Kiểu"
 #: master_preset.xml:3016(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Headrace"
-msgstr ""
+msgstr "Cấp nước"
 
 #: master_preset.xml:3016(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Irrigation"
-msgstr ""
+msgstr "Tưới"
 
 #: master_preset.xml:3016(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Spillway"
-msgstr ""
+msgstr "Tràn"
 
 #: master_preset.xml:3016(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Tailrace"
-msgstr ""
+msgstr "Thoát Nước"
 
 #: master_preset.xml:3016(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Transmission"
-msgstr ""
+msgstr "Chuyển Nước"
 
 #: master_preset.xml:3016(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Transportation"
-msgstr ""
+msgstr "Chở Nước"
 
 #: master_preset.xml:3016(combo:text|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
