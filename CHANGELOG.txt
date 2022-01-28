@@ -1,5 +1,14 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.0.0:
+
+- Add toast if tile database can't be created
+- Add toast if Mapillary API key is missing
+- Update translations
+- Update preset
+- Update imagery from ELI
+- Update README
+
 17.0.0-3:
 
 - Fix issue that stopped imagery configuration from being read completely

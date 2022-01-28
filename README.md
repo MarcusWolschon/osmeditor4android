@@ -15,7 +15,6 @@ If you're interested in this project, you're welcome to help improving it. We
 need UI designers, [translators](TRANSLATIONS.md), and of course Java programmers. Join now! Join
 our [mailing list][mailinglist] or write to marcus@wolschon.biz.
 
-
 ## What is Vespucci?
 
 * An offline (once you have downloaded data) editor for OpenStreetMap
@@ -39,9 +38,9 @@ our [mailing list][mailinglist] or write to marcus@wolschon.biz.
     * Upload to OSM and local saving of GPS tracks
     * Display the raw data
     * Display geo-referenced photographs and Mapillary images
+    * ... and lots more ...
     
 Detailed documentation can be found on the [Vespucci Website](https://vespucci.io/)
-
 
 ## What is Vespucci NOT?
 
@@ -61,8 +60,9 @@ Important note: if you are building your own version, particularly if you are ma
 
 Vespucci utilizes a number of independent, separately maintained, projects. The most relevant of these are
 
-* [JOSM](https://josm.openstreetmap.de/wiki/Maps) background and overlay layers configuration
-* [Beautified JOSM Preset](https://github.com/simonpoole/beautified-JOSM-preset) presets
+* [Editor Layer Index (ELI)](https://github.com/osmlab/editor-layer-index) background and overlay layers configuration
+* [JOSM](https://josm.openstreetmap.de/wiki/Maps) alternative background and overlay layers configuration
+* [Beautified JOSM Preset](https://github.com/simonpoole/beautified-JOSM-preset) independently maintained presets in JOSM format (can be utilized in JOSM too)
 * [OpeningHoursFragment](https://github.com/simonpoole/OpeningHoursFragment) opening hours user interface
 * [Name Suggestion Index](https://github.com/osmlab/name-suggestion-index) name/brand-related tag suggestions database
 
