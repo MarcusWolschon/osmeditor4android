@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="3.4.3" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="3.4.4" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -686,10 +686,67 @@
         <reference ref="sport_facility"/>
     </chunk>
     <chunk id="sport">
-        <multiselect key="sport" text="Sport"
-            values="multi;10pin;9pin;american_football;archery;athletics;australian_football;badminton;baseball;basketball;beachvolleyball;billiards;boules;bowls;canadian_football;canoe;chess;climbing;cricket;croquet;cycling;dog_racing;equestrian;field_hockey;fitness;gaelic_games;golf;gymnastics;handball;horse_racing;horseshoes;ice_hockey;ice_skating;karting;martial_arts;model_aerodrome;motocross;motor;netball;pelota;racquet;rc_car;rowing;rugby_league;rugby_union;running;safety_training;shooting;shuffleboard;skateboard;skating;softball;roller_skating;ice_skating;soccer;swimming;table_tennis;tennis;volleyball;yoga;9pin;10pin"
-            display_values="Multiple;10pin;9pin;American football;Archery;Athletics;Australian football;Badminton;Baseball;Basketball;Beach volleyball;Billiards;Boules;Bowls;Canadian football;Canoe;Chess;Climbing;Cricket;Croquet;Cycling;Dog racing;Equestrian;Field hockey;Fitness;Gaelic games;Golf;Gymnastics;Handball;Horse racing;Horseshoes;Ice hockey;Ice skating;Karting;Martial arts;Model aerodrome;Motocross;Motor;Netball;Pelota;Racquet;RC car;Rowing;Rugby league;Rugby union;Running;Safety training;Shooting;Shuffleboard;Skateboard;Skating;Softball;Roller skating;Ice skating;Soccer;Swimming;Table tennis;Tennis;Volleyball;Yoga;9pin;10pin"
-            match="key" values_context="sport"/>
+        <multiselect key="sport" text="Sport" match="key" values_context="sport">
+            <list_entry value="10pin" display_value="10pin" />
+            <list_entry value="9pin" display_value="9pin" />
+            <list_entry value="american_football" display_value="American football" />
+            <list_entry value="archery" display_value="Archery" />
+            <list_entry value="athletics" display_value="Athletics" />
+            <list_entry value="australian_football" display_value="Australian football" />
+            <list_entry value="badminton" display_value="Badminton" />
+            <list_entry value="baseball" display_value="Baseball" />
+            <list_entry value="basketball" display_value="Basketball" />
+            <list_entry value="beachvolleyball" display_value="Beach volleyball" />
+            <list_entry value="billiards" display_value="Billiards" />
+            <list_entry value="boules" display_value="Boules" />
+            <list_entry value="bowls" display_value="Bowls" />
+            <list_entry value="canadian_football" display_value="Canadian football" />
+            <list_entry value="canoe" display_value="Canoe" />
+            <list_entry value="chess" display_value="Chess" />
+            <list_entry value="climbing" display_value="Climbing" />
+            <list_entry value="cricket" display_value="Cricket" />
+            <list_entry value="croquet" display_value="Croquet" />
+            <list_entry value="cycling" display_value="Cycling" />
+            <list_entry value="dog_racing" display_value="Dog racing" />
+            <list_entry value="equestrian" display_value="Equestrian" />
+            <list_entry value="field_hockey" display_value="Field hockey" />
+            <list_entry value="fitness" display_value="Fitness" />
+            <list_entry value="gaelic_games" display_value="Gaelic games" />
+            <list_entry value="golf" display_value="Golf" />
+            <list_entry value="gymnastics" display_value="Gymnastics" />
+            <list_entry value="handball" display_value="Handball" />
+            <list_entry value="horse_racing" display_value="Horse racing" />
+            <list_entry value="horseshoes" display_value="Horseshoes" />
+            <list_entry value="ice_hockey" display_value="Ice hockey" />
+            <list_entry value="ice_skating" display_value="Ice skating" />
+            <list_entry value="karting" display_value="Karting" />
+            <list_entry value="martial_arts" display_value="Martial arts" />
+            <list_entry value="model_aerodrome" display_value="Model aerodrome" />
+            <list_entry value="motocross" display_value="Motocross" />
+            <list_entry value="motor" display_value="Motor" />
+            <list_entry value="multi" display_value="Multiple" />
+            <list_entry value="netball" display_value="Netball" />
+            <list_entry value="pelota" display_value="Pelota" />
+            <list_entry value="racquet" display_value="Racquet" />
+            <list_entry value="rc_car" display_value="RC car" />
+            <list_entry value="roller_skating" display_value="Roller skating" />
+            <list_entry value="rowing" display_value="Rowing" />
+            <list_entry value="rugby_league" display_value="Rugby league" />
+            <list_entry value="rugby_union" display_value="Rugby union" />
+            <list_entry value="running" display_value="Running" />
+            <list_entry value="safety_training" display_value="Safety training" />
+            <list_entry value="shooting" display_value="Shooting" />
+            <list_entry value="shuffleboard" display_value="Shuffleboard" />
+            <list_entry value="skateboard" display_value="Skateboard" />
+            <list_entry value="skating" display_value="Skating" />
+            <list_entry value="softball" display_value="Softball" />
+            <list_entry value="soccer" display_value="Soccer" />
+            <list_entry value="swimming" display_value="Swimming" />
+            <list_entry value="table_tennis" display_value="Table tennis" />
+            <list_entry value="tennis" display_value="Tennis" />
+            <list_entry value="volleyball" display_value="Volleyball" />
+            <list_entry value="yoga" display_value="Yoga" />
+        </multiselect>
     </chunk>
     <chunk id="bin">
         <combo key="bin" text="Bin" values="yes,no" display_values="Yes,No" default=""/>
