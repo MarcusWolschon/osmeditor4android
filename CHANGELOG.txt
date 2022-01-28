@@ -4,6 +4,7 @@
 
 - Add toast if tile database can't be created
 - Add toast if Mapillary API key is missing
+- Add language mapping for ca_ES
 - Update translations
 - Update preset
 - Update imagery from ELI
