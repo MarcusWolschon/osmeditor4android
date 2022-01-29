@@ -35,7 +35,7 @@ import de.blau.android.prefs.ListActivity;
 import de.blau.android.prefs.Preferences;
 
 /**
- * Activity for editing filter entries. Due to the diffiulties in using a ListView for editable items, this is a rather
+ * Activity for editing filter entries. Due to the difficulties in using a ListView for editable items, this is a rather
  * hackish and inefficient, but given that we are only going to have a small number of items likely OK.
  * 
  * @author simon
@@ -105,7 +105,7 @@ public class TagFilterActivity extends ListActivity {
         filter = filterParam;
         tfDb = new TagFilterDatabaseHelper(this);
         db = tfDb.getWritableDatabase();
-        tagFilterCursor = db.rawQuery(QUERY + filter + "'", null);
+        tagFilterCursor = db.rawQuery(QUERY + filter + "'", null); //NOSONAR filter isn't actually user generated
         filterAdapter = new TagFilterAdapter(this, tagFilterCursor);
 
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
@@ -113,7 +113,7 @@ public class TagFilterActivity extends ListActivity {
             add.setOnClickListener(v -> {
                 updateDatabaseFromList();
                 insertRow(filter, true, true, 0, "", "");
-                tagFilterCursor = db.rawQuery(QUERY + filter + "'", null);
+                tagFilterCursor = db.rawQuery(QUERY + filter + "'", null); //NOSONAR filter isn't actually user generated
                 Cursor oldCursor = filterAdapter.swapCursor(tagFilterCursor);
                 oldCursor.close();
                 filterAdapter.notifyDataSetChanged();
