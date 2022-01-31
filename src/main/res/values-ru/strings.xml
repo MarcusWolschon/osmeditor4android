@@ -976,6 +976,8 @@
   <string name="config_enableLightTheme_summary">Светлое оформление с белым фоном.</string>
   <string name="config_splitActionBarEnabled_title">Разделить панель</string>
   <string name="config_splitActionBarEnabled_summary">Позволяет использовать разделённую панель действий, зависит от модели устройства. Требуется перезапуск Vespucci и Android версии 4.0 или старше.</string>
+  <string name="config_disableTranslations_title">Отключить переводы</string>
+  <string name="config_disableTranslations_summary">Использовать английский язык для пользовательского интерфейса</string>
   <string name="config_maxInlineValues_title">Макс. число встроенных значений</string>
   <string name="config_maxInlineValues_summary">Макс. число встроенных значений, отображаемых в форме тега.</string>
   <string name="config_maxInlineValues_current">%1$d значений</string>
@@ -1008,6 +1010,8 @@
   <string name="config_category_editing_summary">Автозагрузка, сохранение изменений, оповещения</string>
   <string name="config_forceContextMenu_title">Контекстное меню</string>
   <string name="config_forceContextMenu_summary">Всегда показывать контекстное меню, если выбор элементов неоднозначен.</string>
+  <string name="config_overrideRegionAddressTags_title">Переопределить тег адреса по умолчанию</string>
+  <string name="config_overrideRegionAddressTags_summary">Используйте нашу конфигурацию тега адреса для любых значений, специфичных для региона.</string>
   <string name="config_address_tags">Теги адреса</string>
   <string name="config_address_tags_summary">Теги для предсказания адресов.</string>
   <string name="config_enableNameSuggestions_title">Предложения для названий</string>
@@ -1100,6 +1104,8 @@
   <string name="config_downLoadThreads_current">%1$d потоков</string>
   <string name="config_tileCacheSize_title">Размер базы</string>
   <string name="config_tileCacheSize_summary">Общий размер базы подложки карты в МБ.</string>
+  <string name="config_preferRemovableStorage_title">Отдавать предпочтение съемному хранилищу</string>
+  <string name="config_preferRemovableStorage_summary">Для тайлового кеша отдавать предпочтение съемному хранилищу.</string>
   <string name="config_tileCache_current">%1$d МБ</string>
   <string name="config_mapillaryCacheSize_title">Размер кэша Mapillary</string>
   <!--Miscellaneous-->

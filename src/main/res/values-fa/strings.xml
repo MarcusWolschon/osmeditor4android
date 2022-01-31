@@ -114,6 +114,8 @@
   <string name="openstreetbug_edit_title">ویرایش یادداشت</string>
   <string name="openstreetbug_comment_label">نظر: </string>
   <string name="openstreetbug_commit_ok">تغییرات وظیفه ذخیره شد</string>
+  <string name="openstreetbug_commit_fail">ذخیره‌سازی تغییرات وظیفه ناموفق بود</string>
+  <string name="openstreetbug_commit_fail_with_message">ذخیره‌سازی تغییرات وظیفه ناموفق بود\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">نوع ناشناخته از وظیفه</string>
   <string name="openstreetbug_not_supported">‏‏%1$s پشتیبانی نمی‌شود.</string>
   <string name="note_description">یادداشت: %1$s - %2$s</string>
@@ -583,6 +585,7 @@
   <string name="toast_download_server_version_failed">بارگیری نسخه سرور برای %1$s انجام نشد</string>
   <string name="toast_error_element_too_large">عنصر برای ویرایشگر ویژگی خیلی بزرگ است</string>
   <string name="toast_no_intersection_found">تقاطعی پیدا نشد</string>
+  <string name="toast_api_key_missing">هیچ کلید API برای %1$s پیدا نشد</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">برای منابع MapSplit باید زوم کمینه و بیشینه تنظیم شده باشد</string>
   <string name="error_pbf_no_version">پروندهٔ PBF اطلاعات نسخه ندارد</string>

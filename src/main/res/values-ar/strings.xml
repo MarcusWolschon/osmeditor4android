@@ -118,6 +118,8 @@
   <string name="openstreetbug_edit_title">تحرير ملاحظة</string>
   <string name="openstreetbug_comment_label">تعليق:</string>
   <string name="openstreetbug_commit_ok">تم حفظ تغييرات المهام</string>
+  <string name="openstreetbug_commit_fail">لا يمكن حفظ تغييرات المهمة</string>
+  <string name="openstreetbug_commit_fail_with_message">لا يمكن حفظ تغييرات المهمة\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">نوع مهمة غير معروف</string>
   <string name="openstreetbug_not_supported">%1$s غير مدعوم.</string>
   <string name="note_description">ملاحظة: %1$s - %2$s</string>
@@ -599,6 +601,7 @@
   <string name="toast_download_server_version_failed">فشل تنزيل إصدار الخادم لـ %1$s</string>
   <string name="toast_error_element_too_large">العنصر كبير جدًا بالنسبة لمحرر الخاصية</string>
   <string name="toast_no_intersection_found">لم يعثر على تقاطع</string>
+  <string name="toast_api_key_missing">لم يتم العثور على مفتاح الـ API لـ %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">مصادر MapSplit تتطلب تحديد الحد الأدنى والحد الأقصى للتكبير</string>
   <string name="error_pbf_no_version">معلومات الإصدار مفقودة في ملف PBF</string>

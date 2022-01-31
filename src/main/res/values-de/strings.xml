@@ -6,6 +6,7 @@
   <string name="mode_indoor">Innenraum</string>
   <string name="mode_correct">C-Modus</string>
   <string name="mode_address">Adresse</string>
+  <string name="mode_voice">Stimme</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Achtung!</string>
   <string name="transfer_download_current_dialog_message">Sie haben etwas geändert. Möchten Sie die Änderungen hochladen, anstatt sie zu verwerfen?</string>

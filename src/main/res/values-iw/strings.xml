@@ -115,6 +115,8 @@
   <string name="openstreetbug_edit_title">עריכת הערה</string>
   <string name="openstreetbug_comment_label">הערה:</string>
   <string name="openstreetbug_commit_ok">שינויים במשימה נשמרו</string>
+  <string name="openstreetbug_commit_fail">לא ניתן לשמור שינויים במשימה</string>
+  <string name="openstreetbug_commit_fail_with_message">לא ניתן לשמור את השינויים במשימה\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">סוג המשימה אינו ידוע</string>
   <string name="openstreetbug_not_supported">אין תמיכה ב־%1$s.</string>
   <string name="note_description">הערה: %1$s - %2$s</string>
@@ -220,6 +222,7 @@
   <string name="duplicate_relation_member_message">רכיב זה כבר חלק מהיחס.</string>
   <string name="duplicate_relation_member_remove_button">הסרת חבר</string>
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move_outer_tags_title">העברת תגיות מטבעות חיצוניות למרובי מצולעים</string>
   <string name="move">העברה</string>
   <string name="leave_as_is">להשאיר כמו שזה</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
@@ -355,6 +358,7 @@
   <string name="api_info_attribution">ייחוס</string>
   <string name="api_info_mapsplit_source">מקור לקריאה בלבד MapSplit</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">מאפיינים השתנו</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">אין קשרים מתאימים בנתונים שהתקבלו</string>
   <string name="select_route_title">בחירת מסלול</string>
@@ -811,6 +815,7 @@
   <string name="menu_tools_clear_clipboard">מחיקת לוח הגזירים</string>
   <string name="menu_tools_install_egm">התקנת EGM</string>
   <string name="menu_tools_remove_egm">הסרת EGM</string>
+  <string name="menu_tools_load_keys">טעינת מפתחות מקובץ…</string>
   <!---->
   <string name="menu_simple_actions">מצב פשוט</string>
   <string name="menu_feedback">שליחת משוב</string>
@@ -851,6 +856,7 @@
   <string name="menu_tags">מאפיינים</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">היסטוריה</string>
+  <string name="menu_history_web">היסטוריה (אינטרנט)</string>
   <string name="menu_merge">צירוף</string>
   <string name="menu_reverse">היפוך</string>
   <string name="notreversable_description">הדרך מתויגת כבלתי ניתנת להיפוך. היפוך הדרך יפגע בתיוג.</string>
