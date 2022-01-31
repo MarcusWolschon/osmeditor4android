@@ -178,8 +178,9 @@ public class StorageDelegatorTest {
         assertEquals(258905, d.getCurrentStorage().getNodeCount());
         assertEquals(26454, d.getCurrentStorage().getWayCount());
         assertEquals(751, d.getCurrentStorage().getRelationCount());
-        Way w = (Way) d.getOsmElement(Way.NAME, 571067343L);
 
+        // change a tag on a way
+        Way w = (Way) d.getOsmElement(Way.NAME, 571067343L);
         assertNotNull(w);
         int parentCount = w.getParentRelations().size();
         SortedMap<String, String> tags = new TreeMap<>(w.getTags());
@@ -187,23 +188,38 @@ public class StorageDelegatorTest {
         d.getUndo().createCheckpoint("pruneBox");
         d.setTags(w, tags);
         assertEquals(1, d.getApiElementCount());
+
+        // change node position
         Node n = (Node) d.getOsmElement(Node.NAME, 761534749L);
         assertNotNull(n);
         n.setLat(toE7(47.1187142));
         n.setLon(toE7(9.5430107));
+        n.updateState(OsmElement.STATE_MODIFIED);
         d.insertElementSafe(n);
+
+        // change way node position
+        n = (Node) d.getOsmElement(Node.NAME, 3015985546L);
+        assertNotNull(n);
+        n.setLon(toE7(9.5426));
+        n.updateState(OsmElement.STATE_MODIFIED);
+        d.insertElementSafe(n);
+
+        // now prune
         d.prune(null, new BoundingBox(9.52077, 47.13829, 9.52248, 47.14087));
         assertNotNull(d.getOsmElement(Way.NAME, 571067343L));
         assertNotNull(d.getOsmElement(Node.NAME, 761534749L));
         assertNotNull(d.getOsmElement(Relation.NAME, 30544L));
         assertNotNull(d.getOsmElement(Relation.NAME, 8130924L));
         assertNotNull(d.getOsmElement(Relation.NAME, 8134437L));
+        assertNotNull(d.getOsmElement(Way.NAME, 297699554L));
         assertNull(d.getOsmElement(Relation.NAME, 6907800L));
-        assertEquals(1989, d.getCurrentStorage().getNodeCount());
-        assertEquals(103, d.getCurrentStorage().getWayCount());
-        assertEquals(74, d.getCurrentStorage().getRelationCount());
+        // check overall counts
+        assertEquals(1999, d.getCurrentStorage().getNodeCount());
+        assertEquals(104, d.getCurrentStorage().getWayCount());
+        assertEquals(79, d.getCurrentStorage().getRelationCount());
+        // prune elsewhere
         d.prune(null, new BoundingBox(9.52077, 47.13829, 9.52248, 47.14087));
-        assertEquals(56, d.getCurrentStorage().getRelationCount());
+        assertEquals(61, d.getCurrentStorage().getRelationCount());
         assertNotNull(d.getOsmElement(Relation.NAME, 30544L));
         assertNull(d.getOsmElement(Relation.NAME, 8130924L));
         assertNotNull(d.getOsmElement(Relation.NAME, 8134437L));
