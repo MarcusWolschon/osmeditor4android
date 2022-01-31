@@ -3267,7 +3267,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         boolean noLogic = logic == null;
 
         for (Way w : currentStorage.getWays()) {
-            if (apiStorage.getWay(w.getOsmId()) == null && !box.intersects(w.getBounds()) && (noLogic || !logic.isSelected(w))) {
+            if (apiStorage.getWay(w.getOsmId()) == null && !box.intersects(w.getBounds()) && (noLogic || !logic.isSelected(w)) && !hasModifiedNodes(w)) {
                 currentStorage.removeWay(w);
                 removeReferenceFromParents(logic, w);
             } else { // keeping so we need to keep the nodes
@@ -3296,6 +3296,21 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         BoundingBox.prune(this, box);
         dirty();
+    }
+
+    /**
+     * Check that if way nodes have been modified
+     * 
+     * @param w the Way
+     * @return true if a way node has been changed
+     */
+    private boolean hasModifiedNodes(@NonNull Way w) {
+        for (Node n : w.getNodes()) {
+            if (!n.isUnchanged()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
