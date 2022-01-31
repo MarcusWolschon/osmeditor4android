@@ -166,7 +166,7 @@ public class LayerDialogTest {
         assertNull(delegator.getOsmElement(Way.NAME, 206010346L));
 
         assertEquals(387, delegator.getCurrentStorage().getNodeCount());
-        assertEquals(14, delegator.getCurrentStorage().getWayCount());
+        assertEquals(15, delegator.getCurrentStorage().getWayCount());
         assertEquals(1, delegator.getCurrentStorage().getRelationCount());
     }
 
