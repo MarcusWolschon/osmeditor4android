@@ -1,5 +1,11 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.0.1:
+
+- Fix bogus untagged node warnings on upload
+- Update preset
+- Update translations
+
 17.0.0:
 
 - Add toast if tile database can't be created
