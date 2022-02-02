@@ -1,11 +1,11 @@
 package de.blau.android.resources;
 
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -15,16 +15,21 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
+import com.orhanobut.mockwebserverplus.MockWebServerPlus;
+
+import android.content.Context;
 import android.view.View;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.Map;
-import de.blau.android.SignalHandler;
+import de.blau.android.contract.Files;
 import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.MapTile;
-import de.blau.android.util.ExecutorTask;
+import okhttp3.mockwebserver.MockResponse;
+import okio.Buffer;
 
 /**
  * Note these tests are not mocked
@@ -36,8 +41,9 @@ import de.blau.android.util.ExecutorTask;
 @LargeTest
 public class TileLayerServerTest {
 
-    Main main = null;
-    View v    = null;
+    Main    main = null;
+    View    v    = null;
+    Context ctx  = null;
 
     /**
      * Pre-test setup
@@ -45,9 +51,16 @@ public class TileLayerServerTest {
     @Before
     public void setup() {
         main = Robolectric.buildActivity(Main.class).create().resume().get();
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
-        try (TileLayerDatabase db = new TileLayerDatabase(main)) {
-            TileLayerSource.createOrUpdateFromAssetsSource(main, db.getWritableDatabase(), true, false);
+        ctx = ApplicationProvider.getApplicationContext();
+        try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(ctx); InputStream is = loader.getResourceAsStream(Files.FILE_NAME_KEYS_V2)) {
+            keyDatabase.keysFromStream(is);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        try (TileLayerDatabase db = new TileLayerDatabase(ctx)) {
+            TileLayerSource.createOrUpdateFromAssetsSource(ctx, db.getWritableDatabase(), true, false);
         }
     }
 
@@ -65,7 +78,7 @@ public class TileLayerServerTest {
     }
 
     /**
-     * Get a tile url for bing and then for the "standard" style layer
+     * Get a tile url for the "standard" style layer
      */
     @Test
     public void buildurl() {
@@ -74,63 +87,19 @@ public class TileLayerServerTest {
         Preferences prefs = new Preferences(main);
 
         LayerUtils.removeImageryLayers(main);
-        de.blau.android.layer.Util.addLayer(main, LayerType.IMAGERY, TileLayerSource.LAYER_BING);
-        main.getMap().setPrefs(main, prefs);
-
-        final TileLayerSource t = map.getBackgroundLayer().getTileLayerConfiguration();
-        Assert.assertNotNull(t);
-        if (!t.isMetadataLoaded()) {
-            final CountDownLatch signal = new CountDownLatch(1);
-            final SignalHandler handler = new SignalHandler(signal);
-            new ExecutorTask<Void, Void, Void>() {
-                @Override
-                protected Void doInBackground(Void param) {
-                    for (int i = 0; i < 10; i++) {
-                        try {
-                            Thread.sleep(1000); // NOSONAR
-                        } catch (InterruptedException e) {
-                        }
-                        if (t.isMetadataLoaded()) {
-                            System.out.println("metadata is loaded");
-                            break;
-                        }
-                    }
-                    return null;
-                }
-
-                @Override
-                protected void onPostExecute(Void result) {
-                    handler.onSuccess();
-                }
-            }.execute();
-            try {
-                signal.await(11, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                Assert.fail(e.getMessage());
-            }
-        }
-
-        Assert.assertTrue(t.isMetadataLoaded());
-        String s = t.getTileURLString(mapTile); // note this would fail if the metainfo cannot be retrieved
-
-        System.out.println("Parameters replaced " + s);
-        System.out.println("Quadkey " + t.quadTree(mapTile));
-        Assert.assertTrue(s.contains(t.quadTree(mapTile)));
-
-        LayerUtils.removeImageryLayers(main);
         de.blau.android.layer.Util.addLayer(main, LayerType.IMAGERY, TileLayerSource.LAYER_MAPNIK);
         main.getMap().setPrefs(main, prefs);
 
         TileLayerSource t2 = map.getBackgroundLayer().getTileLayerConfiguration();
         System.out.println(t2.toString());
 
-        s = t2.getTileURLString(mapTile);
+        String tileUrl = t2.getTileURLString(mapTile);
 
-        System.out.println("Parameters replaced " + s);
+        System.out.println("Parameters replaced " + tileUrl);
 
-        Assert.assertTrue(s.contains("1111"));
-        Assert.assertTrue(s.contains("2222"));
-        Assert.assertTrue(s.contains("20"));
+        Assert.assertTrue(tileUrl.contains("1111"));
+        Assert.assertTrue(tileUrl.contains("2222"));
+        Assert.assertTrue(tileUrl.contains("20"));
     }
 
     /**
@@ -165,7 +134,38 @@ public class TileLayerServerTest {
         TileLayerSource b = TileLayerSource.get(main, "B", false);
         Assert.assertTrue(a.getEndDate() < b.getEndDate());
         Assert.assertTrue(iA > iB); // date
-
         Assert.assertTrue(iA > iC && iB > iC); // preference
+    }
+
+    /**
+     * Test if bing metadata retrieval works
+     */
+    @Test
+    public void bingMeta() {
+        MockWebServerPlus mockServer = new MockWebServerPlus();
+        Buffer data = new Buffer();
+        try {
+            String url = mockServer.url("/?key={apikey}");
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            // for whatever reason the fixture mechanism doesn't seem to work here
+            InputStream is = loader.getResourceAsStream("fixtures/bing_metadata.xml");
+            data.readFrom(is);
+            mockServer.server().enqueue(new MockResponse().setResponseCode(200).setBody(data));
+            TileLayerSource bing = new TileLayerSource(ctx, TileLayerSource.LAYER_BING, "Bing meta test", url, TileLayerSource.TYPE_BING, null, false, false,
+                    null, null, null, null, null, 0, 20, 0, 256, 256, null, 0, 0, 0, null, null, null, null, false);
+            Assert.assertTrue(bing.isMetadataLoaded());
+            MapTile mapTile = new MapTile("", 20, 1111, 2222);
+            String s = bing.getTileURLString(mapTile); // note this would fail if the metainfo cannot be retrieved
+            Assert.assertTrue(s.contains(bing.quadTree(mapTile)));
+        } catch (IOException e) {
+            fail(e.getMessage());
+        } finally {
+            data.close();
+            try {
+                mockServer.server().shutdown();
+            } catch (IOException e) {
+                // do nothing
+            }
+        }
     }
 }

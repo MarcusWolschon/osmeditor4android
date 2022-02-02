@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Response
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://schemas.microsoft.com/search/local/ws/rest/v1">
+    <Copyright>Copyright © 2022 Microsoft and its suppliers. All rights
+        reserved. This API cannot be accessed and the content and any
+        results may not be used, reproduced or transmitted in any manner
+        without express written permission from Microsoft Corporation.
+    </Copyright>
+    <BrandLogoUri>http://dev.virtualearth.net/Branding/logo_powered_by.png
+    </BrandLogoUri>
+    <StatusCode>200</StatusCode>
+    <StatusDescription>OK</StatusDescription>
+    <AuthenticationResultCode>ValidCredentials
+    </AuthenticationResultCode>
+    <TraceId>5b36c52a9e5f41acb2c33e8a6b40f641|DU00002780|0.0.0.1
+    </TraceId>
+    <ResourceSets>
+        <ResourceSet>
+            <EstimatedTotal>1</EstimatedTotal>
+            <Resources>
+                <ImageryMetadata>
+                    <ImageUrl>http://ecn.{subdomain}.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=11821
+                    </ImageUrl>
+                    <ImageUrlSubdomains>
+                        <string>t0</string>
+                        <string>t1</string>
+                        <string>t2</string>
+                        <string>t3</string>
+                    </ImageUrlSubdomains>
+                    <ImageWidth>256</ImageWidth>
+                    <ImageHeight>256</ImageHeight>
+                    <ZoomMin>1</ZoomMin>
+                    <ZoomMax>21</ZoomMax>
+                    <ImageryProvider>
+                        <Attribution>© 2022 Microsoft Corporation
+                        </Attribution>
+                        <CoverageArea>
+                            <ZoomMin>1</ZoomMin>
+                            <ZoomMax>21</ZoomMax>
+                            <BoundingBox>
+                                <SouthLatitude>-90</SouthLatitude>
+                                <WestLongitude>-180</WestLongitude>
+                                <NorthLatitude>90</NorthLatitude>
+                                <EastLongitude>180</EastLongitude>
+                            </BoundingBox>
+                        </CoverageArea>
+                    </ImageryProvider>
+                    <ImageryProvider>
+                        <Attribution>© 2022 Maxar</Attribution>
+                        <CoverageArea>
+                            <ZoomMin>13</ZoomMin>
+                            <ZoomMax>21</ZoomMax>
+                            <BoundingBox>
+                                <SouthLatitude>-90</SouthLatitude>
+                                <WestLongitude>-180</WestLongitude>
+                                <NorthLatitude>90</NorthLatitude>
+                                <EastLongitude>180</EastLongitude>
+                            </BoundingBox>
+                        </CoverageArea>
+                    </ImageryProvider>
+                    <ImageryProvider>
+                        <Attribution>©CNES (2022) Distribution Airbus DS
+                        </Attribution>
+                        <CoverageArea>
+                            <ZoomMin>13</ZoomMin>
+                            <ZoomMax>21</ZoomMax>
+                            <BoundingBox>
+                                <SouthLatitude>-90</SouthLatitude>
+                                <WestLongitude>-180</WestLongitude>
+                                <NorthLatitude>90</NorthLatitude>
+                                <EastLongitude>180</EastLongitude>
+                            </BoundingBox>
+                        </CoverageArea>
+                    </ImageryProvider>
+                    <ImageryProvider>
+                        <Attribution>© 2022 TMAP MOBILITY</Attribution>
+                        <CoverageArea>
+                            <ZoomMin>8</ZoomMin>
+                            <ZoomMax>21</ZoomMax>
+                            <BoundingBox>
+                                <SouthLatitude>34.0135</SouthLatitude>
+                                <WestLongitude>124.3834</WestLongitude>
+                                <NorthLatitude>38.6701</NorthLatitude>
+                                <EastLongitude>129.8908</EastLongitude>
+                            </BoundingBox>
+                        </CoverageArea>
+                        <CoverageArea>
+                            <ZoomMin>8</ZoomMin>
+                            <ZoomMax>21</ZoomMax>
+                            <BoundingBox>
+                                <SouthLatitude>37.3354</SouthLatitude>
+                                <WestLongitude>130.7187</WestLongitude>
+                                <NorthLatitude>37.6059</NorthLatitude>
+                                <EastLongitude>131.014</EastLongitude>
+                            </BoundingBox>
+                        </CoverageArea>
+                    </ImageryProvider>
+                    <ImageryProvider>
+                        <Attribution>Earthstar Geographics SIO
+                        </Attribution>
+                        <CoverageArea>
+                            <ZoomMin>1</ZoomMin>
+                            <ZoomMax>12</ZoomMax>
+                            <BoundingBox>
+                                <SouthLatitude>-90</SouthLatitude>
+                                <WestLongitude>-180</WestLongitude>
+                                <NorthLatitude>90</NorthLatitude>
+                                <EastLongitude>180</EastLongitude>
+                            </BoundingBox>
+                        </CoverageArea>
+                    </ImageryProvider>
+                </ImageryMetadata>
+            </Resources>
+        </ResourceSet>
+    </ResourceSets>
+</Response>

@@ -47,7 +47,6 @@ import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
-import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Files;
 import de.blau.android.contract.MimeTypes;
@@ -449,30 +448,33 @@ public class TileLayerSource implements Serializable {
             factory.setNamespaceAware(true);
             XmlPullParser parser = factory.newPullParser();
             // Get the tile metadata
-            InputStream is;
-            if (metadataUrl.startsWith("@raw/")) {
-                // internal URL
-                int resid = r.getIdentifier(metadataUrl.substring(5), "raw", "de.blau.android");
-                is = r.openRawResource(resid);
-            } else {
-                // assume Internet URL
-                Request request = new Request.Builder().url(replaceGeneralParameters(metadataUrl)).build();
-                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS)
-                        .readTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS).build();
-                Call metadataCall = client.newCall(request);
-                Response metadataCallResponse = metadataCall.execute();
-                if (metadataCallResponse.isSuccessful()) {
-                    ResponseBody responseBody = metadataCallResponse.body();
-                    is = responseBody.byteStream();
+            InputStream is = null;
+            try {
+                if (metadataUrl.startsWith("@raw/")) {
+                    // internal URL
+                    int resid = r.getIdentifier(metadataUrl.substring(5), "raw", "de.blau.android");
+                    is = r.openRawResource(resid);
                 } else {
-                    throw new IOException(metadataCallResponse.message());
+                    // assume Internet URL
+                    Request request = new Request.Builder().url(replaceGeneralParameters(metadataUrl)).build();
+                    OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS)
+                            .readTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS).build();
+                    Call metadataCall = client.newCall(request);
+                    Response metadataCallResponse = metadataCall.execute();
+                    if (metadataCallResponse.isSuccessful()) {
+                        ResponseBody responseBody = metadataCallResponse.body();
+                        is = responseBody.byteStream();
+                    } else {
+                        throw new IOException(metadataCallResponse.message());
+                    }
                 }
+                parser.setInput(is, null);
+
+                // load meta information from Bing (or from other sources using the same format)
+                Bing.loadMeta(ctx, this, parser);
+            } finally {
+                SavingHelper.close(is);
             }
-            parser.setInput(is, null);
-
-            // load meta information from Bing (or from other sources using the same format)
-            Bing.loadMeta(ctx, this, parser);
-
             metadataLoaded = true;
             // once we've got here, a selected layer that was previously non-available might now be available ... reset
             // map preferences
@@ -669,21 +671,22 @@ public class TileLayerSource implements Serializable {
         }
 
         // TODO think of a elegant way to do this
-        if (TYPE_BING.equals(type)) { // hopelessly hardwired
-            Log.d(DEBUG_TAG, "bing url " + tileUrl + " async " + async);
+        if (TYPE_BING.equals(type)) {
             metadataLoaded = false;
-
-            if (async) {
-                new ExecutorTask<String, Void, Void>() {
-                    @Override
-                    protected Void doInBackground(String url) {
-                        loadMeta(url);
-                        Log.i(DEBUG_TAG, "Meta-data loaded for layer " + getId());
-                        return null;
-                    }
-                }.execute(tileUrl);
-            } else {
-                loadMeta(tileUrl);
+            if (replaceApiKey(ctx)) { // this will leave the entry in the DB but it will then be ignored
+                Log.d(DEBUG_TAG, "bing url " + tileUrl + " async " + async);
+                if (async) {
+                    new ExecutorTask<String, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(String url) {
+                            loadMeta(url);
+                            Log.i(DEBUG_TAG, "Meta-data loaded for layer " + getId());
+                            return null;
+                        }
+                    }.execute(tileUrl);
+                } else {
+                    loadMeta(tileUrl);
+                }
             }
         } else if (TYPE_SCANEX.equals(type)) { // hopelessly hardwired
             setTileUrl("http://irs.gis-lab.info/?layers=" + tileUrl.toLowerCase(Locale.US) + "&request=GetTile&z={zoom}&x={x}&y={y}");
@@ -1606,7 +1609,7 @@ public class TileLayerSource implements Serializable {
     }
 
     /**
-     * Replace some specific parameters that we use. Currently culture and bingapikey
+     * Replace some specific parameters that we use. Currently just culture
      * 
      * @param s the input string
      * @return the string with replaced parameters
@@ -1616,11 +1619,6 @@ public class TileLayerSource implements Serializable {
         final Locale l = r.getConfiguration().locale;
         String result = s;
         result = replaceParameter(result, "culture", l.getLanguage().toLowerCase(Locale.US) + "-" + l.getCountry().toLowerCase(Locale.US));
-        try {
-            result = replaceParameter(result, "bingapikey", r.getString(R.string.bingapikey));
-        } catch (Exception ex) {
-            Log.e(DEBUG_TAG, "replacing bingapi key failed: " + ex.getMessage());
-        }
         return result;
     }
 
