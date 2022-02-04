@@ -80,7 +80,7 @@ public final class Bing {
                     left = Double.parseDouble(parser.getText().trim());
                     break;
                 default:
-                    Log.e(DEBUG_TAG, "Unknown field" + tagName);
+                    Log.e(DEBUG_TAG, "Unknown field " + tagName);
                 }
             }
         }

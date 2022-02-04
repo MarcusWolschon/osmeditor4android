@@ -186,6 +186,10 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
                 for (int i = 0; i < k.length; i++) {
                     k[i] = k[i].trim();
                 }
+                if (k.length < FIELD_COUNT) {
+                    Log.e(DEBUG_TAG, "short key DB entry " + line);
+                    continue;
+                }
                 boolean overwrite = "true".equalsIgnoreCase(k[3]);
                 EntryType type = EntryType.valueOf(k[1].toUpperCase(Locale.US).trim());
                 if (type == EntryType.IMAGERY) { // backwards compatibility

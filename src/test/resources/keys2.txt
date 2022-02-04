@@ -1,3 +1,5 @@
+# Don't forget that this needs tabs as delimiter, not spaces
+BING	imagery	1234567890	false
 MAPILLARYV4	imagery	1234567890	false
 mapillary_client_token	api_key	1234567890	false
 OpenStreetMap	api_oauth1_key	1212121212	false	2121212121	https://www.openstreetmap.org/
