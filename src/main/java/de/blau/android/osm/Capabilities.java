@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 /**
  * Capabilities of the API server we are connected to
  * 
- * Default values are as of July 2017
+ * Default values are as of February 2022
  * 
  * @author Simon Poole
  */
@@ -33,6 +33,7 @@ public class Capabilities {
     static final String TRACEPOINTS_TAG      = "tracepoints";
     static final String PER_PAGE_KEY         = "per_page";
     static final String WAYNODES_TAG         = "waynodes";
+    static final String RELATIONMEMBERS_TAG  = "relationmembers";
     static final String CHANGESETS_TAG       = "changesets";
     static final String MAXIMUM_ELEMENTS_KEY = "maximum_elements";
     static final String TIMEOUT_TAG          = "timeout";
@@ -50,6 +51,7 @@ public class Capabilities {
     private float  areaMax                = 0.25f;
     private int    maxTracepointsPerPage  = 5000;
     private int    maxWayNodes            = 2000;
+    private int    maxRelationMembers     = 32000;
     private int    maxElementsInChangeset = 10000;
     private int    maxStringLength        = 255;           // this is not provided by the API yet
     private int    timeout                = 300;
@@ -208,10 +210,30 @@ public class Capabilities {
     }
 
     /**
-     * @param maxWayNodes the maxWayNodes to set
+     * Set the maximum number of Nodes in an OSM Way
+     * 
+     * @param maxWayNodes the maximum number of Nodes in an OSM Way
      */
     void setMaxWayNodes(int maxWayNodes) {
         this.maxWayNodes = maxWayNodes;
+    }
+
+    /**
+     * Get the maximum number of members an OSM Relation can have
+     * 
+     * @return the maximum number of members an OSM Relation can have
+     */
+    public int getMaxRelationMembers() {
+        return maxRelationMembers;
+    }
+
+    /**
+     * Set the maximum number of members an OSM Relation can have
+     * 
+     * @param maxRelationMembers the maximum number of members an OSM Relation can have
+     */
+    void setMaxRelationMembers(int maxRelationMembers) {
+        this.maxRelationMembers = maxRelationMembers;
     }
 
     /**
@@ -307,6 +329,7 @@ public class Capabilities {
      * @throws XmlPullParserException if parsing fails
      * @throws IOException if an IO operation fails
      */
+    @NonNull
     static Capabilities parse(@NonNull XmlPullParser parser, @NonNull InputStream is) throws XmlPullParserException, IOException {
         parser.setInput(is, null);
         int eventType;
@@ -342,6 +365,13 @@ public class Capabilities {
                             result.setMaxWayNodes(Integer.parseInt(maximumWayNodes));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities maximum #nodes in a way " + maximumWayNodes);
+                        break;
+                    case Capabilities.RELATIONMEMBERS_TAG:
+                        String maximumRelationMembers = parser.getAttributeValue(null, Capabilities.MAXIMUM_KEY);
+                        if (maximumRelationMembers != null) {
+                            result.setMaxRelationMembers(Integer.parseInt(maximumRelationMembers));
+                        }
+                        Log.d(DEBUG_TAG, "getCapabilities maximum #members in a relation " + maximumRelationMembers);
                         break;
                     case Capabilities.CHANGESETS_TAG:
                         String maximumElements = parser.getAttributeValue(null, Capabilities.MAXIMUM_ELEMENTS_KEY);
