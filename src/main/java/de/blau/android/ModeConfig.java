@@ -65,6 +65,8 @@ public interface ModeConfig {
         EnumSet<SimpleAction> actions = EnumSet.allOf(SimpleAction.class);
         actions.remove(SimpleAction.ADDRESS_NODE);
         actions.remove(SimpleAction.INTERPOLATION_WAY);
+        actions.remove(SimpleAction.VOICE_NODE);
+        actions.remove(SimpleAction.VOICE_NOTE);
         return Collections.unmodifiableSet(actions);
     }
 }
