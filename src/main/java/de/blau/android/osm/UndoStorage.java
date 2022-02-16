@@ -319,8 +319,8 @@ public class UndoStorage implements Serializable {
     }
 
     /**
-     * Performs an undo operation, restoring the state at the last undo checkpoint. A redo checkpoint is automatically
-     * created. If no checkpoint is available, an error is logged and the function does nothing.
+     * Performs an undo operation, restoring the state at the last undo checkpoint. If no checkpoint is available, an
+     * error is logged and the function does nothing.
      * 
      * @param createRedo if true create a redo checkpoint
      * @return the name of the undo checkpoint used, or null if no checkpoint was available
