@@ -5,8 +5,8 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 17.0 BETA Highlights</h1>
-<p>2022-01-08</p>
+<h1>Vespucci 17.0 Highlights</h1>
+<p>2022-01-28</p>
 <h3>Improved key handling and new OAuth 1.0a keys</h3>
 <p>This release consolidates nearly all key handling and provides a facility to load your own keys from a file, be it for additional OSM API instances or to add api keys for imagery providers.</p>
 <p>As a further change we have added new client keys for Vespucci that are different from the ones distributed with the source code. This means you will have to re-authorize the app either on the first upload or manually via the function in the <em>Tools</em> menu (spanner button) if you are using our official release and not a build from a third party or yourself. The new authorisation entry in your OpenStreetMap account will identify as <em>Vespucci 2022</em></p>
@@ -29,6 +29,7 @@
 <p>Note: if you are creating a closed way you will need to either enable the snapping mode or merge the last node manually.</p>
 <h3>Way intersection function</h3>
 <p>If two intersecting ways are selected in Multi-Select mode you can now add a new node at the intersection. If there are multiple intersections only one will be created per operation.</p>
+<p>Currently this is only enabled for Android 7 and later.</p>
 <h3>Additional valdiations and upload dialog changes</h3>
 <p>This release adds detection of untagged orphan nodes, missing required relation member roles (for example missing <em>outer</em> and <em>inner</em> rols on multi polygon members), and relation loops. As detecting these condiditions can be quite expensive they are only run when you decide to upload. Highlighting of the issues will remain if you exit the upload dialog, but will vanish if you then edit the object.</p>
 <p>To make the review of objects pre-upload easier they are now sorted at the top of the upload dialog.</p>
