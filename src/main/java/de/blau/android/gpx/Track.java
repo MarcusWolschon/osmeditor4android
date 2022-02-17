@@ -304,8 +304,8 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
      * Load saved track state asynchronously, locking against changes in the time
      */
     private void asyncLoad() {
-        Logic logic = App.getLogic();
-        new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
+        // Logic instance might not be available here
+        new ExecutorTask<Void, Void, Void>() {
             private ArrayList<TrackPoint> loaded = new ArrayList<>();
 
             @Override
