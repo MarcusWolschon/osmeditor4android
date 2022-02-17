@@ -36,8 +36,6 @@ import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import de.blau.android.App;
-import de.blau.android.Logic;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.SavingHelper;
