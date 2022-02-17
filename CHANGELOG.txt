@@ -1,5 +1,16 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.0.2:
+
+- Fix disable way intersection facility for Android < SDK 24 (Android 7)
+- Fix protect against Logic instance missing when authorizing
+- Fix equals for ExtendedStringWithDescription from looping
+- Fix protect against Logic instance missing when starting TrackerService
+- Fix catch spurious aioobe
+- Fix add missing action filtering in normal and tag only mode
+- Update translations
+- Update imagery from ELI
+
 17.0.1:
 
 - Fix bogus untagged node warnings on upload
