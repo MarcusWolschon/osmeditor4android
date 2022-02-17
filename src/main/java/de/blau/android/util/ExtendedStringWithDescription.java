@@ -75,11 +75,7 @@ public class ExtendedStringWithDescription extends StringWithDescription impleme
         if (!(obj instanceof ExtendedStringWithDescription)) {
             return false;
         }
-        ExtendedStringWithDescription other = (ExtendedStringWithDescription) obj;
-        if (deprecated != other.deprecated) {
-            return false;
-        }
-        return true;
+        return deprecated == ((ExtendedStringWithDescription) obj).deprecated;
     }
 
     @Override
