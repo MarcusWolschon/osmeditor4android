@@ -65,8 +65,21 @@ public class ExtendedStringWithDescription extends StringWithDescription impleme
     }
 
     @Override
-    public boolean equals(Object o) {
-        return this.equals(o) && (!(o instanceof ExtendedStringWithDescription) || this.deprecated == ((ExtendedStringWithDescription) o).deprecated);
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof ExtendedStringWithDescription)) {
+            return false;
+        }
+        ExtendedStringWithDescription other = (ExtendedStringWithDescription) obj;
+        if (deprecated != other.deprecated) {
+            return false;
+        }
+        return true;
     }
 
     @Override
