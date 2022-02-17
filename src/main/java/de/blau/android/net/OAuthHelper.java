@@ -1,17 +1,14 @@
 package de.blau.android.net;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
-import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.resources.KeyDatabaseHelper;
@@ -183,8 +180,8 @@ public class OAuthHelper {
              * @param executorService ExecutorService to run this on
              * @param handler an Handler
              */
-            RequestTokenTask(@NonNull ExecutorService executorService, @NonNull Handler handler) {
-                super(executorService, handler);
+            RequestTokenTask() {
+                super();
             }
 
             @Override
@@ -208,8 +205,7 @@ public class OAuthHelper {
             }
         }
 
-        Logic logic = App.getLogic();
-        RequestTokenTask requester = new RequestTokenTask(logic.getExecutorService(), logic.getHandler());
+        RequestTokenTask requester = new RequestTokenTask();
         requester.execute();
         String result = null;
         try {
