@@ -203,7 +203,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
                     Log.e(DEBUG_TAG, "invalid entry " + line);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
             Log.e(DEBUG_TAG, "exception reading stream  " + e.getMessage());
         }
     }
