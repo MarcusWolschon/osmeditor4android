@@ -28,6 +28,9 @@
     <string name="help_newnoteselection">Вибір нових Нотаток</string>
     <string name="help_voice_commands">Голосові команди</string>
     <string name="help_add_route_segment">Додавання відрізків маршруту</string>
+    <string name="help_upgrade">17.0 Примітки до випуску</string>
+    <string name="help_upgrade_161">16.1 Примітки до випуску</string>
+    <string name="help_upgrade_160">16.0 Примітки до випуску</string>
     <string name="help_upgrade_152">15.2 Примітки до випуску</string>
     <string name="help_upgrade_151">15.1 Примітки до випуску</string>
     <string name="help_upgrade_150">15.0 Примітки до випуску</string>
