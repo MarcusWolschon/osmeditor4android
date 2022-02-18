@@ -539,7 +539,7 @@ dependencies {
     implementation 'io.noties.markwon:core:4.6.2'
     implementation 'com.zeugmasolutions.localehelper:locale-helper-android:1.1.4'
     implementation 'com.github.zedlabs:ElementHistoryDialog:1.0.3'
-    implementation 'ch.poole.misc:bentley-ottmann:0.1.0'
+    implementation 'ch.poole.misc:bentley-ottmann:0.1.1'
     
     // for temp stuff during dev
     // implementation(name:'alibrary', ext:'jar')
