@@ -1,5 +1,10 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.0.3:
+
+- Update bentley-ottman dependency, this allows us to re-enable the way intersection facility
+- Update preset
+
 17.0.2:
 
 - Fix disable way intersection facility for Android < SDK 24 (Android 7)
