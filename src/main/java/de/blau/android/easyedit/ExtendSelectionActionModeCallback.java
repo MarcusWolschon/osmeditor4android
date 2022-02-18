@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -132,7 +131,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     }
 
     /**
-     * Set a selected object count in the action mode subtitle
+     * Set aselected object count in the action mode subtitle
      * 
      * @param mode the ActionMode
      */
@@ -184,9 +183,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         orthogonalizeItem = menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_ortho));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intersectItem = menu.add(Menu.NONE, MENUITEM_INTERSECT, Menu.NONE, R.string.menu_add_node_at_intersection);
-        }
+        intersectItem = menu.add(Menu.NONE, MENUITEM_INTERSECT, Menu.NONE, R.string.menu_add_node_at_intersection);
 
         menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
         menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
@@ -222,9 +219,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         List<Way> selectedWays = logic.getSelectedWays();
         updated |= ElementSelectionActionModeCallback.setItemVisibility(selectedWays != null && !selectedWays.isEmpty(), orthogonalizeItem, false);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            updated |= ElementSelectionActionModeCallback.setItemVisibility(intersect(selectedWays), intersectItem, false);
-        }
+        updated |= ElementSelectionActionModeCallback.setItemVisibility(intersect(selectedWays), intersectItem, false);
 
         boolean changedElementsSelected = false;
         for (OsmElement e : selection) {
