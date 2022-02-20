@@ -76,7 +76,7 @@ public class ClosedWaySplittingActionModeCallback extends NonSimpleActionModeCal
                 logic.setSelectedRelation(null);
                 logic.setSelectedWay(result[0]);
                 logic.addSelectedWay(result[1]);
-                ArrayList<OsmElement> selection = new ArrayList<>();
+                List<OsmElement> selection = new ArrayList<>();
                 selection.addAll(logic.getSelectedWays());
                 main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, selection));
                 return true;

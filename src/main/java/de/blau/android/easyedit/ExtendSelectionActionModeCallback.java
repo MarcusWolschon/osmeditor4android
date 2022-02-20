@@ -18,6 +18,7 @@ import de.blau.android.Main.UndoListener;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.dialogs.TagConflictDialog;
+import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -100,24 +101,40 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
      * @param element object to add or remove
      */
     private void addOrRemoveElement(OsmElement element) {
-        if (!selection.contains(element)) {
-            selection.add(element);
-            if (element.getName().equals(Way.NAME)) {
-                logic.addSelectedWay((Way) element);
-            } else if (element.getName().equals(Node.NAME)) {
-                logic.addSelectedNode((Node) element);
-            } else if (element.getName().equals(Relation.NAME)) {
-                logic.addSelectedRelation((Relation) element);
+        try {
+            if (!selection.contains(element)) {
+                selection.add(element);
+                switch (element.getName()) {
+                case Way.NAME:
+                    logic.addSelectedWay((Way) element);
+                    break;
+                case Node.NAME:
+                    logic.addSelectedNode((Node) element);
+                    break;
+                case Relation.NAME:
+                    logic.addSelectedRelation((Relation) element);
+                    break;
+                default:
+                    throw new OsmException(element.getName());
+                }
+            } else {
+                selection.remove(element);
+                switch (element.getName()) {
+                case Way.NAME:
+                    logic.removeSelectedWay((Way) element);
+                    break;
+                case Node.NAME:
+                    logic.removeSelectedNode((Node) element);
+                    break;
+                case Relation.NAME:
+                    logic.removeSelectedRelation((Relation) element);
+                    break;
+                default:
+                    throw new OsmException(element.getName());
+                }
             }
-        } else {
-            selection.remove(element);
-            if (element.getName().equals(Way.NAME)) {
-                logic.removeSelectedWay((Way) element);
-            } else if (element.getName().equals(Node.NAME)) {
-                logic.removeSelectedNode((Node) element);
-            } else if (element.getName().equals(Relation.NAME)) {
-                logic.removeSelectedRelation((Relation) element);
-            }
+        } catch (OsmException osmex) {
+            Log.e(DEBUG_TAG, "Unkown element type " + osmex.getMessage());
         }
         if (selection.isEmpty()) {
             // nothing selected more .... stop
@@ -131,7 +148,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     }
 
     /**
-     * Set aselected object count in the action mode subtitle
+     * Set a selected object count in the action mode subtitle
      * 
      * @param mode the ActionMode
      */
