@@ -17,6 +17,8 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | Move Node                                                |
 |                           | Move Way                                                 |
 |                           | Merge Nodes                                              |
+|                           | Move Node to specific coordinates                        |
+|                           | Create Node at current coordinates                       |
 |                           | Add Node to Way                                          |
 |                           | Merge Ways                                               |
 |                           | Merge Polygons (closed ways)                             |                                          
@@ -28,16 +30,16 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | Invert Way direction                                     |
 |                           | Rotate Way                                               |
 |                           | Improve Way geometry                                     |
-|                           | Move multiple elements (multi-select)                    |
-|                           | Extract Node from Way                                    |
-|                           | Add element to Relation                                  |
-|                           | Remove element from Relation                             |
-|                           | Add element to Route                                     |
-|                           | Move Node to specific coordinates                        |
-|                           | Create Node at current coordinates                       |
 |                           | Orthogonalize Way(s)                                     |
 |                           | Circulize closed Way                                     |
 |                           | Intersect Ways                                           |
+|                           | Extract segment from way                                 |
+|                           | Select way nodes                                         |
+|                           | Extract Node from Way                                    |
+|                           | Move multiple elements (multi-select)                    |
+|                           | Add element to Relation                                  |
+|                           | Remove element from Relation                             |
+|                           | Add element to Route                                     |
 |__Tags__                   |                                                          |
 |                           | Tag copy and paste                                       |
 |                           | Form and preset based editor                             |
