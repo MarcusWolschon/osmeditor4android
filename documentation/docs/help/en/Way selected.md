@@ -84,6 +84,10 @@ As __Unjoin__ with the difference that nodes that are shared with ways that have
 
 Extracts a single node to node way segment from the selected way, after clicking on it and offers appropriate tagging via buttons. For example a highway segment can be extracted and given bridge or tunnel attributes with a small number of actions.
 
+### Select way nodes
+
+Selects all nodes in the way, de-selects the way and starts [Multiselect](Multiselect.md) mode.
+
 ### ![Copy](../images/ic_menu_copy_holo_light.png) Copy
 
 Copy the way to the internal copy and paste buffer.

@@ -829,6 +829,7 @@ avoided by using an offline data source.</string>
     <string name="menu_split_polygon">Split in to polygons</string>
     <string name="menu_unjoin_dissimilar">Unjoin dissimilar</string>
     <string name="menu_extract_segment">Extract segment</string>
+    <string name="menu_select_way_nodes">Select way nodes</string>
     <string name="menu_newnode_gps">New node at GPS position</string>
     <string name="menu_extend_selection">Extend selection</string>
     <string name="menu_information">Info</string>

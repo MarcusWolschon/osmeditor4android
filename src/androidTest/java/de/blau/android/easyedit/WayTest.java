@@ -1,5 +1,10 @@
 package de.blau.android.easyedit;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -89,52 +94,83 @@ public class WayTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         Way way = App.getLogic().getSelectedWay();
-        Assert.assertNotNull(way);
+        assertNotNull(way);
         List<Node> origWayNodes = new ArrayList<>(way.getNodes());
-        Assert.assertEquals(104148456L, way.getOsmId());
+        assertEquals(104148456L, way.getOsmId());
         // add some tags to way nodes so that we can check if they get deleted properly
         Node shouldBeDeleted1 = (Node) App.getDelegator().getOsmElement(Node.NAME, 1201766241L);
-        Assert.assertNotNull(shouldBeDeleted1);
+        assertNotNull(shouldBeDeleted1);
         java.util.Map<String, String> tags = new HashMap<>();
         tags.put("created_by", "vespucci test");
         logic.setTags(main, shouldBeDeleted1, tags);
         Node shouldntBeDeleted1 = (Node) App.getDelegator().getOsmElement(Node.NAME, 635762224L);
-        Assert.assertNotNull(shouldntBeDeleted1);
+        assertNotNull(shouldntBeDeleted1);
         tags = new HashMap<>();
         tags.put("shop", "vespucci test");
         logic.setTags(main, shouldntBeDeleted1, tags);
         //
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
-        Assert.assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertTrue(TestUtils.clickOverflowButton(device));
         String menuInfo = context.getString(R.string.menu_information);
         TestUtils.scrollTo(menuInfo, false);
-        Assert.assertTrue(TestUtils.clickText(device, false, menuInfo, true, false));
-        Assert.assertTrue(TestUtils.findText(device, false, "asphalt"));
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true, false));
-        Assert.assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, menuInfo, true, false));
+        assertTrue(TestUtils.findText(device, false, "asphalt"));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true, false));
+        assertTrue(TestUtils.clickOverflowButton(device));
         String menuDelete = context.getString(R.string.delete);
         TestUtils.scrollTo(menuDelete, false);
-        Assert.assertTrue(TestUtils.clickText(device, false, menuDelete, true, false));
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.deleteway_wayandnodes), true, false));
-        Assert.assertEquals(OsmElement.STATE_DELETED, way.getState());
-        Assert.assertEquals(OsmElement.STATE_DELETED, shouldBeDeleted1.getState());
+        assertTrue(TestUtils.clickText(device, false, menuDelete, true, false));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.deleteway_wayandnodes), true, false));
+        assertEquals(OsmElement.STATE_DELETED, way.getState());
+        assertEquals(OsmElement.STATE_DELETED, shouldBeDeleted1.getState());
         Node shouldBeDeleted2 = (Node) App.getDelegator().getOsmElement(Node.NAME, 635762221);
-        Assert.assertEquals(OsmElement.STATE_DELETED, shouldBeDeleted2.getState());
-        Assert.assertEquals(OsmElement.STATE_MODIFIED, shouldntBeDeleted1.getState());
+        assertEquals(OsmElement.STATE_DELETED, shouldBeDeleted2.getState());
+        assertEquals(OsmElement.STATE_MODIFIED, shouldntBeDeleted1.getState());
         Node shouldntBeDeleted2 = (Node) App.getDelegator().getOsmElement(Node.NAME, 1201766174);
-        Assert.assertEquals(OsmElement.STATE_UNCHANGED, shouldntBeDeleted2.getState());
+        assertEquals(OsmElement.STATE_UNCHANGED, shouldntBeDeleted2.getState());
         // undo
-        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
-        Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // for the tip alert
-        Assert.assertTrue(way.hasParentRelation(6490362L));
-        Assert.assertEquals(1, way.getParentRelations().size());
+        assertTrue(way.hasParentRelation(6490362L));
+        assertEquals(1, way.getParentRelations().size());
         List<Node> nodes = way.getNodes();
-        Assert.assertEquals(origWayNodes.size(), nodes.size());
+        assertEquals(origWayNodes.size(), nodes.size());
         for (int i = 0; i < nodes.size(); i++) {
-            Assert.assertEquals(origWayNodes.get(i), nodes.get(i));
+            assertEquals(origWayNodes.get(i), nodes.get(i));
+        }
+    }
+
+    /**
+     * Select way, select way nodes
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void selectWayNodes() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        List<Node> wayNodes = new ArrayList<>(way.getNodes());
+        assertEquals(104148456L, way.getOsmId());
+        //
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertTrue(TestUtils.clickOverflowButton(device));
+        String selectWayNodes = context.getString(R.string.menu_select_way_nodes);
+        TestUtils.scrollTo(selectWayNodes, false);
+        assertTrue(TestUtils.clickText(device, false, selectWayNodes, true, false));
+        assertTrue(TestUtils.findText(device, false, context.getResources().getQuantityString(R.plurals.actionmode_object_count, 2, 15)));
+        List<Node> selectedNodes = logic.getSelectedNodes();
+        assertEquals(wayNodes.size(), selectedNodes.size());
+        for (Node n : wayNodes) {
+            if (!selectedNodes.contains(n)) {
+                fail("Missing node " + n);
+            }
         }
     }
 
@@ -148,29 +184,29 @@ public class WayTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         Way way = App.getLogic().getSelectedWay();
-        Assert.assertNotNull(way);
-        Assert.assertEquals(104148456L, way.getOsmId());
+        assertNotNull(way);
+        assertEquals(104148456L, way.getOsmId());
 
-        Assert.assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickOverflowButton(device));
         TestUtils.scrollTo("Extract segment", false);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Extract segment", true, false));
-        Assert.assertTrue(TestUtils.findText(device, false, "Select segment"));
+        assertTrue(TestUtils.clickText(device, false, "Extract segment", true, false));
+        assertTrue(TestUtils.findText(device, false, "Select segment"));
 
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        Assert.assertTrue(TestUtils.findText(device, false, "Set tags"));
-        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.bridge), false, true));
+        assertTrue(TestUtils.findText(device, false, "Set tags"));
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.bridge), false, true));
 
         // should be in property editor now
-        Assert.assertTrue(TestUtils.findText(device, false, "Bridge"));
-        Assert.assertTrue(TestUtils.clickHome(device, true));
+        assertTrue(TestUtils.findText(device, false, "Bridge"));
+        assertTrue(TestUtils.clickHome(device, true));
 
         Way segment = logic.getSelectedWay();
-        Assert.assertNotNull(segment);
-        Assert.assertEquals(2, segment.nodeCount());
-        Assert.assertTrue(segment.hasTag(Tags.KEY_BRIDGE, Tags.VALUE_YES));
-        Assert.assertTrue(segment.hasTag(Tags.KEY_LAYER, "1"));
+        assertNotNull(segment);
+        assertEquals(2, segment.nodeCount());
+        assertTrue(segment.hasTag(Tags.KEY_BRIDGE, Tags.VALUE_YES));
+        assertTrue(segment.hasTag(Tags.KEY_LAYER, "1"));
     }
 
     /**
@@ -183,36 +219,36 @@ public class WayTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 22);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         List<Node> origWayNodes = new ArrayList<>(way.getNodes());
-        Assert.assertNotNull(way);
-        Assert.assertEquals(104148456L, way.getOsmId());
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertNotNull(way);
+        assertEquals(104148456L, way.getOsmId());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
 
         int originalNodeCount = App.getDelegator().getApiNodeCount();
 
         // drag a handle
         TestUtils.drag(device, map, 8.3893800, 47.389559, 8.38939, 47.389550, false, 10);
-        Assert.assertEquals(origWayNodes.size() + 1, way.getNodes().size());
-        Assert.assertEquals(originalNodeCount + 1, App.getDelegator().getApiNodeCount());
+        assertEquals(origWayNodes.size() + 1, way.getNodes().size());
+        assertEquals(originalNodeCount + 1, App.getDelegator().getApiNodeCount());
 
         // try to upload the way, check that we have two elements and then cancel
-        Assert.assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickOverflowButton(device));
         TestUtils.scrollTo("Upload element", false);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Upload element", true, true));
-        Assert.assertTrue(TestUtils.findText(device, false, "Upload these 2 changes?"));
-        Assert.assertTrue(TestUtils.clickText(device, false, "NO", true, true));
+        assertTrue(TestUtils.clickText(device, false, "Upload element", true, true));
+        assertTrue(TestUtils.findText(device, false, "Upload these 2 changes?"));
+        assertTrue(TestUtils.clickText(device, false, "NO", true, true));
 
         // undo
-        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
-        Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // for the tip alert
         List<Node> nodes = way.getNodes();
-        Assert.assertEquals(origWayNodes.size(), nodes.size());
+        assertEquals(origWayNodes.size(), nodes.size());
         for (int i = 0; i < nodes.size(); i++) {
-            Assert.assertEquals(origWayNodes.get(i), nodes.get(i));
+            assertEquals(origWayNodes.get(i), nodes.get(i));
         }
-        Assert.assertEquals(originalNodeCount, App.getDelegator().getApiNodeCount());
+        assertEquals(originalNodeCount, App.getDelegator().getApiNodeCount());
     }
 }

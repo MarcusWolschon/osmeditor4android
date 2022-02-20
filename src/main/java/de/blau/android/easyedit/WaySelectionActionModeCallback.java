@@ -1,6 +1,7 @@
 package de.blau.android.easyedit;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -44,6 +45,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     private static final int    MENUITEM_UNJOIN_DISSIMILAR = LAST_REGULAR_MENUITEM + 14;
     private static final int    MENUITEM_REMOVE_NODE       = LAST_REGULAR_MENUITEM + 15;
     private static final int    MENUITEM_EXTRACT_SEGMENT   = LAST_REGULAR_MENUITEM + 16;
+    private static final int    MENUITEM_SELECT_WAY_NODES  = LAST_REGULAR_MENUITEM + 17;
 
     private Set<OsmElement> cachedMergeableWays;
     private Set<OsmElement> cachedAppendableNodes;
@@ -131,14 +133,16 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
 
         extractSegmentItem = menu.add(Menu.NONE, MENUITEM_EXTRACT_SEGMENT, Menu.NONE, R.string.menu_extract_segment);
 
+        menu.add(Menu.NONE, MENUITEM_SELECT_WAY_NODES, Menu.NONE, R.string.menu_select_way_nodes);
+
         return true;
     }
 
     @Override
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        Log.d(DEBUG_TAG, "onPrepareActionMode");
         menu = replaceMenu(menu, mode, this);
         boolean updated = super.onPrepareActionMode(mode, menu);
-        Log.d(DEBUG_TAG, "onPrepareActionMode");
 
         Way way = (Way) element;
         int size = way.getNodes().size();
@@ -268,6 +272,11 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 break;
             case MENUITEM_EXTRACT_SEGMENT:
                 main.startSupportActionMode(new WaySegmentActionModeCallback(manager, way));
+                break;
+            case MENUITEM_SELECT_WAY_NODES:
+                logic.deselectAll();
+                deselect = false;
+                main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, new ArrayList<>(new HashSet<>(way.getNodes()))));
                 break;
             default:
                 return false;
