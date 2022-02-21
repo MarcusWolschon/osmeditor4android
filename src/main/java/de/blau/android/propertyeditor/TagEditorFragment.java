@@ -390,10 +390,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     }
                 }
                 updateAutocompletePresetItem(editRowLayout, null, false); // here after preset has been applied
-            } else if (prefs.autoApplyPreset()) {
+            } else {
                 updateAutocompletePresetItem(editRowLayout, null, false); // here before preset has been applied
                 PresetItem pi = getBestPreset();
-                if (pi != null) {
+                if (prefs.autoApplyPreset() && pi != null) {
                     if (pi.autoapply()) {
                         applyPreset(editRowLayout, pi, false, true, false);
                     } else {
