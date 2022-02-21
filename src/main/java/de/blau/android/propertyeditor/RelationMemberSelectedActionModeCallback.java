@@ -210,7 +210,7 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
                     members.remove(entry);
                 }
             }
-            members.addAll(top, temp);
+            members.addAll(Math.min(top, members.size()), temp);
             ((RelationMembersFragment) caller).setIcons();
             adapter.notifyDataSetChanged();
             ((RelationMembersFragment) caller).scrollToRow(top);
