@@ -142,8 +142,7 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
             if (currentAction != null) {
                 currentAction.finish();
             }
-            ((RelationMembersFragment) caller).setIcons();
-            adapter.notifyDataSetChanged();
+            update();
             break;
         case SelectedRowsActionModeCallback.MENU_ITEM_SELECT_ALL:
             ((PropertyRows) caller).selectAllRows();
@@ -174,8 +173,7 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
                     members.add(newPos, selected.get(i));
                 }
             }
-            ((RelationMembersFragment) caller).setIcons();
-            adapter.notifyDataSetChanged();
+            update();
             ((RelationMembersFragment) caller).scrollToRow(selectedPos.get(0));
             return true;
         case MENU_ITEM_MOVE_BOTTOM:
@@ -198,8 +196,7 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
                     members.add(newPos, selected.get(i));
                 }
             }
-            ((RelationMembersFragment) caller).setIcons();
-            adapter.notifyDataSetChanged();
+            update();
             ((RelationMembersFragment) caller).scrollToRow(selectedPos.get(selectedPos.size() - 1));
             return true;
         case MENU_ITEM_SORT:
@@ -211,8 +208,7 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
                 }
             }
             members.addAll(Math.min(top, members.size()), temp);
-            ((RelationMembersFragment) caller).setIcons();
-            adapter.notifyDataSetChanged();
+            update();
             ((RelationMembersFragment) caller).scrollToRow(top);
             return true;
         case MENU_ITEM_REVERSE_ORDER:
@@ -224,8 +220,7 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
                 members.set(p, temp.get(i));
                 i++;
             }
-            ((RelationMembersFragment) caller).setIcons();
-            adapter.notifyDataSetChanged();
+            update();
             ((RelationMembersFragment) caller).scrollToRow(top);
             return true;
         case MENU_ITEM_TOP:
@@ -245,8 +240,7 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
                     }
                     currentAction.finish();
                     Progress.dismissDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
-                    ((RelationMembersFragment) caller).setIcons();
-                    adapter.notifyDataSetChanged();
+                    update();
                 }
             };
             final Logic logic = App.getLogic();
@@ -283,6 +277,17 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
 
         }
         return true;
+    }
+
+    /**
+     * Update the connections and notify the adapter
+     */
+    private void update() {
+        for (int i = 0; i < members.size(); i++) {
+            members.get(i).setPosition(i);
+        }
+        ((RelationMembersFragment) caller).setIcons();
+        adapter.notifyDataSetChanged();
     }
 
     @Override
