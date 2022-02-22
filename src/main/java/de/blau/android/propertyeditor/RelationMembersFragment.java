@@ -207,15 +207,12 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             savingHelper.save(getContext(), FILENAME_ORIG_MEMBERS, members, true);
         }
 
-        Preferences prefs = App.getLogic().getPrefs();
-        Server server = prefs.getServer();
-
-        for (RelationMemberDescription rmd : members) {
-            membersInternal.add(new MemberEntry(rmd));
-        }
+        populateMembersInternal(members);
 
         setIcons(membersInternal);
 
+        Preferences prefs = App.getLogic().getPrefs();
+        Server server = prefs.getServer();
         adapter = new RelationMemberAdapter(getContext(), inflater, membersInternal, (buttonView, isChecked) -> {
             if (isChecked) {
                 memberSelected(null);
@@ -305,9 +302,9 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
      */
     private Connected getConnection(@Nullable MemberEntry previousRow, @NonNull MemberEntry currentRow, @Nullable MemberEntry nextRow) {
         Connected result = Connected.NOT;
-        RelationMemberDescription previous = previousRow != null ? previousRow : null;
+        RelationMemberDescription previous = previousRow;
         RelationMemberDescription current = currentRow;
-        RelationMemberDescription next = nextRow != null ? nextRow : null;
+        RelationMemberDescription next = nextRow;
         synchronized (current) {
             String currentType = current.getType();
             if (current.getElement() == null) {
@@ -438,9 +435,10 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                                     }
                                 } else if (Node.NAME.equals(next.getType())) {
                                     Node nextNode = (Node) nextElement;
-                                    if (notused == null && (nextNode.equals(first) || nextNode.equals(last))) {
+                                    boolean firstNodeMatches = nextNode.equals(first);
+                                    if (notused == null && (firstNodeMatches || nextNode.equals(last))) {
                                         result = Connected.DOWN;
-                                        currentRow.down = nextNode.equals(first) ? first : last;
+                                        currentRow.down = firstNodeMatches ? first : last;
                                     } else if (nextNode.equals(notused)) {
                                         result = Connected.BOTH;
                                         currentRow.down = notused;
@@ -457,7 +455,8 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                 if (previous != null) {
                     synchronized (previous) {
                         if (Way.NAME.equals(previous.getType()) && previous.downloaded()) {
-                            if (((Way) previous.getElement()).getLastNode().equals(n) || ((Way) previous.getElement()).getFirstNode().equals(n)) {
+                            Way way = (Way) previous.getElement();
+                            if (way.getLastNode().equals(n) || way.getFirstNode().equals(n)) {
                                 result = Connected.UP;
                             }
                         }
@@ -466,7 +465,8 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                 if (next != null) {
                     synchronized (next) {
                         if (Way.NAME.equals(next.getType()) && next.downloaded()) {
-                            if (((Way) next.getElement()).getLastNode().equals(n) || ((Way) next.getElement()).getFirstNode().equals(n)) {
+                            Way way = (Way) next.getElement();
+                            if (way.getLastNode().equals(n) || way.getFirstNode().equals(n)) {
                                 if (result == Connected.UP) {
                                     result = Connected.BOTH;
                                 } else {
@@ -551,7 +551,6 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
 
             roleEdit = (AutoCompleteTextView) findViewById(R.id.editMemberRole);
             roleEdit.setOnKeyListener(PropertyEditor.myKeyListener);
-            // lastEditKey.setSingleLine(true);
 
             typeView = (ImageView) findViewById(R.id.memberType);
 
@@ -706,7 +705,6 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             }
         }
 
-
         /**
          * Set a water for the role autocomplete
          * 
@@ -764,10 +762,12 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
          * Create an ArrayAdapter containing role values for a certain member Note: this uses the tags of the first
          * element if multiple are selected to determine which preset to use
          * 
+         * Note this does not support multi-select
+         * 
          * @return an ArrayAdapter
          */
         @NonNull
-        ArrayAdapter<PresetRole> getMemberRoleAutocompleteAdapter() { // FIXME for multiselect
+        ArrayAdapter<PresetRole> getMemberRoleAutocompleteAdapter() {
             List<PresetRole> roles = new ArrayList<>();
             List<LinkedHashMap<String, String>> allTags = owner.getUpdatedTags();
             if (allTags != null && !allTags.isEmpty()) {
@@ -963,15 +963,27 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
      * reload original member list
      */
     void doRevert() {
-        ArrayList<RelationMemberDescription> members = savingHelper.load(getContext(), FILENAME_ORIG_MEMBERS, true);
+        List<RelationMemberDescription> members = savingHelper.load(getContext(), FILENAME_ORIG_MEMBERS, true);
         if (members != null) {
             membersInternal.clear();
-            for (RelationMemberDescription rmd : members) {
-                membersInternal.add(new MemberEntry(rmd));
-            }
+            populateMembersInternal(members);
         }
         setIcons();
         adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Copy a list of RelationMemberDescription to the internal list for the adapter
+     * 
+     * @param members the List of RelationMemberDescription
+     */
+    private void populateMembersInternal(List<RelationMemberDescription> members) {
+        int pos = 0;
+        for (RelationMemberDescription rmd : members) {
+            rmd.setPosition(pos);
+            membersInternal.add(new MemberEntry(rmd));
+            pos++;
+        }
     }
 
     @Override
