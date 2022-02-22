@@ -45,6 +45,17 @@ public class RelationMemberDescription extends RelationMember {
     }
 
     /**
+     * Construct a new RelationMemberDescription from an existing one
+     * 
+     * @param rmd the existing RelationMemberDescription
+     */
+    public RelationMemberDescription(@NonNull final RelationMemberDescription rmd) {
+        super(rmd.getType(), rmd.getRef(), rmd.getRole());
+        description = rmd.description;
+        position = rmd.position;
+    }
+    
+    /**
      * Get the description for this object if any
      * 
      * @return a String with the description of null if none
@@ -117,7 +128,7 @@ public class RelationMemberDescription extends RelationMember {
         result = 37 * result + position;
         return result;
     }
-    
+
     /**
      * Serialize this object
      * 
@@ -127,5 +138,10 @@ public class RelationMemberDescription extends RelationMember {
     private void writeObject(java.io.ObjectOutputStream out) throws IOException {
         super.setElement(null); // don't save the actual relation ref
         out.defaultWriteObject();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " " + position;
     }
 }
