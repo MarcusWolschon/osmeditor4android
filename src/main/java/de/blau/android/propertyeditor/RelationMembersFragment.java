@@ -455,7 +455,8 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                 if (previous != null) {
                     synchronized (previous) {
                         if (Way.NAME.equals(previous.getType()) && previous.downloaded()) {
-                            if (((Way) previous.getElement()).getLastNode().equals(n) || ((Way) previous.getElement()).getFirstNode().equals(n)) {
+                            Way way = (Way) previous.getElement();
+                            if (way.getLastNode().equals(n) || way.getFirstNode().equals(n)) {
                                 result = Connected.UP;
                             }
                         }
@@ -464,7 +465,8 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                 if (next != null) {
                     synchronized (next) {
                         if (Way.NAME.equals(next.getType()) && next.downloaded()) {
-                            if (((Way) next.getElement()).getLastNode().equals(n) || ((Way) next.getElement()).getFirstNode().equals(n)) {
+                            Way way = (Way) next.getElement();
+                            if (way.getLastNode().equals(n) || way.getFirstNode().equals(n)) {
                                 if (result == Connected.UP) {
                                     result = Connected.BOTH;
                                 } else {
@@ -549,7 +551,6 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
 
             roleEdit = (AutoCompleteTextView) findViewById(R.id.editMemberRole);
             roleEdit.setOnKeyListener(PropertyEditor.myKeyListener);
-            // lastEditKey.setSingleLine(true);
 
             typeView = (ImageView) findViewById(R.id.memberType);
 
@@ -761,10 +762,12 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
          * Create an ArrayAdapter containing role values for a certain member Note: this uses the tags of the first
          * element if multiple are selected to determine which preset to use
          * 
+         * Note this does not support multi-select
+         * 
          * @return an ArrayAdapter
          */
         @NonNull
-        ArrayAdapter<PresetRole> getMemberRoleAutocompleteAdapter() { // FIXME for multiselect
+        ArrayAdapter<PresetRole> getMemberRoleAutocompleteAdapter() {
             List<PresetRole> roles = new ArrayList<>();
             List<LinkedHashMap<String, String>> allTags = owner.getUpdatedTags();
             if (allTags != null && !allTags.isEmpty()) {
