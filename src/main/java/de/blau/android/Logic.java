@@ -4125,7 +4125,6 @@ public class Logic {
                     case HttpURLConnection.HTTP_UNAVAILABLE:
                         result.setError(ErrorCodes.UPLOAD_PROBLEM);
                         break;
-                    // TODO: implement other state handling
                     default:
                         Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
                         result.setError(ErrorCodes.UNKNOWN_ERROR);
