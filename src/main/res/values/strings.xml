@@ -1279,6 +1279,7 @@ avoided by using an offline data source.</string>
     <string name="report_failure">Could not send report.</string>
     <!-- Exceptions messages -->
     <string name="exception_too_many_nodes">This operation would create a way with too many nodes.</string>
+    <string name="exception_too_many_members">This operation would add too many members to relation %1$s.</string>
     <!-- Notifications -->
     <string name="alert_data_issue">OSM data issue detected</string>
     <string name="alert_note">Nearby OSM note detected</string>
@@ -1310,7 +1311,7 @@ avoided by using an offline data source.</string>
     <string name="bridge">Bridge</string>
     <string name="tunnel">Tunnel</string>
     <string name="culvert">Culvert</string>
-    <!-- Tag issues -->
+    <!-- Issues -->
     <string name="issue_not_reversable">Tags not reversable</string>
     <string name="issue_shared_node">Shared with other way</string>
     <string name="issue_tags_reversed">Tags reversed</string>
@@ -1321,6 +1322,7 @@ avoided by using an offline data source.</string>
     <string name="issue_merged_metric">Length dependent value was merged</string>
     <string name="issue_split_metric">Length dependent value was split</string>
     <string name="issue_split_route_ordering">Route may need manual reordering</string>
+    <string name="issue_precondition_relation_member_count">Relation memebr count exceeded</string>
     <!-- time and distance -->
     <plurals name="days">
         <item quantity="one">1 day</item>

@@ -13,6 +13,8 @@ import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
+import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
@@ -95,19 +97,24 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
             final Node viaNode = ((Way) viaElement).getCommonNode(toWay);
             if (!viaWay.isEndNode(viaNode)) {
                 splitSafe(Util.wrapInList(viaWay), () -> {
-                    // split via way and use appropriate segment
-                    List<Result> result = logic.performSplit(main, viaWay, viaNode);
-                    Way newViaWay = newWayFromSplitResult(result);
-                    if (newViaWay != null) {
-                        checkSplitResult(viaWay, result);
-                        Snack.barInfo(main, R.string.toast_split_via);
-                        if (fromWay.hasNode(newViaWay.getFirstNode()) || fromWay.hasNode(newViaWay.getLastNode())) {
-                            viaElement = newViaWay;
+                    try {
+                        // split via way and use appropriate segment
+                        List<Result> result = logic.performSplit(main, viaWay, viaNode);
+                        Way newViaWay = newWayFromSplitResult(result);
+                        if (newViaWay != null) {
+                            checkSplitResult(viaWay, result);
+                            Snack.barInfo(main, R.string.toast_split_via);
+                            if (fromWay.hasNode(newViaWay.getFirstNode()) || fromWay.hasNode(newViaWay.getLastNode())) {
+                                viaElement = newViaWay;
+                            }
+                        } else {
+                            Log.e(DEBUG_TAG, "newViaWay is null");
                         }
-                    } else {
-                        Log.e(DEBUG_TAG, "newViaWay is null");
+                        nextStep(element, viaNode, toWay);
+                    } catch (OsmIllegalOperationException | StorageException ex) {
+                        // toast has already been displayed
+                        manager.finish();
                     }
-                    nextStep(element, viaNode, toWay);
                 });
                 return true;
             }
@@ -133,14 +140,19 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
                     new RestrictionWaySplittingActionModeCallback(manager, R.string.actionmode_restriction_split_via, toWay, fromWay, savedResults));
         } else if (!toWay.isEndNode(viaNode) && !toWay.isClosed()) { // now check if we need to split the toWay
             splitSafe(Util.wrapInList(toWay), () -> {
-                List<Result> result = logic.performSplit(main, toWay, viaNode);
-                Way newToWay = newWayFromSplitResult(result);
-                saveSplitResult(toWay, result);
-                Snack.barInfo(main, R.string.toast_split_to);
-                Set<OsmElement> toCandidates = new HashSet<>();
-                toCandidates.add(toWay);
-                toCandidates.add(newToWay);
-                main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaElement, toCandidates, savedResults));
+                try {
+                    List<Result> result = logic.performSplit(main, toWay, viaNode);
+                    Way newToWay = newWayFromSplitResult(result);
+                    saveSplitResult(toWay, result);
+                    Snack.barInfo(main, R.string.toast_split_to);
+                    Set<OsmElement> toCandidates = new HashSet<>();
+                    toCandidates.add(toWay);
+                    toCandidates.add(newToWay);
+                    main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaElement, toCandidates, savedResults));
+                } catch (OsmIllegalOperationException | StorageException ex) {
+                    // toast has already been displayed
+                    manager.finish();
+                }
             });
         } else {
             toSelected = true;

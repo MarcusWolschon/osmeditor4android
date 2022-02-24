@@ -699,11 +699,16 @@ public class Logic {
         } else {
             List<Relation> originalParents = osmElement.hasParentRelations() ? new ArrayList<>(osmElement.getParentRelations()) : null;
             createCheckpoint(activity, R.string.undo_action_update_relations);
-            getDelegator().updateParentRelations(osmElement, parents);
-            if (activity != null) {
-                ElementSelectionActionModeCallback.checkEmptyRelations(activity, originalParents);
+            try {
+                getDelegator().updateParentRelations(osmElement, parents);
+                if (activity != null) {
+                    ElementSelectionActionModeCallback.checkEmptyRelations(activity, originalParents);
+                }
+                return true;
+            } catch (OsmIllegalOperationException | StorageException ex) {
+                handleDelegatorException(activity, ex);
+                throw ex; // rethrow
             }
-            return true;
         }
     }
 
@@ -715,15 +720,20 @@ public class Logic {
      * @param members The new list of members to set for the given relation.
      * @return true if the members was updated
      */
-    public synchronized boolean updateRelation(@Nullable Activity activity, long osmId, List<RelationMemberDescription> members) {
+    public synchronized boolean updateRelation(@Nullable FragmentActivity activity, long osmId, List<RelationMemberDescription> members) {
         OsmElement osmElement = getDelegator().getOsmElement(Relation.NAME, osmId);
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to update non-existing relation #" + osmId);
             return false;
         } else {
-            createCheckpoint(activity, R.string.undo_action_update_relations);
-            getDelegator().updateRelation((Relation) osmElement, members);
-            return true;
+            try {
+                createCheckpoint(activity, R.string.undo_action_update_relations);
+                getDelegator().updateRelation((Relation) osmElement, members);
+                return true;
+            } catch (OsmIllegalOperationException | StorageException ex) {
+                handleDelegatorException(activity, ex);
+                throw ex; // rethrow
+            }
         }
     }
 
@@ -1942,14 +1952,12 @@ public class Logic {
         if (ex instanceof OsmIllegalOperationException) {
             dismissAttachedObjectWarning(activity);
             if (activity != null) {
-                Snack.toastTopError(activity, activity.getString(R.string.toast_illegal_operation, ex.getMessage()));
+                Snack.toastTopError(activity, activity.getString(R.string.toast_illegal_operation, ex.getLocalizedMessage()));
             }
             rollback();
             invalidateMap();
-        } else if (ex instanceof StorageException) {
-            if (activity != null) {
-                Snack.barError(activity, R.string.toast_out_of_memory);
-            }
+        } else if ((ex instanceof StorageException) && activity != null) {
+            Snack.toastTopError(activity, R.string.toast_out_of_memory);
         }
     }
 
@@ -1979,8 +1987,10 @@ public class Logic {
      * @param way the way to split
      * @param node the node at which the way should be split
      * @return a Result object containing the new Way or null if failed
+     * @throws OsmIllegalOperationException if the operation failed
+     * @throws StorageException if we ran out of memory
      */
-    @Nullable
+    @NonNull
     public synchronized List<Result> performSplit(@Nullable final FragmentActivity activity, @NonNull final Way way, @NonNull final Node node) {
         createCheckpoint(activity, R.string.undo_action_split_way);
         try {
@@ -1989,7 +1999,7 @@ public class Logic {
             return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
-            return null;
+            throw ex; // rethrow
         }
     }
 
@@ -2002,8 +2012,10 @@ public class Logic {
      * @param node2 second split point
      * @param createPolygons create polygons by closing the split ways if true
      * @return null if the split fails, the two ways otherwise
+     * @throws OsmIllegalOperationException if the operation failed
+     * @throws StorageException if we ran out of memory
      */
-    @Nullable
+    @NonNull
     public synchronized Way[] performClosedWaySplit(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2,
             boolean createPolygons) {
         createCheckpoint(activity, R.string.undo_action_split_way);
@@ -2014,7 +2026,7 @@ public class Logic {
             return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
-            return null;
+            throw ex; // rethrow
         }
     }
 
@@ -2027,7 +2039,7 @@ public class Logic {
      * @param node2 second split point
      * @return null if the split fails, the segment otherwise
      */
-    @Nullable
+    @NonNull
     public synchronized List<Result> performExtractSegment(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2) {
         createCheckpoint(activity, R.string.undo_action_extract_segment);
         try {
@@ -2053,7 +2065,7 @@ public class Logic {
             return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
             handleDelegatorException(activity, ex);
-            return null;
+            throw ex;
         }
     }
 
@@ -4125,7 +4137,6 @@ public class Logic {
                     case HttpURLConnection.HTTP_UNAVAILABLE:
                         result.setError(ErrorCodes.UPLOAD_PROBLEM);
                         break;
-                    // TODO: implement other state handling
                     default:
                         Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
                         result.setError(ErrorCodes.UNKNOWN_ERROR);
@@ -4928,22 +4939,27 @@ public class Logic {
      * @param restrictionType the kind of turn which is restricted
      * @return a relation element for the turn restriction
      */
-    public Relation createRestriction(@Nullable Activity activity, @NonNull Way fromWay, @NonNull OsmElement viaElement, @NonNull Way toWay,
+    @NonNull
+    public Relation createRestriction(@Nullable FragmentActivity activity, @NonNull Way fromWay, @NonNull OsmElement viaElement, @NonNull Way toWay,
             @Nullable String restrictionType) {
         createCheckpoint(activity, R.string.undo_action_create_relation);
         Relation restriction = getDelegator().createAndInsertRelation(null);
         SortedMap<String, String> tags = new TreeMap<>();
         tags.put(Tags.VALUE_RESTRICTION, restrictionType == null ? "" : restrictionType);
         tags.put(Tags.KEY_TYPE, Tags.VALUE_RESTRICTION);
-        getDelegator().setTags(restriction, tags);
-        RelationMember from = new RelationMember(Tags.ROLE_FROM, fromWay);
-        getDelegator().addMemberToRelation(from, restriction);
-        RelationMember via = new RelationMember(Tags.ROLE_VIA, viaElement);
-        getDelegator().addMemberToRelation(via, restriction);
-        RelationMember to = new RelationMember(Tags.ROLE_TO, toWay);
-        getDelegator().addMemberToRelation(to, restriction);
-
-        return restriction;
+        try {
+            getDelegator().setTags(restriction, tags);
+            RelationMember from = new RelationMember(Tags.ROLE_FROM, fromWay);
+            getDelegator().addMemberToRelation(from, restriction);
+            RelationMember via = new RelationMember(Tags.ROLE_VIA, viaElement);
+            getDelegator().addMemberToRelation(via, restriction);
+            RelationMember to = new RelationMember(Tags.ROLE_TO, toWay);
+            getDelegator().addMemberToRelation(to, restriction);
+            return restriction;
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
+        }
     }
 
     /**
@@ -4955,11 +4971,16 @@ public class Logic {
      * @return the new relation
      */
     @NonNull
-    public Relation createRelation(@Nullable Activity activity, String type, List<OsmElement> members) {
+    public Relation createRelation(@Nullable FragmentActivity activity, String type, List<OsmElement> members) {
         createCheckpoint(activity, R.string.undo_action_create_relation);
-        Relation relation = getDelegator().createAndInsertRelation(members);
-        setRelationType(type, relation);
-        return relation;
+        try {
+            Relation relation = getDelegator().createAndInsertRelation(members);
+            setRelationType(type, relation);
+            return relation;
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
+        }
     }
 
     /**
@@ -5001,9 +5022,14 @@ public class Logic {
      * @param relation Relation we want to add the members to
      * @param members List of members to add
      */
-    public void addMembers(@Nullable Activity activity, @NonNull Relation relation, @NonNull List<OsmElement> members) {
+    public void addMembers(@Nullable FragmentActivity activity, @NonNull Relation relation, @NonNull List<OsmElement> members) {
         createCheckpoint(activity, R.string.undo_action_update_relations);
-        getDelegator().addMembersToRelation(relation, members);
+        try {
+            getDelegator().addMembersToRelation(relation, members);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
+        }
     }
 
     /**
@@ -5013,24 +5039,34 @@ public class Logic {
      * @param relation Relation we want to add the members to
      * @param members List of RelationMembers to add
      */
-    public void addRelationMembers(@Nullable Activity activity, @NonNull Relation relation, @NonNull List<RelationMember> members) {
+    public void addRelationMembers(@Nullable FragmentActivity activity, @NonNull Relation relation, @NonNull List<RelationMember> members) {
         createCheckpoint(activity, R.string.undo_action_update_relations);
-        getDelegator().addRelationMembersToRelation(relation, members);
+        try {
+            getDelegator().addRelationMembersToRelation(relation, members);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
+        }
     }
 
     /**
-     * Adds the list of RelationMembers to the given relation
+     * Update the list of RelationMembers for given relation
      * 
      * @param activity activity we were called from
      * @param relation Relation we want to update
      * @param removeMembers List of RelationMembers to remove
      * @param addMembers List of RelationMembers to add
      */
-    public void updateRelationMembers(@Nullable Activity activity, @NonNull Relation relation, @NonNull List<RelationMember> removeMembers,
+    public void updateRelationMembers(@Nullable FragmentActivity activity, @NonNull Relation relation, @NonNull List<RelationMember> removeMembers,
             @NonNull List<RelationMember> addMembers) {
         createCheckpoint(activity, R.string.undo_action_update_relations);
-        getDelegator().removeRelationMembersFromRelation(relation, removeMembers);
-        getDelegator().addRelationMembersToRelation(relation, addMembers);
+        try {
+            getDelegator().removeRelationMembersFromRelation(relation, removeMembers);
+            getDelegator().addRelationMembersToRelation(relation, addMembers);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
+        }
     }
 
     /**

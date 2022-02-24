@@ -113,6 +113,7 @@ import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.SimpleActionModeCallback;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.PresetFilter;
 import de.blau.android.filter.TagFilter;
@@ -2901,6 +2902,7 @@ public class Main extends FullScreenAppCompatActivity
                     App.getTaskStorage().readFromFile(this);
                 }
             }
+
             for (PropertyEditorData editorData : result) {
                 if (editorData == null) {
                     Log.d(DEBUG_TAG, "handlePropertyEditorResult null result");
@@ -2914,18 +2916,23 @@ public class Main extends FullScreenAppCompatActivity
                         Snack.barError(this, e.getMessage());
                     }
                 }
-                if (editorData.parents != null) {
-                    Log.d(DEBUG_TAG, "handlePropertyEditorResult setting parents");
-                    logic.updateParentRelations(this, editorData.type, editorData.osmId, editorData.parents);
-                }
-                if (editorData.members != null && editorData.type.equals(Relation.NAME)) {
-                    Log.d(DEBUG_TAG, "handlePropertyEditorResult setting members");
-                    logic.updateRelation(this, editorData.osmId, editorData.members);
-                    Relation updatedRelation = (Relation) App.getDelegator().getOsmElement(Relation.NAME, editorData.osmId);
-                    if (logic.isSelected(updatedRelation)) { // This might be unnecessary
-                        logic.removeSelectedRelation(updatedRelation);
-                        logic.setSelectedRelation(updatedRelation);
+                try {
+                    if (editorData.parents != null) {
+                        Log.d(DEBUG_TAG, "handlePropertyEditorResult setting parents");
+                        logic.updateParentRelations(this, editorData.type, editorData.osmId, editorData.parents);
                     }
+                    if (editorData.members != null && editorData.type.equals(Relation.NAME)) {
+                        Log.d(DEBUG_TAG, "handlePropertyEditorResult setting members");
+                        logic.updateRelation(this, editorData.osmId, editorData.members);
+                        Relation updatedRelation = (Relation) App.getDelegator().getOsmElement(Relation.NAME, editorData.osmId);
+                        if (logic.isSelected(updatedRelation)) { // This might be unnecessary
+                            logic.removeSelectedRelation(updatedRelation);
+                            logic.setSelectedRelation(updatedRelation);
+                        }
+                    }
+                } catch (OsmIllegalOperationException | StorageException ex) {
+                    // logic has already toasted
+                    break;
                 }
             }
             // this is very expensive: getLogic().saveAsync(); // if nothing was

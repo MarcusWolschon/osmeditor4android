@@ -1048,7 +1048,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param createPolygons split in to two polygons
      * @return null if split failed or wasn't possible, the two resulting ways otherwise
      */
-    @Nullable
+    @NonNull
     public Way[] splitAtNodes(@NonNull Way way, @NonNull Node node1, @NonNull Node node2, boolean createPolygons) {
         Log.d(DEBUG_TAG, "splitAtNodes way " + way.getOsmId() + " node1 " + node1.getOsmId() + " node2 " + node2.getOsmId());
         // undo - old way is saved here, new way is saved at insert
@@ -1057,8 +1057,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
         List<Node> nodes = way.getNodes();
         if (nodes.size() < 3) {
-            return null;
+            throw new OsmIllegalOperationException("Closed way with less than three nodes cannot be split");
         }
+
+        validateRelationMemberCount(way.getParentRelations(), 1);
 
         /*
          * convention iterate over list, copy everything between first split node found and 2nd split node found if 2nd
@@ -1089,9 +1091,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
             } else if ((found1 && !found2) || (!found1 && found2)) {
                 nodesForNewWay.add(wayNode);
-            } else if (!found1 && !found2) {
+            } else if (!found1) {
                 nodesForOldWay1.add(wayNode);
-            } else if (found1 && found2) {
+            } else {
                 nodesForOldWay2.add(wayNode);
             }
         }
@@ -1114,35 +1116,29 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             oldNodes.addAll(nodesForOldWay2);
         }
         List<OsmElement> changedElements = new ArrayList<>();
-        try {
-            if (createPolygons && way.nodeCount() > Way.MINIMUM_NODES_IN_WAY) { // close the original way now
-                way.addNode(way.getFirstNode());
-            }
-            way.updateState(OsmElement.STATE_MODIFIED);
-            apiStorage.insertElementSafe(way);
-            changedElements.add(way);
-
-            // create the new way
-            Way newWay = factory.createWayWithNewId();
-            newWay.addTags(way.getTags());
-            newWay.addNodes(nodesForNewWay, false);
-            if (createPolygons && newWay.nodeCount() > Way.MINIMUM_NODES_IN_WAY) { // close the new way now
-                newWay.addNode(newWay.getFirstNode());
-            }
-            insertElementUnsafe(newWay);
-
-            addSplitWayToRelations(way, true, newWay, changedElements);
-
-            onElementChanged(null, changedElements);
-            Way[] result = new Way[2];
-            result[0] = way;
-            result[1] = newWay;
-            return result;
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "splitAtNodes got " + e.getMessage());
+        if (createPolygons && way.nodeCount() > Way.MINIMUM_NODES_IN_WAY) { // close the original way now
+            way.addNode(way.getFirstNode());
         }
-        return null;
+        way.updateState(OsmElement.STATE_MODIFIED);
+        apiStorage.insertElementSafe(way);
+        changedElements.add(way);
+
+        // create the new way
+        Way newWay = factory.createWayWithNewId();
+        newWay.addTags(way.getTags());
+        newWay.addNodes(nodesForNewWay, false);
+        if (createPolygons && newWay.nodeCount() > Way.MINIMUM_NODES_IN_WAY) { // close the new way now
+            newWay.addNode(newWay.getFirstNode());
+        }
+        insertElementUnsafe(newWay);
+
+        addSplitWayToRelations(way, true, newWay, changedElements);
+
+        onElementChanged(null, changedElements);
+        Way[] result = new Way[2];
+        result[0] = way;
+        result[1] = newWay;
+        return result;
     }
 
     /**
@@ -1170,6 +1166,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Log.d(DEBUG_TAG, msg);
             throw new OsmIllegalOperationException(msg);
         }
+        validateRelationMemberCount(way.getParentRelations(), 1);
 
         // check tags for problematic keys
         List<String> metricKeys = new ArrayList<>();
@@ -2002,48 +1999,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         undo.save(rel);
         undo.save(e);
-
+        validateRelationMemberCount(rel, 1);
         RelationMember newMember = new RelationMember(role, e);
         rel.addMember(pos, newMember);
         e.addParentRelation(rel);
 
         rel.updateState(OsmElement.STATE_MODIFIED);
-        try {
-            apiStorage.insertElementSafe(rel);
-            onElementChanged(null, rel);
-            onParentRelationChanged(e);
-        } catch (StorageException sex) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "addElementToRelation got " + sex.getMessage());
-        }
-    }
-
-    /**
-     * Add a new member to relation at end
-     * 
-     * @param e the OsmElement
-     * @param role the role of the element
-     * @param rel target relation
-     */
-    public void addMemberToRelation(@NonNull final OsmElement e, final String role, @NonNull final Relation rel) {
-
-        dirty = true;
-        undo.save(rel);
-        undo.save(e);
-
-        RelationMember newMember = new RelationMember(role, e);
-        rel.addMember(newMember);
-        e.addParentRelation(rel);
-
-        rel.updateState(OsmElement.STATE_MODIFIED);
-        try {
-            apiStorage.insertElementSafe(rel);
-            onElementChanged(null, rel);
-            onParentRelationChanged(e);
-        } catch (StorageException sex) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "addMemberToRelation got " + sex.getMessage());
-        }
+        apiStorage.insertElementSafe(rel);
+        onElementChanged(null, rel);
+        onParentRelationChanged(e);
     }
 
     /**
@@ -2063,19 +2027,14 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         undo.save(rel);
 
         undo.save(e);
-
+        validateRelationMemberCount(rel, 1);
         rel.addMember(newMember);
         e.addParentRelation(rel);
 
         rel.updateState(OsmElement.STATE_MODIFIED);
-        try {
-            apiStorage.insertElementSafe(rel);
-            onElementChanged(null, rel);
-            onParentRelationChanged(e);
-        } catch (StorageException sex) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "addMemberToRelation got " + sex.getMessage());
-        }
+        apiStorage.insertElementSafe(rel);
+        onElementChanged(null, rel);
+        onParentRelationChanged(e);
     }
 
     /**
@@ -2159,13 +2118,14 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void updateRelation(@NonNull Relation r, @NonNull List<RelationMemberDescription> members) {
         dirty = true;
         undo.save(r);
+        validateRelationMemberCount(r, members.size() - r.getMemberCount());
         boolean changed = false;
         List<RelationMember> origMembers = new ArrayList<>(r.getMembers());
         LinkedHashMap<String, RelationMember> membersHash = new LinkedHashMap<>();
         for (RelationMember rm : r.getMembers()) {
             membersHash.put(rm.getType() + "-" + rm.getRef(), rm);
         }
-        ArrayList<RelationMember> newMembers = new ArrayList<>();
+        List<RelationMember> newMembers = new ArrayList<>();
         for (int i = 0; i < members.size(); i++) {
             RelationMemberDescription rmd = members.get(i);
             String key = rmd.getType() + "-" + rmd.getRef();
@@ -2207,13 +2167,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         if (changed) {
             r.replaceMembers(newMembers);
             r.updateState(OsmElement.STATE_MODIFIED);
-            try {
-                apiStorage.insertElementSafe(r);
-                onElementChanged(null, r);
-            } catch (StorageException e) {
-                // TODO Handle OOM
-                Log.e(DEBUG_TAG, "updateRelation got " + e.getMessage());
-            }
+            apiStorage.insertElementSafe(r);
+            onElementChanged(null, r);
         } else {
             undo.remove(r); // nothing changed
         }
@@ -2228,6 +2183,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void addMembersToRelation(@NonNull Relation relation, @NonNull List<OsmElement> members) {
         dirty = true;
         undo.save(relation);
+        validateRelationMemberCount(relation, members.size());
         for (OsmElement e : members) {
             undo.save(e);
             RelationMember rm = new RelationMember("", e);
@@ -2248,6 +2204,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void addRelationMembersToRelation(@NonNull Relation relation, @NonNull List<RelationMember> members) {
         dirty = true;
         undo.save(relation);
+        validateRelationMemberCount(relation, members.size());
         for (RelationMember member : members) {
             if (member.downloaded()) {
                 OsmElement e = member.getElement();
@@ -2261,6 +2218,49 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         relation.updateState(OsmElement.STATE_MODIFIED);
         insertElementSafe(relation);
+    }
+
+    /**
+     * Check the future relation member count against the maximum supported by the current API
+     * 
+     * @param r the Relation we inten to modify
+     * @param increment how much the member count will increase
+     * @throws OsmIllegalOperationException if the count is larger than the maximum supported
+     */
+    private void validateRelationMemberCount(@NonNull Relation r, final int increment) {
+        Logic logic = App.getLogic();
+        if (logic != null) {
+            Preferences prefs = logic.getPrefs();
+            if (prefs != null && (r.getMemberCount() + increment) > prefs.getServer().getCachedCapabilities().getMaxRelationMembers()) {
+                throw new OsmIllegalOperationException(PreconditionIssue.RELATION_MEMBER_COUNT, r,
+                        App.resources().getString(R.string.exception_too_many_members, r.getDescription()));
+            }
+        }
+    }
+
+    /**
+     * Validate that the member counts of multiple relations stay in limits
+     * 
+     * @param relations a List of Relations
+     * @param increment how much the member count will increase
+     * @throws OsmIllegalOperationException if the count is larger than the maximum supported
+     */
+    private void validateRelationMemberCount(@Nullable List<Relation> relations, int increment) {
+        if (relations != null) {
+            Logic logic = App.getLogic();
+            if (logic != null) {
+                Preferences prefs = logic.getPrefs();
+                if (prefs != null) {
+                    int limit = prefs.getServer().getCachedCapabilities().getMaxRelationMembers();
+                    for (Relation r : relations) {
+                        if (r.getMemberCount() + increment > limit) {
+                            throw new OsmIllegalOperationException(PreconditionIssue.RELATION_MEMBER_COUNT, r,
+                                    App.resources().getString(R.string.exception_too_many_members, r.getDescription()));
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**

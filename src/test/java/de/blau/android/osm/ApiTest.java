@@ -147,17 +147,35 @@ public class ApiTest {
      */
     @Test
     public void capabilities() {
-        mockServer.enqueue(CAPABILITIES1_FIXTURE);
-
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
-        Capabilities result = s.getCapabilities();
-
+        // from default
+        Capabilities result = s.getCachedCapabilities();
         assertNotNull(result);
         assertEquals("0.6", result.getMinVersion());
+        assertEquals("0.6", result.getMaxVersion());
         assertEquals(Capabilities.Status.ONLINE, result.getGpxStatus());
         assertEquals(Capabilities.Status.ONLINE, result.getApiStatus());
         assertEquals(Capabilities.Status.ONLINE, result.getDbStatus());
-        assertEquals(2001, result.getMaxWayNodes(), 2001);
+        assertEquals(2000, result.getMaxWayNodes());
+        assertEquals(5000, result.getMaxTracepointsPerPage());
+        assertEquals(10000, result.getMaxElementsInChangeset());
+        assertEquals(300, result.getTimeout());
+        assertEquals(0.25, result.getAreaMax(), 0.001);
+
+        // from fixture
+        mockServer.enqueue(CAPABILITIES1_FIXTURE);
+        result = s.getCapabilities();
+        assertNotNull(result);
+        assertEquals("0.6", result.getMinVersion());
+        assertEquals("0.6", result.getMaxVersion());
+        assertEquals(Capabilities.Status.ONLINE, result.getGpxStatus());
+        assertEquals(Capabilities.Status.ONLINE, result.getApiStatus());
+        assertEquals(Capabilities.Status.ONLINE, result.getDbStatus());
+        assertEquals(2001, result.getMaxWayNodes());
+        assertEquals(4999, result.getMaxTracepointsPerPage());
+        assertEquals(50000, result.getMaxElementsInChangeset());
+        assertEquals(301, result.getTimeout());
+        assertEquals(0.24, result.getAreaMax(), 0.001);
     }
 
     /**

@@ -42,7 +42,9 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetRole;
+import de.blau.android.util.ArrayAdapterWithState;
 import de.blau.android.util.BaseFragment;
+import de.blau.android.util.Enabled;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
@@ -145,13 +147,13 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         // something else
         relationHolderList = new ArrayList<>();
         final Context context = getContext();
-
-        relationHolderList.add(new RelationHolder(context, null));
+        int limit = prefs.getServer().getCachedCapabilities().getMaxRelationMembers();
+        relationHolderList.add(new RelationHolder(context, null, limit)); // empty list entry
         for (Relation r : App.getDelegator().getCurrentStorage().getRelations()) {
-            relationHolderList.add(new RelationHolder(context, r));
+            relationHolderList.add(new RelationHolder(context, r, limit));
         }
         // Adapter containing all Relations
-        relationAdapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, relationHolderList);
+        relationAdapter = new ArrayAdapterWithState<>(getActivity(), R.layout.autocomplete_row, relationHolderList);
 
         loadParents(membershipVerticalLayout, parents, elementType);
 
@@ -258,24 +260,32 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         return row;
     }
 
-    static class RelationHolder {
-        final Relation relation;
-        final Context  ctx;
+    static class RelationHolder implements Enabled {
+        private final Relation relation;
+        private final Context  ctx;
+        private final int      limit;
 
         /**
          * Wrapper around relations so that we can display a nice String
          * 
          * @param ctx an Android Context
          * @param relation the Relation
+         * @param limit the max number of relation members
          */
-        RelationHolder(@NonNull Context ctx, @Nullable Relation relation) {
+        RelationHolder(@NonNull Context ctx, @Nullable Relation relation, int limit) {
             this.ctx = ctx;
             this.relation = relation;
+            this.limit = limit;
         }
 
         @Override
         public String toString() {
             return relation == null ? "" : relation.getDescription(ctx);
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return relation == null || relation.getMemberCount() < limit;
         }
     }
 
@@ -675,18 +685,16 @@ public class RelationMembershipFragment extends BaseFragment implements Property
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
         Relation relation = ((RelationHolder) parent.getItemAtPosition(pos)).relation;
-        if (view != null) {
-            Log.d(DEBUG_TAG, relation != null ? relation.getDescription() : "no selection");
+        if (view != null && relation != null) {
+            Log.d(DEBUG_TAG, "selected " + relation.getDescription());
             ViewParent pv = view.getParent();
             while (!(pv instanceof RelationMembershipRow)) {
                 pv = pv.getParent();
             }
             ((RelationMembershipRow) pv).setRelation(pos, relation);
         } else {
-            Log.d(DEBUG_TAG, "onItemselected view is null");
+            Log.d(DEBUG_TAG, "onItemselected view or relation is null");
         }
     }
 

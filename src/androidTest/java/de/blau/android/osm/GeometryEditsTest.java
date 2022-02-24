@@ -790,7 +790,7 @@ public class GeometryEditsTest {
             List<OsmElement> members = new ArrayList<>();
             members.add(w);
             Relation route = logic.createRelation(main, Tags.VALUE_ROUTE, null);
-            App.getDelegator().addMemberToRelation(w, Tags.ROLE_FORWARD, route);
+            App.getDelegator().addMemberToRelation(new RelationMember(Tags.ROLE_FORWARD, w), route);
 
             HashMap<String, String> tags = new HashMap<>();
             // first lot of tags

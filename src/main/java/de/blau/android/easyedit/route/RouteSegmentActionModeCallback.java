@@ -20,6 +20,8 @@ import de.blau.android.easyedit.BuilderActionModeCallback;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.ElementSelectionActionModeCallback;
 import de.blau.android.easyedit.RelationSelectionActionModeCallback;
+import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -227,30 +229,35 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
         if (currentNeedsSplit) {
             splitSafe(Util.wrapInList(currentSegment), () -> {
                 Way tempCurrentSegment = currentSegment;
-                // split from at node
-                List<Result> result = logic.performSplit(main, currentSegment, commonNode);
-                Way newCurrentSegment = newWayFromSplitResult(result);
-                saveSplitResult(currentSegment, result);
-                if (size > 1) { // not the first segment
-                    // keep the bit that connects to previous segment
-                    Way prevSegment = segments.get(size - 2);
-                    Node currentFirst = currentSegment.getFirstNode();
-                    Node currentLast = currentSegment.getLastNode();
-                    Node prevFirst = prevSegment.getFirstNode();
-                    Node prevLast = prevSegment.getLastNode();
-                    if (prevFirst.equals(currentFirst) || prevFirst.equals(currentLast) || prevLast.equals(currentFirst) || prevLast.equals(currentLast)) {
-                        newCurrentSegment = null;
-                    } else {
-                        segments.set(size - 1, newCurrentSegment);
-                        tempCurrentSegment = newCurrentSegment;
-                        newCurrentSegment = null;
+                try {
+                    // split from at node
+                    List<Result> result = logic.performSplit(main, currentSegment, commonNode);
+                    Way newCurrentSegment = newWayFromSplitResult(result);
+                    saveSplitResult(currentSegment, result);
+                    if (size > 1) { // not the first segment
+                        // keep the bit that connects to previous segment
+                        Way prevSegment = segments.get(size - 2);
+                        Node currentFirst = currentSegment.getFirstNode();
+                        Node currentLast = currentSegment.getLastNode();
+                        Node prevFirst = prevSegment.getFirstNode();
+                        Node prevLast = prevSegment.getLastNode();
+                        if (prevFirst.equals(currentFirst) || prevFirst.equals(currentLast) || prevLast.equals(currentFirst) || prevLast.equals(currentLast)) {
+                            newCurrentSegment = null;
+                        } else {
+                            segments.set(size - 1, newCurrentSegment);
+                            tempCurrentSegment = newCurrentSegment;
+                            newCurrentSegment = null;
+                        }
+                        logic.setSelectedRelationWays(segments);
                     }
-                    logic.setSelectedRelationWays(segments);
-                }
-                if (nextNeedsSplit) {
-                    splitNext(nextSegment, commonNode, tempCurrentSegment, newCurrentSegment);
-                } else {
-                    nextStep(tempCurrentSegment, nextSegment, newCurrentSegment, null);
+                    if (nextNeedsSplit) {
+                        splitNext(nextSegment, commonNode, tempCurrentSegment, newCurrentSegment);
+                    } else {
+                        nextStep(tempCurrentSegment, nextSegment, newCurrentSegment, null);
+                    }
+                } catch (OsmIllegalOperationException | StorageException ex) {
+                    // toast has already been displayed
+                    manager.finish();
                 }
             });
         } else if (nextNeedsSplit) {
@@ -266,14 +273,19 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
      * @param nextSegment the next segment
      * @param commonNode the node at which it has to be split
      * @param currentSegment the current segment
-     * @param newCurrentSegment a potential new current segment created by spliting
+     * @param newCurrentSegment a potential new current segment created by splitting
      */
     private void splitNext(@NonNull Way nextSegment, @NonNull Node commonNode, @NonNull final Way currentSegment, @Nullable final Way newCurrentSegment) {
         splitSafe(Util.wrapInList(nextSegment), () -> {
-            List<Result> result = logic.performSplit(main, nextSegment, commonNode);
-            Way newNextSegment = newWayFromSplitResult(result);
-            saveSplitResult(nextSegment, result);
-            nextStep(currentSegment, nextSegment, newCurrentSegment, newNextSegment);
+            try {
+                List<Result> result = logic.performSplit(main, nextSegment, commonNode);
+                Way newNextSegment = newWayFromSplitResult(result);
+                saveSplitResult(nextSegment, result);
+                nextStep(currentSegment, nextSegment, newCurrentSegment, newNextSegment);
+            } catch (OsmIllegalOperationException | StorageException ex) {
+                // toast has already been displayed
+                manager.finish();
+            }
         });
     }
 
@@ -321,16 +333,21 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
         for (Way w : segments) {
             elements.add(w);
         }
-        if (route != null) {
-            logic.addMembers(main, route, elements);
-        } else {
-            route = logic.createRelation(main, Tags.VALUE_ROUTE, elements);
-        }
-        segments.clear();
-        main.performTagEdit(route, Tags.VALUE_ROUTE, false, false);
-        main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, route));
-        if (!savedResults.isEmpty()) {
-            TagConflictDialog.showDialog(main, new ArrayList<>(savedResults.values()));
+        try {
+            if (route != null) {
+                logic.addMembers(main, route, elements);
+            } else {
+                route = logic.createRelation(main, Tags.VALUE_ROUTE, elements);
+            }
+            segments.clear();
+            main.performTagEdit(route, Tags.VALUE_ROUTE, false, false);
+            main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, route));
+            if (!savedResults.isEmpty()) {
+                TagConflictDialog.showDialog(main, new ArrayList<>(savedResults.values()));
+            }
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            // toast has already been displayed
+            manager.finish();
         }
     }
 

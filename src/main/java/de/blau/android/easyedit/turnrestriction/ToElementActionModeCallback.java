@@ -13,6 +13,8 @@ import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
 import de.blau.android.easyedit.RelationSelectionActionModeCallback;
+import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Result;
@@ -53,12 +55,16 @@ public class ToElementActionModeCallback extends NonSimpleActionModeCallback {
         super.onCreateActionMode(mode, menu);
         logic.addSelectedRelationWay(toWay);
         boolean uTurn = fromWay == toWay;
-        Relation restriction = logic.createRestriction(main, fromWay, viaElement, toWay, uTurn ? Tags.VALUE_NO_U_TURN : null);
-        Log.i(DEBUG9_TAG, "Created restriction");
-        main.performTagEdit(restriction, !uTurn ? Tags.VALUE_RESTRICTION : null, false, false);
-        main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, restriction));
-        if (!savedResults.isEmpty()) {
-            TagConflictDialog.showDialog(main, new ArrayList<>(savedResults.values()));
+        try {
+            Relation restriction = logic.createRestriction(main, fromWay, viaElement, toWay, uTurn ? Tags.VALUE_NO_U_TURN : null);
+            Log.i(DEBUG9_TAG, "Created restriction");
+            main.performTagEdit(restriction, !uTurn ? Tags.VALUE_RESTRICTION : null, false, false);
+            main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, restriction));
+            if (!savedResults.isEmpty()) {
+                TagConflictDialog.showDialog(main, new ArrayList<>(savedResults.values()));
+            }
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            // logic will have already toasted
         }
         return false; // we are actually already finished
     }

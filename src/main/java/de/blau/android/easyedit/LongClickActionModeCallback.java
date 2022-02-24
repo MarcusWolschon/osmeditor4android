@@ -15,6 +15,7 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.GnssPositionInfo;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
@@ -201,9 +202,14 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                     Node node = logic.performAddOnWay(main, ways, startX, startY, false);
                     if (node != null) {
                         splitSafe(ways, () -> {
-                            List<Result> result = logic.performSplit(main, way, node);
-                            checkSplitResult(way, result);
-                            manager.finish();
+                            try {
+                                List<Result> result = logic.performSplit(main, way, node);
+                                checkSplitResult(way, result);
+                            } catch (OsmIllegalOperationException | StorageException ex) {
+                                // toast has already been displayed
+                            } finally {
+                                manager.finish();
+                            }
                         });
                     }
                 } catch (OsmIllegalOperationException e) {

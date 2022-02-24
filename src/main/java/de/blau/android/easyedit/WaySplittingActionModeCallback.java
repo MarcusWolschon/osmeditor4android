@@ -8,6 +8,8 @@ import android.view.Menu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
+import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
@@ -66,9 +68,14 @@ public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback 
             main.startSupportActionMode(new ClosedWaySplittingActionModeCallback(manager, way, (Node) element, createPolygons));
         } else {
             splitSafe(Util.wrapInList(way), () -> {
-                List<Result> result = logic.performSplit(main, way, (Node) element);
-                checkSplitResult(way, result);
-                manager.finish();
+                try {
+                    List<Result> result = logic.performSplit(main, way, (Node) element);
+                    checkSplitResult(way, result);
+                } catch (OsmIllegalOperationException | StorageException ex) {
+                    // toast has already been displayed
+                } finally {
+                    manager.finish();
+                }
             });
         }
         return true;
