@@ -20,9 +20,13 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import androidx.annotation.NonNull;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
+import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.Util;
@@ -1003,6 +1007,41 @@ public class StorageDelegatorTest {
     }
 
     /**
+     * Split way at node with route relation with low relation member limit
+     */
+    @Test
+    public void splitWithRouteRelationLimit() {
+        App.newLogic();
+        Logic logic = App.getLogic();
+        Preferences prefs = new Preferences(ApplicationProvider.getApplicationContext());
+        Server server = prefs.getServer();
+        try {
+            server.getCachedCapabilities().setMaxRelationMembers(1);
+            logic.setPrefs(prefs);
+            StorageDelegator d = new StorageDelegator();
+            Way w = addWayToStorage(d, false);
+            Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
+            assertNotNull(temp);
+            Node n = w.getNodes().get(2);
+
+            Relation r = w.getParentRelations().get(0);
+            Map<String, String> routeTag = new HashMap<>();
+            routeTag.put(Tags.KEY_TYPE, Tags.VALUE_ROUTE);
+            r.setTags(routeTag);
+
+            try {
+                List<Result> splitResult = d.splitAtNode(w, n);
+                fail("should have errored");
+            } catch (OsmIllegalOperationException ex) {
+                // expected
+                assertEquals(PreconditionIssue.RELATION_MEMBER_COUNT, ex.getIssue());
+            }
+        } finally {
+            server.getCachedCapabilities().setMaxRelationMembers(32000);
+        }
+    }
+
+    /**
      * Split way at node with restriction relation
      */
     @Test
@@ -1106,7 +1145,35 @@ public class StorageDelegatorTest {
         d.mergeBoundingBox(box);
         assertEquals(1, boxes.size());
         assertEquals(box, boxes.get(0));
+    }
 
+    /**
+     * Add a member to a relation with low relation member limit
+     */
+    @Test
+    public void addMemberToRelationLimit() {
+        App.newLogic();
+        Logic logic = App.getLogic();
+        Preferences prefs = new Preferences(ApplicationProvider.getApplicationContext());
+        Server server = prefs.getServer();
+        try {
+            server.getCachedCapabilities().setMaxRelationMembers(1);
+            logic.setPrefs(prefs);
+            StorageDelegator d = new StorageDelegator();
+            Way w = addWayToStorage(d, false);
+
+            Relation r = w.getParentRelations().get(0);
+
+            try { // simply add w again to exceed the limit
+                d.addMemberToRelation(new RelationMember("", w), r);
+                fail("should have errored");
+            } catch (OsmIllegalOperationException ex) {
+                // expected
+                assertEquals(PreconditionIssue.RELATION_MEMBER_COUNT, ex.getIssue());
+            }
+        } finally {
+            server.getCachedCapabilities().setMaxRelationMembers(32000);
+        }
     }
 
     /**
