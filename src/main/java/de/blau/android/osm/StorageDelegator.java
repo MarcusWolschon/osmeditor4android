@@ -2011,31 +2011,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Add a new member to relation at end
-     * 
-     * @param e the OsmElement
-     * @param role the role of the element
-     * @param rel target relation
-     * @deprecated only used for testing
-     */
-    @Deprecated
-    public void addMemberToRelation(@NonNull final OsmElement e, final String role, @NonNull final Relation rel) {
-
-        dirty = true;
-        undo.save(rel);
-        undo.save(e);
-
-        RelationMember newMember = new RelationMember(role, e);
-        rel.addMember(newMember);
-        e.addParentRelation(rel);
-
-        rel.updateState(OsmElement.STATE_MODIFIED);
-        apiStorage.insertElementSafe(rel);
-        onElementChanged(null, rel);
-        onParentRelationChanged(e);
-    }
-
-    /**
      * Add new member to relation at end
      * 
      * @param newMember member to add
@@ -2057,14 +2032,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         e.addParentRelation(rel);
 
         rel.updateState(OsmElement.STATE_MODIFIED);
-        try {
-            apiStorage.insertElementSafe(rel);
-            onElementChanged(null, rel);
-            onParentRelationChanged(e);
-        } catch (StorageException sex) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "addMemberToRelation got " + sex.getMessage());
-        }
+        apiStorage.insertElementSafe(rel);
+        onElementChanged(null, rel);
+        onParentRelationChanged(e);
     }
 
     /**

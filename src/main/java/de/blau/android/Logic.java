@@ -4940,22 +4940,26 @@ public class Logic {
      * @return a relation element for the turn restriction
      */
     @NonNull
-    public Relation createRestriction(@Nullable Activity activity, @NonNull Way fromWay, @NonNull OsmElement viaElement, @NonNull Way toWay,
+    public Relation createRestriction(@Nullable FragmentActivity activity, @NonNull Way fromWay, @NonNull OsmElement viaElement, @NonNull Way toWay,
             @Nullable String restrictionType) {
         createCheckpoint(activity, R.string.undo_action_create_relation);
         Relation restriction = getDelegator().createAndInsertRelation(null);
         SortedMap<String, String> tags = new TreeMap<>();
         tags.put(Tags.VALUE_RESTRICTION, restrictionType == null ? "" : restrictionType);
         tags.put(Tags.KEY_TYPE, Tags.VALUE_RESTRICTION);
-        getDelegator().setTags(restriction, tags);
-        RelationMember from = new RelationMember(Tags.ROLE_FROM, fromWay);
-        getDelegator().addMemberToRelation(from, restriction);
-        RelationMember via = new RelationMember(Tags.ROLE_VIA, viaElement);
-        getDelegator().addMemberToRelation(via, restriction);
-        RelationMember to = new RelationMember(Tags.ROLE_TO, toWay);
-        getDelegator().addMemberToRelation(to, restriction);
-
-        return restriction;
+        try {
+            getDelegator().setTags(restriction, tags);
+            RelationMember from = new RelationMember(Tags.ROLE_FROM, fromWay);
+            getDelegator().addMemberToRelation(from, restriction);
+            RelationMember via = new RelationMember(Tags.ROLE_VIA, viaElement);
+            getDelegator().addMemberToRelation(via, restriction);
+            RelationMember to = new RelationMember(Tags.ROLE_TO, toWay);
+            getDelegator().addMemberToRelation(to, restriction);
+            return restriction;
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
+        }
     }
 
     /**

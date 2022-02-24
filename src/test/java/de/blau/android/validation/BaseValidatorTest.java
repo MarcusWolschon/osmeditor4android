@@ -16,6 +16,7 @@ import de.blau.android.Logic;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.StorageDelegatorTest;
 import de.blau.android.osm.Tags;
@@ -32,7 +33,6 @@ public class BaseValidatorTest {
      */
     @Test
     public void relationTest() {
-        Logic logic = App.newLogic();
         Validator v = App.getDefaultValidator(ApplicationProvider.getApplicationContext());
         StorageDelegator d = new StorageDelegator();
         OsmElementFactory factory = d.getFactory();
@@ -46,7 +46,7 @@ public class BaseValidatorTest {
         result = v.validate(r);
         assertEquals(0, result & Validator.NO_TYPE);
         Node n = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
-        d.addMemberToRelation(n, "test", r);
+        d.addMemberToRelation(new RelationMember("test", n), r);
         result = v.validate(r);
         assertEquals(0, result & Validator.EMPTY_RELATION);
     }
@@ -58,7 +58,7 @@ public class BaseValidatorTest {
     public void suppressedMissingTest() {
         Logic logic = App.newLogic();
         // this needs a lot of setup as highway validation relies on a valid map object
-        DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext()); 
+        DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         de.blau.android.Map map = new de.blau.android.Map(ApplicationProvider.getApplicationContext());
         logic.setMap(map, false);
         map.setPrefs(ApplicationProvider.getApplicationContext(), new Preferences(ApplicationProvider.getApplicationContext()));
