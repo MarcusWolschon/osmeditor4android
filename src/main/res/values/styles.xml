@@ -337,6 +337,8 @@
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
+        <item name="text_disabled">@color/primary_text_disabled_material_dark</item>
+        <item name="text_normal">@color/primary_text_default_material_dark</item>
 	</style>
 	
 	<style name="Theme.customActionBar" parent="@style/Theme.AppCompat">
@@ -510,6 +512,8 @@
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
+        <item name="text_disabled">@color/primary_text_disabled_material_light</item>
+        <item name="text_normal">@color/primary_text_default_material_light</item>
 	</style>
 	
 	<style name="Theme.customActionBar.Light" parent="@style/Theme.AppCompat.Light">

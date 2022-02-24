@@ -13,6 +13,8 @@ import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
+import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
@@ -76,11 +78,16 @@ public class FromElementWithViaNodeActionModeCallback extends NonSimpleActionMod
         final Way fromWay = (Way) element;
         if (!fromWay.isEndNode(viaNode)) {
             splitSafe(Util.wrapInList(fromWay), () -> {
-                // split from at node
-                List<Result> result = logic.performSplit(main, fromWay, viaNode);
-                Way newFromWay = newWayFromSplitResult(result);
-                saveSplitResult(fromWay, result);
-                nextStep(fromWay, newFromWay);
+                try {
+                    // split from at node
+                    List<Result> result = logic.performSplit(main, fromWay, viaNode);
+                    Way newFromWay = newWayFromSplitResult(result);
+                    saveSplitResult(fromWay, result);
+                    nextStep(fromWay, newFromWay);
+                } catch (OsmIllegalOperationException | StorageException ex) {
+                    // toast has already been displayed
+                    manager.finish();
+                }
             });
         } else {
             nextStep(fromWay, null);

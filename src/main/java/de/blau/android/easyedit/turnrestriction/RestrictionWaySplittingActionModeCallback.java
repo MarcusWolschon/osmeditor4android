@@ -14,6 +14,8 @@ import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
+import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
@@ -78,19 +80,24 @@ public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionMo
             main.startSupportActionMode(new RestrictionClosedWaySplittingActionModeCallback(manager, way, (Node) element, fromWay, savedResults));
         } else {
             splitSafe(Util.wrapInList(way), () -> {
-                List<Result> result = logic.performSplit(main, way, (Node) element);
-                Way newWay = newWayFromSplitResult(result);
-                if (newWay != null) {
-                    saveSplitResult(way, result);
-                    if (fromWay == null) {
-                        Set<OsmElement> candidates = new HashSet<>();
-                        candidates.add(way);
-                        candidates.add(newWay);
-                        main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, candidates, candidates, savedResults));
-                    } else {
-                        Way viaWay = fromWay.hasCommonNode(way) ? way : newWay;
-                        main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaWay, savedResults));
+                try {
+                    List<Result> result = logic.performSplit(main, way, (Node) element);
+                    Way newWay = newWayFromSplitResult(result);
+                    if (newWay != null) {
+                        saveSplitResult(way, result);
+                        if (fromWay == null) {
+                            Set<OsmElement> candidates = new HashSet<>();
+                            candidates.add(way);
+                            candidates.add(newWay);
+                            main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, candidates, candidates, savedResults));
+                        } else {
+                            Way viaWay = fromWay.hasCommonNode(way) ? way : newWay;
+                            main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaWay, savedResults));
+                        }
                     }
+                } catch (OsmIllegalOperationException | StorageException ex) {
+                    // toast has already been displayed
+                    manager.finish();
                 }
             });
         }

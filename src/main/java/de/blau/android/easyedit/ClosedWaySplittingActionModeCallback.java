@@ -10,6 +10,8 @@ import android.view.Menu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
+import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
@@ -69,22 +71,25 @@ public class ClosedWaySplittingActionModeCallback extends NonSimpleActionModeCal
     public boolean handleElementClick(OsmElement element) { // NOSONAR
         // due to clickableElements, only valid nodes can be clicked
         super.handleElementClick(element);
-        if (element instanceof Node) {
-            Way[] result = logic.performClosedWaySplit(main, way, node, (Node) element, createPolygons);
-            if (result != null && result.length == 2) {
-                logic.setSelectedNode(null);
-                logic.setSelectedRelation(null);
-                logic.setSelectedWay(result[0]);
-                logic.addSelectedWay(result[1]);
-                List<OsmElement> selection = new ArrayList<>();
-                selection.addAll(logic.getSelectedWays());
-                main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, selection));
-                return true;
+        try {
+            if (element instanceof Node) {
+                Way[] result = logic.performClosedWaySplit(main, way, node, (Node) element, createPolygons);
+                if (result != null && result.length == 2) {
+                    logic.setSelectedNode(null);
+                    logic.setSelectedRelation(null);
+                    logic.setSelectedWay(result[0]);
+                    logic.addSelectedWay(result[1]);
+                    List<OsmElement> selection = new ArrayList<>();
+                    selection.addAll(logic.getSelectedWays());
+                    main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, selection));
+                    return true;
+                }
             }
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            // toast has already been displayed
         }
-        // logic has already toasted
-        Log.d(DEBUG_TAG, "split failed at element " + (element != null ? element : "null"));
         manager.finish();
+        Log.d(DEBUG_TAG, "split failed at element " + (element != null ? element : "null"));
         return true;
     }
 

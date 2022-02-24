@@ -7,6 +7,8 @@ import android.view.Menu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
+import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
@@ -86,16 +88,23 @@ public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
         }
 
         if (distance >= 0 && node1 != null) {
-            List<Result> result = logic.performExtractSegment(main, way, node1, node2);
-            if (result != null) {
-                checkSplitResult(way, result);
-                Way segment = newWayFromSplitResult(result);
-                if (segment.hasTagKey(Tags.KEY_HIGHWAY) || segment.hasTagKey(Tags.KEY_WATERWAY)) {
-                    main.startSupportActionMode(new WaySegmentModifyActionModeCallback(manager, segment));
-                } else {
-                    main.startSupportActionMode(new WaySelectionActionModeCallback(manager, segment));
+            final Node n1 = node1;
+            final Node n2 = node2;
+            splitSafe(Util.wrapInList(way), () -> {
+                try {
+                    List<Result> result = logic.performExtractSegment(main, way, n1, n2);
+                    checkSplitResult(way, result);
+                    Way segment = newWayFromSplitResult(result);
+                    if (segment.hasTagKey(Tags.KEY_HIGHWAY) || segment.hasTagKey(Tags.KEY_WATERWAY)) {
+                        main.startSupportActionMode(new WaySegmentModifyActionModeCallback(manager, segment));
+                    } else {
+                        main.startSupportActionMode(new WaySelectionActionModeCallback(manager, segment));
+                    }
+                } catch (OsmIllegalOperationException | StorageException ex) {
+                    // toast has already been displayed
+                    manager.finish();
                 }
-            }
+            });
         }
         return true;
     }

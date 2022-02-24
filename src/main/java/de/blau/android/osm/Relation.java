@@ -81,6 +81,15 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
     }
 
     /**
+     * Get the current number of members
+     * 
+     * @return the member count
+     */
+    public int getMemberCount() {
+        return members.size();
+    }
+
+    /**
      * Return complete list of relation members of a certain type
      * 
      * @param type the RelationMember type

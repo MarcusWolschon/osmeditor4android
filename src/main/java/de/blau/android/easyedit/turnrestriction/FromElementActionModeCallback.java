@@ -14,6 +14,8 @@ import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
+import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
@@ -114,20 +116,25 @@ public class FromElementActionModeCallback extends NonSimpleActionModeCallback {
             final Node splitNode = viaNode;
             final Way splitViaWay = viaWay;
             splitSafe(toSplit, () -> {
-                Way newFromWay = null;
-                if (fromNeedsSplit) {
-                    // split from at node
-                    List<Result> result = logic.performSplit(main, fromWay, splitNode);
-                    newFromWay = newWayFromSplitResult(result);
-                    saveSplitResult(fromWay, result);
+                try {
+                    Way newFromWay = null;
+                    if (fromNeedsSplit) {
+                        // split from at node
+                        List<Result> result = logic.performSplit(main, fromWay, splitNode);
+                        newFromWay = newWayFromSplitResult(result);
+                        saveSplitResult(fromWay, result);
+                    }
+                    Way newViaWay = null;
+                    if (viaNeedsSplit) {
+                        List<Result> result = logic.performSplit(main, splitViaWay, splitNode);
+                        newViaWay = newWayFromSplitResult(result);
+                        saveSplitResult(splitViaWay, result);
+                    }
+                    nextStep(element, newFromWay, newViaWay);
+                } catch (OsmIllegalOperationException | StorageException ex) {
+                    // toast has already been displayed
+                    manager.finish();
                 }
-                Way newViaWay = null;
-                if (viaNeedsSplit) {
-                    List<Result> result = logic.performSplit(main, splitViaWay, splitNode);
-                    newViaWay = newWayFromSplitResult(result);
-                    saveSplitResult(splitViaWay, result);
-                }
-                nextStep(element, newFromWay, newViaWay);
             });
         } else {
             nextStep(element, null, null);
