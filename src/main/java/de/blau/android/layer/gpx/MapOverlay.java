@@ -41,7 +41,8 @@ import de.blau.android.views.IMapView;
 
 public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, ClickableInterface<WayPoint> {
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 2L; // note that this can't actually be serialized as the transient
+                                                     // wields need to be set in readObject
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
@@ -52,9 +53,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     /** Map this is an overlay of. */
     private final transient Map map;
 
-    private final transient ExecutorService executorService;
+    private final transient ExecutorService               executorService;
     private final transient ArrayList<FloatPrimitiveList> linePointsList;
-    private final transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
+    private final transient SavingHelper<MapOverlay>      savingHelper = new SavingHelper<>();
 
     private transient TrackerService tracker;
 
@@ -71,10 +72,10 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         resetStyling();
 
         int threadPoolSize = Util.usableProcessors();
-        Log.d(DEBUG_TAG,"using " + threadPoolSize + " threads");
+        Log.d(DEBUG_TAG, "using " + threadPoolSize + " threads");
         executorService = Executors.newFixedThreadPool(threadPoolSize);
         linePointsList = new ArrayList<>(threadPoolSize);
-        for(int i = 0; i < threadPoolSize; i++) {
+        for (int i = 0; i < threadPoolSize; i++) {
             linePointsList.add(new FloatPrimitiveList());
         }
     }
@@ -108,7 +109,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                     if (i != 0) {
                         finalLength = length + 1; // + 1 to join with next chunk
                     } else {
-                        finalLength = trackPoints.size() - offset; // last chunk slightly different due to division remainder
+                        finalLength = trackPoints.size() - offset; // last chunk slightly different due to division
+                                                                   // remainder
                     }
                     callableTasks.add(() -> {
                         map.pointListToLinePointsArray(finalLinePoints, trackPoints, finalOffset, finalLength);
