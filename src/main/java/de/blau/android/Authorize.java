@@ -1,5 +1,6 @@
 package de.blau.android;
 
+import java.io.ByteArrayInputStream;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
@@ -144,6 +146,18 @@ public class Authorize extends FullScreenAppCompatActivity {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(intent);
                     return true;
+                }
+
+                /**
+                 * @deprecated since API 24
+                 */
+                @Deprecated
+                @Override
+                public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+                    if (url.toLowerCase().contains("piwik")) {
+                        return new WebResourceResponse("text/plain", "utf-8", new ByteArrayInputStream("".getBytes()));
+                    }
+                    return super.shouldInterceptRequest(view, url);
                 }
 
                 @Override
