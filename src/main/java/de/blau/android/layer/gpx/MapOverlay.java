@@ -4,22 +4,33 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
+import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Map;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ViewWayPoint;
+import de.blau.android.gpx.Track;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.gpx.WayPoint;
 import de.blau.android.layer.ClickableInterface;
@@ -31,10 +42,12 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.symbols.TriangleDown;
-import de.blau.android.services.TrackerService;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.SerializablePaint;
+import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.views.IMapView;
@@ -57,18 +70,25 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     private final transient ArrayList<FloatPrimitiveList> linePointsList;
     private final transient SavingHelper<MapOverlay>      savingHelper = new SavingHelper<>();
 
-    private transient TrackerService tracker;
+    private transient Track track;
 
     private SerializablePaint wayPointPaint;
     private String            labelKey;
+    private String            contentId;               // could potentially be transient
+    /**
+     * State file file name
+     */
+    private String            stateFileName = FILENAME;
 
     /**
      * Construct a new GPX layer
      * 
      * @param map the current Map instance
+     * @param contentId the id for the current contents
      */
-    public MapOverlay(@NonNull final Map map) {
+    public MapOverlay(@NonNull final Map map, @NonNull String contentId) {
         this.map = map;
+        this.contentId = contentId;
         resetStyling();
 
         int threadPoolSize = Util.usableProcessors();
@@ -80,18 +100,36 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         }
     }
 
+    /**
+     * Set the Track to display
+     * 
+     * @param track the track to set
+     */
+    public void setTrack(@Nullable Track track) {
+        this.track = track;
+    }
+
+    /**
+     * Retrieve the Track we are displaying
+     * 
+     * @return a Track or null
+     */
+    @Nullable
+    public Track getTrack() {
+        return track;
+    }
+
     @Override
     public boolean isReadyToDraw() {
-        tracker = map.getTracker();
-        return tracker != null;
+        return track != null;
     }
 
     @Override
     protected void onDraw(Canvas canvas, IMapView osmv) {
-        if (!isVisible || tracker == null) {
+        if (!isVisible || track == null) {
             return;
         }
-        List<TrackPoint> trackPoints = tracker.getTrackPoints();
+        List<TrackPoint> trackPoints = track.getTrackPoints();
         if (!trackPoints.isEmpty()) {
             if (trackPoints.size() < TRACKPOINT_PARALLELIZATION_THRESHOLD || linePointsList.size() == 1) {
                 final FloatPrimitiveList linePoints = linePointsList.get(0);
@@ -127,7 +165,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                 }
             }
         }
-        WayPoint[] wayPoints = tracker.getTrack().getWayPoints();
+        WayPoint[] wayPoints = track.getWayPoints();
         if (wayPoints.length != 0 && symbolPath != null) {
             ViewBox viewBox = map.getViewBox();
             int width = map.getWidth();
@@ -172,15 +210,15 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     public void onDestroy() {
-        tracker = null;
+        setTrack(null);
     }
 
     @Override
     public List<WayPoint> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<WayPoint> result = new ArrayList<>();
         Log.d(DEBUG_TAG, "getClicked");
-        if (tracker != null && tracker.getTrack() != null) {
-            WayPoint[] wayPoints = tracker.getTrack().getWayPoints();
+        if (track != null) {
+            WayPoint[] wayPoints = track.getWayPoints();
             if (wayPoints.length != 0) {
                 final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
                 for (WayPoint wpp : wayPoints) {
@@ -198,9 +236,27 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         return result;
     }
 
+    /**
+     * Set the name of this layer
+     * 
+     * @param name the name
+     */
+    public void setName(@Nullable String name) {
+        this.name = name;
+        if (name != null && FILENAME.equals(stateFileName)) {
+            setStateFileName(name);
+        }
+    }
+
     @Override
     public String getName() {
-        return map.getContext().getString(R.string.layer_gpx);
+        return name != null ? name : map.getContext().getString(R.string.layer_gpx);
+    }
+
+    @Override
+    @Nullable
+    public String getContentId() {
+        return contentId;
     }
 
     @Override
@@ -210,9 +266,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     public BoundingBox getExtent() {
-        if (tracker != null) {
-            List<TrackPoint> trackPoints = tracker.getTrackPoints();
-            trackPoints.addAll(tracker.getWayPoints());
+        if (track != null) {
+            List<TrackPoint> trackPoints = track.getTrackPoints();
+            trackPoints.addAll(Arrays.asList(track.getWayPoints()));
             BoundingBox result = null;
             for (TrackPoint tp : trackPoints) {
                 if (result == null) {
@@ -263,14 +319,99 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         labelKey = key;
     }
 
+    /**
+     * Read a file in GPX format from device
+     * 
+     * @param ctx current context this was called from
+     * @param uri Uri for the file to read
+     * @param quiet if true no toasts etc will be displayed
+     * @param handler handler to use after the file has been loaded if not null
+     */
+    public void fromFile(@NonNull final Context ctx, @NonNull final Uri uri, boolean quiet, @Nullable PostAsyncActionHandler handler) {
+        Log.d(DEBUG_TAG, "Loading track from " + uri);
+        FragmentActivity activity = ctx instanceof FragmentActivity ? (FragmentActivity) ctx : null;
+        final boolean interactive = !quiet && activity != null;
+        if (track == null) {
+            track = new Track(ctx, false);
+        }
+        name = SelectFile.getDisplaynameColumn(ctx, uri);
+        setStateFileName(uri.getEncodedPath().replace('/', '-'));
+        Logic logic = App.getLogic();
+        new ExecutorTask<Void, Void, Integer>(logic.getExecutorService(), logic.getHandler()) {
+
+            static final int FILENOTFOUND = -1;
+            static final int OK           = 0;
+
+            @Override
+            protected void onPreExecute() {
+                if (interactive) {
+                    Progress.showDialog(activity, Progress.PROGRESS_LOADING);
+                }
+            }
+
+            @Override
+            protected Integer doInBackground(Void arg) {
+                try (InputStream is = ctx.getContentResolver().openInputStream(uri); BufferedInputStream in = new BufferedInputStream(is)) {
+                    track.importFromGPX(in);
+                    return OK;
+                } catch (Exception e) { // NOSONAR
+                    Log.e(DEBUG_TAG, "Error reading file: ", e);
+                    return FILENOTFOUND;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Integer result) {
+                try {
+                    if (result == OK) {
+                        if (handler != null) {
+                            handler.onSuccess();
+                        }
+                    } else {
+                        if (handler != null) {
+                            handler.onError(null);
+                        }
+                    }
+                    if (interactive) {
+                        Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
+                        if (result == OK) {
+                            int trackPointCount = track.getTrackPoints().size();
+                            int wayPointCount = track.getWayPoints().length;
+                            String message = activity.getResources().getQuantityString(R.plurals.toast_imported_track_points, wayPointCount, trackPointCount,
+                                    wayPointCount);
+                            Snack.barInfo(activity, message);
+                        } else {
+                            Snack.barError(activity, R.string.toast_file_not_found);
+                        }
+                        activity.invalidateOptionsMenu();
+                    }
+                } catch (IllegalStateException e) {
+                    // Avoid crash if activity is paused
+                    Log.e(DEBUG_TAG, "onPostExecute", e);
+                }
+            }
+        }.execute();
+    }
+
+    /**
+     * Set the name of the state file
+     * 
+     * This needs to be unique across all instances so best an encoded uri
+     * 
+     * @param baseName the base name for this specific instance
+     */
+    private void setStateFileName(@NonNull String baseName) {
+        stateFileName = baseName + ".res";
+    }
+
     @Override
     public synchronized boolean save(@NonNull Context context) throws IOException {
-        return savingHelper.save(context, FILENAME, this, true);
+        return savingHelper.save(context, stateFileName, this, true);
     }
 
     @Override
     public synchronized StyleableLayer load(@NonNull Context context) {
-        MapOverlay restoredOverlay = savingHelper.load(context, FILENAME, true);
+        MapOverlay restoredOverlay = savingHelper.load(context, stateFileName, true);
         if (restoredOverlay != null) {
             Log.d(DEBUG_TAG, "read saved state");
             wayPointPaint = restoredOverlay.wayPointPaint;
@@ -301,9 +442,11 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     protected void discardLayer(Context context) {
-        if (tracker != null) {
-            // FIXME this might not be what the user wants
-            tracker.stopTracking(false);
+        track = null;
+        File originalFile = context.getFileStreamPath(stateFileName);
+        if (!originalFile.delete()) {
+            Log.e(DEBUG_TAG, "Failed to delete state file " + stateFileName);
         }
+        map.invalidate();
     }
 }

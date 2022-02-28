@@ -1068,6 +1068,23 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     }
 
     /**
+     * Check if a specific layer is configured
+     * 
+     * @param type the type of the layer
+     * @param contentId the content id
+     * @return true if the layer exists
+     */
+    public synchronized boolean hasLayer(@NonNull LayerType type, @NonNull String contentId) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor dbresult = db.query(LAYERS_TABLE, new String[] { CONTENT_ID_COL }, TYPE_COL + "= ? and " + CONTENT_ID_COL + "= ?",
+                new String[] { type.name(), contentId }, null, null, POSITION_COL);
+        boolean result = dbresult.getCount() > 0;
+        dbresult.close();
+        db.close();
+        return result;
+    }
+
+    /**
      * Add a layer to the layer list
      * 
      * @param db a writable DB

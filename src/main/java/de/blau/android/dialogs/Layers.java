@@ -55,6 +55,9 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.gpx.Track;
+import de.blau.android.gpx.TrackPoint;
+import de.blau.android.gpx.WayPoint;
 import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
@@ -77,10 +80,13 @@ import de.blau.android.resources.TileLayerDialog;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.TileType;
+import de.blau.android.services.TrackerService;
 import de.blau.android.resources.WmsEndpointDatabaseView;
 import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ReadFile;
+import de.blau.android.util.SaveFile;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.SizedFixedImmersiveDialogFragment;
 import de.blau.android.util.Snack;
@@ -234,6 +240,12 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 }
             }
 
+            item = popup.getMenu().add(R.string.layer_add_gpx);
+            item.setOnMenuItemClickListener(unused -> {
+                addGpxLayerFromFile(activity, prefs, map);
+                return false;
+            });
+
             item = popup.getMenu().add(R.string.layer_add_custom_imagery);
             item.setOnMenuItemClickListener(unused -> {
                 TileLayerDialog.showLayerDialog(activity, null, () -> updateDialogAndPrefs(activity, prefs, map));
@@ -318,6 +330,39 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     LayerStyle.showDialog(activity, geojsonLayer.getIndex());
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     geojsonLayer.invalidate();
+                    tl.removeAllViews();
+                    addRows(activity);
+                }
+                return true;
+            }
+        });
+    }
+
+    /**
+     * Add a Layer from a GPX file
+     * 
+     * @param activity the calling Activity
+     * @param prefs current Preferences
+     * @param map current Map
+     */
+    private void addGpxLayerFromFile(final FragmentActivity activity, final Preferences prefs, final Map map) {
+        Log.d(DEBUG_TAG, "addGpxLayerFromFile");
+        SelectFile.read(activity, R.string.config_osmPreferredDir_key, new ReadFile() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public boolean read(Uri fileUri) {
+                de.blau.android.layer.gpx.MapOverlay gpxLayer = (de.blau.android.layer.gpx.MapOverlay) map.getLayer(LayerType.GPX, fileUri.toString());
+                if (gpxLayer == null) {
+                    de.blau.android.layer.Util.addLayer(activity, LayerType.GPX, fileUri.toString());
+                    map.setUpLayers(activity);
+                    gpxLayer = (de.blau.android.layer.gpx.MapOverlay) map.getLayer(LayerType.GPX, fileUri.toString());
+                }
+                if (gpxLayer != null) { // if null setUpLayers will have toasted
+                    gpxLayer.resetStyling();
+                    LayerStyle.showDialog(activity, gpxLayer.getIndex());
+                    SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                    gpxLayer.invalidate();
                     tl.removeAllViews();
                     addRows(activity);
                 }
@@ -749,6 +794,70 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     }
                     return true;
                 });
+            }
+            if (layer instanceof de.blau.android.layer.gpx.MapOverlay) {
+                MenuItem item = menu.add(R.string.menu_gps_goto_start);
+                item.setOnMenuItemClickListener(unused -> {
+                    if (layer != null && activity instanceof Main) {
+                        Track track = ((de.blau.android.layer.gpx.MapOverlay) layer).getTrack();
+                        if (track != null) {
+                            TrackPoint tp = track.getFirstTrackPoint();
+                            if (tp != null) {
+                                ((Main) activity).gotoTrackPoint(App.getLogic(), tp);
+                            } else {
+                                Snack.toastTopWarning(activity, R.string.toast_no_track_points);
+                            }
+                        }
+                    }
+                    dismissDialog();
+                    return true;
+                });
+                item = menu.add(R.string.menu_gps_goto_first_waypoint);
+                item.setOnMenuItemClickListener(unused -> {
+                    if (layer != null && activity instanceof Main) {
+                        Track track = ((de.blau.android.layer.gpx.MapOverlay) layer).getTrack();
+                        if (track != null) {
+                            WayPoint wp = track.getFirstWayPoint();
+                            if (wp != null) {
+                                ((Main) activity).gotoTrackPoint(App.getLogic(), wp);
+                            } else {
+                                Snack.toastTopWarning(activity, R.string.toast_no_way_points);
+                            }
+                        }
+                    }
+                    dismissDialog();
+                    return true;
+                });
+                item = menu.add(R.string.menu_gps_upload);
+                item.setOnMenuItemClickListener(unused -> {
+                    if (layer != null) {
+                        GpxUpload.showDialog(activity, layer.getContentId());
+                    }
+                    return true;
+                });
+                item = menu.add(R.string.menu_gps_export);
+                item.setOnMenuItemClickListener(unused -> {
+                    SelectFile.save(activity, R.string.config_osmPreferredDir_key, new SaveFile() {
+                        private static final long serialVersionUID = 1L;
+
+                        @Override
+                        public boolean save(Uri fileUri) {
+                            if (layer != null) {
+                                final Track track = ((de.blau.android.layer.gpx.MapOverlay) layer).getTrack();
+                                if (track != null) {
+                                    SavingHelper.asyncExport(activity, track, fileUri);
+                                    SelectFile.savePref(App.getLogic().getPrefs(), R.string.config_osmPreferredDir_key, fileUri);
+                                }
+                            }
+                            return true;
+                        }
+                    });
+                    return true;
+                });
+
+                if (activity instanceof Main) {
+                    item.setEnabled(((Main) activity).isStoragePermissionGranted());
+                }
             }
             MenuItem item = menu.add(R.string.move_up);
             item.setOnMenuItemClickListener(unused -> {

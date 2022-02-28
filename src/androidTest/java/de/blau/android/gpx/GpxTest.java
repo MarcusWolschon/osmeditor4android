@@ -149,7 +149,7 @@ public class GpxTest {
 
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
-        Track track = new Track(main);
+        Track track = new Track(main, false);
         track.importFromGPX(is);
 
         // set a different current location so that the first point always gets recorded
@@ -268,7 +268,7 @@ public class GpxTest {
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/follow", false);
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
-        Track track = new Track(main);
+        Track track = new Track(main, false);
         track.importFromGPX(is);
         main.getTracker().getTrack().reset(); // clear out anything saved
         final CountDownLatch signal = new CountDownLatch(1);

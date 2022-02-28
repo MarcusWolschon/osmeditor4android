@@ -254,7 +254,19 @@ public class Map extends View implements IMapView {
                             layer = new de.blau.android.layer.data.MapOverlay(this);
                             break;
                         case GPX:
-                            layer = new de.blau.android.layer.gpx.MapOverlay(this);
+                            layer = new de.blau.android.layer.gpx.MapOverlay(this, contentId);
+                            if (contentId != null) {
+                                if (contentId.equals(ctx.getString(R.string.layer_gpx_recording))) {
+                                    if (getTracker() != null) {
+                                        ((de.blau.android.layer.gpx.MapOverlay) layer).setTrack(getTracker().getTrack());
+                                    } else {
+                                        continue; // we don't want to display this if the service isn't running
+                                    }
+                                    ((de.blau.android.layer.gpx.MapOverlay) layer).setName(contentId);
+                                } else {
+                                    ((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId), true, null);
+                                }
+                            }
                             break;
                         case TASKS:
                             layer = new de.blau.android.layer.tasks.MapOverlay(this);
@@ -909,8 +921,8 @@ public class Map extends View implements IMapView {
      * @param nodesOffset begin in {@param nodes} list
      * @param nodesLength end in {@param nodes} list
      */
-    public void pointListToLinePointsArray(@NonNull final FloatPrimitiveList points, @NonNull final List<? extends GeoPoint> nodes,
-                                           int nodesOffset, int nodesLength) {
+    public void pointListToLinePointsArray(@NonNull final FloatPrimitiveList points, @NonNull final List<? extends GeoPoint> nodes, int nodesOffset,
+            int nodesLength) {
         points.clear(); // reset
         boolean testInterrupted = false;
         // loop over all nodes
@@ -1169,14 +1181,10 @@ public class Map extends View implements IMapView {
         }
 
         // Calculate lat/lon of view extents
-        final double latBottom = getViewBox().getBottom() / 1E7; // GeoMath.yToLatE7(viewPort.height(), getViewBox(),
-                                                                 // viewPort.bottom) / 1E7d;
-        final double lonRight = getViewBox().getRight() / 1E7; // GeoMath.xToLonE7(viewPort.width() , getViewBox(),
-                                                               // viewPort.right ) / 1E7d;
-        final double latTop = getViewBox().getTop() / 1E7; // GeoMath.yToLatE7(viewPort.height(), getViewBox(),
-                                                           // viewPort.top ) / 1E7d;
-        final double lonLeft = getViewBox().getLeft() / 1E7; // GeoMath.xToLonE7(viewPort.width() , getViewBox(),
-                                                             // viewPort.left ) / 1E7d;
+        final double latBottom = getViewBox().getBottom() / 1E7D;
+        final double lonRight = getViewBox().getRight() / 1E7D;
+        final double latTop = getViewBox().getTop() / 1E7D;
+        final double lonLeft = getViewBox().getLeft() / 1E7D;
 
         // Calculate tile x/y scaled 0.0 to 1.0
         final double xTileRight = (lonRight + 180d) / 360d;

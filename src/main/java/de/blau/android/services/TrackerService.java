@@ -1,7 +1,6 @@
 package de.blau.android.services;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +41,6 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.contract.FileExtensions;
 import de.blau.android.gpx.Track;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.gpx.WayPoint;
@@ -56,12 +54,11 @@ import de.blau.android.services.util.NmeaTcpClientServer;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Notifications;
-import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.Snack;
 import de.blau.android.util.egm96.EGM96;
 import de.blau.android.validation.Validator;
 
-public class TrackerService extends Service implements Exportable {
+public class TrackerService extends Service {
 
     private static final String DEBUG_TAG = "TrackerService";
 
@@ -151,7 +148,7 @@ public class TrackerService extends Service implements Exportable {
     public void onCreate() {
         super.onCreate();
         Log.d(DEBUG_TAG, "onCreate");
-        track = new Track(this);
+        track = new Track(this, true);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         prefs = new Preferences(this);
@@ -525,19 +522,6 @@ public class TrackerService extends Service implements Exportable {
      */
     public boolean hasWayPoints() {
         return track != null && track.getWayPoints() != null && track.getWayPoints().length > 0;
-    }
-
-    /**
-     * Exports the GPX data
-     */
-    @Override
-    public void export(OutputStream outputStream) throws Exception {
-        track.exportToGPX(outputStream);
-    }
-
-    @Override
-    public String exportExtension() {
-        return FileExtensions.GPX;
     }
 
     @Override
