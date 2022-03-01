@@ -1,16 +1,5 @@
 package de.blau.android.layer.gpx;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Paint.FontMetrics;
-import android.net.Uri;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +11,17 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Paint.FontMetrics;
+import android.net.Uri;
+import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Map;
@@ -74,11 +73,18 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     private SerializablePaint wayPointPaint;
     private String            labelKey;
-    private String            contentId;               // could potentially be transient
+    private String            contentId;    // could potentially be transient
+
+    // way point label styling
+    private final transient FontMetrics fm;
+    private final transient Paint       labelBackground;
+    private final transient float       yOffset;
+    private final transient Paint       fontPaint;
+
     /**
      * State file file name
      */
-    private String            stateFileName = FILENAME;
+    private String stateFileName = FILENAME;
 
     /**
      * Construct a new GPX layer
@@ -90,6 +96,12 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         this.map = map;
         this.contentId = contentId;
         resetStyling();
+        // the following can only be changed in the DataStyle
+        FeatureStyle fs = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL);
+        fontPaint = fs.getPaint();
+        fm = fs.getFontMetrics();
+        labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+        yOffset = 2 * fontPaint.getStrokeWidth() + iconRadius;
 
         int threadPoolSize = Util.usableProcessors();
         Log.d(DEBUG_TAG, "using " + threadPoolSize + " threads");
@@ -129,30 +141,37 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         if (!isVisible || track == null) {
             return;
         }
+        drawTrackPoints(canvas);
+        drawWayPoints(canvas);
+    }
+
+    /**
+     * Draw the trackpoints
+     * 
+     * @param canvas the Canvas to drow on
+     */
+    private void drawTrackPoints(@NonNull Canvas canvas) {
         List<TrackPoint> trackPoints = track.getTrackPoints();
-        if (!trackPoints.isEmpty()) {
-            if (trackPoints.size() < TRACKPOINT_PARALLELIZATION_THRESHOLD || linePointsList.size() == 1) {
+        int size = trackPoints.size();
+        if (size > 0) {
+            final float maxLen = getStrokeWidth() * 2;
+            if (size < TRACKPOINT_PARALLELIZATION_THRESHOLD || linePointsList.size() == 1) {
                 final FloatPrimitiveList linePoints = linePointsList.get(0);
                 map.pointListToLinePointsArray(linePoints, trackPoints);
                 GeoMath.squashPointsArray(linePoints, getStrokeWidth() * 2);
                 canvas.drawLines(linePoints.getArray(), 0, linePoints.size(), paint);
             } else {
                 int offset = 0;
-                int length = trackPoints.size() / linePointsList.size();
+                int length = size / linePointsList.size();
                 List<Callable<Void>> callableTasks = new ArrayList<>();
                 for (int i = linePointsList.size() - 1; i >= 0; i--) {
                     final FloatPrimitiveList finalLinePoints = linePointsList.get(i);
                     final int finalOffset = offset;
-                    final int finalLength;
-                    if (i != 0) {
-                        finalLength = length + 1; // + 1 to join with next chunk
-                    } else {
-                        finalLength = trackPoints.size() - offset; // last chunk slightly different due to division
-                                                                   // remainder
-                    }
+                    // + 1 to join with next chunk, last chunk slightly different due to division remainder
+                    final int finalLength = i != 0 ? length + 1 : size - offset;
                     callableTasks.add(() -> {
                         map.pointListToLinePointsArray(finalLinePoints, trackPoints, finalOffset, finalLength);
-                        GeoMath.squashPointsArray(finalLinePoints, getStrokeWidth() * 2);
+                        GeoMath.squashPointsArray(finalLinePoints, maxLen);
                         canvas.drawLines(finalLinePoints.getArray(), 0, finalLinePoints.size(), paint);
                         return null;
                     });
@@ -160,43 +179,43 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                 }
                 try {
                     executorService.invokeAll(callableTasks);
-                } catch (InterruptedException e) {
-                    Log.e(DEBUG_TAG, e.getMessage());
+                } catch (InterruptedException | RejectedExecutionException ex) { // NOSONAR not much we can do here
+                    Log.e(DEBUG_TAG, ex.getMessage());
                 }
             }
         }
+    }
+
+    /**
+     * Draw way points
+     * 
+     * @param canvas the Canvas to draw on to
+     */
+    private void drawWayPoints(@NonNull Canvas canvas) {
         WayPoint[] wayPoints = track.getWayPoints();
         if (wayPoints.length != 0 && symbolPath != null) {
             ViewBox viewBox = map.getViewBox();
             int width = map.getWidth();
             int height = map.getHeight();
             int zoomLevel = map.getZoomLevel();
-            FeatureStyle fs = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL);
-            Paint paint = fs.getPaint();
-            Paint labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
-            float pointStrokeWidth = paint.getStrokeWidth();
-            float yOffset = 2 * pointStrokeWidth + iconRadius;
             for (WayPoint wp : wayPoints) {
-                if (viewBox.contains(wp.getLongitude(), wp.getLatitude())) {
-                    float x = GeoMath.lonE7ToX(width, viewBox, wp.getLon());
-                    float y = GeoMath.latE7ToY(height, width, viewBox, wp.getLat());
+                int lon = wp.getLon();
+                int lat = wp.getLat();
+                if (viewBox.contains(lon, lat)) {
+                    float x = GeoMath.lonE7ToX(width, viewBox, lon);
+                    float y = GeoMath.latE7ToY(height, width, viewBox, lat);
                     canvas.save();
                     canvas.translate(x, y);
                     canvas.drawPath(symbolPath, wayPointPaint);
                     canvas.restore();
                     if (zoomLevel > Map.SHOW_LABEL_LIMIT) {
-                        String label = wp.getName();
-                        if (label == null) {
-                            label = wp.getDescription();
-                            if (label == null) {
-                                continue;
-                            }
+                        String label = wp.getLabel();
+                        if (label != null) {
+                            float halfTextWidth = fontPaint.measureText(label) / 2;
+                            float top = y + yOffset + fm.bottom;
+                            canvas.drawRect(x - halfTextWidth, top, x + halfTextWidth, top - fontPaint.getTextSize(), labelBackground);
+                            canvas.drawText(label, x - halfTextWidth, y + yOffset, fontPaint);
                         }
-                        float halfTextWidth = paint.measureText(label) / 2;
-                        FontMetrics fm = fs.getFontMetrics();
-                        canvas.drawRect(x - halfTextWidth, y + yOffset + fm.bottom, x + halfTextWidth, y + yOffset - paint.getTextSize() + fm.bottom,
-                                labelBackground);
-                        canvas.drawText(label, x - halfTextWidth, y + yOffset, paint);
                     }
                 }
             }
@@ -444,7 +463,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     protected void discardLayer(Context context) {
         track = null;
         File originalFile = context.getFileStreamPath(stateFileName);
-        if (!originalFile.delete()) {
+        if (!originalFile.delete()) { // NOSOAR requires API 26
             Log.e(DEBUG_TAG, "Failed to delete state file " + stateFileName);
         }
         map.invalidate();

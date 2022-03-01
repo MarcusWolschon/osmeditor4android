@@ -80,7 +80,6 @@ import de.blau.android.resources.TileLayerDialog;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.TileType;
-import de.blau.android.services.TrackerService;
 import de.blau.android.resources.WmsEndpointDatabaseView;
 import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
