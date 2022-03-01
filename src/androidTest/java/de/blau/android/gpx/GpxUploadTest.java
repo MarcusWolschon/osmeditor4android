@@ -29,6 +29,7 @@ import de.blau.android.Main;
 import de.blau.android.MockTileServer;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
+import de.blau.android.layer.LayerDialogTest;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
@@ -39,7 +40,7 @@ import okhttp3.mockwebserver.MockWebServer;
 @LargeTest
 public class GpxUploadTest {
 
-    private static final String GPX_FILE        = "20110513_121244-tp.gpx";
+    static final String GPX_FILE        = "20110513_121244-tp.gpx";
     Main                        main            = null;
     UiDevice                    device          = null;
     Instrumentation             instrumentation = null;
@@ -126,26 +127,15 @@ public class GpxUploadTest {
         try {
             File gpxFile = JavaResources.copyFileFromResources(main, GPX_FILE, null, "/");
             try {
-                GpxTest.clickGpsButton(device);
-                UiObject2 clearItem = TestUtils.findObjectWithText(device, false, main.getString(R.string.menu_gps_clear), 1000, false);
-                assertNotNull(clearItem);
-                if (isEnabled(clearItem)) {
-                    TestUtils.clickText(device, false, main.getString(R.string.menu_gps_clear), true, false);
-                    TestUtils.clickText(device, false, main.getString(R.string.clear_anyway), true, false);
-                    GpxTest.clickGpsButton(device);
-                }
-                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_track_managment), true, false));
-                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_import), true, false));
+                assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+                assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
                 TestUtils.selectFile(device, main, null, GPX_FILE, true);
                 TestUtils.textGone(device, "Imported", 10000);
-                GpxTest.clickGpsButton(device);
-                if (!TestUtils.findText(device, false, main.getString(R.string.menu_gps_goto_start))) {
-                    TestUtils.scrollTo(main.getString(R.string.menu_gps_goto_start), true);
-                }
-                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_goto_start), true, false));
-                TestUtils.clickText(device, false, main.getString(R.string.okay), false); // click away tip
-                GpxTest.clickGpsButton(device);
-                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_track_managment), true, false));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+                UiObject2 menuButton = TestUtils.getLayerButton(device, GPX_FILE, LayerDialogTest.MENU_BUTTON);
+                menuButton.click();
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_upload), true, false));
                 mockServer.enqueue("200");
                 assertTrue(TestUtils.clickResource(device, false, "android:id/button1", true));
