@@ -405,8 +405,7 @@ public class MRUTags {
      * @param ctx Android Context
      */
     public synchronized void load(@NonNull Context ctx) {
-        Logic logic = App.getLogic();
-        ExecutorTask<Void, Void, Void> load = new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
+        ExecutorTask<Void, Void, Void> load = new ExecutorTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void param) {
                 try {
@@ -426,7 +425,7 @@ public class MRUTags {
         if (!dirty) {
             load.execute();
         } else {
-            Log.e(DEBUG_TAG, "Attempt to load saved filr on dirty contents");
+            Log.e(DEBUG_TAG, "Attempt to load saved file on dirty contents");
         }
     }
 
