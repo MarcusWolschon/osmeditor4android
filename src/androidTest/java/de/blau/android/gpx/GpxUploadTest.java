@@ -40,14 +40,14 @@ import okhttp3.mockwebserver.MockWebServer;
 @LargeTest
 public class GpxUploadTest {
 
-    static final String GPX_FILE        = "20110513_121244-tp.gpx";
-    Main                        main            = null;
-    UiDevice                    device          = null;
-    Instrumentation             instrumentation = null;
-    MockWebServer               tileServer      = null;
-    Preferences                 prefs           = null;
-    MockWebServerPlus           mockServer      = null;
-    AdvancedPrefDatabase        prefDB          = null;
+    static final String  GPX_FILE        = "20110513_121244-tp.gpx";
+    Main                 main            = null;
+    UiDevice             device          = null;
+    Instrumentation      instrumentation = null;
+    MockWebServer        tileServer      = null;
+    Preferences          prefs           = null;
+    MockWebServerPlus    mockServer      = null;
+    AdvancedPrefDatabase prefDB          = null;
 
     /**
      * Manual start of activity so that we can set up the monitor for main

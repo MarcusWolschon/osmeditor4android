@@ -69,6 +69,7 @@ import de.blau.android.layer.PruneableInterface;
 import de.blau.android.layer.StyleableInterface;
 import de.blau.android.layer.mvt.MapOverlay;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -830,7 +831,10 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 item = menu.add(R.string.menu_gps_upload);
                 item.setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
-                        GpxUpload.showDialog(activity, layer.getContentId());
+                        final Server server = App.getLogic().getPrefs().getServer();
+                        if (Server.checkOsmAuthentication(activity, server, () -> GpxUpload.showDialog(activity, layer.getContentId()))) {
+                            GpxUpload.showDialog(activity, layer.getContentId());
+                        }
                     }
                     return true;
                 });
