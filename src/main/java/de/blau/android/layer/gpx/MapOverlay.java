@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
@@ -345,8 +346,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @param uri Uri for the file to read
      * @param quiet if true no toasts etc will be displayed
      * @param handler handler to use after the file has been loaded if not null
+     * @return true if the file was loaded successfully
      */
-    public void fromFile(@NonNull final Context ctx, @NonNull final Uri uri, boolean quiet, @Nullable PostAsyncActionHandler handler) {
+    public boolean fromFile(@NonNull final Context ctx, @NonNull final Uri uri, boolean quiet, @Nullable PostAsyncActionHandler handler) {
         Log.d(DEBUG_TAG, "Loading track from " + uri);
         FragmentActivity activity = ctx instanceof FragmentActivity ? (FragmentActivity) ctx : null;
         final boolean interactive = !quiet && activity != null;
@@ -356,60 +358,66 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         name = SelectFile.getDisplaynameColumn(ctx, uri);
         setStateFileName(uri.getEncodedPath().replace('/', '-'));
         Logic logic = App.getLogic();
-        new ExecutorTask<Void, Void, Integer>(logic.getExecutorService(), logic.getHandler()) {
 
-            static final int FILENOTFOUND = -1;
-            static final int OK           = 0;
+        final int FILENOTFOUND = -1;
+        final int OK = 0;
 
-            @Override
-            protected void onPreExecute() {
-                if (interactive) {
-                    Progress.showDialog(activity, Progress.PROGRESS_LOADING);
-                }
-            }
+        try {
+            return new ExecutorTask<Void, Void, Integer>(logic.getExecutorService(), logic.getHandler()) {
 
-            @Override
-            protected Integer doInBackground(Void arg) {
-                try (InputStream is = ctx.getContentResolver().openInputStream(uri); BufferedInputStream in = new BufferedInputStream(is)) {
-                    track.importFromGPX(in);
-                    return OK;
-                } catch (Exception e) { // NOSONAR
-                    Log.e(DEBUG_TAG, "Error reading file: ", e);
-                    return FILENOTFOUND;
-                }
-            }
-
-            @Override
-            protected void onPostExecute(Integer result) {
-                try {
-                    if (result == OK) {
-                        if (handler != null) {
-                            handler.onSuccess();
-                        }
-                    } else {
-                        if (handler != null) {
-                            handler.onError(null);
-                        }
-                    }
+                @Override
+                protected void onPreExecute() {
                     if (interactive) {
-                        Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
-                        if (result == OK) {
-                            int trackPointCount = track.getTrackPoints().size();
-                            int wayPointCount = track.getWayPoints().length;
-                            String message = activity.getResources().getQuantityString(R.plurals.toast_imported_track_points, wayPointCount, trackPointCount,
-                                    wayPointCount);
-                            Snack.barInfo(activity, message);
-                        } else {
-                            Snack.barError(activity, R.string.toast_file_not_found);
-                        }
-                        activity.invalidateOptionsMenu();
+                        Progress.showDialog(activity, Progress.PROGRESS_LOADING);
                     }
-                } catch (IllegalStateException e) {
-                    // Avoid crash if activity is paused
-                    Log.e(DEBUG_TAG, "onPostExecute", e);
                 }
-            }
-        }.execute();
+
+                @Override
+                protected Integer doInBackground(Void arg) {
+                    try (InputStream is = ctx.getContentResolver().openInputStream(uri); BufferedInputStream in = new BufferedInputStream(is)) {
+                        track.importFromGPX(in);
+                        return OK;
+                    } catch (Exception e) { // NOSONAR
+                        Log.e(DEBUG_TAG, "Error reading file: ", e);
+                        return FILENOTFOUND;
+                    }
+                }
+
+                @Override
+                protected void onPostExecute(Integer result) {
+                    try {
+                        if (result == OK) {
+                            if (handler != null) {
+                                handler.onSuccess();
+                            }
+                        } else {
+                            if (handler != null) {
+                                handler.onError(null);
+                            }
+                        }
+                        if (interactive) {
+                            Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
+                            if (result == OK) {
+                                int trackPointCount = track.getTrackPoints().size();
+                                int wayPointCount = track.getWayPoints().length;
+                                String message = activity.getResources().getQuantityString(R.plurals.toast_imported_track_points, wayPointCount,
+                                        trackPointCount, wayPointCount);
+                                Snack.barInfo(activity, message);
+                            } else {
+                                Snack.barError(activity, R.string.toast_file_not_found);
+                            }
+                            activity.invalidateOptionsMenu();
+                        }
+                    } catch (IllegalStateException e) {
+                        // Avoid crash if activity is paused
+                        Log.e(DEBUG_TAG, "onPostExecute", e);
+                    }
+                }
+            }.execute().get() == OK; // result is not going to be null
+        } catch (InterruptedException | ExecutionException e) { // NOSONAR
+            Log.e(DEBUG_TAG, e.getMessage());
+            return false;
+        }
     }
 
     /**
@@ -463,7 +471,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     protected void discardLayer(Context context) {
         track = null;
         File originalFile = context.getFileStreamPath(stateFileName);
-        if (!originalFile.delete()) { // NOSOAR requires API 26
+        if (!originalFile.delete()) { // NOSONAR requires API 26
             Log.e(DEBUG_TAG, "Failed to delete state file " + stateFileName);
         }
         map.invalidate();

@@ -254,17 +254,23 @@ public class Map extends View implements IMapView {
                             layer = new de.blau.android.layer.data.MapOverlay(this);
                             break;
                         case GPX:
-                            layer = new de.blau.android.layer.gpx.MapOverlay(this, contentId);
                             if (contentId != null) {
-                                if (contentId.equals(ctx.getString(R.string.layer_gpx_recording))) {
+                                layer = new de.blau.android.layer.gpx.MapOverlay(this, contentId);
+                                final String recordingId = ctx.getString(R.string.layer_gpx_recording);
+                                if (contentId.equals(recordingId)) {
                                     if (getTracker() != null) {
                                         ((de.blau.android.layer.gpx.MapOverlay) layer).setTrack(getTracker().getTrack());
+                                        ((de.blau.android.layer.gpx.MapOverlay) layer).setName(contentId);
                                     } else {
-                                        continue; // we don't want to display this if the service isn't running
+                                        // we don't want to display the recording layer if the service isn't running
+                                        // for consistency reasons this implies that we need to delete the layer
+                                        db.deleteLayer(LayerType.GPX, recordingId);
+                                        continue;
                                     }
-                                    ((de.blau.android.layer.gpx.MapOverlay) layer).setName(contentId);
-                                } else {
-                                    ((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId), true, null);
+                                } else if (!((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId), true, null)) {
+                                    db.deleteLayer(LayerType.GPX, contentId);
+                                    Log.w(DEBUG_TAG, "Deleted GPX layer for " + contentId);
+                                    continue; // skip
                                 }
                             }
                             break;
@@ -272,8 +278,9 @@ public class Map extends View implements IMapView {
                             layer = new de.blau.android.layer.tasks.MapOverlay(this);
                             break;
                         case GEOJSON:
-                            layer = new de.blau.android.layer.geojson.MapOverlay(this);
                             if (contentId != null) {
+                                layer = new de.blau.android.layer.geojson.MapOverlay(this);
+
                                 try {
                                     if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true)) {
                                         // other error, has already been toasted
