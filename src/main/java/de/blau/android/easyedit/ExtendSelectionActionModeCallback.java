@@ -230,8 +230,9 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
             updated = true;
         }
         final boolean canMergePolygons = canMergePolygons(selection);
+        int count = selection.size();
         updated |= ElementSelectionActionModeCallback
-                .setItemVisibility((sortedWays != null && !canMergePolygons) || (selection.size() == 2 && canMergePolygons), mergeItem, false);
+                .setItemVisibility((count > 1 & sortedWays != null && !canMergePolygons) || (count == 2 && canMergePolygons), mergeItem, false);
 
         List<Way> selectedWays = logic.getSelectedWays();
         updated |= ElementSelectionActionModeCallback.setItemVisibility(selectedWays != null && !selectedWays.isEmpty(), orthogonalizeItem, false);
