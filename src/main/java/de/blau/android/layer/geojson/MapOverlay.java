@@ -782,7 +782,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     public void discardLayer(Context context) {
         data = null;
         File originalFile = context.getFileStreamPath(stateFileName);
-        if (!originalFile.delete()) {
+        if (!originalFile.delete()) { // NOSONAR requires API 26
             Log.e(DEBUG_TAG, "Failed to delete state file " + stateFileName);
         }
         map.invalidate();

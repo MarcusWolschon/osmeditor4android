@@ -137,7 +137,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
                                 API[] apis = db.getAPIs(apiId);
                                 if (apis.length == 1) {
                                     File file = new File(Uri.parse(apis[0].readonlyurl).getPath());
-                                    if (file.delete()) {
+                                    if (file.delete()) { // NOSONAR requires API 26
                                         Log.i(DEBUG_TAG, "Deleted " + filename);
                                     }
                                 }

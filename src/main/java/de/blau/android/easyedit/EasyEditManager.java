@@ -145,7 +145,7 @@ public class EasyEditManager {
             currentActionMode.finish();
             // remove any saved state
             try {
-                new File(FILENAME).delete(); // NOSONAR
+                new File(FILENAME).delete(); // NOSONAR requires API 26
             } catch (SecurityException e) {
                 Log.e(DEBUG_TAG, "Deleting " + FILENAME + " raised " + e.getMessage());
             }
