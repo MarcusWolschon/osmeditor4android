@@ -356,6 +356,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             track = new Track(ctx, false);
         }
         name = SelectFile.getDisplaynameColumn(ctx, uri);
+        if (name == null) {
+            name = uri.getLastPathSegment();
+        }
         setStateFileName(uri.getEncodedPath().replace('/', '-'));
         Logic logic = App.getLogic();
 

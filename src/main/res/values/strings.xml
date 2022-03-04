@@ -349,6 +349,8 @@
     <string name="layer_add_custom_imagery">Add custom imagery</string>
     <string name="layer_edit_custom_imagery_configuration">Edit custom imagery configuration</string>
     <string name="layer_add_gpx">Add layer from GPX file</string>
+    <string name="layer_download_track">Download GPX track</string>
+    <string name="layer_available_tracks">Available GPX tracks</string>
     <!--  Layer info dialog -->
     <string name="layer_info_min_zoom">Min zoom</string>
     <string name="layer_info_max_zoom">Max zoom</string>

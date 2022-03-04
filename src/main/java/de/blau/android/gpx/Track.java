@@ -71,8 +71,8 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
     /**
      * For conversion from UNIX epoch time and back
      */
-    private static final String    DATE_PATTERN_ISO8601_UTC = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-    private final SimpleDateFormat ISO8601FORMAT;
+    public static final String     DATE_PATTERN_ISO8601_UTC = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    private final SimpleDateFormat iso8601Format;
     private final Calendar         calendarInstance         = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 
     /**
@@ -114,13 +114,13 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
     /**
      * Basic constructor
      * 
-     * @param context Android Context
+     * @param context Android Context (required for recording)
      * @param recording if true the instance will be used for recording
      */
-    public Track(Context context, boolean recording) {
+    public Track(@Nullable Context context, boolean recording) {
         // Hardcode 'Z' timezone marker as otherwise '+0000' will be used, which is invalid in GPX
-        ISO8601FORMAT = new SimpleDateFormat(DATE_PATTERN_ISO8601_UTC, Locale.US);
-        ISO8601FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
+        iso8601Format = new SimpleDateFormat(DATE_PATTERN_ISO8601_UTC, Locale.US);
+        iso8601Format.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         currentTrack = new ArrayList<>();
         currentWayPoints = new ArrayList<>();
@@ -283,12 +283,12 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
         }
         savedTrackPoints = 0;
         File saveFile = new File(ctx.getFilesDir(), SAVEFILE);
-        if (!saveFile.delete() && saveFile.exists()) {
+        if (!saveFile.delete() && saveFile.exists()) { // NOSONAR nio delete requires API 26
             markSavingBroken("Failed to delete undesired track file", null);
         }
 
         saveFile = new File(ctx.getFilesDir(), WAYPOINT_SAVEFILE);
-        if (!saveFile.delete() && saveFile.exists()) {
+        if (!saveFile.delete() && saveFile.exists()) { // NOSONAR nio delete requires API 26
             Log.w(DEBUG_TAG, "Failed to delete waypoint save file");
         }
     }
@@ -499,7 +499,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
      */
     public String format(long time) {
         calendarInstance.setTimeInMillis(time);
-        return ISO8601FORMAT.format(new Date(time));
+        return iso8601Format.format(new Date(time));
     }
 
     /**
@@ -522,7 +522,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
      * 
      * @param in InputStream that we are reading from
      * @throws SAXException on parsing exceptions
-     * @throws IOException if reading the InputStream caused errored
+     * @throws IOException if reading the InputStream caused errors
      * @throws ParserConfigurationException
      */
     private void start(final InputStream in) throws SAXException, IOException, ParserConfigurationException {
@@ -567,8 +567,8 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
                 break;
             case TrackPoint.TRKPT_ELEMENT:
             case WayPoint.WPT_ELEMENT:
-                parsedLat = Double.parseDouble(atts.getValue("lat"));
-                parsedLon = Double.parseDouble(atts.getValue("lon"));
+                parsedLat = Double.parseDouble(atts.getValue(TrackPoint.LAT_ATTR));
+                parsedLon = Double.parseDouble(atts.getValue(TrackPoint.LON_ATTR));
                 break;
             case TrackPoint.TIME_ELEMENT:
                 state = State.TIME;
@@ -634,7 +634,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
      * @throws ParseException if the time string cannot be parsed
      */
     private synchronized long parseTime(String t) throws ParseException {
-        return ISO8601FORMAT.parse(t).getTime();
+        return iso8601Format.parse(t).getTime();
     }
 
     @Override

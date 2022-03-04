@@ -51,8 +51,8 @@ public class WayPoint extends TrackPoint {
     @Override
     public synchronized void toXml(XmlSerializer serializer, GpxTimeFormater gtf) throws IOException {
         serializer.startTag(null, WPT_ELEMENT);
-        serializer.attribute(null, "lat", String.format(Locale.US, "%f", latitude));
-        serializer.attribute(null, "lon", String.format(Locale.US, "%f", longitude));
+        serializer.attribute(null, LAT_ATTR, String.format(Locale.US, "%f", latitude));
+        serializer.attribute(null, LON_ATTR, String.format(Locale.US, "%f", longitude));
         if (hasAltitude()) {
             serializer.startTag(null, ELE_ELEMENT).text(String.format(Locale.US, "%f", altitude)).endTag(null, ELE_ELEMENT);
         }

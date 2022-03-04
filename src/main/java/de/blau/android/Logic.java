@@ -77,6 +77,8 @@ import de.blau.android.osm.MergeAction;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmChangeParser;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmGpxApi;
+import de.blau.android.osm.OsmGpxApi.Visibility;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.OsmPbfParser;
 import de.blau.android.osm.OsmXml;
@@ -88,7 +90,6 @@ import de.blau.android.osm.RelationMemberPosition;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.UserDetails;
-import de.blau.android.osm.Server.Visibility;
 import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
@@ -4218,7 +4219,7 @@ public class Logic {
             protected Integer doInBackground(Void params) {
                 int result = 0;
                 try {
-                    server.uploadTrack(track, description, tags, visibility);
+                    OsmGpxApi.uploadTrack(server, track, description, tags, visibility);
                 } catch (final OsmServerException e) {
                     Log.e(DEBUG_TAG, e.getMessage());
                     switch (e.getErrorCode()) { // FIXME use the same mechanics as for data upload

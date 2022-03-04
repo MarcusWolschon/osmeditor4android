@@ -47,7 +47,6 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
-import de.blau.android.gpx.Track;
 import de.blau.android.net.OAuthHelper;
 import de.blau.android.prefs.API;
 import de.blau.android.services.util.MBTileProviderDataBase;
@@ -55,11 +54,9 @@ import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
 import de.blau.android.util.BasicAuthInterceptor;
-import de.blau.android.util.DateFormatter;
 import de.blau.android.util.Snack;
 import okhttp3.Call;
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -86,8 +83,8 @@ public class Server {
     private static final String GENERATOR_KEY = "generator";
 
     private static final String HTTP_PUT    = "PUT";
-    private static final String HTTP_POST   = "POST";
-    private static final String HTTP_GET    = "GET";
+    static final String         HTTP_POST   = "POST";
+    static final String         HTTP_GET    = "GET";
     private static final String HTTP_DELETE = "DELETE";
 
     private static final MediaType TEXTXML = MediaType.parse(MimeTypes.TEXTXML);
@@ -170,11 +167,6 @@ public class Server {
     private final DiscardedTags discardedTags;
 
     private final OkHttpOAuthConsumer oAuthConsumer;
-
-    /**
-     * Date pattern used for suggesting a file name when uploading GPX tracks.
-     */
-    private static final String DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART = "yyyy-MM-dd'T'HHmmss";
 
     /**
      * Server path component for "api/" as in "http://api.openstreetmap.org/api/".
@@ -795,7 +787,7 @@ public class Server {
      * @return a Response object
      * @throws IOException on an IO issue
      */
-    private Response openConnectionForAuthenticatedAccess(@NonNull final URL url, @NonNull final String requestMethod, @Nullable final RequestBody body)
+    Response openConnectionForAuthenticatedAccess(@NonNull final URL url, @NonNull final String requestMethod, @Nullable final RequestBody body)
             throws IOException {
         Log.d(DEBUG_TAG, "openConnectionForWriteAccess url " + url);
 
@@ -995,7 +987,7 @@ public class Server {
      * @param response response from the server connection
      * @throws IOException on an IO issue
      */
-    private void checkResponseCode(@Nullable final Response response) throws IOException {
+    void checkResponseCode(@Nullable final Response response) throws IOException {
         checkResponseCode(response, null);
     }
 
@@ -1551,17 +1543,6 @@ public class Server {
     }
 
     /**
-     * Get the url for uploading a GPS track
-     * 
-     * @return the url
-     * @throws MalformedURLException if the url couldn't be constructed properly
-     */
-    @NonNull
-    private URL getUploadTrackUrl() throws MalformedURLException {
-        return new URL(getReadWriteUrl() + "gpx/create");
-    }
-
-    /**
      * Get the url for retrieving the API capabilities
      * 
      * @return the url
@@ -1856,48 +1837,6 @@ public class Server {
     }
 
     /**
-     * GPS track API visibility/
-     */
-    public enum Visibility {
-        PRIVATE, PUBLIC, TRACKABLE, IDENTIFIABLE
-    }
-
-    /**
-     * Upload a GPS track in GPX format
-     * 
-     * @param track the track
-     * @param description optional description
-     * @param tags optional tags
-     * @param visibility privacy/visibility setting
-     * @throws IOException on an IO error
-     */
-    public void uploadTrack(@NonNull final Track track, @NonNull String description, @NonNull String tags, @NonNull Visibility visibility) throws IOException {
-        RequestBody gpxBody = new RequestBody() {
-            @Override
-            public MediaType contentType() {
-                return MediaType.parse(MimeTypes.GPX);
-            }
-
-            @Override
-            public void writeTo(BufferedSink sink) throws IOException {
-                try {
-                    track.exportToGPX(sink.outputStream());
-                } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
-                    throw new IOException(e);
-                }
-            }
-        };
-        String fileNamePart = DateFormatter.getFormattedString(DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART);
-        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("description", description)
-                .addFormDataPart("tags", tags).addFormDataPart("visibility", visibility.name().toLowerCase(Locale.US))
-                .addFormDataPart("file", fileNamePart + ".gpx", gpxBody).build();
-        Response response = openConnectionForAuthenticatedAccess(getUploadTrackUrl(), HTTP_POST, requestBody);
-        if (!response.isSuccessful()) {
-            throwOsmServerException(response);
-        }
-    }
-
-    /**
      * 
      * @return true if we are using OAuth but have not retrieved the accesstoken yet
      */
@@ -2031,7 +1970,7 @@ public class Server {
     }
 
     /**
-     * Get the name of the API configuration usesd for this instance
+     * Get the name of the API configuration used for this instance
      * 
      * @return the API name
      */

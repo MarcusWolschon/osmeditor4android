@@ -12,9 +12,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -29,8 +31,10 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
@@ -54,6 +58,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.contract.Paths;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.gpx.Track;
 import de.blau.android.gpx.TrackPoint;
@@ -69,10 +74,14 @@ import de.blau.android.layer.PruneableInterface;
 import de.blau.android.layer.StyleableInterface;
 import de.blau.android.layer.mvt.MapOverlay;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.GpxFile;
+import de.blau.android.osm.OsmGpxApi;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.URLListEditActivity.ListEditItem;
+import de.blau.android.prefs.URLListEditActivity.ListItem;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.resources.OAMCatalogView;
@@ -84,6 +93,7 @@ import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.resources.WmsEndpointDatabaseView;
 import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
 import de.blau.android.util.SavingHelper;
@@ -177,7 +187,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             MenuItem item = popup.getMenu().add(R.string.menu_layers_load_geojson);
             final Map map = App.getLogic().getMap();
             item.setOnMenuItemClickListener(unused -> {
-                addGeoJsonLayerFromFile(activity, prefs, map);
+                addStyleableLayerFromFile(activity, prefs, map, LayerType.GEOJSON);
                 return false;
             });
 
@@ -242,7 +252,13 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
 
             item = popup.getMenu().add(R.string.layer_add_gpx);
             item.setOnMenuItemClickListener(unused -> {
-                addGpxLayerFromFile(activity, prefs, map);
+                addStyleableLayerFromFile(activity, prefs, map, LayerType.GPX);
+                return false;
+            });
+
+            item = popup.getMenu().add(R.string.layer_download_track);
+            item.setOnMenuItemClickListener(unused -> {
+                downloadGpxTrack(activity, prefs, map);
                 return false;
             });
 
@@ -293,6 +309,84 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
     }
 
     /**
+     * Show a list of available tracks (in the current view), then download on selection
+     * 
+     * @param activity the calling activity
+     * @param prefs the current Preferences
+     * @param map the current map object
+     */
+    private void downloadGpxTrack(@NonNull final FragmentActivity activity, @NonNull final Preferences prefs, @NonNull final Map map) {
+        final Logic logic = App.getLogic();
+        final Server server = prefs.getServer();
+        ExecutorTask<Void, Void, List<GpxFile>> download = new ExecutorTask<Void, Void, List<GpxFile>>(logic.getExecutorService(), logic.getHandler()) {
+
+            @Override
+            protected List<GpxFile> doInBackground(Void input) throws Exception {
+                return OsmGpxApi.getUserGpxFiles(server, map.getViewBox());
+            }
+
+            @Override
+            protected void onPostExecute(List<GpxFile> result) {
+                if (result.size() > 0) {
+                    Builder builder = new AlertDialog.Builder(activity);
+                    builder.setTitle(R.string.layer_available_tracks);
+                    builder.setAdapter(new GpxFileAdapter(activity, result), (DialogInterface dialog, int which) -> {
+                        final long id = result.get(which).getId();
+                        new ExecutorTask<Void, Void, Uri>(logic.getExecutorService(), logic.getHandler()) {
+
+                            @Override
+                            protected Uri doInBackground(Void input) throws Exception {
+                                return OsmGpxApi.downloadTrack(prefs.getServer(), id,
+                                        FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_GPX).getAbsolutePath(),
+                                        result.get(which).getName());
+                            }
+
+                            @Override
+                            protected void onPostExecute(Uri result) {
+                                if (result != null) {
+                                    addStyleableLayerFromUri(activity, prefs, map, LayerType.GPX, result);
+                                }
+                            }
+                        }.execute();
+                    });
+                    builder.setPositiveButton(R.string.Done, null);
+                    builder.show();
+                }
+            }
+        };
+        if (Server.checkOsmAuthentication(activity, server, download::execute)) {
+            download.execute();
+        }
+    }
+
+    private class GpxFileAdapter extends ArrayAdapter<GpxFile> {
+
+        /**
+         * Get an adapter
+         * 
+         * @param context an Android Context
+         * @param items a List of GpxFile
+         */
+        public GpxFileAdapter(@NonNull Context context, @NonNull List<GpxFile> items) {
+            super(context, R.layout.track_list_item, items);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+
+            LinearLayout ll = (LinearLayout) (convertView == null || !(convertView instanceof LinearLayout)
+                    ? View.inflate(getContext(), R.layout.track_list_item, null)
+                    : convertView);
+            TextView name = ll.findViewById(R.id.name);
+            name.setText(getItem(position).getName());
+            TextView description = ll.findViewById(R.id.description);
+            description.setText(getItem(position).getDescription());
+            return ll;
+        }
+    }
+
+    /**
      * Force load the tile layers by requesting the standard OSM layer
      */
     public void loadTileLayerSources() {
@@ -306,69 +400,53 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
     }
 
     /**
-     * Add a Layer from a GeoJson file
+     * Add a StyleableLayer from a file
      * 
      * @param activity the calling Activity
      * @param prefs current Preferences
      * @param map current Map
+     * @param type the layer type
      */
-    private void addGeoJsonLayerFromFile(final FragmentActivity activity, final Preferences prefs, final Map map) {
-        SelectFile.read(activity, R.string.config_osmPreferredDir_key, new ReadFile() {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public boolean read(Uri fileUri) {
-                de.blau.android.layer.geojson.MapOverlay geojsonLayer = (de.blau.android.layer.geojson.MapOverlay) map.getLayer(LayerType.GEOJSON,
-                        fileUri.toString());
-                if (geojsonLayer == null) {
-                    de.blau.android.layer.Util.addLayer(activity, LayerType.GEOJSON, fileUri.toString());
-                    map.setUpLayers(activity);
-                    geojsonLayer = (de.blau.android.layer.geojson.MapOverlay) map.getLayer(LayerType.GEOJSON, fileUri.toString());
-                }
-                if (geojsonLayer != null) { // if null setUpLayers will have toasted
-                    geojsonLayer.resetStyling();
-                    LayerStyle.showDialog(activity, geojsonLayer.getIndex());
-                    SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
-                    geojsonLayer.invalidate();
-                    tl.removeAllViews();
-                    addRows(activity);
-                }
-                return true;
-            }
-        });
-    }
-
-    /**
-     * Add a Layer from a GPX file
-     * 
-     * @param activity the calling Activity
-     * @param prefs current Preferences
-     * @param map current Map
-     */
-    private void addGpxLayerFromFile(final FragmentActivity activity, final Preferences prefs, final Map map) {
+    private void addStyleableLayerFromFile(final FragmentActivity activity, final Preferences prefs, final Map map, @NonNull final LayerType type) {
         Log.d(DEBUG_TAG, "addGpxLayerFromFile");
         SelectFile.read(activity, R.string.config_osmPreferredDir_key, new ReadFile() {
             private static final long serialVersionUID = 1L;
 
             @Override
             public boolean read(Uri fileUri) {
-                de.blau.android.layer.gpx.MapOverlay gpxLayer = (de.blau.android.layer.gpx.MapOverlay) map.getLayer(LayerType.GPX, fileUri.toString());
-                if (gpxLayer == null) {
-                    de.blau.android.layer.Util.addLayer(activity, LayerType.GPX, fileUri.toString());
-                    map.setUpLayers(activity);
-                    gpxLayer = (de.blau.android.layer.gpx.MapOverlay) map.getLayer(LayerType.GPX, fileUri.toString());
-                }
-                if (gpxLayer != null) { // if null setUpLayers will have toasted
-                    gpxLayer.resetStyling();
-                    LayerStyle.showDialog(activity, gpxLayer.getIndex());
-                    SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
-                    gpxLayer.invalidate();
-                    tl.removeAllViews();
-                    addRows(activity);
-                }
+                addStyleableLayerFromUri(activity, prefs, map, type, fileUri);
                 return true;
             }
         });
+    }
+
+    /**
+     * Add a StyleableLayer from a file Uri
+     * 
+     * @param activity the calling Activity
+     * @param prefs current Preferences
+     * @param map current Map
+     * @param type the layer type
+     * @param fileUri the file uri
+     */
+    private void addStyleableLayerFromUri(@NonNull final FragmentActivity activity, @NonNull final Preferences prefs, @NonNull final Map map,
+            @NonNull LayerType type, @NonNull Uri fileUri) {
+        final String uriString = fileUri.toString();
+        de.blau.android.layer.StyleableLayer layer = (de.blau.android.layer.StyleableLayer) map.getLayer(type, uriString);
+        if (layer == null) {
+            Log.d(DEBUG_TAG, "addStyleableLayerFromUri " + uriString);
+            de.blau.android.layer.Util.addLayer(activity, type, uriString);
+            map.setUpLayers(activity);
+            layer = (de.blau.android.layer.gpx.MapOverlay) map.getLayer(type, uriString);
+        }
+        if (layer != null) { // if null setUpLayers will have toasted
+            layer.resetStyling();
+            LayerStyle.showDialog(activity, layer.getIndex());
+            SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+            layer.invalidate();
+            tl.removeAllViews();
+            addRows(activity);
+        }
     }
 
     /**
@@ -422,7 +500,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
      * 
      * @param activity calling FragmentActivity
      * @param prefs Preference instance to set
-     * @param map the curren Map instance
+     * @param map the current Map instance
      */
     private void updateDialogAndPrefs(@NonNull final FragmentActivity activity, @NonNull final Preferences prefs, @NonNull final Map map) {
         setPrefs(activity, prefs);

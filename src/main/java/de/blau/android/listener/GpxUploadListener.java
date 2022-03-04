@@ -12,8 +12,8 @@ import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.gpx.Track;
+import de.blau.android.osm.OsmGpxApi.Visibility;
 import de.blau.android.osm.Server;
-import de.blau.android.osm.Server.Visibility;
 
 /**
  * @author mb
