@@ -205,7 +205,8 @@
         <activity
             android:name="Authorize"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/Theme.AppCompat"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale" />
         <activity
             android:name="LicenseViewer"
             android:theme="@style/Theme.custom" />
