@@ -1,5 +1,6 @@
 package de.blau.android.util;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,17 +10,22 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.contract.Paths;
 import de.blau.android.contract.Schemes;
 
-public abstract class FileUtil {
+public final class FileUtil {
+    private static final String DEBUG_TAG = FileUtil.class.getSimpleName();
+
     public static final String FILE_SCHEME_PREFIX = Schemes.FILE + ":";
 
     /**
@@ -244,7 +250,7 @@ public abstract class FileUtil {
             Collections.sort(fileList, (f0, f1) -> Long.compare(f0.lastModified(), f1.lastModified()));
             for (File f : fileList) {
                 long len = f.length();
-                if (f.delete()) { // NOSONAR
+                if (f.delete()) { // NOSONAR requires API 26
                     result -= len;
                 }
                 if (result < maxCacheSize) {
@@ -252,5 +258,62 @@ public abstract class FileUtil {
                 }
             }
         }
+    }
+
+    /**
+     * Unpack a zipped file
+     * 
+     * Code from http://stackoverflow.com/questions/3382996/how-to-unzip-files-programmatically-in-android
+     * 
+     * @param dir preset directory
+     * @param zipname the zip file
+     * @return true if successful
+     */
+    public static boolean unpackZip(String dir, String zipname) {
+        try (InputStream is = new FileInputStream(dir + zipname); ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is))) {
+            String filename;
+
+            ZipEntry ze;
+            byte[] buffer = new byte[1024];
+            int count;
+
+            while ((ze = zis.getNextEntry()) != null) {
+                // zapis do souboru
+                filename = ze.getName();
+                Log.d(DEBUG_TAG, "Unzip " + filename);
+                // Need to create directories if not exists, or
+                // it will generate an Exception...
+                if ("".equals(filename)) {
+                    continue;
+                } else if (filename.indexOf('/') > 0 && !filename.endsWith("/")) {
+                    int slash = filename.lastIndexOf('/');
+                    String path = filename.substring(0, slash);
+                    File fmd = new File(dir + path);
+                    if (!fmd.exists()) {
+                        fmd.mkdirs();
+                    }
+                } else if (ze.isDirectory()) {
+                    File fmd = new File(dir + filename);
+                    // noinspection ResultOfMethodCallIgnored
+                    if (!fmd.exists()) {
+                        fmd.mkdirs();
+                    }
+                    continue;
+                }
+
+                try (FileOutputStream fout = new FileOutputStream(dir + filename)) {
+                    // cteni zipu a zapis
+                    while ((count = zis.read(buffer)) != -1) {
+                        fout.write(buffer, 0, count);
+                    }
+                }
+                zis.closeEntry();
+            }
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "Unzipping failed with " + e.getMessage());
+            return false;
+        }
+
+        return true;
     }
 }
