@@ -1733,13 +1733,7 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(haveTracker && locationProviderEnabled && networkConnected)
                 .setChecked(prefs.getBugAutoDownload());
 
-<<<<<<< HEAD
-        boolean trackerHasTrackPoints = getTracker() != null && getTracker().hasTrackPoints();
-        boolean trackerHasWayPoints = getTracker() != null && getTracker().hasWayPoints();
-        menu.findItem(R.id.menu_gps_clear).setEnabled(trackerHasTrackPoints || trackerHasWayPoints);
-=======
         menu.findItem(R.id.menu_gps_clear).setEnabled(haveTracker && (getTracker().hasTrackPoints() || getTracker().hasWayPoints()));
->>>>>>> 0242e0edb (Invalidate menu after starting tracking)
 
         final Logic logic = App.getLogic();
         MenuItem undo = menu.findItem(R.id.menu_undo);
@@ -2382,7 +2376,7 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_tools_remove_egm:
             Uri egmPath = prefs.getEgmFile();
             if (egmPath != null) {
-                if (!new File(egmPath.getPath()).delete()) { // NOSONAR requires API 26
+                if (!new File(egmPath.getPath()).delete()) {
                     Log.e(DEBUG_TAG, "Unable to delete " + egmPath);
                 }
                 prefs.setEgmFile(null);

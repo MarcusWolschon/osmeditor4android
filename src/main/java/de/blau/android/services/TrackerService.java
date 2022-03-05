@@ -3,7 +3,6 @@ package de.blau.android.services;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import android.annotation.TargetApi;
@@ -42,8 +41,6 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.gpx.Track;
-import de.blau.android.gpx.TrackPoint;
-import de.blau.android.gpx.WayPoint;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
@@ -476,25 +473,6 @@ public class TrackerService extends Service {
      */
     public boolean isTracking() {
         return tracking;
-    }
-
-    /**
-     * Get the list of recorded TrackPoints
-     * 
-     * @return a List of TrackPoint
-     */
-    @NonNull
-    public List<TrackPoint> getTrackPoints() {
-        return track.getTrackPoints();
-    }
-
-    /**
-     * Get the list of WayPoints
-     * 
-     * @return a List of WayPoint
-     */
-    public List<WayPoint> getWayPoints() {
-        return Arrays.asList(track.getWayPoints());
     }
 
     /**
@@ -1008,15 +986,11 @@ public class TrackerService extends Service {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         // only attempt to download if we have a network or a mapsplit source
         boolean activeNetwork = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
-        if (prefs.getServer().hasMapSplitSource() || activeNetwork) {
-            if (downloading) {
-                autoDownload(location, validator);
-            }
+        if (downloading && (prefs.getServer().hasMapSplitSource() || activeNetwork)) {
+            autoDownload(location, validator);
         }
-        if (activeNetwork) {
-            if (downloadingBugs) {
-                bugAutoDownload(location);
-            }
+        if (downloadingBugs && activeNetwork) {
+            bugAutoDownload(location);
         }
     }
 
