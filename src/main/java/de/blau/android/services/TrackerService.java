@@ -48,6 +48,7 @@ import de.blau.android.services.util.ExtendedLocation;
 import de.blau.android.services.util.Nmea;
 import de.blau.android.services.util.NmeaTcpClient;
 import de.blau.android.services.util.NmeaTcpClientServer;
+import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Notifications;
@@ -733,12 +734,6 @@ public class TrackerService extends Service {
                     }
                 }
                 gpsEnabled = true;
-            } catch (SecurityException sex) {
-                // note there is no way we can ask for permission here so we do
-                // that in the main
-                // activity before actually creating this service
-                Log.e(DEBUG_TAG, "Permission missing for location service ", sex);
-                Snack.toastTopError(this, R.string.gps_failure);
             } catch (RuntimeException rex) {
                 Log.e(DEBUG_TAG, "Failed to enable location service", rex);
                 Snack.toastTopError(this, R.string.gps_failure);
@@ -809,33 +804,21 @@ public class TrackerService extends Service {
      * @param validator a Validator to use for any new data
      */
     private void autoDownload(@NonNull Location location, @NonNull Validator validator) {
-        // some heuristics for now to keep downloading to a minimum
-        int radius = prefs.getDownloadRadius();
-        if ((location.getSpeed() < prefs.getMaxDownloadSpeed() / 3.6f) && (previousLocation == null || location.distanceTo(previousLocation) > radius / 8)) {
-            StorageDelegator storageDelegator = App.getDelegator();
-            List<BoundingBox> bbList = new ArrayList<>(storageDelegator.getBoundingBoxes());
-            BoundingBox newBox = getNextBox(bbList, previousLocation, location, radius);
-            if (newBox != null) {
-                if (radius != 0) { // download
-                    List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox);
-                    for (BoundingBox b : bboxes) {
-                        if (b.getWidth() <= 1 || b.getHeight() <= 1) {
-                            // ignore super small bb likely due to rounding
-                            // errors
-                            Log.d(DEBUG_TAG, "getNextCenter very small bb " + b.toString());
-                            continue;
-                        }
-                        storageDelegator.addBoundingBox(b); // will be filled
-                                                            // once download is
-                                                            // complete
-                        Log.d(DEBUG_TAG, "getNextCenter loading " + b.toString());
-                        final Logic logic = App.getLogic();
-                        logic.autoDownloadBox(this, prefs.getServer(), validator, b, logic::reselectRelationMembers);
-                    }
-                }
+        final StorageDelegator delegator = App.getDelegator();
+        autoDownload(location, previousLocation, prefs.getDownloadRadius(), prefs.getMaxDownloadSpeed(), delegator.getBoundingBoxes(), new DownloadBox() {
+
+            @Override
+            public void download(BoundingBox box) {
+                delegator.addBoundingBox(box); // will be filled once download is complete
+                final Logic logic = App.getLogic();
+                logic.autoDownloadBox(TrackerService.this, prefs.getServer(), validator, box, logic::reselectRelationMembers);
+            }
+
+            @Override
+            public void saveLocation(Location location) {
                 previousLocation = location;
             }
-        }
+        });
     }
 
     /**
@@ -846,7 +829,7 @@ public class TrackerService extends Service {
      * @param latE7 latitude in WGS84*10E7
      * @return true if one of the BoundingBoxes cover the coordinate
      */
-    private boolean bbLoaded(@NonNull List<BoundingBox> bbs, int lonE7, int latE7) {
+    private static boolean bbLoaded(@NonNull List<BoundingBox> bbs, int lonE7, int latE7) {
         for (BoundingBox b : bbs) {
             if (b.isIn(lonE7, latE7)) {
                 return true;
@@ -865,7 +848,7 @@ public class TrackerService extends Service {
      * @return the next BoundingBox
      */
     @Nullable
-    private BoundingBox getNextBox(@NonNull List<BoundingBox> bbs, Location prevLocation, @NonNull Location location, int radius) {
+    private static BoundingBox getNextBox(@NonNull List<BoundingBox> bbs, Location prevLocation, @NonNull Location location, int radius) {
         double lon = location.getLongitude();
         double lat = location.getLatitude();
         double mlat = GeoMath.latToMercator(lat);
@@ -922,31 +905,67 @@ public class TrackerService extends Service {
      * @param location the current Location
      */
     private void bugAutoDownload(@NonNull Location location) {
+        final TaskStorage taskStorage = App.getTaskStorage();
+        autoDownload(location, previousBugLocation, prefs.getBugDownloadRadius(), prefs.getMaxBugDownloadSpeed(), taskStorage.getBoundingBoxes(),
+                new DownloadBox() {
+
+                    @Override
+                    public void download(BoundingBox box) {
+                        taskStorage.addBoundingBox(box); // will be filled once download is complete
+                        TransferTasks.downloadBox(TrackerService.this, prefs.getServer(), box, true, TransferTasks.MAX_PER_REQUEST, null);
+                    }
+
+                    @Override
+                    public void saveLocation(Location location) {
+                        previousBugLocation = location;
+
+                    }
+                });
+    }
+
+    interface DownloadBox {
+        /**
+         * Download data in box
+         * 
+         * @param box the BoundingBox to download
+         */
+        void download(@NonNull BoundingBox box);
+
+        /**
+         * Save the new location
+         * 
+         * @param location the new Location
+         */
+        void saveLocation(@NonNull Location location);
+    }
+
+    /**
+     * Calculate the missing bounding boxes and then actually download
+     * 
+     * @param location the current Location
+     * @param prevLocation the previous Location
+     * @param radius 1/2 of a side of the box to download
+     * @param maxSpeed maximum speed at which we still download
+     * @param boxes current list of coverage bounding boxes
+     * @param downloadBox callback to do the actual downloading
+     */
+    public static void autoDownload(@NonNull Location location, @Nullable Location prevLocation, int radius, float maxSpeed, @NonNull List<BoundingBox> boxes,
+            @NonNull DownloadBox downloadBox) {
         // some heuristics for now to keep downloading to a minimum
-        int radius = prefs.getBugDownloadRadius();
-        if ((location.getSpeed() < prefs.getMaxBugDownloadSpeed() / 3.6f)
-                && (previousBugLocation == null || location.distanceTo(previousBugLocation) > radius / 8)) {
-            ArrayList<BoundingBox> bbList = new ArrayList<>(App.getTaskStorage().getBoundingBoxes());
-            BoundingBox newBox = getNextBox(bbList, previousBugLocation, location, radius);
+        if ((location.getSpeed() < maxSpeed / 3.6f) && (prevLocation == null || location.distanceTo(prevLocation) > radius / 8)) {
+            List<BoundingBox> bbList = new ArrayList<>(boxes);
+            BoundingBox newBox = getNextBox(bbList, prevLocation, location, radius);
             if (newBox != null) {
                 if (radius != 0) { // download
                     List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox);
                     for (BoundingBox b : bboxes) {
-                        if (b.getWidth() <= 1 || b.getHeight() <= 1) {
-                            // ignore super small bb likely due to rounding
-                            // errors
-                            Log.d(DEBUG_TAG, "bugAutoDownload very small bb " + b.toString());
-                            continue;
+                        if (b.getWidth() > 1 && b.getHeight() > 1) {
+                            // ignore super small bb likely due to rounding errors
+                            downloadBox.download(b);
                         }
-                        App.getTaskStorage().addBoundingBox(b); // will be filled once
-                        // download is complete
-                        Log.d(DEBUG_TAG, "bugAutoDownloads loading " + b.toString());
-                        TransferTasks.downloadBox(this, prefs.getServer(), b, true, TransferTasks.MAX_PER_REQUEST, null);
                     }
                 }
-                previousBugLocation = location;
-            } else {
-                Log.d(DEBUG_TAG, "bugAutoDownload no bb");
+                downloadBox.saveLocation(location);
             }
         }
     }
