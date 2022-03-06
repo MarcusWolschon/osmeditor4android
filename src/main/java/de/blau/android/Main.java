@@ -2479,8 +2479,6 @@ public class Main extends FullScreenAppCompatActivity
                     map.setUpLayers(this);
                 }
             }
-            de.blau.android.layer.gpx.MapOverlay layer = ((de.blau.android.layer.gpx.MapOverlay) map.getLayer(LayerType.GPX));
-            layer.setTrack(getTracker().getTrack());
         } else {
             Log.e(DEBUG_TAG, "addGpxLayer tracker not available");
         }
