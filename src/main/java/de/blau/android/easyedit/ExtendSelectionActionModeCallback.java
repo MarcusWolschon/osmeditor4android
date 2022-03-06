@@ -232,7 +232,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         final boolean canMergePolygons = canMergePolygons(selection);
         int count = selection.size();
         updated |= ElementSelectionActionModeCallback
-                .setItemVisibility((count > 1 & sortedWays != null && !canMergePolygons) || (count == 2 && canMergePolygons), mergeItem, false);
+                .setItemVisibility((count > 1 && sortedWays != null && !canMergePolygons) || (count == 2 && canMergePolygons), mergeItem, false);
 
         List<Way> selectedWays = logic.getSelectedWays();
         updated |= ElementSelectionActionModeCallback.setItemVisibility(selectedWays != null && !selectedWays.isEmpty(), orthogonalizeItem, false);
