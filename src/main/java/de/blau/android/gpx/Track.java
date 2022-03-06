@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -58,7 +59,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
 
     private final List<TrackPoint> currentTrack;
 
-    private final ArrayList<WayPoint> currentWayPoints;
+    private final List<WayPoint> currentWayPoints;
 
     private static final String SAVEFILE = "track.dat";
 
@@ -122,8 +123,8 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
         iso8601Format = new SimpleDateFormat(DATE_PATTERN_ISO8601_UTC, Locale.US);
         iso8601Format.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-        currentTrack = new ArrayList<>();
-        currentWayPoints = new ArrayList<>();
+        currentTrack = recording ? Collections.synchronizedList(new ArrayList<>()) : new ArrayList<>();
+        currentWayPoints = recording ? Collections.synchronizedList(new ArrayList<>()) : new ArrayList<>();
         ctx = context;
         synchronized (savingLock) {
             if (isSaving && recording) {
@@ -171,25 +172,21 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
     /**
      * Get the TrackPoints for this track
      * 
-     * FIXME allocating a new array list should be avoided but may be necessary to avoid concurrent mod. issues
-     * 
      * @return an array of TrackPoint
      */
     @NonNull
     public List<TrackPoint> getTrackPoints() {
-        return new ArrayList<>(currentTrack);
+        return currentTrack;
     }
 
     /**
      * Get the WayPoints for this track
      * 
-     * FIXME allocating a new array should be avoided but may be necessary to avoid concurrent mod. issues
-     * 
      * @return a List of WayPoint
      */
     @NonNull
-    public WayPoint[] getWayPoints() {
-        return currentWayPoints.toArray(new WayPoint[0]); // need a shallow copy here
+    public List<WayPoint> getWayPoints() {
+        return currentWayPoints;
     }
 
     @Override
@@ -217,7 +214,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
         }
 
         if (currentWayPoints != null) {
-            wayPointsSaver.save(ctx, WAYPOINT_SAVEFILE, currentWayPoints, true);
+            wayPointsSaver.save(ctx, WAYPOINT_SAVEFILE, new ArrayList<>(currentWayPoints), true);
         }
 
         if (savedTrackPoints == currentTrack.size()) {

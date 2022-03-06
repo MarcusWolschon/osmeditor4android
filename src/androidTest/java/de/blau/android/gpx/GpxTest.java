@@ -253,7 +253,7 @@ public class GpxTest {
                     assertEquals(GpxUploadTest.GPX_FILE, layer.getName());
                     Track track = ((de.blau.android.layer.gpx.MapOverlay) layer).getTrack();
                     assertEquals(112, track.getTrack().size());
-                    assertEquals(79, track.getWayPoints().length);
+                    assertEquals(79, track.getWayPoints().size());
                     for (WayPoint wp : track.getWayPoints()) {
                         if (doubleEquals(47.3976189, wp.getLatitude()) && doubleEquals(8.3770144, wp.getLongitude())) {
                             foundWp = wp;

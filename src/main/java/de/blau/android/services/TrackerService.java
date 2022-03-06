@@ -491,7 +491,7 @@ public class TrackerService extends Service {
      * @return true is TrackPoints are stored
      */
     public boolean hasTrackPoints() {
-        return track != null && track.getTrackPoints() != null && !track.getTrackPoints().isEmpty();
+        return track != null && !track.getTrackPoints().isEmpty();
     }
 
     /**
@@ -500,7 +500,7 @@ public class TrackerService extends Service {
      * @return true is WayPoints are stored
      */
     public boolean hasWayPoints() {
-        return track != null && track.getWayPoints() != null && track.getWayPoints().length > 0;
+        return track != null && !track.getWayPoints().isEmpty();
     }
 
     @Override

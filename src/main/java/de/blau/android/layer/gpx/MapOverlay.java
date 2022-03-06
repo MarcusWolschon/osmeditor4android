@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -200,7 +199,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @param canvas the Canvas to draw on to
      */
     private void drawWayPoints(@NonNull Canvas canvas) {
-        WayPoint[] wayPoints = track.getWayPoints();
+        List<WayPoint> wayPoints = track.getWayPoints();
         if (symbolPath != null) {
             ViewBox viewBox = map.getViewBox();
             int width = map.getWidth();
@@ -245,8 +244,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         List<WayPoint> result = new ArrayList<>();
         Log.d(DEBUG_TAG, "getClicked");
         if (track != null) {
-            WayPoint[] wayPoints = track.getWayPoints();
-            if (wayPoints.length != 0) {
+            List<WayPoint> wayPoints = track.getWayPoints();
+            if (!wayPoints.isEmpty()) {
                 final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
                 for (WayPoint wpp : wayPoints) {
                     int lat = wpp.getLat();
@@ -295,7 +294,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     public BoundingBox getExtent() {
         if (track != null) {
             List<TrackPoint> trackPoints = track.getTrackPoints();
-            trackPoints.addAll(Arrays.asList(track.getWayPoints()));
+            trackPoints.addAll(track.getWayPoints());
             BoundingBox result = null;
             for (TrackPoint tp : trackPoints) {
                 if (result == null) {
@@ -409,7 +408,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                             Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
                             if (result == OK) {
                                 int trackPointCount = track.getTrackPoints().size();
-                                int wayPointCount = track.getWayPoints().length;
+                                int wayPointCount = track.getWayPoints().size();
                                 String message = activity.getResources().getQuantityString(R.plurals.toast_imported_track_points, wayPointCount,
                                         trackPointCount, wayPointCount);
                                 Snack.barInfo(activity, message);
