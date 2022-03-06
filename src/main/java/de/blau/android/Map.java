@@ -256,15 +256,14 @@ public class Map extends View implements IMapView {
                         case GPX:
                             if (contentId != null) {
                                 layer = new de.blau.android.layer.gpx.MapOverlay(this, contentId);
-                                final String recordingId = ctx.getString(R.string.layer_gpx_recording);
-                                if (contentId.equals(recordingId)) {
+                                if (ctx.getString(R.string.layer_gpx_recording).equals(contentId)) {
                                     if (getTracker() != null) {
                                         ((de.blau.android.layer.gpx.MapOverlay) layer).setTrack(getTracker().getTrack());
                                         ((de.blau.android.layer.gpx.MapOverlay) layer).setName(contentId);
                                     } else {
                                         // we don't want to display the recording layer if the service isn't running
                                         // for consistency reasons this implies that we need to delete the layer
-                                        db.deleteLayer(LayerType.GPX, recordingId);
+                                        db.deleteLayer(LayerType.GPX, contentId);
                                         continue;
                                     }
                                 } else if (!((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId), true, null)) {
@@ -280,7 +279,6 @@ public class Map extends View implements IMapView {
                         case GEOJSON:
                             if (contentId != null) {
                                 layer = new de.blau.android.layer.geojson.MapOverlay(this);
-
                                 try {
                                     if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true)) {
                                         // other error, has already been toasted

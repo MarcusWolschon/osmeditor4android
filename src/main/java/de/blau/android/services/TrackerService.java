@@ -520,7 +520,7 @@ public class TrackerService extends Service {
         }
     }
 
-    LocationListener gpsListener = new LocationListener() {
+    public LocationListener gpsListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
             if (source == GpsSource.INTERNAL) {

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.concurrent.ExecutorService;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -15,6 +16,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -91,6 +94,7 @@ import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.resources.WmsEndpointDatabaseView;
+import de.blau.android.services.TrackerService;
 import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
@@ -935,9 +939,36 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     });
                     return true;
                 });
-
                 if (activity instanceof Main) {
                     item.setEnabled(((Main) activity).isStoragePermissionGranted());
+                }
+                if (!activity.getString(R.string.layer_gpx_recording).equals(layer.getContentId())) {
+                    item = menu.add(R.string.layer_start_playback);
+                    item.setOnMenuItemClickListener(unused -> {
+                        if (layer != null) {
+                            ((de.blau.android.layer.gpx.MapOverlay) layer).startPlayback();
+                        }
+                        return true;
+                    });
+                    item.setEnabled(!((de.blau.android.layer.gpx.MapOverlay) layer).isPlaying());
+
+                    item = menu.add(R.string.layer_pause_playback);
+                    item.setOnMenuItemClickListener(unused -> {
+                        if (layer != null) {
+                            ((de.blau.android.layer.gpx.MapOverlay) layer).pausePlayback();
+                        }
+                        return true;
+                    });
+                    item.setEnabled(((de.blau.android.layer.gpx.MapOverlay) layer).isPlaying());
+
+                    item = menu.add(R.string.layer_stop_playback);
+                    item.setOnMenuItemClickListener(unused -> {
+                        if (layer != null) {
+                            ((de.blau.android.layer.gpx.MapOverlay) layer).stopPlayback();
+                        }
+                        return true;
+                    });
+                    item.setEnabled(!((de.blau.android.layer.gpx.MapOverlay) layer).isStopped());
                 }
             }
             MenuItem item = menu.add(R.string.move_up);

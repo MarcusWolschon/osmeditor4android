@@ -18,6 +18,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -25,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
@@ -42,8 +45,10 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.symbols.TriangleDown;
+import de.blau.android.services.TrackerService;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.PlaybackTask;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.SerializablePaint;
@@ -71,6 +76,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     private final transient SavingHelper<MapOverlay>      savingHelper = new SavingHelper<>();
 
     private transient Track track;
+
+    private transient PlaybackTask<Void, Void, Void> playbackTask = null;
 
     private SerializablePaint wayPointPaint;
     private String            labelKey;
@@ -194,7 +201,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      */
     private void drawWayPoints(@NonNull Canvas canvas) {
         WayPoint[] wayPoints = track.getWayPoints();
-        if (wayPoints.length != 0 && symbolPath != null) {
+        if (symbolPath != null) {
             ViewBox viewBox = map.getViewBox();
             int width = map.getWidth();
             int height = map.getHeight();
@@ -478,5 +485,123 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             Log.e(DEBUG_TAG, "Failed to delete state file " + stateFileName);
         }
         map.invalidate();
+    }
+
+    /**
+     * Start/resume playback of this track
+     */
+    public void startPlayback() {
+        if (playbackTask != null) {
+            playbackTask.resume();
+            return;
+        }
+        playbackTask = new GpxPlayback();
+        playbackTask.execute();
+    }
+
+    private class GpxPlayback extends PlaybackTask<Void, Void, Void> {
+
+        /**
+         * Create a new instance
+         */
+        public GpxPlayback() {
+            super(App.getLogic().getExecutorService(), App.getLogic().getHandler());
+        }
+
+        boolean paused = false;
+
+        @Override
+        protected Void doInBackground(Void input) throws Exception {
+            Context context = MapOverlay.this.map.getContext();
+            if (context instanceof Main) {
+                TrackerService tracker = ((Main) context).getTracker();
+                final Track t = getTrack();
+                if (t != null) {
+                    Location loc = new Location(LocationManager.GPS_PROVIDER);
+                    for (TrackPoint tp : t.getTrackPoints()) {
+                        while (paused && !isCancelled()) {
+                            sleep();
+                        }
+
+                        if (isCancelled()) {
+                            break;
+                        }
+
+                        tp.toLocation(loc);
+                        tracker.gpsListener.onLocationChanged(loc);
+                        sleep();
+                    }
+                }
+            }
+            return null;
+        }
+
+        /**
+         * 
+         */
+        public void sleep() {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) { // NOSONAR
+                //
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Void output) {
+            playbackTask = null;
+        }
+
+        @Override
+        public void pause() {
+            paused = true;
+        }
+
+        @Override
+        public void resume() {
+            paused = false;
+        }
+
+        @Override
+        public boolean isPaused() {
+            return paused;
+        }
+
+    }
+
+    /**
+     * Pause playback
+     */
+    public void pausePlayback() {
+        if (playbackTask != null) {
+            playbackTask.pause();
+        }
+    }
+
+    /**
+     * Check if we are playing the track
+     * 
+     * @return true if the track is being played
+     */
+    public boolean isPlaying() {
+        return playbackTask != null && !playbackTask.isPaused();
+    }
+
+    /**
+     * Check if we are not playing the track
+     * 
+     * @return true if we are not playing the track
+     */
+    public boolean isStopped() {
+        return playbackTask == null;
+    }
+
+    /**
+     * Stop playing the track
+     */
+    public void stopPlayback() {
+        if (playbackTask != null) {
+            playbackTask.cancel();
+        }
     }
 }

@@ -209,12 +209,30 @@ public class TrackPoint implements InterruptibleGeoPoint, Serializable {
     }
 
     /**
-     * Check if this ibject marks the beginning of a new segment
+     * Check if this object marks the beginning of a new segment
      * 
      * @return true if a new segment starts here
      */
     public boolean isNewSegment() {
         return (flags & FLAG_NEWSEGMENT) > 0;
+    }
+
+    @Override
+    public boolean isInterrupted() {
+        return isNewSegment();
+    }
+
+    /**
+     * Fill a Location object with our values
+     * 
+     * @param loc the Location we want to set the vaules on
+     */
+    public void toLocation(@NonNull Location loc) {
+        loc.reset();
+        loc.setLongitude(longitude);
+        loc.setLatitude(latitude);
+        loc.setAltitude(altitude);
+        loc.setTime(time);
     }
 
     /**
@@ -238,10 +256,5 @@ public class TrackPoint implements InterruptibleGeoPoint, Serializable {
     @Override
     public String toString() {
         return String.format(Locale.US, "%f, %f", latitude, longitude);
-    }
-
-    @Override
-    public boolean isInterrupted() {
-        return isNewSegment();
     }
 }
