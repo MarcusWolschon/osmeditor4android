@@ -878,39 +878,42 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 });
             }
             if (layer instanceof de.blau.android.layer.gpx.MapOverlay) {
-                MenuItem item = menu.add(R.string.menu_gps_goto_start);
-                item.setOnMenuItemClickListener(unused -> {
-                    if (layer != null && activity instanceof Main) {
-                        Track track = ((de.blau.android.layer.gpx.MapOverlay) layer).getTrack();
-                        if (track != null) {
-                            TrackPoint tp = track.getFirstTrackPoint();
-                            if (tp != null) {
-                                ((Main) activity).gotoTrackPoint(App.getLogic(), tp);
-                            } else {
-                                Snack.toastTopWarning(activity, R.string.toast_no_track_points);
+                boolean recordingLayer = !activity.getString(R.string.layer_gpx_recording).equals(layer.getContentId());
+                if (recordingLayer) {
+                    MenuItem item = menu.add(R.string.menu_gps_goto_start);
+                    item.setOnMenuItemClickListener(unused -> {
+                        if (layer != null && activity instanceof Main) {
+                            Track track = ((de.blau.android.layer.gpx.MapOverlay) layer).getTrack();
+                            if (track != null) {
+                                TrackPoint tp = track.getFirstTrackPoint();
+                                if (tp != null) {
+                                    ((Main) activity).gotoTrackPoint(App.getLogic(), tp);
+                                } else {
+                                    Snack.toastTopWarning(activity, R.string.toast_no_track_points);
+                                }
                             }
                         }
-                    }
-                    dismissDialog();
-                    return true;
-                });
-                item = menu.add(R.string.menu_gps_goto_first_waypoint);
-                item.setOnMenuItemClickListener(unused -> {
-                    if (layer != null && activity instanceof Main) {
-                        Track track = ((de.blau.android.layer.gpx.MapOverlay) layer).getTrack();
-                        if (track != null) {
-                            WayPoint wp = track.getFirstWayPoint();
-                            if (wp != null) {
-                                ((Main) activity).gotoTrackPoint(App.getLogic(), wp);
-                            } else {
-                                Snack.toastTopWarning(activity, R.string.toast_no_way_points);
+                        dismissDialog();
+                        return true;
+                    });
+                    item = menu.add(R.string.menu_gps_goto_first_waypoint);
+                    item.setOnMenuItemClickListener(unused -> {
+                        if (layer != null && activity instanceof Main) {
+                            Track track = ((de.blau.android.layer.gpx.MapOverlay) layer).getTrack();
+                            if (track != null) {
+                                WayPoint wp = track.getFirstWayPoint();
+                                if (wp != null) {
+                                    ((Main) activity).gotoTrackPoint(App.getLogic(), wp);
+                                } else {
+                                    Snack.toastTopWarning(activity, R.string.toast_no_way_points);
+                                }
                             }
                         }
-                    }
-                    dismissDialog();
-                    return true;
-                });
-                item = menu.add(R.string.menu_gps_upload);
+                        dismissDialog();
+                        return true;
+                    });
+                }
+                MenuItem item = menu.add(R.string.menu_gps_upload);
                 item.setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
                         final Server server = App.getLogic().getPrefs().getServer();
@@ -942,7 +945,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 if (activity instanceof Main) {
                     item.setEnabled(((Main) activity).isStoragePermissionGranted());
                 }
-                if (!activity.getString(R.string.layer_gpx_recording).equals(layer.getContentId())) {
+                if (recordingLayer) {
                     item = menu.add(R.string.layer_start_playback);
                     item.setOnMenuItemClickListener(unused -> {
                         if (layer != null) {
