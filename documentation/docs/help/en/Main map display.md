@@ -30,9 +30,9 @@ Note: the map tiles are cached on device and only deleted if explicitly flushed.
 
 ### Layer control
 
-Vespucci currently supports a tiled background imagery layer, a tiled overlay layer, a grid/scale layer, a task layer, a photo layer, a GeoJSON layer, a GPX/GPS layer and, naturally, an OSM data layer. Tapping the layer control (upper right corner) will display the layer dialog).
+Vespucci currently supports multiple tiled background imagery layers, multiple tiled overlay layers (both raster and Mapbox vector tiles), a grid/scale layer, a task layer, a photo layer, multiple GeoJSON layers, multiple GPX/GPS layers and, naturally, an OSM data layer. Tapping the layer control (upper right corner) will display the layer dialog).
 
-The layer dialog supports the following: 
+The layer dialog supports the following actions on the layer entries: 
 
 * Hide/Show button turns drawing of the layer off/on. Hiding a layer doesn't free any resources associated with the layer.
 * Zoom to extent. Zooms and pans the screen so that the whole extent of the layer is displayed, if the extent cannot be determined this will zoom out to the full web-mercator coverage. Note: on the data layer this may not be particularly useful if you have downloaded areas that are far apart.
@@ -51,8 +51,16 @@ The layer dialog supports the following:
     * GeoJSON layers: 
         * __Change style__ Show the layer styling dialog.
         * __Info__ Display some information on the contents.
-    * GPX layer. The GPX layer is currently mainly controlled via the entries in the GPS menu.
+    * GPX layers:
+      Starting recording by the "Start GPX track" item in the GPS menu will add a layer for the recording. Layers for GPX files and downloaded tracks from the OSM API can be added via the __+__ button, see below.  
         * __Change style__ Show the layer styling dialog.
+        * __Go to start of GPX track__ Center the display on the start of the track. *(not available on the recording layer)*
+        * __Go to first waypoint__ Center the display on the first waypoint. *(not available on the recording layer)*
+        * __Upload GPX track__ Upload the track to the OSM API.
+        * __Export GPX track__ Export the track to a local file.
+        * __Start playback__ Playback the current file, this behaves similar to recording tracks, the display will be centered on the current track point, then the following on and so on. *(not available on the recording layer)*
+        * __Pause playback__ Temporarily pause the playback. *(not available on the recording layer)*
+        * __Stop playback__ Stop the playback. *(not available on the recording layer)*
     * Photo, Grid and Task layers:
         * __Configure...__ (for the Grid and Task layers)
         * __Disable__ Turn this layer off. For the tasks and photo layers this will free resources if the app is exited and re-started.
@@ -70,6 +78,8 @@ The layer dialog supports the following:
     * __Add GeoJSON layer__ Loads a GeoJSON layer from a file in to a new GeoJSON layer.
     * __Add background imagery layer__ Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.
     * __Add overlay imagery layer__ As above but assumes that the layer is partially transparent.
+    * __Add layer from GPX file__ Adds a layer from a GPS file on device.
+    * __Download GPS track__ Download a GPX file from the OSM API for the user and create a layer from it. Note that only GPX tracks that intersect with the area currently used will be available for selection.
     * __Add custom imagery__ Adds a custom imagery configuration, this can then be used just 
       as any tile based imagery source, the entries can be managed in the [preferences](Preferences.md).
     * __Add layer from MVT style__ Load a Mapbox-GL style file that has a "sources" section and create a layer. 
@@ -118,15 +128,9 @@ The "on-map" GPS button duplicates the function of the "Follow GPS position" men
  * **Bookmarks...** - show current viewbox bookmarks
  * **Go to current location** - go to and zoom in to the current position
  * **Go to coordinates...** - go to and zoom in to coordinates or an open location code
- * **Start GPX track** - start recording a GPX track
+ * **Start GPX track** - start recording a GPX track and display a corresponding layer.
  * **Pause GPX track** - pause recording the current GPX track
  * **Clear GPX track** - clear the current GPX track
- * **GPX track management...** - manage existing tracks
-    * **Upload GPX track** - upload the current GPX track *(requires network connectivity)*
-    * **Export GPX track** - export track to file
-    * **Import GPX track** - import track from file
- * **Go to start of GPX track** - center the map on the first track point
- 
 
 ### ![Transfer](../images/menu_transfer.png) Transfer
 
