@@ -674,15 +674,6 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
     }
 
     /**
-     * Get the list of TrackPoints
-     * 
-     * @return a List of TrackPoint
-     */
-    public List<TrackPoint> getTrack() {
-        return currentTrack;
-    }
-
-    /**
      * Get the starting TrackPoint
      * 
      * @return the first TrackPoint or null

@@ -331,7 +331,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
 
             @Override
             protected void onPostExecute(List<GpxFile> result) {
-                if (result.size() > 0) {
+                if (!result.isEmpty()) {
                     Builder builder = new AlertDialog.Builder(activity);
                     builder.setTitle(R.string.layer_available_tracks);
                     builder.setAdapter(new GpxFileAdapter(activity, result), (DialogInterface dialog, int which) -> {
@@ -379,8 +379,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         @Override
         public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
-            LinearLayout ll = (LinearLayout) (convertView == null || !(convertView instanceof LinearLayout)
-                    ? View.inflate(getContext(), R.layout.track_list_item, null)
+            LinearLayout ll = (LinearLayout) (!(convertView instanceof LinearLayout) ? View.inflate(getContext(), R.layout.track_list_item, null)
                     : convertView);
             TextView name = ll.findViewById(R.id.name);
             name.setText(getItem(position).getName());

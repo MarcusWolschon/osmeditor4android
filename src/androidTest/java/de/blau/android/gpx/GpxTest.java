@@ -158,8 +158,8 @@ public class GpxTest {
         track.importFromGPX(is);
 
         // set a different current location so that the first point always gets recorded
-        int trackSize = track.getTrack().size();
-        TrackPoint startPoint = track.getTrack().get(trackSize / 2);
+        int trackSize = track.getTrackPoints().size();
+        TrackPoint startPoint = track.getTrackPoints().get(trackSize / 2);
         Location loc = new Location(LocationManager.GPS_PROVIDER);
         loc.setLatitude(startPoint.getLatitude());
         loc.setLongitude(startPoint.getLongitude());
@@ -173,7 +173,7 @@ public class GpxTest {
 
         final CountDownLatch signal = new CountDownLatch(1);
         main.getTracker().getTrack().reset(); // clear out anything saved
-        TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_FINE, 1000, new SignalHandler(signal));
+        TestUtils.injectLocation(main, track.getTrackPoints(), Criteria.ACCURACY_FINE, 1000, new SignalHandler(signal));
         try {
             signal.await(TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -181,7 +181,7 @@ public class GpxTest {
         }
         clickGpsButton(device);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_pause), true, false));
-        List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
+        List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrackPoints();
 
         compareTrack(track, recordedTrack);
         UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_gpx_recording), LayerDialogTest.MENU_BUTTON);
@@ -218,17 +218,17 @@ public class GpxTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_goto_start), false, false));
         TestUtils.sleep(2000);
         double[] center = main.getMap().getViewBox().getCenter();
-        TrackPoint first = track.getTrack().get(0);
+        TrackPoint first = track.getTrackPoints().get(0);
         assertEquals(first.longitude, center[0], 0.01);
         assertEquals(first.latitude, center[1], 0.01);
 
         // clear out the track
         track = main.getTracker().getTrack();
-        assertFalse(track.getTrack().isEmpty());
+        assertFalse(track.getTrackPoints().isEmpty());
         clickGpsButton(device);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_clear), true, false));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.clear_anyway), true, false));
-        assertTrue(track.getTrack().isEmpty());
+        assertTrue(track.getTrackPoints().isEmpty());
     }
 
     /**
@@ -251,7 +251,7 @@ public class GpxTest {
                 if (layer instanceof de.blau.android.layer.gpx.MapOverlay && GpxUploadTest.GPX_FILE.equals(layer.getName())) {
                     assertEquals(GpxUploadTest.GPX_FILE, layer.getName());
                     Track track = ((de.blau.android.layer.gpx.MapOverlay) layer).getTrack();
-                    assertEquals(112, track.getTrack().size());
+                    assertEquals(112, track.getTrackPoints().size());
                     assertEquals(79, track.getWayPoints().size());
                     for (WayPoint wp : track.getWayPoints()) {
                         if (doubleEquals(47.3976189, wp.getLatitude()) && doubleEquals(8.3770144, wp.getLongitude())) {
@@ -297,7 +297,7 @@ public class GpxTest {
         track.importFromGPX(is);
         main.getTracker().getTrack().reset(); // clear out anything saved
         final CountDownLatch signal = new CountDownLatch(1);
-        TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_COARSE, 1000, new SignalHandler(signal));
+        TestUtils.injectLocation(main, track.getTrackPoints(), Criteria.ACCURACY_COARSE, 1000, new SignalHandler(signal));
         TestUtils.sleep(TIMEOUT * 1000L);
         clickGpsButton(device);
         assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true, false));

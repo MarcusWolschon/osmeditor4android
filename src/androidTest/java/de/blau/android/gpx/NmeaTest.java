@@ -151,7 +151,7 @@ public class NmeaTest {
         }
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_pause), true, false));
-        List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
+        List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrackPoints();
         assertEquals(216, recordedTrack.size());
         Location lastLocation = main.getTracker().getLastLocation();
         assertEquals(47.39804275, lastLocation.getLatitude(), 0.000001);
