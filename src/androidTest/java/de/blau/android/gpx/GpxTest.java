@@ -86,7 +86,6 @@ public class GpxTest {
         main = mActivityRule.getActivity();
 
         tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
-        de.blau.android.layer.Util.addLayer(main, LayerType.GPX);
         prefs = new Preferences(main);
         Logic logic = App.getLogic();
         logic.setPrefs(prefs);
