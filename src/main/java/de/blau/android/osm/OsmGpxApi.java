@@ -118,7 +118,16 @@ public class OsmGpxApi {
             String fileName = name;
             if (fileName == null) {
                 String contentDisposition = response.header(CONTENT_DISPOSITION_HEADER);
-                fileName = contentDisposition != null ? ContentDispositionFileNameParser.parse(contentDisposition) : Long.toString(System.currentTimeMillis());
+                if (contentDisposition != null) {
+                    try {
+                        fileName = ContentDispositionFileNameParser.parse(contentDisposition);
+                    } catch (IllegalArgumentException e) {
+                        Log.e(DEBUG_TAG, "Problem parsing header ", e);
+                    }
+                }
+                if (fileName == null) {
+                    fileName = Long.toString(System.currentTimeMillis());
+                }
             }
             if (!fileName.endsWith(FileExtensions.GPX)) { // as we force GPX format, .gpx should be added if missing
                 fileName = fileName + "." + FileExtensions.GPX;

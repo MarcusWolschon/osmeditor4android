@@ -3,12 +3,10 @@ package de.blau.android.net;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.nio.charset.StandardCharsets.ISO_8859_1;
-import static java.nio.charset.StandardCharsets.UTF_8;
+import androidx.annotation.NonNull;
 
 /*
  * Copyright 2002-2020 the original author or authors.
@@ -35,7 +33,11 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public final class ContentDispositionFileNameParser {
 
-    private static final String INVALID_HEADER_FIELD_PARAMETER_FORMAT = "Invalid header field parameter format (as defined in RFC 5987)";
+    private static final Charset US_ASCII                              = Charset.forName("US-ASCII");
+    private static final Charset UTF_8                                 = Charset.forName("UTF-8");
+    private static final Charset ISO_8859_1                            = Charset.forName("ISO-8859-1");
+    private static final String  FILENAME_ATTR                         = "filename*";
+    private static final String  INVALID_HEADER_FIELD_PARAMETER_FORMAT = "Invalid header field parameter format (as defined in RFC 5987)";
 
     /**
      * Private constructor
@@ -51,7 +53,7 @@ public final class ContentDispositionFileNameParser {
      * @return Return the value of the {@literal filename} parameter (or the value of the {@literal filename*} one
      *         decoded as defined in the RFC 5987), or {@code null} if not defined.
      */
-    public static String parse(String contentDisposition) {
+    public static String parse(@NonNull String contentDisposition) {
         List<String> parts = tokenize(contentDisposition);
         String filename = null;
         Charset charset;
@@ -62,7 +64,7 @@ public final class ContentDispositionFileNameParser {
                 String attribute = part.substring(0, eqIndex);
                 String value = (part.startsWith("\"", eqIndex + 1) && part.endsWith("\"") ? part.substring(eqIndex + 2, part.length() - 1)
                         : part.substring(eqIndex + 1));
-                if (attribute.equals("filename*")) {
+                if (attribute.equals(FILENAME_ATTR)) {
                     int idx1 = value.indexOf('\'');
                     int idx2 = value.indexOf('\'', idx1 + 1);
                     if (idx1 != -1 && idx2 != -1) {
@@ -73,9 +75,9 @@ public final class ContentDispositionFileNameParser {
                         filename = decodeFilename(value.substring(idx2 + 1), charset);
                     } else {
                         // US ASCII
-                        filename = decodeFilename(value, StandardCharsets.US_ASCII);
+                        filename = decodeFilename(value, US_ASCII);
                     }
-                } else if (attribute.equals("filename") && (filename == null)) {
+                } else if (attribute.equals(FILENAME_ATTR) && (filename == null)) {
                     filename = value;
                 }
             } else {
@@ -85,7 +87,13 @@ public final class ContentDispositionFileNameParser {
         return filename;
     }
 
-    private static List<String> tokenize(String headerValue) {
+    /**
+     * Tokenize a header value
+     * 
+     * @param headerValue the header value
+     * @return a list of tokens
+     */
+    private static List<String> tokenize(@NonNull String headerValue) {
         int index = headerValue.indexOf(';');
         String type = (index >= 0 ? headerValue.substring(0, index) : headerValue).trim();
         if (type.isEmpty()) {
@@ -159,10 +167,16 @@ public final class ContentDispositionFileNameParser {
         try {
             return byteArrayOutputStream.toString(charset.name());
         } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("Failed to copy contents of ByteArrayOutputStream into a String", e);
+            throw new IllegalArgumentException("Failed to copy contents of ByteArrayOutputStream into a String", e);
         }
     }
 
+    /**
+     * Check if a value is a RFC5987 AttrChar (whatever that is)
+     * 
+     * @param c the value
+     * @return true if c is a RFC5987 AttrChar
+     */
     private static boolean isRFC5987AttrChar(byte c) {
         return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '!' || c == '#' || c == '$' || c == '&' || c == '+'
                 || c == '-' || c == '.' || c == '^' || c == '_' || c == '`' || c == '|' || c == '~';
