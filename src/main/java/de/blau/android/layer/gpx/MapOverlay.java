@@ -58,7 +58,7 @@ import de.blau.android.views.IMapView;
 
 public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, ClickableInterface<WayPoint> {
 
-    private static final long serialVersionUID = 2L; // note that this can't actually be serialized as the transient
+    private static final long serialVersionUID = 3L; // note that this can't actually be serialized as the transient
                                                      // wields need to be set in readObject
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
@@ -74,13 +74,13 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     private final transient ArrayList<FloatPrimitiveList> linePointsList;
     private final transient SavingHelper<MapOverlay>      savingHelper = new SavingHelper<>();
 
-    private transient Track track;
-
-    private transient PlaybackTask<Void, Void, Void> playbackTask = null;
+    private transient Track       track;
+    private transient GpxPlayback playbackTask = null;
 
     private SerializablePaint wayPointPaint;
     private String            labelKey;
     private String            contentId;    // could potentially be transient
+    private TrackPoint        pausedPoint;
 
     // way point label styling
     private final transient FontMetrics fm;
@@ -442,6 +442,11 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     public synchronized boolean save(@NonNull Context context) throws IOException {
+        if (playbackTask != null) {
+            playbackTask.pause();
+            pausedPoint = playbackTask.getPausedPoint();
+            playbackTask.cancel();
+        }
         return savingHelper.save(context, stateFileName, this, true);
     }
 
@@ -452,6 +457,11 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             Log.d(DEBUG_TAG, "read saved state");
             wayPointPaint = restoredOverlay.wayPointPaint;
             labelKey = restoredOverlay.labelKey;
+            if (playbackTask == null && restoredOverlay.pausedPoint != null) {
+                // restart playback
+                playbackTask = new GpxPlayback();
+                playbackTask.execute(restoredOverlay.pausedPoint);
+            }
         }
         return restoredOverlay;
     }
@@ -495,50 +505,56 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             return;
         }
         playbackTask = new GpxPlayback();
-        playbackTask.execute();
+        playbackTask.execute(null);
     }
 
-    private class GpxPlayback extends PlaybackTask<Void, Void, Void> {
+    private class GpxPlayback extends PlaybackTask<TrackPoint, Void, Void> {
+        private boolean       paused      = false;
+        private TrackPoint    pausedPoint = null;
+        private final Context context;
 
         /**
          * Create a new instance
          */
         public GpxPlayback() {
             super(App.getLogic().getExecutorService(), App.getLogic().getHandler());
+            context = MapOverlay.this.map.getContext();
+            if (!(context instanceof Main)) {
+                throw new IllegalStateException("Needs to be run from Main");
+            }
         }
 
-        boolean paused = false;
-
         @Override
-        protected Void doInBackground(Void input) throws Exception {
-            Context context = MapOverlay.this.map.getContext();
-            if (context instanceof Main) {
-                TrackerService tracker = ((Main) context).getTracker();
-                final Track t = getTrack();
-                if (t != null) {
-                    Location loc = new Location(LocationManager.GPS_PROVIDER);
-                    for (TrackPoint tp : t.getTrackPoints()) {
-                        while (paused && !isCancelled()) {
-                            sleep();
-                        }
-
-                        if (isCancelled()) {
-                            break;
-                        }
-
-                        tp.toLocation(loc);
-                        tracker.gpsListener.onLocationChanged(loc);
+        protected Void doInBackground(TrackPoint start) throws Exception {
+            TrackerService tracker = ((Main) context).getTracker();
+            final Track t = getTrack();
+            if (t != null) {
+                Location loc = new Location(LocationManager.GPS_PROVIDER);
+                final List<TrackPoint> points = t.getTrackPoints();
+                List<TrackPoint> pointsToPlay = start == null ? points : points.subList(points.indexOf(start) + 1, points.size());
+                for (TrackPoint tp : pointsToPlay) {
+                    while (paused && !isCancelled()) {
+                        pausedPoint = tp;
                         sleep();
                     }
+
+                    if (isCancelled()) {
+                        break;
+                    }
+
+                    tp.toLocation(loc);
+                    tracker.gpsListener.onLocationChanged(loc);
+                    sleep();
                 }
             }
+
             return null;
         }
 
         /**
-         * 
+         * Sleep 1s, this could be adjustable
          */
-        public void sleep() {
+        private void sleep() {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) { // NOSONAR
@@ -564,6 +580,16 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         @Override
         public boolean isPaused() {
             return paused;
+        }
+
+        /**
+         * Get the point at which we were paused
+         * 
+         * @return the TrackPoint or null
+         */
+        @Nullable
+        public TrackPoint getPausedPoint() {
+            return pausedPoint;
         }
 
     }
