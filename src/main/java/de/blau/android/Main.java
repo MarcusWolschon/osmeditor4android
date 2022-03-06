@@ -2055,7 +2055,6 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_gps_pause:
             if (haveTracker && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
                 getTracker().stopTracking(false);
-                triggerMenuInvalidation();
             }
             return true;
         case R.id.menu_gps_clear:
@@ -2066,12 +2065,10 @@ public class Main extends FullScreenAppCompatActivity
                                 if (getTracker() != null) {
                                     getTracker().stopTracking(true);
                                 }
-                                triggerMenuInvalidation();
                                 map.invalidate();
                             }).setNeutralButton(R.string.cancel, null).show();
                 } else {
                     getTracker().stopTracking(true);
-                    triggerMenuInvalidation();
                     map.invalidate();
                 }
             }
@@ -4067,7 +4064,7 @@ public class Main extends FullScreenAppCompatActivity
 
     @Override
     public void onStateChanged() {
-        invalidateOptionsMenu();
+        mapLayout.post(this::invalidateOptionsMenu);
     }
 
     /**
