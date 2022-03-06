@@ -441,7 +441,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             Log.d(DEBUG_TAG, "addStyleableLayerFromUri " + uriString);
             de.blau.android.layer.Util.addLayer(activity, type, uriString);
             map.setUpLayers(activity);
-            layer = (de.blau.android.layer.gpx.MapOverlay) map.getLayer(type, uriString);
+            layer = (de.blau.android.layer.StyleableLayer) map.getLayer(type, uriString);
         }
         if (layer != null) { // if null setUpLayers will have toasted
             layer.resetStyling();
