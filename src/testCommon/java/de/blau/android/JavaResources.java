@@ -50,7 +50,7 @@ public final class JavaResources {
      * @throws FileNotFoundException if the file is not found
      */
     public static void copyFileFromResources(@NonNull String fileName, @Nullable String source, @NonNull File destinationFile)
-            throws IOException, FileNotFoundException {
+            throws IOException {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try (OutputStream os = new FileOutputStream(destinationFile); InputStream is = loader.getResourceAsStream((source != null ? source : "") + fileName)) {
             byte[] buffer = new byte[8 * 1024];

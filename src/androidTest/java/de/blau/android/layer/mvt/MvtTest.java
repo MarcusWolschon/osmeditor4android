@@ -186,6 +186,7 @@ public class MvtTest {
                 main.getMap().setPrefs(main, prefs);
                 assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
                 assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/add", true));
+                TestUtils.scrollTo(main.getString(R.string.layer_add_layer_from_mvt_style), false);
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_layer_from_mvt_style), false));
                 TestUtils.selectFile(device, main, null, "rob.json", true);
                 assertTrue(TestUtils.findText(device, false, "postcodes-source", 10000));

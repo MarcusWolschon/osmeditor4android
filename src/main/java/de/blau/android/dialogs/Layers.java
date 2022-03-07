@@ -187,9 +187,10 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             final FragmentActivity activity = getActivity();
             final Preferences prefs = App.getLogic().getPrefs();
             PopupMenu popup = new PopupMenu(getActivity(), add);
+            final Map map = App.getLogic().getMap();
+            
             // menu items for adding layers
             MenuItem item = popup.getMenu().add(R.string.menu_layers_load_geojson);
-            final Map map = App.getLogic().getMap();
             item.setOnMenuItemClickListener(unused -> {
                 addStyleableLayerFromFile(activity, prefs, map, LayerType.GEOJSON);
                 return false;

@@ -31,6 +31,7 @@ import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
 import de.blau.android.App;
+import de.blau.android.JavaResources;
 import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -38,6 +39,7 @@ import de.blau.android.Map;
 import de.blau.android.MockTileServer;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
+import de.blau.android.gpx.GpxUploadTest;
 import de.blau.android.layer.data.MapOverlay;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -209,19 +211,22 @@ public class LayerDialogTest {
      */
     @Test
     public void geoJsonLayer() {
-        de.blau.android.layer.Util.addLayer(main, LayerType.GEOJSON);
-        map.setUpLayers(main);
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream("geojson/featureCollection.geojson");
+        final String geoJsonFile = "featureCollection.geojson";
         try {
-            map.getGeojsonLayer().loadGeoJsonFile(main, is, false);
+            JavaResources.copyFileFromResources(main, geoJsonFile, "geojson/", "/");
         } catch (IOException e) {
             fail(e.getMessage());
         }
-        UiObject2 extentButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_geojson), EXTENT_BUTTON);
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_load_geojson), true, false));
+        TestUtils.selectFile(device, main, null, geoJsonFile, true);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+        UiObject2 extentButton = TestUtils.getLayerButton(device, geoJsonFile, EXTENT_BUTTON);
         extentButton.click();
 
-        UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_geojson), MENU_BUTTON);
+        UiObject2 menuButton = TestUtils.getLayerButton(device, geoJsonFile, MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_change_style), true, false));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
@@ -287,6 +292,7 @@ public class LayerDialogTest {
     public void customImagery() {
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/add", true));
+        TestUtils.scrollTo(main.getString(R.string.layer_add_custom_imagery), false);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_custom_imagery), true));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.add_layer_title)));
         UiObject name = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/name"));

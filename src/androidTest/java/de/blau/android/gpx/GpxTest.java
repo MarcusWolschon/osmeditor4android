@@ -93,6 +93,9 @@ public class GpxTest {
         map.setPrefs(main, prefs);
 
         App.getDelegator().reset(true);
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(main)) {
+            db.deleteLayer(LayerType.GPX, null);
+        }
 
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
@@ -211,9 +214,9 @@ public class GpxTest {
             fail(e.getMessage());
         }
 
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), false, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
         // goto start while we are here
-        menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_gpx_recording), LayerDialogTest.MENU_BUTTON);
+        menuButton = TestUtils.getLayerButton(device, filename, LayerDialogTest.MENU_BUTTON);
         menuButton.click();
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_goto_start), false, false));
         TestUtils.sleep(2000);
@@ -302,7 +305,7 @@ public class GpxTest {
         clickGpsButton(device);
         assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true, false));
         // compare roughly with last location
-        TrackPoint lastPoint = track.getTrack().get(track.getTrack().size() - 1);
+        TrackPoint lastPoint = track.getTrackPoints().get(track.getTrackPoints().size() - 1);
         ViewBox box = main.getMap().getViewBox();
         assertEquals(lastPoint.getLatitude(), box.getCenterLat(), 0.001);
         assertEquals(lastPoint.getLongitude(), ((box.getLeft() - box.getRight()) / 2d + box.getRight()) / 1E7D, 0.001);

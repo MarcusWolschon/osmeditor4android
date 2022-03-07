@@ -245,12 +245,12 @@ public class WayActionsTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3884403, 47.3884988, true);
-        assertTrue(TestUtils.clickText(device, false, "Bergstrasse", false, false));
+        assertTrue(TestUtils.clickText(device, false, "Bergstrasse", true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
         assertEquals(119104094L, way.getOsmId());
         //
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickOverflowButton(device));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_to_route), true, false));
         assertTrue(TestUtils.clickText(device, false, "Bus 305", true, false));
