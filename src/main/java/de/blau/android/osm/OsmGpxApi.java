@@ -113,7 +113,7 @@ public class OsmGpxApi {
     @Nullable
     public static Uri downloadTrack(@NonNull Server server, long id, @NonNull String destination, @Nullable String name) {
         try (Response response = server.openConnectionForAuthenticatedAccess(getDownloadTrackUrl(server, id), Server.HTTP_GET, (RequestBody) null)) {
-            server.checkResponseCode(response);
+            Server.checkResponseCode(response);
             ResponseBody body = response.body();
             String fileName = name;
             if (fileName == null) {
@@ -153,9 +153,8 @@ public class OsmGpxApi {
     @NonNull
     public static List<GpxFile> getUserGpxFiles(@NonNull Server server, @Nullable BoundingBox box) {
         try (Response response = server.openConnectionForAuthenticatedAccess(getUserGpxFilesUrl(server), Server.HTTP_GET, (RequestBody) null)) {
-            server.checkResponseCode(response);
-            ResponseBody body = response.body();
-            List<GpxFile> result = GpxFile.parse(body.byteStream());
+            Server.checkResponseCode(response);
+            List<GpxFile> result = GpxFile.parse(response.body().byteStream());
             if (box != null) {
                 List<GpxFile> temp = new ArrayList<>();
                 for (GpxFile gpxFile : result) {

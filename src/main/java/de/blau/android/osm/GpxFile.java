@@ -21,14 +21,19 @@ import androidx.annotation.NonNull;
 import de.blau.android.gpx.Track;
 
 public class GpxFile {
-    private long   id;
-    private String name;
-    private long   timestamp;
-    private double lon;
-    private double lat;
-    private String description;
+    private static final String DEBUG_TAG = GpxFile.class.getSimpleName();
+
+    private long         id;
+    private String       name;
+    private long         timestamp;
+    private double       lon;
+    private double       lat;
+    private String       description;
+    private List<String> tags;
 
     /**
+     * Get the OSM id for the track
+     * 
      * @return the id
      */
     public long getId() {
@@ -36,6 +41,8 @@ public class GpxFile {
     }
 
     /**
+     * Get the name of the track
+     * 
      * @return the name
      */
     public String getName() {
@@ -43,31 +50,49 @@ public class GpxFile {
     }
 
     /**
-     * @return the timestamp
+     * Get the timestamp
+     * 
+     * @return the timestamp as seconds since the epoch
      */
     public long getTimestamp() {
         return timestamp;
     }
 
     /**
-     * @return the lon
+     * Get the longitude
+     * 
+     * @return the WGS83 longitude
      */
     public double getLon() {
         return lon;
     }
 
     /**
-     * @return the lat
+     * Get the latitude
+     * 
+     * @return the WGS84 latitude
      */
     public double getLat() {
         return lat;
     }
 
     /**
+     * Get the description of the track
+     * 
      * @return the description
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Get any optional tags
+     * 
+     * @return the tags
+     */
+    @NonNull
+    public List<String> getTags() {
+        return tags != null ? tags : new ArrayList<>();
     }
 
     @Override
@@ -93,6 +118,7 @@ public class GpxFile {
     @NonNull
     public static List<GpxFile> parse(final InputStream in) throws SAXException, IOException, ParserConfigurationException {
         SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
+        factory.setNamespaceAware(true);
         SAXParser saxParser = factory.newSAXParser();
         Parser parser = new Parser();
         saxParser.parse(in, parser);
@@ -100,15 +126,17 @@ public class GpxFile {
     }
 
     private static class Parser extends DefaultHandler {
-        private static final String DESCRIPTION_ELEMENT = "description";
-        private static final String GPX_FILE_ELEMENT    = "gpx_file";
         private static final String OSM_ELEMENT         = "osm";
+        private static final String GPX_FILE_ELEMENT    = "gpx_file";
+        private static final String DESCRIPTION_ELEMENT = "description";
+        private static final String TAG_ELEMENT         = "tag";
 
         private enum State {
-            NONE, OSM, GPX_FILE, DESC
+            NONE, OSM, GPX_FILE, DESC, TAG
         }
 
         private String                 parsedDescription = null;
+        private String                 parsedTag         = null;
         private final List<GpxFile>    result;
         private GpxFile                temp;
         private final SimpleDateFormat iso8601Format;
@@ -141,7 +169,6 @@ public class GpxFile {
                 switch (element) {
                 case OSM_ELEMENT:
                     state = State.OSM;
-
                     break;
                 case GPX_FILE_ELEMENT:
                     state = State.GPX_FILE;
@@ -155,17 +182,27 @@ public class GpxFile {
                 case DESCRIPTION_ELEMENT:
                     state = State.DESC;
                     break;
+                case TAG_ELEMENT:
+                    state = State.TAG;
+                    if (temp.tags == null) {
+                        temp.tags = new ArrayList<>();
+                    }
+                    break;
                 default:
+                    Log.w(DEBUG_TAG, "got unexpected element " + element);
                 }
             } catch (Exception e) {
-                Log.e("Profil", "Parse Exception", e);
+                Log.e(DEBUG_TAG, "Parse Exception", e);
             }
         }
 
         @Override
         public void characters(char[] ch, int start, int length) {
+            String tempStr = new String(ch, start, length);
             if (State.DESC == state) {
-                parsedDescription = new String(ch, start, length);
+                parsedDescription = tempStr;
+            } else if (State.TAG == state) {
+                parsedTag = tempStr;
             }
         }
 
@@ -179,6 +216,10 @@ public class GpxFile {
             case DESCRIPTION_ELEMENT:
                 state = State.GPX_FILE;
                 temp.description = parsedDescription;
+                break;
+            case TAG_ELEMENT:
+                state = State.GPX_FILE;
+                temp.tags.add(parsedTag);
                 break;
             case OSM_ELEMENT:
             default:

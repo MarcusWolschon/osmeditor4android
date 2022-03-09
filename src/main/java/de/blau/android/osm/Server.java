@@ -983,7 +983,7 @@ public class Server {
      * @param response response from the server connection
      * @throws IOException on an IO issue
      */
-    void checkResponseCode(@Nullable final Response response) throws IOException {
+    static void checkResponseCode(@Nullable final Response response) throws IOException {
         checkResponseCode(response, null);
     }
 
@@ -994,7 +994,7 @@ public class Server {
      * @param e an OsmElement associated with the problem or null
      * @throws IOException on an IO issue
      */
-    private void checkResponseCode(@Nullable final Response response, @Nullable final OsmElement e) throws IOException {
+    private static void checkResponseCode(@Nullable final Response response, @Nullable final OsmElement e) throws IOException {
         int responsecode = -1;
         if (response == null) {
             throw new OsmServerException(responsecode, "Unknown error");
