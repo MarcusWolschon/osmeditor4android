@@ -92,9 +92,10 @@ public class OsmGpxApi {
         RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart(DESCRIPTION_KEY, description)
                 .addFormDataPart(TAGS_KEY, tags).addFormDataPart(VISIBILITY_KEY, visibility.name().toLowerCase(Locale.US))
                 .addFormDataPart(FILE_KEY, fileNamePart + "." + FileExtensions.GPX, gpxBody).build();
-        Response response = server.openConnectionForAuthenticatedAccess(getUploadTrackUrl(server), Server.HTTP_POST, requestBody);
-        if (!response.isSuccessful()) {
-            Server.throwOsmServerException(response);
+        try (Response response = server.openConnectionForAuthenticatedAccess(getUploadTrackUrl(server), Server.HTTP_POST, requestBody)) {
+            if (!response.isSuccessful()) {
+                Server.throwOsmServerException(response);
+            }
         }
     }
 
@@ -111,8 +112,7 @@ public class OsmGpxApi {
      */
     @Nullable
     public static Uri downloadTrack(@NonNull Server server, long id, @NonNull String destination, @Nullable String name) {
-        try {
-            Response response = server.openConnectionForAuthenticatedAccess(getDownloadTrackUrl(server, id), Server.HTTP_GET, (RequestBody) null);
+        try (Response response = server.openConnectionForAuthenticatedAccess(getDownloadTrackUrl(server, id), Server.HTTP_GET, (RequestBody) null)) {
             server.checkResponseCode(response);
             ResponseBody body = response.body();
             String fileName = name;
@@ -152,8 +152,7 @@ public class OsmGpxApi {
      */
     @NonNull
     public static List<GpxFile> getUserGpxFiles(@NonNull Server server, @Nullable BoundingBox box) {
-        try {
-            Response response = server.openConnectionForAuthenticatedAccess(getUserGpxFilesUrl(server), Server.HTTP_GET, (RequestBody) null);
+        try (Response response = server.openConnectionForAuthenticatedAccess(getUserGpxFilesUrl(server), Server.HTTP_GET, (RequestBody) null)) {
             server.checkResponseCode(response);
             ResponseBody body = response.body();
             List<GpxFile> result = GpxFile.parse(body.byteStream());
