@@ -565,16 +565,19 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         @Override
         protected void onPostExecute(Void output) {
             playbackTask = null;
+            Snack.toastTopInfo(context, R.string.layer_toast_playback_finished);
         }
 
         @Override
         public void pause() {
             paused = true;
+            Snack.toastTopInfo(context, R.string.layer_toast_playback_paused);
         }
 
         @Override
         public void resume() {
             paused = false;
+            Snack.toastTopInfo(context, R.string.layer_toast_playback_resumed);
         }
 
         @Override

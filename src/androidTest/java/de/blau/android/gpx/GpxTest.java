@@ -32,6 +32,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject2;
+import androidx.test.uiautomator.Until;
 import de.blau.android.App;
 import de.blau.android.JavaResources;
 import de.blau.android.Logic;
@@ -44,7 +45,6 @@ import de.blau.android.TestUtils;
 import de.blau.android.layer.LayerDialogTest;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
-import de.blau.android.layer.gpx.MapOverlay;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -340,6 +340,41 @@ public class GpxTest {
         assertNotNull(n);
         assertEquals(lat, n.getLat() / 1E7D, 0.000001);
         assertEquals(lon, n.getLon() / 1E7D, 0.000001);
+    }
+
+    /**
+     * Playback a track
+     */
+    @Test
+    public void gpxPlayback() {
+        assertNotNull(main);
+        try {
+            final String fileName = "short.gpx";
+            File gpxFile = JavaResources.copyFileFromResources(main, fileName, null, "/");
+            try {
+                assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+                assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
+                TestUtils.selectFile(device, main, null, fileName, true);
+                TestUtils.textGone(device, "Imported", 10000);
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+                UiObject2 extentButton = TestUtils.getLayerButton(device, fileName, LayerDialogTest.EXTENT_BUTTON);
+                extentButton.clickAndWait(Until.newWindow(), 2000);
+                TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/follow", false);
+                UiObject2 menuButton = TestUtils.getLayerButton(device, fileName, LayerDialogTest.MENU_BUTTON);
+                menuButton.click();
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_start_playback), true, false));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+                TestUtils.findText(device, false, main.getString(R.string.layer_toast_playback_finished), 20000);
+                assertEquals(8.374995, main.getMap().getViewBox().getCenter()[0], 0.0001);
+                assertEquals(47.4117952, main.getMap().getViewBox().getCenter()[1], 0.0001);
+            } finally {
+                TestUtils.deleteFile(main, fileName);
+            }
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
     }
 
     /**

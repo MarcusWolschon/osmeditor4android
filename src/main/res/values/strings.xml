@@ -354,6 +354,9 @@
     <string name="layer_start_playback">Start playback</string>
     <string name="layer_pause_playback">Pause playback</string>
     <string name="layer_stop_playback">Stop playback</string>
+    <string name="layer_toast_playback_finished">Playback finished</string>
+    <string name="layer_toast_playback_paused">Playback paused</string>
+    <string name="layer_toast_playback_resumed">Playback resumed</string>
     <!--  Layer info dialog -->
     <string name="layer_info_min_zoom">Min zoom</string>
     <string name="layer_info_max_zoom">Max zoom</string>
