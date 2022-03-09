@@ -47,7 +47,6 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
-import de.blau.android.gpx.Track;
 import de.blau.android.net.OAuthHelper;
 import de.blau.android.prefs.API;
 import de.blau.android.services.util.MBTileProviderDataBase;
@@ -55,11 +54,9 @@ import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
 import de.blau.android.util.BasicAuthInterceptor;
-import de.blau.android.util.DateFormatter;
 import de.blau.android.util.Snack;
 import okhttp3.Call;
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -86,8 +83,8 @@ public class Server {
     private static final String GENERATOR_KEY = "generator";
 
     private static final String HTTP_PUT    = "PUT";
-    private static final String HTTP_POST   = "POST";
-    private static final String HTTP_GET    = "GET";
+    static final String         HTTP_POST   = "POST";
+    static final String         HTTP_GET    = "GET";
     private static final String HTTP_DELETE = "DELETE";
 
     private static final MediaType TEXTXML = MediaType.parse(MimeTypes.TEXTXML);
@@ -170,11 +167,6 @@ public class Server {
     private final DiscardedTags discardedTags;
 
     private final OkHttpOAuthConsumer oAuthConsumer;
-
-    /**
-     * Date pattern used for suggesting a file name when uploading GPX tracks.
-     */
-    private static final String DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART = "yyyy-MM-dd'T'HHmmss";
 
     /**
      * Server path component for "api/" as in "http://api.openstreetmap.org/api/".
@@ -343,8 +335,7 @@ public class Server {
      */
     @Nullable
     public UserDetails getUserDetails() {
-        try {
-            Response response = openConnectionForAuthenticatedAccess(getUserDetailsUrl(), HTTP_GET, (RequestBody) null);
+        try (Response response = openConnectionForAuthenticatedAccess(getUserDetailsUrl(), HTTP_GET, (RequestBody) null)) {
             checkResponseCode(response);
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(response.body().byteStream(), null);
@@ -402,8 +393,7 @@ public class Server {
     @NonNull
     public Map<String, String> getUserPreferences() {
         Map<String, String> result = new HashMap<>();
-        try {
-            Response response = openConnectionForAuthenticatedAccess(getUserPreferencesUrl(), HTTP_GET, (RequestBody) null);
+        try (Response response = openConnectionForAuthenticatedAccess(getUserPreferencesUrl(), HTTP_GET, (RequestBody) null)) {
             checkResponseCode(response);
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(response.body().byteStream(), null);
@@ -432,9 +422,8 @@ public class Server {
      * @throws OsmException if something goes wrong
      */
     public void setUserPreference(@NonNull String key, @Nullable String value) throws OsmException {
-        try {
-            Response response = openConnectionForAuthenticatedAccess(getSingleUserPreferencesUrl(key), HTTP_PUT,
-                    RequestBody.create(null, value != null ? value : ""));
+        try (Response response = openConnectionForAuthenticatedAccess(getSingleUserPreferencesUrl(key), HTTP_PUT,
+                RequestBody.create(null, value != null ? value : ""))) {
             int responseCode = response.code();
             if (responseCode != HttpURLConnection.HTTP_OK) {
                 String message = Server.readStream(response.body().byteStream());
@@ -454,8 +443,7 @@ public class Server {
      * @throws OsmException if something goes wrong
      */
     public void deleteUserPreference(@NonNull String key) throws OsmException {
-        try {
-            Response response = openConnectionForAuthenticatedAccess(getSingleUserPreferencesUrl(key), HTTP_DELETE, null);
+        try (Response response = openConnectionForAuthenticatedAccess(getSingleUserPreferencesUrl(key), HTTP_DELETE, null)) {
             int responseCode = response.code();
             if (responseCode != HttpURLConnection.HTTP_OK) {
                 String message = Server.readStream(response.body().byteStream());
@@ -750,8 +738,9 @@ public class Server {
                 }
             }
         };
-        Response response = openConnectionForAuthenticatedAccess(getDiffUploadUrl(changesetId), HTTP_POST, body);
-        checkResponseCode(response, elem);
+        try (Response response = openConnectionForAuthenticatedAccess(getDiffUploadUrl(changesetId), HTTP_POST, body)) {
+            checkResponseCode(response, elem);
+        }
         return true;
     }
 
@@ -795,7 +784,7 @@ public class Server {
      * @return a Response object
      * @throws IOException on an IO issue
      */
-    private Response openConnectionForAuthenticatedAccess(@NonNull final URL url, @NonNull final String requestMethod, @Nullable final RequestBody body)
+    Response openConnectionForAuthenticatedAccess(@NonNull final URL url, @NonNull final String requestMethod, @Nullable final RequestBody body)
             throws IOException {
         Log.d(DEBUG_TAG, "openConnectionForWriteAccess url " + url);
 
@@ -938,8 +927,7 @@ public class Server {
      * @throws IOException on an IO issue
      */
     public void closeChangeset() throws IOException {
-        try {
-            Response response = openConnectionForAuthenticatedAccess(getCloseChangesetUrl(changesetId), HTTP_PUT, RequestBody.create(null, ""));
+        try (Response response = openConnectionForAuthenticatedAccess(getCloseChangesetUrl(changesetId), HTTP_PUT, RequestBody.create(null, ""))) {
             checkResponseCode(response);
         } finally {
             changesetId = -1;
@@ -955,8 +943,7 @@ public class Server {
     @Nullable
     private Changeset getChangeset(long id) {
         Changeset result = null;
-        try {
-            Response response = openConnectionForAuthenticatedAccess(getChangesetUrl(changesetId), HTTP_GET, (RequestBody) null);
+        try (Response response = openConnectionForAuthenticatedAccess(getChangesetUrl(changesetId), HTTP_GET, (RequestBody) null)) {
             checkResponseCode(response);
             result = Changeset.parse(xmlParserFactory.newPullParser(), response.body().byteStream());
         } catch (IOException | XmlPullParserException e) {
@@ -984,9 +971,10 @@ public class Server {
                 sendPayload(sink.outputStream(), xmlData, changesetId);
             }
         };
-        Response response = openConnectionForAuthenticatedAccess(getChangesetUrl(changesetId), HTTP_PUT, body);
-        checkResponseCode(response);
-        // ignore response for now
+        try (Response response = openConnectionForAuthenticatedAccess(getChangesetUrl(changesetId), HTTP_PUT, body)) {
+            checkResponseCode(response);
+            // ignore response for now
+        }
     }
 
     /**
@@ -995,7 +983,7 @@ public class Server {
      * @param response response from the server connection
      * @throws IOException on an IO issue
      */
-    private void checkResponseCode(@Nullable final Response response) throws IOException {
+    static void checkResponseCode(@Nullable final Response response) throws IOException {
         checkResponseCode(response, null);
     }
 
@@ -1006,7 +994,7 @@ public class Server {
      * @param e an OsmElement associated with the problem or null
      * @throws IOException on an IO issue
      */
-    private void checkResponseCode(@Nullable final Response response, @Nullable final OsmElement e) throws IOException {
+    private static void checkResponseCode(@Nullable final Response response, @Nullable final OsmElement e) throws IOException {
         int responsecode = -1;
         if (response == null) {
             throw new OsmServerException(responsecode, "Unknown error");
@@ -1052,8 +1040,9 @@ public class Server {
                     }
                 }
             };
-            Response response = openConnectionForAuthenticatedAccess(getDiffUploadUrl(changesetId), HTTP_POST, body);
-            processDiffUploadResult(delegator, response, xmlParserFactory.newPullParser());
+            try (Response response = openConnectionForAuthenticatedAccess(getDiffUploadUrl(changesetId), HTTP_POST, body)) {
+                processDiffUploadResult(delegator, response, xmlParserFactory.newPullParser());
+            }
         } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e1) {
             throw new OsmException(e1.getMessage());
         }
@@ -1551,17 +1540,6 @@ public class Server {
     }
 
     /**
-     * Get the url for uploading a GPS track
-     * 
-     * @return the url
-     * @throws MalformedURLException if the url couldn't be constructed properly
-     */
-    @NonNull
-    private URL getUploadTrackUrl() throws MalformedURLException {
-        return new URL(getReadWriteUrl() + "gpx/create");
-    }
-
-    /**
      * Get the url for retrieving the API capabilities
      * 
      * @return the url
@@ -1655,10 +1633,8 @@ public class Server {
     @NonNull
     public Collection<Note> getNotesForBox(@NonNull BoundingBox area, long limit) {
         // http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
-        try {
-            Log.d(DEBUG_TAG, "getNotesForBox");
-            URL url = getNotesForBox(limit, area);
-            InputStream is = openConnection(null, url);
+        Log.d(DEBUG_TAG, "getNotesForBox");
+        try (InputStream is = openConnection(null, getNotesForBox(limit, area))) {
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
             return Note.parseNotes(parser, null);
@@ -1677,10 +1653,8 @@ public class Server {
     @Nullable
     public Note getNote(long id) {
         // http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
-        try {
-            Log.d(DEBUG_TAG, "getNote");
-            URL url = getNoteUrl(Long.toString(id));
-            InputStream is = openConnection(null, url);
+        Log.d(DEBUG_TAG, "getNote");
+        try (InputStream is = openConnection(null, getNoteUrl(Long.toString(id)))) {
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
             List<Note> result = Note.parseNotes(parser, null);
@@ -1717,28 +1691,28 @@ public class Server {
             String encodedComment = URLEncoder.encode(comment.getText(), OsmXml.UTF_8);
             URL addCommentUrl = getAddNoteCommentUrl(Long.toString(bug.getId()), encodedComment);
 
-            Response response = openConnectionForAuthenticatedAccess(addCommentUrl, HTTP_POST, RequestBody.create(null, ""));
-
-            int responseCode = response.code();
-            if (responseCode != HttpURLConnection.HTTP_OK) {
-                if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
-                    InputStream errorStream = response.body().byteStream();
-                    String message = readStream(errorStream);
-                    Log.d(DEBUG_TAG, "409: " + message);
-                    Matcher m = ERROR_MESSAGE_NOTE_ALREADY_CLOSED.matcher(message);
-                    if (m.matches()) {
-                        String idStr = m.group(1);
-                        Log.d(DEBUG_TAG, "Note " + idStr + " was already closed");
-                        reopenNote(bug);
-                        addComment(bug, comment);
-                        return;
+            try (Response response = openConnectionForAuthenticatedAccess(addCommentUrl, HTTP_POST, RequestBody.create(null, ""))) {
+                int responseCode = response.code();
+                if (responseCode != HttpURLConnection.HTTP_OK) {
+                    if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
+                        InputStream errorStream = response.body().byteStream();
+                        String message = readStream(errorStream);
+                        Log.d(DEBUG_TAG, "409: " + message);
+                        Matcher m = ERROR_MESSAGE_NOTE_ALREADY_CLOSED.matcher(message);
+                        if (m.matches()) {
+                            String idStr = m.group(1);
+                            Log.d(DEBUG_TAG, "Note " + idStr + " was already closed");
+                            reopenNote(bug);
+                            addComment(bug, comment);
+                            return;
+                        }
+                        throwOsmServerException(response);
+                    } else {
+                        throwOsmServerException(response);
                     }
-                    throwOsmServerException(response);
-                } else {
-                    throwOsmServerException(response);
                 }
+                parseBug(bug, response.body().byteStream());
             }
-            parseBug(bug, response.body().byteStream());
         }
     }
 
@@ -1758,15 +1732,14 @@ public class Server {
             Log.d(DEBUG_TAG, "adding note");
             // http://openstreetbugs.schokokeks.org/api/0.1/addPOIexec?lat=<Latitude>&lon=<Longitude>&text=<Bug
             // description with author and date>&format=<Output format>
-
             String encodedComment = URLEncoder.encode(comment.getText(), OsmXml.UTF_8);
             URL addNoteUrl = getAddNoteUrl((bug.getLat() / 1E7d), (bug.getLon() / 1E7d), encodedComment);
-
-            Response response = openConnectionForAuthenticatedAccess(addNoteUrl, HTTP_POST, RequestBody.create(null, ""));
-            if (!response.isSuccessful()) {
-                throwOsmServerException(response);
+            try (Response response = openConnectionForAuthenticatedAccess(addNoteUrl, HTTP_POST, RequestBody.create(null, ""))) {
+                if (!response.isSuccessful()) {
+                    throwOsmServerException(response);
+                }
+                parseBug(bug, response.body().byteStream());
             }
-            parseBug(bug, response.body().byteStream());
         }
     }
 
@@ -1784,25 +1757,25 @@ public class Server {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "closing note " + bug.getId());
             URL closeNoteUrl = getCloseNoteUrl(Long.toString(bug.getId()));
-            Response response = openConnectionForAuthenticatedAccess(closeNoteUrl, HTTP_POST, RequestBody.create(null, ""));
-
-            int responseCode = response.code();
-            if (responseCode != HttpURLConnection.HTTP_OK) {
-                if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
-                    InputStream errorStream = response.body().byteStream();
-                    String message = readStream(errorStream);
-                    Matcher m = ERROR_MESSAGE_NOTE_ALREADY_CLOSED.matcher(message);
-                    if (m.matches()) {
-                        String idStr = m.group(1);
-                        Log.d(DEBUG_TAG, "Note " + idStr + " was already closed");
-                        return;
+            try (Response response = openConnectionForAuthenticatedAccess(closeNoteUrl, HTTP_POST, RequestBody.create(null, ""))) {
+                int responseCode = response.code();
+                if (responseCode != HttpURLConnection.HTTP_OK) {
+                    if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
+                        InputStream errorStream = response.body().byteStream();
+                        String message = readStream(errorStream);
+                        Matcher m = ERROR_MESSAGE_NOTE_ALREADY_CLOSED.matcher(message);
+                        if (m.matches()) {
+                            String idStr = m.group(1);
+                            Log.d(DEBUG_TAG, "Note " + idStr + " was already closed");
+                            return;
+                        }
+                        throwOsmServerException(response);
+                    } else {
+                        throwOsmServerException(response);
                     }
-                    throwOsmServerException(response);
-                } else {
-                    throwOsmServerException(response);
                 }
+                parseBug(bug, response.body().byteStream());
             }
-            parseBug(bug, response.body().byteStream());
         }
     }
 
@@ -1819,24 +1792,25 @@ public class Server {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "reopen note " + bug.getId());
             URL reopenNoteUrl = getReopenNoteUrl(Long.toString(bug.getId()));
-            Response response = openConnectionForAuthenticatedAccess(reopenNoteUrl, HTTP_POST, RequestBody.create(null, ""));
-            int responseCode = response.code();
-            if (responseCode != HttpURLConnection.HTTP_OK) {
-                if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
-                    InputStream errorStream = response.body().byteStream();
-                    String message = readStream(errorStream);
-                    Matcher m = ERROR_MESSAGE_NOTE_ALREADY_OPENED.matcher(message);
-                    if (m.matches()) {
-                        String idStr = m.group(1);
-                        Log.d(DEBUG_TAG, "Note " + idStr + " was already open");
-                        return;
+            try (Response response = openConnectionForAuthenticatedAccess(reopenNoteUrl, HTTP_POST, RequestBody.create(null, ""))) {
+                int responseCode = response.code();
+                if (responseCode != HttpURLConnection.HTTP_OK) {
+                    if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
+                        InputStream errorStream = response.body().byteStream();
+                        String message = readStream(errorStream);
+                        Matcher m = ERROR_MESSAGE_NOTE_ALREADY_OPENED.matcher(message);
+                        if (m.matches()) {
+                            String idStr = m.group(1);
+                            Log.d(DEBUG_TAG, "Note " + idStr + " was already open");
+                            return;
+                        }
+                        throwOsmServerException(response);
+                    } else {
+                        throwOsmServerException(response);
                     }
-                    throwOsmServerException(response);
-                } else {
-                    throwOsmServerException(response);
                 }
+                parseBug(bug, response.body().byteStream());
             }
-            parseBug(bug, response.body().byteStream());
         }
     }
 
@@ -1853,48 +1827,6 @@ public class Server {
         parser.setInput(new BufferedInputStream(inputStream, StreamUtils.IO_BUFFER_SIZE), null);
         Note.parseNotes(parser, bug); // replace contents with result from server
         App.getTaskStorage().setDirty();
-    }
-
-    /**
-     * GPS track API visibility/
-     */
-    public enum Visibility {
-        PRIVATE, PUBLIC, TRACKABLE, IDENTIFIABLE
-    }
-
-    /**
-     * Upload a GPS track in GPX format
-     * 
-     * @param track the track
-     * @param description optional description
-     * @param tags optional tags
-     * @param visibility privacy/visibility setting
-     * @throws IOException on an IO error
-     */
-    public void uploadTrack(@NonNull final Track track, @NonNull String description, @NonNull String tags, @NonNull Visibility visibility) throws IOException {
-        RequestBody gpxBody = new RequestBody() {
-            @Override
-            public MediaType contentType() {
-                return MediaType.parse(MimeTypes.GPX);
-            }
-
-            @Override
-            public void writeTo(BufferedSink sink) throws IOException {
-                try {
-                    track.exportToGPX(sink.outputStream());
-                } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
-                    throw new IOException(e);
-                }
-            }
-        };
-        String fileNamePart = DateFormatter.getFormattedString(DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART);
-        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("description", description)
-                .addFormDataPart("tags", tags).addFormDataPart("visibility", visibility.name().toLowerCase(Locale.US))
-                .addFormDataPart("file", fileNamePart + ".gpx", gpxBody).build();
-        Response response = openConnectionForAuthenticatedAccess(getUploadTrackUrl(), HTTP_POST, requestBody);
-        if (!response.isSuccessful()) {
-            throwOsmServerException(response);
-        }
     }
 
     /**
@@ -2031,7 +1963,7 @@ public class Server {
     }
 
     /**
-     * Get the name of the API configuration usesd for this instance
+     * Get the name of the API configuration used for this instance
      * 
      * @return the API name
      */

@@ -1,6 +1,7 @@
 package de.blau.android.gpx;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -30,7 +31,10 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject2;
+import androidx.test.uiautomator.Until;
 import de.blau.android.App;
+import de.blau.android.JavaResources;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
@@ -38,7 +42,9 @@ import de.blau.android.MockTileServer;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
+import de.blau.android.layer.LayerDialogTest;
 import de.blau.android.layer.LayerType;
+import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -80,7 +86,6 @@ public class GpxTest {
         main = mActivityRule.getActivity();
 
         tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
-        de.blau.android.layer.Util.addLayer(main, LayerType.GPX);
         prefs = new Preferences(main);
         Logic logic = App.getLogic();
         logic.setPrefs(prefs);
@@ -88,6 +93,9 @@ public class GpxTest {
         map.setPrefs(main, prefs);
 
         App.getDelegator().reset(true);
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(main)) {
+            db.deleteLayer(LayerType.GPX, null);
+        }
 
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
@@ -149,12 +157,12 @@ public class GpxTest {
 
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
-        Track track = new Track(main);
+        Track track = new Track(main, false);
         track.importFromGPX(is);
 
         // set a different current location so that the first point always gets recorded
-        int trackSize = track.getTrack().size();
-        TrackPoint startPoint = track.getTrack().get(trackSize / 2);
+        int trackSize = track.getTrackPoints().size();
+        TrackPoint startPoint = track.getTrackPoints().get(trackSize / 2);
         Location loc = new Location(LocationManager.GPS_PROVIDER);
         loc.setLatitude(startPoint.getLatitude());
         loc.setLongitude(startPoint.getLongitude());
@@ -168,7 +176,7 @@ public class GpxTest {
 
         final CountDownLatch signal = new CountDownLatch(1);
         main.getTracker().getTrack().reset(); // clear out anything saved
-        TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_FINE, 1000, new SignalHandler(signal));
+        TestUtils.injectLocation(main, track.getTrackPoints(), Criteria.ACCURACY_FINE, 1000, new SignalHandler(signal));
         try {
             signal.await(TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -176,23 +184,28 @@ public class GpxTest {
         }
         clickGpsButton(device);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_pause), true, false));
-        List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
+        List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrackPoints();
 
         compareTrack(track, recordedTrack);
-        clickGpsButton(device);
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_track_managment), true, false));
-
+        UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_gpx_recording), LayerDialogTest.MENU_BUTTON);
+        menuButton.click();
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_export), false, false));
         String filename = "" + System.currentTimeMillis() + ".gpx";
         TestUtils.selectFile(device, main, null, filename, true, true);
 
-        clickGpsButton(device);
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_track_managment), true, false));
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_import), true, false));
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
         TestUtils.selectFile(device, main, null, filename, true);
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.replace), true, false));
+
         TestUtils.textGone(device, "Imported", 10000);
-        recordedTrack = main.getTracker().getTrack().getTrack(); // has been reloaded
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+        recordedTrack = null;
+        for (MapViewLayer l : main.getMap().getLayers()) {
+            if (l instanceof de.blau.android.layer.gpx.MapOverlay && filename.equals(((de.blau.android.layer.gpx.MapOverlay) l).getName())) {
+                recordedTrack = ((de.blau.android.layer.gpx.MapOverlay) l).getTrack().getTrackPoints();
+            }
+        }
+        assertNotNull(recordedTrack);
         compareTrack(track, recordedTrack);
         try {
             File exportedFile = new File(FileUtil.getPublicDirectory(), filename);
@@ -201,23 +214,24 @@ public class GpxTest {
             fail(e.getMessage());
         }
 
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
         // goto start while we are here
-        clickGpsButton(device);
-        TestUtils.scrollToEnd(false);
+        menuButton = TestUtils.getLayerButton(device, filename, LayerDialogTest.MENU_BUTTON);
+        menuButton.click();
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_goto_start), false, false));
         TestUtils.sleep(2000);
         double[] center = main.getMap().getViewBox().getCenter();
-        TrackPoint first = track.getTrack().get(0);
+        TrackPoint first = track.getTrackPoints().get(0);
         assertEquals(first.longitude, center[0], 0.01);
         assertEquals(first.latitude, center[1], 0.01);
 
         // clear out the track
         track = main.getTracker().getTrack();
-        assertTrue(track.getTrack().size() > 0);
+        assertFalse(track.getTrackPoints().isEmpty());
         clickGpsButton(device);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_clear), true, false));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.clear_anyway), true, false));
-        assertTrue(track.getTrack().isEmpty());
+        assertTrue(track.getTrackPoints().isEmpty());
     }
 
     /**
@@ -226,33 +240,47 @@ public class GpxTest {
     // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void importWayPoints() {
-        Track track = main.getTracker().getTrack();
-        track.reset(); // clear out anything saved
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
-        track.importFromGPX(is);
-        assertEquals(112, track.getTrack().size());
-        assertEquals(79, track.getWayPoints().length);
-        WayPoint foundWp = null;
-        for (WayPoint wp : track.getWayPoints()) {
-            if (doubleEquals(47.3976189, wp.getLatitude()) && doubleEquals(8.3770144, wp.getLongitude())) {
-                foundWp = wp;
-                break;
+        try {
+            File gpxFile = JavaResources.copyFileFromResources(main, GpxUploadTest.GPX_FILE, null, "/");
+            assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+            assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
+            TestUtils.selectFile(device, main, null, GpxUploadTest.GPX_FILE, true);
+            TestUtils.textGone(device, "Imported", 10000);
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+            WayPoint foundWp = null;
+            for (MapViewLayer layer : main.getMap().getLayers()) {
+                if (layer instanceof de.blau.android.layer.gpx.MapOverlay && GpxUploadTest.GPX_FILE.equals(layer.getName())) {
+                    assertEquals(GpxUploadTest.GPX_FILE, layer.getName());
+                    Track track = ((de.blau.android.layer.gpx.MapOverlay) layer).getTrack();
+                    assertEquals(112, track.getTrackPoints().size());
+                    assertEquals(79, track.getWayPoints().size());
+                    for (WayPoint wp : track.getWayPoints()) {
+                        if (doubleEquals(47.3976189, wp.getLatitude()) && doubleEquals(8.3770144, wp.getLongitude())) {
+                            foundWp = wp;
+                            break;
+                        }
+                    }
+                    break;
+                }
             }
+            assertNotNull(foundWp);
+            Map map = main.getMap();
+            ViewBox viewBox = map.getViewBox();
+            App.getLogic().setZoom(map, 19);
+            viewBox.moveTo(map, foundWp.getLon(), foundWp.getLat()); // NOSONAR
+            map.invalidate();
+
+            TestUtils.unlock(device);
+
+            TestUtils.clickAtCoordinates(device, map, foundWp.getLon(), foundWp.getLat(), true);
+
+            assertTrue(TestUtils.clickText(device, true, "Create osm object from", true, false));
+            assertTrue(TestUtils.findText(device, false, "Church"));
+        } catch (Exception ex) {
+            fail(ex.getMessage());
         }
-        assertNotNull(foundWp);
-        Map map = main.getMap();
-        ViewBox viewBox = map.getViewBox();
-        App.getLogic().setZoom(map, 19);
-        viewBox.moveTo(map, foundWp.getLon(), foundWp.getLat()); // NOSONAR
-        map.invalidate();
-
-        TestUtils.unlock(device);
-
-        TestUtils.clickAtCoordinates(device, map, foundWp.getLon(), foundWp.getLat(), true);
-
-        assertTrue(TestUtils.clickText(device, true, "Create osm object from", true, false));
-        assertTrue(TestUtils.findText(device, false, "Church"));
     }
 
     /**
@@ -268,16 +296,16 @@ public class GpxTest {
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/follow", false);
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
-        Track track = new Track(main);
+        Track track = new Track(main, false);
         track.importFromGPX(is);
         main.getTracker().getTrack().reset(); // clear out anything saved
         final CountDownLatch signal = new CountDownLatch(1);
-        TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_COARSE, 1000, new SignalHandler(signal));
+        TestUtils.injectLocation(main, track.getTrackPoints(), Criteria.ACCURACY_COARSE, 1000, new SignalHandler(signal));
         TestUtils.sleep(TIMEOUT * 1000L);
         clickGpsButton(device);
         assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true, false));
         // compare roughly with last location
-        TrackPoint lastPoint = track.getTrack().get(track.getTrack().size() - 1);
+        TrackPoint lastPoint = track.getTrackPoints().get(track.getTrackPoints().size() - 1);
         ViewBox box = main.getMap().getViewBox();
         assertEquals(lastPoint.getLatitude(), box.getCenterLat(), 0.001);
         assertEquals(lastPoint.getLongitude(), ((box.getLeft() - box.getRight()) / 2d + box.getRight()) / 1E7D, 0.001);
@@ -312,6 +340,41 @@ public class GpxTest {
         assertNotNull(n);
         assertEquals(lat, n.getLat() / 1E7D, 0.000001);
         assertEquals(lon, n.getLon() / 1E7D, 0.000001);
+    }
+
+    /**
+     * Playback a track
+     */
+    @Test
+    public void gpxPlayback() {
+        assertNotNull(main);
+        try {
+            final String fileName = "short.gpx";
+            File gpxFile = JavaResources.copyFileFromResources(main, fileName, null, "/");
+            try {
+                assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+                assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
+                TestUtils.selectFile(device, main, null, fileName, true);
+                TestUtils.textGone(device, "Imported", 10000);
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+                UiObject2 extentButton = TestUtils.getLayerButton(device, fileName, LayerDialogTest.EXTENT_BUTTON);
+                extentButton.clickAndWait(Until.newWindow(), 2000);
+                TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/follow", false);
+                UiObject2 menuButton = TestUtils.getLayerButton(device, fileName, LayerDialogTest.MENU_BUTTON);
+                menuButton.click();
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_start_playback), true, false));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+                TestUtils.findText(device, false, main.getString(R.string.layer_toast_playback_finished), 20000);
+                assertEquals(8.374995, main.getMap().getViewBox().getCenter()[0], 0.0001);
+                assertEquals(47.4117952, main.getMap().getViewBox().getCenter()[1], 0.0001);
+            } finally {
+                TestUtils.deleteFile(main, fileName);
+            }
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
     }
 
     /**

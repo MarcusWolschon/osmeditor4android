@@ -26,8 +26,8 @@
 <p>Once you have downloaded some OSM data you will see it displayed over a configurable background layer. The default background is the standard &quot;Mapnik&quot; style map provided by openstreetmap.org, however you can choose a different background or none from the Preferences. The style of the OSM data displayed on top of the background layer can be fully customized, however the standard &quot;Color round nodes&quot; or for &quot;Pen round nodes&quot; should work for most situations, the latter has smaller &quot;touch areas&quot; mainly for working with a pen. Depending on the device it may however work better for you than the default.</p>
 <p>Note: the map tiles are cached on device and only deleted if explicitly flushed. In principle you can pre-download the tiles for the area you want to work on and so spare yourself the need to access them online while outside.</p>
 <h3>Layer control</h3>
-<p>Vespucci currently supports a tiled background imagery layer, a tiled overlay layer, a grid/scale layer, a task layer, a photo layer, a GeoJSON layer, a GPX/GPS layer and, naturally, an OSM data layer. Tapping the layer control (upper right corner) will display the layer dialog).</p>
-<p>The layer dialog supports the following:</p>
+<p>Vespucci currently supports multiple tiled background imagery layers, multiple tiled overlay layers (both raster and Mapbox vector tiles), a grid/scale layer, a task layer, a photo layer, multiple GeoJSON layers, multiple GPX/GPS layers and, naturally, an OSM data layer. Tapping the layer control (upper right corner) will display the layer dialog).</p>
+<p>The layer dialog supports the following actions on the layer entries:</p>
 <ul>
 <li>Hide/Show button turns drawing of the layer off/on. Hiding a layer doesn't free any resources associated with the layer.</li>
 <li>Zoom to extent. Zooms and pans the screen so that the whole extent of the layer is displayed, if the extent cannot be determined this will zoom out to the full web-mercator coverage. Note: on the data layer this may not be particularly useful if you have downloaded areas that are far apart.</li>
@@ -59,9 +59,16 @@
 <li><strong>Info</strong> Display some information on the contents.</li>
 </ul>
 </li>
-<li>GPX layer. The GPX layer is currently mainly controlled via the entries in the GPS menu.
+<li>GPX layers: Starting recording by the &quot;Start GPX track&quot; item in the GPS menu will add a layer for the recording. Layers for GPX files and downloaded tracks from the OSM API can be added via the <strong>+</strong> button, see below.
 <ul>
 <li><strong>Change style</strong> Show the layer styling dialog.</li>
+<li><strong>Go to start of GPX track</strong> Center the display on the start of the track. <em>(not available on the recording layer)</em></li>
+<li><strong>Go to first waypoint</strong> Center the display on the first waypoint. <em>(not available on the recording layer)</em></li>
+<li><strong>Upload GPX track</strong> Upload the track to the OSM API.</li>
+<li><strong>Export GPX track</strong> Export the track to a local file.</li>
+<li><strong>Start playback</strong> Playback the current file, this behaves similar to recording tracks, the display will be centered on the current track point, then the following on and so on. <em>(not available on the recording layer)</em></li>
+<li><strong>Pause playback</strong> Temporarily pause the playback. <em>(not available on the recording layer)</em></li>
+<li><strong>Stop playback</strong> Stop the playback. <em>(not available on the recording layer)</em></li>
 </ul>
 </li>
 <li>Photo, Grid and Task layers:
@@ -96,6 +103,8 @@
 <li><strong>Add GeoJSON layer</strong> Loads a GeoJSON layer from a file in to a new GeoJSON layer.</li>
 <li><strong>Add background imagery layer</strong> Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.</li>
 <li><strong>Add overlay imagery layer</strong> As above but assumes that the layer is partially transparent.</li>
+<li><strong>Add layer from GPX file</strong> Adds a layer from a GPS file on device.</li>
+<li><strong>Download GPS track</strong> Download a GPX file from the OSM API for the user and create a layer from it. Note that only GPX tracks that intersect with the area currently used will be available for selection.</li>
 <li><strong>Add custom imagery</strong> Adds a custom imagery configuration, this can then be used just as any tile based imagery source, the entries can be managed in the <a href="Preferences.md">preferences</a>.</li>
 <li><strong>Add layer from MVT style</strong> Load a Mapbox-GL style file that has a &quot;sources&quot; section and create a layer.</li>
 <li><strong>Add imagery from OAM</strong> Add a layer from the OpenAerialMap catalogue. <em>(requires network connectivity)</em></li>
@@ -132,17 +141,9 @@
 <li><strong>Bookmarks...</strong> - show current viewbox bookmarks</li>
 <li><strong>Go to current location</strong> - go to and zoom in to the current position</li>
 <li><strong>Go to coordinates...</strong> - go to and zoom in to coordinates or an open location code</li>
-<li><strong>Start GPX track</strong> - start recording a GPX track</li>
+<li><strong>Start GPX track</strong> - start recording a GPX track and display a corresponding layer.</li>
 <li><strong>Pause GPX track</strong> - pause recording the current GPX track</li>
 <li><strong>Clear GPX track</strong> - clear the current GPX track</li>
-<li><strong>GPX track management...</strong> - manage existing tracks
-<ul>
-<li><strong>Upload GPX track</strong> - upload the current GPX track <em>(requires network connectivity)</em></li>
-<li><strong>Export GPX track</strong> - export track to file</li>
-<li><strong>Import GPX track</strong> - import track from file</li>
-</ul>
-</li>
-<li><strong>Go to start of GPX track</strong> - center the map on the first track point</li>
 </ul>
 <h3><img src="../images/menu_transfer.png" alt="Transfer" /> Transfer</h3>
 <p>Select either the transfer icon <img src="../images/menu_transfer.png" alt="Transfer" /> or the &quot;Transfer&quot; menu item. This will display seven or eight options:</p>

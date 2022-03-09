@@ -254,14 +254,31 @@ public class Map extends View implements IMapView {
                             layer = new de.blau.android.layer.data.MapOverlay(this);
                             break;
                         case GPX:
-                            layer = new de.blau.android.layer.gpx.MapOverlay(this);
+                            if (contentId != null) {
+                                layer = new de.blau.android.layer.gpx.MapOverlay(this, contentId);
+                                if (ctx.getString(R.string.layer_gpx_recording).equals(contentId)) {
+                                    if (getTracker() != null) {
+                                        ((de.blau.android.layer.gpx.MapOverlay) layer).setTrack(getTracker().getTrack());
+                                        ((de.blau.android.layer.gpx.MapOverlay) layer).setName(contentId);
+                                    } else {
+                                        // we don't want to display the recording layer if the service isn't running
+                                        // for consistency reasons this implies that we need to delete the layer
+                                        db.deleteLayer(LayerType.GPX, contentId);
+                                        continue;
+                                    }
+                                } else if (!((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId), true, null)) {
+                                    db.deleteLayer(LayerType.GPX, contentId);
+                                    Log.w(DEBUG_TAG, "Deleted GPX layer for " + contentId);
+                                    continue; // skip
+                                }
+                            }
                             break;
                         case TASKS:
                             layer = new de.blau.android.layer.tasks.MapOverlay(this);
                             break;
                         case GEOJSON:
-                            layer = new de.blau.android.layer.geojson.MapOverlay(this);
                             if (contentId != null) {
+                                layer = new de.blau.android.layer.geojson.MapOverlay(this);
                                 try {
                                     if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true)) {
                                         // other error, has already been toasted
@@ -894,6 +911,23 @@ public class Map extends View implements IMapView {
      *            GPS track)
      */
     public void pointListToLinePointsArray(@NonNull final FloatPrimitiveList points, @NonNull final List<? extends GeoPoint> nodes) {
+        pointListToLinePointsArray(points, nodes, 0, nodes.size());
+    }
+
+    /**
+     * Converts a geographical way/path/track to a list of screen-coordinate points for drawing.
+     *
+     * Only segments that are inside the ViewBox are included.
+     *
+     * @param points list to (re-)use for projected points in the format expected by
+     *            {@link Canvas#drawLines(float[], Paint)}
+     * @param nodes An iterable (e.g. List or array) with GeoPoints of the line that should be drawn (e.g. a Way or a
+     *            GPS track)
+     * @param nodesOffset begin in {@param nodes} list
+     * @param nodesLength end in {@param nodes} list
+     */
+    public void pointListToLinePointsArray(@NonNull final FloatPrimitiveList points, @NonNull final List<? extends GeoPoint> nodes, int nodesOffset,
+            int nodesLength) {
         points.clear(); // reset
         boolean testInterrupted = false;
         // loop over all nodes
@@ -908,19 +942,19 @@ public class Map extends View implements IMapView {
         int h = getHeight();
         boolean thisIntersects = false;
         boolean nextIntersects = false;
-        int nodesSize = nodes.size();
-        if (nodesSize > 0) {
-            GeoPoint nextNode = nodes.get(0);
+        if (nodesLength > 0) {
+            int nodesSize = nodesOffset + nodesLength;
+            GeoPoint nextNode = nodes.get(nodesOffset);
             int nextNodeLat = nextNode.getLat();
             int nextNodeLon = nextNode.getLon();
             float x = -Float.MAX_VALUE;
             float y = -Float.MAX_VALUE;
-            for (int i = 0; i < nodesSize; i++) {
+            for (int i = nodesOffset; i < nodesSize; i++) {
                 GeoPoint node = nextNode;
                 int nodeLon = nextNodeLon;
                 int nodeLat = nextNodeLat;
                 boolean interrupted = false;
-                if (i == 0) { // just do this once
+                if (i == nodesOffset) { // just do this once
                     testInterrupted = node instanceof InterruptibleGeoPoint;
                 }
                 if (testInterrupted && node != null) {
@@ -1152,14 +1186,10 @@ public class Map extends View implements IMapView {
         }
 
         // Calculate lat/lon of view extents
-        final double latBottom = getViewBox().getBottom() / 1E7; // GeoMath.yToLatE7(viewPort.height(), getViewBox(),
-                                                                 // viewPort.bottom) / 1E7d;
-        final double lonRight = getViewBox().getRight() / 1E7; // GeoMath.xToLonE7(viewPort.width() , getViewBox(),
-                                                               // viewPort.right ) / 1E7d;
-        final double latTop = getViewBox().getTop() / 1E7; // GeoMath.yToLatE7(viewPort.height(), getViewBox(),
-                                                           // viewPort.top ) / 1E7d;
-        final double lonLeft = getViewBox().getLeft() / 1E7; // GeoMath.xToLonE7(viewPort.width() , getViewBox(),
-                                                             // viewPort.left ) / 1E7d;
+        final double latBottom = getViewBox().getBottom() / 1E7D;
+        final double lonRight = getViewBox().getRight() / 1E7D;
+        final double latTop = getViewBox().getTop() / 1E7D;
+        final double lonLeft = getViewBox().getLeft() / 1E7D;
 
         // Calculate tile x/y scaled 0.0 to 1.0
         final double xTileRight = (lonRight + 180d) / 360d;

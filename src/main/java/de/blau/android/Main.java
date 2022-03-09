@@ -95,10 +95,7 @@ import de.blau.android.dialogs.ConfirmUpload;
 import de.blau.android.dialogs.DataLossActivity;
 import de.blau.android.dialogs.DownloadCurrentWithChanges;
 import de.blau.android.dialogs.ElementInfo;
-import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.GnssPositionInfo;
-import de.blau.android.dialogs.GpxUpload;
-import de.blau.android.dialogs.ImportTrack;
 import de.blau.android.dialogs.Layers;
 import de.blau.android.dialogs.NewVersion;
 import de.blau.android.dialogs.Newbie;
@@ -119,9 +116,7 @@ import de.blau.android.filter.PresetFilter;
 import de.blau.android.filter.TagFilter;
 import de.blau.android.geocode.CoordinatesOrOLC;
 import de.blau.android.geocode.Search.SearchResult;
-import de.blau.android.gpx.LoadTrack;
 import de.blau.android.gpx.TrackPoint;
-import de.blau.android.gpx.WayPoint;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
 import de.blau.android.layer.ClickableInterface;
@@ -134,7 +129,6 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
-import de.blau.android.osm.Server.Visibility;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.ViewBox;
@@ -1047,11 +1041,7 @@ public class Main extends FullScreenAppCompatActivity
                 handlePhotoUri();
                 break;
             case MimeTypes.GPX:
-                if (getTracker() != null) {
-                    loadGPXFile(contentUri);
-                } else {
-                    return; // will be loaded when tracker is connected
-                }
+                loadGPXFile(contentUri);
                 break;
             case MimeTypes.GEOJSON:
                 loadGeoJson();
@@ -1063,11 +1053,7 @@ public class Main extends FullScreenAppCompatActivity
             Log.d(DEBUG_TAG, "contentUri " + contentUri);
             switch (FileUtil.getExtension(contentUri.getLastPathSegment())) {
             case FileExtensions.GPX:
-                if (getTracker() != null) {
-                    loadGPXFile(contentUri);
-                } else {
-                    return; // will be loaded when tracker is connected
-                }
+                loadGPXFile(contentUri);
                 break;
             case FileExtensions.JSON:
             case FileExtensions.GEOJSON:
@@ -1223,20 +1209,22 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * Load a GPX file from an Uri, showing a dialog if it would overwrite an existing one
+     * Load a GPX file from an Uri in to a new layer
      * 
      * Zooms to the first trackpoint if one exists
      * 
      * @param uri the Uri
      */
     private void loadGPXFile(@NonNull final Uri uri) {
-        addGpxLayer();
-        if (!getTracker().getTrackPoints().isEmpty()) {
-            ImportTrack.showDialog(Main.this, uri);
-        } else {
-            getTracker().stopTracking(false);
-            LoadTrack.fromFile(this, uri, getTracker().getTrack(), this::gotoFirstTrackPoint);
-            map.invalidate();
+        de.blau.android.layer.gpx.MapOverlay gpxLayer = (de.blau.android.layer.gpx.MapOverlay) map.getLayer(LayerType.GPX, uri.toString());
+        if (gpxLayer == null) {
+            de.blau.android.layer.Util.addLayer(this, LayerType.GPX, uri.toString());
+            map.setUpLayers(this);
+            gpxLayer = (de.blau.android.layer.gpx.MapOverlay) map.getLayer(LayerType.GPX, uri.toString());
+        }
+        TrackPoint tp = gpxLayer.getTrack().getFirstTrackPoint();
+        if (tp != null) {
+            gotoTrackPoint(App.getLogic(), tp);
         }
     }
 
@@ -1466,6 +1454,15 @@ public class Main extends FullScreenAppCompatActivity
             Log.w(DEBUG_TAG, "Unknown request code " + requestCode);
         }
         triggerMenuInvalidation(); // update menus
+    }
+
+    /**
+     * Check if permission to write to "external" storage has been granted
+     * 
+     * @return true if the permission has been granted
+     */
+    public boolean isStoragePermissionGranted() {
+        return storagePermissionGranted;
     }
 
     /**
@@ -1726,22 +1723,17 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_gps_show).setEnabled(locationProviderEnabled).setChecked(showGPS);
         menu.findItem(R.id.menu_gps_follow).setEnabled(locationProviderEnabled).setChecked(followGPS);
         menu.findItem(R.id.menu_gps_goto).setEnabled(locationProviderEnabled);
-        menu.findItem(R.id.menu_gps_start).setEnabled(getTracker() != null && !getTracker().isTracking() && gpsProviderEnabled);
-        menu.findItem(R.id.menu_gps_pause).setEnabled(getTracker() != null && getTracker().isTracking() && gpsProviderEnabled);
-        menu.findItem(R.id.menu_enable_gps_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && (networkConnected || hasMapSplitSource))
+        final boolean haveTracker = getTracker() != null;
+        menu.findItem(R.id.menu_gps_start).setEnabled(haveTracker && !getTracker().isTracking() && gpsProviderEnabled);
+        menu.findItem(R.id.menu_gps_pause).setEnabled(haveTracker && getTracker().isTracking() && gpsProviderEnabled);
+        menu.findItem(R.id.menu_enable_gps_autodownload).setEnabled(haveTracker && locationProviderEnabled && (networkConnected || hasMapSplitSource))
                 .setChecked(prefs.getAutoDownload());
         menu.findItem(R.id.menu_enable_pan_and_zoom_auto_download).setEnabled(networkConnected || hasMapSplitSource)
                 .setChecked(prefs.getPanAndZoomAutoDownload());
-        menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && networkConnected)
+        menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(haveTracker && locationProviderEnabled && networkConnected)
                 .setChecked(prefs.getBugAutoDownload());
 
-        boolean trackerHasTrackPoints = getTracker() != null && getTracker().hasTrackPoints();
-        boolean trackerHasWayPoints = getTracker() != null && getTracker().hasWayPoints();
-        menu.findItem(R.id.menu_gps_clear).setEnabled(trackerHasTrackPoints || trackerHasWayPoints);
-        menu.findItem(R.id.menu_gps_goto_start).setEnabled(trackerHasTrackPoints);
-        menu.findItem(R.id.menu_gps_goto_first_waypoint).setEnabled(trackerHasWayPoints);
-        menu.findItem(R.id.menu_gps_import).setEnabled(getTracker() != null);
-        menu.findItem(R.id.menu_gps_upload).setEnabled(trackerHasTrackPoints && networkConnected);
+        menu.findItem(R.id.menu_gps_clear).setEnabled(haveTracker && (getTracker().hasTrackPoints() || getTracker().hasWayPoints()));
 
         final Logic logic = App.getLogic();
         MenuItem undo = menu.findItem(R.id.menu_undo);
@@ -1782,7 +1774,6 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_transfer_save_file).setEnabled(storagePermissionGranted);
         menu.findItem(R.id.menu_transfer_save_notes_all).setEnabled(storagePermissionGranted);
         menu.findItem(R.id.menu_transfer_save_notes_new_and_changed).setEnabled(storagePermissionGranted);
-        menu.findItem(R.id.menu_gps_export).setEnabled(storagePermissionGranted);
 
         // main menu items
         menu.findItem(R.id.menu_search_objects).setEnabled(!logic.isLocked());
@@ -1823,7 +1814,7 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_tools_background_align).setEnabled(map.getBackgroundLayer() != null);
 
         menu.findItem(R.id.menu_tools_calibrate_height)
-                .setVisible(sensorManager != null && sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE) != null && getTracker() != null);
+                .setVisible(sensorManager != null && sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE) != null && haveTracker);
 
         boolean egmInstalled = prefs.getEgmFile() != null;
         menu.findItem(R.id.menu_tools_install_egm).setVisible(!egmInstalled);
@@ -1873,6 +1864,7 @@ public class Main extends FullScreenAppCompatActivity
         final Server server = prefs.getServer();
         final Logic logic = App.getLogic();
         StorageDelegator delegator = App.getDelegator();
+        final boolean haveTracker = getTracker() != null;
         switch (item.getItemId()) {
         case R.id.menu_config:
             PrefEditor.start(this);
@@ -2054,83 +2046,31 @@ public class Main extends FullScreenAppCompatActivity
                 tipMessageIds.add(R.string.tip_gpx_no_elevation);
             }
             Tip.showDialog(Main.this, tipKeys, tipMessageIds);
-            if (getTracker() != null && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
+            if (haveTracker && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
                 getTracker().startTracking();
                 setFollowGPS(true);
             }
             addGpxLayer();
             return true;
         case R.id.menu_gps_pause:
-            if (getTracker() != null && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
+            if (haveTracker && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
                 getTracker().stopTracking(false);
-                triggerMenuInvalidation();
             }
             return true;
         case R.id.menu_gps_clear:
-            if (getTracker() != null) {
+            if (haveTracker) {
                 if (!getTracker().isEmpty()) {
                     new AlertDialog.Builder(this).setTitle(R.string.menu_gps_clear).setMessage(R.string.clear_track_description)
                             .setPositiveButton(R.string.clear_anyway, (dialog, which) -> {
                                 if (getTracker() != null) {
                                     getTracker().stopTracking(true);
                                 }
-                                triggerMenuInvalidation();
                                 map.invalidate();
                             }).setNeutralButton(R.string.cancel, null).show();
                 } else {
                     getTracker().stopTracking(true);
-                    triggerMenuInvalidation();
                     map.invalidate();
                 }
-            }
-            return true;
-        case R.id.menu_gps_upload:
-            descheduleAutoLock();
-            if (Server.checkOsmAuthentication(this, server, () -> GpxUpload.showDialog(Main.this))) {
-                GpxUpload.showDialog(this);
-            }
-            return true;
-        case R.id.menu_gps_export:
-            final TrackerService exportTracker = getTracker();
-            if (exportTracker != null) {
-                descheduleAutoLock();
-                SelectFile.save(this, R.string.config_osmPreferredDir_key, new SaveFile() {
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public boolean save(Uri fileUri) {
-                        SavingHelper.asyncExport(Main.this, exportTracker, fileUri);
-                        SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
-                        return true;
-                    }
-                });
-            }
-            return true;
-        case R.id.menu_gps_import:
-            descheduleAutoLock();
-            SelectFile.read(this, R.string.config_gpxPreferredDir_key, new ReadFile() {
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                public boolean read(Uri fileUri) {
-                    // Get the Uri of the selected file
-                    Log.d(DEBUG_TAG, "Read gpx file Uri: " + fileUri.toString());
-                    if (getTracker() != null) {
-                        loadGPXFile(fileUri);
-                        SelectFile.savePref(prefs, R.string.config_gpxPreferredDir_key, fileUri);
-                    }
-                    map.invalidate();
-                    return true;
-                }
-            });
-            return true;
-        case R.id.menu_gps_goto_start:
-            gotoFirstTrackPoint();
-            return true;
-        case R.id.menu_gps_goto_first_waypoint:
-            List<WayPoint> w = tracker.getWayPoints();
-            if (w != null && !w.isEmpty()) {
-                gotoTrackPoint(logic, w.get(0));
             }
             return true;
         case R.id.menu_enable_gps_autodownload:
@@ -2521,13 +2461,25 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * Add a GPX layer if none exists
+     * Add a recording GPX layer if none exists
+     * 
+     * Only call this once the TrackerService has been started
      */
     private void addGpxLayer() {
-        if (map.getLayer(LayerType.GPX) == null) {
-            de.blau.android.layer.Util.addLayer(this, LayerType.GPX);
-            map.setUpLayers(this);
+        if (getTracker() != null) {
+            String trackingLayer = getString(R.string.layer_gpx_recording);
+            if (map.getLayer(LayerType.GPX, trackingLayer) == null) { // not displayed
+                try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(this)) { // not configured
+                    if (!db.hasLayer(LayerType.GPX, trackingLayer)) {
+                        de.blau.android.layer.Util.addLayer(this, LayerType.GPX, trackingLayer);
+                    }
+                    map.setUpLayers(this);
+                }
+            }
+        } else {
+            Log.e(DEBUG_TAG, "addGpxLayer tracker not available");
         }
+        triggerMenuInvalidation();
     }
 
     /**
@@ -2562,19 +2514,6 @@ public class Main extends FullScreenAppCompatActivity
         logic.setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO);
         map.getViewBox().moveTo(getMap(), trackPoint.getLon(), trackPoint.getLat());
         map.invalidate();
-    }
-
-    /**
-     * Goto the first track point if any
-     */
-    private void gotoFirstTrackPoint() {
-        TrackerService ts = getTracker();
-        if (ts != null) {
-            List<TrackPoint> l = ts.getTrackPoints();
-            if (!l.isEmpty()) {
-                gotoTrackPoint(App.getLogic(), l.get(0));
-            }
-        }
     }
 
     /**
@@ -3017,26 +2956,6 @@ public class Main extends FullScreenAppCompatActivity
         App.getLogic().downloadBox(this, map.getViewBox().copy(), add, null);
         if (map.getTaskLayer() != null) { // always adds bugs for now
             downLoadBugs(map.getViewBox().copy());
-        }
-    }
-
-    /**
-     * Check login parameters and start the track upload
-     * 
-     * @param description OSM GPX API description value
-     * @param tags OSM GPX API tags
-     * @param visibility OSM GPX API visibility value
-     */
-    public void performTrackUpload(@NonNull final String description, @NonNull final String tags, final Visibility visibility) {
-
-        final Logic logic = App.getLogic();
-        final Server server = prefs.getServer();
-
-        if (server.isLoginSet()) {
-            logic.uploadTrack(this, getTracker().getTrack(), description, tags, visibility);
-            logic.checkForMail(this, server);
-        } else {
-            ErrorAlert.showDialog(this, ErrorCodes.NO_LOGIN_DATA);
         }
     }
 
@@ -4111,15 +4030,6 @@ public class Main extends FullScreenAppCompatActivity
             startStopAutoDownload();
             startStopBugAutoDownload();
             triggerMenuInvalidation();
-            synchronized (newIntentsLock) {
-                if (contentUri != null) {
-                    Log.d(DEBUG_TAG, "Processing content uri for a gpx file");
-                    if (MimeTypes.GPX.equals(contentUriType) || FileExtensions.GPX.equals(FileUtil.getExtension(contentUri.getLastPathSegment()))) {
-                        loadGPXFile(contentUri);
-                        contentUri = null;
-                    }
-                }
-            }
         }
     }
 
@@ -4154,7 +4064,7 @@ public class Main extends FullScreenAppCompatActivity
 
     @Override
     public void onStateChanged() {
-        invalidateOptionsMenu();
+        mapLayout.post(this::invalidateOptionsMenu);
     }
 
     /**

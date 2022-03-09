@@ -1,10 +1,7 @@
 package de.blau.android.prefs;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
@@ -13,8 +10,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -55,6 +50,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
@@ -365,8 +361,8 @@ public class PresetEditorActivity extends URLListEditActivity {
                     fileStream = new FileOutputStream(new File(presetDir, filename));
                     StreamUtils.copy(downloadStream, fileStream);
 
-                    if (zip && unpackZip(presetDir.getPath() + "/", filename)) {
-                        if (!(new File(presetDir, FILE_NAME_TEMPORARY_ARCHIVE)).delete()) {
+                    if (zip && FileUtil.unpackZip(presetDir.getPath() + "/", filename)) {
+                        if (!(new File(presetDir, FILE_NAME_TEMPORARY_ARCHIVE)).delete()) { // NOSONAR requires API 26
                             Log.e(DEBUG_TAG, "Could not delete " + FILE_NAME_TEMPORARY_ARCHIVE);
                         }
                         return DOWNLOADED_PRESET_ZIP;
@@ -399,8 +395,8 @@ public class PresetEditorActivity extends URLListEditActivity {
                         OutputStream fileStream = new FileOutputStream(new File(presetDir, filename));) {
                     Log.d(DEBUG_TAG, "Loading " + uri + " to " + presetDir + "/" + filename);
                     StreamUtils.copy(loadStream, fileStream);
-                    if (zip && unpackZip(presetDir.getPath() + "/", filename)) {
-                        if (!(new File(presetDir, FILE_NAME_TEMPORARY_ARCHIVE)).delete()) {
+                    if (zip && FileUtil.unpackZip(presetDir.getPath() + "/", filename)) {
+                        if (!(new File(presetDir, FILE_NAME_TEMPORARY_ARCHIVE)).delete()) { // NOSONAR requires API 26
                             Log.e(DEBUG_TAG, "Could not delete " + FILE_NAME_TEMPORARY_ARCHIVE);
                         }
                         return DOWNLOADED_PRESET_ZIP;
@@ -460,63 +456,6 @@ public class PresetEditorActivity extends URLListEditActivity {
     @Override
     protected boolean canAutoClose() { // download needs to get done
         return false;
-    }
-
-    /**
-     * Unpack a zipped preset file
-     * 
-     * Code from http://stackoverflow.com/questions/3382996/how-to-unzip-files-programmatically-in-android
-     * 
-     * @param presetDir preset directory
-     * @param zipname the zip file
-     * @return true if successful
-     */
-    private boolean unpackZip(String presetDir, String zipname) {
-        try (InputStream is = new FileInputStream(presetDir + zipname); ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is))) {
-            String filename;
-
-            ZipEntry ze;
-            byte[] buffer = new byte[1024];
-            int count;
-
-            while ((ze = zis.getNextEntry()) != null) {
-                // zapis do souboru
-                filename = ze.getName();
-                Log.d(DEBUG_TAG, "Unzip " + filename);
-                // Need to create directories if not exists, or
-                // it will generate an Exception...
-                if ("".equals(filename)) {
-                    continue;
-                } else if (filename.indexOf('/') > 0 && !filename.endsWith("/")) {
-                    int slash = filename.lastIndexOf('/');
-                    String path = filename.substring(0, slash);
-                    File fmd = new File(presetDir + path);
-                    if (!fmd.exists()) {
-                        fmd.mkdirs();
-                    }
-                } else if (ze.isDirectory()) {
-                    File fmd = new File(presetDir + filename);
-                    // noinspection ResultOfMethodCallIgnored
-                    if (!fmd.exists()) {
-                        fmd.mkdirs();
-                    }
-                    continue;
-                }
-
-                try (FileOutputStream fout = new FileOutputStream(presetDir + filename)) {
-                    // cteni zipu a zapis
-                    while ((count = zis.read(buffer)) != -1) {
-                        fout.write(buffer, 0, count);
-                    }
-                }
-                zis.closeEntry();
-            }
-        } catch (IOException e) {
-            Log.e(DEBUG_TAG, "Unzipping failed with " + e.getMessage());
-            return false;
-        }
-
-        return true;
     }
 
     /**

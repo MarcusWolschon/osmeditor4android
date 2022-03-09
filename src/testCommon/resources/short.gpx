@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="yes"?>
+<gpx version="1.1" creator="OSMtracker" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<trk><trkseg>
+<trkpt lat="47.4109167" lon="8.3757917"><ele>428</ele><time>2011-05-13T10:20:00Z</time><hdop>1.04</hdop><vdop>1.21</vdop><pdop>1.59</pdop></trkpt>
+<trkpt lat="47.4109600" lon="8.3757467"><ele>427</ele><time>2011-05-13T10:20:01Z</time><hdop>1.04</hdop><vdop>1.21</vdop><pdop>1.59</pdop></trkpt>
+<trkpt lat="47.4110017" lon="8.3757017"><ele>426</ele><time>2011-05-13T10:20:02Z</time><hdop>1.04</hdop><vdop>1.21</vdop><pdop>1.59</pdop></trkpt>
+<trkpt lat="47.4110300" lon="8.3756717"><ele>426</ele><time>2011-05-13T10:20:03Z</time><hdop>0.96</hdop><vdop>1.07</vdop><pdop>1.44</pdop></trkpt>
+<trkpt lat="47.4110783" lon="8.3756233"><ele>426</ele><time>2011-05-13T10:20:04Z</time><hdop>1.02</hdop><vdop>0.77</vdop><pdop>1.28</pdop></trkpt>
+<trkpt lat="47.4111617" lon="8.3755350"><ele>425</ele><time>2011-05-13T10:20:05Z</time><hdop>0.96</hdop><vdop>1.07</vdop><pdop>1.44</pdop></trkpt>
+<trkpt lat="47.4112817" lon="8.3754117"><ele>424</ele><time>2011-05-13T10:20:06Z</time><hdop>0.95</hdop><vdop>0.73</vdop><pdop>1.19</pdop></trkpt>
+<trkpt lat="47.4113467" lon="8.3753550"><ele>423</ele><time>2011-05-13T10:20:07Z</time><hdop>0.96</hdop><vdop>1.07</vdop><pdop>1.44</pdop></trkpt>
+<trkpt lat="47.4114117" lon="8.3752983"><ele>423</ele><time>2011-05-13T10:20:08Z</time><hdop>0.96</hdop><vdop>1.07</vdop><pdop>1.44</pdop></trkpt>
+<trkpt lat="47.4114833" lon="8.3752400"><ele>422</ele><time>2011-05-13T10:20:09Z</time><hdop>0.96</hdop><vdop>1.07</vdop><pdop>1.44</pdop></trkpt>
+<trkpt lat="47.4115583" lon="8.3751800"><ele>421</ele><time>2011-05-13T10:20:10Z</time><hdop>0.96</hdop><vdop>1.07</vdop><pdop>1.44</pdop></trkpt>
+<trkpt lat="47.4116350" lon="8.3751183"><ele>420</ele><time>2011-05-13T10:20:11Z</time><hdop>0.96</hdop><vdop>1.07</vdop><pdop>1.44</pdop></trkpt>
+<trkpt lat="47.4117150" lon="8.3750550"><ele>420</ele><time>2011-05-13T10:20:12Z</time><hdop>0.96</hdop><vdop>1.07</vdop><pdop>1.44</pdop></trkpt>
+<trkpt lat="47.4117950" lon="8.3749950"><ele>419</ele><time>2011-05-13T10:20:13Z</time><hdop>0.96</hdop><vdop>1.07</vdop><pdop>1.44</pdop></trkpt>
+</trkseg></trk>
+</gpx>

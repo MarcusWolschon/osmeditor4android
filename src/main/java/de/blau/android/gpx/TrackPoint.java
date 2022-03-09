@@ -22,7 +22,6 @@ import de.blau.android.services.util.ExtendedLocation;
  * @author Jan
  */
 public class TrackPoint implements InterruptibleGeoPoint, Serializable {
-
     /**
      * 
      */
@@ -31,6 +30,8 @@ public class TrackPoint implements InterruptibleGeoPoint, Serializable {
     static final String ELE_ELEMENT   = "ele";
     static final String TIME_ELEMENT  = "time";
     static final String TRKPT_ELEMENT = "trkpt";
+    static final String LON_ATTR      = "lon";
+    static final String LAT_ATTR      = "lat";
 
     public static final int FORMAT_VERSION = 2;
     public static final int RECORD_SIZE    = 1 + 4 * 8;
@@ -208,12 +209,30 @@ public class TrackPoint implements InterruptibleGeoPoint, Serializable {
     }
 
     /**
-     * Check if this ibject marks the beginning of a new segment
+     * Check if this object marks the beginning of a new segment
      * 
      * @return true if a new segment starts here
      */
     public boolean isNewSegment() {
         return (flags & FLAG_NEWSEGMENT) > 0;
+    }
+
+    @Override
+    public boolean isInterrupted() {
+        return isNewSegment();
+    }
+
+    /**
+     * Fill a Location object with our values
+     * 
+     * @param loc the Location we want to set the vaules on
+     */
+    public void toLocation(@NonNull Location loc) {
+        loc.reset();
+        loc.setLongitude(longitude);
+        loc.setLatitude(latitude);
+        loc.setAltitude(altitude);
+        loc.setTime(time);
     }
 
     /**
@@ -225,8 +244,8 @@ public class TrackPoint implements InterruptibleGeoPoint, Serializable {
      */
     public synchronized void toXml(@NonNull XmlSerializer serializer, @NonNull GpxTimeFormater gtf) throws IOException {
         serializer.startTag(null, TRKPT_ELEMENT);
-        serializer.attribute(null, "lat", String.format(Locale.US, "%.8f", latitude));
-        serializer.attribute(null, "lon", String.format(Locale.US, "%.8f", longitude));
+        serializer.attribute(null, LAT_ATTR, String.format(Locale.US, "%.8f", latitude));
+        serializer.attribute(null, LON_ATTR, String.format(Locale.US, "%.8f", longitude));
         if (hasAltitude()) {
             serializer.startTag(null, ELE_ELEMENT).text(String.format(Locale.US, "%.3f", altitude)).endTag(null, ELE_ELEMENT);
         }
@@ -237,10 +256,5 @@ public class TrackPoint implements InterruptibleGeoPoint, Serializable {
     @Override
     public String toString() {
         return String.format(Locale.US, "%f, %f", latitude, longitude);
-    }
-
-    @Override
-    public boolean isInterrupted() {
-        return isNewSegment();
     }
 }

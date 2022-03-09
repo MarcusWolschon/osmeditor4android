@@ -1271,21 +1271,23 @@ public class TestUtils {
      */
     public static boolean scrollToAndSelect(@NonNull UiDevice device, @NonNull String entry, @NonNull UiSelector scrollableSelector) {
         hideSoftKeyboard(device);
-        UiScrollable appView;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            appView = new UiScrollable(scrollableSelector);
-        } else {
-            appView = new UiScrollable(new UiSelector().scrollable(true));
-        }
-        appView.setSwipeDeadZonePercentage(0.2);
 
-        try {
-            appView.scrollIntoView(new UiSelector().text(entry));
-        } catch (UiObjectNotFoundException e) {
-            // if there is no scrollable then this will fail
+        if (!findText(device, false, entry, 1000)) { // only scroll if text isn't already visible
+            UiScrollable appView;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                appView = new UiScrollable(scrollableSelector);
+            } else {
+                appView = new UiScrollable(new UiSelector().scrollable(true));
+            }
+            appView.setSwipeDeadZonePercentage(0.2);
+            try {
+                appView.scrollIntoView(new UiSelector().text(entry));
+            } catch (UiObjectNotFoundException e) {
+                // if there is no scrollable then this will fail
+            }
         }
 
-        if (!TestUtils.clickText(device, false, entry, true, true, 1000)) {
+        if (!clickText(device, false, entry, true, true, 1000)) {
             Log.i(DEBUG_TAG, "scrollToAndSelect failed click on " + entry);
             return false;
         }

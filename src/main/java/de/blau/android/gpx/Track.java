@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -36,16 +37,19 @@ import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.SavingHelper.Exportable;
 
 /**
  * GPS track data class. Only one instance allowed. Automatically saves and loads content. Content saving happens
  * continuously to avoid large delays when closing. A BufferedOutputStream is used to prevent large amounts of flash
  * wear.
  */
-public class Track extends DefaultHandler implements GpxTimeFormater {
+public class Track extends DefaultHandler implements GpxTimeFormater, Exportable {
 
     private static final String DEBUG_TAG = "Track";
 
@@ -55,7 +59,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
 
     private final List<TrackPoint> currentTrack;
 
-    private final ArrayList<WayPoint> currentWayPoints;
+    private final List<WayPoint> currentWayPoints;
 
     private static final String SAVEFILE = "track.dat";
 
@@ -68,8 +72,8 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
     /**
      * For conversion from UNIX epoch time and back
      */
-    private static final String    DATE_PATTERN_ISO8601_UTC = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-    private final SimpleDateFormat ISO8601FORMAT;
+    public static final String     DATE_PATTERN_ISO8601_UTC = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    private final SimpleDateFormat iso8601Format;
     private final Calendar         calendarInstance         = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 
     /**
@@ -100,10 +104,10 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
     private DataOutputStream saveFileStream = null;
 
     /**
-     * Ensure only one instance may be open at a time
+     * Ensure only one instance may be saving at a time
      */
-    private static volatile boolean isOpen   = false;
-    private static Object           openLock = new Object();
+    private static volatile boolean isSaving   = false;
+    private static Object           savingLock = new Object();
 
     /** set by {@link #markNewSegment()} - indicates that the next track point will have the isNewSegment flag set */
     private boolean nextIsNewSegment = false;
@@ -111,23 +115,26 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
     /**
      * Basic constructor
      * 
-     * @param context Android Context
+     * @param context Android Context (required for recording)
+     * @param recording if true the instance will be used for recording
      */
-    public Track(Context context) {
+    public Track(@Nullable Context context, boolean recording) {
         // Hardcode 'Z' timezone marker as otherwise '+0000' will be used, which is invalid in GPX
-        ISO8601FORMAT = new SimpleDateFormat(DATE_PATTERN_ISO8601_UTC, Locale.US);
-        ISO8601FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
+        iso8601Format = new SimpleDateFormat(DATE_PATTERN_ISO8601_UTC, Locale.US);
+        iso8601Format.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-        currentTrack = new ArrayList<>();
-        currentWayPoints = new ArrayList<>();
+        currentTrack = recording ? Collections.synchronizedList(new ArrayList<>()) : new ArrayList<>();
+        currentWayPoints = recording ? Collections.synchronizedList(new ArrayList<>()) : new ArrayList<>();
         ctx = context;
-        synchronized (openLock) {
-            if (isOpen) {
+        synchronized (savingLock) {
+            if (isSaving && recording) {
                 markSavingBroken("Attempted to open multiple instances of Track - saving disabled for this instance", null);
-            } else {
-                isOpen = true;
+            } else if (recording) {
+                isSaving = true;
                 Log.i(DEBUG_TAG, "Opened track");
                 asyncLoad();
+            } else {
+                savingDisabled = true;
             }
         }
     }
@@ -165,25 +172,21 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
     /**
      * Get the TrackPoints for this track
      * 
-     * FIXME allocating a new array should be avoided but may be necessary to avoid concurrent mod. issues
-     * 
      * @return an array of TrackPoint
      */
     @NonNull
     public List<TrackPoint> getTrackPoints() {
-        return new ArrayList<>(currentTrack);
+        return currentTrack;
     }
 
     /**
      * Get the WayPoints for this track
      * 
-     * FIXME allocating a new array should be avoided but may be necessary to avoid concurrent mod. issues
-     * 
      * @return a List of WayPoint
      */
     @NonNull
-    public WayPoint[] getWayPoints() {
-        return currentWayPoints.toArray(new WayPoint[0]); // need a shallow copy here
+    public List<WayPoint> getWayPoints() {
+        return currentWayPoints;
     }
 
     @Override
@@ -211,7 +214,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
         }
 
         if (currentWayPoints != null) {
-            wayPointsSaver.save(ctx, WAYPOINT_SAVEFILE, currentWayPoints, true);
+            wayPointsSaver.save(ctx, WAYPOINT_SAVEFILE, new ArrayList<>(currentWayPoints), true);
         }
 
         if (savedTrackPoints == currentTrack.size()) {
@@ -277,12 +280,12 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
         }
         savedTrackPoints = 0;
         File saveFile = new File(ctx.getFilesDir(), SAVEFILE);
-        if (!saveFile.delete() && saveFile.exists()) {
+        if (!saveFile.delete() && saveFile.exists()) { // NOSONAR nio delete requires API 26
             markSavingBroken("Failed to delete undesired track file", null);
         }
 
         saveFile = new File(ctx.getFilesDir(), WAYPOINT_SAVEFILE);
-        if (!saveFile.delete() && saveFile.exists()) {
+        if (!saveFile.delete() && saveFile.exists()) { // NOSONAR nio delete requires API 26
             Log.w(DEBUG_TAG, "Failed to delete waypoint save file");
         }
     }
@@ -310,13 +313,14 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
             protected Void doInBackground(Void param) {
                 loadingLock.lock();
                 try {
+                    if (!isSaving) {
+                        return null; // if this has been closed by close() in the meantime, STOP
+                    }
+
                     List<WayPoint> loadedWayPoints = wayPointsSaver.load(ctx, WAYPOINT_SAVEFILE, true);
                     if (loadedWayPoints != null) {
                         currentWayPoints.clear();
                         currentWayPoints.addAll(loadedWayPoints);
-                    }
-                    if (!isOpen) {
-                        return null; // if this has been closed by close() in the meantime, STOP
                     }
 
                     File saveFile = new File(ctx.getFilesDir(), SAVEFILE);
@@ -351,7 +355,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
                 currentTrack.addAll(0, loaded);
                 loadingFinished = true;
                 // See end of doInBackground for possible states
-                Log.i(DEBUG_TAG, "Track loading finished, loaded entries: " + loaded.size());
+                Log.i(DEBUG_TAG, "asyncLoad track loading finished, loaded entries: " + loaded.size());
                 if (currentTrack.size() > savedTrackPoints) {
                     save();
                 }
@@ -420,7 +424,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
      * again.
      */
     public void close() {
-        if (!isOpen) {
+        if (!isSaving) {
             return;
         }
         Log.d(DEBUG_TAG, "Trying to close track");
@@ -432,7 +436,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
                 saveFileStream = null;
             }
             savingDisabled = true;
-            isOpen = false;
+            isSaving = false;
             Log.i(DEBUG_TAG, "Track closed");
         } finally {
             loadingLock.unlock();
@@ -492,7 +496,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
      */
     public String format(long time) {
         calendarInstance.setTimeInMillis(time);
-        return ISO8601FORMAT.format(new Date(time));
+        return iso8601Format.format(new Date(time));
     }
 
     /**
@@ -514,8 +518,8 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
      * start parsing a GPX file
      * 
      * @param in InputStream that we are reading from
-     * @throws SAXException
-     * @throws IOException
+     * @throws SAXException on parsing exceptions
+     * @throws IOException if reading the InputStream caused errors
      * @throws ParserConfigurationException
      */
     private void start(final InputStream in) throws SAXException, IOException, ParserConfigurationException {
@@ -560,8 +564,8 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
                 break;
             case TrackPoint.TRKPT_ELEMENT:
             case WayPoint.WPT_ELEMENT:
-                parsedLat = Double.parseDouble(atts.getValue("lat"));
-                parsedLon = Double.parseDouble(atts.getValue("lon"));
+                parsedLat = Double.parseDouble(atts.getValue(TrackPoint.LAT_ATTR));
+                parsedLon = Double.parseDouble(atts.getValue(TrackPoint.LON_ATTR));
                 break;
             case TrackPoint.TIME_ELEMENT:
                 state = State.TIME;
@@ -627,7 +631,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
      * @throws ParseException if the time string cannot be parsed
      */
     private synchronized long parseTime(String t) throws ParseException {
-        return ISO8601FORMAT.parse(t).getTime();
+        return iso8601Format.parse(t).getTime();
     }
 
     @Override
@@ -670,11 +674,41 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
     }
 
     /**
-     * Get the list of TrackPoints
+     * Get the starting TrackPoint
      * 
-     * @return a List of TrackPoint
+     * @return the first TrackPoint or null
      */
-    public List<TrackPoint> getTrack() {
-        return currentTrack;
+    @Nullable
+    public TrackPoint getFirstTrackPoint() {
+        if (!currentTrack.isEmpty()) {
+            return currentTrack.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * Get the first WayPoint
+     * 
+     * @return the first WayPoint or null
+     */
+    @Nullable
+    public WayPoint getFirstWayPoint() {
+        if (!currentWayPoints.isEmpty()) {
+            return currentWayPoints.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * Exports the GPX data
+     */
+    @Override
+    public void export(OutputStream outputStream) throws Exception {
+        exportToGPX(outputStream);
+    }
+
+    @Override
+    public String exportExtension() {
+        return FileExtensions.GPX;
     }
 }

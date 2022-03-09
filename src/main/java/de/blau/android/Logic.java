@@ -77,6 +77,8 @@ import de.blau.android.osm.MergeAction;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmChangeParser;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmGpxApi;
+import de.blau.android.osm.OsmGpxApi.Visibility;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.OsmPbfParser;
 import de.blau.android.osm.OsmXml;
@@ -88,7 +90,6 @@ import de.blau.android.osm.RelationMemberPosition;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.UserDetails;
-import de.blau.android.osm.Server.Visibility;
 import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
@@ -3231,20 +3232,14 @@ public class Logic {
 
             // TODO this currently does not retrieve ways the node may be a member of
             // we always retrieve ways with nodes, relations "full" is optional
-            InputStream in = server.getStreamForElement(ctx, (Relation.NAME.equals(type) && relationFull) || Way.NAME.equals(type) ? "full" : null, type, id);
-
-            try {
+            try (InputStream in = server.getStreamForElement(ctx, (Relation.NAME.equals(type) && relationFull) || Way.NAME.equals(type) ? "full" : null, type,
+                    id)) {
                 osmParser.start(in);
-            } finally {
-                SavingHelper.close(in);
             }
             if (withParents) {
                 // optional retrieve relations the element is a member of
-                in = server.getStreamForElement(ctx, "relations", type, id);
-                try {
+                try (InputStream in = server.getStreamForElement(ctx, "relations", type, id)) {
                     osmParser.start(in);
-                } finally {
-                    SavingHelper.close(in);
                 }
             }
         } catch (SAXException e) {
@@ -3319,47 +3314,38 @@ public class Logic {
             protected AsyncResult doInBackground(Void arg) {
                 try {
                     final OsmParser osmParser = new OsmParser();
-                    InputStream in = null;
                     Server server = getPrefs().getServer();
                     if (nodes != null && !nodes.isEmpty()) {
-                        try {
-                            int len = nodes.size();
-                            for (int i = 0; i < len; i = i + MAX_ELEMENTS_PER_REQUEST) {
-                                in = server.getStreamForElements(ctx, Node.NAME, toLongArray(nodes.subList(i, Math.min(len, i + MAX_ELEMENTS_PER_REQUEST))));
+                        int len = nodes.size();
+                        for (int i = 0; i < len; i = i + MAX_ELEMENTS_PER_REQUEST) {
+                            try (InputStream in = server.getStreamForElements(ctx, Node.NAME,
+                                    toLongArray(nodes.subList(i, Math.min(len, i + MAX_ELEMENTS_PER_REQUEST))))) {
                                 osmParser.reinit();
                                 osmParser.start(in);
                             }
-                        } finally {
-                            SavingHelper.close(in);
                         }
                     }
                     if (ways != null && !ways.isEmpty()) {
                         for (Long id : ways) {
-                            try {
-                                // FIXME it would be more efficient to use the same strategy that JOSM does and use
-                                // multi fetch to download the ways, then
-                                // determine which nodes need to be downloaded, however currently the logic in OsmParser
-                                // expects way nodes to be available
-                                // when ways are parsed.
-                                in = server.getStreamForElement(ctx, "full", Way.NAME, id);
+                            // FIXME it would be more efficient to use the same strategy that JOSM does and use
+                            // multi fetch to download the ways, then
+                            // determine which nodes need to be downloaded, however currently the logic in OsmParser
+                            // expects way nodes to be available
+                            // when ways are parsed.
+                            try (InputStream in = server.getStreamForElement(ctx, "full", Way.NAME, id)) {
                                 osmParser.reinit();
                                 osmParser.start(in);
-                            } finally {
-                                SavingHelper.close(in);
                             }
                         }
                     }
                     if (relations != null && !relations.isEmpty()) {
-                        try {
-                            int len = relations.size();
-                            for (int i = 0; i < len; i = i + MAX_ELEMENTS_PER_REQUEST) {
-                                in = server.getStreamForElements(ctx, Relation.NAME,
-                                        toLongArray(relations.subList(i, Math.min(len, i + MAX_ELEMENTS_PER_REQUEST))));
+                        int len = relations.size();
+                        for (int i = 0; i < len; i = i + MAX_ELEMENTS_PER_REQUEST) {
+                            try (InputStream in = server.getStreamForElements(ctx, Relation.NAME,
+                                    toLongArray(relations.subList(i, Math.min(len, i + MAX_ELEMENTS_PER_REQUEST))))) {
                                 osmParser.reinit();
                                 osmParser.start(in);
                             }
-                        } finally {
-                            SavingHelper.close(in);
                         }
                     }
                     try {
@@ -4218,7 +4204,7 @@ public class Logic {
             protected Integer doInBackground(Void params) {
                 int result = 0;
                 try {
-                    server.uploadTrack(track, description, tags, visibility);
+                    OsmGpxApi.uploadTrack(server, track, description, tags, visibility);
                 } catch (final OsmServerException e) {
                     Log.e(DEBUG_TAG, e.getMessage());
                     switch (e.getErrorCode()) { // FIXME use the same mechanics as for data upload

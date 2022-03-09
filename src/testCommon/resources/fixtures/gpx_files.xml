@@ -1,0 +1,928 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+<gpx_file id="3865232" name="2021_10_10T133854.gpx" user="SimonPoole" visibility="public" pending="false" timestamp="2021-10-10T13:38:55Z" lat="47.51912633" lon="8.12352579">
+  <description>Perimukweg</description>
+</gpx_file>
+<gpx_file id="3298955" name="2020_05_08T191017.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2020-05-08T19:10:19Z" lat="47.397918" lon="8.37645">
+  <description>test</description>
+</gpx_file>
+<gpx_file id="608247" name="ftan201019.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-19T16:47:19Z" lat="46.8435" lon="10.2684">
+  <description>Skilifts Ftan - Scuol</description>
+</gpx_file>
+<gpx_file id="604600" name="20100113.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-13T15:03:14Z" lat="47.398" lon="8.37631">
+  <description>Try to connect a couple of the paths to the roads in Bellikon</description>
+</gpx_file>
+<gpx_file id="640820" name="20100308_160741.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-08T18:11:50Z" lat="47.3967" lon="8.37655">
+  <description>Run over to Widen</description>
+</gpx_file>
+<gpx_file id="638140" name="20100305_125550.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-05T14:58:48Z" lat="47.384" lon="8.37752">
+  <description>1 of 2 in WIden</description>
+</gpx_file>
+<gpx_file id="638142" name="stream_20100305_125742.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-05T15:00:18Z" lat="47.3697" lon="8.35805">
+  <description>2 of 2 in Widen</description>
+</gpx_file>
+<gpx_file id="638143" name="20100305.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-05T15:02:16Z" lat="47.398" lon="8.3764">
+  <description>305 log from the run</description>
+</gpx_file>
+<gpx_file id="600990" name="20100107_1.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-08T16:41:15Z" lat="47.398" lon="8.37642">
+  <description>Var. paths Heitersberg</description>
+</gpx_file>
+<gpx_file id="620694" name="20100207_183247.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-07T19:26:34Z" lat="47.3978" lon="8.37666">
+  <description>Quick detour </description>
+</gpx_file>
+<gpx_file id="601343" name="20090322.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-09T10:58:53Z" lat="47.398" lon="8.37635">
+  <description>Heitersberg 20090322</description>
+</gpx_file>
+<gpx_file id="601341" name="20090228.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-09T10:58:15Z" lat="47.398" lon="8.37634">
+  <description>Heitersberg 20090228</description>
+</gpx_file>
+<gpx_file id="601344" name="20090402.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-09T10:59:30Z" lat="47.3979" lon="8.3764">
+  <description>Heitersberg 20090402</description>
+</gpx_file>
+<gpx_file id="601345" name="20090409.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-09T11:00:08Z" lat="47.3979" lon="8.37641">
+  <description>Heitersberg 20090409</description>
+</gpx_file>
+<gpx_file id="601346" name="20090627.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-09T11:00:42Z" lat="47.398" lon="8.37637">
+  <description>Heitersberg 20090627</description>
+</gpx_file>
+<gpx_file id="632736" name="20100225_134633.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-25T15:12:31Z" lat="47.3675" lon="8.36355">
+  <description>Ride through Widen and back via Heitersberg 1 of 3</description>
+</gpx_file>
+<gpx_file id="632737" name="20100225_140755.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-25T15:13:50Z" lat="47.3736" lon="8.35798">
+  <description>Ride through Widen and back via Heitersberg 2 of 3</description>
+</gpx_file>
+<gpx_file id="632738" name="20100225_152134.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-25T15:15:40Z" lat="47.3787" lon="8.3538">
+  <description>Ride through Widen and back via Heitersberg 3 of 3</description>
+</gpx_file>
+<gpx_file id="617672" name="20100203.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-03T16:14:35Z" lat="47.398" lon="8.37628">
+  <description>Short run to start getting some of Widen in the map</description>
+</gpx_file>
+<gpx_file id="601597" name="20090713.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-09T16:52:06Z" lat="47.3953" lon="8.37461">
+  <description>MTB Heitersberg</description>
+</gpx_file>
+<gpx_file id="609254" name="ftan201021.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-21T13:54:21Z" lat="46.7948" lon="10.2886">
+  <description>Car drive around some of the missing pieces of Ftan</description>
+</gpx_file>
+<gpx_file id="632932" name="20100225.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-25T19:54:55Z" lat="47.398" lon="8.3764">
+  <description>Import of 305er track to get missing bit.</description>
+</gpx_file>
+<gpx_file id="617911" name="1911200613_54_12_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-03T21:50:24Z" lat="47.3977" lon="8.3762">
+  <description>Very old MTB TCX track converted to gpx</description>
+</gpx_file>
+<gpx_file id="617959" name="0710200713_10_40_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-03T22:54:59Z" lat="47.3979" lon="8.37648">
+  <description>Another old MTB track.</description>
+</gpx_file>
+<gpx_file id="609511" name="ftan201021_1.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-21T21:23:19Z" lat="46.7953" lon="10.2508">
+  <description>Further traces from Fftan</description>
+</gpx_file>
+<gpx_file id="621202" name="20100208.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-08T13:09:46Z" lat="47.398" lon="8.37642">
+  <description>Run with voice recording to get most of Bergdietikon and parts of Baltenschwil</description>
+</gpx_file>
+<gpx_file id="621253" name="20100208_135831.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-08T15:21:01Z" lat="47.3992" lon="8.38376">
+  <description>Some pram pushing</description>
+</gpx_file>
+<gpx_file id="621257" name="20100208_141908.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-08T15:22:08Z" lat="47.3992" lon="8.38376">
+  <description>More pram pushing</description>
+</gpx_file>
+<gpx_file id="618132" name="20100204.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-04T12:20:57Z" lat="47.398" lon="8.37637">
+  <description>A short walk around the neighbourhood.</description>
+</gpx_file>
+<gpx_file id="618150" name="1603200816_12_10_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-04T12:54:18Z" lat="47.398" lon="8.37634">
+  <description>Converted TCX file from 2008</description>
+</gpx_file>
+<gpx_file id="618160" name="2806200817_26_45_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-04T13:25:02Z" lat="47.3979" lon="8.37644">
+  <description>Found another bit of missing track </description>
+</gpx_file>
+<gpx_file id="602478" name="20100110.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-10T16:24:57Z" lat="47.398" lon="8.37642">
+  <description>More missing stuff on Heitersberg</description>
+</gpx_file>
+<gpx_file id="609848" name="ftan20100122.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-22T16:30:42Z" lat="46.7985" lon="10.3055">
+  <description>More missing roads</description>
+</gpx_file>
+<gpx_file id="616179" name="20100131_170740.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-31T20:16:05Z" lat="47.393" lon="8.38263">
+  <description>Quick trip up to restaurant Hasenberg</description>
+</gpx_file>
+<gpx_file id="602952" name="20091216.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-10T22:38:42Z" lat="47.3981" lon="8.37604">
+  <description>Further traces from Heitersberg</description>
+</gpx_file>
+<gpx_file id="642474" name="20070701.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-10T15:02:10Z" lat="47.398" lon="8.3764">
+  <description>Old mtb file from 2007</description>
+</gpx_file>
+<gpx_file id="642476" name="20080224.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-10T15:03:27Z" lat="47.398" lon="8.37646">
+  <description>Old mtb file from 2008</description>
+</gpx_file>
+<gpx_file id="618581" name="20100205_085315.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-05T10:17:15Z" lat="47.4249" lon="8.3117">
+  <description>Short drive in Oberrohrdorf</description>
+</gpx_file>
+<gpx_file id="642585" name="20100310_114234.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-10T17:51:22Z" lat="47.3979" lon="8.37694">
+  <description>Some house numbers in BD</description>
+</gpx_file>
+<gpx_file id="618747" name="20100205.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-05T15:57:07Z" lat="47.3978" lon="8.37652">
+  <description>Final lot of roads in Kindhausen</description>
+</gpx_file>
+<gpx_file id="630405" name="20100223_143052.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-23T14:34:34Z" lat="47.3948" lon="8.39299">
+  <description>Footpath down to the Reppisch</description>
+</gpx_file>
+<gpx_file id="630407" name="20100223_110943.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-23T14:35:23Z" lat="47.3904" lon="8.38891">
+  <description>Steps up to the church</description>
+</gpx_file>
+<gpx_file id="621908" name="20100209_100044.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-09T14:26:26Z" lat="47.3872" lon="8.38729">
+  <description>Quick drive through the industrial zone in Bergdietikon</description>
+</gpx_file>
+<gpx_file id="636799" name="20100303_123237.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-03T11:46:49Z" lat="47.3975" lon="8.37674">
+  <description>Run with new BT GPS mouse</description>
+</gpx_file>
+<gpx_file id="618835" name="20100205_183443.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-05T19:03:24Z" lat="47.3917" lon="8.39033">
+  <description>Mapped a few roads on the way home</description>
+</gpx_file>
+<gpx_file id="633916" name="20100227_123257.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-27T16:11:59Z" lat="47.3675" lon="8.36365">
+  <description>2-3 short missing bits in WIden</description>
+</gpx_file>
+<gpx_file id="636947" name="20100303_161030.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-03T15:58:05Z" lat="47.4146" lon="8.37892">
+  <description>quick drive in Spreitenbach</description>
+</gpx_file>
+<gpx_file id="639831" name="20100307_144121_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-07T18:09:10Z" lat="47.3974" lon="8.37679">
+  <description>Test for OSM Tracker</description>
+</gpx_file>
+<gpx_file id="607453" name="ftan1.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-17T22:39:01Z" lat="46.7964" lon="10.2573">
+  <description>First trâce from FTAN 2010</description>
+</gpx_file>
+<gpx_file id="607456" name="ftan2.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-17T22:42:42Z" lat="46.7957" lon="10.2534">
+  <description>Second trace from FTAN 2010</description>
+</gpx_file>
+<gpx_file id="639909" name="20100307_144121.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-07T19:05:25Z" lat="47.3974" lon="8.37679">
+  <description>Combined track - waypoint</description>
+</gpx_file>
+<gpx_file id="619186" name="20100206.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-06T10:49:55Z" lat="47.3978" lon="8.37635">
+  <description>Quick walk to find some missing roads.</description>
+</gpx_file>
+<gpx_file id="607614" name="ftan3.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-18T11:58:23Z" lat="46.7959" lon="10.2532">
+  <description>Ftan 3 2010</description>
+</gpx_file>
+<gpx_file id="607616" name="ftan4.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-18T11:59:09Z" lat="46.7964" lon="10.2523">
+  <description>Ftan 4 2010</description>
+</gpx_file>
+<gpx_file id="607706" name="ftan5.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-18T15:44:29Z" lat="46.7943" lon="10.2657">
+  <description>Ftan 5 2010 (fr305)</description>
+</gpx_file>
+<gpx_file id="610873" name="ftan_2010_final.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-23T19:33:52Z" lat="46.7934" lon="10.247">
+  <description>Some tracks and POIs from the journey back home</description>
+</gpx_file>
+<gpx_file id="630948" name="20100224_140248.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-24T13:31:10Z" lat="47.398" lon="8.37639">
+  <description>Run to mainly get some missing parts of Dietikon</description>
+</gpx_file>
+<gpx_file id="610872" name="ftan_2010_final.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-01-23T19:33:46Z" lat="46.7934" lon="10.247">
+  <description>Some tracks and POIs from the journey back home</description>
+</gpx_file>
+<gpx_file id="619355" name="20100206_142507.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-06T14:57:10Z" lat="47.4122" lon="8.38394">
+  <description>Bernetstrasse and redo Vorbühlstrasse</description>
+</gpx_file>
+<gpx_file id="622467" name="20100210_150157.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-10T14:38:26Z" lat="47.3704" lon="8.36847">
+  <description>Run through Widen</description>
+</gpx_file>
+<gpx_file id="631075" name="20100224.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-24T16:31:45Z" lat="47.398" lon="8.37641">
+  <description>Some pieces missed with logger, get from 305</description>
+</gpx_file>
+<gpx_file id="637405" name="20100304_132217.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-04T12:45:19Z" lat="47.4004" lon="8.3804">
+  <description>Some pram pushing in Dietikon</description>
+</gpx_file>
+<gpx_file id="619470" name="20100206_2.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-06T16:53:48Z" lat="47.3979" lon="8.37639">
+  <description>Run to get some of the forrest roads above Dietikon</description>
+</gpx_file>
+<gpx_file id="634528" name="20100228.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-28T13:41:15Z" lat="47.3981" lon="8.37635">
+  <description>Short run </description>
+</gpx_file>
+<gpx_file id="622668" name="20100210.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-10T20:01:39Z" lat="47.398" lon="8.37631">
+  <description>Same track but a bit longer recorded with the 305</description>
+</gpx_file>
+<gpx_file id="640533" name="20100308_095010.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-08T12:05:40Z" lat="47.398" lon="8.37637">
+  <description>Short drive through Full on the way to Waldshut</description>
+</gpx_file>
+<gpx_file id="640555" name="20100308_1_gpsbabel.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-08T12:41:24Z" lat="47.398" lon="8.37637">
+  <description>TEst with 200ms intervall</description>
+</gpx_file>
+<gpx_file id="622853" name="20100211_104016.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-11T10:18:00Z" lat="47.3902" lon="8.38575">
+  <description>Pram pushing in the snow</description>
+</gpx_file>
+<gpx_file id="870014" name="20101119_114033_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-19T15:42:27Z" lat="47.3981" lon="8.37637">
+  <description>Ride to Fischbach and Niederwil</description>
+</gpx_file>
+<gpx_file id="870020" name="20101119.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-19T15:53:13Z" lat="47.398" lon="8.37646">
+  <description>Ride to Fischbach and Niederwil 305 version</description>
+</gpx_file>
+<gpx_file id="622916" name="20100211_145150.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-02-11T15:05:44Z" lat="47.391" lon="8.38971">
+  <description>Get positions of post office and bank better</description>
+</gpx_file>
+<gpx_file id="647277" name="20100317_113954_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-17T12:53:13Z" lat="47.3979" lon="8.37687">
+  <description>Run to the south side of Heitersberg</description>
+</gpx_file>
+<gpx_file id="647320" name="20100317.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-17T14:09:46Z" lat="47.398" lon="8.37639">
+  <description>Missing bits from 305</description>
+</gpx_file>
+<gpx_file id="647887" name="20100318_135648_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-18T15:06:35Z" lat="47.398" lon="8.37632">
+  <description>Motorcycle track</description>
+</gpx_file>
+<gpx_file id="648418" name="20100319_113021_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-19T13:03:14Z" lat="47.3979" lon="8.37634">
+  <description>Run over the Honneret</description>
+</gpx_file>
+<gpx_file id="650050" name="20100321.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-21T12:25:32Z" lat="47.398" lon="8.37638">
+  <description>Run direction Spreitenbach</description>
+</gpx_file>
+<gpx_file id="651199" name="20100322_123759_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-22T15:54:19Z" lat="47.3981" lon="8.37633">
+  <description>Short ride with the MTB</description>
+</gpx_file>
+<gpx_file id="652540" name="20100324_104650_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-24T12:11:57Z" lat="47.398" lon="8.37637">
+  <description>Yet anothe run on the Honeret</description>
+</gpx_file>
+<gpx_file id="653459" name="20100325_143903_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-25T17:45:11Z" lat="47.398" lon="8.37639">
+  <description>MTB ride to pick up a few missing bits</description>
+</gpx_file>
+<gpx_file id="653600" name="20100325.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-25T20:54:22Z" lat="47.398" lon="8.3765">
+  <description>305 track from today</description>
+</gpx_file>
+<gpx_file id="655917" name="20100328.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-28T19:23:53Z" lat="47.3979" lon="8.37641">
+  <description>Short run</description>
+</gpx_file>
+<gpx_file id="658030" name="20100331.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-03-31T15:58:50Z" lat="47.398" lon="8.37639">
+  <description>Run mailnly direction Spreitenbach</description>
+</gpx_file>
+<gpx_file id="658499" name="20100401_123848_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-01T11:43:45Z" lat="47.3979" lon="8.37644">
+  <description>Short walk with the pram</description>
+</gpx_file>
+<gpx_file id="659224" name="20100402_122007_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-02T12:36:10Z" lat="47.3979" lon="8.37633">
+  <description>MTB ride over to Lieli and back</description>
+</gpx_file>
+<gpx_file id="659388" name="20100402_155504_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-02T15:29:47Z" lat="47.3978" lon="8.37654">
+  <description>Quick motorcycle ride</description>
+</gpx_file>
+<gpx_file id="659994" name="20100403_095848_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-03T09:52:03Z" lat="47.3979" lon="8.37636">
+  <description>Short walk up to the Egelsee an back</description>
+</gpx_file>
+<gpx_file id="660684" name="20100403_155557_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-03T18:51:07Z" lat="47.3979" lon="8.37639">
+  <description>Longish run mainly on the south side of the Heitersberg</description>
+</gpx_file>
+<gpx_file id="661517" name="20100404_122640_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-04T15:52:02Z" lat="47.398" lon="8.37632">
+  <description>MTB ride to Oberrohrdorf</description>
+</gpx_file>
+<gpx_file id="663005" name="20100405_131023_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-05T16:49:50Z" lat="47.398" lon="8.37639">
+  <description>MTB ride</description>
+</gpx_file>
+<gpx_file id="663781" name="20100406_082045_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-06T07:50:25Z" lat="47.3924" lon="8.38922">
+  <description>Location and drive up to local doctors place 2</description>
+</gpx_file>
+<gpx_file id="663782" name="20100406_074448_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-06T07:50:59Z" lat="47.3979" lon="8.37641">
+  <description>Location and drive up to local doctors place 1</description>
+</gpx_file>
+<gpx_file id="665975" name="20100408_113529_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-08T17:48:16Z" lat="47.398" lon="8.3763">
+  <description>Longish run direction Kilwangen 1 of 2</description>
+</gpx_file>
+<gpx_file id="665976" name="20100408_130502_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-08T17:49:21Z" lat="47.4137" lon="8.36829">
+  <description>Longish run direction Kilwangen 2 of 2</description>
+</gpx_file>
+<gpx_file id="666110" name="20100408.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-08T19:27:54Z" lat="47.398" lon="8.3764">
+  <description>305 track from today</description>
+</gpx_file>
+<gpx_file id="666696" name="20100409_134554_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-09T14:52:21Z" lat="47.398" lon="8.3764">
+  <description>MTB ride to Oberrohrdorf</description>
+</gpx_file>
+<gpx_file id="667682" name="20100410_112310_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-10T16:30:23Z" lat="47.3977" lon="8.37672">
+  <description>Quick diversion to Oberrohrdorf to check some road names</description>
+</gpx_file>
+<gpx_file id="668874" name="20100411_124335_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-11T17:00:39Z" lat="47.3984" lon="8.37556">
+  <description>MTB ride via Bellikon and Hausen</description>
+</gpx_file>
+<gpx_file id="669585" name="20100412.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-12T10:52:36Z" lat="47.3979" lon="8.37635">
+  <description>305 track from run</description>
+</gpx_file>
+<gpx_file id="669586" name="20100412_101235_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-12T10:54:36Z" lat="47.3979" lon="8.37647">
+  <description>1st part of run today</description>
+</gpx_file>
+<gpx_file id="669588" name="20100411_104951_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-12T10:58:32Z" lat="47.4039" lon="8.3479">
+  <description>Short walk above Hausen</description>
+</gpx_file>
+<gpx_file id="671987" name="20100415.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-15T16:14:07Z" lat="47.398" lon="8.37642">
+  <description>305 version of todays run</description>
+</gpx_file>
+<gpx_file id="671990" name="20100415_135628_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-15T16:16:22Z" lat="47.398" lon="8.37675">
+  <description>Another run above Spreitenbach and Kilwangen</description>
+</gpx_file>
+<gpx_file id="672557" name="20100416.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-16T16:59:45Z" lat="47.398" lon="8.37645">
+  <description>305 version of todays ride</description>
+</gpx_file>
+<gpx_file id="672560" name="20100416_145720_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-16T17:01:26Z" lat="47.3977" lon="8.37634">
+  <description>MTB ride along the Heitersberg and in to Kilwangen and Spreitenbach</description>
+</gpx_file>
+<gpx_file id="676845" name="20100419.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-20T19:07:45Z" lat="47.398" lon="8.37637">
+  <description>Two small bits from a run</description>
+</gpx_file>
+<gpx_file id="678049" name="20100421.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-22T11:36:01Z" lat="47.4013" lon="8.34593">
+  <description>short missing road piece</description>
+</gpx_file>
+<gpx_file id="678224" name="20100422_145841_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-22T16:56:57Z" lat="47.3983" lon="8.37648">
+  <description>Ride around the Heitersberg 1 of 2</description>
+</gpx_file>
+<gpx_file id="678220" name="20100422.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-22T16:55:14Z" lat="47.3981" lon="8.3764">
+  <description>305 version of todays ride</description>
+</gpx_file>
+<gpx_file id="678227" name="20100422_163907_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-22T16:58:01Z" lat="47.4382" lon="8.31494">
+  <description>Ride around the Heitersberg 2 of 2</description>
+</gpx_file>
+<gpx_file id="678746" name="20100423_104300_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-23T13:17:32Z" lat="47.398" lon="8.37633">
+  <description>Short motor bike ride</description>
+</gpx_file>
+<gpx_file id="680386" name="20100425.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-25T13:49:40Z" lat="47.398" lon="8.37641">
+  <description>305 track from today and 23rd</description>
+</gpx_file>
+<gpx_file id="680410" name="20100425_134630_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-25T14:09:58Z" lat="47.3979" lon="8.37641">
+  <description>Run to Widen, Bellikon Hausen</description>
+</gpx_file>
+<gpx_file id="684719" name="20100430.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-30T15:52:47Z" lat="47.398" lon="8.37643">
+  <description>305 version of todays ride</description>
+</gpx_file>
+<gpx_file id="684723" name="20100430_114749_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-04-30T15:55:19Z" lat="47.3981" lon="8.37633">
+  <description>Short bicycle ride, die some mapping in Stetten and Künten</description>
+</gpx_file>
+<gpx_file id="685553" name="20100501.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-01T15:28:19Z" lat="47.398" lon="8.37636">
+  <description>305 version of todays run</description>
+</gpx_file>
+<gpx_file id="685571" name="20100501_153623_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-01T15:44:16Z" lat="47.398" lon="8.37646">
+  <description>Run to Hausen (Bellikon) and back</description>
+</gpx_file>
+<gpx_file id="689448" name="20100505.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-05T16:25:00Z" lat="47.398" lon="8.37626">
+  <description>Run to Kilwangen and back</description>
+</gpx_file>
+<gpx_file id="693309" name="20100509.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-10T11:14:41Z" lat="47.398" lon="8.37649">
+  <description>MTB ride </description>
+</gpx_file>
+<gpx_file id="699237" name="20100512_171444_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-12T17:39:05Z" lat="47.398" lon="8.37637">
+  <description>Run in to Dietikon</description>
+</gpx_file>
+<gpx_file id="699247" name="20100512.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-12T17:39:58Z" lat="47.398" lon="8.37635">
+  <description>305 version of todays run</description>
+</gpx_file>
+<gpx_file id="716338" name="20081031_073454.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-18T12:46:13Z" lat="-42.8809" lon="147.334">
+  <description>Tasmania 3</description>
+</gpx_file>
+<gpx_file id="716340" name="20081101_104642.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-18T12:46:55Z" lat="-42.8799" lon="147.334">
+  <description>Tasmania 4</description>
+</gpx_file>
+<gpx_file id="716335" name="20081030_070929.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-18T12:44:16Z" lat="-37.8185" lon="144.964">
+  <description>Tasmania 1</description>
+</gpx_file>
+<gpx_file id="716337" name="20081030_101828.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-18T12:45:29Z" lat="-42.8384" lon="147.506">
+  <description>Tasmania 2</description>
+</gpx_file>
+<gpx_file id="719261" name="20100522_152535_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-22T14:56:56Z" lat="47.3817" lon="8.341">
+  <description>Part 2 of MTB ride today</description>
+</gpx_file>
+<gpx_file id="719269" name="20100522.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-22T15:00:50Z" lat="47.398" lon="8.37658">
+  <description>305 version of ride today</description>
+</gpx_file>
+<gpx_file id="719281" name="20100522_142634_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-22T15:14:08Z" lat="47.3979" lon="8.37636">
+  <description>Part 1 of MTB ride today</description>
+</gpx_file>
+<gpx_file id="721421" name="20100524_140033_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-24T14:04:48Z" lat="47.398" lon="8.37631">
+  <description>MTB ride </description>
+</gpx_file>
+<gpx_file id="722633" name="20100525.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-25T16:27:40Z" lat="47.398" lon="8.37648">
+  <description>Ride to Stetten and back</description>
+</gpx_file>
+<gpx_file id="723278" name="20100526_143858_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-26T14:27:37Z" lat="47.4193" lon="8.39345">
+  <description>Motorcycle ride today</description>
+</gpx_file>
+<gpx_file id="723724" name="20100526.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-27T06:40:02Z" lat="47.398" lon="8.37639">
+  <description>Short run</description>
+</gpx_file>
+<gpx_file id="724062" name="20100527.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-27T15:37:57Z" lat="47.398" lon="8.37637">
+  <description>305 version of ride today</description>
+</gpx_file>
+<gpx_file id="724061" name="20100527_153421_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-27T15:35:29Z" lat="47.398" lon="8.3763">
+  <description>MTB ride to Künten</description>
+</gpx_file>
+<gpx_file id="725779" name="20100529_171849_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-29T17:08:16Z" lat="47.3942" lon="8.38991">
+  <description>2nd part of todays run</description>
+</gpx_file>
+<gpx_file id="725778" name="20100529.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-29T17:07:26Z" lat="47.398" lon="8.37645">
+  <description>305 version of todays run</description>
+</gpx_file>
+<gpx_file id="727835" name="20100531_143149_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-31T15:14:45Z" lat="47.398" lon="8.37638">
+  <description>Part 1 of todays run</description>
+</gpx_file>
+<gpx_file id="727836" name="20100531_151138_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-31T15:16:04Z" lat="47.3898" lon="8.39369">
+  <description>Part 2 of todays run</description>
+</gpx_file>
+<gpx_file id="727841" name="20100531.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-05-31T15:20:40Z" lat="47.398" lon="8.37638">
+  <description>305 version of todays run</description>
+</gpx_file>
+<gpx_file id="730358" name="20100603.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-03T15:38:19Z" lat="47.398" lon="8.37636">
+  <description>Run down to Dietikon</description>
+</gpx_file>
+<gpx_file id="731073" name="20100604_160333_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-04T16:50:24Z" lat="47.398" lon="8.37637">
+  <description>Part 1 of 3 MTB Ride - Friedlisberg - Berikon</description>
+</gpx_file>
+<gpx_file id="731095" name="20100604_171822_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-04T17:26:57Z" lat="47.3596" lon="8.39558">
+  <description>Part 2 of 3 MTB Ride - Friedlisberg - Berikon </description>
+</gpx_file>
+<gpx_file id="731097" name="20100604_172623_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-04T17:28:00Z" lat="47.3676" lon="8.39512">
+  <description>Part 3 of 3 MTB Ride - Friedlisberg - Berikon </description>
+</gpx_file>
+<gpx_file id="731099" name="20100604.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-04T17:29:06Z" lat="47.398" lon="8.3764">
+  <description>305 version of todays ride</description>
+</gpx_file>
+<gpx_file id="732137" name="20100605.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-05T21:23:54Z" lat="47.3979" lon="8.37638">
+  <description>Run to Rudolfstetten</description>
+</gpx_file>
+<gpx_file id="734122" name="20100607.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-07T18:52:11Z" lat="47.3979" lon="8.37649">
+  <description>305 version of todays ride</description>
+</gpx_file>
+<gpx_file id="734118" name="20100607_144020_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-07T18:50:37Z" lat="47.398" lon="8.37635">
+  <description>Ride to Sulz and Künten</description>
+</gpx_file>
+<gpx_file id="735406" name="20100609_111731_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-09T11:33:27Z" lat="47.398" lon="8.37637">
+  <description>Run to Kilwangen and back part 1</description>
+</gpx_file>
+<gpx_file id="735407" name="20100609_123046_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-09T11:34:00Z" lat="47.4238" lon="8.36038">
+  <description>Run to Kilwangen and back part 2</description>
+</gpx_file>
+<gpx_file id="735429" name="20100609.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-09T12:04:05Z" lat="47.398" lon="8.37641">
+  <description>Run to Kilwangen and back 305 version</description>
+</gpx_file>
+<gpx_file id="736074" name="20100610.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-10T11:48:03Z" lat="47.3979" lon="8.37648">
+  <description>Bike ride direction Mettmenstetten</description>
+</gpx_file>
+<gpx_file id="736779" name="20100611_150520_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-11T14:52:22Z" lat="47.398" lon="8.37636">
+  <description>Run down to the Franzosenweiher</description>
+</gpx_file>
+<gpx_file id="736875" name="20100611.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-11T16:40:32Z" lat="47.398" lon="8.3764">
+  <description>Run down to the Franzosenweiher 305 version</description>
+</gpx_file>
+<gpx_file id="737654" name="20100612.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-12T17:56:36Z" lat="47.3977" lon="8.37672">
+  <description>Berikon-Oberwil-Friedlisberg 305</description>
+</gpx_file>
+<gpx_file id="737655" name="20100612_165032_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-12T17:57:22Z" lat="47.3322" lon="8.38379">
+  <description>Berikon-Oberwil-Friedlisberg 1 of 3</description>
+</gpx_file>
+<gpx_file id="737657" name="20100612_160222_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-12T17:57:57Z" lat="47.398" lon="8.37635">
+  <description>Berikon-Oberwil-Friedlisberg  2 of 3</description>
+</gpx_file>
+<gpx_file id="737659" name="20100612_171547_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-12T17:58:39Z" lat="47.3418" lon="8.39655">
+  <description>Berikon-Oberwil-Friedlisberg 3 of 3</description>
+</gpx_file>
+<gpx_file id="981839" name="05.04.2011_13_52_20_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-04-05T15:32:51Z" lat="47.3978" lon="8.37655">
+  <description>Ride (nearly) to Sins and back</description>
+</gpx_file>
+<gpx_file id="741803" name="20100615_toeff.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-18T07:53:09Z" lat="46.9615" lon="6.18756">
+  <description>Way back from Circuit de l'enclos</description>
+</gpx_file>
+<gpx_file id="743278" name="20100618.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-20T08:42:40Z" lat="47.398" lon="8.37636">
+  <description>Short run around the Herrenberg</description>
+</gpx_file>
+<gpx_file id="745655" name="20100622_161606_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-22T16:40:13Z" lat="47.3978" lon="8.37695">
+  <description>MTB ride to Lieli and back</description>
+</gpx_file>
+<gpx_file id="745650" name="20100622.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-22T16:34:27Z" lat="47.398" lon="8.37651">
+  <description>305 of todays MTB ride</description>
+</gpx_file>
+<gpx_file id="745848" name="20080509.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-22T20:12:02Z" lat="47.3765" lon="8.51449">
+  <description>Run in 2008</description>
+</gpx_file>
+<gpx_file id="746527" name="20100623.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-23T20:18:27Z" lat="47.3979" lon="8.37645">
+  <description>Short run direction Heitersberg</description>
+</gpx_file>
+<gpx_file id="746530" name="20100623_181542_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-23T20:19:07Z" lat="47.398" lon="8.37631">
+  <description>305 version of todays run</description>
+</gpx_file>
+<gpx_file id="746931" name="20100624.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-24T16:41:29Z" lat="47.3976" lon="8.37668">
+  <description>305 version of todays ride</description>
+</gpx_file>
+<gpx_file id="746930" name="20100624_144908_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-24T16:40:10Z" lat="47.398" lon="8.37637">
+  <description>Ride to Lieli</description>
+</gpx_file>
+<gpx_file id="747766" name="20100625_141735_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-25T19:31:10Z" lat="47.398" lon="8.37637">
+  <description>Run down to the Limmat and then Kilwangen</description>
+</gpx_file>
+<gpx_file id="747772" name="20100625.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-25T19:33:45Z" lat="47.398" lon="8.37637">
+  <description>305 version of todays run</description>
+</gpx_file>
+<gpx_file id="748497" name="20100626_161638_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-26T17:48:54Z" lat="47.312" lon="8.40211">
+  <description>MTB ride to Oberlunkhofen 2 of 2</description>
+</gpx_file>
+<gpx_file id="748500" name="20100626_143010_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-26T17:51:33Z" lat="47.3981" lon="8.37642">
+  <description>MTB ride to Oberlunkhofen 1 of 2 </description>
+</gpx_file>
+<gpx_file id="748501" name="20100626.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-26T17:53:59Z" lat="47.3979" lon="8.37644">
+  <description>MTB ride to Oberlunkhofen 305 version</description>
+</gpx_file>
+<gpx_file id="749059" name="20100627_094520_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-27T11:19:14Z" lat="47.3979" lon="8.37636">
+  <description>MTB ride to Jonen</description>
+</gpx_file>
+<gpx_file id="749060" name="20100627.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-27T11:20:25Z" lat="47.3979" lon="8.37646">
+  <description>MTB ride to Jonen 305 version</description>
+</gpx_file>
+<gpx_file id="750479" name="20100628.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-06-28T19:10:43Z" lat="47.3979" lon="8.37644">
+  <description>Short run direction Spreitenbach</description>
+</gpx_file>
+<gpx_file id="982320" name="20110406_124501_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-04-06T13:12:44Z" lat="47.398" lon="8.37634">
+  <description>Motorbike ride Auw ans Sins</description>
+</gpx_file>
+<gpx_file id="758641" name="20100709_151532_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-07-09T17:32:25Z" lat="47.398" lon="8.3763">
+  <description>Ride to Lieli and Arni</description>
+</gpx_file>
+<gpx_file id="758643" name="20100709.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-07-09T17:33:22Z" lat="47.398" lon="8.37641">
+  <description>Ride to Lieli and Arni 305 version</description>
+</gpx_file>
+<gpx_file id="983009" name="07.04.2011_13_55_21_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-04-07T14:19:10Z" lat="47.398" lon="8.37651">
+  <description>MTB ride to Tägerig</description>
+</gpx_file>
+<gpx_file id="761274" name="20100712_110015_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-07-12T14:05:29Z" lat="47.3979" lon="8.37632">
+  <description>MTB ride to Unterlunkhofen</description>
+</gpx_file>
+<gpx_file id="761275" name="20100712.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-07-12T14:06:12Z" lat="47.398" lon="8.37641">
+  <description>MTB ride to Unterlunkhofen 305 version</description>
+</gpx_file>
+<gpx_file id="1005374" name="08.05.2011_13_09_16_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-05-08T14:18:31Z" lat="47.3979" lon="8.3765">
+  <description>MTB ride to Meerenschwand</description>
+</gpx_file>
+<gpx_file id="878187" name="2010_11_29_12_05_27.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-30T15:40:17Z" lat="47.3894" lon="8.38531">
+  <description>Short drive to Wohlen and back</description>
+</gpx_file>
+<gpx_file id="763012" name="20100714_145947_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-07-14T19:24:30Z" lat="47.3981" lon="8.37618">
+  <description>Ride to Busslingen and back</description>
+</gpx_file>
+<gpx_file id="763013" name="20100714.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-07-14T19:25:23Z" lat="47.398" lon="8.3764">
+  <description>Ride to Busslingen and back incomplete 305 version</description>
+</gpx_file>
+<gpx_file id="878992" name="2010_12_02_11_45_18.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-12-02T13:07:05Z" lat="47.3602" lon="8.31978">
+  <description>Another drive to Wohlen</description>
+</gpx_file>
+<gpx_file id="984132" name="09.04.2011_11_28_45_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-04-09T12:29:10Z" lat="47.3979" lon="8.37643">
+  <description>Bike to Muri</description>
+</gpx_file>
+<gpx_file id="764336" name="20100716_150013_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-07-16T19:12:37Z" lat="47.398" lon="8.37635">
+  <description>MTB ride along the rReppisch and then to Lieli</description>
+</gpx_file>
+<gpx_file id="764372" name="2010716.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-07-16T19:53:47Z" lat="47.3975" lon="8.37678">
+  <description>MTB ride along the Reppisch and then to Lieli, 305 version </description>
+</gpx_file>
+<gpx_file id="883870" name="2010_12_13_11_53_26.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-12-13T11:54:45Z" lat="47.3996" lon="8.30723">
+  <description>Short drive Gnadenthal - Niederwil</description>
+</gpx_file>
+<gpx_file id="884487" name="2010_12_14_16_07_52.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-12-14T23:10:13Z" lat="47.4043" lon="8.21946">
+  <description>A bit of Anglikon</description>
+</gpx_file>
+<gpx_file id="915844" name="2011_02_02_12_23_39.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-02-02T20:57:59Z" lat="47.398" lon="8.37632">
+  <description>Besenbüren - Muri</description>
+</gpx_file>
+<gpx_file id="916117" name="2011_02_03_13_11_23.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-02-03T14:30:22Z" lat="47.3986" lon="8.3767">
+  <description>Nesselnbach</description>
+</gpx_file>
+<gpx_file id="772201" name="20100724_081309_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-07-25T16:43:21Z" lat="47.1669" lon="16.4295">
+  <description>Jog around Deutsch Schützen Weinberg</description>
+</gpx_file>
+<gpx_file id="772253" name="20100723_20100724.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-07-25T17:10:44Z" lat="47.1668" lon="16.4486">
+  <description>Road up to and down fron Deutsch Schützen</description>
+</gpx_file>
+<gpx_file id="772266" name="2010072401.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-07-25T17:16:53Z" lat="47.1671" lon="16.4295">
+  <description>Jog around Deutsch Schützen Weinberg 305 version</description>
+</gpx_file>
+<gpx_file id="772574" name="20100724_205313_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-07-25T20:27:32Z" lat="47.1646" lon="16.4255">
+  <description>From Ratschen to Schützenhof</description>
+</gpx_file>
+<gpx_file id="987468" name="14.04.2011_11_30_43_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-04-14T14:00:00Z" lat="47.398" lon="8.37635">
+  <description>Bike ride to Sulz (LU) and back</description>
+</gpx_file>
+<gpx_file id="954128" name="19.03.2007_09_03_16_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-02-22T17:13:53Z" lat="47.398" lon="8.37631">
+  <description>MTB ride along the Reuss</description>
+</gpx_file>
+<gpx_file id="775937" name="20100725.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-07-29T13:24:35Z" lat="47.1671" lon="16.4293">
+  <description>Drive from Deutsch Schützen to Krumpendorf</description>
+</gpx_file>
+<gpx_file id="1003144" name="20110504_150302_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-05-05T07:50:44Z" lat="47.3983" lon="8.37616">
+  <description>Motorbike ride to Lieli (LU)</description>
+</gpx_file>
+<gpx_file id="988917" name="10.04.2009_12_03_30_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-04-17T13:27:27Z" lat="47.398" lon="8.37643">
+  <description>Old MTB track from ride to the Lindenberg</description>
+</gpx_file>
+<gpx_file id="988915" name="17.04.2011_12_58_23_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-04-17T13:26:37Z" lat="47.3979" lon="8.37656">
+  <description>Ride along the Heitersberg</description>
+</gpx_file>
+<gpx_file id="988919" name="20110416_122337_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-04-17T13:28:25Z" lat="47.3979" lon="8.37633">
+  <description>Motorbike ride around the Lindenberg</description>
+</gpx_file>
+<gpx_file id="1003395" name="05.05.2011_14_29_50_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-05-05T15:01:32Z" lat="47.3979" lon="8.37646">
+  <description>MTB ride to Fischbach</description>
+</gpx_file>
+<gpx_file id="950724" name="20110217.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-02-17T16:29:22Z" lat="47.398" lon="8.3764">
+  <description>Short ride to Schlieren and back</description>
+</gpx_file>
+<gpx_file id="778196" name="20100801.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-08-01T11:21:26Z" lat="47.3979" lon="8.37645">
+  <description>Short mtb ride to Oberlunkhofen and back</description>
+</gpx_file>
+<gpx_file id="954704" name="23.02.2011_14_30_42_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-02-23T16:53:42Z" lat="47.398" lon="8.3764">
+  <description>Ride to Fahrweid along the Reuss and back</description>
+</gpx_file>
+<gpx_file id="1006819" name="09.05.2011___15.05.2011_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-05-10T12:17:04Z" lat="47.3979" lon="8.37651">
+  <description>MTB ride to a hill behide Würenlos</description>
+</gpx_file>
+<gpx_file id="1008787" name="13.05.2011_12_14_38_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-05-13T13:12:59Z" lat="47.3978" lon="8.37666">
+  <description>MTB ride to Otelfingen</description>
+</gpx_file>
+<gpx_file id="783591" name="20100806_115621_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-08-06T12:34:35Z" lat="47.398" lon="8.3764">
+  <description>MTB ride between Berikon and Zufikon</description>
+</gpx_file>
+<gpx_file id="783592" name="20100806.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-08-06T12:35:51Z" lat="47.3979" lon="8.37639">
+  <description>305 version of todys ride</description>
+</gpx_file>
+<gpx_file id="1004602" name="07.05.2011_13_11_46_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-05-07T14:06:12Z" lat="47.398" lon="8.37645">
+  <description>Ride to Goslikon</description>
+</gpx_file>
+<gpx_file id="785213" name="20100808_135105_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-08-08T15:11:52Z" lat="47.398" lon="8.37641">
+  <description>MTB ride to Oberlunkhofen and back</description>
+</gpx_file>
+<gpx_file id="785215" name="20100808.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-08-08T15:12:54Z" lat="47.398" lon="8.37649">
+  <description>MTB ride to Oberlunkhofen and back 305 version</description>
+</gpx_file>
+<gpx_file id="1011905" name="17.05.2011_14_23_28_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-05-17T16:29:25Z" lat="47.3979" lon="8.37651">
+  <description>Mtb ride to Otelfingen</description>
+</gpx_file>
+<gpx_file id="962851" name="20110308_151432_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-03-08T20:46:56Z" lat="47.413" lon="8.26784">
+  <description>MTB ride Mellingen - Tägerig - Nesselnbach - Niederwil - Bremgarten</description>
+</gpx_file>
+<gpx_file id="963302" name="20110309_125455_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-03-09T16:38:06Z" lat="47.3979" lon="8.37643">
+  <description>Motorbike ride to Muri</description>
+</gpx_file>
+<gpx_file id="788253" name="20100811.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-08-11T13:48:09Z" lat="47.3978" lon="8.37651">
+  <description>305 version of todays run</description>
+</gpx_file>
+<gpx_file id="788251" name="20100811_133304_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-08-11T13:46:08Z" lat="47.398" lon="8.37641">
+  <description>Run around the hill between Dietikon and Weiningen</description>
+</gpx_file>
+<gpx_file id="963716" name="10.03.2011_12_01_43_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-03-10T14:07:58Z" lat="47.3979" lon="8.3765">
+  <description>MTB ride to Muri</description>
+</gpx_file>
+<gpx_file id="1014192" name="21.05.2011_13_34_47_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-05-21T14:52:55Z" lat="47.3979" lon="8.37643">
+  <description>MTB ride to Nesselnbach</description>
+</gpx_file>
+<gpx_file id="789423" name="20100812_161928_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-08-12T17:02:12Z" lat="47.3388" lon="8.38342">
+  <description>MTB ride to Oberlunkhofen and back</description>
+</gpx_file>
+<gpx_file id="789424" name="20100812.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-08-12T17:03:03Z" lat="47.3363" lon="8.38677">
+  <description>MTB ride to Oberlunkhofen and back 305 version</description>
+</gpx_file>
+<gpx_file id="967135" name="15.03.2011_15_31_55_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-03-15T19:07:30Z" lat="47.3977" lon="8.37663">
+  <description>Ride to Aristau and back</description>
+</gpx_file>
+<gpx_file id="1017800" name="26.05.2011_12_41_02_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-05-26T13:53:51Z" lat="47.3978" lon="8.37661">
+  <description>Bike ride to Dottikon</description>
+</gpx_file>
+<gpx_file id="1020238" name="29.05.2011_11_02_11_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-05-30T05:08:34Z" lat="47.3979" lon="8.37654">
+  <description>Ride to Brugg - Mägenwil and back</description>
+</gpx_file>
+<gpx_file id="972016" name="21.03.2011_15_10_41_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-03-21T16:24:46Z" lat="47.3979" lon="8.37649">
+  <description>MTB ride to the weterly end of the Heitersberg</description>
+</gpx_file>
+<gpx_file id="796367" name="20100819.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-08-19T15:18:49Z" lat="47.3347" lon="8.39064">
+  <description>MTB ride to Unterlunkhofen</description>
+</gpx_file>
+<gpx_file id="973420" name="2011_03_23.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-03-23T20:34:19Z" lat="47.3979" lon="8.37659">
+  <description>Motorbike ride to Beinwil</description>
+</gpx_file>
+<gpx_file id="973808" name="24.03.2011_10_27_43_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-03-24T16:17:06Z" lat="47.3977" lon="8.37669">
+  <description>MTB ride Besenbüren - Muri</description>
+</gpx_file>
+<gpx_file id="1024794" name="04.06.2011_14_02_07_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-06-04T16:36:09Z" lat="47.3979" lon="8.37643">
+  <description>MTB ride to forest above Anglikon</description>
+</gpx_file>
+<gpx_file id="976976" name="29.03.2011_13_17_27_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-03-29T14:55:53Z" lat="47.3979" lon="8.37646">
+  <description>MTB ride to Tägerig and back</description>
+</gpx_file>
+<gpx_file id="1028119" name="2011_06_08_13_21_55.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-06-08T13:16:37Z" lat="47.4374" lon="8.21187">
+  <description>two new roundabouts in Birr</description>
+</gpx_file>
+<gpx_file id="803382" name="20100825.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-08-26T20:22:08Z" lat="47.4078" lon="8.35935">
+  <description>Short run with a tiny bit of new track</description>
+</gpx_file>
+<gpx_file id="803383" name="20100826.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-08-26T20:23:26Z" lat="47.398" lon="8.37649">
+  <description>Short ride along the left hand side of the Reuss 305</description>
+</gpx_file>
+<gpx_file id="803385" name="20100826_124024_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-08-26T20:24:01Z" lat="47.2599" lon="8.37738">
+  <description>Short ride along the left hand side of the Reuss </description>
+</gpx_file>
+<gpx_file id="978709" name="01.04.2011_11_11_53_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-04-01T12:56:02Z" lat="47.3979" lon="8.37646">
+  <description>Bike ride to Auw and back</description>
+</gpx_file>
+<gpx_file id="979355" name="20110402_144836_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-04-02T14:59:14Z" lat="47.3932" lon="8.36704">
+  <description>Motorcycle ride to Mühlau</description>
+</gpx_file>
+<gpx_file id="1031282" name="12.06.2011_14_29_57_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-06-12T22:30:45Z" lat="47.3979" lon="8.37652">
+  <description>MTB ride nearly to Muri</description>
+</gpx_file>
+<gpx_file id="1033731" name="15.06.2011_13_49_42_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-06-15T17:29:24Z" lat="47.1757" lon="8.39471">
+  <description>Ride to Dietwil - Rain- Beromünster etc</description>
+</gpx_file>
+<gpx_file id="1037516" name="19.06.2011_14_07_22_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-06-21T10:56:57Z" lat="47.398" lon="8.3764">
+  <description>MTB ride to Waltensschwil</description>
+</gpx_file>
+<gpx_file id="1037519" name="20.06.2011_13_37_10_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-06-21T10:58:36Z" lat="47.3979" lon="8.37641">
+  <description>Ride to Dietwil - Hünenberg</description>
+</gpx_file>
+<gpx_file id="815462" name="20100910_160614_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-10T17:19:17Z" lat="47.3377" lon="8.38064">
+  <description>Ride to Oberlunkhofen</description>
+</gpx_file>
+<gpx_file id="815464" name="20100910.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-10T17:20:10Z" lat="47.397" lon="8.37392">
+  <description>305 version of todays ride</description>
+</gpx_file>
+<gpx_file id="1041379" name="26.06.2011_12_27_06_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-06-26T18:40:42Z" lat="47.3977" lon="8.37645">
+  <description>Bike ride to Waltenschwil</description>
+</gpx_file>
+<gpx_file id="819350" name="20100915_115135_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-15T13:07:09Z" lat="47.3574" lon="8.361">
+  <description>Ride to Rottenschwil and back</description>
+</gpx_file>
+<gpx_file id="819327" name="20100915.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-15T12:25:52Z" lat="47.398" lon="8.37646">
+  <description>Ride to Rottenschwil and back 305 version</description>
+</gpx_file>
+<gpx_file id="820071" name="20100916.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-16T12:48:45Z" lat="47.3979" lon="8.3764">
+  <description>Run to Würenlos</description>
+</gpx_file>
+<gpx_file id="820720" name="20100917.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-17T16:03:53Z" lat="47.398" lon="8.37646">
+  <description>Ride to Würenlos 305 version</description>
+</gpx_file>
+<gpx_file id="820754" name="20100917_152051_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-17T17:10:54Z" lat="47.398" lon="8.37635">
+  <description>Ride to Würenlos part 1</description>
+</gpx_file>
+<gpx_file id="820755" name="20100917_162418_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-17T17:11:36Z" lat="47.4376" lon="8.37121">
+  <description>Ride to Würenlos part 2</description>
+</gpx_file>
+<gpx_file id="820756" name="20100917_164758_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-17T17:12:25Z" lat="47.4326" lon="8.38357">
+  <description>Ride to Würenlos part 3</description>
+</gpx_file>
+<gpx_file id="1046691" name="02.07.2011_11_24_19_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-07-03T21:13:37Z" lat="47.4043" lon="8.40263">
+  <description>Bike ride up to the Rhein and then to Leibstadt</description>
+</gpx_file>
+<gpx_file id="1117982" name="11.10.2011_13_44_17_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-10-11T22:09:26Z" lat="47.3976" lon="8.37675">
+  <description>edge 305 track to and in Buttwil</description>
+</gpx_file>
+<gpx_file id="1117981" name="20111011_e30.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-10-11T22:08:05Z" lat="47.259" lon="8.3142">
+  <description>eTrex 30 track to and in Buttwil</description>
+</gpx_file>
+<gpx_file id="823192" name="20100920_124553_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-20T15:22:21Z" lat="47.3993" lon="8.37424">
+  <description>Ride to Aristau and Rottenschwil</description>
+</gpx_file>
+<gpx_file id="823193" name="20100920.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-20T15:23:15Z" lat="47.3979" lon="8.37649">
+  <description>Ride to Aristau and Rottenschwil 305 version</description>
+</gpx_file>
+<gpx_file id="1137824" name="20111028_e30.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-11-14T20:26:22Z" lat="47.3981" lon="8.37644">
+  <description>Buttwil</description>
+</gpx_file>
+<gpx_file id="1137827" name="20111105_e30.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-11-14T20:27:23Z" lat="47.3978" lon="8.37652">
+  <description>Bremgarten . Reuss</description>
+</gpx_file>
+<gpx_file id="1137821" name="20111112_e30.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-11-14T20:22:57Z" lat="47.398" lon="8.37648">
+  <description>Beinwil (Freiamt)</description>
+</gpx_file>
+<gpx_file id="1137823" name="20111028_e30.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2011-11-14T20:26:06Z" lat="47.3981" lon="8.37644">
+  <description>Buttwil</description>
+</gpx_file>
+<gpx_file id="825325" name="20100923_124641_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-23T12:44:21Z" lat="47.2974" lon="8.36657">
+  <description>Ride to Althäusern p2</description>
+</gpx_file>
+<gpx_file id="825326" name="20100923_125543_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-23T12:44:56Z" lat="47.2942" lon="8.35812">
+  <description>Ride to Althäusern p3</description>
+</gpx_file>
+<gpx_file id="825324" name="20100923_112116_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-23T12:43:53Z" lat="47.3981" lon="8.37644">
+  <description>Ride to Althäusern p1</description>
+</gpx_file>
+<gpx_file id="825318" name="20100923.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-23T12:38:11Z" lat="47.398" lon="8.37643">
+  <description>Ride to Althäusern 305 version</description>
+</gpx_file>
+<gpx_file id="825997" name="T_ff_19_24_092010.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-24T13:07:44Z" lat="47.3931" lon="8.3773">
+  <description>2 tracks recorded by car</description>
+</gpx_file>
+<gpx_file id="828278" name="20100926_131423_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-26T19:16:33Z" lat="47.3965" lon="8.37277">
+  <description>Ride direction Rottenwill </description>
+</gpx_file>
+<gpx_file id="828275" name="20100926.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-26T19:15:04Z" lat="47.3315" lon="8.34787">
+  <description>Ride direction Rottenwill 205 version</description>
+</gpx_file>
+<gpx_file id="830050" name="20100929.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-29T11:22:22Z" lat="47.3977" lon="8.37662">
+  <description>Ride to Hüttikon 305 version</description>
+</gpx_file>
+<gpx_file id="830053" name="20100929_101655_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-29T11:25:23Z" lat="47.398" lon="8.37637">
+  <description>Ride to Hüttikon</description>
+</gpx_file>
+<gpx_file id="830749" name="20100930_164429_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-30T15:41:06Z" lat="47.4477" lon="8.37435">
+  <description>Quick drive through Hüttikon to pick up some more corrections</description>
+</gpx_file>
+<gpx_file id="830766" name="20100930.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-09-30T16:17:30Z" lat="47.411" lon="8.38723">
+  <description>Same track zumo 660 version</description>
+</gpx_file>
+<gpx_file id="831625" name="20101001_151132_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-10-01T22:20:59Z" lat="47.3972" lon="8.37667">
+  <description>Drive to Wohlen and back</description>
+</gpx_file>
+<gpx_file id="832040" name="20101002_160313_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-10-02T17:30:03Z" lat="47.4406" lon="8.38879">
+  <description>Ride Spreitenbach - Würenlos - Hüttikon 2 of 2</description>
+</gpx_file>
+<gpx_file id="832039" name="20101002_143131_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-10-02T17:29:26Z" lat="47.398" lon="8.37618">
+  <description>Ride Spreitenbach - Würenlos - Hüttikon 1 of 2</description>
+</gpx_file>
+<gpx_file id="832041" name="20101002.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-10-02T17:34:37Z" lat="47.398" lon="8.37641">
+  <description>Ride Spreitenbach - Würenlos - Hüttikon 305 version</description>
+</gpx_file>
+<gpx_file id="835459" name="tracks_ebens_bd.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-10-07T09:38:07Z" lat="47.398" lon="8.3764">
+  <description>a couple of tracks in bergdietikon for geometry improvement</description>
+</gpx_file>
+<gpx_file id="835453" name="Sch_tzenstrasse.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-10-07T09:18:51Z" lat="47.3947" lon="8.37466">
+  <description>Just a bit of Schützenstrasse for geometry improvements</description>
+</gpx_file>
+<gpx_file id="836252" name="20101008_150006_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-10-08T15:52:37Z" lat="47.398" lon="8.37635">
+  <description>Ride to Hüttikon</description>
+</gpx_file>
+<gpx_file id="836253" name="20101008.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-10-08T15:54:09Z" lat="47.3979" lon="8.37645">
+  <description>Ride to Hüttikon 305 version</description>
+</gpx_file>
+<gpx_file id="857485" name="2010_10_30_12_33_07.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-01T12:32:06Z" lat="46.9913" lon="8.39653">
+  <description>Short walk on the Bürgenstock</description>
+</gpx_file>
+<gpx_file id="857847" name="20101101.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-01T16:36:57Z" lat="47.3978" lon="8.37664">
+  <description>Short ride to Weiningen - Geroldswil</description>
+</gpx_file>
+<gpx_file id="860172" name="20101104.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-04T12:42:33Z" lat="47.398" lon="8.37638">
+  <description>Weiningen 305 </description>
+</gpx_file>
+<gpx_file id="860164" name="20101104_102635_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-04T12:29:08Z" lat="47.398" lon="8.37632">
+  <description>Weiningen</description>
+</gpx_file>
+<gpx_file id="860903" name="20101105_auto.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-05T17:57:57Z" lat="47.2793" lon="8.36195">
+  <description>Short drive through Muri</description>
+</gpx_file>
+<gpx_file id="861226" name="20101106_111845_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-06T12:38:29Z" lat="47.3981" lon="8.37673">
+  <description>Ride mainly on the hill above Oetwil an d. L.</description>
+</gpx_file>
+<gpx_file id="861358" name="20101106.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-06T15:20:12Z" lat="47.3979" lon="8.37653">
+  <description>305 version of todays ride</description>
+</gpx_file>
+<gpx_file id="865815" name="2010_11_12_13_57_07.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-12T17:42:51Z" lat="47.3981" lon="8.37654">
+  <description>Drive to Wohlen</description>
+</gpx_file>
+<gpx_file id="865814" name="20101109_wohlen.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-12T17:42:09Z" lat="47.3517" lon="8.26209">
+  <description>Part of a drive through Wohlen</description>
+</gpx_file>
+<gpx_file id="866401" name="20101113_145044_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-13T16:47:13Z" lat="47.4097" lon="8.39041">
+  <description>MTB ride to Hüttikon</description>
+</gpx_file>
+<gpx_file id="866379" name="20101113.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-13T16:24:32Z" lat="47.3976" lon="8.37676">
+  <description>MTB ride to Hüttikon 305 version</description>
+</gpx_file>
+<gpx_file id="866924" name="20101114_105456_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-14T13:17:34Z" lat="47.3993" lon="8.36539">
+  <description>Ride to Wohlen and Fischbach part 1</description>
+</gpx_file>
+<gpx_file id="866925" name="20101114_122605_tp.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-14T13:18:32Z" lat="47.3512" lon="8.29014">
+  <description>Ride to Wohlen and Fischbach part 2</description>
+</gpx_file>
+<gpx_file id="866937" name="20101114.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2010-11-14T13:26:00Z" lat="47.398" lon="8.37638">
+  <description>Ride to Wohlen and Fischbach 305 version</description>
+</gpx_file>
+<gpx_file id="1222656" name="29.04.2012_11_51_09_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2012-04-29T21:45:43Z" lat="47.3977" lon="8.37663">
+  <description>Runde via Aesch, Altwis, Hitzkirch, Muswangen</description>
+</gpx_file>
+<gpx_file id="1328075" name="04.10.2012_16_58_22_2012_10_04_16_58_22.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2012-10-04T15:09:21Z" lat="47.5016" lon="8.73856">
+  <description>Museumsstrasse Winterthur Hausnummern</description>
+</gpx_file>
+<gpx_file id="1291249" name="2012_08_11_e30.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2012-08-13T10:20:40Z" lat="47.552" lon="8.57384">
+  <description>Mapping Party 20120811 e30</description>
+</gpx_file>
+<gpx_file id="1291250" name="11.08.2012_13_35_27_history.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2012-08-13T10:23:17Z" lat="47.5519" lon="8.57408">
+  <description>Mapping Party 20120811 edge305</description>
+</gpx_file>
+<gpx_file id="1470690" name="03.06.2013_19_18_07_2013_06_03_19_18_07.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2013-06-03T18:14:01Z" lat="43.8148" lon="11.2804">
+  <description>Villa rondini</description>
+</gpx_file>
+<gpx_file id="1470691" name="03.06.2013_19_42_30_2013_06_03_19_42_30.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2013-06-03T18:15:03Z" lat="43.8128" lon="11.2788">
+  <description>Villa Rondini</description>
+</gpx_file>
+<gpx_file id="1566627" name="backlog_2013_09.zip" user="SimonPoole" visibility="public" pending="false" timestamp="2013-09-24T15:35:21Z" lat="47.3981" lon="8.37578">
+  <description>Backlog April 2012 - September 2013</description>
+</gpx_file>
+<gpx_file id="1196561" name="backlog.zip" user="SimonPoole" visibility="public" pending="false" timestamp="2012-03-18T16:14:52Z" lat="47.398" lon="8.37645">
+  <description>Backlog of tracks from November 2011 to March 2012</description>
+</gpx_file>
+<gpx_file id="2214863" name="2016_07_27T175542.gpx" user="SimonPoole" visibility="public" pending="false" timestamp="2016-07-27T15:55:47Z" lat="47.4244" lon="8.35957">
+  <description>Kreisel</description>
+</gpx_file>
+<gpx_file id="2030597" name="2015_09_04T164114.gpx" user="SimonPoole" visibility="public" pending="false" timestamp="2015-09-04T14:41:16Z" lat="47.397" lon="8.45268">
+  <description>survey in Schlieren </description>
+</gpx_file>
+<gpx_file id="2043975" name="2015_09_28T182117.gpx" user="SimonPoole" visibility="public" pending="false" timestamp="2015-09-28T16:21:26Z" lat="47.397" lon="8.45268">
+  <description>Urdorf In der Fadmatt</description>
+</gpx_file>
+<gpx_file id="2074121" name="2015_11_30T145157.gpx" user="SimonPoole" visibility="public" pending="false" timestamp="2015-11-30T13:52:04Z" lat="47.4221" lon="8.41334">
+  <description>Diverse tracks</description>
+</gpx_file>
+<gpx_file id="2359375" name="2017_02_23T114926.gpx" user="SimonPoole" visibility="public" pending="false" timestamp="2017-02-23T10:49:28Z" lat="47.3869" lon="8.36087">
+  <description>missing track type 4</description>
+</gpx_file>
+<gpx_file id="2631740" name="2018_03_10T152010.gpx" user="SimonPoole" visibility="private" pending="false" timestamp="2018-03-10T15:20:08Z" lat="47.4109" lon="8.37579">
+  <description>test</description>
+  <tag>trrrrrr</tag>
+</gpx_file>
+</osm>

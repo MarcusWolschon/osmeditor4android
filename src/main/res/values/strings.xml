@@ -102,12 +102,14 @@
     <string name="upload_close_open_changeset_label">Close open changeset first:</string>
     <string name="upload_close_changeset_label">Close changeset:</string>
     <string name="upload_request_review_label">Request review:</string>
-    <!--  -->
+    <string name="upload_validation_error_empty_comment">Comment should not be empty</string>
+    <string name="upload_validation_error_empty_source">Source should not be empty</string>
+    <!-- Upload GPX -->
+    <string name="upload_gpx_title">Upload GPX track</string>
     <string name="upload_gpx_description_label">Description</string>
     <string name="upload_gpx_tags_label">Tags</string>
     <string name="upload_gpx_visibility_label">Visibility</string>
-    <string name="upload_validation_error_empty_comment">Comment should not be empty</string>
-    <string name="upload_validation_error_empty_source">Source should not be empty</string>
+    <string name="upload_validation_error_empty_description">Empty description</string>
     <!-- task fragment -->
     <string name="openstreetbug_new_title">New note</string>
     <string name="openstreetbug_new_bug">Report issue</string>
@@ -324,6 +326,7 @@
     <string name="layer_mapillary">Mapillary</string>
     <string name="layer_grid">Grid</string>
     <string name="layer_gpx">GPX</string>
+    <string name="layer_gpx_recording">GPX recording</string>
     <string name="layer_photos">Photos</string>
     <string name="layer_tasks">Tasks</string>
     <string name="layer_data">OSM data</string>
@@ -345,6 +348,15 @@
     <string name="layer_add_layer_from_mvt_style">Add layer from MVT style</string>
     <string name="layer_add_custom_imagery">Add custom imagery</string>
     <string name="layer_edit_custom_imagery_configuration">Edit custom imagery configuration</string>
+    <string name="layer_add_gpx">Add layer from GPX file</string>
+    <string name="layer_download_track">Download GPX track</string>
+    <string name="layer_available_tracks">Available GPX tracks</string>
+    <string name="layer_start_playback">Start playback</string>
+    <string name="layer_pause_playback">Pause playback</string>
+    <string name="layer_stop_playback">Stop playback</string>
+    <string name="layer_toast_playback_finished">Playback finished</string>
+    <string name="layer_toast_playback_paused">Playback paused</string>
+    <string name="layer_toast_playback_resumed">Playback resumed</string>
     <!--  Layer info dialog -->
     <string name="layer_info_min_zoom">Min zoom</string>
     <string name="layer_info_max_zoom">Max zoom</string>
@@ -589,6 +601,8 @@ avoided by using an offline data source.</string>
     <string name="toast_error_element_too_large">Element is too large for the property editor</string>
     <string name="toast_no_intersection_found">No intersection found</string>
     <string name="toast_api_key_missing">No API key found for %1$s</string>
+    <string name="toast_no_track_points">No track points</string>
+    <string name="toast_no_way_points">No way points</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>

@@ -856,12 +856,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         File[] files = dir.listFiles();
         if (files != null) {
             for (File f : files) {
-                if (!f.delete()) {
+                if (!f.delete()) { // NOSONAR requires API 26
                     Log.e(DEBUG_TAG, "Could not delete " + f.getAbsolutePath());
                 }
             }
         }
-        if (!dir.delete()) {
+        if (!dir.delete()) { // NOSONAR requires API 26
             Log.e(DEBUG_TAG, "Could not delete " + dir.getAbsolutePath());
         }
     }
@@ -1062,6 +1062,23 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
             result[i] = new LayerConfig(dbresult.getInt(0), LayerType.valueOf(dbresult.getString(1)), dbresult.getInt(2) == 1, dbresult.getString(3));
             dbresult.moveToNext();
         }
+        dbresult.close();
+        db.close();
+        return result;
+    }
+
+    /**
+     * Check if a specific layer is configured
+     * 
+     * @param type the type of the layer
+     * @param contentId the content id
+     * @return true if the layer exists
+     */
+    public synchronized boolean hasLayer(@NonNull LayerType type, @NonNull String contentId) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor dbresult = db.query(LAYERS_TABLE, new String[] { CONTENT_ID_COL }, TYPE_COL + "= ? and " + CONTENT_ID_COL + "= ?",
+                new String[] { type.name(), contentId }, null, null, POSITION_COL);
+        boolean result = dbresult.getCount() > 0;
         dbresult.close();
         db.close();
         return result;
