@@ -1,18 +1,24 @@
 package de.blau.android.validation;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
+import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.Relation;
@@ -94,5 +100,27 @@ public class BaseValidatorTest {
         assertEquals(Validator.NOT_VALIDATED, w.getCachedProblems() & Validator.NOT_VALIDATED);
         result = v.validate(n);
         assertEquals(Validator.OK, result);
+    }
+
+    /**
+     * Test non-standard type
+     */
+    @Test
+    public void nonStandardTypeTest() {
+        Logic logic = App.newLogic(); // logic is needed to read presets
+        final Context ctx = ApplicationProvider.getApplicationContext();
+        Validator v = App.getDefaultValidator(ctx);
+        StorageDelegator d = new StorageDelegator();
+        OsmElementFactory factory = d.getFactory();
+        Node n = factory.createNodeWithNewId(0, 0);
+        Map<String, String> tags = new HashMap<>();
+        tags.put(Tags.KEY_RAILWAY, "platform");
+        tags.put(Tags.KEY_WHEELCHAIR, Tags.VALUE_NO);
+        d.setTags(n, tags);
+        int result = v.validate(n);
+        assertEquals(Validator.WRONG_ELEMENT_TYPE, result & Validator.WRONG_ELEMENT_TYPE);
+        List<String> warnings = Arrays.asList(v.describeProblem(ctx, n));
+        assertEquals(1, warnings.size());
+        assertTrue(warnings.get(0).contains(ctx.getString(R.string.element_type_node)));
     }
 }
