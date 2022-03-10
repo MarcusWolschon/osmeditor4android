@@ -466,6 +466,7 @@ avoided by using an offline data source.</string>
     <string name="toast_photo_indexing_started">Started scan for geo-referenced photos</string>
     <string name="toast_photo_indexing_finished">Finished scan for geo-referenced photos</string>
     <string name="toast_download_failed">Download failed with error code %1$d, message %2$s</string>
+    <!-- Validation -->
     <string name="toast_unsurveyed_road">Unsurveyed road</string>
     <string name="toast_noname">Road lacks name or ref</string>
     <string name="toast_notype">Relation lacks type</string>
@@ -474,6 +475,7 @@ avoided by using an offline data source.</string>
     <string name="toast_untagged_element">Untagged element</string>
     <string name="toast_unconnected_end_node">Node is near element it could be connected to</string>
     <string name="toast_degenerate_way">Degenerate way</string>
+    <string name="toast_wrong_element_type">Non-standard element type: %1$s</string>
     <!--  -->
     <string name="toast_oauth_retry">Try uploading again after allowing OAuth access to your OSM account.</string>
     <string name="toast_oauth">Please allow OAuth access to your OSM account.</string>
@@ -1372,4 +1374,10 @@ avoided by using an offline data source.</string>
     <string name="gotobookmark">Go</string>
     <string name="bookmarkstitle">Bookmarks</string>
     />
+    <!-- Element types -->
+    <string name="element_type_node">node </string>
+    <string name="element_type_way">way</string>
+    <string name="element_type_closedway">closed way</string>
+    <string name="element_type_area">area</string>
+    <string name="element_type_relation">relation</string>
 </resources>

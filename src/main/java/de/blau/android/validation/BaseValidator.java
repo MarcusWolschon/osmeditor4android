@@ -3,6 +3,7 @@ package de.blau.android.validation;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -22,6 +23,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
@@ -71,6 +73,18 @@ public class BaseValidator implements Validator {
         MISSING_KEY_SUPPRESSION.add(Tags.KEY_NAME, new KeyValue(Tags.KEY_NONAME, Tags.VALUE_YES));
         MISSING_KEY_SUPPRESSION.add(Tags.KEY_NAME, new KeyValue(Tags.KEY_VALIDATE_NO_NAME, Tags.VALUE_YES));
         MISSING_KEY_SUPPRESSION.add(Tags.KEY_REF, new KeyValue(Tags.KEY_NOREF, Tags.VALUE_YES));
+    }
+
+    /**
+     * String resources for element types
+     */
+    private static final Map<ElementType, Integer> ELEMENT_TYPE_NAMES = new EnumMap<>(ElementType.class);
+    static {
+        ELEMENT_TYPE_NAMES.put(ElementType.NODE, R.string.element_type_node);
+        ELEMENT_TYPE_NAMES.put(ElementType.WAY, R.string.element_type_way);
+        ELEMENT_TYPE_NAMES.put(ElementType.CLOSEDWAY, R.string.element_type_closedway);
+        ELEMENT_TYPE_NAMES.put(ElementType.AREA, R.string.element_type_area);
+        ELEMENT_TYPE_NAMES.put(ElementType.RELATION, R.string.element_type_relation);
     }
 
     /**
@@ -170,6 +184,14 @@ public class BaseValidator implements Validator {
                     }
                 }
                 status |= tempStatus;
+            }
+        }
+
+        // check element type
+        if (pi != null) {
+            List<ElementType> elementType = pi.appliesTo();
+            if (!elementType.contains(e.getType())) {
+                status |= Validator.WRONG_ELEMENT_TYPE;
             }
         }
         return status;
@@ -437,6 +459,15 @@ public class BaseValidator implements Validator {
                 }
             }
         }
+
+        // wrong element type
+        if (pi != null) {
+            List<ElementType> elementType = pi.appliesTo();
+            final ElementType type = e.getType();
+            if (!elementType.contains(type)) {
+                result.add(ctx.getString(R.string.toast_wrong_element_type, ctx.getString(ELEMENT_TYPE_NAMES.get(type))));
+            }
+        }
         return result;
     }
 
@@ -446,7 +477,7 @@ public class BaseValidator implements Validator {
      * @param e the OsmElement
      * @return the country the element is located in or null
      */
-    @Nullable 
+    @Nullable
     String getCountry(@NonNull OsmElement e) {
         if (geoContext != null) {
             List<String> isoCodes = geoContext.getIsoCodes(e);
@@ -528,7 +559,8 @@ public class BaseValidator implements Validator {
         }
         if (!noTags) {
             // tag based checks
-            status = validateElement(status, way, tags, Preset.findBestMatch(presets, tags, getCountry(way)));
+            PresetItem pi = Preset.findBestMatch(presets, tags, getCountry(way));
+            status = validateElement(status, way, tags, pi);
             String highway = way.getTagWithKey(Tags.KEY_HIGHWAY);
             if (highway != null) {
                 status |= validateHighway(way, highway);
