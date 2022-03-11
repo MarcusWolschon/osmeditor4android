@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>Object age</item>
+        <item>FIXME tags</item>
+        <item>Missing tags</item>
+        <item>Highway road</item>
+        <item>No relation type</item>
+        <item>Imperial units missing</item>
+        <item>Invalid object</item>
+        <item>Untagged object</item>
+        <item>Unconnected end node</item>
+        <item>Degenerate way</item>
+        <item>Empty relation</item>
+        <item>Missing relation member role</item>
+        <item>Relation loop</item>
+        <item>Non-standard element type</item>
+    </string-array>
+    <string-array translatable="false" name="validations_values">
+        <item>@string/VALIDATION_AGE</item>
+        <item>@string/VALIDATION_FIXME</item>
+        <item>@string/VALIDATION_MISSING_TAG</item>
+        <item>@string/VALIDATION_HIGHWAY_ROAD</item>
+        <item>@string/VALIDATION_NO_TYPE</item>
+        <item>@string/VALIDATION_IMPERIAL_UNITS</item>
+        <item>@string/VALIDATION_INVALID_OBJECT</item>
+        <item>@string/VALIDATION_UNTAGGED</item>
+        <item>@string/VALIDATION_UNCONNECTED_END_NODE</item>
+        <item>@string/VALIDATION_DEGENERATE_WAY</item>
+        <item>@string/VALIDATION_EMPTY_RELATION</item>
+        <item>@string/VALIDATION_MISSING_ROLE</item>
+        <item>@string/VALIDATION_RELATION_LOOP</item>
+        <item>@string/VALIDATION_WRONG_ELEMENT_TYPE</item>
+    </string-array>
+    <string name="VALIDATION_AGE" translatable="false">AGE</string>
+    <string name="VALIDATION_FIXME" translatable="false">FIXME</string>
+    <string name="VALIDATION_MISSING_TAG" translatable="false">MISSING_TAG</string>
+    <string name="VALIDATION_HIGHWAY_ROAD" translatable="false">HIGHWAY_ROAD</string>
+    <string name="VALIDATION_NO_TYPE" translatable="false">NO_TYPE</string>
+    <string name="VALIDATION_IMPERIAL_UNITS" translatable="false">IMPERIAL_UNITS</string>
+    <string name="VALIDATION_INVALID_OBJECT" translatable="false">INVALID_OBJECT</string>
+    <string name="VALIDATION_UNTAGGED" translatable="false">UNTAGGED</string>
+    <string name="VALIDATION_UNCONNECTED_END_NODE" translatable="false">UNCONNECTED_END_NODE</string>
+    <string name="VALIDATION_DEGENERATE_WAY" translatable="false">DEGENERATE_WAY</string>
+    <string name="VALIDATION_EMPTY_RELATION" translatable="false">EMPTY_RELATION</string>
+    <string name="VALIDATION_MISSING_ROLE" translatable="false">MISSING_ROLE</string>
+    <string name="VALIDATION_RELATION_LOOP" translatable="false">RELATION_LOOP</string>
+    <string name="VALIDATION_WRONG_ELEMENT_TYPE" translatable="false">WRONG_ELEMENT_TYPE</string>
+</resources>

@@ -9,16 +9,17 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetRole;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.LongOsmElementMap;
-import de.blau.android.presets.Preset.PresetItem;
 
 /**
  * A Validator that adds validation we only want to do prior to uploads and manually
@@ -30,8 +31,8 @@ import de.blau.android.presets.Preset.PresetItem;
  */
 public class ExtendedValidator implements Validator {
 
-    private final Validator base;
-    private final Logic     logic;
+    private final BaseValidator base;
+    private final Logic         logic;
 
     /**
      * Cache of way nodes we've already found
@@ -41,25 +42,44 @@ public class ExtendedValidator implements Validator {
      */
     private final LongHashSet wayNodes = new LongHashSet();
 
+    private boolean missingRoleValidation;
+    private boolean relationLoopValidation;
+
     /**
      * Create a new UploadValidator
      * 
-     * @param base the Validator to wrap
+     * @param ctx an Android Context
+     * @param base the BaseValidator to wrap
      */
-    public ExtendedValidator(@NonNull Validator base) {
-        this.base = base;
+    public ExtendedValidator(@NonNull Context ctx, @NonNull Validator base) {
+        if (!(base instanceof BaseValidator)) {
+            throw new IllegalArgumentException("Argument must be a BaseValidator");
+        }
+        this.base = (BaseValidator) base;
         logic = App.getLogic();
+        init(ctx);
+    }
+
+    /**
+     * Initialize the Validator
+     * 
+     * @param context an Android Context
+     */
+    public void init(@NonNull Context context) {
+        missingRoleValidation = base.enabledValidations.contains(context.getString(R.string.VALIDATION_MISSING_ROLE));
+        relationLoopValidation = base.enabledValidations.contains(context.getString(R.string.VALIDATION_RELATION_LOOP));
     }
 
     @Override
     public void reset(Context context) {
         base.reset(context);
+        init(context);
     }
 
     @Override
     public int validate(Node node) {
         int result = base.validate(node);
-        if (!wayNodes.contains(node.getOsmId()) && !node.hasTags() && !node.hasParentRelations()) {
+        if (base.untaggedValidation && !wayNodes.contains(node.getOsmId()) && !node.hasTags() && !node.hasParentRelations()) {
             List<Way> ways = logic.getWaysForNode(node);
             if (ways.isEmpty()) {
                 return addResult(result, Validator.UNTAGGED);
@@ -82,9 +102,9 @@ public class ExtendedValidator implements Validator {
     public int validate(Relation relation) {
         int result = base.validate(relation);
         List<RelationMember> members = relation.getMembers();
-        // check for missing roles
-        if (base instanceof BaseValidator && members != null) {
-            PresetItem pi = Preset.findBestMatch(((BaseValidator) base).getPresets(), relation.getTags(), ((BaseValidator) base).getCountry(relation));
+        if (missingRoleValidation && members != null) {
+            // check for missing roles
+            PresetItem pi = Preset.findBestMatch(base.getPresets(), relation.getTags(), base.getCountry(relation));
             if (pi != null) {
                 List<PresetRole> presetRoles = pi.getRoles();
                 if (presetRoles != null) {
@@ -102,10 +122,12 @@ public class ExtendedValidator implements Validator {
             }
         }
         // loop check
-        LongOsmElementMap<Relation> map = new LongOsmElementMap<>();
-        map.put(relation.getOsmId(), relation);
-        if (hasLoop(members, map)) {
-            result = addResult(result, Validator.RELATION_LOOP);
+        if (relationLoopValidation) {
+            LongOsmElementMap<Relation> map = new LongOsmElementMap<>();
+            map.put(relation.getOsmId(), relation);
+            if (hasLoop(members, map)) {
+                result = addResult(result, Validator.RELATION_LOOP);
+            }
         }
         return result;
     }

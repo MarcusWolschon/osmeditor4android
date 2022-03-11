@@ -42,6 +42,24 @@
 <p>Example: the default configuration checks that a <em>name</em> tag is present on a object if the matching preset contains a <em>name</em> field in the non-optional tags (the check rules can be configured to require &quot;optional&quot; tags).</p>
 <p>Alternative tags can be indicated by separating them with a vertical bar &quot;|&quot;.</p>
 <p>Example: &quot;name|ref&quot; will fail only if neither a <em>name</em> or a <em>ref</em> tag is present. Note that is a tag is present that leads to the absence of a tag being ignored (currently supported: <em>noname=yes</em>, <em>validate:no_name=yes</em>, <em>noref=yes</em> for <em>name</em> and <em>ref</em> tags), the check will terminate with the corresponding missing tag.</p>
+<h4>Enabled validations</h4>
+<p>By default all validations are enabled, if you want to disable individual checks, you can do that here.</p>
+<ul>
+<li><strong>Object age</strong> re-survey validation</li>
+<li><strong>FIXME tags</strong> check for fixme tags</li>
+<li><strong>Missing tags</strong> preset required missing tags check</li>
+<li><strong>Highway road</strong> report was with highway=road</li>
+<li><strong>No relation type</strong> missing type tag on a relation</li>
+<li><strong>Imperial units missing</strong> in the US and UK missing units for values that are likely imperial measurement values</li>
+<li><strong>Invalid object</strong> OSM element that isn't valid, for example a way without nodes</li>
+<li><strong>Untagged object</strong> untagged object that is not a child ohild object or member of a relation</li>
+<li><strong>Unconnected end node</strong> report end nodes of ways tagged with highway that should likely be joined to a nearby highway</li>
+<li><strong>Degenerate way</strong> way with just one node</li>
+<li><strong>Empty relation</strong> relation without members</li>
+<li><strong>Missing relation member role</strong> report relation members that should have a role, but don't</li>
+<li><strong>Relation loop</strong> relations that refer to eachother in a loop</li>
+<li><strong>Non-standard element type</strong> report if the element type of an object isn't one of the preset required ones</li>
+</ul>
 <h3>Connected node tolerance</h3>
 <p>Configure how far away from a highway a highway end node must be to not be highlighted as an error.</p>
 <h2>Opening hours templates</h2>

@@ -34,79 +34,80 @@ public class Preferences {
 
     private final AdvancedPrefDatabase advancedPrefs;
 
-    private final boolean isStatsVisible;
-    private final boolean isToleranceVisible;
-    private final boolean isAntiAliasingEnabled;
-    private final boolean isKeepScreenOnEnabled;
-    private final boolean useBackForUndo;
-    private final boolean largeDragArea;
-    private final boolean tagFormEnabled;
-    private String        scaleLayer;
-    private final String  mapProfile;
-    private final String  followGPSbutton;
-    private String        fullscreenMode;
-    private final String  mapOrientation;
-    private int           gpsInterval;
-    private float         gpsDistance;
-    private float         maxStrokeWidth;
-    private int           tileCacheSize;                 // in MB
-    private final boolean preferRemovableStorage;
-    private int           mapillaryCacheSize;            // in MB
-    private int           downloadRadius;                // in m
-    private float         maxDownloadSpeed;              // in km/h
-    private final int     autoPruneNodeLimit;
-    private final int     autoPruneTaskLimit;
-    private final int     panAndZoomLimit;
-    private int           bugDownloadRadius;
-    private float         maxBugDownloadSpeed;           // in km/h
-    private Set<String>   taskFilter;                    // can't be final
-    private final boolean forceContextMenu;
-    private final boolean enableNameSuggestions;
-    private final boolean nameSuggestionPresetsEnabled;
-    private final boolean autoApplyPreset;
-    private final boolean closeChangesetOnSave;
-    private final boolean splitActionBarEnabled;
-    private String        gpsSource;
-    private final String  gpsTcpSource;
-    private String        offsetServer;
-    private final String  osmoseServer;
-    private final String  mapRouletteServer;
-    private String        taginfoServer;
-    private String        mapillarySequencesUrlV4;
-    private String        mapillaryImagesUrlV4;
-    private final int     mapillaryMinZoom;
-    private final boolean showCameraAction;
-    private final String  cameraApp;
-    private final boolean useInternalPhotoViewer;
-    private final boolean generateAlerts;
-    private final boolean groupAlertsOnly;
-    private int           maxAlertDistance;
-    private final boolean lightThemeEnabled;
-    private final boolean overrideCountryAddressTags;
-    private Set<String>   addressTags;                   // can't be final
-    private final boolean voiceCommandsEnabled;
-    private final boolean leaveGpsDisabled;
-    private final boolean allowFallbackToNetworkLocation;
-    private final boolean showIcons;
-    private final boolean showWayIcons;
-    private int           maxInlineValues;
-    private int           maxTileDownloadThreads;
-    private int           notificationCacheSize;
-    private int           autoLockDelay;
-    private final boolean alwaysDrawBoundingBoxes;
-    private final boolean jsConsoleEnabled;
-    private final boolean hwAccelerationEnabled;
-    private final int     connectedNodeTolerance;
-    private final int     orthogonalizeThreshold;
-    private final boolean autoformatPhoneNumbers;
-    private final int     gnssTimeToStale;
-    private final int     uploadOkLimit;
-    private final int     uploadWarnLimit;
-    private final int     dataWarnLimit;
-    private final boolean useBarometricHeight;
-    private final boolean useUrlForFeedback;
-    private final int     beepVolume;
-    private final int     maxOffsetDistance;
+    private final boolean     isStatsVisible;
+    private final boolean     isToleranceVisible;
+    private final boolean     isAntiAliasingEnabled;
+    private final boolean     isKeepScreenOnEnabled;
+    private final boolean     useBackForUndo;
+    private final boolean     largeDragArea;
+    private final boolean     tagFormEnabled;
+    private String            scaleLayer;
+    private final String      mapProfile;
+    private final String      followGPSbutton;
+    private String            fullscreenMode;
+    private final String      mapOrientation;
+    private int               gpsInterval;
+    private float             gpsDistance;
+    private float             maxStrokeWidth;
+    private int               tileCacheSize;                 // in MB
+    private final boolean     preferRemovableStorage;
+    private int               mapillaryCacheSize;            // in MB
+    private int               downloadRadius;                // in m
+    private float             maxDownloadSpeed;              // in km/h
+    private final int         autoPruneNodeLimit;
+    private final int         autoPruneTaskLimit;
+    private final int         panAndZoomLimit;
+    private int               bugDownloadRadius;
+    private float             maxBugDownloadSpeed;           // in km/h
+    private Set<String>       taskFilter;
+    private final boolean     forceContextMenu;
+    private final boolean     enableNameSuggestions;
+    private final boolean     nameSuggestionPresetsEnabled;
+    private final boolean     autoApplyPreset;
+    private final boolean     closeChangesetOnSave;
+    private final boolean     splitActionBarEnabled;
+    private String            gpsSource;
+    private final String      gpsTcpSource;
+    private String            offsetServer;
+    private final String      osmoseServer;
+    private final String      mapRouletteServer;
+    private String            taginfoServer;
+    private String            mapillarySequencesUrlV4;
+    private String            mapillaryImagesUrlV4;
+    private final int         mapillaryMinZoom;
+    private final boolean     showCameraAction;
+    private final String      cameraApp;
+    private final boolean     useInternalPhotoViewer;
+    private final boolean     generateAlerts;
+    private final boolean     groupAlertsOnly;
+    private int               maxAlertDistance;
+    private final boolean     lightThemeEnabled;
+    private final boolean     overrideCountryAddressTags;
+    private final Set<String> addressTags;
+    private final boolean     voiceCommandsEnabled;
+    private final boolean     leaveGpsDisabled;
+    private final boolean     allowFallbackToNetworkLocation;
+    private final boolean     showIcons;
+    private final boolean     showWayIcons;
+    private int               maxInlineValues;
+    private int               maxTileDownloadThreads;
+    private int               notificationCacheSize;
+    private int               autoLockDelay;
+    private final boolean     alwaysDrawBoundingBoxes;
+    private final boolean     jsConsoleEnabled;
+    private final boolean     hwAccelerationEnabled;
+    private final int         connectedNodeTolerance;
+    private final int         orthogonalizeThreshold;
+    private final boolean     autoformatPhoneNumbers;
+    private final int         gnssTimeToStale;
+    private final int         uploadOkLimit;
+    private final int         uploadWarnLimit;
+    private final int         dataWarnLimit;
+    private final boolean     useBarometricHeight;
+    private final boolean     useUrlForFeedback;
+    private final int         beepVolume;
+    private final int         maxOffsetDistance;
+    private final Set<String> enabledValidations;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -212,8 +213,8 @@ public class Preferences {
 
         overrideCountryAddressTags = prefs.getBoolean(r.getString(R.string.config_overrideRegionAddressTags_key), false);
 
-        addressTags = new HashSet<>(Arrays.asList(r.getStringArray(R.array.address_tags_defaults)));
-        addressTags = prefs.getStringSet(r.getString(R.string.config_addressTags_key), addressTags);
+        addressTags = prefs.getStringSet(r.getString(R.string.config_addressTags_key),
+                new HashSet<>(Arrays.asList(r.getStringArray(R.array.address_tags_defaults))));
 
         voiceCommandsEnabled = prefs.getBoolean(r.getString(R.string.config_voiceCommandsEnabled_key), false);
 
@@ -272,6 +273,9 @@ public class Preferences {
         beepVolume = getIntPref(R.string.config_beepVolume_key, Sound.BEEP_DEFAULT_VOLUME);
 
         maxOffsetDistance = getIntPref(R.string.config_maxOffsetDistance_key, 100);
+
+        enabledValidations = prefs.getStringSet(r.getString(R.string.config_enabledValidations_key),
+                new HashSet<>(Arrays.asList(r.getStringArray(R.array.validations_values))));
     }
 
     /**
@@ -1278,6 +1282,15 @@ public class Preferences {
      */
     public int getConnectedNodeTolerance() {
         return connectedNodeTolerance;
+    }
+
+    /**
+     * Get the enabled validations
+     * 
+     * @return a Set of strings
+     */
+    public Set<String> getEnabledValidations() {
+        return enabledValidations;
     }
 
     /**

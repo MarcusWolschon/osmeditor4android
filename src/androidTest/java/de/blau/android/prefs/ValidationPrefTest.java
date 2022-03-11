@@ -112,7 +112,7 @@ public class ValidationPrefTest {
         TestUtils.clickHome(device, false);
         assertEquals(Validator.OK, t.hasProblem(main, App.getDefaultValidator(main)));
     }
-    
+
     /**
      * Start prefs, advanced prefs, validator
      */
@@ -137,7 +137,7 @@ public class ValidationPrefTest {
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.resurvey_entries)));
 
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.check_entries), true, true));
-        
+
         assertTrue(TestUtils.clickText(device, false, "wheelchair", true, true));
         assertTrue(TestUtils.findText(device, false, "wheelchair", 1000));
 
@@ -146,5 +146,48 @@ public class ValidationPrefTest {
         TestUtils.clickHome(device, false);
         TestUtils.clickHome(device, false);
         assertEquals(Validator.OK, t.hasProblem(main, App.getDefaultValidator(main)));
+    }
+
+    /**
+     * Start prefs, validator, disable missing tag validation ...
+     */
+    @Test
+    public void validationDisable() {
+        Way t = (Way) App.getDelegator().getOsmElement(Way.NAME, 96291968L);
+        assertNotNull(t);
+        assertTrue(t.hasTag("amenity", "school"));
+        assertEquals(Validator.MISSING_TAG, t.hasProblem(main, App.getDefaultValidator(main)));
+
+        // toggle off
+        toggleValidation();
+        assertEquals(Validator.OK, t.hasProblem(main, App.getDefaultValidator(main)));
+
+        // toggle on
+        toggleValidation();
+        assertEquals(Validator.MISSING_TAG, t.hasProblem(main, App.getDefaultValidator(main)));
+    }
+
+    /**
+     * Toggle the Missing tags validation
+     */
+    private void toggleValidation() {
+        monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
+        instrumentation.waitForMonitorWithTimeout(monitor, 40000); //
+
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_validatorprefs_title), true));
+
+        if (!TestUtils.scrollToAndSelect(device, main.getString(R.string.config_enabledValidations_title), new UiSelector().scrollable(true))) {
+            fail("Didn't find " + main.getString(R.string.config_enabledValidations_title));
+        }
+
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_enabledValidations_title), true));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.config_enabledValidations_title)));
+
+        assertTrue(TestUtils.clickText(device, false, "Missing tags", false, false));
+
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+        TestUtils.clickHome(device, false);
+        TestUtils.clickHome(device, false);
     }
 }

@@ -242,7 +242,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         changesHeading.setText(getResources().getQuantityString(R.plurals.confirm_upload_text, changeCount, changeCount));
         ListView changesView = (ListView) layout.findViewById(R.id.upload_changes);
 
-        ExtendedValidator validator = new ExtendedValidator(App.getDefaultValidator(getContext()));
+        ExtendedValidator validator = new ExtendedValidator(getContext(), App.getDefaultValidator(getContext()));
         final ChangedElement[] changes = getPendingChanges(elements == null ? App.getLogic().getPendingChangedElements() : elements);
         revalidate(activity, validator, changes);
         Arrays.sort(changes, comparator);

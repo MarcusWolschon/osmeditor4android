@@ -1,6 +1,5 @@
 package de.blau.android.prefs;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -20,10 +19,13 @@ import de.blau.android.validation.ValidatorRulesUI;
  * Simple class for Android's standard-Preference Activity
  * 
  * @author mb
+ * @author Simon
  */
 public class PrefEditorFragment extends ExtendedPreferenceFragment {
 
     private static final String DEBUG_TAG = PrefEditorFragment.class.getSimpleName();
+
+    private boolean resetValidationFlag;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -111,15 +113,18 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         }
 
         Preference connectedPref = getPreferenceScreen().findPreference(r.getString(R.string.config_connectedNodeTolerance_key));
+        OnPreferenceChangeListener resetValidation = (preference, newValue) -> {
+            Log.d(DEBUG_TAG, "onPreferenceChange reset validation");
+            resetValidationFlag = true;
+            return true;
+        };
         if (connectedPref != null) {
-            OnPreferenceChangeListener p = (preference, newValue) -> {
-                Log.d(DEBUG_TAG, "onPreferenceChange connected tolerance");
-                Context context = PrefEditorFragment.this.getContext();
-                App.getDefaultValidator(context).reset(context);
-                App.getDelegator().resetProblems();
-                return true;
-            };
-            connectedPref.setOnPreferenceChangeListener(p);
+            connectedPref.setOnPreferenceChangeListener(resetValidation);
+        }
+
+        Preference enabledValidationsPref = getPreferenceScreen().findPreference(r.getString(R.string.config_enabledValidations_key));
+        if (enabledValidationsPref != null) {
+            enabledValidationsPref.setOnPreferenceChangeListener(resetValidation);
         }
 
         Preference openingHoursPref = getPreferenceScreen().findPreference(r.getString(R.string.config_opening_hours_key));
@@ -129,6 +134,15 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
                 TemplateMangementDialog.showDialog(PrefEditorFragment.this, true, null, null, null, "");
                 return true;
             });
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (resetValidationFlag) { // we only want to this once, and when the preset have actually been changed
+            App.getDefaultValidator(getContext()).reset(getContext());
+            App.getDelegator().resetProblems();
         }
     }
 }

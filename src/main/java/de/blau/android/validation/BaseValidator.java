@@ -29,6 +29,7 @@ import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.GeoContext;
@@ -59,6 +60,23 @@ public class BaseValidator implements Validator {
      */
     private ViewBox cachedViewBox = null;
     private float   tolerance;
+
+    /**
+     * Flags that indicate which validation is enabled
+     */
+    protected Set<String> enabledValidations;
+    private boolean       fixmeValidation;
+    private boolean       ageValidation;
+    private boolean       missingTagValidation;
+    private boolean       wrongTypeValidation;
+    private boolean       highwayRoadValidation;
+    private boolean       noTypeValidation;
+    private boolean       imperialUnitsValidation;
+    private boolean       invalidObjectValidation;
+    protected boolean     untaggedValidation;
+    private boolean       unconnectedEndNodeValidation;
+    private boolean       degenerateWayValidation;
+    private boolean       emptyRelationValidation;
 
     /**
      * Regex for general tagged issues with the object
@@ -110,6 +128,23 @@ public class BaseValidator implements Validator {
         // !!!! don't store ctx as that will cause a potential memory leak
         presets = App.getCurrentPresets(ctx);
         geoContext = App.getGeoContext(ctx);
+
+        // get per validation prefs
+        Preferences prefs = new Preferences(ctx); // use our own instance as logics one may be out of sync
+        enabledValidations = prefs.getEnabledValidations();
+        ageValidation = enabledValidations.contains(ctx.getString(R.string.VALIDATION_AGE));
+        fixmeValidation = enabledValidations.contains(ctx.getString(R.string.VALIDATION_FIXME));
+        missingTagValidation = enabledValidations.contains(ctx.getString(R.string.VALIDATION_MISSING_TAG));
+        highwayRoadValidation = enabledValidations.contains(ctx.getString(R.string.VALIDATION_HIGHWAY_ROAD));
+        noTypeValidation = enabledValidations.contains(ctx.getString(R.string.VALIDATION_NO_TYPE));
+        imperialUnitsValidation = enabledValidations.contains(ctx.getString(R.string.VALIDATION_IMPERIAL_UNITS));
+        invalidObjectValidation = enabledValidations.contains(ctx.getString(R.string.VALIDATION_INVALID_OBJECT));
+        untaggedValidation = enabledValidations.contains(ctx.getString(R.string.VALIDATION_UNTAGGED));
+        unconnectedEndNodeValidation = enabledValidations.contains(ctx.getString(R.string.VALIDATION_UNCONNECTED_END_NODE));
+        degenerateWayValidation = enabledValidations.contains(ctx.getString(R.string.VALIDATION_DEGENERATE_WAY));
+        emptyRelationValidation = enabledValidations.contains(ctx.getString(R.string.VALIDATION_EMPTY_RELATION));
+        wrongTypeValidation = enabledValidations.contains(ctx.getString(R.string.VALIDATION_WRONG_ELEMENT_TYPE));
+
         try (ValidatorRulesDatabaseHelper vrDb = new ValidatorRulesDatabaseHelper(ctx); SQLiteDatabase db = vrDb.getReadableDatabase()) {
             resurveyTags = ValidatorRulesDatabase.getDefaultResurvey(db);
             checkTags = ValidatorRulesDatabase.getDefaultCheck(db);
@@ -129,69 +164,119 @@ public class BaseValidator implements Validator {
      */
     private int validateElement(int status, @NonNull OsmElement e, @NonNull SortedMap<String, String> tags, @Nullable PresetItem pi) {
         // test for fixme etc // NOSONAR
-        for (Entry<String, String> entry : new ArrayList<>(tags.entrySet())) {
-            // test key and value against pattern
-            if (FIXME_PATTERN.matcher(entry.getKey()).matches() || FIXME_PATTERN.matcher(entry.getValue()).matches()) {
-                status |= Validator.FIXME;
-            }
+        if (fixmeValidation) {
+            status = validateFixme(status, tags);
         }
 
         // age check
-        if (resurveyTags != null) {
-            long now = System.currentTimeMillis() / 1000;
-            long timestamp = e.getTimestamp();
-            for (String key : resurveyTags.getKeys()) {
-                if (tags.containsKey(key)) {
-                    for (PatternAndAge value : resurveyTags.get(key)) {
-                        if ((value.getValue() == null || "".equals(value.getValue()) || value.matches(tags.get(key)))) {
-                            long age = value.getAge();
-                            // timestamp is too old
-                            if (timestamp >= 0 && (now - timestamp > age)) {
-                                status |= Validator.AGE;
-                                break;
-                            }
+        if (ageValidation && resurveyTags != null) {
+            status = validateResurvey(status, e, tags);
+        }
+
+        // find missing keys
+        if (missingTagValidation && pi != null && checkTags != null) {
+            status = validateMissingTags(status, e, pi);
+        }
+
+        // check element type
+        if (wrongTypeValidation && pi != null) {
+            status = validateWrongType(status, e, pi);
+        }
+        return status;
+    }
+
+    /**
+     * Check if the element is not one of the ElementType required by the PresetItem
+     * 
+     * @param status previous validation status
+     * @param e the OsmElement
+     * @param pi the PresetItem
+     * @return new validation status
+     */
+    public int validateWrongType(int status, @NonNull OsmElement e, @NonNull PresetItem pi) {
+        List<ElementType> elementType = pi.appliesTo();
+        if (!elementType.contains(e.getType())) {
+            status |= Validator.WRONG_ELEMENT_TYPE;
+        }
+        return status;
+    }
+
+    /**
+     * Check if a preset required tag is missing
+     * 
+     * @param status previous validation status
+     * @param e the OsmElement
+     * @param pi the PresetItem
+     * @return new validation status
+     */
+    public int validateMissingTags(int status, @NonNull OsmElement e, @NonNull PresetItem pi) {
+        for (Entry<String, Boolean> entry : checkTags.entrySet()) {
+            String[] keys = splitKeys(entry);
+            int tempStatus = 0;
+            for (String key : keys) {
+                key = key.trim();
+                if (pi.hasKey(key, entry.getValue())) {
+                    if (!e.hasTagKey(key) && reportMissingKey(e, key)) {
+                        tempStatus = Validator.MISSING_TAG;
+                    } else {
+                        tempStatus = 0; // found a key
+                        break;
+                    }
+                }
+            }
+            status |= tempStatus;
+        }
+        return status;
+    }
+
+    /**
+     * Check if the element is out of date and should be resurveyed
+     * 
+     * @param status previous validation status
+     * @param e the OsmElement
+     * @param tags the tags
+     * @return new validation status
+     */
+    public int validateResurvey(int status, @NonNull OsmElement e, @NonNull SortedMap<String, String> tags) {
+        long now = System.currentTimeMillis() / 1000;
+        long timestamp = e.getTimestamp();
+        for (String key : resurveyTags.getKeys()) {
+            if (tags.containsKey(key)) {
+                for (PatternAndAge value : resurveyTags.get(key)) {
+                    if ((value.getValue() == null || "".equals(value.getValue()) || value.matches(tags.get(key)))) {
+                        long age = value.getAge();
+                        // timestamp is too old
+                        if (timestamp >= 0 && (now - timestamp > age)) {
+                            status |= Validator.AGE;
+                        } else if (tags.containsKey(Tags.KEY_CHECK_DATE)) {
                             // check_date tag is too old
-                            if (tags.containsKey(Tags.KEY_CHECK_DATE)) {
-                                status |= checkAge(tags, now, Tags.KEY_CHECK_DATE, age);
-                                break;
-                            }
+                            status |= checkAge(tags, now, Tags.KEY_CHECK_DATE, age);
+                        } else {
                             // key specific check_date tag is too old
                             final String keyCheckDate = Tags.KEY_CHECK_DATE + ":" + key;
                             if (tags.containsKey(keyCheckDate)) {
                                 status |= checkAge(tags, now, keyCheckDate, age);
-                                break;
                             }
                         }
                     }
                 }
             }
         }
+        return status;
+    }
 
-        // find missing keys
-        if (pi != null && checkTags != null) {
-            for (Entry<String, Boolean> entry : checkTags.entrySet()) {
-                String[] keys = splitKeys(entry);
-                int tempStatus = 0;
-                for (String key : keys) {
-                    key = key.trim();
-                    if (pi.hasKey(key, entry.getValue())) {
-                        if (!e.hasTagKey(key) && reportMissingKey(e, key)) {
-                            tempStatus = Validator.MISSING_TAG;
-                        } else {
-                            tempStatus = 0; // found a key
-                            break;
-                        }
-                    }
-                }
-                status |= tempStatus;
-            }
-        }
-
-        // check element type
-        if (pi != null) {
-            List<ElementType> elementType = pi.appliesTo();
-            if (!elementType.contains(e.getType())) {
-                status |= Validator.WRONG_ELEMENT_TYPE;
+    /**
+     * Check if the tags contain a fixme tag or similar //NOSONAR
+     * 
+     * @param status previous validation status
+     * @param tags the tags
+     * @return new validation status
+     */
+    public int validateFixme(int status, SortedMap<String, String> tags) {
+        for (Entry<String, String> entry : new ArrayList<>(tags.entrySet())) {
+            // test key and value against pattern
+            if (FIXME_PATTERN.matcher(entry.getKey()).matches() || FIXME_PATTERN.matcher(entry.getValue()).matches()) {
+                status |= Validator.FIXME;
             }
         }
         return status;
@@ -221,7 +306,7 @@ public class BaseValidator implements Validator {
         int layer = getLayer(w);
         de.blau.android.Map map = logic.getMap();
 
-        if (map != null) {
+        if (unconnectedEndNodeValidation && map != null) {
             // we try to cache these (tolerance) fairly expensive to calculate values at least as long as the ViewBox
             // hasn't changed
             if (!map.getViewBox().equals(cachedViewBox)) {
@@ -242,11 +327,11 @@ public class BaseValidator implements Validator {
             }
         }
 
-        if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
+        if (highwayRoadValidation && Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
             // unsurveyed road
             result |= Validator.HIGHWAY_ROAD;
         }
-        if (geoContext != null) {
+        if (imperialUnitsValidation && geoContext != null) {
             boolean imperial = geoContext.imperial(w);
             if (imperial) {
                 SortedMap<String, String> tags = w.getTags();
@@ -541,7 +626,7 @@ public class BaseValidator implements Validator {
 
     @Override
     public int validate(@NonNull Way way) {
-        if (way.getNodes().isEmpty()) {
+        if (invalidObjectValidation && way.getNodes().isEmpty()) {
             return Validator.INVALID_OBJECT;
         }
         // reset status of end nodes
@@ -549,12 +634,12 @@ public class BaseValidator implements Validator {
         deleteProblem(way.getLastNode(), Validator.UNCONNECTED_END_NODE);
 
         int status = Validator.NOT_VALIDATED;
-        if (way.nodeCount() == 1) {
+        if (degenerateWayValidation && way.nodeCount() == 1) {
             status |= Validator.DEGENERATE_WAY;
         }
         SortedMap<String, String> tags = way.getTags();
         boolean noTags = tags.isEmpty();
-        if (noTags && !way.hasParentRelations()) {
+        if (untaggedValidation && noTags && !way.hasParentRelations()) {
             status |= Validator.UNTAGGED;
         }
         if (!noTags) {
@@ -579,16 +664,18 @@ public class BaseValidator implements Validator {
         boolean noTags = tags.isEmpty();
         // tag based checks
         if (noTags) {
-            status |= Validator.UNTAGGED | Validator.NO_TYPE;
+            if (untaggedValidation) {
+                status |= Validator.UNTAGGED | Validator.NO_TYPE;
+            }
         } else {
             PresetItem pi = Preset.findBestMatch(presets, tags, getCountry(relation));
             status = validateElement(status, relation, tags, pi);
-            if (noType(relation)) {
+            if (noTypeValidation && noType(relation)) {
                 status |= Validator.NO_TYPE;
             }
         }
         List<RelationMember> members = relation.getMembers();
-        if (members == null || members.isEmpty()) {
+        if (emptyRelationValidation && (members == null || members.isEmpty())) {
             status |= Validator.EMPTY_RELATION;
         }
         if (status == Validator.NOT_VALIDATED) {
