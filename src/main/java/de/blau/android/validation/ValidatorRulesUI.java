@@ -214,7 +214,7 @@ public class ValidatorRulesUI {
      * 
      * @param context Android Context
      */
-    private void resetValidator(final Context context) {
+    private void resetValidator(@NonNull final Context context) {
         // problems need to be recalculated and filter cache cleared
         App.getDelegator().resetProblems();
         Filter filter = App.getLogic().getFilter();

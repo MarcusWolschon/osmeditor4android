@@ -27,6 +27,9 @@ import de.blau.android.osm.Way;
 @LargeTest
 public class ExtendedValidatorTest {
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         Logic logic = App.newLogic(); // NOSONAR, force new Logic instantiation
@@ -37,7 +40,7 @@ public class ExtendedValidatorTest {
      */
     @Test
     public void untaggedNodeTest() {
-        Validator v = new ExtendedValidator(App.getDefaultValidator(ApplicationProvider.getApplicationContext()));
+        Validator v = new ExtendedValidator(ApplicationProvider.getApplicationContext(), App.getDefaultValidator(ApplicationProvider.getApplicationContext()));
         StorageDelegator d = App.getDelegator();
         OsmElementFactory factory = d.getFactory();
         Node n = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.007));
@@ -61,7 +64,7 @@ public class ExtendedValidatorTest {
      */
     @Test
     public void missingRoleTest() {
-        Validator v = new ExtendedValidator(App.getDefaultValidator(ApplicationProvider.getApplicationContext()));
+        Validator v = new ExtendedValidator(ApplicationProvider.getApplicationContext(), App.getDefaultValidator(ApplicationProvider.getApplicationContext()));
         StorageDelegator d = App.getDelegator();
         OsmElementFactory factory = d.getFactory();
 
@@ -95,7 +98,7 @@ public class ExtendedValidatorTest {
      */
     @Test
     public void relationLoopTest() {
-        Validator v = new ExtendedValidator(App.getDefaultValidator(ApplicationProvider.getApplicationContext()));
+        Validator v = new ExtendedValidator(ApplicationProvider.getApplicationContext(),App.getDefaultValidator(ApplicationProvider.getApplicationContext()));
         StorageDelegator d = App.getDelegator();
         OsmElementFactory factory = d.getFactory();
 

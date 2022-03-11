@@ -1001,6 +1001,8 @@ avoided by using an offline data source.</string>
     <string name="config_validatorprefs_summary">Configure the validation rules.</string> 
     <string name="config_connectedNodeTolerance_title">Connected node tolerance</string>
     <string name="config_connectedNodeTolerance_summary">If a highway end node is within this distance (in meters) of a highway it should be connected to it</string>    
+    <string name="config_enabledValidations_title">Enabled validations</string>
+    <string name="config_enabledValidations_summary">Enable/disable individual validations</string>
     <!--  opening hours templates -->
     <string name="config_opening_hours_title">Opening hours templates</string>
     <string name="config_opening_hours_summary">Load, save and delete opening hours templates</string>

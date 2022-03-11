@@ -49,6 +49,13 @@
                 app:spt_minValue="1"
                 app:spt_currentValueText="@string/config_maxAlertDistance_current"
                 app:spt_setWrapSelectorWheel="false" />
+            <androidx.preference.MultiSelectListPreference
+                android:key="@string/config_enabledValidations_key"
+                android:title="@string/config_enabledValidations_title"
+                android:summary="@string/config_enabledValidations_summary"
+                android:entries="@array/validations_entries"
+                android:entryValues="@array/validations_values"
+                android:defaultValue="@array/validations_values" />
         </androidx.preference.PreferenceScreen>
         <androidx.preference.Preference
             android:title="@string/config_opening_hours_title"
