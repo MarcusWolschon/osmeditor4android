@@ -58,6 +58,25 @@ Alternative tags can be indicated by separating them with a vertical bar "|".
 
 Example: "name|ref" will fail only if neither a _name_ or a _ref_ tag is present. Note that is a tag is present that leads to the absence of a tag being ignored (currently supported: _noname=yes_, _validate:no_name=yes_, _noref=yes_ for _name_ and _ref_ tags), the check will terminate with the corresponding missing tag.  
 
+#### Enabled validations
+
+By default all validations are enabled, if you want to disable individual checks, you can do that here. 
+
+ - __Object age__ re-survey validation
+ - __FIXME tags__ check for fixme tags
+ - __Missing tags__ preset required missing tags check
+ - __Highway road__ report was with highway=road
+ - __No relation type__ missing type tag on a relation
+ - __Imperial units missing__ in the US and UK missing units for values that are likely imperial measurement values
+ - __Invalid object__ OSM element that isn't valid, for example a way without nodes
+ - __Untagged object__ untagged object that is not a child ohild object or member of a relation
+ - __Unconnected end node__ report end nodes of ways tagged with highway that should likely be joined to a nearby highway
+ - __Degenerate way__ way with just one node
+ - __Empty relation__ relation without members
+ - __Missing relation member role__ report relation members that should have a role, but don't
+ - __Relation loop__ relations that refer to eachother in a loop
+ - __Non-standard element type__ report if the element type of an object isn't one of the preset required ones
+        
 ### Connected node tolerance
 
 Configure how far away from a highway a highway end node must be to not be highlighted as an error.
