@@ -88,7 +88,7 @@
 <p>OpenStreetMap currently doesn't have an &quot;area&quot; object type unlike other geo-data systems. The online editor &quot;iD&quot; tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:</p>
 <ul>
 <li><em>closed ways (*polygons&quot;)</em>: the simplest and most common area variant, are ways that have a shared first and last node forming a closed &quot;ring&quot; (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an &quot;area&quot; tag can clarify the intended use.</li>
-<li><em>multi-ploygons</em>: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple &quot;outer&quot; rings, and multiple &quot;inner&quot; rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci.</li>
+<li><em>multi-polygons</em>: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple &quot;outer&quot; rings, and multiple &quot;inner&quot; rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci.</li>
 <li><em>coastlines</em>: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a>.</li>
 </ul>
 <h4>Improving Way Geometry</h4>
@@ -98,7 +98,7 @@
 <h4>Efficiently Adding Addresses</h4>
 <p>Vespucci has an <img src="../images/address.png" alt="Address" /> &quot;add address tags&quot; function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:</p>
 <ul>
-<li>after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a &quot;entrance=yes&quot; tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
+<li>after a long press (non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a &quot;entrance=yes&quot; tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
 <li>in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.</li>
 <li>in the property editor.</li>
 </ul>
@@ -167,7 +167,7 @@
 <p>Check entries have the following two properties:</p>
 <ul>
 <li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
-<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset .</li>
+<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset.</li>
 </ul>
 <p>This check works by first determining the matching preset and then checking if <strong>Key</strong> is a &quot;recommended&quot; key for this object according to the preset, <strong>Require optional</strong> will expand the check to tags that are &quot;optional* on the object. Note: currently linked presets are not checked.</p>
 <h2>Filters</h2>
