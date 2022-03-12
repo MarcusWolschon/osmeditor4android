@@ -134,8 +134,9 @@ public class NoteFragment extends TaskFragment {
                 boolean changed = changed(state.getSelectedItemPosition());
                 save.setEnabled(changed);
                 upload.setEnabled(changed);
-                if (comment.length() != 0) {
+                if (comment.length() != 0 && state.getSelectedItemPosition() != State.OPEN.ordinal()) {
                     state.setSelection(State.OPEN.ordinal());
+                    Snack.toastTopInfo(getContext(), R.string.toast_note_reopened);
                 }
             }
 
