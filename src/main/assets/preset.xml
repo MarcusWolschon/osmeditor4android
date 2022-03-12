@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="3.5.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="3.7.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -111,57 +111,9 @@
         <combo key="parking:orientation" text="Orientation" values="diagonal,parallel,perpendicular" display_values="Diagonal,Parallel,Perpendicular" />
     </chunk>
     <chunk id="parking_lane">
-        <combo key="parking:lane:both" text="Parking both sides" values_context="parking" match="key">
-            <list_entry value="parallel" short_description="Parallel to street"/>
-            <list_entry value="diagonal" short_description="Diagonal"/>
-            <list_entry value="perpendicular" short_description="Perpendicular"/>
-            <list_entry value="marked" short_description="Marked"/>
-            <list_entry value="no_parking" short_description="No parking"/>
-            <list_entry value="no_stopping" short_description="No stopping"/>
-            <list_entry value="fire_lane" short_description="Fire lane"/>
-        </combo>
-        <combo key="parking:condition:both" text="Parking condition both sides" values_context="parking" match="key">
-            <list_entry value="free" short_description="Free"/>
-            <list_entry value="ticket" short_description="Ticket"/>
-            <list_entry value="disc" short_description="Disc"/>
-            <list_entry value="residents" short_description="Residents"/>
-            <list_entry value="customers" short_description="Customers"/>
-            <list_entry value="private" short_description="Private"/>
-        </combo>
-        <combo key="parking:lane:right" text="Parking right-hand side" values_context="parking" match="key">
-            <list_entry value="parallel" short_description="Parallel to street"/>
-            <list_entry value="diagonal" short_description="Diagonal"/>
-            <list_entry value="perpendicular" short_description="Perpendicular"/>
-            <list_entry value="marked" short_description="Marked"/>
-            <list_entry value="no_parking" short_description="No parking"/>
-            <list_entry value="no_stopping" short_description="No stopping"/>
-            <list_entry value="fire_lane" short_description="Fire lane"/>
-        </combo>
-        <combo key="parking:condition:right" text="Parking condition right-hand side" values_context="parking" match="key">
-            <list_entry value="free" short_description="Free"/>
-            <list_entry value="ticket" short_description="Ticket"/>
-            <list_entry value="disc" short_description="Disc"/>
-            <list_entry value="residents" short_description="Residents"/>
-            <list_entry value="customers" short_description="Customers"/>
-            <list_entry value="private" short_description="Private"/>
-        </combo>
-        <combo key="parking:lane:left" text="Parking left-hand side" values_context="parking" match="key">
-            <list_entry value="parallel" short_description="Parallel to street"/>
-            <list_entry value="diagonal" short_description="Diagonal"/>
-            <list_entry value="perpendicular" short_description="Perpendicular"/>
-            <list_entry value="marked" short_description="Marked"/>
-            <list_entry value="no_parking" short_description="No parking"/>
-            <list_entry value="no_stopping" short_description="No stopping"/>
-            <list_entry value="fire_lane" short_description="Fire lane"/>
-        </combo>
-        <combo key="parking:condition:left" text="Parking condition left-hand side" values_context="parking" match="key">
-            <list_entry value="free" short_description="Free"/>
-            <list_entry value="ticket" short_description="Ticket"/>
-            <list_entry value="disc" short_description="Disc"/>
-            <list_entry value="residents" short_description="Residents"/>
-            <list_entry value="customers" short_description="Customers"/>
-            <list_entry value="private" short_description="Private"/>
-        </combo>
+        <preset_link preset_name="Lane parking both sides" />
+        <preset_link preset_name="Lane parking right-hand side" />
+        <preset_link preset_name="Lane parking left-hand side" />
     </chunk>
     <chunk id="highway_additional">
         <check key="bridge" text="Bridge" disable_off="true"/>
@@ -188,9 +140,13 @@
             <list_entry value="both" short_description="Both sides"/>
             <list_entry value="left" short_description="Only left side"/>
             <list_entry value="right" short_description="Only right side"/>
-            <list_entry value="no" short_description="None"/>
+            <list_entry value="no" short_description="No sidewalk"/>
             <list_entry value="separate" short_description="Mapped separately"/>
         </combo>
+        <combo key="sidewalk:surface" text="Sidewalk surface" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,unhewn_cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud"
+            display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Unhewn cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface" match="none" />
+        <preset_link preset_name="Sidewalk right-hand side" />
+        <preset_link preset_name="Sidewalk left-hand side" />
     </chunk>
     <chunk id="bus_bay">
         <combo key="bus_bay" text="Bus bay" values_context="bus_bay" match="key">
@@ -590,7 +546,7 @@
             display_values="African;American;Arab;Argentinian;Asian;Bagel;Balkan;Barbecue;Bavarian;Beef bowl;Brazilian;Burger;Cake;Caribbean;Chicken;Chinese;Coffee shop;Crepe;Curry;Danish;Donut;Ethiopian;Filipino;Fish;Fish and chips;Fondue;French;Friture;Frozen yogurt;German;Georgian;Greek;Heuriger;Hot dog;Ice cream;Indian;Indonesian;International;Italian;Japanese;Juice;Kebab;Korean;Lebanese;Malaysian;Mediterranean;Mexican;Moroccan;Noodle;Pancake;Pasta;Persian;Peruvian;Pizza;Polish;Portuguese;Ramen;Regional;Russian;Sandwich;Sausage;Seafood;Soba;Spanish;Steak house;Sushi;Tex-mex;Tapas;Thai;Turkish;Vietnamese;Wings" values_searchable="true" match="key"/>
     </chunk>
     <chunk id="clothes">
-        <multiselect key="clothes" text="Kind of clothes" values_searchable="true" match="key">
+        <multiselect key="clothes" text="Kind of clothes" values_searchable="true" match="key" values_context="clothes">
             <list_entry value="babies" short_description="Babies"/>
             <list_entry value="children" short_description="Children"/>
             <list_entry value="costumes" short_description="Costumes"/>
@@ -2043,6 +1999,138 @@
             <combo key="oneway:bicycle" text="Oneway (bicycle)" values="yes,no" display_values="Yes,No"/>
             <space/>
         </item> <!-- Cycle Lane/Track -->
+        <item name="Lane parking both sides" icon="icons/png/lane_parking_both.png" type="way,closedway" preset_name_label="true">
+            <label text="Lane parking both sides:" />
+            <combo key="parking:lane:both" text="Parking both sides" values_context="parking" match="key">
+                <list_entry value="parallel" short_description="Parallel to street"/>
+                <list_entry value="diagonal" short_description="Diagonal"/>
+                <list_entry value="perpendicular" short_description="Perpendicular"/>
+                <list_entry value="marked" short_description="Marked"/>
+                <list_entry value="no_parking" short_description="No parking" deprecated="true" />
+                <list_entry value="no_stopping" short_description="No stopping" deprecated="true" />
+                <list_entry value="fire_lane" short_description="Fire lane" deprecated="true" />
+            </combo>
+            <multiselect key="parking:condition:both" text="Parking condition both sides" values_context="parking" match="key">
+                <list_entry value="free" short_description="Free"/>
+                <list_entry value="ticket" short_description="Ticket"/>
+                <list_entry value="disc" short_description="Disc"/>
+                <list_entry value="residents" short_description="Residents"/>
+                <list_entry value="customers" short_description="Customers"/>
+                <list_entry value="private" short_description="Private"/>
+                <list_entry value="no_parking" short_description="No parking" />
+                <list_entry value="no_standing" short_description="No standing" />
+                <list_entry value="no_stopping" short_description="No stopping" />
+            </multiselect>
+            <combo key="parking:condition:both:conditional" text="Parking condition both sides @" delimiter="|" 
+                values="free @ (Mo-Fr 09:00-19:00) | ticket @ (Mo-Fr 09:00-19:00) | disc @ (Mo-Fr 09:00-19:00) | residents @ (Mo-Fr 09:00-19:00) | customers @ (Mo-Fr 09:00-19:00) | private @ (Mo-Fr 09:00-19:00) | no_parking @ (Mo-Fr 09:00-19:00) | no_standing @ (Mo-Fr 09:00-19:00) | no_stopping @ (Mo-Fr 09:00-19:00)" 
+                values_no_i18n="true" values_sort="false" match="none" editable="true"/>
+            <combo key="parking:condition:both:maxstay" text="Time Limit both sides" values="30 minutes,60 minutes,180 minutes,1 hour,1.5 hours,1 day,3 days,2 weeks,4 months,1.5 years,unlimited" display_values="30 minutes,60 minutes,180 minutes,1 hour,1.5 hours,1 day,3 days,2 weeks,4 months,1.5 years,Unlimited" values_no_i18n="true" values_sort="false" match="none" editable="true"/>
+            <combo key="parking:condition:both:maxstay:conditional" text="Time Limit both sides @" delimiter="|" 
+                values="30 minutes @ (Mo-Fr 09:00-19:00) | 60 minutes @ (Mo-Fr 09:00-19:00) | 180 minutes @ (Mo-Fr 09:00-19:00) | 1 hour @ (Mo-Fr 09:00-19:00) | 1.5 hours @ (Mo-Fr 09:00-19:00) | unlimited @ (Mo-Fr 09:00-19:00) | no @ (Mo-Fr 09:00-19:00) | load-unload @ (Mo-Fr 09:00-19:00)" 
+                values_no_i18n="true" values_sort="false" match="none" editable="true"/>
+        </item>
+        <item name="Lane parking right-hand side" icon="icons/png/lane_parking_right.png" type="way,closedway" preset_name_label="true">
+            <label text="Lane parking right-hand side:" />
+            <combo key="parking:lane:right" text="Parking right-hand side" values_context="parking" match="key">
+                <list_entry value="parallel" short_description="Parallel to street"/>
+                <list_entry value="diagonal" short_description="Diagonal"/>
+                <list_entry value="perpendicular" short_description="Perpendicular"/>
+                <list_entry value="marked" short_description="Marked"/>
+                <list_entry value="no_parking" short_description="No parking" deprecated="true" />
+                <list_entry value="no_stopping" short_description="No stopping" deprecated="true" />
+                <list_entry value="fire_lane" short_description="Fire lane" deprecated="true" />
+            </combo>
+            <multiselect key="parking:condition:right" text="Parking condition right-hand side" values_context="parking" match="key">
+                <list_entry value="free" short_description="Free"/>
+                <list_entry value="ticket" short_description="Ticket"/>
+                <list_entry value="disc" short_description="Disc"/>
+                <list_entry value="residents" short_description="Residents"/>
+                <list_entry value="customers" short_description="Customers"/>
+                <list_entry value="private" short_description="Private"/>
+                <list_entry value="no_parking" short_description="No parking" />
+                <list_entry value="no_standing" short_description="No standing" />
+                <list_entry value="no_stopping" short_description="No stopping" />
+            </multiselect>
+            <combo key="parking:condition:right:conditional" text="Parking condition right-hand side @" delimiter="|" 
+                values="free @ (Mo-Fr 09:00-19:00) | ticket @ (Mo-Fr 09:00-19:00) | disc @ (Mo-Fr 09:00-19:00) | residents @ (Mo-Fr 09:00-19:00) | customers @ (Mo-Fr 09:00-19:00) | private @ (Mo-Fr 09:00-19:00) | no_parking @ (Mo-Fr 09:00-19:00) | no_standing @ (Mo-Fr 09:00-19:00) | no_stopping @ (Mo-Fr 09:00-19:00)" 
+                values_no_i18n="true" values_sort="false" match="none" editable="true"/>
+            <combo key="parking:condition:right:maxstay" text="Time Limit right-hand side" values="30 minutes,60 minutes,180 minutes,1 hour,1.5 hours,1 day,3 days,2 weeks,4 months,1.5 years,unlimited" display_values="30 minutes,60 minutes,180 minutes,1 hour,1.5 hours,1 day,3 days,2 weeks,4 months,1.5 years,Unlimited" values_no_i18n="true" values_sort="false" match="none" editable="true"/>
+            <combo key="parking:condition:right:maxstay:conditional" text="Time Limit right-hand side @" delimiter="|" 
+                values="30 minutes @ (Mo-Fr 09:00-19:00) | 60 minutes @ (Mo-Fr 09:00-19:00) | 180 minutes @ (Mo-Fr 09:00-19:00) | 1 hour @ (Mo-Fr 09:00-19:00) | 1.5 hours @ (Mo-Fr 09:00-19:00) | unlimited @ (Mo-Fr 09:00-19:00) | no @ (Mo-Fr 09:00-19:00) | load-unload @ (Mo-Fr 09:00-19:00)" 
+                values_no_i18n="true" values_sort="false" match="none" editable="true"/>
+        </item>
+        <item name="Lane parking left-hand side" icon="icons/png/lane_parking_left.png" type="way,closedway" preset_name_label="true">
+            <label text="Lane parking left-hand side:" />
+            <combo key="parking:lane:left" text="Parking left-hand side" values_context="parking" match="key">
+                <list_entry value="parallel" short_description="Parallel to street"/>
+                <list_entry value="diagonal" short_description="Diagonal"/>
+                <list_entry value="perpendicular" short_description="Perpendicular"/>
+                <list_entry value="marked" short_description="Marked"/>
+                <list_entry value="no_parking" short_description="No parking" deprecated="true" />
+                <list_entry value="no_stopping" short_description="No stopping" deprecated="true" />
+                <list_entry value="fire_lane" short_description="Fire lane" deprecated="true" />
+            </combo>
+            <multiselect key="parking:condition:left" text="Parking condition left-hand side" values_context="parking" match="key">
+                <list_entry value="free" short_description="Free"/>
+                <list_entry value="ticket" short_description="Ticket"/>
+                <list_entry value="disc" short_description="Disc"/>
+                <list_entry value="residents" short_description="Residents"/>
+                <list_entry value="customers" short_description="Customers"/>
+                <list_entry value="private" short_description="Private"/>
+                <list_entry value="no_parking" short_description="No parking" />
+                <list_entry value="no_standing" short_description="No standing" />
+                <list_entry value="no_stopping" short_description="No stopping" />
+            </multiselect>
+            <combo key="parking:condition:left:conditional" text="Parking condition left-hand side @" delimiter="|" 
+                values="free @ (Mo-Fr 09:00-19:00) | ticket @ (Mo-Fr 09:00-19:00) | disc @ (Mo-Fr 09:00-19:00) | residents @ (Mo-Fr 09:00-19:00) | customers @ (Mo-Fr 09:00-19:00) | private @ (Mo-Fr 09:00-19:00) | no_parking @ (Mo-Fr 09:00-19:00) | no_standing @ (Mo-Fr 09:00-19:00) | no_stopping @ (Mo-Fr 09:00-19:00)" 
+                values_no_i18n="true" values_sort="false" match="none" editable="true"/>
+            <combo key="parking:condition:left:maxstay" text="Time Limit left-hand side" values="30 minutes,60 minutes,180 minutes,1 hour,1.5 hours,1 day,3 days,2 weeks,4 months,1.5 years,unlimited" display_values="30 minutes,60 minutes,180 minutes,1 hour,1.5 hours,1 day,3 days,2 weeks,4 months,1.5 years,Unlimited" values_no_i18n="true" values_sort="false" match="none" editable="true"/>
+            <combo key="parking:condition:left:maxstay:conditional" text="Time Limit left-hand side @" delimiter="|" 
+                values="30 minutes @ (Mo-Fr 09:00-19:00) | 60 minutes @ (Mo-Fr 09:00-19:00) | 180 minutes @ (Mo-Fr 09:00-19:00) | 1 hour @ (Mo-Fr 09:00-19:00) | 1.5 hours @ (Mo-Fr 09:00-19:00) | unlimited @ (Mo-Fr 09:00-19:00) | no @ (Mo-Fr 09:00-19:00) | load-unload @ (Mo-Fr 09:00-19:00)" 
+                values_no_i18n="true" values_sort="false" match="none" editable="true"/>
+        </item>
+        <item name="Sidewalk right-hand side" icon="icons/png/sidewalk_right.png" type="way,closedway" preset_name_label="true">
+            <combo key="sidewalk:right" text="Sidewalk right" values_context="sidewalk" match="key">
+                <list_entry value="yes" short_description="Yes"/>
+                <list_entry value="no" short_description="No sidewalk"/>
+                <list_entry value="separate" short_description="Mapped separately"/>
+            </combo>
+            <combo key="sidewalk:right:surface" text="Sidewalk surface right" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,unhewn_cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud"
+                display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Unhewn cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface" match="none" />
+            <combo key="sidewalk:right:bicycle" text="Sidewalk right cycling" values="yes,designated,no" display_values="Yes,Designated,No" match="key"/>
+            <combo key="sidewalk:right:smoothness" text="Sidewalk right smoothness" values_searchable="true" values_sort="false">
+                <list_entry value="excellent" short_description="Thin Rollers: rollerblade, skateboard"/>
+                <list_entry value="good" short_description="Thin Wheels: racing bike"/>
+                <list_entry value="intermediate" short_description="Wheels: city bike, wheelchair, scooter"/>
+                <list_entry value="bad" short_description="Robust Wheels: trekking bike, car, rickshaw"/>
+                <list_entry value="very_bad" short_description="High Clearance: light duty off-road vehicle"/>
+                <list_entry value="horrible" short_description="Off-Road: heavy duty off-road vehicle"/>
+                <list_entry value="very_horrible" short_description="Specialized off-road: tractor, ATV"/>
+                <list_entry value="impassable" short_description="No wheeled vehicle"/>
+            </combo>
+            <text key="sidewalk:right:width" text="Sidewalk right width (m)"/>
+        </item>
+        <item name="Sidewalk left-hand side" icon="icons/png/sidewalk_left.png" type="way,closedway" preset_name_label="true">
+            <combo key="sidewalk:left" text="Sidewalk left" values_context="sidewalk" match="key">
+                <list_entry value="yes" short_description="Yes"/>
+                <list_entry value="no" short_description="No sidewalk"/>
+                <list_entry value="separate" short_description="Mapped separately"/>
+            </combo>
+            <combo key="sidewalk:left:surface" text="Sidewalk surface left" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,unhewn_cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud"
+                display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Unhewn cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface" match="none" />
+            <combo key="sidewalk:left:bicycle" text="Sidewalk left cycling" values="yes,designated,no" display_values="Yes,Designated,No" match="key"/>
+            <combo key="sidewalk:left:smoothness" text="Sidewalk left smoothness" values_searchable="true" values_sort="false">
+                <list_entry value="excellent" short_description="Thin Rollers: rollerblade, skateboard"/>
+                <list_entry value="good" short_description="Thin Wheels: racing bike"/>
+                <list_entry value="intermediate" short_description="Wheels: city bike, wheelchair, scooter"/>
+                <list_entry value="bad" short_description="Robust Wheels: trekking bike, car, rickshaw"/>
+                <list_entry value="very_bad" short_description="High Clearance: light duty off-road vehicle"/>
+                <list_entry value="horrible" short_description="Off-Road: heavy duty off-road vehicle"/>
+                <list_entry value="very_horrible" short_description="Specialized off-road: tractor, ATV"/>
+                <list_entry value="impassable" short_description="No wheeled vehicle"/>
+            </combo>
+            <text key="sidewalk:left:width" text="Sidewalk left width (m)"/>
+        </item>
     </group> <!-- Streets -->
     <group name="Ways" icon="icons/png/highway_way_sp.png" items_sort="false" >
         <item name="Track" icon="icons/png/highway_agricultural_engines_16001.png" type="way,closedway" preset_name_label="true">
@@ -6360,6 +6448,7 @@
             <link wiki="Tag:emergency=emergency_ward_entrance" />
             <space />
             <key key="emergency" value="emergency_ward_entrance" />
+            <combo key="entrance" text="Entrance" values="yes,main,emergency" display_values="Yes,Main,Emergency" values_context="entrance" default="yes" match="key"/>
             <optional>
                 <reference ref="name_operator" />
             </optional>
@@ -9820,7 +9909,7 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Bag -->
-        <item name="Outdoor" icon="icons/png/shopping_outdoor_29121.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Outdoor" icon="icons/png/shopping_outdoor_29121.png" type="node,closedway,multipolygon" name_context="shop" preset_name_label="true">
             <link wiki="Tag:shop=outdoor"/>
             <space/>
             <key key="shop" value="outdoor"/>
