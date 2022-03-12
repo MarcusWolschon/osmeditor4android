@@ -1,5 +1,21 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.0.4:
+
+- Fix Note upload business logic when note was previously closed
+- Fix Don't show merge button if only one element is selected
+- Fix Ignore most configuration changes in Authorize activity
+- Fix Use no arg constructor as logic might not be available
+- Fix Ignore URls containing "piwik" when authorizing
+- Fix route/relation connection calculation
+- Fix IOBE when sorting relation members
+- Fix Always try to match preset (regression)
+- Update preset
+- Update NSI
+- Update translations
+- Update imagery from ELI
+- Switch to acrarium as crsh dump store
+
 17.0.3:
 
 - Update bentley-ottman dependency, this allows us to re-enable the way intersection facility
