@@ -203,7 +203,7 @@ public final class TransferTasks {
                         if (b instanceof Note) {
                             Note n = (Note) b;
                             NoteComment nc = n.getLastComment();
-                            uploadFailed = (uploadNote(server, n, nc != null && nc.isNew() ? nc.getText() : null, n.isClosed()).getError() != ErrorCodes.OK)
+                            uploadFailed = (uploadNote(server, n, nc != null && nc.isNew() ? nc : null, n.isClosed()).getError() != ErrorCodes.OK)
                                     || uploadFailed;
                         } else if (b instanceof OsmoseBug) {
                             uploadFailed = (OsmoseServer.changeState(activity, (OsmoseBug) b).getError() != ErrorCodes.OK) || uploadFailed;
@@ -280,26 +280,23 @@ public final class TransferTasks {
      * @param close if true close the Note
      * @return an UploadResult object indicating the result of the operation
      */
-    private static UploadResult uploadNote(@NonNull final Server server, @NonNull final Note note, @Nullable final String comment, final boolean close) {
+    private static UploadResult uploadNote(@NonNull final Server server, @NonNull final Note note, @Nullable final NoteComment comment, final boolean close) {
         Log.d(DEBUG_TAG, "uploadNote " + server.getReadWriteUrl());
         UploadResult result = new UploadResult();
         try {
             boolean newNote = note.isNew();
-            boolean isClosed = note.getOriginalState() == State.CLOSED;
-            if (!newNote && isClosed && !close) {
+            boolean wasClosed = note.getOriginalState() == State.CLOSED;
+            if (!newNote && wasClosed && !close) {
                 // reopen, do this before trying to add anything
                 server.reopenNote(note);
             }
-
-            if (!isClosed) {
-                if (comment != null && comment.length() > 0) {
-                    // Make the comment
-                    NoteComment bc = new NoteComment(note, comment);
+            if (!(wasClosed && close)) { // this doesn't make sense
+                if (comment != null && comment.getText().length() > 0) {
                     // Add or edit the bug as appropriate
                     if (newNote) {
-                        server.addNote(note, bc);
+                        server.addNote(note, comment);
                     } else {
-                        server.addComment(note, bc);
+                        server.addComment(note, comment);
                     }
                 }
                 // Close the bug if requested, but only if there haven't been any problems
@@ -354,8 +351,8 @@ public final class TransferTasks {
      * @param postUploadHandler execute code after an upload
      * @return true if upload was successful
      */
-    public static boolean uploadNote(@NonNull final FragmentActivity activity, @NonNull final Server server, @NonNull final Note note, final String comment,
-            final boolean close, @Nullable final PostAsyncActionHandler postUploadHandler) {
+    public static boolean uploadNote(@NonNull final FragmentActivity activity, @NonNull final Server server, @NonNull final Note note,
+            @Nullable final NoteComment comment, final boolean close, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "uploadNote");
         PostAsyncActionHandler restartAction = () -> {
             Preferences prefs = new Preferences(activity); // need to re-get this post authentication

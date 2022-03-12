@@ -50,6 +50,7 @@ import de.blau.android.exception.OsmServerException;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Note;
+import de.blau.android.tasks.NoteComment;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.Util;
@@ -662,7 +663,7 @@ public class ApiTest {
             final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
             Note n = new Note((int) (51.0 * 1E7D), (int) (0.1 * 1E7D));
             assertTrue(n.isNew());
-            assertTrue(TransferTasks.uploadNote(main, s, n, "ThisIsANote", false, new FailOnErrorHandler(signal)));
+            assertTrue(TransferTasks.uploadNote(main, s, n, new NoteComment(n, "ThisIsANote"), false, new FailOnErrorHandler(signal)));
         } catch (Exception e) {
             fail(e.getMessage());
         }

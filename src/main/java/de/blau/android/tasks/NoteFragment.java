@@ -16,6 +16,7 @@ import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
 import de.blau.android.tasks.Task.State;
+import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 
 /**
@@ -93,7 +94,7 @@ public class NoteFragment extends TaskFragment {
     protected <T extends Task> void update(Server server, PostAsyncActionHandler handler, T task) {
         Note n = (Note) task;
         NoteComment nc = n.getLastComment();
-        TransferTasks.uploadNote(getActivity(), server, n, (nc != null && nc.isNew()) ? nc.getText() : null, n.getState() == State.CLOSED, handler);
+        TransferTasks.uploadNote(getActivity(), server, n, nc != null && nc.isNew() ? nc : null, n.getState() == State.CLOSED, handler);
     }
 
     @Override
@@ -133,8 +134,9 @@ public class NoteFragment extends TaskFragment {
                 boolean changed = changed(state.getSelectedItemPosition());
                 save.setEnabled(changed);
                 upload.setEnabled(changed);
-                if (comment.length() != 0) {
+                if (comment.length() != 0 && state.getSelectedItemPosition() != State.OPEN.ordinal()) {
                     state.setSelection(State.OPEN.ordinal());
+                    Snack.toastTopInfo(getContext(), R.string.toast_note_reopened);
                 }
             }
 
