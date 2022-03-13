@@ -353,6 +353,10 @@ public class MapOverlay extends MapViewLayer
     @Override
     public void deselectObjects() {
         selected = null;
+        final Context ctx = map.getContext();
+        if (ctx instanceof Main && ((Main) ctx).getEasyEditManager().inNewNoteSelectedMode()) {
+            ((Main) ctx).getEasyEditManager().finish();
+        }
     }
 
     @Override

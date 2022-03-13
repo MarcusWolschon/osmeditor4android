@@ -274,15 +274,18 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
     /**
      * Get the complete bug comment suitable for use with the OSB database.
      * 
-     * @return All the comments concatenated (joined with &lt;hr /&gt;).
+     * @return All existing comments concatenated (joined with &lt;hr /&gt;).
      */
+    @NonNull
     public String getComment() {
         StringBuilder result = new StringBuilder();
         for (NoteComment comment : comments) {
-            if (result.length() > 0) {
-                result.append("<hr />");
+            if (!comment.isNew()) {
+                if (result.length() > 0) {
+                    result.append("<hr />");
+                }
+                result.append(comment.toString());
             }
-            result.append(comment.toString());
         }
         return result.toString();
     }

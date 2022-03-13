@@ -9,6 +9,7 @@ import org.xmlpull.v1.XmlSerializer;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.osm.JosmXmlSerializable;
 import de.blau.android.util.DateFormatter;
 
@@ -90,6 +91,18 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
     @Nullable
     public String getText() {
         return text;
+    }
+
+    /**
+     * Set the comment text, this is only permissible for new comments
+     * 
+     * @param text the comment text
+     */
+    public void setText(@Nullable String text) {
+        if (!isNew()) {
+            throw new IllegalOperationException("Attempt to set text for an existing note");
+        }
+        this.text = text;
     }
 
     /**
@@ -180,5 +193,4 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
         s.text(text);
         s.endTag("", COMMENT_TAG);
     }
-
 }
