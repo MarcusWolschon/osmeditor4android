@@ -183,7 +183,7 @@ public class LongClickTest {
         assertEquals(1, tasks.size());
         Task t = tasks.get(0);
         assertTrue(t instanceof Note);
-        assertEquals("test", ((Note) t).getComment());
+        assertEquals("test", ((Note) t).getLastComment());
         LayerUtils.removeTaskLayer(main);
     }
 }

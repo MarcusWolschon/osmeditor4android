@@ -104,20 +104,19 @@ public class NoteFragment extends TaskFragment {
         comments.setAutoLinkMask(Linkify.WEB_URLS);
         comments.setMovementMethod(LinkMovementMethod.getInstance());
         comments.setTextIsSelectable(true);
-        NoteComment nc = ((Note) task).getLastComment();
         elementLayout.setVisibility(View.GONE); // not used for notes
         boolean hasSavedState = savedInstanceState != null && savedInstanceState.containsKey(COMMENT_KEY);
-        if ((task.isNew() && ((Note) task).count() == 0) || (nc != null && !nc.isNew()) || hasSavedState) {
-            // only show comment field if we don't have an unsaved comment
-            Log.d(DEBUG_TAG, "enabling comment field");
-            comment.setText(hasSavedState ? savedInstanceState.getString(COMMENT_KEY) : "");
-            comment.setFocusable(true);
-            comment.setFocusableInTouchMode(true);
-            comment.setEnabled(true);
-        } else {
-            commentLabel.setVisibility(View.GONE);
-            comment.setVisibility(View.GONE);
+        NoteComment lastComment = ((Note) task).getLastComment();
+        String commentText = "";
+        if (hasSavedState) {
+            commentText = savedInstanceState.getString(COMMENT_KEY);
+        } else if (lastComment != null && lastComment.isNew()) {
+            commentText = lastComment.getText();
         }
+        comment.setText(commentText);
+        comment.setFocusable(true);
+        comment.setFocusableInTouchMode(true);
+        comment.setEnabled(true);
         return ArrayAdapter.createFromResource(getActivity(), R.array.note_state, android.R.layout.simple_spinner_item);
     }
 
@@ -160,7 +159,10 @@ public class NoteFragment extends TaskFragment {
     @Override
     protected <T extends Task> void saveTaskSpecific(T task) {
         String c = comment.getText().toString();
-        if (c.length() > 0) {
+        NoteComment lastComment = ((Note) task).getLastComment();
+        if (lastComment != null && lastComment.isNew()) {
+            lastComment.setText(c);
+        } else if (c.length() > 0) {
             ((Note) task).addComment(c);
         }
     }
