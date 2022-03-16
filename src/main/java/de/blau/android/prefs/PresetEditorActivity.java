@@ -42,7 +42,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
-import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.MimeTypes;
@@ -272,8 +271,7 @@ public class PresetEditorActivity extends URLListEditActivity {
             PresetEditorActivity.super.sendResultIfApplicable(item);
             return;
         }
-        Logic logic = App.getLogic();
-        new ExecutorTask<Void, Integer, Integer>(logic.getExecutorService(), logic.getHandler()) {
+        new ExecutorTask<Void, Integer, Integer>() {
             private boolean canceled = false;
 
             private static final int RESULT_TOTAL_FAILURE       = 0;
