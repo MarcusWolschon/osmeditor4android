@@ -1,5 +1,11 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.0.5:
+
+- Fix potential crash when downloading presets
+- Update presets - fixes issue with wrong entrance matching
+- Update translations
+
 17.0.4:
 
 - Fix Note upload business logic when note was previously closed
