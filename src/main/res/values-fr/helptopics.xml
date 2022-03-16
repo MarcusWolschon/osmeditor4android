@@ -28,6 +28,8 @@
     <string name="help_newnoteselection">Sélection d\'une nouvelle note</string>
     <string name="help_voice_commands">Commandes vocales</string>
     <string name="help_add_route_segment">Ajout de segment de route</string>
+    <string name="help_upgrade">Notes de la version 17.0</string>
+    <string name="help_upgrade_161">Notes de la version 16.1</string>
     <string name="help_upgrade_160">Notes de publication de la version 16.0</string>
     <string name="help_upgrade_152">Notes de publication de la version 15.2</string>
     <string name="help_upgrade_151">Notes de publication de la version 15.1</string>

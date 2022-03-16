@@ -111,6 +111,7 @@
   <string name="openstreetbug_edit_title">Modifier la note</string>
   <string name="openstreetbug_comment_label">Commentaire :</string>
   <string name="openstreetbug_commit_ok">Modifications de tâche prises en compte</string>
+  <string name="openstreetbug_commit_fail">Impossible de sauvegarder vos modifications</string>
   <string name="openstreetbug_unknown_task_type">Type de tâche inconnue</string>
   <string name="openstreetbug_not_supported">%1$s n\'est pas supporté.</string>
   <string name="note_description">Remarque : %1$s - %2$s</string>
@@ -323,6 +324,7 @@
   <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Supprimer la photo</string>
+  <string name="photo_viewer_delete_button">Supprimer définitivement</string>
   <string name="photo_viewer_goto">Aller à la photo</string>
   <string name="photo_viewer_label">Visionneuse de photos</string>
   <string name="mapillary_viewer_label">Visionneuse Mapillary</string>
@@ -411,6 +413,7 @@
   <!---->
   <string name="toast_oauth_retry">Envoyez les données de nouveau après avoir accepté l\'accès OAuth à votre compte OSM.</string>
   <string name="toast_oauth">Veuillez autoriser l\'accès à votre compte OSM via OAuth</string>
+  <string name="toast_no_oauth">OAuth n\'est pas disponible pour l\'API \"%1$s\", merci de saisir votre identifiant et votre mot de passe.</string>
   <string name="toast_oauth_not_enabled">OAuth n\'est pas activé pour l\'API actuelle.</string>
   <string name="toast_oauth_timeout">Délai d\'attente dépassé pendant la phase d\'authentification, réessayez.</string>
   <string name="toast_oauth_communication">Erreur de communication pendant la phase d\'authentification, réessayez.</string>
@@ -472,6 +475,7 @@
   <string name="toast_not_mbtiles">Ce n\'est pas un fichier au format MBTiles</string>
   <string name="toast_using_network_location">Utilisation de l\'emplacement par le réseau</string>
   <string name="toast_using_gps_location">Utilisation de l\'emplacement du GPS / GNSS</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS désactivé, pensez à arrêter l\'enregistrement de votre tracé.</string>
   <string name="toast_remote_nmea_connection">Connexion NMEA distante depuis/vers %1$s</string>
   <string name="toast_remote_nmea_connection_closed">Connexion NMEA distante fermée</string>
   <string name="toast_tags_copied">Attributs copiés dans le presse-papier</string>
@@ -672,6 +676,7 @@
   <string name="menu_append">Prolonger</string>
   <string name="menu_relation">Créer une relation</string>
   <string name="menu_edit_relation">Modifier une relation</string>
+  <string name="menu_add_relation_member">Ajouter / enlever un membre</string>
   <string name="menu_select_relation_members">Sélectionner des membres</string>
   <string name="menu_tag">Modifier les attributs</string>
   <string name="menu_openstreetbug">Ajouter une note</string>
@@ -801,6 +806,7 @@
   <string name="reverse_anyway">Inverser quand même</string>
   <string name="deleteway_description">Vous êtes sur le point de supprimer un chemin. Vous pouvez soit conserver tous ses nœuds, soit supprimer les nœuds sans attribut et n\'appartenant qu\'à ce chemin.</string>
   <string name="deleteway_relation_description">Vous êtes sur le point de supprimer un chemin qui appartient à une ou plusieurs relations. Supprimer un chemin d\'une relation peut la rendre invalide.</string>
+  <string name="deleteway_nodesnotdownloaded_description">Le chemin contient des nœuds pas encore téléchargés et ne peut pas être supprimé sans risque pour les données.\n\nAgrandissez la zone de téléchargement et réessayez.</string>
   <string name="deleteway_wayonly">Supprimer uniquement le chemin</string>
   <string name="deleteway_wayandnodes">Supprimer le chemin</string>
   <string name="deletenode_relation_description">Vous êtes sur le point de supprimer un nœud qui appartient à une ou plusieurs relations. Supprimer un nœud d\'une relation peut la rendre invalide.</string>
@@ -833,6 +839,7 @@
   <string name="actionmode_restriction_split_from">Séparer le segment « from »</string>
   <string name="actionmode_restriction_split_via">Séparer le segment « via »</string>
   <string name="actionmode_extract_segment_select">Sélectionner le segment</string>
+  <string name="actionmode_extract_segment_set_tags">Mettre les attributs</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">un objet</item>
     <item quantity="other">%1$d objets</item>
@@ -856,6 +863,7 @@
   <string name="config_overlayLayer_title">Couche supplémentaire</string>
   <string name="config_overlayLayer_summary">La surcouche sous forme de tuiles.</string>
   <string name="config_customlayers_title">Couches personnalisées</string>
+  <string name="config_customlayers_summary">La gestion des couches ne fait pas partie de la configuration par défaut.</string>
   <string name="config_scale_title">Affichage de l\'échelle</string>
   <string name="config_scale_summary">Type d\'échelle à afficher sur la carte.</string>
   <string name="config_mapProfile_title">Style de données</string>
@@ -1104,6 +1112,7 @@
   <string name="tracking_active_title">Service en tâche de fond de Vespucci</string>
   <string name="tracking_active_title_short">Service de tâche de fond actif</string>
   <string name="tracking_active_text">Enregistrement d\'une trace GPS ou téléchargement automatique</string>
+  <string name="tracking_long_text">Vespucci enregistre une trace GPX ou effectue un téléchargement automatique. Pour arrêter complètement appuyez sur le bouton ci-dessous ou sur le bouton retour dans l\'appli.</string>
   <string name="gps_failure">Échec de l\'activation du GPS</string>
   <!--element description-->
   <string name="address_housenumber">Adresse%1$s</string>

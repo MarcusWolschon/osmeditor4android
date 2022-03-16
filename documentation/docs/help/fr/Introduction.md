@@ -18,18 +18,18 @@ Selon la taille de votre écran et l'âge de l'appareil, les actions d'édition 
 
 Selectionnez soit l’icône de transfert ![Transfer](../images/menu_transfer.png), soit l'onglet Transfert dans le menu. Cela affiche sept options :
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
-* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
-* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Télécharger la vue actuelle** - télécharge la zone visible à l'écran et la fusionne avec les données existantes *(nécessite une connectivité réseau ou une source de données hors ligne)*
+* **Effacer et télécharger la vue actuelle** - efface toutes les données en mémoire puis télécharge la zone visible à l'écran *(nécessite une connectivité réseau)*
+* **Envoyer les données sur le serveur OSM** - envoi les modifications effectuées à OpenStreetMap *(nécessite une authentification)* *(nécessite une connectivité réseau)*
+* **Mettre à jour les données** - télécharge à nouveau les données pour toutes les zones et met à jour ce qui est en mémoire *(nécessite une connectivité réseau)*
+* **Téléchargement automatique basé sur votre position réelle** - télécharge automatiquement une zone autour de votre position géographique actuelle *(nécessite une connectivité réseau ou des données hors ligne)* *(nécessite un GPS)*
+* **Téléchargement automatique en suivant le déplacement et le niveau de zoom** - télécharge automatiquement les données pour la zone de carte en cours *(nécessite une connectivité réseau ou des données hors ligne)* *(nécessite un GPS)*
+* **Fichier...** - enregistre ou charge des données OSM vers ou depuis des fichiers de l'appareil.
+* **Note/Bugs...** - télécharge (automatiquement ou manuellement) les notes OSM et les "Erreurs" à partir des outils d'amélioration de la Qualité (actuellement uniquement OSMOSE) *(nécessite une connectivité réseau)*
 
 La manière la plus simple de télécharger des données est de zoomer et de se déplacer vers le lieu que vous voulez éditer, puis de sélectionner « Télécharger la vue courante ». Vous pouvez zoomer avec deux doigts, avec les boutons de zoom, ou avec les boutons de volume de l'appareil. Vespucci va alors télécharger les données de la vue courante. Il n'y a pas besoin d'être authentifié pour télécharger les données sur votre appareil. 
 
-With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md).
+Avec les paramètres par défaut, toutes les zones non téléchargées seront grisées contrairement à celles téléchargées, ceci afin d'éviter d'ajouter par inadvertance des objets en double dans des zones qui n'ont pas été encore chargées. Vous pouvez changer cela dans les [Préférences avancées](Advanced%20preferences.md).
 
 ### Éditer
 
@@ -41,11 +41,11 @@ Pour éviter des modifications accidentelles Vespucci démarre en mode « verrou
 
 Appuyez longuement sur l'icône de verrouillage pour afficher un menu qui offre actuellement 4 options :
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Normal** - le mode d'édition par défaut. De nouveaux objets peuvent être ajoutés, ceux existants modifiés, déplacés ou supprimés. Icône affichée : un cadenas blanc simple.
+* **Attributs uniquement** - la sélection d'un objet existant ouvrira l'éditeur de propriétés, un appui long sur l'écran permettra d'ajouter des objets mais aucune autre opération de géométrie (par exemple déplacer un nœud) ne fonctionnera. Icône affichée : un cadenas blanc avec un "T" (pour Tag).
+* **Adresse** - active le mode Adresse, un mode légèrement simplifié avec des actions spécifiques disponibles à partir du bouton "+" [Mode simple](../en/Simple%20actions.md). Icône affichée : un cadenas blanc avec un "A".
+* **Intérieur** - active le mode Intérieur, voir [Mode Intérieur](#indoor). Icône affichée : un cadenas blanc avec un "I".
+* **C-Mode** - active le C-Mode. Seuls les objets qui ont un drapeau d'avertissement seront affichés, voir [C-Mode](#c-mode). Icône affichée : un cadenas blanc avec un "C".
 
 #### Appui simple, appui double, et appui long
 
@@ -81,7 +81,7 @@ Remarquez que pour les objets se chevauchant (tel qu'un nœud sur une voie) le m
 
 ### Objet sélectionné : déplacer un nœud ou une voie
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
+Une fois que vous avez sélectionné un objet, vous pouvez le déplacer. Notez que les objets ne peuvent être glissés/déplacés que lorsqu'ils sont sélectionnés. Faites simplement glisser l'objet sélectionné à proximité (c'est-à-dire dans la zone de tolérance de celui-ci) pour le déplacer. Si vous avez sélectionné la grande zone de glissement dans les [préférences] (Preferences.md), vous obtenez une grande zone autour du nœud sélectionné qui facilite le positionnement de l'objet. 
 
 #### Ajouter un nouveau nœud ou un nouveau point sur un chemin 
 
@@ -93,18 +93,18 @@ Appuyez sur le gros bouton vert flottant sur la carte pour afficher un menu. Apr
 
 Voir [Créer de nouveaux objets dans le mode d'actions simples](Creating%20new%20objects%20in%20simple%20actions%20mode.md) pour plus d'informations.
 
-##### Advanced (long press) mode
+##### Mode avancé (appui long)
  
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), touch away from existing objects.
-* If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+Appuyez longuement à l'endroit où vous voulez créer un nouveau nœud (que ce soit pour créer uniquement un nœud ou pour démarrer un nouveau chemin) ou appuyez longuement sur un nœud existant. Vous verrez un symbole de type croix noire. 
+* Si vous souhaitez que ce nœud soit non connecté à un objet, appuyez loin des objets existants.
+* Si vous souhaitez que ce nœud soit rattaché à un nœud ou à un chemin existant, touchez dans la "zone de tolérance" du nœud ou du chemin (la zone de tolérance est indiquée par les zones autour d'un nœud ou d'un chemin).
 
 Une fois que vous pouvez voir le symbole « réticule », vous avez trois options :
 
-* _Normal press in the same place._
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* _Normal touch in another place._ Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+* _Appuyez normalement au même endroit._
+    * Si la croix n'est pas proche d'un nœud, toucher à nouveau le même emplacement crée un nouveau nœud. Si vous êtes près d'un chemin (mais pas près d'un nœud), le nouveau nœud sera sur le chemin (et connecté au chemin).
+   * Si le réticule est proche d'un nœud (c'est-à-dire dans la zone de tolérance du nœud), toucher le même emplacement sélectionne simplement le nœud et l'éditeur des attributs s'ouvre. Aucun nouveau nœud n'est créé. L'action est la même que la sélection ci-dessus.
+* _Toucher normalement à un autre endroit._ Toucher un autre endroit (en dehors de la zone de tolérance du réticule) ajoute un segment de chemin de la position d'origine à la position actuelle. Si le réticule était proche d'un chemin ou d'un nœud, le nouveau segment sera connecté à ce nœud ou à ce chemin.
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. 
 
@@ -187,11 +187,11 @@ L'affichage des bugs Osmose fournit un lien vers l'objet affecté en bleu. Appuy
 Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
 * Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
+* Erreur d'Osmose
+* Avertissement d'Osmose
+* Problème mineur d'Osmose
 * Maproulette
-* Custom
+* Personnalisé
 
 <a id="indoor"></a>
 
