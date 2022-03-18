@@ -21,6 +21,8 @@ import androidx.core.content.ContextCompat;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.RemoteControlUrlActivity;
+import de.blau.android.contract.Schemes;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -40,10 +42,9 @@ import de.blau.android.validation.Validator;
  *
  */
 public final class IssueAlert {
-    private static final String QA_CHANNEL = "qa";
+    private static final String DEBUG_TAG = "IssueAlert";
 
-    static final String DEBUG_TAG = "IssueAlert";
-
+    private static final String QA_CHANNEL      = "qa";
     private static final String PAACKGE_NAME    = "de.blau.android";
     private static final String GROUP_DATA      = PAACKGE_NAME + ".Data";
     private static final int    GROUP_DATA_ID   = GROUP_DATA.hashCode();
@@ -77,7 +78,7 @@ public final class IssueAlert {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         Location location = null;
         try {
-            location = locationManager.getLastKnownLocation("gps");
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         } catch (SecurityException sex) {
             // can be safely ignored
         }
@@ -167,10 +168,14 @@ public final class IssueAlert {
         Intent resultIntent = new Intent(Intent.ACTION_VIEW);
         try {
             BoundingBox box = GeoMath.createBoundingBoxForCoordinates(eLat, eLon, prefs.getDownloadRadius(), true);
-
-            Uri rc = Uri.parse("http://127.0.0.1:8111/load_and_zoom?left=" + box.getLeft() / 1E7D + "&right=" + box.getRight() / 1E7D + "&top="
-                    + box.getTop() / 1E7D + "&bottom=" + box.getBottom() / 1E7D + "&select=" + e.getName() + e.getOsmId()); // NOSONAR
-            // JOSM RC assumes localhost
+            Uri.Builder builder = new Uri.Builder();
+            builder.scheme(Schemes.JOSM).appendPath(RemoteControlUrlActivity.LOAD_AND_ZOOM_COMMAND)
+                    .appendQueryParameter(RemoteControlUrlActivity.LEFT_PARAMETER, Double.toString(box.getLeft() / 1E7D))
+                    .appendQueryParameter(RemoteControlUrlActivity.RIGHT_PARAMETER, Double.toString(box.getRight() / 1E7D))
+                    .appendQueryParameter(RemoteControlUrlActivity.TOP_PARAMETER, Double.toString(box.getLeft() / 1E7D))
+                    .appendQueryParameter(RemoteControlUrlActivity.BOTTOM_PARAMETER, Double.toString(box.getTop() / 1E7D))
+                    .appendQueryParameter(RemoteControlUrlActivity.SELECT_PARAMETER, e.getName() + e.getOsmId());
+            Uri rc = builder.build();
             Log.d(DEBUG_TAG, rc.toString());
             resultIntent.setData(rc);
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
@@ -217,7 +222,7 @@ public final class IssueAlert {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         Location location = null;
         try {
-            location = locationManager.getLastKnownLocation("gps");
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         } catch (SecurityException sex) {
             // can be safely ignored
         }
@@ -263,7 +268,7 @@ public final class IssueAlert {
             return;
         }
         Intent resultIntent = new Intent(Intent.ACTION_VIEW);
-        Uri geo = Uri.fromParts("geo", eLat + "," + eLon, null);
+        Uri geo = Uri.fromParts(Schemes.GEO, eLat + "," + eLon, null);
         resultIntent.setData(geo);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         // Adds the back stack for the Intent (but not the Intent itself)
