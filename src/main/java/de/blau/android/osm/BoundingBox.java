@@ -503,7 +503,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * 
      * @return true, if the bbox is smaller than 0.5*0.5 (here multiplied by 1E7) degree.
      */
-    public boolean isValidForApi() {
+    public boolean isValidForApi() { // FIXME this should use the values from the API Capabilities
         return width < API_MAX_DEGREE_DIFFERENCE && height < API_MAX_DEGREE_DIFFERENCE;
     }
 
