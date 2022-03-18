@@ -49,6 +49,7 @@ import de.blau.android.AsyncResult;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.filter.Filter;
 import de.blau.android.layer.ConfigureInterface;
+import de.blau.android.layer.Downloader;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.LayerType;
@@ -345,7 +346,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     /**
      * Runnable for downloading data
      */
-    Runnable download = new Runnable() {
+    Downloader download = new Downloader() {
 
         final PostMergeHandler postMerge = new PostMergeHandler() {
             @Override
@@ -354,12 +355,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             }
         };
 
-        private long lastAutoPrune = 0;
-
         @Override
-        public void run() {
+        protected void download() {
             List<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
-            ViewBox box = new ViewBox(map.getViewBox());
             box.scale(1.2); // make sides 20% larger
             box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
             List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
@@ -422,6 +420,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         Location location = map.getLocation();
         if (zoomLevel >= panAndZoomLimit && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
             map.getRootView().removeCallbacks(download);
+            download.setBox(map.getViewBox());
             map.getRootView().postDelayed(download, 100);
         }
         paintOsmData(canvas);
