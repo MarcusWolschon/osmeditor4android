@@ -25,6 +25,7 @@ import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.DiscardInterface;
+import de.blau.android.layer.Downloader;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.LayerType;
@@ -113,11 +114,10 @@ public class MapOverlay extends MapViewLayer
      * 
      * There is some code duplication here, however attempts to merge this didn't work out
      */
-    Runnable download = new Runnable() {
-        private long lastAutoPrune = 0;
+    Downloader download = new Downloader() {
 
         @Override
-        public void run() {
+        protected void download() {
             if (mThreadPool == null) {
                 mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
             }
@@ -165,6 +165,7 @@ public class MapOverlay extends MapViewLayer
 
             if (zoomLevel >= panAndZoomLimit && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
                 map.getRootView().removeCallbacks(download);
+                download.setBox(map.getViewBox());
                 map.getRootView().postDelayed(download, 100);
             }
 
