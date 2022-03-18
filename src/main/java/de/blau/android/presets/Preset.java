@@ -1648,7 +1648,10 @@ public class Preset implements Serializable {
                 continue; // isn't going to help
             }
             int matches = 0;
-            if (fixedTagCount > 0 && possibleMatch.matches(tags)) {
+            if (fixedTagCount > 0) {
+                if (!possibleMatch.matches(tags)) {
+                    continue; // minimum requirement
+                }
                 // has all required tags
                 matches = fixedTagCount;
             }
