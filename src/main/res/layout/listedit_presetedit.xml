@@ -18,9 +18,22 @@
         android:inputType="text">
         <requestFocus />
     </EditText>
+    <TextView
+        android:id="@+id/listedit_labelVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/version" />
+    <TextView
+        android:id="@+id/listedit_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium" 
+        android:inputType="text">
+    </TextView>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
         <TextView
             android:id="@+id/listedit_labelValue"
             android:layout_width="wrap_content"

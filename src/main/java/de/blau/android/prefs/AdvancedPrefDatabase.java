@@ -48,7 +48,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     private final SharedPreferences sharedPrefs;
     private final String            selectedApi;
 
-    private static final int DATA_VERSION = 15;
+    private static final int DATA_VERSION = 16;
 
     /** The ID string for the default API and the default Preset */
     public static final String ID_DEFAULT = "default";
@@ -59,14 +59,16 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     private static final String ID_DEFAULT_GEOCODER_PHOTON    = "Photon";
     private static final String VERSION_COL                   = "version";
 
-    private static final String PRESETS_TABLE       = "presets";
-    private static final String ID_COL              = "id";
-    private static final String POSITION_COL        = "position";
-    private static final String NAME_COL            = "name";
-    private static final String URL_COL             = "url";
-    private static final String USETRANSLATIONS_COL = "usetranslations";
-    private static final String LASTUPDATE_COL      = "lastupdate";
-    private static final String ACTIVE_COL          = "active";
+    private static final String PRESETS_TABLE        = "presets";
+    private static final String ID_COL               = "id";
+    private static final String POSITION_COL         = "position";
+    private static final String NAME_COL             = "name";
+    private static final String URL_COL              = "url";
+    private static final String USETRANSLATIONS_COL  = "usetranslations";
+    private static final String LASTUPDATE_COL       = "lastupdate";
+    private static final String ACTIVE_COL           = "active";
+    private static final String SHORTDESCRIPTION_COL = "shortdescription";
+    private static final String DESCRIPTION_COL      = "description";
 
     private static final String APIS_TABLE            = "apis";
     private static final String ACCESSTOKENSECRET_COL = "accesstokensecret";
@@ -121,7 +123,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         db.execSQL(
                 "CREATE TABLE apis (id TEXT, name TEXT, url TEXT, readonlyurl TEXT, notesurl TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT)");
         db.execSQL(
-                "CREATE TABLE presets (id TEXT, name TEXT, url TEXT, lastupdate TEXT, data TEXT, position INTEGER DEFAULT 0, active INTEGER DEFAULT 0, usetranslations INTEGER DEFAULT 1)");
+                "CREATE TABLE presets (id TEXT, name TEXT, url TEXT, version TEXT DEFAULT NULL, shortdescription TEXT DEFAULT NULL, description TEXT DEFAULT NULL, lastupdate TEXT, data TEXT, position INTEGER DEFAULT 0, active INTEGER DEFAULT 0, usetranslations INTEGER DEFAULT 1)");
         db.execSQL("CREATE TABLE geocoders (id TEXT, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
         addGeocoder(db, ID_DEFAULT_GEOCODER_NOMINATIM, ID_DEFAULT_GEOCODER_NOMINATIM, GeocoderType.NOMINATIM, 0, Urls.DEFAULT_NOMINATIM_SERVER, true);
         addGeocoder(db, ID_DEFAULT_GEOCODER_PHOTON, ID_DEFAULT_GEOCODER_PHOTON, GeocoderType.PHOTON, 0, Urls.DEFAULT_PHOTON_SERVER, true);
@@ -222,6 +224,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
                 Log.w(DEBUG_TAG, "fixing up offset server url");
                 prefs.edit().putString(offsetServerKey, Urls.DEFAULT_OFFSET_SERVER).commit();
             }
+        }
+        if (oldVersion <= 15 && newVersion >= 16) {
+            db.execSQL("ALTER TABLE presets ADD COLUMN version TEXT DEFAULT NULL");
+            db.execSQL("ALTER TABLE presets ADD COLUMN shortdescription TEXT DEFAULT NULL");
+            db.execSQL("ALTER TABLE presets ADD COLUMN description TEXT DEFAULT NULL");
         }
     }
 
@@ -548,6 +555,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
                 } else {
                     activePresets[i] = new Preset(context, getPresetDirectory(pi.id), null, pi.useTranslations);
                 }
+                Preset preset = activePresets[i];
+                if (preset != null) {
+                    setAdditionalFieldsFromPreset(pi, preset);
+                }
             } catch (Exception e) {
                 Log.e(DEBUG_TAG, "Failed to create preset", e);
                 Snack.toastTopError(context, context.getString(R.string.toast_preset_failed, pi.name, e.getLocalizedMessage()));
@@ -563,6 +574,21 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         }
         Log.d(DEBUG_TAG, "Elapsed time to read presets " + (System.currentTimeMillis() - start) / 1000);
         return activePresets;
+    }
+
+    /**
+     * Set the additional preset fields from a parsed preset (if they have changed)
+     * 
+     * @param pi a PresetInfo object with the current DB values
+     * @param preset a parsed Preset
+     */
+    private void setAdditionalFieldsFromPreset(@NonNull PresetInfo pi, @NonNull Preset preset) {
+        boolean versionChanged = preset.getVersion() != null && !preset.getVersion().equals(pi.version);
+        boolean shortDescriptionChanged = preset.getShortDescription() != null && !preset.getShortDescription().equals(pi.description);
+        boolean descriptionChanged = preset.getDescription() != null && !preset.getDescription().equals(pi.description);
+        if (versionChanged || shortDescriptionChanged || descriptionChanged) {
+            setPresetAdditionalFields(pi.id, preset.getVersion(), preset.getShortDescription(), preset.getDescription());
+        }
     }
 
     /**
@@ -631,15 +657,16 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     @NonNull
     public PresetInfo[] getActivePresets() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor dbresult = db.query(PRESETS_TABLE, new String[] { ID_COL, NAME_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL }, "active=1", null,
-                null, null, POSITION_COL);
+        Cursor dbresult = db.query(PRESETS_TABLE,
+                new String[] { ID_COL, NAME_COL, VERSION_COL, SHORTDESCRIPTION_COL, DESCRIPTION_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL },
+                "active=1", null, null, null, POSITION_COL);
         PresetInfo[] result = new PresetInfo[dbresult.getCount()];
         Log.d(DEBUG_TAG, "#prefs " + result.length);
         dbresult.moveToFirst();
         for (int i = 0; i < result.length; i++) {
             Log.d(DEBUG_TAG, "Reading pref " + i + " " + dbresult.getString(1));
-            result[i] = new PresetInfo(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getInt(4) == 1,
-                    dbresult.getInt(5) == 1);
+            result[i] = new PresetInfo(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getString(4),
+                    dbresult.getString(5), dbresult.getString(6), dbresult.getInt(7) == 1, dbresult.getInt(8) == 1);
             dbresult.moveToNext();
         }
         dbresult.close();
@@ -657,13 +684,14 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     @NonNull
     private synchronized PresetInfo[] getPresets(@Nullable String value, boolean byURL) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor dbresult = db.query(PRESETS_TABLE, new String[] { ID_COL, NAME_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL },
+        Cursor dbresult = db.query(PRESETS_TABLE,
+                new String[] { ID_COL, NAME_COL, VERSION_COL, SHORTDESCRIPTION_COL, DESCRIPTION_COL, URL_COL, LASTUPDATE_COL, ACTIVE_COL, USETRANSLATIONS_COL },
                 value == null ? null : (byURL ? "url = ?" : WHERE_ID), value == null ? null : new String[] { value }, null, null, POSITION_COL);
         PresetInfo[] result = new PresetInfo[dbresult.getCount()];
         dbresult.moveToFirst();
         for (int i = 0; i < result.length; i++) {
-            result[i] = new PresetInfo(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getInt(4) == 1,
-                    dbresult.getInt(5) == 1);
+            result[i] = new PresetInfo(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getString(4),
+                    dbresult.getString(5), dbresult.getString(6), dbresult.getInt(7) == 1, dbresult.getInt(8) == 1);
             dbresult.moveToNext();
         }
         dbresult.close();
@@ -720,6 +748,33 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(LASTUPDATE_COL, ((Long) System.currentTimeMillis()).toString());
         db.update(PRESETS_TABLE, values, WHERE_ID, new String[] { id });
+        db.close();
+    }
+
+    /**
+     * Sets information that requires parsing the preset first
+     * 
+     * @param id the ID of the preset to update
+     * @param version the version if null this will not be updated
+     * @param shortDescription the short description if null this will not be updated
+     * @param description the description if null this will not be updated
+     */
+    public synchronized void setPresetAdditionalFields(@NonNull String id, @Nullable String version, @Nullable String shortDescription,
+            @Nullable String description) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        if (version != null) {
+            values.put(VERSION_COL, version);
+        }
+        if (shortDescription != null) {
+            values.put(SHORTDESCRIPTION_COL, shortDescription);
+        }
+        if (description != null) {
+            values.put(DESCRIPTION_COL, description);
+        }
+        if (values.size() != 0) { // isEmpty was added in API 30
+            db.update(PRESETS_TABLE, values, WHERE_ID, new String[] { id });
+        }
         db.close();
     }
 
@@ -785,6 +840,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     public class PresetInfo {
         public final String  id;
         public final String  name;
+        public final String  version;
+        public final String  shortDescription;
+        public final String  description;
         public final String  url;
         /** Timestamp (long, millis since epoch) when this preset was last downloaded */
         public final long    lastupdate;
@@ -792,18 +850,25 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         public final boolean useTranslations;
 
         /**
-         * Construnct a new configuration for a Preset
+         * Construct a new configuration for a Preset
          * 
          * @param id the Preset id
          * @param name the Preset name
+         * @param version the preset version
+         * @param shortDescription the name the author gave the preset
+         * @param description a description of its contents
          * @param url an url or an empty string
          * @param lastUpdate time and date of last update in milliseconds since the epoch
          * @param active true if the Preset is active
-         * @param useTranslations if true tranlsations included with the preset will be used
+         * @param useTranslations if true translations included with the preset will be used
          */
-        public PresetInfo(@NonNull String id, @NonNull String name, @NonNull String url, @NonNull String lastUpdate, boolean active, boolean useTranslations) {
+        public PresetInfo(@NonNull String id, @NonNull String name, @Nullable String version, @Nullable String shortDescription, @Nullable String description,
+                @NonNull String url, @NonNull String lastUpdate, boolean active, boolean useTranslations) {
             this.id = id;
             this.name = name;
+            this.version = version;
+            this.shortDescription = shortDescription;
+            this.description = description;
             this.url = url;
             long tmpLastupdate;
             try {
