@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import de.blau.android.presets.ValueWithCount;
 
 @SuppressWarnings("NullableProblems")
-public class StringWithDescription implements Comparable<StringWithDescription>, Serializable {
+public class StringWithDescription implements Comparable<StringWithDescription>, Serializable, Value {
     private static final long serialVersionUID = 1L;
 
     private final String value;
@@ -59,6 +59,7 @@ public class StringWithDescription implements Comparable<StringWithDescription>,
     /**
      * @return the value
      */
+    @Override
     public String getValue() {
         return value;
     }

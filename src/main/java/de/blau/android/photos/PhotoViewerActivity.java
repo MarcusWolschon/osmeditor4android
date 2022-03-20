@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ImageLoader;
 
 /**
  * 
@@ -28,7 +29,7 @@ public class PhotoViewerActivity extends LocaleAwareCompatActivity {
 
     ArrayList<String> photoList   = null;
     int               startPos    = 0;
-    PhotoLoader       photoLoader = null;
+    ImageLoader       photoLoader = null;
     boolean           wrap        = true;
 
     /**
@@ -38,7 +39,7 @@ public class PhotoViewerActivity extends LocaleAwareCompatActivity {
      * @param photoList a list of photos to show
      * @param startPos the starting position in the list
      */
-    public static void start(@NonNull Context context, @NonNull ArrayList<String> photoList, int startPos) {
+    public static void start(@NonNull Context context, @NonNull ArrayList<String> photoList, int startPos) { // NOSONAR
         Intent intent = new Intent(context, PhotoViewerActivity.class);
         intent.putExtra(PhotoViewerFragment.WRAP_KEY, true);
         setExtrasAndStart(context, photoList, startPos, intent);
@@ -76,15 +77,15 @@ public class PhotoViewerActivity extends LocaleAwareCompatActivity {
         if (savedInstanceState == null) {
             // No previous state to restore - get the state from the intent
             Log.d(DEBUG_TAG, "Initializing from intent");
-            photoList = (ArrayList) getIntent().getSerializableExtra(PhotoViewerFragment.PHOTO_LIST_KEY);
+            photoList = (ArrayList<String>) getIntent().getSerializableExtra(PhotoViewerFragment.PHOTO_LIST_KEY);
             startPos = (int) getIntent().getSerializableExtra(PhotoViewerFragment.START_POS_KEY);
-            photoLoader = (PhotoLoader) getIntent().getSerializableExtra(PhotoViewerFragment.PHOTO_LOADER_KEY);
+            photoLoader = (ImageLoader) getIntent().getSerializableExtra(PhotoViewerFragment.PHOTO_LOADER_KEY);
             wrap = (boolean) getIntent().getSerializableExtra(PhotoViewerFragment.WRAP_KEY);
         } else {
             Log.d(DEBUG_TAG, "Initializing from saved state");
             photoList = savedInstanceState.getStringArrayList(PhotoViewerFragment.PHOTO_LIST_KEY);
             startPos = savedInstanceState.getInt(PhotoViewerFragment.START_POS_KEY);
-            photoLoader = (PhotoLoader) savedInstanceState.getSerializable(PhotoViewerFragment.PHOTO_LOADER_KEY);
+            photoLoader = (ImageLoader) savedInstanceState.getSerializable(PhotoViewerFragment.PHOTO_LOADER_KEY);
             wrap = savedInstanceState.getBoolean(PhotoViewerFragment.WRAP_KEY);
         }
         String tag = PhotoViewerFragment.class.getName() + this.getClass().getName();
@@ -98,7 +99,7 @@ public class PhotoViewerActivity extends LocaleAwareCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        ArrayList<String> tempList = (ArrayList) intent.getSerializableExtra(PhotoViewerFragment.PHOTO_LIST_KEY);
+        ArrayList<String> tempList = (ArrayList<String>) intent.getSerializableExtra(PhotoViewerFragment.PHOTO_LIST_KEY);
         int tempPos = (int) intent.getSerializableExtra(PhotoViewerFragment.START_POS_KEY);
         String tempPhoto = tempList.get(tempPos);
         int index = photoList.indexOf(tempPhoto);

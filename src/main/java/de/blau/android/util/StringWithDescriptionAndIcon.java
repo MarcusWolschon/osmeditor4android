@@ -10,21 +10,11 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 
 public class StringWithDescriptionAndIcon extends ExtendedStringWithDescription {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private transient Drawable icon;
     private final String       iconPath;
-
-    /**
-     * Construct a new instance
-     * 
-     * @param value the value
-     * @param iconPath the path of the associated icon
-     */
-    public StringWithDescriptionAndIcon(@NonNull final String value, @NonNull final String iconPath) {
-        super(value);
-        this.iconPath = iconPath;
-    }
+    private final String       imagePath;
 
     /**
      * Construct a new instance
@@ -33,23 +23,41 @@ public class StringWithDescriptionAndIcon extends ExtendedStringWithDescription 
      * @param description the description of the value
      * @param iconPath the path of the associated icon
      */
-    public StringWithDescriptionAndIcon(@NonNull final String value, @Nullable final String description, @NonNull final String iconPath) {
+    public StringWithDescriptionAndIcon(@NonNull final String value, @Nullable final String description, @Nullable final String iconPath) {
         super(value, description);
         this.iconPath = iconPath;
+        this.imagePath = null;
+    }
+
+    /**
+     * Construct a new instance
+     * 
+     * @param value the value
+     * @param description the description of the value
+     * @param iconPath the path of the associated icon
+     * @param imagePath the path of a larger image
+     */
+    public StringWithDescriptionAndIcon(@NonNull final String value, @Nullable final String description, @NonNull final String iconPath,
+            @Nullable final String imagePath) {
+        super(value, description);
+        this.iconPath = iconPath;
+        this.imagePath = imagePath;
     }
 
     /**
      * Construct a new instance from object of a known type
      * 
-     * @param object one of StringWithDescriptionAndIcon, StringWithDescription, ValueWIihCOunt or String
+     * @param object one of StringWithDescriptionAndIcon, StringWithDescription, ValueWithCount or String
      */
     public StringWithDescriptionAndIcon(@NonNull final Object object) {
         super(object);
         if (object instanceof StringWithDescriptionAndIcon) {
             this.iconPath = ((StringWithDescriptionAndIcon) object).iconPath;
             this.icon = ((StringWithDescriptionAndIcon) object).icon;
+            this.imagePath = ((StringWithDescriptionAndIcon) object).imagePath;
         } else {
             iconPath = null;
+            imagePath = null;
         }
     }
 
@@ -72,4 +80,71 @@ public class StringWithDescriptionAndIcon extends ExtendedStringWithDescription 
         }
         return icon;
     }
+
+    /**
+     * Check if this has an icon
+     * 
+     * @return true if at least potentially an icon is available
+     */
+    public boolean hasIcon() {
+        return iconPath != null;
+    }
+
+    /**
+     * Get the path of a larger image
+     * 
+     * @return the path or null
+     */
+    @Nullable
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    /**
+     * Check if this has an image
+     * 
+     * @return true if at least potentially an image is available
+     */
+    public boolean hasImagePath() {
+        return imagePath != null;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((iconPath == null) ? 0 : iconPath.hashCode());
+        result = prime * result + ((imagePath == null) ? 0 : imagePath.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof StringWithDescriptionAndIcon)) {
+            return false;
+        }
+        StringWithDescriptionAndIcon other = (StringWithDescriptionAndIcon) obj;
+        if (iconPath == null) {
+            if (other.iconPath != null) {
+                return false;
+            }
+        } else if (!iconPath.equals(other.iconPath)) {
+            return false;
+        }
+        if (imagePath == null) {
+            if (other.imagePath != null) {
+                return false;
+            }
+        } else if (!imagePath.equals(other.imagePath)) {
+            return false;
+        }
+        return true;
+    }
+
 }

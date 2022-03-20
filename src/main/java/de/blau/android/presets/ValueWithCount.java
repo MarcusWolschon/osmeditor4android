@@ -2,8 +2,9 @@ package de.blau.android.presets;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.util.Value;
 
-public class ValueWithCount implements Comparable<ValueWithCount> {
+public class ValueWithCount implements Comparable<ValueWithCount>, Value {
     private final String value;
     private String       description     = null;
     private int          count           = -1;
@@ -69,6 +70,7 @@ public class ValueWithCount implements Comparable<ValueWithCount> {
      * 
      * @return the value
      */
+    @Override
     @NonNull
     public String getValue() {
         return value;

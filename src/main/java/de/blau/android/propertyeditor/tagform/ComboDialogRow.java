@@ -1,5 +1,8 @@
 package de.blau.android.propertyeditor.tagform;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -21,10 +24,14 @@ import androidx.appcompat.widget.AppCompatRadioButton;
 import de.blau.android.R;
 import de.blau.android.contract.Ui;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetComboField;
+import de.blau.android.presets.PresetField;
+import de.blau.android.util.SelectByImageFragment;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.util.Value;
 
 /**
  * Display a single value and allow editing via a dialog
@@ -132,21 +139,26 @@ public class ComboDialogRow extends DialogRow {
             row.setOnClickListener(v -> {
                 final View finalView = v;
                 finalView.setEnabled(false); // debounce
-                final AlertDialog dialog = buildComboDialog(caller, hint != null ? hint : key, key, adapter, row, preset);
-                dialog.setOnShowListener(d -> {
-                    if (finalSelectedValue != null) {
-                        ComboDialogRow.scrollDialogToValue(finalSelectedValue, dialog, R.id.valueGroup);
-                    }
-                });
-                dialog.setOnDismissListener(d -> finalView.setEnabled(true));
-                dialog.show();
+                PresetField field = preset.getField(key);
+                if (field instanceof PresetComboField && ((PresetComboField) field).useImages()) {
+                    buildImageComboDialog(caller, key, adapter, row);
+                } else {
+                    final AlertDialog dialog = buildComboDialog(caller, hint != null ? hint : key, key, adapter, row, preset);
+                    dialog.setOnShowListener(d -> {
+                        if (finalSelectedValue != null) {
+                            ComboDialogRow.scrollDialogToValue(finalSelectedValue, dialog, R.id.valueGroup);
+                        }
+                    });
+                    dialog.setOnDismissListener(d -> finalView.setEnabled(true));
+                    dialog.show();
+                }
             });
         }
         return row;
     }
 
     /**
-     * Build a dialog for selecting a single value of none via a scrollable list of radio buttons
+     * Build a dialog for selecting a single value or none via a scrollable list of radio buttons
      * 
      * @param caller the calling TagFormFragment instance
      * @param hint a description to display
@@ -244,7 +256,7 @@ public class ComboDialogRow extends DialogRow {
      * @param swd the value for the button
      * @param selected is true the button is selected
      * @param icon an icon to display if any
-     * @param listener the Listenet to call if the button is clicked
+     * @param listener the Listener to call if the button is clicked
      * @param layoutParams LayoutParams for the button
      */
     private static void addButton(@NonNull Context context, @NonNull RadioGroup group, int id, @NonNull StringWithDescription swd, boolean selected,
@@ -262,5 +274,37 @@ public class ComboDialogRow extends DialogRow {
         button.setLayoutParams(layoutParams);
         group.addView(button);
         button.setOnClickListener(listener);
+    }
+
+    /**
+     * Build a dialog for selecting a single value or none via a scrollable list of radio buttons
+     * 
+     * @param caller the calling TagFormFragment instance
+     * @param key the key
+     * @param adapter the ArrayAdapter holding the values
+     * @param row the row we are started from
+     */
+    private static void buildImageComboDialog(@NonNull final TagFormFragment caller, @NonNull final String key, @NonNull final ArrayAdapter<?> adapter,
+            @NonNull final DialogRow row) {
+        String value = row.getValue();
+        int pos = 0;
+        ArrayList<String> images = new ArrayList<>();
+        final List<Value> values = new ArrayList<>();
+        // Note we can't use the adapter directly in the ImageLoader as it will potentially be serialized
+        for (int i = 1; i < adapter.getCount(); i++) {
+            Object o = adapter.getItem(i);
+            final Value aValue = o instanceof Value ? ((Value) o) : new StringWithDescription((String) o);
+            values.add(aValue);
+            if (aValue.getValue().equals(value)) {
+                pos = i - 1;
+            }
+            if (o instanceof StringWithDescriptionAndIcon && ((StringWithDescriptionAndIcon) o).hasImagePath()) {
+                images.add(((StringWithDescriptionAndIcon) o).getImagePath());
+            } else {
+                images.add("");
+            }
+        }
+
+        SelectByImageFragment.showDialog(caller, images, pos, new ComboImageLoader(key, values));
     }
 }

@@ -22,12 +22,11 @@ import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.presets.ValueType;
-import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.InputTypeUtil;
 import de.blau.android.propertyeditor.SanitizeTextWatcher;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
-import de.blau.android.util.StringWithDescription;
+import de.blau.android.util.Value;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
 /**
@@ -232,10 +231,8 @@ public class TextRow extends LinearLayout implements KeyValueRow {
      * @param text an Object holding the text
      */
     protected static void setOrReplaceText(final CustomAutoCompleteTextView textView, Object text) {
-        if (text instanceof ValueWithCount) {
-            textView.setOrReplaceText(((ValueWithCount) text).getValue());
-        } else if (text instanceof StringWithDescription) {
-            textView.setOrReplaceText(((StringWithDescription) text).getValue());
+        if (text instanceof Value) {
+            textView.setOrReplaceText(((Value) text).getValue());
         } else if (text instanceof String) {
             textView.setOrReplaceText((String) text);
         }

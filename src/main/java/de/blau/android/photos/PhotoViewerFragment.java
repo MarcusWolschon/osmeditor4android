@@ -37,6 +37,7 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.contract.Ui;
 import de.blau.android.listener.DoNothingListener;
+import de.blau.android.util.ImageLoader;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
@@ -68,7 +69,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
     SubsamplingScaleImageView photoView = null;
 
     private PhotoPagerAdapter photoPagerAdapter;
-    private PhotoLoader       photoLoader;
+    private ImageLoader       photoLoader;
 
     private ViewPager viewPager;
 
@@ -85,7 +86,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
      * @param startPos starting position in the list
      * @param loader callback for loading images etc
      */
-    public static void showDialog(@NonNull FragmentActivity activity, @NonNull ArrayList<String> photoList, int startPos, @Nullable PhotoLoader loader) {
+    public static void showDialog(@NonNull FragmentActivity activity, @NonNull ArrayList<String> photoList, int startPos, @Nullable ImageLoader loader) { // NOSONAR
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -114,7 +115,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
      * @return a new instance of PhotoViwerFragment
      */
     @NonNull
-    public static PhotoViewerFragment newInstance(@NonNull ArrayList<String> photoList, int startPos, @Nullable PhotoLoader loader, boolean wrap) {
+    public static PhotoViewerFragment newInstance(@NonNull ArrayList<String> photoList, int startPos, @Nullable ImageLoader loader, boolean wrap) { // NOSONAR
         PhotoViewerFragment f = new PhotoViewerFragment();
 
         Bundle args = new Bundle();
@@ -144,7 +145,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
         return null;
     }
 
-    PhotoLoader defaultLoader = new PhotoLoader() {
+    ImageLoader defaultLoader = new ImageLoader() {
         private static final long serialVersionUID = 1L;
 
         @Override
@@ -201,14 +202,14 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
             Log.d(DEBUG_TAG, "Initializing from intent");
             photoList = getArguments().getStringArrayList(PHOTO_LIST_KEY);
             startPos = getArguments().getInt(START_POS_KEY);
-            photoLoader = (PhotoLoader) getArguments().getSerializable(PHOTO_LOADER_KEY);
+            photoLoader = (ImageLoader) getArguments().getSerializable(PHOTO_LOADER_KEY);
             getArguments().remove(PHOTO_LOADER_KEY);
             wrap = getArguments().getBoolean(WRAP_KEY, true);
         } else {
             Log.d(DEBUG_TAG, "Initializing from saved state");
             photoList = savedInstanceState.getStringArrayList(PHOTO_LIST_KEY);
             startPos = savedInstanceState.getInt(START_POS_KEY);
-            photoLoader = (PhotoLoader) savedInstanceState.getSerializable(PHOTO_LOADER_KEY);
+            photoLoader = (ImageLoader) savedInstanceState.getSerializable(PHOTO_LOADER_KEY);
             wrap = savedInstanceState.getBoolean(WRAP_KEY);
         }
         if (photoLoader == null) {
@@ -283,7 +284,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
 
         final Context     mContext;
         LayoutInflater    mLayoutInflater;
-        final PhotoLoader loader;
+        final ImageLoader loader;
 
         /**
          * Construct a new adapter
@@ -291,7 +292,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
          * @param context an Android Context
          * @param loader the PhotoLoader to use
          */
-        public PhotoPagerAdapter(@NonNull Context context, @NonNull PhotoLoader loader) {
+        public PhotoPagerAdapter(@NonNull Context context, @NonNull ImageLoader loader) {
             mContext = context;
             this.loader = loader;
             mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -313,7 +314,6 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
             SubsamplingScaleImageView view = itemView.findViewById(R.id.photoView);
             loader.load(view, photoList.get(position));
             container.addView(itemView);
-
             return itemView;
         }
 

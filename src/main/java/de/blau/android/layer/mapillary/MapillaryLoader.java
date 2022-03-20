@@ -33,9 +33,9 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Schemes;
-import de.blau.android.photos.PhotoLoader;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
+import de.blau.android.util.ImageLoader;
 import de.blau.android.util.Snack;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -43,7 +43,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-class MapillaryLoader implements PhotoLoader {
+class MapillaryLoader extends ImageLoader {
     private static final long serialVersionUID = 2L;
 
     protected static final String DEBUG_TAG = MapillaryLoader.class.getSimpleName();
