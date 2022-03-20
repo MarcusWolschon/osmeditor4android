@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
+import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -129,12 +130,26 @@ public class PresetEditorTest {
         UiObject2 entry = TestUtils.findObjectWithText(device, false, "Test", 100, false);
         UiObject2 menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
         menu.click();
-        TestUtils.clickText(device, false, "Move up", true);
+        TestUtils.clickText(device, false, main.getString(R.string.tag_menu_move_up), true, true); // Up needs exact
+                                                                                                   // match
         TestUtils.clickHome(device, true);
         App.resetPresets();
         presets = App.getCurrentPresets(main);
         match = Preset.findBestMatch(presets, tags, null);
         assertEquals("Military landuse", match.getName());
+
+        // move display content and check that version is displayed
+        monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
+        PresetEditorActivity.start(main);
+        presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(presetEditor instanceof PresetEditorActivity);
+        entry = TestUtils.findObjectWithText(device, false, "Test", 100, false);
+        menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
+        menu.click();
+        TestUtils.clickText(device, false, main.getString(R.string.menu_edit), true);
+        TestUtils.findText(device, false, "0.1.0");
+        TestUtils.clickText(device, false, main.getString(R.string.okay), true);
+        TestUtils.clickHome(device, true);
 
         // delete the test preset
         monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
@@ -144,7 +159,7 @@ public class PresetEditorTest {
         entry = TestUtils.findObjectWithText(device, false, "Test", 100, false);
         menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
         menu.click();
-        TestUtils.clickText(device, false, "Delete", true);
+        TestUtils.clickText(device, false, main.getString(R.string.delete), true);
         TestUtils.clickHome(device, true);
         App.resetPresets();
     }
