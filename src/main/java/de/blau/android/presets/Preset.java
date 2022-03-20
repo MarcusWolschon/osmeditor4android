@@ -200,13 +200,17 @@ public class Preset implements Serializable {
     private static final String REF                        = "ref";
     private static final String VALUE_COUNT_KEY            = "value_count_key";
     private static final String ON                         = "on";
+    private static final String DESCRIPTION_ATTR           = "description";
+    private static final String SHORTDESCRIPTION_ATTR      = "shortdescription";
+    private static final String VERSION_ATTR               = "version";
     /**
      * 
      */
     private static final long   serialVersionUID           = 7L;
+
     /** name of the preset XML file in a preset directory */
-    public static final String  PRESETXML                  = "preset.xml";
-    public static final String  APKPRESET_URLPREFIX        = "apk:";
+    public static final String PRESETXML           = "preset.xml";
+    public static final String APKPRESET_URLPREFIX = "apk:";
 
     // hardwired layout stuff
     public static final int SPACING = 5;
@@ -217,6 +221,15 @@ public class Preset implements Serializable {
 
     /** The directory containing all data (xml, MRU data, images) about this preset */
     private File directory;
+
+    /** version of the preset */
+    private String version;
+
+    /** the short description which is essentially the "name" */
+    private String shortDescription;
+
+    /** the description of the content */
+    private String description;
 
     /**
      * Lists items having a tag. The map key is tagkey+"\t"+tagvalue. tagItems.get(tagkey+"\t"+tagvalue) will give you
@@ -471,6 +484,27 @@ public class Preset implements Serializable {
     }
 
     /**
+     * @return the version
+     */
+    public String getVersion() {
+        return version;
+    }
+
+    /**
+     * @return the shortDescription
+     */
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Recursively add tags from the preset to the index of the new preset
      * 
      * @param group current group
@@ -558,6 +592,9 @@ public class Preset implements Serializable {
                             objectKeys.addAll(Arrays.asList(tempArray));
                         }
                     }
+                    version = attr.getValue(VERSION_ATTR);
+                    shortDescription = attr.getValue(SHORTDESCRIPTION_ATTR);
+                    description = attr.getValue(DESCRIPTION_ATTR);
                     break;
                 case GROUP:
                     PresetGroup parent = groupstack.peek();
@@ -2925,8 +2962,8 @@ public class Preset implements Serializable {
          * @return the allocated PresetField
          */
         @NonNull
-        public PresetField addTag(boolean optional, @NonNull String key, PresetKeyType type, String value, String displayValue, String shortDescriptions,
-                final String delimiter, MatchType matchType) {
+        public PresetField addTag(boolean optional, @NonNull String key, PresetKeyType type, @Nullable String value, @Nullable String displayValue,
+                @Nullable String shortDescriptions, final String delimiter, MatchType matchType) {
             String[] valueArray = (value == null) ? new String[0] : value.split(Pattern.quote(delimiter));
             String[] displayValueArray = (displayValue == null) ? new String[0] : displayValue.split(Pattern.quote(delimiter));
             String[] shortDescriptionArray = (shortDescriptions == null) ? new String[0] : shortDescriptions.split(Pattern.quote(delimiter));
@@ -2934,13 +2971,13 @@ public class Preset implements Serializable {
             boolean useDisplayValues = valueArray.length == displayValueArray.length;
             boolean useShortDescriptions = !useDisplayValues && valueArray.length == shortDescriptionArray.length;
             for (int i = 0; i < valueArray.length; i++) {
-                String description = null;
+                String valueDescription = null;
                 if (useDisplayValues) {
-                    description = displayValueArray[i];
+                    valueDescription = displayValueArray[i];
                 } else if (useShortDescriptions) {
-                    description = shortDescriptionArray[i];
+                    valueDescription = shortDescriptionArray[i];
                 }
-                valuesWithDesc[i] = new StringWithDescription(valueArray[i], description);
+                valuesWithDesc[i] = new StringWithDescription(valueArray[i], valueDescription);
             }
             return addTag(optional, key, type, valuesWithDesc, delimiter, matchType);
         }

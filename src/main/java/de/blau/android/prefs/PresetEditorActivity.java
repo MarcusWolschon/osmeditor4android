@@ -147,11 +147,16 @@ public class PresetEditorActivity extends URLListEditActivity {
         selectedItem = (ListEditItem) getListView().getItemAtPosition(info.position);
         if (selectedItem != null) {
             menu.add(Menu.NONE, MENUITEM_EDIT, Menu.NONE, r.getString(R.string.edit)).setOnMenuItemClickListener(this);
-            if (!selectedItem.id.equals(LISTITEM_ID_DEFAULT)) {
+            final boolean isDefault = LISTITEM_ID_DEFAULT.equals(selectedItem.id);
+            if (!isDefault) {
                 menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, r.getString(R.string.delete)).setOnMenuItemClickListener(this);
             }
             for (Entry<Integer, Integer> entry : additionalMenuItems.entrySet()) {
-                menu.add(Menu.NONE, entry.getKey() + MENUITEM_ADDITIONAL_OFFSET, Menu.NONE, r.getString(entry.getValue())).setOnMenuItemClickListener(this);
+                final int key = entry.getKey();
+                if (MENU_RELOAD == key && isDefault) { // can't reload builtin preset
+                    continue;
+                }
+                menu.add(Menu.NONE, key + MENUITEM_ADDITIONAL_OFFSET, Menu.NONE, r.getString(entry.getValue())).setOnMenuItemClickListener(this);
             }
         }
     }
@@ -165,7 +170,7 @@ public class PresetEditorActivity extends URLListEditActivity {
     protected void onLoadList(List<ListEditItem> items) {
         PresetInfo[] presets = db.getPresets();
         for (PresetInfo preset : presets) {
-            items.add(new ListEditItem(preset.id, preset.name, preset.url, preset.useTranslations, preset.active));
+            items.add(new ListEditItem(preset.id, preset.name, preset.url, preset.shortDescription, preset.version, preset.useTranslations, preset.active));
         }
     }
 
@@ -469,6 +474,8 @@ public class PresetEditorActivity extends URLListEditActivity {
         final View mainView = inflater.inflate(R.layout.listedit_presetedit, null);
         final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);
         final TextView editValue = (TextView) mainView.findViewById(R.id.listedit_editValue);
+        final TextView versionLabel = (TextView) mainView.findViewById(R.id.listedit_labelVersion);
+        final TextView version = (TextView) mainView.findViewById(R.id.listedit_version);
         final CheckBox useTranslations = (CheckBox) mainView.findViewById(R.id.listedit_translations);
         final ImageButton fileButton = (ImageButton) mainView.findViewById(R.id.listedit_file_button);
 
@@ -476,6 +483,7 @@ public class PresetEditorActivity extends URLListEditActivity {
             editName.setText(item.name);
             editValue.setText(item.value);
             useTranslations.setChecked(item.boolean0);
+
         } else if (isAddingViaIntent()) {
             String tmpName = getIntent().getExtras().getString(EXTRA_NAME);
             String tmpValue = getIntent().getExtras().getString(EXTRA_VALUE);
@@ -483,7 +491,13 @@ public class PresetEditorActivity extends URLListEditActivity {
             editValue.setText(tmpValue == null ? "" : tmpValue);
             useTranslations.setChecked(true);
         }
-        if (item != null && item.id.equals(LISTITEM_ID_DEFAULT)) {
+        if (item != null && item.value3 != null) {
+            version.setText(item.value3);
+        } else {
+            versionLabel.setVisibility(View.GONE);
+            version.setVisibility(View.GONE);
+        }
+        if (item != null && LISTITEM_ID_DEFAULT.equals(item.id)) {
             // name and value are not editable
             editName.setInputType(InputType.TYPE_NULL);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
