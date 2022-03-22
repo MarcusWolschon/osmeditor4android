@@ -1,15 +1,10 @@
 package de.blau.android.prefs;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map.Entry;
-import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -38,28 +33,16 @@ import androidx.appcompat.app.AlertDialog;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
-import de.blau.android.contract.FileExtensions;
-import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OperationFailedException;
-import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.PresetIconManager;
-import de.blau.android.services.util.StreamUtils;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 /** Provides an activity to edit the preset list. Downloads preset data when necessary. */
 public class PresetEditorActivity extends URLListEditActivity {
@@ -74,7 +57,11 @@ public class PresetEditorActivity extends URLListEditActivity {
 
     private static final int MENUITEM_HELP = 1;
 
-    private static final String FILE_NAME_TEMPORARY_ARCHIVE = "temp.zip";
+    private static final int RESULT_TOTAL_FAILURE       = 0;
+    private static final int RESULT_TOTAL_SUCCESS       = 1;
+    private static final int RESULT_IMAGE_FAILURE       = 2;
+    private static final int RESULT_PRESET_NOT_PARSABLE = 3;
+    private static final int RESULT_DOWNLOAD_CANCELED   = 4;
 
     /**
      * Construct a new instance
@@ -192,7 +179,7 @@ public class PresetEditorActivity extends URLListEditActivity {
             item.active = getIntent().getExtras().getBoolean(EXTRA_ENABLE);
         }
         db.addPreset(item.id, item.name, item.value, item.active);
-        downloadPresetData(item);
+        retrievePresetData(this, db, item);
         if (!isAddingViaIntent() || item.active) { // added a new preset and enabled it: need to rebuild presets
             App.resetPresets();
         }
@@ -205,7 +192,7 @@ public class PresetEditorActivity extends URLListEditActivity {
         if (preset.url != null && !preset.url.equals(item.value)) {
             // url changed so better recreate everything
             db.removePresetDirectory(item.id);
-            downloadPresetData(item);
+            retrievePresetData(this, db, item);
         }
         App.resetPresets();
     }
@@ -222,7 +209,7 @@ public class PresetEditorActivity extends URLListEditActivity {
         case MENU_RELOAD:
             PresetInfo preset = db.getPreset(clickedItem.id);
             if (preset.url != null) {
-                downloadPresetData(clickedItem);
+                retrievePresetData(this, db, clickedItem);
             }
             App.resetPresets();
             break;
@@ -257,11 +244,13 @@ public class PresetEditorActivity extends URLListEditActivity {
     }
 
     /**
-     * Download data (XML, icons) for a certain preset
+     * Download data (XML, icons) for a certain preset or load it from a file
      * 
+     * @param activity a PresetEditorActivity instance
+     * @param db an AdvancedPrefDatabase instance
      * @param item the item containing the preset to be downloaded
      */
-    private void downloadPresetData(@NonNull final ListEditItem item) {
+    private static void retrievePresetData(@NonNull PresetEditorActivity activity, @NonNull AdvancedPrefDatabase db, @NonNull final ListEditItem item) {
         final File presetDir = db.getPresetDirectory(item.id);
         // noinspection ResultOfMethodCallIgnored
         presetDir.mkdir();
@@ -269,41 +258,31 @@ public class PresetEditorActivity extends URLListEditActivity {
             throw new OperationFailedException("Could not create preset directory " + presetDir.getAbsolutePath());
         }
         if (item.value.startsWith(Preset.APKPRESET_URLPREFIX)) {
-            PresetEditorActivity.super.sendResultIfApplicable(item);
+            activity.sendResultIfApplicable(item);
             return;
         }
         new ExecutorTask<Void, Integer, Integer>() {
             private boolean canceled = false;
 
-            private static final int RESULT_TOTAL_FAILURE       = 0;
-            private static final int RESULT_TOTAL_SUCCESS       = 1;
-            private static final int RESULT_IMAGE_FAILURE       = 2;
-            private static final int RESULT_PRESET_NOT_PARSABLE = 3;
-            private static final int RESULT_DOWNLOAD_CANCELED   = 4;
-
-            private static final int DOWNLOADED_PRESET_ERROR = -1;
-            private static final int DOWNLOADED_PRESET_XML   = 0;
-            private static final int DOWNLOADED_PRESET_ZIP   = 1;
-
             @Override
             protected void onPreExecute() {
-                Progress.showDialog(PresetEditorActivity.this, Progress.PROGRESS_PRESET);
+                Progress.showDialog(activity, Progress.PROGRESS_PRESET);
             }
 
             @Override
             protected Integer doInBackground(Void args) {
-                int loadResult = RESULT_TOTAL_SUCCESS;
                 Uri uri = Uri.parse(item.value);
                 final String scheme = uri.getScheme();
+                int loadResult;
                 if (Schemes.FILE.equals(scheme) || Schemes.CONTENT.equals(scheme)) {
-                    loadResult = load(uri, Preset.PRESETXML);
+                    loadResult = PresetLoader.load(activity, uri, presetDir, Preset.PRESETXML);
                 } else {
-                    loadResult = download(item.value, Preset.PRESETXML);
+                    loadResult = PresetLoader.download(item.value, presetDir, Preset.PRESETXML);
                 }
 
-                if (loadResult == DOWNLOADED_PRESET_ERROR) {
+                if (loadResult == PresetLoader.DOWNLOADED_PRESET_ERROR) {
                     return RESULT_TOTAL_FAILURE;
-                } else if (loadResult == DOWNLOADED_PRESET_ZIP) {
+                } else if (loadResult == PresetLoader.DOWNLOADED_PRESET_ZIP) {
                     return RESULT_TOTAL_SUCCESS;
                 } // fall through to further processing
 
@@ -318,106 +297,18 @@ public class PresetEditorActivity extends URLListEditActivity {
                     if (canceled) {
                         return RESULT_DOWNLOAD_CANCELED;
                     }
-                    allImagesSuccessful &= (download(url, null) == DOWNLOADED_PRESET_XML);
+                    allImagesSuccessful &= (PresetLoader.download(url, presetDir, null) == PresetLoader.DOWNLOADED_PRESET_XML);
                 }
                 return allImagesSuccessful ? RESULT_TOTAL_SUCCESS : RESULT_IMAGE_FAILURE;
             }
 
-            /**
-             * Download a Preset
-             * 
-             * @param url the url to download from
-             * @param filename A filename where to save the file. If null, the URL will be hashed using the
-             *            PresetIconManager hash function and the file will be saved to hashvalue.png (where "hashvalue"
-             *            will be replaced with the URL hash).
-             * @return code indicating result
-             */
-            private int download(@NonNull String url, @Nullable String filename) {
-                if (filename == null) {
-                    filename = PresetIconManager.hash(url) + ".png";
-                }
-                InputStream downloadStream = null;
-                OutputStream fileStream = null;
-                try {
-                    Log.d(DEBUG_TAG, "Downloading " + url + " to " + presetDir + "/" + filename);
-                    boolean zip = false;
-
-                    Request request = new Request.Builder().url(url).build();
-                    OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
-                            .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
-                    Call presetCall = client.newCall(request);
-                    Response presetCallResponse = presetCall.execute();
-                    if (presetCallResponse.isSuccessful()) {
-                        ResponseBody responseBody = presetCallResponse.body();
-                        downloadStream = responseBody.byteStream();
-                        String contentType = responseBody.contentType().toString();
-                        zip = (contentType != null && MimeTypes.ZIP.equalsIgnoreCase(contentType))
-                                || url.toLowerCase(Locale.US).endsWith("." + FileExtensions.ZIP);
-                        if (zip) {
-                            Log.d(DEBUG_TAG, "detected zip file");
-                            filename = FILE_NAME_TEMPORARY_ARCHIVE;
-                        }
-                    } else {
-                        Log.w(DEBUG_TAG, "Could not download file " + url + " respose code " + presetCallResponse.code());
-                        return DOWNLOADED_PRESET_ERROR;
-                    }
-                    fileStream = new FileOutputStream(new File(presetDir, filename));
-                    StreamUtils.copy(downloadStream, fileStream);
-
-                    if (zip && FileUtil.unpackZip(presetDir.getPath() + "/", filename)) {
-                        if (!(new File(presetDir, FILE_NAME_TEMPORARY_ARCHIVE)).delete()) { // NOSONAR requires API 26
-                            Log.e(DEBUG_TAG, "Could not delete " + FILE_NAME_TEMPORARY_ARCHIVE);
-                        }
-                        return DOWNLOADED_PRESET_ZIP;
-                    }
-                    return DOWNLOADED_PRESET_XML;
-                } catch (Exception e) {
-                    Log.e(DEBUG_TAG, "Could not download file " + url + " " + e.getMessage());
-                    return DOWNLOADED_PRESET_ERROR;
-                } finally {
-                    SavingHelper.close(downloadStream);
-                    SavingHelper.close(fileStream);
-                }
-            }
-
-            /**
-             * Load a Preset from a local file
-             * 
-             * @param uri the uri to load from
-             * @param filename A filename where to save the file.
-             * @return code indicating result
-             */
-            private int load(@NonNull Uri uri, @NonNull String filename) {
-                boolean zip = uri.getPath().toLowerCase(Locale.US).endsWith("." + FileExtensions.ZIP)
-                        || MimeTypes.ZIP.equals(getContentResolver().getType(uri));
-                if (zip) {
-                    Log.d(DEBUG_TAG, "detected zip file");
-                    filename = FILE_NAME_TEMPORARY_ARCHIVE;
-                }
-                try (InputStream loadStream = getContentResolver().openInputStream(uri);
-                        OutputStream fileStream = new FileOutputStream(new File(presetDir, filename));) {
-                    Log.d(DEBUG_TAG, "Loading " + uri + " to " + presetDir + "/" + filename);
-                    StreamUtils.copy(loadStream, fileStream);
-                    if (zip && FileUtil.unpackZip(presetDir.getPath() + "/", filename)) {
-                        if (!(new File(presetDir, FILE_NAME_TEMPORARY_ARCHIVE)).delete()) { // NOSONAR requires API 26
-                            Log.e(DEBUG_TAG, "Could not delete " + FILE_NAME_TEMPORARY_ARCHIVE);
-                        }
-                        return DOWNLOADED_PRESET_ZIP;
-                    }
-                    return DOWNLOADED_PRESET_XML;
-                } catch (Exception e) {
-                    Log.e(DEBUG_TAG, "Could not load file " + uri + " " + e.getMessage());
-                    return DOWNLOADED_PRESET_ERROR;
-                }
-            }
-
             @Override
             protected void onPostExecute(Integer result) {
-                Progress.dismissDialog(PresetEditorActivity.this, Progress.PROGRESS_PRESET);
+                Progress.dismissDialog(activity, Progress.PROGRESS_PRESET);
                 switch (result) {
                 case RESULT_TOTAL_SUCCESS:
-                    Snack.barInfo(PresetEditorActivity.this, R.string.preset_download_successful);
-                    PresetEditorActivity.super.sendResultIfApplicable(item);
+                    Snack.barInfo(activity, R.string.preset_download_successful);
+                    activity.sendResultIfApplicable(item);
                     break;
                 case RESULT_TOTAL_FAILURE:
                     msgbox(R.string.preset_download_failed);
@@ -443,12 +334,12 @@ public class PresetEditorActivity extends URLListEditActivity {
              * @param msgResID string resource id of message
              */
             private void msgbox(int msgResID) {
-                AlertDialog.Builder box = new AlertDialog.Builder(PresetEditorActivity.this);
-                box.setMessage(getResources().getString(msgResID));
-                box.setOnCancelListener(dialog -> PresetEditorActivity.super.sendResultIfApplicable(item));
+                AlertDialog.Builder box = new AlertDialog.Builder(activity);
+                box.setMessage(activity.getResources().getString(msgResID));
+                box.setOnCancelListener(dialog -> activity.sendResultIfApplicable(item));
                 box.setPositiveButton(R.string.okay, (dialog, which) -> {
                     dialog.dismiss();
-                    PresetEditorActivity.super.sendResultIfApplicable(item);
+                    activity.sendResultIfApplicable(item);
                 });
                 box.show();
             }
