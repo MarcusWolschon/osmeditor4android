@@ -8,8 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.nsi.Names;
 import de.blau.android.presets.ValueType;
-import de.blau.android.presets.ValueWithCount;
-import de.blau.android.util.StringWithDescription;
+import de.blau.android.util.Value;
 
 public final class InputTypeUtil {
 
@@ -60,10 +59,8 @@ public final class InputTypeUtil {
                 Object o = adapter.getItem(0);
                 if (o instanceof Names.NameAndTags) {
                     return;
-                } else if (o instanceof ValueWithCount) {
-                    emptyAdapter = "".equals(((ValueWithCount) o).getValue());
-                } else if (o instanceof StringWithDescription) {
-                    emptyAdapter = "".equals(((StringWithDescription) o).getValue());
+                } else if (o instanceof Value) {
+                    emptyAdapter = "".equals(((Value) o).getValue());
                 } else if (o instanceof String) {
                     emptyAdapter = "".equals(o);
                 }

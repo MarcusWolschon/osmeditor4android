@@ -178,6 +178,7 @@ public class Preset implements Serializable {
     private static final String ITEM                       = "item";
     private static final String NAME_CONTEXT               = "name_context";
     private static final String ICON                       = "icon";
+    private static final String IMAGE                      = "image";
     private static final String NAME                       = "name";
     private static final String OBJECT_KEYS                = "object_keys";
     private static final String GROUP                      = "group";
@@ -312,6 +313,7 @@ public class Preset implements Serializable {
 
     private final PresetMRUInfo mru;
     private String              externalPackage;
+    private final boolean       isDefault;
 
     private static final FilenameFilter presetFileFilter = (File dir, String name) -> name.endsWith(".xml");
     private static final FileFilter     directoryFilter  = File::isDirectory;
@@ -321,6 +323,7 @@ public class Preset implements Serializable {
      */
     Preset() {
         mru = null;
+        isDefault = false;
     }
 
     /**
@@ -361,7 +364,8 @@ public class Preset implements Serializable {
 
         InputStream fileStream = null;
         try {
-            if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
+            isDefault = AdvancedPrefDatabase.ID_DEFAULT.equals(directory.getName());
+            if (isDefault) {
                 Log.i(DEBUG_TAG, "Loading default preset");
                 iconManager = new PresetIconManager(ctx, null, null);
                 fileStream = iconManager.openAsset(PRESETXML, true);
@@ -471,6 +475,7 @@ public class Preset implements Serializable {
      */
     public Preset(@NonNull List<PresetElement> elements) {
         mru = null;
+        isDefault = false;
         String name = "";
         if (!elements.isEmpty()) {
             name = elements.get(0).getName();
@@ -568,6 +573,7 @@ public class Preset implements Serializable {
             /** store current combo or multiselect key */
             private String                      listKey           = null;
             private List<StringWithDescription> listValues        = null;
+            private int                         imageCount        = 0;
             /** check groups */
             private PresetCheckGroupField       checkGroup        = null;
             private int                         checkGroupCounter = 0;
@@ -599,6 +605,10 @@ public class Preset implements Serializable {
                 case GROUP:
                     PresetGroup parent = groupstack.peek();
                     PresetGroup g = new PresetGroup(parent, attr.getValue(NAME), attr.getValue(ICON));
+                    String imagePath = attr.getValue(IMAGE);
+                    if (imagePath != null) {
+                        g.setImage(isDefault ? imagePath : directory.toString() + imagePath);
+                    }
                     String context = attr.getValue(NAME_CONTEXT);
                     if (context != null) {
                         g.setNameContext(context);
@@ -625,6 +635,10 @@ public class Preset implements Serializable {
                         type = attr.getValue(GTYPE); // note gtype seems to be undocumented
                     }
                     currentItem = new PresetItem(parent, attr.getValue(NAME), attr.getValue(ICON), type);
+                    imagePath = attr.getValue(IMAGE);
+                    if (imagePath != null) {
+                        currentItem.setImage(isDefault ? imagePath : directory.toString() + imagePath);
+                    }
                     context = attr.getValue(NAME_CONTEXT);
                     if (context != null) {
                         currentItem.setNameContext(context);
@@ -854,6 +868,7 @@ public class Preset implements Serializable {
                                 match == null ? null : MatchType.fromString(match));
                         listKey = key;
                         listValues = new ArrayList<>();
+                        imageCount = 0;
                     }
                     field = currentItem.getField(key);
                     if (!(field instanceof PresetComboField)) {
@@ -969,14 +984,21 @@ public class Preset implements Serializable {
                     if (listValues != null) {
                         String v = attr.getValue(VALUE);
                         if (v != null) {
-                            String d = attr.getValue(DISPLAY_VALUE);
-                            if (d == null) {
-                                d = attr.getValue(SHORT_DESCRIPTION);
-                            }
+                            String displayValue = attr.getValue(DISPLAY_VALUE);
+                            String listShortDescription = attr.getValue(SHORT_DESCRIPTION);
+                            String listDescription = displayValue != null ? displayValue : listShortDescription;
                             String iconPath = attr.getValue(ICON);
-                            ExtendedStringWithDescription swd = iconPath == null ? new ExtendedStringWithDescription(v, d)
-                                    : new StringWithDescriptionAndIcon(v, d, iconPath);
+                            String imagePath = attr.getValue(IMAGE);
+                            if (imagePath != null) {
+                                imagePath = isDefault ? imagePath : directory.toString() + Paths.DELIMITER + imagePath;
+                                imageCount++;
+                            }
+                            ExtendedStringWithDescription swd = iconPath == null && imagePath == null ? new ExtendedStringWithDescription(v, listDescription)
+                                    : new StringWithDescriptionAndIcon(v, listDescription, iconPath, imagePath);
                             swd.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                            if (displayValue != null) { // short description is potentially unused
+                                swd.setLongDescription(listShortDescription);
+                            }
                             listValues.add(swd);
                         }
                     }
@@ -1122,6 +1144,7 @@ public class Preset implements Serializable {
                         if (field != null) {
                             field.setValues(listValues.toArray(v));
                             currentItem.addValues(listKey, listValues.toArray(v), null);
+                            field.setUseImages(imageCount > 0);
                         }
                     }
                     listKey = null;
@@ -1824,6 +1847,7 @@ public class Preset implements Serializable {
         private String                   iconpath;
         private transient Drawable       icon;
         private transient BitmapDrawable mapIcon;
+        private String                   imagePath;
         PresetGroup                      parent;
         boolean                          appliesToWay;
         boolean                          appliesToNode;
@@ -1998,6 +2022,25 @@ public class Preset implements Serializable {
             } else {
                 return new PresetIconManager(ctx, null, null);
             }
+        }
+
+        /**
+         * Set the path for a large image
+         * 
+         * @param imagePath the path
+         */
+        public void setImage(@Nullable String imagePath) {
+            this.imagePath = imagePath;
+        }
+
+        /**
+         * Get the path for a large image
+         * 
+         * @return the image path or null
+         */
+        @Nullable
+        public String getImage() {
+            return this.imagePath;
         }
 
         /**
@@ -3445,11 +3488,11 @@ public class Preset implements Serializable {
          * @return true if a irl object
          */
         private boolean isObject(@NonNull Preset preset) {
-            Set<String> linkedPresetTags = getFixedTags().keySet();
-            if (linkedPresetTags.isEmpty()) {
-                linkedPresetTags = getFields().keySet();
+            Set<String> tags = getFixedTags().keySet();
+            if (tags.isEmpty()) {
+                tags = getFields().keySet();
             }
-            for (String k : linkedPresetTags) {
+            for (String k : tags) {
                 if (Tags.IMPORTANT_TAGS.contains(k) || preset.isObjectKey(k)) {
                     return true;
                 }

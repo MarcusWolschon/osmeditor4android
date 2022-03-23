@@ -85,6 +85,7 @@ import de.blau.android.util.Snack;
 import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
+import de.blau.android.util.Value;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
 public class TagEditorFragment extends BaseFragment implements PropertyRows, EditorUpdate {
@@ -1206,10 +1207,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             if (o instanceof Names.NameAndTags) {
                 row.valueEdit.setOrReplaceText(((NameAndTags) o).getName());
                 applyTagSuggestions(((NameAndTags) o).getTags(), null);
-            } else if (o instanceof ValueWithCount) {
-                row.valueEdit.setOrReplaceText(((ValueWithCount) o).getValue());
-            } else if (o instanceof StringWithDescription) {
-                row.valueEdit.setOrReplaceText(((StringWithDescription) o).getValue());
+            } else if (o instanceof Value) {
+                row.valueEdit.setOrReplaceText(((Value) o).getValue());
             } else if (o instanceof String) {
                 row.valueEdit.setOrReplaceText((String) o);
             }

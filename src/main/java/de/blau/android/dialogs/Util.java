@@ -24,7 +24,26 @@ public final class Util {
      * @param tag the tag of the DialogFragment we want to remove
      */
     public static void dismissDialog(@NonNull FragmentActivity activity, @NonNull String tag) {
-        FragmentManager fm = activity.getSupportFragmentManager();
+        dismiss(activity.getSupportFragmentManager(), tag);
+    }
+
+    /**
+     * Dismiss a DialogFragment
+     * 
+     * @param fragment the calling Fragment
+     * @param tag the tag of the DialogFragment we want to remove
+     */
+    public static void dismissDialog(@NonNull Fragment fragment, @NonNull String tag) {
+        dismiss(fragment.getChildFragmentManager(), tag);
+    }
+
+    /**
+     * Dismiss a DialogFragment
+     * 
+     * @param fm the FragmentManager
+     * @param tag the tag
+     */
+    private static void dismiss(FragmentManager fm, @NonNull String tag) {
         FragmentTransaction ft = fm.beginTransaction();
         Fragment fragment = fm.findFragmentByTag(tag);
         if (fragment != null) {

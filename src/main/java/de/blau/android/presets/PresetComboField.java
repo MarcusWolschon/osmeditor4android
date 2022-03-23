@@ -53,6 +53,8 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
      */
     private String valueCountKey;
 
+    private boolean useImages = false;
+
     /**
      * Constructor
      * 
@@ -66,6 +68,8 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
 
     /**
      * Constructor that constructs a copy with a different set of suggested values
+     * 
+     * Note it is not clear if this should set useImages
      * 
      * @param field the PresetComboField to copy
      * @param values an array of StringWithDescription for suggested values
@@ -93,6 +97,7 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
         this.setEditable(field.isEditable());
         this.setSortValues(field.getSortValues());
         this.setValuesSearchable(field.getValuesSearchable());
+        this.useImages = field.useImages;
     }
 
     /**
@@ -191,6 +196,8 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
             s.append(" ");
             s.append(v.getValue());
         }
+        s.append(" valuesCountKey: " + valueCountKey);
+        s.append(" useImages: " + useImages);
         return s.toString();
     }
 
@@ -265,6 +272,24 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
     @Nullable
     public String getValueCountKey() {
         return valueCountKey;
+    }
+
+    /**
+     * Set this to true if the fields values contain references to images
+     * 
+     * @param b the value to set
+     */
+    public void setUseImages(boolean b) {
+        useImages = b;
+    }
+
+    /**
+     * Check if we should use images or not
+     * 
+     * @return true if we should use an image selector for this field
+     */
+    public boolean useImages() {
+        return useImages;
     }
 
     @Override

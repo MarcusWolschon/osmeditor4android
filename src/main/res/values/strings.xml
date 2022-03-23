@@ -637,6 +637,7 @@ avoided by using an offline data source.</string>
     <string name="download">Download</string>
     <string name="abort">Abort</string>
     <string name="ignore">Ignore</string>
+    <string name="select">Select</string>
     <!-- Read a file -->
     <string name="read">Read</string>
     <string name="overwrite">Overwrite</string>

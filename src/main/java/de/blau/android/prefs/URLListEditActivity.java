@@ -274,7 +274,7 @@ public abstract class URLListEditActivity extends ListActivity
      * 
      * @param item created/edited item to send as result
      */
-    void sendResultIfApplicable(ListEditItem item) {
+    protected void sendResultIfApplicable(ListEditItem item) {
         if (isAddingViaIntent()) {
             Intent intent = new Intent();
             intent.putExtra(EXTRA_ITEM, item);

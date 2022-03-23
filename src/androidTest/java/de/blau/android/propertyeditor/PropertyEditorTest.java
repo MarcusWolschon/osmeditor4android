@@ -269,11 +269,11 @@ public class PropertyEditorTest {
         if (!((PropertyEditor) propertyEditor).paneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
-        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Facilities"), true, false);
+        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Facilities"), true, false);
         assertTrue(found);
-        found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Food+Drinks"), true, false);
+        found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Food+Drinks"), true, false);
         assertTrue(found);
-        found = TestUtils.clickText(device, true, getTranslatedPresetItemName("Restaurant"), true, false);
+        found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Restaurant"), true, false);
         assertTrue(found);
         UiObject2 cusine = null;
         try {
@@ -360,7 +360,7 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.tag_menu_apply_preset_with_optional), false, false));
         TestUtils.scrollTo("Diaper changing (deprecated)", false);
         assertFalse(TestUtils.findText(device, false, "Diaper changing (deprecated)"));
-        
+
         TestUtils.clickHome(device, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         device.waitForIdle();
@@ -604,7 +604,7 @@ public class PropertyEditorTest {
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), true, false);
         device.wait(Until.findObject(By.clickable(true).textStartsWith("from")), 500);
         TestUtils.scrollTo("from", false);
-        
+
         editText = device.findObject(new UiSelector().clickable(true).textStartsWith("from"));
         try {
             editText.click(); // NOTE this seems to be necessary
@@ -648,12 +648,14 @@ public class PropertyEditorTest {
     /**
      * Get the translated name of a preset group
      * 
+     * @param context an Android Context
      * @param name the group name
+     * 
      * @return the translated name
      */
-    String getTranslatedPresetGroupName(String name) {
+    static String getTranslatedPresetGroupName(Context context, String name) {
         String result = null;
-        Preset[] presets = App.getCurrentPresets(main);
+        Preset[] presets = App.getCurrentPresets(context);
         for (Preset p : presets) {
             if (p != null) {
                 PresetGroup group = p.getGroupByName(name);
@@ -668,12 +670,14 @@ public class PropertyEditorTest {
     /**
      * Get the translated name of a preset item
      * 
+     * @param context an Android Context
      * @param name the item name
+     * 
      * @return the translated name
      */
-    String getTranslatedPresetItemName(String name) {
+    static String getTranslatedPresetItemName(Context context, String name) {
         String result = null;
-        Preset[] presets = App.getCurrentPresets(main);
+        Preset[] presets = App.getCurrentPresets(context);
         for (Preset p : presets) {
             if (p != null) {
                 PresetItem item = p.getItemByName(name);
@@ -710,11 +714,11 @@ public class PropertyEditorTest {
         if (!((PropertyEditor) propertyEditor).paneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
-        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Highways"), true, false);
+        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Highways"), true, false);
         assertTrue(found);
-        found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Streets"), true, false);
+        found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Streets"), true, false);
         assertTrue(found);
-        found = TestUtils.clickText(device, true, getTranslatedPresetItemName("Motorway"), true, false);
+        found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Motorway"), true, false);
         assertTrue(found);
     }
 
@@ -787,11 +791,11 @@ public class PropertyEditorTest {
         if (!((PropertyEditor) propertyEditor).paneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
-        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Highways"), true, false);
+        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Highways"), true, false);
         assertTrue(found);
-        found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Ways"), true, false);
+        found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Ways"), true, false);
         assertTrue(found);
-        found = TestUtils.clickText(device, true, getTranslatedPresetItemName("Steps"), true, false);
+        found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Steps"), true, false);
         assertTrue(found);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/tag_menu_apply_preset_with_optional", false);
         device.waitForIdle(1000);
@@ -843,14 +847,14 @@ public class PropertyEditorTest {
         if (!((PropertyEditor) propertyEditor).paneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
-        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Highways"), true, false);
+        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Highways"), true, false);
         assertTrue(found);
-        found = TestUtils.clickText(device, true, getTranslatedPresetGroupName("Streets"), true, false);
+        found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Streets"), true, false);
         assertTrue(found);
-        found = TestUtils.clickText(device, true, getTranslatedPresetItemName("Residential"), true, false);
+        found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Residential"), true, false);
         assertTrue(found);
         assertTrue(TestUtils.findText(device, false, "Kindhauserstrasse"));
-        found = TestUtils.clickText(device, true, getTranslatedPresetItemName("Cond. & direct. max speed"), true, false);
+        found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Cond. & direct. max speed"), true, false);
         assertTrue(found);
         UiObject2 conditionalMaxSpeed = null;
         try {

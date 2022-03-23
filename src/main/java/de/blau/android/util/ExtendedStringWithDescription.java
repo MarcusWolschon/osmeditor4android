@@ -5,10 +5,17 @@ import java.io.Serializable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+/**
+ * This adds support for deprecated and long description fields
+ * 
+ * @author simon
+ *
+ */
 public class ExtendedStringWithDescription extends StringWithDescription implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 3L;
 
     private boolean deprecated;
+    private String  longDescription;
 
     /**
      * Construct a new instance
@@ -38,6 +45,7 @@ public class ExtendedStringWithDescription extends StringWithDescription impleme
         super(o);
         if (o instanceof ExtendedStringWithDescription) {
             this.deprecated = ((ExtendedStringWithDescription) o).deprecated;
+            this.longDescription = ((ExtendedStringWithDescription) o).longDescription;
         }
     }
 
@@ -59,9 +67,41 @@ public class ExtendedStringWithDescription extends StringWithDescription impleme
         this.deprecated = deprecated;
     }
 
+    /**
+     * @return the longDescription
+     */
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    /**
+     * @param longDescription the longDescription to set
+     */
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
+    }
+
+    /**
+     * Check if this object has a long description
+     * 
+     * @return true if this has a long description
+     */
+    public boolean hasLongDescription() {
+        return longDescription != null;
+    }
+
     @Override
     public String toString() {
         return super.toString() + (deprecated ? " (deprecated)" : "");
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + (deprecated ? 1231 : 1237);
+        result = prime * result + ((longDescription == null) ? 0 : longDescription.hashCode());
+        return result;
     }
 
     @Override
@@ -75,11 +115,17 @@ public class ExtendedStringWithDescription extends StringWithDescription impleme
         if (!(obj instanceof ExtendedStringWithDescription)) {
             return false;
         }
-        return deprecated == ((ExtendedStringWithDescription) obj).deprecated;
-    }
-
-    @Override
-    public int hashCode() {
-        return 37 * super.hashCode() + (deprecated ? 1 : 0);
+        ExtendedStringWithDescription other = (ExtendedStringWithDescription) obj;
+        if (deprecated != other.deprecated) {
+            return false;
+        }
+        if (longDescription == null) {
+            if (other.longDescription != null) {
+                return false;
+            }
+        } else if (!longDescription.equals(other.longDescription)) {
+            return false;
+        }
+        return true;
     }
 }
