@@ -26,6 +26,7 @@ import de.blau.android.contract.Ui;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetField;
+import de.blau.android.propertyeditor.tagform.TagFormFragment.Ruler;
 import de.blau.android.util.SelectByImageFragment;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;
@@ -38,7 +39,9 @@ import de.blau.android.util.Value;
  */
 public class ComboDialogRow extends DialogRow {
 
-    private static final String DEBUG_TAG = "ComboDialogRow";
+    private static final String DEBUG_TAG = ComboDialogRow.class.getSimpleName();
+
+    private static final int DEBOUNCE_DELAY = 1000;
 
     /**
      * Construct a row that will display a Dialog when clicked
@@ -115,15 +118,8 @@ public class ComboDialogRow extends DialogRow {
 
                 StringWithDescription swd = o instanceof StringWithDescriptionAndIcon ? new StringWithDescriptionAndIcon(o) : new StringWithDescription(o);
                 String v = swd.getValue();
-                String description = swd.getDescription();
 
-                if (v == null || "".equals(v)) {
-                    continue;
-                }
-                if (description == null) {
-                    description = v;
-                }
-                if (v.equals(value)) {
+                if (v != null && !"".equals(v) && v.equals(value)) {
                     row.setValue(swd);
                     selectedValue = v;
                     break;
@@ -137,8 +133,8 @@ public class ComboDialogRow extends DialogRow {
                 finalSelectedValue = null;
             }
             row.setOnClickListener(v -> {
-                final View finalView = v;
-                finalView.setEnabled(false); // debounce
+                v.setEnabled(false); // debounce
+                v.postDelayed(() -> v.setEnabled(true), DEBOUNCE_DELAY);
                 PresetField field = preset.getField(key);
                 if (field instanceof PresetComboField && ((PresetComboField) field).useImages()) {
                     buildImageComboDialog(caller, key, adapter, row);
@@ -149,7 +145,6 @@ public class ComboDialogRow extends DialogRow {
                             ComboDialogRow.scrollDialogToValue(finalSelectedValue, dialog, R.id.valueGroup);
                         }
                     });
-                    dialog.setOnDismissListener(d -> finalView.setEnabled(true));
                     dialog.show();
                 }
             });
@@ -287,24 +282,31 @@ public class ComboDialogRow extends DialogRow {
     private static void buildImageComboDialog(@NonNull final TagFormFragment caller, @NonNull final String key, @NonNull final ArrayAdapter<?> adapter,
             @NonNull final DialogRow row) {
         String value = row.getValue();
-        int pos = 0;
+
         ArrayList<String> images = new ArrayList<>();
         final List<Value> values = new ArrayList<>();
         // Note we can't use the adapter directly in the ImageLoader as it will potentially be serialized
+        // Start with 1 to avoid empty entry
         for (int i = 1; i < adapter.getCount(); i++) {
             Object o = adapter.getItem(i);
+            if (o instanceof Ruler) {
+                continue;
+            }
             final Value aValue = o instanceof Value ? ((Value) o) : new StringWithDescription((String) o);
             values.add(aValue);
-            if (aValue.getValue().equals(value)) {
-                pos = i - 1;
-            }
             if (o instanceof StringWithDescriptionAndIcon && ((StringWithDescriptionAndIcon) o).hasImagePath()) {
                 images.add(((StringWithDescriptionAndIcon) o).getImagePath());
             } else {
                 images.add("");
             }
         }
-
+        int pos = 0;
+        for (int i = 0; i < values.size(); i++) {
+            if (values.get(i).getValue().equals(value)) {
+                pos = i;
+                break;
+            }
+        }
         SelectByImageFragment.showDialog(caller, images, pos, new ComboImageLoader(key, values));
     }
 }
