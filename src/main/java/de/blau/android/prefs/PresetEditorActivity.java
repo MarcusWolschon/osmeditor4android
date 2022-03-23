@@ -47,7 +47,7 @@ import de.blau.android.util.ThemeUtils;
 /** Provides an activity to edit the preset list. Downloads preset data when necessary. */
 public class PresetEditorActivity extends URLListEditActivity {
 
-    private static final String DEBUG_TAG = "PresetEditorActivity";
+    private static final String DEBUG_TAG = PresetEditorActivity.class.getSimpleName();
 
     private AdvancedPrefDatabase db;
 
@@ -120,7 +120,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        Log.d("AdvancedPrefEditor", "onOptionsItemSelected");
+        Log.d(DEBUG_TAG, "onOptionsItemSelected");
         if (item.getItemId() == MENUITEM_HELP) {
             HelpViewer.start(this, R.string.help_presets);
             return true;
