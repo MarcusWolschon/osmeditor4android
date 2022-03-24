@@ -53,11 +53,11 @@ public class ComboDialogRow extends DialogRow {
     }
 
     /**
-     * Scroll the view in the dialog to show the value, assumes the ScrollView has id R.id.myScrollView
+     * Scroll the view in the dialog to show the value
      * 
      * @param value the value we want to scroll to
      * @param dialog the enclosing dialog
-     * @param containerId ?
+     * @param containerId resource id of the ViewGroup containing the rows
      */
     static void scrollDialogToValue(String value, AlertDialog dialog, int containerId) {
         Log.d(DEBUG_TAG, "scrollDialogToValue scrolling to " + value);
@@ -209,24 +209,21 @@ public class ComboDialogRow extends DialogRow {
         }
         final Handler handler = new Handler(Looper.getMainLooper());
         builder.setPositiveButton(R.string.clear, (dialog, which) -> {
-            caller.updateSingleValue((String) layout.getTag(), "");
-            row.setValue("", "");
-            row.setChanged(true);
+            String k = (String) ((AlertDialog) dialog).findViewById(R.id.valueGroup).getTag();
+            updateTag(((AlertDialog) dialog).getContext(), k, new StringWithDescription(""));
             // allow a tiny bit of time to see that the action actually worked
             handler.postDelayed(dialog::dismiss, 100);
         });
         builder.setNegativeButton(R.string.cancel, null);
         final AlertDialog dialog = builder.create();
-        layout.setTag(key);
+        valueGroup.setTag(key);
         valueGroup.setOnCheckedChangeListener((group, checkedId) -> {
             Log.d(DEBUG_TAG, "radio group onCheckedChanged");
             StringWithDescription ourValue = null;
             if (checkedId != -1) {
                 RadioButton button = (RadioButton) group.findViewById(checkedId);
                 ourValue = (StringWithDescription) button.getTag();
-                caller.updateSingleValue((String) layout.getTag(), ourValue.getValue());
-                row.setValue(ourValue);
-                row.setChanged(true);
+                updateTag(button.getContext(), (String) group.getTag(), ourValue);
             }
             // allow a tiny bit of time to see that the action actually worked
             handler.postDelayed(dialog::dismiss, 100);

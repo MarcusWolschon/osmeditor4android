@@ -1047,7 +1047,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param key the key value we want to focus on
      * @return true if the key was found
      */
-    private boolean focusOnTag(String key) {
+    public boolean focusOnTag(String key) {
         boolean found = false;
         View sv = getView();
         LinearLayout ll = (LinearLayout) sv.findViewById(R.id.form_container_layout);
@@ -1059,14 +1059,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 for (int i = ll2.getChildCount() - 1; i >= 0; --i) {
                     View v = ll2.getChildAt(i);
                     if (v instanceof TextRow && ((TextRow) v).getKey().equals(key)) {
-                        ((TextRow) v).getValueView().requestFocus();
                         Util.scrollToRow(sv, v, true, true);
+                        ((TextRow) v).getValueView().requestFocus();
                         found = true;
                         break;
                     } else if (v instanceof DialogRow && ((DialogRow) v).getKey().equals(key)) {
                         Util.scrollToRow(sv, v, true, true);
                         ((DialogRow) v).click();
                         found = true;
+                        break;
                     }
                 }
                 pos++;
@@ -1106,6 +1107,72 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             return false;
         }
         return found;
+    }
+
+    /**
+     * Find a row for a specific key
+     * 
+     * @param key the key to search for
+     * @return the Row or null
+     */
+    public View getRow(@NonNull String key) {
+        View sv = getView();
+        LinearLayout ll = (LinearLayout) sv.findViewById(R.id.form_container_layout);
+        if (ll != null) {
+            int pos = 0;
+            while (ll.getChildAt(pos) instanceof EditableLayout && pos < ll.getChildCount()) {
+                EditableLayout ll2 = (EditableLayout) ll.getChildAt(pos);
+                for (int i = ll2.getChildCount() - 1; i >= 0; --i) {
+                    View v = ll2.getChildAt(i);
+                    if ((v instanceof TextRow && ((TextRow) v).getKey().equals(key)) || (v instanceof DialogRow && ((DialogRow) v).getKey().equals(key))) {
+                        return v;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Update a DialogRow
+     * 
+     * @param key the key
+     * @param value the new value
+     */
+    public void updateDialogRow(@NonNull String key, @NonNull StringWithDescription value) {
+        View row = getRow(key);
+        if (row instanceof DialogRow) {
+            ((DialogRow) row).setValue(value);
+            ((DialogRow) row).setChanged(true);
+        }
+    }
+
+    /**
+     * Update a DialogRow
+     * 
+     * @param key the key
+     * @param valueList a list of new values
+     */
+    public void updateDialogRow(@NonNull String key, @NonNull List<StringWithDescription> valueList) {
+        View row = getRow(key);
+        if (row instanceof MultiselectDialogRow) {
+            ((MultiselectDialogRow) row).setValue(valueList);
+            ((DialogRow) row).setChanged(true);
+        }
+    }
+
+    /**
+     * Update a DialogRow
+     * 
+     * @param key the key
+     * @param tags a Map of selected tags
+     */
+    public void updateDialogRow(@NonNull String key, @NonNull final Map<String, String> tags) {
+        View row = getRow(key);
+        if (row instanceof CheckGroupDialogRow) {
+            ((CheckGroupDialogRow) row).setSelectedValues(tags);
+            ((DialogRow) row).setChanged(true);
+        }
     }
 
     /**

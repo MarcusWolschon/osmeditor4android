@@ -11,6 +11,8 @@ import de.blau.android.R;
 
 abstract class ShowDialogOnClickListener implements OnClickListener {
 
+    private static final long DEBOUNCE_DELAY = 1000;
+
     /**
      * Get the AlertDialog to display
      * 
@@ -22,15 +24,14 @@ abstract class ShowDialogOnClickListener implements OnClickListener {
     @Override
     public void onClick(View v) {
         final AlertDialog dialog = buildDialog();
-        View finalView = v;
-        finalView.setEnabled(false); // debounce
-        final Object tag = finalView.getTag();
+        v.setEnabled(false); // debounce
+        v.postDelayed(() -> v.setEnabled(true), DEBOUNCE_DELAY);
+        final Object tag = v.getTag();
         dialog.setOnShowListener(d -> {
             if (tag instanceof String) {
                 ComboDialogRow.scrollDialogToValue((String) tag, dialog, R.id.valueGroup);
             }
         });
-        dialog.setOnDismissListener(d -> finalView.setEnabled(true));
         dialog.show();
         dialog.getButton(DialogInterface.BUTTON_NEUTRAL).setOnClickListener(unused -> {
             LinearLayout valueGroup = (LinearLayout) dialog.findViewById(R.id.valueGroup);
