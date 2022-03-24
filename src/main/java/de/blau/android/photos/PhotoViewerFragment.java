@@ -30,7 +30,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
@@ -39,6 +38,7 @@ import de.blau.android.contract.Ui;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.ImageLoader;
 import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.OnPageSelectedListener;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
@@ -223,17 +223,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
         viewPager.setAdapter(photoPagerAdapter);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setCurrentItem(startPos);
-        viewPager.addOnPageChangeListener(new OnPageChangeListener() {
-
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-                // UNUSED
-            }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-                // UNUSED
-            }
+        viewPager.addOnPageChangeListener(new OnPageSelectedListener() {
 
             @Override
             public void onPageSelected(int page) {

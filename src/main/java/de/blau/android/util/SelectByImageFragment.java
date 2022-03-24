@@ -28,7 +28,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
 
@@ -170,17 +169,7 @@ public class SelectByImageFragment extends ImmersiveDialogFragment implements On
         viewPager.setAdapter(imagePagerAdapter);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setCurrentItem(startPos);
-        viewPager.addOnPageChangeListener(new OnPageChangeListener() {
-
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-                // UNUSED
-            }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-                // UNUSED
-            }
+        viewPager.addOnPageChangeListener(new OnPageSelectedListener() {
 
             @Override
             public void onPageSelected(int page) {

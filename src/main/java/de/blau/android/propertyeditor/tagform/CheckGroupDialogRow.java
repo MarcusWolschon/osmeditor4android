@@ -61,7 +61,7 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
     }
 
     /**
-     * Add additional description values as individual TextViews
+     * Set the selected check values
      * 
      * @param keyValues a Map of the current keys and values for this check group
      */
@@ -281,7 +281,6 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
         android.view.ViewGroup.LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
         buttonLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
 
-        layout.setTag(key);
         PresetCheckGroupField field = (PresetCheckGroupField) preset.getField(key);
 
         for (PresetCheckField check : field.getCheckFields()) {
@@ -303,6 +302,7 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
         builder.setNeutralButton(R.string.clear, (dialog, which) -> {
             // do nothing
         });
+        valueGroup.setTag(key);
         builder.setPositiveButton(R.string.save, (dialog, which) -> {
             Map<String, String> ourKeyValues = new HashMap<>();
             for (int pos = 0; pos < valueGroup.getChildCount(); pos++) {
@@ -325,9 +325,8 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
                     }
                 }
             }
-            caller.updateTags(ourKeyValues, false); // batch update
-            row.setSelectedValues(ourKeyValues);
-            row.setChanged(true);
+            String k = (String) ((AlertDialog) dialog).findViewById(R.id.valueGroup).getTag();
+            updateTags(((AlertDialog) dialog).getContext(), k, ourKeyValues, false); // batch update
         });
         builder.setNegativeButton(R.string.cancel, null);
         return builder.create();

@@ -54,6 +54,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.FilterlessArrayAdapter;
 import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.OnPageSelectedListener;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.validation.ExtendedValidator;
 import de.blau.android.validation.FormValidation;
@@ -207,17 +208,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
 
         pager.setAdapter(new ViewPagerAdapter(activity, layout, new int[] { R.id.review_page, R.id.tags_page },
                 new int[] { R.string.confirm_upload_edits_page, R.string.menu_tags }));
-        pager.addOnPageChangeListener(new OnPageChangeListener() {
-
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-                // empty
-            }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-                // empty
-            }
+        pager.addOnPageChangeListener(new OnPageSelectedListener() {
 
             @Override
             public void onPageSelected(int arg0) {
@@ -231,7 +222,6 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(layout.getWindowToken(), 0);
             }
-
         });
 
         builder.setView(layout);

@@ -1,5 +1,8 @@
 package de.blau.android.propertyeditor.tagform;
 
+import java.util.List;
+import java.util.Map;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -8,6 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import de.blau.android.R;
 import de.blau.android.contract.Ui;
 import de.blau.android.presets.Preset.PresetItem;
@@ -191,5 +198,99 @@ public class DialogRow extends LinearLayout {
      */
     public void click() {
         valueView.performClick();
+    }
+
+    /**
+     * Find the parent TagFormFragment and update the tag
+     * 
+     * This is ugly, but works reliably
+     * 
+     * @param context the relevant Android Context
+     * @param key the tag key
+     * @param value the tag value
+     */
+    protected static void updateTag(@NonNull Context context, @NonNull String key, @NonNull StringWithDescription value) {
+        TagFormFragment fragment = findFragment(context);
+        if (fragment != null) {
+            fragment.updateSingleValue(key, value.getValue());
+            fragment.updateDialogRow(key, value);
+        }
+    }
+
+    /**
+     * Find the TagFormFragment
+     * 
+     * @param context the relevant Android Context
+     * @return the fragment or null if not found
+     */
+    @Nullable
+    private static TagFormFragment findFragment(@NonNull Context context) {
+        context = unwrap(context);
+        if (context instanceof FragmentActivity) {
+            FragmentManager fm = ((FragmentActivity) context).getSupportFragmentManager();
+            for (Fragment fragment : fm.getFragments()) {
+                if (fragment instanceof TagFormFragment) {
+                    return (TagFormFragment) fragment;
+                }
+            }
+            Log.e(DEBUG_TAG, "TagFormFragment not found");
+        } else {
+            Log.e(DEBUG_TAG, "Context is not a FragmentActivity, instead it is " + context.getClass().getCanonicalName());
+        }
+        return null;
+    }
+
+    /**
+     * Find the parent TagFormFragment and update the tag
+     * 
+     * @param context the relevant Android Context
+     * @param key the tag key
+     * @param value the concatenated tag value
+     * @param valueList list of individual values
+     */
+    protected static void updateTag(@NonNull Context context, @NonNull String key, @NonNull String value, @NonNull List<StringWithDescription> valueList) {
+        TagFormFragment fragment = findFragment(context);
+        if (fragment != null) {
+            fragment.updateSingleValue(key, value);
+            fragment.updateDialogRow(key, valueList);
+        }
+    }
+
+    /**
+     * Find the parent TagFormFragment and update multiple tags
+     * 
+     * This is just as ugly as above, but works reliably
+     * 
+     * @param context the relevant Android Context
+     * @param key a String identifying the row to change
+     * @param tags map containing the new key - value pairs
+     * @param flush if true delete all existing tags before applying the update
+     */
+    protected static void updateTags(@NonNull Context context, @NonNull String key, @NonNull final Map<String, String> tags, final boolean flush) {
+        TagFormFragment fragment = findFragment(context);
+        if (fragment != null) {
+            fragment.updateTags(tags, flush);
+            fragment.updateDialogRow(key, tags);
+        }
+    }
+
+    /**
+     * Unwrap a Context till we find a FragmentActivity
+     * 
+     * @param context the Context
+     * @return the unwrapped Context
+     */
+    @NonNull
+    private static Context unwrap(@NonNull Context context) {
+        while (!(context instanceof FragmentActivity)) {
+            if (context instanceof ContextThemeWrapper) {
+                context = ((ContextThemeWrapper) context).getBaseContext();
+            } else if (context instanceof android.view.ContextThemeWrapper) {
+                context = ((android.view.ContextThemeWrapper) context).getBaseContext();
+            } else {
+                break;
+            }
+        }
+        return context;
     }
 }

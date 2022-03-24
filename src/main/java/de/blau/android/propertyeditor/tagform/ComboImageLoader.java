@@ -67,7 +67,7 @@ public class ComboImageLoader extends ImageLoader {
     public void onSelected(int pos) {
         final Value v = values.get(pos);
         if (v instanceof StringWithDescriptionAndIcon) {
-            update(((StringWithDescriptionAndIcon) v).getValue());
+            update((StringWithDescriptionAndIcon) v);
         }
     }
 
@@ -76,10 +76,10 @@ public class ComboImageLoader extends ImageLoader {
      * 
      * @param v the selected value
      */
-    private void update(final String v) {
+    private void update(final StringWithDescription v) {
         if (parentFragment instanceof TagFormFragment) {
-            ((TagFormFragment) parentFragment).updateSingleValue(key, v);
-            ((TagFormFragment) parentFragment).tagsUpdated();
+            ((TagFormFragment) parentFragment).updateSingleValue(key, v.getValue());
+            ((TagFormFragment) parentFragment).updateDialogRow(key, v);
         } else {
             Log.e(DEBUG_TAG, "caller not a TagFormFragment " + parentFragment);
         }
@@ -87,6 +87,6 @@ public class ComboImageLoader extends ImageLoader {
 
     @Override
     public void clearSelection() {
-        update("");
+        update(new StringWithDescription(""));
     }
 }
