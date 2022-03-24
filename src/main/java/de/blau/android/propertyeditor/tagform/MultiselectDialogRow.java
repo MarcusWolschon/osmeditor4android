@@ -98,7 +98,6 @@ public class MultiselectDialogRow extends DialogRow {
         for (StringWithDescription swd : values) {
             String d = swd.getDescription();
             if (first) {
-
                 setValue(swd.getValue(), d != null && !"".equals(d) ? d : swd.getValue());
                 first = false;
             } else {
@@ -196,7 +195,6 @@ public class MultiselectDialogRow extends DialogRow {
         android.view.ViewGroup.LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
         buttonLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
 
-        layout.setTag(key);
         List<String> values = Preset.splitValues(Util.wrapInList(row.getValue()), preset, key);
         if (adapter != null) {
             int count = adapter.getCount();
@@ -227,20 +225,27 @@ public class MultiselectDialogRow extends DialogRow {
         builder.setNeutralButton(R.string.clear, (dialog, iwhich) -> {
             // do nothing
         });
+        valueGroup.setTag(new String[] { key, String.valueOf(preset.getDelimiter(key)) });
         builder.setPositiveButton(R.string.save, (dialog, which) -> {
+            String[] kd = (String[]) ((AlertDialog) dialog).findViewById(R.id.valueGroup).getTag();
+            String delimiter = kd[1];
             List<StringWithDescription> valueList = new ArrayList<>();
+            StringBuilder stringBuilder = new StringBuilder();
             for (int pos = 0; pos < valueGroup.getChildCount(); pos++) {
                 View c = valueGroup.getChildAt(pos);
                 if (c instanceof AppCompatCheckBox) {
                     AppCompatCheckBox checkBox = (AppCompatCheckBox) c;
                     if (checkBox.isChecked()) {
-                        valueList.add((StringWithDescription) checkBox.getTag());
+                        if (stringBuilder.length() != 0) {
+                            stringBuilder.append(delimiter);
+                        }
+                        final StringWithDescription swd = (StringWithDescription) checkBox.getTag();
+                        stringBuilder.append(swd.getValue());
+                        valueList.add(swd);
                     }
                 }
             }
-            row.setValue(valueList);
-            caller.updateSingleValue((String) layout.getTag(), row.getValue());
-            row.setChanged(true);
+            updateTag(((AlertDialog) dialog).getContext(), kd[0], stringBuilder.toString(), valueList);
         });
         builder.setNegativeButton(R.string.cancel, null);
         return builder.create();
