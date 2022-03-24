@@ -39,7 +39,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.PagerTabStrip;
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
