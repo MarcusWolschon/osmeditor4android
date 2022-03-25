@@ -69,6 +69,7 @@ import de.blau.android.filter.Filter;
 import de.blau.android.gpx.Track;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.layer.MapViewLayer;
+import de.blau.android.layer.data.MapOverlay;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.GeoPoint;
@@ -903,7 +904,12 @@ public class Logic {
                 }
             }
         } else {
-            ways = filter != null ? filter.getVisibleWays() : getWays(map.getViewBox());
+            if (filter != null) {
+                ways = filter.getVisibleWays();
+            } else {
+                MapOverlay dataLayer = map.getDataLayer();
+                ways = dataLayer != null ? dataLayer.getWaysInView() : getWays(map.getViewBox());
+            }
         }
         return ways;
     }
@@ -1100,7 +1106,8 @@ public class Logic {
                     nodes.addAll(getSelectedNodes());
                 }
             } else {
-                nodes = getDelegator().getCurrentStorage().getNodes(map.getViewBox());
+                MapOverlay dataLayer = map.getDataLayer();
+                nodes = dataLayer != null ? dataLayer.getNodesInView() : getDelegator().getCurrentStorage().getNodes(map.getViewBox());
             }
         }
         return nodes;
@@ -1228,7 +1235,7 @@ public class Logic {
      */
     @NonNull
     public List<Way> getWaysForNode(@NonNull final Node node) {
-        return getDelegator().getCurrentStorage().getWays(node);
+        return getDelegator().getWays(node);
     }
 
     /**
@@ -1240,7 +1247,7 @@ public class Logic {
     @NonNull
     public List<Way> getFilteredWaysForNode(@NonNull final Node node) {
         List<Way> ways = new ArrayList<>();
-        for (Way w : getDelegator().getCurrentStorage().getWays(node)) {
+        for (Way w : getDelegator().getWays(node)) {
             if (getFilter() == null || filter.include(w, false)) {
                 ways.add(w);
             }
@@ -2328,25 +2335,21 @@ public class Logic {
         }
         if (closestElements.isEmpty()) {
             // fall back to closest ways
-            for (Way way : getDelegator().getCurrentStorage().getWays()) {
-                if (!way.hasNode(nodeToJoin)) {
-                    List<Node> wayNodes = way.getNodes();
-                    Node firstNode = wayNodes.get(0);
-                    float node1X = lonE7ToX(firstNode.getLon());
-                    float node1Y = latE7ToY(firstNode.getLat());
-                    for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
-                        Node node2 = wayNodes.get(i);
-                        float node2X = lonE7ToX(node2.getLon());
-                        float node2Y = latE7ToY(node2.getLat());
-                        double distance = Geometry.isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y);
-                        if (distance >= 0) {
-                            if (filter == null || filter.include(way, false)) {
-                                closestElements.add(way);
-                            }
-                        }
-                        node1X = node2X;
-                        node1Y = node2Y;
+            for (Way way : getDelegator().getWays(nodeToJoin)) {
+                List<Node> wayNodes = way.getNodes();
+                Node firstNode = wayNodes.get(0);
+                float node1X = lonE7ToX(firstNode.getLon());
+                float node1Y = latE7ToY(firstNode.getLat());
+                for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
+                    Node node2 = wayNodes.get(i);
+                    float node2X = lonE7ToX(node2.getLon());
+                    float node2Y = latE7ToY(node2.getLat());
+                    double distance = Geometry.isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y);
+                    if (distance >= 0 && (filter == null || filter.include(way, false))) {
+                        closestElements.add(way);
                     }
+                    node1X = node2X;
+                    node1Y = node2Y;
                 }
             }
         }

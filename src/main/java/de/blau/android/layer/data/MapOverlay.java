@@ -1669,6 +1669,28 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         delegator.prune(pruneBox);
     }
 
+    /**
+     * Get the cached Nodes that were in view after the last draw
+     * 
+     * Note: potential race conditions need to be investigated
+     * 
+     * @return a List of Nodes
+     */
+    public List<Node> getNodesInView() {
+        return nodesResult;
+    }
+    
+    /**
+     * Get the cached Ways that were in view after the last draw
+     * 
+     * Note: potential race conditions need to be investigated
+     * 
+     * @return a List of Ways
+     */
+    public List<Way> getWaysInView() {
+        return waysResult;
+    }
+
     @Override
     public LayerType getType() {
         return LayerType.OSMDATA;

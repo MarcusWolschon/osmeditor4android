@@ -602,10 +602,10 @@ public class StorageDelegatorTest {
         assertNotNull(temp);
         Node n = w.getNodes().get(2);
         d.splitAtNode(w, n);
-        assertEquals(2, d.getCurrentStorage().getWays(n).size());
+        assertEquals(2, d.getWays(n).size());
         Node newNode = d.replaceNode(n);
-        assertEquals(2, d.getCurrentStorage().getWays(newNode).size());
-        assertEquals(0, d.getCurrentStorage().getWays(n).size());
+        assertEquals(2, d.getWays(newNode).size());
+        assertEquals(0, d.getWays(n).size());
     }
 
     /**

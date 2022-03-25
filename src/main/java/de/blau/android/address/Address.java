@@ -418,7 +418,7 @@ public final class Address implements Serializable {
             // we can't call wayForNodes here because Logic may not be around
             Node node = (Node) storageDelegator.getOsmElement(Node.NAME, elementOsmId);
             if (node != null) { // null shouldn't happen
-                for (Way w : storageDelegator.getCurrentStorage().getWays(node)) {
+                for (Way w : storageDelegator.getWays(node)) {
                     if (w.hasTagKey(Tags.KEY_BUILDING)) {
                         isOnBuilding = true;
                     } else if (w.getParentRelations() != null) { // need to check relations too

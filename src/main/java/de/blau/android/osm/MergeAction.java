@@ -92,8 +92,7 @@ public class MergeAction {
         }
         // replace references to mergeFrom node in ways with mergeInto
         synchronized (delegator) {
-            Storage currentStorage = delegator.getCurrentStorage();
-            for (Way way : currentStorage.getWays((Node) mergeFrom)) {
+            for (Way way : delegator.getWays((Node) mergeFrom)) {
                 delegator.replaceNodeInWay((Node) mergeFrom, (Node) mergeInto, way);
             }
         }
@@ -507,9 +506,8 @@ public class MergeAction {
      */
     private void removeUntaggedNodes(List<Node> list) {
         synchronized (delegator) {
-            Storage currentStorage = delegator.getCurrentStorage();
             for (Node n : list) {
-                if (!n.hasTags() && currentStorage.getWays(n).isEmpty()) {
+                if (!n.hasTags() && delegator.isEmpty()) {
                     delegator.removeNode(n);
                 }
             }

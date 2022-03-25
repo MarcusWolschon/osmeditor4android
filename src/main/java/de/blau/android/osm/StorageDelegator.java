@@ -1033,8 +1033,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         Log.d(DEBUG_TAG, "splitAtNode for all ways");
         // undo - nothing done here, everything done in splitAtNode
         dirty = true;
-        List<Way> ways = currentStorage.getWays(node);
-        for (Way way : ways) {
+        for (Way way : getWays(node)) {
             splitAtNode(way, node);
         }
     }
@@ -1462,7 +1461,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         way.updateState(OsmElement.STATE_MODIFIED);
         apiStorage.insertElementSafe(way);
         onElementChanged(null, way);
-        if (!node.hasTags() && getCurrentStorage().getWays(node).isEmpty()) {
+        if (!node.hasTags() && getWays(node).isEmpty()) {
             removeNode(node);
         }
     }
@@ -1504,7 +1503,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param node The node connecting ways that are to be unjoined.
      */
     public void unjoinWays(@NonNull final Node node) {
-        List<Way> ways = currentStorage.getWays(node);
+        List<Way> ways = getWays(node);
         try {
             if (ways.size() > 1) {
                 boolean first = true;
@@ -1543,7 +1542,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
         }
         for (Node nd : wayNodes) {
-            List<Way> otherWays = getCurrentStorage().getWays(nd);
+            List<Way> otherWays = getWays(nd);
             List<Way> similarWays = new ArrayList<>();
             if (otherWays.size() > 1 && ignoreSimilar && primaryKey != null) {
                 for (Way other : otherWays) {
@@ -1644,7 +1643,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     @Nullable
     public Node replaceNode(@NonNull final Node node) {
-        List<Way> ways = currentStorage.getWays(node);
+        List<Way> ways = getWays(node);
         if (!ways.isEmpty()) {
             Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
             insertElementUnsafe(newNode);
@@ -1725,7 +1724,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 nodeResult.setElement(n);
                 nodeResult.addIssue(ReverseIssue.TAGSREVERSED);
                 nodeResult.addTags(nodeDirTags);
-                if (getCurrentStorage().getWays(n).size() > 1) {
+                if (getWays(n).size() > 1) {
                     nodeResult.addIssue(ReverseIssue.SHAREDNODE);
                 }
                 result.add(nodeResult);
@@ -1782,9 +1781,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         int deleted = 0;
         try {
-            List<Way> ways = currentStorage.getWays(node);
-            ArrayList<OsmElement> changedElements = new ArrayList<>();
-            for (Way way : ways) {
+            List<OsmElement> changedElements = new ArrayList<>();
+            for (Way way : getWays(node)) {
                 undo.save(way);
                 if (way.isClosed() && way.isEndNode(node) && way.getNodes().size() > 1) { // note protection against
                                                                                           // degenerate closed ways
@@ -2318,7 +2316,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 // clone all nodes that are members of other ways that are not being cut
                 List<Node> nodes = new ArrayList<>(((Way) e).getNodes());
                 for (Node nd : nodes) {
-                    List<Way> ways = currentStorage.getWays(nd);
+                    List<Way> ways = getWays(nd);
                     if (ways.size() > 1) { // 1 is expected (our way will be deleted later)
                         Node newNode = replacedNodes.get(nd.getOsmId());
                         if (newNode == null) {
@@ -3683,6 +3681,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     @NonNull
     public BoundingBox getLastBox() {
         return currentStorage.getLastBox();
+    }
+
+    /**
+     * Get all ways that contains the Node
+     * 
+     * @param node the node
+     * @return a List of Ways
+     */
+    @NonNull
+    public List<Way> getWays(@NonNull Node node) {
+        return currentStorage.getWays(node);
     }
 
     /**

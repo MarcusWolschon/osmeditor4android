@@ -180,7 +180,7 @@ public class NodeTest {
         assertNotNull(node);
         assertEquals(600181872L, node.getOsmId());
         final StorageDelegator delegator = App.getDelegator();
-        assertEquals(4, delegator.getCurrentStorage().getWays(node).size());
+        assertEquals(4, delegator.getWays(node).size());
 
         int apiNodeCount = delegator.getApiNodeCount();
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_unjoin), false, true));
@@ -197,7 +197,7 @@ public class NodeTest {
         node = App.getLogic().getSelectedNode();
         assertNotNull(node);
         assertEquals(600181872L, node.getOsmId());
-        assertEquals(4, delegator.getCurrentStorage().getWays(node).size());
+        assertEquals(4, delegator.getWays(node).size());
     }
 
     /**
