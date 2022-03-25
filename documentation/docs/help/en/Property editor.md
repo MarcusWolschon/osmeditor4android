@@ -1,6 +1,6 @@
 # Vespucci Property Editor
 
-The property editor screen is the central place for changing object attributes and relation memberships. To exit and save your changes tap the back icon in the upper left hand corner, pressing the device back button will give you the option of exiting without saving. Tags with empty value fields will not be saved.
+The property editor screen is the central place for changing object attributes and relation memberships. To exit and save your changes tap the check mark icon in the upper left hand corner, pressing the device back button will give you the option of exiting without saving. Tags with empty value fields will not be saved.
 
 Most of the fields use context sensitive auto complete provided by the active presets. Clicking twice (with a short pause) will re-display the auto complete menu. 
 
@@ -32,9 +32,10 @@ The following operations can be performed on selected tags
  * Delete - delete the tag from the current object
  * Copy - copy the tag to the internal clipboard and to the system clipboard in a text representation.
  * Cut - same as copy, but delete the tag from this object.
+ * Create custom preset - select the tags you want to include, then select "Create custom preset" from the menu and enter a name when you are prompted. The new preset can then be found in the "Auto-preset" group and will be added to the MRU list once applied. The function does not include the values for tags that have _name_ semantics, and will set the current value for combo and multi-select fields as the default value.
 
 
-### Special auto complete behaviour
+#### Special auto complete behaviour
 
 If the key of a field is "addr:street" a list of the nearest roads in the downloaded data will be provided.
 
@@ -108,7 +109,7 @@ Start the on device help browser.
 
 ## Members Tab
 
-For relations only, display the members of the relation.
+This tab will only be displayed if you are editing a relation, it displays entries for all the members of the relation.
 
 Members with a dark object field and only a numeric id displayed have not been downloaded.
 
