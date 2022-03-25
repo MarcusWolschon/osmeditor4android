@@ -3141,7 +3141,8 @@ public class Main extends FullScreenAppCompatActivity
      */
     public void performTagEdit(@NonNull final OsmElement selectedElement, @Nullable String focusOn, boolean applyLastAddressTags, boolean showPresets) {
         final Logic logic = App.getLogic();
-        performTagEdit(selectedElement, focusOn, applyLastAddressTags, null, logic.getMode().getExtraTags(logic, selectedElement), showPresets);
+        performTagEdit(selectedElement, focusOn, applyLastAddressTags, logic.getMode().getPresetItems(this, selectedElement),
+                logic.getMode().getExtraTags(logic, selectedElement), showPresets);
     }
 
     /**
@@ -3154,7 +3155,11 @@ public class Main extends FullScreenAppCompatActivity
      */
     public void performTagEdit(@NonNull final OsmElement selectedElement, @Nullable PresetElementPath presetPath, @Nullable HashMap<String, String> tags,
             boolean showPresets) {
-        performTagEdit(selectedElement, null, false, presetPath, tags, showPresets);
+        ArrayList<PresetElementPath> presetPathList = new ArrayList<>();
+        if (presetPath != null) {
+            presetPathList.add(presetPath);
+        }
+        performTagEdit(selectedElement, null, false, presetPathList, tags, showPresets);
     }
 
     /**
@@ -3163,12 +3168,12 @@ public class Main extends FullScreenAppCompatActivity
      * @param selectedElement Selected OpenStreetMap element.
      * @param focusOn if not null focus on the value field of this key.
      * @param applyLastAddressTags add address tags to the object being edited.
-     * @param presetPath path to preset to apply
+     * @param presetPathList list of paths to presets to apply
      * @param tags any existing tags to apply
      * @param showPresets show the preset tab on start up.
      */
     private void performTagEdit(@NonNull final OsmElement selectedElement, @Nullable String focusOn, boolean applyLastAddressTags,
-            @Nullable PresetElementPath presetPath, @Nullable HashMap<String, String> tags, boolean showPresets) {
+            @Nullable ArrayList<PresetElementPath> presetPathList, @Nullable HashMap<String, String> tags, boolean showPresets) {
         descheduleAutoLock();
         final Logic logic = App.getLogic();
         logic.deselectAll();
@@ -3185,10 +3190,6 @@ public class Main extends FullScreenAppCompatActivity
             if (storageDelegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
                 PropertyEditorData[] single = new PropertyEditorData[1];
                 single[0] = new PropertyEditorData(selectedElement, focusOn);
-                ArrayList<PresetElementPath> presetPathList = new ArrayList<>();
-                if (presetPath != null) {
-                    presetPathList.add(presetPath);
-                }
                 PropertyEditor.startForResult(this, single, applyLastAddressTags, showPresets, tags, presetPathList, REQUEST_EDIT_TAG);
             }
         }

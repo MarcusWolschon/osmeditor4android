@@ -83,8 +83,8 @@ import de.blau.android.views.ExtendedViewPager;
  * @author mb
  * @author simon
  */
-public class PropertyEditor extends LocaleAwareCompatActivity implements PropertyEditorListener, OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetUpdate,
-        NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener {
+public class PropertyEditor extends LocaleAwareCompatActivity implements PropertyEditorListener, OnPresetSelectedListener, EditorUpdate, FormUpdate,
+        PresetUpdate, NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener {
 
     private static final String CURRENTITEM            = "current_item";
     private static final String PANELAYOUT             = "pane_layout";
@@ -239,12 +239,10 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
             presetsToApply = (ArrayList<PresetElementPath>) getIntent().getSerializableExtra(TAGEDIT_PRESETSTOAPPLY);
             usePaneLayout = Screen.isLandscape(this);
 
-            // if we have a preset to auto apply it doesn't make sense to show the Preset tab
+            // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is selected
             if (presetsToApply != null && !presetsToApply.isEmpty()) {
                 PresetElement alternativeRootElement = Preset.getElementByPath(App.getCurrentRootPreset(this).getRootGroup(), presetsToApply.get(0));
-                if (!(alternativeRootElement instanceof PresetGroup)) {
-                    showPresets = false;
-                }
+                showPresets = alternativeRootElement instanceof PresetGroup;
             }
         } else {
             // Restore activity from saved state
