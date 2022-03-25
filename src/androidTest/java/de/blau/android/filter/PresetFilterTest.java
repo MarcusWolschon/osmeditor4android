@@ -10,8 +10,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.orhanobut.mockwebserverplus.MockWebServerPlus;
-
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
@@ -29,7 +27,6 @@ import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Tags;
-import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.propertyeditor.PropertyEditor;
 
