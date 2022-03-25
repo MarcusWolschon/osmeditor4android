@@ -2317,10 +2317,11 @@ public class Logic {
      * check Ways.
      * 
      * @param nodeToJoin the Node we want to join
+     * @param nodeWays a List of Ways the Node is a member of
      * @return a List of OsmElements
      */
     @NonNull
-    public List<OsmElement> findJoinableElements(@NonNull Node nodeToJoin) {
+    public List<OsmElement> findJoinableElements(@NonNull Node nodeToJoin, @NonNull List<Way> nodeWays) {
         List<OsmElement> closestElements = new ArrayList<>();
         float jx = lonE7ToX(nodeToJoin.getLon());
         float jy = latE7ToY(nodeToJoin.getLat());
@@ -2335,7 +2336,7 @@ public class Logic {
         }
         if (closestElements.isEmpty()) {
             // fall back to closest ways
-            for (Way way : getDelegator().getWays(nodeToJoin)) {
+            for (Way way : nodeWays) {
                 List<Node> wayNodes = way.getNodes();
                 Node firstNode = wayNodes.get(0);
                 float node1X = lonE7ToX(firstNode.getLon());

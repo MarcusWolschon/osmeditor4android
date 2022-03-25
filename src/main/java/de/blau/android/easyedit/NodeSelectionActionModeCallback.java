@@ -104,16 +104,16 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
 
     @Override
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        Log.d(DEBUG_TAG, "onPrepareActionMode");
         menu = replaceMenu(menu, mode, this);
         boolean updated = super.onPrepareActionMode(mode, menu);
-        Log.d(DEBUG_TAG, "onPrepareActionMode");
-
-        joinableElements = logic.findJoinableElements((Node) element);
-        updated |= setItemVisibility(!joinableElements.isEmpty(), joinItem, false);
 
         List<Way> ways = logic.getFilteredWaysForNode((Node) element);
         appendableWays = findAppendableWays(ways, (Node) element);
         updated |= setItemVisibility(!appendableWays.isEmpty(), appendItem, false);
+
+        joinableElements = logic.findJoinableElements((Node) element, ways);
+        updated |= setItemVisibility(!joinableElements.isEmpty(), joinItem, false);
 
         int wayMembershipCount = ways.size();
         updated |= setItemVisibility(wayMembershipCount > 1, unjoinItem, false);
