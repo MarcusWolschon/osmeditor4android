@@ -15,6 +15,7 @@ import java.util.Map.Entry;
 import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -29,6 +30,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -46,9 +48,12 @@ import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
+import de.blau.android.contract.FileExtensions;
+import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.VespucciURLActivity;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -60,9 +65,16 @@ import de.blau.android.util.Util;
  *
  */
 public class HelpViewer extends LocaleAwareCompatActivity {
+    private static final String DEBUG_TAG = HelpViewer.class.getName();
 
-    private static final String HTML_SUFFIX = ".html";
-    private static final String DEBUG_TAG   = HelpViewer.class.getName();
+    private static final String HTML_SUFFIX = "." + FileExtensions.HTML;
+    private static final String MD_SUFFIX   = "." + FileExtensions.MD;
+
+    private static final String JOSM_FILE_PATH      = "/josmfile";            // NOSONAR
+    private static final String JOSM_PRESETS_DIR    = "Presets/";
+    private static final String JOSM_PAGE_PARAMETER = "page";
+    private static final String JOSM_WIKI_PRESETS   = "/wiki/Presets";
+    private static final String JOSM_WIKI_HOST      = "josm.openstreetmap.de";
 
     class HelpItem {
         boolean displayLanguage = false;
@@ -425,26 +437,57 @@ public class HelpViewer extends LocaleAwareCompatActivity {
 
     private class HelpViewWebViewClient extends WebViewClient {
 
-        /**
-         * @deprecated since API 24
-         */
-        @Deprecated
+        @SuppressWarnings("deprecation")
         @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            // WebViewClient is slightly bizarre because there is no way to indicate to the webview that you would like
-            // if to process the url in its default way, its either handling it yourself or loading it directly into the
-            // webview
-            if (url != null && url.startsWith(FileUtil.FILE_SCHEME_PREFIX)) {
-                Log.d(DEBUG_TAG, "orig " + url);
-                setTitle(getTopic(url));
-                if (url.endsWith(".md")) { // on device we have pre-generated html
-                    url = url.substring(0, url.length() - ".md".length()) + HTML_SUFFIX;
-                    Log.d(DEBUG_TAG, "new " + url);
+        public boolean shouldOverrideUrlLoading(WebView view, String url) { // NOSONAR
+            final Uri uri = Uri.parse(url);
+            return handleLoading(view, uri);
+        }
+
+        @TargetApi(Build.VERSION_CODES.N)
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            final Uri uri = request.getUrl();
+            return handleLoading(view, uri);
+        }
+
+        /**
+         * Handle the loading of content in to the Webview (or not)
+         * 
+         * @param view the WEbView
+         * @param uri the Uri to load
+         * @return true to cancel the current load, otherwise return false
+         */
+        public boolean handleLoading(@NonNull WebView view, @NonNull Uri uri) { // NOSONAR we have to handle all urls
+                                                                                // and need to always return true
+            String path = uri.getPath();
+            if (Schemes.FILE.equals(uri.getScheme())) {
+                Log.d(DEBUG_TAG, "orig " + uri);
+                setTitle(getTopic(path));
+                if (path.endsWith(MD_SUFFIX)) { // on device we have pre-generated html
+                    uri = uri.buildUpon().path(path.substring(0, path.length() - MD_SUFFIX.length()) + HTML_SUFFIX).build();
+                    Log.d(DEBUG_TAG, "new " + uri.toString());
                 }
-                view.loadUrl(url);
-            } else {
-                view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                view.loadUrl(uri.toString());
+                return true;
+            } else if (JOSM_WIKI_HOST.equals(uri.getHost())) { // hack to make download of JOSM presets easier
+                if (JOSM_WIKI_PRESETS.equals(path)) { // https://josm.openstreetmap.de/wiki/Presets
+                    view.loadUrl(uri.toString()); // force loading in webview
+                    return true;
+                } else if (JOSM_FILE_PATH.equals(path)) { // https://josm.openstreetmap.de/josmfile?page=Presets/Access_Mapping_Indonesia&amp;zip=1
+                    Uri.Builder builder = new Uri.Builder();
+                    builder.scheme(Schemes.VESPUCCI);
+                    builder.path(VespucciURLActivity.PRESET_PATH);
+                    builder.appendQueryParameter(VespucciURLActivity.PRESETURL_PARAMETER, uri.toString());
+                    String page = uri.getQueryParameter(JOSM_PAGE_PARAMETER);
+                    if (page != null) {
+                        page = page.replace(JOSM_PRESETS_DIR, "").replace("_", " ");
+                        builder.appendQueryParameter(VespucciURLActivity.PRESETNAME_PARAMETER, page);
+                    }
+                    uri = builder.build();
+                }
             }
+            view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, uri));
             return true;
         }
 
@@ -457,25 +500,25 @@ public class HelpViewer extends LocaleAwareCompatActivity {
         }
 
         /**
-         * Get the topic from an url
+         * Get the topic from an path
          * 
-         * @param url the url
+         * @param path the path
          * @return a String with the topic if it could be determined
          */
         @NonNull
-        private String getTopic(@NonNull String url) {
+        private String getTopic(@NonNull String path) {
 
             try {
-                url = URLDecoder.decode(url, OsmXml.UTF_8);
+                path = URLDecoder.decode(path, OsmXml.UTF_8);
             } catch (UnsupportedEncodingException e) {
-                return "Error, got: " + url;
+                return "Error, got: " + path;
             }
-            int lastSlash = url.lastIndexOf('/');
-            int lastDot = url.lastIndexOf('.');
+            int lastSlash = path.lastIndexOf('/');
+            int lastDot = path.lastIndexOf('.');
             if (lastSlash < 0 || lastDot < 0) {
-                return "Error, got: " + url;
+                return "Error, got: " + path;
             }
-            String fileName = url.substring(lastSlash + 1, lastDot);
+            String fileName = path.substring(lastSlash + 1, lastDot);
             for (Entry<String, HelpItem> entry : tocList.entrySet()) { // could use a HashMap here but probably not
                                                                        // worth it
                 if (fileName.equals(entry.getValue().fileName)) {

@@ -42,11 +42,18 @@ import oauth.signpost.exception.OAuthException;
  * oauth_verifier - oauth verifier, used during retrieving oauth access tokens<br>
  * 
  * @author Jan
+ * @author Simon
  *
  */
 public class VespucciURLActivity extends LocaleAwareCompatActivity implements OnClickListener {
-    private static final String DEBUG_TAG          = "VespucciURLActivity";
-    private static final int    REQUEST_PRESETEDIT = 0;
+    private static final String DEBUG_TAG = VespucciURLActivity.class.getSimpleName();
+
+    private static final int    REQUEST_PRESETEDIT      = 0;
+    private static final String OAUTH_VERIFIER_PARAMTER = "oauth_verifier";
+    private static final String OAUTH_TOKEN_PARAMETER   = "oauth_token";
+    public static final String  PRESET_PATH             = "preset";        // we don't actuall check for this current
+    public static final String  PRESETNAME_PARAMETER    = "presetname";
+    public static final String  PRESETURL_PARAMETER     = "preseturl";
 
     private String               preseturl;
     private String               presetname;
@@ -76,10 +83,10 @@ public class VespucciURLActivity extends LocaleAwareCompatActivity implements On
         Uri data = getIntent().getData();
         if (data != null) {
             try {
-                preseturl = data.getQueryParameter("preseturl");
-                presetname = data.getQueryParameter("presetname");
-                oauthToken = data.getQueryParameter("oauth_token");
-                oauthVerifier = data.getQueryParameter("oauth_verifier");
+                preseturl = data.getQueryParameter(PRESETURL_PARAMETER);
+                presetname = data.getQueryParameter(PRESETNAME_PARAMETER);
+                oauthToken = data.getQueryParameter(OAUTH_TOKEN_PARAMETER);
+                oauthVerifier = data.getQueryParameter(OAUTH_VERIFIER_PARAMTER);
             } catch (Exception ex) {
                 Log.e(DEBUG_TAG, "Uri " + data + " caused " + ex);
                 ACRAHelper.nocrashReport(ex, ex.getMessage());

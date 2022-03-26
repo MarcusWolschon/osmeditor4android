@@ -25,9 +25,9 @@ To manage the presets go to the "Preferences" screen, selecting "Presets" will g
 
 ## Useful presets for download
 
-Most current JOSM presets can be found in this list [http://josm.openstreetmap.de/wiki/Presets](http://josm.openstreetmap.de/wiki/Presets), copy the URL form the "short description" column on the JOSM site to the URL field and add a name.
+Most current JOSM presets can be found in [JOSM preset list](http://josm.openstreetmap.de/wiki/Presets#JOSMAvailablepresets) the preset download urls are modified for direct download (the links automatically configure a new preset entry and will only work on your device with Vespucci installed)
 
-Some potentially useful ones for direct download (these links automatically configure a new preset entry and will only work on your device with Vespucci installed):
+Some further potentially useful presets:
 
  * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/releases/latest/download/vespucci_zip.zip&presetname=Updated default preset">Update of default preset</a> *
  * <a href="vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3fpage=Presets/LaneAttributes%26zip=1&presetname=Lane tagging">Presets for lane tagging</a>
