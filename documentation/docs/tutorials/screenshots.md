@@ -1,3 +1,10 @@
+# Videos
+
+### Downloading and installing presets
+
+* [![ ](videos/install_downloaded_default_preset.png)](videos/install_downloaded_default_preset.mp4) Replace the default preset.
+* [![ ](videos/update_downloaded_default_preset.png)](videos/update_downloaded_default_preset.mp4) Update the downloaded preset.
+
 # Screenshots
 
 ### Element selection
