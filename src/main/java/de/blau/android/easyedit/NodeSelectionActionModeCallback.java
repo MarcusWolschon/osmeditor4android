@@ -112,7 +112,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         appendableWays = findAppendableWays(ways, (Node) element);
         updated |= setItemVisibility(!appendableWays.isEmpty(), appendItem, false);
 
-        joinableElements = logic.findJoinableElements((Node) element, ways);
+        joinableElements = logic.findJoinableElements((Node) element, main.getMap().getViewBox());
         updated |= setItemVisibility(!joinableElements.isEmpty(), joinItem, false);
 
         int wayMembershipCount = ways.size();

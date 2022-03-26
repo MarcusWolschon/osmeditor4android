@@ -1022,18 +1022,13 @@ public class Logic {
     }
 
     /**
-     * Calculates the on-screen distance between a node and the screen coordinate of a click. Returns null if the node
-     * was outside the click tolerance.
+     * Get the tolerance value for a Node
      * 
      * @param node the node
-     * @param x the x coordinate of the clicked point
-     * @param y the y coordinate of the clicked point
-     * @return The distance between the clicked point and the node in px if the node was within the tolerance value,
-     *         null otherwise
+     * @return the tolerance value in pixel
      */
-    @Nullable
-    private Double clickDistance(@NonNull Node node, final float x, final float y) {
-        return clickDistance(node, x, y, node.isTagged() ? DataStyle.getCurrent().getNodeToleranceValue() : DataStyle.getCurrent().getWayToleranceValue() / 2);
+    private float getTolerance(@NonNull Node node) {
+        return node.isTagged() ? DataStyle.getCurrent().getNodeToleranceValue() : DataStyle.getCurrent().getWayToleranceValue() / 2;
     }
 
     /**
@@ -1074,7 +1069,7 @@ public class Logic {
             int lat = node.getLat();
             int lon = node.getLon();
             if (!inDownloadOnly || node.getState() != OsmElement.STATE_UNCHANGED || getDelegator().isInDownload(lon, lat)) {
-                Double dist = clickDistance(node, x, y);
+                Double dist = clickDistance(node, x, y, getTolerance(node));
                 if (dist != null) {
                     result.put(node, dist);
                 }
@@ -2317,18 +2312,19 @@ public class Logic {
      * check Ways.
      * 
      * @param nodeToJoin the Node we want to join
-     * @param nodeWays a List of Ways the Node is a member of
+     * @param box BoundingBox around the node
      * @return a List of OsmElements
      */
     @NonNull
-    public List<OsmElement> findJoinableElements(@NonNull Node nodeToJoin, @NonNull List<Way> nodeWays) {
+    public List<OsmElement> findJoinableElements(@NonNull Node nodeToJoin, @NonNull BoundingBox box) {
         List<OsmElement> closestElements = new ArrayList<>();
         float jx = lonE7ToX(nodeToJoin.getLon());
         float jy = latE7ToY(nodeToJoin.getLat());
         // start by looking for the closest nodes
+        float tolerance = getTolerance(nodeToJoin);
         for (Node node : getDelegator().getCurrentStorage().getNodes()) {
             if (!nodeToJoin.equals(node)) {
-                Double distance = clickDistance(node, jx, jy);
+                Double distance = clickDistance(node, jx, jy, tolerance);
                 if (distance != null && (filter == null || filter.include(node, false))) {
                     closestElements.add(node);
                 }
@@ -2336,21 +2332,23 @@ public class Logic {
         }
         if (closestElements.isEmpty()) {
             // fall back to closest ways
-            for (Way way : nodeWays) {
-                List<Node> wayNodes = way.getNodes();
-                Node firstNode = wayNodes.get(0);
-                float node1X = lonE7ToX(firstNode.getLon());
-                float node1Y = latE7ToY(firstNode.getLat());
-                for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
-                    Node node2 = wayNodes.get(i);
-                    float node2X = lonE7ToX(node2.getLon());
-                    float node2Y = latE7ToY(node2.getLat());
-                    double distance = Geometry.isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y);
-                    if (distance >= 0 && (filter == null || filter.include(way, false))) {
-                        closestElements.add(way);
+            for (Way way : getDelegator().getCurrentStorage().getWays(box)) {
+                if (!way.hasNode(nodeToJoin)) {
+                    List<Node> wayNodes = way.getNodes();
+                    Node firstNode = wayNodes.get(0);
+                    float node1X = lonE7ToX(firstNode.getLon());
+                    float node1Y = latE7ToY(firstNode.getLat());
+                    for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
+                        Node node2 = wayNodes.get(i);
+                        float node2X = lonE7ToX(node2.getLon());
+                        float node2Y = latE7ToY(node2.getLat());
+                        double distance = Geometry.isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y);
+                        if (distance >= 0 && (filter == null || filter.include(way, false))) {
+                            closestElements.add(way);
+                        }
+                        node1X = node2X;
+                        node1Y = node2Y;
                     }
-                    node1X = node2X;
-                    node1Y = node2Y;
                 }
             }
         }
