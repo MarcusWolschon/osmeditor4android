@@ -1115,6 +1115,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param key the key to search for
      * @return the Row or null
      */
+    @Nullable
     public View getRow(@NonNull String key) {
         View sv = getView();
         LinearLayout ll = (LinearLayout) sv.findViewById(R.id.form_container_layout);
@@ -1128,6 +1129,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         return v;
                     }
                 }
+                pos++;
             }
         }
         return null;
