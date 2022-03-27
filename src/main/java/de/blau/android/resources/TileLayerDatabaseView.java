@@ -35,7 +35,6 @@ public class TileLayerDatabaseView {
     /**
      * Ruleset database related methods and fields
      */
-    private Cursor       layerCursor;
     private LayerAdapter layerAdapter;
 
     /**
@@ -51,7 +50,7 @@ public class TileLayerDatabaseView {
         final TileLayerDatabase tlDb = new TileLayerDatabase(activity); // NOSONAR will be closed when dismissed
         final SQLiteDatabase writableDb = tlDb.getWritableDatabase();
         ListView layerList = (ListView) layerListView.findViewById(R.id.listViewLayer);
-        layerCursor = TileLayerDatabase.getAllCustomLayers(writableDb);
+        Cursor layerCursor = TileLayerDatabase.getAllCustomLayers(writableDb);
         layerAdapter = new LayerAdapter(writableDb, activity, layerCursor);
         layerList.setAdapter(layerAdapter);
         alertDialog.setNeutralButton(R.string.done, null);

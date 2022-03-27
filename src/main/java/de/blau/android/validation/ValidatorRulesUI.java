@@ -34,7 +34,6 @@ public class ValidatorRulesUI {
     /**
      * Ruleset database related methods and fields
      */
-    private Cursor          resurveyCursor;
     private ResurveyAdapter resurveyAdapter;
     private CheckAdapter    checkAdapter;
 
@@ -61,7 +60,7 @@ public class ValidatorRulesUI {
                                                                                              // when dismissed
         final SQLiteDatabase writableDb = vrDb.getWritableDatabase();
         ListView resurveyList = (ListView) rulesetView.findViewById(R.id.listViewResurvey);
-        resurveyCursor = ValidatorRulesDatabase.queryResurveyByName(writableDb, ValidatorRulesDatabase.DEFAULT_RULESET_NAME);
+        Cursor resurveyCursor = ValidatorRulesDatabase.queryResurveyByName(writableDb, ValidatorRulesDatabase.DEFAULT_RULESET_NAME);
         resurveyAdapter = new ResurveyAdapter(writableDb, context, resurveyCursor);
         resurveyList.setAdapter(resurveyAdapter);
         ListView checkList = (ListView) rulesetView.findViewById(R.id.listViewCheck);
