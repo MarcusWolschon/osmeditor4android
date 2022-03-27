@@ -2,7 +2,6 @@ package de.blau.android.util;
 
 import java.io.File;
 
-import android.annotation.TargetApi;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,10 +16,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.CheckBox;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -76,6 +72,76 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
         activity.startActivity(intent);
     }
 
+    private class DownloadWebViewClient extends UpdatedWebViewClient {
+
+        @Override
+        public boolean handleLoading(@NonNull WebView view, @NonNull Uri uri) {
+            Log.i(DEBUG_TAG, "Url clicked: " + uri.toString());
+            final String filename = uri.getLastPathSegment();
+            if (filename != null && filename.endsWith("." + FileExtensions.MSF)) {
+                try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(DownloadActivity.this)) {
+                    String apiId = db.getReadOnlyApiId(filename);
+                    if (apiId != null) {
+                        API[] apis = db.getAPIs(apiId);
+                        if (apis.length == 1) {
+                            File file = new File(Uri.parse(apis[0].readonlyurl).getPath());
+                            if (file.delete()) { // NOSONAR requires API 26
+                                Log.i(DEBUG_TAG, "Deleted " + filename);
+                            }
+                        }
+                    }
+                }
+                // Start download
+                DownloadManager.Request request = new DownloadManager.Request(uri).setAllowedOverRoaming(false).setTitle(filename)
+                        .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, Paths.DIRECTORY_PATH_VESPUCCI + Paths.DELIMITER + filename);
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                if (!allNetworks) {
+                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
+                }
+                lastDownload = mgr.enqueue(request);
+                downloadWebView.postDelayed(() -> checkStatus(mgr, lastDownload, filename), 5000);
+
+                Log.i(DEBUG_TAG, "Download id: " + lastDownload);
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void receivedError(WebView view, int errorCode, String description, String failingUrl) {
+            finishSelection();
+            Snack.toastTopError(view.getContext(), description);
+        }
+
+        /**
+         * Check the status of a download and if failed toast a message
+         * 
+         * @param mgr a DownloadManager instance
+         * @param id the download id
+         * @param filename the name of the file we are downloading
+         */
+        private void checkStatus(@NonNull final DownloadManager mgr, final long id, @NonNull final String filename) {
+            Cursor queryCursor = mgr.query(new DownloadManager.Query().setFilterById(id));
+            if (queryCursor == null) {
+                Log.e(DEBUG_TAG, "Download not found id: " + id);
+            } else {
+                queryCursor.moveToFirst();
+                try {
+                    int status = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
+                    if (status == DownloadManager.STATUS_FAILED) {
+                        int reason = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON));
+                        Snack.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, reason, filename));
+                    } else if (status == DownloadManager.STATUS_RUNNING) {
+                        Snack.toastTopInfo(DownloadActivity.this, getString(R.string.toast_download_started, filename));
+                    }
+                } catch (IllegalArgumentException iaex) {
+                    Log.e(DEBUG_TAG, iaex.getMessage());
+                    Snack.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, DownloadManager.ERROR_UNKNOWN, filename));
+                }
+            }
+        }
+    }
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         final Preferences prefs = new Preferences(this);
@@ -119,61 +185,6 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
             downloadWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             downloadWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             downloadWebView.requestFocus(View.FOCUS_DOWN);
-            class DownloadWebViewClient extends WebViewClient {
-
-                /**
-                 * @deprecated since API 24
-                 */
-                @Deprecated
-                @Override
-                public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    Log.i(DEBUG_TAG, "Url clicked: " + url);
-                    if (url.endsWith("." + FileExtensions.MSF)) {
-                        Uri uri = Uri.parse(url);
-                        final String filename = uri.getLastPathSegment();
-                        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(DownloadActivity.this)) {
-                            String apiId = db.getReadOnlyApiId(filename);
-                            if (apiId != null) {
-                                API[] apis = db.getAPIs(apiId);
-                                if (apis.length == 1) {
-                                    File file = new File(Uri.parse(apis[0].readonlyurl).getPath());
-                                    if (file.delete()) { // NOSONAR requires API 26
-                                        Log.i(DEBUG_TAG, "Deleted " + filename);
-                                    }
-                                }
-                            }
-                        }
-                        // Start download
-                        DownloadManager.Request request = new DownloadManager.Request(uri).setAllowedOverRoaming(false).setTitle(filename)
-                                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, Paths.DIRECTORY_PATH_VESPUCCI + Paths.DELIMITER + filename);
-                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                        if (!allNetworks) {
-                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
-                        }
-                        lastDownload = mgr.enqueue(request);
-                        downloadWebView.postDelayed(() -> checkStatus(mgr, lastDownload, filename), 5000);
-
-                        Log.i(DEBUG_TAG, "Download id: " + lastDownload);
-                        return true;
-                    }
-                    return false;
-                }
-
-                @SuppressWarnings("deprecation")
-                @Override
-                public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                    finishSelection();
-                    Snack.toastTopError(view.getContext(), description);
-                }
-
-                @TargetApi(android.os.Build.VERSION_CODES.M)
-                @Override
-                public void onReceivedError(WebView view, WebResourceRequest req, WebResourceError rerr) {
-                    // Redirect to deprecated method, so you can use it in all
-                    // SDK versions
-                    onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(), req.getUrl().toString());
-                }
-            }
             downloadWebView.setOnKeyListener((v, keyCode, event) -> {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     if (downloadWebView != null && downloadWebView.canGoBack()) {
@@ -263,34 +274,6 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
             // nothing for now
         }
     };
-
-    /**
-     * Check the status of a download and if failed toast a message
-     * 
-     * @param mgr a DownloadManager instance
-     * @param id the download id
-     * @param filename the name of the file we are downloading
-     */
-    private void checkStatus(@NonNull final DownloadManager mgr, final long id, @NonNull final String filename) {
-        Cursor queryCursor = mgr.query(new DownloadManager.Query().setFilterById(id));
-        if (queryCursor == null) {
-            Log.e(DEBUG_TAG, "Download not found id: " + id);
-        } else {
-            queryCursor.moveToFirst();
-            try {
-                int status = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
-                if (status == DownloadManager.STATUS_FAILED) {
-                    int reason = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON));
-                    Snack.toastTopError(DownloadActivity.this, errorMessage(this, reason, filename));
-                } else if (status == DownloadManager.STATUS_RUNNING) {
-                    Snack.toastTopInfo(this, getString(R.string.toast_download_started, filename));
-                }
-            } catch (IllegalArgumentException iaex) {
-                Log.e(DEBUG_TAG, iaex.getMessage());
-                Snack.toastTopError(DownloadActivity.this, errorMessage(this, DownloadManager.ERROR_UNKNOWN, filename));
-            }
-        }
-    }
 
     /**
      * Get a human readable error message from the error code
