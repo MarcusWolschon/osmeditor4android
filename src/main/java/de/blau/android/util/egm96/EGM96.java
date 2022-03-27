@@ -63,7 +63,7 @@ public class EGM96 {
                 throw new IOException("File " + path + " not completely read");
             }
             ByteBuffer byteBuffer = ByteBuffer.wrap(temp);
-            deltas = ((ByteBuffer) (byteBuffer.rewind())).asShortBuffer();
+            deltas = ((ByteBuffer) (byteBuffer.rewind())).asShortBuffer(); // NOSONAR not compilable without cast
         }
     }
 

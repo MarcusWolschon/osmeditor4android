@@ -209,7 +209,7 @@ public final class TableLayoutUtils {
         cell.setMinEms(FIRST_CELL_WIDTH);
         cell.setMaxEms(MAX_FIRST_CELL_WIDTH);
 
-        SpannableString span = new SpannableString((CharSequence) cell1);
+        SpannableString span = new SpannableString(cell1);
         SpannableString span2 = null;
         if (cell2 != null) {
             span2 = new SpannableString(cell2);

@@ -171,7 +171,7 @@ public class ViewBox extends BoundingBox {
      * @return the size of a pixel in WGS84°
      */
     public double getPixelRadius(int screenWidth) {
-        return (double) screenWidth / (getWidth() / 1E7d);
+        return screenWidth / (getWidth() / 1E7d);
     }
 
     /**
@@ -336,9 +336,9 @@ public class ViewBox extends BoundingBox {
         int left = getLeft();
         int top = getTop();
         int bottom = getBottom();
-        if ((long) right + (long) dLon > (long) GeoMath.MAX_LON_E7) {
+        if ((long) right + (long) dLon > GeoMath.MAX_LON_E7) {
             dLon = GeoMath.MAX_LON_E7 - right;
-        } else if ((long) left + (long) dLon < (long) -GeoMath.MAX_LON_E7) {
+        } else if ((long) left + (long) dLon < -GeoMath.MAX_LON_E7) {
             dLon = -GeoMath.MAX_LON_E7 - left;
         }
         if (top + dLat > GeoMath.MAX_COMPAT_LAT_E7) {
@@ -377,7 +377,7 @@ public class ViewBox extends BoundingBox {
         long mTop = GeoMath.latE7ToMercatorE7(getTop());
         long mBottom = GeoMath.latE7ToMercatorE7(getBottom());
         long mHeight = mTop - mBottom;
-        return -Math.min((MAX_ZOOM_WIDTH - width) / 2f / width, ((2L * (long) GeoMath.MAX_MLAT_E7) - mHeight) / 2f / mHeight);
+        return -Math.min((MAX_ZOOM_WIDTH - width) / 2f / width, ((2L * GeoMath.MAX_MLAT_E7) - mHeight) / 2f / mHeight);
     }
 
     /**
@@ -432,17 +432,17 @@ public class ViewBox extends BoundingBox {
         long tmpLeft = left;
         long tmpRight = getRight();
         //
-        if (tmpLeft + horizontalChange < (long) -GeoMath.MAX_LON_E7) {
-            long rest = left + horizontalChange + (long) GeoMath.MAX_LON_E7;
+        if (tmpLeft + horizontalChange < -GeoMath.MAX_LON_E7) {
+            long rest = left + horizontalChange + GeoMath.MAX_LON_E7;
             tmpLeft = -GeoMath.MAX_LON_E7;
             tmpRight = Math.min((long) GeoMath.MAX_LON_E7, tmpRight - rest);
         } else {
             tmpLeft = tmpLeft + horizontalChange;
         }
-        if (tmpRight - horizontalChange > (long) GeoMath.MAX_LON_E7) {
-            long rest = tmpRight - horizontalChange - (long) GeoMath.MAX_LON_E7;
+        if (tmpRight - horizontalChange > GeoMath.MAX_LON_E7) {
+            long rest = tmpRight - horizontalChange - GeoMath.MAX_LON_E7;
             tmpRight = GeoMath.MAX_LON_E7;
-            tmpLeft = Math.max((long) -GeoMath.MAX_LON_E7, tmpLeft + rest);
+            tmpLeft = Math.max(-GeoMath.MAX_LON_E7, tmpLeft + rest);
         } else {
             tmpRight = tmpRight - horizontalChange;
         }
@@ -450,14 +450,14 @@ public class ViewBox extends BoundingBox {
         setRight((int) tmpRight);
 
         if ((mBottom + verticalChange) < -GeoMath.MAX_MLAT_E7) {
-            long rest = mBottom + verticalChange + (long) GeoMath.MAX_MLAT_E7;
+            long rest = mBottom + verticalChange + GeoMath.MAX_MLAT_E7;
             mBottom = -GeoMath.MAX_MLAT_E7;
             mTop = Math.min(GeoMath.MAX_MLAT_E7, mTop - rest);
         } else {
             mBottom = mBottom + verticalChange;
         }
-        if ((mTop - verticalChange) > (long) GeoMath.MAX_MLAT_E7) {
-            long rest = mTop - verticalChange - (long) GeoMath.MAX_MLAT_E7;
+        if ((mTop - verticalChange) > GeoMath.MAX_MLAT_E7) {
+            long rest = mTop - verticalChange - GeoMath.MAX_MLAT_E7;
             mTop = GeoMath.MAX_MLAT_E7;
             mBottom = Math.max(-GeoMath.MAX_MLAT_E7, mBottom - rest);
         } else {

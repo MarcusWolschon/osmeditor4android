@@ -275,7 +275,7 @@ public final class GeoMath {
      * @return a value in degrees
      */
     public static double convertMetersToGeoDistance(final double meters) {
-        return (_180_PI * meters) / (double) EARTH_RADIUS;
+        return (_180_PI * meters) / EARTH_RADIUS;
     }
 
     /**
@@ -285,7 +285,7 @@ public final class GeoMath {
      * @return a value in degrees * 1E7
      */
     public static int convertMetersToGeoDistanceE7(final double meters) {
-        return (int) ((_180_PI * meters * 1E7d) / (double) EARTH_RADIUS);
+        return (int) ((_180_PI * meters * 1E7d) / EARTH_RADIUS);
     }
 
     /**
@@ -326,7 +326,7 @@ public final class GeoMath {
     public static float latMercatorToY(final int screenHeight, int screenWidth, final ViewBox viewBox, final double lat) {
         return (float) (screenHeight - (lat - viewBox.getBottomMercator()) * viewBox.getPixelRadius(screenWidth));
     }
-    
+
     /**
      * Calculates the screen-coordinate to the given latitude.in mercator
      * 
@@ -361,7 +361,7 @@ public final class GeoMath {
      * @return the x screen-coordinate for this longitude value.
      */
     public static float lonToX(final int screenWidth, final BoundingBox viewBox, final double lon) {
-        return (float) ((lon * 1E7D - viewBox.getLeft()) / (double) viewBox.getWidth()) * screenWidth;
+        return (float) ((lon * 1E7D - viewBox.getLeft()) / viewBox.getWidth()) * screenWidth;
     }
 
     /**

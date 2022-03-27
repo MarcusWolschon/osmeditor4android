@@ -157,7 +157,7 @@ public class Symbol extends Layer {
                                                    protected void set(int color) {
                                                        int alpha = (int) (((long) color) >> 24);
                                                        if (alpha == 0) {
-                                                           color = (int) ((long) color | 0xFF000000L);
+                                                           color = (int) (color | 0xFF000000L);
                                                        }
                                                        labelPaint.setShadowLayer(labelPaint.getShadowLayerRadius(), 0, 0, color);
                                                    }

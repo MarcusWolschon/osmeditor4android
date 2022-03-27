@@ -53,7 +53,7 @@ public class WayMergingActionModeCallback extends NonSimpleActionModeCallback {
         if (!(element instanceof Way)) {
             return false;
         }
-        if (!findMergeableWays(way).contains((Way) element)) {
+        if (!findMergeableWays(way).contains(element)) {
             return false;
         }
         try {

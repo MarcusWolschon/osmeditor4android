@@ -1349,7 +1349,7 @@ public class Logic {
                         if (!foundSelected && selectedNodes != null) {
                             List<OsmElement> clickedNodes = getClickedNodes(x, y);
                             for (OsmElement n : clickedNodes) {
-                                if (selectedNodes.contains((Node) n)) {
+                                if (selectedNodes.contains(n)) {
                                     foundSelected = true;
                                     break;
                                 }
@@ -2373,7 +2373,7 @@ public class Logic {
                     throw new OsmIllegalOperationException("Trying to join node to itself");
                 }
                 displayAttachedObjectWarning(activity, element, nodeToJoin); // needs to be done before join
-                MergeAction action = new MergeAction(getDelegator(), (Node) element, nodeToJoin);
+                MergeAction action = new MergeAction(getDelegator(), element, nodeToJoin);
                 List<Result> tempResult = action.mergeNodes();
                 if (overallResult.isEmpty()) {
                     overallResult = tempResult;
@@ -4479,21 +4479,21 @@ public class Logic {
             case Node.NAME:
                 if (selectedNodes == null) {
                     setSelectedNode((Node) e);
-                } else if (!selectedNodes.contains((Node) e)) {
+                } else if (!selectedNodes.contains(e)) {
                     selectedNodes.add((Node) e);
                 }
                 break;
             case Way.NAME:
                 if (selectedWays == null) {
                     setSelectedWay((Way) e);
-                } else if (!selectedWays.contains((Way) e)) {
+                } else if (!selectedWays.contains(e)) {
                     selectedWays.add((Way) e);
                 }
                 break;
             case Relation.NAME:
                 if (selectedRelations == null) {
                     setSelectedRelation((Relation) e);
-                } else if (!selectedRelations.contains((Relation) e)) {
+                } else if (!selectedRelations.contains(e)) {
                     selectedRelations.add((Relation) e);
                 }
                 break;
@@ -4667,11 +4667,11 @@ public class Logic {
      */
     public synchronized boolean isSelected(@Nullable OsmElement e) {
         if (e instanceof Node) {
-            return selectedNodes != null && selectedNodes.contains((Node) e);
+            return selectedNodes != null && selectedNodes.contains(e);
         } else if (e instanceof Way) {
-            return selectedWays != null && selectedWays.contains((Way) e);
+            return selectedWays != null && selectedWays.contains(e);
         } else if (e instanceof Relation) {
-            return selectedRelations != null && selectedRelations.contains((Relation) e);
+            return selectedRelations != null && selectedRelations.contains(e);
         }
         return false;
     }
@@ -5131,7 +5131,7 @@ public class Logic {
                         addSelectedRelationWay((Way) e);
                     } else if (e.getName().equals(Node.NAME)) {
                         addSelectedRelationNode((Node) e);
-                    } else if (e.getName().equals(Relation.NAME) && (selectedRelationRelations == null || !selectedRelationRelations.contains((Relation) e))) {
+                    } else if (e.getName().equals(Relation.NAME) && (selectedRelationRelations == null || !selectedRelationRelations.contains(e))) {
                         // break recursion if already selected
                         addSelectedRelationRelation((Relation) e);
                     }

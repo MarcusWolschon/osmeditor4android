@@ -80,7 +80,7 @@ public class OsmPbfParser extends BinaryParser {
             if (!r.hasInfo()) {
                 versionMissing();
             }
-            Relation relation = OsmElementFactory.createRelation(r.getId(), (long) r.getInfo().getVersion(), r.getInfo().getTimestamp() / timeStampToSeconds,
+            Relation relation = OsmElementFactory.createRelation(r.getId(), r.getInfo().getVersion(), r.getInfo().getTimestamp() / timeStampToSeconds,
                     OsmElement.STATE_UNCHANGED);
             long ref = 0; // Delta coded!
             int mcount = r.getMemidsCount();
@@ -164,8 +164,8 @@ public class OsmPbfParser extends BinaryParser {
             lastTimestamp += denseInfo.getTimestamp(i);
             // not delta encoded
             lastVersion = denseInfo.getVersion(i);
-            Node node = OsmElementFactory.createNode(lastId, (long) lastVersion, lastTimestamp / timeStampToSeconds, OsmElement.STATE_UNCHANGED,
-                    parseToLatE7(lastLat), parseToLonE7(lastLon));
+            Node node = OsmElementFactory.createNode(lastId, lastVersion, lastTimestamp / timeStampToSeconds, OsmElement.STATE_UNCHANGED, parseToLatE7(lastLat),
+                    parseToLonE7(lastLon));
             Map<String, String> tags = null;
             if (nodes.getKeysValsCount() > 0) {
                 while (nodes.getKeysVals(tagPointer) != 0) {
@@ -194,7 +194,7 @@ public class OsmPbfParser extends BinaryParser {
             if (!n.hasInfo()) {
                 versionMissing();
             }
-            Node node = OsmElementFactory.createNode(n.getId(), (long) n.getInfo().getVersion(), n.getInfo().getTimestamp() / timeStampToSeconds,
+            Node node = OsmElementFactory.createNode(n.getId(), n.getInfo().getVersion(), n.getInfo().getTimestamp() / timeStampToSeconds,
                     OsmElement.STATE_UNCHANGED, parseToLatE7(n.getLat()), parseToLonE7(n.getLon()));
             int tagCount = n.getKeysCount();
             if (tagCount > 0) {
@@ -217,7 +217,7 @@ public class OsmPbfParser extends BinaryParser {
             if (!w.hasInfo()) {
                 versionMissing();
             }
-            Way way = OsmElementFactory.createWay(w.getId(), (long) w.getInfo().getVersion(), w.getInfo().getTimestamp() / timeStampToSeconds,
+            Way way = OsmElementFactory.createWay(w.getId(), w.getInfo().getVersion(), w.getInfo().getTimestamp() / timeStampToSeconds,
                     OsmElement.STATE_UNCHANGED);
             long lastRef = 0;
             for (long ref : w.getRefsList()) {
