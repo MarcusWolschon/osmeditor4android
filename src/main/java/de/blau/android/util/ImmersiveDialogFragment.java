@@ -37,7 +37,7 @@ public abstract class ImmersiveDialogFragment extends DialogFragment {
     @Override
     public int show(FragmentTransaction transaction, String tag) {
         int result = super.show(transaction, tag);
-        showImmersive(getFragmentManager());
+        showImmersive(getParentFragmentManager());
         return result;
     }
 
