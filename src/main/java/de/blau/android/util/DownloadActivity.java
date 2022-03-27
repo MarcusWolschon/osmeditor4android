@@ -112,6 +112,34 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
             finishSelection();
             Snack.toastTopError(view.getContext(), description);
         }
+
+        /**
+         * Check the status of a download and if failed toast a message
+         * 
+         * @param mgr a DownloadManager instance
+         * @param id the download id
+         * @param filename the name of the file we are downloading
+         */
+        private void checkStatus(@NonNull final DownloadManager mgr, final long id, @NonNull final String filename) {
+            Cursor queryCursor = mgr.query(new DownloadManager.Query().setFilterById(id));
+            if (queryCursor == null) {
+                Log.e(DEBUG_TAG, "Download not found id: " + id);
+            } else {
+                queryCursor.moveToFirst();
+                try {
+                    int status = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
+                    if (status == DownloadManager.STATUS_FAILED) {
+                        int reason = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON));
+                        Snack.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, reason, filename));
+                    } else if (status == DownloadManager.STATUS_RUNNING) {
+                        Snack.toastTopInfo(DownloadActivity.this, getString(R.string.toast_download_started, filename));
+                    }
+                } catch (IllegalArgumentException iaex) {
+                    Log.e(DEBUG_TAG, iaex.getMessage());
+                    Snack.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, DownloadManager.ERROR_UNKNOWN, filename));
+                }
+            }
+        }
     }
 
     @Override
@@ -246,34 +274,6 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
             // nothing for now
         }
     };
-
-    /**
-     * Check the status of a download and if failed toast a message
-     * 
-     * @param mgr a DownloadManager instance
-     * @param id the download id
-     * @param filename the name of the file we are downloading
-     */
-    private void checkStatus(@NonNull final DownloadManager mgr, final long id, @NonNull final String filename) {
-        Cursor queryCursor = mgr.query(new DownloadManager.Query().setFilterById(id));
-        if (queryCursor == null) {
-            Log.e(DEBUG_TAG, "Download not found id: " + id);
-        } else {
-            queryCursor.moveToFirst();
-            try {
-                int status = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
-                if (status == DownloadManager.STATUS_FAILED) {
-                    int reason = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON));
-                    Snack.toastTopError(DownloadActivity.this, errorMessage(this, reason, filename));
-                } else if (status == DownloadManager.STATUS_RUNNING) {
-                    Snack.toastTopInfo(this, getString(R.string.toast_download_started, filename));
-                }
-            } catch (IllegalArgumentException iaex) {
-                Log.e(DEBUG_TAG, iaex.getMessage());
-                Snack.toastTopError(DownloadActivity.this, errorMessage(this, DownloadManager.ERROR_UNKNOWN, filename));
-            }
-        }
-    }
 
     /**
      * Get a human readable error message from the error code
