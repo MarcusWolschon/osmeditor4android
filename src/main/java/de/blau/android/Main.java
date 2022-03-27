@@ -2373,7 +2373,7 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_tools_remove_egm:
             Uri egmPath = prefs.getEgmFile();
             if (egmPath != null) {
-                if (!new File(egmPath.getPath()).delete()) {
+                if (!new File(egmPath.getPath()).delete()) { // NOSONAR nio.delete requires newer Android API
                     Log.e(DEBUG_TAG, "Unable to delete " + egmPath);
                 }
                 prefs.setEgmFile(null);
