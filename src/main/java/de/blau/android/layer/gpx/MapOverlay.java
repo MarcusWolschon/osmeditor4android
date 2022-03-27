@@ -543,7 +543,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                     }
 
                     tp.toLocation(loc);
-                    tracker.gpsListener.onLocationChanged(loc);
+                    tracker.setGpsLocation(loc);
                     sleep();
                 }
             }
