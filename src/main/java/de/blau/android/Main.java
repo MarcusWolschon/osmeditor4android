@@ -682,8 +682,8 @@ public class Main extends FullScreenAppCompatActivity
         map.requestFocus();
 
         // available tileservers may have changed
-        TileLayerDatabaseView.updateLayerConfig(this, prefs, map.getBackgroundLayer());
-        TileLayerDatabaseView.updateLayerConfig(this, prefs, map.getOverlayLayer());
+        TileLayerDatabaseView.updateLayerConfig(this, map.getBackgroundLayer());
+        TileLayerDatabaseView.updateLayerConfig(this, map.getOverlayLayer());
 
         undoListener = new UndoListener();
 
