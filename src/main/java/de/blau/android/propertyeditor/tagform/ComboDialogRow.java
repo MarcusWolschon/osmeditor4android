@@ -191,27 +191,28 @@ public class ComboDialogRow extends DialogRow {
         if (adapter != null) {
             for (int i = 0; i < adapter.getCount(); i++) {
                 Object o = adapter.getItem(i);
-                StringWithDescription swd;
-                Drawable icon = null;
                 if (o instanceof TagFormFragment.Ruler) {
                     valueGroup.addView(divider);
-                    continue;
-                } else if (o instanceof StringWithDescriptionAndIcon) {
-                    icon = ((StringWithDescriptionAndIcon) o).getIcon(caller.getContext(), preset);
-                    if (icon != null) {
-                        swd = new StringWithDescriptionAndIcon(o);
+                } else {
+                    StringWithDescription swd;
+                    Drawable icon = null;
+                    if (o instanceof StringWithDescriptionAndIcon) {
+                        icon = ((StringWithDescriptionAndIcon) o).getIcon(caller.getContext(), preset);
+                        if (icon != null) {
+                            swd = new StringWithDescriptionAndIcon(o);
+                        } else {
+                            swd = new StringWithDescription(o);
+                        }
                     } else {
                         swd = new StringWithDescription(o);
                     }
-                } else {
-                    swd = new StringWithDescription(o);
-                }
-                String v = swd.getValue();
+                    String v = swd.getValue();
 
-                if (v == null || "".equals(v)) {
-                    continue;
+                    if (v == null || "".equals(v)) {
+                        continue;
+                    }
+                    addButton(caller.getActivity(), valueGroup, i, swd, v.equals(value), icon, listener, buttonLayoutParams);
                 }
-                addButton(caller.getActivity(), valueGroup, i, swd, v.equals(value), icon, listener, buttonLayoutParams);
             }
         }
         final Handler handler = new Handler(Looper.getMainLooper());

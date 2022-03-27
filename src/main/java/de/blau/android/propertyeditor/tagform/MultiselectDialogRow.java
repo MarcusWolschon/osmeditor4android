@@ -200,26 +200,27 @@ public class MultiselectDialogRow extends DialogRow {
             int count = adapter.getCount();
             for (int i = 0; i < count; i++) {
                 Object o = adapter.getItem(i);
-                StringWithDescription swd;
-                Drawable icon = null;
                 if (o instanceof TagFormFragment.Ruler) {
                     valueGroup.addView(divider);
-                    continue;
-                } else if (o instanceof StringWithDescriptionAndIcon) {
-                    icon = ((StringWithDescriptionAndIcon) o).getIcon(caller.getContext(), preset);
-                    if (icon != null) {
-                        swd = new StringWithDescriptionAndIcon(o);
+                } else {
+                    StringWithDescription swd;
+                    Drawable icon = null;
+                    if (o instanceof StringWithDescriptionAndIcon) {
+                        icon = ((StringWithDescriptionAndIcon) o).getIcon(caller.getContext(), preset);
+                        if (icon != null) {
+                            swd = new StringWithDescriptionAndIcon(o);
+                        } else {
+                            swd = new StringWithDescription(o);
+                        }
                     } else {
                         swd = new StringWithDescription(o);
                     }
-                } else {
-                    swd = new StringWithDescription(o);
+                    String v = swd.getValue();
+                    if (v == null || "".equals(v)) {
+                        continue;
+                    }
+                    addCheck(caller.getActivity(), valueGroup, swd, values != null && values.contains(v), icon, buttonLayoutParams);
                 }
-                String v = swd.getValue();
-                if (v == null || "".equals(v)) {
-                    continue;
-                }
-                addCheck(caller.getActivity(), valueGroup, swd, values != null && values.contains(v), icon, buttonLayoutParams);
             }
         }
         builder.setNeutralButton(R.string.clear, (dialog, iwhich) -> {
