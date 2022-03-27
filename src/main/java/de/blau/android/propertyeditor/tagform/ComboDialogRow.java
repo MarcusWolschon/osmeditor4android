@@ -207,12 +207,12 @@ public class ComboDialogRow extends DialogRow {
                 addButton(caller.getActivity(), valueGroup, i, swd, v.equals(value), icon, listener, buttonLayoutParams);
             }
         }
-        final Handler handler = new Handler(Looper.getMainLooper());
         builder.setPositiveButton(R.string.clear, (dialog, which) -> {
-            String k = (String) ((AlertDialog) dialog).findViewById(R.id.valueGroup).getTag();
+            View groupView =((AlertDialog) dialog).findViewById(R.id.valueGroup);
+            String k = (String)groupView.getTag();
             updateTag(((AlertDialog) dialog).getContext(), k, new StringWithDescription(""));
             // allow a tiny bit of time to see that the action actually worked
-            handler.postDelayed(dialog::dismiss, 100);
+            groupView.postDelayed(dialog::dismiss, 100);
         });
         builder.setNegativeButton(R.string.cancel, null);
         final AlertDialog dialog = builder.create();
@@ -226,7 +226,7 @@ public class ComboDialogRow extends DialogRow {
                 updateTag(button.getContext(), (String) group.getTag(), ourValue);
             }
             // allow a tiny bit of time to see that the action actually worked
-            handler.postDelayed(dialog::dismiss, 100);
+            group.postDelayed(dialog::dismiss, 100);
         });
 
         return dialog;
