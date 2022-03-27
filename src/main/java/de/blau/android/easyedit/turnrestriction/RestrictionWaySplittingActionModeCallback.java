@@ -67,14 +67,12 @@ public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionMo
     }
 
     @Override
-    public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be
-                                                            // clicked
+    public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
         super.handleElementClick(element);
         // protect against race conditions
         if (!(element instanceof Node)) {
-            // TODO fix properly
             Log.e(DEBUG_TAG, element.getName() + " clicked");
-            return true;
+            return false;
         }
         if (way.isClosed()) {
             main.startSupportActionMode(new RestrictionClosedWaySplittingActionModeCallback(manager, way, (Node) element, fromWay, savedResults));

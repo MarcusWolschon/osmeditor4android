@@ -261,7 +261,7 @@ public class TrackerService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent == null) {
             Log.e(DEBUG_TAG, "Received null intent"); //
-            return START_STICKY; // NOTE not clear how or if we should return an error here
+            return 0; // NOTE not clear how or if we should return an error here
         }
         if (intent.getBooleanExtra(TRACK_KEY, false)) {
             Log.d(DEBUG_TAG, "Start tracking");
