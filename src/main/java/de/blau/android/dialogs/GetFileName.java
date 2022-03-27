@@ -28,8 +28,6 @@ public class GetFileName extends ImmersiveDialogFragment {
 
     private static final String TAG = "fragment_save_file";
 
-    private SaveFile callback;
-
     /**
      * Display a dialog asking for a file name to save to
      * 
@@ -76,7 +74,7 @@ public class GetFileName extends ImmersiveDialogFragment {
     @SuppressLint("InflateParams")
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        callback = (SaveFile) getArguments().getSerializable("callback");
+        SaveFile callback = (SaveFile) getArguments().getSerializable("callback");
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.save_file);

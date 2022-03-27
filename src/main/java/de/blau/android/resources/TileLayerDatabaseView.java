@@ -25,7 +25,6 @@ import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
 
@@ -35,7 +34,6 @@ public class TileLayerDatabaseView {
     /**
      * Ruleset database related methods and fields
      */
-    private Cursor       layerCursor;
     private LayerAdapter layerAdapter;
 
     /**
@@ -51,7 +49,7 @@ public class TileLayerDatabaseView {
         final TileLayerDatabase tlDb = new TileLayerDatabase(activity); // NOSONAR will be closed when dismissed
         final SQLiteDatabase writableDb = tlDb.getWritableDatabase();
         ListView layerList = (ListView) layerListView.findViewById(R.id.listViewLayer);
-        layerCursor = TileLayerDatabase.getAllCustomLayers(writableDb);
+        Cursor layerCursor = TileLayerDatabase.getAllCustomLayers(writableDb);
         layerAdapter = new LayerAdapter(writableDb, activity, layerCursor);
         layerList.setAdapter(layerAdapter);
         alertDialog.setNeutralButton(R.string.done, null);
@@ -68,8 +66,7 @@ public class TileLayerDatabaseView {
             dialog.setNeutralButton(R.string.cancel, null);
             dialog.setPositiveButton(R.string.delete, (d, which) -> {
                 TileLayerSource tileServer = TileLayerDatabase.getLayerWithRowId(activity, writableDb, id);
-                final Preferences prefs = App.getLogic().getPrefs();
-                removeLayerSelection(activity, prefs, tileServer);
+                removeLayerSelection(activity, tileServer);
                 TileLayerDatabase.deleteLayerWithRowId(writableDb, id);
                 newLayerCursor(writableDb);
                 resetLayer(activity, writableDb);
@@ -152,14 +149,13 @@ public class TileLayerDatabaseView {
         TileLayerSource.getListsLocked(context, db, true);
         Logic logic = App.getLogic();
         if (logic != null) {
-            Preferences prefs = logic.getPrefs();
             MapTilesLayer<?> background = logic.getMap().getBackgroundLayer();
             if (background != null) {
-                updateLayerConfig(context, prefs, background);
+                updateLayerConfig(context, background);
             }
             MapTilesOverlayLayer<?> overlay = logic.getMap().getOverlayLayer();
             if (overlay != null) {
-                updateLayerConfig(context, prefs, overlay);
+                updateLayerConfig(context, overlay);
             }
         }
     }
@@ -168,10 +164,9 @@ public class TileLayerDatabaseView {
      * Update the config of the current layer(s) including setting the prefs
      * 
      * @param context Android Context
-     * @param prefs a current Preferences object
      * @param layer the layer we are updating
      */
-    public static void updateLayerConfig(@NonNull Context context, @NonNull Preferences prefs, @Nullable MapTilesLayer<?> layer) {
+    public static void updateLayerConfig(@NonNull Context context, @Nullable MapTilesLayer<?> layer) {
         if (layer != null) {
             Log.d(DEBUG_TAG, "updating layer " + layer.getName());
             TileLayerSource config = layer.getTileLayerConfiguration();
@@ -214,10 +209,9 @@ public class TileLayerDatabaseView {
      * If the current layer is deleted zap the respective prefs
      * 
      * @param context an Android Context
-     * @param prefs a Preference object
      * @param layerConfig the layer
      */
-    protected static void removeLayerSelection(@NonNull Context context, @NonNull final Preferences prefs, @Nullable final TileLayerSource layerConfig) {
+    protected static void removeLayerSelection(@NonNull Context context, @Nullable final TileLayerSource layerConfig) {
         if (layerConfig != null) {
             try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
                 db.deleteLayer(layerConfig.isOverlay() ? LayerType.OVERLAYIMAGERY : LayerType.IMAGERY, layerConfig.getId());

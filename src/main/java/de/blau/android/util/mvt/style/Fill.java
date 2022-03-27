@@ -13,7 +13,7 @@ import android.graphics.Rect;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.util.GeoJSONConstants;
-import de.blau.android.util.SerializablePaint;
+import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.mvt.VectorTileDecoder;
 import de.blau.android.util.mvt.VectorTileDecoder.Feature;
 
@@ -21,14 +21,14 @@ public class Fill extends Layer {
 
     private static final long serialVersionUID = 4L;
 
-    SerializablePaint        outline       = null;
+    SerializableTextPaint    outline       = null;
     ColorStyleAttribute      outlineColor  = new ColorStyleAttribute() {
                                                private static final long serialVersionUID = 1L;
 
                                                @Override
                                                protected void set(int color) {
                                                    if (outline == null) {
-                                                       outline = new SerializablePaint();
+                                                       outline = new SerializableTextPaint();
                                                        outline.setStyle(Paint.Style.STROKE);
                                                    }
                                                    int tempAlpha = outline.getAlpha();
@@ -70,7 +70,7 @@ public class Fill extends Layer {
     @NonNull
     public static Fill fromPaint(@NonNull String layer, @NonNull Paint paint) {
         Fill style = new Fill(layer);
-        style.paint = new SerializablePaint(paint);
+        style.paint = new SerializableTextPaint(paint);
         style.paint.setAntiAlias(true);
         style.paint.setStyle(Paint.Style.FILL_AND_STROKE);
         return style;

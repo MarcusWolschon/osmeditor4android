@@ -125,9 +125,9 @@ public class TrackerService extends Service {
     /**
      * For no apparent sane reason google has deprecated the NmeaListener interface
      */
-    OldNmeaListener oldNmeaListener = null;
-    NewNmeaListener newNmeaListener = null;
-    private boolean useOldNmea      = false;
+    private OldNmeaListener oldNmeaListener = null;
+    private NewNmeaListener newNmeaListener = null;
+    private boolean         useOldNmea      = false;
 
     private long staleGPSMilli = 20000L;              // 20 seconds
     private long staleGPSNano  = staleGPSMilli * 1000;
@@ -167,8 +167,8 @@ public class TrackerService extends Service {
         // see https://issuetracker.google.com/issues/141019880
         try {
             // noinspection JavaReflectionMemberAccess
-            addNmeaListener = LocationManager.class.getMethod("addNmeaListener", GpsStatus.NmeaListener.class);
-            removeNmeaListener = LocationManager.class.getMethod("removeNmeaListener", GpsStatus.NmeaListener.class);
+            addNmeaListener = LocationManager.class.getMethod("addNmeaListener", GpsStatus.NmeaListener.class); // NOSONAR
+            removeNmeaListener = LocationManager.class.getMethod("removeNmeaListener", GpsStatus.NmeaListener.class); // NOSONAR
         } catch (Exception e) { // NOSONAR
             Log.e(DEBUG_TAG, "reflection didn't find addNmeaListener or removeNmeaListener " + e.getMessage());
         }
@@ -261,7 +261,7 @@ public class TrackerService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent == null) {
             Log.e(DEBUG_TAG, "Received null intent"); //
-            return START_STICKY; // NOTE not clear how or if we should return an error here
+            return 0; // NOTE not clear how or if we should return an error here
         }
         if (intent.getBooleanExtra(TRACK_KEY, false)) {
             Log.d(DEBUG_TAG, "Start tracking");
@@ -508,6 +508,15 @@ public class TrackerService extends Service {
         return mBinder;
     }
 
+    /**
+     * Set the current location
+     * 
+     * @param location the Location to set
+     */
+    public void setGpsLocation(@NonNull Location location) {
+        gpsListener.onLocationChanged(location);
+    }
+
     public class TrackerBinder extends Binder {
 
         /**
@@ -520,7 +529,7 @@ public class TrackerService extends Service {
         }
     }
 
-    public LocationListener gpsListener = new LocationListener() {
+    private LocationListener gpsListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
             if (source == GpsSource.INTERNAL) {
@@ -552,7 +561,8 @@ public class TrackerService extends Service {
         }
 
         @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
+        public void onStatusChanged(String provider, int status, Bundle extras) { // NOSONAR longer term we should
+                                                                                  // replace this with LocationCompat
             // unused
         }
 
@@ -570,7 +580,7 @@ public class TrackerService extends Service {
     };
 
     @SuppressWarnings("NewApi")
-    LocationListener networkListener = new LocationListener() {
+    private LocationListener networkListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
             if (source != GpsSource.INTERNAL) {
@@ -597,7 +607,8 @@ public class TrackerService extends Service {
         }
 
         @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
+        public void onStatusChanged(String provider, int status, Bundle extras) { // NOSONAR longer term we should
+                                                                                  // replace this with LocationCompat
             // unused
         }
 

@@ -11,7 +11,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.R;
 import de.blau.android.resources.DataStyle;
-import de.blau.android.util.SerializablePaint;
+import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.Snack;
 
 public abstract class StyleableLayer extends MapViewLayer implements StyleableInterface, DiscardInterface, Serializable {
@@ -28,9 +28,9 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
     /**
      * Styling parameters
      */
-    protected int               iconRadius;
-    protected String            symbolName;
-    protected SerializablePaint paint;
+    protected int                   iconRadius;
+    protected String                symbolName;
+    protected SerializableTextPaint paint;
 
     protected transient Path symbolPath;
 

@@ -151,7 +151,7 @@ public class TileLayerDialog {
                 alertDialog.setTitle(R.string.edit_layer_title);
                 alertDialog.setNeutralButton(R.string.Delete, (dialog, which) -> {
                     Log.d(DEBUG_TAG, "deleting layer " + Long.toString(id));
-                    TileLayerDatabaseView.removeLayerSelection(activity, prefs, finalLayer);
+                    TileLayerDatabaseView.removeLayerSelection(activity, finalLayer);
                     try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
                         TileLayerDatabase.deleteLayerWithRowId(db, id);
                     }

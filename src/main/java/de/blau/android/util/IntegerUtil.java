@@ -20,6 +20,6 @@ public final class IntegerUtil {
      * @return a long
      */
     public static long toUnsignedLong(int x) {
-        return ((long) x) & 0xffffffffL;
+        return x & 0xffffffffL;
     }
 }

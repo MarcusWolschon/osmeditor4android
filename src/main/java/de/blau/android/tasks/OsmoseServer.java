@@ -31,8 +31,8 @@ final class OsmoseServer {
 
     private static final String DEBUG_TAG = OsmoseServer.class.getSimpleName();
 
-    private static final String API02PATH = "/api/0.2/";
-    private static final String API03PATH = "/api/0.3/";
+    private static final String API02PATH = "/api/0.2/"; // NOSONAR
+    private static final String API03PATH = "/api/0.3/"; // NOSONAR
 
     /**
      * the list of supported languages was simply generated from the list of .po in the osmose repo and tested against
@@ -191,20 +191,5 @@ final class OsmoseServer {
             lang = "en";
         }
         return prefs.getOsmoseServer() + lang + API02PATH;
-    }
-
-    /**
-     * Get the OSMOSE server from preferences
-     *
-     * @param context the Android context
-     * @return the server URL
-     */
-    private static String getServerURL03(@NonNull Context context) {
-        Preferences prefs = new Preferences(context);
-        String lang = Locale.getDefault().getLanguage();
-        if (!SUPPORTED_LANGUAGES.contains(lang)) {
-            lang = "en";
-        }
-        return prefs.getOsmoseServer() + lang + API03PATH;
     }
 }

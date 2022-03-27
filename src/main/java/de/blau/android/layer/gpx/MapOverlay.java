@@ -50,7 +50,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.PlaybackTask;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
-import de.blau.android.util.SerializablePaint;
+import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.FloatPrimitiveList;
@@ -77,10 +77,10 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     private transient Track       track;
     private transient GpxPlayback playbackTask = null;
 
-    private SerializablePaint wayPointPaint;
-    private String            labelKey;
-    private String            contentId;    // could potentially be transient
-    private TrackPoint        pausedPoint;
+    private SerializableTextPaint wayPointPaint;
+    private String                labelKey;
+    private String                contentId;    // could potentially be transient
+    private TrackPoint            pausedPoint;
 
     // way point label styling
     private final transient FontMetrics fm;
@@ -332,8 +332,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     public void resetStyling() {
-        paint = new SerializablePaint(DataStyle.getInternal(DataStyle.GPS_TRACK).getPaint());
-        wayPointPaint = new SerializablePaint(DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint());
+        paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GPS_TRACK).getPaint());
+        wayPointPaint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint());
         labelKey = "";
         iconRadius = map.getIconRadius();
         symbolName = TriangleDown.NAME;
@@ -543,7 +543,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                     }
 
                     tp.toLocation(loc);
-                    tracker.gpsListener.onLocationChanged(loc);
+                    tracker.setGpsLocation(loc);
                     sleep();
                 }
             }

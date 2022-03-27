@@ -12,7 +12,7 @@ import android.graphics.Rect;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.util.GeoJSONConstants;
-import de.blau.android.util.SerializablePaint;
+import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.mvt.VectorTileDecoder;
 import de.blau.android.util.mvt.VectorTileDecoder.Feature;
 
@@ -22,38 +22,38 @@ public class Circle extends Layer {
 
     public static final float DEFAULT_RADIUS = 5;
 
-    SerializablePaint   stroke        = null;
-    ColorStyleAttribute strokeColor   = new ColorStyleAttribute() {
-                                          private static final long serialVersionUID = 1L;
+    SerializableTextPaint stroke        = null;
+    ColorStyleAttribute   strokeColor   = new ColorStyleAttribute() {
+                                            private static final long serialVersionUID = 1L;
 
-                                          @Override
-                                          protected void set(int color) {
-                                              createStrokePaint();
-                                              int tempAlpha = stroke.getAlpha();
-                                              stroke.setColor(color);
-                                              if (color >>> 24 == 0) {
-                                                  stroke.setAlpha(tempAlpha);
-                                              }
-                                          }
-                                      };
-    FloatStyleAttribute strokeOpacity = new FloatStyleAttribute(true) {
-                                          private static final long serialVersionUID = 1L;
+                                            @Override
+                                            protected void set(int color) {
+                                                createStrokePaint();
+                                                int tempAlpha = stroke.getAlpha();
+                                                stroke.setColor(color);
+                                                if (color >>> 24 == 0) {
+                                                    stroke.setAlpha(tempAlpha);
+                                                }
+                                            }
+                                        };
+    FloatStyleAttribute   strokeOpacity = new FloatStyleAttribute(true) {
+                                            private static final long serialVersionUID = 1L;
 
-                                          @Override
-                                          protected void set(float opacity) {
-                                              createStrokePaint();
-                                              stroke.setAlpha(Math.round(opacity * 255));
-                                          }
-                                      };
-    FloatStyleAttribute strokeWidth   = new FloatStyleAttribute(true) {
-                                          private static final long serialVersionUID = 1L;
+                                            @Override
+                                            protected void set(float opacity) {
+                                                createStrokePaint();
+                                                stroke.setAlpha(Math.round(opacity * 255));
+                                            }
+                                        };
+    FloatStyleAttribute   strokeWidth   = new FloatStyleAttribute(true) {
+                                            private static final long serialVersionUID = 1L;
 
-                                          @Override
-                                          protected void set(float value) {
-                                              createStrokePaint();
-                                              stroke.setStrokeWidth(value);
-                                          }
-                                      };
+                                            @Override
+                                            protected void set(float value) {
+                                                createStrokePaint();
+                                                stroke.setStrokeWidth(value);
+                                            }
+                                        };
 
     FloatArrayStyleAttribute circleTranslate = new FloatArrayStyleAttribute(true);
     FloatStyleAttribute      circleRadius    = new FloatStyleAttribute(true);
@@ -88,7 +88,7 @@ public class Circle extends Layer {
     @NonNull
     public static Circle fromPaint(@NonNull String layer, @NonNull Paint paint) {
         Circle style = new Circle(layer);
-        style.paint = new SerializablePaint(paint);
+        style.paint = new SerializableTextPaint(paint);
         style.paint.setAntiAlias(true);
         style.paint.setStyle(Paint.Style.FILL_AND_STROKE);
         return style;
@@ -165,7 +165,7 @@ public class Circle extends Layer {
      */
     private void createStrokePaint() {
         if (stroke == null) {
-            stroke = new SerializablePaint();
+            stroke = new SerializableTextPaint();
             stroke.setStyle(Paint.Style.STROKE);
         }
     }

@@ -823,7 +823,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                                 }
                             }
                             Node prevNode = fromWay.getNodes().get(1);
-                            if (fromWay.getLastNode().equals((Node) v)) {
+                            if (fromWay.getLastNode().equals(v)) {
                                 prevNode = fromWay.getNodes().get(size - 2);
                             }
                             long bearing = (GeoMath.bearing(prevNode.getLon() / 1E7D, prevNode.getLat() / 1E7D, lon / 1E7D, lat / 1E7D) + arrowDirection) % 360;

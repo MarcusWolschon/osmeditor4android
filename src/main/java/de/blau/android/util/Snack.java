@@ -5,7 +5,6 @@ import java.util.Random;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -26,12 +25,15 @@ import de.blau.android.R;
  *
  */
 public final class Snack {
-
     private static final String DEBUG_TAG = Snack.class.getName();
 
     private static final int SHOW_DURATION_ACTION = 5000;
 
     protected static final int QUEUE_CAPACITY = 3;
+
+    private static final String NULL_VIEW_IN_BAR_INFO    = "null View in barInfo";
+    private static final String NULL_VIEW_IN_BAR_ERROR   = "null View in barError";
+    private static final String NULL_VIEW_IN_BAR_WARNING = "null View in barWarning";
 
     private static final Object queueLock = new Object();
 
@@ -167,15 +169,11 @@ public final class Snack {
         @Override
         public void onDismissed(Snackbar s, int event) {
             synchronized (queueLock) {
-                if (!infoQueue.remove(s)) {
-                    if (!warningQueue.remove(s)) {
-                        errorQueue.remove(s);
-                    }
+                if (!infoQueue.remove(s) && !warningQueue.remove(s)) {
+                    errorQueue.remove(s);
                 }
-                if (!showFirst(errorQueue)) {
-                    if (!showFirst(warningQueue)) {
-                        showFirst(infoQueue);
-                    }
+                if (!showFirst(errorQueue) && !showFirst(warningQueue)) {
+                    showFirst(infoQueue);
                 }
             }
         }
@@ -201,17 +199,10 @@ public final class Snack {
      */
     public static void barError(@Nullable View v, int res) {
         if (v == null) {
-            Log.e(DEBUG_TAG, "null View in barError");
+            Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_INFO);
             return;
         }
-        try {
-            Snackbar snackbar = Snackbar.make(v, res, Snackbar.LENGTH_LONG);
-            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
-            snackbar.addCallback(callback);
-            enqueueError(snackbar);
-        } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barError got " + e.getMessage());
-        }
+        barError(v, Snackbar.make(v, res, Snackbar.LENGTH_LONG));
     }
 
     /**
@@ -234,11 +225,20 @@ public final class Snack {
      */
     public static void barError(@Nullable View v, @NonNull String msg) {
         if (v == null) {
-            Log.e(DEBUG_TAG, "null View in barError");
+            Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_ERROR);
             return;
         }
+        barError(v, Snackbar.make(v, msg, Snackbar.LENGTH_LONG));
+    }
+
+    /**
+     * Display a snackbar with an error message
+     * 
+     * @param v view to display the snackbar on
+     * @param snackbar the Snackbar to display
+     */
+    private static void barError(@NonNull View v, @NonNull Snackbar snackbar) {
         try {
-            Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
             snackbar.addCallback(callback);
             enqueueError(snackbar);
@@ -271,12 +271,12 @@ public final class Snack {
      */
     public static void barError(@Nullable View v, int msgRes, int actionRes, View.OnClickListener listener) {
         if (v == null) {
-            Log.e(DEBUG_TAG, "null View in barError");
+            Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_ERROR);
             return;
         }
         try {
             Snackbar snackbar = Snackbar.make(v, msgRes, Snackbar.LENGTH_LONG);
-            snackbar.setDuration(5000);
+            snackbar.setDuration(SHOW_DURATION_ACTION);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
             snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
             snackbar.setAction(actionRes, listener);
@@ -340,11 +340,20 @@ public final class Snack {
      */
     public static void barInfo(@Nullable View v, int res, int duration) {
         if (v == null) {
-            Log.e(DEBUG_TAG, "null View in barInfo");
+            Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_INFO);
             return;
         }
+        barInfo(v, Snackbar.make(v, res, duration));
+    }
+
+    /**
+     * Display a snackbar with an informational message
+     * 
+     * @param v view to display the snackbar on
+     * @param snackbar the Snackbar
+     */
+    private static void barInfo(@NonNull View v, @NonNull Snackbar snackbar) {
         try {
-            Snackbar snackbar = Snackbar.make(v, res, duration);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
             snackbar.addCallback(callback);
             enqueueInfo(snackbar);
@@ -409,17 +418,10 @@ public final class Snack {
      */
     public static void barInfo(@Nullable View v, @NonNull String msg, int duration) {
         if (v == null) {
-            Log.e(DEBUG_TAG, "null View in barInfo");
+            Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_INFO);
             return;
         }
-        try {
-            Snackbar snackbar = Snackbar.make(v, msg, duration);
-            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
-            snackbar.addCallback(callback);
-            enqueueInfo(snackbar);
-        } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
-        }
+        barInfo(v, Snackbar.make(v, msg, duration));
     }
 
     /**
@@ -430,17 +432,10 @@ public final class Snack {
      */
     public static void barInfo(@Nullable View v, @NonNull String msg) {
         if (v == null) {
-            Log.e(DEBUG_TAG, "null View in barInfo");
+            Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_INFO);
             return;
         }
-        try {
-            Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
-            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
-            snackbar.addCallback(callback);
-            enqueueInfo(snackbar);
-        } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
-        }
+        barInfo(v, Snackbar.make(v, msg, Snackbar.LENGTH_LONG));
     }
 
     /**
@@ -467,48 +462,7 @@ public final class Snack {
      */
     public static void barInfo(@Nullable View v, @NonNull String msg, int actionRes, View.OnClickListener listener) {
         if (v == null) {
-            Log.e(DEBUG_TAG, "null View in barInfo");
-            return;
-        }
-        try {
-            Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
-            snackbar.setDuration(5000);
-            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
-            snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
-            snackbar.setAction(actionRes, listener);
-            snackbar.addCallback(callback);
-            enqueueInfo(snackbar);
-        } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
-        }
-    }
-
-    /**
-     * Display a snackbar with an informational message with a possible action
-     * 
-     * @param activity activity calling us
-     * @param msg message to display
-     * @param action action text
-     * @param listener called when action is selected
-     */
-    public static void barInfo(Activity activity, String msg, String action, View.OnClickListener listener) {
-        if (activity != null) {
-            barInfo(activity.findViewById(android.R.id.content), msg, action, listener);
-        }
-    }
-
-    /**
-     * Display a snackbar with an informational message with a possible action
-     * 
-     * @param v view to display the snackbar on
-     * @param msg message to display
-     * @param action action text
-     * @param listener called when action is selected
-     */
-    @SuppressLint("WrongConstant")
-    public static void barInfo(@Nullable View v, @NonNull String msg, String action, View.OnClickListener listener) {
-        if (v == null) {
-            Log.e(DEBUG_TAG, "null View in barInfo");
+            Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_INFO);
             return;
         }
         try {
@@ -516,7 +470,7 @@ public final class Snack {
             snackbar.setDuration(SHOW_DURATION_ACTION);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
             snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
-            snackbar.setAction(action, listener);
+            snackbar.setAction(actionRes, listener);
             snackbar.addCallback(callback);
             enqueueInfo(snackbar);
         } catch (IllegalArgumentException e) {
@@ -557,17 +511,10 @@ public final class Snack {
      */
     public static void barWarning(@Nullable View v, int res, int duration) {
         if (v == null) {
-            Log.e(DEBUG_TAG, "null View in barWarning");
+            Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_WARNING);
             return;
         }
-        try {
-            Snackbar snackbar = Snackbar.make(v, res, duration);
-            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
-            snackbar.addCallback(callback);
-            enqueueWarning(snackbar);
-        } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barWarning got " + e.getMessage());
-        }
+        barWarning(v, Snackbar.make(v, res, duration));
     }
 
     /**
@@ -579,11 +526,20 @@ public final class Snack {
      */
     public static void barWarning(@Nullable View v, @NonNull String msg, int duration) {
         if (v == null) {
-            Log.e(DEBUG_TAG, "null View in barWarning");
+            Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_WARNING);
             return;
         }
+        barWarning(v, Snackbar.make(v, msg, duration));
+    }
+
+    /**
+     * Display a snackbar with a warning
+     * 
+     * @param v view to display the snackbar on
+     * @param snackbar the Snackbar to display
+     */
+    private static void barWarning(@NonNull View v, @NonNull Snackbar snackbar) {
         try {
-            Snackbar snackbar = Snackbar.make(v, msg, duration);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
             snackbar.addCallback(callback);
             enqueueWarning(snackbar);
@@ -616,12 +572,12 @@ public final class Snack {
      */
     public static void barWarning(@Nullable View v, @NonNull String msg, int actionRes, View.OnClickListener listener) {
         if (v == null) {
-            Log.e(DEBUG_TAG, "null View in barWarning");
+            Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_WARNING);
             return;
         }
         try {
             Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
-            snackbar.setDuration(5000);
+            snackbar.setDuration(SHOW_DURATION_ACTION);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
             snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
             snackbar.setAction(actionRes, listener);
@@ -766,7 +722,7 @@ public final class Snack {
             Toast toast = new Toast(context);
             int yOffset = ThemeUtils.getActionBarHeight(context) + 5;
             toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP, 0, yOffset);
-            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setDuration(duration);
             toast.setView(layout);
             toast.show();
         } catch (Exception e) {
