@@ -25,7 +25,6 @@ import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
 
