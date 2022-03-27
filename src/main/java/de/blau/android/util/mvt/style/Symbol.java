@@ -26,7 +26,6 @@ import androidx.annotation.Nullable;
 import ch.poole.android.sprites.Sprites;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.GeoJSONConstants;
-import de.blau.android.util.SerializablePaint;
 import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.mvt.VectorTileDecoder;
 import de.blau.android.util.mvt.VectorTileDecoder.Feature;
@@ -267,7 +266,7 @@ public class Symbol extends Layer {
     @NonNull
     public static Symbol fromPaint(@NonNull String layerName, @NonNull Paint paint, @NonNull Paint labelPaint, @Nullable String symbolName) {
         Symbol style = new Symbol(layerName);
-        style.paint = new SerializablePaint(paint);
+        style.paint = new SerializableTextPaint(paint);
         style.paint.setStyle(Paint.Style.STROKE);
         style.setSymbol(symbolName);
         style.setLabelPaint(new SerializableTextPaint(labelPaint));

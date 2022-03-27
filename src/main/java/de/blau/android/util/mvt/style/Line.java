@@ -13,7 +13,7 @@ import android.graphics.Rect;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.util.GeoJSONConstants;
-import de.blau.android.util.SerializablePaint;
+import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.mvt.VectorTileDecoder;
 import de.blau.android.util.mvt.VectorTileDecoder.Feature;
 
@@ -64,7 +64,7 @@ public class Line extends Layer {
     @NonNull
     public static Line fromPaint(@NonNull String layer, @NonNull Paint paint) {
         Line style = new Line(layer);
-        style.paint = new SerializablePaint(paint);
+        style.paint = new SerializableTextPaint(paint);
         style.paint.setAntiAlias(true);
         style.paint.setStyle(Paint.Style.STROKE);
         return style;

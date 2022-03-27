@@ -25,7 +25,7 @@ import androidx.annotation.Nullable;
 import ch.poole.android.sprites.Sprites;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.IntegerUtil;
-import de.blau.android.util.SerializablePaint;
+import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.mvt.VectorTileDecoder;
 import de.blau.android.util.mvt.VectorTileDecoder.Feature;
 
@@ -146,7 +146,7 @@ public abstract class Layer implements Serializable {
                                          }
                                      };
 
-    protected SerializablePaint paint = new SerializablePaint();
+    protected SerializableTextPaint paint = new SerializableTextPaint();
 
     private transient JsonArray filter = null;
 
@@ -176,7 +176,7 @@ public abstract class Layer implements Serializable {
         this.sourceLayer = other.sourceLayer;
         this.minZoom = other.minZoom;
         this.maxZoom = other.maxZoom;
-        this.paint = new SerializablePaint(other.paint);
+        this.paint = new SerializableTextPaint(other.paint);
         this.visible = other.visible;
         this.interactive = other.interactive;
         this.pattern = other.pattern;

@@ -23,7 +23,7 @@ import de.blau.android.resources.DataStyle;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.SerializablePaint;
+import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.IMapView;
 
@@ -55,8 +55,8 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
 
     private transient Main main;
 
-    private SerializablePaint labelH;
-    private SerializablePaint labelV;
+    private SerializableTextPaint labelH;
+    private SerializableTextPaint labelV;
 
     private float   distance2side;
     private float   shortTicks;
@@ -75,7 +75,7 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
      */
     public MapOverlay(final Map map) {
         this.map = map;
-        paint = new SerializablePaint(DataStyle.getInternal(DataStyle.CROSSHAIRS).getPaint());
+        paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.CROSSHAIRS).getPaint());
         resetStyling();
         setPrefs(map.getPrefs());
     }
@@ -330,8 +330,8 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
     @Override
     public void resetStyling() {
         main = map.getContext() instanceof Main ? (Main) map.getContext() : null;
-        labelH = new SerializablePaint(DataStyle.getInternal(DataStyle.LABELTEXT).getPaint());
-        labelV = new SerializablePaint(labelH);
+        labelH = new SerializableTextPaint(DataStyle.getInternal(DataStyle.LABELTEXT).getPaint());
+        labelV = new SerializableTextPaint(labelH);
         labelV.setTextAlign(Paint.Align.RIGHT);
         textHeight = labelV.getTextSize();
         distance2side = Density.dpToPx(map.getContext(), DISTANCE2SIDE_DP);
