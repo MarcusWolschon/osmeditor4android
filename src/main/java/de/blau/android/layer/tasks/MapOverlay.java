@@ -89,9 +89,12 @@ public class MapOverlay extends MapViewLayer
 
     private List<Task> taskList = new ArrayList<>();
 
-    private Server server;
-
     private Context context = null;
+
+    /**
+     * Runnable for downloading data
+     */
+    private final Downloader download;
 
     /**
      * Construct a new task layer
@@ -101,7 +104,9 @@ public class MapOverlay extends MapViewLayer
     public MapOverlay(@NonNull final Map map) {
         this.map = map;
         context = map.getContext();
-        setPrefs(map.getPrefs());
+        Preferences prefs = map.getPrefs();
+        setPrefs(prefs);
+        download = new TaskDownloader(prefs.getServer());
     }
 
     @Override
@@ -109,12 +114,18 @@ public class MapOverlay extends MapViewLayer
         return true;
     }
 
-    /**
-     * Runnable for downloading data
-     * 
-     * There is some code duplication here, however attempts to merge this didn't work out
-     */
-    Downloader download = new Downloader() {
+    private class TaskDownloader extends Downloader {
+        final Server server;
+
+        /**
+         * Construct a new instance
+         * 
+         * @param server the current Server object
+         */
+        public TaskDownloader(@NonNull Server server) {
+            super(server.getCachedCapabilities().getMaxNoteArea());
+            this.server = server;
+        }
 
         @Override
         protected void download() {
@@ -152,7 +163,7 @@ public class MapOverlay extends MapViewLayer
                 }
             }
         }
-    };
+    }
 
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
@@ -369,7 +380,6 @@ public class MapOverlay extends MapViewLayer
     public void setPrefs(Preferences prefs) {
         panAndZoomDownLoad = prefs.getPanAndZoomAutoDownload();
         minDownloadSize = prefs.getBugDownloadRadius() * 2;
-        server = prefs.getServer();
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
         panAndZoomLimit = prefs.getPanAndZoomLimit();
         filter = prefs.taskFilter();

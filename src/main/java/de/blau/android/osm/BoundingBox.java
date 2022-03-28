@@ -74,14 +74,6 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     private static final String STRING_DELIMITER = ",";
 
     /**
-     * The maximum difference between two borders of the bounding box for the OSM-API.
-     * 
-     * @see <a href="https://wiki.openstreetmap.org/index.php/Getting_Data#Construct_an_URL_for_the_HTTP_API">Construct
-     *      an URL for the HTTP API</a>
-     */
-    public static final int API_MAX_DEGREE_DIFFERENCE = 5000000;
-
-    /**
      * The name of the tag in the OSM-XML file.
      */
     public static final String NAME = BOUNDS_TAG;
@@ -501,23 +493,30 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     /**
      * Checks if the bounding box is valid for the OSM API.
      * 
-     * @return true, if the bbox is smaller than 0.5*0.5 (here multiplied by 1E7) degree.
+     * @param maxAreaDegrees the maximum area in degrees^2
+     * @return true, if the bbox is smaller than maxAreaDegrees
      */
-    public boolean isValidForApi() { // FIXME this should use the values from the API Capabilities
-        return width < API_MAX_DEGREE_DIFFERENCE && height < API_MAX_DEGREE_DIFFERENCE;
+    public boolean isValidForApi(@NonNull float maxAreaDegrees) {
+        return width / 1E7D * height / 1E7D < maxAreaDegrees;
     }
 
     /**
-     * Change this BoundingBox so that it is suitable for a query for map data to the OSM API
+     * Shrink this BoundingBox, if necessary, so that it is suitable for a query for map data to the OSM API
+     * 
+     * @param maxAreaDegrees the maximum area in degrees^2
      */
-    public void makeValidForApi() {
-        if (!isValidForApi()) {
-            int centerx = (getLeft() / 2 + getRight() / 2); // divide first to stay < 2^32
-            int centery = (getTop() + getBottom()) / 2;
-            setLeft(centerx - API_MAX_DEGREE_DIFFERENCE / 2);
-            setRight(centerx + API_MAX_DEGREE_DIFFERENCE / 2);
-            setTop(centery + API_MAX_DEGREE_DIFFERENCE / 2);
-            setBottom(centery - API_MAX_DEGREE_DIFFERENCE / 2);
+    public void makeValidForApi(@NonNull float maxAreaDegrees) {
+        if (!isValidForApi(maxAreaDegrees)) {
+            int centerX = (left / 2 + right / 2); // divide first to stay < 2^32
+            int centerY = (top + bottom) / 2;
+            double d = Math.sqrt((width / 1E7D * height / 1E7D) / maxAreaDegrees);
+            final int newWidth = (int) (width / d)/2;
+            setLeft(centerX - newWidth);
+            setRight(centerX + newWidth);
+            final int newHeight = (int) (height / d)/2;
+            setTop(centerY + newHeight);
+            setBottom(centerY - newHeight);
+            calcDimensions();
         }
     }
 

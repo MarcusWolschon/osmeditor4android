@@ -93,7 +93,7 @@ public final class TransferTasks {
         final TaskStorage bugs = App.getTaskStorage();
         final Preferences prefs = new Preferences(context);
 
-        box.makeValidForApi();
+        box.makeValidForApi(server.getCachedCapabilities().getMaxNoteArea());
         Logic logic = App.getLogic();
         new ExecutorTask<Void, Void, Collection<Task>>(logic.getExecutorService(), logic.getHandler()) {
             @Override

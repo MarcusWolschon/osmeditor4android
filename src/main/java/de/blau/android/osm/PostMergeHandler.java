@@ -8,12 +8,12 @@ import androidx.annotation.NonNull;
  * @author Simon Poole
  *
  */
-public abstract class PostMergeHandler {
+public interface PostMergeHandler {
 
     /**
      * Call after data has been merged
      * 
      * @param e an OsmElement
      */
-    public abstract void handler(@NonNull OsmElement e);
+    public void handler(@NonNull OsmElement e);
 }

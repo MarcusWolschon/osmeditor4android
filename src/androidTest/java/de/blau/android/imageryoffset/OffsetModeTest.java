@@ -142,7 +142,7 @@ public class OffsetModeTest {
     void startMode() {
         TestUtils.zoomToLevel(device, main, 18);
         try {
-            BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(47.390339D, 8.38782D, 50D, true);
+            BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(47.390339D, 8.38782D, 50D);
             App.getLogic().getViewBox().setBorders(map, bbox);
             map.setViewBox(App.getLogic().getViewBox());
             map.invalidate();

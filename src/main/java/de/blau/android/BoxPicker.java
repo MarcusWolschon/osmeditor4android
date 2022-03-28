@@ -425,7 +425,7 @@ public class BoxPicker extends LocaleAwareCompatActivity implements LocationList
     @Nullable
     private BoundingBox createBoxForLocation(@NonNull Location location) {
         try {
-            return GeoMath.createBoundingBoxForCoordinates(location.getLatitude(), location.getLongitude(), currentRadius, true);
+            return GeoMath.createBoundingBoxForCoordinates(location.getLatitude(), location.getLongitude(), currentRadius);
         } catch (OsmException e) {
             ACRAHelper.nocrashReport(e, e.getMessage());
         }
@@ -444,7 +444,7 @@ public class BoxPicker extends LocaleAwareCompatActivity implements LocationList
         try {
             float userLat = Float.parseFloat(lat);
             float userLon = Float.parseFloat(lon);
-            box = GeoMath.createBoundingBoxForCoordinates(userLat, userLon, currentRadius, true);
+            box = GeoMath.createBoundingBoxForCoordinates(userLat, userLon, currentRadius);
         } catch (NumberFormatException | OsmException e) {
             ErrorAlert.showDialog(this, ErrorCodes.NAN);
         }

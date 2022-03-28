@@ -8,12 +8,22 @@ public abstract class Downloader implements Runnable {
 
     private static final String DEBUG_TAG = Downloader.class.getSimpleName();
 
-    protected long    lastAutoPrune = 0;
-    protected ViewBox box           = null;
+    protected long      lastAutoPrune = 0;
+    protected ViewBox   box           = null;
+    private final float maxArea;
+
+    /**
+     * Construct a new instance
+     * 
+     * @param maxArea max area that can be downloaded
+     */
+    protected Downloader(float maxArea) {
+        this.maxArea = maxArea;
+    }
 
     @Override
     public void run() {
-        if (box == null || !box.isValidForApi()) {
+        if (box == null || !box.isValidForApi(maxArea)) {
             Log.e(DEBUG_TAG, "Downloader run with null or too large ViewBox " + box);
             return;
         }

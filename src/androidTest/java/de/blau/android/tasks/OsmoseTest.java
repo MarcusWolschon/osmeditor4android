@@ -261,7 +261,7 @@ public class OsmoseTest {
             Map map = main.getMap();
             MapOverlay layer = map.getTaskLayer();
             layer.setVisible(true);
-            map.getViewBox().fitToBoundingBox(map, GeoMath.createBoundingBoxForCoordinates(b.getLat() / 1E7D, b.getLon() / 1E7D, 10D, true));
+            map.getViewBox().fitToBoundingBox(map, GeoMath.createBoundingBoxForCoordinates(b.getLat() / 1E7D, b.getLon() / 1E7D, 10D));
             map.invalidate();
             try {
                 Thread.sleep(5000); // NOSONAR

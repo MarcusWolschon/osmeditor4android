@@ -218,7 +218,7 @@ public final class GeoMath {
      * @throws OsmException if the bounding box cannot be calculated
      */
     public static BoundingBox createBoundingBoxForCoordinates(IntCoordinates center, final double radius) throws OsmException {
-        return createBoundingBoxForCoordinates(center.lat / 1E7D, center.lon / 1E7D, radius, false);
+        return createBoundingBoxForCoordinates(center.lat / 1E7D, center.lon / 1E7D, radius);
     }
 
     /**
@@ -228,11 +228,10 @@ public final class GeoMath {
      * @param lat Latitude of box center (within maximum values that we can convert to mercator)
      * @param lon Longitude of box center
      * @param radius Radius in metres to be contained in the box.
-     * @param checkSize check that boundingbox would be a legal bb for the OSM api
      * @return The BoundingBox that contains the specified area, values clamped to not cross the dateline)
      * @throws OsmException if the bounding box cannot be calculated
      */
-    public static BoundingBox createBoundingBoxForCoordinates(final double lat, final double lon, final double radius, boolean checkSize) throws OsmException {
+    public static BoundingBox createBoundingBoxForCoordinates(final double lat, final double lon, final double radius) throws OsmException {
         double radiusDegree = convertMetersToGeoDistance(radius);
 
         if (lat + radiusDegree > MAX_COMPAT_LAT || lat - radiusDegree < -MAX_COMPAT_LAT) {
@@ -240,10 +239,6 @@ public final class GeoMath {
         }
 
         double horizontalRadiusDegree = radiusDegree / Math.cos(Math.toRadians(lat)); //
-        if (checkSize && radiusDegree > BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7D / 2D) {
-            radiusDegree = BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7D / 2D;
-            horizontalRadiusDegree = radiusDegree / Math.cos(Math.toRadians(lat));
-        }
 
         double left = lon - horizontalRadiusDegree;
         double right = lon + horizontalRadiusDegree;
