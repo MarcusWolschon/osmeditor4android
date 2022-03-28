@@ -49,7 +49,6 @@ import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import de.blau.android.App;
@@ -62,6 +61,7 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.gpx.Track;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.gpx.WayPoint;
+import de.blau.android.layer.AbstractConfigurationDialog;
 import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
@@ -95,7 +95,6 @@ import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
-import de.blau.android.util.SizedFixedImmersiveDialogFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.mvt.style.Source;
@@ -109,11 +108,10 @@ import de.blau.android.views.layers.MapTilesLayer;
  * @author Simon Poole
  *
  */
-public class Layers extends SizedFixedImmersiveDialogFragment {
+public class Layers extends AbstractConfigurationDialog {
+    private static final String DEBUG_TAG = Layers.class.getName();
 
     private static final int VERTICAL_OFFSET = 64;
-
-    private static final String DEBUG_TAG = Layers.class.getName();
 
     private static final String TAG = "fragment_layers";
 
@@ -125,28 +123,12 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
     TableLayout tl;
 
     /**
-     * Show an info dialog for the supplied GeoJSON Feature
+     * Show dialog that allows to configure the layers
      * 
      * @param activity the calling Activity
      */
     public static void showDialog(@NonNull FragmentActivity activity) {
-        dismissDialog(activity);
-        try {
-            FragmentManager fm = activity.getSupportFragmentManager();
-            Layers layersFragment = newInstance();
-            layersFragment.show(fm, TAG);
-        } catch (IllegalStateException isex) {
-            Log.e(DEBUG_TAG, "showDialog", isex);
-        }
-    }
-
-    /**
-     * Dismiss the dialog
-     * 
-     * @param activity the calling Activity
-     */
-    private static void dismissDialog(@NonNull FragmentActivity activity) {
-        de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
+        showDialog(activity, newInstance(), TAG);
     }
 
     /**
@@ -181,7 +163,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             final Preferences prefs = App.getLogic().getPrefs();
             PopupMenu popup = new PopupMenu(getActivity(), add);
             final Map map = App.getLogic().getMap();
-            
+
             // menu items for adding layers
             MenuItem item = popup.getMenu().add(R.string.menu_layers_load_geojson);
             item.setOnMenuItemClickListener(unused -> {
