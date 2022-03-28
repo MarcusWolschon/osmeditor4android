@@ -418,11 +418,6 @@ public class GeometryEditsTest {
             System.out.println("ApplicationTest bb way1 " + box1.toApiString());// NOSONAR
             BoundingBox nodeBox = n1.getBounds();
             System.out.println("ApplicationTest bb node " + nodeBox.toApiString());// NOSONAR
-            // get box for w1 again it should be the same
-            BoundingBox box1cache = w1.getBounds();
-            box1cache.makeValidForApi();
-            System.out.println("ApplicationTest bb way1 from cache " + box1cache.toApiString());// NOSONAR
-            // assertEquals(box1, box1cache);
             BoundingBox box2 = w2.getBounds();
             System.out.println("ApplicationTest bb way2 " + box2.toApiString());// NOSONAR
             assertTrue(box2.intersects(nodeBox));

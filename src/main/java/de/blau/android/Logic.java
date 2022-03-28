@@ -2759,14 +2759,7 @@ public class Logic {
             @Nullable final PostAsyncActionHandler postLoadHandler) {
         final Validator validator = App.getDefaultValidator(context);
 
-        mapBox.makeValidForApi();
-
-        final PostMergeHandler postMerge = new PostMergeHandler() {
-            @Override
-            public void handler(OsmElement e) {
-                e.hasProblem(context, validator);
-            }
-        };
+        final PostMergeHandler postMerge = (OsmElement e) -> e.hasProblem(context, validator);
 
         new ExecutorTask<Boolean, Void, AsyncResult>(executorService, uiHandler) {
 
@@ -2782,7 +2775,9 @@ public class Logic {
             @Override
             protected AsyncResult doInBackground(Boolean arg) {
                 boolean merge = arg != null && arg.booleanValue();
-                return download(context, prefs.getServer(), mapBox, postMerge, null, merge, false);
+                Server server = prefs.getServer();
+                mapBox.makeValidForApi(server.getCachedCapabilities().getMaxArea());
+                return download(context, server, mapBox, postMerge, null, merge, false);
             }
 
             @Override
@@ -2867,19 +2862,14 @@ public class Logic {
     public void autoDownloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final Validator validator,
             @NonNull final BoundingBox mapBox, @Nullable PostAsyncActionHandler handler) {
 
-        mapBox.makeValidForApi();
-
-        final PostMergeHandler postMerge = new PostMergeHandler() {
-            @Override
-            public void handler(OsmElement e) {
-                e.hasProblem(context, validator);
-            }
-        };
+        final PostMergeHandler postMerge = (OsmElement e) -> e.hasProblem(context, validator);
 
         new ExecutorTask<Void, Void, AsyncResult>(executorService, uiHandler) {
             @Override
             protected AsyncResult doInBackground(Void arg) {
-                AsyncResult result = download(context, prefs.getServer(), mapBox, postMerge, handler, true, true);
+                Server server = prefs.getServer();
+                mapBox.makeValidForApi(server.getCachedCapabilities().getMaxArea());
+                AsyncResult result = download(context, server, mapBox, postMerge, handler, true, true);
                 if (getDelegator().getCurrentStorage().getNodeCount() > prefs.getAutoPruneNodeLimit()) {
                     ViewBox pruneBox = new ViewBox(map.getViewBox());
                     pruneBox.scale(1.6);
@@ -3040,12 +3030,7 @@ public class Logic {
             getDelegator().getCurrentStorage().clearBoundingBoxList();
         }
         final Validator validator = App.getDefaultValidator(activity);
-        final PostMergeHandler postMerge = new PostMergeHandler() {
-            @Override
-            public void handler(OsmElement e) {
-                e.hasProblem(activity, validator);
-            }
-        };
+        final PostMergeHandler postMerge = (OsmElement e) -> e.hasProblem(activity, validator);
         new ExecutorTask<Void, Void, AsyncResult>(executorService, uiHandler) {
             @Override
             protected void onPreExecute() {
@@ -3055,7 +3040,8 @@ public class Logic {
             @Override
             protected AsyncResult doInBackground(Void arg) {
                 for (BoundingBox box : boxes) {
-                    if (box != null && box.isValidForApi()) {
+                    Server server = prefs.getServer();
+                    if (box != null && box.isValidForApi(server.getCachedCapabilities().getMaxArea())) {
                         AsyncResult result = download(activity, prefs.getServer(), box, postMerge, null, true, true);
                         if (result.getCode() != 0) {
                             return result;

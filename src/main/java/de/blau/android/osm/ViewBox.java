@@ -206,7 +206,7 @@ public class ViewBox extends BoundingBox {
             // should't happen, but just in case
             Log.d(DEBUG_TAG, "Width or height zero: " + width + "/" + mHeight);
             ViewBox bbox = new ViewBox(GeoMath.createBoundingBoxForCoordinates(GeoMath.mercatorE7ToLat((int) (mBottom + mHeight / 2)),
-                    GeoMath.mercatorE7ToLat((int) (getLeft() + width / 2)), 10.0f, true));
+                    GeoMath.mercatorE7ToLat((int) (getLeft() + width / 2)), 10.0f));
             set(bbox);
             calcDimensions();
             mTop = GeoMath.latE7ToMercatorE7(getTop()); // note long or else we get an int overflow on calculating the
@@ -553,8 +553,8 @@ public class ViewBox extends BoundingBox {
      * Make the bounding box a valid request for the API, shrinking into its center if necessary.
      */
     @Override
-    public void makeValidForApi() {
-        super.makeValidForApi();
+    public void makeValidForApi(@NonNull float maxAreaDegrees) {
+        super.makeValidForApi(maxAreaDegrees);
         calcBottomMercator();
     }
 

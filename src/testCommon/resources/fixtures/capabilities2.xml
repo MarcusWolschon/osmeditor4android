@@ -3,6 +3,7 @@
   <api>
     <version minimum="0.6" maximum="0.6"/>
     <area maximum="0.25"/>
+    <note_area maximum="25"/>
     <tracepoints per_page="5000"/>
     <waynodes maximum="2001"/>
     <changesets maximum_elements="11"/>

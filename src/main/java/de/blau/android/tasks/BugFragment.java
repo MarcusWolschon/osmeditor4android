@@ -167,7 +167,7 @@ public class BugFragment extends TaskFragment {
                     if (activity instanceof Main) { // activity may have vanished so re-check
                         if (e.getOsmVersion() < 0) { // fake element
                             try {
-                                BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50, true);
+                                BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50);
                                 App.getLogic().downloadBox(activity, b, true, () -> {
                                     OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
                                     if (osm != null && activity != null && activity instanceof Main) {

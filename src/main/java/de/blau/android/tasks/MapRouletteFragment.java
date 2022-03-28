@@ -123,7 +123,7 @@ public class MapRouletteFragment extends TaskFragment {
             locationText.setOnClickListener(unused -> {
                 dismiss();
                 try {
-                    final BoundingBox b = GeoMath.createBoundingBoxForCoordinates(lat, lon, 50, true);
+                    final BoundingBox b = GeoMath.createBoundingBoxForCoordinates(lat, lon, 50);
                     App.getLogic().downloadBox(getActivity(), b, true, () -> {
                         Logic logic = App.getLogic();
                         logic.getViewBox().fitToBoundingBox(logic.getMap(), b);

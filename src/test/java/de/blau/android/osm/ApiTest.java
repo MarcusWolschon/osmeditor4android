@@ -161,7 +161,8 @@ public class ApiTest {
         assertEquals(5000, result.getMaxTracepointsPerPage());
         assertEquals(10000, result.getMaxElementsInChangeset());
         assertEquals(300, result.getTimeout());
-        assertEquals(0.25, result.getAreaMax(), 0.001);
+        assertEquals(0.25, result.getMaxArea(), 0.001);
+        assertEquals(25.0, result.getMaxNoteArea(), 0.001);
 
         // from fixture
         mockServer.enqueue(CAPABILITIES1_FIXTURE);
@@ -176,7 +177,7 @@ public class ApiTest {
         assertEquals(4999, result.getMaxTracepointsPerPage());
         assertEquals(50000, result.getMaxElementsInChangeset());
         assertEquals(301, result.getTimeout());
-        assertEquals(0.24, result.getAreaMax(), 0.001);
+        assertEquals(0.24, result.getMaxArea(), 0.001);
     }
 
     /**

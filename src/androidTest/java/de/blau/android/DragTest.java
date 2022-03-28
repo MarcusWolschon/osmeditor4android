@@ -67,7 +67,7 @@ public class DragTest {
     public void drag() {
         map.getDataLayer().setVisible(true);
         try {
-            BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(47.390339D, 8.38782D, 50D, true);
+            BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(47.390339D, 8.38782D, 50D);
             App.getLogic().getViewBox().setBorders(main.getMap(), bbox);
             main.getMap().invalidate();
             try {

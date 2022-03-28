@@ -167,7 +167,7 @@ public final class IssueAlert {
         }
         Intent resultIntent = new Intent(Intent.ACTION_VIEW);
         try {
-            BoundingBox box = GeoMath.createBoundingBoxForCoordinates(eLat, eLon, prefs.getDownloadRadius(), true);
+            BoundingBox box = GeoMath.createBoundingBoxForCoordinates(eLat, eLon, prefs.getDownloadRadius());
             Uri.Builder builder = new Uri.Builder();
             builder.scheme(Schemes.JOSM).appendPath(RemoteControlUrlActivity.LOAD_AND_ZOOM_COMMAND)
                     .appendQueryParameter(RemoteControlUrlActivity.LEFT_PARAMETER, Double.toString(box.getLeft() / 1E7D))

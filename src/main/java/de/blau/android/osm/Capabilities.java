@@ -30,6 +30,7 @@ public class Capabilities {
     static final String MINIMUM_KEY          = "minimum";
     static final String MAXIMUM_KEY          = "maximum";
     static final String AREA_TAG             = "area";
+    static final String NOTE_AREA_TAG        = "note_area";
     static final String TRACEPOINTS_TAG      = "tracepoints";
     static final String PER_PAGE_KEY         = "per_page";
     static final String WAYNODES_TAG         = "waynodes";
@@ -48,7 +49,8 @@ public class Capabilities {
     // API related
     private String minVersion             = "0.6";
     private String maxVersion             = "0.6";
-    private float  areaMax                = 0.25f;
+    private float  maxArea                = 0.25f;
+    private float  maxNoteArea            = 25f;
     private int    maxTracepointsPerPage  = 5000;
     private int    maxWayNodes            = 2000;
     private int    maxRelationMembers     = 32000;
@@ -173,17 +175,39 @@ public class Capabilities {
     }
 
     /**
-     * @return the areaMax
+     * Get the maximum size of a download area for data in square degrees
+     * 
+     * @return the maximum size of a download area for data in square degrees
      */
-    float getAreaMax() {
-        return areaMax;
+    public float getMaxArea() {
+        return maxArea;
     }
 
     /**
-     * @param areaMax the areaMax to set
+     * Set the maximum size of a download area for data in square degrees
+     * 
+     * @param areaMax the maximum size of a download area for data in square degrees
      */
-    void setAreaMax(float areaMax) {
-        this.areaMax = areaMax;
+    void setMaxArea(float areaMax) {
+        this.maxArea = areaMax;
+    }
+
+    /**
+     * Get the maximum size of a download area for notes in square degrees
+     * 
+     * @return the maximum size of a download area for notes in square degrees
+     */
+    public float getMaxNoteArea() {
+        return maxNoteArea;
+    }
+
+    /**
+     * Set the maximum size of a download area for notes in square degrees
+     * 
+     * @param noteAreaMax the maximum size of a download area for notes in square degrees
+     */
+    void setMaxNoteArea(float noteAreaMax) {
+        this.maxNoteArea = noteAreaMax;
     }
 
     /**
@@ -348,9 +372,16 @@ public class Capabilities {
                     case Capabilities.AREA_TAG:
                         String maxArea = parser.getAttributeValue(null, Capabilities.MAXIMUM_KEY);
                         if (maxArea != null) {
-                            result.setAreaMax(Float.parseFloat(maxArea));
+                            result.setMaxArea(Float.parseFloat(maxArea));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities maximum area " + maxArea);
+                        break;
+                    case Capabilities.NOTE_AREA_TAG:
+                        String noteMaxArea = parser.getAttributeValue(null, Capabilities.MAXIMUM_KEY);
+                        if (noteMaxArea != null) {
+                            result.setMaxNoteArea(Float.parseFloat(noteMaxArea));
+                        }
+                        Log.d(DEBUG_TAG, "getCapabilities note maximum area " + noteMaxArea);
                         break;
                     case Capabilities.TRACEPOINTS_TAG:
                         String perPage = parser.getAttributeValue(null, Capabilities.PER_PAGE_KEY);

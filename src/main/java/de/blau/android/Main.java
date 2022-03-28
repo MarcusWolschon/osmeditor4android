@@ -1147,7 +1147,7 @@ public class Main extends FullScreenAppCompatActivity
         if (prefs.getDownloadRadius() != 0) { // download
             BoundingBox bbox;
             try {
-                bbox = GeoMath.createBoundingBoxForCoordinates(lat, lon, prefs.getDownloadRadius(), true);
+                bbox = GeoMath.createBoundingBoxForCoordinates(lat, lon, prefs.getDownloadRadius());
                 List<BoundingBox> bbList = new ArrayList<>(App.getDelegator().getBoundingBoxes());
                 List<BoundingBox> bboxes = null;
                 if (App.getDelegator().isEmpty()) {

@@ -70,7 +70,7 @@ public class ScriptingTest {
         // normal scope
         String r = Utils.evalString(context, "sandbox1", "b = new BoundingBox();");
         Assert.assertEquals("(0,0,0,0)", r);
-        r = Utils.evalString(context, "sandbox2", "b = GeoMath.createBoundingBoxForCoordinates(0,0,10,false);");
+        r = Utils.evalString(context, "sandbox2", "b = GeoMath.createBoundingBoxForCoordinates(0,0,10);");
         Assert.assertEquals("(-899,-899,899,899)", r);
         final String importError = "Sandbox should stop further importing";
         final String importStatement = "importClass(Packages.de.blau.android.App);";
@@ -86,7 +86,7 @@ public class ScriptingTest {
         v.add("value");
         tags.put("key", v);
         r = Utils.evalString(context, "sandbox4", "a = new java.util.ArrayList(); a.add('value1'); tags.put('key1',a);tags", tags, tags, "test",
-                new HashMap<String, PresetItem>(), App.getCurrentPresets(context));
+                new HashMap<>(), App.getCurrentPresets(context));
         Assert.assertEquals("{key=[value], key1=[value1]}", r);
         Logic logic = App.getLogic();
         try {
@@ -98,7 +98,7 @@ public class ScriptingTest {
         // scope for general scripting
         r = Utils.evalString(context, "sandbox5", "b = new BoundingBox();", logic);
         Assert.assertEquals("(0,0,0,0)", r);
-        r = Utils.evalString(context, "sandbox6", "b = GeoMath.createBoundingBoxForCoordinates(0,0,10,false);", logic);
+        r = Utils.evalString(context, "sandbox6", "b = GeoMath.createBoundingBoxForCoordinates(0,0,10);", logic);
         Assert.assertEquals("(-899,-899,899,899)", r);
         r = Utils.evalString(context, "sandbox7", "logic.getModifiedNodes().size() + logic.getNodes().size()", logic);
         Assert.assertEquals("0", r);

@@ -61,6 +61,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.PostMergeHandler;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
@@ -281,16 +282,21 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     /**
      * Stuff for multipolygon support Instantiate these objects just once
      */
-    List<RelationMember>   waysOnly       = new ArrayList<>();
-    List<List<Node>>       outerRings     = new ArrayList<>();
-    List<List<Node>>       innerRings     = new ArrayList<>();
-    List<List<Node>>       unknownRings   = new ArrayList<>();
-    SimplePool<List<Node>> ringPool       = new SimplePool<>(10);
-    List<Node>             areaNodes      = new ArrayList<>();   // temp for reversing winding and assembling MPs
-    Set<Relation>          paintRelations = new HashSet<>();
+    private final List<RelationMember>   waysOnly       = new ArrayList<>();
+    private final List<List<Node>>       outerRings     = new ArrayList<>();
+    private final List<List<Node>>       innerRings     = new ArrayList<>();
+    private final List<List<Node>>       unknownRings   = new ArrayList<>();
+    private final SimplePool<List<Node>> ringPool       = new SimplePool<>(10);
+    private final List<Node>             areaNodes      = new ArrayList<>();   // reversing winding and assembling MPs
+    private final Set<Relation>          paintRelations = new HashSet<>();
 
-    private ThreadPoolExecutor dataThreadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-    private ThreadPoolExecutor iconThreadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+    /**
+     * Runnable for downloading data
+     */
+    private final Downloader download;
+
+    private final ThreadPoolExecutor dataThreadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+    private final ThreadPoolExecutor iconThreadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
     /**
      * Construct a new OSM data layer
@@ -303,13 +309,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         this.map = map;
         context = map.getContext();
         prefs = map.getPrefs();
+        validator = App.getDefaultValidator(context);
+        download = new DataDownloader(context, prefs.getServer(), validator);
 
         iconRadius = Density.dpToPx(context, ICON_SIZE_DP / 2);
         houseNumberRadius = Density.dpToPx(context, HOUSE_NUMBER_RADIUS);
         verticalNumberOffset = Density.dpToPx(context, HOUSE_NUMBER_RADIUS / 2);
         iconSelectedBorder = Density.dpToPx(context, ICON_SELECTED_BORDER);
-
-        validator = App.getDefaultValidator(context);
 
         delegator = App.getDelegator();
 
@@ -343,17 +349,21 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         return true;
     }
 
-    /**
-     * Runnable for downloading data
-     */
-    Downloader download = new Downloader() {
+    private class DataDownloader extends Downloader {
 
-        final PostMergeHandler postMerge = new PostMergeHandler() {
-            @Override
-            public void handler(OsmElement e) {
-                e.hasProblem(context, validator);
-            }
-        };
+        final PostMergeHandler postMerge;
+
+        /**
+         * Construct a new instance
+         * 
+         * @param context an Android Context
+         * @param server the current Server object
+         * @param validator a Validator instance
+         */
+        public DataDownloader(@NonNull Context context, @NonNull Server server, @NonNull Validator validator) {
+            super(server.getCachedCapabilities().getMaxArea());
+            postMerge = (OsmElement e) -> e.hasProblem(context, validator);
+        }
 
         @Override
         protected void download() {
@@ -392,7 +402,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 }
             }
         }
-    };
+    }
 
     /**
      * {@inheritDoc}
@@ -523,10 +533,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         int coordSize = 0;
         float r = wayTolerancePaint.getStrokeWidth() / 2;
         float r2 = r * r;
-        if (drawTolerance) {
-            if (coord == null || coord.length < paintNodes.size()) {
-                coord = new float[paintNodes.size()][2];
-            }
+        if (drawTolerance && (coord == null || coord.length < paintNodes.size())) {
+            coord = new float[paintNodes.size()][2];
         }
         for (Node n : paintNodes) {
             boolean noTolerance = false;

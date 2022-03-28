@@ -363,7 +363,7 @@ public class BaseValidator implements Validator {
         final int lat = n.getLat();
         final int lon = n.getLon();
         if (App.getDelegator().isInDownload(lon, lat)) { // only check for nodes in download
-            BoundingBox box = GeoMath.createBoundingBoxForCoordinates(lat / 1E7D, lon / 1E7D, tolerance, false);
+            BoundingBox box = GeoMath.createBoundingBoxForCoordinates(lat / 1E7D, lon / 1E7D, tolerance);
             List<Way> nearbyWays = App.getDelegator().getCurrentStorage().getWays(box);
             List<Way> connectedWays = new ArrayList<>();
             BoundingBox bb = w.getBounds();
