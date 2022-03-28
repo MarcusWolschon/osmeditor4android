@@ -68,7 +68,7 @@ import de.blau.android.views.IMapView;
 
 public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, DiscardInterface, ClickableInterface<Feature>, LayerInfoInterface {
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 

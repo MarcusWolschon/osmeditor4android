@@ -15,7 +15,7 @@ import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.Snack;
 
 public abstract class StyleableLayer extends MapViewLayer implements StyleableInterface, DiscardInterface, Serializable {
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 4L;
 
     private static final String DEBUG_TAG = StyleableLayer.class.getSimpleName();
 

@@ -58,7 +58,7 @@ import de.blau.android.views.IMapView;
 
 public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, ClickableInterface<WayPoint> {
 
-    private static final long serialVersionUID = 3L; // note that this can't actually be serialized as the transient
+    private static final long serialVersionUID = 4L; // note that this can't actually be serialized as the transient
                                                      // wields need to be set in readObject
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();

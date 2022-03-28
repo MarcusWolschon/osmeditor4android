@@ -33,7 +33,7 @@ public abstract class Layer implements Serializable {
 
     private static final String DEBUG_TAG = Layer.class.getSimpleName();
 
-    private static final long serialVersionUID = 12L;
+    private static final long serialVersionUID = 13L;
 
     private static final String INTERPOLATION_DEFAULT                 = "default";
     private static final String INTERPOLATION_PROPERTY                = "property";
