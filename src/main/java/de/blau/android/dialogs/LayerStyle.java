@@ -37,6 +37,7 @@ import ch.poole.android.numberpicker.library.Enums.ActionEnum;
 import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.layer.LabelMinZoomInterface;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.layer.StyleableInterface;
 import de.blau.android.listener.DoNothingListener;
@@ -133,6 +134,8 @@ public class LayerStyle extends ImmersiveDialogFragment {
         View layerContainer = layout.findViewById(R.id.layer_layer_container);
         View labelContainer = layout.findViewById(R.id.layer_label_container);
         final Spinner labelSpinner = (Spinner) labelContainer.findViewById(R.id.layer_style_label);
+        View labelMinZoomContainer = layout.findViewById(R.id.layer_label_min_zoom_container);
+        final NumberPicker labelMinZoomPicker = (NumberPicker) labelMinZoomContainer.findViewById(R.id.label_zoom_min);
         final Spinner symbolSpinner = (Spinner) layout.findViewById(R.id.layer_style_symbol);
         SeekBar seeker = (SeekBar) layout.findViewById(R.id.layer_line_width);
         View lineWidthView = layout.findViewById(R.id.layer_line_width_view);
@@ -174,6 +177,11 @@ public class LayerStyle extends ImmersiveDialogFragment {
             }
 
             setupLabelSpinner(labelContainer, labelSpinner);
+            if (tempLayer instanceof LabelMinZoomInterface) {
+                setUpMinLabelZoomPicker(labelMinZoomPicker);
+            } else {
+                labelMinZoomContainer.setVisibility(View.GONE);
+            }
             setUpColorSelector(lineWidthView);
             setUpLineWidthSelector(seeker, lineWidthView);
             setupSymbolSpinner(symbolSpinner);
@@ -205,6 +213,27 @@ public class LayerStyle extends ImmersiveDialogFragment {
         });
         maxZoomPicker.setValueChangedListener((int zoom, ActionEnum action) -> {
             layer.setMaxZoom(subLayerName, zoom >= max ? -1 : zoom);
+            map.invalidate();
+        });
+    }
+
+    /**
+     * Set up the picker for label min zoom
+     * 
+     * @param minZoomPicker min zoom picker
+     */
+    private void setUpMinLabelZoomPicker(NumberPicker minZoomPicker) {
+        int zoom = ((LabelMinZoomInterface) layer).getLabelMinZoom(subLayerName);
+        final int min = minZoomPicker.getMin();
+        final int max = minZoomPicker.getMax();
+        if (zoom < min) {
+            zoom = min;
+        } else if (zoom > max) {
+            zoom = max;
+        }
+        minZoomPicker.setValue(zoom);
+        minZoomPicker.setValueChangedListener((int z, ActionEnum action) -> {
+            ((LabelMinZoomInterface) layer).setLabelMinZoom(subLayerName, z);
             map.invalidate();
         });
     }

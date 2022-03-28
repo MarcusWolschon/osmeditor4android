@@ -45,6 +45,7 @@ import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
+import de.blau.android.layer.LabelMinZoomInterface;
 import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.StyleableLayer;
@@ -66,9 +67,10 @@ import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, DiscardInterface, ClickableInterface<Feature>, LayerInfoInterface {
+public class MapOverlay extends StyleableLayer
+        implements Serializable, ExtentInterface, DiscardInterface, ClickableInterface<Feature>, LayerInfoInterface, LabelMinZoomInterface {
 
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 4L;
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
@@ -156,6 +158,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * Styling parameters
      */
     private String labelKey;
+    private int    labelMinZoom;
 
     transient Paint        labelPaint;
     transient Paint        labelBackground;
@@ -226,7 +229,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             return;
         }
         String label = null;
-        if (zoomLevel > Map.SHOW_LABEL_LIMIT) {
+        if (zoomLevel >= labelMinZoom) {
             label = getLabel(f);
         }
         switch (g.type()) {
@@ -689,6 +692,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     public void resetStyling() {
         paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
         labelKey = "";
+        labelMinZoom = Map.SHOW_LABEL_LIMIT;
         iconRadius = map.getIconRadius();
         marker = DataStyle.getCurrent().getSymbol(TriangleDown.NAME);
     }
@@ -726,6 +730,16 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     @Override
     public String getLabel() {
         return labelKey;
+    }
+
+    @Override
+    public void setLabelMinZoom(int minZoom) {
+        labelMinZoom = minZoom;
+    }
+
+    @Override
+    public int getLabelMinZoom() {
+        return labelMinZoom;
     }
 
     /**

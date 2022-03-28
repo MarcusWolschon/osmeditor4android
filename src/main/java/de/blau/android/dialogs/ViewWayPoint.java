@@ -103,12 +103,7 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Preferences prefs = new Preferences(getActivity());
-        if (prefs.lightThemeEnabled()) {
-            setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_DialogLight);
-        } else {
-            setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_DialogDark);
-        }
+        setStyle(DialogFragment.STYLE_NORMAL, new Preferences(getActivity()).lightThemeEnabled() ? R.style.Theme_DialogLight : R.style.Theme_DialogDark);
     }
 
     @NonNull

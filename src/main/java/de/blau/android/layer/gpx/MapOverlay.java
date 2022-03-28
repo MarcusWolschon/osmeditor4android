@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -37,6 +38,7 @@ import de.blau.android.gpx.TrackPoint;
 import de.blau.android.gpx.WayPoint;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.ExtentInterface;
+import de.blau.android.layer.LabelMinZoomInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
@@ -56,9 +58,9 @@ import de.blau.android.util.Util;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, ClickableInterface<WayPoint> {
+public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, ClickableInterface<WayPoint>, LabelMinZoomInterface {
 
-    private static final long serialVersionUID = 4L; // note that this can't actually be serialized as the transient
+    private static final long serialVersionUID = 5L; // note that this can't actually be serialized as the transient
                                                      // wields need to be set in readObject
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
@@ -70,23 +72,25 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     /** Map this is an overlay of. */
     private final transient Map map;
 
-    private final transient ExecutorService               executorService;
-    private final transient ArrayList<FloatPrimitiveList> linePointsList;
-    private final transient SavingHelper<MapOverlay>      savingHelper = new SavingHelper<>();
+    private final transient ExecutorService          executorService;
+    private final transient List<FloatPrimitiveList> linePointsList;
+    private final transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
 
     private transient Track       track;
     private transient GpxPlayback playbackTask = null;
 
     private SerializableTextPaint wayPointPaint;
     private String                labelKey;
+    private int                   labelMinZoom;
     private String                contentId;    // could potentially be transient
     private TrackPoint            pausedPoint;
 
     // way point label styling
-    private final transient FontMetrics fm;
-    private final transient Paint       labelBackground;
-    private final transient float       yOffset;
-    private final transient Paint       fontPaint;
+    private final transient FontMetrics  fm;
+    private final transient Paint        labelBackground;
+    private final transient float        yOffset;
+    private final transient Paint        fontPaint;
+    private final transient List<String> labelList;
 
     /**
      * State file file name
@@ -109,6 +113,10 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         fm = fs.getFontMetrics();
         labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
         yOffset = 2 * fontPaint.getStrokeWidth() + iconRadius;
+        Context context = map.getContext();
+        labelKey = context.getString(R.string.gpx_automatic); // default, don't have a context in resetStyling
+        labelList = Arrays.asList(labelKey, context.getString(R.string.gpx_name), context.getString(R.string.gpx_description),
+                context.getString(R.string.gpx_type));
 
         int threadPoolSize = Util.usableProcessors();
         Log.d(DEBUG_TAG, "using " + threadPoolSize + " threads");
@@ -155,7 +163,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     /**
      * Draw the trackpoints
      * 
-     * @param canvas the Canvas to drow on
+     * @param canvas the Canvas to draw on
      */
     private void drawTrackPoints(@NonNull Canvas canvas) {
         List<TrackPoint> trackPoints = track.getTrackPoints();
@@ -199,12 +207,16 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @param canvas the Canvas to draw on to
      */
     private void drawWayPoints(@NonNull Canvas canvas) {
-        List<WayPoint> wayPoints = track.getWayPoints();
         if (symbolPath != null) {
-            ViewBox viewBox = map.getViewBox();
-            int width = map.getWidth();
-            int height = map.getHeight();
-            int zoomLevel = map.getZoomLevel();
+            List<WayPoint> wayPoints = track.getWayPoints();
+            final ViewBox viewBox = map.getViewBox();
+            final int width = map.getWidth();
+            final int height = map.getHeight();
+            final int zoomLevel = map.getZoomLevel();
+            final int labelIndex = labelList.indexOf(labelKey);
+            final boolean drawLabel = zoomLevel >= labelMinZoom && labelIndex >= 0;
+            final float topOffset = yOffset + fm.bottom;
+            final float textSize = fontPaint.getTextSize();
             for (WayPoint wp : wayPoints) {
                 int lon = wp.getLon();
                 int lat = wp.getLat();
@@ -215,17 +227,40 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                     canvas.translate(x, y);
                     canvas.drawPath(symbolPath, wayPointPaint);
                     canvas.restore();
-                    if (zoomLevel > Map.SHOW_LABEL_LIMIT) {
-                        String label = wp.getLabel();
+                    if (drawLabel) {
+                        String label = indexToLabel(labelIndex, wp);
                         if (label != null) {
                             float halfTextWidth = fontPaint.measureText(label) / 2;
-                            float top = y + yOffset + fm.bottom;
-                            canvas.drawRect(x - halfTextWidth, top, x + halfTextWidth, top - fontPaint.getTextSize(), labelBackground);
+                            float top = y + topOffset;
+                            canvas.drawRect(x - halfTextWidth, top, x + halfTextWidth, top - textSize, labelBackground);
                             canvas.drawText(label, x - halfTextWidth, y + yOffset, fontPaint);
                         }
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Get a label from a waypoint
+     * 
+     * @param labelIndex the index
+     * @param wp the waypoint
+     * @return the label or null
+     */
+    @Nullable
+    private String indexToLabel(final int labelIndex, WayPoint wp) {
+        switch (labelIndex) {
+        case 0:
+            return wp.getLabel();
+        case 1:
+            return wp.getName();
+        case 2:
+            return wp.getDescription();
+        case 3:
+            return wp.getType();
+        default:
+            return null;
         }
     }
 
@@ -335,6 +370,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GPS_TRACK).getPaint());
         wayPointPaint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint());
         labelKey = "";
+        labelMinZoom = Map.SHOW_LABEL_LIMIT;
         iconRadius = map.getIconRadius();
         symbolName = TriangleDown.NAME;
         symbolPath = DataStyle.getCurrent().getSymbol(TriangleDown.NAME);
@@ -343,6 +379,26 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     @Override
     public void setLabel(String key) {
         labelKey = key;
+    }
+
+    @Override
+    public List<String> getLabelList() {
+        return new ArrayList<>(labelList); // list will be modified in caller
+    }
+
+    @Override
+    public String getLabel() {
+        return labelKey;
+    }
+
+    @Override
+    public void setLabelMinZoom(int minZoom) {
+        labelMinZoom = minZoom;
+    }
+
+    @Override
+    public int getLabelMinZoom() {
+        return labelMinZoom;
     }
 
     /**
@@ -457,6 +513,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             Log.d(DEBUG_TAG, "read saved state");
             wayPointPaint = restoredOverlay.wayPointPaint;
             labelKey = restoredOverlay.labelKey;
+            labelMinZoom = restoredOverlay.labelMinZoom;
             if (playbackTask == null && restoredOverlay.pausedPoint != null) {
                 // restart playback
                 playbackTask = new GpxPlayback();
@@ -494,6 +551,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             Log.e(DEBUG_TAG, "Failed to delete state file " + stateFileName);
         }
         map.invalidate();
+        if (executorService != null) {
+            executorService.shutdown();
+        }
     }
 
     /**
