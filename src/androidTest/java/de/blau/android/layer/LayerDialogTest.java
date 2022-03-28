@@ -8,11 +8,9 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -39,7 +37,6 @@ import de.blau.android.Map;
 import de.blau.android.MockTileServer;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
-import de.blau.android.gpx.GpxUploadTest;
 import de.blau.android.layer.data.MapOverlay;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -228,9 +225,20 @@ public class LayerDialogTest {
 
         UiObject2 menuButton = TestUtils.getLayerButton(device, geoJsonFile, MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
+        de.blau.android.layer.geojson.MapOverlay layer = map.getGeojsonLayer();
+        assertEquals("", layer.getLabel("ignored"));
+        assertEquals(Map.SHOW_LABEL_LIMIT, layer.getLabelMinZoom("ignored"));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_change_style), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.none), false));
+        assertTrue(TestUtils.findText(device, false, "prop0", 1000));
+        assertTrue(TestUtils.clickText(device, false, "prop0", false));
+        assertTrue(TestUtils.findText(device, false, Integer.toString(Map.SHOW_LABEL_LIMIT), 1000));
+        assertTrue(TestUtils.clickText(device, false, "-", false));
+        assertTrue(TestUtils.findText(device, false, Integer.toString(Map.SHOW_LABEL_LIMIT - 1), 1000));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
         TestUtils.sleep();
+        assertEquals("prop0", layer.getLabel("ignored"));
+        assertEquals(Map.SHOW_LABEL_LIMIT - 1, layer.getLabelMinZoom("ignored"));
         menuButton.clickAndWait(Until.newWindow(), 1000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_information), true, false));
         assertTrue(TestUtils.findText(device, false, "MultiLineString"));
