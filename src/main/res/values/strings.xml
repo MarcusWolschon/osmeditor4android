@@ -321,6 +321,10 @@
     <string name="layer_style_symbol">Symbol</string>
     <string name="json_object_not_displayed">JSON object (not displayed)</string>
     <string name="json_array_not_displayed">JSON array (not displayed)</string>
+    <string name="gpx_automatic">Automatic</string>
+    <string name="gpx_name">GPX Name</string>
+    <string name="gpx_description">GPX Description</string>
+    <string name="gpx_type">GPX Type</string>
     <!--  Layer dialog -->
     <string name="layer_geojson">GeoJSON</string>
     <string name="layer_mapillary">Mapillary</string>

@@ -98,6 +98,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp" />
+            <RelativeLayout
+                android:id="@+id/layer_label_min_zoom_container"  
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/layer_style_label"
+                android:layout_alignStart="@id/layer_style_label"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp">
+                <TextView
+                    android:id="@+id/label_zoom_min_legend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/min" />
+                <ch.poole.android.numberpicker.library.NumberPicker
+                    android:id="@+id/label_zoom_min"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/label_zoom_min_legend"
+                    android:layout_toRightOf="@id/label_zoom_min_legend"
+                    android:layout_toEndOf="@id/label_zoom_min_legend"
+                    numberpicker:min="10"
+                    numberpicker:max="30"
+                    numberpicker:unit="1"
+                    numberpicker:repeat="1"
+                    numberpicker:focusable="true"
+                    numberpicker:custom_layout="@layout/number_picker_custom_small_layout" />
+            </RelativeLayout>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/layer_symbol_container"
