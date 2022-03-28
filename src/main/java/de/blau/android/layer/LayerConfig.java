@@ -80,4 +80,9 @@ public class LayerConfig {
     public void setPosition(int position) {
         this.position = position;
     }
+
+    @Override
+    public String toString() {
+        return type.toString() + " " + position + " " + type + " " + visible + " " + contentId;
+    }
 }

@@ -18,9 +18,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import de.blau.android.layer.LayerConfig;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.tasks.TaskStorage;
@@ -140,6 +142,13 @@ public class DebugInformation extends LocaleAwareCompatActivity {
             builder.append("Display name " + userDetails.getDisplayName() + eol);
         }
 
+        builder.append("Configured layers" + eol);
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(this)) {
+            for (LayerConfig layer : db.getLayers()) {
+                builder.append(layer.toString() + eol);
+            }
+        }
+        
         return builder.toString();
     }
 }
