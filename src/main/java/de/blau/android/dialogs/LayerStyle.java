@@ -14,7 +14,6 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,19 +30,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import ch.poole.android.numberpicker.library.NumberPicker;
 import ch.poole.android.numberpicker.library.Enums.ActionEnum;
 import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.layer.AbstractConfigurationDialog;
 import de.blau.android.layer.LabelMinZoomInterface;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.layer.StyleableInterface;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.resources.symbols.Symbols;
 import de.blau.android.util.Density;
-import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.Screen;
 import de.blau.android.util.ThemeUtils;
 
@@ -51,9 +49,7 @@ import de.blau.android.util.ThemeUtils;
  * Display a dialog allowing the user to change styling of a layer
  *
  */
-public class LayerStyle extends ImmersiveDialogFragment {
-
-    private static final String DEBUG_TAG = LayerStyle.class.getSimpleName();
+public class LayerStyle extends AbstractConfigurationDialog {
 
     private static final String TAG = "fragment_layer_style";
 
@@ -73,23 +69,7 @@ public class LayerStyle extends ImmersiveDialogFragment {
      * @param layerIndex the index of the dialog we want to style
      */
     public static void showDialog(@NonNull FragmentActivity activity, int layerIndex) {
-        dismissDialog(activity);
-        try {
-            FragmentManager fm = activity.getSupportFragmentManager();
-            LayerStyle layerStyleFragment = newInstance(layerIndex);
-            layerStyleFragment.show(fm, TAG);
-        } catch (IllegalStateException isex) {
-            Log.e(DEBUG_TAG, "showDialog", isex);
-        }
-    }
-
-    /**
-     * Dismiss any current showing instance of this dialog
-     * 
-     * @param activity the calling FragmentActivity
-     */
-    private static void dismissDialog(@NonNull FragmentActivity activity) {
-        de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
+        showDialog(activity, newInstance(layerIndex), TAG);
     }
 
     /**

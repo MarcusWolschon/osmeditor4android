@@ -8,20 +8,17 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.layer.AbstractConfigurationDialog;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.util.SizedFixedImmersiveDialogFragment;
 
 /**
  * Configuration dialog that replicates the settings in the Preferences
@@ -29,10 +26,9 @@ import de.blau.android.util.SizedFixedImmersiveDialogFragment;
  * @author Simon Poole
  *
  */
-public class ConfigurationDialog extends SizedFixedImmersiveDialogFragment {
+public class ConfigurationDialog extends AbstractConfigurationDialog {
 
-    private static final String DEBUG_TAG = "ConfigurationDialog";
-    private static final String TAG       = "configurationDialog";
+    private static final String TAG       = "taskConfigurationDialog";
 
     /**
      * Display a dialog allowing the user to change some properties of the current layer
@@ -40,23 +36,7 @@ public class ConfigurationDialog extends SizedFixedImmersiveDialogFragment {
      * @param activity the calling Activity
      */
     public static void showDialog(@NonNull FragmentActivity activity) {
-        dismissDialog(activity);
-        try {
-            FragmentManager fm = activity.getSupportFragmentManager();
-            ConfigurationDialog configurationDialog = newInstance();
-            configurationDialog.show(fm, TAG);
-        } catch (IllegalStateException isex) {
-            Log.e(DEBUG_TAG, "showDialog", isex);
-        }
-    }
-
-    /**
-     * Dismiss the dialog
-     * 
-     * @param activity the calling Activity
-     */
-    private static void dismissDialog(@NonNull FragmentActivity activity) {
-        de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
+        showDialog(activity, newInstance(), TAG);
     }
 
     /**
@@ -69,12 +49,6 @@ public class ConfigurationDialog extends SizedFixedImmersiveDialogFragment {
         ConfigurationDialog f = new ConfigurationDialog();
         f.setShowsDialog(true);
         return f;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setCancelable(true);
     }
 
     @SuppressLint("NewApi")
