@@ -196,7 +196,7 @@ public class ViewBox extends BoundingBox {
      *            is still visible with the new aspect ratio applied.
      * @throws OsmException if resulting ViewBox doesn't have valid corners
      */
-    public void setRatio(Map map, final float newRatio, final boolean preserveZoom) throws OsmException {
+    public void setRatio(@NonNull Map map, final float newRatio, final boolean preserveZoom) throws OsmException {
         long mTop = GeoMath.latE7ToMercatorE7(getTop()); // note long or else we get an int overflow on calculating the
         // center
         long mBottom = GeoMath.latE7ToMercatorE7(getBottom());
@@ -607,9 +607,13 @@ public class ViewBox extends BoundingBox {
      * Change dimensions so that the given BoundingBox will fit preserving the aspect ratio
      * 
      * @param map the current Map instance
-     * @param extent the BoundingBox we want to fit in to
+     * @param extent the BoundingBox we want to fit in to, if extent is empty we will simply move the center to it
      */
     public void fitToBoundingBox(@NonNull Map map, @NonNull BoundingBox extent) {
+        if (extent.isEmpty()) { // don't try to fit, simply center on it
+            moveTo(map, extent.getLeft(), extent.getBottom());
+            return;
+        }
         BoundingBox box = new BoundingBox(extent);
         box.calcDimensions();
         long mTop = GeoMath.latE7ToMercatorE7(box.getTop());
