@@ -610,6 +610,8 @@ avoided by using an offline data source.</string>
     <string name="toast_api_key_missing">No API key found for %1$s</string>
     <string name="toast_no_track_points">No track points</string>
     <string name="toast_no_way_points">No way points</string>
+    <string name="toast_url_check">%1$s %2$d</string>
+    <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>

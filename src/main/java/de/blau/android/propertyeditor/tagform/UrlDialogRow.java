@@ -1,5 +1,6 @@
 package de.blau.android.propertyeditor.tagform;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.AttributeSet;
@@ -149,8 +150,16 @@ public class UrlDialogRow extends DialogRow {
                         input.setText(result.getUrl());
                         CheckStatus status = result.getStatus();
                         if (status != CheckStatus.HTTP && status != CheckStatus.HTTPS) {
-                            String[] statusStrings = caller.getActivity().getResources().getStringArray(R.array.checkstatus_entries);
-                            Snack.toastTopError(caller.getActivity(), statusStrings[status.ordinal()]);
+                            Activity activity = caller.getActivity();
+                            String[] statusStrings = activity.getResources().getStringArray(R.array.checkstatus_entries);
+                            if (status == CheckStatus.INVALID) {
+                                String msg = result.getMessage() != null
+                                        ? activity.getString(R.string.toast_url_check_with_msg, result.getUrl(), result.getCode(), result.getMessage())
+                                        : activity.getString(R.string.toast_url_check, result.getUrl(), result.getCode());
+                                Snack.toastTopError(activity, msg);
+                            } else {
+                                Snack.toastTopError(activity, statusStrings[status.ordinal()]);
+                            }
                         }
                     }
                 };
