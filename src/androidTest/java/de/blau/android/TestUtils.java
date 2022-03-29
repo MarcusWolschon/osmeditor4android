@@ -834,18 +834,7 @@ public class TestUtils {
     public static boolean clickResource(@NonNull UiDevice device, boolean clickable, @NonNull String resourceId, boolean waitForNewWindow) {
         Log.w(DEBUG_TAG, "Searching for object with " + resourceId);
         // Note: contrary to "text", "textStartsWith" is case insensitive
-        BySelector bySelector = null;
-        UiSelector uiSelector = null;
-        // NOTE order of the selector terms is significant
-        if (clickable) {
-            bySelector = By.clickable(true).res(resourceId);
-            uiSelector = new UiSelector().clickable(true).resourceId(resourceId);
-        } else {
-            bySelector = By.res(resourceId);
-            uiSelector = new UiSelector().resourceId(resourceId);
-        }
-        device.wait(Until.findObject(bySelector), 5000);
-        UiObject button = device.findObject(uiSelector);
+        UiObject button = findObjectWithResourceId(device, clickable, resourceId);
         if (button.exists()) {
             try {
                 if (waitForNewWindow) {
@@ -863,6 +852,30 @@ public class TestUtils {
             Log.e(DEBUG_TAG, "Object not found");
             return false;
         }
+    }
+
+    /**
+     * Find an object with its resource id
+     * 
+     * @param device the UiDevice object
+     * @param clickable true if object is clickable
+     * @param resourceId the resource id
+     * @return an UiObject
+     */
+    @NonNull
+    public static UiObject findObjectWithResourceId(@NonNull UiDevice device, boolean clickable, @NonNull String resourceId) {
+        BySelector bySelector = null;
+        UiSelector uiSelector = null;
+        // NOTE order of the selector terms is significant
+        if (clickable) {
+            bySelector = By.clickable(true).res(resourceId);
+            uiSelector = new UiSelector().clickable(true).resourceId(resourceId);
+        } else {
+            bySelector = By.res(resourceId);
+            uiSelector = new UiSelector().resourceId(resourceId);
+        }
+        device.wait(Until.findObject(bySelector), 5000);
+        return device.findObject(uiSelector);
     }
 
     /**
@@ -1446,5 +1459,31 @@ public class TestUtils {
     @Nullable
     public static UiObject getLock(@NonNull UiDevice device) {
         return device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/floatingLock"));
+    }
+
+    /**
+     * Find a specific notification
+     * 
+     * @param device the current UiDevice
+     * @param message the message to find
+     * @return true if found
+     */
+    public static boolean findNotification(@NonNull UiDevice device, @NonNull String message) {
+        device.openNotification();
+        boolean found = device.wait(Until.hasObject(By.textContains(message)), 5000);
+        if (!found) {
+            UiObject2 notification = device.findObject(By.textContains("Vespucci"));
+            if (notification != null) {
+                notification.click();
+                found = device.wait(Until.hasObject(By.textContains(message)), 5000);
+            }
+        }
+        UiObject2 clearAll = device.findObject(By.text("CLEAR ALL"));
+        if (clearAll != null) {
+            clearAll.click();
+        } else {
+            device.click(device.getDisplayWidth() / 2, device.getDisplayHeight() / 2);
+        }
+        return found;
     }
 }

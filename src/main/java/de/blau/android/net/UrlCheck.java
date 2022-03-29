@@ -10,7 +10,9 @@ import java.util.concurrent.TimeUnit;
 import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.App;
+import de.blau.android.contract.Schemes;
 import de.blau.android.osm.Tags;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -46,6 +48,8 @@ public class UrlCheck {
     public static class Result {
         private final CheckStatus status;
         private final String      url;
+        private final int         code;
+        private String            message;
 
         /**
          * Construct a new Result instance
@@ -54,13 +58,28 @@ public class UrlCheck {
          * @param url the resulting url
          */
         public Result(@NonNull final CheckStatus status, @NonNull final String url) {
+            this(status, url, 0, null);
+        }
+
+        /**
+         * Construct a new Result instance
+         * 
+         * @param status the status of the connection attempt
+         * @param url the resulting url
+         * @param code the return code
+         * @param message the returned message if any
+         */
+        public Result(@NonNull final CheckStatus status, @NonNull final String url, int code, @Nullable String message) {
             this.status = status;
             this.url = url;
+            this.code = code;
+            this.message = message;
         }
 
         /**
          * @return the status
          */
+        @NonNull
         public CheckStatus getStatus() {
             return status;
         }
@@ -68,8 +87,28 @@ public class UrlCheck {
         /**
          * @return the url
          */
+        @NonNull
         public String getUrl() {
             return url;
+        }
+
+        /**
+         * Get the return code
+         * 
+         * @return the return code
+         */
+        public int getCode() {
+            return code;
+        }
+
+        /**
+         * Get the message returned from the connection
+         * 
+         * @return the message or null
+         */
+        @Nullable
+        public String getMessage() {
+            return message;
         }
 
         @Override
@@ -88,7 +127,7 @@ public class UrlCheck {
     private static Result connect(@NonNull final String urlOrDomain, boolean https) {
         try {
             String tempDomain = urlOrDomain;
-            if (urlOrDomain.toLowerCase().startsWith("http")) { // strip protocol
+            if (urlOrDomain.toLowerCase().startsWith(Schemes.HTTP)) { // strip protocol
                 URL temp = new URL(urlOrDomain);
                 tempDomain = temp.getHost() + (temp.getPort() != -1 ? ":" + temp.getPort() : "") + temp.getPath();
             }
@@ -101,11 +140,13 @@ public class UrlCheck {
                     TimeUnit.MILLISECONDS);
             OkHttpClient client = builder.build();
             Call readCall = client.newCall(request);
-            Response readCallResponse = readCall.execute();
-            if (readCallResponse.code() == HttpURLConnection.HTTP_OK) {
-                return new Result(https ? CheckStatus.HTTPS : CheckStatus.HTTP, url.toString());
+            try (Response readCallResponse = readCall.execute()) {
+                final int code = readCallResponse.code();
+                if (code == HttpURLConnection.HTTP_OK) {
+                    return new Result(https ? CheckStatus.HTTPS : CheckStatus.HTTP, url.toString());
+                }
+                return new Result(CheckStatus.INVALID, url.toString(), code, readCallResponse.message());
             }
-            return new Result(CheckStatus.INVALID, urlOrDomain);
         } catch (MalformedURLException | IllegalArgumentException e) {
             return new Result(CheckStatus.MALFORMEDURL, urlOrDomain);
         } catch (UnknownHostException uhe) {
