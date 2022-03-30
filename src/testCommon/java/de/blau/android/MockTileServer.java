@@ -78,8 +78,12 @@ public final class MockTileServer {
             if (removeLayers) {
                 LayerUtils.removeImageryLayers(context);
             }
-            try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
-                de.blau.android.layer.Util.addImageryLayer(db, db.getLayers(), LayerType.OVERLAYIMAGERY.equals(layerType) || LayerType.MAPILLARY.equals(layerType) , id);
+            if (layerType == LayerType.IMAGERY || layerType == LayerType.OVERLAYIMAGERY) {
+                try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
+                    de.blau.android.layer.Util.addImageryLayer(db, db.getLayers(), LayerType.OVERLAYIMAGERY.equals(layerType), id);
+                }
+            } else {
+                de.blau.android.layer.Util.addLayer(context, layerType, id);
             }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "setDispatcher " + e.getMessage());
