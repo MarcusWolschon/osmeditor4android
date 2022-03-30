@@ -3,6 +3,7 @@ package de.blau.android.gpx;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -375,6 +376,29 @@ public class GpxTest {
         } catch (IOException e) {
             fail(e.getMessage());
         }
+    }
+    
+    /**
+     * Test goto current location
+     * 
+     * Note: it would be nice to check if location updates remained off
+     */
+    @Test
+    public void gotoCurrentLocation() {
+        TestUtils.setupMockLocation(main, Criteria.ACCURACY_FINE);
+        prefs.setShowGPS(false);
+        main.setFollowGPS(false);
+        assertNull(main.getMap().getLocation());
+        TestUtils.injectLocation(main, 1.0, 1.0, 1000, null);
+        clickGpsButton(device);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_goto), false, false));
+        assertFalse(main.getFollowGPS());
+        assertFalse(prefs.getShowGPS());
+        assertNull(main.getMap().getLocation());
+        TestUtils.sleep();
+        double[] center = main.getMap().getViewBox().getCenter();
+        assertEquals(1.0,center[0],0.0001);
+        assertEquals(1.0,center[1],0.0001);
     }
 
     /**
