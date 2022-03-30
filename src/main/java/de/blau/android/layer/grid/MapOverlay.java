@@ -28,7 +28,8 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.IMapView;
 
 public class MapOverlay extends StyleableLayer implements DiscardInterface, ConfigureInterface {
-    private static final long serialVersionUID = 3L;
+
+    private static final long serialVersionUID = 4L;
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
@@ -43,7 +44,6 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
 
     private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
 
-    public static final String  SCALE_NONE       = "SCALE_NONE";
     private static final float  DISTANCE2SIDE_DP = 4f;
     private static final float  SHORTTICKS_DP    = 12f;
     public static final float   LONGTICKS_DP     = 20f;
@@ -316,8 +316,9 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
     public void setPrefs(Preferences prefs) {
         String mode = prefs.scaleLayer();
         splitActionBar = prefs.splitActionBarEnabled();
-        metric = "SCALE_METRIC".equals(mode) || "SCALE_GRID_METRIC".equals(mode);
-        grid = "SCALE_GRID_METRIC".equals(mode) || "SCALE_GRID_IMPERIAL".equals(mode);
+        Context ctx = map.getContext();
+        metric = ctx.getString(R.string.scale_metric).equals(mode) || ctx.getString(R.string.scale_grid_metric).equals(mode);
+        grid = ctx.getString(R.string.scale_grid_metric).equals(mode) || ctx.getString(R.string.scale_grid_imperial).equals(mode);
     }
 
     @Override
