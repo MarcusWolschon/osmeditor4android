@@ -85,6 +85,7 @@ public class ConfigurationDialog extends AbstractConfigurationDialog {
             if (activity instanceof Main) {
                 ((Main) activity).updatePrefs(p);
             }
+            App.getLogic().setPrefs(p);
             App.getLogic().getMap().setPrefs(getContext(), p);
             App.getLogic().getMap().invalidate();
         });
