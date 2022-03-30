@@ -120,13 +120,13 @@ directory, however this depends on the specific camera app.
 
 ### ![GPS](../images/menu_gps.png) GPS
 
-The "on-map" GPS button duplicates the function of the "Follow GPS position" menu entry. When this is activated the GPS arrow will be displayed as an outline.
+The "on-map" GPS button duplicates the function of the "Follow GPS position" menu entry. When this is activated the GPS arrow will be displayed as an outline. Note that the _Show location_ function will enable location updates from the system, just as the recording and similar options.
 
  * **Show location** - show arrow symbol at current position
- * **Follow location** - pan and center screen to follow the current position
+ * **Follow location** - pan and center screen to follow the current position, will enable _Show location_ too.
  * **Add bookmark...** - set a bookmark for the current viewbox
  * **Bookmarks...** - show current viewbox bookmarks
- * **Go to current location** - go to and zoom in to the current position
+ * **Go to current location** - go to and zoom in to the current position. If location updates are not turned on, this will try to get a location without enabling continuous updates.
  * **Go to coordinates...** - go to and zoom in to coordinates or an open location code
  * **Start GPX track** - start recording a GPX track and display a corresponding layer.
  * **Pause GPX track** - pause recording the current GPX track
