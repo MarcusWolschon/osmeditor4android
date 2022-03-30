@@ -9,11 +9,8 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.preference.PreferenceManager;
-import de.blau.android.App;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.layer.AbstractConfigurationDialog;
-import de.blau.android.prefs.Preferences;
 
 /**
  * Configuration dialog that replicates the settings in the Preferences
@@ -70,12 +67,7 @@ public class ConfigurationDialog extends AbstractConfigurationDialog {
 
         builder.setPositiveButton(R.string.okay, (dialog, which) -> {
             prefs.edit().putString(prefKey, prefValues[selected[0]]).commit();
-            Preferences p = new Preferences(activity);
-            if (activity instanceof Main) {
-                ((Main) activity).updatePrefs(p);
-            }
-            App.getLogic().getMap().setPrefs(getContext(), p);
-            App.getLogic().getMap().invalidate();
+            updatePrefs(activity);
         });
 
         return builder.create();

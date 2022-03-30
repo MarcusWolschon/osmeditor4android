@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.layer.LayerType;
+import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.resources.MBTileConstants;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
@@ -77,7 +78,13 @@ public final class MockTileServer {
             if (removeLayers) {
                 LayerUtils.removeImageryLayers(context);
             }
-            de.blau.android.layer.Util.addLayer(context, layerType, id);
+            if (layerType == LayerType.IMAGERY || layerType == LayerType.OVERLAYIMAGERY) {
+                try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
+                    de.blau.android.layer.Util.addImageryLayer(db, db.getLayers(), LayerType.OVERLAYIMAGERY.equals(layerType), id);
+                }
+            } else {
+                de.blau.android.layer.Util.addLayer(context, layerType, id);
+            }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "setDispatcher " + e.getMessage());
             e.printStackTrace();

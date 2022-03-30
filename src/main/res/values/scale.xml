@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="scale_entries">
-        <item>None</item>
-		<item>Scale (metric)</item>
-		<item>Grid (metric)</item>
-		<item>Scale (imperial)</item>
-		<item>Grid (imperial)</item>
+    <string translatable="false" name="scale_none">SCALE_NONE</string>
+    <string translatable="false" name="scale_metric">SCALE_METRIC</string>
+    <string translatable="false" name="scale_grid_metric">SCALE_GRID_METRIC</string>
+    <string translatable="false" name="scale_imperial">SCALE_IMPERIAL</string>
+    <string translatable="false" name="scale_grid_imperial">SCALE_GRID_IMPERIAL</string>
+    <string translatable="true" name="scale_none_entry">None</string>
+    <string translatable="true" name="scale_metric_entry">Scale (metric)</string>
+    <string translatable="true" name="scale_grid_metric_entry">Grid (metric)</string>
+    <string translatable="true" name="scale_imperial_entry">Scale (imperial)</string>
+    <string translatable="true" name="scale_grid_imperial_entry">Grid (imperial)</string>
+    <string-array translatable="false" name="scale_entries">
+        <item>@string/scale_none_entry</item>
+        <item>@string/scale_metric_entry</item>
+        <item>@string/scale_grid_metric_entry</item>
+        <item>@string/scale_imperial_entry</item>
+        <item>@string/scale_grid_imperial_entry</item>
     </string-array>
     <string-array translatable="false" name="scale_values">
-		<item>SCALE_NONE</item>
-		<item>SCALE_METRIC</item>
-		<item>SCALE_GRID_METRIC</item>
-		<item>SCALE_IMPERIAL</item>
-		<item>SCALE_GRID_IMPERIAL</item>
+		<item>@string/scale_none</item>
+		<item>@string/scale_metric</item>
+		<item>@string/scale_grid_metric</item>
+		<item>@string/scale_imperial</item>
+		<item>@string/scale_grid_imperial</item>
     </string-array>
 </resources>
 

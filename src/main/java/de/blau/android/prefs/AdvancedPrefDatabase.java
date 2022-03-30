@@ -203,8 +203,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
             if (!TileLayerSource.LAYER_NOOVERLAY.equals(overlayLayer)) {
                 addLayer(db, position++, LayerType.OVERLAYIMAGERY, true, overlayLayer);
             }
-            String scaleLayer = sharedPrefs.getString(r.getString(R.string.config_scale_key), de.blau.android.layer.grid.MapOverlay.SCALE_NONE);
-            if (!de.blau.android.layer.grid.MapOverlay.SCALE_NONE.equals(scaleLayer)) {
+            final String scaleNone = r.getString(R.string.scale_none);
+            String scaleLayer = sharedPrefs.getString(r.getString(R.string.config_scale_key), scaleNone);
+            if (!scaleNone.equals(scaleLayer)) {
                 addLayer(db, position++, LayerType.SCALE);
             }
             addLayer(db, position++, LayerType.OSMDATA);
