@@ -197,7 +197,25 @@ public class LayerDialogTest {
     public void taskLayer() {
         LayerUtils.addTaskLayer(main);
         assertNotNull(main.getMap().getTaskLayer());
+        Preferences prefs = App.getLogic().getPrefs();
+        assertTrue(prefs.taskFilter().contains(main.getString(R.string.bugfilter_osmose_warning)));
         UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_tasks), MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_configure), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.bugfilter_osmose_warning_entry), false, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true, false));
+        prefs = App.getLogic().getPrefs();
+        assertFalse(prefs.taskFilter().contains(main.getString(R.string.bugfilter_osmose_warning)));
+
+        menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_tasks), MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_information), true, false));
+        assertTrue(TestUtils.findText(device, false, "MapRoulette"));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true, false));
+
+        menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_tasks), MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
         assertNull(main.getMap().getTaskLayer());
