@@ -2,6 +2,7 @@ package de.blau.android.layer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -219,6 +220,26 @@ public class LayerDialogTest {
         menuButton.clickAndWait(Until.newWindow(), 1000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
         assertNull(main.getMap().getTaskLayer());
+    }
+
+    /**
+     * Find grid layer, move up and switch to imperial
+     */
+    @Test
+    public void gridLayer() {
+        TestUtils.unlock(device); // so that grid gets displayed
+        assertNotNull(main.getMap().getLayer(LayerType.SCALE));
+        Preferences prefs = App.getLogic().getPrefs();
+        assertEquals(main.getString(R.string.scale_metric), prefs.scaleLayer());
+        // note grid has no extent button
+        UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_grid), MENU_BUTTON - 1);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_configure), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.scale_imperial_entry), false, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true, false));
+        prefs = App.getLogic().getPrefs();
+        assertEquals(main.getString(R.string.scale_imperial), prefs.scaleLayer());
     }
 
     /**
