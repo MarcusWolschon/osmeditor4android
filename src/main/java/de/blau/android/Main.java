@@ -643,7 +643,7 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * Get the best last position
+     * Get the best last position from the LocactionManager
      * 
      * @return a Location object
      */
@@ -2536,14 +2536,17 @@ public class Main extends FullScreenAppCompatActivity
         Location gotoLoc = null;
         if (getTracker() != null) {
             gotoLoc = getTracker().getLastLocation();
-        } else if (getEnabledLocationProviders() != null) {
+        }
+        if (gotoLoc == null && getEnabledLocationProviders() != null) { // fallback
             gotoLoc = getLastLocation();
         } // else moan? without GPS enabled this shouldn't be selectable
           // currently
         if (gotoLoc != null) {
             App.getLogic().setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO);
             map.getViewBox().moveTo(getMap(), (int) (gotoLoc.getLongitude() * 1E7d), (int) (gotoLoc.getLatitude() * 1E7d));
-            map.setLocation(gotoLoc);
+            if (prefs.getShowGPS()) {
+                map.setLocation(gotoLoc);
+            }
             map.invalidate();
         }
     }
