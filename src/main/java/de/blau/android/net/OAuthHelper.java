@@ -26,8 +26,6 @@ import se.akerfeldt.okhttp.signpost.OkHttpOAuthProvider;
 /**
  * Helper class for signpost oAuth more or less based on text below
  * 
- * @author http://nilvec.com/implementing-client-side-oauth-on-android.html
- *
  */
 public class OAuthHelper {
     private static final String DEBUG_TAG = "OAuthHelper";
