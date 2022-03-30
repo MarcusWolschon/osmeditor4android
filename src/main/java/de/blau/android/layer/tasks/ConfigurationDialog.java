@@ -14,11 +14,8 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.preference.PreferenceManager;
-import de.blau.android.App;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.layer.AbstractConfigurationDialog;
-import de.blau.android.prefs.Preferences;
 
 /**
  * Configuration dialog that replicates the settings in the Preferences
@@ -28,7 +25,7 @@ import de.blau.android.prefs.Preferences;
  */
 public class ConfigurationDialog extends AbstractConfigurationDialog {
 
-    private static final String TAG       = "taskConfigurationDialog";
+    private static final String TAG = "taskConfigurationDialog";
 
     /**
      * Display a dialog allowing the user to change some properties of the current layer
@@ -81,13 +78,7 @@ public class ConfigurationDialog extends AbstractConfigurationDialog {
                 }
             }
             prefs.edit().putStringSet(prefKey, newTaskFilter).commit();
-            Preferences p = new Preferences(activity);
-            if (activity instanceof Main) {
-                ((Main) activity).updatePrefs(p);
-            }
-            App.getLogic().setPrefs(p);
-            App.getLogic().getMap().setPrefs(getContext(), p);
-            App.getLogic().getMap().invalidate();
+            updatePrefs(activity);
         });
 
         return builder.create();

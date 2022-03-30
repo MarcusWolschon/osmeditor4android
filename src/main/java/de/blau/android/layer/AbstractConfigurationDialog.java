@@ -5,6 +5,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import de.blau.android.App;
+import de.blau.android.Main;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.util.SizedFixedImmersiveDialogFragment;
 
 /**
@@ -47,5 +50,24 @@ public abstract class AbstractConfigurationDialog extends SizedFixedImmersiveDia
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setCancelable(true);
+    }
+
+    /**
+     * Update the preference object everywhere
+     * 
+     * @param activity the calling Activity
+     */
+    protected void updatePrefs(@Nullable final FragmentActivity activity) {
+        if (activity != null) {
+            Preferences p = new Preferences(activity);
+            if (activity instanceof Main) {
+                ((Main) activity).updatePrefs(p);
+            }
+            App.getLogic().setPrefs(p);
+            App.getLogic().getMap().setPrefs(getContext(), p);
+            App.getLogic().getMap().invalidate();
+        } else {
+            Log.e(DEBUG_TAG, "null activity in updatePrefs");
+        }
     }
 }
