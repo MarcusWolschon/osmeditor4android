@@ -1137,15 +1137,15 @@ public class Layers extends AbstractConfigurationDialog {
             @Nullable TileLayerSource tileSource) {
         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
             LayerConfig[] layerConfigs = db.getLayers();
-            if (layer != null) {
+            if (layer != null) { // existing layer
+                setVisibility(db, layer, true);
+                final int layerIndex = layer.getIndex();
                 if (tileSource != null) {
-                    db.setLayerContentId(layer.getIndex(), tileSource.getId());
-                } else {
-                    if (layer.getIndex() < layerConfigs.length) {
-                        tileSource = TileLayerSource.get(activity, layerConfigs[layer.getIndex()].getContentId(), true);
-                    }
+                    db.setLayerContentId(layerIndex, tileSource.getId());
+                } else if (layerIndex < layerConfigs.length) {
+                    tileSource = TileLayerSource.get(activity, layerConfigs[layerIndex].getContentId(), true);
                 }
-                if (tileSource != null) {
+                if (tileSource != null) { // still null?
                     App.getDelegator().setImageryRecorded(false);
                     if (row != null) {
                         TextView name = (TextView) row.getChildAt(2);
@@ -1161,7 +1161,7 @@ public class Layers extends AbstractConfigurationDialog {
                 } else {
                     Log.e(DEBUG_TAG, "setNewImagery tile source null");
                 }
-            } else if (tileSource != null) {
+            } else if (tileSource != null) { // new layer
                 de.blau.android.layer.Util.addImageryLayer(db, layerConfigs, tileSource.isOverlay(), tileSource.getId());
                 App.getLogic().getMap().invalidate();
             } else {
@@ -1183,9 +1183,20 @@ public class Layers extends AbstractConfigurationDialog {
      */
     private void setVisibility(@NonNull Context context, @NonNull MapViewLayer layer, boolean visible) {
         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
-            layer.setVisible(visible);
-            db.setLayerVisibility(layer.getIndex(), visible);
+            setVisibility(db, layer, visible);
         }
+    }
+
+    /**
+     * Set layer visibility
+     * 
+     * @param db an AdvancedPrefDatabase instance
+     * @param layer the layer
+     * @param visible the value to set
+     */
+    private void setVisibility(AdvancedPrefDatabase db, MapViewLayer layer, boolean visible) {
+        layer.setVisible(visible);
+        db.setLayerVisibility(layer.getIndex(), visible);
     }
 
     /**
