@@ -19,7 +19,7 @@ import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.util.ExecutorTask;
 
 public final class Wiki {

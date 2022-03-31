@@ -41,7 +41,7 @@ import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;

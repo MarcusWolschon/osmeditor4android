@@ -1,0 +1,567 @@
+package de.blau.android.presets;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.xmlpull.v1.XmlSerializer;
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import de.blau.android.App;
+import de.blau.android.R;
+import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.prefs.AdvancedPrefDatabase;
+
+/**
+ * Represents an element (group or item) in a preset data structure
+ */
+public abstract class PresetElement implements Serializable {
+
+    private static final int  VIEW_PADDING     = 4;
+    private static final int  VIEW_SIDE_LENGTH = 72;
+    public static final int   ICON_SIZE_DP     = 36;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7L;
+    protected final Preset    preset;
+    String                    name;
+    String                    nameContext      = null;
+    private String            iconpath;
+    transient Drawable        icon;
+    transient BitmapDrawable  mapIcon;
+    private String            imagePath;
+    PresetGroup               parent;
+    boolean                   appliesToWay;
+    boolean                   appliesToNode;
+    boolean                   appliesToClosedway;
+    boolean                   appliesToRelation;
+    boolean                   appliesToArea;
+    private boolean           deprecated       = false;
+    private List<String>      regions          = null;
+    private boolean           excludeRegions   = false;
+    private String            mapFeatures;
+
+    /**
+     * Creates the element, setting parent, name and icon, and registers with the parent
+     * 
+     * @param preset the Preset this belongs to
+     * @param parent parent ParentGroup (or null if this is the root group)
+     * @param name name of the element or null
+     * @param iconpath the icon path (either "http://" URL or "presets/" local image reference) or null
+     */
+    protected PresetElement(@NonNull Preset preset, @Nullable PresetGroup parent, @Nullable String name, @Nullable String iconpath) {
+        this.preset = preset;
+        this.parent = parent;
+        this.name = name;
+        this.iconpath = iconpath;
+        icon = null;
+        mapIcon = null;
+        if (parent != null) {
+            parent.addElement(this);
+        }
+    }
+
+    /**
+     * Construct a new PresetElement in this preset from an existing one
+     * 
+     * @param preset the Preset this belongs to
+     * @param group PresetGroup this should be added, null if none
+     * @param item the PresetElement to copy
+     */
+    protected PresetElement(@NonNull Preset preset, @Nullable PresetGroup group, @NonNull PresetElement item) {
+        this.preset = preset;
+        this.name = item.name;
+        if (group != null) {
+            group.addElement(this);
+        }
+        this.iconpath = item.iconpath;
+        icon = null;
+        mapIcon = null;
+        if (item.appliesToNode) {
+            setAppliesToNode();
+        }
+        if (item.appliesToWay) {
+            setAppliesToWay();
+        }
+        if (item.appliesToClosedway) {
+            setAppliesToClosedway();
+        }
+        if (item.appliesToArea) {
+            setAppliesToArea();
+        }
+        if (item.appliesToRelation) {
+            setAppliesToRelation();
+        }
+        this.deprecated = item.deprecated;
+        this.regions = item.regions;
+        this.excludeRegions = item.excludeRegions;
+        this.mapFeatures = item.mapFeatures;
+    }
+
+    /**
+     * Get the name of this element
+     * 
+     * @return the name if set or if null an empty String
+     */
+    @NonNull
+    public String getName() {
+        return name != null ? name : "";
+    }
+
+    /**
+     * Return the name of this preset element, potentially translated
+     * 
+     * @return the name
+     */
+    @NonNull
+    public String getTranslatedName() {
+        if (nameContext != null) {
+            return preset.po != null ? preset.po.t(nameContext, getName()) : getName();
+        }
+        return preset.po != null ? preset.po.t(getName()) : getName();
+    }
+
+    /**
+     * Return the icon for the preset or a place holder
+     * 
+     * @param context an Android Context
+     * @return a Drawable with the icon or a place holder for it
+     */
+    @NonNull
+    public Drawable getIcon(@NonNull Context context) {
+        if (icon == null) {
+            icon = getIcon(context, iconpath, (int) (ICON_SIZE_DP * App.getConfiguration().fontScale));
+        }
+        return icon;
+    }
+
+    /**
+     * Return the icon from the preset or a place holder
+     * 
+     * @param context an Android Context
+     * @param path path to the icon
+     * @param iconSize size of the sides of the icon in DP
+     * @return a Drawable with the icon or a place holder for it
+     */
+    @NonNull
+    private Drawable getIcon(@NonNull Context context, @Nullable String path, int iconSize) {
+        if (preset.iconManager == null) {
+            preset.iconManager = getIconManager(context);
+        }
+        if (path != null) {
+            return preset.iconManager.getDrawableOrPlaceholder(path, iconSize);
+        } else {
+            return preset.iconManager.getPlaceHolder(iconSize);
+        }
+    }
+
+    /**
+     * Return the icon from the preset if it exists
+     * 
+     * @param context an Android Context
+     * @param path path to the icon
+     * @return a Drawable with the icon or or null if it can't be found
+     */
+    @Nullable
+    public Drawable getIconIfExists(@NonNull Context context, @Nullable String path) {
+        if (preset.iconManager == null) {
+            preset.iconManager = getIconManager(context);
+        }
+        if (path != null) {
+            return preset.iconManager.getDrawable(path, ICON_SIZE_DP);
+        }
+        return null;
+    }
+
+    /**
+     * Get an icon suitable for drawing on the map
+     * 
+     * @param context an Android Context
+     * @return a small icon
+     */
+    @Nullable
+    public BitmapDrawable getMapIcon(@NonNull Context context) {
+        if (mapIcon == null && iconpath != null) {
+            if (preset.iconManager == null) {
+                preset.iconManager = getIconManager(context);
+            }
+            mapIcon = preset.iconManager.getDrawable(iconpath, de.blau.android.Map.ICON_SIZE_DP);
+        }
+        return mapIcon;
+    }
+
+    /**
+     * Get the PresetIconManager for this Preset
+     * 
+     * @param ctx Android Context
+     * @return the PresetIconManager instance
+     */
+    private PresetIconManager getIconManager(@NonNull Context ctx) {
+        if (preset.directory != null) {
+            if (preset.directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
+                return new PresetIconManager(ctx, null, null);
+            } else if (preset.externalPackage != null) {
+                return new PresetIconManager(ctx, preset.directory.toString(), preset.externalPackage);
+            } else {
+                return new PresetIconManager(ctx, preset.directory.toString(), null);
+            }
+        } else {
+            return new PresetIconManager(ctx, null, null);
+        }
+    }
+
+    /**
+     * Set the path for a large image
+     * 
+     * @param imagePath the path
+     */
+    public void setImage(@Nullable String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    /**
+     * Get the path for a large image
+     * 
+     * @return the image path or null
+     */
+    @Nullable
+    public String getImage() {
+        return this.imagePath;
+    }
+
+    /**
+     * Get the parent of this PresetElement
+     * 
+     * @return the parent PresetGroup or null if none
+     */
+    @Nullable
+    public PresetGroup getParent() {
+        return parent;
+    }
+
+    /**
+     * Set the parent PresetGroup
+     * 
+     * @param pg the parent to set
+     */
+    public void setParent(@Nullable PresetGroup pg) {
+        parent = pg;
+    }
+
+    /**
+     * Returns a basic view representing the current element (i.e. a button with icon and name). Can (and should) be
+     * used when implementing {@link #getView(PresetClickHandler)}.
+     * 
+     * @param ctx Android Context
+     * @param selected if true highlight the background
+     * @return the view
+     */
+    protected TextView getBaseView(@NonNull Context ctx, boolean selected) {
+        Resources res = ctx.getResources();
+        TextView v = new TextView(ctx);
+        float density = res.getDisplayMetrics().density;
+        v.setText(getTranslatedName());
+        v.setTextColor(ContextCompat.getColor(ctx, R.color.preset_text));
+        v.setMaxLines(3);
+        TextSize.setIconTextSize(v);
+        v.setEllipsize(TextUtils.TruncateAt.END);
+        float scale = App.getConfiguration().fontScale * density;
+        float padding = VIEW_PADDING * scale;
+        v.setPadding((int) padding, (int) padding, (int) padding, (int) padding);
+        Drawable viewIcon = getIcon(ctx);
+        v.setCompoundDrawables(null, viewIcon, null, null);
+        // this seems to be necessary to work around
+        // https://issuetracker.google.com/issues/37003658
+
+        float sideLength = VIEW_SIDE_LENGTH * scale;
+        v.setLayoutParams(new LinearLayout.LayoutParams((int) sideLength, (int) sideLength));
+        v.setWidth((int) sideLength);
+        v.setHeight((int) sideLength);
+        v.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
+        v.setSaveEnabled(false);
+        return v;
+    }
+
+    /**
+     * Returns a view representing this element (i.e. a button with icon and name) Implement this in subtypes
+     * 
+     * @param ctx Android Context
+     * @param handler handler to handle clicks on the element (may be null)
+     * @param selected highlight this element
+     * @return a view ready to display to represent this element
+     */
+    public abstract View getView(@NonNull Context ctx, @Nullable final PresetClickHandler handler, boolean selected);
+
+    /**
+     * Test what kind of elements this PresetElement applies to
+     * 
+     * @param type the ElementType to check for
+     * @return true if applicable
+     */
+    public boolean appliesTo(@NonNull ElementType type) {
+        switch (type) {
+        case NODE:
+            return appliesToNode;
+        case WAY:
+            return appliesToWay;
+        case CLOSEDWAY:
+            return appliesToClosedway;
+        case RELATION:
+            return appliesToRelation;
+        case AREA:
+            return appliesToArea;
+        }
+        return true; // should never happen
+    }
+
+    /**
+     * Get a list of ElementTypes this PresetItem applies to
+     * 
+     * @return a List of ElementType
+     */
+    @NonNull
+    public List<ElementType> appliesTo() {
+        List<ElementType> result = new ArrayList<>();
+        if (appliesToNode) {
+            result.add(ElementType.NODE);
+        }
+        if (appliesToWay) {
+            result.add(ElementType.WAY);
+        }
+        if (appliesToClosedway) {
+            result.add(ElementType.CLOSEDWAY);
+        }
+        if (appliesToRelation) {
+            result.add(ElementType.RELATION);
+        }
+        if (appliesToArea) {
+            result.add(ElementType.AREA);
+        }
+        return result;
+    }
+
+    /**
+     * Recursively sets the flag indicating that this element is relevant for nodes
+     */
+    void setAppliesToNode() {
+        if (!appliesToNode) {
+            appliesToNode = true;
+            if (parent != null) {
+                parent.setAppliesToNode();
+            }
+        }
+    }
+
+    /**
+     * Recursively sets the flag indicating that this element is relevant for nodes
+     */
+    void setAppliesToWay() {
+        if (!appliesToWay) {
+            appliesToWay = true;
+            if (parent != null) {
+                parent.setAppliesToWay();
+            }
+        }
+    }
+
+    /**
+     * Recursively sets the flag indicating that this element is relevant for nodes
+     */
+    void setAppliesToClosedway() {
+        if (!appliesToClosedway) {
+            appliesToClosedway = true;
+            if (parent != null) {
+                parent.setAppliesToClosedway();
+            }
+        }
+    }
+
+    /**
+     * Recursively sets the flag indicating that this element is relevant for relations
+     */
+    void setAppliesToRelation() {
+        if (!appliesToRelation) {
+            appliesToRelation = true;
+            if (parent != null) {
+                parent.setAppliesToRelation();
+            }
+        }
+    }
+
+    /**
+     * Recursively sets the flag indicating that this element is relevant for an area
+     */
+    void setAppliesToArea() {
+        if (!appliesToArea) {
+            appliesToArea = true;
+            if (parent != null) {
+                parent.setAppliesToArea();
+            }
+        }
+    }
+
+    /**
+     * Set the OSM wiki (or other) documentation URL for this PresetElement
+     * 
+     * @param url the URL to set
+     */
+    public void setMapFeatures(@Nullable String url) {
+        if (url != null) {
+            mapFeatures = url;
+        }
+    }
+
+    /**
+     * Get the documentation URL (typically from the OSM wiki) for this PresetELement
+     * 
+     * @return a String containing the full or partial URL for the page
+     */
+    @Nullable
+    public String getMapFeatures() {
+        return mapFeatures;
+    }
+
+    /**
+     * Set the translation context for the name field of this PresetElement
+     * 
+     * @param context the translation context
+     */
+    void setNameContext(@Nullable String context) {
+        nameContext = context;
+    }
+
+    /**
+     * Check if the deprecated flag is set
+     * 
+     * @return true if the PresetELement is deprecated
+     */
+    public boolean isDeprecated() {
+        return deprecated;
+    }
+
+    /**
+     * Set the deprecated flag
+     * 
+     * @param deprecated the value to set
+     */
+    public void setDeprecated(boolean deprecated) {
+        this.deprecated = deprecated;
+    }
+
+    /**
+     * Set the ISO codes for the regions this PresetElement is intended for
+     * 
+     * @param regions the ISO codes separated by commas or null if none should be set
+     */
+    protected void setRegions(@Nullable String regions) {
+        if (regions != null) {
+            String[] temp = regions.split(",");
+            this.regions = new ArrayList<>();
+            for (String r : temp) {
+                this.regions.add(r.trim().toUpperCase());
+            }
+        } else {
+            this.regions = null;
+        }
+    }
+
+    /**
+     * Set if the PresetElement shouldn't be used in the listed regions
+     * 
+     * @param excludeRegions if true the function of the regions list will be inverted
+     */
+    protected void setExcludeRegions(boolean excludeRegions) {
+        this.excludeRegions = excludeRegions;
+    }
+
+    /**
+     * Check if a PresetElement is applicable for a country
+     * 
+     * @param country the country
+     * @return true if the PresetElement is in use
+     */
+    public boolean appliesIn(@Nullable String country) {
+        if (regions != null && !regions.isEmpty() && country != null) {
+            for (String r : regions) {
+                if (country.equals(r)) {
+                    return !excludeRegions;
+                }
+            }
+            return excludeRegions;
+        }
+        return true;
+    }
+
+    /**
+     * Get an object documenting where in the hierarchy this element is.
+     * 
+     * This is essentially the only unique way of identifying a specific preset
+     * 
+     * @param root PresetGroup that this is relative to
+     * @return an object containing the path elements
+     */
+    @Nullable
+    public PresetElementPath getPath(@NonNull PresetGroup root) {
+        for (PresetElement e : new ArrayList<>(root.getElements())) { // prevent CCME
+            if (e.equals(this)) {
+                PresetElementPath result = new PresetElementPath();
+                result.getPath().add(e.getName());
+                return result;
+            } else {
+                if (e instanceof PresetGroup) {
+                    PresetElementPath result = getPath((PresetGroup) e);
+                    if (result != null) {
+                        result.getPath().add(0, e.getName());
+                        return result;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @return the iconpath
+     */
+    public String getIconpath() {
+        return iconpath;
+    }
+
+    /**
+     * Get the Preset object this is an element of
+     * 
+     * @return the Preset
+     */
+    @NonNull
+    public Preset getPreset() {
+        return preset;
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + iconpath + " " + appliesToWay + " " + appliesToNode + " " + appliesToClosedway + " " + appliesToRelation + " " + appliesToArea;
+    }
+
+    /**
+     * Serialize the element to XML
+     * 
+     * @param s the XmlSerializer
+     * @throws IllegalArgumentException if the serializer encountered an illegal argument
+     * @throws IllegalStateException if the serializer detects an illegal state
+     * @throws IOException if writing to the serializer fails
+     */
+    public abstract void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException;
+}

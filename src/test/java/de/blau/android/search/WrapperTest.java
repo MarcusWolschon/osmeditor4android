@@ -30,8 +30,8 @@ import de.blau.android.osm.PbfTest;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetGroup;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.util.Util;
 
 @RunWith(RobolectricTestRunner.class)

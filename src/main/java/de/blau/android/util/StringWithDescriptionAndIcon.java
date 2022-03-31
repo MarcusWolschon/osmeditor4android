@@ -6,8 +6,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import de.blau.android.presets.Preset.PresetElement;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetElement;
+import de.blau.android.presets.PresetItem;
 
 public class StringWithDescriptionAndIcon extends ExtendedStringWithDescription {
     private static final long serialVersionUID = 2L;

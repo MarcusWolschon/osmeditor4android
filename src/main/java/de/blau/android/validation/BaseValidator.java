@@ -31,7 +31,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;

@@ -34,9 +34,6 @@ import de.blau.android.contract.Paths;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.presets.Preset.PresetElement;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.CustomPreset;
 import de.blau.android.taginfo.TaginfoServer;
 import de.blau.android.taginfo.TaginfoServer.SearchResult;
@@ -377,12 +374,12 @@ public class AutoPreset {
             // don't fail because of an exception here
             Log.e(DEBUG_TAG, "Icon/file not found ", e);
         }
-        activePresets[autopresetPosition] = new Preset(context,
-                FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), null, true);
+        activePresets[autopresetPosition] = new Preset(context, FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET),
+                null, true);
         Preset autopreset = activePresets[autopresetPosition];
         PresetGroup group = autopreset.getGroupByName(autopresetGroupName);
         if (group == null) {
-            autopreset.new PresetGroup(autopreset.getRootGroup(), autopresetGroupName, AutoPreset.ICON);
+            new PresetGroup(autopreset, autopreset.getRootGroup(), autopresetGroupName, AutoPreset.ICON);
         }
     }
 }

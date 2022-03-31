@@ -17,8 +17,8 @@ import de.blau.android.filter.IndoorFilter;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetElementPath;
+import de.blau.android.presets.PresetItem;
 
 /**
  * Enums for modes.

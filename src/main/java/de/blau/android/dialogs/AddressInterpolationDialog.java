@@ -38,8 +38,8 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetField;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.propertyeditor.tagform.TextRow;
 import de.blau.android.util.ElementSearch;
@@ -302,6 +302,6 @@ public class AddressInterpolationDialog extends ImmersiveDialogFragment {
      */
     private Map<String, String> predictNodeAddress(@NonNull final Node node) {
         return Address.multiValueToSingle(Address.predictAddressTags(getContext(), Node.NAME, node.getOsmId(),
-                new ElementSearch(new IntCoordinates( node.getLon(), node.getLat()), true), Util.getListMap(node.getTags()), Address.NO_HYSTERESIS));
+                new ElementSearch(new IntCoordinates(node.getLon(), node.getLat()), true), Util.getListMap(node.getTags()), Address.NO_HYSTERESIS));
     }
 }

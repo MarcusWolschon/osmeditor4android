@@ -7,7 +7,7 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.nsi.Names;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetItem;
 
 /**
  * Interface for updating key:value pairs in the TagEditor from other fragments via the activity

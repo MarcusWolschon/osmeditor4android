@@ -36,7 +36,7 @@ import de.blau.android.photos.Photo;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.Synonyms;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.services.util.MapTileFilesystemProvider;

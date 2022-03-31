@@ -15,11 +15,11 @@ import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFixedField;
+import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetIconManager;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetItemLink;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
@@ -66,7 +66,7 @@ public final class CustomPreset {
                         Log.e(DEBUG_TAG, "Setting icon manager failed " + e.getMessage());
                     }
                     PresetGroup group = preset.getRootGroup();
-                    Preset.PresetItem customItem = preset.new PresetItem(group, input.getText().toString(), ICON, null);
+                    PresetItem customItem = new PresetItem(preset, group, input.getText().toString(), ICON, null);
                     // add linked presets
                     if (bestPreset != null) {
                         List<PresetItemLink> linkedPresets = bestPreset.getLinkedPresetItems();
@@ -101,7 +101,7 @@ public final class CustomPreset {
                         PresetGroup autoGroup = autoPreset.getGroupByName(ctx.getString(R.string.preset_autopreset));
                         if (group != null) {
                             @SuppressWarnings("unused")
-                            PresetItem copy = autoPreset.new PresetItem(autoGroup, customItem);
+                            PresetItem copy = new PresetItem(autoPreset, autoGroup, customItem);
                         } else {
                             Log.e(DEBUG_TAG, "Couldn't find preset group");
                         }

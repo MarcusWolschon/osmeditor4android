@@ -27,8 +27,6 @@ import de.blau.android.App;
 import de.blau.android.JavaResources;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Tags;
-import de.blau.android.presets.Preset.PresetElement;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.SearchIndexUtils;
 
 /**

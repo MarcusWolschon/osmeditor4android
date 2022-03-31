@@ -1,7 +1,5 @@
 package de.blau.android.presets;
 
-import de.blau.android.presets.Preset.PresetElement;
-
 public interface PresetElementHandler {
     /**
      * Do something with elements

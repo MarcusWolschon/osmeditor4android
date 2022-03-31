@@ -1,8 +1,6 @@
 package de.blau.android.presets;
 
 import androidx.annotation.NonNull;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
 
 /** Interface for handlers handling clicks on item or group icons */
 public interface PresetClickHandler {

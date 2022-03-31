@@ -28,7 +28,7 @@ import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.util.SavingHelper;
 import okhttp3.Call;
 import okhttp3.Request;

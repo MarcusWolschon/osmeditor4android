@@ -55,10 +55,10 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetElement;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
+import de.blau.android.presets.PresetGroup;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.propertyeditor.tagform.TagFormFragment;
@@ -239,7 +239,8 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
             presetsToApply = (ArrayList<PresetElementPath>) getIntent().getSerializableExtra(TAGEDIT_PRESETSTOAPPLY);
             usePaneLayout = Screen.isLandscape(this);
 
-            // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is selected
+            // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
+            // selected
             if (presetsToApply != null && !presetsToApply.isEmpty()) {
                 PresetElement alternativeRootElement = Preset.getElementByPath(App.getCurrentRootPreset(this).getRootGroup(), presetsToApply.get(0));
                 showPresets = alternativeRootElement instanceof PresetGroup;

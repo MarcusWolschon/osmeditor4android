@@ -37,8 +37,6 @@ import de.blau.android.Logic;
 import de.blau.android.contract.Files;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.OsmXml;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.collections.MRUList;
@@ -78,7 +76,7 @@ public class MRUTags {
      * Construct a new container for most recently used tags
      */
     public MRUTags() {
-        dummyItem = new Preset().new PresetItem(null, "dummy", null, null);
+        dummyItem = new PresetItem(new Preset(), null, "dummy", null, null);
         dummyItem.setAppliesToNode();
         dummyItem.setAppliesToWay();
         dummyItem.setAppliesToClosedway();

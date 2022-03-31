@@ -21,7 +21,7 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.net.UrlCheck;
 import de.blau.android.net.UrlCheck.CheckStatus;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Snack;

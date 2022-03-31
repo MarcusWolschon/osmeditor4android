@@ -19,7 +19,6 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
-import androidx.test.uiautomator.UiObject2;
 import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.LayerUtils;

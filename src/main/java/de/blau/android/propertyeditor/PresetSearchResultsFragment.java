@@ -30,10 +30,11 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.AutoPresetItem;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetElement;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetClickHandler;
+import de.blau.android.presets.PresetElement;
+import de.blau.android.presets.PresetGroup;
+import de.blau.android.presets.PresetItem;
+import de.blau.android.presets.PresetSeparator;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Screen;
@@ -170,7 +171,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
                 }
                 PresetGroup group = preset.getGroupByName(getContext().getString(R.string.preset_autopreset));
                 if (group != null) {
-                    item = preset.new PresetItem(group, item);
+                    item = new PresetItem(preset, group, item);
                 } else {
                     Log.e(DEBUG_TAG, "Couldn't find preset group");
                 }
@@ -230,7 +231,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
                 searchResults.add(pe);
             }
             if (!searchResults.isEmpty() && presets != null && !presets.isEmpty()) {
-                searchResults.add(0, fromTaginfo.new PresetSeparator(fromTaginfo.getRootGroup()));
+                searchResults.add(0, new PresetSeparator(fromTaginfo, fromTaginfo.getRootGroup()));
             }
             return searchResults;
         }
@@ -272,7 +273,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
     @NonNull
     private View getResultsView(@NonNull final LinearLayout layout, @Nullable final List<PresetElement> displayPresets, boolean setPadding) {
         View v = null;
-        PresetGroup results = Preset.dummyInstance().new PresetGroup(null, "search results", null);
+        PresetGroup results = new PresetGroup(Preset.dummyInstance(), null, "search results", null);
         results.setItemSort(false);
         if (displayPresets != null) {
             for (PresetElement p : displayPresets) {

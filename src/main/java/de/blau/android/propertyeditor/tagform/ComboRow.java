@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import de.blau.android.R;
 import de.blau.android.contract.Ui;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;

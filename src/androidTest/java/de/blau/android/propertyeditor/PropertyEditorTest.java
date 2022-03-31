@@ -62,9 +62,9 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetElementPath;
+import de.blau.android.presets.PresetGroup;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.resources.DataStyle;
 import okhttp3.HttpUrl;
 
