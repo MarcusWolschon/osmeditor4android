@@ -1,7 +1,6 @@
 package de.blau.android.presets;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,37 +21,33 @@ import androidx.core.content.ContextCompat;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement.ElementType;
-import de.blau.android.prefs.AdvancedPrefDatabase;
 
 /**
  * Represents an element (group or item) in a preset data structure
  */
-public abstract class PresetElement implements Serializable {
+public abstract class PresetElement {
 
-    private static final int  VIEW_PADDING     = 4;
-    private static final int  VIEW_SIDE_LENGTH = 72;
-    public static final int   ICON_SIZE_DP     = 36;
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 7L;
-    protected final Preset    preset;
-    String                    name;
-    String                    nameContext      = null;
-    private String            iconpath;
-    transient Drawable        icon;
-    transient BitmapDrawable  mapIcon;
-    private String            imagePath;
-    PresetGroup               parent;
-    boolean                   appliesToWay;
-    boolean                   appliesToNode;
-    boolean                   appliesToClosedway;
-    boolean                   appliesToRelation;
-    boolean                   appliesToArea;
-    private boolean           deprecated       = false;
-    private List<String>      regions          = null;
-    private boolean           excludeRegions   = false;
-    private String            mapFeatures;
+    private static final int VIEW_PADDING     = 4;
+    private static final int VIEW_SIDE_LENGTH = 72;
+    public static final int  ICON_SIZE_DP     = 36;
+
+    protected final Preset preset;
+    String                 name;
+    String                 nameContext    = null;
+    private String         iconpath;
+    Drawable               icon;
+    BitmapDrawable         mapIcon;
+    private String         imagePath;
+    PresetGroup            parent;
+    boolean                appliesToWay;
+    boolean                appliesToNode;
+    boolean                appliesToClosedway;
+    boolean                appliesToRelation;
+    boolean                appliesToArea;
+    private boolean        deprecated     = false;
+    private List<String>   regions        = null;
+    private boolean        excludeRegions = false;
+    private String         mapFeatures;
 
     /**
      * Creates the element, setting parent, name and icon, and registers with the parent
@@ -128,10 +123,7 @@ public abstract class PresetElement implements Serializable {
      */
     @NonNull
     public String getTranslatedName() {
-        if (nameContext != null) {
-            return preset.po != null ? preset.po.t(nameContext, getName()) : getName();
-        }
-        return preset.po != null ? preset.po.t(getName()) : getName();
+        return preset.translate(name, nameContext);
     }
 
     /**
@@ -158,13 +150,10 @@ public abstract class PresetElement implements Serializable {
      */
     @NonNull
     private Drawable getIcon(@NonNull Context context, @Nullable String path, int iconSize) {
-        if (preset.iconManager == null) {
-            preset.iconManager = getIconManager(context);
-        }
         if (path != null) {
-            return preset.iconManager.getDrawableOrPlaceholder(path, iconSize);
+            return preset.getIconManager(context).getDrawableOrPlaceholder(path, iconSize);
         } else {
-            return preset.iconManager.getPlaceHolder(iconSize);
+            return preset.getIconManager(context).getPlaceHolder(iconSize);
         }
     }
 
@@ -177,11 +166,8 @@ public abstract class PresetElement implements Serializable {
      */
     @Nullable
     public Drawable getIconIfExists(@NonNull Context context, @Nullable String path) {
-        if (preset.iconManager == null) {
-            preset.iconManager = getIconManager(context);
-        }
         if (path != null) {
-            return preset.iconManager.getDrawable(path, ICON_SIZE_DP);
+            return preset.getIconManager(context).getDrawable(path, ICON_SIZE_DP);
         }
         return null;
     }
@@ -195,32 +181,17 @@ public abstract class PresetElement implements Serializable {
     @Nullable
     public BitmapDrawable getMapIcon(@NonNull Context context) {
         if (mapIcon == null && iconpath != null) {
-            if (preset.iconManager == null) {
-                preset.iconManager = getIconManager(context);
-            }
-            mapIcon = preset.iconManager.getDrawable(iconpath, de.blau.android.Map.ICON_SIZE_DP);
+            mapIcon = preset.getIconManager(context).getDrawable(iconpath, de.blau.android.Map.ICON_SIZE_DP);
         }
         return mapIcon;
     }
 
     /**
-     * Get the PresetIconManager for this Preset
-     * 
-     * @param ctx Android Context
-     * @return the PresetIconManager instance
+     * Remove the references to the icons
      */
-    private PresetIconManager getIconManager(@NonNull Context ctx) {
-        if (preset.directory != null) {
-            if (preset.directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
-                return new PresetIconManager(ctx, null, null);
-            } else if (preset.externalPackage != null) {
-                return new PresetIconManager(ctx, preset.directory.toString(), preset.externalPackage);
-            } else {
-                return new PresetIconManager(ctx, preset.directory.toString(), null);
-            }
-        } else {
-            return new PresetIconManager(ctx, null, null);
-        }
+    public void clearIcons() {
+        icon = null;
+        mapIcon = null;
     }
 
     /**

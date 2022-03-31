@@ -13,11 +13,7 @@ import androidx.annotation.NonNull;
  * Represents a separator in a preset group
  */
 public class PresetSeparator extends PresetElement {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-
+    
     /**
      * Construct a new separator
      * 

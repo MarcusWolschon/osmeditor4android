@@ -26,14 +26,7 @@ import de.blau.android.views.WrappingLayout;
  */
 public class PresetGroup extends PresetElement {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 4L;
-
     private static final String DEBUG_TAG = PresetGroup.class.getSimpleName();
-
-    private final int groupIndex;
 
     private boolean itemSort = true;
 
@@ -50,8 +43,6 @@ public class PresetGroup extends PresetElement {
      */
     public PresetGroup(@NonNull Preset preset, @Nullable PresetGroup parent, @Nullable String name, @Nullable String iconpath) {
         super(preset, parent, name, iconpath);
-        groupIndex = preset.allGroups.size();
-        preset.allGroups.add(this);
     }
 
     /**
@@ -119,17 +110,7 @@ public class PresetGroup extends PresetElement {
             v.setOnLongClickListener(view -> handler.onGroupLongClick(PresetGroup.this));
         }
         v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_200 : R.color.dark_grey));
-        v.setTag("G" + this.getGroupIndex());
         return v;
-    }
-
-    /**
-     * Get the index for this PresetGroup
-     * 
-     * @return the index
-     */
-    public int getGroupIndex() {
-        return groupIndex;
     }
 
     /**

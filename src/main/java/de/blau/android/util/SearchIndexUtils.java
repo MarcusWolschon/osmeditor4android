@@ -184,7 +184,7 @@ public final class SearchIndexUtils {
                             PresetItem namePi = new PresetItem(preset, null, nat.getName(), pi == null ? null : pi.getIconpath(), null);
 
                             for (Entry<String, String> entry : tags.entrySet()) {
-                                namePi.addTag(entry.getKey(), PresetKeyType.TEXT, entry.getValue(), null);
+                                namePi.addTag(entry.getKey(), PresetKeyType.TEXT, entry.getValue(), null, null);
                             }
                             if (pi != null) {
                                 Map<String, PresetField> fields = pi.getFields();

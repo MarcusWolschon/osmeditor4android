@@ -27,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import ch.poole.osm.josmfilterparser.JosmFilterParser;
 import de.blau.android.R;
+import de.blau.android.contract.Schemes;
 import de.blau.android.contract.Urls;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -35,40 +36,35 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.search.Wrapper;
-import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.StringWithDescription;
 
 /** Represents a preset item (e.g. "footpath", "grocery store") */
 public class PresetItem extends PresetElement {
 
-    private static final long serialVersionUID = 17L;
-
-    private static final String HTTP = "http";
-
-    private static final String DEBUG_TAG = null;
+    private static final String DEBUG_TAG = PresetItem.class.getSimpleName();
 
     /**
      * All fields in the order they are in the Preset file
      */
-    LinkedHashMap<String, PresetField> fields = new LinkedHashMap<>();
+    private Map<String, PresetField> fields = new LinkedHashMap<>();
 
     /** "fixed" tags, i.e. the ones that have a fixed key-value pair */
-    Map<String, PresetFixedField> fixedTags = new HashMap<>();
+    private Map<String, PresetFixedField> fixedTags = new HashMap<>();
 
     /**
      * Roles
      */
-    LinkedList<PresetRole> roles = null;
+    private List<PresetRole> roles = null;
 
     /**
      * Linked names of presets
      */
-    LinkedList<PresetItemLink> linkedPresetItems = null;
+    private List<PresetItemLink> linkedPresetItems = null;
 
     /**
      * Linked names of alternative presets
      */
-    LinkedList<PresetItemLink> alternativePresetItems = null;
+    private List<PresetItemLink> alternativePresetItems = null;
 
     /**
      * true if a chunk
@@ -83,11 +79,17 @@ public class PresetItem extends PresetElement {
     /**
      * Minimum match value so that a match will be considered, normally the number of fixed keys
      */
-    short minMatch = -1;
+    private short minMatch = -1;
 
+    /**
+     * Recommended number of keys that should match, normally this is the number of fixed fields
+     */
+    private int recommendedKeyCount = -1;
+
+    /**
+     * Index in to the all tags list
+     */
     private final int itemIndex;
-
-    private transient int recommendedKeyCount = -1;
 
     /**
      * Construct a new PresetItem
@@ -135,8 +137,7 @@ public class PresetItem extends PresetElement {
                 }
             }
         }
-        itemIndex = preset.allItems.size();
-        preset.allItems.add(this);
+        itemIndex = preset.addToAllItems(this);
     }
 
     /**
@@ -153,114 +154,34 @@ public class PresetItem extends PresetElement {
         this.roles = item.roles;
         this.linkedPresetItems = item.linkedPresetItems;
         this.minMatch = item.minMatch;
-
-        if (!chunk) {
-            for (Entry<String, PresetFixedField> e : getFixedTags().entrySet()) {
-                StringWithDescription v = e.getValue().getValue();
-                String key = e.getKey();
-                String value = "";
-                if (v != null && v.getValue() != null) {
-                    value = v.getValue();
-                }
-                preset.tagItems.add(key + "\t" + value, this);
-                addToAutosuggest(key, v);
-            }
-            for (Entry<String, PresetField> e : getFields().entrySet()) {
-                PresetField field = e.getValue();
-                if (field instanceof PresetCheckGroupField) {
-                    for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                        preset.tagItems.add(check.getKey() + "\t", this);
-                    }
-                } else if (!(field instanceof PresetFixedField)) {
-                    String key = e.getKey();
-                    preset.tagItems.add(key + "\t", this);
-                    if (field instanceof PresetComboField) {
-                        StringWithDescription[] values = ((PresetComboField) field).getValues();
-                        for (StringWithDescription swd : values) {
-                            preset.tagItems.add(e.getKey() + "\t" + swd.getValue(), this);
-                        }
-                        addToAutosuggest(key, values);
-                    }
-                }
-            }
-        }
-
-        itemIndex = preset.allItems.size();
-        preset.allItems.add(this);
-    }
-
-    /**
-     * Add the values to the autosuggest maps for the key
-     * 
-     * @param key the key
-     * @param values array of the values
-     */
-    void addToAutosuggest(String key, StringWithDescription[] values) {
-        if (appliesTo(ElementType.NODE)) {
-            preset.autosuggestNodes.add(key, values);
-        }
-        if (appliesTo(ElementType.WAY)) {
-            preset.autosuggestWays.add(key, values);
-        }
-        if (appliesTo(ElementType.CLOSEDWAY)) {
-            preset.autosuggestClosedways.add(key, values);
-        }
-        if (appliesTo(ElementType.RELATION)) {
-            preset.autosuggestRelations.add(key, values);
-        }
-        if (appliesTo(ElementType.AREA)) {
-            preset.autosuggestAreas.add(key, values);
-        }
-    }
-
-    /**
-     * Add the value to the autosuggest maps for the key
-     * 
-     * @param key the key
-     * @param value the value
-     */
-    void addToAutosuggest(String key, StringWithDescription value) {
-        if (appliesTo(ElementType.NODE)) {
-            preset.autosuggestNodes.add(key, value);
-        }
-        if (appliesTo(ElementType.WAY)) {
-            preset.autosuggestWays.add(key, value);
-        }
-        if (appliesTo(ElementType.CLOSEDWAY)) {
-            preset.autosuggestClosedways.add(key, value);
-        }
-        if (appliesTo(ElementType.RELATION)) {
-            preset.autosuggestRelations.add(key, value);
-        }
-        if (appliesTo(ElementType.AREA)) {
-            preset.autosuggestAreas.add(key, value);
-        }
+        preset.addToIndices(this);
+        itemIndex = preset.addToAllItems(this);
+        buildSearchIndex();
     }
 
     /**
      * build the search index
      */
     synchronized void buildSearchIndex() {
-        addToSearchIndex(name, nameContext);
+        preset.addToSearchIndex(name, nameContext, this);
         if (parent != null) {
             String parentName = parent.getName();
             if (parentName != null && parentName.length() > 0) {
-                addToSearchIndex(parentName, parent.nameContext);
+                preset.addToSearchIndex(parentName, parent.nameContext, this);
             }
         }
         for (Entry<String, PresetFixedField> entry : fixedTags.entrySet()) {
             PresetFixedField fixedField = entry.getValue();
             StringWithDescription v = fixedField.getValue();
             String textContext = fixedField.getTextContext();
-            addToSearchIndex(fixedField.getKey(), textContext);
+            preset.addToSearchIndex(fixedField.getKey(), textContext, this);
             String hint = fixedField.getHint();
             if (hint != null) {
-                addToSearchIndex(hint, textContext);
+                preset.addToSearchIndex(hint, textContext, this);
             }
             String value = v.getValue();
             String valueContext = fixedField.getValueContext();
-            addToSearchIndex(value, valueContext);
-            addToSearchIndex(v.getDescription(), valueContext);
+            addValueAndDescriptionToSearchIndex(value, v.getDescription(), valueContext);
             // support subtypes
             PresetField subTypeField = fields.get(value);
             if (subTypeField instanceof PresetComboField) {
@@ -269,8 +190,7 @@ public class PresetItem extends PresetElement {
                 if (subtypes != null) {
                     String valuesContext = presetComboField.getValuesContext();
                     for (StringWithDescription subtype : subtypes) {
-                        addToSearchIndex(subtype.getValue(), valuesContext);
-                        addToSearchIndex(subtype.getDescription(), valuesContext);
+                        addValueAndDescriptionToSearchIndex(subtype.getValue(), subtype.getDescription(), valuesContext);
                     }
                     presetComboField.setValuesSearchable(false);
                 }
@@ -283,36 +203,33 @@ public class PresetItem extends PresetElement {
             }
             String textContext = field.getTextContext();
             if (!(field instanceof PresetCheckGroupField)) {
-                addToSearchIndex(field.getKey(), textContext);
+                preset.addToSearchIndex(field.getKey(), textContext, this);
                 String hint = field.getHint();
                 if (hint != null) {
-                    addToSearchIndex(hint, textContext);
+                    preset.addToSearchIndex(hint, textContext, this);
                 }
                 if (field instanceof PresetComboField) {
                     PresetComboField presetComboField = (PresetComboField) field;
                     if (presetComboField.getValuesSearchable() && presetComboField.getValues() != null) {
                         String valuesContext = presetComboField.getValuesContext();
                         for (StringWithDescription value : presetComboField.getValues()) {
-                            addToSearchIndex(value.getValue(), valuesContext);
-                            addToSearchIndex(value.getDescription(), valuesContext);
+                            addValueAndDescriptionToSearchIndex(value.getValue(), value.getDescription(), valuesContext);
                         }
                     }
                 }
             } else {
                 for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                    addToSearchIndex(check.getKey(), textContext);
+                    preset.addToSearchIndex(check.getKey(), textContext, this);
                     String hint = field.getHint();
                     if (hint != null) {
-                        addToSearchIndex(hint, textContext);
+                        preset.addToSearchIndex(hint, textContext, this);
                     }
                     StringWithDescription value = check.getOnValue();
                     String valueContext = check.getValueContext();
-                    addToSearchIndex(value.getValue(), valueContext);
-                    addToSearchIndex(value.getDescription(), valueContext);
+                    addValueAndDescriptionToSearchIndex(value.getValue(), value.getDescription(), valueContext);
                     value = check.getOffValue();
                     if (value != null && !"".equals(value.getValue())) {
-                        addToSearchIndex(value.getValue(), valueContext);
-                        addToSearchIndex(value.getDescription(), valueContext);
+                        addValueAndDescriptionToSearchIndex(value.getValue(), value.getDescription(), valueContext);
                     }
                 }
             }
@@ -320,64 +237,42 @@ public class PresetItem extends PresetElement {
     }
 
     /**
-     * Add a name, any translation and the individual words to the index. Currently we assume that all words are
-     * significant
+     * Add this item to the search indices
      * 
-     * @param term search key to add
-     * @param translationContext the translation context if any
+     * @param value tag value
+     * @param description tag value description
+     * @param translationContext the translation context
      */
-    void addToSearchIndex(@Nullable String term, @Nullable String translationContext) {
-        // search support
-        if (term != null) {
-            String normalizedName = SearchIndexUtils.normalize(term);
-            preset.searchIndex.add(normalizedName, this);
-            String[] words = normalizedName.split(" ");
-            if (words.length > 1) {
-                for (String w : words) {
-                    preset.searchIndex.add(w, this);
-                }
-            }
-            if (preset.po != null) { // and any translation
-                String normalizedTranslatedName = SearchIndexUtils.normalize(preset.po.t(translationContext, term));
-                preset.translatedSearchIndex.add(normalizedTranslatedName, this);
-                String[] translastedWords = normalizedName.split(" ");
-                if (translastedWords.length > 1) {
-                    for (String w : translastedWords) {
-                        preset.translatedSearchIndex.add(w, this);
-                    }
-                }
-            }
-        }
+    private void addValueAndDescriptionToSearchIndex(String value, String description, String translationContext) {
+        preset.addToSearchIndex(value, translationContext, this);
+        preset.addToSearchIndex(description, translationContext, this);
     }
 
     /**
-     * Adds a fixed tag to the item, registers the item in the tagItems map and populates autosuggest.
+     * Adds a fixed tag to the item
      * 
      * @param key key name of the tag
      * @param type PresetType
      * @param value value of the tag
      * @param text description of the tag return the allocated PresetField
+     * @param textContext a translation context
      * @return the allocated PresetField
      */
     @NonNull
-    public PresetField addTag(final String key, final PresetKeyType type, @Nullable String value, @Nullable String text) {
+    public PresetField addTag(final String key, final PresetKeyType type, @Nullable String value, @Nullable String text, @Nullable String textContext) {
         if (key == null) {
             throw new NullPointerException("null key not supported");
         }
         if (value == null) {
             value = "";
         }
-        if (text != null && preset.po != null) {
-            text = preset.po.t(text);
+        if (text != null) {
+            text = preset.translate(text, textContext);
         }
         PresetFixedField field = new PresetFixedField(key, new StringWithDescription(value, text));
 
         fixedTags.put(key, field);
         fields.put(key, field);
-        if (!chunk) {
-            preset.tagItems.add(key + "\t" + value, this);
-            addToAutosuggest(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
-        }
         return field;
     }
 
@@ -461,7 +356,6 @@ public class PresetItem extends PresetElement {
     @NonNull
     public PresetField addTag(boolean optional, @NonNull String key, PresetKeyType type, StringWithDescription[] valueArray, final String delimiter,
             MatchType matchType) { // NOSONAR
-        addValues(key, valueArray, matchType);
         PresetField field = null;
         switch (type) {
         case COMBO:
@@ -469,7 +363,7 @@ public class PresetItem extends PresetElement {
             field = new PresetComboField(key, valueArray);
             ((PresetComboField) field).setMultiSelect(type == PresetKeyType.MULTISELECT);
             if (!Preset.MULTISELECT_DELIMITER.equals(delimiter) || !Preset.COMBO_DELIMITER.equals(delimiter)) {
-                ((PresetComboField) field).delimiter = delimiter;
+                ((PresetComboField) field).setDelimiter(delimiter);;
             }
             break;
         case TEXT:
@@ -486,47 +380,6 @@ public class PresetItem extends PresetElement {
     }
 
     /**
-     * Add key and values to tagItems and autosuggest
-     * 
-     * @param key the key
-     * @param valueArray the suggested values
-     * @param matchType type of match
-     */
-    synchronized void addValues(String key, StringWithDescription[] valueArray, @Nullable MatchType matchType) {
-        if (!chunk) {
-            if (MatchType.KEY == matchType) {
-                preset.tagItems.add(key + "\t", this);
-            }
-            if (valueArray != null && valueArray.length > 0) {
-                for (StringWithDescription v : valueArray) {
-                    preset.tagItems.add(key + "\t" + v.getValue(), this);
-                }
-                addToAutosuggest(key, valueArray);
-            } else {
-                addToAutosuggest(key, new StringWithDescription(""));
-            }
-        }
-    }
-
-    /**
-     * Remove this PresetItem as far as possible
-     */
-    public void delete() {
-        for (String key : preset.searchIndex.getKeys()) {
-            preset.searchIndex.removeItem(key, this);
-        }
-        for (String key : preset.translatedSearchIndex.getKeys()) {
-            preset.searchIndex.removeItem(key, this);
-        }
-        for (String key : preset.tagItems.getKeys()) {
-            preset.tagItems.removeItem(key, this);
-        }
-        preset.removeRecentlyUsed(this);
-        getParent().removeElement(this);
-        setParent(null);
-    }
-
-    /**
      * Add a PresetField to the PresetItem
      * 
      * @param field the PresetField
@@ -536,6 +389,24 @@ public class PresetItem extends PresetElement {
         if (field instanceof PresetFixedField) {
             fixedTags.put(field.key, (PresetFixedField) field);
         }
+    }
+
+    /**
+     * Add multiple PresetFields to the PresetItem
+     * 
+     * @param fields a Map with the fields
+     */
+    public void addAllFields(@NonNull Map<String, PresetField> fields) {
+        this.fields.putAll(fields);
+    }
+
+    /**
+     * Add multiple PresetFixedFields to the PresetItem
+     * 
+     * @param fields a Map with the fields
+     */
+    public void addAllFixedFields(@NonNull Map<String, PresetFixedField> fields) {
+        fixedTags.putAll(fields);
     }
 
     /**
@@ -577,10 +448,11 @@ public class PresetItem extends PresetElement {
      * 
      * @param newRoles the PresetRoles to add
      */
-    public void addAllRoles(@Nullable LinkedList<PresetRole> newRoles) {
+    public void addAllRoles(@Nullable List<PresetRole> newRoles) {
         if (roles == null) {
-            roles = newRoles; // doesn't matter if newRoles is null
-        } else if (newRoles != null) {
+            roles = new LinkedList<>();
+        }
+        if (newRoles != null) {
             for (PresetRole role : newRoles) {
                 if (!roles.contains(role)) {
                     roles.add(role);
@@ -712,8 +584,7 @@ public class PresetItem extends PresetElement {
     public char getDelimiter(@NonNull String key) {
         PresetField field = fields.get(key);
         if (field instanceof PresetComboField) {
-            PresetComboField combo = (PresetComboField) field;
-            return (combo.delimiter != null ? combo.delimiter : (combo.isMultiSelect() ? Preset.MULTISELECT_DELIMITER : Preset.COMBO_DELIMITER)).charAt(0);
+            return ((PresetComboField) field).getDelimiter();
         } else {
             Log.e(DEBUG_TAG,
                     "Trying to get delimiter from non-combo field, item " + name + " key " + key + " " + (field != null ? field.getClass().getName() : "null"));
@@ -743,7 +614,7 @@ public class PresetItem extends PresetElement {
      * @return a PresetCheckField or null if not found
      */
     @Nullable
-    public PresetField getCheckFieldFromGroup(String key) {
+    private PresetField getCheckFieldFromGroup(String key) {
         for (PresetField f : fields.values()) {
             if (f instanceof PresetCheckGroupField) {
                 PresetCheckField check = ((PresetCheckGroupField) f).getCheckField(key);
@@ -799,7 +670,7 @@ public class PresetItem extends PresetElement {
      * 
      * @param newLinkedPresetItems the LinkedList of PresetLinks
      */
-    public void addAllLinkedPresetItems(@Nullable LinkedList<PresetItemLink> newLinkedPresetItems) { // NOSONAR
+    public void addAllLinkedPresetItems(@Nullable List<PresetItemLink> newLinkedPresetItems) { // NOSONAR
         if (linkedPresetItems == null) {
             linkedPresetItems = newLinkedPresetItems; // doesn't matter if newLinkedPresetNames is null
         } else if (newLinkedPresetItems != null) {
@@ -814,15 +685,15 @@ public class PresetItem extends PresetElement {
     /**
      * Add a LinkedList containing alternative PresetItems to this PresetItem
      * 
-     * @param newalternativePresetItems the LinkedList of PresetLinks
+     * @param newAlternativePresetItems the LinkedList of PresetLinks
      */
-    public void addAllAlternativePresetItems(@Nullable LinkedList<PresetItemLink> newalternativePresetItems) { // NOSONAR
+    public void addAllAlternativePresetItems(@Nullable List<PresetItemLink> newAlternativePresetItems) { // NOSONAR
         if (alternativePresetItems == null) {
-            alternativePresetItems = newalternativePresetItems; // doesn't matter if newLinkedPresetNames is null
-        } else if (newalternativePresetItems != null) {
-            for (PresetItemLink linkedPreset : newalternativePresetItems) {
-                if (!linkedPresetItems.contains(linkedPreset)) {
-                    linkedPresetItems.add(linkedPreset);
+            alternativePresetItems = newAlternativePresetItems; // doesn't matter if newAlternativePresetNames is null
+        } else if (newAlternativePresetItems != null) {
+            for (PresetItemLink alternativePreset : newAlternativePresetItems) {
+                if (!newAlternativePresetItems.contains(alternativePreset)) {
+                    newAlternativePresetItems.add(alternativePreset);
                 }
             }
         }
@@ -871,7 +742,7 @@ public class PresetItem extends PresetElement {
                         Integer index = preset.getItemIndexByName(pl.getPresetName()); // FIXME this involves a
                                                                                        // sequential search
                         if (index != null) {
-                            PresetItem candidateItem = preset.allItems.get(index);
+                            PresetItem candidateItem = preset.getItemByIndex(index);
                             if (!noPrimary || !candidateItem.isObject(preset)) { // remove primary objects
                                 result.add(candidateItem);
                             }
@@ -967,6 +838,16 @@ public class PresetItem extends PresetElement {
      */
     void setAutoapply(boolean autoapply) {
         this.autoapply = autoapply;
+    }
+
+    /**
+     * Set the minimum number of fixed tags that need to match
+     * 
+     * @param minMatch the minimum number of fixed tags that need to match if &lt;= 0 the number of fixed tags in the
+     *            preset item will be used
+     */
+    public void setMinMatch(short minMatch) {
+        this.minMatch = minMatch;
     }
 
     /**
@@ -1067,7 +948,7 @@ public class PresetItem extends PresetElement {
      * @return Collection of StringWithDescription objects
      */
     @NonNull
-    public Collection<StringWithDescription> getAutocompleteValues(@NonNull PresetField field) {
+    public Collection<StringWithDescription> getAutocompleteValues(@Nullable PresetField field) {
         Collection<StringWithDescription> result = new LinkedHashSet<>();
         if (field instanceof PresetComboField) {
             result.addAll(Arrays.asList(((PresetComboField) field).getValues()));
@@ -1296,7 +1177,7 @@ public class PresetItem extends PresetElement {
     public String toJSON() {
         StringBuilder presetNameBuilder = new StringBuilder(name);
         PresetElement p = getParent();
-        while (p != null && p != preset.rootGroup && !"".equals(p.getName())) {
+        while (p != null && p != preset.getRootGroup() && !"".equals(p.getName())) {
             presetNameBuilder.insert(0, '/');
             presetNameBuilder.insert(0, p.getName());
             p = p.getParent();
@@ -1450,7 +1331,7 @@ public class PresetItem extends PresetElement {
         String mapFeatures = getMapFeatures();
         if (mapFeatures != null) {
             s.startTag("", Preset.LINK);
-            if (mapFeatures.startsWith(Urls.OSM_WIKI) || !mapFeatures.startsWith(HTTP)) {
+            if (mapFeatures.startsWith(Urls.OSM_WIKI) || !mapFeatures.startsWith(Schemes.HTTP)) {
                 // wiki might or might not be present
                 mapFeatures = mapFeatures.replace(Urls.OSM_WIKI, "").replace("wiki/", "");
                 s.attribute("", Preset.WIKI, mapFeatures);

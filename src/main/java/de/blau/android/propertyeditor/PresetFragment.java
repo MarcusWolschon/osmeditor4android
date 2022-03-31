@@ -405,7 +405,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             Preset[] presets = propertyEditorListener.getPresets();
             if (preset.equals(presets[presets.length - 1])) {
                 new AlertDialog.Builder(getContext()).setTitle(R.string.delete_custom_preset_title).setPositiveButton(R.string.Delete, (dialog, which) -> {
-                    item.delete();
+                    preset.deleteItem(item);
                     AutoPreset.save(getActivity(), preset);
                     editorUpdate.updatePresets();
                     propertyEditorListener.updateRecentPresets();

@@ -9,11 +9,7 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InvalidObjectException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.PrintStream;
-import java.io.Serializable;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -25,7 +21,6 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -52,7 +47,6 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
-import de.blau.android.contract.Files;
 import de.blau.android.contract.Paths;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.OsmXml;
@@ -63,8 +57,10 @@ import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ExtendedStringWithDescription;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;
+import de.blau.android.util.Value;
 import de.blau.android.util.collections.MultiHashMap;
 
 /**
@@ -98,11 +94,7 @@ import de.blau.android.util.collections.MultiHashMap;
  * 
  * @author Jan Schejbal
  */
-public class Preset implements Serializable {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 7L;
+public class Preset {
 
     private static final String ALTERNATIVE                = "alternative";
     private static final String USE_LAST_AS_DEFAULT        = "use_last_as_default";
@@ -197,11 +189,10 @@ public class Preset implements Serializable {
     public static final int SPACING = 5;
 
     //
-    private static final int    MAX_MRU_SIZE = 50;
-    private static final String DEBUG_TAG    = Preset.class.getName();
+    private static final String DEBUG_TAG = Preset.class.getName();
 
     /** The directory containing all data (xml, MRU data, images) about this preset */
-    File directory;
+    private File directory;
 
     /** version of the preset */
     private String version;
@@ -216,80 +207,39 @@ public class Preset implements Serializable {
      * Lists items having a tag. The map key is tagkey+"\t"+tagvalue. tagItems.get(tagkey+"\t"+tagvalue) will give you
      * all items that have the tag tagkey=tagvalue
      */
-    final MultiHashMap<String, PresetItem> tagItems = new MultiHashMap<>();
+    private final MultiHashMap<String, PresetItem> tagItems = new MultiHashMap<>();
 
     /** The root group of the preset, containing all top-level groups and items */
-    PresetGroup rootGroup;
+    private PresetGroup rootGroup;
 
     /** {@link PresetIconManager} used for icon loading */
-    transient PresetIconManager iconManager;
+    private PresetIconManager iconManager;
 
     /** all known preset items in order of loading */
-    List<PresetItem> allItems = new ArrayList<>();
-
-    /** all known preset groups in order of loading */
-    List<PresetGroup> allGroups = new ArrayList<>();
+    private List<PresetItem> allItems = new ArrayList<>();
 
     /** List of all top level object tags used by this preset */
     private List<String> objectKeys = new ArrayList<>();
 
     /** Maps all possible keys to the respective values for autosuggest (only key/values applying to nodes) */
-    final MultiHashMap<String, StringWithDescription> autosuggestNodes      = new MultiHashMap<>(true);
+    private final MultiHashMap<String, StringWithDescription> autosuggestNodes      = new MultiHashMap<>(true);
     /** Maps all possible keys to the respective values for autosuggest (only key/values applying to ways) */
-    final MultiHashMap<String, StringWithDescription> autosuggestWays       = new MultiHashMap<>(true);
+    private final MultiHashMap<String, StringWithDescription> autosuggestWays       = new MultiHashMap<>(true);
     /** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
-    final MultiHashMap<String, StringWithDescription> autosuggestClosedways = new MultiHashMap<>(true);
+    private final MultiHashMap<String, StringWithDescription> autosuggestClosedways = new MultiHashMap<>(true);
     /** Maps all possible keys to the respective values for autosuggest (only key/values applying to areas (MPs)) */
-    final MultiHashMap<String, StringWithDescription> autosuggestAreas      = new MultiHashMap<>(true);
+    private final MultiHashMap<String, StringWithDescription> autosuggestAreas      = new MultiHashMap<>(true);
     /** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
-    final MultiHashMap<String, StringWithDescription> autosuggestRelations  = new MultiHashMap<>(true);
+    private final MultiHashMap<String, StringWithDescription> autosuggestRelations  = new MultiHashMap<>(true);
 
     /** for search support */
-    final MultiHashMap<String, PresetItem> searchIndex           = new MultiHashMap<>();
-    final MultiHashMap<String, PresetItem> translatedSearchIndex = new MultiHashMap<>();
+    private final MultiHashMap<String, PresetItem> searchIndex           = new MultiHashMap<>();
+    private final MultiHashMap<String, PresetItem> translatedSearchIndex = new MultiHashMap<>();
 
-    Po po = null;
-
-    /**
-     * Serializable class for storing Most Recently Used information. Hash is used to check compatibility.
-     */
-    protected static class PresetMRUInfo implements Serializable {
-        private static final long serialVersionUID = 7708132207266548491L;
-
-        /** hash of current preset (used to check validity of recentPresets indexes) */
-        final String presetHash;
-
-        /** indexes of recently used presets (for use with allItems) */
-        private LinkedList<Integer> recentPresets = new LinkedList<>();
-
-        private volatile boolean changed = false;
-
-        /**
-         * Construct a new instance
-         * 
-         * @param presetHash a hash for the Preset contents
-         */
-        PresetMRUInfo(String presetHash) {
-            this.presetHash = presetHash;
-        }
-
-        /**
-         * @return true if the MRU has been change
-         */
-        public boolean isChanged() {
-            return changed;
-        }
-
-        /**
-         * Mark the MRU as changed
-         */
-        public void setChanged() {
-            this.changed = true;
-        }
-    }
+    private Po po = null;
 
     private final PresetMRUInfo mru;
-    String                      externalPackage;
+    private String              externalPackage;
     private final boolean       isDefault;
 
     private static final FilenameFilter presetFileFilter = (File dir, String name) -> name.endsWith(".xml");
@@ -419,7 +369,7 @@ public class Preset implements Serializable {
             // }
             // }
 
-            mru = initMRU(directory, hashValue);
+            mru = PresetMRUInfo.getMRU(directory, hashValue);
 
             Log.d(DEBUG_TAG, "search index length: " + searchIndex.getKeys().size());
         } finally {
@@ -466,6 +416,30 @@ public class Preset implements Serializable {
     }
 
     /**
+     * Get the PresetIconManager for this Preset
+     * 
+     * @param ctx Android Context
+     * @return the PresetIconManager instance
+     */
+    @NonNull
+    PresetIconManager getIconManager(@NonNull Context ctx) {
+        if (iconManager == null) {
+            if (directory != null) {
+                if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
+                    iconManager = new PresetIconManager(ctx, null, null);
+                } else if (externalPackage != null) {
+                    iconManager = new PresetIconManager(ctx, directory.toString(), externalPackage);
+                } else {
+                    iconManager = new PresetIconManager(ctx, directory.toString(), null);
+                }
+            } else {
+                iconManager = new PresetIconManager(ctx, null, null);
+            }
+        }
+        return iconManager;
+    }
+
+    /**
      * @return the version
      */
     public String getVersion() {
@@ -497,22 +471,169 @@ public class Preset implements Serializable {
             if (e instanceof PresetGroup) {
                 addElementsToIndex(group, ((PresetGroup) e).getElements());
             } else if (e instanceof PresetItem) {
-                // build tagItems from existing preset
-                for (Entry<String, PresetField> entry : ((PresetItem) e).fields.entrySet()) {
-                    String key = entry.getKey();
-                    PresetField field = entry.getValue();
-                    if (field instanceof PresetFixedField) {
-                        tagItems.add(entry.getKey() + "\t" + ((PresetFixedField) field).getValue(), (PresetItem) e);
-                    } else if (field instanceof PresetComboField && ((PresetComboField) field).getValues() != null) {
-                        for (StringWithDescription v : ((PresetComboField) field).getValues()) {
-                            tagItems.add(key + "\t" + v.getValue(), (PresetItem) e);
-                        }
-                    } else {
-                        tagItems.add(key + "\t", (PresetItem) e);
+                addToIndices((PresetItem) e);
+            }
+        }
+    }
+
+    /**
+     * Add a PresetItem to tagItems
+     * 
+     * @param key tag key
+     * @param item the PresetItem
+     */
+    private void addToTagItems(@NonNull String key, @NonNull PresetItem item) {
+        tagItems.add(key + "\t", item);
+    }
+
+    /**
+     * Add a PresetItem to tagItems
+     * 
+     * @param key tag key
+     * @param value tag value
+     * @param item the PresetItem
+     */
+    private void addToTagItems(@NonNull String key, @NonNull String value, @NonNull PresetItem item) {
+        tagItems.add(key + "\t" + value, item);
+    }
+
+    /**
+     * Add a PresetItem to tagItems
+     * 
+     * @param key tag key
+     * @param value tag value
+     * @param item the PresetItem
+     */
+    private void addToTagItems(@NonNull String key, @NonNull Value value, @NonNull PresetItem item) {
+        addToTagItems(key, value.getValue(), item);
+    }
+
+    /**
+     * Add a name, any translation and the individual words to the index. Currently we assume that all words are
+     * significant
+     * 
+     * @param term search key to add
+     * @param translationContext the translation context if any
+     * @param item the PresetItem to add
+     */
+    void addToSearchIndex(@Nullable String term, @Nullable String translationContext, @NonNull PresetItem item) {
+        // search support
+        if (term != null) {
+            String normalizedName = SearchIndexUtils.normalize(term);
+            searchIndex.add(normalizedName, item);
+            String[] words = normalizedName.split(" ");
+            if (words.length > 1) {
+                for (String w : words) {
+                    searchIndex.add(w, item);
+                }
+            }
+            if (po != null) { // and any translation
+                String normalizedTranslatedName = SearchIndexUtils.normalize(po.t(translationContext, term));
+                translatedSearchIndex.add(normalizedTranslatedName, item);
+                String[] translastedWords = normalizedName.split(" ");
+                if (translastedWords.length > 1) {
+                    for (String w : translastedWords) {
+                        translatedSearchIndex.add(w, item);
                     }
                 }
             }
         }
+    }
+
+    /**
+     * Add the values to the autosuggest maps for the key
+     * 
+     * @param item the relevant PresetItem
+     * @param key the key
+     * @param values array of the values
+     */
+    private void addToAutosuggest(@NonNull PresetItem item, @NonNull String key, StringWithDescription[] values) {
+        if (item.appliesTo(ElementType.NODE)) {
+            autosuggestNodes.add(key, values);
+        }
+        if (item.appliesTo(ElementType.WAY)) {
+            autosuggestWays.add(key, values);
+        }
+        if (item.appliesTo(ElementType.CLOSEDWAY)) {
+            autosuggestClosedways.add(key, values);
+        }
+        if (item.appliesTo(ElementType.RELATION)) {
+            autosuggestRelations.add(key, values);
+        }
+        if (item.appliesTo(ElementType.AREA)) {
+            autosuggestAreas.add(key, values);
+        }
+    }
+
+    /**
+     * Add the value to the autosuggest maps for the key
+     * 
+     * @param item the relevant PresetItem
+     * @param key the key
+     * @param value the value
+     */
+    private void addToAutosuggest(@NonNull PresetItem item, @NonNull String key, StringWithDescription value) {
+        addToAutosuggest(item, key, new StringWithDescription[] { value });
+    }
+
+    /**
+     * Add a PresetItem to the Presets indices
+     * 
+     * @param currentItem the item
+     */
+    void addToIndices(@NonNull PresetItem currentItem) {
+        StringWithDescription dummy = new StringWithDescription("");
+        for (Entry<String, PresetField> e : currentItem.getFields().entrySet()) {
+            PresetField field = e.getValue();
+            String key = e.getKey();
+            if (field instanceof PresetCheckGroupField) {
+                for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
+                    String checkKey = check.getKey();
+                    addToTagItems(checkKey, currentItem);
+                    addToAutosuggest(currentItem, checkKey, dummy);
+                }
+            } else {
+                addToTagItems(key, currentItem);
+                if (field instanceof PresetComboField) {
+                    StringWithDescription[] values = ((PresetComboField) field).getValues();
+                    if (values != null) {
+                        for (StringWithDescription v : values) {
+                            String value = "";
+                            if (v != null && v.getValue() != null) {
+                                value = v.getValue();
+                            }
+                            addToTagItems(key, value, currentItem);
+                        }
+                        addToAutosuggest(currentItem, key, values);
+                    }
+                } else if (field instanceof PresetFixedField) {
+                    addToTagItems(key, ((PresetFixedField) field).getValue(), currentItem);
+                    addToAutosuggest(currentItem, key, ((PresetFixedField) field).getValue());
+                } else {
+                    addToAutosuggest(currentItem, key, dummy);
+                }
+            }
+        }
+    }
+
+    /**
+     * Remove a PresetItem as far as possible
+     * 
+     * @param item the PresetItem
+     */
+    public void deleteItem(@NonNull PresetItem item) {
+        for (String key : searchIndex.getKeys()) {
+            searchIndex.removeItem(key, item);
+        }
+        for (String key : translatedSearchIndex.getKeys()) {
+            translatedSearchIndex.removeItem(key, item);
+        }
+        for (String key : tagItems.getKeys()) {
+            tagItems.removeItem(key, item);
+        }
+        removeRecentlyUsed(item);
+        item.getParent().removeElement(item);
+        item.setParent(null);
     }
 
     /**
@@ -627,7 +748,7 @@ public class Preset implements Serializable {
                     String minMatchStr = attr.getValue(MIN_MATCH);
                     if (minMatchStr != null) {
                         try {
-                            currentItem.minMatch = Short.parseShort(minMatchStr);
+                            currentItem.setMinMatch(Short.parseShort(minMatchStr));
                         } catch (NumberFormatException e) {
                             Log.e(DEBUG_TAG, "Illegal min_match value " + minMatchStr + " " + e.getMessage());
                         }
@@ -678,12 +799,13 @@ public class Preset implements Serializable {
                 case KEY_ATTR:
                     String key = attr.getValue(KEY_ATTR);
                     String match = attr.getValue(MATCH);
+                    String textContext = attr.getValue(TEXT_CONTEXT);
                     PresetField field = null;
                     if (!inOptionalSection) {
                         if (NONE.equals(match)) {// don't include in fixed tags if not used for matching
                             field = currentItem.addTag(false, key, PresetKeyType.TEXT, attr.getValue(VALUE), MatchType.fromString(match));
                         } else {
-                            field = currentItem.addTag(key, PresetKeyType.TEXT, attr.getValue(VALUE), attr.getValue(TEXT));
+                            field = currentItem.addTag(key, PresetKeyType.TEXT, attr.getValue(VALUE), attr.getValue(TEXT), textContext);
                         }
                     } else {
                         // Optional fixed tags should not happen, their values will NOT be automatically inserted.
@@ -693,7 +815,6 @@ public class Preset implements Serializable {
                     if (match != null) {
                         field.setMatchType(match);
                     }
-                    String textContext = attr.getValue(TEXT_CONTEXT);
                     if (textContext != null) {
                         field.setTextContext(textContext);
                     }
@@ -812,10 +933,8 @@ public class Preset implements Serializable {
                     if (checkGroup != null) {
                         checkGroup.addCheckField(checkField);
                     } else {
-                        currentItem.fields.put(key, checkField);
+                        currentItem.addField(checkField);
                     }
-                    currentItem.addValues(key, valueOff == null ? new StringWithDescription[] { valueOn } : new StringWithDescription[] { valueOn, valueOff },
-                            null);
                     break;
                 case COMBO_FIELD:
                 case MULTISELECT_FIELD:
@@ -925,36 +1044,22 @@ public class Preset implements Serializable {
                             for (PresetField f : chunk.getFields().values()) {
                                 key = f.getKey();
                                 // don't overwrite exiting fields
-                                if (!currentItem.fields.containsKey(key)) {
-                                    // FIXME we should only create new objects once
+                                if (!currentItem.hasKey(key)) {
                                     PresetField copy = f.copy();
                                     copy.setOptional(true);
-                                    currentItem.fields.put(copy.getKey(), copy);
+                                    currentItem.addField(copy);
                                 } else {
                                     Log.w(DEBUG_TAG, "PresetItem " + currentItem.getName() + " chunk " + attr.getValue(REF) + " field " + key
                                             + " overwrites existing field");
                                 }
                             }
                         } else {
-                            currentItem.fixedTags.putAll(chunk.getFixedTags());
-                            if (!currentItem.isChunk()) {
-                                for (Entry<String, PresetFixedField> e : chunk.getFixedTags().entrySet()) {
-                                    key = e.getKey();
-                                    StringWithDescription v = e.getValue().getValue();
-                                    String value = "";
-                                    if (v != null && v.getValue() != null) {
-                                        value = v.getValue();
-                                    }
-                                    tagItems.add(key + "\t" + value, currentItem);
-                                    currentItem.addToAutosuggest(key, v);
-                                }
-                            }
-                            currentItem.fields.putAll(chunk.fields);
+                            currentItem.addAllFixedFields(chunk.getFixedTags());
+                            currentItem.addAllFields(chunk.getFields());
                         }
-                        addToTagItems(currentItem, chunk.getFields());
-                        currentItem.addAllRoles(chunk.roles);
-                        currentItem.addAllLinkedPresetItems(chunk.linkedPresetItems);
-                        currentItem.addAllAlternativePresetItems(chunk.alternativePresetItems);
+                        currentItem.addAllRoles(chunk.getRoles());
+                        currentItem.addAllLinkedPresetItems(chunk.getLinkedPresetItems());
+                        currentItem.addAllAlternativePresetItems(chunk.getAlternativePresetItems());
                     }
                     break;
                 case LIST_ENTRY:
@@ -1034,56 +1139,13 @@ public class Preset implements Serializable {
                                     valueArray[i] = swd;
                                 }
                                 field.setValues(valueArray);
-                                item.addValues(key, valueArray, null);
                             } else if (result instanceof StringWithDescription[]) {
                                 field.setValues((StringWithDescription[]) result);
-                                item.addValues(key, (StringWithDescription[]) result, null);
                             }
                         }
                         return null;
                     }
                 }.execute();
-            }
-
-            /**
-             * Add a PresetItem to the auto suggest lists
-             * 
-             * @param currentItem the item
-             * @param fields the PresetFields
-             */
-            void addToTagItems(@NonNull PresetItem currentItem, @NonNull Map<String, PresetField> fields) {
-                if (currentItem.isChunk()) { // only do this on the final expansion
-                    return;
-                }
-                StringWithDescription dummy = new StringWithDescription("");
-                for (Entry<String, PresetField> e : fields.entrySet()) {
-                    PresetField field = e.getValue();
-                    String key = e.getKey();
-                    if (field instanceof PresetCheckGroupField) {
-                        for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                            String checkKey = check.getKey();
-                            tagItems.add(checkKey + "\t", currentItem);
-                            currentItem.addToAutosuggest(checkKey, dummy);
-                        }
-                    } else {
-                        tagItems.add(key + "\t", currentItem);
-                        if (field instanceof PresetComboField) {
-                            StringWithDescription[] values = ((PresetComboField) field).getValues();
-                            if (values != null) {
-                                for (StringWithDescription v : values) {
-                                    String value = "";
-                                    if (v != null && v.getValue() != null) {
-                                        value = v.getValue();
-                                    }
-                                    tagItems.add(key + "\t" + value, currentItem);
-                                }
-                                currentItem.addToAutosuggest(key, values);
-                            }
-                        } else {
-                            currentItem.addToAutosuggest(key, dummy);
-                        }
-                    }
-                }
             }
 
             @Override
@@ -1099,6 +1161,7 @@ public class Preset implements Serializable {
                     inOptionalSection = false;
                     break;
                 case ITEM:
+                    addToIndices(currentItem);
                     if (!currentItem.isDeprecated()) {
                         currentItem.buildSearchIndex();
                     }
@@ -1120,7 +1183,6 @@ public class Preset implements Serializable {
                         PresetComboField field = (PresetComboField) currentItem.getField(listKey);
                         if (field != null) {
                             field.setValues(listValues.toArray(v));
-                            currentItem.addValues(listKey, listValues.toArray(v), null);
                             field.setUseImages(imageCount > 0);
                         }
                     }
@@ -1167,30 +1229,6 @@ public class Preset implements Serializable {
                 field.translate(po);
             }
         }
-    }
-
-    /**
-     * Initializes Most-recently-used data by either loading them or creating an empty list
-     * 
-     * @param directory data directory of the preset
-     * @param hashValue XML hash value to check if stored data fits the XML
-     * @return a MRU object valid for this Preset, never null
-     */
-    public PresetMRUInfo initMRU(File directory, String hashValue) {
-        PresetMRUInfo tmpMRU;
-
-        try (FileInputStream fout = new FileInputStream(new File(directory, Files.FILE_NAME_MRUFILE));
-                ObjectInputStream mruReader = new ObjectInputStream(fout)) {
-            tmpMRU = (PresetMRUInfo) mruReader.readObject();
-            if (!tmpMRU.presetHash.equals(hashValue)) {
-                throw new InvalidObjectException("hash mismatch");
-            }
-        } catch (Exception e) {
-            tmpMRU = new PresetMRUInfo(hashValue);
-            // Deserialization failed for whatever reason (missing file, wrong version, ...) - use empty list
-            Log.i(DEBUG_TAG, "No usable old MRU list, creating new one (" + e.toString() + ")");
-        }
-        return tmpMRU;
     }
 
     /**
@@ -1272,12 +1310,23 @@ public class Preset implements Serializable {
     }
 
     /**
+     * Add a PresetItem to the allItems list
+     * 
+     * @param pi the PresetItem
+     * @return the index of the item
+     */
+    public int addToAllItems(@NonNull PresetItem pi) {
+        allItems.add(pi);
+        return allItems.size() - 1;
+    }
+
+    /**
      * Check if this Preset contains a PresetItem
      * 
      * @param pi the PresetItem we are interested in
      * @return true if the item is from this Preset
      */
-    public boolean contains(PresetItem pi) {
+    public boolean contains(@Nullable PresetItem pi) {
         return allItems.contains(pi);
     }
 
@@ -1303,7 +1352,10 @@ public class Preset implements Serializable {
     static void removeItem(@NonNull Context ctx, @NonNull String tag) {
         for (Preset preset : App.getCurrentPresets(ctx)) {
             if (preset != null) {
-                preset.tagItems.removeKey(tag);
+                Set<PresetItem> items = preset.tagItems.get(tag);
+                for (PresetItem item : items) {
+                    preset.deleteItem(item);
+                }
             }
         }
     }
@@ -1352,7 +1404,12 @@ public class Preset implements Serializable {
      */
     @Nullable
     public PresetItem getItemByIndex(int index) {
-        return allItems.get(index);
+        try {
+            return allItems.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            Log.e(DEBUG_TAG, "getItemByIndex " + index + " out of bounds");
+            return null;
+        }
     }
 
     /**
@@ -1428,10 +1485,7 @@ public class Preset implements Serializable {
      * Remove all generated icons from the Preset
      */
     public void clearIcons() {
-        processElements(getRootGroup(), element -> {
-            element.icon = null;
-            element.mapIcon = null;
-        });
+        processElements(getRootGroup(), PresetElement::clearIcons);
     }
 
     /**
@@ -1462,17 +1516,6 @@ public class Preset implements Serializable {
     }
 
     /**
-     * Return a preset group by index
-     * 
-     * @param index the index value
-     * @return the preset item or null if not found
-     */
-    @Nullable
-    public PresetGroup getGroupByIndex(int index) {
-        return allGroups.get(index);
-    }
-
-    /**
      * Returns a view showing the most recently used presets
      * 
      * @param ctx Android Context
@@ -1489,12 +1532,7 @@ public class Preset implements Serializable {
         recent.setItemSort(false);
         for (Preset p : presets) {
             if (p != null && p.hasMRU()) {
-                int allItemsCount = p.allItems.size();
-                for (Integer index : p.mru.recentPresets) {
-                    if (index < allItemsCount) {
-                        recent.addElement(p.allItems.get(index), false);
-                    }
-                }
+                p.mru.addToPresetGroup(recent, p);
             }
         }
         return recent.getGroupView(ctx, handler, type, null, region);
@@ -1506,84 +1544,48 @@ public class Preset implements Serializable {
      * @return true if a (non-empty) MRU is present
      */
     public boolean hasMRU() {
-        return mru != null && !mru.recentPresets.isEmpty();
+        return mru != null && !mru.isEmpty();
     }
 
     /**
-     * Add a preset to the front of the MRU list (removing old duplicates and limiting the list to 50 entries if needed)
-     * 
-     * @param item the item to add
-     * @param country country to filter on
-     * 
+     * Save the MRU
      */
-    public void putRecentlyUsed(@NonNull PresetItem item, @Nullable String country) {
-        Integer id = item.getItemIndex();
-        if (mru == null) {
-            return;
+    public void saveMRU() {
+        if (mru != null) {
+            mru.saveMRU(directory);
         }
-        // prevent duplicates
-        if (!mru.recentPresets.remove(id)) { // calling remove(Object), i.e. removing the number if it is in the list,
-                                             // not the i-th item
-            // preset is not in the list, add linked presets first
-            PresetItem pi = allItems.get(id);
-            if (pi.getLinkedPresetItems() != null) {
-                LinkedList<PresetItemLink> linkedPresets = new LinkedList<>(pi.getLinkedPresetItems());
-                Collections.reverse(linkedPresets);
-                for (PresetItemLink pl : linkedPresets) {
-                    if (!mru.recentPresets.contains(id)) {
-                        Integer presetIndex = getItemIndexByName(pl.getPresetName());
-                        if (presetIndex != null) { // null if the link wasn't found
-                            if (!mru.recentPresets.contains(presetIndex)) { // only add if not already present
-                                mru.recentPresets.addFirst(presetIndex);
-                                if (mru.recentPresets.size() > MAX_MRU_SIZE) {
-                                    mru.recentPresets.removeLast();
-                                }
-                            }
-                        } else {
-                            Log.e(DEBUG_TAG, "linked preset not found for " + pl.getPresetName() + " in preset " + pi.getName());
-                        }
-                    }
-                }
-            }
-        }
-        mru.recentPresets.addFirst(id);
-        if (mru.recentPresets.size() > MAX_MRU_SIZE) {
-            mru.recentPresets.removeLast();
-        }
-        mru.setChanged();
-    }
-
-    /**
-     * Remove a preset
-     * 
-     * @param item the item to remove
-     */
-    public void removeRecentlyUsed(@NonNull PresetItem item) {
-        Integer id = item.getItemIndex();
-        // prevent duplicates
-        mru.recentPresets.remove(id); // calling remove(Object), i.e. removing the number if it is in the list, not the
-                                      // i-th item
-        mru.setChanged();
     }
 
     /**
      * Reset the MRU list
      */
     public void resetRecentlyUsed() {
-        mru.recentPresets = new LinkedList<>();
-        mru.setChanged();
-        saveMRU();
+        if (mru != null) {
+            mru.resetRecentlyUsed(directory);
+        }
     }
 
-    /** Saves the current MRU data to a file */
-    public void saveMRU() {
-        if (mru != null && mru.isChanged()) {
-            try (FileOutputStream fout = new FileOutputStream(new File(directory, Files.FILE_NAME_MRUFILE));
-                    ObjectOutputStream out = new ObjectOutputStream(fout)) {
-                out.writeObject(mru);
-            } catch (Exception e) {
-                Log.e(DEBUG_TAG, "MRU saving failed", e);
-            }
+    /**
+     * Remove a PresetItem from the MRU
+     * 
+     * @param item the PresetItem to remove
+     */
+    public void removeRecentlyUsed(@NonNull PresetItem item) {
+        if (mru != null) {
+            mru.removeRecentlyUsed(item);
+        }
+    }
+
+    /**
+     * Add a preset to the front of the MRU list (removing old duplicates and limiting the list if needed)
+     * 
+     * @param item the item to add
+     * @param country country to filter on
+     * 
+     */
+    public void putRecentlyUsed(@NonNull PresetItem item, @Nullable String country) {
+        if (mru != null) {
+            mru.putRecentlyUsed(item, country);
         }
     }
 

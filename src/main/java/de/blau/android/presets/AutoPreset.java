@@ -105,8 +105,7 @@ public class AutoPreset {
         PresetGroup group = preset.getRootGroup();
         if (candidateTags != null) {
             for (SearchResult sr : candidateTags) {
-                // remove results with empty values
-                // and presets that we already have
+                // remove results with empty values and presets that we already have
                 if (sr.getValue() != null && !"".equals(sr.getValue()) && !existsInPresets(sr)) {
                     String resultKey = sr.getKey();
                     WikiPageResult wikiPage = TaginfoServer.wikiPage(context, server, resultKey, sr.getValue(), language, null);
@@ -138,8 +137,8 @@ public class AutoPreset {
                             if (wikiPage.isOnRelation()) {
                                 item.setAppliesToRelation();
                             }
-                            Log.e(DEBUG_TAG, "adding " + resultKey + " " + sr.getValue());
-                            item.addTag(resultKey, PresetKeyType.TEXT, sr.getValue(), null);
+                            Log.d(DEBUG_TAG, "adding " + resultKey + " " + sr.getValue());
+                            item.addTag(resultKey, PresetKeyType.TEXT, sr.getValue(), null, null);
 
                             List<String> combinationsFromTaginfo = TaginfoServer.tagCombinations(context, server, resultKey, sr.getValue(), getAppliesTo(item),
                                     10);
