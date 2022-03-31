@@ -122,6 +122,10 @@ import de.blau.android.views.WrappingLayout;
  * @author Jan Schejbal
  */
 public class Preset implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7L;
 
     private static final String ALTERNATIVE                = "alternative";
     private static final String USE_LAST_AS_DEFAULT        = "use_last_as_default";
@@ -204,10 +208,9 @@ public class Preset implements Serializable {
     private static final String DESCRIPTION_ATTR           = "description";
     private static final String SHORTDESCRIPTION_ATTR      = "shortdescription";
     private static final String VERSION_ATTR               = "version";
-    /**
-     * 
-     */
-    private static final long   serialVersionUID           = 7L;
+
+    static final String COMBO_DELIMITER       = ",";
+    static final String MULTISELECT_DELIMITER = ";";
 
     /** name of the preset XML file in a preset directory */
     public static final String PRESETXML           = "preset.xml";
@@ -252,9 +255,6 @@ public class Preset implements Serializable {
 
     /** List of all top level object tags used by this preset */
     private List<String> objectKeys = new ArrayList<>();
-
-    static final String COMBO_DELIMITER       = ",";
-    static final String MULTISELECT_DELIMITER = ";";
 
     /** Maps all possible keys to the respective values for autosuggest (only key/values applying to nodes) */
     private final MultiHashMap<String, StringWithDescription> autosuggestNodes      = new MultiHashMap<>(true);
