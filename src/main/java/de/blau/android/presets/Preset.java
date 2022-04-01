@@ -3028,7 +3028,7 @@ public class Preset implements Serializable {
                 searchIndex.removeItem(key, this);
             }
             for (String key : translatedSearchIndex.getKeys()) {
-                searchIndex.removeItem(key, this);
+                translatedSearchIndex.removeItem(key, this);
             }
             for (String key : tagItems.getKeys()) {
                 tagItems.removeItem(key, this);
@@ -3325,16 +3325,17 @@ public class Preset implements Serializable {
 
         /**
          * Add a LinkedList containing alternative PresetItems to this PresetItem
-         * 
-         * @param newalternativePresetItems the LinkedList of PresetLinks
+         *
+         * @param newAlternativePresetItems the LinkedList of PresetLinks
          */
-        public void addAllAlternativePresetItems(@Nullable LinkedList<PresetItemLink> newalternativePresetItems) { // NOSONAR
+        public void addAllAlternativePresetItems(@Nullable LinkedList<PresetItemLink> newAlternativePresetItems) { // NOSONAR
             if (alternativePresetItems == null) {
-                alternativePresetItems = newalternativePresetItems; // doesn't matter if newLinkedPresetNames is null
-            } else if (newalternativePresetItems != null) {
-                for (PresetItemLink linkedPreset : newalternativePresetItems) {
-                    if (!linkedPresetItems.contains(linkedPreset)) {
-                        linkedPresetItems.add(linkedPreset);
+                alternativePresetItems = newAlternativePresetItems; // doesn't matter if newAlternativePresetNames is
+                                                                    // null
+            } else if (newAlternativePresetItems != null) {
+                for (PresetItemLink alternativePreset : newAlternativePresetItems) {
+                    if (!newAlternativePresetItems.contains(alternativePreset)) {
+                        newAlternativePresetItems.add(alternativePreset);
                     }
                 }
             }
