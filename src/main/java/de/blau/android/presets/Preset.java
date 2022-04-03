@@ -215,9 +215,6 @@ public class Preset {
     /** {@link PresetIconManager} used for icon loading */
     private PresetIconManager iconManager;
 
-    /** all known preset items in order of loading */
-    private List<PresetItem> allItems = new ArrayList<>();
-
     /** List of all top level object tags used by this preset */
     private List<String> objectKeys = new ArrayList<>();
 
@@ -1310,24 +1307,37 @@ public class Preset {
     }
 
     /**
-     * Add a PresetItem to the allItems list
-     * 
-     * @param pi the PresetItem
-     * @return the index of the item
-     */
-    public int addToAllItems(@NonNull PresetItem pi) {
-        allItems.add(pi);
-        return allItems.size() - 1;
-    }
-
-    /**
      * Check if this Preset contains a PresetItem
      * 
      * @param pi the PresetItem we are interested in
      * @return true if the item is from this Preset
      */
     public boolean contains(@Nullable PresetItem pi) {
-        return allItems.contains(pi);
+        if (pi == null) {
+            return false;
+        }
+        return contains(rootGroup, pi);
+    }
+
+    /**
+     * Recursively descend the Preset, starting at group and try to find the item
+     * 
+     * @param group the starting PresetGroup
+     * @param item the PresetItem
+     * @return true if found
+     */
+    private boolean contains(@NonNull PresetGroup group, @NonNull PresetItem item) {
+        for (PresetElement element : group.getElements()) {
+            if (element.equals(item)) {
+                return true;
+            } else if (element instanceof PresetGroup) {
+                boolean found = contains((PresetGroup) element, item);
+                if (found) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -1361,27 +1371,6 @@ public class Preset {
     }
 
     /**
-     * Return the index of a PresetItem by sequential search FIXME
-     * 
-     * @param name the name of the PresetItem
-     * @return the index or null if not found
-     */
-    @Nullable
-    Integer getItemIndexByName(@NonNull String name) {
-        Log.d(DEBUG_TAG, "getItemIndexByName " + name);
-        for (PresetItem pi : allItems) {
-            if (pi != null) {
-                String n = pi.getName();
-                if (n.equals(name)) {
-                    return pi.getItemIndex();
-                }
-            }
-        }
-        Log.d(DEBUG_TAG, "getItemIndexByName " + name + " not found");
-        return null;
-    }
-
-    /**
      * Return a preset by name Note: the names are not guaranteed to be unique, this will simple return the first found
      * 
      * @param name the name to search for
@@ -1389,27 +1378,29 @@ public class Preset {
      */
     @Nullable
     public PresetItem getItemByName(@NonNull String name) {
-        Integer index = getItemIndexByName(name);
-        if (index != null) {
-            return allItems.get(index);
-        }
-        return null;
+        return getElementByName(rootGroup, name);
     }
 
     /**
-     * Return a preset by index
+     * Recursively descend the Preset, starting at group and return a PresetItem with name
      * 
-     * @param index the index value
-     * @return the preset item or null if not found
+     * @param group the starting PresetGroup
+     * @param name the name
+     * @return a matching PresetItem or null
      */
     @Nullable
-    public PresetItem getItemByIndex(int index) {
-        try {
-            return allItems.get(index);
-        } catch (IndexOutOfBoundsException e) {
-            Log.e(DEBUG_TAG, "getItemByIndex " + index + " out of bounds");
-            return null;
+    private PresetItem getElementByName(@NonNull PresetGroup group, @NonNull String name) {
+        for (PresetElement element : group.getElements()) {
+            if (element instanceof PresetItem && name.equals(((PresetItem) element).getName())) {
+                return (PresetItem) element;
+            } else if (element instanceof PresetGroup) {
+                PresetItem result = getElementByName((PresetGroup) element, name);
+                if (result != null) {
+                    return result;
+                }
+            }
         }
+        return null;
     }
 
     /**
@@ -1420,12 +1411,12 @@ public class Preset {
      */
     @NonNull
     public Map<String, PresetItem> getItemsForType(@Nullable ElementType type) {
-        Map<String, PresetItem> result = new HashMap<>();
-        for (PresetItem item : allItems) {
-            if (!item.isChunk() && (type == null || item.appliesTo(type))) {
-                result.put(item.getName(), item);
+        final Map<String, PresetItem> result = new HashMap<>();
+        processElements(rootGroup, (PresetElement element) -> {
+            if (element instanceof PresetItem) {
+                result.put(element.getName(), (PresetItem) element);
             }
-        }
+        });
         return result;
     }
 
@@ -1467,7 +1458,7 @@ public class Preset {
     }
 
     /**
-     * Recursively traverse the PresetELements and do something on them
+     * Recursively traverse the PresetElements and do something on them
      * 
      * @param group PresetGroup to start the traversing at
      * @param handler PresetElementHandler to execute
@@ -1618,15 +1609,15 @@ public class Preset {
      */
     @NonNull
     private String toJSON() {
-        StringBuilder result = new StringBuilder();
-        for (PresetItem pi : allItems) {
-            if (!pi.isChunk()) {
+        final StringBuilder result = new StringBuilder();
+        processElements(rootGroup, (PresetElement element) -> {
+            if (element instanceof PresetItem && !((PresetItem) element).isChunk()) {
                 if (result.length() != 0) {
                     result.append(",\n");
                 }
-                result.append(pi.toJSON());
+                result.append(((PresetItem) element).toJSON());
             }
-        }
+        });
         return result.toString();
     }
 

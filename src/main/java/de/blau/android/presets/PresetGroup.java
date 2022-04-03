@@ -193,12 +193,12 @@ public class PresetGroup extends PresetElement {
     /**
      * Filter a List of PresetElement by country
      * 
-     * @param elements the PresetElements
+     * @param elements the input PresetElements
      * @param country the country
      * @return a List of PresetElement, potentially empty
      */
     @NonNull
-    private List<PresetElement> filterElementsByCountry(List<PresetElement> elements, String country) {
+    private List<PresetElement> filterElementsByCountry(@NonNull List<PresetElement> elements, @Nullable String country) {
         List<PresetElement> result = new ArrayList<>();
         for (PresetElement pe : elements) {
             if (pe.appliesIn(country)) {

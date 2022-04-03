@@ -87,11 +87,6 @@ public class PresetItem extends PresetElement {
     private int recommendedKeyCount = -1;
 
     /**
-     * Index in to the all tags list
-     */
-    private final int itemIndex;
-
-    /**
      * Construct a new PresetItem
      * 
      * @param preset the Preset this belongs to
@@ -137,7 +132,6 @@ public class PresetItem extends PresetElement {
                 }
             }
         }
-        itemIndex = preset.addToAllItems(this);
     }
 
     /**
@@ -155,7 +149,6 @@ public class PresetItem extends PresetElement {
         this.linkedPresetItems = item.linkedPresetItems;
         this.minMatch = item.minMatch;
         preset.addToIndices(this);
-        itemIndex = preset.addToAllItems(this);
         buildSearchIndex();
     }
 
@@ -363,7 +356,7 @@ public class PresetItem extends PresetElement {
             field = new PresetComboField(key, valueArray);
             ((PresetComboField) field).setMultiSelect(type == PresetKeyType.MULTISELECT);
             if (!Preset.MULTISELECT_DELIMITER.equals(delimiter) || !Preset.COMBO_DELIMITER.equals(delimiter)) {
-                ((PresetComboField) field).setDelimiter(delimiter);;
+                ((PresetComboField) field).setDelimiter(delimiter);
             }
             break;
         case TEXT:
@@ -739,10 +732,8 @@ public class PresetItem extends PresetElement {
             for (PresetItemLink pl : linkedPresetItems) {
                 for (Preset preset : presets) {
                     if (preset != null) {
-                        Integer index = preset.getItemIndexByName(pl.getPresetName()); // FIXME this involves a
-                                                                                       // sequential search
-                        if (index != null) {
-                            PresetItem candidateItem = preset.getItemByIndex(index);
+                        PresetItem candidateItem = preset.getItemByName(pl.getPresetName());
+                        if (candidateItem != null) {
                             if (!noPrimary || !candidateItem.isObject(preset)) { // remove primary objects
                                 result.add(candidateItem);
                             }
@@ -1108,7 +1099,6 @@ public class PresetItem extends PresetElement {
             v.setOnLongClickListener(view -> handler.onItemLongClick(PresetItem.this));
         }
         v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_500 : R.color.preset_bg));
-        v.setTag(Integer.toString(this.getItemIndex()));
         return v;
     }
 
@@ -1147,15 +1137,6 @@ public class PresetItem extends PresetElement {
 
         PresetField field = fields.get(key);
         return Preset.hasKeyValue(field, value);
-    }
-
-    /**
-     * Get the index of this item
-     * 
-     * @return the index
-     */
-    public int getItemIndex() {
-        return itemIndex;
     }
 
     @Override

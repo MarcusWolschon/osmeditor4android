@@ -19,7 +19,7 @@ import de.blau.android.contract.Files;
  * Serializable class for storing Most Recently Used information. Hash is used to check compatibility.
  */
 public class PresetMRUInfo implements Serializable {
-    private static final long serialVersionUID = 7708132207266548491L;
+    private static final long serialVersionUID = 7708132207266548492L;
 
     private static final int MAX_MRU_SIZE = 50;
 
@@ -29,7 +29,7 @@ public class PresetMRUInfo implements Serializable {
     final String presetHash;
 
     /** indexes of recently used presets (for use with allItems) */
-    private LinkedList<Integer> recentPresets = new LinkedList<>();
+    private LinkedList<PresetElementPath> recentPresets = new LinkedList<>();
 
     private volatile boolean changed = false;
 
@@ -64,33 +64,29 @@ public class PresetMRUInfo implements Serializable {
      * 
      */
     public void putRecentlyUsed(@NonNull PresetItem item, @Nullable String country) {
-        Integer id = item.getItemIndex();
-        // prevent duplicates
-        if (!recentPresets.remove(id)) { // calling remove(Object), i.e. removing the number if it is in the list,
-                                         // not the i-th item
-            // preset is not in the list, add linked presets first
-            if (item.getLinkedPresetItems() != null) {
-                LinkedList<PresetItemLink> linkedPresets = new LinkedList<>(item.getLinkedPresetItems());
-                Collections.reverse(linkedPresets);
-                Preset preset = item.getPreset();
-                for (PresetItemLink pl : linkedPresets) {
-                    if (!recentPresets.contains(id)) {
-                        Integer presetIndex = preset.getItemIndexByName(pl.getPresetName());
-                        if (presetIndex != null) { // null if the link wasn't found
-                            if (!recentPresets.contains(presetIndex)) { // only add if not already present
-                                recentPresets.addFirst(presetIndex);
-                                if (recentPresets.size() > MAX_MRU_SIZE) {
-                                    recentPresets.removeLast();
-                                }
-                            }
-                        } else {
-                            Log.e(DEBUG_TAG, "linked preset not found for " + pl.getPresetName() + " in preset " + item.getName());
+        final PresetGroup rootGroup = item.getPreset().getRootGroup();
+        PresetElementPath path = item.getPath(rootGroup);
+        // prevent duplicates and preset is not in the list, add linked presets first
+        if (!recentPresets.remove(path) && item.getLinkedPresetItems() != null) {
+            LinkedList<PresetItemLink> linkedPresets = new LinkedList<>(item.getLinkedPresetItems());
+            Collections.reverse(linkedPresets);
+            Preset preset = item.getPreset();
+            for (PresetItemLink pl : linkedPresets) {
+                PresetItem linkedItem = preset.getItemByName(pl.getPresetName());
+                if (linkedItem != null) { // null if the link wasn't found
+                    PresetElementPath linkedPath = linkedItem.getPath(rootGroup);
+                    if (!recentPresets.contains(linkedPath)) { // only add if not already present
+                        recentPresets.addFirst(linkedPath);
+                        if (recentPresets.size() > MAX_MRU_SIZE) {
+                            recentPresets.removeLast();
                         }
                     }
+                } else {
+                    Log.e(DEBUG_TAG, "linked preset not found for " + pl.getPresetName() + " in preset " + item.getName());
                 }
             }
         }
-        recentPresets.addFirst(id);
+        recentPresets.addFirst(path);
         if (recentPresets.size() > MAX_MRU_SIZE) {
             recentPresets.removeLast();
         }
@@ -103,10 +99,8 @@ public class PresetMRUInfo implements Serializable {
      * @param item the item to remove
      */
     public void removeRecentlyUsed(@NonNull PresetItem item) {
-        Integer id = item.getItemIndex();
         // prevent duplicates
-        recentPresets.remove(id); // calling remove(Object), i.e. removing the number if it is in the list, not the
-                                  // i-th item
+        recentPresets.remove(item.getPath(item.getPreset().getRootGroup()));
         setChanged();
     }
 
@@ -137,8 +131,8 @@ public class PresetMRUInfo implements Serializable {
      * @param p the parent Preset
      */
     public void addToPresetGroup(@NonNull PresetGroup group, @NonNull Preset p) {
-        for (Integer index : recentPresets) {
-            final PresetItem item = p.getItemByIndex(index);
+        for (PresetElementPath path : recentPresets) {
+            final PresetItem item = (PresetItem) Preset.getElementByPath(p.getRootGroup(), path);
             if (item != null) {
                 group.addElement(item, false);
             }
@@ -184,5 +178,4 @@ public class PresetMRUInfo implements Serializable {
         }
         return tmpMRU;
     }
-
 }
