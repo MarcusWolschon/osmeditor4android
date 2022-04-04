@@ -154,6 +154,7 @@ public class Preset {
     private static final String IMAGE                      = "image";
     static final String         NAME                       = "name";
     private static final String OBJECT_KEYS                = "object_keys";
+    static final String         OBJECT                     = "object";
     static final String         GROUP                      = "group";
     private static final String PRESETS                    = "presets";
     static final String         AREA                       = "area";
@@ -208,6 +209,11 @@ public class Preset {
      * all items that have the tag tagkey=tagvalue
      */
     private final MultiHashMap<String, PresetItem> tagItems = new MultiHashMap<>();
+
+    /**
+     * Lists items that define objects
+     */
+    private final MultiHashMap<String, PresetItem> objectItems = new MultiHashMap<>();
 
     /** The root group of the preset, containing all top-level groups and items */
     private PresetGroup rootGroup;
@@ -506,6 +512,40 @@ public class Preset {
     }
 
     /**
+     * Add a PresetItem to the object items
+     * 
+     * @param key the key
+     * @param field the PresetFixedField
+     * @param item the PresetItem
+     */
+    private void addToObjectItems(@NonNull String key, @NonNull PresetFixedField field, @NonNull PresetItem item) {
+        if (field.isObject(objectKeys)) {
+            objectItems.add(key + "\t" + field.getValue().getValue(), item);
+        }
+    }
+
+    /**
+     * Add a PresetItem to objectItems
+     * 
+     * @param key tag key
+     * @param value tag value
+     * @param item the PresetItem
+     */
+    private void addToObjectItems(@NonNull String key, @NonNull String value, @NonNull PresetItem item) {
+        objectItems.add(key + "\t" + value, item);
+    }
+
+    /**
+     * Add a PresetItem to objectItems
+     * 
+     * @param key tag key
+     * @param item the PresetItem
+     */
+    private void addToObjectItems(@NonNull String key, @NonNull PresetItem item) {
+        objectItems.add(key + "\t", item);
+    }
+
+    /**
      * Add a name, any translation and the individual words to the index. Currently we assume that all words are
      * significant
      * 
@@ -587,11 +627,18 @@ public class Preset {
                 for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
                     String checkKey = check.getKey();
                     addToTagItems(checkKey, currentItem);
+                    if (isObjectKey(checkKey)) {
+                        addToObjectItems(key, currentItem);
+                    }
                     addToAutosuggest(currentItem, checkKey, dummy);
                 }
             } else {
                 addToTagItems(key, currentItem);
                 if (field instanceof PresetComboField) {
+                    boolean isObjectKey = isObjectKey(key);
+                    if (isObjectKey) {
+                        addToObjectItems(key, currentItem);
+                    }
                     StringWithDescription[] values = ((PresetComboField) field).getValues();
                     if (values != null) {
                         for (StringWithDescription v : values) {
@@ -600,11 +647,15 @@ public class Preset {
                                 value = v.getValue();
                             }
                             addToTagItems(key, value, currentItem);
+                            if (isObjectKey) {
+                                addToObjectItems(key, value, currentItem);
+                            }
                         }
                         addToAutosuggest(currentItem, key, values);
                     }
                 } else if (field instanceof PresetFixedField) {
                     addToTagItems(key, ((PresetFixedField) field).getValue(), currentItem);
+                    addToObjectItems(key, (PresetFixedField) field, currentItem);
                     addToAutosuggest(currentItem, key, ((PresetFixedField) field).getValue());
                 } else {
                     addToAutosuggest(currentItem, key, dummy);
@@ -652,7 +703,7 @@ public class Preset {
      * @throws SAXException on parsing issues
      * @throws IOException when reading the presets fails
      */
-    private void parseXML(InputStream input) throws ParserConfigurationException, SAXException, IOException {
+    private void parseXML(@NonNull InputStream input) throws ParserConfigurationException, SAXException, IOException {
         SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
         SAXParser saxParser = factory.newSAXParser();
 
@@ -797,6 +848,7 @@ public class Preset {
                     String key = attr.getValue(KEY_ATTR);
                     String match = attr.getValue(MATCH);
                     String textContext = attr.getValue(TEXT_CONTEXT);
+                    String isObjectString = attr.getValue(OBJECT);
                     PresetField field = null;
                     if (!inOptionalSection) {
                         if (NONE.equals(match)) {// don't include in fixed tags if not used for matching
@@ -814,6 +866,9 @@ public class Preset {
                     }
                     if (textContext != null) {
                         field.setTextContext(textContext);
+                    }
+                    if (field instanceof PresetFixedField && isObjectString != null) {
+                        ((PresetFixedField) field).setIsObject(Boolean.parseBoolean(isObjectString));
                     }
                     break;
                 case TEXT_FIELD:
@@ -1674,27 +1729,26 @@ public class Preset {
         for (PresetItem possibleMatch : possibleMatches) {
             int fixedTagCount = possibleMatch.getFixedTagCount() * FIXED_WEIGHT;
             int recommendedTagCount = possibleMatch.getRecommendedKeyCount();
-            if (fixedTagCount + recommendedTagCount < bestMatchStrength) {
-                continue; // isn't going to help
-            }
-            int matches = 0;
-            if (fixedTagCount > 0) {
-                if (!possibleMatch.matches(tags)) {
-                    continue; // minimum requirement
+            if (fixedTagCount + recommendedTagCount >= bestMatchStrength) {
+                int matches = 0;
+                if (fixedTagCount > 0) {
+                    if (!possibleMatch.matches(tags)) {
+                        continue; // minimum requirement
+                    }
+                    // has all required tags
+                    matches = fixedTagCount;
                 }
-                // has all required tags
-                matches = fixedTagCount;
-            }
-            if (region != null && !possibleMatch.appliesIn(region)) {
-                // downgrade so much that recommended tags can't compensate
-                matches -= 200;
-            }
-            if (recommendedTagCount > 0) {
-                matches = matches + possibleMatch.matchesRecommended(tags);
-            }
-            if (matches > bestMatchStrength) {
-                bestMatch = possibleMatch;
-                bestMatchStrength = matches;
+                if (region != null && !possibleMatch.appliesIn(region)) {
+                    // downgrade so much that recommended tags can't compensate
+                    matches -= 200;
+                }
+                if (recommendedTagCount > 0) {
+                    matches = matches + possibleMatch.matchesRecommended(tags);
+                }
+                if (matches > bestMatchStrength) {
+                    bestMatch = possibleMatch;
+                    bestMatchStrength = matches;
+                }
             }
         }
         return bestMatch;
@@ -1745,10 +1799,11 @@ public class Preset {
             if (p != null) {
                 for (Entry<String, String> tag : tags.entrySet()) {
                     String key = tag.getKey();
-                    if (Tags.IMPORTANT_TAGS.contains(key) || p.isObjectKey(key) || (key.startsWith(Tags.KEY_ADDR_BASE) && useAddressKeys)) {
+                    if (useAddressKeys || !key.startsWith(Tags.KEY_ADDR_BASE)) {
                         String tagString = key + "\t";
-                        possibleMatches.addAll(p.tagItems.get(tagString)); // for stuff that doesn't have fixed values
-                        possibleMatches.addAll(p.tagItems.get(tagString + tag.getValue()));
+                        possibleMatches.addAll(p.objectItems.get(tagString)); // for stuff that doesn't have fixed
+                                                                              // values
+                        possibleMatches.addAll(p.objectItems.get(tagString + tag.getValue()));
                     }
                 }
             }
@@ -1767,12 +1822,10 @@ public class Preset {
     static List<PresetElement> filterElements(@NonNull List<PresetElement> originalElements, @NonNull ElementType type) {
         List<PresetElement> filteredElements = new ArrayList<>();
         for (PresetElement e : originalElements) {
-            if (!e.isDeprecated()) {
-                if (e.appliesTo(type) || ((e instanceof PresetSeparator) && !filteredElements.isEmpty()
-                        && !(filteredElements.get(filteredElements.size() - 1) instanceof PresetSeparator))) {
-                    // only add separators if there is a non-separator element above them
-                    filteredElements.add(e);
-                }
+            if (!e.isDeprecated() && (e.appliesTo(type) || ((e instanceof PresetSeparator) && !filteredElements.isEmpty()
+                    && !(filteredElements.get(filteredElements.size() - 1) instanceof PresetSeparator)))) {
+                // only add separators if there is a non-separator element above them
+                filteredElements.add(e);
             }
         }
         return filteredElements;
@@ -1791,7 +1844,7 @@ public class Preset {
             if (p != null) {
                 for (Entry<String, String> tag : tags.entrySet()) {
                     String key = tag.getKey();
-                    if (Tags.IMPORTANT_TAGS.contains(key) || p.isObjectKey(key)) {
+                    if (p.isObjectKey(key)) {
                         return key + "=" + tag.getValue();
                     }
                 }
@@ -1977,7 +2030,7 @@ public class Preset {
      * @return true if key is a top-level key
      */
     public boolean isObjectKey(String key) {
-        return objectKeys.contains(key);
+        return objectKeys.contains(key) || Tags.IMPORTANT_TAGS.contains(key);
     }
 
     /**
