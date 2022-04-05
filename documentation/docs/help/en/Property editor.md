@@ -21,6 +21,8 @@ This tab gives a simplified, preset-driven, editing screen for the tags on the s
 
 Fields are added by applying presets, either via the _Preset_ tab or via the ![Apply preset](../images/preset.png) _Apply best preset_ or ![Apply preset with optional tags](../images/tag_menu_apply_preset.png) _Apply best preset with optional tags_ buttons. The later will add fields for any optional tags that are present in the preset.
 
+If alternative tagging is available for the main object, the alternative presets will be displayed before those in the most recently used list.
+
 Further behaviour and menu items are similar or the same as for the _Details_ tab, the _Add language tags_ menu item will add local language variants of the name and similar keys to the preset if configured for the region (see [the GeoContext repository](https://github.com/simonpoole/geocontext)).
 
 ## Details Tab

@@ -89,7 +89,7 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     private static final String CURRENTITEM            = "current_item";
     private static final String PANELAYOUT             = "pane_layout";
     private static final String PRESET_FRAGMENT        = "preset_fragment";
-    static final String         RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
+    public static final String  RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
 
     public static final String  TAGEDIT_DATA              = "dataClass";
     private static final String TAGEDIT_LAST_ADDRESS_TAGS = "applyLastTags";

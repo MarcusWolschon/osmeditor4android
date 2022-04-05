@@ -208,18 +208,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         maxStringLength = server.getCachedCapabilities().getMaxStringLength();
 
         if (displayMRUpresets) {
-            Log.d(DEBUG_TAG, "Adding MRU prests");
-            FragmentManager fm = getChildFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
-            if (recentPresetsFragment != null) {
-                ft.remove(recentPresetsFragment);
-            }
-            // FIXME multiselect or what?
-            recentPresetsFragment = RecentPresetsFragment.newInstance(propertyEditorListener.getElement().getOsmId(),
+            de.blau.android.propertyeditor.Util.addMRUPresetsFragment(getChildFragmentManager(), propertyEditorListener.getElement().getOsmId(),
                     propertyEditorListener.getElement().getName());
-            ft.add(R.id.form_mru_layout, recentPresetsFragment, "recentpresets_fragment");
-            ft.commit();
         }
 
         Log.d(DEBUG_TAG, "onCreateView returning");
@@ -415,8 +405,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     @Override
     public void onPrepareOptionsMenu(final Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        PresetItem best = tagListener.getBestPreset();
-        menu.findItem(R.id.tag_menu_show_alternatives).setEnabled(best != null && best.getAlternativePresetItems() != null);
         // disable address prediction for stuff that won't have an address
         OsmElement element = propertyEditorListener.getElement();
         menu.findItem(R.id.tag_menu_address).setVisible((!(element instanceof Way) || ((Way) element).isClosed()));
@@ -468,10 +456,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
             }
             propertyEditorListener.updateRecentPresets();
-            return true;
-        case R.id.tag_menu_show_alternatives:
-            AlternativePresetItemsFragment.showDialog(getActivity(),
-                    tagListener.getBestPreset().getPath(App.getCurrentRootPreset(getActivity()).getRootGroup()));
             return true;
         case R.id.tag_menu_reset_address_prediction:
             // simply overwrite with an empty file
@@ -643,6 +627,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
             }
         }
+
+        // if we have alternative tagging suggestions display them
+        de.blau.android.propertyeditor.Util.addAlternativePresetItemsFragment(getChildFragmentManager(), tagListener.getBestPreset());
+
         // some final UI stuff
         if (focusOnAddress) {
             focusOnAddress = false; // only do it once
@@ -681,7 +669,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 PresetField field = entry.getValue();
                 String key = field.getKey();
                 String value = tagList.get(key);
-                Log.e(DEBUG_TAG, "field " + field.getClass().getCanonicalName());
                 if (value != null) {
                     if (field instanceof PresetFixedField) {
                         if (value.equals(((PresetFixedField) field).getValue().getValue())) {

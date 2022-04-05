@@ -2,7 +2,6 @@ package de.blau.android.propertyeditor;
 
 import java.util.List;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,13 +11,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AlertDialog.Builder;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.listener.DoNothingListener;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetClickHandler;
 import de.blau.android.presets.PresetElement;
@@ -28,46 +22,16 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetItemLink;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.ImmersiveDialogFragment;
-import de.blau.android.util.ThemeUtils;
 
 public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
 
-    private static final String ITEM_PATH_KEY = "itemPath";
-
     private static final String DEBUG_TAG = AlternativePresetItemsFragment.class.getSimpleName();
 
-    private static final String TAG = "alternative_preset_item_fragment";
+    private static final String ITEM_PATH_KEY = "itemPath";
+    public static final String  TAG           = "alternative_preset_item_fragment";
 
     private OnPresetSelectedListener presetSelectedListener;
     private PropertyEditorListener   propertyEditorListener;
-
-    private boolean enabled = true;
-
-    /**
-     * Show a dialog containing a view of alternative preset items
-     * 
-     * @param activity the calling Activity
-     * @param presetElementPath path to the preset with alternatives
-     */
-    public static void showDialog(@NonNull FragmentActivity activity, @NonNull PresetElementPath presetElementPath) {
-        dismissDialog(activity);
-        try {
-            FragmentManager fm = activity.getSupportFragmentManager();
-            AlternativePresetItemsFragment photoViewerFragment = newInstance(presetElementPath);
-            photoViewerFragment.show(fm, TAG);
-        } catch (IllegalStateException isex) {
-            Log.e(DEBUG_TAG, "showDialog", isex);
-        }
-    }
-
-    /**
-     * Dismiss the dialog
-     * 
-     * @param activity the calling Activity
-     */
-    private static void dismissDialog(@NonNull FragmentActivity activity) {
-        de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
-    }
 
     /**
      * Create a new instance
@@ -99,20 +63,8 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Builder builder = new AlertDialog.Builder(getActivity());
-        DoNothingListener doNothingListener = new DoNothingListener();
-        builder.setPositiveButton(R.string.dismiss, doNothingListener);
-        builder.setView(createView(ThemeUtils.getLayoutInflater(getContext()), savedInstanceState));
-        return builder.create();
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (!getShowsDialog()) {
-            return createView(inflater, savedInstanceState);
-        }
-        return null;
+        return createView(inflater, savedInstanceState);
     }
 
     /**
@@ -158,15 +110,8 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
     private View getAlternativesView(@NonNull final LinearLayout presetLayout, @NonNull PresetItem presetItem) {
 
         final PresetClickHandler presetClickHandler = (PresetItem item) -> {
-            if (!enabled) {
-                return;
-            }
             Log.d(DEBUG_TAG, "normal click");
             presetSelectedListener.onPresetSelected(item);
-            Dialog dialog = getDialog();
-            if (dialog != null) {
-                dialog.dismiss();
-            }
         };
         PresetGroup alternatives = Preset.dummyInstance().getRootGroup();
         List<PresetItemLink> links = presetItem.getAlternativePresetItems();
@@ -186,19 +131,5 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
         View v = alternatives.getGroupView(getContext(), presetClickHandler, null, null, null);
         v.setId(R.id.recentPresets);
         return v;
-    }
-
-    /**
-     * Enable selection of presets
-     */
-    void enable() {
-        enabled = true;
-    }
-
-    /**
-     * Disable selection of presets
-     */
-    void disable() {
-        enabled = false;
     }
 }

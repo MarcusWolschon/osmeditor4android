@@ -16,6 +16,7 @@ import java.util.TreeSet;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -40,10 +41,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -71,6 +69,7 @@ import de.blau.android.presets.PresetFieldJavaScript;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.presets.PresetItemLink;
 import de.blau.android.presets.PresetKeyType;
 import de.blau.android.presets.UseLastAsDefaultType;
 import de.blau.android.presets.ValueType;
@@ -91,8 +90,6 @@ import de.blau.android.views.CustomAutoCompleteTextView;
 
 public class TagEditorFragment extends BaseFragment implements PropertyRows, EditorUpdate {
     private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
-
-    private static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
 
     private static final String SAVEDTAGS_KEY = "SAVEDTAGS";
 
@@ -357,17 +354,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
 
         if (displayMRUpresets) {
-            Log.d(DEBUG_TAG, "Adding MRU prests");
-            FragmentManager fm = getChildFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            Fragment recentPresetsFragment = fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
-            if (recentPresetsFragment != null) {
-                ft.remove(recentPresetsFragment);
-            }
-
-            recentPresetsFragment = RecentPresetsFragment.newInstance(elements[0].getOsmId(), elements[0].getName()); // FIXME
-            ft.add(R.id.tag_mru_layout, recentPresetsFragment, RECENTPRESETS_FRAGMENT);
-            ft.commit();
+            // FIXME this is arguably wrong for multi select
+            de.blau.android.propertyeditor.Util.addMRUPresetsFragment(getChildFragmentManager(), elements[0].getOsmId(), elements[0].getName());
         }
 
         CheckBox headerCheckBox = (CheckBox) rowLayout.findViewById(R.id.header_tag_selected);
@@ -1692,6 +1680,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         boolean replacedValue = false;
 
         Log.d(DEBUG_TAG, "applying preset " + item.getName());
+        int replacedOrRemoved = 0;
 
         // remove everything that doesn't have a value
         // given that these are likely leftovers from a previous preset
@@ -1703,13 +1692,29 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             }
         }
 
+        // remove fixed tags for alternatives
+        List<PresetItemLink> alternatives = item.getAlternativePresetItems();
+        if (alternatives != null && !alternatives.isEmpty()) {
+            for (PresetItemLink alternative : alternatives) {
+                for (PresetItem current : getAllPresets().values()) {
+                    if (alternative.getPresetName().equals(current.getName())) {
+                        for (String key : current.getFixedTags().keySet()) {
+                            if (currentValues.remove(key) != null) {
+                                replacedOrRemoved++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         // Fixed tags, always have a value. We overwrite mercilessly.
         for (Entry<String, PresetFixedField> tag : item.getFixedTags().entrySet()) {
             PresetFixedField field = tag.getValue();
             String v = field.getValue().getValue();
             List<String> oldValue = currentValues.put(tag.getKey(), Util.wrapInList(v));
             if (oldValue != null && !oldValue.isEmpty() && !oldValue.contains(v) && !(oldValue.size() == 1 && "".equals(oldValue.get(0)))) {
-                replacedValue = true;
+                replacedOrRemoved++;
             }
         }
 
@@ -1738,8 +1743,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
 
         loadEdits(rowLayout, currentValues, true);
-        if (replacedValue) {
-            Snack.barWarning(getActivity(), R.string.toast_preset_overwrote_tags);
+        if (replacedOrRemoved > 0) {
+            Resources r = getContext().getResources();
+            Snack.barWarning(getActivity(), r.getQuantityString(R.plurals.toast_preset_removed_or_replaced_tags, replacedOrRemoved, replacedOrRemoved));
         }
 
         // re-determine best preset

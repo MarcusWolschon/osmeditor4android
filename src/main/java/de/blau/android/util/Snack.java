@@ -520,6 +520,18 @@ public final class Snack {
     /**
      * Display a snackbar with a warning
      * 
+     * @param activity activity calling us
+     * @param msg the message to display
+     */
+    public static void barWarning(Activity activity, @NonNull String msg) {
+        if (activity != null) {
+            barWarning(activity.findViewById(android.R.id.content), msg, Snackbar.LENGTH_LONG);
+        }
+    }
+
+    /**
+     * Display a snackbar with a warning
+     * 
      * @param v view to display the snackbar on
      * @param msg resource id of the message to display
      * @param duration how long to display the message in ms

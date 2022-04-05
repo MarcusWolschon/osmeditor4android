@@ -42,8 +42,16 @@
 	    	android:orientation="vertical"
 	    	android:padding="0dp" >
 		</LinearLayout>
+        <LinearLayout
+            android:id="@+id/alternative_layout"
+            android:layout_width="fill_parent" 
+            android:layout_height="wrap_content"
+            android:orientation="vertical" 
+            android:padding="0dp" 
+            android:saveEnabled="false" >
+        </LinearLayout>
 		<LinearLayout
-			android:id="@+id/form_mru_layout"
+			android:id="@+id/mru_layout"
 			android:layout_width="fill_parent" 
 			android:layout_height="wrap_content"
 			android:orientation="vertical" 
