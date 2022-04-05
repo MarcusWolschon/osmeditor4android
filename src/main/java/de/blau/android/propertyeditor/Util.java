@@ -6,7 +6,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import de.blau.android.R;
 import de.blau.android.presets.PresetItem;
 
 public final class Util {
@@ -42,13 +41,12 @@ public final class Util {
     /**
      * Add the MRU presets fragment
      * 
-     * Note the resource id of the target container must be R.id.mru_layout
-     * 
      * @param fm a FragmentManager
+     * @param container container resource id
      * @param elementId the id of an osm element
      * @param elementName the type of an osm element
      */
-    public static void addMRUPresetsFragment(@NonNull FragmentManager fm, long elementId, @NonNull String elementName) {
+    public static void addMRUPresetsFragment(@NonNull FragmentManager fm, int container, long elementId, @NonNull String elementName) {
         Log.d(DEBUG_TAG, "Adding MRU prests");
         FragmentTransaction ft = fm.beginTransaction();
         Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
@@ -56,24 +54,23 @@ public final class Util {
             ft.remove(recentPresetsFragment);
         }
         recentPresetsFragment = RecentPresetsFragment.newInstance(elementId, elementName);
-        ft.add(R.id.mru_layout, recentPresetsFragment, PropertyEditor.RECENTPRESETS_FRAGMENT);
+        ft.add(container, recentPresetsFragment, PropertyEditor.RECENTPRESETS_FRAGMENT);
         ft.commit();
     }
 
     /**
      * Add the alternative presets fragment
      * 
-     * Note the resource id of the target container must be R.id.alternative_layout
-     * 
      * @param fm a FragmentManager
+     * @param container container resource id
      * @param item the PresetItem that has alternatives or null
      */
-    public static void addAlternativePresetItemsFragment(@NonNull FragmentManager fm, @Nullable PresetItem item) {
+    public static void addAlternativePresetItemsFragment(@NonNull FragmentManager fm, int container, @Nullable PresetItem item) {
         if (item != null && item.getAlternativePresetItems() != null) {
             Log.d(DEBUG_TAG, "Adding alternative presets");
             FragmentTransaction ft = fm.beginTransaction();
             Fragment alternativePresetItemsFragment = AlternativePresetItemsFragment.newInstance(item.getPath(item.getPreset().getRootGroup()));
-            ft.replace(R.id.alternative_layout, alternativePresetItemsFragment, AlternativePresetItemsFragment.TAG);
+            ft.replace(container, alternativePresetItemsFragment, AlternativePresetItemsFragment.TAG);
             ft.commit();
         } else {
             Fragment alternativePresetItemsFragment = fm.findFragmentByTag(AlternativePresetItemsFragment.TAG);

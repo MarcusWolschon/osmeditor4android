@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:spl="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
+    android:orientation="vertical">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/propertyEditorBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_weight="0"
         android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize" >
+        android:minHeight="?attr/actionBarSize">
     </androidx.appcompat.widget.Toolbar>
-
     <de.blau.android.views.SplitPaneLayout
         android:id="@+id/pane_layout"
         android:layout_width="fill_parent"
@@ -22,16 +21,14 @@
         spl:orientation="horizontal"
         spl:splitterBackground="?attr/SplitterBGH"
         spl:splitterPosition="66%"
-        spl:splitterSize="5dip" >
-
+        spl:splitterSize="5dip">
         <de.blau.android.views.ExtendedViewPager
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/pager"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:paddingRight="5dp"
-            android:paddingEnd="5dp" >
-
+            android:paddingEnd="5dp">
             <de.blau.android.views.ExtendedPagerTabStrip
                 android:id="@+id/pager_header"
                 style="?attr/PagerTabStrip"
@@ -41,7 +38,6 @@
                 android:paddingBottom="4dp"
                 android:paddingTop="4dp" />
         </de.blau.android.views.ExtendedViewPager>
-
         <de.blau.android.views.SplitPaneLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -50,15 +46,30 @@
             spl:orientation="vertical"
             spl:splitterBackground="?attr/SplitterBGV"
             spl:splitterPosition="33%"
-            spl:splitterSize="5dip" >
-
+            spl:splitterSize="5dip">
             <LinearLayout
                 android:id="@+id/recent_preset_row"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:orientation="vertical"
-                android:paddingBottom="4dp" />
-
+                android:paddingBottom="4dp">
+                <LinearLayout
+                    android:id="@+id/pane_alternative_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="0dp"
+                    android:saveEnabled="false">
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/pane_mru_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="0dp"
+                    android:saveEnabled="false">
+                </LinearLayout>
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/preset_row"
                 android:layout_width="fill_parent"
@@ -67,5 +78,4 @@
                 android:paddingTop="4dp" />
         </de.blau.android.views.SplitPaneLayout>
     </de.blau.android.views.SplitPaneLayout>
-
 </LinearLayout>

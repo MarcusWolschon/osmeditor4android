@@ -270,9 +270,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             Log.d(DEBUG_TAG, "Initializing from original arguments");
             osmIds = (long[]) getArguments().getSerializable(IDS_KEY);
             types = (String[]) getArguments().getSerializable(TYPES_KEY);
-            applyLastAddressTags = (Boolean) getArguments().getSerializable(APPLY_LAST_ADDRESS_TAGS);
+            applyLastAddressTags = getArguments().getBoolean(APPLY_LAST_ADDRESS_TAGS, false);
             focusOnKey = (String) getArguments().getSerializable(FOCUS_ON_KEY);
-            displayMRUpresets = (Boolean) getArguments().getSerializable(DISPLAY_MRU_PRESETS);
+            displayMRUpresets = getArguments().getBoolean(DISPLAY_MRU_PRESETS, false);
         } else {
             // Restore activity from saved state
             Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
@@ -355,7 +355,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         if (displayMRUpresets) {
             // FIXME this is arguably wrong for multi select
-            de.blau.android.propertyeditor.Util.addMRUPresetsFragment(getChildFragmentManager(), elements[0].getOsmId(), elements[0].getName());
+            de.blau.android.propertyeditor.Util.addMRUPresetsFragment(getChildFragmentManager(), R.id.mru_layout, elements[0].getOsmId(),
+                    elements[0].getName());
         }
 
         CheckBox headerCheckBox = (CheckBox) rowLayout.findViewById(R.id.header_tag_selected);
@@ -1676,10 +1677,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param useDefaults use any default values specified in the preset
      */
     void applyPreset(@NonNull LinearLayout rowLayout, @NonNull PresetItem item, boolean addOptional, boolean addToMRU, boolean useDefaults) {
-        LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(rowLayout, true);
-        boolean replacedValue = false;
-
         Log.d(DEBUG_TAG, "applying preset " + item.getName());
+        LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(rowLayout, true);
+
         int replacedOrRemoved = 0;
 
         // remove everything that doesn't have a value

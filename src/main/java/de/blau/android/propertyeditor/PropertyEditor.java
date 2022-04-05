@@ -338,27 +338,17 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
         actionbar.setDisplayHomeAsUpEnabled(true);
 
         if (usePaneLayout) { // add both preset fragments to panes
-            Log.d(DEBUG_TAG, "Adding MRU prests");
+            Log.d(DEBUG_TAG, "Adding fragment to pane");
             FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            Fragment recentPresetsFragment = fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
-            if (recentPresetsFragment != null) {
-                ft.remove(recentPresetsFragment);
-            }
-            recentPresetsFragment = RecentPresetsFragment.newInstance(getElement().getOsmId(), getElement().getName()); // FIXME
-                                                                                                                        // collect
-                                                                                                                        // tags
-            ft.add(R.id.recent_preset_row, recentPresetsFragment, RECENTPRESETS_FRAGMENT);
+            de.blau.android.propertyeditor.Util.addMRUPresetsFragment(fm, R.id.pane_mru_layout, getElement().getOsmId(), getElement().getName());
 
+            FragmentTransaction ft = fm.beginTransaction();
             presetFragment = (PresetFragment) fm.findFragmentByTag(PRESET_FRAGMENT);
             if (presetFragment != null) {
                 ft.remove(presetFragment);
             }
-            presetFragment = PresetFragment.newInstance(getElement().getOsmId(), getElement().getName(), presetsToApply, true); // FIXME
-                                                                                                                                // collect
-                                                                                                                                // tags
+            presetFragment = PresetFragment.newInstance(getElement().getOsmId(), getElement().getName(), presetsToApply, true);
             ft.add(R.id.preset_row, presetFragment, PRESET_FRAGMENT);
-
             ft.commit();
         }
 
@@ -1162,7 +1152,12 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     @Override
     public PresetItem getBestPreset() {
         if (tagEditorFragment != null) {
-            return tagEditorFragment.getBestPreset();
+            PresetItem best = tagEditorFragment.getBestPreset();
+            if (usePaneLayout) {
+                // FIXME it isn't clear where the best place to add/update the display is
+                de.blau.android.propertyeditor.Util.addAlternativePresetItemsFragment(getSupportFragmentManager(), R.id.pane_alternative_layout, best);
+            }
+            return best;
         } else {
             Log.e(DEBUG_TAG, "getBestPreset tagEditorFragment is null");
             return null;

@@ -35,9 +35,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import ch.poole.android.checkbox.IndeterminateCheckBox;
 import ch.poole.conditionalrestrictionparser.ConditionalRestrictionParser;
 import de.blau.android.App;
@@ -63,14 +61,12 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetKeyType;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.presets.ValueType;
-import de.blau.android.propertyeditor.AlternativePresetItemsFragment;
 import de.blau.android.propertyeditor.EditorUpdate;
 import de.blau.android.propertyeditor.FormUpdate;
 import de.blau.android.propertyeditor.NameAdapters;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorListener;
-import de.blau.android.propertyeditor.RecentPresetsFragment;
 import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.util.ArrayAdapterWithRuler;
@@ -109,8 +105,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     private NameAdapters nameAdapters = null;
 
     private boolean focusOnAddress = false;
-
-    private String focusTag = null;
+    private boolean displayMRUpresets;
+    private String  focusTag       = null;
 
     int maxInlineValues = 3;
 
@@ -188,8 +184,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         this.inflater = inflater;
         ScrollView rowLayout = (ScrollView) inflater.inflate(R.layout.tag_form_view, container, false);
 
-        boolean displayMRUpresets = (Boolean) getArguments().getSerializable(DISPLAY_MRU_PRESETS);
-        focusOnAddress = (Boolean) getArguments().getSerializable(FOCUS_ON_ADDRESS);
+        displayMRUpresets = getArguments().getBoolean(DISPLAY_MRU_PRESETS, false);
+        focusOnAddress = getArguments().getBoolean(FOCUS_ON_ADDRESS, false);
         focusTag = getArguments().getString(FOCUS_TAG);
 
         if (getUserVisibleHint()) { // don't request focus if we are not visible
@@ -208,8 +204,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         maxStringLength = server.getCachedCapabilities().getMaxStringLength();
 
         if (displayMRUpresets) {
-            de.blau.android.propertyeditor.Util.addMRUPresetsFragment(getChildFragmentManager(), propertyEditorListener.getElement().getOsmId(),
-                    propertyEditorListener.getElement().getName());
+            de.blau.android.propertyeditor.Util.addMRUPresetsFragment(getChildFragmentManager(), R.id.mru_layout,
+                    propertyEditorListener.getElement().getOsmId(), propertyEditorListener.getElement().getName());
         }
 
         Log.d(DEBUG_TAG, "onCreateView returning");
@@ -629,7 +625,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         }
 
         // if we have alternative tagging suggestions display them
-        de.blau.android.propertyeditor.Util.addAlternativePresetItemsFragment(getChildFragmentManager(), tagListener.getBestPreset());
+        if (displayMRUpresets) {
+            de.blau.android.propertyeditor.Util.addAlternativePresetItemsFragment(getChildFragmentManager(), R.id.alternative_layout,
+                    tagListener.getBestPreset());
+        }
 
         // some final UI stuff
         if (focusOnAddress) {
