@@ -717,10 +717,11 @@ public class PresetItem extends PresetElement {
      * 
      * @param noPrimary if true only items will be returned that doen't correspond to primary OSM objects
      * @param otherPresets other Presets beside this one to search in
+     * @param region a region this applies to or null
      * @return list of PresetItems
      */
     @NonNull
-    public List<PresetItem> getLinkedPresets(boolean noPrimary, @Nullable Preset[] otherPresets) {
+    public List<PresetItem> getLinkedPresets(boolean noPrimary, @Nullable Preset[] otherPresets, @Nullable String region) {
         List<PresetItem> result = new ArrayList<>();
         List<Preset> presets = new ArrayList<>();
         if (otherPresets != null) {
@@ -732,14 +733,14 @@ public class PresetItem extends PresetElement {
             for (PresetItemLink pl : linkedPresetItems) {
                 for (Preset preset : presets) {
                     if (preset != null) {
-                        PresetItem candidateItem = preset.getItemByName(pl.getPresetName());
+                        PresetItem candidateItem = preset.getItemByName(pl.getPresetName(), region);
                         if (candidateItem != null) {
                             if (!noPrimary || !candidateItem.isObject(preset)) { // remove primary objects
                                 result.add(candidateItem);
                             }
                             break;
                         } else {
-                            Log.e(DEBUG_TAG, "Couldn't find linked preset " + pl.getPresetName());
+                            Log.e(DEBUG_TAG, "Couldn't find linked preset " + pl.getPresetName() + " for region " + region);
                         }
                     }
                 }

@@ -16,7 +16,6 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetClickHandler;
-import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.BaseFragment;
@@ -123,16 +122,6 @@ public class RecentPresetsFragment extends BaseFragment {
                             removePresetFromMRU(presetLayout, item);
                         }
                         return true;
-                    }
-
-                    @Override
-                    public void onGroupClick(PresetGroup group) {
-                        // should not have groups
-                    }
-
-                    @Override
-                    public boolean onGroupLongClick(PresetGroup group) {
-                        return false;
                     }
                 };
                 // all MRUs get added to this view

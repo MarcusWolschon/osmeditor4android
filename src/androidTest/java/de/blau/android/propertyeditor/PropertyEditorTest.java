@@ -680,7 +680,7 @@ public class PropertyEditorTest {
         Preset[] presets = App.getCurrentPresets(context);
         for (Preset p : presets) {
             if (p != null) {
-                PresetItem item = p.getItemByName(name);
+                PresetItem item = p.getItemByName(name, null);
                 if (item != null) {
                     return item.getTranslatedName();
                 }

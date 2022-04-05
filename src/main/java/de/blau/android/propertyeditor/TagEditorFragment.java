@@ -41,6 +41,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import de.blau.android.App;
@@ -382,10 +383,13 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             @SuppressWarnings("unchecked")
             List<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getArguments().getSerializable(PRESETSTOAPPLY_KEY);
             if (presetsToApply != null && !presetsToApply.isEmpty()) {
-                Preset preset = App.getCurrentRootPreset(getActivity());
+                FragmentActivity activity = getActivity();
+                Preset preset = App.getCurrentRootPreset(activity);
                 PresetGroup rootGroup = preset.getRootGroup();
                 for (PresetElementPath pp : presetsToApply) {
-                    PresetElement pi = Preset.getElementByPath(rootGroup, pp);
+                    // can't use the listener here as onAttach will not have happened
+                    PresetElement pi = Preset.getElementByPath(rootGroup, pp,
+                            activity instanceof PropertyEditor ? ((PropertyEditor) activity).getCountryIsoCode() : null);
                     if (pi instanceof PresetItem) {
                         applyPreset(editRowLayout, (PresetItem) pi, false, true, true);
                     }
@@ -694,7 +698,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     void addToMru(@NonNull Preset[] presets, @NonNull PresetItem item) {
         for (Preset p : presets) {
             if (p != null && p.contains(item)) {
-                p.putRecentlyUsed(item, null);
+                p.putRecentlyUsed(item, propertyEditorListener.getCountryIsoCode());
                 break;
             }
         }
@@ -736,7 +740,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     private Map<String, String> addPresetsToTags(@Nullable PresetItem preset, @NonNull Map<String, String> tags) {
         Map<String, String> leftOvers = new LinkedHashMap<>();
         if (preset != null) {
-            List<PresetItem> linkedPresetList = preset.getLinkedPresets(true, App.getCurrentPresets(getContext()));
+            List<PresetItem> linkedPresetList = preset.getLinkedPresets(true, App.getCurrentPresets(getContext()), propertyEditorListener.getCountryIsoCode());
             for (Entry<String, String> entry : tags.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();

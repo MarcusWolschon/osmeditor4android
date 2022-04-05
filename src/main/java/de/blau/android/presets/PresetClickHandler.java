@@ -18,14 +18,18 @@ public interface PresetClickHandler {
      * @param item the PresetItem
      * @return true if consumed
      */
-    boolean onItemLongClick(@NonNull PresetItem item);
+    default boolean onItemLongClick(@NonNull PresetItem item) {
+        return false;
+    }
 
     /**
      * Called for a normal click on a button showing a PresetGroup
      * 
      * @param group the PresetGroup
      */
-    void onGroupClick(@NonNull PresetGroup group);
+    default void onGroupClick(@NonNull PresetGroup group) {
+        // do nothing
+    }
 
     /**
      * Called for a long click on a button showing a PresetGroup
@@ -33,5 +37,7 @@ public interface PresetClickHandler {
      * @param group the PresetGroup
      * @return true if consumed
      */
-    boolean onGroupLongClick(@NonNull PresetGroup group);
+    default boolean onGroupLongClick(@NonNull PresetGroup group) {
+        return false;
+    }
 }

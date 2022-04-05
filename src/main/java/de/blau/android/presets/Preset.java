@@ -1429,11 +1429,12 @@ public class Preset {
      * Return a preset by name Note: the names are not guaranteed to be unique, this will simple return the first found
      * 
      * @param name the name to search for
+     * @param region a region (country/state) to filter by
      * @return the preset item or null if not found
      */
     @Nullable
-    public PresetItem getItemByName(@NonNull String name) {
-        return getElementByName(rootGroup, name);
+    public PresetItem getItemByName(@NonNull String name, @Nullable String region) {
+        return getElementByName(rootGroup, name, region);
     }
 
     /**
@@ -1441,15 +1442,17 @@ public class Preset {
      * 
      * @param group the starting PresetGroup
      * @param name the name
+     * @param region a region (country/state) to filter by
      * @return a matching PresetItem or null
      */
     @Nullable
-    private PresetItem getElementByName(@NonNull PresetGroup group, @NonNull String name) {
-        for (PresetElement element : group.getElements()) {
+    private PresetItem getElementByName(@NonNull PresetGroup group, @NonNull String name, @Nullable String region) {
+        List<PresetElement> elements = region == null ? group.getElements() : PresetElement.filterElementsByRegion(group.getElements(), region);
+        for (PresetElement element : elements) {
             if (element instanceof PresetItem && name.equals(((PresetItem) element).getName())) {
                 return (PresetItem) element;
             } else if (element instanceof PresetGroup) {
-                PresetItem result = getElementByName((PresetGroup) element, name);
+                PresetItem result = getElementByName((PresetGroup) element, name, region);
                 if (result != null) {
                     return result;
                 }
@@ -1543,17 +1546,31 @@ public class Preset {
      */
     @Nullable
     public static PresetElement getElementByPath(@NonNull PresetGroup group, @NonNull PresetElementPath path) {
+        return getElementByPath(group, path, null);
+    }
+
+    /**
+     * Return a PresetElement by identifying it by its place in the hierarchy
+     * 
+     * @param group PresetGroup to start the search at
+     * @param path the path
+     * @param region a region (country/state) to filter by
+     * @return the PresetElement or null if not found
+     */
+    @Nullable
+    public static PresetElement getElementByPath(@NonNull PresetGroup group, @NonNull PresetElementPath path, @Nullable String region) {
         int size = path.getPath().size();
         if (size > 0) {
             String segment = path.getPath().get(0);
-            for (PresetElement e : group.getElements()) {
+            List<PresetElement> elements = region == null ? group.getElements() : PresetElement.filterElementsByRegion(group.getElements(), region);
+            for (PresetElement e : elements) {
                 if (segment.equals(e.getName())) {
                     if (size == 1) {
                         return e;
                     } else if (e instanceof PresetGroup) {
                         PresetElementPath newPath = new PresetElementPath(path);
                         newPath.getPath().remove(0);
-                        return getElementByPath((PresetGroup) e, newPath);
+                        return getElementByPath((PresetGroup) e, newPath, region);
                     }
                 }
             }
@@ -1578,10 +1595,10 @@ public class Preset {
         recent.setItemSort(false);
         for (Preset p : presets) {
             if (p != null && p.hasMRU()) {
-                p.mru.addToPresetGroup(recent, p);
+                p.mru.addToPresetGroup(recent, p, region);
             }
         }
-        return recent.getGroupView(ctx, handler, type, null, region);
+        return recent.getGroupView(ctx, handler, type, null, null); // we've already filtered on region
     }
 
     /**
@@ -1626,12 +1643,12 @@ public class Preset {
      * Add a preset to the front of the MRU list (removing old duplicates and limiting the list if needed)
      * 
      * @param item the item to add
-     * @param country country to filter on
+     * @param region region to filter on
      * 
      */
-    public void putRecentlyUsed(@NonNull PresetItem item, @Nullable String country) {
+    public void putRecentlyUsed(@NonNull PresetItem item, @Nullable String region) {
         if (mru != null) {
-            mru.putRecentlyUsed(item, country);
+            mru.putRecentlyUsed(item, region);
         }
     }
 

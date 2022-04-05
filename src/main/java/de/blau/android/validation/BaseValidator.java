@@ -564,13 +564,7 @@ public class BaseValidator implements Validator {
      */
     @Nullable
     String getCountry(@NonNull OsmElement e) {
-        if (geoContext != null) {
-            List<String> isoCodes = geoContext.getIsoCodes(e);
-            if (isoCodes != null) {
-                return GeoContext.getCountryIsoCode(isoCodes);
-            }
-        }
-        return null;
+        return GeoContext.getCountryIsoCode(geoContext, e);
     }
 
     /**

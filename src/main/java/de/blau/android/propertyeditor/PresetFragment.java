@@ -211,9 +211,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             // for the following
             presetSearch.setOnTouchListener((v, event) -> {
                 final int DRAWABLE_LEFT = 0;
-                // final int DRAWABLE_TOP = 1;
                 final int DRAWABLE_RIGHT = 2;
-                // final int DRAWABLE_BOTTOM = 3;
 
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     boolean rtlLayout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
@@ -437,11 +435,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 activity.invalidateOptionsMenu();
             }
         }
-    }
-
-    @Override
-    public boolean onGroupLongClick(PresetGroup group) {
-        return false;
     }
 
     @Override

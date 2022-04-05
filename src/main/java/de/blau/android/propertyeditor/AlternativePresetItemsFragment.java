@@ -39,6 +39,7 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
     private static final String TAG = "alternative_preset_item_fragment";
 
     private OnPresetSelectedListener presetSelectedListener;
+    private PropertyEditorListener   propertyEditorListener;
 
     private boolean enabled = true;
 
@@ -91,6 +92,7 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
         Log.d(DEBUG_TAG, "onAttach");
         try {
             presetSelectedListener = (OnPresetSelectedListener) context;
+            propertyEditorListener = (PropertyEditorListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener");
         }
@@ -132,7 +134,8 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
             presetElementPath = (PresetElementPath) getArguments().getSerializable(ITEM_PATH_KEY);
         }
 
-        PresetElement presetItem = Preset.getElementByPath(App.getCurrentRootPreset(getContext()).getRootGroup(), presetElementPath);
+        PresetElement presetItem = Preset.getElementByPath(App.getCurrentRootPreset(getContext()).getRootGroup(), presetElementPath,
+                propertyEditorListener.getCountryIsoCode());
         if (!(presetItem instanceof PresetItem)) {
             Log.e(DEBUG_TAG, "no PresetItem found for " + presetElementPath);
             return null;
@@ -154,34 +157,15 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
     @NonNull
     private View getAlternativesView(@NonNull final LinearLayout presetLayout, @NonNull PresetItem presetItem) {
 
-        final PresetClickHandler presetClickHandler = new PresetClickHandler() {
-            @Override
-            public void onItemClick(PresetItem item) {
-                if (!enabled) {
-                    return;
-                }
-                Log.d(DEBUG_TAG, "normal click");
-                presetSelectedListener.onPresetSelected(item);
-                Dialog dialog = getDialog();
-                if (dialog != null) {
-                    dialog.dismiss();
-                }
+        final PresetClickHandler presetClickHandler = (PresetItem item) -> {
+            if (!enabled) {
+                return;
             }
-
-            @Override
-            public void onGroupClick(PresetGroup group) {
-                // should not have groups
-            }
-
-            @Override
-            public boolean onGroupLongClick(PresetGroup group) {
-                return false;
-            }
-
-            @Override
-            public boolean onItemLongClick(PresetItem item) {
-                // not used
-                return false;
+            Log.d(DEBUG_TAG, "normal click");
+            presetSelectedListener.onPresetSelected(item);
+            Dialog dialog = getDialog();
+            if (dialog != null) {
+                dialog.dismiss();
             }
         };
         PresetGroup alternatives = Preset.dummyInstance().getRootGroup();
@@ -190,7 +174,7 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
             for (PresetItemLink link : presetItem.getAlternativePresetItems()) {
                 for (Preset preset : App.getCurrentPresets(getContext())) {
                     if (preset != null) {
-                        PresetItem item = preset.getItemByName(link.getPresetName());
+                        PresetItem item = preset.getItemByName(link.getPresetName(), propertyEditorListener.getCountryIsoCode());
                         if (item != null) {
                             alternatives.addElement(item, false);
                             break;
@@ -200,9 +184,7 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
             }
         }
         View v = alternatives.getGroupView(getContext(), presetClickHandler, null, null, null);
-
         v.setId(R.id.recentPresets);
-
         return v;
     }
 

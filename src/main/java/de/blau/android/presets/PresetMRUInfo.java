@@ -60,10 +60,10 @@ public class PresetMRUInfo implements Serializable {
      * Add a preset to the front of the MRU list (removing old duplicates and limiting the list if needed)
      * 
      * @param item the item to add
-     * @param country country to filter on
+     * @param region country to filter on
      * 
      */
-    public void putRecentlyUsed(@NonNull PresetItem item, @Nullable String country) {
+    public void putRecentlyUsed(@NonNull PresetItem item, @Nullable String region) {
         final PresetGroup rootGroup = item.getPreset().getRootGroup();
         PresetElementPath path = item.getPath(rootGroup);
         // prevent duplicates and preset is not in the list, add linked presets first
@@ -72,7 +72,7 @@ public class PresetMRUInfo implements Serializable {
             Collections.reverse(linkedPresets);
             Preset preset = item.getPreset();
             for (PresetItemLink pl : linkedPresets) {
-                PresetItem linkedItem = preset.getItemByName(pl.getPresetName());
+                PresetItem linkedItem = preset.getItemByName(pl.getPresetName(), region);
                 if (linkedItem != null) { // null if the link wasn't found
                     PresetElementPath linkedPath = linkedItem.getPath(rootGroup);
                     if (!recentPresets.contains(linkedPath)) { // only add if not already present
@@ -129,10 +129,11 @@ public class PresetMRUInfo implements Serializable {
      * 
      * @param group the PresetGroup
      * @param p the parent Preset
+     * @param region the current region if any
      */
-    public void addToPresetGroup(@NonNull PresetGroup group, @NonNull Preset p) {
+    public void addToPresetGroup(@NonNull PresetGroup group, @NonNull Preset p, @Nullable String region) {
         for (PresetElementPath path : recentPresets) {
-            final PresetItem item = (PresetItem) Preset.getElementByPath(p.getRootGroup(), path);
+            final PresetItem item = (PresetItem) Preset.getElementByPath(p.getRootGroup(), path, region);
             if (item != null) {
                 group.addElement(item, false);
             }

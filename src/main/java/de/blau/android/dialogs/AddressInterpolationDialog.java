@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +36,7 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.address.Address;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
@@ -43,6 +45,7 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.propertyeditor.tagform.TextRow;
 import de.blau.android.util.ElementSearch;
+import de.blau.android.util.GeoContext;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.IntCoordinates;
 import de.blau.android.util.StreetPlaceNamesAdapter;
@@ -178,7 +181,7 @@ public class AddressInterpolationDialog extends ImmersiveDialogFragment {
 
         PresetItem presetItem = null;
         for (Preset preset : App.getCurrentPresets(context)) {
-            presetItem = preset != null ? preset.getItemByName(ADDRESS_PRESET_ITEM) : null;
+            presetItem = preset != null ? preset.getItemByName(ADDRESS_PRESET_ITEM, GeoContext.getCountryIsoCode(App.getGeoContext(getContext()), way)) : null;
             if (presetItem != null) {
                 break;
             }

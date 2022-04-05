@@ -459,15 +459,15 @@ public abstract class PresetElement {
     }
 
     /**
-     * Check if a PresetElement is applicable for a country
+     * Check if a PresetElement is applicable for a region
      * 
-     * @param country the country
+     * @param region the region
      * @return true if the PresetElement is in use
      */
-    public boolean appliesIn(@Nullable String country) {
-        if (regions != null && !regions.isEmpty() && country != null) {
+    public boolean appliesIn(@Nullable String region) {
+        if (regions != null && !regions.isEmpty() && region != null) {
             for (String r : regions) {
-                if (country.equals(r)) {
+                if (region.equals(r)) {
                     return !excludeRegions;
                 }
             }
@@ -519,6 +519,24 @@ public abstract class PresetElement {
     @NonNull
     public Preset getPreset() {
         return preset;
+    }
+
+    /**
+     * Filter a List of PresetElement by region
+     * 
+     * @param elements the input PresetElements
+     * @param region the region
+     * @return a List of PresetElement, potentially empty
+     */
+    @NonNull
+    protected static List<PresetElement> filterElementsByRegion(@NonNull List<PresetElement> elements, @Nullable String region) {
+        List<PresetElement> result = new ArrayList<>();
+        for (PresetElement pe : elements) {
+            if (pe.appliesIn(region)) {
+                result.add(pe);
+            }
+        }
+        return result;
     }
 
     @Override

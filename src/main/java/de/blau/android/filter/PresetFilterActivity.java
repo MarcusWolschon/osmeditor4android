@@ -104,22 +104,6 @@ public class PresetFilterActivity extends LocaleAwareCompatActivity implements P
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     protected void onSaveInstanceState(final Bundle outState) {
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         super.onSaveInstanceState(outState);

@@ -140,12 +140,12 @@ public class PresetGroup extends PresetElement {
      * @param handler listeners for click events on the View, in null no listeners
      * @param type ElementType the views are applicable for, if null don't filter
      * @param selectedElement highlight the background if true, if null no selection
-     * @param country country in question
+     * @param region region to filter on
      * @return the supplied ScrollView
      */
     @NonNull
     public View getGroupView(@NonNull Context ctx, @NonNull ScrollView scrollView, @Nullable PresetClickHandler handler, @Nullable ElementType type,
-            @Nullable PresetElement selectedElement, @Nullable String country) {
+            @Nullable PresetElement selectedElement, @Nullable String region) {
         scrollView.removeAllViews();
         WrappingLayout wrappingLayout = new WrappingLayout(ctx);
         wrappingLayout.setSaveEnabled(false);
@@ -155,7 +155,7 @@ public class PresetGroup extends PresetElement {
         wrappingLayout.setHorizontalSpacing((int) (Preset.SPACING * density));
         wrappingLayout.setVerticalSpacing((int) (Preset.SPACING * density));
         List<PresetElement> filteredElements = type == null ? elements : Preset.filterElements(elements, type);
-        filteredElements = country == null ? filteredElements : filterElementsByCountry(filteredElements, country);
+        filteredElements = region == null ? filteredElements : filterElementsByRegion(filteredElements, region);
         if (itemSort) {
             List<PresetItem> tempItems = new ArrayList<>();
             List<PresetGroup> tempGroups = new ArrayList<>();
@@ -188,24 +188,6 @@ public class PresetGroup extends PresetElement {
         wrappingLayout.setWrappedChildren(childViews);
         scrollView.addView(wrappingLayout);
         return scrollView;
-    }
-
-    /**
-     * Filter a List of PresetElement by country
-     * 
-     * @param elements the input PresetElements
-     * @param country the country
-     * @return a List of PresetElement, potentially empty
-     */
-    @NonNull
-    private List<PresetElement> filterElementsByCountry(@NonNull List<PresetElement> elements, @Nullable String country) {
-        List<PresetElement> result = new ArrayList<>();
-        for (PresetElement pe : elements) {
-            if (pe.appliesIn(country)) {
-                result.add(pe);
-            }
-        }
-        return result;
     }
 
     /**

@@ -15,5 +15,11 @@
         <item name="Test Item 4" type="node,way,closedway,multipolygon">
             <key key="highway" value="tag2" object="false" />
         </item> <!-- -->
+        <item name="Test Same Name" exclude_regions="true" regions="CH" type="node,way,closedway,multipolygon">
+            <key key="samething" value="not in CH" />
+        </item> <!-- -->
+        <item name="Test Same Name" regions="CH" type="node,way,closedway,multipolygon">
+            <key key="samething" value="is in CH" />
+        </item> <!-- -->
     </group>
 </presets>

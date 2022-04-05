@@ -82,7 +82,7 @@ public class PresetTest {
         values.add(null);
         assertEquals(3, Preset.splitValues(values, restaurant, "cuisine").size());
         // lanes uses |
-        PresetItem lanes = presets[0].getItemByName("Single direction roads");
+        PresetItem lanes = presets[0].getItemByName("Single direction roads", null);
         assertNotNull(lanes);
         values.clear();
         values.add("left|right");
@@ -155,8 +155,8 @@ public class PresetTest {
      */
     @Test
     public void deprecation() {
-        PresetItem landuseFarm = presets[0].getItemByName("Farm (deprecated)");
-        PresetItem placeFarm = presets[0].getItemByName("Farm");
+        PresetItem landuseFarm = presets[0].getItemByName("Farm (deprecated)", null);
+        PresetItem placeFarm = presets[0].getItemByName("Farm", null);
         assertNotNull(landuseFarm);
         List<PresetElement> result = SearchIndexUtils.searchInPresets(ApplicationProvider.getApplicationContext(), "farm", ElementType.CLOSEDWAY, 2, 10, null);
         assertFalse(result.contains(landuseFarm));
@@ -168,10 +168,10 @@ public class PresetTest {
      */
     @Test
     public void includeExcludeCountry() {
-        PresetItem motorVehicleCH = presets[0].getItemByName("Motor vehicle (CH)");
+        PresetItem motorVehicleCH = presets[0].getItemByName("Motor vehicle (CH)", null);
         assertNotNull(motorVehicleCH);
         motorVehicleCH.setRegions("CH");
-        PresetItem motorVehicle = presets[0].getItemByName("Motor vehicle");
+        PresetItem motorVehicle = presets[0].getItemByName("Motor vehicle", null);
         assertNotNull(motorVehicle);
         motorVehicle.setRegions("CH");
         motorVehicle.setExcludeRegions(true);
@@ -211,11 +211,58 @@ public class PresetTest {
     }
 
     /**
+     * Test that we can find items with the same name that differ in which region they apply to
+     */
+    @Test
+    public void sameName() {
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(ApplicationProvider.getApplicationContext())) {
+            File preset = JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "test-preset.xml", null, "/");
+            String presetId = java.util.UUID.randomUUID().toString();
+            db.addPreset(presetId, "Test preset", "", true);
+            File presetDir = db.getPresetDirectory(presetId);
+            presetDir.mkdir();
+            Uri inputUri = Uri.parse(preset.toURI().toString());
+            ContentResolver contentResolver = ApplicationProvider.getApplicationContext().getContentResolver();
+            ShadowContentResolver shadowContentResolver = shadowOf(contentResolver);
+            shadowContentResolver.registerInputStream(inputUri, new FileInputStream(preset));
+            PresetLoader.load(ApplicationProvider.getApplicationContext(), inputUri, presetDir, "test-preset.xml");
+            App.resetPresets();
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
+        //
+        presets = App.getCurrentPresets(ApplicationProvider.getApplicationContext());
+        Preset testPreset = null;
+        for (Preset p : presets) {
+            if ("Testing preset".equals(p.getShortDescription())) {
+                testPreset = p;
+                break;
+            }
+        }
+        assertNotNull(testPreset);
+        PresetItem testItem = testPreset.getItemByName("Test Same Name", "CH");
+        assertNotNull(testItem);
+        assertTrue(testItem.hasKeyValue("samething", "is in CH"));
+        PresetElementPath testPath = testItem.getPath(testPreset.getRootGroup());
+        assertNotNull(testPath);
+        PresetItem testItemByPath = (PresetItem) Preset.getElementByPath(testPreset.getRootGroup(), testPath, "CH");
+        assertEquals(testItem, testItemByPath);
+
+        testItem = testPreset.getItemByName("Test Same Name", "DE");
+        assertNotNull(testItem);
+        assertTrue(testItem.hasKeyValue("samething", "not in CH"));
+        testPath = testItem.getPath(testPreset.getRootGroup());
+        assertNotNull(testPath);
+        testItemByPath = (PresetItem) Preset.getElementByPath(testPreset.getRootGroup(), testPath, "DE");
+        assertEquals(testItem, testItemByPath);
+    }
+
+    /**
      * Optional items should be that
      */
     @Test
     public void optional() {
-        PresetItem path = presets[0].getItemByName("Path");
+        PresetItem path = presets[0].getItemByName("Path", null);
         assertNotNull(path);
         // name is in a chunk that is loaded in an optional section
         assertFalse(path.hasKey(Tags.KEY_NAME, false));
