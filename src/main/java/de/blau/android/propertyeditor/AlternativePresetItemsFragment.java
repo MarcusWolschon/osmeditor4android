@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.dialogs.Tip;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetClickHandler;
 import de.blau.android.presets.PresetElement;
@@ -30,7 +31,7 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
     private static final String ITEM_PATH_KEY = "itemPath";
     public static final String  TAG           = "alternative_preset_item_fragment";
 
-    private OnPresetSelectedListener presetSelectedListener;
+    private OnPresetSelectedListener presetSelectedListener; // NOSONAR false positive
     private PropertyEditorListener   propertyEditorListener;
 
     /**
@@ -131,5 +132,11 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
         View v = alternatives.getGroupView(getContext(), presetClickHandler, null, null, null);
         v.setId(R.id.recentPresets);
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Tip.showDialog(getActivity(), R.string.tip_alternative_tagging_key, R.string.tip_alternative_tagging);
     }
 }

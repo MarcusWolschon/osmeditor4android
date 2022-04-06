@@ -723,6 +723,42 @@ public class PropertyEditorTest {
     }
 
     /**
+     * Apply a preset with alternatives
+     */
+    @Test
+    public void alternativePresets() {
+        TestUtils.disableTip(main, R.string.tip_alternative_tagging_key);
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 289987513L);
+        assertNotNull(n);
+
+        main.performTagEdit(n, null, false, false);
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(propertyEditor instanceof PropertyEditor);
+
+        if (!((PropertyEditor) propertyEditor).paneLayout()) {
+            assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
+        }
+        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Highways"), true, false);
+        assertTrue(found);
+        found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Waypoints"), true, false);
+        assertTrue(found);
+        found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Mini-Roundabout"), true, false);
+        assertTrue(found);
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_tags)));
+        assertTrue(TestUtils.findText(device, false, "Circular"));
+    }
+
+    /**
      * Search for McDo
      */
     @Test

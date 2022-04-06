@@ -428,6 +428,7 @@ avoided by using an offline data source.</string>
     <string name="tip_gpx_recording">When you start GPX recording Vespucci collects location data to enable the GPX recording even when the app is not visible.&lt;p&gt;Explicitly closing the application or turning GPX recording off will stop the use of location data in such situations.</string>
     <string name="tip_auto_download">When you start auto-downloading OSM data or tasks Vespucci utilizes location data to determine the current position even when the app is not visible.&lt;p&gt;Explicitly closing the application or turning auto-downloading off will stop the use of location data in such situations.</string>
     <string name="tip_tristate_checkbox">You just touched a tristate checkbox, these work just as normal checkboxes, toggling between two values, for example yes/no or true/false.&lt;p&gt;However they have an additional third &lt;b&gt;not set&lt;/b&gt; state, indicated by a greyed out checkbox which will stop the corresponding tag from being added. You can set the checkbox to this state with a long press. </string>
+    <string name="tip_alternative_tagging">You just applied a preset that has links to alternative tagging. That is other ways to tag this object that may be more appropriate or may simply be related. These alternative presets will be shown at the top of the most recently used preset display.</string>
     <!--  NumberPicker -->
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>
