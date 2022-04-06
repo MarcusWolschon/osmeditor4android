@@ -1,5 +1,5 @@
 ## Vespucci Preset System
-_Documentation for Vespucci 14.1_
+_Documentation for Vespucci 17.1_
 
 As explained in the [help documentation](../help/en/Presets.md) Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.
 
@@ -55,6 +55,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | match                         | partial   | "none" is supported
 |                   | text                          | extension | Something to display
 |                   | values_context                | extension | Translation context
+|                   | object                        | extension | If present and true or false the tag will be considered as defining/not-defining a top level object, overriding the normal rules 
 |__&lt;text&gt;__   |                               | supported |
 |                   | key                           | supported | required
 |                   | text                          | supported |
@@ -163,6 +164,7 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
 * _javascript_ execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any
 * _i18n_ the tag can have i18n variants, for example name and name:de
 * _object\_keys_ comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the [Christmas preset](https://github.com/simonpoole/xmas-preset) for an example
+* _object_ on fixed value tags. If present and true or false the tag will be considered as defining/not-defining a top level object, overriding the normal rules (see above).
 * _value\_type_ type of the value. This avoids having to hardcode such properties in applications, see the [Christmas preset](https://github.com/simonpoole/xmas-preset) for an example.
 
     * _opening_hours_ a normal opening hours syntax tag

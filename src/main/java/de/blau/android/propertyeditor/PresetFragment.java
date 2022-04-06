@@ -44,11 +44,11 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetElement;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetClickHandler;
+import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
+import de.blau.android.presets.PresetGroup;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.SearchIndexUtils;
@@ -211,9 +211,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             // for the following
             presetSearch.setOnTouchListener((v, event) -> {
                 final int DRAWABLE_LEFT = 0;
-                // final int DRAWABLE_TOP = 1;
                 final int DRAWABLE_RIGHT = 2;
-                // final int DRAWABLE_BOTTOM = 3;
 
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     boolean rtlLayout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
@@ -405,7 +403,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             Preset[] presets = propertyEditorListener.getPresets();
             if (preset.equals(presets[presets.length - 1])) {
                 new AlertDialog.Builder(getContext()).setTitle(R.string.delete_custom_preset_title).setPositiveButton(R.string.Delete, (dialog, which) -> {
-                    item.delete();
+                    preset.deleteItem(item);
                     AutoPreset.save(getActivity(), preset);
                     editorUpdate.updatePresets();
                     propertyEditorListener.updateRecentPresets();
@@ -437,11 +435,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 activity.invalidateOptionsMenu();
             }
         }
-    }
-
-    @Override
-    public boolean onGroupLongClick(PresetGroup group) {
-        return false;
     }
 
     @Override

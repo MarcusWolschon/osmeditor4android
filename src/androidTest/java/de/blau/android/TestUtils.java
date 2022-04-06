@@ -30,6 +30,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import androidx.preference.PreferenceManager;
 import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.BySelector;
 import androidx.test.uiautomator.Configurator;
@@ -1485,5 +1486,15 @@ public class TestUtils {
             device.click(device.getDisplayWidth() / 2, device.getDisplayHeight() / 2);
         }
         return found;
+    }
+
+    /**
+     * Disable a tip
+     * 
+     * @param ctx an Android COntext
+     * @param res the tip key
+     */
+    public static void disableTip(@NonNull Context ctx, int res) {
+        PreferenceManager.getDefaultSharedPreferences(ctx).edit().putBoolean(ctx.getString(res), false).commit();
     }
 }

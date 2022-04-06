@@ -25,10 +25,10 @@ import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetElement;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFixedField;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetKeyType;
 import de.blau.android.util.collections.MultiHashMap;
 
@@ -181,10 +181,10 @@ public final class SearchIndexUtils {
                         if (nat.inUseIn(regions)) {
                             TagMap tags = nat.getTags();
                             PresetItem pi = Preset.findBestMatch(presets, tags, null, false);
-                            PresetItem namePi = preset.new PresetItem(null, nat.getName(), pi == null ? null : pi.getIconpath(), null);
+                            PresetItem namePi = new PresetItem(preset, null, nat.getName(), pi == null ? null : pi.getIconpath(), null);
 
                             for (Entry<String, String> entry : tags.entrySet()) {
-                                namePi.addTag(entry.getKey(), PresetKeyType.TEXT, entry.getValue(), null);
+                                namePi.addTag(entry.getKey(), PresetKeyType.TEXT, entry.getValue(), null, null);
                             }
                             if (pi != null) {
                                 Map<String, PresetField> fields = pi.getFields();

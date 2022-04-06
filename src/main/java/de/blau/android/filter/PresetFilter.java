@@ -20,9 +20,9 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetElement;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.util.SavingHelper;
 
 /**

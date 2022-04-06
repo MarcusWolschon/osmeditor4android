@@ -16,7 +16,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.LongOsmElementMap;

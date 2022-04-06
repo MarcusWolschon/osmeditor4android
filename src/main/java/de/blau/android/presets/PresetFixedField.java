@@ -1,15 +1,19 @@
 package de.blau.android.presets;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.xmlpull.v1.XmlSerializer;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import ch.poole.poparser.Po;
+import de.blau.android.osm.Tags;
 import de.blau.android.util.StringWithDescription;
 
 public class PresetFixedField extends PresetField {
-    final StringWithDescription value;
+    private final StringWithDescription value;
+    private Boolean                     isObject;
 
     /**
      * Constructor
@@ -42,6 +46,25 @@ public class PresetFixedField extends PresetField {
         return value;
     }
 
+    /**
+     * Set if this is an object or not, null undefined
+     * 
+     * @param isObject if true / false this is an object or not overriding other settings
+     */
+    public void setIsObject(@Nullable Boolean isObject) {
+        this.isObject = isObject;
+    }
+
+    /**
+     * Check if this tag defines an object
+     * 
+     * @param objectKeys List of keys considered to be objects
+     * @return true if an object
+     */
+    public boolean isObject(@NonNull List<String> objectKeys) {
+        return isObject != null ? isObject : objectKeys.contains(key) || Tags.IMPORTANT_TAGS.contains(key);
+    }
+
     @Override
     public PresetField copy() {
         return new PresetFixedField(this);
@@ -64,6 +87,9 @@ public class PresetFixedField extends PresetField {
         String description = v.getDescription();
         if (description != null && !"".equals(description)) {
             s.attribute("", Preset.TEXT, description);
+        }
+        if (isObject != null) {
+            s.attribute("", Preset.OBJECT, Boolean.toString(isObject));
         }
         s.endTag("", Preset.KEY_ATTR);
     }

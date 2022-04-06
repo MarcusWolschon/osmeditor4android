@@ -2,8 +2,6 @@ package de.blau.android.presets;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
 
 public class AutoPresetItem extends PresetItem implements Comparable<AutoPresetItem> {
 
@@ -23,7 +21,7 @@ public class AutoPresetItem extends PresetItem implements Comparable<AutoPresetI
      */
     public AutoPresetItem(@NonNull Preset preset, @Nullable PresetGroup parent, @Nullable String name, @Nullable String iconpath, @Nullable String types,
             int count) {
-        preset.super(parent, name, iconpath, types);
+        super(preset, parent, name, iconpath, types);
         this.count = count;
     }
 

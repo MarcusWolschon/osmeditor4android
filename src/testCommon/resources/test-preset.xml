@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<presets version="0.0.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0"
+        shortdescription="Testing preset"
+        object_keys="imaginary2">
+    <group name="Test Group">
+        <item name="Test Item" type="node,way,closedway,multipolygon">
+            <key key="imaginary" value="tag" />
+        </item> <!-- -->
+        <item name="Test Item 2" type="node,way,closedway,multipolygon">
+            <key key="imaginary2" value="tag" object="true" />
+        </item> <!-- -->
+        <item name="Test Item 3" type="node,way,closedway,multipolygon">
+            <key key="highway" value="tag" />
+        </item> <!-- -->
+        <item name="Test Item 4" type="node,way,closedway,multipolygon">
+            <key key="highway" value="tag2" object="false" />
+        </item> <!-- -->
+        <item name="Test Same Name" exclude_regions="true" regions="CH" type="node,way,closedway,multipolygon">
+            <key key="samething" value="not in CH" />
+        </item> <!-- -->
+        <item name="Test Same Name" regions="CH" type="node,way,closedway,multipolygon">
+            <key key="samething" value="is in CH" />
+        </item> <!-- -->
+    </group>
+</presets>

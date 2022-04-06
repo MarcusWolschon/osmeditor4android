@@ -19,11 +19,11 @@ import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetElement;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetClickHandler;
+import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
+import de.blau.android.presets.PresetGroup;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.util.Snack;
 
 /**
@@ -101,22 +101,6 @@ public class PresetFilterActivity extends LocaleAwareCompatActivity implements P
         View view = group.getGroupView(this, this, null, element, null);
         view.setId(R.id.preset_view);
         return (ScrollView) view;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
     @Override

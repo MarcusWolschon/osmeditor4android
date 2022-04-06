@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
-import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -41,7 +40,6 @@ import de.blau.android.TestUtils;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.prefs.PresetEditorActivity;
-import de.blau.android.presets.Preset.PresetItem;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)

@@ -24,7 +24,6 @@ import androidx.test.uiautomator.UiDevice;
 import de.blau.android.javascript.Utils;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.presets.Preset.PresetItem;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest

@@ -34,9 +34,6 @@ import de.blau.android.contract.Paths;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.presets.Preset.PresetElement;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.CustomPreset;
 import de.blau.android.taginfo.TaginfoServer;
 import de.blau.android.taginfo.TaginfoServer.SearchResult;
@@ -108,8 +105,7 @@ public class AutoPreset {
         PresetGroup group = preset.getRootGroup();
         if (candidateTags != null) {
             for (SearchResult sr : candidateTags) {
-                // remove results with empty values
-                // and presets that we already have
+                // remove results with empty values and presets that we already have
                 if (sr.getValue() != null && !"".equals(sr.getValue()) && !existsInPresets(sr)) {
                     String resultKey = sr.getKey();
                     WikiPageResult wikiPage = TaginfoServer.wikiPage(context, server, resultKey, sr.getValue(), language, null);
@@ -141,8 +137,8 @@ public class AutoPreset {
                             if (wikiPage.isOnRelation()) {
                                 item.setAppliesToRelation();
                             }
-                            Log.e(DEBUG_TAG, "adding " + resultKey + " " + sr.getValue());
-                            item.addTag(resultKey, PresetKeyType.TEXT, sr.getValue(), null);
+                            Log.d(DEBUG_TAG, "adding " + resultKey + " " + sr.getValue());
+                            item.addTag(resultKey, PresetKeyType.TEXT, sr.getValue(), null, null);
 
                             List<String> combinationsFromTaginfo = TaginfoServer.tagCombinations(context, server, resultKey, sr.getValue(), getAppliesTo(item),
                                     10);
@@ -377,12 +373,12 @@ public class AutoPreset {
             // don't fail because of an exception here
             Log.e(DEBUG_TAG, "Icon/file not found ", e);
         }
-        activePresets[autopresetPosition] = new Preset(context,
-                FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), null, true);
+        activePresets[autopresetPosition] = new Preset(context, FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET),
+                null, true);
         Preset autopreset = activePresets[autopresetPosition];
         PresetGroup group = autopreset.getGroupByName(autopresetGroupName);
         if (group == null) {
-            autopreset.new PresetGroup(autopreset.getRootGroup(), autopresetGroupName, AutoPreset.ICON);
+            new PresetGroup(autopreset, autopreset.getRootGroup(), autopresetGroupName, AutoPreset.ICON);
         }
     }
 }

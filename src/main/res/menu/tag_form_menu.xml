@@ -34,10 +34,6 @@
         android:title="@string/menu_paste_from_clipboard"
         app:showAsAction="never" />
     <item
-        android:id="@+id/tag_menu_show_alternatives"
-        android:title="@string/tag_menu_show_alternatives"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/tag_menu_mapfeatures"
         android:icon="?attr/menu_information"
         app:showAsAction="ifRoom"

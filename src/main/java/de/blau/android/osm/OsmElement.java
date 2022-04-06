@@ -22,7 +22,7 @@ import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.IssueAlert;
 import de.blau.android.validation.Validator;

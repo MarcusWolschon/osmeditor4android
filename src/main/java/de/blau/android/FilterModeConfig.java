@@ -10,10 +10,10 @@ import de.blau.android.filter.Filter;
 import de.blau.android.filter.PresetFilter;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetElement;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
+import de.blau.android.presets.PresetGroup;
+import de.blau.android.presets.PresetItem;
 
 /**
  * ModeConfig for modes that allow filters to be set

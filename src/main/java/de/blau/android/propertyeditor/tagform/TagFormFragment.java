@@ -35,9 +35,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import ch.poole.android.checkbox.IndeterminateCheckBox;
 import ch.poole.conditionalrestrictionparser.ConditionalRestrictionParser;
 import de.blau.android.App;
@@ -54,23 +52,21 @@ import de.blau.android.osm.Wiki;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.MatchType;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetCheckField;
 import de.blau.android.presets.PresetCheckGroupField;
 import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFixedField;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetKeyType;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.presets.ValueType;
-import de.blau.android.propertyeditor.AlternativePresetItemsFragment;
 import de.blau.android.propertyeditor.EditorUpdate;
 import de.blau.android.propertyeditor.FormUpdate;
 import de.blau.android.propertyeditor.NameAdapters;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorListener;
-import de.blau.android.propertyeditor.RecentPresetsFragment;
 import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.util.ArrayAdapterWithRuler;
@@ -109,8 +105,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     private NameAdapters nameAdapters = null;
 
     private boolean focusOnAddress = false;
-
-    private String focusTag = null;
+    private boolean displayMRUpresets;
+    private String  focusTag       = null;
 
     int maxInlineValues = 3;
 
@@ -188,8 +184,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         this.inflater = inflater;
         ScrollView rowLayout = (ScrollView) inflater.inflate(R.layout.tag_form_view, container, false);
 
-        boolean displayMRUpresets = (Boolean) getArguments().getSerializable(DISPLAY_MRU_PRESETS);
-        focusOnAddress = (Boolean) getArguments().getSerializable(FOCUS_ON_ADDRESS);
+        displayMRUpresets = getArguments().getBoolean(DISPLAY_MRU_PRESETS, false);
+        focusOnAddress = getArguments().getBoolean(FOCUS_ON_ADDRESS, false);
         focusTag = getArguments().getString(FOCUS_TAG);
 
         if (getUserVisibleHint()) { // don't request focus if we are not visible
@@ -208,18 +204,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         maxStringLength = server.getCachedCapabilities().getMaxStringLength();
 
         if (displayMRUpresets) {
-            Log.d(DEBUG_TAG, "Adding MRU prests");
-            FragmentManager fm = getChildFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
-            if (recentPresetsFragment != null) {
-                ft.remove(recentPresetsFragment);
-            }
-            // FIXME multiselect or what?
-            recentPresetsFragment = RecentPresetsFragment.newInstance(propertyEditorListener.getElement().getOsmId(),
-                    propertyEditorListener.getElement().getName());
-            ft.add(R.id.form_mru_layout, recentPresetsFragment, "recentpresets_fragment");
-            ft.commit();
+            de.blau.android.propertyeditor.Util.addMRUPresetsFragment(getChildFragmentManager(), R.id.mru_layout,
+                    propertyEditorListener.getElement().getOsmId(), propertyEditorListener.getElement().getName());
         }
 
         Log.d(DEBUG_TAG, "onCreateView returning");
@@ -415,8 +401,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     @Override
     public void onPrepareOptionsMenu(final Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        PresetItem best = tagListener.getBestPreset();
-        menu.findItem(R.id.tag_menu_show_alternatives).setEnabled(best != null && best.getAlternativePresetItems() != null);
         // disable address prediction for stuff that won't have an address
         OsmElement element = propertyEditorListener.getElement();
         menu.findItem(R.id.tag_menu_address).setVisible((!(element instanceof Way) || ((Way) element).isClosed()));
@@ -468,10 +452,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
             }
             propertyEditorListener.updateRecentPresets();
-            return true;
-        case R.id.tag_menu_show_alternatives:
-            AlternativePresetItemsFragment.showDialog(getActivity(),
-                    tagListener.getBestPreset().getPath(App.getCurrentRootPreset(getActivity()).getRootGroup()));
             return true;
         case R.id.tag_menu_reset_address_prediction:
             // simply overwrite with an empty file
@@ -643,6 +623,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
             }
         }
+
+        // if we have alternative tagging suggestions display them
+        if (displayMRUpresets) {
+            de.blau.android.propertyeditor.Util.addAlternativePresetItemsFragment(getChildFragmentManager(), R.id.alternative_layout,
+                    tagListener.getBestPreset());
+        }
+
         // some final UI stuff
         if (focusOnAddress) {
             focusOnAddress = false; // only do it once
@@ -681,7 +668,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 PresetField field = entry.getValue();
                 String key = field.getKey();
                 String value = tagList.get(key);
-                Log.e(DEBUG_TAG, "field " + field.getClass().getCanonicalName());
                 if (value != null) {
                     if (field instanceof PresetFixedField) {
                         if (value.equals(((PresetFixedField) field).getValue().getValue())) {
@@ -711,7 +697,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
             }
             // process any remaining tags
-            List<PresetItem> linkedPresets = preset.getLinkedPresets(true, App.getCurrentPresets(getContext()));
+            List<PresetItem> linkedPresets = preset.getLinkedPresets(true, App.getCurrentPresets(getContext()), propertyEditorListener.getCountryIsoCode());
             // loop over the tags assigning them to the linked presets
             for (Entry<String, String> e : new ArrayList<>(tagList.entrySet())) {
                 String key = e.getKey();

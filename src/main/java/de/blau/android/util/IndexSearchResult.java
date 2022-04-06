@@ -3,7 +3,7 @@ package de.blau.android.util;
 import java.util.Comparator;
 
 import androidx.annotation.NonNull;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetItem;
 
 /**
  * Container to allow sorting of preset search results

@@ -11,7 +11,7 @@ import de.blau.android.util.StringWithDescription;
 
 public class PresetComboField extends PresetField implements PresetFieldJavaScript {
 
-    StringWithDescription[] values;
+    private StringWithDescription[] values;
 
     /**
      * Multiple values allowed
@@ -21,12 +21,12 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
     /**
      * Combo and multiselect delimiter
      */
-    String delimiter = null;
+    private String delimiter = null;
 
     /**
      * Script for pre-filling text fields
      */
-    String javascript = null;
+    private String javascript = null;
 
     /**
      * Combo and multiselect editable property
@@ -181,6 +181,34 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
                 }
             }
         }
+    }
+
+    /**
+     * Set the delimiter
+     * 
+     * @param delimiter the delimiter character
+     */
+    public void setDelimiter(@Nullable String delimiter) {
+        this.delimiter = delimiter;
+    }
+
+    /**
+     * Get the value delimiter
+     * 
+     * @return the value delimiter
+     */
+    public char getDelimiter() {
+        return delimiter != null && !"".equals(delimiter) ? delimiter.charAt(0) : getDefaultDelimiter();
+    }
+
+    /**
+     * Get the appropriate default delimter
+     * 
+     * @return the multiselect or combo delimter
+     */
+    @NonNull
+    private char getDefaultDelimiter() {
+        return (multiSelect ? Preset.MULTISELECT_DELIMITER : Preset.COMBO_DELIMITER).charAt(0);
     }
 
     @Override

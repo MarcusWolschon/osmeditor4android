@@ -27,10 +27,10 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetElement;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
+import de.blau.android.presets.PresetGroup;
+import de.blau.android.presets.PresetItem;
 
 /**
  * Wrapper around an OsmElement to provide the Meta interface without impacting serialization

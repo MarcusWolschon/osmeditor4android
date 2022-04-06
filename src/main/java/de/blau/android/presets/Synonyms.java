@@ -21,7 +21,6 @@ import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.osm.OsmElement.ElementType;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.IndexSearchResult;
 import de.blau.android.util.OptimalStringAlignment;
 import de.blau.android.util.SearchIndexUtils;
@@ -150,7 +149,7 @@ public class Synonyms {
      * @return a Set of PresetItem
      */
     @NonNull
-    public Set<PresetItem> getPresetItems(@Nullable ElementType type, @NonNull Preset[] presets, @NonNull String presetKey) {
+    private Set<PresetItem> getPresetItems(@Nullable ElementType type, @NonNull Preset[] presets, @NonNull String presetKey) {
         Set<PresetItem> result = new HashSet<>();
         for (Preset preset : presets) {
             if (preset != null) {

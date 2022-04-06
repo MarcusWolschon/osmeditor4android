@@ -3,7 +3,7 @@ package de.blau.android.propertyeditor;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import de.blau.android.presets.Preset.PresetElement;
+import de.blau.android.presets.PresetElement;
 
 public interface UpdatePresetSearchResult {
 

@@ -40,7 +40,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
 import de.blau.android.util.ArrayAdapterWithState;
 import de.blau.android.util.BaseFragment;

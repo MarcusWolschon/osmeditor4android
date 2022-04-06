@@ -30,10 +30,11 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.AutoPresetItem;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetElement;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetClickHandler;
+import de.blau.android.presets.PresetElement;
+import de.blau.android.presets.PresetGroup;
+import de.blau.android.presets.PresetItem;
+import de.blau.android.presets.PresetSeparator;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Screen;
@@ -148,54 +149,36 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
         return dialog;
     }
 
-    final PresetClickHandler presetClickHandler = new PresetClickHandler() {
-        @Override
-        public void onItemClick(PresetItem item) {
-            if (!enabled) {
-                return;
-            }
-            Log.d(DEBUG_TAG, "normal click");
-            if (item instanceof AutoPresetItem) {
-                Preset[] configuredPresets = App.getCurrentPresets(getContext());
-                int autopresetPosition = configuredPresets.length - 1;
-                Preset preset = configuredPresets[autopresetPosition];
+    final PresetClickHandler presetClickHandler = (PresetItem item) -> {
+        if (!enabled) {
+            return;
+        }
+        Log.d(DEBUG_TAG, "normal click");
+        if (item instanceof AutoPresetItem) {
+            Preset[] configuredPresets = App.getCurrentPresets(getContext());
+            int autopresetPosition = configuredPresets.length - 1;
+            Preset preset = configuredPresets[autopresetPosition];
+            if (preset == null) {
+                // may happen during testing
+                AdvancedPrefDatabase.createEmptyAutoPreset(getContext(), configuredPresets, autopresetPosition);
+                preset = configuredPresets[autopresetPosition];
                 if (preset == null) {
-                    // may happen during testing
-                    AdvancedPrefDatabase.createEmptyAutoPreset(getContext(), configuredPresets, autopresetPosition);
-                    preset = configuredPresets[autopresetPosition];
-                    if (preset == null) {
-                        Log.e(DEBUG_TAG, "Couldn't create auto preset");
-                        return;
-                    }
+                    Log.e(DEBUG_TAG, "Couldn't create auto preset");
+                    return;
                 }
-                PresetGroup group = preset.getGroupByName(getContext().getString(R.string.preset_autopreset));
-                if (group != null) {
-                    item = preset.new PresetItem(group, item);
-                } else {
-                    Log.e(DEBUG_TAG, "Couldn't find preset group");
-                }
-                AutoPreset.save(getContext(), preset);
-                mPresetUpdateListener.update(null);
             }
-            mOnPresetSelectedListener.onPresetSelected(item);
-            if (getShowsDialog()) {
-                dismiss();
+            PresetGroup group = preset.getGroupByName(getContext().getString(R.string.preset_autopreset));
+            if (group != null) {
+                item = new PresetItem(preset, group, item);
+            } else {
+                Log.e(DEBUG_TAG, "Couldn't find preset group");
             }
+            AutoPreset.save(getContext(), preset);
+            mPresetUpdateListener.update(null);
         }
-
-        @Override
-        public void onGroupClick(PresetGroup group) {
-            // should not have groups
-        }
-
-        @Override
-        public boolean onItemLongClick(PresetItem item) {
-            return false;
-        }
-
-        @Override
-        public boolean onGroupLongClick(PresetGroup group) {
-            return false;
+        mOnPresetSelectedListener.onPresetSelected(item);
+        if (getShowsDialog()) {
+            dismiss();
         }
     };
 
@@ -230,7 +213,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
                 searchResults.add(pe);
             }
             if (!searchResults.isEmpty() && presets != null && !presets.isEmpty()) {
-                searchResults.add(0, fromTaginfo.new PresetSeparator(fromTaginfo.getRootGroup()));
+                searchResults.add(0, new PresetSeparator(fromTaginfo, fromTaginfo.getRootGroup()));
             }
             return searchResults;
         }
@@ -272,7 +255,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
     @NonNull
     private View getResultsView(@NonNull final LinearLayout layout, @Nullable final List<PresetElement> displayPresets, boolean setPadding) {
         View v = null;
-        PresetGroup results = Preset.dummyInstance().new PresetGroup(null, "search results", null);
+        PresetGroup results = new PresetGroup(Preset.dummyInstance(), null, "search results", null);
         results.setItemSort(false);
         if (displayPresets != null) {
             for (PresetElement p : displayPresets) {

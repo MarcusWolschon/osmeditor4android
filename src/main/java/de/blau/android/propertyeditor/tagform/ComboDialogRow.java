@@ -21,9 +21,9 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import de.blau.android.R;
 import de.blau.android.contract.Ui;
-import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetField;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.Ruler;
 import de.blau.android.util.SelectByImageFragment;
 import de.blau.android.util.StringWithDescription;
@@ -214,8 +214,8 @@ public class ComboDialogRow extends DialogRow {
             }
         }
         builder.setPositiveButton(R.string.clear, (dialog, which) -> {
-            View groupView =((AlertDialog) dialog).findViewById(R.id.valueGroup);
-            String k = (String)groupView.getTag();
+            View groupView = ((AlertDialog) dialog).findViewById(R.id.valueGroup);
+            String k = (String) groupView.getTag();
             updateTag(((AlertDialog) dialog).getContext(), k, new StringWithDescription(""));
             // allow a tiny bit of time to see that the action actually worked
             groupView.postDelayed(dialog::dismiss, 100);

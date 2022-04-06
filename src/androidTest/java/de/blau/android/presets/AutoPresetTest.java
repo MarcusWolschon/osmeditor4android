@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +24,7 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
+import android.util.Log;
 import android.view.KeyEvent;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -120,8 +122,7 @@ public class AutoPresetTest {
             File dir = new File(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET);
             for (String fileName : dir.list()) {
                 try {
-                    java.nio.file.Files
-                            .delete(new File(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET + Paths.DELIMITER + fileName).toPath());
+                    java.nio.file.Files.delete(new File(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET + Paths.DELIMITER + fileName).toPath());
                 } catch (IOException e) {
                     System.out.println("Removing auto-preset file " + fileName + " exception " + e); // NOSONAR
                 }
@@ -157,6 +158,14 @@ public class AutoPresetTest {
         // de-duping
         Preset.removeItem(main, AMENITY_PAYMENT_CENTRE);
         Preset.removeItem(main, "amenity\tpayment_terminal");
+        for (Preset preset : App.getCurrentPresets(main)) {
+            if (preset != null) {
+                Set<PresetItem> existingPresets = preset.getItemByTag("amenity\tpayment_terminal");
+                if (!existingPresets.isEmpty()) {
+                    fail("amenity\tpayment_terminal exists in Preset " + preset.getShortDescription());
+                }
+            }
+        }
 
         UiSelector uiSelector = new UiSelector().resourceId(device.getCurrentPackageName() + ":id/preset_search_edit");
         UiObject field = device.findObject(uiSelector);
@@ -181,9 +190,22 @@ public class AutoPresetTest {
         mockTaginfoServer.enqueue("autopreset7");
         device.waitForIdle();
         assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/search_online", true));
+        try {
+            mockTaginfoServer.server().takeRequest();
+            mockTaginfoServer.server().takeRequest();
+            mockTaginfoServer.server().takeRequest();
+            mockTaginfoServer.server().takeRequest();
+            mockTaginfoServer.server().takeRequest();
+            mockTaginfoServer.server().takeRequest();
+            mockTaginfoServer.server().takeRequest();
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
         UiObject2 preset = TestUtils.findObjectWithText(device, false, AMENITY_PAYMENT_CENTRE_LABEL, 20000, false);
         assertNotNull(preset);
         preset.clickAndWait(Until.newWindow(), 10000);
+
+        TestUtils.sleep(30000);
         TestUtils.clickHome(device, true); // close the PropertEditor and save
         assertEquals("payment_centre", n.getTagWithKey(Tags.KEY_AMENITY));
         // check auto-preset

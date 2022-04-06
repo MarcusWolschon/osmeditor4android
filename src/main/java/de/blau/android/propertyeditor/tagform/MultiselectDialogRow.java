@@ -20,7 +20,7 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import de.blau.android.R;
 import de.blau.android.contract.Ui;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;
 import de.blau.android.util.ThemeUtils;

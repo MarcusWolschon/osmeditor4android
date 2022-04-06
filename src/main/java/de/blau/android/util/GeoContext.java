@@ -474,4 +474,26 @@ public class GeoContext {
         }
         return null;
     }
+
+    /**
+     * Get the country code for an element
+     * 
+     * @param geoContext a GeoContext instance
+     * @param element the OsmEeement
+     * @return a country code or null
+     */
+    @Nullable
+    public static String getCountryIsoCode(@Nullable GeoContext geoContext, @NonNull OsmElement element) {
+        try {
+            if (geoContext != null) {
+                List<String> isoCodes = geoContext.getIsoCodes(element);
+                if (isoCodes != null) {
+                    return GeoContext.getCountryIsoCode(isoCodes);
+                }
+            }
+        } catch (IllegalArgumentException iaex) {
+            Log.e(DEBUG_TAG, "getIsoCodes " + iaex + " for " + element + " " + element.getOsmId());
+        }
+        return null;
+    }
 }
