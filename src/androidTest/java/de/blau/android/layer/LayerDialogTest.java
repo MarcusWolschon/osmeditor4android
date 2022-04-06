@@ -138,6 +138,12 @@ public class LayerDialogTest {
 
         TestUtils.clickText(device, true, main.getString(R.string.done), false, false);
         assertTrue(map.getDataLayer().isVisible());
+        
+        UiObject2 infoButton = TestUtils.getLayerButton(device, dataLayerName, MENU_BUTTON);
+        infoButton.clickAndWait(Until.newWindow(), 1000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_information), true, false));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.data_in_memory), 5000));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true, false));
     }
 
     /**
