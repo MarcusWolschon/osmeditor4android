@@ -97,6 +97,35 @@ public class PresetFilterTest {
     }
 
     /**
+     * Set preset filter to Church and select one
+     */
+    @Test
+    public void hiddenObjectWarning() {
+        TestUtils.unlock(device);
+        TestUtils.clickOverflowButton(device);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_enable_presetfilter), true, false);
+        TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/tagFilterButton", true);
+        Activity presetFilterActivity = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(presetFilterActivity instanceof PresetFilterActivity);
+        assertTrue(TestUtils.clickText(device, false, "Highways", true));
+        assertTrue(TestUtils.clickText(device, false, "Waypoints", true, true));
+        assertTrue(TestUtils.clickText(device, false, "Pedestrian Crossing", true));
+        TestUtils.sleep(2000);
+        TestUtils.clickAtCoordinates(device, main.getMap(),  8.3886622D, 47.3887223D, true);
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect), 5000));
+        assertEquals(289987514L, App.getLogic().getSelectedNode().getOsmId());
+
+        TestUtils.drag(device, main.getMap(), 8.3886622D, 47.3887223D,  8.389D, 47.389D, false, 10);
+        
+        TestUtils.findText(device, false, main.getString(R.string.attached_object_warning_stop), 2000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.attached_object_warning_stop), true));
+        
+        TestUtils.clickUp(device);
+        TestUtils.clickOverflowButton(device);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_enable_presetfilter), true, false);
+    }
+
+    /**
      * Set preset filter to Church and create one
      */
     @Test
