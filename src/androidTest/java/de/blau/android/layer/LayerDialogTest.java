@@ -18,6 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -138,6 +139,12 @@ public class LayerDialogTest {
 
         TestUtils.clickText(device, true, main.getString(R.string.done), false, false);
         assertTrue(map.getDataLayer().isVisible());
+
+        UiObject2 infoButton = TestUtils.getLayerButton(device, dataLayerName, MENU_BUTTON);
+        infoButton.clickAndWait(Until.newWindow(), 1000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_information), true, false));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.data_in_memory), 5000));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true, false));
     }
 
     /**
@@ -289,7 +296,7 @@ public class LayerDialogTest {
     }
 
     /**
-     * Set to "mapnik" displaying the info dialog 1st
+     * Set to "mapnik"
      */
     @Test
     public void backgroundLayer() {
@@ -310,6 +317,30 @@ public class LayerDialogTest {
         MapTilesLayer<?> layer = main.getMap().getBackgroundLayer();
         assertNotNull(layer);
         assertEquals(TileLayerSource.LAYER_MAPNIK, layer.getTileLayerConfiguration().getId());
+    }
+
+    /**
+     * Display background properties dialog
+     */
+    @Test
+    public void backgroundProperties() {
+        Preferences prefs = App.getLogic().getPrefs();
+        assertEquals(0.0, prefs.getContrastValue(), 0.01);
+        UiObject2 menuButton = TestUtils.getLayerButton(device, "Vespucci Test", MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_tools_background_properties), true, false));
+
+        UiObject seekbar = TestUtils.findObjectWithResourceId(device, false, device.getCurrentPackageName() + ":id/background_contrast_seeker");
+        try {
+            seekbar.swipeRight(10); // this should slide completely to the right
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.okay), true, false));
+        TestUtils.sleep();
+        prefs = App.getLogic().getPrefs();
+        assertEquals(1.0, prefs.getContrastValue(), 0.01);
     }
 
     /**
