@@ -1,5 +1,19 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.0.6:
+
+- Fix alternative preset C&P errors
+- Fix don't set map location if showGps isn't set
+- Fix don't try to fit screen bounding box to an empty/degenerate bounding box (fixes wrong position for single node undos) 
+- Fix preset filter preset auto-apply regression
+- Fix lifecycle issues in Dialogs
+- Fix a postential race condition pan and zoom auto-downloading
+- Fix use josm scheme instead of localhost for alert intents (this works around a non-backwards compatible behaviour change in Android 12) 
+- Add labelKey="name" to the way validation styles (makes labels on ways with errors visible)
+- Update translations
+- Update presets
+- Update imagery from ELI
+
 17.0.5:
 
 - Fix potential crash when downloading presets
