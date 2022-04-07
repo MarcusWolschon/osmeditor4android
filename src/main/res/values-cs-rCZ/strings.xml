@@ -6,6 +6,7 @@
   <string name="mode_indoor">Vnitřní prostory</string>
   <string name="mode_correct">Režim kontroly</string>
   <string name="mode_address">Adresa</string>
+  <string name="mode_voice">Hlas</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Varování!</string>
   <string name="transfer_download_current_dialog_message">Provedli jste změny. Nechcete je nahrát namísto jejich zahození?</string>
@@ -83,6 +84,7 @@
   <string name="progress_building_imagery_database">Vytvářím databázi snímků…</string>
   <string name="progress_query_oam">Dotazování OAM…</string>
   <string name="progress_pruning">Ořezávání...</string>
+  <string name="progress_migration">Migrace...</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" smazáno</string>
   <string name="changes_changed">\"%1$s\" změněno</string>
@@ -114,6 +116,7 @@
   <string name="openstreetbug_edit_title">Upravit poznámku</string>
   <string name="openstreetbug_comment_label">Komentář:</string>
   <string name="openstreetbug_commit_ok">Změny chyb uloženy</string>
+  <string name="openstreetbug_commit_fail">Nelze uložit změny úlohy</string>
   <string name="openstreetbug_unknown_task_type">Neznámý typ úlohy</string>
   <string name="openstreetbug_not_supported">%1$s není podporována.</string>
   <string name="note_description">Poznámka: %1$s - %2$s</string>
@@ -192,6 +195,8 @@
   <string name="edit_properties">Upravit tagy</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Vlastnosti objektu GeoJSON</string>
+  <string name="vt_feature_information">Informace o vektorových dlaždicích</string>
+  <string name="vt_layer">Vrstva vektorových dlaždic</string>
   <string name="copy_properties">Zkopírovat vlastnosti</string>
   <string name="create_osm_element">Vytvořit OSM prvek</string>
   <!--API/Data layer info dialog-->
@@ -218,6 +223,7 @@
   <string name="duplicate_relation_member_remove_button">Odebrat člena</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Přesunout tagy z vnějších cest na multipolygon</string>
+  <string name="move_outer_tags_message">Značky definující objekt by měly být přítomny pouze na multipolygonu. Tato akce přesune společné tagy z vnějších hran na multipolygon.</string>
   <string name="move">Přesunout</string>
   <string name="leave_as_is">Ponechat tak, jak je</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
@@ -227,12 +233,14 @@
   <!--Abort action mode dialog-->
   <string name="abort_action_title">Zrušit akci</string>
   <!--Address interpoation dialog-->
+  <string name="address_interpolation_title">Vytvoření interpolace adresy</string>
   <string name="start">Začátek</string>
   <string name="end">Konec</string>
   <string name="even">Sudý</string>
   <string name="odd">Lichý</string>
   <string name="other">Jiné</string>
   <!--Safe split dialog-->
+  <string name="split_safe_message">Způsoby členství v sousedství se nestahují. Udržování pořadí členů vztahu na nich může záviset.</string>
   <!---->
   <string name="error">Chyba</string>
   <string name="warning">Varování</string>
@@ -293,6 +301,7 @@
   <string name="coverage_left">Vlevo</string>
   <string name="coverage_right">Vpravo</string>
   <string name="coverage_bottom">Dole</string>
+  <string name="tile_size">Velikost</string>
   <string name="toast_invalid_box">Neplatný nebo nekompletní ohraničující rámec</string>
   <string name="delete_layer">Smazat vrstvu?</string>
   <string name="delete_endpoint">Smazat koncový bod?</string>
@@ -303,7 +312,9 @@
   <string name="layer_style_title">Styl vrstvy</string>
   <string name="layer_style_stroke_width">Tloušťka čáry</string>
   <string name="layer_style_color">Barva</string>
+  <string name="layer_style_layer">Dílčí vrstva</string>
   <string name="layer_style_label">Štítek</string>
+  <string name="layer_style_symbol">Symbol</string>
   <string name="json_object_not_displayed">JSON objekt (nezobrazen)</string>
   <string name="json_array_not_displayed">JSON pole (nezobrazeno)</string>
   <!--Layer dialog-->
@@ -317,15 +328,21 @@
   <string name="layer_data_name">Data %1$s</string>
   <string name="layer_flush_tile_cache">Vyčistit mezipaměť dlaždic</string>
   <string name="layer_change_style">Změnit styl</string>
+  <string name="layer_load_style">Načíst styl</string>
+  <string name="layer_reset_style">Obnovit styl</string>
   <string name="layer_select_imagery">Zvolit snímky</string>
   <string name="layer_category_all">Vše</string>
   <string name="layer_category_photo">Letecké snímky</string>
+  <string name="layer_category_elevation">Terén</string>
   <string name="layer_category_historicphoto">Zastaralé letecké foto</string>
   <string name="layer_category_map">Mapa</string>
   <string name="layer_category_historicmap">Zastaralá mapa</string>
   <string name="layer_category_osmbasedmap">Mapa na základě OSM</string>
   <string name="layer_category_qa">QA</string>
   <string name="layer_category_other">Jiné</string>
+  <string name="layer_add_layer_from_mvt_style">Přidat vrstvu ze stylu MVT</string>
+  <string name="layer_add_custom_imagery">Přidat vlastní snímky</string>
+  <string name="layer_edit_custom_imagery_configuration">Upravit vlastní konfiguraci snímků</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Min. zoom</string>
   <string name="layer_info_max_zoom">Max. zoom</string>
@@ -336,8 +353,10 @@
   <string name="projection">Zobrazení</string>
   <string name="errors">Chyby</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Smazat fotku</string>
+  <string name="photo_viewer_delete_button">Trvale smazat</string>
   <string name="photo_viewer_goto">Zobrazit na mapě</string>
   <string name="photo_viewer_label">Prohlížeč fotek</string>
   <string name="mapillary_viewer_label">Prohlížeč Mapillary</string>
@@ -347,6 +366,8 @@
   <string name="api_info_attribution">Autorství</string>
   <string name="api_info_mapsplit_source">MapSplit pouze pro čtení</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">Vlastnosti se změnily</string>
+  <string name="tag_conflict_message">Operace vyžadovala změnu vlastností příslušných prvků.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Žádné vhodné relace ve stažené oblasti</string>
   <string name="select_route_title">Zvolte trasu</string>
@@ -379,11 +400,16 @@
   <string name="tip_check_label">Přestat zobrazovat volitelné tipy</string>
   <string name="tip_undo">Dlouhým stisknutím tlačítka zpět se zobrazí všechny kontrolní body zpět a znovu.</string>
   <string name="tip_imagery_privacy">Pozadí a překryvné vrstvy poskytují třetí strany. Používáním vrstvy získá poskytovatel vaši síťovou adresu a přibližný údaj o oblasti, kterou prohlížíte.&lt;p&gt;Pokud poskytovatel poskytl informace o zásadách ochrany osobních údajů, můžete je zobrazit pomocí položky nabídky „Informace“ v dialogu vrstvy.</string>
+  <string name="tip_mapillary_privacy">Mapillary je služba poskytovaná společností Mapillary AB, Švédsko, dceřinou společností Facebooku. Používáním této služby se společnosti předává adresa vaší sítě a informace o tom, které obrázky jste si prohlíželi.</string>
   <string name="tip_pan_and_zoom_auto_download">Automatické stahování při posunu a přibližování by mělo být používáno obezřetně, neboť může zatěžovat OpenStreetMap API i vaše zařízení.&lt;p&gt;Zatížení API lze
  předejít používáním offline zdroje dat.</string>
   <string name="tip_locked_mode">V uzamčeném režimu nemůžete upravovat, ale dlouhým stiskem na objekt se otevře obrazovka s podrobnými informacemi.</string>
   <string name="tip_longpress_simple_mode">V jednoduchém režimu dlouhé stisknutí nic neudělá. Chcete-li k vytváření objektů používat dlouhá kliknutí, vypněte v hlavní nabídce jednoduchý režim.</string>
+  <string name="tip_gpx_no_elevation">Od verze 15 již stopy GPX ve výchozím nastavení neobsahují informace o nadmořské výšce.&lt;p&gt;Chcete-li povolit záznam nadmořské výšky, nainstalujte model Geoid pomocí &lt;i&gt;Install EGM&lt;/i&gt; z nabídky Nástroje nebo přepněte na vstup NMEA.</string>
   <string name="tip_tag_conflict">Sjednocení nebo obrácení prvků OSM občas vyžaduje úpravu vlastností prvků, pokud může dojít k chybě nebo konfliktu, budete upozorněni a bude nabídnuta možnost zkontrolovat příslušné objekty.</string>
+  <string name="tip_gpx_recording">Když spustíte nahrávání GPX, Vespucci shromažďuje údaje o poloze, aby umožnil nahrávání GPX, i když aplikace není viditelná.&lt;p&gt;Výslovným zavřením aplikace nebo vypnutím nahrávání GPX se v takových situacích přestanou používat údaje o poloze.</string>
+  <string name="tip_auto_download">Když spustíte automatické stahování dat OSM nebo úkolů, Vespucci využívá údaje o poloze k určení aktuální polohy, i když aplikace není viditelná.&lt;p&gt;Výslovným zavřením aplikace nebo vypnutím automatického stahování se používání údajů o poloze v takových situacích zastaví.</string>
+  <string name="tip_tristate_checkbox">Právě jste se dotkli trojstavového zaškrtávacího políčka, které funguje stejně jako normální zaškrtávací políčka, přepíná mezi dvěma hodnotami, například ano/ne nebo pravda/nepravda.&lt;p&gt;Mají však ještě třetí &lt;b&gt;nenastavený&lt;/b&gt; stav, který je indikován šedým zaškrtávacím políčkem, které zabrání přidání odpovídající značky. Do tohoto stavu můžete políčko nastavit dlouhým stiskem. </string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -395,9 +421,11 @@
   <string name="qa_channel_description">QA výstrahy problémů s daty a úkoly</string>
   <!--Toaster-->
   <string name="toast_permission_denied">Přístup odepřen %1$s</string>
+  <string name="toast_unable_to_persist_permissions">Nelze zachovat oprávnění</string>
   <string name="toast_name_empty">Zvolte název</string>
   <string name="toast_url_empty">Zadejte URL</string>
   <string name="toast_min_zoom">Minimální přiblížení nastavte menší než maximální</string>
+  <string name="toast_tile_layer_exists">Zdroj dlaždic %1$s má stejnou url</string>
   <string name="toast_no_changes">Zatím jste nic nezměnil…</string>
   <string name="toast_jpeg_not_transparent">Soubory JPEG nejsou průhledné a nelze je použít jako překryv</string>
   <string name="toast_unsaved_changes">Nejprve nahrajte vaše neuložené změny.</string>
@@ -429,12 +457,14 @@
   <string name="toast_unsurveyed_road">Neprozkoumaná cesta</string>
   <string name="toast_noname">Cesta bez názvu či referenčního čísla</string>
   <string name="toast_notype">Relaci chybí typ</string>
+  <string name="toast_missing_role">Člen vztahu bez požadované role</string>
   <string name="toast_untagged_element">Neoznačený prvek</string>
   <string name="toast_unconnected_end_node">Uzel je poblíž prvku, ke kterému by se mohl připojit</string>
   <string name="toast_degenerate_way">Degenerovaná cesta</string>
   <!---->
   <string name="toast_oauth_retry">Nahrávání zkuste zopakovat poté, co povolíte OAuth přístup k vašemu OSM účtu.</string>
   <string name="toast_oauth">Povolte prosím OAuth přístup k vašemu OSM účtu.</string>
+  <string name="toast_no_oauth">Pro rozhraní API \"%1$s\" není k dispozici žádná konfigurace OAuth, nastavte prosím přihlašovací jméno a heslo.</string>
   <string name="toast_oauth_not_enabled">OAuth není povolen pro současné API.</string>
   <string name="toast_oauth_timeout">Vypršel časový limit pro navázání spojení, zkuste to prosím znovu.</string>
   <string name="toast_oauth_communication">Chyba komunikace během navazování spojení, zkuste to prosím znovu.</string>
@@ -499,6 +529,7 @@
   <string name="toast_not_mbtiles">Soubor nemá formát MBTiles</string>
   <string name="toast_using_network_location">Použita poloha ze sítě</string>
   <string name="toast_using_gps_location">Použita GPS/GNSS poloha</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS polohování vypnuto, zvažte zastavení sledování.</string>
   <string name="toast_remote_nmea_connection">Vzdálené připojení NMEA z / do %1$s</string>
   <string name="toast_remote_nmea_connection_closed">Vzdálené připojení NMEA bylo ukončeno</string>
   <string name="toast_tags_copied">Tagy zkopírovány do schránky</string>
@@ -544,8 +575,12 @@
   <string name="toast_invalid_number_format">Neplatný formát čísla %1$s</string>
   <string name="toast_error_downloading_mapillary_image">Chyba při stahování obrázku mapillary %1$s</string>
   <string name="toast_error_downloading_mapillary_sequences">Chyba při stahování  sekvencí Mapillary %1$s</string>
+  <string name="toast_split_first_segment">Rozdělení prvního segmentu</string>
+  <string name="toast_split_first_and_next_segment">Rozdělení prvního a dalšího segmentu</string>
+  <string name="toast_split_next_segment">Rozdělit další segment</string>
   <string name="toast_nothing_changed">Žádná změna</string>
   <string name="toast_outer_rings_differing_tags">Vnější kroužky mají různé značky</string>
+  <string name="toast_multipolygon_inconsistent_roles">Multipolygon má nekonzistentní hodnoty role pro prstenec</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Zdroje MapSplit musí mít nastaveno minimální a maximální zvětšení</string>
   <string name="error_pbf_no_version">V souboru PBF chybí informace o verzi</string>
@@ -575,6 +610,7 @@
   <string name="prune">Vyčistit</string>
   <string name="check">Zkontrolovat</string>
   <string name="download">Stáhnout</string>
+  <string name="ignore">Ignorovat</string>
   <!--Read a file-->
   <string name="read">Načíst</string>
   <string name="overwrite">Přepsat</string>
@@ -602,6 +638,7 @@
   <string name="tag_menu_preset">Předvolby</string>
   <string name="tag_menu_apply_preset">Použít předvolbu</string>
   <string name="tag_menu_apply_preset_with_optional">Použít předvolbu s volitelnými</string>
+  <string name="tag_menu_show_alternatives">Zobrazit alternativní značení</string>
   <string name="tag_menu_revert">Vrátit zpět</string>
   <string name="tag_menu_mapfeatures">Wiki s možnostmi mapovaní</string>
   <string name="tag_menu_addtorelation">Přidat do relace</string>
@@ -798,6 +835,7 @@
   <string name="menu_tools_update_imagery_configuration_eli">Aktualizovat konfiguraci z ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Přiblížit na rozsah pozadí</string>
   <string name="menu_tools_clear_clipboard">Vyčistit schránku</string>
+  <string name="menu_tools_calibrate_height">Kalibrace snímače tlaku...</string>
   <string name="menu_tools_install_egm">Instalovat EGM</string>
   <string name="menu_tools_remove_egm">Odstranit EGM</string>
   <!---->
@@ -866,6 +904,7 @@
   <string name="actionmode_createpath">Nová cesta</string>
   <string name="actionmode_multiselect">Multiselect</string>
   <string name="actionmode_newnoteselect">Nová poznámka vybrána</string>
+  <string name="actionmode_add_segment">Přidat segment</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Rozdělení uzavřené cesty, 1. uzel</string>
   <string name="actionmode_closed_way_split_2">Rozdělení uzavřené cesty, 2. uzel</string>
@@ -899,12 +938,14 @@
   <string name="simple_paste">Zvolte pozici na mapě</string>
   <string name="menu_paste_multiple">Vložit vícekrát</string>
   <string name="simple_paste_multiple">Zvolte pozici na mapě</string>
+  <string name="menu_snap">Přichytit</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Pozadí mapy</string>
   <string name="config_backgroundLayer_summary">Dlaždicové pozadí mapy.</string>
   <string name="config_overlayLayer_title">Překrytí mapy</string>
   <string name="config_overlayLayer_summary">Dlaždicová překryvná vrstva mapy.</string>
   <string name="config_customlayers_title">Vlastní vrstvy</string>
+  <string name="config_customlayers_summary">Správa vrstev, které nejsou ve výchozí konfiguraci.</string>
   <string name="config_scale_title">Zobrazení měřítka</string>
   <string name="config_scale_summary">Typ měřítka zobrazeného na mapě.</string>
   <string name="config_mapProfile_title">Styl dat</string>
@@ -946,6 +987,8 @@
   <string name="config_tagFormEnabled_summary">Pro úpravu tagů zobrazí formulář.</string>
   <string name="config_showCameraAction_title">Zobrazit tlačítko fotoaparátu</string>
   <string name="config_showCameraAction_summary">Zobrazit ikonu fotoaparátu na liště nástrojů.</string>
+  <string name="config_selectCameraApp_summary">Vyberte aplikaci fotoaparátu, kterou chcete použít.</string>
+  <string name="config_fv5_pro">FV5 pro</string>
   <string name="config_useInternalPhotoViewer_title">Použít vestavěný prohlížeči fotografií</string>
   <string name="config_useInternalPhotoViewer_summary">Použít vestavěný prohlížeči fotografií, při nezatržení se použije externí prohlížeč.</string>
   <string name="config_followGPSbutton_title">Umístění tlačítka Následovat polohu</string>
@@ -964,6 +1007,7 @@
   <string name="config_enableLightTheme_summary">Světlé a bílé pozadí.</string>
   <string name="config_splitActionBarEnabled_title">Povolit rozdělení lišty nástrojů</string>
   <string name="config_splitActionBarEnabled_summary">Umožní rozdělit lištu nástrojů, výsledek závisí na konkrétním telefonu. Vyžaduje opětovné spuštění a Android 4.0 či novější.</string>
+  <string name="config_disableTranslations_title">Vypnout překlady</string>
   <string name="config_maxInlineValues_title">Max. počet vložených hodnot</string>
   <string name="config_maxInlineValues_summary">Maximální počet vložených hodnot zobrazených ve formuláři značky.</string>
   <string name="config_maxInlineValues_current">%1$d hodnoty</string>
@@ -984,7 +1028,12 @@
   <string name="config_uploadWarn_summary">Limit, pod jakou hranicí čekajících na nahrání objektu bude zobrazeno varování</string>
   <string name="config_dataWarn_title">Varování na příliš mnoho dat</string>
   <string name="config_dataWarn_summary">Limit (v počtu uzlů), při kterém začneme varovat před příliš velkým množstvím načítaných dat</string>
+  <string name="config_useUrlForFeedback_title">Zakázat aktivitu zpětné vazby</string>
+  <string name="config_useUrlForFeedback_summary">Zakázat aktivitu zpětné vazby a místo ní použít adresu URL.</string>
+  <string name="config_beepVolume_title">Hlasitost pípání</string>
+  <string name="config_beepVolume_summary">Nastavení hlasitosti pro zvukové signály.</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_title">Minimální přiblížení pro Mapillary</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Nastavení dat a úprav</string>
@@ -1085,6 +1134,7 @@
   <string name="config_tileCacheSize_summary">Celková velikost mezipaměti s dlaždicemi v MB.</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Velikost mezipaměti Mapillary</string>
+  <string name="config_mapillaryCacheSize_summary">Celkové úložiště použité pro ukládání obrázků Mapillary do mezipaměti, v MB</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Různé</string>
   <string name="pref_enable_acra">Hlásit pády aplikace</string>
@@ -1151,6 +1201,7 @@
   <string name="tracking_active_title">Vespucci služba na pozadí</string>
   <string name="tracking_active_title_short">Aktivní služba na pozadí</string>
   <string name="tracking_active_text">Nahrává se GPS stopa nebo je zapnuto automatické stahování</string>
+  <string name="tracking_long_text">Vespucci nahrává stopu GPX nebo ji automaticky stahuje. Pro úplné ukončení stiskněte tlačítko níže nebo tlačítko zpět v aplikaci.</string>
   <string name="gps_failure">Nepovedlo se zapnout GPS</string>
   <!--element description-->
   <string name="address_housenumber">Adresa %1$s</string>
@@ -1223,7 +1274,11 @@
   <string name="tunnel">Tunel</string>
   <string name="culvert">Propustek</string>
   <!--Tag issues-->
+  <string name="issue_shared_node">Sdílené s jinou cestou</string>
+  <string name="issue_tags_reversed">Štítky obrácené</string>
+  <string name="issue_role_reversed">Obrácená role</string>
   <string name="issue_merged_tags">Tagy sloučeny</string>
+  <string name="issue_same_object">Stejný objekt</string>
   <string name="issue_split_metric">Hodnota závislá na délce byla rozdělena</string>
   <!--time and distance-->
   <plurals name="days">
@@ -1265,4 +1320,5 @@
   <!--Help system-->
   <string name="toast_nohelp">Nápověda není k dispozici.</string>
   <!--Bookmarks-->
+  <string name="bookmarks_desc">Přidat komentář</string>
 </resources>

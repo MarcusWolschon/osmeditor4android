@@ -33,11 +33,11 @@
 <p>K zabránění nechtěných úprav se Vespucci spustí v &quot;uzamčeném&quot; režimu, který dovoluje pouze přibližování a posouvání mapy. Pro odemčení obrazovky klepněte na ikonu <img src="../images/locked.png" alt="zámku" />.</p>
 <p>Dlouhým stisknutím ikony zámku se zobrazí nabídka se 4 možnostmi:</p>
 <ul>
-<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
-<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a &quot;T&quot; is displayed.</li>
-<li><strong>Address</strong> - enables Address mode, a slightly simplified mode with specific actions available from the <a href="../en/Simple%20actions.md">Simple mode</a> &quot;+&quot; button. White lock icon with an &quot;A&quot; is displayed.</li>
-<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with an &quot;I&quot; is displayed.</li>
-<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a &quot;C&quot; is displayed.</li>
+<li><strong>Normální</strong> - výchozí režim úprav, lze přidávat nové objekty, upravovat, přesouvat a odstraňovat stávající. Zobrazí se jednoduchá bílá ikona zámku.</li>
+<li><strong>Pouze označení</strong> - výběrem existujícího objektu se spustí editor vlastností, dlouhým stiskem na hlavní obrazovce se objekty přidají, ale nefungují žádné další operace s geometrií. Zobrazí se bílá ikona zámku s písmenem &quot;T&quot;.</li>
+<li><strong>Adresa</strong> - zapne režim Adresa, mírně zjednodušený režim se specifickými akcemi dostupnými z tlačítka <a href="../en/Simple%20actions.md">Jednoduchý režim</a> &quot;+&quot;. Zobrazí se bílá ikona zámku s písmenem &quot;A&quot;.</li>
+<li><strong>Indoor</strong> - zapne režim Indoor, viz <a href="#indoor">Indoor mode</a>. Zobrazí se bílá ikona zámku s písmenem &quot;I&quot;.</li>
+<li><strong>C-Mode</strong> - zapne režim C-Mode, zobrazí se pouze objekty, které mají nastavený varovný příznak, viz <a href="#c-mode">C-Mode</a>. Zobrazí se bílá ikona zámku s písmenem &quot;C&quot;.</li>
 </ul>
 <h4>Jedno klepnutí, dvě klepnutí a dlouhé stisknutí</h4>
 <p>Ve výchozím nastavení mají uzly a cesty, které lze zvolit, oranžově vyznačenou oblast do které musíte přibližně klepnout pro zvolení objektu. Existují tři možnosti:</p>
@@ -82,7 +82,7 @@
 </li>
 <li><em>Normal touch in another place.</em> Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.</li>
 </ul>
-<p>Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically.</p>
+<p>Jednoduše se dotkněte obrazovky v místě, kam chcete přidat další uzly cesty. Poslední uzel dokončíte tak, že se ho dvakrát dotknete. Pokud se koncový uzel nachází na cestě nebo uzlu, segment se k cestě nebo uzlu připojí automaticky.</p>
 <p>Můžete také použít položku nabídky: Viz <a href="Creating%20new%20objects.md">Vytvoření nového objektu</a> pro víc informací.</p>
 <h4>Přidání oblasti</h4>
 <p>OpenStreetMap momentálně nemá typ objektu &quot;oblast&quot; na rozdíl od jiných geo-datových systémů. Editor online &quot;iD&quot; se pokouší vytvořit abstrakci od základních prvků OSM, která v některých případech funguje dobře, v jiných tolik ne. Vespucci se momentálně nepokouší dělat něco podobného, takže potřebujete vědět trochu o tom, jak jsou reprezentovány oblasti:</p>
@@ -177,8 +177,8 @@
 <p>Mnoho aspektů aplikace lze přizpůsobit, pokud hledáte něco konkrétního a nemůžete jej najít, <a href="https://vespucci.io/">web Vespucci</a> je prohledávatelný a obsahuje další informace o tom, co je k dispozici na zařízení.</p>
 <p><a id="layers"></a></p>
 <h3>nastavení vrstev</h3>
-<p>Layer settings can be changed via the layer control (&quot;hamburger&quot; menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
-<p>Available layer types:</p>
+<p>Nastavení vrstvy lze změnit pomocí ovládacího prvku vrstvy (nabídka &quot;hamburger&quot; v pravém horním rohu), všechna ostatní nastavení jsou dostupná pomocí tlačítka předvoleb v hlavní nabídce. Vrstvy lze povolit, zakázat a dočasně skrýt.</p>
+<p>Dostupné typy vrstev:</p>
 <ul>
 <li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
 <li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the &quot;standard style&quot; map from openstreetmap.org.</li>

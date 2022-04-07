@@ -6,6 +6,7 @@
   <string name="mode_indoor">Binnen</string>
   <string name="mode_correct">C-Modus</string>
   <string name="mode_address">Adres</string>
+  <string name="mode_voice">Stem</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Let op!</string>
   <string name="transfer_download_current_dialog_message">Je hebt wijzigingen gemaakt. Wil je ze uploaden in plaats van verwerpen?</string>
@@ -579,6 +580,7 @@
   <string name="prune">Opschonen</string>
   <string name="check">Controleren</string>
   <string name="download">Download</string>
+  <string name="ignore">Negeren</string>
   <!--Read a file-->
   <string name="read">Lezen</string>
   <string name="overwrite">Overschrijven</string>
@@ -970,6 +972,7 @@
   <string name="config_enableLightTheme_summary">Licht en witte achtergronden.</string>
   <string name="config_splitActionBarEnabled_title">Zet gesplitste actiebalk aan</string>
   <string name="config_splitActionBarEnabled_summary">Sta een gespleten actiebalk toe, het gebruik is apparaat specifiek. Vereist herstarten van Vespucci, en Android 4.0 of later.</string>
+  <string name="config_disableTranslations_title">Vertalingen uitzetten</string>
   <string name="config_maxInlineValues_title">Max. aantal waarden op een regel</string>
   <string name="config_maxInlineValues_summary">Maximaal aantal waarden dat op een regel in een tag formulier wordt getoond.</string>
   <string name="config_maxInlineValues_current">%1$d Waarden</string>
@@ -1050,6 +1053,7 @@
   <string name="config_bugDownloadRadius_summary">Straal (m) van taakdownloads.</string>
   <string name="config_maxBugDownloadSpeed_title">Maximum taak auto-download snelheid</string>
   <string name="config_maxBugDownloadSpeed_summary">Limiet (in km/h) waarboven notities, bugs en taken auto-download wordt gepauzeerd.</string>
+  <string name="config_autoPruneTaskLimit_current">%1$d taken</string>
   <!--Location Settings-->
   <string name="config_category_gps">Locatie-instellingen</string>
   <string name="config_category_gps_summary">GPS/GNSS parameters en andere locatieaanbieders.</string>
@@ -1270,5 +1274,10 @@
   <!--Help system-->
   <string name="toast_nohelp">Geen help hier.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark">Bladwijzer toevoegen…</string>
+  <string name="bookmarks_desc">Opmerkingen toevoegen</string>
+  <string name="show_bookmarks">Bladwijzers…</string>
   <string name="_dots">⋮</string>
+  <string name="gotobookmark">Gaan</string>
+  <string name="bookmarkstitle">Bladwijzers</string>
 </resources>

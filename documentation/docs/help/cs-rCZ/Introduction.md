@@ -41,11 +41,11 @@ K zabránění nechtěných úprav se Vespucci spustí v "uzamčeném" režimu, 
 
 Dlouhým stisknutím ikony zámku se zobrazí nabídka se 4 možnostmi:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Normální** - výchozí režim úprav, lze přidávat nové objekty, upravovat, přesouvat a odstraňovat stávající. Zobrazí se jednoduchá bílá ikona zámku.
+* **Pouze označení** - výběrem existujícího objektu se spustí editor vlastností, dlouhým stiskem na hlavní obrazovce se objekty přidají, ale nefungují žádné další operace s geometrií. Zobrazí se bílá ikona zámku s písmenem "T".
+* **Adresa** - zapne režim Adresa, mírně zjednodušený režim se specifickými akcemi dostupnými z tlačítka [Jednoduchý režim](../en/Simple%20actions.md) "+". Zobrazí se bílá ikona zámku s písmenem "A".
+* **Indoor** - zapne režim Indoor, viz [Indoor mode](#indoor). Zobrazí se bílá ikona zámku s písmenem "I".
+* **C-Mode** - zapne režim C-Mode, zobrazí se pouze objekty, které mají nastavený varovný příznak, viz [C-Mode](#c-mode). Zobrazí se bílá ikona zámku s písmenem "C".
 
 #### Jedno klepnutí, dvě klepnutí a dlouhé stisknutí
 
@@ -106,7 +106,7 @@ Jakmile se zobrazí symbol zaměřovače, máte tři možnosti:
     * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
 * _Normal touch in another place._ Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. 
+Jednoduše se dotkněte obrazovky v místě, kam chcete přidat další uzly cesty. Poslední uzel dokončíte tak, že se ho dvakrát dotknete. Pokud se koncový uzel nachází na cestě nebo uzlu, segment se k cestě nebo uzlu připojí automaticky. 
 
 Můžete také použít položku nabídky: Viz [Vytvoření nového objektu](Creating%20new%20objects.md) pro víc informací.
 
@@ -255,9 +255,9 @@ Mnoho aspektů aplikace lze přizpůsobit, pokud hledáte něco konkrétního a 
 
 ### nastavení vrstev
 
-Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
+Nastavení vrstvy lze změnit pomocí ovládacího prvku vrstvy (nabídka "hamburger" v pravém horním rohu), všechna ostatní nastavení jsou dostupná pomocí tlačítka předvoleb v hlavní nabídce. Vrstvy lze povolit, zakázat a dočasně skrýt.
 
-Available layer types:
+Dostupné typy vrstev:
 
 * Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
 * Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
