@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
  * @author simon
  *
  */
-public class TimestampedPresetElementPath extends PresetElementPath {
+public class TimestampedPresetElementPath extends PresetElementPath { // NOSONAR
 
     private static final long serialVersionUID = 1L;
 

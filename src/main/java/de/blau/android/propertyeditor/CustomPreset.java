@@ -8,7 +8,6 @@ import java.util.List;
 import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.TextLineDialog;
@@ -65,6 +64,7 @@ public final class CustomPreset {
                     } catch (IOException e) {
                         Log.e(DEBUG_TAG, "Setting icon manager failed " + e.getMessage());
                     }
+
                     PresetGroup group = preset.getRootGroup();
                     PresetItem customItem = new PresetItem(preset, group, input.getText().toString(), ICON, null);
                     // add linked presets
@@ -95,23 +95,11 @@ public final class CustomPreset {
                             customItem.addField(field);
                         }
                     }
-                    Preset[] configuredPresets = App.getCurrentPresets(ctx);
-                    Preset autoPreset = configuredPresets[configuredPresets.length - 1];
-                    if (autoPreset != null) {
-                        PresetGroup autoGroup = autoPreset.getGroupByName(ctx.getString(R.string.preset_autopreset));
-                        if (group != null) {
-                            @SuppressWarnings("unused")
-                            PresetItem copy = new PresetItem(autoPreset, autoGroup, customItem);
-                        } else {
-                            Log.e(DEBUG_TAG, "Couldn't find preset group");
-                        }
-                    } else {
-                        Log.e(DEBUG_TAG, "Preset null");
-                        return;
-                    }
-                    AutoPreset.save(ctx, autoPreset);
                     caller.deselectAllRows();
-                    caller.presetSelectedListener.onPresetSelected(customItem);
+                    if (AutoPreset.addItemToAutoPreset(ctx, customItem)) {
+                        caller.presetFilterUpdate.update(null);
+                        caller.presetSelectedListener.onPresetSelected(customItem);
+                    }
                 }).show();
     }
 
@@ -136,5 +124,4 @@ public final class CustomPreset {
         }
         return false;
     }
-
 }

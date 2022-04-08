@@ -26,7 +26,6 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
-import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.AutoPresetItem;
 import de.blau.android.presets.Preset;
@@ -154,26 +153,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
             return;
         }
         Log.d(DEBUG_TAG, "normal click");
-        if (item instanceof AutoPresetItem) {
-            Preset[] configuredPresets = App.getCurrentPresets(getContext());
-            int autopresetPosition = configuredPresets.length - 1;
-            Preset preset = configuredPresets[autopresetPosition];
-            if (preset == null) {
-                // may happen during testing
-                AdvancedPrefDatabase.createEmptyAutoPreset(getContext(), configuredPresets, autopresetPosition);
-                preset = configuredPresets[autopresetPosition];
-                if (preset == null) {
-                    Log.e(DEBUG_TAG, "Couldn't create auto preset");
-                    return;
-                }
-            }
-            PresetGroup group = preset.getGroupByName(getContext().getString(R.string.preset_autopreset));
-            if (group != null) {
-                item = new PresetItem(preset, group, item);
-            } else {
-                Log.e(DEBUG_TAG, "Couldn't find preset group");
-            }
-            AutoPreset.save(getContext(), preset);
+        if (item instanceof AutoPresetItem && AutoPreset.addItemToAutoPreset(getContext(), item)) {
             mPresetUpdateListener.update(null);
         }
         mOnPresetSelectedListener.onPresetSelected(item);
