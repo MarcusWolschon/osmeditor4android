@@ -96,6 +96,12 @@ Set how load the beep is Vespucci uses when you are pressing unsupported short c
 
 Set the minimum zoom level for Mapillary data to be displayed. If set too low the application might crash in areas with very high density Mapillary data. Consider increasing the number if your display if very large or very high resolution. Default: _16_
 
+### Name capitalization
+
+Set the capitalization mode for keyboard input for name-like tag. One of _No capitalization_, _Word capitalization_ and _Sentence capitalization_. Default: _Word capitalization_.
+
+Note: this setting is only applicable when the current locale uses latin script.
+
 ## Data and Editing Settings
 
 Settings related to editing.

@@ -193,6 +193,13 @@
             app:spt_increment="1"
             app:spt_currentValueText="@string/config_mapillary_min_zoom_current"
             app:spt_setWrapSelectorWheel="false" />
+        <androidx.preference.ListPreference
+            android:defaultValue="1"
+            android:entries="@array/name_cap_entries"
+            android:entryValues="@array/name_cap_values"
+            android:key="@string/config_nameCap_key"
+            android:summary="@string/config_nameCap_summary"
+            android:title="@string/config_nameCap_title" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_editing"

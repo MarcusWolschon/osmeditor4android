@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import de.blau.android.propertyeditor.InputTypeUtil;
 import de.blau.android.propertyeditor.SanitizeTextWatcher;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
+import de.blau.android.util.LocaleUtils;
 import de.blau.android.util.Value;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
@@ -37,7 +39,9 @@ import de.blau.android.views.CustomAutoCompleteTextView;
  */
 public class TextRow extends LinearLayout implements KeyValueRow {
 
-    protected static final String DEBUG_TAG = "TextRow";
+    protected static final String DEBUG_TAG = TextRow.class.getSimpleName();
+
+    private static final int INPUTTYPE_CAPS_MASK = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_CAP_WORDS;
 
     private TextView                   keyView;
     private CustomAutoCompleteTextView valueView;
@@ -78,7 +82,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
      * @param k a string resource id for the key
      */
     public void setKeyText(int k) {
-        getKeyView().setText(k);
+        keyView.setText(k);
     }
 
     /**
@@ -92,7 +96,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
 
     @Override
     public String getKey() {
-        return (String) getKeyView().getTag();
+        return (String) keyView.getTag();
     }
 
     @Override
@@ -161,7 +165,9 @@ public class TextRow extends LinearLayout implements KeyValueRow {
         final String hint = preset != null ? field.getHint() : null;
         final String defaultValue = field.getDefaultValue();
         row.valueType = preset != null ? preset.getValueType(key) : null;
-        final boolean isMPHSpeed = Tags.isSpeedKey(key) && App.getGeoContext(rowLayout.getContext()).imperial(caller.propertyEditorListener.getElement());
+        final boolean isName = Tags.isLikeAName(key);
+        final boolean isMPHSpeed = !isName && Tags.isSpeedKey(key)
+                && App.getGeoContext(rowLayout.getContext()).imperial(caller.propertyEditorListener.getElement());
         final TextView ourKeyView = row.getKeyView();
         ourKeyView.setText(hint != null ? hint : key);
         ourKeyView.setTag(key);
@@ -173,6 +179,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
                 ourValueView.getViewTreeObserver().addOnGlobalLayoutListener(new LayoutListener(ourKeyView, ourValueView, length));
             }
         }
+
         ourValueView.setText(value);
 
         // set empty value to be on the safe side
@@ -196,12 +203,18 @@ public class TextRow extends LinearLayout implements KeyValueRow {
                 if (adapter != null && !adapter.isEmpty()) {
                     ourValueView.setAdapter(adapter);
                 }
+                final ValueType valueType = row.getValueType();
                 if (isMPHSpeed) {
                     TagEditorFragment.initMPHSpeed(rowLayout.getContext(), ourValueView, caller.propertyEditorListener);
-                } else if (row.getValueType() == null) {
+                } else if (valueType == null) {
                     InputTypeUtil.enableTextSuggestions(ourValueView);
                 }
-                InputTypeUtil.setInputTypeFromValueType(ourValueView, row.getValueType());
+                if (isName && LocaleUtils.usesLatinScript(caller.getResources().getConfiguration().locale)) {
+                    ourValueView.setInputType(
+                            (ourValueView.getInputType() & ~INPUTTYPE_CAPS_MASK) | InputType.TYPE_CLASS_TEXT | App.getLogic().getPrefs().getAutoNameCap());
+                } else {
+                    InputTypeUtil.setInputTypeFromValueType(ourValueView, valueType);
+                }
             }
         });
         ourValueView.setOnItemClickListener((parent, view, position, id) -> {

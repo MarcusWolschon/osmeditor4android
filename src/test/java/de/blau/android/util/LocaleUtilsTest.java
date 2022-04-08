@@ -1,6 +1,8 @@
 package de.blau.android.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
 
@@ -37,13 +39,24 @@ public class LocaleUtilsTest {
         assertEquals(java, locale);
         locale = LocaleUtils.forLanguageTagCompat("de-CH");
         assertEquals(java, locale);
-        
+
         java = Locale.forLanguageTag("");
         locale = LocaleUtils.forLanguageTag("");
         assertEquals(java, locale);
-        
+
         java = Locale.forLanguageTag("de");
         locale = LocaleUtils.forLanguageTag("de");
         assertEquals(java, locale);
+    }
+
+    /**
+     * Check for latin script use
+     */
+    @Test
+    public void latinScript() {
+        Locale locale = Locale.forLanguageTag("de-CH");
+        assertTrue(LocaleUtils.usesLatinScript(locale));
+        locale = Locale.forLanguageTag("cn");
+        assertFalse(LocaleUtils.usesLatinScript(locale));
     }
 }

@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -24,13 +25,14 @@ public final class Tags {
     public static final String OSM_VALUE_SEPARATOR = ";";
 
     // Karlsruher schema
-    public static final String KEY_ADDR_BASE        = "addr:";
-    public static final String KEY_ADDR_HOUSENUMBER = "addr:housenumber";
-    public static final String KEY_ADDR_STREET      = "addr:street";
-    public static final String KEY_ADDR_POSTCODE    = "addr:postcode";
-    public static final String KEY_ADDR_CITY        = "addr:city";
-    public static final String KEY_ADDR_COUNTRY     = "addr:country";
-    public static final String KEY_ADDR_FULL        = "addr:full";
+    private static final String KEY_ADDR             = "addr";
+    public static final String  KEY_ADDR_BASE        = KEY_ADDR + ":";
+    public static final String  KEY_ADDR_HOUSENUMBER = "addr:housenumber";
+    public static final String  KEY_ADDR_STREET      = "addr:street";
+    public static final String  KEY_ADDR_POSTCODE    = "addr:postcode";
+    public static final String  KEY_ADDR_CITY        = "addr:city";
+    public static final String  KEY_ADDR_COUNTRY     = "addr:country";
+    public static final String  KEY_ADDR_FULL        = "addr:full";
     // the following are less used but may be necessary
     public static final String KEY_ADDR_HOUSENAME          = "addr:housename";
     public static final String KEY_ADDR_CONSCRIPTIONNUMBER = "addr:conscriptionnumber";
@@ -100,6 +102,28 @@ public final class Tags {
     public static final String       KEY_INT_NAME      = "int_name";
     public static final List<String> I18N_NAME_KEYS    = Collections
             .unmodifiableList(Arrays.asList(KEY_NAME, KEY_OFFICIAL_NAME, KEY_ALT_NAME, KEY_LOC_NAME, KEY_SHORT_NAME, KEY_REG_NAME, KEY_NAT_NAME));
+
+    /**
+     * Check if a key in general can be assumed to have a different value for each occurrence
+     * 
+     * We also assume that key: are variants that follow the same rule
+     * 
+     * @param key the key to check
+     * @return true if the key has name-like semantics
+     */
+    public static boolean isLikeAName(@NonNull String key) {
+        List<String> nameLikeKeys = new ArrayList<>(Tags.I18N_NAME_KEYS);
+        nameLikeKeys.add(Tags.KEY_ADDR);
+        nameLikeKeys.add(Tags.KEY_ADDR_HOUSENAME);
+        nameLikeKeys.add(Tags.KEY_ADDR_UNIT);
+        nameLikeKeys.add(Tags.KEY_REF);
+        for (String k : nameLikeKeys) {
+            if (k.equals(key) || key.startsWith(k + ":")) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static final String KEY_NAME_LEFT        = "name:left";
     public static final String KEY_NAME_RIGHT       = "name:right";

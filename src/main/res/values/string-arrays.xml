@@ -158,4 +158,15 @@
         <item>com.flavionet.android.camera.pro</item>
         <item>ch.poole.android.dummycameraapp</item>
     </string-array>
+        <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>No capitalization</item>
+        <item>Word capitalization</item>
+        <item>Sentence capitalization</item>
+    </string-array>
+    <string-array translatable="false" name="name_cap_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
  </resources>
