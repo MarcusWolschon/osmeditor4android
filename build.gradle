@@ -388,8 +388,11 @@ task removeVespucciDirectory() {
         AndroidDebugBridge.initIfNeeded(false)
         def bridge = AndroidDebugBridge.createBridge(android.adbExecutable.path, false)
         bridge.devices.each {
-            CollectingOutputReceiver receiver = new CollectingOutputReceiver()
-            it.executeShellCommand("rm -r /sdcard/Download/Vespucci", receiver)
+            if (it.isEmulator()) {
+                project.logger.lifecycle('Removing directory on ' + it.getSerialNumber())
+                CollectingOutputReceiver receiver = new CollectingOutputReceiver()
+                it.executeShellCommand("rm -r /sdcard/Download/Vespucci", receiver)
+            }
         }
     }
 }
@@ -431,6 +434,7 @@ afterEvaluate{
         
         marathonCurrentDebugAndroidTest.dependsOn installDummyCameraApp
         marathonCurrentDebugAndroidTest.dependsOn setLongClickTimeout
+        marathonCurrentDebugAndroidTest.dependsOn removeVespucciDirectory
         uninstallAll.dependsOn deinstallDummyCameraApp
     }
 
