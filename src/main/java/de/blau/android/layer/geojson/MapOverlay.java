@@ -520,6 +520,7 @@ public class MapOverlay extends StyleableLayer
         MapOverlay restoredOverlay = savingHelper.load(context, stateFileName, true);
         if (restoredOverlay != null) {
             labelKey = restoredOverlay.labelKey;
+            labelMinZoom = restoredOverlay.labelMinZoom;
             stateFileName = restoredOverlay.stateFileName;
         }
         return restoredOverlay;
