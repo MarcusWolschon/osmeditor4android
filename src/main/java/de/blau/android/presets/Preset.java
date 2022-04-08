@@ -1588,16 +1588,13 @@ public class Preset {
      * @param region region to filter on
      * @return the view
      */
+    @NonNull
     public static View getRecentPresetView(@NonNull Context ctx, @NonNull Preset[] presets, @Nullable PresetClickHandler handler, @Nullable ElementType type,
             @Nullable String region) {
         Preset dummy = new Preset();
         PresetGroup recent = new PresetGroup(dummy, null, "recent", null);
         recent.setItemSort(false);
-        for (Preset p : presets) {
-            if (p != null && p.hasMRU()) {
-                p.mru.addToPresetGroup(recent, p, region);
-            }
-        }
+        PresetMRUInfo.addToPresetGroup(recent, presets, region);
         return recent.getGroupView(ctx, handler, type, null, null); // we've already filtered on region
     }
 
@@ -1608,6 +1605,16 @@ public class Preset {
      */
     public boolean hasMRU() {
         return mru != null && !mru.isEmpty();
+    }
+
+    /**
+     * Get the MRU for this preset
+     * 
+     * @return the mru
+     */
+    @Nullable
+    PresetMRUInfo getMru() {
+        return mru;
     }
 
     /**

@@ -7,8 +7,12 @@ import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -19,7 +23,7 @@ import de.blau.android.contract.Files;
  * Serializable class for storing Most Recently Used information. Hash is used to check compatibility.
  */
 public class PresetMRUInfo implements Serializable {
-    private static final long serialVersionUID = 7708132207266548492L;
+    private static final long serialVersionUID = 7708132207266548493L;
 
     private static final int MAX_MRU_SIZE = 50;
 
@@ -29,7 +33,7 @@ public class PresetMRUInfo implements Serializable {
     final String presetHash;
 
     /** indexes of recently used presets (for use with allItems) */
-    private LinkedList<PresetElementPath> recentPresets = new LinkedList<>();
+    private LinkedList<TimestampedPresetElementPath> recentPresets = new LinkedList<>();
 
     private volatile boolean changed = false;
 
@@ -65,7 +69,7 @@ public class PresetMRUInfo implements Serializable {
      */
     public void putRecentlyUsed(@NonNull PresetItem item, @Nullable String region) {
         final PresetGroup rootGroup = item.getPreset().getRootGroup();
-        PresetElementPath path = item.getPath(rootGroup);
+        TimestampedPresetElementPath path = new TimestampedPresetElementPath(item.getPath(rootGroup));
         // prevent duplicates and preset is not in the list, add linked presets first
         if (!recentPresets.remove(path) && item.getLinkedPresetItems() != null) {
             LinkedList<PresetItemLink> linkedPresets = new LinkedList<>(item.getLinkedPresetItems());
@@ -74,7 +78,7 @@ public class PresetMRUInfo implements Serializable {
             for (PresetItemLink pl : linkedPresets) {
                 PresetItem linkedItem = preset.getItemByName(pl.getPresetName(), region);
                 if (linkedItem != null) { // null if the link wasn't found
-                    PresetElementPath linkedPath = linkedItem.getPath(rootGroup);
+                    TimestampedPresetElementPath linkedPath = new TimestampedPresetElementPath(linkedItem.getPath(rootGroup));
                     if (!recentPresets.contains(linkedPath)) { // only add if not already present
                         recentPresets.addFirst(linkedPath);
                         if (recentPresets.size() > MAX_MRU_SIZE) {
@@ -125,15 +129,28 @@ public class PresetMRUInfo implements Serializable {
     }
 
     /**
-     * Add the contents to a PresetGroup
+     * Add MRUs to a PresetGroup sorting the paths by the timestamp
+     * 
+     * This is slightly complex because PresetELementPath is relative to the presets root group
      * 
      * @param group the PresetGroup
-     * @param p the parent Preset
+     * @param presets the Presets with the MRUs
      * @param region the current region if any
      */
-    public void addToPresetGroup(@NonNull PresetGroup group, @NonNull Preset p, @Nullable String region) {
-        for (PresetElementPath path : recentPresets) {
-            final PresetItem item = (PresetItem) Preset.getElementByPath(p.getRootGroup(), path, region);
+    public static void addToPresetGroup(@NonNull PresetGroup group, @NonNull Preset[] presets, @Nullable String region) {
+        Map<TimestampedPresetElementPath, Preset> parent = new HashMap<>();
+        List<TimestampedPresetElementPath> paths = new ArrayList<>();
+        for (Preset p : presets) {
+            if (p != null && p.hasMRU()) {
+                for (TimestampedPresetElementPath path : p.getMru().recentPresets) {
+                    paths.add(path);
+                    parent.put(path, p);
+                }
+            }
+        }
+        Collections.sort(paths, (TimestampedPresetElementPath p1, TimestampedPresetElementPath p2) -> Long.compare(p2.getTimestamp(), p1.getTimestamp()));
+        for (PresetElementPath path : paths) {
+            final PresetItem item = (PresetItem) Preset.getElementByPath(parent.get(path).getRootGroup(), path, region);
             if (item != null) {
                 group.addElement(item, false);
             }

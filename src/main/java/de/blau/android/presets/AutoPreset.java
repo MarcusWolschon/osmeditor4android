@@ -33,6 +33,7 @@ import de.blau.android.contract.Files;
 import de.blau.android.contract.Paths;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Tags;
+import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.propertyeditor.CustomPreset;
 import de.blau.android.taginfo.TaginfoServer;
@@ -380,5 +381,34 @@ public class AutoPreset {
         if (group == null) {
             new PresetGroup(autopreset, autopreset.getRootGroup(), autopresetGroupName, AutoPreset.ICON);
         }
+    }
+
+    /**
+     * Add an PresetItem to the auto preset
+     * 
+     * @param ctx an Android Context
+     * @param item the PresetItem
+     * @return true if successful
+     */
+    public static boolean addItemToAutoPreset(@NonNull Context ctx, @NonNull PresetItem item) {
+        Preset[] configuredPresets = App.getCurrentPresets(ctx);
+        int autopresetPosition = configuredPresets.length - 1;
+        Preset preset = configuredPresets[autopresetPosition];
+        if (preset == null) {
+            // may happen during testing
+            AdvancedPrefDatabase.createEmptyAutoPreset(ctx, configuredPresets, autopresetPosition);
+            preset = configuredPresets[autopresetPosition];
+        }
+        if (preset != null) {
+            PresetGroup group = preset.getGroupByName(ctx.getString(R.string.preset_autopreset));
+            if (group != null) {
+                @SuppressWarnings("unused")
+                PresetItem newItem = new PresetItem(preset, group, item);
+                AutoPreset.save(ctx, preset);
+                return true;
+            }
+        }
+        Log.e(DEBUG_TAG, "Preset null or group not found");
+        return false;
     }
 }
