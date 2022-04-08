@@ -1,7 +1,6 @@
 package de.blau.android.propertyeditor;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -88,7 +87,7 @@ public final class CustomPreset {
                             }
                         } else {
                             PresetField field = item.getField(key).copy();
-                            if (notEmpty && !isLikeAName(key)) {
+                            if (notEmpty && !Tags.isLikeAName(key)) {
                                 field.setDefaultValue(value);
                             }
                             field.setOptional(false);
@@ -101,27 +100,5 @@ public final class CustomPreset {
                         caller.presetSelectedListener.onPresetSelected(customItem);
                     }
                 }).show();
-    }
-
-    /**
-     * Check if a key in general can be assumed to have a different value for each occurrence
-     * 
-     * We also assume that key: are variants that follow the same rule
-     * 
-     * @param key the key to check
-     * @return true if the key has name-like semantics
-     */
-    private static boolean isLikeAName(@NonNull String key) {
-        List<String> nameLikeKeys = new ArrayList<>(Tags.I18N_NAME_KEYS);
-        nameLikeKeys.add(Tags.KEY_ADDR_HOUSENUMBER);
-        nameLikeKeys.add(Tags.KEY_ADDR_HOUSENAME);
-        nameLikeKeys.add(Tags.KEY_ADDR_UNIT);
-        nameLikeKeys.add(Tags.KEY_REF);
-        for (String k : nameLikeKeys) {
-            if (k.equals(key) || key.startsWith(k + ":")) {
-                return true;
-            }
-        }
-        return false;
     }
 }

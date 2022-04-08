@@ -108,6 +108,7 @@ public class Preferences {
     private final int         beepVolume;
     private final int         maxOffsetDistance;
     private final Set<String> enabledValidations;
+    private final int         autoNameCap;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -276,6 +277,23 @@ public class Preferences {
 
         enabledValidations = prefs.getStringSet(r.getString(R.string.config_enabledValidations_key),
                 new HashSet<>(Arrays.asList(r.getStringArray(R.array.validations_values))));
+        autoNameCap = getIntFromStringPref(R.string.config_nameCap_key, 1);
+    }
+
+    /**
+     * Get an integer valued preference from a string pref
+     * 
+     * @param keyResId the res id
+     * @param def default value
+     * @return the stored preference or the default if none found
+     */
+    private int getIntFromStringPref(int keyResId, int def) {
+        try {
+            String temp = prefs.getString(r.getString(keyResId), Integer.toString(def));
+            return Integer.parseInt(temp);
+        } catch (ClassCastException | NumberFormatException e) {
+            return def;
+        }
     }
 
     /**
@@ -1450,6 +1468,17 @@ public class Preferences {
             enableWaySnap(true);
         }
         return prefs.getBoolean(key, false);
+    }
+
+    /**
+     * Get the name input type for caps
+     * 
+     * The value is shifted so that in can directly be used by setInputType
+     * 
+     * @return the flag to set
+     */
+    public int getAutoNameCap() {
+        return autoNameCap << 13;
     }
 
     /**

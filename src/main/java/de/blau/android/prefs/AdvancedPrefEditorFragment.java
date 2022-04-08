@@ -75,6 +75,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         setListPreferenceSummary(R.string.config_followGPSbutton_key, true);
         setRestartRequiredMessage(R.string.config_preferRemovableStorage_key);
         setRestartRequiredMessage(R.string.config_mapillary_min_zoom_key);
+        setListPreferenceSummary(R.string.config_nameCap_key, false);
         setTitle();
     }
 

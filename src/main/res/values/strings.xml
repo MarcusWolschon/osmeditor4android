@@ -1088,7 +1088,9 @@ avoided by using an offline data source.</string>
     <string name="config_mapillary_min_zoom_title">Minimum zoom for Mapillary</string>
     <string name="config_mapillary_min_zoom_summary">Minimum zoom level required before Mapillary data is displayed.</string>
     <string name="config_mapillary_min_zoom_current">%1$d</string>
-    
+    <string name="config_nameCap_summary">Automatic capitalization of name tags on input</string>
+    <string name="config_nameCap_title">Name capitalization</string>
+            
     <!-- Data and Editing Settings -->
     <string name="config_category_editing">Data and edit settings</string>
     <string name="config_category_editing_summary">Auto-download, saving and notification settings.</string>

@@ -1,11 +1,36 @@
 package de.blau.android.util;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import android.os.Build;
 import androidx.annotation.NonNull;
 
 public final class LocaleUtils {
+
+    // list of languages that use Latin script from https://gist.github.com/phil-brown/8056700
+    private static Set<String> latin = new HashSet<>(Arrays.asList("aa", "ace", "ach", "ada", "af", "agq", "ak", "ale", "amo", "an", "arn", "arp", "arw", "asa",
+            "ast", "ay", "az", "bal", "ban", "bas", "bbc", "bem", "bez", "bi", "bik", "bin", "bku", "bla", "bm", "bqv", "br", "bs", "buc", "bug", "bya", "ca",
+            "cad", "car", "cay", "cch", "ceb", "cgg", "ch", "chk", "chn", "cho", "chp", "chy", "co", "cpe", "cs", "csb", "cy", "da", "dak", "dav", "de", "del",
+            "den", "dgr", "din", "dje", "dsb", "dua", "dyu", "ebu", "ee", "efi", "eka", "en", "eo", "es", "et", "eu", "ewo", "fan", "ff", "fi", "fil", "fiu",
+            "fj", "fo", "fon", "fr", "frr", "frs", "fur", "fy", "ga", "gaa", "gag", "gay", "gcr", "gd", "gil", "gl", "gn", "gor", "grb", "gsw", "guz", "gv",
+            "gwi", "ha", "hai", "haw", "hil", "hmn", "hnn", "ho", "hop", "hr", "hsb", "ht", "hu", "hup", "hz", "ia", "iba", "ibb", "id", "ig", "ii", "ik",
+            "ilo", "is", "it", "iu", "jmc", "jv", "kab", "kac", "kaj", "kam", "kcg", "kde", "kea", "kfo", "kg", "kha", "khq", "ki", "kj", "kl", "kln", "kmb",
+            "kos", "kpe", "kr", "kri", "krl", "ksb", "ksf", "ksh", "ku", "kut", "kw", "ky", "la", "lag", "lam", "lb", "lg", "li", "ln", "lol", "loz", "lt",
+            "lu", "lua", "lui", "lun", "luo", "lut", "luy", "lv", "mad", "mak", "man", "mas", "mdh", "mdr", "men", "mer", "mfe", "mg", "mgh", "mh", "mi", "mic",
+            "min", "moh", "mos", "ms", "mt", "mua", "mus", "mwl", "na", "nap", "naq", "nb", "nd", "nds", "ng", "nia", "niu", "nl", "nmg", "nn", "nr", "nso",
+            "nus", "nv", "ny", "nym", "nyn", "nyo", "nzi", "oc", "om", "osa", "pag", "pam", "pap", "pau", "pl", "pon", "prg", "pt", "qu", "raj", "rap", "rar",
+            "rcf", "rej", "rm", "rn", "ro", "rof", "rup", "rw", "rwk", "sad", "saf", "saq", "sas", "sat", "sbp", "sc", "scn", "sco", "se", "see", "seh", "ses",
+            "sg", "sga", "sid", "sk", "sl", "sm", "sma", "smi", "smj", "smn", "sms", "sn", "snk", "so", "son", "sq", "sr", "srn", "srr", "ss", "ssy", "st",
+            "su", "suk", "sus", "sv", "sw", "swb", "swc", "tbw", "tem", "teo", "ter", "tet", "tiv", "tk", "tkl", "tli", "tmh", "tn", "to", "tog", "tpi", "tr",
+            "tru", "trv", "ts", "tsg", "tsi", "tum", "tvl", "twq", "ty", "tzm", "udm", "uli", "umb", "uz", "ve", "vi", "vo", "vot", "vun", "wa", "wae", "wak",
+            "war", "was", "wo", "xh", "xog", "yao", "yap", "yav", "yo", "za", "zap", "zu", "zun", "zza", "sbp", "sc", "scn", "sco", "se", "see", "seh", "ses",
+            "sg", "sga", "sid", "sk", "sl", "sm", "sma", "smi", "smj", "smn", "sms", "sn", "snk", "so", "son", "sq", "sr", "srn", "srr", "ss", "ssy", "st",
+            "su", "suk", "sus", "sv", "sw", "swb", "swc", "tbw", "tem", "teo", "ter", "tet", "tiv", "tk", "tkl", "tli", "tmh", "tn", "to", "tog", "tpi", "tr",
+            "tru", "trv", "ts", "tsg", "tsi", "tum", "tvl", "twq", "ty", "tzm", "udm", "uli", "umb", "uz", "ve", "vi", "vo", "vot", "vun", "wa", "wae", "wak",
+            "war", "was", "wo", "xh", "xog", "yao", "yap", "yav", "yo", "za", "zap", "zu", "zun"));
 
     /**
      * Private constructor to prevent instantiation
@@ -135,5 +160,15 @@ public final class LocaleUtils {
             return Locale.forLanguageTag(languageTag);
         }
         return forLanguageTagCompat(languageTag);
+    }
+
+    /**
+     * Determine if the Locale uses Latin script
+     * 
+     * @param locale the Locale to check
+     * @return true if the Locale uses Latin script and we are running at least on SDK 21 / Lollipop
+     */
+    public static boolean usesLatinScript(@NonNull Locale locale) {
+        return latin.contains(locale.getLanguage());
     }
 }

@@ -1240,7 +1240,6 @@ public class TestUtils {
         } catch (UiObjectNotFoundException e) {
             return false;
         }
-
     }
 
     /**
