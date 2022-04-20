@@ -44,6 +44,8 @@ public class Capabilities {
     static final String BLACKLIST_TAG        = "blacklist";
     static final String REGEX_KEY            = "regex";
 
+    public static final int DEFAULT_MAX_STRING_LENGTH = 255;
+
     // API related
     private String minVersion             = "0.6";
     private String maxVersion             = "0.6";
@@ -51,7 +53,7 @@ public class Capabilities {
     private int    maxTracepointsPerPage  = 5000;
     private int    maxWayNodes            = 2000;
     private int    maxElementsInChangeset = 10000;
-    private int    maxStringLength        = 255;           // this is not provided by the API yet
+    private int    maxStringLength        = DEFAULT_MAX_STRING_LENGTH; // this is not provided by the API yet
     private int    timeout                = 300;
     private Status dbStatus               = Status.OFFLINE;
     private Status apiStatus              = Status.OFFLINE;
