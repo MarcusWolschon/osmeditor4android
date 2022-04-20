@@ -530,25 +530,6 @@ public class StorageDelegatorTest {
         assertEquals(1, result.get(0).getIssues().size());
         assertTrue(result.get(0).getIssues().contains(MergeIssue.SAMEOBJECT));
 
-        d = new StorageDelegator();
-        factory = d.getFactory();
-        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
-        d.insertElementSafe(n1);
-        n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
-        d.insertElementSafe(n2);
-
-        SortedMap<String, String> tags1 = new TreeMap<>();
-        tags1.put(Tags.KEY_HIGHWAY, "a");
-        n1.setTags(tags1);
-        SortedMap<String, String> tags2 = new TreeMap<>();
-        tags2.put(Tags.KEY_HIGHWAY, "b");
-        n2.setTags(tags2);
-        action = new MergeAction(d, n1, n2);
-        result = action.mergeNodes();
-        assertFalse(result.isEmpty());
-        assertEquals(1, result.get(0).getIssues().size());
-        assertTrue(result.get(0).getIssues().contains(MergeIssue.MERGEDTAGS));
-
         // create two ways with common node
         Way w = addWayToStorage(d, false);
         Node n = w.getNodes().get(2);
@@ -589,6 +570,117 @@ public class StorageDelegatorTest {
         assertEquals(2, result.size());
         assertEquals(1, result.get(1).getIssues().size());
         assertTrue(result.get(1).getIssues().contains(MergeIssue.ROLECONFLICT));
+    }
+
+    /**
+     * Merge nodes that have tags, note that we should really do the same for ways
+     */
+    @Test
+    public void mergeNodesWithTags() {
+        StorageDelegator d = new StorageDelegator();
+        OsmElementFactory factory = d.getFactory();
+        Node n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n1);
+        Node n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n2);
+
+        SortedMap<String, String> tags1 = new TreeMap<>();
+        tags1.put(Tags.KEY_HIGHWAY, "a");
+        n1.setTags(tags1);
+        SortedMap<String, String> tags2 = new TreeMap<>();
+        tags2.put(Tags.KEY_HIGHWAY, "b");
+        n2.setTags(tags2);
+        MergeAction action = new MergeAction(d, n1, n2);
+        List<Result> result = action.mergeNodes();
+        assertFalse(result.isEmpty());
+        assertEquals(1, result.get(0).getIssues().size());
+        assertTrue(result.get(0).getIssues().contains(MergeIssue.MERGEDTAGS));
+
+        d = new StorageDelegator();
+        factory = d.getFactory();
+        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n1);
+        n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n2);
+
+        tags1 = new TreeMap<>();
+        tags1.put("test1", "a;b;c");
+        n1.setTags(tags1);
+        tags2 = new TreeMap<>();
+        tags2.put("test2", "d;e;f");
+        n2.setTags(tags2);
+        action = new MergeAction(d, n1, n2);
+        result = action.mergeNodes();
+        assertNotNull(d.getOsmElement(Node.NAME, n1.getOsmId()));
+        assertEquals("a;b;c", n1.getTagWithKey("test1"));
+        assertEquals("d;e;f", n1.getTagWithKey("test2"));
+        assertFalse(result.isEmpty());
+        assertNull(result.get(0).getIssues());
+
+        d = new StorageDelegator();
+        factory = d.getFactory();
+        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n1);
+        n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n2);
+
+        tags1 = new TreeMap<>();
+        tags1.put(Tags.KEY_HIGHWAY,
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        n1.setTags(tags1);
+        tags2 = new TreeMap<>();
+        tags2.put(Tags.KEY_HIGHWAY,
+                "baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        n2.setTags(tags2);
+        action = new MergeAction(d, n1, n2);
+        try {
+            result = action.mergeNodes();
+            fail("this should have failed");
+        } catch (OsmIllegalOperationException e) {
+            // expected
+        }
+
+        d = new StorageDelegator();
+        factory = d.getFactory();
+        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n1);
+        n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n2);
+
+        tags1 = new TreeMap<>();
+        tags1.put(Tags.KEY_HIGHWAY, "a;b;c");
+        n1.setTags(tags1);
+        tags2 = new TreeMap<>();
+        tags2.put(Tags.KEY_HIGHWAY, "d;e;f");
+        n2.setTags(tags2);
+        action = new MergeAction(d, n1, n2);
+        result = action.mergeNodes();
+        assertNotNull(d.getOsmElement(Node.NAME, n1.getOsmId()));
+        assertEquals("a;b;c;d;e;f", n1.getTagWithKey(Tags.KEY_HIGHWAY));
+        assertFalse(result.isEmpty());
+        assertEquals(1, result.get(0).getIssues().size());
+        assertTrue(result.get(0).getIssues().contains(MergeIssue.MERGEDTAGS));
+
+        d = new StorageDelegator();
+        factory = d.getFactory();
+        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n1);
+        n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n2);
+
+        tags1 = new TreeMap<>();
+        tags1.put("test" + Tags.KEY_CONDITIONAL_SUFFIX, "(a;b;c)");
+        n1.setTags(tags1);
+        tags2 = new TreeMap<>();
+        tags2.put("test" + Tags.KEY_CONDITIONAL_SUFFIX, "(d;e;f)");
+        n2.setTags(tags2);
+        action = new MergeAction(d, n1, n2);
+        result = action.mergeNodes();
+        assertNotNull(d.getOsmElement(Node.NAME, n1.getOsmId()));
+        assertEquals("(a;b;c);(d;e;f)", n1.getTagWithKey("test" + Tags.KEY_CONDITIONAL_SUFFIX));
+        assertFalse(result.isEmpty());
+        assertEquals(1, result.get(0).getIssues().size());
+        assertTrue(result.get(0).getIssues().contains(MergeIssue.MERGEDTAGS));
     }
 
     /**

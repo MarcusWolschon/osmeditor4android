@@ -2195,7 +2195,7 @@ public class Logic {
         } catch (OsmIllegalOperationException e) {
             dismissAttachedObjectWarning(activity);
             rollback();
-            throw new OsmIllegalOperationException(e);
+            throw e;
         }
     }
 
@@ -2374,15 +2374,21 @@ public class Logic {
                 }
                 displayAttachedObjectWarning(activity, element, nodeToJoin); // needs to be done before join
                 MergeAction action = new MergeAction(getDelegator(), element, nodeToJoin);
-                List<Result> tempResult = action.mergeNodes();
-                if (overallResult.isEmpty()) {
-                    overallResult = tempResult;
-                    result = overallResult.get(0);
-                } else {
-                    final Result newMergeResult = tempResult.get(0);
-                    result.setElement(newMergeResult.getElement()); // NOSONAR potential new result element
-                    result.addAllIssues(newMergeResult.getIssues());
-                    overallResult.addAll(tempResult.subList(1, tempResult.size()));
+                try {
+                    List<Result> tempResult = action.mergeNodes();
+                    if (overallResult.isEmpty()) {
+                        overallResult = tempResult;
+                        result = overallResult.get(0);
+                    } else {
+                        final Result newMergeResult = tempResult.get(0);
+                        result.setElement(newMergeResult.getElement()); // NOSONAR potential new result element
+                        result.addAllIssues(newMergeResult.getIssues());
+                        overallResult.addAll(tempResult.subList(1, tempResult.size()));
+                    }
+                } catch (OsmIllegalOperationException e) {
+                    dismissAttachedObjectWarning(activity);
+                    rollback();
+                    throw e;
                 }
                 if (!(result.getElement() instanceof Node)) {
                     throw new IllegalStateException("mergeNodes didn't return a Node");
@@ -2451,7 +2457,13 @@ public class Logic {
                             displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
                             // merge node into target Node
                             MergeAction action = new MergeAction(getDelegator(), node, nodeToJoin);
-                            tempResult = action.mergeNodes();
+                            try {
+                                tempResult = action.mergeNodes();
+                            } catch (OsmIllegalOperationException e) {
+                                dismissAttachedObjectWarning(activity);
+                                rollback();
+                                throw e;
+                            }
                         }
                         break; // need to leave loop !!!
                     }

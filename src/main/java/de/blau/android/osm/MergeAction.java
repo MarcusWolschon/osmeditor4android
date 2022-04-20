@@ -69,9 +69,10 @@ public class MergeAction {
      * Updates ways and relations the node is a member of.
      * 
      * @return a MergeResult object with a reference to the resulting object and any issues
+     * @throws OsmIllegalOperationException if merged tags are too long to be merged
      */
     @NonNull
-    public List<Result> mergeNodes() {
+    public List<Result> mergeNodes() throws OsmIllegalOperationException {
         Result result = new Result();
         if (mergeInto.equals(mergeFrom)) {
             result.addIssue(MergeIssue.SAMEOBJECT);
@@ -81,15 +82,11 @@ public class MergeAction {
         delegator.dirty();
 
         // merge tags
-        delegator.setTags(mergeInto, OsmElement.mergedTags(mergeInto, mergeFrom)); // this calls onElementChange for the
-                                                                                   // node
-        // if merging the tags creates multiple-value tags, mergeOK should be set to false
-        for (String v : mergeInto.getTags().values()) {
-            if (v.indexOf(';') >= 0) {
-                result.addIssue(MergeIssue.MERGEDTAGS);
-                break;
-            }
-        }
+        final Map<String, String> mergedTags = OsmElement.mergedTags(mergeInto, mergeFrom);
+        checkForMergedTags(mergeInto.getTags(), mergeFrom.getTags(), mergedTags, result);
+        delegator.setTags(mergeInto, mergedTags); // this calls onElementChange for the
+                                                  // node
+
         // replace references to mergeFrom node in ways with mergeInto
         synchronized (delegator) {
             Storage currentStorage = delegator.getCurrentStorage();
@@ -105,6 +102,29 @@ public class MergeAction {
 
         overallResult.add(0, result);
         return overallResult;
+    }
+
+    /**
+     * Check the merged tags for a new, that is not present in the original elements, tag value
+     * 
+     * @param into tags of the 1st element
+     * @param from tags of the 2nd element
+     * @param merged the merged tags
+     * @param result the merge result
+     */
+    private void checkForMergedTags(@NonNull Map<String, String> into, @NonNull Map<String, String> from, @NonNull Map<String, String> merged,
+            @NonNull Result result) {
+        // if merging the tags creates a new tag for a key report it
+        for (Entry<String, String> m : merged.entrySet()) {
+            final String key = m.getKey();
+            final String intoValue = into.get(key);
+            final String fromValue = from.get(key);
+            // note a metric tag will have already been flagged
+            if (intoValue != null && fromValue != null && !intoValue.equals(m.getValue()) && !Tags.isWayMetric(key)) {
+                result.addIssue(MergeIssue.MERGEDTAGS);
+                break;
+            }
+        }
     }
 
     /**
@@ -129,8 +149,7 @@ public class MergeAction {
         delegator.dirty();
         delegator.getUndo().save(w1);
         delegator.removeWay(w2); // have to do this here because otherwise the way will be saved with potentially
-                                 // reversed
-                                 // tags
+                                 // reversed tags
 
         List<Node> newNodes = new ArrayList<>(w2.getNodes());
         boolean atBeginning;
@@ -195,14 +214,8 @@ public class MergeAction {
                 }
             }
         }
+        checkForMergedTags(w1.getTags(), w2.getTags(), mergedTags, mergeResult);
         delegator.setTags(w1, mergedTags);
-        // if merging the tags creates multiple-value tags this will add a warning
-        for (String v : w1.getTags().values()) {
-            if (v.indexOf(Tags.OSM_VALUE_SEPARATOR) >= 0) {
-                mergeResult.addIssue(MergeIssue.MERGEDTAGS);
-                break;
-            }
-        }
 
         w1.addNodes(newNodes, atBeginning);
         w1.updateState(OsmElement.STATE_MODIFIED);
@@ -454,7 +467,9 @@ public class MergeAction {
             delegator.insertElementSafe(p1);
             if (ringCount == 1) {
                 result = p1;
-                delegator.setTags(result, OsmElement.mergedTags(p1, p2));
+                final Map<String, String> mergedTags = OsmElement.mergedTags(p1, p2);
+                checkForMergedTags(p1.getTags(), p2.getTags(), mergedTags, mergeResult);
+                delegator.setTags(result, mergedTags);
                 mergeElementsRelations(p1, p2);
                 delegator.removeWay(p2);
             } else {
