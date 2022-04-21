@@ -19,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.exception.StorageException;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.Util;
@@ -665,37 +664,32 @@ public class MergeAction {
         // copy just to be safe, use Set to ensure uniqueness
         Set<Relation> fromRelations = mergeFrom.getParentRelations() != null ? new HashSet<>(mergeFrom.getParentRelations()) : new HashSet<>();
         List<Relation> toRelations = mergeInto.getParentRelations() != null ? mergeInto.getParentRelations() : new ArrayList<>();
-        try {
-            Set<OsmElement> changedElements = new HashSet<>();
-            synchronized (delegator) {
-                UndoStorage undo = delegator.getUndo();
-                Storage apiStorage = delegator.getApiStorage();
-                for (Relation r : fromRelations) {
-                    if (!toRelations.contains(r)) {
-                        delegator.dirty();
-                        undo.save(r);
-                        List<RelationMember> members = r.getAllMembers(mergeFrom);
-                        for (RelationMember rm : members) {
-                            // create new member with same role
-                            RelationMember newRm = new RelationMember(rm.getRole(), mergeInto);
-                            // insert at same place
-                            r.replaceMember(rm, newRm);
-                            mergeInto.addParentRelation(r);
-                        }
-                        r.updateState(OsmElement.STATE_MODIFIED);
-                        apiStorage.insertElementSafe(r);
-                        changedElements.add(r);
-                        mergeInto.updateState(OsmElement.STATE_MODIFIED);
-                        apiStorage.insertElementSafe(mergeInto);
-                        changedElements.add(mergeInto);
+        Set<OsmElement> changedElements = new HashSet<>();
+        synchronized (delegator) {
+            UndoStorage undo = delegator.getUndo();
+            Storage apiStorage = delegator.getApiStorage();
+            for (Relation r : fromRelations) {
+                if (!toRelations.contains(r)) {
+                    delegator.dirty();
+                    undo.save(r);
+                    List<RelationMember> members = r.getAllMembers(mergeFrom);
+                    for (RelationMember rm : members) {
+                        // create new member with same role
+                        RelationMember newRm = new RelationMember(rm.getRole(), mergeInto);
+                        // insert at same place
+                        r.replaceMember(rm, newRm);
+                        mergeInto.addParentRelation(r);
                     }
+                    r.updateState(OsmElement.STATE_MODIFIED);
+                    apiStorage.insertElementSafe(r);
+                    changedElements.add(r);
+                    mergeInto.updateState(OsmElement.STATE_MODIFIED);
+                    apiStorage.insertElementSafe(mergeInto);
+                    changedElements.add(mergeInto);
                 }
             }
-            delegator.onElementChanged(null, new ArrayList<>(changedElements));
-        } catch (StorageException sex) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "mergeElementsRelations got " + sex.getMessage());
         }
+        delegator.onElementChanged(null, new ArrayList<>(changedElements));
     }
 
     /**

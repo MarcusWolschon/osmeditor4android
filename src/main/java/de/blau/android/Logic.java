@@ -1624,7 +1624,7 @@ public class Logic {
      * @param y screen-coordinate
      * @throws OsmIllegalOperationException if the operation coudn't be performed
      */
-    public synchronized void performAdd(@Nullable final Activity activity, final float x, final float y) throws OsmIllegalOperationException {
+    public synchronized void performAdd(@Nullable final FragmentActivity activity, final float x, final float y) throws OsmIllegalOperationException {
         performAdd(activity, x, y, true, true);
     }
 
@@ -1641,7 +1641,7 @@ public class Logic {
      * @param snap if true existing nodes will be reused and new nodes created on nearby ways
      * @throws OsmIllegalOperationException if the operation coudn't be performed
      */
-    public synchronized void performAdd(@Nullable final Activity activity, final float x, final float y, boolean createCheckpoint, boolean snap)
+    public synchronized void performAdd(@Nullable final FragmentActivity activity, final float x, final float y, boolean createCheckpoint, boolean snap)
             throws OsmIllegalOperationException {
         Log.d(DEBUG_TAG, "performAdd");
         if (createCheckpoint) {
@@ -1692,9 +1692,9 @@ public class Logic {
                     }
                 }
             }
-        } catch (OsmIllegalOperationException e) {
-            rollback();
-            throw new OsmIllegalOperationException(e);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
         }
         setSelectedNode(lSelectedNode);
         setSelectedWay(lSelectedWay);
@@ -2141,10 +2141,9 @@ public class Logic {
             List<Result> result = action.mergeWays();
             invalidateMap();
             return result;
-        } catch (OsmIllegalOperationException e) {
-            dismissAttachedObjectWarning(activity);
-            rollback();
-            throw new OsmIllegalOperationException(e);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
         }
     }
 
@@ -2192,10 +2191,9 @@ public class Logic {
                 }
             }
             return overallResult;
-        } catch (OsmIllegalOperationException e) {
-            dismissAttachedObjectWarning(activity);
-            rollback();
-            throw e;
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
         }
     }
 
@@ -2215,10 +2213,9 @@ public class Logic {
         try {
             MergeAction action = new MergeAction(getDelegator(), ways.get(0), ways.get(1));
             return action.mergeSimplePolygons(map);
-        } catch (OsmIllegalOperationException e) {
-            dismissAttachedObjectWarning(activity);
-            rollback();
-            throw new OsmIllegalOperationException(e);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
         }
     }
 
@@ -2385,10 +2382,9 @@ public class Logic {
                         result.addAllIssues(newMergeResult.getIssues());
                         overallResult.addAll(tempResult.subList(1, tempResult.size()));
                     }
-                } catch (OsmIllegalOperationException e) {
-                    dismissAttachedObjectWarning(activity);
-                    rollback();
-                    throw e;
+                } catch (OsmIllegalOperationException | StorageException ex) {
+                    handleDelegatorException(activity, ex);
+                    throw ex; // rethrow
                 }
                 if (!(result.getElement() instanceof Node)) {
                     throw new IllegalStateException("mergeNodes didn't return a Node");
@@ -2459,10 +2455,9 @@ public class Logic {
                             MergeAction action = new MergeAction(getDelegator(), node, nodeToJoin);
                             try {
                                 tempResult = action.mergeNodes();
-                            } catch (OsmIllegalOperationException e) {
-                                dismissAttachedObjectWarning(activity);
-                                rollback();
-                                throw e;
+                            } catch (OsmIllegalOperationException | StorageException ex) {
+                                handleDelegatorException(activity, ex);
+                                throw ex; // rethrow
                             }
                         }
                         break; // need to leave loop !!!
