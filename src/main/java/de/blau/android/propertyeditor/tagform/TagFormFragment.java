@@ -861,8 +861,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     ValueType valueType = field.getValueType();
                     if (field instanceof PresetTextField || key.startsWith(Tags.KEY_ADDR_BASE)
                             || (isComboField && ((PresetComboField) field).isEditable() && ValueType.OPENING_HOURS_MIXED != valueType)
-                            || key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
-                        if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX) || ValueType.CONDITIONAL == valueType) {
+                            || Tags.isConditional(key)) {
+                        if (Tags.isConditional(key) || ValueType.CONDITIONAL == valueType) {
                             rowLayout.addView(getConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, values, allTags));
                         } else if (isOpeningHours(key, valueType)) {
                             rowLayout.addView(OpeningHoursDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value, null));

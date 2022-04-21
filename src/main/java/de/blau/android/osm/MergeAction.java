@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeMap;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -49,7 +51,7 @@ public class MergeAction {
     public MergeAction(final @NonNull StorageDelegator delegator, @NonNull OsmElement mergeInto, @NonNull OsmElement mergeFrom) {
         this.delegator = delegator;
         // first determine if one of the elements already has a valid id, if it is not and other node has valid id swap
-        // else check version numbers this helps preserve history
+        // else check version numbers, the point of this is to preserve as much history as possible
         if (((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion()) {
             // swap
             Log.d(DEBUG_TAG, "swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
@@ -82,10 +84,9 @@ public class MergeAction {
         delegator.dirty();
 
         // merge tags
-        final Map<String, String> mergedTags = OsmElement.mergedTags(mergeInto, mergeFrom);
+        final Map<String, String> mergedTags = mergedTags(mergeInto, mergeFrom);
         checkForMergedTags(mergeInto.getTags(), mergeFrom.getTags(), mergedTags, result);
-        delegator.setTags(mergeInto, mergedTags); // this calls onElementChange for the
-                                                  // node
+        delegator.setTags(mergeInto, mergedTags); // this calls onElementChange for the node
 
         // replace references to mergeFrom node in ways with mergeInto
         synchronized (delegator) {
@@ -197,13 +198,13 @@ public class MergeAction {
         }
 
         // merge tags (after any reversal has been done)
-        Map<String, String> mergedTags = OsmElement.mergedTags(w1, w2);
+        Map<String, String> mergedTags = mergedTags(w1, w2);
         // special handling for metric tags
         for (Entry<String, String> entry : mergedTags.entrySet()) {
             String k = entry.getKey();
             if (Tags.isWayMetric(k)) {
                 mergeResult.addIssue(MergeIssue.MERGEDMETRIC);
-                String[] s = entry.getValue().split("\\" + Tags.OSM_VALUE_SEPARATOR);
+                String[] s = splitValue(entry.getValue());
                 if (s.length >= 2) {
                     try {
                         mergedTags.put(k, Tags.KEY_DURATION.equals(k) ? Duration.toString(Duration.parse(s[0]) + Duration.parse(s[1]))
@@ -293,6 +294,7 @@ public class MergeAction {
      * @return a List of Result objects, the 1st one containing the merged object
      * @throws OsmIllegalOperationException if we can't complete the merge for reasons that shouldn't occur
      */
+    @NonNull
     public List<Result> mergeSimplePolygons(@NonNull de.blau.android.Map map) throws OsmIllegalOperationException {
         Result mergeResult = new Result();
 
@@ -467,7 +469,7 @@ public class MergeAction {
             delegator.insertElementSafe(p1);
             if (ringCount == 1) {
                 result = p1;
-                final Map<String, String> mergedTags = OsmElement.mergedTags(p1, p2);
+                final Map<String, String> mergedTags = mergedTags(p1, p2);
                 checkForMergedTags(p1.getTags(), p2.getTags(), mergedTags, mergeResult);
                 delegator.setTags(result, mergedTags);
                 mergeElementsRelations(p1, p2);
@@ -520,7 +522,7 @@ public class MergeAction {
      * 
      * @param list the List of Nodes
      */
-    private void removeUntaggedNodes(List<Node> list) {
+    private void removeUntaggedNodes(@NonNull List<Node> list) {
         synchronized (delegator) {
             Storage currentStorage = delegator.getCurrentStorage();
             for (Node n : list) {
@@ -694,5 +696,56 @@ public class MergeAction {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "mergeElementsRelations got " + sex.getMessage());
         }
+    }
+
+    /**
+     * Merge the tags from two OsmElements into one set.
+     * 
+     * Note: while this does try to merge simple OSM lists correctly, and avoid known issues, there are no guarantees
+     * that this will work for conflicting values
+     * 
+     * @param e1 first element
+     * @param e2 second element
+     * @return Map containing the merged tags
+     * @throws OsmIllegalOperationException if the merged tag is too long
+     */
+    @NonNull
+    private static Map<String, String> mergedTags(@NonNull OsmElement e1, @NonNull OsmElement e2) throws OsmIllegalOperationException {
+        Map<String, String> merged = new TreeMap<>(e1.getTags());
+        for (Entry<String, String> entry : e2.getTags().entrySet()) {
+            final String key = entry.getKey();
+            String value = entry.getValue();
+            final String mergedValue = merged.get(key);
+            if (mergedValue != null) {
+                if (!mergedValue.equals(value)) { // identical tags do not need to be merged
+                    if (Tags.hasNestedLists(key)) {
+                        value = mergedValue + Tags.OSM_VALUE_SEPARATOR + value; // no expectation that this is valid
+                    } else {
+                        Set<String> values = new LinkedHashSet<>(Arrays.asList(splitValue(mergedValue)));
+                        values.addAll(Arrays.asList(splitValue(value)));
+                        value = Util.toOsmList(values);
+                    }
+                    if (value.length() > Capabilities.DEFAULT_MAX_STRING_LENGTH) {
+                        // can't merge without losing information
+                        throw new OsmIllegalOperationException("Merged tags too long for key " + key);
+                    }
+                    merged.put(key, value);
+                }
+            } else {
+                merged.put(key, value);
+            }
+        }
+        return merged;
+    }
+
+    /**
+     * Split value with the default value separator
+     * 
+     * @param value the value to split
+     * @return an array holding the split values
+     */
+    @NonNull
+    private static String[] splitValue(@NonNull final String value) {
+        return value.split("\\" + Tags.OSM_VALUE_SEPARATOR);
     }
 }

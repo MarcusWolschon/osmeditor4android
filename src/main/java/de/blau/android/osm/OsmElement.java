@@ -3,13 +3,10 @@ package de.blau.android.osm;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -21,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.util.DateFormatter;
@@ -323,54 +319,6 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      */
     public boolean isTagged() {
         return (tags != null) && (tags.size() > 0);
-    }
-
-    /**
-     * Merge the tags from two OsmElements into one set.
-     * 
-     * Note: while this does try to merge simple OSM lists correctly, and avoid known issues, there are no guarantees
-     * that this will work for conflicting values
-     * 
-     * @param e1 first element
-     * @param e2 second element
-     * @return Map containing the merged tags
-     * @throws OsmIllegalOperationException if the merged tag is too long
-     */
-    @NonNull
-    public static Map<String, String> mergedTags(@NonNull OsmElement e1, @NonNull OsmElement e2) throws OsmIllegalOperationException {
-        Map<String, String> merged = new TreeMap<>(e1.getTags());
-        Map<String, String> fromTags = e2.getTags();
-        for (Entry<String, String> entry : fromTags.entrySet()) {
-            final String key = entry.getKey();
-            String value = entry.getValue();
-            final String mergedValue = merged.get(key);
-            if (mergedValue != null) {
-                if (!mergedValue.equals(value)) { // identical tags do not need to be merged
-                    if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX) || Tags.KEY_TURN_LANES.equals(key)) {
-                        value = mergedValue + Tags.OSM_VALUE_SEPARATOR + value; // no expectation that this is valid
-                    } else {
-                        Set<String> values = new LinkedHashSet<>(Arrays.asList(mergedValue.split("\\" + Tags.OSM_VALUE_SEPARATOR)));
-                        values.addAll(Arrays.asList(value.split("\\" + Tags.OSM_VALUE_SEPARATOR)));
-                        StringBuilder b = new StringBuilder();
-                        for (String v : values) {
-                            if (b.length() > 0) {
-                                b.append(Tags.OSM_VALUE_SEPARATOR);
-                            }
-                            b.append(v);
-                        }
-                        value = b.toString();
-                    }
-                    if (value.length() > Capabilities.DEFAULT_MAX_STRING_LENGTH) {
-                        // can't merge without losing information
-                        throw new OsmIllegalOperationException("Merged tags too long for key " + key);
-                    }
-                    merged.put(key, value);
-                }
-            } else {
-                merged.put(key, value);
-            }
-        }
-        return merged;
     }
 
     @Override
@@ -841,7 +789,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      */
     public long getTimestamp() {
         if (timestamp >= 0) {
-            return EPOCH + (long) timestamp;
+            return EPOCH + timestamp;
         }
         return -1L;
     }

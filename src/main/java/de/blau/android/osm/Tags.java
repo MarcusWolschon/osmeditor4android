@@ -308,6 +308,26 @@ public final class Tags {
 
     public static final String KEY_CONDITIONAL_SUFFIX = ":conditional";
 
+    /**
+     * Check if this is a key is a conditional restriction
+     * 
+     * @param key the key to check
+     * @return true if the key is a conditional restriction
+     */
+    public static boolean isConditional(@NonNull String key) {
+        return key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX);
+    }
+
+    /**
+     * Check if this is a key can potential have nested semi-colon lists
+     * 
+     * @param key the key to check
+     * @return true if the key is a conditional restriction
+     */
+    public static boolean hasNestedLists(@NonNull String key) {
+        return Tags.isConditional(key) || Tags.KEY_TURN_LANES.equals(key);
+    }
+
     // keys where the values are URLs
     private static final String KEY_WEBSITE         = "website";
     private static final String KEY_CONTACT_WEBSITE = "contact:website";

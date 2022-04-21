@@ -28,7 +28,7 @@ public class UtilTest {
     @Test
     public void toOsmList() {
         List<String> test = Arrays.asList("Alpha","Beta","Gamma");
-        String result = Util.listToOsmList(test);
+        String result = Util.toOsmList(test);
         assertEquals("Alpha;Beta;Gamma", result);
     }
 }

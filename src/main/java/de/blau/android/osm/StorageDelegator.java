@@ -2812,7 +2812,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             if (split) {
                 tmpSource = source + " [" + part + "]";
             }
-            server.openChangeset(closeOpenChangeset, comment, tmpSource, Util.listToOsmList(imagery), extraTags);
+            server.openChangeset(closeOpenChangeset, comment, tmpSource, Util.toOsmList(imagery), extraTags);
             try {
                 lock();
                 if (fullUpload) {

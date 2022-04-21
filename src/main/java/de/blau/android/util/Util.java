@@ -3,6 +3,7 @@ package de.blau.android.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -56,6 +57,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
@@ -304,18 +306,18 @@ public final class Util {
     }
 
     /**
-     * Convert a list to a semicolon separated string
+     * Convert a collection to a semicolon separated string
      * 
-     * @param list the List to convert
+     * @param collection the Collection to convert
      * @return string containing the individual list values separated by ; or the empty string if list is null or empty
      */
     @NonNull
-    public static String listToOsmList(@Nullable List<String> list) {
-        StringBuilder osmList = new StringBuilder("");
-        if (list != null) {
-            for (String s : list) {
+    public static String toOsmList(@Nullable Collection<String> collection) {
+        StringBuilder osmList = new StringBuilder();
+        if (collection != null) {
+            for (String s : collection) {
                 if (osmList.length() > 0) {
-                    osmList.append(";");
+                    osmList.append(Tags.OSM_VALUE_SEPARATOR);
                 }
                 osmList.append(s);
             }
