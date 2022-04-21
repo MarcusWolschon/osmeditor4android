@@ -394,8 +394,9 @@
         <feature type="way" tags="indoor=corridor" updateWidth="true" widthFactor="0.7" color="99f2c791" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
     </feature>
     
-    <!-- relations (only multipolygons currently -->
+    <!-- relations (only multipolygons currently) -->
     <feature type="relation" updateWidth="true" widthFactor="1.0" color="ff222222" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="relation" tags="boundary" dontrender="true" />
     <feature type="relation" tags="type=multipolygon" updateWidth="true" widthFactor="0.8" color="88222222" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right">
         <feature type="relation" tags="building" widthFactor="1.0" color="ffcc9999"/>
         <feature type="relation" tags="leisure=playground" widthFactor="0.8" color="88f4a460" style="FILL_AND_STROKE" />
