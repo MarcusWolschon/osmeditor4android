@@ -1245,7 +1245,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             style = DataStyle.matchStyle(way);
         }
 
-        if (zoomLevel < style.getMinVisibleZoom()) {
+        if (zoomLevel < style.getMinVisibleZoom() || style.dontRender()) {
             return;
         }
 
