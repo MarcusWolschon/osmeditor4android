@@ -7,17 +7,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeMap;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.exception.StorageException;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.Util;
@@ -49,7 +50,7 @@ public class MergeAction {
     public MergeAction(final @NonNull StorageDelegator delegator, @NonNull OsmElement mergeInto, @NonNull OsmElement mergeFrom) {
         this.delegator = delegator;
         // first determine if one of the elements already has a valid id, if it is not and other node has valid id swap
-        // else check version numbers this helps preserve history
+        // else check version numbers, the point of this is to preserve as much history as possible
         if (((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion()) {
             // swap
             Log.d(DEBUG_TAG, "swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
@@ -69,9 +70,10 @@ public class MergeAction {
      * Updates ways and relations the node is a member of.
      * 
      * @return a MergeResult object with a reference to the resulting object and any issues
+     * @throws OsmIllegalOperationException if merged tags are too long to be merged
      */
     @NonNull
-    public List<Result> mergeNodes() {
+    public List<Result> mergeNodes() throws OsmIllegalOperationException {
         Result result = new Result();
         if (mergeInto.equals(mergeFrom)) {
             result.addIssue(MergeIssue.SAMEOBJECT);
@@ -81,15 +83,10 @@ public class MergeAction {
         delegator.dirty();
 
         // merge tags
-        delegator.setTags(mergeInto, OsmElement.mergedTags(mergeInto, mergeFrom)); // this calls onElementChange for the
-                                                                                   // node
-        // if merging the tags creates multiple-value tags, mergeOK should be set to false
-        for (String v : mergeInto.getTags().values()) {
-            if (v.indexOf(';') >= 0) {
-                result.addIssue(MergeIssue.MERGEDTAGS);
-                break;
-            }
-        }
+        final Map<String, String> mergedTags = mergedTags(mergeInto, mergeFrom);
+        checkForMergedTags(mergeInto.getTags(), mergeFrom.getTags(), mergedTags, result);
+        delegator.setTags(mergeInto, mergedTags); // this calls onElementChange for the node
+
         // replace references to mergeFrom node in ways with mergeInto
         synchronized (delegator) {
             Storage currentStorage = delegator.getCurrentStorage();
@@ -105,6 +102,29 @@ public class MergeAction {
 
         overallResult.add(0, result);
         return overallResult;
+    }
+
+    /**
+     * Check the merged tags for a new, that is not present in the original elements, tag value
+     * 
+     * @param into tags of the 1st element
+     * @param from tags of the 2nd element
+     * @param merged the merged tags
+     * @param result the merge result
+     */
+    private void checkForMergedTags(@NonNull Map<String, String> into, @NonNull Map<String, String> from, @NonNull Map<String, String> merged,
+            @NonNull Result result) {
+        // if merging the tags creates a new tag for a key report it
+        for (Entry<String, String> m : merged.entrySet()) {
+            final String key = m.getKey();
+            final String intoValue = into.get(key);
+            final String fromValue = from.get(key);
+            // note a metric tag will have already been flagged
+            if (intoValue != null && fromValue != null && !intoValue.equals(m.getValue()) && !Tags.isWayMetric(key)) {
+                result.addIssue(MergeIssue.MERGEDTAGS);
+                break;
+            }
+        }
     }
 
     /**
@@ -129,8 +149,7 @@ public class MergeAction {
         delegator.dirty();
         delegator.getUndo().save(w1);
         delegator.removeWay(w2); // have to do this here because otherwise the way will be saved with potentially
-                                 // reversed
-                                 // tags
+                                 // reversed tags
 
         List<Node> newNodes = new ArrayList<>(w2.getNodes());
         boolean atBeginning;
@@ -178,13 +197,13 @@ public class MergeAction {
         }
 
         // merge tags (after any reversal has been done)
-        Map<String, String> mergedTags = OsmElement.mergedTags(w1, w2);
+        Map<String, String> mergedTags = mergedTags(w1, w2);
         // special handling for metric tags
         for (Entry<String, String> entry : mergedTags.entrySet()) {
             String k = entry.getKey();
             if (Tags.isWayMetric(k)) {
                 mergeResult.addIssue(MergeIssue.MERGEDMETRIC);
-                String[] s = entry.getValue().split("\\" + Tags.OSM_VALUE_SEPARATOR);
+                String[] s = splitValue(entry.getValue());
                 if (s.length >= 2) {
                     try {
                         mergedTags.put(k, Tags.KEY_DURATION.equals(k) ? Duration.toString(Duration.parse(s[0]) + Duration.parse(s[1]))
@@ -195,14 +214,8 @@ public class MergeAction {
                 }
             }
         }
+        checkForMergedTags(w1.getTags(), w2.getTags(), mergedTags, mergeResult);
         delegator.setTags(w1, mergedTags);
-        // if merging the tags creates multiple-value tags this will add a warning
-        for (String v : w1.getTags().values()) {
-            if (v.indexOf(Tags.OSM_VALUE_SEPARATOR) >= 0) {
-                mergeResult.addIssue(MergeIssue.MERGEDTAGS);
-                break;
-            }
-        }
 
         w1.addNodes(newNodes, atBeginning);
         w1.updateState(OsmElement.STATE_MODIFIED);
@@ -280,6 +293,7 @@ public class MergeAction {
      * @return a List of Result objects, the 1st one containing the merged object
      * @throws OsmIllegalOperationException if we can't complete the merge for reasons that shouldn't occur
      */
+    @NonNull
     public List<Result> mergeSimplePolygons(@NonNull de.blau.android.Map map) throws OsmIllegalOperationException {
         Result mergeResult = new Result();
 
@@ -454,7 +468,9 @@ public class MergeAction {
             delegator.insertElementSafe(p1);
             if (ringCount == 1) {
                 result = p1;
-                delegator.setTags(result, OsmElement.mergedTags(p1, p2));
+                final Map<String, String> mergedTags = mergedTags(p1, p2);
+                checkForMergedTags(p1.getTags(), p2.getTags(), mergedTags, mergeResult);
+                delegator.setTags(result, mergedTags);
                 mergeElementsRelations(p1, p2);
                 delegator.removeWay(p2);
             } else {
@@ -505,7 +521,7 @@ public class MergeAction {
      * 
      * @param list the List of Nodes
      */
-    private void removeUntaggedNodes(List<Node> list) {
+    private void removeUntaggedNodes(@NonNull List<Node> list) {
         synchronized (delegator) {
             Storage currentStorage = delegator.getCurrentStorage();
             for (Node n : list) {
@@ -648,36 +664,82 @@ public class MergeAction {
         // copy just to be safe, use Set to ensure uniqueness
         Set<Relation> fromRelations = mergeFrom.getParentRelations() != null ? new HashSet<>(mergeFrom.getParentRelations()) : new HashSet<>();
         List<Relation> toRelations = mergeInto.getParentRelations() != null ? mergeInto.getParentRelations() : new ArrayList<>();
-        try {
-            Set<OsmElement> changedElements = new HashSet<>();
-            synchronized (delegator) {
-                UndoStorage undo = delegator.getUndo();
-                Storage apiStorage = delegator.getApiStorage();
-                for (Relation r : fromRelations) {
-                    if (!toRelations.contains(r)) {
-                        delegator.dirty();
-                        undo.save(r);
-                        List<RelationMember> members = r.getAllMembers(mergeFrom);
-                        for (RelationMember rm : members) {
-                            // create new member with same role
-                            RelationMember newRm = new RelationMember(rm.getRole(), mergeInto);
-                            // insert at same place
-                            r.replaceMember(rm, newRm);
-                            mergeInto.addParentRelation(r);
-                        }
-                        r.updateState(OsmElement.STATE_MODIFIED);
-                        apiStorage.insertElementSafe(r);
-                        changedElements.add(r);
-                        mergeInto.updateState(OsmElement.STATE_MODIFIED);
-                        apiStorage.insertElementSafe(mergeInto);
-                        changedElements.add(mergeInto);
+        Set<OsmElement> changedElements = new HashSet<>();
+        synchronized (delegator) {
+            UndoStorage undo = delegator.getUndo();
+            Storage apiStorage = delegator.getApiStorage();
+            for (Relation r : fromRelations) {
+                if (!toRelations.contains(r)) {
+                    delegator.dirty();
+                    undo.save(r);
+                    List<RelationMember> members = r.getAllMembers(mergeFrom);
+                    for (RelationMember rm : members) {
+                        // create new member with same role
+                        RelationMember newRm = new RelationMember(rm.getRole(), mergeInto);
+                        // insert at same place
+                        r.replaceMember(rm, newRm);
+                        mergeInto.addParentRelation(r);
                     }
+                    r.updateState(OsmElement.STATE_MODIFIED);
+                    apiStorage.insertElementSafe(r);
+                    changedElements.add(r);
+                    mergeInto.updateState(OsmElement.STATE_MODIFIED);
+                    apiStorage.insertElementSafe(mergeInto);
+                    changedElements.add(mergeInto);
                 }
             }
-            delegator.onElementChanged(null, new ArrayList<>(changedElements));
-        } catch (StorageException sex) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "mergeElementsRelations got " + sex.getMessage());
         }
+        delegator.onElementChanged(null, new ArrayList<>(changedElements));
+    }
+
+    /**
+     * Merge the tags from two OsmElements into one set.
+     * 
+     * Note: while this does try to merge simple OSM lists correctly, and avoid known issues, there are no guarantees
+     * that this will work for conflicting values
+     * 
+     * @param e1 first element
+     * @param e2 second element
+     * @return Map containing the merged tags
+     * @throws OsmIllegalOperationException if the merged tag is too long
+     */
+    @NonNull
+    private static Map<String, String> mergedTags(@NonNull OsmElement e1, @NonNull OsmElement e2) throws OsmIllegalOperationException {
+        Map<String, String> merged = new TreeMap<>(e1.getTags());
+        for (Entry<String, String> entry : e2.getTags().entrySet()) {
+            final String key = entry.getKey();
+            String value = entry.getValue();
+            final String mergedValue = merged.get(key);
+            if (mergedValue != null) {
+                if (!mergedValue.equals(value)) { // identical tags do not need to be merged
+                    if (Tags.hasNestedLists(key)) {
+                        value = mergedValue + Tags.OSM_VALUE_SEPARATOR + value; // no expectation that this is valid
+                    } else {
+                        Set<String> values = new LinkedHashSet<>(Arrays.asList(splitValue(mergedValue)));
+                        values.addAll(Arrays.asList(splitValue(value)));
+                        value = Util.toOsmList(values);
+                    }
+                    if (value.length() > Capabilities.DEFAULT_MAX_STRING_LENGTH) {
+                        // can't merge without losing information
+                        throw new OsmIllegalOperationException("Merged tags too long for key " + key);
+                    }
+                    merged.put(key, value);
+                }
+            } else {
+                merged.put(key, value);
+            }
+        }
+        return merged;
+    }
+
+    /**
+     * Split value with the default value separator
+     * 
+     * @param value the value to split
+     * @return an array holding the split values
+     */
+    @NonNull
+    private static String[] splitValue(@NonNull final String value) {
+        return value.split("\\" + Tags.OSM_VALUE_SEPARATOR);
     }
 }

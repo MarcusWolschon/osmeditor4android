@@ -3,13 +3,10 @@ package de.blau.android.osm;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -322,35 +319,6 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      */
     public boolean isTagged() {
         return (tags != null) && (tags.size() > 0);
-    }
-
-    /**
-     * Merge the tags from two OsmElements into one set.
-     * 
-     * @param e1 first element
-     * @param e2 second element
-     * @return Map containing the merged tags
-     */
-    @NonNull
-    public static Map<String, String> mergedTags(@NonNull OsmElement e1, @NonNull OsmElement e2) {
-        Map<String, String> merged = new TreeMap<>(e1.getTags());
-        Map<String, String> fromTags = e2.getTags();
-        for (Entry<String, String> entry : fromTags.entrySet()) {
-            String key = entry.getKey();
-            Set<String> values = new HashSet<>(Arrays.asList(entry.getValue().split("\\" + Tags.OSM_VALUE_SEPARATOR)));
-            if (merged.containsKey(key)) {
-                values.addAll(Arrays.asList(merged.get(key).split("\\" + Tags.OSM_VALUE_SEPARATOR)));
-            }
-            StringBuilder b = new StringBuilder();
-            for (String v : values) {
-                if (b.length() > 0) {
-                    b.append(Tags.OSM_VALUE_SEPARATOR);
-                }
-                b.append(v);
-            }
-            merged.put(key, b.toString());
-        }
-        return merged;
     }
 
     @Override
@@ -821,7 +789,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      */
     public long getTimestamp() {
         if (timestamp >= 0) {
-            return EPOCH + (long) timestamp;
+            return EPOCH + timestamp;
         }
         return -1L;
     }
