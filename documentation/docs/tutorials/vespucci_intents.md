@@ -41,8 +41,8 @@ josm:/load\_and\_zoom?left=*left*&bottom=*bottom*&right=*right*&top=*top*&select
 
 Further supported attributes:
 
-*changeset_comment*: a draft changeset comment. (added in vwersion 13.1)
-*changeset_source*: a draft changeset source. (added in vwersion 13.1)
+*changeset_comment*: a draft changeset comment. (added in version 13.1)
+*changeset_source*: a draft changeset source. (added in version 13.1)
 
 __Configure imagery__ (added in version 13.1)
 

@@ -18,9 +18,9 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |-------------------|-------------------------------|-----------|----------------------------------------------------------------
 |__&lt;presets&gt;__          |                     |           |
 |                             | author              | ignored   |
-|                             | version             | ignored   |
-|                             | description         | ignored   |
-|                             | shortdescription    | ignored   |
+|                             | version             | supported |
+|                             | description         | partial   |
+|                             | shortdescription    | supported |
 |                             | link                | ignored   |
 |                             | icon                | ignored   |
 |                             | baselanguage        | ignored   |
