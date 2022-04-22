@@ -1185,7 +1185,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          * 
          * @param context Android Context
          */
-        public EditableLayout(Context context) {
+        public EditableLayout(@NonNull Context context) {
             super(context);
         }
 
@@ -1195,7 +1195,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          * @param context Android Context
          * @param attrs an AttributeSet
          */
-        public EditableLayout(Context context, AttributeSet attrs) {
+        public EditableLayout(@NonNull Context context, AttributeSet attrs) {
             super(context, attrs);
         }
 
@@ -1277,7 +1277,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 } else {
                     headerIconView.setVisibility(View.GONE);
                 }
-                headerTitleView.setText(preset.getTranslatedName());
+                headerTitleView.setText(preset.getDisplayName(getContext()));
                 applyPresetButton.setVisibility(View.VISIBLE);
                 applyPresetWithOptionalButton.setVisibility(View.VISIBLE);
                 copyButton.setVisibility(View.VISIBLE);

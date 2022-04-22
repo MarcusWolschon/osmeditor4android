@@ -566,7 +566,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
             PresetItem p = Preset.findBestMatch(App.getCurrentPresets(ctx), tags, null);
             if (p != null) {
                 String ref = getTagWithKey(Tags.KEY_REF);
-                return p.getTranslatedName() + (ref != null ? " " + ref : "");
+                return p.getDisplayName(ctx) + (ref != null ? " " + ref : "");
             }
         }
         // Then the value of the most 'important' tag the element has
