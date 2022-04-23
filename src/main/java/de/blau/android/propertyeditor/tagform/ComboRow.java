@@ -181,6 +181,7 @@ public class ComboRow extends LinearLayout {
      * @param adapter an ArrayAdapter containing all the predefined values in the PresetItem for the key
      * @return a TagComboRow instance
      */
+    @NonNull
     static ComboRow getRow(@NonNull final TagFormFragment caller, @NonNull final LayoutInflater inflater, @NonNull final LinearLayout rowLayout,
             @NonNull final PresetItem preset, @Nullable final String hint, @NonNull final String key, @Nullable final String value,
             @Nullable final ArrayAdapter<?> adapter) {
@@ -199,7 +200,7 @@ public class ComboRow extends LinearLayout {
                 if (description == null) {
                     description = v;
                 }
-                Drawable icon = ((StringWithDescriptionAndIcon) o).getIcon(caller.getContext(), preset);
+                Drawable icon = swd.getIcon(caller.getContext(), preset);
                 row.addButton(description, v, v.equals(value), icon);
             }
 

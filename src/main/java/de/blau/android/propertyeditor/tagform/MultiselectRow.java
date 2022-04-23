@@ -152,6 +152,7 @@ public class MultiselectRow extends LinearLayout {
      * @param adapter an ArrayAdapter containing all the predefined values in the PresetItem for the key
      * @return a TagMultiselectRow instance
      */
+    @NonNull
     static MultiselectRow getRow(@NonNull final TagFormFragment caller, @NonNull final LayoutInflater inflater, @NonNull final LinearLayout rowLayout,
             @NonNull final PresetItem preset, @Nullable final String hint, final String key, @Nullable final List<String> values,
             @Nullable ArrayAdapter<?> adapter) {

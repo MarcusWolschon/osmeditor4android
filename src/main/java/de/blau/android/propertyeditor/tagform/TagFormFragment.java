@@ -853,6 +853,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         values = Util.wrapInList(value);
                     }
                     String hint = field.getHint();
+                    if (field.isDeprecated() && (hint != null && !"".equals(hint))) {
+                        hint = getString(R.string.deprecated, hint);
+                    }
                     //
                     ValueType valueType = field.getValueType();
                     if (field instanceof PresetTextField || key.startsWith(Tags.KEY_ADDR_BASE)
