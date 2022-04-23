@@ -411,15 +411,8 @@ public class PresetItem extends PresetElement {
     @Nullable
     public PresetField getField(@NonNull String key) {
         PresetField field = fields.get(key);
-        if (field == null) { // check PresetGroupFields, not very efficient
-            for (PresetField f : fields.values()) {
-                if (f instanceof PresetCheckGroupField) {
-                    field = ((PresetCheckGroupField) f).getCheckField(key);
-                    if (field != null) {
-                        return f;
-                    }
-                }
-            }
+        if (field == null) {
+            return getCheckFieldFromGroup(key);
         }
         return field;
     }
@@ -535,17 +528,14 @@ public class PresetItem extends PresetElement {
     }
 
     /**
-     * Return, potentially translated, "text" field from preset
+     * Return, potentially translated, "text" attribute for the field
      * 
      * @param key tag key we want the hint for
      * @return the hint for this field or null
      */
     @Nullable
     public String getHint(@NonNull String key) {
-        PresetField field = fields.get(key);
-        if (field == null) {
-            field = getCheckFieldFromGroup(key);
-        }
+        PresetField field = getField(key);
         if (field != null) {
             return field.getHint();
         }
@@ -560,10 +550,7 @@ public class PresetItem extends PresetElement {
      */
     @Nullable
     public String getDefault(@NonNull String key) {
-        PresetField field = fields.get(key);
-        if (field == null) {
-            field = getCheckFieldFromGroup(key);
-        }
+        PresetField field = getField(key);
         return field != null ? field.getDefaultValue() : null;
     }
 
