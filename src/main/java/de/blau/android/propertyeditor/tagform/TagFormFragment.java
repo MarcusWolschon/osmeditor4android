@@ -350,7 +350,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                                 addValue = !dedup;
                             } else {
                                 // skip deprecated values except if it is actually already present
-                                addValue = !deprecated;
+                                addValue = !deprecated || values.contains(s.getValue());
                             }
                             if (addValue) {
                                 adapter2.add(s);
