@@ -75,6 +75,7 @@ import de.blau.android.util.ExtendedStringWithDescription;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
+import de.blau.android.util.StringWithDescriptionAndIcon;
 import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
@@ -298,17 +299,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     List<String> mruValues = App.getMruTags().getValues(preset, key);
                     if (mruValues != null) {
                         for (String v : mruValues) {
-                            StringWithDescription mruValue = null;
-                            for (StringWithDescription swd : presetValues) {
-                                if (v.equals(swd.getValue())) {
-                                    mruValue = swd;
-                                    break;
-                                }
-                            }
+                            StringWithDescription mruValue = preset.getStringWithDescriptionForValue(key, v);
                             if (mruValue == null) {
                                 mruValue = new StringWithDescription(v);
                             } else if (presetValuesCount < addMruSize) {
-                                // only add unknown values for small numbers
+                                // for small numbers only add unknown values
                                 continue;
                             }
                             adapter2.add(mruValue);
@@ -325,23 +320,25 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             Collections.sort(result, comparator);
                         }
                         for (StringWithDescription s : result) {
-                            boolean addValue = true;
                             boolean deprecated = (s instanceof ExtendedStringWithDescription) && ((ExtendedStringWithDescription) s).isDeprecated();
                             Integer storedPosition = counter.get(s.getValue());
                             if (storedPosition != null) {
+                                if (dedup) {
+                                    continue;
+                                }
                                 if (storedPosition >= 0) { // hack so that we retain the descriptions
                                     StringWithDescription r = adapter2.getItem(storedPosition);
                                     r.setDescription(s.getDescription());
                                 }
-                                addValue = !dedup;
-                            } else {
-                                // skip deprecated values except if it is actually already present
-                                addValue = !deprecated;
+                            } else if (deprecated) { // skip deprecated values except if it is actually already present
+                                if (!values.contains(s.getValue())) {
+                                    continue;
+                                }
+                                s = new StringWithDescriptionAndIcon(s);
+                                s.setDescription(getContext().getString(R.string.deprecated, s.getDescription()));
                             }
-                            if (addValue) {
-                                adapter2.add(s);
-                                counter.put(s.getValue(), position++);
-                            }
+                            adapter2.add(s);
+                            counter.put(s.getValue(), position++);
                         }
                         Log.d(DEBUG_TAG, "key " + key + " type " + preset.getKeyType(key));
                     }
@@ -370,7 +367,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     for (String value : values) {
                         if (value != null && !"".equals(value) && !counter.containsKey(value)) {
                             StringWithDescription s = new StringWithDescription(value);
-                            // FIXME determine description in some way
                             adapter2.remove(s);
                             adapter2.insert(s, 0);
                         }

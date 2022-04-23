@@ -963,10 +963,26 @@ public class PresetItem extends PresetElement {
      */
     @Nullable
     public String getDescriptionForValue(@NonNull String key, @NonNull String value) {
+        StringWithDescription result = getStringWithDescriptionForValue(key, value);
+        if (result != null) {
+            return result.getDescription();
+        }
+        return null;
+    }
+
+    /**
+     * Get the StringWithDescription for a specific value of a tag
+     * 
+     * @param key the key
+     * @param value the value which we want the StringWithDescription for
+     * @return the StringWithDescription or null if not found
+     */
+    @Nullable
+    public StringWithDescription getStringWithDescriptionForValue(@NonNull String key, @NonNull String value) {
         Collection<StringWithDescription> presetValues = getAutocompleteValues(key);
         for (StringWithDescription swd : presetValues) {
             if (swd.getValue().equals(value)) {
-                return swd.getDescription();
+                return swd;
             }
         }
         return null;

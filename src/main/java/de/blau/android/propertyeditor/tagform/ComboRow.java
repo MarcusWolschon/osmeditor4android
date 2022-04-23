@@ -17,7 +17,6 @@ import de.blau.android.R;
 import de.blau.android.contract.Ui;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
-import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;
 
 /**
@@ -191,7 +190,7 @@ public class ComboRow extends LinearLayout {
         if (adapter != null) {
             for (int i = 0; i < adapter.getCount(); i++) {
                 Object o = adapter.getItem(i);
-                StringWithDescription swd = new StringWithDescription(o);
+                StringWithDescriptionAndIcon swd = new StringWithDescriptionAndIcon(o);
                 String v = swd.getValue();
                 String description = swd.getDescription();
                 if (v == null || "".equals(v)) {
@@ -200,10 +199,7 @@ public class ComboRow extends LinearLayout {
                 if (description == null) {
                     description = v;
                 }
-                Drawable icon = null;
-                if (o instanceof StringWithDescriptionAndIcon) {
-                    icon = ((StringWithDescriptionAndIcon) o).getIcon(caller.getContext(), preset);
-                }
+                Drawable icon = ((StringWithDescriptionAndIcon) o).getIcon(caller.getContext(), preset);
                 row.addButton(description, v, v.equals(value), icon);
             }
 
