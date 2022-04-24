@@ -17,7 +17,6 @@ import de.blau.android.R;
 import de.blau.android.contract.Ui;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
-import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;
 
 /**
@@ -153,6 +152,7 @@ public class MultiselectRow extends LinearLayout {
      * @param adapter an ArrayAdapter containing all the predefined values in the PresetItem for the key
      * @return a TagMultiselectRow instance
      */
+    @NonNull
     static MultiselectRow getRow(@NonNull final TagFormFragment caller, @NonNull final LayoutInflater inflater, @NonNull final LinearLayout rowLayout,
             @NonNull final PresetItem preset, @Nullable final String hint, final String key, @Nullable final List<String> values,
             @Nullable ArrayAdapter<?> adapter) {
@@ -170,7 +170,7 @@ public class MultiselectRow extends LinearLayout {
             int count = adapter.getCount();
             for (int i = 0; i < count; i++) {
                 Object o = adapter.getItem(i);
-                StringWithDescription swd = new StringWithDescription(o);
+                StringWithDescriptionAndIcon swd = new StringWithDescriptionAndIcon(o);
                 String v = swd.getValue();
                 String description = swd.getDescription();
                 if (v == null || "".equals(v)) {
@@ -179,10 +179,7 @@ public class MultiselectRow extends LinearLayout {
                 if (description == null) {
                     description = v;
                 }
-                Drawable icon = null;
-                if (o instanceof StringWithDescriptionAndIcon) {
-                    icon = ((StringWithDescriptionAndIcon) o).getIcon(caller.getContext(), preset);
-                }
+                Drawable icon = swd.getIcon(caller.getContext(), preset);
                 row.addCheck(description, v, values != null && values.contains(v), icon, onCheckedChangeListener);
             }
         }

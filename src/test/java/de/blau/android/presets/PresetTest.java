@@ -155,9 +155,17 @@ public class PresetTest {
      */
     @Test
     public void deprecation() {
-        PresetItem landuseFarm = presets[0].getItemByName("Farm (deprecated)", null);
-        PresetItem placeFarm = presets[0].getItemByName("Farm", null);
+        PresetItem temp = presets[0].getItemByName("Farm", null, true);
+        PresetElementPath landuseFarmPath = temp.getPath(presets[0].getRootGroup());
+        assertNotNull(landuseFarmPath);
+        PresetItem landuseFarm = (PresetItem) Preset.getElementByPath(presets[0].getRootGroup(), landuseFarmPath, null, true);
         assertNotNull(landuseFarm);
+        assertTrue(landuseFarm.hasKeyValue(Tags.KEY_LANDUSE, "farm"));
+        temp = presets[0].getItemByName("Farm", null, false);
+        PresetElementPath placeFarmPath = temp.getPath(presets[0].getRootGroup());
+        PresetItem placeFarm = (PresetItem) Preset.getElementByPath(presets[0].getRootGroup(), placeFarmPath, null, false);
+        assertNotNull(placeFarm);
+        assertTrue(placeFarm.hasKeyValue(Tags.KEY_PLACE, "farm"));
         List<PresetElement> result = SearchIndexUtils.searchInPresets(ApplicationProvider.getApplicationContext(), "farm", ElementType.CLOSEDWAY, 2, 10, null);
         assertFalse(result.contains(landuseFarm));
         assertTrue(result.contains(placeFarm));
@@ -245,7 +253,7 @@ public class PresetTest {
         assertTrue(testItem.hasKeyValue("samething", "is in CH"));
         PresetElementPath testPath = testItem.getPath(testPreset.getRootGroup());
         assertNotNull(testPath);
-        PresetItem testItemByPath = (PresetItem) Preset.getElementByPath(testPreset.getRootGroup(), testPath, "CH");
+        PresetItem testItemByPath = (PresetItem) Preset.getElementByPath(testPreset.getRootGroup(), testPath, "CH", false);
         assertEquals(testItem, testItemByPath);
 
         testItem = testPreset.getItemByName("Test Same Name", "DE");
@@ -253,7 +261,7 @@ public class PresetTest {
         assertTrue(testItem.hasKeyValue("samething", "not in CH"));
         testPath = testItem.getPath(testPreset.getRootGroup());
         assertNotNull(testPath);
-        testItemByPath = (PresetItem) Preset.getElementByPath(testPreset.getRootGroup(), testPath, "DE");
+        testItemByPath = (PresetItem) Preset.getElementByPath(testPreset.getRootGroup(), testPath, "DE", false);
         assertEquals(testItem, testItemByPath);
     }
 

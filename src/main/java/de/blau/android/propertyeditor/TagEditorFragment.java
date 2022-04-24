@@ -378,7 +378,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 for (PresetElementPath pp : presetsToApply) {
                     // can't use the listener here as onAttach will not have happened
                     PresetElement pi = Preset.getElementByPath(rootGroup, pp,
-                            activity instanceof PropertyEditor ? ((PropertyEditor) activity).getCountryIsoCode() : null);
+                            activity instanceof PropertyEditor ? ((PropertyEditor) activity).getCountryIsoCode() : null, false);
                     if (pi instanceof PresetItem) {
                         applyPreset(editRowLayout, (PresetItem) pi, false, true, true);
                     }

@@ -88,7 +88,7 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
         }
 
         PresetElement presetItem = Preset.getElementByPath(App.getCurrentRootPreset(getContext()).getRootGroup(), presetElementPath,
-                propertyEditorListener.getCountryIsoCode());
+                propertyEditorListener.getCountryIsoCode(), false);
         if (!(presetItem instanceof PresetItem)) {
             Log.e(DEBUG_TAG, "no PresetItem found for " + presetElementPath);
             return null;

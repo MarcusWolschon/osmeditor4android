@@ -411,15 +411,8 @@ public class PresetItem extends PresetElement {
     @Nullable
     public PresetField getField(@NonNull String key) {
         PresetField field = fields.get(key);
-        if (field == null) { // check PresetGroupFields, not very efficient
-            for (PresetField f : fields.values()) {
-                if (f instanceof PresetCheckGroupField) {
-                    field = ((PresetCheckGroupField) f).getCheckField(key);
-                    if (field != null) {
-                        return f;
-                    }
-                }
-            }
+        if (field == null) {
+            return getCheckFieldFromGroup(key);
         }
         return field;
     }
@@ -535,17 +528,14 @@ public class PresetItem extends PresetElement {
     }
 
     /**
-     * Return, potentially translated, "text" field from preset
+     * Return, potentially translated, "text" attribute for the field
      * 
      * @param key tag key we want the hint for
      * @return the hint for this field or null
      */
     @Nullable
     public String getHint(@NonNull String key) {
-        PresetField field = fields.get(key);
-        if (field == null) {
-            field = getCheckFieldFromGroup(key);
-        }
+        PresetField field = getField(key);
         if (field != null) {
             return field.getHint();
         }
@@ -560,10 +550,7 @@ public class PresetItem extends PresetElement {
      */
     @Nullable
     public String getDefault(@NonNull String key) {
-        PresetField field = fields.get(key);
-        if (field == null) {
-            field = getCheckFieldFromGroup(key);
-        }
+        PresetField field = getField(key);
         return field != null ? field.getDefaultValue() : null;
     }
 
@@ -963,10 +950,26 @@ public class PresetItem extends PresetElement {
      */
     @Nullable
     public String getDescriptionForValue(@NonNull String key, @NonNull String value) {
+        StringWithDescription result = getStringWithDescriptionForValue(key, value);
+        if (result != null) {
+            return result.getDescription();
+        }
+        return null;
+    }
+
+    /**
+     * Get the StringWithDescription for a specific value of a tag
+     * 
+     * @param key the key
+     * @param value the value which we want the StringWithDescription for
+     * @return the StringWithDescription or null if not found
+     */
+    @Nullable
+    public StringWithDescription getStringWithDescriptionForValue(@NonNull String key, @NonNull String value) {
         Collection<StringWithDescription> presetValues = getAutocompleteValues(key);
         for (StringWithDescription swd : presetValues) {
             if (swd.getValue().equals(value)) {
-                return swd.getDescription();
+                return swd;
             }
         }
         return null;

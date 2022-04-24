@@ -127,6 +127,17 @@ public abstract class PresetElement {
     }
 
     /**
+     * Return the name of this preset element, potentially translated and including if it is deprecated
+     * 
+     * @param ctx and Android Context
+     * @return the name
+     */
+    @NonNull
+    public String getDisplayName(@NonNull Context ctx) {
+        return deprecated ? ctx.getString(R.string.deprecated, getTranslatedName()) : getTranslatedName();
+    }
+
+    /**
      * Return the icon for the preset or a place holder
      * 
      * @param context an Android Context

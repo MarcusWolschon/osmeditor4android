@@ -1434,7 +1434,20 @@ public class Preset {
      */
     @Nullable
     public PresetItem getItemByName(@NonNull String name, @Nullable String region) {
-        return getElementByName(rootGroup, name, region);
+        return getElementByName(rootGroup, name, region, false);
+    }
+
+    /**
+     * Return a preset by name Note: the names are not guaranteed to be unique, this will simple return the first found
+     * 
+     * @param name the name to search for
+     * @param region a region (country/state) to filter by
+     * @param deprecated if true only return deprecated items, if false, just non-deprecated ones
+     * @return the preset item or null if not found
+     */
+    @Nullable
+    public PresetItem getItemByName(@NonNull String name, @Nullable String region, boolean deprecated) {
+        return getElementByName(rootGroup, name, region, deprecated);
     }
 
     /**
@@ -1443,16 +1456,18 @@ public class Preset {
      * @param group the starting PresetGroup
      * @param name the name
      * @param region a region (country/state) to filter by
+     * @param deprecated if true only return deprecated items, if false, just non-deprecated ones
      * @return a matching PresetItem or null
      */
     @Nullable
-    private PresetItem getElementByName(@NonNull PresetGroup group, @NonNull String name, @Nullable String region) {
+    private PresetItem getElementByName(@NonNull PresetGroup group, @NonNull String name, @Nullable String region, boolean deprecated) {
         List<PresetElement> elements = region == null ? group.getElements() : PresetElement.filterElementsByRegion(group.getElements(), region);
         for (PresetElement element : elements) {
-            if (element instanceof PresetItem && name.equals(((PresetItem) element).getName())) {
+            final boolean isDeprecated = element.isDeprecated();
+            if (element instanceof PresetItem && name.equals(((PresetItem) element).getName()) && !(isDeprecated ^ deprecated)) {
                 return (PresetItem) element;
             } else if (element instanceof PresetGroup) {
-                PresetItem result = getElementByName((PresetGroup) element, name, region);
+                PresetItem result = getElementByName((PresetGroup) element, name, region, deprecated);
                 if (result != null) {
                     return result;
                 }
@@ -1546,7 +1561,7 @@ public class Preset {
      */
     @Nullable
     public static PresetElement getElementByPath(@NonNull PresetGroup group, @NonNull PresetElementPath path) {
-        return getElementByPath(group, path, null);
+        return getElementByPath(group, path, null, false);
     }
 
     /**
@@ -1555,22 +1570,24 @@ public class Preset {
      * @param group PresetGroup to start the search at
      * @param path the path
      * @param region a region (country/state) to filter by
+     * @param deprecated if true only return deprecated items, if false, just non-deprecated ones
      * @return the PresetElement or null if not found
      */
     @Nullable
-    public static PresetElement getElementByPath(@NonNull PresetGroup group, @NonNull PresetElementPath path, @Nullable String region) {
+    public static PresetElement getElementByPath(@NonNull PresetGroup group, @NonNull PresetElementPath path, @Nullable String region, boolean deprecated) {
         int size = path.getPath().size();
         if (size > 0) {
             String segment = path.getPath().get(0);
             List<PresetElement> elements = region == null ? group.getElements() : PresetElement.filterElementsByRegion(group.getElements(), region);
             for (PresetElement e : elements) {
                 if (segment.equals(e.getName())) {
-                    if (size == 1) {
+                    final boolean isDeprecated = e.isDeprecated();
+                    if (size == 1 && !(isDeprecated ^ deprecated)) {
                         return e;
                     } else if (e instanceof PresetGroup) {
                         PresetElementPath newPath = new PresetElementPath(path);
                         newPath.getPath().remove(0);
-                        return getElementByPath((PresetGroup) e, newPath, region);
+                        return getElementByPath((PresetGroup) e, newPath, region, deprecated);
                     }
                 }
             }
