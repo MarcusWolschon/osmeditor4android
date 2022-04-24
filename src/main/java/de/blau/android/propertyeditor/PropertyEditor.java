@@ -168,12 +168,12 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     private MultiHashMap<Long, RelationMemberPosition> originalParents;
     private ArrayList<RelationMemberDescription>       originalMembers;
 
-    private Preferences             prefs         = null;
-    private ExtendedViewPager       mViewPager;
-    private boolean                 usePaneLayout = false;
-    private boolean                 isRelation    = false;
-    private transient NetworkStatus networkStatus;
-    private List<String>            isoCodes      = null;
+    private Preferences       prefs         = null;
+    private ExtendedViewPager mViewPager;
+    private boolean           usePaneLayout = false;
+    private boolean           isRelation    = false;
+    private NetworkStatus     networkStatus;
+    private List<String>      isoCodes      = null;
 
     /**
      * Start a PropertyEditor activity
@@ -189,17 +189,34 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     public static void startForResult(@NonNull Activity activity, @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets,
             HashMap<String, String> extraTags, ArrayList<PresetElementPath> presetItems, int requestCode) {
         Log.d(DEBUG_TAG, "startForResult");
+        try {
+            activity.startActivityForResult(buildIntent(activity, dataClass, predictAddressTags, showPresets, extraTags, presetItems), requestCode);
+        } catch (RuntimeException rex) {
+            Snack.toastTopError(activity, R.string.toast_error_element_too_large);
+        }
+    }
+
+    /**
+     * Build the intent to start the PropertyEditor
+     * 
+     * @param activity calling activity
+     * @param dataClass the tags and relation memberships that should be edited
+     * @param predictAddressTags try to predict address tags
+     * @param showPresets show the preset tab first
+     * @param extraTags additional tags that should be added
+     * @param presetItems presets that should be applied
+     * @return a suitable Intent
+     */
+    @NonNull
+    static Intent buildIntent(@NonNull Activity activity, @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets,
+            HashMap<String, String> extraTags, ArrayList<PresetElementPath> presetItems) {
         Intent intent = new Intent(activity, PropertyEditor.class);
         intent.putExtra(TAGEDIT_DATA, dataClass);
         intent.putExtra(TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(predictAddressTags));
         intent.putExtra(TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
         intent.putExtra(TAGEDIT_EXTRA_TAGS, extraTags);
         intent.putExtra(TAGEDIT_PRESETSTOAPPLY, presetItems);
-        try {
-            activity.startActivityForResult(intent, requestCode);
-        } catch (RuntimeException rex) {
-            Snack.toastTopError(activity, R.string.toast_error_element_too_large);
-        }
+        return intent;
     }
 
     @Override
