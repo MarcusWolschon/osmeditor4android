@@ -1167,10 +1167,10 @@ i-->
 <p>For Vespucci I've chosen a different approach based on <a href="https://www.gnu.org/software/gettext/manual/gettext.html">GNU gettext</a> format files, the simple <a href="https://github.com/simonpoole/beautified-JOSM-preset/tree/master/src/ch/poole/presetutils">Preset2Pot</a> utility will generate a .pot file from a preset which you can use with one of the translation services to produce GNU gettext compatible translations of all the strings in the preset (excluding the actual key and value strings).</p>
 <h3 id="extensions">Extensions</h3>
 <ul>
-<li><em>deprecated</em> only use this preset for matching, do not offer it for new use and do not find it when searched</li>
-<li><em>javascript</em> execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any</li>
-<li><em>i18n</em> the tag can have i18n variants, for example name and name:de</li>
-<li><em>object_keys</em> comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the <a href="https://github.com/simonpoole/xmas-preset">Christmas preset</a> for an example</li>
+<li><em>deprecated</em> only use this preset for matching, do not offer it for new use and do not find it when searched, it will work analogous for deprecated tags and values.</li>
+<li><em>javascript</em> execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any.</li>
+<li><em>i18n</em> the tag can have i18n variants, for example name and name:de.</li>
+<li><em>object_keys</em> comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the <a href="https://github.com/simonpoole/xmas-preset">Christmas preset</a> for an example.</li>
 <li><em>object</em> on fixed value tags. If present and true or false the tag will be considered as defining/not-defining a top level object, overriding the normal rules (see above).</li>
 <li>
 <p><em>value_type</em> type of the value. This avoids having to hardcode such properties in applications, see the <a href="https://github.com/simonpoole/xmas-preset">Christmas preset</a> for an example.</p>
@@ -1188,12 +1188,12 @@ i-->
 <li>
 <p><em>items_sort</em> this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.</p>
 </li>
-<li><em>regions</em> comma separated list of countries this preset group or item is applicable for</li>
-<li><em>exclude_regions</em> if true, invert the meaning of regions</li>
-<li><em>autoapply</em> if true (default), allow auto-applying of the item</li>
-<li><em>min_match</em> modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match</li>
-<li><em>value_count_key</em> reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes"</li>
-<li><em>alternative</em> indicates that the preset_link points to an alternative tagging of the object</li>
+<li><em>regions</em> comma separated list of countries this preset group or item is applicable for.</li>
+<li><em>exclude_regions</em> if true, invert the meaning of regions.</li>
+<li><em>autoapply</em> if true (default), allow auto-applying of the item.</li>
+<li><em>min_match</em> modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match.</li>
+<li><em>value_count_key</em> reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes".</li>
+<li><em>alternative</em> indicates that the preset_link points to an alternative tagging of the object.</li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -2030,10 +2030,10 @@ i-->
 <p>For Vespucci I've chosen a different approach based on <a href="https://www.gnu.org/software/gettext/manual/gettext.html">GNU gettext</a> format files, the simple <a href="https://github.com/simonpoole/beautified-JOSM-preset/tree/master/src/ch/poole/presetutils">Preset2Pot</a> utility will generate a .pot file from a preset which you can use with one of the translation services to produce GNU gettext compatible translations of all the strings in the preset (excluding the actual key and value strings).</p>
 <h3 id="extensions">Extensions</h3>
 <ul>
-<li><em>deprecated</em> only use this preset for matching, do not offer it for new use and do not find it when searched</li>
-<li><em>javascript</em> execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any</li>
-<li><em>i18n</em> the tag can have i18n variants, for example name and name:de</li>
-<li><em>object_keys</em> comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the <a href="https://github.com/simonpoole/xmas-preset">Christmas preset</a> for an example</li>
+<li><em>deprecated</em> only use this preset for matching, do not offer it for new use and do not find it when searched, it will work analogous for deprecated tags and values.</li>
+<li><em>javascript</em> execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any.</li>
+<li><em>i18n</em> the tag can have i18n variants, for example name and name:de.</li>
+<li><em>object_keys</em> comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the <a href="https://github.com/simonpoole/xmas-preset">Christmas preset</a> for an example.</li>
 <li><em>object</em> on fixed value tags. If present and true or false the tag will be considered as defining/not-defining a top level object, overriding the normal rules (see above).</li>
 <li>
 <p><em>value_type</em> type of the value. This avoids having to hardcode such properties in applications, see the <a href="https://github.com/simonpoole/xmas-preset">Christmas preset</a> for an example.</p>
@@ -2051,12 +2051,12 @@ i-->
 <li>
 <p><em>items_sort</em> this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.</p>
 </li>
-<li><em>regions</em> comma separated list of countries this preset group or item is applicable for</li>
-<li><em>exclude_regions</em> if true, invert the meaning of regions</li>
-<li><em>autoapply</em> if true (default), allow auto-applying of the item</li>
-<li><em>min_match</em> modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match</li>
-<li><em>value_count_key</em> reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes"</li>
-<li><em>alternative</em> indicates that the preset_link points to an alternative tagging of the object</li>
+<li><em>regions</em> comma separated list of countries this preset group or item is applicable for.</li>
+<li><em>exclude_regions</em> if true, invert the meaning of regions.</li>
+<li><em>autoapply</em> if true (default), allow auto-applying of the item.</li>
+<li><em>min_match</em> modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match.</li>
+<li><em>value_count_key</em> reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes".</li>
+<li><em>alternative</em> indicates that the preset_link points to an alternative tagging of the object.</li>
 </ul></div>
                 
         </div>
