@@ -160,10 +160,10 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
 
 ### Extensions
 
-* _deprecated_ only use this preset for matching, do not offer it for new use and do not find it when searched
-* _javascript_ execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any
-* _i18n_ the tag can have i18n variants, for example name and name:de
-* _object\_keys_ comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the [Christmas preset](https://github.com/simonpoole/xmas-preset) for an example
+* _deprecated_ only use this preset for matching, do not offer it for new use and do not find it when searched, it will work analogous for deprecated tags and values.
+* _javascript_ execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any.
+* _i18n_ the tag can have i18n variants, for example name and name:de.
+* _object\_keys_ comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the [Christmas preset](https://github.com/simonpoole/xmas-preset) for an example.
 * _object_ on fixed value tags. If present and true or false the tag will be considered as defining/not-defining a top level object, overriding the normal rules (see above).
 * _value\_type_ type of the value. This avoids having to hardcode such properties in applications, see the [Christmas preset](https://github.com/simonpoole/xmas-preset) for an example.
 
@@ -177,9 +177,9 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
     * _wikidata_  a wikidata Q ref
 
 * _items\_sort_ this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.
-* _regions_ comma separated list of countries this preset group or item is applicable for
-* _exclude_regions_ if true, invert the meaning of regions
-* _autoapply_ if true (default), allow auto-applying of the item
-* _min_match_ modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match
-* _value_count_key_ reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes"
-* _alternative_ indicates that the preset_link points to an alternative tagging of the object
+* _regions_ comma separated list of countries this preset group or item is applicable for.
+* _exclude_regions_ if true, invert the meaning of regions.
+* _autoapply_ if true (default), allow auto-applying of the item.
+* _min_match_ modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match.
+* _value_count_key_ reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes".
+* _alternative_ indicates that the preset_link points to an alternative tagging of the object.
