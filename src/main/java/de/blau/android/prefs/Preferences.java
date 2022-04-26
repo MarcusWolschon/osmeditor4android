@@ -78,6 +78,7 @@ public class Preferences {
     private final boolean     showCameraAction;
     private final String      cameraApp;
     private final boolean     useInternalPhotoViewer;
+    private final boolean     scanMediaStore;
     private final boolean     generateAlerts;
     private final boolean     groupAlertsOnly;
     private int               maxAlertDistance;
@@ -204,6 +205,7 @@ public class Preferences {
         showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
         cameraApp = prefs.getString(r.getString(R.string.config_selectCameraApp_key), "");
         useInternalPhotoViewer = prefs.getBoolean(r.getString(R.string.config_useInternalPhotoViewer_key), true);
+        scanMediaStore = prefs.getBoolean(r.getString(R.string.config_indexMediaStore_key), false);
 
         generateAlerts = prefs.getBoolean(r.getString(R.string.config_generateAlerts_key), false);
         maxAlertDistance = getIntPref(R.string.config_maxAlertDistance_key, 100);
@@ -841,6 +843,15 @@ public class Preferences {
      */
     public boolean useInternalPhotoViewer() {
         return useInternalPhotoViewer;
+    }
+
+    /**
+     * Check if we should scane the media store for photos
+     * 
+     * @return true if we should scan the MediaStore
+     */
+    public boolean scanMediaStore() {
+        return scanMediaStore;
     }
 
     /**

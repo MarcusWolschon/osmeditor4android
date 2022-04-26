@@ -34,12 +34,12 @@ class PhotoUriHandler implements PostAsyncActionHandler {
     @Override
     public void onSuccess() {
         try {
-            Photo photo = new Photo(main, uri);
+            String displayName = SelectFile.getDisplaynameColumn(main, uri);
+            Photo photo = new Photo(main, uri, displayName);
             try (PhotoIndex pi = new PhotoIndex(main)) {
                 // check if this is an existing indexed photo
                 boolean exists = false;
                 Collection<Photo> existing = pi.getPhotos(photo.getBounds());
-                String displayName = SelectFile.getDisplaynameColumn(main, uri);
                 if (displayName != null) {
                     for (Photo p : existing) {
                         if (displayName.equals(SelectFile.getDisplaynameColumn(main, p.getRefUri(main)))) {

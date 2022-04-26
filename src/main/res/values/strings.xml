@@ -1042,7 +1042,9 @@ avoided by using an offline data source.</string>
     <string name="config_fv5_lite">FV5 lite</string>
     <string name="config_fv5_pro">FV5 pro</string>
     <string name="config_useInternalPhotoViewer_title">Use builtin photo viewer</string>
-    <string name="config_useInternalPhotoViewer_summary">Use the builtin photo view, if not checked an external viewer will be used.</string>
+    <string name="config_useInternalPhotoViewer_summary">Use the builtin photo view, if not checked an external viewer will be used.</string>    
+    <string name="config_indexMediaStore_summary">Additionally use the MediaStore for accessing photos</string>
+    <string name="config_indexMediaStore_title">Use the MediaStore</string>
     <string name="config_followGPSbutton_title">Follow position button layout</string>
     <string name="config_followGPSbutton_summary">Where the "follow position" button will be positioned.</string>
     <string name="config_alwaysDrawBoundingBoxes_title">Always dim non-downloaded areas</string>

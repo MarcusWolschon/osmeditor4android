@@ -279,10 +279,9 @@ public final class SelectFile {
      * @param selectionArgs (Optional) Selection arguments used in the query.
      * @return The value of the _data column, which is typically a file path.
      */
+    @Nullable
     public static String getDataColumn(@NonNull Context context, @NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-
         final String[] projection = { MediaStore.MediaColumns.DATA };
-
         try (Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null)) {
             if (cursor != null && cursor.moveToFirst()) {
                 final int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
@@ -302,10 +301,9 @@ public final class SelectFile {
      * @param uri The Uri to query.
      * @return The value of the _display_name column, which is typically a file name.
      */
+    @Nullable
     public static String getDisplaynameColumn(@NonNull Context context, @NonNull Uri uri) {
-
         final String[] projection = { MediaStore.MediaColumns.DISPLAY_NAME };
-
         try (Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null)) {
             if (cursor != null && cursor.moveToFirst()) {
                 final int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);

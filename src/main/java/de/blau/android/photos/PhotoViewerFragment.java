@@ -157,7 +157,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
         @Override
         public void showOnMap(Context context, int index) {
             try {
-                Photo p = new Photo(context, Uri.parse(photoList.get(index)));
+                Photo p = new Photo(context, Uri.parse(photoList.get(index)), "");
                 if (getShowsDialog()) {
                     Map map = (context instanceof Main) ? ((Main) context).getMap() : null;
                     final de.blau.android.layer.photos.MapOverlay overlay = map != null ? map.getPhotoLayer() : null;
