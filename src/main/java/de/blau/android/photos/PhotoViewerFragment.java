@@ -331,8 +331,6 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
     public boolean onMenuItemClick(MenuItem item) {
         int size = photoList.size();
         FragmentActivity caller = getActivity();
-        Map map = (caller instanceof Main) ? ((Main) caller).getMap() : null;
-        final de.blau.android.layer.photos.MapOverlay overlay = map != null ? map.getPhotoLayer() : null;
 
         int pos = viewPager.getCurrentItem();
         if (photoList != null && !photoList.isEmpty() && pos < size) {
@@ -367,15 +365,19 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                                 if (position >= 0 && position < photoList.size()) { // avoid crashes from bouncing
                                     Uri photoUri = Uri.parse(photoList.get(position));
                                     try {
-                                        // delete from in memory and on device index
-                                        try (PhotoIndex index = new PhotoIndex(getContext())) {
-                                            index.deletePhoto(getContext(), photoUri);
-                                        }
-                                        if (getShowsDialog() && overlay != null) {
-                                            // as the Photo was selected before calling this it will still have a
-                                            // reference in the layer
-                                            overlay.setSelected(null);
-                                            overlay.invalidate();
+                                        if (getShowsDialog()) {
+                                            // delete from in memory and on device index
+                                            try (PhotoIndex index = new PhotoIndex(getContext())) {
+                                                index.deletePhoto(getContext(), photoUri);
+                                            }
+                                            Map map = (caller instanceof Main) ? ((Main) caller).getMap() : null;
+                                            final de.blau.android.layer.photos.MapOverlay overlay = map != null ? map.getPhotoLayer() : null;
+                                            if (overlay != null) {
+                                                // as the Photo was selected before calling this it will still have a
+                                                // reference in the layer
+                                                overlay.deselectObjects();
+                                                overlay.invalidate();
+                                            }
                                         } else {
                                             Intent intent = new Intent(getContext(), Main.class);
                                             intent.setAction(Main.ACTION_DELETE_PHOTO);
@@ -414,7 +416,6 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                 prepareMenu();
             }
         }
-
         return false;
     }
 

@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import de.blau.android.contract.Ui;
 import de.blau.android.photos.Photo;
 import de.blau.android.photos.PhotoIndex;
-import de.blau.android.util.SelectFile;
+import de.blau.android.util.ContentProviderUtil;
 import de.blau.android.util.Snack;
 
 class PhotoUriHandler implements PostAsyncActionHandler {
@@ -34,7 +34,7 @@ class PhotoUriHandler implements PostAsyncActionHandler {
     @Override
     public void onSuccess() {
         try {
-            String displayName = SelectFile.getDisplaynameColumn(main, uri);
+            String displayName = ContentProviderUtil.getDisplaynameColumn(main, uri);
             Photo photo = new Photo(main, uri, displayName);
             try (PhotoIndex pi = new PhotoIndex(main)) {
                 // check if this is an existing indexed photo
@@ -42,7 +42,7 @@ class PhotoUriHandler implements PostAsyncActionHandler {
                 Collection<Photo> existing = pi.getPhotos(photo.getBounds());
                 if (displayName != null) {
                     for (Photo p : existing) {
-                        if (displayName.equals(SelectFile.getDisplaynameColumn(main, p.getRefUri(main)))) {
+                        if (displayName.equals(ContentProviderUtil.getDisplaynameColumn(main, p.getRefUri(main)))) {
                             photo = p;
                             exists = true;
                             break;

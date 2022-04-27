@@ -536,26 +536,40 @@ public class PhotoIndex extends SQLiteOpenHelper {
      * @return true if successful
      */
     public boolean deletePhoto(@NonNull Context context, @NonNull Uri uri) {
+        return deletePhoto(context, uri.toString());
+    }
+
+    /**
+     * Try to remove an entry from both the in memory and the on device index
+     * 
+     * As this might not be something that we have actually indexed, fail gracefully.
+     * 
+     * @param context an Android Context
+     * @param uriString the uri or path as a String
+     * @return true if successful
+     */
+    public boolean deletePhoto(@NonNull Context context, @NonNull String uriString) {
+        Log.d(DEBUG_TAG, "deletePhoto " + uriString);
         SQLiteDatabase db = null;
         Cursor dbresult = null;
         try {
             db = getWritableDatabase();
-            dbresult = db.query(PHOTOS_TABLE, new String[] { URI_COLUMN, LON_COLUMN, LAT_COLUMN }, URI_COLUMN + "  = ?", new String[] { uri.toString() }, null,
-                    null, null, null);
+            dbresult = db.query(PHOTOS_TABLE, new String[] { URI_COLUMN, LON_COLUMN, LAT_COLUMN }, URI_WHERE, new String[] { uriString }, null, null, null,
+                    null);
             if (dbresult.getCount() > 0) {
                 RTree<Photo> index = App.getPhotoIndex();
                 if (index != null) {
                     dbresult.moveToFirst();
                     Collection<Photo> existing = getPhotosFromIndex(index, new BoundingBox(dbresult.getInt(1), dbresult.getInt(2)));
-                    String uriString = uri.toString();
                     for (Photo p : existing) {
-                        if (p.getRef().equals(uriString)) {
-                            index.remove(p);
+                        if (p.getRef().equals(uriString) && !index.remove(p)) {
+                            Log.e(DEBUG_TAG, "deletePhoto uri not removed from RTree");
                         }
                     }
                 }
-                return db.delete(PHOTOS_TABLE, URI_WHERE, new String[] { uri.toString() }) > 0;
+                return db.delete(PHOTOS_TABLE, URI_WHERE, new String[] { uriString }) > 0;
             }
+            Log.e(DEBUG_TAG, "deletePhoto uri not found in database");
             return false;
         } finally {
             SavingHelper.close(dbresult);

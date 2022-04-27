@@ -155,6 +155,7 @@ import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.BadgeDrawable;
+import de.blau.android.util.ContentProviderUtil;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.DownloadActivity;
 import de.blau.android.util.ExecutorTask;
@@ -897,9 +898,11 @@ public class Main extends FullScreenAppCompatActivity
                     if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                         // for now we just repeat the request (max once)
                         permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        permissionsList.add(Manifest.permission.ACCESS_MEDIA_LOCATION);
                     }
                 } else {
                     permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    permissionsList.add(Manifest.permission.ACCESS_MEDIA_LOCATION); // yes this is weird, but ask the goog
                     askedForStoragePermission = true;
                 }
             } else { // permission was already given
@@ -969,7 +972,12 @@ public class Main extends FullScreenAppCompatActivity
                     case ACTION_DELETE_PHOTO: // harmless as this just deletes from the index
                         try (PhotoIndex index = new PhotoIndex(this)) {
                             Uri uri = intent.getData();
-                            index.deletePhoto(this, uri);
+                            if (!index.deletePhoto(this, uri)) {
+                                String path = ContentProviderUtil.getPath(this, uri);
+                                if (path != null && !index.deletePhoto(this, path)) {
+                                    Log.e(DEBUG_TAG, "deleting " + uri + " from index failed");
+                                }
+                            }
                             if (uri.equals(contentUri)) {
                                 contentUri = null;
                             }

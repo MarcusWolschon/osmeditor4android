@@ -211,7 +211,7 @@ public final class FileUtil {
      */
     @Nullable
     public static Uri contentUriToFileUri(@NonNull Context ctx, @NonNull Uri uri) {
-        String path = SelectFile.getPath(ctx, uri);
+        String path = ContentProviderUtil.getPath(ctx, uri);
         if (path != null) {
             return Uri.parse(FILE_SCHEME_PREFIX + path);
         }

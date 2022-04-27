@@ -37,9 +37,9 @@ import de.blau.android.photos.PhotoViewerFragment;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.ContentProviderUtil;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 import de.blau.android.views.IMapView;
 
@@ -367,7 +367,7 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
             Log.d(DEBUG_TAG, "onChange " + uri);
             final Context context = map.getContext();
             if (!pi.isIndexed(uri)) {
-                PhotoIndex.addToIndex(pi.addPhoto(context, uri, SelectFile.getDisplaynameColumn(context, uri)));
+                PhotoIndex.addToIndex(pi.addPhoto(context, uri, ContentProviderUtil.getDisplaynameColumn(context, uri)));
             } else {
                 pi.deletePhoto(context, uri);
             }
