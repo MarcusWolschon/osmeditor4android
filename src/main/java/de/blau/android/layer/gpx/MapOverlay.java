@@ -47,7 +47,7 @@ import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.services.TrackerService;
-import de.blau.android.util.ContentProviderUtil;
+import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.PlaybackTask;
@@ -417,7 +417,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         if (track == null) {
             track = new Track(ctx, false);
         }
-        name = ContentProviderUtil.getDisplaynameColumn(ctx, uri);
+        name = ContentResolverUtil.getDisplaynameColumn(ctx, uri);
         if (name == null) {
             name = uri.getLastPathSegment();
         }

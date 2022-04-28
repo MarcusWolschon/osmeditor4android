@@ -1,9 +1,11 @@
 package de.blau.android.util;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -17,9 +19,9 @@ import de.blau.android.R;
 import de.blau.android.contract.Paths;
 import de.blau.android.contract.Schemes;
 
-public final class ContentProviderUtil {
+public final class ContentResolverUtil {
 
-    private static final String DEBUG_TAG = ContentProviderUtil.class.getSimpleName();
+    private static final String DEBUG_TAG = ContentResolverUtil.class.getSimpleName();
 
     private static final String PRIMARY                   = "primary";
     private static final String MY_DOWNLOADS              = "content://downloads/my_downloads";
@@ -31,7 +33,7 @@ public final class ContentProviderUtil {
     /**
      * Private constructor
      */
-    private ContentProviderUtil() {
+    private ContentResolverUtil() {
         // do nothing
     }
 
@@ -50,42 +52,10 @@ public final class ContentProviderUtil {
     @Nullable
     public static String getPath(@NonNull Context context, @NonNull Uri uri) {
         Log.d(DEBUG_TAG, "getPath uri: " + uri.toString());
-        final String scheme = uri.getScheme();
+        final String scheme = uri.getScheme().toLowerCase(Locale.US);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(context, uri)) {
-            if (isExternalStorageDocument(uri)) {
-                Log.i(DEBUG_TAG, "isExternalStorageDocument");
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-                if (PRIMARY.equalsIgnoreCase(type)) {
-                    return Environment.getExternalStorageDirectory() + Paths.DELIMITER + split[1];
-                } else {
-                    Log.e(DEBUG_TAG, "unknown doc type " + type);
-                }
-            } else if (isDownloadsDocument(uri)) { // DownloadsProvider
-                Log.i(DEBUG_TAG, "isDownloadsDocument");
-                final String id = DocumentsContract.getDocumentId(uri);
-                if (id.startsWith(RAW_PREFIX)) {
-                    return id.substring(RAW_PREFIX.length());
-                }
-                try {
-                    long longId = Long.parseLong(id);
-                    Uri contentUri = ContentUris.withAppendedId(Uri.parse(PUBLIC_DOWNLOADS), longId);
-                    String path = getDataColumn(context, contentUri, null, null);
-                    if (path == null) { // maybe Oreo, maybe some specific devices
-                        contentUri = ContentUris.withAppendedId(Uri.parse(MY_DOWNLOADS), longId);
-                        return getDataColumn(context, contentUri, null, null);
-                    }
-                    return path;
-                } catch (NumberFormatException nfex) {
-                    Log.e(DEBUG_TAG, "getPath " + id + " id not a long");
-                }
-            } else if (Schemes.CONTENT.equalsIgnoreCase(scheme)) {
-                Log.i(DEBUG_TAG, "content scheme");
-                return getDataColumn(context, uri, null, null);
-            }
-        } else if (Schemes.CONTENT.equalsIgnoreCase(scheme) && context.getString(R.string.content_provider).equals(uri.getAuthority())) {
+            return getPathFromDocumentUri(context, scheme, uri);
+        } else if (Schemes.CONTENT.equals(scheme) && context.getString(R.string.content_provider).equals(uri.getAuthority())) {
             Log.i(DEBUG_TAG, "Vespucci file provider");
             try {
                 return FileUtil.getPublicDirectory() + uri.getPath();
@@ -93,10 +63,56 @@ public final class ContentProviderUtil {
                 Log.e(DEBUG_TAG, "getPath " + e.getMessage());
                 return null;
             }
-        } else if (Schemes.FILE.equalsIgnoreCase(scheme)) {
+        } else if (Schemes.FILE.equals(scheme)) {
             return uri.getPath();
         }
         Log.e(DEBUG_TAG, "Unable to determine how to handle Uri " + uri);
+        return null;
+    }
+
+    /**
+     * Try to determine the actual file path from a Document Uri
+     * 
+     * @param context an Android Context
+     * @param scheme the scheme of the Uri
+     * @param uri the Uri
+     * @return a path or null
+     */
+    @Nullable
+    private static String getPathFromDocumentUri(@NonNull Context context, @Nullable String scheme, @NonNull Uri uri) {
+        if (isExternalStorageDocument(uri)) {
+            Log.i(DEBUG_TAG, "isExternalStorageDocument");
+            final String docId = DocumentsContract.getDocumentId(uri);
+            String[] split = docId.split(":");
+            final String type = docId.split(":")[0];
+
+            if (PRIMARY.equalsIgnoreCase(type)) {
+                return Environment.getExternalStorageDirectory() + Paths.DELIMITER + split[1]; // NOSONAR
+            } else {
+                Log.e(DEBUG_TAG, "unknown doc type " + type);
+            }
+        } else if (isDownloadsDocument(uri)) { // DownloadsProvider
+            Log.i(DEBUG_TAG, "isDownloadsDocument");
+            final String id = DocumentsContract.getDocumentId(uri);
+            if (id.startsWith(RAW_PREFIX)) {
+                return id.substring(RAW_PREFIX.length());
+            }
+            try {
+                long longId = Long.parseLong(id);
+                Uri contentUri = ContentUris.withAppendedId(Uri.parse(PUBLIC_DOWNLOADS), longId);
+                String path = getDataColumn(context, contentUri, null, null);
+                if (path == null) { // maybe Oreo, maybe some specific devices
+                    contentUri = ContentUris.withAppendedId(Uri.parse(MY_DOWNLOADS), longId);
+                    return getDataColumn(context, contentUri, null, null);
+                }
+                return path;
+            } catch (NumberFormatException nfex) {
+                Log.e(DEBUG_TAG, "getPath " + id + " id not a long");
+            }
+        } else if (Schemes.CONTENT.equals(scheme)) {
+            Log.i(DEBUG_TAG, "content scheme");
+            return getDataColumn(context, uri, null, null);
+        }
         return null;
     }
 
@@ -112,10 +128,10 @@ public final class ContentProviderUtil {
      */
     @Nullable
     public static String getDataColumn(@NonNull Context context, @NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        final String[] projection = { MediaStore.MediaColumns.DATA };
+        final String[] projection = { MediaStore.MediaColumns.DATA }; // NOSONAR
         try (Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null)) {
             if (cursor != null && cursor.moveToFirst()) {
-                final int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+                final int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA); // NOSONAR
                 return cursor.getString(column_index);
             }
         } catch (Exception ex) {
@@ -158,5 +174,28 @@ public final class ContentProviderUtil {
      */
     private static boolean isDownloadsDocument(@NonNull Uri uri) {
         return DOWNLOADS_DOCUMENTS.equals(uri.getAuthority());
+    }
+
+    /**
+     * Persist file access permissions if possible
+     * 
+     * @param context an Android Context
+     * @param intentFlags the flags from the Intent
+     * @param uri the Uri
+     * @return true if things seemed to work
+     */
+    public static boolean persistPermissions(@NonNull Context context, int intentFlags, @NonNull Uri uri) {
+        if ((intentFlags & Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION) != 0) {
+            Log.d(DEBUG_TAG, "Persisting permissions for " + uri);
+            try {
+                context.getContentResolver().takePersistableUriPermission(uri,
+                        intentFlags & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION));
+                return true;
+            } catch (Exception ex) {
+                Log.e(DEBUG_TAG, "Unable to persist read permission for " + uri);
+                Snack.toastTopWarning(context, R.string.toast_unable_to_persist_permissions);
+            }
+        }
+        return false;
     }
 }

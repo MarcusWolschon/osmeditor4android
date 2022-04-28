@@ -55,7 +55,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.symbols.TriangleDown;
-import de.blau.android.util.ContentProviderUtil;
+import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
@@ -399,7 +399,7 @@ public class MapOverlay extends StyleableLayer
     public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull Uri uri, boolean fromState) throws IOException {
         try (InputStream is = ctx.getContentResolver().openInputStream(uri)) {
             readingLock.lock();
-            name = ContentProviderUtil.getDisplaynameColumn(ctx, uri);
+            name = ContentResolverUtil.getDisplaynameColumn(ctx, uri);
             if (name == null) {
                 name = uri.getLastPathSegment();
             }

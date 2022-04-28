@@ -42,7 +42,7 @@ public final class FileUtil {
      * @throws IOException if we can't create the directory
      */
     public static @NonNull File getPublicDirectory() throws IOException {
-        return getPublicDirectory(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Paths.DIRECTORY_PATH_VESPUCCI);
+        return getPublicDirectory(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Paths.DIRECTORY_PATH_VESPUCCI); // NOSONAE
     }
 
     /**
@@ -51,7 +51,7 @@ public final class FileUtil {
      * @return true if the directory exists
      */
     public static boolean publicDirectoryExists() {
-        return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Paths.DIRECTORY_PATH_VESPUCCI).exists();
+        return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Paths.DIRECTORY_PATH_VESPUCCI).exists(); // NOSONAE
     }
 
     /**
@@ -61,7 +61,7 @@ public final class FileUtil {
      * @throws IOException if we can't create the directory
      */
     public static @NonNull File getLegacyPublicDirectory() throws IOException {
-        return getPublicDirectory(Environment.getExternalStorageDirectory(), Paths.DIRECTORY_PATH_VESPUCCI);
+        return getPublicDirectory(Environment.getExternalStorageDirectory(), Paths.DIRECTORY_PATH_VESPUCCI); // NOSONAE
     }
 
     /**
@@ -211,7 +211,7 @@ public final class FileUtil {
      */
     @Nullable
     public static Uri contentUriToFileUri(@NonNull Context ctx, @NonNull Uri uri) {
-        String path = ContentProviderUtil.getPath(ctx, uri);
+        String path = ContentResolverUtil.getPath(ctx, uri);
         if (path != null) {
             return Uri.parse(FILE_SCHEME_PREFIX + path);
         }

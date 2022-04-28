@@ -21,7 +21,7 @@ import androidx.core.util.Pools;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.MBTileConstants;
-import de.blau.android.util.ContentProviderUtil;
+import de.blau.android.util.ContentResolverUtil;
 
 /**
  * @author Simon Poole
@@ -72,7 +72,7 @@ public class MBTileProviderDataBase {
      */
     public MBTileProviderDataBase(@NonNull final Context context, @NonNull Uri mbTilesUri, int maxThreads) {
         Log.i(DEBUG_TAG, "Creating database instance for " + mbTilesUri.toString());
-        String path = ContentProviderUtil.getPath(context, mbTilesUri);
+        String path = ContentResolverUtil.getPath(context, mbTilesUri);
         mDatabase = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
         if (maxThreads <= 0) {
             Preferences prefs = new Preferences(context);

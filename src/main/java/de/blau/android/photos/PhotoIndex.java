@@ -33,6 +33,7 @@ import de.blau.android.contract.Paths;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.rtree.RTree;
 
@@ -44,7 +45,7 @@ import de.blau.android.util.rtree.RTree;
  */
 public class PhotoIndex extends SQLiteOpenHelper {
 
-    private static final int    DATA_VERSION = 5;
+    private static final int    DATA_VERSION = 6;
     private static final String DEBUG_TAG    = "PhotoIndex";
 
     private static final String NOVESPUCCI = ".novespucci";
@@ -180,7 +181,10 @@ public class PhotoIndex extends SQLiteOpenHelper {
                     String id = cursor.getString(idColumn);
                     Uri photoUri = MediaStore.setRequireOriginal(Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id));
                     if (!isIndexed(db, photoUri)) {
-                        addPhoto(context, db, photoUri, cursor.getString(displayNameColumn));
+                        String path = ContentResolverUtil.getDataColumn(context, photoUri, null, null);
+                        if (path == null || !isIndexed(db, path)) {
+                            addPhoto(context, db, photoUri, cursor.getString(displayNameColumn));
+                        }
                     }
                 }
                 updateSources(db, MEDIA_STORE, mediaStoreVersion, System.currentTimeMillis());
@@ -217,11 +221,11 @@ public class PhotoIndex extends SQLiteOpenHelper {
     private void indexDirectories() {
         Log.d(DEBUG_TAG, "scanning directories");
         // determine at least a few of the possible mount points
-        File sdcard = Environment.getExternalStorageDirectory();
+        File sdcard = Environment.getExternalStorageDirectory(); // NOSONAR
         List<String> mountPoints = new ArrayList<>();
         mountPoints.add(sdcard.getAbsolutePath());
         mountPoints.add(sdcard.getAbsolutePath() + Paths.DIRECTORY_PATH_EXTERNAL_SD_CARD);
-        mountPoints.add(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+        mountPoints.add(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()); // NOSONAR
         File storageDir = new File(Paths.DIRECTORY_PATH_STORAGE);
         File[] list = storageDir.listFiles();
         if (list != null) {
@@ -340,12 +344,19 @@ public class PhotoIndex extends SQLiteOpenHelper {
      * Add image to index
      * 
      * @param f the image file
+     * @return a Photo object or null
      */
-    public synchronized void addPhoto(@NonNull File f) {
-        SQLiteDatabase db = getWritableDatabase();
-        Photo p = addPhoto(db, f.getParentFile(), f);
-        db.close();
-        addToIndex(p);
+    @Nullable
+    public synchronized Photo addPhoto(@NonNull File f) {
+        SQLiteDatabase db = null;
+        try {
+            db = getWritableDatabase();
+            Photo p = addPhoto(db, f.getParentFile(), f);
+            addToIndex(p);
+            return p;
+        } finally {
+            SavingHelper.close(db);
+        }
     }
 
     /**
@@ -444,9 +455,20 @@ public class PhotoIndex extends SQLiteOpenHelper {
      * @return true if already present
      */
     private boolean isIndexed(@NonNull SQLiteDatabase db, @NonNull Uri uri) {
+        return isIndexed(db, uri.toString());
+    }
+
+    /**
+     * Check if we have already indexed the photo
+     * 
+     * @param db a readable database
+     * @param uriString the Uri for the photo
+     * @return true if already present
+     */
+    private boolean isIndexed(@NonNull SQLiteDatabase db, @NonNull String uriString) {
         Cursor dbresult = null;
         try {
-            dbresult = db.query(PHOTOS_TABLE, new String[] { URI_COLUMN }, URI_COLUMN + "  = ?", new String[] { uri.toString() }, null, null, null, null);
+            dbresult = db.query(PHOTOS_TABLE, new String[] { URI_COLUMN }, URI_COLUMN + "  = ?", new String[] { uriString }, null, null, null, null);
             return dbresult.getCount() > 0;
         } catch (Exception ex) {
             Log.e(DEBUG_TAG, ex.getMessage());
@@ -513,7 +535,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
     private String getTag(@NonNull SQLiteDatabase db, @NonNull String source) {
         Cursor dbresult = null;
         try {
-            dbresult = db.query(SOURCES_TABLE, new String[] { TAG_COLUMN, "dir" }, "dir = ?", new String[] { source }, null, null, null, null);
+            dbresult = db.query(SOURCES_TABLE, new String[] { TAG_COLUMN, URI_COLUMN }, URI_WHERE, new String[] { source }, null, null, null, null);
             if (dbresult.getCount() >= 1) {
                 dbresult.moveToFirst();
                 return dbresult.getString(0);
@@ -561,10 +583,15 @@ public class PhotoIndex extends SQLiteOpenHelper {
                 if (index != null) {
                     dbresult.moveToFirst();
                     Collection<Photo> existing = getPhotosFromIndex(index, new BoundingBox(dbresult.getInt(1), dbresult.getInt(2)));
+                    boolean removed = false;
                     for (Photo p : existing) {
-                        if (p.getRef().equals(uriString) && !index.remove(p)) {
-                            Log.e(DEBUG_TAG, "deletePhoto uri not removed from RTree");
+                        if (p.getRef().equals(uriString) && index.remove(p)) {
+                            removed = true;
+                            break;
                         }
+                    }
+                    if (!removed) {
+                        Log.e(DEBUG_TAG, "deletePhoto uri not removed from RTree");
                     }
                 }
                 return db.delete(PHOTOS_TABLE, URI_WHERE, new String[] { uriString }) > 0;
