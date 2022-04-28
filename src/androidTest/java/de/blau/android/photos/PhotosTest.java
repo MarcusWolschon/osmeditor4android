@@ -1,16 +1,24 @@
 package de.blau.android.photos;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.content.Context;
+import android.net.Uri;
+import android.os.Environment;
+import androidx.preference.PreferenceManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -25,8 +33,9 @@ import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.contract.Paths;
 import de.blau.android.layer.LayerType;
-import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ContentResolverUtil;
+import de.blau.android.util.rtree.RTree;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -34,12 +43,15 @@ public class PhotosTest {
 
     private static final String PHOTO_FILE  = "test.jpg";
     private static final String PHOTO_FILE2 = "test2.jpg";
-    Context                     context     = null;
-    AdvancedPrefDatabase        prefDB      = null;
-    Main                        main        = null;
-    UiDevice                    device      = null;
-    File                        photo1      = null;
-    File                        photo2      = null;
+    private static final String PHOTO_FILE3 = "test3.jpg";
+    private Context             context     = null;
+    private Main                main        = null;
+    private Preferences         prefs;
+    private Map                 map;
+    private UiDevice            device      = null;
+    private File                photo1      = null;
+    private File                photo2      = null;
+    private File                photo3      = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -52,9 +64,9 @@ public class PhotosTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
-        Preferences prefs = new Preferences(context);
+        prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
-        Map map = main.getMap();
+        map = main.getMap();
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
@@ -63,13 +75,12 @@ public class PhotosTest {
         try {
             photo1 = JavaResources.copyFileFromResources(main, PHOTO_FILE, null, Paths.DIRECTORY_PATH_PICTURES);
             photo2 = JavaResources.copyFileFromResources(main, PHOTO_FILE2, null, Paths.DIRECTORY_PATH_PICTURES);
+            photo3 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath(), PHOTO_FILE3);
+            JavaResources.copyFileFromResources(PHOTO_FILE3, null, photo3);
         } catch (IOException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
-        if (map.getPhotoLayer() == null) {
-            de.blau.android.layer.Util.addLayer(main, LayerType.PHOTO);
-        }
-        map.setPrefs(main, prefs);
+
     }
 
     /**
@@ -77,11 +88,16 @@ public class PhotosTest {
      */
     @After
     public void teardown() {
+        PreferenceManager.getDefaultSharedPreferences(main).edit().putBoolean(main.getString(R.string.config_indexMediaStore_key), false).commit();
+        ;
         if (photo1 != null) {
             photo1.delete();
         }
         if (photo2 != null) {
             photo2.delete();
+        }
+        if (photo3 != null) {
+            photo3.delete();
         }
     }
 
@@ -91,19 +107,52 @@ public class PhotosTest {
     // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void selectDisplayDelete() {
-        TestUtils.findText(device, false, context.getString(R.string.toast_photo_indexing_finished), 10000);
-        TestUtils.textGone(device, context.getString(R.string.toast_photo_indexing_finished), 10000);
-        TestUtils.zoomToLevel(device, main, 20);
+        addLayerAndIndex();
         TestUtils.unlock(device);
-        Assert.assertEquals(2, App.getPhotoIndex().count());
+        assertEquals(2, App.getPhotoIndex().count());
         TestUtils.clickAtCoordinates(device, main.getMap(), 7.5886112, 47.5519448, true);
-        // Assert.assertTrue(TestUtils.findText(mDevice, false, "Done", 1000));
 
         TestUtils.clickMenuButton(device, context.getString(R.string.delete), false, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.photo_viewer_delete_button), false, false));
-        // Assert.assertTrue(TestUtils.clickText(device, false, "Done", true, false));
-        // TestUtils.clickMenuButton(device, "Go to photo", false, true);
-        // device.pressBack();
-        Assert.assertEquals(1, App.getPhotoIndex().count());
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.photo_viewer_delete_button), false, false));
+
+        assertEquals(1, App.getPhotoIndex().count());
+    }
+
+    /**
+     * Turn on indexing of MediaStore
+     */
+    @Test
+    public void indexWithMediaStore() {
+        PreferenceManager.getDefaultSharedPreferences(main).edit().putBoolean(main.getString(R.string.config_indexMediaStore_key), true).commit();
+        addLayerAndIndex();
+        try (PhotoIndex index = new PhotoIndex(main)) {
+            RTree<Photo> tree = new RTree<>(2, 5);
+            index.fill(tree);
+            List<Photo> photos = new ArrayList<>();
+            tree.query(photos);
+            assertEquals(3, photos.size());
+            for (Photo p : photos) {
+                if (PHOTO_FILE3.equals(ContentResolverUtil.getDisplaynameColumn(context, Uri.parse(p.getRef())))) {
+                    return;
+                }
+            }
+            fail(PHOTO_FILE3 + " not found");
+        }
+    }
+
+    /**
+     * Add the photo layer and wait until indexing is finished
+     */
+    private void addLayerAndIndex() {
+        prefs = new Preferences(context);
+        App.getLogic().setPrefs(prefs);
+        TestUtils.zoomToLevel(device, main, 20);
+        if (map.getPhotoLayer() == null) {
+            de.blau.android.layer.Util.addLayer(main, LayerType.PHOTO);
+        }
+        map.setPrefs(main, prefs);
+        map.invalidate();
+        TestUtils.findText(device, false, context.getString(R.string.toast_photo_indexing_finished), 10000);
+        TestUtils.textGone(device, context.getString(R.string.toast_photo_indexing_finished), 10000);
     }
 }
