@@ -218,85 +218,89 @@ public class Map extends View implements IMapView {
                     final LayerType type = config.getType();
                     List<MapViewLayer> existingLayers = getLayers(type, contentId);
                     if (existingLayers.isEmpty()) {
-                        switch (type) { // NOSONAR
-                        case IMAGERY:
-                            TileLayerSource backgroundSource = TileLayerSource.get(ctx, contentId, true);
-                            if (backgroundSource != null) {
-                                if (backgroundSource.getTileType() == TileType.MVT) {
-                                    layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer(), false);
-                                    ((MapTilesOverlayLayer<?>) layer).setRendererInfo(backgroundSource);
-                                } else {
-                                    layer = new MapTilesLayer<Bitmap>(this, backgroundSource, null, new MapTilesLayer.BitmapTileRenderer());
-                                }
-                            }
-                            break;
-                        case OVERLAYIMAGERY:
-                            TileLayerSource overlaySource = TileLayerSource.get(ctx, contentId, true);
-                            if (overlaySource != null) {
-                                if (overlaySource.getTileType() == TileType.MVT) {
-                                    layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer(), true);
-                                } else {
-                                    layer = new MapTilesOverlayLayer<Bitmap>(this, new MapTilesLayer.BitmapTileRenderer());
-                                }
-                                ((MapTilesOverlayLayer<?>) layer).setRendererInfo(overlaySource);
-                            }
-                            break;
-                        case MVT:
-                            // unused for now
-                            break;
-                        case PHOTO:
-                            layer = new de.blau.android.layer.photos.MapOverlay(this);
-                            break;
-                        case SCALE:
-                            layer = new de.blau.android.layer.grid.MapOverlay(this);
-                            break;
-                        case OSMDATA:
-                            layer = new de.blau.android.layer.data.MapOverlay(this);
-                            break;
-                        case GPX:
-                            if (contentId != null) {
-                                layer = new de.blau.android.layer.gpx.MapOverlay(this, contentId);
-                                if (ctx.getString(R.string.layer_gpx_recording).equals(contentId)) {
-                                    if (getTracker() != null) {
-                                        ((de.blau.android.layer.gpx.MapOverlay) layer).setTrack(getTracker().getTrack());
-                                        ((de.blau.android.layer.gpx.MapOverlay) layer).setName(contentId);
+                        try {
+                            switch (type) { // NOSONAR
+                            case IMAGERY:
+                                TileLayerSource backgroundSource = TileLayerSource.get(ctx, contentId, true);
+                                if (backgroundSource != null) {
+                                    if (backgroundSource.getTileType() == TileType.MVT) {
+                                        layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer(), false);
+                                        ((MapTilesOverlayLayer<?>) layer).setRendererInfo(backgroundSource);
                                     } else {
-                                        // we don't want to display the recording layer if the service isn't running
-                                        // for consistency reasons this implies that we need to delete the layer
+                                        layer = new MapTilesLayer<Bitmap>(this, backgroundSource, null, new MapTilesLayer.BitmapTileRenderer());
+                                    }
+                                }
+                                break;
+                            case OVERLAYIMAGERY:
+                                TileLayerSource overlaySource = TileLayerSource.get(ctx, contentId, true);
+                                if (overlaySource != null) {
+                                    if (overlaySource.getTileType() == TileType.MVT) {
+                                        layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer(), true);
+                                    } else {
+                                        layer = new MapTilesOverlayLayer<Bitmap>(this, new MapTilesLayer.BitmapTileRenderer());
+                                    }
+                                    ((MapTilesOverlayLayer<?>) layer).setRendererInfo(overlaySource);
+                                }
+                                break;
+                            case MVT:
+                                // unused for now
+                                break;
+                            case PHOTO:
+                                layer = new de.blau.android.layer.photos.MapOverlay(this);
+                                break;
+                            case SCALE:
+                                layer = new de.blau.android.layer.grid.MapOverlay(this);
+                                break;
+                            case OSMDATA:
+                                layer = new de.blau.android.layer.data.MapOverlay(this);
+                                break;
+                            case GPX:
+                                if (contentId != null) {
+                                    layer = new de.blau.android.layer.gpx.MapOverlay(this, contentId);
+                                    if (ctx.getString(R.string.layer_gpx_recording).equals(contentId)) {
+                                        if (getTracker() != null) {
+                                            ((de.blau.android.layer.gpx.MapOverlay) layer).setTrack(getTracker().getTrack());
+                                            ((de.blau.android.layer.gpx.MapOverlay) layer).setName(contentId);
+                                        } else {
+                                            // we don't want to display the recording layer if the service isn't running
+                                            // for consistency reasons this implies that we need to delete the layer
+                                            db.deleteLayer(LayerType.GPX, contentId);
+                                            continue;
+                                        }
+                                    } else if (!((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId), true, null)) {
                                         db.deleteLayer(LayerType.GPX, contentId);
-                                        continue;
+                                        Log.w(DEBUG_TAG, "Deleted GPX layer for " + contentId);
+                                        continue; // skip
                                     }
-                                } else if (!((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId), true, null)) {
-                                    db.deleteLayer(LayerType.GPX, contentId);
-                                    Log.w(DEBUG_TAG, "Deleted GPX layer for " + contentId);
-                                    continue; // skip
                                 }
-                            }
-                            break;
-                        case TASKS:
-                            layer = new de.blau.android.layer.tasks.MapOverlay(this);
-                            break;
-                        case GEOJSON:
-                            if (contentId != null) {
-                                layer = new de.blau.android.layer.geojson.MapOverlay(this);
-                                try {
-                                    if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true)) {
-                                        // other error, has already been toasted
+                                break;
+                            case TASKS:
+                                layer = new de.blau.android.layer.tasks.MapOverlay(this);
+                                break;
+                            case GEOJSON:
+                                if (contentId != null) {
+                                    layer = new de.blau.android.layer.geojson.MapOverlay(this);
+                                    try {
+                                        if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true)) {
+                                            // other error, has already been toasted
+                                            db.deleteLayer(LayerType.GEOJSON, contentId);
+                                            continue;
+                                        }
+                                    } catch (IOException e) {
+                                        if (context instanceof Main) {
+                                            Snack.toastTopError(context, context.getString(R.string.toast_error_reading, contentId));
+                                        }
                                         db.deleteLayer(LayerType.GEOJSON, contentId);
-                                        continue;
+                                        continue; // skip
                                     }
-                                } catch (IOException e) {
-                                    if (context instanceof Main) {
-                                        Snack.toastTopError(context, context.getString(R.string.toast_error_reading, contentId));
-                                    }
-                                    db.deleteLayer(LayerType.GEOJSON, contentId);
-                                    continue; // skip
                                 }
+                                break;
+                            case MAPILLARY:
+                                layer = new de.blau.android.layer.mapillary.MapOverlay(this);
+                                break;
                             }
-                            break;
-                        case MAPILLARY:
-                            layer = new de.blau.android.layer.mapillary.MapOverlay(this);
-                            break;
+                        } catch (SecurityException ex) {
+                            Log.e(DEBUG_TAG, "SecurityException creating layer, content " + contentId + " " + ex.getMessage());
                         }
                     } else {
                         layer = existingLayers.get(0);
