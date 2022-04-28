@@ -172,6 +172,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
             db = getWritableDatabase();
             final String mediaStoreVersion = MediaStore.getVersion(context);
             if (!mediaStoreVersion.equals(getTag(db, MEDIA_STORE))) {
+                db.delete(PHOTOS_TABLE, SOURCE_COLUMN + " = ?", new String[] { MEDIA_STORE });
                 cursor = context.getContentResolver().query(collection, projection, selection, selectionArgs, null);
                 // Cache column indices.
                 int idColumn = cursor.getColumnIndexOrThrow(BaseColumns._ID);
