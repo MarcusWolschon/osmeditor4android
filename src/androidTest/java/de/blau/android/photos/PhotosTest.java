@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,7 +17,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.content.Context;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import androidx.preference.PreferenceManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -30,7 +33,9 @@ import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.SignalUtils;
 import de.blau.android.TestUtils;
+import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Paths;
 import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.Preferences;
@@ -77,6 +82,12 @@ public class PhotosTest {
             photo2 = JavaResources.copyFileFromResources(main, PHOTO_FILE2, null, Paths.DIRECTORY_PATH_PICTURES);
             photo3 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath(), PHOTO_FILE3);
             JavaResources.copyFileFromResources(PHOTO_FILE3, null, photo3);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                final CountDownLatch signal = new CountDownLatch(1);
+                MediaScannerConnection.scanFile(context, new String[] { photo3.getAbsolutePath() }, new String[] { MimeTypes.JPEG },
+                        (String path, Uri uri) -> signal.countDown());
+                SignalUtils.signalAwait(signal, 10);
+            }
         } catch (IOException e) {
             fail(e.getMessage());
         }
@@ -88,7 +99,6 @@ public class PhotosTest {
     @After
     public void teardown() {
         PreferenceManager.getDefaultSharedPreferences(main).edit().putBoolean(main.getString(R.string.config_indexMediaStore_key), false).commit();
-        ;
         if (photo1 != null) {
             photo1.delete();
         }
