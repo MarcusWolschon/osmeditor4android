@@ -18,6 +18,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
@@ -140,8 +141,8 @@ public class PhotoIndex extends SQLiteOpenHelper {
         Logic logic = App.getLogic();
         Preferences prefs = logic != null ? logic.getPrefs() : null;
         if (prefs != null) {
-            if (prefs.scanMediaStore()
-                    && ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_MEDIA_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (prefs.scanMediaStore() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q
+                    || ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_MEDIA_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
                 indexMediaStore();
             } else {
                 // delete scanned photos from index
@@ -162,10 +163,6 @@ public class PhotoIndex extends SQLiteOpenHelper {
      */
     public void indexMediaStore() {
         Log.d(DEBUG_TAG, "scanning MediaStore");
-        Uri collection = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        String[] projection = new String[] { BaseColumns._ID, MediaStore.MediaColumns.DISPLAY_NAME, MediaColumns.MIME_TYPE };
-        String selection = MediaColumns.MIME_TYPE + " = ?";
-        String[] selectionArgs = new String[] { MimeTypes.JPEG };
         SQLiteDatabase db = null;
         Cursor cursor = null;
         try {
@@ -173,14 +170,17 @@ public class PhotoIndex extends SQLiteOpenHelper {
             final String mediaStoreVersion = MediaStore.getVersion(context);
             if (!mediaStoreVersion.equals(getTag(db, MEDIA_STORE))) {
                 db.delete(PHOTOS_TABLE, SOURCE_COLUMN + " = ?", new String[] { MEDIA_STORE });
-                cursor = context.getContentResolver().query(collection, projection, selection, selectionArgs, null);
+                String[] projection = new String[] { BaseColumns._ID, MediaStore.MediaColumns.DISPLAY_NAME, MediaColumns.MIME_TYPE };
+                cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, MediaColumns.MIME_TYPE + " = ?",
+                        new String[] { MimeTypes.JPEG }, null);
                 // Cache column indices.
                 int idColumn = cursor.getColumnIndexOrThrow(BaseColumns._ID);
                 int displayNameColumn = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
                 while (cursor.moveToNext()) {
-                    // Get values of columns for a given video.
-                    String id = cursor.getString(idColumn);
-                    Uri photoUri = MediaStore.setRequireOriginal(Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id));
+                    Uri photoUri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cursor.getString(idColumn));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        photoUri = MediaStore.setRequireOriginal(photoUri);
+                    }
                     if (!isIndexed(db, photoUri)) {
                         String path = ContentResolverUtil.getDataColumn(context, photoUri, null, null);
                         if (path == null || !isIndexed(db, path)) {

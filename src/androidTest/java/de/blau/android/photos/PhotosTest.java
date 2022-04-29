@@ -80,7 +80,6 @@ public class PhotosTest {
         } catch (IOException e) {
             fail(e.getMessage());
         }
-
     }
 
     /**
