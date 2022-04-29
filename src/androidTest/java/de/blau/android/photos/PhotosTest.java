@@ -122,7 +122,7 @@ public class PhotosTest {
         TestUtils.clickAtCoordinates(device, main.getMap(), 7.5886112, 47.5519448, true);
 
         TestUtils.clickMenuButton(device, context.getString(R.string.delete), false, true);
-        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.photo_viewer_delete_button), false, false));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.photo_viewer_delete_button), true, false));
 
         assertEquals(1, App.getPhotoIndex().count());
     }
