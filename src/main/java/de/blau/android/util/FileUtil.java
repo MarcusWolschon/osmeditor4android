@@ -24,6 +24,8 @@ import de.blau.android.contract.Paths;
 import de.blau.android.contract.Schemes;
 
 public final class FileUtil {
+    private static final char PATH_DELIMITER_CHAR = '/';
+
     private static final String DEBUG_TAG = FileUtil.class.getSimpleName();
 
     public static final String FILE_SCHEME_PREFIX = Schemes.FILE + ":";
@@ -272,42 +274,39 @@ public final class FileUtil {
     public static boolean unpackZip(String dir, String zipname) {
         try (InputStream is = new FileInputStream(dir + zipname); ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is))) {
             String filename;
-
             ZipEntry ze;
             byte[] buffer = new byte[1024];
             int count;
-
             while ((ze = zis.getNextEntry()) != null) {
                 // zapis do souboru
                 filename = ze.getName();
                 Log.d(DEBUG_TAG, "Unzip " + filename);
                 // Need to create directories if not exists, or
                 // it will generate an Exception...
-                if ("".equals(filename)) {
-                    continue;
-                } else if (filename.indexOf('/') > 0 && !filename.endsWith("/")) {
-                    int slash = filename.lastIndexOf('/');
-                    String path = filename.substring(0, slash);
-                    File fmd = new File(dir + path);
-                    if (!fmd.exists()) {
-                        fmd.mkdirs();
+                if (!"".equals(filename)) {
+                    if (filename.indexOf(PATH_DELIMITER_CHAR) > 0 && !filename.endsWith(Paths.DELIMITER)) { // NOSONAR
+                        int slash = filename.lastIndexOf(PATH_DELIMITER_CHAR);
+                        String path = filename.substring(0, slash);
+                        File fmd = new File(dir + path);
+                        if (!fmd.exists()) {
+                            fmd.mkdirs();
+                        }
+                    } else if (ze.isDirectory()) {
+                        File fmd = new File(dir + filename);
+                        // noinspection ResultOfMethodCallIgnored
+                        if (!fmd.exists()) {
+                            fmd.mkdirs();
+                        }
+                        continue;
                     }
-                } else if (ze.isDirectory()) {
-                    File fmd = new File(dir + filename);
-                    // noinspection ResultOfMethodCallIgnored
-                    if (!fmd.exists()) {
-                        fmd.mkdirs();
+                    try (FileOutputStream fout = new FileOutputStream(dir + filename)) {
+                        // cteni zipu a zapis
+                        while ((count = zis.read(buffer)) != -1) {
+                            fout.write(buffer, 0, count);
+                        }
                     }
-                    continue;
+                    zis.closeEntry();
                 }
-
-                try (FileOutputStream fout = new FileOutputStream(dir + filename)) {
-                    // cteni zipu a zapis
-                    while ((count = zis.read(buffer)) != -1) {
-                        fout.write(buffer, 0, count);
-                    }
-                }
-                zis.closeEntry();
             }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Unzipping failed with " + e.getMessage());
