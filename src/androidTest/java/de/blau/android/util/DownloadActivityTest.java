@@ -16,7 +16,6 @@ import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.content.Intent;
-import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle.State;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -120,6 +119,7 @@ public class DownloadActivityTest {
                 }
             }
             assertTrue(found);
+            TestUtils.clickHome(device, true);
         }
     }
 }
