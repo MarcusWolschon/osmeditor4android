@@ -88,7 +88,8 @@ public class Newbie extends ImmersiveDialogFragment {
         builder.setPositiveButton(R.string.okay, (dialog, which) -> {
             FragmentActivity activity = getActivity();
             if (activity instanceof Main) {
-                ((Main) activity).gotoBoxPicker(R.string.boxpicker_firsttimetitle);
+                main.gotoCurrentLocation();
+                main.setFollowGPS(true);
             } else {
                 Log.e(DEBUG_TAG, "getActivity returned null in onClick");
             }
@@ -101,7 +102,6 @@ public class Newbie extends ImmersiveDialogFragment {
                 Log.e(DEBUG_TAG, "getActivity returned null in onClick");
             }
         });
-
         return builder.create();
     }
 }
