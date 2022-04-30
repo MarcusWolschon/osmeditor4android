@@ -115,9 +115,6 @@
             android:label="@string/app_name_version"
             android:theme="@style/Theme.AppCompatPrefs" />
         <activity
-            android:name="BoxPicker"
-            android:theme="@style/Theme.custom" />
-        <activity
             android:name=".propertyeditor.PropertyEditor"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:theme="@style/Theme.customTagEditor" />
