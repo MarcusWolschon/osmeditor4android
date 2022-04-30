@@ -1469,10 +1469,22 @@ public class TestUtils {
      * @return true if found
      */
     public static boolean findNotification(@NonNull UiDevice device, @NonNull String message) {
+        return findNotification(device, "Vespucci", message);
+    }
+
+    /**
+     * Find a specific notification
+     * 
+     * @param device the current UiDevice
+     * @param app the app that generated the notification
+     * @param message the message to find
+     * @return true if found
+     */
+    public static boolean findNotification(@NonNull UiDevice device, @NonNull String app, @NonNull String message) {
         device.openNotification();
         boolean found = device.wait(Until.hasObject(By.textContains(message)), 5000);
         if (!found) {
-            UiObject2 notification = device.findObject(By.textContains("Vespucci"));
+            UiObject2 notification = device.findObject(By.textContains(app));
             if (notification != null) {
                 notification.click();
                 found = device.wait(Until.hasObject(By.textContains(message)), 5000);

@@ -9,6 +9,7 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Class to handle some of the deprecations in Androids WebViewClient
@@ -60,6 +61,7 @@ public abstract class UpdatedWebViewClient extends WebViewClient {
      * @param uri the request Uri
      * @return a WebResourceResponse or null if normal processing should continue
      */
+    @Nullable
     protected WebResourceResponse handleIntercept(WebView view, Uri uri) { // NOSONAR
         return null;
     }
