@@ -72,7 +72,7 @@ Synonyms are retrieved from the iD repository with the grade task ``updateSynony
 
 Automated testing has come relatively late to Vespucci, however we have made large advances in improving the coverage from 2017 onwards.
 
-Unit test coverage is 27%, overall test coverage is currently 65%.
+Unit test coverage is 27%, overall test coverage is currently 68%.
 
 In general if you are writing new tests that do not involve the UI use unit tests and if you need to mock parts of Android use roboelectric. These tests can be completed in far less time than the on device checks, and the unit tests will also be run as part of the CI pipeline.
 
@@ -90,3 +90,4 @@ Notes:
 * a number of the tests start with the splash screen activity and then wait for the main activity to be started. Experience shows that if one of these fails to complete in certain ways, the following tests that start via the splash screen will not be able to start the main activity. Reason unknown.
 * the CameraTest assumes that the emulator has a working camera app of some kind installed.
 * some tests assume that a file keys.txt holding imagery API keys is present (otherwise the layers in question are not added), this should be located in ../private_assets/keys2.txt relative to the repo directory. A fake such file is provided in the unit test assets.
+* Android 9 / API 28 emulators seem to be very fickle wrt long click timeouts. The build script tries to address this by setting a different value for such devices in setLongClickTimeout, however this may need some tuning on test devices with high load. The typical symptom of this issue is the selectNode and dragNode tests failing.

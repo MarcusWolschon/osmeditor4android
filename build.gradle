@@ -377,6 +377,7 @@ task setLongClickTimeout() {
             CollectingOutputReceiver receiver = new CollectingOutputReceiver()
             String api = it.getProperty(IDevice.PROP_BUILD_API_LEVEL)
             // 400 short, 1000 medium, 1500 long
+            // NOTE this may need tuning on test machines with high load
             int timeout = api.equals("28") ? 1500 : 1000
             it.executeShellCommand("settings put secure long_press_timeout $timeout", receiver)
         }
