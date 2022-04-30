@@ -649,6 +649,7 @@ avoided by using an offline data source.</string>
     <string name="abort">Abort</string>
     <string name="ignore">Ignore</string>
     <string name="select">Select</string>
+    <string name="skip">Skip</string>
     <string name="deprecated">%1$s (deprecated)</string>
     <!-- Read a file -->
     <string name="read">Read</string>

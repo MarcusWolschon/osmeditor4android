@@ -69,7 +69,7 @@ public class NewVersion extends ImmersiveDialogFragment {
         builder.setTitle(R.string.upgrade_title);
         builder.setMessage(R.string.upgrade_message);
         DoNothingListener doNothingListener = new DoNothingListener();
-        builder.setNegativeButton(R.string.cancel, doNothingListener);
+        builder.setNegativeButton(R.string.skip, doNothingListener);
         builder.setNeutralButton(R.string.read_upgrade, (dialog, which) -> HelpViewer.start(getActivity(), R.string.help_upgrade));
         return builder.create();
     }
