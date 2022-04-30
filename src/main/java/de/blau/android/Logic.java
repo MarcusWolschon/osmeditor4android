@@ -3874,9 +3874,6 @@ public class Logic {
                     }
                 } else {
                     Log.d(DEBUG_TAG, "loadfromFile: File read failed");
-                    Intent intent = new Intent(activity, BoxPicker.class);
-                    activity.startActivityForResult(intent, Main.REQUEST_BOUNDING_BOX);
-
                     Snack.barError(activity, R.string.toast_state_file_failed);
                     if (postLoad != null) {
                         postLoad.onError(null);

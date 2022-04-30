@@ -92,7 +92,6 @@ import de.blau.android.contract.Ui;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.BarometerCalibration;
 import de.blau.android.dialogs.ConfirmUpload;
-import de.blau.android.dialogs.DataLossActivity;
 import de.blau.android.dialogs.DownloadCurrentWithChanges;
 import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.dialogs.GnssPositionInfo;
@@ -193,11 +192,6 @@ public class Main extends FullScreenAppCompatActivity
      * Tag used for Android-logging.
      */
     private static final String DEBUG_TAG = Main.class.getName();
-
-    /**
-     * Requests a {@link BoundingBox} as an activity-result.
-     */
-    public static final int REQUEST_BOUNDING_BOX = 0;
 
     /**
      * Requests a list of {@link Tag Tags} as an activity-result.
@@ -2486,7 +2480,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Pan and zoom to the current location if any
      */
-    private void gotoCurrentLocation() {
+    public void gotoCurrentLocation() {
         Location gotoLoc = null;
         if (getTracker() != null) {
             gotoLoc = getTracker().getLastLocation();
@@ -2781,9 +2775,7 @@ public class Main extends FullScreenAppCompatActivity
                 Log.e(DEBUG_TAG, "imageFile == null");
             }
         } else if (data != null) {
-            if (requestCode == REQUEST_BOUNDING_BOX) {
-                handleBoxPickerResult(resultCode, data);
-            } else if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK) {
                 handlePropertyEditorResult(data);
             } else if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
                     && resultCode == RESULT_OK) {
@@ -2798,32 +2790,6 @@ public class Main extends FullScreenAppCompatActivity
             }
         }
         scheduleAutoLock();
-    }
-
-    /**
-     * Handle the result of the BoxPicker Activity
-     * 
-     * @param resultCode The integer result code returned by the child activity through its setResult().
-     * @param data An Intent, which can return result data to the caller (various data can be attached to Intent
-     *            "extras").
-     */
-    private void handleBoxPickerResult(final int resultCode, final Intent data) {
-        Bundle b = data.getExtras();
-        int left = b.getInt(BoxPicker.RESULT_LEFT);
-        int bottom = b.getInt(BoxPicker.RESULT_BOTTOM);
-        int right = b.getInt(BoxPicker.RESULT_RIGHT);
-        int top = b.getInt(BoxPicker.RESULT_TOP);
-
-        BoundingBox box = new BoundingBox(left, bottom, right, top);
-        if (resultCode == RESULT_OK) {
-            App.getLogic().downloadBox(this, box, false, null);
-        } else if (resultCode == RESULT_CANCELED) { //
-            synchronized (setViewBoxLock) {
-                setViewBox = false; // stop setting the view box in onResume
-                Log.d(DEBUG_TAG, "opening empty map on " + box.toString());
-                App.getLogic().newEmptyMap(this, ViewBox.getMaxMercatorExtent());
-            }
-        }
     }
 
     /**
@@ -3122,21 +3088,6 @@ public class Main extends FullScreenAppCompatActivity
                 popup.show();
             }
         });
-    }
-
-    /**
-     * Starts the LocationPicker activity for requesting a location.
-     * 
-     * @param titleResId a string resource id for the title
-     */
-    public void gotoBoxPicker(int titleResId) {
-        descheduleAutoLock();
-        if (App.getLogic().hasChanges()) {
-            Intent intent = new Intent(this, BoxPicker.class);
-            DataLossActivity.showDialog(this, intent, REQUEST_BOUNDING_BOX);
-        } else {
-            BoxPicker.startForResult(this, titleResId, REQUEST_BOUNDING_BOX);
-        }
     }
 
     /**

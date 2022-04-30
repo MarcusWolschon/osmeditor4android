@@ -60,8 +60,15 @@ import okio.Buffer;
  * @author Simon Poole
  *
  */
-public class TestUtils {
-    private static final String DEBUG_TAG = "TestUtils";
+public final class TestUtils {
+    private static final String DEBUG_TAG = TestUtils.class.getSimpleName();
+
+    /**
+     * Private constructor
+     */
+    private TestUtils() {
+        // empty
+    }
 
     /**
      * Grant permissions by clicking on the dialogs, currently only works for English and German
@@ -80,16 +87,13 @@ public class TestUtils {
     }
 
     /**
-     * Dismiss initial welcome dialog and download
+     * Dismiss initial welcome dialog
      * 
      * @param device the UiDevice
      * @param ctx Android context
      */
     public static void dismissStartUpDialogs(@NonNull UiDevice device, @NonNull Context ctx) {
         clickText(device, true, ctx.getResources().getString(R.string.okay), false, false);
-        if (findText(device, false, "Download", 2000)) {
-            clickHome(device, false);
-        }
     }
 
     /**
