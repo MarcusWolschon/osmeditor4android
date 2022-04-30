@@ -123,6 +123,7 @@ import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.DownloadInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
+import de.blau.android.layer.geojson.MapOverlay;
 import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -155,6 +156,7 @@ import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.BadgeDrawable;
+import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.DownloadActivity;
 import de.blau.android.util.ExecutorTask;
@@ -897,9 +899,11 @@ public class Main extends FullScreenAppCompatActivity
                     if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                         // for now we just repeat the request (max once)
                         permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        permissionsList.add(Manifest.permission.ACCESS_MEDIA_LOCATION);
                     }
                 } else {
                     permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    permissionsList.add(Manifest.permission.ACCESS_MEDIA_LOCATION); // yes this is weird, but ask the goog
                     askedForStoragePermission = true;
                 }
             } else { // permission was already given
@@ -969,7 +973,12 @@ public class Main extends FullScreenAppCompatActivity
                     case ACTION_DELETE_PHOTO: // harmless as this just deletes from the index
                         try (PhotoIndex index = new PhotoIndex(this)) {
                             Uri uri = intent.getData();
-                            index.deletePhoto(this, uri);
+                            if (!index.deletePhoto(this, uri)) {
+                                String path = ContentResolverUtil.getPath(this, uri);
+                                if (path != null && !index.deletePhoto(this, path)) {
+                                    Log.e(DEBUG_TAG, "deleting " + uri + " from index failed");
+                                }
+                            }
                             if (uri.equals(contentUri)) {
                                 contentUri = null;
                             }
@@ -1005,7 +1014,16 @@ public class Main extends FullScreenAppCompatActivity
                 processJosmRc();
             }
             if (contentUri != null) {
-                processContentUri();
+                String extension = FileUtil.getExtension(contentUri.getLastPathSegment());
+                if (contentUriType != null) {
+                    if (!processContentUri(contentUriType)) {
+                        processContentUri(extension);
+                    }
+                } else {
+                    processContentUri(extension);
+                }
+                contentUri = null;
+                contentUriType = null;
             }
             if (shortcutExtras != null) {
                 processShortcutExtras();
@@ -1031,65 +1049,48 @@ public class Main extends FullScreenAppCompatActivity
 
     /**
      * Process an incoming content url
+     * 
+     * @param type a mime type or file extension
+     * @return true if we were able to process the Uri
      */
-    void processContentUri() {
-        Log.d(DEBUG_TAG, "Processing content uri contentUriType " + contentUriType);
-        if (contentUriType != null) {
-            switch (contentUriType) {
-            case MimeTypes.JPEG:
-            case MimeTypes.ALL_IMAGE_FORMATS:
-                handlePhotoUri();
-                break;
-            case MimeTypes.GPX:
-                loadGPXFile(contentUri);
-                break;
-            case MimeTypes.GEOJSON:
-                loadGeoJson();
-                break;
-            default:
-                Log.e(DEBUG_TAG, "Unknown content type");
-            }
-        } else {
-            Log.d(DEBUG_TAG, "contentUri " + contentUri);
-            switch (FileUtil.getExtension(contentUri.getLastPathSegment())) {
-            case FileExtensions.GPX:
-                loadGPXFile(contentUri);
-                break;
-            case FileExtensions.JSON:
-            case FileExtensions.GEOJSON:
-                loadGeoJson();
-                break;
-            case FileExtensions.JPG:
-                handlePhotoUri();
-                break;
-            default:
-                Log.e(DEBUG_TAG, "Unknown uri " + contentUri);
-            }
+    private boolean processContentUri(@NonNull String type) {
+        switch (type) {
+        case MimeTypes.JPEG:
+        case MimeTypes.ALL_IMAGE_FORMATS:
+        case FileExtensions.JPG:
+            handlePhotoUri();
+            break;
+        case MimeTypes.GPX:
+        case FileExtensions.GPX:
+            loadGPXFile(contentUri);
+            break;
+        case MimeTypes.GEOJSON:
+        case FileExtensions.JSON:
+        case FileExtensions.GEOJSON:
+            loadGeoJson();
+            break;
+        default:
+            Log.e(DEBUG_TAG, "Unknown content type or file extension " + type);
+            return false;
         }
-        contentUri = null;
-        contentUriType = null;
+        return true;
     }
 
     /**
      * Load geojson from intent
      */
     private void loadGeoJson() {
-        de.blau.android.layer.geojson.MapOverlay geojsonLayer = App.getLogic().getMap().getGeojsonLayer();
-        if (geojsonLayer != null) {
-            try {
-                geojsonLayer.resetStyling();
-                if (geojsonLayer.loadGeoJsonFile(this, contentUri, false)) {
-                    BoundingBox extent = geojsonLayer.getExtent();
-                    if (extent != null) {
-                        map.getViewBox().fitToBoundingBox(map, extent);
-                        setFollowGPS(false);
-                        map.setFollowGPS(false);
-                    }
-                    geojsonLayer.invalidate();
-                }
-            } catch (IOException e) {
-                // display a toast?
+        de.blau.android.layer.Util.addLayer(this, LayerType.GEOJSON, contentUri.toString());
+        map.setUpLayers(this);
+        de.blau.android.layer.geojson.MapOverlay layer = (MapOverlay) map.getLayer(LayerType.GEOJSON, contentUri.toString());
+        if (layer != null) {
+            BoundingBox extent = layer.getExtent();
+            if (extent != null) {
+                map.getViewBox().fitToBoundingBox(map, extent);
+                setFollowGPS(false);
+                map.setFollowGPS(false);
             }
+            layer.invalidate();
         }
     }
 
@@ -2768,7 +2769,10 @@ public class Main extends FullScreenAppCompatActivity
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             if (imageFile != null) {
                 try (PhotoIndex pi = new PhotoIndex(this)) {
-                    pi.addPhoto(imageFile);
+                    if (pi.addPhoto(imageFile) == null) {
+                        Log.e(DEBUG_TAG, "No image available");
+                        Snack.toastTopError(this, R.string.toast_photo_failed);
+                    }
                 }
                 if (map.getPhotoLayer() != null) {
                     map.invalidate();
@@ -2904,7 +2908,7 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @param savedImageFileName Image file name.
      */
-    public void setImageFileName(String savedImageFileName) {
+    public void setImageFileName(@Nullable String savedImageFileName) {
         if (savedImageFileName != null) {
             Log.d(DEBUG_TAG, "setting imageFIleName to " + savedImageFileName);
             imageFile = new File(savedImageFileName);
@@ -2916,6 +2920,7 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @return Image file name.
      */
+    @Nullable
     public String getImageFileName() {
         if (imageFile != null) {
             return imageFile.getAbsolutePath();

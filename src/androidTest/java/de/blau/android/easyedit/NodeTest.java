@@ -118,7 +118,7 @@ public class NodeTest {
     @Test
     public void dragNode() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
-        assertTrue(TestUtils.clickText(device, false, "Toilets", true, false));
+        assertTrue(TestUtils.clickText(device, false, "Toilets", true, false, 5000));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
         assertEquals(3465444349L, node.getOsmId());

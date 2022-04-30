@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="de.blau.android"
     android:installLocation="auto"
-    android:versionCode="2004"
+    android:versionCode="2100"
     android:versionName="@string/app_version" >
 
     <uses-sdk tools:overrideLibrary="com.heinrichreimersoftware.androidissuereporter,ch.poole.android.checkbox,io.noties.markwon,me.zed.elementhistorydialog" />
@@ -27,6 +27,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
     
     <queries>
         <intent>

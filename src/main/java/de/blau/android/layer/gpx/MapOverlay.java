@@ -47,11 +47,11 @@ import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.services.TrackerService;
+import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.PlaybackTask;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.SelectFile;
 import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
@@ -417,7 +417,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         if (track == null) {
             track = new Track(ctx, false);
         }
-        name = SelectFile.getDisplaynameColumn(ctx, uri);
+        name = ContentResolverUtil.getDisplaynameColumn(ctx, uri);
         if (name == null) {
             name = uri.getLastPathSegment();
         }

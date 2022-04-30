@@ -13,6 +13,7 @@ import androidx.exifinterface.media.ExifInterface;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.ExtendedExifInterface;
+import de.blau.android.util.Util;
 import de.blau.android.util.rtree.BoundedObject;
 
 /**
@@ -21,29 +22,33 @@ import de.blau.android.util.rtree.BoundedObject;
  */
 public class Photo implements BoundedObject {
 
-    private static final String DEBUG_TAG    = "Photo";
-    /**  */
-    private final String        ref;
+    private static final String DEBUG_TAG = Photo.class.getSimpleName();
+
+    /** a name for display purposes NOTE this ignored for equals and hashCode */
+    private final String displayName;
+    /** an URI or path to the image */
+    private final String ref;
     /** Latitude *1E7. */
-    private final int           lat;
+    private final int    lat;
     /** Longitude *1E7. */
-    private final int           lon;
+    private final int    lon;
     /**
      * compass direction
      */
-    private int                 direction    = 0;
-    private String              directionRef = null;   // if null direction not present
+    private int          direction    = 0;
+    private String       directionRef = null; // if null direction not present
 
     /**
      * Construct a Photo object from an Uri
      * 
      * @param context Android context
      * @param uri the Uri
+     * @param displayName a name of the image for display purposes
      * @throws IOException If there was a problem parsing the XML.
      * @throws NumberFormatException If there was a problem parsing the XML.
      */
-    public Photo(@NonNull Context context, @NonNull Uri uri) throws IOException, NumberFormatException {
-        this(new ExtendedExifInterface(context, uri), uri.toString());
+    public Photo(@NonNull Context context, @NonNull Uri uri, @Nullable String displayName) throws IOException, NumberFormatException {
+        this(new ExtendedExifInterface(context, uri), uri.toString(), displayName);
     }
 
     /**
@@ -55,39 +60,45 @@ public class Photo implements BoundedObject {
      * @throws NumberFormatException If there was a problem parsing the XML.
      */
     public Photo(@NonNull File directory, @NonNull File imageFile) throws IOException, NumberFormatException {
-        this(new ExtendedExifInterface(imageFile.toString()), imageFile.getAbsolutePath());
+        this(new ExtendedExifInterface(imageFile.toString()), imageFile.getAbsolutePath(), imageFile.getName());
     }
 
     /**
      * Construct a Photo object from the Exif information and a String reference (either a filename or an Uri)
      * 
      * @param exif the Exif information
-     * @param ref the reference
+     * @param ref the Uri to the image of a file path
+     * @param displayName a name of the image for display purposes
      * @throws IOException if location information is missing
      */
-    private Photo(@NonNull ExtendedExifInterface exif, @NonNull String ref) throws IOException {
+    private Photo(@NonNull ExtendedExifInterface exif, @NonNull String ref, @Nullable String displayName) throws IOException {
         this.ref = ref;
+        this.displayName = displayName;
 
         /**
          * get the attribute. rest of the attributes are the same. will add convertToDegree on the bottom (not required)
          **/
         String lonStr = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
         if (lonStr == null) {
-            throw new IOException("No EXIF tag");
+            throw new IOException("No EXIF longitude tag");
         }
         float lonf = convertToDegree(lonStr);
 
         String lonRef = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
-        if (lonRef != null && !"E".equals(lonRef)) { // deal with the negative degrees
+        if (lonRef != null && !ExtendedExifInterface.EAST.equals(lonRef)) { // deal with the negative degrees
             lonf = -lonf;
         }
 
         float latf = convertToDegree(exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE));
 
         String latRef = exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
-        if (latRef != null && !"N".equals(latRef)) {
+        if (latRef != null && !ExtendedExifInterface.NORTH.equals(latRef)) {
             latf = -latf;
         }
+        if (!(Util.notZero(lonf) && Util.notZero(latf))) {
+            throw new IOException("Lat and lon are zero");
+        }
+
         lat = (int) (latf * 1E7d);
         lon = (int) (lonf * 1E7d);
         Log.d(DEBUG_TAG, "lat: " + lat + " lon: " + lon);
@@ -106,12 +117,13 @@ public class Photo implements BoundedObject {
      * @param lat latitude in WGS84*1E7 degrees
      * @param lon longitude in WGS84*1E7 degrees
      * @param ref the path of the file
-     * @param name a short name for the Photo
+     * @param displayName a short name for the Photo
      */
-    public Photo(int lat, int lon, @NonNull String ref, @NonNull String name) {
+    public Photo(int lat, int lon, @NonNull String ref, @Nullable String displayName) {
         this.lat = lat;
         this.lon = lon;
         this.ref = ref;
+        this.displayName = displayName;
     }
 
     /**
@@ -121,14 +133,15 @@ public class Photo implements BoundedObject {
      * @param lon longitude in WGS84*1E7 degrees
      * @param direction in degrees
      * @param ref the path of the file
-     * @param name a short name for the Photo
+     * @param displayName a short name for the Photo
      */
-    public Photo(int lat, int lon, int direction, @NonNull String ref, @NonNull String name) {
+    public Photo(int lat, int lon, int direction, @NonNull String ref, @Nullable String displayName) {
         this.lat = lat;
         this.lon = lon;
         this.direction = direction;
-        this.directionRef = "M"; // magnetic north
+        this.directionRef = ExtendedExifInterface.MAGNETIC_NORTH;
         this.ref = ref;
+        this.displayName = displayName;
     }
 
     /**
@@ -141,24 +154,24 @@ public class Photo implements BoundedObject {
     private Float convertToDegree(@NonNull String stringDMS) throws NumberFormatException {
         try {
             Float result = null;
-            String[] DMS = stringDMS.split(",", 3);
+            String[] dms = stringDMS.split(",", 3);
 
-            String[] stringD = DMS[0].split("/", 2);
-            Double D0 = Double.valueOf(stringD[0]);
-            Double D1 = Double.valueOf(stringD[1]);
-            Double FloatD = D0 / D1;
+            String[] stringD = dms[0].split("/", 2);
+            Double d0 = Double.valueOf(stringD[0]);
+            Double d1 = Double.valueOf(stringD[1]);
+            Double d = d0 / d1;
 
-            String[] stringM = DMS[1].split("/", 2);
-            Double M0 = Double.valueOf(stringM[0]);
-            Double M1 = Double.valueOf(stringM[1]);
-            Double FloatM = M0 / M1;
+            String[] stringM = dms[1].split("/", 2);
+            Double m0 = Double.valueOf(stringM[0]);
+            Double m1 = Double.valueOf(stringM[1]);
+            Double m = m0 / m1;
 
-            String[] stringS = DMS[2].split("/", 2);
-            Double S0 = Double.valueOf(stringS[0]);
-            Double S1 = Double.valueOf(stringS[1]);
-            Double FloatS = S0 / S1;
+            String[] stringS = dms[2].split("/", 2);
+            Double s0 = Double.valueOf(stringS[0]);
+            Double s1 = Double.valueOf(stringS[1]);
+            Double s = s0 / s1;
 
-            result = (float) (FloatD + (FloatM / 60) + (FloatS / 3600));
+            result = (float) (d + (m / 60) + (s / 3600));
 
             return result;
         } catch (Exception ex) {
@@ -211,6 +224,15 @@ public class Photo implements BoundedObject {
      */
     public String getRef() {
         return ref;
+    }
+
+    /**
+     * Get the display name for this image
+     * 
+     * @return a name for human consumption
+     */
+    public String getDisplayName() {
+        return displayName != null && !"".equals(displayName) ? displayName : Uri.parse(ref).getLastPathSegment();
     }
 
     /**

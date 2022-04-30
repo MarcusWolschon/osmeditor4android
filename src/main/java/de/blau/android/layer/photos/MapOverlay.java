@@ -6,12 +6,15 @@ import java.util.concurrent.ExecutorService;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.ContentObserver;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
+import android.provider.MediaStore;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +37,7 @@ import de.blau.android.photos.PhotoViewerFragment;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
@@ -82,7 +86,8 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
     /** last selected photo, may not be still displayed */
     private Photo selected = null;
 
-    private PhotoIndexer indexer;
+    private PhotoIndexer  indexer;
+    private PhotoObserver observer;
 
     /**
      * Update the photo index
@@ -165,8 +170,13 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
                 indexer.execute((PostAsyncActionHandler) () -> {
                     if (indexed) {
                         map.invalidate();
+                        if (map.getPrefs().scanMediaStore()) {
+                            observer = new PhotoObserver(new Handler(Looper.getMainLooper()));
+                            map.getContext().getContentResolver().registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true, observer);
+                        }
                     }
                 });
+
                 return;
             }
 
@@ -294,11 +304,7 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
 
     @Override
     public String getDescription(Photo photo) {
-        Uri photoUri = photo.getRefUri(map.getContext());
-        if (photoUri != null) {
-            return photoUri.getLastPathSegment();
-        }
-        return "?";
+        return photo.getDisplayName();
     }
 
     @Override
@@ -314,6 +320,14 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
     @Override
     public void setSelected(Photo o) {
         selected = o;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (observer != null) {
+            map.getContext().getContentResolver().unregisterContentObserver(observer);
+        }
     }
 
     /**
@@ -335,5 +349,29 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
     @Override
     public void discard(Context context) {
         onDestroy();
+    }
+
+    class PhotoObserver extends ContentObserver {
+
+        /**
+         * Construct a new Observer
+         * 
+         * @param handler the Handler to use
+         */
+        public PhotoObserver(@NonNull Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            Log.d(DEBUG_TAG, "onChange " + uri);
+            final Context context = map.getContext();
+            if (!pi.isIndexed(uri)) {
+                PhotoIndex.addToIndex(pi.addPhoto(context, uri, ContentResolverUtil.getDisplaynameColumn(context, uri)));
+            } else {
+                pi.deletePhoto(context, uri);
+            }
+            MapOverlay.this.invalidate();
+        }
     }
 }

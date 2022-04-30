@@ -24,6 +24,10 @@ Show a camera button on the main display (if a camera app is present). Default: 
 
 Select the camera app to use. If your, installed, camera app is not listed, please report this and we will add it to the list. Unluckily google does not allow to automatically determine installed camera apps outside of pre-installed ones. Default: _System default_.
 
+### Use the MediaStore
+
+Additionally use Androids MediaStore for accessing photos. This will add all photographs in JPEG format found via the MediaStore that contain coordinates in their EXIF data to the phto layer. Default: _off_.
+
 ### Follow position button layout
 
 Change the side of the display the "follow GPS" button is located on. Default: _lefthand side_.

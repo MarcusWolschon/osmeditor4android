@@ -30,6 +30,9 @@ public class ExtendedExifInterface extends ExifInterface {
 
     public static final String TAG_GPS_IMG_DIRECTION     = "GPSImgDirection";
     public static final String TAG_GPS_IMG_DIRECTION_REF = "GPSImgDirectionRef";
+    public static final String MAGNETIC_NORTH            = "M";
+    public static final String NORTH                     = "N";
+    public static final String EAST                      = "E";
 
     /**
      * Construct a new instance
@@ -67,7 +70,7 @@ public class ExtendedExifInterface extends ExifInterface {
      */
     public ExtendedExifInterface(@NonNull Context context, @NonNull Uri uri) throws IOException {
         this(context.getContentResolver().openInputStream(uri));
-        try (InputStream is = context.getContentResolver().openInputStream(uri)){
+        try (InputStream is = context.getContentResolver().openInputStream(uri)) {
             metadata = JpegMetadataReader.readMetadata(is);
         } catch (JpegProcessingException e) {
             // broken Jpeg, ignore
@@ -80,7 +83,7 @@ public class ExtendedExifInterface extends ExifInterface {
             throw new IOException(err.getMessage());
         }
     }
-    
+
     /**
      * Hack so that we can close the InputStream
      * 
