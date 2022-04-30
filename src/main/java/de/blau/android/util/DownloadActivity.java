@@ -1,5 +1,6 @@
 package de.blau.android.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 
 import android.app.DownloadManager;
@@ -16,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.widget.CheckBox;
 import androidx.annotation.NonNull;
@@ -25,6 +27,7 @@ import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
+import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.prefs.API;
@@ -43,9 +46,9 @@ import de.blau.android.prefs.Preferences;
  */
 public class DownloadActivity extends FullScreenAppCompatActivity {
 
-    private static final String DEBUG_TAG = "MsfDownload";
+    private static final String DEBUG_TAG = DownloadActivity.class.getSimpleName();
 
-    private static final String DOWNLOAD_SITE_KEY = "downloadSite";
+    static final String DOWNLOAD_SITE_KEY = "downloadSite";
 
     private WebView downloadWebView;
     private Object  downloadWebViewLock = new Object();
@@ -74,11 +77,13 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
 
     private class DownloadWebViewClient extends UpdatedWebViewClient {
 
+        private static final String FAVICON = "favicon.ico";
+
         @Override
         public boolean handleLoading(@NonNull WebView view, @NonNull Uri uri) {
             Log.i(DEBUG_TAG, "Url clicked: " + uri.toString());
             final String filename = uri.getLastPathSegment();
-            if (filename != null && filename.endsWith("." + FileExtensions.MSF)) {
+            if (FileExtensions.MSF.equals(FileUtil.getExtension(filename))) {
                 try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(DownloadActivity.this)) {
                     String apiId = db.getReadOnlyApiId(filename);
                     if (apiId != null) {
@@ -105,6 +110,14 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
                 return true;
             }
             return false;
+        }
+
+        @Override
+        protected WebResourceResponse handleIntercept(WebView view, Uri uri) {
+            if (FAVICON.equals(uri.getLastPathSegment())) {
+                return new WebResourceResponse(MimeTypes.PNG, "utf-8", new ByteArrayInputStream("".getBytes()));
+            }
+            return super.handleIntercept(view, uri);
         }
 
         @Override
@@ -139,6 +152,48 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
                     Snack.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, DownloadManager.ERROR_UNKNOWN, filename));
                 }
             }
+        }
+
+        /**
+         * Get a human readable error message from the error code
+         * 
+         * @param ctx Android Context
+         * @param error the error code
+         * @param filename the name of the file that the error applies to
+         * @return a String with the message
+         */
+        private String errorMessage(@NonNull Context ctx, int error, @NonNull String filename) {
+            int res;
+            switch (error) {
+            case DownloadManager.ERROR_CANNOT_RESUME:
+                res = R.string.toast_cannot_resume_download_of;
+                break;
+            case DownloadManager.ERROR_DEVICE_NOT_FOUND:
+                res = R.string.toast_device_not_found_for;
+                break;
+            case DownloadManager.ERROR_FILE_ALREADY_EXISTS:
+                res = R.string.toast_file_already_exists;
+                break;
+            case DownloadManager.ERROR_FILE_ERROR:
+                res = R.string.toast_file_error_for;
+                break;
+            case DownloadManager.ERROR_HTTP_DATA_ERROR:
+                res = R.string.toast_http_data_error_for;
+                break;
+            case DownloadManager.ERROR_INSUFFICIENT_SPACE:
+                res = R.string.toast_error_insufficient_space_for;
+                break;
+            case DownloadManager.ERROR_TOO_MANY_REDIRECTS:
+                res = R.string.toast_error_too_many_redirects_for;
+                break;
+            case DownloadManager.ERROR_UNHANDLED_HTTP_CODE:
+                res = R.string.toast_error_too_unhandled_http_code_for;
+                break;
+            case DownloadManager.ERROR_UNKNOWN:
+            default:
+                res = R.string.toast_unknown_error_for;
+            }
+            return ctx.getString(res, filename);
         }
     }
 
@@ -268,52 +323,10 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
         unregisterReceiver(onNotificationClick);
     }
 
-    BroadcastReceiver onNotificationClick = new BroadcastReceiver() {
+    private BroadcastReceiver onNotificationClick = new BroadcastReceiver() {
         @Override
         public void onReceive(Context ctxt, Intent intent) {
             // nothing for now
         }
     };
-
-    /**
-     * Get a human readable error message from the error code
-     * 
-     * @param ctx Android Context
-     * @param error the error code
-     * @param filename the name of the file that the error applies to
-     * @return a String with the message
-     */
-    String errorMessage(@NonNull Context ctx, int error, @NonNull String filename) {
-        int res;
-        switch (error) {
-        case DownloadManager.ERROR_CANNOT_RESUME:
-            res = R.string.toast_cannot_resume_download_of;
-            break;
-        case DownloadManager.ERROR_DEVICE_NOT_FOUND:
-            res = R.string.toast_device_not_found_for;
-            break;
-        case DownloadManager.ERROR_FILE_ALREADY_EXISTS:
-            res = R.string.toast_file_already_exists;
-            break;
-        case DownloadManager.ERROR_FILE_ERROR:
-            res = R.string.toast_file_error_for;
-            break;
-        case DownloadManager.ERROR_HTTP_DATA_ERROR:
-            res = R.string.toast_http_data_error_for;
-            break;
-        case DownloadManager.ERROR_INSUFFICIENT_SPACE:
-            res = R.string.toast_error_insufficient_space_for;
-            break;
-        case DownloadManager.ERROR_TOO_MANY_REDIRECTS:
-            res = R.string.toast_error_too_many_redirects_for;
-            break;
-        case DownloadManager.ERROR_UNHANDLED_HTTP_CODE:
-            res = R.string.toast_error_too_unhandled_http_code_for;
-            break;
-        case DownloadManager.ERROR_UNKNOWN:
-        default:
-            res = R.string.toast_unknown_error_for;
-        }
-        return ctx.getString(res, filename);
-    }
 }
