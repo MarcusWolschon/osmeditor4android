@@ -44,7 +44,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import ch.poole.conditionalrestrictionparser.Condition;
@@ -513,7 +512,6 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                         setAdapterAndListeners(term, adapter);
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, Condition.compOpStrings);
-                    // adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     final Spinner operator = (Spinner) expression.findViewById(R.id.operator);
                     operator.setAdapter(adapter);
@@ -692,7 +690,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             Log.d(DEBUG_TAG, "onMenuItemClick");
             r.getConditions().add(c);
             buildForm(sv, restrictions);
-            // don't generate the string here as empty items shouldn't change anything;
+            // don't generate the string here as empty items shouldn't change anything
             return true;
         });
         mi.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
@@ -877,8 +875,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
         LinearLayout         valueList;
         final LayoutInflater inflater;
-        int                  errorTextColor = ContextCompat.getColor(getContext(),
-                ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.textColorError, R.color.material_red));
+        int                  errorTextColor = ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.error, R.color.material_red);
 
         /**
          * Construct a new row holding an OH value

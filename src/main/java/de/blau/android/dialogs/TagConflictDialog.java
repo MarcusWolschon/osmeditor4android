@@ -181,8 +181,8 @@ public class TagConflictDialog extends ImmersiveDialogFragment {
         public ResultArrayAdapter(@NonNull Context context, int layout, int resource, @NonNull List<Result> results) {
             super(context, layout, resource, results);
             this.results = results;
-            errorColor = ThemeUtils.getStyleAttribColorValue(getContext(), R.color.material_red, 0xFFF44336);
-            warningColor = ThemeUtils.getStyleAttribColorValue(getContext(), R.color.material_orange, 0xFFFF9800);
+            errorColor = ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.snack_error, R.color.material_red);
+            warningColor = ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.snack_warning, R.color.material_orange);
         }
 
         @Override

@@ -128,6 +128,4 @@
 		<attr name="SplitterBGH" format="reference" />
 		<attr name="SplitterBGV" format="reference" />
 	</declare-styleable>
-    <!-- this fixes undocumented breakage in the 28.0.0 support library -->
-    <attr name="textColorError" type="color|reference"/>
 </resources>
