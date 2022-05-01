@@ -92,6 +92,14 @@ Limit below which pending object uploads will have warning status. Default: _200
 
 Disable the feedback activity and use an URL instead. Default: _false_.
 
+### Upload reminder interval
+
+Interval for reminders if you have unpublished changes. Default: _6 hours_.
+    
+### Too much data warning</string>
+
+Limit (in number of Nodes) at which we start warning about too much data being loaded. Default: _50'000 objects_.
+
 ### Beep volume
 
 Set how load the beep is Vespucci uses when you are pressing unsupported short cut keys on a connected real keyboard. Default: _50_.
