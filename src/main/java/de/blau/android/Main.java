@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.TimeUnit;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -79,6 +80,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentActivity;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.address.Address;
@@ -174,6 +177,7 @@ import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.UploadChecker;
 import de.blau.android.util.Util;
 import de.blau.android.util.Version;
 import de.blau.android.views.ZoomControls;
@@ -458,6 +462,7 @@ public class Main extends FullScreenAppCompatActivity
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         Log.i(DEBUG_TAG, "onCreate " + (savedInstanceState != null ? " no saved state " : " saved state exists"));
+        WorkManager.getInstance(this).cancelAllWorkByTag(UploadChecker.TAG);
         getIntentData();
         App.initGeoContext(this);
         updatePrefs(new Preferences(this));
@@ -897,7 +902,8 @@ public class Main extends FullScreenAppCompatActivity
                     }
                 } else {
                     permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                    permissionsList.add(Manifest.permission.ACCESS_MEDIA_LOCATION); // yes this is weird, but ask the goog
+                    permissionsList.add(Manifest.permission.ACCESS_MEDIA_LOCATION); // yes this is weird, but ask the
+                                                                                    // goog
                     askedForStoragePermission = true;
                 }
             } else { // permission was already given
@@ -1376,6 +1382,13 @@ public class Main extends FullScreenAppCompatActivity
             Log.d(DEBUG_TAG, "Ignored " + ignored);
         }
         disableLocationUpdates();
+        if (App.getDelegator().hasChanges()) {
+            Log.d(DEBUG_TAG, "Unsaved changes, sheduling reminder");
+            int interval = prefs.getUploadCheckerInterval();
+            PeriodicWorkRequest uploadCheckRequest = new PeriodicWorkRequest.Builder(UploadChecker.class, interval, TimeUnit.HOURS).addTag(UploadChecker.TAG)
+                    .setInitialDelay(interval, TimeUnit.HOURS).build();
+            WorkManager.getInstance(this).enqueue(uploadCheckRequest);
+        }
         super.onDestroy();
     }
 

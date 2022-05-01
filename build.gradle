@@ -508,6 +508,9 @@ dependencies {
     implementation "androidx.core:core:1.2.0"
     implementation "androidx.exifinterface:exifinterface:1.1.0"
     implementation "androidx.legacy:legacy-preference-v14:1.0.0"
+    def work_version = "2.1.0"
+    implementation "androidx.work:work-runtime:$work_version"
+    
     //
     implementation 'com.heinrichreimersoftware:android-issue-reporter:1.4'
     implementation "com.nononsenseapps:filepicker:4.2.1"

@@ -103,6 +103,7 @@ public class Preferences {
     private final int         gnssTimeToStale;
     private final int         uploadOkLimit;
     private final int         uploadWarnLimit;
+    private final int         uploadCheckerInterval;
     private final int         dataWarnLimit;
     private final boolean     useBarometricHeight;
     private final boolean     useUrlForFeedback;
@@ -266,6 +267,8 @@ public class Preferences {
 
         uploadOkLimit = getIntPref(R.string.config_uploadOk_key, 50);
         uploadWarnLimit = getIntPref(R.string.config_uploadWarn_key, 200);
+
+        uploadCheckerInterval = getIntPref(R.string.config_uploadChecker_key, 6);
 
         dataWarnLimit = getIntPref(R.string.config_dataWarn_key, 50000);
 
@@ -1411,6 +1414,15 @@ public class Preferences {
      */
     public int getUploadWarnLimit() {
         return uploadWarnLimit;
+    }
+
+    /**
+     * Get the interval between reminders that you should upload
+     * 
+     * @return the number of hours between reminders
+     */
+    public int getUploadCheckerInterval() {
+        return uploadCheckerInterval;
     }
 
     /**

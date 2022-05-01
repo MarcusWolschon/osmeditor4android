@@ -438,6 +438,12 @@ avoided by using an offline data source.</string>
     <string name="default_channel_description">Default notification channel</string>
     <string name="qa_channel_name">Vespucci QA</string>
     <string name="qa_channel_description">QA alert channel for data problems and tasks</string>
+    <!-- Notifications -->
+    <string name="upload_checker_title">Remember to upload your work</string>
+    <plurals name="upload_checker_message">
+        <item quantity="one">You have one unpublished change.</item>
+        <item quantity="other">You have %1$d unpublished changes.</item>
+    </plurals>
     <!-- Toaster -->
     <string name="toast_permission_denied">Permission denied %1$s</string>
     <string name="toast_unable_to_persist_permissions">Unable to persist permissions</string>
@@ -1082,9 +1088,12 @@ avoided by using an offline data source.</string>
     <string name="config_uploadOk_summary">Limit below which pending object uploads will be considered OK</string>
     <string name="config_upload_current">%1$d objects</string>
     <string name="config_uploadWarn_title">Pending upload warning</string>
-    <string name="config_uploadWarn_summary">Limit below which pending object uploads will have warning status</string>
+    <string name="config_uploadWarn_summary">Limit below which pending object uploads will have warning status.</string>
+    <string name="config_uploadChecker_title">Upload reminder interval</string>
+    <string name="config_uploadChecker_summary">Interval for reminders if you have unpublished changes.</string>
+    <string name="config_uploadChecker_current">%1$d hours</string>
     <string name="config_dataWarn_title">Too much data warning</string>
-    <string name="config_dataWarn_summary">Limit (in number of Nodes) at which we start warning about too much data being loaded</string>
+    <string name="config_dataWarn_summary">Limit (in number of Nodes) at which we start warning about too much data being loaded.</string>
     <string name="config_useUrlForFeedback_title">Disable feedback activity</string>
     <string name="config_useUrlForFeedback_summary">Disable the feedback activity and use an URL instead.</string>
     <string name="config_beepVolume_title">Beep volume</string>
