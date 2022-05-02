@@ -564,6 +564,7 @@ dependencies {
     testImplementation ("com.orhanobut:mockwebserverplus:1.0.0") {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
+    testImplementation "androidx.work:work-testing:$work_version"
 
     // Instrumentation tests
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

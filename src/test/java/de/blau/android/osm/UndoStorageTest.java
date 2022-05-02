@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import static de.blau.android.osm.DelegatorUtil.addWayToStorage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -41,7 +42,7 @@ public class UndoStorageTest {
         UndoStorage undo = d.getUndo();
         assertFalse(undo.canUndo());
         assertFalse(undo.canRedo());
-        Way w = StorageDelegatorTest.addWayToStorage(d, false);
+        Way w = addWayToStorage(d, false);
         assertEquals(1, d.getCurrentStorage().getWayCount());
         assertEquals(1, d.getApiStorage().getWayCount());
         assertEquals(4, w.nodeCount());
@@ -49,7 +50,7 @@ public class UndoStorageTest {
         UndoElement ue = undo.getOriginal(w);
         assertTrue(ue instanceof UndoWay);
         assertEquals(0, ((UndoWay) ue).nodeCount());
-        
+
         String[] undoActions = undo.getUndoActions(ApplicationProvider.getApplicationContext());
         assertEquals(1, undoActions.length);
         String[] redoActions = undo.getRedoActions(ApplicationProvider.getApplicationContext());
@@ -85,7 +86,7 @@ public class UndoStorageTest {
         UndoStorage undo = d.getUndo();
         assertFalse(undo.canUndo());
         assertFalse(undo.canRedo());
-        Way w = StorageDelegatorTest.addWayToStorage(d, false); // w is already a member here
+        Way w = addWayToStorage(d, false); // w is already a member here
         undo.createCheckpoint("add test relation");
         Relation r = d.createAndInsertRelation(Util.wrapInList(w));
         assertEquals(1, d.getCurrentStorage().getWayCount());

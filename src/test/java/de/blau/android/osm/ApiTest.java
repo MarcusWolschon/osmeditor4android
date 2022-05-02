@@ -27,6 +27,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 import org.robolectric.annotation.LooperMode;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
@@ -44,6 +45,7 @@ import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.AsyncResult;
 import de.blau.android.R;
+import de.blau.android.ShadowWorkManager;
 import de.blau.android.SignalUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
@@ -59,6 +61,7 @@ import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { ShadowWorkManager.class })
 @LooperMode(LEGACY)
 @LargeTest
 public class ApiTest {

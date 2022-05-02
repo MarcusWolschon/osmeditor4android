@@ -9,12 +9,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import androidx.test.filters.LargeTest;
 import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { ShadowWorkManager.class })
 @LargeTest
 public class SaveLoadStateTest {
     Main    main    = null;
