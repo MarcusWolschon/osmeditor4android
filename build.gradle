@@ -575,6 +575,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    androidTestImplementation "androidx.work:work-testing:$work_version"
 }
 
 int getVersionCode() {
