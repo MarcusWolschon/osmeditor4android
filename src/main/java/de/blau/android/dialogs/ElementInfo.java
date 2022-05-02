@@ -18,7 +18,6 @@ import java.util.TreeSet;
 import com.google.openlocationcode.OpenLocationCode;
 
 import android.app.Dialog;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -334,9 +333,9 @@ public class ElementInfo extends InfoDialogFragment {
                         first = false;
                     }
                     if (compare) {
-                        tl.addView(TableLayoutUtils.createRow(activity, header, "", problem, tp, R.attr.error, Color.RED));
+                        tl.addView(TableLayoutUtils.createRow(activity, header, "", problem, tp, R.attr.error, R.color.material_red));
                     } else {
-                        tl.addView(TableLayoutUtils.createRow(activity, header, problem, null, tp, R.attr.error, Color.RED));
+                        tl.addView(TableLayoutUtils.createRow(activity, header, problem, null, tp, R.attr.error, R.color.material_red));
                     }
                 }
             }
@@ -374,14 +373,14 @@ public class ElementInfo extends InfoDialogFragment {
                     if (k.equals(Tags.KEY_WIKIPEDIA)) {
                         Log.d(DEBUG_TAG, Urls.WIKIPEDIA + encodeHttpPath(currentValue));
                         tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(Urls.WIKIPEDIA, oldValue) : compareEmpty,
-                                !deleted ? encodeUrl(Urls.WIKIPEDIA, currentValue) : null, true, tp, R.attr.colorAccent, Color.GREEN));
+                                !deleted ? encodeUrl(Urls.WIKIPEDIA, currentValue) : null, true, tp, R.attr.colorAccent, R.color.material_teal));
                     } else if (k.equals(Tags.KEY_WIKIDATA)) {
                         tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(Urls.WIKIDATA, oldValue) : compareEmpty,
-                                !deleted ? encodeUrl(Urls.WIKIDATA, currentValue) : null, true, tp, R.attr.colorAccent, Color.GREEN));
+                                !deleted ? encodeUrl(Urls.WIKIDATA, currentValue) : null, true, tp, R.attr.colorAccent, R.color.material_teal));
                     } else if (Tags.isWebsiteKey(k)) {
                         try {
                             tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(oldValue) : compareEmpty,
-                                    !deleted ? encodeUrl(currentValue) : null, true, tp, R.attr.colorAccent, Color.GREEN));
+                                    !deleted ? encodeUrl(currentValue) : null, true, tp, R.attr.colorAccent, R.color.material_teal));
                         } catch (MalformedURLException | URISyntaxException e1) {
                             Log.d(DEBUG_TAG, "Value " + currentValue + " caused " + element);
                             tl.addView(TableLayoutUtils.createRow(activity, k, currentValue, tp));
@@ -389,10 +388,10 @@ public class ElementInfo extends InfoDialogFragment {
                     } else if (Tags.isPhoneKey(k) || Tags.isEmailKey(k)) {
                         final String url = Tags.isEmailKey(k) ? MAILTO : TEL;
                         tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(url, oldValue) : compareEmpty,
-                                !deleted ? encodeUrl(url, currentValue) : null, true, tp, R.attr.colorAccent, Color.GREEN));
+                                !deleted ? encodeUrl(url, currentValue) : null, true, tp, R.attr.colorAccent, R.color.material_teal));
                     } else {
-                        tl.addView(
-                                TableLayoutUtils.createRow(activity, k, oldValue, !deleted ? currentValue : null, false, tp, R.attr.colorAccent, Color.GREEN));
+                        tl.addView(TableLayoutUtils.createRow(activity, k, oldValue, !deleted ? currentValue : null, false, tp, R.attr.colorAccent,
+                                R.color.material_teal));
                     }
                 }
             }

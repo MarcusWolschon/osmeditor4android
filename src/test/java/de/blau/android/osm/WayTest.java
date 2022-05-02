@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.osm.DelegatorUtil.addWayToStorage;
+import static de.blau.android.osm.DelegatorUtil.toE7;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -27,9 +29,9 @@ public class WayTest {
     @Test
     public void addNodeTest() {
         StorageDelegator d = new StorageDelegator();
-        Way w = StorageDelegatorTest.addWayToStorage(d, false);
+        Way w = addWayToStorage(d, false);
         OsmElementFactory factory = d.getFactory();
-        Node n = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        Node n = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n);
 
         w.addNode(n);
@@ -42,9 +44,9 @@ public class WayTest {
     @Test
     public void addNodeAfterTest() {
         StorageDelegator d = new StorageDelegator();
-        Way w = StorageDelegatorTest.addWayToStorage(d, false);
+        Way w = addWayToStorage(d, false);
         OsmElementFactory factory = d.getFactory();
-        Node n = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        Node n = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n);
 
         w.addNodeAfter(w.getFirstNode(), n);
@@ -57,9 +59,9 @@ public class WayTest {
     @Test
     public void appendNodeTest() {
         StorageDelegator d = new StorageDelegator();
-        Way w = StorageDelegatorTest.addWayToStorage(d, false);
+        Way w = addWayToStorage(d, false);
         OsmElementFactory factory = d.getFactory();
-        Node n = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        Node n = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n);
 
         w.appendNode(w.getLastNode(), n);
@@ -75,12 +77,12 @@ public class WayTest {
     @Test
     public void isClosedTest() {
         StorageDelegator d = new StorageDelegator();
-        Way w = StorageDelegatorTest.addWayToStorage(d, true);
+        Way w = addWayToStorage(d, true);
         assertTrue(w.isClosed());
         assertEquals(ElementType.CLOSEDWAY, w.getType());
 
         d = new StorageDelegator();
-        w = StorageDelegatorTest.addWayToStorage(d, false);
+        w = addWayToStorage(d, false);
         assertFalse(w.isClosed());
         assertEquals(ElementType.WAY, w.getType());
     }
@@ -91,7 +93,7 @@ public class WayTest {
     @Test
     public void removeNodeTest() {
         StorageDelegator d = new StorageDelegator();
-        Way w = StorageDelegatorTest.addWayToStorage(d, true);
+        Way w = addWayToStorage(d, true);
         assertTrue(w.isClosed());
         assertEquals(ElementType.CLOSEDWAY, w.getType());
         assertEquals(5, w.getNodes().size());
@@ -102,7 +104,7 @@ public class WayTest {
 
         // the same but this time the closing node
         d = new StorageDelegator();
-        w = StorageDelegatorTest.addWayToStorage(d, true);
+        w = addWayToStorage(d, true);
         assertTrue(w.isClosed());
         assertEquals(ElementType.CLOSEDWAY, w.getType());
         assertEquals(5, w.getNodes().size());
@@ -112,12 +114,12 @@ public class WayTest {
         assertEquals(ElementType.CLOSEDWAY, w.getType());
 
         d = new StorageDelegator();
-        w = StorageDelegatorTest.addWayToStorage(d, false);
+        w = addWayToStorage(d, false);
         w.removeNode(w.getNodes().get(1));
         assertEquals(3, w.getNodes().size());
 
         d = new StorageDelegator();
-        w = StorageDelegatorTest.addWayToStorage(d, false);
+        w = addWayToStorage(d, false);
         w.removeAllNodes();
         assertEquals(0, w.getNodes().size());
         assertFalse(w.isClosed());
@@ -129,7 +131,7 @@ public class WayTest {
     @Test
     public void commonNodesTest() {
         StorageDelegator d = new StorageDelegator();
-        Way w = StorageDelegatorTest.addWayToStorage(d, false);
+        Way w = addWayToStorage(d, false);
         Node n = w.getNodes().get(2);
         List<Result> splitResult = d.splitAtNode(w, n);
         assertNotNull(splitResult);
@@ -151,7 +153,7 @@ public class WayTest {
     @Test
     public void onewayTest() {
         StorageDelegator d = new StorageDelegator();
-        Way w = StorageDelegatorTest.addWayToStorage(d, false);
+        Way w = addWayToStorage(d, false);
         assertEquals(0, w.getOneway());
 
         SortedMap<String, String> tags = new TreeMap<>(w.getTags());
@@ -193,7 +195,7 @@ public class WayTest {
     @Test
     public void reversibleTest() {
         StorageDelegator d = new StorageDelegator();
-        Way w = StorageDelegatorTest.addWayToStorage(d, false);
+        Way w = addWayToStorage(d, false);
         assertEquals(0, w.getOneway());
 
         SortedMap<String, String> tags = new TreeMap<>(w.getTags());

@@ -18,6 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 import org.xml.sax.SAXException;
 
 import androidx.test.core.app.ApplicationProvider;
@@ -26,6 +27,7 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.ShadowWorkManager;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmParser;
@@ -34,6 +36,9 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.presets.ValueWithCount;
+import de.blau.android.services.util.ShadowSQLiteCloseable;
+import de.blau.android.services.util.ShadowSQLiteProgram;
+import de.blau.android.services.util.ShadowSQLiteStatement;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.IntCoordinates;
@@ -41,6 +46,7 @@ import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.Util;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { ShadowWorkManager.class })
 @LargeTest
 public class PredictionTest {
 
@@ -132,6 +138,7 @@ public class PredictionTest {
     @Test
     public void predictTest() {
         Main main = Robolectric.setupActivity(Main.class);
+
         Node n = App.getLogic().performAddNode(main, 8.3864151D, 47.3906916D);
         Map<String, List<String>> tags = new HashMap<>();
         Address.predictAddressTags(ApplicationProvider.getApplicationContext(), Node.NAME, n.getOsmId(),

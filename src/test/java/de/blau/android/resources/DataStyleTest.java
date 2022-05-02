@@ -1,5 +1,6 @@
 package de.blau.android.resources;
 
+import static de.blau.android.osm.DelegatorUtil.addWayToStorage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -22,7 +23,6 @@ import de.blau.android.JavaResources;
 import de.blau.android.contract.Paths;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.StorageDelegatorTest;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.DataStyle.FeatureStyle;
@@ -46,7 +46,7 @@ public class DataStyleTest {
     public void buildingTest() {
         DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         final StorageDelegator delegator = App.getDelegator();
-        Way w = StorageDelegatorTest.addWayToStorage(delegator, true);
+        Way w = addWayToStorage(delegator, true);
         Map<String, String> tags = new TreeMap<>();
         tags.put(Tags.KEY_BUILDING, Tags.VALUE_YES);
         delegator.setTags(w, tags);
@@ -79,7 +79,7 @@ public class DataStyleTest {
         DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
         assertEquals(5, DataStyle.getStyleList(ApplicationProvider.getApplicationContext()).length);
         // matching test
-        
+
         final StorageDelegator delegator = App.getDelegator();
         Node tree = delegator.getFactory().createNodeWithNewId(0, 0);
         delegator.insertElementSafe(tree);

@@ -127,14 +127,39 @@ public final class Notifications {
      * @param id unique notification id
      */
     public static void error(@NonNull Context ctx, int titleRes, @NonNull final String message, int id) {
+        coloredNotification(ctx, titleRes, message, id, R.attr.snack_error, R.color.material_red);
+    }
+
+    /**
+     * Display a notification for warnings
+     * 
+     * @param ctx an Android Context
+     * @param titleRes String resource for title
+     * @param message the message
+     * @param id unique notification id
+     */
+    public static void warning(@NonNull Context ctx, int titleRes, @NonNull final String message, int id) {
+        coloredNotification(ctx, titleRes, message, id, R.attr.snack_warning, R.color.material_orange);
+    }
+
+    /**
+     * Display a colored notification
+     * 
+     * @param ctx an Android Context
+     * @param titleRes String resource for title
+     * @param message the message
+     * @param id unique notification id
+     * @param colorAttr themed color attribute
+     * @param fallbackColorRes fallback color resource id
+     */
+    private static void coloredNotification(@NonNull Context ctx, int titleRes, @NonNull final String message, int id, int colorAttr, int fallbackColorRes) {
         NotificationCompat.Builder builder = Notifications.builder(ctx).setSmallIcon(R.drawable.logo_simplified).setContentTitle(ctx.getString(titleRes))
-                .setColorized(true).setColor(ThemeUtils.getStyleAttribColorValue(ctx, R.color.material_red, 0xFFFF0000));
+                .setColorized(true).setColor(ThemeUtils.getStyleAttribColorValue(ctx, colorAttr, fallbackColorRes));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             builder.setContentText(message);
         } else {
             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message)).setPriority(NotificationCompat.PRIORITY_MAX);
         }
-
         NotificationManager nManager = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
         nManager.notify(id, builder.build());
     }

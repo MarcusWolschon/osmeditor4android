@@ -146,6 +146,18 @@
             app:spt_currentValueText="@string/config_upload_current"
             app:spt_setWrapSelectorWheel="false" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
+            android:defaultValue="6"
+            android:dialogTitle="@string/config_uploadChecker_title"
+            android:key="@string/config_uploadChecker_key"
+            android:numeric="integer"
+            android:summary="@string/config_uploadChecker_summary"
+            android:title="@string/config_uploadChecker_title"
+            app:spt_maxValue="168"
+            app:spt_minValue="1"
+            app:spt_increment="1"
+            app:spt_currentValueText="@string/config_uploadChecker_current"
+            app:spt_setWrapSelectorWheel="false" />
+        <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="200"
             android:dialogTitle="@string/config_uploadWarn_title"
             android:key="@string/config_uploadWarn_key"

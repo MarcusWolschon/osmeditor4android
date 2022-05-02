@@ -2,7 +2,6 @@ package de.blau.android.views.layers;
 
 import java.util.Collection;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -95,7 +94,7 @@ public class ImageryLayerInfo extends LayerInfo {
                         tableLayout.addView(TableLayoutUtils.createRow(activity, legend, null,
                                 hasAttributionUrl ? Util.fromHtml("<A href=\"" + attributionUrl + "\">" + provider.getAttribution() + "</A>")
                                         : provider.getAttribution(),
-                                hasAttributionUrl, tp, R.attr.colorAccent, Color.GREEN));
+                                hasAttributionUrl, tp, R.attr.colorAccent, R.color.material_teal));
                         legend = "";
                     }
                 }

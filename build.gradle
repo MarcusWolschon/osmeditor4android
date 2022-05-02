@@ -494,6 +494,7 @@ ext {
     signpostVersion = "2.1.1"
     acraVersion = "5.7.0"
     mapboxVersion = "5.8.0"
+    work_version = "2.6.0"
 }
 
 dependencies {
@@ -508,6 +509,8 @@ dependencies {
     implementation "androidx.core:core:1.2.0"
     implementation "androidx.exifinterface:exifinterface:1.1.0"
     implementation "androidx.legacy:legacy-preference-v14:1.0.0"
+    implementation "androidx.work:work-runtime:$work_version"
+    
     //
     implementation 'com.heinrichreimersoftware:android-issue-reporter:1.4'
     implementation "com.nononsenseapps:filepicker:4.2.1"
@@ -561,6 +564,7 @@ dependencies {
     testImplementation ("com.orhanobut:mockwebserverplus:1.0.0") {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
+    testImplementation "androidx.work:work-testing:$work_version"
 
     // Instrumentation tests
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
@@ -572,6 +576,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    androidTestImplementation "androidx.work:work-testing:$work_version"
 }
 
 int getVersionCode() {

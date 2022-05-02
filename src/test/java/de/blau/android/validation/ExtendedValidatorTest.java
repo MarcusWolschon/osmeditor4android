@@ -1,5 +1,6 @@
 package de.blau.android.validation;
 
+import static de.blau.android.osm.DelegatorUtil.toE7;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
@@ -19,7 +20,6 @@ import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.StorageDelegatorTest;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 
@@ -43,13 +43,13 @@ public class ExtendedValidatorTest {
         Validator v = new ExtendedValidator(ApplicationProvider.getApplicationContext(), App.getDefaultValidator(ApplicationProvider.getApplicationContext()));
         StorageDelegator d = App.getDelegator();
         OsmElementFactory factory = d.getFactory();
-        Node n = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.007));
+        Node n = factory.createNodeWithNewId(toE7(51.476), toE7(0.007));
         d.insertElementSafe(n);
         int result = v.validate(n);
         assertEquals(Validator.UNTAGGED, result);
 
         Way w = factory.createWayWithNewId();
-        Node n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.008));
+        Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.008));
         d.addNodeToWay(n, w);
         d.addNodeToWay(n2, w);
         d.insertElementSafe(n2);
@@ -73,8 +73,8 @@ public class ExtendedValidatorTest {
         tags.put(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON);
         d.setTags(r, tags);
         Way w = factory.createWayWithNewId();
-        Node n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.007));
-        Node n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.008));
+        Node n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.007));
+        Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.008));
         d.addNodeToWay(n1, w);
         d.addNodeToWay(n2, w);
         d.insertElementSafe(n1);
@@ -111,8 +111,8 @@ public class ExtendedValidatorTest {
         tags.put("network", "lcn");
         d.setTags(r, tags);
         Way w = factory.createWayWithNewId();
-        Node n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.007));
-        Node n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.008));
+        Node n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.007));
+        Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.008));
         d.addNodeToWay(n1, w);
         d.addNodeToWay(n2, w);
         d.insertElementSafe(n1);

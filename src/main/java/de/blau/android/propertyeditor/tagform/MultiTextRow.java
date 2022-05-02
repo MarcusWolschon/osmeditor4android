@@ -5,7 +5,6 @@ import java.util.List;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.InputType;
@@ -469,8 +468,8 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
                 TextView tv = row.addEditText(v, row.listener, row.valueType, adapter, -1);
                 if (row.valueCount > 0 && row.valueCount < count) {
                     SpannableString s = new SpannableString(tv.getText());
-                    s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(caller.getContext(), R.color.error_text, Color.RED)), 0, s.length(),
-                            0);
+                    s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(caller.getContext(), R.attr.error, R.color.material_red)), 0,
+                            s.length(), 0);
                     tv.setText(s);
                 }
                 count++;

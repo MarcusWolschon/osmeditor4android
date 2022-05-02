@@ -56,7 +56,7 @@ public final class TableLayoutUtils {
     @SuppressLint("NewApi")
     @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, String cell1, CharSequence cell2, @NonNull TableLayout.LayoutParams tp) {
-        return createRow(activity, cell1, null, cell2, false, tp, R.attr.colorAccent, Color.GREEN);
+        return createRow(activity, cell1, null, cell2, false, tp, R.attr.colorAccent, R.color.material_teal);
     }
 
     /**
@@ -76,7 +76,7 @@ public final class TableLayoutUtils {
     @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
             @NonNull TableLayout.LayoutParams tp) {
-        return createRow(activity, cell1, cell2, cell3, false, tp, R.attr.colorAccent, Color.GREEN);
+        return createRow(activity, cell1, cell2, cell3, false, tp, R.attr.colorAccent, R.color.material_teal);
     }
 
     /**
@@ -118,7 +118,7 @@ public final class TableLayoutUtils {
     @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, @NonNull String cell1, @Nullable CharSequence cell2, boolean isUrl,
             @NonNull TableLayout.LayoutParams tp) {
-        return createRow(activity, cell1, null, cell2, isUrl, tp, R.attr.colorAccent, Color.GREEN);
+        return createRow(activity, cell1, null, cell2, isUrl, tp, R.attr.colorAccent, R.color.material_teal);
     }
 
     /**
@@ -180,7 +180,7 @@ public final class TableLayoutUtils {
     @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, @NonNull String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
             boolean isUrl, @NonNull TableLayout.LayoutParams tp) {
-        return createRow(activity, cell1, cell2, cell3, isUrl, tp, R.attr.colorAccent, Color.GREEN);
+        return createRow(activity, cell1, cell2, cell3, isUrl, tp, R.attr.colorAccent, R.color.material_teal);
     }
 
     /**

@@ -25,6 +25,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 import org.xml.sax.SAXException;
 
 import com.drew.lang.annotations.NotNull;
@@ -37,6 +38,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.ShadowWorkManager;
 import de.blau.android.SignalHandler;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
@@ -52,6 +54,7 @@ import de.blau.android.presets.Preset;
  *
  */
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { ShadowWorkManager.class })
 @LargeTest
 public class ValidatorTest {
 

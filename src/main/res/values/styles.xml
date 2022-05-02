@@ -21,6 +21,7 @@
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
+        <item name="error">@color/material_red</item>
         <!--  icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_dark</item>
         <item name="check">@drawable/baseline_check_white_18</item>
@@ -33,6 +34,7 @@
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
+        <item name="error">@color/material_red</item>
         <!--  icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_light</item>
         <item name="check">@drawable/baseline_check_black_18</item>
@@ -44,6 +46,7 @@
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
+        <item name="error">@color/material_red</item>
         <!--  icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_dark</item>
         <item name="more_small">@drawable/ic_more_vert_white_24dp</item>
@@ -55,6 +58,7 @@
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
+        <item name="error">@color/material_red</item>
         <!--  icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_light</item>
         <item name="more_small">@drawable/ic_more_vert_black_24dp</item>
@@ -154,6 +158,7 @@
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
+        <item name="error">@color/material_red</item>
 	</style>
 	
 	   <style name="Theme.customMain.FullScreen" parent="Theme.customMain">
@@ -226,6 +231,7 @@
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
+        <item name="error">@color/material_red</item>
 	</style>
 	
 	<style name="Theme.customMain.Light.FullScreen" parent="Theme.customMain.Light">
@@ -240,11 +246,15 @@
         <item name="alert_dialog">@drawable/ic_action_warning_holo_dark</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_white</item>
         <item name="share">@drawable/share_dark</item>
-        <item name="error">@color/material_red</item>
         <!--  -->
         <item name="StaticText">@style/DialogStaticText</item>
         <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView</item>
         <item name="ListPopupWindowStyle">@style/ListPopupWindowStyle</item>
+                <!--  colors -->
+        <item name="snack_info">@color/material_teal</item>
+        <item name="snack_warning">@color/material_orange</item>
+        <item name="snack_error">@color/material_red</item>
+        <item name="error">@color/material_red</item>
 	</style>
 	
     <style name="DialogStaticText" parent="android:Widget.TextView">
@@ -256,11 +266,15 @@
         <item name="alert_dialog">@drawable/ic_action_warning_holo_light</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_black</item>
         <item name="share">@drawable/share_light</item>
-        <item name="error">@color/material_red</item>
         <!--  -->
         <item name="StaticText">@style/StaticTextLight</item>
         <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.Light.AutoCompleteTextView</item>
         <item name="ListPopupWindowStyle">@style/ListPopupWindowStyleLight</item>
+        <!--  colors -->
+        <item name="snack_info">@color/material_teal</item>
+        <item name="snack_warning">@color/material_orange</item>
+        <item name="snack_error">@color/material_red</item>
+        <item name="error">@color/material_red</item>
 	</style>
 
 	<style name="DialogEditTextLight" parent="android:Widget.EditText">
@@ -337,6 +351,7 @@
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
+        <item name="error">@color/material_red</item>
         <item name="text_disabled">@color/primary_text_disabled_material_dark</item>
         <item name="text_normal">@color/primary_text_default_material_dark</item>
 	</style>
@@ -512,6 +527,7 @@
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
+        <item name="error">@color/material_red</item>
         <item name="text_disabled">@color/primary_text_disabled_material_light</item>
         <item name="text_normal">@color/primary_text_default_material_light</item>
 	</style>

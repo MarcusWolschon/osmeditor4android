@@ -1,6 +1,6 @@
 package de.blau.android.util;
 
-import static de.blau.android.osm.StorageDelegatorTest.toE7;
+import static de.blau.android.osm.DelegatorUtil.toE7;
 import static de.blau.android.util.Winding.CLOCKWISE;
 import static de.blau.android.util.Winding.COLINEAR;
 import static de.blau.android.util.Winding.COUNTERCLOCKWISE;

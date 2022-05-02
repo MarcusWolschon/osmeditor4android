@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import ch.poole.openinghoursfragment.OpeningHoursFragment;
 import ch.poole.openinghoursfragment.ValueWithDescription;
@@ -40,7 +39,7 @@ public class OpeningHoursDialogRow extends MultiselectDialogRow {
 
     private static final String FRAGMENT_OPENING_HOURS_TAG = "fragment_opening_hours";
 
-    int errorTextColor = ContextCompat.getColor(getContext(), ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.textColorError, R.color.material_red));
+    int errorTextColor = ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.error, R.color.material_red);
 
     /**
      * Construct a row that will show the OpeningHoursFragmeent when clicked

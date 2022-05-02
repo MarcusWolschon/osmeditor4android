@@ -472,7 +472,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
             super(context, resource, elements);
             this.elements = elements;
             this.validator = validator;
-            colorStateList = ColorStateList.valueOf(ThemeUtils.getStyleAttribColorValue(context, R.color.material_red, 0xFFFF0000));
+            colorStateList = ColorStateList.valueOf(ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red));
         }
 
         @Override

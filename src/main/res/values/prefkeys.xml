@@ -114,6 +114,7 @@
     <string name="config_orthogonalizeThreshold_key">orthogonalizeThreshold</string>
     <string name="config_uploadOk_key">uploadOkLimit</string>
     <string name="config_uploadWarn_key">uploadWarnLimit</string>
+    <string name="config_uploadChecker_key">uploadChecker</string>
     <string name="config_dataWarn_key">dataWarnLimit</string>
     <string name="config_mapillaryCacheSize_key">mapillaryCacheSize</string>
     <string name="config_beepVolume_key">beepVolume</string>

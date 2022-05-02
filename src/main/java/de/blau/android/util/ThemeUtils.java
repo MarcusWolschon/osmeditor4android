@@ -48,15 +48,15 @@ public final class ThemeUtils {
      *
      * @param context the caller's context
      * @param attribResId the attribute id (i.e. R.attr.some_attribute)
-     * @param defaultValue the value to return if the attribute does not exist
+     * @param defaultRes the value to return if the attribute does not exist
      * @return the color value for the attribute or defaultValue
      */
-    public static int getStyleAttribColorValue(@NonNull final Context context, final int attribResId, final int defaultValue) {
+    public static int getStyleAttribColorValue(@NonNull final Context context, final int attribResId, final int defaultRes) {
         final TypedValue tv = new TypedValue();
         final boolean found = context.getTheme().resolveAttribute(attribResId, tv, true);
         if (!found) {
             Log.d(DEBUG_TAG, "themed color not found");
-            return defaultValue;
+            return ContextCompat.getColor(context, defaultRes);
         }
         return tv.data;
     }
@@ -139,7 +139,7 @@ public final class ThemeUtils {
      * @return a themed Context
      */
     public static ContextThemeWrapper getThemedContext(@NonNull Context caller, int lightTheme, int darkTheme) {
-        // don't use Preferences here as this will create a lot of disk activity and create the default foulder
+        // don't use Preferences here as this will create a lot of disk activity and create the default folder
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(caller);
         return new ContextThemeWrapper(caller, prefs.getBoolean(caller.getString(R.string.config_enableLightTheme_key), true) ? lightTheme : darkTheme);
     }

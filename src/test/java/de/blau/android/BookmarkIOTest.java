@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,6 +18,7 @@ import de.blau.android.bookmarks.BookmarksStorage;
 import de.blau.android.osm.ViewBox;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { ShadowWorkManager.class })
 public class BookmarkIOTest {
     Context context;
     Activity activity;

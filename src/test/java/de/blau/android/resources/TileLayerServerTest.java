@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
@@ -24,6 +25,7 @@ import androidx.test.filters.LargeTest;
 import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.ShadowWorkManager;
 import de.blau.android.contract.Files;
 import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.Preferences;
@@ -38,6 +40,7 @@ import okio.Buffer;
  *
  */
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { ShadowWorkManager.class })
 @LargeTest
 public class TileLayerServerTest {
 
