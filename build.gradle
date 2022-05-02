@@ -494,6 +494,7 @@ ext {
     signpostVersion = "2.1.1"
     acraVersion = "5.7.0"
     mapboxVersion = "5.8.0"
+    work_version = "2.6.0"
 }
 
 dependencies {
@@ -508,7 +509,6 @@ dependencies {
     implementation "androidx.core:core:1.2.0"
     implementation "androidx.exifinterface:exifinterface:1.1.0"
     implementation "androidx.legacy:legacy-preference-v14:1.0.0"
-    def work_version = "2.1.0"
     implementation "androidx.work:work-runtime:$work_version"
     
     //

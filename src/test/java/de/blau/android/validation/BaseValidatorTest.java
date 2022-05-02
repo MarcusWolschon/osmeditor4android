@@ -1,9 +1,9 @@
 package de.blau.android.validation;
 
+import static de.blau.android.osm.DelegatorUtil.toE7;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +24,6 @@ import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.StorageDelegatorTest;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
@@ -51,7 +50,7 @@ public class BaseValidatorTest {
         d.setTags(r, tags);
         result = v.validate(r);
         assertEquals(0, result & Validator.NO_TYPE);
-        Node n = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        Node n = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.addMemberToRelation(new RelationMember("test", n), r);
         result = v.validate(r);
         assertEquals(0, result & Validator.EMPTY_RELATION);
@@ -73,8 +72,8 @@ public class BaseValidatorTest {
         StorageDelegator d = App.getDelegator();
         OsmElementFactory factory = d.getFactory();
         Way w = factory.createWayWithNewId();
-        Node n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.007));
-        Node n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.008));
+        Node n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.007));
+        Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.008));
         d.addNodeToWay(n1, w);
         d.addNodeToWay(n2, w);
         Map<String, String> tags = new HashMap<>();
@@ -88,7 +87,7 @@ public class BaseValidatorTest {
         result = v.validate(w);
         assertEquals(Validator.OK, result);
         //
-        Node n = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        Node n = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         tags.clear();
         tags.put("tourism", "information");
         tags.put("information", "terminal");

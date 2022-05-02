@@ -1,6 +1,6 @@
 package de.blau.android.util;
 
-import static de.blau.android.osm.StorageDelegatorTest.toE7;
+import static de.blau.android.osm.DelegatorUtil.toE7;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -30,7 +30,7 @@ public class GeometryTest {
 
         Node inside1 = factory.createNodeWithNewId(toE7(51.50166452D), toE7(-0.1416078D));
         assertTrue(Geometry.isInside(nodes, inside1));
-        
+
         assertTrue(Geometry.isInside(nodes, n2));
 
         Node outside1 = factory.createNodeWithNewId(toE7(51.5020192D), toE7(-0.1422925D));

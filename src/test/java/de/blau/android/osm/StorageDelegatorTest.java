@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import static de.blau.android.osm.DelegatorUtil.toE7;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -19,7 +20,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
-import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
@@ -41,7 +41,7 @@ public class StorageDelegatorTest {
     @Test
     public void rotate() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, true);
+        Way w = DelegatorUtil.addWayToStorage(d, true);
         Node n0 = w.getNodes().get(0);
 
         try {
@@ -63,7 +63,7 @@ public class StorageDelegatorTest {
     @Test
     public void copy() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, true);
+        Way w = DelegatorUtil.addWayToStorage(d, true);
 
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
@@ -86,7 +86,7 @@ public class StorageDelegatorTest {
     @Test
     public void cut() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, true);
+        Way w = DelegatorUtil.addWayToStorage(d, true);
 
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
@@ -100,41 +100,6 @@ public class StorageDelegatorTest {
         double[] centroid2 = Geometry.centroidLonLat(temp);
         assertEquals(centroid[1] + 1, centroid2[1], 0.001);
         assertEquals(centroid[0] + 1, centroid2[0], 0.001);
-    }
-
-    /**
-     * Add a test way to storage and return it
-     * 
-     * @param d the StorageDeleagot instance
-     * @param close if true close the way
-     * @return the way
-     */
-    public static Way addWayToStorage(@NonNull StorageDelegator d, boolean close) {
-        d.getUndo().createCheckpoint("add test way");
-        OsmElementFactory factory = d.getFactory();
-        Way w = factory.createWayWithNewId();
-        Node n0 = factory.createNodeWithNewId(toE7(51.478), toE7(0));
-        d.insertElementSafe(n0);
-        w.addNode(n0);
-        Node n1 = factory.createNodeWithNewId(toE7(51.478), toE7(0.003));
-        d.insertElementSafe(n1);
-        w.addNode(n1);
-        Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.003));
-        d.insertElementSafe(n2);
-        w.addNode(n2);
-        Node n3 = factory.createNodeWithNewId(toE7(51.476), toE7(0));
-        d.insertElementSafe(n3);
-        w.addNode(n3);
-        if (close) {
-            w.addNode(n0); // close
-        }
-        d.insertElementSafe(w);
-        Relation r = factory.createRelationWithNewId();
-        RelationMember member = new RelationMember("test", w);
-        r.addMember(member);
-        d.insertElementSafe(r);
-        w.addParentRelation(r);
-        return w;
     }
 
     /**
@@ -272,7 +237,7 @@ public class StorageDelegatorTest {
         d.insertElementSafe(n);
 
         StorageDelegator d2 = new StorageDelegator();
-        Way w2 = addWayToStorage(d2, true);
+        Way w2 = DelegatorUtil.addWayToStorage(d2, true);
 
         d.mergeData(d2.getCurrentStorage(), null);
 
@@ -289,7 +254,7 @@ public class StorageDelegatorTest {
     @Test
     public void merge() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, false);
+        Way w = DelegatorUtil.addWayToStorage(d, false);
         SortedMap<String, String> tags = new TreeMap<>(w.getTags());
         tags.put(Tags.KEY_HIGHWAY, "residential");
         w.setTags(tags);
@@ -494,9 +459,9 @@ public class StorageDelegatorTest {
     public void mergeNodes() {
         StorageDelegator d = new StorageDelegator();
         OsmElementFactory factory = d.getFactory();
-        Node n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        Node n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n1);
-        Node n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n2);
         MergeAction action = new MergeAction(d, n1, n2);
         List<Result> result = action.mergeNodes();
@@ -507,9 +472,9 @@ public class StorageDelegatorTest {
 
         d = new StorageDelegator();
         factory = d.getFactory();
-        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n1);
-        n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n2);
         n2.setOsmId(1234L);
         action = new MergeAction(d, n1, n2);
@@ -521,7 +486,7 @@ public class StorageDelegatorTest {
 
         d = new StorageDelegator();
         factory = d.getFactory();
-        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n1);
         action = new MergeAction(d, n1, n1);
         result = action.mergeNodes();
@@ -531,7 +496,7 @@ public class StorageDelegatorTest {
         assertTrue(result.get(0).getIssues().contains(MergeIssue.SAMEOBJECT));
 
         // create two ways with common node
-        Way w = addWayToStorage(d, false);
+        Way w = DelegatorUtil.addWayToStorage(d, false);
         Node n = w.getNodes().get(2);
         List<Result> splitResult = d.splitAtNode(w, n);
         assertNotNull(splitResult);
@@ -552,9 +517,9 @@ public class StorageDelegatorTest {
         // role conflict
         d = new StorageDelegator();
         factory = d.getFactory();
-        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n1);
-        n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n2);
 
         Relation r = factory.createRelationWithNewId();
@@ -579,9 +544,9 @@ public class StorageDelegatorTest {
     public void mergeNodesWithTags() {
         StorageDelegator d = new StorageDelegator();
         OsmElementFactory factory = d.getFactory();
-        Node n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        Node n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n1);
-        Node n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n2);
 
         SortedMap<String, String> tags1 = new TreeMap<>();
@@ -598,9 +563,9 @@ public class StorageDelegatorTest {
 
         d = new StorageDelegator();
         factory = d.getFactory();
-        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n1);
-        n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n2);
 
         tags1 = new TreeMap<>();
@@ -619,9 +584,9 @@ public class StorageDelegatorTest {
 
         d = new StorageDelegator();
         factory = d.getFactory();
-        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n1);
-        n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n2);
 
         tags1 = new TreeMap<>();
@@ -642,9 +607,9 @@ public class StorageDelegatorTest {
 
         d = new StorageDelegator();
         factory = d.getFactory();
-        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n1);
-        n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n2);
 
         tags1 = new TreeMap<>();
@@ -663,9 +628,9 @@ public class StorageDelegatorTest {
 
         d = new StorageDelegator();
         factory = d.getFactory();
-        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n1);
-        n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n2);
 
         tags1 = new TreeMap<>();
@@ -689,7 +654,7 @@ public class StorageDelegatorTest {
     @Test
     public void repplaceNodeInWays() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, false);
+        Way w = DelegatorUtil.addWayToStorage(d, false);
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node n = w.getNodes().get(2);
@@ -706,7 +671,7 @@ public class StorageDelegatorTest {
     @Test
     public void removeWayNode() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, false);
+        Way w = DelegatorUtil.addWayToStorage(d, false);
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node n = w.getNodes().get(2);
@@ -725,7 +690,7 @@ public class StorageDelegatorTest {
 
         // remove closing node of a closed way
         d = new StorageDelegator();
-        w = addWayToStorage(d, true);
+        w = DelegatorUtil.addWayToStorage(d, true);
         n = w.getFirstNode();
         d.removeNode(n);
         assertTrue(w.isClosed());
@@ -738,7 +703,7 @@ public class StorageDelegatorTest {
     @Test
     public void removeNodeFromWay() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, true);
+        Way w = DelegatorUtil.addWayToStorage(d, true);
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         assertTrue(w.isClosed());
@@ -756,7 +721,7 @@ public class StorageDelegatorTest {
     @Test
     public void removeEndNodeFromWay() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, false);
+        Way w = DelegatorUtil.addWayToStorage(d, false);
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node tempNode = temp.getNodes().get(2);
@@ -790,7 +755,7 @@ public class StorageDelegatorTest {
     @Test
     public void removeEndNodeFromWay2() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, false);
+        Way w = DelegatorUtil.addWayToStorage(d, false);
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node tempNode = temp.getNodes().get(2);
@@ -824,7 +789,7 @@ public class StorageDelegatorTest {
     @Test
     public void unjoinWay() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, false);
+        Way w = DelegatorUtil.addWayToStorage(d, false);
         final Node n1 = w.getNodes().get(1);
         Way w2 = d.createAndInsertWay(n1);
         final Node n2 = w.getNodes().get(2);
@@ -854,7 +819,7 @@ public class StorageDelegatorTest {
     @Test
     public void unjoinSimilarWay() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, false);
+        Way w = DelegatorUtil.addWayToStorage(d, false);
         final Node n1 = w.getNodes().get(1);
         Way w2 = d.createAndInsertWay(n1);
         final Node n2 = w.getNodes().get(2);
@@ -889,7 +854,7 @@ public class StorageDelegatorTest {
     @Test
     public void unjoinClosedWays() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, false);
+        Way w = DelegatorUtil.addWayToStorage(d, false);
         final Node n1 = w.getNodes().get(1);
         Way w2 = d.createAndInsertWay(n1);
         final Node n2 = w.getNodes().get(2);
@@ -917,7 +882,7 @@ public class StorageDelegatorTest {
     @Test
     public void split() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, false);
+        Way w = DelegatorUtil.addWayToStorage(d, false);
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node n = w.getNodes().get(2);
@@ -936,7 +901,7 @@ public class StorageDelegatorTest {
     @Test
     public void splitMergeWithMetric() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, false);
+        Way w = DelegatorUtil.addWayToStorage(d, false);
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node n = w.getNodes().get(2);
@@ -977,7 +942,7 @@ public class StorageDelegatorTest {
     @Test
     public void splitClosed1() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, true);
+        Way w = DelegatorUtil.addWayToStorage(d, true);
         assertTrue(w.isClosed());
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
@@ -998,7 +963,7 @@ public class StorageDelegatorTest {
     @Test
     public void splitClosed2() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, true);
+        Way w = DelegatorUtil.addWayToStorage(d, true);
         assertTrue(w.isClosed());
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
@@ -1021,7 +986,7 @@ public class StorageDelegatorTest {
     @Test
     public void splitWithIncompleteRouteRelation() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, false);
+        Way w = DelegatorUtil.addWayToStorage(d, false);
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node n = w.getNodes().get(2);
@@ -1052,7 +1017,7 @@ public class StorageDelegatorTest {
     @Test
     public void splitWithRouteRelation1() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, false);
+        Way w = DelegatorUtil.addWayToStorage(d, false);
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node n = w.getNodes().get(2);
@@ -1073,7 +1038,7 @@ public class StorageDelegatorTest {
     @Test
     public void splitWithRouteRelation2() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, false);
+        Way w = DelegatorUtil.addWayToStorage(d, false);
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node n = w.getNodes().get(2);
@@ -1111,7 +1076,7 @@ public class StorageDelegatorTest {
             server.getCachedCapabilities().setMaxRelationMembers(1);
             logic.setPrefs(prefs);
             StorageDelegator d = new StorageDelegator();
-            Way w = addWayToStorage(d, false);
+            Way w = DelegatorUtil.addWayToStorage(d, false);
             Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
             assertNotNull(temp);
             Node n = w.getNodes().get(2);
@@ -1139,7 +1104,7 @@ public class StorageDelegatorTest {
     @Test
     public void splitWithRestrictionRelation() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d, false);
+        Way w = DelegatorUtil.addWayToStorage(d, false);
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node n = w.getNodes().get(2);
@@ -1179,9 +1144,9 @@ public class StorageDelegatorTest {
     public void relationMembers() {
         StorageDelegator d = new StorageDelegator();
         OsmElementFactory factory = d.getFactory();
-        Node n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        Node n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n1);
-        Node n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n2);
 
         Relation r = factory.createRelationWithNewId();
@@ -1252,7 +1217,7 @@ public class StorageDelegatorTest {
             server.getCachedCapabilities().setMaxRelationMembers(1);
             logic.setPrefs(prefs);
             StorageDelegator d = new StorageDelegator();
-            Way w = addWayToStorage(d, false);
+            Way w = DelegatorUtil.addWayToStorage(d, false);
 
             Relation r = w.getParentRelations().get(0);
 
@@ -1266,15 +1231,5 @@ public class StorageDelegatorTest {
         } finally {
             server.getCachedCapabilities().setMaxRelationMembers(32000);
         }
-    }
-
-    /**
-     * Convert to scaled int representation
-     * 
-     * @param d double coordinate value
-     * @return a scaled int
-     */
-    public static int toE7(double d) {
-        return (int) (d * 1E7);
     }
 }
