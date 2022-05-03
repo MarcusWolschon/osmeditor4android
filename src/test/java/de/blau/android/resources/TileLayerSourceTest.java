@@ -2,6 +2,7 @@ package de.blau.android.resources;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
@@ -13,8 +14,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
+import de.blau.android.resources.TileLayerSource.Category;
+import de.blau.android.resources.TileLayerSource.Provider;
+import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
 import de.blau.android.services.util.MapTile;
 
@@ -140,5 +148,29 @@ public class TileLayerSourceTest {
         } catch (IOException e) {
             fail(e.getMessage());
         }
+    }
+
+    /**
+     * Test wms url creation when config doesn't contain projection
+     */
+    @Test
+    public void projFromWmsUrl() {
+        TileLayerDatabase.addSource(db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI);
+        final String id = "kt_tg_av_test".toUpperCase();
+        TileLayerSource.addOrUpdateCustomLayer(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), id, null, -1L, -1L, "Test", null, null,
+                null, null, 1, 20, 256, false,
+                "https://ows.geo.tg.ch/geofy_access_proxy/basisplanf?LAYERS=Basisplan_farbig&STYLES=&FORMAT=image/png&CRS=EPSG:4326&WIDTH={width}&HEIGHT={height}&BBOX={bbox}&VERSION=1.3.0&SERVICE=WMS&REQUEST=GetMap");
+        TileLayerSource.getListsLocked(ApplicationProvider.getApplicationContext(), db.getReadableDatabase(), true);
+        String[] ids = TileLayerSource.getIds(null, false, null, null);
+        assertEquals(1, ids.length);
+        MapTile tile = new MapTile("", 16, 34387, 22901);
+
+        TileLayerSource thurgau = TileLayerSource.get(ApplicationProvider.getApplicationContext(), id, false);
+        assertNotNull(thurgau);
+        String url = thurgau.getTileURLString(tile);
+        assertEquals(
+                "https://ows.geo.tg.ch/geofy_access_proxy/basisplanf?LAYERS=Basisplan_farbig&STYLES=&FORMAT=image/png&CRS=EPSG:4326&WIDTH=256&HEIGHT=256&BBOX=47.554286701279565,8.8934326171875,47.55799385903775,8.89892578125&VERSION=1.3.0&SERVICE=WMS&REQUEST=GetMap",
+                url);
+        assertEquals(TileLayerSource.EPSG_4326, thurgau.getProj());
     }
 }
