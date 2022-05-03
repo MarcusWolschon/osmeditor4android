@@ -244,7 +244,7 @@ public final class Eli {
                 for (JsonElement p : projections) {
                     String supportedProj = p.getAsString();
                     boolean latLon = TileLayerSource.EPSG_4326.equals(supportedProj);
-                    if (TileLayerSource.EPSG_3857.equals(supportedProj) || TileLayerSource.EPSG_900913.equals(supportedProj) || latLon) {
+                    if (TileLayerSource.is3857compatible(supportedProj) || latLon) {
                         proj = supportedProj;
                         if (latLon) {
                             // small tiles keep errors small since we don't actually reproject tiles

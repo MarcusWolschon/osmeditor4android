@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentActivity;
 import ch.poole.android.numberpicker.library.NumberPicker;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -292,7 +293,12 @@ public class TileLayerDialog {
                     Snack.toastTopError(activity, R.string.toast_url_empty);
                     moan = true;
                 }
-                if (isOverlay && (tileUrl.contains(WmsCapabilities.IMAGE_JPEG) || tileUrl.contains(".jpg"))) {
+                String proj = TileLayerSource.projFromUrl(tileUrl);
+                if (proj != null && !TileLayerSource.supportedProjection(proj)) {
+                    Snack.toastTopError(activity, activity.getString(R.string.toast_unsupported_projection, proj));
+                    moan = true;
+                }
+                if (isOverlay && (tileUrl.contains(WmsCapabilities.IMAGE_JPEG) || tileUrl.contains("." + FileExtensions.JPG))) {
                     Snack.toastTopError(activity, R.string.toast_jpeg_not_transparent);
                     moan = true;
                 }

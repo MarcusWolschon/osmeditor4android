@@ -32,8 +32,8 @@ public final class WmsEndpointDialog {
      * @param activity Android Context
      * @param onUpdate call this if the DB has been updated
      */
-    public static void showLayerDialog(@NonNull FragmentActivity activity, @Nullable final OnUpdateListener onUpdate) {
-        showLayerDialog(activity, -1, onUpdate);
+    public static void showDialog(@NonNull FragmentActivity activity, @Nullable final OnUpdateListener onUpdate) {
+        showDialog(activity, -1, onUpdate);
     }
 
     /**
@@ -43,7 +43,7 @@ public final class WmsEndpointDialog {
      * @param id the rowid of the layer entry in the database or -1 if not saved yet
      * @param onUpdate call this if the DB has been updated
      */
-    static void showLayerDialog(@NonNull final FragmentActivity activity, final int id, @Nullable final OnUpdateListener onUpdate) {
+    static void showDialog(@NonNull final FragmentActivity activity, final int id, @Nullable final OnUpdateListener onUpdate) {
         final boolean existing = id > 0;
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         final View templateView = LayoutInflater.from(activity).inflate(R.layout.wms_endpoint_item, null);

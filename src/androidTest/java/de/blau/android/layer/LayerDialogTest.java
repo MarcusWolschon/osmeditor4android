@@ -2,7 +2,6 @@ package de.blau.android.layer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -17,8 +16,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.orhanobut.mockwebserverplus.MockWebServerPlus;
+
 import android.app.Instrumentation;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -28,6 +28,7 @@ import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObject2;
 import androidx.test.uiautomator.UiObjectNotFoundException;
+import androidx.test.uiautomator.UiScrollable;
 import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
 import de.blau.android.App;
@@ -406,6 +407,79 @@ public class LayerDialogTest {
         try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
             TileLayerSource tls = TileLayerDatabase.getLayerWithUrl(main, db.getReadableDatabase(), "https://test2/");
             assertNotNull(tls);
+        }
+    }
+
+    /**
+     * Test querying and adding a layer from a WMS endpoint
+     */
+    @Test
+    public void wmsEndpoint() {
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/add", true));
+        TestUtils.scrollToEnd(false);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.add_imagery_from_wms_endpoint), true));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.wms_endpoints_title)));
+
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/add", true));
+        MockWebServerPlus wmsServer = null;
+        try {
+            wmsServer = new MockWebServerPlus();
+            String urlString = wmsServer.url("").toString();
+            UiObject name = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/name"));
+            final String endpointName = "Test WMS Endpoint";
+            try {
+                name.setText(endpointName);
+            } catch (UiObjectNotFoundException e) {
+                fail(e.getMessage());
+            }
+            UiObject url = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/url"));
+            try {
+                url.setText(urlString);
+            } catch (UiObjectNotFoundException e) {
+                fail(e.getMessage());
+            }
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save), true));
+            try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
+                TileLayerSource tls = TileLayerDatabase.getLayerWithUrl(main, db.getReadableDatabase(), urlString);
+                assertNotNull(tls);
+                assertEquals(endpointName, tls.getName());
+                assertEquals(TileLayerSource.TYPE_WMS_ENDPOINT, tls.getType());
+            }
+            wmsServer.enqueue("wms_capabilities");
+
+            TestUtils.scrollTo(endpointName, false);
+            assertTrue(TestUtils.clickText(device, false, endpointName, true, false));
+            assertTrue(TestUtils.findText(device, false, main.getString(R.string.select_layer_title)));
+            UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
+            try {
+                appView.setSwipeDeadZonePercentage(0.4);
+                appView.scrollIntoView(new UiSelector().textContains("Capas"));
+            } catch (UiObjectNotFoundException e) {
+            }
+            assertTrue(TestUtils.clickText(device, false, "Capas", true));
+            
+            UiObject top = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/top"));
+            try {
+                top.setText("85");
+            } catch (UiObjectNotFoundException e) {
+                fail(e.getMessage());
+            }
+            UiObject bottom = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/bottom"));
+            try {
+                bottom.setText("85");
+            } catch (UiObjectNotFoundException e) {
+                fail(e.getMessage());
+            }
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save), true));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true));
+        } finally {
+            try {
+                wmsServer.server().shutdown();
+            } catch (IOException e) {
+            }
         }
     }
 }

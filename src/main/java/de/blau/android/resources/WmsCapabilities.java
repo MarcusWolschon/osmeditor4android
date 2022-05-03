@@ -220,7 +220,7 @@ public class WmsCapabilities {
                     case BOUNDING_BOX:
                         String tempCrs = attr.getValue(is130(wmsVersion) ? CRS : SRS);
                         if (TileLayerSource.EPSG_4326.equals(tempCrs)
-                                || (TileLayerSource.EPSG_3857.equals(tempCrs) && !TileLayerSource.EPSG_4326.equals(current.boxCrs))) {
+                                || (TileLayerSource.is3857compatible(tempCrs) && !TileLayerSource.EPSG_4326.equals(current.boxCrs))) {
                             try {
                                 current.minx = new BigDecimal(attr.getValue("minx"));
                                 current.miny = new BigDecimal(attr.getValue("miny"));
@@ -345,7 +345,7 @@ public class WmsCapabilities {
                     case SRS:
                         String tempCrs = buffer.toString();
                         if (TileLayerSource.EPSG_4326.equals(tempCrs)
-                                || (TileLayerSource.EPSG_3857.equals(tempCrs) && !TileLayerSource.EPSG_4326.equals(current.crs))) {
+                                || (TileLayerSource.is3857compatible(tempCrs) && !TileLayerSource.EPSG_4326.equals(current.crs))) {
                             current.crs = tempCrs;
                         }
                         buffer = null;

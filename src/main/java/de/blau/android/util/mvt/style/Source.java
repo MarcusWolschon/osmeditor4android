@@ -108,7 +108,7 @@ public class Source implements Serializable {
         for (int i = 1; i < 10; i++) {
             if (TileLayerSource.get(ctx, id, isOverlay) == null) {
                 // doesn't exist, good
-                TileLayerSource.addOrUpdateCustomLayer(ctx, db, id, null, -1, -1, name, provider, category, "tms", TileType.MVT, minZoom, maxZoom,
+                TileLayerSource.addOrUpdateCustomLayer(ctx, db, id, null, -1, -1, name, provider, category, TileLayerSource.TYPE_TMS, TileType.MVT, minZoom, maxZoom,
                         TileLayerSource.DEFAULT_TILE_SIZE, isOverlay, tileUrls[0]);
                 return id;
             }
