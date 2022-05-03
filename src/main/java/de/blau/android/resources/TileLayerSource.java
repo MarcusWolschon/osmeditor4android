@@ -2373,7 +2373,7 @@ public class TileLayerSource implements Serializable {
      * @param proj the projection
      * @return true if compatible
      */
-    public static boolean is3857compatible(@NonNull String proj) {
+    public static boolean is3857compatible(@Nullable String proj) {
         return EPSG_3857_COMPATIBLE.contains(proj);
     }
 
@@ -2383,7 +2383,7 @@ public class TileLayerSource implements Serializable {
      * @param proj the projection
      * @return true if supported
      */
-    public static boolean supportedProjection(@NonNull String proj) {
+    public static boolean supportedProjection(@Nullable String proj) {
         return EPSG_3857_COMPATIBLE.contains(proj) || EPSG_4326.equals(proj);
     }
 
