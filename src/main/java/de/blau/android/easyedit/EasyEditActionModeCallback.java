@@ -503,4 +503,21 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
             runnable.run();
         }
     }
+
+    /**
+     * De-select elements
+     * 
+     * @param logic the Logic instance
+     * @param deselectRelationElements if true de-select relation members too
+     */
+    protected static void deselect(@NonNull Logic logic, boolean deselectRelationElements) {
+        logic.setClickableElements(null);
+        logic.setReturnRelations(true);
+        logic.setSelectedNode(null);
+        logic.setSelectedWay(null);
+        if (deselectRelationElements) { // back button or done pressed early
+            logic.setSelectedRelationWays(null);
+            logic.setSelectedRelationNodes(null);
+        }
+    }
 }

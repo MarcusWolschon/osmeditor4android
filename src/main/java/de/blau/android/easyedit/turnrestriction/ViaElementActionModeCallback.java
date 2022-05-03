@@ -163,15 +163,7 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
 
     @Override
     public void onDestroyActionMode(ActionMode mode) {
-        logic.setClickableElements(null);
-        logic.setReturnRelations(true);
-        logic.setSelectedNode(null);
-        logic.setSelectedWay(null);
-        if (!toSelected) {
-            // back button or done pressed early
-            logic.setSelectedRelationWays(null);
-            logic.setSelectedRelationNodes(null);
-        }
+        deselect(logic, !toSelected);
         super.onDestroyActionMode(mode);
     }
 }

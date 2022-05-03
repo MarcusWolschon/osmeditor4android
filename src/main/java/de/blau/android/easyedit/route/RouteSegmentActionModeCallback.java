@@ -318,12 +318,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
 
     @Override
     public void onDestroyActionMode(ActionMode mode) {
-        logic.setClickableElements(null);
-        logic.setReturnRelations(true);
-        logic.setSelectedNode(null);
-        logic.setSelectedWay(null);
-        logic.setSelectedRelationWays(null);
-        logic.setSelectedRelationNodes(null);
+        deselect(logic, true);
         super.onDestroyActionMode(mode);
     }
 

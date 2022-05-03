@@ -92,14 +92,7 @@ public class RestartRouteSegmentActionModeCallback extends NonSimpleActionModeCa
 
     @Override
     public void onDestroyActionMode(ActionMode mode) {
-        logic.setClickableElements(null);
-        logic.setReturnRelations(true);
-        logic.setSelectedNode(null);
-        logic.setSelectedWay(null);
-        if (!segmentSelected) {
-            logic.setSelectedRelationWays(null);
-            logic.setSelectedRelationNodes(null);
-        }
+        deselect(logic, !segmentSelected);
         super.onDestroyActionMode(mode);
     }
 

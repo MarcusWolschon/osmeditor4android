@@ -11,6 +11,7 @@ import android.view.Menu;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
@@ -174,14 +175,7 @@ public class FromElementActionModeCallback extends NonSimpleActionModeCallback {
 
     @Override
     public void onDestroyActionMode(ActionMode mode) {
-        logic.setClickableElements(null);
-        logic.setReturnRelations(true);
-        logic.setSelectedNode(null);
-        logic.setSelectedWay(null);
-        if (!viaSelected) { // back button or done pressed early
-            logic.setSelectedRelationWays(null);
-            logic.setSelectedRelationNodes(null);
-        }
+        deselect(logic, !viaSelected);
         super.onDestroyActionMode(mode);
     }
 }

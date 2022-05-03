@@ -75,14 +75,7 @@ public class RestartFromElementActionModeCallback extends NonSimpleActionModeCal
 
     @Override
     public void onDestroyActionMode(ActionMode mode) {
-        logic.setClickableElements(null);
-        logic.setReturnRelations(true);
-        logic.setSelectedNode(null);
-        logic.setSelectedWay(null);
-        if (!fromSelected) {
-            logic.setSelectedRelationWays(null);
-            logic.setSelectedRelationNodes(null);
-        }
+        deselect(logic, !fromSelected);
         super.onDestroyActionMode(mode);
     }
 }

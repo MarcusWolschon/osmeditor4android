@@ -71,12 +71,7 @@ public class ToElementActionModeCallback extends NonSimpleActionModeCallback {
 
     @Override
     public void onDestroyActionMode(ActionMode mode) { // note never called
-        logic.setClickableElements(null);
-        logic.setReturnRelations(true);
-        logic.setSelectedRelationWays(null);
-        logic.setSelectedRelationNodes(null);
-        logic.setSelectedNode(null);
-        logic.setSelectedWay(null);
+        deselect(logic, true);
         super.onDestroyActionMode(mode);
     }
 }
