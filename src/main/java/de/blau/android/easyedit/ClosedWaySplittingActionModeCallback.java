@@ -74,7 +74,7 @@ public class ClosedWaySplittingActionModeCallback extends NonSimpleActionModeCal
         try {
             if (element instanceof Node) {
                 Way[] result = logic.performClosedWaySplit(main, way, node, (Node) element, createPolygons);
-                if (result != null && result.length == 2) {
+                if (result.length == 2) {
                     logic.setSelectedNode(null);
                     logic.setSelectedRelation(null);
                     logic.setSelectedWay(result[0]);

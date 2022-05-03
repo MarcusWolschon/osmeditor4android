@@ -11,7 +11,6 @@ import android.view.Menu;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
-import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
