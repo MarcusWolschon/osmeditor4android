@@ -453,6 +453,7 @@ avoided by using an offline data source.</string>
     <string name="toast_tile_layer_exists">Tile source %1$s has the same url</string>
     <string name="toast_no_changes">You have not changed anything yet…</string>
     <string name="toast_jpeg_not_transparent">JPEG files are not transparent and can\'t be used as an overlay</string>
+    <string name="toast_unsupported_projection">Unsupported projection  %1$s.\n\nOnly EPSG:3857, EPSG:4326 and synonyms are supported.</string>
     <string name="toast_unsaved_changes">Upload your unsaved changes first.</string>
     <string name="clear_anyway">Clear anyway?</string>
     <string name="toast_upload_success">Uploaded to OSM server.</string>

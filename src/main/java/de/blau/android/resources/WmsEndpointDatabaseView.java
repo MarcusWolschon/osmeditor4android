@@ -74,11 +74,11 @@ public class WmsEndpointDatabaseView {
 
         endpointList.setOnItemLongClickListener((parent, view, position, id) -> {
             final Integer idTag = (Integer) view.getTag();
-            WmsEndpointDialog.showLayerDialog(activity, idTag, () -> newLayerCursor(writableDb));
+            WmsEndpointDialog.showDialog(activity, idTag, () -> newLayerCursor(writableDb));
             return true;
         });
         final FloatingActionButton fab = (FloatingActionButton) endpointListView.findViewById(R.id.add);
-        fab.setOnClickListener(v -> WmsEndpointDialog.showLayerDialog(activity, -1, () -> newLayerCursor(writableDb)));
+        fab.setOnClickListener(v -> WmsEndpointDialog.showDialog(activity, -1, () -> newLayerCursor(writableDb)));
         alertDialog.show();
     }
 

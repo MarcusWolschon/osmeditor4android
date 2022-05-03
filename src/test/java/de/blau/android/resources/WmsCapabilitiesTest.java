@@ -24,7 +24,7 @@ public class WmsCapabilitiesTest {
      */
     @Test
     public void parse130() {
-        try (InputStream is = getClass().getResourceAsStream("/wms_capabilities.xml")) {
+        try (InputStream is = getClass().getResourceAsStream("/fixtures/wms_capabilities.xml")) {
             WmsCapabilities capa = new WmsCapabilities(is);
             assertEquals(106, capa.layers.size());
             Layer test = null;

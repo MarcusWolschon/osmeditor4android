@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -95,12 +96,23 @@ public class TileLayerSource implements Serializable {
 
     private static final long serialVersionUID = 4L;
 
-    public static final String EPSG_900913       = "EPSG:900913";
-    public static final String EPSG_3857         = "EPSG:3857";
-    public static final String EPSG_4326         = "EPSG:4326";
+    // EPSG:3857 and historic synonyms
+    public static final String        EPSG_3857            = "EPSG:3857";
+    public static final String        EPSG_900913          = "EPSG:900913";
+    public static final String        EPSG_3587            = "EPSG:3587";
+    public static final String        EPSG_54004           = "EPSG:54004";
+    public static final String        EPSG_41001           = "EPSG:41001";
+    public static final String        EPSG_102113          = "EPSG:102113";
+    public static final String        EPSG_102100          = "EPSG:102100";
+    public static final String        EPSG_3785            = "EPSG:3785";
+    private static final List<String> EPSG_3857_COMPATIBLE = Arrays.asList(EPSG_3857, EPSG_900913, EPSG_3587, EPSG_54004, EPSG_41001, EPSG_102113, EPSG_102100,
+            EPSG_3785);
+    // latlon
+    public static final String EPSG_4326 = "EPSG:4326";
+    //
     public static final String TYPE_TMS          = "tms";
     public static final String TYPE_WMS          = "wms";
-    static final String        TYPE_WMS_ENDPOINT = "wms_endpoint";
+    public static final String TYPE_WMS_ENDPOINT = "wms_endpoint";
     static final String        TYPE_BING         = "bing";
     static final String        TYPE_SCANEX       = "scanex";
     public static final String LAYER_MAPNIK      = "MAPNIK";
@@ -1750,22 +1762,19 @@ public class TileLayerSource implements Serializable {
     String wmsBox(@NonNull final MapTile aTile) {
         boxBuilder.setLength(0);
         if (proj != null) {
-            switch (proj) {
-            case EPSG_3857:
-            case EPSG_900913:
+            if (is3857compatible(proj)) {
                 int ymax = 1 << aTile.zoomLevel;
                 int y = ymax - aTile.y - 1;
                 boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x, aTile.zoomLevel)).append(',');
                 boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y, aTile.zoomLevel)).append(',');
                 boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x + 1, aTile.zoomLevel)).append(',');
                 boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y + 1, aTile.zoomLevel));
-                break;
-            case EPSG_4326:
+            } else if (EPSG_4326.equals(proj)) {
                 if (wmsAxisOrder == null) {
                     // fix craziness that WMS servers >= version 1.3 use the ordering of the axis
                     // in the EPSG definition, which means it changes for 4326
-                    Pattern pat = Pattern.compile("[\\?\\&]version=([0-9\\.]+)", Pattern.CASE_INSENSITIVE);
-                    Matcher matcher = pat.matcher(originalUrl);
+                    Pattern versionPattern = Pattern.compile("[\\?\\&]version=([0-9\\.]+)", Pattern.CASE_INSENSITIVE);
+                    Matcher matcher = versionPattern.matcher(originalUrl);
                     if (matcher.find()) {
                         String versionStr = matcher.group(1);
                         if (versionStr != null) {
@@ -1786,25 +1795,39 @@ public class TileLayerSource implements Serializable {
                     boxBuilder.append(GeoMath.tile2lat(aTile.y, aTile.zoomLevel)).append(',');
                     boxBuilder.append(GeoMath.tile2lon(aTile.x + 1, aTile.zoomLevel));
                 }
-                break;
-            default:
+            } else {
                 Log.e(DEBUG_TAG, "Unsupported projection " + proj + " for " + getName());
             }
         } else {
-            // set proj from url &SRS=EPSG:4326 or &CRS=EPSG:4326
-            Pattern pat = Pattern.compile("[\\?\\&][sc]rs=(EPSG:[0-9]+)", Pattern.CASE_INSENSITIVE);
-            Matcher matcher = pat.matcher(originalUrl);
-            if (matcher.find()) {
-                String projParameter = matcher.group(1);
-                if (projParameter != null) {
-                    proj = projParameter.toUpperCase(Locale.US);
-                    Log.i(DEBUG_TAG, "Extracted " + proj + " from layer " + getName());
-                    return wmsBox(aTile);
-                }
+            proj = projFromUrl(originalUrl);
+            if (proj != null) {
+                Log.i(DEBUG_TAG, "Extracted " + proj + " from layer " + getName());
+                return wmsBox(aTile);
             }
             Log.e(DEBUG_TAG, "No projection for layer " + getName());
         }
         return boxBuilder.toString();
+    }
+
+    private static final Pattern pat = Pattern.compile("[\\?\\&][sc]rs=(EPSG:[0-9]+)", Pattern.CASE_INSENSITIVE);
+
+    /**
+     * Extract the proj parameter from a WMS url
+     * 
+     * @param url the url
+     * @return the projection or null
+     */
+    @Nullable
+    public static String projFromUrl(@NonNull String url) {
+        // set proj from url &SRS=EPSG:4326 or &CRS=EPSG:4326
+        Matcher matcher = pat.matcher(url);
+        if (matcher.find()) {
+            String projParameter = matcher.group(1);
+            if (projParameter != null) {
+                return projParameter.toUpperCase(Locale.US);
+            }
+        }
+        return null;
     }
 
     /**
@@ -2310,13 +2333,10 @@ public class TileLayerSource implements Serializable {
             @Nullable final TileLayerSource existingTileServer, final long startDate, final long endDate, @NonNull String name, @Nullable Provider provider,
             Category category, @Nullable String type, @Nullable TileType tileType, int minZoom, int maxZoom, int tileSize, boolean isOverlay,
             @NonNull String tileUrl) {
-        String proj = null;
         // hack, but saves people extracting and then having to re-select the projection
-        if (tileUrl.contains(EPSG_3857) || tileUrl.contains(EPSG_900913)) {
-            proj = EPSG_3857;
+        String proj = projFromUrl(tileUrl);
+        if (is3857compatible(proj)) {
             tileSize = WMS_TILE_SIZE;
-        } else if (tileUrl.contains(EPSG_4326)) {
-            proj = EPSG_4326;
         }
         if (type == null) {
             type = proj == null ? TYPE_TMS : TYPE_WMS; // heuristic
@@ -2345,6 +2365,26 @@ public class TileLayerSource implements Serializable {
             existingTileServer.setTileHeight(tileSize);
             TileLayerDatabase.updateLayer(db, existingTileServer);
         }
+    }
+
+    /**
+     * Check if proj is EPSG:3857 or a compatible projection
+     * 
+     * @param proj the projection
+     * @return true if compatible
+     */
+    public static boolean is3857compatible(@Nullable String proj) {
+        return EPSG_3857_COMPATIBLE.contains(proj);
+    }
+
+    /**
+     * Check if proj is a supported projection
+     * 
+     * @param proj the projection
+     * @return true if supported
+     */
+    public static boolean supportedProjection(@Nullable String proj) {
+        return EPSG_3857_COMPATIBLE.contains(proj) || EPSG_4326.equals(proj);
     }
 
     private static final Pattern APIKEY_PATTERN = Pattern.compile(".*\\{apikey\\}.*", Pattern.CASE_INSENSITIVE);
