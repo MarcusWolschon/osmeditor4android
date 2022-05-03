@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
+import android.os.RemoteException;
 import android.view.KeyEvent;
 import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -497,6 +498,83 @@ public class PropertyEditorTest {
         }
         assertNotNull(mruTags.getRoles(item));
         assertTrue(mruTags.getRoles(item).contains("platform"));
+    }
+
+    /**
+     * Select a way and check if expected street name is there, change orientation re-check, change back re-check
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void orientationChange() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        main.getMap().getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 22);
+        TestUtils.clickAtCoordinates(device, main.getMap(), 8.3848461, 47.3899166, true);
+        assertTrue(TestUtils.clickText(device, false, "Kindhauserstrasse", false, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        Way w = App.getLogic().getSelectedWay();
+        assertNotNull(w);
+
+        try {
+            device.unfreezeRotation();
+        } catch (RemoteException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(device.isNaturalOrientation());
+        try {
+            device.setOrientationRight();
+        } catch (RemoteException e) {
+            fail(e.getMessage());
+        }
+        TestUtils.sleep(2000);
+        assertFalse(device.isNaturalOrientation());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        w = App.getLogic().getSelectedWay();
+        assertNotNull(w);
+        try {
+            device.setOrientationNatural();
+        } catch (RemoteException e) {
+            fail(e.getMessage());
+        }
+        TestUtils.sleep(2000);
+        assertTrue(device.isNaturalOrientation());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        w = App.getLogic().getSelectedWay();
+        assertNotNull(w);
+
+        assertTrue(TestUtils.clickMenuButton(device, "Properties", false, true));
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(TestUtils.findText(device, false, "Kindhauserstrasse"));
+
+        try {
+            device.unfreezeRotation();
+        } catch (RemoteException e) {
+            fail(e.getMessage());
+        }
+        try {
+            device.setOrientationRight();
+        } catch (RemoteException e) {
+            fail(e.getMessage());
+        }
+
+        assertTrue(TestUtils.findText(device, false, "Kindhauserstrasse", 5000));
+        try {
+            device.setOrientationNatural();
+        } catch (RemoteException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.findText(device, false, "Kindhauserstrasse", 5000));
     }
 
     /**
