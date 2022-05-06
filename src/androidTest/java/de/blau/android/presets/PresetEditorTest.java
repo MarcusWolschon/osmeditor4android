@@ -20,6 +20,8 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -160,6 +162,30 @@ public class PresetEditorTest {
         TestUtils.clickText(device, false, main.getString(R.string.delete), true);
         TestUtils.clickHome(device, true);
         App.resetPresets();
+    }
+
+    /**
+     * Download a preset via an intent
+     */
+    @Test
+    public void downloadPresetViaIntent() {
+        mockServer = new MockWebServerPlus();
+        HttpUrl url = mockServer.server().url("military.zip");
+        mockServer.server().enqueue(TestUtils.createBinaryReponse("application/zip", "fixtures/military.zip"));
+        try {
+            Uri uri = Uri.parse("vespucci://preset/?preseturl=" + url.toString() + "&presetname=Military%20objects");
+            main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+
+            assertTrue(TestUtils.clickText(device, true, main.getString(R.string.urldialog_add_preset), true, false));
+
+            Activity presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+            assertTrue(presetEditor instanceof PresetEditorActivity);
+
+            assertTrue(TestUtils.clickText(device, true, main.getString(R.string.okay), true, false));
+            assertTrue(TestUtils.findText(device, false, main.getString(R.string.urldialog_preset_download_successful), 5000, true));
+        } finally {
+            App.resetPresets();
+        }
     }
 
     /**
