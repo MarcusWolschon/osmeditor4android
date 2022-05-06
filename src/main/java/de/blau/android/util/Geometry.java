@@ -279,7 +279,7 @@ public final class Geometry {
     public static boolean isInside(@NonNull Node[] polygon, @NonNull Node node) {
         int n = polygon.length;
         if (n < 3) {
-            throw new IllegalArgumentException("There must be at least 3 vertices in polygon");
+            throw new IllegalArgumentException("There must be at least 3 vertices in a polygon");
         }
 
         Node extreme = App.getDelegator().getFactory().createNodeWithNewId(node.getLat(), (int) (200 * 1E7));
@@ -296,5 +296,90 @@ public final class Geometry {
             i = next;
         } while (i != 0);
         return (intersections % 2 == 1);
+    }
+
+    /**
+     * Offset in place the line defined by the coordinates
+     * 
+     * x0 y0, x1 y1, x1 y1, x2 y2, ... , x5 y5 , x5 y5, x6, y6
+     * 
+     * A positive offset with offset to the right in line direction, negative to the left.
+     * 
+     * See https://stackoverflow.com/a/68109283/16623964 (note it is missing a "2")
+     * 
+     * @param points array of coordinates in "drawLine" format, these will be modified
+     * @param length in use number of elements in the array
+     * @param closed true if closed
+     * @param offset the offset
+     */
+    public static void offset(@NonNull float[] points, int length, boolean closed, float offset) {
+        if (length < 4) {
+            throw new IllegalArgumentException("There must be at least 2 vertices in a line");
+        }
+
+        final double limit = 2 * Math.abs(offset);
+
+        float d1x = points[2] - points[0];
+        float d1y = points[3] - points[1];
+        double len1 = Math.hypot(d1x, d1y);
+        double prevNy = -d1x / len1;
+        double prevNx = d1y / len1;
+        double startnx = prevNx;
+        double startny = prevNy;
+        if (!closed) {
+            // 1st vertex
+            points[0] = (float) (points[0] + offset * prevNx);
+            points[1] = (float) (points[1] + offset * prevNy);
+        }
+
+        double n2y = 0;
+        double n2x = 0;
+        for (int i = 3; i < length; i += 4) {
+
+            final int nextX = (i + 1) % length;
+            final int nextY = (i + 2) % length;
+
+            if (i == length - 1) { // last iteration
+                if (closed) {
+                    n2y = startny;
+                    n2x = startnx;
+                } else {
+                    // last vertex
+                    points[i - 1] = (float) (points[i - 1] + offset * prevNx);
+                    points[i] = (float) (points[i] + offset * prevNy);
+                    break;
+                }
+            } else {
+                float d2x = points[(i + 3) % length] - points[nextX];
+                float d2y = points[(i + 4) % length] - points[nextY];
+                double len2 = Math.hypot(d2x, d2y);
+                n2y = -d2x / len2;
+                n2x = d2y / len2;
+            }
+
+            double bisx = prevNx + n2x;
+            double bisy = prevNy + n2y;
+
+            double lenbis = Math.hypot(bisx, bisy);
+            bisx = bisx / lenbis;
+            bisy = bisy / lenbis;
+
+            double l = offset / Math.sqrt((1 + prevNx * n2x + prevNy * n2y) / 2);
+
+            if (Math.abs(l) > limit) {
+                l = Math.signum(l) * limit;
+            }
+
+            float newX = (float) (points[i - 1] + l * bisx);
+            float newY = (float) (points[i] + l * bisy);
+
+            points[i - 1] = newX;
+            points[i] = newY;
+            points[nextX] = newX;
+            points[nextY] = newY;
+
+            prevNx = n2x;
+            prevNy = n2y;
+        }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<profile name="Color Round Nodes No Multipolygons" format="0.3.0">
+<profile name="Color Round Nodes No Multipolygons" format="0.3.1">
     <!-- Assorted config -->
     <config type="min_handle_length" length="200.0" />
     <config type="icon_zoom_limit" zoom="15" />
@@ -73,7 +73,7 @@
     		<interval length="3.0" />
     	</dash>
     </feature>
-    <feature type="way" tags="landuse" area="true" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right">
+    <feature type="way" tags="landuse" area="true" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="MITER" offset="0.50">
         <feature type="way" tags="landuse=construction" color="88996633" style="FILL_AND_STROKE" pathPattern="" />
         <feature type="way" tags="landuse=residential" minVisibleZoom="10" color="88888888" />
         <feature type="way" tags="landuse=quarry" color="88d8a2a2" />
@@ -86,11 +86,11 @@
     
     <feature type="way" tags="leisure=pitch" updateWidth="true" widthFactor="1.0" color="8839AC39" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
     <feature type="way" tags="leisure=swimming_pool" updateWidth="true" widthFactor="1.0" color="880000ff" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />    
-    <feature type="way" tags="leisure=playground" area="true" updateWidth="true" widthFactor="0.8" color="88f4a460" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right" />
+    <feature type="way" tags="leisure=playground" area="true" updateWidth="true" widthFactor="0.8" color="88f4a460" style="STROKE" cap="BUTT" join="MITER" offset="0.50"/>
     <feature type="way" tags="leisure=garden" updateWidth="true" widthFactor="1.0" color="882d6e3a" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
     
     <feature type="way" tags="natural" updateWidth="true" widthFactor="0.5" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER"> 
-        <feature type="way" tags="natural" closed="true" area="true" pathPattern="border_right" >
+        <feature type="way" tags="natural" closed="true" area="true" offset="0.50" >
             <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
         </feature>
         <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
@@ -205,6 +205,9 @@
         </dash>
     </feature>
     <feature type="residential_casing" updateWidth="true" widthFactor="1.1" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="residential_sidewalk_right_casing" updateWidth="true" widthFactor="0.7" color="FFFF0000" style="STROKE" cap="BUTT" join="MITER" offset="0.50"/>
+    <feature type="residential_sidewalk_left_casing" updateWidth="true" widthFactor="0.7" color="FFFF0000" style="STROKE" cap="BUTT" join="MITER" offset="-0.50"/>
+    <feature type="residential_sidewalk_both_casing" updateWidth="true" widthFactor="1.2" color="FFFF0000" style="STROKE" cap="BUTT" join="MITER" />
     <feature type="residential_bridge_casing" updateWidth="true" widthFactor="1.1" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER">
         <dash phase="1.0">
             <interval length="2.0" />
@@ -353,6 +356,9 @@
         </feature>
         <feature type="way" tags="highway=residential" widthFactor="0.9" color="ffCCCCCC" casingStyle="residential_casing" >
             <feature type="way" tags="bridge=yes" casingStyle="residential_bridge_casing" />
+            <feature type="way" tags="sidewalk=right" casingStyle="residential_sidewalk_right_casing" />
+            <feature type="way" tags="sidewalk=left" casingStyle="residential_sidewalk_left_casing" />
+            <feature type="way" tags="sidewalk=both" casingStyle="residential_sidewalk_both_casing" />
         </feature>
         <feature type="way" tags="highway=living_street" widthFactor="0.9" color="ffff4500" />
         <feature type="way" tags="highway=service" widthFactor="0.7" color="ffCCCCCC" />

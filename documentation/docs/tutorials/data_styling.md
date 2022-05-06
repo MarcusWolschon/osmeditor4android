@@ -1,5 +1,5 @@
 ## Vespucci Data Styling
-_Documentation for Vespucci 16.0 Style file format version 0.3.0_
+_Documentation for Vespucci 16.0 Style file format version 0.3.1_
 
 The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.
 
@@ -40,6 +40,7 @@ Node styling is limited to the __labelKey__ and __iconPath__ attributes.
 |                           | cap            |         | One of "BUTT", "ROUND", "SQUARE"
 |                           | join           |         | One of "BEVEL", "MITER", "ROUND"
 |                           | strokeWidth    |         | A float value for the width of the lines, 0 draws a one pixel width line, ignored if updateWidth is true
+|                           | offset         |         | Offset in units of the current stroke width
 |                           | typefacestyle  |         |
 |                           | textsize       |         |
 |                           | shadow         |         |

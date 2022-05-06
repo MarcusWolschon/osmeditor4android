@@ -167,6 +167,7 @@ public final class DataStyle extends DefaultHandler {
     private static final String LABEL_ZOOM_LIMIT_ATTR = "labelZoomLimit";
     private static final String ICON_PATH_ATTR        = "iconPath";
     private static final String PRESET                = "preset";
+    private static final String OFFSET_ATTR           = "offset";
 
     private static final int DEFAULT_MIN_VISIBLE_ZOOM = 15;
 
@@ -179,6 +180,7 @@ public final class DataStyle extends DefaultHandler {
         boolean                   updateWidth    = true;
         final Paint               paint;
         float                     widthFactor;
+        float                     offset         = 0f;
         DashPath                  dashPath       = null;
         private FontMetrics       fontMetrics    = null;
         private PathPattern       pathPattern    = null;
@@ -248,6 +250,7 @@ public final class DataStyle extends DefaultHandler {
             setArea(fp.isArea());
             dontrender = fp.dontrender;
             updateWidth = fp.updateWidth;
+            offset = fp.offset;
             widthFactor = fp.widthFactor;
             if (fp.dashPath != null) {
                 dashPath = new DashPath();
@@ -340,6 +343,24 @@ public final class DataStyle extends DefaultHandler {
          */
         public void setUpdateWidth(boolean update) {
             updateWidth = update;
+        }
+
+        /**
+         * Set an offset
+         * 
+         * @param f the value to set
+         */
+        public void setOffset(float f) {
+            offset = f;
+        }
+
+        /**
+         * Get the offset
+         * 
+         * @return the offset multiplied with the current stroke width
+         */
+        public float getOffset() {
+            return offset * paint.getStrokeWidth();
         }
 
         /**
@@ -651,6 +672,7 @@ public final class DataStyle extends DefaultHandler {
             if (!updateWidth()) {
                 s.attribute("", STROKEWIDTH_ATTR, Float.toString(getPaint().getStrokeWidth()));
             }
+            s.attribute("", OFFSET_ATTR, Float.toString(offset));
             Typeface tf = getPaint().getTypeface();
             if (tf != null) {
                 s.attribute("", TYPEFACESTYLE_ATTR, Integer.toString(tf.getStyle()));
@@ -1556,6 +1578,11 @@ public final class DataStyle extends DefaultHandler {
                             wayToleranceValue = strokeWidth;
                         }
                     }
+                }
+
+                String offsetString = atts.getValue(OFFSET_ATTR);
+                if (offsetString != null) {
+                    tempFeatureStyle.setOffset(Float.parseFloat(offsetString));
                 }
 
                 if (atts.getValue(TYPEFACESTYLE_ATTR) != null) {

@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 import static de.blau.android.osm.DelegatorUtil.toE7;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -38,5 +39,23 @@ public class GeometryTest {
 
         Node outside2 = factory.createNodeWithNewId(toE7(51.5017543D), toE7(-0.1422112D));
         assertFalse(Geometry.isInside(nodes, outside2));
+    }
+
+    /**
+     * Test offseting a geometry, the input data is rather trivial
+     */
+    @Test
+    public void offsetTest() {
+        float[] input = { -5f, 5f, 5f, 5f };
+        Geometry.offset(input, input.length, false, 1);
+        assertArrayEquals(new float[] { -5f, 4f, 5f, 4f }, input, 0.000001f);
+
+        float[] input2 = { -5f, -5f, 5f, 5f };
+        Geometry.offset(input2, input2.length, false, 1);
+        assertArrayEquals(new float[] { -4.2928934f, -5.7071066f, 5.7071066f, 4.2928934f }, input2, 0.000001f);
+
+        float[] input3 = { -5f, 5f, 5f, 5f, 5f, 5f, 5f, -5f, 5f, -5f, -5f, -5f, -5f, -5f, -5f, 5f };
+        Geometry.offset(input3, input3.length, true, 1);
+        assertArrayEquals(new float[] { -4f, 4f, 4f, 4f, 4f, 4f, 4f, -4f, 4f, -4f, -4f, -4f, -4f, -4f, -4f, 4f }, input3, 0.000001f);
     }
 }
