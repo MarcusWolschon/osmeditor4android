@@ -95,7 +95,7 @@ public class Map extends View implements IMapView {
     /** half the width/height of a node icon in px */
     private final int iconRadius;
 
-    private final ArrayList<BoundingBox> boundingBoxes = new ArrayList<>();
+    private final List<BoundingBox> boundingBoxes = new ArrayList<>();
 
     private Preferences prefs;
 
@@ -117,6 +117,8 @@ public class Map extends View implements IMapView {
      * The visible area in decimal-degree (WGS84) -space.
      */
     private ViewBox myViewBox;
+
+    private ViewBox clipBox = new ViewBox(); // used for clipping
 
     private StorageDelegator delegator;
 
@@ -559,6 +561,9 @@ public class Map extends View implements IMapView {
 
         zoomLevel = calcZoomLevel(canvas);
 
+        clipBox.set(myViewBox);
+        clipBox.scale(1.1);
+
         final Logic logic = App.getLogic();
         final Mode tmpDrawingEditMode = logic.getMode();
         tmpLocked = logic.isLocked();
@@ -969,14 +974,14 @@ public class Map extends View implements IMapView {
                     nextNode = nodes.get(i + 1);
                     nextNodeLat = nextNode.getLat();
                     nextNodeLon = nextNode.getLon();
-                    nextIntersects = box.isIntersectionPossible(nextNodeLon, nextNodeLat, nodeLon, nodeLat);
+                    nextIntersects = clipBox.isIntersectionPossible(nextNodeLon, nextNodeLat, nodeLon, nodeLat);
                 } else {
                     nextNode = null;
                 }
                 x = -Float.MAX_VALUE; // misuse this as a flag
                 if (!interrupted && prevNode != null) {
                     if (thisIntersects || nextIntersects || (!(nextNode != null && lastDrawnNode != null)
-                            || box.isIntersectionPossible(nextNodeLon, nextNodeLat, lastDrawnNodeLon, lastDrawnNodeLat))) {
+                            || clipBox.isIntersectionPossible(nextNodeLon, nextNodeLat, lastDrawnNodeLon, lastDrawnNodeLat))) {
                         x = GeoMath.lonE7ToX(w, box, nodeLon);
                         y = GeoMath.latE7ToY(h, w, box, nodeLat);
                         if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect

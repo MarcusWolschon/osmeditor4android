@@ -40,12 +40,12 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pools.SimplePool;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
+import de.blau.android.AsyncResult;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.Mode;
 import de.blau.android.R;
-import de.blau.android.AsyncResult;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.filter.Filter;
 import de.blau.android.layer.ConfigureInterface;
@@ -266,8 +266,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     /**
      * We just need one path object
      */
-    private final Path        path = new Path();
-    private final PathMeasure pm   = new PathMeasure();
+    private final Path        path       = new Path();
+    private final Path        casingPath = new Path();
+    private final PathMeasure pm         = new PathMeasure();
 
     private LongHashSet handles;
 
@@ -711,20 +712,22 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             addRing(ringRole, ring);
         }
 
-        path.reset();
-
         Paint paint = style.getPaint();
         boolean closeRings = paint.getStyle() != Paint.Style.STROKE;
 
         outerRings.addAll(innerRings);
         outerRings.addAll(unknownRings);
 
+        path.rewind();
         for (List<Node> r : outerRings) {
             map.pointListToLinePointsArray(points, r);
             float[] linePoints = points.getArray();
             int pointsSize = points.size();
+            if (style.getOffset() != 0f) {
+                Geometry.offset(linePoints, pointsSize, true, -style.getOffset());
+            }
             path.moveTo(linePoints[0], linePoints[1]);
-            for (int i = 0; i < pointsSize; i = i + 4) {
+            for (int i = 0; i < pointsSize; i += 4) {
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);
             }
             if (closeRings) {
@@ -1245,19 +1248,16 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             style = DataStyle.matchStyle(way);
         }
 
-        if (zoomLevel < style.getMinVisibleZoom() || style.dontRender()) {
-            return;
-        }
-
         boolean isSelected = tmpDrawingInEditRange // if we are not in editing range don't show selected way ... may be
                                                    // a better idea to do so
                 && tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(way);
         boolean isMemberOfSelectedRelation = tmpDrawingInEditRange && tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way);
 
-        if (style.dontRender() && !(isSelected || isMemberOfSelectedRelation)) {
-            return; // the way has already been rendered by something else
+        if (zoomLevel < style.getMinVisibleZoom() || (style.dontRender() && !(isSelected || isMemberOfSelectedRelation))) {
+            return;
         }
 
+        final boolean closed = way.isClosed();
         List<Node> nodes = way.getNodes();
         boolean reversed = false; // way arrows need to be drawn reversed if we reverse the direction of the way
         if (style.isArea() && winding(nodes) == COUNTERCLOCKWISE) {
@@ -1272,6 +1272,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
         float[] linePoints = points.getArray();
         int pointsSize = points.size();
+
+        if (style.getOffset() != 0f) {
+            Geometry.offset(linePoints, pointsSize, closed, -style.getOffset());
+        }
+
         Paint paint;
         FeatureStyle labelFontStyle = labelTextStyleNormal;
         FeatureStyle labelFontStyleSmall = labelTextStyleSmall;
@@ -1313,19 +1318,21 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
         // draw the way itself
         if (pointsSize > 2) {
-            path.rewind();
-            path.moveTo(linePoints[0], linePoints[1]);
-            for (int i = 0; i < pointsSize; i = i + 4) {
-                path.lineTo(linePoints[i + 2], linePoints[i + 3]);
-            }
+            setupPath(linePoints, pointsSize, path);
             FeatureStyle casingStyle = style.getCasingStyle();
             if (casingStyle != null) {
-                canvas.drawPath(path, casingStyle.getPaint());
+                if (casingStyle.getOffset() != 0f) {
+                    Geometry.offset(linePoints, pointsSize, closed, -casingStyle.getOffset());
+                    setupPath(linePoints, pointsSize, casingPath);
+                    canvas.drawPath(casingPath, casingStyle.getPaint());
+                } else {
+                    canvas.drawPath(path, casingStyle.getPaint());
+                }
             }
             canvas.drawPath(path, style.getPaint());
         }
 
-        if (way.isClosed()) {
+        if (closed) {
             // display icons on closed ways
             if (showIcons && showWayIcons && zoomLevel > showIconsLimit) {
                 int vs = pointsSize;
@@ -1398,6 +1405,22 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Setup a Path from a float array in drawLine format
+     * 
+     * @param linePoints the array
+     * @param pointsSize the number of elements in use
+     * @param path the Path
+     * 
+     */
+    private void setupPath(@NonNull float[] linePoints, int pointsSize, @NonNull Path path) {
+        path.rewind();
+        path.moveTo(linePoints[0], linePoints[1]);
+        for (int i = 0; i < pointsSize; i += 4) {
+            path.lineTo(linePoints[i + 2], linePoints[i + 3]);
         }
     }
 
