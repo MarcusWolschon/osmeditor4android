@@ -1,11 +1,8 @@
 package de.blau.android.propertyeditor;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -18,7 +15,6 @@ import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.view.KeyEvent;
-import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle.State;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -40,10 +36,6 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.Node;
-import de.blau.android.osm.Relation;
-import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.Tags;
-import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 
@@ -132,11 +124,12 @@ public class SaveResumeTest {
             try {
                 editText.click();
                 editText.setText(edited);
-                instrumentation.sendCharacterSync(KeyEvent.KEYCODE_TAB); // this seems to be necessary to guarantee things will be changed
+                instrumentation.sendCharacterSync(KeyEvent.KEYCODE_TAB); // this seems to be necessary to guarantee
+                                                                         // things will be changed
             } catch (UiObjectNotFoundException e) {
                 fail(e.getMessage());
             }
-            
+
             scenario.recreate();
 
             // check that we still have the change

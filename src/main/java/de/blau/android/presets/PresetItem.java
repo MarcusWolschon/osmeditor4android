@@ -1316,9 +1316,9 @@ public class PresetItem extends PresetElement {
         String mapFeatures = getMapFeatures();
         if (mapFeatures != null) {
             s.startTag("", Preset.LINK);
-            if (mapFeatures.startsWith(Urls.OSM_WIKI) || !mapFeatures.startsWith(Schemes.HTTP)) {
+            if (mapFeatures.startsWith(Urls.DEFAULT_OSM_WIKI) || !mapFeatures.startsWith(Schemes.HTTP)) {
                 // wiki might or might not be present
-                mapFeatures = mapFeatures.replace(Urls.OSM_WIKI, "").replace("wiki/", "");
+                mapFeatures = mapFeatures.replace(Urls.DEFAULT_OSM_WIKI, "").replace("wiki/", "");
                 s.attribute("", Preset.WIKI, mapFeatures);
             } else {
                 s.attribute("", Preset.HREF, mapFeatures);

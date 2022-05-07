@@ -33,13 +33,14 @@ public final class Urls {
     public static final String DEFAULT_MAPILLARY_IMAGES_V4        = "https://graph.mapillary.com/%s?access_token=%s&fields=thumb_2048_url,computed_geometry";
     public static final String DEFAULT_MAPILLARY_SEQUENCES_URL_V4 = "https://graph.mapillary.com/image_ids?sequence_id=%s&access_token=%s&fields=id";
 
+    public static final String DEFAULT_OSM_WIKI = "https://wiki.openstreetmap.org/";
+
     // currently not configurable
     public static final String WIKIPEDIA = "https://wikipedia.org/wiki/";
     public static final String WIKIDATA  = "https://wikidata.org/wiki/";
 
     public static final String OSM       = "https://openstreetmap.org";
     public static final String OSM_LOGIN = "https://www.openstreetmap.org/login";
-    public static final String OSM_WIKI  = "https://wiki.openstreetmap.org/";
 
     public static final String ELI          = "https://osmlab.github.io/editor-layer-index/imagery.geojson";
     public static final String JOSM_IMAGERY = "https://josm.openstreetmap.de/maps?format=geojson";
