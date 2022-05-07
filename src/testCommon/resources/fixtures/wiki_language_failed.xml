@@ -1,0 +1,10 @@
+<api batchcomplete="">
+    <query>
+        <normalized>
+            <n from="xx:Tag:highway=residential" to="Xx:Tag:highway=residential"/>
+        </normalized>
+        <pages>
+            <page _idx="-1" ns="0" title="Xx:Tag:highway=residential" missing="" contentmodel="wikitext" pagelanguage="en" pagelanguagehtmlcode="en" pagelanguagedir="ltr"/>
+        </pages>
+    </query>
+</api>

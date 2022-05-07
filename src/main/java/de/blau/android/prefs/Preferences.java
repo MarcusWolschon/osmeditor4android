@@ -68,6 +68,7 @@ public class Preferences {
     private final boolean     splitActionBarEnabled;
     private String            gpsSource;
     private final String      gpsTcpSource;
+    private final String      osmWiki;
     private String            offsetServer;
     private final String      osmoseServer;
     private final String      mapRouletteServer;
@@ -194,7 +195,8 @@ public class Preferences {
         gpsInterval = getIntPref(R.string.config_gps_interval_key, 1000);
 
         forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), false);
-
+        
+        osmWiki = prefs.getString(r.getString(R.string.config_osmWiki_key), Urls.DEFAULT_OSM_WIKI);
         offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), Urls.DEFAULT_OFFSET_SERVER);
         osmoseServer = prefs.getString(r.getString(R.string.config_osmoseServer_key), Urls.DEFAULT_OSMOSE_SERVER);
         mapRouletteServer = prefs.getString(r.getString(R.string.config_maprouletteServer_key), Urls.DEFAULT_MAPROULETTE_SERVER);
@@ -717,6 +719,16 @@ public class Preferences {
         return splitActionBarEnabled;
     }
 
+
+    /**
+     * Get the configured OSM wiki url
+     * 
+     * @return base url for the server
+     */
+    public String getOsmWiki() {
+        return osmWiki;
+    }
+    
     /**
      * Get the configured offset database server
      * 

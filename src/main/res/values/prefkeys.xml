@@ -42,6 +42,7 @@
     <string name="config_autoApplyPreset_key">autoApplyPreset</string>
     <string name="config_closeChangesetOnSave_key">closeChangesetOnSave</string>
     <string name="config_splitActionBarEnabled_key">splitActionBarEnabled</string>
+    <string name="config_osmWiki_key">osmWiki</string>
     <string name="config_offsetServer_key">offsetServer2</string>
     <string name="config_osmoseServer_key">osmoseServer2</string>
     <string name="config_maprouletteServer_key">maprouletteServer</string>

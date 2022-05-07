@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
@@ -16,15 +19,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.Logic;
-import de.blau.android.R;
-import de.blau.android.contract.Urls;
+import de.blau.android.contract.Schemes;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.util.ExecutorTask;
 
 public final class Wiki {
+    private static final String DEBUG_TAG = Wiki.class.getSimpleName();
 
-    private static final String DEBUG_TAG = "Wiki";
+    private static final String API_ATTR_MISSING = "missing";
+    private static final String API_ELEMENT_PAGE = "page";
+
+    private static final String MAP_FEATURES = "Map_Features";
+    private static final String DOUBLE_COLON = ":";
 
     /**
      * Private default constructor
@@ -36,29 +43,27 @@ public final class Wiki {
     /**
      * Check if a specific language - page combination exists on the OSM wiki
      * 
-     * @param activity the calling Activity
-     * @param prefs a Preferences object
+     * @param context an Android Context
+     * @param baseUrl the base url for the wiki
+     * @param parser an XmlPullParser instance
      * @param page the page name
      * @param language the language
      * @return true if the page could be found
-     * @throws IOException if ynthing goes wrong
+     * @throws IOException if anything goes wrong
      */
-    private static boolean checkLanguage(@NonNull final Activity activity, @NonNull final Preferences prefs, @NonNull String page, @NonNull String language)
-            throws IOException {
+    private static boolean checkLanguage(@NonNull final Context context, @NonNull String baseUrl, @NonNull final XmlPullParser parser, @NonNull String page,
+            @NonNull String language) throws IOException {
         // https://wiki.openstreetmap.org/w/api.php?action=query&titles=DE:Use_OpenStreetMap&prop=info&format=xml
         // see https://wiki.openstreetmap.org/w/api.php
-        String wikiApiUrl = Urls.OSM_WIKI + "w/api.php?action=query&prop=info&format=xml&titles=" + language.toUpperCase(Locale.US) + ":" + page;
-        try (InputStream is = Server.openConnection(activity, new URL(wikiApiUrl))) {
-            XmlPullParser parser = prefs.getServer().getXmlParser();
+        String wikiApiUrl = baseUrl + "w/api.php?action=query&prop=info&format=xml&titles=" + language.toUpperCase(Locale.US) + DOUBLE_COLON + page;
+        try (InputStream is = Server.openConnection(context, new URL(wikiApiUrl))) {
             parser.setInput(is, null);
             int eventType;
             while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
                 String tagName = parser.getName();
-                if (eventType == XmlPullParser.START_TAG && "page".equals(tagName)) {
-                    if (parser.getAttributeValue(null, "missing") != null) {
-                        Log.d(DEBUG_TAG, "displayMapFeatures " + language + ":" + page + " doesn't exist");
-                        return false;
-                    }
+                if (eventType == XmlPullParser.START_TAG && API_ELEMENT_PAGE.equals(tagName) && parser.getAttributeValue(null, API_ATTR_MISSING) != null) {
+                    Log.d(DEBUG_TAG, "displayMapFeatures " + language + DOUBLE_COLON + page + " doesn't exist");
+                    return false;
                 }
             }
         } catch (final IOException | XmlPullParserException iox) {
@@ -85,66 +90,92 @@ public final class Wiki {
     }
 
     /**
-     * Display the mapfeatures wiki page for a PresetItem
+     * Display the map features wiki page for a PresetItem
      * 
-     * @param activity the calling Android Activity
+     * If it finds a valid url it will cache it in the PresetItem
+     * 
+     * @param context the calling Android Activity
      * @param prefs a Preferences instance
      * @param p the PresetItem
      */
     @NonNull
-    public static void displayMapFeatures(@NonNull final Activity activity, @NonNull final Preferences prefs, @Nullable final PresetItem p) {
-        Uri uri = null;
+    public static void displayMapFeatures(@NonNull final Context context, @NonNull final Preferences prefs, @Nullable final PresetItem p) {
+        String url = null;
         if (p != null) {
-            String url = p.getMapFeatures();
-            if (url != null) {
-                if (!url.startsWith("http")) { // build full url from wiki page name, locale or language and check if it
-                                               // exists
-                    Logic logic = App.getLogic();
-                    new ExecutorTask<Void, Void, String>(logic.getExecutorService(), logic.getHandler()) {
-                        @Override
-                        protected String doInBackground(Void param) {
-                            try {
-                                Locale locale = Locale.getDefault();
-                                String l = mapLocale(locale);
-                                if (checkLanguage(activity, prefs, url, l)) {
-                                    return Urls.OSM_WIKI + l + ":" + url;
-                                } else {
-                                    l = locale.getLanguage().toUpperCase(Locale.US);
-                                    if (checkLanguage(activity, prefs, url, l)) {
-                                        return Urls.OSM_WIKI + l + ":" + url;
-                                    } else {
-                                        return Urls.OSM_WIKI + url;
-                                    }
-                                }
-                            } catch (IOException e) {
-                                return null;
-                            }
-                        }
-
-                        @Override
-                        protected void onPostExecute(String wikiUrl) {
-                            Uri uri;
-                            if (wikiUrl == null) {
-                                uri = Uri.parse(activity.getString(R.string.link_mapfeatures));
-                            } else {
-                                p.setMapFeatures(wikiUrl); // only check once if we have a result
-                                uri = Uri.parse(wikiUrl);
-                            }
-                            activity.startActivity(new Intent(Intent.ACTION_VIEW, uri));
-                        }
-                    }.execute();
-                    return;
-                }
-                try {
-                    uri = Uri.parse(url);
-                } catch (Exception ex) {
-                    Log.d(DEBUG_TAG, "Preset " + p.getName() + " has no/invalid map feature uri");
+            url = p.getMapFeatures();
+            if (url != null && !url.startsWith(Schemes.HTTP)) {
+                // build full url from wiki page name, locale or language and check if it exists
+                url = getUrl(context, prefs, url);
+                if (url != null) {
+                    p.setMapFeatures(url); // cache full url
                 }
             }
         }
-        if (uri == null) {
-            uri = Uri.parse(activity.getString(R.string.link_mapfeatures));
+        if (url == null) {
+            url = getUrl(context, prefs, MAP_FEATURES);
         }
-        activity.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+        if (url != null) {
+            try {
+                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            } catch (Exception ex) {
+                Log.d(DEBUG_TAG, url + " is a invalid map feature url");
+            }
+        }
+    }
+
+    /**
+     * Retrieve a valid url for a map features page
+     * 
+     * @param context an Android Context
+     * @param prefs a Preference instance
+     * @param path path for the page
+     * @return an url, if no page found this will fallback to the EN map features page
+     */
+    private static String getUrl(@NonNull final Context context, @NonNull final Preferences prefs, @NonNull String path) {
+        final Logic logic = App.getLogic();
+        final Locale locale = Locale.getDefault();
+        final Server server = prefs.getServer();
+        final String baseUrl = prefs.getOsmWiki();
+        ExecutorTask<String, Void, String> task = new ExecutorTask<String, Void, String>(logic.getExecutorService(), logic.getHandler()) {
+            @Override
+            protected String doInBackground(String path) {
+                try {
+                    String l = mapLocale(locale);
+                    if (checkLanguage(context, baseUrl, server.getXmlParser(), path, l)) {
+                        return toWikiUrl(baseUrl, path, l);
+                    } else {
+                        l = locale.getLanguage().toUpperCase(Locale.US);
+                        if (checkLanguage(context, baseUrl, server.getXmlParser(), path, l)) {
+                            return toWikiUrl(baseUrl, path, l);
+                        }
+                        return toWikiUrl(baseUrl, path, null);
+                    }
+                } catch (IOException | XmlPullParserException e) {
+                    Log.e(DEBUG_TAG, "getLangUrl " + e.getMessage());
+                }
+                return null;
+            }
+        };
+
+        task.execute(path);
+        try {
+            path = task.get(10, TimeUnit.SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR
+            Log.w(DEBUG_TAG, "Checking wiki url failed");
+        }
+        return path;
+    }
+
+    /**
+     * Create a wiki url
+     * 
+     * @param baseUrl the base url for the wiki
+     * @param path the path
+     * @param lang optional language string
+     * @return the full wiki Url
+     */
+    @NonNull
+    private static String toWikiUrl(@NonNull String baseUrl, @NonNull String path, @Nullable String lang) {
+        return baseUrl + (lang != null ? lang + DOUBLE_COLON : "") + path;
     }
 }
