@@ -941,7 +941,7 @@ public class Server {
      * @return a Changeset object
      */
     @Nullable
-    private Changeset getChangeset(long id) {
+    public Changeset getChangeset(long id) {
         Changeset result = null;
         try (Response response = openConnectionForAuthenticatedAccess(getChangesetUrl(changesetId), HTTP_GET, (RequestBody) null)) {
             checkResponseCode(response);

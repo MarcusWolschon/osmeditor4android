@@ -70,6 +70,7 @@ public class ApiTest {
     private static final String UPLOAD6_FIXTURE         = "upload6";
     private static final String UPLOAD5_FIXTURE         = "upload5";
     private static final String UPLOAD4_FIXTURE         = "upload4";
+    private static final String CHANGESET5_FIXTURE      = "changeset5";
     private static final String CHANGESET4_FIXTURE      = "changeset4";
     private static final String UPLOAD3_FIXTURE         = "upload3";
     private static final String CHANGESET3_FIXTURE      = "changeset3";
@@ -712,5 +713,19 @@ public class ApiTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+    }
+
+    /**
+     * Retrieve a changeset by id
+     */
+    @Test
+    public void getChangeset() {
+        mockServer.enqueue(CHANGESET5_FIXTURE);
+        final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
+        Changeset cs = s.getChangeset(1234567);
+        assertNotNull(cs);
+        assertEquals(120631739L, cs.osmId);
+        assertNotNull(cs.tags);
+        assertEquals("swisstopo SWISSIMAGE;Mapillary Images;KartaView Images", cs.tags.get("imagery_used"));
     }
 }
