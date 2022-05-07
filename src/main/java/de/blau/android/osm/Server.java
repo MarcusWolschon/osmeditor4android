@@ -873,7 +873,6 @@ public class Server {
      */
     public void openChangeset(boolean closeOpenChangeset, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
             @Nullable Map<String, String> extraTags) throws IOException {
-        long newChangesetId = -1;
 
         if (changesetId != -1) { // potentially still open, check if really the case
             Changeset cs = getChangeset(changesetId);
@@ -889,9 +888,8 @@ public class Server {
                     updateChangeset(changesetId, comment, source, imagery, extraTags);
                     return;
                 }
-            } else {
-                changesetId = -1;
             }
+            changesetId = -1;
         }
 
         final XmlSerializable xmlData = new Changeset(generator, comment, source, imagery, extraTags).tagsToXml();
@@ -908,15 +906,13 @@ public class Server {
         try (InputStream in = response.body().byteStream()) {
             String line = readLine(in);
             if (line != null) {
-                newChangesetId = Long.parseLong(line);
+                changesetId = Long.parseLong(line);
             } else {
                 throw new OsmServerException(-1, "Server returned no changeset id");
             }
         } catch (NumberFormatException e) {
             throw new OsmServerException(-1, "Server returned illegal changeset id " + e.getMessage());
         }
-
-        changesetId = newChangesetId;
     }
 
     /**
@@ -942,14 +938,13 @@ public class Server {
      */
     @Nullable
     public Changeset getChangeset(long id) {
-        Changeset result = null;
         try (Response response = openConnectionForAuthenticatedAccess(getChangesetUrl(changesetId), HTTP_GET, (RequestBody) null)) {
             checkResponseCode(response);
-            result = Changeset.parse(xmlParserFactory.newPullParser(), response.body().byteStream());
+            return Changeset.parse(xmlParserFactory.newPullParser(), response.body().byteStream());
         } catch (IOException | XmlPullParserException e) {
             Log.d(DEBUG_TAG, "getChangeset got " + e.getMessage());
         }
-        return result;
+        return null;
     }
 
     /**
@@ -960,9 +955,11 @@ public class Server {
      * @param source value for the source tag
      * @param imagery value for the imagery_used tag
      * @param extraTags Additional tags to add
+     * @return a Changeset object
      * @throws IOException on an IO issue
      */
-    private void updateChangeset(final long changesetId, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
+    @Nullable
+    public Changeset updateChangeset(final long changesetId, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
             @Nullable Map<String, String> extraTags) throws IOException {
         final XmlSerializable xmlData = new Changeset(generator, comment, source, imagery, extraTags).tagsToXml();
         RequestBody body = new XmlRequestBody() {
@@ -973,8 +970,11 @@ public class Server {
         };
         try (Response response = openConnectionForAuthenticatedAccess(getChangesetUrl(changesetId), HTTP_PUT, body)) {
             checkResponseCode(response);
-            // ignore response for now
+            return Changeset.parse(xmlParserFactory.newPullParser(), response.body().byteStream());
+        } catch (IOException | XmlPullParserException e) {
+            Log.d(DEBUG_TAG, "getChangeset got " + e.getMessage());
         }
+        return null;
     }
 
     /**
