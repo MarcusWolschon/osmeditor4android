@@ -40,10 +40,10 @@ import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
+import de.blau.android.AsyncResult;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
-import de.blau.android.AsyncResult;
 import de.blau.android.R;
 import de.blau.android.ShadowWorkManager;
 import de.blau.android.SignalUtils;
@@ -727,5 +727,73 @@ public class ApiTest {
         assertEquals(120631739L, cs.osmId);
         assertNotNull(cs.tags);
         assertEquals("swisstopo SWISSIMAGE;Mapillary Images;KartaView Images", cs.tags.get("imagery_used"));
+    }
+
+    /**
+     * Update a changeset
+     */
+    @Test
+    public void updateChangeset() {
+        mockServer.enqueue(CHANGESET5_FIXTURE);
+        final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
+        try {
+            Changeset cs = s.updateChangeset(1234567, "ignored", "ignored", "ignored", null);
+            assertNotNull(cs);
+            assertEquals(120631739L, cs.osmId);
+            assertNotNull(cs.tags);
+            assertEquals("swisstopo SWISSIMAGE;Mapillary Images;KartaView Images", cs.tags.get("imagery_used"));
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    /**
+     * open an existing changeset
+     */
+    @Test
+    public void openExistingChangeset() {
+        mockServer.enqueue(CHANGESET5_FIXTURE);
+        mockServer.enqueue(CHANGESET5_FIXTURE);
+        final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
+        s.setOpenChangeset(123456789);
+        try {
+            s.openChangeset(false, "ignored", "ignored", "ignored", null);
+            assertEquals(123456789, s.getOpenChangeset()); // still open
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        try {
+            mockServer.takeRequest();
+            RecordedRequest request = mockServer.takeRequest();
+            assertEquals("/api/0.6/changeset/123456789", request.getPath());
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    /**
+     * replace an existing changeset
+     */
+    @Test
+    public void replaceExistingChangeset() {
+        mockServer.enqueue(CHANGESET5_FIXTURE);
+        mockServer.enqueue(CLOSE_CHANGESET_FIXTURE);
+        mockServer.enqueue(CHANGESET1_FIXTURE);
+        final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
+        s.setOpenChangeset(123456789);
+        try {
+            s.openChangeset(true, "ignored", "ignored", "ignored", null);
+            assertEquals(1234567, s.getOpenChangeset()); // new id
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        try {
+            mockServer.takeRequest();
+            mockServer.takeRequest();
+            RecordedRequest request = mockServer.takeRequest();
+            assertEquals("/api/0.6/changeset/create", request.getPath());
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
     }
 }
