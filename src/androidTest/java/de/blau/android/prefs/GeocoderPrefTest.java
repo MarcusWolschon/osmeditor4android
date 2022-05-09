@@ -109,7 +109,6 @@ public class GeocoderPrefTest {
         }
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
         assertTrue(TestUtils.clickHome(device, true));
-        assertTrue(TestUtils.clickHome(device, true));
         try (AdvancedPrefDatabase prefDb = new AdvancedPrefDatabase(main)) {
             Geocoder[] geocoders = prefDb.getGeocoders();
             assertEquals(3, geocoders.length);
