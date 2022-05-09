@@ -144,6 +144,42 @@ public class WayTest {
     }
 
     /**
+     * Select, show info dialog, delete (check that nodes are deleted), undelete
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void splitAndMergeWay() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertEquals(104148456L, way.getOsmId());
+        Node splitNode = (Node) App.getDelegator().getOsmElement(Node.NAME, 1201766241L);
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_split), false, false));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_split), 1000));
+        TestUtils.clickAtCoordinates(device, map, splitNode.getLon(), splitNode.getLat());
+        assertTrue(TestUtils.textGone(device, context.getString(R.string.actionmode_wayselect), 5000));
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_join), false, false));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_join), 1000));
+        Node node = (Node) App.getDelegator().getOsmElement(Node.NAME, 635762221L);
+        TestUtils.clickAtCoordinates(device, map, node.getLon(), node.getLat());
+        assertTrue(TestUtils.textGone(device, context.getString(R.string.menu_join), 5000));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertTrue(way.hasNode(node));
+    }
+
+    /**
      * Select way, select way nodes
      */
     // @SdkSuppress(minSdkVersion = 26)
