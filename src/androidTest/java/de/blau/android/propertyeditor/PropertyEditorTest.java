@@ -112,6 +112,7 @@ public class PropertyEditorTest {
         device = UiDevice.getInstance(instrumentation);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+        TestUtils.unlock(device);
         TestUtils.stopEasyEdit(main);
     }
 
@@ -1071,6 +1072,129 @@ public class PropertyEditorTest {
         }
         TestUtils.clickHome(device, true);
         assertFalse(n.hasTag("", edited));
+    }
+
+    /**
+     * Copy tags paste to untagged node
+     */
+    @Test
+    public void tagCopyPaste1() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
+        assertNotNull(n);
+
+        main.performTagEdit(n, null, false, false);
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(propertyEditor instanceof PropertyEditor);
+        instrumentation.removeMonitor(monitor);
+        TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
+        assertTrue(TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/form_header_copy", false));
+        assertTrue(TestUtils.clickHome(device, true));
+        TestUtils.zoomToLevel(device, main, 21);
+        Node n2 = (Node) App.getDelegator().getOsmElement(Node.NAME, 2205498723L);
+        assertNotNull(n2);
+        TestUtils.clickAtCoordinates(device, main.getMap(), n2.getLon(), n2.getLat());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        Node node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertEquals(2205498723L, node.getOsmId());
+        assertTrue(TestUtils.clickOverflowButton(device));
+        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_paste_tags), false));
+        propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(TestUtils.findText(device, false, "Bergdietikon"));
+    }
+
+    /**
+     * Copy tags paste to untagged node
+     */
+    @Test
+    public void tagCopyPaste2() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
+        assertNotNull(n);
+
+        main.performTagEdit(n, null, false, false);
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(propertyEditor instanceof PropertyEditor);
+        instrumentation.removeMonitor(monitor);
+        TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
+        assertTrue(TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/form_header_copy", false));
+        assertTrue(TestUtils.clickHome(device, true));
+        TestUtils.zoomToLevel(device, main, 21);
+        Node n2 = (Node) App.getDelegator().getOsmElement(Node.NAME, 2205498723L);
+        assertNotNull(n2);
+        TestUtils.clickAtCoordinates(device, main.getMap(), n2.getLon(), n2.getLat());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        Node node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertEquals(2205498723L, node.getOsmId());
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, false));
+        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.tag_details), false));
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_paste), false, false));
+        assertTrue(TestUtils.clickHome(device, true));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        assertTrue(node.hasTag(Tags.KEY_NAME, "Bergdietikon"));
+    }
+
+    /**
+     * Cut tags paste to untagged node
+     */
+    @Test
+    public void tagCutPaste() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
+        assertNotNull(n);
+
+        main.performTagEdit(n, null, false, false);
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(propertyEditor instanceof PropertyEditor);
+        instrumentation.removeMonitor(monitor);
+        TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
+        assertTrue(TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/form_header_cut", false));
+        assertTrue(TestUtils.clickHome(device, true));
+        TestUtils.zoomToLevel(device, main, 21);
+        Node n2 = (Node) App.getDelegator().getOsmElement(Node.NAME, 2205498723L);
+        assertNotNull(n2);
+        TestUtils.clickAtCoordinates(device, main.getMap(), n2.getLon(), n2.getLat());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        Node node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        assertEquals(2205498723L, node.getOsmId());
+        assertTrue(TestUtils.clickOverflowButton(device));
+        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_paste_tags), false));
+        propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(TestUtils.findText(device, false, "Bergdietikon"));
+        assertFalse(n.hasTag(Tags.KEY_NAME, "BergDietikon"));
     }
 
     /**
