@@ -2186,16 +2186,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * Copy tags to internal and system clipboard
-     * 
-     * @param tags the tags
-     */
-    public void copyTags(@NonNull Map<String, String> tags) {
-        App.getTagClipboard(getContext()).copy(tags);
-        ClipboardUtils.copyTags(getActivity(), tags);
-    }
-
-    /**
      * reload original arguments
      */
     void doRevert() {
