@@ -1201,7 +1201,8 @@ public class PropertyEditorTest {
         assertEquals(2205498723L, node.getOsmId());
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, false));
         monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
-        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_paste), false, false));
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_paste_from_clipboard), false));
         assertTrue(TestUtils.clickHome(device, true));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         assertTrue(node.hasTag(Tags.KEY_NAME, "Bergdietikon"));
