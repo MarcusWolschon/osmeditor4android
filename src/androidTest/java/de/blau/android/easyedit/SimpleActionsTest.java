@@ -333,7 +333,9 @@ public class SimpleActionsTest {
         // new note mode
         TestUtils.clickAtCoordinates(device, map, 8.3890736, 47.3896628, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_newnoteselect)));
-        TestUtils.clickAtCoordinates(device, map, 8.3890736, 47.3896628, true);
+        TestUtils.drag(device, map,8.3890736, 47.3896628, 8.3893, 47.3899, true, 20);
+        
+        TestUtils.clickAtCoordinates(device, map, 8.3893, 47.3899, true);
         assertTrue(TestUtils.findText(device, false, "test"));
         assertTrue(TestUtils.clickText(device, true, context.getString(R.string.cancel), true, false));
     }
