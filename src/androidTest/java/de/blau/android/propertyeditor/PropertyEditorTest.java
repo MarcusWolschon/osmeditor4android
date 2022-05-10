@@ -982,7 +982,30 @@ public class PropertyEditorTest {
         assertNotNull(conditionalMaxSpeed);
         conditionalMaxSpeed.click();
         assertTrue(TestUtils.findText(device, false, "50 @"));
-        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/save", true);
+
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.tag_restriction_add_restriction), false));
+        UiObject editValue = TestUtils.findObjectWithResourceId(device, device.getCurrentPackageName() + ":id/editValue", 1);
+        try {
+            editValue.setText("30");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        UiObject condition0 = TestUtils.findObjectWithResourceId(device, device.getCurrentPackageName() + ":id/editCondition", 0);
+        try {
+            condition0.setText("maxweight>40");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.refresh), false));
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/save", true));
+        try {
+            conditionalMaxSpeed = getField(device, "Max speed @", 1);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        assertEquals("50 @ Mo-Fr 19:00-31:00,Sa,Su; 30 @ maxweight>40", conditionalMaxSpeed.getText());
     }
 
     /**
@@ -1157,7 +1180,7 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         assertTrue(node.hasTag(Tags.KEY_NAME, "Bergdietikon"));
     }
-    
+
     /**
      * Copy tags paste to untagged node
      */

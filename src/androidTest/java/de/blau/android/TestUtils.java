@@ -884,6 +884,21 @@ public final class TestUtils {
     }
 
     /**
+     * Find the nth instance of an object with a specific resource id
+     * 
+     * @param device the UiDevice object
+     * @param resourceId the resource id
+     * @param instance the instance (0 based)
+     * @return an UiObject
+     */
+    @NonNull
+    public static UiObject findObjectWithResourceId(@NonNull UiDevice device, @NonNull String resourceId, int instance) {
+        UiSelector uiSelector = null;
+        uiSelector = new UiSelector().resourceId(resourceId).instance(instance);
+        return device.findObject(uiSelector);
+    }
+
+    /**
      * Click "Home" button in Activity app bars
      * 
      * @param device UiDevice object
