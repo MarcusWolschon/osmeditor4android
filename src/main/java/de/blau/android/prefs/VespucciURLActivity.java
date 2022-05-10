@@ -187,12 +187,9 @@ public class VespucciURLActivity extends LocaleAwareCompatActivity implements On
 
             /**
              * Create a new instance
-             * 
-             * @param executorService the ExcutorService to use
-             * @param handler the Handler to use
              */
-            OAuthAccessTokenTask(@NonNull ExecutorService executorService, @NonNull Handler handler) {
-                super(executorService, handler);
+            OAuthAccessTokenTask() {
+                super();
             }
 
             @Override
@@ -228,7 +225,7 @@ public class VespucciURLActivity extends LocaleAwareCompatActivity implements On
         }
 
         Logic logic = App.getLogic();
-        OAuthAccessTokenTask requester = new OAuthAccessTokenTask(logic.getExecutorService(), logic.getHandler());
+        OAuthAccessTokenTask requester = new OAuthAccessTokenTask();
         requester.execute(verifier);
         try {
             if (Boolean.FALSE.equals(requester.get(60, TimeUnit.SECONDS))) {
