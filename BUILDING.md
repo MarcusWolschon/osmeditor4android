@@ -72,7 +72,7 @@ Synonyms are retrieved from the iD repository with the grade task ``updateSynony
 
 Automated testing has come relatively late to Vespucci, however we have made large advances in improving the coverage from 2017 onwards.
 
-Unit test coverage is 27%, overall test coverage is currently 68%.
+Unit test coverage is 27%, overall test coverage is currently 70%.
 
 In general if you are writing new tests that do not involve the UI use unit tests and if you need to mock parts of Android use roboelectric. These tests can be completed in far less time than the on device checks, and the unit tests will also be run as part of the CI pipeline.
 
@@ -81,7 +81,7 @@ On device tests need to be run with the emulator locale set to English and with 
 On an Intel based emulator the tests currently take something around 90 to 120 minutes to complete if run with the standard ``connectedCurrentDebugAndroidTest``.
 To make running individual tests simpler refreshing the gradle tasks (assuming there was a prior complete run of the tests with ``connectedCurrentDebugAndroidTest``) will create individual tasks for the tests, for the failed ones in the "failed tests" group, for successful ones in the "successful tests" group.
 
-For the on device tests the time to run the tests can be reduced substantially by running against multiple emulators with ``marathonCurrentDebugAndroidTest`` marathon can execute the tests sharded according to the configuration and retry failed tests. An additional bonus is that the test output is much easier to consume and understand. marathon will include a video of failed tests (we migrated from ``spoon`` to `` marathon`` for 16.1). For more information see [https://marathonlabs.github.io/marathon/](https://marathonlabs.github.io/marathon/). On a 20 core/174GB machine running 20 emulators this reduces the run time to between 10 and 15 minutes.
+For the on device tests the time to run the tests can be reduced substantially by running against multiple emulators with ``marathonCurrentDebugAndroidTest`` marathon can execute the tests sharded according to the configuration and retry failed tests. An additional bonus is that the test output is much easier to consume and understand. marathon will include a video of failed tests (we migrated from ``spoon`` to `` marathon`` for 16.1). For more information see [https://marathonlabs.github.io/marathon/](https://marathonlabs.github.io/marathon/). On a 20 core/174GB machine running 20 emulators this reduces the run time to between 15 and 20 minutes.
 
 __Important:__ currently marathon requires requesting and granting the MANAGE_EXTERNAL_STORAGE permission on Android 11 and higher to generate coverage output. A corresponding manifest files is located in src/debug/AndroidManifest.xml with the relevant element commented out. Using this however leads to tests not reflecting the conditions they would be run under in the production app, so you should consider running the tests without the permission during the actual testing and only request it once testing is completed to generate coverage stats.
 

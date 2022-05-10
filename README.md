@@ -1,4 +1,4 @@
-[![sonarcloud bugs](https://sonarcloud.io/api/project_badges/measure?project=osmeditor4android&metric=bugs)](https://sonarcloud.io/component_measures?id=osmeditor4android&metric=bugs) [![sonarcould maintainability](https://sonarcloud.io/api/project_badges/measure?project=osmeditor4android&metric=sqale_rating)](https://sonarcloud.io/component_measures?id=osmeditor4android&metric=Maintainability) [![sonarcloud security](https://sonarcloud.io/api/project_badges/measure?project=osmeditor4android&metric=security_rating)](https://sonarcloud.io/component_measures?id=osmeditor4android&metric=Security) [![sonarcloud reliability](https://sonarcloud.io/api/project_badges/measure?project=osmeditor4android&metric=reliability_rating)](https://sonarcloud.io/component_measures?id=osmeditor4android&metric=Reliability)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=osmeditor4android&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=osmeditor4android) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=osmeditor4android&metric=coverage)](https://sonarcloud.io/summary/new_code?id=osmeditor4android) [![sonarcloud bugs](https://sonarcloud.io/api/project_badges/measure?project=osmeditor4android&metric=bugs)](https://sonarcloud.io/component_measures?id=osmeditor4android&metric=bugs) [![sonarcould maintainability](https://sonarcloud.io/api/project_badges/measure?project=osmeditor4android&metric=sqale_rating)](https://sonarcloud.io/component_measures?id=osmeditor4android&metric=Maintainability) [![sonarcloud security](https://sonarcloud.io/api/project_badges/measure?project=osmeditor4android&metric=security_rating)](https://sonarcloud.io/component_measures?id=osmeditor4android&metric=Security) [![sonarcloud reliability](https://sonarcloud.io/api/project_badges/measure?project=osmeditor4android&metric=reliability_rating)](https://sonarcloud.io/component_measures?id=osmeditor4android&metric=Reliability)
 
 # Vespucci - An OpenStreetMap editor for Android
 
@@ -12,12 +12,12 @@ This is the first [OpenStreetMap][openstreetmap] editor for
 ## Contributing
 
 If you're interested in this project, you're welcome to help improving it. We
-need UI designers, [translators](TRANSLATIONS.md), and of course Java programmers. Join now! Join
-our [mailing list][mailinglist] or write to marcus@wolschon.biz.
+need UI designers, [translators](TRANSLATIONS.md), and of course Java programmers. 
+See the [build documentation](BUILDING.md) for more information.
 
 ## What is Vespucci?
 
-* An offline (once you have downloaded data) editor for OpenStreetMap
+* An on- and offline editor for OpenStreetMap
 * Runs on mobile devices using the Android platform
 * Functionality:
     * Create and edit new nodes and ways
@@ -25,13 +25,15 @@ our [mailing list][mailinglist] or write to marcus@wolschon.biz.
     * Append nodes to existing ways
     * Delete nodes
     * Create, edit and delete tags
-    * Edit relations and create new turn restrictions
+    * Edit relations and create new turn restrictions and routes
     * JOSM presets support
+    * Thematic mapping with no programming
     * Download and upload to OSM server
+    * Offline data support
     * Saving and reading of JOSM format OSM data files
     * Highlight objects with missing tags like unnamed roads
     * Highlight ways/nodes with TODOs or FIXMEs
-    * Highlight very old objects that are likely to be outdated
+    * Highlight very old objects that are likely to be out dated
     * Add, comment and close OSM Notes
     * Use a variety of background tile layers as reference
     * Show the user's GPS track with accuracy
