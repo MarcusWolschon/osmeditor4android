@@ -1,7 +1,6 @@
 package de.blau.android.prefs;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -10,7 +9,6 @@ import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,9 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import de.blau.android.App;
 import de.blau.android.Authorize;
-import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.net.OAuthHelper;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
