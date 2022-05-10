@@ -173,7 +173,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                     intent.setData(p.getRefUri(context));
                     getContext().startActivity(intent);
                 }
-            } catch (NumberFormatException | IOException e) {
+            } catch (NumberFormatException | IOException | IndexOutOfBoundsException e) {
                 Snack.toastTopError(context, context.getString(R.string.toast_error_accessing_photo, Integer.toString(index)));
             }
         }
@@ -300,11 +300,16 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            View itemView = mLayoutInflater.inflate(R.layout.photo_viewer_item, container, false);
-            SubsamplingScaleImageView view = itemView.findViewById(R.id.photoView);
-            loader.load(view, photoList.get(position));
-            container.addView(itemView);
-            return itemView;
+            try {
+                View itemView = mLayoutInflater.inflate(R.layout.photo_viewer_item, container, false);
+                SubsamplingScaleImageView view = itemView.findViewById(R.id.photoView);
+                loader.load(view, photoList.get(position));
+                container.addView(itemView);
+                return itemView;
+            } catch (IndexOutOfBoundsException e) {
+                Log.e(DEBUG_TAG, e.getMessage());
+                return null;
+            }
         }
 
         @Override
