@@ -231,7 +231,6 @@ public class VespucciURLActivity extends LocaleAwareCompatActivity implements On
             }
         }
 
-        Logic logic = App.getLogic();
         OAuthAccessTokenTask requester = new OAuthAccessTokenTask();
         requester.execute(verifier);
         try {
