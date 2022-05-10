@@ -1,5 +1,18 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.0.7:
+
+- Fix protect against IOBE in photo viewer
+- Fix protect against NPE when authorizing
+- Fix catch SecurityException when setting up layers
+- Fix adding of deprecated values to adapter
+- Fix suppress boundary relation rendering
+- Fix avoid issues merging structured tags
+- Add support for the dontrender attribute for ways
+- Update translation
+- Update preset
+- Update imagery from ELI
+
 17.0.6:
 
 - Fix alternative preset C&P errors
@@ -34,7 +47,7 @@
 - Update NSI
 - Update translations
 - Update imagery from ELI
-- Switch to acrarium as crsh dump store
+- Switch to acrarium as crash dump store
 
 17.0.3:
 
