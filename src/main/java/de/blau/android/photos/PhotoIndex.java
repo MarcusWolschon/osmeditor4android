@@ -193,8 +193,21 @@ public class PhotoIndex extends SQLiteOpenHelper {
                 Log.d(DEBUG_TAG, "MediaStore unchanged");
             }
         } finally {
-            SavingHelper.close(cursor);
+            close(cursor);
             SavingHelper.close(db);
+        }
+    }
+
+    /**
+     * Close a Cursor
+     * 
+     * Pre API 16 Cursor doesn't implement Closeable
+     * 
+     * @param cursor the Cursor
+     */
+    private void close(@Nullable Cursor cursor) {
+        if (cursor != null) {
+            cursor.close();
         }
     }
 
@@ -277,7 +290,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
                             scanDir(db, indir.getAbsolutePath(), lastScan);
                             updateSources(db, indir.getName(), null, System.currentTimeMillis());
                         } finally {
-                            SavingHelper.close(dbresult2);
+                            close(dbresult2);
                         }
                     } else {
                         Log.d(DEBUG_TAG, "Directory " + indir.getAbsolutePath() + " doesn't exist");
@@ -293,7 +306,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
             // Don't crash just report
             ACRAHelper.nocrashReport(ex, ex.getMessage());
         } finally {
-            SavingHelper.close(dbresult);
+            close(dbresult);
             SavingHelper.close(db);
         }
     }
@@ -475,7 +488,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
             Log.e(DEBUG_TAG, ex.getMessage());
             return true;
         } finally {
-            SavingHelper.close(dbresult);
+            close(dbresult);
         }
     }
 
@@ -544,7 +557,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
         } catch (Exception ex) {
             Log.e(DEBUG_TAG, ex.getMessage());
         } finally {
-            SavingHelper.close(dbresult);
+            close(dbresult);
         }
         return null;
     }
@@ -600,7 +613,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
             Log.e(DEBUG_TAG, "deletePhoto uri not found in database");
             return false;
         } finally {
-            SavingHelper.close(dbresult);
+            close(dbresult);
             SavingHelper.close(db);
         }
     }

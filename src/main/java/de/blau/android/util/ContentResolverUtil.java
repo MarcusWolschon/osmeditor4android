@@ -73,6 +73,8 @@ public final class ContentResolverUtil {
     /**
      * Try to determine the actual file path from a Document Uri
      * 
+     * This is only called if API >= 19
+     * 
      * @param context an Android Context
      * @param scheme the scheme of the Uri
      * @param uri the Uri
@@ -185,7 +187,7 @@ public final class ContentResolverUtil {
      * @return true if things seemed to work
      */
     public static boolean persistPermissions(@NonNull Context context, int intentFlags, @NonNull Uri uri) {
-        if ((intentFlags & Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION) != 0) {
+        if ((intentFlags & Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION) != 0) { // this will never be the case pre-API 19
             Log.d(DEBUG_TAG, "Persisting permissions for " + uri);
             try {
                 context.getContentResolver().takePersistableUriPermission(uri,
