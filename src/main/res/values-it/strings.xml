@@ -99,12 +99,12 @@
   <string name="upload_close_open_changeset_label">Prima chiudi il gruppo di modifiche aperto:</string>
   <string name="upload_close_changeset_label">Chiudi il gruppo di modifiche:</string>
   <string name="upload_request_review_label">Richiedi revisione:</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">Il commento non dovrebbe essere vuoto</string>
+  <string name="upload_validation_error_empty_source">La fonte dei dati non dovrebbe essere vuota</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">Descrizione</string>
   <string name="upload_gpx_tags_label">Etichette</string>
   <string name="upload_gpx_visibility_label">Visibilità</string>
-  <string name="upload_validation_error_empty_comment">Il commento non dovrebbe essere vuoto</string>
-  <string name="upload_validation_error_empty_source">La fonte dei dati non dovrebbe essere vuota</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nuova nota</string>
   <string name="openstreetbug_new_bug">Segnala problema</string>
@@ -404,6 +404,7 @@ evitato usando una fonte di dati offline.</string>
   <string name="default_channel_description">Canale di notifica predefinito</string>
   <string name="qa_channel_name">QA Vespucci</string>
   <string name="qa_channel_description">Canale di segnalazione QA per compiti e problemi ai dati</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_permission_denied">Permesso negato %1$s</string>
   <string name="toast_unable_to_persist_permissions">Impossibile rendere persistenti i permessi</string>
@@ -421,7 +422,6 @@ evitato usando una fonte di dati offline.</string>
   <string name="toast_save_failed">Impossibile salvare</string>
   <string name="toast_export_failed">Impossibile esportare</string>
   <string name="toast_export_success">Esportato su %1$s</string>
-  <string name="toast_preset_overwrote_tags">Nota - il predefinito ha sovrascritto una o più etichette</string>
   <string name="toast_merge_overwrote_tags">Nota - l\'operazione ha sovrascritto una o più etichette</string>
   <string name="toast_cant_autoapply_preset">Questo predefinito non può essere applicato automaticamente</string>
   <string name="toast_oneway_reversed">Hai invertito una strada a senso unico o una strada con tag dipendenti dalla direzione. Per favore controlla i tag e correggili se necessario.</string>
@@ -436,6 +436,7 @@ evitato usando una fonte di dati offline.</string>
   <string name="toast_photo_indexing_started">È iniziata la ricerca per le foto geo-referenziate</string>
   <string name="toast_photo_indexing_finished">È terminata la ricerca delle foto geo-referenziate</string>
   <string name="toast_download_failed">Scaricamento fallito con codice di errore %1$d, messaggio %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">Strada non verificata</string>
   <string name="toast_noname">Mancano i valori nome e ref per la strada</string>
   <string name="toast_notype">Manca il tag \"relation\" per questa relazione</string>
@@ -1011,9 +1012,7 @@ evitato usando una fonte di dati offline.</string>
   <string name="config_uploadOk_summary">Limite massimo del numero di oggetti in attesa di essere caricati considerato OK</string>
   <string name="config_upload_current">%1$d oggetti</string>
   <string name="config_uploadWarn_title">Avviso di caricamenti pendenti</string>
-  <string name="config_uploadWarn_summary">Limite sotto il quale il caricamento degli elementi pendenti avrà un allerta di stato</string>
   <string name="config_dataWarn_title">Avviso di troppi dati</string>
-  <string name="config_dataWarn_summary">Limite (nel numero di nodi) in cui iniziamo ad avvisarti che troppi dati sono da caricare</string>
   <string name="config_useUrlForFeedback_title">Disabilita feedback sull’attività</string>
   <string name="config_useUrlForFeedback_summary">Disabilita il feedback dell’attività e usa un URL al suo posto.</string>
   <string name="config_beepVolume_title">Volume ‘beep’</string>
@@ -1268,7 +1267,7 @@ evitato usando una fonte di dati offline.</string>
   <string name="bridge">Ponte</string>
   <string name="tunnel">Tunnel</string>
   <string name="culvert">Canale sotterraneo</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <string name="issue_not_reversable">Etichette non invertibili</string>
   <string name="issue_shared_node">Condiviso con un altro percorso</string>
   <string name="issue_tags_reversed">Etichette invertite</string>
@@ -1312,4 +1311,5 @@ evitato usando una fonte di dati offline.</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">Vai</string>
   <string name="bookmarkstitle">Segnalibri</string>
+  <!--Element types-->
 </resources>

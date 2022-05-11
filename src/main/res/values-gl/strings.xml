@@ -93,12 +93,12 @@
   <string name="upload_close_open_changeset_label">Pecha primeiro o conxunto de modificacións aberto:</string>
   <string name="upload_close_changeset_label">Pechar conxunto de modificacións:</string>
   <string name="upload_request_review_label">Pedir para revisión:</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">O comentario non debe ficar baleiro</string>
+  <string name="upload_validation_error_empty_source">A fonte non debe ficar baleira</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">Descrición</string>
   <string name="upload_gpx_tags_label">Etiquetas</string>
   <string name="upload_gpx_visibility_label">Visibilidade</string>
-  <string name="upload_validation_error_empty_comment">O comentario non debe ficar baleiro</string>
-  <string name="upload_validation_error_empty_source">A fonte non debe ficar baleira</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nova nota</string>
   <string name="openstreetbug_new_bug">Informar dun problema</string>
@@ -346,6 +346,7 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="default_channel_description">Canle de notificación predeterminada</string>
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">Canle de cuestións e respostas para problemas cos datos e tarefas</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_permission_denied">Permiso denegado %1$s</string>
   <string name="toast_name_empty">Escolle un nome</string>
@@ -361,7 +362,6 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="toast_save_failed">Non foi posíbel gardar</string>
   <string name="toast_export_failed">Non foi posíbel exportar</string>
   <string name="toast_export_success">Exportado a %1$s</string>
-  <string name="toast_preset_overwrote_tags">Nota - etiqueta(s) sobrescrita(s) do(s) predefinido(s)</string>
   <string name="toast_merge_overwrote_tags">Nota - operación sobreescritas etiqueta(s)</string>
   <string name="toast_oneway_reversed">Inverteches unha rúa de sentido único ou unha vía con etiquetas que dependen da dirección. Por favor, comproba as etiquetas e corríxeas se é necesario.</string>
   <string name="toast_potential_merge_tag_conflict">Estás a tentar unir elementos que teñen valores de etiquetas en conflito.\n\nPor favor verifica as etiquetas e corríxaas antes de tentar de novo.</string>
@@ -375,6 +375,7 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="toast_photo_indexing_started">Iniciar dixitalización xeo referenciada de imaxes</string>
   <string name="toast_photo_indexing_finished">Dixitalización rematada para xeo referenciado de imaxes</string>
   <string name="toast_download_failed">A baixada non vai con código de erro  %1$d, mensaxe %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">Estrada non medida</string>
   <string name="toast_noname">Falla o nome ou a referencia na estrada</string>
   <string name="toast_notype">Falla o tipo na relación</string>
@@ -930,7 +931,7 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="bridge">Ponte</string>
   <string name="tunnel">Túnel</string>
   <string name="culvert">Alcantarilla</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 día</item>
@@ -959,4 +960,5 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <!--Help system-->
   <string name="toast_nohelp">Non hai axuda aquí.</string>
   <!--Bookmarks-->
+  <!--Element types-->
 </resources>

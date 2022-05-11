@@ -90,12 +90,12 @@
   <string name="upload_source_label">Origen:</string>
   <string name="upload_close_changeset_label">Tanca el conjunt de canvis:</string>
   <string name="upload_request_review_label">Sol·licitud de revisió: </string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">El comentari no hauria de ser buit .</string>
+  <string name="upload_validation_error_empty_source">La font no hauria de ser buida. </string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">Descripció</string>
   <string name="upload_gpx_tags_label">Etiquetes</string>
   <string name="upload_gpx_visibility_label">Visibilitat</string>
-  <string name="upload_validation_error_empty_comment">El comentari no hauria de ser buit .</string>
-  <string name="upload_validation_error_empty_source">La font no hauria de ser buida. </string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nota nova</string>
   <string name="openstreetbug_new_bug">Informar d\'un problema</string>
@@ -311,6 +311,7 @@
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
   <string name="qa_channel_name">Vespucci QA</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_name_empty">Trieu un nom</string>
   <string name="toast_url_empty">Introduïu un URL</string>
@@ -325,7 +326,6 @@
   <string name="toast_save_failed">No s\'ha pogut desar</string>
   <string name="toast_export_failed">No s\'ha pogut exportar</string>
   <string name="toast_export_success">S\'ha exportat a %1$s</string>
-  <string name="toast_preset_overwrote_tags">Nota: les predefinicions sobreescriuen les etiquetes</string>
   <string name="toast_oneway_reversed">Has invertit l\'orientació d\'un carrer o una via amb etiquetes direccionals. Comprova les etiquetes i corregeix-les si cal.</string>
   <string name="toast_potential_merge_tag_conflict">Intentes fusionar elements amb valors d’etiquetes conflictius.\n\nComprova les etiquetes i corregeix-les abans de tornar-ho a provar.</string>
   <string name="toast_state_file_failed">Fitxer no vàlid o corromput.</string>
@@ -338,6 +338,7 @@
   <string name="toast_photo_indexing_started">Comença l\'escaneig de fotos geo-referenciades</string>
   <string name="toast_photo_indexing_finished">Acaba l\'escaneig de fotos geo-referenciades</string>
   <string name="toast_download_failed">Baixada fallida amb codi d\'error %1$d, missatge %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">Carretera no revisada</string>
   <string name="toast_noname">Manca el nom o la referència a la carretera</string>
   <string name="toast_notype">Manca el tipus de relació</string>
@@ -776,7 +777,7 @@
   <!--Things-->
   <string name="bridge">Pont</string>
   <string name="tunnel">Túnel</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 dia</item>
@@ -805,4 +806,5 @@
   <!--Help system-->
   <string name="toast_nohelp">No hi ha cap ajuda.</string>
   <!--Bookmarks-->
+  <!--Element types-->
 </resources>

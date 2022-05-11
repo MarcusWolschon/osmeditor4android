@@ -70,4 +70,10 @@
         <item>Fehlerhafte URL</item>
         <item>Ungültiges Argument</item>
     </string-array>
- </resources>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>Keine Grossschreibung</item>
+        <item>Grossschreibung aller Wörter</item>
+        <item>Grossschreibung vom Satzanfang</item>
+    </string-array>
+    </resources>

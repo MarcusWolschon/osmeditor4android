@@ -82,12 +82,12 @@
   <string name="upload_close_open_changeset_label">Stäng öppna ändringsuppsättning först:</string>
   <string name="upload_close_changeset_label">Stäng ändringsuppsättning:</string>
   <string name="upload_request_review_label">Begär granskning:</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">Kommentar bör inte vara tom</string>
+  <string name="upload_validation_error_empty_source">Källa bör inte vara tom</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">Beskrivning</string>
   <string name="upload_gpx_tags_label">Etiketter</string>
   <string name="upload_gpx_visibility_label">Synlighet</string>
-  <string name="upload_validation_error_empty_comment">Kommentar bör inte vara tom</string>
-  <string name="upload_validation_error_empty_source">Källa bör inte vara tom</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Ny anteckning</string>
   <string name="openstreetbug_new_bug">Rapportera problem</string>
@@ -315,6 +315,7 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_url_empty">Ange en webbadress</string>
   <string name="toast_no_changes">Du har inte ändrat på något ännu...</string>
@@ -327,7 +328,6 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="toast_save_failed">Kunde inte spara</string>
   <string name="toast_export_failed">Kunde inte exportera</string>
   <string name="toast_export_success">Exporterade till %1$s</string>
-  <string name="toast_preset_overwrote_tags">Obs - förinställd skrev över tagg(ar)</string>
   <string name="toast_potential_merge_tag_conflict">Du försöker sammanfoga element med motstridiga taggvärden.\n\nVänligen kontrollera taggarna och korrigera dem innan du försöker igen.</string>
   <string name="toast_state_file_failed">Icke läsbar eller korrupt statusfil</string>
   <string name="toast_way_nodes_moved">%1$d noder i flyttad väg</string>
@@ -336,6 +336,7 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
     <item quantity="other">Du har %1$d olästa OSM-meddelanden</item>
   </plurals>
   <string name="read_mail">Läs</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">Oklassificerad väg</string>
   <!---->
   <string name="toast_oauth_handshake_failed">Kunde inte utföra OAuth-handslag: %1$s</string>
@@ -848,7 +849,7 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="bridge">Brygga</string>
   <string name="tunnel">Tunnel</string>
   <string name="culvert">Kulvert</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <string name="issue_tags_reversed">Taggar omvända</string>
   <string name="issue_role_reversed">Roll omvänd</string>
   <string name="issue_role_conflict">Roll konflikt</string>
@@ -886,4 +887,5 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <!--Bookmarks-->
   <string name="bookmarks_desc">Lägg till kommentarer</string>
   <string name="gotobookmark">Gå</string>
+  <!--Element types-->
 </resources>

@@ -98,12 +98,12 @@
   <string name="upload_close_open_changeset_label">Önce açık değişim kümesini kapat:</string>
   <string name="upload_close_changeset_label">Değişim  kümesini kapat:</string>
   <string name="upload_request_review_label">Gözden geçirme talep et:</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">Yorum boş olmamalıdır</string>
+  <string name="upload_validation_error_empty_source">Kaynak boş olmamalıdır</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">Açıklama</string>
   <string name="upload_gpx_tags_label">Yaftalar</string>
   <string name="upload_gpx_visibility_label">Görünürlük</string>
-  <string name="upload_validation_error_empty_comment">Yorum boş olmamalıdır</string>
-  <string name="upload_validation_error_empty_source">Kaynak boş olmamalıdır</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Yeni not</string>
   <string name="openstreetbug_new_bug">Sorun bildir</string>
@@ -389,6 +389,7 @@
   <string name="default_channel_description">Varsayılan bildirim kanalı</string>
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">Veri problemleri ve görevleri için QA uyarı kanalı</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_permission_denied">İzin reddedildi %1$s</string>
   <string name="toast_unable_to_persist_permissions">İzinler kalıcı olamıyor</string>
@@ -406,7 +407,6 @@
   <string name="toast_save_failed">Kaydedilemedi</string>
   <string name="toast_export_failed">Dışa aktarılamadı</string>
   <string name="toast_export_success">%1$s aktarıldı</string>
-  <string name="toast_preset_overwrote_tags">Not - önceden üzerinde yazan etiket(ler)</string>
   <string name="toast_merge_overwrote_tags">Not - işletim üzerinde yazan etiket(ler)</string>
   <string name="toast_cant_autoapply_preset">Bu ön ayar otomatik olarak uygulanamaz
 </string>
@@ -422,6 +422,7 @@
   <string name="toast_photo_indexing_started">Jeo-referanslı fotoğraf taraması başladı</string>
   <string name="toast_photo_indexing_finished">Jeo-referanslı fotoğraf taraması bitti</string>
   <string name="toast_download_failed">İndirme başarısız hata kodu %1$d, mesaj %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">Keşfedilmemiş yol</string>
   <string name="toast_noname">Yolun adı veya referansı yok</string>
   <string name="toast_notype">İlişkinin tipi eksik</string>
@@ -976,9 +977,7 @@
   <string name="config_uploadOk_summary">Bekleyen nesne yüklemelerinin Tamam olarak kabul edileceği sınırın altında</string>
   <string name="config_upload_current">%1$dnesneN</string>
   <string name="config_uploadWarn_title">Yükleme uyarısı bekleniyor</string>
-  <string name="config_uploadWarn_summary">Bekleyen nesne yüklemelerinin uyarı durumuna sahip olacağı alt sınır</string>
   <string name="config_dataWarn_title">Çok fazla veri uyarısı</string>
-  <string name="config_dataWarn_summary">Çok fazla veri yüklenmesiyle ilgili uyarıya başladığımız sınır (Düğüm sayısı olarak)</string>
   <string name="config_useUrlForFeedback_title">Geri bildirim etkinliğini devre dışı bırakın</string>
   <string name="config_useUrlForFeedback_summary">Geri bildirim etkinliğini devre dışı bırakın ve bunun yerine bir URL kullanın.</string>
   <string name="config_beepVolume_title">Bip sesi seviyesi</string>
@@ -1220,7 +1219,7 @@
   <string name="bridge">Köprü</string>
   <string name="tunnel">Tünel</string>
   <string name="culvert">Su yolu</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <string name="issue_not_reversable">Etiketler tersine çevrilemez.</string>
   <string name="issue_shared_node">Diğer yollar ile paylaşılan</string>
   <string name="issue_tags_reversed">Etiket tersine çevrildi.</string>
@@ -1258,4 +1257,5 @@
   <!--Help system-->
   <string name="toast_nohelp">Burada yardım yok</string>
   <!--Bookmarks-->
+  <!--Element types-->
 </resources>

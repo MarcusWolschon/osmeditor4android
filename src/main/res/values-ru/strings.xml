@@ -101,12 +101,12 @@
   <string name="upload_close_open_changeset_label">Сначала закройте пакет правок:</string>
   <string name="upload_close_changeset_label">Закрыть набор изменений:</string>
   <string name="upload_request_review_label">Проверить мои изменения:</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">Комментарий не должен быть пустым</string>
+  <string name="upload_validation_error_empty_source">Источник не должен быть пустым</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">Описание</string>
   <string name="upload_gpx_tags_label">Теги</string>
   <string name="upload_gpx_visibility_label">Видимость</string>
-  <string name="upload_validation_error_empty_comment">Комментарий не должен быть пустым</string>
-  <string name="upload_validation_error_empty_source">Источник не должен быть пустым</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Новая заметка</string>
   <string name="openstreetbug_new_bug">Сообщить об ошибке</string>
@@ -115,6 +115,7 @@
   <string name="openstreetbug_edit_title">Изменить заметку</string>
   <string name="openstreetbug_comment_label">Комментарий:</string>
   <string name="openstreetbug_commit_ok">Изменения сохранены</string>
+  <string name="openstreetbug_commit_fail">Не удалось сохранить изменения задачи</string>
   <string name="openstreetbug_unknown_task_type">Неизвестный тип задачи</string>
   <string name="openstreetbug_not_supported">%1$s не поддерживается.</string>
   <string name="note_description">Заметка: %1$s - %2$s</string>
@@ -402,6 +403,7 @@
   <string name="default_channel_description">Канал уведомлений по умолчанию</string>
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">Канал Vespucci для ошибок</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_permission_denied">Отказано в доступе: %1$s</string>
   <string name="toast_unable_to_persist_permissions">Невозможно сохранить разрешения</string>
@@ -419,7 +421,6 @@
   <string name="toast_save_failed">Не удалось сохранить</string>
   <string name="toast_export_failed">Сбой экспорта</string>
   <string name="toast_export_success">Экспортировано на %1$s</string>
-  <string name="toast_preset_overwrote_tags">Внимание: заготовка перезаписала тег(и)</string>
   <string name="toast_merge_overwrote_tags">Внимание: операция перезаписала тег(и)</string>
   <string name="toast_cant_autoapply_preset">Эта заготовка не может быть применена автоматически</string>
   <string name="toast_oneway_reversed">Вы изменили направление односторонней улицы или линии с тегами, зависимыми от направления. Пожалуйста, проверьте теги и скорректируйте их, если необходимо.</string>
@@ -436,6 +437,7 @@
   <string name="toast_photo_indexing_started">Начато сканирование гео-привязанных фото</string>
   <string name="toast_photo_indexing_finished">Завершено сканирование гео-привязанных фото</string>
   <string name="toast_download_failed">Загрузка прервана, код ошибки: %1$d, сообщение: %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">Необследованная дорога</string>
   <string name="toast_noname">У дороги нет ни имени, ни индекса</string>
   <string name="toast_notype">У отношения нет типа</string>
@@ -839,6 +841,7 @@
   <string name="menu_layers_load_geojson">Добавить слой GeoJSON</string>
   <string name="menu_layers_add_backgroundlayer">Добавить слой фоновых аэроснимков</string>
   <string name="menu_layers_add_overlaylayer">Добавить слой изображений поверх фона карты</string>
+  <string name="menu_layers_add_tasklayer">Включить слой задач</string>
   <string name="menu_layers_add_photolayer">Показать фото с устройства</string>
   <string name="menu_layers_enable_mapillary_layer">Показать слой Mapillary</string>
   <string name="menu_layers_configure">Настройка...</string>
@@ -995,9 +998,7 @@
   <string name="config_uploadOk_summary">Ограничение количества объектов для загрузки на сервер, не вызывающее сообщений</string>
   <string name="config_upload_current">%1$d объектов</string>
   <string name="config_uploadWarn_title">Много данных для выгрузки</string>
-  <string name="config_uploadWarn_summary">Ограничение количества объектов для загрузки на сервер, вызывающее сообщение о большом количестве данных</string>
   <string name="config_dataWarn_title">Слишком много данных для выгрузки</string>
-  <string name="config_dataWarn_summary">Ограничение количества точек для загрузки, вызывающее сообщение о слишком большом количестве загружаемых данных</string>
   <string name="config_useUrlForFeedback_title">Отключить встроенную форму обратной связи</string>
   <string name="config_useUrlForFeedback_summary">Отключить встроенную форму обратной связи и открывать ссылку на сайт</string>
   <string name="config_beepVolume_title">Громкость звукового сигнала</string>
@@ -1244,7 +1245,7 @@
   <string name="bridge">Мост</string>
   <string name="tunnel">Тоннель</string>
   <string name="culvert">Водопропускная труба</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <string name="issue_merged_tags">Объединенные теги</string>
   <!--time and distance-->
   <plurals name="days">
@@ -1290,4 +1291,5 @@
   <string name="bookmarks_desc">Добавить комментарии</string>
   <string name="show_bookmarks">Закладки...</string>
   <string name="bookmarkstitle">Закладки</string>
+  <!--Element types-->
 </resources>

@@ -98,12 +98,12 @@
   <string name="upload_close_open_changeset_label">先关闭打开的变更集：</string>
   <string name="upload_close_changeset_label">关闭变更集:</string>
   <string name="upload_request_review_label">请求复核：</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">注释不应该留空</string>
+  <string name="upload_validation_error_empty_source">来源不应留空</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">描述</string>
   <string name="upload_gpx_tags_label">标签</string>
   <string name="upload_gpx_visibility_label">可见性</string>
-  <string name="upload_validation_error_empty_comment">注释不应该留空</string>
-  <string name="upload_validation_error_empty_source">来源不应留空</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">新的标注</string>
   <string name="openstreetbug_new_bug">反馈问题</string>
@@ -406,6 +406,7 @@
   <string name="default_channel_description">默认通知频道</string>
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">数据问题和任务的 QA 警告频道</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_permission_denied">没有权限 %1$s</string>
   <string name="toast_unable_to_persist_permissions">无法保留权限</string>
@@ -423,7 +424,6 @@
   <string name="toast_save_failed">无法保存</string>
   <string name="toast_export_failed">无法导出</string>
   <string name="toast_export_success">已导出%1$s</string>
-  <string name="toast_preset_overwrote_tags">注意 - 预设将覆盖标签</string>
   <string name="toast_merge_overwrote_tags">注意 - 操作将覆盖标签</string>
   <string name="toast_cant_autoapply_preset">这个预设不能自动应用</string>
   <string name="toast_oneway_reversed">您已反转单行道或有依赖方向的标签的路径。请检查标签并按需修正。</string>
@@ -437,6 +437,7 @@
   <string name="toast_photo_indexing_started">开始扫描地理参考图片</string>
   <string name="toast_photo_indexing_finished">扫描地理参考图片完成</string>
   <string name="toast_download_failed">下载失败，错误代码是%1$d，信息为%2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">未调查的路</string>
   <string name="toast_noname">道路缺少名称或编号</string>
   <string name="toast_notype">关系缺少类型</string>
@@ -1010,7 +1011,6 @@
   <string name="config_uploadOk_title">待上传确定</string>
   <string name="config_upload_current">%1$d 对象</string>
   <string name="config_dataWarn_title">数据过多警告</string>
-  <string name="config_dataWarn_summary">超过此限制（节点数）将开始警告加载的数据过多</string>
   <string name="config_useUrlForFeedback_title">禁用反馈页面</string>
   <string name="config_useUrlForFeedback_summary">禁用反馈页面，使用 URL 替代。</string>
   <string name="config_beepVolume_title">蜂鸣声音量</string>
@@ -1266,7 +1266,7 @@
   <string name="bridge">桥</string>
   <string name="tunnel">隧道</string>
   <string name="culvert">涵洞</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <string name="issue_not_reversable">无法反转的标签</string>
   <string name="issue_shared_node">与其他路径共享</string>
   <string name="issue_tags_reversed">标签已反转</string>
@@ -1304,4 +1304,5 @@
   <string name="_dots">⋮</string>
   <string name="gotobookmark">Go</string>
   <string name="bookmarkstitle">书签</string>
+  <!--Element types-->
 </resources>

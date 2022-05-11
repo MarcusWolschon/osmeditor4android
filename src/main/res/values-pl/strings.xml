@@ -100,12 +100,12 @@
   <string name="upload_close_open_changeset_label">Najpierw zamknij otwarty zestaw zmian:</string>
   <string name="upload_close_changeset_label">Zamknij zestaw zmian:</string>
   <string name="upload_request_review_label">Poproś o przejrzenie:</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">Komentarz nie może być pusty</string>
+  <string name="upload_validation_error_empty_source">Żródło nie powinno być puste</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">Opis</string>
   <string name="upload_gpx_tags_label">Znaczniki</string>
   <string name="upload_gpx_visibility_label">Widoczność</string>
-  <string name="upload_validation_error_empty_comment">Komentarz nie może być pusty</string>
-  <string name="upload_validation_error_empty_source">Żródło nie powinno być puste</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nowa uwaga</string>
   <string name="openstreetbug_new_bug">Zgłoś problem</string>
@@ -387,6 +387,7 @@
   <string name="default_channel_description">Domyślny kanał powiadomień</string>
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">Kanał alarmów QA dla problemów z danymi i zadaniami</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_permission_denied">Odmowa przyzwolenia %1$s</string>
   <string name="toast_unable_to_persist_permissions">Nie można zapisać uprawnień</string>
@@ -403,7 +404,6 @@
   <string name="toast_save_failed">Nie można zapisać</string>
   <string name="toast_export_failed">Nie można eksportować</string>
   <string name="toast_export_success">Wyeksportowano do %1$s</string>
-  <string name="toast_preset_overwrote_tags">Uwaga – szablon zmienił znacznik(i)</string>
   <string name="toast_merge_overwrote_tags">Uwaga – czynność zmieniła znacznik(i)</string>
   <string name="toast_cant_autoapply_preset">Tego szablonu nie można zastosować automatycznie</string>
   <string name="toast_oneway_reversed">Odwrócono kierunek drogi jednokierunkowej lub drogi z kierunkiem zależnym od znaczników. Sprawdź znaczniki i popraw je w razie potrzeby.</string>
@@ -420,6 +420,7 @@
   <string name="toast_photo_indexing_started">Rozpoczęto skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_photo_indexing_finished">Zakończono skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_download_failed">Nie udało się pobrać. Kod błędu %1$d, wiadomość %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">Niezidentyfikowana droga</string>
   <string name="toast_noname">Droga nie ma nazwy ani numeru</string>
   <string name="toast_notype">Relacja nie ma rodzaju</string>
@@ -1188,7 +1189,7 @@
   <string name="bridge">Most</string>
   <string name="tunnel">Tunel</string>
   <string name="culvert">Przepust</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <string name="issue_role_conflict">Konflikt ról</string>
   <string name="issue_merged_tags">Znaczniki scalone</string>
   <string name="issue_same_object">Ten sam obiekt</string>
@@ -1232,4 +1233,5 @@
   <!--Help system-->
   <string name="toast_nohelp">Brak tutaj pomocy.</string>
   <!--Bookmarks-->
+  <!--Element types-->
 </resources>

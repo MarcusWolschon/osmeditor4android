@@ -90,12 +90,12 @@
   <string name="upload_source_label">Fonte:</string>
   <string name="upload_close_changeset_label">Fechar o conjunto de alterações:</string>
   <string name="upload_request_review_label">Pedir para reverem:</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">O comentário não deve estar em branco</string>
+  <string name="upload_validation_error_empty_source">A fonte não deve estar em branco</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">Descrição</string>
   <string name="upload_gpx_tags_label">Etiquetas</string>
   <string name="upload_gpx_visibility_label">Visibilidade</string>
-  <string name="upload_validation_error_empty_comment">O comentário não deve estar em branco</string>
-  <string name="upload_validation_error_empty_source">A fonte não deve estar em branco</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nova nota</string>
   <string name="openstreetbug_new_bug">Reportar problema</string>
@@ -317,6 +317,7 @@
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
   <string name="qa_channel_name">Perguntas Frequentes do Vespucci</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_name_empty">Escolha um nome</string>
   <string name="toast_url_empty">Introduza um URL</string>
@@ -331,7 +332,6 @@
   <string name="toast_save_failed">Não foi possível gravar</string>
   <string name="toast_export_failed">Não foi possível exportar</string>
   <string name="toast_export_success">Exportado para %1$s</string>
-  <string name="toast_preset_overwrote_tags">Nota: algumas etiquetas foram substituídas</string>
   <string name="toast_merge_overwrote_tags">Nota: operação substituiu algumas etiquetas</string>
   <string name="toast_oneway_reversed">Inverteu uma linha de sentido único ou uma linha com etiquetas que dependem da direção da linha. Por favor verifique as etiquetas e corrija-as se for necessário.</string>
   <string name="toast_potential_merge_tag_conflict">Está a tentar unir elementos que têm valores de etiquetas em conflito.\n\nPor favor verifique as etiquetas e corrija-as antes de tentar de novo.</string>
@@ -345,6 +345,7 @@
   <string name="toast_photo_indexing_started">Iniciada a procura por fotos geo-referenciadas</string>
   <string name="toast_photo_indexing_finished">Terminada a procura por fotos geo-referenciadas</string>
   <string name="toast_download_failed">O descarregamento falhou com código de erro %1$d, mensagem %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">Estrada por verificar no terreno</string>
   <string name="toast_noname">Falta o nome ou a ref na estrada</string>
   <string name="toast_notype">Falta o tipo na relação</string>
@@ -1029,7 +1030,7 @@ há %3$s %4$s</string>
   <string name="bridge">Ponte</string>
   <string name="tunnel">Túnel</string>
   <string name="culvert">Tubo de drenagem</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 dia</item>
@@ -1058,4 +1059,5 @@ há %3$s %4$s</string>
   <!--Help system-->
   <string name="toast_nohelp">Sem ajuda aqui.</string>
   <!--Bookmarks-->
+  <!--Element types-->
 </resources>

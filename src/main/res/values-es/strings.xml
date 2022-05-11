@@ -98,12 +98,12 @@
   <string name="upload_close_open_changeset_label">Cierre el conjunto de cambios abierto primero:</string>
   <string name="upload_close_changeset_label">Cerrar conjunto de cambios:</string>
   <string name="upload_request_review_label">Solicitar revisión:</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">El comentario no debe estar vacío</string>
+  <string name="upload_validation_error_empty_source">La fuente no debe estar vacía</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">Descripción</string>
   <string name="upload_gpx_tags_label">Etiquetas</string>
   <string name="upload_gpx_visibility_label">Visibilidad</string>
-  <string name="upload_validation_error_empty_comment">El comentario no debe estar vacío</string>
-  <string name="upload_validation_error_empty_source">La fuente no debe estar vacía</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nueva nota</string>
   <string name="openstreetbug_new_bug">Reportar problema</string>
@@ -393,6 +393,7 @@
   <string name="default_channel_description">Canal de notificaciones por defecto</string>
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">Canal de alerta de control de calidad para problemas y tareas de datos</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_permission_denied">Permisos denegados %1$s</string>
   <string name="toast_unable_to_persist_permissions">No se pueden conservar los permisos</string>
@@ -410,7 +411,6 @@
   <string name="toast_save_failed">No se pudo guardar</string>
   <string name="toast_export_failed">No se pudo exportar</string>
   <string name="toast_export_success">Exportado a %1$s</string>
-  <string name="toast_preset_overwrote_tags">Nota - predefinido sobrescribe etiqueta(s)</string>
   <string name="toast_merge_overwrote_tags">Nota - operación sobrescribe etiqueta(s)</string>
   <string name="toast_cant_autoapply_preset">Este predefinido no se puede aplicar automáticamente</string>
   <string name="toast_oneway_reversed">Invirtió una calle de sentido único o un camino con etiquetas dependientes de la dirección. Verifique las etiquetas y corríjalas si es necesario.</string>
@@ -425,6 +425,7 @@
   <string name="toast_photo_indexing_started">Iniciada la búsqueda de fotos georreferenciadas</string>
   <string name="toast_photo_indexing_finished">Terminada la búsqueda de fotos georreferenciadas</string>
   <string name="toast_download_failed">Fallo en la descarga con código de error %1$d, mensaje %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">Camino no medido</string>
   <string name="toast_noname">La vía no tiene nombre o referencia</string>
   <string name="toast_notype">La relación no tiene tipo</string>
@@ -989,9 +990,7 @@
   <string name="config_uploadOk_summary">Límite por debajo del cual las cargas de objetos pendientes se considerarán correctas</string>
   <string name="config_upload_current">%1$d objetos</string>
   <string name="config_uploadWarn_title">Advertencia de carga pendiente</string>
-  <string name="config_uploadWarn_summary">Límite por debajo del cual las cargas de objetos pendientes tendrán un estado de advertencia</string>
   <string name="config_dataWarn_title">Advertencia de demasiados datos</string>
-  <string name="config_dataWarn_summary">Límite (en número de nodos) en el que comenzamos a advertir sobre la carga de demasiados datos</string>
   <string name="config_useUrlForFeedback_title">Deshabilitar la actividad de comentarios</string>
   <string name="config_useUrlForFeedback_summary">Deshabilitar la actividad de comentarios y usar una URL en su lugar.</string>
   <string name="config_beepVolume_title">Volumen del pitido</string>
@@ -1242,7 +1241,7 @@
   <string name="bridge">Puente</string>
   <string name="tunnel">Túnel</string>
   <string name="culvert">Alcantarilla</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <string name="issue_not_reversable">Etiquetas no reversibles</string>
   <string name="issue_shared_node">Compartido con otra vía</string>
   <string name="issue_tags_reversed">Etiquetas invertidas</string>
@@ -1280,4 +1279,5 @@
   <!--Help system-->
   <string name="toast_nohelp">No hay ayuda aquí.</string>
   <!--Bookmarks-->
+  <!--Element types-->
 </resources>

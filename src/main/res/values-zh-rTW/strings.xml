@@ -99,12 +99,12 @@
   <string name="upload_close_open_changeset_label">先關係開放的變更集：</string>
   <string name="upload_close_changeset_label">關閉變更組合：</string>
   <string name="upload_request_review_label">請求審核：</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">註解不應該留空</string>
+  <string name="upload_validation_error_empty_source">來源不應該留空</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">記述</string>
   <string name="upload_gpx_tags_label">標籤</string>
   <string name="upload_gpx_visibility_label">能見度</string>
-  <string name="upload_validation_error_empty_comment">註解不應該留空</string>
-  <string name="upload_validation_error_empty_source">來源不應該留空</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">新的註記</string>
   <string name="openstreetbug_new_bug">回報問題</string>
@@ -416,6 +416,7 @@
   <string name="default_channel_description">預設通知頻道</string>
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">資料問題和任務的 QA 警告頻道</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_permission_denied">%1$s權限無法讀取</string>
   <string name="toast_unable_to_persist_permissions">無法保留權限</string>
@@ -434,7 +435,6 @@
   <string name="toast_save_failed">無法儲存</string>
   <string name="toast_export_failed">無法匯出</string>
   <string name="toast_export_success">已匯出到  %1$s</string>
-  <string name="toast_preset_overwrote_tags">注意 - 預設組合將覆蓋標籤(們)</string>
   <string name="toast_merge_overwrote_tags">注意 - 這動作將覆蓋標籤(們)</string>
   <string name="toast_cant_autoapply_preset">這個預置無法自動套用</string>
   <string name="toast_oneway_reversed">您已反轉了單行道或道路方向依據的標籤。請檢查標籤並在需要時訂正。</string>
@@ -448,6 +448,7 @@
   <string name="toast_photo_indexing_started">開始掃描地理參考圖片</string>
   <string name="toast_photo_indexing_finished">掃描地理參考圖片完成</string>
   <string name="toast_download_failed">下載失敗，錯誤代碼是 %1$d，訊息為 %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">未勘測的路</string>
   <string name="toast_noname">道路缺少名稱或編號</string>
   <string name="toast_notype">關聯缺失類型</string>
@@ -1036,9 +1037,7 @@
   <string name="config_uploadOk_summary">低於上限的情形之下，待上傳的物件仍會被視為 OK</string>
   <string name="config_upload_current">%1$d物件</string>
   <string name="config_uploadWarn_title">待上傳警告</string>
-  <string name="config_uploadWarn_summary">低於上限的情形之下，待上傳的物件會出現警告狀態</string>
   <string name="config_dataWarn_title">太多資料警告</string>
-  <string name="config_dataWarn_summary">開始警告上傳太多資料的上限 (用節點的數量計算) </string>
   <string name="config_useUrlForFeedback_title">關閉回饋活動</string>
   <string name="config_useUrlForFeedback_summary">關閉回饋活動，然後使用 URL 來替代。</string>
   <string name="config_beepVolume_title">蜂鳴聲大小</string>
@@ -1298,7 +1297,7 @@
   <string name="bridge">橋樑</string>
   <string name="tunnel">隧道</string>
   <string name="culvert">涵洞</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <string name="issue_not_reversable">標籤無法回復</string>
   <string name="issue_shared_node">與其他路徑分享</string>
   <string name="issue_tags_reversed">標籤回復</string>
@@ -1337,4 +1336,5 @@
   <string name="_dots">⋮</string>
   <string name="gotobookmark">到</string>
   <string name="bookmarkstitle">書籤</string>
+  <!--Element types-->
 </resources>

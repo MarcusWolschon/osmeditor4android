@@ -85,12 +85,12 @@
   <string name="upload_comment_label">Kommentti:</string>
   <string name="upload_source_label">Lähde:</string>
   <string name="upload_close_changeset_label">Sulje muutossetti:</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">Kommentti ei voi olla tyhjä</string>
+  <string name="upload_validation_error_empty_source">Lähde ei voi olla tyhjä</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">Kuvaus</string>
   <string name="upload_gpx_tags_label">Tägit</string>
   <string name="upload_gpx_visibility_label">Näkyvyys</string>
-  <string name="upload_validation_error_empty_comment">Kommentti ei voi olla tyhjä</string>
-  <string name="upload_validation_error_empty_source">Lähde ei voi olla tyhjä</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Uusi huomio</string>
   <string name="openstreetbug_new_bug">Raportoi ongelmasta</string>
@@ -299,6 +299,7 @@
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
   <string name="qa_channel_name">Vespucci QA</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_name_empty">Valitse nimi</string>
   <string name="toast_url_empty">Syötä URL</string>
@@ -313,7 +314,6 @@
   <string name="toast_save_failed">Tallennus ei onnistunut</string>
   <string name="toast_export_failed">Vienti ei onnistunut</string>
   <string name="toast_export_success">Viety tiedostoon %1$s</string>
-  <string name="toast_preset_overwrote_tags">Huomio: esivalinta muutti tägejä</string>
   <string name="toast_merge_overwrote_tags">Huomio: toiminto muutti tägejä</string>
   <string name="toast_oneway_reversed">Muutit yksisuuntaisen kadun tai suuntariippuvaisia tägejä sisältävän viivan suunnan. Tarkista tägit ja korjaa ne tarvittaessa.</string>
   <string name="toast_potential_merge_tag_conflict">Yritit sulauttaa yhteen elementtejä, joilla on ristiriitaisia tägejä.\n\nTarkista tägit ja korjaa ne ennen uutta yritystä.</string>
@@ -327,6 +327,7 @@
   <string name="toast_photo_indexing_started">Geomerkittyjen kuvien etsintä alkaa</string>
   <string name="toast_photo_indexing_finished">Geomerkittyjen kuvien etsintä päättyi</string>
   <string name="toast_download_failed">Lataus epäonnistui; virhekoodi %1$d, viesti %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">Tarkastamaton tie</string>
   <string name="toast_noname">Tieltä puuttuu nimi tai viittaus</string>
   <string name="toast_notype">Ralaatiosta puuttuu tyyppi</string>
@@ -964,7 +965,7 @@
   <!--Things-->
   <string name="bridge">Silta</string>
   <string name="tunnel">Tunneli</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 päivä</item>
@@ -993,4 +994,5 @@
   <!--Help system-->
   <string name="toast_nohelp">Tähän ei ole ohjetta.</string>
   <!--Bookmarks-->
+  <!--Element types-->
 </resources>

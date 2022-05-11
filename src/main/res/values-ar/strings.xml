@@ -104,12 +104,12 @@
   <string name="upload_close_open_changeset_label">أغلق فتح مجموعة التغييرات أولاً:</string>
   <string name="upload_close_changeset_label">إغلاق مجموعة التغييرات:</string>
   <string name="upload_request_review_label">طلب مراجعة:</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">يجب ألا يكون التعليق فارغًا</string>
+  <string name="upload_validation_error_empty_source">يجب ألا يكون المصدر فارغًا</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">وصف</string>
   <string name="upload_gpx_tags_label">الوسوم</string>
   <string name="upload_gpx_visibility_label">الرؤية</string>
-  <string name="upload_validation_error_empty_comment">يجب ألا يكون التعليق فارغًا</string>
-  <string name="upload_validation_error_empty_source">يجب ألا يكون المصدر فارغًا</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">ملاحظة جديدة</string>
   <string name="openstreetbug_new_bug">تبليغ عن مشكلة</string>
@@ -422,6 +422,7 @@
   <string name="default_channel_description">قناة التتنبيهات الافتراضية</string>
   <string name="qa_channel_name">ضمان الجودة من فسبوتشي</string>
   <string name="qa_channel_description">قناة تنبيه ضمان الجودة لمشاكل البيانات والمهام</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_permission_denied">طلب الصلاحية مرفوض %1$s</string>
   <string name="toast_unable_to_persist_permissions">تعذر الحصول على الصلاحيات بشكل دائم</string>
@@ -440,7 +441,6 @@
   <string name="toast_save_failed">تعذر الحفظ</string>
   <string name="toast_export_failed">تعذر التصدير</string>
   <string name="toast_export_success">تصدير إلى %1$s</string>
-  <string name="toast_preset_overwrote_tags">ملاحظة - الكتابة فوق (الوسم/ الوسوم) المحددة مسبقًا</string>
   <string name="toast_merge_overwrote_tags">ملاحظة - عملية الكتابة فوق (الوسم/الوسوم)</string>
   <string name="toast_cant_autoapply_preset">لا يمكن تطبيق هذا القالب بشكل تلقائي</string>
   <string name="toast_oneway_reversed">قمت بعكس اتجاه شارع ليكون في اتجاه واحد أو طريق عليه وسوم تحدد الاتجاه. يرجى التحقق من الوسوم وتصحيحها إذا لزم الأمر.</string>
@@ -459,6 +459,7 @@
   <string name="toast_photo_indexing_started">بدأ المسح بحثًا عن صور ذات مرجعية جغرافية</string>
   <string name="toast_photo_indexing_finished">تم الانتهاء من المسح الضوئي للصور ذات المرجعية الجغرافية</string>
   <string name="toast_download_failed">فشل التنزيل مع ظهور رمز الخطأ %1$d، رسالة %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">طريق غير ممسوح</string>
   <string name="toast_noname">الطريق يفتقر إلى الاسم أو المرجع</string>
   <string name="toast_notype">العلاقة لم يحدد نوعها</string>
@@ -1063,9 +1064,7 @@
   <string name="config_uploadOk_summary">تحديد العدد المناسب للعناصر العالقة والمراد رفعها على الخادم</string>
   <string name="config_upload_current">%1$d عنصر/عناصر</string>
   <string name="config_uploadWarn_title">في انتظار تحذير الرفع</string>
-  <string name="config_uploadWarn_summary">تحديد تحديد حالة التحذير التي تكون دونها عمليات رفع العناصر المعلقة</string>
   <string name="config_dataWarn_title">تحذير البيانات الكثيرة</string>
-  <string name="config_dataWarn_summary">الحد (في عدد العقد) الذي يتم التحذير بناءً عليه من رفع الكثير من البيانات</string>
   <string name="config_useUrlForFeedback_title">تعطيل نشاط التغذية الراجعة</string>
   <string name="config_useUrlForFeedback_summary">قم بتعطيل نشاط التغذية الراجعة واستخدم عنوان URL بدلاً من ذلك.</string>
   <string name="config_beepVolume_title">حجم صوت الصفير</string>
@@ -1325,7 +1324,7 @@
   <string name="bridge">جسر</string>
   <string name="tunnel">نفق</string>
   <string name="culvert">عَبارة (بربخ ماء)</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <string name="issue_not_reversable">الوسوم غير قابلة للعكس</string>
   <string name="issue_shared_node">مشتركة مع طريق أخرى</string>
   <string name="issue_tags_reversed">الوسوم معكوسة</string>
@@ -1394,4 +1393,5 @@
   <string name="_dots">⋮</string>
   <string name="gotobookmark">انطلق</string>
   <string name="bookmarkstitle">المفضلات</string>
+  <!--Element types-->
 </resources>

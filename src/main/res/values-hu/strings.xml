@@ -6,6 +6,7 @@
   <string name="mode_indoor">Beltéri</string>
   <string name="mode_correct">Javító mód</string>
   <string name="mode_address">Cím</string>
+  <string name="mode_voice">Hang</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Vigyázat!</string>
   <string name="transfer_download_current_dialog_message">Módosításai vannak. Feltölti azokat az eldobásuk helyett?</string>
@@ -99,12 +100,12 @@
   <string name="upload_close_open_changeset_label">Először le kell zárni a nyitott módosításcsomagot:</string>
   <string name="upload_close_changeset_label">Módosításcsomag lezárása:</string>
   <string name="upload_request_review_label">Kérés ellenőrzése:</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">A hozzászólás nem lehet üres</string>
+  <string name="upload_validation_error_empty_source">A forrás nem lehet üres</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">Leírás</string>
   <string name="upload_gpx_tags_label">Címkék</string>
   <string name="upload_gpx_visibility_label">Láthatóság</string>
-  <string name="upload_validation_error_empty_comment">A hozzászólás nem lehet üres</string>
-  <string name="upload_validation_error_empty_source">A forrás nem lehet üres</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Új jegyzet</string>
   <string name="openstreetbug_new_bug">Hibajelentés küldése</string>
@@ -113,6 +114,8 @@
   <string name="openstreetbug_edit_title">Jegyzet szerkesztése</string>
   <string name="openstreetbug_comment_label">Hozzászólás:</string>
   <string name="openstreetbug_commit_ok">Feladatmódosítások mentve</string>
+  <string name="openstreetbug_commit_fail">Nem sikerült menteni a feladatmódosításokat</string>
+  <string name="openstreetbug_commit_fail_with_message">Nem sikerült menteni a feladatmódosításokat\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Ismeretlen feladattípus</string>
   <string name="openstreetbug_not_supported">%1$s nem támogatott.</string>
   <string name="note_description">Jegyzet: %1$s– %2$s</string>
@@ -236,6 +239,8 @@
   <string name="odd">Páratlan</string>
   <string name="other">Egyéb</string>
   <!--Safe split dialog-->
+  <string name="split_safe_title">Hiányzó kapcsolattagok</string>
+  <string name="split_safe_message">A szomszédos kapcsolattag-vonalak nincsenek letöltve. A kapcsolattagok sorrendjének megmaradása függhet ezektől.</string>
   <!---->
   <string name="error">Hiba</string>
   <string name="warning">Figyelmeztetés</string>
@@ -337,6 +342,8 @@ elemek megkövetelése</string>
   <string name="layer_category_qa">Minőségbiztosítás</string>
   <string name="layer_category_other">Egyéb</string>
   <string name="layer_add_layer_from_mvt_style">Réteg hozzáadása MVT-stílusból (Mapbox vektorcsempék)</string>
+  <string name="layer_add_custom_imagery">Egyéni légi felvétel hozzáadása</string>
+  <string name="layer_edit_custom_imagery_configuration">Egyéni légifelvétel-beállítások szerkesztése</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Legkisebb nagyítás</string>
   <string name="layer_info_max_zoom">Legnagyobb nagyítás</string>
@@ -360,6 +367,8 @@ elemek megkövetelése</string>
   <string name="api_info_attribution">Attribútum</string>
   <string name="api_info_mapsplit_source">MapSplit csak olvasható forrás</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">A tulajdonságok megváltoztak</string>
+  <string name="tag_conflict_message">A művelet az érintett elemek tulajdonságainak megváltoztatását kívánta.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">A letöltött adatokban nincs alkalmas kapcsolat</string>
   <string name="select_route_title">Útvonal kijelölése</string>
@@ -410,12 +419,14 @@ elemek megkövetelése</string>
   <string name="default_channel_description">Alapértelmezett értesítési csatorna</string>
   <string name="qa_channel_name">Vespucci QA (minőségbiztosítás)</string>
   <string name="qa_channel_description">Minőségbiztosítási csatorna adatproblémákhoz és feladatokhoz</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_permission_denied">Engedély megtagadva %1$s</string>
   <string name="toast_unable_to_persist_permissions">Nem lehet fenntartani az engedélyeket</string>
   <string name="toast_name_empty">Válasszon egy nevet</string>
   <string name="toast_url_empty">Adjon meg egy URL-t</string>
   <string name="toast_min_zoom">Alacsonyabbra állítja a legkisebb nagyítási szintet, mint a maximum</string>
+  <string name="toast_tile_layer_exists">%1$s csempeforrás URL-je ugyanez</string>
   <string name="toast_no_changes">Még nem módosított semmit…</string>
   <string name="toast_jpeg_not_transparent">A JPEG-fájlok nem átlátszók, ezért nem használhatók fedőrétegként</string>
   <string name="toast_unsaved_changes">Előbb töltse fel a mentetlen változtatásait.</string>
@@ -427,7 +438,6 @@ elemek megkövetelése</string>
   <string name="toast_save_failed">Nem menthető</string>
   <string name="toast_export_failed">Nem exportálható</string>
   <string name="toast_export_success">Exportálva ide: %1$s</string>
-  <string name="toast_preset_overwrote_tags">Megjegyzés – az előbeállítás felülírt címké(ke)t</string>
   <string name="toast_merge_overwrote_tags">Megjegyzés – a művelet felülírt címkéket</string>
   <string name="toast_cant_autoapply_preset">Ez az előbeállítás nem alkalmazható automatikusan</string>
   <string name="toast_oneway_reversed">Megfordított egy egyirányú utat, vagy irányfüggő címkékkel rendelkező vonalat. Ellenőrizze a címkéket, és javítsa őket, ha szükséges.</string>
@@ -442,9 +452,12 @@ elemek megkövetelése</string>
   <string name="toast_photo_indexing_started">A földrajzi pozícióval ellátott fényképek keresése elkezdődött</string>
   <string name="toast_photo_indexing_finished">A földrajzi pozícióval ellátott fényképek keresése befejeződött</string>
   <string name="toast_download_failed">Sikertelen letöltés, hibakód: %1$d, üzenet: %2$s.</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">Nem felmért út</string>
   <string name="toast_noname">Az útnak nincs neve vagy hivatkozási száma</string>
   <string name="toast_notype">A kapcsolatnak nincs típusa</string>
+  <string name="toast_missing_role">Kötelező szerep nélküli kapcsolati tag</string>
+  <string name="toast_relation_loop">A kapcsolattagok hivatkozásai hurkot hoznak létre</string>
   <string name="toast_untagged_element">Címkézetlen elem</string>
   <string name="toast_unconnected_end_node">A pont egy olyan elem közelében van, amelyhez hozzáköthető lehet</string>
   <string name="toast_degenerate_way">Degenerált vonal</string>
@@ -1019,9 +1032,7 @@ elemek megkövetelése</string>
   <string name="config_uploadOk_summary">Korlátozás, amely alatt a függőben lévő objektumfeltöltések rendben lévőnek minősülnek</string>
   <string name="config_upload_current">%1$d objektum</string>
   <string name="config_uploadWarn_title">Függőben lévő feltöltés figyelmeztetési állapotban</string>
-  <string name="config_uploadWarn_summary">Korlátozás, amely alatt a függőben lévő objektumfeltöltések figyelmeztetési állapotúak lesznek</string>
   <string name="config_dataWarn_title">Túl sok adat figyelmeztetés</string>
-  <string name="config_dataWarn_summary">Korlát (pontok számában), amelynél a túl sok adat betöltése miatt figyelmeztetni kezdünk</string>
   <string name="config_useUrlForFeedback_title">Visszajelzési tevékenység letiltása</string>
   <string name="config_useUrlForFeedback_summary">A visszajelzési tevékenység letiltása, helyette pedig egy URL használata.</string>
   <string name="config_beepVolume_title">Hangjelzés hangereje</string>
@@ -1278,7 +1289,7 @@ elemek megkövetelése</string>
   <string name="bridge">Híd</string>
   <string name="tunnel">Alagút</string>
   <string name="culvert">Áteresz</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <string name="issue_not_reversable">A címkék nem fordíthatók meg</string>
   <string name="issue_shared_node">Más vonalakkal közös</string>
   <string name="issue_tags_reversed">Címkék megfordítva</string>
@@ -1322,4 +1333,5 @@ elemek megkövetelése</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">Ugrás</string>
   <string name="bookmarkstitle">Könyvjelzők</string>
+  <!--Element types-->
 </resources>

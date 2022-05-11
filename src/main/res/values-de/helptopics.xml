@@ -28,7 +28,8 @@
     <string name="help_newnoteselection">Neue Notizauswahl</string>
     <string name="help_voice_commands">Sprachbefehle</string>
     <string name="help_add_route_segment">Routenteil</string>
-    <string name="help_upgrade">17.0 Versionshinweise</string>
+    <string name="help_upgrade">17.1 Versionshinweise</string>
+    <string name="help_upgrade_170">17.0 Versionshinweise</string>
     <string name="help_upgrade_161">16.1 Versionshinweise</string>
     <string name="help_upgrade_160">16.0 Versionshinweise</string>
     <string name="help_upgrade_152">15.2 Versionshinweise</string>
@@ -75,6 +76,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_170</item>
         <item>@string/help_upgrade_161</item>
         <item>@string/help_upgrade_160</item>
         <item>@string/help_upgrade_152</item>
@@ -122,6 +124,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>17.1.0 Release notes</item>
         <item>17.0.0 Release notes</item>
         <item>16.1.0 Release notes</item>
         <item>16.0.0 Release notes</item>

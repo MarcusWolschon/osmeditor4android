@@ -100,12 +100,12 @@
   <string name="upload_close_open_changeset_label">Offenes Changeset zuerst schließen:</string>
   <string name="upload_close_changeset_label">Changeset schließen:</string>
   <string name="upload_request_review_label">Anfrage prüfen:</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">Kommentar sollte nicht leer sein</string>
+  <string name="upload_validation_error_empty_source">Quelle sollte nicht leer sein</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">Beschreibung</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Sichtbarkeit</string>
-  <string name="upload_validation_error_empty_comment">Kommentar sollte nicht leer sein</string>
-  <string name="upload_validation_error_empty_source">Quelle sollte nicht leer sein</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Neue Notiz</string>
   <string name="openstreetbug_new_bug">Fehler melden</string>
@@ -419,6 +419,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="default_channel_description">Voreingestellter Benachrichtigungskanal</string>
   <string name="qa_channel_name">Vespucci-QA</string>
   <string name="qa_channel_description">Kanal für Qualitätsalarm bei Datenproblemen und Aufgaben</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_permission_denied">Zugriff verweigert %1$s</string>
   <string name="toast_unable_to_persist_permissions">Konnte Dateiberechtigungen nicht auf Dauer bekommen</string>
@@ -437,7 +438,6 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_save_failed">Speichern fehlgeschlagen</string>
   <string name="toast_export_failed">Export fehlgeschlagen</string>
   <string name="toast_export_success">Exportiert nach %1$s</string>
-  <string name="toast_preset_overwrote_tags">Achtung: Die Vorlage hat einen oder mehrere Tags überschrieben</string>
   <string name="toast_merge_overwrote_tags">Achtung: Die Operation hat einen oder mehrere Tags überschrieben</string>
   <string name="toast_cant_autoapply_preset">Die Vorlage kann nicht automatisch angewendet werden</string>
   <string name="toast_oneway_reversed">Die Richtung einer Einbahnstraße oder eines Weges mit richtungsabhängigen Tags wurde geändert. Bitte Tags überprüfen und ggf. korrigieren.</string>
@@ -452,6 +452,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_photo_indexing_started">Suche nach georeferenzierten Fotos begonnen</string>
   <string name="toast_photo_indexing_finished">Suche nach georeferenzierten Fotos beendet</string>
   <string name="toast_download_failed">Download fehlgeschlagen, zugehöriger Fehlercode: %1$d, Meldung: %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">Straße nicht überprüft</string>
   <string name="toast_noname">Straße fehlt Tag \'name\' oder \'ref\'</string>
   <string name="toast_notype">Relation fehlt Tag \'type\'</string>
@@ -952,6 +953,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="simple_paste">Bildschirmposition antippen</string>
   <string name="menu_paste_multiple">Objekt mehrfach einfügen</string>
   <string name="simple_paste_multiple">Bildschirmposition antippen</string>
+  <string name="menu_snap">Objektfang</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kartenhintergrund</string>
   <string name="config_backgroundLayer_summary">Auswahl des Bildmaterials für den Hintergrund.</string>
@@ -1043,9 +1045,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_uploadOk_summary">Grenze unter der ausstehende Objekt-Uploads als OK gelten</string>
   <string name="config_upload_current">%1$d Objekte</string>
   <string name="config_uploadWarn_title">Ausstehende Uploads Warnung</string>
-  <string name="config_uploadWarn_summary">Grenze unter der ausstehende Objekt-Uploads Warnstatus haben</string>
   <string name="config_dataWarn_title">Zu viele Datenwarnung</string>
-  <string name="config_dataWarn_summary">Grenze (Anzahl Nodes) ab welcher wir wegen zu vieler Daten warnen</string>
   <string name="config_useUrlForFeedback_title">Rückmeldungsaktivität deaktivieren</string>
   <string name="config_useUrlForFeedback_summary">Die Rückmeldungsaktivität deaktivieren und anstatt eine URL verwenden.</string>
   <string name="config_beepVolume_title">Warntonlautstärke</string>
@@ -1306,7 +1306,7 @@ in %1$d m %2$s</string>
   <string name="bridge">Brücke</string>
   <string name="tunnel">Tunnel</string>
   <string name="culvert">Durchlass</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <string name="issue_not_reversable">Eigenschaft konnte nicht gedreht werden</string>
   <string name="issue_shared_node">Wird mit anderem Weg geteilt</string>
   <string name="issue_tags_reversed">Eigenschaften gedreht</string>
@@ -1351,4 +1351,5 @@ in %1$d m %2$s</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">Los</string>
   <string name="bookmarkstitle">Lesezeichen…</string>
+  <!--Element types-->
 </resources>

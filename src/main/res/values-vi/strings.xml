@@ -70,12 +70,12 @@
   <string name="upload_close_open_changeset_label">Trước tiên phải đóng bộ thay đổi đang mở:</string>
   <string name="upload_close_changeset_label">Đóng bộ thay đổi:</string>
   <string name="upload_request_review_label">Yêu cầu người khác xem lại:</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">Không thể để trống miêu tả</string>
+  <string name="upload_validation_error_empty_source">Không thể để trống nguồn</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">Miêu tả</string>
   <string name="upload_gpx_tags_label">Thẻ</string>
   <string name="upload_gpx_visibility_label">Mức xuất hiện</string>
-  <string name="upload_validation_error_empty_comment">Không thể để trống miêu tả</string>
-  <string name="upload_validation_error_empty_source">Không thể để trống nguồn</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Ghi chú mới</string>
   <string name="openstreetbug_new_bug">Báo cáo vấn đề</string>
@@ -333,6 +333,7 @@
   <!--NotificationChannels-->
   <string name="default_channel_name">Mặc định Vespucci</string>
   <string name="default_channel_description">Kênh thông báo mặc định</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_name_empty">Chọn tên</string>
   <string name="toast_url_empty">Nhập URL</string>
@@ -344,7 +345,6 @@
   <string name="toast_save_failed">Không thể lưu</string>
   <string name="toast_export_failed">Không thể xuất</string>
   <string name="toast_export_success">Đã xuất ra %1$s</string>
-  <string name="toast_preset_overwrote_tags">Chú ý: Thẻ đặt trước đã ghi đè lên thẻ</string>
   <string name="toast_merge_overwrote_tags">Chú ý: Tác vụ đã ghi đè lên các thẻ</string>
   <string name="toast_cant_autoapply_preset">Không thể tự động đánh thẻ đặt trước</string>
   <string name="toast_state_file_failed">Tập tin trạng thái không thể đọc hoặc hư hỏng</string>
@@ -352,6 +352,7 @@
   <string name="toast_photo_indexing_started">Đã bắt đầu tìm hình ảnh được định vị</string>
   <string name="toast_photo_indexing_finished">Đã hoàn tất tìm hình ảnh được định vị</string>
   <string name="toast_download_failed">Thất bại khi tải về với mã số lỗi %1$d, thông báo %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">Đường chưa khảo sát</string>
   <string name="toast_noname">Con đường thiếu tên hoặc số</string>
   <string name="toast_notype">Quan hệ thiếu kiểu</string>
@@ -775,8 +776,9 @@
   <!--Things-->
   <string name="bridge">Cầu</string>
   <string name="tunnel">Đường hầm</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <!--time and distance-->
   <!--Help system-->
   <!--Bookmarks-->
+  <!--Element types-->
 </resources>

@@ -89,12 +89,12 @@
   <string name="upload_source_label">來源：</string>
   <string name="upload_close_changeset_label">關閉變更組合：</string>
   <string name="upload_request_review_label">請求審核：</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">註解不應該留空</string>
+  <string name="upload_validation_error_empty_source">來源不應該留空</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">記述</string>
   <string name="upload_gpx_tags_label">標籤</string>
   <string name="upload_gpx_visibility_label">能見度</string>
-  <string name="upload_validation_error_empty_comment">註解不應該留空</string>
-  <string name="upload_validation_error_empty_source">來源不應該留空</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">新的註記</string>
   <string name="openstreetbug_new_bug">回報問題</string>
@@ -304,6 +304,7 @@
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
   <string name="qa_channel_name">Vespucci QA</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_name_empty">選擇名稱</string>
   <string name="toast_url_empty">輸入 URL</string>
@@ -318,7 +319,6 @@
   <string name="toast_save_failed">無法儲存</string>
   <string name="toast_export_failed">無法匯出</string>
   <string name="toast_export_success">已匯出到  %1$s</string>
-  <string name="toast_preset_overwrote_tags">注意 - 預設組合將覆蓋標籤(們)</string>
   <string name="toast_merge_overwrote_tags">注意 - 這動作將覆蓋標籤(們)</string>
   <string name="toast_oneway_reversed">您已反轉了單行道或道路方向依據的標籤。請檢查標籤並在需要時訂正。</string>
   <string name="toast_potential_merge_tag_conflict">您正在試圖合併的元件，它和標籤的值有衝突。請重試之前，請先檢查標籤和修正。</string>
@@ -331,6 +331,7 @@
   <string name="toast_photo_indexing_started">開始掃描地理參考圖片</string>
   <string name="toast_photo_indexing_finished">掃描地理參考圖片完成</string>
   <string name="toast_download_failed">下載失敗，錯誤代碼是 %1$d，訊息為 %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">未勘測的路</string>
   <string name="toast_noname">道路缺少名稱或編號</string>
   <string name="toast_notype">關聯缺失類型</string>
@@ -976,7 +977,7 @@
   <!--Things-->
   <string name="bridge">橋樑</string>
   <string name="tunnel">隧道</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="other">%1$d天</item>
@@ -999,4 +1000,5 @@
   <!--Help system-->
   <string name="toast_nohelp">這裡沒幫助。</string>
   <!--Bookmarks-->
+  <!--Element types-->
 </resources>

@@ -6,6 +6,7 @@
   <string name="mode_indoor">Binnen</string>
   <string name="mode_correct">C-Modus</string>
   <string name="mode_address">Adres</string>
+  <string name="mode_voice">Stem</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Let op!</string>
   <string name="transfer_download_current_dialog_message">Je hebt wijzigingen gemaakt. Wil je ze uploaden in plaats van verwerpen?</string>
@@ -98,12 +99,12 @@
   <string name="upload_close_open_changeset_label">Sluit eerst open wijzigingenset:</string>
   <string name="upload_close_changeset_label">Sluit wijzigingenset:</string>
   <string name="upload_request_review_label">Verzoek controle:</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">Opmerking zou niet leeg moeten zijn</string>
+  <string name="upload_validation_error_empty_source">Bron zou niet leeg moeten zijn</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">Beschrijving</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Zichtbaarheid</string>
-  <string name="upload_validation_error_empty_comment">Opmerking zou niet leeg moeten zijn</string>
-  <string name="upload_validation_error_empty_source">Bron zou niet leeg moeten zijn</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nieuwe opmerking</string>
   <string name="openstreetbug_new_bug">Meld probleem</string>
@@ -396,6 +397,7 @@
   <string name="default_channel_description">Standaard notificatiekanaal.</string>
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">QA notoficatiekanaal voor en gegevensproblemen en taken</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_permission_denied">Toestemming geweigerd %1$s</string>
   <string name="toast_unable_to_persist_permissions">Kan permissies niet opslaan</string>
@@ -413,7 +415,6 @@
   <string name="toast_save_failed">Kon niet opslaan</string>
   <string name="toast_export_failed">Kon niet exporteren</string>
   <string name="toast_export_success">Geëxporteerd naar %1$s</string>
-  <string name="toast_preset_overwrote_tags">Notitie - voorkeuze overschreef tag(s)</string>
   <string name="toast_merge_overwrote_tags">Notitie - actie overschreef tag(s)</string>
   <string name="toast_cant_autoapply_preset">Deze voorkeuze kan niet automatisch worden toegepast</string>
   <string name="toast_oneway_reversed">Je hebt een eenrichtingsweg of een weg met richtingsafhankelijke tags omgekeerd. Check de tags en corrigeer ze waar nodig.</string>
@@ -428,6 +429,7 @@
   <string name="toast_photo_indexing_started">Scan gestart voor geo-gerefereerde foto\'s</string>
   <string name="toast_photo_indexing_finished">Scan voltoold voor geo-gerefereerde foto\'s</string>
   <string name="toast_download_failed">Download gefaalt met foutcode %1$d, bericht %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">Ongeclassifiseerde weg</string>
   <string name="toast_noname">Straat heeft geen naam of referentie</string>
   <string name="toast_notype">Relatie mist type</string>
@@ -579,6 +581,7 @@
   <string name="prune">Opschonen</string>
   <string name="check">Controleren</string>
   <string name="download">Download</string>
+  <string name="ignore">Negeren</string>
   <!--Read a file-->
   <string name="read">Lezen</string>
   <string name="overwrite">Overschrijven</string>
@@ -970,6 +973,7 @@
   <string name="config_enableLightTheme_summary">Licht en witte achtergronden.</string>
   <string name="config_splitActionBarEnabled_title">Zet gesplitste actiebalk aan</string>
   <string name="config_splitActionBarEnabled_summary">Sta een gespleten actiebalk toe, het gebruik is apparaat specifiek. Vereist herstarten van Vespucci, en Android 4.0 of later.</string>
+  <string name="config_disableTranslations_title">Vertalingen uitzetten</string>
   <string name="config_maxInlineValues_title">Max. aantal waarden op een regel</string>
   <string name="config_maxInlineValues_summary">Maximaal aantal waarden dat op een regel in een tag formulier wordt getoond.</string>
   <string name="config_maxInlineValues_current">%1$d Waarden</string>
@@ -987,9 +991,7 @@
   <string name="config_uploadOk_summary">Limiet waaronder openstaande objecten uploads OK worden verondersteld</string>
   <string name="config_upload_current">%1$d objecten</string>
   <string name="config_uploadWarn_title">Openstaande upload waarschuwing</string>
-  <string name="config_uploadWarn_summary">Limiet waaronder openstaande objecten uploads een waarschuwingsstatus zullen hebben</string>
   <string name="config_dataWarn_title">Te veel gegevens waarschuwing</string>
-  <string name="config_dataWarn_summary">Limiet (in het aantal Knopen) waarna we beginnen met waarschuwen dat er te veel gegevens worden geladen</string>
   <string name="config_useUrlForFeedback_title">Zet feedback activiteit uit</string>
   <string name="config_useUrlForFeedback_summary">Zet feedback activiteit uit en gebruik in plaats daarvan een URL.</string>
   <string name="config_beepVolume_title">Signaal volume</string>
@@ -1050,6 +1052,7 @@
   <string name="config_bugDownloadRadius_summary">Straal (m) van taakdownloads.</string>
   <string name="config_maxBugDownloadSpeed_title">Maximum taak auto-download snelheid</string>
   <string name="config_maxBugDownloadSpeed_summary">Limiet (in km/h) waarboven notities, bugs en taken auto-download wordt gepauzeerd.</string>
+  <string name="config_autoPruneTaskLimit_current">%1$d taken</string>
   <!--Location Settings-->
   <string name="config_category_gps">Locatie-instellingen</string>
   <string name="config_category_gps_summary">GPS/GNSS parameters en andere locatieaanbieders.</string>
@@ -1232,7 +1235,7 @@
   <string name="bridge">Brug</string>
   <string name="tunnel">Tunnel</string>
   <string name="culvert">Duiker</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <string name="issue_not_reversable">Tags zijn niet omkeerbaar</string>
   <string name="issue_shared_node">Gedeeld met andere weg</string>
   <string name="issue_tags_reversed">Tags onmgekeerd</string>
@@ -1270,5 +1273,11 @@
   <!--Help system-->
   <string name="toast_nohelp">Geen help hier.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark">Bladwijzer toevoegen…</string>
+  <string name="bookmarks_desc">Opmerkingen toevoegen</string>
+  <string name="show_bookmarks">Bladwijzers…</string>
   <string name="_dots">⋮</string>
+  <string name="gotobookmark">Gaan</string>
+  <string name="bookmarkstitle">Bladwijzers</string>
+  <!--Element types-->
 </resources>

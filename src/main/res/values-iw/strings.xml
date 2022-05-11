@@ -44,6 +44,7 @@
   <string name="data_conflict_title">סתירת גרסאות</string>
   <string name="data_conflict_message">הנתונים מההורדה יסתרו את העריכות שלך. נא לנסות להעלות קודם כל את הנתונים שלך ורק אז לנסות שוב.</string>
   <string name="corrupted_data_title">נתונים פגומים</string>
+  <string name="corrupted_data_message">זוהתה חוסר רציפות בנתונים. בטרם ביצוע פעולות נוספות, כדאי לנסות להעלות את העריכות שלך ואז לפנות נתונים מאוחסנים ולהוריד אותם מחדש.</string>
   <string name="invalid_bounding_box_title">תיבה תוחמת שגויה</string>
   <string name="invalid_bounding_box_message">האזור הנבחר לא תואם למגבלות ה־API, נא לבחור באזור אחר.</string>
   <string name="bounding_box_too_large_title">אזור ההורדה גדול מדי</string>
@@ -101,12 +102,12 @@
   <string name="upload_close_open_changeset_label">יש לסגור את ערכות השינויים הפתוחות תחילה:</string>
   <string name="upload_close_changeset_label">סגירת ערכת שינויים:</string>
   <string name="upload_request_review_label">בקשת סקירה:</string>
-  <!---->
+  <string name="upload_validation_error_empty_comment">הערה לא יכולה להיות ריקה</string>
+  <string name="upload_validation_error_empty_source">המקור לא אמור להיות ריק</string>
+  <!--Upload GPX-->
   <string name="upload_gpx_description_label">תיאור</string>
   <string name="upload_gpx_tags_label">תגיות</string>
   <string name="upload_gpx_visibility_label">מצב הצגה</string>
-  <string name="upload_validation_error_empty_comment">הערה לא יכולה להיות ריקה</string>
-  <string name="upload_validation_error_empty_source">המקור לא אמור להיות ריק</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">הערה חדשה</string>
   <string name="openstreetbug_new_bug">דיווח על תקלה</string>
@@ -226,15 +227,19 @@
   <string name="move">העברה</string>
   <string name="leave_as_is">להשאיר כמו שזה</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove_duplicate_outer_tags_title">הסרת תגיות כפולות על עיגולים חיצוניים</string>
   <string name="remove">הסרה</string>
   <!--Abort action mode dialog-->
+  <string name="abort_action_title">ביטול פעולה</string>
   <!--Address interpoation dialog-->
+  <string name="address_interpolation_title">יצירת שיטת חלוקת כתובות</string>
   <string name="start">התחלה</string>
   <string name="end">סיום</string>
   <string name="even">זוגית</string>
   <string name="odd">אי־זוגית</string>
   <string name="other">אחר</string>
   <!--Safe split dialog-->
+  <string name="split_safe_title">חסרים חברים ביחס</string>
   <!---->
   <string name="error">שגיאה</string>
   <string name="warning">אזהרה</string>
@@ -335,6 +340,8 @@
   <string name="layer_category_qa">אבטחת איכות</string>
   <string name="layer_category_other">אחר</string>
   <string name="layer_add_layer_from_mvt_style">הוספת שכבה מסגנון MVT</string>
+  <string name="layer_add_custom_imagery">הוספת תמונת רקע בהתאמה אישית</string>
+  <string name="layer_edit_custom_imagery_configuration">עריכת הגדרות תמונת רקע בהתאמה אישית</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">תקריב מזערי</string>
   <string name="layer_info_max_zoom">תקריב מרבי</string>
@@ -404,6 +411,7 @@
   <string name="default_channel_description">ערוץ התראות כבררת מחדל</string>
   <string name="qa_channel_name">אבטחת איכות של וספוצ׳י</string>
   <string name="qa_channel_description">ערוץ הודעות אבטחת איכות לתקלות נתונים ולמשימות</string>
+  <!--Notifications-->
   <!--Toaster-->
   <string name="toast_permission_denied">ההרשאה נדחתה %1$s</string>
   <string name="toast_unable_to_persist_permissions">לא ניתן לקבע את ההרשאות</string>
@@ -421,7 +429,6 @@
   <string name="toast_save_failed">לא ניתן לשמור</string>
   <string name="toast_export_failed">לא ניתן לייצא</string>
   <string name="toast_export_success">מיוצא אל %1$s</string>
-  <string name="toast_preset_overwrote_tags">הערה - הערכה המוגדרת שכתבה תגית/תגיות</string>
   <string name="toast_merge_overwrote_tags">הערה - הפעולה שכתבה תגית/תגיות</string>
   <string name="toast_cant_autoapply_preset">לא ניתן להחיל את הערכה הזאת אוטומטית</string>
   <string name="toast_oneway_reversed">הפכת כביש חד־סטרי או דרך עם תגיות תלויות כיווניות. נא לבדוק את התגיות ולתקן במידת הצורך.</string>
@@ -438,6 +445,7 @@
   <string name="toast_photo_indexing_started">התחילה סריקה אחר תמונות עם הפנייה גאוגרפית</string>
   <string name="toast_photo_indexing_finished">הסתיימה סריקה אחר תמונות עם הפנייה גאוגרפית</string>
   <string name="toast_download_failed">ההורדה נכשלה עם קוד השגיאה %1$d, הודעה %2$s</string>
+  <!--Validation-->
   <string name="toast_unsurveyed_road">דרך ללא תיעוד</string>
   <string name="toast_noname">לדרך אין שם או הפניה</string>
   <string name="toast_notype">לקשר חסר סוג</string>
@@ -909,6 +917,7 @@
   <string name="simple_add_node">יש לגעת במיקום במסך</string>
   <string name="menu_add_node_tags">הוספת מפרק מתויג</string>
   <string name="menu_add_node_address">הוספת מפרק כתובת</string>
+  <string name="menu_add_address_interpolation">הוספת שיטת חלוקת כתובות</string>
   <string name="menu_add_way">הוספת דרך</string>
   <string name="simple_add_way">יש לגעת במיקום במסך</string>
   <string name="menu_add_map_note">הוספת הערה למפה</string>
@@ -1006,9 +1015,7 @@
   <string name="config_uploadOk_summary">סף שמתחתיו העלאות הפריטים הממתינות תיחשבנה בסדר</string>
   <string name="config_upload_current">%1$d פריטים</string>
   <string name="config_uploadWarn_title">אזהרת העלאות ממתינות</string>
-  <string name="config_uploadWarn_summary">סף שמחתיו פריטים שממתינים להעלאה יהיו במצב אזהרה</string>
   <string name="config_dataWarn_title">יותר מדי אזהרות נתונים</string>
-  <string name="config_dataWarn_summary">הגבלה (במספר מפרקים) שבו נתחיל להזהיר בנוגע לכמות גדולה מדי של נתונים שנטענים</string>
   <string name="config_useUrlForFeedback_title">להשבית פעילות משוב</string>
   <string name="config_useUrlForFeedback_summary">השבתת פעילות המשוב ושימוש בכתובת במקום.</string>
   <string name="config_beepVolume_title">עצמת צפצוף</string>
@@ -1258,7 +1265,7 @@
   <string name="bridge">גשר</string>
   <string name="tunnel">מנהרה</string>
   <string name="culvert">מעבר מים</string>
-  <!--Tag issues-->
+  <!--Issues-->
   <string name="issue_not_reversable">התגיות אינן הפיכות</string>
   <string name="issue_tags_reversed">תגיות התהפכו</string>
   <string name="issue_role_conflict">סתירת תפקיד</string>
@@ -1308,4 +1315,5 @@
   <string name="_dots">⋮</string>
   <string name="gotobookmark">מעבר</string>
   <string name="bookmarkstitle">סימניות</string>
+  <!--Element types-->
 </resources>
