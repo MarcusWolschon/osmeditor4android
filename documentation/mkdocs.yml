@@ -8,7 +8,7 @@ theme:
 markdown_extensions:
     - pymdownx.tilde
 extra:
-  version: 17.0.0
+  version: 17.1.0
   project: Vespucci
 nav:
 - Vespucci: 'index.md'
