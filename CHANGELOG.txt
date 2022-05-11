@@ -2,58 +2,60 @@
 
 17.1.0-1:
 
-- Fix protect against IOBE in photo viewer.
-- Fix against crash when suspending re-authentication.
-- Fix correct numerous incorrect uses of color values/resources.
-- Fix suppress boundary relation rendering.
-- Fix improve merging of structured tags.
-- Fix custom preset handling.
-- Fix ordering of MRU preset items over multiple presets.
-- Fix keep "show GPS" setting in sync.
-- Fix improve url check messaging when we get an error code.
-- Fix don't try to fit screen bounding box to an empty/degenerate bounding box.
-- Fix infinite loop in getRow in ComboDialogRow.
-- Fix preset filter preset auto-apply regression.
-- Fix a race condition with pan and zoom auto-downloading that potentially could cause too large bounding boxes to be used.
-- Fix enforce that fixed keys need to match for a preset match.
-- Fix finish new note selection mode when notes are de-selected.
-- Fix Note upload business logic when note was previously closed.
-- Fix ignore URls containing "piwik" when authorizinng.
-- Fix route/relation connection calculation.
-- Fix IOBE when sorting relation members.
-- Add more test coverage.
+- Fix protect against IOBE in photo viewer
+- Fix against crash when suspending re-authentication
+- Fix correct numerous incorrect uses of color values/resources
+- Fix suppress boundary relation rendering
+- Fix improve merging of structured tags
+- Fix custom preset handling
+- Fix ordering of MRU preset items over multiple presets
+- Fix keep "show GPS" setting in sync
+- Fix improve url check messaging when we get an error code
+- Fix don't try to fit screen bounding box to an empty/degenerate bounding box
+- Fix infinite loop in getRow in ComboDialogRow
+- Fix preset filter preset auto-apply regression
+- Fix a race condition with pan and zoom auto-downloading that potentially could cause too large bounding boxes to be used
+- Fix enforce that fixed keys need to match for a preset match
+- Fix finish new note selection mode when notes are de-selected
+- Fix Note upload business logic when note was previously closed
+- Fix ignore URls containing "piwik" when authorizing
+- Fix route/relation connection calculation
+- Fix IOBE when sorting relation members
+- Add more test coverage
 - Add leisure=park styling
 - Add support offset for way rendering and use it instead of patterns for area rendering. 
-- Add support more EPSG:3857 synonyms from WMS servers.
-- Add functionality that will remind you regularly to upload if you have unpublished changes.
-- Add zoom to current location on initial use, instead of using the box picker.
-- Add optionally scan the MediaStore for photos for the photo layer.
-- Add automatically display deprecated labels for preset items and preset fields.
-- Add support for V4 presets.
-- Add support for automatic capitalization of names on input.
-- Add automatic alternative preset display above the MRU presets.
+- Add support more EPSG:3857 synonyms from WMS servers
+- Add functionality that will remind you regularly to upload if you have unpublished changes
+- Add zoom to current location on initial use, instead of using the box picker
+- Add optionally scan the MediaStore for photos for the photo layer
+- Add automatically display deprecated labels for preset items and preset fields
+- Add support for V4 presets
+- Add support for automatic capitalization of names on input
+- Add automatic alternative preset display above the MRU presets
 - Add support for multiple preset items with the same name
 - Add support for a per fixed-tag "object" attribute
-- Add if the source of an imagery layer is changed, make the contents visible if previously hidden.
-- Add support for selectable label source and label min zoom for GPX waypoints.
-- Add show current layer configuration in debug information.
-- Add capture JOSM preset list page and rewrite URLs for direct download and install.
-- Add expand the "screenshot" page on vespucci.io to include videos.
-- Add alternative selection dialog for combo fields that supports large images.
-- Add support for version, short description and description in presets.
-- Add use josm scheme instead of localhost for alert intents (workaround google change for Android 12).
-- Add allow editing of new comments that have been saved but not uploaded.
-- Add display a toast when a note is automatically reopened.
-- Add preferences to individually enable/disable validations.
-- Add validation for non-standard element type.
-- Add re-factor GPX layer, adds support for multiple layers, track playback, track download and better styling.
-- Add multi-threaded GPX draw for large/long GPX tracks.
-- Add switch to acrarium for storing crash dumps.
-- Add handle error conditions due to the relation member limit being reached.
-- Add support for new capabilities value.
-- Add function to select way nodes.
+- Add if the source of an imagery layer is changed, make the contents visible if previously hidden
+- Add support for selectable label source and label min zoom for GPX waypoints
+- Add show current layer configuration in debug information
+- Add capture JOSM preset list page and rewrite URLs for direct download and install
+- Add expand the "screenshot" page on vespucci.io to include videos
+- Add alternative selection dialog for combo fields that supports large images
+- Add support for version, short description and description in presets
+- Add use josm scheme instead of localhost for alert intents (workaround google change for Android 12)
+- Add allow editing of new comments that have been saved but not uploaded
+- Add display a toast when a note is automatically reopened
+- Add preferences to individually enable/disable validations
+- Add validation for non-standard element type
+- Add re-factor GPX layer, adds support for multiple layers, track playback, track download and better styling
+- Add multi-threaded GPX draw for large/long GPX tracks
+- Add switch to acrarium for storing crash dumps
+- Add handle error conditions due to the relation member limit being reached
+- Add support for new capabilities value
+- Add function to select way nodes
 - Remove Bing API key for 3rd party builds. 
-- Update preset.
+- Update preset
+- Update translations
+- Update imagery from ELI
 
 17.0.1:
 
