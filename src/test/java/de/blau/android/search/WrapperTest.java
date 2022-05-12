@@ -16,7 +16,9 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
@@ -25,6 +27,8 @@ import ch.poole.osm.josmfilterparser.Type;
 import ch.poole.osm.josmfilterparser.Version;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
+import de.blau.android.ShadowWorkManager;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.PbfTest;
 import de.blau.android.osm.Relation;
@@ -35,6 +39,7 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.util.Util;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { ShadowWorkManager.class })
 @LargeTest
 public class WrapperTest {
 
@@ -46,10 +51,10 @@ public class WrapperTest {
      */
     @Before
     public void setup() {
+        Robolectric.buildActivity(Main.class).create().resume();
         delegator = App.getDelegator();
         delegator.reset(true);
         delegator.setCurrentStorage(PbfTest.read());
-        App.newLogic();
         Logic logic = App.getLogic();
         logic.setMap(new de.blau.android.Map(ApplicationProvider.getApplicationContext()), false);
         logic.getViewBox().fitToBoundingBox(logic.getMap(), delegator.getLastBox());
