@@ -2789,7 +2789,6 @@ public class Logic {
 
             @Override
             protected void onPostExecute(AsyncResult result) {
-
                 if (hasActivity) {
                     Progress.dismissDialog((FragmentActivity) context, Progress.PROGRESS_DOWNLOAD);
                 }
@@ -3002,12 +3001,12 @@ public class Logic {
             } else {
                 result = new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage());
             }
+        } catch (SSLProtocolException e) {
+            result = new AsyncResult(ErrorCodes.SSL_HANDSHAKE);
         } catch (IOException e) {
-            if (e instanceof SSLProtocolException) {
-                result = new AsyncResult(ErrorCodes.SSL_HANDSHAKE);
-            } else {
-                result = new AsyncResult(ErrorCodes.NO_CONNECTION);
-            }
+            result = new AsyncResult(ErrorCodes.NO_CONNECTION);
+        } catch (Exception e) {
+            result = new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage());
         }
         if (result.getCode() != ErrorCodes.OK) {
             removeBoundingBox(mapBox);
