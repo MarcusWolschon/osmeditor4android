@@ -9,16 +9,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.ShadowWorkManager;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.Relation;
@@ -30,8 +35,17 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { ShadowWorkManager.class })
 @LargeTest
 public class BaseValidatorTest {
+
+    /**
+     * Pre-test setup
+     */
+    @Before
+    public void setup() {
+        Robolectric.buildActivity(Main.class).create().resume();
+    }
 
     /**
      * Test relation validation
@@ -106,7 +120,6 @@ public class BaseValidatorTest {
      */
     @Test
     public void nonStandardTypeTest() {
-        Logic logic = App.newLogic(); // logic is needed to read presets
         final Context ctx = ApplicationProvider.getApplicationContext();
         Validator v = App.getDefaultValidator(ctx);
         StorageDelegator d = new StorageDelegator();

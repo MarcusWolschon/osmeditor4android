@@ -130,6 +130,8 @@ public class AutoPresetTest {
         } catch (IOException e) {
             System.out.println("Removing auto-preset exception " + e); // NOSONAR
         }
+        prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
+        prefDB.close();
     }
 
     /**

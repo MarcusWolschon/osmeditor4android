@@ -9,12 +9,15 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
-import de.blau.android.Logic;
+import de.blau.android.Main;
+import de.blau.android.ShadowWorkManager;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.Relation;
@@ -24,6 +27,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { ShadowWorkManager.class })
 @LargeTest
 public class ExtendedValidatorTest {
 
@@ -32,7 +36,7 @@ public class ExtendedValidatorTest {
      */
     @Before
     public void setup() {
-        Logic logic = App.newLogic(); // NOSONAR, force new Logic instantiation
+        Robolectric.buildActivity(Main.class).create().resume();
     }
 
     /**
@@ -98,7 +102,7 @@ public class ExtendedValidatorTest {
      */
     @Test
     public void relationLoopTest() {
-        Validator v = new ExtendedValidator(ApplicationProvider.getApplicationContext(),App.getDefaultValidator(ApplicationProvider.getApplicationContext()));
+        Validator v = new ExtendedValidator(ApplicationProvider.getApplicationContext(), App.getDefaultValidator(ApplicationProvider.getApplicationContext()));
         StorageDelegator d = App.getDelegator();
         OsmElementFactory factory = d.getFactory();
 

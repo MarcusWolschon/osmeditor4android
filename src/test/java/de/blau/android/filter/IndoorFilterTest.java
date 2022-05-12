@@ -5,13 +5,18 @@ import java.util.List;
 import java.util.TreeMap;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
+import de.blau.android.ShadowWorkManager;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -26,8 +31,17 @@ import de.blau.android.osm.Way;
  *
  */
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { ShadowWorkManager.class })
 @LargeTest
 public class IndoorFilterTest {
+
+    /**
+     * Pre-test setup
+     */
+    @Before
+    public void setup() {
+        Robolectric.buildActivity(Main.class).create().resume();
+    }
 
     /**
      * Test if a node is filtered correctly (without UI)

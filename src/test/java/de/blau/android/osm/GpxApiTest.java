@@ -69,6 +69,7 @@ public class GpxApiTest {
             System.out.println("Stopping mock webserver exception " + ioex); // NOSONAR
         }
         prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
+        prefDB.close();
     }
 
     /**

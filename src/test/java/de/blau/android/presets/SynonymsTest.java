@@ -4,12 +4,17 @@ import java.util.List;
 import java.util.Locale;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
+import de.blau.android.Main;
+import de.blau.android.ShadowWorkManager;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.util.SearchIndexUtils;
 
@@ -20,8 +25,17 @@ import de.blau.android.util.SearchIndexUtils;
  *
  */
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { ShadowWorkManager.class })
 @LargeTest
 public class SynonymsTest {
+    
+    /**
+     * Pre-test setup
+     */
+    @Before
+    public void setup() {
+        Robolectric.buildActivity(Main.class).create().resume();
+    }
     
     /**
      * Do a general search in the preset system that should return a hit from the synonyms

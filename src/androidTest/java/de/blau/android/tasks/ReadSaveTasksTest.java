@@ -90,6 +90,7 @@ public class ReadSaveTasksTest {
     @After
     public void teardown() {
         prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
+        prefDB.close();
     }
 
     /**

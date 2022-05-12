@@ -45,7 +45,7 @@ public class FeedbackTest {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
-        main = (Main) mActivityRule.getActivity();
+        main = mActivityRule.getActivity();
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
         prefDB = new AdvancedPrefDatabase(context);
@@ -72,6 +72,7 @@ public class FeedbackTest {
             System.out.println("Stopping mock webserver exception " + ioex); // NOSONAR
         }
         prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
+        prefDB.close();
     }
 
     /**
