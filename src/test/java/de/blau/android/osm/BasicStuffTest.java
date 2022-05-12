@@ -11,16 +11,21 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
+import de.blau.android.ShadowWorkManager;
 import de.blau.android.SignalHandler;
 import de.blau.android.exception.OsmIllegalOperationException;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { ShadowWorkManager.class })
 @LargeTest
 public class BasicStuffTest {
 
@@ -29,6 +34,7 @@ public class BasicStuffTest {
      */
     @Before
     public void setup() {
+        Robolectric.buildActivity(Main.class).create().resume();
         App.getDelegator().reset(false);
         App.getDelegator().setOriginalBox(ViewBox.getMaxMercatorExtent());
     }

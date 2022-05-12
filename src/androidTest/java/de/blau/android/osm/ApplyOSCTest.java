@@ -94,6 +94,7 @@ public class ApplyOSCTest {
     public void teardown() {
         API api = prefDB.getCurrentAPI();
         prefDB.setAPIDescriptors(api.id, api.name, api.url, null, api.notesurl, api.oauth);
+        prefDB.close();
         if (oscFile != null) {
             oscFile.delete();
         }

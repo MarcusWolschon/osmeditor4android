@@ -108,6 +108,7 @@ public class MapRouletteTest {
             System.out.println("Stopping mock webserver exception " + ioex);
         }
         prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
+        prefDB.close();
     }
 
     /**

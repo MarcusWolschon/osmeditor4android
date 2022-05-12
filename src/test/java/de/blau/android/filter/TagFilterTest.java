@@ -8,7 +8,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -17,6 +19,8 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
+import de.blau.android.ShadowWorkManager;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -31,6 +35,7 @@ import de.blau.android.osm.Way;
  *
  */
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { ShadowWorkManager.class })
 @LargeTest
 public class TagFilterTest {
 
@@ -42,6 +47,7 @@ public class TagFilterTest {
     @Before
     public void setup() {
         context = ApplicationProvider.getApplicationContext();
+        Robolectric.buildActivity(Main.class).create().resume();
     }
 
     /**
@@ -49,7 +55,7 @@ public class TagFilterTest {
      */
     @After
     public void teardown() {
-        try (SQLiteDatabase db = new TagFilterDatabaseHelper(context).getWritableDatabase()) {
+        try (TagFilterDatabaseHelper helper = new TagFilterDatabaseHelper(context); SQLiteDatabase db = helper.getWritableDatabase()) {
             db.delete("filterentries", null, null);
         }
     }
@@ -59,7 +65,7 @@ public class TagFilterTest {
      */
     @Test
     public void tagFilterNode() {
-        try (SQLiteDatabase db = new TagFilterDatabaseHelper(context).getWritableDatabase()) {
+        try (TagFilterDatabaseHelper helper = new TagFilterDatabaseHelper(context); SQLiteDatabase db = helper.getWritableDatabase()) {
             TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_BARRIER, Tags.VALUE_KERB);
             Logic logic = App.getLogic();
@@ -92,7 +98,7 @@ public class TagFilterTest {
      */
     @Test
     public void tagFilterWay() {
-        try (SQLiteDatabase db = new TagFilterDatabaseHelper(context).getWritableDatabase()) {
+        try (TagFilterDatabaseHelper helper = new TagFilterDatabaseHelper(context); SQLiteDatabase db = helper.getWritableDatabase()) {
             TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_BUILDING, "yes");
             Logic logic = App.getLogic();
@@ -123,7 +129,7 @@ public class TagFilterTest {
      */
     @Test
     public void tagFilterWayWithNodes() {
-        try (SQLiteDatabase db = new TagFilterDatabaseHelper(context).getWritableDatabase()) {
+        try (TagFilterDatabaseHelper helper = new TagFilterDatabaseHelper(context); SQLiteDatabase db = helper.getWritableDatabase()) {
             TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_BUILDING, "yes");
             Logic logic = App.getLogic();
@@ -155,7 +161,7 @@ public class TagFilterTest {
      */
     @Test
     public void tagFilterWayInRelation() {
-        try (SQLiteDatabase db = new TagFilterDatabaseHelper(context).getWritableDatabase()) {
+        try (TagFilterDatabaseHelper helper = new TagFilterDatabaseHelper(context); SQLiteDatabase db = helper.getWritableDatabase()) {
             TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_BUILDING, Tags.VALUE_YES);
             Logic logic = App.getLogic();
@@ -191,7 +197,7 @@ public class TagFilterTest {
      */
     @Test
     public void tagFilterWayInRelationWithNodes() {
-        try (SQLiteDatabase db = new TagFilterDatabaseHelper(context).getWritableDatabase()) {
+        try (TagFilterDatabaseHelper helper = new TagFilterDatabaseHelper(context); SQLiteDatabase db = helper.getWritableDatabase()) {
             TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_BUILDING, "yes");
             Logic logic = App.getLogic();

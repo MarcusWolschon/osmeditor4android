@@ -97,6 +97,7 @@ public class ApiTest {
 
     MockWebServerPlus    mockServer = null;
     AdvancedPrefDatabase prefDB     = null;
+    Main                 main       = null;
 
     class FailOnErrorHandler implements PostAsyncActionHandler {
         CountDownLatch signal;
@@ -124,14 +125,16 @@ public class ApiTest {
     public void setup() {
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
-        prefDB = new AdvancedPrefDatabase(ApplicationProvider.getApplicationContext());
+        main = Robolectric.buildActivity(Main.class).create().resume().get();
+        prefDB = new AdvancedPrefDatabase(main);
         prefDB.deleteAPI("Test");
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
-        Logic logic = App.newLogic();
-
-        logic.setPrefs(new Preferences(ApplicationProvider.getApplicationContext()));
+        Logic logic = App.getLogic();
+        Preferences prefs = new Preferences(main);
+        logic.setPrefs(prefs);
+        logic.getMap().setPrefs(main, prefs);
     }
 
     /**
@@ -145,6 +148,7 @@ public class ApiTest {
             System.out.println("Stopping mock webserver exception " + ioex); // NOSONAR
         }
         prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
+        prefDB.close();
     }
 
     /**
@@ -193,8 +197,7 @@ public class ApiTest {
         mockServer.enqueue(CAPABILITIES1_FIXTURE);
         mockServer.enqueue(DOWNLOAD1_FIXTURE);
         Logic logic = App.getLogic();
-        logic.downloadBox(ApplicationProvider.getApplicationContext(), new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false,
-                new FailOnErrorHandler(signal));
+        logic.downloadBox(main, new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false, new FailOnErrorHandler(signal));
         runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
         assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984));
@@ -242,8 +245,7 @@ public class ApiTest {
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue(CAPABILITIES1_FIXTURE);
         mockServer.enqueue(DOWNLOAD2_FIXTURE);
-        logic.downloadBox(ApplicationProvider.getApplicationContext(), new BoundingBox(8.3838500D, 47.3883000D, 8.3865200D, 47.3898500D), true,
-                new FailOnErrorHandler(signal));
+        logic.downloadBox(main, new BoundingBox(8.3838500D, 47.3883000D, 8.3865200D, 47.3898500D), true, new FailOnErrorHandler(signal));
         runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
         assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));

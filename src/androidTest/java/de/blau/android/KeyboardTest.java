@@ -75,6 +75,7 @@ public class KeyboardTest {
         TestUtils.stopEasyEdit(main);
         TestUtils.zoomToNullIsland(logic, map);
         prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
+        prefDB.close();
     }
 
     /**

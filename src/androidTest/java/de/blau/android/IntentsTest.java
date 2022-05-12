@@ -114,6 +114,7 @@ public class IntentsTest {
             System.out.println("Stopping mock webserver exception " + ioex);
         }
         prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
+        prefDB.close();
         TestUtils.stopEasyEdit(main);
     }
 
