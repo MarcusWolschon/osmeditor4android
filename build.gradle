@@ -280,6 +280,7 @@ android {
                 showStackTraces true
             }
             systemProperty 'robolectric.logging', 'stdout'
+            maxHeapSize = "6120m"
         }
         unitTests.includeAndroidResources = true
     }
