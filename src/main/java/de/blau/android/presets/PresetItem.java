@@ -1140,9 +1140,7 @@ public class PresetItem extends PresetElement {
      * @return true if the key- value combination is present in any category (fixed, recommended, and optional)
      */
     public boolean hasKeyValue(@NonNull String key, @Nullable String value) {
-
-        PresetField field = fields.get(key);
-        return Preset.hasKeyValue(field, value);
+        return Preset.hasKeyValue(fields.get(key), value);
     }
 
     @Override

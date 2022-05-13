@@ -619,7 +619,7 @@ public class Preset {
      * @param currentItem the item
      */
     void addToIndices(@NonNull PresetItem currentItem) {
-        StringWithDescription dummy = new StringWithDescription("");
+        final StringWithDescription dummy = new StringWithDescription("");
         for (Entry<String, PresetField> e : currentItem.getFields().entrySet()) {
             PresetField field = e.getValue();
             String key = e.getKey();
@@ -634,31 +634,33 @@ public class Preset {
                 }
             } else {
                 addToTagItems(key, currentItem);
-                if (field instanceof PresetComboField) {
-                    boolean isObjectKey = isObjectKey(key);
-                    if (isObjectKey) {
-                        addToObjectItems(key, currentItem);
-                    }
-                    StringWithDescription[] values = ((PresetComboField) field).getValues();
-                    if (values != null) {
-                        for (StringWithDescription v : values) {
-                            String value = "";
-                            if (v != null && v.getValue() != null) {
-                                value = v.getValue();
-                            }
-                            addToTagItems(key, value, currentItem);
-                            if (isObjectKey) {
-                                addToObjectItems(key, value, currentItem);
-                            }
-                        }
-                        addToAutosuggest(currentItem, key, values);
-                    }
-                } else if (field instanceof PresetFixedField) {
+                if (field instanceof PresetFixedField) {
                     addToTagItems(key, ((PresetFixedField) field).getValue(), currentItem);
                     addToObjectItems(key, (PresetFixedField) field, currentItem);
                     addToAutosuggest(currentItem, key, ((PresetFixedField) field).getValue());
                 } else {
-                    addToAutosuggest(currentItem, key, dummy);
+                    boolean isObjectKey = isObjectKey(key);
+                    if (isObjectKey) {
+                        addToObjectItems(key, currentItem);
+                    }
+                    if (field instanceof PresetComboField) {
+                        StringWithDescription[] values = ((PresetComboField) field).getValues();
+                        if (values != null) {
+                            for (StringWithDescription v : values) {
+                                String value = "";
+                                if (v != null && v.getValue() != null) {
+                                    value = v.getValue();
+                                }
+                                addToTagItems(key, value, currentItem);
+                                if (isObjectKey) {
+                                    addToObjectItems(key, value, currentItem);
+                                }
+                            }
+                            addToAutosuggest(currentItem, key, values);
+                        }
+                    } else { // text fields and anything else
+                        addToAutosuggest(currentItem, key, dummy);
+                    }
                 }
             }
         }
@@ -678,6 +680,9 @@ public class Preset {
         }
         for (String key : tagItems.getKeys()) {
             tagItems.removeItem(key, item);
+        }
+        for (String key : objectItems.getKeys()) {
+            objectItems.removeItem(key, item);
         }
         removeRecentlyUsed(item);
         item.getParent().removeElement(item);
@@ -1903,7 +1908,6 @@ public class Preset {
      * @return true if the tag matches
      */
     public static boolean hasKeyValue(@Nullable PresetField field, @Nullable String value) {
-
         if (field == null) {
             return false;
         }
