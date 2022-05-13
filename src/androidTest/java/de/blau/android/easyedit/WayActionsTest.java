@@ -498,4 +498,32 @@ public class WayActionsTest {
             prefDB.close();
         }
     }
+
+    /**
+     * Rotate a building
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void rotate() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickAtCoordinates(device, map, 8.38655, 47.38972, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        Way way = App.getLogic().getSelectedWay();
+        Node n0 = way.getFirstNode();
+        assertEquals(n0.getLon(), 83864605);
+        assertEquals(n0.getLat(), 473896527);
+        if (!TestUtils.clickMenuButton(device, context.getString(R.string.menu_rotate), false, false)) {
+            TestUtils.clickOverflowButton(device);
+            TestUtils.clickText(device, false, context.getString(R.string.menu_rotate), false, false);
+        }
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_rotateway)));
+        TestUtils.drag(device, map, 8.386446, 47.38959, 8.386628, 47.38959, false, 30);
+
+        TestUtils.clickUp(device);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertEquals(n0.getLon(), 83865662, 1000);
+        assertEquals(n0.getLat(), 473896285, 1000);
+    }
 }
