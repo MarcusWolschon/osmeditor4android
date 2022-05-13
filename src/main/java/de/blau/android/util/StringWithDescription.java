@@ -99,7 +99,7 @@ public class StringWithDescription implements Comparable<StringWithDescription>,
      * @param s String to compare with
      * @return true if the value of this object is the same as s
      */
-    public boolean equals(String s) {
+    public boolean equals(@Nullable String s) {
         return this.value.equals(s);
     }
 

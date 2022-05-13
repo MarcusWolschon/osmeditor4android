@@ -1019,9 +1019,11 @@ public class PresetItem extends PresetElement {
                 continue;
             }
             String key = tag.getKey();
-            String value = tagSet.get(key);
-            if (value != null && field.getValue().equals(value)) { // key and value match
-                matchCount++;
+            if (field.getKey().equals(key)) {
+                String value = tagSet.get(key);
+                if (field.getValue().equals(value)) {
+                    matchCount++;
+                }
             }
         }
         return minMatch > 0 ? matchCount >= minMatch : matchCount == fixedTagsCount;
