@@ -1,4 +1,7 @@
+
 # Frequently Asked Questions
+
+### General
 
 #### What is Vespucci?
 
@@ -23,48 +26,6 @@ You need:
   * The Vespucci APK file (available from Google Play and GitHub)
   * Some familiarity with [OSM Map features](http://wiki.openstreetmap.org/wiki/Map_Features)
   * An [OSM account](http://www.openstreetmap.org/user/new)
-
-#### What is the status of Vespucci development?
-
-We typically provide monthly updates to the released version (bug fixes and updated presets and imagery configurations), minor releases roughly every quarter and major release once to twice a year.
-
-#### Is Vespucci available for other mobile platforms?
-
-No, with the exception of those that provide an Android compatible environment.
-
-#### How can I obtain Vespucci?
-
-See [Obtaining Vespucci](/#obtaining-vespucci).
-
-#### How can I install Vespucci on my Android device?
-
-Just download and install like any other app =)
-
-#### Which special permissions does Vespucci require?
-
-   * fine location (GPS): to be able to pan the map to your current position and generate GPX format tracks
-   * write to external storage: background imagery tiles are stored, if present, on external storage, removing this permission will make the background process that downloads tiles non-functional
-   
-#### Vespucci warning that it cannot write to an external SD card
-
-Vespucci preferentially attempts to store aerial imagery data on an external SD card if present, this is slower but leaves expensive internal storage free. On some devices this seems to cause persistent issues that are not resolved by giving the app permissions to write to external storage. A potential workaround is to remove the SD card (if this works in your setup), and then run vespucci. If that works and background imagery is displayed you can reinsert the SD card and vespucci should continue to use the internal storage.
-
-#### How can I install Vespucci on the Android emulator?
-
-Installation of the Vespucci APK is like any other APK.
-There are plenty of descriptions available (e.g. [1 ](http://openhandsetmagazine.com/2008/01/tips-how-to-install-apk-files-on-android-emulator/), [2 ](http://www.androidfreeware.org/tutorials/how-to-install-apk-files-on-android-device-emulator), [3 ](http://www.freeware4android.com/2008/07/30/tutorial-installing-apk-files-on-android-device-emulator.html), [4 ](http://clipmarks.com/clipmark/FB4A2E39-6DA1-4EBC-BBF0-5131E1AC6128/))
-  
-#### Can't download data from OpenStreetMap servers 
-
-If it is not a connectivity issue you may be running in to the following problem: current Vespucci versions use HTTPS (encrypted connections) to connect to the OpenStreetMap servers, if you are running on an older Android version this may be failing due to problems the old devices have with more recent certificates. 
-
-Workaround: create a new non-HTTPS API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. 0.9.8 and later versions already have such an entry, you only need to activate it. 
-
-Note that the same issue may apply to certain background and overlay layers.
-
-#### "301 Moved Permanently" error when trying to download
-
-The OpenStreetMap API server you are using is likely redirecting HTTP (non-encrypted) to HTTPS (encrypted) connections. Try changing the API configuration to use HTTPS.
 
 #### What can I do with the editor?
 
@@ -93,8 +54,7 @@ Yes, Vespucci supports manual and automatic download of Notes and offline storag
 Some things missing at this point in time:
 
   * No extensive validation (however in general Vespucci tries to stop you from shooting yourself in the foot)
-  
-> Remember, Android is intended to be lightweight and easy-to-use.
+  * Property (tag) editor does not run concurrently with the main map and object display.
 
 #### Which languages are supported?
 
@@ -102,26 +62,46 @@ The user interface is currently available in: English, German, Chinese (Taiwan),
 
 We also have partial translations for a number of other languages (please see link to Transifex below for the current status). If the translation for your language is incomplete or missing, please feel free to request the language on Transifex and start translating. Any help in this area would be gratefully received. Please see [Vespucci's Transifex page](https://www.transifex.com/projects/p/vespucci/) to help.
 
-#### How can I download OSM data?
 
-On the first time startup, Vespucci requests which area to download. You can choose from the following options:
+#### What is the status of Vespucci development?
 
- * Current location
- * Last known location
- * Coordinates. If you need access to specific geographic coordinates you can specify latitude/longitude.
- * Search for a location (New in 0.9.4, requires network connectivity)
+We typically provide monthly updates to the released version (bug fixes and updated presets and imagery configurations), minor releases roughly every quarter and major release once to twice a year.
 
-For all download options, the additional parameter "Radius" is used. It specifies how large the downloaded area is. (In detail: Radius is half the side length of the bounding box that is used when downloading.)
-You can alternatively dismiss the dialog, zoom and pan to the area in question and then select the "Download current view" from the transfer menu.
+#### Is Vespucci available for other mobile platforms?
 
-#### I've downloaded data, but the screen remains blank
+No, with the exception of those that provide an Android compatible environment.
 
-There are a number of potential reasons for this, all of them harmless:
+### Installation
 
-  * preset or tag filter turned on, check the main 'overflow' menu (three dots).
-  * You are not in the "Normal" editing mode. A long press on the lock button will display the mode menu, switch to "Normal" mode and check if things are better.
-  * data layer disabled or hidden by an other layer, check the layer dialog ('hamburger' menu in the upper right corner). If this is the issue you can move the layers via the menu associated with each layer. Note that the Layer stack is as displayed in the dialog and that non-transparent layers will obscure any layer beneath them.
-  * API sandbox selected instead of normal API, check the configuration of the data layer in the layer dialog. The sandbox API has no data in most places, you would have to strike it very lucky to see something.
+#### How can I obtain Vespucci?
+
+See [Obtaining Vespucci](/#obtaining-vespucci).
+
+#### How can I install Vespucci on my Android device?
+
+Just download and install like any other app =)
+
+#### Which special permissions does Vespucci require?
+
+   * fine location (GPS): to be able to pan the map to your current position and generate GPX format tracks
+   * write to external storage: background imagery tiles are stored, if present, on external storage, removing this permission will make the background process that downloads tiles non-functional
+   
+#### How can I install Vespucci on the Android emulator?
+
+Installation of the Vespucci APK is like any other APK.
+There are plenty of descriptions available (e.g. [1 ](http://openhandsetmagazine.com/2008/01/tips-how-to-install-apk-files-on-android-emulator/), [2 ](http://www.androidfreeware.org/tutorials/how-to-install-apk-files-on-android-device-emulator), [3 ](http://www.freeware4android.com/2008/07/30/tutorial-installing-apk-files-on-android-device-emulator.html), [4 ](http://clipmarks.com/clipmark/FB4A2E39-6DA1-4EBC-BBF0-5131E1AC6128/))
+
+#### Using third party builds of Vespucci
+
+If you have a third party build of Vespucci installed (for example from F-Droid), that is you haven't obtained the app from google, Amazon or directly from our github repository, you need to be aware that certain functionality will be disabled because of missing API keys, in particular:
+
+   * displaying Mapillary data,
+   * sending feedback to us via Github,
+   * and numerous background layers, for example Bing aerial imagery
+   
+will not be available.
+
+#### Using Vespucci
 
 #### How can I upload new/changed data to the OSM server?
 
@@ -134,19 +114,67 @@ Vespucci uses OAuth authorization by default for new installations. On your firs
 
 Note: OAuth will work for both the OSMF-operated standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration and rebuild Vespucci.
 
-#### OAuth authorization fails
-
-If OAuth authorization fails, for example with a blank screen, you may need to disable any ad blocker you have installed during the authorization process. For example Blockada is known to cause issues, but any blocker that uses Easylist will likely have similar problems, see [discussion on Easylist repo](https://github.com/easylist/easylist/pull/906) for some background.  
-
 #### How can I zoom into an area?
 
  * Use the pinch-to-zoom multi-touch gesture.
  * Use the on-screen zoom controls.
  * Use the volume buttons of your Android device.
 
+
+#### How can I add a custom (aerial/satellite) imagery layer
+
+The preferred method is to add your imagery source to the [Editor Layer Index](https://github.com/osmlab/editor-layer-index) so that it can be used by all OpenStreetMap editors. 
+
+From 10.1 on, the "Advanced preferences" contain an option to add custom imagery via a form, however adding to the [ELI](https://github.com/osmlab/editor-layer-index) is still preferred. You can update the complete configuration at any time by selecting the corresponding menu entry in the _Tools/More imagery tools..._ menu. Note if you prefer to use JOSMs imagery configuration you can update from that source in the same place.
+
 #### Conflict resolution
 
 Vespucci has a built in conflict resolution capability. If you want finer grain control over the resolution process you can export all your changes to a .osm file, open that with JOSM and use JOSM's conflict resolution capabilities.
+  
+### Support and help
+
+#### Where to get help
+
+Most content from this web site is available on your device. Many of the menus contain a _Help_ entry that will display useful information for the current context. You can start the help browser stand alone (long press on the Vespucci icon in your launcher) and on modern Android versions use split-screen mode to display the contents in parallel with the editor.
+
+If you cannot find an answer in the help system, feel free to open an issue on our github repository via the _Provide feedback_ item in the main menu.   
+
+#### Why can't you provide technical support on the google play store review section
+
+The google play store allows only one reply to a review with a maximum length of just 350 characters. If you believe that what you are experiencing is a clear malfunction please open a new issue on [github](https://github.com/MarcusWolschon/osmeditor4android/issues), if you have questions or can't find how do a specific operation you can ask on the [OpenStreetMap help site](http://help.openstreetmap.org) or one of the other OpenStreetMap communication channels. 
+
+350 characters is 100 characters less than the text above.  
+  
+### Error messages and other issues
+
+#### Vespucci warning that it cannot write to an external SD card
+
+Vespucci preferentially attempts to store aerial imagery data on an external SD card if present, this is slower but leaves expensive internal storage free. On some devices this seems to cause persistent issues that are not resolved by giving the app permissions to write to external storage. A potential workaround is to remove the SD card (if this works in your setup), and then run Vespucci. If that works and background imagery is displayed you can reinsert the SD card and Vespucci should continue to use the internal storage.
+
+#### Can't download data from OpenStreetMap servers 
+
+If it is not a connectivity issue you may be running in to the following problem: current Vespucci versions use HTTPS (encrypted connections) to connect to the OpenStreetMap servers, if you are running on an older Android version this may be failing due to problems the old devices have with more recent certificates. 
+
+Workaround: create a new non-HTTPS API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. 0.9.8 and later versions already have such an entry, you only need to activate it. 
+
+Note that the same issue may apply to certain background and overlay layers.
+
+#### "301 Moved Permanently" error when trying to download
+
+The OpenStreetMap API server you are using is likely redirecting HTTP (non-encrypted) to HTTPS (encrypted) connections. Try changing the API configuration to use HTTPS.
+
+#### I've downloaded data, but the screen remains blank
+
+There are a number of potential reasons for this, all of them harmless:
+
+  * preset or tag filter turned on, check the main 'overflow' menu (three dots).
+  * You are not in the "Normal" editing mode. A long press on the lock button will display the mode menu, switch to "Normal" mode and check if things are better.
+  * data layer disabled or hidden by an other layer, check the layer dialog ('hamburger' menu in the upper right corner). If this is the issue you can move the layers via the menu associated with each layer. Note that the Layer stack is as displayed in the dialog and that non-transparent layers will obscure any layer beneath them.
+  * API sandbox selected instead of normal API, check the configuration of the data layer in the layer dialog. The sandbox API has no data in most places, you would have to strike it very lucky to see something.
+
+#### OAuth authorization fails
+
+If OAuth authorization fails, for example with a blank screen, you may need to disable any ad blocker you have installed during the authorization process. For example Blockada is known to cause issues, but any blocker that uses Easylist will likely have similar problems, see [discussion on Easylist repo](https://github.com/easylist/easylist/pull/906) for some background.  
 
 #### Can't enter key with MessageEase
 
@@ -179,19 +207,7 @@ If fullscreen mode is causing issues for you, the best solution is to simply tur
 
 #### The aerial or satellite imagery is out of date
 
-Vespucci uses the [JOSM Imagery Sources](https://josm.openstreetmap.de/wiki/Maps) for configuring the available backgrounds, or you can switch to using the "editor layer index" (ELI) that is very similar. The contents cover essentially all imagery that can legitimately be used for OpenStreetMap purposes. If you believe the imagery for a specific region is out of date or there are better sources you should preferably update the [JOSM Imagery Sources](https://josm.openstreetmap.de/wiki/Maps), or [open an issue on the JOSM issue tracker](https://josm.openstreetmap.de/newticket?component=Wiki%20content&keywords=imagery).
-
-#### How can I add a custom (aerial/satellite) imagery layer
-
-The preferred method is to add your imagery source to the [JOSM Imagery Sources](https://josm.openstreetmap.de/wiki/Maps) so that it can be used by all OpenStreetMap editors. 
-
-From 10.1 on, the "Advanced preferences" contain an option to add custom imagery via a form, however adding to the [JOSM Imagery Sources](https://josm.openstreetmap.de/wiki/Maps) is still preferred. You can update the complete configuration at any time by selecting the corresponding menu entry in the "Tools" menu.
-
-#### Why can't you provide technical support on the google play store review section
-
-The google play store allows only one reply to a review with a maximum length of just 350 characters. If you believe that what you are experiencing is a clear malfunction please open a new issue on [github](https://github.com/MarcusWolschon/osmeditor4android/issues), if you have questions or can't find how do a specific operation you can ask on the [OpenStreetMap help site](http://help.openstreetmap.org) or one of the other OpenStreetMap communication channels. 
-
-350 characters is 100 characters less than the text above.
+Vespucci uses the [Editor Layer Index](https://github.com/osmlab/editor-layer-index) for configuring the available backgrounds. The contents cover essentially all imagery that can legitimately be used for OpenStreetMap purposes. If you believe the imagery for a specific region is out of date or there are better sources you should preferably update the ELI or open an issue there.
 
 #### On startup Vespucci complains that it can't write to a directory or reports an error
 
