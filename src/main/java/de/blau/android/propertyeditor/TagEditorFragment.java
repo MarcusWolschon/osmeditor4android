@@ -1433,8 +1433,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         // Fixed tags, always have a value. We overwrite mercilessly.
         for (Entry<String, String> tag : tags.entrySet()) {
-            List<String> oldValue = currentValues.put(tag.getKey(), Util.wrapInList(tag.getValue()));
-            if (oldValue != null && !oldValue.isEmpty() && !oldValue.contains(tag.getValue())) {
+            final String value = tag.getValue();
+            List<String> oldValue = currentValues.put(tag.getKey(), Util.wrapInList(value));
+            if (oldValue != null && !oldValue.isEmpty() && !"".equals(oldValue.get(0)) && !oldValue.contains(value)) {
                 replacedValue = true;
             }
         }
