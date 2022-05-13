@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.RemoteException;
 import android.view.KeyEvent;
 import androidx.annotation.NonNull;
@@ -1277,6 +1278,87 @@ public class PropertyEditorTest {
         propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(TestUtils.findText(device, false, "Bergdietikon"));
         assertFalse(n.hasTag(Tags.KEY_NAME, "BergDietikon"));
+    }
+
+    /**
+     * Select an untagged node, then - apply fastfood preset - select name (McDonalds)
+     */
+    @Test
+    public void nameSuggestion() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        main.getMap().getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        // trying to get node click work properly is frustrating
+        // TestUtils.clickAtCoordinates(main.getMap(), 8.3856255, 47.3894333, true);
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 599672192L);
+        assertNotNull(n);
+        final CountDownLatch signal2 = new CountDownLatch(1);
+        main.runOnUiThread(() -> {
+            main.getEasyEditManager().editElement(n);
+            (new SignalHandler(signal2)).onSuccess();
+        });
+        try {
+            signal2.await(20, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, true));
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(propertyEditor instanceof PropertyEditor);
+
+        if (!((PropertyEditor) propertyEditor).paneLayout()) {
+            assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
+        }
+        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Facilities"), true, false);
+        assertTrue(found);
+        found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Food+Drinks"), true, false);
+        assertTrue(found);
+        found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Fast Food"), true, false);
+        assertTrue(found);
+        // set cuisine to something so that we get the dialog
+        UiObject2 cusine = null;
+        try {
+            cusine = getField(device, "Cuisine", 1);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        assertNotNull(cusine);
+        cusine.click();
+        TestUtils.scrollTo("Asian", false);
+        assertTrue(TestUtils.clickText(device, true, "Asian", false, false));
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.save), true, false));
+        UiObject2 name = null;
+        try {
+            name = getField(device, "Name", 1);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        assertNotNull(name);
+        name.click();
+        instrumentation.sendStringSync("McD");
+        Rect rect = name.getVisibleBounds();
+        device.waitForWindowUpdate(null, 1000);
+        device.click(rect.left + 64, rect.bottom + 72); // hack alert
+
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.replace), true));
+
+        TestUtils.clickHome(device, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        device.waitForIdle();
+        assertTrue(n.hasTag("cuisine", "burger"));
     }
 
     /**
