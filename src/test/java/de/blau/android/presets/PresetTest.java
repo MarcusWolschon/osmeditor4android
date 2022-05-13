@@ -81,6 +81,10 @@ public class PresetTest {
         assertNull(Preset.splitValues(null, restaurant, "cuisine"));
         values.add(null);
         assertEquals(3, Preset.splitValues(values, restaurant, "cuisine").size());
+        assertTrue(restaurant.hasKeyValue("cuisine", "anything")); // that this works doesn't make sense
+        assertTrue(restaurant.hasKeyValue("takeaway", "only"));
+        assertTrue(restaurant.hasKeyValue("self_service", ""));
+
         // lanes uses |
         PresetItem lanes = presets[0].getItemByName("Single direction roads", null);
         assertNotNull(lanes);
@@ -90,6 +94,37 @@ public class PresetTest {
         assertEquals(2, result.size());
         assertTrue(result.contains("left"));
         assertTrue(result.contains("right"));
+    }
+
+    /**
+     * Test that we match the expected PresetItem
+     */
+    @Test
+    public void matching2() {
+        PresetItem item = presets[0].getItemByName("Traffic Sign Forward", null);
+        assertNotNull(item);
+        Map<String, String> tags = new HashMap<>();
+        tags.put("traffic_sign:forward", "something"); // this is a text field
+        assertEquals(1, item.matchesRecommended(tags));
+        PresetItem sign = Preset.findBestMatch(presets, tags, null);
+        assertEquals(item, sign);
+        assertTrue(item.hasKeyValue("traffic_sign:forward", "anything")); // test field
+    }
+
+    /**
+     * Remove an item
+     */
+    @Test
+    public void deleteItem() {
+        PresetItem item = presets[0].getItemByName("Traffic Sign Backward", null);
+        assertNotNull(item);
+        Map<String, String> tags = new HashMap<>();
+        tags.put("traffic_sign:backward", "something"); // this is a text field
+        PresetItem sign = Preset.findBestMatch(presets, tags, null);
+        assertEquals(item, sign);
+        presets[0].deleteItem(item);
+        assertNull(presets[0].getItemByName("Traffic Sign Backward", null));
+        assertNull(Preset.findBestMatch(presets, tags, null));
     }
 
     /**
