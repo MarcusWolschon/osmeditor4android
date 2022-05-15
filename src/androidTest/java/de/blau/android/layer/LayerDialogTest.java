@@ -187,14 +187,16 @@ public class LayerDialogTest {
         final MapOverlay dataLayer = map.getDataLayer();
         String dataLayerName = dataLayer.getName();
         UiObject2 menuButton = TestUtils.getLayerButton(device, dataLayerName, MENU_BUTTON);
-        menuButton.clickAndWait(Until.newWindow(), 1000);
         int origPos = dataLayer.getIndex();
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.move_up), true, false));
-        assertEquals(origPos + 1, dataLayer.getIndex());
+        int count = map.getLayers().size();
+        boolean upFirst = origPos < count - 1;
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        assertTrue(TestUtils.clickText(device, false, upFirst ? main.getString(R.string.move_up) : main.getString(R.string.move_down), true, false));
+        assertEquals(origPos + (upFirst ? 1 : -1), dataLayer.getIndex());
         TestUtils.clickText(device, true, main.getString(R.string.done), false, false);
         menuButton = TestUtils.getLayerButton(device, dataLayerName, MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.move_down), true, false));
+        assertTrue(TestUtils.clickText(device, false, upFirst ? main.getString(R.string.move_down) : main.getString(R.string.move_up), true, false));
         assertEquals(origPos, dataLayer.getIndex());
         TestUtils.clickText(device, true, main.getString(R.string.done), false, false);
     }
@@ -458,7 +460,7 @@ public class LayerDialogTest {
             } catch (UiObjectNotFoundException e) {
             }
             assertTrue(TestUtils.clickText(device, false, "Capas", true));
-            
+
             UiObject top = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/top"));
             try {
                 top.setText("85");
