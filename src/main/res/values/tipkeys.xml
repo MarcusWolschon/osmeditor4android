@@ -14,5 +14,6 @@
     <string name="tip_gpx_recording_key">gpxRecordingTip</string>
     <string name="tip_auto_download_key">autoDownloadTip</string>
     <string name="tip_tristate_checkbox_key">tristateCheckbox</string>
-    <string name="tip_alternative_tagging_key">alternativeTagging</string>
+    <string name="tip_alternative_tagging_key">alternativeTagging</string>¨
+    <string name="tip_mode_switching_key">modeSwitching</string>
 </resources>

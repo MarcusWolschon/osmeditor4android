@@ -1584,6 +1584,7 @@ public class Main extends FullScreenAppCompatActivity
             }
             updateActionbarEditMode();
             map.invalidate();
+            Tip.showDialog(Main.this, R.string.tip_mode_switching_key, R.string.tip_mode_switching);
         });
         lock.setLongClickable(true);
         lock.setOnLongClickListener(b -> {
