@@ -560,6 +560,7 @@ public final class TestUtils {
             try {
                 lock.click();
                 device.waitForWindowUpdate(null, 1000);
+                clickText(device, false, "OK", false);
             } catch (UiObjectNotFoundException e) {
                 Assert.fail(e.getMessage());
             }
