@@ -724,7 +724,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             float[] linePoints = points.getArray();
             int pointsSize = points.size();
             if (style.getOffset() != 0f) {
-                Geometry.offset(linePoints, pointsSize, true, -style.getOffset());
+                Geometry.offset(linePoints, pointsSize, r.get(0) == r.get(r.size()-1), -style.getOffset());
             }
             path.moveTo(linePoints[0], linePoints[1]);
             for (int i = 0; i < pointsSize; i += 4) {
