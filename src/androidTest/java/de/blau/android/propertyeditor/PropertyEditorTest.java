@@ -377,6 +377,75 @@ public class PropertyEditorTest {
     }
 
     /**
+     * Select an untagged node, then - apply charging station preset- set vehicle type
+     */
+    @Test
+    public void checkGroupDialog() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        main.getMap().getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        // trying to get node click work properly is frustrating
+        // TestUtils.clickAtCoordinates(main.getMap(), 8.3856255, 47.3894333, true);
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 599672192L);
+        assertNotNull(n);
+        final CountDownLatch signal2 = new CountDownLatch(1);
+        main.runOnUiThread(() -> {
+            main.getEasyEditManager().editElement(n);
+            (new SignalHandler(signal2)).onSuccess();
+        });
+        try {
+            signal2.await(20, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+      
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, true));
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(propertyEditor instanceof PropertyEditor);
+
+        if (!((PropertyEditor) propertyEditor).paneLayout()) {
+            assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
+        }
+        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Transport"), true, false);
+        assertTrue(found);
+        found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Car"), true, false);
+        assertTrue(found);
+        found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Charging Station"), true, false);
+        assertTrue(found);
+        UiObject2 vehicles = null;
+        try {
+            vehicles = getField(device, "Types of vehicles which can be charged", 1);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        assertNotNull(vehicles);
+        vehicles.click();
+        assertTrue(TestUtils.clickText(device, true, "Car", false, false));
+        assertTrue(TestUtils.clickText(device, true, "Truck", false, false));
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.save), true, false));
+        assertTrue(TestUtils.findText(device, false, "Car"));
+        assertTrue(TestUtils.findText(device, false, "Truck"));
+     
+        TestUtils.clickHome(device, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        device.waitForIdle();
+        assertTrue(n.hasTag("motorcar", Tags.VALUE_YES));
+        assertTrue(n.hasTag("truck", Tags.VALUE_YES));
+    }
+    
+    /**
      * What the name says
      */
     public void clickOK() {
