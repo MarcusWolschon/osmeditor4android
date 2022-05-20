@@ -594,13 +594,29 @@ public class PresetItem extends PresetElement {
      * @return a PresetCheckField or null if not found
      */
     @Nullable
-    private PresetField getCheckFieldFromGroup(String key) {
+    private PresetField getCheckFieldFromGroup(@NonNull String key) {
         for (PresetField f : fields.values()) {
             if (f instanceof PresetCheckGroupField) {
                 PresetCheckField check = ((PresetCheckGroupField) f).getCheckField(key);
                 if (check != null) {
                     return check;
                 }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Return the PresetCheckGroupField for a key
+     * 
+     * @param key the key
+     * @return a PresetCheckGroupField or null if not found
+     */
+    @Nullable
+    public PresetCheckGroupField getCheckGroupField(@NonNull String key) {
+        for (PresetField f : fields.values()) {
+            if (f instanceof PresetCheckGroupField && ((PresetCheckGroupField) f).getCheckField(key) != null) {
+                return (PresetCheckGroupField) f;
             }
         }
         return null;

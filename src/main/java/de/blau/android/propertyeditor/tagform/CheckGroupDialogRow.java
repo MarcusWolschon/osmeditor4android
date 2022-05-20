@@ -25,7 +25,6 @@ import ch.poole.android.checkbox.IndeterminateCheckBox.OnStateChangedListener;
 import de.blau.android.R;
 import de.blau.android.presets.PresetCheckField;
 import de.blau.android.presets.PresetCheckGroupField;
-import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.StringWithDescription;
@@ -83,11 +82,11 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
             String key = entry.getKey();
             String value = entry.getValue();
             if (field == null) {
-                PresetField f = preset.getField(key);
-                if (!(f instanceof PresetCheckGroupField)) {
-                    return;
+                field = preset.getCheckGroupField(key);
+                if (field == null) {
+                    Log.e(DEBUG_TAG, key + " isn't in a checkgroup");
+                    continue;
                 }
-                field = (PresetCheckGroupField) f;
             }
             PresetCheckField check = field.getCheckField(key);
             if (check != null && !"".equals(value)) {
