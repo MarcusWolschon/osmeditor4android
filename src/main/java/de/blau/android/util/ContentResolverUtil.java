@@ -158,6 +158,8 @@ public final class ContentResolverUtil {
                 final int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
                 return cursor.getString(column_index);
             }
+        } catch (Exception ex) {
+            Log.e(DEBUG_TAG, ex.getMessage());
         }
         return null;
     }
