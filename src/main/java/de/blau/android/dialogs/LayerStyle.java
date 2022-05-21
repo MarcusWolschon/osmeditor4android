@@ -116,6 +116,7 @@ public class LayerStyle extends AbstractConfigurationDialog {
         final Spinner labelSpinner = (Spinner) labelContainer.findViewById(R.id.layer_style_label);
         View labelMinZoomContainer = layout.findViewById(R.id.layer_label_min_zoom_container);
         final NumberPicker labelMinZoomPicker = (NumberPicker) labelMinZoomContainer.findViewById(R.id.label_zoom_min);
+        View symbolContainer = layout.findViewById(R.id.layer_symbol_container);
         final Spinner symbolSpinner = (Spinner) layout.findViewById(R.id.layer_style_symbol);
         SeekBar seeker = (SeekBar) layout.findViewById(R.id.layer_line_width);
         View lineWidthView = layout.findViewById(R.id.layer_line_width_view);
@@ -159,12 +160,13 @@ public class LayerStyle extends AbstractConfigurationDialog {
             setupLabelSpinner(labelContainer, labelSpinner);
             if (tempLayer instanceof LabelMinZoomInterface) {
                 setUpMinLabelZoomPicker(labelMinZoomPicker);
+                setupSymbolSpinner(symbolSpinner);
             } else {
                 labelMinZoomContainer.setVisibility(View.GONE);
+                symbolContainer.setVisibility(View.GONE);
             }
             setUpColorSelector(lineWidthView);
             setUpLineWidthSelector(seeker, lineWidthView);
-            setupSymbolSpinner(symbolSpinner);
         }
         builder.setView(layout);
         builder.setPositiveButton(R.string.okay, doNothingListener);
