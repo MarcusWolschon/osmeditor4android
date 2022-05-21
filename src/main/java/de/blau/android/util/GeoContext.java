@@ -311,27 +311,37 @@ public class GeoContext {
      */
     @Nullable
     public List<String> getIsoCodes(@NonNull OsmElement e) {
-        if (countryBoundaries == null) {
+        try {
+            if (countryBoundaries == null) {
+                throw new IllegalStateException("countryBoundaries null");
+            }
+            double lon;
+            double lat;
+            if (e instanceof Node) {
+                lon = ((Node) e).getLon() / 1E7D;
+                lat = ((Node) e).getLat() / 1E7D;
+            } else if (e instanceof Way) {
+                double[] coords = Geometry.centroidLonLat((Way) e);
+                if (coords == null) {
+                    throw new IllegalStateException("way " + e.getOsmId() + " no coords");
+                }
+                lon = coords[0];
+                lat = coords[1];
+            } else {
+                BoundingBox bbox = e.getBounds();
+                if (bbox != null) {
+                    ViewBox vbox = new ViewBox(bbox);
+                    lon = (vbox.getLeft() + (vbox.getRight() - vbox.getLeft()) / 2D) / 1E7D;
+                    lat = vbox.getCenterLat();
+                } else {
+                    throw new IllegalStateException("way " + e.getOsmId() + " no coords");
+                }
+            }
+            return countryBoundaries.getIds(lon, lat);
+        } catch (IllegalStateException ex) {
+            Log.e(DEBUG_TAG, ex.getMessage());
             return null;
         }
-        double lon = 0d;
-        double lat = 0d;
-        if (e instanceof Node) {
-            lon = ((Node) e).getLon() / 1E7D;
-            lat = ((Node) e).getLat() / 1E7D;
-        } else if (e instanceof Way) {
-            double[] coords = Geometry.centroidLonLat((Way) e);
-            lon = coords[0];
-            lat = coords[1];
-        } else {
-            BoundingBox bbox = e.getBounds();
-            if (bbox != null) {
-                ViewBox vbox = new ViewBox(bbox);
-                lon = (vbox.getLeft() + (vbox.getRight() - vbox.getLeft()) / 2D) / 1E7D;
-                lat = vbox.getCenterLat();
-            }
-        }
-        return countryBoundaries.getIds(lon, lat);
     }
 
     /**
