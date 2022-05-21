@@ -18,31 +18,31 @@ import androidx.annotation.Nullable;
  * front and behind the coordinate value - parse degree + minute values correctly - JavaDoc and other cleanup
  */
 public final class CoordinateParser {
-    private static final String DMS = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)"                                                                      // The
-                                                                                                                                               // degrees
-            + "\\s*([0-6]?\\d)\\s*(?:'|m| |´|’|′)"                                                                                             // The
-                                                                                                                                               // minutes
-            + "\\s*(?:"                                                                                                                        // Non-capturing
-                                                                                                                                               // group
-            + "([0-6]?\\d(?:[,.]\\d+)?)"                                                                                                       // Seconds
-                                                                                                                                               // and
-                                                                                                                                               // optional
-                                                                                                                                               // decimal
+    private static final String DMS = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)"                                                                                // The
+                                                                                                                                                         // degrees
+            + "\\s*([0-6]?\\d)\\s*(?:'|m| |´|’|′)"                                                                                                       // The
+                                                                                                                                                         // minutes
+            + "\\s*(?:"                                                                                                                                  // Non-capturing
+                                                                                                                                                         // group
+            + "([0-6]?\\d(?:[,.]\\d+)?)"                                                                                                                 // Seconds
+                                                                                                                                                         // and
+                                                                                                                                                         // optional
+                                                                                                                                                         // decimal
             + "\\s*(?:\"|''|s|´´|″)?" + ")?\\s*";
-    private static final String DM  = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)"                                                                      // The
-                                                                                                                                               // degrees
-            + "\\s*(?:"                                                                                                                        // Non-capturing
-                                                                                                                                               // group
-            + "([0-6]?\\d(?:[,.]\\d+)?)"                                                                                                       // Minutes
-                                                                                                                                               // and
-                                                                                                                                               // optional
-                                                                                                                                               // decimal
+    private static final String DM  = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)"                                                                                // The
+                                                                                                                                                         // degrees
+            + "\\s*(?:"                                                                                                                                  // Non-capturing
+                                                                                                                                                         // group
+            + "([0-6]?\\d(?:[,.]\\d+)?)"                                                                                                                 // Minutes
+                                                                                                                                                         // and
+                                                                                                                                                         // optional
+                                                                                                                                                         // decimal
             + "\\s*(?:'|m| |´|’|′)?" + ")?\\s*";
-    private static final String D   = "\\s*(\\d{1,3}(?:[,.]\\d+)?)\\s*(?:°|d|º| |g|o|)\\s*";                                                   // The
-                                                                                                                                               // degrees
-                                                                                                                                               // and
-                                                                                                                                               // optional
-                                                                                                                                               // decimal
+    private static final String D   = "\\s*(\\d{1,3}(?:[,.]\\d+)?)\\s*(?:°|d|º| |g|o|)\\s*";                                                             // The
+                                                                                                                                                         // degrees
+                                                                                                                                                         // and
+                                                                                                                                                         // optional
+                                                                                                                                                         // decimal
 
     private static final String NSEOW      = "([NSEOW])";
     private static final String SEPARATORS = "[ ,;/]?";
@@ -167,53 +167,57 @@ public final class CoordinateParser {
         if (isNullOrEmpty(coordinates)) {
             throw new IllegalArgumentException("null or empty coordinates");
         }
-        Matcher m = DMS_COORD.matcher(coordinates);
-        if (m.find()) {
-            final String dir1 = m.group(4);
-            final String dir2 = m.group(8);
-            // first parse coords regardless whether they are lat or lon
-            double c1 = coordFromMatcher(m, 1, 2, 3, dir1);
-            double c2 = coordFromMatcher(m, 5, 6, 7, dir2);
-            return orderCoordinates(dir1, dir2, c1, c2);
-        } else {
-            m = DMS_COORD_2.matcher(coordinates);
+        try {
+            Matcher m = DMS_COORD.matcher(coordinates);
             if (m.find()) {
-                final String dir1 = m.group(1);
-                final String dir2 = m.group(5);
-                double c1 = coordFromMatcher(m, 2, 3, 4, dir1);
-                double c2 = coordFromMatcher(m, 6, 7, 8, dir2);
+                final String dir1 = m.group(4);
+                final String dir2 = m.group(8);
+                // first parse coords regardless whether they are lat or lon
+                double c1 = coordFromMatcher(m, 1, 2, 3, dir1);
+                double c2 = coordFromMatcher(m, 5, 6, 7, dir2);
                 return orderCoordinates(dir1, dir2, c1, c2);
             } else {
-                m = DM_COORD.matcher(coordinates);
+                m = DMS_COORD_2.matcher(coordinates);
                 if (m.find()) {
-                    final String dir1 = m.group(3);
-                    final String dir2 = m.group(6);
-                    double c1 = coordFromMatcher(m, 1, 2, dir1);
-                    double c2 = coordFromMatcher(m, 4, 5, dir2);
+                    final String dir1 = m.group(1);
+                    final String dir2 = m.group(5);
+                    double c1 = coordFromMatcher(m, 2, 3, 4, dir1);
+                    double c2 = coordFromMatcher(m, 6, 7, 8, dir2);
                     return orderCoordinates(dir1, dir2, c1, c2);
                 } else {
-                    m = DM_COORD_2.matcher(coordinates);
+                    m = DM_COORD.matcher(coordinates);
                     if (m.find()) {
-                        final String dir1 = m.group(1);
-                        final String dir2 = m.group(4);
-                        // first parse coords regardless whether they are lat or lon
-                        double c1 = coordFromMatcher(m, 2, 3, dir1);
-                        double c2 = coordFromMatcher(m, 5, 6, dir2);
+                        final String dir1 = m.group(3);
+                        final String dir2 = m.group(6);
+                        double c1 = coordFromMatcher(m, 1, 2, dir1);
+                        double c2 = coordFromMatcher(m, 4, 5, dir2);
                         return orderCoordinates(dir1, dir2, c1, c2);
-                    } else if (coordinates.length() > 4) {
-                        // try to split and then use lat/lon parsing
-                        for (final char delim : ",;/ ".toCharArray()) {
-                            int cnt = countMatches(coordinates, delim);
-                            if (cnt == 1) {
-                                String[] latlon = coordinates.split(String.valueOf(delim));
-                                if (latlon.length == 2) {
-                                    return parseLatLng(latlon[0], latlon[1]);
+                    } else {
+                        m = DM_COORD_2.matcher(coordinates);
+                        if (m.find()) {
+                            final String dir1 = m.group(1);
+                            final String dir2 = m.group(4);
+                            // first parse coords regardless whether they are lat or lon
+                            double c1 = coordFromMatcher(m, 2, 3, dir1);
+                            double c2 = coordFromMatcher(m, 5, 6, dir2);
+                            return orderCoordinates(dir1, dir2, c1, c2);
+                        } else if (coordinates.length() > 4) {
+                            // try to split and then use lat/lon parsing
+                            for (final char delim : ",;/ ".toCharArray()) {
+                                int cnt = countMatches(coordinates, delim);
+                                if (cnt == 1) {
+                                    String[] latlon = coordinates.split(String.valueOf(delim));
+                                    if (latlon.length == 2) {
+                                        return parseLatLng(latlon[0], latlon[1]);
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+        } catch (NumberFormatException nfex) {
+            throw new ParseException(nfex.getMessage(), 0);
         }
         throw new ParseException("invalid coordinates " + coordinates, 0);
     }
