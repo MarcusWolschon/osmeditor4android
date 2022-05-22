@@ -25,7 +25,7 @@ public abstract class FullScreenAppCompatActivity extends LocaleAwareCompatActiv
     private static final String DEBUG_TAG  = FullScreenAppCompatActivity.class.getSimpleName();
     private boolean             fullScreen = false;
     private boolean             hideStatus = false;
-    private final Handler       handler    = new Handler();
+    private final Handler       handler    = new Handler(getMainLooper());
 
     @SuppressLint("NewApi")
     @Override
@@ -117,10 +117,13 @@ public abstract class FullScreenAppCompatActivity extends LocaleAwareCompatActiv
         fullScreen = false;
         String fullScreenPref = prefs.getFullscreenMode();
         if (fullScreenPref.equals(getString(R.string.full_screen_auto))) {
-            fullScreen = (hasNavBar(getResources()) && isEdgeToEdgeEnabled(getResources()) == 0)
-                    || (!KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
-            Log.d(DEBUG_TAG, "full screen auto " + fullScreen + " KEYCODE_BACK " + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) + " KEYCODE_HOME "
-                    + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
+            final boolean hasNavBar = hasNavBar(getResources());
+            final int edgeToEdgeEnabled = isEdgeToEdgeEnabled(getResources());
+            final boolean hasBack = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+            final boolean hasHome = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);
+            fullScreen = Build.VERSION.SDK_INT < Build.VERSION_CODES.R && ((hasNavBar && edgeToEdgeEnabled == 0) || (!hasBack && !hasHome));
+            Log.d(DEBUG_TAG, "full screen auto " + fullScreen + " hasNavBar " + hasNavBar + " isEdgeToEdgeEnabled " + edgeToEdgeEnabled + " KEYCODE_BACK "
+                    + hasBack + " KEYCODE_HOME " + hasHome);
             if (fullScreen && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 hideStatus = isInMultiWindowMode();
             } else {
@@ -143,7 +146,7 @@ public abstract class FullScreenAppCompatActivity extends LocaleAwareCompatActiv
     /**
      * Test if the device has a navigation bar
      * 
-     * This uses an undocumented internal resource id, but there is nothing else
+     * This uses an undocumented internal resource id, but there is nothing else prior to Android 11 / API 30 
      * 
      * @param resources to retrieve the setting from
      * @return true if the device has a navigation bar
@@ -160,7 +163,7 @@ public abstract class FullScreenAppCompatActivity extends LocaleAwareCompatActiv
     /**
      * Determine which navigation mode the device supports
      * 
-     * This uses an undocumented internal resource id, but there is nothing else
+     * This uses an undocumented internal resource id, but there is nothing else prior to Android 11 / API 30
      * 
      * @param resources to retrieve the setting from
      * @return 0 : Navigation is displaying with 3 buttons, 1 : displaying with 2 button(Android P navigation mode), 2 :
