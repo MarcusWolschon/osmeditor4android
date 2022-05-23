@@ -453,7 +453,7 @@ public class Main extends FullScreenAppCompatActivity
 
     private Bundle shortcutExtras;
 
-    private static final float LARGE_FAB_ELEVATION = 16; // used for renabling elevation on the FABs
+    private static final float LARGE_FAB_ELEVATION = 16; // used for re-enabling elevation on the FABs
 
     /**
      * {@inheritDoc}
@@ -468,22 +468,14 @@ public class Main extends FullScreenAppCompatActivity
         updatePrefs(new Preferences(this));
 
         int layout = R.layout.main;
-        if (useFullScreen(prefs)) {
+        if (useFullScreen(prefs) && !statusBarHidden()) {
             Log.d(DEBUG_TAG, "using full screen layout");
-            if (!statusBarHidden()) {
-                layout = R.layout.main_fullscreen;
-            }
+            layout = R.layout.main_fullscreen;
         }
         if (prefs.lightThemeEnabled()) {
-            if (statusBarHidden()) {
-                setTheme(R.style.Theme_customMain_Light_FullScreen);
-            } else {
-                setTheme(R.style.Theme_customMain_Light);
-            }
-        } else {
-            if (statusBarHidden()) {
-                setTheme(R.style.Theme_customMain_FullScreen);
-            }
+            setTheme(statusBarHidden() ? R.style.Theme_customMain_Light_FullScreen : R.style.Theme_customMain_Light);
+        } else if (statusBarHidden()) {
+            setTheme(R.style.Theme_customMain_FullScreen);
         }
 
         super.onCreate(savedInstanceState);
