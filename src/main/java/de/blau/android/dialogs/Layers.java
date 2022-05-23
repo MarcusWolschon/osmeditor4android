@@ -289,7 +289,7 @@ public class Layers extends AbstractConfigurationDialog {
     }
 
     /**
-     * Show a list of available tracks (in the current view), then download on selection
+     * Show a list of available tracks (starting point in the current view), then download on selection
      * 
      * @param activity the calling activity
      * @param prefs the current Preferences
@@ -331,6 +331,9 @@ public class Layers extends AbstractConfigurationDialog {
                     });
                     builder.setPositiveButton(R.string.Done, null);
                     builder.show();
+                } else {
+                    Tip.showDialog(activity, R.string.tip_empty_gpx_download_key, R.string.tip_empty_gpx_download);
+                    Snack.toastTopWarning(activity, R.string.toast_nothing_found);
                 }
             }
         };

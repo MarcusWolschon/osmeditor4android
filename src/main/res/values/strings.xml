@@ -429,6 +429,7 @@
     <string name="tip_tristate_checkbox">You just touched a tristate checkbox, these work just as normal checkboxes, toggling between two values, for example yes/no or true/false.&lt;p&gt;However they have an additional third &lt;b&gt;not set&lt;/b&gt; state, indicated by a greyed out checkbox which will stop the corresponding tag from being added. You can set the checkbox to this state with a long press.</string>
     <string name="tip_alternative_tagging">You just applied a preset that has links to alternative tagging. That is other ways to tag this object that may be more appropriate or may simply be related. These alternative presets will be shown at the top of the most recently used preset display.</string>
     <string name="tip_mode_switching">The lock button doubles as the mode switcher, a long press will show a menu with the different options.&lt;p&gt;You can find more information about Vespucci\'s modes in the help system, both in the introduction and the help for the main map display.</string>
+    <string name="tip_empty_gpx_download">Due to a quirk in the OSM API the starting point of the GPX track needs to be in view for it to be found for download.</string>
     <!--  NumberPicker -->
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>
