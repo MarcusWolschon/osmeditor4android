@@ -471,7 +471,7 @@ public final class Util {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             return Long.compare(x, y);
         }
-        return Long.valueOf(x).compareTo(y);
+        return Long.valueOf(x).compareTo(y); // NOSONAR
     }
 
     private static class UlTagHandler implements Html.TagHandler {

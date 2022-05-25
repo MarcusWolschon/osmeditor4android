@@ -5,6 +5,7 @@ import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.KeyCharacterMap;
@@ -22,16 +23,26 @@ import de.blau.android.prefs.Preferences;
  */
 public abstract class FullScreenAppCompatActivity extends LocaleAwareCompatActivity {
 
-    private static final String DEBUG_TAG  = FullScreenAppCompatActivity.class.getSimpleName();
-    private boolean             fullScreen = false;
-    private boolean             hideStatus = false;
-    private final Handler       handler    = new Handler();
+    private static final String DEBUG_TAG = FullScreenAppCompatActivity.class.getSimpleName();
 
+    private static final int FULLSCREEN_UI = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN;
+    private static final int NAV_HIDDEN    = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+
+    private boolean fullScreen = false;
+    private boolean hideStatus = false;
+    private Handler handler;
+
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        handler = new Handler(getMainLooper());
+    }
+
+    @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
     @Override
     protected void onResume() {
         super.onResume();
-
         View decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(visibility -> {
             Log.d(DEBUG_TAG, "onSystemUiVisibilityChange " + Integer.toHexString(visibility));
@@ -89,19 +100,19 @@ public abstract class FullScreenAppCompatActivity extends LocaleAwareCompatActiv
      * @return true if we are not showing the status bar
      */
     protected boolean statusBarHidden() {
-        return hideStatus;
+        return hideStatus && !safeIsInMultiWIndowMode();
     }
 
     /**
      * Turn off a soft button navigation button, note this only works if the main view of the app actually has focus
      */
+    @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
     private void hideSystemUI() {
-        View view = getWindow().getDecorView();
-        if (view != null && fullScreen) {
+        if (fullScreen) {
             Log.d(DEBUG_TAG, "hiding nav bar");
-            int fullScreenMode = (hideStatus ? View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN : 0)
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+            View view = getWindow().getDecorView();
+            int fullScreenMode = (statusBarHidden() ? FULLSCREEN_UI : 0) | NAV_HIDDEN;
             view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | fullScreenMode
                     | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY : 0));
         }
@@ -115,17 +126,16 @@ public abstract class FullScreenAppCompatActivity extends LocaleAwareCompatActiv
      */
     protected boolean useFullScreen(@NonNull Preferences prefs) {
         fullScreen = false;
+        hideStatus = false;
         String fullScreenPref = prefs.getFullscreenMode();
         if (fullScreenPref.equals(getString(R.string.full_screen_auto))) {
-            fullScreen = (hasNavBar(getResources()) && isEdgeToEdgeEnabled(getResources()) == 0)
-                    || (!KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
-            Log.d(DEBUG_TAG, "full screen auto " + fullScreen + " KEYCODE_BACK " + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) + " KEYCODE_HOME "
-                    + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
-            if (fullScreen && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                hideStatus = isInMultiWindowMode();
-            } else {
-                hideStatus = false;
-            }
+            final boolean hasNavBar = hasNavBar(getResources());
+            final int edgeToEdgeEnabled = isEdgeToEdgeEnabled(getResources());
+            final boolean hasBack = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+            final boolean hasHome = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);
+            fullScreen = Build.VERSION.SDK_INT < Build.VERSION_CODES.R && ((hasNavBar && edgeToEdgeEnabled == 0) || (!hasBack && !hasHome));
+            Log.d(DEBUG_TAG, "full screen auto " + fullScreen + " hasNavBar " + hasNavBar + " isEdgeToEdgeEnabled " + edgeToEdgeEnabled + " KEYCODE_BACK "
+                    + hasBack + " KEYCODE_HOME " + hasHome);
         } else if (fullScreenPref.equals(getString(R.string.full_screen_never))) {
             fullScreen = false;
             Log.d(DEBUG_TAG, "full screen never");
@@ -139,11 +149,20 @@ public abstract class FullScreenAppCompatActivity extends LocaleAwareCompatActiv
         }
         return fullScreen;
     }
+    
+    /**
+     * Variant of isInMultiWindowMode that can be called on any platform
+     * 
+     * @return true if in multi windo mode
+     */
+    protected boolean safeIsInMultiWIndowMode() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && isInMultiWindowMode();
+    }
 
     /**
      * Test if the device has a navigation bar
      * 
-     * This uses an undocumented internal resource id, but there is nothing else
+     * This uses an undocumented internal resource id, but there is nothing else prior to Android 11 / API 30
      * 
      * @param resources to retrieve the setting from
      * @return true if the device has a navigation bar
@@ -160,7 +179,7 @@ public abstract class FullScreenAppCompatActivity extends LocaleAwareCompatActiv
     /**
      * Determine which navigation mode the device supports
      * 
-     * This uses an undocumented internal resource id, but there is nothing else
+     * This uses an undocumented internal resource id, but there is nothing else prior to Android 11 / API 30
      * 
      * @param resources to retrieve the setting from
      * @return 0 : Navigation is displaying with 3 buttons, 1 : displaying with 2 button(Android P navigation mode), 2 :

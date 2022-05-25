@@ -457,7 +457,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         final Comparator<ImageryOffset> cmp = (offset1, offset2) -> {
             double d1 = GeoMath.haversineDistance(centerLon, centerLat, offset1.getLon(), offset1.getLat());
             double d2 = GeoMath.haversineDistance(centerLon, centerLat, offset2.getLon(), offset2.getLat());
-            return Double.valueOf(d1).compareTo(d2);
+            return Double.compare(d1, d2);
         };
         Logic logic = App.getLogic();
         OffsetLoader loader = new OffsetLoader(logic.getExecutorService(), logic.getHandler(), () -> {
