@@ -101,6 +101,17 @@ If you have a third party build of Vespucci installed (for example from F-Droid)
    
 will not be available.
 
+#### Removing the Bing imagery layer
+
+Due to an implementation detail, once per session a metadata call will be made to the Bing servers, potentially leaking some minimal information (IP address, and the fact that you are using Vespucci to edit OSM). You can remove the Bing API key which will disable the Bing source and the behaviour with the following steps:
+
+   * download and save [remove_bing_key.txt](other/remove_bing_key.txt)
+   * in the tools menu select _Load keys from file..._ and load the saved file
+   * update the imagery configuration from the _More imagery tools..._ _Update configuration from ELI_ (or if you are using the JOSM configuration from the other similar entry)
+   * restart the app
+
+Note that this can only be reversed by either you providing a new Bing API key, or completely removing Vespuccis data directory.
+
 #### Using Vespucci
 
 #### How can I upload new/changed data to the OSM server?
