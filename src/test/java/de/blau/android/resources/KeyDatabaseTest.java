@@ -47,14 +47,14 @@ public class KeyDatabaseTest {
     public void overwriteTest() {
         KeyDatabaseHelper.readKeysFromAssets(ApplicationProvider.getApplicationContext());
         try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(ApplicationProvider.getApplicationContext())) {
-            KeyDatabaseHelper.replaceKey(keyDatabase.getWritableDatabase(), "Test", EntryType.API_KEY, "1111111111", true, false, null, null);
+            KeyDatabaseHelper.replaceOrDeleteKey(keyDatabase.getWritableDatabase(), "Test", EntryType.API_KEY, "1111111111", true, false, null, null);
 
             assertEquals("1111111111", KeyDatabaseHelper.getKey(keyDatabase.getReadableDatabase(), "Test", EntryType.API_KEY));
 
-            KeyDatabaseHelper.replaceKey(keyDatabase.getWritableDatabase(), "Test", EntryType.API_KEY, "2222222222", false, false, null, null);
+            KeyDatabaseHelper.replaceOrDeleteKey(keyDatabase.getWritableDatabase(), "Test", EntryType.API_KEY, "2222222222", false, false, null, null);
             // this should still be the same
             assertEquals("1111111111", KeyDatabaseHelper.getKey(keyDatabase.getReadableDatabase(), "Test", EntryType.API_KEY));
-            KeyDatabaseHelper.replaceKey(keyDatabase.getWritableDatabase(), "Test", EntryType.API_KEY, "2222222222", false, true, null, null);
+            KeyDatabaseHelper.replaceOrDeleteKey(keyDatabase.getWritableDatabase(), "Test", EntryType.API_KEY, "2222222222", false, true, null, null);
             assertEquals("2222222222", KeyDatabaseHelper.getKey(keyDatabase.getReadableDatabase(), "Test", EntryType.API_KEY));
         }
     }

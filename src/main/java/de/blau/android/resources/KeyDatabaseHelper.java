@@ -26,6 +26,7 @@ import de.blau.android.net.OAuthHelper.OAuthConfiguration;
  *
  */
 public class KeyDatabaseHelper extends SQLiteOpenHelper {
+
     private static final String DEBUG_TAG = "KeyDatabase";
 
     private static final String DATABASE_NAME    = "keys";
@@ -40,6 +41,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     private static final String CUSTOM_FIELD = "custom";
     private static final String ADD1_FIELD   = "add1";
     private static final String ADD2_FIELD   = "add2";
+    private static final String TRUE         = "true";
 
     public enum EntryType {
         IMAGERY, API_KEY, API_OAUTH1_KEY
@@ -76,7 +78,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Add or replace an entry in the keys table
+     * Add, replace or delete an entry in the keys table
      * 
      * @param db writable database
      * @param name the key name
@@ -87,23 +89,29 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
      * @param add1 1st additional value to store
      * @param add2 2nd additional value to store
      */
-    public static void replaceKey(@NonNull SQLiteDatabase db, @NonNull String name, @NonNull EntryType type, @Nullable String key, boolean custom,
+    static void replaceOrDeleteKey(@NonNull SQLiteDatabase db, @NonNull String name, @NonNull EntryType type, @Nullable String key, boolean custom,
             boolean overwrite, @Nullable String add1, @Nullable String add2) {
-        ContentValues values = new ContentValues();
-        values.put(NAME_FIELD, name);
-        values.put(TYPE_FIELD, type.toString());
-        values.put(KEY_FIELD, key);
-        values.put(ADD1_FIELD, add1);
-        values.put(ADD2_FIELD, add2);
-        values.put(CUSTOM_FIELD, custom ? 1 : 0);
-        try {
-            int count = db.update(KEYS_TABLE, values, NAME_FIELD + "=? AND " + TYPE_FIELD + "=?" + (!overwrite ? AND + CUSTOM_FIELD + "=0" : ""),
-                    new String[] { name, type.toString() });
-            if (count == 0) {
-                db.insert(KEYS_TABLE, null, values);
+        if ("".equals(key) && overwrite) {
+            Log.i(DEBUG_TAG, "Deleting key " + name);
+            deleteKey(db, name, type);
+        } else {
+            Log.i(DEBUG_TAG, "Updating key " + name);
+            ContentValues values = new ContentValues();
+            values.put(NAME_FIELD, name);
+            values.put(TYPE_FIELD, type.toString());
+            values.put(KEY_FIELD, key);
+            values.put(ADD1_FIELD, add1);
+            values.put(ADD2_FIELD, add2);
+            values.put(CUSTOM_FIELD, custom ? 1 : 0);
+            try {
+                int count = db.update(KEYS_TABLE, values, NAME_FIELD + "=? AND " + TYPE_FIELD + "=?" + (!overwrite ? AND + CUSTOM_FIELD + "=0" : ""),
+                        new String[] { name, type.toString() });
+                if (count == 0) {
+                    db.insert(KEYS_TABLE, null, values);
+                }
+            } catch (SQLException e) {
+                Log.e(DEBUG_TAG, "replaceOrDeleteKey " + e.getMessage());
             }
-        } catch (SQLException e) {
-            Log.e(DEBUG_TAG, "replaceKey " + e.getMessage());
         }
     }
 
@@ -183,24 +191,25 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
                     continue; // skip comments
                 }
                 String[] k = line.split("\\t");
+                Log.d(DEBUG_TAG, "k length " + k.length + " " + line);
                 for (int i = 0; i < k.length; i++) {
                     k[i] = k[i].trim();
                 }
                 if (k.length < FIELD_COUNT) {
                     Log.e(DEBUG_TAG, "short key DB entry " + line);
-                    continue;
-                }
-                boolean overwrite = "true".equalsIgnoreCase(k[3]);
-                EntryType type = EntryType.valueOf(k[1].toUpperCase(Locale.US).trim());
-                if (type == EntryType.IMAGERY) { // backwards compatibility
-                    k[0] = k[0].toUpperCase(Locale.US);
-                }
-                if (k.length == FIELD_COUNT) {
-                    replaceKey(db, k[0], type, k[2], false, overwrite, null, null);
-                } else if (k.length == FIELD_COUNT + 2) {
-                    replaceKey(db, k[0], type, k[2], false, overwrite, k[4], k[5]);
                 } else {
-                    Log.e(DEBUG_TAG, "invalid entry " + line);
+                    boolean overwrite = TRUE.equalsIgnoreCase(k[3]);
+                    EntryType type = EntryType.valueOf(k[1].toUpperCase(Locale.US));
+                    if (type == EntryType.IMAGERY) { // backwards compatibility
+                        k[0] = k[0].toUpperCase(Locale.US);
+                    }
+                    if (k.length == FIELD_COUNT) {
+                        replaceOrDeleteKey(db, k[0], type, k[2], false, overwrite, null, null);
+                    } else if (k.length == FIELD_COUNT + 2) {
+                        replaceOrDeleteKey(db, k[0], type, k[2], false, overwrite, k[4], k[5]);
+                    } else {
+                        Log.e(DEBUG_TAG, "invalid entry " + line);
+                    }
                 }
             }
         } catch (IOException | ArrayIndexOutOfBoundsException e) {
