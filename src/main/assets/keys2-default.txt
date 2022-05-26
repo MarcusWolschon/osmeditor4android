@@ -8,6 +8,10 @@
 # 
 # if the type is imagery then <name> is the id of the imagery source configuration
 #
+# if <key> is empty and <overwrite is true then the key entry will be overwritten
+#
+# <overwrite> controls if existing entries should be overwritten or not
+#
 # <additional 1> is used for the consumer secret if <key type> is api_oauth1_key and should be empty otherwise
 # <additional 2> is used for the base url for OAuth authorization if <key type> is api_oauth1_key and should be empty otherwise
 #
