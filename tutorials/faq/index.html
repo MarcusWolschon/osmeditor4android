@@ -423,6 +423,15 @@ There are plenty of descriptions available (e.g. <a href="http://openhandsetmaga
 <li>and numerous background layers, for example Bing aerial imagery</li>
 </ul>
 <p>will not be available.</p>
+<h4 id="removing-the-bing-imagery-layer">Removing the Bing imagery layer</h4>
+<p>Due to an implementation detail, once per session a metadata call will be made to the Bing servers, potentially leaking some minimal information (IP address, and the fact that you are using Vespucci to edit OSM). You can remove the Bing API key which will disable the Bing source and the behaviour with the following steps:</p>
+<ul>
+<li>download and save <a href="../other/remove_bing_key.txt">remove_bing_key.txt</a></li>
+<li>in the tools menu select <em>Load keys from file...</em> and load the saved file</li>
+<li>update the imagery configuration from the <em>More imagery tools...</em> <em>Update configuration from ELI</em> (or if you are using the JOSM configuration from the other similar entry)</li>
+<li>restart the app</li>
+</ul>
+<p>Note that this can only be reversed by either you providing a new Bing API key, or completely removing Vespuccis data directory.</p>
 <h4 id="using-vespucci">Using Vespucci</h4>
 <h4 id="how-can-i-upload-newchanged-data-to-the-osm-server">How can I upload new/changed data to the OSM server?</h4>
 <p>Choose "Upload data to  OSM server" from the transfer menu.
@@ -616,6 +625,15 @@ There are plenty of descriptions available (e.g. <a href="http://openhandsetmaga
 <li>and numerous background layers, for example Bing aerial imagery</li>
 </ul>
 <p>will not be available.</p>
+<h4 id="removing-the-bing-imagery-layer">Removing the Bing imagery layer</h4>
+<p>Due to an implementation detail, once per session a metadata call will be made to the Bing servers, potentially leaking some minimal information (IP address, and the fact that you are using Vespucci to edit OSM). You can remove the Bing API key which will disable the Bing source and the behaviour with the following steps:</p>
+<ul>
+<li>download and save <a href="../other/remove_bing_key.txt">remove_bing_key.txt</a></li>
+<li>in the tools menu select <em>Load keys from file...</em> and load the saved file</li>
+<li>update the imagery configuration from the <em>More imagery tools...</em> <em>Update configuration from ELI</em> (or if you are using the JOSM configuration from the other similar entry)</li>
+<li>restart the app</li>
+</ul>
+<p>Note that this can only be reversed by either you providing a new Bing API key, or completely removing Vespuccis data directory.</p>
 <h4 id="using-vespucci">Using Vespucci</h4>
 <h4 id="how-can-i-upload-newchanged-data-to-the-osm-server">How can I upload new/changed data to the OSM server?</h4>
 <p>Choose "Upload data to  OSM server" from the transfer menu.
