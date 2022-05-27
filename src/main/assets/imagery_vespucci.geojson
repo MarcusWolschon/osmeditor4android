@@ -32,8 +32,7 @@
                 },
                 "default": true,
                 "description": "The default OpenStreetMap layer.",
-                "i18n": true,
-                "icon": "https://osmlab.github.io/editor-layer-index/sources/world/OpenStreetMap-GPS.png",
+                "i18n": true,         
                 "id": "MAPNIK",
                 "max_zoom": 19,
                 "name": "OpenStreetMap (Standard)",
@@ -41,8 +40,8 @@
                 "category": "osmbasedmap",
                 "url": "https://{switch:a,b,c}.tile.openstreetmap.org/{zoom}/{x}/{y}.png",
                 "license_url": "https://wiki.osmfoundation.org/wiki/Terms_of_Use",
-                "privacy_policy_url": "https://wiki.osmfoundation.org/wiki/Privacy_Policy"
-            },
+                "privacy_policy_url": "https://wiki.osmfoundation.org/wiki/Privacy_Policy",
+                "icon": "data:image/png;base64,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",
             "type": "Feature"
         },
         {
