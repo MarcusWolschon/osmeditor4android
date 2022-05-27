@@ -27,7 +27,7 @@
             "properties": {
                 "attribution": {
                     "required": true,
-                    "text": "\u00a9 OpenStreetMap contributors, CC-BY-SA 2.0",
+                    "text": "\u00a9 OpenStreetMap contributors, ODbL 1.0",
                     "url": "https://www.openstreetmap.org"
                 },
                 "default": true,
