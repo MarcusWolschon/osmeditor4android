@@ -1044,13 +1044,13 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
 
     @Override
     public void onPresetSelected(PresetItem item) {
-        onPresetSelected(item, false);
+        onPresetSelected(item, false, false);
     }
 
     @Override
-    public void onPresetSelected(PresetItem item, boolean applyOptional) {
+    public void onPresetSelected(PresetItem item, boolean applyOptional, boolean isAlternative) {
         if (item != null && tagEditorFragment != null) {
-            tagEditorFragment.applyPreset(item, applyOptional, true);
+            tagEditorFragment.applyPreset(item, applyOptional, isAlternative, true);
             if (tagFormFragment != null) {
                 tagFormFragment.update();
                 mViewPager.setCurrentItem(tagFormFragmentPosition);

@@ -112,7 +112,7 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
 
         final PresetClickHandler presetClickHandler = (PresetItem item) -> {
             Log.d(DEBUG_TAG, "normal click");
-            presetSelectedListener.onPresetSelected(item);
+            presetSelectedListener.onPresetSelected(item, false, true);
         };
         PresetGroup alternatives = Preset.dummyInstance().getRootGroup();
         List<PresetItemLink> links = presetItem.getAlternativePresetItems();

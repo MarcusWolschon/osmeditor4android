@@ -79,14 +79,15 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
          * @param item the PresetItem
          */
         void onPresetSelected(@NonNull PresetItem item);
-
+        
         /**
          * Call back when a PresetItem is selected
          * 
          * @param item the PresetItem
          * @param applyOptional if true apply optional fields
+         * @param isAlternative if true if the item is an alternative to the existing tagging
          */
-        void onPresetSelected(@NonNull PresetItem item, boolean applyOptional);
+        void onPresetSelected(@NonNull PresetItem item, boolean applyOptional, boolean isAlternative);
     }
 
     private OnPresetSelectedListener mListener;

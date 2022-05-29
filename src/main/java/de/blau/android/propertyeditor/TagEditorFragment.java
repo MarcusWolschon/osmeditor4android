@@ -380,7 +380,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     PresetElement pi = Preset.getElementByPath(rootGroup, pp,
                             activity instanceof PropertyEditor ? ((PropertyEditor) activity).getCountryIsoCode() : null, false);
                     if (pi instanceof PresetItem) {
-                        applyPreset(editRowLayout, (PresetItem) pi, false, true, true);
+                        applyPreset(editRowLayout, (PresetItem) pi, false, false, true, true);
                     }
                 }
                 updateAutocompletePresetItem(editRowLayout, null, false); // here after preset has been applied
@@ -389,7 +389,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 PresetItem pi = getBestPreset();
                 if (prefs.autoApplyPreset() && pi != null) {
                     if (pi.autoapply()) {
-                        applyPreset(editRowLayout, pi, false, true, false);
+                        applyPreset(editRowLayout, pi, false, false, true, false);
                     } else {
                         Snack.toastTopWarning(getActivity(), R.string.toast_cant_autoapply_preset);
                     }
@@ -1457,7 +1457,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         if (prefs.nameSuggestionPresetsEnabled()) {
             PresetItem p = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false), null); // FIXME
             if (p != null) {
-                applyPreset((LinearLayout) getOurView(), p, false, false, true);
+                applyPreset((LinearLayout) getOurView(), p, false, false, false, true);
             }
         }
     }
@@ -1652,7 +1652,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
     @Override
     public void applyPreset(PresetItem preset, boolean addOptional) {
-        applyPreset((LinearLayout) getOurView(), preset, addOptional, true, true);
+        applyPreset((LinearLayout) getOurView(), preset, addOptional, false, true, true);
     }
 
     /**
@@ -1661,10 +1661,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * 
      * @param item the preset item to apply
      * @param addOptional add optional tags if true
+     * @param isAlternative is a alternative to the existing tagging
      * @param addToMRU add to preset MRU list if true
      */
-    void applyPreset(@NonNull PresetItem item, boolean addOptional, boolean addToMRU) {
-        applyPreset((LinearLayout) getOurView(), item, addOptional, addToMRU, true);
+    void applyPreset(@NonNull PresetItem item, boolean addOptional, boolean isAlternative, boolean addToMRU) {
+        applyPreset((LinearLayout) getOurView(), item, addOptional, isAlternative, addToMRU, true);
     }
 
     /**
@@ -1674,10 +1675,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param rowLayout the layout holding the rows
      * @param item the preset item to apply
      * @param addOptional add optional tags if true
+     * @param isAlternative is a alternative to the existing tagging
      * @param addToMRU add to preset MRU list if true
      * @param useDefaults use any default values specified in the preset
      */
-    void applyPreset(@NonNull LinearLayout rowLayout, @NonNull PresetItem item, boolean addOptional, boolean addToMRU, boolean useDefaults) {
+    void applyPreset(@NonNull LinearLayout rowLayout, @NonNull PresetItem item, boolean addOptional, boolean isAlternative, boolean addToMRU, boolean useDefaults) {
         Log.d(DEBUG_TAG, "applying preset " + item.getName());
         LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(rowLayout, true);
 
@@ -1693,15 +1695,17 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             }
         }
 
-        // remove fixed tags for alternatives
-        List<PresetItemLink> alternatives = item.getAlternativePresetItems();
-        if (alternatives != null && !alternatives.isEmpty()) {
-            for (PresetItemLink alternative : alternatives) {
-                for (PresetItem current : getAllPresets().values()) {
-                    if (alternative.getPresetName().equals(current.getName())) {
-                        for (String key : current.getFixedTags().keySet()) {
-                            if (currentValues.remove(key) != null) {
-                                replacedOrRemoved++;
+        if (isAlternative) {
+            // remove fixed tags for alternatives
+            List<PresetItemLink> alternatives = item.getAlternativePresetItems();
+            if (alternatives != null && !alternatives.isEmpty()) {
+                for (PresetItemLink alternative : alternatives) {
+                    for (PresetItem current : getAllPresets().values()) {
+                        if (alternative.getPresetName().equals(current.getName())) {
+                            for (String key : current.getFixedTags().keySet()) {
+                                if (currentValues.remove(key) != null) {
+                                    replacedOrRemoved++;
+                                }
                             }
                         }
                     }
@@ -1936,7 +1940,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         case R.id.tag_menu_apply_preset_with_optional:
             PresetItem pi = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false), null); // FIXME
             if (pi != null) {
-                presetSelectedListener.onPresetSelected(pi, itemId == R.id.tag_menu_apply_preset_with_optional);
+                presetSelectedListener.onPresetSelected(pi, itemId == R.id.tag_menu_apply_preset_with_optional, false);
             }
             return true;
         case R.id.tag_menu_paste:
