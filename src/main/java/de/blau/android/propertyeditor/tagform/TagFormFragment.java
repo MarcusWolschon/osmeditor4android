@@ -422,7 +422,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         case R.id.tag_menu_apply_preset_with_optional:
             PresetItem pi = tagListener.getBestPreset();
             if (pi != null) {
-                presetSelectedListener.onPresetSelected(pi, item.getItemId() == R.id.tag_menu_apply_preset_with_optional);
+                presetSelectedListener.onPresetSelected(pi, item.getItemId() == R.id.tag_menu_apply_preset_with_optional, false);
             }
             return true;
         case R.id.tag_menu_revert:
