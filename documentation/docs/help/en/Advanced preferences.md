@@ -301,7 +301,7 @@ Total on device size for caching Mapillary images. Default: _100MB_.
 
 ### Report app crashes
 
-Submit ACRA crash dumps to the Vespucci developers. Default: _on_.
+Submit ACRA crash dumps to the Vespucci developers. You will still be asked on a per event basis if you want to submit a specific crash dump, if you set this to _off_ the functionalitiy is completely disabled. Default: _on_.
 
 ### Show stats
 
