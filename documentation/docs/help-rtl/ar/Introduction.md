@@ -1,12 +1,8 @@
+_ قبل أن نبدأ: تحتوي معظم الشاشات على روابط في القائمة إلى نظام المساعدة على الجهاز مما يتيح لك الوصول المباشر إلى المعلومات ذات الصلة بالسياق الحالي ، ويمكنك بسهولة الرجوع إلى هذا النص أيضًا. إذا كان لديك جهاز أكبر ، على سبيل المثال جهاز لوحي ، يمكنك فتح نظام المساعدة في نافذة منفصلة. يمكن العثور على جميع نصوص المساعدة والمزيد (الأسئلة الشائعة والبرامج التعليمية) على [موقع وثائق فسبوتشي] (https://vespucci.io/) أيضًا.
+
 # مقدمة فسبوتشي
 
-فسبوتشي Vespucci  هو محرر لخريطة الشارع المفتوحة وبكامل الميزات يدعم معظم العمليات التي توفرها محررات الحاسب الآلي، وقد تم اختباره بنجاح على إصدارات قوقل أندرويد 2.3 إلى 10.0 والمتغيرات المختلفة القائمة على AOSP. تحذير: على الرغم من أن قدرات الأجهزة المحمولة قد أصبحت منافسه لأجهزة سطح المكتب والحاسب الآلي ، إلا أن الأجهزة القديمة على وجه الخصوص بها ذاكرة محدودة للغاية وتميل إلى أن تكون بطيئة نوعًا ما. يجب أن تأخذ هذا في الاعتبار عند استخدام فسبوتشي وتقليل المناطق التي تقوم بتحريرها وجعل أحجامها معقولة وعدم تحميل جهازك مالا يحتمل. 
-
-## عند الاستخدام لأول مرة
-
-عند بدء التشغيل ، يعرض لك فسبوتشي مربع حوار "تنزيل موقع آخر" / "منطقة تحميل" بعد طلب الأذونات المطلوبة وعرض رسالة ترحيب. إذا كان لديك إحداثيات معروضة وتريد تنزيلها على الفور ، يمكنك تحديد الخيار المناسب وتعيين نصف القطر حول الموقع الذي تريد تنزيله. لا تحدد مساحة كبيرة على الأجهزة البطيئة. 
-
-بدلاً من ذلك ، يمكنك استبعاد مربع الحوار عن طريق الضغط على الزر "الانتقال إلى الخريطة" والتحريك والتكبير / التصغير إلى الموقع الذي تريد تعديله وتنزيل البيانات بعد ذلك (انظر أدناه: "التحرير باستخدام فسبوتشي").
+فسبوتشي Vespucci  هو محرر لخريطة الشارع المفتوحة وبكامل الميزات يدعم معظم العمليات التي توفرها محررات الحاسب الآلي، وقد تم اختباره بنجاح على إصدارات قوقل أندرويد 2.3 إلى 10.0 والمتغيرات المختلفة القائمة على AOSP. تحذير: على الرغم من أن قدرات الأجهزة المحمولة قد أصبحت منافسه لأجهزة سطح المكتب والحاسب الآلي ، إلا أن الأجهزة القديمة على وجه الخصوص بها ذاكرة محدودة للغاية وتميل إلى أن تكون بطيئة نوعًا ما. يجب أن تأخذ هذا في الاعتبار عند استخدام فسبوتشي وتقليل المناطق التي تقوم بتحريرها وجعل أحجامها معقولة وعدم تحميل جهازك مالا يحتمل.
 
 ## التحرير باستخدام فسبوتشي Vespucci
 
@@ -114,9 +110,9 @@
 
 لا تحتوي خرائط الشارع المفتوحة حاليًا على نوع عنصر"مساحة" بخلاف أنظمة البيانات الجغرافية الأخرى. يحاول محرر "iD" الذي يعمل على الإنترنت "iD" إنشاء تجريد مساحة من عناصر OSM الأساسية وهذا التجريد يعمل بشكل جيد في بعض الظروف، وفي حالات أخرى لا تكون كذلك. لا يحاول محرر فسبوتشي حاليًا القيام بأي شيء مماثل، لذلك عليك أن تعرف القليل عن الطريقة التي يتم بها تمثيل المساحات في هذا البرنامج:
 
-* _ الطرق المغلقة (* المضلعات ") _: أبسط وأشهر الأشكال التي تمثل مساحة شيء ما، والطرق المغلقة هلي التي تكون العقدة الأولى والأخيرة مشتركة مشكلة"حلقة"مغلقة حيث يلتقي أول الخط بآخره (على سبيل المثال ، معظم المباني في الخريطة من هذا النوع). من السهل جدًا القيام بذلك الإنشاء على تطبيق فسبوتشي، ما عليك سوى توصيل العقدة الأخيرة بأول عقدة في الخط عند الانتهاء من رسم المساحة. ملاحظة: يعتمد تفسير ماهية الطريق المغلق على الوسوم التي عليه: على سبيل المثال ، إذا تم وضع وسم على الطريق المغلق كمبنى ، فسيتم اعتباره مساحة لمنطقة معينة، و لكن إذا تم تمييزه على أنه تقاطع دائري فلن يعتبر مساحة لمنطقة معينة، كما أنه في بعض الحالات التي قد يكون فيها كلا التفسيرين صحيحة عند ذلك يمكن أن يوضح الوسم "area" الاستخدام المقصود.
-* _المضلعات المتداخلة_: تحتوي بعض المساحات على أجزاء متعددة وثقوب وحلقات لا يمكن تمثيلها بطريقة واحدة فقط. لذا ففي خرائط الشارع المفتوحة يتم استخدام نوعًا محددًا من العناصر يدعى بالعلاقة (وهي عنصر الغرض العام منه هو تمكين نمذجة العلاقات بين العناصر المختلفة وربطها مع بعضها) للالتفاف حول هذا ، فإن المضلعات المتعددة يمكن أن يحتوي المضلع المتعدد على أطراف "خارجية" متعددة وأطراف "داخلية" متعددة. يمكن أن تكون كل حلقة إما طريقاً مغلقاً كما هو موضح أعلاه ، أو طرق فردية متعددة لها عقد نهاية مشتركة. بينما يصعب التعامل مع المضلعات الكبيرة المتعددة باستخدام أي أداة ، إلا أنه ليس من الصعب إنشاء المضلعات الصغيرة في فسبوتشي.
-* _ الخطوط الساحلية_: بالنسبة للأجسام الكبيرة جدًا والقارات والجزر ، حتى نموذج المضلعات المتعددة لا يعمل بطريقة مرضية. بالنسبة للسواحل natural=coastline، نفترض دلالات تعتمد على الاتجاه: الأرض على الجانب الأيسر من الطريق ، والمياه على الجانب الأيمن. أحد الآثار الجانبية لذلك ، بشكل عام ، أنه لا يجب عليك عكس اتجاه طريق ما باستخدام وسوم الخط الساحلي. يمكن العثور على مزيد من المعلومات على [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
+* _multi-polygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
+* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
 #### تحسين هندسة وشكل الطرق
 
@@ -128,15 +124,19 @@
 
 #### إضافة العناوين بكفاءة
 
-لدى تطبيق فسبوتشي ميزة إضافة الوسوم الخاصة بالعنوان [Address](../images/address.png) "add address tags" والتي تحاول جعل إدخال عناوين المسح والاستطلاع أكثر كفاءة من خلال التنبؤ برقم المنزل الحالي. ويمكن تحديده:
+Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding _addr:street_ or _addr:place_ tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   
 
-* بعد ضغطة طويلة (_ وضع غير بسيط فقط :): سيضيف فسبوتشي عقدة في الموقع ويقدم أفضل تخمين لرقم المنزل ويضيف وسوم العنوان التي كنت تستخدمها مؤخرًا. إذا كانت العقدة موجودة في مخطط المبنى ، فسيضاف تلقائيًا وسم "entrance=yes" إلى العقدة. سيفتح محرر الوسوم للعنصر المعني ويسمح لك بإجراء أي تغييرات إضافية ضرورية.
-* في أوضاع العقدة / الطريق المحددة: سيضيف فسبوتشي وسوم العنوان على النحو الوارد أعلاه ويبدأ محرر الوسوم.
-* في محرر الخصائص.
+Adding the tags can be triggered by pressing ![Address](../images/address.png): 
+
+* after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
+* in the property editor.
+
+To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.
 
 يتطلب التنبؤ برقم المنزل عادةً إدخال رقمين للمنزل على الأقل على كل جانب من الطريق للعمل ، وكلما زاد عدد الأرقام الموجودة في البيانات كان ذلك أفضل.
 
-ضع في اعتبارك استخدام هذا مع وضع التنزيل التلقائي [Auto-download](#download).  
+Consider using this with one of the [Auto-download](#download) modes.  
 
 #### إضافة قيود الدوران والالتفاف المروري
 
@@ -168,11 +168,15 @@
 
 لدى تطبيق فسبوتشي أداة حل تعارضات بسيطة، ومع ذلك ،إذا كنت تشك في وجود مشكلات كبيرة في تعديلاتك، فقم بتصدير التغييرات إلى ملف بصيغة .osc (اختر من القائمة "تصدير" في قائمة "نقل") وقم بإصلاحها ورفعها باستخدام JOSM. راجع المساعدة التفصيلية حول حل التعارض [conflict resolution](Conflict%20resolution.md).  
 
-## استخدام GPS
+## Using GPS and GPX tracks
 
-يمكنك استخدام تطبيق فسبوتشي لإنشاء مسار GPX وعرضه على جهازك، كما يمكنك عرض موقع GPS الحالي (اضبط "إظهار الموقع" في قائمة GPS) و / أو جعل مركز الشاشة حوله واتبع الموضع (اضبط "متابعة موقعك عبر GPS" في قائمة الـ GPS). 
+With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
 
-إذا كانت لديك المجموعة الأخيرة ، فسيؤدي تحريك الشاشة يدويًا أو التحرير إلى تعطيل وضع "متابعة GPS" وسيتغير سهم GPS الأزرق من محيطي إلى سهم ممتلئ. للعودة بسرعة إلى وضع "المتابعة" ، ما عليك سوى لمس زر GPS أو إعادة تحديد خيار القائمة.
+Touching the ![GPS](../images/menu_gps.png) button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
+
+To record a GPX track and display it on your device select "Start GPX track" item in the ![GPS](../images/menu_gps.png) menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the [layer control](Main%20map%20display.md). Further layers can be added from local GPX files and tracks downloaded from the OSM API.
+
+Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
 
 ## الملاحظات والأخطاء
 
@@ -232,8 +236,8 @@
 
 ميزة تدقيق الإدخالات لها الخاصيتان التاليتان:
 
-* **المفتاح** - المفتاح الذي يجب أن يكون موجودًا على العنصر وفقًا للقالب المطابق.
-* **مطلوب اختياري** - اختر المفتاح حتى إذا كان المفتاح موجودًا في الوسوم الاختيارية للقالب المطابق.
+* **Key** - Key that should be present on the object according to the matching preset.
+* **Require optional** - Require the key even if the key is in the optional tags of the matching preset.
 
 يعمل هذا الفحص عن طريق تحديد القالب المطابق أولاً ثم التحقق مما إذا كان **المفتاح** هو مفتاح "موصى به" لهذا العنصر وفقًا للقالب، أما ما هو **مطلوب اختياريًا** فإن إدخاله سيؤدي إلى توسيع نطاق التحقق ليشمل الوسوم "الاختيارية* في العنصر. ملاحظة: لم يتم فحص القوالب المرتبطة حاليًا..
 

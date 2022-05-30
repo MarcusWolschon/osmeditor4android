@@ -70,4 +70,10 @@
         <item>Hibás URL</item>
         <item>Érvénytelen argumentum</item>
     </string-array>
- </resources>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>Nincs nagybetűssé alakítás</item>
+        <item>Szó nagybetűssé alakítása</item>
+        <item>Mondat nagybetűssé alakítása</item>
+    </string-array>
+    </resources>

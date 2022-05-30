@@ -1,12 +1,8 @@
+_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too._
+
 # Introdución ó Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
-
-## Empregar por primeira vez
-
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
-
-De xeito alternativo, pode pecha-lo diálogo premendo o botón "Ir ó mapa" e afastar ou achegar cara unha localización onde desexe editar e baixa-los datos (ollar máis adiante: "Edición co Vespucci").
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.
 
 ## Editando co Vespucci
 
@@ -114,9 +110,9 @@ You can also use a menu item: See [Creating new objects](Creating%20new%20object
 
 OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
 
-* _vías pechadas ("polígonos")_: A variante de área máis sinxela e máis común, son vías que teñen un primeiro e derradeiro nó compartido que forman un "anel" pechado (por exemplo, a maioría dos edificios son deste tipo). Son moi doados de crear no Vespucci, sinxelamente conéctate ó primeiro nó cando remate de debuxar a área. Nota: a interpretación do camiño pechado depende da súa etiquetaxe: por exemplo, se un camiño pechado está etiquetado coma un edificio considerado coma unha área, se está marcado coma unha rotonda, non vai. Nalgunhas situacións nas que ámbalas dúas interpretacións poden ser válidas, unha etiqueta de "área" pode aclarar o uso desexado.
-* _multi-polígonos_: Algunhas áreas teñen múltiples partes, buracos e aneis que non se poden representar cunha soa vía. O OSM emprega un tipo específico de relación (o noso obxecto de propósito xeral que pode modelar as relacións entre elementos) para evitar isto, un multipolígono. Un multipolígono pode ter varios aneis "externos" e múltiples aneis "internos". Cada anel pode ser unha vía pechada coma se describe enriba, ou varias vías individuais que teñen nós nos extremos comúns. Mentres os grandes multipolígonos son difíciles de manexar con calquera ferramenta, os pequenos non son difíciles de crear no Vespucci.
-* _beiramar_: Para obxectos moi grandes, continentes e illas, mesmo o modelo multipolígono non funciona de xeito satisfactorio. Para formas natural=coastline tomamos a semántica dependente de dirección: a terra está na beira esquerda do camiño, o auga na beira dereita. Un efecto secundario disto é que, en xeral, non debe revertir a dirección dunha vía co etiquetado da costa. Pode atopar máis información na [wiki do OSM](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
+* _multi-polygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
+* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
 #### Estase a mellora-la xeometría das vías
 
@@ -128,15 +124,19 @@ Pode copiar ou cortar nós e vía seleccionados e, deseguido, colar ou pegar unh
 
 #### Estasen a engadir enderezos de xeito eficiente
 
-Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
+Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding _addr:street_ or _addr:place_ tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   
 
-* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+Adding the tags can be triggered by pressing ![Address](../images/address.png): 
+
+* after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
 * in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
 * in the property editor.
 
+To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.
+
 A predicción de números de casa normalmente require que polo menos dous números de casa a cada lado da estrada para ser ingresados ao traballo, cantos máis números presentes nos datos mellor.
 
-Considerar usando isto con modo [Auto-download](#download).  
+Consider using this with one of the [Auto-download](#download) modes.  
 
 #### Estasen a engadir restriccións de xiro
 
@@ -168,11 +168,15 @@ Se desexa garda-lo seu traballo e non ten acceso á Internet, pode gardar nun fi
 
 Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
 
-## Estase a empregar GPS
+## Using GPS and GPX tracks
 
-Podes empregar o Vespucci para crear unha pista GPX e visualizalo no teu dispositivo. Ademais, podes amosar a posición actual do GPS (configurar "Amosar localización" no menú GPS) e/ou ter a pantalla en torno e seguir a posición (configura "Seguir posición GPS" no menú GPS). 
+With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
 
-Se ten este último conxunto, mover a pantalla de xeito manual ou editar fará que o modo "Seguer GPS" se desactive e que a frecha azul do GPS troque dun esquema cara unha frecha chea. Para voltar axiña ó modo "seguer", sinxelamente prema o botón GPS ou volva a verificar a opción do menú.
+Touching the ![GPS](../images/menu_gps.png) button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
+
+To record a GPX track and display it on your device select "Start GPX track" item in the ![GPS](../images/menu_gps.png) menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the [layer control](Main%20map%20display.md). Further layers can be added from local GPX files and tracks downloaded from the OSM API.
+
+Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
 
 ## Notas e erros
 
@@ -233,7 +237,7 @@ The _Annotations_ group in the standard presets contain an item that will automa
 Check entries have the following two properties:
 
 * **Key** - Key that should be present on the object according to the matching preset.
-* **Require optional** - Require the key even if the key is in the optional tags of the matching preset .
+* **Require optional** - Require the key even if the key is in the optional tags of the matching preset.
 
 This check works by first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Require optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 

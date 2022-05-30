@@ -70,4 +70,10 @@
         <item>כתובת משובשת</item>
         <item>משתנה שגוי</item>
     </string-array>
- </resources>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>ללא הגדלת אותיות</item>
+        <item>הגדלת אותיות של מילים</item>
+        <item>הגדלת אותיות של משפטים</item>
+    </string-array>
+    </resources>

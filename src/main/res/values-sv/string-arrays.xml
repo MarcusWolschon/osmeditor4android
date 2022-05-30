@@ -70,4 +70,10 @@
         <item>Felformaterad URL</item>
         <item>Felaktigt argument</item>
     </string-array>
- </resources>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>Inga versaler</item>
+        <item>Versaler för ord</item>
+        <item>Versaler för meningar</item>
+    </string-array>
+    </resources>

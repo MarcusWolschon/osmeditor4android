@@ -1,31 +1,27 @@
-# Vespucci 介紹
+_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too._
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+# Vespucci 介绍
 
-## 第一次使用
+Vespucci 是一个完整功能的 OpenStreetMap 编辑器，支持大部分桌面编辑器提供的操作。它在 Android 2.3 到 10.0 和各种基于 AOSP 的系统已经成功经过测试。提醒一句：即使现在移动设备的能力已经可以追上桌面设备，但较旧的设备可能只有有限的储存空间，并且相当缓慢。在使用 Vespucci 时需要考虑到这一点，例如正在编辑的区域大小是否合适。
 
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
+## 使用 Vespucci 编辑
 
-Alternatively you can dismiss the dialog by pressing the "Go to map" button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").
-
-## 编辑于 Vespucci
-
-Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.
+根据屏幕大小和设备的新旧，编辑操作可以使用顶部栏的图标、顶部栏右侧的下拉菜单、底部栏（如果有的话）或通过菜单进行。
 
 <a id="download"></a>
 
-### 下载 OSM 资料
+### 下载 OSM 数据
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+选择传输图标 ![Transfer](../images/menu_transfer.png) 或“传输”菜单项目。这将显示以下七个选项：
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
-* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
-* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **下载当前视图** - 下载屏幕上的可见区域并于已下载的区域合并 *(需要网络连接或离线数据源)*
+* **清除并下载当前视图** - 清除内存中的数据并下载屏幕的可见区域 *(需要网络连接)*
+* **上传到 OSM 服务器** - 将编辑上传到 OpenStreetMap *(需要验证)* *(需要网络连接)*
+* **更新数据** - 重新下载所有区域的数据并更新内存中的内容 *(需要网络连接)*
+* **根据位置自动下载** - 自动下载当前地理位置周围的区域 *(需要网络连接或离线数据源)* *(需要 GPS)*
+* **平移和缩放时自动下载** - 自动下载当前显示地图区域的数据 *(需要网络连接或离线数据源)* *(需要 GPS)*
+* **文件...** - saving and loading OSM data to/from on device files.
+* **注记/错误...** - 下载 OSM 注记(自动和手动) 和 来自质量管理工具的 "Bugs"  (目前使用 OSMOSE) *(需要网络连接)*
 
 The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
 
@@ -35,7 +31,7 @@ With the default settings any non-downloaded areas will be dimmed relative to th
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### 锁定、解锁，模式切换
 
 To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
 
@@ -47,7 +43,7 @@ A long press on the lock icon will display a menu currently offering 4 options:
 * **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
 * **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
-#### Single tap, double tap, and long press
+#### 单击，双击和长按
 
 By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
 
@@ -63,7 +59,7 @@ It is a good strategy to zoom in if you attempt to edit a high density area.
 
 Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### 选择 / 取消选择 (单击和 "选择菜单")
 
 Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
 
@@ -73,21 +69,21 @@ Selected objects are indicated through a thin yellow border. The yellow border m
 
 Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
 
-#### Selected objects: Editing tags
+#### 选择对象：编辑标签
 
 A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
 
 Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
 
-#### Selected objects: Moving a Node or Way
+#### 选择对象：移动节点或路径
 
 Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 
-#### 增加新节点/点或是路径 
+#### 添加新节点或路径 
 
 On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
 
-##### Simple mode
+##### 简单模式
 
 Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
 
@@ -110,12 +106,12 @@ Simply touch the screen where you want to add further nodes of the way. To finis
 
 You can also use a menu item: See [Creating new objects](Creating%20new%20objects.md) for more information.
 
-#### Adding an Area
+#### 添加区域
 
 OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
 
 * _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
-* _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
+* _multi-polygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
 * _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
 #### 改善道路的几何形状
@@ -126,19 +122,23 @@ If you zoom in far enough on a selected way you will see a small "x" in the midd
 
 You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
 
-#### 有效的增加地址
+#### 高效地添加地址
 
-Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
+Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding _addr:street_ or _addr:place_ tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   
 
-* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+Adding the tags can be triggered by pressing ![Address](../images/address.png): 
+
+* after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
 * in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
 * in the property editor.
 
+To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.
+
 House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
 
-Consider using this with the [Auto-download](#download) mode.  
+Consider using this with one of the [Auto-download](#download) modes.  
 
-#### 增加转​​弯限制
+#### 添加转向限制
 
 Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
 
@@ -148,13 +148,13 @@ Vespucci has a fast way to add turn restrictions. if necessary it will split way
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
 * set the restriction type
 
-### Vespucci in "locked" mode
+### Vespucci "锁定" 模式
 
 When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
-### 储存您的变更
+### 保存您的变更
 
-*(requires network connectivity)*
+*(需要网络连接)*
 
 Select the same button or menu item you did for the download and now select "Upload data to OSM server".
 
@@ -164,17 +164,21 @@ New Vespucci installs will have OAuth enabled by default. On your first attempt 
 
 If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
 
-#### Resolving conflicts on uploads
+#### 上传时解决冲突
 
 Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
 
-## 使用 GPS
+## Using GPS and GPX tracks
 
-You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
+With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
 
-If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the menu option.
+Touching the ![GPS](../images/menu_gps.png) button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
 
-## Notes and Bugs
+To record a GPX track and display it on your device select "Start GPX track" item in the ![GPS](../images/menu_gps.png) menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the [layer control](Main%20map%20display.md). Further layers can be added from local GPX files and tracks downloaded from the OSM API.
+
+Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
+
+## 注记和错误
 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
@@ -182,7 +186,7 @@ On the map the Notes and bugs are represented by a small bug icon ![Bug](../imag
 
 The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 
-### Filtering
+### 筛选
 
 Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
@@ -195,7 +199,7 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 <a id="indoor"></a>
 
-## Indoor mode
+## 室内模式
 
 Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
 
@@ -203,21 +207,21 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 <a id="c-mode"></a>
 
-## C-Mode
+## C 模式
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
 
-### Configuring checks
+### 设置检查
 
 Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
 
 The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 
-#### Re-survey entries
+#### 重新调查条目
 
-Re-survey entries have the following properties:
+重新调查含有以下属性的条目：
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
@@ -228,36 +232,36 @@ Re-survey entries have the following properties:
 
 The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
 
-#### Check entries
+#### 检查条目
 
 Check entries have the following two properties:
 
 * **Key** - Key that should be present on the object according to the matching preset.
-* **Require optional** - Require the key even if the key is in the optional tags of the matching preset .
+* **Require optional** - Require the key even if the key is in the optional tags of the matching preset.
 
 This check works by first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Require optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
-## Filters
+## 筛选
 
-### Tag based filter
+### 基于标签的筛选
 
 The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
 
-### Preset based filter
+### 基于预设的筛选
 
 An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
 
-## Customizing Vespucci
+## 自定义 Vespucci
 
 Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
 <a id="layers"></a>
 
-### Layer settings
+### 图层设置
 
 Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
 
-Available layer types:
+可用的图层类型：
 
 * Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
 * Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
@@ -270,7 +274,7 @@ Available layer types:
 
 More information can be found in the section on the [map display](Main%20map%20display.md).
 
-#### Preferences
+#### 首选项
 
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
@@ -285,7 +289,7 @@ The full description can be found here [Preferences](Preferences.md)
 
 The full description can be found here [Advanced preferences](Advanced%20preferences.md)
 
-## Reporting Problems
+## 报告问题
 
 If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
 

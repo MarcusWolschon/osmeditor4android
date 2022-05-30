@@ -1,12 +1,8 @@
+_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too._
+
 # Vespucci Giriş
 
-Vespucci tam donanımlı bir OpenStreetMap düzenleyicisidir masaüstünün sağladığı özelliklerin çoğunu sağlar. Anroid 2.3 den 10.0'a kadar başarıyla test edilmiştir. Bir uyarı: mobil cihazlar neredeyse masaüstü rakiplerini yakalamış durumda, özellikle eski cihazlarda çok az bellek vardır ve bu yüzden oldukça yavaş çalışma eğilimi gösterebilirler. Ör, makul düzeyde alan düzenlerken bile, Vespucci kullanırken bunu hesaba katmalısınız. 
-
-## İlk defa kullanım
-
-KonumBaşlangıçta Vespucci size "Başka konumu indir"/"Alanı Yükle" diyaloğu gösterir. Görüntülediğiniz koordinatları hemen indirmek istiyorsanız, uygun seçeneği seçebilir indirmek istediğiniz yerin yarıçapını ayarlayabilirsiniz. Yavaş cihazlarda geniş alanlar seçmeyin. 
-
-Alternatif olarak bu diyaloğu atlayıp "Haritaya git" düğmesine basın ve düzenlemek istediğiniz alanı yaklaştırıp verileri indirin. (aşağıya bkz: "Vespucci ile Düzenleme")
+Vespucci tam donanımlı bir OpenStreetMap düzenleyicisidir masaüstünün sağladığı özelliklerin çoğunu sağlar. Anroid 2.3 den 10.0'a kadar başarıyla test edilmiştir. Bir uyarı: mobil cihazlar neredeyse masaüstü rakiplerini yakalamış durumda, özellikle eski cihazlarda çok az bellek vardır ve bu yüzden oldukça yavaş çalışma eğilimi gösterebilirler. Ör, makul düzeyde alan düzenlerken bile, Vespucci kullanırken bunu hesaba katmalısınız.
 
 ## Vespucci ile düzenleme
 
@@ -115,7 +111,7 @@ Bir menü öğesi de kullanabilirsiniz: Daha fazla bilgi için şunu seçin [Yen
 OpenStreetMap şu anda diğer coğrafi veri sistemlerinden farklı olarak "alan" nesne türüne sahip değildir. Çevrimiçi düzenleyici "iD", temeldeki OSM öğelerinden bazı durumlarda iyi çalışan, bazılarında ise pek işe yaramayan bir alan soyutlaması oluşturmaya çalışır. Vespucci şu anda benzer bir şey yapmaya çalışmıyor, bu yüzden alanların temsil edilme şekli hakkında biraz bilgi sahibi olmanız gerekiyor:
 
 * _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
-* _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
+* _multi-polygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
 * _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
 #### Yolun Geometrisini Geliştirme
@@ -128,15 +124,19 @@ Seçilen düğümleri ve yolları kopyalayabilir veya kesebilir, bir veya daha f
 
 #### Etkin Adresler Ekleme
 
-Vespucci, mevcut bina numarasını tahmin ederek araştırma adreslerini daha verimli hale getirmeye çalışan bir ![Adres] (../ images / adres.png) "adres etiketleri ekle" işlevine sahiptir. Seçilebilir:
+Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding _addr:street_ or _addr:place_ tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   
 
-* uzun bir basıştan sonra (_yalnızca basit olmayan mod :): Vespucci, konuma bir düğüm ekleyecek ve bina numarası için en iyi tahminde bulunacak ve son zamanlarda kullandığınız adres etiketlerini ekleyecektir. Düğüm bir bina taslağı üzerindeyse, düğüme otomatik olarak bir "giriş = evet" etiketi ekler. Etiket düzenleyici söz konusu nesne için açılacak ve gerekli diğer değişiklikleri yapmanıza izin verecektir.
-* düğüm / yol seçilen modlarda: Vespucci yukarıdaki gibi adres etiketleri ekleyecek ve etiket düzenleyiciyi başlatacaktır.
-* özellik düzenleyicide.
+Adding the tags can be triggered by pressing ![Address](../images/address.png): 
+
+* after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
+* in the property editor.
+
+To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.
 
 Ev numarası tahmini genelde en az 2 numara gerektirir çalışmaya yolun her iki tarafıda girilebilir, verilerde ne kadar çok numara olursa o kadar iyidir.
 
-Bunu [Otomatik indirme] (# indirme) kipiyle kullanmayı düşünün.  
+Consider using this with one of the [Auto-download](#download) modes.  
 
 #### Dönüş Kısıtlamaları Ekleme
 
@@ -168,11 +168,15 @@ Eğer çalışmanızı kaydetmek istiyorsanız fakat internet erişiminiz yoksa,
 
 Vespucci'nin basit bir sorun çözücüsü var. Ancak, düzenlemelerinizle ilgili büyük sorunlar olduğundan şüpheleniyorsanız, değişikliklerinizi bir .osc dosyasına aktarın ("Aktar" menüsünde "Dışa Aktar" menü öğesi) ve düzeltip JOSM ile yükleyin. [Conflict% 20resolution.md) ile ilgili ayrıntılı yardıma bakın.  
 
-## GPS kullanma
+## Using GPS and GPX tracks
 
-Bir GPX izi oluşturmak ve cihazınızda görüntülemek için Vespucci'yi kullanabilirsiniz. Dahası GPS konumunuzu görüntüleyin (menüden "Konumu göster" seçin) ve/veya ekran merkezinin etrafını görüntüleyin ya da (GPS menüsünden "GPS Konumu İzle" seçip) konumu takip edin. 
+With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
 
-İkincisini ayarladıysanız, ekranı manuel olarak hareket ettirmek veya düzenlemek, "GPS'i takip et" modunun devre dışı bırakılmasına neden olur ve mavi GPS oku, anahattan dolu bir oka dönüşür. "Takip et" moduna hızlı bir şekilde dönmek için, GPS düğmesine dokunmanız veya menü seçeneğini yeniden kontrol etmeniz yeterlidir.
+Touching the ![GPS](../images/menu_gps.png) button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
+
+To record a GPX track and display it on your device select "Start GPX track" item in the ![GPS](../images/menu_gps.png) menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the [layer control](Main%20map%20display.md). Further layers can be added from local GPX files and tracks downloaded from the OSM API.
+
+Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
 
 ## Notlar ve Hatalar
 
@@ -232,8 +236,8 @@ Standart ön ayarlardaki _Annotations_ grubu, geçerli tarihle otomatik olarak b
 
 Girdilerin aşağıdaki iki özelliğe sahip olduğunu denetleyin:
 
-* ** Anahtar ** - Eşleşen ön ayara göre nesnede bulunması gereken anahtar.
-* ** İsteğe bağlı gerektir ** - Anahtar, eşleşen ön ayarın isteğe bağlı etiketlerinde olsa bile anahtarı gerektir.
+* **Key** - Key that should be present on the object according to the matching preset.
+* **Require optional** - Require the key even if the key is in the optional tags of the matching preset.
 
 Bu kontrol, önce eşleşen ön ayarı belirleyerek ve ardından ** Anahtar ** ın ön ayara göre bu nesne için "önerilen" anahtar olup olmadığını kontrol ederek çalışır, ** İsteğe bağlı gerektirir **, denetimi nesne üzerinde "isteğe bağlı * olan etiketlere genişletir. Not: Şu anda bağlantılı ön ayarlar kontrol edilmemiştir.
 

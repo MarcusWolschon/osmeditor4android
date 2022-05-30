@@ -1,12 +1,8 @@
+_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too._
+
 # Εισαγωγή στο Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
-
-## Πρώτη χρήση
-
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
-
-Εναλλακτικα μπορείτε να κλείσετε το παράθυρο πατώντας το κουμπί "Μετάβαση στον χάρτη" και να μετακινήσετε και να εστιάσετε σε μια τοποθεσία που θέλετε να επεξεργαστείτε και να κατεβάσετε τότε τα δεδομένα (δείτε παρακάτω: "Επεξεργασία με το Vespucci").
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.
 
 ## Επεξεργασία με το Vespucci
 
@@ -114,9 +110,9 @@ Simply touch the screen where you want to add further nodes of the way. To finis
 
 Το OpenStreetMap επί του παρόντος δεν διαθέτει τύπο αντικειμένου ως "περιοχή" σε αντίθεση με άλλα συστήματα γεω-δεδομένων. Ο διαδικτυακός επεξεργαστής "iD" προσπαθεί να δημιουργήσει μια αφαίρεση περιοχής από τα υποκείμενα στοιχεία OSM που λειτουργεί καλά σε ορισμένες περιπτώσεις, ενώ σε άλλες όχι. Το Vespucci αυτή τη στιγμή δεν προσπαθεί να κάνει κάτι παρόμοιο, οπότε πρέπει να γνωρίζετε λίγο τον τρόπο με τον οποίο απεικονίζονται οι περιοχές:
 
-* _Κλειστές διαδρομές (* πολυγώνια") _: η απλούστερη και συνηθέστερη παραλλαγή περιοχής, είναι διαδρομές που μοιράζονται τον πρώτο και τελευταίο κόμβο σχηματίζοτας ένα κλειστό "δακτύλιο" (για παράδειγμα τα περισσότερα κτίρια είναι αυτού του τύπου). Αυτό είναι πολύ εύκολο να δημιουργηθεί στο Vespucci, απλά συνδεθείτε στον πρώτο κόμβο όταν τελειώσετε με την σχεδίαση της περιοχής. Σημείωση: η ερμηνεία της κλειστής διαδρομής εξαρτάται από την ετικέτα της: για παράδειγμα, αν μία κλειστή διαδρομή έχει επισημανθεί ως κτίριο, θα θεωρηθεί σαν περιοχή, αλλά όχι σε περίπτωση που έχει επισημανθεί ως κυκλικός κόμβος. Σε ορισμένες περιπτώσεις όπου και οι δύο ερμηνείες μπορεί να είναι έγκυρες, μια ετικέτα "περιοχή" μπορεί να διευκρινίσει την προτιθέμενη χρήση.
-* _πολυ-πολύγωνα_: ορισμένες περιοχές έχουν πολλαπλά μέρη, τρύπες και δακτυλίους που δεν μπορούν να αναπαρασταθούν με μία μόνο διαδρομή. Το OSM χρησιμοποιεί ένα συγκεκριμένο τύπο σχέσης για να το πετύχουμε (το αντικείμενο γενικού σκοπού που μπορεί να κάνει μοντέλο τις σχέσεις μεταξύ των στοιχείων), ένα πολυ-πολύγωνο. Ένα πολυ-πολύγωνο μπορεί να έχει πολλαπλούς "εξωτερικούς" δακτυλίους και πολλαπλούς "εσωτερικούς" δακτυλίους. Κάθε δακτύλιος μπορεί είτε να είναι μία κλειστή διαδρομή, όπως περιγράφηκε παραπάνω, ή πολλαπλές μεμονωμένες διαδρομές που έχουν κοινούς τον ακριανό κόμβο. Ενώ τα μεγάλα πολυ-πολύγων είναι δύσκολο να χειριστούν με οποιοδήποτε εργαλείο, τα μικρά δεν είναι δύσκολο να δημιουργηθούν στο Vespucci.
-* _ακτογραμμές_: για πολύ μεγάλα αντικείμενα, ηπείρους και νησιά, ακόμα και το πολυ-πολυγωνικό μοντέλο δεν λειτουργεί με ικανοποιητικό τρόπο. Για τις διαδρομές natural=coastline θεωρούμε τη σημασιολογική εξάρτηση της κατεύθυνσης: η γη βρίσκεται στην αριστερή πλευρά της διαδρομής, το νερό στη δεξιά πλευρά. Μια παρενέργεια αυτού του γεγονότος είναι ότι, γενικά, δεν πρέπει να αντιστρέψετε την κατεύθυνση μιας διαδρομής με τη επισήμανση της ακτογραμμής. Περισσότερες πληροφορίες μπορείτε να βρείτε στο [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
+* _multi-polygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
+* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
 #### Βελτίωση της Γεωμετρίας της Διαδρομής
 
@@ -128,15 +124,19 @@ Simply touch the screen where you want to add further nodes of the way. To finis
 
 #### Αποτελεσματική Προσθήκη Διευθύνσεων
 
-Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
+Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding _addr:street_ or _addr:place_ tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   
 
-* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+Adding the tags can be triggered by pressing ![Address](../images/address.png): 
+
+* after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
 * in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
 * in the property editor.
 
+To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.
+
 Η πρόβλεψη αριθμού κατοικίας απαιτεί συνήθως τουλάχιστον δύο αριθμούς κατοικιών σε κάθε πλευρά του δρόμου για να τεθεί σε λειτουργία, όσο περισσότεροι αριθμοί υπάρχουν στα δεδομένα τόσο το καλύτερο.
 
-Εξετάστε την χρήση αυτού με τη λειτουργία [Αυτόματη λήψη] (#λήψη).  
+Consider using this with one of the [Auto-download](#download) modes.  
 
 #### Προσθέτοντας Περιορισμούς Στροφής
 
@@ -168,11 +168,15 @@ Vespucci has an ![Address](../images/address.png) "add address tags" function th
 
 Το Vespucci έχει έναν απλό επιλυτή συγκρούσεων. Ωστόσο, εάν υποψιάζεστε ότι υπάρχουν σημαντικά ζητήματα με τις επεξεργασίες σας, εξαγάγετε τις αλλαγές σας σε ένα αρχείο .osc ("Εξαγωγή" μενού αντικειμένου στο μενού "Μεταφορά") και διορθώστε τα και ανεβάστε τα με το JOSM. Δείτε την λεπτομερή βοήθεια στο [επίλυση συγκρούσεων] (../en/Conflict%20resolution.md).  
 
-## Χρήση του GPS
+## Using GPS and GPX tracks
 
-Μπορείτε να χρησιμοποιήσετε το Vespucci για να δημιουργήσετε ένα ίχνος GPX και να το εμφανίσετε στη συσκευή σας. Περαιτέρω μπορείτε να εμφανίσετε την τρέχουσα θέση GPS (ορίστε στο "Εμφάνιση τοποθεσίας" στο μενού GPS) ή/και να έχετε το κέντρο της οθόνης τριγύρω και να ακολουθείτε τη θέση (ορίστε "Ακολουθήστε τη θέση GPS" στο μενού GPS). 
+With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
 
-Εάν έχετε ορίσει το τελευταίο, η μετακίνηση της οθόνης χειροκίνητα ή η επεξεργασία θα προκαλέσει την απενεργοποίηση της λειτουργίας "παρακολούθηση του GPS" και το μπλε βέλος του GPS θα αλλάξει από περίγραμμα σε πλήρες βέλος. Για να επιστρέψετε γρήγορα στη λειτουργία "παρακολούθηση", αγγίξτε απλώς το κουμπί GPS ή επανελέγξτε την επιλογή μενού.
+Touching the ![GPS](../images/menu_gps.png) button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
+
+To record a GPX track and display it on your device select "Start GPX track" item in the ![GPS](../images/menu_gps.png) menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the [layer control](Main%20map%20display.md). Further layers can be added from local GPX files and tracks downloaded from the OSM API.
+
+Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
 
 ## Σημειώσεις και Σφάλματα
 
@@ -233,7 +237,7 @@ The _Annotations_ group in the standard presets contain an item that will automa
 Οι έλεγχοι καταχωρίσεων έχουν τις εξής δύο ιδιότητες:
 
 * **Key** - Key that should be present on the object according to the matching preset.
-* **Require optional** - Require the key even if the key is in the optional tags of the matching preset .
+* **Require optional** - Require the key even if the key is in the optional tags of the matching preset.
 
 This check works by first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Require optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 

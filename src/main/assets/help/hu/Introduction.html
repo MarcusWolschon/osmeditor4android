@@ -5,11 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
+<p><em>Mielőtt elkezdenénk: a legtöbb képernyőn a menüből vannak linkek a készülék súgórendszerére, amivel közvetlenül elérheted az aktuális kontextusban lényeges információkat, és könnyen visszanavigálhatsz ehhez a szöveghez is. Ha nagyobb eszközöd (pl. táblagéped) van, a súgórendszert egy külön osztott ablakban is megnyithatod. Az összes súgószöveg és egyéb (gyik, oktatóanyagok) megtalálható a <a href="https://vespucci.io/">Vespucci dokumentációs oldalán</a> is.</em></p>
 <h1>Vespucci bevezetés</h1>
 <p>A Vespucci egy teljes funkcionalitású OpenStreetMap-szerkesztő, amely az asztali szerkesztők által biztosított legtöbb műveletet támogatja. Sikeresen tesztelték a Google Android 2.3–10.0 és különböző AOSP-alapú változataira. Vigyázat: bár a mobileszközök képességei felzárkóztak asztali vetélytársaikéihoz, különösen a régebbi eszközök memóriája korlátozott, és általában meglehetősen lassúak. Ezt vegye figyelembe a Vespucci használatakor, és például ésszerű méretű területeket próbáljon szerkeszteni.</p>
-<h2>Első használat</h2>
-<p>Indításkor a Vespucci – miután megkérte a szükséges engedélyeket, és megjelenített egy üdvözlő üzenetet – az „Egyéb hely letöltése” / „Terület betöltése” párbeszédpanelt mutatja. Ha a koordináták megjelennek, és azonnal szeretné letölteni, kiválaszthatja a megfelelő opciót, és beállíthatja a letölthető hely körüli sugarat. Lassú eszközön ne jelöljön ki nagy területet.</p>
-<p>Másrészt be is zárhatja a párbeszédablakot az „Ugrás a térképre” gomb megnyomásával, majd a térképen ránagyíthat a szerkesztendő területre, és letöltheti az adatokat (lásd lejjebb: „Szerkesztés a Vespuccival”).</p>
 <h2>Szerkesztés a Vespuccival</h2>
 <p>A képernyő méretétől és a készülék életkorától függően a szerkesztési műveletek a következő helyekről érhetők el: közvetlenül a felső sáv ikonjaiból, a felső sáv jobb oldalán található legördülő menüből, az alsó sávból (ha van) vagy a menügombból.</p>
 <p><a id="download"></a></p>
@@ -61,7 +59,7 @@
 <p>A kiválasztott objektum másodszori megérintése megnyitja a címkeszerkesztőt, és így szerkesztheti az objektumhoz rendelt címkéket.</p>
 <p>Ne feledje, hogy az átfedő objektumok esetén (mint a vonalon lévő pontok) a kiválasztási menü még egyszer megjelenik. Az ugyanazon objektum kiválasztása előhozza a címkeszerkesztőt; egy másik objektum kiválasztása egyszerűen kiválasztja a másik objektumot.</p>
 <h4>Kijelölt objektumok: pont vagy vonal mozgatása</h4>
-<p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the <a href="Preferences.md">preferences</a>, you get a large area around the selected node that makes it easier to position the object.</p>
+<p>Amint kiválasztott egy objektumot, az mozgatható lesz. Ne feledje, hogy csak a kijelölt objektumok mozgathatóak. Egyszerűen húzza (a tolerancia zónán belül) a kiválasztott objektumot a mozgatáshoz. Ha nagy húzási területet választ ki a <a href="Preferences.md">beállításokban</a>, akkor nagy területet kap a kiválasztott pont körül, így könnyebben pozicionálhatja az objektumot.</p>
 <h4>Új pont vagy vonal hozzáadása</h4>
 <p>Az alkalmazás első indításakor „Egyszerű módban” indul, ez módosítható a főmenüben, a megfelelő jelölőmező kikapcsolásával.</p>
 <h5>Egyszerű mód</h5>
@@ -81,23 +79,25 @@
 <h4>Terület hozzáadása</h4>
 <p>Más geoadat rendszerekkel ellentétben, az OpenStreetMap jelenleg nem rendelkezik „terület” objektumtípussal. Az „iD” online szerkesztő megpróbál egy terület absztrakciót biztosítani az alacsonyabb szintű OSM elemekből, amely egyes esetekben jól működik, máskor nem. A Vespucci jelenleg meg sem próbál hasonlót, így valamennyit tudnia kell a területek ábrázolásáról:</p>
 <ul>
-<li><em>zárt vonalak („poligonok”)</em>: a legegyszerűbb és leggyakoribb területtípus, olyan vonalat jelent, amelynek a közös első és utolsó pontja zárt „gyűrűt” alkot (például a legtöbb épület ilyen típusú). Ezek nagyon könnyen létrehozhatóak a Vespuccival, egyszerűen kapcsoljon vissza az első ponthoz a terület megrajzolásakor. Megjegyzés: A zárt vonalak értelmezése a címkézésen múlik: például ha a zárt vonal épületként van címkézve, akkor területként lesz kezelve, ha körforgalomként, akkor nem. Egyes esetekben mindkét értelmezés érvényes lehet, ilyenkor egy „area” címke pontosíthatja a szándékolt használatot.</li>
-<li><em>multipoligonok</em>: egyes területek több részből is állhatnak, lyukakat és gyűrűket tartalmazhatnak, és így nem ábrázolhatóak egy vonallal. Az OSM egy konkrét kapcsolattípust használ ennek a feloldására, a multipoligont (a kapcsolat egy általános elem, amely elem közti kapcsolatokat tud leírni). Egy multipoligonnak több „külső (outer)” gyűrűje, és több „belső (inner)” gyűrűje is lehet. Ezek a gyűrűk lehetnek zártak, mint ahogy fentebb szerepel, vagy lehetnek különálló vonalak közös végpontokkal. Ugyan a nagy multipoligonok kezelése minden eszközzel bonyolult, a kisebbek létrehozása nem túl nehéz a Vespuccival.</li>
-<li><em>partvonalak</em>: nagyon nagy objektumok esetén, mint a kontinensek vagy a szigetek, még a multipoligon modell sem működik kielégítően. A natural=coastline vonalak esetén irányfüggő szemantikát alkalmazunk: a szárazföld a vonal bal oldalán van, a víz a jobb oldalán. Ennek mellékhatása, hogy általánosságban nem szabad megfordítani a partvonal címkézésű vonalakat. További információk az <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wikiben</a>.</li>
+<li><em>closed ways (*polygons&quot;)</em>: the simplest and most common area variant, are ways that have a shared first and last node forming a closed &quot;ring&quot; (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an &quot;area&quot; tag can clarify the intended use.</li>
+<li><em>multi-polygons</em>: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple &quot;outer&quot; rings, and multiple &quot;inner&quot; rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci.</li>
+<li><em>coastlines</em>: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a>.</li>
 </ul>
 <h4>Vonalgeometria javítása</h4>
 <p>Ha eléggé ránagyít a kiválasztott vonalra, akkor egy kis „x”-et fog látni az elég hosszú vonalszakaszok közepén. Az „x” húzása új pontot hoz létre azon a helyen. Megjegyzés: próbálja elkerülni a pontok véletlen létrehozását, az érintési toleranciaterület elég kicsi ennél a műveletnél.</p>
 <h4>Kivágás, másolás és beillesztés</h4>
 <p>Másolhatja és kivághatja a kiválasztott pontokat és vonalakat, aztán egyszer vagy többször beillesztheti egy új helyen. A kivágás megtartja az OSM azonosítót és verziót. A beillesztéshez nyomja hosszan a területet, ahová be akarja illeszteni (egy célkereszt fogja jelölni a helyet). Aztán válassza ki a „Beillesztést” a menüből.</p>
 <h4>Címek hatékony hozzáadása</h4>
-<p>A Vespucci rendelkezik egy <img src="../images/address.png" alt="Address" /> „címcímkék hozzáadása” funkcióval, amely az adott házszám kitalálásával megpróbálja hatékonyabbá tenni a címek felmérést. Így jelölhető ki:</p>
+<p>Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding <em>addr:street</em> or <em>addr:place</em> tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.</p>
+<p>Adding the tags can be triggered by pressing <img src="../images/address.png" alt="Address" />:</p>
 <ul>
-<li>hosszú nyomás után (_egyszerű módban nem): a Vespucci elhelyez egy pontot az adott helyen, megpróbálja a lehető legjobban kitalálni a házszámot, és hozzáadja az utóbbi időben használ címcímkéket. Ha a pont egy épület kontúrján van, akkor automatikusan kap egy „entrance=yes” címkét is. Megnyílik a címkeszerkesztő és így lehetővé válik a további módosítások elvégzése.</li>
-<li>a kijelölt pont/vonal módban: a Vespucci a fent leírt módon hozzáadja a címcímkéket és elindítja a címkeszerkesztőt</li>
-<li>a tulajdonságszerkesztőben.</li>
+<li>after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an &quot;entrance=yes&quot; tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
+<li>in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.</li>
+<li>in the property editor.</li>
 </ul>
+<p>To add individual address nodes directly while in the default &quot;Simple mode&quot; switch to &quot;Address&quot; editing mode (long press on the lock button), &quot;Add address node&quot; will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.</p>
 <p>A házszámok becslésének működéséhez jellemzően legalább két házszám szükséges az út két oldalán, minél több szám szerepel az adatokban, annál jobb.</p>
-<p>Fontolja meg, hogy ezt az <a href="#download">Automatikus letöltés</a> móddal használja.</p>
+<p>Consider using this with one of the <a href="#download">Auto-download</a> modes.</p>
 <h4>Kanyarodási korlátozások hozzáadása</h4>
 <p>A Vespucci rendelkezik egy gyors módszerrel a kanyarodási korlátozások hozzáadásához, ha szükséges, akkor automatikusan felosztja a vonalakat, és megkéri. hogy válassza ki újra az elemeket.</p>
 <ul>
@@ -117,22 +117,24 @@
 <p>Ha menteni akarja a munkáját, és nincs internetkapcsolata, akkor elmentheti egy JOSM kompatibilis .osm fájlba, és felöltheti később a Vespuccival vagy a JOSM-mel.</p>
 <h4>Ütközések feloldása feltöltéskor</h4>
 <p>A Vespucci rendelkezik egy egyszerű ütközésfeloldóval. Viszont ha azt gondolja, hogy komoly problémák vannak a szerkesztéseivel, akkor exportálja a módosításokat egy .osc fájlba („Exportálás” menüelem az „Átküldés” menüben), majd javítsa ki és töltse fel a JOSM-mel. Lásd a részletes súgót az <a href="Conflict%20resolution.md">ütközésfeloldásról</a>.</p>
-<h2>GPS használata</h2>
-<p>Használhatja a Vespuccit GPX nyomvonalak létrehozására, és azok megjelenítésére az eszközén. Továbbá megjelenítheti a jelenlegi GPS pozíciót (lásd a „Pozíció megjelenítése” lehetőséget a GPS menüben).</p>
-<p>Ha az utóbbi van beállítva, akkor a képernyő kézi mozgatása vagy a szerkesztés letiltja „GPS követése” módot, és a kék GPS nyíl körvonal helyett kitöltött nyílra vált. A „követés” módhoz történő gyors visszatéréshez egyszerűen nyomja meg a GPS gombot, vagy kapcsolja be újra a menü lehetőséget.</p>
+<h2>Using GPS and GPX tracks</h2>
+<p>With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called &quot;network location&quot; if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named &quot;Improve Location Accuracy&quot; option turned off. If you want to enable the option but want to avoid Vespucci falling back to &quot;network location&quot;, you should turn the corresponding option in the <a href="Advanced%20preferences.md">Advanced preferences</a> off.</p>
+<p>Touching the <img src="../images/menu_gps.png" alt="GPS" /> button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the &quot;follow GPS&quot; mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the &quot;follow&quot; mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
+<p>To record a GPX track and display it on your device select &quot;Start GPX track&quot; item in the <img src="../images/menu_gps.png" alt="GPS" /> menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the <a href="Main%20map%20display.md">layer control</a>. Further layers can be added from local GPX files and tracks downloaded from the OSM API.</p>
+<p>Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the <a href="Advanced%20preferences.md">Advanced preferences</a> and configure NMEA input.</p>
 <h2>Jegyzetek és hibák</h2>
 <p>A Vespucci támogatja az OSM jegyzetek (régebben OSM hibák) letöltését, lezárását és a megjegyzések hozzáfűzését, valamint támogatja az <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE hibaellenőrző eszköz</a> „hibáit” is. Mind a kettőt vagy le kell tölteni direktben, vagy használhatja az automatikus letöltési lehetőséget, hogy elérje a közeli területen lévő elemeket. Ha már egyszer szerkesztette vagy lezárta őket, akkor egyesével vagy egyben is feltöltheti a hibákat vagy jegyzeteket.</p>
 <p>A térképen a jegyzeteket vagy hibákat kis hiba ikonok <img src="../images/bug_open.png" alt="Hiba" /> jelzik, a zöldek lezártak/megoldottak, a kékeket Ön hozta létre vagy szerkesztette, a sárgák pedig még mindig aktívak, és Ön nem változtatott rajtuk.</p>
 <p>Az OSMOSE hibák kék hivatkozást jelenítenek meg az érintett objektumhoz, a hivatkozás megnyomása kiválasztja az objektumot, a képernyő közepére teszi azt, és letölti a területet, ha az szükséges.</p>
 <h3>Szűrés</h3>
-<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the <a href="#layers">layer control</a>:</p>
+<p>A jegyzetek és hibák megjelenítésének globális bekapcsolása mellett beállítható egy durva szűrőt, hogy csökkentse a zsúfoltságot. A szűrő beállítási a feladatréteg bejegyzésből érhetők el a <a href="#layers">rétegvezérlésből</a>:</p>
 <ul>
-<li>Notes</li>
-<li>Osmose error</li>
-<li>Osmose warning</li>
-<li>Osmose minor issue</li>
+<li>Jegyzetek</li>
+<li>Osmose hiba</li>
+<li>Osmose figyelmeztetés</li>
+<li>Osmose kis probléma</li>
 <li>Maproulette</li>
-<li>Custom</li>
+<li>Egyéni</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2>Beltéri mód</h2>
@@ -143,7 +145,7 @@
 <p>C-módban csak azok az objektumok jelennek meg, melyeken figyelmeztetés jelző van, így könnyen kiszúrhatja azokat az objektumokat, melyekkel konkrét probléma van, vagy egyeznek a beállítható ellenőrzésekkel. Ha egy objektum kiválasztásra kerül és elindul a tulajdonságszerkesztő C-módban, akkor a legjobban illeszkedő előbeállítás automatikusan beállításra kerül.</p>
 <p>A mód a zárolás gomb hosszú megnyomásával, és a megfelelő menüelem kiválasztásával engedélyezhető, lásd: <a href="#lock">Zárolás, feloldás, módváltás</a>.</p>
 <h3>Ellenőrzések beállítása</h3>
-<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting &quot;Validator settings&quot; in the <a href="Preferences.md">preferences</a>.</p>
+<p>Jelenleg két beállítható ellenőrzés van (egy a FIXME címkéket ellenőrzi, és egy másik, amely a hiányzó típuscímkéket ellenőrzi a kapcsolatokon, de jelenleg nem konfigurálható), mindkettő az „Érvényesítő beállításai” kiválasztásával érhető el a <a href="Preferences.md">beállításokban</a>.</p>
 <p>A bejegyzések listája két részre van osztva, a felső része az „újbóli felmérési” bejegyzéseket tartalmazza, az alsó rész pedig az „ellenőrzési bejegyzéseket”. A bejegyzések koppintással szerkeszthetőek, és a zöld menügombbal adhatóak hozzá új bejegyzések.</p>
 <h4>Újbóli felmérési bejegyzések</h4>
 <p>Az újbóli felmérési bejegyzések a következő tulajdonságokkal rendelkeznek:</p>
@@ -158,8 +160,8 @@
 <h4>Bejegyzések ellenőrzése</h4>
 <p>Az elemek ellenőrzése a következő két tulajdonsággal rendelkezik:</p>
 <ul>
-<li><strong>Kulcs</strong> – Kulcs, amelynek jelen kell lennie az objektumon az előbeállítás szerint.</li>
-<li><strong>Nem kötelező elemek megkövetelése</strong> – A kulcs megkövetelése akkor is, ha a kulcs az előbeállítás nem kötelező címkéi között található.</li>
+<li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
+<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset.</li>
 </ul>
 <p>Ez az ellenőrzés úgy működik, hogy először meghatározza az illeszkedő előbeállítást, majd ellenőrzi, hogy a <strong>Kulcs</strong> egy „ajánlott” kulcs-e ennél az objektumnál, az előbeállítás szerint, a <strong>Nem kötelező elemek megkövetelése</strong> kiterjeszti az ellenőrzést azokra a címkékre is, melyek „nem kötelezőek” az objektumon. Megjegyzés: jelenleg a hivatkozott előbeállítások nem kerülnek ellenőrzésre.</p>
 <h2>Szűrők</h2>
@@ -183,10 +185,10 @@
 <li>GeoJSON-réteg - Megjeleníti egy GeoJSON fájl tartalmát. Alapértelmezés: kikapcsolva</li>
 <li>Rács - megjeleníti a méretarányt a térkép vagy a rács oldalán. Alapértelmezés: bekapcsolva.</li>
 </ul>
-<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
+<p>További információk találhatók a <a href="Main%20map%20display.md">térkép megjelenítéséről</a> szóló szakaszban.</p>
 <h4>Beállítások</h4>
 <ul>
-<li>Hagyja bekapcsolva a kijelzőt. Alapértelmezés: kikapcsolva.</li>
+<li>Kijelző bekapcsolva tartása. Alapértelmezés: kikapcsolva.</li>
 <li>Nagy ponthúzási terület. A pontok mozgatása érintéses bemenettel rendelkező eszközön nehézkes, mivel az ujjai eltakarják a kijelző aktuális helyzetét. Ennek bekapcsolása nagy területet biztosít, amely a középponton kívüli húzásra használható fel (a kijelölés és más műveletek továbbra is a normál érintéstűrési területet használják). Alapértelmezés: kikapcsolva.</li>
 </ul>
 <p>A teljes leírás megtalálható a <a href="Preferences.md">beállításoknál</a>.</p>

@@ -5,11 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
+<p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too.</em></p>
 <h1>Веспуччі – вступ</h1>
 <p>Веспуччі – це повноцінний редактор даних OpenStreetMap, що підтримує  більшість операцій, доступних у редакторах настільних комп’ютерів. Він був успішно протестований на Android від 2.3 до 10.0 версії від Google, а також у різних варіантах на основі AOSP (Android Open Source Project). Застереження: в той час, як мобільні пристрої наздогнали своїх настільних суперників, старі мобільні пристрої  мають обмежений обсяг пам’яті та будуть доволі повільними в роботі. Враховуйте це під час роботи з Веспуччі та завантажуйте розмір ділянки для редагування у розумних межах.</p>
-<h2>Початок роботи</h2>
-<p>Після запуску, Веспуччі показує діалог «Звантажити інше місце»/«Завантажити ділянку», після відповіді на запит отримання відповідних дозволів та показу привітального повідомлення. Якщо ви бачите координати та бажаєте завантажити дані негайно, ви можете обрати потрібний радіус навколо цієї точки, щоб завантажити дані. Не обирайте завелику ділянку на повільних пристроях.</p>
-<p>Або ж ви можете пропустити цей діалог, натисніть кнопку „Перейти до мапи“ та знайдить потрібне вам місце, яке ви бажаете редагувати, та завантажте дані (Див.: „Редагування у Веспуччі“).</p>
 <h2>Редагування у Веспуччі</h2>
 <p>В залежності від розміру екрану вашого пристрою перехід в режим редагування можливий за допомогою значка зверху на панелі інструментів, через випадаюче меню на панелі інструментів праворуч, з панелі інструментів знизу (якщо є) або за допомогою кнопки меню.</p>
 <p><a id="download"></a></p>
@@ -88,7 +86,7 @@
 <p>OpenStreetMap currently doesn't have an &quot;area&quot; object type unlike other geo-data systems. The online editor &quot;iD&quot; tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:</p>
 <ul>
 <li><em>closed ways (*polygons&quot;)</em>: the simplest and most common area variant, are ways that have a shared first and last node forming a closed &quot;ring&quot; (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an &quot;area&quot; tag can clarify the intended use.</li>
-<li><em>multi-ploygons</em>: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple &quot;outer&quot; rings, and multiple &quot;inner&quot; rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci.</li>
+<li><em>multi-polygons</em>: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple &quot;outer&quot; rings, and multiple &quot;inner&quot; rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci.</li>
 <li><em>coastlines</em>: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a>.</li>
 </ul>
 <h4>Покращення геометрії ліній</h4>
@@ -96,14 +94,16 @@
 <h4>Вирізання, Копіювання та Вставка</h4>
 <p>Ви можете скопіювати або вирізати виділені точки та лінії та вставити їх на нове місце потрібну кількість разів. Під час вирізання версія та ідентифікатор osm зберігаються. Для вставки натисніть та потримайте деякий час потрібне місце (ви побачите &quot;приціл&quot;). Потім оберіть &quot;Вставити&quot; з меню.</p>
 <h4>Швидке додавання адрес</h4>
-<p>Vespucci has an <img src="../images/address.png" alt="Address" /> &quot;add address tags&quot; function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:</p>
+<p>Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding <em>addr:street</em> or <em>addr:place</em> tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.</p>
+<p>Adding the tags can be triggered by pressing <img src="../images/address.png" alt="Address" />:</p>
 <ul>
-<li>after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a &quot;entrance=yes&quot; tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
+<li>after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an &quot;entrance=yes&quot; tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
 <li>in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.</li>
 <li>in the property editor.</li>
 </ul>
+<p>To add individual address nodes directly while in the default &quot;Simple mode&quot; switch to &quot;Address&quot; editing mode (long press on the lock button), &quot;Add address node&quot; will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.</p>
 <p>Пропонування номерів будинків потребує наявності не менше двох номерів з кожного боку вулиці, чим більше є даних, тим звісно краще.</p>
-<p>Consider using this with the <a href="#download">Auto-download</a> mode.</p>
+<p>Consider using this with one of the <a href="#download">Auto-download</a> modes.</p>
 <h4>Додавання обмежень поворотів</h4>
 <p>Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements.</p>
 <ul>
@@ -123,9 +123,11 @@
 <p>If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM.</p>
 <h4>Resolving conflicts on uploads</h4>
 <p>Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file (&quot;Export&quot; menu item in the &quot;Transfer&quot; menu) and fix and upload them with JOSM. See the detailed help on <a href="Conflict%20resolution.md">conflict resolution</a>.</p>
-<h2>Using GPS</h2>
-<p>You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set &quot;Show location&quot; in the GPS menu) and/or have the screen center around and follow the position (set &quot;Follow GPS Position&quot; in the GPS menu).</p>
-<p>If you have the latter set, moving the screen manually or editing will cause the &quot;follow GPS&quot; mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the &quot;follow&quot; mode, simply touch GPS button or re-check the menu option.</p>
+<h2>Using GPS and GPX tracks</h2>
+<p>With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called &quot;network location&quot; if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named &quot;Improve Location Accuracy&quot; option turned off. If you want to enable the option but want to avoid Vespucci falling back to &quot;network location&quot;, you should turn the corresponding option in the <a href="Advanced%20preferences.md">Advanced preferences</a> off.</p>
+<p>Touching the <img src="../images/menu_gps.png" alt="GPS" /> button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the &quot;follow GPS&quot; mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the &quot;follow&quot; mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
+<p>To record a GPX track and display it on your device select &quot;Start GPX track&quot; item in the <img src="../images/menu_gps.png" alt="GPS" /> menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the <a href="Main%20map%20display.md">layer control</a>. Further layers can be added from local GPX files and tracks downloaded from the OSM API.</p>
+<p>Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the <a href="Advanced%20preferences.md">Advanced preferences</a> and configure NMEA input.</p>
 <h2>Notes and Bugs</h2>
 <p>Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for &quot;Bugs&quot; produced by the <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE quality assurance tool</a>. Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.</p>
 <p>On the map the Notes and bugs are represented by a small bug icon <img src="../images/bug_open.png" alt="Bug" />, green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed.</p>
@@ -165,7 +167,7 @@
 <p>Check entries have the following two properties:</p>
 <ul>
 <li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
-<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset .</li>
+<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset.</li>
 </ul>
 <p>This check works by first determining the matching preset and then checking if <strong>Key</strong> is a &quot;recommended&quot; key for this object according to the preset, <strong>Require optional</strong> will expand the check to tags that are &quot;optional* on the object. Note: currently linked presets are not checked.</p>
 <h2>Filters</h2>

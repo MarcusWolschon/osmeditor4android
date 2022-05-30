@@ -1,12 +1,8 @@
+_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too._
+
 # Introducción a Vespucci
 
-Vespucci es un editor OpenStreetMap con todas las funciones que admite la mayoría de las operaciones que proporcionan los editores de escritorio. Se ha probado con éxito en Android 2.3 a 10.0 de Google y en varias variantes basadas en AOSP. Una advertencia: aunque las capacidades de los dispositivos móviles se han puesto al día con sus rivales de escritorio, particularmente los dispositivos más antiguos tienen una memoria muy limitada disponible y tienden a ser bastante lentos. Debe tener esto en cuenta al usar Vespucci y mantener, por ejemplo, las áreas que está editando a un tamaño razonable. 
-
-## Utilizar por primera vez
-
-Al iniciarse, Vespucci le muestra el cuadro de diálogo "Descargar otra ubicación" / "Área de carga" después de solicitar los permisos necesarios y mostrar un mensaje de bienvenida. Si tiene coordenadas mostradas y desea descargar de inmediato, puede seleccionar la opción adecuada y establecer el radio alrededor de la ubicación que desea descargar. No seleccione un área grande en dispositivos lentos. 
-
-Como alternativa, puede cerrar el cuadro de diálogo presionando el botón "Ir al mapa" y desplazarse y hacer zoom a la ubicación que desea editar y luego descargar los datos (Ver más abajo: "Edición con Vespucci").
+Vespucci es un editor OpenStreetMap con todas las funciones que admite la mayoría de las operaciones que proporcionan los editores de escritorio. Se ha probado con éxito en Android 2.3 a 10.0 de Google y en varias variantes basadas en AOSP. Una advertencia: aunque las capacidades de los dispositivos móviles se han puesto al día con sus rivales de escritorio, particularmente los dispositivos más antiguos tienen una memoria muy limitada disponible y tienden a ser bastante lentos. Debe tener esto en cuenta al usar Vespucci y mantener, por ejemplo, las áreas que está editando a un tamaño razonable.
 
 ## Editando con Vespucci
 
@@ -114,9 +110,9 @@ También puede usar un elemento de menú: consulte [Creación de nuevos objetos]
 
 Actualmente OpenStreetMap no tiene un objeto tipo "área" al contrario que otros sistemas de geo-datos. El editor en línea "iD" intenta crear una abstracción de área a partir de los elementos OSM subyacentes que funciona bien en algunas circunstancia y no tanto en otras. Actualmente Vespucci no intenta hacer nada similar, así que necesitará conocer un poco sobre la forma en que se representan las áreas.
 
-* _rutas cerradas («polígonos»)_: la variante de área más simple y más común, son rutas que tienen un primer y último nodo compartido formando un «anillo» cerrado (por ejemplo, la mayoría de los edificios son de este tipo). Estos son muy fáciles de crear en Vespucci, simplemente conéctese de nuevo al primer nodo cuando haya terminado de dibujar el área. Nota: la interpretación del camino cerrado depende de su etiquetado: por ejemplo, si un camino cerrado se etiqueta como un edificio, se considerará un área, si se etiqueta como una rotonda, no. En algunas situaciones en las que ambas interpretaciones pueden ser válidas, una etiqueta de «área» puede aclarar el uso previsto.
-* _multi-polígonos_: algunas áreas tienen múltiples partes, agujeros y anillos que no se pueden representar de una sola manera. OSM usa un tipo específico de relación (nuestro objeto de propósito general que puede modelar las relaciones entre los elementos) para sortear esto, un multi-polígono. Un multi-polígono puede tener múltiples anillos «externos» y múltiples anillos «internos». Cada anillo puede ser cerrado como se describe anteriormente, o múltiples formas individuales que tienen nodos finales comunes. Mientras que los grandes multi-polígonos son difíciles de manejar con cualquier herramienta, los pequeños no son difíciles de crear en Vespucci. 
-* _costas_: para objetos muy grandes, continentes e islas, incluso el modelo de multi-polígonos no funciona de manera satisfactoria. Para las formas naturales=litorales asumimos una semántica dependiente de la dirección: la tierra está en el lado izquierdo del camino, el agua en el lado derecho. Un efecto secundario de esto es que, en general, no debe invertir la dirección de una ruta con el etiquetado de la costa. Puede encontrarse más información en la [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
+* _multi-polygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
+* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
 #### Mejorando la geometría de vías
 
@@ -128,15 +124,19 @@ Usted puede copiar o cortar los nodos y caminos seleccionados, y después pegarl
 
 #### Agregar direcciones de manera eficiente
 
-Vespucci tiene una función ![Dirección](../images/address.png) "agregar etiquetas de dirección" que intenta hacer que las direcciones de topografía sean más eficientes al predecir el número de casa actual. Se puede seleccionar:
+Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding _addr:street_ or _addr:place_ tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   
 
-* después de una pulsación larga (_solo en modo no simple:): Vespucci agregará un nodo en la ubicación y adivinará el número de la casa y agregará las etiquetas de dirección que ha estado utilizando últimamente. Si el nodo está en el contorno de un edificio, agregará automáticamente una etiqueta "entrance=yes" al nodo. El editor de etiquetas se abrirá para el objeto en cuestión y le permitirá realizar los cambios necesarios.
-* en los modos seleccionados nodo / vía: Vespucci agregará etiquetas de dirección como se indicó anteriormente e iniciará el editor de etiquetas.
-* en el editor de propiedades.
+Adding the tags can be triggered by pressing ![Address](../images/address.png): 
+
+* after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
+* in the property editor.
+
+To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.
 
 La predicción de números de casas normalmente requiere al menos dos números de casas a cada lado de la vía para que funcione; cuantos más números presentes en los datos, mejor.
 
-Considere utilizar esto con el modo [Auto-descarga](#download).  
+Consider using this with one of the [Auto-download](#download) modes.  
 
 #### Añadiendo restricciones de giro
 
@@ -168,11 +168,15 @@ Si quiere guardar su trabajo y no tiene acceso a Internet, puede guardar un arch
 
 Vespucci tiene un solucionador de conflictos simple. Sin embargo, si sospecha que hay problemas importantes con sus ediciones, exporte sus cambios a un archivo .osc (elemento de menú "Exportar" en el menú "Transferencia") corríjalos y cárguelos con JOSM. Consulte la ayuda detallada sobre [resolución de conflictos](Conflict%20resolution.md).  
 
-## Usando GPS
+## Using GPS and GPX tracks
 
-Puede utilizar Vespucci para crear una traza GPX y mostrarla en su dispositivo. Además puede mostrar la ubicación GPS actual (seleccione "Mostrar ubicación" en el menú GPS) y/o centrar la pantalla y seguir su posición (seleccione "Seguir ubicación GPS" en el menú GPS). 
+With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
 
-Si tiene este último conjunto, mover la pantalla manualmente o editar hará que se deshabilite el modo «Seguir GPS» y la flecha azul del GPS cambiará de un esquema a una flecha llena. Para volver rápidamente al modo «seguir», simplemente toque el botón GPS o vuelva a verificar la opción de menú.
+Touching the ![GPS](../images/menu_gps.png) button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
+
+To record a GPX track and display it on your device select "Start GPX track" item in the ![GPS](../images/menu_gps.png) menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the [layer control](Main%20map%20display.md). Further layers can be added from local GPX files and tracks downloaded from the OSM API.
+
+Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
 
 ## Notas y errores
 
@@ -232,8 +236,8 @@ El grupo _Annotations_ en los predefinidos estándar contiene un elemento que ag
 
 Las entradas de control tienen las siguientes dos propiedades:
 
-* **Clave**: clave que debe estar presente en el objeto de acuerdo con el predefinido correspondiente.
-* **Requerir opcional** - Requerir la clave incluso si la clave está en las etiquetas opcionales del predefinido coincidente.
+* **Key** - Key that should be present on the object according to the matching preset.
+* **Require optional** - Require the key even if the key is in the optional tags of the matching preset.
 
 Esta verificación funciona primero determinando el predefinido coincidente y luego verificando si **Clave** es una clave "recomendada" para este objeto de acuerdo con el predefinido, **Requerir opcional** expandirá la verificación a las etiquetas que son "opcionales* en el objeto. Nota: los predefinidos vinculados actualmente no están comprobados.
 

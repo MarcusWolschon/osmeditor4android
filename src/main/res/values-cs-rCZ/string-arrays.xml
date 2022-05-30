@@ -70,4 +70,10 @@
         <item>Špatně sestavená URL</item>
         <item>Neplatný argument</item>
     </string-array>
- </resources>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>Žádné velké písmeno</item>
+        <item>Velké písmena slova</item>
+        <item>Velké písmeno věty</item>
+    </string-array>
+    </resources>

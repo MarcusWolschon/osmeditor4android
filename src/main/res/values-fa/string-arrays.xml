@@ -34,7 +34,7 @@
     <string-array name="followGPSbutton_entries">
         <item>چپ</item>
         <item>راست</item>
-        <item>هیچ‌کدام</item>
+        <item>هیچ کدام</item>
     </string-array>
     <string-array name="full_screen_preference_entries">
         <item>خودکار</item>
@@ -70,4 +70,10 @@
         <item>نشانی اینترنتی درست نیست</item>
         <item>آرگومان نامعتبر است</item>
     </string-array>
- </resources>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>بدون حروف بزرگ</item>
+        <item>حروف بزرگ کلمات</item>
+        <item>حروف بزرگ جمله</item>
+    </string-array>
+    </resources>
