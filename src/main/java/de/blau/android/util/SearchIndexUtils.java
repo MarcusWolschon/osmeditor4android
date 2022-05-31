@@ -180,7 +180,7 @@ public final class SearchIndexUtils {
                     for (NameAndTags nat : nats) {
                         if (nat.inUseIn(regions)) {
                             TagMap tags = nat.getTags();
-                            PresetItem pi = Preset.findBestMatch(presets, tags, null, false);
+                            PresetItem pi = Preset.findBestMatch(presets, tags, null, null, false);
                             PresetItem namePi = new PresetItem(preset, null, nat.getName(), pi == null ? null : pi.getIconpath(), null);
 
                             for (Entry<String, String> entry : tags.entrySet()) {

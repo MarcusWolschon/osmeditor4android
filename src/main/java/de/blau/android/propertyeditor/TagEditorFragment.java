@@ -659,7 +659,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         clearPresets();
         clearSecondaryPresets();
         if (presetItem == null) {
-            primaryPresetItem = Preset.findBestMatch(presets, allTags, propertyEditorListener.getCountryIsoCode(), true); // FIXME
+            primaryPresetItem = Preset.findBestMatch(presets, allTags, propertyEditorListener.getCountryIsoCode(), null, true); // FIXME
                                                                                                                           // multiselect;
         } else {
             primaryPresetItem = presetItem;
@@ -667,7 +667,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         Map<String, String> nonAssigned = addPresetsToTags(primaryPresetItem, allTags);
         int nonAssignedCount = nonAssigned.size();
         while (nonAssignedCount > 0) {
-            PresetItem nonAssignedPreset = Preset.findBestMatch(presets, nonAssigned, propertyEditorListener.getCountryIsoCode(), true);
+            PresetItem nonAssignedPreset = Preset.findBestMatch(presets, nonAssigned, propertyEditorListener.getCountryIsoCode(), null, true);
             if (nonAssignedPreset == null) {
                 // no point in continuing
                 break;
