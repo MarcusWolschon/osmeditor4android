@@ -53,6 +53,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |__&lt;key&gt;__    |                               | supported |
 |                   | value                         | supported | required
 |                   | match                         | partial   | "none" is supported
+|                   | match_expression              | ignored   |
 |                   | text                          | extension | Something to display
 |                   | values_context                | extension | Translation context
 |                   | object                        | extension | If present and true or false the tag will be considered as defining/not-defining a top level object, overriding the normal rules 
@@ -60,6 +61,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | key                           | supported | required
 |                   | text                          | supported |
 |                   | match                         | partial   | only the "key", "key!" and "none" values are supported, all other values are ignored
+|                   | match_expression              | ignored   |
 |                   | default                       | supported |
 |                   | use_last_as_default           | partial   | "force" has the same effect as "true"
 |                   | auto_increment                | ignored   |
@@ -77,6 +79,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | delimiter                     | supported |
 |                   | default                       | supported |
 |                   | match                         | supported |
+|                   | match_expression              | ignored   |
 |                   | display_values                | supported |
 |                   | short_descriptions            | partial   | will only be used if display_values is not present
 |                   | values_context                | supported |
@@ -95,6 +98,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | delimiter                     | supported |
 |                   | default                       | supported |
 |                   | match                         | supported |
+|                   | match_expression              | ignored   |
 |                   | display_values                | supported |
 |                   | short_descriptions            | partial   | will only be used if display_values is not present
 |                   | values_context                | supported |
@@ -125,6 +129,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | disable_off                   | supported |
 |                   | default                       | supported |
 |                   | match                         | supported |
+|                   | match_expression              | ignored   |
 |                   | use_last_as_default           | extension | "force" has the same effect as "true"
 |__&lt;label&gt;__  |                               | ignored   |
 |__&lt;space/&gt;__ |                               | ignored   |
