@@ -12,6 +12,7 @@ import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Way;
@@ -104,7 +105,7 @@ public class ExtendedValidator implements Validator {
         List<RelationMember> members = relation.getMembers();
         if (missingRoleValidation && members != null) {
             // check for missing roles
-            PresetItem pi = Preset.findBestMatch(base.getPresets(), relation.getTags(), base.getCountry(relation));
+            PresetItem pi = Preset.findBestMatch(base.getPresets(), relation.getTags(), base.getCountry(relation), ElementType.RELATION, false);
             if (pi != null) {
                 List<PresetRole> presetRoles = pi.getRoles();
                 if (presetRoles != null) {

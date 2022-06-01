@@ -1737,7 +1737,7 @@ public class Preset {
      */
     @Nullable
     public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, String region) {
-        return findBestMatch(presets, tags, region, false);
+        return findBestMatch(presets, tags, region, null, false);
     }
 
     /**
@@ -1751,11 +1751,13 @@ public class Preset {
      * @param presets presets presets to match against
      * @param tags tags to check against (i.e. tags of a map element)
      * @param region if not null this will be taken in to account wrt scoring
+     * @param elementType if not null the ElementType will be considered
      * @param useAddressKeys use addr: keys if true
      * @return a preset or null if none found
      */
     @Nullable
-    public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, @Nullable String region, boolean useAddressKeys) {
+    public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, @Nullable String region,
+            @Nullable ElementType elementType, boolean useAddressKeys) {
         int bestMatchStrength = 0;
         PresetItem bestMatch = null;
 
@@ -1786,6 +1788,10 @@ public class Preset {
                 }
                 if (region != null && !possibleMatch.appliesIn(region)) {
                     // downgrade so much that recommended tags can't compensate
+                    matches -= 200;
+                }
+                if (elementType != null && !possibleMatch.appliesTo(elementType)) {
+                    // downgrade even more
                     matches -= 200;
                 }
                 if (recommendedTagCount > 0) {
