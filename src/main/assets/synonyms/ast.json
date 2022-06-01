@@ -401,12 +401,6 @@
 "corral",
 "comedia"
 ],
-"amenity/toilets":[
-"servicios",
-"aseos",
-"retretes",
-"Aseos"
-],
 "amenity/townhall":[
 "ayuntamientu",
 "Edificiu municipal",
@@ -1245,9 +1239,6 @@
 ],
 "leisure/golf_course":[
 "Campu de golf"
-],
-"leisure/horse_riding":[
-"Instalación pa equitación"
 ],
 "leisure/ice_rink":[
 "Pista de xelu"

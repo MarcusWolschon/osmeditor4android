@@ -1737,20 +1737,6 @@
 "anfi",
 "ar libre"
 ],
-"amenity/toilets":[
-"váter",
-"urinario",
-"baños",
-"retrete",
-"urinaria",
-"lavabo",
-"latrina",
-"aseos",
-"servizo",
-"wc",
-"servizos",
-"Aseos"
-],
 "amenity/toilets/disposal/flush":[
 "urinario",
 "baños",
@@ -1881,61 +1867,6 @@
 "periódicos",
 "revistas",
 "expendedora"
-],
-"amenity/vending_machine/parcel_pickup":[
-"recollida",
-"armario",
-"casilleiro",
-"Máquina de recollida de paquetaría",
-"paquetes",
-"estante",
-"retirar",
-"paquete",
-"locker",
-"libraría",
-"librería",
-"paqueteria",
-"recoller",
-"paquetaria",
-"paquetería",
-"productos",
-"envios",
-"estantería",
-"envíos",
-"casillero",
-"retiro",
-"amazon",
-"andel",
-"produto",
-"produtos"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"recollida",
-"armario",
-"casilleiro",
-"paquetes",
-"estante",
-"retirar",
-"paquete",
-"locker",
-"libraría",
-"librería",
-"paqueteria",
-"recoller",
-"paquetaria",
-"entrega",
-"paquetería",
-"productos",
-"envios",
-"estantería",
-"Máquina para recollida e entrega de paquetaría",
-"envíos",
-"casillero",
-"retiro",
-"amazon",
-"andel",
-"produto",
-"produtos"
 ],
 "amenity/vending_machine/parking_tickets":[
 "parking",
@@ -3390,9 +3321,6 @@
 "highway/bus_stop":[
 "Parada de bus"
 ],
-"highway/construction":[
-"Estrada pechada"
-],
 "highway/corridor":[
 "corredor",
 "pasillo",
@@ -3409,33 +3337,14 @@
 "cebra",
 "paso de cebra"
 ],
-"highway/crossing/marked-raised":[
-"paso de peóns",
-"velocidade",
-"redutor",
-"cruzamento marcado",
-"Paso de peóns marcado (Levantado)",
-"calmador",
-"paso de cebra",
-"lombo de burro",
-"lombada"
-],
 "highway/crossing/unmarked":[
 "peonil",
 "Paso de peóns sen marcar",
 "peonal",
 "paso de peóns sen marcar"
 ],
-"highway/crossing/unmarked-raised":[
-"peonil",
-"peonal",
-"Paso de peóns sen marcar (Levantado)"
-],
 "highway/crossing/zebra":[
 "Paso de peóns marcado"
-],
-"highway/crossing/zebra-raised":[
-"Paso de peóns marcado (Levantado)"
 ],
 "highway/cycleway":[
 "camiño",
@@ -3548,17 +3457,6 @@
 "cebra",
 "paso de cebra"
 ],
-"highway/footway/marked-raised":[
-"paso de peóns",
-"velocidade",
-"redutor",
-"cruzamento marcado",
-"Paso de peóns marcado (Levantado)",
-"calmador",
-"paso de cebra",
-"lombo de burro",
-"lombada"
-],
 "highway/footway/sidewalk":[
 "Beirarrúa",
 "paseo",
@@ -3570,16 +3468,8 @@
 "cruzamento sen marcar",
 "paso de peóns sen marcar"
 ],
-"highway/footway/unmarked-raised":[
-"peonil",
-"peonal",
-"Paso de peóns sen marcar (Levantado)"
-],
 "highway/footway/zebra":[
 "Paso de peóns marcado"
-],
-"highway/footway/zebra-raised":[
-"Paso de peóns marcado (Levantado)"
 ],
 "highway/give_way":[
 "Ceda o paso"
@@ -4584,9 +4474,6 @@
 "leisure/golf_course":[
 "Campo de golf"
 ],
-"leisure/horse_riding":[
-"Centro de equitación"
-],
 "leisure/ice_rink":[
 "Pista de xeo"
 ],
@@ -4699,12 +4586,6 @@
 ],
 "leisure/pitch/cricket":[
 "Campo de crícket"
-],
-"leisure/pitch/equestrian":[
-"equitación",
-"cabalos",
-"Picadeiro",
-"picadeiro"
 ],
 "leisure/pitch/field_hockey":[
 "hockey",
@@ -4863,9 +4744,6 @@
 ],
 "leisure/track/cycling":[
 "Circuíto de ciclismo"
-],
-"leisure/track/horse_racing":[
-"Pista de carreiras de cabalos"
 ],
 "leisure/track/running":[
 "Pista de atletismo"
@@ -5910,9 +5788,6 @@
 ],
 "office/association":[
 "Oficina de asociación"
-],
-"office/bail_bond_agent":[
-"Axente de fianzas"
 ],
 "office/charity":[
 "Oficina da caridade",

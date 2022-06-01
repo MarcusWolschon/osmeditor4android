@@ -372,6 +372,57 @@
 "amenity/restaurant":[
 "Restoran"
 ],
+"amenity/restaurant/american":[
+"Ameerika restoran"
+],
+"amenity/restaurant/asian":[
+"Aasia restoran"
+],
+"amenity/restaurant/chinese":[
+"Hiina restoran"
+],
+"amenity/restaurant/french":[
+"Prantsuse restoran"
+],
+"amenity/restaurant/german":[
+"Saksa restoran"
+],
+"amenity/restaurant/greek":[
+"Kreeka restoran"
+],
+"amenity/restaurant/indian":[
+"India restoran"
+],
+"amenity/restaurant/italian":[
+"Itaalia restoran"
+],
+"amenity/restaurant/japanese":[
+"Jaapani restoran"
+],
+"amenity/restaurant/mexican":[
+"Mehhiko restoran"
+],
+"amenity/restaurant/noodle":[
+"Nuudlirestoran"
+],
+"amenity/restaurant/pizza":[
+"Pitsarestoran"
+],
+"amenity/restaurant/seafood":[
+"Mereannirestoran"
+],
+"amenity/restaurant/sushi":[
+"Sushi-restoran"
+],
+"amenity/restaurant/thai":[
+"Tai restoran"
+],
+"amenity/restaurant/turkish":[
+"Türgi restoran"
+],
+"amenity/restaurant/vietnamese":[
+"Vietnami restoran"
+],
 "amenity/school":[
 "Kool",
 "koolimaja"
@@ -446,12 +497,6 @@
 ],
 "amenity/theatre":[
 "Teater"
-],
-"amenity/toilets":[
-"Tualett",
-"kemmerg",
-"wc",
-"peldik"
 ],
 "amenity/townhall":[
 "raehoone",
@@ -580,6 +625,7 @@
 ],
 "building":[
 "Hoone",
+"maja",
 "ehitis"
 ],
 "building/apartments":[
@@ -603,6 +649,11 @@
 "majake",
 "onn"
 ],
+"building/carport":[
+"Auto varjualune",
+"varjualune",
+"katus"
+],
 "building/cathedral":[
 "Katedraalihoone"
 ],
@@ -623,7 +674,9 @@
 "Kolledžihoone"
 ],
 "building/commercial":[
-"Ärihoone"
+"kommerts",
+"Ärihoone",
+"kaubandus"
 ],
 "building/construction":[
 "Ehitusjärgus hoone"
@@ -675,7 +728,15 @@
 "Hotellihoone"
 ],
 "building/house":[
-"Maja"
+"üksik",
+"eramu",
+"eraldiseisev",
+"maja",
+"Eramaja"
+],
+"building/houseboat":[
+"Paatmaja",
+"ujuv maja"
 ],
 "building/hut":[
 "Hütt",
@@ -683,6 +744,13 @@
 ],
 "building/industrial":[
 "Tööstushoone"
+],
+"building/office":[
+"ärihoone",
+"ärimaja",
+"Büroohoone",
+"büroohoone",
+"kontorihoone"
 ],
 "building/public":[
 "Avalik hoone"
@@ -693,10 +761,12 @@
 ],
 "building/retail":[
 "kaubandus",
+"kaupl",
 "Kaubandushoone"
 ],
 "building/roof":[
-"Katus"
+"Katus",
+"varjualune"
 ],
 "building/ruins":[
 "maha jäetud",
@@ -707,12 +777,17 @@
 "building/school":[
 "keskkool",
 "algkool",
-"Koolihoone",
+"koolihoone",
+"Koolimaja",
 "õppehoone"
 ],
 "building/semidetached_house":[
-"Ridaelamu kahele leibkonnale",
-"elumajaosa"
+"ridaelamu kahele leibkonnale",
+"elumajaosa",
+"Paarismaja"
+],
+"building/service":[
+"tehnohoone"
 ],
 "building/shed":[
 "Kuur"
@@ -730,12 +805,19 @@
 "teisaldatav maja",
 "Paikne haagismaja"
 ],
+"building/sty":[
+"Sigala"
+],
 "building/temple":[
 "Templihoone",
 "tempel"
 ],
 "building/terrace":[
-"Terrassmaja"
+"terrassmaja",
+"Ridaelamu",
+"korter",
+"paaris",
+"rea"
 ],
 "building/transportation":[
 "Transpordihoone"
@@ -1429,10 +1511,6 @@
 "leisure/golf_course":[
 "Golfiväljak"
 ],
-"leisure/horse_riding":[
-"ratsutuskeskus",
-"Ratsakeskus"
-],
 "leisure/ice_rink":[
 "Uisuväljak"
 ],
@@ -1471,9 +1549,6 @@
 ],
 "leisure/pitch/cricket":[
 "Kriketiväljak"
-],
-"leisure/pitch/equestrian":[
-"Ratsaspordirada"
 ],
 "leisure/pitch/skateboard":[
 "Rulapark",
@@ -1696,6 +1771,8 @@
 "Mahuti"
 ],
 "man_made/surveillance/camera":[
+"turvakaamera",
+"cctv",
 "Valvekaamera"
 ],
 "man_made/tower":[
@@ -1876,6 +1953,9 @@
 "natural/water":[
 "Vesi"
 ],
+"natural/water/canal":[
+"Kanal"
+],
 "natural/water/lake":[
 "Järv"
 ],
@@ -1888,8 +1968,8 @@
 "Tiik"
 ],
 "natural/water/reservoir":[
-"veehoidla",
-"Reservuaar"
+"Veehoidla",
+"reservuaar"
 ],
 "natural/water/wastewater":[
 "reovesi",
@@ -1898,6 +1978,32 @@
 "natural/wetland":[
 "roostik",
 "Märgala"
+],
+"natural/wetland/bog":[
+"kõrgsoo",
+"Soo",
+"raba"
+],
+"natural/wetland/mangrove":[
+"estuaar",
+"Mangroov"
+],
+"natural/wetland/marsh":[
+"soo",
+"maršimaa",
+"Padur",
+"ranna"
+],
+"natural/wetland/reedbed":[
+"rand",
+"võsa",
+"kõrkjad",
+"Roostik"
+],
+"natural/wetland/swamp":[
+"Lodu",
+"soo",
+"mets"
 ],
 "natural/wood":[
 "Looduslik mets"
@@ -1981,12 +2087,37 @@
 "Elektrigeneraator",
 "generaator"
 ],
+"power/generator/method/photovoltaic":[
+"päikesepatarei",
+"Päikesepaneel",
+"päikesepaneel"
+],
+"power/generator/method/photovoltaic/building/roof":[
+"päikese",
+"kate",
+"varjualune",
+"katus",
+"Päikesepaneelidest varjualune"
+],
+"power/generator/method/photovoltaic/location/roof":[
+"päikesepatarei",
+"katusepäik",
+"Päikesepaneel katusel",
+"päikesepaneel"
+],
 "power/generator/source/hydro":[
 "Hüdroturbiin",
 "turbiin",
 "veegeneraator",
 "hüdroelektrijaam",
 "pais"
+],
+"power/generator/source/wind":[
+"tuulik",
+"tuugen",
+"tuuleelektrijaam",
+"elektri",
+"Tuulegeneraator"
 ],
 "power/line":[
 "õhuliin",
@@ -2000,6 +2131,26 @@
 ],
 "power/plant":[
 "Elektrijaamaala"
+],
+"power/plant/source/hydro":[
+"hüdro",
+"veeturbiin",
+"Hüdroelektrijaam",
+"tamm"
+],
+"power/plant/source/nuclear":[
+"reaktor",
+"tuumajaam",
+"aatom",
+"Tuumaelektrijaam"
+],
+"power/plant/source/solar":[
+"Päikeseelektrijaam",
+"päikese",
+"elektri"
+],
+"power/plant/source/wind":[
+"Tuulepark"
 ],
 "power/pole":[
 "õhuliinipost",
@@ -2020,6 +2171,9 @@
 ],
 "public_transport/platform/bus_tram_point":[
 "Bussi- ja trammipeatus"
+],
+"public_transport/stop_position_bus":[
+"Bussi peatuspaik"
 ],
 "railway/abandoned":[
 "Mahajäetud raudtee"
@@ -2922,9 +3076,6 @@
 ],
 "type/route/hiking":[
 "Matkamarsruut"
-],
-"type/route/horse":[
-"Ratsaraja marsruut"
 ],
 "type/route/light_rail":[
 "Kergraudtee marsruut"

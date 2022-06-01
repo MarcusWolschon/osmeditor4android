@@ -260,6 +260,9 @@
 "amenity/doctors":[
 "Лекар"
 ],
+"amenity/doctors/gynaecology":[
+"Гинеколог"
+],
 "amenity/dojo":[
 "Училиште за боречки вештини"
 ],
@@ -415,6 +418,9 @@
 ],
 "amenity/nursing_home":[
 "Старечки дом"
+],
+"amenity/parcel_locker":[
+"Шкафче за пратки"
 ],
 "amenity/parking":[
 "Паркиралиште"
@@ -686,6 +692,9 @@
 "amenity/theatre/type/amphi":[
 "Амфитеатар"
 ],
+"amenity/ticket_validator":[
+"Валидатор на билети"
+],
 "amenity/toilets":[
 "Тоалет"
 ],
@@ -706,6 +715,9 @@
 ],
 "amenity/toy_library":[
 "Зајмување играчки"
+],
+"amenity/trolley_bay":[
+"Остава за колички"
 ],
 "amenity/university":[
 "Универзитетски двор"
@@ -767,12 +779,6 @@
 "amenity/vending_machine/newspapers":[
 "Весникарски автомат"
 ],
-"amenity/vending_machine/parcel_pickup":[
-"Шкафче за подигање пратки"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"Шкафче за подигање/оставање пратки"
-],
 "amenity/vending_machine/parking_tickets":[
 "Паркинг-автомат"
 ],
@@ -811,6 +817,9 @@
 ],
 "area":[
 "Подрачје"
+],
+"area/footway":[
+"Подрачје со пешачка патека"
 ],
 "area/highway":[
 "Патно подрачје"
@@ -1130,6 +1139,9 @@
 "building/sty":[
 "Кочина"
 ],
+"building/synagogue":[
+"Синагога"
+],
 "building/temple":[
 "Храмовска градба"
 ],
@@ -1325,6 +1337,15 @@
 "demolished/building":[
 "Неодамна срушена градба"
 ],
+"disc_golf/basket":[
+"Кош за диск-голф"
+],
+"disc_golf/hole":[
+"Дупка за диск-голф"
+],
+"disc_golf/tee":[
+"Подметка за диск-голф"
+],
 "disused/amenity":[
 "Услужна постројка вон употреба"
 ],
@@ -1342,6 +1363,9 @@
 ],
 "emergency/ambulance_station":[
 "Амбуланта"
+],
+"emergency/assembly_point":[
+"Зборно место во случај на опасност"
 ],
 "emergency/defibrillator":[
 "Дефибрилатор"
@@ -1396,6 +1420,12 @@
 ],
 "emergency/siren":[
 "Сирена"
+],
+"emergency/water_reservoir":[
+"Хидроакумулација за вонредни состојби"
+],
+"emergency/water_reservoir_covered":[
+"Хидроакумулација за вонредни состојби (подземна)"
 ],
 "emergency/water_tank":[
 "Водосклад за вонредни состојби"
@@ -1508,6 +1538,9 @@
 "healthcare/rehabilitation":[
 "Рехабилитација"
 ],
+"healthcare/sample_collection":[
+"Место за земање примероци"
+],
 "healthcare/speech_therapist":[
 "Говорен терапевт"
 ],
@@ -1524,7 +1557,7 @@
 "Автобуска постојка"
 ],
 "highway/construction":[
-"Затворен пат"
+"Пат во изградба"
 ],
 "highway/corridor":[
 "Покриен премин"
@@ -1535,26 +1568,17 @@
 "highway/crossing/marked":[
 "Обележан пешачки премин"
 ],
-"highway/crossing/marked-raised":[
-"Обележан пешачки премин (испакнат)"
-],
 "highway/crossing/signals":[
 "Премин со пешачки сигнали"
 ],
-"highway/crossing/signals-raised":[
-"Премин со пешачки сигнали (издигнат)"
+"highway/crossing/uncontrolled":[
+"Обележан пешачки премин"
 ],
 "highway/crossing/unmarked":[
 "Необележан премин"
 ],
-"highway/crossing/unmarked-raised":[
-"Необележан премин (испакнат)"
-],
 "highway/crossing/zebra":[
 "Обележан пешачки премин"
-],
-"highway/crossing/zebra-raised":[
-"Обележан пешачки премин (испакнат)"
 ],
 "highway/cycleway":[
 "Велосипедска патека"
@@ -1598,24 +1622,18 @@
 "highway/footway/marked":[
 "Обележан пешачки премин"
 ],
-"highway/footway/marked-raised":[
-"Обележан пешачки премин (испакнат)"
-],
 "highway/footway/sidewalk":[
 "Тротоар"
+],
+"highway/footway/signals":[
+"Премин со пешачки сигнали"
 ],
 "highway/footway/unmarked":[
 "необележан премин (испакнат)",
 "Необележан премин"
 ],
-"highway/footway/unmarked-raised":[
-"Необележан премин (испакнат)"
-],
 "highway/footway/zebra":[
 "Обележан пешачки премин"
-],
-"highway/footway/zebra-raised":[
-"Обележан пешачки премин (испакнат)"
 ],
 "highway/give_way":[
 "Знак за предност"
@@ -1636,6 +1654,9 @@
 "Автопатна клучка / излез"
 ],
 "highway/motorway_link":[
+"Автопатен приод"
+],
+"highway/motorway_link-US-CA":[
 "Автопатен приод"
 ],
 "highway/passing_place":[
@@ -1660,6 +1681,9 @@
 "Главен пат"
 ],
 "highway/primary_link":[
+"Главен приод"
+],
+"highway/primary_link-US-CA":[
 "Главен приод"
 ],
 "highway/raceway":[
@@ -1750,6 +1774,9 @@
 "Магистрален пат"
 ],
 "highway/trunk_link":[
+"Приод кон магистрала"
+],
+"highway/trunk_link-US-CA":[
 "Приод кон магистрала"
 ],
 "highway/turning_circle":[
@@ -1881,6 +1908,9 @@
 "landuse/construction":[
 "Градилиште"
 ],
+"landuse/education":[
+"Образовен кампус"
+],
 "landuse/farm":[
 "Земјоделска површина"
 ],
@@ -1958,6 +1988,9 @@
 ],
 "landuse/retail":[
 "Продажно подрачје"
+],
+"landuse/salt_pond":[
+"Солана"
 ],
 "landuse/vineyard":[
 "Лозје"
@@ -2071,7 +2104,7 @@
 "Хакерски простор"
 ],
 "leisure/horse_riding":[
-"Јавачница за коњи"
+"Јавачки центар"
 ],
 "leisure/ice_rink":[
 "Лизгалиште"
@@ -2106,6 +2139,9 @@
 "leisure/pitch/american_football":[
 "Игралиште за американски фудбал"
 ],
+"leisure/pitch/archery":[
+"Стреличарско стрелиште"
+],
 "leisure/pitch/australian_football":[
 "Игралиште за австралиски фудбал"
 ],
@@ -2134,10 +2170,16 @@
 "Терен за крикет"
 ],
 "leisure/pitch/equestrian":[
-"Јавалиште"
+"Јавачка арена"
 ],
 "leisure/pitch/field_hockey":[
 "Терен за хокеј на трева"
+],
+"leisure/pitch/four_square":[
+"Игралиште за квадрат"
+],
+"leisure/pitch/futsal":[
+"Футсалски терен"
 ],
 "leisure/pitch/horseshoes":[
 "Фрлање потковици"
@@ -2145,8 +2187,14 @@
 "leisure/pitch/netball":[
 "Терен за нетбол"
 ],
+"leisure/pitch/padel":[
+"Игралиште за падел"
+],
 "leisure/pitch/paintball":[
 "Терен за пејнтбол"
+],
+"leisure/pitch/pickleball":[
+"Пиклболско игралиште"
 ],
 "leisure/pitch/rugby_league":[
 "Игралиште за рагби-лига"
@@ -2174,6 +2222,9 @@
 ],
 "leisure/pitch/tennis":[
 "Тениско игралиште"
+],
+"leisure/pitch/tetherball":[
+"Игралиште за врзана одбојка"
 ],
 "leisure/pitch/volleyball":[
 "Одбојкарско игралиште"
@@ -2227,7 +2278,7 @@
 "Велосипедска лента"
 ],
 "leisure/track/horse_racing":[
-"Коњотркачка лента"
+"Коњичка тркачка патека"
 ],
 "leisure/track/running":[
 "Патека за трчање"
@@ -2348,6 +2399,9 @@
 ],
 "man_made/mast/communication/television":[
 "Телепредавателски јарбол"
+],
+"man_made/mast/lighting":[
+"Расветен јарбол"
 ],
 "man_made/mineshaft":[
 "Рудничко окно"
@@ -2520,17 +2574,11 @@
 "natural/hot_spring":[
 "Топол извор"
 ],
-"natural/marsh":[
-"Моклиште"
-],
 "natural/mud":[
 "Кал"
 ],
 "natural/peak":[
 "Врв"
-],
-"natural/reedbed":[
-"Трскарник"
 ],
 "natural/reef":[
 "Морски гребен"
@@ -2564,9 +2612,6 @@
 ],
 "natural/stone":[
 "Неприцврстена карпа / камен"
-],
-"natural/swamp":[
-"Мочуриште"
 ],
 "natural/tree":[
 "Дрво"
@@ -2613,10 +2658,40 @@
 "natural/wetland":[
 "Мочуриште"
 ],
+"natural/wetland/bog":[
+"Тресетиште"
+],
+"natural/wetland/fen":[
+"Слатина"
+],
+"natural/wetland/mangrove":[
+"Мангров"
+],
+"natural/wetland/marsh":[
+"Моклиште"
+],
+"natural/wetland/reedbed":[
+"Трскарник"
+],
+"natural/wetland/saltmarsh":[
+"Крајбрежно солено моклиште"
+],
+"natural/wetland/string_bog":[
+"Ригесто тресетиште"
+],
+"natural/wetland/swamp":[
+"Мочуриште"
+],
+"natural/wetland/tidalflat":[
+"Плимно блато"
+],
+"natural/wetland/wet_meadow":[
+"Влажна ливада"
+],
 "natural/wood":[
 "Природно дрво"
 ],
-"network/type/node_network":[
+"network/type/node_network-DE-NL-BE-LU":[
 "Јазол за рекреативни мрежи"
 ],
 "noexit/yes":[
@@ -2643,7 +2718,7 @@
 "office/association":[
 "Непрофитна организација"
 ],
-"office/bail_bond_agent":[
+"office/bail_bond_agent-US-PH":[
 "Кауционист"
 ],
 "office/charity":[
@@ -2772,6 +2847,9 @@
 "office/water_utility":[
 "Водоводна служба"
 ],
+"office/yes":[
+"Канцеларија (неукажан вид)"
+],
 "piste/downhill":[
 "Скијачки спуст"
 ],
@@ -2865,6 +2943,9 @@
 "playground/cushion":[
 "Перница за скокање"
 ],
+"playground/hopscotch":[
+"Школица"
+],
 "playground/horizontal_bar":[
 "Детско вратило"
 ],
@@ -2897,6 +2978,9 @@
 ],
 "point":[
 "Точка"
+],
+"police/checkpoint":[
+"Полициска контролна точка"
 ],
 "polling_station":[
 "Привремено гласачко место"
@@ -3749,6 +3833,9 @@
 ],
 "shop/wine":[
 "Винотека"
+],
+"shop/yes":[
+"Дуќан (неукажан вид)"
 ],
 "telecom":[
 "Телекомуникациски елемент"

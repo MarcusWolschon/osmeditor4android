@@ -518,9 +518,6 @@
 "amenity/theatre/type/amphi":[
 "Амфитеатар"
 ],
-"amenity/toilets":[
-"Тоалети"
-],
 "amenity/townhall":[
 "Градска кућа"
 ],
@@ -1418,6 +1415,9 @@
 ],
 "landuse/construction":[
 "Градилиште"
+],
+"landuse/farm":[
+"Пољопривредно земљиште"
 ],
 "landuse/farmyard":[
 "Сеоско двориште"

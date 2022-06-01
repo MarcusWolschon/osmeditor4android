@@ -3,7 +3,10 @@
 "Arts Centre"
 ],
 "amenity/bbq":[
-"Barbeque/Grill"
+"bbq",
+"Barbeque/Grill",
+"barbecue",
+"grill"
 ],
 "amenity/community_centre":[
 "Community Centre"
@@ -24,19 +27,42 @@
 "Exhibition Centre"
 ],
 "amenity/fuel":[
+"gas station",
 "Petrol Station"
 ],
 "amenity/parking":[
+"car lot",
+"car parking",
+"parking lot",
+"rv parking",
+"vehicle parking",
+"automobile parking",
+"truck parking",
 "Car Park"
 ],
 "amenity/parking/multi-storey":[
-"Multistory Car Park"
+"parkade",
+"car",
+"indoor parking",
+"parking garage",
+"parking ramp",
+"parking structure",
+"multistorey car park",
+"multilevel parking garage",
+"parking building",
+"parking deck",
+"Multistorey Car Park"
 ],
 "amenity/parking/park_ride":[
 "Park & Ride Car Park"
 ],
 "amenity/parking_entrance":[
-"Carpark Building Entrance / Exit"
+"parking garage entrace",
+"Carpark Building Entrance / Exit",
+"parking garage exit",
+"car park entrance",
+"parking garage entrace/exit",
+"carpark entrance"
 ],
 "amenity/payment_centre":[
 "Payment Centre"
@@ -48,7 +74,7 @@
 "Post Box"
 ],
 "amenity/recycling_centre":[
-"Payment Centre"
+"Recycling Centre"
 ],
 "amenity/sanitary_dump_station":[
 "Caravan Toilet Disposal"
@@ -57,28 +83,69 @@
 "Payment Centre"
 ],
 "amenity/social_facility/group_home":[
-"Retirement Home"
+"senior",
+"care home",
+"Retirement Home",
+"living",
+"retire",
+"old",
+"elderly",
+"aged",
+"assisted living",
+"retirement",
+"aged care"
 ],
 "amenity/theatre":[
 "Theatre"
 ],
 "amenity/vending_machine/fuel":[
-"Fuel Pump"
+"diesel",
+"petrol",
+"lng",
+"gas pump",
+"fuel",
+"propane",
+"gasoline",
+"Fuel Pump",
+"cng",
+"biodiesel"
 ],
 "amenity/waste_basket":[
+"waste basket",
 "Rubbish Bin"
+],
+"amenity/water_point":[
+"water spigot",
+"water source",
+"rv drinking water",
+"campervan drinking water",
+"water faucet",
+"water point",
+"water tap"
 ],
 "amenity/watering_place":[
 "trough"
 ],
 "amenity/weighbridge":[
-"Weighbridge"
+"truck scale",
+"Weighbridge",
+"weigh station"
 ],
 "barrier/kerb":[
 "Kerb"
 ],
 "building/terrace":[
-"Terraced Houses"
+"row house",
+"brownstone",
+"townhouses",
+"townhouse",
+"row houses",
+"terraced",
+"dwelling",
+"terrace",
+"residence",
+"Terraced Houses",
+"home"
 ],
 "healthcare/birthing_center":[
 "Birthing Centre"
@@ -87,13 +154,19 @@
 "Blood Donation Centre"
 ],
 "highway/give_way":[
-"Give Way Sign"
+"Give Way Sign",
+"yield",
+"sign"
 ],
 "highway/street_lamp":[
 "Street Light"
 ],
 "highway/traffic_signals":[
-"Traffic Lights"
+"light",
+"Traffic Lights",
+"traffic signals",
+"stoplight",
+"traffic light"
 ],
 "landuse/construction":[
 "Construction Site"
@@ -101,11 +174,12 @@
 "leisure/adult_gaming_centre":[
 "Adult Gaming Centre"
 ],
+"leisure/bandstand":[
+"bandstand",
+"Band Rotunda"
+],
 "leisure/fitness_centre":[
 "Gym / Fitness Centre"
-],
-"leisure/horse_riding":[
-"Horse Riding Facility"
 ],
 "leisure/indoor_play":[
 "Indoor Play Centre"
@@ -113,18 +187,28 @@
 "leisure/slipway":[
 "Boat Ramp"
 ],
+"leisure/slipway_drivable":[
+"Boat Ramp (Drivable)"
+],
 "leisure/sports_centre":[
 "Sports Centre / Complex"
 ],
+"leisure/sports_hall":[
+"Sports Hall"
+],
 "man_made/groyne":[
+"groin",
 "Groyne"
 ],
 "man_made/survey_point":[
-"trig station",
 "Survey Marker"
 ],
 "natural/cape":[
 "point"
+],
+"natural/wetland/mangrove":[
+"Mangroves",
+"mangrove"
 ],
 "place/suburb":[
 "Suburb"
@@ -143,6 +227,15 @@
 ],
 "shop/chemist":[
 "Chemist"
+],
+"shop/convenience":[
+"superette",
+"convenience shop",
+"corner shop",
+"Convenience Store / Dairy",
+"dairy",
+"corner store",
+"convenience store"
 ],
 "shop/dairy":[
 "Milk Product Shop"

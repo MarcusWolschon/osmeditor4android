@@ -666,6 +666,17 @@
 "gay",
 "lgbt"
 ],
+"amenity/community_centre/youth_centre":[
+"crianças",
+"adolescentes",
+"adolescência",
+"juvenis",
+"Centro comunitário para jovens",
+"clube",
+"comunidade",
+"jovens",
+"juvenil"
+],
 "amenity/compressed_air":[
 "pneumático",
 "compressed air",
@@ -740,6 +751,15 @@
 "Consultório médico",
 "médicos",
 "doutor",
+"consultório",
+"médico"
+],
+"amenity/doctors/gynaecology":[
+"ginecológico",
+"Ginecologista",
+"medicina",
+"ginecologia",
+"médica",
 "consultório",
 "médico"
 ],
@@ -1248,6 +1268,17 @@
 ],
 "amenity/nursing_home":[
 "Centro Geriátrico"
+],
+"amenity/parcel_locker":[
+"correios",
+"mail",
+"cacifos",
+"postais",
+"apartado",
+"Cacifo postal",
+"encomendas",
+"automática",
+"box"
 ],
 "amenity/parking":[
 "estacionamento",
@@ -2090,16 +2121,16 @@
 "Anfiteatro",
 "anfiteatros"
 ],
-"amenity/toilets":[
-"banheiros",
-"gabinete sanitário",
-"toilette",
-"lavabo",
-"w.c.",
-"sanitário",
-"instalações sanitárias",
-"Casas de banho",
-"wc"
+"amenity/ticket_validator":[
+"tickets",
+"validação",
+"validar",
+"bilhetes",
+"sistema",
+"validador",
+"máquina",
+"Máquina de validação de bilhetes",
+"títulos"
 ],
 "amenity/toilets/disposal/flush":[
 "sanita",
@@ -2316,28 +2347,6 @@
 "máquina de venda",
 "revistas",
 "jornal"
-],
-"amenity/vending_machine/parcel_pickup":[
-"parcel pickup locker",
-"correios",
-"armário de coleta",
-"Armário para entrega de encomendas",
-"encomendas",
-"entrega",
-"postal",
-"encomenda",
-"armário de recolha"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"recolha",
-"dropoff",
-"encomendas",
-"entrega",
-"Armário para recolha e entrega de encomendas",
-"coleta",
-"encomenda",
-"parcel pickup",
-"armário"
 ],
 "amenity/vending_machine/parking_tickets":[
 "estacionamento",
@@ -3298,6 +3307,14 @@
 "chiqueiro",
 "suínos"
 ],
+"building/synagogue":[
+"Edifício de sinagoga",
+"judaica",
+"judeu",
+"judia",
+"judaísmo",
+"construção"
+],
 "building/temple":[
 "religião",
 "Edifício de templo",
@@ -3897,6 +3914,14 @@
 "emergência",
 "ambulâncias"
 ],
+"emergency/assembly_point":[
+"agregação",
+"ajuntamento",
+"local de encontro",
+"reunião",
+"aglomeração",
+"Ponto de Encontro de Emergência"
+],
 "emergency/defibrillator":[
 "desfibrilador",
 "Desfibrilhador",
@@ -4330,6 +4355,14 @@
 "reabilitação",
 "Unidade de reabilitação"
 ],
+"healthcare/sample_collection":[
+"sangue",
+"fezes",
+"Recolha de amostras",
+"urina",
+"amostra",
+"esperma"
+],
 "healthcare/speech_therapist":[
 "terapia da fala",
 "audiologia",
@@ -4358,10 +4391,20 @@
 ],
 "highway/construction":[
 "fechada",
-"acesso vedado",
+"trânsito",
+"rodovia",
+"reparação",
+"alteração",
+"remodelação",
+"trabalhos",
+"interrompido",
+"encerrada",
+"reparações",
+"estrada",
 "obras",
+"reformulação",
 "Estrada em construção",
-"estrada encerrada"
+"rua"
 ],
 "highway/corridor":[
 "passagem",
@@ -4384,19 +4427,6 @@
 "passadeira",
 "travessia"
 ],
-"highway/crossing/marked-raised":[
-"peões",
-"passadeira levantada",
-"faixa de segurança",
-"pedestre",
-"lomba redutora de velocidade",
-"trapezoidal",
-"Passadeira marcada (elevada)",
-"trapézio",
-"passadeira elevada",
-"lomba",
-"travessia"
-],
 "highway/crossing/signals":[
 "passagem",
 "Passadeira com semáforos",
@@ -4407,19 +4437,6 @@
 "atravessar",
 "travessia",
 "luminosos"
-],
-"highway/crossing/signals-raised":[
-"passagem",
-"peões",
-"Passadeira com semáforos (elevada)",
-"luzes",
-"pedestre",
-"cruzar",
-"atravessar",
-"lombada",
-"travessia",
-"luminosos",
-"lomba"
 ],
 "highway/crossing/unmarked":[
 "passadeira sem marcas",
@@ -4432,24 +4449,8 @@
 "Travessia sem marcações",
 "atravessamento"
 ],
-"highway/crossing/unmarked-raised":[
-"Passadeira não marcada (elevada)",
-"peões",
-"passadeira levantada",
-"faixa de segurança",
-"pedestre",
-"lomba redutora de velocidade",
-"trapezoidal",
-"trapézio",
-"passadeira elevada",
-"lomba",
-"travessia"
-],
 "highway/crossing/zebra":[
 "Passadeira marcada"
-],
-"highway/crossing/zebra-raised":[
-"Passadeira marcada (elevada)"
 ],
 "highway/cycleway":[
 "bicicleta",
@@ -4584,23 +4585,25 @@
 "passadeira",
 "travessia"
 ],
-"highway/footway/marked-raised":[
-"pedestres",
-"peões",
-"peão",
-"passadeira-lomba",
-"Passadeira marcada (elevada)",
-"passadeira",
-"lomba",
-"passadeira elevada",
-"travessia"
-],
 "highway/footway/sidewalk":[
 "berma",
 "passeios",
 "Passeio",
 "calçada",
 "bermas"
+],
+"highway/footway/signals":[
+"pedestres",
+"semáforo",
+"passadeiras",
+"peão",
+"faixa de segurança",
+"luzes",
+"sinaleira",
+"atravessar",
+"atravessamento",
+"travessia",
+"Passadeira com semáforos para peões"
 ],
 "highway/footway/unmarked":[
 "passagem",
@@ -4612,23 +4615,8 @@
 "passadeira",
 "travessia"
 ],
-"highway/footway/unmarked-raised":[
-"passagem",
-"Passadeira não marcada (elevada)",
-"pedestres",
-"peões",
-"peão",
-"passagem de pedestres não marcada",
-"passadeira",
-"atravessamento",
-"lomba",
-"travessia"
-],
 "highway/footway/zebra":[
 "Passadeira marcada"
-],
-"highway/footway/zebra-raised":[
-"faixa de pedestres marcada, passadeira, atravessamento, passagem,travessia,pedestres,peões,peão"
 ],
 "highway/give_way":[
 "cedencia",
@@ -4694,10 +4682,18 @@
 "highway/motorway_link":[
 "acesso",
 "saída de autoestrada",
-"Ligação a uma autoestrada",
 "entrada de autoestrada",
 "saída",
-"ligação a autoestrada"
+"ligação a autoestrada",
+"Ligação a autoestrada"
+],
+"highway/motorway_link-US-CA":[
+"acesso",
+"saída de autoestrada",
+"entrada de autoestrada",
+"saída",
+"ligação a autoestrada",
+"Ligação a autoestrada"
 ],
 "highway/passing_place":[
 "local de passagem",
@@ -4781,6 +4777,20 @@
 "rodovia principal"
 ],
 "highway/primary_link":[
+"entrada nacional",
+"entrada estrada nacional",
+"saída rodovia nacional",
+"primary link",
+"ligação rodovia nacional",
+"Ligação a estrada primária",
+"saída estrada nacional",
+"ligação estrada nacional",
+"ligação nacional",
+"saída nacional",
+"entrada rodovia nacional",
+"ligação estrada principal"
+],
+"highway/primary_link-US-CA":[
 "entrada nacional",
 "entrada estrada nacional",
 "saída rodovia nacional",
@@ -5069,6 +5079,23 @@
 "via expressa"
 ],
 "highway/trunk_link":[
+"saída via reservada a automóveis e motociclos",
+"ligação via rápida",
+"ip",
+"saída via reservada",
+"ligação via reservada a automóveis e motociclos",
+"saída via rápida",
+"entrada via reservada a automóveis e motociclos",
+"entrada expressa",
+"entrada via reservada",
+"ic",
+"Ligação a via rápida",
+"entrada via rápida",
+"ligação via reservada",
+"ligação via expressa",
+"saída via expressa"
+],
+"highway/trunk_link-US-CA":[
 "saída via reservada a automóveis e motociclos",
 "ligação via rápida",
 "ip",
@@ -5448,6 +5475,15 @@
 "demolição",
 "Área de construção"
 ],
+"landuse/education":[
+"educação",
+"área",
+"campus",
+"centro",
+"educacional",
+"Complexo educativo",
+"escolas"
+],
 "landuse/farm":[
 "Terreno agrícola"
 ],
@@ -5748,6 +5784,11 @@
 "varejo",
 "retail",
 "comércio"
+],
+"landuse/salt_pond":[
+"Salina",
+"marinha",
+"sal"
 ],
 "landuse/vineyard":[
 "uva",
@@ -6165,15 +6206,6 @@
 "computadores",
 "internet"
 ],
-"leisure/horse_riding":[
-"Centro equestre",
-"arena de equitação",
-"cavalgar",
-"estábulos",
-"hipismo",
-"cavalos",
-"horseback riding facility"
-],
 "leisure/ice_rink":[
 "gelo",
 "patinador",
@@ -6302,6 +6334,15 @@
 "desporto",
 "futebol americano"
 ],
+"leisure/pitch/archery":[
+"arco",
+"setas",
+"flechas",
+"Campo de tiro com arco",
+"tiro ao arco",
+"desportivo",
+"desporto"
+],
 "leisure/pitch/australian_football":[
 "râguebi",
 "futebol australiano",
@@ -6395,17 +6436,6 @@
 "campo de cricket",
 "campo"
 ],
-"leisure/pitch/equestrian":[
-"equestre",
-"cavalgar",
-"dressage",
-"riding arena",
-"Pista de equitação",
-"equitação",
-"hipismo",
-"pista",
-"cavalos"
-],
 "leisure/pitch/field_hockey":[
 "hóquei sobre a grama",
 "hóquei em campo",
@@ -6413,6 +6443,24 @@
 "relvado",
 "field hockey pitch",
 "sintético"
+],
+"leisure/pitch/four_square":[
+"quadras",
+"desportivo",
+"desporto",
+"Campo de Four Square"
+],
+"leisure/pitch/futsal":[
+"cinco",
+"soccer",
+"exercício",
+"salão",
+"desportivo",
+"Campo de futsal",
+"desporto",
+"futebol",
+"treino",
+"campo"
 ],
 "leisure/pitch/horseshoes":[
 "jogo da ferradura",
@@ -6433,6 +6481,19 @@
 "bola",
 "campo"
 ],
+"leisure/pitch/padel":[
+"recinto",
+"esportivo",
+"raquetes",
+"esporte",
+"desportivo",
+"desporto",
+"jogar",
+"Campo de padel",
+"jogo",
+"sport",
+"ténis"
+],
 "leisure/pitch/paintball":[
 "Campo de paintball",
 "disparo",
@@ -6441,6 +6502,17 @@
 "paintball",
 "jogo",
 "lazer"
+],
+"leisure/pitch/pickleball":[
+"ping pong",
+"pickleball",
+"Campo de pickleball",
+"pingue-pongue",
+"raquetes",
+"badminton",
+"desporto",
+"ténis de mesa",
+"ténis"
 ],
 "leisure/pitch/rugby_league":[
 "rugby league field",
@@ -6723,16 +6795,6 @@
 "velódromo",
 "pista de bicicletas"
 ],
-"leisure/track/horse_racing":[
-"pista de corridas de cavalos",
-"apostas em cavalos",
-"Pista de corridas de cavalos",
-"corridas de cavalos",
-"pista de cavalos",
-"corrida de cavalos",
-"hipódromo",
-"pista para cavalos"
-],
 "leisure/track/running":[
 "pista de atletismo",
 "maratona",
@@ -6908,12 +6970,7 @@
 "rosa dos ventos"
 ],
 "man_made/courtyard":[
-"pateo",
-"área",
-"Pátio",
-"claustro",
-"espaço murado",
-"átrio"
+"Pátio"
 ],
 "man_made/crane":[
 "guindaste",
@@ -7809,17 +7866,6 @@
 "Fonte termal",
 "geotermismo"
 ],
-"natural/marsh":[
-"atoleiro",
-"alagado",
-"estagnado",
-"água",
-"charco",
-"tremedal",
-"lodaçal",
-"paul",
-"Brejo"
-],
 "natural/mud":[
 "lamacenta",
 "lameiros",
@@ -7844,20 +7890,6 @@
 "serra",
 "ápice",
 "topo"
-],
-"natural/reedbed":[
-"atoleiro",
-"canas",
-"alagado",
-"estagnado",
-"água",
-"charco",
-"tremedal",
-"lodaçal",
-"Leito de juncos",
-"canavial",
-"paul",
-"juncal"
 ],
 "natural/reef":[
 "escolho",
@@ -7972,17 +8004,6 @@
 "unattached rock",
 "rochedo",
 "pedregulho"
-],
-"natural/swamp":[
-"atoleiro",
-"alagado",
-"estagnado",
-"Pântano",
-"água",
-"charco",
-"tremedal",
-"lodaçal",
-"paul"
 ],
 "natural/tree":[
 "oliveira",
@@ -8174,6 +8195,44 @@
 "pântano",
 "sapal"
 ],
+"natural/wetland/bog":[
+"esfagno",
+"turfa",
+"musgos",
+"Turfeira"
+],
+"natural/wetland/mangrove":[
+"Manguezal",
+"mangal",
+"mangue",
+"mangues"
+],
+"natural/wetland/reedbed":[
+"Canavial"
+],
+"natural/wetland/saltmarsh":[
+"alagada",
+"Sapal",
+"alagado",
+"costeira",
+"salgado",
+"salino",
+"alagadiço",
+"sal"
+],
+"natural/wetland/tidalflat":[
+"alagada",
+"entre-marés",
+"costeira",
+"maré",
+"tidal",
+"Planície mareal",
+"alagadiço"
+],
+"natural/wetland/wet_meadow":[
+"lezira",
+"Lezíria"
+],
 "natural/wood":[
 "troncos",
 "árvores",
@@ -8182,11 +8241,6 @@
 "floresta",
 "árvore",
 "madeira"
-],
-"network/type/node_network":[
-"rede",
-"nó",
-"Nó de rede recreativa"
 ],
 "noexit/yes":[
 "betesga",
@@ -8250,10 +8304,13 @@
 "ong",
 "Organização sem fins lucrativos"
 ],
-"office/bail_bond_agent":[
-"agente de fianças",
-"bail bond agent",
-"fianças",
+"office/bail_bond_agent-US-PH":[
+"justiça",
+"gabinete",
+"caução",
+"fiança",
+"escritório",
+"tribunal",
 "Agente de fianças"
 ],
 "office/charity":[
@@ -8674,6 +8731,9 @@
 "distribuidor",
 "distribuição"
 ],
+"office/yes":[
+"Escritório"
+],
 "piste/downhill":[
 "ski",
 "Pista de esqui alpino",
@@ -9039,6 +9099,19 @@
 "vértice",
 "nó",
 "poi"
+],
+"police/checkpoint":[
+"checkpoint",
+"patrol",
+"patrulha",
+"fiscalização",
+"inspeção",
+"posto de controlo",
+"polícia",
+"Ponto de controlo policial",
+"controle",
+"inspecção",
+"verificação"
 ],
 "polling_station":[
 "eleições",
@@ -11270,11 +11343,11 @@
 "shop/jewelry":[
 "joalheiro",
 "joalheira",
+"Ourivesaria",
 "joalheria",
 "joalharia",
 "jóias",
 "bijuteria",
-"Ouriversaria",
 "joias"
 ],
 "shop/kiosk":[
@@ -11985,8 +12058,8 @@
 "shop/variety_store":[
 "quinquilharia",
 "loja dos 300",
+"Loja de variedades",
 "adereços",
-"Loja dos chineses",
 "bijuterias",
 "loja dos trezentos"
 ],
@@ -12106,6 +12179,9 @@
 "xampanhe",
 "loja de licor",
 "bebidas"
+],
+"shop/yes":[
+"Loja"
 ],
 "telecom":[
 "Telecomunicações"
@@ -12835,16 +12911,6 @@
 "grande rota",
 "percurso trail",
 "rota"
-],
-"type/route/horse":[
-"mulas",
-"equestre",
-"percurso",
-"Rota de equitação",
-"burros",
-"cavaleiros",
-"riding",
-"cavalos"
 ],
 "type/route/light_rail":[
 "metro almada",

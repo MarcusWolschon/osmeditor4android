@@ -353,12 +353,6 @@
 "Teātris",
 "aktieri"
 ],
-"amenity/toilets":[
-"labierīcības",
-"Tualete",
-"pisuārs",
-"toalete"
-],
 "amenity/townhall":[
 "Pilsētas dome"
 ],
@@ -1034,9 +1028,6 @@
 ],
 "leisure/golf_course":[
 "Golfa laukums"
-],
-"leisure/horse_riding":[
-"Zirgu jāšanas vieta"
 ],
 "leisure/ice_rink":[
 "Ledus halle"

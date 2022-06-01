@@ -550,9 +550,6 @@
 "amenity/theatre/type/amphi":[
 "Amfiteater"
 ],
-"amenity/toilets":[
-"Toaletter"
-],
 "amenity/toilets/disposal/flush":[
 "Spyl Toaletter"
 ],
@@ -603,9 +600,6 @@
 ],
 "amenity/vending_machine/newspapers":[
 "Avisautomat"
-],
-"amenity/vending_machine/parcel_pickup":[
-"Pakkeboks"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Parkeringsautomat"
@@ -1240,20 +1234,11 @@
 "highway/crossing/marked":[
 "Fotgjengerovergang"
 ],
-"highway/crossing/marked-raised":[
-"Fotgjengerovergang (forhøyet)"
-],
 "highway/crossing/unmarked":[
 "Tilrettelagt kryssing"
 ],
-"highway/crossing/unmarked-raised":[
-"Tilrettelagt kryssing (forhøyet)"
-],
 "highway/crossing/zebra":[
 "Fotgjengerovergang"
-],
-"highway/crossing/zebra-raised":[
-"Fotgjengerovergang (forhøyet)"
 ],
 "highway/cycleway":[
 "Sykkelvei"
@@ -1285,23 +1270,14 @@
 "highway/footway/marked":[
 "Fotgjengerovergang"
 ],
-"highway/footway/marked-raised":[
-"Fotgjengerovergang (forhøyet)"
-],
 "highway/footway/sidewalk":[
 "Fortau"
 ],
 "highway/footway/unmarked":[
 "Tilrettelagt kryssing"
 ],
-"highway/footway/unmarked-raised":[
-"Tilrettelagt kryssing (forhøyet)"
-],
 "highway/footway/zebra":[
 "Fotgjengerovergang"
-],
-"highway/footway/zebra-raised":[
-"Fotgjengerovergang (forhøyet)"
 ],
 "highway/give_way":[
 "Vikepliktskilt"
@@ -1622,9 +1598,6 @@
 "leisure/hackerspace":[
 "Hackerspace"
 ],
-"leisure/horse_riding":[
-"Ridesenter"
-],
 "leisure/ice_rink":[
 "Skøytebane"
 ],
@@ -1729,9 +1702,6 @@
 ],
 "leisure/track/cycling":[
 "Sykkelbane"
-],
-"leisure/track/horse_racing":[
-"Travbane"
 ],
 "leisure/track/running":[
 "Løpe bane"

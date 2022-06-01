@@ -212,9 +212,6 @@
 "amenity/theatre":[
 "Teatru"
 ],
-"amenity/toilets":[
-"Toaletă"
-],
 "amenity/townhall":[
 "Primărie"
 ],
@@ -599,9 +596,6 @@
 "leisure/golf_course":[
 "Curs de Golf"
 ],
-"leisure/horse_riding":[
-"Facilitate de Călărie"
-],
 "leisure/miniature_golf":[
 "Minigolf"
 ],
@@ -628,9 +622,6 @@
 ],
 "leisure/pitch/cricket":[
 "Teren de Cricket"
-],
-"leisure/pitch/equestrian":[
-"Teren de Călărit"
 ],
 "leisure/pitch/rugby_league":[
 "Teren de Rugby"

@@ -643,13 +643,6 @@
 "amenity/theatre/type/amphi":[
 "Amfiteatre"
 ],
-"amenity/toilets":[
-"lavabos",
-"lavabos públics",
-"serveis",
-"Lavabos",
-"w.c"
-],
 "amenity/toilets/portable":[
 "Lavabo portàtil"
 ],
@@ -1388,9 +1381,6 @@
 "highway/bus_stop":[
 "Parada d'autobús"
 ],
-"highway/construction":[
-"Carretera tallada"
-],
 "highway/corridor":[
 "Corredor interior"
 ],
@@ -1639,7 +1629,7 @@
 "Memorial"
 ],
 "historic/memorial/plaque":[
-"Paca commemorativa"
+"Placa commemorativa"
 ],
 "historic/monument":[
 "Monument",
@@ -1906,9 +1896,6 @@
 "camp de golf",
 "Camp de golf"
 ],
-"leisure/horse_riding":[
-"Hípica"
-],
 "leisure/ice_rink":[
 "Pista de gel"
 ],
@@ -2025,9 +2012,6 @@
 "leisure/swimming_pool":[
 "Piscina",
 "piscina"
-],
-"leisure/track/horse_racing":[
-"Pista de curses de cavalls"
 ],
 "leisure/water_park":[
 "Parc Aquàtic"
@@ -2783,6 +2767,9 @@
 "entrada de metro",
 "Boca de Metro"
 ],
+"railway/switch":[
+"Canvi d'agulles"
+],
 "railway/train_wash":[
 "Rentat de trens"
 ],
@@ -3534,13 +3521,6 @@
 ],
 "type/route/hiking":[
 "Ruta senderista"
-],
-"type/route/horse":[
-"cavalls",
-"cavall",
-"hípica",
-"Ruta eqüestre",
-"camí de ferradura"
 ],
 "type/route/light_rail":[
 "Ruta de tren lleuger"

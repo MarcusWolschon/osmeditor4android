@@ -887,6 +887,19 @@
 "văn phòng bác sỹ",
 "van phong thay thuoc"
 ],
+"amenity/doctors/gynaecology":[
+"bac sy phu khoa",
+"bác sỹ phụ khoa",
+"Bác sĩ Phụ khoa",
+"bác sĩ phụ khoa",
+"nhà phụ khoa học",
+"thầy thuốc phụ khoa",
+"thay thuoc phu khoa",
+"phu khoa",
+"nha phu khoa hoc",
+"bac si phu khoa",
+"phụ khoa"
+],
 "amenity/dojo":[
 "vo thuat",
 "Võ đường",
@@ -1636,6 +1649,28 @@
 ],
 "amenity/nursing_home":[
 "Viện Dưỡng lão"
+],
+"amenity/parcel_locker":[
+"tu khoa",
+"tủ khóa",
+"tu nhan buu kien",
+"tủ hàng",
+"tu gui hang",
+"tủ bưu kiện tủ nhận bưu kiện",
+"tủ khoá",
+"tủ đựng bưu kiện",
+"bưu kiện",
+"tu buu kien",
+"buu kien",
+"tủ gửi bưu kiện",
+"tu nhan hang",
+"tu gui buu kien",
+"tủ nhận hàng",
+"packstation",
+"Tủ Bưu kiện",
+"tủ gửi hàng",
+"tu hang",
+"tu dung buu kien"
 ],
 "amenity/parking":[
 "đậu xe",
@@ -3333,6 +3368,13 @@
 "sân khấu ngoài trời",
 "dai vong"
 ],
+"amenity/ticket_validator":[
+"may bam ve",
+"bam ve",
+"máy bấm vé",
+"bấm vé",
+"Máy Bấm Vé"
+],
 "amenity/toilets":[
 "Phòng Vệ sinh",
 "phong ve sinh",
@@ -3414,6 +3456,32 @@
 "thư viện đồ chơi",
 "thu vien tro choi",
 "thư viện trò chơi"
+],
+"amenity/trolley_bay":[
+"xe đẩy hàng hoá",
+"khu de xe day",
+"gio hang",
+"khu để xe đẩy",
+"nơi đậu xe đẩy",
+"khu vực để xe đẩy",
+"xe đẩy hàng hóa",
+"Khu Để Xe đẩy",
+"nơi để xe đẩy",
+"noi dau xe day",
+"nơi đỗ xe đẩy",
+"chỗ đỗ xe đẩy",
+"cho do xe day",
+"xe day hang hoa",
+"khu vuc de xe day",
+"xe day hang",
+"chỗ để xe đẩy",
+"chỗ đậu xe đẩy",
+"cho dau xe day",
+"xe đẩy hàng",
+"noi de xe day",
+"giỏ hàng",
+"cho de xe day",
+"noi do xe day"
 ],
 "amenity/university":[
 "sân trường cao đẳng",
@@ -3708,39 +3776,6 @@
 "Máy Bán Báo",
 "may ban bao"
 ],
-"amenity/vending_machine/parcel_pickup":[
-"tu khoa",
-"tủ khóa",
-"tu nhan buu kien",
-"tủ khoá",
-"tủ đựng bưu kiện",
-"bưu kiện",
-"buu kien",
-"amazon",
-"tu nhan hang",
-"tủ nhận hàng",
-"tủ nhận bưu kiện",
-"tu dung buu kien",
-"Tủ Nhận Bưu kiện"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"tu khoa",
-"tủ khóa",
-"tu nhan buu kien",
-"tủ khoá",
-"tủ đựng bưu kiện",
-"bưu kiện",
-"buu kien",
-"tủ để bưu kiện",
-"tu nhan hang",
-"tủ nhận hàng",
-"tủ nhận bưu kiện",
-"tu dung buu kien",
-"Tủ Đựng Bưu kiện",
-"tu de hang",
-"tu de buu kien",
-"tủ để hàng"
-],
 "amenity/vending_machine/parking_tickets":[
 "máy bán vé đỗ xe",
 "may ban ve do xe",
@@ -3860,6 +3895,21 @@
 "khu",
 "khu vuc",
 "vung"
+],
+"area/footway":[
+"mặt phố",
+"mat duong di dao",
+"mặt đường dạo",
+"mặt đường đi dạo",
+"mặt đường đi bộ",
+"mat duong mon",
+"mặt vỉa hè",
+"mat duong di bo",
+"mat pho",
+"mat duong dao",
+"mặt đường mòn",
+"mat via he",
+"Mặt Đường dạo"
 ],
 "area/highway":[
 "mặt phố",
@@ -4349,18 +4399,30 @@
 "Nhà xe"
 ],
 "building/cathedral":[
-"vương cung thánh đường",
 "tiểu vương cung thánh đường",
 "vuong cung thanh duong",
 "tieu vuong cung thanh duong",
-"Nhà thờ Chánh tòa",
-"nhà thờ chánh tòa",
+"kiến trúc nhà thờ chính toà",
+"kien truc tieu vuong cung thanh duong",
+"kiến trúc nhà thờ chánh toà",
+"kiến trúc tiểu vương cung thánh đường",
+"kien truc nha tho chinh toa",
 "nhà thờ chánh toà",
+"nhà thờ chính tòa",
+"kien truc vuong cung thanh duong",
+"dai vuong cung thanh duong",
+"kiến trúc vương cung thánh đường",
+"Kiến trúc Nhà thờ Chánh tòa",
+"vương cung thánh đường",
+"kien truc nha tho chanh toa",
+"kiến trúc nhà thờ chánh tòa",
+"kien truc dai vuong cung thanh duong",
+"nhà thờ chánh tòa",
+"kiến trúc đại vương cung thánh đường",
 "nha tho chanh toa",
 "nhà thờ chính toà",
-"nhà thờ chính tòa",
+"kiến trúc nhà thờ chính tòa",
 "nha tho chinh toa",
-"dai vuong cung thanh duong",
 "đại vương cung thánh đường"
 ],
 "building/chapel":[
@@ -4371,20 +4433,26 @@
 "nhà thờ nhỏ"
 ],
 "building/church":[
-"nhà thờ",
-"thiên chúa giáo",
-"giáo xứ",
+"kien truc nha tho",
 "đạo thiên chúa",
 "kitô giáo",
-"Nhà thờ",
-"thien chua giao",
+"kiến trúc thánh đường",
 "nha tho",
-"ki-to giao",
 "dao thien chua",
 "kito giao",
+"Kiến trúc Nhà thờ",
+"kien truc ki-to giao",
 "giao xu",
-"tin lành",
+"kiến trúc nhà thờ",
 "cong giao",
+"kien truc thanh duong",
+"nhà thờ",
+"kiến trúc ki-tô giáo",
+"thiên chúa giáo",
+"giáo xứ",
+"thien chua giao",
+"ki-to giao",
+"tin lành",
 "tin lanh",
 "ki-tô giáo",
 "thánh đường",
@@ -4540,13 +4608,19 @@
 "nha giu tre"
 ],
 "building/mosque":[
+"kien truc nha tho hoi giao",
 "giao duong hoi giao",
+"kiến trúc nhà thờ hồi giáo",
+"Kiến trúc Nhà thờ Hồi giáo",
 "thanh duong hoi giao",
-"nha tho hoi giao",
 "nhà thờ hồi giáo",
+"kiến trúc thánh đường hồi giáo",
+"kiến trúc giáo đường hồi giáo",
 "giáo đường hồi giáo",
-"Nhà thờ Hồi giáo",
-"thánh đường hồi giáo"
+"thánh đường hồi giáo",
+"nha tho hoi giao",
+"kien truc giao duong hoi giao",
+"kien truc thanh duong hoi giao"
 ],
 "building/office":[
 "tòa nhà văn phòng",
@@ -4666,6 +4740,21 @@
 "chuong heo",
 "chuồng heo",
 "Chuồng Heo"
+],
+"building/synagogue":[
+"kien truc nha tho do thai giao",
+"Kiến trúc Nhà thờ Do Thái giáo",
+"hoi duong",
+"nha tho dao do thai",
+"kiến trúc nhà thờ do thái giáo",
+"kiến trúc nhà thờ đạo do thái",
+"nhà thờ đạo do thái",
+"kien truc nha tho dao do thai",
+"kiến trúc hội đường",
+"hội đường",
+"nhà thờ do thái giáo",
+"kien truc hoi duong",
+"nha tho do thai giao"
 ],
 "building/temple":[
 "kien truc chua",
@@ -5293,7 +5382,32 @@
 "Vạch Dừng Đằng trước Xe hơi"
 ],
 "demolished/building":[
-"Tòa nhà Mới Phá"
+"Tòa nhà Mới Đập phá"
+],
+"disc_golf/basket":[
+"rổ gôn đĩa",
+"rổ golf đĩa",
+"ro golf dia",
+"Rổ Gôn Đĩa",
+"ro gôn dia"
+],
+"disc_golf/hole":[
+"lỗ golf đĩa",
+"lỗ gôn đĩa",
+"lo gôn dia",
+"Lỗ Gôn Đĩa",
+"lo golf dia"
+],
+"disc_golf/tee":[
+"điểm ném golf đĩa",
+"diem nam golf dia",
+"vi tri nem golf dia",
+"Điểm ném Gôn Đĩa",
+"vị trí ném gôn đĩa",
+"vị trí ném golf đĩa",
+"điểm ném gôn đĩa",
+"diem nem gon dia",
+"vi tri nem gon dia"
 ],
 "disused/amenity":[
 "Tiện nghi Đóng cửa"
@@ -5316,6 +5430,21 @@
 "Trạm Xe cứu thương",
 "trạm xe cứu thương",
 "trạm xe cấp cứu"
+],
+"emergency/assembly_point":[
+"Điểm Tập trung Khẩn cấp",
+"diem tap ket khi so tan",
+"diem tap trung di tan",
+"điểm tập hợp sơ tán",
+"khu vac tap trung khi khan cap",
+"điểm tập trung khẩn cấp",
+"diem tap trung khan cap",
+"điểm tập hợp khi sơ tán",
+"khu vực tập trung khi khẩn cấp",
+"diem tap hop khi so tan",
+"điểm tập trung di tản",
+"điểm tập kết khi sơ tán",
+"diem tap hop so tan"
 ],
 "emergency/defibrillator":[
 "may pha rung tim",
@@ -5559,6 +5688,13 @@
 "ho cat",
 "bẫy cát"
 ],
+"golf/cartpath":[
+"duong danh cho xe gon",
+"đường dành cho xe golf",
+"đường dành cho xe gôn",
+"Đường dành cho Xe gôn",
+"duong danh cho xe golf"
+],
 "golf/clubhouse":[
 "toà nhà clb golf",
 "nha clb golf",
@@ -5568,14 +5704,14 @@
 "nha cau lac bo gon",
 "nhà clb gôn",
 "toa nha cau lac bo gon",
+"Nhà Câu lạc bộ Gôn",
 "tòa nhà câu lạc bộ golf",
-"Nhà Câu lạc bộ Golf",
 "nhà clb golf",
 "nha clb gon",
 "toà nhà câu lạc bộ golf",
 "toa nha clb golf",
-"nhà câu lạc bộ golf",
 "nhà câu lạc bộ gôn",
+"nhà câu lạc bộ golf",
 "nha cau lac bo golf",
 "tòa nhà clb gôn",
 "toa nha cau lac bo golf",
@@ -5599,8 +5735,8 @@
 "golf/hole":[
 "hố gôn",
 "lo golf",
-"Lỗ Golf",
 "ho gon",
+"Lỗ Gôn",
 "hố golf",
 "lỗ gôn",
 "lo gon",
@@ -5617,6 +5753,17 @@
 "chuong ngai nuoc cat ngang",
 "chướng ngại nước cắt ngang",
 "dong suoi"
+],
+"golf/path":[
+"đường dạo trên sân golf",
+"lối đi bộ trên sân gôn",
+"lối đi bộ trên sân golf",
+"đường dạo trên sân gôn",
+"duong dao tren san gon",
+"loi di bo tren san gon",
+"loi di bo tren san golf",
+"duong dao tren san golf",
+"Đường dạo trên Sân gôn"
 ],
 "golf/rough":[
 "co go ghe",
@@ -5830,6 +5977,20 @@
 "trung tâm phục hồi chức năng",
 "trung tam phuc hoi chung nang"
 ],
+"healthcare/sample_collection":[
+"trạm lấy mẫu",
+"phong lay mau",
+"phong lay mau xet nghiem",
+"trung tâm lấy mẫu xét nghiệm",
+"phòng lấy mẫu",
+"trạm lấy mẫu xét nghiệm",
+"trung tâm lấy mẫu",
+"tram lay mau",
+"tram lay mau xet nghiem",
+"Trung tâm Lấy mẫu",
+"trung tam lay mau xet nghiem",
+"trung tam lay mau"
+],
 "healthcare/speech_therapist":[
 "nhà trị liệu lời nói",
 "nhà ngon ngu tri lieu",
@@ -5862,15 +6023,23 @@
 "highway/construction":[
 "sua duong",
 "đường đóng cửa",
+"duong chua hoan tat",
+"duong dang xay",
+"duong chua xong",
+"duong bi chan",
+"chặn đường",
+"đường đang xây",
+"đường đang xây dựng",
+"đường bị chặn",
+"đường chưa xong",
+"chan duong",
+"đường chưa hoàn tất",
 "sửa đường",
 "duong dang sua",
-"duong bi chan",
 "đường đang sửa",
-"Đường Đóng cửa",
-"chặn đường",
+"duong dang xay dung",
 "duong dong cua",
-"đường bị chặn",
-"chan duong"
+"Đường đang Xây dựng"
 ],
 "highway/corridor":[
 "loi di trong nha",
@@ -5898,22 +6067,6 @@
 "vạch sang đường",
 "vach qua duong"
 ],
-"highway/crossing/marked-raised":[
-"vach di bo qua duong noi len",
-"vạch đi bộ sang đường nổi lên",
-"vach sang duong noi len",
-"vach di bo sang duong noi len",
-"vạch kẻ qua đường nổi lên",
-"vạch qua đường nổi lên",
-"vach ke qua duong noi len",
-"duong ngua van noi len",
-"vach qua duong noi len",
-"đường ngựa vằn nổi lên",
-"vạch sang đường nổi lên",
-"Vạch Qua đường Nổi lên",
-"vạch kẻ sang đường nổi lên",
-"vach ke sang duong noi len"
-],
 "highway/crossing/signals":[
 "vạch qua đường có đèn tín hiệu",
 "vach qua duong co den canh bao",
@@ -5925,16 +6078,8 @@
 "loi qua duong co den tin hieu",
 "Lối Qua đường có Đèn Cảnh báo"
 ],
-"highway/crossing/signals-raised":[
-"vạch qua đường nổi lên có đèn tín hiệu",
-"vach qua duong noi len co den canh bao",
-"vach qua duong noi len co den tin hieu",
-"vạch qua đường nổi lên có đèn cảnh báo",
-"Lối Qua đường Nổi lên có Đèn Cảnh báo",
-"lối qua đường nổi lên có đèn tín hiệu",
-"lối qua đường nổi lên có đèn cảnh báo",
-"loi qua duong noi len co den canh bao",
-"loi qua duong noi len co den tin hieu"
+"highway/crossing/uncontrolled":[
+"Vạch Qua đường"
 ],
 "highway/crossing/unmarked":[
 "Lối Qua đường Không có Vạch",
@@ -5943,18 +6088,8 @@
 "lối băng qua đường không có vạch",
 "loi qua duong khong co vach"
 ],
-"highway/crossing/unmarked-raised":[
-"lối băng qua đường nổi lên không có vạch",
-"lối qua đường nổi lên không có vạch",
-"loi qua duong noi len khong co vach",
-"Lối Qua đường Nổi lên Không có Vạch",
-"loi bang qua duong noi len khong co vach"
-],
 "highway/crossing/zebra":[
 "Vạch Qua đường"
-],
-"highway/crossing/zebra-raised":[
-"Vạch Qua đường Nổi lên"
 ],
 "highway/cycleway":[
 "đường mòn xe đạp",
@@ -6051,34 +6186,31 @@
 "vạch sang đường",
 "vach qua duong"
 ],
-"highway/footway/marked-raised":[
-"vach di bo qua duong noi len",
-"vạch đi bộ sang đường nổi lên",
-"vach sang duong noi len",
-"vach di bo sang duong noi len",
-"vạch kẻ qua đường nổi lên",
-"vạch qua đường nổi lên",
-"vach ke qua duong noi len",
-"duong ngua van noi len",
-"vach qua duong noi len",
-"đường ngựa vằn nổi lên",
-"vạch sang đường nổi lên",
-"Vạch Qua đường Nổi lên",
-"vạch kẻ sang đường nổi lên",
-"vach ke sang duong noi len"
-],
 "highway/footway/sidewalk":[
 "hè",
 "duong dao",
-"lề đường",
-"đường dạo",
-"Lề đường",
-"le duong",
+"he pho",
 "vỉa hè",
-"vie he",
 "đường đi bộ",
+"Vỉa hè",
+"lề đường",
+"hè phố",
+"đường dạo",
+"le duong",
+"vie he",
 "he",
 "duong di bo"
+],
+"highway/footway/signals":[
+"vạch qua đường có đèn tín hiệu",
+"vach qua duong co den canh bao",
+"vach qua duong co den tin hieu",
+"lối qua đường có đèn tín hiệu",
+"lối qua đường có đèn cảnh báo",
+"vạch qua đường có đèn cảnh báo",
+"loi qua duong co den canh bao",
+"loi qua duong co den tin hieu",
+"Lối Qua đường có Đèn Cảnh báo"
 ],
 "highway/footway/unmarked":[
 "Lối Qua đường Không có Vạch",
@@ -6087,18 +6219,8 @@
 "lối băng qua đường không có vạch",
 "loi qua duong khong co vach"
 ],
-"highway/footway/unmarked-raised":[
-"lối băng qua đường nổi lên không có vạch",
-"lối qua đường nổi lên không có vạch",
-"loi qua duong noi len khong co vach",
-"Lối Qua đường Nổi lên Không có Vạch",
-"loi bang qua duong noi len khong co vach"
-],
 "highway/footway/zebra":[
 "Vạch Qua đường"
-],
-"highway/footway/zebra-raised":[
-"Vạch Qua đường Nổi lên"
 ],
 "highway/give_way":[
 "bảng nhường đường",
@@ -6202,6 +6324,33 @@
 "loi vao duong cao toc",
 "duong nhanh cao toc"
 ],
+"highway/motorway_link-US-CA":[
+"duong nhanh re cao toc",
+"lối ra vào đường cao tốc",
+"đoạn nhánh rẽ cao tốc",
+"nhanh ra duong cao toc",
+"đường nhánh rẽ cao tốc",
+"loi ra vao duong cao toc",
+"nhanh vao duong cao toc",
+"đoạn nhánh cao tốc",
+"doan nhanh cao toc",
+"đường nối đường cao tốc",
+"duong noi duong cao toc",
+"Nhánh Ra vào Đường Cao tốc",
+"lối vào đường cao tốc",
+"duong nhanh chuyen duong cao toc",
+"đường nhánh cao tốc",
+"nhánh ra đường cao tốc",
+"nhánh chuyển đường cao tốc",
+"đường nhánh chuyển đường cao tốc",
+"lối ra đường cao tốc",
+"nhanh chuyen duong cao toc",
+"nhánh vào đường cao tốc",
+"doan nhanh re cao toc",
+"loi ra duong cao toc",
+"loi vao duong cao toc",
+"duong nhanh cao toc"
+],
 "highway/passing_place":[
 "nơi tránh xe",
 "cho tranh xe",
@@ -6250,6 +6399,81 @@
 "xa lo"
 ],
 "highway/primary_link":[
+"duong nhanh quoc lo",
+"duong nhanh chuyen duong chinh",
+"nhánh ra xa lộ",
+"lối vào đường chính",
+"duong noi duong chinh",
+"đường nhánh chuyển đường chính",
+"lối vào quốc lộ",
+"loi ra vao xa lo",
+"nhánh chuyển xa lộ",
+"nhánh vào xa lộ",
+"đường nối xa lộ",
+"nhánh vào quốc lộ",
+"loi ra duong chinh",
+"loi vao xa lo",
+"nhanh ra quoc lo",
+"nhanh vao xa lo",
+"loi vao quoc lo",
+"đường nhánh rẽ xa lộ",
+"đoạn nhánh rẽ quốc lộ",
+"nhanh vao duong chinh",
+"đoạn nhánh đường chính",
+"nhanh chuyen duong chinh",
+"duong nhanh xa lo",
+"duong nhanh re xa lo",
+"nhánh ra đường chính",
+"đường nối đường chính",
+"nhanh ra xa lo",
+"đoạn nhánh rẽ xa lộ",
+"doan nhanh xa lo",
+"loi ra xa lo",
+"đường nhánh chuyển quốc lộ",
+"duong noi quoc lo",
+"doan nhanh re xa lo",
+"loi vao duong chinh",
+"đường nhánh rẽ đường chính",
+"lối ra vào quốc lộ",
+"nhánh vào đường chính",
+"lối ra vào đường chính",
+"duong nhanh duong chinh",
+"lối ra quốc lộ",
+"doan nhanh re quoc lo",
+"loi ra vao duong chinh",
+"đường nhánh đường chính",
+"nhánh chuyển đường chính",
+"lối ra vào xa lộ",
+"duong nhanh re duong chinh",
+"nhanh chuyen quoc lo",
+"đoạn nhánh rẽ đường chính",
+"nhanh vao quoc lo",
+"duong nhanh chuyen quoc lo",
+"đường nhánh xa lộ",
+"đường nhánh rẽ quốc lộ",
+"lối vào xa lộ",
+"đường nối quốc lộ",
+"duong noi xa lo",
+"duong nhanh chuyen xa lo",
+"doan nhanh quoc lo",
+"duong nhanh re quoc lo",
+"lối ra xa lộ",
+"đường nhánh quốc lộ",
+"nhánh ra quốc lộ",
+"doan nhanh duong chinh",
+"loi ra vao quoc lo",
+"đoạn nhánh quốc lộ",
+"đoạn nhánh xa lộ",
+"nhanh ra duong chinh",
+"nhánh chuyển quốc lộ",
+"lối ra đường chính",
+"nhanh chuyen xa lo",
+"doan nhanh re duong chinh",
+"đường nhánh chuyển xa lộ",
+"Nhánh Ra vào Đường Chính",
+"loi ra quoc lo"
+],
+"highway/primary_link-US-CA":[
 "duong nhanh quoc lo",
 "duong nhanh chuyen duong chinh",
 "nhánh ra xa lộ",
@@ -6708,10 +6932,10 @@
 "xa lộ",
 "xl",
 "đường trục",
-"duong truc",
 "duong huyet mach",
-"Đường Trục / Xa lộ",
-"xa lo"
+"duong truc",
+"xa lo",
+"Đường Huyết mạch / Xa lộ"
 ],
 "highway/trunk_link":[
 "lối vào đường trục",
@@ -6720,8 +6944,9 @@
 "loi vao duong huyet mach",
 "đường nối đường huyết mạch",
 "duong noi duong huyet mach",
-"nhanh ra vao duong truc",
+"Nhánh Ra vào Đường Huyết mạch / Xa lộ",
 "loi ra vao xa lo",
+"nhanh ra vao duong truc",
 "đường nhánh xa lộ",
 "nhanh ra vao duong huyet mach",
 "đường nối xa lộ",
@@ -6729,8 +6954,8 @@
 "lối vào xa lộ",
 "duong nhanh duong huyet mach",
 "đường nhánh đường huyết mạch",
-"duong nhanh duong truc",
 "duong noi xa lo",
+"duong nhanh duong truc",
 "loi vao duong truc",
 "loi ra vao duong truc",
 "lối ra xa lộ",
@@ -6739,8 +6964,8 @@
 "đường nhánh đường trục",
 "lối ra đường trục",
 "loi ra duong huyet mach",
-"loi ra duong truc",
 "loi ra xa lo",
+"loi ra duong truc",
 "lối ra vào đường trục",
 "nhánh ra vào đường huyết mạch",
 "nhanh ra vao xa lo",
@@ -6749,7 +6974,45 @@
 "nhánh ra vào xa lộ",
 "lối vào đường huyết mạch",
 "loi ra vao duong huyet mach",
-"Nhánh Ra vào Đường Trục / Xa lộ",
+"lối ra vào đường huyết mạch"
+],
+"highway/trunk_link-US-CA":[
+"lối vào đường trục",
+"lối ra đường huyết mạch",
+"lối ra vào xa lộ",
+"loi vao duong huyet mach",
+"đường nối đường huyết mạch",
+"duong noi duong huyet mach",
+"Nhánh Ra vào Đường Huyết mạch / Xa lộ",
+"loi ra vao xa lo",
+"nhanh ra vao duong truc",
+"đường nhánh xa lộ",
+"nhanh ra vao duong huyet mach",
+"đường nối xa lộ",
+"loi vao xa lo",
+"lối vào xa lộ",
+"duong nhanh duong huyet mach",
+"đường nhánh đường huyết mạch",
+"duong noi xa lo",
+"duong nhanh duong truc",
+"loi vao duong truc",
+"loi ra vao duong truc",
+"lối ra xa lộ",
+"duong nhanh xa lo",
+"đường nối đường trục",
+"đường nhánh đường trục",
+"lối ra đường trục",
+"loi ra duong huyet mach",
+"loi ra xa lo",
+"loi ra duong truc",
+"lối ra vào đường trục",
+"nhánh ra vào đường huyết mạch",
+"nhanh ra vao xa lo",
+"duong noi duong truc",
+"nhánh ra vào đường trục",
+"nhánh ra vào xa lộ",
+"lối vào đường huyết mạch",
+"loi ra vao duong huyet mach",
 "lối ra vào đường huyết mạch"
 ],
 "highway/turning_circle":[
@@ -7134,6 +7397,21 @@
 "công trình xây dựng",
 "vung dang xay dung"
 ],
+"landuse/education":[
+"khuôn viên trường học",
+"khuon vien truong hoc",
+"Khu Khuôn viên Trường",
+"san hoc vien",
+"khu khuon vien hoc vien",
+"san truong hoc",
+"khuôn viên học viện",
+"khuon vien hoc vien",
+"khu khuôn viên học viện",
+"sân học viện",
+"khu khuon vien truong",
+"khu khuôn viên trường",
+"sân trường học"
+],
 "landuse/farm":[
 "Đất Nông nghiệp"
 ],
@@ -7397,6 +7675,11 @@
 "cửa hàng",
 "dat buon ban"
 ],
+"landuse/salt_pond":[
+"ruộng muối",
+"ruong muoi",
+"Ruộng Muối"
+],
 "landuse/vineyard":[
 "vuon nho",
 "Vườn Nho",
@@ -7511,6 +7794,13 @@
 "tango",
 "tang-go",
 "ba-lê"
+],
+"leisure/disc_golf_course":[
+"san gon dia",
+"sân gôn đĩa",
+"san golf dia",
+"Sân Gôn Đĩa",
+"sân golf đĩa"
 ],
 "leisure/dog_park":[
 "công viên dành cho chó",
@@ -7656,7 +7946,7 @@
 "leisure/golf_course":[
 "sân gôn",
 "san gon",
-"Sân Golf",
+"Sân Gôn",
 "sân golf",
 "san golf"
 ],
@@ -7715,15 +8005,15 @@
 ],
 "leisure/miniature_golf":[
 "san golf nho",
-"Sân Golf Mini",
-"sân golf thu nhỏ",
 "sân golf mini",
+"sân gôn golf nhỏ",
 "sân gôn nhỏ",
-"san gon thu nho",
-"sân golf nhỏ",
+"Sân Gôn Mini",
 "sân gôn thu nhỏ",
+"sân golf nhỏ",
 "sân minigolf",
 "sân gôn mini",
+"san golf thu nho",
 "san minigolf",
 "san gon mini",
 "san golf mini",
@@ -7827,6 +8117,17 @@
 "sân bóng bầu dục mỹ",
 "sân bóng bầu dục mĩ"
 ],
+"leisure/pitch/archery":[
+"dau truong ban cung",
+"trường bắn cung",
+"bắn cung",
+"Trường Bắn cung",
+"truong ban cung",
+"sân bắn cung",
+"ban cung",
+"san ban cung",
+"đấu trường bắn cung"
+],
 "leisure/pitch/australian_football":[
 "sân cỏ bóng bầu dục úc",
 "Sân Bóng bầu dục Úc",
@@ -7922,12 +8223,44 @@
 "san co khuc con cau",
 "sân cỏ hockey"
 ],
+"leisure/pitch/four_square":[
+"four square",
+"san bong 4 square",
+"Sân Four Square",
+"sân four square",
+"sân bóng 4 square",
+"san four square",
+"sân bóng four square",
+"4 square",
+"sân 4 square",
+"san bong four square",
+"san 4 square"
+],
+"leisure/pitch/futsal":[
+"sân bóng đá trong nhà",
+"san futsal",
+"san bong da trong nha",
+"Sân Bóng đá Trong nhà",
+"sân futsal",
+"futsal"
+],
 "leisure/pitch/netball":[
 "san bong luoi",
 "Sân Bóng lưới",
 "sân bóng lưới",
 "san netball",
 "sân netball"
+],
+"leisure/pitch/padel":[
+"san quan vot paddle",
+"san paddle",
+"san quan vot padel",
+"san padel",
+"sân quần vợt padel",
+"sân quần vợt paddle",
+"sân padel",
+"sân paddle",
+"Sân Padel"
 ],
 "leisure/pitch/paintball":[
 "san ban sung son",
@@ -7938,6 +8271,16 @@
 "sung son",
 "súng sơn",
 "san sung son"
+],
+"leisure/pitch/pickleball":[
+"pickleball",
+"vot pickleball",
+"vợt dưa chuột",
+"Sân Pickleball",
+"quần vợt",
+"vot dua chuot",
+"vợt pickleball",
+"quan vot"
 ],
 "leisure/pitch/rugby_league":[
 "sân cỏ banh rugby league",
@@ -8024,6 +8367,13 @@
 "Sân Quần vợt",
 "sân quần vợt",
 "san quan vot"
+],
+"leisure/pitch/tetherball":[
+"Sân Tetherball",
+"san tetherball",
+"cột treo bóng",
+"sân tetherball",
+"cot treo bong"
 ],
 "leisure/pitch/volleyball":[
 "Sân Bóng chuyền",
@@ -8306,9 +8656,7 @@
 "tứ phương"
 ],
 "man_made/courtyard":[
-"sân trong",
-"Sân trong",
-"san trong"
+"Sân trong"
 ],
 "man_made/crane":[
 "can truc",
@@ -8576,6 +8924,13 @@
 "cot ang-ten tv",
 "cột ăng ten tv",
 "cot angten truyen hinh"
+],
+"man_made/mast/lighting":[
+"thap den pha",
+"tháp đèn pha",
+"thap den chieu sang",
+"tháp đèn chiếu sáng",
+"Tháp đèn Chiếu sáng"
 ],
 "man_made/mineshaft":[
 "Giếng Mỏ",
@@ -8969,13 +9324,6 @@
 "suoi nuoc nong",
 "Suối nước Nóng"
 ],
-"natural/marsh":[
-"đầm lầy cỏ",
-"Đầm lầy Cỏ",
-"dam lay co",
-"dam lay cay bui",
-"đầm lầy cây bụi"
-],
 "natural/mud":[
 "bùn",
 "Bùn",
@@ -9003,11 +9351,6 @@
 "đỉnh",
 "chóp núi",
 "doi"
-],
-"natural/reedbed":[
-"Đầm lầy Lau sậy",
-"đầm lầy lau sậy",
-"dam lay lau say"
 ],
 "natural/reef":[
 "bai cat",
@@ -9078,11 +9421,6 @@
 "suoi nuoc",
 "Suối",
 "suối nước"
-],
-"natural/swamp":[
-"đầm lầy cây thân gỗ",
-"dam lay cay than go",
-"Đầm lầy Cây thân gỗ"
 ],
 "natural/tree":[
 "cay",
@@ -9210,12 +9548,87 @@
 "Đất Ngập nước",
 "dat ngap nuoc"
 ],
+"natural/wetland/bog":[
+"đầm lầy chua",
+"Đầm lầy Toan",
+"dam lay toan",
+"dam lay chua",
+"đầm lầy toan"
+],
+"natural/wetland/fen":[
+"đầm lầy mặn",
+"dam lay kiem",
+"đầm lầy kiềm",
+"dam lay man",
+"Đầm lầy Kiềm"
+],
+"natural/wetland/mangrove":[
+"Rừng Ngập mặn",
+"rừng ngập mặn",
+"rung ngap man",
+"rừng đước",
+"rung duoc"
+],
+"natural/wetland/marsh":[
+"đầm lầy cỏ",
+"Đầm lầy Cỏ",
+"dam lay co",
+"dam lay cay bui",
+"đầm lầy cây bụi"
+],
+"natural/wetland/reedbed":[
+"Đầm lầy Lau sậy",
+"đầm lầy lau sậy",
+"dam lay lau say"
+],
+"natural/wetland/saltmarsh":[
+"bai lay trieu",
+"dam lay ngap man",
+"bãi lầy triều",
+"Đầm lầy Ngập mặn",
+"dam lay ngap man doc bo bien",
+"đầm lầy ngập mặn dọc bờ biển",
+"đầm lầy ngập mặn"
+],
+"natural/wetland/string_bog":[
+"dam lay chuoi",
+"đầm lầy chuỗi",
+"dam lay toan chuoi",
+"Đầm lầy Chuỗi",
+"đầm lầy toan chuỗi"
+],
+"natural/wetland/swamp":[
+"đầm lầy cây thân gỗ",
+"dam lay cay than go",
+"Đầm lầy Cây thân gỗ"
+],
+"natural/wetland/tidalflat":[
+"bai trieu",
+"Bãi bùn",
+"bãi triều",
+"bai bun",
+"bãi bùn"
+],
+"natural/wetland/wet_meadow":[
+"dong co uot",
+"đồng cỏ ẩm ướt",
+"Đồng cỏ Ẩm ướt",
+"đồng cỏ ướt",
+"dong co am uot"
+],
 "natural/wood":[
 "rừng thiên nhiên",
 "Rừng Thiên nhiên",
 "rừng",
 "rung thien nhien",
 "rung"
+],
+"network/type/node_network-DE-NL-BE-LU":[
+"số điểm đến xe đạp",
+"nut trong mang luoi duong mon the thao",
+"so diem den xe dap",
+"Nút trong Mạng lưới Đường mòn Thể thao",
+"nút trong mạng lưới đường mòn thể thao"
 ],
 "noexit/yes":[
 "Không có Lối ra",
@@ -9285,7 +9698,7 @@
 "Tổ chức Phi lợi nhuận",
 "to chuc bat vu loi"
 ],
-"office/bail_bond_agent":[
+"office/bail_bond_agent-US-PH":[
 "dai ly bao lanh the chan tai ngoai",
 "dai li bao lanh the chan tai ngoai",
 "Văn phòng Đóng tiền Thế chân Tại ngoại",
@@ -9680,6 +10093,9 @@
 "văn phòng hội đồng thủy cục",
 "van phong hoi dong thuy cuc"
 ],
+"office/yes":[
+"Văn phòng (Kiểu Không rõ)"
+],
 "place":[
 "Địa phương"
 ],
@@ -9846,6 +10262,13 @@
 "đệm hơi",
 "nem hoi"
 ],
+"playground/hopscotch":[
+"cò cò",
+"co co",
+"lò cò",
+"lo co",
+"Cò cò"
+],
 "playground/horizontal_bar":[
 "xa don",
 "ba-rơ-phích",
@@ -9920,6 +10343,17 @@
 "điểm",
 "địa điểm",
 "dia diem"
+],
+"police/checkpoint":[
+"điểm kiểm soát của cảnh sát",
+"Điểm Kiểm soát của Cảnh sát",
+"tram kiem soat cua canh sat",
+"diem kiem soat cua cong an",
+"tram kiem soat cua cong an",
+"trạm kiểm soát của công an",
+"diem kiam soat cua canh sat",
+"trạm kiểm soát của cảnh sát",
+"điểm kiểm soát của công an"
 ],
 "polling_station":[
 "dia diem bau cu tam thoi",
@@ -11086,19 +11520,24 @@
 "cua hang thiet bi phong tam"
 ],
 "shop/beauty":[
-"noi lam dep",
-"nơi làm đẹp",
+"mỹ viện",
+"tiem lam dep",
+"Thẩm mỹ viện",
+"vien tham my",
+"mĩ viện",
+"my vien",
 "cua hang lam dep",
 "nha lam dep",
-"chỗ làm đẹp",
+"mi vien",
+"viện thẩm mỹ",
 "tham my vien",
 "nhà làm đẹp",
 "tham mi vien",
 "thẩm mĩ viện",
-"Tiệm Mỹ phẩm",
 "thẩm mỹ viện",
 "cửa hàng làm đẹp",
-"cho lam dep"
+"viện thẩm mĩ",
+"tiệm làm đẹp"
 ],
 "shop/beauty/nails":[
 "cửa hàng làm móng",
@@ -13316,15 +13755,19 @@
 "cửa hiệu dụng cụ bơi lội"
 ],
 "shop/weapons":[
-"tiem sung",
 "cua hang sung",
-"quan sung",
-"Tiệm Súng",
-"cửa hiệu súng",
-"cua hieu sung",
 "tiệm súng",
-"quán súng",
-"cửa hàng súng"
+"tiem vu khi",
+"cửa hàng vũ khí",
+"tiệm vũ khí",
+"tiem dao",
+"tiệm dao",
+"tiem sung",
+"cửa hàng dao",
+"cua hang dao",
+"cua hang vu khi",
+"cửa hàng súng",
+"Tiệm Vũ khí"
 ],
 "shop/wholesale":[
 "tiệm bán sỉ",
@@ -13379,6 +13822,9 @@
 "quay ban ruou vang",
 "tiem ban ruou vang",
 "tiệm rượu vang"
+],
+"shop/yes":[
+"Tiệm (Kiểu Không rõ)"
 ],
 "telecom":[
 "Viễn thông"
@@ -14081,6 +14527,11 @@
 "tuyen di bo duong dai",
 "tuyến đường đi bộ dài",
 "Tuyến Đường đi bộ dài"
+],
+"type/route/horse":[
+"tuyen duong cuoi ngua",
+"tuyến đường cưỡi ngựa",
+"Tuyến đường Cưỡi ngựa"
 ],
 "type/route/light_rail":[
 "tuyen duong tau dien",

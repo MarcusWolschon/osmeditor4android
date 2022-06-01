@@ -56,14 +56,8 @@
 "highway/crossing/marked":[
 "Marked Crossing"
 ],
-"highway/crossing/marked-raised":[
-"Marked Crossing (Raised)"
-],
 "highway/crossing/zebra":[
 "Marked Crossing"
-],
-"highway/crossing/zebra-raised":[
-"Marked Crossing (Raised)"
 ],
 "highway/cycleway/bicycle_foot":[
 "Shared Path"
@@ -71,17 +65,11 @@
 "highway/footway/marked":[
 "Marked Crossing"
 ],
-"highway/footway/marked-raised":[
-"Marked Crossing (Raised)"
-],
 "highway/footway/sidewalk":[
 "Footpath (sidewalk)"
 ],
 "highway/footway/zebra":[
 "Marked Zebra Crossing"
-],
-"highway/footway/zebra-raised":[
-"Marked Zebra Crossing (Raised)"
 ],
 "highway/give_way":[
 "Give Way Sign"

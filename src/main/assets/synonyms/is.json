@@ -439,9 +439,6 @@
 "amenity/theatre":[
 "Leikhús"
 ],
-"amenity/toilets":[
-"Salerni"
-],
 "amenity/townhall":[
 "Ráðhús"
 ],
@@ -1024,20 +1021,11 @@
 "highway/crossing/marked":[
 "Merkt gangbraut"
 ],
-"highway/crossing/marked-raised":[
-"Merkt gangbraut (upphækkuð)"
-],
 "highway/crossing/unmarked":[
 "Ómerkt gangbraut"
 ],
-"highway/crossing/unmarked-raised":[
-"Ómerkt gangbraut (upphækkuð)"
-],
 "highway/crossing/zebra":[
 "Merkt gangbraut"
-],
-"highway/crossing/zebra-raised":[
-"Merkt gangbraut (upphækkuð)"
 ],
 "highway/cycleway":[
 "Hjólastígur"
@@ -1051,23 +1039,14 @@
 "highway/footway/marked":[
 "Merkt gangbraut"
 ],
-"highway/footway/marked-raised":[
-"Merkt gangbraut (upphækkuð)"
-],
 "highway/footway/sidewalk":[
 "Gangstétt"
 ],
 "highway/footway/unmarked":[
 "Ómerkt gangbraut"
 ],
-"highway/footway/unmarked-raised":[
-"Ómerkt gangbraut (upphækkuð)"
-],
 "highway/footway/zebra":[
 "Merkt gangbraut"
-],
-"highway/footway/zebra-raised":[
-"Merkt gangbraut (upphækkuð)"
 ],
 "highway/give_way":[
 "Biðskyldumerki"
@@ -1420,9 +1399,6 @@
 "leisure/hackerspace":[
 "Hakkaraathvarf"
 ],
-"leisure/horse_riding":[
-"Aðstaða fyrir reiðmennsku"
-],
 "leisure/ice_rink":[
 "Skautasvell"
 ],
@@ -1473,9 +1449,6 @@
 ],
 "leisure/pitch/cricket":[
 "Krikketvöllur"
-],
-"leisure/pitch/equestrian":[
-"Reiðsvæði"
 ],
 "leisure/pitch/rugby_league":[
 "Rúgbývöllur (league)"
@@ -1530,9 +1503,6 @@
 ],
 "leisure/track/cycling":[
 "Hjólreiðabraut"
-],
-"leisure/track/horse_racing":[
-"Kappreiðabraut"
 ],
 "leisure/track/running":[
 "Hlaupabraut"

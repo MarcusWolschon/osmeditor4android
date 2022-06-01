@@ -476,13 +476,6 @@
 "amenity/theatre/type/amphi":[
 "Amfiteatar"
 ],
-"amenity/toilets":[
-"Toalet",
-"toalet",
-"sanitarni čvor",
-"wc",
-"nužnik"
-],
 "amenity/townhall":[
 "vijećnica",
 "Gradska vijećnica",
@@ -982,9 +975,6 @@
 "highway/crossing/marked":[
 "Označeni pješački prijelaz"
 ],
-"highway/crossing/marked-raised":[
-"Uzdignuti pješački prijelaz"
-],
 "highway/crossing/unmarked":[
 "Neoznačeni pješački prijelaz"
 ],
@@ -1445,9 +1435,6 @@
 ],
 "leisure/track/cycling":[
 "Staza za utrkivanje bicikala"
-],
-"leisure/track/horse_racing":[
-"Staza za utrkivanje konja"
 ],
 "leisure/track/running":[
 "Staza za trčanje"

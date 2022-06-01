@@ -287,6 +287,9 @@
 "소아청소년과",
 "정신건강의학과"
 ],
+"amenity/doctors/gynaecology":[
+"산부인과 의원"
+],
 "amenity/dojo":[
 "도장 / 무술 학원"
 ],
@@ -459,6 +462,9 @@
 ],
 "amenity/parking/multi-storey":[
 "입체 주차장"
+],
+"amenity/parking/street-side":[
+"노변 주차장"
 ],
 "amenity/parking/underground":[
 "지하 주차장"
@@ -745,10 +751,6 @@
 "amenity/theatre/type/amphi":[
 "원형극장"
 ],
-"amenity/toilets":[
-"아름자리",
-"화장실"
-],
 "amenity/toilets/disposal/flush":[
 "수세식 화장실"
 ],
@@ -823,12 +825,6 @@
 ],
 "amenity/vending_machine/newspapers":[
 "신문 자동판매기"
-],
-"amenity/vending_machine/parcel_pickup":[
-"무인 택배 보관함"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"무인 택배함"
 ],
 "amenity/vending_machine/parking_tickets":[
 "주차권 발권기"
@@ -1190,6 +1186,9 @@
 "돈사",
 "돼지우리"
 ],
+"building/synagogue":[
+"시너고그 건물"
+],
 "building/temple":[
 "사원 건물"
 ],
@@ -1389,6 +1388,12 @@
 ],
 "demolished/building":[
 "최근 철거된 건물"
+],
+"disc_golf/hole":[
+"디스크 골프 홀"
+],
+"disc_golf/tee":[
+"디스크 골프 티"
 ],
 "disused/railway":[
 "폐선된 철도 지물"
@@ -1605,6 +1610,9 @@
 "healthcare/rehabilitation":[
 "재활 시설"
 ],
+"healthcare/sample_collection":[
+"검체 채취 시설"
+],
 "healthcare/speech_therapist":[
 "언어치료사"
 ],
@@ -1621,9 +1629,6 @@
 "highway/bus_stop":[
 "버스 정류소"
 ],
-"highway/construction":[
-"폐쇄된 도로"
-],
 "highway/corridor":[
 "복도",
 "실내 복도"
@@ -1631,20 +1636,11 @@
 "highway/crossing/marked":[
 "횡단보도"
 ],
-"highway/crossing/marked-raised":[
-"고원식 횡단보도"
-],
 "highway/crossing/unmarked":[
 "표시되지 않은 횡단보도"
 ],
-"highway/crossing/unmarked-raised":[
-"표시되지 않은 고원식 횡단보도"
-],
 "highway/crossing/zebra":[
 "횡단보도"
-],
-"highway/crossing/zebra-raised":[
-"고원식 횡단보도"
 ],
 "highway/cycleway":[
 "자전거 도로"
@@ -1671,9 +1667,6 @@
 "highway/footway/marked":[
 "횡단보도"
 ],
-"highway/footway/marked-raised":[
-"고원식 횡단보도"
-],
 "highway/footway/sidewalk":[
 "인도",
 "보도",
@@ -1682,14 +1675,8 @@
 "highway/footway/unmarked":[
 "표시되지 않은 횡단보도"
 ],
-"highway/footway/unmarked-raised":[
-"표시되지 않은 고원식 횡단보도"
-],
 "highway/footway/zebra":[
 "횡단보도"
-],
-"highway/footway/zebra-raised":[
-"고원식 횡단보도"
 ],
 "highway/give_way":[
 "양보 표지",
@@ -2061,6 +2048,9 @@
 "소매 지역",
 "상업 지역"
 ],
+"landuse/salt_pond":[
+"염전"
+],
 "landuse/vineyard":[
 "와인",
 "포도주",
@@ -2173,9 +2163,6 @@
 "해커스페이스",
 "메이커스페이스"
 ],
-"leisure/horse_riding":[
-"승마 시설"
-],
 "leisure/ice_rink":[
 "스케이팅",
 "아이스 링크",
@@ -2248,11 +2235,11 @@
 "크리켓장",
 "크리켓 경기장"
 ],
-"leisure/pitch/equestrian":[
-"승마 경기장"
-],
 "leisure/pitch/field_hockey":[
 "필드 하키장"
+],
+"leisure/pitch/futsal":[
+"풋살장"
 ],
 "leisure/pitch/horseshoes":[
 "말굽 구덩이"
@@ -2266,6 +2253,9 @@
 ],
 "leisure/pitch/rugby_union":[
 "사회인 럭비장 부지"
+],
+"leisure/pitch/shooting":[
+"사격장"
 ],
 "leisure/pitch/shuffleboard":[
 "셔플보드 코트"
@@ -2318,6 +2308,9 @@
 "인공 암벽장",
 "클라이밍"
 ],
+"leisure/sports_centre/shooting":[
+"사격장 시설"
+],
 "leisure/sports_centre/swimming":[
 "수영장 시설"
 ],
@@ -2333,9 +2326,6 @@
 ],
 "leisure/track/cycling":[
 "자전거 경주로"
-],
-"leisure/track/horse_racing":[
-"경마 경주로"
 ],
 "leisure/track/running":[
 "달리기",
@@ -2380,6 +2370,10 @@
 ],
 "man_made/clearcut":[
 "개벌지"
+],
+"man_made/compass_rose":[
+"컴퍼스 로즈",
+"나침도"
 ],
 "man_made/courtyard":[
 "안뜰"
@@ -2539,6 +2533,9 @@
 ],
 "man_made/tunnel":[
 "터널 구역"
+],
+"man_made/video_wall":[
+"디지털 화면"
 ],
 "man_made/wastewater_plant":[
 "하수처리 시설",
@@ -2718,6 +2715,12 @@
 "갈대밭",
 "늪",
 "간석지"
+],
+"natural/wetland/mangrove":[
+"맹그로브"
+],
+"natural/wetland/reedbed":[
+"갈대밭"
 ],
 "natural/wood":[
 "숲",
@@ -3008,6 +3011,9 @@
 ],
 "point":[
 "점"
+],
+"police/checkpoint":[
+"경찰 검문소"
 ],
 "polling_station":[
 "임시 투표소"
@@ -4358,12 +4364,35 @@
 "type/restriction/no_right_turn":[
 "우회전 금지"
 ],
+"type/restriction/no_straight_on":[
+"직진 금지"
+],
+"type/restriction/no_u_turn":[
+"U턴 금지",
+"u턴 금지"
+],
+"type/restriction/only_left_turn":[
+"좌회전만 허용"
+],
+"type/restriction/only_right_turn":[
+"우회전만 허용"
+],
+"type/restriction/only_straight_on":[
+"직진만 허용"
+],
+"type/restriction/only_u_turn":[
+"u턴만 허용",
+"U턴만 허용"
+],
 "type/route":[
 "경로",
 "노선"
 ],
 "type/route/aerialway":[
 "항공 노선"
+],
+"type/route/bicycle":[
+"자전거 노선"
 ],
 "type/route/bus":[
 "버스 노선"
@@ -4374,11 +4403,11 @@
 "type/route/ferry":[
 "페리 노선"
 ],
+"type/route/foot":[
+"도보 노선"
+],
 "type/route/hiking":[
 "하이킹 노선"
-],
-"type/route/horse":[
-"승마 노선"
 ],
 "type/route/light_rail":[
 "경전철 노선"

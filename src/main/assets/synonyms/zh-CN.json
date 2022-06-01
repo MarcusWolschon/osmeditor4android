@@ -462,6 +462,13 @@
 "LGBTQ+ 社区中心",
 "lgbt"
 ],
+"amenity/community_centre/youth_centre":[
+"青年俱乐部",
+"青年活动室",
+"团中心",
+"青年活动中心",
+"青年中心"
+],
 "amenity/compressed_air":[
 "压缩空气"
 ],
@@ -513,6 +520,12 @@
 "护士",
 "医院",
 "医生"
+],
+"amenity/doctors/gynaecology":[
+"妇产科诊所",
+"妇科医生",
+"妇产科医生",
+"妇科诊所"
 ],
 "amenity/dojo":[
 "武术学院",
@@ -772,7 +785,8 @@
 "闲置物品交换屋"
 ],
 "amenity/grave_yard":[
-"坟场",
+"教堂墓地",
+"教堂庭院",
 "墓地",
 "坟地"
 ],
@@ -929,6 +943,10 @@
 "amenity/parking/park_ride":[
 "P+R停车场"
 ],
+"amenity/parking/street-side":[
+"路边停车场",
+"路边停车"
+],
 "amenity/parking/underground":[
 "地下停车处"
 ],
@@ -1001,7 +1019,6 @@
 "和尚寺",
 "尼姑庵",
 "庙宇",
-"佛教寺庙",
 "净院",
 "宗教",
 "梵刹",
@@ -1010,6 +1027,7 @@
 "寺庙",
 "佛教",
 "佛寺",
+"佛寺殿堂",
 "禅林"
 ],
 "amenity/place_of_worship/christian":[
@@ -1149,6 +1167,7 @@
 "坛",
 "府",
 "洞",
+"道观殿堂",
 "祠",
 "老氏",
 "院",
@@ -1164,7 +1183,6 @@
 "尊崇",
 "道教",
 "宫观",
-"道教宫观",
 "殿"
 ],
 "amenity/planetarium":[
@@ -1201,6 +1219,9 @@
 "邮政局"
 ],
 "amenity/prep_school":[
+"辅导班",
+"辅导学校",
+"培训班",
 "补习班"
 ],
 "amenity/prison":[
@@ -1835,13 +1856,6 @@
 "阶梯教室",
 "圆形露天剧场"
 ],
-"amenity/toilets":[
-"厕所",
-"公厕",
-"洗手间",
-"卫生间",
-"撤硕"
-],
 "amenity/toilets/disposal/flush":[
 "厕所",
 "公厕",
@@ -1901,7 +1915,8 @@
 "真空清洁站"
 ],
 "amenity/vehicle_inspection":[
-"车辆检查站"
+"车辆检验站",
+"机动车检测站;机动车检测场;车辆检测;验车;年检"
 ],
 "amenity/vending_machine":[
 "售卖",
@@ -2115,12 +2130,6 @@
 "报纸",
 "自助"
 ],
-"amenity/vending_machine/parcel_pickup":[
-"快递柜"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"包裹存取柜"
-],
 "amenity/vending_machine/parking_tickets":[
 "停车",
 "售票",
@@ -2256,6 +2265,10 @@
 "area":[
 "面",
 "区域"
+],
+"area/footway":[
+"人行道区域",
+"步行区域"
 ],
 "area/highway":[
 "路面",
@@ -2453,6 +2466,7 @@
 "乐园",
 "火车",
 "游乐",
+"无轨游览列车停靠站",
 "游览车"
 ],
 "attraction/water_slide":[
@@ -2815,7 +2829,8 @@
 "屋顶",
 "上盖",
 "开放式建筑",
-"大棚"
+"大棚",
+"顶棚建筑"
 ],
 "building/ruins":[
 "遗迹",
@@ -2876,6 +2891,14 @@
 ],
 "building/sty":[
 "猪圈"
+],
+"building/synagogue":[
+"犹太会馆",
+"犹太会堂",
+"犹太教堂建筑物",
+"犹太会堂建筑物",
+"犹太教堂",
+"犹太会馆建筑物"
 ],
 "building/temple":[
 "庙宇建筑"
@@ -3663,6 +3686,10 @@
 "卫生",
 "设施"
 ],
+"healthcare/sample_collection":[
+"采样设施",
+"样本采集设施"
+],
 "healthcare/speech_therapist":[
 "口语",
 "医学",
@@ -3700,17 +3727,6 @@
 "highway/bus_stop":[
 "公交站"
 ],
-"highway/construction":[
-"关闭",
-"绕道",
-"施工",
-"封路",
-"挖路",
-"封闭",
-"在建",
-"修路",
-"关闭的道路"
-],
 "highway/corridor":[
 "室内走廊",
 "室内步行街"
@@ -3723,32 +3739,15 @@
 "人行横道 (有标线)",
 "人行横道"
 ],
-"highway/crossing/marked-raised":[
-"减速带",
-"斑马线",
-"减速台",
-"抬升",
-"人行横道 (有标线/抬升)",
-"减速",
-"人行横道"
+"highway/crossing/signals":[
+"有人行道的信号灯路口"
 ],
 "highway/crossing/unmarked":[
 "人行横道 (无标线)",
 "人行横道"
 ],
-"highway/crossing/unmarked-raised":[
-"减速带",
-"减速台",
-"抬升",
-"减速",
-"人行横道",
-"人行横道 (无标线/抬升)"
-],
 "highway/crossing/zebra":[
 "人行横道 (有标线)"
-],
-"highway/crossing/zebra-raised":[
-"人行横道 (有标线/抬升)"
 ],
 "highway/cycleway":[
 "自行车道",
@@ -3831,15 +3830,6 @@
 "人行横道 (有标线)",
 "人行横道"
 ],
-"highway/footway/marked-raised":[
-"减速带",
-"斑马线",
-"减速台",
-"抬升",
-"人行横道 (有标线/抬升)",
-"减速",
-"人行横道"
-],
 "highway/footway/sidewalk":[
 "人行通道",
 "路缘",
@@ -3852,19 +3842,8 @@
 "人行横道 (无标线)",
 "人行横道"
 ],
-"highway/footway/unmarked-raised":[
-"减速带",
-"减速台",
-"抬升",
-"减速",
-"人行横道",
-"人行横道 (无标线/抬升)"
-],
 "highway/footway/zebra":[
 "人行横道 (有标线)"
-],
-"highway/footway/zebra-raised":[
-"人行横道 (有标线/抬升)"
 ],
 "highway/give_way":[
 "减速让行标志",
@@ -3902,6 +3881,20 @@
 "马路",
 "快速路",
 "高速",
+"高速公路匝道",
+"高速公路连接路",
+"公路",
+"匝道",
+"干道",
+"道路",
+"路"
+],
+"highway/motorway_link-US-CA":[
+"连接路",
+"马路",
+"快速路",
+"高速",
+"高速公路匝道",
 "高速公路连接路",
 "公路",
 "匝道",
@@ -3927,15 +3920,13 @@
 "便道"
 ],
 "highway/pedestrian_area":[
-"行人区域（广场）",
-"公交",
-"车站",
-"公交车",
-"大巴",
-"站台",
-"公交站",
-"巴士",
-"客车"
+"广场",
+"徒步区",
+"徒步",
+"人行",
+"步行",
+"区",
+"行人"
 ],
 "highway/pedestrian_line":[
 "广场",
@@ -3968,8 +3959,23 @@
 "道路",
 "路"
 ],
+"highway/primary_link-US-CA":[
+"连接路",
+"马路",
+"快速路",
+"高架路",
+"主要道路连接路",
+"大道",
+"公路",
+"匝道",
+"干道",
+"道路",
+"路"
+],
 "highway/raceway":[
-"赛车场"
+"赛道",
+"赛车",
+"赛车道"
 ],
 "highway/raceway/karting":[
 "卡丁车赛道"
@@ -4032,8 +4038,8 @@
 "路"
 ],
 "highway/service":[
+"服务道路",
 "马路",
-"辅助道路",
 "服务性道路",
 "小路",
 "街道",
@@ -4057,7 +4063,8 @@
 "免下车银行"
 ],
 "highway/service/driveway":[
-"车道"
+"车道",
+"车道;私家;私人;车库"
 ],
 "highway/service/emergency_access":[
 "紧急",
@@ -4129,7 +4136,6 @@
 "highway/track":[
 "4wd",
 "泥路",
-"未铺设路面的车径",
 "农场道路",
 "小路",
 "道路",
@@ -4143,7 +4149,8 @@
 "牧场道路",
 "消防道路",
 "土路",
-"四驱"
+"四驱",
+"农林辙路"
 ],
 "highway/traffic_mirror":[
 "道路反光镜",
@@ -4191,6 +4198,21 @@
 "路"
 ],
 "highway/trunk_link":[
+"连接路",
+"快速路",
+"高架路",
+"大道",
+"公路",
+"干道",
+"道路",
+"路",
+"马路",
+"干线道路连接路",
+"干线公路连接路",
+"匝道",
+"国道"
+],
+"highway/trunk_link-US-CA":[
 "连接路",
 "快速路",
 "高架路",
@@ -4494,6 +4516,7 @@
 "工业区"
 ],
 "landuse/industrial/scrap_yard":[
+"废车场",
 "废料场"
 ],
 "landuse/industrial/slaughterhouse":[
@@ -4570,7 +4593,9 @@
 "水库"
 ],
 "landuse/residential":[
-"住宅小区",
+"小区",
+"住宅区",
+"居住区",
 "居民区"
 ],
 "landuse/residential/apartments":[
@@ -4773,11 +4798,6 @@
 "创新",
 "共享办公"
 ],
-"leisure/horse_riding":[
-"骑马场",
-"骑马",
-"马场"
-],
 "leisure/ice_rink":[
 "滑冰场",
 "滑冰"
@@ -4863,13 +4883,6 @@
 "板球场地",
 "板球",
 "场地"
-],
-"leisure/pitch/equestrian":[
-"骑行",
-"单车",
-"场地",
-"自行车",
-"骑行场地"
 ],
 "leisure/pitch/field_hockey":[
 "曲棍球场地"
@@ -5004,9 +5017,6 @@
 "leisure/track/cycling":[
 "自行车赛道"
 ],
-"leisure/track/horse_racing":[
-"赛马场跑道"
-],
 "leisure/track/running":[
 "跑",
 "马拉松",
@@ -5096,8 +5106,12 @@
 "man_made/clearcut":[
 "采伐迹地"
 ],
+"man_made/compass_rose":[
+"风玫瑰图",
+"风玫瑰"
+],
 "man_made/courtyard":[
-"院子"
+"庭院"
 ],
 "man_made/crane":[
 "航吊",
@@ -5114,9 +5128,11 @@
 "十字架"
 ],
 "man_made/cutline":[
-"防火障",
-"树林分界线",
-"分界线"
+"林",
+"分界线",
+"防火带",
+"森林伐带",
+"线"
 ],
 "man_made/dovecote":[
 "鸽舍"
@@ -5451,7 +5467,9 @@
 ],
 "man_made/works":[
 "制造",
+"生产设施",
 "工厂",
+"生产线",
 "加工"
 ],
 "marker":[
@@ -5494,7 +5512,9 @@
 "海岸线"
 ],
 "natural/fell":[
-"高原荒原"
+"高原荒原",
+"荒野",
+"荒地"
 ],
 "natural/geyser":[
 "自然喷泉"
@@ -5506,18 +5526,18 @@
 "草原"
 ],
 "natural/heath":[
-"荒野"
+"灌丛",
+"欧石楠",
+"欧石楠荒原",
+"荒野",
+"荒地",
+"高沼地"
 ],
 "natural/hot_spring":[
 "汤泉",
 "地热泉",
 "温泉",
 "温泉井"
-],
-"natural/marsh":[
-"草本沼泽",
-"沼泽",
-"湿地"
 ],
 "natural/mud":[
 "泥巴",
@@ -5531,11 +5551,6 @@
 ],
 "natural/peak":[
 "山峰"
-],
-"natural/reedbed":[
-"芦苇地",
-"苇地",
-"芦苇荡"
 ],
 "natural/reef":[
 "礁",
@@ -5601,10 +5616,6 @@
 ],
 "natural/stone":[
 "孤立岩石"
-],
-"natural/swamp":[
-"木本沼泽",
-"沼泽"
 ],
 "natural/tree":[
 "树"
@@ -5708,8 +5719,8 @@
 "森",
 "林区"
 ],
-"network/type/node_network":[
-"Recreational Network Node"
+"network/type/node_network-DE-NL-BE-LU":[
+"节点网络"
 ],
 "noexit/yes":[
 "路终点",
@@ -5759,7 +5770,7 @@
 "非营利机构办公室",
 "非盈利机构办公室"
 ],
-"office/bail_bond_agent":[
+"office/bail_bond_agent-US-PH":[
 "保释担保人",
 "保释担保代理"
 ],
@@ -6270,6 +6281,10 @@
 ],
 "point":[
 "点"
+],
+"police/checkpoint":[
+"警察检查站",
+"警察检查点"
 ],
 "polling_station":[
 "临时投票站",
@@ -6898,7 +6913,7 @@
 "缆车"
 ],
 "railway/halt":[
-"列车站 (小站 / 招呼)"
+"乘降所"
 ],
 "railway/level_crossing":[
 "平交道口",
@@ -8405,10 +8420,6 @@
 "远足线路",
 "线路"
 ],
-"type/route/horse":[
-"骑马路线",
-"骑马线路"
-],
 "type/route/light_rail":[
 "路线",
 "捷运",
@@ -8566,7 +8577,9 @@
 ],
 "waterway/drain":[
 "渠",
-"下水道"
+"排水渠",
+"排水",
+"沟"
 ],
 "waterway/fish_pass":[
 "鱼道"

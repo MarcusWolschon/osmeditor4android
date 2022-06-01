@@ -62,7 +62,7 @@
 "Airport Terminal"
 ],
 "allotments/plot":[
-"Allotments Plot"
+"Individual Allotment Plot"
 ],
 "amenity":[
 "Amenity"
@@ -150,6 +150,9 @@
 ],
 "amenity/community_centre":[
 "Community Centre"
+],
+"amenity/community_centre/youth_centre":[
+"Youth Centre"
 ],
 "amenity/compressed_air":[
 "Compressed Air"
@@ -252,7 +255,7 @@
 "Car Park"
 ],
 "amenity/parking/multi-storey":[
-"Multistory Car Park"
+"Multistorey Car Park"
 ],
 "amenity/parking_space":[
 "Parking Space"
@@ -326,6 +329,9 @@
 "amenity/smoking_area":[
 "Smoking Area"
 ],
+"amenity/social_centre":[
+"Social Centre"
+],
 "amenity/social_facility":[
 "Social Facility"
 ],
@@ -352,9 +358,6 @@
 ],
 "amenity/theatre":[
 "Theatre"
-],
-"amenity/toilets":[
-"Toilets"
 ],
 "amenity/townhall":[
 "Town Hall"
@@ -883,6 +886,9 @@
 "healthcare/blood_donation":[
 "Blood Donor Centre"
 ],
+"healthcare/counselling":[
+"Counselling Centre"
+],
 "healthcare/hospice":[
 "Hospice"
 ],
@@ -925,14 +931,8 @@
 "highway/crossing/marked":[
 "Marked Crossing"
 ],
-"highway/crossing/marked-raised":[
-"Marked Crossing (Raised)"
-],
 "highway/crossing/zebra":[
 "Marked Crossing"
-],
-"highway/crossing/zebra-raised":[
-"Marked Crossing (Raised)"
 ],
 "highway/cycleway":[
 "Cycle Path"
@@ -946,17 +946,11 @@
 "highway/footway/marked":[
 "Marked Crossing"
 ],
-"highway/footway/marked-raised":[
-"Marked Crossing (Raised)"
-],
 "highway/footway/sidewalk":[
 "Pavement"
 ],
 "highway/footway/zebra":[
 "Marked Crossing"
-],
-"highway/footway/zebra-raised":[
-"Marked Crossing (Raised)"
 ],
 "highway/give_way":[
 "Give Way Sign"
@@ -1104,6 +1098,9 @@
 ],
 "junction":[
 "Junction"
+],
+"landuse/allotments":[
+"Allotment Garden"
 ],
 "landuse/aquaculture":[
 "Aquaculture"
@@ -1283,7 +1280,7 @@
 "Hackerspace"
 ],
 "leisure/horse_riding":[
-"Horse Riding Facility"
+"Horse Riding Centre"
 ],
 "leisure/ice_rink":[
 "Ice Rink"
@@ -1334,7 +1331,7 @@
 "Cricket Field"
 ],
 "leisure/pitch/equestrian":[
-"Riding Arena"
+"Horse Riding Arena"
 ],
 "leisure/pitch/netball":[
 "Netball Court"
@@ -1928,7 +1925,13 @@
 "Shop"
 ],
 "shop/alcohol":[
-"Off licence (Alcohol shop)"
+"alcohol",
+"Off licence (Alcohol shop)",
+"booze",
+"off licence",
+"off license",
+"beer",
+"wine"
 ],
 "shop/antiques":[
 "Antiques Shop"
@@ -2093,7 +2096,8 @@
 "Greengrocer"
 ],
 "shop/hairdresser":[
-"Hairdresser"
+"Hairdresser",
+"barber"
 ],
 "shop/hardware":[
 "Hardware Shop"
@@ -2136,7 +2140,9 @@
 "Lottery Shop"
 ],
 "shop/mall":[
-"Mall"
+"Shopping Centre",
+"shopping center",
+"mall"
 ],
 "shop/massage":[
 "Massage Shop"
@@ -2425,6 +2431,9 @@
 ],
 "type/route/hiking":[
 "Hiking Route"
+],
+"type/route/horse":[
+"Horse Riding Route"
 ],
 "type/route/light_rail":[
 "Light Rail Route"

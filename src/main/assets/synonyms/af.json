@@ -334,9 +334,6 @@
 "amenity/theatre":[
 "Teater"
 ],
-"amenity/toilets":[
-"Toilette"
-],
 "amenity/townhall":[
 "Stadsaal"
 ],
@@ -728,9 +725,6 @@
 ],
 "highway/bus_stop":[
 "Bushalte"
-],
-"highway/construction":[
-"Gesluit weg"
 ],
 "highway/corridor":[
 "Korridor"
@@ -2006,9 +2000,6 @@
 ],
 "type/route/hiking":[
 "Hikingroete"
-],
-"type/route/horse":[
-"Perdryroete"
 ],
 "type/route/light_rail":[
 "Ligte spoorroete"

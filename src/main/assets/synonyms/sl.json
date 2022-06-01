@@ -601,13 +601,6 @@
 "amenity/theatre/type/amphi":[
 "Amfiteater"
 ],
-"amenity/toilets":[
-"sanitarije",
-"toalete",
-"stranišče",
-"wc",
-"Stranišča"
-],
 "amenity/townhall":[
 "magistrat",
 "Mestna hiša",
@@ -1670,9 +1663,6 @@
 "igrišče za golf",
 "Golfišče"
 ],
-"leisure/horse_riding":[
-"Jahalni klub"
-],
 "leisure/ice_rink":[
 "hokej",
 "drsanje na ledu",
@@ -1726,9 +1716,6 @@
 "kriket",
 "cricket",
 "kriketkort"
-],
-"leisure/pitch/equestrian":[
-"Jahalna arena"
 ],
 "leisure/pitch/rugby_league":[
 "rugbi",

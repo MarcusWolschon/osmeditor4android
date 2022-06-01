@@ -574,7 +574,17 @@
 "parkering",
 "parknride"
 ],
+"amenity/parking/street-side":[
+"kantsten",
+"bil",
+"vejside",
+"parkering",
+"Kantstensparkering"
+],
 "amenity/parking/underground":[
+"parkeringskælder",
+"kælder",
+"p-kælder",
 "Underjordisk parkering"
 ],
 "amenity/parking_entrance":[
@@ -585,6 +595,12 @@
 "amenity/parking_space":[
 "parkeringsbås",
 "Parkeringsbås"
+],
+"amenity/parking_space/disabled":[
+"rullestol",
+"tilgængelig",
+"handicap",
+"Handikapparkering"
 ],
 "amenity/photo_booth":[
 "maskine",
@@ -870,11 +886,6 @@
 "revy",
 "Teater",
 "teater"
-],
-"amenity/toilets":[
-"toiletter",
-"Toiletter",
-"wc"
 ],
 "amenity/toilets/disposal/flush":[
 "water closet",
@@ -1975,9 +1986,6 @@
 "highway/crossing/marked":[
 "Markeret fodgængerfelt"
 ],
-"highway/crossing/marked-raised":[
-"Markeret fodgængerfelt (hævet)"
-],
 "highway/crossing/unmarked":[
 "fodgængerovergang",
 "Umarkeret fodgængerfelt",
@@ -1985,20 +1993,8 @@
 "overgang",
 "felt"
 ],
-"highway/crossing/unmarked-raised":[
-"fodgængerovergang",
-"Umarkeret fodgængerfelt (hævet)",
-"hævet",
-"fodgænger",
-"overgang",
-"felt",
-"bump"
-],
 "highway/crossing/zebra":[
 "Markeret fodgængerfelt"
-],
-"highway/crossing/zebra-raised":[
-"Markeret fodgængerfelt (hævet)"
 ],
 "highway/cycleway":[
 "cykelsti",
@@ -2070,9 +2066,6 @@
 "highway/footway/marked":[
 "Markeret fodgængerfelt"
 ],
-"highway/footway/marked-raised":[
-"Markeret fodgængerfelt (hævet)"
-],
 "highway/footway/sidewalk":[
 "fodgænger",
 "flise",
@@ -2086,20 +2079,8 @@
 "overgang",
 "felt"
 ],
-"highway/footway/unmarked-raised":[
-"fodgængerovergang",
-"Umarkeret fodgængerfelt (hævet)",
-"hævet",
-"fodgænger",
-"overgang",
-"felt",
-"bump"
-],
 "highway/footway/zebra":[
 "Markeret fodgængerfelt"
-],
-"highway/footway/zebra-raised":[
-"Markeret fodgængerfelt (hævet)"
 ],
 "highway/give_way":[
 "advarselsskilt",
@@ -2646,11 +2627,6 @@
 "leisure/hackerspace":[
 "Hackerspace"
 ],
-"leisure/horse_riding":[
-"ridningsfaciliteter",
-"Ridningsfaciliteter",
-"hesteridningsfaciliteter"
-],
 "leisure/ice_rink":[
 "Skøjtebane",
 "skøjtebane"
@@ -2740,11 +2716,6 @@
 "leisure/pitch/cricket":[
 "cricketbane",
 "Cricketbane"
-],
-"leisure/pitch/equestrian":[
-"ridebanearena",
-"ridebanehal",
-"Ridebanehal"
 ],
 "leisure/pitch/rugby_league":[
 "rugby station",
@@ -2845,13 +2816,6 @@
 "bane",
 "Cykelbane",
 "cyklist"
-],
-"leisure/track/horse_racing":[
-"løb",
-"bane",
-"ridning",
-"hest",
-"Ridebane"
 ],
 "leisure/track/running":[
 "motion",

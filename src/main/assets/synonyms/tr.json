@@ -823,10 +823,6 @@
 "amenity/theatre/type/amphi":[
 "Amfitiyatro"
 ],
-"amenity/toilets":[
-"Tuvalet",
-"tuvalet"
-],
 "amenity/toilets/disposal/flush":[
 "Alafranga tuvaletler"
 ],
@@ -915,12 +911,6 @@
 "gazete satış makinası",
 "Gazete Satış Makinası",
 "gazete otomatı"
-],
-"amenity/vending_machine/parcel_pickup":[
-"Paket Alma Dolabı"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"Paket Alma / Bırakma Dolabı"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Park Fişi Otomatı",
@@ -1840,9 +1830,6 @@
 "highway/bus_stop":[
 "Otobüs Durağı"
 ],
-"highway/construction":[
-"Kapalı Yol"
-],
 "highway/corridor":[
 "koridor",
 "geçit",
@@ -1854,20 +1841,11 @@
 "highway/crossing/marked":[
 "İşaretli Yaya Geçidi"
 ],
-"highway/crossing/marked-raised":[
-"İşaretli Yaya Geçidi (Kasisli)"
-],
 "highway/crossing/unmarked":[
 "İşaretsiz Yaya Geçidi"
 ],
-"highway/crossing/unmarked-raised":[
-"İşaretsiz Yaya Geçidi (Kasisli)"
-],
 "highway/crossing/zebra":[
 "İşaretli Yaya Geçidi"
-],
-"highway/crossing/zebra-raised":[
-"İşaretli Yaya Geçidi (Kasisli)"
 ],
 "highway/cycleway":[
 "Bisiklet Yolu",
@@ -1915,23 +1893,14 @@
 "highway/footway/marked":[
 "İşaretli Yaya Geçidi"
 ],
-"highway/footway/marked-raised":[
-"İşaretli Yaya Geçidi (Kasisli)"
-],
 "highway/footway/sidewalk":[
 "Kaldırım"
 ],
 "highway/footway/unmarked":[
 "İşaretsiz Yaya Geçidi"
 ],
-"highway/footway/unmarked-raised":[
-"İşaretsiz Yaya Geçidi (Kasisli)"
-],
 "highway/footway/zebra":[
 "İşaretli Yaya Geçidi"
-],
-"highway/footway/zebra-raised":[
-"İşaretli Yaya Geçidi (Kasisli)"
 ],
 "highway/give_way":[
 "yol ver i̇şareti",
@@ -2507,12 +2476,6 @@
 "leisure/hackerspace":[
 "Bilgisayar Korsanı Alanı"
 ],
-"leisure/horse_riding":[
-"At Binicilik Spor Kulübü",
-"at binicilik spor kulübü",
-"at binme yeri",
-"binicilik spor kulübü"
-],
 "leisure/ice_rink":[
 "buz pateni",
 "Buz Pateni"
@@ -2583,10 +2546,6 @@
 "leisure/pitch/cricket":[
 "Kriket Sahası",
 "kriket sahası"
-],
-"leisure/pitch/equestrian":[
-"at binme alanı",
-"Binicilik Alanı"
 ],
 "leisure/pitch/field_hockey":[
 "Çim Hokeyi Sahası"
@@ -2678,9 +2637,6 @@
 ],
 "leisure/track/cycling":[
 "Bisiklet Parkuru"
-],
-"leisure/track/horse_racing":[
-"At Yarışı Parkuru"
 ],
 "leisure/track/running":[
 "Koşu Parkuru"
@@ -3135,9 +3091,6 @@
 "natural/wood":[
 "Doğal Orman"
 ],
-"network/type/node_network":[
-"Eğlence ağı düğümü"
-],
 "noexit/yes":[
 "çıkış yok",
 "Çıkış Yok"
@@ -3168,9 +3121,6 @@
 "office/association":[
 "yardım kuruluşu merkezi",
 "Yardım Kuruluşu"
-],
-"office/bail_bond_agent":[
-"Kefaletnameci"
 ],
 "office/charity":[
 "Hayır Kurumu",

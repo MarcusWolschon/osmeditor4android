@@ -833,6 +833,9 @@
 "amenity/parking/park_ride":[
 "Liityntäpysäköintialue"
 ],
+"amenity/parking/street-side":[
+"Kadunvarsipysäköinti"
+],
 "amenity/parking/underground":[
 "Pysäköintiluola"
 ],
@@ -1316,25 +1319,6 @@
 "ulkoilmateatteri",
 "ulko"
 ],
-"amenity/toilets":[
-"uloste",
-"saniteettitila",
-"wc-istuin",
-"käymälä",
-"pesuhuone",
-"ulostaminen",
-"WC",
-"saniteetti",
-"pönttö",
-"wc-pönttö",
-"pesuallas",
-"tarpeet",
-"virtsa",
-"vessa",
-"virtsaaminen",
-"sanitaatio",
-"pisuaari"
-],
 "amenity/toilets/disposal/flush":[
 "Vesivessa"
 ],
@@ -1429,12 +1413,6 @@
 ],
 "amenity/vending_machine/newspapers":[
 "Lehtiautomaatti"
-],
-"amenity/vending_machine/parcel_pickup":[
-"Postin noutoautomaatti"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"Pakettiautomaatti"
 ],
 "amenity/vending_machine/parking_tickets":[
 "automaatti",
@@ -2512,9 +2490,6 @@
 "highway/bus_stop":[
 "Linja-autopysäkki"
 ],
-"highway/construction":[
-"Suljettu tie"
-],
 "highway/corridor":[
 "käytävä",
 "katos",
@@ -2530,20 +2505,11 @@
 "highway/crossing/marked":[
 "Merkitty suojatie"
 ],
-"highway/crossing/marked-raised":[
-"Merkitty ja korotettu suojatie"
-],
 "highway/crossing/unmarked":[
 "Merkitsemätön suojatie"
 ],
-"highway/crossing/unmarked-raised":[
-"Merkitsemätön korotettu suojatie"
-],
 "highway/crossing/zebra":[
 "Merkitty suojatie"
-],
-"highway/crossing/zebra-raised":[
-"Merkitty ja korotettu suojatie"
 ],
 "highway/cycleway":[
 "Pyörätie"
@@ -2613,23 +2579,14 @@
 "highway/footway/marked":[
 "Merkitty suojatie"
 ],
-"highway/footway/marked-raised":[
-"Merkitty ja korotettu suojatie"
-],
 "highway/footway/sidewalk":[
 "Jalkakäytävä"
 ],
 "highway/footway/unmarked":[
 "Merkitsemätön suojatie"
 ],
-"highway/footway/unmarked-raised":[
-"Merkitsemätön korotettu suojatie"
-],
 "highway/footway/zebra":[
 "Merkitty suojatie"
-],
-"highway/footway/zebra-raised":[
-"Merkitty ja korotettu suojatie"
 ],
 "highway/give_way":[
 "Väistämisvelvollisuus",
@@ -3292,15 +3249,6 @@
 "tila",
 "hacklab"
 ],
-"leisure/horse_riding":[
-"hevonen",
-"alue",
-"hevoset",
-"harjoittelu",
-"kenttä",
-"ratsastus",
-"Ratsastusalue"
-],
 "leisure/ice_rink":[
 "jääkenttä",
 "luistelu",
@@ -3400,9 +3348,6 @@
 ],
 "leisure/pitch/cricket":[
 "Krikettikenttä"
-],
-"leisure/pitch/equestrian":[
-"Ratsastusareena"
 ],
 "leisure/pitch/field_hockey":[
 "Maahockeykenttä"
@@ -3545,9 +3490,6 @@
 ],
 "leisure/track/cycling":[
 "Pyöräilyrata"
-],
-"leisure/track/horse_racing":[
-"Ravirata"
 ],
 "leisure/track/running":[
 "Kuntorata"
@@ -3943,6 +3885,9 @@
 "Kosteikko",
 "soistuma",
 "suo"
+],
+"natural/wetland/swamp":[
+"Suo"
 ],
 "natural/wood":[
 "Luonnonvarainen metsä"

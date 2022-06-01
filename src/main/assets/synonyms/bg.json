@@ -53,6 +53,12 @@
 "amenity/car_wash":[
 "Автомивка"
 ],
+"amenity/casino":[
+"Казино"
+],
+"amenity/childcare":[
+"Детска ясла"
+],
 "amenity/cinema":[
 "Кино"
 ],
@@ -79,6 +85,9 @@
 ],
 "amenity/grave_yard":[
 "Гробище"
+],
+"amenity/hospital":[
+"Болница"
 ],
 "amenity/kindergarten":[
 "Предучилищна / детска градина"
@@ -110,11 +119,26 @@
 "amenity/parking_space/disabled":[
 "Паркомясто за инвалиди"
 ],
+"amenity/pharmacy":[
+"Аптека"
+],
+"amenity/photo_booth":[
+"Фото будка"
+],
 "amenity/place_of_worship":[
 "Религиозен храм"
 ],
 "amenity/place_of_worship/buddhist":[
 "Будистки храм"
+],
+"amenity/place_of_worship/christian":[
+"Християнска църква"
+],
+"amenity/place_of_worship/jewish":[
+"Еврейска синагога"
+],
+"amenity/place_of_worship/muslim":[
+"Джамия"
 ],
 "amenity/police":[
 "Полиция"
@@ -128,6 +152,12 @@
 "amenity/restaurant":[
 "Ресторант"
 ],
+"amenity/school":[
+"Училище"
+],
+"amenity/social_facility/food_bank":[
+"Хранителна банка"
+],
 "amenity/taxi":[
 "Такси стоянка"
 ],
@@ -137,14 +167,14 @@
 "amenity/theatre":[
 "Театър"
 ],
-"amenity/toilets":[
-"Тоалетна"
-],
 "amenity/townhall":[
 "Кметство"
 ],
 "amenity/townhall/city":[
 "Кметство"
+],
+"amenity/university":[
+"Университет"
 ],
 "amenity/vending_machine":[
 "Автомат за стоки"
@@ -257,6 +287,9 @@
 "building/church":[
 "Църква"
 ],
+"building/construction":[
+"Сграда в строеж"
+],
 "building/entrance":[
 "Вход/изход"
 ],
@@ -288,17 +321,150 @@
 "building/school":[
 "Училищна сграда"
 ],
+"building/shed":[
+"Навес"
+],
+"building/stable":[
+"Конюшня"
+],
+"building_part":[
+"Част от сграда"
+],
 "building_point":[
 "Сграда"
+],
+"craft/agricultural_engines":[
+"Механик на селскостопански двигатели"
+],
+"craft/beekeeper":[
+"Пчелар"
+],
+"craft/blacksmith":[
+"Ковачница"
+],
+"craft/brewery":[
+"Пивоварна"
+],
+"craft/carpenter":[
+"Дърводелец"
+],
+"craft/caterer":[
+"Кетъринг"
+],
+"craft/chimney_sweeper":[
+"Коминочистач"
+],
+"craft/clockmaker":[
+"Часовникар"
+],
+"craft/electrician":[
+"Електротехник"
+],
+"craft/gardener":[
+"Градинар"
+],
+"craft/locksmith":[
+"Ключар"
+],
+"craft/painter":[
+"Бояджия"
+],
+"craft/photographer":[
+"Фотограф"
+],
+"craft/photographic_laboratory":[
+"Фотографска лаборатория"
+],
+"craft/plumber":[
+"Водопроводчик"
+],
+"craft/sawmill":[
+"Дъскорезница"
+],
+"craft/sculptor":[
+"Скулптор"
+],
+"craft/shoemaker":[
+"Обувщар"
+],
+"craft/stonemason":[
+"Каменоделец"
+],
+"craft/tailor":[
+"Шивач"
 ],
 "demolished/building":[
 "Наскоро разрушена сграда"
 ],
+"emergency/defibrillator":[
+"Дефибрилатор"
+],
+"emergency/fire_extinguisher":[
+"Пожарогасител",
+"прахов пожарогасител",
+"воден пожарогасител"
+],
+"emergency/fire_hose":[
+"Пожарен кран",
+"пожарен маркуч"
+],
 "emergency/fire_hydrant":[
 "Пожарен хидрант"
 ],
+"emergency/first_aid_kit":[
+"Комплект за първа помощ"
+],
+"emergency/life_ring":[
+"Спасителен пояс"
+],
+"emergency/lifeguard":[
+"Спасител"
+],
 "emergency/phone":[
 "Телефон за спешна помощ"
+],
+"emergency/siren":[
+"Сирена"
+],
+"entrance":[
+"Вход / изход"
+],
+"entrance/main":[
+"основен вход",
+"Главен вход"
+],
+"healthcare/alternative":[
+"Алтернативна медицина"
+],
+"healthcare/alternative/chiropractic":[
+"Хиропрактик"
+],
+"healthcare/audiologist":[
+"Аудиолог"
+],
+"healthcare/dentist/orthodontics":[
+"Ортодонт"
+],
+"healthcare/hospice":[
+"Хоспис"
+],
+"healthcare/laboratory":[
+"Медицинска лаборатория"
+],
+"healthcare/optometrist":[
+"Оптометрист"
+],
+"healthcare/physiotherapist":[
+"Физиотерапевт"
+],
+"healthcare/podiatrist":[
+"Ортопед"
+],
+"healthcare/psychotherapist":[
+"Психотерапевт"
+],
+"healthcare/speech_therapist":[
+"Логопед"
 ],
 "highway/bridleway":[
 "Конска пътека"
@@ -306,29 +472,34 @@
 "highway/bus_stop":[
 "Автобусна спирка"
 ],
-"highway/crossing/marked":[
-"Пешеходна пътека \"Зебра\""
+"highway/crossing":[
+"Пешеходна пътека"
 ],
-"highway/crossing/marked-raised":[
-"Повдигната пешеходна пътека"
+"highway/crossing/marked":[
+"Пешеходна пътека \"Зебра\"",
+"маркирана пешеходна пътека"
 ],
 "highway/crossing/unmarked":[
-"Немаркирана мешеходна пътека"
-],
-"highway/crossing/unmarked-raised":[
-"Немаркирана повдигната пешеходна пътека"
+"Немаркирана пешеходна пътека"
 ],
 "highway/cycleway":[
 "Велоалея"
 ],
+"highway/elevator":[
+"Асансьор"
+],
 "highway/footway":[
 "Пешеходна алея"
 ],
+"highway/footway/conveying":[
+"движеща се пътека",
+"Травалатор"
+],
+"highway/footway/crossing":[
+"Пешеходна пътека"
+],
 "highway/footway/marked":[
 "Пешеходна пътека \"Зебра\""
-],
-"highway/footway/marked-raised":[
-"Повдигната пешеходна пътека \"Зебра\""
 ],
 "highway/living_street":[
 "Улица в жилищна зона"
@@ -384,11 +555,17 @@
 "highway/service/parking_aisle":[
 "Път в паркинг"
 ],
+"highway/speed_camera":[
+"Камера за скорост"
+],
 "highway/steps":[
 "Стъпала"
 ],
+"highway/steps/conveying":[
+"Ескалатор"
+],
 "highway/stop":[
-"Знак Стоп"
+"Знак стоп"
 ],
 "highway/street_lamp":[
 "Улична лампа"
@@ -398,6 +575,12 @@
 ],
 "highway/tertiary_link":[
 "Връзка с третокласен път"
+],
+"highway/toll_gantry":[
+"Тол камера"
+],
+"highway/track":[
+"Земеделски път"
 ],
 "highway/traffic_signals":[
 "Светофари"
@@ -409,7 +592,10 @@
 "Връзка със скоростен път"
 ],
 "highway/turning_circle":[
-"Място за обръщане"
+"Обръщателен кръг"
+],
+"highway/turning_loop":[
+"Обръщателен кръг с остров по средата"
 ],
 "historic":[
 "Място с историческо значение"
@@ -426,6 +612,18 @@
 "historic/castle":[
 "Замък"
 ],
+"historic/castle/palace":[
+"Палат"
+],
+"historic/castle/stately":[
+"Замък"
+],
+"historic/city_gate":[
+"Градска порта"
+],
+"historic/fort":[
+"Исторически форт"
+],
 "historic/memorial":[
 "Мемориална плоча"
 ],
@@ -434,6 +632,9 @@
 ],
 "historic/ruins":[
 "Руини"
+],
+"historic/tomb":[
+"Гробница"
 ],
 "historic/wayside_cross":[
 "Крайпътен кръст"
@@ -447,11 +648,46 @@
 "landuse/cemetery":[
 "Гробищен парк"
 ],
+"landuse/construction":[
+"Строителна площадка",
+"строителна площадка",
+"събаряне",
+"сграда",
+"строителна зона",
+"булдозер",
+"инфраструктура",
+"кран",
+"развитие"
+],
+"landuse/farm":[
+"Земеделска земя"
+],
+"landuse/farmland":[
+"поле",
+"Земеделска земя"
+],
 "landuse/farmyard":[
 "Селскостопански двор"
 ],
 "landuse/grass":[
 "Трева"
+],
+"landuse/harbour":[
+"Пристанище"
+],
+"landuse/industrial":[
+"Индустриална зона"
+],
+"landuse/industrial/scrap_yard":[
+"автоморга",
+"Вторични суровини",
+"скрап"
+],
+"landuse/industrial/slaughterhouse":[
+"Кланица"
+],
+"landuse/landfill":[
+"Сметище"
 ],
 "landuse/meadow":[
 "Пасище"
@@ -461,6 +697,9 @@
 ],
 "landuse/quarry":[
 "Кариера"
+],
+"landuse/railway":[
+"Железопътен коридор"
 ],
 "landuse/residential":[
 "Жилищна зона"
@@ -474,6 +713,9 @@
 ],
 "leisure/garden":[
 "Градина"
+],
+"leisure/garden/botanical":[
+"Ботаническа градина"
 ],
 "leisure/golf_course":[
 "Голф игрище"
@@ -520,14 +762,27 @@
 "line":[
 "Линия"
 ],
+"man_made/antenna":[
+"Антена"
+],
 "man_made/breakwater":[
 "Вълнолом"
+],
+"man_made/chimney":[
+"Комин"
+],
+"man_made/crane":[
+"Кран"
 ],
 "man_made/cutline":[
 "Просека"
 ],
 "man_made/lighthouse":[
 "Морски фар"
+],
+"man_made/mast/communication/television":[
+"тв кула",
+"Телевизионна кула"
 ],
 "man_made/pier":[
 "Кей"
@@ -574,6 +829,9 @@
 "natural/peak":[
 "Връх"
 ],
+"natural/reef":[
+"Риф"
+],
 "natural/scrub":[
 "Шубрак"
 ],
@@ -583,8 +841,14 @@
 "natural/tree":[
 "Дърво"
 ],
+"natural/volcano":[
+"Вулкан"
+],
 "natural/water":[
 "Водна площ"
+],
+"natural/water/canal":[
+"Канал"
 ],
 "natural/water/lake":[
 "Езеро"
@@ -601,6 +865,9 @@
 "natural/wetland":[
 "Блатиста зона"
 ],
+"noexit/yes":[
+"Път без изход"
+],
 "office":[
 "Офис"
 ],
@@ -615,6 +882,14 @@
 ],
 "office/government/prosecutor":[
 "Прокурор"
+],
+"office/insurance":[
+"застраховка живот",
+"гражданска отговорност",
+"имуществено застраховане",
+"каско",
+"автокаско",
+"Застрахователен офис"
 ],
 "office/lawyer":[
 "Адвокат"
@@ -715,9 +990,18 @@
 "railway/disused":[
 "Закрита железопътна линия"
 ],
+"railway/platform":[
+"Перон"
+],
+"railway/rail":[
+"ЖП линия"
+],
 "railway/signal":[
 "Светофор",
 "железопътен сигнал"
+],
+"railway/station":[
+"ЖП гара"
 ],
 "railway/subway_entrance":[
 "Вход на метростанция"
@@ -752,6 +1036,9 @@
 "shop/bicycle":[
 "Магазин за велосипеди"
 ],
+"shop/books":[
+"Книжарница"
+],
 "shop/boutique":[
 "Бутик"
 ],
@@ -772,6 +1059,16 @@
 ],
 "shop/clothes":[
 "Магазин за дрехи"
+],
+"shop/clothes/underwear":[
+"чорапогащници",
+"чорапи",
+"бельо",
+"слипове",
+"Магазин за бельо",
+"боксерки",
+"сутиени",
+"бикини"
 ],
 "shop/computer":[
 "Компютърен магазин"
@@ -856,6 +1153,12 @@
 ],
 "shop/pet":[
 "Зоо магазин"
+],
+"shop/photo":[
+"камера",
+"снимка",
+"Фото",
+"лента"
 ],
 "shop/shoes":[
 "Магазин за обувки"
@@ -950,6 +1253,15 @@
 "tourism/zoo":[
 "Зоологическа градина"
 ],
+"traffic_sign":[
+"Пътен знак"
+],
+"traffic_sign/city_limit":[
+"Начало/клай на населеното място"
+],
+"traffic_sign/maxspeed":[
+"Знак за ограничение на скоростта"
+],
 "type/boundary":[
 "Граница"
 ],
@@ -964,6 +1276,14 @@
 ],
 "type/restriction/no_right_turn":[
 "Без десен завой"
+],
+"type/restriction/only_left_turn":[
+"Само ляв завой",
+"само наляво"
+],
+"type/restriction/only_right_turn":[
+"само надясно",
+"Само десен завой"
 ],
 "type/route":[
 "Маршрут"
@@ -1003,6 +1323,9 @@
 ],
 "waterway/ditch":[
 "Канавка"
+],
+"waterway/dock":[
+"Мокър док / сух док"
 ],
 "waterway/drain":[
 "Отводнителен канал"

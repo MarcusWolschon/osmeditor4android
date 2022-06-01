@@ -881,6 +881,16 @@
 "amenity/nursing_home":[
 "Dom spokojnej starości"
 ],
+"amenity/parcel_locker":[
+"Paczkomat",
+"automat przesyłkowy",
+"automat paczkowy",
+"allegro",
+"inpost",
+"aliexpress",
+"orlen paczka",
+"cainiao"
+],
 "amenity/parking":[
 "parking",
 "Parking samochodowy"
@@ -1499,14 +1509,6 @@
 "na świeżym powietrzu",
 "grecki"
 ],
-"amenity/toilets":[
-"łazienka",
-"toalety",
-"ubikacja",
-"toaleta",
-"Toalety publiczne",
-"wc"
-],
 "amenity/toilets/disposal/flush":[
 "łazienka",
 "toaleta spłukiwana wodą",
@@ -1676,22 +1678,6 @@
 "automat z gazetami",
 "gazety",
 "Automat z gazetami"
-],
-"amenity/vending_machine/parcel_pickup":[
-"amazon",
-"Paczkomat",
-"paczki",
-"odbiór",
-"przesyłki",
-"paczkomat"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"paczki",
-"odbiór",
-"Paczkomat z możliwością nadawania przesyłek",
-"przesyłki",
-"paczkomat",
-"wysyłanie"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Parkomat",
@@ -3207,17 +3193,6 @@
 "highway/bus_stop":[
 "Przystanek autobusowy"
 ],
-"highway/construction":[
-"droga w przebudowie",
-"budowa",
-"ścieżka w budowie",
-"droga zamknięta",
-"Droga w budowie",
-"droga w budowie",
-"ścieżka w przebudowie",
-"zamknięta droga",
-"roboty drogowe"
-],
 "highway/corridor":[
 "Korytarz (w budynku)",
 "korytarz",
@@ -3233,33 +3208,12 @@
 "oznaczone przejście dla pieszych",
 "Oznakowane przejście dla pieszych"
 ],
-"highway/crossing/marked-raised":[
-"zebra",
-"prędkość",
-"przejście dla pieszych",
-"powoli",
-"Oznakowane przejście dla pieszych (podwyższone)",
-"płaska góra",
-"próg zwalniający",
-"oznaczone przejście dla pieszych (wyniesione)"
-],
 "highway/crossing/unmarked":[
 "Nieoznakowane przejście",
 "nieoznaczone przejście dla pieszych"
 ],
-"highway/crossing/unmarked-raised":[
-"Nieoznakowane przejście (podwyższone)",
-"prędkość",
-"nieoznaczone przejście dla pieszych (wyniesione)",
-"powoli",
-"płaska góra",
-"próg zwalniający"
-],
 "highway/crossing/zebra":[
 "Oznakowane przejście dla pieszych"
-],
-"highway/crossing/zebra-raised":[
-"Oznakowane przejście dla pieszych (podwyższone)"
 ],
 "highway/cycleway":[
 "droga rowerowa",
@@ -3338,16 +3292,6 @@
 "oznaczone przejście dla pieszych",
 "Oznakowane przejście dla pieszych"
 ],
-"highway/footway/marked-raised":[
-"zebra",
-"prędkość",
-"przejście dla pieszych",
-"powoli",
-"Oznakowane przejście dla pieszych (podwyższone)",
-"płaska góra",
-"próg zwalniający",
-"oznaczone przejście dla pieszych (wyniesione)"
-],
 "highway/footway/sidewalk":[
 "Chodnik przy jezdni",
 "chodnik"
@@ -3356,19 +3300,8 @@
 "Nieoznakowane przejście",
 "nieoznaczone przejście dla pieszych"
 ],
-"highway/footway/unmarked-raised":[
-"Nieoznakowane przejście (podwyższone)",
-"prędkość",
-"nieoznaczone przejście dla pieszych (wyniesione)",
-"powoli",
-"płaska góra",
-"próg zwalniający"
-],
 "highway/footway/zebra":[
 "Oznakowane przejście dla pieszych"
-],
-"highway/footway/zebra-raised":[
-"Oznakowane przejście dla pieszych (podwyższone)"
 ],
 "highway/give_way":[
 "Ustąp pierwszeństwa przejazdu",
@@ -3398,22 +3331,22 @@
 "skrzyżowanie"
 ],
 "highway/motorway":[
-"Autostrada",
-"autostrada"
+"droga autostradowa",
+"Droga autostradowa"
 ],
 "highway/motorway_junction":[
-"wjazd na autostradę",
-"zjazd z autostrady",
-"Węzeł autostradowy",
-"węzeł autostradowy",
-"autostrada"
+"Węzeł dróg autostradowych",
+"droga autostrada",
+"zjazd z drogi autostradowej",
+"wjazd na drogę autostradową",
+"węzeł dróg autostradowych"
 ],
 "highway/motorway_link":[
 "zjazd",
+"Droga autostradowa – wjazd/zjazd",
 "wjazd",
 "wyjazd",
-"rampa",
-"Autostrada – wjazd/zjazd"
+"rampa"
 ],
 "highway/passing_place":[
 "Mijanka",
@@ -4056,10 +3989,10 @@
 "rekreacja",
 "teren rekreacyjny",
 "teren sportowy",
+"Teren rekreacyjno-sportowy",
 "odpoczynek",
 "zabawy",
-"sporty",
-"Park rekreacyjno-sportowy"
+"sporty"
 ],
 "landuse/religious":[
 "teren religijny",
@@ -4308,15 +4241,6 @@
 "hackerspace",
 "hacklab"
 ],
-"leisure/horse_riding":[
-"centrum jazdy konnej",
-"koń",
-"konie",
-"ośrodek jeździecki",
-"jazda konna",
-"jeździectwo",
-"Ośrodek jeździecki"
-],
 "leisure/ice_rink":[
 "łyżwy",
 "łyżwiarstwo",
@@ -4434,10 +4358,6 @@
 "leisure/pitch/cricket":[
 "Pole do krykieta",
 "pole do krykieta"
-],
-"leisure/pitch/equestrian":[
-"ujeżdżalnia",
-"Ujeżdżalnia"
 ],
 "leisure/pitch/field_hockey":[
 "Boisko do hokeja na trawie",
@@ -4581,14 +4501,6 @@
 "rower",
 "Tor kolarski"
 ],
-"leisure/track/horse_racing":[
-"konie",
-"tor wyścigowy",
-"konne",
-"wyścigi",
-"Hipodrom (Wyścigi konne)",
-"hipodrom"
-],
 "leisure/track/running":[
 "bieżnia",
 "bieganie",
@@ -4672,15 +4584,7 @@
 "las"
 ],
 "man_made/courtyard":[
-"perystyl",
-"patio",
-"wirydarz",
-"podwórze",
-"podworzec",
-"Dziedziniec",
-"atrium",
-"dziedziniec",
-"podwórzec"
+"Dziedziniec"
 ],
 "man_made/crane":[
 "dźwig",
@@ -5436,10 +5340,6 @@
 "młodniak",
 "las"
 ],
-"network/type/node_network":[
-"Rekreacyjna trasa ponumerowanych węzłów",
-"rekreacyjna trasa ponumerowanych węzłów"
-],
 "noexit/yes":[
 "brak przejazdu",
 "ślepa uliczka",
@@ -5486,14 +5386,6 @@
 "społeczność",
 "biuro organizacji non-profit",
 "Biuro organizacji non profit"
-],
-"office/bail_bond_agent":[
-"Poręczyciel majątkowy",
-"obligacje",
-"agent obligacji",
-"poręczyciel majątkowy",
-"poręczenie majątkowe",
-"kaucja"
 ],
 "office/charity":[
 "Organizacja charytatywna",
@@ -5979,7 +5871,7 @@
 ],
 "playground/seesaw":[
 "huśtawka",
-"Huśtawka"
+"Huśtawka belkowa"
 ],
 "playground/slide":[
 "zjeżdżalnia",
@@ -5997,8 +5889,8 @@
 "zestaw zabawowy"
 ],
 "playground/swing":[
-"huśtawka",
-"Huśtawka"
+"Huśtawka podwieszona",
+"huśtawka"
 ],
 "playground/zipwire":[
 "plac zabaw",
@@ -8685,11 +8577,6 @@
 "szlak pieszy",
 "Szlak pieszy",
 "szlak górski"
-],
-"type/route/horse":[
-"Szlak konny",
-"konie",
-"szlak konny"
 ],
 "type/route/light_rail":[
 "kolej miejska",
