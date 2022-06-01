@@ -1,5 +1,34 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.1.0:
+
+- Fix auto-preset application business logic
+- Fix update standard tiles licence
+- Fix base64 encoded logo image instead of link
+- Fix default key entry for API sandbox
+- Fix protect against NFEX in parseVerbatimCoordinates
+- Fix don't show symbol spinner for grid/scale layer
+- Fix protect against degenerate ways in getIsoCodes
+- Fix catch all exceptions in getDisplaynameColumn
+- Fix actually check if ring is closed when using an offset in way rendering
+- Fix regression that caused checked values not to display in CheckGroupDialogRow
+- Fix regression wrt matching text fields as objects, improve tests
+- Add facility to delete key via config file
+- Add never automatically enable full screen mode on Android 11 and later
+- Add a toast and tip when no GPX file for download can be found
+- Add show a tip on the 1st touch of the lock button.
+- Add convert man_made=bridge to use a way offset
+- Add improved preset matching for specific element types (improves relation validation)
+- Update and restructure the FAQ
+- Update privacy policy and add instructions how to remove Bing
+- Update OpeningHoursParser dependency
+- Update translations
+- Update release notes to include privacy policy change
+- Update preset
+- Update preset documentation
+- Update synonyms
+- Update imagery from ELI
+
 17.1.0-1:
 
 - Fix protect against IOBE in photo viewer
