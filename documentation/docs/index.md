@@ -25,7 +25,7 @@ Vespucci has been tested and is known to work on a wide range of devices, from s
 
 #### Vespucci on Social Media
 
- * [Follow us on Twitter](https://twitter.com/vespucci_editor)
+ * [Follow us on Twitter](https://twitter.com/vespucci_editor) or [on Mastadon](https://en.osm.town/@vespucci_editor)
  * [Vespucci on OpenHub](https://www.openhub.net/p/osmeditor4android)
  
 #### Support Vespuccis Development
