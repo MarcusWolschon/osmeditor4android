@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="4.0.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="4.1.1" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
 <!--
@@ -57,7 +57,18 @@
         </combo>
     </chunk>
     <chunk id="sport_surface">
-        <combo key="surface" text="Surface" values="artificial_turf,asphalt,clay,concrete,decoturf,grass,sand,tartan,ground" display_values="Artificial turf,Asphalt,Clay,Concrete,DecoTurf,Grass,Sand,Tartan,Ground" match="none" />
+        <combo key="surface" text="Surface" match="none"> 
+            <list_entry value="acrylic" display_value="Acrylic" />
+            <list_entry value="artificial_turf" display_values="Artificial turf" />
+            <list_entry value="asphalt" display_values="Asphalt" />
+            <list_entry value="clay" display_values="Clay" />
+            <list_entry value="concrete" display_values="Concrete" />
+            <list_entry value="decoturf" display_values="DecoTurf" deprecated="true" />
+            <list_entry value="grass" display_values="Grass" />
+            <list_entry value="sand" display_values="Sand" />
+            <list_entry value="tartan" display_values="Tartan" />
+            <list_entry value="ground" display_values="Ground" />
+        </combo>
     </chunk>
     <chunk id="motorsport_surface">
         <combo key="surface" text="Surface" values="asphalt,concrete,ground" display_values="Asphalt,Concrete,Ground" match="none" />
@@ -232,7 +243,7 @@
     <chunk id="railway_service_gauge_electrified">
         <reference ref="railway_service"/>
         <combo key="tracks" text="Tracks" text_context="railway" values="1,2,3,4" length="4"/>
-        <combo key="gauge" text="Gauge (mm)" values="1668,1676,1674,1600,1524,1520,1495,1435,1067,1000,914,762,760,750" length="4"/>
+        <combo key="gauge" text="Gauge (mm)" values="1676,1668,1638,1600,1588,1581,1524,1520,1495,1458,1450,1435,1372,1219,1067,1000,914,900,891,762,760,750,610,600" length="4"/>
         <reference ref="railway_electrified"/>
     </chunk>
     <chunk id="traffic_signals_direction">
@@ -1277,10 +1288,9 @@
         <combo key="building:wall:material" text="Building wall material" values="brick,cement_block,clay,concrete,glass,limestone,masonry,mdf,metal,metal_plates,mirror,mud,plaster,plastic,sandstone,steel,stone,timber_framing,tin,traditional,vinyl,wood" display_values="Brick,Cement block,Clay,Concrete,Glass,Limestone,Masonry,MDF,Metal,Metal plates,Mirror,Mud,Plaster,Plastic,Sandstone,Steel,Stone,Timber framing,Tin,Traditional,Vinyl,Wood" editable="false" values_context="building" values_searchable="true" match="key"/>
     </chunk>
     <chunk id="additional_building_tags">
-        <optional>
-            <text key="name" text="Name"/>
-        </optional>
-        <combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" editable="true" values_sort="false" text_context="building" match="key" value_type="integer"/>
+        <reference ref="optional_name_operator"/>
+        <combo key="building:levels" text="Levels above ground" values="1,2,3,4,5,6,7,8,9,10,11" editable="true" values_sort="false" text_context="building" match="key" value_type="integer"/>
+        <combo key="building:levels:underground" text="Levels below ground" values="1,2,3,4,5,6,7,8,9,10,11" text_context="building" match="key" value_type="integer" />
         <text key="height" text="Height (meters)" length="7"/>
         <combo key="min_level" text="Min. level" values="-5,-4,-3,-2,-1,0,1,2,3,4,5" editable="true" values_sort="false" text_context="building" match="key" value_type="integer"/>
         <combo key="max_level" text="Max. level" values="0,1,2,3,4,5,6,7,8,9,10,11" editable="true" values_sort="false" text_context="building" match="key" value_type="integer"/>
@@ -1337,7 +1347,7 @@
         <combo text="Theme" key="playground:theme" values="barrel,bee,bridge,castle,cat,cow,dog,dragon,helicopter,horse,locomotive,octopus,plane,rocket,ship,spiderweb,tiger,train" display_values="Barrel,Bee,Bridge,Castle,Cat,Cow,Dog,Dragon,Helicopter,Horse,Locomotive,Octopus,Plane,Rocket,Ship,Spiderweb,Tiger,Train"/>
     </chunk>
     <chunk id="language">
-        <!--  this uses a simply multiselect to specify one or more languages and doesn't use the wikifiddled languagexx scheme -->
+        <!--  this uses a simple multiselect to specify one or more languages and doesn't use the wikifiddled languagexx scheme -->
         <multiselect key="language" text="Language" values="af;sq;am;ar;hy;as;az;eu;be;bn;bs;bg;my;ca;zh;hr;cs;da;dv;nl;en;et;mk;fo;fa;fi;fr;gd;gl;ka;de;el;gn;gu;he;hi;hu;is;id;it;ja;kn;ks;kk;km;ko;lo;la;lv;lt;ms;ml;mt;mi;mr;mn;ne;nb;nn;or;pl;pt;pa;rm;ro;ru;sa;sr;tn;sd;si;sk;sl;so;sb;es;sw;sv;tg;ta;tt;te;th;bo;ts;tr;tk;uk;ur;uz;vi;cy;xh;yi;zu" display_values="Afrikaans;Albanian;Amharic;Arabic;Armenian;Assamese;Azeri;Basque;Belarusian;Bengali;Bosnian;Bulgarian;Burmese;Catalan;Chinese;Croatian;Czech;Danish;Divehi;Dutch;English;Estonian;Macedonian;Faroese;Farsi;Finnish;French;Gaelic;Galician;Georgian;German;Greek;Guarani;Gujarati;Hebrew;Hindi;Hungarian;Icelandic;Indonesian;Italian;Japanese;Kannada;Kashmiri;Kazakh;Khmer;Korean;Lao;Latin;Latvian;Lithuanian;Malay;Malayalam;Maltese;Maori;Marathi;Mongolian;Nepali;Norwegian - Bokml;Norwegian - Nynorsk;Oriya;Polish;Portuguese;Punjabi;Raeto-Romance;Romanian;Russian;Sanskrit;Serbian;Setsuana;Sindhi;Sinhala;Slovak;Slovenian;Somali;Sorbian;Spanish;Swahili;Swedish;Tajik;Tamil;Tatar;Telugu;Thai;Tibetan;Tsonga;Turkish;Turkmen;Ukrainian;Urdu;Uzbek;Vietnamese;Welsh;Xhosa;Yiddish;Zulu" values_searchable="true" match="key"/>
     </chunk>
     <chunk id="turn_restriction_roles">
@@ -1866,7 +1876,32 @@
         <item name="Construction" icon="icons/png/construction.png" name_context="Highway" type="way,closedway" preset_name_label="true">
             <link wiki="Key:construction"/>
             <key key="highway" value="construction"/>
-            <combo key="construction" text="Highway type" values="motorway,motorway_link,trunk,trunk_link,primary,primary_link,secondary,secondary_link,tertiary,tertiary_link,unclassified,residential,service,bus_guideway,bridleway,living_street,pedestrian,track,path,footway,cycleway,steps" values_context="Highway"/>
+            <combo key="construction" text="Highway type" values_sort="false" values_context="Highway">
+                <list_entry value="motorway" display_value="Motorway" icon="icons/png/highway_dual_sp.png" />
+                <list_entry value="motorway_link" display_value="Motorway Link" icon="icons/png/highway_dual_sp.png" />
+                <list_entry value="trunk" display_value="Trunk" icon="icons/png/highway_car_29023.png" />
+                <list_entry value="trunk_link" display_value="Trunk Link" icon="${highway_truck_link}" />
+                <list_entry value="primary" display_value="Primary" icon="icons/png/highway_highway_sp.png" />
+                <list_entry value="primary_link" display_value="Primary Link" icon="icons/png/highway_highway_sp.png" />
+                <list_entry value="secondary" display_value="Secondary" icon="icons/png/highway_highway_sp.png" />
+                <list_entry value="secondary_link" display_value="Secondary" icon="icons/png/highway_highway_sp.png" />
+                <list_entry value="tertiary" display_value="Tertiary" icon="icons/png/highway_highway_sp.png" />
+                <list_entry value="tertiary_link" display_value="Tertiary Link" icon="icons/png/highway_highway_sp.png" />
+                <list_entry value="unclassified" display_value="Unclassified" icon="icons/png/highway_highway_sp.png" />
+                <list_entry value="residential" display_value="Residential" icon="icons/png/highway_residential_sp.png" />
+                <list_entry value="service" display_value="Service" icon="icons/png/highway_service_sp.png" />
+                <list_entry value="pedestrian" display_value="Pedestrian" icon="icons/png/pedestrian_zone.png" />
+                <list_entry value="bus_guideway" display_value="Bus Guideway" icon="icons/png/transport_bus_stop.png" />
+                <list_entry value="busway" display_value="Bus Rapid Transit" icon="${highway_busway}" />
+                <list_entry value="escape" display_value="Escape" icon="icons/png/escape.png" />
+                <list_entry value="raceway" display_value="Raceway" icon="${highway_raceway}"  />
+                <list_entry value="track" display_value="Track" icon="icons/png/highway_agricultural_engines_16001.png" />
+                <list_entry value="path" display_value="Path" icon="icons/png/highway_way_thin_sp.png" />
+                <list_entry value="bridleway" display_value="Dedicated Bridleway" icon="icons/png/bridleway.png" />
+                <list_entry value="cycleway" display_value="Dedicated Cycleway" icon="icons/png/cycleway.png" />
+                <list_entry value="footway" display_value="Dedicated Footway" icon="icons/png/footway.png" />
+                <list_entry value="steps" display_value="Steps" icon="icons/png/barrier_steps.png" />
+            </combo>
             <optional>
                 <text key="name" text="Name"/>
                 <reference ref="highway_base"/>
@@ -2945,6 +2980,7 @@
             <key key="tunnel" value="yes"/>
             <optional>
                 <text key="name" text="Name"/>
+                <text key="tunnel:name" text="Tunnel name" />
                 <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="-1" length="3" match="none" editable="true"/>
                 <text key="width" text="Width (meters)"/>
                 <text key="maxheight" text="Max. height (meters)"/>
@@ -3603,7 +3639,9 @@
             <optional>
                 <combo key="usage" text="Usage" values="main,branch,industrial,military,tourism,freight"
                     display_values="Main,Branch,Industrial,Military,Tourism,Freight"  values_context="railway" />
-                <reference ref="railway_service_gauge_electrified"/>
+                 <reference ref="railway_service" />
+                 <combo key="gauge" text="Gauge (mm)" values="1372,1219,1067,1000,914,900,891,762,760,750,610,600" length="4" />
+                 <reference ref="railway_electrified" />
             </optional>
         </item> <!-- Narrow Gauge Rail -->
         <item name="Monorail" icon="icons/png/transport_train_station.png" type="way" preset_name_label="true">
@@ -3666,8 +3704,16 @@
         <item name="Railway construction" icon="icons/png/transport_empty.png" type="way" preset_name_label="true">
             <link wiki="Key:construction" />
             <key key="railway" value="construction" />
-            <combo key="construction" text="Railway type" values="rail,narrow_gauge,monorail,preserved,light_rail,subway,tram,funicular"
-                display_values="Rail,Narrow gauge,Monorail,Preserved,Light rail,Subway,Tram,Funicular" />
+            <combo key="construction" text="Railway type" values_sort="false">
+                <list_entry value="rail" display_value="Rail" icon="icons/png/transport_train_station.png" />
+                <list_entry value="narrow_gauge" display_value="Narrow gauge" icon="icons/png/transport_train_station.png" />
+                <list_entry value="monorail" display_value="Monorail" icon="icons/png/transport_train_station.png" />
+                <list_entry value="preserved" display_value="Preserved" icon="icons/png/tourist_steam_train_30027.png" />
+                <list_entry value="light_rail" display_value="Light rail" icon="icons/png/transport_tram_stop.png" />
+                <list_entry value="subway" display_value="Subway" icon="icons/png/transport_subway.png" />
+                <list_entry value="tram" display_value="Tram" icon="icons/png/transport_tram_stop.png" />
+                <list_entry value="funicular" display_value="Funicular" icon="icons/png/transport_empty.png" />
+            </combo>
             <optional>
                 <combo key="usage" text="Usage" values="main,branch,industrial,military,tourism,freight" display_values="Main,Branch,Industrial,Military,Tourism,Freight" values_context="railway"/>
                 <reference ref="railway_service_gauge_electrified" />
@@ -6766,7 +6812,7 @@
         <item name="Club" icon="icons/png/amenity_club_35000.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:club"/>
             <space/>
-            <combo key="club" text="Club type" match="keyvalue!" values_context="leisure">
+            <combo key="club" text="Club type" match="key" values_context="leisure">
                 <list_entry value="amateur_radio" display_value="Amateur radio" />
                 <list_entry value="art" display_value="Art" />
                 <list_entry value="astronomy" display_value="Astronomy" />
@@ -6904,7 +6950,7 @@
             <preset_link preset_name="Payment Methods"/>
         </item> <!-- Telephone -->
         <item name="Coworking space" icon="icons/png/amenity_coworking.png" type="node,closedway,multipolygon">
-            <link wiki="Tag:amenits=coworking_space"/>
+            <link wiki="Tag:amenity=coworking_space"/>
             <space/>
             <key key="amenity" value="coworking_space"/>
             <reference ref="name_operator_oh_wheelchair_level"/>
@@ -6912,7 +6958,7 @@
             <reference ref="link_contact_address"/>
         </item> <!-- Coworking space -->
         <item name="Events venue" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon">
-            <link wiki="Tag:amenits=events_venue"/>
+            <link wiki="Tag:amenity=events_venue"/>
             <space/>
             <key key="amenity" value="events_venue"/>
             <reference ref="name_operator_oh_wheelchair_level"/>
@@ -8049,6 +8095,85 @@
             <combo key="building:min_level" text="Skipped Levels" values="1,2,3,4,5,6,7,8,9,10" editable="true" text_context="building"/>
             <text key="min_height" text="Skipped height (meters)"/>
         </item> <!-- Building part -->
+         <item name="Building construction" icon="icons/png/man_made_building_construction.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:building=construction" />
+            <space />
+            <key key="building" value="construction" />
+            <combo key="construction" text="Construction type" values_context="building" default="yes" match="none" values_searchable="true">
+                <list_entry value="allotment_house"    display_value="Allotment house"/>
+                <list_entry value="apartments"         display_value="Apartments"/>
+                <list_entry value="bakehouse"          display_value="Bakehouse"/>
+                <list_entry value="barn"               display_value="Barn"/>
+                <list_entry value="basilica"           display_value="Basilica"/>
+                <list_entry value="boathouse"          display_value="Boathose"/>
+                <list_entry value="bungalow"           display_value="Bungalow"/>
+                <list_entry value="bunker"             display_value="Bunker"/>
+                <list_entry value="cabin"              display_value="Cabin"/>
+                <list_entry value="carport"            display_value="Carport"/>
+                <list_entry value="cathedral"          display_value="Cathedral"/>
+                <list_entry value="chapel"             display_value="Chapel"/>
+                <list_entry value="church"             display_value="Church"/>
+                <list_entry value="college"            display_value="College"/>
+                <list_entry value="commercial"         display_value="Commercial"/>
+                <list_entry value="cowshed"            display_value="Cowshed"/>
+                <list_entry value="detached"           display_value="Detached"/>
+                <list_entry value="digester"           display_value="Digester"/>
+                <list_entry value="dormitory"          display_value="Dormitory"/>
+                <list_entry value="farm"               display_value="Farm"/>
+                <list_entry value="farm_auxiliary"     display_value="Farm auxiliary"/>
+                <list_entry value="fire_station"       display_value="Fire station"/>
+                <list_entry value="garage"             display_value="Garage"/>
+                <list_entry value="garages"            display_value="Garages"/>
+                <list_entry value="gasometer"          display_value="Gasometer"/>
+                <list_entry value="gatehouse"          display_value="Gatehouse"/>
+                <list_entry value="ger"                display_value="Ger"/>
+                <list_entry value="grandstand"         display_value="Grandstand"/>
+                <list_entry value="greenhouse"         display_value="Greenhouse"/>
+                <list_entry value="hangar"             display_value="Hangar"/>
+                <list_entry value="hospital"           display_value="Hospital"/>
+                <list_entry value="hotel"              display_value="Hotel"/>
+                <list_entry value="house"              display_value="House"/>
+                <list_entry value="houseboat"          display_value="Houseboat"/>
+                <list_entry value="hut"                display_value="Hut"/>
+                <list_entry value="industrial"         display_value="Industrial"/>
+                <list_entry value="kindergarten"       display_value="Kindergarten"/>
+                <list_entry value="kiosk"              display_value="Kiosk"/>
+                <list_entry value="manufacture"        display_value="Manufacture"/>
+                <list_entry value="monastery"          display_value="Monastery"/>
+                <list_entry value="mosque"             display_value="Mosque"/>
+                <list_entry value="office"             display_value="Office"/>
+                <list_entry value="parking"            display_value="Parking"/>
+                <list_entry value="pavilion"           display_value="Pavilion"/>
+                <list_entry value="public"             display_value="Public"/>
+                <list_entry value="residential"        display_value="Residential"/>
+                <list_entry value="retail"             display_value="Retail"/>
+                <list_entry value="roof"               display_value="Roof"/>
+                <list_entry value="ruins"              display_value="Ruins"/>
+                <list_entry value="school"             display_value="School"/>
+                <list_entry value="semidetached_house" display_value="Semidetached house"/>
+                <list_entry value="service"            display_value="Service"/>
+                <list_entry value="shed"               display_value="Shed"/>
+                <list_entry value="stable"             display_value="Stable"/>
+                <list_entry value="stadium"            display_value="Stadium"/>
+                <list_entry value="static_caravan"     display_value="Static caravan"/>
+                <list_entry value="stilt_house"        display_value="Stilt house"/>
+                <list_entry value="storage_tank"       display_value="Storage tank"/>
+                <list_entry value="sty"                display_value="Sty"/>
+                <list_entry value="supermarket"        display_value="Supermarket"/>
+                <list_entry value="synagogue"          display_value="Synagogue"/>
+                <list_entry value="temple"             display_value="Temple"/>
+                <list_entry value="terrace"            display_value="Terrace"/>
+                <list_entry value="toilets"            display_value="Toilets"/>
+                <list_entry value="train_station"      display_value="Train station"/>
+                <list_entry value="transformer_tower"  display_value="Transformer tower"/>
+                <list_entry value="transportation"     display_value="Transportation"/>
+                <list_entry value="university"         display_value="University"/>
+                <list_entry value="warehouse"          display_value="Warehouse"/>
+                <list_entry value="yes"                display_value="Yes"/>
+            </combo>             
+            <reference ref="additional_building_tags"/>
+            <preset_link preset_name="Address" />
+        </item> <!-- Building construction -->
         <group name="Roof type" icon="icons/png/hipped.png">
             <item name="Dome" icon="icons/png/dome.png" type="node,way,closedway,multipolygon" name_context="building" preset_name_label="true">
                 <link wiki="Simple_3D_Buildings"/>
@@ -11641,7 +11766,19 @@
             <link wiki="Tag:landuse=construction"/>
             <space/>
             <key key="landuse" value="construction"/>
-            <reference ref="optional_name"/>
+            <combo key="construction" text="Construction type" values_context="landuse" values_sort="false" match="none">
+                <list_entry value="residential" display_value="Residential Area" icon="icons/png/landuse_house_sp.png" />
+                <list_entry value="education" display_value="Education" icon="icons/png/landuse_school_12242.png" />
+                <list_entry value="retail" display_value="Retail" icon="icons/png/landuse_supermarket.png" icon_size="16" />
+                <list_entry value="commercial" display_value="Commercial" icon="icons/png/natural_empty.png" icon_size="16" />
+                <list_entry value="industrial" display_value="Industrial" icon="icons/png/landuse_works_22087.png" />
+                <list_entry value="garages" display_value="Garages" icon="presets/garages.png" />
+                <list_entry value="railway" display_value="Railway Land" icon="icons/png/landuse_train_station.png" icon_size="16" />
+                <list_entry value="military" display_value="Military" icon="icons/png/landuse_military.png" icon_size="16" />
+                <list_entry value="religous" display_value="Religious" icon="icons/png/landuse_religous.png" />
+                <list_entry value="cemetery" display_value="Cemetery" icon="icons/png/landuse_grave_yard_12062.png" />
+            </combo>
+            <reference ref="optional_name_operator"/>
         </item> <!-- Construction Area -->
         <item name="Brownfield" icon="icons/png/landuse_landuse_sp.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:landuse=brownfield"/>
