@@ -341,6 +341,7 @@ i-->
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#vespucci-171-highlights">Vespucci 17.1 Highlights</a></li>
             <li><a href="#bing-imagery-no-longer-available-for-3rd-party-builds">Bing imagery no longer available for 3rd-party builds</a></li>
+            <li><a href="#updated-privacy-policy-ability-to-remove-api-keys">Updated privacy policy / ability to remove API keys</a></li>
             <li><a href="#auto-full-screen-mode-on-android-11-and-later-behaviour-change">Auto full screen mode on Android 11 and later behaviour change</a></li>
             <li><a href="#improved-gpx-layer-support">Improved GPX layer support</a></li>
             <li><a href="#preset-improvements">Preset improvements</a></li>
@@ -348,7 +349,6 @@ i-->
             <li><a href="#upload-reminder">Upload reminder</a></li>
             <li><a href="#include-androids-mediastore-in-scan-for-images">Include Androids MediaStore in scan for images</a></li>
             <li><a href="#automatic-capitalization-of-name-tags">Automatic capitalization of name tags</a></li>
-            <li><a href="#updated-privacy-policy-ability-to-remove-api-keys">Updated privacy policy / ability to remove API keys</a></li>
             <li><a href="#miscellaneous">Miscellaneous</a></li>
         <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
         <li class="main "><a href="#known-problems">Known problems</a></li>
@@ -357,11 +357,14 @@ i-->
                 <div class="col-md-9" role="main">
 
 <h1 id="vespucci-171-highlights">Vespucci 17.1 Highlights</h1>
-<p>2022-05-22</p>
+<p>2022-06-01</p>
 <h3 id="bing-imagery-no-longer-available-for-3rd-party-builds">Bing imagery no longer available for 3rd-party builds</h3>
 <p>Since we added Bing support over a decade ago, the API key to access the service has been included with the source code for third parties to use, most notably F-Droid as a courtesy. Starting with this version this is no longer the case as allowing access to a wide range of sources is considered an anti-feature by the operators of F-Droid, see <a href="https://f-droid.org/en/packages/de.blau.android/">Vespucci on F-Droid</a>.</p>
-<p>With other words starting with version 17.1 Bing imagery will no longer be available for F-Droid users. If you have your own key, you can load it via the   the <a href="http://vespucci.io/help/en/Main%20map%20display/#available-actions"><em>Tools</em> menu</a>, just as any other key. See the <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/keys2-default.txt">default key file</a> and <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/test/resources/keys2.txt">test key file</a> for the format and an example.</p>
+<p>With other words starting with version 17.1 Bing imagery will no longer be available for F-Droid users. If you have your own key, you can load it via the <a href="http://vespucci.io/help/en/Main%20map%20display/#available-actions"><em>Tools</em> menu</a>, just as any other key. See the <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/keys2-default.txt">default key file</a> and <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/test/resources/keys2.txt">test key file</a> for the format and an example.</p>
 <p>It should be noted that the other claims by F-Droid in this context are incorrect, neither Mapillary support or Github access has ever been available in 3rd-party builds of Vespucci.</p>
+<h3 id="updated-privacy-policy-ability-to-remove-api-keys">Updated privacy policy / ability to remove API keys</h3>
+<p>Using Bing imagery requires querying a Bing API to obtain some meta data prior to use, as this is very slow we have always done this asynchronously and independent of the user actually using the specific source. We've updated the privacy policy to note this and have provided a way to completely disable the Bing source, see <a href="http://vespucci.io/tutorials/faq/#installation">Installation FAQ</a>.</p>
+<p>It should be further noted that a number of the layer configurations from the <a href="https://github.com/osmlab/editor-layer-index">Editor Layer Index</a> reference (via Url) icons that are stored in the ELI repository. This implies that using such layers doesn't just provide a certain amount of personal information to the operator of the source, but that a small amount of PI is leaked to github and its owner (Microsoft).</p>
 <h3 id="auto-full-screen-mode-on-android-11-and-later-behaviour-change"><em>Auto</em> full screen mode on Android 11 and later behaviour change</h3>
 <p>On Android 11 and later the default <em>Auto</em> mode for the full screen mode preference will never enable full screen mode as navigation gestures provide a viable alternative and googles and subcontractors full screen support has become even less predictable than on earlier versions. </p>
 <p>If you are using a device that previously had full screen mode automatically turned on and that is now disabled, you can force the use of full screen mode by setting the preference to <em>Force</em>.</p>
@@ -382,9 +385,6 @@ i-->
 <p>You can now optionally scan the MediaStore for images. This is mainly useful on Android 10 and higher which doesn't allow direct access to images owned by other apps any more. As this will include <em>all</em> images in the MediaStore that contain location information this is turned off by default. See See <a href="http://vespucci.io/help/en/Advanced%20preferences/#user-interface-settings">user interface settings</a>.</p>
 <h3 id="automatic-capitalization-of-name-tags">Automatic capitalization of name tags</h3>
 <p>We now automatically capitalize <em>name</em> tags on input for latin script. The setting for this can be changed to one off <em>No capitalization</em> , <em>Word capitalization</em> and <em>Sentence capitalization</em> . The default is <em>Word capitalization</em> .</p>
-<h3 id="updated-privacy-policy-ability-to-remove-api-keys">Updated privacy policy / ability to remove API keys</h3>
-<p>Using Bing imagery requires querying a Bing API to obtain some meta data prior to use, as this is very slow we have always done this asynchronously and independent of the user actually using the specific source. We've updated the privacy policy to note this and have provided a way to completely disable the Bing source, see <a href="http://vespucci.io/tutorials/faq/#installation">Installation FAQ</a>.</p>
-<p>It should be further noted that a number of the layer configurations from the <a href="https://github.com/osmlab/editor-layer-index">Editor Layer Index</a> reference (via Url) icons that are stored in the ELI repository. This implies that using such layers doesn't just provide a certain amount of personal information to the operator of the source, but that a small amount of PI is leaked to github and its owner (Microsoft).</p>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Expand the "screenshot" page on vespucci.io to include videos.</li>
@@ -411,6 +411,7 @@ i-->
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#vespucci-171-highlights">Vespucci 17.1 Highlights</a></li>
             <li><a href="#bing-imagery-no-longer-available-for-3rd-party-builds">Bing imagery no longer available for 3rd-party builds</a></li>
+            <li><a href="#updated-privacy-policy-ability-to-remove-api-keys">Updated privacy policy / ability to remove API keys</a></li>
             <li><a href="#auto-full-screen-mode-on-android-11-and-later-behaviour-change">Auto full screen mode on Android 11 and later behaviour change</a></li>
             <li><a href="#improved-gpx-layer-support">Improved GPX layer support</a></li>
             <li><a href="#preset-improvements">Preset improvements</a></li>
@@ -418,7 +419,6 @@ i-->
             <li><a href="#upload-reminder">Upload reminder</a></li>
             <li><a href="#include-androids-mediastore-in-scan-for-images">Include Androids MediaStore in scan for images</a></li>
             <li><a href="#automatic-capitalization-of-name-tags">Automatic capitalization of name tags</a></li>
-            <li><a href="#updated-privacy-policy-ability-to-remove-api-keys">Updated privacy policy / ability to remove API keys</a></li>
             <li><a href="#miscellaneous">Miscellaneous</a></li>
         <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
         <li class="main "><a href="#known-problems">Known problems</a></li>
@@ -427,11 +427,14 @@ i-->
                     <div class="col-md-9" role="main">
 
 <h1 id="vespucci-171-highlights">Vespucci 17.1 Highlights</h1>
-<p>2022-05-22</p>
+<p>2022-06-01</p>
 <h3 id="bing-imagery-no-longer-available-for-3rd-party-builds">Bing imagery no longer available for 3rd-party builds</h3>
 <p>Since we added Bing support over a decade ago, the API key to access the service has been included with the source code for third parties to use, most notably F-Droid as a courtesy. Starting with this version this is no longer the case as allowing access to a wide range of sources is considered an anti-feature by the operators of F-Droid, see <a href="https://f-droid.org/en/packages/de.blau.android/">Vespucci on F-Droid</a>.</p>
-<p>With other words starting with version 17.1 Bing imagery will no longer be available for F-Droid users. If you have your own key, you can load it via the   the <a href="http://vespucci.io/help/en/Main%20map%20display/#available-actions"><em>Tools</em> menu</a>, just as any other key. See the <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/keys2-default.txt">default key file</a> and <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/test/resources/keys2.txt">test key file</a> for the format and an example.</p>
+<p>With other words starting with version 17.1 Bing imagery will no longer be available for F-Droid users. If you have your own key, you can load it via the <a href="http://vespucci.io/help/en/Main%20map%20display/#available-actions"><em>Tools</em> menu</a>, just as any other key. See the <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/keys2-default.txt">default key file</a> and <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/test/resources/keys2.txt">test key file</a> for the format and an example.</p>
 <p>It should be noted that the other claims by F-Droid in this context are incorrect, neither Mapillary support or Github access has ever been available in 3rd-party builds of Vespucci.</p>
+<h3 id="updated-privacy-policy-ability-to-remove-api-keys">Updated privacy policy / ability to remove API keys</h3>
+<p>Using Bing imagery requires querying a Bing API to obtain some meta data prior to use, as this is very slow we have always done this asynchronously and independent of the user actually using the specific source. We've updated the privacy policy to note this and have provided a way to completely disable the Bing source, see <a href="http://vespucci.io/tutorials/faq/#installation">Installation FAQ</a>.</p>
+<p>It should be further noted that a number of the layer configurations from the <a href="https://github.com/osmlab/editor-layer-index">Editor Layer Index</a> reference (via Url) icons that are stored in the ELI repository. This implies that using such layers doesn't just provide a certain amount of personal information to the operator of the source, but that a small amount of PI is leaked to github and its owner (Microsoft).</p>
 <h3 id="auto-full-screen-mode-on-android-11-and-later-behaviour-change"><em>Auto</em> full screen mode on Android 11 and later behaviour change</h3>
 <p>On Android 11 and later the default <em>Auto</em> mode for the full screen mode preference will never enable full screen mode as navigation gestures provide a viable alternative and googles and subcontractors full screen support has become even less predictable than on earlier versions. </p>
 <p>If you are using a device that previously had full screen mode automatically turned on and that is now disabled, you can force the use of full screen mode by setting the preference to <em>Force</em>.</p>
@@ -452,9 +455,6 @@ i-->
 <p>You can now optionally scan the MediaStore for images. This is mainly useful on Android 10 and higher which doesn't allow direct access to images owned by other apps any more. As this will include <em>all</em> images in the MediaStore that contain location information this is turned off by default. See See <a href="http://vespucci.io/help/en/Advanced%20preferences/#user-interface-settings">user interface settings</a>.</p>
 <h3 id="automatic-capitalization-of-name-tags">Automatic capitalization of name tags</h3>
 <p>We now automatically capitalize <em>name</em> tags on input for latin script. The setting for this can be changed to one off <em>No capitalization</em> , <em>Word capitalization</em> and <em>Sentence capitalization</em> . The default is <em>Word capitalization</em> .</p>
-<h3 id="updated-privacy-policy-ability-to-remove-api-keys">Updated privacy policy / ability to remove API keys</h3>
-<p>Using Bing imagery requires querying a Bing API to obtain some meta data prior to use, as this is very slow we have always done this asynchronously and independent of the user actually using the specific source. We've updated the privacy policy to note this and have provided a way to completely disable the Bing source, see <a href="http://vespucci.io/tutorials/faq/#installation">Installation FAQ</a>.</p>
-<p>It should be further noted that a number of the layer configurations from the <a href="https://github.com/osmlab/editor-layer-index">Editor Layer Index</a> reference (via Url) icons that are stored in the ELI repository. This implies that using such layers doesn't just provide a certain amount of personal information to the operator of the source, but that a small amount of PI is leaked to github and its owner (Microsoft).</p>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Expand the "screenshot" page on vespucci.io to include videos.</li>
