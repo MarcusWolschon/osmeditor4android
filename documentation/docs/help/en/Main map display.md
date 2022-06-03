@@ -190,7 +190,7 @@ Search for a location and pan to it with the OpenStreetMap Nominatim or Photon s
 
 ### Search for objects
 
-Search for OSM objects in the loaded data using JOSMs search expressions.
+Search for OSM objects in the loaded data using JOSMs search/filter expressions. See [JOSM filter documentation](http://vespucci.io/tutorials/object_search/) for more information.
 
 ### Tag-Filter *(checkbox)*
 

@@ -2,7 +2,7 @@
 
 Vespucci supports a large subset of JOSM search expressions, these can be used for locating and selecting specific objects in the in memory data, and for matching elements against roles in preset member_expression attributes.
 
-As there is essentially no documentation available from JOSM there is no guarantee that the behaviour is the same in all cases, known and deliberate differences are noted below.
+As there is essentially no documentation available from JOSM there is no guarantee that the behaviour is the same in all cases, known and deliberate differences are noted below. A reformatted and expanded version of what is available from JOSM is available here [JOSM filter documentation](https://github.com/simonpoole/JosmFilterDoc/blob/master/filter.md).
 
 
 ## Supported expressions
@@ -19,7 +19,7 @@ As there is essentially no documentation available from JOSM there is no guarant
 |✅| _key_**=**                           | |
 |✅| __*=__*value*                        | |
 |✅| _key_**>**_reference_                | Compares the value associated with key to reference, if possible if will convert to numeric values first |
-|✅| _key_**<**_reference_                | "" |
+|✅| _key_**<**_reference_                | dito |
 |✅|_expr_ _expr_                        | |
 |✅|_expr_ __&#124;__ _expr_             | |   
 |✅|_expr_ __OR__ _expr_                 | |  
