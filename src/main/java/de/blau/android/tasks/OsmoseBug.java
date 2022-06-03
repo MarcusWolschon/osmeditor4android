@@ -15,6 +15,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.R;
 import de.blau.android.util.DateFormatter;
+import de.blau.android.util.collections.LongPrimitiveList;
 
 /**
  * An OSMOSE bug
@@ -22,20 +23,28 @@ import de.blau.android.util.DateFormatter;
  * @author Simon Poole
  */
 public final class OsmoseBug extends Bug implements Serializable {
+    private static final long serialVersionUID = 4L;
 
     private static final String DEBUG_TAG = OsmoseBug.class.getSimpleName();
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 4L;
+    private static final String OSMOSE_ISSUES    = "issues";
+    private static final String OSMOSE_LAT       = "lat";
+    private static final String OSMOSE_LON       = "lon";
+    private static final String OSMOSE_ID        = "id";
+    private static final String OSMOSE_ITEM      = "item";
+    private static final String OSMOSE_CLASS     = "class";
+    private static final String OSMOSE_UPDATE    = "update";
+    private static final String OSMOSE_OSM_IDS   = "osm_ids";
+    private static final String OSMOSE_NODES     = "nodes";
+    private static final String OSMOSE_WAYS      = "ways";
+    private static final String OSMOSE_RELATIONS = "relations";
+    private static final String OSMOSE_TITLE     = "title";
+    private static final String OSMOSE_SUBTITLE  = "subtitle";
+    private static final String OSMOSE_AUTO      = "auto";
+    private static final String OSMOSE_LEVEL     = "level";
 
-    // we currently don't actually use these fields
-    private int    item;
-    private int    source;
+    private String item;
     private int    bugclass; // class
-    private long   subclass;
-    private String username;
 
     /**
      * Parse an InputStream containing Osmose task data
@@ -53,34 +62,93 @@ public final class OsmoseBug extends Bug implements Serializable {
             reader.beginObject();
             while (reader.hasNext()) {
                 key = reader.nextName(); //
-                if ("description".equals(key)) {
-                    reader.skipValue();
-                } else if ("errors".equals(key)) {
+                if (OSMOSE_ISSUES.equals(key)) {
                     reader.beginArray();
                     while (reader.hasNext()) {
                         OsmoseBug bug = new OsmoseBug();
-                        reader.beginArray();
-                        bug.lat = (int) (reader.nextDouble() * 1E7D);
-                        bug.lon = (int) (reader.nextDouble() * 1E7D);
-                        bug.id = reader.nextLong();
-                        bug.item = reader.nextInt();
-                        bug.source = reader.nextInt();
-                        bug.bugclass = reader.nextInt();
-                        bug.elems = reader.nextString();
-                        bug.subclass = reader.nextLong();
-                        bug.subtitle = reader.nextString();
-                        bug.title = reader.nextString();
-                        bug.level = reader.nextInt();
-                        try {
-                            bug.update = DateFormatter.getDate(DATE_PATTERN_OSMOSE_BUG_UPDATED_AT, reader.nextString()).getTime();
-                        } catch (java.text.ParseException pex) {
-                            bug.update = new Date().getTime();
+                        reader.beginObject();
+                        while (reader.hasNext()) {
+                            String jsonName = reader.nextName();
+                            switch (jsonName) {
+                            case OSMOSE_LAT:
+                                bug.lat = (int) (reader.nextDouble() * 1E7D);
+                                break;
+                            case OSMOSE_LON:
+                                bug.lon = (int) (reader.nextDouble() * 1E7D);
+                                break;
+                            case OSMOSE_ID:
+                                bug.id = reader.nextString();
+                                break;
+                            case OSMOSE_ITEM:
+                                bug.item = reader.nextString();
+                                break;
+                            case OSMOSE_CLASS:
+                                bug.bugclass = reader.nextInt();
+                                break;
+                            case OSMOSE_UPDATE:
+                                bug.update = getDateFromString(reader);
+                                break;
+                            case OSMOSE_OSM_IDS:
+                                reader.beginObject();
+                                while (reader.hasNext()) {
+                                    String elemName = reader.nextName();
+                                    switch (elemName) {
+                                    case OSMOSE_NODES:
+                                        bug.nodes = getElementIds(reader);
+                                        break;
+                                    case OSMOSE_WAYS:
+                                        bug.ways = getElementIds(reader);
+                                        break;
+                                    case OSMOSE_RELATIONS:
+                                        bug.relations = getElementIds(reader);
+                                        break;
+                                    default:
+                                        reader.skipValue();
+                                    }
+                                }
+                                reader.endObject();
+                                break;
+                            case OSMOSE_TITLE:
+                                reader.beginObject();
+                                while (reader.hasNext()) {
+                                    String titleType = reader.nextName();
+                                    if (OSMOSE_AUTO.equals(titleType)) {
+                                        bug.title = reader.nextString();
+                                    } else {
+                                        reader.skipValue();
+                                    }
+                                }
+                                reader.endObject();
+                                break;
+                            case OSMOSE_SUBTITLE:
+                                if (reader.peek() != com.google.gson.stream.JsonToken.NULL) {
+                                    reader.beginObject();
+                                    while (reader.hasNext()) {
+                                        String titleType = reader.nextName();
+                                        if (OSMOSE_AUTO.equals(titleType)) {
+                                            bug.subtitle = reader.nextString();
+                                        } else {
+                                            reader.skipValue();
+                                        }
+                                    }
+                                    reader.endObject();
+                                } else {
+                                    reader.nextNull();
+                                }
+                                break;
+                            case OSMOSE_LEVEL:
+                                bug.level = reader.nextInt();
+                                break;
+                            default:
+                                reader.skipValue();
+                            }
                         }
-                        bug.username = reader.nextString();
-                        reader.endArray();
+                        reader.endObject();
                         result.add(bug);
                     }
                     reader.endArray();
+                } else {
+                    reader.skipValue();
                 }
             }
             reader.endObject();
@@ -88,6 +156,39 @@ public final class OsmoseBug extends Bug implements Serializable {
             Log.d(DEBUG_TAG, "Parse error, ignoring " + ex);
         }
         return result;
+    }
+
+    /**
+     * Get a date from a json string
+     * 
+     * @param reader the JsonReader
+     * @return a long indicating seconds since the unix epoch
+     * @throws IOException if Json parsing fails
+     */
+    private static long getDateFromString(@NonNull JsonReader reader) throws IOException {
+        try {
+            return DateFormatter.getDate(DATE_PATTERN_OSMOSE_BUG_UPDATED_AT, reader.nextString()).getTime();
+        } catch (java.text.ParseException pex) {
+            return new Date().getTime();
+        }
+    }
+
+    /**
+     * Add an JsonArray of long ids to a list
+     * 
+     * @param reader the JsonReader
+     * @return a LongPrimitiveList
+     * @throws IOException if reading the Json fails
+     */
+    @NonNull
+    private static LongPrimitiveList getElementIds(@NonNull JsonReader reader) throws IOException {
+        LongPrimitiveList list = new LongPrimitiveList();
+        reader.beginArray();
+        while (reader.hasNext()) {
+            list.add(reader.nextLong());
+        }
+        reader.endArray();
+        return list;
     }
 
     /**
@@ -129,7 +230,7 @@ public final class OsmoseBug extends Bug implements Serializable {
     /**
      * @return the item
      */
-    public int getOsmoseItem() {
+    public String getOsmoseItem() {
         return item;
     }
 
@@ -138,5 +239,24 @@ public final class OsmoseBug extends Bug implements Serializable {
      */
     public int getOsmoseClass() {
         return bugclass;
+    }
+
+    @Override
+    public boolean equals(Object obj) { // NOSONAR
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof OsmoseBug)) {
+            return false;
+        }
+        OsmoseBug other = (OsmoseBug) obj;
+        if (id == null) {
+            if (other.id != null) {
+                return false;
+            }
+        } else if (!id.equals(other.id)) {
+            return false;
+        }
+        return true;
     }
 }

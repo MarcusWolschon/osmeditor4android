@@ -64,7 +64,7 @@ public class TaskStorage implements Serializable, DataStorage {
         boxes = new RTree<>(2, 20);
         dirty = true;
     }
-    
+
     /**
      * Get the number of stored tasks
      * 
@@ -128,9 +128,8 @@ public class TaskStorage implements Serializable, DataStorage {
         Collection<Task> queryResult = new ArrayList<>();
         tasks.query(queryResult, t.getLon(), t.getLat());
         Log.d(DEBUG_TAG, "candidates for contain " + queryResult.size());
-        Class<? extends Task> c = t.getClass();
         for (Task t2 : queryResult) {
-            if (c.isInstance(t2) && t.getId() == t2.getId()) {
+            if (t.equals(t2)) {
                 return true;
             }
         }
@@ -149,7 +148,7 @@ public class TaskStorage implements Serializable, DataStorage {
         tasks.query(queryResult, t.getLon(), t.getLat());
         Log.d(DEBUG_TAG, "candidates for get " + queryResult.size());
         for (Task t2 : queryResult) {
-            if (t.getId() == t2.getId() && t.getClass().equals(t2.getClass())) {
+            if (t.equals(t2)) {
                 return t2;
             }
         }
@@ -182,7 +181,7 @@ public class TaskStorage implements Serializable, DataStorage {
         Log.d(DEBUG_TAG, "getTasks result count " + queryResult.size());
         return queryResult;
     }
-    
+
     /**
      * Return all tasks in a bounding box
      * 
@@ -351,7 +350,7 @@ public class TaskStorage implements Serializable, DataStorage {
      * @param newLonE7 the new longitude in WGS84*1E7
      */
     public synchronized void move(@NonNull Task t, int newLatE7, int newLonE7) {
-        if (t instanceof Note && ((Note) t).isNew()) {
+        if (t.isNew()) {
             tasks.remove(t);
             ((Note) t).move(newLatE7, newLonE7);
             tasks.insert(t);
@@ -372,7 +371,7 @@ public class TaskStorage implements Serializable, DataStorage {
         }
         return osmoseMeta;
     }
-    
+
     @Override
     public String toString() {
         return "task r-tree: " + tasks.count() + " boxes r-tree " + boxes.count();

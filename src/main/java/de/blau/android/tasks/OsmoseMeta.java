@@ -25,9 +25,6 @@ import androidx.annotation.Nullable;
  */
 public class OsmoseMeta implements Serializable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     private static final String DEBUG_TAG = OsmoseMeta.class.getSimpleName();
@@ -79,11 +76,11 @@ public class OsmoseMeta implements Serializable {
          * 
          */
         private static final long         serialVersionUID = 1L;
-        int                               id;
+        String                            id;
         private Map<Integer, OsmoseClass> classes          = new HashMap<>();
     }
 
-    private Map<Integer, Item> items = new HashMap<>();
+    private Map<String, Item> items = new HashMap<>();
 
     /**
      * Parse an InputStream containing Osmose task data
@@ -93,7 +90,7 @@ public class OsmoseMeta implements Serializable {
      * @throws NumberFormatException if a number conversion fails
      */
     public void parse(@NonNull InputStream is) throws IOException, NumberFormatException {
-        Map<Integer, Item> tempItems = new HashMap<>();
+        Map<String, Item> tempItems = new HashMap<>();
         try (JsonReader reader = new JsonReader(new InputStreamReader(is))) {
             // key object
             String key = null;
@@ -147,7 +144,7 @@ public class OsmoseMeta implements Serializable {
                                             }
                                             reader.endArray();
                                         } else if (ITEM_KEY.equals(key)) {
-                                            item.id = reader.nextInt();
+                                            item.id = reader.nextString();
                                         } else {
                                             reader.skipValue();
                                         }
@@ -166,7 +163,7 @@ public class OsmoseMeta implements Serializable {
                 }
             }
             reader.endObject();
-            for (Entry<Integer, Item> itemEntry : tempItems.entrySet()) {
+            for (Entry<String, Item> itemEntry : tempItems.entrySet()) {
                 Item existingItem = items.get(itemEntry.getKey());
                 if (existingItem != null) {
                     for (Entry<Integer, OsmoseClass> classEntry : itemEntry.getValue().classes.entrySet()) {
@@ -236,7 +233,7 @@ public class OsmoseMeta implements Serializable {
      * @return an OsmoseClass or null
      */
     @Nullable
-    public OsmoseClass getOsmoseClass(int itemId, int classId) {
+    public OsmoseClass getOsmoseClass(String itemId, int classId) {
         Item item = items.get(itemId);
         if (item != null) {
             return item.classes.get(classId);

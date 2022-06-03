@@ -11,15 +11,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.UploadResult;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Task.State;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -31,7 +30,6 @@ final class OsmoseServer {
 
     private static final String DEBUG_TAG = OsmoseServer.class.getSimpleName();
 
-    private static final String API02PATH = "/api/0.2/"; // NOSONAR
     private static final String API03PATH = "/api/0.3/"; // NOSONAR
 
     /**
@@ -57,20 +55,20 @@ final class OsmoseServer {
      * Perform an HTTP request to download up to limit bugs inside the specified area. Blocks until the request is
      * complete.
      * 
-     * @param context the Android context
+     * @param server the OSMOSE server
      * @param area Latitude/longitude *1E7 of area to download.
      * @param limit unused
      * @return All the bugs in the given area.
      */
-    public static Collection<OsmoseBug> getBugsForBox(Context context, BoundingBox area, long limit) {
+    @Nullable
+    public static Collection<OsmoseBug> getBugsForBox(@NonNull String server, @NonNull BoundingBox area, long limit) {
         Collection<OsmoseBug> result = null;
         // http://osmose.openstreetmap.fr/de/api/0.2/errors?bbox=8.32,47.33,8.42,47.28&full=true
         try {
-            Log.d(DEBUG_TAG, "getBugssForBox");
-            URL url;
+            Log.d(DEBUG_TAG, "getBugsForBox");
 
-            url = new URL(getServerURL(context) + "errors?" + "bbox=" + area.getLeft() / 1E7d + "," + area.getBottom() / 1E7d + "," + area.getRight() / 1E7d
-                    + "," + area.getTop() / 1E7d + "&full=true");
+            URL url = new URL(getServerURL(server) + "issues?" + "bbox=" + area.getLeft() / 1E7d + "," + area.getBottom() / 1E7d + "," + area.getRight() / 1E7d
+                    + "," + area.getTop() / 1E7d + "&full=true&limit=" + Long.toString(limit));
             ResponseBody responseBody = null;
             InputStream inputStream = null;
 
@@ -96,12 +94,12 @@ final class OsmoseServer {
     /**
      * Change the state of the bug on the server
      * 
-     * @param context the Android context
+     * @param server the OSMOSE server
      * @param bug bug with the state the server side bug should be changed to
      * @return true if successful
      */
     @NonNull
-    public static UploadResult changeState(@NonNull Context context, OsmoseBug bug) {
+    public static UploadResult changeState(@NonNull String server, OsmoseBug bug) {
         // http://osmose.openstreetmap.fr/de/api/0.2/error/3313305479/done
         // http://osmose.openstreetmap.fr/de/api/0.2/error/3313313045/false
         if (bug.getState() == State.OPEN) {
@@ -109,7 +107,7 @@ final class OsmoseServer {
             return new UploadResult(ErrorCodes.BAD_REQUEST);
         }
         try {
-            URL url = new URL(getServerURL(context) + "error/" + bug.getId() + "/" + (bug.getState() == State.CLOSED ? "done" : "false"));
+            URL url = new URL(getServerURL(server) + "issue/" + bug.getId() + "/" + (bug.getState() == State.CLOSED ? "done" : "false"));
             Log.d(DEBUG_TAG, "changeState " + url.toString());
             Request request = new Request.Builder().url(url).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
@@ -144,20 +142,18 @@ final class OsmoseServer {
     /**
      * Get meta information on a specific Osmose item / class
      * 
-     * @param context an Android Context
+     * @param server the OSMOSE server
      * @param itemId the item id
      * @param classId the class id
      */
-    public static void getMeta(@NonNull Context context, int itemId, int classId) {
+    public static void getMeta(@NonNull String server, String itemId, int classId) {
         try {
             // http://osmose.openstreetmap.fr/api/0.3/items/3130/class/31301?langs=en
-            Preferences prefs = new Preferences(context);
             String lang = Locale.getDefault().getLanguage();
             if (!SUPPORTED_LANGUAGES.contains(lang)) {
                 lang = "en";
             }
-            URL url = new URL(
-                    prefs.getOsmoseServer() + API03PATH + "items/" + Integer.toString(itemId) + "/class/" + Integer.toString(classId) + "?langs=" + lang);
+            URL url = new URL(getServerURL(server) + "items/" + itemId + "/class/" + Integer.toString(classId) + "?langs=" + lang);
             Log.d(DEBUG_TAG, "getMeta " + url.toString());
             Request request = new Request.Builder().url(url).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
@@ -179,17 +175,11 @@ final class OsmoseServer {
     }
 
     /**
-     * Get the OSMOSE server from preferences
-     *
-     * @param context the Android context
+     * Get the OSMOSE server url
+     * 
      * @return the server URL
      */
-    private static String getServerURL(@NonNull Context context) {
-        Preferences prefs = new Preferences(context);
-        String lang = Locale.getDefault().getLanguage();
-        if (!SUPPORTED_LANGUAGES.contains(lang)) {
-            lang = "en";
-        }
-        return prefs.getOsmoseServer() + lang + API02PATH;
+    private static String getServerURL(@NonNull String server) {
+        return server + API03PATH;
     }
 }

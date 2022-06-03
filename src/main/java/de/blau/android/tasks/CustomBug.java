@@ -22,13 +22,11 @@ import de.blau.android.util.DateFormatter;
  * @author Simon Poole
  */
 public final class CustomBug extends Bug implements Serializable {
+    private static final long serialVersionUID = 2L;
 
     private static final String DEBUG_TAG = CustomBug.class.getSimpleName();
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 2L;
+    private String elems;
 
     /**
      * Parse an InputStream containing bugs in JSON format
@@ -55,7 +53,7 @@ public final class CustomBug extends Bug implements Serializable {
                         reader.beginArray();
                         bug.lat = (int) (reader.nextDouble() * 1E7D);
                         bug.lon = (int) (reader.nextDouble() * 1E7D);
-                        bug.id = reader.nextLong();
+                        bug.id = reader.nextString();
                         bug.elems = reader.nextString();
                         bug.subtitle = reader.nextString();
                         bug.title = reader.nextString();
@@ -150,5 +148,24 @@ public final class CustomBug extends Bug implements Serializable {
         result.append(DateFormatter.getFormattedString(DATE_PATTERN_OSMOSE_BUG_UPDATED_AT, getLastUpdate()));
         result.append("\"]");
         return result.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) { // NOSONAR
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof CustomBug)) {
+            return false;
+        }
+        CustomBug other = (CustomBug) obj;
+        if (id == null) {
+            if (other.id != null) {
+                return false;
+            }
+        } else if (!id.equals(other.id)) {
+            return false;
+        }
+        return true;
     }
 }

@@ -17,6 +17,7 @@ import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
+import de.blau.android.util.collections.LongPrimitiveList;
 
 /**
  * Subset of the fields and functionality for handling OSMOSE style bugs
@@ -25,31 +26,42 @@ import de.blau.android.osm.Way;
  */
 public abstract class Bug extends Task implements Serializable {
 
-    static final String DEBUG_TAG         = Bug.class.getSimpleName();
-    static final int    LEVEL_ERROR       = 1;
-    static final int    LEVEL_WARNING     = 2;
-    static final int    LEVEL_MINOR_ISSUE = 3;
+    private static final long serialVersionUID = 3L;
+
+    private static final String DEBUG_TAG = Bug.class.getSimpleName();
+
+    protected static final int LEVEL_ERROR       = 1;
+    protected static final int LEVEL_WARNING     = 2;
+    protected static final int LEVEL_MINOR_ISSUE = 3;
 
     /**
      * Date pattern used to parse the update date from a Osmose bug.
      */
     static final String DATE_PATTERN_OSMOSE_BUG_UPDATED_AT = "yyyy-MM-dd HH:mm:ss z";
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 2L;
+    protected String id;
 
-    String elems;
-    String title;
-    String subtitle;
-    int    level;
-    long   update;  // update date in ms since the epoch
+    protected LongPrimitiveList nodes;
+    protected LongPrimitiveList ways;
+    protected LongPrimitiveList relations;
+    protected String            title;
+    protected String            subtitle;
+    protected int               level;
+    protected long              update;   // update date in ms since the epoch
 
     /**
      * Default constructor
      */
     protected Bug() {
+    }
+
+    /**
+     * Get the id
+     * 
+     * @return the id
+     */
+    String getId() {
+        return id;
     }
 
     @Override
@@ -143,35 +155,54 @@ public abstract class Bug extends Task implements Serializable {
      * @return list of OsmElement
      */
     public final List<OsmElement> getElements() {
-        ArrayList<OsmElement> result = new ArrayList<>();
-        String[] elements = elems.split("_");
+        List<OsmElement> result = new ArrayList<>();
         StorageDelegator storageDelegator = App.getDelegator();
-        for (String e : elements) {
-            try {
-                if (elems.startsWith("way")) {
-                    OsmElement osm = storageDelegator.getOsmElement(Way.NAME, Long.valueOf(e.substring(3)));
-                    if (osm == null) {
-                        osm = OsmElementFactory.createWay(Long.valueOf(e.substring(3)), -1, -1, (byte) -1);
-                    }
-                    result.add(osm);
-                } else if (elems.startsWith("node")) {
-                    OsmElement osm = storageDelegator.getOsmElement(Node.NAME, Long.valueOf(e.substring(4)));
-                    if (osm == null) {
-                        osm = OsmElementFactory.createNode(Long.valueOf(e.substring(4)), -1, -1, (byte) -1, 0, 0);
-                    }
-                    result.add(osm);
-                } else if (elems.startsWith("relation")) {
-                    OsmElement osm = storageDelegator.getOsmElement(Relation.NAME, Long.valueOf(e.substring(8)));
-                    if (osm == null) {
-                        osm = OsmElementFactory.createRelation(Long.valueOf(e.substring(8)), -1, -1, (byte) -1);
-                    }
-                    result.add(osm);
+        try {
+            if (nodes != null) {
+                for (long l : nodes.values()) {
+                    result.add(getElementOrDummy(storageDelegator, Node.NAME, l));
                 }
-            } catch (Exception ex) {
-                Log.d(DEBUG_TAG, "couldn't retrieve element " + elems + " " + ex);
             }
+            if (ways != null) {
+                for (long l : ways.values()) {
+                    result.add(getElementOrDummy(storageDelegator, Way.NAME, l));
+                }
+            }
+            if (relations != null) {
+                for (long l : relations.values()) {
+                    result.add(getElementOrDummy(storageDelegator, Relation.NAME, l));
+                }
+            }
+        } catch (Exception ex) {
+            Log.d(DEBUG_TAG, "couldn't retrieve elements " + ex);
         }
         return result;
+    }
+
+    /**
+     * Get an element from storage and if not present a dummy object
+     * 
+     * @param storageDelegator the StorageDelegator instance
+     * @param type OsmELement type
+     * @param id the element id
+     * @return an OsmElement
+     */
+    @NonNull
+    private OsmElement getElementOrDummy(@NonNull StorageDelegator storageDelegator, @NonNull String type, long id) {
+        OsmElement osm = storageDelegator.getOsmElement(type, id);
+        if (osm == null) {
+            switch (type) {
+            case Node.NAME:
+                return OsmElementFactory.createNode(id, -1, -1, (byte) -1, 0, 0);
+            case Way.NAME:
+                return OsmElementFactory.createWay(id, -1, -1, (byte) -1);
+            case Relation.NAME:
+                return OsmElementFactory.createRelation(id, -1, -1, (byte) -1);
+            default:
+                throw new IllegalArgumentException(type + " is not an OSM element type");
+            }
+        }
+        return osm;
     }
 
     /**
@@ -200,5 +231,13 @@ public abstract class Bug extends Task implements Serializable {
      */
     public final int getLevel() {
         return level;
+    }
+
+    @Override
+    public int hashCode() { // NOSONAR
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
     }
 }

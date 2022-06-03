@@ -297,7 +297,7 @@ public final class IssueAlert {
      * @return an unique id
      */
     private static int id(@NonNull Task b) {
-        return (b.getClass().getSimpleName() + b.getId()).hashCode();
+        return (b.getClass().getSimpleName() + b.hashCode()).hashCode();
     }
 
     /**

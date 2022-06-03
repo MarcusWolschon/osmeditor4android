@@ -17,6 +17,7 @@ import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Util;
 
@@ -79,7 +80,8 @@ public class MapRouletteFragment extends TaskFragment {
 
     @Override
     protected <T extends Task> void update(Server server, PostAsyncActionHandler handler, T task) {
-        TransferTasks.updateMapRouletteTask(getActivity(), server, (MapRouletteTask) task, false, handler);
+        TransferTasks.updateMapRouletteTask(getActivity(), server, new Preferences(getActivity()).getMapRouletteServer(), (MapRouletteTask) task, false,
+                handler);
     }
 
     @Override

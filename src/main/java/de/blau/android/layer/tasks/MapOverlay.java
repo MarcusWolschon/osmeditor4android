@@ -194,7 +194,7 @@ public class MapOverlay extends MapViewLayer
                     float x = GeoMath.lonE7ToX(w, bb, t.getLon());
                     float y = GeoMath.latE7ToY(h, w, bb, t.getLat());
                     boolean isSelected = selected != null && t.equals(selected) && App.getLogic().isInEditZoomRange();
-                    if (isSelected && t instanceof Note && ((Note) t).isNew() && map.getPrefs().largeDragArea()) {
+                    if (isSelected && t.isNew() && map.getPrefs().largeDragArea()) {
                         // if the task can be dragged and large drag area is turned on show the large drag area
                         c.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint());
                     }
@@ -256,7 +256,7 @@ public class MapOverlay extends MapViewLayer
 
     @Override
     public void onSelected(FragmentActivity activity, Task t) {
-        if (t instanceof Note && ((Note) t).isNew() && activity instanceof Main) {
+        if (t.isNew() && activity instanceof Main) {
             if (((Main) activity).getEasyEditManager().editNote((Note) t, this)) {
                 selected = t;
             }

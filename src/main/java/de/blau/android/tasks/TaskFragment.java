@@ -280,7 +280,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
             if (layer != null) {
                 Task selectedTask = layer.getSelected();
                 // ugly way of only de-selecting if we're not in the new note action mode
-                if (selectedTask != null && selectedTask.equals(task) && !(task instanceof Note && ((Note) task).isNew())) {
+                if (selectedTask != null && selectedTask.equals(task) && !task.isNew()) {
                     layer.deselectObjects();
                 }
             }
@@ -319,7 +319,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
      * @param bug the Task object
      */
     protected void saveTask(@NonNull View v, @NonNull Task bug) {
-        if (bug.isNew() && ((Note) bug).count() == 0) {
+        if (bug.isNew() && ((Note) bug).count() == 0) { // isNew can currently only be true for Notes
             App.getTaskStorage().add(bug); // sets dirty
         }
         saveTaskSpecific(bug);

@@ -6,32 +6,32 @@ import java.util.Arrays;
 import androidx.annotation.NonNull;
 
 /**
- * Simple list like collection for primitive float values
+ * Simple list like collection for primitive long values
  * 
  * @author simon
  *
  */
-public class FloatPrimitiveList implements Serializable {
+public class LongPrimitiveList implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private float[] array;
-    private int     size     = 0;
-    private int     capacity = 0;
+    private long[] array;
+    private int    size     = 0;
+    private int    capacity = 0;
 
     /**
      * Construct a new instance with capacity initial capacity
      * 
      * @param capacity initial capacity
      */
-    public FloatPrimitiveList(int capacity) {
-        array = new float[capacity];
+    public LongPrimitiveList(int capacity) {
+        array = new long[capacity];
         this.capacity = capacity;
     }
 
     /**
      * COnstruct a new instance with the default initial capacity
      */
-    public FloatPrimitiveList() {
+    public LongPrimitiveList() {
         this(12);
     }
 
@@ -45,45 +45,55 @@ public class FloatPrimitiveList implements Serializable {
     }
 
     /**
-     * Add a float at the end of the list
+     * Add a long at the end of the list
      * 
      * THis will increase the size of the backing array if necessary
      * 
-     * @param f float to add
+     * @param l long to add
      */
-    public void add(float f) {
+    public void add(long l) {
         if (size == capacity) {
             capacity = capacity * 2;
             array = Arrays.copyOf(array, capacity);
         }
-        array[size] = f;
+        array[size] = l;
         size++;
     }
 
     /**
-     * Get the float at position i
+     * Get the long at position i
      * 
      * @param i position we want the value for
-     * @return the requested float
+     * @return the requested long
      */
-    public float get(int i) {
+    public long get(int i) {
         if (i > size - 1) {
-            LongPrimitiveList.indexOutOfBounds(size, i);
+            indexOutOfBounds(size, i);
         }
         return array[i];
     }
 
     /**
-     * Set the float at position i
+     * Throw an IndexOutOfBoundsException
+     * 
+     * @param size current list size
+     * @param i the index
+     */
+    static void indexOutOfBounds(int size, int i) {
+        throw new IndexOutOfBoundsException(Integer.toString(i) + " is larger than " + Integer.toString(size));
+    }
+
+    /**
+     * Set the long at position i
      *
      * @param i position we want the value for
-     * @param f the value to be set
+     * @param l the value to be set
      */
-    public void set(int i, float f) {
+    public void set(int i, long l) {
         if (i > size - 1) {
-            LongPrimitiveList.indexOutOfBounds(size, i);
+            indexOutOfBounds(size, i);
         }
-        array[i] = f;
+        array[i] = l;
     }
 
     /**
@@ -93,7 +103,7 @@ public class FloatPrimitiveList implements Serializable {
      */
     public void truncate(int s) {
         if (s > size) {
-            LongPrimitiveList.indexOutOfBounds(size, s);
+            indexOutOfBounds(size, s);
         }
         size = s;
     }
@@ -110,10 +120,10 @@ public class FloatPrimitiveList implements Serializable {
     /**
      * Get a float array containing all values
      * 
-     * @return that float values in an array
+     * @return that long values in an array
      */
     @NonNull
-    public float[] values() {
+    public long[] values() {
         return Arrays.copyOf(array, size);
     }
 
@@ -123,10 +133,10 @@ public class FloatPrimitiveList implements Serializable {
      * This is useful if you want to avoid allocating a new array and copying the contents, only useful together with
      * the value of size()
      * 
-     * @return the backing float array
+     * @return the backing long array
      */
     @NonNull
-    public float[] getArray() {
+    public long[] getArray() {
         return array;
     }
 }

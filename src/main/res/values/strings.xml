@@ -131,7 +131,7 @@
     <string name="osmose_bug">Osmose</string>
     <string name="custom_bug">Custom</string>
     <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
-    <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
+    <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id: %2$s</string>
     <string name="bug_element_1">%1$s (not downloaded) #%2$d</string>
     <string name="bug_element_2">%1$s %2$s</string>
     <string name="maproulette_task_title">MapRoulette Task</string>
@@ -661,6 +661,7 @@
     <string name="select">Select</string>
     <string name="skip">Skip</string>
     <string name="deprecated">%1$s (deprecated)</string>
+    <string name="more_information">More information</string>
     <!-- Read a file -->
     <string name="read">Read</string>
     <string name="overwrite">Overwrite</string>

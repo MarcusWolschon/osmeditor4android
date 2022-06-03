@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
-import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +16,6 @@ import de.blau.android.ErrorCodes;
 import de.blau.android.UploadResult;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
-import de.blau.android.prefs.Preferences;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -47,18 +45,18 @@ final class MapRouletteServer {
      * Perform an HTTP request to download up to limit bugs inside the specified area. Blocks until the request is
      * complete.
      * 
-     * @param context the Android context
+     * @param server the maproulette server
      * @param area Latitude/longitude *1E7 of area to download.
      * @param limit unused
      * @return All the bugs in the given area.
      */
-    public static Collection<MapRouletteTask> getTasksForBox(Context context, BoundingBox area, long limit) {
+    public static Collection<MapRouletteTask> getTasksForBox(String server, BoundingBox area, long limit) {
         Collection<MapRouletteTask> result = null;
         try {
             Log.d(DEBUG_TAG, "getTasksForBox");
             URL url;
 
-            url = new URL(getServerURL(context) + "tasks/box/" + area.getLeft() / 1E7d + "/" + area.getBottom() / 1E7d + "/" + area.getRight() / 1E7d + "/"
+            url = new URL(getServerURL(server) + "tasks/box/" + area.getLeft() / 1E7d + "/" + area.getBottom() / 1E7d + "/" + area.getRight() / 1E7d + "/"
                     + area.getTop() / 1E7d + "");
             InputStream inputStream = getFromApi(url);
             if (inputStream != null) {
@@ -103,15 +101,15 @@ final class MapRouletteServer {
     /**
      * Change the state of the MapRoulette task on the server
      * 
-     * @param context the Android context
+     * @param server the maproulette server
      * @param apiKey the users apiKey
      * @param task the task with the state the server side task should be changed to
      * @return true if successful
      */
     @NonNull
-    public static UploadResult changeState(@NonNull Context context, @NonNull String apiKey, @NonNull MapRouletteTask task) {
+    public static UploadResult changeState(@NonNull String server, @NonNull String apiKey, @NonNull MapRouletteTask task) {
         try {
-            URL url = new URL(getServerURL(context) + "task/" + task.getId() + "/" + task.getState().ordinal());
+            URL url = new URL(getServerURL(server) + "task/" + task.getId() + "/" + task.getState().ordinal());
             Log.d(DEBUG_TAG, "changeState " + url.toString());
             Request request = new Request.Builder().url(url).put(RequestBody.create(null, "")).addHeader("apiKey", apiKey).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
@@ -146,17 +144,17 @@ final class MapRouletteServer {
     /**
      * Retrieve a MapRoulette Challenge
      * 
-     * @param context the Android Context
+     * @param @param server the maproulette server
      * @param id the Challenge id
      * @return the Challenge or null if none could be retrieved
      */
     @Nullable
-    public static MapRouletteChallenge getChallenge(@NonNull Context context, long id) {
+    public static MapRouletteChallenge getChallenge(@NonNull String server, long id) {
         MapRouletteChallenge result = null;
         try {
             Log.d(DEBUG_TAG, "getChallenge");
             URL url;
-            url = new URL(getServerURL(context) + "challenge/" + Long.toString(id));
+            url = new URL(getServerURL(server) + "challenge/" + Long.toString(id));
             Log.d(DEBUG_TAG, "query: " + url.toString());
             InputStream inputStream = getFromApi(url);
             if (inputStream != null) {
@@ -173,12 +171,11 @@ final class MapRouletteServer {
     /**
      * Get the Mapoulette server from preferences
      *
-     * @param context the Android context
+     * @param server the maproulette server
      * @return the server URL
      */
     @NonNull
-    private static String getServerURL(Context context) {
-        Preferences prefs = new Preferences(context);
-        return prefs.getMapRouletteServer() + APIPATH;
+    private static String getServerURL(@NonNull String server) {
+        return server + APIPATH;
     }
 }

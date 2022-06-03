@@ -136,24 +136,26 @@ public final class TransferTasks {
         if (noteResult != null) {
             result.addAll(noteResult);
         }
+        Preferences prefs = new Preferences(context);
         Collection<OsmoseBug> osmoseResult = null;
         if (bugFilter.contains(r.getString(R.string.bugfilter_osmose_error)) || bugFilter.contains(r.getString(R.string.bugfilter_osmose_warning))
                 || bugFilter.contains(r.getString(R.string.bugfilter_osmose_minor_issue))) {
-            osmoseResult = OsmoseServer.getBugsForBox(context, box, MAX_PER_REQUEST);
+
+            osmoseResult = OsmoseServer.getBugsForBox(prefs.getOsmoseServer(), box, MAX_PER_REQUEST);
         }
         if (osmoseResult != null) {
             result.addAll(osmoseResult);
         }
         Collection<MapRouletteTask> mapRouletteResult = null;
         if (bugFilter.contains(r.getString(R.string.bugfilter_maproulette))) {
-            mapRouletteResult = MapRouletteServer.getTasksForBox(context, box, MAX_PER_REQUEST);
+            mapRouletteResult = MapRouletteServer.getTasksForBox(prefs.getMapRouletteServer(), box, MAX_PER_REQUEST);
         }
         if (mapRouletteResult != null) {
             result.addAll(mapRouletteResult);
             Map<Long, MapRouletteChallenge> challenges = bugs.getChallenges();
             for (Entry<Long, MapRouletteChallenge> entry : challenges.entrySet()) {
                 if (entry.getValue() == null) {
-                    challenges.put(entry.getKey(), MapRouletteServer.getChallenge(context, entry.getKey()));
+                    challenges.put(entry.getKey(), MapRouletteServer.getChallenge(prefs.getMapRouletteServer(), entry.getKey()));
                 }
             }
         }
@@ -197,6 +199,7 @@ public final class TransferTasks {
             @Override
             protected Boolean doInBackground(Void param) {
                 boolean uploadFailed = false;
+                Preferences prefs = new Preferences(activity);
                 for (Task b : queryResult) {
                     if (b.hasBeenChanged()) {
                         Log.d(DEBUG_TAG, b.getDescription());
@@ -206,9 +209,10 @@ public final class TransferTasks {
                             uploadFailed = (uploadNote(server, n, nc != null && nc.isNew() ? nc : null, n.isClosed()).getError() != ErrorCodes.OK)
                                     || uploadFailed;
                         } else if (b instanceof OsmoseBug) {
-                            uploadFailed = (OsmoseServer.changeState(activity, (OsmoseBug) b).getError() != ErrorCodes.OK) || uploadFailed;
+                            uploadFailed = (OsmoseServer.changeState(prefs.getOsmoseServer(), (OsmoseBug) b).getError() != ErrorCodes.OK) || uploadFailed;
                         } else if (b instanceof MapRouletteTask) {
-                            uploadFailed = !updateMapRouletteTask(activity, server, (MapRouletteTask) b, true, null) || uploadFailed;
+                            uploadFailed = !updateMapRouletteTask(activity, server, prefs.getMapRouletteServer(), (MapRouletteTask) b, true, null)
+                                    || uploadFailed;
                         }
                     }
                 }
@@ -253,7 +257,8 @@ public final class TransferTasks {
         ExecutorTask<Void, Void, UploadResult> a = new ExecutorTask<Void, Void, UploadResult>(logic.getExecutorService(), logic.getHandler()) {
             @Override
             protected UploadResult doInBackground(Void param) {
-                return OsmoseServer.changeState(context, b);
+                Preferences prefs = new Preferences(context);
+                return OsmoseServer.changeState(prefs.getOsmoseServer(), b);
             }
 
             @Override
@@ -421,14 +426,15 @@ public final class TransferTasks {
      * 
      * @param activity the calling Activity
      * @param server Server configuration
+     * @param maprouletteServer the maproulette server
      * @param task MapRouletteTask to update
      * @param quiet don't display messages if true
      * @param postUploadHandler if not null run this handler after update
      * @return true if successful
      */
     @SuppressLint("InlinedApi")
-    public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, @NonNull Server server, @NonNull final MapRouletteTask task,
-            final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
+    public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, @NonNull Server server, @NonNull String maprouletteServer,
+            @NonNull final MapRouletteTask task, final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "updateMapRouletteTask");
         final PostAsyncActionHandler restartAction = () -> {
             Log.d(DEBUG_TAG, "--- restarting");
@@ -436,8 +442,7 @@ public final class TransferTasks {
             new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
                 @Override
                 protected Void doInBackground(Void param) {
-                    Preferences prefs = new Preferences(activity);
-                    updateMapRouletteTask(activity, prefs.getServer(), task, quiet, postUploadHandler);
+                    updateMapRouletteTask(activity, server, maprouletteServer, task, quiet, postUploadHandler);
                     return null;
                 }
             }.execute();
@@ -455,7 +460,7 @@ public final class TransferTasks {
                 if (apiKey == null) {
                     return new UploadResult(ErrorCodes.MISSING_API_KEY);
                 }
-                return MapRouletteServer.changeState(activity, apiKey, task);
+                return MapRouletteServer.changeState(maprouletteServer, apiKey, task);
             }
 
             @Override
@@ -866,7 +871,7 @@ public final class TransferTasks {
         long now = System.currentTimeMillis();
         synchronized (storage) { // NOSONAR this will be the same object
             for (Task b : tasks) {
-                if (b.getId() < 0 && b instanceof Note) { // need to renumber assuming that there are no duplicates
+                if (b.isNew()) { // need to renumber assuming that there are no duplicates
                     ((Note) b).setId(storage.getNextId());
                 }
                 Task existing = storage.get(b);

@@ -21,6 +21,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.OsmoseMeta.OsmoseClass;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
@@ -108,7 +109,7 @@ public class BugFragment extends TaskFragment {
                 if (context != null) {
                     final Markwon markwon = Markwon.create(context);
                     OsmoseMeta meta = App.getTaskStorage().getOsmoseMeta();
-                    final int itemId = ((OsmoseBug) task).getOsmoseItem();
+                    final String itemId = ((OsmoseBug) task).getOsmoseItem();
                     final int classId = ((OsmoseBug) task).getOsmoseClass();
                     OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
                     if (osmoseClass == null) {
@@ -117,7 +118,7 @@ public class BugFragment extends TaskFragment {
                             new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
                                 @Override
                                 protected Void doInBackground(Void arg0) {
-                                    OsmoseServer.getMeta(context, itemId, classId);
+                                    OsmoseServer.getMeta(new Preferences(getActivity()).getOsmoseServer(), itemId, classId);
                                     return null;
                                 }
 
@@ -145,7 +146,7 @@ public class BugFragment extends TaskFragment {
                 }
             });
             instructionText.setTextColor(ContextCompat.getColor(getContext(), R.color.holo_blue_light));
-            instructionText.setText(R.string.maproulette_task_explanations);
+            instructionText.setText(R.string.more_information);
             elementLayout.addView(instructionText);
         }
         final StorageDelegator storageDelegator = App.getDelegator();

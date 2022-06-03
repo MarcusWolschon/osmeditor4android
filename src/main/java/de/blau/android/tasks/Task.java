@@ -41,12 +41,10 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
     protected static BitmapWithOffset cachedIconOpen;
     protected static BitmapWithOffset cachedIconChanged;
 
-    /** OSB Bug ID. */
-    long id;
     /** Latitude *1E7. */
-    int  lat;
+    int lat;
     /** Longitude *1E7. */
-    int  lon;
+    int lon;
 
     /** Bug state. */
     /**
@@ -60,15 +58,6 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
 
     /** Has been edited */
     private boolean changed = false;
-
-    /**
-     * Get the bug ID.
-     * 
-     * @return The bug ID.
-     */
-    public long getId() {
-        return id;
-    }
 
     /**
      * Get the latitude of the bug.
@@ -122,6 +111,15 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
     }
 
     /**
+     * Check if this task is new
+     * 
+     * @return true if new
+     */
+    public boolean isNew() {
+        return false;
+    }
+
+    /**
      * Close the bug
      */
     void close() {
@@ -159,15 +157,6 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
     @NonNull
     public BoundingBox getBounds() {
         return new BoundingBox(lon, lat);
-    }
-
-    /**
-     * Return true if a newly created bug, only makes sense for Notes
-     * 
-     * @return true if new
-     */
-    public boolean isNew() {
-        return id <= 0;
     }
 
     /**
@@ -307,4 +296,10 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
     public void drawBitmapClosed(Context context, Canvas c, float x, float y, boolean selected) {
         drawIcon(context, cachedIconClosed, c, R.drawable.bug_closed, x, y, selected);
     }
+
+    @Override
+    public abstract int hashCode();
+
+    @Override
+    public abstract boolean equals(Object obj);
 }

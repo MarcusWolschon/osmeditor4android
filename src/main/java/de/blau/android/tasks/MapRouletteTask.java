@@ -15,12 +15,9 @@ import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
 
-public class MapRouletteTask extends Task {
+public class MapRouletteTask extends LongIdTask {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final String DEBUG_TAG = "MapRouletteTask";
 
@@ -150,5 +147,17 @@ public class MapRouletteTask extends Task {
     @Override
     public void drawBitmapClosed(Context context, Canvas c, float x, float y, boolean selected) {
         drawIcon(context, cachedIconClosed, c, R.drawable.roulette_closed, x, y, selected);
+    }
+
+    @Override
+    public boolean equals(Object obj) { // NOSONAR
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof MapRouletteTask)) {
+            return false;
+        }
+        MapRouletteTask other = ((MapRouletteTask) obj);
+        return id == other.id;
     }
 }

@@ -1462,7 +1462,7 @@ public class Logic {
                         de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
                         if (taskLayer != null) {
                             Task selectedTask = taskLayer.getSelected();
-                            if (selectedTask instanceof Note && ((Note) selectedTask).isNew()) {
+                            if (selectedTask.isNew()) {
                                 try {
                                     App.getTaskStorage().move(selectedTask, lat, lon);
                                 } catch (IllegalOperationException e) {
