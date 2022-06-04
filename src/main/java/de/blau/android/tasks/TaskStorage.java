@@ -51,8 +51,8 @@ public class TaskStorage implements Serializable, DataStorage {
      * Default constructor
      */
     public TaskStorage() {
-        reset();
         challenges = new HashMap<>();
+        reset();
         dirty = false;
     }
 
@@ -62,6 +62,8 @@ public class TaskStorage implements Serializable, DataStorage {
     public synchronized void reset() {
         tasks = new RTree<>(30, 100);
         boxes = new RTree<>(2, 20);
+        challenges.clear();
+        osmoseMeta = null;
         dirty = true;
     }
 
