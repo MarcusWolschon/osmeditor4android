@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -102,52 +103,47 @@ public class BugFragment extends TaskFragment {
         comments.setText(Util.fromHtml(((Bug) task).getLongDescription(getActivity(), false)));
         if (!isCustomBug && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             // provide dialog with some additional text
-            TextView instructionText = new TextView(getActivity());
-            instructionText.setClickable(true);
-            instructionText.setOnClickListener(unused -> {
-                final Context context = getContext();
-                if (context != null) {
-                    final Markwon markwon = Markwon.create(context);
-                    OsmoseMeta meta = App.getTaskStorage().getOsmoseMeta();
-                    final String itemId = ((OsmoseBug) task).getOsmoseItem();
-                    final int classId = ((OsmoseBug) task).getOsmoseClass();
-                    OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
-                    if (osmoseClass == null) {
-                        if (new NetworkStatus(context).isConnected()) {
-                            Logic logic = App.getLogic();
-                            new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
-                                @Override
-                                protected Void doInBackground(Void arg0) {
-                                    OsmoseServer.getMeta(new Preferences(getActivity()).getOsmoseServer(), itemId, classId);
-                                    return null;
-                                }
+            OsmoseMeta meta = App.getTaskStorage().getOsmoseMeta();
+            final String itemId = ((OsmoseBug) task).getOsmoseItem();
+            final int classId = ((OsmoseBug) task).getOsmoseClass();
+            OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
+            if (osmoseClass == null || osmoseClass.hasHelpText()) {
+                TextView instructionText = new TextView(getActivity());
+                instructionText.setClickable(true);
+                instructionText.setOnClickListener(unused -> {
+                    final Context context = getContext();
+                    if (context != null) {
+                        if (osmoseClass == null) {
+                            if (new NetworkStatus(context).isConnected()) {
+                                Logic logic = App.getLogic();
+                                new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
+                                    @Override
+                                    protected Void doInBackground(Void arg0) {
+                                        OsmoseServer.getMeta(new Preferences(getActivity()).getOsmoseServer(), itemId, classId);
+                                        return null;
+                                    }
 
-                                @Override
-                                protected void onPostExecute(Void arg0) {
-                                    OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
-                                    if (osmoseClass != null) {
-                                        String text = osmoseClass.getText();
-                                        if (text != null) {
-                                            showAdditionalText(context, markwon.toMarkdown(text));
+                                    @Override
+                                    protected void onPostExecute(Void arg0) {
+                                        OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
+                                        if (osmoseClass != null) {
+                                            showHelpText(context, osmoseClass.getHelpText());
                                         }
                                     }
-                                }
 
-                            }.execute();
+                                }.execute();
+                            } else {
+                                Snack.toastTopWarning(context, R.string.network_required);
+                            }
                         } else {
-                            Snack.toastTopWarning(context, R.string.network_required);
-                        }
-                    } else {
-                        String text = osmoseClass.getText();
-                        if (text != null) {
-                            showAdditionalText(context, markwon.toMarkdown(text));
+                            showHelpText(context, osmoseClass.getHelpText());
                         }
                     }
-                }
-            });
-            instructionText.setTextColor(ContextCompat.getColor(getContext(), R.color.holo_blue_light));
-            instructionText.setText(R.string.more_information);
-            elementLayout.addView(instructionText);
+                });
+                instructionText.setTextColor(ContextCompat.getColor(getContext(), R.color.holo_blue_light));
+                instructionText.setText(R.string.more_information);
+                elementLayout.addView(instructionText);
+            }
         }
         final StorageDelegator storageDelegator = App.getDelegator();
         for (final OsmElement e : ((Bug) task).getElements()) {
@@ -190,6 +186,21 @@ public class BugFragment extends TaskFragment {
         }
         //
         return ArrayAdapter.createFromResource(getActivity(), R.array.bug_state, android.R.layout.simple_spinner_item);
+    }
+
+    /**
+     * Display some markdown formatted text in a dialog
+     * 
+     * @param context an Android Context
+     * @param text the text
+     */
+    private void showHelpText(@NonNull final Context context, @Nullable String text) {
+        if (text != null) {
+            final Markwon markwon = Markwon.create(context);
+            showAdditionalText(context, markwon.toMarkdown(text));
+        } else {
+            Snack.toastTopWarning(context, R.string.toast_nothing_found);
+        }
     }
 
     @Override

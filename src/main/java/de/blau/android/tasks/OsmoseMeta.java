@@ -55,7 +55,7 @@ public class OsmoseMeta implements Serializable {
          * @return a String containing detail and fix
          */
         @Nullable
-        public String getText() {
+        public String getHelpText() {
             String result = null;
             if (detail != null) {
                 result = detail;
@@ -68,6 +68,15 @@ public class OsmoseMeta implements Serializable {
                 }
             }
             return result;
+        }
+
+        /**
+         * Check if we have any additional text to display
+         * 
+         * @return true if we can display something
+         */
+        public boolean hasHelpText() {
+            return detail != null || fix != null;
         }
     }
 
