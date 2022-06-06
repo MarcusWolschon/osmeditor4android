@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import java.net.HttpURLConnection;
+
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -111,16 +113,25 @@ public class UploadConflict extends ImmersiveDialogFragment {
         final long newVersion;
         try {
             boolean useServerOnly = false;
+            final long localVersion = elementLocal.getOsmVersion();
             if (elementOnServer != null) {
+                final long serverVersion = elementOnServer.getOsmVersion();
                 if (elementLocal.getState() == OsmElement.STATE_DELETED) {
                     // we are deleting an element that is still in use on the server
                     builder.setMessage(res.getString(R.string.upload_conflict_message_referential, elementLocal.getDescription(true)));
                     useServerOnly = true;
                 } else {
-                    builder.setMessage(res.getString(R.string.upload_conflict_message_version, elementLocal.getDescription(true), elementLocal.getOsmVersion(),
-                            elementOnServer.getOsmVersion()));
+                    if (localVersion != serverVersion) {
+                        builder.setMessage(
+                                res.getString(R.string.upload_conflict_message_version, elementLocal.getDescription(true), localVersion, serverVersion));
+                    } else if (HttpURLConnection.HTTP_PRECON_FAILED == result.getHttpError()) {
+                        builder.setMessage(res.getString(R.string.upload_conflict_message_missing_references, elementLocal.getDescription(true)));
+                        useServerOnly = true;
+                    } else {
+                        builder.setMessage(res.getString(R.string.upload_conflict_message_unknown, elementLocal.getDescription(true), result.getMessage()));
+                    }
                 }
-                newVersion = elementOnServer.getOsmVersion();
+                newVersion = serverVersion;
             } else {
                 if (elementLocal.getState() == OsmElement.STATE_DELETED) {
                     // we are trying to delete something that already is
@@ -129,10 +140,9 @@ public class UploadConflict extends ImmersiveDialogFragment {
                     builder.setPositiveButton(R.string.retry, (dialog, which) -> ConfirmUpload.showDialog(getActivity(), null));
                     return builder.create();
                 } else { // can this happen? don't think so
-                    builder.setMessage(
-                            res.getString(R.string.upload_conflict_message_deleted, elementLocal.getDescription(true), elementLocal.getOsmVersion()));
+                    builder.setMessage(res.getString(R.string.upload_conflict_message_deleted, elementLocal.getDescription(true), localVersion));
                 }
-                newVersion = elementLocal.getOsmVersion() + 1;
+                newVersion = localVersion + 1;
             }
             if (!useServerOnly) {
                 builder.setPositiveButton(R.string.use_local_version, (dialog, which) -> {
