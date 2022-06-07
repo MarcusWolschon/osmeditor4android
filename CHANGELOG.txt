@@ -1,5 +1,10 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.1.1:
+
+- Fix handle more upload conflicts
+- Update disable Maxar imagery for now as no updated keys available
+
 17.1.0:
 
 - Fix auto-preset application business logic
