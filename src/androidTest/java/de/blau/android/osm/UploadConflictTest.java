@@ -167,6 +167,18 @@ public class UploadConflictTest {
     }
 
     /**
+     * References to server side elements is that are deleted
+     */
+    @Test
+    public void referencesMissing() {
+        versionConflict("conflict4", new String[] { "conflictdownload3" }, false);
+        Way w = App.getDelegator().getApiStorage().getWay(27009604L);
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_conflict_message_missing_references, w.getDescription(true)), 20000));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.cancel), true));
+    }
+
+    
+    /**
      * Upload to changes (mock-)server and wait for version conflict dialog
      * 
      * @param conflictReponse the response

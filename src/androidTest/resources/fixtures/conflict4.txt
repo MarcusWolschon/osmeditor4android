@@ -1,0 +1,1 @@
+Precondition failed: Way 27009604 requires the nodes with id in 9754977034,9754977041,9754977064, which either do not exist, or are not visible.

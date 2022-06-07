@@ -23,6 +23,8 @@
     <string name="upload_conflict_message_deleted">%1$s \nhas local version %2$d \nand was deleted on the server</string>
     <string name="upload_conflict_message_referential">%1$s \nwas deleted locally \nbut has references on the server</string>
     <string name="upload_conflict_message_already_deleted">%1$s \nwas already deleted on the server</string>
+    <string name="upload_conflict_message_missing_references">%1$s \nlocal version references objects \nthat do not exist on the server</string>
+    <string name="upload_conflict_message_unknown">%1$s \ncaused unknown upload conflict \n%2$s</string>
     <string name="use_local_version">Use local version</string>
     <string name="use_server_version">Use version on server</string>
     <string name="no_login_data_title">Could not authenticate</string>
