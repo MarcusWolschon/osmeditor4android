@@ -100,7 +100,7 @@ public final class Search {
                                 }
                                 dismiss();
                             } else {
-                                Snack.toastTopError(activity, errorMsg);
+                                Snack.toastTopWarning(activity, errorMsg);
                             }
                         }
                     }.execute();
