@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.8.6 (374271 spike-07.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <node id="289987511" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:21Z" user="SimonPoole" uid="92387" lat="47.3871991" lon="8.3868561"/>
+ <node id="296055258" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:21Z" user="SimonPoole" uid="92387" lat="47.3872061" lon="8.3868322"/>
+ <node id="296055259" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:21Z" user="SimonPoole" uid="92387" lat="47.3873308" lon="8.3867427"/>
+ <node id="296055260" visible="true" version="4" changeset="15370342" timestamp="2013-03-15T08:17:01Z" user="SimonPoole" uid="92387" lat="47.3875027" lon="8.3866904"/>
+ <node id="296055261" visible="true" version="2" changeset="15370342" timestamp="2013-03-15T08:17:01Z" user="SimonPoole" uid="92387" lat="47.3877166" lon="8.3866165"/>
+ <node id="296055262" visible="true" version="4" changeset="13483681" timestamp="2012-10-13T19:38:21Z" user="SimonPoole" uid="92387" lat="47.3879639" lon="8.3864358"/>
+ <node id="296055263" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:21Z" user="SimonPoole" uid="92387" lat="47.3882702" lon="8.3861543"/>
+ <node id="296055264" visible="true" version="7" changeset="70109208" timestamp="2019-05-10T13:06:44Z" user="sovereign_ch" uid="5755216" lat="47.3885842" lon="8.3858615"/>
+ <node id="416426207" visible="true" version="2" changeset="8547608" timestamp="2011-06-25T23:14:05Z" user="SimonPoole" uid="92387" lat="47.3884536" lon="8.3859876"/>
+ <node id="416426208" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:22Z" user="SimonPoole" uid="92387" lat="47.3880765" lon="8.3863327"/>
+ <node id="416426209" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:22Z" user="SimonPoole" uid="92387" lat="47.3878594" lon="8.3865188"/>
+ <node id="416426257" visible="true" version="2" changeset="13483681" timestamp="2012-10-13T19:38:23Z" user="SimonPoole" uid="92387" lat="47.3872276" lon="8.3867953"/>
+ <node id="633469171" visible="true" version="4" changeset="15371472" timestamp="2013-03-15T10:12:14Z" user="SimonPoole" uid="92387" lat="47.3872637" lon="8.3867676"/>
+ <node id="2202925501" visible="true" version="1" changeset="15370342" timestamp="2013-03-15T08:16:54Z" user="SimonPoole" uid="92387" lat="47.3876174" lon="8.3866542"/>
+ <node id="2202925507" visible="true" version="1" changeset="15370342" timestamp="2013-03-15T08:16:54Z" user="SimonPoole" uid="92387" lat="47.3877870" lon="8.3865721"/>
+ <way id="27009604" visible="true" version="18" changeset="85446223" timestamp="2020-05-19T14:00:01Z" user="SimonPoole" uid="92387">
+  <nd ref="289987511"/>
+  <nd ref="296055258"/>
+  <nd ref="416426257"/>
+  <nd ref="633469171"/>
+  <nd ref="296055259"/>
+  <nd ref="296055260"/>
+  <nd ref="2202925501"/>
+  <nd ref="296055261"/>
+  <nd ref="2202925507"/>
+  <nd ref="416426209"/>
+  <nd ref="296055262"/>
+  <nd ref="416426208"/>
+  <nd ref="296055263"/>
+  <nd ref="416426207"/>
+  <nd ref="296055264"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Kindhauserstrasse"/>
+  <tag k="sidewalk" v="left"/>
+ </way>
+</osm>
