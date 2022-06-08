@@ -15,7 +15,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.R;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.util.collections.LongPrimitiveList;
 
 /**
  * An OSMOSE bug
@@ -23,25 +22,26 @@ import de.blau.android.util.collections.LongPrimitiveList;
  * @author Simon Poole
  */
 public final class OsmoseBug extends Bug implements Serializable {
+
     private static final long serialVersionUID = 4L;
 
     private static final String DEBUG_TAG = OsmoseBug.class.getSimpleName();
 
-    private static final String OSMOSE_ISSUES    = "issues";
-    private static final String OSMOSE_LAT       = "lat";
-    private static final String OSMOSE_LON       = "lon";
-    private static final String OSMOSE_ID        = "id";
-    private static final String OSMOSE_ITEM      = "item";
-    private static final String OSMOSE_CLASS     = "class";
-    private static final String OSMOSE_UPDATE    = "update";
-    private static final String OSMOSE_OSM_IDS   = "osm_ids";
-    private static final String OSMOSE_NODES     = "nodes";
-    private static final String OSMOSE_WAYS      = "ways";
-    private static final String OSMOSE_RELATIONS = "relations";
-    private static final String OSMOSE_TITLE     = "title";
-    private static final String OSMOSE_SUBTITLE  = "subtitle";
-    private static final String OSMOSE_AUTO      = "auto";
-    private static final String OSMOSE_LEVEL     = "level";
+    private static final String OSMOSE_ISSUES   = "issues";
+    private static final String OSMOSE_LAT      = "lat";
+    private static final String OSMOSE_LON      = "lon";
+    private static final String OSMOSE_ID       = "id";
+    private static final String OSMOSE_ITEM     = "item";
+    private static final String OSMOSE_CLASS    = "class";
+    private static final String OSMOSE_UPDATE   = "update";
+    private static final String OSMOSE_TITLE    = "title";
+    private static final String OSMOSE_SUBTITLE = "subtitle";
+    private static final String OSMOSE_LEVEL    = "level";
+
+    // hardwired stuff used to fixup JOSM derivec tests
+    private static final String MOUSTACHE_LEFT = "{";
+    private static final int    JOSM_ITEM_HIGH = 9200;
+    private static final int    JOSM_ITEM_LOW  = 9000;
 
     private String item;
     private int    bugclass; // class
@@ -58,10 +58,9 @@ public final class OsmoseBug extends Bug implements Serializable {
         List<OsmoseBug> result = new ArrayList<>();
         try (JsonReader reader = new JsonReader(new InputStreamReader(is))) {
             // key object
-            String key = null;
             reader.beginObject();
             while (reader.hasNext()) {
-                key = reader.nextName(); //
+                String key = reader.nextName(); //
                 if (OSMOSE_ISSUES.equals(key)) {
                     reader.beginArray();
                     while (reader.hasNext()) {
@@ -88,53 +87,14 @@ public final class OsmoseBug extends Bug implements Serializable {
                             case OSMOSE_UPDATE:
                                 bug.update = getDateFromString(reader);
                                 break;
-                            case OSMOSE_OSM_IDS:
-                                reader.beginObject();
-                                while (reader.hasNext()) {
-                                    String elemName = reader.nextName();
-                                    switch (elemName) {
-                                    case OSMOSE_NODES:
-                                        bug.nodes = getElementIds(reader);
-                                        break;
-                                    case OSMOSE_WAYS:
-                                        bug.ways = getElementIds(reader);
-                                        break;
-                                    case OSMOSE_RELATIONS:
-                                        bug.relations = getElementIds(reader);
-                                        break;
-                                    default:
-                                        reader.skipValue();
-                                    }
-                                }
-                                reader.endObject();
+                            case OSM_IDS:
+                                parseIds(reader, bug);
                                 break;
                             case OSMOSE_TITLE:
-                                reader.beginObject();
-                                while (reader.hasNext()) {
-                                    String titleType = reader.nextName();
-                                    if (OSMOSE_AUTO.equals(titleType)) {
-                                        bug.title = reader.nextString();
-                                    } else {
-                                        reader.skipValue();
-                                    }
-                                }
-                                reader.endObject();
+                                bug.title = OsmoseMeta.getAutoString(reader);
                                 break;
                             case OSMOSE_SUBTITLE:
-                                if (reader.peek() != com.google.gson.stream.JsonToken.NULL) {
-                                    reader.beginObject();
-                                    while (reader.hasNext()) {
-                                        String titleType = reader.nextName();
-                                        if (OSMOSE_AUTO.equals(titleType)) {
-                                            bug.subtitle = reader.nextString();
-                                        } else {
-                                            reader.skipValue();
-                                        }
-                                    }
-                                    reader.endObject();
-                                } else {
-                                    reader.nextNull();
-                                }
+                                bug.subtitle = OsmoseMeta.getAutoString(reader);
                                 break;
                             case OSMOSE_LEVEL:
                                 bug.level = reader.nextInt();
@@ -145,6 +105,7 @@ public final class OsmoseBug extends Bug implements Serializable {
                         }
                         reader.endObject();
                         result.add(bug);
+                        fixupJosmSourced(bug);
                     }
                     reader.endArray();
                 } else {
@@ -156,6 +117,23 @@ public final class OsmoseBug extends Bug implements Serializable {
             Log.d(DEBUG_TAG, "Parse error, ignoring " + ex);
         }
         return result;
+    }
+
+    /**
+     * JOSM sourced validations have moustache placeholders in title this tries to get rid of them
+     * 
+     * @param bug the bug to fixup
+     */
+    private static void fixupJosmSourced(@NonNull OsmoseBug bug) {
+        try {
+            int item = Integer.parseInt(bug.item);
+            if (item >= JOSM_ITEM_LOW && item < JOSM_ITEM_HIGH && bug.subtitle != null && bug.title.contains(MOUSTACHE_LEFT)) {
+                bug.title = bug.subtitle;
+                bug.subtitle = null;
+            }
+        } catch (NumberFormatException nfex) {
+            Log.e(DEBUG_TAG, "Non numberic item " + nfex.getMessage());
+        }
     }
 
     /**
@@ -171,24 +149,6 @@ public final class OsmoseBug extends Bug implements Serializable {
         } catch (java.text.ParseException pex) {
             return new Date().getTime();
         }
-    }
-
-    /**
-     * Add an JsonArray of long ids to a list
-     * 
-     * @param reader the JsonReader
-     * @return a LongPrimitiveList
-     * @throws IOException if reading the Json fails
-     */
-    @NonNull
-    private static LongPrimitiveList getElementIds(@NonNull JsonReader reader) throws IOException {
-        LongPrimitiveList list = new LongPrimitiveList();
-        reader.beginArray();
-        while (reader.hasNext()) {
-            list.add(reader.nextLong());
-        }
-        reader.endArray();
-        return list;
     }
 
     /**

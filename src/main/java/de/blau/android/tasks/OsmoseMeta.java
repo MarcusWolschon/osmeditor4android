@@ -37,6 +37,7 @@ public class OsmoseMeta implements Serializable {
     private static final String CLASS_KEY      = "class";
     private static final String ITEMS_KEY      = "items";
     private static final String CATEGORIES_KEY = "categories";
+    private static final String AUTO_KEY       = "auto";
 
     class OsmoseClass implements Serializable {
         /**
@@ -197,7 +198,7 @@ public class OsmoseMeta implements Serializable {
      * @throws IOException on parser errors etc
      */
     @Nullable
-    private String getAutoString(@NonNull JsonReader reader) throws IOException {
+    static String getAutoString(@NonNull JsonReader reader) throws IOException {
         String result = null;
         JsonToken token = reader.peek();
         if (JsonToken.NULL.equals(token)) {
@@ -205,7 +206,7 @@ public class OsmoseMeta implements Serializable {
         } else {
             reader.beginObject();
             while (reader.hasNext()) {
-                if ("auto".equals(reader.nextName())) {
+                if (AUTO_KEY.equals(reader.nextName())) {
                     result = reader.nextString();
                 } else {
                     reader.skipValue();
