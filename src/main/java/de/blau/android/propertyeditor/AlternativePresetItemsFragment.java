@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.ThemeUtils;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.Tip;
@@ -78,14 +79,12 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
     @Nullable
     private LinearLayout createView(@NonNull LayoutInflater inflater, @Nullable Bundle savedInstanceState) {
         LinearLayout presetsLayout = (LinearLayout) inflater.inflate(R.layout.recentpresets_view, null);
+        presetsLayout.setBackgroundColor(ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.highlight_background, R.color.light_grey));
+        float density = getResources().getDisplayMetrics().density;
+        presetsLayout.setPadding(0, 0, 0, (int) (Preset.SPACING * density));
 
-        PresetElementPath presetElementPath = null;
-
-        if (savedInstanceState != null) {
-            presetElementPath = (PresetElementPath) savedInstanceState.getSerializable(ITEM_PATH_KEY);
-        } else {
-            presetElementPath = (PresetElementPath) getArguments().getSerializable(ITEM_PATH_KEY);
-        }
+        PresetElementPath presetElementPath = (PresetElementPath) (savedInstanceState != null ? savedInstanceState.getSerializable(ITEM_PATH_KEY)
+                : getArguments().getSerializable(ITEM_PATH_KEY));
 
         PresetElement presetItem = Preset.getElementByPath(App.getCurrentRootPreset(getContext()).getRootGroup(), presetElementPath,
                 propertyEditorListener.getCountryIsoCode(), false);

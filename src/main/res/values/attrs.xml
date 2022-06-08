@@ -102,6 +102,7 @@
     <attr name="unselected_item_background" format="reference|color" />
     <attr name="text_normal" format="reference|color" />
     <attr name="text_disabled" format="reference|color" />
+    <attr name="highlight_background" format="reference|color" />
 	<!--  -->
     <declare-styleable name="SplitPaneLayout">
         <attr name="orientation">

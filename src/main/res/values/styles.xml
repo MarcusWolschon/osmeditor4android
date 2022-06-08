@@ -354,6 +354,7 @@
         <item name="error">@color/material_red</item>
         <item name="text_disabled">@color/primary_text_disabled_material_dark</item>
         <item name="text_normal">@color/primary_text_default_material_dark</item>
+        <item name="highlight_background">@color/dark_grey</item>
 	</style>
 	
 	<style name="Theme.customActionBar" parent="@style/Theme.AppCompat">
@@ -530,6 +531,7 @@
         <item name="error">@color/material_red</item>
         <item name="text_disabled">@color/primary_text_disabled_material_light</item>
         <item name="text_normal">@color/primary_text_default_material_light</item>
+        <item name="highlight_background">@color/light_grey</item>
 	</style>
 	
 	<style name="Theme.customActionBar.Light" parent="@style/Theme.AppCompat.Light">
