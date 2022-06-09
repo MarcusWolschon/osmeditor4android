@@ -131,6 +131,8 @@ public final class Geometry {
     /**
      * Calculate the centroid of a way
      * 
+     * Note this translates the way to originate at 0,0 and back to avoid rounding issues
+     * 
      * @param way way to calculate the centroid of
      * @return WGS84 coordinates of centroid, null if the way has problems and if the way has length or area zero return
      *         the coordinates of the first node
@@ -141,16 +143,19 @@ public final class Geometry {
             return null;
         }
         List<Node> nodes = way.getNodes();
-        Coordinates[] points = new Coordinates[nodes.size()];
+        boolean closed = way.isClosed();
+        int size = nodes.size();
+        size = closed ? size - 1 : size;
+        Coordinates[] points = new Coordinates[size];
+        Coordinates start = new Coordinates(nodes.get(0).getLon() / 1E7D, GeoMath.latE7ToMercator(nodes.get(0).getLat()));
+        points[0] = new Coordinates(0, 0);
         // loop over all nodes
-        for (int i = 0; i < nodes.size(); i++) {
-            points[i] = new Coordinates(0.0f, 0.0f);
-            points[i].x = nodes.get(i).getLon() / 1E7D;
-            points[i].y = GeoMath.latE7ToMercator(nodes.get(i).getLat());
+        for (int i = 1; i < size; i++) {
+            points[i] = new Coordinates(nodes.get(i).getLon() / 1E7D - start.x, GeoMath.latE7ToMercator(nodes.get(i).getLat()) - start.y);
         }
         //
-        Coordinates centroid = centroidXY(points, false);
-        return new double[] { centroid.x, GeoMath.mercatorToLat(centroid.y) };
+        Coordinates centroid = centroidXY(points, closed);
+        return new double[] { centroid.x + start.x, GeoMath.mercatorToLat(centroid.y + start.y) };
     }
 
     /**
