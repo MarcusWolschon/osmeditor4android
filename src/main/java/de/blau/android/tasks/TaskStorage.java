@@ -476,7 +476,7 @@ public class TaskStorage implements Serializable, DataStorage {
     }
 
     /**
-     * Check if a todo for an OsmElement exists already
+     * Check if a todo for an OsmElement exists already // NOSONAR
      * 
      * @param context an Android Context
      * @param e the OsmElement
