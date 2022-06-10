@@ -54,6 +54,7 @@ public class MapRouletteTest {
     Main                 main                  = null;
     Task                 t                     = null;
     UiDevice             device                = null;
+    private Preferences  prefs;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -66,7 +67,7 @@ public class MapRouletteTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         main = mActivityRule.getActivity();
-        Preferences prefs = new Preferences(context);
+        prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
         LayerUtils.addTaskLayer(main);
         Set<String> filter = new HashSet<>();
@@ -153,7 +154,7 @@ public class MapRouletteTest {
         }
         t = tasks.get(0);
         Assert.assertTrue(t instanceof MapRouletteTask);
-        Assert.assertEquals(2237667L, t.getId());
+        Assert.assertEquals(2237667L, ((MapRouletteTask) t).getId());
         // re-download the same bounding box
         mockServerMapRoulette.enqueue("maprouletteDownload");
         final CountDownLatch signal2 = new CountDownLatch(1);
@@ -177,7 +178,7 @@ public class MapRouletteTest {
         }
         t = tasks.get(0);
         Assert.assertTrue(t instanceof MapRouletteTask);
-        Assert.assertEquals(2237667L, t.getId());
+        Assert.assertEquals(2237667L, ((MapRouletteTask) t).getId());
 
         Map map = main.getMap();
         Logic logic = App.getLogic();
@@ -206,8 +207,8 @@ public class MapRouletteTest {
         mockServerApi.enqueue("userpreferences");
         mockServerMapRoulette.enqueue("200");
         try {
-            Assert.assertTrue(TransferTasks.updateMapRouletteTask(main, new Server(context, prefDB.getCurrentAPI(), "vesupucci test"), b, false,
-                    new SignalHandler(signal)));
+            Assert.assertTrue(TransferTasks.updateMapRouletteTask(main, new Server(context, prefDB.getCurrentAPI(), "vesupucci test"),
+                    prefs.getMapRouletteServer(), b, false, new SignalHandler(signal)));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
@@ -234,8 +235,8 @@ public class MapRouletteTest {
         mockServerApi.enqueue("userpreferences");
         mockServerMapRoulette.enqueue("500");
         try {
-            Assert.assertFalse(TransferTasks.updateMapRouletteTask(main, new Server(context, prefDB.getCurrentAPI(), "vesupucci test"), b, false,
-                    new SignalHandler(signal)));
+            Assert.assertFalse(TransferTasks.updateMapRouletteTask(main, new Server(context, prefDB.getCurrentAPI(), "vesupucci test"),
+                    prefs.getMapRouletteServer(), b, false, new SignalHandler(signal)));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }

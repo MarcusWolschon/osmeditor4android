@@ -145,7 +145,7 @@ public class OsmoseTest {
         }
         t = tasks.get(0);
         Assert.assertTrue(t instanceof OsmoseBug);
-        Assert.assertEquals(11187837418L, t.getId());
+        Assert.assertEquals(11187837418L, ((OsmoseBug) t).getId());
         // re-download the same bounding box
         mockServer.enqueue("osmoseDownload");
         final CountDownLatch signal2 = new CountDownLatch(1);
@@ -165,7 +165,7 @@ public class OsmoseTest {
         Assert.assertEquals(92, tasks.size());
         t = tasks.get(0);
         Assert.assertTrue(t instanceof OsmoseBug);
-        Assert.assertEquals(11187837418L, t.getId());
+        Assert.assertEquals(11187837418L, ((OsmoseBug) t).getId());
     }
 
     /**

@@ -214,7 +214,7 @@ public class ReadSaveTasksTest {
                 // see previous test
                 assertEquals(59, tasks.size());
                 for (Task t : tasks) {
-                    if (t instanceof Note && t.getId() == 893035) {
+                    if (t instanceof Note && ((Note) t).getId() == 893035) {
                         return;
                     }
                 }
