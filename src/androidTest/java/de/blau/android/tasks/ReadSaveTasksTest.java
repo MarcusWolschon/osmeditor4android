@@ -122,13 +122,13 @@ public class ReadSaveTasksTest {
             assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
-            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_write_custom_bugs), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_write_todos), true, false));
             TestUtils.selectFile(device, context, null, TEST_JSON, true, true);
 
             assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
-            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_read_custom_bugs), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_read_todos), true, false));
             TestUtils.selectFile(device, main, null, TEST_JSON, true);
             TestUtils.findText(device, false, main.getString(R.string.toast_read_successfully), 1000);
             TestUtils.textGone(device, main.getString(R.string.toast_read_successfully), 1000);
