@@ -654,7 +654,7 @@ public class ApiTest {
             fail(e.getMessage());
         }
         assertTrue(tasks.get(0) instanceof Note);
-        assertEquals(458427, tasks.get(0).getId());
+        assertEquals(458427, ((Note) tasks.get(0)).getId());
     }
 
     /**
