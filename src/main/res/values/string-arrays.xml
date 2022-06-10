@@ -13,14 +13,30 @@
         <item>NMEA from TCP client</item>
         <item>NMEA from TCP server</item>
     </string-array>
+    <string name="state_open" translatable="false">OPEN</string>
+    <string name="state_closed" translatable="false">CLOSED</string>
+    <string name="state_false_positive" translatable="false">FALSE_POSITIVE</string>
+    <string name="state_skipped" translatable="false">SKIPPED</string>
+    <string name="state_deleted" translatable="false">DELETED</string>
+    <string name="state_already_fixed" translatable="false">ALREADY_FIXED</string>
+    <string name="state_too_hard" translatable="false">TOO_HARD</string>
     <string-array name="bug_state">
         <item>Open</item>
         <item>Closed</item>
         <item>False positive</item>
     </string-array>
+    <string-array name="bug_state_values" translatable="false">
+        <item>@string/state_open</item>
+        <item>@string/state_closed</item>
+        <item>@string/state_false_positive</item>
+    </string-array>
     <string-array name="note_state">
         <item>Open</item>
         <item>Closed</item>
+    </string-array>
+    <string-array name="note_state_values" translatable="false">
+        <item>@string/state_open</item>
+        <item>@string/state_closed</item>
     </string-array>
     <string-array name="maproulette_state">
         <item>Open</item>
@@ -30,6 +46,25 @@
         <item>Deleted</item>
         <item>Already fixed</item>
         <item>Too hard</item>
+    </string-array>
+    <string-array name="maproulette_state_values" translatable="false">
+        <item>@string/state_open</item>
+        <item>@string/state_closed</item>
+        <item>@string/state_false_positive</item>
+        <item>@string/state_skipped</item> 
+        <item>@string/state_deleted</item>
+        <item>@string/state_already_fixed</item>
+        <item>@string/state_too_hard</item>
+    </string-array>
+    <string-array name="todo_state">
+        <item>Open</item>
+        <item>Closed</item>
+        <item>Skipped</item> 
+    </string-array>
+    <string-array name="todo_state_values" translatable="false">
+        <item>@string/state_open</item>
+        <item>@string/state_closed</item>
+        <item>@string/state_skipped</item>
     </string-array>
     <string-array name="followGPSbutton_entries">
         <item>Left</item>

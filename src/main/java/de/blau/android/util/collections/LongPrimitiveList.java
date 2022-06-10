@@ -128,6 +128,21 @@ public class LongPrimitiveList implements Serializable {
     }
 
     /**
+     * Check if the list contains the value
+     * 
+     * @param l the long we are looking for
+     * @return true if l is present
+     */
+    public boolean contains(long l) {
+        for (int i = 0; i < size; i++) {
+            if (array[i] == l) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Get the array backing this object
      * 
      * This is useful if you want to avoid allocating a new array and copying the contents, only useful together with

@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.text.SpannableString;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -303,8 +304,8 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
     }
 
     @Override
-    public String getDescription(Photo photo) {
-        return photo.getDisplayName();
+    public SpannableString getDescription(Photo photo) {
+        return new SpannableString(photo.getDisplayName());
     }
 
     @Override

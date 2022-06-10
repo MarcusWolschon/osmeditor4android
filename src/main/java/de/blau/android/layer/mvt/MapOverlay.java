@@ -22,6 +22,7 @@ import com.mapbox.turf.TurfJoins;
 import android.content.Context;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.text.SpannableString;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -77,7 +78,7 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
      * @param overlay if true this is an overlay
      */
     public MapOverlay(@NonNull final Map map, @NonNull TileRenderer<java.util.Map<String, List<VectorTileDecoder.Feature>>> aTileRenderer, boolean overlay) {
-        super(map, /* TileLayerSource.get(aView.getContext()), null, true), null, */ aTileRenderer);
+        super(map, aTileRenderer);
         this.map = map;
         this.tileRenderer = aTileRenderer;
         this.overlay = overlay;
@@ -280,9 +281,10 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
     }
 
     @Override
-    public String getDescription(de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
+    public SpannableString getDescription(de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
         Object nameObject = f.getAttributes().get(Tags.KEY_NAME);
-        return (nameObject != null ? nameObject.toString() : Long.toString(f.getId())) + " " + f.getGeometry().type() + " " + f.getLayerName();
+        return new SpannableString(
+                (nameObject != null ? nameObject.toString() : Long.toString(f.getId())) + " " + f.getGeometry().type() + " " + f.getLayerName());
     }
 
     @Override

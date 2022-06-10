@@ -10,6 +10,7 @@ import java.util.Set;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -19,10 +20,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -52,9 +55,13 @@ import de.blau.android.presets.PresetFixedField;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.search.Search;
 import de.blau.android.services.TrackerService;
+import de.blau.android.tasks.BugFragment;
+import de.blau.android.tasks.TaskStorage;
+import de.blau.android.tasks.Todo;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.views.CustomAutoCompleteTextView;
 import me.zed.elementhistorydialog.ElementHistoryDialog;
 
 /**
@@ -69,26 +76,31 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private static final String DEBUG_TAG                     = "ElementSelectionActi...";
     private static final int    MENUITEM_UNDO                 = 0;
     static final int            MENUITEM_TAG                  = 1;
-    static final int            MENUITEM_DELETE               = 2;
-    private static final int    MENUITEM_HISTORY_WEB          = 3;
-    private static final int    MENUITEM_HISTORY              = 4;
-    static final int            MENUITEM_COPY                 = 5;
-    static final int            MENUITEM_CUT                  = 6;
-    private static final int    MENUITEM_PASTE_TAGS           = 7;
-    private static final int    MENUITEM_CREATE_RELATION      = 8;
-    private static final int    MENUITEM_ADD_RELATION_MEMBERS = 9;
-    private static final int    MENUITEM_EXTEND_SELECTION     = 10;
-    private static final int    MENUITEM_ELEMENT_INFO         = 11;
+    static final int            MENUITEM_TASK                 = 2;
+    static final int            MENUITEM_DELETE               = 3;
+    private static final int    MENUITEM_HISTORY_WEB          = 4;
+    private static final int    MENUITEM_HISTORY              = 5;
+    static final int            MENUITEM_COPY                 = 6;
+    static final int            MENUITEM_CUT                  = 7;
+    private static final int    MENUITEM_PASTE_TAGS           = 8;
+    private static final int    MENUITEM_CREATE_RELATION      = 9;
+    private static final int    MENUITEM_ADD_RELATION_MEMBERS = 10;
+    private static final int    MENUITEM_EXTEND_SELECTION     = 11;
+    private static final int    MENUITEM_ELEMENT_INFO         = 12;
     protected static final int  LAST_REGULAR_MENUITEM         = MENUITEM_ELEMENT_INFO;
 
-    private static final int   MENUITEM_UPLOAD              = 31;
+    static final int           MENUITEM_UPLOAD              = 31;
     protected static final int MENUITEM_SHARE_POSITION      = 32;
     private static final int   MENUITEM_TAG_LAST            = 33;
-    private static final int   MENUITEM_ZOOM_TO_SELECTION   = 34;
-    private static final int   MENUITEM_SEARCH_OBJECTS      = 35;
+    static final int           MENUITEM_ZOOM_TO_SELECTION   = 34;
+    static final int           MENUITEM_SEARCH_OBJECTS      = 35;
     private static final int   MENUITEM_CALIBRATE_BAROMETER = 36;
     static final int           MENUITEM_PREFERENCES         = 37;
     static final int           MENUITEM_JS_CONSOLE          = 38;
+    static final int           MENUITEM_ADD_TO_TODO         = 39;
+
+    private static final int MENUITEM_TODO_CLOSE_AND_NEXT = 70;
+    private static final int MENUITEM_TASK_CLOSE_ALL      = 71;
 
     OsmElement element = null;
 
@@ -136,6 +148,15 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         undoView.setOnLongClickListener(undoListener);
 
         menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
+
+        de.blau.android.layer.tasks.MapOverlay taskLayer = main.getMap().getTaskLayer();
+        if (taskLayer != null && App.getTaskStorage().hasTasksForElement(element)) {
+            SubMenu taskMenu = menu.addSubMenu(Menu.NONE, MENUITEM_TASK, Menu.NONE, R.string.menu_todo)
+                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_bug));
+            taskMenu.add(Menu.NONE, MENUITEM_TODO_CLOSE_AND_NEXT, Menu.NONE, R.string.menu_todo_close_and_next);
+            taskMenu.add(Menu.NONE, MENUITEM_TASK_CLOSE_ALL, Menu.NONE, R.string.menu_todo_close_all_tasks);
+        }
+
         menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
         if (!(element instanceof Relation)) {
             menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_copy));
@@ -163,6 +184,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_information));
         menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
         menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
+        menu.add(GROUP_BASE, MENUITEM_ADD_TO_TODO, Menu.CATEGORY_SYSTEM | 10, R.string.menu_add_to_todo);
 
         uploadItem = menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_element);
 
@@ -270,6 +292,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         super.onActionItemClicked(mode, item);
+        final TaskStorage taskStorage = App.getTaskStorage();
         switch (item.getItemId()) {
         case MENUITEM_TAG:
             main.performTagEdit(element, null, false, false);
@@ -360,6 +383,32 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         case MENUITEM_JS_CONSOLE:
             Main.showJsConsole(main);
             break;
+        case MENUITEM_ADD_TO_TODO:
+            addToTodoList(main, Util.wrapInList(element));
+            break;
+        case MENUITEM_TODO_CLOSE_AND_NEXT:
+            final List<Todo> todos = taskStorage.getTodosForElement(element);
+            if (todos.size() == 1) {
+                closeTodoAndNext(taskStorage, todos.get(0));
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(main);
+                builder.setTitle(R.string.select_todo_list);
+                String[] listNames = new String[todos.size()];
+                for (int i = 0; i < todos.size(); i++) {
+                    listNames[i] = todos.get(i).getListName(main);
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(main, R.layout.dialog_list_item, listNames);
+                builder.setAdapter(adapter, (DialogInterface dialog, int which) -> {
+                    closeTodoAndNext(taskStorage, todos.get(which));
+                });
+                builder.show();
+            }
+            break;
+        case MENUITEM_TASK_CLOSE_ALL:
+            taskStorage.closeTasksForElement(element);
+            Snack.toastTopInfo(main, R.string.toast_todo_all_closed);
+            main.invalidateMap();
+            break;
         case R.id.undo_action:
             // should not happen
             Log.d(DEBUG_TAG, "menu undo clicked");
@@ -369,6 +418,72 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             return false;
         }
         return true;
+    }
+
+    /**
+     * Close a Todo and start editing the next/nearest one // NOSONAR
+     * 
+     * @param taskStorage the current TaskStorage
+     * @param todo the Todo //NOSONAR
+     */
+    private void closeTodoAndNext(@NonNull final TaskStorage taskStorage, @NonNull final Todo todo) {
+        todo.close();
+        final String listName = todo.getListName(main);
+        List<Todo> todoList = taskStorage.getTodos(main, listName, false);
+        if (todoList.isEmpty()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(main);
+            builder.setTitle(R.string.all_todos_done_title);
+            builder.setMessage(main.getString(R.string.all_todos_done_message, listName));
+            builder.setNegativeButton(R.string.cancel, null);
+            builder.setPositiveButton(R.string.delete, (DialogInterface dialog, int which) -> {
+                for (Todo t : taskStorage.getTodos(main, listName, true)) {
+                    taskStorage.delete(t);
+                }
+                main.invalidateMap();
+            });
+            builder.show();
+        } else {
+            Todo next = todo.getNearest(todoList);
+            taskStorage.setDirty();
+            BugFragment.gotoAndEditElement(main, App.getDelegator(), next.getElements().get(0), next.getLon(), next.getLat());
+        }
+    }
+
+    /**
+     * Add elements to a todo list // NOSONAR
+     * 
+     * @param activity the current activity
+     * @param elements a List of OsmElement
+     */
+    public static void addToTodoList(@NonNull FragmentActivity activity, @NonNull List<OsmElement> elements) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(activity.getResources().getQuantityString(R.plurals.add_todo_title, elements.size()));
+        View layout = activity.getLayoutInflater().inflate(R.layout.add_todo, null);
+        final CustomAutoCompleteTextView todoList = layout.findViewById(R.id.todoList);
+        final TextView todoComment = layout.findViewById(R.id.todoComment);
+        List<String> todoLists = App.getTaskStorage().getTodoLists(activity);
+        todoList.setAdapter(new ArrayAdapter<>(activity, R.layout.autocomplete_row, todoLists));
+        builder.setView(layout);
+        builder.setNegativeButton(R.string.cancel, null);
+        builder.setPositiveButton(R.string.add, (DialogInterface dialog, int which) -> {
+            TaskStorage storage = App.getTaskStorage();
+            final String name = todoList.getText().toString();
+            final String comment = todoComment.getText().toString();
+            for (OsmElement e : elements) {
+                if (storage.contains(activity, e, name)) {
+                    continue;
+                }
+                Todo todo = new Todo(name, e);
+                if (!"".equals(comment)) {
+                    todo.setTitle(comment);
+                }
+                storage.add(todo);
+            }
+            if (activity instanceof Main) {
+                ((Main) activity).invalidateMap();
+            }
+        });
+        builder.show();
     }
 
     /**

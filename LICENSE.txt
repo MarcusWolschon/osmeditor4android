@@ -1,1 +1,1 @@
-see LICENSE.txt in assets folder
+see LICENSE.txt in src/main/assets

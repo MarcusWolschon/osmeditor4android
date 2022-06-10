@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,6 +23,8 @@ import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
+
+import com.google.gson.stream.JsonWriter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -673,36 +676,36 @@ public final class TransferTasks {
     }
 
     /**
-     * Read an Uri in custom bug format
+     * Read an Uri in todo format // NOSONAR
      * 
      * @param activity activity that called this
      * @param uri Uri to read
      * @param add if true the elements will be added to the existing ones, otherwise replaced
      * @param postLoad callback to execute once stream has been loaded
      */
-    public static void readCustomBugs(@NonNull final FragmentActivity activity, @NonNull final Uri uri, final boolean add,
+    public static void readTodos(@NonNull final FragmentActivity activity, @NonNull final Uri uri, final boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
         try {
             // don't use try with resources as this will close the InputStream while we are still reading it
             InputStream is = activity.getContentResolver().openInputStream(uri); // NOSONAR
-            readCustomBugs(activity, is, add, postLoad);
+            readTodos(activity, is, add, postLoad);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem parsing", e);
         }
     }
 
     /**
-     * Read an InputStream in custom bug format
+     * Read an InputStream in todo format // NOSONAR
      * 
      * @param activity activity that called this
      * @param is InputStream to read
      * @param add if true the elements will be added to the existing ones, otherwise replaced
      * @param postLoad callback to execute once stream has been loaded
      */
-    public static void readCustomBugs(@NonNull final FragmentActivity activity, @NonNull final InputStream is, final boolean add,
+    public static void readTodos(@NonNull final FragmentActivity activity, @NonNull final InputStream is, final boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
         Logic logic = App.getLogic();
-        new ExecutorTask<Boolean, Void, Collection<CustomBug>>(logic.getExecutorService(), logic.getHandler()) {
+        new ExecutorTask<Boolean, Void, Collection<Todo>>(logic.getExecutorService(), logic.getHandler()) {
 
             @Override
             protected void onPreExecute() {
@@ -710,9 +713,9 @@ public final class TransferTasks {
             }
 
             @Override
-            protected Collection<CustomBug> doInBackground(Boolean arg) {
+            protected Collection<Todo> doInBackground(Boolean arg) {
                 try (InputStream in = new BufferedInputStream(is)) {
-                    return CustomBug.parseBugs(is);
+                    return Todo.parseTodos(is);
                 } catch (IllegalStateException | NumberFormatException | IOException e) {
                     Log.e(DEBUG_TAG, "Problem parsing custom tasks", e);
                 }
@@ -720,8 +723,8 @@ public final class TransferTasks {
             }
 
             @Override
-            protected void onPostExecute(Collection<CustomBug> result) {
-                processReadResult(activity, CustomBug.class, add, postLoad, result);
+            protected void onPostExecute(Collection<Todo> result) {
+                processReadResult(activity, Todo.class, add, postLoad, result);
             }
         }.execute(add);
     }
@@ -773,48 +776,55 @@ public final class TransferTasks {
     }
 
     /**
-     * Write CustomBugs to a file
+     * Write Todos to a file
      * 
      * If fileName contains directories these are created, otherwise it is stored in the standard public dir
      * 
      * @param activity activity that called this
      * @param fileName file to write to
+     * @param list name of the todo list // NOSONAR
+     * @param all if true write all todos, otherwise just open ones
      * @param postWrite call this when finished
      */
-    public static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final String fileName,
+    public static void writeTodoFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @Nullable String list, boolean all,
             @Nullable final PostAsyncActionHandler postWrite) {
         try {
             File outfile = FileUtil.openFileForWriting(activity, fileName);
             Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
-            writeCustomBugFile(activity, new FileOutputStream(outfile), postWrite);
+            writeTodoFile(activity, new FileOutputStream(outfile), list, all, postWrite);
         } catch (IOException e) {
             handleExceptionOnWrite(activity, postWrite, e);
         }
     }
 
     /**
-     * Write CustomBugs to an uri
+     * Write Todos to an uri
      * 
      * @param activity activity that called this
-     * @param uri uri to write to
+     * @param uri uri to write to * @param list name of the todo list // NOSONAR
+     * @param list name of the todo list // NOSONAR
+     * @param all if true write all todos, otherwise just open ones
      * @param postWrite call this when finished
      */
-    public static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @Nullable final PostAsyncActionHandler postWrite) {
+    public static void writeTodoFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @Nullable String list, boolean all,
+            @Nullable final PostAsyncActionHandler postWrite) {
         try {
-            writeCustomBugFile(activity, activity.getContentResolver().openOutputStream(uri), postWrite);
+            writeTodoFile(activity, activity.getContentResolver().openOutputStream(uri), list, all, postWrite);
         } catch (IOException e) {
             handleExceptionOnWrite(activity, postWrite, e);
         }
     }
 
     /**
-     * Write CustomBugs to an OutputStream
+     * Write Todos to an OutputStream
      * 
      * @param activity activity that called this
      * @param fileOut OutputStream to write to
+     * @param list name of the todo list // NOSONAR
+     * @param all if true write all todos, otherwise just open ones
      * @param postWrite call this when finished
      */
-    private static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final OutputStream fileOut,
+    private static void writeTodoFile(@NonNull final FragmentActivity activity, @NonNull final OutputStream fileOut, @Nullable String list, boolean all,
             @Nullable final PostAsyncActionHandler postWrite) {
         Logic logic = App.getLogic();
         new ExecutorTask<Void, Void, Integer>(logic.getExecutorService(), logic.getHandler()) {
@@ -826,26 +836,25 @@ public final class TransferTasks {
 
             @Override
             protected Integer doInBackground(Void arg) {
-                final List<Task> queryResult = App.getTaskStorage().getTasks();
+                final List<Todo> queryResult = App.getTaskStorage().getTodos(activity, list, true);
                 int result = 0;
-                try (final OutputStream out = new BufferedOutputStream(fileOut)) {
-                    out.write("{".getBytes());
-                    out.write(CustomBug.headerToJSON().getBytes());
-                    out.write("\"errors\": [".getBytes());
-                    boolean first = true;
-                    for (Task t : queryResult) {
-                        if (t instanceof CustomBug && !t.isClosed()) {
-                            if (!first) {
-                                out.write(",".getBytes());
-                            }
-                            out.write(((CustomBug) t).toJSON().getBytes());
-                            first = false;
+                try (final OutputStream out = new BufferedOutputStream(fileOut); JsonWriter writer = new JsonWriter(new PrintWriter(out))) {
+                    writer.beginObject();
+                    if (list != null && !"".equals(list)) {
+                        Todo.headerToJSON(writer, list);
+                    }
+                    writer.name(Todo.TODOS);
+                    writer.beginArray();
+                    for (Todo t : queryResult) {
+                        if (all || !t.isClosed()) {
+                            t.toJSON(writer);
                         }
                     }
-                    out.write("]}".getBytes());
+                    writer.endArray();
+                    writer.endObject();
                 } catch (IllegalArgumentException | IllegalStateException | IOException e) {
                     result = ErrorCodes.FILE_WRITE_FAILED;
-                    Log.e(DEBUG_TAG, "Problem writing custom task file", e);
+                    Log.e(DEBUG_TAG, "Problem writing todo file", e);
                 }
                 return result;
             }

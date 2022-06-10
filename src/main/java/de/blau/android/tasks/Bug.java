@@ -1,9 +1,12 @@
 package de.blau.android.tasks;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
 import android.util.Log;
@@ -30,6 +33,11 @@ public abstract class Bug extends Task implements Serializable {
 
     private static final String DEBUG_TAG = Bug.class.getSimpleName();
 
+    protected static final String OSM_IDS         = "osm_ids";
+    protected static final String NODES_ARRAY     = "nodes";
+    protected static final String WAYS_ARRAY      = "ways";
+    protected static final String RELATIONS_ARRAY = "relations";
+
     protected static final int LEVEL_ERROR       = 1;
     protected static final int LEVEL_WARNING     = 2;
     protected static final int LEVEL_MINOR_ISSUE = 3;
@@ -44,7 +52,7 @@ public abstract class Bug extends Task implements Serializable {
     protected LongPrimitiveList nodes;
     protected LongPrimitiveList ways;
     protected LongPrimitiveList relations;
-    protected String            title;
+    private String            title;
     protected String            subtitle;
     protected int               level;
     protected long              update;   // update date in ms since the epoch
@@ -128,6 +136,20 @@ public abstract class Bug extends Task implements Serializable {
     }
 
     /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
      * Check if a string has something in it
      * 
      * @param s the String
@@ -154,6 +176,7 @@ public abstract class Bug extends Task implements Serializable {
      * 
      * @return list of OsmElement
      */
+    @NonNull
     public final List<OsmElement> getElements() {
         List<OsmElement> result = new ArrayList<>();
         StorageDelegator storageDelegator = App.getDelegator();
@@ -177,6 +200,26 @@ public abstract class Bug extends Task implements Serializable {
             Log.d(DEBUG_TAG, "couldn't retrieve elements " + ex);
         }
         return result;
+    }
+
+    /**
+     * Check if the Bug applies to a specific element
+     * 
+     * @param elementType
+     * @param elementId
+     * @return true if the element is present
+     */
+    boolean hasElement(@NonNull String elementType, long elementId) {
+        switch (elementType) {
+        case Node.NAME:
+            return nodes != null && nodes.contains(elementId);
+        case Way.NAME:
+            return ways != null && ways.contains(elementId);
+        case Relation.NAME:
+            return relations != null && relations.contains(elementId);
+        default:
+            return false;
+        }
     }
 
     /**
@@ -231,6 +274,52 @@ public abstract class Bug extends Task implements Serializable {
      */
     public final int getLevel() {
         return level;
+    }
+
+    /**
+     * Parse element ids
+     * 
+     * @param reader the JsonReader
+     * @param bug the Bug instance
+     * @throws IOException if parsing the Json fails
+     */
+    protected static void parseIds(@NonNull JsonReader reader, @NonNull Bug bug) throws IOException {
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String elemName = reader.nextName();
+            switch (elemName) {
+            case NODES_ARRAY:
+                bug.nodes = getElementIds(reader);
+                break;
+            case WAYS_ARRAY:
+                bug.ways = getElementIds(reader);
+                break;
+            case RELATIONS_ARRAY:
+                bug.relations = getElementIds(reader);
+                break;
+            default:
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+    }
+
+    /**
+     * Add an JsonArray of long ids to a list
+     * 
+     * @param reader the JsonReader
+     * @return a LongPrimitiveList
+     * @throws IOException if reading the Json fails
+     */
+    @NonNull
+    private static LongPrimitiveList getElementIds(@NonNull JsonReader reader) throws IOException {
+        LongPrimitiveList list = new LongPrimitiveList();
+        reader.beginArray();
+        while (reader.hasNext()) {
+            list.add(reader.nextLong());
+        }
+        reader.endArray();
+        return list;
     }
 
     @Override

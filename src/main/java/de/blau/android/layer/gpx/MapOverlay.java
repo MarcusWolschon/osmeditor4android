@@ -21,6 +21,7 @@ import android.graphics.Paint.FontMetrics;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.text.SpannableString;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -349,8 +350,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     }
 
     @Override
-    public String getDescription(WayPoint wp) {
-        return wp.getShortDescription(map.getContext());
+    public SpannableString getDescription(WayPoint wp) {
+        return new SpannableString(wp.getShortDescription(map.getContext()));
     }
 
     @Override

@@ -5,8 +5,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
 import android.app.Activity;
@@ -17,6 +19,7 @@ import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.util.DataStorage;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
@@ -308,7 +311,7 @@ public class TaskStorage implements Serializable, DataStorage {
     @Override
     public synchronized void prune(@NonNull BoundingBox box) {
         for (Task b : getTasks()) {
-            if (!b.hasBeenChanged() && !box.contains(b.getLon(), b.getLat())) {
+            if (!(b instanceof Todo) && !b.hasBeenChanged() && !box.contains(b.getLon(), b.getLat())) {
                 tasks.remove(b);
             }
         }
@@ -372,6 +375,122 @@ public class TaskStorage implements Serializable, DataStorage {
             osmoseMeta = new OsmoseMeta();
         }
         return osmoseMeta;
+    }
+
+    /**
+     * Check if there is a Bug Task for a specific element
+     * 
+     * @param element the OsmElement
+     * @return true if a task applies
+     */
+    public boolean hasTasksForElement(@NonNull OsmElement element) {
+        List<Task> taskList = getTasks(element.getBounds());
+        if (!taskList.isEmpty()) {
+            final long osmId = element.getOsmId();
+            final String elementType = element.getName();
+            for (Task t : taskList) {
+                if (t instanceof Bug && ((Bug) t).hasElement(elementType, osmId)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Close all Bug tasks that reference the OsmElement
+     * 
+     * @param element the OsmElement
+     */
+    public void closeTasksForElement(@NonNull OsmElement element) {
+        List<Task> taskList = getTasks(element.getBounds());
+        if (!taskList.isEmpty()) {
+            final long osmId = element.getOsmId();
+            final String elementType = element.getName();
+            for (Task t : taskList) {
+                if (t instanceof Bug && ((Bug) t).hasElement(elementType, osmId)) {
+                    t.close();
+                    t.setChanged(true);
+                }
+            }
+            setDirty();
+        }
+    }
+
+    /**
+     * Get all stored Todos for a list // NOSONAR
+     * 
+     * @param context an Android Context
+     * @param listName the Todo list name // NOSONAR
+     * @param all if true return all todos, otherwise just open ones
+     * @return a List of Todos // NOSONAR
+     */
+    @NonNull
+    public List<Todo> getTodos(@NonNull Context context, @NonNull String listName, boolean all) {
+        List<Todo> todos = new ArrayList<>();
+        for (Task t : getTasks()) {
+            if (t instanceof Todo && (all || !t.isClosed()) && listName.equals(((Todo) t).getListName(context))) {
+                todos.add((Todo) t);
+            }
+        }
+        return todos;
+    }
+
+    /**
+     * Get all current todo lists names // NOSONAR
+     * 
+     * @param context an Android Context
+     * @return a List of todo list names // NOSONAR
+     */
+    @NonNull
+    public List<String> getTodoLists(@NonNull Context context) {
+        Set<String> todoLists = new HashSet<>();
+        for (Task t : getTasks()) {
+            if (t instanceof Todo && !t.isClosed()) {
+                todoLists.add(((Todo) t).getListName(context));
+            }
+        }
+        return new ArrayList<>(todoLists);
+    }
+
+    /**
+     * Get all todos for an OsmElement
+     * 
+     * @param element the OsmElement
+     * @return a List of Todos // NOSONAR
+     */
+    @NonNull
+    public List<Todo> getTodosForElement(@NonNull OsmElement element) {
+        List<Todo> result = new ArrayList<>();
+        List<Task> taskList = getTasks(element.getBounds());
+        if (!taskList.isEmpty()) {
+            final long osmId = element.getOsmId();
+            final String elementType = element.getName();
+            for (Task t : taskList) {
+                if (t instanceof Todo && ((Bug) t).hasElement(elementType, osmId)) {
+                    result.add((Todo) t);
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Check if a todo for an OsmElement exists already
+     * 
+     * @param context an Android Context
+     * @param e the OsmElement
+     * @param listName the name of the todo list // NOSONAR
+     * @return true if a todo already exists // NOSONAR
+     */
+    public boolean contains(@NonNull Context context, @NonNull OsmElement e, @NonNull String listName) {
+        List<Todo> existing = getTodosForElement(e);
+        for (Todo t : existing) {
+            if (listName.equals(t.getListName(context))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

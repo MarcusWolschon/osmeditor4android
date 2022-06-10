@@ -103,7 +103,7 @@ public class ReadSaveTasksTest {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("customBug.json");
         assertNotNull(is);
-        TransferTasks.readCustomBugs(main, is, false, new SignalHandler(signal1));
+        TransferTasks.readTodos(main, is, false, new SignalHandler(signal1));
         try {
             signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -115,8 +115,8 @@ public class ReadSaveTasksTest {
         }
         List<Task> tasks = ts.getTasks();
         assertEquals(2, tasks.size());
-        assertTrue(tasks.get(0) instanceof CustomBug);
-        CustomBug bug = (CustomBug) tasks.get(0);
+        assertTrue(tasks.get(0) instanceof Todo);
+        Todo bug = (Todo) tasks.get(0);
         bug.close();
         try {
             assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
@@ -135,7 +135,7 @@ public class ReadSaveTasksTest {
             //
             tasks = ts.getTasks();
             assertEquals(1, tasks.size());
-            assertTrue(tasks.get(0) instanceof CustomBug);
+            assertTrue(tasks.get(0) instanceof Todo);
         } finally {
             TestUtils.deleteFile(main, TEST_JSON);
         }

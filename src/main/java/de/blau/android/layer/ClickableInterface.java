@@ -2,6 +2,7 @@ package de.blau.android.layer;
 
 import java.util.List;
 
+import android.text.SpannableString;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
@@ -55,5 +56,5 @@ public interface ClickableInterface<V> {
      * @param object the Object from this layer
      * @return the description
      */
-    String getDescription(@NonNull final V object);
+    SpannableString getDescription(@NonNull final V object);
 }

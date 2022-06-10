@@ -18,6 +18,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.tasks.Task.State;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Util;
 
@@ -145,5 +146,11 @@ public class MapRouletteFragment extends TaskFragment {
     @Override
     protected <T extends Task> void enableStateSpinner(T task) {
         state.setEnabled(!task.isNew());
+    }
+
+    @Override
+    protected State pos2state(int position) {
+        String[] array = getResources().getStringArray(R.array.maproulette_state_values);
+        return State.valueOf(array[position]);
     }
 }

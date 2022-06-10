@@ -2276,29 +2276,28 @@ public class Main extends FullScreenAppCompatActivity
                 }
             });
             return true;
-        case R.id.menu_transfer_read_custom_bugs:
+        case R.id.menu_transfer_read_todos:
             descheduleAutoLock();
             SelectFile.read(this, R.string.config_osmPreferredDir_key, new ReadFile() {
-
                 private static final long serialVersionUID = 1L;
 
                 @Override
                 public boolean read(Uri fileUri) {
-                    TransferTasks.readCustomBugs(Main.this, fileUri, false, new PostFileReadCallback(Main.this, fileUri.toString()));
+                    TransferTasks.readTodos(Main.this, fileUri, false, new PostFileReadCallback(Main.this, fileUri.toString()));
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     map.invalidate();
                     return true;
                 }
             });
             return true;
-        case R.id.menu_transfer_write_custom_bugs:
+        case R.id.menu_transfer_write_todos:
             descheduleAutoLock();
             SelectFile.save(this, R.string.config_osmPreferredDir_key, new SaveFile() {
                 private static final long serialVersionUID = 1L;
 
                 @Override
                 public boolean save(Uri fileUri) {
-                    TransferTasks.writeCustomBugFile(Main.this, fileUri, null);
+                    TransferTasks.writeTodoFile(Main.this, fileUri, "", true, null);
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     return true;
                 }
@@ -3351,7 +3350,7 @@ public class Main extends FullScreenAppCompatActivity
              *
              * @return the description
              */
-            String getDescription() {
+            SpannableString getDescription() {
                 return layer.getDescription(object);
             }
         }

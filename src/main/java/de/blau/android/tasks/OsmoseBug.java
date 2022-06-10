@@ -91,7 +91,7 @@ public final class OsmoseBug extends Bug implements Serializable {
                                 parseIds(reader, bug);
                                 break;
                             case OSMOSE_TITLE:
-                                bug.title = OsmoseMeta.getAutoString(reader);
+                                bug.setTitle(OsmoseMeta.getAutoString(reader));
                                 break;
                             case OSMOSE_SUBTITLE:
                                 bug.subtitle = OsmoseMeta.getAutoString(reader);
@@ -127,8 +127,8 @@ public final class OsmoseBug extends Bug implements Serializable {
     private static void fixupJosmSourced(@NonNull OsmoseBug bug) {
         try {
             int item = Integer.parseInt(bug.item);
-            if (item >= JOSM_ITEM_LOW && item < JOSM_ITEM_HIGH && bug.subtitle != null && bug.title.contains(MOUSTACHE_LEFT)) {
-                bug.title = bug.subtitle;
+            if (item >= JOSM_ITEM_LOW && item < JOSM_ITEM_HIGH && bug.subtitle != null && bug.getTitle().contains(MOUSTACHE_LEFT)) {
+                bug.setTitle(bug.subtitle);
                 bug.subtitle = null;
             }
         } catch (NumberFormatException nfex) {
@@ -160,7 +160,7 @@ public final class OsmoseBug extends Bug implements Serializable {
 
     @Override
     public String getDescription() {
-        return "Osmose: " + (notEmpty(subtitle) ? subtitle : title);
+        return "Osmose: " + (notEmpty(subtitle) ? subtitle : getTitle());
     }
 
     @Override

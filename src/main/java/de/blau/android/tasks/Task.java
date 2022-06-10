@@ -122,7 +122,7 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
     /**
      * Close the bug
      */
-    void close() {
+    public void close() {
         state = State.CLOSED;
     }
 
@@ -219,7 +219,7 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * Icon drawing related stuff
      */
     /**
-     * Draw an icon at the specified location on hte canvas
+     * Draw an icon at the specified location on the canvas
      * 
      * @param context Android Context
      * @param cache the cache for the icon

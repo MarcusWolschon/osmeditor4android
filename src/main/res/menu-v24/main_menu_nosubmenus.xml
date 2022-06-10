@@ -134,11 +134,11 @@
                 android:id="@+id/menu_transfer_read_notes"
                 android:title="@string/menu_transfer_read_notes" />
             <item
-                android:id="@+id/menu_transfer_read_custom_bugs"
-                android:title="@string/menu_transfer_read_custom_bugs" />
+                android:id="@+id/menu_transfer_read_todos"
+                android:title="@string/menu_transfer_read_todos" />
             <item
-                android:id="@+id/menu_transfer_write_custom_bugs"
-                android:title="@string/menu_transfer_write_custom_bugs" />
+                android:id="@+id/menu_transfer_write_todos"
+                android:title="@string/menu_transfer_write_todos" />
         </menu>
     </item>
     <item

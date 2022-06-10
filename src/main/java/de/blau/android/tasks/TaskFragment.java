@@ -53,12 +53,13 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
 
     private Task task = null;
 
-    protected TextView     title;
-    protected TextView     comments;
-    protected EditText     comment;
-    protected TextView     commentLabel;
-    protected LinearLayout elementLayout;
-    protected Spinner      state;
+    protected LayoutInflater inflater;
+    protected TextView       title;
+    protected TextView       comments;
+    protected EditText       comment;
+    protected TextView       commentLabel;
+    protected LinearLayout   elementLayout;
+    protected Spinner        state;
 
     @SuppressLint({ "NewApi", "InflateParams" })
     @NonNull
@@ -72,7 +73,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        inflater = getActivity().getLayoutInflater();
 
         final Preferences prefs = new Preferences(getActivity());
 
@@ -137,27 +138,9 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         d.setOnShowListener( // old API, buttons are enabled by default
                 dialog -> { //
                     final Button save = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                    if ((App.getTaskStorage().contains(task)) && (!task.hasBeenChanged() || task.isNew())) {
-                        save.setEnabled(false);
-                    }
                     final Button upload = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_NEUTRAL);
-                    if (!task.hasBeenChanged()) {
-                        upload.setEnabled(false);
-                    }
-                    state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            boolean changed = changed(position);
-                            save.setEnabled(changed);
-                            upload.setEnabled(changed);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> arg0) {
-                            // required, but not used
-                        }
-                    });
-                    onShowListener(task, save, upload);
+                    final Button cancel = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    onShowListener(task, save, upload, cancel, state);
                 });
         // this should keep the buttons visible
         d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -212,9 +195,29 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
      * @param task the current Task
      * @param save the save Button
      * @param upload the upload Button
+     * @param cancel the cancel Button
+     * @param state the state spinner
      */
-    protected void onShowListener(@NonNull Task task, @NonNull Button save, @NonNull Button upload) {
-        // empty
+    protected void onShowListener(@NonNull Task task, @NonNull Button save, @NonNull Button upload, @NonNull Button cancel, @NonNull Spinner state) {
+        if ((App.getTaskStorage().contains(task)) && (!task.hasBeenChanged() || task.isNew())) {
+            save.setEnabled(false);
+        }
+        if (!task.hasBeenChanged()) {
+            upload.setEnabled(false);
+        }
+        state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                boolean changed = changed(position);
+                save.setEnabled(changed);
+                upload.setEnabled(changed);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // required, but not used
+            }
+        });
     }
 
     /**
@@ -234,7 +237,6 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
      * @param text the text to display
      */
     protected void showAdditionalText(@NonNull Context context, @NonNull Spanned text) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.task_help, null);
         TextView message = layout.findViewById(R.id.message);
         message.setMovementMethod(LinkMovementMethod.getInstance());
@@ -297,20 +299,13 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
     }
 
     /**
-     * ¨ Get the State value corresponding to ordinal
+     * ¨ Get the State value corresponding to position
      * 
-     * @param ordinal the ordinal value
-     * @return the State value corresponding to ordinal
+     * @param position the ordinal value
+     * @return the State value corresponding to position
      */
     @NonNull
-    static State pos2state(int ordinal) {
-        State[] values = State.values();
-        if (ordinal >= 0 && ordinal < values.length) {
-            return values[ordinal];
-        }
-        Log.e(DEBUG_TAG, "pos2state out of range " + ordinal);
-        return values[0];
-    }
+    protected abstract State pos2state(int position);
 
     /**
      * Saves bug to storage if it is new, otherwise update comment and/or state

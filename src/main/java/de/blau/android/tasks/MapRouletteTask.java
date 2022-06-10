@@ -98,16 +98,8 @@ public class MapRouletteTask extends LongIdTask {
                         reader.endObject();
                         break;
                     case "status":
-                        task.setState(TaskFragment.pos2state(reader.nextInt()));
+                        task.setState(State.values()[reader.nextInt()]); // FIXME, this assumes that the state mapping doesn't change
                         break;
-                    // case "modified":
-                    // try {
-                    // task.update = DateFormatter.getDate(DATE_PATTERN_OSMOSE_BUG_UPDATED_AT,
-                    // reader.nextString());
-                    // } catch (java.text.ParseException pex) {
-                    // // tasks.update = new Date();
-                    // }
-                    // break;
                     default:
                         reader.skipValue();
                     }
