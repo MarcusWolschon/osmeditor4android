@@ -398,9 +398,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                     listNames[i] = todos.get(i).getListName(main);
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(main, R.layout.dialog_list_item, listNames);
-                builder.setAdapter(adapter, (DialogInterface dialog, int which) -> {
-                    closeTodoAndNext(taskStorage, todos.get(which));
-                });
+                builder.setAdapter(adapter, (DialogInterface dialog, int which) -> closeTodoAndNext(taskStorage, todos.get(which)));
                 builder.show();
             }
             break;

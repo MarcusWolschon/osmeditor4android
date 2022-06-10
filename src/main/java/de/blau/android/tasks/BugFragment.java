@@ -3,38 +3,23 @@ package de.blau.android.tasks;
 import java.util.List;
 
 import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
-import de.blau.android.Logic;
 import de.blau.android.Main;
-import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.prefs.Preferences;
-import de.blau.android.tasks.OsmoseMeta.OsmoseClass;
-import de.blau.android.tasks.Task.State;
-import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Snack;
-import de.blau.android.util.Util;
 import io.noties.markwon.Markwon;
 
 /**

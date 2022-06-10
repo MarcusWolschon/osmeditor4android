@@ -346,6 +346,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 break;
             case MENUITEM_ADD_TO_TODO:
                 ElementSelectionActionModeCallback.addToTodoList(main, selection);
+                break;
             case MENUITEM_UPLOAD:
                 main.descheduleAutoLock();
                 main.confirmUpload(ElementSelectionActionModeCallback.addRequiredElements(main, new ArrayList<>(selection)));
