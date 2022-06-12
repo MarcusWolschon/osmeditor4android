@@ -28,6 +28,7 @@ final class MapRouletteServer {
     private static final String DEBUG_TAG = MapRouletteServer.class.getSimpleName();
 
     private static final String APIPATH = "api/v2/";
+    private static final String API_KEY = "apiKey";
 
     /**
      * Timeout for connections in milliseconds.
@@ -111,7 +112,7 @@ final class MapRouletteServer {
         try {
             URL url = new URL(getServerURL(server) + "task/" + task.getId() + "/" + task.getState().ordinal());
             Log.d(DEBUG_TAG, "changeState " + url.toString());
-            Request request = new Request.Builder().url(url).put(RequestBody.create(null, "")).addHeader("apiKey", apiKey).build();
+            Request request = new Request.Builder().url(url).put(RequestBody.create(null, "")).addHeader(API_KEY, apiKey).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                     .build();
             Call maprouletteCall = client.newCall(request);
@@ -144,7 +145,7 @@ final class MapRouletteServer {
     /**
      * Retrieve a MapRoulette Challenge
      * 
-     * @param @param server the maproulette server
+     * @param server the maproulette server
      * @param id the Challenge id
      * @return the Challenge or null if none could be retrieved
      */

@@ -117,6 +117,10 @@ public class MapRouletteFragment extends TaskFragment {
                 elementLayout.addView(instructionText);
             }
         }
+
+        final View ruler = inflater.inflate(R.layout.ruler, null);
+        elementLayout.addView(ruler);
+
         // add a clickable link to the location
         TextView locationText = new TextView(getActivity());
         final double lon = task.getLon() / 1E7D;
