@@ -177,6 +177,7 @@ final class OsmoseServer {
     /**
      * Get the OSMOSE server url
      * 
+     * @param server the base url
      * @return the server URL
      */
     private static String getServerURL(@NonNull String server) {
