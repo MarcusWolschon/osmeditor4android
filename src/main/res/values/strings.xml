@@ -679,6 +679,7 @@
     <string name="skip">Skip</string>
     <string name="deprecated">%1$s (deprecated)</string>
     <string name="more_information">More information</string>
+    <string name="osm_tags">OSM Tags</string>
     <!-- Read a file -->
     <string name="read">Read</string>
     <string name="overwrite">Overwrite</string>

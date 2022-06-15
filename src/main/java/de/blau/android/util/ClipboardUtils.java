@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.R;
 
 /**
  * Adapted from the broken google example
@@ -74,7 +75,6 @@ public final class ClipboardUtils {
                         Log.d(DEBUG_TAG, "Clipboard contains an uri");
                         ContentResolver cr = ctx.getContentResolver();
                         String uriMimeType = cr.getType(pasteUri);
-                        // pasteData = resolveUri(pasteUri);
                         // If the return value is not null, the Uri is a content Uri
                         if (uriMimeType != null && uriMimeType.equals(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
                             // Does the content provider offer a MIME type that the current application can use?
@@ -91,7 +91,7 @@ public final class ClipboardUtils {
                                 pasteCursor.close();
                             }
                         }
-                    } catch (Exception e) { // FIXME given that the above is untested, catch all here
+                    } catch (Exception e) { // catch all here
                         Log.e(DEBUG_TAG, "Resolving URI failed " + e);
                     }
                 }
@@ -138,7 +138,7 @@ public final class ClipboardUtils {
      * @param ctx Android Context
      * @param tags Map containing the tags
      */
-    public static void copyTags(Context ctx, Map<String, String> tags) {
+    public static void copyTags(@NonNull Context ctx, @NonNull Map<String, String> tags) {
 
         StringBuilder tagsAsText = new StringBuilder();
 
@@ -147,7 +147,7 @@ public final class ClipboardUtils {
         }
 
         ClipboardManager clipboard = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText("OSM Tags", tagsAsText.toString());
+        ClipData clip = ClipData.newPlainText(ctx.getString(R.string.osm_tags), tagsAsText.toString());
         clipboard.setPrimaryClip(clip);
     }
 }
