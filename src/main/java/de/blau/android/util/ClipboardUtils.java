@@ -120,9 +120,9 @@ public final class ClipboardUtils {
                 if (line != null) {
                     String[] r = line.split("=", 2);
                     if (r.length == 2) {
-                        keysAndValues.add(new KeyValue(r[0], r[1]));
+                        keysAndValues.add(new KeyValue(r[0].trim(), r[1].trim()));
                     } else {
-                        keysAndValues.add(new KeyValue("", line));
+                        keysAndValues.add(new KeyValue("", line.trim()));
                     }
                 }
             }
