@@ -445,7 +445,7 @@ public final class TransferTasks {
             new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
                 @Override
                 protected Void doInBackground(Void param) {
-                    updateMapRouletteTask(activity, server, maprouletteServer, task, quiet, postUploadHandler);
+                    updateMapRouletteTask(activity, logic.getPrefs().getServer(), maprouletteServer, task, quiet, postUploadHandler);
                     return null;
                 }
             }.execute();
