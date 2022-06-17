@@ -158,12 +158,6 @@ public final class Todo extends Bug implements Serializable {
         }
     }
 
-    /**
-     * Get a string descriptive of the bug. This is intended to be used as a short bit of text representative of the
-     * bug.
-     * 
-     * @return The first comment of the bug.
-     */
     @Override
     public String getDescription() {
         return "Todo: " + list;
