@@ -163,4 +163,17 @@ public final class ClipboardUtils {
         ClipData clip = ClipData.newPlainText(ctx.getString(R.string.osm_tags), tagsAsText.toString());
         clipboard.setPrimaryClip(clip);
     }
+
+    /**
+     * Copy some text to the system clipboard
+     * 
+     * @param ctx an Android Context
+     * @param label a label
+     * @param text the text to copy
+     */
+    public static void copyText(@NonNull Context ctx, @NonNull String label, @NonNull CharSequence text) {
+        ClipboardManager clipboard = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(label, text);
+        clipboard.setPrimaryClip(clip);
+    }
 }
