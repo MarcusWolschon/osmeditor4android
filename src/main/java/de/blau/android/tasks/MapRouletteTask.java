@@ -8,18 +8,27 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.FeatureCollection;
+import com.mapbox.geojson.GeometryAdapterFactory;
+import com.mapbox.geojson.gson.GeoJsonAdapterFactory;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.util.GeoJSONConstants;
 
 public class MapRouletteTask extends LongIdTask {
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 4L;
 
     private static final String DEBUG_TAG = "MapRouletteTask";
 
@@ -30,14 +39,18 @@ public class MapRouletteTask extends LongIdTask {
     private static final String STATUS      = "status";
     private static final String LON         = "lng";
     private static final String LAT         = "lat";
+    private static final String GEOMETRIES  = "geometries";
+    private static final String BLURB       = "blurb";
 
     protected static BitmapWithOffset cachedIconClosed;
     protected static BitmapWithOffset cachedIconChangedClosed;
     protected static BitmapWithOffset cachedIconOpen;
     protected static BitmapWithOffset cachedIconChanged;
 
-    private long   parentId   = -1;
-    private String parentName = null;
+    private long              parentId   = -1;
+    private String            parentName = null;
+    private String            blurb      = null;
+    private FeatureCollection features   = null;
 
     @Override
     public String getDescription() {
@@ -45,8 +58,8 @@ public class MapRouletteTask extends LongIdTask {
     }
 
     @Override
-    public String getDescription(Context context) {
-        return getDescription();
+    public String getDescription(@NonNull Context context) {
+        return context.getString(R.string.maproulette_description, parentName);
     }
 
     @Override
@@ -69,8 +82,13 @@ public class MapRouletteTask extends LongIdTask {
      */
     public static List<MapRouletteTask> parseTasks(@NonNull InputStream is) throws IOException, NumberFormatException {
         List<MapRouletteTask> result = new ArrayList<>();
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapterFactory(GeoJsonAdapterFactory.create());
+        gsonBuilder.registerTypeAdapterFactory(GeometryAdapterFactory.create());
+        Gson gson = gsonBuilder.create();
         final Map<Long, MapRouletteChallenge> challenges = App.getTaskStorage().getChallenges();
-        try (JsonReader reader = new JsonReader(new InputStreamReader(is))) {
+        try (JsonReader reader = gson.newJsonReader(new InputStreamReader(is))) {
             reader.beginArray();
             while (reader.hasNext()) {
                 reader.beginObject();
@@ -84,6 +102,9 @@ public class MapRouletteTask extends LongIdTask {
                         break;
                     case PARENT_NAME:
                         task.parentName = reader.nextString();
+                        break;
+                    case BLURB:
+                        task.blurb = reader.nextString();
                         break;
                     case PARENT_ID:
                         task.parentId = reader.nextLong();
@@ -109,8 +130,28 @@ public class MapRouletteTask extends LongIdTask {
                         reader.endObject();
                         break;
                     case STATUS:
-                        task.setState(State.values()[reader.nextInt()]); // FIXME, this assumes that the state mapping
-                                                                         // doesn't change
+                        task.setState(State.values()[reader.nextInt()]);
+                        break;
+                    case GEOMETRIES:
+                        // this should directly be a FeatureCollection, but some tasks don't contain well formed GeoJOSN
+                        reader.beginObject();
+                        while (reader.hasNext()) {
+                            if (GeoJSONConstants.FEATURES.equals(reader.nextName())) {
+                                reader.beginArray();
+                                TypeAdapter<Feature> adapter = gson.getAdapter(Feature.class);
+                                List<Feature> featureList = new ArrayList<>();
+                                while (reader.hasNext()) {
+                                    featureList.add(adapter.read(reader));
+                                }
+                                if (!featureList.isEmpty()) {
+                                    task.features = FeatureCollection.fromFeatures(featureList);
+                                }
+                                reader.endArray();
+                            } else {
+                                reader.skipValue();
+                            }
+                        }
+                        reader.endObject();
                         break;
                     default:
                         reader.skipValue();
@@ -163,5 +204,57 @@ public class MapRouletteTask extends LongIdTask {
         }
         MapRouletteTask other = ((MapRouletteTask) obj);
         return id == other.id;
+    }
+
+    /**
+     * @return the geometries
+     */
+    @Nullable
+    public List<Feature> getFeatures() {
+        return features != null ? features.features() : null;
+    }
+
+    /**
+     * Return the name of the challenge
+     * 
+     * @return the name of the parent challenge
+     */
+    @Nullable
+    public String getChallengeName() {
+        return parentName;
+    }
+
+    /**
+     * @return the blurb
+     */
+    public String getBlurb() {
+        return blurb;
+    }
+
+    /**
+     * Serialize this object
+     * 
+     * @param out ObjectOutputStream to write to
+     * @throws IOException if writing fails
+     */
+    private void writeObject(java.io.ObjectOutputStream out) throws IOException {
+        out.writeLong(parentId);
+        out.writeUTF(parentName);
+        out.writeUTF(blurb);
+        out.writeUTF(features.toJson());
+    }
+
+    /**
+     * Recreate the object for serialized state
+     * 
+     * @param in ObjectInputStream to write from
+     * @throws IOException if reading fails
+     * @throws ClassNotFoundException the target Class isn't defined
+     */
+    private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+        parentId = in.readLong();
+        parentName = in.readUTF();
+        blurb = in.readUTF();
+        features = FeatureCollection.fromJson(in.readUTF());
     }
 }

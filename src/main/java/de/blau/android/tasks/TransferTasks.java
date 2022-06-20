@@ -128,37 +128,32 @@ public final class TransferTasks {
      * @return any tasks found in the BoundingBox
      */
     @NonNull
-    public static Collection<Task> downloadBoxSync(final Context context, final Server server, final BoundingBox box, final boolean add, final TaskStorage bugs,
-            final Set<String> bugFilter, int maxNotes) {
+    public static Collection<Task> downloadBoxSync(@NonNull final Context context, @NonNull final Server server, @NonNull final BoundingBox box,
+            final boolean add, @NonNull final TaskStorage bugs, final Set<String> bugFilter, int maxNotes) {
         Collection<Task> result = new ArrayList<>();
-        Collection<Note> noteResult = null;
         Resources r = context.getResources();
-        if (bugFilter.contains(r.getString(R.string.bugfilter_notes))) {
-            noteResult = server.getNotesForBox(box, maxNotes);
-        }
-        if (noteResult != null) {
-            result.addAll(noteResult);
-        }
-        Preferences prefs = new Preferences(context);
-        Collection<OsmoseBug> osmoseResult = null;
-        if (bugFilter.contains(r.getString(R.string.bugfilter_osmose_error)) || bugFilter.contains(r.getString(R.string.bugfilter_osmose_warning))
-                || bugFilter.contains(r.getString(R.string.bugfilter_osmose_minor_issue))) {
 
-            osmoseResult = OsmoseServer.getBugsForBox(prefs.getOsmoseServer(), box, MAX_PER_REQUEST);
+        if (bugFilterContains(r, bugFilter, R.string.bugfilter_notes)) {
+            result.addAll(server.getNotesForBox(box, maxNotes));
         }
-        if (osmoseResult != null) {
-            result.addAll(osmoseResult);
+
+        Preferences prefs = new Preferences(context);
+        if (bugFilterContains(r, bugFilter, R.string.bugfilter_osmose_error) || bugFilterContains(r, bugFilter, R.string.bugfilter_osmose_warning)
+                || bugFilterContains(r, bugFilter, R.string.bugfilter_osmose_minor_issue)) {
+            result.addAll(OsmoseServer.getBugsForBox(prefs.getOsmoseServer(), box, MAX_PER_REQUEST));
         }
-        Collection<MapRouletteTask> mapRouletteResult = null;
-        if (bugFilter.contains(r.getString(R.string.bugfilter_maproulette))) {
-            mapRouletteResult = MapRouletteServer.getTasksForBox(prefs.getMapRouletteServer(), box, MAX_PER_REQUEST);
-        }
-        if (mapRouletteResult != null) {
-            result.addAll(mapRouletteResult);
-            Map<Long, MapRouletteChallenge> challenges = bugs.getChallenges();
-            for (Entry<Long, MapRouletteChallenge> entry : challenges.entrySet()) {
-                if (entry.getValue() == null) {
-                    challenges.put(entry.getKey(), MapRouletteServer.getChallenge(prefs.getMapRouletteServer(), entry.getKey()));
+
+        final String mapRouletteServer = prefs.getMapRouletteServer();
+        if (bugFilterContains(r, bugFilter, R.string.bugfilter_maproulette)) {
+            Collection<MapRouletteTask> mapRouletteResult = MapRouletteServer.getTasksForBox(mapRouletteServer, box, MAX_PER_REQUEST);
+            if (mapRouletteResult != null) {
+                result.addAll(mapRouletteResult);
+                Map<Long, MapRouletteChallenge> challenges = bugs.getChallenges();
+                for (Entry<Long, MapRouletteChallenge> entry : challenges.entrySet()) {
+                    if (entry.getValue() == null) {
+                        final Long key = entry.getKey();
+                        challenges.put(key, MapRouletteServer.getChallenge(mapRouletteServer, key));
+                    }
                 }
             }
         }
@@ -168,6 +163,18 @@ public final class TransferTasks {
         }
         merge(context, bugs, result);
         return result;
+    }
+
+    /**
+     * Check if using the tasks of a certain type is enabled or not
+     * 
+     * @param bugFilter the filter
+     * @param r resources
+     * @param stringRes the resouce id of the specific task type
+     * @return true if the task type is enabled
+     */
+    private static boolean bugFilterContains(Resources r, final Set<String> bugFilter, int stringRes) {
+        return bugFilter.contains(r.getString(stringRes));
     }
 
     /**
@@ -739,8 +746,8 @@ public final class TransferTasks {
      * @param postLoad callback to execute once tasks have been processed
      * @param tasks the Tasks
      */
-    private static <T extends Task> void processReadResult(final FragmentActivity activity, Class<T> c, final boolean add,
-            final PostAsyncActionHandler postLoad, Collection<T> tasks) {
+    private static <T extends Task> void processReadResult(@NonNull final FragmentActivity activity, @NonNull Class<T> c, final boolean add,
+            @Nullable final PostAsyncActionHandler postLoad, Collection<T> tasks) {
         Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
         if (tasks == null) {
             if (postLoad != null) {

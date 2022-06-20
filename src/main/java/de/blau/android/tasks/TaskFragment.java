@@ -1,5 +1,7 @@
 package de.blau.android.tasks;
 
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,12 +11,16 @@ import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.view.ViewParent;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -60,6 +66,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
     protected TextView       commentLabel;
     protected LinearLayout   elementLayout;
     protected Spinner        state;
+    protected Preferences    prefs;
 
     @SuppressLint({ "NewApi", "InflateParams" })
     @NonNull
@@ -75,7 +82,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         // Get the layout inflater
         inflater = getActivity().getLayoutInflater();
 
-        final Preferences prefs = new Preferences(getActivity());
+        prefs = new Preferences(getActivity());
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
@@ -237,12 +244,43 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
      * @param text the text to display
      */
     protected void showAdditionalText(@NonNull Context context, @NonNull Spanned text) {
-        View layout = inflater.inflate(R.layout.task_help, null);
-        TextView message = layout.findViewById(R.id.message);
+        showAdditionalText(context, text, null);
+    }
+
+    /**
+     * Show some additional text in a dialog
+     * 
+     * @param context an Android context
+     * @param text the text to display
+     * @param additionalViews Views to add to the layout
+     */
+    protected void showAdditionalText(@NonNull Context context, @NonNull Spanned text, @Nullable List<View> additionalViews) {
+        ScrollView scrollView = (ScrollView) inflater.inflate(R.layout.task_help, null);
+        LinearLayout layout = scrollView.findViewById(R.id.layout);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 1.0f);
+        TextView message = scrollView.findViewById(R.id.message);
         message.setMovementMethod(LinkMovementMethod.getInstance());
         message.setText(text);
+        message.setTextIsSelectable(true);
+        if (additionalViews != null) {
+            for (View v : additionalViews) {
+                // as we might be showing the same views more than once
+                // we need to remove them from their previous parent
+                ViewParent parent = v.getParent();
+                if (parent instanceof ViewGroup) {
+                    ((ViewGroup) parent).removeAllViews();
+                }
+                if (v instanceof TextView) {
+                    ((TextView) v).setTextIsSelectable(true);
+                }
+                v.setLayoutParams(lp);
+                layout.addView(v);
+                final View ruler = inflater.inflate(R.layout.ruler, null);
+                layout.addView(ruler);
+            }
+        }
         Builder b = new AlertDialog.Builder(context);
-        b.setView(layout);
+        b.setView(scrollView);
         b.setPositiveButton(R.string.dismiss, null);
         b.show();
     }
@@ -332,5 +370,15 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         if (bug.hasBeenChanged() && bug.isClosed()) {
             IssueAlert.cancel(getActivity(), bug);
         }
+    }
+
+    /**
+     * Get the task, not should never actually be null
+     * 
+     * @return the task
+     */
+    @Nullable
+    protected Task getTask() {
+        return task;
     }
 }

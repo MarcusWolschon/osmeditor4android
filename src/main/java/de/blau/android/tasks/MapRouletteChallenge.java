@@ -16,9 +16,13 @@ public class MapRouletteChallenge implements Serializable {
 
     private static final String DEBUG_TAG = "MapRouletteChallenge";
 
-    String blurb;
-    String instruction;
-    String description;
+    private static final String CHALLENGE_DESCRIPTION = "description";
+    private static final String CHALLENGE_INSTRUCTION = "instruction";
+    private static final String CHALLENGE_BLURB       = "blurb";
+
+    private String blurb;
+    private String instruction;
+    private String description;
 
     /**
      * Parse an InputStream containing data for a MapRoulette Challenge
@@ -36,13 +40,13 @@ public class MapRouletteChallenge implements Serializable {
             MapRouletteChallenge challenge = new MapRouletteChallenge();
             while (reader.hasNext()) {
                 switch (reader.nextName()) {
-                case "blurb":
+                case CHALLENGE_BLURB:
                     challenge.blurb = reader.nextString();
                     break;
-                case "instruction":
+                case CHALLENGE_INSTRUCTION:
                     challenge.instruction = reader.nextString();
                     break;
-                case "description":
+                case CHALLENGE_DESCRIPTION:
                     challenge.description = reader.nextString();
                     break;
                 default:
@@ -53,7 +57,31 @@ public class MapRouletteChallenge implements Serializable {
             return challenge;
         } catch (IOException | IllegalStateException ex) {
             Log.d(DEBUG_TAG, "Ignoring " + ex);
-        } 
+        }
         return null;
+    }
+
+    /**
+     * @return the blurb
+     */
+    @Nullable
+    String getBlurb() {
+        return blurb;
+    }
+
+    /**
+     * @return the instruction
+     */
+    @Nullable
+    String getInstruction() {
+        return instruction;
+    }
+
+    /**
+     * @return the description
+     */
+    @Nullable
+    String getDescription() {
+        return description;
     }
 }

@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.UploadResult;
@@ -60,35 +59,27 @@ final class OsmoseServer {
      * @param limit unused
      * @return All the bugs in the given area.
      */
-    @Nullable
+    @NonNull
     public static Collection<OsmoseBug> getBugsForBox(@NonNull String server, @NonNull BoundingBox area, long limit) {
-        Collection<OsmoseBug> result = null;
         // http://osmose.openstreetmap.fr/de/api/0.2/errors?bbox=8.32,47.33,8.42,47.28&full=true
         try {
             Log.d(DEBUG_TAG, "getBugsForBox");
-
             URL url = new URL(getServerURL(server) + "issues?" + "bbox=" + area.getLeft() / 1E7d + "," + area.getBottom() / 1E7d + "," + area.getRight() / 1E7d
                     + "," + area.getTop() / 1E7d + "&full=true&limit=" + Long.toString(limit));
-            ResponseBody responseBody = null;
-            InputStream inputStream = null;
 
             Request request = new Request.Builder().url(url).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                     .build();
             Call osmoseCall = client.newCall(request);
-            Response osmoseCallResponse = osmoseCall.execute();
-            if (osmoseCallResponse.isSuccessful()) {
-                responseBody = osmoseCallResponse.body();
-                inputStream = responseBody.byteStream();
-            } else {
-                return new ArrayList<>();
+            try (Response osmoseCallResponse = osmoseCall.execute()) {
+                if (osmoseCallResponse.isSuccessful()) {
+                    return OsmoseBug.parseBugs(osmoseCallResponse.body().byteStream());
+                }
             }
-
-            result = OsmoseBug.parseBugs(inputStream);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "getBugsForBox got exception " + e.getMessage());
         }
-        return result;
+        return new ArrayList<>();
     }
 
     /**

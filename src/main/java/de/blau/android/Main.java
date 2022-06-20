@@ -1229,21 +1229,13 @@ public class Main extends FullScreenAppCompatActivity
     public void downLoadBugs(BoundingBox bbox) {
         if (isConnected()) { // don't try if we are not connected
             Progress.showDialog(this, Progress.PROGRESS_DOWNLOAD);
-            TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, TransferTasks.MAX_PER_REQUEST, new PostAsyncActionHandler() {
-                @Override
-                public void onSuccess() {
-                    Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
-                    de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
-                    if (taskLayer != null) {
-                        taskLayer.setVisible(true);
-                    }
-                    getMap().invalidate();
+            TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, TransferTasks.MAX_PER_REQUEST, () -> {
+                de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
+                if (taskLayer != null) {
+                    taskLayer.setVisible(true);
                 }
-
-                @Override
-                public void onError(@Nullable AsyncResult result) {
-                    Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
-                }
+                Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
+                getMap().invalidate();
             });
         }
     }

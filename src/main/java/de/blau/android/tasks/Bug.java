@@ -52,7 +52,7 @@ public abstract class Bug extends Task implements Serializable {
     protected LongPrimitiveList nodes;
     protected LongPrimitiveList ways;
     protected LongPrimitiveList relations;
-    private String            title;
+    private String              title;
     protected String            subtitle;
     protected int               level;
     protected long              update;   // update date in ms since the epoch
@@ -205,8 +205,8 @@ public abstract class Bug extends Task implements Serializable {
     /**
      * Check if the Bug applies to a specific element
      * 
-     * @param elementType
-     * @param elementId
+     * @param elementType the element type
+     * @param elementId the element id
      * @return true if the element is present
      */
     boolean hasElement(@NonNull String elementType, long elementId) {
