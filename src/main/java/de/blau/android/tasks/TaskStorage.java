@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,6 +23,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.util.DataStorage;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
+import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.rtree.RTree;
 
 /**
@@ -420,16 +421,15 @@ public class TaskStorage implements Serializable, DataStorage {
     /**
      * Get all stored Todos for a list // NOSONAR
      * 
-     * @param context an Android Context
      * @param listName the Todo list name // NOSONAR
      * @param all if true return all todos, otherwise just open ones
      * @return a List of Todos // NOSONAR
      */
     @NonNull
-    public List<Todo> getTodos(@NonNull Context context, @NonNull String listName, boolean all) {
+    public List<Todo> getTodos(@NonNull String listName, boolean all) {
         List<Todo> todos = new ArrayList<>();
         for (Task t : getTasks()) {
-            if (t instanceof Todo && (all || !t.isClosed()) && listName.equals(((Todo) t).getListName(context))) {
+            if (t instanceof Todo && (all || !t.isClosed()) && listName.equals(((Todo) t).getListName())) {
                 todos.add((Todo) t);
             }
         }
@@ -439,15 +439,21 @@ public class TaskStorage implements Serializable, DataStorage {
     /**
      * Get all current todo lists names // NOSONAR
      * 
+     * Note this will always return an entry for the default list
+     * 
      * @param context an Android Context
      * @return a List of todo list names // NOSONAR
      */
     @NonNull
-    public List<String> getTodoLists(@NonNull Context context) {
-        Set<String> todoLists = new HashSet<>();
+    public List<StringWithDescription> getTodoLists(@NonNull Context context) {
+        Set<StringWithDescription> todoLists = new LinkedHashSet<>();
+        todoLists.add(new StringWithDescription(Todo.DEFAULT_LIST, context.getString(R.string.default_)));
         for (Task t : getTasks()) {
             if (t instanceof Todo && !t.isClosed()) {
-                todoLists.add(((Todo) t).getListName(context));
+                final StringWithDescription listName = ((Todo) t).getListName(context);
+                if (!Todo.DEFAULT_LIST.equals(listName)) {
+                    todoLists.add(listName);
+                }
             }
         }
         return new ArrayList<>(todoLists);
@@ -478,15 +484,14 @@ public class TaskStorage implements Serializable, DataStorage {
     /**
      * Check if a todo for an OsmElement exists already // NOSONAR
      * 
-     * @param context an Android Context
      * @param e the OsmElement
      * @param listName the name of the todo list // NOSONAR
      * @return true if a todo already exists // NOSONAR
      */
-    public boolean contains(@NonNull Context context, @NonNull OsmElement e, @NonNull String listName) {
+    public boolean contains(@NonNull OsmElement e, @NonNull String listName) {
         List<Todo> existing = getTodosForElement(e);
         for (Todo t : existing) {
-            if (listName.equals(t.getListName(context))) {
+            if (listName.equals(t.getListName())) {
                 return true;
             }
         }

@@ -25,6 +25,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
+import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.collections.LongPrimitiveList;
 
 /**
@@ -43,8 +44,9 @@ public final class Todo extends Bug implements Serializable {
     private static final String   TODO_LON       = "lon";
     private static final String   TODO_LAT       = "lat";
     private static final String   TODO_LIST_NAME = "name";
+    public static final String    DEFAULT_LIST   = "default";
 
-    private String list;
+    private String list = DEFAULT_LIST;
 
     /**
      * Parse an InputStream containing todos in JSON format
@@ -165,17 +167,27 @@ public final class Todo extends Bug implements Serializable {
 
     @Override
     public String getDescription(@NonNull Context context) {
-        return context.getString(R.string.todo_description, getListName(context));
+        return context.getString(R.string.todo_description, getListName(context).getValue());
     }
 
     @Override
     public String getLongDescription(@NonNull Context context, boolean withElements) {
         String title = getTitle();
         if (title != null && !"".equals(title)) {
-            return context.getString(R.string.todo_list_and_comment, getListName(context), title);
+            return context.getString(R.string.todo_list_and_comment, getListName(context).getValue(), title);
         } else {
-            return context.getString(R.string.todo_list, getListName(context));
+            return context.getString(R.string.todo_list, getListName(context).getValue());
         }
+    }
+
+    /**
+     * Get the list name for this issue
+     * 
+     * @return a name
+     */
+    @NonNull
+    public String getListName() {
+        return list != null ? list : "";
     }
 
     /**
@@ -185,8 +197,8 @@ public final class Todo extends Bug implements Serializable {
      * @return a name
      */
     @NonNull
-    public String getListName(@NonNull Context context) {
-        return list != null && !"".equals(list) ? list : context.getString(R.string.default_);
+    public StringWithDescription getListName(@NonNull Context context) {
+        return list != null && !"".equals(list) ? new StringWithDescription(list) : new StringWithDescription(DEFAULT_LIST, context.getString(R.string.default_));
     }
 
     @Override

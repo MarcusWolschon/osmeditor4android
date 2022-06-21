@@ -843,7 +843,7 @@ public final class TransferTasks {
 
             @Override
             protected Integer doInBackground(Void arg) {
-                final List<Todo> queryResult = App.getTaskStorage().getTodos(activity, list, true);
+                final List<Todo> queryResult = App.getTaskStorage().getTodos(list, true);
                 int result = 0;
                 try (final OutputStream out = new BufferedOutputStream(fileOut); JsonWriter writer = new JsonWriter(new PrintWriter(out))) {
                     writer.beginObject();

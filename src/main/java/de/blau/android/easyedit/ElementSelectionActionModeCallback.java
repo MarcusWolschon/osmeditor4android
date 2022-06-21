@@ -24,6 +24,7 @@ import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -59,8 +60,10 @@ import de.blau.android.tasks.BugFragment;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.Todo;
 import de.blau.android.util.Snack;
+import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.util.Value;
 import de.blau.android.views.CustomAutoCompleteTextView;
 import me.zed.elementhistorydialog.ElementHistoryDialog;
 
@@ -393,11 +396,11 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(main);
                 builder.setTitle(R.string.select_todo_list);
-                String[] listNames = new String[todos.size()];
+                StringWithDescription[] listNames = new StringWithDescription[todos.size()];
                 for (int i = 0; i < todos.size(); i++) {
                     listNames[i] = todos.get(i).getListName(main);
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(main, R.layout.dialog_list_item, listNames);
+                ArrayAdapter<StringWithDescription> adapter = new ArrayAdapter<>(main, R.layout.dialog_list_item, listNames);
                 builder.setAdapter(adapter, (DialogInterface dialog, int which) -> closeTodoAndNext(taskStorage, todos.get(which)));
                 builder.show();
             }
@@ -426,15 +429,15 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      */
     private void closeTodoAndNext(@NonNull final TaskStorage taskStorage, @NonNull final Todo todo) {
         todo.close();
-        final String listName = todo.getListName(main);
-        List<Todo> todoList = taskStorage.getTodos(main, listName, false);
+        final StringWithDescription listName = todo.getListName(main);
+        List<Todo> todoList = taskStorage.getTodos(listName.getValue(), false);
         if (todoList.isEmpty()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(main);
             builder.setTitle(R.string.all_todos_done_title);
-            builder.setMessage(main.getString(R.string.all_todos_done_message, listName));
+            builder.setMessage(main.getString(R.string.all_todos_done_message, listName.getDescription()));
             builder.setNegativeButton(R.string.cancel, null);
             builder.setPositiveButton(R.string.delete, (DialogInterface dialog, int which) -> {
-                for (Todo t : taskStorage.getTodos(main, listName, true)) {
+                for (Todo t : taskStorage.getTodos(listName.getValue(), true)) {
                     taskStorage.delete(t);
                 }
                 main.invalidateMap();
@@ -459,29 +462,49 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         View layout = activity.getLayoutInflater().inflate(R.layout.add_todo, null);
         final CustomAutoCompleteTextView todoList = layout.findViewById(R.id.todoList);
         final TextView todoComment = layout.findViewById(R.id.todoComment);
-        List<String> todoLists = App.getTaskStorage().getTodoLists(activity);
+        List<StringWithDescription> todoLists = App.getTaskStorage().getTodoLists(activity);
         todoList.setAdapter(new ArrayAdapter<>(activity, R.layout.autocomplete_row, todoLists));
-        builder.setView(layout);
-        builder.setNegativeButton(R.string.cancel, null);
-        builder.setPositiveButton(R.string.add, (DialogInterface dialog, int which) -> {
-            TaskStorage storage = App.getTaskStorage();
-            final String name = todoList.getText().toString();
-            final String comment = todoComment.getText().toString();
-            for (OsmElement e : elements) {
-                if (storage.contains(activity, e, name)) {
-                    continue;
-                }
-                Todo todo = new Todo(name, e);
-                if (!"".equals(comment)) {
-                    todo.setTitle(comment);
-                }
-                storage.add(todo);
-            }
-            if (activity instanceof Main) {
-                ((Main) activity).invalidateMap();
+        todoList.setOnFocusChangeListener((View v, boolean hasFocus) -> {
+            if (hasFocus) {
+                todoList.showDropDown();
+            } else {
+                todoList.dismissDropDown();
             }
         });
-        builder.show();
+        todoList.setOnItemClickListener((parent, view, pos, id) -> {
+            Object o = parent.getItemAtPosition(pos);
+            todoList.setOrReplaceText(o instanceof Value ? ((Value) o).getValue() : (String) o);
+        });
+        builder.setView(layout);
+        builder.setNegativeButton(R.string.cancel, null);
+        builder.setPositiveButton(R.string.add, null);
+        AlertDialog addTodoDialog = builder.create();
+        addTodoDialog.setOnShowListener(dialog -> {
+            Button positive = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+            positive.setOnClickListener(view -> {
+                final TaskStorage storage = App.getTaskStorage();
+                final String name = todoList.getText().toString();
+                final String comment = todoComment.getText().toString();
+                for (OsmElement e : elements) {
+                    if (storage.contains(e, name)) {
+                        Snack.toastTopWarning(activity, R.string.toast_todo_already_in_list);
+                        return;
+                    }
+                }
+                for (OsmElement e : elements) {
+                    Todo todo = new Todo(name, e);
+                    if (!"".equals(comment)) {
+                        todo.setTitle(comment);
+                    }
+                    storage.add(todo);
+                }
+                dialog.dismiss();
+                if (activity instanceof Main) {
+                    ((Main) activity).invalidateMap();
+                }
+            });
+        });
+        addTodoDialog.show();
     }
 
     /**

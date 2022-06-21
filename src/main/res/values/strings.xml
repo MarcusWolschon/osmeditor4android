@@ -157,10 +157,11 @@
     <string name="all_todos_done_title">All todos in list done</string>
     <string name="all_todos_done_message">All todos in list \"%1$s\" done.</string>
     <string name="todo_list_legend">Todo list</string>
-    <string name="todo_list_hint">Click for suggestions, leave empty for default</string>
+    <string name="todo_list_hint">Click for suggestions</string>
     <string name="todo_comment_legend">Comment</string>
     <string name="todo_comment_hint">Optional comment</string>
     <string name="toast_todo_all_closed">All tasks for element closed</string>
+    <string name="toast_todo_already_in_list">Already in this todo list</string>
     <!-- Unsaved data dialog -->
     <string name="unsaved_data_title">Caution!</string>
     <string name="unsaved_data_message">Your unsaved changes will be discarded if you proceed.</string>

@@ -97,7 +97,7 @@ public class TodoFragment extends BugFragment {
         cancel.setOnClickListener((View v) -> {
             saveTask(v, task);
             final FragmentActivity activity = getActivity();
-            List<Todo> todos = App.getTaskStorage().getTodos(activity, ((Todo) task).getListName(activity), false);
+            List<Todo> todos = App.getTaskStorage().getTodos(((Todo) task).getListName(), false);
             if (todos.isEmpty()) {
                 Snack.toastTopInfo(activity, "All todos in the list done");
             } else {
