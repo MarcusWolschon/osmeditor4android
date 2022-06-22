@@ -156,12 +156,14 @@
     </plurals>
     <string name="all_todos_done_title">All todos in list done</string>
     <string name="all_todos_done_message">All todos in list \"%1$s\" done.</string>
+    <string name="all_todos_in_current_done_message">All todos in current list done</string>
     <string name="todo_list_legend">Todo list</string>
     <string name="todo_list_hint">Click for suggestions</string>
     <string name="todo_comment_legend">Comment</string>
     <string name="todo_comment_hint">Optional comment</string>
     <string name="toast_todo_all_closed">All tasks for element closed</string>
-    <string name="toast_todo_already_in_list">Already in this todo list</string>
+    <string name="toast_todo_already_in_list">Element is already in this todo list</string>
+    <string name="toast_no_open_todos">No open todos</string>
     <!-- Unsaved data dialog -->
     <string name="unsaved_data_title">Caution!</string>
     <string name="unsaved_data_message">Your unsaved changes will be discarded if you proceed.</string>
@@ -836,6 +838,7 @@
     <string name="menu_gps_follow">Follow location</string>
     <string name="menu_gps_goto">Go to current location</string>
     <string name="menu_gps_goto_coordinates">Go to coordinates…</string>
+    <string name="menu_gps_goto_nearest_todo">Go to nearest todo…</string>
     <string name="menu_gps_goto_last_edit">Go to last edit</string>
     <string name="menu_gps_position_info">Current position info</string>
     <string name="menu_gps_start">Start GPX track</string>

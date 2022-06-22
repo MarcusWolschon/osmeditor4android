@@ -35,6 +35,9 @@
                 android:id="@+id/menu_gps_show_bookmarks"
                 android:title="@string/show_bookmarks" />
             <item
+                android:id="@+id/menu_gps_goto_nearest_todo"
+                android:title="@string/menu_gps_goto_nearest_todo" />
+            <item
                 android:id="@+id/menu_gps_goto"
                 android:alphabeticShortcut="@string/shortcut_gps_goto"
                 android:title="@string/menu_gps_goto" />

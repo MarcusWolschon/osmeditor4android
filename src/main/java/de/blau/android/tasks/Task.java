@@ -1,7 +1,9 @@
 package de.blau.android.tasks;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,6 +17,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.Density;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
 
 /**
@@ -295,6 +298,19 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      */
     public void drawBitmapClosed(Context context, Canvas c, float x, float y, boolean selected) {
         drawIcon(context, cachedIconClosed, c, R.drawable.bug_closed, x, y, selected);
+    }
+
+    /**
+     * Sort a list of Tasks by their distance to the supplied coordinates, nearest first
+     *
+     * @param <T> sub class of Task
+     * @param tasks the list of tasks
+     * @param lon WGS84 longitude
+     * @param lat WGS84 latitude
+     */
+    public static <T extends Task> void sortByDistance(@NonNull List<T> tasks, final double lon, final double lat) {
+        Collections.sort(tasks, (T t1, T t2) -> Double.compare(GeoMath.haversineDistance(lon, lat, t1.getLon() / 1E7D, t1.getLat() / 1E7D),
+                GeoMath.haversineDistance(lon, lat, t2.getLon() / 1E7D, t2.getLat() / 1E7D)));
     }
 
     @Override

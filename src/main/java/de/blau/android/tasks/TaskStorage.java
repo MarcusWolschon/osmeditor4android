@@ -419,17 +419,17 @@ public class TaskStorage implements Serializable, DataStorage {
     }
 
     /**
-     * Get all stored Todos for a list // NOSONAR
+     * Get stored Todos // NOSONAR
      * 
-     * @param listName the Todo list name // NOSONAR
+     * @param listName the optional Todo list name // NOSONAR
      * @param all if true return all todos, otherwise just open ones
      * @return a List of Todos // NOSONAR
      */
     @NonNull
-    public List<Todo> getTodos(@NonNull String listName, boolean all) {
+    public List<Todo> getTodos(@Nullable String listName, boolean all) {
         List<Todo> todos = new ArrayList<>();
         for (Task t : getTasks()) {
-            if (t instanceof Todo && (all || !t.isClosed()) && listName.equals(((Todo) t).getListName())) {
+            if (t instanceof Todo && (all || !t.isClosed()) && (listName == null || listName.equals(((Todo) t).getListName()))) {
                 todos.add((Todo) t);
             }
         }
@@ -451,7 +451,7 @@ public class TaskStorage implements Serializable, DataStorage {
         for (Task t : getTasks()) {
             if (t instanceof Todo && !t.isClosed()) {
                 final StringWithDescription listName = ((Todo) t).getListName(context);
-                if (!Todo.DEFAULT_LIST.equals(listName)) {
+                if (!Todo.DEFAULT_LIST.equals(listName.getValue())) {
                     todoLists.add(listName);
                 }
             }

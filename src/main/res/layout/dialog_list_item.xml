@@ -7,4 +7,5 @@
     android:minHeight="32dp"
     android:paddingLeft="?attr/dialogPreferredPadding"
     android:paddingRight="?attr/dialogPreferredPadding"
+    android:textAppearance="?android:attr/textAppearanceListItemSmall"
     android:maxLines="1" />

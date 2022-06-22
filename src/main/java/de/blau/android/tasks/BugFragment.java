@@ -82,6 +82,7 @@ public abstract class BugFragment extends TaskFragment {
      */
     public static void gotoAndEditElement(@NonNull final Main main, @NonNull final StorageDelegator storageDelegator, @NonNull final OsmElement e,
             final int lonE7, final int latE7) {
+        main.unlock();
         if (e.getOsmVersion() < 0) { // fake element
             try {
                 BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50);

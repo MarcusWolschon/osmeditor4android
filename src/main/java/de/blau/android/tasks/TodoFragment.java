@@ -18,7 +18,6 @@ import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
 import de.blau.android.tasks.Task.State;
-import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 
 /**
@@ -81,7 +80,6 @@ public class TodoFragment extends BugFragment {
         // these are only used for Notes
         commentLabel.setVisibility(View.GONE);
         comment.setVisibility(View.GONE);
-
         title.setText(R.string.todo_title);
         comments.setText(Util.fromHtml(((Bug) task).getLongDescription(getActivity(), false)));
         addElementLinks(task, elementLayout);
@@ -93,21 +91,20 @@ public class TodoFragment extends BugFragment {
     protected void onShowListener(Task task, Button save, Button upload, Button cancel, Spinner state) {
         super.onShowListener(task, save, upload, cancel, state);
         save.setText(R.string.Done);
+        save.setEnabled(true);
         cancel.setText(R.string.next);
+        final List<Todo> todos = App.getTaskStorage().getTodos(((Todo) task).getListName(), false);
+        final int count = todos.size();
+        cancel.setEnabled(count > 1 || (count == 1 && !task.equals(todos.get(0))));
         cancel.setOnClickListener((View v) -> {
             saveTask(v, task);
             final FragmentActivity activity = getActivity();
-            List<Todo> todos = App.getTaskStorage().getTodos(((Todo) task).getListName(), false);
-            if (todos.isEmpty()) {
-                Snack.toastTopInfo(activity, "All todos in the list done");
-            } else {
-                Todo next = ((Todo) task).getNearest(todos);
-                if (activity instanceof Main) {
-                    Map map = ((Main) activity).getMap();
-                    map.getViewBox().moveTo(map, next.getLon(), next.getLat());
-                }
-                TodoFragment.showDialog(activity, next);
+            Todo next = ((Todo) task).getNearest(todos);
+            if (activity instanceof Main) {
+                Map map = ((Main) activity).getMap();
+                map.getViewBox().moveTo(map, next.getLon(), next.getLat());
             }
+            TodoFragment.showDialog(activity, next);
         });
     }
 

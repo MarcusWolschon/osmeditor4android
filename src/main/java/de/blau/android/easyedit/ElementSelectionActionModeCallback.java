@@ -394,15 +394,11 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             if (todos.size() == 1) {
                 closeTodoAndNext(taskStorage, todos.get(0));
             } else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(main);
-                builder.setTitle(R.string.select_todo_list);
-                StringWithDescription[] listNames = new StringWithDescription[todos.size()];
+                List<StringWithDescription> listNames = new ArrayList<>();
                 for (int i = 0; i < todos.size(); i++) {
-                    listNames[i] = todos.get(i).getListName(main);
+                    listNames.add(todos.get(i).getListName(main));
                 }
-                ArrayAdapter<StringWithDescription> adapter = new ArrayAdapter<>(main, R.layout.dialog_list_item, listNames);
-                builder.setAdapter(adapter, (DialogInterface dialog, int which) -> closeTodoAndNext(taskStorage, todos.get(which)));
-                builder.show();
+                selectTodoList(main, listNames, (DialogInterface dialog, int which) -> closeTodoAndNext(taskStorage, todos.get(which)));
             }
             break;
         case MENUITEM_TASK_CLOSE_ALL:
@@ -422,6 +418,22 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     }
 
     /**
+     * Show a dialog that allows selection of a todo list // NOSONAR
+     * 
+     * @param context an Android Context
+     * @param todoLists a List of todo list names // NOSONAR
+     * @param listener a listener to call on selection
+     */
+    public static void selectTodoList(@NonNull Context context, @NonNull List<StringWithDescription> todoLists,
+            @NonNull DialogInterface.OnClickListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(R.string.select_todo_list);
+        ArrayAdapter<StringWithDescription> adapter = new ArrayAdapter<>(context, R.layout.dialog_list_item, todoLists);
+        builder.setAdapter(adapter, listener);
+        builder.show();
+    }
+
+    /**
      * Close a Todo and start editing the next/nearest one // NOSONAR
      * 
      * @param taskStorage the current TaskStorage
@@ -434,7 +446,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         if (todoList.isEmpty()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(main);
             builder.setTitle(R.string.all_todos_done_title);
-            builder.setMessage(main.getString(R.string.all_todos_done_message, listName.getDescription()));
+            builder.setMessage(main.getString(R.string.all_todos_done_message, listName.toString()));
             builder.setNegativeButton(R.string.cancel, null);
             builder.setPositiveButton(R.string.delete, (DialogInterface dialog, int which) -> {
                 for (Todo t : taskStorage.getTodos(listName.getValue(), true)) {

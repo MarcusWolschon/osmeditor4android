@@ -20,6 +20,7 @@ import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -109,6 +110,7 @@ import de.blau.android.dialogs.UndoDialog;
 import de.blau.android.dialogs.bookmarks.BookmarkHandler;
 import de.blau.android.dialogs.bookmarks.BookmarksDialog;
 import de.blau.android.easyedit.EasyEditManager;
+import de.blau.android.easyedit.ElementSelectionActionModeCallback;
 import de.blau.android.easyedit.SimpleActionModeCallback;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -154,6 +156,8 @@ import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.tasks.MapRouletteApiKey;
 import de.blau.android.tasks.Task;
+import de.blau.android.tasks.Todo;
+import de.blau.android.tasks.TodoFragment;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ActivityResultHandler;
@@ -176,6 +180,7 @@ import de.blau.android.util.Screen;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Sound;
+import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.UploadChecker;
 import de.blau.android.util.Util;
@@ -1614,11 +1619,20 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
+     * Unlock the main display
+     */
+    public void unlock() {
+        if (App.getLogic().isLocked()) {
+            getLock().performClick();
+        }
+    }
+
+    /**
      * Get the lock button
      * 
      * @return the lock
      */
-    public FloatingActionButton getLock() {
+    private FloatingActionButton getLock() {
         return (FloatingActionButton) findViewById(R.id.floatingLock);
     }
 
@@ -1985,8 +1999,10 @@ public class Main extends FullScreenAppCompatActivity
             });
             return true;
         case R.id.menu_gps_show_bookmarks:
-            BookmarksDialog bookmarksDialog = new BookmarksDialog(this);
-            bookmarksDialog.showDialog();
+            new BookmarksDialog(this).showDialog();
+            return true;
+        case R.id.menu_gps_goto_nearest_todo:
+            gotoNearestTodo();
             return true;
         case R.id.menu_gps_goto:
             gotoCurrentLocation();
@@ -2440,6 +2456,50 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
+     * Determine the nearest Todo and show the corresponding modal // NOSONAR
+     */
+    private void gotoNearestTodo() {
+        List<Todo> todos = App.getTaskStorage().getTodos(null, false); // NOSONAR
+        if (!todos.isEmpty()) {
+            final ViewBox viewBox = map.getViewBox();
+            double[] center = viewBox.getCenter();
+            Location lastLocation = getLastLocation();
+            // if we are reasonably confident that we are looking for a task near the GPS position use that
+            if (lastLocation != null) {
+                final double longitude = lastLocation.getLongitude();
+                final double latitude = lastLocation.getLatitude();
+                if (getFollowGPS() || viewBox.contains(longitude, latitude)) {
+                    center[0] = longitude;
+                    center[1] = latitude;
+                }
+            }
+            final List<StringWithDescription> todoLists = App.getTaskStorage().getTodoLists(this);
+            if (todoLists.size() > 1) {
+                ElementSelectionActionModeCallback.selectTodoList(this, todoLists, (DialogInterface dialog,
+                        int which) -> showNearestTodo(App.getTaskStorage().getTodos(todoLists.get(which).getValue(), false), center[0], center[1]));
+                return;
+            }
+            showNearestTodo(todos, center[0], center[1]);
+        } else {
+            Snack.toastTopInfo(this, R.string.toast_no_open_todos);
+        }
+    }
+
+    /**
+     * Goto the position of the nearest todo and show the todo dialog //NOSONAR
+     * 
+     * @param todos a List of possible Todos // NOSONAR
+     * @param lon the relevant WGS84 longitude
+     * @param lat the relevant WGS84 latitude
+     */
+    private void showNearestTodo(@NonNull List<Todo> todos, double lon, double lat) {
+        Task.sortByDistance(todos, lon, lat);
+        Todo nearest = todos.get(0);
+        map.getViewBox().moveTo(map, nearest.getLon(), nearest.getLat());
+        TodoFragment.showDialog(this, nearest);
+    }
+
+    /**
      * Display a toast when we can't find a file
      * 
      * @param fileUri the file uri
@@ -2502,7 +2562,7 @@ public class Main extends FullScreenAppCompatActivity
      * @param logic the current Login instance
      * @param trackPoint the TrackPoint
      */
-    public void gotoTrackPoint(final Logic logic, TrackPoint trackPoint) {
+    public void gotoTrackPoint(@NonNull final Logic logic, @NonNull TrackPoint trackPoint) {
         Log.d(DEBUG_TAG, "Going to first waypoint");
         setFollowGPS(false);
         map.setFollowGPS(false);
@@ -2516,7 +2576,7 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @param main the current instance of Main
      */
-    public static void showJsConsole(final Main main) {
+    public static void showJsConsole(@NonNull final Main main) {
         main.descheduleAutoLock();
         de.blau.android.javascript.Utils.jsConsoleDialog(main, R.string.js_console_msg_live, input -> {
             String result = de.blau.android.javascript.Utils.evalString(main, "JS Console", input, App.getLogic());

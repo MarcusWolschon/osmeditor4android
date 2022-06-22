@@ -198,7 +198,8 @@ public final class Todo extends Bug implements Serializable {
      */
     @NonNull
     public StringWithDescription getListName(@NonNull Context context) {
-        return list != null && !"".equals(list) ? new StringWithDescription(list) : new StringWithDescription(DEFAULT_LIST, context.getString(R.string.default_));
+        return list != null && !"".equals(list) ? new StringWithDescription(list)
+                : new StringWithDescription(DEFAULT_LIST, context.getString(R.string.default_));
     }
 
     @Override
@@ -275,10 +276,15 @@ public final class Todo extends Bug implements Serializable {
      */
     @NonNull
     public Todo getNearest(@NonNull List<Todo> todos) {
-        final double curLat = getLat() / 1E7D;
-        final double curLon = getLon() / 1E7D;
-        Collections.sort(todos, (Todo t1, Todo t2) -> Double.compare(GeoMath.haversineDistance(curLon, curLat, t1.getLon() / 1E7D, t1.getLat() / 1E7D),
-                GeoMath.haversineDistance(curLon, curLat, t2.getLon() / 1E7D, t2.getLat() / 1E7D)));
+        todos.remove(this); // this would always be the nearest
+        int count = todos.size();
+        if (count >= 2) {
+            final double curLat = getLat() / 1E7D;
+            final double curLon = getLon() / 1E7D;
+            sortByDistance(todos, curLon, curLat);
+        } else if (count == 0) {
+            return this; // the only thing we can return
+        }
         return todos.get(0);
     }
 
