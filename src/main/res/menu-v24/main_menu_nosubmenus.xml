@@ -29,6 +29,12 @@
                 android:checkable="true"
                 android:title="@string/menu_gps_follow" />
             <item
+                android:id="@+id/menu_gps_add_bookmark"
+                android:title="@string/add_bookmark" />
+            <item
+                android:id="@+id/menu_gps_show_bookmarks"
+                android:title="@string/show_bookmarks" />
+            <item
                 android:id="@+id/menu_gps_goto"
                 android:alphabeticShortcut="@string/shortcut_gps_goto"
                 android:title="@string/menu_gps_goto" />
