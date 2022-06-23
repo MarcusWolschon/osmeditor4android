@@ -130,6 +130,10 @@ public final class TransferTasks {
     @NonNull
     public static Collection<Task> downloadBoxSync(@NonNull final Context context, @NonNull final Server server, @NonNull final BoundingBox box,
             final boolean add, @NonNull final TaskStorage bugs, final Set<String> bugFilter, int maxNotes) {
+        if (!add) {
+            Log.d(DEBUG_TAG, "resetting bug storage");
+            bugs.reset();
+        }
         Collection<Task> result = new ArrayList<>();
         Resources r = context.getResources();
 
@@ -157,10 +161,7 @@ public final class TransferTasks {
                 }
             }
         }
-        if (!add) {
-            Log.d(DEBUG_TAG, "resetting bug storage");
-            bugs.reset();
-        }
+
         merge(context, bugs, result);
         return result;
     }
