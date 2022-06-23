@@ -278,6 +278,7 @@ public class WayTest {
         assertTrue(TestUtils.clickText(device, false, "NO", true, true));
 
         // undo
+        TestUtils.unlock(device);
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
         assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // for the tip alert
