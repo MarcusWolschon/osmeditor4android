@@ -2300,16 +2300,13 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_transfer_write_todos:
             descheduleAutoLock();
-            SelectFile.save(this, R.string.config_osmPreferredDir_key, new SaveFile() {
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                public boolean save(Uri fileUri) {
-                    TransferTasks.writeTodoFile(Main.this, fileUri, "", true, null);
-                    SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
-                    return true;
-                }
-            });
+            final List<StringWithDescription> todoListnames = App.getTaskStorage().getTodoLists(this);
+            if (todoListnames.size() == 1) {
+                writeTodos(todoListnames.get(0).getValue());
+            } else {
+                ElementSelectionActionModeCallback.selectTodoList(this, todoListnames,
+                        (DialogInterface dialog, int which) -> writeTodos(todoListnames.get(which).getValue()));
+            }
             return true;
         case R.id.menu_undo:
             // should not happen
@@ -2456,6 +2453,25 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
+     * Write the contents of a todo list to a file // NOSONAR
+     * 
+     * @param listName the todo list name or null for all // NOSONAR
+     */
+    private void writeTodos(@Nullable String listName) {
+        SelectFile.save(this, R.string.config_osmPreferredDir_key, new SaveFile() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public boolean save(Uri fileUri) {
+                TransferTasks.writeTodoFile(Main.this, fileUri, listName, true, null);
+                SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                return true;
+            }
+        });
+    }
+
+    /**
+     * 
      * Determine the nearest Todo and show the corresponding modal // NOSONAR
      */
     private void gotoNearestTodo() {

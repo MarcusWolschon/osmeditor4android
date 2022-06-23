@@ -97,11 +97,11 @@ public class ReadSaveTasksTest {
      * Read and save custom tasks
      */
     @Test
-    public void readAndSaveCustomBugs() {
+    public void readAndSaveTodos() {
         final CountDownLatch signal1 = new CountDownLatch(1);
 
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream("customBug.json");
+        InputStream is = loader.getResourceAsStream("todos.json");
         assertNotNull(is);
         TransferTasks.readTodos(main, is, false, new SignalHandler(signal1));
         try {
@@ -123,6 +123,7 @@ public class ReadSaveTasksTest {
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_write_todos), true, false));
+            assertTrue(TestUtils.clickText(device, false, "Name change", true, false));
             TestUtils.selectFile(device, context, null, TEST_JSON, true, true);
 
             assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
