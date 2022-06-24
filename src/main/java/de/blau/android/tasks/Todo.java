@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.google.gson.stream.JsonReader;
@@ -23,7 +22,6 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
-import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.collections.LongPrimitiveList;

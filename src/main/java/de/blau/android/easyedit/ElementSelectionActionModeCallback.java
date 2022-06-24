@@ -156,8 +156,6 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
         menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
 
-        // taskMenu = menu.addSubMenu(123, MENUITEM_TASK, Menu.NONE,
-        // R.string.menu_todo).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_bug));
         menuInflater.inflate(R.menu.task_menu, menu);
         taskMenuItem = menu.findItem(R.id.task_menu);
         SubMenu taskMenu = taskMenuItem.getSubMenu();

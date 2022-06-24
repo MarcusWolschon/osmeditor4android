@@ -2479,11 +2479,11 @@ public class Main extends FullScreenAppCompatActivity
         if (!todos.isEmpty()) {
             final ViewBox viewBox = map.getViewBox();
             double[] center = viewBox.getCenter();
-            Location lastLocation = getLastLocation();
+            Location location = getLastLocation();
             // if we are reasonably confident that we are looking for a task near the GPS position use that
-            if (lastLocation != null) {
-                final double longitude = lastLocation.getLongitude();
-                final double latitude = lastLocation.getLatitude();
+            if (location != null) {
+                final double longitude = location.getLongitude();
+                final double latitude = location.getLatitude();
                 if (getFollowGPS() || viewBox.contains(longitude, latitude)) {
                     center[0] = longitude;
                     center[1] = latitude;
