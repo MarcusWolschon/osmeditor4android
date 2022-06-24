@@ -19,6 +19,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
@@ -114,6 +115,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private MenuItem uploadItem;
     private MenuItem pasteItem;
     private MenuItem calibrateItem;
+    private MenuItem taskMenuItem;
 
     Preferences prefs;
 
@@ -123,7 +125,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      * @param manager the EasyEditManager instance
      * @param element the selected OsmElement
      */
-    protected ElementSelectionActionModeCallback(EasyEditManager manager, OsmElement element) {
+    protected ElementSelectionActionModeCallback(@NonNull EasyEditManager manager, @NonNull OsmElement element) {
         super(manager);
         this.element = element;
         undoListener = main.new UndoListener();
@@ -143,7 +145,8 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         menu = replaceMenu(menu, mode, this);
         menu.clear();
         menuUtil.reset();
-        main.getMenuInflater().inflate(R.menu.undo_action, menu);
+        final MenuInflater menuInflater = main.getMenuInflater();
+        menuInflater.inflate(R.menu.undo_action, menu);
         undoItem = menu.findItem(R.id.undo_action);
 
         View undoView = undoItem.getActionView();
@@ -152,13 +155,13 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
         menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
 
-        de.blau.android.layer.tasks.MapOverlay taskLayer = main.getMap().getTaskLayer();
-        if (taskLayer != null && App.getTaskStorage().hasTasksForElement(element)) {
-            SubMenu taskMenu = menu.addSubMenu(Menu.NONE, MENUITEM_TASK, Menu.NONE, R.string.menu_todo)
-                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_bug));
-            taskMenu.add(Menu.NONE, MENUITEM_TODO_CLOSE_AND_NEXT, Menu.NONE, R.string.menu_todo_close_and_next);
-            taskMenu.add(Menu.NONE, MENUITEM_TASK_CLOSE_ALL, Menu.NONE, R.string.menu_todo_close_all_tasks);
-        }
+        // taskMenu = menu.addSubMenu(123, MENUITEM_TASK, Menu.NONE,
+        // R.string.menu_todo).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_bug));
+        menuInflater.inflate(R.menu.task_menu, menu);
+        taskMenuItem = menu.findItem(R.id.task_menu);
+        SubMenu taskMenu = taskMenuItem.getSubMenu();
+        taskMenu.add(Menu.NONE, MENUITEM_TODO_CLOSE_AND_NEXT, Menu.NONE, R.string.menu_todo_close_and_next);
+        taskMenu.add(Menu.NONE, MENUITEM_TASK_CLOSE_ALL, Menu.NONE, R.string.menu_todo_close_all_tasks);
 
         menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
         if (!(element instanceof Relation)) {
@@ -244,6 +247,8 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             undoItem.setVisible(false);
             updated = true;
         }
+
+        updated |= setItemVisibility(main.getMap().getTaskLayer() != null && App.getTaskStorage().hasTasksForElement(element), taskMenuItem, false);
 
         updated |= setItemVisibility(!element.isUnchanged(), uploadItem, true);
         updated |= setItemVisibility(!App.getTagClipboard(main).isEmpty(), pasteItem, true);
@@ -387,7 +392,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             Main.showJsConsole(main);
             break;
         case MENUITEM_ADD_TO_TODO:
-            addToTodoList(main, Util.wrapInList(element));
+            addToTodoList(main, manager, Util.wrapInList(element));
             break;
         case MENUITEM_TODO_CLOSE_AND_NEXT:
             final List<Todo> todos = taskStorage.getTodosForElement(element);
@@ -466,9 +471,10 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      * Add elements to a todo list // NOSONAR
      * 
      * @param activity the current activity
+     * @param manager the current EasyEditManager
      * @param elements a List of OsmElement
      */
-    public static void addToTodoList(@NonNull FragmentActivity activity, @NonNull List<OsmElement> elements) {
+    public static void addToTodoList(@NonNull FragmentActivity activity, @NonNull EasyEditManager manager, @NonNull List<OsmElement> elements) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(activity.getResources().getQuantityString(R.plurals.add_todo_title, elements.size()));
         View layout = activity.getLayoutInflater().inflate(R.layout.add_todo, null);
@@ -516,6 +522,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                 }
             });
         });
+        addTodoDialog.setOnDismissListener((DialogInterface dialog) -> manager.invalidate());
         addTodoDialog.show();
     }
 

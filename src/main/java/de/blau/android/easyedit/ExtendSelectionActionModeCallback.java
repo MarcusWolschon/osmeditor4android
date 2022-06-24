@@ -345,7 +345,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 Search.search(main);
                 break;
             case MENUITEM_ADD_TO_TODO:
-                ElementSelectionActionModeCallback.addToTodoList(main, selection);
+                ElementSelectionActionModeCallback.addToTodoList(main, manager, selection);
                 break;
             case MENUITEM_UPLOAD:
                 main.descheduleAutoLock();
