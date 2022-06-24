@@ -60,6 +60,7 @@ import de.blau.android.services.TrackerService;
 import de.blau.android.tasks.BugFragment;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.Todo;
+import de.blau.android.tasks.TodoFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
@@ -463,7 +464,12 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         } else {
             Todo next = todo.getNearest(todoList);
             taskStorage.setDirty();
-            BugFragment.gotoAndEditElement(main, App.getDelegator(), next.getElements().get(0), next.getLon(), next.getLat());
+            final OsmElement e = next.getElements().get(0);
+            if (OsmElement.STATE_DELETED != e.getState()) {
+                BugFragment.gotoAndEditElement(main, App.getDelegator(), e, next.getLon(), next.getLat());
+            } else {
+                TodoFragment.showDialog(main, next);
+            }
         }
     }
 
