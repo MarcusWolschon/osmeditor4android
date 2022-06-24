@@ -32,7 +32,7 @@ public class MapRouletteTask extends LongIdTask {
 
     private static final String DEBUG_TAG = "MapRouletteTask";
 
-    private static final String ID          = "id";
+    private static final String MR_ID       = "id";
     private static final String PARENT_NAME = "parentName";
     private static final String PARENT_ID   = "parentId";
     private static final String POINT       = "point";
@@ -40,7 +40,7 @@ public class MapRouletteTask extends LongIdTask {
     private static final String LON         = "lng";
     private static final String LAT         = "lat";
     private static final String GEOMETRIES  = "geometries";
-    private static final String BLURB       = "blurb";
+    private static final String MR_BLURB    = "blurb";
 
     protected static BitmapWithOffset cachedIconClosed;
     protected static BitmapWithOffset cachedIconChangedClosed;
@@ -96,14 +96,14 @@ public class MapRouletteTask extends LongIdTask {
                 task.open();
                 while (reader.hasNext()) {
                     switch (reader.nextName()) {
-                    case ID:
+                    case MR_ID:
                         task.id = reader.nextLong();
                         Log.d(DEBUG_TAG, "got maproulette task is " + task.id);
                         break;
                     case PARENT_NAME:
                         task.parentName = reader.nextString();
                         break;
-                    case BLURB:
+                    case MR_BLURB:
                         task.blurb = reader.nextString();
                         break;
                     case PARENT_ID:
