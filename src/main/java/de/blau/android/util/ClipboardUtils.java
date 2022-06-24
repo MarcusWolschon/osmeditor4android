@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.R;
 
 /**
  * Adapted from the broken google example
@@ -30,7 +31,8 @@ public final class ClipboardUtils {
 
     private static final String DEBUG_TAG = "ClipboardUtils";
 
-    private static final String EOL = "\\r?\\n|\\r";
+    private static final String EOL                 = "\\r?\\n|\\r";
+    private static final String NON_BREAKABLE_SPACE = "\u00A0";
 
     private static ClipboardManager clipboard = null;
 
@@ -62,7 +64,9 @@ public final class ClipboardUtils {
      * @return list of Strings
      */
     @SuppressLint("NewApi")
+    @NonNull
     private static List<String> getTextLines(@NonNull Context ctx) {
+        List<String> result = new ArrayList<>();
         if (checkForText(ctx)) {
             ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
             // Gets the clipboard as text.
@@ -74,35 +78,34 @@ public final class ClipboardUtils {
                         Log.d(DEBUG_TAG, "Clipboard contains an uri");
                         ContentResolver cr = ctx.getContentResolver();
                         String uriMimeType = cr.getType(pasteUri);
-                        // pasteData = resolveUri(pasteUri);
                         // If the return value is not null, the Uri is a content Uri
                         if (uriMimeType != null && uriMimeType.equals(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
                             // Does the content provider offer a MIME type that the current application can use?
                             // Get the data from the content provider.
                             Cursor pasteCursor = cr.query(pasteUri, null, null, null, null);
-
                             // If the Cursor contains data, move to the first record
                             if (pasteCursor != null) {
                                 if (pasteCursor.moveToFirst()) {
                                     String pasteData = pasteCursor.getString(0);
-                                    return new ArrayList<>(Arrays.asList(pasteData.split(EOL)));
+                                    result.addAll(Arrays.asList(pasteData.split(EOL)));
                                 }
                                 // close the Cursor
                                 pasteCursor.close();
                             }
                         }
-                    } catch (Exception e) { // FIXME given that the above is untested, catch all here
+                    } catch (Exception e) { // catch all here
                         Log.e(DEBUG_TAG, "Resolving URI failed " + e);
                     }
                 }
             } else {
                 Log.d(DEBUG_TAG, "Clipboard contains text");
                 String pasteData = cs.toString();
-                return new ArrayList<>(Arrays.asList(pasteData.split(EOL)));
+                result.addAll(Arrays.asList(pasteData.split(EOL)));
             }
+        } else {
             Log.e(DEBUG_TAG, "Clipboard contains an invalid data type");
         }
-        return null;
+        return result;
     }
 
     /**
@@ -114,22 +117,35 @@ public final class ClipboardUtils {
     @Nullable
     public static List<KeyValue> getKeyValues(@NonNull Context ctx) {
         List<String> textLines = getTextLines(ctx);
-        if (textLines != null) {
+        if (!textLines.isEmpty()) {
             List<KeyValue> keysAndValues = new ArrayList<>();
             for (String line : textLines) {
                 if (line != null) {
                     String[] r = line.split("=", 2);
                     if (r.length == 2) {
-                        keysAndValues.add(new KeyValue(r[0], r[1]));
+                        keysAndValues.add(new KeyValue(trim(r[0]), trim(r[1])));
                     } else {
-                        keysAndValues.add(new KeyValue("", line));
+                        keysAndValues.add(new KeyValue("", trim(line)));
                     }
                 }
             }
             return keysAndValues;
-        } else {
-            return null;
         }
+        return null;
+    }
+
+    /**
+     * Trim, removing non-breakable space too
+     * 
+     * This is necessary as we can't use strip() prior to API 33, and particularly stuff copied pasted from a website
+     * may contain non-breakable space, naturally we should probably remove other UTF WS too.
+     * 
+     * @param in the input string
+     * @return a trimmed string
+     */
+    @NonNull
+    private static String trim(@NonNull String in) {
+        return in.replace(NON_BREAKABLE_SPACE, " ").trim();
     }
 
     /**
@@ -138,16 +154,26 @@ public final class ClipboardUtils {
      * @param ctx Android Context
      * @param tags Map containing the tags
      */
-    public static void copyTags(Context ctx, Map<String, String> tags) {
-
+    public static void copyTags(@NonNull Context ctx, @NonNull Map<String, String> tags) {
         StringBuilder tagsAsText = new StringBuilder();
-
         for (Entry<String, String> entry : tags.entrySet()) {
             tagsAsText.append(entry.getKey() + "=" + entry.getValue() + "\n");
         }
-
         ClipboardManager clipboard = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText("OSM Tags", tagsAsText.toString());
+        ClipData clip = ClipData.newPlainText(ctx.getString(R.string.osm_tags), tagsAsText.toString());
+        clipboard.setPrimaryClip(clip);
+    }
+
+    /**
+     * Copy some text to the system clipboard
+     * 
+     * @param ctx an Android Context
+     * @param label a label
+     * @param text the text to copy
+     */
+    public static void copyText(@NonNull Context ctx, @NonNull String label, @NonNull CharSequence text) {
+        ClipboardManager clipboard = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(label, text);
         clipboard.setPrimaryClip(clip);
     }
 }

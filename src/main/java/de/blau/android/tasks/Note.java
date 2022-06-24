@@ -29,8 +29,8 @@ import de.blau.android.util.Util;
  * @author Andrew Gregory
  * @author Simon Poole
  */
-public class Note extends Task implements Serializable, JosmXmlSerializable {
-    private static final long serialVersionUID = 6L;
+public class Note extends LongIdTask implements Serializable, JosmXmlSerializable {
+    private static final long serialVersionUID = 7L;
 
     public static final String  NOTE_ELEMENT     = "note";
     static final String         LON_KEY          = "lon";
@@ -110,6 +110,11 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
      */
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean isNew() {
+        return id <= 0;
     }
 
     /**
@@ -441,5 +446,17 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
     @Override
     public void drawBitmapClosed(Context context, Canvas c, float x, float y, boolean selected) {
         drawIcon(context, cachedIconClosed, c, R.drawable.note_closed, x, y, selected);
+    }
+
+    @Override
+    public boolean equals(Object obj) { // NOSONAR
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Note)) {
+            return false;
+        }
+        Note other = ((Note) obj);
+        return id == other.id;
     }
 }

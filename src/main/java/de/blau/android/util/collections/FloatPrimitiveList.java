@@ -68,7 +68,7 @@ public class FloatPrimitiveList implements Serializable {
      */
     public float get(int i) {
         if (i > size - 1) {
-            throw new IndexOutOfBoundsException(Integer.toString(i) + " is larger than " + Integer.toString(size));
+            LongPrimitiveList.indexOutOfBounds(size, i);
         }
         return array[i];
     }
@@ -81,7 +81,7 @@ public class FloatPrimitiveList implements Serializable {
      */
     public void set(int i, float f) {
         if (i > size - 1) {
-            throw new IndexOutOfBoundsException(Integer.toString(i) + " is larger than " + Integer.toString(size));
+            LongPrimitiveList.indexOutOfBounds(size, i);
         }
         array[i] = f;
     }
@@ -93,11 +93,10 @@ public class FloatPrimitiveList implements Serializable {
      */
     public void truncate(int s) {
         if (s > size) {
-            throw new IndexOutOfBoundsException(Integer.toString(s) + " is larger than " + Integer.toString(size));
+            LongPrimitiveList.indexOutOfBounds(size, s);
         }
         size = s;
     }
-
 
     /**
      * Reset the contents

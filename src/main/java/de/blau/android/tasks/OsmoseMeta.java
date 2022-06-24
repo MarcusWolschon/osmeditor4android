@@ -25,9 +25,6 @@ import androidx.annotation.Nullable;
  */
 public class OsmoseMeta implements Serializable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     private static final String DEBUG_TAG = OsmoseMeta.class.getSimpleName();
@@ -40,6 +37,7 @@ public class OsmoseMeta implements Serializable {
     private static final String CLASS_KEY      = "class";
     private static final String ITEMS_KEY      = "items";
     private static final String CATEGORIES_KEY = "categories";
+    private static final String AUTO_KEY       = "auto";
 
     class OsmoseClass implements Serializable {
         /**
@@ -58,7 +56,7 @@ public class OsmoseMeta implements Serializable {
          * @return a String containing detail and fix
          */
         @Nullable
-        public String getText() {
+        public String getHelpText() {
             String result = null;
             if (detail != null) {
                 result = detail;
@@ -72,6 +70,15 @@ public class OsmoseMeta implements Serializable {
             }
             return result;
         }
+
+        /**
+         * Check if we have any additional text to display
+         * 
+         * @return true if we can display something
+         */
+        public boolean hasHelpText() {
+            return detail != null || fix != null;
+        }
     }
 
     class Item implements Serializable {
@@ -79,11 +86,11 @@ public class OsmoseMeta implements Serializable {
          * 
          */
         private static final long         serialVersionUID = 1L;
-        int                               id;
+        String                            id;
         private Map<Integer, OsmoseClass> classes          = new HashMap<>();
     }
 
-    private Map<Integer, Item> items = new HashMap<>();
+    private Map<String, Item> items = new HashMap<>();
 
     /**
      * Parse an InputStream containing Osmose task data
@@ -93,7 +100,7 @@ public class OsmoseMeta implements Serializable {
      * @throws NumberFormatException if a number conversion fails
      */
     public void parse(@NonNull InputStream is) throws IOException, NumberFormatException {
-        Map<Integer, Item> tempItems = new HashMap<>();
+        Map<String, Item> tempItems = new HashMap<>();
         try (JsonReader reader = new JsonReader(new InputStreamReader(is))) {
             // key object
             String key = null;
@@ -147,7 +154,7 @@ public class OsmoseMeta implements Serializable {
                                             }
                                             reader.endArray();
                                         } else if (ITEM_KEY.equals(key)) {
-                                            item.id = reader.nextInt();
+                                            item.id = reader.nextString();
                                         } else {
                                             reader.skipValue();
                                         }
@@ -166,7 +173,7 @@ public class OsmoseMeta implements Serializable {
                 }
             }
             reader.endObject();
-            for (Entry<Integer, Item> itemEntry : tempItems.entrySet()) {
+            for (Entry<String, Item> itemEntry : tempItems.entrySet()) {
                 Item existingItem = items.get(itemEntry.getKey());
                 if (existingItem != null) {
                     for (Entry<Integer, OsmoseClass> classEntry : itemEntry.getValue().classes.entrySet()) {
@@ -191,7 +198,7 @@ public class OsmoseMeta implements Serializable {
      * @throws IOException on parser errors etc
      */
     @Nullable
-    private String getAutoString(@NonNull JsonReader reader) throws IOException {
+    static String getAutoString(@NonNull JsonReader reader) throws IOException {
         String result = null;
         JsonToken token = reader.peek();
         if (JsonToken.NULL.equals(token)) {
@@ -199,7 +206,7 @@ public class OsmoseMeta implements Serializable {
         } else {
             reader.beginObject();
             while (reader.hasNext()) {
-                if ("auto".equals(reader.nextName())) {
+                if (AUTO_KEY.equals(reader.nextName())) {
                     result = reader.nextString();
                 } else {
                     reader.skipValue();
@@ -236,7 +243,7 @@ public class OsmoseMeta implements Serializable {
      * @return an OsmoseClass or null
      */
     @Nullable
-    public OsmoseClass getOsmoseClass(int itemId, int classId) {
+    public OsmoseClass getOsmoseClass(String itemId, int classId) {
         Item item = items.get(itemId);
         if (item != null) {
             return item.classes.get(classId);

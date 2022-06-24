@@ -14,6 +14,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.location.Location;
+import android.text.SpannableString;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -36,14 +38,16 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
-import de.blau.android.tasks.Bug;
-import de.blau.android.tasks.BugFragment;
 import de.blau.android.tasks.MapRouletteFragment;
 import de.blau.android.tasks.MapRouletteTask;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteFragment;
+import de.blau.android.tasks.OsmoseBug;
+import de.blau.android.tasks.OsmoseBugFragment;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TaskStorage;
+import de.blau.android.tasks.Todo;
+import de.blau.android.tasks.TodoFragment;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
@@ -194,7 +198,7 @@ public class MapOverlay extends MapViewLayer
                     float x = GeoMath.lonE7ToX(w, bb, t.getLon());
                     float y = GeoMath.latE7ToY(h, w, bb, t.getLat());
                     boolean isSelected = selected != null && t.equals(selected) && App.getLogic().isInEditZoomRange();
-                    if (isSelected && t instanceof Note && ((Note) t).isNew() && map.getPrefs().largeDragArea()) {
+                    if (isSelected && t.isNew() && map.getPrefs().largeDragArea()) {
                         // if the task can be dragged and large drag area is turned on show the large drag area
                         c.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint());
                     }
@@ -256,7 +260,7 @@ public class MapOverlay extends MapViewLayer
 
     @Override
     public void onSelected(FragmentActivity activity, Task t) {
-        if (t instanceof Note && ((Note) t).isNew() && activity instanceof Main) {
+        if (t.isNew() && activity instanceof Main) {
             if (((Main) activity).getEasyEditManager().editNote((Note) t, this)) {
                 selected = t;
             }
@@ -268,8 +272,10 @@ public class MapOverlay extends MapViewLayer
             selected = t;
             if (t instanceof Note) {
                 NoteFragment.showDialog(activity, t);
-            } else if (t instanceof Bug) {
-                BugFragment.showDialog(activity, t);
+            } else if (t instanceof OsmoseBug) {
+                OsmoseBugFragment.showDialog(activity, t);
+            } else if (t instanceof Todo) {
+                TodoFragment.showDialog(activity, t);
             } else if (t instanceof MapRouletteTask) {
                 MapRouletteFragment.showDialog(activity, t);
             }
@@ -277,8 +283,12 @@ public class MapOverlay extends MapViewLayer
     }
 
     @Override
-    public String getDescription(Task t) {
-        return t.getDescription(map.getContext());
+    public SpannableString getDescription(Task t) {
+        SpannableString d = new SpannableString(t.getDescription(map.getContext()));
+        if (t.isClosed()) {
+            d.setSpan(new StrikethroughSpan(), 0, d.length(), 0);
+        }
+        return d;
     }
 
     @Override

@@ -13,7 +13,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.dialogs.TableLayoutUtils;
-import de.blau.android.tasks.CustomBug;
+import de.blau.android.tasks.Todo;
 import de.blau.android.tasks.MapRouletteTask;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.OsmoseBug;
@@ -50,7 +50,7 @@ public class TaskLayerInfo extends LayerInfo {
             int maprouletteChangedCount = 0;
             for (Task t : tasks) {
                 boolean changed = t.hasBeenChanged();
-                if (t instanceof CustomBug) {
+                if (t instanceof Todo) {
                     customCount++;
                     if (changed) {
                         customChangedCount++;
@@ -76,7 +76,7 @@ public class TaskLayerInfo extends LayerInfo {
                     Integer.toString(noteChangedCount), tp, -1, -1));
             t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.bugfilter_osmose), Integer.toString(osmoseCount),
                     Integer.toString(osmoseChangedCount), tp, -1, -1));
-            t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.bugfilter_custom_entry), Integer.toString(customCount),
+            t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.bugfilter_todo_entry), Integer.toString(customCount),
                     Integer.toString(customChangedCount), tp, -1, -1));
             t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.bugfilter_maproulette_entry), Integer.toString(maprouletteCount),
                     Integer.toString(maprouletteChangedCount), tp, -1, -1));

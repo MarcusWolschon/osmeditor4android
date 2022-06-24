@@ -150,7 +150,7 @@ public class AddressTest {
         TestUtils.clickAtCoordinates(device, map, 8.3909863, 47.3905409, true);
         TestUtils.clickSimpleButton(device);
         Assert.assertTrue(TestUtils.findText(device, false, "Raistrasse"));
-        Assert.assertTrue(TestUtils.findText(device, false, "35"));
+        Assert.assertTrue(TestUtils.findText(device, false, "33"));
         Assert.assertTrue(TestUtils.findText(device, false, "27"));
         TestUtils.clickText(device, false, main.getString(R.string.okay), true);
     }

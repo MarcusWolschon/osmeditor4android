@@ -6,8 +6,9 @@
     android:orientation="vertical">
     <View
         android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:background="#b2dfdb" />
+        android:layout_height="1dp"
+        android:minHeight="1dp"
+        android:background="?attr/colorAccent" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="match_parent"

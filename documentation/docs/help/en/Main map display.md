@@ -118,7 +118,7 @@ Tapping the icon once will undo the last operation. A long press will display a 
 Start a camera app, add the resulting photograph to the photo layer is enabled. The photograph itself should be stored in the Vespucci/Pictures 
 directory, however this depends on the specific camera app.
 
-### ![GPS](../images/menu_gps.png) GPS
+### ![Location](../images/menu_gps.png) Location
 
 The "on-map" GPS button duplicates the function of the "Follow GPS position" menu entry. When this is activated the GPS arrow will be displayed as an outline. Note that the _Show location_ function will enable location updates from the system, just as the recording and similar options.
 
@@ -126,6 +126,7 @@ The "on-map" GPS button duplicates the function of the "Follow GPS position" men
  * **Follow location** - pan and center screen to follow the current position, will enable _Show location_ too.
  * **Add bookmark...** - set a bookmark for the current viewbox
  * **Bookmarks...** - show current viewbox bookmarks
+ * **Go to the nearest todo...** - go to the nearest open todo. If you are following the GPS position or it is in the current view this is relative to that position, otherwise it is relative to the center of the current view. If there are more than one active todo list you will be prompted to select one.
  * **Go to current location** - go to and zoom in to the current position. If location updates are not turned on, this will try to get a location without enabling continuous updates.
  * **Go to coordinates...** - go to and zoom in to coordinates or an open location code
  * **Start GPX track** - start recording a GPX track and display a corresponding layer.
@@ -159,8 +160,8 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
         * **Save all notes...** - write a ".osn" format file containing all downloaded notes (this is the format supported by JOSM)
         * **Save new and changed notes...** - write a ".osn" format file containing all new and changed notes
         * **Load notes...** - load a ".osn" format file containing Notes
-        * **Load custom tasks...** - read custom tasks in a simplified Osmose JSON format
-        * **Save open custom tasks...** - save open custom tasks in a simplified Osmose JSON format
+        * **Load todos...** - read todos in a simple JSON format
+        * **Save todos...** - save todos in a simple JSON format
 
 ### ![Preferences](../images/menu_config.png) Preferences
 

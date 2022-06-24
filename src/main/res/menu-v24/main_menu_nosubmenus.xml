@@ -29,6 +29,15 @@
                 android:checkable="true"
                 android:title="@string/menu_gps_follow" />
             <item
+                android:id="@+id/menu_gps_add_bookmark"
+                android:title="@string/add_bookmark" />
+            <item
+                android:id="@+id/menu_gps_show_bookmarks"
+                android:title="@string/show_bookmarks" />
+            <item
+                android:id="@+id/menu_gps_goto_nearest_todo"
+                android:title="@string/menu_gps_goto_nearest_todo" />
+            <item
                 android:id="@+id/menu_gps_goto"
                 android:alphabeticShortcut="@string/shortcut_gps_goto"
                 android:title="@string/menu_gps_goto" />
@@ -134,11 +143,11 @@
                 android:id="@+id/menu_transfer_read_notes"
                 android:title="@string/menu_transfer_read_notes" />
             <item
-                android:id="@+id/menu_transfer_read_custom_bugs"
-                android:title="@string/menu_transfer_read_custom_bugs" />
+                android:id="@+id/menu_transfer_read_todos"
+                android:title="@string/menu_transfer_read_todos" />
             <item
-                android:id="@+id/menu_transfer_write_custom_bugs"
-                android:title="@string/menu_transfer_write_custom_bugs" />
+                android:id="@+id/menu_transfer_write_todos"
+                android:title="@string/menu_transfer_write_todos" />
         </menu>
     </item>
     <item

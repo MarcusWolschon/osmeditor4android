@@ -20,6 +20,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Canvas;
 import android.os.Build;
+import android.text.SpannableString;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -409,9 +410,10 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
     }
 
     @Override
-    public String getDescription(de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
+    public SpannableString getDescription(de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
         Long capturedAt = (Long) f.getAttributes().get(CAPTURED_AT_KEY);
-        return map.getContext().getString(R.string.mapillary_image, DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(capturedAt));
+        return new SpannableString(
+                map.getContext().getString(R.string.mapillary_image, DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(capturedAt)));
     }
 
     @Override

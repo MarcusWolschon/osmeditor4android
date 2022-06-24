@@ -165,7 +165,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * 
      * @param box box with the new borders.
      */
-    public BoundingBox(final BoundingBox box) {
+    public BoundingBox(@NonNull final BoundingBox box) {
         // this(box.left, box.bottom, box.right, box.top); not good, forces a recalc of everything
         this.left = box.left;
         this.bottom = box.bottom;

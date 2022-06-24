@@ -110,11 +110,12 @@ public class OsmoseTest {
      */
     @Test
     public void osmoseDownload() {
+        // http://osmose.openstreetmap.fr/api/0.3/issues?bbox=7.5835690,47.5474820,7.5913500,47.5551844&full=true&limit=500
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue("osmoseDownload");
         App.getTaskStorage().reset();
         final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
-        BoundingBox downloadBox = new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D);
+        BoundingBox downloadBox = new BoundingBox(7.5835690D, 47.5474820D, 7.5913500D, 47.5551844D);
         try {
             SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
             Resources r = context.getResources();
@@ -137,15 +138,15 @@ public class OsmoseTest {
         }
         List<Task> tasks = App.getTaskStorage().getTasks();
         //
-        Assert.assertEquals(92, tasks.size());
+        Assert.assertEquals(107, tasks.size());
         try {
-            tasks = App.getTaskStorage().getTasks(new BoundingBox(8.3702816, 47.3050382, 8.3702818, 47.3050384));
+            tasks = App.getTaskStorage().getTasks(new BoundingBox(7.5882154, 47.552402, 7.5882156, 47.552404));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
         t = tasks.get(0);
         Assert.assertTrue(t instanceof OsmoseBug);
-        Assert.assertEquals(11187837418L, t.getId());
+        Assert.assertEquals("6138dda3-a1b8-1b30-52a5-5ce3a3237786", ((OsmoseBug) t).getId());
         // re-download the same bounding box
         mockServer.enqueue("osmoseDownload");
         final CountDownLatch signal2 = new CountDownLatch(1);
@@ -162,10 +163,15 @@ public class OsmoseTest {
         }
         tasks = App.getTaskStorage().getTasks();
         //
-        Assert.assertEquals(92, tasks.size());
+        Assert.assertEquals(107, tasks.size());
+        try {
+            tasks = App.getTaskStorage().getTasks(new BoundingBox(7.5882154, 47.552402, 7.5882156, 47.552404));
+        } catch (Exception e) {
+            Assert.fail(e.getMessage());
+        }
         t = tasks.get(0);
         Assert.assertTrue(t instanceof OsmoseBug);
-        Assert.assertEquals(11187837418L, t.getId());
+        Assert.assertEquals("6138dda3-a1b8-1b30-52a5-5ce3a3237786", ((OsmoseBug) t).getId());
     }
 
     /**
@@ -250,7 +256,7 @@ public class OsmoseTest {
     }
 
     /**
-     * Close a MapRoulette task via dialog
+     * Close a Osmose task via dialog
      */
     // @SdkSuppress(minSdkVersion = 26)
     @Test

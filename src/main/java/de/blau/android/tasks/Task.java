@@ -1,7 +1,9 @@
 package de.blau.android.tasks;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,6 +17,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.Density;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
 
 /**
@@ -41,12 +44,10 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
     protected static BitmapWithOffset cachedIconOpen;
     protected static BitmapWithOffset cachedIconChanged;
 
-    /** OSB Bug ID. */
-    long id;
     /** Latitude *1E7. */
-    int  lat;
+    int lat;
     /** Longitude *1E7. */
-    int  lon;
+    int lon;
 
     /** Bug state. */
     /**
@@ -60,15 +61,6 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
 
     /** Has been edited */
     private boolean changed = false;
-
-    /**
-     * Get the bug ID.
-     * 
-     * @return The bug ID.
-     */
-    public long getId() {
-        return id;
-    }
 
     /**
      * Get the latitude of the bug.
@@ -122,9 +114,18 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
     }
 
     /**
+     * Check if this task is new
+     * 
+     * @return true if new
+     */
+    public boolean isNew() {
+        return false;
+    }
+
+    /**
      * Close the bug
      */
-    void close() {
+    public void close() {
         state = State.CLOSED;
     }
 
@@ -159,15 +160,6 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
     @NonNull
     public BoundingBox getBounds() {
         return new BoundingBox(lon, lat);
-    }
-
-    /**
-     * Return true if a newly created bug, only makes sense for Notes
-     * 
-     * @return true if new
-     */
-    public boolean isNew() {
-        return id <= 0;
     }
 
     /**
@@ -230,7 +222,7 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * Icon drawing related stuff
      */
     /**
-     * Draw an icon at the specified location on hte canvas
+     * Draw an icon at the specified location on the canvas
      * 
      * @param context Android Context
      * @param cache the cache for the icon
@@ -307,4 +299,23 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
     public void drawBitmapClosed(Context context, Canvas c, float x, float y, boolean selected) {
         drawIcon(context, cachedIconClosed, c, R.drawable.bug_closed, x, y, selected);
     }
+
+    /**
+     * Sort a list of Tasks by their distance to the supplied coordinates, nearest first
+     *
+     * @param <T> sub class of Task
+     * @param tasks the list of tasks
+     * @param lon WGS84 longitude
+     * @param lat WGS84 latitude
+     */
+    public static <T extends Task> void sortByDistance(@NonNull List<T> tasks, final double lon, final double lat) {
+        Collections.sort(tasks, (T t1, T t2) -> Double.compare(GeoMath.haversineDistance(lon, lat, t1.getLon() / 1E7D, t1.getLat() / 1E7D),
+                GeoMath.haversineDistance(lon, lat, t2.getLon() / 1E7D, t2.getLat() / 1E7D)));
+    }
+
+    @Override
+    public abstract int hashCode();
+
+    @Override
+    public abstract boolean equals(Object obj);
 }

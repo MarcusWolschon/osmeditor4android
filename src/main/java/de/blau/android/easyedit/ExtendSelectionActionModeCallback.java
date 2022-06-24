@@ -45,9 +45,10 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     private static final int MENUITEM_ADD_RELATION_MEMBERS = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 3;
     private static final int MENUITEM_ORTHOGONALIZE        = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 4;
     private static final int MENUITEM_INTERSECT            = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 5;
-    private static final int MENUITEM_UPLOAD               = 31;
-    private static final int MENUITEM_ZOOM_TO_SELECTION    = 34;
-    private static final int MENUITEM_SEARCH_OBJECTS       = 35;
+    private static final int MENUITEM_UPLOAD               = ElementSelectionActionModeCallback.MENUITEM_UPLOAD;
+    private static final int MENUITEM_ZOOM_TO_SELECTION    = ElementSelectionActionModeCallback.MENUITEM_ZOOM_TO_SELECTION;
+    private static final int MENUITEM_SEARCH_OBJECTS       = ElementSelectionActionModeCallback.MENUITEM_SEARCH_OBJECTS;
+    private static final int MENUITEM_ADD_TO_TODO          = ElementSelectionActionModeCallback.MENUITEM_ADD_TO_TODO;
 
     private List<OsmElement> selection;
     private List<OsmElement> sortedWays;
@@ -204,6 +205,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
 
         menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
         menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
+        menu.add(GROUP_BASE, MENUITEM_ADD_TO_TODO, Menu.CATEGORY_SYSTEM | 10, R.string.menu_add_to_todo);
 
         uploadItem = menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_elements);
 
@@ -341,6 +343,9 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 break;
             case MENUITEM_SEARCH_OBJECTS:
                 Search.search(main);
+                break;
+            case MENUITEM_ADD_TO_TODO:
+                ElementSelectionActionModeCallback.addToTodoList(main, manager, selection);
                 break;
             case MENUITEM_UPLOAD:
                 main.descheduleAutoLock();

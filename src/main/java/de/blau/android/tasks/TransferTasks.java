@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,6 +23,8 @@ import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
+
+import com.google.gson.stream.JsonWriter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -125,44 +128,54 @@ public final class TransferTasks {
      * @return any tasks found in the BoundingBox
      */
     @NonNull
-    public static Collection<Task> downloadBoxSync(final Context context, final Server server, final BoundingBox box, final boolean add, final TaskStorage bugs,
-            final Set<String> bugFilter, int maxNotes) {
-        Collection<Task> result = new ArrayList<>();
-        Collection<Note> noteResult = null;
-        Resources r = context.getResources();
-        if (bugFilter.contains(r.getString(R.string.bugfilter_notes))) {
-            noteResult = server.getNotesForBox(box, maxNotes);
-        }
-        if (noteResult != null) {
-            result.addAll(noteResult);
-        }
-        Collection<OsmoseBug> osmoseResult = null;
-        if (bugFilter.contains(r.getString(R.string.bugfilter_osmose_error)) || bugFilter.contains(r.getString(R.string.bugfilter_osmose_warning))
-                || bugFilter.contains(r.getString(R.string.bugfilter_osmose_minor_issue))) {
-            osmoseResult = OsmoseServer.getBugsForBox(context, box, MAX_PER_REQUEST);
-        }
-        if (osmoseResult != null) {
-            result.addAll(osmoseResult);
-        }
-        Collection<MapRouletteTask> mapRouletteResult = null;
-        if (bugFilter.contains(r.getString(R.string.bugfilter_maproulette))) {
-            mapRouletteResult = MapRouletteServer.getTasksForBox(context, box, MAX_PER_REQUEST);
-        }
-        if (mapRouletteResult != null) {
-            result.addAll(mapRouletteResult);
-            Map<Long, MapRouletteChallenge> challenges = bugs.getChallenges();
-            for (Entry<Long, MapRouletteChallenge> entry : challenges.entrySet()) {
-                if (entry.getValue() == null) {
-                    challenges.put(entry.getKey(), MapRouletteServer.getChallenge(context, entry.getKey()));
-                }
-            }
-        }
+    public static Collection<Task> downloadBoxSync(@NonNull final Context context, @NonNull final Server server, @NonNull final BoundingBox box,
+            final boolean add, @NonNull final TaskStorage bugs, final Set<String> bugFilter, int maxNotes) {
         if (!add) {
             Log.d(DEBUG_TAG, "resetting bug storage");
             bugs.reset();
         }
+        Collection<Task> result = new ArrayList<>();
+        Resources r = context.getResources();
+
+        if (bugFilterContains(r, bugFilter, R.string.bugfilter_notes)) {
+            result.addAll(server.getNotesForBox(box, maxNotes));
+        }
+
+        Preferences prefs = new Preferences(context);
+        if (bugFilterContains(r, bugFilter, R.string.bugfilter_osmose_error) || bugFilterContains(r, bugFilter, R.string.bugfilter_osmose_warning)
+                || bugFilterContains(r, bugFilter, R.string.bugfilter_osmose_minor_issue)) {
+            result.addAll(OsmoseServer.getBugsForBox(prefs.getOsmoseServer(), box, MAX_PER_REQUEST));
+        }
+
+        final String mapRouletteServer = prefs.getMapRouletteServer();
+        if (bugFilterContains(r, bugFilter, R.string.bugfilter_maproulette)) {
+            Collection<MapRouletteTask> mapRouletteResult = MapRouletteServer.getTasksForBox(mapRouletteServer, box, MAX_PER_REQUEST);
+            if (mapRouletteResult != null) {
+                result.addAll(mapRouletteResult);
+                Map<Long, MapRouletteChallenge> challenges = bugs.getChallenges();
+                for (Entry<Long, MapRouletteChallenge> entry : challenges.entrySet()) {
+                    if (entry.getValue() == null) {
+                        final Long key = entry.getKey();
+                        challenges.put(key, MapRouletteServer.getChallenge(mapRouletteServer, key));
+                    }
+                }
+            }
+        }
+
         merge(context, bugs, result);
         return result;
+    }
+
+    /**
+     * Check if using the tasks of a certain type is enabled or not
+     * 
+     * @param bugFilter the filter
+     * @param r resources
+     * @param stringRes the resouce id of the specific task type
+     * @return true if the task type is enabled
+     */
+    private static boolean bugFilterContains(Resources r, final Set<String> bugFilter, int stringRes) {
+        return bugFilter.contains(r.getString(stringRes));
     }
 
     /**
@@ -197,6 +210,7 @@ public final class TransferTasks {
             @Override
             protected Boolean doInBackground(Void param) {
                 boolean uploadFailed = false;
+                Preferences prefs = new Preferences(activity);
                 for (Task b : queryResult) {
                     if (b.hasBeenChanged()) {
                         Log.d(DEBUG_TAG, b.getDescription());
@@ -206,9 +220,10 @@ public final class TransferTasks {
                             uploadFailed = (uploadNote(server, n, nc != null && nc.isNew() ? nc : null, n.isClosed()).getError() != ErrorCodes.OK)
                                     || uploadFailed;
                         } else if (b instanceof OsmoseBug) {
-                            uploadFailed = (OsmoseServer.changeState(activity, (OsmoseBug) b).getError() != ErrorCodes.OK) || uploadFailed;
+                            uploadFailed = (OsmoseServer.changeState(prefs.getOsmoseServer(), (OsmoseBug) b).getError() != ErrorCodes.OK) || uploadFailed;
                         } else if (b instanceof MapRouletteTask) {
-                            uploadFailed = !updateMapRouletteTask(activity, server, (MapRouletteTask) b, true, null) || uploadFailed;
+                            uploadFailed = !updateMapRouletteTask(activity, server, prefs.getMapRouletteServer(), (MapRouletteTask) b, true, null)
+                                    || uploadFailed;
                         }
                     }
                 }
@@ -253,7 +268,8 @@ public final class TransferTasks {
         ExecutorTask<Void, Void, UploadResult> a = new ExecutorTask<Void, Void, UploadResult>(logic.getExecutorService(), logic.getHandler()) {
             @Override
             protected UploadResult doInBackground(Void param) {
-                return OsmoseServer.changeState(context, b);
+                Preferences prefs = new Preferences(context);
+                return OsmoseServer.changeState(prefs.getOsmoseServer(), b);
             }
 
             @Override
@@ -421,14 +437,15 @@ public final class TransferTasks {
      * 
      * @param activity the calling Activity
      * @param server Server configuration
+     * @param maprouletteServer the maproulette server
      * @param task MapRouletteTask to update
      * @param quiet don't display messages if true
      * @param postUploadHandler if not null run this handler after update
      * @return true if successful
      */
     @SuppressLint("InlinedApi")
-    public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, @NonNull Server server, @NonNull final MapRouletteTask task,
-            final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
+    public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, @NonNull Server server, @NonNull String maprouletteServer,
+            @NonNull final MapRouletteTask task, final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "updateMapRouletteTask");
         final PostAsyncActionHandler restartAction = () -> {
             Log.d(DEBUG_TAG, "--- restarting");
@@ -436,8 +453,7 @@ public final class TransferTasks {
             new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
                 @Override
                 protected Void doInBackground(Void param) {
-                    Preferences prefs = new Preferences(activity);
-                    updateMapRouletteTask(activity, prefs.getServer(), task, quiet, postUploadHandler);
+                    updateMapRouletteTask(activity, logic.getPrefs().getServer(), maprouletteServer, task, quiet, postUploadHandler);
                     return null;
                 }
             }.execute();
@@ -455,7 +471,7 @@ public final class TransferTasks {
                 if (apiKey == null) {
                     return new UploadResult(ErrorCodes.MISSING_API_KEY);
                 }
-                return MapRouletteServer.changeState(activity, apiKey, task);
+                return MapRouletteServer.changeState(maprouletteServer, apiKey, task);
             }
 
             @Override
@@ -668,36 +684,36 @@ public final class TransferTasks {
     }
 
     /**
-     * Read an Uri in custom bug format
+     * Read an Uri in todo format // NOSONAR
      * 
      * @param activity activity that called this
      * @param uri Uri to read
      * @param add if true the elements will be added to the existing ones, otherwise replaced
      * @param postLoad callback to execute once stream has been loaded
      */
-    public static void readCustomBugs(@NonNull final FragmentActivity activity, @NonNull final Uri uri, final boolean add,
+    public static void readTodos(@NonNull final FragmentActivity activity, @NonNull final Uri uri, final boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
         try {
             // don't use try with resources as this will close the InputStream while we are still reading it
             InputStream is = activity.getContentResolver().openInputStream(uri); // NOSONAR
-            readCustomBugs(activity, is, add, postLoad);
+            readTodos(activity, is, add, postLoad);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem parsing", e);
         }
     }
 
     /**
-     * Read an InputStream in custom bug format
+     * Read an InputStream in todo format // NOSONAR
      * 
      * @param activity activity that called this
      * @param is InputStream to read
      * @param add if true the elements will be added to the existing ones, otherwise replaced
      * @param postLoad callback to execute once stream has been loaded
      */
-    public static void readCustomBugs(@NonNull final FragmentActivity activity, @NonNull final InputStream is, final boolean add,
+    public static void readTodos(@NonNull final FragmentActivity activity, @NonNull final InputStream is, final boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
         Logic logic = App.getLogic();
-        new ExecutorTask<Boolean, Void, Collection<CustomBug>>(logic.getExecutorService(), logic.getHandler()) {
+        new ExecutorTask<Boolean, Void, Collection<Todo>>(logic.getExecutorService(), logic.getHandler()) {
 
             @Override
             protected void onPreExecute() {
@@ -705,9 +721,9 @@ public final class TransferTasks {
             }
 
             @Override
-            protected Collection<CustomBug> doInBackground(Boolean arg) {
+            protected Collection<Todo> doInBackground(Boolean arg) {
                 try (InputStream in = new BufferedInputStream(is)) {
-                    return CustomBug.parseBugs(is);
+                    return Todo.parseTodos(is);
                 } catch (IllegalStateException | NumberFormatException | IOException e) {
                     Log.e(DEBUG_TAG, "Problem parsing custom tasks", e);
                 }
@@ -715,8 +731,8 @@ public final class TransferTasks {
             }
 
             @Override
-            protected void onPostExecute(Collection<CustomBug> result) {
-                processReadResult(activity, CustomBug.class, add, postLoad, result);
+            protected void onPostExecute(Collection<Todo> result) {
+                processReadResult(activity, Todo.class, add, postLoad, result);
             }
         }.execute(add);
     }
@@ -731,8 +747,8 @@ public final class TransferTasks {
      * @param postLoad callback to execute once tasks have been processed
      * @param tasks the Tasks
      */
-    private static <T extends Task> void processReadResult(final FragmentActivity activity, Class<T> c, final boolean add,
-            final PostAsyncActionHandler postLoad, Collection<T> tasks) {
+    private static <T extends Task> void processReadResult(@NonNull final FragmentActivity activity, @NonNull Class<T> c, final boolean add,
+            @Nullable final PostAsyncActionHandler postLoad, Collection<T> tasks) {
         Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
         if (tasks == null) {
             if (postLoad != null) {
@@ -768,48 +784,55 @@ public final class TransferTasks {
     }
 
     /**
-     * Write CustomBugs to a file
+     * Write Todos to a file
      * 
      * If fileName contains directories these are created, otherwise it is stored in the standard public dir
      * 
      * @param activity activity that called this
      * @param fileName file to write to
+     * @param list name of the todo list // NOSONAR
+     * @param all if true write all todos, otherwise just open ones
      * @param postWrite call this when finished
      */
-    public static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final String fileName,
+    public static void writeTodoFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @Nullable String list, boolean all,
             @Nullable final PostAsyncActionHandler postWrite) {
         try {
             File outfile = FileUtil.openFileForWriting(activity, fileName);
             Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
-            writeCustomBugFile(activity, new FileOutputStream(outfile), postWrite);
+            writeTodoFile(activity, new FileOutputStream(outfile), list, all, postWrite);
         } catch (IOException e) {
             handleExceptionOnWrite(activity, postWrite, e);
         }
     }
 
     /**
-     * Write CustomBugs to an uri
+     * Write Todos to an uri
      * 
      * @param activity activity that called this
-     * @param uri uri to write to
+     * @param uri uri to write to * @param list name of the todo list // NOSONAR
+     * @param list name of the todo list // NOSONAR
+     * @param all if true write all todos, otherwise just open ones
      * @param postWrite call this when finished
      */
-    public static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @Nullable final PostAsyncActionHandler postWrite) {
+    public static void writeTodoFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @Nullable String list, boolean all,
+            @Nullable final PostAsyncActionHandler postWrite) {
         try {
-            writeCustomBugFile(activity, activity.getContentResolver().openOutputStream(uri), postWrite);
+            writeTodoFile(activity, activity.getContentResolver().openOutputStream(uri), list, all, postWrite);
         } catch (IOException e) {
             handleExceptionOnWrite(activity, postWrite, e);
         }
     }
 
     /**
-     * Write CustomBugs to an OutputStream
+     * Write Todos to an OutputStream
      * 
      * @param activity activity that called this
      * @param fileOut OutputStream to write to
+     * @param list name of the todo list // NOSONAR
+     * @param all if true write all todos, otherwise just open ones
      * @param postWrite call this when finished
      */
-    private static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final OutputStream fileOut,
+    private static void writeTodoFile(@NonNull final FragmentActivity activity, @NonNull final OutputStream fileOut, @Nullable String list, boolean all,
             @Nullable final PostAsyncActionHandler postWrite) {
         Logic logic = App.getLogic();
         new ExecutorTask<Void, Void, Integer>(logic.getExecutorService(), logic.getHandler()) {
@@ -821,26 +844,25 @@ public final class TransferTasks {
 
             @Override
             protected Integer doInBackground(Void arg) {
-                final List<Task> queryResult = App.getTaskStorage().getTasks();
+                final List<Todo> queryResult = App.getTaskStorage().getTodos(list, true);
                 int result = 0;
-                try (final OutputStream out = new BufferedOutputStream(fileOut)) {
-                    out.write("{".getBytes());
-                    out.write(CustomBug.headerToJSON().getBytes());
-                    out.write("\"errors\": [".getBytes());
-                    boolean first = true;
-                    for (Task t : queryResult) {
-                        if (t instanceof CustomBug && !t.isClosed()) {
-                            if (!first) {
-                                out.write(",".getBytes());
-                            }
-                            out.write(((CustomBug) t).toJSON().getBytes());
-                            first = false;
+                try (final OutputStream out = new BufferedOutputStream(fileOut); JsonWriter writer = new JsonWriter(new PrintWriter(out))) {
+                    writer.beginObject();
+                    if (list != null && !"".equals(list)) {
+                        Todo.headerToJSON(writer, list);
+                    }
+                    writer.name(Todo.TODOS);
+                    writer.beginArray();
+                    for (Todo t : queryResult) {
+                        if (all || !t.isClosed()) {
+                            t.toJSON(writer);
                         }
                     }
-                    out.write("]}".getBytes());
+                    writer.endArray();
+                    writer.endObject();
                 } catch (IllegalArgumentException | IllegalStateException | IOException e) {
                     result = ErrorCodes.FILE_WRITE_FAILED;
-                    Log.e(DEBUG_TAG, "Problem writing custom task file", e);
+                    Log.e(DEBUG_TAG, "Problem writing todo file", e);
                 }
                 return result;
             }
@@ -866,7 +888,7 @@ public final class TransferTasks {
         long now = System.currentTimeMillis();
         synchronized (storage) { // NOSONAR this will be the same object
             for (Task b : tasks) {
-                if (b.getId() < 0 && b instanceof Note) { // need to renumber assuming that there are no duplicates
+                if (b.isNew()) { // need to renumber assuming that there are no duplicates
                     ((Note) b).setId(storage.getNextId());
                 }
                 Task existing = storage.get(b);

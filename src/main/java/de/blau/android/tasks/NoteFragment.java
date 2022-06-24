@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -126,7 +127,8 @@ public class NoteFragment extends TaskFragment {
     }
 
     @Override
-    protected void onShowListener(Task task, Button save, Button upload) {
+    protected void onShowListener(Task task, Button save, Button upload, Button cancel, Spinner state) {
+        super.onShowListener(task, save, upload, cancel, state);
         comment.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable arg0) {
@@ -165,5 +167,11 @@ public class NoteFragment extends TaskFragment {
         } else if (c.length() > 0) {
             ((Note) task).addComment(c);
         }
+    }
+
+    @Override
+    protected State pos2state(int position) {
+        String[] array = getResources().getStringArray(R.array.note_state_values);
+        return State.valueOf(array[position]);
     }
 }

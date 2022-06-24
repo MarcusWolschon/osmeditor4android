@@ -1,5 +1,7 @@
 package de.blau.android.tasks;
 
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,12 +11,16 @@ import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.view.ViewParent;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -53,12 +59,14 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
 
     private Task task = null;
 
-    protected TextView     title;
-    protected TextView     comments;
-    protected EditText     comment;
-    protected TextView     commentLabel;
-    protected LinearLayout elementLayout;
-    protected Spinner      state;
+    protected LayoutInflater inflater;
+    protected TextView       title;
+    protected TextView       comments;
+    protected EditText       comment;
+    protected TextView       commentLabel;
+    protected LinearLayout   elementLayout;
+    protected Spinner        state;
+    protected Preferences    prefs;
 
     @SuppressLint({ "NewApi", "InflateParams" })
     @NonNull
@@ -72,9 +80,9 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        inflater = getActivity().getLayoutInflater();
 
-        final Preferences prefs = new Preferences(getActivity());
+        prefs = new Preferences(getActivity());
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
@@ -137,27 +145,9 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         d.setOnShowListener( // old API, buttons are enabled by default
                 dialog -> { //
                     final Button save = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                    if ((App.getTaskStorage().contains(task)) && (!task.hasBeenChanged() || task.isNew())) {
-                        save.setEnabled(false);
-                    }
                     final Button upload = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_NEUTRAL);
-                    if (!task.hasBeenChanged()) {
-                        upload.setEnabled(false);
-                    }
-                    state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            boolean changed = changed(position);
-                            save.setEnabled(changed);
-                            upload.setEnabled(changed);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> arg0) {
-                            // required, but not used
-                        }
-                    });
-                    onShowListener(task, save, upload);
+                    final Button cancel = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    onShowListener(task, save, upload, cancel, state);
                 });
         // this should keep the buttons visible
         d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -212,9 +202,29 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
      * @param task the current Task
      * @param save the save Button
      * @param upload the upload Button
+     * @param cancel the cancel Button
+     * @param state the state spinner
      */
-    protected void onShowListener(@NonNull Task task, @NonNull Button save, @NonNull Button upload) {
-        // empty
+    protected void onShowListener(@NonNull Task task, @NonNull Button save, @NonNull Button upload, @NonNull Button cancel, @NonNull Spinner state) {
+        if ((App.getTaskStorage().contains(task)) && (!task.hasBeenChanged() || task.isNew())) {
+            save.setEnabled(false);
+        }
+        if (!task.hasBeenChanged()) {
+            upload.setEnabled(false);
+        }
+        state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                boolean changed = changed(position);
+                save.setEnabled(changed);
+                upload.setEnabled(changed);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // required, but not used
+            }
+        });
     }
 
     /**
@@ -234,13 +244,43 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
      * @param text the text to display
      */
     protected void showAdditionalText(@NonNull Context context, @NonNull Spanned text) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.task_help, null);
-        TextView message = layout.findViewById(R.id.message);
+        showAdditionalText(context, text, null);
+    }
+
+    /**
+     * Show some additional text in a dialog
+     * 
+     * @param context an Android context
+     * @param text the text to display
+     * @param additionalViews Views to add to the layout
+     */
+    protected void showAdditionalText(@NonNull Context context, @NonNull Spanned text, @Nullable List<View> additionalViews) {
+        ScrollView scrollView = (ScrollView) inflater.inflate(R.layout.task_help, null);
+        LinearLayout layout = scrollView.findViewById(R.id.layout);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 1.0f);
+        TextView message = scrollView.findViewById(R.id.message);
         message.setMovementMethod(LinkMovementMethod.getInstance());
         message.setText(text);
+        message.setTextIsSelectable(true);
+        if (additionalViews != null) {
+            for (View v : additionalViews) {
+                // as we might be showing the same views more than once
+                // we need to remove them from their previous parent
+                ViewParent parent = v.getParent();
+                if (parent instanceof ViewGroup) {
+                    ((ViewGroup) parent).removeAllViews();
+                }
+                if (v instanceof TextView) {
+                    ((TextView) v).setTextIsSelectable(true);
+                }
+                v.setLayoutParams(lp);
+                layout.addView(v);
+                final View ruler = inflater.inflate(R.layout.ruler, null);
+                layout.addView(ruler);
+            }
+        }
         Builder b = new AlertDialog.Builder(context);
-        b.setView(layout);
+        b.setView(scrollView);
         b.setPositiveButton(R.string.dismiss, null);
         b.show();
     }
@@ -280,7 +320,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
             if (layer != null) {
                 Task selectedTask = layer.getSelected();
                 // ugly way of only de-selecting if we're not in the new note action mode
-                if (selectedTask != null && selectedTask.equals(task) && !(task instanceof Note && ((Note) task).isNew())) {
+                if (selectedTask != null && selectedTask.equals(task) && !task.isNew()) {
                     layer.deselectObjects();
                 }
             }
@@ -297,20 +337,13 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
     }
 
     /**
-     * ¨ Get the State value corresponding to ordinal
+     * ¨ Get the State value corresponding to position
      * 
-     * @param ordinal the ordinal value
-     * @return the State value corresponding to ordinal
+     * @param position the ordinal value
+     * @return the State value corresponding to position
      */
     @NonNull
-    static State pos2state(int ordinal) {
-        State[] values = State.values();
-        if (ordinal >= 0 && ordinal < values.length) {
-            return values[ordinal];
-        }
-        Log.e(DEBUG_TAG, "pos2state out of range " + ordinal);
-        return values[0];
-    }
+    protected abstract State pos2state(int position);
 
     /**
      * Saves bug to storage if it is new, otherwise update comment and/or state
@@ -319,7 +352,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
      * @param bug the Task object
      */
     protected void saveTask(@NonNull View v, @NonNull Task bug) {
-        if (bug.isNew() && ((Note) bug).count() == 0) {
+        if (bug.isNew() && ((Note) bug).count() == 0) { // isNew can currently only be true for Notes
             App.getTaskStorage().add(bug); // sets dirty
         }
         saveTaskSpecific(bug);
@@ -337,5 +370,15 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         if (bug.hasBeenChanged() && bug.isClosed()) {
             IssueAlert.cancel(getActivity(), bug);
         }
+    }
+
+    /**
+     * Get the task, not should never actually be null
+     * 
+     * @return the task
+     */
+    @Nullable
+    protected Task getTask() {
+        return task;
     }
 }

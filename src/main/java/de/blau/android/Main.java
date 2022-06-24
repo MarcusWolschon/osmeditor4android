@@ -20,6 +20,7 @@ import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -109,6 +110,7 @@ import de.blau.android.dialogs.UndoDialog;
 import de.blau.android.dialogs.bookmarks.BookmarkHandler;
 import de.blau.android.dialogs.bookmarks.BookmarksDialog;
 import de.blau.android.easyedit.EasyEditManager;
+import de.blau.android.easyedit.ElementSelectionActionModeCallback;
 import de.blau.android.easyedit.SimpleActionModeCallback;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -154,6 +156,8 @@ import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.tasks.MapRouletteApiKey;
 import de.blau.android.tasks.Task;
+import de.blau.android.tasks.Todo;
+import de.blau.android.tasks.TodoFragment;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ActivityResultHandler;
@@ -176,6 +180,7 @@ import de.blau.android.util.Screen;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Sound;
+import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.UploadChecker;
 import de.blau.android.util.Util;
@@ -1229,21 +1234,13 @@ public class Main extends FullScreenAppCompatActivity
     public void downLoadBugs(BoundingBox bbox) {
         if (isConnected()) { // don't try if we are not connected
             Progress.showDialog(this, Progress.PROGRESS_DOWNLOAD);
-            TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, TransferTasks.MAX_PER_REQUEST, new PostAsyncActionHandler() {
-                @Override
-                public void onSuccess() {
-                    Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
-                    de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
-                    if (taskLayer != null) {
-                        taskLayer.setVisible(true);
-                    }
-                    getMap().invalidate();
+            TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, TransferTasks.MAX_PER_REQUEST, () -> {
+                de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
+                if (taskLayer != null) {
+                    taskLayer.setVisible(true);
                 }
-
-                @Override
-                public void onError(@Nullable AsyncResult result) {
-                    Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
-                }
+                Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
+                getMap().invalidate();
             });
         }
     }
@@ -1622,11 +1619,20 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
+     * Unlock the main display
+     */
+    public void unlock() {
+        if (App.getLogic().isLocked()) {
+            getLock().performClick();
+        }
+    }
+
+    /**
      * Get the lock button
      * 
      * @return the lock
      */
-    public FloatingActionButton getLock() {
+    private FloatingActionButton getLock() {
         return (FloatingActionButton) findViewById(R.id.floatingLock);
     }
 
@@ -1993,8 +1999,10 @@ public class Main extends FullScreenAppCompatActivity
             });
             return true;
         case R.id.menu_gps_show_bookmarks:
-            BookmarksDialog bookmarksDialog = new BookmarksDialog(this);
-            bookmarksDialog.showDialog();
+            new BookmarksDialog(this).showDialog();
+            return true;
+        case R.id.menu_gps_goto_nearest_todo:
+            gotoNearestTodo();
             return true;
         case R.id.menu_gps_goto:
             gotoCurrentLocation();
@@ -2276,33 +2284,29 @@ public class Main extends FullScreenAppCompatActivity
                 }
             });
             return true;
-        case R.id.menu_transfer_read_custom_bugs:
+        case R.id.menu_transfer_read_todos:
             descheduleAutoLock();
             SelectFile.read(this, R.string.config_osmPreferredDir_key, new ReadFile() {
-
                 private static final long serialVersionUID = 1L;
 
                 @Override
                 public boolean read(Uri fileUri) {
-                    TransferTasks.readCustomBugs(Main.this, fileUri, false, new PostFileReadCallback(Main.this, fileUri.toString()));
+                    TransferTasks.readTodos(Main.this, fileUri, false, new PostFileReadCallback(Main.this, fileUri.toString()));
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     map.invalidate();
                     return true;
                 }
             });
             return true;
-        case R.id.menu_transfer_write_custom_bugs:
+        case R.id.menu_transfer_write_todos:
             descheduleAutoLock();
-            SelectFile.save(this, R.string.config_osmPreferredDir_key, new SaveFile() {
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                public boolean save(Uri fileUri) {
-                    TransferTasks.writeCustomBugFile(Main.this, fileUri, null);
-                    SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
-                    return true;
-                }
-            });
+            final List<StringWithDescription> todoListnames = App.getTaskStorage().getTodoLists(this);
+            if (todoListnames.size() == 1) {
+                writeTodos(todoListnames.get(0).getValue());
+            } else {
+                ElementSelectionActionModeCallback.selectTodoList(this, todoListnames,
+                        (DialogInterface dialog, int which) -> writeTodos(todoListnames.get(which).getValue()));
+            }
             return true;
         case R.id.menu_undo:
             // should not happen
@@ -2449,6 +2453,69 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
+     * Write the contents of a todo list to a file // NOSONAR
+     * 
+     * @param listName the todo list name or null for all // NOSONAR
+     */
+    private void writeTodos(@Nullable String listName) {
+        SelectFile.save(this, R.string.config_osmPreferredDir_key, new SaveFile() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public boolean save(Uri fileUri) {
+                TransferTasks.writeTodoFile(Main.this, fileUri, listName, true, null);
+                SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                return true;
+            }
+        });
+    }
+
+    /**
+     * 
+     * Determine the nearest Todo and show the corresponding modal // NOSONAR
+     */
+    private void gotoNearestTodo() {
+        List<Todo> todos = App.getTaskStorage().getTodos(null, false); // NOSONAR
+        if (!todos.isEmpty()) {
+            final ViewBox viewBox = map.getViewBox();
+            double[] center = viewBox.getCenter();
+            Location location = getLastLocation();
+            // if we are reasonably confident that we are looking for a task near the GPS position use that
+            if (location != null) {
+                final double longitude = location.getLongitude();
+                final double latitude = location.getLatitude();
+                if (getFollowGPS() || viewBox.contains(longitude, latitude)) {
+                    center[0] = longitude;
+                    center[1] = latitude;
+                }
+            }
+            final List<StringWithDescription> todoLists = App.getTaskStorage().getTodoLists(this);
+            if (todoLists.size() > 1) {
+                ElementSelectionActionModeCallback.selectTodoList(this, todoLists, (DialogInterface dialog,
+                        int which) -> showNearestTodo(App.getTaskStorage().getTodos(todoLists.get(which).getValue(), false), center[0], center[1]));
+                return;
+            }
+            showNearestTodo(todos, center[0], center[1]);
+        } else {
+            Snack.toastTopInfo(this, R.string.toast_no_open_todos);
+        }
+    }
+
+    /**
+     * Goto the position of the nearest todo and show the todo dialog //NOSONAR
+     * 
+     * @param todos a List of possible Todos // NOSONAR
+     * @param lon the relevant WGS84 longitude
+     * @param lat the relevant WGS84 latitude
+     */
+    private void showNearestTodo(@NonNull List<Todo> todos, double lon, double lat) {
+        Task.sortByDistance(todos, lon, lat);
+        Todo nearest = todos.get(0);
+        map.getViewBox().moveTo(map, nearest.getLon(), nearest.getLat());
+        TodoFragment.showDialog(this, nearest);
+    }
+
+    /**
      * Display a toast when we can't find a file
      * 
      * @param fileUri the file uri
@@ -2511,7 +2578,7 @@ public class Main extends FullScreenAppCompatActivity
      * @param logic the current Login instance
      * @param trackPoint the TrackPoint
      */
-    public void gotoTrackPoint(final Logic logic, TrackPoint trackPoint) {
+    public void gotoTrackPoint(@NonNull final Logic logic, @NonNull TrackPoint trackPoint) {
         Log.d(DEBUG_TAG, "Going to first waypoint");
         setFollowGPS(false);
         map.setFollowGPS(false);
@@ -2525,7 +2592,7 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @param main the current instance of Main
      */
-    public static void showJsConsole(final Main main) {
+    public static void showJsConsole(@NonNull final Main main) {
         main.descheduleAutoLock();
         de.blau.android.javascript.Utils.jsConsoleDialog(main, R.string.js_console_msg_live, input -> {
             String result = de.blau.android.javascript.Utils.evalString(main, "JS Console", input, App.getLogic());
@@ -3351,7 +3418,7 @@ public class Main extends FullScreenAppCompatActivity
              *
              * @return the description
              */
-            String getDescription() {
+            SpannableString getDescription() {
                 return layer.getDescription(object);
             }
         }

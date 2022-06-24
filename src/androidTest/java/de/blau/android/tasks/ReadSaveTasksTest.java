@@ -97,13 +97,13 @@ public class ReadSaveTasksTest {
      * Read and save custom tasks
      */
     @Test
-    public void readAndSaveCustomBugs() {
+    public void readAndSaveTodos() {
         final CountDownLatch signal1 = new CountDownLatch(1);
 
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream("customBug.json");
+        InputStream is = loader.getResourceAsStream("todos.json");
         assertNotNull(is);
-        TransferTasks.readCustomBugs(main, is, false, new SignalHandler(signal1));
+        TransferTasks.readTodos(main, is, false, new SignalHandler(signal1));
         try {
             signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -115,27 +115,28 @@ public class ReadSaveTasksTest {
         }
         List<Task> tasks = ts.getTasks();
         assertEquals(2, tasks.size());
-        assertTrue(tasks.get(0) instanceof CustomBug);
-        CustomBug bug = (CustomBug) tasks.get(0);
+        assertTrue(tasks.get(0) instanceof Todo);
+        Todo bug = (Todo) tasks.get(0);
         bug.close();
         try {
             assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
-            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_write_custom_bugs), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_write_todos), true, false));
+            assertTrue(TestUtils.clickText(device, false, "Name change", true, false));
             TestUtils.selectFile(device, context, null, TEST_JSON, true, true);
 
             assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
-            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_read_custom_bugs), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_read_todos), true, false));
             TestUtils.selectFile(device, main, null, TEST_JSON, true);
             TestUtils.findText(device, false, main.getString(R.string.toast_read_successfully), 1000);
             TestUtils.textGone(device, main.getString(R.string.toast_read_successfully), 1000);
             //
             tasks = ts.getTasks();
             assertEquals(1, tasks.size());
-            assertTrue(tasks.get(0) instanceof CustomBug);
+            assertTrue(tasks.get(0) instanceof Todo);
         } finally {
             TestUtils.deleteFile(main, TEST_JSON);
         }
@@ -214,7 +215,7 @@ public class ReadSaveTasksTest {
                 // see previous test
                 assertEquals(59, tasks.size());
                 for (Task t : tasks) {
-                    if (t instanceof Note && t.getId() == 893035) {
+                    if (t instanceof Note && ((Note) t).getId() == 893035) {
                         return;
                     }
                 }

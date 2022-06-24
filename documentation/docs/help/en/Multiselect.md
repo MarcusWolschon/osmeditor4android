@@ -48,6 +48,10 @@ Pan and zoom the map to the currently selected object.
 
 Search for OSM objects in the loaded data using JOSMs search expressions.
 
+### Add to todo list
+
+Add the current selection to an existing or new todo list.
+
 ### Upload elements
 
 Upload the selected elements (only available for new or modified elements).

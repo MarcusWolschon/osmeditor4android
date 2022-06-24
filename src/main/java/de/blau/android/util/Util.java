@@ -701,4 +701,33 @@ public final class Util {
         }
         return val;
     }
+    
+    /**
+     * Get a translated string with element type and id
+     * 
+     * @param ctx an Android COntext
+     * @param type the element type
+     * @param id the id
+     * @return a transalted String
+     */
+    public static String elementTypeId(@NonNull Context ctx, @NonNull String type, long id) {
+        switch (type) {
+        case Node.NAME: return ctx.getString(R.string.node_id, id);
+        case Way.NAME: return ctx.getString(R.string.way_id, id);
+        case Relation.NAME: return ctx.getString(R.string.relation_id, id);
+        default:
+            throw new IllegalArgumentException("Unknoen element " + type);
+        }
+    }
+    
+
+    /**
+     * Check if a String is neither null nor the empty String
+     * 
+     * @param text the input String
+     * @return true if text is neither null nor the empty String
+     */
+    public static boolean notEmpty(@Nullable final String text) {
+        return text != null && !"".equals(text);
+    }
 }

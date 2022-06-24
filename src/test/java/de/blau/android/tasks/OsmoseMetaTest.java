@@ -22,7 +22,7 @@ public class OsmoseMetaTest {
         try (InputStream is = getClass().getResourceAsStream("/osmose_meta_1.json")) {
             OsmoseMeta meta = new OsmoseMeta();
             meta.parse(is);
-            OsmoseClass osmoseClass = meta.getOsmoseClass(3130, 31301);
+            OsmoseClass osmoseClass = meta.getOsmoseClass("3130", 31301);
             assertNotNull(osmoseClass);
             System.out.print(osmoseClass.fix);
         } catch (IOException e) {
@@ -39,7 +39,7 @@ public class OsmoseMetaTest {
         try (InputStream is = getClass().getResourceAsStream("/osmose_meta_all.json")) {
             OsmoseMeta meta = new OsmoseMeta();
             meta.parse(is);
-            OsmoseClass osmoseClass = meta.getOsmoseClass(3130, 31301);
+            OsmoseClass osmoseClass = meta.getOsmoseClass("3130", 31301);
             assertNotNull(osmoseClass);
         } catch (IOException e) {
             fail(e.getMessage());

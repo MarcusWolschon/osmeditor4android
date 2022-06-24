@@ -5,8 +5,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
 import android.app.Activity;
@@ -17,9 +19,11 @@ import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.util.DataStorage;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
+import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.rtree.RTree;
 
 /**
@@ -51,8 +55,8 @@ public class TaskStorage implements Serializable, DataStorage {
      * Default constructor
      */
     public TaskStorage() {
-        reset();
         challenges = new HashMap<>();
+        reset();
         dirty = false;
     }
 
@@ -62,9 +66,11 @@ public class TaskStorage implements Serializable, DataStorage {
     public synchronized void reset() {
         tasks = new RTree<>(30, 100);
         boxes = new RTree<>(2, 20);
+        challenges.clear();
+        osmoseMeta = null;
         dirty = true;
     }
-    
+
     /**
      * Get the number of stored tasks
      * 
@@ -128,9 +134,8 @@ public class TaskStorage implements Serializable, DataStorage {
         Collection<Task> queryResult = new ArrayList<>();
         tasks.query(queryResult, t.getLon(), t.getLat());
         Log.d(DEBUG_TAG, "candidates for contain " + queryResult.size());
-        Class<? extends Task> c = t.getClass();
         for (Task t2 : queryResult) {
-            if (c.isInstance(t2) && t.getId() == t2.getId()) {
+            if (t.equals(t2)) {
                 return true;
             }
         }
@@ -149,7 +154,7 @@ public class TaskStorage implements Serializable, DataStorage {
         tasks.query(queryResult, t.getLon(), t.getLat());
         Log.d(DEBUG_TAG, "candidates for get " + queryResult.size());
         for (Task t2 : queryResult) {
-            if (t.getId() == t2.getId() && t.getClass().equals(t2.getClass())) {
+            if (t.equals(t2)) {
                 return t2;
             }
         }
@@ -182,7 +187,7 @@ public class TaskStorage implements Serializable, DataStorage {
         Log.d(DEBUG_TAG, "getTasks result count " + queryResult.size());
         return queryResult;
     }
-    
+
     /**
      * Return all tasks in a bounding box
      * 
@@ -307,7 +312,7 @@ public class TaskStorage implements Serializable, DataStorage {
     @Override
     public synchronized void prune(@NonNull BoundingBox box) {
         for (Task b : getTasks()) {
-            if (!b.hasBeenChanged() && !box.contains(b.getLon(), b.getLat())) {
+            if (!(b instanceof Todo) && !b.hasBeenChanged() && !box.contains(b.getLon(), b.getLat())) {
                 tasks.remove(b);
             }
         }
@@ -351,7 +356,7 @@ public class TaskStorage implements Serializable, DataStorage {
      * @param newLonE7 the new longitude in WGS84*1E7
      */
     public synchronized void move(@NonNull Task t, int newLatE7, int newLonE7) {
-        if (t instanceof Note && ((Note) t).isNew()) {
+        if (t.isNew()) {
             tasks.remove(t);
             ((Note) t).move(newLatE7, newLonE7);
             tasks.insert(t);
@@ -372,7 +377,127 @@ public class TaskStorage implements Serializable, DataStorage {
         }
         return osmoseMeta;
     }
-    
+
+    /**
+     * Check if there is a Bug Task for a specific element
+     * 
+     * @param element the OsmElement
+     * @return true if a task applies
+     */
+    public boolean hasTasksForElement(@NonNull OsmElement element) {
+        List<Task> taskList = getTasks(element.getBounds());
+        if (!taskList.isEmpty()) {
+            final long osmId = element.getOsmId();
+            final String elementType = element.getName();
+            for (Task t : taskList) {
+                if (t instanceof Bug && ((Bug) t).hasElement(elementType, osmId)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Close all Bug tasks that reference the OsmElement
+     * 
+     * @param element the OsmElement
+     */
+    public void closeTasksForElement(@NonNull OsmElement element) {
+        List<Task> taskList = getTasks(element.getBounds());
+        if (!taskList.isEmpty()) {
+            final long osmId = element.getOsmId();
+            final String elementType = element.getName();
+            for (Task t : taskList) {
+                if (t instanceof Bug && ((Bug) t).hasElement(elementType, osmId)) {
+                    t.close();
+                    t.setChanged(true);
+                }
+            }
+            setDirty();
+        }
+    }
+
+    /**
+     * Get stored Todos // NOSONAR
+     * 
+     * @param listName the optional Todo list name // NOSONAR
+     * @param all if true return all todos, otherwise just open ones
+     * @return a List of Todos // NOSONAR
+     */
+    @NonNull
+    public List<Todo> getTodos(@Nullable String listName, boolean all) {
+        List<Todo> todos = new ArrayList<>();
+        for (Task t : getTasks()) {
+            if (t instanceof Todo && (all || !t.isClosed()) && (listName == null || listName.equals(((Todo) t).getListName()))) {
+                todos.add((Todo) t);
+            }
+        }
+        return todos;
+    }
+
+    /**
+     * Get all current todo lists names // NOSONAR
+     * 
+     * Note this will always return an entry for the default list
+     * 
+     * @param context an Android Context
+     * @return a List of todo list names // NOSONAR
+     */
+    @NonNull
+    public List<StringWithDescription> getTodoLists(@NonNull Context context) {
+        Set<StringWithDescription> todoLists = new LinkedHashSet<>();
+        todoLists.add(new StringWithDescription(Todo.DEFAULT_LIST, context.getString(R.string.default_)));
+        for (Task t : getTasks()) {
+            if (t instanceof Todo && !t.isClosed()) {
+                final StringWithDescription listName = ((Todo) t).getListName(context);
+                if (!Todo.DEFAULT_LIST.equals(listName.getValue())) {
+                    todoLists.add(listName);
+                }
+            }
+        }
+        return new ArrayList<>(todoLists);
+    }
+
+    /**
+     * Get all todos for an OsmElement
+     * 
+     * @param element the OsmElement
+     * @return a List of Todos // NOSONAR
+     */
+    @NonNull
+    public List<Todo> getTodosForElement(@NonNull OsmElement element) {
+        List<Todo> result = new ArrayList<>();
+        List<Task> taskList = getTasks(element.getBounds());
+        if (!taskList.isEmpty()) {
+            final long osmId = element.getOsmId();
+            final String elementType = element.getName();
+            for (Task t : taskList) {
+                if (t instanceof Todo && ((Bug) t).hasElement(elementType, osmId)) {
+                    result.add((Todo) t);
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Check if a todo for an OsmElement exists already // NOSONAR
+     * 
+     * @param e the OsmElement
+     * @param listName the name of the todo list // NOSONAR
+     * @return true if a todo already exists // NOSONAR
+     */
+    public boolean contains(@NonNull OsmElement e, @NonNull String listName) {
+        List<Todo> existing = getTodosForElement(e);
+        for (Todo t : existing) {
+            if (listName.equals(t.getListName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "task r-tree: " + tasks.count() + " boxes r-tree " + boxes.count();

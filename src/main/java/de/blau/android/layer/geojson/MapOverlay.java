@@ -34,6 +34,7 @@ import android.graphics.Paint.FontMetrics;
 import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -809,7 +810,7 @@ public class MapOverlay extends StyleableLayer
     }
 
     @Override
-    public String getDescription(Feature f) {
+    public SpannableString getDescription(Feature f) {
         String label = getLabel(f);
         if (label == null || "".equals(label)) {
             Geometry g = f.geometry();
@@ -817,7 +818,7 @@ public class MapOverlay extends StyleableLayer
                 label = g.type();
             }
         }
-        return map.getContext().getString(R.string.geojson_object, label, getName());
+        return new SpannableString(map.getContext().getString(R.string.geojson_object, label, getName()));
     }
 
     @Override

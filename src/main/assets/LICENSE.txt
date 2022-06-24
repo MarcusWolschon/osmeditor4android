@@ -65,6 +65,8 @@ Roulette Wheel by Bakunetsu Kaito from the Noun Project
 
 The material design lightbulb from Austin Andrews SIL Open Font License 1.1
 
+The "todo" icon is available on MIT terms from gitlab
+
 The de.blau.android.util.egm96.EGM96.java file is derived from code from NASAs Worldwind and is available on Terms of the NASA OPEN SOURCE AGREEMENT VERSION 1.3, see the directory for the full licence text.
 
 The full license texts are also available online:

@@ -14,6 +14,14 @@ Tapping the icon once will undo the last operation. A long press will display a 
 
 Starts the tag editor on the current selection.
 
+#### Close and goto next
+
+Close a todo associated with the element and goto the nearest open todo in the list. If the element is present in multiple todo list a modal will ask which one to choose.
+
+#### Close all
+
+Close all todos and osmose bugs associated with the element. 
+
 ### ![Add](../images/relation_add_member.png) Add member 
 
 Add further objects to the relation until "Done" is selected, then the tag editor will be started on the new relation. 
@@ -53,6 +61,10 @@ Pan and zoom the map to the currently selected object.
 ### Search for objects
 
 Search for OSM objects in the loaded data using JOSMs search expressions.
+
+### Add to todo list
+
+Add the current selection to an existing or new todo list.
 
 ### Upload element
 

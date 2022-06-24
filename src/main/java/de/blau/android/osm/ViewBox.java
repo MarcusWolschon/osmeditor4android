@@ -132,7 +132,7 @@ public class ViewBox extends BoundingBox {
      * 
      * @param box box with the new borders.
      */
-    public ViewBox(final BoundingBox box) {
+    public ViewBox(@NonNull final BoundingBox box) {
         // this(box.left, box.bottom, box.right, box.top); not good, forces a recalc of everything
         super(box);
         calcDimensions();

@@ -1,9 +1,12 @@
 package de.blau.android.tasks;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
 import android.util.Log;
@@ -17,6 +20,7 @@ import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
+import de.blau.android.util.collections.LongPrimitiveList;
 
 /**
  * Subset of the fields and functionality for handling OSMOSE style bugs
@@ -25,31 +29,47 @@ import de.blau.android.osm.Way;
  */
 public abstract class Bug extends Task implements Serializable {
 
-    static final String DEBUG_TAG         = Bug.class.getSimpleName();
-    static final int    LEVEL_ERROR       = 1;
-    static final int    LEVEL_WARNING     = 2;
-    static final int    LEVEL_MINOR_ISSUE = 3;
+    private static final long serialVersionUID = 3L;
+
+    private static final String DEBUG_TAG = Bug.class.getSimpleName();
+
+    protected static final String OSM_IDS         = "osm_ids";
+    protected static final String NODES_ARRAY     = "nodes";
+    protected static final String WAYS_ARRAY      = "ways";
+    protected static final String RELATIONS_ARRAY = "relations";
+
+    protected static final int LEVEL_ERROR       = 1;
+    protected static final int LEVEL_WARNING     = 2;
+    protected static final int LEVEL_MINOR_ISSUE = 3;
 
     /**
      * Date pattern used to parse the update date from a Osmose bug.
      */
     static final String DATE_PATTERN_OSMOSE_BUG_UPDATED_AT = "yyyy-MM-dd HH:mm:ss z";
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 2L;
+    protected String id;
 
-    String elems;
-    String title;
-    String subtitle;
-    int    level;
-    long   update;  // update date in ms since the epoch
+    protected LongPrimitiveList nodes;
+    protected LongPrimitiveList ways;
+    protected LongPrimitiveList relations;
+    private String              title;
+    protected String            subtitle;
+    protected int               level;
+    protected long              update;   // update date in ms since the epoch
 
     /**
      * Default constructor
      */
     protected Bug() {
+    }
+
+    /**
+     * Get the id
+     * 
+     * @return the id
+     */
+    String getId() {
+        return id;
     }
 
     @Override
@@ -116,6 +136,20 @@ public abstract class Bug extends Task implements Serializable {
     }
 
     /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
      * Check if a string has something in it
      * 
      * @param s the String
@@ -142,36 +176,76 @@ public abstract class Bug extends Task implements Serializable {
      * 
      * @return list of OsmElement
      */
+    @NonNull
     public final List<OsmElement> getElements() {
-        ArrayList<OsmElement> result = new ArrayList<>();
-        String[] elements = elems.split("_");
+        List<OsmElement> result = new ArrayList<>();
         StorageDelegator storageDelegator = App.getDelegator();
-        for (String e : elements) {
-            try {
-                if (elems.startsWith("way")) {
-                    OsmElement osm = storageDelegator.getOsmElement(Way.NAME, Long.valueOf(e.substring(3)));
-                    if (osm == null) {
-                        osm = OsmElementFactory.createWay(Long.valueOf(e.substring(3)), -1, -1, (byte) -1);
-                    }
-                    result.add(osm);
-                } else if (elems.startsWith("node")) {
-                    OsmElement osm = storageDelegator.getOsmElement(Node.NAME, Long.valueOf(e.substring(4)));
-                    if (osm == null) {
-                        osm = OsmElementFactory.createNode(Long.valueOf(e.substring(4)), -1, -1, (byte) -1, 0, 0);
-                    }
-                    result.add(osm);
-                } else if (elems.startsWith("relation")) {
-                    OsmElement osm = storageDelegator.getOsmElement(Relation.NAME, Long.valueOf(e.substring(8)));
-                    if (osm == null) {
-                        osm = OsmElementFactory.createRelation(Long.valueOf(e.substring(8)), -1, -1, (byte) -1);
-                    }
-                    result.add(osm);
+        try {
+            if (nodes != null) {
+                for (long l : nodes.values()) {
+                    result.add(getElementOrDummy(storageDelegator, Node.NAME, l));
                 }
-            } catch (Exception ex) {
-                Log.d(DEBUG_TAG, "couldn't retrieve element " + elems + " " + ex);
             }
+            if (ways != null) {
+                for (long l : ways.values()) {
+                    result.add(getElementOrDummy(storageDelegator, Way.NAME, l));
+                }
+            }
+            if (relations != null) {
+                for (long l : relations.values()) {
+                    result.add(getElementOrDummy(storageDelegator, Relation.NAME, l));
+                }
+            }
+        } catch (Exception ex) {
+            Log.d(DEBUG_TAG, "couldn't retrieve elements " + ex);
         }
         return result;
+    }
+
+    /**
+     * Check if the Bug applies to a specific element
+     * 
+     * @param elementType the element type
+     * @param elementId the element id
+     * @return true if the element is present
+     */
+    boolean hasElement(@NonNull String elementType, long elementId) {
+        switch (elementType) {
+        case Node.NAME:
+            return nodes != null && nodes.contains(elementId);
+        case Way.NAME:
+            return ways != null && ways.contains(elementId);
+        case Relation.NAME:
+            return relations != null && relations.contains(elementId);
+        default:
+            return false;
+        }
+    }
+
+    /**
+     * Get an element from storage and if not present a dummy object
+     * 
+     * @param storageDelegator the StorageDelegator instance
+     * @param type OsmELement type
+     * @param id the element id
+     * @return an OsmElement
+     */
+    @NonNull
+    private OsmElement getElementOrDummy(@NonNull StorageDelegator storageDelegator, @NonNull String type, long id) {
+        OsmElement osm = storageDelegator.getOsmElement(type, id);
+        if (osm == null) {
+            switch (type) {
+            case Node.NAME:
+                return OsmElementFactory.createNode(id, -1, -1, (byte) -1, 0, 0);
+            case Way.NAME:
+                return OsmElementFactory.createWay(id, -1, -1, (byte) -1);
+            case Relation.NAME:
+                return OsmElementFactory.createRelation(id, -1, -1, (byte) -1);
+            default:
+                throw new IllegalArgumentException(type + " is not an OSM element type");
+            }
+        }
+        return osm;
     }
 
     /**
@@ -200,5 +274,59 @@ public abstract class Bug extends Task implements Serializable {
      */
     public final int getLevel() {
         return level;
+    }
+
+    /**
+     * Parse element ids
+     * 
+     * @param reader the JsonReader
+     * @param bug the Bug instance
+     * @throws IOException if parsing the Json fails
+     */
+    protected static void parseIds(@NonNull JsonReader reader, @NonNull Bug bug) throws IOException {
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String elemName = reader.nextName();
+            switch (elemName) {
+            case NODES_ARRAY:
+                bug.nodes = getElementIds(reader);
+                break;
+            case WAYS_ARRAY:
+                bug.ways = getElementIds(reader);
+                break;
+            case RELATIONS_ARRAY:
+                bug.relations = getElementIds(reader);
+                break;
+            default:
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+    }
+
+    /**
+     * Add an JsonArray of long ids to a list
+     * 
+     * @param reader the JsonReader
+     * @return a LongPrimitiveList
+     * @throws IOException if reading the Json fails
+     */
+    @NonNull
+    private static LongPrimitiveList getElementIds(@NonNull JsonReader reader) throws IOException {
+        LongPrimitiveList list = new LongPrimitiveList();
+        reader.beginArray();
+        while (reader.hasNext()) {
+            list.add(reader.nextLong());
+        }
+        reader.endArray();
+        return list;
+    }
+
+    @Override
+    public int hashCode() { // NOSONAR
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
     }
 }
