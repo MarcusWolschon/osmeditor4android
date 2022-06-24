@@ -42,9 +42,11 @@ import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Node;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.Util;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
@@ -137,8 +139,8 @@ public class MapRouletteTest {
         mockServerMapRoulette.enqueue("challenge26955");
         mockServerMapRoulette.enqueue("challenge17807");
         mockServerMapRoulette.enqueue("challenge13087");
-       
-        BoundingBox boundingBox = new BoundingBox(8.3733566D, 47.3468982D, 8.4748442D, 47.4476552D);
+
+        BoundingBox boundingBox = new BoundingBox(8.3735696D, 47.3473070D, 8.4726104D, 47.4459883D);
         final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
         try {
             SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
@@ -146,7 +148,10 @@ public class MapRouletteTest {
             String mapRouletteSelector = r.getString(R.string.bugfilter_maproulette);
             Set<String> set = new HashSet<>(Arrays.asList(mapRouletteSelector));
             p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
-            assertTrue(new Preferences(context).taskFilter().contains(mapRouletteSelector));
+            prefs = new Preferences(context);
+            App.getLogic().setPrefs(prefs);
+            main.getMap().setPrefs(main, prefs);
+            assertTrue(prefs.taskFilter().contains(mapRouletteSelector));
             TransferTasks.downloadBox(context, s, boundingBox, false, TransferTasks.MAX_PER_REQUEST, new SignalHandler(signal));
         } catch (Exception e) {
             fail(e.getMessage());
@@ -160,50 +165,43 @@ public class MapRouletteTest {
         //
         assertEquals(291, tasks.size());
         try {
-            tasks = App.getTaskStorage().getTasks(new BoundingBox(8.4376625, 47.3516530, 8.4376627, 47.3516532));
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-        assertFalse(tasks.isEmpty());
-        t = tasks.get(0);
-        assertTrue(t instanceof MapRouletteTask);
-        assertEquals(129063999L, ((MapRouletteTask) t).getId());
-        // re-download the same bounding box
-        mockServerMapRoulette.enqueue("maprouletteDownload");
-        final CountDownLatch signal2 = new CountDownLatch(1);
-        try {
-            TransferTasks.downloadBox(context, s, boundingBox, true, TransferTasks.MAX_PER_REQUEST, new SignalHandler(signal2));
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-        try {
-            signal2.await(40, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            fail(e.getMessage());
-        }
-        tasks = App.getTaskStorage().getTasks();
-        //
-        assertEquals(291, tasks.size());
-        try {
-            tasks = App.getTaskStorage().getTasks(new BoundingBox(8.4376625, 47.3516530, 8.4376627, 47.3516532));
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-        assertFalse(tasks.isEmpty());
-        t = tasks.get(0);
-        assertTrue(t instanceof MapRouletteTask);
-        assertEquals(129063999L, ((MapRouletteTask) t).getId());
+            final BoundingBox searchBox = new BoundingBox(8.3887505, 47.4005831, 8.3887505, 47.4005831);
 
+            tasks = App.getTaskStorage().getTasks(searchBox);
+            assertFalse(tasks.isEmpty());
+            t = tasks.get(0);
+            assertTrue(t instanceof MapRouletteTask);
+            assertEquals(129071316L, ((MapRouletteTask) t).getId());
+            // re-download the same bounding box
+            mockServerMapRoulette.enqueue("maprouletteDownload");
+            final CountDownLatch signal2 = new CountDownLatch(1);
+            try {
+                TransferTasks.downloadBox(context, s, boundingBox, true, TransferTasks.MAX_PER_REQUEST, new SignalHandler(signal2));
+            } catch (Exception e) {
+                fail(e.getMessage());
+            }
+            try {
+                signal2.await(40, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                fail(e.getMessage());
+            }
+            tasks = App.getTaskStorage().getTasks();
+            //
+            assertEquals(291, tasks.size());
+            tasks = App.getTaskStorage().getTasks(searchBox);
+            assertEquals(1, tasks.size());
+            t = tasks.get(0);
+            assertTrue(t instanceof MapRouletteTask);
+            assertEquals(129071316L, ((MapRouletteTask) t).getId());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
         Map map = main.getMap();
         Logic logic = App.getLogic();
         logic.getViewBox().setBorders(map, boundingBox);
         map.setViewBox(logic.getViewBox());
         map.invalidate();
-        TestUtils.zoomToNullIsland(logic, map);
-        try {
-            Thread.sleep(5000); // NOSONAR
-        } catch (InterruptedException e) {
-        }
+        TestUtils.sleep(5000);
     }
 
     /**
@@ -269,9 +267,14 @@ public class MapRouletteTest {
     @Test
     public void mapRouletteDialog() {
         mapRouletteDownload();
+        TestUtils.zoomToLevel(device, main, 20);
         MapRouletteTask b = (MapRouletteTask) t; // ugly but removes code duplication
         TestUtils.unlock(device);
         assertTrue(TestUtils.clickAtCoordinatesWaitNewWindow(device, main.getMap(), b.getLon(), b.getLat()));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.maproulette_task_explanations), true));
+        assertTrue(TestUtils.findText(device, false, "crossing", 1000, true));
+        assertTrue(TestUtils.findText(device, false, Util.elementTypeId(context, Node.NAME, 2548954034L)));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.dismiss), true));
         UiObject saveButton = device.findObject(new UiSelector().resourceId("android:id/button1"));
         try {
             assertTrue(saveButton.exists());
