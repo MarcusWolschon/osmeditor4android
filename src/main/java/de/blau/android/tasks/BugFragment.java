@@ -3,6 +3,8 @@ package de.blau.android.tasks;
 import java.util.List;
 
 import android.content.Context;
+import android.text.SpannableString;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -53,7 +55,8 @@ public abstract class BugFragment extends TaskFragment {
                 text = getString(R.string.bug_element_2, e.getName(), e.getDescription(false));
             }
             TextView tv = new TextView(getActivity());
-            if (getActivity() instanceof Main) { // only make clickable if in Main
+            boolean deleted = OsmElement.STATE_DELETED == e.getState();
+            if (!deleted && (getActivity() instanceof Main)) { // only make clickable if in Main
                 tv.setClickable(true);
                 tv.setOnClickListener(unused -> {
                     dismiss();
@@ -66,7 +69,11 @@ public abstract class BugFragment extends TaskFragment {
                 });
                 tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
             }
-            tv.setText(text);
+            SpannableString spannable = new SpannableString(text);
+            if (deleted) {
+                spannable.setSpan(new StrikethroughSpan(), 0, spannable.length(), 0);
+            }
+            tv.setText(spannable);
             layout.addView(tv);
         }
     }
