@@ -28,11 +28,7 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
-import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.Node;
-import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 
