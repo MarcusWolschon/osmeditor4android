@@ -152,7 +152,7 @@ public class IntentsTest {
             }
         }
         System.out.println("Counts " + osmose + " " + notes);
-        assertEquals(151, tasks.size()); // combined count of OSMOSE bugs and notes
+        assertEquals(166, tasks.size()); // combined count of OSMOSE bugs and notes
     }
 
     /**
