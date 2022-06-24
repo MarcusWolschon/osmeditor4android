@@ -1444,7 +1444,7 @@
     <string name="element_type_area">area</string>
     <string name="element_type_relation">relation</string>
     <!-- Element names with id -->
-    <string name="node_id">node #1$d</string>
-    <string name="way_id">way #1$d</string>
-    <string name="relation_id">relation #1$d</string>
+    <string name="node_id">node %1$d</string>
+    <string name="way_id">way %1$d</string>
+    <string name="relation_id">relation %1$d</string>
 </resources>

@@ -340,8 +340,8 @@ public class MapRouletteFragment extends TaskFragment {
                 int elementPos = 0;
                 while (elementMatcher.find(elementPos)) {
                     try {
-                        String elementType = normalizeType(elementMatcher.group(2));
-                        long elementId = Long.parseLong(elementMatcher.group(3));
+                        String elementType = normalizeType(elementMatcher.group(1));
+                        long elementId = Long.parseLong(elementMatcher.group(2));
                         layout.addView(createElementLink(ctx, elementType, elementId));
                     } catch (IllegalArgumentException ex) {
                         Log.e(DEBUG_TAG, ex.getMessage());
@@ -385,8 +385,8 @@ public class MapRouletteFragment extends TaskFragment {
         if (ctx instanceof Main) { // only make clickable if in Main
             tv.setClickable(true);
             tv.setOnClickListener(unused -> {
-                dismiss();
                 final Task task = getTask();
+                dismiss();
                 final int lonE7 = task.getLon();
                 final int latE7 = task.getLat();
                 final FragmentActivity activity = getActivity();
@@ -434,7 +434,7 @@ public class MapRouletteFragment extends TaskFragment {
         case "relation":
             return Relation.NAME;
         default:
-            throw new IllegalArgumentException(type);
+            throw new IllegalArgumentException("Unknoen element type " + type);
         }
     }
 }
