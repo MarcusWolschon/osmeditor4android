@@ -82,7 +82,7 @@ public class TodoTest {
     }
 
     /**
-     * Select, add to Todo, then close
+     * Select, add to Todo, display todo, then close
      */
     // @SdkSuppress(minSdkVersion = 26)
     @Test
@@ -108,6 +108,10 @@ public class TodoTest {
         assertTrue(TestUtils.clickResource(device, false, "android:id/button1", false));
         List<Todo> todos = App.getTaskStorage().getTodosForElement(node);
         assertEquals(1, todos.size());
+        TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
+        assertTrue(TestUtils.clickText(device, false, "Todo", true, false, 5000));
+        TestUtils.sleep();
+        assertTrue(TestUtils.clickResource(device, false, "android:id/button1", false));
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_todo), false, false));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_todo_close_and_next), true, false));
         assertTrue(todos.get(0).isClosed());
