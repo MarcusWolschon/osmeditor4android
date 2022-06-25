@@ -597,7 +597,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                         }
                         TileLayerSource layer = getLayerFromCursor(context, provider, layerCursor);
                         // if we have an apikey parameter and can't replace it, don't add
-                        if (layer.replaceApiKey(context)) {
+                        if (layer.replaceApiKey(context, false)) {
                             layers.put(id, layer);
                         } else {
                             Log.e(DEBUG_TAG, "layer " + id + " is missing an apikey, not added");
