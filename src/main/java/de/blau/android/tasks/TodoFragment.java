@@ -89,7 +89,6 @@ public class TodoFragment extends BugFragment {
 
     @Override
     protected void onShowListener(Task task, Button save, Button upload, Button cancel, Spinner state) {
-        super.onShowListener(task, save, upload, cancel, state);
         save.setText(R.string.Done);
         save.setEnabled(true);
         cancel.setText(R.string.next);
