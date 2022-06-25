@@ -685,7 +685,7 @@ public class TileLayerSource implements Serializable {
         // TODO think of a elegant way to do this
         if (TYPE_BING.equals(type)) {
             metadataLoaded = false;
-            if (replaceApiKey(ctx)) { // this will leave the entry in the DB but it will then be ignored
+            if (replaceApiKey(ctx, true)) { // this will leave the entry in the DB but it will then be ignored
                 Log.d(DEBUG_TAG, "bing url " + tileUrl + " async " + async);
                 if (async) {
                     new ExecutorTask<String, Void, Void>() {
@@ -809,7 +809,7 @@ public class TileLayerSource implements Serializable {
             Log.d(DEBUG_TAG, "Getting layer " + id + " from database");
             try (TileLayerDatabase db = new TileLayerDatabase(ctx)) {
                 TileLayerSource layer = TileLayerDatabase.getLayer(ctx, db.getReadableDatabase(), id);
-                if (layer != null && layer.replaceApiKey(ctx)) {
+                if (layer != null && layer.replaceApiKey(ctx, false)) {
                     if (layer.isOverlay()) {
                         overlayServerList.put(id, layer);
                     } else {
@@ -2393,9 +2393,10 @@ public class TileLayerSource implements Serializable {
      * Replace any apikey placeholder if possible
      * 
      * @param context Android Context
+     * @param requireKey if true return false if no API key placeholder could be found
      * @return true if the apikey could be found or wasn't required, false otherwise
      */
-    public boolean replaceApiKey(@NonNull Context context) {
+    public boolean replaceApiKey(@NonNull Context context, boolean requireKey) {
         if (APIKEY_PATTERN.matcher(tileUrl).matches()) {
             // check key database
             KeyDatabaseHelper keys = new KeyDatabaseHelper(context);
@@ -2410,7 +2411,7 @@ public class TileLayerSource implements Serializable {
             }
             return false; // needed key but didn't find it
         }
-        return true;
+        return !requireKey;
     }
 
     /**
