@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -178,10 +177,8 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation_add_member));
         if (element.getOsmId() > 0) {
             boolean connectedOrConnecting = main.isConnectedOrConnecting();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history)
-                        .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(connectedOrConnecting);
-            }
+            menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history)
+                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(connectedOrConnecting);
             menu.add(GROUP_BASE, MENUITEM_HISTORY_WEB, Menu.CATEGORY_SYSTEM, R.string.menu_history_web)
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(connectedOrConnecting);
         }

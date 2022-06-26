@@ -3,9 +3,7 @@ package de.blau.android.views;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -67,7 +65,6 @@ public class WrappingLayout extends LinearLayout {
      * @param attrs an AtrributeSet
      * @param defStyle a resource id for a default style
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public WrappingLayout(@NonNull Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         wrapper = new LayoutWrapper(context);

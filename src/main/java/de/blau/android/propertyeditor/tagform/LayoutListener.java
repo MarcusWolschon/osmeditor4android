@@ -1,6 +1,5 @@
 package de.blau.android.propertyeditor.tagform;
 
-import android.os.Build;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -28,15 +27,10 @@ public class LayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
         this.length = length;
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onGlobalLayout() {
         ViewTreeObserver observer = ourValueView.getViewTreeObserver();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            observer.removeOnGlobalLayoutListener(this);
-        } else {
-            observer.removeGlobalOnLayoutListener(this); // NOSONAR
-        }
+        observer.removeOnGlobalLayoutListener(this);
         float aM = ourValueView.getPaint().measureText("M"); // FIXME cache this
         int lines = Math.min((int) (length / aM), 4);
         if (lines > 1) {
