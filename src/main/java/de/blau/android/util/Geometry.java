@@ -304,7 +304,7 @@ public final class Geometry {
     }
 
     /**
-     * Offset in place the line defined by the coordinates
+     * Offset the line defined by the coordinates
      * 
      * x0 y0, x1 y1, x1 y1, x2 y2, ... , x5 y5 , x5 y5, x6, y6
      * 
@@ -312,20 +312,21 @@ public final class Geometry {
      * 
      * See https://stackoverflow.com/a/68109283/16623964 (note it is missing a "2")
      * 
-     * @param points array of coordinates in "drawLine" format, these will be modified
+     * @param input array of coordinates in "drawLine" format
+     * @param output output array, this can be the same as input, if the values do not need to be preserved
      * @param length in use number of elements in the array
      * @param closed true if closed
      * @param offset the offset
      */
-    public static void offset(@NonNull float[] points, int length, boolean closed, float offset) {
+    public static void offset(@NonNull float[] input, @NonNull float[] output, int length, boolean closed, float offset) {
         if (length < 4) {
             throw new IllegalArgumentException("There must be at least 2 vertices in a line");
         }
 
         final double limit = 2 * Math.abs(offset);
 
-        float d1x = points[2] - points[0];
-        float d1y = points[3] - points[1];
+        float d1x = input[2] - input[0];
+        float d1y = input[3] - input[1];
         double len1 = Math.hypot(d1x, d1y);
         double prevNy = -d1x / len1;
         double prevNx = d1y / len1;
@@ -333,8 +334,8 @@ public final class Geometry {
         double startny = prevNy;
         if (!closed) {
             // 1st vertex
-            points[0] = (float) (points[0] + offset * prevNx);
-            points[1] = (float) (points[1] + offset * prevNy);
+            output[0] = (float) (input[0] + offset * prevNx);
+            output[1] = (float) (input[1] + offset * prevNy);
         }
 
         double n2y = 0;
@@ -350,13 +351,13 @@ public final class Geometry {
                     n2x = startnx;
                 } else {
                     // last vertex
-                    points[i - 1] = (float) (points[i - 1] + offset * prevNx);
-                    points[i] = (float) (points[i] + offset * prevNy);
+                    output[i - 1] = (float) (input[i - 1] + offset * prevNx);
+                    output[i] = (float) (input[i] + offset * prevNy);
                     break;
                 }
             } else {
-                float d2x = points[(i + 3) % length] - points[nextX];
-                float d2y = points[(i + 4) % length] - points[nextY];
+                float d2x = input[(i + 3) % length] - input[nextX];
+                float d2y = input[(i + 4) % length] - input[nextY];
                 double len2 = Math.hypot(d2x, d2y);
                 n2y = -d2x / len2;
                 n2x = d2y / len2;
@@ -375,13 +376,13 @@ public final class Geometry {
                 l = Math.signum(l) * limit;
             }
 
-            float newX = (float) (points[i - 1] + l * bisx);
-            float newY = (float) (points[i] + l * bisy);
+            float newX = (float) (input[i - 1] + l * bisx);
+            float newY = (float) (input[i] + l * bisy);
 
-            points[i - 1] = newX;
-            points[i] = newY;
-            points[nextX] = newX;
-            points[nextY] = newY;
+            output[i - 1] = newX;
+            output[i] = newY;
+            output[nextX] = newX;
+            output[nextY] = newY;
 
             prevNx = n2x;
             prevNy = n2y;

@@ -47,15 +47,18 @@ public class GeometryTest {
     @Test
     public void offsetTest() {
         float[] input = { -5f, 5f, 5f, 5f };
-        Geometry.offset(input, input.length, false, 1);
-        assertArrayEquals(new float[] { -5f, 4f, 5f, 4f }, input, 0.000001f);
+        float[] output = new float[4];
+        Geometry.offset(input, output, input.length, false, 1);
+        assertArrayEquals(new float[] { -5f, 4f, 5f, 4f }, output, 0.000001f);
 
         float[] input2 = { -5f, -5f, 5f, 5f };
-        Geometry.offset(input2, input2.length, false, 1);
-        assertArrayEquals(new float[] { -4.2928934f, -5.7071066f, 5.7071066f, 4.2928934f }, input2, 0.000001f);
+        float[] output2 = new float[4];
+        Geometry.offset(input2, output2, input2.length, false, 1);
+        assertArrayEquals(new float[] { -4.2928934f, -5.7071066f, 5.7071066f, 4.2928934f }, output2, 0.000001f);
 
         float[] input3 = { -5f, 5f, 5f, 5f, 5f, 5f, 5f, -5f, 5f, -5f, -5f, -5f, -5f, -5f, -5f, 5f };
-        Geometry.offset(input3, input3.length, true, 1);
-        assertArrayEquals(new float[] { -4f, 4f, 4f, 4f, 4f, 4f, 4f, -4f, 4f, -4f, -4f, -4f, -4f, -4f, -4f, 4f }, input3, 0.000001f);
+        float[] output3 = new float[16];
+        Geometry.offset(input3, output3, input3.length, true, 1);
+        assertArrayEquals(new float[] { -4f, 4f, 4f, 4f, 4f, 4f, 4f, -4f, 4f, -4f, -4f, -4f, -4f, -4f, -4f, 4f }, output3, 0.000001f);
     }
 }
