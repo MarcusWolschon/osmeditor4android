@@ -276,9 +276,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
     private float[][] coord = null;
 
-    private FloatPrimitiveList points      = new FloatPrimitiveList(); // allocate these just once
-    private List<Node>         nodesResult = new ArrayList<>(1000);
-    private List<Way>          waysResult  = new ArrayList<>(1000);
+    private FloatPrimitiveList points          = new FloatPrimitiveList(); // allocate these just once
+    private float[]            offsettedCasing = new float[100];
+    private List<Node>         nodesResult     = new ArrayList<>(1000);
+    private List<Way>          waysResult      = new ArrayList<>(1000);
 
     /**
      * Stuff for multipolygon support Instantiate these objects just once
@@ -724,7 +725,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             float[] linePoints = points.getArray();
             int pointsSize = points.size();
             if (style.getOffset() != 0f) {
-                Geometry.offset(linePoints, pointsSize, r.get(0) == r.get(r.size()-1), -style.getOffset());
+                Geometry.offset(linePoints, linePoints, pointsSize, r.get(0) == r.get(r.size() - 1), -style.getOffset());
             }
             path.moveTo(linePoints[0], linePoints[1]);
             for (int i = 0; i < pointsSize; i += 4) {
@@ -1274,7 +1275,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         int pointsSize = points.size();
 
         if (style.getOffset() != 0f) {
-            Geometry.offset(linePoints, pointsSize, closed, -style.getOffset());
+            Geometry.offset(linePoints, linePoints, pointsSize, closed, -style.getOffset());
         }
 
         Paint paint;
@@ -1322,8 +1323,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             FeatureStyle casingStyle = style.getCasingStyle();
             if (casingStyle != null) {
                 if (casingStyle.getOffset() != 0f) {
-                    Geometry.offset(linePoints, pointsSize, closed, -casingStyle.getOffset());
-                    setupPath(linePoints, pointsSize, casingPath);
+                    if (offsettedCasing.length < pointsSize) {
+                        offsettedCasing = new float[pointsSize];
+                    }
+                    Geometry.offset(linePoints, offsettedCasing, pointsSize, closed, -casingStyle.getOffset());
+                    setupPath(offsettedCasing, pointsSize, casingPath);
                     canvas.drawPath(casingPath, casingStyle.getPaint());
                 } else {
                     canvas.drawPath(path, casingStyle.getPaint());
