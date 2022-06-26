@@ -39,6 +39,7 @@ public final class Tags {
     public static final String KEY_ADDR_PLACE              = "addr:place";
     public static final String KEY_ADDR_BLOCK              = "addr:block";
     public static final String KEY_ADDR_BLOCK_NUMBER       = "addr:block_number";
+    public static final String KEY_ADDR_PARENTSTREET       = "addr:parentstreet";
     public static final String KEY_ADDR_HAMLET             = "addr:hamlet";
     public static final String KEY_ADDR_SUBURB             = "addr:suburb";
     public static final String KEY_ADDR_SUBDISTRICT        = "addr:subdistrict";
@@ -83,8 +84,8 @@ public final class Tags {
     public static final String VALUE_POTENTIAL        = "potential";
 
     // "large scale" address keys
-    public static final List<String> ADDRESS_LARGE = Collections
-            .unmodifiableList(Arrays.asList(KEY_ADDR_STREET, KEY_ADDR_PLACE, KEY_ADDR_BLOCK, KEY_ADDR_BLOCK_NUMBER, KEY_ADDR_POSTCODE, KEY_ADDR_HAMLET,
+    public static final List<String> ADDRESS_LARGE = Collections.unmodifiableList(
+            Arrays.asList(KEY_ADDR_STREET, KEY_ADDR_PLACE, KEY_ADDR_BLOCK, KEY_ADDR_BLOCK_NUMBER, KEY_ADDR_PARENTSTREET, KEY_ADDR_POSTCODE, KEY_ADDR_HAMLET,
                     KEY_ADDR_SUBURB, KEY_ADDR_CITY, KEY_ADDR_SUBDISTRICT, KEY_ADDR_DISTRICT, KEY_ADDR_PROVINCE, KEY_ADDR_STATE, KEY_ADDR_COUNTRY));
 
     // other address related stuff
