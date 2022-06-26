@@ -80,6 +80,7 @@ public final class ContentResolverUtil {
      * @param uri the Uri
      * @return a path or null
      */
+    @SuppressWarnings("NewApi")
     @Nullable
     private static String getPathFromDocumentUri(@NonNull Context context, @Nullable String scheme, @NonNull Uri uri) {
         if (isExternalStorageDocument(uri)) {

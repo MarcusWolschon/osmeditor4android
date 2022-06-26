@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -205,10 +204,8 @@ public class APIEditorActivity extends URLListEditActivity {
         if (item != null && item.id.equals(LISTITEM_ID_DEFAULT)) {
             // name and value are not editable
             editName.setInputType(InputType.TYPE_NULL);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                editName.setBackground(null);
-                editValue.setBackground(null);
-            }
+            editName.setBackground(null);
+            editValue.setBackground(null);
             editValue.setInputType(InputType.TYPE_NULL);
             editValue2.setEnabled(true);
             editValue3.setEnabled(false);

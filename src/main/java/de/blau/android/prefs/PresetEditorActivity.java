@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -391,9 +390,7 @@ public class PresetEditorActivity extends URLListEditActivity {
         if (item != null && LISTITEM_ID_DEFAULT.equals(item.id)) {
             // name and value are not editable
             editName.setInputType(InputType.TYPE_NULL);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                editName.setBackground(null);
-            }
+            editName.setBackground(null);
             editValue.setEnabled(false);
             fileButton.setEnabled(false);
         }

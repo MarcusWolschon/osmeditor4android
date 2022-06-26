@@ -1,7 +1,6 @@
 package de.blau.android.tasks;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -92,29 +91,27 @@ public class OsmoseBugFragment extends BugFragment {
 
         title.setText(R.string.openstreetbug_bug_title);
         comments.setText(Util.fromHtml(((Bug) task).getLongDescription(getActivity(), false)));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            // provide dialog with some additional text
-            OsmoseMeta meta = App.getTaskStorage().getOsmoseMeta();
-            final String itemId = ((OsmoseBug) task).getOsmoseItem();
-            final int classId = ((OsmoseBug) task).getOsmoseClass();
-            OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
-            if (osmoseClass == null || osmoseClass.hasHelpText()) {
-                TextView instructionText = new TextView(getActivity());
-                instructionText.setClickable(true);
-                instructionText.setOnClickListener(unused -> {
-                    final Context context = getContext();
-                    if (context != null) {
-                        if (osmoseClass == null) {
-                            getAndShowOsmoseClass(context, meta, itemId, classId);
-                        } else {
-                            showHelpText(context, osmoseClass.getHelpText());
-                        }
+        // provide dialog with some additional text
+        OsmoseMeta meta = App.getTaskStorage().getOsmoseMeta();
+        final String itemId = ((OsmoseBug) task).getOsmoseItem();
+        final int classId = ((OsmoseBug) task).getOsmoseClass();
+        OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
+        if (osmoseClass == null || osmoseClass.hasHelpText()) {
+            TextView instructionText = new TextView(getActivity());
+            instructionText.setClickable(true);
+            instructionText.setOnClickListener(unused -> {
+                final Context context = getContext();
+                if (context != null) {
+                    if (osmoseClass == null) {
+                        getAndShowOsmoseClass(context, meta, itemId, classId);
+                    } else {
+                        showHelpText(context, osmoseClass.getHelpText());
                     }
-                });
-                instructionText.setTextColor(ContextCompat.getColor(getContext(), R.color.holo_blue_light));
-                instructionText.setText(R.string.more_information);
-                elementLayout.addView(instructionText);
-            }
+                }
+            });
+            instructionText.setTextColor(ContextCompat.getColor(getContext(), R.color.holo_blue_light));
+            instructionText.setText(R.string.more_information);
+            elementLayout.addView(instructionText);
         }
         addElementLinks(task, elementLayout);
         //
@@ -122,7 +119,7 @@ public class OsmoseBugFragment extends BugFragment {
     }
 
     /**
-     * Retrive the meta information from the OSMOSE server, store and display any help text
+     * Retrieve the meta information from the OSMOSE server, store and display any help text
      * 
      * @param context an Android Context
      * @param meta the storage for the meta information

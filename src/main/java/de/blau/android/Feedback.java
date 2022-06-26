@@ -17,7 +17,6 @@ import com.heinrichreimersoftware.androidissuereporter.model.github.GithubTarget
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -164,9 +163,7 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
         final TextInputEditText inputEmail = findViewById(R.id.air_inputEmail);
         inputEmail.setInputType(InputType.TYPE_NULL);
         inputEmail.setHint(R.string.feedback_displayname_hint);
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) { // 16
-            inputEmail.setBackground(null);
-        }
+        inputEmail.setBackground(null);
 
         final FloatingActionButton buttonSend = findViewById(R.id.air_buttonSend);
 

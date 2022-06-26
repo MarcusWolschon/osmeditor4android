@@ -254,7 +254,7 @@ android {
     productFlavors {
         current {
             dimension "api"
-            minSdkVersion 14
+            minSdkVersion 16
             targetSdkVersion 30
             applicationIdSuffix ""
             versionNameSuffix ""
