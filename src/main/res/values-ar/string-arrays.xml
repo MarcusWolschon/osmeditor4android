@@ -70,4 +70,10 @@
         <item>عنوان URL غير صحيح</item>
         <item>وسيطة غير صالحة</item>
     </string-array>
- </resources>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>لا يوجد أحرف كبيرة</item>
+        <item>كتابة بالأحرف الكبيرة</item>
+        <item>الأحرف الكبيرة في الجملة</item>
+    </string-array>
+    </resources>

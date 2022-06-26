@@ -70,4 +70,10 @@
         <item>異常的網址</item>
         <item>無效的變數</item>
     </string-array>
- </resources>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>沒有大寫</item>
+        <item>文字大寫</item>
+        <item>句子大寫</item>
+    </string-array>
+    </resources>

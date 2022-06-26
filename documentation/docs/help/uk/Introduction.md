@@ -1,4 +1,4 @@
-_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too._
+_Перш ніж ми почнемо: більшість екранів мають посилання в меню на вбудовану довідку, що дає вам прямий доступ до інформації, що стосується поточного контексту, ви також можете легко повернутися до цього тексту. Якщо у вас більший пристрій, наприклад планшет, ви можете відкрити довідкову систему в окремому вікні. Усі довідкові матеріали та багато іншого (поширені запитання, навчальні посібники) також можна знайти на [сайті документації Vespucci](https://vespucci.io/)._
 
 # Веспуччі – вступ
 
@@ -81,9 +81,9 @@ Once you have selected an object, it can be moved. Note that objects can be drag
 
 #### Додавання нової Точки або Лінії 
 
-On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
+При першому запуску програма запускається в «Простому режимі», це можна змінити в головному меню, знявши відповідний прапорець.
 
-##### Simple mode
+##### Простий режим
 
 Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
 
@@ -162,7 +162,7 @@ Vespucci supports OAuth authorization and the classical username and password me
 
 New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
 
-If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
+Якщо ви хочете зберегти свою роботу і не маєте доступу до Інтернету, ви можете зберегти у JOSM-сумісний файл .osm і завантажити пізніше за допомогою Vespucci або JOSM. 
 
 #### Resolving conflicts on uploads
 

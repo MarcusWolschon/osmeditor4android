@@ -6,6 +6,7 @@
   <string name="mode_indoor">Tryb wnętrz</string>
   <string name="mode_correct">Tryb błędów</string>
   <string name="mode_address">Adres</string>
+  <string name="mode_voice">Głos</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Uwaga!</string>
   <string name="transfer_download_current_dialog_message">Wprowadziłeś zmiany. Czy chcesz je wysłać zamiast porzucenia?</string>
@@ -83,6 +84,7 @@
   <string name="progress_building_imagery_database">Tworzenie bazy danych podkładów…</string>
   <string name="progress_query_oam">Wysyłanie zapytania do OAM…</string>
   <string name="progress_pruning">Sprzątanie...</string>
+  <string name="progress_migration">Migrowanie…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">Usunięto „%1$s”</string>
   <string name="changes_changed">Zmieniono „%1$s”</string>
@@ -103,9 +105,11 @@
   <string name="upload_validation_error_empty_comment">Komentarz nie może być pusty</string>
   <string name="upload_validation_error_empty_source">Żródło nie powinno być puste</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">Wyślij ślad GPX</string>
   <string name="upload_gpx_description_label">Opis</string>
   <string name="upload_gpx_tags_label">Znaczniki</string>
   <string name="upload_gpx_visibility_label">Widoczność</string>
+  <string name="upload_validation_error_empty_description">Pusty opis</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nowa uwaga</string>
   <string name="openstreetbug_new_bug">Zgłoś problem</string>
@@ -114,6 +118,7 @@
   <string name="openstreetbug_edit_title">Edycja uwagi</string>
   <string name="openstreetbug_comment_label">Komentarz:</string>
   <string name="openstreetbug_commit_ok">Zapisano zmiany zadania</string>
+  <string name="openstreetbug_commit_fail">Nie udało się zapisać zmian w zadaniu</string>
   <string name="openstreetbug_unknown_task_type">Nieznany typ zadania</string>
   <string name="openstreetbug_not_supported">%1$s nie jest wspierane.</string>
   <string name="note_description">Uwaga: %1$s – %2$s</string>
@@ -306,6 +311,7 @@
   <string name="layer_style_label">Etykieta</string>
   <string name="json_object_not_displayed">Obiekt JSON (niewyświetlany)</string>
   <string name="json_array_not_displayed">Tablica JSON (niewyświetlana)</string>
+  <string name="gpx_automatic">Automatyczna</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
@@ -560,6 +566,7 @@
   <string name="prune">Przytnij</string>
   <string name="check">Sprawdź</string>
   <string name="download">Pobierz</string>
+  <string name="select">Wybierz</string>
   <!--Read a file-->
   <string name="read">Odczytaj</string>
   <string name="overwrite">Nadpisz</string>
@@ -958,6 +965,7 @@
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <string name="config_uploadOk_title">Oczekujące wysyłanie OK</string>
   <string name="config_upload_current">%1$d obiektów</string>
+  <string name="config_uploadChecker_current">%1$d godzin</string>
   <string name="config_beepVolume_title">Głośność brzęczyka</string>
   <string name="config_beepVolume_summary">Ustawienie głośności brzęczyka.</string>
   <string name="config_beepVolume_current">%1$d</string>
@@ -1234,4 +1242,6 @@
   <string name="toast_nohelp">Brak tutaj pomocy.</string>
   <!--Bookmarks-->
   <!--Element types-->
+  <string name="element_type_area">obszar</string>
+  <string name="element_type_relation">relacja</string>
 </resources>

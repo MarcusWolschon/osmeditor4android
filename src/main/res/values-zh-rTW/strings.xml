@@ -102,9 +102,11 @@
   <string name="upload_validation_error_empty_comment">註解不應該留空</string>
   <string name="upload_validation_error_empty_source">來源不應該留空</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">上傳 GPS 軌跡</string>
   <string name="upload_gpx_description_label">記述</string>
   <string name="upload_gpx_tags_label">標籤</string>
   <string name="upload_gpx_visibility_label">能見度</string>
+  <string name="upload_validation_error_empty_description">空白的描述</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">新的註記</string>
   <string name="openstreetbug_new_bug">回報問題</string>
@@ -113,6 +115,8 @@
   <string name="openstreetbug_edit_title">編輯註記</string>
   <string name="openstreetbug_comment_label">評論：</string>
   <string name="openstreetbug_commit_ok">任務變動已經儲存</string>
+  <string name="openstreetbug_commit_fail">無法儲存任務變動</string>
+  <string name="openstreetbug_commit_fail_with_message">無法儲存任務變動 %1$s</string>
   <string name="openstreetbug_unknown_task_type">不知名任務類型</string>
   <string name="openstreetbug_not_supported">並不支援 %1$s</string>
   <string name="note_description">備註：%1$s - %2$s</string>
@@ -314,11 +318,16 @@
   <string name="layer_style_symbol">象徵</string>
   <string name="json_object_not_displayed">JSON 物件 (未顯示)</string>
   <string name="json_array_not_displayed">JSON 陣列 (未顯示)</string>
+  <string name="gpx_automatic">自動式</string>
+  <string name="gpx_name">GPX 名稱</string>
+  <string name="gpx_description">GPX 描述</string>
+  <string name="gpx_type">GPX 類型</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">網格</string>
   <string name="layer_gpx">GPX</string>
+  <string name="layer_gpx_recording">GPX 錄製</string>
   <string name="layer_photos">照片</string>
   <string name="layer_tasks">任務</string>
   <string name="layer_data">OSM 資料</string>
@@ -340,6 +349,15 @@
   <string name="layer_add_layer_from_mvt_style">從 MVT 樣式新增圖層</string>
   <string name="layer_add_custom_imagery">新增自訂影像</string>
   <string name="layer_edit_custom_imagery_configuration">編輯自訂影像設定</string>
+  <string name="layer_add_gpx">從 GPX 檔案新增圖層</string>
+  <string name="layer_download_track">下載 GPX 軌跡</string>
+  <string name="layer_available_tracks">可用的 GPX 軌跡</string>
+  <string name="layer_start_playback">開始播放</string>
+  <string name="layer_pause_playback">暫停播放</string>
+  <string name="layer_stop_playback">停止播放</string>
+  <string name="layer_toast_playback_finished">播放完成</string>
+  <string name="layer_toast_playback_paused">播放暫停</string>
+  <string name="layer_toast_playback_resumed">播放繼續</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">最小縮小</string>
   <string name="layer_info_max_zoom">最大放大</string>
@@ -396,17 +414,18 @@
   <string name="tip_title">你知道嗎？</string>
   <string name="tip_check_label">停止顯示選擇性的技巧</string>
   <string name="tip_undo">長按回復按鈕能夠顯示所有的回復和重新動作。</string>
-  <string name="tip_imagery_privacy">背景和重疊圖層由第三方提供，使用圖層能夠穿透你的網路地址，並且用提供者的粗略指示，顯示你感興趣的區域。&lt;p&gt;I 如果提供者有補充的隱私政策資訊，你可以在圖層對話中的\"資訊\"選單找到。</string>
+  <string name="tip_imagery_privacy">背景與重疊圖層都是透過第三方來提供，使用圖層時會傳送給服務商你的網路位置，以及粗略的所在位置。&lt;p&gt;如果服務商有隱私政策資訊，你可以在選項當中的「資訊」對話框檢視。</string>
   <string name="tip_mapillary_privacy">Mapillary 是由 Facebook 子公司，瑞士的 Mapilary AB 所提供的服務。採用這項服務將會傳遞你的網路位址以及你看過那些相片的資訊給公司。</string>
-  <string name="tip_pan_and_zoom_auto_download">平移和縮放自動下載功能應當小心使用，因為會造成 OpenStreetMap APIs 還有你的裝置的負擔。&lt;p&gt; API 伺服器的負責可以用
-離線資料來源來避免。</string>
+  <string name="tip_pan_and_zoom_auto_download">平移與縮放時自動下載要特別注意，有可能造成過度連線 OpenStreetMap API 與你的裝置。.&lt;p&gt;API伺服器的負擔程度可以透過連離線資料來源來避免。</string>
   <string name="tip_locked_mode">在鎖定模式下你無法編輯，但對物件長按之後會開啟視窗顯示詳細的資訊。</string>
   <string name="tip_longpress_simple_mode">在簡單模式之下長按什麼事情都不會發生。如果要用長按方式來新增物件，則要在主選單關閉簡單模式。</string>
   <string name="tip_gpx_no_elevation">從版本 15 開始，GPX 軌跡預設將不會有海拔資訊。&lt;p&gt;要啟用海拔記錄，請在用&lt;i&gt;安裝 Geoid 模式。從工具選單安裝 EGM&lt;/i&gt; ，或是切換為 NMEA 輸入。</string>
   <string name="tip_tag_conflict">合併或回復 OSM 元件有時候需要改變元件的屬性，如果變動時有可能出現錯誤或衝突的話，你能手動審核有問題的元件。</string>
   <string name="tip_gpx_recording">當你開始錄製 GPX 時，Vespucci 收集地點資訊，即便 app 在背景，仍然在錄製。強制關閉 app 或是停止 GPS 記錄，則會停止收集位置資料。</string>
   <string name="tip_auto_download">當你自動下載 OSM 資料或是任務時，Vespucci 運用位置資料來決定你所在位置，即便你 app 在背景執行。.&lt;p&gt;強制關閉 app 或是將自動下載關掉則會停止記錄位置資訊。</string>
-  <string name="tip_tristate_checkbox">你剛碰了三態核取框，就像一般核取框那樣能夠變動兩個值，例如說是/否或是真/假&lt;p&gt;然後還有額外的第三種情形&lt;b&gt;沒設定&lt;/b&gt; 狀態，顯示為灰色的核取框，會讓相關的標籤不會被加上去。你可以透過長按來讓核取樞變成沒設定狀態。</string>
+  <string name="tip_tristate_checkbox">你剛弄到三相檢核框，就像一般檢核框，能夠在兩個值變動，例如說是/否，或是真/假。&lt;p&gt;然而這個有第三個狀態&lt;b&gt;沒有設定&lt;/b&gt; 狀態，用灰階的檢核框來顯示，不會在相關的標籤做出變動。你可以透過長按來設定檢核框的狀態。</string>
+  <string name="tip_alternative_tagging">你剛剛套用連接到另一個標籤方案的預置，這是另一個方式更適合或更簡單來寫這一物件的標籤。這些另類預置會優先顯示在最上面最近使用的地方。</string>
+  <string name="tip_mode_switching">上鎖按鈕也是模式切換鍵，長按之後會顯示不同選項的選單。&lt;p&gt;你可以說明系統找到 Vespucci 不同模式的資訊，同樣也有在簡介與主要地圖畫面的說明都有。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -417,6 +436,10 @@
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">資料問題和任務的 QA 警告頻道</string>
   <!--Notifications-->
+  <string name="upload_checker_title">記得上傳你的工作。</string>
+  <plurals name="upload_checker_message">
+    <item quantity="other">你有 %1$d未發佈的變動。</item>
+  </plurals>
   <!--Toaster-->
   <string name="toast_permission_denied">%1$s權限無法讀取</string>
   <string name="toast_unable_to_persist_permissions">無法保留權限</string>
@@ -426,6 +449,7 @@
   <string name="toast_tile_layer_exists">圖磚來源 %1$s有相同的網址</string>
   <string name="toast_no_changes">您還沒有變更什麼…</string>
   <string name="toast_jpeg_not_transparent">JPEG 檔案並非透明所以不能套疊</string>
+  <string name="toast_unsupported_projection">不支援的投影座標 %1$s。.\n\n 只有支援 EPSG:3857、EPSG:4326 和其他相關座標。</string>
   <string name="toast_unsaved_changes">請先上傳您未作存儲的變更。</string>
   <string name="clear_anyway">清除了嗎？</string>
   <string name="toast_upload_success">已上傳至 OSM。</string>
@@ -435,6 +459,9 @@
   <string name="toast_save_failed">無法儲存</string>
   <string name="toast_export_failed">無法匯出</string>
   <string name="toast_export_success">已匯出到  %1$s</string>
+  <plurals name="toast_preset_removed_or_replaced_tags">
+    <item quantity="other">覆寫或是移除 %1$d標籤</item>
+  </plurals>
   <string name="toast_merge_overwrote_tags">注意 - 這動作將覆蓋標籤(們)</string>
   <string name="toast_cant_autoapply_preset">這個預置無法自動套用</string>
   <string name="toast_oneway_reversed">您已反轉了單行道或道路方向依據的標籤。請檢查標籤並在需要時訂正。</string>
@@ -447,7 +474,9 @@
   <string name="read_mail">讀取</string>
   <string name="toast_photo_indexing_started">開始掃描地理參考圖片</string>
   <string name="toast_photo_indexing_finished">掃描地理參考圖片完成</string>
+  <string name="toast_photo_failed">照相時失數，你有在使用相機 app 時啟動地理位置嗎？</string>
   <string name="toast_download_failed">下載失敗，錯誤代碼是 %1$d，訊息為 %2$s</string>
+  <string name="toast_note_reopened">已重新開放的註解</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">未勘測的路</string>
   <string name="toast_noname">道路缺少名稱或編號</string>
@@ -457,9 +486,11 @@
   <string name="toast_untagged_element">沒有標示標籤的元素</string>
   <string name="toast_unconnected_end_node">節點接近連接的元素</string>
   <string name="toast_degenerate_way">退化的路徑</string>
+  <string name="toast_wrong_element_type">非標準元素類型：%1$s</string>
   <!---->
   <string name="toast_oauth_retry">在允許 OAuth 存取你的 OSM 帳號後再上傳一次。</string>
   <string name="toast_oauth">請允許 OAuth 進入您的 OSM 帳號。</string>
+  <string name="toast_no_oauth">API 「 %1$s」沒有可以用的 OAuth 設定，請設定登入與密碼。</string>
   <string name="toast_oauth_not_enabled">OAuth 未啟用目前的 API。</string>
   <string name="toast_oauth_timeout">握手驗証時逾時，請重試。</string>
   <string name="toast_oauth_communication">交握驗証時發生通信錯誤，請重試。</string>
@@ -580,6 +611,11 @@
   <string name="toast_download_server_version_failed">因為 %1$s而從伺服器下載版本失敗</string>
   <string name="toast_error_element_too_large">對屬性編輯器來說元件太大了</string>
   <string name="toast_no_intersection_found">沒有找到交叉</string>
+  <string name="toast_api_key_missing">%1$s沒有找到 API 鍵</string>
+  <string name="toast_no_track_points">沒有軌跡的點</string>
+  <string name="toast_no_way_points">沒有路徑的點</string>
+  <string name="toast_url_check">%1$s%2$d</string>
+  <string name="toast_url_check_with_msg">%1$s%2$d%3$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -611,6 +647,9 @@
   <string name="download">下載</string>
   <string name="abort">放棄</string>
   <string name="ignore">忽略</string>
+  <string name="select">選取</string>
+  <string name="skip">跳過</string>
+  <string name="deprecated">%1$s(已棄用)</string>
   <!--Read a file-->
   <string name="read">讀取</string>
   <string name="overwrite">覆寫</string>
@@ -821,6 +860,7 @@
   <string name="menu_split_polygon">分割成多邊形</string>
   <string name="menu_unjoin_dissimilar">未連結相異物</string>
   <string name="menu_extract_segment">抽出片段</string>
+  <string name="menu_select_way_nodes">選取路徑節點</string>
   <string name="menu_newnode_gps">在 GPS 位置新增節點</string>
   <string name="menu_extend_selection">擴大選擇</string>
   <string name="menu_information">資訊</string>
@@ -975,6 +1015,8 @@
   <string name="config_validatorprefs_summary">設定驗證規則。</string>
   <string name="config_connectedNodeTolerance_title">連接節點的容忍值</string>
   <string name="config_connectedNodeTolerance_summary">如果公路的結束節點接近 (公尺程度) 其他公路，應該要連接過去。</string>
+  <string name="config_enabledValidations_title">啟用審核</string>
+  <string name="config_enabledValidations_summary">啟用/關閉個人審核</string>
   <!--opening hours templates-->
   <string name="config_opening_hours_title">開放時間模板</string>
   <string name="config_opening_hours_summary">載入、儲存和刪除開放時間模板</string>
@@ -1002,6 +1044,8 @@
   <string name="config_fv5_pro">PV5 pro</string>
   <string name="config_useInternalPhotoViewer_title">使用內建照片檢視器</string>
   <string name="config_useInternalPhotoViewer_summary">使用內建照片檢視器，如果沒有勾選則會用外部檢視器。</string>
+  <string name="config_indexMediaStore_summary">額外使用 MediaStore 來截取照片</string>
+  <string name="config_indexMediaStore_title">使用 MediaStore</string>
   <string name="config_followGPSbutton_title">跟隨位置按鈕設計樣式</string>
   <string name="config_followGPSbutton_summary">\"跟隨位置\"按鈕出現位置。</string>
   <string name="config_alwaysDrawBoundingBoxes_title">總是模糊無法下載的區域</string>
@@ -1037,7 +1081,12 @@
   <string name="config_uploadOk_summary">低於上限的情形之下，待上傳的物件仍會被視為 OK</string>
   <string name="config_upload_current">%1$d物件</string>
   <string name="config_uploadWarn_title">待上傳警告</string>
+  <string name="config_uploadWarn_summary">限制多少以下的未發佈的上傳物件的警告狀態。</string>
+  <string name="config_uploadChecker_title">上傳提醒區間</string>
+  <string name="config_uploadChecker_summary">提醒還有沒有發佈的變動的區間。</string>
+  <string name="config_uploadChecker_current">%1$d小時</string>
   <string name="config_dataWarn_title">太多資料警告</string>
+  <string name="config_dataWarn_summary">什麼時候開始警告載入太多資料的限制 (節點的數字) 。 </string>
   <string name="config_useUrlForFeedback_title">關閉回饋活動</string>
   <string name="config_useUrlForFeedback_summary">關閉回饋活動，然後使用 URL 來替代。</string>
   <string name="config_beepVolume_title">蜂鳴聲大小</string>
@@ -1046,6 +1095,8 @@
   <string name="config_mapillary_min_zoom_title">Mapillary 的最小縮放層級</string>
   <string name="config_mapillary_min_zoom_summary">展示 Mapillary 資料前最小所需的縮放層級。</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_nameCap_summary">輸入時自動大寫名稱標籤</string>
+  <string name="config_nameCap_title">名稱大寫</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">資料和編輯設定</string>
   <string name="config_category_editing_summary">自動下載，儲存和通知設定</string>
@@ -1266,6 +1317,7 @@
   <string name="report_failure">無法回傳報告。</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">此操作會造成一條過多節點的路徑。</string>
+  <string name="exception_too_many_members">這次操作會加太多成員到關聯%1$s。</string>
   <!--Notifications-->
   <string name="alert_data_issue">檢測到 OSM 資料有問題</string>
   <string name="alert_note">附近的 OSM 注解檢測</string>
@@ -1308,6 +1360,7 @@
   <string name="issue_merged_metric">長度相關數值已經合併</string>
   <string name="issue_split_metric">長度相關數值已經分割</string>
   <string name="issue_split_route_ordering">路線也許需要手動調整順序</string>
+  <string name="issue_precondition_relation_member_count">超出關聯成員數目</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="other">%1$d天</item>
@@ -1337,4 +1390,9 @@
   <string name="gotobookmark">到</string>
   <string name="bookmarkstitle">書籤</string>
   <!--Element types-->
+  <string name="element_type_node">節點</string>
+  <string name="element_type_way">路徑</string>
+  <string name="element_type_closedway">封閉路徑</string>
+  <string name="element_type_area">區域</string>
+  <string name="element_type_relation">關聯</string>
 </resources>

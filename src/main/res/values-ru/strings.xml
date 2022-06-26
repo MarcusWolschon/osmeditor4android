@@ -104,6 +104,7 @@
   <string name="upload_validation_error_empty_comment">Комментарий не должен быть пустым</string>
   <string name="upload_validation_error_empty_source">Источник не должен быть пустым</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">Передать GPS-трек</string>
   <string name="upload_gpx_description_label">Описание</string>
   <string name="upload_gpx_tags_label">Теги</string>
   <string name="upload_gpx_visibility_label">Видимость</string>
@@ -116,6 +117,7 @@
   <string name="openstreetbug_comment_label">Комментарий:</string>
   <string name="openstreetbug_commit_ok">Изменения сохранены</string>
   <string name="openstreetbug_commit_fail">Не удалось сохранить изменения задачи</string>
+  <string name="openstreetbug_commit_fail_with_message">Не удалось сохранить изменения задачи\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Неизвестный тип задачи</string>
   <string name="openstreetbug_not_supported">%1$s не поддерживается.</string>
   <string name="note_description">Заметка: %1$s - %2$s</string>
@@ -299,6 +301,7 @@
   <string name="coverage_left">Слева</string>
   <string name="coverage_right">Справа</string>
   <string name="coverage_bottom">Снизу</string>
+  <string name="tile_size">Размер плитки</string>
   <string name="toast_invalid_box">Недопустимые или неполные границы</string>
   <string name="delete_layer">Удалить слой?</string>
   <string name="delete_endpoint">Удалить слой?</string>
@@ -337,6 +340,10 @@
   <string name="layer_category_osmbasedmap">Карта на основе OSM</string>
   <string name="layer_category_qa">Ошибки/заметки</string>
   <string name="layer_category_other">Другое</string>
+  <string name="layer_add_layer_from_mvt_style">Добавить слой из MVT стиля</string>
+  <string name="layer_add_gpx">Добавить слой из GPX файла</string>
+  <string name="layer_download_track">Скачать GPX трек</string>
+  <string name="layer_available_tracks">Доступные GPX треки</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Минимальный масштаб</string>
   <string name="layer_info_max_zoom">Максимальный масштаб</string>
@@ -355,6 +362,7 @@
   <string name="mapillary_viewer_label">Mapillary Viewer</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Границы</string>
+  <string name="api_info_latest_date">Последняя включенная дата</string>
   <string name="api_info_attribution">Атрибуция</string>
   <!--Tag conflict dialog-->
   <!--Relation selection dialog-->
@@ -388,8 +396,6 @@
   <string name="tip_title">А вы знали?</string>
   <string name="tip_check_label">Больше не показывать советы</string>
   <string name="tip_undo">Долгое нажание на кнопке \"Отменить\" покажет всю историю действий.</string>
-  <string name="tip_imagery_privacy">Слои фона и наложений предоставляются сторонними организациями. Использование таких слоев подразумевает передачу им вашего сетевого адреса и приблизительного местоположения области, которую вы просматриваете.&lt;p&gt;Если доступна информация о политике конфиденциальности, ‎‎ее‎‎ можно будет найти в меню \"Инфо\" диалога слоя.</string>
-  <string name="tip_pan_and_zoom_auto_download">Масштаб на основе автозагрузки  должен использоваться осторожно, так каr он потенциально может создать условия, когда вызовы OpenStreetMap API могут стать платными.&lt;p&gt;Нагрузки на API-сервера можно избежать при использовании заранее загруженных данных.</string>
   <string name="tip_locked_mode">Вы не можете редактировать в заблокированном режиме, но долгое нажатие на объекте покажет его дополнительную информацию.</string>
   <string name="tip_longpress_simple_mode">В простом режиме долгое нажатие ничего не даст. Отключите простой режим в главном меню, если вы хотите использовать долгие нажатия для создания объектов.</string>
   <string name="tip_gpx_no_elevation">Начиная с версии 15, треки GPX больше не содержат информацию о высоте по умолчанию.&lt;p&gt; Чтобы включить запись высоты, установите модель геоида с помощью &lt;i&gt; Установить EGM&lt;/i&gt; в меню «Инструменты» или переключитесь на ввод NMEA.</string>
@@ -436,6 +442,7 @@
   <string name="read_mail">Прочесть</string>
   <string name="toast_photo_indexing_started">Начато сканирование гео-привязанных фото</string>
   <string name="toast_photo_indexing_finished">Завершено сканирование гео-привязанных фото</string>
+  <string name="toast_photo_failed">Сфотографировать не удалось.  У вас включена геолокация в приложении камеры?</string>
   <string name="toast_download_failed">Загрузка прервана, код ошибки: %1$d, сообщение: %2$s</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Необследованная дорога</string>
@@ -447,6 +454,7 @@
   <!---->
   <string name="toast_oauth_retry">Повторите передачу после разрешения OAuth-доступа в вашем профиле OSM.</string>
   <string name="toast_oauth">Разрешите OAuth-доступ к своему OSM-аккаунту.</string>
+  <string name="toast_no_oauth">Конфигурация OAuth для API \"%1$s\" недоступна. Задайте логин и пароль.</string>
   <string name="toast_oauth_not_enabled">Для текущего API не включён OAuth.</string>
   <string name="toast_oauth_timeout">Превышено время ожидания идентификации, повторите попытку.</string>
   <string name="toast_oauth_communication">Ошибка соединения во время идентификации, повторите попытку.</string>
@@ -512,6 +520,7 @@
   <string name="toast_not_mbtiles">Файл не формата MBTiles</string>
   <string name="toast_using_network_location">Определение местоположения по сети</string>
   <string name="toast_using_gps_location">Местоположение по GPS/GNSS</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS выключен, запись GPX-трека остановлена</string>
   <string name="toast_remote_nmea_connection">Соединение с внешним источником NMEA: %1$s</string>
   <string name="toast_remote_nmea_connection_closed">Соединение с внешним источником NMEA закрыто</string>
   <string name="toast_tags_copied">Теги скопированы в буфер обмена</string>
@@ -560,6 +569,7 @@
   <string name="toast_multipolygon_inconsistent_roles">Мульти-полигон имеет несовместимые значения ролей для контура</string>
   <string name="toast_error_saving_bookmark">Невозможно сохранить закладку</string>
   <string name="toast_error_loading_style">Не удалось загрузить стиль: %1$s</string>
+  <string name="toast_error_element_too_large">Элемент слишком большой для редактора свойств</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">В источниках MapSplit должны быть установлены минимальное и максимальное масштабирование</string>
   <string name="error_pbf_no_version">В PBF-файле нет информации о версии</string>
@@ -589,6 +599,7 @@
   <string name="prune">Очистка</string>
   <string name="check">Проверка</string>
   <string name="download">Загрузить</string>
+  <string name="select">Выбрать</string>
   <!--Read a file-->
   <string name="read">Прочесть</string>
   <string name="overwrite">Переписать</string>
@@ -756,8 +767,8 @@
   <string name="menu_gps_import">Импорт GPS-трека</string>
   <string name="menu_gps_goto_start">Перейти к началу GPX-трека</string>
   <string name="menu_gps_goto_first_waypoint">Перейти к первой путевой точке</string>
-  <string name="menu_enable_gps_autodownload">Место на основе автозагрузки</string>
-  <string name="menu_enable_pan_and_zoom_auto_download">Масштаб на основе автозагрузки</string>
+  <string name="menu_enable_gps_autodownload">Автозагрузка на основе местоположения</string>
+  <string name="menu_enable_pan_and_zoom_auto_download">Автозагрузка текущего экрана</string>
   <string name="menu_transfer">Передача…</string>
   <string name="menu_transfer_download_current">Загрузить текущее место</string>
   <string name="menu_transfer_download_replace">Очистить и загрузить текущее место</string>
@@ -819,6 +830,7 @@
   <string name="menu_tools_clear_clipboard">Очистить буфер обмена</string>
   <string name="menu_tools_install_egm">Установить EGM</string>
   <string name="menu_tools_remove_egm">Удалить EGM</string>
+  <string name="menu_tools_load_keys">Загрузить ключи из файла...</string>
   <!---->
   <string name="menu_simple_actions">Простой режим</string>
   <string name="menu_feedback">Написать отзыв</string>
@@ -864,6 +876,7 @@
   <string name="reverse_anyway">Всё равно изменить направление</string>
   <string name="deleteway_description">Вы собираетесь удалить линию.\n\nВы можете оставить все ее точки или удалить только те точки, которые принадлежат этой линии и не имеют тегов.</string>
   <string name="deleteway_relation_description">Вы собираетесь удалить линиию - участника одного или нескольких отношений. Это действие может поломать отношение.</string>
+  <string name="deleteway_nodesnotdownloaded_description">Линия содержит точки за пределами загруженной области и не может быть корректно удалена.\n\nЗагрузите все ее точки и повторите попытку.</string>
   <string name="deleteway_wayonly">Удалить только линию</string>
   <string name="deleteway_wayandnodes">Удалить линию</string>
   <string name="deletenode_relation_description">Вы собираетесь удалить точку - участника одного или нескольких отношений. Это действие может поломать отношение.</string>
@@ -920,6 +933,7 @@
   <string name="config_overlayLayer_title">Наложение</string>
   <string name="config_overlayLayer_summary">Слой, накладываемый поверх фона и данных карты</string>
   <string name="config_customlayers_title">Пользовательские слои</string>
+  <string name="config_customlayers_summary">Управление слоями, которые отсутствуют в основной конфигурации.</string>
   <string name="config_scale_title">Отображение шкалы</string>
   <string name="config_scale_summary">Тип шкалы, показываемой на карте</string>
   <string name="config_mapProfile_title">Стиль данных</string>
@@ -931,7 +945,7 @@
   <string name="config_enableKeepScreenOn_title">Блокировка экрана</string>
   <string name="config_enableKeepScreenOn_summary">Не отключать экран для сохранения заряда.</string>
   <string name="config_largeDragArea_title">Перемещение точек</string>
-  <string name="config_largeDragArea_summary">Разрешить перемещать точки на большие расстояния.</string>
+  <string name="config_largeDragArea_summary">Использовать большую область для перемещения точек.</string>
   <string name="config_advancedprefs">Расширенные настройки</string>
   <string name="config_moreprefs">Дополнительно...</string>
   <string name="config_presetbutton_title">Заготовки</string>
@@ -942,6 +956,7 @@
   <string name="config_validatorprefs_summary">Настройка правил проверок.</string>
   <string name="config_connectedNodeTolerance_title">Точность соединения дорог</string>
   <string name="config_connectedNodeTolerance_summary">Если конечная точка одной дороги ближе данного расстояния (в метрах) к другой, эти дороги должны быть соединены</string>
+  <string name="config_enabledValidations_summary">Включить/выключить отдельные проверки</string>
   <!--opening hours templates-->
   <string name="config_opening_hours_title">Шаблоны времени работы</string>
   <string name="config_opening_hours_summary">Загрузить, сохранить или удалить шаблоны часов работы</string>
@@ -956,13 +971,18 @@
   <string name="config_iconbutton_title">Значки точек</string>
   <string name="config_iconbutton_summary">Показывать значки наиболее соответствующих заготовок над точками</string>
   <string name="config_showWayIcons_title">Значки POI на зданиях</string>
-  <string name="config_showWayIcons_summary">Показывать значки наиболее соответствующих заготовок над точками</string>
-  <string name="config_tagFormEnabled_title">Формы тега</string>
-  <string name="config_tagFormEnabled_summary">Показывать форму для редактирования тега.</string>
+  <string name="config_showWayIcons_summary">Показывать значки наиболее соответствующих заготовок над зданиями</string>
+  <string name="config_tagFormEnabled_title">Показать шаблон тега</string>
+  <string name="config_tagFormEnabled_summary">Показать шаблон тега для редактирования.</string>
   <string name="config_showCameraAction_title">Камера на панели</string>
   <string name="config_showCameraAction_summary">Показывать значок камеры на панели действий.</string>
+  <string name="config_selectCameraApp_title">Приложение камеры</string>
+  <string name="config_selectCameraApp_summary">Выберите приложение камеры</string>
+  <string name="config_system_camera">По умолчанию</string>
   <string name="config_useInternalPhotoViewer_title">Встроенный просмотр фото</string>
   <string name="config_useInternalPhotoViewer_summary">Использовать встроенный просмотр фотографий или внешний, если выключено.</string>
+  <string name="config_indexMediaStore_summary">Дополнительно использовать MediaStore для доступа к фотографиям</string>
+  <string name="config_indexMediaStore_title">Использовать MediaStore</string>
   <string name="config_followGPSbutton_title">Кнопка следования за GPS</string>
   <string name="config_followGPSbutton_summary">Где будет расположена кнопка «Следовать за GPS» </string>
   <string name="config_alwaysDrawBoundingBoxes_title">Затенять незагруженные области</string>
@@ -982,7 +1002,7 @@
   <string name="config_disableTranslations_title">Отключить переводы</string>
   <string name="config_disableTranslations_summary">Использовать английский язык для пользовательского интерфейса</string>
   <string name="config_maxInlineValues_title">Макс. число встроенных значений</string>
-  <string name="config_maxInlineValues_summary">Макс. число встроенных значений, отображаемых в форме тега.</string>
+  <string name="config_maxInlineValues_summary">Макс. число встроенных значений, отображаемых в шаблоне тега.</string>
   <string name="config_maxInlineValues_current">%1$d значений</string>
   <string name="config_autoLockDelay_title">Время автоблокировки</string>
   <string name="config_autoLockDelay_summary">Время ожидания в секундах до автоблокировки, 0 - отключено.</string>
@@ -998,6 +1018,7 @@
   <string name="config_uploadOk_summary">Ограничение количества объектов для загрузки на сервер, не вызывающее сообщений</string>
   <string name="config_upload_current">%1$d объектов</string>
   <string name="config_uploadWarn_title">Много данных для выгрузки</string>
+  <string name="config_uploadChecker_current">%1$d часов</string>
   <string name="config_dataWarn_title">Слишком много данных для выгрузки</string>
   <string name="config_useUrlForFeedback_title">Отключить встроенную форму обратной связи</string>
   <string name="config_useUrlForFeedback_summary">Отключить встроенную форму обратной связи и открывать ссылку на сайт</string>
@@ -1062,6 +1083,8 @@
   <string name="config_bugDownloadRadius_summary">Радиус (м) загрузки задач</string>
   <string name="config_maxBugDownloadSpeed_title">Макс. скорость автозагрузки задач</string>
   <string name="config_maxBugDownloadSpeed_summary">Предел (в км/ч), выше которого автозагрузка заметок, ошибок и задач приостанавливается.</string>
+  <string name="config_autoPruneTaskLimit_title">Лимит автоочистки задач</string>
+  <string name="config_autoPruneTaskLimit_summary">Количество задач в памяти по достижению которого будет запущена очистка.</string>
   <!--Location Settings-->
   <string name="config_category_gps">Местоположение</string>
   <string name="config_category_gps_summary">Параметры GPS/GNSS и других поставщиков местоположения.</string>
@@ -1097,6 +1120,8 @@
   <string name="config_osmoseServer_summary">URL сервера OSMOSE</string>
   <string name="config_geocoderbutton_title">Геокодирование</string>
   <string name="config_geocoderbutton_summary">Добавить, изменить или удалить геокодер для поиска мест.</string>
+  <string name="config_taginfoServer_title">Сервер Taginfo</string>
+  <string name="config_taginfoServer_summary">Сервер Taginfo, который будет использоваться для генерирования шаблонов</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Загрузка и сохранение слоёв</string>
   <string name="config_category_layers_summary">Параметры загрузки и хранения снимков для фоновой карты.</string>
@@ -1175,6 +1200,7 @@
   <string name="tracking_active_title">Фоновый сервис Vespucci</string>
   <string name="tracking_active_title_short">Фоновый сервис активен</string>
   <string name="tracking_active_text">Vespucci записывает GPS-трек или занят автозагрузкой</string>
+  <string name="tracking_long_text">Vespucci записывает GPS-трек или занят автозагрузкой. Для полного завершения приложения нажмите кнопку ниже или кнопку Назад.</string>
   <string name="gps_failure">Не удалось включить GPS</string>
   <!--element description-->
   <string name="address_housenumber">Адрес %1$s</string>
@@ -1247,6 +1273,7 @@
   <string name="culvert">Водопропускная труба</string>
   <!--Issues-->
   <string name="issue_merged_tags">Объединенные теги</string>
+  <string name="issue_precondition_relation_member_count">Превышено количество участников отношения</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 день</item>
@@ -1292,4 +1319,6 @@
   <string name="show_bookmarks">Закладки...</string>
   <string name="bookmarkstitle">Закладки</string>
   <!--Element types-->
+  <string name="element_type_area">полигон</string>
+  <string name="element_type_relation">отношение</string>
 </resources>

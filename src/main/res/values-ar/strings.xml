@@ -107,9 +107,11 @@
   <string name="upload_validation_error_empty_comment">يجب ألا يكون التعليق فارغًا</string>
   <string name="upload_validation_error_empty_source">يجب ألا يكون المصدر فارغًا</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">رفع مسار GPX</string>
   <string name="upload_gpx_description_label">وصف</string>
   <string name="upload_gpx_tags_label">الوسوم</string>
   <string name="upload_gpx_visibility_label">الرؤية</string>
+  <string name="upload_validation_error_empty_description">وصف فارغ</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">ملاحظة جديدة</string>
   <string name="openstreetbug_new_bug">تبليغ عن مشكلة</string>
@@ -321,11 +323,16 @@
   <string name="layer_style_symbol">الرمز</string>
   <string name="json_object_not_displayed">عنصر JSON (غير معروض)</string>
   <string name="json_array_not_displayed">مصفوفة JSON (غير معروضة)</string>
+  <string name="gpx_automatic">تلقائي</string>
+  <string name="gpx_name">اسم GPX</string>
+  <string name="gpx_description">وصف GPX</string>
+  <string name="gpx_type">نوع GPX</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">المسطرة</string>
   <string name="layer_gpx">GPX</string>
+  <string name="layer_gpx_recording">تسجيل GPX</string>
   <string name="layer_photos">الصور</string>
   <string name="layer_tasks">المهام</string>
   <string name="layer_data">بيانات خرائط الشارع المفتوحة</string>
@@ -347,6 +354,15 @@
   <string name="layer_add_layer_from_mvt_style">أضف طبقة من نمط MVT</string>
   <string name="layer_add_custom_imagery">أضف صورًا مخصصة</string>
   <string name="layer_edit_custom_imagery_configuration">تحرير تكوين الصور المخصصة</string>
+  <string name="layer_add_gpx">إضافة طبقة من ملف GPX</string>
+  <string name="layer_download_track">تنزيل مسار GPX</string>
+  <string name="layer_available_tracks">مسارات GPX المتاحة</string>
+  <string name="layer_start_playback">ابدأ التشغيل</string>
+  <string name="layer_pause_playback">وقف مؤقت للتشغيل</string>
+  <string name="layer_stop_playback">أوقف التشغيل</string>
+  <string name="layer_toast_playback_finished">انتهى التشغيل</string>
+  <string name="layer_toast_playback_paused">توقف التشغيل مؤقتًا</string>
+  <string name="layer_toast_playback_resumed">تم استئناف التشغيل</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">تصغير</string>
   <string name="layer_info_max_zoom">تكبير</string>
@@ -403,16 +419,18 @@
   <string name="tip_title">هل كنت تعلم ذلك؟</string>
   <string name="tip_check_label">توقف عن إظهار النصائح الاختيارية</string>
   <string name="tip_undo">سيؤدي الضغط بشكل مطول على زر التراجع إلى إظهار جميع نقاط التحقق الخاصة بالتراجع والإعادة.</string>
-  <string name="tip_imagery_privacy">يتم توفير الخلفية وطبقات الخرائط من قبل جهات أخرى. يؤدي استخدام أي طبقة إلى إرسال عنوان الشبكة وإشارة تقريبية للمنطقة التي تبحث عنها إلى الموفر.&lt;p&gt; إذا كان موفر معلومات الطبيقة لديه سياسة الخصوصية، فيمكنك عرضها باستخدام عنصر قائمة \"المعلومات\" في مربع إعدادات الطبقة .</string>
+  <string name="tip_imagery_privacy">يتم توفير الخلفية وطبقات التراكب من قبل أطراف ثالثة. يؤدي استخدام طبقة إلى إرسال عنوان الشبكة وإشارة تقريبية للمنطقة التي تبحث عنها إلى الموفر.&lt;p&gt;إذا قدم الموفر معلومات سياسة الخصوصية ، فيمكنك عرضها باستخدام عنصر القائمة \"معلومات\" في مربع حوار الطبقة.</string>
   <string name="tip_mapillary_privacy">Mapillary هي خدمة تقدمها Mapillary AB، في السويد ، وهي شركة تابعة لـ Facebook. ويؤدي استخدام الخدمة إلى نقل عنوان الشبكة والمعلومات الخاصة بالصور التي شاهدتها إلى الشركة.</string>
-  <string name="tip_pan_and_zoom_auto_download">يجب استخدام التحميل التلقائي كلما قمت بالتكبير/التصغير بشكل حذر ، حيث يتسبب ذلك في إثقال كاهل كل من الواجهة البرمجية للخريطة الشارع المفتوحة بالإضافة إلى جهازك.&lt;p&gt; يمكن تجنب هذا باستخدام مصدر بيانات غير متصل بالإنترنت.</string>
+  <string name="tip_pan_and_zoom_auto_download">يجب استخدام التنزيل التلقائي للتجول والتكبير / التصغير بحذر نظرًا لأنه من المحتمل أن يشكل ضغط شديد على كل من واجهات برمجة تطبيقات خرائط الشارع المفتوحة وجهازك.&lt;p&gt;يمكن تجنب التحميل على خوادم واجهة برمجة التطبيقات باستخدام مصدر بيانات غير متصل بالإنترنت.</string>
   <string name="tip_locked_mode">في وضع القفل ، لا يمكنك التحرير على بيانات الخريطة، ولكن الضغط لفترة طويلة على عنصر ما سيفتح شاشة تحتوي على معلومات مفصلة عنه.</string>
   <string name="tip_longpress_simple_mode">في الوضع البسيط، وعند الضغط لفترة طويلة على عنصر ما لن يحدث أي شيء. قم بإيقاف تشغيل الوضع البسيط من القائمة الرئيسية إذا كنت تريد استخدام هذه الميزة.</string>
   <string name="tip_gpx_no_elevation">بدءًا من الإصدار 15 ، لم تعد مسارات GPX تحتوي على معلومات الارتفاع بشكل افتراضي.&lt;p&gt;لتمكين من تسجيل الارتفاع ، قم بتثبيت نموذج Geoid باستخدام &lt;i&gt; وتثبيت EGM&lt;/i&gt; من قائمة الأدوات ، أو قم بالتبديل إلى مدخلات NMEA.</string>
   <string name="tip_tag_conflict">يتطلب دمج وعكس عناصر الخريطة في بعض الأحيان إلى تغيير السمات الموجودة على العناصر ، إذا كان هناك خطأ أو تعارض محتمل ، يتم تنبيهك إلى ذلك ويتم تقديم فرصة لمراجعة العناصر ذات العلاقة.</string>
   <string name="tip_gpx_recording">عند بدء تسجيل GPX ، يقوم فسبوتشي بجمع بيانات الموقع ولتمكين تسجيل GPX حتى عندما لا يكون التطبيق مرئيًا.&lt;p&gt;سيؤدي إغلاق التطبيق أو إيقاف تشغيل تسجيل GPX إلى إيقاف استخدام بيانات الموقع في مثل هذه الحالات.</string>
   <string name="tip_auto_download">عند بدء التنزيل التلقائي لبيانات أو مهام خريطة الشارع المفتوحة فسوف يستخدم تطبيق فسبوتشي بيانات الموقع لتحديد الموضع الحالي حتى عندما لا يكون التطبيق مرئيًا.&lt;p&gt; سيؤدي إغلاق التطبيق أو إيقاف التنزيل التلقائي إلى إيقاف استخدام بيانات الموقع في مثل هذا الحالات.</string>
-  <string name="tip_tristate_checkbox">لقد لمست للتو مربع اختيار ثلاثي ، وهذه المربعات تتضمن الحالات العادية للاختيار مثل مفعل أو غير مفعل true/false أو نعم/لا وهكذا &lt;p&gt; لكن توجد حالة ثالثة لهذا الخيار &lt;b&gt;not set&lt;/b&gt; ألا وهو أن يكون الخيار باللون الرمادي والذي يعني أنه لن يضاف هذا الوسم المتعلق بهذا الخيار وللوصول لتلك الحالة اضغط على مربع الاختيار ضغطة مطولة.</string>
+  <string name="tip_tristate_checkbox">لقد لمست للتو مربع اختيار ثلاثي ، تعمل هذه المربعات مثل مربعات الاختيار العادية, التبديل بين قيمتين, على سبيل المثال نعم / لا أو صح / خطأ.&lt;p&gt;وأيضا يوجد خيار ثالث إضافي &lt;b&gt;not set&lt;/b&gt; , تتم الإشارة إليها بواسطة مربع اختيار باللون الرمادي الذي سيوقف إضافة العلامة المقابلة. يمكنك ضبط مربع الاختيار على هذه الحالة بضغطة طويلة.</string>
+  <string name="tip_alternative_tagging">لقد قمت للتو بتطبيق إعداد مسبق (قالب) يحتوي على روابط لوضع وسوم بديلة. هذه طرق أخرى لتمييز هذا الكائن والتي قد تكون أكثر ملاءمة أو قد تكون مرتبطة ببساطة. ستظهر هذه القوالب البديلة في الجزء العلوي من أحدث عرض تم استخدامه مسبقًا.</string>
+  <string name="tip_mode_switching">يتضاعف زر القفل كمبدل للوضع ، وعند الضغط عليه لفترة طويلة ستظهر قائمة بها خيارات مختلفة.&lt;p&gt;كما يمكنك العثور على مزيد من المعلومات حول أوضاع فسبوتشي في نظام المساعدة ، سواء في المقدمة أو في المساعدة لعرض الخريطة الرئيسية.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -423,6 +441,7 @@
   <string name="qa_channel_name">ضمان الجودة من فسبوتشي</string>
   <string name="qa_channel_description">قناة تنبيه ضمان الجودة لمشاكل البيانات والمهام</string>
   <!--Notifications-->
+  <string name="upload_checker_title">تذكر أن تقوم برفع عملك</string>
   <!--Toaster-->
   <string name="toast_permission_denied">طلب الصلاحية مرفوض %1$s</string>
   <string name="toast_unable_to_persist_permissions">تعذر الحصول على الصلاحيات بشكل دائم</string>
@@ -432,6 +451,7 @@
   <string name="toast_tile_layer_exists">مصدر الصور المتجانبة %1$s له نفس عنوان الرابط</string>
   <string name="toast_no_changes">لم تقم بتغير أي شيء حتى الآن...</string>
   <string name="toast_jpeg_not_transparent">ملفات JPEG ليست شفافة ولا يمكن استخدامها كطبقة</string>
+  <string name="toast_unsupported_projection">إسقاط غير مدعوم  %1$s.\n\nالإسقاطات EPSG:3857, EPSG:4326 وغيرها من المرادفات هي المدعومة.</string>
   <string name="toast_unsaved_changes">قم برفع التغييرات غير المحفوظة أولاً.</string>
   <string name="clear_anyway">هل تريد المسح على أي حال؟</string>
   <string name="toast_upload_success">تم الرفع إلى خادم خريطة الشارع المفتوح.</string>
@@ -458,7 +478,9 @@
   <string name="read_mail">اقرأ</string>
   <string name="toast_photo_indexing_started">بدأ المسح بحثًا عن صور ذات مرجعية جغرافية</string>
   <string name="toast_photo_indexing_finished">تم الانتهاء من المسح الضوئي للصور ذات المرجعية الجغرافية</string>
+  <string name="toast_photo_failed">فشل التقاط صورة. هل تم تمكين تحديد الموقع الجغرافي في تطبيق الكاميرا؟</string>
   <string name="toast_download_failed">فشل التنزيل مع ظهور رمز الخطأ %1$d، رسالة %2$s</string>
+  <string name="toast_note_reopened">أعيد فتح الملاحظة</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">طريق غير ممسوح</string>
   <string name="toast_noname">الطريق يفتقر إلى الاسم أو المرجع</string>
@@ -468,6 +490,7 @@
   <string name="toast_untagged_element">عنصر غير موسوم</string>
   <string name="toast_unconnected_end_node">العقدة/النقطة قريبة من عنصر يمكن توصيلها به</string>
   <string name="toast_degenerate_way">طريق متدهور</string>
+  <string name="toast_wrong_element_type">نوع العنصر غير القياسي: %1$s</string>
   <!---->
   <string name="toast_oauth_retry">حاول التحميل مرة أخرى بعد السماح بوصول OAuth إلى حساب OSM الخاص بك.</string>
   <string name="toast_oauth">يُرجى السماح بالوصول عبر OAuth لحساب OSM الخاص بك.</string>
@@ -603,6 +626,10 @@
   <string name="toast_error_element_too_large">العنصر كبير جدًا بالنسبة لمحرر الخاصية</string>
   <string name="toast_no_intersection_found">لم يعثر على تقاطع</string>
   <string name="toast_api_key_missing">لم يتم العثور على مفتاح الـ API لـ %1$s</string>
+  <string name="toast_no_track_points">لا توجد نقاط تتبع</string>
+  <string name="toast_no_way_points">لا توجد نقاط طريق</string>
+  <string name="toast_url_check">%1$s %2$d</string>
+  <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">مصادر MapSplit تتطلب تحديد الحد الأدنى والحد الأقصى للتكبير</string>
   <string name="error_pbf_no_version">معلومات الإصدار مفقودة في ملف PBF</string>
@@ -634,6 +661,9 @@
   <string name="download">تحميل</string>
   <string name="abort">إلغاء</string>
   <string name="ignore">تجاهل</string>
+  <string name="select">تحديد</string>
+  <string name="skip">تخطي</string>
+  <string name="deprecated">%1$s (مهمل)</string>
   <!--Read a file-->
   <string name="read">اقرأ</string>
   <string name="overwrite">الكتابة فوق</string>
@@ -843,6 +873,7 @@
   <string name="menu_split_polygon">تجزئة إلى مضلعات</string>
   <string name="menu_unjoin_dissimilar">افصل بين العناصر المختلفة</string>
   <string name="menu_extract_segment">استخراج هذا الجزء</string>
+  <string name="menu_select_way_nodes">حدد عقد الطريق</string>
   <string name="menu_newnode_gps">عقدة جديدة في موقع GPS</string>
   <string name="menu_extend_selection">توسيع التحديد</string>
   <string name="menu_information">معلومات</string>
@@ -1002,6 +1033,8 @@
   <string name="config_validatorprefs_summary">تكوين قواعد التحقق من الصحة.</string>
   <string name="config_connectedNodeTolerance_title">تحمل العقدة المتصلة</string>
   <string name="config_connectedNodeTolerance_summary">إذا كانت عقدة نهاية طريق سريعة تقع ضمن هذه المسافة (بالأمتار) من طريق سريع ، فيجب توصيلها به</string>
+  <string name="config_enabledValidations_title">تمكين عمليات التحقق من الصحة</string>
+  <string name="config_enabledValidations_summary">تمكين / تعطيل عمليات التحقق الفردية</string>
   <!--opening hours templates-->
   <string name="config_opening_hours_title">قوالب ساعات العمل</string>
   <string name="config_opening_hours_summary">تحميل وحفظ وحذف قوالب ساعات العمل</string>
@@ -1029,6 +1062,8 @@
   <string name="config_fv5_pro">FV5 pro</string>
   <string name="config_useInternalPhotoViewer_title">استخدم عارض الصور المدمج</string>
   <string name="config_useInternalPhotoViewer_summary">استخدم عارض الصورة المدمج، إذا لم يتم تحديده فسيتم استخدام عارض خارجي.</string>
+  <string name="config_indexMediaStore_summary">بالإضافة إلى استخدام متجر الوسائط للوصول إلى الصور</string>
+  <string name="config_indexMediaStore_title">استخدم متجر الوسائط</string>
   <string name="config_followGPSbutton_title">تحديد موضع تخطيط الزر</string>
   <string name="config_followGPSbutton_summary">حيث يوجد زر \"متابعة الموضع\".</string>
   <string name="config_alwaysDrawBoundingBoxes_title">قم دائمًا بتعتيم المناطق التي لم يتم تنزيلها</string>
@@ -1064,7 +1099,12 @@
   <string name="config_uploadOk_summary">تحديد العدد المناسب للعناصر العالقة والمراد رفعها على الخادم</string>
   <string name="config_upload_current">%1$d عنصر/عناصر</string>
   <string name="config_uploadWarn_title">في انتظار تحذير الرفع</string>
+  <string name="config_uploadWarn_summary">تحديد عدد العناصر المعلقة التي يظهر عندها التنبية لرفعها إلى الخادم.</string>
+  <string name="config_uploadChecker_title">رفع الفاصل الزمني للتذكير</string>
+  <string name="config_uploadChecker_summary">الفاصل الزمني للتذكيرات إذا كان لديك تغييرات غير منشورة.</string>
+  <string name="config_uploadChecker_current">%1$d ساعة/ساعات</string>
   <string name="config_dataWarn_title">تحذير البيانات الكثيرة</string>
+  <string name="config_dataWarn_summary">الحد (في عدد العقد) الذي يبدأ عنده التحذير من تحميل الكثير من البيانات.</string>
   <string name="config_useUrlForFeedback_title">تعطيل نشاط التغذية الراجعة</string>
   <string name="config_useUrlForFeedback_summary">قم بتعطيل نشاط التغذية الراجعة واستخدم عنوان URL بدلاً من ذلك.</string>
   <string name="config_beepVolume_title">حجم صوت الصفير</string>
@@ -1073,6 +1113,8 @@
   <string name="config_mapillary_min_zoom_title">الحد الأدنى للتكبير لمابلاري</string>
   <string name="config_mapillary_min_zoom_summary">الحد الأدنى لمستوى التكبير المطلوب لعرض بيانات Mapillary.</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_nameCap_summary">الكتابة التلقائية للوسوم بالأحرف الكبيرة على الإدخال</string>
+  <string name="config_nameCap_title">كتابة الاسم بأحرف كبيرة</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">البيانات وتحرير الإعدادات</string>
   <string name="config_category_editing_summary">إعدادات التنزيل التلقائي والحفظ والتنبيهات.</string>
@@ -1293,6 +1335,7 @@
   <string name="report_failure">تعذر إرسال التقرير.</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">ستنشئ هذه العملية طريق به عدد كبير جدًا من العقد.</string>
+  <string name="exception_too_many_members">ستضيف هذه العملية عددًا كبيرًا جدًا من الأعضاء إلى العلاقة %1$s.</string>
   <!--Notifications-->
   <string name="alert_data_issue">تم اكتشاف مشكلة بيانات خرائط الشارع المفتوحة</string>
   <string name="alert_note">تم الكشف عن ملاحظة خرائط الشارع المفتوحة القريبة</string>
@@ -1335,6 +1378,7 @@
   <string name="issue_merged_metric">تم دمج القيمة التي تعتمد على الطول</string>
   <string name="issue_split_metric">تم تجزئة القيمة المعتمدة على الطول</string>
   <string name="issue_split_route_ordering">قد يحتاج المسار إلى إعادة ترتيب يدوي</string>
+  <string name="issue_precondition_relation_member_count">تم تجاوز عدد أعضاء العلاقة</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="zero">ولا يوم</item>
@@ -1394,4 +1438,9 @@
   <string name="gotobookmark">انطلق</string>
   <string name="bookmarkstitle">المفضلات</string>
   <!--Element types-->
+  <string name="element_type_node">عقدة</string>
+  <string name="element_type_way">طريق</string>
+  <string name="element_type_closedway">طريق مغلق</string>
+  <string name="element_type_area">مساحة</string>
+  <string name="element_type_relation">علاقة</string>
 </resources>
