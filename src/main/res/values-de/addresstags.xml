@@ -1,24 +1,23 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string-array name="address_tags_entries">
-    <item>Hausnummer (addr:housenumber)</item>
-    <item>Straße (addr:street)</item>
-    <item>Konskriptionsnummer (addr:conscriptionnumber)</item>
-    <item>Postleitzahl (addr:postcode)</item>
-    <item>Stadt/Dorf/..  (addr:city)</item>
-    <item>Land (addr:country)</item>
-    <item>Volladresse (addr:full)</item>
-    <item>Ort/Platz/.. (addr:place)</item>
-    <item>Stadtblock (addr:block)</item>
-    <item>Stadtblocknummer (addr:block_number)</item>
-    <item>Weiler (addr:hamlet)</item>
-    <item>Vorort (addr:suburb)</item>
-    <item>Unterbezirk (addr:subdistrict)</item>
-    <item>Bezirk (addr:district)</item>
-    <item>Provinz (addr:province)</item>
-    <item>Bundesland (addr:state)</item>
-    <item>Etage (addr:flats)</item>
-    <item>Tür (addr:door)</item>
-    <item>Gebäude (addr:unit)</item>
-  </string-array>
+  <string name="addr_housenumber">Hausnummer (addr:housenumber)</string>
+  <string name="addr_conscriptionnumber">Konskriptionsnummer (addr:conscriptionnumber)</string>
+  <string name="addr_street">Strasse (addr:street)</string>
+  <string name="addr_postcode">Postleitzahl (addr:postcode)</string>
+  <string name="addr_city">Stadt .. (addr:city)</string>
+  <string name="addr_country">Land (addr:country)</string>
+  <string name="addr_full">Volle Adresse (addr:full)</string>
+  <string name="addr_place">Ort (addr:place)</string>
+  <string name="addr_block">Block (addr:block)</string>
+  <string name="addr_block_number">Blocknummer (addr:block_number)</string>
+  <string name="addr_parentstreet">Zusätzliche Lokalisation (addr:parenstreet)</string>
+  <string name="addr_hamlet">Weiler (addr:hamlet)</string>
+  <string name="addr_suburb">Vorort (addr:suburb)</string>
+  <string name="addr_subdistrict">Unterbezirk (addr:subdistrict)</string>
+  <string name="addr_district">Bezirk (addr:district)</string>
+  <string name="addr_province">Provinz (addr:province)</string>
+  <string name="addr_state">Bundesland (addr:state)</string>
+  <string name="addr_flats">Wohnung (addr:flats)</string>
+  <string name="addr_door">Türe (addr:door)</string>
+  <string name="addr_unit">Wohneinheit (addr:unit)</string>
 </resources>

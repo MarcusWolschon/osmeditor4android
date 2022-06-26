@@ -1,59 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="address_tags_entries">
-        <item>Housenumber (addr:housenumber)</item>
-        <item>Conscription number (addr:conscriptionnumber)</item>
-		<item>Street (addr:street)</item>
-		<item>Postcode (addr:postcode)</item>
-		<item>City/Town/Village/..  (addr:city)</item>
-		<item>Country (addr:country)</item>
-		<item>Full address (addr:full)</item>
-		<item>Place (addr:place)</item>
-        <item>Block (addr:block)</item>
-        <item>Block number (addr:block_number)</item>
-		<item>Hamlet (addr:hamlet)</item>
-		<item>Suburb (addr:suburb)</item>
-		<item>Subdistrict (addr:subdistrict)</item>
-		<item>District (addr:district)</item>
-		<item>Province (addr:province)</item>
-		<item>State (addr:state)</item>
-		<item>Flats (addr:flats)</item>
-		<item>Door (addr:door)</item>
-		<item>Unit (addr:unit)</item>
+    <string name="addr_housenumber">Housenumber (addr:housenumber)</string>
+    <string name="addr_conscriptionnumber">Conscription number (addr:conscriptionnumber)</string>
+    <string name="addr_street">Street (addr:street)</string>
+    <string name="addr_postcode">Postcode (addr:postcode)</string>
+    <string name="addr_city">City/Town/Village/.. (addr:city)</string>
+    <string name="addr_country">Country (addr:country)</string>
+    <string name="addr_full">Full address (addr:full)</string>
+    <string name="addr_place">Place (addr:place)</string>
+    <string name="addr_block">Block (addr:block)</string>
+    <string name="addr_block_number">Block number (addr:block_number)</string>
+    <string name="addr_parentstreet">Additional localisation (addr:parenstreet)</string>
+    <string name="addr_hamlet">Hamlet (addr:hamlet)</string>
+    <string name="addr_suburb">Suburb (addr:suburb)</string>
+    <string name="addr_subdistrict">Subdistrict (addr:subdistrict)</string>
+    <string name="addr_district">District (addr:district)</string>
+    <string name="addr_province">Province (addr:province)</string>
+    <string name="addr_state">State (addr:state)</string>
+    <string name="addr_flats">Flats (addr:flats)</string>
+    <string name="addr_door">Door (addr:door)</string>
+    <string name="addr_unit">Unit (addr:unit)</string>
+    <string-array translatable="false" name="address_tags_entries">
+        <item>@string/addr_housenumber</item>
+        <item>@string/addr_conscriptionnumber</item>
+        <item>@string/addr_street</item>
+        <item>@string/addr_postcode</item>
+        <item>@string/addr_city</item>
+        <item>@string/addr_country</item>
+        <item>@string/addr_full</item>
+        <item>@string/addr_place</item>
+        <item>@string/addr_block</item>
+        <item>@string/addr_block_number</item>
+        <item>@string/addr_parentstreet</item>
+        <item>@string/addr_hamlet</item>
+        <item>@string/addr_suburb</item>
+        <item>@string/addr_subdistrict</item>
+        <item>@string/addr_district</item>
+        <item>@string/addr_province</item>
+        <item>@string/addr_state</item>
+        <item>@string/addr_flats</item>
+        <item>@string/addr_door</item>
+        <item>@string/addr_unit</item>
     </string-array>
     <string-array translatable="false" name="address_tags_values">
-		<item>addr:housenumber</item>
+        <item>addr:housenumber</item>
         <item>addr:conscriptionnumber</item>
-		<item>addr:street</item>
-		<item>addr:postcode</item>
-		<item>addr:city</item>
-		<item>addr:country</item>
-		<item>addr:full</item>
-		<item>addr:place</item>
+        <item>addr:street</item>
+        <item>addr:postcode</item>
+        <item>addr:city</item>
+        <item>addr:country</item>
+        <item>addr:full</item>
+        <item>addr:place</item>
         <item>addr:block</item>
         <item>addr:block_number</item>
-		<item>addr:hamlet</item>
-		<item>addr:suburb</item>
-		<item>addr:subdistrict</item>
-		<item>addr:district</item>
-		<item>addr:province</item>
-		<item>addr:state</item>
-		<item>addr:flats</item>
-		<item>addr:door</item>
-		<item>addr:unit</item>
+        <item>addr:parentstreet</item>
+        <item>addr:hamlet</item>
+        <item>addr:suburb</item>
+        <item>addr:subdistrict</item>
+        <item>addr:district</item>
+        <item>addr:province</item>
+        <item>addr:state</item>
+        <item>addr:flats</item>
+        <item>addr:door</item>
+        <item>addr:unit</item>
     </string-array>
     <string-array translatable="false" name="address_tags_defaults">
         <item>addr:housenumber</item>
-		<item>addr:street</item>
-		<item>addr:postcode</item>
-		<item>addr:city</item>
-		<item>addr:place</item>
-		<item>addr:hamlet</item>
-		<item>addr:suburb</item>
-		<item>addr:subdistrict</item>
-		<item>addr:district</item>
-		<item>addr:province</item>
-		<item>addr:state</item>
+        <item>addr:street</item>
+        <item>addr:postcode</item>
+        <item>addr:city</item>
+        <item>addr:place</item>
+        <item>addr:hamlet</item>
+        <item>addr:suburb</item>
+        <item>addr:subdistrict</item>
+        <item>addr:district</item>
+        <item>addr:province</item>
+        <item>addr:state</item>
     </string-array>
 </resources>
-

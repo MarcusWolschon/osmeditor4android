@@ -39,6 +39,7 @@ public final class Tags {
     public static final String KEY_ADDR_PLACE              = "addr:place";
     public static final String KEY_ADDR_BLOCK              = "addr:block";
     public static final String KEY_ADDR_BLOCK_NUMBER       = "addr:block_number";
+    public static final String KEY_ADDR_PARENTSTREET       = "addr:parentstreet";
     public static final String KEY_ADDR_HAMLET             = "addr:hamlet";
     public static final String KEY_ADDR_SUBURB             = "addr:suburb";
     public static final String KEY_ADDR_SUBDISTRICT        = "addr:subdistrict";
@@ -83,8 +84,8 @@ public final class Tags {
     public static final String VALUE_POTENTIAL        = "potential";
 
     // "large scale" address keys
-    public static final List<String> ADDRESS_LARGE = Collections
-            .unmodifiableList(Arrays.asList(KEY_ADDR_STREET, KEY_ADDR_PLACE, KEY_ADDR_BLOCK, KEY_ADDR_BLOCK_NUMBER, KEY_ADDR_POSTCODE, KEY_ADDR_HAMLET,
+    public static final List<String> ADDRESS_LARGE = Collections.unmodifiableList(
+            Arrays.asList(KEY_ADDR_STREET, KEY_ADDR_PLACE, KEY_ADDR_BLOCK, KEY_ADDR_BLOCK_NUMBER, KEY_ADDR_PARENTSTREET, KEY_ADDR_POSTCODE, KEY_ADDR_HAMLET,
                     KEY_ADDR_SUBURB, KEY_ADDR_CITY, KEY_ADDR_SUBDISTRICT, KEY_ADDR_DISTRICT, KEY_ADDR_PROVINCE, KEY_ADDR_STATE, KEY_ADDR_COUNTRY));
 
     // other address related stuff
@@ -470,10 +471,10 @@ public final class Tags {
      * An set of tags considered 'important'. These are typically tags that define real-world objects and not properties
      * of such.
      */
-    public static final Set<String> IMPORTANT_TAGS = Collections
-            .unmodifiableSet(new HashSet<>(Arrays.asList(KEY_HIGHWAY, KEY_BARRIER, KEY_WATERWAY, KEY_RAILWAY, KEY_AEROWAY, KEY_AERIALWAY, KEY_POWER,
-                    KEY_MAN_MADE, KEY_BUILDING, KEY_LEISURE, KEY_AMENITY, KEY_OFFICE, KEY_SHOP, KEY_CRAFT, KEY_EMERGENCY, KEY_TOURISM, KEY_HISTORIC,
-                    KEY_LANDUSE, KEY_MILITARY, KEY_NATURAL, KEY_BOUNDARY, KEY_PLACE, KEY_TYPE, KEY_ENTRANCE, KEY_PIPELINE, KEY_HEALTHCARE, KEY_GEOLOGICAL)));
+    public static final Set<String> IMPORTANT_TAGS = Collections.unmodifiableSet(
+            new HashSet<>(Arrays.asList(KEY_HIGHWAY, KEY_BARRIER, KEY_WATERWAY, KEY_RAILWAY, KEY_AEROWAY, KEY_AERIALWAY, KEY_POWER, KEY_MAN_MADE, KEY_BUILDING,
+                    KEY_LEISURE, KEY_AMENITY, KEY_OFFICE, KEY_SHOP, KEY_CRAFT, KEY_EMERGENCY, KEY_TOURISM, KEY_HISTORIC, KEY_LANDUSE, KEY_MILITARY, KEY_NATURAL,
+                    KEY_BOUNDARY, KEY_PLACE, KEY_TYPE, KEY_ENTRANCE, KEY_PIPELINE, KEY_HEALTHCARE, KEY_GEOLOGICAL, KEY_ADDR_HOUSENUMBER, KEY_ADDR_HOUSENAME)));
     /** ways that we might want to render differently */
     public static final Set<String> WAY_TAGS       = Collections
             .unmodifiableSet(new HashSet<>(Arrays.asList(KEY_BUILDING, KEY_RAILWAY, KEY_LEISURE, KEY_LANDUSE, KEY_WATERWAY, KEY_NATURAL, KEY_ADDR_INTERPOLATION,
