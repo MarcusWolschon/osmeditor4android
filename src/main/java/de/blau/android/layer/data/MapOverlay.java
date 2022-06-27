@@ -43,6 +43,7 @@ import de.blau.android.App;
 import de.blau.android.AsyncResult;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
+import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.Mode;
 import de.blau.android.R;
@@ -236,6 +237,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private FeatureStyle nodeFeatureStyleFontProblem;
     private FeatureStyle nodeFeatureStyleFontSmallProblem;
     private FeatureStyle nodeFeatureStyleHidden;
+
+    private float nodeToleranceRadius;
 
     /** Cached Way FeatureStyles and Paints */
     private FeatureStyle selectedWayStyle;
@@ -1229,7 +1232,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param paint the parameters to use for the colour
      */
     private void drawNodeTolerance(@NonNull final Canvas canvas, final boolean isTagged, final float x, final float y, @NonNull final Paint paint) {
-        canvas.drawCircle(x, y, isTagged ? paint.getStrokeWidth() : wayTolerancePaint.getStrokeWidth() / 2, paint);
+        canvas.drawCircle(x, y, isTagged ? paint.getStrokeWidth() : nodeToleranceRadius, paint);
     }
 
     /**
@@ -1299,6 +1302,15 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             drawWayArrows(canvas, linePoints, pointsSize, reversed, wayDirectionPaint, displayHandles && tmpDrawingSelectedWays.size() == 1);
             labelFontStyle = labelTextStyleNormalSelected;
             labelFontStyleSmall = labelTextStyleSmallSelected;
+            // visual feedback if way nodes are draggable
+            if (prefs.isWayNodeDraggingEnabled() && context instanceof Main && ((Main) context).getEasyEditManager().inWaySelectedMode()) {
+                for (int i = 0; i < pointsSize; i += 4) {
+                    canvas.drawCircle(linePoints[i], linePoints[i + 1], nodeToleranceRadius, nodeDragRadiusPaint);
+                }
+                if (!closed) {
+                    canvas.drawCircle(linePoints[pointsSize - 2], linePoints[pointsSize - 1], nodeToleranceRadius, nodeDragRadiusPaint);
+                }
+            }
         } else if (isMemberOfSelectedRelation) {
             paint = wayFeatureStyleRelation.getPaint();
             paint.setStrokeWidth(style.getPaint().getStrokeWidth() * wayFeatureStyleRelation.getWidthFactor());
@@ -1595,6 +1607,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         nodeTolerancePaint = DataStyle.getInternal(DataStyle.NODE_TOLERANCE).getPaint();
         nodeTolerancePaint2 = DataStyle.getInternal(DataStyle.NODE_TOLERANCE_2).getPaint();
         wayTolerancePaint = DataStyle.getInternal(DataStyle.WAY_TOLERANCE).getPaint();
+        nodeToleranceRadius = wayTolerancePaint.getStrokeWidth() / 2;
         wayTolerancePaint2 = DataStyle.getInternal(DataStyle.WAY_TOLERANCE_2).getPaint();
         labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
 

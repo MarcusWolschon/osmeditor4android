@@ -102,6 +102,17 @@ public class EasyEditManager {
     }
 
     /**
+     * Check if a Way is selected
+     * 
+     * @return true if we are in one of the ELementSelection modes
+     */
+    public boolean inWaySelectedMode() {
+        synchronized (actionModeCallbackLock) {
+            return currentActionModeCallback instanceof WaySelectionActionModeCallback;
+        }
+    }
+
+    /**
      * Check if a new Note is selected
      * 
      * @return true if we are in new Note ActionMode

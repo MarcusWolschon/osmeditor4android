@@ -321,6 +321,11 @@ public class Logic {
     private Handle selectedHandle = null;
 
     /**
+     * This is set if we are dragging a way node
+     */
+    private Node draggedNode = null;
+
+    /**
      * Filter to apply if any
      */
     private Filter filter = null;
@@ -1290,6 +1295,7 @@ public class Logic {
         draggingWay = false;
         draggingHandle = false;
         draggingNote = false;
+        draggedNode = null;
         if (!isLocked() && isInEditZoomRange() && mode.elementsGeomEditiable()) {
             if (activity instanceof Main && !((Main) activity).getEasyEditManager().draggingEnabled()) {
                 // dragging is currently only supported in element selection modes
@@ -1300,14 +1306,15 @@ public class Logic {
             if (taskLayer != null) {
                 selectedTask = taskLayer.getSelected();
             }
+            final boolean largeDragArea = prefs.largeDragArea();
             if (((selectedNodes != null && selectedNodes.size() == 1) || selectedTask != null) && selectedWays == null) {
                 DataStyle currentStyle = DataStyle.getCurrent();
-                float tolerance = prefs.largeDragArea() ? currentStyle.getLargDragToleranceRadius() : currentStyle.getNodeToleranceValue();
+                float tolerance = largeDragArea ? currentStyle.getLargDragToleranceRadius() : currentStyle.getNodeToleranceValue();
                 GeoPoint point = selectedTask != null ? selectedTask : selectedNodes.get(0);
                 if (clickDistance(point, x, y, tolerance) != null) {
                     draggingNode = selectedTask == null;
                     draggingNote = selectedTask != null;
-                    if (prefs.largeDragArea()) {
+                    if (largeDragArea) {
                         startX = lonE7ToX(point.getLon());
                         startY = latE7ToY(point.getLat());
                     }
@@ -1322,10 +1329,21 @@ public class Logic {
                             draggingHandle = true;
                         } else {
                             Way clickedWay = getClickedWay(x, y);
-                            if (clickedWay != null && (clickedWay.getOsmId() == selectedWays.get(0).getOsmId())) {
-                                startLat = yToLatE7(y);
-                                startLon = xToLonE7(x);
-                                draggingWay = true;
+                            if (clickedWay != null) {
+                                Node clickedNode = getClickedNode(x, y);
+                                final Way selectedWay = selectedWays.get(0);
+                                if (prefs.isWayNodeDraggingEnabled() && selectedWay.hasNode(clickedNode)) {
+                                    draggingNode = true;
+                                    draggedNode = clickedNode;
+                                    if (largeDragArea) {
+                                        startX = lonE7ToX(draggedNode.getLon());
+                                        startY = latE7ToY(draggedNode.getLat());
+                                    }
+                                } else if (clickedWay.equals(selectedWay)) {
+                                    startLat = yToLatE7(y);
+                                    startLon = xToLonE7(x);
+                                    draggingWay = true;
+                                }
                             }
                         }
                     } else {
@@ -1427,10 +1445,12 @@ public class Logic {
      */
     synchronized void handleTouchEventMove(@NonNull Main main, final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
         if (draggingNode || draggingWay || draggingHandle || draggingNote) {
-            int lat;
-            int lon;
+            int lat = yToLatE7(absoluteY);
+            int lon = xToLonE7(absoluteX);
             // checkpoint created where draggingNode is set
-            if ((draggingNode && selectedNodes != null && selectedNodes.size() == 1 && selectedWays == null) || draggingHandle || draggingNote) {
+            if ((draggingNode
+                    && ((selectedNodes != null && selectedNodes.size() == 1 && selectedWays == null) || (selectedWays != null && selectedWays.size() == 1)))
+                    || draggingHandle || draggingNote) {
                 if (draggingHandle) { // create node only if we are really dragging
                     try {
                         if (handleNode == null && selectedHandle != null && selectedWays != null) {
@@ -1440,7 +1460,7 @@ public class Logic {
                         }
                         if (handleNode != null) {
                             setSelectedNode(null); // performAddOnWay sets this, need to undo
-                            getDelegator().moveNode(handleNode, yToLatE7(absoluteY), xToLonE7(absoluteX));
+                            getDelegator().moveNode(handleNode, lat, lon);
                         }
                     } catch (OsmIllegalOperationException e) {
                         Snack.barError(main, e.getMessage());
@@ -1452,13 +1472,13 @@ public class Logic {
                         startX = startX - relativeX;
                         lat = yToLatE7(startY);
                         lon = xToLonE7(startX);
-                    } else {
-                        lat = yToLatE7(absoluteY);
-                        lon = xToLonE7(absoluteX);
                     }
                     if (draggingNode) {
-                        displayAttachedObjectWarning(main, selectedNodes.get(0));
-                        getDelegator().moveNode(selectedNodes.get(0), lat, lon);
+                        if (selectedNodes != null && selectedNodes.size() == 1) {
+                            draggedNode = selectedNodes.get(0);
+                        }
+                        displayAttachedObjectWarning(main, draggedNode);
+                        getDelegator().moveNode(draggedNode, lat, lon);
                     } else {
                         de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
                         if (taskLayer != null) {
@@ -1477,8 +1497,6 @@ public class Logic {
                     }
                 }
             } else { // way dragging and multi-select
-                lat = yToLatE7(absoluteY);
-                lon = xToLonE7(absoluteX);
                 List<Node> nodes = new ArrayList<>();
                 if (selectedWays != null && !selectedWays.isEmpty()) { // shouldn't happen but might be a race condition
                     for (Way w : selectedWays) {

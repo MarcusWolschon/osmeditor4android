@@ -112,6 +112,7 @@ public class Preferences {
     private final int         maxOffsetDistance;
     private final Set<String> enabledValidations;
     private final int         autoNameCap;
+    private final boolean     wayNodeDragging;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -195,7 +196,7 @@ public class Preferences {
         gpsInterval = getIntPref(R.string.config_gps_interval_key, 1000);
 
         forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), false);
-        
+
         osmWiki = prefs.getString(r.getString(R.string.config_osmWiki_key), Urls.DEFAULT_OSM_WIKI);
         offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), Urls.DEFAULT_OFFSET_SERVER);
         osmoseServer = prefs.getString(r.getString(R.string.config_osmoseServer_key), Urls.DEFAULT_OSMOSE_SERVER);
@@ -285,6 +286,8 @@ public class Preferences {
         enabledValidations = prefs.getStringSet(r.getString(R.string.config_enabledValidations_key),
                 new HashSet<>(Arrays.asList(r.getStringArray(R.array.validations_values))));
         autoNameCap = getIntFromStringPref(R.string.config_nameCap_key, 1);
+
+        wayNodeDragging = prefs.getBoolean(r.getString(R.string.config_wayNodeDragging_key), false);
     }
 
     /**
@@ -719,7 +722,6 @@ public class Preferences {
         return splitActionBarEnabled;
     }
 
-
     /**
      * Get the configured OSM wiki url
      * 
@@ -728,7 +730,7 @@ public class Preferences {
     public String getOsmWiki() {
         return osmWiki;
     }
-    
+
     /**
      * Get the configured offset database server
      * 
@@ -1514,6 +1516,15 @@ public class Preferences {
      */
     public int getAutoNameCap() {
         return autoNameCap << 13;
+    }
+
+    /**
+     * CHeck if dragging ow way nodes of the selected way is enabled
+     * 
+     * @return true if enabled
+     */
+    public boolean isWayNodeDraggingEnabled() {
+        return wayNodeDragging;
     }
 
     /**
