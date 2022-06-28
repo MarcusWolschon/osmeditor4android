@@ -1,5 +1,28 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.1.2:
+
+- Fix wrap all occurrences of Snackbar.make in a try-catch
+- Fix protect against an invalid position in the photo list
+- Fix protect against degenerate ways in more places
+- Fix protect against missing context during map configuration in layer dialog
+- Fix catch exceptions when calling super when reading images
+- Fix protect against element not being found on restore in element info dialog
+- Fix hardwire addr:housenumber and addr:housename as important tags
+- Fix optionally retain original geometry when offsetting a way
+- Fix require that a Bing tile layer source entry has an api key placeholder
+- Fix add missing bookmark menu entries
+- Fix use element type specific matching in relation editing mode
+- Fix centroidLonLat behaviour for closed ways and rounding performance
+- Fix warning instead of error toast when object search fails
+- Add addr:parenstreet to address tags
+- Update imagery from ELI
+- Update preset
+- Update translations
+- Update okhttp dependency
+- Update geocontext
+- Update / remove old translations of addresstags.xml
+
 17.1.1:
 
 - Fix handle more upload conflicts
