@@ -183,6 +183,11 @@ public class ElementInfo extends InfoDialogFragment {
             getArguments().remove(ELEMENT_KEY);
             getArguments().remove(UNDOELEMENT_INDEX_KEY);
         }
+        if (element == null) {
+            Log.e(DEBUG_TAG, "element is null");
+            Snack.toastTopError(getContext(), R.string.toast_element_not_found_on_restore);
+            return; // dialog will come up empty
+        }
         if (ueIndex >= 0) {
             List<UndoElement> undoElements = App.getDelegator().getUndo().getUndoElements(element);
             if (undoElements.size() > ueIndex) {
