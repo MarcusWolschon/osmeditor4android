@@ -64,17 +64,32 @@ public class ExtendedExifInterface extends ExifInterface {
      * Note this variant reads the file twice
      * 
      * @param context Android context
-     * @param uri a content of file uri
+     * @param uri a content or file uri
      * @throws FileNotFoundException if the file can't be found
      * @throws IOException any other kind of error
      */
     public ExtendedExifInterface(@NonNull Context context, @NonNull Uri uri) throws IOException {
-        this(context.getContentResolver().openInputStream(uri));
-        try (InputStream is = context.getContentResolver().openInputStream(uri)) {
+        this(openInputStream(context, uri));
+        try (InputStream is = openInputStream(context, uri)) {
             metadata = JpegMetadataReader.readMetadata(is);
         } catch (JpegProcessingException e) {
             // broken Jpeg, ignore
             throw new IOException(e.getMessage());
+        }
+    }
+
+    /**
+     * Get an InputStream from an uri
+     * 
+     * @param context Android context
+     * @param uri a content or file uri
+     * @return an InputStream
+     * @throws IOException if anything goes wrong
+     */
+    @NonNull
+    private static InputStream openInputStream(@NonNull Context context, @NonNull Uri uri) throws IOException {
+        try {
+            return context.getContentResolver().openInputStream(uri);
         } catch (Exception ex) {
             // other stuff broken ... for example ArrayIndexOutOfBounds
             throw new IOException(ex.getMessage());
