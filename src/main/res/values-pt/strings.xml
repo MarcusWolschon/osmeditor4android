@@ -83,6 +83,7 @@
   <string name="confirm_upload_title">Enviar alterações</string>
   <plurals name="confirm_upload_text">
     <item quantity="one">Enviar esta alteração?</item>
+    <item quantity="many">Enviar estas %1$d alterações?</item>
     <item quantity="other">Enviar estas %1$d alterações?</item>
   </plurals>
   <string name="confirm_upload_edits_page">Alterações</string>
@@ -93,6 +94,7 @@
   <string name="upload_validation_error_empty_comment">O comentário não deve estar em branco</string>
   <string name="upload_validation_error_empty_source">A fonte não deve estar em branco</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">Enviar trilho GPX</string>
   <string name="upload_gpx_description_label">Descrição</string>
   <string name="upload_gpx_tags_label">Etiquetas</string>
   <string name="upload_gpx_visibility_label">Visibilidade</string>
@@ -170,12 +172,16 @@
   <string name="empty_role">Função vazia</string>
   <string name="last_edited">Última edição</string>
   <string name="original">Original</string>
+  <string name="previous">Anterior</string>
   <string name="current">Atual</string>
   <string name="goto_element">Ir para o elemento</string>
+  <string name="edit_properties">Editar etiquetas</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Informação de elementos GeoJSON</string>
   <string name="copy_properties">Copiar propriedades</string>
   <!--API/Data layer info dialog-->
+  <string name="total">Total</string>
+  <string name="changed">Alterado</string>
   <string name="ways">Vias</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Atribuição</string>
@@ -207,6 +213,7 @@
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK, continuar a mostrar</string>
   <!--This concerns a shown message that should only be shown once-->
+  <string name="attached_object_warning_stop">OK, ignorar</string>
   <!--debug dialog-->
   <string name="send_debug_information">Enviar informações de depuração</string>
   <!--JS console dialog-->
@@ -246,6 +253,7 @@
   <string name="oam_layer_title">Imagem OAM</string>
   <string name="edit_layer_title">Editar camada</string>
   <string name="add_layer_title">Adicionar camada</string>
+  <string name="select_layer_title">Selecionar camada</string>
   <string name="overlay">Camada superior</string>
   <string name="coverage">Cobertura</string>
   <string name="coverage_top">Topo</string>
@@ -259,8 +267,10 @@
   <string name="layer_style_stroke_width">Espessura da linha</string>
   <string name="layer_style_color">Cor</string>
   <string name="layer_style_label">Etiqueta</string>
+  <string name="layer_style_symbol">Símbolo</string>
   <string name="json_object_not_displayed">Objeto JSON (não mostrado)</string>
   <string name="json_array_not_displayed">Tabela JSON (não mostrado)</string>
+  <string name="gpx_automatic">Automático</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
@@ -339,6 +349,7 @@
   <string name="toast_way_nodes_moved">%1$d nós na linha movida</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Tem 1 mensagem por ler no OpenStretMap</item>
+    <item quantity="many">Tem %1$d mensagens por ler no OpenStretMap</item>
     <item quantity="other">Tem %1$d mensagens por ler no OpenStretMap</item>
   </plurals>
   <string name="read_mail">Ler</string>
@@ -368,6 +379,7 @@
   <string name="toast_file_not_found">%1$s não encontrado.</string>
   <plurals name="toast_imported_track_points">
     <item quantity="one">Importado %1$d pontos de trilho GPX e 1 ponto de linha.</item>
+    <item quantity="many">Importados %1$d pontos de trilhos GPX e %2$d pontos de linhas.</item>
     <item quantity="other">Importados %1$d pontos de trilhos GPX e %2$d pontos de linhas.</item>
   </plurals>
   <string name="toast_unknown_voice_command">Desculpe, neste momento \"%1$s\" não é compreensível</string>
@@ -467,6 +479,7 @@
   <string name="retry">Tentar novamente</string>
   <string name="check">Verificado</string>
   <string name="download">Descarregar</string>
+  <string name="select">Selecionar</string>
   <!--Read a file-->
   <string name="read">Ler</string>
   <string name="overwrite">Sobrescrever</string>
@@ -725,6 +738,7 @@ há %3$s %4$s</string>
   <string name="actionmode_restriction_split_via">Segmento \"via\" (através de) dividido</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 objeto</item>
+    <item quantity="many">%1$d objetos</item>
     <item quantity="other">%1$d objetos</item>
   </plurals>
   <string name="actionmode_rotateway">Rodar linha</string>
@@ -818,6 +832,7 @@ há %3$s %4$s</string>
   <string name="config_maxStrokeWidth_summary">Não desenhar uma linha mais larga que isto.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <string name="config_upload_current">%1$d objetos</string>
+  <string name="config_uploadChecker_current">%1$d horas</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Configurações de dados e edição</string>
   <string name="config_category_editing_summary">Configurações de descarregamento automático, gravar e notificações.</string>
@@ -1034,30 +1049,39 @@ há %3$s %4$s</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 dia</item>
+    <item quantity="many">%1$d dias</item>
     <item quantity="other">%1$d dias</item>
   </plurals>
   <plurals name="hours">
     <item quantity="one">1 hora</item>
+    <item quantity="many">%1$d horas</item>
     <item quantity="other">%1$d horas</item>
   </plurals>
   <plurals name="minutes">
     <item quantity="one">1 minuto</item>
+    <item quantity="many">%1$d minutos</item>
     <item quantity="other">%1$d minutos</item>
   </plurals>
   <plurals name="seconds">
     <item quantity="one">1 segundo</item>
+    <item quantity="many">%1$d segundos</item>
     <item quantity="other">%1$d segundos</item>
   </plurals>
   <plurals name="km">
     <item quantity="one">1 km</item>
+    <item quantity="many">%1$d km</item>
     <item quantity="other">%1$d km</item>
   </plurals>
   <plurals name="meters">
     <item quantity="one">1 metro</item>
+    <item quantity="many">%1$d metros</item>
     <item quantity="other">%1$d metros</item>
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Sem ajuda aqui.</string>
   <!--Bookmarks-->
   <!--Element types-->
+  <string name="element_type_way">caminho</string>
+  <string name="element_type_area">área</string>
+  <string name="element_type_relation">relação</string>
 </resources>

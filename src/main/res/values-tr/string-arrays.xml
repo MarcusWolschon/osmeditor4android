@@ -70,4 +70,10 @@
         <item>Hatalı girilmiş URL</item>
         <item>Geçersiz parametre</item>
     </string-array>
- </resources>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>Büyük harf kullanımı yok</item>
+        <item>Kelimede büyük harf kullanımı</item>
+        <item>Cümlede büyük harf kullanımı</item>
+    </string-array>
+    </resources>
