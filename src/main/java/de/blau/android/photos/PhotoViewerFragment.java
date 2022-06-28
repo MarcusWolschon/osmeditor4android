@@ -217,6 +217,12 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
         }
 
         View layout = themedInflater.inflate(R.layout.photo_viewer, null);
+        // sanity check
+        if (photoList == null || photoList.isEmpty() || (startPos + 1) > photoList.size()) {
+            Log.e(DEBUG_TAG, "List empty or start position out of bounds");
+            Snack.toastTopError(activity, R.string.toast_no_photo_found);
+            return layout;
+        }
         photoPagerAdapter = new PhotoPagerAdapter(activity, photoLoader);
 
         viewPager = (ViewPager) layout.findViewById(R.id.pager);
