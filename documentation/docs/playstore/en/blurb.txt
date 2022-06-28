@@ -1,4 +1,4 @@
-Vespucci is an advanced tool for editing OpenStreetMap data, it is not a map viewer or a navigation app. You will need an <a href="http://www.openstreetmap.org/">OpenStreetMap account</a> to use it.
+Vespucci is an advanced open source tool for editing OpenStreetMap data, it is not a map viewer or a navigation app. You will need an <a href="http://www.openstreetmap.org/">OpenStreetMap account</a> to use it.
 
 You can download the map data for a specific area and edit the map. After editing, you can upload it directly to the OSM servers.
 
