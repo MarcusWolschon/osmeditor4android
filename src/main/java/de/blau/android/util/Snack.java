@@ -202,7 +202,11 @@ public final class Snack {
             Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_INFO);
             return;
         }
-        barError(v, Snackbar.make(v, res, Snackbar.LENGTH_LONG));
+        try {
+            barError(v, Snackbar.make(v, res, Snackbar.LENGTH_LONG));
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barError got " + e.getMessage());
+        }
     }
 
     /**
@@ -228,7 +232,11 @@ public final class Snack {
             Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_ERROR);
             return;
         }
-        barError(v, Snackbar.make(v, msg, Snackbar.LENGTH_LONG));
+        try {
+            barError(v, Snackbar.make(v, msg, Snackbar.LENGTH_LONG));
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barError got " + e.getMessage());
+        }
     }
 
     /**
@@ -343,7 +351,11 @@ public final class Snack {
             Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_INFO);
             return;
         }
-        barInfo(v, Snackbar.make(v, res, duration));
+        try {
+            barInfo(v, Snackbar.make(v, res, duration));
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
+        }
     }
 
     /**
@@ -375,29 +387,6 @@ public final class Snack {
     }
 
     /**
-     * Display a snackbar with an informational message
-     * 
-     * @param activity activity calling us
-     * @param res string resource for the message to display
-     * @param duration how long to display the message in ms
-     */
-    public static void barInfo(Activity activity, int res, int duration) {
-        if (activity != null) {
-            barInfo(activity.findViewById(android.R.id.content), res, duration);
-        }
-    }
-
-    /**
-     * Display a snackbar with an informational message for a short duration
-     * 
-     * @param v view to display the snackbar on
-     * @param msg message to display
-     */
-    public static void barInfoShort(View v, String msg) {
-        barInfo(v, msg, Snackbar.LENGTH_SHORT);
-    }
-
-    /**
      * Display a snackbar with an informational message for a short duration
      * 
      * @param activity activity calling us
@@ -421,7 +410,11 @@ public final class Snack {
             Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_INFO);
             return;
         }
-        barInfo(v, Snackbar.make(v, msg, duration));
+        try {
+            barInfo(v, Snackbar.make(v, msg, duration));
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
+        }
     }
 
     /**
@@ -435,7 +428,11 @@ public final class Snack {
             Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_INFO);
             return;
         }
-        barInfo(v, Snackbar.make(v, msg, Snackbar.LENGTH_LONG));
+        try {
+            barInfo(v, Snackbar.make(v, msg, Snackbar.LENGTH_LONG));
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barWarning got " + e.getMessage());
+        }
     }
 
     /**
@@ -514,7 +511,11 @@ public final class Snack {
             Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_WARNING);
             return;
         }
-        barWarning(v, Snackbar.make(v, res, duration));
+        try {
+            barWarning(v, Snackbar.make(v, res, duration));
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barWarning got " + e.getMessage());
+        }
     }
 
     /**
@@ -541,7 +542,11 @@ public final class Snack {
             Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_WARNING);
             return;
         }
-        barWarning(v, Snackbar.make(v, msg, duration));
+        try {
+            barWarning(v, Snackbar.make(v, msg, duration));
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barWarning got " + e.getMessage());
+        }
     }
 
     /**
