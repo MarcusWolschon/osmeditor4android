@@ -1197,7 +1197,7 @@ public class Layers extends AbstractConfigurationDialog {
      * @param layer the layer
      * @param visible the value to set
      */
-    private void setVisibility(AdvancedPrefDatabase db, MapViewLayer layer, boolean visible) {
+    private void setVisibility(@NonNull AdvancedPrefDatabase db, @NonNull MapViewLayer layer, boolean visible) {
         layer.setVisible(visible);
         db.setLayerVisibility(layer.getIndex(), visible);
     }
@@ -1211,7 +1211,7 @@ public class Layers extends AbstractConfigurationDialog {
     private void setPrefs(@Nullable FragmentActivity activity, @NonNull Preferences prefs) {
         if (activity instanceof Main) {
             ((Main) activity).updatePrefs(prefs);
+            App.getLogic().getMap().setPrefs(activity, prefs);
         }
-        App.getLogic().getMap().setPrefs(getContext(), prefs);
     }
 }
