@@ -241,7 +241,7 @@ public class MapRouletteTask extends LongIdTask {
         out.writeLong(parentId);
         out.writeUTF(parentName);
         out.writeUTF(blurb);
-        out.writeUTF(features.toJson());
+        out.writeUTF(features != null ? features.toJson() : null);
     }
 
     /**
@@ -255,6 +255,7 @@ public class MapRouletteTask extends LongIdTask {
         parentId = in.readLong();
         parentName = in.readUTF();
         blurb = in.readUTF();
-        features = FeatureCollection.fromJson(in.readUTF());
+        String json = in.readUTF();
+        features = json != null ? FeatureCollection.fromJson(json) : null;
     }
 }
