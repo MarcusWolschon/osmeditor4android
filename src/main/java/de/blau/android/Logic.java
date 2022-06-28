@@ -848,39 +848,40 @@ public class Logic {
             boolean firstNode = true;
             // Iterate over all WayNodes, but not the last one.
             int wayNodesSize = wayNodes.size();
-            Node node1 = wayNodes.get(0);
-            for (int k = 0; k < wayNodesSize - 1; ++k) {
+            if (wayNodesSize > 0) {
+                Node node1 = wayNodes.get(0);
+                for (int k = 0; k < wayNodesSize - 1; ++k) {
+                    Node node2 = wayNodes.get(k + 1);
+                    if (firstNode) {
+                        node1X = lonE7ToX(node1.getLon());
+                        node1Y = latE7ToY(node1.getLat());
+                        firstNode = false;
+                    }
+                    float node2X = lonE7ToX(node2.getLon());
+                    float node2Y = latE7ToY(node2.getLat());
 
-                Node node2 = wayNodes.get(k + 1);
-                if (firstNode) {
-                    node1X = lonE7ToX(node1.getLon());
-                    node1Y = latE7ToY(node1.getLat());
-                    firstNode = false;
+                    double distance = Geometry.isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
+                    if (distance >= 0) {
+                        result.put(way, distance);
+                        added = true;
+                        break;
+                    }
+                    // calculations for centroid
+                    double d = node1X * node2Y - node2X * node1Y;
+                    A = A + d;
+                    X = X + (node1X + node2X) * d;
+                    Y = Y + (node1Y + node2Y) * d;
+                    node1 = node2;
+                    node1X = node2X;
+                    node1Y = node2Y;
                 }
-                float node2X = lonE7ToX(node2.getLon());
-                float node2Y = latE7ToY(node2.getLat());
-
-                double distance = Geometry.isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
-                if (distance >= 0) {
-                    result.put(way, distance);
-                    added = true;
-                    break;
-                }
-                // calculations for centroid
-                double d = node1X * node2Y - node2X * node1Y;
-                A = A + d;
-                X = X + (node1X + node2X) * d;
-                Y = Y + (node1Y + node2Y) * d;
-                node1 = node2;
-                node1X = node2X;
-                node1Y = node2Y;
-            }
-            if (Util.notZero(A) && showWayIcons && !added && areaHasIcon(way)) {
-                Y = Y / (3 * A); // NOSONAR nonZero tests for zero
-                X = X / (3 * A); // NOSONAR nonZero tests for zero
-                double distance = Math.hypot(x - X, y - Y);
-                if (distance < DataStyle.getCurrent().getNodeToleranceValue()) {
-                    result.put(way, distance);
+                if (Util.notZero(A) && showWayIcons && !added && areaHasIcon(way)) {
+                    Y = Y / (3 * A); // NOSONAR nonZero tests for zero
+                    X = X / (3 * A); // NOSONAR nonZero tests for zero
+                    double distance = Math.hypot(x - X, y - Y);
+                    if (distance < DataStyle.getCurrent().getNodeToleranceValue()) {
+                        result.put(way, distance);
+                    }
                 }
             }
         }
@@ -2328,21 +2329,23 @@ public class Logic {
             for (Way way : getDelegator().getCurrentStorage().getWays()) {
                 if (!way.hasNode(nodeToJoin)) {
                     List<Node> wayNodes = way.getNodes();
-                    Node firstNode = wayNodes.get(0);
-                    float node1X = lonE7ToX(firstNode.getLon());
-                    float node1Y = latE7ToY(firstNode.getLat());
-                    for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
-                        Node node2 = wayNodes.get(i);
-                        float node2X = lonE7ToX(node2.getLon());
-                        float node2Y = latE7ToY(node2.getLat());
-                        double distance = Geometry.isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y);
-                        if (distance >= 0) {
-                            if (filter == null || filter.include(way, false)) {
-                                closestElements.add(way);
+                    if (!wayNodes.isEmpty()) {
+                        Node firstNode = wayNodes.get(0);
+                        float node1X = lonE7ToX(firstNode.getLon());
+                        float node1Y = latE7ToY(firstNode.getLat());
+                        for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
+                            Node node2 = wayNodes.get(i);
+                            float node2X = lonE7ToX(node2.getLon());
+                            float node2Y = latE7ToY(node2.getLat());
+                            double distance = Geometry.isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y);
+                            if (distance >= 0) {
+                                if (filter == null || filter.include(way, false)) {
+                                    closestElements.add(way);
+                                }
                             }
+                            node1X = node2X;
+                            node1Y = node2Y;
                         }
-                        node1X = node2X;
-                        node1Y = node2Y;
                     }
                 }
             }
