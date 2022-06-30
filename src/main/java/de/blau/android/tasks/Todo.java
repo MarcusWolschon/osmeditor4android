@@ -36,6 +36,8 @@ public final class Todo extends Bug implements Serializable {
 
     private static final String DEBUG_TAG = Todo.class.getSimpleName();
 
+    static final String FILTER_KEY = "TODO";
+
     protected static final String TODOS          = "todos";
     private static final String   TODO_STATE     = "state";
     private static final String   TODO_ID        = "id";
@@ -202,7 +204,7 @@ public final class Todo extends Bug implements Serializable {
 
     @Override
     public String bugFilterKey() {
-        return "TODO";
+        return FILTER_KEY;
     }
 
     @Override

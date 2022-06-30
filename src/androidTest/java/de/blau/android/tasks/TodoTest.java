@@ -5,7 +5,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
@@ -54,7 +56,11 @@ public class TodoTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
+        App.getTaskStorage().reset();
         Preferences prefs = new Preferences(context);
+        Set<String> filter = prefs.taskFilter();
+        filter.add(Todo.FILTER_KEY);
+        prefs.setTaskFilter(filter);
         LayerUtils.removeImageryLayers(context);
         map = main.getMap();
         map.setPrefs(main, prefs);
@@ -79,6 +85,7 @@ public class TodoTest {
     public void teardown() {
         TestUtils.stopEasyEdit(main);
         TestUtils.zoomToNullIsland(logic, map);
+        App.getTaskStorage().reset();
     }
 
     /**

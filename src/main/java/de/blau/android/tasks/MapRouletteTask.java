@@ -32,6 +32,8 @@ public class MapRouletteTask extends LongIdTask {
 
     private static final String DEBUG_TAG = "MapRouletteTask";
 
+    static final String FILTER_KEY = "MAPROULETTE";
+
     private static final String MR_ID       = "id";
     private static final String PARENT_NAME = "parentName";
     private static final String PARENT_ID   = "parentId";
@@ -69,7 +71,7 @@ public class MapRouletteTask extends LongIdTask {
 
     @Override
     public String bugFilterKey() {
-        return "MAPROULETTE";
+        return FILTER_KEY;
     }
 
     /**

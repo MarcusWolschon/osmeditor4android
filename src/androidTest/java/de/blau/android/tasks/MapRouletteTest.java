@@ -77,7 +77,7 @@ public class MapRouletteTest {
         LayerUtils.removeImageryLayers(context);
         LayerUtils.addTaskLayer(main);
         Set<String> filter = new HashSet<>();
-        filter.add("MAPROULETTE");
+        filter.add(MapRouletteTask.FILTER_KEY);
         prefs.setTaskFilter(filter);
         main.getMap().setPrefs(main, prefs);
 
