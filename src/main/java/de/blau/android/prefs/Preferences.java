@@ -1547,4 +1547,13 @@ public class Preferences {
             Log.e(DEBUG_TAG, "putString " + ex.getMessage());
         }
     }
+    
+    /**
+     * Close anything that needs closing
+     */
+    public void close() {
+        if (advancedPrefs != null) {
+            advancedPrefs.close();
+        }
+    }
 }

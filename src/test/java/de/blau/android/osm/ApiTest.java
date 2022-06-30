@@ -1,7 +1,6 @@
 package de.blau.android.osm;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -11,13 +10,9 @@ import static org.robolectric.annotation.LooperMode.Mode.LEGACY;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.ProtocolException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.CountDownLatch;
 
@@ -32,10 +27,7 @@ import org.robolectric.annotation.LooperMode;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Looper;
-import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
@@ -44,17 +36,11 @@ import de.blau.android.AsyncResult;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
-import de.blau.android.R;
 import de.blau.android.ShadowWorkManager;
 import de.blau.android.SignalUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.exception.OsmServerException;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.tasks.Note;
-import de.blau.android.tasks.NoteComment;
-import de.blau.android.tasks.Task;
-import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.Util;
 import de.blau.android.validation.Validator;
 import okhttp3.HttpUrl;
@@ -66,9 +52,6 @@ import okhttp3.mockwebserver.RecordedRequest;
 @LargeTest
 public class ApiTest {
 
-    private static final String NOTES_DOWNLOAD1_FIXTURE = "notesDownload1";
-    private static final String UPLOAD6_FIXTURE         = "upload6";
-    private static final String UPLOAD5_FIXTURE         = "upload5";
     private static final String UPLOAD4_FIXTURE         = "upload4";
     private static final String CHANGESET5_FIXTURE      = "changeset5";
     private static final String CHANGESET4_FIXTURE      = "changeset4";
@@ -91,15 +74,16 @@ public class ApiTest {
     private static final String CAPABILITIES1_FIXTURE   = "capabilities1";
     private static final String TEST1_OSM_FIXTURE       = "test1.osm";
 
-    private static final String GENERATOR_NAME = "vesupucci test";
+    static final String GENERATOR_NAME = "vesupucci test";
 
     public static final int TIMEOUT = 10;
 
-    MockWebServerPlus    mockServer = null;
-    AdvancedPrefDatabase prefDB     = null;
-    Main                 main       = null;
+    private MockWebServerPlus    mockServer = null;
+    private AdvancedPrefDatabase prefDB     = null;
+    private Main                 main       = null;
+    private Preferences          prefs      = null;
 
-    class FailOnErrorHandler implements PostAsyncActionHandler {
+    static class FailOnErrorHandler implements PostAsyncActionHandler {
         CountDownLatch signal;
 
         FailOnErrorHandler(@NonNull CountDownLatch signal) {
@@ -132,7 +116,7 @@ public class ApiTest {
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         Logic logic = App.getLogic();
-        Preferences prefs = new Preferences(main);
+        prefs = new Preferences(main);
         logic.setPrefs(prefs);
         logic.getMap().setPrefs(main, prefs);
     }
@@ -149,43 +133,7 @@ public class ApiTest {
         }
         prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
         prefDB.close();
-    }
-
-    /**
-     * Get API capabilities
-     */
-    @Test
-    public void capabilities() {
-        final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
-        // from default
-        Capabilities result = s.getCachedCapabilities();
-        assertNotNull(result);
-        assertEquals("0.6", result.getMinVersion());
-        assertEquals("0.6", result.getMaxVersion());
-        assertEquals(Capabilities.Status.ONLINE, result.getGpxStatus());
-        assertEquals(Capabilities.Status.ONLINE, result.getApiStatus());
-        assertEquals(Capabilities.Status.ONLINE, result.getDbStatus());
-        assertEquals(2000, result.getMaxWayNodes());
-        assertEquals(5000, result.getMaxTracepointsPerPage());
-        assertEquals(10000, result.getMaxElementsInChangeset());
-        assertEquals(300, result.getTimeout());
-        assertEquals(0.25, result.getMaxArea(), 0.001);
-        assertEquals(25.0, result.getMaxNoteArea(), 0.001);
-
-        // from fixture
-        mockServer.enqueue(CAPABILITIES1_FIXTURE);
-        result = s.getCapabilities();
-        assertNotNull(result);
-        assertEquals("0.6", result.getMinVersion());
-        assertEquals("0.6", result.getMaxVersion());
-        assertEquals(Capabilities.Status.ONLINE, result.getGpxStatus());
-        assertEquals(Capabilities.Status.ONLINE, result.getApiStatus());
-        assertEquals(Capabilities.Status.ONLINE, result.getDbStatus());
-        assertEquals(2001, result.getMaxWayNodes());
-        assertEquals(4999, result.getMaxTracepointsPerPage());
-        assertEquals(50000, result.getMaxElementsInChangeset());
-        assertEquals(301, result.getTimeout());
-        assertEquals(0.24, result.getMaxArea(), 0.001);
+        prefs.close();
     }
 
     /**
@@ -481,240 +429,6 @@ public class ApiTest {
         assertNotNull(r);
         assertEquals(OsmElement.STATE_UNCHANGED, r.getState());
         assertEquals(4L, r.getOsmVersion());
-    }
-
-    /**
-     * Upload changes (mock-)server and check behaviour when we receive an error
-     */
-    @Test
-    public void dataUploadErrors() {
-        final CountDownLatch signal = new CountDownLatch(1);
-        Logic logic = App.getLogic();
-
-        // we need something changes in memory or else we wont try to upload
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream(TEST1_OSM_FIXTURE);
-        logic.readOsmFile(ApplicationProvider.getApplicationContext(), is, false, new FailOnErrorHandler(signal));
-        runLooper();
-        SignalUtils.signalAwait(signal, TIMEOUT);
-        assertTrue(App.getDelegator().getApiElementCount() > 0);
-        uploadErrorTest(401);
-        uploadErrorTest(403);
-        uploadErrorTest(999);
-    }
-
-    /**
-     * Upload changes (mock-)server and check behaviour when we receive an error
-     * 
-     * @param code error code to return
-     */
-    private void uploadErrorTest(int code) {
-        mockServer.enqueue(CAPABILITIES1_FIXTURE);
-        mockServer.enqueue("" + code);
-
-        final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
-        s.resetChangeset();
-        try {
-            App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, null);
-        } catch (OsmServerException e) {
-            System.out.println(e.getMessage());
-            assertEquals(code, e.getErrorCode());
-            return;
-        } catch (IOException e) {
-            fail(e.getMessage());
-            return;
-        }
-        fail("Expected error " + code);
-    }
-
-    /**
-     * Upload changes (mock-)server and check behaviour when we receive a broken response
-     */
-    @Test
-    public void dataUploadErrorInResult() {
-        final CountDownLatch signal = new CountDownLatch(1);
-        Logic logic = App.getLogic();
-
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream(TEST1_OSM_FIXTURE);
-        logic.readOsmFile(ApplicationProvider.getApplicationContext(), is, false, new FailOnErrorHandler(signal));
-        runLooper();
-        SignalUtils.signalAwait(signal, TIMEOUT);
-        assertEquals(33, App.getDelegator().getApiElementCount());
-        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
-        assertNotNull(n);
-        assertEquals(OsmElement.STATE_MODIFIED, n.getState());
-
-        mockServer.enqueue(CAPABILITIES1_FIXTURE);
-        mockServer.enqueue(CHANGESET1_FIXTURE);
-        mockServer.enqueue(UPLOAD5_FIXTURE);
-        mockServer.enqueue(CLOSE_CHANGESET_FIXTURE);
-        mockServer.enqueue(CHANGESET1_FIXTURE);
-        mockServer.enqueue(UPLOAD6_FIXTURE);
-        mockServer.enqueue(CLOSE_CHANGESET_FIXTURE);
-
-        final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
-        try {
-            App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, null);
-            fail("Expected ProtocolException");
-        } catch (ProtocolException e) {
-        } catch (IOException e) {
-            fail(e.getMessage());
-        }
-        assertEquals(1, App.getDelegator().getApiElementCount());
-    }
-
-    /**
-     * Test the response to error code 400 on download
-     */
-    @Test
-    public void dataDownloadError400() {
-        downloadErrorTest(400);
-    }
-
-    /**
-     * Test the response to error code 401 on download
-     */
-    @Test
-    public void dataDownloadError401() {
-        downloadErrorTest(401);
-    }
-
-    /**
-     * Test the response to error code 403 on download
-     */
-    @Test
-    public void dataDownloadError403() {
-        downloadErrorTest(403);
-    }
-
-    /**
-     * Test the response to error code 999 on download
-     */
-    @Test
-    public void dataDownloadError999() {
-        downloadErrorTest(999);
-    }
-
-    /**
-     * Test that receiving a specific error code doesn't break anything
-     * 
-     * @param code the error code
-     */
-    private void downloadErrorTest(int code) {
-        final CountDownLatch signal = new CountDownLatch(1);
-        mockServer.enqueue(CAPABILITIES1_FIXTURE);
-        mockServer.enqueue("" + code);
-        Logic logic = App.getLogic();
-        logic.downloadBox(ApplicationProvider.getApplicationContext(), new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false,
-                new PostAsyncActionHandler() {
-                    @Override
-                    public void onSuccess() {
-                        fail("Expected error");
-                    }
-
-                    @Override
-                    public void onError(AsyncResult result) {
-                        signal.countDown();
-                    }
-                });
-        runLooper();
-        SignalUtils.signalAwait(signal, TIMEOUT);
-    }
-
-    /**
-     * Download Notes for a bounding box
-     */
-    @Test
-    public void notesDownload() {
-        final CountDownLatch signal = new CountDownLatch(1);
-        mockServer.enqueue(NOTES_DOWNLOAD1_FIXTURE);
-        App.getTaskStorage().reset();
-        try {
-            final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
-            SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(ApplicationProvider.getApplicationContext());
-            Resources r = ApplicationProvider.getApplicationContext().getResources();
-            String notesSelector = r.getString(R.string.bugfilter_notes);
-            Set<String> set = new HashSet<>(Arrays.asList(notesSelector));
-            p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
-            assertTrue(new Preferences(ApplicationProvider.getApplicationContext()).taskFilter().contains(notesSelector));
-            TransferTasks.downloadBox(ApplicationProvider.getApplicationContext(), s, new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false,
-                    TransferTasks.MAX_PER_REQUEST, new FailOnErrorHandler(signal));
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-        runLooper();
-        SignalUtils.signalAwait(signal, TIMEOUT);
-        List<Task> tasks = App.getTaskStorage().getTasks();
-        // note the fixture contains 100 notes, however 41 of them are closed and expired
-        assertEquals(59, tasks.size());
-        try {
-            tasks = App.getTaskStorage().getTasks(new BoundingBox(-0.0918, 51.532, -0.0917, 51.533));
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-        assertTrue(tasks.get(0) instanceof Note);
-        assertEquals(458427, ((Note) tasks.get(0)).getId());
-    }
-
-    /**
-     * Upload a single new Note
-     */
-    @Test
-    public void noteUpload() {
-        Main main = Robolectric.setupActivity(Main.class);
-        final CountDownLatch signal = new CountDownLatch(1);
-        mockServer.enqueue("noteUpload1");
-        App.getTaskStorage().reset();
-        try {
-            final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
-            Note n = new Note((int) (51.0 * 1E7D), (int) (0.1 * 1E7D));
-            assertTrue(n.isNew());
-            assertTrue(TransferTasks.uploadNote(main, s, n, new NoteComment(n, "ThisIsANote"), false, new FailOnErrorHandler(signal)));
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-        runLooper();
-        SignalUtils.signalAwait(signal, TIMEOUT);
-        try {
-            assertFalse(App.getTaskStorage().isEmpty());
-            List<Task> tasks = App.getTaskStorage().getTasks(new BoundingBox(0.099, 50.99, 0.111, 51.01));
-            assertEquals(1, tasks.size());
-            Note n = (Note) tasks.get(0);
-            assertEquals("<p>ThisIsANote</p>", n.getLastComment().getText());
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
-    /**
-     * get the user preferences, the set and delete one
-     */
-    @Test
-    public void userpreferences() {
-        mockServer.enqueue("userpreferences");
-        mockServer.enqueue("200");
-        mockServer.enqueue("200");
-        try {
-            final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
-            Map<String, String> preferences = s.getUserPreferences();
-            assertEquals(3, preferences.size());
-            assertEquals("public", preferences.get("gps.trace.visibility"));
-            RecordedRequest request1 = mockServer.takeRequest();
-            assertEquals("GET", request1.getMethod().toUpperCase());
-            assertEquals("/api/0.6/user/preferences", request1.getPath());
-            s.setUserPreference("gps.trace.visibility", "private");
-            RecordedRequest request2 = mockServer.takeRequest();
-            assertEquals("PUT", request2.getMethod().toUpperCase());
-            assertEquals("/api/0.6/user/preferences/gps.trace.visibility", request2.getPath());
-            assertEquals("private", request2.getBody().readUtf8());
-            s.deleteUserPreference("gps.trace.visibility");
-            RecordedRequest request3 = mockServer.takeRequest();
-            assertEquals("DELETE", request3.getMethod().toUpperCase());
-            assertEquals("/api/0.6/user/preferences/gps.trace.visibility", request3.getPath());
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
     }
 
     /**
