@@ -56,6 +56,7 @@ public class TodoTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
+        App.getTaskStorage().reset();
         Preferences prefs = new Preferences(context);
         Set<String> filter = prefs.taskFilter();
         filter.add(Todo.FILTER_KEY);
@@ -84,6 +85,7 @@ public class TodoTest {
     public void teardown() {
         TestUtils.stopEasyEdit(main);
         TestUtils.zoomToNullIsland(logic, map);
+        App.getTaskStorage().reset();
     }
 
     /**
