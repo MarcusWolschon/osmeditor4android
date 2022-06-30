@@ -25,6 +25,7 @@ import de.blau.android.R;
  *
  */
 public final class Snack {
+
     private static final String DEBUG_TAG = Snack.class.getName();
 
     private static final int SHOW_DURATION_ACTION = 5000;
@@ -34,6 +35,9 @@ public final class Snack {
     private static final String NULL_VIEW_IN_BAR_INFO    = "null View in barInfo";
     private static final String NULL_VIEW_IN_BAR_ERROR   = "null View in barError";
     private static final String NULL_VIEW_IN_BAR_WARNING = "null View in barWarning";
+    private static final String LOG_BAR_WARNING          = "barWarning got ";
+    private static final String LOG_BAR_INFO             = "barInfo got ";
+    private static final String LOG_BAR_ERROR            = "barError got ";
 
     private static final Object queueLock = new Object();
 
@@ -199,13 +203,13 @@ public final class Snack {
      */
     public static void barError(@Nullable View v, int res) {
         if (v == null) {
-            Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_INFO);
+            Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_ERROR);
             return;
         }
         try {
             barError(v, Snackbar.make(v, res, Snackbar.LENGTH_LONG));
         } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barError got " + e.getMessage());
+            Log.e(DEBUG_TAG, LOG_BAR_ERROR + e.getMessage());
         }
     }
 
@@ -235,7 +239,7 @@ public final class Snack {
         try {
             barError(v, Snackbar.make(v, msg, Snackbar.LENGTH_LONG));
         } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barError got " + e.getMessage());
+            Log.e(DEBUG_TAG, LOG_BAR_ERROR + e.getMessage());
         }
     }
 
@@ -251,7 +255,7 @@ public final class Snack {
             snackbar.addCallback(callback);
             enqueueError(snackbar);
         } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barError got " + e.getMessage());
+            Log.e(DEBUG_TAG, LOG_BAR_ERROR + e.getMessage());
         }
     }
 
@@ -291,7 +295,7 @@ public final class Snack {
             snackbar.addCallback(callback);
             enqueueError(snackbar);
         } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barError got " + e.getMessage());
+            Log.e(DEBUG_TAG, LOG_BAR_ERROR + e.getMessage());
         }
     }
 
@@ -354,7 +358,7 @@ public final class Snack {
         try {
             barInfo(v, Snackbar.make(v, res, duration));
         } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
+            Log.e(DEBUG_TAG, LOG_BAR_INFO + e.getMessage());
         }
     }
 
@@ -370,7 +374,7 @@ public final class Snack {
             snackbar.addCallback(callback);
             enqueueInfo(snackbar);
         } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
+            Log.e(DEBUG_TAG, LOG_BAR_INFO + e.getMessage());
         }
     }
 
@@ -413,7 +417,7 @@ public final class Snack {
         try {
             barInfo(v, Snackbar.make(v, msg, duration));
         } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
+            Log.e(DEBUG_TAG, LOG_BAR_INFO + e.getMessage());
         }
     }
 
@@ -431,7 +435,7 @@ public final class Snack {
         try {
             barInfo(v, Snackbar.make(v, msg, Snackbar.LENGTH_LONG));
         } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barWarning got " + e.getMessage());
+            Log.e(DEBUG_TAG, LOG_BAR_INFO + e.getMessage());
         }
     }
 
@@ -471,7 +475,7 @@ public final class Snack {
             snackbar.addCallback(callback);
             enqueueInfo(snackbar);
         } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
+            Log.e(DEBUG_TAG, LOG_BAR_INFO + e.getMessage());
         }
     }
 
@@ -514,7 +518,7 @@ public final class Snack {
         try {
             barWarning(v, Snackbar.make(v, res, duration));
         } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barWarning got " + e.getMessage());
+            Log.e(DEBUG_TAG, LOG_BAR_WARNING + e.getMessage());
         }
     }
 
@@ -545,7 +549,7 @@ public final class Snack {
         try {
             barWarning(v, Snackbar.make(v, msg, duration));
         } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barWarning got " + e.getMessage());
+            Log.e(DEBUG_TAG, LOG_BAR_WARNING + e.getMessage());
         }
     }
 
@@ -561,7 +565,7 @@ public final class Snack {
             snackbar.addCallback(callback);
             enqueueWarning(snackbar);
         } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barWarning got " + e.getMessage());
+            Log.e(DEBUG_TAG, LOG_BAR_WARNING + e.getMessage());
         }
     }
 
@@ -601,7 +605,7 @@ public final class Snack {
             snackbar.addCallback(callback);
             enqueueWarning(snackbar);
         } catch (IllegalArgumentException e) {
-            Log.e(DEBUG_TAG, "barWarning got " + e.getMessage());
+            Log.e(DEBUG_TAG, LOG_BAR_WARNING + e.getMessage());
         }
 
     }
