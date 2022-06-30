@@ -78,9 +78,10 @@ public class ApiTest {
 
     public static final int TIMEOUT = 10;
 
-    MockWebServerPlus    mockServer = null;
-    AdvancedPrefDatabase prefDB     = null;
-    Main                 main       = null;
+    private MockWebServerPlus    mockServer = null;
+    private AdvancedPrefDatabase prefDB     = null;
+    private Main                 main       = null;
+    private Preferences          prefs      = null;
 
     static class FailOnErrorHandler implements PostAsyncActionHandler {
         CountDownLatch signal;
@@ -115,7 +116,7 @@ public class ApiTest {
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         Logic logic = App.getLogic();
-        Preferences prefs = new Preferences(main);
+        prefs = new Preferences(main);
         logic.setPrefs(prefs);
         logic.getMap().setPrefs(main, prefs);
     }
@@ -132,6 +133,7 @@ public class ApiTest {
         }
         prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
         prefDB.close();
+        prefs.close();
     }
 
     /**
