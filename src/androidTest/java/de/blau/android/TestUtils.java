@@ -80,8 +80,8 @@ public final class TestUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             boolean notdone = true;
             while (notdone) {
-                notdone = clickText(device, false, "While using the app", true, true) || clickText(device, true, "allow", true, false)
-                        || clickText(device, true, "zulassen", false, false);
+                notdone = clickText(device, false, "While using the app", true, true) || clickText(device, false, "WHILE USING THE APP", true, true)
+                        || clickText(device, true, "allow", true, false) || clickText(device, true, "zulassen", false, false);
             }
         }
     }
