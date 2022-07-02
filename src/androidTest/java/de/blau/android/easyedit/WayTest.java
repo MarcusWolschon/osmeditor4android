@@ -10,13 +10,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.app.Instrumentation;
+import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
+import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -34,6 +36,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
+import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 
 @RunWith(AndroidJUnit4.class)
@@ -46,6 +49,7 @@ public class WayTest {
     UiDevice             device  = null;
     Map                  map     = null;
     Logic                logic   = null;
+    Instrumentation      instrumentation;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -55,8 +59,9 @@ public class WayTest {
      */
     @Before
     public void setup() {
-        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        instrumentation = InstrumentationRegistry.getInstrumentation();
+        device = UiDevice.getInstance(instrumentation);
+        context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
@@ -288,5 +293,132 @@ public class WayTest {
             assertEquals(origWayNodes.get(i), nodes.get(i));
         }
         assertEquals(originalNodeCount, App.getDelegator().getApiNodeCount());
+    }
+
+    /**
+     * Select, drag way, undo
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void dragWay() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 22);
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertEquals(104148456L, way.getOsmId());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+
+        int[][] original = nodeListToCoordinates(way.getNodes());
+
+        // drag the way
+        TestUtils.drag(device, map, 8.3893384, 47.3894888, 8.38939, 47.389550, false, 10);
+
+        int[][] dragged = nodeListToCoordinates(way.getNodes());
+
+        int dX = dragged[0][0] - original[0][0];
+        int dY = dragged[0][1] - original[0][1];
+
+        assertEquals(461D, dX, 5);
+        assertEquals(550D, dY, 5);
+
+        for (int i = 0; i < original.length; i++) {
+            assertEquals((double) original[i][0] + dX, dragged[i][0], 1);
+            assertEquals((double) original[i][1] + dY, dragged[i][1], 1);
+        }
+
+        // undo
+        TestUtils.unlock(device);
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // for the tip alert
+
+        int[][] undone = nodeListToCoordinates(way.getNodes());
+        for (int i = 0; i < original.length; i++) {
+            assertEquals(original[i][0], undone[i][0]);
+            assertEquals(original[i][1], undone[i][1]);
+        }
+    }
+
+    /**
+     * Select, drag way, undo
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void dragWayNode() {
+        ActivityMonitor monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
+        instrumentation.waitForMonitorWithTimeout(monitor, 40000); //
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.config_wayNodeDragging_title), false, false));
+        TestUtils.clickHome(device, false);
+
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 22);
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertEquals(104148456L, way.getOsmId());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+
+        int[][] original = nodeListToCoordinates(way.getNodes());
+
+        // drag the way
+        TestUtils.drag(device, map, 8.3892992, 47.3894227, 8.38939, 47.389550, false, 10);
+
+        int[][] dragged = nodeListToCoordinates(way.getNodes());
+
+        int dX = dragged[8][0] - original[0][0];
+        int dY = dragged[8][1] - original[0][1];
+        //
+        assertEquals(11331D, dX, 10);
+        assertEquals(13899D, dY, 10);
+
+        for (int i = 1; i < original.length; i++) {
+            if (i == 8) {
+                continue;
+            }
+            assertEquals((double) original[i][0], dragged[i][0], 1);
+            assertEquals((double) original[i][1], dragged[i][1], 1);
+        }
+
+        // undo
+        TestUtils.unlock(device);
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // for the tip alert
+
+        int[][] undone = nodeListToCoordinates(way.getNodes());
+        for (int i = 0; i < original.length; i++) {
+            assertEquals(original[i][0], undone[i][0]);
+            assertEquals(original[i][1], undone[i][1]);
+        }
+
+        TestUtils.clickUp(device);
+
+        monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
+        instrumentation.waitForMonitorWithTimeout(monitor, 40000); //
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.config_wayNodeDragging_title), false, false));
+        TestUtils.clickHome(device, false);
+    }
+
+    /**
+     * Return the coordinates of a list of Nodes in a new array
+     * 
+     * @param nodes the List of Nodes
+     * @return a 2-dim array with the coordinates
+     */
+    @NonNull
+    private int[][] nodeListToCoordinates(@NonNull List<Node> nodes) {
+        int[][] result = new int[nodes.size()][2];
+        for (int i = 0; i < nodes.size(); i++) {
+            result[i][0] = nodes.get(i).getLon();
+            result[i][1] = nodes.get(i).getLat();
+        }
+        return result;
     }
 }
