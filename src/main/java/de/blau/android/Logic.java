@@ -832,6 +832,7 @@ public class Logic {
      * @param y y display coordinate
      * @return a hash map mapping Ways to distances
      */
+    @NonNull
     private java.util.Map<Way, Double> getClickedWaysWithDistances(boolean includeClosed, final float x, final float y) {
         java.util.Map<Way, Double> result = new HashMap<>();
         boolean showWayIcons = prefs.getShowWayIcons();
@@ -1119,6 +1120,7 @@ public class Logic {
      * @param y display-coordinate.
      * @return all nodes within tolerance found in the currentStorage node-list, ordered ascending by distance.
      */
+    @NonNull
     public List<OsmElement> getClickedNodes(final float x, final float y) {
         return nodeSorter.sort(getClickedNodesWithDistances(x, y, true));
     }
@@ -1130,16 +1132,15 @@ public class Logic {
      * @param y display-coordinate.
      * @return all end nodes within tolerance found in the currentStorage node-list, ordered ascending by distance.
      */
+    @NonNull
     public List<OsmElement> getClickedEndNodes(final float x, final float y) {
         List<OsmElement> result = new ArrayList<>();
         List<OsmElement> allNodes = getClickedNodes(x, y);
-
         for (OsmElement osmElement : allNodes) {
             if (getDelegator().getCurrentStorage().isEndNode((Node) osmElement)) {
                 result.add(osmElement);
             }
         }
-
         return result;
     }
 
@@ -1150,6 +1151,7 @@ public class Logic {
      * @param y display-coordinate.
      * @return the nearest node found in the current-Storage node-list. null, when no node was found.
      */
+    @Nullable
     public Node getClickedNode(final float x, final float y) {
         Node bestNode = null;
         Double bestDistance = Double.MAX_VALUE;
@@ -1170,6 +1172,7 @@ public class Logic {
      * @param y y display-coordinate.
      * @return the ways
      */
+    @NonNull
     private List<Way> getClickedWays(final float x, final float y) {
         return getClickedWays(true, x, y);
     }
@@ -1182,6 +1185,7 @@ public class Logic {
      * @param y y display-coordinate.
      * @return the ways
      */
+    @NonNull
     public List<Way> getClickedWays(boolean includeClosed, final float x, final float y) {
         return waySorter.sort(getClickedWaysWithDistances(includeClosed, x, y));
     }
@@ -1307,7 +1311,10 @@ public class Logic {
                 selectedTask = taskLayer.getSelected();
             }
             final boolean largeDragArea = prefs.largeDragArea();
-            if (((selectedNodes != null && selectedNodes.size() == 1) || selectedTask != null) && selectedWays == null) {
+            final int selectedWayCount = selectedWays != null ? selectedWays.size() : 0;
+            final int selectedNodeCount = selectedNodes != null ? selectedNodes.size() : 0;
+            // single node or task dragging
+            if ((selectedNodeCount == 1 || selectedTask != null) && selectedWayCount == 0) {
                 DataStyle currentStyle = DataStyle.getCurrent();
                 float tolerance = largeDragArea ? currentStyle.getLargDragToleranceRadius() : currentStyle.getNodeToleranceValue();
                 GeoPoint point = selectedTask != null ? selectedTask : selectedNodes.get(0);
@@ -1320,7 +1327,8 @@ public class Logic {
                     }
                 }
             } else {
-                if (selectedWays != null && selectedWays.size() == 1 && selectedNodes == null) {
+                // single way, way handle or way node dragging or way rotation
+                if (selectedWayCount == 1 && selectedNodeCount == 0) {
                     if (!rotatingWay) {
                         Handle handle = getClickedWayHandleWithDistances(x, y);
                         if (handle != null) {
@@ -1328,18 +1336,18 @@ public class Logic {
                             selectedHandle = handle;
                             draggingHandle = true;
                         } else {
-                            Way clickedWay = getClickedWay(x, y);
-                            if (clickedWay != null) {
-                                Node clickedNode = getClickedNode(x, y);
+                            List<Way> clickedWays = getClickedWays(true, x, y);
+                            if (!clickedWays.isEmpty()) {
+                                List<OsmElement> clickedNodes = getClickedNodes(x, y);
                                 final Way selectedWay = selectedWays.get(0);
-                                if (prefs.isWayNodeDraggingEnabled() && selectedWay.hasNode(clickedNode)) {
+                                draggedNode = getCommonNode(selectedWay, clickedNodes);
+                                if (prefs.isWayNodeDraggingEnabled() && draggedNode != null) {
                                     draggingNode = true;
-                                    draggedNode = clickedNode;
                                     if (largeDragArea) {
                                         startX = lonE7ToX(draggedNode.getLon());
                                         startY = latE7ToY(draggedNode.getLat());
                                     }
-                                } else if (clickedWay.equals(selectedWay)) {
+                                } else if (clickedWays.contains(selectedWay)) {
                                     startLat = yToLatE7(y);
                                     startLon = xToLonE7(x);
                                     draggingWay = true;
@@ -1352,11 +1360,10 @@ public class Logic {
                     }
                 } else {
                     // check for multi-select
-                    if ((selectedWays != null && selectedWays.size() > 1) || (selectedNodes != null && selectedNodes.size() > 1)
-                            || ((selectedWays != null && !selectedWays.isEmpty()) && (selectedNodes != null && !selectedNodes.isEmpty()))) {
+                    if ((selectedWayCount > 1 || selectedNodeCount > 1) || (selectedWayCount > 0 && selectedNodeCount > 0)) {
                         Log.d(DEBUG_TAG, "Multi select detected");
                         boolean foundSelected = false;
-                        if (selectedWays != null) {
+                        if (selectedWayCount > 0) {
                             List<Way> clickedWays = getClickedWays(x, y);
                             for (Way w : clickedWays) {
                                 if (selectedWays.contains(w)) {
@@ -1365,7 +1372,7 @@ public class Logic {
                                 }
                             }
                         }
-                        if (!foundSelected && selectedNodes != null) {
+                        if (!foundSelected && selectedNodeCount > 0) {
                             List<OsmElement> clickedNodes = getClickedNodes(x, y);
                             for (OsmElement n : clickedNodes) {
                                 if (selectedNodes.contains(n)) {
@@ -1402,6 +1409,23 @@ public class Logic {
         } else if (rotatingWay) {
             createCheckpoint(activity, R.string.undo_action_rotateway);
         }
+    }
+
+    /**
+     * Get a common node
+     * 
+     * @param way the Way
+     * @param nodes the list of Nodes (for historic reasons OsmElements)
+     * @return the first common node or null
+     */
+    @Nullable
+    private Node getCommonNode(@NonNull Way way, @NonNull List<OsmElement> nodes) {
+        for (OsmElement e : nodes) {
+            if (way.hasNode((Node) e)) {
+                return (Node) e;
+            }
+        }
+        return null;
     }
 
     /**
@@ -1447,13 +1471,13 @@ public class Logic {
         if (draggingNode || draggingWay || draggingHandle || draggingNote) {
             int lat = yToLatE7(absoluteY);
             int lon = xToLonE7(absoluteX);
+            final int selectedWayCount = selectedWays != null ? selectedWays.size() : 0;
+            final int selectedNodeCount = selectedNodes != null ? selectedNodes.size() : 0;
             // checkpoint created where draggingNode is set
-            if ((draggingNode
-                    && ((selectedNodes != null && selectedNodes.size() == 1 && selectedWays == null) || (selectedWays != null && selectedWays.size() == 1)))
-                    || draggingHandle || draggingNote) {
+            if ((draggingNode && ((selectedNodeCount == 1 && selectedWayCount == 0) || selectedWayCount == 1)) || draggingHandle || draggingNote) {
                 if (draggingHandle) { // create node only if we are really dragging
                     try {
-                        if (handleNode == null && selectedHandle != null && selectedWays != null) {
+                        if (handleNode == null && selectedHandle != null && selectedWayCount > 0) {
                             Log.d(DEBUG_TAG, "creating node at handle position");
                             handleNode = performAddOnWay(main, selectedWays, selectedHandle.x, selectedHandle.y, true);
                             selectedHandle = null;
@@ -1474,7 +1498,7 @@ public class Logic {
                         lon = xToLonE7(startX);
                     }
                     if (draggingNode) {
-                        if (selectedNodes != null && selectedNodes.size() == 1) {
+                        if (selectedNodeCount == 1) {
                             draggedNode = selectedNodes.get(0);
                         }
                         displayAttachedObjectWarning(main, draggedNode);
@@ -1498,12 +1522,12 @@ public class Logic {
                 }
             } else { // way dragging and multi-select
                 List<Node> nodes = new ArrayList<>();
-                if (selectedWays != null && !selectedWays.isEmpty()) { // shouldn't happen but might be a race condition
+                if (selectedWayCount > 0) { // shouldn't happen but might be a race condition
                     for (Way w : selectedWays) {
                         nodes.addAll(w.getNodes());
                     }
                 }
-                if (selectedNodes != null && !selectedNodes.isEmpty()) {
+                if (selectedNodeCount > 0) {
                     nodes.addAll(selectedNodes);
                 }
 
@@ -1511,8 +1535,7 @@ public class Logic {
 
                 getDelegator().moveNodes(nodes, lat - startLat, lon - startLon);
 
-                if (nodes.size() > MAX_NODES_FOR_MOVE && selectedWays != null && selectedWays.size() == 1
-                        && (selectedNodes == null || selectedNodes.isEmpty())) {
+                if (nodes.size() > MAX_NODES_FOR_MOVE && selectedWayCount == 1 && selectedNodeCount == 0) {
                     Snack.toastTopWarning(main, main.getString(R.string.toast_way_nodes_moved, nodes.size()));
                 }
                 // update
