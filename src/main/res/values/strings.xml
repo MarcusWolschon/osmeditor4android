@@ -1047,6 +1047,8 @@
     <string name="config_enableKeepScreenOn_summary">Prevent screen from turning off to save power.</string>
     <string name="config_largeDragArea_title">Large node drag area</string>
     <string name="config_largeDragArea_summary">Provide large area for dragging nodes.</string>
+    <string name="config_wayNodeDragging_title">Enable way node dragging</string>
+    <string name="config_wayNodeDragging_summary">Enables dragging of individual way nodes of a selected way.</string>
     <string name="config_advancedprefs">Advanced preferences</string>
     <string name="config_moreprefs">More settings…</string>
     <string name="config_presetbutton_title">Presets</string>

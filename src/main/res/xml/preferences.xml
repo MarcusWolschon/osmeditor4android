@@ -24,6 +24,11 @@
             android:title="@string/config_largeDragArea_title"
             android:summary="@string/config_largeDragArea_summary"
             android:defaultValue="false" />
+       <androidx.preference.CheckBoxPreference
+            android:key="@string/config_wayNodeDragging_key"
+            android:title="@string/config_wayNodeDragging_title"
+            android:summary="@string/config_wayNodeDragging_summary"
+            android:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/config_moreprefs">

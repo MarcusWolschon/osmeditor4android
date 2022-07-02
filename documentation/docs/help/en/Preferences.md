@@ -32,6 +32,10 @@ Disable the Android automatic screen lock.
 
 Display a large ring around selected nodes making draging and positioning nodes easier.
 
+## Enable way node dragging
+
+Enables dragging of individual way nodes of a selected way without selecting the node first, this can make geometry editing substantially faster in some circumstances.
+
 ## Presets
 
 Start preset management screen. Vespucci supports JOSM style presets that can be downloaded and added from this screen.
