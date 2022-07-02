@@ -140,7 +140,7 @@ public abstract class VersionedGestureDetector {
 
             mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
                 @Override
-                public boolean onDoubleTap(MotionEvent e) {
+                public boolean onDoubleTapEvent(MotionEvent e) {
                     float x = e.getX();
                     float y = e.getY();
 
