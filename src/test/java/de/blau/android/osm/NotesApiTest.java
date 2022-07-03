@@ -5,7 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.robolectric.Shadows.shadowOf;
-import static org.robolectric.annotation.LooperMode.Mode.LEGACY;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -21,7 +20,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-import org.robolectric.annotation.LooperMode;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
@@ -29,14 +27,11 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Looper;
 import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
-import de.blau.android.AsyncResult;
 import de.blau.android.Logic;
 import de.blau.android.Main;
-import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.ShadowWorkManager;
 import de.blau.android.SignalUtils;
@@ -51,7 +46,6 @@ import okhttp3.HttpUrl;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(shadows = { ShadowWorkManager.class })
-@LooperMode(LEGACY)
 @LargeTest
 public class NotesApiTest {
 

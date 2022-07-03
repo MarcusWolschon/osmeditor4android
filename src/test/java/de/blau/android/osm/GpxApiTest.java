@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.robolectric.annotation.LooperMode.Mode.LEGACY;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.LooperMode;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
@@ -28,7 +26,6 @@ import de.blau.android.prefs.Preferences;
 import okhttp3.HttpUrl;
 
 @RunWith(RobolectricTestRunner.class)
-@LooperMode(LEGACY)
 @LargeTest
 public class GpxApiTest {
 
