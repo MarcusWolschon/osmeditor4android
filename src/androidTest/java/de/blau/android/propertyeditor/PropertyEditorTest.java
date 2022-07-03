@@ -410,7 +410,7 @@ public class PropertyEditorTest {
         }
 
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
-      
+
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, true));
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(propertyEditor instanceof PropertyEditor);
@@ -437,14 +437,14 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.clickText(device, true, main.getString(R.string.save), true, false));
         assertTrue(TestUtils.findText(device, false, "Car"));
         assertTrue(TestUtils.findText(device, false, "Truck"));
-     
+
         TestUtils.clickHome(device, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         device.waitForIdle();
         assertTrue(n.hasTag("motorcar", Tags.VALUE_YES));
         assertTrue(n.hasTag("truck", Tags.VALUE_YES));
     }
-    
+
     /**
      * What the name says
      */
@@ -1428,6 +1428,77 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         device.waitForIdle();
         assertTrue(n.hasTag("cuisine", "burger"));
+    }
+
+    /**
+     * Select two nodes
+     */
+    @Test
+    public void multiSelect() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        main.getMap().getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+
+        Node n1 = (Node) App.getDelegator().getOsmElement(Node.NAME, 3465444349L);
+        assertNotNull(n1);
+        Node n2 = (Node) App.getDelegator().getOsmElement(Node.NAME, 3190098961L);
+        assertNotNull(n1);
+        final CountDownLatch signal2 = new CountDownLatch(1);
+        main.runOnUiThread(() -> {
+            logic.addSelectedNode(n1);
+            logic.addSelectedNode(n2);
+            main.getEasyEditManager().editElements();
+            (new SignalHandler(signal2)).onSuccess();
+        });
+        try {
+            signal2.await(20, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
+
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, true));
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(propertyEditor instanceof PropertyEditor);
+
+        assertFalse(TestUtils.findText(device, false, context.getString(R.string.tag_details)));
+
+        if (!((PropertyEditor) propertyEditor).paneLayout()) {
+            assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
+        }
+        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Lifecycle"), true, false);
+        assertTrue(found);
+        found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Set to disused"), true, false);
+        assertTrue(found);
+
+        UiObject2 level = null;
+        try {
+            level = getField(device, "level", 2);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        assertNotNull(level);
+        level.setText("1234");
+
+        TestUtils.clickHome(device, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
+        device.waitForIdle();
+
+        assertTrue(n1.hasTag("disused:amenity", "toilets"));
+        assertTrue(n1.hasTag("level", "1234"));
+        assertTrue(n2.hasTag("disused:amenity", "fountain"));
+        assertTrue(n2.hasTag("level", "1234"));
     }
 
     /**

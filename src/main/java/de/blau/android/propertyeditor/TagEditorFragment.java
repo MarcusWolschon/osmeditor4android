@@ -445,21 +445,20 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         List<Map<String, String>> originalTags = (ArrayList<Map<String, String>>) getArguments().getSerializable(TAGS_KEY);
         //
         LinkedHashMap<String, List<String>> tags = new LinkedHashMap<>();
-        for (Map<String, String> map : originalTags) {
+        int l = originalTags.size();
+        List<String> valueTemplate = new ArrayList<>(l);
+        for (int j = 0; j < l; j++) {
+            valueTemplate.add("");
+        }
+        for (int i = 0; i < l; i++) {
+            Map<String, String> map = originalTags.get(i);
             for (Entry<String, String> entry : map.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
                 if (!tags.containsKey(key)) {
-                    tags.put(key, new ArrayList<>());
+                    tags.put(key, new ArrayList<>(valueTemplate));
                 }
-                tags.get(key).add(value);
-            }
-        }
-        // for those keys that don't have a value for each element add an empty string
-        int l = originalTags.size();
-        for (List<String> v : tags.values()) {
-            if (v.size() != l) {
-                v.add("");
+                tags.get(key).set(i, value);
             }
         }
         return tags;
@@ -652,15 +651,14 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * Determine the best presets for the existing tags
      * 
      * @param allTags the current tags
-     * @param presetItem the current beest PresetItem or null
+     * @param presetItem the current best PresetItem or null
      * @param presets the current presets
      */
     private void determinePresets(@NonNull Map<String, String> allTags, @Nullable PresetItem presetItem, @NonNull Preset[] presets) {
         clearPresets();
         clearSecondaryPresets();
         if (presetItem == null) {
-            primaryPresetItem = Preset.findBestMatch(presets, allTags, propertyEditorListener.getCountryIsoCode(), null, true); // FIXME
-                                                                                                                          // multiselect;
+            primaryPresetItem = Preset.findBestMatch(presets, allTags, propertyEditorListener.getCountryIsoCode(), null, true);
         } else {
             primaryPresetItem = presetItem;
         }
@@ -1679,7 +1677,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param addToMRU add to preset MRU list if true
      * @param useDefaults use any default values specified in the preset
      */
-    void applyPreset(@NonNull LinearLayout rowLayout, @NonNull PresetItem item, boolean addOptional, boolean isAlternative, boolean addToMRU, boolean useDefaults) {
+    void applyPreset(@NonNull LinearLayout rowLayout, @NonNull PresetItem item, boolean addOptional, boolean isAlternative, boolean addToMRU,
+            boolean useDefaults) {
         Log.d(DEBUG_TAG, "applying preset " + item.getName());
         LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(rowLayout, true);
 
@@ -2305,7 +2304,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             return newOldTags;
         }
 
-        for (LinkedHashMap<String, String> map : newTags) {
+        for (int index = 0; index < newTags.size(); index++) {
+            LinkedHashMap<String, String> map = newTags.get(index);
             for (String key : new TreeSet<>(map.keySet())) {
                 if (edits.containsKey(key)) {
                     List<String> valueList = edits.get(key);
@@ -2329,8 +2329,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             for (Entry<String, List<String>> entry : edits.entrySet()) {
                 String editsKey = entry.getKey();
                 List<String> valueList = entry.getValue();
-                if (editsKey != null && !"".equals(editsKey) && !map.containsKey(editsKey) && valueList.size() == 1) {
-                    String value = valueList.get(0).trim();
+                final int size = valueList.size();
+                if (editsKey != null && !"".equals(editsKey) && !map.containsKey(editsKey)) {
+                    String value = valueList.get(size == 1 || index >= size ? 0 : index).trim();
                     if (saveTag(editsKey, value)) {
                         addTagToResult(map, editsKey, value);
                     }
