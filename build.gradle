@@ -512,6 +512,7 @@ dependencies {
     implementation "androidx.exifinterface:exifinterface:1.1.0"
     implementation "androidx.legacy:legacy-preference-v14:1.0.0"
     implementation "androidx.work:work-runtime:$work_version"
+    implementation "androidx.window:window:1.0.0"
     
     //
     implementation 'com.heinrichreimersoftware:android-issue-reporter:1.4'
