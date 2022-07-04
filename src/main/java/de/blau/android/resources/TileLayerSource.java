@@ -70,6 +70,7 @@ import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Util;
 import de.blau.android.util.Version;
 import de.blau.android.views.layers.MapTilesLayer;
 import okhttp3.Call;
@@ -1627,11 +1628,8 @@ public class TileLayerSource implements Serializable {
      * @return the string with replaced parameters
      */
     public String replaceGeneralParameters(@NonNull final String s) {
-        Resources r = ctx.getResources();
-        final Locale l = r.getConfiguration().locale;
-        String result = s;
-        result = replaceParameter(result, "culture", l.getLanguage().toLowerCase(Locale.US) + "-" + l.getCountry().toLowerCase(Locale.US));
-        return result;
+        final Locale l = Util.getPrimaryLocale(ctx.getResources());
+        return replaceParameter(s, "culture", l.getLanguage().toLowerCase(Locale.US) + "-" + l.getCountry().toLowerCase(Locale.US));
     }
 
     private static final int BASE_STATE  = 0;

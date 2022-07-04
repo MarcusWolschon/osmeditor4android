@@ -2,9 +2,10 @@ package de.blau.android.util;
 
 import android.app.Activity;
 import android.content.res.Configuration;
-import android.graphics.Point;
-import android.view.Display;
+import android.graphics.Rect;
 import androidx.annotation.NonNull;
+import androidx.window.layout.WindowMetrics;
+import androidx.window.layout.WindowMetricsCalculator;
 
 public final class Screen {
 
@@ -23,10 +24,9 @@ public final class Screen {
      */
     public static boolean isLandscape(@NonNull Activity activity) {
         // reliable determine if we are in landscape mode
-        Display display = activity.getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        return isLarge(activity) && size.x > size.y;
+        WindowMetrics metrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(activity);
+        Rect size = metrics.getBounds();
+        return isLarge(activity) && size.width() > size.height();
     }
 
     /**
@@ -46,13 +46,12 @@ public final class Screen {
      * @param activity the calling Activity
      * @return the smaller side in px
      */
-    public static int getScreenSmallDimemsion(@NonNull Activity activity) {
-        Point size = new Point();
-        Display display = activity.getWindowManager().getDefaultDisplay();
-        display.getSize(size);
-        if (size.x < size.y) {
-            return size.x;
+    public static int getScreenSmallDimension(@NonNull Activity activity) {
+        WindowMetrics metrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(activity);
+        Rect size = metrics.getBounds();
+        if (size.width() < size.height()) {
+            return size.width();
         }
-        return size.y;
+        return size.height();
     }
 }

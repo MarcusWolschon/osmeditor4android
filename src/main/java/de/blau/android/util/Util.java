@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -701,7 +702,7 @@ public final class Util {
         }
         return val;
     }
-    
+
     /**
      * Get a translated string with element type and id
      * 
@@ -712,14 +713,16 @@ public final class Util {
      */
     public static String elementTypeId(@NonNull Context ctx, @NonNull String type, long id) {
         switch (type) {
-        case Node.NAME: return ctx.getString(R.string.node_id, id);
-        case Way.NAME: return ctx.getString(R.string.way_id, id);
-        case Relation.NAME: return ctx.getString(R.string.relation_id, id);
+        case Node.NAME:
+            return ctx.getString(R.string.node_id, id);
+        case Way.NAME:
+            return ctx.getString(R.string.way_id, id);
+        case Relation.NAME:
+            return ctx.getString(R.string.relation_id, id);
         default:
             throw new IllegalArgumentException("Unknoen element " + type);
         }
     }
-    
 
     /**
      * Check if a String is neither null nor the empty String
@@ -729,5 +732,18 @@ public final class Util {
      */
     public static boolean notEmpty(@Nullable final String text) {
         return text != null && !"".equals(text);
+    }
+
+    /**
+     * Backwards compatible way of getting current Locale
+     * 
+     * @param r the Resources
+     * @return the current primary Locale
+     */
+    @SuppressWarnings("deprecation")
+    @NonNull
+    public static Locale getPrimaryLocale(@NonNull Resources r) {
+        Configuration c = r.getConfiguration();
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? c.getLocales().get(0) : c.locale;
     }
 }

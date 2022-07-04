@@ -28,6 +28,7 @@ import de.blau.android.propertyeditor.SanitizeTextWatcher;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.LocaleUtils;
+import de.blau.android.util.Util;
 import de.blau.android.util.Value;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
@@ -209,7 +210,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
                 } else if (valueType == null) {
                     InputTypeUtil.enableTextSuggestions(ourValueView);
                 }
-                if (isName && LocaleUtils.usesLatinScript(caller.getResources().getConfiguration().locale)) {
+                if (isName && LocaleUtils.usesLatinScript(Util.getPrimaryLocale(caller.getResources()))) {
                     ourValueView.setInputType(
                             (ourValueView.getInputType() & ~INPUTTYPE_CAPS_MASK) | InputType.TYPE_CLASS_TEXT | App.getLogic().getPrefs().getAutoNameCap());
                 } else {

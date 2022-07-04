@@ -247,7 +247,7 @@ android {
     }
 
     // this, unluckily, cannot be set per flavour
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     // Specifies one flavor dimension.
     flavorDimensions "api"
@@ -255,7 +255,7 @@ android {
         current {
             dimension "api"
             minSdkVersion 16
-            targetSdkVersion 30
+            targetSdkVersion 31
             applicationIdSuffix ""
             versionNameSuffix ""
             resValue "string", "content_provider", "de.blau.android.provider"
@@ -496,7 +496,7 @@ ext {
     signpostVersion = "2.1.1"
     acraVersion = "5.7.0"
     mapboxVersion = "5.8.0"
-    work_version = "2.6.0"
+    work_version = "2.7.1"
 }
 
 dependencies {
@@ -512,6 +512,8 @@ dependencies {
     implementation "androidx.exifinterface:exifinterface:1.1.0"
     implementation "androidx.legacy:legacy-preference-v14:1.0.0"
     implementation "androidx.work:work-runtime:$work_version"
+    implementation "androidx.window:window:1.0.0"
+    implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
     
     //
     implementation 'com.heinrichreimersoftware:android-issue-reporter:1.4'

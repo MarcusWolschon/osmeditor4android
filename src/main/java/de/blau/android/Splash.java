@@ -16,6 +16,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.splashscreen.SplashScreen;
 import androidx.preference.PreferenceManager;
 import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.Progress;
@@ -26,7 +27,7 @@ import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 
 /**
- * Taken from https://www.bignerdranch.com/blog/splash-screens-the-right-way/
+ * Originally based https://www.bignerdranch.com/blog/splash-screens-the-right-way/
  * 
  * We take the opportunity to do anything one time only too.
  * 
@@ -34,20 +35,22 @@ import de.blau.android.util.FileUtil;
  *
  */
 public class Splash extends AppCompatActivity {
-    private static final String DEBUG_TAG = "Splash";
+    private static final String DEBUG_TAG = Splash.class.getSimpleName();
 
     static final String SHORTCUT_EXTRAS_KEY = "shortcut_extras";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         // don't use Preferences here as this will create the Vespucci directory which is bad for migration
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (prefs.getBoolean(getString(R.string.config_enableLightTheme_key), true)) {
-            setTheme(R.style.SplashThemeLight);
+        final boolean lightTheme = prefs.getBoolean(getString(R.string.config_enableLightTheme_key), true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setTheme(lightTheme ? R.style.SplashThemeLight : R.style.SplashTheme);
+            SplashScreen.Companion.installSplashScreen(this);
         } else {
-            setTheme(R.style.SplashTheme);
+            setTheme(lightTheme ? R.style.SplashThemeLightPre21 : R.style.SplashThemePre21);
         }
+        super.onCreate(savedInstanceState);
     }
 
     @SuppressWarnings("deprecation")

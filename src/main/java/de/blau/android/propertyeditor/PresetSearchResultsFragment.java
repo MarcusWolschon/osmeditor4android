@@ -270,7 +270,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
-            dialog.getWindow().setLayout((int) (Screen.getScreenSmallDimemsion(getActivity()) * 0.9), ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setLayout((int) (Screen.getScreenSmallDimension(getActivity()) * 0.9), ViewGroup.LayoutParams.WRAP_CONTENT);
         }
     }
 
