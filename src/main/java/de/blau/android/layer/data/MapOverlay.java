@@ -283,6 +283,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private float[]            offsettedCasing = new float[100];
     private List<Node>         nodesResult     = new ArrayList<>(1000);
     private List<Way>          waysResult      = new ArrayList<>(1000);
+    private List<BoundingBox>  downloadedBoxes = new ArrayList<>();
 
     /**
      * Stuff for multipolygon support Instantiate these objects just once
@@ -432,10 +433,18 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
         inNodeIconZoomRange = zoomLevel > DataStyle.getCurrent().getIconZoomLimit();
 
+        downloadedBoxes.clear();
+        final ViewBox viewBox = map.getViewBox();
+        for (BoundingBox box : delegator.getCurrentStorage().getBoundingBoxes()) {
+            if (box.intersects(viewBox)) {
+                downloadedBoxes.add(box);
+            }
+        }
+
         Location location = map.getLocation();
         if (zoomLevel >= panAndZoomLimit && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
             map.getRootView().removeCallbacks(download);
-            download.setBox(map.getViewBox());
+            download.setBox(viewBox);
             map.getRootView().postDelayed(download, 100);
         }
         paintOsmData(canvas);
@@ -569,7 +578,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 }
             }
             paintNode(canvas, n, x, y, hwAccelarationWorkaround,
-                    drawTolerance && !noTolerance && (n.getState() != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lon, lat)));
+                    drawTolerance && !noTolerance && (n.getState() != OsmElement.STATE_UNCHANGED || isInDownload(lon, lat)));
         }
         // turn restrictions
         if (inNodeIconZoomRange && showIcons) {
@@ -580,6 +589,24 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             }
         }
         paintHandles(canvas);
+    }
+
+    /**
+     * Replacement for the method in StorageDelegator for performance reasons
+     * 
+     * @param lonE7 WGS84*19E7 longitude
+     * @param latE7 WGS84*19E7 latitude
+     * @return true if the coordinates are in one of the downloaded areas
+     */
+    private boolean isInDownload(int lonE7, int latE7) {
+        if (downloadedBoxes != null) {
+            for (BoundingBox bb : downloadedBoxes) {
+                if (bb.isIn(lonE7, latE7)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
