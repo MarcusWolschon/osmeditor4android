@@ -391,7 +391,7 @@ public class TrackerService extends Service {
         Intent appStartIntent = new Intent();
         appStartIntent.setAction(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
                 .setComponent(new ComponentName(Main.class.getPackage().getName(), Main.class.getName())).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pendingAppIntent = PendingIntent.getActivity(this, 0, appStartIntent, 0);
+        PendingIntent pendingAppIntent = PendingIntent.getActivity(this, 0, appStartIntent, PendingIntent.FLAG_IMMUTABLE);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             notificationBuilder.setContentTitle(getString(R.string.tracking_active_title)).setContentText(getString(R.string.tracking_active_text));
         } else {
@@ -400,7 +400,7 @@ public class TrackerService extends Service {
         }
         Intent exitIntent = new Intent(this, Main.class);
         exitIntent.setAction(Main.ACTION_EXIT);
-        PendingIntent pendingExitIntent = PendingIntent.getActivity(this, 0, exitIntent, 0);
+        PendingIntent pendingExitIntent = PendingIntent.getActivity(this, 0, exitIntent, PendingIntent.FLAG_IMMUTABLE);
         notificationBuilder.setSmallIcon(R.drawable.logo_simplified).setOngoing(true).setUsesChronometer(true).setContentIntent(pendingAppIntent)
                 .setColor(ContextCompat.getColor(this, R.color.osm_green))
                 .addAction(R.drawable.logo_simplified, getString(R.string.exit_title), pendingExitIntent);
