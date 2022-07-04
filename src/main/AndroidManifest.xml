@@ -6,7 +6,7 @@
     android:versionCode="2102"
     android:versionName="@string/app_version" >
 
-    <uses-sdk tools:overrideLibrary="" />
+    <uses-sdk tools:overrideLibrary="androidx.core.splashscreen" />
 
     <uses-feature
         android:name="android.hardware.sensor.compass"
