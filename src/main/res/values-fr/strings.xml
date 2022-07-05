@@ -89,6 +89,7 @@
   <string name="confirm_upload_title">Envoyer les changements</string>
   <plurals name="confirm_upload_text">
     <item quantity="one">Envoyer cette modification ?</item>
+    <item quantity="many">Envoyer ces %1$d modifications ?</item>
     <item quantity="other">Envoyer ces %1$d modifications ?</item>
   </plurals>
   <string name="confirm_upload_edits_page">Changements</string>
@@ -100,6 +101,7 @@
   <string name="upload_validation_error_empty_comment">Un commentaire ne doit pas être vide</string>
   <string name="upload_validation_error_empty_source">La source ne doit pas être vide</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">Envoyer la trace GPX</string>
   <string name="upload_gpx_description_label">Description</string>
   <string name="upload_gpx_tags_label">Attributs</string>
   <string name="upload_gpx_visibility_label">Visibilité</string>
@@ -293,6 +295,7 @@
   <string name="layer_style_label">Étiquette</string>
   <string name="json_object_not_displayed">Objet JSON (non affiché)</string>
   <string name="json_array_not_displayed">Tableau JSON (non affiché)</string>
+  <string name="gpx_automatic">Automatique</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
@@ -360,8 +363,6 @@
   <string name="tip_title">Le saviez-vous ?</string>
   <string name="tip_check_label">Ne plus montrer d\'astuces facultatives</string>
   <string name="tip_undo">Un appui long sur le bouton de retour montrera tous les points d\'actions à annuler ou à refaire.</string>
-  <string name="tip_imagery_privacy">Les couches de fond et les surcouches sont fournies par des tierces parties. L\'utilisation d\'une couche transmet votre adresse réseau et une indication imprécise des lieux que vous regardez au fournisseur du service. &lt;p&gt;Si le fournisseur a fournit une information sur sa politique de vie privée, vous pouvez la visualiser dans le menu « Info » du dialogue de la couche en question.</string>
-  <string name="tip_pan_and_zoom_auto_download">Vous devriez faire attention avec le téléchargement automatique au déplacement et au zoom  parce qu\'il peut être très demandeur pour les API d\'OpenStreetMap et votre appareil. &lt;p&gt;Vous pouvez éviter de charger les serveurs d\'API en utilisant une source de données hors-ligne.</string>
   <string name="tip_locked_mode">En mode de verrouillage vous ne pouvez rien modifier, mais un appuie long sur un objet ouvrira un écran avec ses informations détaillées.</string>
   <string name="tip_longpress_simple_mode">Dans le mode simplifié, un appui long est sans effet. Désactivez le mode simplifié dans le menu principal si vous souhaitez utiliser les appuis longs pour créer des objets.</string>
   <!--NumberPicker-->
@@ -398,6 +399,7 @@
   <string name="toast_way_nodes_moved">%1$d nœuds dans le chemin déplacé</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Vous avez un message OSM non lu</item>
+    <item quantity="many">Vous avez %1$d messages OSM non lus</item>
     <item quantity="other">Vous avez %1$d messages OSM non lus</item>
   </plurals>
   <string name="read_mail">Lire</string>
@@ -428,6 +430,7 @@
   <string name="toast_file_not_found">%1$s introuvable.</string>
   <plurals name="toast_imported_track_points">
     <item quantity="one">%1$d points et un chemin importé.</item>
+    <item quantity="many">%1$d points et %2$d chemins importés.</item>
     <item quantity="other">%1$d points et %2$d chemins importés.</item>
   </plurals>
   <string name="toast_unknown_voice_command">Désolé, « %1$s » n\'est actuellement pas compris</string>
@@ -537,6 +540,7 @@
   <string name="prune">Élaguer</string>
   <string name="check">Vérifier</string>
   <string name="download">Télécharger</string>
+  <string name="select">Sélectionner</string>
   <!--Read a file-->
   <string name="read">Lire</string>
   <string name="overwrite">Écrire par dessus</string>
@@ -692,10 +696,10 @@
   <string name="menu_gps_position_info">Informations de position actuelle</string>
   <string name="menu_gps_start">Démarrer la trace GPX</string>
   <string name="menu_gps_pause">Mettre en pause la trace GPX</string>
-  <string name="menu_gps_clear">Effacer la trace GPX et les points</string>
+  <string name="menu_gps_clear">Effacer la trace GPX et ses points</string>
   <string name="menu_gps_track_managment">Gestion des traces…</string>
   <string name="menu_gps_upload">Envoyer la trace GPX</string>
-  <string name="menu_gps_export">Exporter la trace GPX</string>
+  <string name="menu_gps_export">Enregistrer la trace GPX</string>
   <string name="menu_gps_import">Importer la trace GPX</string>
   <string name="menu_gps_goto_start">Aller au début de la trace</string>
   <string name="menu_gps_goto_first_waypoint">Aller au premier point du chemin</string>
@@ -843,6 +847,7 @@
   <string name="actionmode_extract_segment_set_tags">Mettre les attributs</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">un objet</item>
+    <item quantity="many">%1$d objets</item>
     <item quantity="other">%1$d objets</item>
   </plurals>
   <string name="actionmode_rotateway">Tourner le chemin</string>
@@ -941,6 +946,7 @@
   <string name="config_uploadOk_summary">Limite sous laquelle les objets en attente d\'envoi sont considérés comme OK</string>
   <string name="config_upload_current">%1$d objets</string>
   <string name="config_uploadWarn_title">Seuil d\'alerte des envois en attente</string>
+  <string name="config_uploadChecker_current">%1$d heures</string>
   <string name="config_dataWarn_title">Seuil d\'alerte pour la consommation de données</string>
   <string name="config_beepVolume_title">Volume du signal sonore</string>
   <string name="config_beepVolume_summary">Réglage du volume des signaux sonores</string>
@@ -1189,30 +1195,39 @@
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 jour</item>
+    <item quantity="many">%1$d jours</item>
     <item quantity="other">%1$d jours</item>
   </plurals>
   <plurals name="hours">
     <item quantity="one">1 heure</item>
+    <item quantity="many">%1$d heures</item>
     <item quantity="other">%1$d heures</item>
   </plurals>
   <plurals name="minutes">
     <item quantity="one">1 minute</item>
+    <item quantity="many">%1$d minutes</item>
     <item quantity="other">%1$d minutes</item>
   </plurals>
   <plurals name="seconds">
     <item quantity="one">1 seconde</item>
+    <item quantity="many">%1$d secondes</item>
     <item quantity="other">%1$d secondes</item>
   </plurals>
   <plurals name="km">
     <item quantity="one">1 km</item>
+    <item quantity="many">%1$d km</item>
     <item quantity="other">%1$d km</item>
   </plurals>
   <plurals name="meters">
     <item quantity="one">1 mètre</item>
+    <item quantity="many">%1$d mètres</item>
     <item quantity="other">%1$d mètres</item>
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Pas d\'aide ici.</string>
   <!--Bookmarks-->
   <!--Element types-->
+  <string name="element_type_way">chemin</string>
+  <string name="element_type_area">polygone</string>
+  <string name="element_type_relation">relation</string>
 </resources>
