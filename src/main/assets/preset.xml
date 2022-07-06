@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="4.3.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="4.4.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom">
 <!--
@@ -2545,14 +2545,14 @@
                 <combo key="direction" text="For direction" values="forward,backward,both" display_values="Forward,Backward,Both"/>
             </optional>
         </item> <!-- Highway Milestone -->
-        <item name="Named Junction" name_context="junction=yes" icon="" type="node,closedway" preset_name_label="true">
+        <item name="Junction" name_context="junction=yes" icon="icons/png/highway_junction.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:junction=yes"/>
             <space />
-            <label text="Used in some countries for a named road junction who.s name serves for local orientation."/>
+            <label text="Used for local orientation, or for references."/>
             <space />
-            <key key="junction" value="yes"/>
-            <text key="name" text="Name"/>
-        </item> <!-- Named Junction -->
+            <key key="junction" value="yes" object="true" />
+            <reference ref="optional_name" />
+        </item> <!-- Junction -->
         <separator/>
         <item name="Elevator" icon="icons/png/highway_elevator_18003.png" type="node,way,closedway" preset_name_label="true">
             <link wiki="Tag:highway=elevator"/>
@@ -4211,6 +4211,7 @@
             </combo>
             <reference ref="optional_name"/>
             <text key="capacity" text="Capacity" value_type="integer"/>
+            <text key="capacity:cargo_bike" text="Capacity for cargo bikes" value_type="integer"/>
             <reference ref="parking_access_fee_operator_surface_smoothness"/>
             <check key="covered" text="Covered"/>
             <reference ref="supervised_lit_oh"/>
@@ -5867,8 +5868,23 @@
             <key key="amenity" value="theatre"/>
             <optional>
                 <combo key="theatre:genre" text="Theatre type" values_searchable="true">
-                    <list_entry value="drama" display_value="Drama"/>
+                    <list_entry value="ballet" display_value="Ballet theatre"/>
+                    <list_entry value="boulevard" display_value="Boulevard"/>
+                    <list_entry value="cabaret" display_value="Cabaret"/>
+                    <list_entry value="chamber_music" display_value="Chamber music"/>
+                    <list_entry value="circus" display_value="Circus"/>
                     <list_entry value="comedy" display_value="Comedy"/>
+                    <list_entry value="drama" display_value="Drama"/>
+                    <list_entry value="figure" display_value="Figure"/>
+                    <list_entry value="marionette" display_value="Marionette"/>
+                    <list_entry value="musical" display_value="Musical theatre"/>
+                    <list_entry value="opera" display_value="Opera house"/>
+                    <list_entry value="philharmonic" display_value="Ochestral music"/>
+                    <list_entry value="political" display_value="Political"/>
+                    <list_entry value="puppet" display_value="Puppet"/>
+                    <list_entry value="shadow_play" display_value="Shadow play"/>
+                    <list_entry value="stand_up_comedy" display_value="Stand up comedy"/>
+                    <list_entry value="variety" display_value="Variety"/>
                 </combo>
             </optional>
             <reference ref="name_operator"/>
@@ -11830,9 +11846,9 @@
             <text key="addr:street" text="Street name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name" />
             <check key="nohousenumber" text="No house number" disable_off="true"/>
             <optional>
-                <text key="addr:place" text="Place name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name" object="true"/>
-                <text key="addr:city" text="City name" use_last_as_default="force" match="key" object="true"/>
-                <text key="addr:postcode" text="Post code" use_last_as_default="force" match="key" object="true"/>
+                <text key="addr:place" text="Place name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name" />
+                <text key="addr:city" text="City name" use_last_as_default="force" match="key" />
+                <text key="addr:postcode" text="Post code" use_last_as_default="force" match="key" />
                 <combo key="addr:country" text="Country code" values_from="java.util.Locale#getISOCountries" use_last_as_default="force" match="key"/>
             </optional>
             <optional text="Optional values for specific countries">
@@ -12430,7 +12446,23 @@
             <link wiki="Relation:route" />
             <space/>
             <key key="type" value="route"/>
-            <combo key="route" text="Route type" values="bicycle,mtb,foot,hiking,walking,inline_skates,road" display_values="Bicycle,MTB,Foot,Hiking,Walking,Inline skates,Road" match="keyvalue!" values_sort="false"/>
+            <combo key="route" text="Route type" match="keyvalue!" values_sort="false">
+                <list_entry value="bicycle" display_value="Bicycle" />
+                <list_entry value="fitness_trail" display_value="Fitness trail" />
+                <list_entry value="foot" display_value="Foot" />
+                <list_entry value="hiking" display_value="Hiking" />
+                <list_entry value="horse" display_value="Riding" />
+                <list_entry value="inline_skates" display_value="Inline skates" />
+                <list_entry value="mtb" display_value="MTB" />
+                <list_entry value="piste" display_value="Skiing (piste)" />
+                <list_entry value="running" display_value="Running" />
+                <list_entry value="walking" display_value="Walking" />             
+                <!-- Infrastructure -->
+                <list_entry value="detour" display_value="Detour" />
+                <list_entry value="power" display_value="Power" />
+                <list_entry value="railway" display_value="Railway" />
+                <list_entry value="road" display_value="Road" />
+            </combo>
         </item> <!-- Generic route -->
         <separator/>
         <item name="Associated Street" icon="icons/png/osm_housenumber_sp.png" type="relation" preset_name_label="true">
