@@ -1,5 +1,10 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.1.4:
+
+- Fix crash when calculating centroid of one node way
+- Update preset
+
 17.1.3:
 
 - Fix speed up checking if node is in download
