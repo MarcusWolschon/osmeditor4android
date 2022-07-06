@@ -143,8 +143,8 @@ public final class Geometry {
             return null;
         }
         List<Node> nodes = way.getNodes();
-        boolean closed = way.isClosed();
         int size = nodes.size();
+        boolean closed = way.isClosed() && size != 1; // handle 1 node ways
         size = closed ? size - 1 : size;
         Coordinates[] points = new Coordinates[size];
         Coordinates start = new Coordinates(nodes.get(0).getLon() / 1E7D, GeoMath.latE7ToMercator(nodes.get(0).getLat()));
