@@ -325,6 +325,8 @@
 		<item name="StaticText">@style/StaticTextDark</item>
 		<item name="SplitterBGV">@drawable/splitter_bg_v_dark</item>
 		<item name="SplitterBGH">@drawable/splitter_bg_h_dark</item>
+        <item name="SplitterHandleV">@drawable/splitter_handle_v_dark</item>
+        <item name="SplitterHandleH">@drawable/splitter_handle_h_dark</item>
 		<!--  icons  -->
 		<item name="menu_help">@drawable/ic_action_help_holo_dark</item>
 		<item name="menu_undo">@drawable/ic_action_undo_holo_dark</item>
@@ -502,6 +504,8 @@
 		<item name="StaticText">@style/StaticTextLight</item>
 		<item name="SplitterBGV">@drawable/splitter_bg_v_light</item>
 		<item name="SplitterBGH">@drawable/splitter_bg_h_light</item>
+        <item name="SplitterHandleV">@drawable/splitter_handle_v_light</item>
+         <item name="SplitterHandleH">@drawable/splitter_handle_h_light</item>
 		<!--  icons  -->
 		<item name="menu_help">@drawable/ic_action_help_holo_light</item>
 		<item name="menu_undo">@drawable/ic_action_undo_holo_light</item>

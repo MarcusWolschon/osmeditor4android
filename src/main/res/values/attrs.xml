@@ -114,6 +114,8 @@
         <attr name="splitterPosition" format="dimension|fraction" />
         <attr name="splitterBackground" format="reference|color" />
         <attr name="splitterDraggingBackground" format="reference|color" />
+        <attr name="handleBackground" format="reference|color" />
+        <attr name="handleDraggingBackground" format="reference|color" />
     </declare-styleable>
     <declare-styleable name="Dummy">
 		<attr name="TableHeader" format="reference" />
@@ -128,5 +130,7 @@
 		<attr name="StaticText" format="reference" />
 		<attr name="SplitterBGH" format="reference" />
 		<attr name="SplitterBGV" format="reference" />
+        <attr name="SplitterHandleV" format="reference" />
+        <attr name="SplitterHandleH" format="reference" />
 	</declare-styleable>
 </resources>

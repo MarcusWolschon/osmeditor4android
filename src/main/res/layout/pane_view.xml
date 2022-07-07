@@ -20,6 +20,8 @@
         android:layout_height="fill_parent"
         spl:orientation="horizontal"
         spl:splitterBackground="?attr/SplitterBGH"
+        spl:handleBackground="?attr/SplitterHandleV"
+        spl:handleDraggingBackground="@drawable/splitter_handle_dragging_v"
         spl:splitterPosition="66%"
         spl:splitterSize="5dip">
         <de.blau.android.views.ExtendedViewPager
@@ -45,6 +47,8 @@
             android:paddingStart="5dp"
             spl:orientation="vertical"
             spl:splitterBackground="?attr/SplitterBGV"
+            spl:handleBackground="?attr/SplitterHandleH"
+            spl:handleDraggingBackground="@drawable/splitter_handle_dragging_h"
             spl:splitterPosition="33%"
             spl:splitterSize="5dip">
             <LinearLayout

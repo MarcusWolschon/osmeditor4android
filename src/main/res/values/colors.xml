@@ -28,4 +28,6 @@
 	<color name="material_orange">#FF9800</color>
 	<!-- OSM -->
 	<color name="osm_green">#ff9fd385</color>
+    <!-- splitter -->
+    <color name="splitter_dragging">#88FFFFFF</color>
 </resources>

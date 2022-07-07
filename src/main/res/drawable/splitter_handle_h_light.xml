@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="12dip">
+        <shape android:shape="line">
+            <stroke
+                android:width="2dip"
+                android:color="@color/material_deep_teal_500" />
+            <size
+                android:width="32dip"
+                android:height="24dip" />
+            <padding android:bottom="22dip" />
+        </shape>
+    </item>
+    <item android:bottom="-12dip">
+        <shape android:shape="line">
+            <stroke
+                android:width="2dip"
+                android:color="@color/material_deep_teal_500" />
+            <size
+                android:width="32dip"
+                android:height="24dip" />
+            <padding android:top="22dip" />
+        </shape>
+    </item>
+</layer-list>
