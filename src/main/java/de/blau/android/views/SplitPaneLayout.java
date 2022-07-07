@@ -18,9 +18,14 @@ package de.blau.android.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Paint.Style;
+import android.graphics.Path;
+import android.graphics.Path.Direction;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PaintDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.PathShape;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -40,8 +45,12 @@ import de.blau.android.exception.UiStateException;
  * each view.
  */
 public class SplitPaneLayout extends ViewGroup {
-    private static final int ORIENTATION_HORIZONTAL = 0;
-    private static final int ORIENTATION_VERTICAL   = 1;
+    private static final int DEFAULT_DRAGGING_COLOR   = 0x88FFFFFF;
+    private static final int DEFAULT_COLOR            = 0xFF000000;
+    private static final int DEFAULT_HANDLE_DIMENSION = 36;
+    private static final int DEFAULT_HANDLE_RADIUS    = 18;
+    private static final int ORIENTATION_HORIZONTAL   = 0;
+    private static final int ORIENTATION_VERTICAL     = 1;         // NOSONAR
 
     private int     mOrientation             = 0;
     private int     mSplitterSize            = 12;
@@ -51,8 +60,11 @@ public class SplitPaneLayout extends ViewGroup {
 
     private Drawable mSplitterDrawable;
     private Drawable mSplitterDraggingDrawable;
+    private Drawable mHandleDrawable;
+    private Drawable mHandleDraggingDrawable;
 
     private Rect mSplitterRect = new Rect();
+    private Rect mHandleRect   = new Rect();
 
     private int     lastX;
     private int     lastY;
@@ -67,8 +79,10 @@ public class SplitPaneLayout extends ViewGroup {
     public SplitPaneLayout(@NonNull Context context) {
         super(context);
         mSplitterPositionPercent = 0.5f;
-        mSplitterDrawable = new PaintDrawable(0x88FFFFFF);
-        mSplitterDraggingDrawable = new PaintDrawable(0x88FFFFFF);
+        mSplitterDrawable = new PaintDrawable(DEFAULT_COLOR);
+        mSplitterDraggingDrawable = new PaintDrawable(DEFAULT_DRAGGING_COLOR);
+
+        createDefaultHandle();
     }
 
     /**
@@ -96,12 +110,39 @@ public class SplitPaneLayout extends ViewGroup {
     }
 
     /**
+     * Create a default, circle, handle
+     */
+    private void createDefaultHandle() {
+        Path handlePath = new Path();
+        handlePath.addCircle(DEFAULT_HANDLE_RADIUS, DEFAULT_HANDLE_RADIUS, DEFAULT_HANDLE_RADIUS, Direction.CW);
+        PathShape handleShape = new PathShape(handlePath, DEFAULT_HANDLE_DIMENSION, DEFAULT_HANDLE_DIMENSION);
+
+        mHandleDrawable = new ShapeDrawable(handleShape);
+
+        ((ShapeDrawable) mHandleDrawable).getPaint().setStyle(Style.STROKE);
+        ((ShapeDrawable) mHandleDrawable).getPaint().setColor(DEFAULT_COLOR);
+        ((ShapeDrawable) mHandleDrawable).getPaint().setStrokeWidth(mSplitterSize);
+
+        ((ShapeDrawable) mHandleDrawable).setIntrinsicWidth(DEFAULT_HANDLE_DIMENSION);
+        ((ShapeDrawable) mHandleDrawable).setIntrinsicHeight(DEFAULT_HANDLE_DIMENSION);
+        mHandleDraggingDrawable = new ShapeDrawable(handleShape);
+
+        ((ShapeDrawable) mHandleDraggingDrawable).getPaint().setStyle(Style.FILL_AND_STROKE);
+        ((ShapeDrawable) mHandleDraggingDrawable).getPaint().setColor(DEFAULT_DRAGGING_COLOR);
+        ((ShapeDrawable) mHandleDraggingDrawable).getPaint().setStrokeWidth(mSplitterSize);
+
+        ((ShapeDrawable) mHandleDraggingDrawable).setIntrinsicWidth(DEFAULT_HANDLE_DIMENSION);
+        ((ShapeDrawable) mHandleDraggingDrawable).setIntrinsicHeight(DEFAULT_HANDLE_DIMENSION);
+    }
+
+    /**
      * If an AttributeSet is available extract attributes from it and use those
      * 
      * @param context an Android Context
      * @param attrs the AttributeSet
      */
     private void extractAttributes(@NonNull Context context, @Nullable AttributeSet attrs) {
+        createDefaultHandle();
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SplitPaneLayout);
             mOrientation = a.getInt(R.styleable.SplitPaneLayout_orientation, 0);
@@ -126,7 +167,7 @@ public class SplitPaneLayout extends ViewGroup {
                     mSplitterDrawable = a.getDrawable(R.styleable.SplitPaneLayout_splitterBackground);
                 } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
                         || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
-                    mSplitterDrawable = new PaintDrawable(a.getColor(R.styleable.SplitPaneLayout_splitterBackground, 0xFF000000));
+                    mSplitterDrawable = new PaintDrawable(a.getColor(R.styleable.SplitPaneLayout_splitterBackground, DEFAULT_COLOR));
                 }
             }
             value = a.peekValue(R.styleable.SplitPaneLayout_splitterDraggingBackground);
@@ -135,10 +176,32 @@ public class SplitPaneLayout extends ViewGroup {
                     mSplitterDraggingDrawable = a.getDrawable(R.styleable.SplitPaneLayout_splitterDraggingBackground);
                 } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
                         || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
-                    mSplitterDraggingDrawable = new PaintDrawable(a.getColor(R.styleable.SplitPaneLayout_splitterDraggingBackground, 0x88FFFFFF));
+                    mSplitterDraggingDrawable = new PaintDrawable(a.getColor(R.styleable.SplitPaneLayout_splitterDraggingBackground, DEFAULT_DRAGGING_COLOR));
                 }
             } else {
-                mSplitterDraggingDrawable = new PaintDrawable(0x88FFFFFF);
+                mSplitterDraggingDrawable = new PaintDrawable(DEFAULT_DRAGGING_COLOR);
+            }
+
+            value = a.peekValue(R.styleable.SplitPaneLayout_handleBackground);
+            if (value != null) {
+                if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING) {
+                    mHandleDrawable = a.getDrawable(R.styleable.SplitPaneLayout_handleBackground);
+                } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
+                        || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
+                    ((ShapeDrawable) mHandleDrawable).getPaint().setColor(a.getColor(R.styleable.SplitPaneLayout_handleBackground, DEFAULT_COLOR));
+                    ((ShapeDrawable) mHandleDrawable).getPaint().setStrokeWidth(mSplitterSize);
+                }
+            }
+            value = a.peekValue(R.styleable.SplitPaneLayout_handleDraggingBackground);
+            if (value != null) {
+                if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING) {
+                    mHandleDraggingDrawable = a.getDrawable(R.styleable.SplitPaneLayout_handleDraggingBackground);
+                } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
+                        || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
+                    ((ShapeDrawable) mHandleDraggingDrawable).getPaint()
+                            .setColor(a.getColor(R.styleable.SplitPaneLayout_handleDraggingBackground, DEFAULT_DRAGGING_COLOR));
+                    ((ShapeDrawable) mHandleDraggingDrawable).getPaint().setStrokeWidth(mSplitterSize);
+                }
             }
             a.recycle();
         }
@@ -153,8 +216,7 @@ public class SplitPaneLayout extends ViewGroup {
         check();
 
         if (widthSize > 0 && heightSize > 0) {
-            switch (mOrientation) {
-            case 0:
+            if (mOrientation == ORIENTATION_HORIZONTAL) {
                 if (mSplitterPosition == Integer.MIN_VALUE && mSplitterPositionPercent < 0) {
                     mSplitterPosition = widthSize / 2;
                 } else if (mSplitterPosition == Integer.MIN_VALUE && mSplitterPositionPercent >= 0) {
@@ -166,8 +228,7 @@ public class SplitPaneLayout extends ViewGroup {
                         MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.EXACTLY));
                 getChildAt(1).measure(MeasureSpec.makeMeasureSpec(widthSize - (mSplitterSize / 2) - mSplitterPosition, MeasureSpec.EXACTLY),
                         MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.EXACTLY));
-                break;
-            case 1:
+            } else if (mOrientation == ORIENTATION_VERTICAL) {
                 if (mSplitterPosition == Integer.MIN_VALUE && mSplitterPositionPercent < 0) {
                     mSplitterPosition = heightSize / 2;
                 } else if (mSplitterPosition == Integer.MIN_VALUE && mSplitterPositionPercent >= 0) {
@@ -179,7 +240,6 @@ public class SplitPaneLayout extends ViewGroup {
                         MeasureSpec.makeMeasureSpec(mSplitterPosition - (mSplitterSize / 2), MeasureSpec.EXACTLY));
                 getChildAt(1).measure(MeasureSpec.makeMeasureSpec(widthSize, MeasureSpec.EXACTLY),
                         MeasureSpec.makeMeasureSpec(heightSize - (mSplitterSize / 2) - mSplitterPosition, MeasureSpec.EXACTLY));
-                break;
             }
         }
     }
@@ -188,18 +248,26 @@ public class SplitPaneLayout extends ViewGroup {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         int w = r - l;
         int h = b - t;
-        switch (mOrientation) {
-        case 0:
+        if (mOrientation == ORIENTATION_HORIZONTAL) {
             getChildAt(0).layout(0, 0, mSplitterPosition - (mSplitterSize / 2), h);
             mSplitterRect.set(mSplitterPosition - (mSplitterSize / 2), 0, mSplitterPosition + (mSplitterSize / 2), h);
             getChildAt(1).layout(mSplitterPosition + (mSplitterSize / 2), 0, r, h);
-            break;
-        case 1:
+        } else if (mOrientation == ORIENTATION_VERTICAL) {
             getChildAt(0).layout(0, 0, w, mSplitterPosition - (mSplitterSize / 2));
             mSplitterRect.set(0, mSplitterPosition - (mSplitterSize / 2), w, mSplitterPosition + (mSplitterSize / 2));
             getChildAt(1).layout(0, mSplitterPosition + (mSplitterSize / 2), w, h);
-            break;
         }
+        int cX = mSplitterRect.centerX();
+        int cY = mSplitterRect.centerY();
+        Rect handleBounds = mHandleDrawable.getBounds();
+        mHandleRect.set(cX, cY, cX + handleBounds.width(), cY + handleBounds.height());
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+        return mHandleRect.contains(x, y);
     }
 
     @Override
@@ -210,24 +278,21 @@ public class SplitPaneLayout extends ViewGroup {
 
             switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (mSplitterRect.contains(x, y)) {
+                if (mSplitterRect.contains(x, y) || mHandleRect.contains(x, y)) {
                     performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
                     isDragging = true;
                     temp.set(mSplitterRect);
-                    invalidate(temp);
+                    invalidate();
                     lastX = x;
                     lastY = y;
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (isDragging) {
-                    switch (mOrientation) {
-                    case ORIENTATION_HORIZONTAL:
+                    if (mOrientation == ORIENTATION_HORIZONTAL) {
                         temp.offset((x - lastX), 0);
-                        break;
-                    case ORIENTATION_VERTICAL:
+                    } else if (mOrientation == ORIENTATION_VERTICAL) {
                         temp.offset(0, y - lastY);
-                        break;
                     }
                     lastX = x;
                     lastY = y;
@@ -237,19 +302,18 @@ public class SplitPaneLayout extends ViewGroup {
             case MotionEvent.ACTION_UP:
                 if (isDragging) {
                     isDragging = false;
-                    switch (mOrientation) {
-                    case ORIENTATION_HORIZONTAL:
+                    if (mOrientation == ORIENTATION_HORIZONTAL) {
                         mSplitterPosition = x;
-                        break;
-                    case ORIENTATION_VERTICAL:
+                    } else if (mOrientation == ORIENTATION_VERTICAL) {
                         mSplitterPosition = y;
-                        break;
                     }
                     mSplitterPositionPercent = -1;
                     remeasure();
                     requestLayout();
                 }
                 break;
+            default:
+                return false;
             }
             return true;
         }
@@ -297,10 +361,23 @@ public class SplitPaneLayout extends ViewGroup {
         if (mSplitterDrawable != null) {
             mSplitterDrawable.setBounds(mSplitterRect);
             mSplitterDrawable.draw(canvas);
+            int cX = mSplitterRect.centerX();
+            int cY = mSplitterRect.centerY();
+            int w2 = mHandleDrawable.getIntrinsicWidth() / 2;
+            int h2 = mHandleDrawable.getIntrinsicHeight() / 2;
+            mHandleDrawable.setBounds(cX - w2, cY - h2, cX + w2, cY + h2);
+            mHandleDrawable.draw(canvas);
+            mHandleRect.set(mHandleDrawable.getBounds());
         }
         if (isDragging) {
             mSplitterDraggingDrawable.setBounds(temp);
             mSplitterDraggingDrawable.draw(canvas);
+            int cX = temp.centerX();
+            int cY = temp.centerY();
+            int w2 = mHandleDraggingDrawable.getIntrinsicWidth() / 2;
+            int h2 = mHandleDraggingDrawable.getIntrinsicHeight() / 2;
+            mHandleDraggingDrawable.setBounds(cX - w2, cY - h2, cX + w2, cY + h2);
+            mHandleDraggingDrawable.draw(canvas);
         }
     }
 

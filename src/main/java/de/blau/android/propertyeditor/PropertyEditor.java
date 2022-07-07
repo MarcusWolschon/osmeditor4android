@@ -87,7 +87,7 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
         PresetUpdate, NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener {
 
     private static final String CURRENTITEM            = "current_item";
-    private static final String PANELAYOUT             = "pane_layout";
+    static final String         PANELAYOUT             = "pane_layout";
     private static final String PRESET_FRAGMENT        = "preset_fragment";
     public static final String  RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
 
@@ -241,10 +241,6 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
 
         super.onCreate(savedInstanceState);
 
-        if (prefs.splitActionBarEnabled()) {
-            // TODO determine if we want to reinstate the bottom bar
-        }
-
         // tags
         if (savedInstanceState == null) {
             // No previous state to restore - get the state from the intent
@@ -254,7 +250,8 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
             showPresets = (Boolean) getIntent().getSerializableExtra(TAGEDIT_SHOW_PRESETS);
             extraTags = (HashMap<String, String>) getIntent().getSerializableExtra(TAGEDIT_EXTRA_TAGS);
             presetsToApply = (ArrayList<PresetElementPath>) getIntent().getSerializableExtra(TAGEDIT_PRESETSTOAPPLY);
-            usePaneLayout = Screen.isLandscape(this);
+            Boolean tempUsePaneLayout = (Boolean) getIntent().getSerializableExtra(PANELAYOUT);
+            usePaneLayout = tempUsePaneLayout != null ? tempUsePaneLayout : Screen.isLandscape(this);
 
             // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
             // selected
@@ -1300,11 +1297,13 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     }
 
     /**
-     * Return if we are using the pave/tablet layout
+     * Return if we are using the pane/tablet layout
+     * 
+     * Only used in testing
      * 
      * @return true is in pane mode
      */
-    boolean paneLayout() {
+    boolean usingPaneLayout() {
         return usePaneLayout;
     }
 
