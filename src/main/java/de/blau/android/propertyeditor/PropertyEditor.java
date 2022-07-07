@@ -1297,11 +1297,13 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     }
 
     /**
-     * Return if we are using the pave/tablet layout
+     * Return if we are using the pane/tablet layout
+     * 
+     * Only used in testing
      * 
      * @return true is in pane mode
      */
-    boolean paneLayout() {
+    boolean usingPaneLayout() {
         return usePaneLayout;
     }
 

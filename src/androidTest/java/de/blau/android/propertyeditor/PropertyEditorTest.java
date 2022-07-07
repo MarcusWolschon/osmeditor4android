@@ -272,7 +272,7 @@ public class PropertyEditorTest {
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(propertyEditor instanceof PropertyEditor);
 
-        if (!((PropertyEditor) propertyEditor).paneLayout()) {
+        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Facilities"), true, false);
@@ -415,7 +415,7 @@ public class PropertyEditorTest {
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(propertyEditor instanceof PropertyEditor);
 
-        if (!((PropertyEditor) propertyEditor).paneLayout()) {
+        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Transport"), true, false);
@@ -863,7 +863,7 @@ public class PropertyEditorTest {
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(propertyEditor instanceof PropertyEditor);
 
-        if (!((PropertyEditor) propertyEditor).paneLayout()) {
+        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Highways"), true, false);
@@ -897,7 +897,7 @@ public class PropertyEditorTest {
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(propertyEditor instanceof PropertyEditor);
 
-        if (!((PropertyEditor) propertyEditor).paneLayout()) {
+        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Highways"), true, false);
@@ -976,7 +976,7 @@ public class PropertyEditorTest {
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(propertyEditor instanceof PropertyEditor);
 
-        if (!((PropertyEditor) propertyEditor).paneLayout()) {
+        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Highways"), true, false);
@@ -1032,7 +1032,7 @@ public class PropertyEditorTest {
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(propertyEditor instanceof PropertyEditor);
 
-        if (!((PropertyEditor) propertyEditor).paneLayout()) {
+        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Highways"), true, false);
@@ -1123,7 +1123,7 @@ public class PropertyEditorTest {
             fail(e.getMessage());
         }
 
-        if (!((PropertyEditor) propertyEditor).paneLayout()) {
+        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
             TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
         }
         PresetItem presetItem = ((PropertyEditor) propertyEditor).getBestPreset();
@@ -1388,7 +1388,7 @@ public class PropertyEditorTest {
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(propertyEditor instanceof PropertyEditor);
 
-        if (!((PropertyEditor) propertyEditor).paneLayout()) {
+        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Facilities"), true, false);
@@ -1474,7 +1474,7 @@ public class PropertyEditorTest {
 
         assertFalse(TestUtils.findText(device, false, context.getString(R.string.tag_details)));
 
-        if (!((PropertyEditor) propertyEditor).paneLayout()) {
+        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Lifecycle"), true, false);
