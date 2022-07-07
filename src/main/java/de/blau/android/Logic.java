@@ -1326,37 +1326,33 @@ public class Logic {
                         startY = latE7ToY(point.getLat());
                     }
                 }
+            } else if (rotatingWay) {
+                startX = x;
+                startY = y;
             } else {
-                // single way, way handle or way node dragging or way rotation
-                if (selectedWayCount == 1 && selectedNodeCount == 0) {
-                    if (!rotatingWay) {
-                        Handle handle = getClickedWayHandleWithDistances(x, y);
-                        if (handle != null) {
-                            Log.d(DEBUG_TAG, "start handle drag");
-                            selectedHandle = handle;
-                            draggingHandle = true;
-                        } else {
-                            List<Way> clickedWays = getClickedWays(true, x, y);
-                            if (!clickedWays.isEmpty()) {
-                                List<OsmElement> clickedNodes = getClickedNodes(x, y);
-                                final Way selectedWay = selectedWays.get(0);
-                                draggedNode = getCommonNode(selectedWay, clickedNodes);
-                                if (prefs.isWayNodeDraggingEnabled() && draggedNode != null) {
-                                    draggingNode = true;
-                                    if (largeDragArea) {
-                                        startX = lonE7ToX(draggedNode.getLon());
-                                        startY = latE7ToY(draggedNode.getLat());
-                                    }
-                                } else if (clickedWays.contains(selectedWay)) {
-                                    startLat = yToLatE7(y);
-                                    startLon = xToLonE7(x);
-                                    draggingWay = true;
-                                }
+                Handle handle = getClickedWayHandleWithDistances(x, y);
+                if (handle != null) {
+                    Log.d(DEBUG_TAG, "start handle drag");
+                    selectedHandle = handle;
+                    draggingHandle = true;
+                } else if (selectedWayCount == 1 && selectedNodeCount == 0) {
+                    // single way, way handle or way node dragging or way rotation
+                    List<Way> clickedWays = getClickedWays(true, x, y);
+                    if (!clickedWays.isEmpty()) {
+                        List<OsmElement> clickedNodes = getClickedNodes(x, y);
+                        final Way selectedWay = selectedWays.get(0);
+                        draggedNode = getCommonNode(selectedWay, clickedNodes);
+                        if (prefs.isWayNodeDraggingEnabled() && draggedNode != null) {
+                            draggingNode = true;
+                            if (largeDragArea) {
+                                startX = lonE7ToX(draggedNode.getLon());
+                                startY = latE7ToY(draggedNode.getLat());
                             }
+                        } else if (clickedWays.contains(selectedWay)) {
+                            startLat = yToLatE7(y);
+                            startLon = xToLonE7(x);
+                            draggingWay = true;
                         }
-                    } else {
-                        startX = x;
-                        startY = y;
                     }
                 } else {
                     // check for multi-select
@@ -1389,12 +1385,6 @@ public class Logic {
                             draggingMultiselect = true;
                             draggingWay = true;
                         }
-                    } else {
-                        if (rotatingWay) {
-                            rotatingWay = false;
-                            hideCrosshairs();
-                        }
-                        // at last really nothing selected or special going on
                     }
                 }
             }
@@ -1479,11 +1469,10 @@ public class Logic {
                     try {
                         if (handleNode == null && selectedHandle != null && selectedWayCount > 0) {
                             Log.d(DEBUG_TAG, "creating node at handle position");
-                            handleNode = performAddOnWay(main, selectedWays, selectedHandle.x, selectedHandle.y, true);
+                            handleNode = addOnWay(main, selectedWays, selectedHandle.x, selectedHandle.y, true);
                             selectedHandle = null;
                         }
                         if (handleNode != null) {
-                            setSelectedNode(null); // performAddOnWay sets this, need to undo
                             getDelegator().moveNode(handleNode, lat, lon);
                         }
                     } catch (OsmIllegalOperationException e) {
@@ -1842,6 +1831,8 @@ public class Logic {
     /**
      * Executes an add node operation for x,y but only if on a way. Adds new node to storage and will select it.
      * 
+     * If no new node is created any previously selected Node will remain selected
+     * 
      * @param activity activity we were called from
      * @param ways candidate ways if null all ways will be considered
      * @param x screen-coordinate
@@ -1853,16 +1844,32 @@ public class Logic {
     @Nullable
     public synchronized Node performAddOnWay(@Nullable Activity activity, @Nullable List<Way> ways, final float x, final float y, boolean forceNew)
             throws OsmIllegalOperationException {
-        createCheckpoint(activity, R.string.undo_action_add);
         Node savedSelectedNode = selectedNodes != null && !selectedNodes.isEmpty() ? selectedNodes.get(0) : null;
+        Node newSelectedNode = addOnWay(activity, ways, x, y, forceNew);
+        if (newSelectedNode == null) {
+            setSelectedNode(savedSelectedNode);
+            return null;
+        }
+        setSelectedNode(newSelectedNode);
+        return newSelectedNode;
+    }
+
+    /**
+     * Executes an add node operation for x,y but only if on a way. Adds new node to storage, doesn't select it.
+     * 
+     * @param activity activity we were called from
+     * @param ways candidate ways if null all ways will be considered
+     * @param x screen-coordinate
+     * @param y screen-coordinate
+     * @param forceNew ignore nearby existing nodes
+     * @return the new node or null if none was created
+     * @throws OsmIllegalOperationException if the operation would create an illegal state
+     */
+    @Nullable
+    private Node addOnWay(Activity activity, List<Way> ways, final float x, final float y, boolean forceNew) {
+        createCheckpoint(activity, R.string.undo_action_add);
         try {
-            Node newSelectedNode = getClickedNodeOrCreatedWayNode(ways, x, y, forceNew);
-            if (newSelectedNode == null) {
-                setSelectedNode(savedSelectedNode);
-                return null;
-            }
-            setSelectedNode(newSelectedNode);
-            return newSelectedNode;
+            return getClickedNodeOrCreatedWayNode(ways, x, y, forceNew);
         } catch (OsmIllegalOperationException e) {
             rollback();
             throw new OsmIllegalOperationException(e);
