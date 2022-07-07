@@ -1327,31 +1327,29 @@ public class Logic {
                     }
                 }
             } else {
-                // single way, way handle or way node dragging or way rotation
-                if (selectedWayCount == 1 && selectedNodeCount == 0) {
+                Handle handle = getClickedWayHandleWithDistances(x, y);
+                if (handle != null) {
+                    Log.d(DEBUG_TAG, "start handle drag");
+                    selectedHandle = handle;
+                    draggingHandle = true;
+                } else if (selectedWayCount == 1 && selectedNodeCount == 0) {
+                    // single way, way handle or way node dragging or way rotation
                     if (!rotatingWay) {
-                        Handle handle = getClickedWayHandleWithDistances(x, y);
-                        if (handle != null) {
-                            Log.d(DEBUG_TAG, "start handle drag");
-                            selectedHandle = handle;
-                            draggingHandle = true;
-                        } else {
-                            List<Way> clickedWays = getClickedWays(true, x, y);
-                            if (!clickedWays.isEmpty()) {
-                                List<OsmElement> clickedNodes = getClickedNodes(x, y);
-                                final Way selectedWay = selectedWays.get(0);
-                                draggedNode = getCommonNode(selectedWay, clickedNodes);
-                                if (prefs.isWayNodeDraggingEnabled() && draggedNode != null) {
-                                    draggingNode = true;
-                                    if (largeDragArea) {
-                                        startX = lonE7ToX(draggedNode.getLon());
-                                        startY = latE7ToY(draggedNode.getLat());
-                                    }
-                                } else if (clickedWays.contains(selectedWay)) {
-                                    startLat = yToLatE7(y);
-                                    startLon = xToLonE7(x);
-                                    draggingWay = true;
+                        List<Way> clickedWays = getClickedWays(true, x, y);
+                        if (!clickedWays.isEmpty()) {
+                            List<OsmElement> clickedNodes = getClickedNodes(x, y);
+                            final Way selectedWay = selectedWays.get(0);
+                            draggedNode = getCommonNode(selectedWay, clickedNodes);
+                            if (prefs.isWayNodeDraggingEnabled() && draggedNode != null) {
+                                draggingNode = true;
+                                if (largeDragArea) {
+                                    startX = lonE7ToX(draggedNode.getLon());
+                                    startY = latE7ToY(draggedNode.getLat());
                                 }
+                            } else if (clickedWays.contains(selectedWay)) {
+                                startLat = yToLatE7(y);
+                                startLon = xToLonE7(x);
+                                draggingWay = true;
                             }
                         }
                     } else {
