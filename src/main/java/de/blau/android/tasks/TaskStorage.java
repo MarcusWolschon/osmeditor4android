@@ -379,23 +379,22 @@ public class TaskStorage implements Serializable, DataStorage {
     }
 
     /**
-     * Check if there is a Bug Task for a specific element
+     * Get Bug Tasks for a specific element
      * 
      * @param element the OsmElement
-     * @return true if a task applies
+     * @return a List of Bugs
      */
-    public boolean hasTasksForElement(@NonNull OsmElement element) {
-        List<Task> taskList = getTasks(element.getBounds());
-        if (!taskList.isEmpty()) {
-            final long osmId = element.getOsmId();
-            final String elementType = element.getName();
-            for (Task t : taskList) {
-                if (t instanceof Bug && ((Bug) t).hasElement(elementType, osmId)) {
-                    return true;
-                }
+    @NonNull
+    public List<Bug> getTasksForElement(@NonNull OsmElement element) {
+        List<Bug> result = new ArrayList<>();
+        final long osmId = element.getOsmId();
+        final String elementType = element.getName();
+        for (Task t : getTasks(element.getBounds())) {
+            if ((t instanceof Bug) && !t.isClosed() && ((Bug) t).hasElement(elementType, osmId)) {
+                result.add((Bug) t);
             }
         }
-        return false;
+        return result;
     }
 
     /**
@@ -404,15 +403,11 @@ public class TaskStorage implements Serializable, DataStorage {
      * @param element the OsmElement
      */
     public void closeTasksForElement(@NonNull OsmElement element) {
-        List<Task> taskList = getTasks(element.getBounds());
+        List<Bug> taskList = getTasksForElement(element);
         if (!taskList.isEmpty()) {
-            final long osmId = element.getOsmId();
-            final String elementType = element.getName();
-            for (Task t : taskList) {
-                if (t instanceof Bug && ((Bug) t).hasElement(elementType, osmId)) {
-                    t.close();
-                    t.setChanged(true);
-                }
+            for (Bug t : taskList) {
+                t.close();
+                t.setChanged(true);
             }
             setDirty();
         }
