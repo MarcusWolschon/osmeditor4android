@@ -56,6 +56,7 @@ import de.blau.android.presets.PresetFixedField;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.search.Search;
 import de.blau.android.services.TrackerService;
+import de.blau.android.tasks.Bug;
 import de.blau.android.tasks.BugFragment;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.Todo;
@@ -116,6 +117,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private MenuItem pasteItem;
     private MenuItem calibrateItem;
     private MenuItem taskMenuItem;
+    private MenuItem todoCloseAndNextItem;
 
     Preferences prefs;
 
@@ -158,7 +160,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         menuInflater.inflate(R.menu.task_menu, menu);
         taskMenuItem = menu.findItem(R.id.task_menu);
         SubMenu taskMenu = taskMenuItem.getSubMenu();
-        taskMenu.add(Menu.NONE, MENUITEM_TODO_CLOSE_AND_NEXT, Menu.NONE, R.string.menu_todo_close_and_next);
+        todoCloseAndNextItem = taskMenu.add(Menu.NONE, MENUITEM_TODO_CLOSE_AND_NEXT, Menu.NONE, R.string.menu_todo_close_and_next);
         taskMenu.add(Menu.NONE, MENUITEM_TASK_CLOSE_ALL, Menu.NONE, R.string.menu_todo_close_all_tasks);
 
         menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
@@ -244,7 +246,17 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             updated = true;
         }
 
-        updated |= setItemVisibility(main.getMap().getTaskLayer() != null && App.getTaskStorage().hasTasksForElement(element), taskMenuItem, false);
+        final boolean hasTaskLayer = main.getMap().getTaskLayer() != null;
+        List<Bug> bugs = App.getTaskStorage().getTasksForElement(element);
+        updated |= setItemVisibility(hasTaskLayer && !bugs.isEmpty(), taskMenuItem, false);
+        boolean hasTodo = false;
+        for (Bug b : bugs) {
+            if (b instanceof Todo) {
+                hasTodo = true;
+                break;
+            }
+        }
+        updated |= setItemVisibility(hasTaskLayer && hasTodo, todoCloseAndNextItem, true);
 
         updated |= setItemVisibility(!element.isUnchanged(), uploadItem, true);
         updated |= setItemVisibility(!App.getTagClipboard(main).isEmpty(), pasteItem, true);
@@ -253,7 +265,6 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             updated |= setItemVisibility(ele != null && !"".equals(ele), calibrateItem, true);
         }
         return updated;
-
     }
 
     /**
