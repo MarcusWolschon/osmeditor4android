@@ -16,7 +16,7 @@ import de.blau.android.util.ThemeUtils;
  */
 public class NonSimpleActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
 
-    final Preferences prefs;
+    protected final Preferences prefs;
 
     /**
      * Construct a callback for that disables/enables the SimpleActionsButton

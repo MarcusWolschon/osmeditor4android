@@ -21,8 +21,8 @@ import de.blau.android.util.ThemeUtils;
  */
 public abstract class BuilderActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
 
-    final Preferences prefs;
-    Drawable          savedButton;
+    protected final Preferences prefs;
+    protected Drawable          savedButton;
 
     /**
      * Construct a callback that shows a FAB with a check instead of the SimpleActionsButton
