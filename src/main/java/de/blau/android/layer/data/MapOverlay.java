@@ -273,7 +273,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private final Path        casingPath = new Path();
     private final PathMeasure pm         = new PathMeasure();
 
-    private LongHashSet handles;
+    private final LongHashSet handles = new LongHashSet();
 
     private Paint labelBackground;
 
@@ -532,8 +532,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             }
         }
 
-        boolean displayHandles = tmpDrawingSelectedNodes == null && tmpDrawingSelectedRelationWays == null && tmpDrawingSelectedRelationNodes == null
+        boolean displayHandles = tmpDrawingSelectedRelationWays == null && tmpDrawingSelectedRelationNodes == null
                 && tmpDrawingEditMode.elementsGeomEditiable();
+        handles.clear();
         Collections.sort(waysToDraw, layerComparator);
 
         // ways now
@@ -1326,7 +1327,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             paint = selectedWayStyle.getPaint();
             paint.setStrokeWidth(style.getPaint().getStrokeWidth() * selectedWayStyle.getWidthFactor());
             canvas.drawLines(linePoints, 0, pointsSize, paint);
-            drawWayArrows(canvas, linePoints, pointsSize, reversed, wayDirectionPaint, displayHandles && tmpDrawingSelectedWays.size() == 1);
+            drawWayArrows(canvas, linePoints, pointsSize, reversed, wayDirectionPaint, displayHandles && !tmpDrawingSelectedWays.isEmpty());
             labelFontStyle = labelTextStyleNormalSelected;
             labelFontStyleSmall = labelTextStyleSmallSelected;
             // visual feedback if way nodes are draggable
@@ -1514,7 +1515,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param canvas the Canvas we are drawing on
      */
     private void paintHandles(@NonNull Canvas canvas) {
-        if (handles != null && handles.size() > 0) {
+        if (!handles.isEmpty()) {
             canvas.save();
             float lastX = 0;
             float lastY = 0;
@@ -1528,7 +1529,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 canvas.drawPath(DataStyle.getCurrent().getXPath(), handlePaint);
             }
             canvas.restore();
-            handles.clear(); // this is hopefully faster than allocating a new set
         }
     }
 
@@ -1559,9 +1559,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             if (addHandles) {
                 double len = Math.hypot(xDelta, yDelta);
                 if (len > minLen) {
-                    if (handles == null) {
-                        handles = new LongHashSet();
-                    }
                     handles.put(((long) (Float.floatToRawIntBits(x1 + xDelta / 2)) << 32) + (long) Float.floatToRawIntBits(y1 + yDelta / 2));
                     xDelta = xDelta / 4;
                     yDelta = yDelta / 4;
