@@ -946,77 +946,63 @@ public class Logic {
     }
 
     /**
-     * Returns all ways with a mid-way segment handle tolerance from the given coordinates, and their distances from
-     * them.
+     * Returns a Handle object for the nearest selected way with a mid-way segment handle tolerance from the given
+     * coordinates
      * 
      * @param x x display coordinate
      * @param y y display coordinate
-     * @return a hash map mapping Ways to distances
+     * @return a Handle object or null
      */
-    private Handle getClickedWayHandleWithDistances(final float x, final float y) {
+    private synchronized Handle getClickedWayHandleWithDistances(final float x, final float y) {
 
         Handle result = null;
         double bestDistance = Double.MAX_VALUE;
         float wayToleranceValue = DataStyle.getCurrent().getWayToleranceValue();
         float minLenForHandle = DataStyle.getCurrent().getMinLenForHandle();
 
-        List<Way> ways = filter != null ? filter.getVisibleWays() : getDelegator().getCurrentStorage().getWays(map.getViewBox());
-        if (filter != null && getSelectedWays() != null) { // selected Ways are always visible if a filter is applied
-            ways.addAll(getSelectedWays());
-        }
+        List<Way> ways = getSelectedWays();
+        if (ways != null) {
+            for (Way way : ways) {
+                List<Node> wayNodes = way.getNodes();
 
-        for (Way way : ways) {
-            List<Node> wayNodes = way.getNodes();
+                float node1X = -Float.MAX_VALUE;
+                float node1Y = -Float.MAX_VALUE;
+                boolean firstNode = true;
+                // Iterate over all WayNodes, but not the last one.
+                int wayNodesSize = wayNodes.size();
+                Node node1 = wayNodes.get(0);
+                for (int k = 0; k < wayNodesSize - 1; ++k) {
+                    Node node2 = wayNodes.get(k + 1);
+                    if (firstNode) {
+                        node1X = lonE7ToX(node1.getLon());
+                        node1Y = latE7ToY(node1.getLat());
+                        firstNode = false;
+                    }
+                    float node2X = lonE7ToX(node2.getLon());
+                    float node2Y = latE7ToY(node2.getLat());
+                    float xDelta = node2X - node1X;
+                    float yDelta = node2Y - node1Y;
 
-            float node1X = -Float.MAX_VALUE;
-            float node1Y = -Float.MAX_VALUE;
-            boolean firstNode = true;
-            // Iterate over all WayNodes, but not the last one.
-            int wayNodesSize = wayNodes.size();
-            Node node1 = wayNodes.get(0);
-            for (int k = 0; k < wayNodesSize - 1; ++k) {
-                Node node2 = wayNodes.get(k + 1);
-                if (firstNode) {
-                    node1X = lonE7ToX(node1.getLon());
-                    node1Y = latE7ToY(node1.getLat());
-                    firstNode = false;
-                }
-                float node2X = lonE7ToX(node2.getLon());
-                float node2Y = latE7ToY(node2.getLat());
-                float xDelta = node2X - node1X;
-                float yDelta = node2Y - node1Y;
+                    float handleX = node1X + xDelta / 2;
+                    float handleY = node1Y + yDelta / 2;
 
-                float handleX = node1X + xDelta / 2;
-                float handleY = node1Y + yDelta / 2;
+                    float differenceX = Math.abs(handleX - x);
+                    float differenceY = Math.abs(handleY - y);
 
-                float differenceX = Math.abs(handleX - x);
-                float differenceY = Math.abs(handleY - y);
+                    node1 = node2;
+                    node1X = node2X;
+                    node1Y = node2Y;
 
-                node1 = node2;
-                node1X = node2X;
-                node1Y = node2Y;
+                    if (((differenceX > wayToleranceValue) && (differenceY > wayToleranceValue)) || Math.hypot(xDelta, yDelta) <= minLenForHandle) {
+                        continue;
+                    }
 
-                if ((differenceX > wayToleranceValue) && (differenceY > wayToleranceValue)) {
-                    continue;
-                }
-
-                if (Math.hypot(xDelta, yDelta) <= minLenForHandle) {
-                    continue;
-                }
-
-                double dist = Math.hypot(differenceX, differenceY);
-                if ((dist <= wayToleranceValue) && (dist < bestDistance)) {
-                    if (filter != null) {
-                        if (filter.include(way, isSelected(way))) {
-                            bestDistance = dist;
-                            result = new Handle(handleX, handleY);
-                        }
-                    } else {
+                    double dist = Math.hypot(differenceX, differenceY);
+                    if ((dist <= wayToleranceValue) && (dist < bestDistance)) {
                         bestDistance = dist;
                         result = new Handle(handleX, handleY);
                     }
                 }
-
             }
         }
         return result;
