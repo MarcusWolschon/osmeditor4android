@@ -199,7 +199,6 @@ public class TaskStorage implements Serializable, DataStorage {
     public List<Task> getTasks(@NonNull BoundingBox box, @NonNull List<Task> queryResult) {
         queryResult.clear();
         tasks.query(queryResult, box.getBounds());
-        Log.d(DEBUG_TAG, "getTasks result count " + queryResult.size());
         return queryResult;
     }
 
@@ -290,9 +289,20 @@ public class TaskStorage implements Serializable, DataStorage {
     @Override
     @NonNull
     public List<BoundingBox> getBoundingBoxes() {
-        List<BoundingBox> queryResult = new ArrayList<>();
-        boxes.query(queryResult);
-        return queryResult;
+        return getBoundingBoxes(new ArrayList<>());
+    }
+
+    /**
+     * Get all BoundingBoxes
+     * 
+     * @param result a pre-allocated List for the results
+     * @return a List of BoundingBox
+     */
+    @NonNull
+    public List<BoundingBox> getBoundingBoxes(@NonNull List<BoundingBox> result) {
+        result.clear();
+        boxes.query(result);
+        return result;
     }
 
     /**
