@@ -261,6 +261,13 @@ public class Photo implements BoundedObject {
         return new BoundingBox(lon, lat);
     }
 
+    @NonNull
+    @Override
+    public BoundingBox getBounds(@NonNull BoundingBox result) {
+        result.resetTo(lon, lat);
+        return result;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

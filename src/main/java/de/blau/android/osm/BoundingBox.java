@@ -510,10 +510,10 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
             int centerX = (left / 2 + right / 2); // divide first to stay < 2^32
             int centerY = (top + bottom) / 2;
             double d = Math.sqrt((width / 1E7D * height / 1E7D) / maxAreaDegrees);
-            final int newWidth = (int) (width / d)/2;
+            final int newWidth = (int) (width / d) / 2;
             setLeft(centerX - newWidth);
             setRight(centerX + newWidth);
-            final int newHeight = (int) (height / d)/2;
+            final int newHeight = (int) (height / d) / 2;
             setTop(centerY + newHeight);
             setBottom(centerY - newHeight);
             calcDimensions();
@@ -536,12 +536,19 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         return this;
     }
 
+    @NonNull
+    @Override
+    public BoundingBox getBounds(@NonNull BoundingBox result) {
+        result.set(this);
+        return result;
+    }
+
     /**
      * Set corners to same values as b
      * 
      * @param b the BoundingBox to use
      */
-    public void set(BoundingBox b) {
+    public void set(@NonNull BoundingBox b) {
         left = b.left;
         bottom = b.bottom;
         right = b.right;

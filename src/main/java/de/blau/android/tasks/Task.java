@@ -152,14 +152,17 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
         return state == State.OPEN;
     }
 
-    /**
-     * Get a (degenerated) BoundingBox for this task
-     * 
-     * @return a BoundingBox for the location of this Task
-     */
     @NonNull
+    @Override
     public BoundingBox getBounds() {
         return new BoundingBox(lon, lat);
+    }
+
+    @NonNull
+    @Override
+    public BoundingBox getBounds(@NonNull BoundingBox result) {
+        result.resetTo(lon, lat);
+        return result;
     }
 
     /**
