@@ -8,6 +8,7 @@ import de.blau.android.osm.BoundingBox;
  * 
  * @author Colonel32
  * @author cnvandev
+ * @author Simon Poole
  */
 public interface BoundedObject {
 
@@ -18,4 +19,16 @@ public interface BoundedObject {
      */
     @NonNull
     BoundingBox getBounds();
+
+    /**
+     * Get the bounding box for this object
+     *
+     * @param result pre-allocated BoundingBox
+     * @return the BoundingBox
+     */
+    @NonNull
+    default BoundingBox getBounds(@NonNull BoundingBox result) {
+        result.set(getBounds());
+        return result;
+    }
 }

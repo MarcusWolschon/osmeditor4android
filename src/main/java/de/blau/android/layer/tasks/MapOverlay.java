@@ -57,7 +57,7 @@ import de.blau.android.views.IMapView;
 public class MapOverlay extends MapViewLayer
         implements ExtentInterface, DiscardInterface, ClickableInterface<Task>, LayerInfoInterface, ConfigureInterface, PruneableInterface {
 
-    private static final String DEBUG_TAG = "tasks";
+    private static final String DEBUG_TAG = MapOverlay.class.getCanonicalName();
 
     public static final String FILENAME = "selectedtask.res";
 
@@ -86,12 +86,13 @@ public class MapOverlay extends MapViewLayer
     private int         minDownloadSize    = 50;
     private float       maxDownloadSpeed   = 30;
     private Set<String> filter             = new HashSet<>();
-    private int         autoPruneTaskLimit = DEFAULT_AUTOPRUNE_TASK_LIMIT;                            // task count for
-                                                                                                      // autoprune
+
+    private int autoPruneTaskLimit = DEFAULT_AUTOPRUNE_TASK_LIMIT; // task count for autoprune
 
     private ThreadPoolExecutor mThreadPool;
 
-    private List<Task> taskList = new ArrayList<>();
+    private List<Task>        taskList = new ArrayList<>();
+    private List<BoundingBox> boxes    = new ArrayList<>();
 
     private Context context = null;
 
@@ -136,11 +137,10 @@ public class MapOverlay extends MapViewLayer
             if (mThreadPool == null) {
                 mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
             }
-            List<BoundingBox> bbList = new ArrayList<>(tasks.getBoundingBoxes());
             ViewBox box = new ViewBox(map.getViewBox());
             box.scale(1.2); // make sides 20% larger
             box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
-            List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
+            List<BoundingBox> bboxes = BoundingBox.newBoxes(tasks.getBoundingBoxes(boxes), box);
             for (BoundingBox b : bboxes) {
                 if (b.getWidth() <= 1 || b.getHeight() <= 1) {
                     Log.w(DEBUG_TAG, "getNextCenter very small bb " + b.toString());
@@ -187,32 +187,30 @@ public class MapOverlay extends MapViewLayer
             //
             int w = map.getWidth();
             int h = map.getHeight();
-            taskList = tasks.getTasks(bb, taskList);
-            if (taskList != null) {
-                Set<String> taskFilter = map.getPrefs().taskFilter();
-                for (Task t : taskList) {
-                    // filter
-                    if (!taskFilter.contains(t.bugFilterKey())) {
-                        continue;
-                    }
-                    float x = GeoMath.lonE7ToX(w, bb, t.getLon());
-                    float y = GeoMath.latE7ToY(h, w, bb, t.getLat());
-                    boolean isSelected = selected != null && t.equals(selected) && App.getLogic().isInEditZoomRange();
-                    if (isSelected && t.isNew() && map.getPrefs().largeDragArea()) {
-                        // if the task can be dragged and large drag area is turned on show the large drag area
-                        c.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint());
-                    }
-                    if (t.isClosed() && t.hasBeenChanged()) {
-                        t.drawBitmapChangedClosed(map.getContext(), c, x, y, isSelected);
-                    } else if (t.isClosed()) {
-                        t.drawBitmapClosed(map.getContext(), c, x, y, isSelected);
-                    } else if (t.isNew() || t.hasBeenChanged()) {
-                        t.drawBitmapChanged(map.getContext(), c, x, y, isSelected);
-                    } else {
-                        t.drawBitmapOpen(map.getContext(), c, x, y, isSelected);
-                    }
+            for (Task t : tasks.getTasks(bb, taskList)) {
+                // filter
+                if (!filter.contains(t.bugFilterKey())) {
+                    continue;
+                }
+                float x = GeoMath.lonE7ToX(w, bb, t.getLon());
+                float y = GeoMath.latE7ToY(h, w, bb, t.getLat());
+                boolean isSelected = t.equals(selected) && App.getLogic().isInEditZoomRange();
+                if (isSelected && t.isNew() && map.getPrefs().largeDragArea()) {
+                    // if the task can be dragged and large drag area is turned on show the large drag area
+                    c.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint());
+                }
+                final boolean closed = t.isClosed();
+                if (closed && t.hasBeenChanged()) {
+                    t.drawBitmapChangedClosed(context, c, x, y, isSelected);
+                } else if (closed) {
+                    t.drawBitmapClosed(context, c, x, y, isSelected);
+                } else if (t.isNew() || t.hasBeenChanged()) {
+                    t.drawBitmapChanged(context, c, x, y, isSelected);
+                } else {
+                    t.drawBitmapOpen(context, c, x, y, isSelected);
                 }
             }
+
         }
     }
 
@@ -226,16 +224,17 @@ public class MapOverlay extends MapViewLayer
         List<Task> result = new ArrayList<>();
         final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
         List<Task> tasksInViewBox = tasks.getTasks(viewBox);
-        Set<String> taskFilter = map.getPrefs().taskFilter();
+        final int width = map.getWidth();
+        final int height = map.getHeight();
         for (Task t : tasksInViewBox) {
             // filter
-            if (!taskFilter.contains(t.bugFilterKey())) {
+            if (!filter.contains(t.bugFilterKey())) {
                 continue;
             }
             int lat = t.getLat();
             int lon = t.getLon();
-            float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
-            float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat) - y);
+            float differenceX = Math.abs(GeoMath.lonE7ToX(width, viewBox, lon) - x);
+            float differenceY = Math.abs(GeoMath.latE7ToY(height, width, viewBox, lat) - y);
             if ((differenceX <= tolerance) && (differenceY <= tolerance) && (Math.hypot(differenceX, differenceY) <= tolerance)) {
                 result.add(t);
             }

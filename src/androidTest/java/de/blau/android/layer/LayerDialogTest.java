@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.After;
@@ -19,6 +21,7 @@ import org.junit.runner.RunWith;
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
 import android.app.Instrumentation;
+import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -87,12 +90,22 @@ public class LayerDialogTest {
         tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
         assertNotNull(tileServer);
         Preferences prefs = new Preferences(main);
+        resetTaskFilter(prefs);
         map = main.getMap();
         map.setPrefs(main, prefs);
         TestUtils.dismissStartUpDialogs(device, main);
         TestUtils.loadTestData(main, "test2.osm");
         map.getDataLayer().setVisible(true);
         TestUtils.stopEasyEdit(main);
+    }
+
+    /**
+     * Reset the task filter to defaults
+     * 
+     * @param prefs a Preference object
+     */
+    private void resetTaskFilter(@NonNull Preferences prefs) {
+        prefs.setTaskFilter(new HashSet<String>(Arrays.asList(main.getResources().getStringArray(R.array.bug_filter_defaults))));
     }
 
     /**
@@ -109,6 +122,7 @@ public class LayerDialogTest {
         }
         instrumentation.getTargetContext().deleteDatabase(TileLayerDatabase.DATABASE_NAME);
         instrumentation.waitForIdleSync();
+        resetTaskFilter(new Preferences(main));
     }
 
     /**

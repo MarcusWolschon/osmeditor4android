@@ -154,9 +154,17 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
         return Math.hypot((double) location[0] - getLat(), (double) location[1] - getLon());
     }
 
+    @NonNull
     @Override
     public BoundingBox getBounds() {
         return new BoundingBox(lon, lat);
+    }
+
+    @NonNull
+    @Override
+    public BoundingBox getBounds(@NonNull BoundingBox result) {
+        result.resetTo(lon, lat);
+        return result;
     }
 
     @Override

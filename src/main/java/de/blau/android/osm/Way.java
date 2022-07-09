@@ -586,6 +586,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
      * 
      * @return the bounding box of the way
      */
+    @NonNull
     public BoundingBox getBounds() {
         return getBounds(new BoundingBox());
     }
@@ -596,7 +597,8 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
      * @param result a bounding box to use for producing the result, avoids creating an object instance
      * @return the bounding box of the way
      */
-    public BoundingBox getBounds(BoundingBox result) {
+    @Override
+    public BoundingBox getBounds(@NonNull BoundingBox result) {
         if (left != Integer.MIN_VALUE) {
             result.set(left, bottom, right, top);
             return result;
