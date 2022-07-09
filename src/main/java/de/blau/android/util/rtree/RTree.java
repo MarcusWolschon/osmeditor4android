@@ -97,7 +97,8 @@ public class RTree<T extends BoundedObject> implements Serializable {
                 }
 
                 box.set(children.get(0).box);
-                for (int i = 1; i < children.size(); i++) {
+                final int size = children.size();
+                for (int i = 1; i < size; i++) {
                     box.union(children.get(i).box);
                 }
             } else {
@@ -106,7 +107,8 @@ public class RTree<T extends BoundedObject> implements Serializable {
                 }
 
                 box.set(data.get(0).getBounds());
-                for (int i = 1; i < data.size(); i++) {
+                final int size = data.size();
+                for (int i = 1; i < size; i++) {
                     BoundingBox box2 = data.get(i).getBounds();
                     if (box2.isEmpty()) {
                         box.union(box2.getLeft(), box2.getTop());
@@ -320,7 +322,8 @@ public class RTree<T extends BoundedObject> implements Serializable {
                 int nmaxIndex = -1;
                 long overlap1 = -1;
                 long overlap2 = -1;
-                for (int i = 0; i < n.children.size(); i++) {
+                final int size = n.children.size();
+                for (int i = 0; i < size; i++) {
                     Node<T> node = n.children.get(i);
                     long expansion1 = expansionNeeded(node.box, g1.box);
                     long expansion2 = expansionNeeded(node.box, g2.box);
@@ -370,9 +373,11 @@ public class RTree<T extends BoundedObject> implements Serializable {
                 } else {
                     parent = g1;
                 }
-                for (int i = 0; i < n.children.size(); i++) {
-                    parent.children.add(n.children.get(i));
-                    n.children.get(i).parent = parent;
+                final int size = n.children.size();
+                for (int i = 0; i < size; i++) {
+                    final RTree<T>.Node<T> child = n.children.get(i);
+                    parent.children.add(child);
+                    child.parent = parent;
                 }
                 n.children.clear();
             }
@@ -395,7 +400,8 @@ public class RTree<T extends BoundedObject> implements Serializable {
                 int nmaxIndex = -1;
                 long overlap1 = -1;
                 long overlap2 = -1;
-                for (int i = 0; i < n.data.size(); i++) {
+                final int size = n.data.size();
+                for (int i = 0; i < size; i++) {
                     BoundingBox b = cache.get(i);
                     long d1 = expansionNeeded(b, g1.box);
                     long d2 = expansionNeeded(b, g2.box);
@@ -493,17 +499,19 @@ public class RTree<T extends BoundedObject> implements Serializable {
             return;
         }
         if (node.isLeaf()) {
-            for (int i = 0; i < node.data.size(); i++) {
+            final int size = node.data.size();
+            for (int i = 0; i < size; i++) {
                 T bo = node.data.get(i);
-                BoundingBox box2 = bo.getBounds();
-                if (BoundingBox.intersects(box2, box)) {
+                if (BoundingBox.intersects(bo.getBounds(), box)) {
                     results.add(bo);
                 }
             }
         } else {
-            for (int i = 0; i < node.children.size(); i++) {
-                if (BoundingBox.intersects(node.children.get(i).box, box)) {
-                    query(results, box, node.children.get(i));
+            final int size = node.children.size();
+            for (int i = 0; i < size; i++) {
+                final RTree<T>.Node<T> child = node.children.get(i);
+                if (BoundingBox.intersects(child.box, box)) {
+                    query(results, box, child);
                 }
             }
         }
@@ -533,17 +541,20 @@ public class RTree<T extends BoundedObject> implements Serializable {
             return null;
         }
         if (node.isLeaf()) {
-            for (int i = 0; i < node.data.size(); i++) {
-                BoundingBox box2 = node.data.get(i).getBounds();
-                if (BoundingBox.intersects(box2, box)) {
-                    return node.data.get(i);
+            final int size = node.data.size();
+            for (int i = 0; i < size; i++) {
+                final T data = node.data.get(i);
+                if (BoundingBox.intersects(data.getBounds(), box)) {
+                    return data;
                 }
             }
             return null;
         } else {
-            for (int i = 0; i < node.children.size(); i++) {
-                if (BoundingBox.intersects(node.children.get(i).box, box)) {
-                    BoundedObject result = queryOne(box, node.children.get(i));
+            final int size = node.children.size();
+            for (int i = 0; i < size; i++) {
+                final RTree<T>.Node<T> child = node.children.get(i);
+                if (BoundingBox.intersects(child.box, box)) {
+                    BoundedObject result = queryOne(box, child);
                     if (result != null) {
                         return result;
                     }
@@ -579,7 +590,8 @@ public class RTree<T extends BoundedObject> implements Serializable {
             return;
         }
         if (node.isLeaf()) {
-            for (int i = 0; i < node.data.size(); i++) {
+            final int size = node.data.size();
+            for (int i = 0; i < size; i++) {
                 T bo = node.data.get(i);
                 BoundingBox b = bo.getBounds();
                 if (b.isEmpty()) {
@@ -593,9 +605,11 @@ public class RTree<T extends BoundedObject> implements Serializable {
                 }
             }
         } else {
-            for (int i = 0; i < node.children.size(); i++) {
-                if (node.children.get(i).box.contains(px, py)) {
-                    query(results, px, py, node.children.get(i));
+            final int size = node.children.size();
+            for (int i = 0; i < size; i++) {
+                final RTree<T>.Node<T> child = node.children.get(i);
+                if (child.box.contains(px, py)) {
+                    query(results, px, py, child);
                 }
             }
         }
@@ -627,16 +641,20 @@ public class RTree<T extends BoundedObject> implements Serializable {
             return null;
         }
         if (node.isLeaf()) {
-            for (int i = 0; i < node.data.size(); i++) {
-                if (node.data.get(i).getBounds().contains(px, py)) {
-                    return node.data.get(i);
+            final int size = node.data.size();
+            for (int i = 0; i < size; i++) {
+                final T data = node.data.get(i);
+                if (data.getBounds().contains(px, py)) {
+                    return data;
                 }
             }
             return null;
         } else {
-            for (int i = 0; i < node.children.size(); i++) {
-                if (node.children.get(i).box.contains(px, py)) {
-                    BoundedObject result = queryOne(px, py, node.children.get(i));
+            final int size = node.children.size();
+            for (int i = 0; i < size; i++) {
+                final RTree<T>.Node<T> child = node.children.get(i);
+                if (child.box.contains(px, py)) {
+                    BoundedObject result = queryOne(px, py, child);
                     if (result != null) {
                         return result;
                     }
@@ -724,7 +742,8 @@ public class RTree<T extends BoundedObject> implements Serializable {
             return n.data.size();
         } else {
             int sum = 0;
-            for (int i = 0; i < n.children.size(); i++) {
+            final int size = n.children.size();
+            for (int i = 0; i < size; i++) {
                 sum += count(n.children.get(i));
             }
             return sum;
@@ -746,7 +765,8 @@ public class RTree<T extends BoundedObject> implements Serializable {
             long maxOverlap = Long.MAX_VALUE;
             Node<T> maxnode = null;
             double maxnodeArea = Double.MAX_VALUE;
-            for (int i = 0; i < n.children.size(); i++) {
+            final int size = n.children.size();
+            for (int i = 0; i < size; i++) {
                 Node<T> child = n.children.get(i);
                 long overlap = expansionNeeded(child.box, box);
                 if ((overlap < maxOverlap) || (overlap == maxOverlap) && area(child.box) < maxnodeArea) {

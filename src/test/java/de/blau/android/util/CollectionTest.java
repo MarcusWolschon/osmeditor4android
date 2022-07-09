@@ -106,12 +106,13 @@ public class CollectionTest {
             tree.insert(temp[(int) i]);
         }
         System.out.println("Node insertion " + (System.currentTimeMillis() - start)); // NOSONAR
+        Collection<Node> result = new ArrayList<>();
+        BoundingBox b = new BoundingBox();
         start = System.currentTimeMillis();
         for (int i = 0; i < NODES; i++) {
-            Collection<Node> result = new ArrayList<>();
-            BoundingBox b = null;
             // create a small bounding box around the Node and query that
-            b = new BoundingBox(temp[i].getLon() - 1, temp[i].getLat() - 1, temp[i].getLon() + 1, temp[i].getLat() + 1);
+            b.set(temp[i].getLon() - 1, temp[i].getLat() - 1, temp[i].getLon() + 1, temp[i].getLat() + 1);
+            result.clear();
             tree.query(result, b);
             assertTrue(result.contains(temp[i]));
         }
@@ -148,11 +149,11 @@ public class CollectionTest {
         assertEquals(1, r.size());
         assertTrue(r.contains("3"));
     }
-    
+
     /**
      * Test our extension of SparseBitSet
      */
-    @Test 
+    @Test
     public void unsignedSparseBitSet() {
         UnsignedSparseBitSet bs = new UnsignedSparseBitSet();
         // bottom half
