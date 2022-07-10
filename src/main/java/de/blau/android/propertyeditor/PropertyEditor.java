@@ -45,6 +45,7 @@ import de.blau.android.R;
 import de.blau.android.address.Address;
 import de.blau.android.contract.Github;
 import de.blau.android.exception.IllegalOperationException;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.nsi.Names.TagMap;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -864,50 +865,56 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     /**
      * Get current values from the fragments and end the activity
      */
-    public void sendResultAndFinish() {
+    public void updateAndFinish() {
         List<LinkedHashMap<String, String>> currentTags = getUpdatedTags();
-        if (currentTags != null) {
-            // save any address tags for "last address tags"
-            if (currentTags.size() == 1) {
-                Address.updateLastAddresses(this, (StreetPlaceNamesAdapter) getStreetNameAdapter(null), tagEditorFragment.getType(),
-                        tagEditorFragment.getOsmId(), Util.getListMap(currentTags.get(0)), true);
-            }
-            Intent intent = new Intent();
 
-            MultiHashMap<Long, RelationMemberPosition> currentParents = null;
-            ArrayList<RelationMemberDescription> currentMembers = null;
-            PropertyEditorData[] newData = new PropertyEditorData[currentTags.size()];
-
-            if (currentTags.size() == 1) { // normal single mode, relations might have changed
-                currentParents = relationMembershipFragment.getParentRelationMap();
-                currentMembers = new ArrayList<>(); // FIXME
-                if (types[0].endsWith(Relation.NAME)) {
-                    currentMembers = relationMembersFragment.getMembersList();
-                }
-
-                if (!same(currentTags, originalTags) || !(originalParents == null && currentParents.isEmpty()) && !currentParents.equals(originalParents)
-                        || (getElement() != null && getElement().getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
-                    // changes were made
-                    Log.d(DEBUG_TAG, "saving tags");
-                    for (int i = 0; i < currentTags.size(); i++) {
-                        newData[i] = new PropertyEditorData(osmIds[i], types[i], currentTags.get(i).equals(originalTags.get(i)) ? null : currentTags.get(i),
-                                null, (originalParents == null && currentParents.isEmpty()) || currentParents.equals(originalParents) ? null : currentParents,
-                                null, currentMembers.equals(originalMembers) ? null : currentMembers, null);
-                    }
-                }
-            } else { // multi select just tags could have been changed
-                if (!same(currentTags, originalTags)) {
-                    // changes were made
-                    for (int i = 0; i < currentTags.size(); i++) {
-                        newData[i] = new PropertyEditorData(osmIds[i], types[i], currentTags.get(i).equals(originalTags.get(i)) ? null : currentTags.get(i),
-                                null, null, null, null, null);
-                    }
-                }
-            }
-
-            intent.putExtra(TAGEDIT_DATA, newData);
-            setResult(RESULT_OK, intent);
+        // save any address tags for "last address tags"
+        final int elementCount = currentTags.size();
+        if (elementCount == 1) {
+            Address.updateLastAddresses(this, (StreetPlaceNamesAdapter) getStreetNameAdapter(null), tagEditorFragment.getType(), tagEditorFragment.getOsmId(),
+                    Util.getListMap(currentTags.get(0)), true);
         }
+
+        Logic logic = App.getLogic();
+        if (logic != null) {
+            // Tags
+            for (int i = 0; i < elementCount; i++) {
+                final LinkedHashMap<String, String> tags = currentTags.get(i);
+                if (!originalTags.get(i).equals(tags)) {
+                    try {
+                        logic.setTags(this, types[i], osmIds[i], tags);
+                    } catch (OsmIllegalOperationException e) {
+                        Snack.barError(this, e.getMessage());
+                    }
+                }
+            }
+
+            if (elementCount == 1) {
+                // Relation members
+                if (Relation.NAME.equals(types[0])) {
+                    List<RelationMemberDescription> currentMembers = relationMembersFragment.getMembersList();
+                    if (!currentMembers.equals(originalMembers)) {
+                        Log.d(DEBUG_TAG, "updateAndFinish setting members");
+                        logic.updateRelation(this, osmIds[0], currentMembers);
+                        Relation updatedRelation = (Relation) App.getDelegator().getOsmElement(Relation.NAME, osmIds[0]);
+                        if (logic.isSelected(updatedRelation)) { // This might be unnecessary
+                            logic.removeSelectedRelation(updatedRelation);
+                            logic.setSelectedRelation(updatedRelation);
+                        }
+                    }
+                }
+                // Parent relations
+                MultiHashMap<Long, RelationMemberPosition> currentParents = relationMembershipFragment.getParentRelationMap();
+                if (!(originalParents == null && currentParents.isEmpty()) || currentParents.equals(originalParents)) {
+                    Log.d(DEBUG_TAG, "updateAndFinish setting parents");
+                    logic.updateParentRelations(this, types[0], osmIds[0], currentParents);
+                }
+            }
+        } else {
+            Log.e(DEBUG_TAG, "updateAndFinish logic is null");
+        }
+
+        setResult(RESULT_OK, new Intent());
         finish();
     }
 

@@ -713,7 +713,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
         case android.R.id.home:
-            ((PropertyEditor) getActivity()).sendResultAndFinish();
+            ((PropertyEditor) getActivity()).updateAndFinish();
             return true;
         case R.id.tag_menu_revert:
             doRevert();

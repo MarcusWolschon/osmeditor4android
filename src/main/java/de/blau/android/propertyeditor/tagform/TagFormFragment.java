@@ -408,7 +408,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         case android.R.id.home:
             Log.d(DEBUG_TAG, "home pressed");
             updateEditorFromText();
-            ((PropertyEditor) getActivity()).sendResultAndFinish();
+            ((PropertyEditor) getActivity()).updateAndFinish();
             return true;
         case R.id.tag_menu_address:
             updateEditorFromText();

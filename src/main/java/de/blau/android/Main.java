@@ -2873,59 +2873,8 @@ public class Main extends FullScreenAppCompatActivity
      */
     private void handlePropertyEditorResult(@NonNull final Intent data) {
         final Logic logic = App.getLogic();
-        Bundle b = data.getExtras();
-        if (b != null && b.containsKey(PropertyEditor.TAGEDIT_DATA)) {
-            // Read data from extras
-            PropertyEditorData[] result = PropertyEditorData.deserializeArray(b.getSerializable(PropertyEditor.TAGEDIT_DATA));
-            // FIXME Problem saved data may not be read at this point, load
-            // here, probably we should load editing state too
-            synchronized (loadOnResumeLock) {
-                if (loadOnResume) {
-                    loadOnResume = false;
-                    Log.d(DEBUG_TAG, "handlePropertyEditorResult loading data");
-                    logic.syncLoadFromFile(this); // sync load
-                    App.getTaskStorage().readFromFile(this);
-                }
-            }
-
-            for (PropertyEditorData editorData : result) {
-                if (editorData == null) {
-                    Log.d(DEBUG_TAG, "handlePropertyEditorResult null result");
-                    continue;
-                }
-                if (editorData.tags != null) {
-                    Log.d(DEBUG_TAG, "handlePropertyEditorResult setting tags");
-                    try {
-                        logic.setTags(this, editorData.type, editorData.osmId, editorData.tags);
-                    } catch (OsmIllegalOperationException e) {
-                        Snack.barError(this, e.getMessage());
-                    }
-                }
-                try {
-                    if (editorData.parents != null) {
-                        Log.d(DEBUG_TAG, "handlePropertyEditorResult setting parents");
-                        logic.updateParentRelations(this, editorData.type, editorData.osmId, editorData.parents);
-                    }
-                    if (editorData.members != null && editorData.type.equals(Relation.NAME)) {
-                        Log.d(DEBUG_TAG, "handlePropertyEditorResult setting members");
-                        logic.updateRelation(this, editorData.osmId, editorData.members);
-                        Relation updatedRelation = (Relation) App.getDelegator().getOsmElement(Relation.NAME, editorData.osmId);
-                        if (logic.isSelected(updatedRelation)) { // This might be unnecessary
-                            logic.removeSelectedRelation(updatedRelation);
-                            logic.setSelectedRelation(updatedRelation);
-                        }
-                    }
-                } catch (OsmIllegalOperationException | StorageException ex) {
-                    // logic has already toasted
-                    break;
-                }
-            }
-            // this is very expensive: getLogic().saveAsync(); // if nothing was
-            // changed the dirty flag wont be set and
-            // the save wont actually happen
-        }
-        if ((logic.getMode().elementsGeomEditiable() && easyEditManager != null && !easyEditManager.isProcessingAction())
-                || logic.getMode() == Mode.MODE_TAG_EDIT) {
+        if (logic != null && ((logic.getMode().elementsGeomEditiable() && easyEditManager != null && !easyEditManager.isProcessingAction())
+                || logic.getMode() == Mode.MODE_TAG_EDIT)) {
             // not in an easy edit mode, de-select objects avoids inconsistent
             // visual state
             logic.deselectAll();

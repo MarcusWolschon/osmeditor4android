@@ -1927,7 +1927,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         final int itemId = item.getItemId();
         switch (itemId) {
         case android.R.id.home:
-            ((PropertyEditor) getActivity()).sendResultAndFinish();
+            ((PropertyEditor) getActivity()).updateAndFinish();
             return true;
         case R.id.tag_menu_address:
             predictAddressTags(false);

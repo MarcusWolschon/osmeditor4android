@@ -479,7 +479,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         ScrollView scrollView = (ScrollView) getOurView();
         switch (item.getItemId()) {
         case android.R.id.home:
-            ((PropertyEditor) getActivity()).sendResultAndFinish();
+            ((PropertyEditor) getActivity()).updateAndFinish();
             return true;
         case R.id.preset_menu_top:
             if (rootGroup != null && scrollView != null) {
