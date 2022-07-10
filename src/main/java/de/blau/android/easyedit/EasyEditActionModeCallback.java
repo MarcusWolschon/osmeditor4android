@@ -326,23 +326,17 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @return a list of all applicable objects
      */
     @NonNull
-    protected Set<OsmElement> findViaElements(@Nullable Way way, boolean includeNodes) {
+    protected Set<OsmElement> findViaElements(@NonNull Way way, boolean includeNodes) {
         Set<OsmElement> result = new HashSet<>();
-        if (way != null) {
-            final List<Node> nodes = way.getNodes();
-            for (Node n : nodes) {
-                final List<Way> waysForNode = logic.getWaysForNode(n);
-                for (Way w : waysForNode) {
-                    if (w.getTagWithKey(Tags.KEY_HIGHWAY) != null) {
-                        result.add(w);
-                        if (includeNodes) {
-                            result.add(n); // result is a set so we wont get dups
-                        }
+        for (Node n : way.getNodes()) {
+            for (Way w : logic.getWaysForNode(n)) {
+                if (w.getTagWithKey(Tags.KEY_HIGHWAY) != null) {
+                    result.add(w);
+                    if (includeNodes) {
+                        result.add(n); // result is a set so we wont get dups
                     }
                 }
             }
-        } else {
-            Log.d(DEBUG_TAG, "Null way passed to findViaELements");
         }
         return result;
     }
@@ -385,20 +379,18 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     @Nullable
     private View getActionCloseView() {
         if (mode != null) {
+            Object modeObject = mode;
             try {
-                Object modeObject = mode;
-                try {
-                    final Field wrappedObjectField = modeObject.getClass().getDeclaredField("mWrappedObject");
-                    wrappedObjectField.setAccessible(true); // NOSONAR
-                    modeObject = wrappedObjectField.get(mode);
-                } catch (Exception ex) {
-                    // ignore
-                }
-
+                final Field wrappedObjectField = modeObject.getClass().getDeclaredField("mWrappedObject");
+                wrappedObjectField.setAccessible(true); // NOSONAR
+                modeObject = wrappedObjectField.get(mode);
+            } catch (Exception ex) {
+                // ignore
+            }
+            try {
                 final Field contextViewField = modeObject.getClass().getDeclaredField("mContextView");
                 contextViewField.setAccessible(true); // NOSONAR
                 Object mContextView = contextViewField.get(modeObject);
-
                 final Field closeField = mContextView.getClass().getDeclaredField("mClose");
                 closeField.setAccessible(true); // NOSONAR
                 final Object mClose = closeField.get(mContextView);
