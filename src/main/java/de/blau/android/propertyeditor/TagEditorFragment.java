@@ -220,6 +220,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param presetsToApply a list of presets to apply
      * @return a new instance of TagEditorFragment
      */
+    @NonNull
     public static TagEditorFragment newInstance(@NonNull long[] elementIds, @NonNull String[] elementTypes,
             @NonNull ArrayList<LinkedHashMap<String, String>> tags, boolean applyLastAddressTags, String focusOnKey, boolean displayMRUpresets,
             @Nullable HashMap<String, String> extraTags, @Nullable ArrayList<PresetElementPath> presetsToApply) {

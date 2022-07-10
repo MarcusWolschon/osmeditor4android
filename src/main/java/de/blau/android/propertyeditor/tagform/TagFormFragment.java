@@ -134,6 +134,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param focusTag focus on this tag
      * @return a TagFormFragment instance
      */
+    @NonNull
     public static TagFormFragment newInstance(boolean displayMRUpresets, boolean focusOnAddress, String focusTag) {
         TagFormFragment f = new TagFormFragment();
 

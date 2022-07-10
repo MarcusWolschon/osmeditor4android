@@ -380,7 +380,7 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
      * 
      * @param cause String showing a cause for this
      */
-    private void abort(String cause) {
+    private void abort(@NonNull String cause) {
         Snack.toastTopError(this, R.string.toast_inconsistent_state);
         Log.e(DEBUG_TAG, "Inconsistent state because " + cause);
         ACRA.getErrorReporter().putCustomData("CAUSE", cause);
@@ -518,6 +518,7 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
          * @param displayRecentPresets if true display the MRU Fragment
          * @return a TagFormFragment instance
          */
+        @NonNull
         Fragment tagFormFragment(int position, boolean displayRecentPresets) {
             tagFormFragmentPosition = position;
             tagFormFragment = TagFormFragment.newInstance(displayRecentPresets, applyLastAddressTags, loadData[0].focusOnKey);
@@ -531,6 +532,7 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
          * @param displayRecentPresets if true display the MRU Fragment
          * @return a TagEditorFragment instance
          */
+        @NonNull
         Fragment tagEditorFragment(int position, boolean displayRecentPresets) {
             tagEditorFragmentPosition = position;
             tagEditorFragment = TagEditorFragment.newInstance(osmIds, types, tags, applyLastAddressTags, loadData[0].focusOnKey, displayRecentPresets,
@@ -543,6 +545,7 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
          * 
          * @return a RelationMembershipFragment instance
          */
+        @Nullable
         Fragment relationMembershipFragment() {
             if (loadData.length == 1) {
                 relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents, types[0]);
@@ -556,6 +559,7 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
          * 
          * @return a new RelationMembersFragment instance
          */
+        @Nullable
         Fragment relationMembersFragment() {
             if (loadData.length == 1 && types[0].endsWith(Relation.NAME)) {
                 relationMembersFragment = RelationMembersFragment.newInstance(osmIds[0], loadData[0].members);
@@ -576,6 +580,7 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
          * @param position the position
          * @return a Fragment
          */
+        @Nullable
         public Fragment getItem(boolean instantiate, int position) {
             Log.d(DEBUG_TAG, "getItem " + instantiate + " " + position);
             position = reversePosition(position);
