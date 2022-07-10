@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+import java.util.SortedMap;
 
 import android.content.DialogInterface;
 import android.util.Log;
@@ -269,7 +271,8 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @param callback the callback we are currently in
      * @return the Menu
      */
-    protected Menu replaceMenu(Menu menu, final ActionMode actionMode, final ActionMode.Callback callback) {
+    @NonNull
+    protected Menu replaceMenu(@NonNull Menu menu, @NonNull final ActionMode actionMode, @NonNull final ActionMode.Callback callback) {
         if (cabBottomBar != null) {
             menu = cabBottomBar.getMenu();
             cabBottomBar.setOnMenuItemClickListener(item -> callback.onActionItemClicked(actionMode, item));
@@ -284,16 +287,20 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @param way the way into which other ways may be merged
      * @return a list of all ways which can be merged into the given way
      */
+    @NonNull
     protected Set<OsmElement> findMergeableWays(@NonNull Way way) {
         Set<Way> candidates = new HashSet<>();
         Set<OsmElement> result = new HashSet<>();
-        candidates.addAll(logic.getWaysForNode(way.getFirstNode()));
-        candidates.addAll(logic.getWaysForNode(way.getLastNode()));
+        final Node firstNode = way.getFirstNode();
+        candidates.addAll(logic.getWaysForNode(firstNode));
+        final Node lastNode = way.getLastNode();
+        candidates.addAll(logic.getWaysForNode(lastNode));
+        final SortedMap<String, String> tags = way.getTags();
+        final Set<Entry<String, String>> tagsSet = tags.entrySet();
         for (Way candidate : candidates) {
-            if ((way != candidate) && (candidate.isEndNode(way.getFirstNode()) || candidate.isEndNode(way.getLastNode()))
-                    && (candidate.getTags().isEmpty() || way.getTags().isEmpty() || way.getTags().entrySet().equals(candidate.getTags().entrySet()))
-            // TODO check for relations too
-            ) {
+            final SortedMap<String, String> candidateTags = candidate.getTags();
+            if ((way != candidate) && (candidate.isEndNode(firstNode) || candidate.isEndNode(lastNode))
+                    && (candidateTags.isEmpty() || tags.isEmpty() || tagsSet.equals(candidateTags.entrySet()))) {
                 result.add(candidate);
             }
         }
@@ -306,6 +313,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @param way the from way
      * @return a list of all applicable objects
      */
+    @NonNull
     protected Set<OsmElement> findViaElements(@NonNull Way way) {
         return findViaElements(way, true);
     }
@@ -317,11 +325,14 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @param includeNodes if true include via nodes
      * @return a list of all applicable objects
      */
+    @NonNull
     protected Set<OsmElement> findViaElements(@Nullable Way way, boolean includeNodes) {
         Set<OsmElement> result = new HashSet<>();
         if (way != null) {
-            for (Node n : way.getNodes()) {
-                for (Way w : logic.getWaysForNode(n)) {
+            final List<Node> nodes = way.getNodes();
+            for (Node n : nodes) {
+                final List<Way> waysForNode = logic.getWaysForNode(n);
+                for (Way w : waysForNode) {
                     if (w.getTagWithKey(Tags.KEY_HIGHWAY) != null) {
                         result.add(w);
                         if (includeNodes) {
@@ -342,6 +353,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @param viaElement the current via OSM element
      * @return a set of the candidate to OSM elements
      */
+    @NonNull
     protected Set<OsmElement> findToElements(@NonNull OsmElement viaElement) {
         Set<OsmElement> result = new HashSet<>();
         Set<Node> nodes = new HashSet<>();
@@ -370,6 +382,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      *
      * @return the View or null if not found
      */
+    @Nullable
     private View getActionCloseView() {
         if (mode != null) {
             try {
@@ -520,9 +533,9 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
             logic.setSelectedRelationNodes(null);
         }
     }
-    
+
     /**
-     * Log and display a message when we didn't get the element we expected  
+     * Log and display a message when we didn't get the element we expected
      * 
      * @param debugTag the tag for the log
      * @param element the unexpected element
