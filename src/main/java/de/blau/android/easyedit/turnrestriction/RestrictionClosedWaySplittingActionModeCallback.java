@@ -73,7 +73,7 @@ public class RestrictionClosedWaySplittingActionModeCallback extends NonSimpleAc
         try {
             if (element instanceof Node) {
                 Way[] result = logic.performClosedWaySplit(main, way, node, (Node) element, false);
-                if (result != null && result.length == 2) {
+                if (result.length == 2) {
                     if (fromWay == null) {
                         Set<OsmElement> candidates = new HashSet<>();
                         candidates.add(result[0]);

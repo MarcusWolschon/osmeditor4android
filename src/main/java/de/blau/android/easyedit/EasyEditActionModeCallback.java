@@ -520,4 +520,15 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
             logic.setSelectedRelationNodes(null);
         }
     }
+    
+    /**
+     * Log and display a message when we didn't get the element we expected  
+     * 
+     * @param debugTag the tag for the log
+     * @param element the unexpected element
+     */
+    protected void unexpectedElement(@NonNull String debugTag, @NonNull OsmElement element) {
+        Log.e(DEBUG_TAG, element.getName() + " clicked");
+        Snack.toastTopError(main, main.getString(R.string.toast_unexpected_element, element.getDescription(true)));
+    }
 }

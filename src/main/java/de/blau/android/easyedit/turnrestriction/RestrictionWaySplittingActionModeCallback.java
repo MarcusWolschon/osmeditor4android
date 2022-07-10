@@ -71,7 +71,7 @@ public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionMo
         super.handleElementClick(element);
         // protect against race conditions
         if (!(element instanceof Node)) {
-            Log.e(DEBUG_TAG, element.getName() + " clicked");
+            unexpectedElement(DEBUG_TAG, element);
             return false;
         }
         if (way.isClosed()) {

@@ -120,8 +120,7 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
             }
             nextStep(element, viaNode, toWay);
         } else {
-            // FIXME show a warning
-            Log.e(DEBUG_TAG, element.getName() + " clicked");
+            unexpectedElement(DEBUG_TAG, element);
             return true;
         }
         return true;

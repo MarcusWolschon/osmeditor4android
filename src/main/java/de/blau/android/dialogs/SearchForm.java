@@ -128,7 +128,6 @@ public class SearchForm extends ImmersiveDialogFragment {
         final EditText searchEdit = (EditText) searchLayout.findViewById(R.id.location_search_edit);
         searchEdit.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 
-        // FIXME the following shares a lot of code with BoxPicker, but is unluckily slightly different
         final Spinner searchGeocoder = (Spinner) searchLayout.findViewById(R.id.location_search_geocoder);
         final CheckBox limitSearch = searchLayout.findViewById(R.id.location_search_limit);
         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(getActivity())) {

@@ -71,8 +71,7 @@ public class FromElementWithViaNodeActionModeCallback extends NonSimpleActionMod
         super.handleElementClick(element);
         // check if we have to split from or via
         if (!Way.NAME.equals(element.getName())) {
-            // FIXME show a warning
-            Log.e(DEBUG_TAG, element.getName() + " clicked");
+            unexpectedElement(DEBUG_TAG, element);
             return true;
         }
         final Way fromWay = (Way) element;

@@ -91,8 +91,7 @@ public class FromElementActionModeCallback extends NonSimpleActionModeCallback {
             viaWay = (Way) element;
             viaNode = fromWay.getCommonNode(viaWay);
         } else {
-            // FIXME show a warning
-            Log.e(DEBUG_TAG, element.getName() + " clicked");
+            unexpectedElement(DEBUG_TAG, element);
             return true;
         }
         if (viaWay != null && viaWay.equals(fromWay)) {

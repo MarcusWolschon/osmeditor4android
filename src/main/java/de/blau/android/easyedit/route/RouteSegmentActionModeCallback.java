@@ -213,8 +213,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
      */
     private void addSegment(@NonNull OsmElement element) {
         if (!Way.NAME.equals(element.getName())) {
-            // This shouldn't happen
-            Log.e(DEBUG_TAG, element.getName() + " clicked");
+            unexpectedElement(DEBUG_TAG, element);
             return;
         }
         // check if we have to split this or the next segment
