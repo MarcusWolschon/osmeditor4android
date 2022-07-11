@@ -80,4 +80,29 @@ public interface PropertyEditorListener {
      * Re-create the RecentPrestsFragement view
      */
     public void updateRecentPresets();
+
+    /**
+     * Update the data and terminate
+     */
+    public void updateAndFinish();
+
+    /**
+     * Allow ViewPager to work
+     */
+    public void enablePaging();
+
+    /**
+     * Disallow ViewPAger to work
+     */
+    public void disablePaging();
+
+    /**
+     * Allow presets to be applied
+     */
+    public void enablePresets();
+
+    /**
+     * Disallow presets to be applied
+     */
+    public void disablePresets();
 }

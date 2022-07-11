@@ -29,6 +29,7 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
     private int selected = -1;
 
     private OnCheckedChangeListener listener;
+    private RelationMembersFragment owner;
 
     public static class MemberRowViewHolder extends RecyclerView.ViewHolder {
         RelationMemberRow row;
@@ -48,14 +49,16 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
      * Create a new adapter
      * 
      * @param ctx an Android Context
+     * @param owner the Fragment this is being used in
      * @param inflater a LayoutInflater
      * @param entries a List of MemberEntry
      * @param listener an OnCheckedChangeListener
      * @param maxStringLength the maximum string length to support
      */
-    public RelationMemberAdapter(@NonNull Context ctx, @NonNull LayoutInflater inflater, @NonNull List<MemberEntry> entries,
-            @NonNull OnCheckedChangeListener listener, int maxStringLength) {
+    public RelationMemberAdapter(@NonNull Context ctx, @NonNull RelationMembersFragment owner, @NonNull LayoutInflater inflater,
+            @NonNull List<MemberEntry> entries, @NonNull OnCheckedChangeListener listener, int maxStringLength) {
         this.ctx = ctx;
+        this.owner = owner;
         this.inflater = inflater;
         this.entries = entries;
         this.listener = listener;
@@ -74,8 +77,8 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
 
     @Override
     public RelationMemberAdapter.MemberRowViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         final RelationMemberRow row = (RelationMemberRow) inflater.inflate(viewType, parent, false);
+        row.setOwner(owner);
         return new MemberRowViewHolder(row);
     }
 

@@ -45,6 +45,7 @@ import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import ch.poole.conditionalrestrictionparser.Condition;
 import ch.poole.conditionalrestrictionparser.Condition.CompOp;
@@ -62,6 +63,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
@@ -153,10 +155,15 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.d(DEBUG_TAG, "onAttach");
+        Fragment parent = getParentFragment();
+        // we may be nested one or two levels deep
+        if (!(parent instanceof PropertyEditorListener)) {
+            parent = parent.getParentFragment();
+        }
         try {
-            saveListener = (OnSaveListener) context;
+            saveListener = (OnSaveListener) parent;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnSaveListener");
+            throw new ClassCastException(parent.getClass().getCanonicalName() + " must implement OnSaveListener");
         }
     }
 

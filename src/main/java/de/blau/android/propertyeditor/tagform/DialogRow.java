@@ -1,5 +1,7 @@
 package de.blau.android.propertyeditor.tagform;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +20,7 @@ import androidx.fragment.app.FragmentManager;
 import de.blau.android.R;
 import de.blau.android.contract.Ui;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.propertyeditor.PropertyEditorFragment;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;
@@ -228,9 +231,16 @@ public class DialogRow extends LinearLayout {
         context = unwrap(context);
         if (context instanceof FragmentActivity) {
             FragmentManager fm = ((FragmentActivity) context).getSupportFragmentManager();
-            for (Fragment fragment : fm.getFragments()) {
-                if (fragment instanceof TagFormFragment) {
-                    return (TagFormFragment) fragment;
+            List<Fragment> fragments = new ArrayList<>(fm.getFragments());
+            Collections.reverse(fragments); // latest added first
+            for (Fragment fragment : fragments) {
+                if (fragment instanceof PropertyEditorFragment) {
+                    fm = fragment.getChildFragmentManager();
+                    for (Fragment f : fm.getFragments()) {
+                        if (f instanceof TagFormFragment) {
+                            return (TagFormFragment) f;
+                        }
+                    }
                 }
             }
             Log.e(DEBUG_TAG, "TagFormFragment not found");

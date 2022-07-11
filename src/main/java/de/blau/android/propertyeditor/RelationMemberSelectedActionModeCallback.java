@@ -70,8 +70,8 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
         currentAction = mode;
-        ((PropertyEditor) caller.getActivity()).disablePaging();
-        ((PropertyEditor) caller.getActivity()).disablePresets();
+        ((RelationMembersFragment) caller).propertyEditorListener.disablePaging();
+        ((RelationMembersFragment) caller).propertyEditorListener.disablePresets();
         mode.setTitle(R.string.tag_action_members_title);
         return true;
     }
@@ -296,8 +296,8 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
             member.selected = false;
         }
         adapter.notifyDataSetChanged();
-        ((PropertyEditor) caller.getActivity()).enablePaging();
-        ((PropertyEditor) caller.getActivity()).enablePresets();
+        ((RelationMembersFragment) caller).propertyEditorListener.enablePaging();
+        ((RelationMembersFragment) caller).propertyEditorListener.enablePresets();
         PropertyRows rowContainer = (PropertyRows) caller;
         rowContainer.deselectHeaderCheckBox();
         rowContainer.deselectRow();

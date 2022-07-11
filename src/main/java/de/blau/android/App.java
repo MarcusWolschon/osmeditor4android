@@ -39,7 +39,7 @@ import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.Synonyms;
-import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.propertyeditor.PropertyEditorActivity;
 import de.blau.android.services.util.MapTileFilesystemProvider;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.GeoContext;
@@ -736,7 +736,7 @@ public class App extends LocaleAwareApplication implements android.app.Applicati
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        if (activity instanceof PropertyEditor) {
+        if (activity instanceof PropertyEditorActivity) {
             synchronized (this) {
                 propertyEditorRunning = true;
             }
@@ -770,7 +770,7 @@ public class App extends LocaleAwareApplication implements android.app.Applicati
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        if (activity instanceof PropertyEditor) {
+        if (activity instanceof PropertyEditorActivity) {
             synchronized (this) {
                 propertyEditorRunning = false;
             }

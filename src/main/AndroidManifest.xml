@@ -118,7 +118,7 @@
             android:label="@string/app_name_version"
             android:theme="@style/Theme.AppCompatPrefs" />
         <activity
-            android:name=".propertyeditor.PropertyEditor"
+            android:name=".propertyeditor.PropertyEditorActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:theme="@style/Theme.customTagEditor" />
         <activity

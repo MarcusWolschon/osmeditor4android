@@ -114,7 +114,6 @@ import de.blau.android.easyedit.ElementSelectionActionModeCallback;
 import de.blau.android.easyedit.SimpleActionModeCallback;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.PresetFilter;
 import de.blau.android.filter.TagFilter;
@@ -143,7 +142,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.PresetElementPath;
-import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.propertyeditor.PropertyEditorActivity;
 import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.KeyDatabaseHelper;
@@ -3171,7 +3170,7 @@ public class Main extends FullScreenAppCompatActivity
             if (storageDelegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
                 PropertyEditorData[] single = new PropertyEditorData[1];
                 single[0] = new PropertyEditorData(selectedElement, focusOn);
-                PropertyEditor.startForResult(this, single, applyLastAddressTags, showPresets, tags, presetPathList, REQUEST_EDIT_TAG);
+                PropertyEditorActivity.startForResult(this, single, applyLastAddressTags, showPresets, tags, presetPathList, REQUEST_EDIT_TAG);
             }
         }
     }
@@ -3197,7 +3196,7 @@ public class Main extends FullScreenAppCompatActivity
             return;
         }
         PropertyEditorData[] multipleArray = multiple.toArray(new PropertyEditorData[multiple.size()]);
-        PropertyEditor.startForResult(this, multipleArray, applyLastAddressTags, showPresets, null, null, REQUEST_EDIT_TAG);
+        PropertyEditorActivity.startForResult(this, multipleArray, applyLastAddressTags, showPresets, null, null, REQUEST_EDIT_TAG);
     }
 
     /**

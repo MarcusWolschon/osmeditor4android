@@ -16,7 +16,6 @@ import androidx.annotation.Nullable;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.presets.ValueWithCount;
-import de.blau.android.propertyeditor.PropertyEditor;
 
 /**
  * Project: OSMEditor

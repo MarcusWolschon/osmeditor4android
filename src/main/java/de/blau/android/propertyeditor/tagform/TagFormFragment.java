@@ -35,6 +35,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import ch.poole.android.checkbox.IndeterminateCheckBox;
 import ch.poole.conditionalrestrictionparser.ConditionalRestrictionParser;
@@ -65,7 +66,6 @@ import de.blau.android.propertyeditor.EditorUpdate;
 import de.blau.android.propertyeditor.FormUpdate;
 import de.blau.android.propertyeditor.NameAdapters;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
-import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.propertyeditor.TagEditorFragment;
@@ -152,14 +152,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     @Override
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
+        Fragment parent = getParentFragment();
         try {
-            tagListener = (EditorUpdate) context;
-            nameAdapters = (NameAdapters) context;
-            propertyEditorListener = (PropertyEditorListener) context;
-            presetSelectedListener = (OnPresetSelectedListener) context;
+            tagListener = (EditorUpdate) parent;
+            nameAdapters = (NameAdapters) parent;
+            propertyEditorListener = (PropertyEditorListener) parent;
+            presetSelectedListener = (OnPresetSelectedListener) parent;
         } catch (ClassCastException e) {
-            throw new ClassCastException(
-                    context.toString() + " must implement OnPresetSelectedListener, NameAdapters, PropertyEditorListener, OnPresetSelectedListener");
+            throw new ClassCastException(parent.getClass().getCanonicalName()
+                    + " must implement OnPresetSelectedListener, NameAdapters, PropertyEditorListener, OnPresetSelectedListener");
         }
         setHasOptionsMenu(true);
         getActivity().invalidateOptionsMenu();
@@ -409,7 +410,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         case android.R.id.home:
             Log.d(DEBUG_TAG, "home pressed");
             updateEditorFromText();
-            ((PropertyEditor) getActivity()).updateAndFinish();
+            propertyEditorListener.updateAndFinish();
             return true;
         case R.id.tag_menu_address:
             updateEditorFromText();

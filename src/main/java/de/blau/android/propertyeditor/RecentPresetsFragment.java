@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.exception.UiStateException;
@@ -56,11 +57,16 @@ public class RecentPresetsFragment extends BaseFragment {
     @Override
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
+        Fragment parent = getParentFragment();
+        // we may be nested one or two levels deep
+        if (!(parent instanceof PropertyEditorListener)) {
+            parent = parent.getParentFragment();
+        }
         try {
-            presetSelectedListener = (OnPresetSelectedListener) context;
-            propertyEditorListener = (PropertyEditorListener) context;
+            presetSelectedListener = (OnPresetSelectedListener) parent;
+            propertyEditorListener = (PropertyEditorListener) parent;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener and PropertyEditorListener");
+            throw new ClassCastException(parent.getClass().getCanonicalName() + " must implement OnPresetSelectedListener and PropertyEditorListener");
         }
     }
 

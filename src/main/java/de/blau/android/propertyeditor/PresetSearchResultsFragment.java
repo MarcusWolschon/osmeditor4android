@@ -21,6 +21,7 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -78,12 +79,17 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.d(DEBUG_TAG, "onAttach");
+        Fragment parent = getParentFragment();
+        // we may be nested one or two levels deep
+        if (!(parent instanceof PropertyEditorListener)) {
+            parent = parent.getParentFragment();
+        }
         try {
-            mOnPresetSelectedListener = (OnPresetSelectedListener) context;
-            mPresetUpdateListener = (PresetUpdate) context;
-            propertyEditorListener = (PropertyEditorListener) context;
+            mOnPresetSelectedListener = (OnPresetSelectedListener) parent;
+            mPresetUpdateListener = (PresetUpdate) parent;
+            propertyEditorListener = (PropertyEditorListener) parent;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener and PresetUpdate");
+            throw new ClassCastException(parent.getClass().getCanonicalName() + " must implement OnPresetSelectedListener and PresetUpdate");
         }
     }
 

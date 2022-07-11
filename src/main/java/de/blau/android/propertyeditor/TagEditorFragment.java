@@ -41,6 +41,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
@@ -91,23 +92,15 @@ import de.blau.android.views.CustomAutoCompleteTextView;
 public class TagEditorFragment extends BaseFragment implements PropertyRows, EditorUpdate {
     private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
 
-    private static final String SAVEDTAGS_KEY = "SAVEDTAGS";
-
-    private static final String IDS_KEY = "ids";
-
-    private static final String TYPES_KEY = "types";
-
-    private static final String DISPLAY_MRU_PRESETS = "displayMRUpresets";
-
-    private static final String FOCUS_ON_KEY = "focusOnKey";
-
+    private static final String SAVEDTAGS_KEY           = "SAVEDTAGS";
+    private static final String IDS_KEY                 = "ids";
+    private static final String TYPES_KEY               = "types";
+    private static final String DISPLAY_MRU_PRESETS     = "displayMRUpresets";
+    private static final String FOCUS_ON_KEY            = "focusOnKey";
     private static final String APPLY_LAST_ADDRESS_TAGS = "applyLastAddressTags";
-
-    private static final String EXTRA_TAGS_KEY = "extraTags";
-
-    private static final String PRESETSTOAPPLY_KEY = "presetsToApply";
-
-    private static final String TAGS_KEY = "tags";
+    private static final String EXTRA_TAGS_KEY          = "extraTags";
+    private static final String PRESETSTOAPPLY_KEY      = "presetsToApply";
+    private static final String TAGS_KEY                = "tags";
 
     private static SelectedRowsActionModeCallback tagSelectedActionModeCallback = null;
     private static final Object                   actionModeCallbackLock        = new Object();
@@ -245,15 +238,16 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     @Override
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
+        Fragment parent = getParentFragment();
         try {
-            nameAdapters = (NameAdapters) context;
-            formUpdate = (FormUpdate) context;
-            presetFilterUpdate = (PresetUpdate) context;
-            propertyEditorListener = (PropertyEditorListener) context;
-            presetSelectedListener = (OnPresetSelectedListener) context;
+            nameAdapters = (NameAdapters) parent;
+            formUpdate = (FormUpdate) parent;
+            presetFilterUpdate = (PresetUpdate) parent;
+            propertyEditorListener = (PropertyEditorListener) parent;
+            presetSelectedListener = (OnPresetSelectedListener) parent;
         } catch (ClassCastException e) {
-            throw new ClassCastException(
-                    context.toString() + " must implement PropertyEditorListener, NameAdapters, FormUpdate, PresetFilterUpdate, OnPresetSelectedListener");
+            throw new ClassCastException(parent.getClass().getCanonicalName()
+                    + " must implement PropertyEditorListener, NameAdapters, FormUpdate, PresetFilterUpdate, OnPresetSelectedListener");
         }
         setHasOptionsMenu(true);
         getActivity().invalidateOptionsMenu();
@@ -378,8 +372,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 PresetGroup rootGroup = preset.getRootGroup();
                 for (PresetElementPath pp : presetsToApply) {
                     // can't use the listener here as onAttach will not have happened
-                    PresetElement pi = Preset.getElementByPath(rootGroup, pp,
-                            activity instanceof PropertyEditor ? ((PropertyEditor) activity).getCountryIsoCode() : null, false);
+                    PresetElement pi = Preset.getElementByPath(rootGroup, pp, propertyEditorListener.getCountryIsoCode(), false);
                     if (pi instanceof PresetItem) {
                         applyPreset(editRowLayout, (PresetItem) pi, false, false, true, true);
                     }
@@ -1003,7 +996,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                         }
                         Log.d(DEBUG_TAG, "key " + key + " type " + preset.getKeyType(key));
                     } else if (preset.isFixedTag(key)) {
-                        for (StringWithDescription s : Preset.getAutocompleteValues(((PropertyEditor) getActivity()).presets, elementType, key)) {
+                        for (StringWithDescription s : Preset.getAutocompleteValues(propertyEditorListener.getPresets(), elementType, key)) {
                             adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
                         }
                     }
@@ -1046,6 +1039,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     private TagEditRow insertNewEdit(final LinearLayout rowLayout, final String aTagKey, final List<String> tagValues, final int position,
             boolean applyDefault) {
         final TagEditRow row = (TagEditRow) inflater.inflate(R.layout.tag_edit_row, rowLayout, false);
+        row.setOwner(this);
 
         boolean same = true;
         if (tagValues.size() > 1) {
@@ -1100,7 +1094,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (hasFocus) {
                     originalKey = row.getKey();
                     row.keyEdit.setAdapter(getKeyAutocompleteAdapter(preset, rowLayout, row.keyEdit));
-                    if (PropertyEditor.running && row.getKey().length() == 0) {
+                    if (row.getKey().length() == 0) {
                         row.keyEdit.showDropDown();
                     }
                 } else {
@@ -1136,11 +1130,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                         InputTypeUtil.enableTextSuggestions(row.valueEdit);
                     }
                     InputTypeUtil.setInputTypeFromValueType(row.valueEdit, valueType);
-
-                    if (PropertyEditor.running) {
-                        if (row.valueEdit.getText().length() == 0) {
-                            row.valueEdit.showDropDown();
-                        }
+                    if (row.valueEdit.getText().length() == 0) {
+                        row.valueEdit.showDropDown();
                     }
                 } else {
                     // our preset may have changed re-calc
@@ -1236,7 +1227,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     public static class TagEditRow extends LinearLayout implements SelectedRowsActionModeCallback.Row {
 
-        private PropertyEditor             owner;
+        private TagEditorFragment          owner;
         private AutoCompleteTextView       keyEdit;
         private CustomAutoCompleteTextView valueEdit;
         private CheckBox                   selected;
@@ -1248,10 +1239,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
          * 
          * @param context an Android Context
          */
-        public TagEditRow(Context context) {
+        public TagEditRow(@NonNull Context context) {
             super(context);
-            owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or
-                                                                        // in Eclipse
         }
 
         /**
@@ -1260,10 +1249,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
          * @param context an Android Context
          * @param attrs am AttributeSet
          */
-        public TagEditRow(Context context, AttributeSet attrs) {
+        public TagEditRow(@NonNull Context context, @Nullable AttributeSet attrs) {
             super(context, attrs);
-            owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or
-                                                                        // in Eclipse
         }
 
         // public TagEditRow(Context context, AttributeSet attrs, int defStyle) {
@@ -1272,6 +1259,15 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         // Eclipse
         // }
 
+        /**
+         * Set the fragment for this view
+         * 
+         * @param owner the "owning" Fragment
+         */
+        public void setOwner(@NonNull TagEditorFragment owner) {
+            this.owner = owner;
+        }
+
         @Override
         protected void onFinishInflate() {
             super.onFinishInflate();
@@ -1279,10 +1275,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 return; // allow visual editor to work
             }
             keyEdit = (AutoCompleteTextView) findViewById(R.id.editKey);
-            keyEdit.setOnKeyListener(PropertyEditor.myKeyListener);
+            keyEdit.setOnKeyListener(PropertyEditorFragment.myKeyListener);
 
             valueEdit = (CustomAutoCompleteTextView) findViewById(R.id.editValue);
-            valueEdit.setOnKeyListener(PropertyEditor.myKeyListener);
+            valueEdit.setOnKeyListener(PropertyEditorFragment.myKeyListener);
 
             selected = (CheckBox) findViewById(R.id.tagSelected);
 
@@ -1292,7 +1288,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 }
             };
             // set an empty adapter on both views to be on the safe side
-            ArrayAdapter<String> empty = new ArrayAdapter<>(owner, R.layout.autocomplete_row, new String[0]);
+            ArrayAdapter<String> empty = new ArrayAdapter<>(getContext(), R.layout.autocomplete_row, new String[0]);
             keyEdit.setAdapter(empty);
             valueEdit.setAdapter(empty);
             keyEdit.setOnClickListener(autocompleteOnClick);
@@ -1356,7 +1352,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
          * @return the key as a String
          */
         @NonNull
-        public String getValue() { // FIXME check if returning the textedit value is actually ok
+        public String getValue() {
             return valueEdit.getText().toString();
         }
 
@@ -1364,8 +1360,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
          * Deletes this row
          */
         @Override
-        public void delete() { // FIXME the references to owner.tagEditorFragemnt are likely suspect
-            deleteRow((LinearLayout) owner.tagEditorFragment.getOurView());
+        public void delete() {
+            deleteRow((LinearLayout) owner.getOurView());
         }
 
         /**
@@ -1374,20 +1370,19 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
          * @param rowLayout the Layout holding the rows
          */
         public void deleteRow(@NonNull LinearLayout rowLayout) {
-            // FIXME the references to owner.tagEditorFragemnt are likely
             // suspect
-            View cf = owner.getCurrentFocus();
+            View cf = owner.getActivity().getCurrentFocus();
             if (cf == keyEdit || cf == valueEdit) {
                 // about to delete the row that has focus!
                 // try to move the focus to the next row or failing that to the previous row
-                int current = owner.tagEditorFragment.rowIndex(this);
-                if (!owner.tagEditorFragment.focusRow(current + 1)) {
-                    owner.tagEditorFragment.focusRow(current - 1);
+                int current = owner.rowIndex(this);
+                if (!owner.focusRow(current + 1)) {
+                    owner.focusRow(current - 1);
                 }
             }
             rowLayout.removeView(this);
-            if (isEmpty() && owner.tagEditorFragment != null) {
-                owner.tagEditorFragment.ensureEmptyRow(rowLayout);
+            if (isEmpty() && owner != null) {
+                owner.ensureEmptyRow(rowLayout);
             }
         }
 
@@ -1928,7 +1923,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         final int itemId = item.getItemId();
         switch (itemId) {
         case android.R.id.home:
-            ((PropertyEditor) getActivity()).updateAndFinish();
+            propertyEditorListener.updateAndFinish();
             return true;
         case R.id.tag_menu_address:
             predictAddressTags(false);

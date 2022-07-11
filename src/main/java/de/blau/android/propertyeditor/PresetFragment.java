@@ -29,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.ActionMenuView;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -135,12 +136,13 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     @Override
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
+        Fragment parent = getParentFragment();
         try {
-            mListener = (OnPresetSelectedListener) context;
-            propertyEditorListener = (PropertyEditorListener) context;
-            editorUpdate = (EditorUpdate) context;
+            mListener = (OnPresetSelectedListener) parent;
+            propertyEditorListener = (PropertyEditorListener) parent;
+            editorUpdate = (EditorUpdate) parent;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener");
+            throw new ClassCastException(parent.getClass().getCanonicalName() + " must implement OnPresetSelectedListener");
         }
     }
 
@@ -479,7 +481,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         ScrollView scrollView = (ScrollView) getOurView();
         switch (item.getItemId()) {
         case android.R.id.home:
-            ((PropertyEditor) getActivity()).updateAndFinish();
+            propertyEditorListener.updateAndFinish();
             return true;
         case R.id.preset_menu_top:
             if (rootGroup != null && scrollView != null) {

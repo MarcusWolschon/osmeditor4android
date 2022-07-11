@@ -8,9 +8,8 @@ import java.util.Map;
 
 import org.acra.ACRA;
 
-import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
-
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -18,6 +17,9 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnKeyListener;
@@ -28,8 +30,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -84,19 +85,19 @@ import de.blau.android.views.ExtendedViewPager;
  * @author mb
  * @author simon
  */
-public class PropertyEditor extends LocaleAwareCompatActivity implements PropertyEditorListener, OnPresetSelectedListener, EditorUpdate, FormUpdate,
-        PresetUpdate, NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener {
+public class PropertyEditorFragment extends BaseFragment implements PropertyEditorListener, OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetUpdate,
+        NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener {
 
     private static final String CURRENTITEM            = "current_item";
     static final String         PANELAYOUT             = "pane_layout";
     private static final String PRESET_FRAGMENT        = "preset_fragment";
     public static final String  RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
 
-    public static final String  TAGEDIT_DATA              = "dataClass";
-    private static final String TAGEDIT_LAST_ADDRESS_TAGS = "applyLastTags";
-    private static final String TAGEDIT_SHOW_PRESETS      = "showPresets";
-    private static final String TAGEDIT_EXTRA_TAGS        = "extra";
-    private static final String TAGEDIT_PRESETSTOAPPLY    = "presetsToApply";
+    public static final String TAGEDIT_DATA              = "dataClass";
+    static final String        TAGEDIT_LAST_ADDRESS_TAGS = "applyLastTags";
+    static final String        TAGEDIT_SHOW_PRESETS      = "showPresets";
+    static final String        TAGEDIT_EXTRA_TAGS        = "extra";
+    static final String        TAGEDIT_PRESETSTOAPPLY    = "presetsToApply";
 
     private static final int PREFERENCES_CODE = 5634;
 
@@ -117,7 +118,7 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     /**
      * The tag we use for Android-logging.
      */
-    private static final String DEBUG_TAG = PropertyEditor.class.getSimpleName();
+    private static final String DEBUG_TAG = PropertyEditorFragment.class.getSimpleName();
 
     private long[] osmIds;
 
@@ -175,32 +176,11 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     private boolean           isRelation    = false;
     private NetworkStatus     networkStatus;
     private List<String>      isoCodes      = null;
-
-    /**
-     * Start a PropertyEditor activity
-     * 
-     * @param activity calling activity
-     * @param dataClass the tags and relation memberships that should be edited
-     * @param predictAddressTags try to predict address tags
-     * @param showPresets show the preset tab first
-     * @param extraTags additional tags that should be added
-     * @param presetItems presets that should be applied
-     * @param requestCode request code for the response
-     */
-    public static void startForResult(@NonNull Activity activity, @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets,
-            HashMap<String, String> extraTags, ArrayList<PresetElementPath> presetItems, int requestCode) {
-        Log.d(DEBUG_TAG, "startForResult");
-        try {
-            activity.startActivityForResult(buildIntent(activity, dataClass, predictAddressTags, showPresets, extraTags, presetItems), requestCode);
-        } catch (RuntimeException rex) {
-            Snack.toastTopError(activity, R.string.toast_error_element_too_large);
-        }
-    }
+    private ControlListener   controlListener;
 
     /**
      * Build the intent to start the PropertyEditor
      * 
-     * @param activity calling activity
      * @param dataClass the tags and relation memberships that should be edited
      * @param predictAddressTags try to predict address tags
      * @param showPresets show the preset tab first
@@ -209,19 +189,33 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
      * @return a suitable Intent
      */
     @NonNull
-    static Intent buildIntent(@NonNull Activity activity, @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets,
+    public static PropertyEditorFragment newInstance(@NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets,
             HashMap<String, String> extraTags, ArrayList<PresetElementPath> presetItems) {
-        Intent intent = new Intent(activity, PropertyEditor.class);
-        intent.putExtra(TAGEDIT_DATA, dataClass);
-        intent.putExtra(TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(predictAddressTags));
-        intent.putExtra(TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
-        intent.putExtra(TAGEDIT_EXTRA_TAGS, extraTags);
-        intent.putExtra(TAGEDIT_PRESETSTOAPPLY, presetItems);
-        return intent;
+        PropertyEditorFragment f = new PropertyEditorFragment();
+
+        Bundle args = new Bundle();
+        args.putSerializable(TAGEDIT_DATA, dataClass);
+        args.putBoolean(TAGEDIT_LAST_ADDRESS_TAGS, predictAddressTags);
+        args.putBoolean(TAGEDIT_SHOW_PRESETS, showPresets);
+        args.putSerializable(TAGEDIT_EXTRA_TAGS, extraTags);
+        args.putSerializable(TAGEDIT_PRESETSTOAPPLY, presetItems);
+        f.setArguments(args);
+        return f;
     }
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    public void onAttachToContext(Context context) {
+        Log.d(DEBUG_TAG, "onAttachToContext");
+        try {
+            controlListener = (ControlListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement ControlListener");
+        }
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
         int currentItem = -1; // used when restoring
         Logic logic = App.getLogic();
         if (logic == null) {
@@ -233,11 +227,8 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
         prefs = logic.getPrefs();
         if (prefs == null) {
             Log.e(DEBUG_TAG, "prefs was null creating new");
-            prefs = new Preferences(this);
+            prefs = new Preferences(getContext());
             logic.setPrefs(prefs);
-        }
-        if (prefs.lightThemeEnabled()) {
-            setTheme(R.style.Theme_customTagEditor_Light);
         }
 
         super.onCreate(savedInstanceState);
@@ -246,18 +237,18 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
         if (savedInstanceState == null) {
             // No previous state to restore - get the state from the intent
             Log.d(DEBUG_TAG, "Initializing from intent");
-            loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(TAGEDIT_DATA));
-            applyLastAddressTags = (Boolean) getIntent().getSerializableExtra(TAGEDIT_LAST_ADDRESS_TAGS);
-            showPresets = (Boolean) getIntent().getSerializableExtra(TAGEDIT_SHOW_PRESETS);
-            extraTags = (HashMap<String, String>) getIntent().getSerializableExtra(TAGEDIT_EXTRA_TAGS);
-            presetsToApply = (ArrayList<PresetElementPath>) getIntent().getSerializableExtra(TAGEDIT_PRESETSTOAPPLY);
-            Boolean tempUsePaneLayout = (Boolean) getIntent().getSerializableExtra(PANELAYOUT);
-            usePaneLayout = tempUsePaneLayout != null ? tempUsePaneLayout : Screen.isLandscape(this);
-
+            final Bundle args = getArguments();
+            loadData = PropertyEditorData.deserializeArray(args.getSerializable(TAGEDIT_DATA));
+            applyLastAddressTags = args.getBoolean(TAGEDIT_LAST_ADDRESS_TAGS);
+            showPresets = args.getBoolean(TAGEDIT_SHOW_PRESETS);
+            extraTags = (HashMap<String, String>) args.getSerializable(TAGEDIT_EXTRA_TAGS);
+            presetsToApply = (ArrayList<PresetElementPath>) args.getSerializable(TAGEDIT_PRESETSTOAPPLY);
+            usePaneLayout = args.getBoolean(PANELAYOUT, Screen.isLandscape(getActivity()) );
+            
             // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
             // selected
             if (presetsToApply != null && !presetsToApply.isEmpty()) {
-                PresetElement alternativeRootElement = Preset.getElementByPath(App.getCurrentRootPreset(this).getRootGroup(), presetsToApply.get(0));
+                PresetElement alternativeRootElement = Preset.getElementByPath(App.getCurrentRootPreset(getContext()).getRootGroup(), presetsToApply.get(0));
                 showPresets = alternativeRootElement instanceof PresetGroup;
             }
         } else {
@@ -270,8 +261,8 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
             StorageDelegator delegator = App.getDelegator();
             if (!delegator.isDirty() && delegator.isEmpty()) { // this can mean: need to load state
                 Log.d(DEBUG_TAG, "Loading saved state");
-                logic.syncLoadFromFile(this); // sync load
-                App.getTaskStorage().readFromFile(this);
+                logic.syncLoadFromFile(getActivity()); // sync load
+                App.getTaskStorage().readFromFile(getActivity());
             }
         }
 
@@ -298,23 +289,30 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
             abort("Missing element(s)");
         }
 
-        presets = App.getCurrentPresets(this);
+        presets = App.getCurrentPresets(getContext());
 
-        if (usePaneLayout) {
-            setContentView(R.layout.pane_view);
-            Log.d(DEBUG_TAG, "Using layout for large devices");
-        } else {
-            setContentView(R.layout.tab_view);
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        int currentItem = -1;
+        if (savedInstanceState != null) {
+            currentItem = savedInstanceState.getInt(CURRENTITEM, -1);
         }
 
+        ViewGroup layout = (ViewGroup) inflater.inflate(usePaneLayout ? R.layout.pane_view : R.layout.tab_view, null);
+
         // Find the toolbar view inside the activity layout
-        Toolbar toolbar = (Toolbar) findViewById(R.id.propertyEditorBar);
+        Toolbar toolbar = (Toolbar) layout.findViewById(R.id.propertyEditorBar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
-        setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         // FIXME currently we statically change this, it would be nicer to actually make it dependent on if we have
         // actually changed something
-        getSupportActionBar().setHomeAsUpIndicator(ThemeUtils.getResIdFromAttribute(this, R.attr.propertyeditor_done));
+        ActionBar actionbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        actionbar.setHomeAsUpIndicator(ThemeUtils.getResIdFromAttribute(getContext(), R.attr.propertyeditor_done));
+        actionbar.setDisplayShowTitleEnabled(false);
+        actionbar.setDisplayHomeAsUpEnabled(true);
 
         // tags
         ArrayList<LinkedHashMap<String, String>> tags = new ArrayList<>();
@@ -342,19 +340,15 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
             Configuration config = getResources().getConfiguration();
             rtl = config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
         }
-        PropertyEditorPagerAdapter pagerAdapter = new PropertyEditorPagerAdapter(getSupportFragmentManager(), rtl, tags);
-        mViewPager = (ExtendedViewPager) findViewById(R.id.pager);
+        PropertyEditorPagerAdapter pagerAdapter = new PropertyEditorPagerAdapter(getChildFragmentManager(), rtl, tags);
+        mViewPager = (ExtendedViewPager) layout.findViewById(R.id.pager);
         PagerTabStrip pagerTabStrip = (PagerTabStrip) mViewPager.findViewById(R.id.pager_header);
         pagerTabStrip.setDrawFullUnderline(true);
-        pagerTabStrip.setTabIndicatorColor(ThemeUtils.getStyleAttribColorValue(this, R.attr.colorAccent, R.color.dark_grey));
-
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayShowTitleEnabled(false);
-        actionbar.setDisplayHomeAsUpEnabled(true);
+        pagerTabStrip.setTabIndicatorColor(ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.colorAccent, R.color.dark_grey));
 
         if (usePaneLayout) { // add both preset fragments to panes
             Log.d(DEBUG_TAG, "Adding fragment to pane");
-            FragmentManager fm = getSupportFragmentManager();
+            FragmentManager fm = getChildFragmentManager();
             de.blau.android.propertyeditor.Util.addMRUPresetsFragment(fm, R.id.pane_mru_layout, getElement().getOsmId(), getElement().getName());
 
             FragmentTransaction ft = fm.beginTransaction();
@@ -373,6 +367,13 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
         mViewPager.addOnPageChangeListener(new PageChangeListener());
         // if currentItem is >= 0 then we are restoring and should use it, otherwise the first or 2nd page
         mViewPager.setCurrentItem(currentItem != -1 ? currentItem : pagerAdapter.reversePosition(showPresets || usePaneLayout ? 0 : 1));
+
+        return layout;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     /**
@@ -381,49 +382,36 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
      * @param cause String showing a cause for this
      */
     private void abort(@NonNull String cause) {
-        Snack.toastTopError(this, R.string.toast_inconsistent_state);
+        Snack.toastTopError(getContext(), R.string.toast_inconsistent_state);
         Log.e(DEBUG_TAG, "Inconsistent state because " + cause);
         ACRA.getErrorReporter().putCustomData("CAUSE", cause);
         ACRA.getErrorReporter().handleException(null);
-        finish();
+        // finish();
     }
 
     @Override
-    protected void onStart() {
-        Log.d(DEBUG_TAG, "onStart");
-        super.onStart();
-        Log.d(DEBUG_TAG, "onStart done");
-    }
-
-    @Override
-    protected void onResume() {
+    public void onResume() {
         Log.d(DEBUG_TAG, "onResume");
         super.onResume();
         running = true;
-        Address.loadLastAddresses(this);
+        Address.loadLastAddresses(getContext());
         Log.d(DEBUG_TAG, "onResume done");
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         Log.d(DEBUG_TAG, "onStop");
         // save tag clipboard
-        App.getTagClipboard(this).save(this);
+        App.getTagClipboard(getContext()).save(getContext());
         super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.d(DEBUG_TAG, "onDestroy");
-        super.onDestroy();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         Log.d(DEBUG_TAG, "onConfigurationChanged");
-        Util.clearCaches(this, newConfig);
+        Util.clearCaches(getContext(), newConfig);
         super.onConfigurationChanged(newConfig);
-        this.recreate();
+        // this.recreate();
     }
 
     @Override
@@ -437,11 +425,11 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
             return true;
         }
         if (item.getItemId() == R.id.menu_preset_feedback) { // only used in pane mode
-            Feedback.start(this, Github.PRESET_REPO_USER, Github.PRESET_REPO_NAME, prefs.useUrlForFeedback());
+            Feedback.start(getContext(), Github.PRESET_REPO_USER, Github.PRESET_REPO_NAME, prefs.useUrlForFeedback());
             return true;
         }
         if (item.getItemId() == R.id.menu_config) {
-            PrefEditor.start(this, PREFERENCES_CODE);
+            PrefEditor.start(getActivity(), PREFERENCES_CODE);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -451,15 +439,15 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
      * {@inheritDoc}
      */
     @Override
-    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         Log.d(DEBUG_TAG, "onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
         if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
-                && resultCode == RESULT_OK) {
+                && resultCode == Activity.RESULT_OK) {
             SelectFile.handleResult(requestCode, data);
         } else if (requestCode == PREFERENCES_CODE) {
             // Preferences may have been changed
-            prefs = new Preferences(this);
+            prefs = new Preferences(getContext());
             App.getLogic().setPrefs(prefs);
         }
     }
@@ -801,7 +789,7 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     RecentPresetsFragment getRecentPresetsFragment() {
         FragmentManager fm;
         if (usePaneLayout) {
-            fm = getSupportFragmentManager();
+            fm = getChildFragmentManager();
         } else {
             if (tagFormFragment != null) {
                 fm = tagFormFragment.getChildFragmentManager();
@@ -822,40 +810,10 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (tagFormFragment != null) {
-            tagFormFragment.updateEditorFromText(); // update any non-synced changes to the editor fragment
-        }
-        List<LinkedHashMap<String, String>> currentTags = getUpdatedTags();
-        MultiHashMap<Long, RelationMemberPosition> currentParents = null;
-        List<RelationMemberDescription> currentMembers = null;
-        if (relationMembershipFragment != null) {
-            currentParents = relationMembershipFragment.getParentRelationMap();
-        }
-        if (relationMembersFragment != null) {
-            currentMembers = new ArrayList<>(); // FIXME
-            if (types[0].equals(Relation.NAME)) { // FIXME
-                currentMembers = relationMembersFragment.getMembersList();
-            }
-        }
-        // if we haven't edited just exit
-        if (!same(currentTags, originalTags) // tags different
-                || ((currentParents != null && !currentParents.equals(originalParents)) && !(originalParents == null && currentParents.isEmpty())) // parents
-                                                                                                                                                   // changed
-                || (getElement() != null && getElement().getName().equals(Relation.NAME)
-                        && (currentMembers != null && !sameMembers(currentMembers, originalMembers)))) {
-            new AlertDialog.Builder(this).setNeutralButton(R.string.cancel, null).setNegativeButton(R.string.tag_menu_revert, (dialog, which) -> doRevert())
-                    .setPositiveButton(R.string.tag_menu_exit_no_save, (dialog, which) -> PropertyEditor.super.onBackPressed()).create().show();
-        } else {
-            PropertyEditor.super.onBackPressed();
-        }
-    }
-
     /**
      * Revert changes in all fragments
      */
-    private void doRevert() {
+    void doRevert() {
         if (tagEditorFragment != null) {
             tagEditorFragment.doRevert();
         }
@@ -876,8 +834,8 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
         // save any address tags for "last address tags"
         final int elementCount = currentTags.size();
         if (elementCount == 1) {
-            Address.updateLastAddresses(this, (StreetPlaceNamesAdapter) getStreetNameAdapter(null), tagEditorFragment.getType(), tagEditorFragment.getOsmId(),
-                    Util.getListMap(currentTags.get(0)), true);
+            Address.updateLastAddresses(getContext(), (StreetPlaceNamesAdapter) getStreetNameAdapter(null), tagEditorFragment.getType(),
+                    tagEditorFragment.getOsmId(), Util.getListMap(currentTags.get(0)), true);
         }
 
         Logic logic = App.getLogic();
@@ -887,9 +845,9 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
                 final LinkedHashMap<String, String> tags = currentTags.get(i);
                 if (!originalTags.get(i).equals(tags)) {
                     try {
-                        logic.setTags(this, types[i], osmIds[i], tags);
+                        logic.setTags(getActivity(), types[i], osmIds[i], tags);
                     } catch (OsmIllegalOperationException e) {
-                        Snack.barError(this, e.getMessage());
+                        Snack.barError(getActivity(), e.getMessage());
                     }
                 }
             }
@@ -898,9 +856,9 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
                 // Relation members
                 if (Relation.NAME.equals(types[0])) {
                     List<RelationMemberDescription> currentMembers = relationMembersFragment.getMembersList();
-                    if (!currentMembers.equals(originalMembers)) {
+                    if (!sameMembers(currentMembers, originalMembers)) {
                         Log.d(DEBUG_TAG, "updateAndFinish setting members");
-                        logic.updateRelation(this, osmIds[0], currentMembers);
+                        logic.updateRelation(getActivity(), osmIds[0], currentMembers);
                         Relation updatedRelation = (Relation) App.getDelegator().getOsmElement(Relation.NAME, osmIds[0]);
                         if (logic.isSelected(updatedRelation)) { // This might be unnecessary
                             logic.removeSelectedRelation(updatedRelation);
@@ -910,17 +868,17 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
                 }
                 // Parent relations
                 MultiHashMap<Long, RelationMemberPosition> currentParents = relationMembershipFragment.getParentRelationMap();
-                if (!(originalParents == null && currentParents.isEmpty()) || currentParents.equals(originalParents)) {
+                if (!((originalParents == null && currentParents.isEmpty()) || currentParents.equals(originalParents))) {
                     Log.d(DEBUG_TAG, "updateAndFinish setting parents");
-                    logic.updateParentRelations(this, types[0], osmIds[0], currentParents);
+                    logic.updateParentRelations(getActivity(), types[0], osmIds[0], currentParents);
                 }
             }
         } else {
             Log.e(DEBUG_TAG, "updateAndFinish logic is null");
         }
 
-        setResult(RESULT_OK, new Intent());
-        finish();
+        // call through to activity that we are done
+        controlListener.finished(this);
     }
 
     /**
@@ -940,10 +898,11 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
             return tags1 == null;
         }
         // check for tag changes
-        if (tags1.size() != tags2.size()) { /// serious error
+        final int size = tags1.size();
+        if (size != tags2.size()) { /// serious error
             return false;
         }
-        for (int i = 0; i < tags1.size(); i++) {
+        for (int i = 0; i < size; i++) {
             if (!tags1.get(i).equals(tags2.get(i))) {
                 return false;
             }
@@ -984,12 +943,41 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     }
 
     /**
+     * Check if we have unsaved changes
+     * 
+     * @return true if there are changes
+     */
+    public boolean hasChanges() {
+        // Update any non-synced changes
+        if (tagFormFragment != null) {
+            tagFormFragment.updateEditorFromText();
+        }
+        List<LinkedHashMap<String, String>> currentTags = getUpdatedTags();
+        MultiHashMap<Long, RelationMemberPosition> currentParents = null;
+        List<RelationMemberDescription> currentMembers = null;
+        if (relationMembershipFragment != null) {
+            currentParents = relationMembershipFragment.getParentRelationMap();
+        }
+        if (relationMembersFragment != null) {
+            currentMembers = new ArrayList<>();
+            if (Relation.NAME.equals(types[0])) {
+                currentMembers = relationMembersFragment.getMembersList();
+            }
+        }
+        return (!same(currentTags, originalTags) // tags different
+                // parents changed
+                || ((currentParents != null && !currentParents.equals(originalParents)) && !(originalParents == null && currentParents.isEmpty()))
+                // members changed
+                || (currentMembers != null && !sameMembers(currentMembers, originalMembers)));
+    }
+
+    /**
      * Save the state of this activity instance for future restoration.
      * 
      * @param outState The object to receive the saved state.
      */
     @Override
-    protected void onSaveInstanceState(final Bundle outState) {
+    public void onSaveInstanceState(final Bundle outState) {
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         Log.d(DEBUG_TAG, "bundle size 1 : " + Util.getBundleSize(outState));
         super.onSaveInstanceState(outState);
@@ -997,28 +985,21 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
         outState.putInt(CURRENTITEM, mViewPager.getCurrentItem());
         outState.putBoolean(PANELAYOUT, usePaneLayout);
         outState.putSerializable(TAGEDIT_DATA, loadData);
-        App.getMruTags().save(this);
+        App.getMruTags().save(getContext());
     }
 
     /** When the Activity is interrupted, save MRUs and address cache */
     @Override
-    protected void onPause() {
+    public void onPause() {
         running = false;
-        Preset[] currentPresets = App.getCurrentPresets(this);
+        Preset[] currentPresets = App.getCurrentPresets(getContext());
         for (Preset p : currentPresets) {
             if (p != null) {
                 p.saveMRU();
             }
         }
-        Address.saveLastAddresses(this);
+        Address.saveLastAddresses(getContext());
         super.onPause();
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        Log.d(DEBUG_TAG, "onRestoreInstanceState");
-        super.onRestoreInstanceState(savedInstanceState);
-        Log.d(DEBUG_TAG, "onRestoreInstanceState done");
     }
 
     /**
@@ -1181,7 +1162,7 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
             PresetItem best = tagEditorFragment.getBestPreset();
             if (usePaneLayout) {
                 // FIXME it isn't clear where the best place to add/update the display is
-                de.blau.android.propertyeditor.Util.addAlternativePresetItemsFragment(getSupportFragmentManager(), R.id.pane_alternative_layout, best);
+                de.blau.android.propertyeditor.Util.addAlternativePresetItemsFragment(getChildFragmentManager(), R.id.pane_alternative_layout, best);
             }
             return best;
         } else {
@@ -1289,8 +1270,8 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     @Override
     public ArrayAdapter<ValueWithCount> getStreetNameAdapter(List<String> values) {
         if (streetNameAutocompleteAdapter == null) {
-            streetNameAutocompleteAdapter = new StreetPlaceNamesAdapter(this, R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0], values,
-                    false); // FIXME
+            streetNameAutocompleteAdapter = new StreetPlaceNamesAdapter(getContext(), R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0],
+                    values, false); // FIXME
         }
         return streetNameAutocompleteAdapter;
     }
@@ -1298,7 +1279,8 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     @Override
     public ArrayAdapter<ValueWithCount> getPlaceNameAdapter(List<String> values) {
         if (placeNameAutocompleteAdapter == null) {
-            placeNameAutocompleteAdapter = new StreetPlaceNamesAdapter(this, R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0], values, true); // FIXME
+            placeNameAutocompleteAdapter = new StreetPlaceNamesAdapter(getContext(), R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0], values,
+                    true); // FIXME
         }
         return placeNameAutocompleteAdapter;
     }
@@ -1319,18 +1301,18 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
         return usePaneLayout;
     }
 
-    @Override
-    /**
-     * Workaround for bug mentioned below
-     */
-    public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
-        // Fix for bug https://code.google.com/p/android/issues/detail?id=159527
-        final ActionMode mode = super.startSupportActionMode(callback);
-        if (mode != null) {
-            mode.invalidate();
-        }
-        return mode;
-    }
+    // @Override
+    // /**
+    // * Workaround for bug mentioned below
+    // */
+    // public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
+    // // Fix for bug https://code.google.com/p/android/issues/detail?id=159527
+    // final ActionMode mode = super.startSupportActionMode(callback);
+    // if (mode != null) {
+    // mode.invalidate();
+    // }
+    // return mode;
+    // }
 
     @Override
     /**
@@ -1349,7 +1331,7 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     @Override
     public boolean isConnected() {
         if (networkStatus == null) {
-            networkStatus = new NetworkStatus(this);
+            networkStatus = new NetworkStatus(getContext());
         }
         return networkStatus.isConnected();
     }
@@ -1357,7 +1339,7 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     @Override
     public boolean isConnectedOrConnecting() {
         if (networkStatus == null) {
-            networkStatus = new NetworkStatus(this);
+            networkStatus = new NetworkStatus(getContext());
         }
         return networkStatus.isConnectedOrConnecting();
     }
@@ -1366,7 +1348,7 @@ public class PropertyEditor extends LocaleAwareCompatActivity implements Propert
     public List<String> getIsoCodes() {
         if (isoCodes == null) {
             try {
-                GeoContext geoContext = App.getGeoContext(this);
+                GeoContext geoContext = App.getGeoContext(getContext());
                 if (geoContext != null) {
                     isoCodes = geoContext.getIsoCodes(getElement());
                 }

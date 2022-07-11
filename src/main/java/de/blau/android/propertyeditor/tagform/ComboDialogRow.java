@@ -268,7 +268,7 @@ public class ComboDialogRow extends DialogRow {
     }
 
     /**
-     * Build a dialog for selecting a single value or none via a scrollable list of radio buttons
+     * Build a dialog for selecting a single value or none via a scrollable list of images
      * 
      * @param caller the calling TagFormFragment instance
      * @param key the key
