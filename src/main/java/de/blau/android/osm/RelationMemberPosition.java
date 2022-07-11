@@ -72,33 +72,30 @@ public class RelationMemberPosition implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof RelationMemberPosition)) {
-            return false;
-        }
-        RelationMember other = ((RelationMemberPosition) o).member;
-        if (!member.getType().equals(other.getType()) || member.getRef() != other.getRef()) {
-            return false;
-        }
-        String memberRole = member.getRole();
-        String otherRole = other.getRole();
-        if (memberRole != null && !memberRole.equals(otherRole)) {
-            return false;
-        }
-        if (memberRole == null && otherRole != null) {
-            return false;
-        }
-        return position == ((RelationMemberPosition) o).position;
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((member == null) ? 0 : member.hashCode());
+        result = prime * result + position;
+        return result;
     }
 
     @Override
-    public int hashCode() {
-        int result = 17;
-        result = 37 * result + member.hashCode();
-        result = 37 * result + position;
-        return result;
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof RelationMemberPosition)) {
+            return false;
+        }
+        RelationMemberPosition other = (RelationMemberPosition) obj;
+        if (member == null) {
+            if (other.member != null) {
+                return false;
+            }
+        } else if (!member.equals(other.member)) {
+            return false;
+        }
+        return position == other.position;
     }
 }

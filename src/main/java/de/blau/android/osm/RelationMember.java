@@ -129,4 +129,43 @@ public class RelationMember implements Serializable {
     public String toString() {
         return role + " " + type + " " + ref;
     }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (ref ^ (ref >>> 32));
+        result = prime * result + ((role == null) ? 0 : role.hashCode());
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof RelationMember)) {
+            return false;
+        }
+        RelationMember other = (RelationMember) obj;
+        if (ref != other.ref) {
+            return false;
+        }
+        if (role == null) {
+            if (other.role != null) {
+                return false;
+            }
+        } else if (!role.equals(other.role)) {
+            return false;
+        }
+        if (type == null) {
+            if (other.type != null) {
+                return false;
+            }
+        } else if (!type.equals(other.type)) {
+            return false;
+        }
+        return true;
+    }
 }
