@@ -33,7 +33,7 @@ import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.propertyeditor.PropertyEditorActivity;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.RecordedRequest;
 
@@ -106,9 +106,9 @@ public class WikiTest {
         assertNotNull(n);
         main.performTagEdit(n, null, false, false);
         
-        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditorActivity);
     
         assertTrue(TestUtils.clickOverflowButton(device));
         
@@ -138,9 +138,9 @@ public class WikiTest {
         assertNotNull(n);
         main.performTagEdit(n, null, false, false);
         
-        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditorActivity);
     
         assertTrue(TestUtils.clickOverflowButton(device));
         

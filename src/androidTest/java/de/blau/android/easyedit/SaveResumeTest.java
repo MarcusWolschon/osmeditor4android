@@ -36,7 +36,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.propertyeditor.PropertyEditorActivity;
 
 /**
  * 1st attempts at testing lifecycle related aspects in easyedit modes
@@ -131,7 +131,7 @@ public class SaveResumeTest {
 
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_add_segment), 10000));
 
-        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         // finish
         clickSimpleButton(device);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
@@ -181,7 +181,7 @@ public class SaveResumeTest {
         TestUtils.scrollToEnd(true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.select_relation_type_other), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add_relation_member)));
-        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
 
         scenario.recreate();
 

@@ -101,10 +101,10 @@ public class CustomPresetTest {
         assertNotNull(w);
         assertEquals(185670974L, w.getOsmId());
 
-        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         TestUtils.clickAtCoordinates(device, main.getMap(), 8.3869798, 47.3892145, true);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditorActivity);
         assertTrue(TestUtils.findText(device, false, "Service way type"));
         assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false));
         try {
@@ -130,7 +130,7 @@ public class CustomPresetTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
         // go to preset tab
         assertTrue(TestUtils.findText(device, true, main.getString(R.string.tag_menu_preset), 2000));
-        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
+        if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         assertTrue(TestUtils.findText(device, true, main.getString(R.string.preset_autopreset)));

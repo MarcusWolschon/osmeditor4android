@@ -43,6 +43,7 @@ import de.blau.android.util.Snack;
  */
 public class PropertyEditorActivity extends LocaleAwareCompatActivity implements ControlListener {
 
+    private static final String DEFAULT_TAG = "PROPERTYEDITOR";
     private static final String DEBUG_TAG = PropertyEditorActivity.class.getSimpleName();
 
     /**
@@ -145,7 +146,7 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
 
         FragmentTransaction ft = fm.beginTransaction();
         PropertyEditorFragment fragment = PropertyEditorFragment.newInstance(loadData, applyLastAddressTags, showPresets, extraTags, presetsToApply);
-        ft.add(android.R.id.content, fragment, "PROPERTYEDITOR");
+        ft.add(android.R.id.content, fragment, DEFAULT_TAG);
 
         ft.commit();
 
@@ -175,7 +176,7 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
         // Due to a problem of not being able to intercept android.R.id.home in fragments on older android versions
         // we start passing the event to the currently displayed fragment.
         // REF: http://stackoverflow.com/questions/21938419/intercepting-actionbar-home-button-in-fragment
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag("PROPERTYEDITOR");
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(DEFAULT_TAG);
         if (item.getItemId() == android.R.id.home && fragment != null && fragment.getView() != null && fragment.onOptionsItemSelected(item)) {
             Log.d(DEBUG_TAG, "called fragment onOptionsItemSelected");
             return true;
@@ -186,7 +187,7 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
     @Override
     public void onBackPressed() {
         Log.d(DEBUG_TAG, "onBackPressed");
-        PropertyEditorFragment fragment = (PropertyEditorFragment) getSupportFragmentManager().findFragmentByTag("PROPERTYEDITOR");
+        PropertyEditorFragment fragment = (PropertyEditorFragment) getSupportFragmentManager().findFragmentByTag(DEFAULT_TAG);
         if (fragment.hasChanges()) {
             new AlertDialog.Builder(this).setNeutralButton(R.string.cancel, null)
                     .setNegativeButton(R.string.tag_menu_revert, (dialog, which) -> fragment.doRevert())
@@ -212,5 +213,10 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
     @Override
     public void finished(Fragment finishedFragment) {
         finish();
+    }
+
+    public boolean usingPaneLayout() {
+        FragmentManager fm = getSupportFragmentManager();
+        return ((PropertyEditorFragment)fm.findFragmentByTag(DEFAULT_TAG)).usingPaneLayout();
     }
 }

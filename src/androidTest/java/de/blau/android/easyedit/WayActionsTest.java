@@ -43,7 +43,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.propertyeditor.PropertyEditorActivity;
 import de.blau.android.util.Coordinates;
 import okhttp3.HttpUrl;
 
@@ -216,11 +216,11 @@ public class WayActionsTest {
         TestUtils.clickUp(device);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false));
 
-        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         // finish
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertNotNull(propertyEditor);
+        Activity PropertyEditorActivity = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertNotNull(PropertyEditorActivity);
         TestUtils.sleep(2000);
         TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false);
         assertTrue(TestUtils.clickHome(device, true));
@@ -274,7 +274,7 @@ public class WayActionsTest {
         TestUtils.clickAtCoordinates(device, map, way2Node.getLon(), way2Node.getLat(), true);
         TestUtils.sleep();
 
-        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         // finish
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
@@ -335,7 +335,7 @@ public class WayActionsTest {
         TestUtils.clickAtCoordinates(device, map, 8.3884403, 47.3884988, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_restriction_to)));
 
-        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         // click to way 49855525
         TestUtils.clickAtCoordinates(device, map, 8.3879168, 47.3883856, true);
 

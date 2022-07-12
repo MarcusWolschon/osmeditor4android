@@ -48,7 +48,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.propertyeditor.PropertyEditorActivity;
 import de.blau.android.util.FileUtil;
 import okhttp3.HttpUrl;
 
@@ -102,7 +102,7 @@ public class AutoPresetTest {
         App.getLogic().setPrefs(prefs);
         System.out.println(prefs.getServer().getReadWriteUrl());
         device = UiDevice.getInstance(instrumentation);
-        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
     }
 
     /**
@@ -154,7 +154,7 @@ public class AutoPresetTest {
 
         main.performTagEdit(n, null, false, true);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditorActivity);
         // in case these presets exist, this removes them
         // from the index so that they will not be found when
         // de-duping
@@ -217,10 +217,10 @@ public class AutoPresetTest {
         assertFalse(autoPreset.getItemByTag(AMENITY_PAYMENT_CENTRE).isEmpty());
         // restart and remove
         instrumentation.removeMonitor(monitor);
-        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         main.performTagEdit(n, null, false, true);
         propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditorActivity);
         TestUtils.clickText(device, false, "Auto-preset", true);
         TestUtils.longClickText(device, AMENITY_PAYMENT_CENTRE_LABEL);
         TestUtils.findText(device, true, "Delete", 10000);

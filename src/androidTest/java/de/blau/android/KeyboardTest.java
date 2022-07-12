@@ -23,7 +23,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.propertyeditor.PropertyEditorActivity;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -155,12 +155,12 @@ public class KeyboardTest {
         Assert.assertEquals(104148456L, way.getOsmId());
         Assert.assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
 
-        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
 
         device.pressKeyCode(KeyEvent.KEYCODE_E, KeyEvent.META_CTRL_ON);
 
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        Assert.assertTrue(propertyEditor instanceof PropertyEditorActivity);
         instrumentation.removeMonitor(monitor);
 
         Assert.assertTrue(TestUtils.clickHome(device, true));
