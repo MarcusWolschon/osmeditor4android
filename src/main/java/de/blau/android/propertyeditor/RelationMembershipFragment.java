@@ -525,7 +525,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             if (owner != null) {
                 View cf = owner.getActivity().getCurrentFocus();
                 if (cf == roleEdit) {
-                    // owner.focusRow(0); // FIXME focus is on this fragment
+                    owner.focusRow(0);
                 }
                 LinearLayout membershipVerticalLayout = (LinearLayout) owner.getOurView();
                 membershipVerticalLayout.removeView(this);
@@ -607,7 +607,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     @Override
     public void selectAllRows() { // select all parents
         LinearLayout rowLayout = (LinearLayout) getOurView();
-
         int i = rowLayout.getChildCount();
         while (--i >= 0) {
             RelationMembershipRow row = (RelationMembershipRow) rowLayout.getChildAt(i);
@@ -620,7 +619,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     @Override
     public void deselectAllRows() { // // select all parents
         LinearLayout rowLayout = (LinearLayout) getOurView();
-
         int i = rowLayout.getChildCount();
         while (--i >= 0) {
             RelationMembershipRow row = (RelationMembershipRow) rowLayout.getChildAt(i);
@@ -628,6 +626,18 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                 row.selected.setChecked(false);
             }
         }
+    }
+
+    /**
+     * Move the focus to the role field of the specified row.
+     * 
+     * @param index The index of the row to move to, counting from 0.
+     * @return true if the row was successfully focused, false otherwise.
+     */
+    private boolean focusRow(int index) {
+        LinearLayout rowLayout = (LinearLayout) getOurView();
+        RelationMembershipRow row = (RelationMembershipRow) rowLayout.getChildAt(index);
+        return row != null && row.roleEdit.requestFocus();
     }
 
     /**
@@ -678,14 +688,12 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                 }
                 RelationMember rm = r.getMember(propertyEditorListener.getElement());
                 PresetItem presetItem = row.getRelationPreset();
-                if (rm != null) { // can't really happen
-                    if (!"".equals(role) && rm.getRole() != null && !rm.getRole().equals(role)) {
-                        // only add if the role actually differs
-                        if (presetItem != null) {
-                            App.getMruTags().putRole(presetItem, role);
-                        } else {
-                            App.getMruTags().putRole(role);
-                        }
+                if (rm != null && !"".equals(role) && rm.getRole() != null && !rm.getRole().equals(role)) {
+                    // only add if the role actually differs
+                    if (presetItem != null) {
+                        App.getMruTags().putRole(presetItem, role);
+                    } else {
+                        App.getMruTags().putRole(role);
                     }
                 }
             }

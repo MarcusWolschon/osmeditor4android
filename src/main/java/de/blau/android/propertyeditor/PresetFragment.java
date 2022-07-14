@@ -58,6 +58,7 @@ import de.blau.android.util.Sound;
 import de.blau.android.util.Util;
 
 public class PresetFragment extends BaseFragment implements PresetUpdate, PresetClickHandler {
+    private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
 
     static final int MAX_SEARCHRESULTS = 10;
 
@@ -71,8 +72,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
     private static final String FRAGMENT_PRESET_SEARCH_RESULTS_TAG = "fragment_preset_search_results";
 
-    private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
-
     public interface OnPresetSelectedListener {
         /**
          * Call back when a PresetItem is selected
@@ -80,7 +79,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
          * @param item the PresetItem
          */
         void onPresetSelected(@NonNull PresetItem item);
-        
+
         /**
          * Call back when a PresetItem is selected
          * 

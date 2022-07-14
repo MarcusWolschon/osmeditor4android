@@ -48,8 +48,8 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
 
     private static final String DEBUG_TAG = PresetSearchResultsFragment.class.getSimpleName();
 
-    private OnPresetSelectedListener mOnPresetSelectedListener;
-    private PresetUpdate             mPresetUpdateListener;
+    private OnPresetSelectedListener mOnPresetSelectedListener; // NOSONAR we want to fail in onAttach
+    private PresetUpdate             mPresetUpdateListener; // NOSONAR
     private List<PresetElement>      presets;
     private boolean                  enabled = true;
     private PropertyEditorListener   propertyEditorListener;
