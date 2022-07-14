@@ -1301,19 +1301,6 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         return usePaneLayout;
     }
 
-    // @Override
-    // /**
-    // * Workaround for bug mentioned below
-    // */
-    // public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
-    // // Fix for bug https://code.google.com/p/android/issues/detail?id=159527
-    // final ActionMode mode = super.startSupportActionMode(callback);
-    // if (mode != null) {
-    // mode.invalidate();
-    // }
-    // return mode;
-    // }
-
     @Override
     /**
      * A tag has been updated, reflect this in both editors
