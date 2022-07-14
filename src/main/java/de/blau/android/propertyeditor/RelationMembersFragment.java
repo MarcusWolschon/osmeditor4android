@@ -70,8 +70,8 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     private static final String MEMBERS_KEY = "members";
     private static final String ID_KEY      = "id";
 
-    public static final String FILENAME_MEMBERS      = "current_members" + "." + FileExtensions.RES;
-    public static final String FILENAME_ORIG_MEMBERS = "orig_members" + "." + FileExtensions.RES;
+    private static final String FILENAME_MEMBERS      = "current_members" + "." + FileExtensions.RES;
+    private static final String FILENAME_ORIG_MEMBERS = "orig_members" + "." + FileExtensions.RES;
 
     private ArrayList<RelationMemberDescription>               savedMembers = null;
     private long                                               id           = -1;
@@ -186,7 +186,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "Restoring from saved state");
             id = savedInstanceState.getLong(ID_KEY);
-            members = savingHelper.load(getContext(), FILENAME_MEMBERS, true);
+            members = savingHelper.load(getContext(), Long.toString(id) + FILENAME_MEMBERS, true);
             if (members != null) {
                 for (RelationMemberDescription rmd : members) {
                     rmd.update();
@@ -206,7 +206,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             /*
              * Save to file for undo
              */
-            savingHelper.save(getContext(), FILENAME_ORIG_MEMBERS, members, true);
+            savingHelper.save(getContext(), Long.toString(id) + FILENAME_ORIG_MEMBERS, members, true);
         }
 
         populateMembersInternal(members);
@@ -489,7 +489,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         savedMembers = getMembersList();
         outState.putLong(ID_KEY, id);
-        savingHelper.save(getContext(), FILENAME_MEMBERS, savedMembers, true);
+        savingHelper.save(getContext(), Long.toString(id) + FILENAME_MEMBERS, savedMembers, true);
         Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
@@ -969,7 +969,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
      * reload original member list
      */
     void doRevert() {
-        List<RelationMemberDescription> members = savingHelper.load(getContext(), FILENAME_ORIG_MEMBERS, true);
+        List<RelationMemberDescription> members = savingHelper.load(getContext(), Long.toString(id) + FILENAME_ORIG_MEMBERS, true);
         if (members != null) {
             membersInternal.clear();
             populateMembersInternal(members);
