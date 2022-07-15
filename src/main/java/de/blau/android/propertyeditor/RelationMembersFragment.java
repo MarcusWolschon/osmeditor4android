@@ -515,7 +515,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         private CheckBox                selected;
         private AutoCompleteTextView    roleEdit;
         private ImageView               typeView;
-        private TextView                elementView;
+        TextView                elementView;
         private TextWatcher             watcher;
 
         private RelationMemberDescription rmd;

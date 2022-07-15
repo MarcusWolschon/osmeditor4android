@@ -34,6 +34,7 @@ import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.exception.UiStateException;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberPosition;
@@ -196,7 +197,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                 Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, id);
                 Set<RelationMemberPosition> rmps = parents.get(id);
                 for (RelationMemberPosition rmp : rmps) {
-                    insertNewMembership(membershipVerticalLayout, rmp.getRole(), r, elementType, rmp.getPosition(), 0, false);
+                    insertNewMembership(membershipVerticalLayout, rmp.getRole(), r, elementType, rmp.getPosition(), -1, false);
                 }
             }
         }
@@ -241,7 +242,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             @NonNull String elementType, int memberPos, final int position, boolean showSpinner) {
         RelationMembershipRow row = (RelationMembershipRow) inflater.inflate(R.layout.relation_membership_row, membershipVerticalLayout, false);
         row.setOwner(this);
-
         if (r != null) {
             row.setValues(role, r, elementType, memberPos, relationAdapter, relationHolderList);
         } else {
@@ -376,6 +376,11 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                     roleEdit.setText(((PresetRole) o).getRole());
                 }
             });
+
+            OsmElement element = App.getDelegator().getOsmElement(Relation.NAME, relationId);
+            if (element != null) {
+                ((ControlListener) owner.getActivity()).addPropertyEditor(element);
+            }
         }
 
         /**
@@ -711,7 +716,9 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             while (!(pv instanceof RelationMembershipRow)) {
                 pv = pv.getParent();
             }
-            ((RelationMembershipRow) pv).setRelation(pos, relation);
+            if (relation.getOsmId() != ((RelationMembershipRow) pv).relationId) {
+                ((RelationMembershipRow) pv).setRelation(pos, relation);
+            }
         } else {
             Log.d(DEBUG_TAG, "onItemselected view or relation is null");
         }

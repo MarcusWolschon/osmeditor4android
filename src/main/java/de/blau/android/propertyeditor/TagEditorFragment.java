@@ -1050,6 +1050,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 }
             }
         }
+
         row.setValues(aTagKey, tagValues, same);
 
         // If the user selects addr:street from the menu, auto-fill a suggestion

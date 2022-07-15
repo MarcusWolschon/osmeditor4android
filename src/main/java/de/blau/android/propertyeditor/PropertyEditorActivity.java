@@ -14,8 +14,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -23,13 +23,12 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetGroup;
-import de.blau.android.util.Screen;
 import de.blau.android.util.Snack;
 
 /**
@@ -43,7 +42,6 @@ import de.blau.android.util.Snack;
  */
 public class PropertyEditorActivity extends LocaleAwareCompatActivity implements ControlListener {
 
-    private static final String DEFAULT_TAG = "PROPERTYEDITOR";
     private static final String DEBUG_TAG = PropertyEditorActivity.class.getSimpleName();
 
     /**
@@ -93,7 +91,6 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        int currentItem = -1; // used when restoring
         Logic logic = App.getLogic();
         if (logic == null) {
             super.onCreate(savedInstanceState); // have to call through first
@@ -113,43 +110,61 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
 
         super.onCreate(savedInstanceState);
 
-        // tags
-        // if (savedInstanceState == null) {
-        // No previous state to restore - get the state from the intent
-        Log.d(DEBUG_TAG, "Initializing from intent");
-        PropertyEditorData[] loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_DATA));
-        boolean applyLastAddressTags = (Boolean) getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_LAST_ADDRESS_TAGS);
-        boolean showPresets = (Boolean) getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_SHOW_PRESETS);
-        HashMap<String, String> extraTags = (HashMap<String, String>) getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_EXTRA_TAGS);
-        ArrayList<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getIntent()
-                .getSerializableExtra(PropertyEditorFragment.TAGEDIT_PRESETSTOAPPLY);
-        Boolean tempUsePaneLayout = (Boolean) getIntent().getSerializableExtra(PropertyEditorFragment.PANELAYOUT);
-        boolean usePaneLayout = tempUsePaneLayout != null ? tempUsePaneLayout : Screen.isLandscape(this);
+        if (savedInstanceState == null) { // adding to the backstack implies that restoring will happen automatically
+            Log.d(DEBUG_TAG, "Initializing from intent");
+            PropertyEditorData[] loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_DATA));
+            boolean applyLastAddressTags = (Boolean) getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_LAST_ADDRESS_TAGS);
+            boolean showPresets = (Boolean) getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_SHOW_PRESETS);
+            HashMap<String, String> extraTags = (HashMap<String, String>) getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_EXTRA_TAGS);
+            ArrayList<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getIntent()
+                    .getSerializableExtra(PropertyEditorFragment.TAGEDIT_PRESETSTOAPPLY);
+            Boolean usePaneLayout = (Boolean) getIntent().getSerializableExtra(PropertyEditorFragment.PANELAYOUT);
 
-        // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
-        // selected
-        if (presetsToApply != null && !presetsToApply.isEmpty()) {
-            PresetElement alternativeRootElement = Preset.getElementByPath(App.getCurrentRootPreset(this).getRootGroup(), presetsToApply.get(0));
-            showPresets = alternativeRootElement instanceof PresetGroup;
+            // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
+            // selected
+            if (presetsToApply != null && !presetsToApply.isEmpty()) {
+                PresetElement alternativeRootElement = Preset.getElementByPath(App.getCurrentRootPreset(this).getRootGroup(), presetsToApply.get(0));
+                showPresets = alternativeRootElement instanceof PresetGroup;
+            }
+
+            Log.d(DEBUG_TAG, "... done.");
+
+            // sanity check
+            if (loadData == null) {
+                abort("loadData null");
+                return;
+            }
+
+            addFragment(getSupportFragmentManager(), android.R.id.content, loadData, applyLastAddressTags, showPresets, extraTags, presetsToApply,
+                    usePaneLayout);
         }
-        // }
-        Log.d(DEBUG_TAG, "... done.");
+    }
 
-        // sanity check
-        StorageDelegator delegator = App.getDelegator();
-        if (delegator == null || loadData == null) {
-            abort(delegator == null ? "Delegator null" : "loadData null");
-            return;
-        }
-
-        FragmentManager fm = getSupportFragmentManager();
-
+    /**
+     * Add an instance of the PropertyEditor to an activity
+     * 
+     * @param fm the FragementManager for the activity
+     * @param viewRes resource id for the view the fragment should be used for
+     * @param data the tags and relation memberships that should be edited
+     * @param predictAddressTags try to predict address tags
+     * @param showPresets show the preset tab first
+     * @param extraTags additional tags that should be added
+     * @param presetsToApply presets that should be applied
+     * @param usePaneLayout optional layout control
+     */
+    public static void addFragment(@NonNull FragmentManager fm, int viewRes, @NonNull PropertyEditorData[] data, boolean predictAddressTags,
+            boolean showPresets, @Nullable HashMap<String, String> extraTags, @Nullable ArrayList<PresetElementPath> presetsToApply,
+            @Nullable Boolean usePaneLayout) {
         FragmentTransaction ft = fm.beginTransaction();
-        PropertyEditorFragment fragment = PropertyEditorFragment.newInstance(loadData, applyLastAddressTags, showPresets, extraTags, presetsToApply);
-        ft.add(android.R.id.content, fragment, DEFAULT_TAG);
-
+        Fragment existing = peekBackStack(fm);
+        if (existing != null) {
+            ft.hide(existing);
+        }
+        PropertyEditorFragment fragment = PropertyEditorFragment.newInstance(data, predictAddressTags, showPresets, extraTags, presetsToApply, usePaneLayout);
+        String tag = java.util.UUID.randomUUID().toString();
+        ft.add(viewRes, fragment, tag);
+        ft.addToBackStack(tag);
         ft.commit();
-
     }
 
     /**
@@ -176,7 +191,7 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
         // Due to a problem of not being able to intercept android.R.id.home in fragments on older android versions
         // we start passing the event to the currently displayed fragment.
         // REF: http://stackoverflow.com/questions/21938419/intercepting-actionbar-home-button-in-fragment
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(DEFAULT_TAG);
+        Fragment fragment = peekBackStack(getSupportFragmentManager());
         if (item.getItemId() == android.R.id.home && fragment != null && fragment.getView() != null && fragment.onOptionsItemSelected(item)) {
             Log.d(DEBUG_TAG, "called fragment onOptionsItemSelected");
             return true;
@@ -187,36 +202,70 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
     @Override
     public void onBackPressed() {
         Log.d(DEBUG_TAG, "onBackPressed");
-        PropertyEditorFragment fragment = (PropertyEditorFragment) getSupportFragmentManager().findFragmentByTag(DEFAULT_TAG);
-        if (fragment.hasChanges()) {
-            new AlertDialog.Builder(this).setNeutralButton(R.string.cancel, null)
-                    .setNegativeButton(R.string.tag_menu_revert, (dialog, which) -> fragment.doRevert())
-                    .setPositiveButton(R.string.tag_menu_exit_no_save, (dialog, which) -> PropertyEditorActivity.super.onBackPressed()).create().show();
+        PropertyEditorFragment top = peekBackStack(getSupportFragmentManager());
+        if (top != null && top.hasChanges()) {
+            new AlertDialog.Builder(this).setNeutralButton(R.string.cancel, null).setNegativeButton(R.string.tag_menu_revert, (dialog, which) -> top.doRevert())
+                    .setPositiveButton(R.string.tag_menu_exit_no_save, (dialog, which) -> finished(null)).create().show();
         } else {
-            PropertyEditorActivity.super.onBackPressed();
+            finished(null);
         }
     }
 
     @Override
-    /**
-     * Workaround for bug mentioned below
-     */
-    public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
-        // Fix for bug https://code.google.com/p/android/issues/detail?id=159527
-        final ActionMode mode = super.startSupportActionMode(callback);
-        if (mode != null) {
-            mode.invalidate();
+    public void finished(@Nullable Fragment finishedFragment) {
+        final FragmentManager fm = getSupportFragmentManager();
+        PropertyEditorFragment top = peekBackStack(fm);
+        if (top != null) {
+            fm.popBackStackImmediate();
+            top = peekBackStack(fm);
+            if (top != null) { // still have a fragment on the stack
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.show(top);
+                return;
+            }
         }
-        return mode;
-    }
-
-    @Override
-    public void finished(Fragment finishedFragment) {
         finish();
     }
 
+    @Override
+    public void addPropertyEditor(@NonNull OsmElement element) {
+        final FragmentManager fm = getSupportFragmentManager();
+        PropertyEditorFragment top = peekBackStack(fm);
+        addFragment(fm, android.R.id.content, new PropertyEditorData[] { new PropertyEditorData(element, null) }, false, false, null, null,
+                top != null && top.usingPaneLayout());
+    }
+
+    /**
+     * Check if we are using the pane layout
+     * 
+     * @return true if we are using the pane layout
+     */
     public boolean usingPaneLayout() {
-        FragmentManager fm = getSupportFragmentManager();
-        return ((PropertyEditorFragment)fm.findFragmentByTag(DEFAULT_TAG)).usingPaneLayout();
+        PropertyEditorFragment top = peekBackStack(getSupportFragmentManager());
+        return top != null && top.usingPaneLayout();
+    }
+
+    /**
+     * Get the top of the back stack
+     * 
+     * Only works if backstack name and fragment tag are the same
+     * 
+     * @param fm a FragmentManager
+     * @return the Fragment or null
+     */
+    private static PropertyEditorFragment peekBackStack(@NonNull FragmentManager fm) {
+        int count = fm.getBackStackEntryCount();
+        if (count > 0) {
+            FragmentManager.BackStackEntry topBackStackEntry = fm.getBackStackEntryAt(count - 1);
+            String tag = topBackStackEntry.getName();
+            if (tag != null) {
+                Fragment f = fm.findFragmentByTag(tag);
+                if (f instanceof PropertyEditorFragment) {
+                    return (PropertyEditorFragment) f;
+                }
+                Log.e(DEBUG_TAG, "Unexpected fragment " + f.getClass().getCanonicalName());
+            }
+        }
+        return null;
     }
 }

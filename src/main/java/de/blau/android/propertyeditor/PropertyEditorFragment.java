@@ -186,11 +186,12 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
      * @param showPresets show the preset tab first
      * @param extraTags additional tags that should be added
      * @param presetItems presets that should be applied
+     * @param usePaneLayout option control of layout
      * @return a suitable Intent
      */
     @NonNull
     public static PropertyEditorFragment newInstance(@NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets,
-            HashMap<String, String> extraTags, ArrayList<PresetElementPath> presetItems) {
+            @Nullable HashMap<String, String> extraTags, @Nullable ArrayList<PresetElementPath> presetItems, @Nullable Boolean usePaneLayout) {
         PropertyEditorFragment f = new PropertyEditorFragment();
 
         Bundle args = new Bundle();
@@ -199,6 +200,9 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         args.putBoolean(TAGEDIT_SHOW_PRESETS, showPresets);
         args.putSerializable(TAGEDIT_EXTRA_TAGS, extraTags);
         args.putSerializable(TAGEDIT_PRESETSTOAPPLY, presetItems);
+        if (usePaneLayout != null) {
+            args.putBoolean(TAGEDIT_SHOW_PRESETS, usePaneLayout);
+        }
         f.setArguments(args);
         return f;
     }
@@ -216,7 +220,6 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
-        int currentItem = -1; // used when restoring
         Logic logic = App.getLogic();
         if (logic == null) {
             super.onCreate(savedInstanceState); // have to call through first
@@ -243,8 +246,8 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             showPresets = args.getBoolean(TAGEDIT_SHOW_PRESETS);
             extraTags = (HashMap<String, String>) args.getSerializable(TAGEDIT_EXTRA_TAGS);
             presetsToApply = (ArrayList<PresetElementPath>) args.getSerializable(TAGEDIT_PRESETSTOAPPLY);
-            usePaneLayout = args.getBoolean(PANELAYOUT, Screen.isLandscape(getActivity()) );
-            
+            usePaneLayout = args.getBoolean(PANELAYOUT, Screen.isLandscape(getActivity()));
+
             // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
             // selected
             if (presetsToApply != null && !presetsToApply.isEmpty()) {
@@ -255,7 +258,6 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             // Restore activity from saved state
             Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
             loadData = PropertyEditorData.deserializeArray(savedInstanceState.getSerializable(TAGEDIT_DATA));
-            currentItem = savedInstanceState.getInt(CURRENTITEM, -1);
             usePaneLayout = savedInstanceState.getBoolean(PANELAYOUT); // FIXME this disables layout changes on
                                                                        // restarting
             StorageDelegator delegator = App.getDelegator();
@@ -386,7 +388,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         Log.e(DEBUG_TAG, "Inconsistent state because " + cause);
         ACRA.getErrorReporter().putCustomData("CAUSE", cause);
         ACRA.getErrorReporter().handleException(null);
-        // finish();
+        controlListener.finished(this);
     }
 
     @Override
@@ -411,7 +413,6 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         Log.d(DEBUG_TAG, "onConfigurationChanged");
         Util.clearCaches(getContext(), newConfig);
         super.onConfigurationChanged(newConfig);
-        // this.recreate();
     }
 
     @Override

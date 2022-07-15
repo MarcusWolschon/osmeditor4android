@@ -6,12 +6,16 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.propertyeditor.RelationMembersFragment.Connected;
 import de.blau.android.propertyeditor.RelationMembersFragment.MemberEntry;
 import de.blau.android.propertyeditor.RelationMembersFragment.RelationMemberRow;
@@ -121,6 +125,17 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
             }
 
         });
+
+        if (memberEntry.downloaded() && !memberEntry.selected) {
+            holder.row.elementView.setOnClickListener((View v) -> {
+                OsmElement element = App.getDelegator().getOsmElement(memberEntry.getType(), memberEntry.getRef());
+                if (element != null) {
+                    ((ControlListener) owner.getActivity()).addPropertyEditor(element);
+                }
+            });
+        } else {
+            holder.row.elementView.setOnClickListener(null);
+        }
     }
 
     @Override
