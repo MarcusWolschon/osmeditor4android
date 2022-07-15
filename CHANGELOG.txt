@@ -1,5 +1,9 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.1.5:
+
+- Fix property editor crash when manually adding a tag with empty value (regression)
+
 17.1.4:
 
 - Fix crash when calculating centroid of one node way
