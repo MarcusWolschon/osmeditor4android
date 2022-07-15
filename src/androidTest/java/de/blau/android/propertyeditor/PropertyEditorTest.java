@@ -1136,7 +1136,7 @@ public class PropertyEditorTest {
     }
 
     /**
-     * Test that keys with empty values get removed
+     * Test that tags with empty keys get removed
      */
     @Test
     public void emptyKey() {
@@ -1168,6 +1168,41 @@ public class PropertyEditorTest {
         }
         TestUtils.clickHome(device, true);
         assertFalse(n.hasTag("", edited));
+    }
+    
+    /**
+     * Test that tags with empty values get removed
+     */
+    @Test
+    public void emptyValue() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        Node n = (Node) logic.performAddNode(main, 1.0, 1.0);
+        assertNotNull(n);
+
+        main.performTagEdit(n, null, false, false);
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(propertyEditor instanceof PropertyEditor);
+        TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
+        device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/editKey")), 500);
+        UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editKey"));
+        String edited = "edited";
+        try {
+            editText.click(); // NOTE this seems to be necessary
+            editText.setText(edited);
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        TestUtils.clickHome(device, true);
+        assertFalse(n.hasTagKey(edited));
     }
 
     /**
