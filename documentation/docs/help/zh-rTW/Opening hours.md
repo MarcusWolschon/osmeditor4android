@@ -10,7 +10,7 @@ _這份文件是初步的並且正在進展_
 
 在一般的工作流程中，你編輯的物件一般已經有開放時間的標籤 (opening_hour、service_times 和 colllection_times)，或是你可以重新設定物件的預設組合，用空白的開放時間欄位。如果你需要手動輸入欄位，像是用 Vespucci，你可以在詳情頁面輸入鍵值，之後切換回欄位頁籤繼續編輯。如果你相信開放時間標籤必須扅於預設組合的話，請在你的編輯器開啟 issue。
 
-If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). 
+如果你有定義預設模版(透過「管理模版」選項物件)，編輯器啟動時空白值時將會自動載入。而用「載入模版」功能你可以載入任何儲存的模版，而用「儲存模版」選單則會儲存目前的值為模版。你可以定義分開的模版與為特定鍵設定為預設。例如說"opening_hours"，"collection_times" 與 "service_times" 或客製值。更進一步說你可以限制模版適用的區域與特定識別碼，特別是特定的 OSM 最高層級標籤 (例如 amenity=restaurant)。
 
 當然，您可以從頭開始構建營業時間的值，但我們建議使用現有的模板之一作為起點。
 
@@ -61,9 +61,9 @@ If you have defined a default template (do this via the "Manage templates" menu 
     * __日期變化 - 開端__：從起始變化日期開始。
     * __發生在月中 - 一直持續__：從一個月中開始週間發生。
     * __使用偏差量...__：與上述相同的內容，但是指定了偏差量 (這很少使用)。
-* __Add year range...__    
+* __增加年範圍...__    
     * __增加年範圍__：增加以年為依據的選擇器。
-    * __Add starting year__: add an open ended year range.
+    * __增加啟始年__: 增加一整年範圍。
 * __增加週範圍__：增加以週為依據的選擇器。
 * __複製__：複製此規則，並且插入目前位置之後。 
 * __顯示規則類型__：顯示並允許更改規則類型_正常_，_增加_和_倒退_(位於第一條規則中不可用)。
@@ -89,22 +89,22 @@ If you have defined a default template (do this via the "Manage templates" menu 
 
 ### 管理模版
 
-The template management dialog allows you to add, edit and delete templates.
+模版管理對話框允許你新增、編輯與刪除模版。
 
-In Android 4.4 and later the following additional functionality is available from the menu button. 
+ 在 Android 4.4 以及之後的版本 下列的新增功能都能從選單按鈕進去。
 
-* __Show all__: display all templates in the database.
-* __Save to file__: write the contents of the template database to a file.
-* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
-* __Load from file__: load templates from a file retaining the current contents.
+* __Show all__: 顯示資料庫中所有的模版。
+* __Save to file__: 寫入模版資料庫的內容到檔案。
+* __Load from file (replace)__: 從檔案載入模版並且取代目前資料庫的內容。
+* __Load from file__: 從檔案載入模版並且保留目前的內容。
 
-#### Save and edit template dialogs
+#### 儲存與編輯模版對話框
 
-The dialog allows you to set
+對話框允許設定
 
-* __Name__ a descriptive name for the template.
-* __Default__ if checked this will be consider as a default template (typically further constrained by the other fields).
-* __Key__ the key this template is relevant for, if set to _Custom key_ you can add a non-standard value in the field below. The key values support SQL wild cards, that is _%_ matches zero or more characters, *_* matches a single character. Both wild card characters can be escaped with _\\_ for literal matches.
-* __Region__ the region the template is applicable to.
-* __Object__ an application specific string to use for matching.
+* __Name__ 模版描述性的名稱。
+* __Default__ 如果選取的話則會設定為預設模版 (通常會被其他欄位限制)。
+* __Key__ 鍵這模版如果設定 _Custom key_，則會與這個模版相關，你可以在以下的欄位新增非標準的值。鍵的值支援 SQL  wild cards，意味 _%_ 符合零或更多字元，*_* 則符合單一字元。所有 wild card 字元都能用 _\\_ 來逃離字面的符合。
+* __Region__ 模版適用的區域。
+* __Object__ 用於符合的應用程式特定的字元。
 

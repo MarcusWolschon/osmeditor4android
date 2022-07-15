@@ -10,7 +10,7 @@ _Diese Dokumentation ist vorläufig und eine laufende Arbeit_
 
 In einem typischen Arbeitsablauf enthält das Objekt, das Sie bearbeiten, entweder bereits ein Tag für die Öffnungszeiten (opening_hours, service_times und collection_times) oder Sie können die Voreinstellung für das Objekt erneut anwenden, um ein leeres Feld für die Öffnungszeiten zu erhalten. Wenn Sie das Feld manuell hinzufügen müssen und Vespucci verwenden, können Sie den Schlüssel auf der Detailseite eingeben und zur Bearbeitung auf die formularbasierte Registerkarte wechseln. Wenn Sie der Meinung sind, dass das Tag für die Öffnungszeiten Teil des Presets gewesen sein sollte, öffnen Sie eine Fehlermeldung für Ihren Editor.
 
-If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). 
+Wenn Sie eine Standardvorlage definiert haben (dies geschieht über den Menüpunkt "Vorlagen verwalten"), wird diese beim Start des Editors automatisch mit einem leeren Wert geladen. Mit der Funktion "Vorlage laden" können Sie eine beliebige gespeicherte Vorlage laden und mit dem Menüpunkt "Vorlage speichern" können Sie den aktuellen Wert als Vorlage speichern. Sie können für bestimmte Schlüssel, wie z.B. "opening_hours", "collection_times" und "service_times" oder benutzerdefinierte Werte eigene Vorlagen und Voreinstellungen definieren. Außerdem können Sie die Anwendbarkeit einer Vorlage auf eine Region und einen bestimmten Bezeichner beschränken, in der Regel ein OSM-Top-Level-Tag (z. B. amenity=restaurant).
 
 Natürlich können Sie einen Wert für die Öffnungszeiten von Grund auf erstellen, wir empfehlen jedoch, eine der vorhandenen Vorlagen als Ausgangspunkt zu verwenden.
 
@@ -61,9 +61,9 @@ Standard-Regeln werden als _normale_ Regeln hinzugefügt. Dies bedeutet, dass di
     * __variables Datum - offenes Ende__: ein variables Startdatum und ein offenes Ende.
     * __Vorkommen im Monat - offenes Ende__: ein Startvorkommen im Monat und ein offenes Ende.
     * __Mit Versatz...__: Die gleichen Angaben wie vorher aber mit angegebenen Versatz (wird nur selten verwendet).
-* __Add year range...__    
+* __Jahresbereich hinzufügen...__
     * __Jahresbereich hinzufügen__: Jahres-Auswahlschalter hinzufügen.
-    * __Add starting year__: add an open ended year range.
+    * __Startjahr hinzufügen__: Einen unbegrenzten Jahresbereich hinzufügen.
 * __Wochenbereich hinzufügen__: Wochen-Auswahlschalter hinzufügen.
 * __Kopieren__: Kopieren einer Regel und Einfügen der Kopie nach der aktuellen Position.
 * __Regeltype anzeigen__: Anzeigen der Regel und die Möglichkeit den Regeltype zu ändern _Normal_, _Zusätzlich_ und _Rückfall_ (nicht verfügbar für die erste Regel).
@@ -89,22 +89,22 @@ Klicken auf die Zeitleiste (nicht auf die Nadeln) öffnet den grossen Zeitauswä
 
 ### Vorlagen verwalten
 
-The template management dialog allows you to add, edit and delete templates.
+Im Dialogfeld für die Vorlagenverwaltung können Sie Vorlagen hinzufügen, bearbeiten und löschen.
 
-In Android 4.4 and later the following additional functionality is available from the menu button. 
+In Android 4.4 und höher sind die folgenden zusätzlichen Funktionen über das Menüfeld verfügbar. 
 
-* __Show all__: display all templates in the database.
-* __Save to file__: write the contents of the template database to a file.
-* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
-* __Load from file__: load templates from a file retaining the current contents.
+* __Alle anzeigen__: Alle Vorlagen in der Datenbank anzeigen.
+* __In Datei speichern__: Den Inhalt der Vorlagendatenbank in eine Datei schreiben.
+* __Von Datei laden (ersetzen)__: Vorlagen aus einer Datei laden und den aktuellen Inhalt der Datenbank ersetzen.
+* __Von Datei laden__: Vorlagen aus einer Datei laden unter Beibehaltung des aktuellen Inhalts.
 
-#### Save and edit template dialogs
+#### Dialoge zum Speichern und Bearbeiten von Vorlagen
 
-The dialog allows you to set
+Im Dialog können Sie Folgendes einstellen
 
-* __Name__ a descriptive name for the template.
-* __Default__ if checked this will be consider as a default template (typically further constrained by the other fields).
-* __Key__ the key this template is relevant for, if set to _Custom key_ you can add a non-standard value in the field below. The key values support SQL wild cards, that is _%_ matches zero or more characters, *_* matches a single character. Both wild card characters can be escaped with _\\_ for literal matches.
-* __Region__ the region the template is applicable to.
-* __Object__ an application specific string to use for matching.
+* __Name__ Ein beschreibender Name für die Vorlage.
+* __Standard__ Wenn ausgewählt, wird dies als Standardvorlage betrachtet (in der Regel weiter eingeschränkt durch die anderen Felder).
+* __Schlüssel__ Der Schlüssel, für den diese Vorlage relevant ist. Wenn er auf _Benutzerdefinierter Schlüssel_ eingestellt sind, können Sie einen nicht standardisierten Wert in das Feld darunter eingeben. Die Schlüsselwerte unterstützen SQL-Jokersymbole, d. h. _%_ entspricht null oder mehr Zeichen, *_* entspricht einem einzelnen Zeichen. Beide Wildcard-Zeichen können mit _\\_ für wörtliche Übereinstimmungen ersetzt werden.
+* __Region__ Die Region, für die die Vorlage gilt.
+* __Objekt__ eine anwendungsspezifische Zeichenfolge, die für den Abgleich verwendet wird.
 

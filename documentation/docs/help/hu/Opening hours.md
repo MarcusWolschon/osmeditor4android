@@ -10,7 +10,7 @@ _Ez a dokumentáció ideiglenes, és dolgozunk rajta_
 
 A szokásos munkamenet szerint a szerkesztett térképelemnek vagy már van egy nyitva tartást tartalmazó címkéje (opening_hours, service_times vagy collection_times), vagy az előbeállításnak a térképelemre történő újraalkalmazásával nyithat egy üres nyitva tartási mezőt. Ha a mezőt kézzel kell hozzáadnia és Vespuccit használ, akkor a kulcsot megadhatja a részletes adatok oldalán, majd visszakapcsolhat az űrlapalapú fülre a szerkesztéshez. Ha úgy véli, hogy a nyitva tartási címkének az előbeállításban is szerepelnie kellene, kérjük, nyisson egy kérdést (issue) a szerkesztőjéhez.
 
-If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). 
+Ha meghatározott egy alapértelmezett sablont (ezt a „Sablonok kezelése” menüpontban teheti meg), akkor az automatikusan be fog töltődni, amikor a szerkesztő egy üres értékkel indul. A „Sablon betöltése” funkcióval bármilyen sablont betölthet, a „Sablon mentése” menüvel pedig sablonként elmentheti az adott értéket. Például külön sablonokat és alapértelmezéseket határozhat meg az „opening_hours”, a „collection_times” és a „service_times” kulcsokra. Továbbá a sablon alkalmazhatóságát korlátozhatja egy régióra és egy adott azonosítóra, jellemzően egy felső szintű OSM-címkére (például amenity=restaurant). 
 
 Természetesen a semmiből is elkezdheted összeállítani a nyitva tartást, azonban azt talácsoljuk, hogy kiindulási pontként használd valamelyik sablont.
 
@@ -98,13 +98,13 @@ Az Android 4.4 és újabb verziókban a következő további funkciók állnak r
 * __Betöltés fájlból (csere)__: egy fájlból betölti a sablonokat, és ezzel lecseréli az adatbázis jelenlegi tartalmát.
 * __Betöltés fájlból__: egy fájlból betölti a sablonokat miközben a jelenlegi tartalom is megmarad.
 
-#### Save and edit template dialogs
+#### Sablonpárbeszédek mentése és szerkesztése
 
-The dialog allows you to set
+A párbeszéddel beállíthatja a következőket:
 
-* __Name__ a descriptive name for the template.
-* __Default__ if checked this will be consider as a default template (typically further constrained by the other fields).
-* __Key__ the key this template is relevant for, if set to _Custom key_ you can add a non-standard value in the field below. The key values support SQL wild cards, that is _%_ matches zero or more characters, *_* matches a single character. Both wild card characters can be escaped with _\\_ for literal matches.
-* __Region__ the region the template is applicable to.
-* __Object__ an application specific string to use for matching.
+* __Név__: a sablon leíró neve.
+* __Alapértelmezett__: ha be vanjelölve, akkor ez lesz az alapértelmezett sablon (jellemzően a többi mező által korlátozva).
+* __Kulcs__ az a kulcs, amelyre ez a sablon vonatkozik. Ha _Egyéni kulcs_ értékre van állítva, hozzáadhat egy nem szabványos értéket az alábbi mezőben. A kulcsérték támogatja az SQL helyettesítő karaktereit, vagyis a _%_ nulla vagy több karakternek felel meg, a *_* pedig egyetlen karakternek. A szó szerinti egyezések érdekében mindkét helyettesítő karakter semlegesíthető a _\\_ karakterrel.
+* __Régió__: az a térség, amelyre a sablon vonatkozik.
+* __Objektum__: egy alkalmazásspecifikus karakterlánc a párosításhoz.
 

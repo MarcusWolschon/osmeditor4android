@@ -3,6 +3,7 @@
 17.1.5:
 
 - Fix property editor crash when manually adding a tag with empty value (regression)
+- Update 3rd party docs
 
 17.1.4:
 

@@ -11,7 +11,7 @@
 <p><em>Denne dokumentasjonen er foreløpig og et arbeid som pågår</em></p>
 <h2>Bruker åpningstid redigerer</h2>
 <p>I en typisk arbeidsflyt vil objektet du redigerer enten allerede ha en åpningstidsmerke (åpnings_tider, service_tider and hente_tider) , eller du kan bruke forhåndsinnstillingen på nytt for objektet for å få et tomme åpningstidsfelt. Hvis du trenger å legge til feltet manuelt og du bruker Vespucci, kan du skrive inn nøkkelen på informasjonssiden og deretter bytte tilbake til den skjemabaserte fanen for å redigere. Hvis du mener at åpningskoden burde vært en del av forhåndsinnstillingen, kan du åpne et problem for redaktøren.</p>
-<p>If you have defined a default template (do this via the &quot;Manage templates&quot; menu item) it will be loaded automatically when the editor is started with an empty value. With the &quot;Load template&quot; function you can load any saved template and with the &quot;Save template&quot; menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example &quot;opening_hours&quot;, &quot;collection_times&quot; and &quot;service_times&quot; or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant).</p>
+<p>Hvis du har definert en standardmal (gjør dette via menypunktet &quot;Administrer maler&quot;) vil den lastes automatisk når editoren startes med en tom verdi. Med funksjonen &quot;Last inn mal&quot; kan du laste inn hvilken som helst lagret mal og med menyen &quot;Lagre mal&quot; kan du lagre gjeldende verdi som en mal. Du kan definere separate maler og standardinnstillinger for spesifikke nøkkel, for eksempel &quot;opening_hours&quot;, &quot;collection_times&quot; og &quot;service_times&quot; eller egendefinerte verdier. Videre kan du begrense anvendeligheten av en mal til en region og en spesifikk identifikator, vanligvis en OSM-tag på toppnivå (for eksempel amenity=restaurant).</p>
 <p>Naturligvis kan du bygge en åpningstidsverdi fra bunnen av, men vi anbefaler at du bruker en av de eksisterende malene som utgangspunkt.</p>
 <p>Hvis en eksisterende åpningstidsverdi lastes inn, blir det forsøkt å korrigere den automatisk for å være i samsvar med spesifikasjonen for åpningstider. Hvis dette ikke er mulig, blir den grove plasseringen der feilen oppstod, uthevet i visningen av den rå OH-verdien, og du kan prøve å rette den manuelt. Omtrent en fjerdedel av OH-verdiene i OpenStreetMap-databasen har problemer, men mindre enn 10% kan ikke korrigeres. Se <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> for mer informasjon om hvilke avvik fra spesifikasjon tolereres. </p>
 <h3>Hovedmenyknapp</h3>
@@ -63,10 +63,10 @@
 <li><strong>Med forskyvninger ...</strong>: de samme oppføringene som nevnt ovenfor(dette blir sjelden brukt).</li>
 </ul>
 </li>
-<li><strong>Add year range...</strong>
+<li><strong>Legg til årsområde...</strong>
 <ul>
 <li><strong>Legg til årsområde</strong>: legg til en årsbasert velger.</li>
-<li><strong>Add starting year</strong>: add an open ended year range.</li>
+<li><strong>Legg til startår</strong>: legg til et åpent årsområde.</li>
 </ul>
 </li>
 <li>__Legg til ukes rekkevidde __: legg til et uke nummer basert velger.</li>
@@ -90,22 +90,22 @@
 <li><strong>Delete</strong>: slett dette tidsrommet.</li>
 </ul>
 <h3>Administrer maler</h3>
-<p>The template management dialog allows you to add, edit and delete templates.</p>
-<p>In Android 4.4 and later the following additional functionality is available from the menu button.</p>
+<p>Malbehandlingsdialoggen lar deg legge til, redigere og slette maler.</p>
+<p>I Android 4.4 og nyere er følgende tilleggsfunksjonalitet tilgjengelig fra menyknappen.</p>
 <ul>
-<li><strong>Show all</strong>: display all templates in the database.</li>
-<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
-<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
-<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
+<li><strong>Vis alle</strong>: vis alle maler i databasen.</li>
+<li><strong>Lagre til fil</strong>: skriv innholdet i maldatabasen til en fil.</li>
+<li><strong>Last fra fil (erstatt)</strong>: last inn maler fra en fil som erstatter gjeldende innhold i databasen.</li>
+<li><strong>Last fra fil</strong>: last inn maler fra en fil som beholder det gjeldende innholdet.</li>
 </ul>
-<h4>Save and edit template dialogs</h4>
-<p>The dialog allows you to set</p>
+<h4>Lagre og rediger maldialogger</h4>
+<p>Dialogen lar deg stille inn</p>
 <ul>
-<li><strong>Name</strong> a descriptive name for the template.</li>
-<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
-<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
-<li><strong>Region</strong> the region the template is applicable to.</li>
-<li><strong>Object</strong> an application specific string to use for matching.</li>
+<li><strong>Navn</strong> et beskrivende navn for malen.</li>
+<li><strong>Standard</strong> hvis det er merket av, vil dette bli vurdert som en standardmal (vanligvis ytterligere begrenset av de andre feltene).</li>
+<li><strong>Key</strong> nøkkelen denne malen er relevant for, hvis satt til <em>Egendefinert nøkkel</em> kan du legge til en ikke-standard verdi i feltet nedenfor. Nøkkelverdiene støtter SQL-jokertegn, det vil si at <em>%</em> samsvarer med null eller flere tegn, <em>_</em> samsvarer med et enkelt tegn. Begge jokertegnene kan rømte med <em>\</em> for bokstavelige treff.</li>
+<li><strong>Region</strong> regionen malen gjelder for.</li>
+<li><strong>Objekt</strong> en applikasjonsspesifikk streng som skal brukes for matching.</li>
 </ul>
 
 </body>
