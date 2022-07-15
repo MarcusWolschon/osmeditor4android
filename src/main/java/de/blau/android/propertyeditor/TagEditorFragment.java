@@ -2330,7 +2330,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 String editsKey = entry.getKey();
                 List<String> valueList = entry.getValue();
                 final int size = valueList.size();
-                if (editsKey != null && !"".equals(editsKey) && !map.containsKey(editsKey)) {
+                if (editsKey != null && !"".equals(editsKey) && !map.containsKey(editsKey) && size > 0) {
                     String value = valueList.get(size == 1 || index >= size ? 0 : index).trim();
                     if (saveTag(editsKey, value)) {
                         addTagToResult(map, editsKey, value);
