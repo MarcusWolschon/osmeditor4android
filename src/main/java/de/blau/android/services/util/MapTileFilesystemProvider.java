@@ -18,6 +18,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.exception.InvalidTileException;
 import de.blau.android.prefs.Preferences;
@@ -78,8 +79,8 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
         mMaxFSCacheByteSize = aMaxFSCacheByteSize;
         mDatabase = new MapTileProviderDataBase(new CustomDatabaseContext(ctx, mountPoint.getAbsolutePath()));
         mCurrentCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
-        Preferences prefs = new Preferences(ctx);
-        int maxThreads = prefs.getMaxTileDownloadThreads();
+
+        int maxThreads = App.getPreferences(ctx).getMaxTileDownloadThreads();
         mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(maxThreads);
 
         mTileDownloader = new MapTileDownloader(ctx, this);
@@ -351,7 +352,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
      */
     @Nullable
     public static MapTileFilesystemProvider getInstance(@NonNull Context ctx) {
-        Preferences prefs = new Preferences(ctx);
+        Preferences prefs = App.getPreferences(ctx);
         int tileCacheSize = prefs.getTileCacheSize();
         boolean preferRemovableStorage = prefs.preferRemovableStorage();
 

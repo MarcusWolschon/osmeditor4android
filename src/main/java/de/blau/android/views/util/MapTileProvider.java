@@ -22,7 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.exception.StorageException;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.MapAsyncTileProvider;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.services.util.MapTileFilesystemProvider;
@@ -114,7 +113,7 @@ public class MapTileProvider<T> {
         this.decoder = decoder;
         mDownloadFinishedHandler = aDownloadFinishedListener;
 
-        mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool((new Preferences(ctx)).getMaxTileDownloadThreads());
+        mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(App.getPreferences(ctx).getMaxTileDownloadThreads());
 
         mapTileFilesystemProvider = App.getMapTileFilesystemProvider(ctx);
     }

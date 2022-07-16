@@ -186,7 +186,7 @@ public final class Utils {
     public static void jsConsoleDialog(@NonNull final FragmentActivity activity, int msgResource, @NonNull final EvalCallback callback) {
         // Create some useful objects
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
-        final Preferences prefs = new Preferences(activity);
+        final Preferences prefs = App.getPreferences(activity);
 
         Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.tag_menu_js_console);

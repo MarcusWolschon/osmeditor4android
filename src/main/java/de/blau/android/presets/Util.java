@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.osm.Tags;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.taginfo.TaginfoServer;
 import de.blau.android.taginfo.TaginfoServer.ValueResult;
 import de.blau.android.util.StringWithDescription;
@@ -82,7 +81,7 @@ public final class Util {
     public static StringWithDescription[] getValuesFromTaginfo(@NonNull String key) {
         StringWithDescription[] result = null;
         try {
-            String server = new Preferences(App.getCurrentInstance()).getTaginfoServer();
+            String server = App.getPreferences(App.getCurrentInstance()).getTaginfoServer();
             List<ValueResult> temp = TaginfoServer.keyValues(null, server, key, 50);
             if (temp != null) {
                 result = new StringWithDescription[temp.size()];

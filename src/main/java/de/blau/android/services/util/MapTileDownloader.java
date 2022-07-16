@@ -23,7 +23,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.contract.MimeTypes;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.views.util.MapTileProvider;
@@ -79,7 +78,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
         mCtx = ctx;
         mMapTileFSProvider = aMapTileFSProvider;
         networkStatus = new NetworkStatus(ctx);
-        mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool((new Preferences(ctx)).getMaxTileDownloadThreads());
+        mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(App.getPreferences(ctx).getMaxTileDownloadThreads());
         client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS).build();
     }
 

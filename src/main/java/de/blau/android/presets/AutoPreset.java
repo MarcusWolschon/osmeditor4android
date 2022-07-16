@@ -34,7 +34,6 @@ import de.blau.android.contract.Paths;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.propertyeditor.CustomPreset;
 import de.blau.android.taginfo.TaginfoServer;
 import de.blau.android.taginfo.TaginfoServer.SearchResult;
@@ -93,7 +92,7 @@ public class AutoPreset {
      */
     @NonNull
     public Preset fromTaginfo(@NonNull String term, int maxResults) {
-        String server = new Preferences(context).getTaginfoServer();
+        String server = App.getPreferences(context).getTaginfoServer();
         List<SearchResult> candidateTags = TaginfoServer.searchByKeyword(context, server, term, -1);
 
         Preset preset = Preset.dummyInstance();

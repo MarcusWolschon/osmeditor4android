@@ -58,9 +58,9 @@ import ch.poole.openinghoursfragment.OnSaveListener;
 import ch.poole.openinghoursfragment.OpeningHoursFragment;
 import ch.poole.openinghoursparser.OpeningHoursParser;
 import ch.poole.openinghoursparser.Rule;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.Tags;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
@@ -766,7 +766,6 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         boolean strictSucceeded = false;
         boolean lenientSucceeded = false;
         List<Rule> rules = null;
-        final Preferences prefs = new Preferences(getActivity());
 
         String value = c.term1();
 
@@ -808,7 +807,8 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                 watcher.afterTextChanged(null);
             };
             OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstanceForFragment(key, finalValue,
-                    prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert : R.style.Theme_AppCompat_Dialog_Alert, -1);
+                    App.getPreferences(getActivity()).lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert : R.style.Theme_AppCompat_Dialog_Alert,
+                    -1);
             openingHoursDialog.show(fm, FRAGMENT_OPENING_HOURS_TAG);
         });
     }

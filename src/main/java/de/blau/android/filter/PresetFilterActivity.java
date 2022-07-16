@@ -17,7 +17,6 @@ import androidx.appcompat.app.ActionBar;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetClickHandler;
 import de.blau.android.presets.PresetElement;
@@ -58,8 +57,7 @@ public class PresetFilterActivity extends LocaleAwareCompatActivity implements P
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Preferences prefs = new Preferences(this);
-        if (prefs.lightThemeEnabled()) {
+        if (App.getPreferences(this).lightThemeEnabled()) {
             setTheme(R.style.Theme_customActionBar_Light);
         }
         super.onCreate(savedInstanceState);

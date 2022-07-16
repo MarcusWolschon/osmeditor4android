@@ -41,7 +41,7 @@ public class DebugInformation extends LocaleAwareCompatActivity {
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        prefs = new Preferences(this);
+        prefs = App.getPreferences(this);
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_customLight);
         }
@@ -148,7 +148,7 @@ public class DebugInformation extends LocaleAwareCompatActivity {
                 builder.append(layer.toString() + eol);
             }
         }
-        
+
         return builder.toString();
     }
 }

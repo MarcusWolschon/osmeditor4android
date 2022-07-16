@@ -23,8 +23,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.Pools;
+import de.blau.android.App;
 import de.blau.android.exception.InvalidTileException;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.views.util.MapViewConstants;
@@ -116,8 +116,7 @@ public class MapTileProviderDataBase {
         Log.i(DEBUG_TAG, "creating database instance");
         databaseHelper = new DatabaseHelper(context);
         mDatabase = databaseHelper.getWritableDatabase();
-        Preferences prefs = new Preferences(context);
-        int maxThreads = prefs.getMaxTileDownloadThreads();
+        int maxThreads = App.getPreferences(context).getMaxTileDownloadThreads();
         getStatements = new Pools.SynchronizedPool<>(maxThreads);
         Log.i(DEBUG_TAG, "Allocating " + (maxThreads) + " prepared statements");
         for (int i = 0; i < maxThreads; i++) {

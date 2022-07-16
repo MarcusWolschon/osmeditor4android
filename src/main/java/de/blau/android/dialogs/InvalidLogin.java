@@ -8,11 +8,10 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import de.blau.android.App;
 import de.blau.android.Authorize;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
-import de.blau.android.osm.Server;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
@@ -73,8 +72,7 @@ public class InvalidLogin extends ImmersiveDialogFragment {
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setNegativeButton(R.string.cancel, doNothingListener); // logins in the preferences should no longer be
                                                                        // used
-        final Server server = new Preferences(getActivity()).getServer();
-        if (server.getOAuth()) {
+        if (App.getPreferences(getActivity()).getServer().getOAuth()) {
             builder.setPositiveButton(R.string.wrong_login_data_re_authenticate, (dialog, which) -> Authorize.startForResult(getActivity(), null));
         }
         return builder.create();

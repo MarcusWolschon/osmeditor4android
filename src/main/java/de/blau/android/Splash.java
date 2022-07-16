@@ -74,7 +74,7 @@ public class Splash extends AppCompatActivity {
                         lastDatabaseUpdate = Math.max(TileLayerDatabase.getSourceUpdate(db.getReadableDatabase(), TileLayerDatabase.SOURCE_JOSM_IMAGERY),
                                 TileLayerDatabase.getSourceUpdate(db.getReadableDatabase(), TileLayerDatabase.SOURCE_ELI));
                     } catch (SQLiteException sex) {
-                        Log.e(DEBUG_TAG, "Exception asccsing tile layer database " + sex.getMessage());
+                        Log.e(DEBUG_TAG, "Exception accessing tile layer database " + sex.getMessage());
                         cancel();
                     }
                     Log.d(DEBUG_TAG, "checking last package update");

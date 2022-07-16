@@ -15,7 +15,6 @@ import de.blau.android.Logic;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.OsmoseMeta.OsmoseClass;
 import de.blau.android.tasks.Task.State;
 import de.blau.android.util.ExecutorTask;
@@ -132,7 +131,7 @@ public class OsmoseBugFragment extends BugFragment {
             new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
                 @Override
                 protected Void doInBackground(Void arg0) {
-                    OsmoseServer.getMeta(new Preferences(getActivity()).getOsmoseServer(), itemId, classId);
+                    OsmoseServer.getMeta(App.getPreferences(getActivity()).getOsmoseServer(), itemId, classId);
                     return null;
                 }
 

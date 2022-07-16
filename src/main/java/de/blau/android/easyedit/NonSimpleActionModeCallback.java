@@ -4,6 +4,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ThemeUtils;
@@ -25,7 +26,7 @@ public class NonSimpleActionModeCallback extends EasyEditActionModeCallback impl
      */
     public NonSimpleActionModeCallback(@NonNull EasyEditManager manager) {
         super(manager);
-        prefs = new Preferences(main);
+        prefs = App.getPreferences(main);
     }
 
     @Override

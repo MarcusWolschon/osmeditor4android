@@ -119,8 +119,7 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        Preferences prefs = new Preferences(this);
+        Preferences prefs = App.getPreferences(this);
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_IssueReporter_Light);
         }

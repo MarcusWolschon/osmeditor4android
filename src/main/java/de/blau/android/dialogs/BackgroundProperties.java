@@ -17,7 +17,6 @@ import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
@@ -84,7 +83,6 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
     @SuppressLint("InflateParams")
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        Preferences prefs = new Preferences(getActivity());
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.menu_tools_background_properties);
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
@@ -92,7 +90,7 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
         setDialogLayout(getActivity());
         View layout = inflater.inflate(R.layout.background_properties, null);
         SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_contrast_seeker);
-        seeker.setProgress(contrast2progress(prefs.getContrastValue()));
+        seeker.setProgress(contrast2progress(App.getPreferences(getActivity()).getContrastValue()));
         int layerIndex = getArguments().getInt(LAYERINDEX);
         MapTilesLayer<?> layer = (MapTilesLayer<?>) App.getLogic().getMap().getLayer(layerIndex);
         if (layer != null) {
@@ -127,11 +125,10 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
         return new OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(final SeekBar seekBar, int progress, final boolean fromTouch) {
-                Preferences prefs = new Preferences(getActivity());
                 float contrast = progress / 127.5f - 1f; // range from -1 to +1
                 layer.setContrast(contrast);
                 layer.invalidate();
-                prefs.setContrastValue(contrast);
+                App.getPreferences(getActivity()).setContrastValue(contrast);
             }
 
             @Override
@@ -152,10 +149,9 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
      * @param activity the calling Activity
      */
     private static void setDialogLayout(@NonNull Activity activity) {
-        Preferences prefs = new Preferences(activity);
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
         View layout = inflater.inflate(R.layout.background_properties, null);
         SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_contrast_seeker);
-        seeker.setProgress(contrast2progress(prefs.getContrastValue()));
+        seeker.setProgress(contrast2progress(App.getPreferences(activity).getContrastValue()));
     }
 }

@@ -8,7 +8,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import de.blau.android.prefs.Preferences;
+import de.blau.android.App;
 
 /**
  * Very simple cache for notification ids.
@@ -28,8 +28,7 @@ public class NotificationCache implements Serializable {
      * @param ctx Android Context
      */
     public NotificationCache(@NonNull Context ctx) {
-        Preferences prefs = new Preferences(ctx);
-        init(prefs.getNotificationCacheSize());
+        init(App.getPreferences(ctx).getNotificationCacheSize());
     }
 
     /**
@@ -114,8 +113,7 @@ public class NotificationCache implements Serializable {
      * @param ctx Android Context
      */
     public synchronized void trim(@NonNull Context ctx) {
-        Preferences prefs = new Preferences(ctx);
-        int prefSize = prefs.getNotificationCacheSize();
+        int prefSize = App.getPreferences(ctx).getNotificationCacheSize();
         Log.d(DEBUG_TAG, "trim " + prefSize + "/" + cache.size() + "/" + size);
         if (prefSize > this.size) {
             this.size = prefSize;

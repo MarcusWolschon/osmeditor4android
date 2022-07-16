@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
+import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
@@ -303,7 +304,7 @@ public class IndoorFilter extends InvertableFilter {
         // we weren't already added ...
         if (levelUp == null || levelDisplay == null || levelText == null || levelDown == null) {
             Context context = layout.getContext();
-            Preferences prefs = new Preferences(context);
+            Preferences prefs = App.getPreferences(context);
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             controls = (RelativeLayout) inflater
                     .inflate("LEFT".equals(prefs.followGPSbuttonPosition()) ? R.layout.indoor_controls_right : R.layout.indoor_controls_left, layout);

@@ -525,7 +525,7 @@ public final class Address implements Serializable {
         if (geoContext != null) {
             prop = geoContext.getProperties(geoContext.getIsoCodes(lon, lat));
         }
-        Preferences prefs = new Preferences(context);
+        Preferences prefs = App.getPreferences(context);
         return prop == null || prop.getAddressKeys() == null || prefs.overrideCountryAddressTags() ? prefs.addressTags()
                 : new HashSet<>(Arrays.asList(prop.getAddressKeys()));
     }

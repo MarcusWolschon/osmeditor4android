@@ -49,7 +49,6 @@ import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.osm.OsmXml;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.prefs.VespucciURLActivity;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ThemeUtils;
@@ -125,8 +124,7 @@ public class HelpViewer extends LocaleAwareCompatActivity {
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Preferences prefs = new Preferences(this);
-        if (prefs.lightThemeEnabled()) {
+        if (App.getPreferences(this).lightThemeEnabled()) {
             setTheme(R.style.Theme_customHelpViewer_Light);
         }
         unselectedItemBackground = ThemeUtils.getStyleAttribColorValue(this, R.attr.unselected_item_background, R.color.light_grey);

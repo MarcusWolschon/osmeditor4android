@@ -18,8 +18,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.Pools;
+import de.blau.android.App;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.MBTileConstants;
 import de.blau.android.util.ContentResolverUtil;
 
@@ -75,8 +75,7 @@ public class MBTileProviderDataBase {
         String path = ContentResolverUtil.getPath(context, mbTilesUri);
         mDatabase = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
         if (maxThreads <= 0) {
-            Preferences prefs = new Preferences(context);
-            maxThreads = prefs.getMaxTileDownloadThreads();
+            maxThreads = App.getPreferences(context).getMaxTileDownloadThreads();
         }
         getStatements = new Pools.SynchronizedPool<>(maxThreads);
         Log.i(DEBUG_TAG, "Allocating " + maxThreads + " prepared statements");

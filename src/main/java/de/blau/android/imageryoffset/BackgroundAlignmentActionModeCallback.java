@@ -113,7 +113,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         }
         osmts = layer.getTileLayerConfiguration();
         oldOffsets = osmts.getOffsets().clone();
-        prefs = new Preferences(main);
+        prefs = App.getPreferences(main);
         String offsetServer = prefs.getOffsetServer();
         offsetServerUri = Uri.parse(offsetServer);
     }

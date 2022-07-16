@@ -21,11 +21,11 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Snack;
 
 /**
@@ -227,11 +227,11 @@ public class TagFilter extends CommonFilter {
         final Context context = layout.getContext();
         // we weren't already added ...
         if (tagFilterButton == null) {
-            Preferences prefs = new Preferences(context);
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             String buttonPos = layout.getContext().getString(R.string.follow_GPS_left);
             controls = (RelativeLayout) inflater
-                    .inflate(prefs.followGPSbuttonPosition().equals(buttonPos) ? R.layout.tagfilter_controls_right : R.layout.tagfilter_controls_left, layout);
+                    .inflate(App.getPreferences(context).followGPSbuttonPosition().equals(buttonPos) ? R.layout.tagfilter_controls_right
+                            : R.layout.tagfilter_controls_left, layout);
             tagFilterButton = (FloatingActionButton) controls.findViewById(R.id.tagFilterButton);
         }
 

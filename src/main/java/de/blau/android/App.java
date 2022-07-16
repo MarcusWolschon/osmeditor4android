@@ -23,6 +23,7 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.filter.PresetFilter;
@@ -58,6 +59,7 @@ import okhttp3.OkHttpClient;
 @AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
 
 public class App extends LocaleAwareApplication implements android.app.Application.ActivityLifecycleCallbacks {
+    private static final String DEBUG_TAG = App.class.getCanonicalName();
 
     private static final String     RHINO_LAZY_LOAD = "lazyLoad";
     private static App              currentInstance;
@@ -280,7 +282,7 @@ public class App extends LocaleAwareApplication implements android.app.Applicati
     public static Preset[] getCurrentPresets(@NonNull Context ctx) {
         synchronized (currentPresetsLock) {
             if (currentPresets == null) {
-                Preferences prefs = new Preferences(ctx); // FIXME get instance held by logic
+                Preferences prefs = getPreferences(ctx);
                 currentPresets = prefs.getPreset();
                 mruTags = new MRUTags();
                 mruTags.load(ctx);
@@ -292,6 +294,21 @@ public class App extends LocaleAwareApplication implements android.app.Applicati
             }
             return currentPresets;
         }
+    }
+
+    /**
+     * Get the current Preferences object held by Logic or create a new one
+     * 
+     * @param ctx an Android Context
+     * @return a Preferences instance
+     */
+    @NonNull
+    public static Preferences getPreferences(@NonNull Context ctx) {
+        boolean havePrefs = logic != null && logic.getPrefs() != null;
+        if (!havePrefs) {
+            Log.e(DEBUG_TAG, "Logic null or doesn't have a Preference object");
+        }
+        return havePrefs ? logic.getPrefs() : new Preferences(ctx);
     }
 
     /**

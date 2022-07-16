@@ -193,7 +193,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             Log.d(DEBUG_TAG, "is visible");
         }
         //
-        prefs = new Preferences(getActivity());
+        prefs = App.getPreferences(getActivity());
 
         if (prefs.getEnableNameSuggestions()) {
             names = App.getNames(getActivity());

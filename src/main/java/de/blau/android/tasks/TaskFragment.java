@@ -82,7 +82,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         // Get the layout inflater
         inflater = getActivity().getLayoutInflater();
 
-        prefs = new Preferences(getActivity());
+        prefs = App.getPreferences(getActivity());
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
