@@ -282,8 +282,7 @@ public class App extends LocaleAwareApplication implements android.app.Applicati
     public static Preset[] getCurrentPresets(@NonNull Context ctx) {
         synchronized (currentPresetsLock) {
             if (currentPresets == null) {
-                Preferences prefs = getPreferences(ctx);
-                currentPresets = prefs.getPreset();
+                currentPresets = getPreferences(ctx).getPreset();
                 mruTags = new MRUTags();
                 mruTags.load(ctx);
                 if (logic != null && logic.getFilter() instanceof PresetFilter) {
