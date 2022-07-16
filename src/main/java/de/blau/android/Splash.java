@@ -109,6 +109,13 @@ public class Splash extends AppCompatActivity {
                         }
                     }
                 }
+                if (newInstall || newConfig) {
+                    Progress.dismissDialog(Splash.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
+                }
+                // read Presets here to avoid reading them on UI thread on startup of Main
+                Progress.showDialog(Splash.this, Progress.PROGRESS_LOADING_PRESET);
+                App.getCurrentPresets(Splash.this);
+                //
                 Intent intent = new Intent(Splash.this, Main.class);
                 intent.putExtra(SHORTCUT_EXTRAS_KEY, getIntent().getExtras());
                 startActivity(intent);
@@ -118,9 +125,7 @@ public class Splash extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void result) {
                 Log.d(DEBUG_TAG, "onPostExecute");
-                if (newInstall || newConfig) {
-                    Progress.dismissDialog(Splash.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
-                }
+                Progress.dismissDialog(Splash.this, Progress.PROGRESS_LOADING_PRESET);
                 Splash.this.finish();
             }
         }.execute();

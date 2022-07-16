@@ -44,7 +44,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import ch.poole.poparser.Po;
 import de.blau.android.App;
-import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Paths;
@@ -1181,8 +1180,7 @@ public class Preset {
             private void setValuesFromMethod(final String key, final String valuesFrom, final PresetKeyType keyType, final PresetItem item,
                     final boolean inOptionalSection, final String delimiter) {
                 item.addTag(inOptionalSection, key, keyType, (StringWithDescription[]) null, delimiter, MatchType.KEY_VALUE);
-                Logic logic = App.getLogic();
-                new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
+                new ExecutorTask<Void, Void, Void>() {
                     @Override
                     protected Void doInBackground(Void param) {
                         Object result = de.blau.android.presets.Util.invokeMethod(valuesFrom, key);

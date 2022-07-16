@@ -21,31 +21,20 @@ public class Progress extends ImmersiveDialogFragment {
 
     private static final String DEBUG_TAG = Progress.class.getSimpleName();
 
-    public static final int PROGRESS_LOADING = 1;
-
-    public static final int PROGRESS_DOWNLOAD = 2;
-
-    public static final int PROGRESS_DELETING = 3;
-
-    public static final int PROGRESS_SEARCHING = 4;
-
-    public static final int PROGRESS_SAVING = 5;
-
-    public static final int PROGRESS_OAUTH = 6;
-
-    public static final int PROGRESS_UPLOADING = 7;
-
-    public static final int PROGRESS_PRESET = 8;
-
-    public static final int PROGRESS_RUNNING = 9;
-
+    public static final int PROGRESS_LOADING                   = 1;
+    public static final int PROGRESS_DOWNLOAD                  = 2;
+    public static final int PROGRESS_DELETING                  = 3;
+    public static final int PROGRESS_SEARCHING                 = 4;
+    public static final int PROGRESS_SAVING                    = 5;
+    public static final int PROGRESS_OAUTH                     = 6;
+    public static final int PROGRESS_UPLOADING                 = 7;
+    public static final int PROGRESS_PRESET                    = 8;
+    public static final int PROGRESS_RUNNING                   = 9;
     public static final int PROGRESS_BUILDING_IMAGERY_DATABASE = 10;
-
-    public static final int PROGRESS_QUERY_OAM = 11;
-
-    public static final int PROGRESS_PRUNING = 12;
-
-    public static final int PROGRESS_MIGRATION = 13;
+    public static final int PROGRESS_QUERY_OAM                 = 11;
+    public static final int PROGRESS_PRUNING                   = 12;
+    public static final int PROGRESS_MIGRATION                 = 13;
+    public static final int PROGRESS_LOADING_PRESET            = 14;
 
     private int dialogType;
 
@@ -122,6 +111,7 @@ public class Progress extends ImmersiveDialogFragment {
         dismissDialog(activity, PROGRESS_QUERY_OAM);
         dismissDialog(activity, PROGRESS_PRUNING);
         dismissDialog(activity, PROGRESS_MIGRATION);
+        dismissDialog(activity, PROGRESS_LOADING_PRESET);
     }
 
     /**
@@ -159,6 +149,8 @@ public class Progress extends ImmersiveDialogFragment {
             return "dialog_progress_pruning";
         case PROGRESS_MIGRATION:
             return "dialog_progress_migration";
+        case PROGRESS_LOADING_PRESET:
+            return "dialog_progress_loading_preset";
         default:
             Log.w(DEBUG_TAG, "Unknown dialog type " + dialogType);
         }
