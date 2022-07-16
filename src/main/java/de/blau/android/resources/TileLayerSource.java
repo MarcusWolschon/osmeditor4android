@@ -57,7 +57,6 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
 import de.blau.android.resources.bing.Bing;
@@ -450,52 +449,62 @@ public class TileLayerSource implements Serializable {
     // ===========================================================
 
     /**
-     * Load additional data on the source from an URL, potentially async This is mainly used for bing imagery
+     * Load additional data on the source from an URL. This is currently only used for bing imagery
      * 
      * @param metadataUrl the url for the meta-data
      */
-    private void loadMeta(String metadataUrl) {
+    private void loadMeta(@NonNull String metadataUrl) {
         try {
             Resources r = ctx.getResources();
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
             XmlPullParser parser = factory.newPullParser();
             // Get the tile metadata
-            InputStream is = null;
-            try {
-                if (metadataUrl.startsWith("@raw/")) {
-                    // internal URL
-                    int resid = r.getIdentifier(metadataUrl.substring(5), "raw", "de.blau.android");
-                    is = r.openRawResource(resid);
-                } else {
-                    // assume Internet URL
-                    Request request = new Request.Builder().url(replaceGeneralParameters(metadataUrl)).build();
-                    OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS)
-                            .readTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS).build();
-                    Call metadataCall = client.newCall(request);
-                    Response metadataCallResponse = metadataCall.execute();
-                    if (metadataCallResponse.isSuccessful()) {
-                        ResponseBody responseBody = metadataCallResponse.body();
-                        is = responseBody.byteStream();
-                    } else {
-                        throw new IOException(metadataCallResponse.message());
-                    }
-                }
+            try (InputStream is = openMetaStream(metadataUrl, r)) {
                 parser.setInput(is, null);
-
                 // load meta information from Bing (or from other sources using the same format)
                 Bing.loadMeta(ctx, this, parser);
-            } finally {
-                SavingHelper.close(is);
-            }
-            metadataLoaded = true;
-            // once we've got here, a selected layer that was previously non-available might now be available ... reset
-            // map preferences
-            if (ctx instanceof Main && ((Main) ctx).getMap() != null) { // don't do this in the service
-                ((Main) ctx).getMap().setPrefs(ctx, new Preferences(ctx));
+                metadataLoaded = true;
+                // once we've got here, a selected layer that was previously non-available might now be available ...
+                // re-set configuration
+                if (ctx instanceof Main && ((Main) ctx).getMap() != null) {
+                    MapTilesLayer<?> l = (MapTilesLayer<?>) ((Main) ctx).getMap().getLayer(getId());
+                    if (l instanceof MapTilesLayer) {
+                        l.setRendererInfo(this);
+                    }
+                }
             }
         } catch (Exception e) {
             Log.d(DEBUG_TAG, "Tileserver problem metadata URL " + metadataUrl, e);
+        }
+    }
+
+    /**
+     * Open a Stream from a meta data source
+     * 
+     * @param metadataUrl the metadata Url
+     * @param r a Resources instance (only required for internal sources)
+     * @return an InputStream
+     * @throws IOException if we can't open the stream
+     */
+    @NonNull
+    private InputStream openMetaStream(@NonNull String metadataUrl, @Nullable Resources r) throws IOException {
+        if (metadataUrl.startsWith("@raw/") && r != null) {
+            // internal URL
+            int resid = r.getIdentifier(metadataUrl.substring(5), "raw", "de.blau.android");
+            return r.openRawResource(resid);
+        } else {
+            // assume Internet URL
+            Request request = new Request.Builder().url(replaceGeneralParameters(metadataUrl)).build();
+            OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS)
+                    .readTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS).build();
+            Call metadataCall = client.newCall(request);
+            Response metadataCallResponse = metadataCall.execute();
+            if (metadataCallResponse.isSuccessful()) {
+                ResponseBody responseBody = metadataCallResponse.body();
+                return responseBody.byteStream();
+            }
+            throw new IOException(metadataCallResponse.message());
         }
     }
 
@@ -507,7 +516,6 @@ public class TileLayerSource implements Serializable {
      */
     @Nullable
     public BitmapDrawable getLogoFromUrl(@NonNull String brandLogoUri) {
-        InputStream bis = null;
         try {
             Request request = new Request.Builder().url(replaceGeneralParameters(brandLogoUri)).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS)
@@ -515,17 +523,15 @@ public class TileLayerSource implements Serializable {
             Call logoCall = client.newCall(request);
             Response logoCallResponse = logoCall.execute();
             if (logoCallResponse.isSuccessful()) {
-                ResponseBody responseBody = logoCallResponse.body();
-                bis = responseBody.byteStream();
-                Bitmap brandLogoBitmap = BitmapFactory.decodeStream(bis);
-                return scaledBitmap(brandLogoBitmap);
+                try (InputStream bis = logoCallResponse.body().byteStream()) {
+                    Bitmap brandLogoBitmap = BitmapFactory.decodeStream(bis);
+                    return scaledBitmap(brandLogoBitmap);
+                }
             } else {
                 throw new IOException(logoCallResponse.message());
             }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "getLogoFromUrl using " + brandLogoUri + " got " + e.getMessage());
-        } finally {
-            SavingHelper.close(bis);
         }
         return null;
     }
