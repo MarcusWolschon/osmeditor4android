@@ -325,6 +325,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param id the layer id
      * @return a TileLayerServer instance of null if none could be found
      */
+    @Nullable
     public static TileLayerSource getLayer(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull String id) {
         TileLayerSource layer = null;
         try (Cursor providerCursor = db.query(COVERAGES_TABLE, null, ID_FIELD + "='" + id + "'", null, null, null, null)) {

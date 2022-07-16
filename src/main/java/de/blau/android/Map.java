@@ -222,7 +222,7 @@ public class Map extends View implements IMapView {
                     try {
                         switch (type) { // NOSONAR
                         case IMAGERY:
-                            TileLayerSource backgroundSource = TileLayerSource.get(ctx, contentId, true);
+                            TileLayerSource backgroundSource = TileLayerSource.get(ctx, contentId, false);
                             if (backgroundSource != null) {
                                 if (backgroundSource.getTileType() == TileType.MVT) {
                                     layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer(), false);
@@ -233,7 +233,7 @@ public class Map extends View implements IMapView {
                             }
                             break;
                         case OVERLAYIMAGERY:
-                            TileLayerSource overlaySource = TileLayerSource.get(ctx, contentId, true);
+                            TileLayerSource overlaySource = TileLayerSource.get(ctx, contentId, false);
                             if (overlaySource != null) {
                                 if (overlaySource.getTileType() == TileType.MVT) {
                                     layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer(), true);
