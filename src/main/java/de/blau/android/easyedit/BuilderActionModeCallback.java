@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ThemeUtils;
@@ -31,7 +32,7 @@ public abstract class BuilderActionModeCallback extends EasyEditActionModeCallba
      */
     protected BuilderActionModeCallback(@NonNull EasyEditManager manager) {
         super(manager);
-        prefs = new Preferences(main);
+        prefs = App.getPreferences(main);
     }
 
     @Override
@@ -79,7 +80,7 @@ public abstract class BuilderActionModeCallback extends EasyEditActionModeCallba
      * This will be called when the "done" FAB is clicked
      */
     protected abstract void finishBuilding();
-    
+
     @Override
     public boolean onBackPressed() {
         if (hasData()) {
@@ -96,7 +97,7 @@ public abstract class BuilderActionModeCallback extends EasyEditActionModeCallba
             super.onCloseClicked();
         }
     }
-    
+
     /**
      * Check if the callback has data that could be lost
      * 

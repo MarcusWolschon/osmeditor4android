@@ -29,7 +29,6 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Tags;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
@@ -103,7 +102,7 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NORMAL, new Preferences(getActivity()).lightThemeEnabled() ? R.style.Theme_DialogLight : R.style.Theme_DialogDark);
+        setStyle(DialogFragment.STYLE_NORMAL, App.getPreferences(getActivity()).lightThemeEnabled() ? R.style.Theme_DialogLight : R.style.Theme_DialogDark);
     }
 
     @NonNull

@@ -667,7 +667,7 @@ public class Main extends FullScreenAppCompatActivity
         Log.d(DEBUG_TAG, "onStart");
         super.onStart();
 
-        updatePrefs(new Preferences(this));
+        updatePrefs(new Preferences(this)); // new allocation required
 
         App.getLogic().setPrefs(prefs);
 

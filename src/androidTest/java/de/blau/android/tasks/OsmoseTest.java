@@ -124,9 +124,11 @@ public class OsmoseTest {
             String osmoseMinorIssueSelector = r.getString(R.string.bugfilter_osmose_minor_issue);
             Set<String> set = new HashSet<String>(Arrays.asList(osmoseErrorSelector, osmoseWarningSelector, osmoseMinorIssueSelector));
             p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
-            Assert.assertTrue(new Preferences(context).taskFilter().contains(osmoseErrorSelector));
-            Assert.assertTrue(new Preferences(context).taskFilter().contains(osmoseWarningSelector));
-            Assert.assertTrue(new Preferences(context).taskFilter().contains(osmoseMinorIssueSelector));
+            final Preferences preferences = new Preferences(context);
+            Assert.assertTrue(preferences.taskFilter().contains(osmoseErrorSelector));
+            Assert.assertTrue(preferences.taskFilter().contains(osmoseWarningSelector));
+            Assert.assertTrue(preferences.taskFilter().contains(osmoseMinorIssueSelector));
+            App.getLogic().setPrefs(preferences);
             TransferTasks.downloadBox(context, s, downloadBox, false, TransferTasks.MAX_PER_REQUEST, new SignalHandler(signal));
         } catch (Exception e) {
             Assert.fail(e.getMessage());

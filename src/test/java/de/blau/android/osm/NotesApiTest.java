@@ -119,7 +119,9 @@ public class NotesApiTest {
             String notesSelector = r.getString(R.string.bugfilter_notes);
             Set<String> set = new HashSet<>(Arrays.asList(notesSelector));
             p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
-            assertTrue(new Preferences(ApplicationProvider.getApplicationContext()).taskFilter().contains(notesSelector));
+            final Preferences preferences = new Preferences(ApplicationProvider.getApplicationContext());
+            assertTrue(preferences.taskFilter().contains(notesSelector));
+            App.getLogic().setPrefs(preferences);
             TransferTasks.downloadBox(ApplicationProvider.getApplicationContext(), s, new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false,
                     TransferTasks.MAX_PER_REQUEST, new FailOnErrorHandler(signal));
         } catch (Exception e) {

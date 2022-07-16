@@ -13,12 +13,12 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.dialogs.TableLayoutUtils;
-import de.blau.android.tasks.Todo;
 import de.blau.android.tasks.MapRouletteTask;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.OsmoseBug;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TaskStorage;
+import de.blau.android.tasks.Todo;
 
 public class TaskLayerInfo extends LayerInfo {
     private static final String DEBUG_TAG = TaskLayerInfo.class.getName();

@@ -137,7 +137,7 @@ public class Authorize extends FullScreenAppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        Preferences prefs = new Preferences(this);
+        final Preferences prefs = App.getPreferences(this);
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_customMain_Light);
         }

@@ -9,9 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetTextField;
@@ -106,7 +106,7 @@ public class SimpleTextRow extends TextRow {
             Log.d(DEBUG_TAG, "onItemClicked value");
             setOrReplaceText(ourValueView, parent.getItemAtPosition(position));
         });
-        Server server = new Preferences(context).getServer();
+        Server server = App.getPreferences(context).getServer();
         ourValueView.addTextChangedListener(new SanitizeTextWatcher(context, server.getCachedCapabilities().getMaxStringLength()));
         return row;
     }

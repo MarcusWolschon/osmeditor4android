@@ -29,10 +29,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.cursoradapter.widget.CursorAdapter;
+import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.prefs.ListActivity;
-import de.blau.android.prefs.Preferences;
 
 /**
  * Activity for editing filter entries. Due to the difficulties in using a ListView for editable items, this is a rather
@@ -86,8 +86,7 @@ public class TagFilterActivity extends ListActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Preferences prefs = new Preferences(this);
-        if (prefs.lightThemeEnabled()) {
+        if (App.getPreferences(this).lightThemeEnabled()) {
             setTheme(R.style.Theme_customActionBar_Light);
         }
         super.onCreate(savedInstanceState);
@@ -105,7 +104,7 @@ public class TagFilterActivity extends ListActivity {
         filter = filterParam;
         tfDb = new TagFilterDatabaseHelper(this);
         db = tfDb.getWritableDatabase();
-        tagFilterCursor = db.rawQuery(QUERY + filter + "'", null); //NOSONAR filter isn't actually user generated
+        tagFilterCursor = db.rawQuery(QUERY + filter + "'", null); // NOSONAR filter isn't actually user generated
         filterAdapter = new TagFilterAdapter(this, tagFilterCursor);
 
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
@@ -113,7 +112,8 @@ public class TagFilterActivity extends ListActivity {
             add.setOnClickListener(v -> {
                 updateDatabaseFromList();
                 insertRow(filter, true, true, 0, "", "");
-                tagFilterCursor = db.rawQuery(QUERY + filter + "'", null); //NOSONAR filter isn't actually user generated
+                tagFilterCursor = db.rawQuery(QUERY + filter + "'", null); // NOSONAR filter isn't actually user
+                                                                           // generated
                 Cursor oldCursor = filterAdapter.swapCursor(tagFilterCursor);
                 oldCursor.close();
                 filterAdapter.notifyDataSetChanged();

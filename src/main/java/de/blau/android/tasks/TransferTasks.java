@@ -94,7 +94,7 @@ public final class TransferTasks {
             int maxNotes, @Nullable final PostAsyncActionHandler handler) {
 
         final TaskStorage bugs = App.getTaskStorage();
-        final Preferences prefs = new Preferences(context);
+        final Preferences prefs = App.getPreferences(context);
 
         box.makeValidForApi(server.getCachedCapabilities().getMaxNoteArea());
         Logic logic = App.getLogic();
@@ -141,7 +141,7 @@ public final class TransferTasks {
             result.addAll(server.getNotesForBox(box, maxNotes));
         }
 
-        Preferences prefs = new Preferences(context);
+        Preferences prefs = App.getPreferences(context);
         if (bugFilterContains(r, bugFilter, R.string.bugfilter_osmose_error) || bugFilterContains(r, bugFilter, R.string.bugfilter_osmose_warning)
                 || bugFilterContains(r, bugFilter, R.string.bugfilter_osmose_minor_issue)) {
             result.addAll(OsmoseServer.getBugsForBox(prefs.getOsmoseServer(), box, MAX_PER_REQUEST));
@@ -210,7 +210,7 @@ public final class TransferTasks {
             @Override
             protected Boolean doInBackground(Void param) {
                 boolean uploadFailed = false;
-                Preferences prefs = new Preferences(activity);
+                Preferences prefs = App.getPreferences(activity);
                 for (Task b : queryResult) {
                     if (b.hasBeenChanged()) {
                         Log.d(DEBUG_TAG, b.getDescription());
@@ -268,7 +268,7 @@ public final class TransferTasks {
         ExecutorTask<Void, Void, UploadResult> a = new ExecutorTask<Void, Void, UploadResult>(logic.getExecutorService(), logic.getHandler()) {
             @Override
             protected UploadResult doInBackground(Void param) {
-                Preferences prefs = new Preferences(context);
+                Preferences prefs = App.getPreferences(context);
                 return OsmoseServer.changeState(prefs.getOsmoseServer(), b);
             }
 

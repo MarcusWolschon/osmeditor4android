@@ -37,7 +37,6 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Way;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Task.State;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.GeoMath;
@@ -109,7 +108,7 @@ public class MapRouletteFragment extends TaskFragment {
 
     @Override
     protected <T extends Task> void update(Server server, PostAsyncActionHandler handler, T task) {
-        TransferTasks.updateMapRouletteTask(getActivity(), server, new Preferences(getContext()).getMapRouletteServer(), (MapRouletteTask) task, false,
+        TransferTasks.updateMapRouletteTask(getActivity(), server, App.getPreferences(getContext()).getMapRouletteServer(), (MapRouletteTask) task, false,
                 handler);
     }
 

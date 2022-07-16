@@ -14,6 +14,7 @@ import android.provider.DocumentsContract;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Schemes;
 import de.blau.android.prefs.Preferences;
@@ -58,8 +59,7 @@ public final class SelectFile {
             saveCallback = callback;
             SelectFile.activity = activity;
         }
-        Preferences prefs = new Preferences(activity);
-        String path = prefs.getString(directoryPrefKey);
+        String path = App.getPreferences(activity).getString(directoryPrefKey);
         Intent i;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             i = new Intent(Intent.ACTION_CREATE_DOCUMENT);
@@ -100,8 +100,7 @@ public final class SelectFile {
             readCallback = readFile;
             SelectFile.activity = activity;
         }
-        Preferences prefs = new Preferences(activity);
-        String path = prefs.getString(directoryPrefKey);
+        String path = App.getPreferences(activity).getString(directoryPrefKey);
         Intent i;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             i = new Intent(Intent.ACTION_OPEN_DOCUMENT);

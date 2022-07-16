@@ -250,7 +250,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         });
 
         // Comment and upload page
-        Preferences prefs = new Preferences(activity);
+        Preferences prefs = App.getPreferences(activity);
         Server server = prefs.getServer();
         boolean openChangeset = server.hasOpenChangeset();
         TextView closeOpenChangesetLabel = (TextView) layout.findViewById(R.id.upload_close_open_changeset_label);

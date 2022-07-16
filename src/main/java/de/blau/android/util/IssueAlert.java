@@ -70,7 +70,7 @@ public final class IssueAlert {
      */
     public static void alert(@NonNull Context context, @NonNull OsmElement e) {
 
-        Preferences prefs = new Preferences(context);
+        Preferences prefs = App.getPreferences(context);
         if (!prefs.generateAlerts()) { // don't generate alerts
             return;
         }

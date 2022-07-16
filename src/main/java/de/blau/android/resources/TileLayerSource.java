@@ -57,7 +57,6 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
 import de.blau.android.resources.bing.Bing;
@@ -95,7 +94,7 @@ import okhttp3.ResponseBody;
 public class TileLayerSource implements Serializable {
     private static final String DEBUG_TAG = TileLayerSource.class.getSimpleName();
 
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 5L;
 
     // EPSG:3857 and historic synonyms
     public static final String        EPSG_3857            = "EPSG:3857";
@@ -439,7 +438,6 @@ public class TileLayerSource implements Serializable {
     private static Map<String, TileLayerSource> backgroundServerList = null;
     private static Map<String, TileLayerSource> overlayServerList    = null;
     private static Object                       serverListLock       = new Object();
-    private static boolean                      ready                = false;
     private static List<String>                 imageryBlacklist     = null;
 
     private static Map<String, Drawable> logoCache = new HashMap<>();
@@ -450,52 +448,62 @@ public class TileLayerSource implements Serializable {
     // ===========================================================
 
     /**
-     * Load additional data on the source from an URL, potentially async This is mainly used for bing imagery
+     * Load additional data on the source from an URL. This is currently only used for bing imagery
      * 
      * @param metadataUrl the url for the meta-data
      */
-    private void loadMeta(String metadataUrl) {
+    private void loadMeta(@NonNull String metadataUrl) {
         try {
             Resources r = ctx.getResources();
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
             XmlPullParser parser = factory.newPullParser();
             // Get the tile metadata
-            InputStream is = null;
-            try {
-                if (metadataUrl.startsWith("@raw/")) {
-                    // internal URL
-                    int resid = r.getIdentifier(metadataUrl.substring(5), "raw", "de.blau.android");
-                    is = r.openRawResource(resid);
-                } else {
-                    // assume Internet URL
-                    Request request = new Request.Builder().url(replaceGeneralParameters(metadataUrl)).build();
-                    OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS)
-                            .readTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS).build();
-                    Call metadataCall = client.newCall(request);
-                    Response metadataCallResponse = metadataCall.execute();
-                    if (metadataCallResponse.isSuccessful()) {
-                        ResponseBody responseBody = metadataCallResponse.body();
-                        is = responseBody.byteStream();
-                    } else {
-                        throw new IOException(metadataCallResponse.message());
-                    }
-                }
+            try (InputStream is = openMetaStream(metadataUrl, r)) {
                 parser.setInput(is, null);
-
                 // load meta information from Bing (or from other sources using the same format)
                 Bing.loadMeta(ctx, this, parser);
-            } finally {
-                SavingHelper.close(is);
-            }
-            metadataLoaded = true;
-            // once we've got here, a selected layer that was previously non-available might now be available ... reset
-            // map preferences
-            if (ctx instanceof Main && ((Main) ctx).getMap() != null) { // don't do this in the service
-                ((Main) ctx).getMap().setPrefs(ctx, new Preferences(ctx));
+                metadataLoaded = true;
+                // once we've got here, a selected layer that was previously non-available might now be available ...
+                // re-set configuration
+                if (ctx instanceof Main && ((Main) ctx).getMap() != null) {
+                    MapTilesLayer<?> l = (MapTilesLayer<?>) ((Main) ctx).getMap().getLayer(getId());
+                    if (l instanceof MapTilesLayer) {
+                        l.setRendererInfo(this);
+                    }
+                }
             }
         } catch (Exception e) {
             Log.d(DEBUG_TAG, "Tileserver problem metadata URL " + metadataUrl, e);
+        }
+    }
+
+    /**
+     * Open a Stream from a meta data source
+     * 
+     * @param metadataUrl the metadata Url
+     * @param r a Resources instance (only required for internal sources)
+     * @return an InputStream
+     * @throws IOException if we can't open the stream
+     */
+    @NonNull
+    private InputStream openMetaStream(@NonNull String metadataUrl, @Nullable Resources r) throws IOException {
+        if (metadataUrl.startsWith("@raw/") && r != null) {
+            // internal URL
+            int resid = r.getIdentifier(metadataUrl.substring(5), "raw", "de.blau.android");
+            return r.openRawResource(resid);
+        } else {
+            // assume Internet URL
+            Request request = new Request.Builder().url(replaceGeneralParameters(metadataUrl)).build();
+            OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS)
+                    .readTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS).build();
+            Call metadataCall = client.newCall(request);
+            Response metadataCallResponse = metadataCall.execute();
+            if (metadataCallResponse.isSuccessful()) {
+                ResponseBody responseBody = metadataCallResponse.body();
+                return responseBody.byteStream();
+            }
+            throw new IOException(metadataCallResponse.message());
         }
     }
 
@@ -507,7 +515,6 @@ public class TileLayerSource implements Serializable {
      */
     @Nullable
     public BitmapDrawable getLogoFromUrl(@NonNull String brandLogoUri) {
-        InputStream bis = null;
         try {
             Request request = new Request.Builder().url(replaceGeneralParameters(brandLogoUri)).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS)
@@ -515,17 +522,15 @@ public class TileLayerSource implements Serializable {
             Call logoCall = client.newCall(request);
             Response logoCallResponse = logoCall.execute();
             if (logoCallResponse.isSuccessful()) {
-                ResponseBody responseBody = logoCallResponse.body();
-                bis = responseBody.byteStream();
-                Bitmap brandLogoBitmap = BitmapFactory.decodeStream(bis);
-                return scaledBitmap(brandLogoBitmap);
+                try (InputStream bis = logoCallResponse.body().byteStream()) {
+                    Bitmap brandLogoBitmap = BitmapFactory.decodeStream(bis);
+                    return scaledBitmap(brandLogoBitmap);
+                }
             } else {
                 throw new IOException(logoCallResponse.message());
             }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "getLogoFromUrl using " + brandLogoUri + " got " + e.getMessage());
-        } finally {
-            SavingHelper.close(bis);
         }
         return null;
     }
@@ -771,56 +776,51 @@ public class TileLayerSource implements Serializable {
      * Get the tile server information for a specified tile server id. If the given id cannot be found, a default
      * renderer is selected.
      * 
-     * Note: will read the the config files it that hasn't happened yet
+     * Note: will read the database it that hasn't happened yet
      * 
      * @param ctx activity context
      * @param id The internal id of the tile layer, eg "MAPNIK"
-     * @param async get meta data asynchronously
+     * @param populate fully populate lists if they haven't been yet
      * @return the selected TileLayerServer
      */
     @Nullable
-    public static TileLayerSource get(@NonNull final Context ctx, @Nullable final String id, final boolean async) {
+    public static TileLayerSource get(@NonNull final Context ctx, @Nullable String id, final boolean populate) {
+        final boolean hasLists = overlayServerList != null && backgroundServerList != null;
         synchronized (serverListLock) {
-            if (!ready) {
+            if (populate && !hasLists) {
                 try (TileLayerDatabase db = new TileLayerDatabase(ctx)) {
-                    getLists(ctx, db, async);
+                    getLists(ctx, db, populate);
                 }
-                if (imageryBlacklist != null && async) {
+                if (imageryBlacklist != null) {
                     applyBlacklist(imageryBlacklist);
                 }
-                ready = true;
             }
         }
 
         if (id == null || "".equals(id)) { // empty id
-            return backgroundServerList.get(LAYER_NONE); // nothing works for all layers :-)
+            id = LAYER_NONE; // nothing works for all layers :-)
         }
 
-        TileLayerSource overlay = overlayServerList.get(id);
-        if (overlay != null) {
-            return overlay;
-        } else {
-            TileLayerSource background = backgroundServerList.get(id);
-            if (background != null) {
-                return background;
-            }
-        }
-        synchronized (serverListLock) {
-            // layer couldn't be found in memory, check database
-            Log.d(DEBUG_TAG, "Getting layer " + id + " from database");
-            try (TileLayerDatabase db = new TileLayerDatabase(ctx)) {
-                TileLayerSource layer = TileLayerDatabase.getLayer(ctx, db.getReadableDatabase(), id);
-                if (layer != null && layer.replaceApiKey(ctx, false)) {
-                    if (layer.isOverlay()) {
-                        overlayServerList.put(id, layer);
-                    } else {
-                        backgroundServerList.put(id, layer);
-                    }
-                    return layer;
+        if (hasLists) {
+            TileLayerSource overlay = overlayServerList.get(id);
+            if (overlay != null) {
+                return overlay;
+            } else {
+                TileLayerSource background = backgroundServerList.get(id);
+                if (background != null) {
+                    return background;
                 }
             }
-            Log.e(DEBUG_TAG, "Layer " + id + " null from database");
         }
+        // layer couldn't be found in memory, check database
+        Log.d(DEBUG_TAG, "Getting layer " + id + " from database");
+        try (TileLayerDatabase db = new TileLayerDatabase(ctx)) {
+            TileLayerSource layer = TileLayerDatabase.getLayer(ctx, db.getReadableDatabase(), id);
+            if (layer != null && layer.replaceApiKey(ctx, false)) {
+                return layer;
+            }
+        }
+        Log.e(DEBUG_TAG, "Layer " + id + " null from database");
         // catch all
         return null;
     }
@@ -1844,6 +1844,7 @@ public class TileLayerSource implements Serializable {
      * 
      * @return the id for a imagery offset database query
      */
+    @Nullable
     public String getImageryOffsetId() {
         if (imageryOffsetId != null) {
             return imageryOffsetId;
@@ -1925,7 +1926,7 @@ public class TileLayerSource implements Serializable {
      * 
      * @param blacklist list of servers that should be removed
      */
-    public static void applyBlacklist(List<String> blacklist) {
+    public static void applyBlacklist(@NonNull List<String> blacklist) {
         // first compile the regexs
         List<Pattern> patterns = new ArrayList<>();
         for (String regex : blacklist) {
@@ -1934,25 +1935,28 @@ public class TileLayerSource implements Serializable {
         synchronized (serverListLock) {
             for (Pattern p : patterns) {
                 if (backgroundServerList != null) {
-                    for (String key : new TreeSet<>(backgroundServerList.keySet())) { // shallow copy
-                        TileLayerSource osmts = backgroundServerList.get(key);
-                        Matcher m = p.matcher(osmts.tileUrl.toLowerCase(Locale.US));
-                        if (m.find()) {
-                            backgroundServerList.remove(key);
-                            Log.d(DEBUG_TAG, "Removed background tile layer " + key);
-                        }
-                    }
+                    removeMatchingSource(backgroundServerList, p);
                 }
                 if (overlayServerList != null) {
-                    for (String key : new TreeSet<>(overlayServerList.keySet())) { // shallow copy
-                        TileLayerSource osmts = overlayServerList.get(key);
-                        Matcher m = p.matcher(osmts.tileUrl.toLowerCase(Locale.US));
-                        if (m.find()) {
-                            overlayServerList.remove(key);
-                            Log.d(DEBUG_TAG, "Removed overlay tile layer " + key);
-                        }
-                    }
+                    removeMatchingSource(overlayServerList, p);
                 }
+            }
+        }
+    }
+
+    /**
+     * Remove entries that match a pattern from a sources list
+     * 
+     * @param sources the sources
+     * @param p the pattern
+     */
+    private static void removeMatchingSource(@NonNull Map<String, TileLayerSource> sources, @NonNull Pattern p) {
+        for (String key : new TreeSet<>(sources.keySet())) { // shallow copy
+            TileLayerSource osmts = sources.get(key);
+            Matcher m = p.matcher(osmts.tileUrl.toLowerCase(Locale.US));
+            if (m.find()) {
+                sources.remove(key);
+                Log.d(DEBUG_TAG, "Removed tile layer " + key);
             }
         }
     }

@@ -24,6 +24,7 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentManager;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.geocode.Search;
 import de.blau.android.geocode.SearchItemSelectedCallback;
@@ -139,7 +140,7 @@ public class SearchForm extends ImmersiveDialogFragment {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, geocoderNames);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             searchGeocoder.setAdapter(adapter);
-            final Preferences prefs = new Preferences(getActivity());
+            final Preferences prefs = App.getPreferences(getActivity());
             int geocoderIndex = prefs.getGeocoder();
             // if a non-active geocoder is selected revert to default
             if (geocoderIndex > adapter.getCount() - 1) {

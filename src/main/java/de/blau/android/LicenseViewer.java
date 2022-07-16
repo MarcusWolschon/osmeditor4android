@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import de.blau.android.osm.OsmXml;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Util;
 
 /**
@@ -24,8 +23,7 @@ import de.blau.android.util.Util;
 public class LicenseViewer extends LocaleAwareCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Preferences prefs = new Preferences(this);
-        if (prefs.lightThemeEnabled()) {
+        if (App.getPreferences(this).lightThemeEnabled()) {
             setTheme(R.style.Theme_customLight);
         }
 

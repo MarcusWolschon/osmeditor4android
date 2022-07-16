@@ -82,7 +82,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
         super.onPrepareActionMode(mode, menu);
         menu.clear();
         menuUtil.reset();
-        Preferences prefs = new Preferences(main);
+        Preferences prefs = App.getPreferences(main);
         if (prefs.voiceCommandsEnabled()) {
             menu.add(Menu.NONE, MENUITEM_NEWNODE_VOICE, Menu.NONE, R.string.menu_voice_commands).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.mic))
                     .setEnabled(main.isConnectedOrConnecting());

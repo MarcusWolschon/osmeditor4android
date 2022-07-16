@@ -85,6 +85,7 @@ public class IntentsTest {
         mockServerOsmose = new MockWebServerPlus();
         mockBaseUrl = mockServerOsmose.server().url("/en/api/0.2/");
         prefs.putString(R.string.config_osmoseServer_key, mockBaseUrl.scheme() + "://" + mockBaseUrl.host() + ":" + mockBaseUrl.port() + "/");
+        App.getLogic().setPrefs(prefs);
         LayerUtils.addTaskLayer(main);
         map.setUpLayers(main);
         TestUtils.grantPermissons(device);
@@ -130,6 +131,7 @@ public class IntentsTest {
         mockServerOsmose.enqueue("osmoseDownload");
         Preferences prefs = new Preferences(main);
         prefDB.selectAPI("Test"); // this seems to be necessary to force reload of server object
+        App.getLogic().setPrefs(prefs);
         System.out.println("Server " + prefs.getServer().toString());
         // <bounds minlat="47.3892400" minlon="8.3844600" maxlat="47.3911300" maxlon="8.3879800"/
         Uri uri = Uri.parse("geo:47.3905,8.385");

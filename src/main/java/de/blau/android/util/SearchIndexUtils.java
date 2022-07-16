@@ -23,7 +23,6 @@ import de.blau.android.nsi.Names.NameAndTags;
 import de.blau.android.nsi.Names.TagMap;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Tags;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetField;
@@ -162,8 +161,7 @@ public final class SearchIndexUtils {
         }
 
         // search in NSI
-        Preferences prefs = new Preferences(ctx);
-        if (prefs.nameSuggestionPresetsEnabled()) {
+        if (App.getPreferences(ctx).nameSuggestionPresetsEnabled()) {
             MultiHashMap<String, NameAndTags> nsi = App.getNameSearchIndex(ctx);
             Set<String> names = nsi.getKeys();
             Preset[] presets = App.getCurrentPresets(ctx);
