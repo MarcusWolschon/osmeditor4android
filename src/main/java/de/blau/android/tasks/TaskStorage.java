@@ -17,6 +17,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmElement;
@@ -47,7 +48,7 @@ public class TaskStorage implements Serializable, DataStorage {
      */
     private transient ReentrantLock readingLock = new ReentrantLock();
 
-    public static final String FILENAME = "tasks.res";
+    public static final String FILENAME = "tasks" + "." + FileExtensions.RES;
 
     private transient SavingHelper<TaskStorage> savingHelper = new SavingHelper<>();
 

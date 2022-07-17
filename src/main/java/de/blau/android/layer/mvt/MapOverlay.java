@@ -29,6 +29,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.dialogs.FeatureInfo;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.LayerType;
@@ -40,6 +41,7 @@ import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Hash;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
@@ -484,7 +486,7 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
     @NonNull
     private String getStateFileName() {
         TileLayerSource source = getTileLayerConfiguration();
-        return (source != null ? source.getImageryOffsetId().replace('/', '-') : MapOverlay.class.getSimpleName()) + ".res";
+        return (source != null ? Hash.sha256(source.getTileUrl()) : MapOverlay.class.getSimpleName()) + "." + FileExtensions.RES;
     }
 
     /**

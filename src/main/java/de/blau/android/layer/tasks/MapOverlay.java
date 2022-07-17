@@ -23,6 +23,7 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.ConfigureInterface;
@@ -59,7 +60,7 @@ public class MapOverlay extends MapViewLayer
 
     private static final String DEBUG_TAG = MapOverlay.class.getCanonicalName();
 
-    public static final String FILENAME = "selectedtask.res";
+    public static final String FILENAME = "selectedtask" + "." + FileExtensions.RES;
 
     private static final int THREAD_POOL_SIZE = 2;
 

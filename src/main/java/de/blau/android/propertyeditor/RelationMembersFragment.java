@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -63,18 +64,17 @@ import de.blau.android.util.collections.MultiHashMap;
  *
  */
 public class RelationMembersFragment extends BaseFragment implements PropertyRows {
-
-    private static final String MEMBERS_KEY = "members";
-
-    private static final String ID_KEY = "id";
-
     private static final String DEBUG_TAG = RelationMembersFragment.class.getSimpleName();
 
-    private ArrayList<RelationMemberDescription>               savedMembers          = null;
-    private long                                               id                    = -1;
-    private SavingHelper<ArrayList<RelationMemberDescription>> savingHelper          = new SavingHelper<>();
-    public static final String                                 FILENAME_MEMBERS      = "members.res";
-    public static final String                                 FILENAME_ORIG_MEMBERS = "orig_members.res";
+    private static final String MEMBERS_KEY = "members";
+    private static final String ID_KEY      = "id";
+
+    public static final String FILENAME_MEMBERS      = "current_members" + "." + FileExtensions.RES;
+    public static final String FILENAME_ORIG_MEMBERS = "orig_members" + "." + FileExtensions.RES;
+
+    private ArrayList<RelationMemberDescription>               savedMembers = null;
+    private long                                               id           = -1;
+    private SavingHelper<ArrayList<RelationMemberDescription>> savingHelper = new SavingHelper<>();
 
     private PropertyEditorListener propertyEditorListener;
 

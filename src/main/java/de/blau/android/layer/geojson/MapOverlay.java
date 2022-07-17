@@ -41,6 +41,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.dialogs.FeatureInfo;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.layer.ClickableInterface;
@@ -60,6 +61,7 @@ import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.Snack;
@@ -75,7 +77,7 @@ public class MapOverlay extends StyleableLayer
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
-    public static final String FILENAME = "geojson.res";
+    public static final String FILENAME = "geojson" + "." + FileExtensions.RES;
 
     private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
 
@@ -404,7 +406,7 @@ public class MapOverlay extends StyleableLayer
             if (name == null) {
                 name = uri.getLastPathSegment();
             }
-            setFileName(uri.getEncodedPath().replace('/', '-'));
+            setFileName(uri.getEncodedPath());
             this.uri = uri.toString();
             return loadGeoJsonFile(ctx, is, fromState);
         } catch (SecurityException sex) {
@@ -427,7 +429,7 @@ public class MapOverlay extends StyleableLayer
      * @param baseName the base name for this specific instance
      */
     private void setFileName(@NonNull String baseName) {
-        stateFileName = baseName + ".res";
+        stateFileName = Hash.sha256(baseName) + "." + FileExtensions.RES;
     }
 
     /**

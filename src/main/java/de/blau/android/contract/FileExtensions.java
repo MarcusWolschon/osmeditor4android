@@ -14,6 +14,7 @@ public final class FileExtensions {
     public static final String PNG     = "png";
     public static final String ZIP     = "zip";
     public static final String HTML    = "html";
+    public static final String RES     = "res";
 
     /**
      * Private default constructor

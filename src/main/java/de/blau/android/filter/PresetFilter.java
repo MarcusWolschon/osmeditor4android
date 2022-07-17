@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.prefs.Preferences;
@@ -39,7 +40,7 @@ public class PresetFilter extends CommonFilter {
     private static final long   serialVersionUID = 7L;
     private static final String DEBUG_TAG        = "PresetFilter";
 
-    public static final String                        FILENAME     = "lastpresetfilter.res";
+    public static final String                        FILENAME     = "lastpresetfilter" + "." + FileExtensions.RES;
     private transient SavingHelper<PresetElementPath> savingHelper = new SavingHelper<>();
 
     private transient Preset[]      preset          = null;
