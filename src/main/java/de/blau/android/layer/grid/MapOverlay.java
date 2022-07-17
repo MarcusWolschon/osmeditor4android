@@ -14,6 +14,7 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.Mode;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.LayerType;
@@ -40,7 +41,7 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
     private static final String FEET_LABEL      = "ft";
     private static final String MILE_LABEL      = "mile";
 
-    public static final String FILENAME = "grid.res";
+    public static final String FILENAME = "grid" + "." + FileExtensions.RES;
 
     private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
 

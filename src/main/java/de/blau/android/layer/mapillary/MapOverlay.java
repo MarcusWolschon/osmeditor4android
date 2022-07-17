@@ -29,6 +29,7 @@ import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Urls;
 import de.blau.android.layer.LayerType;
 import de.blau.android.osm.OsmParser;
@@ -83,7 +84,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
 
     public static final String APIKEY_KEY = "MAPILLARY_CLIENT_TOKEN";
 
-    public static final String FILENAME         = "mapillary.res";
+    public static final String FILENAME         = "mapillary" + "." + FileExtensions.RES;
     public static final String SET_POSITION_KEY = "set_position";
     public static final String COORDINATES_KEY  = "coordinates";
 

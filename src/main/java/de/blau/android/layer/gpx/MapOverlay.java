@@ -32,6 +32,7 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ViewWayPoint;
 import de.blau.android.gpx.Track;
@@ -51,6 +52,7 @@ import de.blau.android.services.TrackerService;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Hash;
 import de.blau.android.util.PlaybackTask;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SerializableTextPaint;
@@ -66,7 +68,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
-    private static final String FILENAME = "gpxlayer.res";
+    private static final String FILENAME = "gpxlayer" + "." + FileExtensions.RES;
 
     private static final int TRACKPOINT_PARALLELIZATION_THRESHOLD = 10000; // multithreaded if more trackpoints
 
@@ -422,7 +424,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         if (name == null) {
             name = uri.getLastPathSegment();
         }
-        setStateFileName(uri.getEncodedPath().replace('/', '-'));
+        setStateFileName(uri.getEncodedPath());
         Logic logic = App.getLogic();
 
         final int FILENOTFOUND = -1;
@@ -489,12 +491,13 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     /**
      * Set the name of the state file
      * 
-     * This needs to be unique across all instances so best an encoded uri
+     * This needs to be unique across all instances so best an encoded uri, to avoid filename length issues we use the
+     * SHA-256 hash
      * 
      * @param baseName the base name for this specific instance
      */
     private void setStateFileName(@NonNull String baseName) {
-        stateFileName = baseName + ".res";
+        stateFileName = Hash.sha256(baseName) + "." + FileExtensions.RES;
     }
 
     @Override
