@@ -253,7 +253,7 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
      * @param fm a FragmentManager
      * @return the Fragment or null
      */
-    private static PropertyEditorFragment peekBackStack(@NonNull FragmentManager fm) {
+    static PropertyEditorFragment peekBackStack(@NonNull FragmentManager fm) {
         int count = fm.getBackStackEntryCount();
         if (count > 0) {
             FragmentManager.BackStackEntry topBackStackEntry = fm.getBackStackEntryAt(count - 1);
