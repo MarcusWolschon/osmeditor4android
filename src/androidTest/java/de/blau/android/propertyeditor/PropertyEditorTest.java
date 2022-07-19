@@ -493,6 +493,9 @@ public class PropertyEditorTest {
         Way w = App.getLogic().getSelectedWay();
         assertNotNull(w);
 
+        // determine position in relation
+        int pos = determinePosition(w, "Bus 305: Kind");
+
         assertTrue(TestUtils.clickMenuButton(device, "Properties", false, true));
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(propertyEditor instanceof PropertyEditor);
@@ -530,9 +533,9 @@ public class PropertyEditorTest {
 
         switchToDetailsTab();
         assertTrue(TestUtils.clickText(device, true, main.getString(R.string.relations), false, false));
-        assertTrue(TestUtils.findText(device, false, "Bus 305"));
+        assertTrue(TestUtils.findText(device, false, "Bus 305: Kind"));
         try {
-            UiObject2 roleField = getField(device, "Bus 305", 1);
+            UiObject2 roleField = getField(device, "Bus 305: Kind", 1);
             // clicking doesn't work see https://issuetracker.google.com/issues/37017411
             roleField.setText("platform");
         } catch (UiObjectNotFoundException e) {
@@ -551,6 +554,8 @@ public class PropertyEditorTest {
         assertTrue(findRole("platform", w, parents));
         TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, true);
         assertFalse(findRole("platform", w, parents));
+
+        assertEquals(pos, determinePosition(w, "Bus 305: Kind"));
 
         //
         MRUTags mruTags = App.getMruTags();
@@ -572,6 +577,32 @@ public class PropertyEditorTest {
         }
         assertNotNull(mruTags.getRoles(item));
         assertTrue(mruTags.getRoles(item).contains("platform"));
+    }
+
+    /**
+     * Determine the position of a way in a relation
+     * 
+     * @param w the way
+     * @param name the name of the relation
+     * @return the position
+     */
+    private int determinePosition(@NonNull Way w, @NonNull String name) {
+        int pos = -1;
+        List<Relation> parents = w.getParentRelations();
+        assertNotNull(parents);
+        for (Relation r : parents) {
+            if (r.getTagWithKey(Tags.KEY_NAME).startsWith(name)) {
+                final List<RelationMember> members = r.getMembers();
+                for (RelationMember rm : members) {
+                    if (Way.NAME.equals(rm.getType()) && w.getOsmId() == rm.getRef()) {
+                        pos = members.indexOf(rm);
+                        break;
+                    }
+                }
+            }
+        }
+        assertTrue(pos != -1);
+        return pos;
     }
 
     /**
