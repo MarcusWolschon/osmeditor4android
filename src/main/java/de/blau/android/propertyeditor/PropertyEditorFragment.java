@@ -18,8 +18,6 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnKeyListener;
@@ -141,12 +139,6 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
      * Handles "enter" key presses.
      */
     static final OnKeyListener myKeyListener = new MyKeyListener();
-
-    /**
-     * True while the activity is between onResume and onPause. Used to suppress autocomplete dropdowns while the
-     * activity is not running (showing them can lead to crashes). Needs to be static to be accessible in TagEditRow.
-     */
-    static boolean running = false;
 
     /**
      * Display form based editing
@@ -271,9 +263,8 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         Log.d(DEBUG_TAG, "... done.");
 
         // sanity check
-        StorageDelegator delegator = App.getDelegator();
-        if (delegator == null || loadData == null) {
-            abort(delegator == null ? "Delegator null" : "loadData null");
+        if ( loadData == null) {
+            abort("loadData null");
             return;
         }
 
@@ -286,7 +277,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         }
 
         // we need the first element for stuff that doesn't support multi-select
-        element = delegator.getOsmElement(types[0], osmIds[0]);
+        element = App.getDelegator().getOsmElement(types[0], osmIds[0]);
         if (element == null) {
             abort("Missing element(s)");
         }
@@ -373,11 +364,6 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         return layout;
     }
 
-    @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
     /**
      * Abort this activity
      * 
@@ -395,7 +381,6 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     public void onResume() {
         Log.d(DEBUG_TAG, "onResume");
         super.onResume();
-        running = true;
         Address.loadLastAddresses(getContext());
         Log.d(DEBUG_TAG, "onResume done");
     }
@@ -992,7 +977,6 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     /** When the Activity is interrupted, save MRUs and address cache */
     @Override
     public void onPause() {
-        running = false;
         Preset[] currentPresets = App.getCurrentPresets(getContext());
         for (Preset p : currentPresets) {
             if (p != null) {

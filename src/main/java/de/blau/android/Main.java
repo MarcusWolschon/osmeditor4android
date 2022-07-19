@@ -2848,7 +2848,7 @@ public class Main extends FullScreenAppCompatActivity
             }
         } else if (data != null) {
             if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK) {
-                handlePropertyEditorResult(data);
+                handlePropertyEditorResult();
             } else if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
                     && resultCode == RESULT_OK) {
                 SelectFile.handleResult(requestCode, data);
@@ -2866,11 +2866,8 @@ public class Main extends FullScreenAppCompatActivity
 
     /**
      * Handle the result of the property editor
-     * 
-     * @param data An Intent, which can return result data to the caller (various data can be attached to Intent
-     *            "extras").
      */
-    private void handlePropertyEditorResult(@NonNull final Intent data) {
+    private void handlePropertyEditorResult() {
         final Logic logic = App.getLogic();
         if (logic != null && ((logic.getMode().elementsGeomEditiable() && easyEditManager != null && !easyEditManager.isProcessingAction())
                 || logic.getMode() == Mode.MODE_TAG_EDIT)) {
