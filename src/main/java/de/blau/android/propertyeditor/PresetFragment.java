@@ -136,13 +136,10 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
         Fragment parent = getParentFragment();
-        try {
-            mListener = (OnPresetSelectedListener) parent;
-            propertyEditorListener = (PropertyEditorListener) parent;
-            editorUpdate = (EditorUpdate) parent;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(parent.getClass().getCanonicalName() + " must implement OnPresetSelectedListener");
-        }
+        Util.implementsInterface(parent, EditorUpdate.class, PropertyEditorListener.class, OnPresetSelectedListener.class);
+        mListener = (OnPresetSelectedListener) parent;
+        propertyEditorListener = (PropertyEditorListener) parent;
+        editorUpdate = (EditorUpdate) parent;
     }
 
     Runnable displaySearchResults = () -> getAndShowSearchResults(presetSearch);

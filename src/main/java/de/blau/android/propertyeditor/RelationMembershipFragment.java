@@ -101,11 +101,8 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
         Fragment parent = getParentFragment();
-        try {
-            propertyEditorListener = (PropertyEditorListener) parent;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(parent.getClass().getCanonicalName() + " must implement PropertyEditorListener");
-        }
+        Util.implementsInterface(parent, PropertyEditorListener.class);
+        propertyEditorListener = (PropertyEditorListener) parent;
         setHasOptionsMenu(true);
         getActivity().invalidateOptionsMenu();
     }

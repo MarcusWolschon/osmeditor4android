@@ -153,15 +153,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
         Fragment parent = getParentFragment();
-        try {
-            tagListener = (EditorUpdate) parent;
-            nameAdapters = (NameAdapters) parent;
-            propertyEditorListener = (PropertyEditorListener) parent;
-            presetSelectedListener = (OnPresetSelectedListener) parent;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(parent.getClass().getCanonicalName()
-                    + " must implement OnPresetSelectedListener, NameAdapters, PropertyEditorListener, OnPresetSelectedListener");
-        }
+        Util.implementsInterface(parent, EditorUpdate.class, NameAdapters.class, PropertyEditorListener.class, OnPresetSelectedListener.class);
+        tagListener = (EditorUpdate) parent;
+        nameAdapters = (NameAdapters) parent;
+        propertyEditorListener = (PropertyEditorListener) parent;
+        presetSelectedListener = (OnPresetSelectedListener) parent;
         setHasOptionsMenu(true);
         getActivity().invalidateOptionsMenu();
     }

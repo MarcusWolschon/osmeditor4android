@@ -156,11 +156,8 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
         Fragment parent = getParentFragment();
-        try {
-            propertyEditorListener = (PropertyEditorListener) parent;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(parent.getClass().getCanonicalName() + " must implement PropertyEditorListener");
-        }
+        Util.implementsInterface(parent, PropertyEditorListener.class);
+        propertyEditorListener = (PropertyEditorListener) parent;
     }
 
     @Override
@@ -515,7 +512,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         private CheckBox                selected;
         private AutoCompleteTextView    roleEdit;
         private ImageView               typeView;
-        TextView                elementView;
+        TextView                        elementView;
         private TextWatcher             watcher;
 
         private RelationMemberDescription rmd;

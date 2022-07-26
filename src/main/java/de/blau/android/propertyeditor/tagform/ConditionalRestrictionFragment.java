@@ -63,7 +63,6 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.PresetItem;
-import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
@@ -155,16 +154,8 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.d(DEBUG_TAG, "onAttach");
-        Fragment parent = getParentFragment();
-        // we may be nested one or two levels deep
-        if (!(parent instanceof PropertyEditorListener)) {
-            parent = parent.getParentFragment();
-        }
-        try {
-            saveListener = (OnSaveListener) parent;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(parent.getClass().getCanonicalName() + " must implement OnSaveListener");
-        }
+        Fragment parent = de.blau.android.util.Util.getParentFragmentWithInterface(this, OnSaveListener.class);
+        saveListener = (OnSaveListener) parent;
     }
 
     @Override

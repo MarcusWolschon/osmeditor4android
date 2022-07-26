@@ -20,6 +20,7 @@ import de.blau.android.presets.PresetClickHandler;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.BaseFragment;
+import de.blau.android.util.Util;
 
 public class RecentPresetsFragment extends BaseFragment {
 
@@ -57,17 +58,9 @@ public class RecentPresetsFragment extends BaseFragment {
     @Override
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
-        Fragment parent = getParentFragment();
-        // we may be nested one or two levels deep
-        if (!(parent instanceof PropertyEditorListener)) {
-            parent = parent.getParentFragment();
-        }
-        try {
-            presetSelectedListener = (OnPresetSelectedListener) parent;
-            propertyEditorListener = (PropertyEditorListener) parent;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(parent.getClass().getCanonicalName() + " must implement OnPresetSelectedListener and PropertyEditorListener");
-        }
+        Fragment parent = Util.getParentFragmentWithInterface(this, PropertyEditorListener.class, OnPresetSelectedListener.class);
+        presetSelectedListener = (OnPresetSelectedListener) parent;
+        propertyEditorListener = (PropertyEditorListener) parent;
     }
 
     @Override

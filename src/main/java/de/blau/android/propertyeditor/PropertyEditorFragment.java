@@ -202,11 +202,8 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     @Override
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
-        try {
-            controlListener = (ControlListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement ControlListener");
-        }
+        Util.implementsInterface(context, ControlListener.class);
+        controlListener = (ControlListener) context;
         setHasOptionsMenu(true);
     }
 
@@ -263,7 +260,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         Log.d(DEBUG_TAG, "... done.");
 
         // sanity check
-        if ( loadData == null) {
+        if (loadData == null) {
             abort("loadData null");
             return;
         }

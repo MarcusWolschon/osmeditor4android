@@ -40,6 +40,7 @@ import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Screen;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 public class PresetSearchResultsFragment extends DialogFragment implements UpdatePresetSearchResult {
 
@@ -49,7 +50,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
     private static final String DEBUG_TAG = PresetSearchResultsFragment.class.getSimpleName();
 
     private OnPresetSelectedListener mOnPresetSelectedListener; // NOSONAR we want to fail in onAttach
-    private PresetUpdate             mPresetUpdateListener; // NOSONAR
+    private PresetUpdate             mPresetUpdateListener;     // NOSONAR
     private List<PresetElement>      presets;
     private boolean                  enabled = true;
     private PropertyEditorListener   propertyEditorListener;
@@ -79,18 +80,10 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.d(DEBUG_TAG, "onAttach");
-        Fragment parent = getParentFragment();
-        // we may be nested one or two levels deep
-        if (!(parent instanceof PropertyEditorListener)) {
-            parent = parent.getParentFragment();
-        }
-        try {
-            mOnPresetSelectedListener = (OnPresetSelectedListener) parent;
-            mPresetUpdateListener = (PresetUpdate) parent;
-            propertyEditorListener = (PropertyEditorListener) parent;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(parent.getClass().getCanonicalName() + " must implement OnPresetSelectedListener and PresetUpdate");
-        }
+        Fragment parent = Util.getParentFragmentWithInterface(this, PresetUpdate.class, PropertyEditorListener.class, OnPresetSelectedListener.class);
+        mOnPresetSelectedListener = (OnPresetSelectedListener) parent;
+        mPresetUpdateListener = (PresetUpdate) parent;
+        propertyEditorListener = (PropertyEditorListener) parent;
     }
 
     @SuppressWarnings("unchecked")

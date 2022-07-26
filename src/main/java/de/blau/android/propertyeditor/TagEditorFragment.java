@@ -239,16 +239,13 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
         Fragment parent = getParentFragment();
-        try {
-            nameAdapters = (NameAdapters) parent;
-            formUpdate = (FormUpdate) parent;
-            presetFilterUpdate = (PresetUpdate) parent;
-            propertyEditorListener = (PropertyEditorListener) parent;
-            presetSelectedListener = (OnPresetSelectedListener) parent;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(parent.getClass().getCanonicalName()
-                    + " must implement PropertyEditorListener, NameAdapters, FormUpdate, PresetFilterUpdate, OnPresetSelectedListener");
-        }
+        Util.implementsInterface(parent, NameAdapters.class, FormUpdate.class, PresetUpdate.class, PropertyEditorListener.class,
+                OnPresetSelectedListener.class);
+        nameAdapters = (NameAdapters) parent;
+        formUpdate = (FormUpdate) parent;
+        presetFilterUpdate = (PresetUpdate) parent;
+        propertyEditorListener = (PropertyEditorListener) parent;
+        presetSelectedListener = (OnPresetSelectedListener) parent;
         setHasOptionsMenu(true);
         getActivity().invalidateOptionsMenu();
     }
