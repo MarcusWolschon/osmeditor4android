@@ -19,7 +19,6 @@ import org.xml.sax.helpers.DefaultHandler;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.exception.OsmParseException;
-import de.blau.android.exception.StorageException;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.collections.LongOsmElementMap;
 
@@ -38,6 +37,7 @@ public class OsmParser extends DefaultHandler {
 
     protected static final String OVERPASS_NOTE = "note";
     protected static final String OVERPASS_META = "meta";
+    protected static final String API_ERROR     = "error";
 
     /** The storage, where the data will be stored (e.g. as JavaStorage or SqliteStorage). */
     private final Storage storage;
@@ -81,6 +81,8 @@ public class OsmParser extends DefaultHandler {
 
     protected LongOsmElementMap<Node> nodeIndex = null;
     private LongOsmElementMap<Way>    wayIndex  = null;
+
+    private String characters = null;
 
     /**
      * Construct a new instance of the parser
@@ -128,9 +130,11 @@ public class OsmParser extends DefaultHandler {
 
     /**
      * needed for post processing of relations
+     * 
+     * @throws SAXException if parsing failed
      */
     @Override
-    public void endDocument() {
+    public void endDocument() throws SAXException {
         Log.d(DEBUG_TAG, "Post processing relations.");
         for (MissingRelation mr : missingRelations) {
             RelationMember rm = mr.member;
@@ -142,6 +146,9 @@ public class OsmParser extends DefaultHandler {
             }
         }
         Log.d(DEBUG_TAG, "Finished parsing input.");
+        if (!exceptions.isEmpty()) {
+            throw new SAXException(new OsmParseException(exceptions));
+        }
     }
 
     /**
@@ -181,7 +188,7 @@ public class OsmParser extends DefaultHandler {
             case OsmXml.OSM:
             case OVERPASS_NOTE:
             case OVERPASS_META:
-                // we don't do anything with these
+            case API_ERROR:
                 break;
             default:
                 throw new OsmParseException("Unknown element " + name);
@@ -230,12 +237,20 @@ public class OsmParser extends DefaultHandler {
                     throw new SAXException("State error, null Relation");
                 }
                 break;
+            case API_ERROR:
+                throw new OsmParseException("Internal API error: " + characters);
             default:
                 // ignore everything else
             }
-        } catch (StorageException sex) {
-            throw new SAXException(sex);
+        } catch (OsmParseException e) {
+            Log.e(DEBUG_TAG, "OsmParseException", e);
+            exceptions.add(e);
         }
+    }
+
+    @Override
+    public void characters(char[] ch, int start, int length) throws SAXException {
+        characters = new String(ch, start, length);
     }
 
     /**

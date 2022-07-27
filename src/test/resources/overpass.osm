@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.56.8 7d656e78">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="81159"/>
+
+  <node id="1811616237" lat="47.4179099" lon="8.3929491" version="3" timestamp="2022-07-13T19:43:48Z" changeset="123578708" uid="4378872" user="Voonosm">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="charging_station"/>
+    <tag k="authentication:app" v="yes"/>
+    <tag k="authentication:contactless" v="yes"/>
+    <tag k="bicycle" v="no"/>
+    <tag k="capacity" v="2"/>
+    <tag k="covered" v="yes"/>
+    <tag k="fee" v="yes"/>
+    <tag k="motorcar" v="yes"/>
+    <tag k="network" v="Swisscharge"/>
+    <tag k="opening_hours" v="unknown"/>
+    <tag k="operator" v="EKZ"/>
+    <tag k="parking:fee" v="yes"/>
+    <tag k="socket:type2" v="2"/>
+    <tag k="socket:type2:output" v="22 kW"/>
+    <tag k="url" v="http://www.park-charge.net/"/>
+  </node>
+  <node id="5742134468" lat="47.4217505" lon="8.3765119" version="1" timestamp="2018-07-05T20:58:17Z" changeset="60447628" uid="65804" user="Ronny Standtke">
+    <tag k="amenity" v="charging_station"/>
+    <tag k="authentication:none" v="yes"/>
+    <tag k="capacity" v="12"/>
+    <tag k="car" v="yes"/>
+    <tag k="fee" v="no"/>
+    <tag k="maxstay" v="2 hours"/>
+    <tag k="opening_hours" v="Mo-Sa 09:00-21:00"/>
+    <tag k="operator" v="IKEA"/>
+    <tag k="socket:type2" v="12"/>
+    <tag k="socket:type2:current" v="32"/>
+    <tag k="socket:type2:output" v="22 kW"/>
+  </node>
+  <node id="5742144239" lat="47.4240996" lon="8.3678041" version="1" timestamp="2018-07-05T21:07:14Z" changeset="60447802" uid="65804" user="Ronny Standtke">
+    <tag k="amenity" v="charging_station"/>
+    <tag k="authentication:none" v="no"/>
+    <tag k="capacity" v="3"/>
+    <tag k="car" v="yes"/>
+    <tag k="fee" v="yes"/>
+    <tag k="operator" v="swisscharge"/>
+    <tag k="socket:chademo" v="1"/>
+    <tag k="socket:chademo:current" v="50"/>
+    <tag k="socket:chademo:output" v="20 kW"/>
+    <tag k="socket:type2" v="2"/>
+    <tag k="socket:type2:current" v="32"/>
+    <tag k="socket:type2:output" v="22 kW"/>
+    <tag k="socket:type2_combo" v="1"/>
+    <tag k="socket:type2_combo:current" v="50"/>
+    <tag k="socket:type2_combo:output" v="20 kW"/>
+  </node>
+  <node id="6282768752" lat="47.4173164" lon="8.3948447" version="5" timestamp="2022-07-13T19:56:40Z" changeset="123579125" uid="4378872" user="Voonosm">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="charging_station"/>
+    <tag k="authentication:app" v="yes"/>
+    <tag k="authentication:contactless" v="yes"/>
+    <tag k="bicycle" v="no"/>
+    <tag k="covered" v="no"/>
+    <tag k="description" v="an der Rückseite der Ladestation befinden sich weitere Stecker"/>
+    <tag k="fee" v="yes"/>
+    <tag k="motorcar" v="yes"/>
+    <tag k="network" v="Swisscharge"/>
+    <tag k="opening_hours" v="24/7"/>
+    <tag k="operator" v="GOFAST"/>
+    <tag k="payment:american_express" v="yes"/>
+    <tag k="payment:discover_card" v="yes"/>
+    <tag k="payment:mastercard" v="yes"/>
+    <tag k="payment:visa" v="yes"/>
+    <tag k="socket:chademo" v="2"/>
+    <tag k="socket:chademo:output" v="60 kW"/>
+    <tag k="socket:type2" v="1"/>
+    <tag k="socket:type2:output" v="22 kW"/>
+    <tag k="socket:type2_combo" v="2"/>
+    <tag k="socket:type2_combo:output" v="150 kW"/>
+  </node>
+  <node id="6293354585" lat="47.4178901" lon="8.3962860" version="3" timestamp="2022-06-17T12:56:57Z" changeset="122507956" uid="9176" user="Maarten Deen">
+    <tag k="addr:city" v="Dietikon"/>
+    <tag k="addr:country" v="CH"/>
+    <tag k="addr:housenumber" v="24"/>
+    <tag k="addr:postcode" v="8953"/>
+    <tag k="addr:street" v="Moosmattstrasse"/>
+    <tag k="amenity" v="charging_station"/>
+    <tag k="amenity:wikipedia" v="en:Tesla Supercharger"/>
+    <tag k="brand" v="Tesla Supercharger"/>
+    <tag k="brand:wikidata" v="Q17089620"/>
+    <tag k="brand:wikipedia" v="en:Tesla Supercharger"/>
+    <tag k="capacity" v="24"/>
+    <tag k="fee" v="yes"/>
+    <tag k="name" v="Dietikon Supercharger"/>
+    <tag k="opening_hours" v="24/7"/>
+    <tag k="operator" v="Tesla, Inc."/>
+    <tag k="socket:tesla_supercharger" v="24"/>
+    <tag k="socket:tesla_supercharger:output" v="150 kW"/>
+    <tag k="socket:tesla_supercharger_ccs" v="24"/>
+    <tag k="socket:tesla_supercharger_ccs:output" v="150 kW"/>
+    <tag k="website" v="https://www.tesla.com/findus/location/supercharger/dietikonsupercharger"/>
+  </node>
+  <node id="6535254403" lat="47.4213391" lon="8.3725978" version="3" timestamp="2020-06-28T15:51:14Z" changeset="87254026" uid="11009966" user="Maper8957">
+    <tag k="amenity" v="charging_station"/>
+    <tag k="fee" v="yes"/>
+    <tag k="level" v="-1"/>
+    <tag k="motorcar" v="yes"/>
+    <tag k="operator" v="greenmotion"/>
+  </node>
+  <node id="8661968471" lat="47.4198273" lon="8.3739251" version="1" timestamp="2021-04-24T12:10:44Z" changeset="103533821" uid="11009966" user="Maper8957">
+    <tag k="amenity" v="charging_station"/>
+  </node>
+  <node id="9339994763" lat="47.4231004" lon="8.3697622" version="1" timestamp="2021-12-15T09:55:12Z" changeset="114956586" uid="11009966" user="Maper8957">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="charging_station"/>
+    <tag k="capacity" v="5"/>
+    <tag k="fee" v="yes"/>
+    <tag k="level" v="p4"/>
+    <tag k="name" v="E-Tankstelle"/>
+  </node>
+  <node id="9339994765" lat="47.4218703" lon="8.3693543" version="1" timestamp="2021-12-15T09:55:12Z" changeset="114956586" uid="11009966" user="Maper8957">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="charging_station"/>
+    <tag k="capacity" v="6"/>
+    <tag k="fee" v="yes"/>
+    <tag k="level" v="0"/>
+    <tag k="name" v="E-Tankstelle"/>
+  </node>
+  <node id="9885565097" lat="47.4183775" lon="8.3736632" version="2" timestamp="2022-07-13T19:31:11Z" changeset="123578379" uid="4378872" user="Voonosm">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="charging_station"/>
+    <tag k="authentication:app" v="yes"/>
+    <tag k="authentication:contactless" v="yes"/>
+    <tag k="bicycle" v="no"/>
+    <tag k="capacity" v="2"/>
+    <tag k="covered" v="no"/>
+    <tag k="fee" v="yes"/>
+    <tag k="motorcar" v="yes"/>
+    <tag k="network" v="Swisscharge"/>
+    <tag k="opening_hours" v="24/7"/>
+    <tag k="operator" v="GOFAST"/>
+    <tag k="parking:fee" v="no"/>
+    <tag k="ref" v="82"/>
+    <tag k="socket:chademo" v="1"/>
+    <tag k="socket:chademo:output" v="60 kW"/>
+    <tag k="socket:type2" v="1"/>
+    <tag k="socket:type2:output" v="22 kW"/>
+    <tag k="socket:type2_combo" v="1"/>
+    <tag k="socket:type2_combo:output" v="150 kW"/>
+  </node>
+  <node id="9885565100" lat="47.4184078" lon="8.3736238" version="2" timestamp="2022-07-13T19:31:11Z" changeset="123578379" uid="4378872" user="Voonosm">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="charging_station"/>
+    <tag k="authentication:app" v="yes"/>
+    <tag k="authentication:contactless" v="yes"/>
+    <tag k="bicycle" v="no"/>
+    <tag k="capacity" v="2"/>
+    <tag k="covered" v="no"/>
+    <tag k="fee" v="yes"/>
+    <tag k="motorcar" v="yes"/>
+    <tag k="network" v="Swisscharge"/>
+    <tag k="opening_hours" v="24/7"/>
+    <tag k="operator" v="GOFAST"/>
+    <tag k="parking:fee" v="no"/>
+    <tag k="ref" v="82"/>
+    <tag k="socket:type2_combo" v="2"/>
+    <tag k="socket:type2_combo:output" v="150 kW"/>
+  </node>
+
+</osm>
