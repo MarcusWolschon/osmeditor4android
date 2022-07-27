@@ -135,13 +135,8 @@ public class OsmChangeParser extends OsmParser {
      */
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
-        try {
-            if (noteHandler == null) {
-                throw new OsmParseException("Unexpected characters in element");
-            }
+        if (noteHandler != null) {
             noteHandler.characters(ch, start, length);
-        } catch (OsmParseException e) {
-            handleException(e);
         }
     }
 
