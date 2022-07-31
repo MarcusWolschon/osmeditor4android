@@ -214,10 +214,10 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
     @Override
     public void finished(@Nullable Fragment finishedFragment) {
         final FragmentManager fm = getSupportFragmentManager();
-        PropertyEditorFragment top = peekBackStack(fm);
-        if (top != null) {
+        int count = backStackCount(fm);
+        if (count > 1) {
             fm.popBackStackImmediate();
-            top = peekBackStack(fm);
+            PropertyEditorFragment top = peekBackStack(fm);
             if (top != null) { // still have a fragment on the stack
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.show(top);
@@ -267,5 +267,29 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
             }
         }
         return null;
+    }
+
+    /**
+     * Get a count of propertyeditors on the backstack
+     * 
+     * Only works if backstack name and fragment tag are the same
+     * 
+     * @param fm a FragmentManager
+     * @return a count of property editors on the backstack
+     */
+    static int backStackCount(@NonNull FragmentManager fm) {
+        int count = fm.getBackStackEntryCount();
+        int result = 0;
+        for (int i = 1; i <= count; i++) {
+            FragmentManager.BackStackEntry topBackStackEntry = fm.getBackStackEntryAt(count - i);
+            String tag = topBackStackEntry.getName();
+            if (tag != null) {
+                Fragment f = fm.findFragmentByTag(tag);
+                if (f instanceof PropertyEditorFragment) {
+                    result++;
+                }
+            }
+        }
+        return result;
     }
 }
