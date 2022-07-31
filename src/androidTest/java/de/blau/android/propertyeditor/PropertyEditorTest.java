@@ -740,6 +740,58 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.delete), true));
         assertEquals(OsmElement.STATE_DELETED, r.getState());
     }
+    
+    /**
+     * Select a relation and drilldown a specific member
+     */
+    @Test
+    public void relationDrilldown() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
+        assertNotNull(r);
+
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 577098580L);
+        assertNotNull(n);
+        assertTrue(n.hasTagWithValue("shelter", Tags.VALUE_YES));
+        
+        main.performTagEdit(r, null, false, false);
+        waitForPropertyEditor();
+
+        TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
+        TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
+        UiObject text = device.findObject(new UiSelector().textStartsWith("Vorbühl"));
+        assertTrue(text.exists());
+        try {
+            assertTrue(text.click());
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        
+        assertTrue(TestUtils.findText(device, false, "8590205"));
+        try {
+            UiObject2 shelter = getField(device, "Shelter", 1);
+            assertNotNull(shelter);
+            shelter.click();
+            TestUtils.clickText(device, true, main.getString(R.string.okay), false, false);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        
+        // exit property editor
+        TestUtils.clickHome(device, false);
+        TestUtils.clickHome(device, false);
+        assertEquals(OsmElement.STATE_MODIFIED, n.getState());
+        assertFalse(n.hasTagKey("shelter"));
+    }
 
     /**
      * Test for max tag length
