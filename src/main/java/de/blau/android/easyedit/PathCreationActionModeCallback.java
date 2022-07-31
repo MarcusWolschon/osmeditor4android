@@ -309,6 +309,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             createdWay.dontValidate();
             if (OsmElement.STATE_DELETED == createdWay.getState()) {
                 createdWay = null;
+                logic.setSelectedWay(null);
             }
         } else if (deleteNode) {
             logic.performEraseNode(main, removedNode, false);
@@ -350,6 +351,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         }
 
         createdWay = logic.getSelectedWay(); // will be null if way was deleted by undo
+        
         main.invalidateMap();
     }
 
