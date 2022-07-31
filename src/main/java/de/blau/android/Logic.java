@@ -9,10 +9,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -202,19 +204,9 @@ public class Logic {
     private Preferences prefs;
 
     /**
-     * The user-selected node.
+     * Stack of selected elements
      */
-    private List<Node> selectedNodes;
-
-    /**
-     * The user-selected way.
-     */
-    private List<Way> selectedWays;
-
-    /**
-     * The user-selected relation.
-     */
-    private List<Relation> selectedRelations;
+    private final Deque<Selection> selectionStack;
 
     /*
      * The following are lists because elements could be add multiple times adding them once per selected relation and
@@ -348,6 +340,8 @@ public class Logic {
         setLocked(true);
         executorService = Executors.newFixedThreadPool(EXECUTOR_THREADS);
         uiHandler = new Handler(Looper.getMainLooper());
+        selectionStack = new ArrayDeque<>();
+        selectionStack.add(new Selection());
     }
 
     /**
@@ -1297,13 +1291,14 @@ public class Logic {
                 selectedTask = taskLayer.getSelected();
             }
             final boolean largeDragArea = prefs.largeDragArea();
-            final int selectedWayCount = selectedWays != null ? selectedWays.size() : 0;
-            final int selectedNodeCount = selectedNodes != null ? selectedNodes.size() : 0;
+            final Selection currentSelection = selectionStack.getLast();
+            final int selectedWayCount = currentSelection.wayCount();
+            final int selectedNodeCount = currentSelection.nodeCount();
             // single node or task dragging
             if ((selectedNodeCount == 1 || selectedTask != null) && selectedWayCount == 0) {
                 DataStyle currentStyle = DataStyle.getCurrent();
                 float tolerance = largeDragArea ? currentStyle.getLargDragToleranceRadius() : currentStyle.getNodeToleranceValue();
-                GeoPoint point = selectedTask != null ? selectedTask : selectedNodes.get(0);
+                GeoPoint point = selectedTask != null ? selectedTask : currentSelection.getNode();
                 if (clickDistance(point, x, y, tolerance) != null) {
                     draggingNode = selectedTask == null;
                     draggingNote = selectedTask != null;
@@ -1326,7 +1321,7 @@ public class Logic {
                     List<Way> clickedWays = getClickedWays(true, x, y);
                     if (!clickedWays.isEmpty()) {
                         List<OsmElement> clickedNodes = getClickedNodes(x, y);
-                        final Way selectedWay = selectedWays.get(0);
+                        final Way selectedWay = currentSelection.getWay();
                         draggedNode = getCommonNode(selectedWay, clickedNodes);
                         if (prefs.isWayNodeDraggingEnabled() && draggedNode != null) {
                             draggingNode = true;
@@ -1348,7 +1343,7 @@ public class Logic {
                         if (selectedWayCount > 0) {
                             List<Way> clickedWays = getClickedWays(x, y);
                             for (Way w : clickedWays) {
-                                if (selectedWays.contains(w)) {
+                                if (currentSelection.contains(w)) {
                                     foundSelected = true;
                                     break;
                                 }
@@ -1357,7 +1352,7 @@ public class Logic {
                         if (!foundSelected && selectedNodeCount > 0) {
                             List<OsmElement> clickedNodes = getClickedNodes(x, y);
                             for (OsmElement n : clickedNodes) {
-                                if (selectedNodes.contains(n)) {
+                                if (currentSelection.contains(n)) {
                                     foundSelected = true;
                                     break;
                                 }
@@ -1419,10 +1414,11 @@ public class Logic {
      * Calculates the coordinates for the center of the screen and displays a crosshair there.
      */
     public synchronized void showCrosshairsForCentroid() {
-        if (selectedWays == null) {
+        Way selectedWay = getSelectedWay();
+        if (selectedWay == null) {
             return;
         }
-        Coordinates centroid = Geometry.centroidXY(map.getWidth(), map.getHeight(), map.getViewBox(), selectedWays.get(0));
+        Coordinates centroid = Geometry.centroidXY(map.getWidth(), map.getHeight(), map.getViewBox(), selectedWay);
         if (centroid == null) {
             return;
         }
@@ -1444,18 +1440,19 @@ public class Logic {
      * @throws OsmIllegalOperationException if one of the operations triggered went wrong
      */
     synchronized void handleTouchEventMove(@NonNull Main main, final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
+        final Selection currentSelection = selectionStack.getLast();
         if (draggingNode || draggingWay || draggingHandle || draggingNote) {
             int lat = yToLatE7(absoluteY);
             int lon = xToLonE7(absoluteX);
-            final int selectedWayCount = selectedWays != null ? selectedWays.size() : 0;
-            final int selectedNodeCount = selectedNodes != null ? selectedNodes.size() : 0;
+            final int selectedWayCount = currentSelection.wayCount();
+            final int selectedNodeCount = currentSelection.nodeCount();
             // checkpoint created where draggingNode is set
             if ((draggingNode && ((selectedNodeCount == 1 && selectedWayCount == 0) || selectedWayCount == 1)) || draggingHandle || draggingNote) {
                 if (draggingHandle) { // create node only if we are really dragging
                     try {
                         if (handleNode == null && selectedHandle != null && selectedWayCount > 0) {
                             Log.d(DEBUG_TAG, "creating node at handle position");
-                            handleNode = addOnWay(main, selectedWays, selectedHandle.x, selectedHandle.y, true);
+                            handleNode = addOnWay(main, currentSelection.getWays(), selectedHandle.x, selectedHandle.y, true);
                             selectedHandle = null;
                         }
                         if (handleNode != null) {
@@ -1474,7 +1471,7 @@ public class Logic {
                     }
                     if (draggingNode) {
                         if (selectedNodeCount == 1) {
-                            draggedNode = selectedNodes.get(0);
+                            draggedNode = currentSelection.getNode();
                         }
                         displayAttachedObjectWarning(main, draggedNode);
                         getDelegator().moveNode(draggedNode, lat, lon);
@@ -1498,12 +1495,12 @@ public class Logic {
             } else { // way dragging and multi-select
                 List<Node> nodes = new ArrayList<>();
                 if (selectedWayCount > 0) { // shouldn't happen but might be a race condition
-                    for (Way w : selectedWays) {
+                    for (Way w : currentSelection.getWays()) {
                         nodes.addAll(w.getNodes());
                     }
                 }
                 if (selectedNodeCount > 0) {
-                    nodes.addAll(selectedNodes);
+                    nodes.addAll(currentSelection.getNodes());
                 }
 
                 displayAttachedObjectWarning(main, nodes);
@@ -1533,7 +1530,7 @@ public class Logic {
             double det = aX * bY - aY * bX;
             int direction = det < 0 ? -1 : 1;
 
-            Way w = selectedWays.get(0);
+            Way w = currentSelection.getWay();
             displayAttachedObjectWarning(main, w);
             getDelegator().rotateWay(w, (float) Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), viewBox);
             startY = absoluteY;
@@ -1665,8 +1662,8 @@ public class Logic {
             createCheckpoint(activity, R.string.undo_action_add);
         }
         Node nextNode;
-        Node lSelectedNode = selectedNodes != null && !selectedNodes.isEmpty() ? selectedNodes.get(0) : null;
-        Way lSelectedWay = selectedWays != null && !selectedWays.isEmpty() ? selectedWays.get(0) : null;
+        Node lSelectedNode = getSelectedNode();
+        Way lSelectedWay = getSelectedWay();
 
         try {
             nextNode = snap ? getClickedNodeOrCreatedWayNode(x, y) : getClickedNode(x, y);
@@ -1830,7 +1827,7 @@ public class Logic {
     @Nullable
     public synchronized Node performAddOnWay(@Nullable Activity activity, @Nullable List<Way> ways, final float x, final float y, boolean forceNew)
             throws OsmIllegalOperationException {
-        Node savedSelectedNode = selectedNodes != null && !selectedNodes.isEmpty() ? selectedNodes.get(0) : null;
+        Node savedSelectedNode = getSelectedNode();
         Node newSelectedNode = addOnWay(activity, ways, x, y, forceNew);
         if (newSelectedNode == null) {
             setSelectedNode(savedSelectedNode);
@@ -4350,13 +4347,8 @@ public class Logic {
      * @param selectedNode node to select
      */
     public synchronized void setSelectedNode(@Nullable final Node selectedNode) {
-        if (selectedNode != null) { // always restart
-            selectedNodes = new LinkedList<>();
-            selectedNodes.add(selectedNode);
-        } else {
-            selectedNodes = null;
-        }
-        map.setSelectedNodes(selectedNodes);
+        selectionStack.getLast().setNode(selectedNode);
+        map.setSelectedNodes(selectionStack.getLast().getNodes());
         resetFilterCache();
     }
 
@@ -4366,14 +4358,35 @@ public class Logic {
      * @param selectedNode node to add to selection
      */
     public synchronized void addSelectedNode(@NonNull final Node selectedNode) {
-        if (selectedNodes == null) {
-            setSelectedNode(selectedNode);
-        } else {
-            if (!selectedNodes.contains(selectedNode)) {
-                selectedNodes.add(selectedNode);
-            }
-        }
+        selectionStack.getLast().add(selectedNode);
         resetFilterCache();
+    }
+
+    /**
+     * @return the selectedNode (currently simply the first in the list)
+     */
+    @Nullable
+    public final synchronized Node getSelectedNode() {
+        return selectionStack.getLast().getNode();
+    }
+
+    /**
+     * Get list of selected nodes
+     * 
+     * @return a List of Nodes that are selected
+     */
+    @Nullable
+    public List<Node> getSelectedNodes() {
+        return selectionStack.getLast().getNodes();
+    }
+
+    /**
+     * Return how many nodes are selected
+     * 
+     * @return a count of the selected Nodes
+     */
+    public int selectedNodesCount() {
+        return selectionStack.getLast().nodeCount();
     }
 
     /**
@@ -4382,11 +4395,7 @@ public class Logic {
      * @param node node to remove from selection
      */
     public synchronized void removeSelectedNode(@NonNull Node node) {
-        if (selectedNodes != null) {
-            selectedNodes.remove(node);
-            if (selectedNodes.isEmpty()) {
-                selectedNodes = null;
-            }
+        if (selectionStack.getLast().remove(node)) {
             resetFilterCache();
         }
     }
@@ -4397,13 +4406,8 @@ public class Logic {
      * @param selectedWay way to select
      */
     public synchronized void setSelectedWay(@Nullable final Way selectedWay) {
-        if (selectedWay != null) { // always restart
-            selectedWays = new LinkedList<>();
-            selectedWays.add(selectedWay);
-        } else {
-            selectedWays = null;
-        }
-        map.setSelectedWays(selectedWays);
+        selectionStack.getLast().setWay(selectedWay);
+        map.setSelectedWays(selectionStack.getLast().getWays());
         resetFilterCache();
     }
 
@@ -4413,14 +4417,35 @@ public class Logic {
      * @param selectedWay way to add to selection
      */
     public synchronized void addSelectedWay(@NonNull final Way selectedWay) {
-        if (selectedWays == null) {
-            setSelectedWay(selectedWay);
-        } else {
-            if (!selectedWays.contains(selectedWay)) {
-                selectedWays.add(selectedWay);
-            }
-        }
+        selectionStack.getLast().add(selectedWay);
         resetFilterCache();
+    }
+
+    /**
+     * @return the selectedWay (currently simply the first in the list)
+     */
+    @Nullable
+    public final synchronized Way getSelectedWay() {
+        return selectionStack.getLast().getWay();
+    }
+
+    /**
+     * Get list of selected ways
+     * 
+     * @return a List of Ways that are selected
+     */
+    @Nullable
+    public List<Way> getSelectedWays() {
+        return selectionStack.getLast().getWays();
+    }
+
+    /**
+     * Return how many ways are selected
+     * 
+     * @return a count of the selected Ways
+     */
+    public int selectedWaysCount() {
+        return selectionStack.getLast().wayCount();
     }
 
     /**
@@ -4429,11 +4454,7 @@ public class Logic {
      * @param way way to de-select
      */
     public synchronized void removeSelectedWay(@NonNull Way way) {
-        if (selectedWays != null) {
-            selectedWays.remove(way);
-            if (selectedWays.isEmpty()) {
-                selectedWays = null;
-            }
+        if (selectionStack.getLast().remove(way)) {
             resetFilterCache();
         }
     }
@@ -4444,12 +4465,7 @@ public class Logic {
      * @param selectedRelation relation to select
      */
     public synchronized void setSelectedRelation(@Nullable final Relation selectedRelation) {
-        if (selectedRelation != null) { // always restart
-            selectedRelations = new LinkedList<>();
-            selectedRelations.add(selectedRelation);
-        } else {
-            selectedRelations = null;
-        }
+        selectionStack.getLast().setRelation(selectedRelation);
         if (selectedRelation != null) {
             setSelectedRelationMembers(selectedRelation);
         }
@@ -4462,14 +4478,11 @@ public class Logic {
      * @param relation relation to remove from selection
      */
     public synchronized void removeSelectedRelation(@NonNull Relation relation) {
-        if (selectedRelations != null) {
-            selectedRelations.remove(relation);
+        if (selectionStack.getLast().remove(relation)) {
             setSelectedRelationNodes(null); // de-select all
             setSelectedRelationWays(null);
-            if (selectedRelations.isEmpty()) {
-                selectedRelations = null;
-            } else {
-                for (Relation r : selectedRelations) { // re-select
+            if (selectionStack.getLast().relationCount() > 0) {
+                for (Relation r : getSelectedRelations()) { // re-select
                     setSelectedRelationMembers(r);
                 }
             }
@@ -4483,15 +4496,27 @@ public class Logic {
      * @param selectedRelation relation to add to selection
      */
     public synchronized void addSelectedRelation(@NonNull final Relation selectedRelation) {
-        if (selectedRelations == null) {
-            setSelectedRelation(selectedRelation);
-        } else {
-            if (!selectedRelations.contains(selectedRelation)) {
-                selectedRelations.add(selectedRelation);
-                setSelectedRelationMembers(selectedRelation);
-            }
-        }
+        selectionStack.getLast().add(selectedRelation);
+        setSelectedRelationMembers(selectedRelation);
         resetFilterCache();
+    }
+
+    /**
+     * Get list of selected RelaTions
+     * 
+     * @return a List of Relations that are selected
+     */
+    public List<Relation> getSelectedRelations() {
+        return selectionStack.getLast().getRelations();
+    }
+
+    /**
+     * Return how many Relations are selected
+     * 
+     * @return a count of the selected Relations
+     */
+    public int selectedRelationsCount() {
+        return selectionStack.getLast().relationCount();
     }
 
     /**
@@ -4500,32 +4525,9 @@ public class Logic {
      * @param elements a List of OsmElement to select
      */
     public synchronized void setSelection(@NonNull List<OsmElement> elements) {
+        Selection currentSelection = selectionStack.getLast();
         for (OsmElement e : elements) {
-            switch (e.getName()) {
-            case Node.NAME:
-                if (selectedNodes == null) {
-                    setSelectedNode((Node) e);
-                } else if (!selectedNodes.contains(e)) {
-                    selectedNodes.add((Node) e);
-                }
-                break;
-            case Way.NAME:
-                if (selectedWays == null) {
-                    setSelectedWay((Way) e);
-                } else if (!selectedWays.contains(e)) {
-                    selectedWays.add((Way) e);
-                }
-                break;
-            case Relation.NAME:
-                if (selectedRelations == null) {
-                    setSelectedRelation((Relation) e);
-                } else if (!selectedRelations.contains(e)) {
-                    selectedRelations.add((Relation) e);
-                }
-                break;
-            default:
-                Log.e(DEBUG_TAG, "Unknown element type " + e.getName());
-            }
+            currentSelection.add(e);
         }
         resetFilterCache();
     }
@@ -4540,94 +4542,6 @@ public class Logic {
     }
 
     /**
-     * @return the selectedNode (currently simply the first in the list)
-     */
-    @Nullable
-    public final synchronized Node getSelectedNode() {
-        if (selectedNodes != null && !selectedNodes.isEmpty()) {
-            if (!exists(selectedNodes.get(0))) {
-                selectedNodes = null; // clear selection if node was deleted
-                return null;
-            } else {
-                return selectedNodes.get(0);
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Get list of selected nodes
-     * 
-     * @return a List of Nodes that are selected
-     */
-    @Nullable
-    public List<Node> getSelectedNodes() {
-        return selectedNodes;
-    }
-
-    /**
-     * Return how many nodes are selected
-     * 
-     * @return a count of the selected Nodes
-     */
-    public int selectedNodesCount() {
-        return selectedNodes == null ? 0 : selectedNodes.size();
-    }
-
-    /**
-     * @return the selectedWay (currently simply the first in the list)
-     */
-    @Nullable
-    public final synchronized Way getSelectedWay() {
-        if (selectedWays != null && !selectedWays.isEmpty()) {
-            if (!exists(selectedWays.get(0))) {
-                selectedWays = null; // clear selection if node was deleted
-                return null;
-            } else {
-                return selectedWays.get(0);
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Get list of selected ways
-     * 
-     * @return a List of Ways that are selected
-     */
-    @Nullable
-    public List<Way> getSelectedWays() {
-        return selectedWays;
-    }
-
-    /**
-     * Return how many ways are selected
-     * 
-     * @return a count of the selected Ways
-     */
-    public int selectedWaysCount() {
-        return selectedWays == null ? 0 : selectedWays.size();
-    }
-
-    /**
-     * Get list of selected RelaTions
-     * 
-     * @return a List of Relations that are selected
-     */
-    public List<Relation> getSelectedRelations() {
-        return selectedRelations;
-    }
-
-    /**
-     * Return how many Relations are selected
-     * 
-     * @return a count of the selected Relations
-     */
-    public int selectedRelationsCount() {
-        return selectedRelations == null ? 0 : selectedRelations.size();
-    }
-
-    /**
      * Get all current selected OsmElements
      * 
      * @return a List, potentially empty, containing all seleced elemetns
@@ -4635,12 +4549,16 @@ public class Logic {
     @NonNull
     public synchronized List<OsmElement> getSelectedElements() {
         List<OsmElement> result = new ArrayList<>();
+        final Selection currentSelection = selectionStack.getLast();
+        List<Node> selectedNodes = currentSelection.getNodes();
         if (selectedNodes != null) {
             result.addAll(selectedNodes);
         }
+        List<Way> selectedWays = currentSelection.getWays();
         if (selectedWays != null) {
             result.addAll(selectedWays);
         }
+        List<Relation> selectedRelations = currentSelection.getRelations();
         if (selectedRelations != null) {
             result.addAll(selectedRelations);
         }
@@ -4654,18 +4572,19 @@ public class Logic {
      */
     boolean resyncSelected() {
         boolean result = false;
+        final Storage currentStorage = getDelegator().getCurrentStorage();
         if (selectedNodesCount() > 0) {
-            for (Node n : new ArrayList<>(selectedNodes)) {
-                if (!getDelegator().getCurrentStorage().contains(n)) {
-                    selectedNodes.remove(n);
+            for (Node n : new ArrayList<>(getSelectedNodes())) {
+                if (!currentStorage.contains(n)) {
+                    removeSelectedNode(n);
                     result = true;
                 }
             }
         }
         if (selectedWaysCount() > 0) {
-            for (Way w : new ArrayList<>(selectedWays)) {
-                if (!getDelegator().getCurrentStorage().contains(w)) {
-                    selectedWays.remove(w);
+            for (Way w : new ArrayList<>(getSelectedWays())) {
+                if (!currentStorage.contains(w)) {
+                    removeSelectedWay(w);
                     result = true;
                 }
             }
@@ -4673,9 +4592,9 @@ public class Logic {
         if (selectedRelationsCount() > 0) {
             setSelectedRelationNodes(null); // de-select all
             setSelectedRelationWays(null);
-            for (Relation r : new ArrayList<>(selectedRelations)) {
-                if (!getDelegator().getCurrentStorage().contains(r)) {
-                    selectedRelations.remove(r);
+            for (Relation r : new ArrayList<>(getSelectedRelations())) {
+                if (!currentStorage.contains(r)) {
+                    removeSelectedRelation(r);
                     result = true;
                 } else {
                     setSelectedRelationMembers(r);
@@ -4692,14 +4611,7 @@ public class Logic {
      * @return true is e is selected
      */
     public synchronized boolean isSelected(@Nullable OsmElement e) {
-        if (e instanceof Node) {
-            return selectedNodes != null && selectedNodes.contains(e);
-        } else if (e instanceof Way) {
-            return selectedWays != null && selectedWays.contains(e);
-        } else if (e instanceof Relation) {
-            return selectedRelations != null && selectedRelations.contains(e);
-        }
-        return false;
+        return e != null && selectionStack.getLast().contains(e);
     }
 
     /**
@@ -4799,9 +4711,8 @@ public class Logic {
         map.setViewBox(viewBox);
         if (deselect) {
             map.deselectObjects();
-            setSelectedNode(null);
-            setSelectedWay(null);
-            setSelectedRelation(null);
+            selectionStack.getLast().reset();
+            resetFilterCache();
         }
         invalidateMap();
     }
@@ -5286,6 +5197,62 @@ public class Logic {
         setSelectedRelation(null);
         setSelectedRelationNodes(null);
         setSelectedRelationWays(null);
+    }
+
+    /**
+     * Get the current stack of selections
+     * 
+     * @return the selection stack
+     */
+    @NonNull
+    public synchronized Deque<Selection> getSelectionStack() {
+        return selectionStack;
+    }
+
+    /**
+     * Set the stack of selections
+     * 
+     * @param stack the stack we want to set
+     */
+    public synchronized void setSelectionStack(@NonNull Deque<Selection> stack) {
+        if (!stack.isEmpty()) { // the stack needs to have at least one element
+            selectionStack.clear();
+            selectionStack.addAll(stack);
+            selectFromTop();
+        } else {
+            Log.e(DEBUG_TAG, "Attempt to set empty selection stack");
+        }
+    }
+
+    /**
+     * Do map and filter setup from current top of selection stack
+     */
+    private void selectFromTop() {
+        final Selection currentSelection = selectionStack.getLast();
+        map.setSelectedNodes(currentSelection.getNodes());
+        map.setSelectedWays(currentSelection.getWays());
+        reselectRelationMembers();
+        resetFilterCache();
+    }
+
+    /**
+     * Pop the current selection from the stack and select everything from the new top
+     */
+    public synchronized void popSelection() {
+        if (selectionStack.size() > 1) {
+            selectionStack.pop();
+            selectFromTop();
+        } else {
+            Log.e(DEBUG_TAG, "Attempt to pop last selection from stack");
+        }
+    }
+
+    /**
+     * Push a new empty Selection and reset everything
+     */
+    public synchronized void pushSelection() {
+        selectionStack.add(new Selection());
+        selectFromTop();
     }
 
     /**

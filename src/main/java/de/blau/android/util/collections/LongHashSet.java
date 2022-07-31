@@ -152,16 +152,16 @@ public class LongHashSet implements Serializable {
     }
 
     /**
-     * Add all elements from map
+     * Add all longs from an array
      * 
-     * @param map
+     * @param array the long array
      */
-    // public void putAll(LongHashSet map) {
-    // ensureCapacity(m_data.length + map.size());
-    // for (Long e : map) { // trivial implementation for now
-    // put(e);
-    // }
-    // }
+    public void putAll(@NonNull long[] array) {
+        ensureCapacity(m_data.length + array.length);
+        for (long e : array) { // trivial implementation for now
+            put(e);
+        }
+    }
 
     /**
      * Remove element with the specified value from the set, does not shrink the underlying array
