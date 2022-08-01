@@ -112,6 +112,21 @@ public class PresetTest {
     }
 
     /**
+    * Test that we match a multipolygon properly
+    */
+   @Test
+   public void matching3() {
+       //
+       Map<String, String> tags = new HashMap<>();
+       tags.put(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON);
+       tags.put(Tags.KEY_PLACE, "farm");
+       PresetItem match = Preset.findBestMatch(presets, tags,  null, ElementType.RELATION, false);
+       assertEquals("Multipolygon", match.getName());
+       match = Preset.findBestMatch(presets, tags,  null, null, false);
+       assertEquals("Farm", match.getName());
+   }
+    
+    /**
      * Remove an item
      */
     @Test
