@@ -194,7 +194,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                 Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, id);
                 Set<RelationMemberPosition> rmps = parents.get(id);
                 for (RelationMemberPosition rmp : rmps) {
-                    insertNewMembership(membershipVerticalLayout, rmp.getRole(), r, elementType, rmp.getPosition(), 0, false);
+                    insertNewMembership(membershipVerticalLayout, rmp.getRole(), r, elementType, rmp.getPosition(), -1, false);
                 }
             }
         }
@@ -692,7 +692,9 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             while (!(pv instanceof RelationMembershipRow)) {
                 pv = pv.getParent();
             }
-            ((RelationMembershipRow) pv).setRelation(pos, relation);
+            if (relation.getOsmId() != ((RelationMembershipRow) pv).relationId) {
+                ((RelationMembershipRow) pv).setRelation(pos, relation);
+            }
         } else {
             Log.d(DEBUG_TAG, "onItemselected view or relation is null");
         }
