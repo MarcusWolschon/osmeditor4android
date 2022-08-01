@@ -1790,9 +1790,13 @@ public class Preset {
                     // downgrade so much that recommended tags can't compensate
                     matches -= 200;
                 }
-                if (elementType != null && !possibleMatch.appliesTo(elementType)) {
-                    // downgrade even more
-                    matches -= 200;
+                if (elementType != null) {
+                    if (!possibleMatch.appliesTo(elementType)) {
+                        // downgrade even more
+                        matches -= 200;
+                    } else if (ElementType.RELATION == elementType && possibleMatch.isFixedTag(Tags.KEY_TYPE)) {
+                        matches += 2 * FIXED_WEIGHT; // prioritize actual relation presets
+                    }
                 }
                 if (recommendedTagCount > 0) {
                     matches = matches + possibleMatch.matchesRecommended(tags);
