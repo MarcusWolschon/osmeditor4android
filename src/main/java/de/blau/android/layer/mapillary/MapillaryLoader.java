@@ -109,7 +109,7 @@ class MapillaryLoader extends ImageLoader {
                                         sb.append((char) cp);
                                     }
                                     JsonElement root = JsonParser.parseString(sb.toString());
-                                    if (root.isJsonObject()) {
+                                    if (root.isJsonObject() && ((JsonObject) root).has(THUMB_2048_URL_FIELD)) {
                                         String url2048 = ((JsonObject) root).get(THUMB_2048_URL_FIELD).getAsString();
                                         request = new Request.Builder().url(url2048).build();
                                         mapillaryCall = client.newCall(request);
@@ -140,11 +140,14 @@ class MapillaryLoader extends ImageLoader {
                                                 }
                                             }
                                         }
+                                    } else {
+                                        throw new IOException("Unexpected / missing response");
                                     }
                                 }
                             }
                         } else {
-                            Log.e(DEBUG_TAG, "Download of " + key + " failed with " + mapillaryCallResponse.code() + " " + mapillaryCallResponse.message());
+                            throw new IOException(
+                                    "Download of " + key + " failed with " + mapillaryCallResponse.code() + " " + mapillaryCallResponse.message());
                         }
                     } catch (IOException e) {
                         Log.e(DEBUG_TAG, e.getMessage());
