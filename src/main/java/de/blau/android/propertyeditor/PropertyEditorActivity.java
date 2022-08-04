@@ -22,8 +22,10 @@ import androidx.fragment.app.FragmentTransaction;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElement;
@@ -92,11 +94,11 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         Logic logic = App.getLogic();
+        boolean reloadData = false;
         if (logic == null) {
-            super.onCreate(savedInstanceState); // have to call through first
-            // cause for this is currently unknown, but it isn't recoverable
-            abort("Logic is null");
-            return;
+            logic = App.newLogic();
+            Log.i(DEBUG_TAG, "onCreate - creating new logic");
+            reloadData = true;
         }
         Preferences prefs = logic.getPrefs();
         if (prefs == null) {
@@ -110,33 +112,42 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
 
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState == null) { // adding to the backstack implies that restoring will happen automatically
-            Log.d(DEBUG_TAG, "Initializing from intent");
-            PropertyEditorData[] loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_DATA));
-            boolean applyLastAddressTags = (Boolean) getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_LAST_ADDRESS_TAGS);
-            boolean showPresets = (Boolean) getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_SHOW_PRESETS);
-            HashMap<String, String> extraTags = (HashMap<String, String>) getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_EXTRA_TAGS);
-            ArrayList<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getIntent()
-                    .getSerializableExtra(PropertyEditorFragment.TAGEDIT_PRESETSTOAPPLY);
-            Boolean usePaneLayout = (Boolean) getIntent().getSerializableExtra(PropertyEditorFragment.PANELAYOUT);
+        PostAsyncActionHandler postLoadData = () -> {
+            if (savedInstanceState == null) { // adding to the backstack implies that restoring will happen
+                                              // automatically
+                Log.d(DEBUG_TAG, "Initializing from intent");
+                PropertyEditorData[] loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_DATA));
+                boolean applyLastAddressTags = (Boolean) getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_LAST_ADDRESS_TAGS);
+                boolean showPresets = (Boolean) getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_SHOW_PRESETS);
+                HashMap<String, String> extraTags = (HashMap<String, String>) getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_EXTRA_TAGS);
+                ArrayList<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getIntent()
+                        .getSerializableExtra(PropertyEditorFragment.TAGEDIT_PRESETSTOAPPLY);
+                Boolean usePaneLayout = (Boolean) getIntent().getSerializableExtra(PropertyEditorFragment.PANELAYOUT);
 
-            // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
-            // selected
-            if (presetsToApply != null && !presetsToApply.isEmpty()) {
-                PresetElement alternativeRootElement = Preset.getElementByPath(App.getCurrentRootPreset(this).getRootGroup(), presetsToApply.get(0));
-                showPresets = alternativeRootElement instanceof PresetGroup;
+                // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
+                // selected
+                if (presetsToApply != null && !presetsToApply.isEmpty()) {
+                    PresetElement alternativeRootElement = Preset.getElementByPath(App.getCurrentRootPreset(this).getRootGroup(), presetsToApply.get(0));
+                    showPresets = alternativeRootElement instanceof PresetGroup;
+                }
+
+                Log.d(DEBUG_TAG, "... done.");
+
+                // sanity check
+                if (loadData == null) {
+                    abort("loadData null");
+                    return;
+                }
+
+                addFragment(getSupportFragmentManager(), android.R.id.content, loadData, applyLastAddressTags, showPresets, extraTags, presetsToApply,
+                        usePaneLayout);
             }
+        };
 
-            Log.d(DEBUG_TAG, "... done.");
-
-            // sanity check
-            if (loadData == null) {
-                abort("loadData null");
-                return;
-            }
-
-            addFragment(getSupportFragmentManager(), android.R.id.content, loadData, applyLastAddressTags, showPresets, extraTags, presetsToApply,
-                    usePaneLayout);
+        if (reloadData && StorageDelegator.isStateAvailable(this) && !App.getDelegator().isDirty()) {
+            logic.loadStateFromFile(this, postLoadData);
+        } else {
+            postLoadData.onSuccess();
         }
     }
 

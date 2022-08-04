@@ -3835,7 +3835,7 @@ public class Logic {
      * @param postLoad a callback to call after loading
      * 
      */
-    void loadStateFromFile(@NonNull final FragmentActivity activity, @Nullable final PostAsyncActionHandler postLoad) {
+    public void loadStateFromFile(@NonNull final FragmentActivity activity, @Nullable final PostAsyncActionHandler postLoad) {
 
         final int READ_FAILED = 0;
         final int READ_OK = 1;
@@ -3856,18 +3856,26 @@ public class Logic {
             @Override
             protected Integer doInBackground(Void v) {
                 if (getDelegator().readFromFile(activity)) {
-                    if (mainMap != null) {
-                        viewBox.setBorders(mainMap, getDelegator().getLastBox());
-                    }
+                    setBorders(mainMap);
                     return READ_OK;
-                } else if (getDelegator().readFromFile(activity, StorageDelegator.FILENAME + ".backup")) {
+                }
+                if (getDelegator().readFromFile(activity, StorageDelegator.FILENAME + ".backup")) {
                     getDelegator().dirty(); // we need to overwrite the saved state asap
-                    if (mainMap != null) {
-                        viewBox.setBorders(mainMap, getDelegator().getLastBox());
-                    }
+                    setBorders(mainMap);
                     return READ_BACKUP;
                 }
                 return READ_FAILED;
+            }
+
+            /**
+             * Set the size of the ViewBox
+             * 
+             * @param map the Map instance
+             */
+            private void setBorders(@Nullable final Map map) {
+                if (map != null) {
+                    viewBox.setBorders(map, getDelegator().getLastBox());
+                }
             }
 
             @Override

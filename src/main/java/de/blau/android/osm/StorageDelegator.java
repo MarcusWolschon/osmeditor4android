@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
@@ -173,6 +174,20 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         return factory;
     }
 
+    /**
+     * Checks if a serialized {@link StorageDelegator} file is available.
+     * 
+     * @param context an Android context
+     * @return true, when the file is available, otherwise false.
+     */
+    public static boolean isStateAvailable(@NonNull Context context) {
+        try (FileInputStream in = context.openFileInput(FILENAME)) {
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+    
     /**
      * Insert a new element in to storage
      * 

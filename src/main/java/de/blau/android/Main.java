@@ -1,7 +1,6 @@
 package de.blau.android;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -599,7 +598,7 @@ public class Main extends FullScreenAppCompatActivity
         App.getLogic().setMap(map, true);
 
         Log.d(DEBUG_TAG, "StorageDelegator dirty is " + App.getDelegator().isDirty());
-        if (isLastActivityAvailable() && !App.getDelegator().isDirty()) {
+        if (StorageDelegator.isStateAvailable(this) && !App.getDelegator().isDirty()) {
             // data was modified while we were stopped if isDirty is true
             // Start loading after resume to ensure loading dialog can be
             // removed afterwards
@@ -2917,19 +2916,6 @@ public class Main extends FullScreenAppCompatActivity
         Log.d(DEBUG_TAG, "onLowMemory");
         super.onLowMemory();
         map.onLowMemory();
-    }
-
-    /**
-     * TODO: put this in Logic!!! Checks if a serialized {@link StorageDelegator} file is available.
-     * 
-     * @return true, when the file is available, otherwise false.
-     */
-    private boolean isLastActivityAvailable() {
-        try (FileInputStream in = openFileInput(StorageDelegator.FILENAME)) {
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
     }
 
     /**
