@@ -1023,11 +1023,13 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     public void onPresetSelected(PresetItem item, boolean applyOptional, boolean isAlternative) {
         if (item != null && tagEditorFragment != null) {
             tagEditorFragment.applyPreset(item, applyOptional, isAlternative, true);
-            if (tagFormFragment != null) {
-                tagFormFragment.update();
-                mViewPager.setCurrentItem(tagFormFragmentPosition);
-            } else {
-                mViewPager.setCurrentItem(tagEditorFragmentPosition);
+            if (mViewPager.getCurrentItem() != tagEditorFragmentPosition) {
+                if (tagFormFragment != null) {
+                    tagFormFragment.update();
+                    mViewPager.setCurrentItem(tagFormFragmentPosition);
+                } else {
+                    mViewPager.setCurrentItem(tagEditorFragmentPosition);
+                }
             }
             // utility presets need to be explicitly added, while this duplicates adding item in other cases
             // it has the nice side effect of moving item to the top

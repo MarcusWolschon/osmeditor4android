@@ -128,6 +128,8 @@ public class CustomPresetTest {
             fail(e.getMessage());
         }
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+        // go to tag form tab
+        assertTrue(TestUtils.clickText(device, true, main.getString( R.string.menu_tags), false, false));
         // go to preset tab
         assertTrue(TestUtils.findText(device, true, main.getString(R.string.tag_menu_preset), 2000));
         if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
