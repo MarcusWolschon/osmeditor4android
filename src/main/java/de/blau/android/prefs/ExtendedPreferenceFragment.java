@@ -85,7 +85,7 @@ public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompa
     /**
      * Set the summary of an EditText preference from its current value and add an OnPreferenceChangeListener
      * 
-     * @param keyResource resource id for the key of the ListPreference
+     * @param keyResource resource id for the key of the EditTextPreference
      * @param restart if true point the user to the fact that he needs to restart
      */
     public void setEditTextPreferenceSummary(int keyResource, boolean restart) {

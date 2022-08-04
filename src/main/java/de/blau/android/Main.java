@@ -2610,8 +2610,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     @NonNull
     private File getImageFile() throws IOException {
-        File outDir = FileUtil.getPublicDirectory();
-        outDir = FileUtil.getPublicDirectory(outDir, Paths.DIRECTORY_PATH_PICTURES);
+        File outDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_PICTURES);
         String imageFileName = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
         File newImageFile = File.createTempFile(imageFileName, Paths.FILE_EXTENSION_IMAGE, outDir);
         Log.d(DEBUG_TAG, "getImageFile " + newImageFile.getAbsolutePath());

@@ -76,6 +76,11 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         setRestartRequiredMessage(R.string.config_preferRemovableStorage_key);
         setRestartRequiredMessage(R.string.config_mapillary_min_zoom_key);
         setListPreferenceSummary(R.string.config_nameCap_key, false);
+        setRestartRequiredMessage(R.string.config_autosaveSaveState_key);
+        setRestartRequiredMessage(R.string.config_autosaveSaveChanges_key);
+        setRestartRequiredMessage(R.string.config_autosaveInterval_key);
+        setRestartRequiredMessage(R.string.config_autosaveChanges_key);
+        setRestartRequiredMessage(R.string.config_autosaveMaxFiles_key);
         setTitle();
     }
 

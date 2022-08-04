@@ -68,8 +68,8 @@
     <string name="config_showWayIcons_key">showWayIcons</string>
     <string name="config_tagFormEnabled_key">tagFormEnabled</string>
     <string name="config_followGPSbutton_key">followGPSbutton</string>
-    <string name="config_fullscreenMode_key">fullscreenMode</string>  
-    <string name="config_mapOrientation_key">mapOrientation</string>     
+    <string name="config_fullscreenMode_key">fullscreenMode</string>
+    <string name="config_mapOrientation_key">mapOrientation</string>
     <string name="config_alwaysDrawBoundingBoxes_key">alwaysDrawBoundingBoxes</string>
     <string name="config_geocoder_key">geocoder</string>
     <string name="config_geocoderLimit_key">geocoderLimit</string>
@@ -92,12 +92,11 @@
     <string name="config_nameCap_key">nameCap</string>
     <string name="config_indexMediaStore_key">indexMediaStore</string>
     <string name="config_wayNodeDragging_key">wayNodeDragging</string>
-    
-	<!-- Preference keys used in the pref editor(s) int prefs -->
-	<string name="config_maxInlineValues_key">maxInlineValuesInt</string>
-	<string name="config_autoLockDelay_key">autoLockDelayInt</string>
-	<string name="config_notificationCacheSize_key">notificationCacheSizeInt</string>
-	<string name="config_maxAlertDistance_key">maxAlertDistanceInt</string>
+    <!-- Preference keys used in the pref editor(s) int prefs -->
+    <string name="config_maxInlineValues_key">maxInlineValuesInt</string>
+    <string name="config_autoLockDelay_key">autoLockDelayInt</string>
+    <string name="config_notificationCacheSize_key">notificationCacheSizeInt</string>
+    <string name="config_maxAlertDistance_key">maxAlertDistanceInt</string>
     <string name="config_extTriggeredDownloadRadius_key">extTriggeredDownloadRadiusInt</string>
     <string name="config_maxDownloadSpeed_key">maxDownloadSpeedInt</string>
     <string name="config_autoPruneNodeLimit_key">autoPruneNodeLimit</string>
@@ -107,9 +106,9 @@
     <string name="config_maxBugDownloadSpeed_key">maxBugDownloadSpeedInt</string>
     <string name="config_maxTileDownloadThreads_key">maxTileDownloadThreadsInt</string>
     <string name="config_tileCacheSize_key">tileCacheSizeInt</string>
-    <string name="config_maxStrokeWidth_key">maxStrokeWidthInt</string> 
+    <string name="config_maxStrokeWidth_key">maxStrokeWidthInt</string>
     <string name="config_gps_distance_key">distanceInt</string>
-    <string name="config_gps_interval_key">intervalInt</string>  
+    <string name="config_gps_interval_key">intervalInt</string>
     <string name="config_gps_network_key">gpsNetwork</string>
     <string name="config_gnssTimeToStale_key">gnssTimeToStale</string>
     <string name="config_connectedNodeTolerance_key">connectedNodeTolerance</string>
@@ -122,19 +121,17 @@
     <string name="config_beepVolume_key">beepVolume</string>
     <string name="config_maxOffsetDistance_key">maxOffsetDistance</string>
     <string name="config_mapillary_min_zoom_key">mapillaryMinZoom</string>
-
     <string name="gps_source_internal">internal</string>
     <string name="gps_source_nmea">nmea</string>
     <string name="gps_source_tcpclient">tcpclient</string>
     <string name="gps_source_tcpserver">tcpserver</string>
     <string-array name="gps_source_keys">
-	   <item>@string/gps_source_internal</item>
-	   <item>@string/gps_source_nmea</item>
-	   <item>@string/gps_source_tcpclient</item>
-	   <item>@string/gps_source_tcpserver</item>
-	</string-array>
-	<string name="config_gps_source_tcp_key">gpsTcpSourceKey</string>
-    
+        <item>@string/gps_source_internal</item>
+        <item>@string/gps_source_nmea</item>
+        <item>@string/gps_source_tcpclient</item>
+        <item>@string/gps_source_tcpserver</item>
+    </string-array>
+    <string name="config_gps_source_tcp_key">gpsTcpSourceKey</string>
     <!-- Last directories used in the file selector -->
     <string name="config_gpxPreferredDir_key">gpxPreferredDir</string>
     <string name="config_osmPreferredDir_key">osmPreferredDir</string>
@@ -143,10 +140,15 @@
     <string name="config_mbtilesPreferredDir_key">mbtilesPreferredDir</string>
     <string name="config_presetsPreferredDir_key">presetsPreferredDir</string>
     <string name="config_msfPreferredDir_key">msfPreferredDir</string>
-    
     <!-- Toggle used in the DowloadActivity -->
     <string name="config_allowAllNetworks_key">allowAllNetworks</string>
-    
-    <!--  EGM -->
+    <!-- EGM -->
     <string name="config_egmFile_key">egmFile</string>
+    <!-- autosave -->
+    <string name="config_autosave_category_key">autosave</string>
+    <string name="config_autosaveSaveState_key">autosaveSaveState</string>
+    <string name="config_autosaveSaveChanges_key">autosaveSaveChanges</string>
+    <string name="config_autosaveInterval_key">autosaveInterval</string>
+    <string name="config_autosaveChanges_key">autosaveChanges</string>
+    <string name="config_autosaveMaxFiles_key">autosaveMaxFiles</string>
 </resources>

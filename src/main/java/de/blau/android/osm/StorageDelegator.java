@@ -2873,7 +2873,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * Exports changes as a OsmChange file.
      */
     @Override
-    public void export(OutputStream outputStream) throws Exception {
+    public synchronized void export(OutputStream outputStream) throws Exception {
         OsmXml.writeOsmChange(getApiStorage(), outputStream, null, Integer.MAX_VALUE, App.getUserAgent());
     }
 

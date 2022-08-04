@@ -385,7 +385,7 @@ public class SavingHelper<T extends Serializable> {
      */
     @Nullable
     public static String export(@Nullable Context ctx, @NonNull Exportable exportable) {
-        String filename = DateFormatter.getFormattedString(DATE_PATTERN_EXPORT_FILE_NAME_PART) + "." + exportable.exportExtension();
+        String filename = getExportFilename(exportable);
         try {
             File outfile = new File(FileUtil.getPublicDirectory(), filename);
             try (FileOutputStream fout = new FileOutputStream(outfile); OutputStream outputStream = new BufferedOutputStream(fout)) {
@@ -403,6 +403,17 @@ public class SavingHelper<T extends Serializable> {
             }
         }
         return null;
+    }
+
+    /**
+     * Get an automatically generated file name
+     * 
+     * @param exportable the Exportable
+     * @return the filename
+     */
+    @NonNull
+    public static String getExportFilename(@NonNull Exportable exportable) {
+        return DateFormatter.getFormattedString(DATE_PATTERN_EXPORT_FILE_NAME_PART) + "." + exportable.exportExtension();
     }
 
     public interface Exportable {
