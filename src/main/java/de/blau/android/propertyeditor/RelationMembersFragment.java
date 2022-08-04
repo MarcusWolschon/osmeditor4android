@@ -31,6 +31,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import de.blau.android.App;
@@ -69,14 +70,14 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     private static final String MEMBERS_KEY = "members";
     private static final String ID_KEY      = "id";
 
-    public static final String FILENAME_MEMBERS      = "current_members" + "." + FileExtensions.RES;
-    public static final String FILENAME_ORIG_MEMBERS = "orig_members" + "." + FileExtensions.RES;
+    private static final String FILENAME_MEMBERS      = "current_members" + "." + FileExtensions.RES;
+    private static final String FILENAME_ORIG_MEMBERS = "orig_members" + "." + FileExtensions.RES;
 
     private ArrayList<RelationMemberDescription>               savedMembers = null;
     private long                                               id           = -1;
     private SavingHelper<ArrayList<RelationMemberDescription>> savingHelper = new SavingHelper<>();
 
-    private PropertyEditorListener propertyEditorListener;
+    PropertyEditorListener propertyEditorListener;
 
     private static RelationMemberSelectedActionModeCallback memberSelectedActionModeCallback = null;
     private static final Object                             actionModeCallbackLock           = new Object();
@@ -154,11 +155,9 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     @Override
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
-        try {
-            propertyEditorListener = (PropertyEditorListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement PropertyEditorListener");
-        }
+        Fragment parent = getParentFragment();
+        Util.implementsInterface(parent, PropertyEditorListener.class);
+        propertyEditorListener = (PropertyEditorListener) parent;
     }
 
     @Override
@@ -184,7 +183,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "Restoring from saved state");
             id = savedInstanceState.getLong(ID_KEY);
-            members = savingHelper.load(getContext(), FILENAME_MEMBERS, true);
+            members = savingHelper.load(getContext(), Long.toString(id) + FILENAME_MEMBERS, true);
             if (members != null) {
                 for (RelationMemberDescription rmd : members) {
                     rmd.update();
@@ -204,7 +203,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             /*
              * Save to file for undo
              */
-            savingHelper.save(getContext(), FILENAME_ORIG_MEMBERS, members, true);
+            savingHelper.save(getContext(), Long.toString(id) + FILENAME_ORIG_MEMBERS, members, true);
         }
 
         populateMembersInternal(members);
@@ -213,7 +212,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
 
         Preferences prefs = App.getLogic().getPrefs();
         Server server = prefs.getServer();
-        adapter = new RelationMemberAdapter(getContext(), inflater, membersInternal, (buttonView, isChecked) -> {
+        adapter = new RelationMemberAdapter(getContext(), this, inflater, membersInternal, (buttonView, isChecked) -> {
             if (isChecked) {
                 memberSelected(null);
             } else {
@@ -487,7 +486,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         savedMembers = getMembersList();
         outState.putLong(ID_KEY, id);
-        savingHelper.save(getContext(), FILENAME_MEMBERS, savedMembers, true);
+        savingHelper.save(getContext(), Long.toString(id) + FILENAME_MEMBERS, savedMembers, true);
         Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
@@ -509,12 +508,12 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
      */
     public static class RelationMemberRow extends LinearLayout {
 
-        private PropertyEditor       owner;
-        private CheckBox             selected;
-        private AutoCompleteTextView roleEdit;
-        private ImageView            typeView;
-        private TextView             elementView;
-        private TextWatcher          watcher;
+        private RelationMembersFragment owner;
+        private CheckBox                selected;
+        private AutoCompleteTextView    roleEdit;
+        private ImageView               typeView;
+        TextView                        elementView;
+        private TextWatcher             watcher;
 
         private RelationMemberDescription rmd;
 
@@ -525,8 +524,6 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
          */
         public RelationMemberRow(@NonNull Context context) {
             super(context);
-            owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or
-                                                                        // in Eclipse
         }
 
         /**
@@ -537,8 +534,15 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
          */
         public RelationMemberRow(@NonNull Context context, @Nullable AttributeSet attrs) {
             super(context, attrs);
-            owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or
-                                                                        // in Eclipse
+        }
+
+        /**
+         * Set the fragment for this view
+         * 
+         * @param owner the "owning" Fragment
+         */
+        public void setOwner(@NonNull RelationMembersFragment owner) {
+            this.owner = owner;
         }
 
         @Override
@@ -550,7 +554,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             selected = (CheckBox) findViewById(R.id.member_selected);
 
             roleEdit = (AutoCompleteTextView) findViewById(R.id.editMemberRole);
-            roleEdit.setOnKeyListener(PropertyEditor.myKeyListener);
+            roleEdit.setOnKeyListener(PropertyEditorFragment.myKeyListener);
 
             typeView = (ImageView) findViewById(R.id.memberType);
 
@@ -559,7 +563,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             roleEdit.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
                     roleEdit.setAdapter(getMemberRoleAutocompleteAdapter());
-                    if (/* running && */ roleEdit.getText().length() == 0) {
+                    if (roleEdit.getText().length() == 0) {
                         roleEdit.showDropDown();
                     }
                 }
@@ -769,37 +773,36 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         @NonNull
         ArrayAdapter<PresetRole> getMemberRoleAutocompleteAdapter() {
             List<PresetRole> roles = new ArrayList<>();
-            List<LinkedHashMap<String, String>> allTags = owner.getUpdatedTags();
+            PropertyEditorListener listener = (PropertyEditorListener) owner.getParentFragment();
+            List<LinkedHashMap<String, String>> allTags = listener.getUpdatedTags();
             if (allTags != null && !allTags.isEmpty()) {
-                if (owner.presets != null) { //
-                    PresetItem relationPreset = Preset.findBestMatch(owner.presets, allTags.get(0), null);
-                    if (relationPreset != null) {
-                        Map<String, Integer> counter = new HashMap<>();
-                        int position = 0;
-                        List<String> tempRoles = App.getMruTags().getRoles(relationPreset);
-                        if (tempRoles != null) {
-                            for (String role : tempRoles) {
-                                roles.add(new PresetRole(role, null, rmd.getType()));
-                                counter.put(role, position++);
-                            }
+                PresetItem relationPreset = Preset.findBestMatch(listener.getPresets(), allTags.get(0), null);
+                if (relationPreset != null) {
+                    Map<String, Integer> counter = new HashMap<>();
+                    int position = 0;
+                    List<String> tempRoles = App.getMruTags().getRoles(relationPreset);
+                    if (tempRoles != null) {
+                        for (String role : tempRoles) {
+                            roles.add(new PresetRole(role, null, rmd.getType()));
+                            counter.put(role, position++);
                         }
-                        List<PresetRole> tempPresetRoles = rmd.downloaded() ? relationPreset.getRoles(getContext(), rmd.getElement(), null)
-                                : relationPreset.getRoles(rmd.getType());
-                        if (tempPresetRoles != null) {
-                            Collections.sort(tempPresetRoles);
-                            for (PresetRole presetRole : tempPresetRoles) {
-                                Integer counterPos = counter.get(presetRole.getRole());
-                                if (counterPos != null) {
-                                    roles.get(counterPos).setHint(presetRole.getHint());
-                                    continue;
-                                }
-                                roles.add(presetRole);
+                    }
+                    List<PresetRole> tempPresetRoles = rmd.downloaded() ? relationPreset.getRoles(getContext(), rmd.getElement(), null)
+                            : relationPreset.getRoles(rmd.getType());
+                    if (tempPresetRoles != null) {
+                        Collections.sort(tempPresetRoles);
+                        for (PresetRole presetRole : tempPresetRoles) {
+                            Integer counterPos = counter.get(presetRole.getRole());
+                            if (counterPos != null) {
+                                roles.get(counterPos).setHint(presetRole.getHint());
+                                continue;
                             }
+                            roles.add(presetRole);
                         }
                     }
                 }
             }
-            return new ArrayAdapter<>(owner, R.layout.autocomplete_row, roles);
+            return new ArrayAdapter<>(getContext(), R.layout.autocomplete_row, roles);
         }
     }
 
@@ -939,7 +942,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
         case android.R.id.home:
-            ((PropertyEditor) getActivity()).sendResultAndFinish();
+            propertyEditorListener.updateAndFinish();
             return true;
         case R.id.tag_menu_revert:
             doRevert();
@@ -963,7 +966,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
      * reload original member list
      */
     void doRevert() {
-        List<RelationMemberDescription> members = savingHelper.load(getContext(), FILENAME_ORIG_MEMBERS, true);
+        List<RelationMemberDescription> members = savingHelper.load(getContext(), Long.toString(id) + FILENAME_ORIG_MEMBERS, true);
         if (members != null) {
             membersInternal.clear();
             populateMembersInternal(members);

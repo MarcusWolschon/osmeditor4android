@@ -36,5 +36,5 @@ jobs:
       with:
          name: Test output
          path: $GITHUB_WORKSPACE/build/reports/tests/testCurrentDebugUnitTest/
-    - name: Run lint
-      run: ./gradlew lint
+#    - name: Run lint
+#      run: ./gradlew lint

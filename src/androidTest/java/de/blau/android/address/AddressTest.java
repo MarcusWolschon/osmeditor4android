@@ -29,7 +29,7 @@ import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.propertyeditor.PropertyEditorActivity;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -99,10 +99,10 @@ public class AddressTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.longClickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
-        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         TestUtils.clickMenuButton(device, main.getString(R.string.tag_menu_address), false, true);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        Assert.assertTrue(propertyEditor instanceof PropertyEditorActivity);
         Assert.assertTrue(TestUtils.findText(device, false, "Bergstrasse"));
         Assert.assertTrue(TestUtils.clickMenuButton(device, "More options", false, true));
         TestUtils.clickText(device, false, main.getString(R.string.tag_menu_reset_address_prediction), true, false);
@@ -123,10 +123,10 @@ public class AddressTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickSimpleButton(device);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_add_node_address), true));
-        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+        Assert.assertTrue(propertyEditor instanceof PropertyEditorActivity);
         Assert.assertTrue(TestUtils.findText(device, false, "Bergstrasse"));
         Assert.assertTrue(TestUtils.findText(device, false, "35"));
         TestUtils.clickHome(device, true);

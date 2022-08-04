@@ -1,7 +1,13 @@
 package de.blau.android;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.TreeMap;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.acra.ACRA;
 import org.acra.annotation.AcraCore;
@@ -20,12 +26,15 @@ import com.zeugmasolutions.localehelper.LocaleAwareApplication;
 import android.app.Activity;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.preference.PreferenceManager;
+import de.blau.android.contract.Paths;
 import de.blau.android.filter.PresetFilter;
 import de.blau.android.net.OkHttpTlsCompat;
 import de.blau.android.net.UserAgentInterceptor;
@@ -39,11 +48,13 @@ import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.Synonyms;
-import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.propertyeditor.PropertyEditorActivity;
 import de.blau.android.services.util.MapTileFilesystemProvider;
 import de.blau.android.tasks.TaskStorage;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.NotificationCache;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.TagClipboard;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
@@ -164,6 +175,9 @@ public class App extends LocaleAwareApplication implements android.app.Applicati
     private static Configuration configuration = null;
 
     private static boolean propertyEditorRunning;
+
+    private ScheduledThreadPoolExecutor autosaveExecutor = new ScheduledThreadPoolExecutor(1);
+    private ScheduledFuture<?>          autosaveFuture   = null;
 
     @Override
     public void onCreate() {
@@ -736,10 +750,39 @@ public class App extends LocaleAwareApplication implements android.app.Applicati
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        if (activity instanceof PropertyEditor) {
+        if (activity instanceof PropertyEditorActivity) {
             synchronized (this) {
                 propertyEditorRunning = true;
             }
+            return;
+        }
+        if (activity instanceof Main) {
+            Log.i(DEBUG_TAG, "Starting autosave");
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            final boolean saveState = prefs.getBoolean(getString(R.string.config_autosaveSaveState_key), true);
+            final boolean saveChanges = prefs.getBoolean(getString(R.string.config_autosaveSaveChanges_key), true);
+            final int interval = prefs.getInt(getString(R.string.config_autosaveInterval_key), 5);
+            final int changes = prefs.getInt(getString(R.string.config_autosaveChanges_key), 1);
+            final int maxFiles = prefs.getInt(getString(R.string.config_autosaveMaxFiles_key), 5);
+            autosaveFuture = autosaveExecutor.scheduleAtFixedRate(() -> {
+                if (delegator.isDirty() && delegator.getApiElementCount() >= changes) {
+                    if (logic != null && saveState) {
+                        logic.save(this);
+                    }
+                    if (saveChanges) {
+                        try {
+                            final File autosaveDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOSAVE);
+                            File outfile = new File(autosaveDir, SavingHelper.getExportFilename(delegator));
+                            try (FileOutputStream fout = new FileOutputStream(outfile); OutputStream outputStream = new BufferedOutputStream(fout)) {
+                                delegator.export(outputStream);
+                            }
+                            FileUtil.pruneFiles(autosaveDir, maxFiles);
+                        } catch (Exception e) {
+                            Log.e(DEBUG_TAG, "Autosave failed" + e.getMessage());
+                        }
+                    }
+                }
+            }, interval, interval, TimeUnit.MINUTES);
         }
     }
 
@@ -770,10 +813,15 @@ public class App extends LocaleAwareApplication implements android.app.Applicati
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        if (activity instanceof PropertyEditor) {
+        if (activity instanceof PropertyEditorActivity) {
             synchronized (this) {
                 propertyEditorRunning = false;
             }
+            return;
+        }
+        if (activity instanceof Main && autosaveFuture != null) {
+            Log.i(DEBUG_TAG, "Cancelling autosave");
+            autosaveFuture.cancel(false);
         }
     }
 

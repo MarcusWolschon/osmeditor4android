@@ -263,6 +263,31 @@ public final class FileUtil {
     }
 
     /**
+     * Check if a directory contains more than max files and reduce that to 80% by deleting oldest files
+     * 
+     * @param dir the cache directory
+     * @param maxCount the maximum number of files in the directory
+     */
+    public static void pruneFiles(@NonNull File dir, int maxCount) {
+        List<File> fileList = Arrays.asList(dir.listFiles());
+        long count = fileList.size();
+        if (count > maxCount) {
+            maxCount = (int) (0.8 * maxCount); // make 20% free
+            Collections.sort(fileList, (f0, f1) -> Long.compare(f0.lastModified(), f1.lastModified()));
+            for (File f : fileList) {
+                if (f.delete()) { // NOSONAR requires API 26
+                    count--;
+                } else {
+                    Log.e(DEBUG_TAG, "pruneFiles delete failed");
+                }
+                if (count <= maxCount) {
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
      * Unpack a zipped file
      * 
      * Code from http://stackoverflow.com/questions/3382996/how-to-unzip-files-programmatically-in-android

@@ -211,7 +211,7 @@ public class OpeningHoursDialogRow extends MultiselectDialogRow {
                 }
             }
             List<String> isoCodes = caller.propertyEditorListener.getIsoCodes();
-            OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstance(keyWithDescription,
+            OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstanceForFragment(keyWithDescription,
                     isoCodes != null && !isoCodes.isEmpty() ? isoCodes.get(0) : null,
                     preset != null ? Preset.getObjectTag(App.getCurrentPresets(caller.getContext()), caller.getKeyValueMapSingle(false)) : null, finalValue,
                     caller.prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert : R.style.Theme_AppCompat_Dialog_Alert, -1, true, textValues);

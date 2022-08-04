@@ -44,6 +44,7 @@ import androidx.annotation.Nullable;
 import androidx.core.text.HtmlCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import ch.poole.poparser.ParseException;
 import ch.poole.poparser.Po;
@@ -745,5 +746,42 @@ public final class Util {
     public static Locale getPrimaryLocale(@NonNull Resources r) {
         Configuration c = r.getConfiguration();
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? c.getLocales().get(0) : c.locale;
+    }
+
+    /**
+     * Test if an Object implements a list of interfaces, and if not throw an exception
+     * 
+     * Note: as the object will typically be cast to the interface, it would latest fail there, however this improves
+     * logging of the issue a lot
+     * 
+     * @param toTest the Object being tested
+     * @param interfaces the interfaces it should implement
+     */
+    public static void implementsInterface(@Nullable Object toTest, @NonNull Class<?>... interfaces) {
+        for (Class<?> c : interfaces) {
+            if (!(c.isInterface() && c.isInstance(toTest))) {
+                throw new ClassCastException(
+                        toTest != null ? toTest.getClass().getCanonicalName() + " must implement " + c.getCanonicalName() : "class is null");
+            }
+        }
+    }
+
+    /**
+     * Get the parent fragment that implements the specified interfaces
+     * 
+     * @param f the Fragment
+     * @param interfaces the interfaces
+     * @return the parent fragment
+     */
+    @NonNull
+    public static Fragment getParentFragmentWithInterface(@NonNull Fragment f, @NonNull Class<?>... interfaces) {
+        Fragment parent = f.getParentFragment();
+        for (Class<?> c : interfaces) {
+            while (parent != null && c.isInterface() && !c.isInstance(parent)) {
+                parent = parent.getParentFragment();
+            }
+        }
+        implementsInterface(parent, interfaces);
+        return parent; // NOSONAR null will cause a ClassCastException to be thrown
     }
 }

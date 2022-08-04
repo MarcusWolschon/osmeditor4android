@@ -6,12 +6,15 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.propertyeditor.RelationMembersFragment.Connected;
 import de.blau.android.propertyeditor.RelationMembersFragment.MemberEntry;
 import de.blau.android.propertyeditor.RelationMembersFragment.RelationMemberRow;
@@ -29,6 +32,7 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
     private int selected = -1;
 
     private OnCheckedChangeListener listener;
+    private RelationMembersFragment owner;
 
     public static class MemberRowViewHolder extends RecyclerView.ViewHolder {
         RelationMemberRow row;
@@ -48,14 +52,16 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
      * Create a new adapter
      * 
      * @param ctx an Android Context
+     * @param owner the Fragment this is being used in
      * @param inflater a LayoutInflater
      * @param entries a List of MemberEntry
      * @param listener an OnCheckedChangeListener
      * @param maxStringLength the maximum string length to support
      */
-    public RelationMemberAdapter(@NonNull Context ctx, @NonNull LayoutInflater inflater, @NonNull List<MemberEntry> entries,
-            @NonNull OnCheckedChangeListener listener, int maxStringLength) {
+    public RelationMemberAdapter(@NonNull Context ctx, @NonNull RelationMembersFragment owner, @NonNull LayoutInflater inflater,
+            @NonNull List<MemberEntry> entries, @NonNull OnCheckedChangeListener listener, int maxStringLength) {
         this.ctx = ctx;
+        this.owner = owner;
         this.inflater = inflater;
         this.entries = entries;
         this.listener = listener;
@@ -74,8 +80,8 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
 
     @Override
     public RelationMemberAdapter.MemberRowViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         final RelationMemberRow row = (RelationMemberRow) inflater.inflate(viewType, parent, false);
+        row.setOwner(owner);
         return new MemberRowViewHolder(row);
     }
 
@@ -118,6 +124,17 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
             }
 
         });
+
+        if (memberEntry.downloaded() && !memberEntry.selected) {
+            holder.row.elementView.setOnClickListener((View v) -> {
+                OsmElement element = App.getDelegator().getOsmElement(memberEntry.getType(), memberEntry.getRef());
+                if (element != null) {
+                    ((ControlListener) owner.getActivity()).addPropertyEditor(element);
+                }
+            });
+        } else {
+            holder.row.elementView.setOnClickListener(null);
+        }
     }
 
     @Override

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import android.util.Log;
@@ -39,32 +38,6 @@ public class PropertyEditorData implements Serializable {
     public final ArrayList<RelationMemberDescription>       members;
     public final ArrayList<RelationMemberDescription>       originalMembers;
     public final String                                     focusOnKey;
-
-    /**
-     * Construct a new PropertyEditorData instance
-     * 
-     * @param osmId the id of the edited object
-     * @param type the type of the object
-     * @param tags the edited tags
-     * @param originalTags the previous tags
-     * @param parents the edited parent Relations
-     * @param originalParents the previous paren Relations
-     * @param members the edited relation members
-     * @param originalMembers the previous relation members
-     */
-    public PropertyEditorData(long osmId, @NonNull String type, @Nullable Map<String, String> tags, Map<String, String> originalTags,
-            @Nullable MultiHashMap<Long, RelationMemberPosition> parents, @Nullable MultiHashMap<Long, RelationMemberPosition> originalParents,
-            @Nullable ArrayList<RelationMemberDescription> members, @Nullable ArrayList<RelationMemberDescription> originalMembers) {
-        this.osmId = osmId;
-        this.type = type;
-        this.tags = tags != null ? new LinkedHashMap<>(tags) : null;
-        this.originalTags = originalTags != null ? new LinkedHashMap<>(originalTags) : null;
-        this.parents = parents;
-        this.originalParents = originalParents;
-        this.members = members;
-        this.originalMembers = originalMembers;
-        this.focusOnKey = null;
-    }
 
     /**
      * Construct a new PropertyEditorData instance

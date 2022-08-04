@@ -101,20 +101,20 @@ public class SaveResumeTest {
     }
 
     /**
-     * Edit a tag in the PropertyEditor - restart app - check that edit is still there
+     * Edit a tag in the PropertyEditorActivity - restart app - check that edit is still there
      */
     @Test
     public void editTag() {
-        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         assertNotNull(n);
 
         PropertyEditorData[] single = new PropertyEditorData[1];
         single[0] = new PropertyEditorData(n, null);
 
-        try (ActivityScenario<PropertyEditor> scenario = ActivityScenario.launch(PropertyEditor.buildIntent(main, single, false, false, null, null))) {
+        try (ActivityScenario<PropertyEditorActivity> scenario = ActivityScenario.launch(PropertyEditorActivity.buildIntent(main, single, false, false, null, null))) {
             Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-            assertTrue(propertyEditor instanceof PropertyEditor);
+            assertTrue(propertyEditor instanceof PropertyEditorActivity);
             TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
             final String original = "Bergdietikon";
             UiObject2 o = device.wait(Until.findObject(By.clickable(true).textStartsWith(original)), 500);

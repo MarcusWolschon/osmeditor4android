@@ -35,6 +35,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import ch.poole.android.checkbox.IndeterminateCheckBox;
 import ch.poole.conditionalrestrictionparser.ConditionalRestrictionParser;
@@ -65,7 +66,6 @@ import de.blau.android.propertyeditor.EditorUpdate;
 import de.blau.android.propertyeditor.FormUpdate;
 import de.blau.android.propertyeditor.NameAdapters;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
-import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.propertyeditor.TagEditorFragment;
@@ -134,6 +134,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param focusTag focus on this tag
      * @return a TagFormFragment instance
      */
+    @NonNull
     public static TagFormFragment newInstance(boolean displayMRUpresets, boolean focusOnAddress, String focusTag) {
         TagFormFragment f = new TagFormFragment();
 
@@ -151,15 +152,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     @Override
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
-        try {
-            tagListener = (EditorUpdate) context;
-            nameAdapters = (NameAdapters) context;
-            propertyEditorListener = (PropertyEditorListener) context;
-            presetSelectedListener = (OnPresetSelectedListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(
-                    context.toString() + " must implement OnPresetSelectedListener, NameAdapters, PropertyEditorListener, OnPresetSelectedListener");
-        }
+        Fragment parent = getParentFragment();
+        Util.implementsInterface(parent, EditorUpdate.class, NameAdapters.class, PropertyEditorListener.class, OnPresetSelectedListener.class);
+        tagListener = (EditorUpdate) parent;
+        nameAdapters = (NameAdapters) parent;
+        propertyEditorListener = (PropertyEditorListener) parent;
+        presetSelectedListener = (OnPresetSelectedListener) parent;
         setHasOptionsMenu(true);
         getActivity().invalidateOptionsMenu();
     }
@@ -408,7 +406,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         case android.R.id.home:
             Log.d(DEBUG_TAG, "home pressed");
             updateEditorFromText();
-            ((PropertyEditor) getActivity()).sendResultAndFinish();
+            propertyEditorListener.updateAndFinish();
             return true;
         case R.id.tag_menu_address:
             updateEditorFromText();

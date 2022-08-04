@@ -31,6 +31,7 @@ import android.graphics.Rect;
 import android.os.RemoteException;
 import android.view.KeyEvent;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -96,7 +97,7 @@ public class PropertyEditorTest {
         mruTags.delete();
         instrumentation = InstrumentationRegistry.getInstrumentation();
         context = instrumentation.getTargetContext();
-        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         main = (Main) mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
@@ -154,8 +155,7 @@ public class PropertyEditorTest {
         assertNotNull(n);
 
         main.performTagEdit(n, null, false, false);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        waitForPropertyEditor();
         TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
         final String original = "Bergdietikon";
         final String edited = "dietikonBerg";
@@ -201,8 +201,7 @@ public class PropertyEditorTest {
         assertNotNull(n);
 
         main.performTagEdit(n, null, false, false);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        waitForPropertyEditor();
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
         device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/editKey")), 500);
         UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editKey"));
@@ -269,10 +268,9 @@ public class PropertyEditorTest {
         // assertNotNull(n);
 
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, true));
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        PropertyEditorActivity propertyEditor = waitForPropertyEditor();
 
-        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
+        if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Facilities"), true, false);
@@ -412,10 +410,9 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
 
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, true));
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        PropertyEditorActivity propertyEditor = waitForPropertyEditor();
 
-        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
+        if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Transport"), true, false);
@@ -493,9 +490,11 @@ public class PropertyEditorTest {
         Way w = App.getLogic().getSelectedWay();
         assertNotNull(w);
 
+        // determine position in relation
+        int pos = determinePosition(w, "Bus 305: Kind");
+
         assertTrue(TestUtils.clickMenuButton(device, "Properties", false, true));
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        waitForPropertyEditor();
         assertTrue(TestUtils.findText(device, false, "Kindhauserstrasse"));
         try {
             UiObject2 valueField = getField(device, "50", 1);
@@ -530,9 +529,9 @@ public class PropertyEditorTest {
 
         switchToDetailsTab();
         assertTrue(TestUtils.clickText(device, true, main.getString(R.string.relations), false, false));
-        assertTrue(TestUtils.findText(device, false, "Bus 305"));
+        assertTrue(TestUtils.findText(device, false, "Bus 305: Kind"));
         try {
-            UiObject2 roleField = getField(device, "Bus 305", 1);
+            UiObject2 roleField = getField(device, "Bus 305: Kind", 1);
             // clicking doesn't work see https://issuetracker.google.com/issues/37017411
             roleField.setText("platform");
         } catch (UiObjectNotFoundException e) {
@@ -551,6 +550,8 @@ public class PropertyEditorTest {
         assertTrue(findRole("platform", w, parents));
         TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, true);
         assertFalse(findRole("platform", w, parents));
+
+        assertEquals(pos, determinePosition(w, "Bus 305: Kind"));
 
         //
         MRUTags mruTags = App.getMruTags();
@@ -572,6 +573,32 @@ public class PropertyEditorTest {
         }
         assertNotNull(mruTags.getRoles(item));
         assertTrue(mruTags.getRoles(item).contains("platform"));
+    }
+
+    /**
+     * Determine the position of a way in a relation
+     * 
+     * @param w the way
+     * @param name the name of the relation
+     * @return the position
+     */
+    private int determinePosition(@NonNull Way w, @NonNull String name) {
+        int pos = -1;
+        List<Relation> parents = w.getParentRelations();
+        assertNotNull(parents);
+        for (Relation r : parents) {
+            if (r.getTagWithKey(Tags.KEY_NAME).startsWith(name)) {
+                final List<RelationMember> members = r.getMembers();
+                for (RelationMember rm : members) {
+                    if (Way.NAME.equals(rm.getType()) && w.getOsmId() == rm.getRef()) {
+                        pos = members.indexOf(rm);
+                        break;
+                    }
+                }
+            }
+        }
+        assertTrue(pos != -1);
+        return pos;
     }
 
     /**
@@ -627,8 +654,7 @@ public class PropertyEditorTest {
         assertNotNull(w);
 
         assertTrue(TestUtils.clickMenuButton(device, "Properties", false, true));
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        waitForPropertyEditor();
         assertTrue(TestUtils.findText(device, false, "Kindhauserstrasse"));
 
         try {
@@ -690,8 +716,7 @@ public class PropertyEditorTest {
         assertNotNull(r);
 
         main.performTagEdit(r, null, false, false);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        waitForPropertyEditor();
 
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
         TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
@@ -715,6 +740,58 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.delete), true));
         assertEquals(OsmElement.STATE_DELETED, r.getState());
     }
+    
+    /**
+     * Select a relation and drilldown a specific member
+     */
+    @Test
+    public void relationDrilldown() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
+        assertNotNull(r);
+
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 577098580L);
+        assertNotNull(n);
+        assertTrue(n.hasTagWithValue("shelter", Tags.VALUE_YES));
+        
+        main.performTagEdit(r, null, false, false);
+        waitForPropertyEditor();
+
+        TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
+        TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
+        UiObject text = device.findObject(new UiSelector().textStartsWith("Vorbühl"));
+        assertTrue(text.exists());
+        try {
+            assertTrue(text.click());
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        
+        assertTrue(TestUtils.findText(device, false, "8590205"));
+        try {
+            UiObject2 shelter = getField(device, "Shelter", 1);
+            assertNotNull(shelter);
+            shelter.click();
+            TestUtils.clickText(device, true, main.getString(R.string.okay), false, false);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        
+        // exit property editor
+        TestUtils.clickHome(device, false);
+        TestUtils.clickHome(device, false);
+        assertEquals(OsmElement.STATE_MODIFIED, n.getState());
+        assertFalse(n.hasTagKey("shelter"));
+    }
 
     /**
      * Test for max tag length
@@ -736,10 +813,9 @@ public class PropertyEditorTest {
         assertNotNull(r);
 
         main.performTagEdit(r, null, false, false);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        waitForPropertyEditor();
 
-        String tooLongText = "This is a very long text string to test the that the API limit of 255 characters is enforced by the PropertyEditor by truncating and showing a toast."
+        String tooLongText = "This is a very long text string to test the that the API limit of 255 characters is enforced by the PropertyEditorActivity by truncating and showing a toast."
                 + "This is some more text so that we can actually test the limit by entering a string that is too long to trigger the check";
 
         TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
@@ -860,10 +936,9 @@ public class PropertyEditorTest {
         assertNotNull(w);
 
         main.performTagEdit(w, null, false, false);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        PropertyEditorActivity propertyEditor = waitForPropertyEditor();
 
-        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
+        if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Highways"), true, false);
@@ -894,10 +969,9 @@ public class PropertyEditorTest {
         assertNotNull(n);
 
         main.performTagEdit(n, null, false, false);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        PropertyEditorActivity propertyEditor = waitForPropertyEditor();
 
-        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
+        if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Highways"), true, false);
@@ -929,8 +1003,7 @@ public class PropertyEditorTest {
         assertNotNull(n);
 
         main.performTagEdit(n, null, false, true);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        waitForPropertyEditor();
 
         UiSelector uiSelector = new UiSelector().resourceId(device.getCurrentPackageName() + ":id/preset_search_edit");
         UiObject field = device.findObject(uiSelector);
@@ -973,10 +1046,9 @@ public class PropertyEditorTest {
         assertNotNull(w);
 
         main.performTagEdit(w, null, false, false);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        PropertyEditorActivity propertyEditor = waitForPropertyEditor();
 
-        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
+        if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Highways"), true, false);
@@ -1029,10 +1101,9 @@ public class PropertyEditorTest {
         assertNotNull(w);
 
         main.performTagEdit(w, null, false, false);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        PropertyEditorActivity propertyEditor = waitForPropertyEditor();
 
-        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
+        if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Highways"), true, false);
@@ -1103,8 +1174,7 @@ public class PropertyEditorTest {
         }
 
         main.performTagEdit(w, null, false, false);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        PropertyEditorActivity propertyEditor = waitForPropertyEditor();
 
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
         device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/editValue")), 500);
@@ -1123,10 +1193,12 @@ public class PropertyEditorTest {
             fail(e.getMessage());
         }
 
-        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
+        if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
             TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
         }
-        PresetItem presetItem = ((PropertyEditor) propertyEditor).getBestPreset();
+        PropertyEditorFragment f = PropertyEditorActivity.peekBackStack(((PropertyEditorActivity) propertyEditor).getSupportFragmentManager());
+        assertNotNull(f);
+        PresetItem presetItem = f.getBestPreset();
         assertNotNull(presetItem);
         assertEquals("Building", presetItem.getName());
         assertTrue(TestUtils.clickText(device, true, presetItem.getTranslatedName(), false, false)); // building
@@ -1154,8 +1226,7 @@ public class PropertyEditorTest {
         assertNotNull(n);
 
         main.performTagEdit(n, null, false, false);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        waitForPropertyEditor();
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
         device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/editValue")), 500);
         UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editValue"));
@@ -1169,7 +1240,7 @@ public class PropertyEditorTest {
         TestUtils.clickHome(device, true);
         assertFalse(n.hasTag("", edited));
     }
-    
+
     /**
      * Test that tags with empty values get removed
      */
@@ -1190,7 +1261,7 @@ public class PropertyEditorTest {
 
         main.performTagEdit(n, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditorActivity);
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
         device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/editKey")), 500);
         UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editKey"));
@@ -1224,8 +1295,7 @@ public class PropertyEditorTest {
         assertNotNull(n);
 
         main.performTagEdit(n, null, false, false);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        waitForPropertyEditor();
         instrumentation.removeMonitor(monitor);
         TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
         assertTrue(TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/form_header_copy", false));
@@ -1239,9 +1309,9 @@ public class PropertyEditorTest {
         assertNotNull(node);
         assertEquals(2205498723L, node.getOsmId());
         assertTrue(TestUtils.clickOverflowButton(device));
-        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_paste_tags), false));
-        propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        waitForPropertyEditor();
         assertTrue(TestUtils.findText(device, false, "Bergdietikon"));
     }
 
@@ -1264,8 +1334,7 @@ public class PropertyEditorTest {
         assertNotNull(n);
 
         main.performTagEdit(n, null, false, false);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        waitForPropertyEditor();
         instrumentation.removeMonitor(monitor);
         TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
         assertTrue(TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/form_header_copy", false));
@@ -1279,7 +1348,7 @@ public class PropertyEditorTest {
         assertNotNull(node);
         assertEquals(2205498723L, node.getOsmId());
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, false));
-        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.tag_details), false));
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_paste), false, false));
         assertTrue(TestUtils.clickHome(device, true));
@@ -1306,8 +1375,7 @@ public class PropertyEditorTest {
         assertNotNull(n);
 
         main.performTagEdit(n, null, false, false);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        waitForPropertyEditor();
         instrumentation.removeMonitor(monitor);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.tag_details), false));
         TestUtils.scrollTo("Bergdietikon", false);
@@ -1329,7 +1397,7 @@ public class PropertyEditorTest {
         assertNotNull(node);
         assertEquals(2205498723L, node.getOsmId());
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, false));
-        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         assertTrue(TestUtils.clickOverflowButton(device));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_paste_from_clipboard), false));
         assertTrue(TestUtils.clickHome(device, true));
@@ -1362,8 +1430,7 @@ public class PropertyEditorTest {
         assertNotNull(n);
 
         main.performTagEdit(n, null, false, false);
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        waitForPropertyEditor();
         instrumentation.removeMonitor(monitor);
         TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
         assertTrue(TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/form_header_cut", false));
@@ -1377,9 +1444,9 @@ public class PropertyEditorTest {
         assertNotNull(node);
         assertEquals(2205498723L, node.getOsmId());
         assertTrue(TestUtils.clickOverflowButton(device));
-        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_paste_tags), false));
-        propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        waitForPropertyEditor();
         assertTrue(TestUtils.findText(device, false, "Bergdietikon"));
         assertFalse(n.hasTag(Tags.KEY_NAME, "BergDietikon"));
     }
@@ -1420,10 +1487,9 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
 
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, true));
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        PropertyEditorActivity propertyEditor = waitForPropertyEditor();
 
-        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
+        if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Facilities"), true, false);
@@ -1504,12 +1570,11 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
 
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, true));
-        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        PropertyEditorActivity propertyEditor = waitForPropertyEditor();
 
         assertFalse(TestUtils.findText(device, false, context.getString(R.string.tag_details)));
 
-        if (!((PropertyEditor) propertyEditor).usingPaneLayout()) {
+        if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Lifecycle"), true, false);
@@ -1576,5 +1641,17 @@ public class PropertyEditorTest {
             linearLayout = linearLayout.getParent();
         }
         return linearLayout.getChildren().get(1).getChildren().get(fieldIndex);
+    }
+
+    /**
+     * Wait for the property editor to start
+     * 
+     * @return the PropertyEditorActivity instance
+     */
+    private PropertyEditorActivity waitForPropertyEditor() {
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertTrue(propertyEditor instanceof PropertyEditorActivity);
+        instrumentation.waitForIdleSync();
+        return (PropertyEditorActivity) propertyEditor;
     }
 }

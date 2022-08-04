@@ -65,8 +65,9 @@ class SelectedRowsActionModeCallback implements Callback {
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
         currentAction = mode;
-        ((PropertyEditor) caller.getActivity()).disablePaging();
-        ((PropertyEditor) caller.getActivity()).disablePresets();
+        final PropertyEditorListener propertyEditorListener = (PropertyEditorListener) caller.getParentFragment();
+        propertyEditorListener.disablePaging();
+        propertyEditorListener.disablePresets();
         return true;
     }
 
@@ -130,8 +131,9 @@ class SelectedRowsActionModeCallback implements Callback {
             Row row = (Row) view;
             row.deselect();
         }
-        ((PropertyEditor) caller.getActivity()).enablePaging();
-        ((PropertyEditor) caller.getActivity()).enablePresets();
+        final PropertyEditorListener propertyEditorListener = (PropertyEditorListener) caller.getParentFragment();
+        propertyEditorListener.enablePaging();
+        propertyEditorListener.enablePresets();
         PropertyRows rowContainer = (PropertyRows) caller;
         rowContainer.deselectHeaderCheckBox();
         rowContainer.deselectRow();

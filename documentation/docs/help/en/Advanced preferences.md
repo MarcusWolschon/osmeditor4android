@@ -305,6 +305,30 @@ Prefer removable storage for storing tiles. Requires restart of app to take effe
 
 Total on device size for caching Mapillary images. Default: _100MB_.
 
+## Auto-save configuration
+
+Settings for the automatic saving of edits.
+
+### Save state
+    
+Save the complete state including unchanged data and undo information. This is used to restore the app to its previous state and is the same information saved as when the app is paused or stopped. The saved state is stored in an app private location and is not accessible by the end user. Default: _enabled_.
+
+### Save changes
+
+Save changes as OSC file. This saves the current changes as a .osc file in the "Autosave" directory in the public Vespucci directory. Default: _enabled_.
+
+### Minimum interval
+
+The minimum interval in minutes between saves. Default: _5 minutes_.
+
+### Minimum number of changes
+
+Minimum number of changes required for a save to occur. Default: _1_.
+
+### Maximum number of OSC files to retain
+
+The maximum number of OSC files the app will retain, when this limit is reached the oldest files will be deleted. Default: _5_.
+
 ## Miscellaneous
 
 ### Report app crashes

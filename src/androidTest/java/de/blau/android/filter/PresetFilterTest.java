@@ -28,7 +28,7 @@ import de.blau.android.TestUtils;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.propertyeditor.PropertyEditorActivity;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -148,10 +148,10 @@ public class PresetFilterTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_node)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
 
-        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
 
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditorActivity);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_tags), 5000));
         assertTrue(TestUtils.findText(device, false, "Church", 5000));
 
@@ -189,10 +189,10 @@ public class PresetFilterTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_node)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
 
-        monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
 
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditorActivity);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.tag_menu_preset), 5000));
         assertTrue(TestUtils.findText(device, false, "Mosque", 5000));
         assertTrue(TestUtils.clickText(device, false, "Church", false, false));

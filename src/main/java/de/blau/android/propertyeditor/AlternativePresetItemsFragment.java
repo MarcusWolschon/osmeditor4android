@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.Tip;
@@ -24,6 +25,7 @@ import de.blau.android.presets.PresetItemLink;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
 
@@ -56,12 +58,9 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.d(DEBUG_TAG, "onAttach");
-        try {
-            presetSelectedListener = (OnPresetSelectedListener) context;
-            propertyEditorListener = (PropertyEditorListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener");
-        }
+        Fragment parent = Util.getParentFragmentWithInterface(this, PropertyEditorListener.class, OnPresetSelectedListener.class);
+        presetSelectedListener = (OnPresetSelectedListener) parent;
+        propertyEditorListener = (PropertyEditorListener) parent;
     }
 
     @Override

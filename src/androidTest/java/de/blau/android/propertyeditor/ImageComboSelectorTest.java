@@ -120,10 +120,10 @@ public class ImageComboSelectorTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_node)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
 
-        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
 
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        assertTrue(propertyEditor instanceof PropertyEditor);
+        assertTrue(propertyEditor instanceof PropertyEditorActivity);
         boolean found = TestUtils.clickText(device, true, PropertyEditorTest.getTranslatedPresetItemName(main, "Parking"), true, false);
         assertTrue(found);
         try {

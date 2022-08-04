@@ -29,10 +29,12 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.exception.UiStateException;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberPosition;
@@ -98,11 +100,9 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     @Override
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
-        try {
-            propertyEditorListener = (PropertyEditorListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement PropertyEditorListener");
-        }
+        Fragment parent = getParentFragment();
+        Util.implementsInterface(parent, PropertyEditorListener.class);
+        propertyEditorListener = (PropertyEditorListener) parent;
         setHasOptionsMenu(true);
         getActivity().invalidateOptionsMenu();
     }
@@ -194,7 +194,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                 Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, id);
                 Set<RelationMemberPosition> rmps = parents.get(id);
                 for (RelationMemberPosition rmp : rmps) {
-                    insertNewMembership(membershipVerticalLayout, rmp.getRole(), r, elementType, rmp.getPosition(), 0, false);
+                    insertNewMembership(membershipVerticalLayout, rmp.getRole(), r, elementType, rmp.getPosition(), -1, false);
                 }
             }
         }
@@ -238,7 +238,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     private RelationMembershipRow insertNewMembership(@NonNull LinearLayout membershipVerticalLayout, final String role, @Nullable final Relation r,
             @NonNull String elementType, int memberPos, final int position, boolean showSpinner) {
         RelationMembershipRow row = (RelationMembershipRow) inflater.inflate(R.layout.relation_membership_row, membershipVerticalLayout, false);
-
+        row.setOwner(this);
         if (r != null) {
             row.setValues(role, r, elementType, memberPos, relationAdapter, relationHolderList);
         } else {
@@ -294,16 +294,16 @@ public class RelationMembershipFragment extends BaseFragment implements Property
      */
     public static class RelationMembershipRow extends LinearLayout implements SelectedRowsActionModeCallback.Row {
 
-        private static final int     UNSET          = -1;    // relations never get id -1
-        private PropertyEditor       owner;
-        private long                 relationId     = UNSET; // flag value for new relation memberships
-        private CheckBox             selected;
-        private AutoCompleteTextView roleEdit;
-        private Spinner              parentEdit;
-        private boolean              showSpinner    = false;
-        private String               elementType    = null;
-        private PresetItem           relationPreset = null;
-        private int                  position;
+        private static final int           UNSET          = -1;    // relations never get id -1
+        private RelationMembershipFragment owner;
+        private long                       relationId     = UNSET; // flag value for new relation memberships
+        private CheckBox                   selected;
+        private AutoCompleteTextView       roleEdit;
+        private Spinner                    parentEdit;
+        private boolean                    showSpinner    = false;
+        private String                     elementType    = null;
+        private PresetItem                 relationPreset = null;
+        private int                        position;
 
         /**
          * Construct a row
@@ -312,8 +312,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
          */
         public RelationMembershipRow(@NonNull Context context) {
             super(context);
-            owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or
-                                                                        // in Eclipse
         }
 
         /**
@@ -324,8 +322,16 @@ public class RelationMembershipFragment extends BaseFragment implements Property
          */
         public RelationMembershipRow(@NonNull Context context, @Nullable AttributeSet attrs) {
             super(context, attrs);
-            owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or
-                                                                        // in Eclipse
+        }
+
+        /**
+         * Set the fragment for this view
+         * 
+         * @param owner the "owning" Fragment
+         */
+        public void setOwner(@NonNull RelationMembershipFragment owner) {
+            this.owner = owner;
+            parentEdit.setOnItemSelectedListener(owner);
         }
 
         @Override
@@ -337,16 +343,14 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             selected = (CheckBox) findViewById(R.id.parent_selected);
 
             roleEdit = (AutoCompleteTextView) findViewById(R.id.editRole);
-            roleEdit.setOnKeyListener(PropertyEditor.myKeyListener);
+            roleEdit.setOnKeyListener(PropertyEditorFragment.myKeyListener);
 
             parentEdit = (Spinner) findViewById(R.id.editParent);
-
-            parentEdit.setOnItemSelectedListener(owner.relationMembershipFragment);
 
             roleEdit.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
                     roleEdit.setAdapter(getMembershipRoleAutocompleteAdapter());
-                    if (/* running && */roleEdit.getText().length() == 0) {
+                    if (roleEdit.getText().length() == 0) {
                         roleEdit.showDropDown();
                     }
                 }
@@ -359,7 +363,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             });
 
             roleEdit.setOnItemClickListener((parent, view, position, id) -> {
-                Log.d(DEBUG_TAG, "onItemClicked value");
+                Log.d(DEBUG_TAG, "onItemClicked role");
                 Object o = parent.getItemAtPosition(position);
                 if (o instanceof StringWithDescription) {
                     roleEdit.setText(((StringWithDescription) o).getValue());
@@ -369,6 +373,11 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                     roleEdit.setText(((PresetRole) o).getRole());
                 }
             });
+
+            OsmElement element = App.getDelegator().getOsmElement(Relation.NAME, relationId);
+            if (element != null) {
+                ((ControlListener) owner.getActivity()).addPropertyEditor(element);
+            }
         }
 
         /**
@@ -378,7 +387,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
          */
         @Nullable
         PresetItem getRelationPreset() {
-            Preset[] presets = owner.getPresets();
+            Preset[] presets = ((PropertyEditorListener) owner.getParentFragment()).getPresets();
             Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, relationId);
             if (relationPreset == null && presets != null && r != null) {
                 relationPreset = Preset.findBestMatch(presets, r.getTags(), null);
@@ -405,7 +414,9 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                         counter.put(role, pos++);
                     }
                 }
-                List<PresetRole> tempPresetRoles = presetItem.getRoles(getContext(), owner.getElement(), owner.getKeyValueMapSingle(true));
+                PropertyEditorListener listener = (PropertyEditorListener) owner.getParentFragment();
+                List<PresetRole> tempPresetRoles = presetItem.getRoles(getContext(), listener.getElement(),
+                        ((PropertyEditorFragment) listener).getKeyValueMapSingle(true));
                 if (tempPresetRoles != null) {
                     Collections.sort(tempPresetRoles);
                     for (PresetRole presetRole : tempPresetRoles) {
@@ -425,7 +436,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                     }
                 }
             }
-            return new ArrayAdapter<>(owner, R.layout.autocomplete_row, result);
+            return new ArrayAdapter<>(getContext(), R.layout.autocomplete_row, result);
         }
 
         /**
@@ -514,11 +525,11 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         @Override
         public void delete() {
             if (owner != null) {
-                View cf = owner.getCurrentFocus();
+                View cf = owner.getActivity().getCurrentFocus();
                 if (cf == roleEdit) {
-                    // owner.focusRow(0); // FIXME focus is on this fragment
+                    owner.focusRow(0);
                 }
-                LinearLayout membershipVerticalLayout = (LinearLayout) owner.relationMembershipFragment.getOurView();
+                LinearLayout membershipVerticalLayout = (LinearLayout) owner.getOurView();
                 membershipVerticalLayout.removeView(this);
                 membershipVerticalLayout.invalidate();
             } else {
@@ -598,7 +609,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     @Override
     public void selectAllRows() { // select all parents
         LinearLayout rowLayout = (LinearLayout) getOurView();
-
         int i = rowLayout.getChildCount();
         while (--i >= 0) {
             RelationMembershipRow row = (RelationMembershipRow) rowLayout.getChildAt(i);
@@ -611,7 +621,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     @Override
     public void deselectAllRows() { // // select all parents
         LinearLayout rowLayout = (LinearLayout) getOurView();
-
         int i = rowLayout.getChildCount();
         while (--i >= 0) {
             RelationMembershipRow row = (RelationMembershipRow) rowLayout.getChildAt(i);
@@ -619,6 +628,18 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                 row.selected.setChecked(false);
             }
         }
+    }
+
+    /**
+     * Move the focus to the role field of the specified row.
+     * 
+     * @param index The index of the row to move to, counting from 0.
+     * @return true if the row was successfully focused, false otherwise.
+     */
+    private boolean focusRow(int index) {
+        LinearLayout rowLayout = (LinearLayout) getOurView();
+        RelationMembershipRow row = (RelationMembershipRow) rowLayout.getChildAt(index);
+        return row != null && row.roleEdit.requestFocus();
     }
 
     /**
@@ -653,6 +674,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
      * @return a MultiHashMap¬&lt;Long,RelationMemberDescription&gt; of relation and role with position in that
      *         relation, pairs.
      */
+    @NonNull
     MultiHashMap<Long, RelationMemberPosition> getParentRelationMap() {
         final MultiHashMap<Long, RelationMemberPosition> parents = new MultiHashMap<>(false, true);
         processParentRelations(row -> {
@@ -668,14 +690,12 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                 }
                 RelationMember rm = r.getMember(propertyEditorListener.getElement());
                 PresetItem presetItem = row.getRelationPreset();
-                if (rm != null) { // can't really happen
-                    if (!"".equals(role) && rm.getRole() != null && !rm.getRole().equals(role)) {
-                        // only add if the role actually differs
-                        if (presetItem != null) {
-                            App.getMruTags().putRole(presetItem, role);
-                        } else {
-                            App.getMruTags().putRole(role);
-                        }
+                if (rm != null && !"".equals(role) && rm.getRole() != null && !rm.getRole().equals(role)) {
+                    // only add if the role actually differs
+                    if (presetItem != null) {
+                        App.getMruTags().putRole(presetItem, role);
+                    } else {
+                        App.getMruTags().putRole(role);
                     }
                 }
             }
@@ -685,6 +705,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        Log.d(DEBUG_TAG, "onItemSelected");
         Relation relation = ((RelationHolder) parent.getItemAtPosition(pos)).relation;
         if (view != null && relation != null) {
             Log.d(DEBUG_TAG, "selected " + relation.getDescription());
@@ -692,7 +713,9 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             while (!(pv instanceof RelationMembershipRow)) {
                 pv = pv.getParent();
             }
-            ((RelationMembershipRow) pv).setRelation(pos, relation);
+            if (relation.getOsmId() != ((RelationMembershipRow) pv).relationId) {
+                ((RelationMembershipRow) pv).setRelation(pos, relation);
+            }
         } else {
             Log.d(DEBUG_TAG, "onItemselected view or relation is null");
         }
@@ -713,7 +736,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
         case android.R.id.home:
-            ((PropertyEditor) getActivity()).sendResultAndFinish();
+            propertyEditorListener.updateAndFinish();
             return true;
         case R.id.tag_menu_revert:
             doRevert();

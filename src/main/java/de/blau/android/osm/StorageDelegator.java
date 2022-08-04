@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
@@ -28,6 +29,7 @@ import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.Selection;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -172,6 +174,20 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         return factory;
     }
 
+    /**
+     * Checks if a serialized {@link StorageDelegator} file is available.
+     * 
+     * @param context an Android context
+     * @return true, when the file is available, otherwise false.
+     */
+    public static boolean isStateAvailable(@NonNull Context context) {
+        try (FileInputStream in = context.openFileInput(FILENAME)) {
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+    
     /**
      * Insert a new element in to storage
      * 
@@ -2857,7 +2873,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * Exports changes as a OsmChange file.
      */
     @Override
-    public void export(OutputStream outputStream) throws Exception {
+    public synchronized void export(OutputStream outputStream) throws Exception {
         OsmXml.writeOsmChange(getApiStorage(), outputStream, null, Integer.MAX_VALUE, App.getUserAgent());
     }
 
@@ -3264,10 +3280,21 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     protected void prune(@Nullable Logic logic, @NonNull BoundingBox box) {
         LongHashSet keepNodes = new LongHashSet();
-        boolean noLogic = logic == null;
+        LongHashSet keepWays = new LongHashSet();
+        LongHashSet keepRelations = new LongHashSet();
+        if (logic != null) {
+            // prefill with selected objects
+            for (Selection s : logic.getSelectionStack()) {
+                Selection.Ids ids = s.getIds();
+                keepNodes.putAll(ids.getNodes());
+                keepWays.putAll(ids.getWays());
+                keepRelations.putAll(ids.getRelations());
+            }
+        }
 
         for (Way w : currentStorage.getWays()) {
-            if (apiStorage.getWay(w.getOsmId()) == null && !box.intersects(w.getBounds()) && (noLogic || !logic.isSelected(w)) && !hasModifiedNodes(w)) {
+            final long wayId = w.getOsmId();
+            if (apiStorage.getWay(wayId) == null && !box.intersects(w.getBounds()) && !keepWays.contains(wayId) && !hasModifiedNodes(w)) {
                 currentStorage.removeWay(w);
                 removeReferenceFromParents(logic, w);
             } else { // keeping so we need to keep the nodes
@@ -3278,15 +3305,14 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         for (Node n : currentStorage.getNodes()) {
             long nodeId = n.getOsmId();
-            if (apiStorage.getNode(nodeId) == null && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId)
-                    && (noLogic || !logic.isSelected(n))) {
+            if (apiStorage.getNode(nodeId) == null && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId)) {
                 currentStorage.removeNode(n);
                 removeReferenceFromParents(logic, n);
             }
         }
         for (Relation r : currentStorage.getRelations()) {
             long relationId = r.getOsmId();
-            if (apiStorage.getRelation(relationId) == null && (noLogic || !logic.isSelected(r)) && !r.hasDownloadedMembers()) {
+            if (apiStorage.getRelation(relationId) == null && !keepRelations.contains(relationId) && !r.hasDownloadedMembers()) {
                 // Note: this will not remove already processed relations that had this as a member however further
                 // prune passes will eventually delete them, which is good enough and so we don't rerun this explicitly
                 // here

@@ -21,6 +21,7 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -39,6 +40,7 @@ import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Screen;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 public class PresetSearchResultsFragment extends DialogFragment implements UpdatePresetSearchResult {
 
@@ -47,8 +49,8 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
 
     private static final String DEBUG_TAG = PresetSearchResultsFragment.class.getSimpleName();
 
-    private OnPresetSelectedListener mOnPresetSelectedListener;
-    private PresetUpdate             mPresetUpdateListener;
+    private OnPresetSelectedListener mOnPresetSelectedListener; // NOSONAR we want to fail in onAttach
+    private PresetUpdate             mPresetUpdateListener;     // NOSONAR
     private List<PresetElement>      presets;
     private boolean                  enabled = true;
     private PropertyEditorListener   propertyEditorListener;
@@ -78,13 +80,10 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.d(DEBUG_TAG, "onAttach");
-        try {
-            mOnPresetSelectedListener = (OnPresetSelectedListener) context;
-            mPresetUpdateListener = (PresetUpdate) context;
-            propertyEditorListener = (PropertyEditorListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener and PresetUpdate");
-        }
+        Fragment parent = Util.getParentFragmentWithInterface(this, PresetUpdate.class, PropertyEditorListener.class, OnPresetSelectedListener.class);
+        mOnPresetSelectedListener = (OnPresetSelectedListener) parent;
+        mPresetUpdateListener = (PresetUpdate) parent;
+        propertyEditorListener = (PropertyEditorListener) parent;
     }
 
     @SuppressWarnings("unchecked")

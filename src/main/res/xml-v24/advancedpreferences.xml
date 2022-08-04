@@ -561,6 +561,56 @@
             app:spt_setWrapSelectorWheel="false" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
+        android:key="onfig_autosave_category_key"
+        android:title="@string/config_category_autosave"
+        android:summary="@string/config_category_autosave_summary">
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_autosaveSaveState_key"
+            android:summary="@string/config_autosaveSaveState_summary"
+            android:title="@string/config_autosaveSaveState_title" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_autosaveSaveChanges_key"
+            android:summary="@string/config_autosaveSaveChanges_summary"
+            android:title="@string/config_autosaveSaveChanges_title" />
+        <ch.poole.android.numberpickerpreference.NumberPickerPreference
+            android:defaultValue="5"
+            android:dialogTitle="@string/config_autosaveInterval_title"
+            android:key="@string/config_autosaveInterval_key"
+            android:numeric="integer"
+            android:summary="@string/config_autosaveInterval_summary"
+            android:title="@string/config_autosaveInterval_title"
+            app:spt_maxValue="60"
+            app:spt_increment="5"
+            app:spt_minValue="5"
+            app:spt_currentValueText="@string/config_autosaveInterval_current"
+            app:spt_setWrapSelectorWheel="false" />
+        <ch.poole.android.numberpickerpreference.NumberPickerPreference
+            android:defaultValue="1"
+            android:dialogTitle="@string/config_autosaveChanges_title"
+            android:key="@string/config_autosaveChanges_key"
+            android:numeric="integer"
+            android:summary="@string/config_autosaveChanges_summary"
+            android:title="@string/config_autosaveChanges_title"
+            app:spt_maxValue="100"
+            app:spt_increment="1"
+            app:spt_minValue="1"
+            app:spt_currentValueText="@string/config_autosaveChanges_current"
+            app:spt_setWrapSelectorWheel="false" />
+        <ch.poole.android.numberpickerpreference.NumberPickerPreference
+            android:defaultValue="5"
+            android:dialogTitle="@string/config_autosaveMaxFiles_title"
+            android:key="@string/config_autosaveMaxFiles_key"
+            android:numeric="integer"
+            android:title="@string/config_autosaveMaxFiles_title"
+            app:spt_maxValue="100"
+            app:spt_increment="5"
+            app:spt_minValue="5"
+            app:spt_currentValueText="@string/config_autosaveMaxFiles_current"
+            app:spt_setWrapSelectorWheel="false" />
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
         android:key="config_category_misc"
         android:title="@string/config_category_misc">
         <androidx.preference.CheckBoxPreference

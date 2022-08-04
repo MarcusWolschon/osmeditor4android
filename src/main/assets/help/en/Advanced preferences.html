@@ -158,6 +158,18 @@
 <p>Prefer removable storage for storing tiles. Requires restart of app to take effect, you will need to manually remove the existing tile cache if you change this. Default: <em>true</em>.</p>
 <h3>Mapillary cache size</h3>
 <p>Total on device size for caching Mapillary images. Default: <em>100MB</em>.</p>
+<h2>Auto-save configuration</h2>
+<p>Settings for the automatic saving of edits.</p>
+<h3>Save state</h3>
+<p>Save the complete state including unchanged data and undo information. This is used to restore the app to its previous state and is the same information saved as when the app is paused or stopped. The saved state is stored in an app private location and is not accessible by the end user. Default: <em>enabled</em>.</p>
+<h3>Save changes</h3>
+<p>Save changes as OSC file. This saves the current changes as a .osc file in the &quot;Autosave&quot; directory in the public Vespucci directory. Default: <em>enabled</em>.</p>
+<h3>Minimum interval</h3>
+<p>The minimum interval in minutes between saves. Default: <em>5 minutes</em>.</p>
+<h3>Minimum number of changes</h3>
+<p>Minimum number of changes required for a save to occur. Default: <em>1</em>.</p>
+<h3>Maximum number of OSC files to retain</h3>
+<p>The maximum number of OSC files the app will retain, when this limit is reached the oldest files will be deleted. Default: <em>5</em>.</p>
 <h2>Miscellaneous</h2>
 <h3>Report app crashes</h3>
 <p>Submit ACRA crash dumps to the Vespucci developers. You will still be asked on a per event basis if you want to submit a specific crash dump, if you set this to <em>off</em> the functionalitiy is completely disabled. Default: <em>on</em>.</p>

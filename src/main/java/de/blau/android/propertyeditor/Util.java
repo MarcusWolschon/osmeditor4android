@@ -49,12 +49,12 @@ public final class Util {
     public static void addMRUPresetsFragment(@NonNull FragmentManager fm, int container, long elementId, @NonNull String elementName) {
         Log.d(DEBUG_TAG, "Adding MRU prests");
         FragmentTransaction ft = fm.beginTransaction();
-        Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
+        Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditorFragment.RECENTPRESETS_FRAGMENT);
         if (recentPresetsFragment != null) {
             ft.remove(recentPresetsFragment);
         }
         recentPresetsFragment = RecentPresetsFragment.newInstance(elementId, elementName);
-        ft.add(container, recentPresetsFragment, PropertyEditor.RECENTPRESETS_FRAGMENT);
+        ft.add(container, recentPresetsFragment, PropertyEditorFragment.RECENTPRESETS_FRAGMENT);
         ft.commit();
     }
 

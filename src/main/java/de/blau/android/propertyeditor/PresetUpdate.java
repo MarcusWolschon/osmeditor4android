@@ -6,7 +6,7 @@ import de.blau.android.osm.OsmElement.ElementType;
 /**
  * Interface for updating preset related things
  */
-interface PresetUpdate {
+public interface PresetUpdate {
     /**
      * 
      * @param type type of OsmElement or null to not change

@@ -38,7 +38,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.propertyeditor.PropertyEditorActivity;
 import de.blau.android.propertyeditor.PropertyEditorTest;
 
 @RunWith(AndroidJUnit4.class)
@@ -146,7 +146,7 @@ public class RelationTest {
         TestUtils.scrollToEnd(true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.select_relation_type_other), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add_relation_member)));
-        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         // finish
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
@@ -221,7 +221,7 @@ public class RelationTest {
         TestUtils.sleep();
         // finish
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
-        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         // assertTrue(TestUtils.findText(device, false, context.getString(R.string.move), 5000));
         // assertTrue(TestUtils.clickText(device, false, context.getString(R.string.move), true, false));
         TestUtils.sleep(2000);

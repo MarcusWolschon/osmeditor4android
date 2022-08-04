@@ -1,7 +1,6 @@
 package de.blau.android;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -114,7 +113,6 @@ import de.blau.android.easyedit.ElementSelectionActionModeCallback;
 import de.blau.android.easyedit.SimpleActionModeCallback;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.PresetFilter;
 import de.blau.android.filter.TagFilter;
@@ -143,7 +141,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.PresetElementPath;
-import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.propertyeditor.PropertyEditorActivity;
 import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.KeyDatabaseHelper;
@@ -600,7 +598,7 @@ public class Main extends FullScreenAppCompatActivity
         App.getLogic().setMap(map, true);
 
         Log.d(DEBUG_TAG, "StorageDelegator dirty is " + App.getDelegator().isDirty());
-        if (isLastActivityAvailable() && !App.getDelegator().isDirty()) {
+        if (StorageDelegator.isStateAvailable(this) && !App.getDelegator().isDirty()) {
             // data was modified while we were stopped if isDirty is true
             // Start loading after resume to ensure loading dialog can be
             // removed afterwards
@@ -2612,8 +2610,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     @NonNull
     private File getImageFile() throws IOException {
-        File outDir = FileUtil.getPublicDirectory();
-        outDir = FileUtil.getPublicDirectory(outDir, Paths.DIRECTORY_PATH_PICTURES);
+        File outDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_PICTURES);
         String imageFileName = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
         File newImageFile = File.createTempFile(imageFileName, Paths.FILE_EXTENSION_IMAGE, outDir);
         Log.d(DEBUG_TAG, "getImageFile " + newImageFile.getAbsolutePath());
@@ -2849,7 +2846,7 @@ public class Main extends FullScreenAppCompatActivity
             }
         } else if (data != null) {
             if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK) {
-                handlePropertyEditorResult(data);
+                handlePropertyEditorResult();
             } else if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
                     && resultCode == RESULT_OK) {
                 SelectFile.handleResult(requestCode, data);
@@ -2867,65 +2864,11 @@ public class Main extends FullScreenAppCompatActivity
 
     /**
      * Handle the result of the property editor
-     * 
-     * @param data An Intent, which can return result data to the caller (various data can be attached to Intent
-     *            "extras").
      */
-    private void handlePropertyEditorResult(@NonNull final Intent data) {
+    private void handlePropertyEditorResult() {
         final Logic logic = App.getLogic();
-        Bundle b = data.getExtras();
-        if (b != null && b.containsKey(PropertyEditor.TAGEDIT_DATA)) {
-            // Read data from extras
-            PropertyEditorData[] result = PropertyEditorData.deserializeArray(b.getSerializable(PropertyEditor.TAGEDIT_DATA));
-            // FIXME Problem saved data may not be read at this point, load
-            // here, probably we should load editing state too
-            synchronized (loadOnResumeLock) {
-                if (loadOnResume) {
-                    loadOnResume = false;
-                    Log.d(DEBUG_TAG, "handlePropertyEditorResult loading data");
-                    logic.syncLoadFromFile(this); // sync load
-                    App.getTaskStorage().readFromFile(this);
-                }
-            }
-
-            for (PropertyEditorData editorData : result) {
-                if (editorData == null) {
-                    Log.d(DEBUG_TAG, "handlePropertyEditorResult null result");
-                    continue;
-                }
-                if (editorData.tags != null) {
-                    Log.d(DEBUG_TAG, "handlePropertyEditorResult setting tags");
-                    try {
-                        logic.setTags(this, editorData.type, editorData.osmId, editorData.tags);
-                    } catch (OsmIllegalOperationException e) {
-                        Snack.barError(this, e.getMessage());
-                    }
-                }
-                try {
-                    if (editorData.parents != null) {
-                        Log.d(DEBUG_TAG, "handlePropertyEditorResult setting parents");
-                        logic.updateParentRelations(this, editorData.type, editorData.osmId, editorData.parents);
-                    }
-                    if (editorData.members != null && editorData.type.equals(Relation.NAME)) {
-                        Log.d(DEBUG_TAG, "handlePropertyEditorResult setting members");
-                        logic.updateRelation(this, editorData.osmId, editorData.members);
-                        Relation updatedRelation = (Relation) App.getDelegator().getOsmElement(Relation.NAME, editorData.osmId);
-                        if (logic.isSelected(updatedRelation)) { // This might be unnecessary
-                            logic.removeSelectedRelation(updatedRelation);
-                            logic.setSelectedRelation(updatedRelation);
-                        }
-                    }
-                } catch (OsmIllegalOperationException | StorageException ex) {
-                    // logic has already toasted
-                    break;
-                }
-            }
-            // this is very expensive: getLogic().saveAsync(); // if nothing was
-            // changed the dirty flag wont be set and
-            // the save wont actually happen
-        }
-        if ((logic.getMode().elementsGeomEditiable() && easyEditManager != null && !easyEditManager.isProcessingAction())
-                || logic.getMode() == Mode.MODE_TAG_EDIT) {
+        if (logic != null && ((logic.getMode().elementsGeomEditiable() && easyEditManager != null && !easyEditManager.isProcessingAction())
+                || logic.getMode() == Mode.MODE_TAG_EDIT)) {
             // not in an easy edit mode, de-select objects avoids inconsistent
             // visual state
             logic.deselectAll();
@@ -2972,19 +2915,6 @@ public class Main extends FullScreenAppCompatActivity
         Log.d(DEBUG_TAG, "onLowMemory");
         super.onLowMemory();
         map.onLowMemory();
-    }
-
-    /**
-     * TODO: put this in Logic!!! Checks if a serialized {@link StorageDelegator} file is available.
-     * 
-     * @return true, when the file is available, otherwise false.
-     */
-    private boolean isLastActivityAvailable() {
-        try (FileInputStream in = openFileInput(StorageDelegator.FILENAME)) {
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
     }
 
     /**
@@ -3222,7 +3152,7 @@ public class Main extends FullScreenAppCompatActivity
             if (storageDelegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
                 PropertyEditorData[] single = new PropertyEditorData[1];
                 single[0] = new PropertyEditorData(selectedElement, focusOn);
-                PropertyEditor.startForResult(this, single, applyLastAddressTags, showPresets, tags, presetPathList, REQUEST_EDIT_TAG);
+                PropertyEditorActivity.startForResult(this, single, applyLastAddressTags, showPresets, tags, presetPathList, REQUEST_EDIT_TAG);
             }
         }
     }
@@ -3248,7 +3178,7 @@ public class Main extends FullScreenAppCompatActivity
             return;
         }
         PropertyEditorData[] multipleArray = multiple.toArray(new PropertyEditorData[multiple.size()]);
-        PropertyEditor.startForResult(this, multipleArray, applyLastAddressTags, showPresets, null, null, REQUEST_EDIT_TAG);
+        PropertyEditorActivity.startForResult(this, multipleArray, applyLastAddressTags, showPresets, null, null, REQUEST_EDIT_TAG);
     }
 
     /**

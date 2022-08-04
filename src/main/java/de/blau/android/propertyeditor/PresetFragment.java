@@ -29,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.ActionMenuView;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -57,6 +58,7 @@ import de.blau.android.util.Sound;
 import de.blau.android.util.Util;
 
 public class PresetFragment extends BaseFragment implements PresetUpdate, PresetClickHandler {
+    private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
 
     static final int MAX_SEARCHRESULTS = 10;
 
@@ -70,8 +72,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
     private static final String FRAGMENT_PRESET_SEARCH_RESULTS_TAG = "fragment_preset_search_results";
 
-    private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
-
     public interface OnPresetSelectedListener {
         /**
          * Call back when a PresetItem is selected
@@ -79,7 +79,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
          * @param item the PresetItem
          */
         void onPresetSelected(@NonNull PresetItem item);
-        
+
         /**
          * Call back when a PresetItem is selected
          * 
@@ -135,13 +135,11 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     @Override
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
-        try {
-            mListener = (OnPresetSelectedListener) context;
-            propertyEditorListener = (PropertyEditorListener) context;
-            editorUpdate = (EditorUpdate) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener");
-        }
+        Fragment parent = getParentFragment();
+        Util.implementsInterface(parent, EditorUpdate.class, PropertyEditorListener.class, OnPresetSelectedListener.class);
+        mListener = (OnPresetSelectedListener) parent;
+        propertyEditorListener = (PropertyEditorListener) parent;
+        editorUpdate = (EditorUpdate) parent;
     }
 
     Runnable displaySearchResults = () -> getAndShowSearchResults(presetSearch);
@@ -479,7 +477,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         ScrollView scrollView = (ScrollView) getOurView();
         switch (item.getItemId()) {
         case android.R.id.home:
-            ((PropertyEditor) getActivity()).sendResultAndFinish();
+            propertyEditorListener.updateAndFinish();
             return true;
         case R.id.preset_menu_top:
             if (rootGroup != null && scrollView != null) {

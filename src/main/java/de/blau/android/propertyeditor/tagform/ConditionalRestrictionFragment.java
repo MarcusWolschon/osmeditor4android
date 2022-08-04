@@ -45,6 +45,7 @@ import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import ch.poole.conditionalrestrictionparser.Condition;
 import ch.poole.conditionalrestrictionparser.Condition.CompOp;
@@ -153,11 +154,8 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.d(DEBUG_TAG, "onAttach");
-        try {
-            saveListener = (OnSaveListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnSaveListener");
-        }
+        Fragment parent = de.blau.android.util.Util.getParentFragmentWithInterface(this, OnSaveListener.class);
+        saveListener = (OnSaveListener) parent;
     }
 
     @Override
