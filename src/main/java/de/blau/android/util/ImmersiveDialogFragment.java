@@ -5,8 +5,10 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -19,6 +21,8 @@ import androidx.fragment.app.FragmentTransaction;
  *
  */
 public abstract class ImmersiveDialogFragment extends DialogFragment {
+    
+    private static final String DEBUG_TAG = ImmersiveDialogFragment.class.getSimpleName();
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -47,25 +51,29 @@ public abstract class ImmersiveDialogFragment extends DialogFragment {
      * @param manager our FragmentManager
      */
     @SuppressLint("NewApi")
-    private void showImmersive(FragmentManager manager) {
+    private void showImmersive(@NonNull FragmentManager manager) {
         final Handler mHandler = new Handler(Looper.getMainLooper());
         mHandler.post(() -> {
             // It is necessary to call executePendingTransactions() on the FragmentManager
             // before hiding the navigation bar, because otherwise getWindow() would raise a
             // NullPointerException since the window was not yet created.
-            manager.executePendingTransactions();
+            if (!manager.isDestroyed()) {
+                manager.executePendingTransactions();
 
-            Dialog dialog = getDialog();
+                Dialog dialog = getDialog();
 
-            if (dialog != null && dialog.getWindow() != null) { // seems to be an issue on some systems
-                Window dialogWindow = dialog.getWindow();
-                // Copy flags from the activity, assuming it's fullscreen.
-                // It is important to do this after show() was called. If we would do this in onCreateDialog(),
-                // we would get a requestFeature() error.
-                dialogWindow.getDecorView().setSystemUiVisibility(getActivity().getWindow().getDecorView().getSystemUiVisibility());
+                if (dialog != null && dialog.getWindow() != null) { // seems to be an issue on some systems
+                    Window dialogWindow = dialog.getWindow();
+                    // Copy flags from the activity, assuming it's fullscreen.
+                    // It is important to do this after show() was called. If we would do this in onCreateDialog(),
+                    // we would get a requestFeature() error.
+                    dialogWindow.getDecorView().setSystemUiVisibility(getActivity().getWindow().getDecorView().getSystemUiVisibility());
 
-                // Make the dialogs window focusable again
-                dialogWindow.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+                    // Make the dialogs window focusable again
+                    dialogWindow.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+                }
+            } else {
+                Log.e(DEBUG_TAG, "FragmentManager is detroyed");
             }
         });
     }
