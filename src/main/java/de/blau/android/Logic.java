@@ -3767,14 +3767,14 @@ public class Logic {
     /**
      * Saves to a file (synchronously)
      * 
-     * @param activity activity that we were called from
+     * @param context an Android Context
      */
-    synchronized void save(@NonNull final Activity activity) {
+    synchronized void save(@NonNull final Context context) {
         try {
-            getDelegator().writeToFile(activity);
-            App.getTaskStorage().writeToFile(activity);
+            getDelegator().writeToFile(context);
+            App.getTaskStorage().writeToFile(context);
             if (map != null) {
-                map.saveLayerState(activity);
+                map.saveLayerState(context);
             }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem saving", e);
@@ -3784,13 +3784,13 @@ public class Logic {
     /**
      * Saves to a file (asynchronously)
      * 
-     * @param activity activity that we were called from
+     * @param context context an Android Context
      */
-    void saveAsync(@NonNull final Activity activity) {
+    void saveAsync(@NonNull final Context context) {
         new ExecutorTask<Void, Void, Void>(executorService, uiHandler) {
             @Override
             protected Void doInBackground(Void params) {
-                save(activity);
+                save(context);
                 // the disadvantage of saving async is that something might have
                 // changed during the write .... so we force the dirty flags on
                 getDelegator().dirty();
