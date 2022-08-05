@@ -271,6 +271,7 @@
             </feature>
         </feature>
         <feature type="way" tags="highway=motorway_link" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" >
+            <feature type="way" tags="bridge=yes" casingStyle="motorway_bridge_casing" />
             <feature type="way" tags="tunnel=yes" casingStyle="">
                 <dash phase="1.0">
                     <interval length="1.0" />
@@ -288,6 +289,7 @@
             </feature>
         </feature>
         <feature type="way" tags="highway=trunk_link" widthFactor="1.5" minVisibleZoom="10" color="ff7FC97F" >
+            <feature type="way" tags="bridge=yes" casingStyle="trunk_bridge_casing" />
             <feature type="way" tags="tunnel=yes" casingStyle="">
                 <dash phase="1.0">
                     <interval length="1.0" />
@@ -305,6 +307,7 @@
             </feature>
         </feature>
         <feature type="way" tags="highway=primary_link" widthFactor="1.5" color="ffE46D71" >
+            <feature type="way" tags="bridge=yes" casingStyle="primary_bridge_casing" />
             <feature type="way" tags="tunnel=yes" casingStyle="">
                 <dash phase="1.0">
                     <interval length="1.0" />
@@ -322,6 +325,7 @@
             </feature>
         </feature>
         <feature type="way" tags="highway=secondary_link" widthFactor="1.2" color="ffFDBF6F" >
+            <feature type="way" tags="bridge=yes" casingStyle="secondary_bridge_casing" />
             <feature type="way" tags="tunnel=yes" casingStyle="">
                 <dash phase="1.0">
                     <interval length="1.0" />
@@ -339,6 +343,7 @@
             </feature>
         </feature>
         <feature type="way" tags="highway=tertiary_link" widthFactor="1.0" color="ffFCFA74" >
+            <feature type="way" tags="bridge=yes" casingStyle="tertiary_bridge_casing" />
             <feature type="way" tags="tunnel=yes" casingStyle="">
                 <dash phase="1.0">
                     <interval length="1.0" />
