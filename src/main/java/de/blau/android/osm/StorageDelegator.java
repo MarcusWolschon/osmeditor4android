@@ -583,19 +583,19 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Add a node to a way after a specified node
      * 
-     * @param nodeBefore existing way node the new node is to be added after
+     * @param nodeBeforeIndex index of existing way node the new node is to be added after
      * @param newNode the new way node
      * @param way the way to perform the operation on
      * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific
      *             constraint
      */
-    public void addNodeToWayAfter(final Node nodeBefore, final Node newNode, final Way way) throws OsmIllegalOperationException {
+    public void addNodeToWayAfter(final int nodeBeforeIndex, final Node newNode, final Way way) throws OsmIllegalOperationException {
         dirty = true;
         undo.save(way);
         try {
             validateWayNodeCount(way.nodeCount() + 1);
             apiStorage.insertElementSafe(way);
-            way.addNodeAfter(nodeBefore, newNode);
+            way.addNodeAfter(nodeBeforeIndex, newNode);
             way.updateState(OsmElement.STATE_MODIFIED);
             onElementChanged(null, way);
         } catch (StorageException e) {
