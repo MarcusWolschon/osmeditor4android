@@ -2445,7 +2445,7 @@ public class Logic {
                             // move the existing node onto the way and insert it into the way
                             try {
                                 getDelegator().moveNode(nodeToJoin, lat, lon);
-                                getDelegator().addNodeToWayAfter(node1, nodeToJoin, way);
+                                getDelegator().addNodeToWayAfter(i - 1, nodeToJoin, way);
                                 tempResult = Util.wrapInList(new Result(nodeToJoin));
                             } catch (OsmIllegalOperationException e) {
                                 dismissAttachedObjectWarning(activity); // doesn't make sense to show
@@ -2639,7 +2639,7 @@ public class Logic {
         Node savedNode1 = null;
         Node savedNode2 = null;
         List<Way> savedWays = new ArrayList<>();
-        List<Boolean> savedWaysSameDirection = new ArrayList<>();
+        List<Integer> savedWaysNodeIndex = new ArrayList<>();
         double savedDistance = Double.MAX_VALUE;
         // create a new node on a way
         for (Way way : ways) {
@@ -2654,7 +2654,6 @@ public class Logic {
             int wayNodesSize = wayNodes.size();
             for (int k = 1; k < wayNodesSize; ++k) {
                 Node node2 = wayNodes.get(k);
-
                 if (firstNode) {
                     node1X = lonE7ToX(node1.getLon());
                     node1Y = latE7ToY(node1.getLat());
@@ -2671,14 +2670,11 @@ public class Logic {
                         savedDistance = distance;
                         savedWays.clear();
                         savedWays.add(way);
-                        savedWaysSameDirection.clear();
-                        savedWaysSameDirection.add(true);
-                    } else if ((node1 == savedNode1 && node2 == savedNode2)) {
+                        savedWaysNodeIndex.clear();
+                        savedWaysNodeIndex.add(k - 1);
+                    } else if ((node1 == savedNode1 && node2 == savedNode2) || (node1 == savedNode2 && node2 == savedNode1)) {
                         savedWays.add(way);
-                        savedWaysSameDirection.add(true);
-                    } else if ((node1 == savedNode2 && node2 == savedNode1)) {
-                        savedWays.add(way);
-                        savedWaysSameDirection.add(false);
+                        savedWaysNodeIndex.add(k - 1);
                     }
                 }
                 node1 = node2;
@@ -2692,11 +2688,7 @@ public class Logic {
             if (node != null) {
                 getDelegator().insertElementSafe(node);
                 for (int i = 0; i < savedWays.size(); i++) {
-                    if (Boolean.TRUE.equals(savedWaysSameDirection.get(i))) {
-                        getDelegator().addNodeToWayAfter(savedNode1, node, savedWays.get(i));
-                    } else {
-                        getDelegator().addNodeToWayAfter(savedNode2, node, savedWays.get(i));
-                    }
+                    getDelegator().addNodeToWayAfter(savedWaysNodeIndex.get(i), node, savedWays.get(i));
                 }
             }
         }
