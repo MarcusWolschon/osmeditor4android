@@ -4,25 +4,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.xml.sax.SAXException;
 
 import androidx.annotation.NonNull;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
+import de.blau.android.UnitTestUtils;
 
 @RunWith(RobolectricTestRunner.class)
 @LargeTest
@@ -121,17 +116,6 @@ public class RelationUtilTest {
      */
     @NonNull
     public static StorageDelegator loadTestData(@NonNull Class c) {
-        StorageDelegator d = App.getDelegator();
-        InputStream input = c.getResourceAsStream("/rings.osm");
-        OsmParser parser = new OsmParser();
-        try {
-            parser.start(input);
-            Storage storage = parser.getStorage();
-            d.setCurrentStorage(storage);
-            d.fixupApiStorage();
-        } catch (SAXException | IOException | ParserConfigurationException | IllegalArgumentException | IllegalStateException e) {
-            fail(e.getMessage());
-        }
-        return d;
+        return UnitTestUtils.loadTestData(c, "rings.osm");
     }
 }

@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<osm
+    generator="Vespucci/17.1.1.0"
+    version="0.6"
+    upload="true">
+    <bounds
+        origin=""
+        maxlon="-124.9627974"
+        maxlat="37.6142833"
+        minlon="-124.9634266"
+        minlat="37.6139757" />
+    <node
+        id="-1"
+        action="modify"
+        version="1"
+        timestamp="2022-08-06T08:54:19Z"
+        visible="true"
+        lat="37.61415"
+        lon="-124.9631855" />
+    <node
+        id="-2"
+        action="modify"
+        version="1"
+        timestamp="2022-08-06T08:54:22Z"
+        visible="true"
+        lat="37.6140809"
+        lon="-124.9631892" />
+    <node
+        id="-3"
+        action="modify"
+        version="1"
+        timestamp="2022-08-06T08:54:23Z"
+        visible="true"
+        lat="37.6140818"
+        lon="-124.9633201" />
+    <node
+        id="-4"
+        action="modify"
+        version="1"
+        timestamp="2022-08-06T08:54:28Z"
+        visible="true"
+        lat="37.614152"
+        lon="-124.9633201" />
+    <node
+        id="-5"
+        action="modify"
+        version="1"
+        timestamp="2022-08-06T08:54:35Z"
+        visible="true"
+        lat="37.6141495"
+        lon="-124.9630549" />
+    <node
+        id="-6"
+        action="modify"
+        version="1"
+        timestamp="2022-08-06T08:54:38Z"
+        visible="true"
+        lat="37.614151"
+        lon="-124.9629427" />
+    <node
+        id="-7"
+        action="modify"
+        version="1"
+        timestamp="2022-08-06T08:54:51Z"
+        visible="true"
+        lat="37.6140366"
+        lon="-124.9631166" />
+    <node
+        id="-8"
+        action="modify"
+        version="1"
+        timestamp="2022-08-06T08:55:12Z"
+        visible="true"
+        lat="37.6141517"
+        lon="-124.9631215" />
+    <way
+        id="-1"
+        action="modify"
+        version="1"
+        timestamp="2022-08-06T08:54:38Z"
+        visible="true">
+        <nd ref="-1" />
+        <nd ref="-2" />
+        <nd ref="-3" />
+        <nd ref="-4" />
+        <nd ref="-1" />
+        <nd ref="-5" />
+        <nd ref="-6" />
+    </way>
+    <way
+        id="-2"
+        action="modify"
+        version="1"
+        timestamp="2022-08-06T08:54:54Z"
+        visible="true">
+        <nd ref="-7" />
+        <nd ref="-8" />
+    </way>
+</osm>

@@ -1,11 +1,20 @@
 package de.blau.android;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import androidx.annotation.NonNull;
+import de.blau.android.osm.OsmParser;
+import de.blau.android.osm.Storage;
+import de.blau.android.osm.StorageDelegator;
 
 public final class UnitTestUtils {
     
@@ -37,5 +46,29 @@ public final class UnitTestUtils {
             }
             os.flush();
         }
+    }
+    
+    /**
+     * Load some test data in to storage
+     * 
+     * @param c Class
+     * @param fileName the name of the file with osm data
+     * @return the StorageDelegator
+     * 
+     */
+    @NonNull
+    public static StorageDelegator loadTestData(@NonNull Class c, @NonNull String fileName) {
+        StorageDelegator d = App.getDelegator();
+        InputStream input = c.getResourceAsStream("/" + fileName);
+        OsmParser parser = new OsmParser();
+        try {
+            parser.start(input);
+            Storage storage = parser.getStorage();
+            d.setCurrentStorage(storage);
+            d.fixupApiStorage();
+        } catch (SAXException | IOException | ParserConfigurationException | IllegalArgumentException | IllegalStateException e) {
+            fail(e.getMessage());
+        }
+        return d;
     }
 }
