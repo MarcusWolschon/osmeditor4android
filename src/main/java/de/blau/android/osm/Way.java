@@ -265,17 +265,17 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
     /**
      * Inserts a Node after a specified one
      * 
-     * Note: assumes the Way isn't empty and nodeBefore is actually a way Node
+     * Note: assumes the Way isn't empty 
      * 
-     * @param nodeBefore the reference Node
+     * @param beforeIndex the index of the Node before the one to insert
      * @param newNode the Node to insert
      */
-    void addNodeAfter(@NonNull final Node nodeBefore, @NonNull final Node newNode) {
-        if (nodeBefore == newNode) { // user error
+    void addNodeAfter(@NonNull final int beforeIndex, @NonNull final Node newNode) {
+        if (nodes.get(beforeIndex) == newNode) { // user error
             Log.i(DEBUG_TAG, "addNodeAfter attempt to add same node");
             return;
         }
-        nodes.add(nodes.indexOf(nodeBefore) + 1, newNode);
+        nodes.add(beforeIndex + 1, newNode);
     }
 
     /**

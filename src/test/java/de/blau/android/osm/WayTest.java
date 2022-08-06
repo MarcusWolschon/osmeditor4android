@@ -49,7 +49,7 @@ public class WayTest {
         Node n = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n);
 
-        w.addNodeAfter(w.getFirstNode(), n);
+        w.addNodeAfter(0, n);
         assertEquals(n, w.getNodes().get(1));
     }
 
