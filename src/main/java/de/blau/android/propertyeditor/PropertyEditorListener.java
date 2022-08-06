@@ -5,6 +5,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.presets.Preset;
@@ -105,4 +106,6 @@ public interface PropertyEditorListener {
      * Disallow presets to be applied
      */
     public void disablePresets();
+    
+    public Toolbar getToolbar();
 }

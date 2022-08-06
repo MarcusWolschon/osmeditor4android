@@ -522,7 +522,7 @@ public class SplitPaneLayout extends ViewGroup {
      *
      * @param position the desired position of the splitter
      */
-    private void setSplitterPositionPercent(float position) {
+    public void setSplitterPositionPercent(float position) {
         if (position < 0) {
             position = 0;
         }

@@ -11,7 +11,7 @@ import de.blau.android.osm.OsmElement;
  * @author Simon Poole
  *
  */
-interface ControlListener {
+public interface ControlListener {
 
     /**
      * Indicate that the Fragment is finished with whatever it was doing

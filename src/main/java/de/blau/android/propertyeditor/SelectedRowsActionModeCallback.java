@@ -3,14 +3,15 @@ package de.blau.android.propertyeditor;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.view.ActionMode;
+import android.view.ActionMode.Callback;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ActionMode;
-import androidx.appcompat.view.ActionMode.Callback;
+
 import androidx.fragment.app.Fragment;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;

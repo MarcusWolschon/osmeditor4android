@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.ActionMode;
+
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;

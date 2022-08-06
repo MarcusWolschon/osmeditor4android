@@ -198,6 +198,12 @@ public class App extends LocaleAwareApplication implements android.app.Applicati
         registerReceiver(new DesktopModeReceiver(), desktopModeFilter);
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+       super.attachBaseContext(base);
+       MultiDex.install(this);
+    }
+
     /**
      * Retrieve the saved Configuration object
      * 

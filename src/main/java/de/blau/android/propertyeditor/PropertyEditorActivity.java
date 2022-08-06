@@ -225,6 +225,15 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
     @Override
     public void finished(@Nullable Fragment finishedFragment) {
         final FragmentManager fm = getSupportFragmentManager();
+        if (pop(fm)) {
+            finish();
+        }
+    }
+
+    /**
+     * @param fm
+     */
+    public static boolean pop(final FragmentManager fm) {
         int count = backStackCount(fm);
         if (count > 1) {
             fm.popBackStackImmediate();
@@ -232,17 +241,27 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
             if (top != null) { // still have a fragment on the stack
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.show(top);
-                return;
+                return false;
             }
+        } else {
+            fm.popBackStack();
         }
-        finish();
+        return true;
     }
 
     @Override
     public void addPropertyEditor(@NonNull OsmElement element) {
         final FragmentManager fm = getSupportFragmentManager();
+        addPropertyEditor(fm,  android.R.id.content, element);
+    }
+
+    /**
+     * @param fm
+     * @param element
+     */
+    public static void addPropertyEditor(final FragmentManager fm, int viewRes, OsmElement element) {
         PropertyEditorFragment top = peekBackStack(fm);
-        addFragment(fm, android.R.id.content, new PropertyEditorData[] { new PropertyEditorData(element, null) }, false, false, null, null,
+        addFragment(fm, viewRes, new PropertyEditorData[] { new PropertyEditorData(element, null) }, false, false, null, null,
                 top != null && top.usingPaneLayout());
     }
 

@@ -259,6 +259,7 @@ android {
             applicationIdSuffix ""
             versionNameSuffix ""
             resValue "string", "content_provider", "de.blau.android.provider"
+            multiDexEnabled true
         }
     }
 
@@ -503,12 +504,13 @@ dependencies {
     implementation "ch.acra:acra-http:$acraVersion"
     implementation "ch.acra:acra-dialog:$acraVersion"
     // android support and other libraries
-    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation "androidx.multidex:multidex:2.0.1"
+    implementation "androidx.appcompat:appcompat:1.4.2"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.preference:preference:1.1.0"
     implementation "com.google.android.material:material:1.0.0"
     implementation "androidx.annotation:annotation:1.1.0"
-    implementation "androidx.core:core:1.2.0"
+    implementation "androidx.core:core:1.8.0"
     implementation "androidx.exifinterface:exifinterface:1.1.0"
     implementation "androidx.legacy:legacy-preference-v14:1.0.0"
     implementation "androidx.work:work-runtime:$work_version"

@@ -29,6 +29,7 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
@@ -57,7 +58,7 @@ import de.blau.android.util.collections.MultiHashMap;
  * @author Simon Poole
  *
  */
-public class RelationMembershipFragment extends BaseFragment implements PropertyRows, OnItemSelectedListener {
+public class RelationMembershipFragment extends BaseFragment implements PropertyRows, OnItemSelectedListener, MenuProvider {
     private static final String DEBUG_TAG = RelationMembershipFragment.class.getSimpleName();
 
     private static final String PARENTS_KEY      = "parents";
@@ -592,7 +593,8 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             LinearLayout rowLayout = (LinearLayout) getOurView();
             if (parentSelectedActionModeCallback == null) {
                 parentSelectedActionModeCallback = new SelectedRowsActionModeCallback(this, rowLayout);
-                ((AppCompatActivity) getActivity()).startSupportActionMode(parentSelectedActionModeCallback);
+                propertyEditorListener.getToolbar().startActionMode(parentSelectedActionModeCallback);
+                // ((AppCompatActivity) getActivity()).startSupportActionMode(parentSelectedActionModeCallback);
             }
         }
     }
@@ -727,13 +729,12 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     }
 
     @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+    public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.membership_menu, menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onMenuItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
         case android.R.id.home:
             propertyEditorListener.updateAndFinish();

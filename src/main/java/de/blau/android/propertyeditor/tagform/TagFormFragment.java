@@ -35,6 +35,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import ch.poole.android.checkbox.IndeterminateCheckBox;
@@ -79,7 +80,7 @@ import de.blau.android.util.StringWithDescriptionAndIcon;
 import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
-public class TagFormFragment extends BaseFragment implements FormUpdate {
+public class TagFormFragment extends BaseFragment implements FormUpdate, MenuProvider {
 
     private static final String DEBUG_TAG = TagFormFragment.class.getSimpleName();
 
@@ -381,8 +382,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     }
 
     @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+    public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.tag_form_menu, menu);
         menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(propertyEditorListener.isConnectedOrConnecting());
         menu.findItem(R.id.tag_menu_paste).setVisible(!App.getTagClipboard(getContext()).isEmpty());
@@ -393,15 +393,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     }
 
     @Override
-    public void onPrepareOptionsMenu(final Menu menu) {
-        super.onPrepareOptionsMenu(menu);
+    public void onPrepareMenu(final Menu menu) {
         // disable address prediction for stuff that won't have an address
         OsmElement element = propertyEditorListener.getElement();
         menu.findItem(R.id.tag_menu_address).setVisible((!(element instanceof Way) || ((Way) element).isClosed()));
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onMenuItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
         case android.R.id.home:
             Log.d(DEBUG_TAG, "home pressed");

@@ -79,6 +79,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
@@ -141,6 +142,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.PresetElementPath;
+import de.blau.android.propertyeditor.ControlListener;
 import de.blau.android.propertyeditor.PropertyEditorActivity;
 import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.resources.DataStyle;
@@ -193,7 +195,7 @@ import de.blau.android.views.layers.MapTilesLayer;
  * @author Simon Poole
  */
 public class Main extends FullScreenAppCompatActivity
-        implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.geocode.SearchItemSelectedCallback, ActivityResultHandler {
+        implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.geocode.SearchItemSelectedCallback, ActivityResultHandler, ControlListener {
 
     /**
      * Tag used for Android-logging.
@@ -470,7 +472,7 @@ public class Main extends FullScreenAppCompatActivity
         App.initGeoContext(this);
         updatePrefs(new Preferences(this));
 
-        int layout = R.layout.main;
+        int layout = R.layout.main2pane;
         if (useFullScreen(prefs) && !statusBarHidden()) {
             Log.d(DEBUG_TAG, "using full screen layout");
             layout = R.layout.main_fullscreen;
@@ -493,8 +495,9 @@ public class Main extends FullScreenAppCompatActivity
             }
         }
 
-        LinearLayout ml = (LinearLayout) getLayoutInflater().inflate(layout, null);
+        ViewGroup ml = (ViewGroup) getLayoutInflater().inflate(layout, null);
         mapLayout = (RelativeLayout) ml.findViewById(R.id.mainMap);
+        
 
         if (map != null) {
             Log.d(DEBUG_TAG, "map exists .. destroying");
@@ -3152,7 +3155,8 @@ public class Main extends FullScreenAppCompatActivity
             if (storageDelegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
                 PropertyEditorData[] single = new PropertyEditorData[1];
                 single[0] = new PropertyEditorData(selectedElement, focusOn);
-                PropertyEditorActivity.startForResult(this, single, applyLastAddressTags, showPresets, tags, presetPathList, REQUEST_EDIT_TAG);
+                // PropertyEditorActivity.startForResult(this, single, applyLastAddressTags, showPresets, tags, presetPathList, REQUEST_EDIT_TAG);
+                PropertyEditorActivity.addFragment(getSupportFragmentManager(), R.id.pane2, single, applyLastAddressTags, showPresets, tags, presetPathList, false);
             }
         }
     }
@@ -4396,5 +4400,17 @@ public class Main extends FullScreenAppCompatActivity
      */
     private <T> boolean lastMember(@NonNull List<T> l, @NonNull T o) {
         return l.indexOf(o) == (l.size() - 1);
+    }
+
+    @Override
+    public void finished(Fragment finishedFragment) {
+        if (PropertyEditorActivity.pop(getSupportFragmentManager())) {
+            
+        }
+    }
+
+    @Override
+    public void addPropertyEditor(OsmElement element) {
+        PropertyEditorActivity.addPropertyEditor(getSupportFragmentManager(), R.id.pane2, element);       
     }
 }

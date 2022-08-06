@@ -252,6 +252,11 @@
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
         <item name="error">@color/material_red</item>
+        <!--  splitter -->
+        <item name="SplitterBGV">@drawable/splitter_bg_v_light</item>
+        <item name="SplitterBGH">@drawable/splitter_bg_h_light</item>
+        <item name="SplitterHandleV">@drawable/splitter_handle_v_light</item>
+        <item name="SplitterHandleH">@drawable/splitter_handle_h_light</item>
 	</style>
 	
 	<style name="Theme.customMain.Light.FullScreen" parent="Theme.customMain.Light">
@@ -505,7 +510,7 @@
 		<item name="SplitterBGV">@drawable/splitter_bg_v_light</item>
 		<item name="SplitterBGH">@drawable/splitter_bg_h_light</item>
         <item name="SplitterHandleV">@drawable/splitter_handle_v_light</item>
-         <item name="SplitterHandleH">@drawable/splitter_handle_h_light</item>
+        <item name="SplitterHandleH">@drawable/splitter_handle_h_light</item>
 		<!--  icons  -->
 		<item name="menu_help">@drawable/ic_action_help_holo_light</item>
 		<item name="menu_undo">@drawable/ic_action_undo_holo_light</item>

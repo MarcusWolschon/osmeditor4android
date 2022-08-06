@@ -18,6 +18,8 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnKeyListener;
@@ -30,10 +32,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.viewpager.widget.PagerTabStrip;
 import androidx.viewpager.widget.ViewPager;
 import de.blau.android.App;
@@ -84,7 +90,7 @@ import de.blau.android.views.ExtendedViewPager;
  * @author simon
  */
 public class PropertyEditorFragment extends BaseFragment implements PropertyEditorListener, OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetUpdate,
-        NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener {
+        NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener, MenuProvider {
 
     private static final String CURRENTITEM            = "current_item";
     static final String         PANELAYOUT             = "pane_layout";
@@ -162,13 +168,15 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     private MultiHashMap<Long, RelationMemberPosition> originalParents;
     private ArrayList<RelationMemberDescription>       originalMembers;
 
-    private Preferences       prefs         = null;
-    private ExtendedViewPager mViewPager;
-    private boolean           usePaneLayout = false;
-    private boolean           isRelation    = false;
-    private NetworkStatus     networkStatus;
-    private List<String>      isoCodes      = null;
-    private ControlListener   controlListener;
+    private Preferences        prefs         = null;
+    private ExtendedViewPager  mViewPager;
+    private boolean            usePaneLayout = false;
+    private boolean            isRelation    = false;
+    private NetworkStatus      networkStatus;
+    private List<String>       isoCodes      = null;
+    private ControlListener    controlListener;
+    private Toolbar            toolbar;
+    private PageChangeListener pageChangeListener;
 
     /**
      * Build the intent to start the PropertyEditor
@@ -193,7 +201,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         args.putSerializable(TAGEDIT_EXTRA_TAGS, extraTags);
         args.putSerializable(TAGEDIT_PRESETSTOAPPLY, presetItems);
         if (usePaneLayout != null) {
-            args.putBoolean(TAGEDIT_SHOW_PRESETS, usePaneLayout);
+            args.putBoolean(PANELAYOUT, usePaneLayout);
         }
         f.setArguments(args);
         return f;
@@ -204,7 +212,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         Log.d(DEBUG_TAG, "onAttachToContext");
         Util.implementsInterface(context, ControlListener.class);
         controlListener = (ControlListener) context;
-        setHasOptionsMenu(true);
+        // setHasOptionsMenu(true);
     }
 
     @Override
@@ -221,6 +229,12 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             Log.e(DEBUG_TAG, "prefs was null creating new");
             prefs = new Preferences(getContext());
             logic.setPrefs(prefs);
+        }
+
+        if (prefs.lightThemeEnabled()) {
+            getContext().getTheme().applyStyle(R.style.Theme_customTagEditor_Light, true);
+        } else {
+            getContext().getTheme().applyStyle(R.style.Theme_customTagEditor, true);
         }
 
         super.onCreate(savedInstanceState);
@@ -293,16 +307,17 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         ViewGroup layout = (ViewGroup) inflater.inflate(usePaneLayout ? R.layout.pane_view : R.layout.tab_view, null);
 
         // Find the toolbar view inside the activity layout
-        Toolbar toolbar = (Toolbar) layout.findViewById(R.id.propertyEditorBar);
+        toolbar = (Toolbar) layout.findViewById(R.id.propertyEditorBar);
+        toolbar.addMenuProvider(this);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        // ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         // FIXME currently we statically change this, it would be nicer to actually make it dependent on if we have
         // actually changed something
-        ActionBar actionbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionbar.setHomeAsUpIndicator(ThemeUtils.getResIdFromAttribute(getContext(), R.attr.propertyeditor_done));
-        actionbar.setDisplayShowTitleEnabled(false);
-        actionbar.setDisplayHomeAsUpEnabled(true);
+        // ActionBar actionbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        // actionbar.setHomeAsUpIndicator(ThemeUtils.getResIdFromAttribute(getContext(), R.attr.propertyeditor_done));
+        // actionbar.setDisplayShowTitleEnabled(false);
+        // actionbar.setDisplayHomeAsUpEnabled(true);
 
         // tags
         ArrayList<LinkedHashMap<String, String>> tags = new ArrayList<>();
@@ -354,10 +369,11 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         mViewPager.setOffscreenPageLimit(4); // FIXME currently this is required or else some of the logic between the
                                              // fragments will not work
         mViewPager.setAdapter(pagerAdapter);
-        mViewPager.addOnPageChangeListener(new PageChangeListener());
+        pageChangeListener = new PageChangeListener();
+        mViewPager.addOnPageChangeListener(pageChangeListener);
         // if currentItem is >= 0 then we are restoring and should use it, otherwise the first or 2nd page
-        mViewPager.setCurrentItem(currentItem != -1 ? currentItem : pagerAdapter.reversePosition(showPresets || usePaneLayout ? 0 : 1));
-
+        currentItem = currentItem != -1 ? currentItem : pagerAdapter.reversePosition(showPresets || usePaneLayout ? 0 : 1);
+        mViewPager.setCurrentItem(currentItem);
         return layout;
     }
 
@@ -398,7 +414,18 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public void onCreateMenu(Menu arg0, MenuInflater arg1) {
+        Log.d(DEBUG_TAG, "onCreateMenu");
+    }
+
+    @Override
+    public void onPrepareMenu(Menu arg0) {
+        Log.d(DEBUG_TAG, "onPrepareMenu");
+        pageChangeListener.onPageSelected(mViewPager.getCurrentItem());
+    }
+
+    @Override
+    public boolean onMenuItemSelected(MenuItem item) {
         // Due to a problem of not being able to intercept android.R.id.home in fragments on older android versions
         // we start passing the event to the currently displayed fragment.
         // REF: http://stackoverflow.com/questions/21938419/intercepting-actionbar-home-button-in-fragment
@@ -415,7 +442,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             PrefEditor.start(getActivity(), PREFERENCES_CODE);
             return true;
         }
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
     /**
@@ -748,9 +775,28 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             Log.d(DEBUG_TAG, "saveState done");
             return bundle;
         }
+
+        @Override
+        public void finishUpdate(ViewGroup container) {
+            Log.d(DEBUG_TAG, "finishUpdate");
+            super.finishUpdate(container);
+            if (primaryItem != -1) {
+                pageChangeListener.setMenuProvider(getItem(false, primaryItem));
+            }
+        }
+
+        int primaryItem = -1;
+
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, @NonNull Object object) {
+            super.setPrimaryItem(container, position, object);
+            primaryItem = position;
+        }
     }
 
     private class PageChangeListener extends ViewPager.SimpleOnPageChangeListener {
+        private MenuProvider currentMenuProvider = null;
+
         @Override
         public void onPageSelected(int page) {
             Log.d(DEBUG_TAG, "page " + page + " selected");
@@ -759,6 +805,22 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             }
             if (page == tagEditorFragmentPosition && tagEditorFragment != null) {
                 tagEditorFragment.focusOnEmptyValue();
+            }
+            final Fragment f = ((PropertyEditorPagerAdapter) mViewPager.getAdapter()).getItem(false, page);
+            setMenuProvider(f);
+        }
+
+        /**
+         * @param f
+         */
+        public void setMenuProvider(final Fragment f) {
+            final boolean notSame = currentMenuProvider != f;
+            if (currentMenuProvider != null && notSame) {
+                toolbar.removeMenuProvider(currentMenuProvider);
+            }
+            if (f != null && notSame) {
+                toolbar.addMenuProvider((MenuProvider) f);
+                currentMenuProvider = (MenuProvider) f;
             }
         }
     }
@@ -1344,5 +1406,10 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     public boolean updateEditorFromText() {
         // This is only used internally by the TagFormFragment
         throw new IllegalOperationException("updateEditorFromText can only be called internally");
+    }
+
+    @Override
+    public Toolbar getToolbar() {
+        return toolbar;
     }
 }

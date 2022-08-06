@@ -29,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.ActionMenuView;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -57,7 +58,7 @@ import de.blau.android.util.Snack;
 import de.blau.android.util.Sound;
 import de.blau.android.util.Util;
 
-public class PresetFragment extends BaseFragment implements PresetUpdate, PresetClickHandler {
+public class PresetFragment extends BaseFragment implements PresetUpdate, PresetClickHandler, MenuProvider {
     private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
 
     static final int MAX_SEARCHRESULTS = 10;
@@ -437,7 +438,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     }
 
     @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+    public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         ActionMenuView menuView = (ActionMenuView) getView().findViewById(R.id.preset_menu);
         // the library providing the Feedback UI is not supported under SDK 15
@@ -459,7 +460,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     }
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
+    public void onPrepareMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         boolean enableNavigation = getOurView() != null && currentGroup != rootGroup;
         MenuItem item = menu.findItem(R.id.preset_menu_top);
@@ -473,7 +474,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onMenuItemSelected(final MenuItem item) {
         ScrollView scrollView = (ScrollView) getOurView();
         switch (item.getItemId()) {
         case android.R.id.home:

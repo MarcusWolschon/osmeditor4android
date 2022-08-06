@@ -23,6 +23,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.ActionMode.Callback;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,6 +42,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
@@ -89,7 +91,7 @@ import de.blau.android.util.Util;
 import de.blau.android.util.Value;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
-public class TagEditorFragment extends BaseFragment implements PropertyRows, EditorUpdate {
+public class TagEditorFragment extends BaseFragment implements PropertyRows, EditorUpdate, MenuProvider {
     private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
 
     private static final String SAVEDTAGS_KEY           = "SAVEDTAGS";
@@ -246,8 +248,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         presetFilterUpdate = (PresetUpdate) parent;
         propertyEditorListener = (PropertyEditorListener) parent;
         presetSelectedListener = (OnPresetSelectedListener) parent;
-        setHasOptionsMenu(true);
-        getActivity().invalidateOptionsMenu();
+      //  setHasOptionsMenu(true);
+      //  getActivity().invalidateOptionsMenu();
     }
 
     @Override
@@ -1462,7 +1464,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         synchronized (actionModeCallbackLock) {
             if (tagSelectedActionModeCallback == null) {
                 tagSelectedActionModeCallback = new TagSelectedActionModeCallback(this, rowLayout);
-                ((AppCompatActivity) getActivity()).startSupportActionMode(tagSelectedActionModeCallback);
+                propertyEditorListener.getToolbar().startActionMode(tagSelectedActionModeCallback);
+                // ((AppCompatActivity) getActivity()).startSupportActionMode(tagSelectedActionModeCallback);
             }
         }
     }
@@ -1901,14 +1904,12 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+    public void onCreateMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.tag_menu, menu);
     }
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
+    public void onPrepareMenu(Menu menu) {
         // disable address prediction for stuff that won't have an address
         menu.findItem(R.id.tag_menu_address).setVisible(elements.length == 1 && (!(elements[0] instanceof Way) || ((Way) elements[0]).isClosed()));
         menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(propertyEditorListener.isConnectedOrConnecting());
@@ -1917,7 +1918,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onMenuItemSelected(final MenuItem item) {
         final int itemId = item.getItemId();
         switch (itemId) {
         case android.R.id.home:
