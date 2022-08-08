@@ -563,7 +563,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         }
         // try to match with a preset
         if (ctx != null) {
-            PresetItem p = Preset.findBestMatch(App.getCurrentPresets(ctx), tags, null);
+            PresetItem p = Preset.findBestMatch(App.getCurrentPresets(ctx), tags, null, null);
             if (p != null) {
                 String ref = getTagWithKey(Tags.KEY_REF);
                 return p.getDisplayName(ctx) + (ref != null ? " " + ref : "");

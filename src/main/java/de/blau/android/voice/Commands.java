@@ -106,7 +106,7 @@ public final class Commands {
                     if (nt != null) {
                         Map<String, String> map = new HashMap<>();
                         map.putAll(nt.getTags());
-                        PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(activity), map, null);
+                        PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(activity), map, null, null);
                         if (pi != null) {
                             Node node = Commands.addNode(activity, logic.performAddNode(activity, lonE7, latE7), nt.getName(), pi, logic, text);
                             if (node != null) {

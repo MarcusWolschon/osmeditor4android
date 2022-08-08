@@ -396,7 +396,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
         if (type != null && !"".equals(type)) {
             PresetItem p = null;
             if (ctx != null) {
-                p = Preset.findBestMatch(App.getCurrentPresets(ctx), tags, null);
+                p = Preset.findBestMatch(App.getCurrentPresets(ctx), tags, null, null);
             }
             if (p != null) {
                 description = p.getTranslatedName();
@@ -411,7 +411,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
                 } else {
                     SortedMap<String, String> tagsCopy = new TreeMap<>(tags);
                     if (tagsCopy.remove(Tags.KEY_TYPE) != null) {
-                        p = Preset.findBestMatch(App.getCurrentPresets(ctx), tagsCopy, null);
+                        p = Preset.findBestMatch(App.getCurrentPresets(ctx), tagsCopy, null, null);
                         if (p != null) {
                             description = description + " " + p.getTranslatedName();
                         }

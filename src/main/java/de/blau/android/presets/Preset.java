@@ -1731,11 +1731,12 @@ public class Preset {
      * @param presets presets to match against
      * @param tags tags to check against (i.e. tags of a map element)
      * @param region if not null this will be taken in to account wrt scoring
+     * @param ignoreTags Map of keys to ignore
      * @return null, or the "best" matching item for the given tag set
      */
     @Nullable
-    public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, String region) {
-        return findBestMatch(presets, tags, region, null, false);
+    public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, String region, Map<String, String> ignoreTags) {
+        return findBestMatch(presets, tags, region, null, false, ignoreTags);
     }
 
     /**
@@ -1751,11 +1752,12 @@ public class Preset {
      * @param region if not null this will be taken in to account wrt scoring
      * @param elementType if not null the ElementType will be considered
      * @param useAddressKeys use addr: keys if true
+     * @param ignoreTags Map of keys to ignore
      * @return a preset or null if none found
      */
     @Nullable
     public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, @Nullable String region,
-            @Nullable ElementType elementType, boolean useAddressKeys) {
+            @Nullable ElementType elementType, boolean useAddressKeys, @Nullable Map<String, String> ignoreTags) {
         int bestMatchStrength = 0;
         PresetItem bestMatch = null;
 
@@ -1765,10 +1767,11 @@ public class Preset {
         }
 
         // Build candidate list
-        Set<PresetItem> possibleMatches = buildPossibleMatches(presets, tags, false);
+        Set<PresetItem> possibleMatches = new LinkedHashSet<>();
+        buildPossibleMatches(possibleMatches, presets, tags, false, ignoreTags);
         // if we only have address keys retry
         if (useAddressKeys && possibleMatches.isEmpty()) {
-            possibleMatches = buildPossibleMatches(presets, tags, true);
+            buildPossibleMatches(possibleMatches, presets, tags, true, ignoreTags);
         }
         // Find best
         final int FIXED_WEIGHT = 1000; // always prioritize presets with fixed keys
@@ -1823,7 +1826,7 @@ public class Preset {
         }
 
         // Build candidate list
-        Set<PresetItem> possibleMatches = buildPossibleMatches(presets, tags, false);
+        Set<PresetItem> possibleMatches = buildPossibleMatches(new LinkedHashSet<>(), presets, tags, false, null);
 
         // Find match
         for (PresetItem possibleMatch : possibleMatches) {
@@ -1841,23 +1844,28 @@ public class Preset {
     /**
      * Return a set of presets that could match the tags
      * 
+     * @param possibleMatches Set to hold result
      * @param presets current presets
      * @param tags the tags
      * @param useAddressKeys use address keys
+     * @param ignoreTags Map of tags to ignore
      * @return set of presets
      */
     @NonNull
-    private static Set<PresetItem> buildPossibleMatches(@NonNull Preset[] presets, @NonNull Map<String, String> tags, boolean useAddressKeys) {
-        Set<PresetItem> possibleMatches = new LinkedHashSet<>();
+    private static Set<PresetItem> buildPossibleMatches(@NonNull Set<PresetItem> possibleMatches, @NonNull Preset[] presets, @NonNull Map<String, String> tags,
+            boolean useAddressKeys, @Nullable Map<String, String> ignoreTags) {
         for (Preset p : presets) {
             if (p != null) {
                 for (Entry<String, String> tag : tags.entrySet()) {
-                    String key = tag.getKey();
-                    if (useAddressKeys || !key.startsWith(Tags.KEY_ADDR_BASE)) {
+                    final String key = tag.getKey();
+                    final String value = tag.getValue();
+                    final String ignoreValue = ignoreTags != null ? ignoreTags.get(key) : null;
+                    final boolean ignore = "".equals(ignoreValue) || value.equals(ignoreValue);
+                    if ((useAddressKeys || !key.startsWith(Tags.KEY_ADDR_BASE)) && !ignore) {
                         String tagString = key + "\t";
                         possibleMatches.addAll(p.objectItems.get(tagString)); // for stuff that doesn't have fixed
                                                                               // values
-                        possibleMatches.addAll(p.objectItems.get(tagString + tag.getValue()));
+                        possibleMatches.addAll(p.objectItems.get(tagString + value));
                     }
                 }
             }

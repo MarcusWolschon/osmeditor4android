@@ -133,7 +133,7 @@ class QueryPhoton extends Query {
                         String value = osmValue.getAsString();
                         Map<String, String> tag = new HashMap<>();
                         tag.put(key, value);
-                        PresetItem preset = Preset.findBestMatch(App.getCurrentPresets(activity), tag, null, null, false);
+                        PresetItem preset = Preset.findBestMatch(App.getCurrentPresets(activity), tag, null, null, false, null);
                         if (preset != null) {
                             sb.append("<br>[" + preset.getTranslatedName() + "]<br>");
                         } else {

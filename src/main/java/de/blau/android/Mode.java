@@ -185,7 +185,7 @@ public enum Mode {
             ArrayList<PresetElementPath> result = new ArrayList<>();
             Preset[] presets = App.getCurrentPresets(ctx);
             if (presets.length > 0 && presets[0] != null) {
-                PresetItem pi = Preset.findBestMatch(presets, e.getTags(), null);
+                PresetItem pi = Preset.findBestMatch(presets, e.getTags(), null, null);
                 if (pi != null) { // there naturally may not be a preset
                     result.add(pi.getPath(presets[0].getRootGroup()));
                 }

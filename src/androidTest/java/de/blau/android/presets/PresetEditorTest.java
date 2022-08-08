@@ -119,7 +119,7 @@ public class PresetEditorTest {
 
         HashMap<String, String> tags = new HashMap<>();
         tags.put("landuse", "military");
-        PresetItem match = Preset.findBestMatch(presets, tags, null);
+        PresetItem match = Preset.findBestMatch(presets, tags, null, null);
         assertEquals("Military", match.getName());
 
         // move military preset up
@@ -135,7 +135,7 @@ public class PresetEditorTest {
         TestUtils.clickHome(device, true);
         App.resetPresets();
         presets = App.getCurrentPresets(main);
-        match = Preset.findBestMatch(presets, tags, null);
+        match = Preset.findBestMatch(presets, tags, null, null);
         assertEquals("Military landuse", match.getName());
 
         // move display content and check that version is displayed
@@ -226,7 +226,7 @@ public class PresetEditorTest {
 
                 HashMap<String, String> tags = new HashMap<>();
                 tags.put("military", "trench");
-                PresetItem match = Preset.findBestMatch(presets, tags, null);
+                PresetItem match = Preset.findBestMatch(presets, tags, null, null);
                 assertEquals("Trench", match.getName());
 
                 // delete the test preset
