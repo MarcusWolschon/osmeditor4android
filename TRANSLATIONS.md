@@ -1,6 +1,6 @@
 ## Translating Vespucci
 
-You can [translate this program into your language](https://www.transifex.com/projects/p/vespucci/) using transifex project.
+You can [translate this program into your language](https://www.transifex.com/openstreetmap/vespucci/dashboard/) using transifex project.
 
 Default preset is [translated separately, also at transifex](https://www.transifex.com/openstreetmap/presets/dashboard/), see https://github.com/simonpoole/beautified-JOSM-preset for more.
 
