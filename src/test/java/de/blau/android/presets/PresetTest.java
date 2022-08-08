@@ -125,6 +125,23 @@ public class PresetTest {
        match = Preset.findBestMatch(presets, tags,  null, null, false, null);
        assertEquals("Farm", match.getName());
    }
+   
+   /**
+    * Test that ignoring tags for matching works
+    */
+   @Test
+   public void matching4() {
+       Map<String, String> tags = new HashMap<>();
+       tags.put(Tags.KEY_INDOOR, Tags.VALUE_ROOM); 
+       tags.put(Tags.VALUE_ROOM, Tags.KEY_SHOP); 
+       tags.put(Tags.KEY_SHOP, "supermarket"); 
+       PresetItem match = Preset.findBestMatch(presets, tags, null, null);
+       assertNotNull(match);
+       assertTrue(match.hasKeyValue(Tags.KEY_INDOOR, Tags.VALUE_ROOM));
+       match = Preset.findBestMatch(presets, tags, null, Tags.IGNORE_FOR_MAP_ICONS);
+       assertNotNull(match);
+       assertTrue(match.hasKeyValue(Tags.KEY_SHOP, "supermarket"));     
+   }
     
     /**
      * Remove an item
