@@ -67,7 +67,7 @@ public class PresetTest {
         //
         Map<String, String> tags = new HashMap<>();
         tags.put("amenity", "restaurant");
-        PresetItem restaurant = Preset.findBestMatch(presets, tags, null);
+        PresetItem restaurant = Preset.findBestMatch(presets, tags, null, null);
         assertEquals("Restaurant", restaurant.getName());
         // Splitting
         List<String> values = new ArrayList<>();
@@ -106,7 +106,7 @@ public class PresetTest {
         Map<String, String> tags = new HashMap<>();
         tags.put("traffic_sign:forward", "something"); // this is a text field
         assertEquals(1, item.matchesRecommended(tags));
-        PresetItem sign = Preset.findBestMatch(presets, tags, null);
+        PresetItem sign = Preset.findBestMatch(presets, tags, null, null);
         assertEquals(item, sign);
         assertTrue(item.hasKeyValue("traffic_sign:forward", "anything")); // test field
     }
@@ -120,10 +120,27 @@ public class PresetTest {
        Map<String, String> tags = new HashMap<>();
        tags.put(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON);
        tags.put(Tags.KEY_PLACE, "farm");
-       PresetItem match = Preset.findBestMatch(presets, tags,  null, ElementType.RELATION, false);
+       PresetItem match = Preset.findBestMatch(presets, tags,  null, ElementType.RELATION, false, null);
        assertEquals("Multipolygon", match.getName());
-       match = Preset.findBestMatch(presets, tags,  null, null, false);
+       match = Preset.findBestMatch(presets, tags,  null, null, false, null);
        assertEquals("Farm", match.getName());
+   }
+   
+   /**
+    * Test that ignoring tags for matching works
+    */
+   @Test
+   public void matching4() {
+       Map<String, String> tags = new HashMap<>();
+       tags.put(Tags.KEY_INDOOR, Tags.VALUE_ROOM); 
+       tags.put(Tags.VALUE_ROOM, Tags.KEY_SHOP); 
+       tags.put(Tags.KEY_SHOP, "supermarket"); 
+       PresetItem match = Preset.findBestMatch(presets, tags, null, null);
+       assertNotNull(match);
+       assertTrue(match.hasKeyValue(Tags.KEY_INDOOR, Tags.VALUE_ROOM));
+       match = Preset.findBestMatch(presets, tags, null, Tags.IGNORE_FOR_MAP_ICONS);
+       assertNotNull(match);
+       assertTrue(match.hasKeyValue(Tags.KEY_SHOP, "supermarket"));     
    }
     
     /**
@@ -135,11 +152,11 @@ public class PresetTest {
         assertNotNull(item);
         Map<String, String> tags = new HashMap<>();
         tags.put("traffic_sign:backward", "something"); // this is a text field
-        PresetItem sign = Preset.findBestMatch(presets, tags, null);
+        PresetItem sign = Preset.findBestMatch(presets, tags, null, null);
         assertEquals(item, sign);
         presets[0].deleteItem(item);
         assertNull(presets[0].getItemByName("Traffic Sign Backward", null));
-        assertNull(Preset.findBestMatch(presets, tags, null));
+        assertNull(Preset.findBestMatch(presets, tags, null, null));
     }
 
     /**
@@ -166,26 +183,26 @@ public class PresetTest {
         presets = App.getCurrentPresets(ApplicationProvider.getApplicationContext());
         Map<String, String> tags = new HashMap<>();
         tags.put("imaginary", "tag");
-        PresetItem test = Preset.findBestMatch(presets, tags, null);
+        PresetItem test = Preset.findBestMatch(presets, tags, null, null);
         assertNull(test);
 
         tags.clear();
         tags.put("imaginary2", "tag");
-        test = Preset.findBestMatch(presets, tags, null);
+        test = Preset.findBestMatch(presets, tags, null, null);
         assertNotNull(test);
         assertEquals("Test Item 2", test.getName());
 
         // match via key
         tags.clear();
         tags.put("highway", "tag");
-        test = Preset.findBestMatch(presets, tags, null);
+        test = Preset.findBestMatch(presets, tags, null, null);
         assertNotNull(test);
         assertEquals("Test Item 3", test.getName());
 
         // exception to top level key match
         tags.clear();
         tags.put("highway", "tag2");
-        test = Preset.findBestMatch(presets, tags, null);
+        test = Preset.findBestMatch(presets, tags, null, null);
         assertNull(test);
     }
 
@@ -196,7 +213,7 @@ public class PresetTest {
     public void noMatch() {
         Map<String, String> tags = new HashMap<>();
         tags.put("leisure", "123456789");
-        PresetItem match = Preset.findBestMatch(presets, tags, null);
+        PresetItem match = Preset.findBestMatch(presets, tags, null, null);
         assertNull(match);
     }
 
@@ -257,10 +274,10 @@ public class PresetTest {
             Preset testPreset = new Preset(ApplicationProvider.getApplicationContext(), testPresetFile.getParentFile(), null, false);
             Map<String, String> tags = new HashMap<>();
             tags.put(Tags.KEY_HIGHWAY, Tags.VALUE_MOTORWAY_LINK);
-            PresetItem us = Preset.findBestMatch(new Preset[] { testPreset }, tags, "US");
+            PresetItem us = Preset.findBestMatch(new Preset[] { testPreset }, tags, "US", null);
             assertNotNull(us);
             assertEquals("Motorway Link (US)", us.getName());
-            PresetItem ch = Preset.findBestMatch(new Preset[] { testPreset }, tags, "CH");
+            PresetItem ch = Preset.findBestMatch(new Preset[] { testPreset }, tags, "CH", null);
             assertNotNull(ch);
             assertEquals("Motorway Link", ch.getName());
         } catch (IOException | NoSuchAlgorithmException | ParserConfigurationException | SAXException e) {

@@ -14,7 +14,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.WeakHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
@@ -1096,7 +1095,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             }
             FeatureStyle style = DataStyle.matchStyle(e);
             if (style.usePresetLabel() && tmpPresets != null) {
-                PresetItem match = Preset.findBestMatch(tmpPresets, e.getTags(), null);
+                PresetItem match = Preset.findBestMatch(tmpPresets, e.getTags(), null, null);
                 if (match != null) {
                     label = match.getTranslatedName();
                 } else {
@@ -1180,14 +1179,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             PresetItem match = null;
             if (isWay) {
                 if (usePresetIcon) {
-                    // don't show building icons, only icons for those with POI tags
-                    SortedMap<String, String> tempTags = new TreeMap<>(tags);
-                    tempTags.remove(Tags.KEY_BUILDING);
-                    tempTags.remove(Tags.KEY_BUILDING_PART);
-                    match = Preset.findBestMatch(tmpPresets, tempTags, null);
+                    // don't show building and similar icons, only icons for those with POI tags
+                    match = Preset.findBestMatch(tmpPresets, tags, null, Tags.IGNORE_FOR_MAP_ICONS);
                 }
             } else {
-                match = Preset.findBestMatch(tmpPresets, tags, null);
+                match = Preset.findBestMatch(tmpPresets, tags, null, null);
             }
             if (match != null) {
                 iconDrawable = match.getMapIcon(context);

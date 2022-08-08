@@ -254,7 +254,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     public void determineRelationPreset() {
         // determine the Preset for the relation
         if (relation != null) {
-            relationPreset = Preset.findBestMatch(App.getCurrentPresets(main), relation.getTags(), null, ElementType.RELATION, false);
+            relationPreset = Preset.findBestMatch(App.getCurrentPresets(main), relation.getTags(), null, ElementType.RELATION, false, null);
         } else if (presetPath != null) {
             relationPreset = (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(main).getRootGroup(), presetPath);
         }

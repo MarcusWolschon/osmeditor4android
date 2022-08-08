@@ -776,7 +776,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             PropertyEditorListener listener = (PropertyEditorListener) owner.getParentFragment();
             List<LinkedHashMap<String, String>> allTags = listener.getUpdatedTags();
             if (allTags != null && !allTags.isEmpty()) {
-                PresetItem relationPreset = Preset.findBestMatch(listener.getPresets(), allTags.get(0), null);
+                PresetItem relationPreset = Preset.findBestMatch(listener.getPresets(), allTags.get(0), null, null);
                 if (relationPreset != null) {
                     Map<String, Integer> counter = new HashMap<>();
                     int position = 0;
@@ -901,7 +901,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         final Relation r = (Relation) propertyEditorListener.getElement();
         final Preset[] presets = propertyEditorListener.getPresets();
         final List<LinkedHashMap<String, String>> allTags = propertyEditorListener.getUpdatedTags();
-        final PresetItem presetItem = allTags != null && !allTags.isEmpty() ? Preset.findBestMatch(presets, allTags.get(0), null) : null;
+        final PresetItem presetItem = allTags != null && !allTags.isEmpty() ? Preset.findBestMatch(presets, allTags.get(0), null, null) : null;
 
         final MultiHashMap<String, String> originalMembersRoles = new MultiHashMap<>(false);
         if (r != null) {
