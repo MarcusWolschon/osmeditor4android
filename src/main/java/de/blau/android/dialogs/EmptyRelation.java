@@ -124,7 +124,7 @@ public class EmptyRelation extends ImmersiveDialogFragment {
     private AppCompatDialog createDialog(int index) {
         final Logic logic = App.getLogic();
         final Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, relationIds[index]);
-        final FragmentActivity activity = getActivity();
+        final FragmentActivity activity = requireActivity();
         Builder builder = new AlertDialog.Builder(activity);
         builder.setIcon(ThemeUtils.getResIdFromAttribute(activity, R.attr.alert_dialog));
         builder.setTitle(R.string.empty_relation_title);
@@ -157,7 +157,11 @@ public class EmptyRelation extends ImmersiveDialogFragment {
     private void showNext(int index) {
         if (index < relationIds.length - 1) {
             currentIndex++;
-            createDialog(currentIndex).show();
+            try {
+                createDialog(currentIndex).show();
+            } catch (IllegalStateException isex) {
+                Log.e(DEBUG_TAG, "showNext", isex);
+            }
         }
     }
 
