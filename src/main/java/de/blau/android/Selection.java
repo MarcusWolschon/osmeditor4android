@@ -14,6 +14,8 @@ import de.blau.android.osm.Way;
 
 public class Selection {
 
+    public static final String SELECTION_KEY = "SELECTION";
+
     public static class Ids implements Serializable {
         private static final long serialVersionUID = 1L;
 

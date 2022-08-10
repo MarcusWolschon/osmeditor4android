@@ -113,6 +113,7 @@ public class Preferences {
     private final Set<String> enabledValidations;
     private final int         autoNameCap;
     private final boolean     wayNodeDragging;
+    private final boolean     splitWindowForPropertyEditor;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -288,6 +289,8 @@ public class Preferences {
         autoNameCap = getIntFromStringPref(R.string.config_nameCap_key, 1);
 
         wayNodeDragging = prefs.getBoolean(r.getString(R.string.config_wayNodeDragging_key), false);
+
+        splitWindowForPropertyEditor = prefs.getBoolean(r.getString(R.string.config_splitWindowForPropertyEditor_key), false);
     }
 
     /**
@@ -1528,6 +1531,15 @@ public class Preferences {
     }
 
     /**
+     * Check if we should try to use split window functionality for the PropertyEditor
+     * 
+     * @return true if we should use split windows
+     */
+    public boolean useSplitWindowForPropertyEditor() {
+        return splitWindowForPropertyEditor;
+    }
+
+    /**
      * Get a string from shared preferences
      * 
      * @param prefKey preference key as a string resource
@@ -1558,7 +1570,7 @@ public class Preferences {
             Log.e(DEBUG_TAG, "putString " + ex.getMessage());
         }
     }
-    
+
     /**
      * Close anything that needs closing
      */

@@ -180,7 +180,7 @@ public class EasyEditManager {
      * @param mode the new ActionMode
      * @param callback the new Callback
      */
-    public void setCallBack(ActionMode mode, EasyEditActionModeCallback callback) {
+    public void setCallBack(@Nullable ActionMode mode, @Nullable EasyEditActionModeCallback callback) {
         synchronized (actionModeCallbackLock) {
             currentActionMode = mode;
             currentActionModeCallback = callback;
@@ -335,7 +335,7 @@ public class EasyEditManager {
     }
 
     /**
-     * Edit currently selected elements, tries to restart a previous mode if it has been saved
+     * Edit currently selected elements
      */
     public void editElements() {
         synchronized (actionModeCallbackLock) {

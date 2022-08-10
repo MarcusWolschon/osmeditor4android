@@ -67,7 +67,7 @@
             android:name=".Main"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:exported="true"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstance"
             android:theme="@style/Theme.customMain" >
             <meta-data
                 android:name="com.samsung.android.keepalive.density"
@@ -120,7 +120,8 @@
         <activity
             android:name=".propertyeditor.PropertyEditorActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
-            android:theme="@style/Theme.customTagEditor" />
+            android:theme="@style/Theme.customTagEditor"
+               android:launchMode="singleTask" />
         <activity
             android:name=".prefs.APIEditorActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"

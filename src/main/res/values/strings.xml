@@ -1283,6 +1283,8 @@
     <string name="config_js_console_summary">Make the JS console available in "live" mode.</string>
     <string name="config_voiceCommandsEnabled_title">Enable voice commands</string>
     <string name="config_voiceCommandsEnabled_summary">Enable voice command support.</string>
+    <string name="config_splitWindowForPropertyEditor_summary">Enable displaying the property editor in a separate window if available.</string>
+    <string name="config_splitWindowForPropertyEditor_title">Enable split window property editor</string>
     <!--  -->
     <string name="manage_apis">Manage APIs</string>
     <string name="config_api_url_title">API URL</string>

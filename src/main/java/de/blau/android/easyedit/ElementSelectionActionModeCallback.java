@@ -375,7 +375,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             main.confirmUpload(addRequiredElements(main, Util.wrapInList(element)));
             break;
         case MENUITEM_PREFERENCES:
-            PrefEditor.start(main);
+            PrefEditor.start(main, Main.REQUEST_PREFERENCES);
             break;
         case MENUITEM_ZOOM_TO_SELECTION:
             main.zoomTo(element);
