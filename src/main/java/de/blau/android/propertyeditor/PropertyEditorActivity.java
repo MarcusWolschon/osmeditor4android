@@ -24,6 +24,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.Selection;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
@@ -57,11 +58,16 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
      * @param presetItems presets that should be applied
      * @param requestCode request code for the response
      */
-    public static void startForResult(@NonNull Activity activity, @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets,
+    public static void start(@NonNull Activity activity, @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets,
             HashMap<String, String> extraTags, ArrayList<PresetElementPath> presetItems, int requestCode) {
-        Log.d(DEBUG_TAG, "startForResult");
+        Log.d(DEBUG_TAG, "startFor");
         try {
-            activity.startActivityForResult(buildIntent(activity, dataClass, predictAddressTags, showPresets, extraTags, presetItems), requestCode);
+            final Intent intent = buildIntent(activity, dataClass, predictAddressTags, showPresets, extraTags, presetItems);
+            if (App.getPreferences(activity).useSplitWindowForPropertyEditor()) {
+                activity.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT));
+            } else {
+                activity.startActivityForResult(intent, requestCode);
+            }
         } catch (RuntimeException rex) {
             Log.e(DEBUG_TAG, rex.getMessage());
             Snack.toastTopError(activity, R.string.toast_error_element_too_large);
@@ -93,6 +99,8 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        Log.d(DEBUG_TAG, "onCreate savedUnstanceState " + (savedInstanceState != null));
+
         Logic logic = App.getLogic();
         boolean reloadData = false;
         if (logic == null) {
@@ -115,32 +123,7 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
         PostAsyncActionHandler postLoadData = () -> {
             if (savedInstanceState == null) { // adding to the backstack implies that restoring will happen
                                               // automatically
-                Log.d(DEBUG_TAG, "Initializing from intent");
-                PropertyEditorData[] loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_DATA));
-                boolean applyLastAddressTags = (Boolean) getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_LAST_ADDRESS_TAGS);
-                boolean showPresets = (Boolean) getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_SHOW_PRESETS);
-                HashMap<String, String> extraTags = (HashMap<String, String>) getIntent().getSerializableExtra(PropertyEditorFragment.TAGEDIT_EXTRA_TAGS);
-                ArrayList<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getIntent()
-                        .getSerializableExtra(PropertyEditorFragment.TAGEDIT_PRESETSTOAPPLY);
-                Boolean usePaneLayout = (Boolean) getIntent().getSerializableExtra(PropertyEditorFragment.PANELAYOUT);
-
-                // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
-                // selected
-                if (presetsToApply != null && !presetsToApply.isEmpty()) {
-                    PresetElement alternativeRootElement = Preset.getElementByPath(App.getCurrentRootPreset(this).getRootGroup(), presetsToApply.get(0));
-                    showPresets = alternativeRootElement instanceof PresetGroup;
-                }
-
-                Log.d(DEBUG_TAG, "... done.");
-
-                // sanity check
-                if (loadData == null) {
-                    abort("loadData null");
-                    return;
-                }
-
-                addFragment(getSupportFragmentManager(), android.R.id.content, loadData, applyLastAddressTags, showPresets, extraTags, presetsToApply,
-                        usePaneLayout);
+                addFromIntent(getIntent());
             }
         };
 
@@ -152,7 +135,40 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
     }
 
     /**
-     * Add an instance of the PropertyEditor to an activity
+     * Add the Fragment from an Intent
+     * 
+     * @param intent the Intent holding the required data
+     */
+    private void addFromIntent(@NonNull final Intent intent) {
+        Log.d(DEBUG_TAG, "Adding from intent");
+
+        PropertyEditorData[] loadData = PropertyEditorData.deserializeArray(intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_DATA));
+        boolean applyLastAddressTags = (Boolean) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_LAST_ADDRESS_TAGS);
+        boolean showPresets = (Boolean) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_SHOW_PRESETS);
+        HashMap<String, String> extraTags = (HashMap<String, String>) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_EXTRA_TAGS);
+        ArrayList<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_PRESETSTOAPPLY);
+        Boolean usePaneLayout = (Boolean) intent.getSerializableExtra(PropertyEditorFragment.PANELAYOUT);
+
+        // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
+        // selected
+        if (presetsToApply != null && !presetsToApply.isEmpty()) {
+            PresetElement alternativeRootElement = Preset.getElementByPath(App.getCurrentRootPreset(this).getRootGroup(), presetsToApply.get(0));
+            showPresets = alternativeRootElement instanceof PresetGroup;
+        }
+
+        Log.d(DEBUG_TAG, "... done.");
+
+        // sanity check
+        if (loadData == null) {
+            abort("loadData null");
+            return;
+        }
+
+        addFragment(getSupportFragmentManager(), android.R.id.content, loadData, applyLastAddressTags, showPresets, extraTags, presetsToApply, usePaneLayout);
+    }
+
+    /**
+     * Add an instance of the PropertyEditorFragment to an activity
      * 
      * @param fm the FragementManager for the activity
      * @param viewRes resource id for the view the fragment should be used for
@@ -211,6 +227,13 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d(DEBUG_TAG, "onNewIntent");
+        addFromIntent(intent);
+    }
+
+    @Override
     public void onBackPressed() {
         Log.d(DEBUG_TAG, "onBackPressed");
         PropertyEditorFragment top = peekBackStack(getSupportFragmentManager());
@@ -229,19 +252,48 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
         if (count > 1) {
             fm.popBackStackImmediate();
             PropertyEditorFragment top = peekBackStack(fm);
+            final boolean notWaiting = getCallingActivity() == null;
             if (top != null) { // still have a fragment on the stack
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.show(top);
-                return;
+                if (notWaiting) { // calling activity is not waiting for us
+                    startActivity(getIntent(Main.ACTION_POP_SELECTION));
+                    return;
+                }
             }
+            if (notWaiting) { // calling activity is not waiting for us
+                startActivity(getIntent(Main.ACTION_MAP_UPDATE));
+            }
+            return;
         }
         finish();
+    }
+
+    /**
+     * Get an Intent suitable for sending to Main
+     * 
+     * @param action the action to carry out
+     * @return an Intent
+     */
+    @NonNull
+    private Intent getIntent(@NonNull String action) {
+        Intent intent = new Intent(this, Main.class);
+        intent.setAction(action);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        return intent;
     }
 
     @Override
     public void addPropertyEditor(@NonNull OsmElement element) {
         final FragmentManager fm = getSupportFragmentManager();
         PropertyEditorFragment top = peekBackStack(fm);
+        if (top != null && getCallingActivity() == null) {
+            Intent intent = getIntent(Main.ACTION_PUSH_SELECTION);
+            Selection selection = new Selection();
+            selection.add(element);
+            intent.putExtra(Selection.SELECTION_KEY, selection.getIds());
+            startActivity(intent);
+        }
         addFragment(fm, android.R.id.content, new PropertyEditorData[] { new PropertyEditorData(element, null) }, false, false, null, null,
                 top != null && top.usingPaneLayout());
     }

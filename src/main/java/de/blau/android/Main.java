@@ -84,6 +84,7 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
+import de.blau.android.Selection.Ids;
 import de.blau.android.address.Address;
 import de.blau.android.bookmarks.BookmarkIO;
 import de.blau.android.contract.FileExtensions;
@@ -211,6 +212,11 @@ public class Main extends FullScreenAppCompatActivity
     private static final int REQUEST_IMAGE_CAPTURE = 2;
 
     /**
+     * Requests an activity-result.
+     */
+    public static final int REQUEST_PREFERENCES = 5;
+
+    /**
      * Requests voice recognition.
      */
     public static final int VOICE_RECOGNITION_REQUEST_CODE      = 3;
@@ -220,6 +226,9 @@ public class Main extends FullScreenAppCompatActivity
     public static final String ACTION_UPDATE           = "de.blau.android.UPDATE";
     public static final String ACTION_DELETE_PHOTO     = "de.blau.android.DELETE_PHOTO";
     public static final String ACTION_MAPILLARY_SELECT = "de.blau.android.ACTION_MAPILLARY_SELECT";
+    public static final String ACTION_MAP_UPDATE       = "de.blau.android.MAP_UPDATE";
+    public static final String ACTION_PUSH_SELECTION   = "de.blau.android.PUSH_SELECTION";
+    public static final String ACTION_POP_SELECTION    = "de.blau.android.POP_SELECTION";
 
     /**
      * Alpha value for floating action buttons workaround We should probably find a better place for this
@@ -715,6 +724,16 @@ public class Main extends FullScreenAppCompatActivity
         haveCamera = checkForCamera();
 
         PostAsyncActionHandler postLoadData = () -> {
+            updateActionbarEditMode();
+            Mode mode = logic.getMode();
+            if (easyEditManager != null && mode.elementsGeomEditiable()) {
+                // need to restart whatever we were doing
+                Log.d(DEBUG_TAG, "restarting element action mode");
+                easyEditManager.restart();
+            } else if (mode.elementsEditable()) {
+                // de-select everything
+                logic.deselectAll();
+            }
             Intent intent = getIntent();
             if (rcData != null || geoData != null || contentUri != null || shortcutExtras != null || (intent != null && intent.getAction() != null)) {
                 setShowGPS(false);
@@ -734,16 +753,6 @@ public class Main extends FullScreenAppCompatActivity
                     scheduleAutoLock();
                 });
                 logic.getFilter().showControls();
-            }
-            updateActionbarEditMode();
-            Mode mode = logic.getMode();
-            if (easyEditManager != null && mode.elementsGeomEditiable()) {
-                // need to restart whatever we were doing
-                Log.d(DEBUG_TAG, "restarting element action mode");
-                easyEditManager.restart();
-            } else if (mode.elementsEditable()) {
-                // de-select everything
-                logic.deselectAll();
             }
         };
         PostAsyncActionHandler postLoadTasks = () -> {
@@ -953,13 +962,15 @@ public class Main extends FullScreenAppCompatActivity
             while ((intent = newIntents.poll()) != null) {
                 String action = intent.getAction();
                 if (action != null) {
+                    Log.d(DEBUG_TAG, "action " + action);
+                    final Logic logic = App.getLogic();
                     switch (action) {
                     case ACTION_EXIT:
                         exit();
                         return;
                     case ACTION_UPDATE:
                         updatePrefs(new Preferences(this));
-                        App.getLogic().setPrefs(prefs);
+                        logic.setPrefs(prefs);
                         if (map != null) {
                             map.setPrefs(this, prefs);
                             map.invalidate();
@@ -995,6 +1006,24 @@ public class Main extends FullScreenAppCompatActivity
                             }
                             mapillaryLayer.select(intent.getIntExtra(de.blau.android.layer.mapillary.MapOverlay.SET_POSITION_KEY, 0));
                         }
+                        break;
+                    case ACTION_MAP_UPDATE:
+                        invalidateMap();
+                        break;
+                    case ACTION_PUSH_SELECTION:
+                    case ACTION_POP_SELECTION:
+                        if (ACTION_PUSH_SELECTION.equals(action)) {
+                            Selection.Ids ids = (Ids) intent.getSerializableExtra(Selection.SELECTION_KEY);
+                            Selection selection = new Selection();
+                            selection.fromIds(App.getDelegator(), ids);
+                            logic.pushSelection(selection);
+                        } else {
+                            logic.popSelection();
+                        }
+                        if (Mode.MODE_EASYEDIT == logic.getMode() && !logic.getSelectedElements().isEmpty()) {
+                            getEasyEditManager().startElementSelectionMode();
+                        }
+                        invalidateMap();
                         break;
                     default:
                         // carry on
@@ -1872,7 +1901,7 @@ public class Main extends FullScreenAppCompatActivity
         final boolean haveTracker = getTracker() != null;
         switch (item.getItemId()) {
         case R.id.menu_config:
-            PrefEditor.start(this);
+            PrefEditor.start(this, REQUEST_PREFERENCES);
             return true;
         case R.id.menu_find:
             descheduleAutoLock();
@@ -3152,7 +3181,7 @@ public class Main extends FullScreenAppCompatActivity
             if (storageDelegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
                 PropertyEditorData[] single = new PropertyEditorData[1];
                 single[0] = new PropertyEditorData(selectedElement, focusOn);
-                PropertyEditorActivity.startForResult(this, single, applyLastAddressTags, showPresets, tags, presetPathList, REQUEST_EDIT_TAG);
+                PropertyEditorActivity.start(this, single, applyLastAddressTags, showPresets, tags, presetPathList, REQUEST_EDIT_TAG);
             }
         }
     }
@@ -3178,7 +3207,7 @@ public class Main extends FullScreenAppCompatActivity
             return;
         }
         PropertyEditorData[] multipleArray = multiple.toArray(new PropertyEditorData[multiple.size()]);
-        PropertyEditorActivity.startForResult(this, multipleArray, applyLastAddressTags, showPresets, null, null, REQUEST_EDIT_TAG);
+        PropertyEditorActivity.start(this, multipleArray, applyLastAddressTags, showPresets, null, null, REQUEST_EDIT_TAG);
     }
 
     /**

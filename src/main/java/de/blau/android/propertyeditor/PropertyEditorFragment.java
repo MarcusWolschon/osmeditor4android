@@ -162,13 +162,14 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     private MultiHashMap<Long, RelationMemberPosition> originalParents;
     private ArrayList<RelationMemberDescription>       originalMembers;
 
-    private Preferences       prefs         = null;
-    private ExtendedViewPager mViewPager;
-    private boolean           usePaneLayout = false;
-    private boolean           isRelation    = false;
-    private NetworkStatus     networkStatus;
-    private List<String>      isoCodes      = null;
-    private ControlListener   controlListener;
+    private Preferences        prefs         = null;
+    private ExtendedViewPager  mViewPager;
+    private boolean            usePaneLayout = false;
+    private boolean            isRelation    = false;
+    private NetworkStatus      networkStatus;
+    private List<String>       isoCodes      = null;
+    private ControlListener    controlListener;
+    private PageChangeListener pageChangeListener;
 
     /**
      * Build the intent to start the PropertyEditor
@@ -354,7 +355,8 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         mViewPager.setOffscreenPageLimit(4); // FIXME currently this is required or else some of the logic between the
                                              // fragments will not work
         mViewPager.setAdapter(pagerAdapter);
-        mViewPager.addOnPageChangeListener(new PageChangeListener());
+        pageChangeListener = new PageChangeListener();
+        mViewPager.addOnPageChangeListener(pageChangeListener);
         // if currentItem is >= 0 then we are restoring and should use it, otherwise the first or 2nd page
         mViewPager.setCurrentItem(currentItem != -1 ? currentItem : pagerAdapter.reversePosition(showPresets || usePaneLayout ? 0 : 1));
 
@@ -447,8 +449,10 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     public class PropertyEditorPagerAdapter extends FragmentPagerAdapter {
 
         private ArrayList<LinkedHashMap<String, String>> tags;
-        private boolean                                  restoring = false;
-        private boolean                                  rtl       = false;
+        private boolean                                  restoring   = false;
+        private boolean                                  rtl         = false;
+        private boolean                                  firstTime   = true;
+        private int                                      primaryItem = -1;
 
         /**
          * Construct a new PagerAdapter
@@ -747,6 +751,22 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             Bundle bundle = (Bundle) super.saveState();
             Log.d(DEBUG_TAG, "saveState done");
             return bundle;
+        }
+
+        @Override
+        public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+            super.setPrimaryItem(container, position, object);
+            primaryItem = position;
+        }
+
+        @Override
+        public void finishUpdate(@NonNull ViewGroup container) {
+            super.finishUpdate(container);
+            // hack to update TagFormFragment on 1st pass if it hasn't happened
+            if (firstTime && primaryItem != -1) {
+                firstTime = false;
+                pageChangeListener.onPageSelected(primaryItem);
+            }
         }
     }
 

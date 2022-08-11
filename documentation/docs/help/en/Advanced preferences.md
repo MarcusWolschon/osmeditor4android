@@ -352,3 +352,7 @@ Enable voice command support: Default: _off_.
 ### Enable hardware acceleration
 
 Do not use, may cause hangs of the app and other problems.
+
+### Enable split window property editor
+
+Enable displaying the property editor in a separate window if available. Default: _off_

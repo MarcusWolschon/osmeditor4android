@@ -1291,7 +1291,7 @@ public class Logic {
                 selectedTask = taskLayer.getSelected();
             }
             final boolean largeDragArea = prefs.largeDragArea();
-            final Selection currentSelection = selectionStack.getLast();
+            final Selection currentSelection = selectionStack.getFirst();
             final int selectedWayCount = currentSelection.wayCount();
             final int selectedNodeCount = currentSelection.nodeCount();
             // single node or task dragging
@@ -1440,7 +1440,7 @@ public class Logic {
      * @throws OsmIllegalOperationException if one of the operations triggered went wrong
      */
     synchronized void handleTouchEventMove(@NonNull Main main, final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
-        final Selection currentSelection = selectionStack.getLast();
+        final Selection currentSelection = selectionStack.getFirst();
         if (draggingNode || draggingWay || draggingHandle || draggingNote) {
             int lat = yToLatE7(absoluteY);
             int lon = xToLonE7(absoluteX);
@@ -4347,8 +4347,8 @@ public class Logic {
      * @param selectedNode node to select
      */
     public synchronized void setSelectedNode(@Nullable final Node selectedNode) {
-        selectionStack.getLast().setNode(selectedNode);
-        map.setSelectedNodes(selectionStack.getLast().getNodes());
+        selectionStack.getFirst().setNode(selectedNode);
+        map.setSelectedNodes(selectionStack.getFirst().getNodes());
         resetFilterCache();
     }
 
@@ -4358,7 +4358,7 @@ public class Logic {
      * @param selectedNode node to add to selection
      */
     public synchronized void addSelectedNode(@NonNull final Node selectedNode) {
-        selectionStack.getLast().add(selectedNode);
+        selectionStack.getFirst().add(selectedNode);
         resetFilterCache();
     }
 
@@ -4367,7 +4367,7 @@ public class Logic {
      */
     @Nullable
     public final synchronized Node getSelectedNode() {
-        return selectionStack.getLast().getNode();
+        return selectionStack.getFirst().getNode();
     }
 
     /**
@@ -4377,7 +4377,7 @@ public class Logic {
      */
     @Nullable
     public List<Node> getSelectedNodes() {
-        return selectionStack.getLast().getNodes();
+        return selectionStack.getFirst().getNodes();
     }
 
     /**
@@ -4386,7 +4386,7 @@ public class Logic {
      * @return a count of the selected Nodes
      */
     public int selectedNodesCount() {
-        return selectionStack.getLast().nodeCount();
+        return selectionStack.getFirst().nodeCount();
     }
 
     /**
@@ -4395,7 +4395,7 @@ public class Logic {
      * @param node node to remove from selection
      */
     public synchronized void removeSelectedNode(@NonNull Node node) {
-        if (selectionStack.getLast().remove(node)) {
+        if (selectionStack.getFirst().remove(node)) {
             resetFilterCache();
         }
     }
@@ -4406,8 +4406,8 @@ public class Logic {
      * @param selectedWay way to select
      */
     public synchronized void setSelectedWay(@Nullable final Way selectedWay) {
-        selectionStack.getLast().setWay(selectedWay);
-        map.setSelectedWays(selectionStack.getLast().getWays());
+        selectionStack.getFirst().setWay(selectedWay);
+        map.setSelectedWays(selectionStack.getFirst().getWays());
         resetFilterCache();
     }
 
@@ -4417,7 +4417,7 @@ public class Logic {
      * @param selectedWay way to add to selection
      */
     public synchronized void addSelectedWay(@NonNull final Way selectedWay) {
-        selectionStack.getLast().add(selectedWay);
+        selectionStack.getFirst().add(selectedWay);
         resetFilterCache();
     }
 
@@ -4426,7 +4426,7 @@ public class Logic {
      */
     @Nullable
     public final synchronized Way getSelectedWay() {
-        return selectionStack.getLast().getWay();
+        return selectionStack.getFirst().getWay();
     }
 
     /**
@@ -4436,7 +4436,7 @@ public class Logic {
      */
     @Nullable
     public List<Way> getSelectedWays() {
-        return selectionStack.getLast().getWays();
+        return selectionStack.getFirst().getWays();
     }
 
     /**
@@ -4445,7 +4445,7 @@ public class Logic {
      * @return a count of the selected Ways
      */
     public int selectedWaysCount() {
-        return selectionStack.getLast().wayCount();
+        return selectionStack.getFirst().wayCount();
     }
 
     /**
@@ -4454,7 +4454,7 @@ public class Logic {
      * @param way way to de-select
      */
     public synchronized void removeSelectedWay(@NonNull Way way) {
-        if (selectionStack.getLast().remove(way)) {
+        if (selectionStack.getFirst().remove(way)) {
             resetFilterCache();
         }
     }
@@ -4465,7 +4465,7 @@ public class Logic {
      * @param selectedRelation relation to select
      */
     public synchronized void setSelectedRelation(@Nullable final Relation selectedRelation) {
-        selectionStack.getLast().setRelation(selectedRelation);
+        selectionStack.getFirst().setRelation(selectedRelation);
         if (selectedRelation != null) {
             setSelectedRelationMembers(selectedRelation);
         }
@@ -4478,10 +4478,10 @@ public class Logic {
      * @param relation relation to remove from selection
      */
     public synchronized void removeSelectedRelation(@NonNull Relation relation) {
-        if (selectionStack.getLast().remove(relation)) {
+        if (selectionStack.getFirst().remove(relation)) {
             setSelectedRelationNodes(null); // de-select all
             setSelectedRelationWays(null);
-            if (selectionStack.getLast().relationCount() > 0) {
+            if (selectionStack.getFirst().relationCount() > 0) {
                 for (Relation r : getSelectedRelations()) { // re-select
                     setSelectedRelationMembers(r);
                 }
@@ -4496,7 +4496,7 @@ public class Logic {
      * @param selectedRelation relation to add to selection
      */
     public synchronized void addSelectedRelation(@NonNull final Relation selectedRelation) {
-        selectionStack.getLast().add(selectedRelation);
+        selectionStack.getFirst().add(selectedRelation);
         setSelectedRelationMembers(selectedRelation);
         resetFilterCache();
     }
@@ -4507,7 +4507,7 @@ public class Logic {
      * @return a List of Relations that are selected
      */
     public List<Relation> getSelectedRelations() {
-        return selectionStack.getLast().getRelations();
+        return selectionStack.getFirst().getRelations();
     }
 
     /**
@@ -4516,7 +4516,7 @@ public class Logic {
      * @return a count of the selected Relations
      */
     public int selectedRelationsCount() {
-        return selectionStack.getLast().relationCount();
+        return selectionStack.getFirst().relationCount();
     }
 
     /**
@@ -4525,7 +4525,7 @@ public class Logic {
      * @param elements a List of OsmElement to select
      */
     public synchronized void setSelection(@NonNull List<OsmElement> elements) {
-        Selection currentSelection = selectionStack.getLast();
+        Selection currentSelection = selectionStack.getFirst();
         for (OsmElement e : elements) {
             currentSelection.add(e);
         }
@@ -4549,7 +4549,7 @@ public class Logic {
     @NonNull
     public synchronized List<OsmElement> getSelectedElements() {
         List<OsmElement> result = new ArrayList<>();
-        final Selection currentSelection = selectionStack.getLast();
+        final Selection currentSelection = selectionStack.getFirst();
         List<Node> selectedNodes = currentSelection.getNodes();
         if (selectedNodes != null) {
             result.addAll(selectedNodes);
@@ -4611,7 +4611,7 @@ public class Logic {
      * @return true is e is selected
      */
     public synchronized boolean isSelected(@Nullable OsmElement e) {
-        return e != null && selectionStack.getLast().contains(e);
+        return e != null && selectionStack.getFirst().contains(e);
     }
 
     /**
@@ -4711,7 +4711,7 @@ public class Logic {
         map.setViewBox(viewBox);
         if (deselect) {
             map.deselectObjects();
-            selectionStack.getLast().reset();
+            selectionStack.getFirst().reset();
             resetFilterCache();
         }
         invalidateMap();
@@ -5228,7 +5228,7 @@ public class Logic {
      * Do map and filter setup from current top of selection stack
      */
     private void selectFromTop() {
-        final Selection currentSelection = selectionStack.getLast();
+        final Selection currentSelection = selectionStack.getFirst();
         map.setSelectedNodes(currentSelection.getNodes());
         map.setSelectedWays(currentSelection.getWays());
         reselectRelationMembers();
@@ -5251,7 +5251,16 @@ public class Logic {
      * Push a new empty Selection and reset everything
      */
     public synchronized void pushSelection() {
-        selectionStack.add(new Selection());
+        pushSelection(new Selection());
+    }
+
+    /**
+     * Use a new Selection and push it to the top of the stack
+     *
+     * @param selection the Selection to use
+     */
+    public synchronized void pushSelection(@NonNull Selection selection) {
+        selectionStack.push(selection);
         selectFromTop();
     }
 
